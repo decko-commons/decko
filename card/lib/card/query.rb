@@ -109,32 +109,73 @@ class Card
 
     # run the current query
     # @return array of card objects by default
-    def run
-      retrn = statement[:return].present? ? statement[:return].to_s : 'card'
-      if retrn == 'card'
-        get_results('name').map do |name|
-          Card.fetch name, new: {}
-        end
-      else
-        get_results retrn
+
+    def result_method retrn
+      case
+      when respond_to?(:"#{retrn}_result") then :"#{retrn}_result"
+      when (retrn =~ /id$/)               then :id_result
+      else                                     :default_result
       end
     end
 
-    # @return Integer for :count, otherwise Array of Strings or Integers
-    def get_results retrn
-      rows = run_sql
-      if retrn == 'name' && (statement[:prepend] || statement[:append])
-        rows.map do |row|
-          [statement[:prepend], row['name'], statement[:append]].compact * '+'
-        end
+    def count_result results
+      results.first['count'].to_i
+    end
+
+    def default_result record, field
+      record[field]
+    end
+
+    def id_result record, field
+      record[field].to_i
+    end
+
+    def raw_result record, _field
+      record
+    end
+
+    def run
+      retrn = statement[:return].present? ? statement[:return].to_s : 'card'
+      result_method = result_method retrn
+      raw_results = run_sql
+      if retrn == 'count'
+        count_result raw_results
       else
-        case retrn
-        when 'count' then rows.first['count'].to_i
-        when 'raw'   then rows
-        when /id$/   then rows.map { |row| row[retrn].to_i }
-        else              rows.map { |row| row[retrn]      }
+        raw_results.map do |record|
+          send result_method, record, retrn
         end
       end
+    end
+
+    def name_result record, _field
+      process_name record['name']
+    end
+
+    def process_name name
+      return name unless alter_results?
+      [statement[:prepend], name, statement[:append]].compact * '+'
+    end
+
+    def alter_results?
+      statement[:prepend] || statement[:append]
+    end
+
+    def card_result record, _field
+      if alter_results?
+        Card.fetch process_name(record['name'])
+      else
+        fetch_or_instantiate record
+      end
+    end
+
+    def fetch_or_instantiate record
+      card = Card.fetch_from_cache record['key']
+      unless card
+        card = Card.instantiate record
+        Card.write_to_cache card, {}
+      end
+      card.include_set_modules
+      card
     end
 
     def run_sql
