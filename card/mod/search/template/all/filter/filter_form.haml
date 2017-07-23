@@ -1,0 +1,20 @@
+.card
+  .card-block.pl-1
+    %form._filter_form{"accept-charset" => "UTF-8", "data-remote" => "true", :method => "get"}
+      ._filter_input_field_prototypes
+        - categories.each do |category|
+          = categories[category][:input_field]
+      ._filter_container.d-flex.flex-row
+        %i.material-icons.text-muted.md-24.p-2 search
+        .input-group.border-all.card-outline-primary.mr-2._filter_input._prototype
+          %span.input-group-btn
+            %button.btn.btn-primary.btn-sm._delete_filter_input{:type => "button"}
+              %strong
+                %i.material-icons close
+          %span.input-group-addon._selected_category
+        .btn-group._add_filter_dropdown.float-left
+          %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+            Add filter
+          .dropdown-menu
+            - categories.each do |category|
+              %a.dropdown-item._filter_category_select{"data-category" => category, "data-label" => categories[category][:label], :href => "#"} categories[category][:label]
