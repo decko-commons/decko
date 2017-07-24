@@ -124,10 +124,25 @@ EOF
         end
 
         def anchor_codenames
-          @anchor_name.parts.map do |part|
+          anchor_parts.map do |part|
             part_id = Card.fetch_id part
             part_id && Card::Codename[part_id.to_i] || (return nil)
           end
+        end
+
+        def anchor_parts
+          return [@anchor_name] unless anchor_parts_count > 1
+          parts = @anchor_name.parts
+          if parts.size <= anchor_parts_count
+            parts
+          else
+            # handles cases where anchor is a compound card, eg A+B+*self
+            [@anchor_name[0..-anchor_parts_count]] + parts[(-anchor_parts_count + 1)..-1]
+          end
+        end
+
+        def anchor_parts_count
+          self.class.anchor_parts_count
         end
 
         def pattern

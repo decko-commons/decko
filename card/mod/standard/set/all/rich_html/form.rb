@@ -1,4 +1,4 @@
-include_set Abstract::ProsemirrorEditor
+
 
 format :html do
   # FIELDSET VIEWS
@@ -7,7 +7,7 @@ format :html do
   end
 
   view :name_formgroup do
-    formgroup "name", editor: "name" do
+    formgroup "name", editor: "name", help: false do
       raw name_field
     end
   end
@@ -24,7 +24,7 @@ format :html do
   end
 
   def wrap_type_formgroup
-    formgroup "type", editor: "type", class: "type-formgroup" do
+    formgroup "type", editor: "type", class: "type-formgroup", help: false do
       yield
     end
   end
@@ -68,7 +68,7 @@ format :html do
 
   # SAMPLE editor view for override
   # view :editor do
-  #   text_area :content, rows: 5, class: "card-content"
+  #   text_area :content, rows: 5, class: "d0-card-content"
   # end
 
   def content_field_revision_tracking skip_rev_id
@@ -76,7 +76,6 @@ format :html do
     return if !card || card.new_card? || skip_rev_id
     hidden_field :last_action_id_before_edit, class: "current_revision_id"
   end
-
 
   def edit_slot
     if inline_nests_editor?
@@ -115,7 +114,7 @@ format :html do
   def single_card_edit_slot
     if voo.show?(:type_formgroup) || voo.show?(:name_formgroup)
       # display content field in formgroup for consistency with other fields
-      formgroup("", editor: :content) { content_field }
+      formgroup("", editor: :content, help: false) { content_field }
     else
       editor_wrap(:content) { content_field }
     end
@@ -168,10 +167,8 @@ format :html do
 
   def card_form action, opts={}
     @form_root = true
-    url, action = card_form_url_and_action action
     success = opts.delete(:success)
-    html_opts = card_form_html_opts action, opts
-    form_for card, url: url, html: html_opts, remote: true do |form|
+    form_for card, card_form_opts(action, opts) do |form|
       @form = form
       success_tags(success) + output(yield(form))
     end
@@ -191,11 +188,21 @@ format :html do
     end
   end
 
-  def card_form_html_opts action, opts={}
-    klasses = Array.wrap(opts[:class]) << "card-form slotter"
-    klasses << "autosave" if action == :update
-    opts[:class] = klasses.join " "
+  # @param action [Symbol] :create or :update
+  # @param opts [Hash] html options
+  # @option opts [Boolean] :redirect (false) if true form is no "slotter"
+  def card_form_opts action, opts={}
+    url, action = card_form_url_and_action action
+    html_opts = card_form_html_opts action, opts
+    form_opts = { url: url, html: html_opts }
+    form_opts[:remote] = true unless html_opts.delete(:redirect)
+    form_opts
+  end
 
+  def card_form_html_opts action, opts={}
+    add_class opts, "card-form"
+    add_class opts, "slotter" unless opts[:redirect]
+    add_class opts, "autosave" if action == :update
     opts[:recaptcha] ||= "on" if card.recaptcha_on?
     opts.delete :recaptcha if opts[:recaptcha] == :off
     opts

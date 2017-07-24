@@ -19,8 +19,8 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
 
 /* -- resets -- */
 
-.card-frame,
-.card-body,
+.d0-card-frame,
+.d0-card-body,
 .ALL {
   overflow: inherit;
   white-space: normal;
@@ -46,9 +46,9 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
 }
 
 
-/* -- card-headers and menus--*/
-.card-header {
-  .card-header-title {
+/* -- d0-card-frames and menus--*/
+.d0-card-frame {
+  .d0-card-frame-title {
     display: inline-block;
     overflow: hidden;
     span.header-icon {
@@ -70,7 +70,7 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
 }
 
 .menu-slot {
-  width:100%;
+  width: 100%;
   position: relative;
 
   span.menu-item-label {
@@ -79,14 +79,11 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
 
   .card-menu {
     position: absolute;
-    right: 5px;
-    top: 3px;
+    right: 8px;
+    padding: 0.75rem 0;
     li {
       white-space: nowrap;
       text-align: left;
-      a {
-        color: #333;
-      }
     }
     .dropdown-menu {
       right: -2px;
@@ -111,7 +108,7 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
   }
 
   .horizontal-card-menu {
-    z-index: 1;
+    z-index: 100;
     li {
       height: 30px;
     }
@@ -121,7 +118,7 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
   }
 }
 
-.card-header-title {
+.d0-card-frame-title {
   margin-right: 3px;
 }
 
@@ -161,31 +158,35 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
 
 .closed-view {
   position: relative;
-  > .card-frame {
-    white-space: nowrap !important;
-    padding-right: 30px;
+  > .d0-card-frame {
+    white-space: nowrap;
+    //padding-right: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
     position: static;
+    width:100%;
+    > .d0-card-header{
+      float: left;
+    }
   }
   .card-menu.btn-group {
     display: none;
   }
-  .card-header {
+  .d0-card-frame {
     display: inline-block;
   }
 }
 .closed-content {
-  display: inline;
-  white-space: nowrap !important;
+  //display: inline;
+  //white-space: nowrap;
 
   table, thead, tbody, tr, th, td, p, h1, h2, h3, h4, h5, h6, ul, li, pre, ol, div, span, a, blockquote, img, label, i {
-    display: inline !important;
-    white-space: nowrap !important;
-    float: none !important;
+    display: inline;
+    white-space: nowrap;
+    float: none;
   }
   br, hr, input, textarea, object, :after, :before {
-    display: none !important;
+    display: none;
   }
 }
 
@@ -253,8 +254,8 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
   padding-bottom: 15px;
 }
 pre,
-.TYPE-plain_text.card-content,
-.SELF-Xhead.card-content {
+.TYPE-plain_text.d0-card-content,
+.SELF-Xhead.d0-card-content {
   white-space: pre-wrap;       /* css-3 */
   white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
   white-space: -pre-wrap;      /* Opera 4-6 */
@@ -265,7 +266,7 @@ pre,
   display: inline;
 }
 
-.SELF-Xstat > .card-content {
+.SELF-Xstat > .d0-card-content {
   table {
     width: 100%;
   }
@@ -295,7 +296,7 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
 
 /* -- resets -- */
 
-.card-frame {
+.d0-card-frame {
   text-align: left;
   font-weight: normal;
   font-style: normal;
@@ -309,7 +310,7 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
 
 /* related view (used by many menu items, such as "referred to by")  */
 
-.ALL.related-view > .card-frame > .card-body {
+.ALL.related-view > .d0-card-frame > .d0-card-body {
   padding: 0;
 }
 
@@ -342,10 +343,10 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
 }
 .closed-content {
   table, tbody, tr, th, td, p, h1, h2, h3, h4, h5, h6, ul, li, pre, ol, div, span, a, blockquote, img {
-    font-size: 1em !important;
+    font-size: 1em;
     margin: 0 6px 0 0;
-    padding: 0 !important;
-    border:  0 !important;
+    padding: 0;
+    border:  0;
   }
   a {
     margin: 0;
@@ -366,7 +367,7 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
   .search-result-item {
     font-size: 1em;
   }
-  > .card-content {
+  > .d0-card-content {
     padding-left: 10px;
   }
 }
@@ -478,7 +479,7 @@ div.search-result-list {
   list-style: none;
   padding: 5px 0;
   margin: 0;
-  .closed-view > .card-frame {
+  .closed-view > .d0-card-frame {
     margin-bottom: 0;
   }
 }
@@ -621,7 +622,7 @@ ul.action-list {
 /*- KEY DEFAULT CONTENT    - */
 /*-------------------------- */
 
-.SELF-home-original.card-content {
+.SELF-home-original.d0-card-content {
   ul {
     list-style-type: none;
     margin: 1em;
@@ -658,7 +659,7 @@ ul.action-list {
 }
 
 
-.SELF-wagneer_menu.card-content {
+.SELF-wagneer_menu.d0-card-content {
   > p {
     margin-left: 6%;
     text-indent: -6%;
@@ -744,7 +745,7 @@ tr.missing-rule > td {
   width: 28%;
   float: left;
 }
-.open-rule .card-body {
+.open-rule .d0-card-body {
   clear: both;
 }
 .open-rule .rule-instruction {

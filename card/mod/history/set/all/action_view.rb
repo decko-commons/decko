@@ -32,7 +32,7 @@ format :html do
 
   def content_diff action, view_type
     diff = action.new_content? &&
-           _render_content_changes(action: action, diff_type: view_type) #, hide_diff: @hide_diff
+           _render_content_changes(action: action, diff_type: view_type) # , hide_diff: @hide_diff
     return "<i>empty</i>" unless diff.present?
     diff
   end
@@ -54,12 +54,12 @@ format :html do
   def toggle_action_content_link action, view_type
     other_view_type = view_type == :expanded ? :summary : :expanded
     link_to_view "action_#{other_view_type}",
-                 glyphicon(arrow_dir(view_type)),
+                 icon_tag(arrow_dir(view_type)),
                  class: "slotter revision-#{action.card_act_id} pull-right",
                  path: { action_id: action.id, look_in_trash: true }
   end
 
   def arrow_dir view_type
-    view_type == :expanded ? "triangle-left" : "triangle-right"
+    view_type == :expanded ? :triangle_left : :triangle_right
   end
 end

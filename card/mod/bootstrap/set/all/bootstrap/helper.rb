@@ -1,23 +1,79 @@
 format :html do
-  def glyphicon icon_type, extra_class=""
+  ICON_MAP = {
+    material: {
+      plus: :add,
+      pencil: :edit,
+      trash: :delete,
+      wrench: :build,
+      new_window: :open_in_new,
+      history: :history,
+      triangle_left: :expand_less,
+      triangle_right: :expand_more,
+      flag: :flag,
+      option_horizontal: :more_horiz,
+      pushpin: :pin_drop,
+      baby_formula: :device_hub,
+      log_out: :call_made,
+      log_in: :call_received,
+      explore: :explore,
+      remove: :close,
+      expand: :expand_more,
+      collapse_down: :expand_less
+    },
+    font_awesome: {
+      option_horizontal: :ellipsis_h,
+      pushpin: "thumb-tack"
+    },
+    glyphicon: {
+      option_horizontal: "option-horizontal",
+      triangle_left: "triangle-left",
+      triangle_right: "triagnle-right",
+      baby_formula: "baby-formula",
+      log_out: "log-out",
+      log_in: "log-in",
+      collapse_down: "collaps-down"
+    }
+
+  }.freeze
+
+  def icon_class library, icon
+    ICON_MAP[library][icon] || icon
+  end
+
+  def icon_tag icon, extra_class=""
+    return "" unless icon.present?
+    material_icon icon_class(:material, icon), extra_class
+  end
+
+  def glyphicon icon, extra_class=""
+    return "" unless icon
     wrap_with :span, "",
               "aria-hidden" => true,
-              class: "glyphicon glyphicon-#{icon_type} #{extra_class}"
+              class: "glyphicon glyphicon-#{icon_class(:glyphicon, icon)} #{extra_class}"
+  end
+
+  def fa_icon icon, extra_class=""
+    return "" unless icon
+    %{<i class="fa fa-#{icon_class(:font_awesome, icon)} #{extra_class}"></i>}
+  end
+
+  def material_icon icon, extra_class=""
+    %{<i class="material-icons #{extra_class}">#{icon_class(:material, icon)}</i>}
   end
 
   def button_link link_text, opts={}
     btn_type = opts.delete(:btn_type) || "primary"
     opts[:class] = [opts[:class], "btn btn-#{btn_type}"].compact.join " "
-    smart_link_to link_text, opts.merge(type: "button")
+    smart_link_to link_text, opts
   end
 
   def dropdown_button name, opts={}
     <<-HTML
-      <div class="btn-group" role="group">
-        <button type="button" class="btn btn-primary dropdown-toggle"
+      <div class="btn-group btn-group-sm" role="group">
+        <button class="btn btn-primary dropdown-toggle"
                 data-toggle="dropdown" title="#{name}" aria-expanded="false"
                 aria-haspopup="true">
-          #{glyphicon opts[:icon] if opts[:icon]} #{name}
+          #{icon_tag opts[:icon] if opts[:icon]} #{name}
           <span class="caret"></span>
         </button>
         #{dropdown_list yield, opts[:class], opts[:active]}
@@ -48,7 +104,7 @@ format :html do
   end
 
   def split_button main_button, active_item
-    wrap_with :div, class: "btn-group" do
+    wrap_with :div, class: "btn-group btn-group-sm" do
       [
         main_button,
         split_button_toggle,
@@ -82,7 +138,8 @@ format :html do
     content = block_given? ? yield : content_or_options
     content = Array(content)
     default_item_options = options.delete(:items) || {}
-    wrap_with :ul, options do
+    tag = options[:ordered] ? :ol : :ul
+    wrap_with tag, options do
       content.map do |item|
         i_content, i_opts = item
         i_opts ||= default_item_options

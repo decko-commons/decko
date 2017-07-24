@@ -10,7 +10,7 @@ event :cache_expired_for_new_set, :store,
 end
 
 event :cache_expired_for_type_change, :store,
-      on: :update, changed: [:type_id, :name] do
+      on: :update, changed: %i[type_id name] do
   # FIXME: expire (also?) after save
   Card.follow_caches_expired
 end
@@ -55,7 +55,7 @@ end
 format :html do
   view :follow_link, tags: :unknown_ok, perms: :none do |args|
     hash = follow_link_hash args
-    text = args[:icon] ? glyphicon("flag") : ""
+    text = args[:icon] ? icon_tag(:flag) : ""
     span_attrs = "follow-verb menu-item-label"
     text += %(<span class="#{span_attrs}">#{hash[:verb]}</span>).html_safe
     # follow_rule_card = Card.fetch(

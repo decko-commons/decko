@@ -1,37 +1,12 @@
 format :html do
-  # TODO: find these a better home.
-  def class_up klass, classier, force=false
-    key = klass.to_s
-    return if !force && class_list[key]
-    class_list[key] = classier.to_s
-  end
-
-  # don't use in the given block the additional class that
-  # was added to `klass`
-  def without_upped_class klass
-    tmp_class = class_list.delete klass
-    result = yield tmp_class
-    class_list[klass] = tmp_class
-    result
-  end
-
-  def class_list
-    @class_list ||= {}
-  end
-
-  def classy *classes
-    classes = Array.wrap(classes).flatten
-    [classes, class_list[classes.first]].flatten.compact.join " "
-  end
-
   view :header do
     voo.hide :toggle, :toolbar
     main_header + _optional_render_toolbar
   end
 
   def main_header
-    wrap_with :div, class: classy("card-header") do
-      wrap_with :div, class: classy("card-header-title") do
+    wrap_with :div, class: classy("d0-card-header") do
+      wrap_with :div, class: classy("d0-card-header-title") do
         header_title_elements
       end
     end
@@ -57,33 +32,25 @@ format :html do
 
   view :toggle do
     verb, adjective, direction = toggle_verb_adjective_direction
-    link_to_view adjective, glyphicon(direction),
+    link_to_view adjective, icon_tag(direction.to_sym),
                  title: "#{verb} #{card.name}",
                  class: "#{verb}-icon toggler slotter nodblclick"
   end
 
   def toggle_verb_adjective_direction
     if @toggle_mode == :close
-      %w(open open expand)
+      %w[open open expand]
     else
-      %w(close closed collapse-down)
+      %w[close closed collapse_down]
     end
   end
 
-  def nav_link_list side
-    wrap_with :ul, class: "nav navbar-nav navbar-#{side}" do
+  view :navbar_links do
+    wrap_with :ul, class: "navbar-nav" do
       item_links.map do |link|
-        wrap_with(:li) { link }
+        wrap_with(:li, class: "nav-item") { link }
       end.join "\n"
     end
-  end
-
-  view :navbar_right do
-    nav_link_list :right
-  end
-
-  view :navbar_left do
-    nav_link_list :left
   end
 
   def show_follow?

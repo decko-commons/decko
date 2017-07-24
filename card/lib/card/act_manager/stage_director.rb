@@ -114,9 +114,12 @@ class Card
         return if @abort
         @card.restore_changes_information
         run_single_stage :integrate
+        run_single_stage :after_integrate
         run_single_stage :integrate_with_delay
       rescue => e  # don't rollback
         Card::Error.current = e
+        warn "exception in integrate stage: #{e.message}"
+        # binding.pry
         @card.notable_exception_raised
         return false
       ensure
@@ -163,11 +166,10 @@ class Card
         end
       end
 
-      def to_s
+      def to_s level=1
         str = @card.name.to_s.clone
         if @subdirectors
-          subs = subdirectors.map(&:card)
-                             .map { |card| "  #{card.name}" }.join "\n"
+          subs = subdirectors.map { |d| "  " * level + d.to_s(level + 1) }.join "\n"
           str << "\n#{subs}"
         end
         str

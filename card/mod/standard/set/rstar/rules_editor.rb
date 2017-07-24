@@ -14,7 +14,7 @@ format :html do
   end
 
   def open_rule_wrap rule_view
-    rule_view_class = rule_view.to_s.tr '_', '-'
+    rule_view_class = rule_view.to_s.tr "_", "-"
     wrap_with :tr, class: "card-slot open-rule #{rule_view_class}" do
       wrap_with(:td, class: "rule-cell", colspan: 3) { yield }
     end
@@ -31,7 +31,7 @@ format :html do
   end
 
   def open_rule_body rule_view
-    wrap_with :div, class: "card-body" do
+    wrap_with :div, class: "d0-card-body" do
       nest current_rule, view: rule_view, rule_context: card
     end
   end
@@ -47,7 +47,10 @@ format :html do
     return "No Current Rule" if card.new_card?
 
     voo.items[:view] ||= :link
-    show_rule_set(card.rule_set) + _render_core
+    output [
+      show_rule_set(card.rule_set),
+      _render_core
+    ]
   end
 
   def show_rule_set set
@@ -60,7 +63,7 @@ format :html do
     return "not a rule" unless card.is_rule?
     rule_card = find_existing_rule_card
     wrap_closed_rule rule_card do
-      [:setting, :content, :set].map do |cell|
+      %i[setting content set].map do |cell|
         send "closed_rule_#{cell}_cell", rule_card
       end
     end
@@ -151,7 +154,7 @@ format :html do
 
     card_form action_args, class: "card-rule-form" do |_form|
       [hidden_tags(success: @edit_rule_success),
-       editor,
+       rule_editor,
        edit_rule_buttons].join
     end
   end
@@ -202,7 +205,7 @@ format :html do
                   href: path(view: cancel_view, success: false)
   end
 
-  def editor
+  def rule_editor
     wrap_with(:div, class: "card-editor") do
       [rules_type_formgroup,
        rule_content_formgroup,
@@ -270,7 +273,7 @@ format :html do
   end
 
   def narrower_rule_warning narrower_rules, state, set_name
-    return unless state.in? [:current, :overwritten]
+    return unless state.in? %i[current overwritten]
     narrower_rules << Card.fetch(set_name).uncapitalized_label
     return unless state == :overwritten
     narrower_rule_warning_message narrower_rules
@@ -349,7 +352,7 @@ format :html do
   end
 
   view :edit_single_rule, tags: :unknown_ok, cache: :never do
-    frame() { render_edit_rule }
+    frame { render_edit_rule }
   end
 
   private

@@ -11,14 +11,13 @@ def assign_attributes args={}
 end
 
 def assign_set_specific_attributes
-  return unless @set_specific.present?
-  @set_specific.each_pair do |name, value|
+  set_specific.each_pair do |name, value|
     send "#{name}=", value
   end
 end
 
 def extract_subcard_args! args
-  subcards = args.delete("subcards") ||  args.delete(:subcards) || {}
+  subcards = args.delete("subcards") || args.delete(:subcards) || {}
   if (subfields = args.delete("subfields") || args.delete(:subfields))
     subfields.each_pair do |key, value|
       subcards[cardname.field(key)] = value
@@ -74,7 +73,7 @@ end
 def stash_set_specific_attributes args
   @set_specific = {}
   Card.set_specific_attributes.each do |key|
-    @set_specific[key] = args.delete(key) if args[key]
+    set_specific[key] = args.delete(key) if args.key?(key)
   end
 end
 
@@ -102,4 +101,9 @@ def extract_type_id! args={}
     errors.add :type, "#{args[:type] || args[:type_code]} is not a known type."
   end
   type_id
+end
+
+# 'set' refers to the noun not the verb
+def set_specific
+  @set_specific ||= {}
 end

@@ -10,6 +10,8 @@
 
 card_accessor :solid_cache, type: :html
 
+include_set Abstract::Lock
+
 def self.included host_class
   host_class.format(host_class.try(:cached_format) || :base) do
     view :core do |args|
@@ -56,7 +58,7 @@ module ClassMethods
 
   def define_event_to_update_expired_cached_cards set_of_changed_card, args,
                                                   method_name
-    args[:on] ||= [:create, :update, :delete]
+    args[:on] ||= %i[create update delete]
     name = event_name set_of_changed_card, args
     stage = args[:in_stage] || :integrate
     Card::Set.register_set set_of_changed_card
@@ -79,7 +81,7 @@ module ClassMethods
 end
 
 def expire_solid_cache _changed_card=nil
-  return unless solid_cache?
+  return unless solid_cache? && solid_cache_card.real?
   Auth.as_bot do
     solid_cache_card.delete!
   end
@@ -109,7 +111,7 @@ def updated_content_for_cache _changed_card=nil
 end
 
 def write_to_solid_cache new_content
-  Auth.as_bot do
+  lock do
     if solid_cache_card.new_card?
       solid_cache_card.update_attributes! content: new_content
     elsif new_content != solid_cache_card.content

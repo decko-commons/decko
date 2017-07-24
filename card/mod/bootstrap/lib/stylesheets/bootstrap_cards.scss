@@ -142,7 +142,7 @@ body.mceContentBody {
 /*---------- Card menu ------------*/
 
 @media (min-width: $screen-xs-max) {
-  .card-slot > .menu-slot > .vertical-card-menu.show-on-hover {
+  .card-slot > .d0-card-frame > .menu-slot > .vertical-card-menu._show-on-hover {
     .btn-group.slotter {
       display: none;
       &.open {
@@ -151,7 +151,7 @@ body.mceContentBody {
     }
   }
 
-  .card-slot:hover > .menu-slot > .vertical-card-menu.show-on-hover .btn-group.slotter {
+  .card-slot:hover > .d0-card-frame > .menu-slot > .vertical-card-menu._show-on-hover .btn-group.slotter {
     display: inline-block;
   }
 }
@@ -169,7 +169,7 @@ body.mceContentBody {
   }
 }
 
-.titled-view > .card-header {
+.titled-view > .d0-card-header {
   font-size: 1.3em;
   margin: 3px 0
 }
@@ -198,11 +198,11 @@ body.mceContentBody {
 /* CARDTYPE_SPECIFIC ------------------------------*/
 
 
-.TYPE-toggle.card-content {
+.TYPE-toggle.d0-card-content {
   font-style: italic;
 }
 
-.TYPE-image.card-content, .TYPE-image .card-body {
+.TYPE-image.d0-card-content, .TYPE-image .d0-card-body {
   img {
     max-width: 100%;
   }
@@ -266,6 +266,7 @@ body.mceContentBody {
 
 .closed-content {
   font-size: 1em !important;
+  padding:10px;
 }
 
 
@@ -285,7 +286,44 @@ body.mceContentBody {
 
 }
 
-/*-------- Help texts --------*/
+/*-------- Help Texts --------*/
  .alert-info p:last-child {
    margin-bottom: 0;
  }
+
+/*-------- Toolbar --------*/
+.toolbar-close {
+  font-size: 20px !important;
+  font-weight: bolder !important;
+}
+
+/*-------- Icon Helpers --------*/
+.toggler>i.material-icons{
+  color: #000;
+  font-size: 15px;
+  font-weight: bolder!important;
+  border: 2px solid #000;
+  border-radius: 3px;
+  margin-right: 3px;
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+
+/*----------- Borders -------------*/
+.border-all{
+  border-width: 1px;
+  border-style: solid;
+}

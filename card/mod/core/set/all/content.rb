@@ -18,6 +18,12 @@ format do
   end
 end
 
+format :html do
+  view :hidden_content_field, tags: :unknown_ok do
+    hidden_field :content, class: "d0-card-content"
+  end
+end
+
 def label
   name
 end

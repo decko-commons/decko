@@ -38,16 +38,16 @@ format :html do
   end
 
   view :content do
-    class_up "card-slot", "card-content"
+    class_up "card-slot", "d0-card-content"
     voo.hide :menu
     wrap { [_optional_render_menu, _render_core] }
   end
 
   view :content_panel do
-    class_up "card-slot", "card-content panel panel-default"
+    class_up "card-slot", "d0-card-content card"
     voo.hide :menu
     wrap do
-      wrap_with :div, class: "panel-body" do
+      wrap_with :div, class: "card-block" do
         [_optional_render_menu, _render_core]
       end
     end
@@ -66,7 +66,7 @@ format :html do
   end
 
   view :labeled do
-    class_up "card-body", "closed-content"
+    class_up "d0-card-body", "closed-content"
     @content_body = true
     wrap do
       [
@@ -121,7 +121,7 @@ format :html do
   view :closed do
     voo.show :toggle
     voo.hide! :toolbar
-    class_up "card-body", "closed-content"
+    class_up "d0-card-body", "closed-content"
     @content_body = true
     @toggle_mode = :close
     frame { _optional_render :closed_content }
@@ -161,13 +161,19 @@ format :html do
   end
 
   def related_card_and_options args
-    options = (args[:related] || params[:related]).symbolize_keys
-    return unless options
+    return unless (options = related_options(args))
     related_card = related_card_from_options options
     options[:view] ||= :open
     options[:show] ||= []
     options[:show] << :comment_box if related_card.show_comment_box_in_related?
     [related_card, options]
+  end
+
+  def related_options args
+    options = (args[:related] || params[:related])
+    options = { name: options } if options.is_a? String
+    return unless options.is_a? Hash
+    options.symbolize_keys
   end
 
   def related_card_from_options options

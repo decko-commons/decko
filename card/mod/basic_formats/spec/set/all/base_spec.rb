@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require "rspec-html-matchers"
 
 describe Card::Set::All::Base do
@@ -88,6 +89,18 @@ describe Card::Set::All::Base do
       html = structure_card.format.render_open
       expect(html).to have_tag("a", with: { class: "slotter", href: href },
                                     text: text)
+    end
+  end
+
+  describe "date views" do
+    it "can be formatted with variant option" do
+      rendered = render_content "{{A|created_at; variant: %m/%d/%Y}}"
+      expect(rendered).to match(%r{\d\d/\d\d/20\d\d})
+    end
+
+    it "can handle colons" do
+      rendered = render_content "{{A|created_at; variant: %I:%M%P}}"
+      expect(rendered).to match(/\d\d\:\d\d\w\w/)
     end
   end
 end

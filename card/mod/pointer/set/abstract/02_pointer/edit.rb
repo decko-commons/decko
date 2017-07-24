@@ -12,10 +12,8 @@ event :insert_item_event, :prepare_to_validate,
 end
 
 format :html do
-
   view :editor do |args|
-    hidden_field(:content, class: "card-content") +
-      raw(_render(part_view, args))
+    _render_hidden_content_field + raw(_render(part_view, args))
     # .merge(pointer_item_class: 'form-control')))
   end
 
@@ -28,8 +26,8 @@ format :html do
     items = args[:item_list] || card.item_names(context: :raw)
     items = [""] if items.empty?
     rendered_items = items.map do |item|
-                       _render_list_item args.merge(pointer_item: item)
-                     end.join "\n"
+      _render_list_item args.merge(pointer_item: item)
+    end.join "\n"
     extra_css_class = args[:extra_css_class] || "pointer-list-ul"
 
     <<-HTML
@@ -73,6 +71,18 @@ format :html do
     HTML
   end
 
+  view :autocomplete do |args|
+    items = args[:item_list] || card.item_names(context: :raw)
+    items = [""] if items.empty?
+    <<-HTML
+      <div class="pointer-list-editor pointer-list-ul"
+          data-options-card="#{options_card_name}">
+        #{text_field_tag 'pointer_item', items.first,
+                         class: 'pointer-item-text form-control'}
+      </div>
+    HTML
+  end
+
   view :checkbox do |_args|
     options = card.option_names.map do |option_name|
       checked = card.item_names.include?(option_name)
@@ -112,6 +122,7 @@ format :html do
         </li>
       HTML
     end.join("\n")
+    options = "no options" if options.empty?
 
     %(<ul class="pointer-radio-list">#{options}</ul>)
   end

@@ -1,4 +1,4 @@
-#require_dependency File.expand_path("../../action/action_renderer", __FILE__)
+# require_dependency File.expand_path("../../action/action_renderer", __FILE__)
 
 class Card
   class Act
@@ -6,6 +6,7 @@ class Card
       def initialize format, act, args
         @format = format
         @act = act
+        @act_card = act.card
         @args = args
         @card = @format.card
         @context = @args[:act_context]
@@ -13,7 +14,7 @@ class Card
 
       include ::Bootstrapper
 
-      def method_missing(method_name, *args, &block)
+      def method_missing method_name, *args, &block
         if block_given?
           @format.send(method_name, *args, &block)
         else
@@ -26,29 +27,30 @@ class Card
       end
 
       def render
+        return "" unless @act_card
         act_accordion
       end
 
       def header
         #::Bootstrap.new(self).render do
         #::Boo.bs do
-          bs_layout do
-            row 10, 2 do
-              column do
-                html title
-                tag(:span, "text-muted") { summary }
-              end
-              column act_links, class: "text-right"
+        bs_layout do
+          row 10, 2 do
+            column do
+              html title
+              tag(:span, "text-muted") { summary }
             end
-            row 12 do
-              column subtitle
-            end
+            column act_links, class: "text-right"
           end
-        #end
+          row 12 do
+            column subtitle
+          end
+        end
+        # end
       end
 
       def absolute_title
-        accordion_expand_link(@act.card.name)
+        accordion_expand_link(@act_card.name)
       end
 
       def details
@@ -59,7 +61,7 @@ class Card
       end
 
       def summary
-        [:create, :update, :delete, :draft].map do |type|
+        %i[create update delete draft].map do |type|
           next unless count_types[type] > 0
           "#{@format.action_icon type} #{count_types[type]}"
         end.compact.join " | "
@@ -68,17 +70,18 @@ class Card
       def act_links
         [
           link_to_history,
-          (link_to_act_card unless @act.card.trash)
+          (link_to_act_card unless @act_card.trash)
         ].compact.join " "
       end
 
       def link_to_act_card
-        link_to_card @act.card, glyphicon("new-window")
+        link_to_card @act_card, icon_tag(:new_window)
       end
 
       def link_to_history
-        link_to_card @act.card, glyphicon("time"), path: { view: :history,
-                                                           look_in_trash: true }
+        link_to_card @act_card, icon_tag(:history),
+                     path: { view: :history, look_in_trash: true },
+                     rel: "nofollow"
       end
 
       def approved_actions
@@ -175,7 +178,7 @@ class Card
 
       def previous_action
         # TODO: optimize
-        actions.select { |action| action.card.last_action_id != action.id }
+        actions.reject { |action| action.card.last_action_id == action.id }
       end
 
       def show_or_hide_changes_link

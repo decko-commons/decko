@@ -171,7 +171,7 @@ describe Card::Set::All::Permissions do
       end
       c = Card.new(name: "Home+Heart")
       expect(c.who_can(:read)).to eq([Card::AnyoneSignedInID])
-      expect(c.permission_rule_id_and_class(:read).first).to eq(@perm_card.id)
+      expect(c.permission_rule_id(:read)).to eq(@perm_card.id)
       c.save
       expect(c.read_rule_id).to eq(@perm_card.id)
     end
@@ -183,7 +183,7 @@ describe Card::Set::All::Permissions do
       end
       c = Card.new(name: "Home+Heart")
       expect(c.who_can(:read)).to eq([Card::AnyoneID])
-      expect(c.permission_rule_id_and_class(:read).first).to(
+      expect(c.permission_rule_id(:read)).to(
         eq(Card.fetch("*all+*read").id)
       )
       c.save
@@ -226,7 +226,7 @@ describe Card::Set::All::Permissions do
       Card::Auth.as_bot do
         # Card::Auth.cache.reset
         @u1, @u2, @u3, @r1, @r2, @r3, @c1, @c2, @c3 =
-          %w(u1 u2 u3 r1 r2 r3 c1 c2 c3).map { |x| Card[x] }
+          %w[u1 u2 u3 r1 r2 r3 c1 c2 c3].map { |x| Card[x] }
       end
     end
 
@@ -398,12 +398,12 @@ describe Card::Set::All::Permissions do
 
       Card::Auth.as(@u1) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
-          eq %w(c1 c2 c3)
+          eq %w[c1 c2 c3]
         )
       end
       Card::Auth.as(@u2) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
-          eq %w(c2 c3)
+          eq %w[c2 c3]
         )
       end
     end
@@ -422,14 +422,14 @@ describe Card::Set::All::Permissions do
 
       Card::Auth.as(@u1) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
-          eq(%w(c1 c2 c3))
+          eq(%w[c1 c2 c3])
         )
       end
       # for Card::Auth.as to be effective, you can't have a logged in user
       Card::Auth.current_id = nil
       Card::Auth.as(@u2) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
-          eq(%w(c2 c3))
+          eq(%w[c2 c3])
         )
       end
     end

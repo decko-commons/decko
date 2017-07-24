@@ -40,7 +40,7 @@ end
 
 format :file do
   # returns send_file args.  not in love with this...
-  view :core, cache: :never do |_args|
+  view :core, cache: :never do |args|
     # this means we only support known formats.  dislike.
     attachment_format = card.attachment_format(params[:format])
     return _render_not_found unless attachment_format
@@ -76,7 +76,7 @@ format :file do
 end
 
 format :html do
-  view :core do |args|
+  view :core do |_args|
     handle_source do |source|
       "<a href=\"#{source}\">Download #{showname voo.title}</a>"
     end
@@ -84,16 +84,20 @@ format :html do
 
   view :editor do
     if card.web? || card.no_upload?
-      return text_field(:content, class: "card-content")
+      return text_field(:content, class: "d0-card-content")
     end
     file_chooser
+  end
+
+  def humanized_attachment_name
+    card.attachment_name.to_s.humanize
   end
 
   def preview
     ""
   end
 
-  view :preview_editor, tags: :unknown_ok, cache: :never do |args|
+  view :preview_editor, tags: :unknown_ok, cache: :never do |_args|
     cached_upload_card_name = Card::Env.params[:attachment_upload]
     cached_upload_card_name.gsub!(/\[\w+\]$/, "[action_id_of_cached_upload]")
     <<-HTML
@@ -139,7 +143,7 @@ format :html do
         <span class="btn btn-success fileinput-button">
             <i class="glyphicon glyphicon-cloud-upload"></i>
             <span>
-                #{card.new_card? ? 'Add' : 'Replace'} #{card.attachment_name}...
+                #{card.new_card? ? 'Add' : 'Replace'} #{humanized_attachment_name}...
             </span>
              <input class="file-upload slotter form-control" type="file"
                 name="card[#{card.type_code}]" id="card_#{card.type_code}">

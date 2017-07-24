@@ -20,8 +20,7 @@ class Card
       templating:  "Templating",
       permission:  "Permissions",
       webpage:     "Webpage",
-      pointer:     "Pointer",
-      editing_cue: "Editing cues",
+      editing:     "Editing",
       event:       "Events",
       other:       "Other",
       config:      "Config"
@@ -36,7 +35,7 @@ class Card
     end
 
     def to_type_id type
-      type.is_a?(Fixnum) ? type : Card::Codename[type]
+      type.is_a?(Integer) ? type : Card::Codename[type]
     end
 
     # usage:

@@ -1,4 +1,3 @@
-include_set Abstract::AceEditor
 include_set Abstract::WqlSearch
 
 format do
@@ -53,6 +52,11 @@ format :rss do
 end
 
 format :html do
+  view :closed do
+    voo.hide :closed_content
+    super()
+  end
+
   view :closed_content, cache: :never do
     if @depth > max_depth
       "..."
@@ -64,7 +68,11 @@ format :html do
     end
   end
 
-  def default_editor_args args
-    args[:ace_mode] = "json"
+  def editor
+    :ace_editor
+  end
+
+  def ace_mode
+    :json
   end
 end

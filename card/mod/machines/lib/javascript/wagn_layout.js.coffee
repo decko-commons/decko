@@ -1,7 +1,7 @@
 wrapDeckoLayout = ->
   $footer  = $('body > footer').first()
-  $('body > article, body > aside').wrapAll('<div class="container"/>')
-  $('div.container > article, div.container > aside')
+  $('body > article, body > aside').wrapAll("<div class='#{containerClass()}'/>")
+  $('body > div > article, body > div > aside')
     .wrapAll('<div class="row row-offcanvas">')
   if $footer
     $('body').append $footer
@@ -9,16 +9,20 @@ wrapDeckoLayout = ->
 wrapSidebarToggle = (toggle) ->
   "<div class='container'><div class='row'>#{toggle}</div></div>"
 
+containerClass = ->
+  if $('body').hasClass('fluid') then "container-fluid" else "container"
+
+
 sidebarToggle = (side) ->
   icon_dir = if side == 'left' then 'right' else 'left'
   "<button class='offcanvas-toggle offcanvas-toggle-#{side} btn btn-secondary "+
-    "visible-xs' data-toggle='offcanvas-#{side}'>" +
-    "<span class='glyphicon glyphicon-chevron-#{icon_dir}'/></button>"
+    "hidden-sm-up' data-toggle='offcanvas-#{side}'>" +
+    "<i class='material-icons'>chevron-#{icon_dir}</i></button>"
 
 singleSidebar = (side) ->
   $article = $('body > article').first()
   $aside   = $('body > aside').first()
-  $article.addClass("col-xs-12 col-sm-9 col-md-8")
+  $article.addClass("col-xs-12 col-sm-9 col-md-9")
   $aside.addClass(
     "col-xs-6 col-sm-3 col-md-3 sidebar-offcanvas sidebar-offcanvas-#{side}"
   )
@@ -42,6 +46,10 @@ doubleSidebar = ->
   toggles = wrapSidebarToggle(sidebarToggle('right') + sidebarToggle('left'))
   $article.prepend(toggles)
 
+$.fn.extend toggleText: (a, b) ->
+  @text(if @text() == b then a else b)
+
+  this
 $(window).ready ->
   switch
     when $('body').hasClass('right-sidebar')
@@ -53,9 +61,9 @@ $(window).ready ->
 
   $('[data-toggle="offcanvas-left"]').click ->
     $('.row-offcanvas').removeClass('right-active').toggleClass('left-active')
-    $(this).find('span.glyphicon')
-      .toggleClass('glyphicon-chevron-left glyphicon-chevron-right')
+    $(this).find('i.material-icons')
+      .toggleText('chevron_left chevron_right')
   $('[data-toggle="offcanvas-right"]').click ->
     $('.row-offcanvas').removeClass('left-active').toggleClass('right-active')
-    $(this).find('span.glyphicon')
-      .toggleClass('glyphicon-chevron-left glyphicon-chevron-right')
+    $(this).find('i.material-icons')
+      .toggleText('chevron_left chevron_right')

@@ -2,13 +2,17 @@ format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
   view :edit, perms: :update, tags: :unknown_ok, cache: :never do
     voo.show :toolbar, :help
-    frame_and_form :update do
+    frame_and_form :update, edit_form_opts do
       [
         edit_view_hidden,
         _optional_render_content_formgroup,
         _optional_render_edit_buttons
       ]
     end
+  end
+
+  def edit_form_opts
+    # for override
   end
 
   def edit_view_hidden
@@ -156,14 +160,14 @@ format :html do
     voo.show :toolbar
     frame do
       with_nest_mode :edit do
-        process_nested_fields hide: :toolbar
+        process_nested_fields
       end
     end
   end
 
   view :edit_nest_rules, cache: :never do |args|
     return ""
-    # FIXME - view can recurse.  temporarily turned off
+    # FIXME: - view can recurse.  temporarily turned off
     voo.show :toolbar
     view = args[:rule_view] || :field_related_rules
     frame do
