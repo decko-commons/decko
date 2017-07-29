@@ -560,7 +560,7 @@ describe Card::Set::Type::File do
 
   def storage_config type=:local
     Cardio.config.file_storage = type
-    Wagn.config.file_buckets = {
+    Decko.config.file_buckets = {
       test_bucket: {
         provider: "fog/aws",
         credentials: bucket_credentials(:aws),

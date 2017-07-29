@@ -15,6 +15,7 @@ class Select2 < Card::Migration
                       to: "*all+*style"
 
     add_script "load select2",
+               type_id: Card::CoffeeScriptID,
                to: "*all+*script"
   end
 end

@@ -30,15 +30,15 @@ module I18n::Backend::Transformers
   end
 end
 
-# For testing/debugging purposes, one can set the WAGN_I18N_DEMARK environment
+# For testing/debugging purposes, one can set the DECKO_I18N_DEMARK environment
 # variable, and this will cause all translated text to include visual
 # demarcation that distinguishes it from text not obtained from I18n.
 #
-# Enable by setting WAGN_I18N_DEMARK=1 in the host environment, or
-# with ENV['WAGN_I18N_DEMARK']=1 on the command line in server startup,
+# Enable by setting DECKO_I18N_DEMARK=1 in the host environment, or
+# with ENV['DECKO_I18N_DEMARK']=1 on the command line in server startup,
 # or ./config/environments/*.rb file.
 
-if ENV["WAGN_I18N_DEMARK"]
+if ENV["DECKO_I18N_DEMARK"]
   I18n::Backend::Simple.send(:include, I18n::Backend::Transformers)
-  puts "WAGN_I18N_DEMARK is active"
+  puts "DECKO_I18N_DEMARK is active"
 end

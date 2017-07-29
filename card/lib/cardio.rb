@@ -76,7 +76,7 @@ module Cardio
     end
 
     def read_only?
-      !ENV["WAGN_READ_ONLY"].nil?
+      !ENV["DECKO_READ_ONLY"].nil?
     end
 
     # In production mode set_config gets called twice.
