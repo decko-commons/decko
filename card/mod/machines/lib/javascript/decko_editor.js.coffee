@@ -1,9 +1,9 @@
-$.extend wagn,
+$.extend decko,
   editorContentFunctionMap: {}
   editorInitFunctionMap: {
     '.date-editor': -> @datepicker { dateFormat: 'yy-mm-dd' }
     'textarea': -> $(this).autosize()
-    '.file-upload': -> wagn.upload_file(this)
+    '.file-upload': -> decko.upload_file(this)
     '.etherpad-textarea': ->
       $(this).closest('form')
       .find('.edit-submit-button')
@@ -11,12 +11,12 @@ $.extend wagn,
   }
 
   addEditor: (selector, init, get_content) ->
-    wagn.editorContentFunctionMap[selector] = get_content
-    wagn.editorInitFunctionMap[selector] = init
+    decko.editorContentFunctionMap[selector] = get_content
+    decko.editorInitFunctionMap[selector] = init
 
 jQuery.fn.extend {
   setContentFieldsFromMap: (map) ->
-    map = wagn.editorContentFunctionMap unless map?
+    map = decko.editorContentFunctionMap unless map?
     this_form = $(this)
     $.each map, (selector, fn) ->
       this_form.setContentFields(selector, fn)

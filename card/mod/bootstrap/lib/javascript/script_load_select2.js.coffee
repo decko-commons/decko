@@ -1,4 +1,4 @@
-wagn.slotReady (slot) ->
+decko.slotReady (slot) ->
   slot.find('select:not(._no-select2)').each (i) ->
     $(this).select2()
 

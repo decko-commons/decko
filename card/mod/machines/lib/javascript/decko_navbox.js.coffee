@@ -17,7 +17,7 @@ navbox_results = (request, response) ->
   formData = f.serialize() + '&view=complete'
 
   this.xhr = $.ajax {
-    url: wagn.prepUrl wagn.rootPath + '/:search.json'
+    url: decko.prepUrl decko.rootPath + '/:search.json'
     data: formData
     dataType: "json"
     wagReq: ++reqIndex
@@ -67,6 +67,6 @@ navbox_select = (event, ui) ->
   if ui.item.term
     $(this).closest('form').submit()
   else
-    window.location = wagn.rootPath + ui.item.href
+    window.location = decko.rootPath + ui.item.href
 
   $(this).attr('disabled', 'disabled')

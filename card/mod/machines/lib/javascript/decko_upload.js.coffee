@@ -1,4 +1,4 @@
-$.extend wagn,
+$.extend decko,
   upload_file: (fileupload) ->
 # for file as a subcard in a form,
 # excess parameters are inlcuded in the request which cause errors.
@@ -21,9 +21,9 @@ $.extend wagn,
     $(fileupload).fileupload(
       url: url,
       dataType: 'html',
-      done: wagn.doneFile,
-      add: wagn.chooseFile,
-      progressall: wagn.progressallFile
+      done: decko.doneFile,
+      add: decko.chooseFile,
+      progressall: decko.progressallFile
     )#, forceIframeTransport: true )
 
   chooseFile: (e, data) ->

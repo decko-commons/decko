@@ -1,19 +1,19 @@
-wagn.addEditor(
+decko.addEditor(
   '.ace-editor-textarea',
   ->
-    wagn.initAce $(this),
+    decko.initAce $(this),
   ->
     aceEditorContent this[0]
 )
 
-$.extend wagn,
+$.extend decko,
   setAceConfig: (string) ->
     setter = ->
       try
         $.parseJSON string
       catch
         {}
-    wagn.aceConfig = setter()
+    decko.aceConfig = setter()
 
   configAceEditor: (editor, mode) ->
     conf = {
@@ -27,7 +27,7 @@ $.extend wagn,
     hard_conf = {
       mode: "ace/mode/" + mode
     }
-    user_conf = if wagn.aceConfig? then wagn.aceConfig else {}
+    user_conf = if decko.aceConfig? then decko.aceConfig else {}
     $.extend conf, user_conf['default'], user_conf[mode], hard_conf
     editor.setOptions conf
 
@@ -46,7 +46,7 @@ $.extend wagn,
     ace.config.set('basePath','/assets/ace')
     editor = ace.edit(editDiv[0])
     editor.getSession().setValue textarea.val()
-    wagn.configAceEditor(editor, mode)
+    decko.configAceEditor(editor, mode)
     return
 
 aceEditorContent = (element) ->
@@ -57,7 +57,7 @@ aceEditorContent = (element) ->
 
 
 
-$.extend wagn,
+$.extend decko,
 
 
   initProseMirror: (el_id) ->
@@ -66,6 +66,6 @@ $.extend wagn,
       tooltipMenu: false
     }
     hard_conf = { docFormat: "html" }
-    user_conf = if wagn.proseMirrorConfig? then wagn.proseMirrorConfig else {}
+    user_conf = if decko.proseMirrorConfig? then decko.proseMirrorConfig else {}
     $.extend conf, user_conf, hard_conf
     createProseMirror(el_id, conf)

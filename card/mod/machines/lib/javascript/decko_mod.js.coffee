@@ -1,7 +1,7 @@
 
-window.wagn ||= {} #needed to run w/o *head.  eg. jasmine
+window.decko ||= {} #needed to run w/o *head.  eg. jasmine
 
-# $.extend wagn,
+# $.extend decko,
 # Can't get this to work yet.  Intent was to tighten up head tag.
 #  initGoogleAnalytics: (key) ->
 #    window._gaq.push ['_setAccount', key]
@@ -24,7 +24,7 @@ $(window).ready ->
     input = new_item.find('input')
     input.val ''
     last_item.after new_item
-    wagn.initPointerList(input)
+    decko.initPointerList(input)
     event.preventDefault() # Prevent link from following its href
 
   $('body').on 'click', '.pointer-item-delete', ->
@@ -78,7 +78,7 @@ $(window).ready ->
     if $(event.target).attr('id') != 'modal-main-slot'
       slot = $( event.target ).slot()
       menu_slot = slot.find '.menu-slot:first'
-      url  = wagn.rootPath + '/~' + slot.data('card-id')
+      url  = decko.rootPath + '/~' + slot.data('card-id')
       params = { view: 'menu' }
       params['is_main'] = true if slot.isMain()
       modal_content.empty()
@@ -92,7 +92,7 @@ $(window).ready ->
 #     for slot in $('.card-slot')
 #       menu_slot = $(slot).find '.menu-slot:first'
 #       if menu_slot.size() > 0
-#         url  = wagn.rootPath + '/~' + $(slot).data('card-id')
+#         url  = decko.rootPath + '/~' + $(slot).data('card-id')
 #         params = { view: 'menu' }
 #         params['is_main'] = true if $(slot).isMain()
 #
@@ -105,7 +105,7 @@ $(window).ready ->
 
 #  $('body').on 'click', '.update-follow-link', (event) ->
 #    anchor = $(this)
-#    url  = wagn.rootPath + '/' + anchor.data('card_key') + '.json?view=follow_status'
+#    url  = decko.rootPath + '/' + anchor.data('card_key') + '.json?view=follow_status'
 #    modal =  anchor.closest('.modal')
 #    modal.removeData()
 #    $.ajax url, {
@@ -121,7 +121,7 @@ $(window).ready ->
 
 #  $('body').on 'click', '.follow-toggle', (event) ->
 #    anchor = $(this)
-#    url  = wagn.rootPath + '/update/' + anchor.data('rule_name') + '.json'
+#    url  = decko.rootPath + '/update/' + anchor.data('rule_name') + '.json'
 #    $.ajax url, {
 #      type : 'POST'
 #      dataType : 'json'
@@ -169,7 +169,7 @@ $(window).ready ->
   $('body').on 'click', '.submit-modal', ->
     $(this).closest('.modal-content').find('form').submit()
 
-  #wagn_org mod (for now)
+  #decko_org mod (for now)
   $('body').on 'click', '.shade-view h1', ->
     toggleThis = $(this).slot().find('.shade-content').is ':hidden'
     toggleShade $(this).closest('.pointer-list').find('.shade-content:visible').parent()
@@ -186,7 +186,7 @@ $(window).ready ->
   $('body').on 'change', '.go-to-selected select', ->
     val = $(this).val()
     if val != ''
-      window.location = wagn.rootPath + escape( val )
+      window.location = decko.rootPath + escape( val )
 
   # performance log mod
   $('body').on 'click', '.open-slow-items', ->

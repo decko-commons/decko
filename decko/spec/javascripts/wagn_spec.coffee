@@ -1,7 +1,7 @@
 
 describe "Global Wagn variable", ->
   it "should be defined", ->
-    expect(wagn).toBeDefined
+    expect(decko).toBeDefined
 
 describe "card-form", ->
   beforeEach ->
@@ -37,6 +37,6 @@ describe "tiny-mce", ->
     loadFixtures('card_form.html')
 
   it 'should load', ->
-    wagn.initializeTinyMCE
+    decko.initializeTinyMCE
     expect($('form')).toContain('.mceEditor')
 ###

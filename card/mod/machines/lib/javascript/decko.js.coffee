@@ -1,6 +1,6 @@
-$.extend wagn,
+$.extend decko,
   initializeEditors: (range, map) ->
-    map = wagn.editorInitFunctionMap unless map?
+    map = decko.editorInitFunctionMap unless map?
     $.each map, (selector, fn) ->
       $.each range.find(selector), ->
         fn.call $(this)
@@ -12,7 +12,7 @@ $.extend wagn,
     if slot
       xtra['is_main'] = true if slot.isMain()
       slotdata = slot.data 'slot'
-      wagn.slotParams slotdata, xtra, 'slot' if slotdata?
+      decko.slotParams slotdata, xtra, 'slot' if slotdata?
 
     url + ( (if url.match /\?/ then '&' else '?') + $.param(xtra) )
 
@@ -20,7 +20,7 @@ $.extend wagn,
     $.each raw, (key, value)->
       cgiKey = prefix + '[' + snakeCase(key) + ']'
       if key == 'items'
-        wagn.slotParams value, processed, cgiKey
+        decko.slotParams value, processed, cgiKey
       else
         processed[cgiKey] = value
 
@@ -31,7 +31,7 @@ $.extend wagn,
         func.call this, $(this)
 
   pingName: (name, success)->
-    $.getJSON wagn.rootPath + '/',
+    $.getJSON decko.rootPath + '/',
               format: 'json', view: 'status', 'card[name]': name,
               success
 
@@ -89,7 +89,7 @@ jQuery.fn.extend {
       newslot = @setSlotContent data
 
       if newslot.jquery # sometimes response is plaintext
-        wagn.initializeEditors newslot
+        decko.initializeEditors newslot
         if notice?
           newslot.notify notice, "success"
 
@@ -131,7 +131,7 @@ jQuery.fn.extend {
   reloadCaptcha: ->
     this[0].empty()
     grecaptcha.render this[0],
-      sitekey: wagn.recaptchaKey
+      sitekey: decko.recaptchaKey
 
   autosave: ->
     slot = @slot()
@@ -145,7 +145,7 @@ jQuery.fn.extend {
       reportee = ''
 
     # #might be better to put this href base in the html
-    submit_url  = wagn.rootPath + '/update/~' + id
+    submit_url  = decko.rootPath + '/update/~' + id
     form_data = $('#edit_card_'+id).serializeArray().reduce( ((obj, item) ->
       obj[item.name] = item.value
       return obj
@@ -164,7 +164,7 @@ setInterval (-> $('.card-form').setContentFieldsFromMap()), 20000
 $(window).ready ->
   $.ajaxSetup cache: false
 
-  setTimeout (-> wagn.initializeEditors $('body')), 10
+  setTimeout (-> decko.initializeEditors $('body')), 10
   # dislike the timeout, but without this forms with multiple TinyMCE editors
   # were failing to load properly
 
@@ -183,7 +183,7 @@ $(window).ready ->
 
   $('body').on 'loaded.bs.modal', null, (event) ->
     unless event.slotSuccessful
-      wagn.initializeEditors $(event.target)
+      decko.initializeEditors $(event.target)
       $(event.target).find(".card-slot").trigger("slotReady")
       event.slotSuccessful = true
 
@@ -199,10 +199,10 @@ $(window).ready ->
 
     # avoiding duplication. could be better test?
     unless opt.url.match /home_view/
-      opt.url = wagn.prepUrl opt.url, $(this).slot()
+      opt.url = decko.prepUrl opt.url, $(this).slot()
 
     if $(this).is('form')
-      if wagn.recaptchaKey and $(this).attr('recaptcha')=='on' and
+      if decko.recaptchaKey and $(this).attr('recaptcha')=='on' and
          !($(this).find('.g-recaptcha')[0])
         # if there is already a recaptcha on the page then we don't have to
         # load the recaptcha script
@@ -238,7 +238,7 @@ $(window).ready ->
           # gets rid of default html and body tags
 
         args = $.extend opt, (widget._getAJAXSettings data), url: opt.url
-        # combines settings from wagn's slotter and jQuery UI's upload widget
+        # combines settings from decko's slotter and jQuery UI's upload widget
         args.skip_before_send = true #avoid looping through this method again
 
         $.ajax( args )
@@ -281,7 +281,7 @@ $(window).ready ->
   $('body').on 'click', 'button.redirecter', ->
     window.location = $(this).attr('href')
 
-  unless wagn.noDoubleClick
+  unless decko.noDoubleClick
     $('body').on 'dblclick', 'div', (event) ->
       t = $(this)
       return false if t.closest( '.nodblclick'  )[0]
@@ -294,7 +294,7 @@ $(window).ready ->
       return false unless s.data('cardId')
       # fail if slot has not card id
       s.addClass 'slotter'
-      s.attr 'href', wagn.rootPath + '/card/edit/~' + s.data('cardId')
+      s.attr 'href', decko.rootPath + '/card/edit/~' + s.data('cardId')
       $.rails.handleRemote(s)
       false # don't propagate up to next slot
 
@@ -328,7 +328,7 @@ $(window).ready ->
   $('body').on 'keyup', '.name-editor input', ->
     box =  $(this)
     name = box.val()
-    wagn.pingName name, (data)->
+    decko.pingName name, (data)->
       return null if box.val() != name # avert race conditions
       status = data['status']
       if status
@@ -350,7 +350,7 @@ $(window).ready ->
             'in virtual'
           else
             'already in'
-          msg.html '"<a href="' + wagn.rootPath + '/' + data['url_key'] + '">' +
+          msg.html '"<a href="' + decko.rootPath + '/' + data['url_key'] + '">' +
                    name + '</a>" ' + qualifier + ' use'
         else
           msg.html ''
@@ -376,7 +376,7 @@ $(window).ready ->
 
 
 initCaptcha = (form)->
-  recapDiv = $("<div class='g-recaptcha' data-sitekey='#{wagn.recaptchaKey}'>" +
+  recapDiv = $("<div class='g-recaptcha' data-sitekey='#{decko.recaptchaKey}'>" +
                "</div>")
   $(form).children().last().after recapDiv
   recapUri = "https://www.google.com/recaptcha/api.js"
@@ -389,7 +389,7 @@ addCaptcha = (form)->
   recapDiv = $('<div class="g-recaptcha"></div>')
   $(form).children().last().after recapDiv
   grecaptcha.render recapDiv,
-    sitekey: wagn.recaptchaKey
+    sitekey: decko.recaptchaKey
 
 snakeCase = (str)->
   str.replace /([a-z])([A-Z])/g, (match) -> match[0] + '_' +
@@ -397,6 +397,6 @@ snakeCase = (str)->
 
 warn = (stuff) -> console.log stuff if console?
 
-wagn.slotReady (slot) ->
+decko.slotReady (slot) ->
   slot.find('._disappear').delay(5000).animate(
     height: 0, 1000, -> $(this).hide())
