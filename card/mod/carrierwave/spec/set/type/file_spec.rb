@@ -388,7 +388,8 @@ describe Card::Set::Type::File do
       Card::Auth.as_bot do
         Card.create! name: "file card", type_code: "file",
                      file: File.new(File.join(FIXTURES_PATH, "file1.txt")),
-                     storage_type: @storage_type || :cloud
+                     storage_type: @storage_type || :cloud,
+                     bucket: :test_bucket
       end
     end
 
