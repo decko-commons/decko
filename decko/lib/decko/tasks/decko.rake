@@ -7,7 +7,7 @@ DECKO_SEED_PATH = File.join(
 )
 
 namespace :decko do
-  desc "create a wagn database from scratch, load initial data"
+  desc "create a decko database from scratch, load initial data"
   task :seed do
     ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
     puts "dropping"
@@ -25,16 +25,16 @@ namespace :decko do
     puts "loading schema"
     Rake::Task["db:schema:load"].invoke
 
-    Rake::Task["wagn:load"].invoke
+    Rake::Task["decko:load"].invoke
   end
 
   desc "clear and load fixtures with existing tables"
   task reseed: :environment do
     ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
 
-    Rake::Task["wagn:clear"].invoke
+    Rake::Task["decko:clear"].invoke
 
-    Rake::Task["wagn:load"].invoke
+    Rake::Task["decko:load"].invoke
   end
 
   desc "empty the card tables"
@@ -51,24 +51,24 @@ namespace :decko do
   task :load do
     require "decko/engine"
     puts "update card_migrations"
-    Rake::Task["wagn:assume_card_migrations"].invoke
+    Rake::Task["decko:assume_card_migrations"].invoke
 
     if Rails.env == "test" && !ENV["GENERATE_FIXTURES"]
       puts "loading test fixtures"
       Rake::Task["db:fixtures:load"].invoke
     else
       puts "loading bootstrap"
-      Rake::Task["wagn:bootstrap:load"].invoke
+      Rake::Task["decko:bootstrap:load"].invoke
     end
 
     puts "set symlink for assets"
-    Rake::Task["wagn:update_assets_symlink"].invoke
+    Rake::Task["decko:update_assets_symlink"].invoke
 
     puts "reset cache"
-    system "bundle exec rake wagn:reset_cache" # needs loaded environment
+    system "bundle exec rake decko:reset_cache" # needs loaded environment
   end
 
-  desc "update wagn gems and database"
+  desc "update decko gems and database"
   task :update do
     ENV["NO_RAILS_CACHE"] = "true"
     # system 'bundle update'
@@ -76,10 +76,10 @@ namespace :decko do
       FileUtils.rm_rf Wagn.paths["tmp"].first, secure: true
     end
     Dir.mkdir Wagn.paths["tmp"].first
-    Rake::Task["wagn:migrate"].invoke
+    Rake::Task["decko:migrate"].invoke
     # FIXME: remove tmp dir / clear cache
     puts "set symlink for assets"
-    Rake::Task["wagn:update_assets_symlink"].invoke
+    Rake::Task["decko:update_assets_symlink"].invoke
   end
 
   desc "reset cache"
@@ -105,24 +105,24 @@ namespace :decko do
     stamp = ENV["STAMP_MIGRATIONS"]
 
     puts "migrating structure"
-    Rake::Task["wagn:migrate:structure"].invoke
-    Rake::Task["wagn:migrate:stamp"].invoke :structure if stamp
+    Rake::Task["decko:migrate:structure"].invoke
+    Rake::Task["decko:migrate:stamp"].invoke :structure if stamp
 
     puts "migrating core cards"
     Card::Cache.reset_all
     # not invoke because we don't want to reload environment
-    Rake::Task["wagn:migrate:core_cards"].execute
+    Rake::Task["decko:migrate:core_cards"].execute
     if stamp
-      Rake::Task["wagn:migrate:stamp"].reenable
-      Rake::Task["wagn:migrate:stamp"].invoke :core_cards
+      Rake::Task["decko:migrate:stamp"].reenable
+      Rake::Task["decko:migrate:stamp"].invoke :core_cards
     end
 
     puts "migrating deck cards"
     # not invoke because we don't want to reload environment
-    Rake::Task["wagn:migrate:deck_cards"].execute
+    Rake::Task["decko:migrate:deck_cards"].execute
     if stamp
-      Rake::Task["wagn:migrate:stamp"].reenable
-      Rake::Task["wagn:migrate:stamp"].invoke :deck_cards
+      Rake::Task["decko:migrate:stamp"].reenable
+      Rake::Task["decko:migrate:stamp"].invoke :deck_cards
     end
 
     Card::Cache.reset_all

@@ -16,7 +16,7 @@ namespace :decko do
       Card::Cache.reset_all
 
       # FIXME: temporarily taking this out!!
-      Rake::Task["wagn:bootstrap:copy_mod_files"].invoke
+      Rake::Task["decko:bootstrap:copy_mod_files"].invoke
       Card[:all, :script].make_machine_output_coded
       Card[:all, :style].make_machine_output_coded
       Card[:script_html5shiv_printshiv].make_machine_output_coded

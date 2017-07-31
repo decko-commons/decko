@@ -22,10 +22,10 @@ namespace :test do
     ENV["GENERATE_FIXTURES"] = "true"
     raise "must be test env" unless Rails.env == "test"
 
-    Rake::Task["wagn:reset_cache"]
+    Rake::Task["decko:reset_cache"]
 
     puts "reseed test db"
-    Rake::Task["wagn:seed"].invoke
+    Rake::Task["decko:seed"].invoke
 
     puts ">>populating test data"
     puts `rake test:populate_template_database --trace`

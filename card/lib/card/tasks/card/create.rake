@@ -58,7 +58,7 @@ namespace :card do
 
     def create_migration_file name, category, type_codename
       puts "creating migration file...".yellow
-      migration_out = `bundle exec wagn generate card:migration #{name}`
+      migration_out = `bundle exec decko generate card:migration #{name}`
       migration_file = migration_out[/db.*/]
       content = migration_content name, category, type_codename
       write_at migration_file, 5, content # 5 is line no.
