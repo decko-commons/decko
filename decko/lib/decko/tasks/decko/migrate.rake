@@ -19,7 +19,7 @@ def prepare_migration
   # structures are loaded before schema_mode is set
 end
 
-namespace :wagn do
+namespace :decko do
   namespace :migrate do
     desc "migrate cards"
     task cards: [:core_cards, :deck_cards]

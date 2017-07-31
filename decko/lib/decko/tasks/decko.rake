@@ -6,7 +6,7 @@ DECKO_SEED_PATH = File.join(
   ENV["DECKO_SEED_REPO_PATH"] || [Cardio.gem_root, "db", "seed"], "new"
 )
 
-namespace :wagn do
+namespace :decko do
   desc "create a wagn database from scratch, load initial data"
   task :seed do
     ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"

@@ -1,4 +1,4 @@
-namespace :wagn do
+namespace :decko do
   namespace :bootstrap do
     desc "rid template of unneeded cards, acts, actions, changes, " \
          "and references"
