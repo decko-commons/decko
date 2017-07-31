@@ -1,4 +1,4 @@
-require "wagn/application"
+require "decko/application"
 
 DECKO_SEED_TABLES = %w( cards card_actions card_acts card_changes
                        card_references ).freeze
