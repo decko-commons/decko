@@ -146,10 +146,18 @@ def no_upload?
 end
 
 def bucket
-  binding.pry
   @bucket ||= cloud? &&
-              ((new_card? && bucket_from_config) || bucket_from_content ||
-                bucket_from_config)
+              (new_card_bucket || bucket_from_content || bucket_from_config)
+end
+
+def new_card_bucket
+  return unless new_card?
+  # If the file is assigned before the bucket option we have to
+  # check if there is a bucket options in set_specific.
+  # That happens for exmaple when the file appears before the bucket in the
+  # options hash:
+  #   Card.create file: file_handle, bucket: "my_bucket"
+  set_specific[:bucket] || set_specific["bucket"] || bucket_from_config
 end
 
 def bucket_config
@@ -157,7 +165,6 @@ def bucket_config
 end
 
 def load_bucket_config
-  binding.pry
   return {} unless bucket
   bucket_config = Cardio.config.file_buckets &&
                   Cardio.config.file_buckets[bucket.to_sym]

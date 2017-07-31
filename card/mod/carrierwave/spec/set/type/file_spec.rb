@@ -39,7 +39,6 @@ describe Card::Set::Type::File do
   end
   let(:cloud_file) do
     storage_config :cloud
-    binding.pry
     card = create_file_card :cloud, test_file, bucket: :test_bucket
     storage_config :local
     card
@@ -557,7 +556,15 @@ describe Card::Set::Type::File do
     "public/files/~#{subject.id}/#{subject.last_action_id}.txt"
   end
 
-  let(:directory) { "philipp-test" }
+  let(:directory) { "deckodev-test" }
+
+  # expects access keys in card/spec/support/buckets_credentials.yml for the
+  # bucket defined in `directory` in the following format:
+  # aws:
+  #   provider: AWS
+  #   aws_access_key_id: ...
+  #   aws_secret_access_key: ...
+  #   region: eu-central-1
 
   def storage_config type=:local
     Cardio.config.file_storage = type
