@@ -39,6 +39,7 @@ describe Card::Set::Type::File do
   end
   let(:cloud_file) do
     storage_config :cloud
+    binding.pry
     card = create_file_card :cloud, test_file, bucket: :test_bucket
     storage_config :local
     card
@@ -560,6 +561,7 @@ describe Card::Set::Type::File do
 
   def storage_config type=:local
     Cardio.config.file_storage = type
+    # config.file_default_bucket
     Decko.config.file_buckets = {
       test_bucket: {
         provider: "fog/aws",

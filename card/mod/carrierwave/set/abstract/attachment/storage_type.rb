@@ -146,6 +146,7 @@ def no_upload?
 end
 
 def bucket
+  binding.pry
   @bucket ||= cloud? &&
               ((new_card? && bucket_from_config) || bucket_from_content ||
                 bucket_from_config)
@@ -156,6 +157,7 @@ def bucket_config
 end
 
 def load_bucket_config
+  binding.pry
   return {} unless bucket
   bucket_config = Cardio.config.file_buckets &&
                   Cardio.config.file_buckets[bucket.to_sym]
