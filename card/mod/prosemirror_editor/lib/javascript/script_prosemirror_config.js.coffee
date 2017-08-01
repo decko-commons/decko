@@ -1,19 +1,19 @@
-wagn.addEditor(
+decko.addEditor(
   '.prosemirror-editor',
   ->
-    wagn.initProseMirror @[0].id,
+    decko.initProseMirror @[0].id,
   ->
     prosemirrorContent @[0].id
 )
 
-$.extend wagn,
+$.extend decko,
   setProseMirrorConfig: (string) ->
     setter = ->
       try
         $.parseJSON string
       catch
         {}
-    wagn.proseMirrorConfig = setter()
+    decko.proseMirrorConfig = setter()
 
   initProseMirror: (el_id) ->
     conf = {
@@ -21,7 +21,7 @@ $.extend wagn,
       tooltipMenu: false
     }
     hard_conf = { docFormat: "html" }
-    user_conf = if wagn.proseMirrorConfig? then wagn.proseMirrorConfig else {}
+    user_conf = if decko.proseMirrorConfig? then decko.proseMirrorConfig else {}
     $.extend conf, user_conf, hard_conf
     createProseMirror(el_id, conf)
 

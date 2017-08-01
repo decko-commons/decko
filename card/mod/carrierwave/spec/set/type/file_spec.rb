@@ -388,7 +388,8 @@ describe Card::Set::Type::File do
       Card::Auth.as_bot do
         Card.create! name: "file card", type_code: "file",
                      file: File.new(File.join(FIXTURES_PATH, "file1.txt")),
-                     storage_type: @storage_type || :cloud
+                     storage_type: @storage_type || :cloud,
+                     bucket: :test_bucket
       end
     end
 
@@ -556,11 +557,20 @@ describe Card::Set::Type::File do
     "public/files/~#{subject.id}/#{subject.last_action_id}.txt"
   end
 
-  let(:directory) { "philipp-test" }
+  let(:directory) { "deckodev-test" }
+
+  # expects access keys in card/spec/support/buckets_credentials.yml for the
+  # bucket defined in `directory` in the following format:
+  # aws:
+  #   provider: AWS
+  #   aws_access_key_id: ...
+  #   aws_secret_access_key: ...
+  #   region: eu-central-1
 
   def storage_config type=:local
     Cardio.config.file_storage = type
-    Wagn.config.file_buckets = {
+    # config.file_default_bucket
+    Decko.config.file_buckets = {
       test_bucket: {
         provider: "fog/aws",
         credentials: bucket_credentials(:aws),
