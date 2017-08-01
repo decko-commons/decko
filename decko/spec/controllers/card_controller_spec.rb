@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe CardController do
+describe CardController, type: :controller do
   routes { Decko::Engine.routes }
 
   include Capybara::DSL
@@ -63,11 +63,11 @@ describe CardController do
     #  maybe think about refactoring to use mocks etc. to reduce
     #  test dependencies.
     it "creates cards" do
-      post :create, card: {
+      post :create, params: { card: {
         name: "NewCardFoo",
         type: "Basic",
         content: "Bananas"
-      }
+      } }
       assert_response 302
       c = Card["NewCardFoo"]
       expect(c.type_code).to eq(:basic)
@@ -75,18 +75,18 @@ describe CardController do
     end
 
     it "handles permission denials" do
-      post :create, card: {
-        name: "LackPerms",
-        type: "Html"
-      }
+      post :create, params: { card: { name: "LackPerms", type: "Html" } }
       assert_response 403
       expect(Card["LackPerms"]).to be_nil
     end
 
     # no controller-specific handling.  move test elsewhere
     it "creates cardtype cards" do
-      xhr :post, :create,
-          card: { "content" => "test", type: "Cardtype", name: "Editor" }
+      post :create,
+           xhr: true,
+           params: { card: {
+             "content" => "test", type: "Cardtype", name: "Editor"
+           } }
       expect(assigns["card"]).not_to be_nil
       assert_response 200
       c = Card["Editor"]
@@ -98,9 +98,9 @@ describe CardController do
       @c = Card.create! name: "Problem", content: "boof"
       @c.delete!
       post :create,
-           card: {
+           params: { card: {
              "name" => "Problem", "type" => "Phrase", "content" => "noof"
-           }
+           } }
       assert_response 302
       c = Card["Problem"]
       expect(c.type_code).to eq(:phrase)
@@ -108,25 +108,26 @@ describe CardController do
 
     context "multi-create" do
       it "catches missing name error" do
-        post :create, "card" => {
+        post :create, params: { "card" => {
           "name" => "",
           "type" => "Fruit",
           "subcards" => { "+text" => { "content" => "<p>abraid</p>" } }
-        }, "view" => "open"
+        }, "view" => "open" }
         assert_response 422
         expect(assigns["card"].errors[:name].first).to eq("can't be blank")
       end
 
       it "creates card with subcards" do
         login_as "joe_admin"
-        xhr :post, :create, success: "REDIRECT: /", card: {
+        $stop = true
+        post :create, xhr: true, params: { success: "REDIRECT: /", card: {
           name: "Gala",
           type: "Fruit",
           subcards: {
             "+kind"  => { content: "apple" },
             "+color" => { type: "Phrase", content: "red"  }
           }
-        }
+        } }
         assert_response 200
         expect(Card["Gala"]).not_to be_nil
         expect(Card["Gala+kind"].content).to eq("apple")
@@ -135,14 +136,14 @@ describe CardController do
     end
 
     it "renders errors if create fails" do
-      post :create, "card" => { "name" => "Joe User" }
+      post :create, params: { card: { name: "Joe User" } }
       assert_response 422
     end
 
     it "redirects to thanks if present" do
       login_as "joe_admin"
-      xhr :post, :create, success: "REDIRECT: /thank_you",
-                          card: { "name" => "Wombly" }
+      post :create, xhr: true, params: { success: "REDIRECT: /thank_you",
+                          card: { "name" => "Wombly" } }
       assert_response 200
       json = JSON.parse response.body
       expect(json["redirect"]).to match(/^http.*\/thank_you$/)
@@ -158,16 +159,16 @@ describe CardController do
     it "redirects to previous" do
       # Fruits (from shared_data) are anon creatable but not readable
       login_as :anonymous
-      post :create, { success: "REDIRECT: *previous",
-                      "card" => { "type" => "Fruit", name: "papaya" } },
-           history: ["/blam"]
+      post :create, params: { success: "REDIRECT: *previous",
+                              "card" => { "type" => "Fruit", name: "papaya" }},
+                              session: { history: ["/blam"] }
       assert_redirected_to "/blam"
     end
   end
 
   describe "#read" do
     it "works for basic request" do
-      get :read, id: "Sample_Basic"
+      get :read, params: { id: "Sample_Basic" }
       expect(response.body.match(/\<body[^>]*\>/im)).to be_truthy
       # have_selector broke in commit 8d3bf2380eb8197410e962304c5e640fced684b9,
       # presumably because of a gem (like capybara?)
@@ -178,17 +179,17 @@ describe CardController do
 
     it "handles nonexistent card with create permission" do
       login_as "joe_user"
-      get :read, id: "Sample_Fako"
+      get :read, params: { id: "Sample_Fako" }
       assert_response :success
     end
 
     it "handles nonexistent card without create permissions" do
-      get :read, id: "Sample_Fako"
+      get :read, params: { id: "Sample_Fako" }
       assert_response 404
     end
 
     it "handles nonexistent card ids" do
-      get :read, id: "~9999999"
+      get :read, params: { id: "~9999999" }
       assert_response 404
     end
 
@@ -196,9 +197,9 @@ describe CardController do
       Card::Auth.as_bot do
         Card.create! name: "Strawberry", type: "Fruit" # only admin can read
       end
-      get :read, id: "Strawberry"
+      get :read, params: { id: "Strawberry" }
       assert_response 403
-      get :read, id: "Strawberry", format: "txt"
+      get :read, params: { id: "Strawberry", format: "txt" }
       assert_response 403
     end
 
@@ -208,7 +209,7 @@ describe CardController do
       end
 
       it "works on index" do
-        get :read, view: "new"
+        get :read, params: { view: "new" }
         expect(assigns["card"].name).to eq("")
         assert_response :success, "response should succeed"
         assert_equal Card::BasicID, assigns["card"].type_id,
@@ -216,7 +217,7 @@ describe CardController do
       end
 
       it "new with name" do
-        post :read, card: { name: "BananaBread" }, view: "new"
+        post :read, params: { card: { name: "BananaBread" }, view: "new" }
         assert_response :success, "response should succeed"
         assert_equal "BananaBread", assigns["card"].name,
                      "@card.name should == BananaBread"
@@ -254,9 +255,9 @@ describe CardController do
       end
 
       it "creates missing machine output file" do
-        args = { id: @all_style.machine_output_card.name,
+        args = { params: { id: @all_style.machine_output_card.name,
                  format: "css",
-                 explicit_file: true }
+                 explicit_file: true } }
         get :read, args
         # output_card = Card[:all, :style, :machine_output]
         expect(response).to redirect_to(@all_style.machine_output_url)
@@ -275,17 +276,17 @@ describe CardController do
       end
 
       it "handles image with no read permission" do
-        get :read, id: "mao2"
+        get :read, params: { id: "mao2" }
         assert_response 403, "denies html card view"
-        get :read, id: "mao2", format: "jpg"
+        get :read, params: { id: "mao2", format: "jpg" }
         assert_response 403, "denies simple file view"
       end
 
       it "handles image with read permission" do
         login_as "joe_admin"
-        get :read, id: "mao2"
+        get :read, params: { id: "mao2" }
         assert_response 200
-        get :read, id: "mao2", format: "jpg"
+        get :read, params: { id: "mao2", format: "jpg" }
         assert_response 200
       end
     end
@@ -319,8 +320,8 @@ describe CardController do
 
     describe "#update" do
       it "works" do
-        xhr :post, :update, id: "~#{@simple_card.id}",
-                            card: { content: "brand new content" }
+        post :update, xhr: true, params: { id: "~#{@simple_card.id}",
+                            card: { content: "brand new content" } }
         assert_response :success, "edited card"
         assert_equal "brand new content", Card["Sample Basic"].content,
                      "content was updated"

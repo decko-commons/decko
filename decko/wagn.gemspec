@@ -23,10 +23,10 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
-  s.required_ruby_version = ">= 1.9.3"
+  s.required_ruby_version = ">= 2.2.2"
 
   [
-    ["rails", "~> 4.2"],
+    ["rails", "~> 5.1"],
     ["card",   version]
   ].each do |dep|
     s.add_runtime_dependency(*dep)

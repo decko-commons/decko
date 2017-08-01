@@ -209,8 +209,14 @@ module ClassMethods
   end
 
   def deep_opts args
-    opts = (args[:card] || {}).clone
-    # clone so that original params remain unaltered.  need deeper clone?
+    opts =
+      # clone doesn't work for Parameters
+      if args[:card].respond_to?(:to_unsafe_h)
+        args[:card].to_unsafe_h
+      else
+        (args[:card] || {}).clone
+      end
+          # clone so that original params remain unaltered.  need deeper clone?
     opts[:type] ||= args[:type] if args[:type]
     # for /new/:type shortcut.  we should handle in routing and deprecate this
     opts[:name] ||= Card::Name.url_key_to_standard(args[:id])
@@ -366,7 +372,7 @@ def expire_views
 end
 
 def expire_names cache
-  [name, name_was].each do |name_version|
+  [name, (name_before_last_save || name_was)].each do |name_version|
     expire_name name_version, cache
   end
 end

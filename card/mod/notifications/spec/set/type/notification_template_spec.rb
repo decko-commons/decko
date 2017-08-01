@@ -11,8 +11,9 @@ describe Card::Set::Type::NotificationTemplate do
 
   def notify
     Card::Auth.as_bot do
-      xhr :post, :update, id: "~#{Card['A'].id}",
-                          card: { "content" => "change" }
+      post :update, params: { id: "~#{Card['A'].id}",
+                              card: { "content" => "change" } },
+                    xhr: true
     end
   end
 

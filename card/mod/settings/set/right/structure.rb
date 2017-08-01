@@ -3,13 +3,12 @@ format :rss do
     [card]
   end
 end
-
 format :html do
   include AddHelp::HtmlFormat
 end
 
-event :update_structurees_references, :integrate,
-      when: proc { |c| c.db_content_changed? || c.action == :delete } do
+event :update_structurees_references, :integrate do
+      #mwhen: proc { |c| c.db_content_changed? || c.action == :delete } do
   return unless (query = structuree_query)
   Auth.as_bot do
     query.run.each(&:update_references_out)

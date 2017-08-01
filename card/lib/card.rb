@@ -12,7 +12,7 @@ Object.const_remove_if_defined :Card
 #
 # It assumes that you've already read the introductory text
 # in {file:README_Developers.rdoc}.
-class Card < ActiveRecord::Base
+class Card < ApplicationRecord
   # attributes that ActiveJob can handle
   def self.serializable_attr_accessor *args
     self.serializable_attributes = args
@@ -56,7 +56,8 @@ class Card < ActiveRecord::Base
     :silent_change,               # and this probably too
     :remove_rule_stash,
     :last_action_id_before_edit,
-    :only_storage_phase           # used to save subcards
+    :only_storage_phase,           # used to save subcards
+    :changed_attributes
   )
 
   def serializable_attributes

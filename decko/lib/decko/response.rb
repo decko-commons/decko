@@ -39,7 +39,7 @@ module Decko
         self.params = success.params
       else
         # need tests. insure we get slot, main...
-        params.merge! success.params
+        self.params = params.merge success.params
       end
     end
 

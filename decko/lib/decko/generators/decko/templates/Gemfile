@@ -24,6 +24,7 @@ gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.versio
 
 <% if options['mod-dev'] || options['core-dev'] -%>
 group :test do
+  gem 'rails-controller-testing'
   gem 'rspec', '~> 3.4'
   gem 'rspec-rails'         # behavior-driven-development suite
   gem 'spork', '>=0.9'
@@ -38,7 +39,6 @@ group :test, :development do
   gem 'jasmine-jquery-rails'
   gem 'sprockets' # just so above works
   gem 'phantomjs', '1.9.7.1' #locked because 1.9.8.0 is breaking
-  gem 'test_after_commit'
   gem 'colorize'
   gem 'delayed_job_active_record', '~> 4.1'
 
@@ -65,9 +65,9 @@ end
 
 <% if options['core-dev'] -%>
 group :assets do
-  gem 'jquery-rails',  '~> 3.1'                # main js framework, along with rails-specific unobtrusive lib
-  gem 'jquery-ui-rails',  '~> 4.2'             # main js framework, along with rails-specific unobtrusive lib
-  gem "jquery_mobile_rails", "~> 1.4.1"
+  gem 'jquery-rails',  '~> 4.3'                # main js framework, along with rails-specific unobtrusive lib
+  gem 'jquery-ui-rails',  '~> 6.0'             # main js framework, along with rails-specific unobtrusive lib
+  gem "jquery_mobile_rails", "~> 1.4.5"
 
   gem 'tinymce-rails', '~> 3.4'                # wysiwyg editor
 end
@@ -75,7 +75,7 @@ end
 group :test do
   gem 'fog'
   gem 'fog-aws'
-  gem 'rspec-html-matchers', '0.8.1' # 0.9 requires ruby >= 2.1
+  gem 'rspec-html-matchers', '0.9.1'
   gem 'rr' #, '=1.0.0'
 	gem 'simplecov', '~> 0.7.1', :require => false  #test coverage
   gem 'codeclimate-test-reporter', require: nil

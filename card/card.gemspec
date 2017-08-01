@@ -40,17 +40,17 @@ Gem::Specification.new do |s|
     ["uuid",                       "~> 2.3"],
     ["carrierwave",                "1.1.0"],
     ["htmlentities",               "~> 4.3"],
-    ["mini_magick",                "~> 4.2"],
+    ["mini_magick",                "~> 4.2"], # 4.8.0
     # recaptcha 0.4.0 is last version that doesn't require ruby 2.0
-    ["recaptcha",                  "~> 0.4.0"],
+    ["recaptcha",                  "~> 0.4.0"],  # 4.3.1
     ["coderay",                    "~> 1.1"],
     ["sass",                       "~> 3.4"],
     ["coffee-script",              "~> 2.4"],
     ["uglifier",                   "~> 3.2"],
-    ["nokogiri",                   "~> 1.6.8"], # 1.7 needs ruby 2.1
+    ["nokogiri",                   "~> 1.6.8"], # 1.8    1.7 needs ruby 2.1
     ["haml",                       "~> 5.0"],
-    ["kaminari",                   "~> 0.16"], # 1.0 needs rails 5
-    ["bootstrap-kaminari-views",   "~> 0"],
+    ["kaminari",                   "~> 1.0"],
+    ["bootstrap4-kaminari-views",  "~> 1.0"],
     ["diff-lcs",                   "~> 1.3"],
     # mime-types can be removed if we drop support for ruby 1.9.3
     # mime-types 3.0 uses mime-types-data which isn't compatible with 1.9.3
