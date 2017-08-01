@@ -161,7 +161,7 @@ format :html do
     intrusive_acts = card.intrusive_acts
                          .page(page_from_params).per(ACTS_PER_PAGE)
     wrap_with :span, class: "slotter" do
-      paginate intrusive_acts, remote: true, theme: "twitter-bootstrap-3"
+      paginate intrusive_acts, remote: true, theme: "twitter-bootstrap-4"
     end
   end
 

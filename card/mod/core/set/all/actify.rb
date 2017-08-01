@@ -128,3 +128,11 @@ end
 def success
   Env.success(cardname)
 end
+
+def name_before_act
+  name_before_last_save || name_was
+end
+
+def db_content_before_act
+  db_content_before_last_save || db_content_was
+end

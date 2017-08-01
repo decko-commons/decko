@@ -106,7 +106,7 @@ def left *args
   case
   when simple?    then nil
   when @superleft then @superleft
-  when name_changed? && name.to_name.trunk_name.key == name_was.to_name.key
+  when name_changed? && name.to_name.trunk_name.key == name_before_act.to_name.key
     nil # prevent recursion when, eg, renaming A+B to A+B+C
   else
     Card.fetch cardname.left, *args

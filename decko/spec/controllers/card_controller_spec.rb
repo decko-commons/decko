@@ -151,8 +151,8 @@ describe CardController, type: :controller do
 
     it "redirects to card if thanks is blank" do
       login_as "joe_admin"
-      post :create, success: "REDIRECT: _self",
-                    "card" => { "name" => "Joe+boop" }
+      post :create, params: { success: "REDIRECT: _self",
+                              card: { name: "Joe+boop" } }
       assert_redirected_to "/Joe+boop"
     end
 
@@ -160,8 +160,8 @@ describe CardController, type: :controller do
       # Fruits (from shared_data) are anon creatable but not readable
       login_as :anonymous
       post :create, params: { success: "REDIRECT: *previous",
-                              "card" => { "type" => "Fruit", name: "papaya" }},
-                              session: { history: ["/blam"] }
+                              "card" => { "type" => "Fruit", name: "papaya" } },
+                    session: { history: ["/blam"] }
       assert_redirected_to "/blam"
     end
   end
@@ -169,7 +169,7 @@ describe CardController, type: :controller do
   describe "#read" do
     it "works for basic request" do
       get :read, params: { id: "Sample_Basic" }
-      expect(response.body.match(/\<body[^>]*\>/im)).to be_truthy
+      expect(response.body).to match(/\<body[^>]*\>/im)
       # have_selector broke in commit 8d3bf2380eb8197410e962304c5e640fced684b9,
       # presumably because of a gem (like capybara?)
       # response.should have_selector('body')
@@ -224,13 +224,13 @@ describe CardController, type: :controller do
       end
 
       it "new with existing name" do
-        get :read, card: { name: "A" }, view: "new"
+        get :read, params: { card: { name: "A" }, view: "new" }
         # really?? how come this is ok?
         assert_response :success, "response should succeed"
       end
 
       it "new with type_code" do
-        post :read, card: { type: "Date" }, view: "new"
+        post :read, params: { card: { type: "Date" }, view: "new" }
         assert_response :success, "response should succeed"
         assert_equal Card::DateID, assigns["card"].type_id,
                      "@card type should == Date"
@@ -238,12 +238,13 @@ describe CardController, type: :controller do
 
       it "new should work for creatable nonviewable cardtype" do
         login_as :anonymous
-        get :read, type: "Fruit", view: "new"
+        get :read, params: { type: "Fruit", view: "new" }
         assert_response :success
       end
 
       it "uses card params name over id in new cards" do
-        get :read, id: "my_life", card: { name: "My LIFE" }, view: "new"
+        get :read, params: { id: "my_life",
+                             card: { name: "My LIFE" }, view: "new" }
         expect(assigns["card"].name).to eq("My LIFE")
       end
     end
@@ -306,8 +307,7 @@ describe CardController, type: :controller do
     end
 
     it "denies access to other directories" do
-      args = { filename: "/../../Gemfile" }
-      get :asset, args
+      get :asset, params: { filename: "/../../Gemfile" }
       expect(response.status).to eq(404)
     end
   end
@@ -329,17 +329,22 @@ describe CardController, type: :controller do
 
       it "rename without update references should work" do
         f = Card.create! type: "Cardtype", name: "Apple"
-        xhr :post, :update, id: "~#{f.id}", card: {
-          name: "Newt",
-          update_referers: "false"
-        }
+        post :update, xhr: true,
+                      params: {
+                        id: "~#{f.id}",
+                        card: { name: "Newt", update_referers: "false" }
+                      }
         expect(assigns["card"].errors.empty?).not_to be_nil
         assert_response :success
         expect(Card["Newt"]).not_to be_nil
       end
 
       it "update type_code" do
-        xhr :post, :update, id: "~#{@simple_card.id}", card: { type: "Date" }
+        post :update, xhr: true,
+                      params: {
+                        id: "~#{@simple_card.id}",
+                        card: { type: "Date" }
+                      }
         assert_response :success, "changed card type"
         expect(Card["Sample Basic"].type_code).to eq(:date)
       end
@@ -348,7 +353,7 @@ describe CardController, type: :controller do
     describe "delete" do
       it "works" do
         c = Card.create(name: "Boo", content: "booya")
-        post :delete, id: "~#{c.id}"
+        post :delete, params: { id: "~#{c.id}" }
         assert_response :redirect
         expect(Card["Boo"]).to eq(nil)
       end
@@ -361,14 +366,14 @@ describe CardController, type: :controller do
           t2 = Card.create! name: "Testable1+bandana", content: "world"
         end
 
-        get :read, id: t1.key
-        get :read, id: t2.key
+        get :read, params: { id: t1.key }
+        get :read, params: { id: t2.key }
 
-        post :delete, id: "~" + t2.id.to_s
+        post :delete, params: { id: "~" + t2.id.to_s }
         assert_nil Card[t2.name]
         assert_redirected_to "/#{t1.name}"
 
-        post :delete, id: "~" + t1.id.to_s
+        post :delete, params: { id: "~" + t1.id.to_s }
         assert_redirected_to "/"
         assert_nil Card[t1.name]
       end
@@ -379,8 +384,10 @@ describe CardController, type: :controller do
         Card.create name: "basicname+*self+*comment",
                     content: "[[Anyone Signed In]]"
       end
-      post :update, id: "basicname",
-                    card: { comment: " and more\n  \nsome lines\n\n" }
+      post :update, params: {
+                      id: "basicname",
+                      card: { comment: " and more\n  \nsome lines\n\n" }
+                    }
       cont = Card["basicname"].content
       expect(cont).to match(/basiccontent/)
       expect(cont).to match(/some lines/)

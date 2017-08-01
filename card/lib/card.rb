@@ -19,6 +19,15 @@ class Card < ApplicationRecord
     attr_accessor(*args)
   end
 
+  # include ActiveModel::Dirty
+  #
+  # define_attribute_methods :db_content
+  #
+  # def db_content= value
+  #   db_content_will_change!
+  #   super
+  # end
+
   require_dependency "active_record/connection_adapters_ext"
   require_dependency "card/codename"
   require_dependency "card/query"
