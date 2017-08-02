@@ -18,9 +18,9 @@ Mods (short for modules, modifications, modicums, modesty, whatever...) are the 
 
 Documentation is still sparse, but you can get a sense for how to start by reading lib/card/set.rb.
 
-To install in a mod-developer friendly mode, try `wagn new mydeckname --mod-dev` (still uses standard gem installation).
+To install in a mod-developer friendly mode, try `decko new mydeckname --mod-dev` (still uses standard gem installation).
 
 ==Developing the Core
 
-To install in a core-developer friendly mode, try `wagn new mydeckname --core-dev`.  Doing so will let you run all core specs using `wagn rspec`.
+To install in a core-developer friendly mode, try `decko new mydeckname --core-dev`.  Doing so will let you run all core specs using `decko rspec`.
 

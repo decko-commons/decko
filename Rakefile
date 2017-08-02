@@ -29,7 +29,7 @@ task :cp_tmpsets do
     rm -rf set*
     cp -r ../sites/core-dev/tmp/set* .
     git commit -a -m 'updated from core-dev'
-    git push; git push wagn
+    git push; git push decko
     cd ../gem
     git submodule update --remote
   )
