@@ -1,11 +1,12 @@
 task :push_gems do
-  %w(card wagn).each do |gem|
+  %w(card decko).each do |gem|
     system %(
       cd #{gem}
       rm *.gem
       gem build #{gem}.gemspec
-      gem push #{gem}-#{version}.gem
     )
+    #gem push #{gem}-#{version}.gem
+
   end
 end
 
@@ -15,8 +16,8 @@ end
 
 task :release do
   system %(
-    git tag -a v#{version} -m "Wagn Version #{version}"
-    git push --tags wagn
+    git tag -a v#{version} -m "Decko Version #{version}"
+    git push --tags decko
   )
 end
 

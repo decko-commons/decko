@@ -1,18 +1,27 @@
 # -*- encoding : utf-8 -*-
 
+vraw = File.open(File.expand_path("../VERSION", __FILE__)).read.chomp
+
+# Because card was already at 1.21 when wagn was renamed to decko and decko's
+# versioning went back to 0.X, card's versioning is now a little funny.
+# For now decko 0.X.Y will map to card 1.(90+X).Y, and decko 1.X.Y will map to
+# card 1.(100+X).Y. Things will get much simpler after 2.0, when decko X.Y.Z
+# will map to card X.Y.Z.
+
 Gem::Specification.new do |s|
   s.name = "card"
-  s.version = File.open(File.expand_path("../VERSION", __FILE__)).read.chomp
+  s.version = version
+
   s.authors =
     ["Ethan McCutchen", "Lewis Hoffman", "Gerry Gleason", "Philipp Kühl"]
-  s.email = ["info@wagn.org"]
+  s.email = ["info@decko.org"]
 
-  s.summary       = "a surprisingly simple content nesting engine"
+  s.summary       = "a simple engine for emergent data structures"
   s.description   =
     "Cards are wiki-inspired data atoms." \
-    '"Cardists" use links, nests, types, patterned names, queries, views, ' \
+    '"Carditects" use links, nests, types, patterned names, queries, views, ' \
     "events, and rules to create rich structures."
-  s.homepage      = "http://wagn.org"
+  s.homepage      = "http://decko.org"
   s.licenses      = ["GPL-2.0", "GPL-3.0"]
 
   s.files         = `git ls-files`.split $INPUT_RECORD_SEPARATOR
@@ -47,7 +56,7 @@ Gem::Specification.new do |s|
     ["sass",                       "~> 3.4"],
     ["coffee-script",              "~> 2.4"],
     ["uglifier",                   "~> 3.2"],
-    ["nokogiri",                   "~> 1.6.8"], # 1.7 needs ruby 2.1
+    ["nokogiri",                   "1.6.8"], # 1.7 needs ruby 2.1
     ["haml",                       "~> 5.0"],
     ["kaminari",                   "~> 0.16"], # 1.0 needs rails 5
     ["bootstrap-kaminari-views",   "~> 0"],
