@@ -75,7 +75,7 @@ end
 # delete references from this card
 def delete_references_out
   raise "id required to delete references" if id.nil?
-  Card::Reference.delete_all referer_id: id
+  Card::Reference.where(referer_id: id).delete_all
 end
 
 # interpretation phase helps to prevent duplicate references
@@ -163,7 +163,7 @@ event :update_referer_content, :finalize,
     family_referers.each do |card|
       next if card == self || card.structure
       card = card.refresh
-      card.db_content = card.replace_reference_syntax name_was, name
+      card.db_content = card.replace_reference_syntax name_before_last_save, name
       card.save!
     end
   end

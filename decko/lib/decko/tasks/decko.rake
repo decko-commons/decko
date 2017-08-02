@@ -72,10 +72,10 @@ namespace :decko do
   task :update do
     ENV["NO_RAILS_CACHE"] = "true"
     # system 'bundle update'
-    if Wagn.paths["tmp"].existent
-      FileUtils.rm_rf Wagn.paths["tmp"].first, secure: true
+    if Decko.paths["tmp"].existent
+      FileUtils.rm_rf Decko.paths["tmp"].first, secure: true
     end
-    Dir.mkdir Wagn.paths["tmp"].first
+    Dir.mkdir Decko.paths["tmp"].first
     Rake::Task["decko:migrate"].invoke
     # FIXME: remove tmp dir / clear cache
     puts "set symlink for assets"
@@ -91,7 +91,7 @@ namespace :decko do
   desc "set symlink for assets"
   task :update_assets_symlink do
     assets_path = File.join(Rails.public_path, "assets")
-    if Rails.root.to_s != Wagn.gem_root && !File.exist?(assets_path)
+    if Rails.root.to_s != Decko.gem_root && !File.exist?(assets_path)
       FileUtils.rm assets_path if File.symlink? assets_path
       FileUtils.ln_s(Decko::Engine.paths["gem-assets"].first, assets_path)
     end

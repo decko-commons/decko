@@ -53,12 +53,13 @@ format :html do
 
   def head_javascript
     output [
-      wagn_variables,
+      decko_variables,
       script_rule,
       ie9,
       mod_configs,
       trigger_slot_ready,
-      google_analytics
+      google_analytics,
+      recaptcha
     ]
   end
 

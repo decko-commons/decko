@@ -65,11 +65,11 @@ describe Bootstrap::Component::Form do
     end
 
     it "creates form" do
-      assert_view_select bsform, 'form[class="form-horizontal"]' do
-        assert_select 'div[class="form-group"]' do
-          assert_select 'label[for="theemail"', text: "Email Address"
-          assert_select 'div[class="col-sm-10"]' do
-            assert_select 'input[type="email",id="theemail",class="form-control"]'
+      expect(bsform).to have_tag 'form.form-horizontal' do
+        with_tag 'div.form-group' do
+          with_tag 'label[for="theemail"]', text: /Email Address/
+          with_tag 'div.col-sm-10' do
+            with_tag 'input.form-control#theemail[type="email"]'
           end
         end
       end

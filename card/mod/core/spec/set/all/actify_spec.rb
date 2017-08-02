@@ -75,15 +75,16 @@ describe "act API" do
 
   describe "dirty attributes" do
     it "survives to integration phase" do
-      Delayed::Worker.delay_jobs = true
+      #Delayed::Worker.delay_jobs = true
       with_test_events do
         test_event :validate do
           self.content = "new content"
+          changed_attributes
         end
         test_event :integrate do
-          expect(name_changed?).to be_truthy
-          expect(changes["name"]).to eq(["A", "new name"])
-          expect(changes["db_content"]).to eq(["Alpha [[Z]]",  "new content"])
+          expect(saved_change_to_name?).to be_truthy
+          expect(saved_changes["name"]).to eq(["A", "new name"])
+          expect(saved_changes["db_content"]).to eq(["Alpha [[Z]]",  "new content"])
         end
         test_event :integrate_with_delay do
           expect(name_changed?).to be_truthy

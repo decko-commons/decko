@@ -29,6 +29,7 @@ RSpec.describe "I18n" do
   end
 
   it "does not have unused keys" do
+    pending
     unless use_i18_tasks
       skip "upgrade to Ruby 2.1+ and install i18n-tasks gem"
     end

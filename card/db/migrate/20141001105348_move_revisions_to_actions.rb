@@ -1,5 +1,5 @@
 class MoveRevisionsToActions < ActiveRecord::Migration
-  class TmpRevision < ActiveRecord::Base
+  class TmpRevision < ApplicationRecord
     belongs_to :tmp_card, foreign_key: :card_id
     self.table_name = "card_revisions"
     def self.delete_cardless
@@ -8,16 +8,16 @@ class MoveRevisionsToActions < ActiveRecord::Migration
       TmpRevision.joins(left_join).where("cards.id IS NULL").delete_all
     end
   end
-  class TmpAct < ActiveRecord::Base
+  class TmpAct < ApplicationRecord
     self.table_name = "card_acts"
   end
-  class TmpAction < ActiveRecord::Base
+  class TmpAction < ApplicationRecord
     self.table_name = "card_actions"
   end
-  class TmpChange < ActiveRecord::Base
+  class TmpChange < ApplicationRecord
     self.table_name = "card_changes"
   end
-  class TmpCard < ActiveRecord::Base
+  class TmpCard < ApplicationRecord
     belongs_to :tmp_revision, foreign_key: :current_revision_id
     has_many :tmp_actions, foreign_key: :card_id
     self.table_name = "cards"

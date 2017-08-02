@@ -210,7 +210,7 @@ describe Card::Set::All::History do
           expect(@plus_action.action_type).to eq(:create)
         end
         it "content change" do
-          expect(@plus_action.card_changes(true)
+          expect(@plus_action.card_changes.reload
             .find_by_field_name(:db_content).value).to eq(content)
         end
       end

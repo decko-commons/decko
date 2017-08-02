@@ -3,7 +3,6 @@ format :rss do
     [card]
   end
 end
-
 format :html do
   include AddHelp::HtmlFormat
 end

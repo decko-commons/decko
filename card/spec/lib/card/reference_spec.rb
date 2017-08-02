@@ -27,8 +27,7 @@ describe Card::Reference do
       tmpl.content = "{{+monkey}} {{+banana}} {{+fruit}}"
       tmpl.save!
       Card["JoeForm"].format.render(:core)
-      assert_equal ["joe_form+banana", "joe_form+fruit", "joe_form+monkey"],
-                   Card["JoeForm"].includees.map(&:key).sort
+      expect(Card["JoeForm"].includees.map(&:key)).to contain_exactly("joe_form+banana", "joe_form+fruit", "joe_form+monkey")
     end
   end
 

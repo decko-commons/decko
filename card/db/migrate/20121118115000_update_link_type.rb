@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class UpdateLinkType < ActiveRecord::Migration
-  class TmpReference < ActiveRecord::Base
+  class TmpReference < ApplicationRecord
     self.table_name = "card_references"
   end
 

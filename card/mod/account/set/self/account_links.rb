@@ -41,7 +41,7 @@ format :html do
 
   def account_link_text purpose
     voo.title ||
-      I18n.t(purpose, scope: "mod.standard.set.self.account_links")
+      I18n.t(purpose, scope: "mod.account.set.self.account_links")
   end
 
   view :raw do

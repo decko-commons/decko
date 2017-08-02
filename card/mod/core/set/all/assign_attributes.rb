@@ -26,12 +26,14 @@ def extract_subcard_args! args
   args.keys.each do |key|
     subcards[key] = args.delete(key) if key =~ /^\+/
   end
+  subcards = subcards.to_unsafe_h if subcards.respond_to?(:to_unsafe_h)
   subcards
 end
 
 protected
 
 def prepare_assignment_params args
+  args = args.to_unsafe_h if args.respond_to?(:to_unsafe_h)
   params = ActionController::Parameters.new(args)
   params.permit!
   if params[:db_content].is_a? Array

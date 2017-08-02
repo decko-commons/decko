@@ -40,7 +40,6 @@ Decko.application.class.configure do
   # See everything in the log (default is :info)
   config.log_level = :debug
 
-  config.active_record.raise_in_transactional_callbacks = true
 
   # config.performance_logger = {
   #     methods:   [:event, :search, :fetch, :view],  # choose methods to log

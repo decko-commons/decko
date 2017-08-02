@@ -10,7 +10,7 @@ format :html do
 
   # FIXME: need a generic solution for this
   view :title do
-    voo.title ||= I18n.t(:sign_in_title, scope: "mod.standard.set.self.signin")
+    voo.title ||= I18n.t(:sign_in_title, scope: "mod.account.set.self.signin")
     super()
   end
 
@@ -48,17 +48,17 @@ format :html do
   end
 
   def signin_button
-    text = I18n.t :sign_in, scope: "mod.standard.set.self.signin"
+    text = I18n.t :sign_in, scope: "mod.account.set.self.signin"
     button_tag text, situation: "primary"
   end
 
   def signup_link
-    text = I18n.t :or_sign_up, scope: "mod.standard.set.self.signin"
+    text = I18n.t :or_sign_up, scope: "mod.account.set.self.signin"
     subformat(Card[:account_links]).render :sign_up, title: text
   end
 
   def reset_password_link
-    text = I18n.t :reset_password, scope: "mod.standard.set.self.signin"
+    text = I18n.t :reset_password, scope: "mod.account.set.self.signin"
     reset_link = link_to_view :edit, text, path: { slot: { hide: :toolbar } }
     # FIXME: inline styling
     raw("<div style='float:right'>#{reset_link}</div>")
@@ -81,7 +81,7 @@ format :html do
   end
 
   view :edit_buttons do
-    text = I18n.t :reset_my_password, scope: "mod.standard.set.self.signin"
+    text = I18n.t :reset_my_password, scope: "mod.account.set.self.signin"
     button_tag text, situation: "primary"
   end
 
@@ -101,7 +101,7 @@ format :html do
 
   view :reset_password_success do
     # 'Check your email for a link to reset your password'
-    frame { I18n.t(:check_email, scope: "mod.standard.set.self.signin") }
+    frame { I18n.t(:check_email, scope: "mod.account.set.self.signin") }
   end
 end
 
@@ -134,7 +134,7 @@ def signin_error_message account
 end
 
 def i18n_signin key
-  I18n.t key, scope: "mod.standard.set.self.signin"
+  I18n.t key, scope: "mod.account.set.self.signin"
 end
 
 event :signin_success, after: :signin do
