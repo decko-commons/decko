@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
     ["htmlentities",               "~> 4.3"],
     ["mini_magick",                "~> 4.2"], # 4.8.0
     # recaptcha 0.4.0 is last version that doesn't require ruby 2.0
-    ["recaptcha",                  "~> 0.4.0"],  # 4.3.1
+    ["recaptcha",                  "~> 4.3.1"],
     ["coderay",                    "~> 1.1"],
     ["sass",                       "~> 3.4"],
     ["coffee-script",              "~> 2.4"],

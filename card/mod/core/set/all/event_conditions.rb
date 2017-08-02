@@ -40,7 +40,7 @@ def single_changed_condition_applies? db_column
     when :type    then "type_id"
     else db_column.to_s
     end
-  @action != :delete && (send("#{db_column}_changed?") || send("saved_change_to_#{db_column}?"))
+  @action != :delete && (send("saved_change_to_#{db_column}?") || send("#{db_column}_changed?"))
 end
 
 def wrong_stage opts

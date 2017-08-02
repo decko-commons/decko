@@ -105,6 +105,7 @@ class Card
       end
 
       def edited_ago
+        return "" unless @act.acted_at
         "#{time_ago_in_words(@act.acted_at)} ago"
       end
 

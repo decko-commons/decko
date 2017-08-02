@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::EventConditions do
+describe Card::Set::All::EventConditions, "event" do
   let(:create_card) {Card.create!(name: "main card")}
   let(:create_card_with_subcards) do
     Card.create name: "main card",
@@ -10,7 +10,7 @@ describe Card::Set::All::EventConditions do
                 }
   end
 
-  describe "changed condition" do
+  context "restricted to changed content" do
     STAGES = [:validate, :store, :finalize, :integrate]
 
     def add_to_log entry
@@ -25,22 +25,20 @@ describe Card::Set::All::EventConditions do
       @log = []
     end
 
-    context "changed condition is fulfilled" do
-      it "executes event" do
-        with_test_events do
-          STAGES.each do |stage|
-            test_event stage, on: :update, changed: :content, for: "A" do
-              # can't access instance variables here but methods are fine
-              add_to_log stage
-            end
+    it "is executed when content changed" do
+      with_test_events do
+        STAGES.each do |stage|
+          test_event stage, on: :update, changed: :content, for: "A" do
+            # can't access instance variables here but methods are fine
+            add_to_log stage
           end
-          change_content
-          expect(@log).to contain_exactly(*STAGES)
         end
+        change_content
+        expect(@log).to contain_exactly(*STAGES)
       end
     end
 
-    specify "content change is accessible" do
+    specify "content change is accessible in all stages" do
       with_test_events do
         STAGES.each do |stage|
           test_event stage, on: :update, changed: :content, for: "A" do
