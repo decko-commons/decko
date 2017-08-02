@@ -10,7 +10,7 @@ stage_method :dropped_item_names do
 end
 
 stage_method :added_item_names do
-  old_items = item_names content: db_content_was
+  old_items = item_names content: db_content_before_act
   item_names - old_items
 end
 
