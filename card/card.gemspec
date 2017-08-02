@@ -1,7 +1,10 @@
 # -*- encoding : utf-8 -*-
 
 vraw = File.open(File.expand_path("../VERSION", __FILE__)).read.chomp
-
+vbits = vraw.split('.').map &:to_i
+vplus = { 0 => 90, 1 => 100 } # can remove and hardcode after 1.0
+vminor = vplus[ vbits[0] ] + vbits[1]
+version = [1, vminor, vbits[2]].compact.map(&:to_s).join "."
 # Because card was already at 1.21 when wagn was renamed to decko and decko's
 # versioning went back to 0.X, card's versioning is now a little funny.
 # For now decko 0.X.Y will map to card 1.(90+X).Y, and decko 1.X.Y will map to
