@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require_dependency "card/env"
 
-require "smart_name"
+require "cardname"
 
 class Card
   class Name
-    class ViewName < SmartName
+    class ViewName < Cardname
       @@name2viewnameobject = {}
 
       class << self

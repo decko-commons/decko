@@ -21,7 +21,7 @@ class UpdateKeys < Card::Migration::Core
     if walking_dead? key
       Card.where(id: id).delete_all
       # card wasn't reachable anyway
-      # (due to rails inflection update or smartname update)
+      # (due to rails inflection update or cardname update)
     else
       # example:
       # "Matthias Taxes" can be in the database with two keys:
