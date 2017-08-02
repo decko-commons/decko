@@ -4,8 +4,11 @@ task :push_gems do
       cd #{gem}
       rm *.gem
       gem build #{gem}.gemspec
-      gem push #{gem}-#{version}.gem
+      gem push #{gem}-*.gem
     )
+    # gem push #{gem}-#{version}.gem
+    # explicit version name is ultimately safer, but we need the wildcard
+    # version while card has weird (pre-2.0) versioning
   end
 end
 

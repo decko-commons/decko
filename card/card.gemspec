@@ -45,30 +45,59 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
-  s.required_ruby_version = ">= 2.0"
+  s.required_ruby_version = ">= 2.2.2"
 
   [
-    ["smartname",                  "0.5.1"],
-    ["uuid",                       "~> 2.3"],
-    ["carrierwave",                "1.1.0"],
-    ["htmlentities",               "~> 4.3"],
+    ["cardname",                   version],
+    ["haml",                       "~> 5.0"],
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # MOVE TO MODS?
+
+    # files and images
+    ["carrierwave",                "~> 1.1"],
     ["mini_magick",                "~> 4.2"],
+
+    # text formatting
+    ["htmlentities",               "~> 4.3"],
+
     # recaptcha 0.4.0 is last version that doesn't require ruby 2.0
-    ["recaptcha",                  "~> 0.4.0"],
+    ["recaptcha",                  "~> 0.4.0"], #UPGRADE?
+
+    # assets (JavaScript, CSS, etc)
     ["coderay",                    "~> 1.1"],
     ["sass",                       "~> 3.4"],
     ["coffee-script",              "~> 2.4"],
     ["uglifier",                   "~> 3.2"],
-    ["nokogiri",                   "1.6.8"], # 1.7 needs ruby 2.1
-    ["haml",                       "~> 5.0"],
-    ["kaminari",                   "~> 0.16"], # 1.0 needs rails 5
+
+    # pagination
+    ["kaminari",                   "~> 0.16"], # 1.0 needs rails 5 UPGRADE?
     ["bootstrap-kaminari-views",   "~> 0"],
-    ["diff-lcs",                   "~> 1.3"],
+
+    # needed for event-based twitter integration
+    ["twitter",                    "6.1.0"],
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # REMOVE?
+
+    # not really used?
+    ["uuid",                       "~> 2.3"],
+
     # mime-types can be removed if we drop support for ruby 1.9.3
     # mime-types 3.0 uses mime-types-data which isn't compatible with 1.9.3
     ["mime-types",                 "2.99.1"],
-    ["twitter",                    "6.1.0"],
+
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # MOVE? to dev section of Gemfiles
+
+    # testing
+    ["nokogiri",                   "1.6.8"], # 1.7 needs ruby 2.1 UPGRADE
+
+    # rake tasks
     ["colorize",                   "0.8"]
+
+
+
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end
