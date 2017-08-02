@@ -21,7 +21,7 @@ module Decko
       elsif status == 302
         card_redirect result
       else
-        args = { plain: result, status: status }
+        args = { html: result.html_safe, status: status }
         args[:content_type] = "text/text" if format == :file
         render args
       end

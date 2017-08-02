@@ -25,7 +25,7 @@ gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.versio
 <% if options['mod-dev'] || options['core-dev'] -%>
 group :test do
   gem 'rails-controller-testing'
-  gem 'rspec', '~> 3.4'
+  gem 'rspec', '~> 3.5'
   gem 'rspec-rails'         # behavior-driven-development suite
   gem 'spork', '>=0.9'
   gem 'rubocop'
@@ -33,7 +33,9 @@ group :test do
 end
 
 group :test, :development do
-  gem 'rails-dev-tweaks'
+  # not compatible with rails 5
+  # if load a page twice it fails
+  # gem 'rails-dev-tweaks'
   gem 'jasmine'
   gem 'jasmine-rails'
   gem 'jasmine-jquery-rails'
@@ -55,11 +57,7 @@ group :debug do
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
-  if RUBY_VERSION =~ /^2/
-    gem 'pry-byebug'
-  else
-    gem 'debugger'
-  end
+  gem 'pry-byebug'
 end
 <% end -%>
 
@@ -88,10 +86,10 @@ group :test do
   end
 
   # CUKES see features dir
-  gem 'cucumber-rails', '~> 1.4', :require=>false # feature-driven-development suite
-  gem 'capybara', '~> 2.7'
+  gem 'cucumber-rails', '~> 1.5', :require=>false # feature-driven-development suite
+  gem 'capybara', '~> 2.14'
   gem 'selenium-webdriver', '~> 3.3'
-  gem 'chromedriver-helper', '~> 1.0.0'
+  gem 'chromedriver-helper', '~> 1.1.0'
   # gem 'capybara-webkit'
   gem 'launchy'                                # lets cucumber launch browser windows
 
@@ -104,11 +102,7 @@ group :test do
   gem 'turn', :require => false      # Pretty printed test output.  (version constraint is to avoid minitest requirement)
   gem 'minitest'
 
-  if RUBY_VERSION =~ /^(1|2\.0)/
-    puts "Warning: Can't install i18-tasks without Ruby 2.1+: will not be able to test if I18n keys are missing"
-  else
-    gem 'i18n-tasks', '~> 0.9.5'       # See if I18n keys are missing or unused
-  end
+  gem 'i18n-tasks', '~> 0.9.5'       # See if I18n keys are missing or unused
 end
 
 gem 'ruby-prof', :group=>:profile  # profiling

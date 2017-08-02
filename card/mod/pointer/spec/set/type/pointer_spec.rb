@@ -112,7 +112,7 @@ describe Card::Set::Type::Pointer do
     it "recognizes changed items" do
       Card::Auth.as_bot do
         pointer
-        in_stage :validate,
+        in_stage :finalize,
                  on: :save,
                  trigger: pointer_update("[[item1]]\n[[item3]]") do
           expect(changed_item_names.sort).to eq %w[item2 item3]
