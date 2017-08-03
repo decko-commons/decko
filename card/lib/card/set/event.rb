@@ -44,6 +44,8 @@ class Card
         value: value.each_with_object({}) { |(k, v), h| h[k] = serialize_value(v) },
         type: "hash"
       }
+    when ActionController::Parameters
+      serialize_value value.to_unsafe_h
     else
       { value: value }
     end
