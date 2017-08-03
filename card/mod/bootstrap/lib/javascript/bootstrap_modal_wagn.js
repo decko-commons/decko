@@ -1,4 +1,4 @@
-wagn.slotReady(function(slot) {
+decko.slotReady(function(slot) {
   slot.find('.modal.fade').on('loaded.bs.modal', function(e) {
     $(this).trigger('slotReady');
   });
