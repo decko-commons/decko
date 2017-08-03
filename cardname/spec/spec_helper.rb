@@ -1,7 +1,7 @@
 
 require 'cardname'
 
-require File.expand _path('./inflection_helper', File.dirname(__FILE__))
+require File.expand_path('./inflection_helper', File.dirname(__FILE__))
 
 RSpec.configure do |config|
   #config.include CustomMatchers
