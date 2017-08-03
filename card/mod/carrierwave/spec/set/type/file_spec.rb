@@ -39,9 +39,7 @@ describe Card::Set::Type::File do
   end
   let(:cloud_file) do
     storage_config :cloud
-    binding.pry
     card = create_file_card :cloud, test_file, bucket: :test_bucket
-    binding.pry
     storage_config :local
     card
   end
