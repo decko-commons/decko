@@ -1,9 +1,13 @@
 class Bootstrap
   class Component
     class Carousel < Component
-      def initalize
-        @id = opts(:id)
-        @item_class = 'carousel-item'
+      def render_content *args
+        carousel *args, &@build_block
+      end
+
+      add_div_method :carousel, "carousel slide" do |opts, extra_args |
+        prepend { indicators }
+        opts
       end
 
       add_div_method :carousal_items, 'carousel-inner' do |opts, extra_args|
@@ -27,8 +31,8 @@ class Bootstrap
 
       end
 
-      add_div_method :indicators, 'carousel-indicators' do
-
+      add_div_method :indicators, 'carousel-indicators' do |opts, extra_args|
+        opts
       end
     end
   end

@@ -85,6 +85,10 @@ Gem::Specification.new do |s|
     # not really used?
     ["uuid",                       "~> 2.3"],
 
+    # mime-types can be removed if we drop support for ruby 1.9.3
+    # mime-types 3.0 uses mime-types-data which isn't compatible with 1.9.3
+    ["mime-types",                 "2.99.1"],
+
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE? to dev section of Gemfiles
 
