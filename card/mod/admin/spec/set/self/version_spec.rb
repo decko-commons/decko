@@ -2,6 +2,6 @@
 
 describe Card::Set::Self::Version do
   it "has an X.X.X version" do
-    expect(render_card(:raw, name: "*version") =~ /\d\.\d+\.\w+/).to be_truthy
+    expect(render_card(:raw, name: "*version")).to match(/\d\.\d+\.\w+/)
   end
 end
