@@ -59,7 +59,7 @@ format :html do
       mod_configs,
       trigger_slot_ready,
       google_analytics,
-      recaptcha
+      # recaptcha
     ]
   end
 

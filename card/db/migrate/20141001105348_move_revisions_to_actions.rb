@@ -1,4 +1,4 @@
-class MoveRevisionsToActions < ActiveRecord::Migration
+class MoveRevisionsToActions < ActiveRecord::Migration[4.2]
   class TmpRevision < ApplicationRecord
     belongs_to :tmp_card, foreign_key: :card_id
     self.table_name = "card_revisions"

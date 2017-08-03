@@ -166,6 +166,7 @@ end
 
 def load_bucket_config
   return {} unless bucket
+  binding.pry
   bucket_config = Cardio.config.file_buckets &&
                   Cardio.config.file_buckets[bucket.to_sym]
   bucket_config &&= bucket_config.symbolize_keys
@@ -238,6 +239,7 @@ def storage_type_from_config
   return unless type
   type = type.to_sym
   unless type.in? CarrierWave::FileCardUploader::STORAGE_TYPES
+    binding.pry
     raise Card::Error,
           I18n.t(:error_invalid_storage_type,
                  scope: "mod.carrierwave.set.abstract.attachment",

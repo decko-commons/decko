@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class TableCleanup < ActiveRecord::Migration
+class TableCleanup < ActiveRecord::Migration[4.2]
   def up
     drop_table :cardtypes
     drop_table :multihost_mappings

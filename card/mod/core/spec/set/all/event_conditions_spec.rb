@@ -10,7 +10,7 @@ describe Card::Set::All::EventConditions, "event" do
                 }
   end
 
-  context "restricted to changed content" do
+  context "restricted to changed content:" do
     STAGES = [:validate, :store, :finalize, :integrate]
 
     def add_to_log entry

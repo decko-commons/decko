@@ -130,6 +130,8 @@ def success
 end
 
 def name_before_act
+  # _was is cleared in after save callbacks,
+  # _before_last_save is not set in before save callbacks
   name_before_last_save || name_was
 end
 
