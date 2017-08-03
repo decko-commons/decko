@@ -42,9 +42,6 @@ class Card
             end
             column act_links, class: "text-right"
           end
-          row 12 do
-            column subtitle
-          end
         end
         # end
       end
@@ -105,6 +102,7 @@ class Card
       end
 
       def edited_ago
+        return "" unless @act.acted_at
         "#{time_ago_in_words(@act.acted_at)} ago"
       end
 
@@ -126,7 +124,7 @@ class Card
       def act_accordion
         context = @act.main_action.draft ? :warning : :default
         <<-HTML
-        <div class="panel panel-#{context}">
+        <div class="card card-#{context}">
           #{act_accordion_panel}
         </div>
         HTML
@@ -143,7 +141,7 @@ class Card
       end
 
       def act_panel_options
-        { class: "panel-heading", role: "tab", id: "heading-#{collapse_id}" }
+        { class: "card-header", role: "tab", id: "heading-#{collapse_id}" }
       end
 
       def act_accordion_panel
@@ -152,14 +150,14 @@ class Card
 
       def act_accordion_heading
         wrap_with :div, act_panel_options.merge(accordion_expand_options) do
-          wrap_with :h4, header, class: "panel-title"
+          wrap_with(:h5, header, class: "mb-0") + subtitle
         end
       end
 
       def act_accordion_body
         wrap_with :div, id: collapse_id,
-                        class: "panel-collapse collapse #{collapse_id}" do
-          wrap_with :div, details, class: "panel-body"
+                        class: "collapse #{collapse_id}" do
+          wrap_with :div, details, class: "card-block"
         end
       end
 

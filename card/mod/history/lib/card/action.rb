@@ -20,7 +20,7 @@ class Card
   # * a boolean indicated whether the action is a _draft_
   # * a _comment_ (where applicable)
   #
-  class Action < ActiveRecord::Base
+  class Action < ApplicationRecord
     include Card::Action::Differ
     extend Card::Action::Admin
 

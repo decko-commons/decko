@@ -26,9 +26,7 @@ end
 # stores changes in the changes table and assigns them to the current action
 # removes the action if there are no changes
 event :finalize_action, :finalize, when: :finalize_action? do
-  @changed_fields = Card::Change::TRACKED_FIELDS.select do |f|
-    changed_attributes.member? f
-  end
+  @changed_fields = Card::Change::TRACKED_FIELDS & saved_changes.keys
   if @changed_fields.present?
     # FIXME: should be one bulk insert
     @changed_fields.each do |f|
@@ -37,7 +35,7 @@ event :finalize_action, :finalize, when: :finalize_action? do
                           card_action_id: @current_action.id
     end
     @current_action.update_attributes! card_id: id
-  elsif @current_action.card_changes(true).empty?
+  elsif @current_action.card_changes.reload.empty?
     @current_action.delete
     @current_action = nil
   end
@@ -51,7 +49,7 @@ event :finalize_act,
       after: :finalize_action,
       when: proc { |c|  c.act_card? } do
   # removed subcards can leave behind actions without card id
-  if @current_act.actions(true).empty?
+  if @current_act.actions.reload.empty?
     @current_act.delete
     @current_act = nil
   else
@@ -163,7 +161,7 @@ format :html do
     intrusive_acts = card.intrusive_acts
                          .page(page_from_params).per(ACTS_PER_PAGE)
     wrap_with :span, class: "slotter" do
-      paginate intrusive_acts, remote: true, theme: "twitter-bootstrap-3"
+      paginate intrusive_acts, remote: true, theme: "twitter-bootstrap-4"
     end
   end
 

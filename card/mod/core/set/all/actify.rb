@@ -128,3 +128,13 @@ end
 def success
   Env.success(cardname)
 end
+
+def name_before_act
+  # _was is cleared in after save callbacks,
+  # _before_last_save is not set in before save callbacks
+  name_before_last_save || name_was
+end
+
+def db_content_before_act
+  db_content_before_last_save || db_content_was
+end

@@ -48,8 +48,8 @@ event :update_related_listed_by_card_on_content_update, :finalize,
       on: :update, changed: :content do
   new_items = item_keys
   changed_items =
-    if db_content_was
-      old_items = item_keys(content: db_content_was)
+    if db_content_before_act
+      old_items = item_keys(content: db_content_before_act)
       old_items + new_items - (old_items & new_items)
     else
       new_items
@@ -74,8 +74,8 @@ end
 
 def update_all_items
   current_items = item_keys
-  if db_content_was
-    old_items = item_keys(content: db_content_was)
+  if db_content_before_act
+    old_items = item_keys(content: db_content_before_act)
     update_listed_by_cache_for old_items
   end
   update_listed_by_cache_for current_items

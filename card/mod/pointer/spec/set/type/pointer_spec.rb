@@ -51,22 +51,23 @@ describe Card::Set::Type::Pointer do
   end
 
   let(:pointer) do
-    Card.create name: "tp", type: "pointer",
-                content: "[[item1]]\n[[item2]]"
+    Card.create! name: "tp", type_id: Card::PointerID,
+                 content: "[[item1]]\n[[item2]]"
   end
 
   def pointer_update content
-    -> { pointer.update_attributes! content: content }
+    -> { Card["tp"].update_attributes! content: content }
   end
 
   describe "#added_item_names" do
     it "recognizes added items" do
       Card::Auth.as_bot do
         pointer
-        in_stage(:validate,
+        in_stage(:finalize,
                  on: :save,
+                 for: "tp",
                  trigger: pointer_update("[[item1]]\n[[item2]]\n[[item3]]")) do
-          expect(added_item_names).to eq ["item3"]
+          expect(added_item_names).to contain_exactly "item3"
         end
       end
     end
@@ -74,7 +75,7 @@ describe Card::Set::Type::Pointer do
     it "ignores order" do
       Card::Auth.as_bot do
         pointer
-        in_stage :validate,
+        in_stage :finalize,
                  on: :save,
                  trigger: pointer_update("[[item2]]\n[[item1]]") do
           expect(added_item_names).to eq []
@@ -87,7 +88,7 @@ describe Card::Set::Type::Pointer do
     it "recognizes dropped items" do
       Card::Auth.as_bot do
         pointer
-        in_stage :validate,
+        in_stage :finalize,
                  on: :save,
                  trigger: pointer_update("[[item1]]") do
           expect(dropped_item_names).to eq ["item2"]
@@ -98,7 +99,7 @@ describe Card::Set::Type::Pointer do
     it "ignores order" do
       Card::Auth.as_bot do
         pointer
-        in_stage :validate,
+        in_stage :finalize,
                  on: :save,
                  trigger: pointer_update("[[item2]]\n[[item1]]") do
           expect(dropped_item_names).to eq []
@@ -111,7 +112,7 @@ describe Card::Set::Type::Pointer do
     it "recognizes changed items" do
       Card::Auth.as_bot do
         pointer
-        in_stage :validate,
+        in_stage :finalize,
                  on: :save,
                  trigger: pointer_update("[[item1]]\n[[item3]]") do
           expect(changed_item_names.sort).to eq %w[item2 item3]

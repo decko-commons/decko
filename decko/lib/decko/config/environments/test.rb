@@ -58,8 +58,6 @@ Decko.application.class.configure do
   # true in your test
   Delayed::Worker.delay_jobs = false
 
-  config.active_record.raise_in_transactional_callbacks = true
-
   # Use Pry instead of IRB
   silence_warnings do
     begin

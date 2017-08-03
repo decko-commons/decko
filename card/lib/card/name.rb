@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 require_dependency "card/env"
 
-require "smart_name"
+require "cardname"
 
 class Card
-  # The SmartName class provides generalized of Card naming patterns
+  # The Cardname class provides generalized of Card naming patterns
   # (compound names, key-based variants, etc)
   #
   # Card::Name adds support for deeper card integration
-  class Name < SmartName
+  class Name < Cardname
     include FieldsAndTraits
     include ::Card::Name::NameVariants
 

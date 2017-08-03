@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class SplitLinkType < ActiveRecord::Migration
+class SplitLinkType < ActiveRecord::Migration[4.2]
   def up
     add_column :card_references, :present, :integer
     rename_column :card_references, :card_id, :referer_id

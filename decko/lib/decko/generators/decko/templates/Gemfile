@@ -1,10 +1,11 @@
 source 'http://rubygems.org'
 
 <% if @gem_path.present? %>
-gem 'wagn',        :path=>"<%= @gemfile_gem_path %>/decko"
-gem 'card',        :path=>"<%= @gemfile_gem_path %>/card", :require => false
+gem 'decko',    :path=>"<%= @gemfile_gem_path %>/decko"
+gem 'card',     :path=>"<%= @gemfile_gem_path %>/card", :require => false
+gem 'cardname', :path=>"<%= @gemfile_gem_path %>/cardname", :require => false
 <% else %>
-gem 'wagn'
+gem 'decko'
 <% end %>
 
 gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.version}') if database_gemfile_entry.version %>
@@ -24,7 +25,8 @@ gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.versio
 
 <% if options['mod-dev'] || options['core-dev'] -%>
 group :test do
-  gem 'rspec', '~> 3.4'
+  gem 'rails-controller-testing'
+  gem 'rspec', '~> 3.5'
   gem 'rspec-rails'         # behavior-driven-development suite
   gem 'spork', '>=0.9'
   gem 'rubocop'
@@ -32,13 +34,14 @@ group :test do
 end
 
 group :test, :development do
-  gem 'rails-dev-tweaks'
+  # not compatible with rails 5
+  # if load a page twice it fails
+  # gem 'rails-dev-tweaks'
   gem 'jasmine'
   gem 'jasmine-rails'
   gem 'jasmine-jquery-rails'
   gem 'sprockets' # just so above works
   gem 'phantomjs', '1.9.7.1' #locked because 1.9.8.0 is breaking
-  gem 'test_after_commit'
   gem 'colorize'
   gem 'delayed_job_active_record', '~> 4.1'
 
@@ -55,19 +58,15 @@ group :debug do
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
-  if RUBY_VERSION =~ /^2/
-    gem 'pry-byebug'
-  else
-    gem 'debugger'
-  end
+  gem 'pry-byebug'
 end
 <% end -%>
 
 <% if options['core-dev'] -%>
 group :assets do
-  gem 'jquery-rails',  '~> 3.1'                # main js framework, along with rails-specific unobtrusive lib
-  gem 'jquery-ui-rails',  '~> 4.2'             # main js framework, along with rails-specific unobtrusive lib
-  gem "jquery_mobile_rails", "~> 1.4.1"
+  gem 'jquery-rails',  '~> 4.3'                # main js framework, along with rails-specific unobtrusive lib
+  gem 'jquery-ui-rails',  '~> 6.0'             # main js framework, along with rails-specific unobtrusive lib
+  gem "jquery_mobile_rails", "~> 1.4.5"
 
   gem 'tinymce-rails', '~> 3.4'                # wysiwyg editor
 end
@@ -75,7 +74,7 @@ end
 group :test do
   gem 'fog'
   gem 'fog-aws'
-  gem 'rspec-html-matchers', '0.8.1' # 0.9 requires ruby >= 2.1
+  gem 'rspec-html-matchers', '0.9.1'
   gem 'rr' #, '=1.0.0'
 	gem 'simplecov', '~> 0.7.1', :require => false  #test coverage
   gem 'codeclimate-test-reporter', require: nil
@@ -88,10 +87,10 @@ group :test do
   end
 
   # CUKES see features dir
-  gem 'cucumber-rails', '~> 1.4', :require=>false # feature-driven-development suite
-  gem 'capybara', '~> 2.7'
+  gem 'cucumber-rails', '~> 1.5', :require=>false # feature-driven-development suite
+  gem 'capybara', '~> 2.14'
   gem 'selenium-webdriver', '~> 3.3'
-  gem 'chromedriver-helper', '~> 1.0.0'
+  gem 'chromedriver-helper', '~> 1.1.0'
   # gem 'capybara-webkit'
   gem 'launchy'                                # lets cucumber launch browser windows
 
@@ -104,11 +103,7 @@ group :test do
   gem 'turn', :require => false      # Pretty printed test output.  (version constraint is to avoid minitest requirement)
   gem 'minitest'
 
-  if RUBY_VERSION =~ /^(1|2\.0)/
-    puts "Warning: Can't install i18-tasks without Ruby 2.1+: will not be able to test if I18n keys are missing"
-  else
-    gem 'i18n-tasks', '~> 0.9.5'       # See if I18n keys are missing or unused
-  end
+  gem 'i18n-tasks', '~> 0.9.5'       # See if I18n keys are missing or unused
 end
 
 gem 'ruby-prof', :group=>:profile  # profiling

@@ -21,7 +21,7 @@ module Decko
       elsif status == 302
         card_redirect result
       else
-        args = { text: result, status: status }
+        args = { html: result.html_safe, status: status }
         args[:content_type] = "text/text" if format == :file
         render args
       end
@@ -39,7 +39,7 @@ module Decko
         self.params = success.params
       else
         # need tests. insure we get slot, main...
-        params.merge! success.params
+        self.params = params.merge success.params
       end
     end
 

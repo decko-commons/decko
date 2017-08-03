@@ -49,11 +49,11 @@ class CardController < ActionController::Base
 
   #-------( FILTERS )
 
-  before_filter :setup, except: [:asset]
-  before_filter :authenticate, except: [:asset]
-  before_filter :load_id, only: [:read]
-  before_filter :load_card, except: [:asset]
-  before_filter :refresh_card, only: [:create, :update, :delete]
+  before_action :setup, except: [:asset]
+  before_action :authenticate, except: [:asset]
+  before_action :load_id, only: [:read]
+  before_action :load_card, except: [:asset]
+  before_action :refresh_card, only: [:create, :update, :delete]
 
   def setup
     request.format = :html unless params[:format] # is this used??

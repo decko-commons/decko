@@ -29,9 +29,15 @@ end
 Recaptcha.configure do |config|
   # the seed task runs initializers so we have to check
   # if the cards table is ready before we use it here
+  CONFIG_OPTIONS =
+    {
+      public_key: :site_key,
+      private_key: :secret_key,
+      proxy: :proxy
+    }
   if card_table_ready?
-    [:public_key, :private_key, :proxy].each do |setting|
-      config.send "#{setting}=", load_recaptcha_config(setting)
+    CONFIG_OPTIONS.each do |codename, setting|
+      config.send "#{setting}=", load_recaptcha_config(codename)
     end
   end
 end

@@ -24,14 +24,14 @@ format :html do
     "<![endif]-->"
   end
 
-  def wagn_variables
-    varvals = ["window.wagn={rootPath:'#{Card.config.relative_url_root}'}"]
+  def decko_variables
+    varvals = ["window.decko={rootPath:'#{Card.config.relative_url_root}'}"]
     card.have_recaptcha_keys? &&
-      varvals << "wagn.recaptchaKey='#{Card.config.recaptcha_public_key}'"
+      varvals << "decko.recaptchaKey='#{Card.config.recaptcha_public_key}'"
     (c = Card[:double_click]) && !Card.toggle(c.content) &&
-      varvals << "wagn.noDoubleClick=true"
+      varvals << "decko.noDoubleClick=true"
     @css_path &&
-      varvals << "wagn.cssPath='#{@css_path}'"
+      varvals << "decko.cssPath='#{@css_path}'"
     javascript_tag { varvals * ";" }
   end
 
@@ -65,9 +65,13 @@ format :html do
   end
 
   def mod_configs
-    mod_js_config.map do |codename, js_wagn_function|
+    mod_js_config.map do |codename, js_decko_function|
       config_json = escape_javascript Card.global_setting(codename)
-      javascript_tag { "wagn.#{js_wagn_function}('#{config_json}')" }
+      javascript_tag { "decko.#{js_decko_function}('#{config_json}')" }
     end
+  end
+
+  def recaptcha
+    javascript_include_tag "https://www.google.com/recaptcha/api.js", async: "", defer: ""
   end
 end

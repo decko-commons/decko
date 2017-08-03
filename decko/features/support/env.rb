@@ -45,7 +45,7 @@ end
 
 require "cucumber/rails"
 Cucumber::Rails::Database.autorun_database_cleaner = false
-require "test_after_commit"
+# require "test_after_commit"
 
 Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)

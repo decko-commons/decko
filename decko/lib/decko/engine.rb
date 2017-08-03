@@ -8,7 +8,7 @@ require "recaptcha"
 require "coderay"
 require "haml"
 require "kaminari"
-require "bootstrap-kaminari-views"
+require "bootstrap4-kaminari-views"
 require "diff/lcs"
 require "builder"
 

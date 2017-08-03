@@ -1,11 +1,8 @@
 
 class Card
   def restore_changes_information
-    return unless @previously_changed
-    @changed_attributes = ActiveSupport::HashWithIndifferentAccess.new
-    @previously_changed.each do |k, (old, _new)|
-      @changed_attributes[k] = old
-    end
+    return unless saved_changes.present?
+    @changed_attributes = previous_mutation_tracker.changed_values
   end
 
   def clean_after_stage_fail
@@ -119,11 +116,10 @@ class Card
       rescue => e  # don't rollback
         Card::Error.current = e
         warn "exception in integrate stage: #{e.message}"
-        # binding.pry
         @card.notable_exception_raised
         return false
       ensure
-        @card.changes_applied unless @abort
+        @card.clear_changes_information unless @abort
         ActManager.clear if main? && !@card.only_storage_phase
       end
 
