@@ -10,6 +10,11 @@ class Bootstrap
 
       end
 
+      add_div_method :item, nil do |opts, extra_args|
+        html "<div class='carousel slide' id='csID'><ol class='carousel-indicators'></ol></div>"
+        opts
+      end
+
       add_div_method :controls, nil do |opts, extra_args|
 
       end
