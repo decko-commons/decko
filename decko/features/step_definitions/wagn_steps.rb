@@ -63,6 +63,7 @@ When wysiwyg_re do |username, cardname, content|
     visit "/card/edit/#{cardname.to_name.url_key}"
     page.execute_script "$('#main .d0-card-content').val('#{content}')"
     click_button "Submit"
+    wait_for_ajax
   end
 end
 
@@ -72,6 +73,7 @@ When edit_re do |username, cardname, _field, content|
     visit "/card/edit/#{cardname.to_name.url_key}"
     set_content "card[content]", content
     click_button "Submit"
+    wait_for_ajax
   end
 end
 
@@ -88,6 +90,7 @@ When /^(.*) edits? "([^\"]*)" with plusses:/ do |username, cardname, plusses|
       set_content "card[subcards][#{cardname}+#{name}][content]", content
     end
     click_button "Submit"
+    wait_for_ajax
   end
 end
 
