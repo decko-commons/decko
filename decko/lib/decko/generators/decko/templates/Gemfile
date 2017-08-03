@@ -1,10 +1,11 @@
 source 'http://rubygems.org'
 
 <% if @gem_path.present? %>
-gem 'wagn',        :path=>"<%= @gemfile_gem_path %>/decko"
-gem 'card',        :path=>"<%= @gemfile_gem_path %>/card", :require => false
+gem 'decko',    :path=>"<%= @gemfile_gem_path %>/decko"
+gem 'card',     :path=>"<%= @gemfile_gem_path %>/card", :require => false
+gem 'cardname', :path=>"<%= @gemfile_gem_path %>/cardname", :require => false
 <% else %>
-gem 'wagn'
+gem 'decko'
 <% end %>
 
 gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.version}') if database_gemfile_entry.version %>

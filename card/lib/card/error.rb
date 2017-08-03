@@ -6,7 +6,7 @@ class Card
   class Error < StandardError
     cattr_accessor :current
 
-    class Oops < Error # wagneer problem (rename!)
+    class Oops < Error # carditect problem (rename!)
     end
 
     class BadQuery < Error

@@ -18,5 +18,5 @@ card/mod/machines/lib/stylesheets/style_jquery_ui_smoothness.css
 card/mod/prosemirror_editor/lib/javascript/script_prosemirror.js
 card/mod/tinymce_editor/lib/javascript/script_tinymce.js
 card/tmpsets
-wagn/rails/assets
+decko/rails/assets
 
