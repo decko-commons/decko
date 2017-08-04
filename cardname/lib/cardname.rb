@@ -69,7 +69,7 @@ class Cardname < Object
       key_one = name.send(Cardname.uninflect)
       key_two = key_one.send(Cardname.uninflect)
       return key_one unless key_one != key_two
-      Cardname.stabilize ? stable_uninflect(key_two) : name
+      stabilize ? stable_uninflect(key_two) : name
     end
   end
 

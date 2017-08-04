@@ -79,7 +79,7 @@ describe Cardname do
   describe "unstable keys" do
     context "stabilize" do
       before do
-        Cardname.stabilize = true
+        "".to_name.class.stabilize = true
       end
       it "should uninflect until key is stable" do
         expect("matthias".to_name.key).to eq("matthium")
@@ -88,7 +88,7 @@ describe Cardname do
 
     context "do not stabilize" do
       before do
-        Cardname.stabilize = false
+        "".to_name.class.stabilize = false
       end
       it "should not uninflect unstable names" do
         expect("ilias".to_name.key).to eq("ilias")
