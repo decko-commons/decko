@@ -26,7 +26,7 @@ class Cardname < Object
                   :session, :stabilize
 
   Cardname.joint          = '+'
-  Cardname.banned_array   = ['/', '~', '|']
+  Cardname.banned_array   = %w{ / }
   Cardname.var_re         = /\{([^\}]*\})\}/
   Cardname.uninflect      = :singularize
   Cardname.stabilize      = false

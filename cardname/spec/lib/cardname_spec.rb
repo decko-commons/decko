@@ -1,5 +1,5 @@
 # encoding: utf-8
-require File.expand_path('../spec_helper', File.dirname(__FILE__))
+require File.expand_path("../spec_helper", File.dirname(__FILE__))
 
 describe Cardname do
   describe "#key" do
@@ -76,42 +76,42 @@ describe Cardname do
     end
   end
 
-  describe 'unstable keys' do
-    context 'stabilize' do
+  describe "unstable keys" do
+    context "stabilize" do
       before do
         Cardname.stabilize = true
       end
-      it 'should uninflect until key is stable' do
+      it "should uninflect until key is stable" do
         expect("matthias".to_name.key).to eq("matthium")
       end
     end
 
-    context 'do not stabilize' do
+    context "do not stabilize" do
       before do
         Cardname.stabilize = false
       end
-      it 'should not uninflect unstable names' do
+      it "should not uninflect unstable names" do
         expect("ilias".to_name.key).to eq("ilias")
       end
     end
   end
 
-  describe '#valid' do
-    it 'accepts valid names' do
-      expect('this+THAT'.to_name).to be_valid
-      expect('THE*ONE*AND$!ONLY'.to_name).to be_valid
+  describe "#valid" do
+    it "accepts valid names" do
+      expect("this+THAT".to_name).to be_valid
+      expect("THE*ONE*AND$!ONLY".to_name).to be_valid
     end
 
-    it 'rejects invalide names' do
-      expect('Tes~sd'.to_name).not_to be_valid
-      expect('TEST/DDER'.to_name).not_to be_valid
+    it "rejects invalid names" do
+      expect("Tes/sd".to_name).not_to be_valid
+      expect("TEST/DDER".to_name).not_to be_valid
     end
   end
 
-  describe '#include?' do
-    context 'A+B+C' do
+  describe "#include?" do
+    context "A+B+C" do
       let(:name) { "A+B+CD+EF".to_name }
-      it '"includes "A"' do
+      it 'includes "A"' do
         expect(name.include? ("A")).to be_truthy
       end
       it '"includes "a"' do
