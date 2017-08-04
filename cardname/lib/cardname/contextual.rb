@@ -111,7 +111,7 @@ class Cardname
     end
 
     def partmap_part match, context
-      l_s, r_s = match[1].size, match[2].empty?
+      l_s, r_s = match[1].size, !match[2].empty?
       l_part = context.nth_left l_s
       r_s ? l_part.tag : l_part.s
     end
