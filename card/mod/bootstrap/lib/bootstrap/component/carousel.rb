@@ -1,38 +1,68 @@
 class Bootstrap
   class Component
     class Carousel < Component
-      def render_content *args
-        carousel *args, &@build_block
+      def render_content
+        @item_cnt = 0
+        carousel *@args, &@build_block
       end
 
       add_div_method :carousel, "carousel slide" do |opts, extra_args |
-        prepend { indicators }
+        id, item_cnt = extra_args
+        #content = @content.pop
+        #@content << inner(content)
+
+        insert do
+          indicators id, item_cnt, opts.delete(:active)
+          control_prev id
+          control_next id
+        end
+        opts.merge id: id
+      end
+
+      add_div_method :inner, 'carousel-inner'
+
+      add_div_method :item, 'carousel-item' do |opts, extra_args|
+        add_class opts, "active"
+        @item_cnt += 1
         opts
       end
 
-      add_div_method :carousal_items, 'carousel-inner' do |opts, extra_args|
-
+      add_tag_method :control_prev, 'carousel-control-prev', tag: :a do |opts, extra_args|
+        id = extra_args.first
+        insert do
+          html <<-HTML
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          HTML
+        end
+        opts.merge(href: "##{id}", role: "button", data: { slide: "prev" } )
       end
 
-      add_div_method :item, nil do |opts, extra_args|
-        html "<div class='carousel slide' id='csID'><ol class='carousel-indicators'></ol></div>"
+      add_tag_method :control_next,  'carousel-control-next', tag: :a do |opts, extra_args|
+        id = extra_args.first
+        insert do
+          html <<-HTML
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          HTML
+        end
+        opts.merge(href: "##{id}", role: "button", data: { slide: "next" } )
+      end
+
+      add_tag_method :indicators, 'carousel-indicators', tag: :ol do |opts, extra_args|
+        id, item_cnt, active  = extra_args
+        insert do
+          item_cnt.times do |i|
+            indicator id, i, i == active
+          end
+        end
         opts
       end
 
-      add_div_method :controls, nil do |opts, extra_args|
-
-      end
-
-      add_tag_method :a, :control_prev, 'carousel-control-prev' do |opts, extra_args|
-
-      end
-
-      add_tag_method :a, :control_next, 'carousel-control-next' do |opts, extra_args|
-
-      end
-
-      add_div_method :indicators, 'carousel-indicators' do |opts, extra_args|
-        opts
+      add_tag_method :indicator, nil, tag: :li do |opts, extra_args|
+        id, index, active = extra_args
+        add_class opts, "active" if active
+        opts.merge data: { "slide-to" => index, target: "##{id}" }
       end
     end
   end
