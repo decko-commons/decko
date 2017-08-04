@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
 
 
   s.add_dependency "activesupport", "~> 5.1"
-  s.add_dependency "htmlentities", "~> 4.3"
+  s.add_dependency "htmlentities",  "~> 4.3"
 
   #s.add_development_dependency "rspec"
   #s.add_development_dependency "rdoc"

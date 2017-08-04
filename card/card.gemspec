@@ -49,22 +49,15 @@ Gem::Specification.new do |s|
 
   [
     ["cardname",                   version],
-    ["haml",                       "~> 5.0"],
-
+    ["haml",                       "~> 5.0"], # markup language used in view API
+    ["uuid",                       "~> 2.3"], # universally unique identifier.
+                                              # used in temporary names
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
 
     # files and images
     ["carrierwave",                "~> 1.1"],
     ["mini_magick",                "~> 4.2"],
-
-    # text formatting
-    ["htmlentities",               "~> 4.3"],
-
-    # content diffs in histories
-    ["diff-lcs",                   "~> 1.3"],
-
-    ["recaptcha",                  "~> 4.3"],
 
     # assets (JavaScript, CSS, etc)
     ["coderay",                    "~> 1.1"],
@@ -76,27 +69,10 @@ Gem::Specification.new do |s|
     ["kaminari",                   "~> 1.0"],
     ["bootstrap4-kaminari-views",  "~> 1.0"],
 
-    # needed for event-based twitter integration
-    ["twitter",                    "6.1.0"],
-
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    # REMOVE?
-
-    # not really used?
-    ["uuid",                       "~> 2.3"],
-
-    # mime-types can be removed if we drop support for ruby 1.9.3
-    # mime-types 3.0 uses mime-types-data which isn't compatible with 1.9.3
-    ["mime-types",                 "2.99.1"],
-
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    # MOVE? to dev section of Gemfiles
-
-    # testing
-    ["nokogiri",                   "1.8"],
-
-    # rake tasks
-    ["colorize",                   "0.8"]
+    # other
+    ["diff-lcs",                   "~> 1.3"], # content diffs in histories
+    ["recaptcha",                  "~> 4.3"],
+    ["twitter",                    "~> 6.1"]  # for event-based integration
 
 
   ].each do |dep|

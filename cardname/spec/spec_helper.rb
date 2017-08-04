@@ -1,6 +1,6 @@
 
 require 'cardname'
-require 'core_ext'
+#require 'core_ext'
 require File.expand_path('./inflection_helper', File.dirname(__FILE__))
 
 
