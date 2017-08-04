@@ -2,14 +2,11 @@ class Bootstrap
   class Component
     class Carousel < Component
       def render_content
-        @item_cnt = 0
         carousel *@args, &@build_block
       end
 
       add_div_method :carousel, "carousel slide" do |opts, extra_args |
         id, item_cnt = extra_args
-        #content = @content.pop
-        #@content << inner(content)
 
         insert do
           indicators id, item_cnt, opts.delete(:active)
@@ -23,14 +20,13 @@ class Bootstrap
 
       add_div_method :item, 'carousel-item' do |opts, extra_args|
         add_class opts, "active"
-        @item_cnt += 1
         opts
       end
 
       add_tag_method :control_prev, 'carousel-control-prev', tag: :a do |opts, extra_args|
         id = extra_args.first
         insert do
-          html <<-HTML
+          <<-HTML
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           HTML
@@ -41,7 +37,7 @@ class Bootstrap
       add_tag_method :control_next,  'carousel-control-next', tag: :a do |opts, extra_args|
         id = extra_args.first
         insert do
-          html <<-HTML
+          <<-HTML
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           HTML
