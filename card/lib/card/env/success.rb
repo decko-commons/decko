@@ -12,6 +12,8 @@ class Card
         case success_params
         when Hash
           apply(success_params)
+        when ActionController::Parameters
+          apply(success_params.to_unsafe_h)
         when nil then  self.name = "_self"
         else;  self.target = success_params
         end
@@ -38,7 +40,8 @@ class Card
         when Integer then @id = value
         when String then @name = value
         when Card then @card = value
-        else; self.target = value
+        else
+          self.target = value
         end
       end
 

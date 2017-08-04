@@ -58,4 +58,41 @@ namespace :card do
     importer.pull card, opts.merge(remote: ENV["from"])
     exit # without exit the card argument is treated as second rake task
   end
+
+  desc "migrate structure and cards"
+  task migrate: :environment do
+    ENV["NO_RAILS_CACHE"] = "true"
+    ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
+
+    stamp = ENV["STAMP_MIGRATIONS"]
+
+    puts "migrating structure"
+    Rake::Task["card:migrate:structure"].invoke
+    Rake::Task["card:migrate:stamp"].invoke :structure if stamp
+
+    puts "migrating core cards"
+    Card::Cache.reset_all
+    # not invoke because we don't want to reload environment
+    Rake::Task["card:migrate:core_cards"].execute
+    if stamp
+      Rake::Task["card:migrate:stamp"].reenable
+      Rake::Task["card:migrate:stamp"].invoke :core_cards
+    end
+
+    puts "migrating deck cards"
+    # not invoke because we don't want to reload environment
+    Rake::Task["card:migrate:deck_cards"].execute
+    if stamp
+      Rake::Task["card:migrate:stamp"].reenable
+      Rake::Task["card:migrate:stamp"].invoke :deck_cards
+    end
+
+    Card::Cache.reset_all
+  end
+
+  desc "reset cache"
+  task reset_cache: :environment do
+    Card::Cache.reset_all
+    Card.reset_all_machines
+  end
 end
