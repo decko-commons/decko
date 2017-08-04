@@ -1,20 +1,20 @@
 require "decko/application"
-
-def alias_task name, old_name
-  t = Rake::Task[old_name]
-  desc t.full_comment if t.full_comment
-  task name, *t.arg_names do |_, args|
-    # values_at is broken on Rake::TaskArguments
-    args = t.arg_names.map { |a| args[a] }
-    t.invoke(args)
-  end
-end
+require_relative "alias"
 
 DECKO_SEED_TABLES = %w( cards card_actions card_acts card_changes
                        card_references ).freeze
 DECKO_SEED_PATH = File.join(
   ENV["DECKO_SEED_REPO_PATH"] || [Cardio.gem_root, "db", "seed"], "new"
 )
+
+CARD_TASKS =
+  [
+    :migrate,
+    { migrate: [:cards, :structure, :core_cards, :deck_cards, :redo, :stamp] },
+    :reset_cache
+  ]
+
+link_task CARD_TASKS, from: :decko, to: :card
 
 namespace :decko do
   desc "create a decko database from scratch, load initial data"
@@ -92,11 +92,7 @@ namespace :decko do
     Rake::Task["decko:update_assets_symlink"].invoke
   end
 
-  desc "reset cache"
-  task reset_cache: :environment do
-    Card::Cache.reset_all
-    Card.reset_all_machines
-  end
+
 
   desc "set symlink for assets"
   task :update_assets_symlink do
@@ -107,36 +103,8 @@ namespace :decko do
     end
   end
 
-  desc "migrate structure and cards"
-  task migrate: :environment do
-    ENV["NO_RAILS_CACHE"] = "true"
-    ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
 
-    stamp = ENV["STAMP_MIGRATIONS"]
-
-    puts "migrating structure"
-    Rake::Task["decko:migrate:structure"].invoke
-    Rake::Task["decko:migrate:stamp"].invoke :structure if stamp
-
-    puts "migrating core cards"
-    Card::Cache.reset_all
-    # not invoke because we don't want to reload environment
-    Rake::Task["decko:migrate:core_cards"].execute
-    if stamp
-      Rake::Task["decko:migrate:stamp"].reenable
-      Rake::Task["decko:migrate:stamp"].invoke :core_cards
-    end
-
-    puts "migrating deck cards"
-    # not invoke because we don't want to reload environment
-    Rake::Task["decko:migrate:deck_cards"].execute
-    if stamp
-      Rake::Task["decko:migrate:stamp"].reenable
-      Rake::Task["decko:migrate:stamp"].invoke :deck_cards
-    end
-
-    Card::Cache.reset_all
-  end
+  alias_task :migrate, "card:migrate"
 
   desc "insert existing card migrations into schema_migrations_cards to avoid re-migrating"
   task :assume_card_migrations do

@@ -42,7 +42,7 @@ Decko::Engine.routes.draw do
 
   # standard non-RESTful
   %w[create read update delete asset].each do |action|
-    get "(card)/:action(/:id(.:format))"  => "card", action: action
+    get "(card)/#{action}(/:id(.:format))"  => "card", action: action
   end
 
   match "(card)/create(/:id(.:format))" => "card#create", via: [:post, :patch]
