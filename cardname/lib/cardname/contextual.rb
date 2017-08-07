@@ -61,15 +61,10 @@ class Cardname
     def to_absolute context, args={}
       context = context.to_name
 
-      new_parts = replace_contextual_parts context
+      new_parts = absolutize_contextual_parts context
       return "" if new_parts.empty?
+      absolutize_extremes new_parts, context
 
-      if new_parts.first.empty? && !new_parts.to_name.starts_with?(context)
-        new_parts[0] = context.to_s
-      end
-      if new_parts.last.empty? && !new_parts.to_name.ends_with?(context)
-        new_parts[-1] = context.to_s
-      end
       new_parts.join self.class.joint
     end
 
@@ -84,7 +79,7 @@ class Cardname
 
     private
 
-    def replace_contextual_parts context
+    def absolutize_contextual_parts context
       parts.map do |part|
         case part
         when /^_user$/i            then user_part part
@@ -114,6 +109,12 @@ class Cardname
       l_s, r_s = match[1].size, !match[2].empty?
       l_part = context.nth_left l_s
       r_s ? l_part.tag : l_part.s
+    end
+
+    def absolutize_extremes new_parts, context
+      [0, -1].each do |i|
+        new_parts[i] = context.to_s if new_parts[i].empty?
+      end
     end
 
   end
