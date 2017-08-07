@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.version = card_version
 
   s.authors =
-    ["Ethan McCutchen", "Lewis Hoffman", "Gerry Gleason", "Philipp Kühl"]
+    [ "Ethan McCutchen", "Philipp Kühl", "Lewis Hoffman", "Gerry Gleason" ]
   s.email = ["info@decko.org"]
 
   s.summary       = "a simple engine for emergent data structures"
@@ -52,6 +52,7 @@ Gem::Specification.new do |s|
     ["haml",                       "~> 5.0"], # markup language used in view API
     ["uuid",                       "~> 2.3"], # universally unique identifier.
                                               # used in temporary names
+    ["colorize",                   "~> 0.8"], # livelier cli outputs
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
 
