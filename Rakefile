@@ -1,3 +1,6 @@
+# Note: these tasks are not in any gem and are thus not available to mod
+# developers.  Therefore they should contain only tasks for core developers.
+
 task :push_gems do
   %w(card decko).each do |gem|
     system %(

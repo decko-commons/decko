@@ -13,8 +13,7 @@ class Card
     include ::Card::Name::NameVariants
 
     self.params  = Card::Env # yuck!
-    self.session = proc { Card::Auth.current.name }
-    self.banned_array = ["/"]
+    self.session = proc { Card::Auth.current.name } # also_yuck
 
     class << self
       def cardish mark

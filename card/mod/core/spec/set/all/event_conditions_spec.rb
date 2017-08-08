@@ -39,6 +39,7 @@ describe Card::Set::All::EventConditions, "event" do
     end
 
     specify "content change is accessible in all stages" do
+      #binding.pry
       with_test_events do
         STAGES.each do |stage|
           test_event stage, on: :update, changed: :content, for: "A" do

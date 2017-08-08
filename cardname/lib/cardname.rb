@@ -26,24 +26,28 @@ class Cardname < Object
                   :session, :stabilize
 
   Cardname.joint          = '+'
-  Cardname.banned_array   = ['/', '~', '|']
+  Cardname.banned_array   = %w{ / }
   Cardname.var_re         = /\{([^\}]*\})\}/
   Cardname.uninflect      = :singularize
   Cardname.stabilize      = false
 
   JOINT_RE = Regexp.escape joint
 
-  @@name2nameobject = {} # name cache
+  @@cache = {}
 
   class << self
     def new obj
       return obj if obj.is_a? self.class
       str = stringify obj
-      known_name(str) || super(str.strip)
+      cached_name(str) || super(str)
     end
 
-    def known_name str
-      @@name2nameobject[str]
+    def cached_name str
+      @@cache[str]
+    end
+
+    def reset_cache str=nil
+      str ? @@cache.delete(str) : @@cache = {}
     end
 
     def stringify obj
@@ -63,13 +67,12 @@ class Cardname < Object
     # Usually that means the name is a proper noun and not a plural.
     # You can choose between two solutions:
     # 1. don't uninflect if the uninflected key is not stable (stabilize = false)
-    #    (probably the best choice because you want Matthias not to be the same  as Matthium)
     # 2. uninflect until the key is stable (stabilize = true)
-    def stable_uninflect name
-      key_one = name.send(Cardname.uninflect)
-      key_two = key_one.send(Cardname.uninflect)
+    def stable_key name
+      key_one = name.send(uninflect)
+      key_two = key_one.send(uninflect)
       return key_one unless key_one != key_two
-      Cardname.stabilize ? stable_uninflect(key_two) : name
+      stabilize ? stable_key(key_two) : name
     end
   end
 
@@ -83,7 +86,7 @@ class Cardname < Object
     @s = @s.encode('UTF-8') if RUBYENCODING
     initialize_parts
     @key = @part_keys.join(self.class.joint)
-    @@name2nameobject[str] = self
+    @@cache[str] = self
   end
 
   def to_name

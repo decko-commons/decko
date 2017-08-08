@@ -1,7 +1,10 @@
 class Cardname
   module Contextual
     RELATIVE_REGEXP = /\b_(left|right|whole|self|user|main|\d+|L*R?)\b/
-
+    EXTREMES = [:start, :end]
+    #
+    # @param context_name [String]
+    # @returns Cardname
     def relative_name context_name
       to_show(*context_name.to_name.parts).to_name
     end
@@ -18,11 +21,12 @@ class Cardname
     end
 
     def relative?
-      s =~ RELATIVE_REGEXP || starts_with_joint?
+      starts_with_joint? || s =~ RELATIVE_REGEXP
     end
 
     def simple_relative?
-      relative? && stripped.to_name.starts_with_joint?
+      #relative? &&
+      stripped.to_name.starts_with_joint?
     end
 
     def absolute?
@@ -57,15 +61,10 @@ class Cardname
     def to_absolute context, args={}
       context = context.to_name
 
-      new_parts = replace_contextual_parts context
+      new_parts = absolutize_contextual_parts context
       return "" if new_parts.empty?
+      absolutize_extremes new_parts, context
 
-      if new_parts.first.empty? && !new_parts.to_name.starts_with?(context)
-        new_parts[0] = context.to_s
-      end
-      if new_parts.last.empty? && !new_parts.to_name.ends_with?(context)
-        new_parts[-1] = context.to_s
-      end
       new_parts.join self.class.joint
     end
 
@@ -80,35 +79,47 @@ class Cardname
 
     private
 
-    def replace_contextual_parts context
+    def absolutize_contextual_parts context
       parts.map do |part|
-        new_part =
-          case part
-          when /^_user$/i
-            name_proc = self.class.session
-            name_proc ? name_proc.call : part
-          when /^_main$/i            then self.class.params[:main_name]
-          when /^(_self|_whole|_)$/i then context.s
-          when /^_left$/i            then context.trunk
-            # note - inconsistent use of left v. trunk
-          when /^_right$/i           then context.tag
-          when /^_(\d+)$/i
-            pos = $~[1].to_i
-            pos = context.length if pos > context.length
-            context.parts[pos - 1]
-          when /^_(L*)(R?)$/i
-            l_s, r_s = $~[1].size, !$~[2].empty?
-            l_part = context.nth_left l_s
-            r_s ? l_part.tag : l_part.s
-            # when /^_/
-            #   custom = args[:params] ? args[:params][part] : nil
-            #   custom ? CGI.escapeHTML(custom) : part
-            # why are we escaping HTML here?
-          else
-            part
-          end.to_s.strip
-        new_part
+        case part
+        when /^_user$/i            then user_part part
+        when /^_main$/i            then self.class.params[:main_name]
+        when /^(_self|_whole|_)$/i then context.s
+        when /^_left$/i            then context.trunk
+        # note - inconsistent use of left v. trunk
+        when /^_right$/i           then context.tag
+        when /^_(\d+)$/i           then ordinal_part $~[1].to_i, context
+        when /^_(L*)(R?)$/i        then partmap_part $~, context
+        else                            part
+        end.to_s.strip
       end
     end
+
+    def user_part part
+      name_proc = self.class.session
+      name_proc ? name_proc.call : part
+    end
+
+    def ordinal_part pos, context
+      pos = context.length if pos > context.length
+      context.parts[pos - 1]
+    end
+
+    def partmap_part match, context
+      l_s, r_s = match[1].size, !match[2].empty?
+      l_part = context.nth_left l_s
+      r_s ? l_part.tag : l_part.s
+    end
+
+    def absolutize_extremes new_parts, context
+      [0, -1].each do |i|
+        next unless new_parts[i].empty?
+        # following avoids recontextualizing with relative contexts.
+        # Eg, `+A+B+.to_absolute('+A')` should be +A+B, not +A+A+B.
+        next if new_parts.to_name.send "#{EXTREMES[i]}s_with?", context
+        new_parts[i] = context.to_s
+      end
+    end
+
   end
 end

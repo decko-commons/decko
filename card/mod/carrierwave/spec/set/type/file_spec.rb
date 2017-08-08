@@ -470,7 +470,7 @@ describe Card::Set::Type::File do
 
   let(:directory) { "deckodev-test" }
 
-  # expects access keys in card/spec/support/buckets_credentials.yml for the
+  # expects access keys in card/spec/support/bucket_credentials.yml for the
   # bucket defined in `directory` in the following format:
   # aws:
   #   provider: AWS
