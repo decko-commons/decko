@@ -1,7 +1,7 @@
 class Cardname
   module Contextual
     RELATIVE_REGEXP = /\b_(left|right|whole|self|user|main|\d+|L*R?)\b/
-
+    EXTREMES = [:start, :end]
     #
     # @param context_name [String]
     # @returns Cardname
@@ -113,7 +113,11 @@ class Cardname
 
     def absolutize_extremes new_parts, context
       [0, -1].each do |i|
-        new_parts[i] = context.to_s if new_parts[i].empty?
+        next unless new_parts[i].empty?
+        # following avoids recontextualizing with relative contexts.
+        # Eg, `+A+B+.to_absolute('+A')` should be +A+B, not +A+A+B.
+        next if new_parts.to_name.send "#{EXTREMES[i]}s_with?", context
+        new_parts[i] = context.to_s
       end
     end
 

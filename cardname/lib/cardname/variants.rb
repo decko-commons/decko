@@ -7,7 +7,7 @@ class Cardname
         .gsub(/[^#{OK4KEY_RE}]+/, '_')
         .split(/_+/)
         .reject(&:empty?)
-        .map { |key| self.class.stable_uninflect(key) }
+        .map { |key| self.class.stable_key(key) }
         .join('_')
     end
 
