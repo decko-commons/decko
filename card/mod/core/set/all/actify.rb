@@ -138,3 +138,16 @@ end
 def db_content_before_act
   db_content_before_last_save || db_content_was
 end
+
+# HACK
+# Rails developers appear to be moving to a new "mutations" API for tracking attribute changes
+# Without this fix, _was handling was altered prior to saving a card, and event_conditions_spec.rb was breaking
+
+# Should revisit and submit PR to rails or understand rationale for new behavior and adapt
+def attribute_was(attr) # :nodoc:
+  if attribute_changed?(attr)
+    changed_attributes[attr] || mutations_from_database.changed_values[attr]
+  else
+    _read_attribute(attr)
+  end
+end
