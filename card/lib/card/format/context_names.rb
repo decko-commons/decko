@@ -1,6 +1,6 @@
 class Card
   class Format
-    module Names
+    module ContextNames
       def initial_context_names
         @initial_context_names ||=
           if @context_names

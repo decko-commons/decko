@@ -66,8 +66,8 @@ module Card::Content::Chunk
         @explicit_link = render_obj @explicit_link
         format.link_to_resource @explicit_link, @link_text
       elsif @name
-        known = referee_card.send_if :known?
-        format.link_to_card referee_name, @link_text, known: known
+        binding.pry
+        format.nest referee_name, options.merge(view: :link)
       end
     end
 

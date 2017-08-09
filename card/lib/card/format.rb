@@ -28,7 +28,7 @@ class Card
     include Nest
     include Permission
     include Render
-    include Names
+    include ContextNames
     include Content
     include Error
 

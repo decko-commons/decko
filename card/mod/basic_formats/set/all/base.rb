@@ -37,8 +37,6 @@ format do
     link_to_card card.name, title, opts
   end
 
-
-
   view(:codename, closed: true) { card.codename.to_s }
   view(:id,       closed: true) { card.id            }
   view(:type,     closed: true) { card.type_name     }
