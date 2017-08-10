@@ -48,9 +48,7 @@ class Card
     def initialize card, opts={}
       @card = card
       require_card_to_initialize!
-
       opts.each { |key, value| instance_variable_set "@#{key}", value }
-      @context_names = initial_context_names
       include_set_format_modules
       self
     end

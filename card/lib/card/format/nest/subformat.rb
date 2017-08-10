@@ -4,8 +4,7 @@ class Card
       module Subformat
         def subformat subcard
           subcard = Card.fetch(subcard, new: {}) unless subcard.is_a?(Card)
-          self.class.new subcard, parent: self, format_class: self.class, form: @form,
-                                  context_names: @context_names
+          self.class.new subcard, parent: self, format_class: self.class, form: @form
         end
 
         def root
