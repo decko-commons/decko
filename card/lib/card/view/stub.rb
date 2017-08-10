@@ -16,7 +16,7 @@ class Card
         {
           cast: card.cast,
           options: normalized_options,
-          mode: format.mode
+          mode: format.nest_mode
         }
       end
 
