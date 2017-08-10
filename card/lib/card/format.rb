@@ -44,7 +44,7 @@ class Card
       send "#{accessor_name}=", {}
     end
 
-    attr_reader :card, :parent, :main_opts, :mode
+    attr_reader :card, :parent, :main_opts
     attr_accessor :form, :error_status
 
     def initialize card, opts={}
@@ -52,8 +52,6 @@ class Card
       require_card_to_initialize!
 
       opts.each { |key, value| instance_variable_set "@#{key}", value }
-
-      @mode ||= :normal
       @context_names = initial_context_names
       include_set_format_modules
       self
@@ -90,7 +88,7 @@ class Card
     def session
       Env.session
     end
-    
+
 
     def template
       @template ||= begin

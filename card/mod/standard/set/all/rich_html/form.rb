@@ -168,9 +168,9 @@ format :html do
   def card_form action, opts={}
     @form_root = true
     success = opts.delete(:success)
-    form_for card, card_form_opts(action, opts) do |form|
-      @form = form
-      success_tags(success) + output(yield(form))
+    form_for card, card_form_opts(action, opts) do |cform|
+      @form = cform
+      success_tags(success) + output(yield(cform))
     end
   end
 

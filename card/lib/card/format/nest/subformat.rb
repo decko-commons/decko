@@ -3,10 +3,8 @@ class Card
     module Nest
       module Subformat
         def subformat subcard
-          subcard = Card.fetch(subcard, new: {}) if subcard.is_a?(String)
-          self.class.new subcard, parent: self, format_class: self.class,
-                                  form: @form,
-                                  mode: @mode,
+          subcard = Card.fetch(subcard, new: {}) unless subcard.is_a?(Card)
+          self.class.new subcard, parent: self, format_class: self.class, form: @form,
                                   context_names: @context_names
         end
 
@@ -25,7 +23,6 @@ class Card
         def focal? # meaning the current card is the requested card
           depth.zero?
         end
-
 
         def field_subformat field
           field = card.cardname.field(field) unless field.is_a?(Card)

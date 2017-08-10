@@ -10,23 +10,27 @@ class Card
       # Renders views for a nests
       module View
         def with_nest_mode mode
-          old_mode = @mode
+          old_mode = nest_mode
           if (switch_mode = NEST_MODES[mode])
-            @mode = switch_mode
+            @nest_mode = switch_mode
           end
           result = yield
-          @mode = old_mode
+          @nest_mode = old_mode
           result
+        end
+
+        def nest_mode
+          @nest_mode ||= parent ? parent.nest_mode : :normal
         end
 
         # private
 
         def modal_nest_view view
-          # Note: the subformat always has the same @mode as its parent format
-          case @mode
-          when :edit then view_in_edit_mode(view)
+          # Note: the subformat always has the same nest_mode as its parent format
+          case nest_mode
+          when :edit     then view_in_edit_mode(view)
           when :template then :template_rule
-          when :closed then view_in_closed_mode(view)
+          when :closed   then view_in_closed_mode(view)
           else view
           end
         end
