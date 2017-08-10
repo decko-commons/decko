@@ -5,6 +5,21 @@ class Card
         registered << format.to_s
       end
 
+      def new card, opts={}
+        if self != Format
+          super
+        else
+          klass = format_class opts
+          self == klass ? super : klass.new(card, opts)
+        end
+      end
+
+      def format_class opts
+        return opts[:format_class] if opts[:format_class]
+        format = opts[:format] || :html
+        class_from_name format_class_name(format)
+      end
+
       def format_class_name format
         format = format.to_s
         format = "" if format == "base"
@@ -42,15 +57,7 @@ class Card
         "view_#{view}_cache_setting"
       end
 
-      def new card, opts={}
-        if self != Format
-          super
-        else
-          format = opts[:format] || :html
-          klass = class_from_name format_class_name(format)
-          self == klass ? super : klass.new(card, opts)
-        end
-      end
+
 
       def class_from_name formatname
         if formatname == "Format"
