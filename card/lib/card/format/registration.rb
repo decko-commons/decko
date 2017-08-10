@@ -1,6 +1,7 @@
 class Card
   class Format
     module Registration
+
       def register format
         registered << format.to_s
       end
@@ -39,7 +40,7 @@ class Card
       end
 
       def extract_class_vars view, opts
-        [:perms, :error_code, :denial, :closed].each do |varname|
+        Card::Format::VIEW_VARS.each do |varname|
           next unless (value = opts.delete varname)
           send(varname)[view] = value
         end
@@ -56,8 +57,6 @@ class Card
       def view_cache_setting_method view
         "view_#{view}_cache_setting"
       end
-
-
 
       def class_from_name formatname
         if formatname == "Format"

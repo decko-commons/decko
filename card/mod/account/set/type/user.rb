@@ -4,7 +4,7 @@ include Basic
 attr_accessor :email
 
 format :html do
-  view :setup, tags: :unknown_ok,
+  view :setup, tags: :unknown_ok, mode: :edit,
                perms: ->(_r) { Auth.needs_setup? } do |_args|
     voo.title = "Welcome, Wagneer!"
     voo.show! :help

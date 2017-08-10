@@ -74,7 +74,7 @@ format do
     _render_core
   end
 
-  view :closed_content, closed: true do
+  view :closed_content, closed: true, mode: :closed do
     Card::Content.smart_truncate _render_core
   end
 

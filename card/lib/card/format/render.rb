@@ -40,11 +40,9 @@ class Card
 
       def final_render view, args
         current_view(view) do
-          with_nest_mode view do
-            method = view_method view
-            rendered = method.arity.zero? ? method.call : method.call(args)
-            add_debug_info view, method, rendered
-          end
+          method = view_method view
+          rendered = method.arity.zero? ? method.call : method.call(args)
+          add_debug_info view, method, rendered
         end
       end
 
@@ -131,10 +129,19 @@ class Card
       def current_view view
         old_view = @current_view
         @current_view = view
-        yield
+        with_nest_mode_for_view(view) { yield }
       ensure
         @current_view = old_view
       end
+
+      def with_nest_mode_for_view view
+        if (new_mode = Card::Format.mode[view])
+          with_nest_mode(new_mode) { yield }
+        else
+          yield
+        end
+      end
+
     end
   end
 end

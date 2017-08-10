@@ -1,5 +1,5 @@
 format :html do
-  view :new, perms: :create, tags: :unknown_ok, cache: :never do
+  view :new, perms: :create, tags: :unknown_ok, cache: :never, mode: :edit do
     voo.title ||= new_view_title if new_name_prompt?
     voo.show :help
     frame_and_form :create, new_form_opts do

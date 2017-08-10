@@ -34,12 +34,10 @@ class Card
 
     extend Registration
 
-    # FIXME: should be set in views
-
-    cattr_accessor :ajax_call, :registered
+    cattr_accessor :registered
     self.registered = []
-    [:perms, :denial, :closed, :error_code,
-     :view_tags, :aliases].each do |accessor_name|
+    VIEW_VARS = [ :perms, :denial, :closed, :error_code, :mode ]
+    (VIEW_VARS + [ :view_tags, :aliases ]).each do |accessor_name|
       cattr_accessor accessor_name
       send "#{accessor_name}=", {}
     end

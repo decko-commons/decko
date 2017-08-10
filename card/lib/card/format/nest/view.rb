@@ -1,19 +1,12 @@
 class Card
   class Format
     module Nest
-      NEST_MODES = { new: :edit,
-                     closed_content: :closed,
-                     setup: :edit,
-                     edit: :edit, closed: :closed, layout: :layout,
-                     normal: :normal, template: :template }.freeze
 
       # Renders views for a nests
       module View
-        def with_nest_mode mode
+        def with_nest_mode new_mode
           old_mode = nest_mode
-          if (switch_mode = NEST_MODES[mode])
-            @nest_mode = switch_mode
-          end
+          @nest_mode = new_mode
           result = yield
           @nest_mode = old_mode
           result

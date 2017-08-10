@@ -118,7 +118,7 @@ format :html do
     link_to_card card.type_card, nil, class: klasses
   end
 
-  view :closed do
+  view :closed, mode: :closed do
     voo.show :toggle
     voo.hide! :toolbar
     class_up "d0-card-body", "closed-content"
