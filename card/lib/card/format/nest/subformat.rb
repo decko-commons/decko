@@ -18,7 +18,13 @@ class Card
           @depth ||= parent ? (parent.depth + 1) : 0
         end
 
+        def main?
+          depth.zero?
+        end
 
+        def focal? # meaning the current card is the requested card
+          depth.zero?
+        end
 
 
         def field_subformat field

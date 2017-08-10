@@ -44,7 +44,7 @@ class Card
       send "#{accessor_name}=", {}
     end
 
-    attr_reader :card, :root, :parent, :main_opts, :mode
+    attr_reader :card, :parent, :main_opts, :mode
     attr_accessor :form, :error_status
 
     def initialize card, opts={}
@@ -90,14 +90,7 @@ class Card
     def session
       Env.session
     end
-
-    def main?
-      depth.zero?
-    end
-
-    def focal? # meaning the current card is the requested card
-      depth.zero?
-    end
+    
 
     def template
       @template ||= begin
