@@ -54,9 +54,6 @@ class Card
       opts.each { |key, value| instance_variable_set "@#{key}", value }
 
       @mode ||= :normal
-      @root ||= self
-      @depth ||= 0
-
       @context_names = initial_context_names
       include_set_format_modules
       self
@@ -95,11 +92,11 @@ class Card
     end
 
     def main?
-      @depth.zero?
+      depth.zero?
     end
 
     def focal? # meaning the current card is the requested card
-      @depth.zero?
+      depth.zero?
     end
 
     def template

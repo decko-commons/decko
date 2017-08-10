@@ -53,7 +53,7 @@ format :html do
   end
 
   def debug_slot_wrap
-    pre = "<!--\n\n#{'  ' * @depth}"
+    pre = "<!--\n\n#{'  ' * depth}"
     post = " SLOT: #{h card.name}\n\n-->"
     [pre, "BEGIN", post, yield, pre, "END", post].join
   end

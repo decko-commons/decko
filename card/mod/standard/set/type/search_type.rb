@@ -58,7 +58,7 @@ format :html do
   end
 
   view :closed_content, cache: :never do
-    if @depth > max_depth
+    if depth > max_depth
       "..."
     else
       search_params[:limit] = closed_limit

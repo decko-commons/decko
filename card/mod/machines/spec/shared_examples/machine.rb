@@ -68,12 +68,12 @@ shared_examples_for "pointer machine" do |args|
     #
 
     change_machine = machine_card
-    @depth = 2
+    depth = 2
     @leaf_items = []
     @expected_items = expected_input_items || []
     start = @expected_items.size
     Card::Auth.as_bot do
-      @depth.times do |i|
+      depth.times do |i|
         @leaf_items << Card.fetch("level #{i} basic 1",
                                   new: { type: Card::BasicID })
         @leaf_items.last.save
@@ -84,7 +84,7 @@ shared_examples_for "pointer machine" do |args|
 
       # we build the tree from bottom up
       last_level = false
-      (@depth - 1).downto(0) do |i|
+      (depth - 1).downto(0) do |i|
         next_level = Card.fetch("level #{i} #{filetype} ",
                                 new: { type: :pointer })
         next_level.content = ""
