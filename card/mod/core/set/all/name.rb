@@ -2,19 +2,27 @@ require "uuid"
 
 module ClassMethods
   def uniquify_name name, rename=:new
-    return name unless Card.exists?(name)
-    uniq_name = "#{name} 1"
-    uniq_name.next! while Card.exists?(uniq_name)
-    if rename == :old
-      # name conflict resolved; original name can be used
-      Card[name].update_attributes! name: uniq_name,
-                                    update_referers: true
+    return name unless Card.exists? name
+    uniq_name = generate_alternative_name name
+    if rename == old
+      rename!(name, uniq_name)
       name
     else
       uniq_name
     end
   end
+
+  def generate_alternative_name name
+    uniq_name = "#{name} 1"
+    uniq_name.next! while Card.exists?(uniq_name)
+    uniq_name
+  end
+
+  def rename! oldname, newname
+    Card[oldname].update_attributes! name: newname, update_referers: true
+  end
 end
+
 
 def name= newname
   cardname = newname.to_name

@@ -64,7 +64,7 @@ class Cardname
       context = context.to_name
       new_parts = absolutize_contextual_parts context
       return "" if new_parts.empty?
-      absolutize_extremes new_parts, context
+      absolutize_extremes new_parts, context.s
       new_parts.join self.class.joint
     end
 
@@ -117,7 +117,7 @@ class Cardname
         # following avoids recontextualizing with relative contexts.
         # Eg, `+A+B+.to_absolute('+A')` should be +A+B, not +A+A+B.
         next if new_parts.to_name.send "#{[ :start, :end ][i]}s_with?", context
-        new_parts[i] = context.to_s
+        new_parts[i] = context
       end
     end
 

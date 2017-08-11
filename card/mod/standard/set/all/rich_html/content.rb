@@ -220,11 +220,9 @@ format :html do
     )
   end
 
-  private
-
   def fancy_title title=nil
     wrap_with :span, class: classy("card-title") do
-      pov_name(title).to_name.parts.join fancy_joint
+      title.to_name.parts.join fancy_joint
     end
   end
 
@@ -232,3 +230,4 @@ format :html do
     wrap_with :span, "+", classy("joint")
   end
 end
+
