@@ -31,12 +31,9 @@ class Card
         @context_names = (context_names + name.to_name.part_names).uniq
       end
 
-      def showname title=nil
-        if title
-          card.cardname.title title, context_names
-        else
-          @showname ||= card.cardname.to_show(*context_names)
-        end
+      def pov_name title=nil
+        base = title ? title.to_name.absolute_name(card.cardname) : card.cardname
+        base.pov *context_names
       end
     end
   end

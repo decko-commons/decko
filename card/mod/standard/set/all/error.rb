@@ -43,7 +43,7 @@ format do
   end
 
   view :too_slow, perms: :none, closed: true do
-    %( Timed out! #{showname} took too long to load. )
+    %( Timed out! #{pov_name} took too long to load. )
   end
 end
 
@@ -105,7 +105,7 @@ format :html do
   end
 
   view :closed_missing, perms: :none do
-    wrap_with :span, showname, class: "faint"
+    wrap_with :span, pov_name, class: "faint"
   end
 
   view :conflict, error_code: 409 do

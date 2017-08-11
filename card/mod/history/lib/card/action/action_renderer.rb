@@ -81,11 +81,11 @@ class Card
       end
 
       def old_name
-        (name = @action.previous_value :name) && showname(name).to_s
+        (name = @action.previous_value :name) && pov_name(name)
       end
 
       def new_name
-        showname(@action.value(:name)).to_s
+        pov_name @action.value(:name)
       end
     end
   end

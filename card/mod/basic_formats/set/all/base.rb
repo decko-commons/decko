@@ -31,7 +31,7 @@ format do
   end
 
   def link_view opts={}
-    title = showname voo.title
+    title = pov_name voo.title
     opts[:known] = card.known?
     opts[:path] = { card: { type: voo.type } } if voo.type && !opts[:known]
     link_to_card card.name, title, opts

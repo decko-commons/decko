@@ -89,7 +89,7 @@ format :html do
   end
 
   view :title_link do |args|
-    title_text = args[:title_ready] || showname(voo.title)
+    title_text = args[:title_ready] || pov_name(voo.title)
     link_to_card card.cardname, title_text
   end
 
@@ -224,7 +224,7 @@ format :html do
 
   def fancy_title title=nil
     wrap_with :span, class: classy("card-title") do
-      showname(title).to_name.parts.join fancy_joint
+      pov_name(title).to_name.parts.join fancy_joint
     end
   end
 

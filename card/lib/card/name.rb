@@ -48,10 +48,5 @@ class Card
     def set?
       Set::Pattern.card_keys[tag_name.key]
     end
-
-    # processes contextual title argument used in nests like "title: _left"
-    def title title_directive, context_names
-      title_directive.to_name.to_absolute_name(self).to_show(*context_names)
-    end
   end
 end

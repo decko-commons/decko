@@ -94,7 +94,7 @@ end
 
 def relative_name context_name=nil
   context_name ||= @supercard.cardname if @supercard
-  cardname.relative_name context_name
+  cardname.pov_name context_name
 end
 
 def absolute_name context_name=nil

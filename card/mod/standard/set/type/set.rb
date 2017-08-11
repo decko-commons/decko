@@ -227,7 +227,7 @@ format :html do
   def set_navbar_content related_sets
     wrap_with :ul, class: "nav navbar-nav nav-pills" do
       related_sets.map do |name, label|
-        slot_opts = { subheader: showname(name),
+        slot_opts = { subheader: pov_name(name),
                       subframe: true,
                       hide: "header set_label rule_navbar",
                       show: "subheader set_navbar" }

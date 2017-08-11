@@ -84,16 +84,16 @@ RSpec.describe Cardname::Contextual do
     end
   end
 
-  describe "#to_show" do
+  describe "#pov" do
     it "ignores ignorables" do
-      expect("you+awe".to_name.to_show("you")).to eq("+awe")
-      expect("me+you+awe".to_name.to_show("you")).to eq("me+awe") #HMMM..... what should this do?
-      expect("me+you+awe".to_name.to_show("me" )).to eq("+you+awe")
-      expect("me+you+awe".to_name.to_show("me","you")).to eq("+awe")
-      expect("me+you".to_name.to_show("me","you")).to eq("me+you")
-      expect("?a?+awe".to_name.to_show("A")).to eq("+awe")
-      expect("+awe".to_name.to_show()).to eq("+awe")
-      expect("+awe".to_name.to_show(nil)).to eq("+awe")
+      expect("you+awe".to_name.pov("you")).to eq("+awe")
+      expect("me+you+awe".to_name.pov("you")).to eq("me+awe") #HMMM..... what should this do?
+      expect("me+you+awe".to_name.pov("me" )).to eq("+you+awe")
+      expect("me+you+awe".to_name.pov("me","you")).to eq("+awe")
+      expect("me+you".to_name.pov("me","you")).to eq("me+you")
+      expect("?a?+awe".to_name.pov("A")).to eq("+awe")
+      expect("+awe".to_name.pov()).to eq("+awe")
+      expect("+awe".to_name.pov(nil)).to eq("+awe")
     end
   end
 
@@ -119,17 +119,18 @@ RSpec.describe Cardname::Contextual do
     end
   end
 
-  describe "#relative_name" do
-    [["A+B",   "A",   "+B"],
-     ["A+B",   "B",   "A"],
-     ["A",     "A",   "A"],
-     ["A+B",   "A+B", "A+B"],
-     ["A",     "A+B", "A"],
+  describe "#pov_name" do
+    [
+     #   #["A+B",   "A",   "+B"],
+     #["A+B",   "B",   "A"],
+     #["A",     "A",   "A"],
+     #["A+B",   "A+B", "A+B"],
+     #["A",     "A+B", "A"],
      ["A+C",   "A+B", "+C"],
      ["A+B",   "C+B", "A"],
-     ["X+A+B", "A+C", "X+B"]].each do |name, context, res|
-      it "#{name} relative to #{context} is #{res}" do
-        expect(name.to_name.relative_name(context).to_s).to eq res
+     ["X+A+B", "A+C", "X+B"]].each do |name, from, res|
+      it "#{name} from #{from} is #{res}" do
+        expect(name.to_name.pov from).to eq res
       end
     end
   end
