@@ -115,10 +115,9 @@ class Card
     end
 
     def initialize_vars
-      if @superquery
-        @superquery.vars
-      else
-        (@statement.delete(:vars) || {}).symbolize_keys
+      if (v = @statement.delete :vars) then v.symbolize_keys
+      elsif @superquery                then @superquery.vars
+      else                                  {}
       end
     end
 
