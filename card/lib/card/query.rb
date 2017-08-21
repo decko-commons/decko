@@ -82,9 +82,9 @@ class Card
 
     DEFAULT_ORDER_DIRS = { update: "desc", relevance: "desc" }.freeze
 
-    attr_reader :statement, :mods, :conditions, :comment,
-                :subqueries, :superquery, :vars
-    attr_accessor :joins, :table_seq, :unjoined, :conditions_on_join
+    attr_reader :statement, :mods, :conditions, :comment, :vars,
+                :subqueries, :superquery, :unjoined
+    attr_accessor :joins, :conditions_on_join, :table_seq
 
     # Query Execution
 
@@ -106,13 +106,20 @@ class Card
       @context    = @statement.delete(:context) || nil
       @unjoined   = @statement.delete(:unjoined) || nil
       @superquery = @statement.delete(:superquery) || nil
-      @vars       = @statement.delete(:vars) || {}
-      @vars.symbolize_keys!
+      @vars       = initialize_vars
 
       @comment = comment || default_comment
 
       interpret @statement
       self
+    end
+
+    def initialize_vars
+      if @superquery
+        @superquery.vars
+      else
+        (@statement.delete(:vars) || {}).symbolize_keys
+      end
     end
 
     def default_comment
