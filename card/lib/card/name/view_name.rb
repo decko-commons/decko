@@ -12,8 +12,8 @@ class Card
         def new obj
           return obj if self.class === obj
           str = Array === obj ? obj * joint : obj.to_s
-          if (known_name = @@name2viewnameobject[str])
-            known_name
+          if (cached_name = @@name2viewnameobject[str])
+            cached_name
           else
             super str.strip
           end

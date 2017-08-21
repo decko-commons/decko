@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.homepage      = "http://decko.org"
-  s.authors = ["Gerry Gleason", "Ethan McCutchen", "Philipp Kühl"]
+  s.authors = [ "Ethan McCutchen", "Philipp Kühl", "Gerry Gleason" ]
   s.email = "info@decko.org"
 
   s.description = "Naming patterns abstracted from Decko cards"
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
 
 
   s.add_dependency "activesupport", "~> 5.1"
-  s.add_dependency "htmlentities", "~> 4.3"
+  s.add_dependency "htmlentities",  "~> 4.3"
 
   #s.add_development_dependency "rspec"
   #s.add_development_dependency "rdoc"

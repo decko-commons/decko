@@ -6,7 +6,7 @@ vbits = version.split('.').map &:to_i
 vplus = { 0 => 90, 1 => 100 } # can remove and hardcode after 1.0
 vminor = vplus[ vbits[0] ] + vbits[1]
 card_version = [1, vminor, vbits[2]].compact.map(&:to_s).join "."
-# see card.gemspect for explanation of all of this, which has been ham-handedly
+# see card.gemspec for explanation of all of this, which has been ham-handedly
 # cut and pasted here.
 
 
