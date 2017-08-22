@@ -32,17 +32,29 @@ HTML
 describe Bootstrap::Component::Carousel do
   subject { Card["A"].format(:html) }
   specify "carousel helper" do
-    carousel = subject.bs_carousel "csID" do
-      item do
-
-      end
-      item active: true do
-
+    id = "csID"
+    carousel = subject.bs_carousel id, 2, active: 1 do
+      inner do
+        item do
+          tag :img, src: "item1"
+        end
+        item "item 2"
       end
     end
 
     expect(carousel).to have_tag "div.carousel.slide#csID" do
-      with_tag "ol.carousel-indicators"
+      with_tag "ol.carousel-indicators" do
+        with_tag "li", with: { "data-target" => "##{id}", "data-slide-to" => "0" }
+        with_tag "li.active", with: { "data-target" => "##{id}", "data-slide-to" => "1" }
+      end
+      with_tag "div.carousel-inner" do
+        with_tag "div.carousel-item" do
+          with_tag :img, with: { src: "item1" }
+        end
+        with_tag "div.carousel-item.active" do
+          with_text /item 2/
+        end
+      end
     end
   end
 end
