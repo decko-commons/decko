@@ -44,6 +44,7 @@ class Card
     # stage
     class StageDirector
       include Stage
+      include Phases
 
       attr_accessor :prior_store, :act, :card, :stage, :parent, :main,
                     :subdirectors, :transact_in_stage
@@ -89,38 +90,6 @@ class Card
         @card.prepare_for_phases unless @prepared
         @prepared = true
         @subdirectors.each(&:prepare_for_phases)
-      end
-
-      def validation_phase
-        run_single_stage :initialize
-        run_single_stage :prepare_to_validate
-        run_single_stage :validate
-        @card.expire_pieces if @card.errors.any?
-        @card.errors.empty?
-      end
-
-      def storage_phase &block
-        catch_up_to_stage :prepare_to_store
-        run_single_stage :store, &block
-        run_single_stage :finalize
-      ensure
-        @from_trash = nil
-      end
-
-      def integration_phase
-        return if @abort
-        @card.restore_changes_information
-        run_single_stage :integrate
-        run_single_stage :after_integrate
-        run_single_stage :integrate_with_delay
-      rescue => e  # don't rollback
-        Card::Error.current = e
-        warn "exception in integrate stage: #{e.message}"
-        @card.notable_exception_raised
-        return false
-      ensure
-        @card.clear_changes_information unless @abort
-        ActManager.clear if main? && !@card.only_storage_phase
       end
 
       def catch_up_to_stage next_stage

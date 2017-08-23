@@ -1,10 +1,7 @@
 class Card
   def deserialize_for_active_job! attr
-    attr.each do |attname, args|
-      # symbols are not allowed so all symbols arrive here as strings
-      # convert strings that were symbols before back to symbols
-      value = deserialize_value args[:value], args[:type]
-      instance_variable_set("@#{attname}", value)
+    attr.each do |attname, val|
+      instance_variable_set("@#{attname}", val)
     end
 
     include_set_modules
@@ -27,8 +24,7 @@ class Card
 
   def serialize_for_active_job
     serializable_attributes.each_with_object({}) do |name, hash|
-      value = instance_variable_get("@#{name}")
-      hash[name] = serialize_value value
+      hash[name] = instance_variable_get("@#{name}")
     end
   end
 
@@ -148,6 +144,7 @@ class Card
       def define_event_delaying_method event, method_name, final_method_name
         class_eval do
           define_method(method_name, proc do
+            binding.pry
             IntegrateWithDelayJob.set(queue: event).perform_later(
               self, serialize_for_active_job, Card::Env.serialize,
               Card::Auth.serialize, final_method_name
