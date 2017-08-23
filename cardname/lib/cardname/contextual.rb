@@ -13,6 +13,12 @@ class Cardname
       absolute_name(context).parent_keys.include? context_key
     end
 
+    def right_child_of? context
+      return false unless junction?
+      absolute_name(context).left_name.key == context.to_name.key
+
+    end
+
     def relative?
       starts_with_joint? || s =~ RELATIVE_REGEXP
     end

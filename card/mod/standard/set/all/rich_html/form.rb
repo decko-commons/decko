@@ -158,7 +158,7 @@ format :html do
   # then the subfield cards should be created on the new card not the existing
   # card that build the form
   def name_in_form
-    relative_names_in_form? ? card.relative_name : card.contextual_name
+    relative_names_in_form? ? card.relative_name : card.rawraw_name
   end
 
   def form

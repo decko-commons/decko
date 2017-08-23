@@ -4,12 +4,9 @@ module ClassMethods
   def uniquify_name name, rename=:new
     return name unless Card.exists? name
     uniq_name = generate_alternative_name name
-    if rename == old
-      rename!(name, uniq_name)
-      name
-    else
-      uniq_name
-    end
+    return uniq_name unless rename == :old
+    rename!(name, uniq_name)
+    name
   end
 
   def generate_alternative_name name
@@ -23,24 +20,20 @@ module ClassMethods
   end
 end
 
-
 def name= newname
-  cardname = newname.to_name
-  if @supercard
-    @supercard.subcards.rename key, cardname.key
-    @contextual_name = cardname.to_s
-    relparts = cardname.parts
-    if relparts.size == 2 &&
-       (relparts.first.blank? || relparts.first.to_name.key == @supercard.key)
-      @superleft = @supercard
-    end
-    cardname = cardname.to_absolute_name @supercard.name
-  end
-
+  cardname = superize_name newname.to_name
   newkey = cardname.key
   self.key = newkey if key != newkey
   update_subcard_names cardname
   write_attribute :name, cardname.s
+end
+
+def superize_name cardname
+  return cardname unless @supercard
+  @raw_name = cardname.s
+  @supercard.subcards.rename key, cardname.key
+  @superleft = @supercard if cardname.field_of? @supercard.name
+  cardname.to_absolute_name @supercard.name
 end
 
 def key= newkey
@@ -96,8 +89,8 @@ def junction?
   cardname.junction?
 end
 
-def contextual_name
-  @contextual_name || name
+def raw_name
+  @raw_name || name
 end
 
 def relative_name context_name=nil
