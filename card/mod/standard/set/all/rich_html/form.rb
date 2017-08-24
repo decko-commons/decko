@@ -143,26 +143,39 @@ format :html do
       field_nest field, opts
     end.join "\n"
   end
-
-  def form_for_multi
-    instantiate_builder("card#{subcard_input_names}", card, {})
-  end
-
-  def subcard_input_names
-    return "" if !form_root_format || form_root_format == self
-    return @parent.subcard_input_names if @parent.card == card
-    "#{@parent.subcard_input_names}[subcards][#{name_in_form}]"
-  end
+  ###
 
   # If you use subfield cards to render a form for a new card
   # then the subfield cards should be created on the new card not the existing
   # card that build the form
   def name_in_form
-    relative_names_in_form? ? card.relative_name : card.raw_name
+    card.cardname.from form_context
   end
 
   def form
-    @form ||= form_for_multi
+    @form ||= begin
+      @form_root = true unless form_root
+      instantiate_builder("card#{subcard_input_names}", card, {})
+    end
+  end
+
+  def form_prefices
+    return "" if form_root? || !form_root
+    return parent.form_prefices if parent.card == card
+    "#{parent.form_prefices}[subcards][#{name_in_form}]"
+  end
+
+  def form_context
+    (form_root? || !form_root) ? self : parent
+  end
+
+  def form_root?
+    @form_root == true
+  end
+
+  def form_root
+    return self if @form_root
+    parent ? parent.form_root : nil
   end
 
   def card_form action, opts={}
@@ -174,19 +187,12 @@ format :html do
     end
   end
 
-  # use relative names in the form
-  def relative_card_form action, opts={}, &block
-    with_relative_names_in_form do
-      card_form action, opts, &block
-    end
-  end
-
-  def form_root_format
-    if @form_root   then self
-    elsif !@parent  then nil
-    else                 @parent.form_root_format
-    end
-  end
+  #### use relative names in the form
+  ###def relative_card_form action, opts={}, &block
+  ###  with_relative_names_in_form do
+  ###    card_form action, opts, &block
+  ###  end
+  ###end
 
   # @param action [Symbol] :create or :update
   # @param opts [Hash] html options
@@ -226,16 +232,16 @@ format :html do
     end
   end
 
-  def with_relative_names_in_form
-    @relative_names_in_form = true
-    result = yield
-    @relative_names_in_form = nil
-    result
-  end
+  ###def with_###relative_names_in_form
+  ###  @relative_names_in_form = true
+  ###  result = yield
+  ###  @relative_names_in_form = nil
+  ###  result
+  ###end
 
-  def relative_names_in_form?
-    @relative_names_in_form || (parent && parent.relative_names_in_form?)
-  end
+  ##def ##relative_names_in_form?
+  ##  @relative_names_in_form || (parent && parent.relative_names_in_form?)
+  ##end
 
   # FIELD VIEWS
 

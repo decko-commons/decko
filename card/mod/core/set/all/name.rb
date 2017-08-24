@@ -93,15 +93,15 @@ def raw_name
   @raw_name || name
 end
 
-def relative_name context_name=nil
-  context_name ||= @supercard.cardname if @supercard
-  cardname.name_from context_name
+def name_from_super
+  supername = @supercard.cardname if @supercard
+  cardname.name_from supername
 end
 
-def absolute_name context_name=nil
-  context_name ||= @supercard.cardname if @supercard
-  cardname.absolute_name context_name
-end
+# def absolute_name context_name=nil
+#   context_name ||= @supercard.cardname if @supercard
+#   cardname.absolute_name context_name
+# end
 
 def left *args
   case

@@ -67,7 +67,7 @@ event :handle_subcard_errors do
   subcards.each do |subcard|
     subcard.errors.each do |field, err|
       err = "#{field} #{err}" unless %i[content abort].member? field
-      errors.add subcard.relative_name.s, err
+      errors.add subcard.name_from_super.s, err
     end
   end
 end
