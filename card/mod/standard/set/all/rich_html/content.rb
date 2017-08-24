@@ -179,7 +179,7 @@ format :html do
   def related_card_from_options options
     related_card = options.delete :card
     return related_card if related_card
-    related_name = options.delete(:name).to_name.to_absolute_name card.cardname
+    related_name = options.delete(:name).to_name.absolute_name card.cardname
     Card.fetch related_name, new: {}
   end
 

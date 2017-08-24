@@ -31,9 +31,9 @@ class Card
         @context_names = (context_names + name.to_name.part_names).uniq
       end
 
-      def pov_name title=nil
-        base = title ? title.to_name.absolute_name(card.cardname) : card.cardname
-        base.pov *context_names
+      def title_in_context title=nil
+        title = title ? title.to_name.absolute_name(card.cardname) : card.cardname
+        title.from *context_names
       end
     end
   end

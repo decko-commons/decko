@@ -58,11 +58,13 @@ Decko.application.class.configure do
   # true in your test
   Delayed::Worker.delay_jobs = false
 
+
+
   # Use Pry instead of IRB
   silence_warnings do
     begin
       require "pry"
-      IRB = Pry
+      config.console = Pry
     rescue LoadError
     end
   end

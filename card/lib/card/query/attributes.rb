@@ -17,7 +17,7 @@ class Card
           Query.run val
         else
           Array.wrap(val).map do |v|
-            Card.fetch v.to_name.to_absolute(context), new: {}
+            Card.fetch v.to_name.absolute(context), new: {}
           end
         end
       end

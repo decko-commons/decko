@@ -192,7 +192,7 @@ def item_names args={}
     if context == :raw
       item_name
     else
-      item_name.to_name.to_absolute context
+      item_name.to_name.absolute context
     end
   end
 end

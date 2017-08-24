@@ -33,7 +33,7 @@ def superize_name cardname
   @raw_name = cardname.s
   @supercard.subcards.rename key, cardname.key
   @superleft = @supercard if cardname.field_of? @supercard.name
-  cardname.to_absolute_name @supercard.name
+  cardname.absolute_name @supercard.name
 end
 
 def key= newkey
@@ -95,7 +95,7 @@ end
 
 def relative_name context_name=nil
   context_name ||= @supercard.cardname if @supercard
-  cardname.pov_name context_name
+  cardname.name_from context_name
 end
 
 def absolute_name context_name=nil

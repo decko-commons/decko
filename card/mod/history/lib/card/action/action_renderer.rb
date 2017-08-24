@@ -81,11 +81,11 @@ class Card
       end
 
       def old_name
-        (name = @action.previous_value :name) && pov_name(name)
+        (name = @action.previous_value :name) && title_in_context(name)
       end
 
       def new_name
-        pov_name @action.value(:name)
+        title_in_context @action.value(:name)
       end
     end
   end

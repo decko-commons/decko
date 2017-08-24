@@ -71,7 +71,7 @@ class Card
         when /^\$(\w+)$/                       # replace from @vars
           @vars[Regexp.last_match[1].to_sym].to_s.strip
         when /\b_/                             # absolutize based on @context
-          val.to_name.to_absolute(context)
+          val.to_name.absolute(context)
         else
           val
         end

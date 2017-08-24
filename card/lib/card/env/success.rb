@@ -89,7 +89,7 @@ class Card
         elsif @id
           Card.find @id
         elsif @name
-          Card.fetch @name.to_name.to_absolute(name_context), new: @new_args
+          Card.fetch @name.to_name.absolute(name_context), new: @new_args
         end
       end
 

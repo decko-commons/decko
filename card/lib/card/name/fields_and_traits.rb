@@ -33,7 +33,7 @@ class Card
       end
 
       def relative_field_name tag_name
-        field_name(tag_name).pov_name self
+        field_name(tag_name).name_from self
       end
 
       # @return [String]

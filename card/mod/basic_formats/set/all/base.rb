@@ -18,7 +18,7 @@ format do
   view(:url,      closed: true, perms: :none) { card_url _render_linkname }
 
   view :title, closed: true, perms: :none do
-    name_variant pov_name(voo.title || card.name)
+    name_variant title_in_context(voo.title)
   end
 
   view :url_link, closed: true, perms: :none do
