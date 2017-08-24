@@ -144,7 +144,6 @@ class Card
       def define_event_delaying_method event, method_name, final_method_name
         class_eval do
           define_method(method_name, proc do
-            binding.pry
             IntegrateWithDelayJob.set(queue: event).perform_later(
               self, serialize_for_active_job, Card::Env.serialize,
               Card::Auth.serialize, final_method_name

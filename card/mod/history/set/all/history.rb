@@ -26,19 +26,27 @@ end
 # stores changes in the changes table and assigns them to the current action
 # removes the action if there are no changes
 event :finalize_action, :finalize, when: :finalize_action? do
-  @changed_fields = Card::Change::TRACKED_FIELDS & saved_changes.keys
-  if @changed_fields.present?
-    # FIXME: should be one bulk insert
-    @changed_fields.each do |f|
-      Card::Change.create field: f,
-                          value: self[f],
-                          card_action_id: @current_action.id
-    end
+  if changed_fields.present?
+    store_card_changes
     @current_action.update_attributes! card_id: id
   elsif @current_action.card_changes.reload.empty?
     @current_action.delete
     @current_action = nil
   end
+end
+
+def store_card_changes
+  # FIXME: should be one bulk insert
+  changed_fields.each do |f|
+    Card::Change.create field: f,
+                        value: self[f],
+                        card_action_id: @current_action.id
+  end
+end
+
+def changed_fields
+  Card::Change::TRACKED_FIELDS & (saved_changes.keys | changes.keys |
+                                  mutations_from_database.changed_values.keys)
 end
 
 def finalize_action?
