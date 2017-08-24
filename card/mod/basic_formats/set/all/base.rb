@@ -119,7 +119,7 @@ format do
 
   view :template_rule, cache: :never, tags: :unknown_ok do
     return "" unless voo.nest_name
-    if voo.nest_name.to_name.simple_relative?
+    if voo.nest_name.to_name.field_only?
       set_card = Card.fetch template_link_set_name
       subformat(set_card).render_template_link
     else

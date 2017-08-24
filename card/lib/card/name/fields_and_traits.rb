@@ -32,6 +32,10 @@ class Card
         end
       end
 
+      def field_only?
+        relative? && stripped.to_name.parts.reject(&:blank?).first == parts.last
+      end
+
       def relative_field_name tag_name
         field_name(tag_name).name_from self
       end

@@ -10,11 +10,11 @@ class Cardname
     end
 
     def relative?
-      starts_with_joint? || s =~ RELATIVE_REGEXP
+      starts_with_joint? || (s =~ RELATIVE_REGEXP).present?
     end
 
     def simple_relative?
-      starts_with_joint? && s !~ RELATIVE_REGEXP
+      starts_with_joint? && (s =~ RELATIVE_REGEXP).nil?
     end
 
     def absolute?
