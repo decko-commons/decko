@@ -4,10 +4,12 @@ attr_accessor :action_id_of_cached_upload
 event :upload_attachment, :prepare_to_validate,
       on: :save, when: proc { |c| c.preliminary_upload? } do
   save_original_filename  # save original filename as comment in action
+  # binding.pry
   write_identifier        # set db_content
   # (needs original filename to determine extension)
   store_attachment!
-  finalize_action         # create Card::Change entry for db_content
+  store_card_changes
+  # finalize_action         # create Card::Change entry for db_content
 
   card_id = new_card? ? upload_cache_card.id : id
   @current_action.update_attributes! draft: true, card_id: card_id

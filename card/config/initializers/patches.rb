@@ -17,3 +17,7 @@ end
 class ActiveRecord::Relation
   include Patches::ActiveRecord::Relation
 end
+
+module ActiveJob::Arguments
+  extend Patches::ActiveJob::Arguments
+end

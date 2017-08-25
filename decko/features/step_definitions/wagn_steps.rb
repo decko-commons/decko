@@ -279,13 +279,13 @@ end
 
 When /^In (.*) I find link with icon "(.*)" and click it$/ do |section, icon|
   within scope_of(section) do
-    find("a > span.glyphicon-#{icon}").click
+    find("a > i.material-icons", text: icon).click
   end
 end
 
 When /^In (.*) I find button with icon "(.*)" and click it$/ do |section, icon|
   within scope_of(section) do
-    find("button > span.glyphicon-#{icon}").click
+    find("button > i.material-icons", text: icon).click
   end
 end
 
@@ -298,7 +298,7 @@ Then /I submit$/ do
 end
 
 When /^I open the main card menu$/ do
-  slot = "$('#main .menu-slot .vertical-card-menu.show-on-hover .card-slot')"
+  slot = "$('#main .menu-slot .vertical-card-menu._show-on-hover .card-slot')"
   page.execute_script "#{slot}.show()"
   page.find("#main .menu-slot .card-menu a").click
 end
