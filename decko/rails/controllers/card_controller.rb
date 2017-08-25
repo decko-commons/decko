@@ -60,6 +60,13 @@ class CardController < ActionController::Base
     Card::Mod::Loader.refresh_script_and_style if Rails.env.development?
     Card::Cache.renew
     Card::Env.reset controller: self
+    # unprotect_card_params!
+  end
+
+  def unprotect_card_params!
+    #FIXME - always wear protection
+    return unless params[:card].is_a? ActionController::Parameters
+    params[:card].to_unsafe_h
   end
 
   def authenticate
