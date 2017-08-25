@@ -21,12 +21,11 @@ module Patches
       def deserialize_argument argument
         return super unless argument.is_a?(Hash) &&
                             argument[CLASS_NAME_KEY]
-        argument_class = Object.const_get argument[CLASS_NAME_KEY]
-        case argument_class
-        when Symbol
+        case argument[CLASS_NAME_KEY]
+        when "Symbol"
           argument[:value].to_sym
-        when Time, DateTime
-          argument_class.parse argument[:value]
+        when "Time", "DateTime"
+          Object.const_get(argument[CLASS_NAME_KEY]).parse argument[:value]
         else
           argument[:value]
         end
