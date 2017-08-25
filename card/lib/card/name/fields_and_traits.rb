@@ -43,7 +43,6 @@ class Card
       # @return [String]
       def trait tag_code
         name = trait_name tag_code
-
         name.s
       end
 
@@ -56,14 +55,12 @@ class Card
 
       # @return [True/False]
       def trait_name? *traitlist
-        junction? && begin
-          right_key = right_name.key
-          traitlist.find do |codename|
-            (card_id = Card::Codename[codename]) &&
-              (card = Card.quick_fetch card_id) &&
-              card.key == right_key
-          end.present?
-        end
+        return false unless junction?
+        right_key = right_name.key
+        traitlist.find do |codename|
+          card = Card.quick_fetch codename.to_sym
+          card && card.key == right_key
+        end.present?
       end
     end
   end
