@@ -42,6 +42,9 @@ at_exit do
   Card.seed_test_db
 end
 
+Before('@javascript') do
+  @javascript = true
+end
 
 require "cucumber/rails"
 Cucumber::Rails::Database.autorun_database_cleaner = false
