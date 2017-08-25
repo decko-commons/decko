@@ -3,14 +3,16 @@
 RSpec.describe Bootstrap, "bootstrap builder" do
   class BuilderTest < Card::Format::HtmlFormat::Bootstrap::Component
     add_tag_method :test_tag, "test-class" do |opts, _extra_args|
-      prepend { tag :prepend, "prepend-class" }
+      before { tag :before, "prepend-class" }
+      after { tag :after, "after-class" }
+      prepend { tag :prepend "prepend-class" }
       append { tag :append, "append-class" }
-      insert { tag :insert, "insert-class" }
-      wrap do |content|
-        tag(:wrap, "wrap-class") { content }
-      end
+      wrap_inner :wrap, "wrap-class"
+      wrap :container
       opts
     end
+
+    add_div_method :container, "container-class"
   end
 
   describe "tag create helper methods" do
@@ -29,6 +31,7 @@ RSpec.describe Bootstrap, "bootstrap builder" do
         with_tag 'prepend.prepend-class'
         with_tag 'test_tag.test-class' do
           with_tag 'insert.insert-class'
+          with_tag
           with_tag 'wrap.wrap-class', text: "\ncontent"
         end
         with_tag 'append.append-class'
