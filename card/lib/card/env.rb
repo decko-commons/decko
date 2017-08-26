@@ -41,8 +41,12 @@ class Card
       end
 
       def slot_opts
-        return {} unless params[:slot].is_a? Hash
-        params[:slot].deep_symbolize_keys
+        # FIXME - upgrade to safe parameters
+        self[:slot_opts] ||= begin
+          opts = params[:slot] || {}
+          opts = opts.to_unsafe_h if opts.is_a? ActionController::Parameters
+          opts.deep_symbolize_keys
+        end
       end
 
       def session
