@@ -171,9 +171,16 @@ format :html do
 
   def related_options args
     options = (args[:related] || params[:related])
-    options = { name: options } if options.is_a? String
-    return unless options.is_a? Hash
-    options.symbolize_keys
+    case options
+    when String
+      { name: options }
+    when Hash
+      options.symbolize_keys
+    when ActionController::Parameters
+      options
+    else
+      nil
+    end
   end
 
   def related_card_from_options options

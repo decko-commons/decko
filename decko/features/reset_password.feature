@@ -1,4 +1,3 @@
-@wip
 Feature: Reset password
   In order to be able to recover lost account access
   As an authorized user
