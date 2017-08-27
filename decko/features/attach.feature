@@ -12,6 +12,7 @@ Feature: File Upload
     And I press "Submit"
     Then I should see "Problems with"
     And I should see "is missing"
+    And I wait for ajax response
 
   Scenario: Uploading a file
     When I go to new File
@@ -27,6 +28,7 @@ Feature: File Upload
     And I press "Submit"
     And I wait 2 seconds
     Then I should see "Download a test file"
+    And I wait for ajax response
 
   Scenario: Uploading and changing an image
     When I go to new Image
@@ -56,6 +58,7 @@ Feature: File Upload
     And I press "Submit"
     And I wait for ajax response
     Then I should see a non-coded image of size "large" and type "jpg"
+    And I wait for ajax response
 
   Scenario: uploading a file as a field in a form
     When I go to  "/new Cardtype"
