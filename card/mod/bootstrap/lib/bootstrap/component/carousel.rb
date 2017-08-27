@@ -5,14 +5,15 @@ class Bootstrap
         carousel *@args, &@build_block
       end
 
-      add_div_method :carousel, "carousel slide" do |opts, extra_args |
+      add_div_method :carousel, "carousel slide" do |opts, extra_args|
         id, item_cnt = extra_args
 
         insert do
-          indicators id, item_cnt, opts.delete(:active)
-          control_prev id
-          control_next id
+
         end
+        indicators id, item_cnt, opts.delete(:active)
+        control_prev id
+        control_next id
         opts.merge id: id
       end
 
@@ -31,10 +32,10 @@ class Bootstrap
             <span class="sr-only">Previous</span>
           HTML
         end
-        opts.merge(href: "##{id}", role: "button", data: { slide: "prev" } )
+        opts.merge(href: "##{id}", role: "button", data: { slide: "prev" })
       end
 
-      add_tag_method :control_next,  'carousel-control-next', tag: :a do |opts, extra_args|
+      add_tag_method :control_next, 'carousel-control-next', tag: :a do |opts, extra_args|
         id = extra_args.first
         insert do
           <<-HTML
@@ -42,11 +43,11 @@ class Bootstrap
             <span class="sr-only">Next</span>
           HTML
         end
-        opts.merge(href: "##{id}", role: "button", data: { slide: "next" } )
+        opts.merge(href: "##{id}", role: "button", data: { slide: "next" })
       end
 
       add_tag_method :indicators, 'carousel-indicators', tag: :ol do |opts, extra_args|
-        id, item_cnt, active  = extra_args
+        id, item_cnt, active = extra_args
         insert do
           item_cnt.times do |i|
             indicator id, i, i == active
