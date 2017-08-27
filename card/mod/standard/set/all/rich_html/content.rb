@@ -178,8 +178,6 @@ format :html do
       options.symbolize_keys
     when ActionController::Parameters
       options.to_unsafe_h.symbolize_keys
-    else
-      nil
     end
   end
 

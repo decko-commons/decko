@@ -64,7 +64,7 @@ class CardController < ActionController::Base
   end
 
   def unprotect_card_params!
-    #FIXME - always wear protection
+    # FIXME:  always wear protection
     return unless params[:card].is_a? ActionController::Parameters
     params[:card].to_unsafe_h
   end

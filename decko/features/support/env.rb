@@ -42,7 +42,7 @@ at_exit do
   Card.seed_test_db
 end
 
-Before('@javascript') do
+Before("@javascript") do
   @javascript = true
 end
 

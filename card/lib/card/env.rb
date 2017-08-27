@@ -41,7 +41,7 @@ class Card
       end
 
       def slot_opts
-        # FIXME - upgrade to safe parameters
+        # FIXME:  upgrade to safe parameters
         self[:slot_opts] ||= begin
           opts = params[:slot] || {}
           opts = opts.to_unsafe_h if opts.is_a? ActionController::Parameters

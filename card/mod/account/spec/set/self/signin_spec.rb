@@ -56,7 +56,7 @@ describe Card::Set::Self::Signin do
     end
 
     it "is triggered by an update" do
-      # Card['joe admin'].account.token.should be_nil FIXME - this should be t
+      # Card['joe admin'].account.token.should be_nil FIXME:  this should be t
       @card.update_attributes! "+*email" => "joe@admin.com"
       expect(Card["joe admin"].account.token).not_to be_nil
     end
