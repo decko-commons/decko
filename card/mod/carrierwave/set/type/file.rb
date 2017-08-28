@@ -106,7 +106,7 @@ format :html do
                              value="#{card.selected_action_id}">
         <table role="presentation" class="table table-striped">
           <tbody class="files">
-            <tr class="template-download fade in">
+            <tr class="template-download fade show">
               <td>
                 <span class="preview">
                   #{preview}
@@ -153,7 +153,7 @@ format :html do
              #{hidden_field_tag 'file_card_name', card.cardname.url_key}
         </span>
       </div>
-      <div id="progress" class="progress" style="display: none;">
+      <div id="progress" class="progress mb-2" style="display: none;">
         <div class="progress-bar progress-bar-success" style="width: 0%;"></div>
       </div>
       <div class="chosen-file"></div>

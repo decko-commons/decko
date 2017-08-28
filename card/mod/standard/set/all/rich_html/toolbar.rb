@@ -165,7 +165,7 @@ format :html do
     wrap_with :div, class: css_classes do
       [
         # toolbar_pin_button,
-        link_to_view(voo.home_view, icon_tag(:remove),
+        link_to_view(voo.home_view || :open, icon_tag(:remove),
                      title: "cancel",
                      class: "btn-toolbar-control toolbar-close ml-3 p-0")
       ]

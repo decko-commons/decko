@@ -142,11 +142,13 @@ class Card
       # hashes and nil.
       def options_to_hash opts
         case opts
-        when Hash  then opts
-        when Array then opts[0].merge opts[1]
+        when ActionController::Parameters
+          opts.to_unsafe_h.deep_symbolize_keys
+        when Hash  then opts.deep_symbolize_keys!
+        when Array then opts[0].merge(opts[1]).deep_symbolize_keys!
         when nil   then {}
         else raise Card::Error, "bad view options: #{opts}"
-        end.deep_symbolize_keys!
+        end
       end
 
       # standard inheritance from parent view object
