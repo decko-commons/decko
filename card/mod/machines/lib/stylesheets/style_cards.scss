@@ -543,26 +543,26 @@ ul.action-list {
   list-style-type: none;
   padding-left: 15px;
   li:before {
-    font-family: 'Glyphicons Halflings';
+    font-family: 'Material Icons';
     float: left;
     margin-top: 4px;
     margin-left: -17px;
   }
 
   li.update:before {
-    content: "\270f";
+    content: "edit";
   }
 
   li.create:before {
-    content: "\2b";
+    content: "add";
   }
 
   li.delete:before {
-    content: "\e020";
+    content: "delete";
   }
 
   li.draft:before {
-    content: "\e136";
+    content: "build";
   }
 }
 

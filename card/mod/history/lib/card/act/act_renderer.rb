@@ -33,12 +33,11 @@ class Card
 
       def header
         #::Bootstrap.new(self).render do
-        #::Boo.bs do
         bs_layout do
           row 10, 2 do
             column do
               html title
-              tag(:span, "text-muted") { summary }
+              tag(:span, "text-muted pl-1 badge") { summary }
             end
             column act_links, class: "text-right"
           end
@@ -58,6 +57,7 @@ class Card
       end
 
       def summary
+        binding.pry
         %i[create update delete draft].map do |type|
           next unless count_types[type] > 0
           "#{@format.action_icon type} #{count_types[type]}"
@@ -72,17 +72,18 @@ class Card
       end
 
       def link_to_act_card
-        link_to_card @act_card, icon_tag(:new_window)
+        link_to_card @act_card, icon_tag(:new_window), class: "_stop_propagation"
       end
 
       def link_to_history
         link_to_card @act_card, icon_tag(:history),
                      path: { view: :history, look_in_trash: true },
+                     class: "_stop_propagation",
                      rel: "nofollow"
       end
 
       def approved_actions
-        @approved_actions ||= actions.select { |a| a.card && a.card.ok?(:read) }
+        @approved_actions ||= actions #.select { |a| a.card && a.card.ok?(:read) }
         # FIXME: should not need to test for presence of card here.
       end
 

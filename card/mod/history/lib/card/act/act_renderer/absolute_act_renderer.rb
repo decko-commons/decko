@@ -9,7 +9,7 @@ class Card
         def subtitle
           wrap_with :small do
             [
-              @format.link_to_card(@act.actor),
+              @format.link_to_card(@act.actor, nil, class: "_stop_propagation"),
               edited_ago
             ]
           end

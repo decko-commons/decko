@@ -22,7 +22,15 @@ format :html do
   view :recent_acts, cache: :never do
     acts = Act.all_viewable.order(id: :desc)
               .page(page_from_params).per(ACTS_PER_PAGE)
-    render_act_list acts: acts, act_context: :absolute
+
+    act_accordion acts: acts, act_context: :absolute do |act, act_seq|
+      if (act_card = act.card)
+        act_card.format(:html).render_act args.merge(act: act, act_seq: act_seq)
+      else
+        Rails.logger.info "bad data, act: #{act}"
+        ""
+      end
+    end
   end
 
   def act_paging

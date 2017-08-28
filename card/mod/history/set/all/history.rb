@@ -8,7 +8,7 @@ end
 # :validate_delete_children
 
 def actionable?
-  history? || respond_to?(:attachment)
+  history?
 end
 
 event :assign_action, :initialize, when: proc { |c| c.actionable? } do

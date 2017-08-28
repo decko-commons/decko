@@ -42,6 +42,7 @@ RSpec.describe Card::Set::All::History do
         it "adds new act" do
           expect(Card::Act.count).to eq(act_start_cnt + 1)
           expect(act.card_id).to eq(@card.id)
+          expect(act.acted_at).to be > Time.zone.now - 1.minute
         end
         it "adds create action" do
           expect(action.action_type).to eq(:create)
