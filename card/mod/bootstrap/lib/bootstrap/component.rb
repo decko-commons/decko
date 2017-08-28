@@ -85,10 +85,6 @@ class Bootstrap
         def_tag_method name, html_class, opts.merge(tag: :div), &tag_block
       end
 
-      def add_div_method name, html_class, opts={}, &tag_block
-        add_tag_method name, html_class, opts.merge(tag: :div), &tag_block
-      end
-
       # Defines a method that generates a html tag
       # @param name [Symbol, String] the name of the method. If no :tag option in tag_opts is defined then the name is also the name of the tag that the method generates
       # @param html_class [String] a html class that is added to tag. Use nil if you don't want a html_class
@@ -118,29 +114,10 @@ class Bootstrap
       #     end
       #   end
       # end
-      def add_tag_method name, html_class, tag_opts={}, &tag_block
-        define_method name do |*args, &block|
-          process_tag tag_opts[:tag] || name do
-            content, opts, new_child_args = standardize_args args, &tag_block
-            add_classes opts, html_class, tag_opts.delete(:optional_classes)
-            if (attributes = tag_opts.delete(:attributes))
-              opts.merge! attributes
-            end
-
-            content = with_child_args new_child_args do
-              generate_content content,
-                               tag_opts[:content_processor],
-                               &block
-            end
-
-            [content, opts]
-          end
-        end
-      end
 
       def def_tag_method method_name, html_class, tag_opts={}, &tag_opts_block
         tag = tag_opts.delete(:tag) || method_name
-        return add_simple_tag_method method_name, tag, html_class, tag_opts unless block_given?
+        return def_simple_tag_method method_name, tag, html_class, tag_opts unless block_given?
 
         define_method method_name do |*args, &content_block|
           content, opts, new_child_args = standardize_args args, &tag_opts_block
@@ -152,7 +129,7 @@ class Bootstrap
         end
       end
 
-      def add_simple_tag_method method_name, tag, html_class, tag_opts={}
+      def def_simple_tag_method method_name, tag, html_class, tag_opts={}
         define_method method_name do |*args, &content_block|
           @html.tag! tag, class: html_class do
             instance_exec &content_block

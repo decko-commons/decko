@@ -49,6 +49,9 @@ class Bootstrap
           end
         end
       end
+
+      alias_method :def_div_method, :add_div_method
+      alias_method :def_tag_method, :add_tag_method
     end
 
     def render
@@ -152,7 +155,28 @@ class Bootstrap
       end
     end
 
-    include BasicTags
+    # include BasicTags
+    def html content
+      add_content String(content).html_safe
+      ""
+    end
+
+    add_div_method :div, nil do |opts, extra_args|
+      prepend_class opts, extra_args.first if extra_args.present?
+      opts
+    end
+
+    add_div_method :span, nil do |opts, extra_args|
+      prepend_class opts, extra_args.first if extra_args.present?
+      opts
+    end
+
+    add_tag_method :tag, nil, tag: :yield do |opts, extra_args|
+      prepend_class opts, extra_args[1] if extra_args[1].present?
+      opts[:tag] = extra_args[0]
+      opts
+    end
+
     include Delegate
   end
 end
