@@ -5,61 +5,63 @@ class Bootstrap
         carousel *@args, &@build_block
       end
 
-      add_div_method :carousel, "carousel slide" do |opts, extra_args|
-        id, item_cnt = extra_args
+      def carousel id, active_index, &block
+        @id = id
+        @active_item_index = active_index
+        @items = []
+        instance_exec &block
 
-        insert do
-
+        @html.div class: "carousel slide", id: id, data: { ride: "carousel" } do
+          indicators
+          items
+          control_prev
+          control_next
         end
-        indicators id, item_cnt, opts.delete(:active)
-        control_prev id
-        control_next id
-        opts.merge id: id
       end
 
-      add_div_method :inner, 'carousel-inner'
-
-      add_div_method :item, 'carousel-item' do |opts, extra_args|
-        add_class opts, "active"
-        opts
+      def item content=nil, &block
+        @items << (content || block)
       end
 
-      add_tag_method :control_prev, 'carousel-control-prev', tag: :a do |opts, extra_args|
-        id = extra_args.first
-        insert do
-          <<-HTML
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          HTML
-        end
-        opts.merge(href: "##{id}", role: "button", data: { slide: "prev" })
-      end
-
-      add_tag_method :control_next, 'carousel-control-next', tag: :a do |opts, extra_args|
-        id = extra_args.first
-        insert do
-          <<-HTML
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          HTML
-        end
-        opts.merge(href: "##{id}", role: "button", data: { slide: "next" })
-      end
-
-      add_tag_method :indicators, 'carousel-indicators', tag: :ol do |opts, extra_args|
-        id, item_cnt, active = extra_args
-        insert do
-          item_cnt.times do |i|
-            indicator id, i, i == active
+      def items
+        @html.div class: "carousel-inner", role: "listbox" do
+          @items.each_with_index do |item, index|
+            html_opts = { class: "carousel-item" }
+            add_class html_opts, "active" if index == @active_item_index
+            @html.div html_opts do
+              item = item.call if item.respond_to?(:call)
+              @html.text!(item) if item.is_a?(String)
+            end
           end
         end
-        opts
       end
 
-      add_tag_method :indicator, nil, tag: :li do |opts, extra_args|
-        id, index, active = extra_args
-        add_class opts, "active" if active
-        opts.merge data: { "slide-to" => index, target: "##{id}" }
+      def control_prev
+        @html.a class: "carousel-control-prev", href: "##{@id}", role: "button",
+                data: { slide: "prev" } do
+          @html.span class: "carousel-control-prev-icon", "aria-hidden" => "true"
+          @html.span "Previous", class: "sr-only"
+        end
+      end
+
+      def control_next
+        @html.a class: "carousel-control-next", href: "##{@id}", role: "button",
+                data: { slide: "next" } do
+          @html.span class: "carousel-control-next-icon", "aria-hidden" => "true"
+          @html.span "Next", class: "sr-only"
+        end
+      end
+
+      def indicators
+        @html.ol class: "carousel-indicators" do
+          @items.size.times { |i| indicator i }
+        end
+      end
+
+      def indicator index
+        html_opts = { "data-slide-to" => index, "data-target": "##{@id}" }
+        add_class html_opts, "active" if index == @active_item_index
+        @html.li html_opts
       end
     end
   end

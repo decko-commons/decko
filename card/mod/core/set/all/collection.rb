@@ -293,6 +293,14 @@ format :html do
     construct_tabs "tabs"
   end
 
+  view :carousel do
+    bs_carousel unique_id do
+      nest_item_array.each do |rendered_item|
+        item rendered_item
+      end
+    end
+  end
+
   def construct_tabs tab_type
     tabs = { active: {}, paths: {} }
     voo.items[:view] ||= :content
