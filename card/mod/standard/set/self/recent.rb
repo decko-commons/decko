@@ -24,12 +24,7 @@ format :html do
               .page(page_from_params).per(ACTS_PER_PAGE)
 
     act_accordion acts: acts, act_context: :absolute do |act, act_seq|
-      if (act_card = act.card)
-        act_card.format(:html).render_act args.merge(act: act, act_seq: act_seq)
-      else
-        Rails.logger.info "bad data, act: #{act}"
-        ""
-      end
+      act.card.format(:html).render_act act: act, act_seq: act_seq
     end
   end
 

@@ -11,7 +11,7 @@ format :html do
   end
 
   view :act_list, cache: :never do |args|
-    act_accordion args do |act, act_seq|
+    act_accordion(args) do |act, act_seq|
       render_act args.merge(act: act, act_seq: act_seq)
     end
   end
@@ -20,10 +20,15 @@ format :html do
     acts = args.delete :acts
     page = params["page"] || 1
     count = acts.size + 1 - (page.to_i - 1) * ACTS_PER_PAGE
-    rendered_acts = acts.map do |act|
-      count -= 1
-      yield act, count
-    end
+    rendered_acts =
+      acts.map do |act|
+        unless act.card
+          Rails.logger.info "bad data, act: #{act}"
+          next
+        end
+        count -= 1
+        yield act, count
+      end.compact
     accordion_group rendered_acts, nil, class: "clear-both"
   end
 
