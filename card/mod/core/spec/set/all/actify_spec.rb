@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe "act API" do
+RSpec.describe "act API" do
   let(:create_card) { Card.create!(name: "main card") }
   let(:create_card_with_subcards) do
     Card.create name: "main card",

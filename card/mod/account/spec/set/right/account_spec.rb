@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Right::Account do
+RSpec.describe Card::Set::Right::Account do
   describe "#create" do
     context "valid user" do
       # note - much of this is tested in account_request_spec

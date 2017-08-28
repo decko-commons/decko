@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::History do
+RSpec.describe Card::Set::All::History do
   context "history view" do
     # before do
     #   Card.create! name: 'my histoer card'

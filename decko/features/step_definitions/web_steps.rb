@@ -25,6 +25,7 @@ end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
+  wait_for_ajax if button == "Submit" && @javascript
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
