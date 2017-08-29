@@ -6,7 +6,6 @@
   width: 100%;
   max-width: 100%;
   margin-bottom: $spacer;
-  background-color: $table-bg; // Reset for nesting within parents with `background-color`.
 
   th,
   td {
@@ -37,7 +36,7 @@
 .table-sm {
   th,
   td {
-    padding: $table-cell-padding-sm;
+    padding: $table-sm-cell-padding;
   }
 }
 
@@ -69,7 +68,7 @@
 
 .table-striped {
   tbody tr:nth-of-type(odd) {
-    background-color: $table-accent-bg;
+    background-color: $table-bg-accent;
   }
 }
 
@@ -81,7 +80,7 @@
 .table-hover {
   tbody tr {
     @include hover {
-      background-color: $table-hover-bg;
+      background-color: $table-bg-hover;
     }
   }
 }
@@ -92,11 +91,12 @@
 // Exact selectors below required to override `.table-striped` and prevent
 // inheritance to nested tables.
 
-@each $color, $value in $theme-colors {
-  @include table-row-variant($color, theme-color-level($color, -9));
-}
-
-@include table-row-variant(active, $table-active-bg);
+// Generate the contextual variants
+@include table-row-variant(active, $table-bg-active);
+@include table-row-variant(success, $state-success-bg);
+@include table-row-variant(info, $state-info-bg);
+@include table-row-variant(warning, $state-warning-bg);
+@include table-row-variant(danger, $state-danger-bg);
 
 
 // Inverse styles
@@ -124,27 +124,14 @@
   th,
   td,
   thead th {
-    border-color: $table-inverse-border-color;
+    border-color: $body-bg;
   }
 
   &.table-bordered {
     border: 0;
   }
-
-  &.table-striped {
-    tbody tr:nth-of-type(odd) {
-      background-color: $table-inverse-accent-bg;
-    }
-  }
-
-  &.table-hover {
-    tbody tr {
-      @include hover {
-        background-color: $table-inverse-hover-bg;
-      }
-    }
-  }
 }
+
 
 
 // Responsive tables
@@ -154,15 +141,13 @@
 // will display normally.
 
 .table-responsive {
-  @include media-breakpoint-down(md) {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar; // See https://github.com/twbs/bootstrap/pull/10057
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar; // See https://github.com/twbs/bootstrap/pull/10057
 
-    // Prevent double border on horizontal scroll due to use of `display: block;`
-    &.table-bordered {
-      border: 0;
-    }
+  // Prevent double border on horizontal scroll due to use of `display: block;`
+  &.table-bordered {
+    border: 0;
   }
 }
