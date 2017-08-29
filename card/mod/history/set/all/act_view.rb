@@ -11,13 +11,12 @@ format :html do
   end
 
   view :act_list, cache: :never do |args|
-    act_accordion(args) do |act, act_seq|
+    act_accordion args.delete(:acts) do |act, act_seq|
       render_act args.merge(act: act, act_seq: act_seq)
     end
   end
 
-  def act_accordion args
-    acts = args.delete :acts
+  def act_accordion acts
     page = params["page"] || 1
     count = acts.size + 1 - (page.to_i - 1) * ACTS_PER_PAGE
     rendered_acts =

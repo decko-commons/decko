@@ -22,9 +22,8 @@ format :html do
   view :recent_acts, cache: :never do
     acts = Act.all_viewable.order(id: :desc)
               .page(page_from_params).per(ACTS_PER_PAGE)
-
-    act_accordion acts: acts, act_context: :absolute do |act, act_seq|
-      act.card.format(:html).render_act act: act, act_seq: act_seq
+    act_accordion acts do |act, act_seq|
+      act.card.format(:html).render_act act: act, act_seq: act_seq, act_context: :absolute
     end
   end
 

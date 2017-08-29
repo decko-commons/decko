@@ -57,7 +57,6 @@ class Card
       end
 
       def summary
-        binding.pry
         %i[create update delete draft].map do |type|
           next unless count_types[type] > 0
           "#{@format.action_icon type} #{count_types[type]}"
