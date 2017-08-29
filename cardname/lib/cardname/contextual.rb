@@ -33,6 +33,8 @@ class Cardname
       name_from(*from).s
     end
 
+    # if possible, relativize name into one beginning with a "+".  To do so, it must absolutize back to the correct
+    # original name in the context of "from"
     def name_from *from
       remaining = parts_excluding *from
       return self unless context_relevant?(remaining)

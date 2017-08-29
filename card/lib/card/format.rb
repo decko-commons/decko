@@ -36,7 +36,7 @@ class Card
 
     cattr_accessor :registered
     self.registered = []
-    VIEW_VARS = [ :perms, :denial, :closed, :error_code, :mode ]
+    VIEW_VARS = [ :perms, :denial, :closed, :error_code ]
     (VIEW_VARS + [ :view_tags, :aliases ]).each do |accessor_name|
       cattr_accessor accessor_name
       send "#{accessor_name}=", {}

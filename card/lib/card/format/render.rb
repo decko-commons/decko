@@ -129,17 +129,9 @@ class Card
       def current_view view
         old_view = @current_view
         @current_view = view
-        with_nest_mode_for_view(view) { yield }
+        yield
       ensure
         @current_view = old_view
-      end
-
-      def with_nest_mode_for_view view
-        if (new_mode = Card::Format.mode[view])
-          with_nest_mode(new_mode) { yield }
-        else
-          yield
-        end
       end
 
     end

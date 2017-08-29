@@ -118,13 +118,15 @@ format :html do
     link_to_card card.type_card, nil, class: klasses
   end
 
-  view :closed, mode: :closed do
-    voo.show :toggle
-    voo.hide! :toolbar
-    class_up "d0-card-body", "closed-content"
-    @content_body = true
-    @toggle_mode = :close
-    frame { _optional_render :closed_content }
+  view :closed do
+    with_nest_mode :closed do
+      voo.show :toggle
+      voo.hide! :toolbar
+      class_up "d0-card-body", "closed-content"
+      @content_body = true
+      @toggle_mode = :close
+      frame { _optional_render :closed_content }
+    end
   end
 
   view :change do
