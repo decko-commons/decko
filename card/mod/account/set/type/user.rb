@@ -4,22 +4,23 @@ include Basic
 attr_accessor :email
 
 format :html do
-  view :setup, tags: :unknown_ok, mode: :edit,
-               perms: ->(_r) { Auth.needs_setup? } do |_args|
-    voo.title = "Welcome, Wagneer!"
-    voo.show! :help
-    voo.hide! :menu
+  view :setup, tags: :unknown_ok, perms: ->(_r) { Auth.needs_setup? } do
+    with_nest_mode :edit do
+      voo.title = "Welcome, Carditect!"
+      voo.show! :help
+      voo.hide! :menu
+      Auth.as_bot { set_up_form }
+    end
+  end
 
-    Auth.as_bot do
-      frame_and_form :create do
-        [
-          setup_hidden_fields,
-
-          _render_name_formgroup(help: "usually first and last name"),
-          account_formgroup,
-          setup_form_buttons
-        ]
-      end
+  def setup_form
+    frame_and_form :create do
+      [
+        setup_hidden_fields,
+        _render_name_formgroup(help: "usually first and last name"),
+        account_formgroup,
+        setup_form_buttons
+      ]
     end
   end
 

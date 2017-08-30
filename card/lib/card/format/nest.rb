@@ -4,7 +4,7 @@ class Card
       include Fetch
       include Main
       include Subformat
-      include View
+      include Mode
 
       # nested by another card's content
       # (as opposed to a direct API nest)

@@ -82,8 +82,10 @@ format do
     _render_core
   end
 
-  view :closed_content, closed: true, mode: :closed do
-    Card::Content.smart_truncate _render_core
+  view :closed_content, closed: true do
+    with_nest_mode :closed do
+      Card::Content.smart_truncate _render_core
+    end
   end
 
   view :blank, closed: true, perms: :none do

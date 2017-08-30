@@ -1,13 +1,15 @@
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
-  view :edit, perms: :update, tags: :unknown_ok, cache: :never, mode: :edit do
-    voo.show :toolbar, :help
-    frame_and_form :update, edit_form_opts do
-      [
-        edit_view_hidden,
-        _optional_render_content_formgroup,
-        _optional_render_edit_buttons
-      ]
+  view :edit, perms: :update, tags: :unknown_ok, cache: :never do
+    with_nest_mode :edit do
+      voo.show :toolbar, :help
+      frame_and_form :update, edit_form_opts do
+        [
+          edit_view_hidden,
+          _optional_render_content_formgroup,
+          _optional_render_edit_buttons
+        ]
+      end
     end
   end
 
