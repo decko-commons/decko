@@ -20,7 +20,8 @@ format :html do
 
   view :edit_in_form, cache: :never, perms: :update, tags: :unknown_ok do
     @form = form_for_multi
-    multi_edit_slot
+    @within_multi_edit = true
+    edit_slot
   end
 
   def wrap_type_formgroup
@@ -78,40 +79,36 @@ format :html do
   end
 
   def edit_slot
-    if inline_nests_editor?
-      _render_core
-    elsif multi_edit?
-      process_nested_fields
-    else
-      single_card_edit_slot
+    case
+    when inline_nests_editor?  then _render_core
+    when multi_card_editor?    then multi_card_edit_fields
+    when in_multi_card_editor? then editor_in_multi_card
+    else                            single_card_edit_field
     end
   end
 
-  def multi_edit_slot
-    if inline_nests_editor?
-      _render_core
-    elsif multi_edit?
-      process_nested_fields
-    else
-      multi_card_edit_slot
-    end
+  # test: render nests within a normal rendering of the card's content? (as opposed to a standardized form)
+  def inline_nests_editor?
+    voo.editor == :inline_nests
   end
 
-  def multi_edit?
-    nests_editor? || # editor configured in voo
+  # test: are we opening a new multi-card form?
+  def multi_card_editor?
+    nests_editor? ||                         # editor configured in voo
       voo.structure || voo.edit_structure || # structure configured in voo
       card.structure                         # structure in card rule
   end
 
-  def inline_nests_editor?
-    voo.editor == :inline_nests
+  # test: are we already within a multi-card form?
+  def in_multi_card_editor?
+    @within_multi_edit.present?
   end
 
   def nests_editor?
     voo.editor == :nests
   end
 
-  def single_card_edit_slot
+  def single_card_edit_field
     if voo.show?(:type_formgroup) || voo.show?(:name_formgroup)
       # display content field in formgroup for consistency with other fields
       formgroup("", editor: :content, help: false) { content_field }
@@ -120,15 +117,15 @@ format :html do
     end
   end
 
-  def multi_card_edit_slot
+  def editor_in_multi_card
     add_junction_class
-    formgroup fancy_title(voo.title),
+    formgroup render_title,
               editor: "content", help: true, class: classy("card-editor") do
       [content_field, (form.hidden_field(:type_id) if card.new_card?)]
     end
   end
 
-  def process_nested_fields
+  def multi_card_edit_fields
     nested_fields_for_edit.map do |name, options|
       options[:hide] = [options[:hide], :toolbar].compact
       nest name, options
