@@ -53,17 +53,16 @@ format :html do
 
   view :list_item do |args|
     <<-HTML
-      <li class="pointer-li">
+      <li class="pointer-li mb-1">
         <span class="input-group">
           <span class="input-group-addon handle">
-            #{glyphicon 'option-vertical left'}
-    #{glyphicon 'option-vertical right'}
+            #{icon_tag :reorder}
           </span>
           #{text_field_tag 'pointer_item', args[:pointer_item],
                            class: 'pointer-item-text form-control'}
           <span class="input-group-btn">
-            <button class="pointer-item-delete btn btn-default" type="button">
-              #{glyphicon 'remove'}
+            <button class="pointer-item-delete btn btn-secondary" type="button">
+              #{icon_tag :remove}
             </button>
           </span>
         </span>
