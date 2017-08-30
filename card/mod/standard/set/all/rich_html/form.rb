@@ -19,8 +19,8 @@ format :html do
   end
 
   view :edit_in_form, cache: :never, perms: :update, tags: :unknown_ok do
-    @form = form_for_multi
-    @within_multi_edit = true
+    reset_form
+    @edit_in_form = true
     edit_slot
   end
 
@@ -101,7 +101,7 @@ format :html do
 
   # test: are we already within a multi-card form?
   def in_multi_card_editor?
-    @within_multi_edit.present?
+    @edit_in_form.present?
   end
 
   def nests_editor?
@@ -156,6 +156,11 @@ format :html do
     end
   end
 
+  def reset_form
+    @form = nil
+    form
+  end
+
   def form_prefices
     return "" if form_root? || !form_root
     return parent.form_prefices if parent.card == card
@@ -183,13 +188,7 @@ format :html do
       success_tags(success) + output(yield(cform))
     end
   end
-
-  #### use relative names in the form
-  ###def relative_card_form action, opts={}, &block
-  ###  with_relative_names_in_form do
-  ###    card_form action, opts, &block
-  ###  end
-  ###end
+  
 
   # @param action [Symbol] :create or :update
   # @param opts [Hash] html options
@@ -229,16 +228,6 @@ format :html do
     end
   end
 
-  ###def with_###relative_names_in_form
-  ###  @relative_names_in_form = true
-  ###  result = yield
-  ###  @relative_names_in_form = nil
-  ###  result
-  ###end
-
-  ##def ##relative_names_in_form?
-  ##  @relative_names_in_form || (parent && parent.relative_names_in_form?)
-  ##end
 
   # FIELD VIEWS
 
