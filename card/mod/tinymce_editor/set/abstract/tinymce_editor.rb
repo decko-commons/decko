@@ -1,6 +1,6 @@
 format :html do
-  view :editor do
-    text_area :content, rows: 3, class: "tinymce-textarea card-content",
+  def tinymce_editor_input
+    text_area :content, rows: 3, class: "tinymce-textarea d0-card-content",
                         id: unique_id
   end
 end

@@ -1,4 +1,4 @@
-$.extend wagn.editorContentFunctionMap,
+$.extend decko.editorContentFunctionMap,
     '.pointer-select': ->
       pointerContent @val()
     '.pointer-multiselect': ->
@@ -18,15 +18,16 @@ $.extend wagn.editorContentFunctionMap,
     # must happen after pointer-list-ul, I think
     '.perm-editor': -> permissionsContent this
 
-wagn.editorInitFunctionMap['.pointer-list-editor'] = ->
+decko.editorInitFunctionMap['.pointer-list-editor'] = ->
   @sortable({handle: '.handle', cancel: ''})
-  wagn.initPointerList @find('input')
+  decko.initPointerList @find('input')
 
-$.extend wagn,
+$.extend decko,
   initPointerList: (input) ->
     optionsCard = input.closest('ul').data('options-card')
+    optionsCard ||= input.closest('.pointer-list-editor').data('options-card')
     input.autocomplete {
-      source: wagn.prepUrl wagn.rootPath + '/' + optionsCard +
+      source: decko.prepUrl decko.rootPath + '/' + optionsCard +
           '.json?view=name_complete'
     }
 

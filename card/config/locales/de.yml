@@ -211,11 +211,12 @@ de:
             unfollow: nicht folgen
             follow: folgen
           notify:
+            follow_included: follow cards included by %{cardname}
             followed_card: verfolgte Karte
             follower: follower
             new: neu
             deleted: gelöscht
-            update_changes: "\nDiese Update beinhaltet folgende Änderungen:%{changes}"
+            update_changes: "\nDieses Update beinhaltet folgende Änderungen:%{changes}"
         right:
           follow:
             more_options: mehr Optionen
@@ -406,6 +407,8 @@ de:
             delete_old: delete old
             references: Verweise
             repair_all: alle reparieren
+            view_cache: view cache
+            clear_view_cache: clear view cache
             memory_now: memory now
             clear_cache: clear cache
             # memory previous
@@ -494,18 +497,6 @@ de:
             sign_in: Anmelden
             invite: Einladen
             sign_out: Abmelden
-          admin_info:
-            email_off: E-Mail-Versand ist ausgeschaltet. Ändere die Einstellungen in %{path}, damit Benachrichtigungen verschickt werden, wenn sich neue Nutzer registrieren.
-            admin_warn: ADMINISTRATOR WARNUNG
-            captcha_temp: Dein Deck arbeitet mit provisorischen Captcha-Einstellungen. Das ist kein Problem für eine lokale Installation, aber falls du diese Seite online stellst, benötigst Du neue Recaptcha-Schlüssel.
-            captcha_keys: Dein Deck ist so konfiguriert, dass es [[*captcha]] nutzt, aber damit das funktioniert, benötigst Du neue Recaptcha-Schlüssel.
-            instructions: Anleitungen
-            howto_add_keys: "Neue Recaptcha-Schlüssel hinzufügen:"
-            howto_register: 1. Registriere deine Domain bei %{recaptcha_link}
-            howto_add: 2. Füge deine Schlüssel zu %{recaptcha_settings} hinzu
-            howto_turn_off: 'Captcha ausschalten:'
-            howto_go: 1. Gehe zu %{captcha_card}
-            howto_update: 2. Ändere alle *captcha-Regeln zu "no".
           signin:
             sign_in_title: Anmelden
             sign_in: Anmelden
@@ -548,3 +539,24 @@ de:
             email_off: "WARNING: E-Mail-Versand ist deaktiviert. Ändere die Einstellung in %{path} um bei neuen Registrierungen Benachrichtigungen zu senden."
             set_up: Anlegen
             setting_up: Lege an
+    :carrierwave:
+      set:
+        abstract:
+          attachment:
+            error_invalid_storage_type: "%{type} is not a valid file storage option"
+    :admin:
+      set:
+        self:
+          admin_info:
+            email_off: E-Mail-Versand ist ausgeschaltet. Ändere die Einstellungen in %{path}, damit Benachrichtigungen verschickt werden, wenn sich neue Nutzer registrieren.
+            admin_warn: ADMINISTRATOR WARNUNG
+            captcha_temp: Dein Deck arbeitet mit provisorischen Captcha-Einstellungen. Das ist kein Problem für eine lokale Installation, aber falls du diese Seite online stellst, benötigst Du neue Recaptcha-Schlüssel.
+            captcha_keys: Dein Deck ist so konfiguriert, dass es [[*captcha]] nutzt, aber damit das funktioniert, benötigst Du neue Recaptcha-Schlüssel.
+            instructions: Anleitungen
+            howto_add_keys: "Neue Recaptcha-Schlüssel hinzufügen:"
+            howto_register: 1. Registriere deine Domain bei %{recaptcha_link}
+            howto_add: 2. Füge deine Schlüssel zu %{recaptcha_settings} hinzu
+            howto_turn_off: 'Captcha ausschalten:'
+            howto_go: 1. Gehe zu %{captcha_card}
+            howto_update: 2. Ändere alle *captcha-Regeln zu "no".
+

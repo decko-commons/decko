@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-
 RSpec.describe Card::Query do
   A_JOINEES = %w(B C D E F).freeze
   CARDS_MATCHING_TWO = ["Joe User", "One+Two", "One+Two+Three",
@@ -255,9 +254,14 @@ RSpec.describe Card::Query do
     end
   end
 
-  describe "cgi_params" do
-    it "matchs content from cgi" do
+  describe "vars" do
+    it "replace placeholders" do
       @query = { match: "$keyword", vars: { keyword: "two" } }
+      is_expected.to eq(CARDS_MATCHING_TWO)
+    end
+
+    it "replace placeholders in nested queries" do
+      @query = { and: { match: "$keyword" }, vars: { keyword: "two" } }
       is_expected.to eq(CARDS_MATCHING_TWO)
     end
   end

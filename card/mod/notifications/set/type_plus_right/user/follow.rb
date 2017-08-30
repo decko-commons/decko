@@ -107,7 +107,7 @@ format :html do
 
   view :following_list, cache: :never do |_args|
     if !Auth.signed_in? || Auth.current_id != card.left.id
-      hide_buttons = [:delete_follow_rule_button, :add_follow_rule_button]
+      hide_buttons = %i[delete_follow_rule_button add_follow_rule_button]
     end
 
     sets = followed_by_set
@@ -135,7 +135,7 @@ format :html do
       end
     end
     if !Auth.signed_in? || Auth.current_id != card.left.id
-      hide_buttons = [:delete_follow_rule_button, :add_follow_rule_button]
+      hide_buttons = %i[delete_follow_rule_button add_follow_rule_button]
     end
     never = Card[:never].name
     wrap_with :div, class: "pointer-list-editor" do
@@ -160,7 +160,7 @@ format :html do
       if card.errors.find { |attrib, _msg| attrib == :permission_denied }
         Env.save_interrupted_action(request.env["REQUEST_URI"])
         voo.title = "Problems with #{card.name}"
-        class_up "card-frame", "panel panel-warning"
+        class_up "d0-card-frame", "card card-warning card-inverse"
         frame do
           "Please #{link_to_card :signin, 'sign in'}" # " #{to_task}"
         end

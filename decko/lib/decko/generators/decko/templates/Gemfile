@@ -1,0 +1,119 @@
+source 'http://rubygems.org'
+
+<% if @gem_path.present? %>
+gem 'decko',    :path=>"<%= @gemfile_gem_path %>/decko"
+gem 'card',     :path=>"<%= @gemfile_gem_path %>/card", :require => false
+gem 'cardname', :path=>"<%= @gemfile_gem_path %>/cardname", :require => false
+<% else %>
+gem 'decko'
+<% end %>
+
+gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.version}') if database_gemfile_entry.version %>
+
+# Use Unicorn or Thin as server
+# gem 'unicorn'
+# gem 'thin'
+
+# Use Delayed::Job for the Active Job queue to run tasks like
+# sending in notifications in a background process.
+# To activate it you have to set config.active_job.queue_adapter to :delayed_job
+# in your config file and start the background process with
+# RAILS_ENV=production bin/delayed_job start
+# gem 'delayed_job_active_record', '~> 4.1'
+# gem 'daemons'
+
+
+<% if options['mod-dev'] || options['core-dev'] -%>
+group :test do
+  gem 'rails-controller-testing'
+  gem 'rspec', '~> 3.5'
+  gem 'rspec-rails'         # behavior-driven-development suite
+  gem 'spork', '>=0.9'
+  gem 'rubocop'
+  gem 'rubocop-decko'
+end
+
+group :test, :development do
+  # not compatible with rails 5
+  # if load a page twice it fails
+  # gem 'rails-dev-tweaks'
+  gem 'jasmine'
+  gem 'jasmine-rails'
+  gem 'jasmine-jquery-rails'
+  gem 'sprockets' # just so above works
+  gem 'phantomjs', '1.9.7.1' #locked because 1.9.8.0 is breaking
+  gem 'colorize'
+  gem 'delayed_job_active_record', '~> 4.1'
+
+  <%- if spring_install? %>
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'listen', '3.0.6'
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
+  <% end -%>
+end
+
+group :debug do
+  gem 'pry-rails'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
+  gem 'pry-byebug'
+end
+<% end -%>
+
+<% if options['core-dev'] -%>
+group :assets do
+  gem 'jquery-rails',  '~> 4.3'                # main js framework, along with rails-specific unobtrusive lib
+  gem 'jquery-ui-rails',  '~> 6.0'             # main js framework, along with rails-specific unobtrusive lib
+  gem "jquery_mobile_rails", "~> 1.4.5"
+
+  gem 'tinymce-rails', '~> 3.4'                # wysiwyg editor
+end
+
+group :test do
+  gem 'fog'
+  gem 'fog-aws'
+  gem 'rspec-html-matchers', '0.9.1'
+  gem 'rr' #, '=1.0.0'
+	gem 'simplecov', '~> 0.7.1', :require => false  #test coverage
+  gem 'codeclimate-test-reporter', require: nil
+  # gem 'guard-rspec', '~> 4.2'           # trigger test runs based on file edits,
+                                          # currently not compatible with spring-watcher-listen
+  if RUBY_PLATFORM =~ /darwin/
+    # gem 'terminal-notifier-guard', '~> 1.5'    # use growler notifications on macs
+    # gem 'rspec-legacy_formatters'
+    # gem 'wagn-rspec-formatter', :git=>'https://github.com/xithan/wagn-rspec-formatter.git'
+  end
+
+  # CUKES see features dir
+  gem 'cucumber-rails', '~> 1.5', :require=>false # feature-driven-development suite
+  gem 'capybara', '~> 2.14'
+  gem 'selenium-webdriver', '~> 3.3'
+  gem 'chromedriver-helper', '~> 1.1.0'
+  # gem 'capybara-webkit'
+  gem 'launchy'                                # lets cucumber launch browser windows
+
+  gem 'timecop', '=0.3.5'                      # not clear on use/need.  referred to in shared_data.rb
+  # NOTE: had weird errors with timecop 0.4.4.  would like to update when possible
+
+  gem 'email_spec'                             #
+  gem 'database_cleaner', '~> 1.5 '             # used by cucumber for db transactions
+
+  gem 'turn', :require => false      # Pretty printed test output.  (version constraint is to avoid minitest requirement)
+  gem 'minitest'
+
+  gem 'i18n-tasks', '~> 0.9.5'       # See if I18n keys are missing or unused
+end
+
+gem 'ruby-prof', :group=>:profile  # profiling
+
+group :debug do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+<% end %>
+
+Dir.glob( 'mod/**{,/*/**}/Gemfile' ).each do |gemfile|
+  instance_eval File.read(gemfile)
+end

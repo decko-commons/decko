@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require "card/version"
 
-class RequireEarlierMigrations < ActiveRecord::Migration
+class RequireEarlierMigrations < ActiveRecord::Migration[4.2]
   def self.up
     raise %(
 Your database is not ready to be migrated to #{Card::Version.release}.

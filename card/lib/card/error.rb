@@ -6,7 +6,7 @@ class Card
   class Error < StandardError
     cattr_accessor :current
 
-    class Oops < Error # wagneer problem (rename!)
+    class Oops < Error # carditect problem (rename!)
     end
 
     class BadQuery < Error
@@ -61,7 +61,7 @@ class Card
         when Card::Error::NotFound, ActiveRecord::RecordNotFound,
              ActionController::MissingFile
           :not_found
-        when Wagn::BadAddress
+        when Decko::BadAddress
           :bad_address
         else
           problematic_exception_view card, exception

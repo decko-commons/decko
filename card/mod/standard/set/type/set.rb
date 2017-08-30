@@ -3,9 +3,9 @@ include_set Type::SearchType
 
 format :html do
   COMMON_RULE_SETTINGS =
-    [:create, :read, :update, :delete, :structure, :default, :style].freeze
+    %i[create read update delete structure default style].freeze
 
-  view :core, cache: :never do |args|
+  view :core, cache: :never do
     voo.show :set_label, :rule_navbar
     voo.hide :set_navbar
     rule_view = params[:rule_view] || :common_rules
@@ -59,10 +59,10 @@ format :html do
 
   view :field_related_rules do
     with_label_and_navbars :field_related_rules do
-      field_settings = [:default, :help, :structure]
+      field_settings = %i[default help structure]
       if card.type_id == PointerID
         # FIXME: should be done with override in pointer set module
-        field_settings += [:input, :options, :options_label]
+        field_settings += %i[input options options_label]
       end
       settings = card.visible_setting_codenames & field_settings
       rules_table settings
@@ -87,9 +87,9 @@ format :html do
 
   def group_tab group_key
     heading_id = "heading-#{group_key}"
-    wrap_with :div, class: "panel panel-default" do
-      wrap_with :div, class: "panel-heading", role: "tab", id: heading_id do
-        wrap_with :h4, class: "panel-title" do
+    wrap_with :div, class: "card" do
+      wrap_with :div, class: "card-header", role: "tab", id: heading_id do
+        wrap_with :h5, class: "mb-0" do
           group_collapse_link group_key
         end
       end
@@ -115,7 +115,9 @@ format :html do
     settings = card.visible_settings group_key
     wrap_with :div, id: collapse_id, class: "panel-collapse collapse",
                     role: "tabpanel", "aria-labelledby" => heading_id do
-      rules_table settings.map(&:codename)
+      wrap_with :div, class: "card-block" do
+        rules_table settings.map(&:codename)
+      end
     end
   end
 
@@ -127,7 +129,7 @@ format :html do
 
   def rules_table_headings
     wrap_with :tr, class: "rule-group" do
-      wrap_each_with :th, %w(Trait Content Set), class: "rule-heading"
+      wrap_each_with :th, %w[Trait Content Set], class: "rule-heading"
     end
   end
 
@@ -180,46 +182,29 @@ format :html do
     ""
   end
 
-  view :set_navbar do |args|
-    id = "rule-navbar-#{card.cardname.safe_key}-#{voo.home_view}"
+  view :set_navbar do |_args|
+    id = "set-navbar-#{card.cardname.safe_key}-#{voo.home_view}"
     related_sets = card.related_sets(true)
     return "" if related_sets.size <= 1
-    navbar id, toggle: 'Rules<span class="caret"></span>', toggle_align: :left,
-               class: "slotter toolbar", navbar_type: "inverse",
-               collapsed_content: close_link("pull-right visible-xs") do
-      [
-        wrap_with(:span, "Set:", class: "navbar-text hidden-xs"),
-        (wrap_with :ul, class: "nav navbar-nav nav-pills" do
-          related_sets.map do |name, label|
-            slot_opts = { subheader: showname(name),
-                          subframe: true,
-                          hide: "header set_label rule_navbar",
-                          show: "subheader set_navbar" }
-            link = link_to_card name, label, remote: true,
-                                             path: { view: @slot_view,
-                                                     slot: slot_opts }
-            li_pill link, name == card.name
-          end
-        end)
-      ]
+    navbar id, brand: "Set", toggle_align: :right,
+               class: "slotter toolbar navbar-toggleable-md",
+               navbar_type: "inverse",
+               collapsed_content: close_link("pull-right hidden-sm-up") do
+      set_navbar_content related_sets
     end
   end
 
   def li_pill content, active
-    "<li role='presentation' #{"class='active'" if active}>#{content}</li>"
+    "<li role='presentation' class='nav-item #{'active' if active}'>#{content}</li>"
   end
 
   view :rule_navbar do
     navbar "rule-navbar-#{card.cardname.safe_key}-#{voo.home_view}",
-           toggle: 'Rules<span class="caret"></span>', toggle_align: :left,
-           class: "slotter toolbar", navbar_type: "inverse",
-           collapsed_content: close_link("pull-right visible-xs") do
-      [rule_navbar_heading, rule_navbar_content]
+           brand: 'Rules', toggle_align: :right,
+           class: "slotter toolbar navbar-toggleable-md", navbar_type: "inverse",
+           collapsed_content: close_link("pull-right hidden-sm-up") do
+      rule_navbar_content
     end
-  end
-
-  def rule_navbar_heading
-    wrap_with :span, "Rules:", class: "navbar-text hidden-xs"
   end
 
   def rule_navbar_pills
@@ -239,9 +224,26 @@ format :html do
     end
   end
 
+  def set_navbar_content related_sets
+    wrap_with :ul, class: "nav navbar-nav nav-pills" do
+      related_sets.map do |name, label|
+        slot_opts = { subheader: showname(name),
+                      subframe: true,
+                      hide: "header set_label rule_navbar",
+                      show: "subheader set_navbar" }
+        link = link_to_card name, label, remote: true,
+                            path: { view: @slot_view,
+                                    slot: slot_opts },
+                            class: "nav-link"
+
+        li_pill link, name == card.name
+      end
+    end
+  end
+
   def view_link_pill name, view
     selected_view = @selected_rule_navbar_view || @slot_view || voo.home_view
-    link = link_to_view view, name, class: "slotter", role: "pill",
+    link = link_to_view view, name, class: "nav-link slotter", role: "pill",
                                     path: { slot: { show: :rule_navbar } }
     li_pill link, selected_view == view
   end
@@ -329,8 +331,8 @@ end
 
 def visible_setting_codenames
   @visible_settings ||=
-    Card::Setting.groups.values.flatten.compact.reject do |setting|
-      !setting.applies_to_cardtype(prototype.type_id)
+    Card::Setting.groups.values.flatten.compact.select do |setting|
+      setting.applies_to_cardtype(prototype.type_id)
     end.map(&:codename)
 end
 

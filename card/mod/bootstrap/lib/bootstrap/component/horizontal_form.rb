@@ -11,14 +11,14 @@ class Bootstrap
 
       add_tag_method :form, "form-horizontal"
 
-      add_tag_method :label, "control-label" do |opts, extra_args|
+      add_tag_method :label, "control-label" do |opts, _extra_args|
         prepend_class opts, "col-sm-#{left_col_width}"
         opts
       end
 
       add_div_method :input, nil do |opts, extra_args|
         type, label = extra_args
-        prepend { tag :label, nil, for: opts[:id] } if label
+        prepend { tag(:label, nil, for: opts[:id]) { label } } if label
         insert { inner_input opts.merge(type: type) }
         { class: "col-sm-#{right_col_width}" }
       end

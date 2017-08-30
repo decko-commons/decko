@@ -209,8 +209,14 @@ module ClassMethods
   end
 
   def deep_opts args
-    opts = (args[:card] || {}).clone
-    # clone so that original params remain unaltered.  need deeper clone?
+    opts =
+      # clone doesn't work for Parameters
+      if args[:card].respond_to?(:to_unsafe_h)
+        args[:card].to_unsafe_h
+      else
+        (args[:card] || {}).clone
+      end
+          # clone so that original params remain unaltered.  need deeper clone?
     opts[:type] ||= args[:type] if args[:type]
     # for /new/:type shortcut.  we should handle in routing and deprecate this
     opts[:name] ||= Card::Name.url_key_to_standard(args[:id])
@@ -253,9 +259,9 @@ module ClassMethods
     when Symbol            then require_id_for_codename mark
     when Integer           then mark.to_i
     when Card              then mark.cardname
-    when String, SmartName then normalize_stringy_mark mark, opts
+    when String, Cardname then normalize_stringy_mark mark, opts
       # there are some situations where this breaks if we use Card::Name
-      # rather than SmartName, which would seem more correct.
+      # rather than Cardname, which would seem more correct.
       # very hard to reproduce, not captured in a spec :(
     end
   end
@@ -351,13 +357,13 @@ def append_missing_view_cache_keys
 end
 
 def hard_write_view_cache_keys
-#  puts "WRITE VIEW CACHE KEYS (#{name}): #{view_cache_keys}"
+  #  puts "WRITE VIEW CACHE KEYS (#{name}): #{view_cache_keys}"
   return unless Card.cache.hard
   Card.cache.hard.write_attribute key, :view_cache_keys, @view_cache_keys
 end
 
 def expire_views
-#  puts "EXPIRE VIEW CACHE (#{name}): #{view_cache_keys}"
+  #  puts "EXPIRE VIEW CACHE (#{name}): #{view_cache_keys}"
   return unless view_cache_keys.present?
   Array.wrap(@view_cache_keys).each do |view_cache_key|
     Card::View.cache.delete view_cache_key
@@ -366,7 +372,7 @@ def expire_views
 end
 
 def expire_names cache
-  [name, name_was].each do |name_version|
+  [name, name_before_act].each do |name_version|
     expire_name name_version, cache
   end
 end

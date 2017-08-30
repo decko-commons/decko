@@ -20,7 +20,7 @@ class Card
   # * a boolean indicated whether the action is a _draft_
   # * a _comment_ (where applicable)
   #
-  class Action < ActiveRecord::Base
+  class Action < ApplicationRecord
     include Card::Action::Differ
     extend Card::Action::Admin
 
@@ -37,7 +37,7 @@ class Card
                        }
 
     # these are the three possible values for action_type
-    TYPE_OPTIONS = [:create, :update, :delete].freeze
+    TYPE_OPTIONS = %i[create update delete].freeze
 
     after_save :expire
 

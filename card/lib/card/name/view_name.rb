@@ -1,19 +1,19 @@
 # -*- encoding : utf-8 -*-
 require_dependency "card/env"
 
-require "smart_name"
+require "cardname"
 
 class Card
   class Name
-    class ViewName < SmartName
+    class ViewName < Cardname
       @@name2viewnameobject = {}
 
       class << self
         def new obj
           return obj if self.class === obj
           str = Array === obj ? obj * joint : obj.to_s
-          if (known_name = @@name2viewnameobject[str])
-            known_name
+          if (cached_name = @@name2viewnameobject[str])
+            cached_name
           else
             super str.strip
           end

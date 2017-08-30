@@ -1,40 +1,28 @@
-include_set Abstract::CodeFile
+include_set Abstract::BootstrapCodeFile
 
-view :raw do |_args|
-  bootstrap_path = File.join Cardio.gem_root, "mod",
-                             card.file_content_mod_name, "lib",
-                             "stylesheets", "bootstrap"
-
-  # variables
-  content = File.read("#{bootstrap_path}/_variables.scss")
-  content += %(
-      $bootstrap-sass-asset-helper: false;
-      $icon-font-path: "#{card_url 'assets/fonts/'}";
-    )
-  # mixins
-  content += Dir.glob("#{bootstrap_path}/mixins/*.scss").map do |name|
-    File.read name
-  end.join("\n")
-  content += [
+def load_stylesheets
+  add_stylesheet "font-awesome", type: :css
+  add_stylesheet "material-icons", type: :css
+  add_bs_stylesheet "variables"
+  add_bs_stylesheet "mixins"
+  add_bs_subdir "mixins"
+  [
+    %w[custom],
     # Reset and dependencies
-    %w(normalize print glyphicons),
+    %w[normalize print],
     # Core CSS
-    %w(scaffolding type code grid tables forms buttons),
+    %w[reboot type images code grid tables forms buttons],
     # Components
-    %w(component-animations dropdowns button-groups input-groups navs navbar
-       breadcrumbs pagination pager labels badges jumbotron thumbnails alerts
-       progress-bars media list-group panels responsive-embed wells close),
+    %w[transitions dropdown button-group input-group custom-forms nav navbar card
+       breadcrumb pagination badge jumbotron alert progress media list-group
+       responsive-embed close],
     # Components w/ JavaScript
-    %w(modals tooltip popovers carousel),
-    # Utility classes
-    %w(utilities responsive-utilities)
-  ].map do |names|
+    %w[modal tooltip popover carousel]
+  ].each do |names|
     names.map do |name|
-      path = File.join(bootstrap_path, "_#{name}.scss")
-      Rails.logger.info "reading file: #{path}"
-      File.read path
-    end.join "\n"
-  end.join "\n"
-
-  content
+      add_bs_stylesheet name
+    end
+  end
+  add_bs_subdir "utilities"
 end
+

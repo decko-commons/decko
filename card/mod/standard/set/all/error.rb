@@ -111,7 +111,7 @@ format :html do
   view :conflict, error_code: 409 do
     actor_link = link_to_card card.last_action.act.actor.cardname
     expanded_act = wrap do
-      _render_act_expanded act: card.last_action.act, current_rev_nr: 0
+      _render_act act: card.last_action.act, act_seq: 0
     end
     class_up "card-slot", "error-view"
     wrap do # ENGLISH below
@@ -131,7 +131,7 @@ format :html do
     return if card.errors.empty?
     voo.title = card.name.blank? ? "Problems" : "Problems with #{card.name}"
     voo.hide! :menu
-    class_up "card-frame", "panel panel-warning"
+    class_up "d0-card-frame", "card card-warning card-inverse"
     class_up "alert", "card-error-msg"
     frame do
       card.errors.map do |attrib, msg|

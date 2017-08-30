@@ -1,8 +1,8 @@
 
 format :html do
   view :raw do
-    wrap_with :div, class: "form-group" do
-      text_field_tag :_keyword, "", class: "navbox form-control",
+    wrap_with :div, class: "form-group w-100" do
+      text_field_tag :_keyword, "", class: "_navbox navbox form-control w-100",
                                     placeholder: navbar_placeholder
     end
   end
@@ -10,17 +10,12 @@ format :html do
   def navbar_placeholder
     @@placeholder ||= begin
       holder_card = Card["#{Card[:navbox].name}+*placeholder"]
-      holder_card ? holder_card.raw_content : ""
+      holder_card ? holder_card.raw_content : "Search"
     end
   end
 
-  view :navbar_left do
-    class_up "navbox-form", "navbar-form navbar-left"
-    _render_core
-  end
-
-  view :navbar_right do
-    class_up "navbox-form", "navbar-form navbar-left"
+  view :navbar do
+    class_up "navbox-form", "form-inline w-25"
     _render_core
   end
 

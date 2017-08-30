@@ -58,6 +58,7 @@ describe Card::Set::Type::File do
     end
     context "storage type: protected" do
       subject { source_view protected_file }
+
       it "renders protected url to be processed by wagn" do
         is_expected.to(
           eq "/files/~#{protected_file.id}/#{protected_file.last_action_id}.txt"
@@ -67,6 +68,7 @@ describe Card::Set::Type::File do
 
     context "storage type: unprotected" do
       subject { source_view unprotected_file }
+
       it "renders relative url" do
         is_expected.to(
           eq "/files/~#{unprotected_file.id}/"\
@@ -77,6 +79,7 @@ describe Card::Set::Type::File do
 
     context "storage type: web" do
       subject { source_view web_file }
+
       it "renders saved url" do
         is_expected.to eq web_url
       end
@@ -84,6 +87,7 @@ describe Card::Set::Type::File do
 
     context "storage type: coded" do
       subject { source_view coded_file }
+
       it "renders protected url to be processed by wagn" do
         is_expected.to(
           eq "/files/:#{coded_file.codename}/standard-medium.png"
@@ -93,6 +97,7 @@ describe Card::Set::Type::File do
 
     context "storage type: cloud" do
       subject { source_view cloud_file }
+
       it "renders absolute url to cloud" do
         is_expected
           .to eq "http://#{directory}.s3.amazonaws.com/"\
@@ -131,6 +136,7 @@ describe Card::Set::Type::File do
     context "storage type:" do
       context "protected" do
         subject { protected_file }
+
         it "stores correct identifier (~<card id>/<action id>.<ext>)" do
           expect(subject.content)
             .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
@@ -163,6 +169,7 @@ describe Card::Set::Type::File do
 
       context "unprotected" do
         subject { unprotected_file }
+
         it "creates public symlink" do
           subject
           expect(public_path_exist?).to be_truthy
@@ -171,6 +178,7 @@ describe Card::Set::Type::File do
 
       context "web" do
         subject { web_file }
+
         it "saves url as identifier" do
           expect(subject.content).to eq web_url
         end
@@ -214,12 +222,13 @@ describe Card::Set::Type::File do
           FileUtils.rm_rf mod_path
           Card::Mod::Loader.mod_dirs.mods.delete "test_mod"
         end
-        let(:file_path) { File.join mod_path, "file", "mod_file", "file.txt" }
-
         subject do
           create_file_card :coded, test_file,
                            codename: "mod_file", mod: "test_mod"
         end
+
+        let(:file_path) { File.join mod_path, "file", "mod_file", "file.txt" }
+
         it "stores correct identifier (:<codename>/<mod_name>.<ext>)" do
           expect(subject.content)
             .to eq ":#{subject.codename}/test_mod.txt"
@@ -247,6 +256,7 @@ describe Card::Set::Type::File do
 
       describe "cloud" do
         subject { cloud_file }
+
         it "stores correct identifier "\
            "((<bucket>)/<card id>/<action id>.<ext>)" do
           expect(subject.content)
@@ -316,6 +326,7 @@ describe Card::Set::Type::File do
         create_file_card :coded, test_file,
                          codename: "mod_file", mod: "test_mod"
       end
+
       it "changes storage type to default" do
         storage_config :local
         subject.update_attributes! file: test_file(2)
@@ -337,6 +348,7 @@ describe Card::Set::Type::File do
 
     context "when read rules are restricted" do
       subject { unprotected_file }
+
       it "removes public svmlink" do
         expect(public_path_exist?).to be_truthy
         Card::Auth.as_bot do
@@ -349,6 +361,7 @@ describe Card::Set::Type::File do
 
     context "when read rules changed to 'Anyone'" do
       subject { protected_file }
+
       it "creates public symlink" do
         expect(public_path_exist?).to be_falsey
         Card::Auth.as_bot do
@@ -375,15 +388,17 @@ describe Card::Set::Type::File do
       Card::Auth.as_bot do
         Card.create! name: "file card", type_code: "file",
                      file: File.new(File.join(FIXTURES_PATH, "file1.txt")),
-                     storage_type: @storage_type || :cloud
+                     storage_type: @storage_type || :cloud,
+                     bucket: :test_bucket
       end
     end
+
     context "from cloud to local" do
       before { storage_config :cloud }
       after { Cardio.config.file_storage = :local }
       it "copies file to local file system" do
         # not yet supported
-        expect { subject.update_attributes!(storage_type: :local) }
+        expect { Card[subject.name].update_attributes!(storage_type: :local) }
           .to raise_error(ActiveRecord::RecordInvalid)
         # expect(subject.content)
         #   .to eq "~#{subject.id}/#{subject.last_action_id - 1}.txt"
@@ -416,6 +431,7 @@ describe Card::Set::Type::File do
 
     context "from coded to local" do
       subject { Card[:logo] }
+
       it "copies file to mod" do
         @storage_type = :local
         Card::Auth.as_bot do
@@ -444,93 +460,6 @@ describe Card::Set::Type::File do
     end
   end
 
-  describe "#bucket config" do
-    subject do
-      Card.new(name: "test", type_id: Card::FileID,
-               empty_ok: true, storage_type: :cloud,
-               bucket: :test_bucket).bucket_config
-    end
-    let(:bucket_config) do
-      {
-        test_bucket: {
-          provider: "fog/aws",
-          credentials: {
-            provider: "credential_provider",
-            region: "region",
-            host: "host",
-            endpoint: "endpoint",
-            aws_access_key_id: "aws_access_key_id",
-            aws_secret_access_key: "aws_secret_access_key"
-          },
-          subdirectory: "files",
-          directory: "directory",
-          public: true,
-          attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
-          authenticated_url_expiration: 180,
-          use_ssl_for_aws: true
-        }
-      }
-    end
-    before do
-      @old_bucket_config = Cardio.config.file_buckets
-      Cardio.config.file_buckets = bucket_config
-    end
-    after do
-      Cardio.config.file_buckets = @old_bucket_config
-      %w(PROVIDER CREDENTIALS_PROVIDER TEST_BUCKET_PROVIDER
-         TEST_BUCKET_CREDENTIALS_PROVIDER).each do |key|
-        ENV.delete key
-      end
-    end
-
-    it "takes config from Cardio.config" do
-      is_expected.to eq bucket_config[:test_bucket]
-    end
-
-    it "raises error if no bucket config given" do
-      Cardio.config.file_buckets = {}
-      expect { subject }.to raise_error(Card::Error)
-    end
-
-    it "it takes config from env variables" do
-      Cardio.config.file_buckets = {}
-      ENV["PROVIDER"] = "env provider"
-      ENV["CREDENTIALS_PROVIDER"] = "env cred provider"
-      is_expected.to eq provider: "env provider",
-                        credentials: { provider:  "env cred provider" }
-    end
-
-    it "overrides Cardio.config with env variables" do
-      ENV["PROVIDER"] = "env provider"
-      ENV["CREDENTIALS_PROVIDER"] = "env cred provider"
-      changed_config = bucket_config[:test_bucket]
-      changed_config[:provider] =  "env provider"
-      changed_config[:credentials][:provider] = "env cred provider"
-      is_expected.to eq changed_config
-    end
-
-    it "prefers bucket specific env variables" do
-      ENV["PROVIDER"] = "ignore"
-      ENV["CREDENTIALS_PROVIDER"] = "ignore"
-      ENV["TEST_BUCKET_PROVIDER"] = "bucket provider"
-      ENV["TEST_BUCKET_CREDENTIALS_PROVIDER"] = "bucket cred provider"
-      changed_config = bucket_config[:test_bucket]
-      changed_config[:provider] =  "bucket provider"
-      changed_config[:credentials][:provider] = "bucket cred provider"
-      is_expected.to eq changed_config
-    end
-
-    it "finds any credential env variable" do
-      ENV["CREDENTIALS_MY_OWN_CLOUD_BUCKET"] = "my provider"
-      ENV["CREDENTIALS_MY_OWN_CLOUD"] = "ignore me"
-      ENV["TEST_BUCKET_CREDENTIALS_MY_OWN_CLOUD"] = "find me"
-      changed_config = bucket_config[:test_bucket]
-      changed_config[:credentials][:my_own_cloud_bucket] =  "my provider"
-      changed_config[:credentials][:my_own_cloud] = "find me"
-      is_expected.to eq changed_config
-    end
-  end
-
   def public_path_exist?
     File.exist? public_path
   end
@@ -539,10 +468,20 @@ describe Card::Set::Type::File do
     "public/files/~#{subject.id}/#{subject.last_action_id}.txt"
   end
 
-  let(:directory) { "philipp-test" }
+  let(:directory) { "deckodev-test" }
+
+  # expects access keys in card/spec/support/bucket_credentials.yml for the
+  # bucket defined in `directory` in the following format:
+  # aws:
+  #   provider: AWS
+  #   aws_access_key_id: ...
+  #   aws_secret_access_key: ...
+  #   region: eu-central-1
+
   def storage_config type=:local
     Cardio.config.file_storage = type
-    Wagn.config.file_buckets = {
+    # config.file_default_bucket
+    Decko.config.file_buckets = {
       test_bucket: {
         provider: "fog/aws",
         credentials: bucket_credentials(:aws),

@@ -1,11 +1,9 @@
 class Card
   def deserialize_for_active_job! attr
-    attr.each do |attname, args|
-      # symbols are not allowed so all symbols arrive here as strings
-      # convert strings that were symbols before back to symbols
-      value = args[:symbol] ? args[:value].to_sym : args[:value]
-      instance_variable_set("@#{attname}", value)
+    attr.each do |attname, val|
+      instance_variable_set("@#{attname}", val)
     end
+
     include_set_modules
   end
 
@@ -16,7 +14,7 @@ class Card
     # effect that params changes in the CardController get lost
     # (a crucial example are success params that are processed in
     # CardController#update_params_for_success)
-    return yield if Wagn.config.active_job.queue_adapter == :inline
+    return yield if Decko.config.active_job.queue_adapter == :inline
     Card::Auth.with auth do
       Card::Env.with env do
         yield
@@ -26,14 +24,41 @@ class Card
 
   def serialize_for_active_job
     serializable_attributes.each_with_object({}) do |name, hash|
-      value = instance_variable_get("@#{name}")
-      hash[name] =
-        # ActiveJob doesn't accept symbols as arguments
-        if value.is_a? Symbol
-          { value: value.to_s, symbol: true }
-        else
-          { value: value }
-        end
+      hash[name] = instance_variable_get("@#{name}")
+    end
+  end
+
+  def serialize_value value
+    # ActiveJob doesn't accept symbols and Time as arguments
+    case value
+    when Symbol
+      { value: value.to_s, type: "symbol" }
+    when Time
+      { value: value.to_s, type: "time" }
+    when Hash
+      {
+        value: value.each_with_object({}) { |(k, v), h| h[k] = serialize_value(v) },
+        type: "hash"
+      }
+    when ActionController::Parameters
+      serialize_value value.to_unsafe_h
+    else
+      { value: value }
+    end
+  end
+
+  def deserialize_value val, type
+    case type
+    when "symbol"
+      val.to_sym
+    when "time"
+      DateTime.parse val
+    when "hash"
+      val.each_with_object({}) do |(k, v), h|
+        h[k] = deserialize_value v[:value], v[:type]
+      end
+    else
+      val
     end
   end
 
@@ -127,7 +152,7 @@ class Card
         end
       end
 
-      class IntegrateWithDelayJob < ActiveJob::Base
+      class IntegrateWithDelayJob < ApplicationJob
         def perform card, card_attribs, env, auth, method_name
           card.deserialize_for_active_job! card_attribs
           card.with_env_and_auth env, auth do

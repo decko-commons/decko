@@ -66,15 +66,15 @@ format :html do
   end
 
   def wrap_body
-    css_classes = ["card-body"]
-    css_classes += ["card-content", card.safe_set_keys] if @content_body
+    css_classes = ["d0-card-body"]
+    css_classes += ["d0-card-content", card.safe_set_keys] if @content_body
     wrap_with :div, class: classy(*css_classes) do
       yield
     end
   end
 
   def panel
-    wrap_with :div, class: classy("card-frame") do
+    wrap_with :div, class: classy("d0-card-frame") do
       yield
     end
   end
@@ -100,20 +100,18 @@ format :html do
     parent && parent.voo.ok_view == :related
   end
 
-  def standard_frame
+  def standard_frame slot=true
     voo.hide :horizontal_menu, :help
-    wrap do
-      [
-        _optional_render_menu,
+    wrap slot do
         panel do
           [
+            _optional_render_menu,
             _optional_render_header,
             frame_help,
             _optional_render(:flash),
             wrap_body { yield }
           ]
         end
-      ]
     end
   end
 
@@ -125,6 +123,7 @@ format :html do
   end
 
   def frame_and_form action, form_opts={}
+    form_opts ||= {}
     frame do
       card_form action, form_opts do
         output yield

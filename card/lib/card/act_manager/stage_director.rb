@@ -1,11 +1,8 @@
 
 class Card
   def restore_changes_information
-    return unless @previously_changed
-    @changed_attributes = ActiveSupport::HashWithIndifferentAccess.new
-    @previously_changed.each do |k, (old, _new)|
-      @changed_attributes[k] = old
-    end
+    return unless saved_changes.present?
+    @changed_attributes = previous_mutation_tracker.changed_values
   end
 
   def clean_after_stage_fail
@@ -47,6 +44,7 @@ class Card
     # stage
     class StageDirector
       include Stage
+      include Phases
 
       attr_accessor :prior_store, :act, :card, :stage, :parent, :main,
                     :subdirectors, :transact_in_stage
@@ -92,36 +90,6 @@ class Card
         @card.prepare_for_phases unless @prepared
         @prepared = true
         @subdirectors.each(&:prepare_for_phases)
-      end
-
-      def validation_phase
-        run_single_stage :initialize
-        run_single_stage :prepare_to_validate
-        run_single_stage :validate
-        @card.expire_pieces if @card.errors.any?
-        @card.errors.empty?
-      end
-
-      def storage_phase &block
-        catch_up_to_stage :prepare_to_store
-        run_single_stage :store, &block
-        run_single_stage :finalize
-      ensure
-        @from_trash = nil
-      end
-
-      def integration_phase
-        return if @abort
-        @card.restore_changes_information
-        run_single_stage :integrate
-        run_single_stage :integrate_with_delay
-      rescue => e  # don't rollback
-        Card::Error.current = e
-        @card.notable_exception_raised
-        return false
-      ensure
-        @card.changes_applied unless @abort
-        ActManager.clear if main? && !@card.only_storage_phase
       end
 
       def catch_up_to_stage next_stage

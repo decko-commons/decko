@@ -1,20 +1,19 @@
 # -*- encoding : utf-8 -*-
 require_dependency "card/env"
 
-require "smart_name"
+require "cardname"
 
 class Card
-  # The SmartName class provides generalized of Card naming patterns
+  # The Cardname class provides generalized of Card naming patterns
   # (compound names, key-based variants, etc)
   #
   # Card::Name adds support for deeper card integration
-  class Name < SmartName
+  class Name < Cardname
     include FieldsAndTraits
     include ::Card::Name::NameVariants
 
     self.params  = Card::Env # yuck!
-    self.session = proc { Card::Auth.current.name }
-    self.banned_array = ["/"]
+    self.session = proc { Card::Auth.current.name } # also_yuck
 
     class << self
       def cardish mark

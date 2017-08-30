@@ -1,0 +1,9 @@
+Description:
+    The 'decko new' command creates a new Decko deck with a default
+    directory structure and configuration at the path you specify.
+
+Example:
+    decko new ~/Poker/FullHouse
+
+    This generates a new deck in ~/Poker/FullHouse.
+

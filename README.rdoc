@@ -1,1 +1,1 @@
-wagn/README.rdoc
+decko/README.rdoc

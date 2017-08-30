@@ -1,12 +1,13 @@
 # -*- encoding : utf-8 -*-
-describe Card::Set::All::History do
+
+RSpec.describe Card::Set::All::History do
   context "history view" do
     # before do
     #   Card.create! name: 'my histoer card'
     # end
     it "has a frame" do
       history = render_card :history, name: "A"
-      assert_view_select history, 'div[class~="card-frame"]'
+      assert_view_select history, 'div[class~="d0-card-frame"]'
     end
 
     describe "#action_summary" do
@@ -209,7 +210,7 @@ describe Card::Set::All::History do
           expect(@plus_action.action_type).to eq(:create)
         end
         it "content change" do
-          expect(@plus_action.card_changes(true)
+          expect(@plus_action.card_changes.reload
             .find_by_field_name(:db_content).value).to eq(content)
         end
       end

@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 class Card
   # A _change_ is an alteration to a card's name, type, content, or trash state.
   # Together, {Act acts}, {Action actions}, and {Change changes} comprise a
@@ -14,12 +15,12 @@ class Card
   # * the new _value_ of that field
   # * the {Action action} of which the change is part
   #
-  class Change < ActiveRecord::Base
+  class Change < ApplicationRecord
     belongs_to :action, foreign_key: :card_action_id,
                         inverse_of: :card_changes
 
     # lists the database fields for which changes are recorded
-    TRACKED_FIELDS = %w(name type_id db_content trash).freeze
+    TRACKED_FIELDS = %w[name type_id db_content trash].freeze
 
     class << self
       # delete all {Change changes} not associated with an {Action action}

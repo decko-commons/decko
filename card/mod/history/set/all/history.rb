@@ -26,21 +26,27 @@ end
 # stores changes in the changes table and assigns them to the current action
 # removes the action if there are no changes
 event :finalize_action, :finalize, when: :finalize_action? do
-  @changed_fields = Card::Change::TRACKED_FIELDS.select do |f|
-    changed_attributes.member? f
-  end
-  if @changed_fields.present?
-    # FIXME: should be one bulk insert
-    @changed_fields.each do |f|
-      Card::Change.create field: f,
-                          value: self[f],
-                          card_action_id: @current_action.id
-    end
+  if changed_fields.present?
+    store_card_changes
     @current_action.update_attributes! card_id: id
-  elsif @current_action.card_changes(true).empty?
+  elsif @current_action.card_changes.reload.empty?
     @current_action.delete
     @current_action = nil
   end
+end
+
+def store_card_changes
+  # FIXME: should be one bulk insert
+  changed_fields.each do |f|
+    Card::Change.create field: f,
+                        value: self[f],
+                        card_action_id: @current_action.id
+  end
+end
+
+def changed_fields
+  Card::Change::TRACKED_FIELDS & (saved_changes.keys | changes.keys |
+                                  mutations_from_database.changed_values.keys)
 end
 
 def finalize_action?
@@ -51,7 +57,7 @@ event :finalize_act,
       after: :finalize_action,
       when: proc { |c|  c.act_card? } do
   # removed subcards can leave behind actions without card id
-  if @current_act.actions(true).empty?
+  if @current_act.actions.reload.empty?
     @current_act.delete
     @current_act = nil
   else
@@ -132,7 +138,7 @@ end
 format :html do
   view :history, cache: :never do
     voo.show :toolbar
-    class_up "card-body",  "history-slot"
+    class_up "d0-card-body",  "history-slot"
     frame do
       bs_layout container: true, fluid: true do
         html _optional_render_history_legend(with_drafts: true)
@@ -163,7 +169,7 @@ format :html do
     intrusive_acts = card.intrusive_acts
                          .page(page_from_params).per(ACTS_PER_PAGE)
     wrap_with :span, class: "slotter" do
-      paginate intrusive_acts, remote: true, theme: 'twitter-bootstrap-3'
+      paginate intrusive_acts, remote: true, theme: "twitter-bootstrap-4"
     end
   end
 
@@ -172,17 +178,17 @@ format :html do
   end
 
   def action_legend with_drafts=true
-    types = [:create, :update, :delete]
+    types = %i[create update delete]
     legend = types.map do |action_type|
-               "#{action_icon(action_type)} #{action_type}d"
-             end
+      "#{action_icon(action_type)} #{action_type}d"
+    end
     legend << "#{action_icon(:draft)} unsaved draft" if with_drafts
     "<small>Actions: #{legend.join ' | '}</small>"
   end
 
   def content_legend
-    legend = [Card::Content::Diff.render_added_chunk('Additions'),
-              Card::Content::Diff.render_deleted_chunk('Subtractions')]
+    legend = [Card::Content::Diff.render_added_chunk("Additions"),
+              Card::Content::Diff.render_deleted_chunk("Subtractions")]
     "<small>Content changes: #{legend.join ' | '}</small>"
   end
 

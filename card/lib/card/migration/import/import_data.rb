@@ -3,36 +3,32 @@ class Card
     class Import
       # Handles the card attributes and remotes for the import
       class ImportData
-        DEFAULT_PATH = Card::Migration.data_path("cards.yml").freeze
-
         include CardContent
         include CardAttributes
 
-        class << self
-          # Takes a block to update import data
-          # use #add_card and #add_remote in the block to make
-          # changes
-          def update
-            data = ImportData.new
-            yield(data)
-            data.write_attributes
-          end
+        # Takes a block to update import data
+        # use #add_card and #add_remote in the block to make
+        # changes
+        def self.update data_path
+          data = ImportData.new(data_path)
+          yield(data)
+          data.write_attributes
+        end
 
-          def all_cards
-            ImportData.new.all_cards
-          end
-
-          def changed_cards
-            ImportData.new.changed_cards
-          end
-
-          def select_cards names_or_keys
-            ImportData.new.select_cards Array(names_or_keys)
+        def self.load data_path, opts={}
+          data = ImportData.new(data_path)
+          if opts[:all]
+            data.all_cards
+          elsif opts[:only]
+            data.select_cards opts[:only]
+          else
+            data.changed_cards
           end
         end
 
-        def initialize path=nil
-          @path = path || DEFAULT_PATH
+        def initialize data_path
+          @path = File.join data_path, "cards.yml"
+          @card_content_dir = File.join data_path, "cards"
           @data = read_attributes
         end
 

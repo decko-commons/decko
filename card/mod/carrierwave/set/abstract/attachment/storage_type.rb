@@ -31,7 +31,12 @@ end
 
 event :validate_storage_type_update, :validate,
       on: :update do
-  if cloud? && storage_type_changed?
+  # FIXME: make it possible to retrieve the file from cloud storage
+  #   to store it somewhere else. Currently, it only works to change the
+  #   storage type if a new file is provided
+  #   i.e. `update_attributes storage_type: :local` fails but
+  #        `update_attributes storage_type: :local, file: [file handle]` is ok
+  if cloud? && storage_type_changed? && !file_changed?
     errors.add :storage_type, "moving files from cloud elsewhere "\
                               "is not supported"
   end
@@ -40,6 +45,11 @@ end
 event :loose_coded_status_on_update, :initialize, on: :update, when: :coded? do
   return if @new_mod
   @new_storage_type ||= storage_type_from_config
+end
+
+event :change_bucket_if_read_only, :initialize, on: :update, when: :cloud? do
+  return unless bucket_config[:read_only]
+  @new_storage_type = storage_type_from_config
 end
 
 event :update_public_link_on_create, :integrate, on: :create, when: :local? do
@@ -137,8 +147,17 @@ end
 
 def bucket
   @bucket ||= cloud? &&
-              ((new_card? && bucket_from_config) || bucket_from_content ||
-                bucket_from_config)
+              (new_card_bucket || bucket_from_content || bucket_from_config)
+end
+
+def new_card_bucket
+  return unless new_card?
+  # If the file is assigned before the bucket option we have to
+  # check if there is a bucket options in set_specific.
+  # That happens for exmaple when the file appears before the bucket in the
+  # options hash:
+  #   Card.create file: file_handle, bucket: "my_bucket"
+  set_specific[:bucket] || set_specific["bucket"] || bucket_from_config
 end
 
 def bucket_config

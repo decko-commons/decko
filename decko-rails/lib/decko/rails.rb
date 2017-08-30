@@ -24,7 +24,7 @@ module Decko
         begin
           # for some reason this needs the 'wagn/',
           # can't get lib/tasks change right by this time?
-          load "wagn/tasks/wagn.rake"
+          load "decko/tasks/decko.rake"
           load "card/tasks/card.rake"
         end
       end

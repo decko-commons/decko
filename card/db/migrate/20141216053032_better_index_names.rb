@@ -1,4 +1,4 @@
-class BetterIndexNames < ActiveRecord::Migration
+class BetterIndexNames < ActiveRecord::Migration[4.2]
   def up
     rename_index :card_acts, "actor_id_index", "card_acts_actor_id_index"
     rename_index :card_acts, "card_id_index",  "card_acts_card_id_index"

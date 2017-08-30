@@ -3,7 +3,7 @@
 describe Card::Set::Type::Uri do
   it "has special editor" do
     assert_view_select render_editor("Uri"),
-                       'input[type="text"][class~="card-content"]'
+                       'input[type="text"][class~="d0-card-content"]'
   end
 
   it "renders core view links" do
@@ -20,7 +20,6 @@ describe Card::Set::Type::Uri do
   it "renders core view links with title arg" do
     card = Card.create(type: "URI", name: "A URI card",
                        content: "http://wagn.org/Home")
-
 
     assert_view_select(
       card.format.render("core", title: "My Title"),

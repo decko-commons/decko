@@ -3,7 +3,7 @@
 class Card
   # a Reference is a directional relationship from one card (the referer)
   # to another (the referee).
-  class Reference < ActiveRecord::Base
+  class Reference < ApplicationRecord
     class << self
       # bulk insert improves performance considerably
       # array takes form [ [referer_id, referee_id, referee_key, ref_type], ...]
