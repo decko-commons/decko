@@ -5,6 +5,7 @@ class UpdateFileHistory < Card::Migration::Core
     Card.search(type: [:in, "file", "image"]).each do |card|
       card.actions.each do |action|
         next unless (content_change = action.change :db_content)
+        next if content_change.new_record?
         original_filename, file_type, action_id, mod = content_change.value.split("\n")
         next unless file_type.present? && action_id.present?
         value =

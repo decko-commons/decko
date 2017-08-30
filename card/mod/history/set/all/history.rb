@@ -8,7 +8,7 @@ end
 # :validate_delete_children
 
 def actionable?
-  history?
+  history? # || respond_to?(:attachment)
 end
 
 event :assign_action, :initialize, when: proc { |c| c.actionable? } do
@@ -27,11 +27,29 @@ end
 # removes the action if there are no changes
 event :finalize_action, :finalize, when: :finalize_action? do
   if changed_fields.present?
-    store_card_changes
     @current_action.update_attributes! card_id: id
+    store_card_changes if @current_action.action_type != :create
+    store_card_changes_for_create_action if first_edit?
   elsif @current_action.card_changes.reload.empty?
     @current_action.delete
     @current_action = nil
+  end
+end
+
+def first_edit? # = update or delete
+  @current_action.action_type != :create && @current_action.card.actions.size == 2
+end
+
+def create_action
+  actions.first
+end
+
+# changes for the create action are stored after the first update
+def store_card_changes_for_create_action
+  changed_fields.each do |f|
+    Card::Change.create field: f,
+                        value: attribute_was(f),
+                        card_action_id: create_action.id
   end
 end
 
@@ -72,9 +90,7 @@ end
 event :rollback_actions,
       :prepare_to_validate, on: :update, when: :rollback_request? do
   revision = { subcards: {} }
-  rollback_actions = Env.params["action_ids"].map do |a_id|
-    Action.fetch(a_id) || nil
-  end
+
   rollback_actions.each do |action|
     if action.card_id == id
       revision.merge!(revision(action))
@@ -88,9 +104,17 @@ event :rollback_actions,
   abort :success
 end
 
+def rollback_actions
+  actions =
+    Env.params["revert_actions"].map do |a_id|
+      Action.fetch(a_id) || nil
+    end.compact
+  actions.map! { |a| a.previous_action } if Env.params["revert_to"] == "previous"
+  actions.compact
+end
+
 def rollback_request?
-  history? && Env && Env.params["action_ids"] &&
-    Env.params["action_ids"].class == Array
+  history? && Env&.params["revert_actions"]&.class == Array
 end
 
 # all acts with actions on self and on cards that are descendants of self and

@@ -26,10 +26,10 @@ RSpec.describe Card::Set::All::History do
   end
 
   describe "#create_act_and_action" do
-    let!(:act_start_cnt) { Card::Act.count }
-    let(:content)        { "Nobody expects the Spanish inquisition" }
-    let(:act)            { @card.acts.last }
-    let(:action)         { act.actions.last }
+    let!(:act_start_cnt) {Card::Act.count}
+    let(:content) {"Nobody expects the Spanish inquisition"}
+    let(:act) {@card.acts.last}
+    let(:action) {act.actions.last}
 
     context "for single card" do
       before do
@@ -47,11 +47,21 @@ RSpec.describe Card::Set::All::History do
         it "adds create action" do
           expect(action.action_type).to eq(:create)
         end
+        it "does not add card changes entries" do
+          expect(action.card_changes).to be_empty
+        end
+        it "fetches card changes from cards table" do
+          expect(action.changes).to eq(name: "single card",
+                                       db_content: content,
+                                       type_id: Card::BasicID,
+                                       trash: false)
+
+        end
       end
 
       context "when updated" do
         it "adds no act if nothing changed" do
-          @card.update_attributes  name: "single card", content: content
+          @card.update_attributes name: "single card", content: content
           expect(Card::Act.count).to eq(act_start_cnt + 1)
         end
         it "adds new act" do
@@ -97,7 +107,7 @@ RSpec.describe Card::Set::All::History do
 
         it "doesn't create act and actions if subcard fails" do
           Card::Auth.as("joe_user") do
-            act_count    = Card::Act.count
+            act_count = Card::Act.count
             action_count = Card::Action.count
             Card.create name: "crete fail", subcards: { "*all+*create" => "" }
             expect(Card::Action.count).to eq action_count
@@ -212,7 +222,7 @@ RSpec.describe Card::Set::All::History do
         end
         it "content change" do
           expect(@plus_action.card_changes.reload
-            .find_by_field_name(:db_content).value).to eq(content)
+                   .find_by_field_name(:db_content).value).to eq(content)
         end
       end
     end
