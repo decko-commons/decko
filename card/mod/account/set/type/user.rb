@@ -9,7 +9,7 @@ format :html do
       voo.title = "Welcome, Carditect!"
       voo.show! :help
       voo.hide! :menu
-      Auth.as_bot { set_up_form }
+      Auth.as_bot { setup_form }
     end
   end
 
