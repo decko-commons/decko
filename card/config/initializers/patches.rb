@@ -21,3 +21,9 @@ end
 module ActiveJob::Arguments
   extend Patches::ActiveJob::Arguments
 end
+
+module ActionDispatch
+  class Reloader
+    extend Patches::ActionDispatch::Reloader
+  end
+end

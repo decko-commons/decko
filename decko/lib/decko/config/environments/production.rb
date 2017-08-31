@@ -4,6 +4,10 @@ Decko.application.class.configure do
 
   config.eager_load = true
 
+  # temporary fix for formerly autoloaded files that stopped autoloading in Rails 5
+  # TODO: configure eager_load_paths explicitly (and remove this)
+  config.enable_dependency_loading = true
+
   # Code is not reloaded between requests
   config.cache_classes = true
 
