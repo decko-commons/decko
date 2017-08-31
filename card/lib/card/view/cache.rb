@@ -25,7 +25,7 @@ class Card
       #
       # @return [String (usually)] rendered view
       def cache_render
-        cached_view = cache_fetch
+        cached_view = cache_fetch { yield }
         cache_active? ? cached_view : format.stub_render(cached_view)
       end
 
