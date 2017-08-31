@@ -1,16 +1,19 @@
 class Card
   class View
     module Options
-      # normalizes and manages view options
+      # Manages options for card views, including those used in nest syntax
 
-      # the keymap represents a 2x2 matrix, where the factors are (a) whether an option can be used by a Carditect in nest
-      # syntax, and (b) whether nested views can inherit the option from a parent view.
+      # the keymap represents a 2x2 matrix, where the factors are
+      # (a) whether an option's value can be set by a Carditect via nests, and
+      # (b) whether nested views can inherit the option from a parent view.
       #
-      #                  use in syntax | don't use
+      #                  use in nests  | don't use
       #                 ________________________________
       #       inherit  | both          | heir
       # don't inherit  | carditect     | none
       #
+      # (note: each option will likely some day merit its own object)
+
       @keymap = {
         carditect: [
           :view,          # view to render
@@ -18,9 +21,8 @@ class Card
           :nest_syntax,   # full nest syntax
           :show,          # render these views when optional
           :hide           # do not render these views when optional
-                          # note: show/hide can be single view (Symbol), list of views (Array),
+        ],                # note: show/hide can be single view (Symbol), list of views (Array),
                           # or comma separated views (String)
-        ],
         heir: [
           :main,           # format object is page's "main" object (Boolean)
           :home_view,      # view for slot to return to when no view specified
@@ -45,28 +47,94 @@ class Card
       }
       # Note: option values are strings unless otherwise noted
 
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      # VOO API
+
+      # The following methods allow developers to read and write options dynamically.
+
+
+      # There are two primary options hashes:
+
+      # - @normalized_options are determined upon initialization and do not change after that.
+      # @return [Hash] options
+      attr_reader :normalized_options
+
+      # - @live_options are dynamic and can be altered by the "voo" API at any time. Such alterations are
+      #   NOT used in stubs
+      # @return [Hash]
+      def live_options
+        @live_options ||= process_live_options
+      end
+
+
+      # Developers can also set most options directly via accessors, eg voo.title = "King"
+      #
+      # Note that a few options do not follow this pattern.
+      #
+
+      accessible_keys.each do |option_key|
+        define_getter option_key
+        define_setter option_key
+      end
+
+
+      # "items", the option used to configure views of each of a list of cards, is
+      # currently the only Hash option (thus this accessor override)
+      def items
+        live_options[:items] ||= {}
+      end
+
+
+      # options to be used in data attributes of card slots (normalized options
+      # with standard keys)
+      def slot_options
+        normalized_options.select { |k, _v| Options.all_keys.include? k }
+      end
+
+      def closest_live_option key
+        if live_options.key? key
+          live_options[key]
+        else
+          (parent && parent.closest_live_option(key)) ||
+            (format.parent && format.parent.voo &&
+              format.parent.voo.closest_live_option(key))
+        end
+      end
+
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      # CLASS METHODS
+
       class << self
         attr_reader :keymap
 
+        # KEY LISTS
+
         # all standard option keys
+        # @return [Array]
         def all_keys
           @all_keys ||= keymap.each_with_object([]) { |(_k, v), a| a.push(*v) }
         end
 
         # keys whose values can be set by Wagneers in card nests
+        # @return [Array]
         def carditect_keys
           @carditect_keys ||= ::Set.new(keymap[:both]) + keymap[:carditect]
         end
 
         # keys that follow simple standard inheritance pattern from parent views
+        # @return [Array]
         def heir_keys
           @heir_keys ||= ::Set.new(keymap[:both]) + keymap[:heir]
         end
 
         # Each of these keys can be read or written via accessors
+        # @return [Array]
         def accessible_keys
           heir_keys + [:nest_name, :nest_syntax] - [:items]
         end
+
+
+        # ACCESSOR_HELPERS
 
         def define_getter option_key
           define_method option_key do
@@ -83,51 +151,12 @@ class Card
         end
       end
 
-      # There are two primary options hashes:
-      # - @live_options are dynamic and can be altered by the "voo" API at any time. Such alterations are
-      #   NOT used in stubs.
-      # - @normalized_options are determined upon initialization and do not change after that.
-
-      attr_reader :normalized_options
-
-      def live_options
-        @live_options ||= process_live_options
-      end
-
-      # The following methods comprise the primary voo API.  They allow
-      # developers to read and write options dynamically
-
-      def items
-        live_options[:items] ||= {}
-      end
-
-      accessible_keys.each do |option_key|
-        define_getter option_key
-        define_setter option_key
-      end
-
       def normalize_editor value
         value && value.to_sym
       end
 
       def normalize_cache value
         value && value.to_sym
-      end
-
-      # options to be used in data attributes of card slots (normalized options
-      # with standard keys)
-      def slot_options
-        normalized_options.select { |k, _v| Options.all_keys.include? k }
-      end
-
-      def closest_live_option key
-        if live_options.key? key
-          live_options[key]
-        else
-          (parent && parent.closest_live_option(key)) ||
-            (format.parent && format.parent.voo &&
-              format.parent.voo.closest_live_option(key))
-        end
       end
 
       private
@@ -181,16 +210,24 @@ class Card
 
       # "foreign" options are non-standard options.  They're allowed, but they
       # prevent independent caching (and thus stubbing)
-      def foreign_options opts
-        opts.reject { |k, _v| Options.all_keys.include? k }
-      end
 
+      # non-standard options that are found in normalized_options
+      # @return [Hash] options Hash
       def foreign_normalized_options
-        @foreign_normalize_options ||= foreign_options normalized_options
+        @foreign_normalize_options ||= foreign_options_in normalized_options
       end
 
+      # non-standard options that are found in live_options
+      # @return [Hash] options Hash
       def foreign_live_options
-        foreign_options live_options
+        foreign_options_in live_options
+      end
+
+      # find non-standard option in Hash
+      # @param opts [Hash] options hash
+      # @return [Hash] options Hash
+      def foreign_options_in opts
+        opts.reject { |k, _v| Options.all_keys.include? k }
       end
     end
   end

@@ -18,10 +18,11 @@ class Card
         end
       end
 
-      # The cached view may have stubs within it. If the cache is active
-      # (ie, we are inside another view), we keep going and return
-      # to the stubs after we complete the free cache triggering this render. If this
-      # is the free cache, we go through the stubs and render them now.
+      # Fetch view via cache and, when appropriate, render its stubs
+      #
+      # If this is a free cache action (see CacheAction), we go through the stubs and render them now.
+      # If the cache is active (ie, we are inside another view), we do not worry about stubs but keep going,
+      # because the free cache we're inside will take care of those stubs.
       #
       # @return [String (usually)] rendered view
       def cache_render
@@ -29,37 +30,46 @@ class Card
         cache_active? ? cached_view : format.stub_render(cached_view)
       end
 
-      # Use the primary cache API.  Also registers the view for later clearing.
+      # Is there already a view cache in progress on which this one depends?
+      #
+      # Note that if you create a brand new independent format object (ie, not a subformat)
+      # its activity will be treated as unrelated to this caching/rendering.
+      #
+      # @return [true/false]
+      def cache_active?
+        deep_root? ? false : self.class.caching?
+      end
+
+      # If view is cached, retrieve it.  Otherwise render and store it.
+      # Uses the primary cache API.
       def cache_fetch
         caching do
           self.class.cache.fetch cache_key do
-            card.register_view_cache_key cache_key
+            register_cache_key
             yield
           end
         end
       end
 
-      # tracks that a cache fetch is in progress
+      # keep track of nested cache fetching
       def caching
         self.class.caching(self) { yield }
       end
 
-      # Is there already a view cache in progress on which this one depends?
-      #
-      # Note that if you create a brand new format object (ie, not a subformat)
-      # midrender, (eg card.format...), it needs to be treated as unrelated to
-      # any caching in progress.
-      def cache_active?
-        deep_root? ? false : self.class.caching?
-      end
 
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # VIEW CACHE KEY
+
 
       def cache_key
         @cache_key ||= [
           card.key, format.class, format.nest_mode, options_for_cache_key
         ].map(&:to_s).join "-"
+      end
+
+      # Registers the cached view for later clearing in the event of related card changes
+      def register_cache_key
+        card.register_view_cache_key cache_key
       end
 
       def options_for_cache_key
@@ -92,7 +102,9 @@ class Card
         end
       end
 
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # cache-related Card::View class methods
+
       module ClassMethods
         def cache
           Card::Cache[Card::View]
