@@ -1,17 +1,42 @@
+require_dependency "card/view/cache_action"
+
 class Card
   class View
-    # cache mechanics for view caching
+    include CacheAction
+
     module Cache
-      # adds tracking, mapping, and stub handling to standard cache fetching
+      # Support context-aware card view caching.
+      #
+      # render or retrieve view (or stub) with current options
+      # @params &block [Block] render block
+      # @return [rendered view or stub]
+      def fetch &block
+        case cache_action
+          when :yield       then yield                # simple render
+          when :cache_yield then cache_render(&block) # render to/from cache
+          when :stub        then stub                 # render stub
+        end
+      end
+
+      # The cached view may have stubs within it. If the cache is active
+      # (ie, we are inside another view), we keep going and return
+      # to the stubs after we complete the free cache triggering this render. If this
+      # is the free cache, we go through the stubs and render them now.
+      #
+      # @return [String (usually)] rendered view
+      def cache_render
+        cached_view = cache_fetch
+        cache_active? ? cached_view : format.stub_render(cached_view)
+      end
+
+      # Use the primary cache API.  Also registers the view for later clearing.
       def cache_fetch
-        cached_view = caching do
+        caching do
           self.class.cache.fetch cache_key do
             card.register_view_cache_key cache_key
             yield
           end
         end
-
-        caching? ? cached_view : format.stub_render(cached_view)
       end
 
       # tracks that a cache fetch is in progress
@@ -19,22 +44,17 @@ class Card
         self.class.caching(self) { yield }
       end
 
-      # answers: should this cache fetch depend on one already in progress?
+      # Is there already a view cache in progress on which this one depends?
+      #
       # Note that if you create a brand new format object (ie, not a subformat)
       # midrender, (eg card.format...), it needs to be treated as unrelated to
       # any caching in progress.
-      def caching?
+      def cache_active?
         deep_root? ? false : self.class.caching?
       end
 
-      # neither view nor format has a parent
-      def deep_root?
-        !parent && !format.parent
-      end
-
-      def root
-        @root = parent ? parent.root : self
-      end
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+      # VIEW CACHE KEY
 
       def cache_key
         @cache_key ||= [
@@ -52,19 +72,24 @@ class Card
         end.join ";"
       end
 
+      def array_for_cache_key array
+        # TODO: needs better handling of edit_structure
+        #  currently we pass complete structure as nested array
+        array.map do |item|
+          item.is_a?(Array) ? item.join(":") : item.to_s
+        end.sort.join ","
+      end
+
       def option_for_cache_key key, value
-        string_value =
-          case value
+        "#{key}:#{option_value_to_string value}"
+      end
+
+      def option_value_to_string value
+        case value
           when Hash then "{#{hash_for_cache_key value}}"
-          when Array then
-            # TODO: needs better handling of edit_structure
-            #       currently we pass complete structure as nested array
-            value.map do |item|
-              item.is_a?(Array) ? item.join(":") : item.to_s
-            end.sort.join ","
+          when Array then array_for_cache_key(value)
           else value.to_s
-          end
-        "#{key}:#{string_value}"
+        end
       end
 
       # cache-related Card::View class methods
