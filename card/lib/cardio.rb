@@ -47,10 +47,10 @@ module Cardio
         acts_per_page:          10,
         space_last_in_multispace: true,
         closed_search_limit:    10,
-        paging_limit: 20,
+        paging_limit:           20,
 
         non_createable_types:   [%w(signup setting set)],
-        view_cache: false,
+        view_cache:             false,
 
         encoding:               "utf-8",
         request_logger:         false,

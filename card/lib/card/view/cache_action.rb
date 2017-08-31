@@ -66,10 +66,19 @@ class Card
       # CACHE STATUS: ACTIVE
       # another view cache is in progress; this view is inside it
 
+      # @return [Symbol]
       def active_cache_action
+        validate_active_cache_action do
+          active_cache_ok? ? active_cache_action_from_setting : :stub
+        end
+      end
+
+      # catch recursive views and invalid stubs
+      def validate_active_cache_action
         return :yield if ok_view == :too_deep
-        action = active_cache_ok? ? active_cache_action_from_setting : :stub
-        validate_stub if action == :stub
+        #FIXME - this allows "too deep" error to be cached inside another view. may need a "raise" cache action?
+        action = yield
+        validate_stub! if action == :stub
         action
       end
 
@@ -80,6 +89,8 @@ class Card
         active_cache_permissible?
       end
 
+      # apply any permission checks required by view.
+      # (do not cache views with nuanced permissions)
       def active_cache_permissible?
         case permission_task
         when :none                  then true
