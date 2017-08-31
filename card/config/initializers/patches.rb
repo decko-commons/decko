@@ -21,3 +21,7 @@ end
 module ActiveJob::Arguments
   extend Patches::ActiveJob::Arguments
 end
+
+class ActionDispatch
+  include Patches::ActionDispatch
+end
