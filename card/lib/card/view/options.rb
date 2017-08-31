@@ -48,6 +48,53 @@ class Card
       # Note: option values are strings unless otherwise noted
 
       #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      # CLASS METHODS
+
+      class << self
+        attr_reader :keymap
+
+        # KEY LISTS
+
+        # all standard option keys
+        # @return [Array]
+        def all_keys
+          @all_keys ||= keymap.each_with_object([]) { |(_k, v), a| a.push(*v) }
+        end
+
+        # keys whose values can be set by Wagneers in card nests
+        # @return [Array]
+        def carditect_keys
+          @carditect_keys ||= ::Set.new(keymap[:both]) + keymap[:carditect]
+        end
+
+        # keys that follow simple standard inheritance pattern from parent views
+        # @return [Array]
+        def heir_keys
+          @heir_keys ||= ::Set.new(keymap[:both]) + keymap[:heir]
+        end
+
+        # Each of these keys can be read or written via accessors
+        # @return [Array]
+        def accessible_keys
+          heir_keys + [:nest_name, :nest_syntax] - [:items]
+        end
+
+        def define_getter option_key
+          define_method option_key do
+            norm_method = "normalize_#{option_key}"
+            value = live_options[option_key]
+            try(norm_method, value) || value
+          end
+        end
+
+        def define_setter option_key
+          define_method "#{option_key}=" do |value|
+            live_options[option_key] = value
+          end
+        end
+      end
+
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # VOO API
 
       # The following methods allow developers to read and write options dynamically.
@@ -101,55 +148,8 @@ class Card
         end
       end
 
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      # CLASS METHODS
 
-      class << self
-        attr_reader :keymap
-
-        # KEY LISTS
-
-        # all standard option keys
-        # @return [Array]
-        def all_keys
-          @all_keys ||= keymap.each_with_object([]) { |(_k, v), a| a.push(*v) }
-        end
-
-        # keys whose values can be set by Wagneers in card nests
-        # @return [Array]
-        def carditect_keys
-          @carditect_keys ||= ::Set.new(keymap[:both]) + keymap[:carditect]
-        end
-
-        # keys that follow simple standard inheritance pattern from parent views
-        # @return [Array]
-        def heir_keys
-          @heir_keys ||= ::Set.new(keymap[:both]) + keymap[:heir]
-        end
-
-        # Each of these keys can be read or written via accessors
-        # @return [Array]
-        def accessible_keys
-          heir_keys + [:nest_name, :nest_syntax] - [:items]
-        end
-
-
-        # ACCESSOR_HELPERS
-
-        def define_getter option_key
-          define_method option_key do
-            norm_method = "normalize_#{option_key}"
-            value = live_options[option_key]
-            try(norm_method, value) || value
-          end
-        end
-
-        def define_setter option_key
-          define_method "#{option_key}=" do |value|
-            live_options[option_key] = value
-          end
-        end
-      end
+      # ACCESSOR_HELPERS
 
       def normalize_editor value
         value && value.to_sym
