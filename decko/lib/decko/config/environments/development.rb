@@ -82,7 +82,7 @@ Decko.application.class.configure do
   silence_warnings do
     begin
       require "pry"
-      IRB = Pry
+      config.console = Pry
     rescue LoadError
     end
   end
