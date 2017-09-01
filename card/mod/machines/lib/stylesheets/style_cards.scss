@@ -421,19 +421,15 @@ textarea {
 .pointer-list-editor {
   margin: 0px;
   padding: 0px;
-  input {
-    margin-right: 10px;
-    width: 65%;
-  }
   li {
     list-style: none;
     white-space: nowrap;
   }
-  .pointer-item-delete {
-    margin-left: 4px;
-    vertical-align: middle;
-    display: inline-block;
-    position: relative;
+
+  .input-group-btn {
+    .btn {
+      border-bottom-width: 1px;
+    }
   }
 
   .pointer-item-add {
