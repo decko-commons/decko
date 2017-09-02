@@ -73,10 +73,14 @@ class Card
           @heir_keys ||= ::Set.new(keymap[:both]) + keymap[:heir]
         end
 
-        # Each of these keys can be read or written via accessors
+        # Keys that can be read or written via accessors
         # @return [Array]
         def accessible_keys
-          heir_keys + [:nest_name, :nest_syntax] - [:items]
+          all_keys - [     # (all but the following)
+              :view,       # view is accessed as requested_view or ok_view and cannot be directly manipulated
+              :show, :hide # these have a more extensive API (see Card::View::Visibility)
+              #:items,
+          ]
         end
 
         def define_getter option_key
@@ -115,9 +119,7 @@ class Card
 
 
       # Developers can also set most options directly via accessors, eg voo.title = "King"
-      #
-      # Note that a few options do not follow this pattern.
-      #
+      # :view, :show, and :hide have non-standard access (see #accessible_keys)
 
       accessible_keys.each do |option_key|
         define_getter option_key
@@ -127,13 +129,14 @@ class Card
 
       # "items", the option used to configure views of each of a list of cards, is
       # currently the only Hash option (thus this accessor override)
+      # @return [Hash]
       def items
         live_options[:items] ||= {}
       end
 
-
       # options to be used in data attributes of card slots (normalized options
       # with standard keys)
+      # @return [Hash]
       def slot_options
         normalized_options.select { |k, _v| Options.all_keys.include? k }
       end
@@ -141,15 +144,14 @@ class Card
       def closest_live_option key
         if live_options.key? key
           live_options[key]
-        else
-          (parent && parent.closest_live_option(key)) ||
-            (format.parent && format.parent.voo &&
-              format.parent.voo.closest_live_option(key))
+        elsif (ancestor = next_ancestor)
+          ancestor.closest_live_option key
         end
       end
 
-
       # ACCESSOR_HELPERS
+      # methods that follow the normalize_#{key} pattern are called by accessors
+      # (arguably that should be done during normalization!)
 
       def normalize_editor value
         value && value.to_sym
@@ -172,6 +174,7 @@ class Card
         @optional = opts.delete(:optional) || false
         opts
       end
+
 
       # typically options are already a hash.  this also handles an array of
       # hashes and nil.
@@ -199,6 +202,7 @@ class Card
         opts.merge! format.main_nest_options if opts[:main_view]
         # main_nest_options are not processed in normalize_options so that they're NOT locked in the stub.
         process_default_options
+        process_visibility_options
         opts
       end
 
@@ -229,6 +233,8 @@ class Card
       def foreign_options_in opts
         opts.reject { |k, _v| Options.all_keys.include? k }
       end
+
+
     end
   end
 end

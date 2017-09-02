@@ -6,7 +6,7 @@ describe Card::Format::Render do
       "z-Card::Format::HtmlFormat-normal-home_view:content;"\
       "nest_name:Z;nest_syntax:Z|content;view:contentcontent:show"
     end
-
+    
     subject { Card::Cache[Card::View] }
 
     it "can be changed with nest option" do

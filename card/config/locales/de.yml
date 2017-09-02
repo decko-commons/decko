@@ -554,9 +554,9 @@ de:
             captcha_keys: Dein Deck ist so konfiguriert, dass es [[*captcha]] nutzt, aber damit das funktioniert, benötigst Du neue Recaptcha-Schlüssel.
             instructions: Anleitungen
             howto_add_keys: "Neue Recaptcha-Schlüssel hinzufügen:"
-            howto_register: 1. Registriere deine Domain bei %{recaptcha_link}
-            howto_add: 2. Füge deine Schlüssel zu %{recaptcha_settings} hinzu
+            howto_register: Registriere deine Domain bei %{recaptcha_link}
+            howto_add: Füge deine Schlüssel zu %{recaptcha_settings} hinzu
             howto_turn_off: 'Captcha ausschalten:'
-            howto_go: 1. Gehe zu %{captcha_card}
-            howto_update: 2. Ändere alle *captcha-Regeln zu "no".
+            howto_go: Gehe zu %{captcha_card}
+            howto_update: Ändere alle *captcha-Regeln zu "no".
 
