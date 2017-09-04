@@ -2,7 +2,6 @@ module Decko
   # methods for managing decko responses
   module Response
     private
-
     def card_redirect url
       url = card_url url # make sure we have absolute url
       if Card::Env.ajax?

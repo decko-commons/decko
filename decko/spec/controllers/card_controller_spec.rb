@@ -272,7 +272,7 @@ RSpec.describe CardController, type: :controller do
       let(:all_js) { Card[:all, :script] }
 
       it "has correct MIME type" do
-        get :read, params: { id: all_js.machine_output_card.name, format: "js"
+        get :read, params: { id: all_js.machine_output_card.name, format: "js" }
         expect(response.status).to eq 200
         expect(response.content_type).to eq "text/javascript"
       end

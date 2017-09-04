@@ -153,10 +153,10 @@ end
 
 # Should revisit and submit PR to rails or understand rationale for new behavior and adapt
 # see https://github.com/rails/rails/pull/25337 to understand rationale -pk
-# def attribute_was(attr) # :nodoc:
-#   if attribute_changed?(attr)
-#     changed_attributes[attr] || mutations_from_database.changed_values[attr]
-#   else
-#     _read_attribute(attr)
-#   end
-# end
+def attribute_was(attr) # :nodoc:
+  if attribute_changed?(attr)
+    changed_attributes[attr] || mutations_from_database.changed_values[attr]
+  else
+    _read_attribute(attr)
+  end
+end

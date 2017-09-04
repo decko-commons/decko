@@ -26,7 +26,7 @@ gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.versio
 <% if options['mod-dev'] || options['core-dev'] -%>
 group :test do
   gem 'rails-controller-testing'
-  gem 'rspec', '~> 3.5'
+  gem 'rspec'
   gem 'rspec-rails'         # behavior-driven-development suite
   gem 'spork', '>=0.9'
   gem 'rubocop'
@@ -72,6 +72,7 @@ end
 group :test do
   gem 'fog'
   gem 'fog-aws'
+  gem 'rails-controller-testing'
   gem 'rspec-html-matchers', '0.9.1'
   gem 'rr' #, '=1.0.0'
 	gem 'simplecov', '~> 0.7.1', :require => false  #test coverage
