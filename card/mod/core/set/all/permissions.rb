@@ -176,9 +176,12 @@ def ok_to_comment
   deny_because "No comments allowed on structured content" if structure
 end
 
-event :clear_read_rule, :store, on: :delete do
-  self.read_rule_id = self.read_rule_class = nil
-end
+# don't know why we introduced this
+# but we have to preserve read rules to make
+# delete acts visible in recent changes -pk
+# event :clear_read_rule, :store, on: :delete do
+#   self.read_rule_id = self.read_rule_class = nil
+# end
 
 event :set_read_rule, :store,
       on: :save, changed: %i[type_id name] do

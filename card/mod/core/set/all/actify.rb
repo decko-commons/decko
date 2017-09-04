@@ -132,11 +132,19 @@ end
 def name_before_act
   # _was is cleared in after save callbacks,
   # _before_last_save is not set in before save callbacks
-  name_before_last_save || name_was
+  attribute_before_act :name
+  #name_before_last_save || name_was
 end
 
 def db_content_before_act
-  db_content_before_last_save || db_content_was
+  attribute_before_act :db_content
+  # db_content_before_last_save || db_content_was
+end
+
+def attribute_before_act attr
+  changed_attributes&.fetch(attr, nil) ||
+    mutations_from_database&.changed_values&.fetch(attr, nil) ||
+    _read_attribute(attr)
 end
 
 # HACK
@@ -144,10 +152,11 @@ end
 # Without this fix, _was handling was altered prior to saving a card, and event_conditions_spec.rb was breaking
 
 # Should revisit and submit PR to rails or understand rationale for new behavior and adapt
-def attribute_was(attr) # :nodoc:
-  if attribute_changed?(attr)
-    changed_attributes[attr] || mutations_from_database.changed_values[attr]
-  else
-    _read_attribute(attr)
-  end
-end
+# see https://github.com/rails/rails/pull/25337 to understand rationale -pk
+# def attribute_was(attr) # :nodoc:
+#   if attribute_changed?(attr)
+#     changed_attributes[attr] || mutations_from_database.changed_values[attr]
+#   else
+#     _read_attribute(attr)
+#   end
+# end

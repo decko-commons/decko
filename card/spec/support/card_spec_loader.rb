@@ -65,12 +65,12 @@ class CardSpecLoader
         end
         yield config if block_given?
 
-        # only needed for < 3.5.0
-        [:controller, :view, :request].each do |type|
-          config.include ::Rails::Controller::Testing::TestProcess, :type => type
-          config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
-          config.include ::Rails::Controller::Testing::Integration, :type => type
-        end
+        # # only needed for < 3.5.0
+        # [:controller, :view, :request].each do |type|
+        #   config.include ::Rails::Controller::Testing::TestProcess, :type => type
+        #   config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
+        #   config.include ::Rails::Controller::Testing::Integration, :type => type
+        # end
       end
     end
 

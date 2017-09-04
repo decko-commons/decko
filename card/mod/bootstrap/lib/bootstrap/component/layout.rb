@@ -16,7 +16,15 @@ class Bootstrap
     #     add_html "<span> some extra html</span>"
     #     row 6, 6, ["unicorn", "rainbow"], class: "horn"
     #   end
-    class Layout < Component
+    class Layout < OldComponent
+
+      def render
+        @rendered = begin
+          render_content
+          @content[-1]
+        end
+      end
+
       def render_content
         content = instance_exec *@args, &@build_block
         add_content content
@@ -55,7 +63,7 @@ class Bootstrap
         opts
       end
 
-      alias_method :col, :column
+     alias_method :col, :column
 
       private
 

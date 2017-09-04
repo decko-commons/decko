@@ -11,6 +11,7 @@ format :html do
       triangle_right: :expand_more,
       flag: :flag,
       option_horizontal: :more_horiz,
+      option_vertical: :more_vert,
       pushpin: :pin_drop,
       baby_formula: :device_hub,
       log_out: :call_made,
@@ -26,6 +27,7 @@ format :html do
     },
     glyphicon: {
       option_horizontal: "option-horizontal",
+      option_vertical: "option-vertical",
       triangle_left: "triangle-left",
       triangle_right: "triagnle-right",
       baby_formula: "baby-formula",

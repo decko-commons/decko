@@ -71,7 +71,7 @@ class UpdateBootswatchThemes < Card::Migration::Core
     end
 
     def resource_path resource
-      subdir = "b4_themes/#{@theme_name.downcase.tr(" ","_")}/#{resource}"
+      subdir = "b4_beta_themes/#{@theme_name.downcase.tr(" ","_")}/#{resource}"
       Card::Migration::Core.data_path subdir
     end
   end
