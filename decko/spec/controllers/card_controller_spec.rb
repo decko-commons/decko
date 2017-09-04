@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe CardController, type: :controller do
+RSpec.describe CardController, type: :controller do
   routes { Decko::Engine.routes }
 
   include Capybara::DSL
@@ -264,6 +264,17 @@ describe CardController, type: :controller do
         expect(response).to redirect_to(@all_style.machine_output_url)
         get :read, args
         expect(response.status).to eq(200)
+        expect(response.content_type).to eq("text/css")
+      end
+    end
+
+    context "js" do
+      let(:all_js) { Card[:all, :script] }
+
+      it "has correct MIME type" do
+        get :read, params: { id: all_js.machine_output_card.name, format: "js"
+        expect(response.status).to eq 200
+        expect(response.content_type).to eq "text/javascript"
       end
     end
 

@@ -34,9 +34,7 @@ group :test do
 end
 
 group :test, :development do
-  # not compatible with rails 5
-  # if load a page twice it fails
-  # gem 'rails-dev-tweaks'
+  gem 'rails-dev-tweaks'
   gem 'jasmine'
   gem 'jasmine-rails'
   gem 'jasmine-jquery-rails'
