@@ -11,20 +11,23 @@ class Card
           @current_path = mp
           load_from_modfile || load_from_dir
         end
+        load_from_gemfile
         super()
         @mods.each do |mod_name|
           self << @paths[mod_name]
         end
       end
 
+
       # add a new mod to mod load paths
-      def add_path mod_name
+      def add_path mod_name, path=nil
         if @mods.include? mod_name
           raise Error,
                 "name conflict: mod with name \"#{mod_name}\" already loaded"
         end
         @mods << mod_name
-        @paths[mod_name] = File.join @current_path, mod_name
+        path ||= File.join @current_path, mod_name
+        @paths[mod_name] = path
       end
 
       alias_method :mod, :add_path
@@ -69,6 +72,18 @@ class Card
         Dir.entries(@current_path).sort.each do |filename|
           next if filename =~ /^\./
           add_path filename
+        end.compact
+      end
+
+      def load_from_gemfile
+        Bundler.definition.specs.map do |s|
+          mod_name =
+            if s.name =~ /^decko-mod-(.+)$/
+              $1
+            else
+              s.meta_data && s.meta_data["card-mod"]
+            end
+          add_path $1, s.full_gem_path
         end.compact
       end
 
