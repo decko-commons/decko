@@ -2,7 +2,7 @@ class Card
   class Act
     class ActRenderer
       # Used for recent changes.
-      # It show all actions of an act
+      # It shows all actions of an act
       class AbsoluteActRenderer < ActRenderer
         def title
           absolute_title

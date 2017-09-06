@@ -41,9 +41,9 @@ class Card
       private
 
       # @param set_name [String] name of the constant to be defined
-      def define_set set_name
+      def define_set set_name, start_const=Card::Set
         constant_pieces = set_name.split("::")
-        constant_pieces.inject(Card::Set) do |set_mod, module_name|
+        constant_pieces.inject(start_const) do |set_mod, module_name|
           set_mod.const_get_or_set module_name do
             Module.new
           end

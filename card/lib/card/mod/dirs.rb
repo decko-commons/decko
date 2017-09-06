@@ -83,6 +83,7 @@ class Card
             else
               s.metadata["card-mod"]
             end
+          next unless mod_name
           add_path $1, s.full_gem_path
         end.compact
       end

@@ -2,7 +2,7 @@ namespace :card do
   def importer
     @importer ||= Card::Migration::Import.new Card::Migration.data_path
   end
-  
+
   desc "merge import card data that was updated since the last push into " \
        "the the database"
   task merge: :environment do
@@ -38,8 +38,7 @@ namespace :card do
   desc "add a new card to import data"
   task add: :environment do
     _task, name, type, codename = ARGV
-    importer.add_card name: name, type: type || "Basic",
-                                     codename: codename
+    importer.add_card name: name, type: type || "Basic", codename: codename
     exit
   end
 
