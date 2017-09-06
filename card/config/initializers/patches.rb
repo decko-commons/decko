@@ -19,7 +19,9 @@ class ActiveRecord::Relation
 end
 
 module ActiveJob::Arguments
-  extend Patches::ActiveJob::Arguments
+  class << self
+    prepend Patches::ActiveJob::Arguments
+  end
 end
 
 module ActionDispatch

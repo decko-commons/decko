@@ -70,6 +70,10 @@ class Card
         s.to_s.gsub(/&/, "&amp;").gsub(/\'/, "&apos;")
          .gsub(/>/, "&gt;").gsub(/</, "&lt;")
       end
+
+      def content_type
+        "text/html"
+      end
     end
   end
 end
