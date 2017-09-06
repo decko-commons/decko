@@ -81,7 +81,7 @@ class Card
             if s.name =~ /^decko-mod-(.+)$/
               $1
             else
-              s.meta_data && s.meta_data["card-mod"]
+              s.metadata["card-mod"]
             end
           add_path $1, s.full_gem_path
         end.compact
