@@ -27,7 +27,7 @@ class Card
 
           def each_file_in_dir base_dir, subdir=nil
             pattern = File.join(*[base_dir, subdir, "**/*.rb"].compact)
-            Dir.glob(pattern).each do |abs_path|
+            Dir.glob(pattern).sort.each do |abs_path|
               rel_path = abs_path.sub("#{base_dir}/", "")
               const_parts = parts_from_path rel_path
               yield abs_path, const_parts
