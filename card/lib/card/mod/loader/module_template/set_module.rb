@@ -1,8 +1,8 @@
 class Card
   module Mod
     module Loader
-      class SetLoader
-        #
+      class ModuleTemplate
+        # Generates the code for a set module.
         class SetModule < ModuleTemplate
           def initialize modules, content_path
             super

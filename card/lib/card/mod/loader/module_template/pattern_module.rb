@@ -1,12 +1,16 @@
+require_relative "../module_template"
+
 class Card
   module Mod
     module Loader
-      class PatternLoader
-        #
+      class ModuleTemplate
+        # Generates the code for a set pattern module.
         class PatternModule < ModuleTemplate
           def to_const
             return Object if simple_load?
-            Card::Set.const_get_or_set(@pattern.camelize) {Class.new(Card::Set::Pattern::Abstract)}
+            Card::Set.const_get_or_set(@pattern.camelize) do
+              Class.new(Card::Set::Pattern::Abstract)
+            end
           end
 
           # correct line number for error messages

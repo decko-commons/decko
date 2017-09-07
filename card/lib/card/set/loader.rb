@@ -44,13 +44,13 @@ class Card
       # Format class
       # 'nonbase modules' are included dynamically on singleton_classes
       def process_base_modules
-        return unless modules[:base]
+        return unless modules[:base].present?
         Card.add_set_modules modules[:base]
         modules[:base_format].each do |format_class, modules_list|
           format_class.add_set_modules modules_list
         end
-        modules.delete :base
-        modules.delete :base_format
+        modules[:base].clear
+        modules[:base_format].clear
       end
 
       def clean_empty_modules

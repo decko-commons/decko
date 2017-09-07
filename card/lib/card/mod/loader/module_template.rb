@@ -1,23 +1,32 @@
 class Card
   module Mod
     module Loader
+      # ModuleTemplate is an abstract class to build ruby modules out of
+      # deckos dsl for sets and set patterns.
+      # {SetModule} and {PatternTemplate} inherit from it and adapt the template
+      # to their needs.
       class ModuleTemplate
         def initialize modules, content_path
+          modules = Array.wrap modules
           @pattern = modules.shift
           @modules = modules
           @content = ::File.read content_path
           @content_path = content_path
         end
 
+        # Evaluates the module in the top level namespace.
         def build
           eval to_s, TOPLEVEL_BINDING, @content_path, offset
         end
 
+        # @return [String] the ruby code to build the modal
         def to_s
           return content_with_source_comment if simple_load?
           wrap_with_module_def
         end
 
+        # Just run the code of the source.
+        # Don't use the path to the file as module hierarchy.
         def simple_load?
           @content =~ /\A#!\s?simple load/
         end
@@ -33,13 +42,15 @@ class Card
         end
 
         def wrap_with_module_def
+          # for unknown reasons strip_heredoc doesn't work properly
+          # and with trailing whitespace code like `=begin` fails
           <<-RUBY.strip_heredoc
 # -*- encoding : utf-8 -*-
 #{module_chain}
-#{preamble}
-#{content_with_source_comment}
-#{postamble}
-#{end_chain}
+          #{preamble}
+          #{content_with_source_comment}
+          #{postamble}
+          #{end_chain}
           RUBY
         end
 

@@ -2,8 +2,8 @@
 
 require_dependency "card/set"
 require_dependency "card/set_pattern"
-require_relative "loader/pattern_loader"
-require_relative "loader/set_loader"
+require_relative "loader/module_loader/pattern_loader"
+require_relative "loader/module_loader/set_loader"
 
 class Card
   class << self
@@ -17,13 +17,14 @@ class Card
   end
 
   module Mod
+    # Used to load all part of a mod,
+    # i.e. initializers, patterns, formats, chunks, layouts and sets
     module Loader
       class << self
         def load_mods
           load_initializers
           pattern_loader.load
           load_formats
-          binding.pry
           set_loader.load
         end
 
@@ -46,11 +47,11 @@ class Card
         end
 
         def set_loader
-          @set_loader ||= SetLoader.new mod_dirs
+          @set_loader ||= ModuleLoader::SetLoader.new mod_dirs
         end
 
         def pattern_loader
-          @pattern_loader ||= PatternLoader.new mod_dirs
+          @pattern_loader ||= Loader::ModuleLoader::PatternLoader.new mod_dirs
         end
 
         def mod_dirs
