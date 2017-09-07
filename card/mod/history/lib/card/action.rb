@@ -140,6 +140,13 @@ class Card
         end
     end
 
+    # all action in hash form. { field1: new_value }
+    def changed_values
+      @changed_values ||= changes.each_with_object({}) do |(key,change), h|
+        h[key] = change.value
+      end
+    end
+
     # @return [Hash]
     def current_changes
       @current_changes ||=

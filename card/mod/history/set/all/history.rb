@@ -28,8 +28,8 @@ end
 event :finalize_action, :finalize, when: :finalize_action? do
   if changed_fields.present?
     @current_action.update_attributes! card_id: id
-    store_card_changes if @current_action.action_type != :create
     store_card_changes_for_create_action if first_edit?
+    store_card_changes if @current_action.action_type != :create
   elsif @current_action.card_changes.reload.empty?
     @current_action.delete
     @current_action = nil
@@ -37,18 +37,19 @@ event :finalize_action, :finalize, when: :finalize_action? do
 end
 
 def first_edit? # = update or delete
-  @current_action.action_type != :create && @current_action.card.actions.size == 2
+  @current_action.action_type != :create && @current_action.card.actions.size == 2 &&
+    create_action.action_type == :create && create_action.card_changes.empty?
 end
 
 def create_action
-  actions.first
+  @create_action ||= actions.first
 end
 
 # changes for the create action are stored after the first update
 def store_card_changes_for_create_action
-  changed_fields.each do |f|
+  Card::Change::TRACKED_FIELDS.each do |f|
     Card::Change.create field: f,
-                        value: attribute_was(f),
+                        value: attribute_before_act(f),
                         card_action_id: create_action.id
   end
 end

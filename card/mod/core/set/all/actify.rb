@@ -130,21 +130,21 @@ def success
 end
 
 def name_before_act
-  # _was is cleared in after save callbacks,
-  # _before_last_save is not set in before save callbacks
   attribute_before_act :name
-  #name_before_last_save || name_was
 end
 
 def db_content_before_act
   attribute_before_act :db_content
-  # db_content_before_last_save || db_content_was
 end
 
 def attribute_before_act attr
-  changed_attributes&.fetch(attr, nil) ||
-    mutations_from_database&.changed_values&.fetch(attr, nil) ||
-    _read_attribute(attr)
+  if saved_change_to_attribute? attr
+    attribute_before_last_save attr
+  elsif mutations_from_database&.changed_values&.key? attr
+    mutations_from_database.changed_values[attr]
+  else
+    _read_attribute attr
+  end
 end
 
 # HACK
@@ -153,10 +153,12 @@ end
 
 # Should revisit and submit PR to rails or understand rationale for new behavior and adapt
 # see https://github.com/rails/rails/pull/25337 to understand rationale -pk
-def attribute_was(attr) # :nodoc:
-  if attribute_changed?(attr)
-    changed_attributes[attr] || mutations_from_database.changed_values[attr]
-  else
-    _read_attribute(attr)
-  end
-end
+# This can't work. The value of "trash" for example can be changed to "false"
+# def attribute_was(attr) # :nodoc:
+#   return attribute_before_act attr
+#   if attribute_changed?(attr)
+#     changed_attributes[attr] || mutations_from_database.changed_values[attr]
+#   else
+#     _read_attribute(attr)
+#   end
+# end
