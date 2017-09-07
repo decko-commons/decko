@@ -29,9 +29,25 @@ class Card
       end
 
       def validate_stub!
+        reject_foreign_options_in_stub!
+        #reject_illegal_stub_values!
+      end
+
+      #def reject_illegal_stub_values!
+      #  normalized_options.each do |key, value|
+      #    next unless value =~ /\</
+      #    raise invalid_stub + " has illegal value for #{key}: #{value}"
+      #  end
+      #end
+
+      def invalid_stub
+        "INVALID STUB: #{card.name}/#{ok_view}"
+      end
+
+
+      def reject_foreign_options_in_stub!
         return if foreign_normalized_options.empty?
-        raise "INVALID STUB: #{card.name}/#{ok_view}" \
-              " has foreign options: #{foreign_normalized_options}"
+        raise invalid_stub + " has foreign options: #{foreign_normalized_options}"
       end
     end
   end

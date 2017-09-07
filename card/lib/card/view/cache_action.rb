@@ -22,7 +22,7 @@ class Card
       # @return [Symbol] :off, :active, or :free
       def cache_status
         case
-        when cache_off?    then :off    # view caching is turned off, system-wide
+        when !cache_on?    then :off    # view caching is turned off, format- or system-wide
         when cache_active? then :active # another view cache is in progress; this view is inside it
         else                    :free   # no other cache in progress
         end
@@ -31,11 +31,11 @@ class Card
 
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # CACHE STATUS: OFF
-      # view caching is turned off, system-wide
+      # view caching is turned off, format- or system-wide
 
       # @return [True/False]
-      def cache_off?
-        !Card.config.view_cache
+      def cache_on?
+        Card.config.view_cache && format.view_caching?
       end
 
       # always skip all the magic
