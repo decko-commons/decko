@@ -129,20 +129,27 @@ rescue => e
   notable_exception_raised
 end
 
+
+
 format do
   view :list_of_changes, denial: :blank do |args|
     action = get_action(args)
 
-    relevant_fields =
-      case action.action_type
-      when :create then %i[cardtype content]
-      when :update then %i[name cardtype content]
-      when :delete then [:content]
-      end
 
-    relevant_fields.map do |type|
+    relevant_fields(action).map do |type|
       edit_info_for(type, action)
     end.compact.join
+  end
+
+  def relevant_fields action
+    case action.action_type
+    when :create then
+      %i[cardtype content]
+    when :update then
+      %i[name cardtype content]
+    when :delete then
+      [:content]
+    end
   end
 
   view :subedits, perms: :none do |args|
@@ -219,7 +226,6 @@ format do
       else ""
       end
     item_title += "#{field}: "
-
     item_value =
       if action.action_type == :delete
         action.previous_value field

@@ -200,7 +200,7 @@ describe Card, "junction revival" do
     end
   end
 
-  it "does not be trash" do
+  it "isn't trash" do
     expect(@c.trash).to eq(false)
   end
 

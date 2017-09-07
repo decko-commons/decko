@@ -31,6 +31,12 @@ RSpec.describe Card::Set::All::History do
     let(:act) {@card.acts.last}
     let(:action) {act.actions.last}
 
+    INITIAL_VALUES = {
+      name: "single card",
+      type_id: Card::BasicID.to_s,
+      db_content: "Nobody expects the Spanish inquisition",
+      trash: "f"
+    }
     context "for single card" do
       before do
         @card = Card::Auth.as_bot do
@@ -51,10 +57,7 @@ RSpec.describe Card::Set::All::History do
           expect(action.card_changes).to be_empty
         end
         it "fetches card changes from cards table" do
-          expect(action.changes).to eq(name: "single card",
-                                       db_content: content,
-                                       type_id: Card::BasicID,
-                                       trash: false)
+          expect(action.changed_values).to eq(INITIAL_VALUES)
 
         end
       end
@@ -67,6 +70,10 @@ RSpec.describe Card::Set::All::History do
         it "adds new act" do
           @card.update_attributes content: "new content"
           expect(Card::Act.count).to eq(act_start_cnt + 2)
+        end
+        it "adds changes to create action" do
+          @card.update_attributes content: "new content"
+          expect(@card.actions.first.changed_values).to eq INITIAL_VALUES
         end
       end
 
@@ -85,6 +92,9 @@ RSpec.describe Card::Set::All::History do
         it "adds trash change" do
           expect(action.card_changes.last.field).to eq("trash")
           expect(action.card_changes.last.value).to be_truthy
+        end
+        it "adds changes to create action" do
+          expect(@card.actions.first.changed_values).to eq INITIAL_VALUES
         end
       end
 
@@ -153,8 +163,7 @@ RSpec.describe Card::Set::All::History do
           expect(@plus_action.action_type).to eq(:create)
         end
         it "adds content change" do
-          changed_content =
-            @plus_action.card_changes.find_by_field_name(:db_content).value
+          changed_content = @plus_action.value(:db_content)
           expect(changed_content).to eq(content)
         end
         it "adds superaction for plus card" do
@@ -221,8 +230,7 @@ RSpec.describe Card::Set::All::History do
           expect(@plus_action.action_type).to eq(:create)
         end
         it "content change" do
-          expect(@plus_action.card_changes.reload
-                   .find_by_field_name(:db_content).value).to eq(content)
+          expect(@plus_action.value(:db_content)).to eq(content)
         end
       end
     end
