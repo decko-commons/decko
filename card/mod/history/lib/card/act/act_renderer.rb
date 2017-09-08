@@ -172,9 +172,7 @@ class Card
       # save as current:
       #   not current, not deletion
       def rollback_link
-
         return unless card.ok? :update
-
         wrap_with :div, class: "act-link collapse #{collapse_id} pull-right" do
           revert_link
 

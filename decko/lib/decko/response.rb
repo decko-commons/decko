@@ -2,7 +2,6 @@ module Decko
   # methods for managing decko responses
   module Response
     private
-
     def card_redirect url
       url = card_url url # make sure we have absolute url
       if Card::Env.ajax?
@@ -16,14 +15,14 @@ module Decko
     end
 
     def deliver format, result, status
-      if format == :file && status == 200
-        send_file(*result)
-      elsif status == 302
+      if status == 302
         card_redirect result
+      elsif format.is_a?(Card::Format::FileFormat) && status == 200
+        send_file(*result)
       else
-        args = { html: result.html_safe, status: status }
-        args[:content_type] = "text/text" if format == :file
-        render args
+        render body: result.html_safe,
+               status: status,
+               content_type: format.content_type
       end
     end
 
@@ -51,7 +50,11 @@ module Decko
       send_file File.join(path, filename), x_sendfile: true
     end
 
-    def format_from_params
+    def format_from_params card
+      card.format format_name_from_params
+    end
+
+    def format_name_from_params
       return :file if params[:explicit_file]
       format = request.parameters[:format]
       # unknown format
@@ -61,9 +64,12 @@ module Decko
 
     def interpret_id id
       case id
-      when "*previous" then return card_redirect(Card::Env.previous_location)
-      when nil         then determine_id
-      else                  validate_id_encoding id
+      when "*previous" then
+        return card_redirect(Card::Env.previous_location)
+      when nil then
+        determine_id
+      else
+        validate_id_encoding id
       end
     end
 

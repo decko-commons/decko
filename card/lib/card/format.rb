@@ -133,5 +133,13 @@ class Card
     def tagged view, tag
       self.class.tagged view, tag
     end
+
+    def content_type
+      "text/text"
+    end
+
+    def to_sym
+      Card::Format.format_sym self
+    end
   end
 end

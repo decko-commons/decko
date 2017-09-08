@@ -37,9 +37,9 @@ RSpec.describe Bootstrap::Component::HorizontalForm do
             with_tag 'input.form-control#theemail[type="email"]'
           end
         end
-        with_tag 'div.form-group' do
-          with_tag 'input[type="checkbox"]'
-        end
+        # with_tag 'div.form-group' do
+        #   with_tag 'input[type="checkbox"]'
+        # end
       end
     end
   end

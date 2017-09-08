@@ -28,12 +28,19 @@ def save_content_draft content
 end
 
 def last_change_on field, opts={}
-  Change.joins(:action).where(
-    last_change_sql_conditions(opts),
-    card_id: id,
-    action_id: extract_action_id(opts[:before] || opts[:not_after]),
-    field: Card::Change.field_index(field)
-  ).order(:id).last
+  action_id = extract_action_id(opts[:before] || opts[:not_after])
+
+  if action_id == create_action.id
+    return if opts[:before] # there is no before the first action
+    create_action.change field
+  else
+    Change.joins(:action).where(
+      last_change_sql_conditions(opts),
+      card_id: id,
+      action_id: action_id,
+      field: Card::Change.field_index(field)
+    ).order(:id).last
+  end
 end
 
 def extract_action_id action_arg

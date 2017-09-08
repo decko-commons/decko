@@ -2,6 +2,8 @@
 
 require_dependency "card/set"
 require_dependency "card/set_pattern"
+require_relative "loader/module_loader/pattern_loader"
+require_relative "loader/module_loader/set_loader"
 
 class Card
   class << self
@@ -15,13 +17,15 @@ class Card
   end
 
   module Mod
+    # Used to load all part of a mod,
+    # i.e. initializers, patterns, formats, chunks, layouts and sets
     module Loader
       class << self
         def load_mods
           load_initializers
-          load_set_patterns
+          pattern_loader.load
           load_formats
-          load_sets
+          set_loader.load
         end
 
         def load_chunks
@@ -40,6 +44,14 @@ class Card
             end
           end
           hash
+        end
+
+        def set_loader
+          @set_loader ||= ModuleLoader::SetLoader.new mod_dirs
+        end
+
+        def pattern_loader
+          @pattern_loader ||= Loader::ModuleLoader::PatternLoader.new mod_dirs
         end
 
         def mod_dirs
@@ -97,77 +109,11 @@ class Card
           end
         end
 
-        def load_set_patterns
-          generate_set_pattern_tmp_files if rewrite_tmp_files?
-          load_dir Card.paths["tmp/set_pattern"].first
-        end
-
-        def generate_set_pattern_tmp_files
-          prepare_tmp_dir "tmp/set_pattern"
-          seq = 100
-          mod_dirs.each(:set_pattern) do |dirname|
-            Dir.entries(dirname).sort.each do |filename|
-              m = filename.match(/^(\d+_)?([^\.]*).rb/)
-              key = m && m[2]
-              next unless key
-              filename = [dirname, filename].join("/")
-              Set::Pattern.write_tmp_file key, filename, seq
-              seq += 1
-            end
-          end
-        end
-
         def load_formats
           # cheating on load issues now by putting all inherited-from formats in
           # core mod.
           mod_dirs.each(:format) do |dir|
             load_dir dir
-          end
-        end
-
-        def load_sets
-          generate_tmp_set_modules
-          load_tmp_set_modules
-          Set.process_base_modules
-          Set.clean_empty_modules
-        end
-
-        def generate_tmp_set_modules
-          return unless prepare_tmp_dir "tmp/set"
-          mod_dirs.each_with_tmp(:set) do |mod_dir, mod_tmp_dir|
-            Dir.mkdir mod_tmp_dir
-            Dir.glob("#{mod_dir}/**/*.rb").each do |abs_filename|
-              rel_filename = abs_filename.gsub "#{mod_dir}/", ""
-              tmp_filename = "#{mod_tmp_dir}/#{rel_filename}"
-              Set.write_tmp_file abs_filename, tmp_filename, rel_filename
-            end
-          end
-        end
-
-        def load_tmp_set_modules
-          patterns = Card.set_patterns.reverse.map(&:pattern_code)
-                         .unshift "abstract"
-          mod_dirs.each_tmp(:set) do |set_tmp_dir|
-            patterns.each do |pattern|
-              pattern_dir = "#{set_tmp_dir}/#{pattern}"
-              load_dir "#{pattern_dir}/**" if Dir.exist? pattern_dir
-            end
-          end
-        end
-
-        def prepare_tmp_dir path
-          return unless rewrite_tmp_files?
-          p = Card.paths[path]
-          FileUtils.rm_rf p.first, secure: true if p.existent.first
-          Dir.mkdir p.first
-        end
-
-        def rewrite_tmp_files?
-          if defined?(@rewrite)
-            @rewrite
-          else
-            @rewrite = !(Rails.env.production? &&
-                         Card.paths["tmp/set"].existent.first)
           end
         end
 

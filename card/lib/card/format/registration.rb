@@ -15,7 +15,7 @@ class Card
       def format_sym format
         return format if format.is_a? Symbol
         match = format.to_s.match(/::(?<format>[^:]+)Format/)
-        match ? match[:format] : :base
+        match ? match[:format].underscore.to_sym : :base
       end
 
       def interpret_view_opts view, opts

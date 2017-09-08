@@ -4,9 +4,16 @@ namespace :decko do
          "and references"
     task clean: :environment do
       Card::Cache.reset_all
-      clear_history
+
       delete_unwanted_cards
       Card.empty_trash
+      Rake::Task["decko:bootstrap:copy_mod_files"].invoke
+      [[:all, :script], [:all, :style], [:script_html5shiv_printshiv]].each do |name|
+        Card[*name].make_machine_output_coded
+      end
+      binding.pry
+      clear_history
+      binding.pry
       correct_time_and_user_stamps
       Card::Cache.reset_all
     end
@@ -15,30 +22,23 @@ namespace :decko do
     task dump: :environment do
       Card::Cache.reset_all
 
-      # FIXME: temporarily taking this out!!
-      Rake::Task["decko:bootstrap:copy_mod_files"].invoke
-      Card[:all, :script].make_machine_output_coded
-      Card[:all, :style].make_machine_output_coded
-      Card[:script_html5shiv_printshiv].make_machine_output_coded
-
-      YAML::ENGINE.yamler = "syck" if RUBY_VERSION !~ /^(2|1\.9)/
-      # use old engine while we're supporting ruby 1.8.7 because it can't
-      # support Psych, which dumps with slashes that syck can't understand
+      # YAML::ENGINE.yamler = "syck" if RUBY_VERSION !~ /^(2|1\.9)/
+      # # use old engine while we're supporting ruby 1.8.7 because it can't
+      # # support Psych, which dumps with slashes that syck can't understand
 
       DECKO_SEED_TABLES.each do |table|
         i = "000"
+        data = ActiveRecord::Base.connection.select_all "select * from #{table}"
+
         File.open(File.join(DECKO_SEED_PATH, "#{table}.yml"), "w") do |file|
-          data = ActiveRecord::Base.connection.select_all(
-            "select * from #{table}"
-          )
           file.write YAML.dump(data.each_with_object({}) do |record, hash|
             record["trash"] = false if record.key? "trash"
             record["draft"] = false if record.key? "draft"
-            if record.key? "content"
-              record["content"] = record["content"].gsub(/\u00A0/, "&nbsp;")
-              # sych was handling nonbreaking spaces oddly.
-              # would not be needed with psych.
-            end
+            # if record.key? "content"
+            #   record["content"] = record["content"].gsub(/\u00A0/, "&nbsp;")
+            #   # sych was handling nonbreaking spaces oddly.
+            #   # would not be needed with psych.
+            # end
             hash["#{table}_#{i.succ!}"] = record
           end)
         end
@@ -59,7 +59,7 @@ namespace :decko do
           end
 
           # make card a mod file card
-          mod_name = if (l = card.left) && l.type_id == Card::SkinID
+          mod_name = if card.left&.type_id == Card::SkinID
                        "bootstrap"
                      else
                        "standard"
@@ -91,6 +91,9 @@ def correct_time_and_user_stamps
 end
 
 def delete_unwanted_cards
+  # we have to change the actors so that
+  # we can delete unwanted user cards that made changes
+  Card::Act.update_all actor_id: Card::WagnBotID
   Card::Auth.as_bot do
     if (ignoramus = Card["*ignore"])
       ignoramus.item_cards.each(&:delete!)
@@ -107,15 +110,10 @@ def delete_unwanted_cards
 end
 
 def clear_history
-  Card::Action.delete_old
-  Card::Change.delete_actionless
-
-  conn = ActiveRecord::Base.connection
-  conn.execute("truncate card_acts")
-  conn.execute("truncate sessions")
+  puts "clearing history"
   act = Card::Act.create! actor_id: Card::WagnBotID,
                           card_id: Card::WagnBotID
-  Card::Action.find_each do |action|
-    action.update_attributes!(card_act_id: act.id)
-  end
+  Card::Action.make_current_state_the_initial_state act
+  #conn.execute("truncate card_acts")
+  ActiveRecord::Base.connection.execute("truncate sessions")
 end

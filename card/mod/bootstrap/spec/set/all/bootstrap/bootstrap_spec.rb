@@ -1,4 +1,4 @@
-describe Card::Bootstrap do
+RSpec.describe Bootstrap do
   subject { described_class.new(format) }
 
   let(:format) { Card["A"].format(:html) }
@@ -11,7 +11,7 @@ describe Card::Bootstrap do
 
   it "loads components" do
     expect(subject).to respond_to(:form)
-    expect(subject.form).to be_instance_of ActiveSupport::SafeBuffer
+    expect(subject.form() {}).to eq "<form></form>"
   end
   describe "html" do
     it "renderes plain text" do
