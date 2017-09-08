@@ -41,7 +41,7 @@ end
 
 def first_change? # = update or delete
   @current_action.action_type != :create && @current_action.card.actions.size == 2 &&
-    create_action.action_type == :create && create_action.card_changes.empty?
+    create_action.card_changes.empty?
 end
 
 def create_action

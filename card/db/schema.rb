@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122153608) do
+ActiveRecord::Schema.define(version: 20170908114442) do
 
   create_table "card_actions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer "card_id"
@@ -88,6 +88,21 @@ ActiveRecord::Schema.define(version: 20160122153608) do
     t.index ["updated_at"], name: "cards_updated_at_index"
   end
 
+  create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
   create_table "schema_migrations_core_cards", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "version", null: false
     t.index ["version"], name: "unique_schema_migrations_cards", unique: true
@@ -119,22 +134,5 @@ ActiveRecord::Schema.define(version: 20160122153608) do
     t.integer "card_id", null: false
     t.integer "account_id", null: false
   end
-
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   limit: 4,     default: 0, null: false
-    t.integer  "attempts",   limit: 4,     default: 0, null: false
-    t.text     "handler",    limit: 65535,             null: false
-    t.text     "last_error", limit: 65535
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by",  limit: 255
-    t.string   "queue",      limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
-  end
-
-
 
 end
