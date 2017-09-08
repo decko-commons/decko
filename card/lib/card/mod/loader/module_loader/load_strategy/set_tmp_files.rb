@@ -5,6 +5,7 @@ class Card
         class LoadStrategy
           # The {TmpFiles} load strategy version for set modules
           class SetTmpFiles < Card::Mod::Loader::ModuleLoader::LoadStrategy::TmpFiles
+
             private
 
             def generate_tmp_files
