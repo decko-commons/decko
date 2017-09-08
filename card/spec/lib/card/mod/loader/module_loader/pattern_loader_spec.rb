@@ -17,6 +17,6 @@ RSpec.describe Card::Mod::Loader::ModuleLoader::PatternLoader do
 
   it "load mods" do
     described_class.new(mod_dirs).load
-    expect(Card::Set::All::TestSet).to exist
+    expect(Card::Set.const_defined?("TestPattern")).to be_truthy
   end
 end

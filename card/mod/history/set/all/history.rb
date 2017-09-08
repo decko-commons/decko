@@ -67,8 +67,7 @@ def store_card_changes
 end
 
 def changed_fields
-  Card::Change::TRACKED_FIELDS & (saved_changes.keys | changes.keys |
-                                  mutations_from_database.changed_values.keys)
+  Card::Change::TRACKED_FIELDS & (changed_attribute_names_to_save | saved_changes.keys)
 end
 
 def finalize_action?
