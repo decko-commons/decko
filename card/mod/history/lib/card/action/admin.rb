@@ -22,6 +22,7 @@ class Card
       # permanently delete all {Action actions} associate with non-current
       # {Change changes}
       def delete_old
+        Card::Change.delete_all
         Card.find_each(&:delete_old_actions)
         Card::Act.delete_actionless
       end

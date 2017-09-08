@@ -30,8 +30,12 @@ end
 def last_change_on field, opts={}
   action_id = extract_action_id(opts[:before] || opts[:not_after])
 
+  # If thers is only one action then there are no entries in the changes table,
+  # so we can't do as sql search but the changes are accessible via the action.
   if action_id == create_action.id
     return if opts[:before] # there is no before the first action
+    create_action.change field
+  elsif !action_id && create_action.sole?
     create_action.change field
   else
     Change.joins(:action).where(
@@ -94,11 +98,11 @@ def new_content_action_id
 end
 
 def current_action_changes_content?
-  new_card? || @current_action.new_content? || db_content_changed?
+  new_card? || @current_action.new_content? || db_content_is_changing?
 end
 
 def last_action_id
-  (la = last_action) && la.id
+  last_action&.id
 end
 
 def last_action
@@ -106,13 +110,11 @@ def last_action
 end
 
 def last_content_action
-  l_c = last_change_on :db_content
-  l_c && l_c.action
+  last_change_on(:db_content)&.action
 end
 
 def last_content_action_id
-  l_c = last_change_on :db_content
-  l_c && l_c.card_action_id
+  last_change_on(:db_content)&.card_action_id
 end
 
 def last_actor
@@ -166,8 +168,7 @@ def draft_acts
   drafts.created_by(Card::Auth.current_id).map(&:act)
 end
 
-event :detect_conflict, :validate, on: :update,
-                                   when: proc { |c| c.edit_conflict? } do
+event :detect_conflict, :validate, on: :update, when: proc { |c| c.edit_conflict? } do
   errors.add :conflict, "changes not based on latest revision"
 end
 

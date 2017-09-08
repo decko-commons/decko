@@ -1,11 +1,12 @@
 Self::Admin.add_to_basket(
   :tasks,
   name: :empty_trash,
+  irreversible: true,
   execute_policy: -> { Card.empty_trash },
   stats: {
     title: "trashed cards",
     count: -> { Card.where(trash: true) },
-    link_text: "delete all",
+    link_text: "empty trash",
     task: "empty_trash"
   }
 )

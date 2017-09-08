@@ -9,45 +9,62 @@ describe Card::Set::Self::Admin do
   end
 
   context "#update" do
-    before do
-      @admin = Card[:admin]
-    end
+    let(:admin) {Card[:admin]}
 
-    it "triggers empty trash (with right params)" do
+    def run_admin_task task
       Card::Auth.as_bot do
-        Card["A"].delete!
-        expect(Card.where(trash: true)).not_to be_empty
-        Card::Env.params[:task] = :empty_trash
-        @admin.update_attributes({})
-        expect(Card.where(trash: true)).to be_empty
+        Card::Env.params[:task] = task
+        admin.update_attributes({})
       end
     end
 
-    # NOTE: I removed this functionality for now, because I don't think we
-    # should have web access to admin functions that can incur actual data loss.
+    it "clearing trash is denied" do
+      expect { run_admin_task :empty_trash }
+        .to raise_error Card::Error::Oops, /The admin task 'empty trash'/
+    end
 
-    # it "triggers deleting old revisions (with right params)" do
+    it "clearing history is denied" do
+      expect { run_admin_task :clear_history }
+        .to raise_error Card::Error::Oops, /The admin task 'clear history'/
+    end
+
+    context "irreversible tasks allowed" do
+      around(:example) do |example|
+        Cardio.config.allow_irreversible_admin_tasks = true
+        example.run
+        Cardio.config.allow_irreversible_admin_tasks = false
+      end
+
+      it "triggers empty trash (with right params)" do
+        Card::Auth.as_bot {Card["A"].delete!}
+
+        expect(Card.where(trash: true)).not_to be_empty
+        run_admin_task :empty_trash
+        expect(Card.where(trash: true)).to be_empty
+      end
+
+      it "triggers deleting old revisions (with right params)" do
+        Card::Auth.as_bot do
+          a = Card["A"]
+          a.update_attributes! content: "a new day"
+          a.update_attributes! content: "another day"
+          expect(a.actions.count).to eq(3)
+          run_admin_task :clear_history
+          expect(a.actions.count).to eq(1)
+        end
+      end
+    end
+
+    # it 'is trigger reference repair' do
     #   Card::Auth.as_bot do
-    #     a = Card["A"]
-    #     a.update_attributes! content: "a new day"
-    #     a.update_attributes! content: "another day"
-    #     expect(a.actions.count).to eq(3)
-    #     Card::Env.params[:task] = :delete_old_revisions
-    #     @admin.update_attributes({})
-    #     expect(a.actions.count).to eq(1)
+    #     a = Card['A']
+    #     puts a.references_out.count
+    #     Card::Env.params[:task] = :repair_references
+    #     puts a.references_out.count
+    #     @all.update_attributes({})
+    #     puts a.references_out.count
+    #
     #   end
     # end
-
-        # it 'is trigger reference repair' do
-        #   Card::Auth.as_bot do
-        #     a = Card['A']
-        #     puts a.references_out.count
-        #     Card::Env.params[:task] = :repair_references
-        #     puts a.references_out.count
-        #     @all.update_attributes({})
-        #     puts a.references_out.count
-        #
-        #   end
-        # end
   end
 end

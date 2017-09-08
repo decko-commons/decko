@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 require "decko/engine"
+require_relative "config/initializers/sedate_parser"
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
