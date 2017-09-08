@@ -129,12 +129,14 @@ def success
   Env.success(cardname)
 end
 
-def name_before_act
-  attribute_before_act :name
-end
+[:name, :db_content, :trash, :type_id].each do |field|
+  define_method "#{field}_before_act" do
+    attribute_before_act field
+  end
 
-def db_content_before_act
-  attribute_before_act :db_content
+  define_method "#{field}_is_changing?" do
+      attribute_is_changing? field
+    end
 end
 
 def attribute_before_act attr

@@ -92,6 +92,10 @@ namespace :card do
   desc "reset cache"
   task reset_cache: :environment do
     Card::Cache.reset_all
+  end
+
+  desc "reset machine output"
+  task reset_machine_output: :environment do
     Card.reset_all_machines
   end
 end

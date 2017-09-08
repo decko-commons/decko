@@ -87,7 +87,7 @@ RSpec.describe "act API" do
           expect(saved_changes["db_content"]).to eq(["Alpha [[Z]]",  "new content"])
         end
         test_event :integrate_with_delay do
-          expect(name_changed?).to be_truthy
+          expect(name_is_changing?).to be_truthy
           expect(changes["name"]).to eq(["A", "new name"])
           expect(changes["db_content"]).to eq(["Alpha [[Z]]",  "new content"])
         end
