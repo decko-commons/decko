@@ -131,7 +131,7 @@ class Card
     # @return [Hash]
     def changes
       @changes ||=
-        if card_changes.empty? && action_type == :create
+        if sole?
           current_changes
         else
           card_changes.each_with_object({}) do |change, hash|
@@ -149,6 +149,7 @@ class Card
 
     # @return [Hash]
     def current_changes
+      return {} unless card
       @current_changes ||=
         Card::Change::TRACKED_FIELDS.each_with_object({}) do |field, hash|
           hash[field.to_sym] = Card::Change.new field: field,
@@ -202,6 +203,11 @@ class Card
         type_card && type_card.name.capitalize
       else value
       end
+    end
+
+    def sole?
+      card_changes.empty? &&
+        (action_type == :create || Card::Action.where(card_id: card_id).count == 1)
     end
   end
 end

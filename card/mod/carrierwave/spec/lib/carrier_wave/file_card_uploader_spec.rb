@@ -29,6 +29,7 @@ describe CarrierWave::FileCardUploader do
       end
 
       it "handles storage options" do
+        subject.last_action_id
         expect(subject.attachment.db_content(storage_type: :local))
           .to eq "~#{subject.id}/#{subject.last_action_id}.png"
       end

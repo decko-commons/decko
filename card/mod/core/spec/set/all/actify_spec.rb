@@ -82,14 +82,14 @@ RSpec.describe "act API" do
           changed_attributes
         end
         test_event :integrate do
-          expect(saved_change_to_name?).to be_truthy
-          expect(saved_changes["name"]).to eq(["A", "new name"])
-          expect(saved_changes["db_content"]).to eq(["Alpha [[Z]]",  "new content"])
+          expect(name_is_changing?).to be_truthy
+          expect(name_before_act).to eq("A")
+          expect(db_content_before_act).to eq("Alpha [[Z]]")
         end
         test_event :integrate_with_delay do
           expect(name_is_changing?).to be_truthy
-          expect(changes["name"]).to eq(["A", "new name"])
-          expect(changes["db_content"]).to eq(["Alpha [[Z]]",  "new content"])
+          expect(name_before_act).to eq("A")
+          expect(db_content_before_act).to eq("Alpha [[Z]]")
         end
         Delayed::Worker.new.work_off
         Card["A"].update_attributes! name: "new name"

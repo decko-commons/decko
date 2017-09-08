@@ -149,9 +149,6 @@ module CarrierWave
     attr_accessor :mod
     include Card::Env::Location
 
-    NO_ACTION_ID = "0000".freeze # used as action_id in the filename
-                                 # if card is not #actionable?
-
     STORAGE_TYPES = [:cloud, :web, :coded, :local].freeze
     CONFIG_OPTIONS = [:provider, :attributes, :directory, :public, :credentials,
                       :authenticated_url_expiration, :use_ssl_for_aws].freeze
@@ -264,7 +261,7 @@ module CarrierWave
     end
 
     def action_id
-      model.selected_content_action_id || NO_ACTION_ID
+      model.selected_content_action_id || action_id_stand_in
     end
 
     # delegate carrierwave's fog config methods to cardio's config methods
@@ -273,6 +270,12 @@ module CarrierWave
     end
 
     private
+
+    # used as action_id in the filename
+    # if card is not #actionable?
+    def action_id_stand_in
+      Time.now.to_i
+    end
 
     def storage
       case @model.storage_type
