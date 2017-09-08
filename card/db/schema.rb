@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20170908114442) do
 
-  create_table "card_actions", id: :integer, force: :cascade, options: "CHARSET=latin1" do |t|
+  create_table "card_actions", id: :integer, force: :cascade do |t|
     t.integer "card_id"
     t.integer "card_act_id"
     t.integer "super_action_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170908114442) do
     t.index ["card_id"], name: "card_actions_card_id_index"
   end
 
-  create_table "card_acts", id: :integer, force: :cascade, options: "CHARSET=latin1" do |t|
+  create_table "card_acts", id: :integer, force: :cascade do |t|
     t.integer "card_id"
     t.integer "actor_id"
     t.datetime "acted_at"
@@ -33,14 +33,14 @@ ActiveRecord::Schema.define(version: 20170908114442) do
     t.index ["card_id"], name: "card_acts_card_id_index"
   end
 
-  create_table "card_changes", id: :integer, force: :cascade, options: "CHARSET=latin1" do |t|
+  create_table "card_changes", id: :integer, force: :cascade do |t|
     t.integer "card_action_id"
     t.integer "field"
     t.text "value", limit: 16777215
     t.index ["card_action_id"], name: "card_changes_card_action_id_index"
   end
 
-  create_table "card_references", id: :integer, force: :cascade, options: "CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "card_references", id: :integer, force: :cascade do |t|
     t.integer "referer_id", default: 0, null: false
     t.string "referee_key", default: "", null: false
     t.integer "referee_id"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20170908114442) do
     t.index ["referer_id"], name: "card_references_referer_id_index"
   end
 
-  create_table "card_revisions", id: :integer, force: :cascade, options: "CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "card_revisions", id: :integer, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "card_id", null: false
     t.integer "creator_id", null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20170908114442) do
     t.index ["creator_id"], name: "revisions_created_by_index"
   end
 
-  create_table "cards", id: :integer, force: :cascade, options: "CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "cards", id: :integer, force: :cascade do |t|
     t.string "name", null: false
     t.string "key", null: false
     t.string "codename"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20170908114442) do
     t.index ["updated_at"], name: "cards_updated_at_index"
   end
 
-  create_table "delayed_jobs", force: :cascade, options: "CHARSET=utf8" do |t|
+  create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
     t.text "handler", null: false
@@ -103,24 +103,24 @@ ActiveRecord::Schema.define(version: 20170908114442) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "schema_migrations_core_cards", id: false, force: :cascade, options: "CHARSET=latin1" do |t|
+  create_table "schema_migrations_core_cards", id: false, force: :cascade do |t|
     t.string "version", null: false
     t.index ["version"], name: "unique_schema_migrations_cards", unique: true
   end
 
-  create_table "schema_migrations_deck_cards", id: false, force: :cascade, options: "CHARSET=latin1" do |t|
+  create_table "schema_migrations_deck_cards", id: false, force: :cascade do |t|
     t.string "version", null: false
     t.index ["version"], name: "unique_schema_migrations_deck_cards", unique: true
   end
 
-  create_table "sessions", id: :integer, force: :cascade, options: "CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "sessions", id: :integer, force: :cascade do |t|
     t.string "session_id"
     t.text "data"
     t.datetime "updated_at"
     t.index ["session_id"], name: "sessions_session_id_index"
   end
 
-  create_table "users", id: :integer, force: :cascade, options: "CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "users", id: :integer, force: :cascade do |t|
     t.string "login", limit: 40
     t.string "email", limit: 100
     t.string "crypted_password", limit: 40
