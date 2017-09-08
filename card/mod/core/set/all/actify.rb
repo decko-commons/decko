@@ -140,25 +140,13 @@ end
 def attribute_before_act attr
   if saved_change_to_attribute? attr
     attribute_before_last_save attr
-  elsif mutations_from_database&.changed_values&.key? attr
+  elsif will_save_change_to_attribute? attr
     mutations_from_database.changed_values[attr]
   else
     _read_attribute attr
   end
 end
 
-# HACK
-# Rails developers appear to be moving to a new "mutations" API for tracking attribute changes
-# Without this fix, _was handling was altered prior to saving a card, and event_conditions_spec.rb was breaking
-
-# Should revisit and submit PR to rails or understand rationale for new behavior and adapt
-# see https://github.com/rails/rails/pull/25337 to understand rationale -pk
-# This can't work. The value of "trash" for example can be changed to "false"
-# def attribute_was(attr) # :nodoc:
-#   return attribute_before_act attr
-#   if attribute_changed?(attr)
-#     changed_attributes[attr] || mutations_from_database.changed_values[attr]
-#   else
-#     _read_attribute(attr)
-#   end
-# end
+def attribute_is_changing? attr
+  saved_change_to_attribute?(attr) || will_save_change_to_attribute?(attr)
+end
