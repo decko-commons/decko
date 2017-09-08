@@ -28,7 +28,10 @@ end
 event :finalize_action, :finalize, when: :finalize_action? do
   if changed_fields.present?
     @current_action.update_attributes! card_id: id
-    store_card_changes_for_create_action if first_edit?
+
+    # Note: #last_change_on uses the id to sort by date
+    # so the changes for the create changes have to be created befire the first change
+    store_card_changes_for_create_action if first_change?
     store_card_changes if @current_action.action_type != :create
   elsif @current_action.card_changes.reload.empty?
     @current_action.delete
@@ -36,7 +39,7 @@ event :finalize_action, :finalize, when: :finalize_action? do
   end
 end
 
-def first_edit? # = update or delete
+def first_change? # = update or delete
   @current_action.action_type != :create && @current_action.card.actions.size == 2 &&
     create_action.action_type == :create && create_action.card_changes.empty?
 end
