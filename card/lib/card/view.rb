@@ -6,6 +6,8 @@ require_dependency "card/view/options"
 
 class Card
   class View
+    # Card::View handles view rendering and caching.
+
     include Visibility
     include Fetch
     include Cache

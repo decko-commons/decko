@@ -1,43 +1,49 @@
 class Card
   class View
-    # normalizes and manages standard view options
     module Options
-      # option values are strings unless otherwise noted
+      # normalizes and manages view options
+
+      # the keymap represents a 2x2 matrix, where the factors are (a) whether an option can be used by a Carditect in nest
+      # syntax, and (b) whether nested views can inherit the option from a parent view.
+      #
+      #                  use in syntax | don't use
+      #                 ________________________________
+      #       inherit  | both          | heir
+      # don't inherit  | carditect     | none
+      #
       @keymap = {
-        nest: [
+        carditect: [
           :view,          # view to render
-          :show,          # render these views when optional
-          :hide,          # do not render these views when optional
           :nest_name,     # name as used in nest
-          :nest_syntax    # full nest syntax
+          :nest_syntax,   # full nest syntax
+          :show,          # render these views when optional
+          :hide           # do not render these views when optional
+                          # note: show/hide can be single view (Symbol), list of views (Array),
+                          # or comma separated views (String)
         ],
-        # note: show/hide can be single view (Symbol), list of views (Array),
-        # or comma separated views (String)
         heir: [
           :main,           # format object is page's "main" object (Boolean)
           :home_view,      # view for slot to return to when no view specified
           :edit_structure  # use a different structure for editing (Array)
         ],
         both: [
-          :help, # cue text when editing
-          :structure, # overrides the content of the card
-          :title, # overrides the name of the card
-          :variant, # override the canonical version of the name with
-          #                a different variant
-          :editor, # inline_nests makes a form within standard content
-          #                (Symbol)
-          :type, # set the default type of new cards
-          :size, # set an image size
-          :params, # parameters for add button.  deprecate?
-          :items, # options for items (Hash)
-          :cache # change view cache behaviour
-        #                (Symbol<:always, :standard, :never>)
-        ],
+          :help,           # cue text when editing
+          :structure,      # overrides the content of the card
+          :title,          # overrides the name of the card
+          :variant,        # override the canonical version of the name with a different variant
+          :editor,         # inline_nests makes a form within standard content (Symbol)
+          :type,           # set the default type of new cards
+          :size,           # set an image size
+          :params,         # parameters for add button.  deprecate?
+          :items,          # options for items (Hash)
+          :cache           # change view cache behaviour
+        ],                 # (Symbol<:always, :standard, :never>)
         none: [
-          :skip_perms,  # do not check permissions for this view (Boolean)
-          :main_view
-        ]   # this is main view of page (Boolean)
+          :skip_perms,     # do not check permissions for this view (Boolean)
+          :main_view       # this is main view of page (Boolean)
+        ]
       }
+      # Note: option values are strings unless otherwise noted
 
       class << self
         attr_reader :keymap
@@ -48,8 +54,8 @@ class Card
         end
 
         # keys whose values can be set by Wagneers in card nests
-        def nest_keys
-          @nest_keys ||= ::Set.new(keymap[:both]) + keymap[:nest]
+        def carditect_keys
+          @carditect_keys ||= ::Set.new(keymap[:both]) + keymap[:carditect]
         end
 
         # keys that follow simple standard inheritance pattern from parent views
@@ -57,6 +63,7 @@ class Card
           @heir_keys ||= ::Set.new(keymap[:both]) + keymap[:heir]
         end
 
+        # Each of these keys can be read or written via accessors
         def accessible_keys
           heir_keys + [:nest_name, :nest_syntax] - [:items]
         end
@@ -77,10 +84,9 @@ class Card
       end
 
       # There are two primary options hashes:
-      # - @normalized_options are determined upon initialization and do not
-      #   change after that.
-      # - @live_options are created during the "process" phase, and they can be
-      #   altered via the "voo" API at any time
+      # - @live_options are dynamic and can be altered by the "voo" API at any time. Such alterations are
+      #   NOT used in stubs.
+      # - @normalized_options are determined upon initialization and do not change after that.
 
       attr_reader :normalized_options
 
@@ -162,8 +168,7 @@ class Card
       def process_live_options
         opts = @live_options = normalized_options.clone
         opts.merge! format.main_nest_options if opts[:main_view]
-        # main_view is a live_option because it is important that it NOT be
-        # locked in the stub.  Otherwise the main card can only show one view.
+        # main_nest_options are not processed in normalize_options so that they're NOT locked in the stub.
         process_default_options
         opts
       end

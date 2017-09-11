@@ -38,7 +38,7 @@ class Card
 
       def cache_key
         @cache_key ||= [
-          card.key, format.class, format.mode, options_for_cache_key
+          card.key, format.class, format.nest_mode, options_for_cache_key
         ].map(&:to_s).join "-"
       end
 

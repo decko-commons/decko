@@ -6,7 +6,11 @@ format do
 
   # NAME VIEWS
   view :name, closed: true, perms: :none do
-    voo.variant ? card.cardname.vary(voo.variant) : card.name
+    name_variant card.cardname
+  end
+
+  def name_variant name
+    voo.variant ? name.to_name.vary(voo.variant) : name
   end
 
   view(:key,      closed: true, perms: :none) { card.key }
@@ -14,8 +18,7 @@ format do
   view(:url,      closed: true, perms: :none) { card_url _render_linkname }
 
   view :title, closed: true, perms: :none do
-    raw_title = voo.title || card.name
-    voo.variant ? raw_title.to_name.vary(voo.variant) : raw_title
+    name_variant title_in_context(voo.title)
   end
 
   view :url_link, closed: true, perms: :none do
@@ -31,12 +34,15 @@ format do
   end
 
   def link_view opts={}
-    title = showname voo.title
     opts[:known] = card.known?
-    opts[:path] = { card: { type: voo.type } } if voo.type && !opts[:known]
-    link_to_card card.name, title, opts
+    specify_type_in_link! opts
+    link_to_card card.name, _render_title, opts
   end
 
+  def specify_type_in_link! opts
+    return if opts[:known] || !voo.type
+    opts[:path] = { card: { type: voo.type } }
+  end
 
 
   view(:codename, closed: true) { card.codename.to_s }
@@ -77,7 +83,9 @@ format do
   end
 
   view :closed_content, closed: true do
-    Card::Content.smart_truncate _render_core
+    with_nest_mode :closed do
+      Card::Content.smart_truncate _render_core
+    end
   end
 
   view :blank, closed: true, perms: :none do
@@ -113,7 +121,7 @@ format do
 
   view :template_rule, cache: :never, tags: :unknown_ok do
     return "" unless voo.nest_name
-    if voo.nest_name.to_name.simple_relative?
+    if voo.nest_name.to_name.field_only?
       set_card = Card.fetch template_link_set_name
       subformat(set_card).render_template_link
     else

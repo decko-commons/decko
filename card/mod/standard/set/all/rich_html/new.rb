@@ -1,15 +1,17 @@
 format :html do
   view :new, perms: :create, tags: :unknown_ok, cache: :never do
-    voo.title ||= new_view_title if new_name_prompt?
-    voo.show :help
-    frame_and_form :create, new_form_opts do
-      [
-        new_view_hidden,
-        new_view_name,
-        new_view_type,
-        _optional_render_content_formgroup,
-        _optional_render_new_buttons
-      ]
+    with_nest_mode :edit do
+      voo.title ||= new_view_title if new_name_prompt?
+      voo.show :help
+      frame_and_form :create, new_form_opts do
+        [
+          new_view_hidden,
+          new_view_name,
+          new_view_type,
+          _optional_render_content_formgroup,
+          _optional_render_new_buttons
+        ]
+      end
     end
   end
 

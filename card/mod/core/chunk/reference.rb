@@ -13,7 +13,7 @@ class Card
             ref_card = fetch_referee_card rendered_name
             ref_card ? ref_card.cardname : rendered_name.to_name
           end
-          @referee_name = @referee_name.to_absolute(card.cardname).to_name
+          @referee_name = @referee_name.absolute(card.cardname).to_name
         end
 
         def referee_card

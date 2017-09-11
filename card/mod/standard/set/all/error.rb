@@ -43,7 +43,7 @@ format do
   end
 
   view :too_slow, perms: :none, closed: true do
-    %( Timed out! #{showname} took too long to load. )
+    %( Timed out! #{title_in_context} took too long to load. )
   end
 end
 
@@ -99,13 +99,13 @@ format :html do
   view :missing do
     return "" unless card.ok? :create  # should this be moved into ok_view?
     path_opts = voo.type ? { card: { type: voo.type } } : {}
-    link_text = "Add #{fancy_title _render_title}"
+    link_text = "Add #{_render_title}"
     klass = "slotter missing-#{@denied_view || voo.home_view}"
     wrap { link_to_view :new, link_text, path: path_opts, class: klass }
   end
 
   view :closed_missing, perms: :none do
-    wrap_with :span, showname, class: "faint"
+    wrap_with :span, title_in_context, class: "faint"
   end
 
   view :conflict, error_code: 409 do

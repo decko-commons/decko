@@ -49,7 +49,7 @@ class Card
       end
 
       # repair references one by one (delete, create, delete, create...)
-      # slower, but better than #repair_all for use on running sites
+      # slower, but better than #recreate_all for use on running sites
       def repair_all
         delete_if_referer_missing
         Card.where(trash: false).find_each do |card|

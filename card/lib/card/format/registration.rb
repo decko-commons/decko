@@ -1,8 +1,24 @@
 class Card
   class Format
     module Registration
+
       def register format
         registered << format.to_s
+      end
+
+      def new card, opts={}
+        if self != Format
+          super
+        else
+          klass = format_class opts
+          self == klass ? super : klass.new(card, opts)
+        end
+      end
+
+      def format_class opts
+        return opts[:format_class] if opts[:format_class]
+        format = opts[:format] || :html
+        class_from_name format_class_name(format)
       end
 
       def format_class_name format
@@ -24,7 +40,7 @@ class Card
       end
 
       def extract_class_vars view, opts
-        [:perms, :error_code, :denial, :closed].each do |varname|
+        Card::Format::VIEW_VARS.each do |varname|
           next unless (value = opts.delete varname)
           send(varname)[view] = value
         end
@@ -40,16 +56,6 @@ class Card
 
       def view_cache_setting_method view
         "view_#{view}_cache_setting"
-      end
-
-      def new card, opts={}
-        if self != Format
-          super
-        else
-          format = opts[:format] || :html
-          klass = class_from_name format_class_name(format)
-          self == klass ? super : klass.new(card, opts)
-        end
       end
 
       def class_from_name formatname

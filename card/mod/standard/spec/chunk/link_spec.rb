@@ -53,7 +53,7 @@ describe Card::Content::Chunk::Link do
     assert_link "[[Onassis+]]", format_args: format_args,
                                 class: "wanted-card",
                                 href: "/Onassis+Kennedy",
-                                text: "Onassis"
+                                text: "Onassis+Kennedy"
   end
 
   it "handles relative urls" do

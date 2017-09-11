@@ -28,36 +28,27 @@ class Card
     include Nest
     include Permission
     include Render
-    include Names
+    include ContextNames
     include Content
     include Error
 
     extend Registration
 
-    # FIXME: should be set in views
-
-    cattr_accessor :ajax_call, :registered
+    cattr_accessor :registered
     self.registered = []
-    [:perms, :denial, :closed, :error_code,
-     :view_tags, :aliases].each do |accessor_name|
+    VIEW_VARS = [ :perms, :denial, :closed, :error_code ]
+    (VIEW_VARS + [ :view_tags, :aliases ]).each do |accessor_name|
       cattr_accessor accessor_name
       send "#{accessor_name}=", {}
     end
 
-    attr_reader :card, :root, :parent, :main_opts, :mode
+    attr_reader :card, :parent, :main_opts
     attr_accessor :form, :error_status
 
     def initialize card, opts={}
       @card = card
       require_card_to_initialize!
-
       opts.each { |key, value| instance_variable_set "@#{key}", value }
-
-      @mode ||= :normal
-      @root ||= self
-      @depth ||= 0
-
-      @context_names = initial_context_names
       include_set_format_modules
       self
     end
@@ -94,13 +85,6 @@ class Card
       Env.session
     end
 
-    def main?
-      @depth.zero?
-    end
-
-    def focal? # meaning the current card is the requested card
-      @depth.zero?
-    end
 
     def template
       @template ||= begin

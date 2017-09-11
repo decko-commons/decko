@@ -269,7 +269,7 @@ class Card
       if @context_card.name =~ /^\+/ || name.blank?
         name.to_name
       else
-        name.to_name.to_absolute_name(@context_card.name)
+        name.to_name.absolute_name(@context_card.name)
       end
     end
 

@@ -97,7 +97,7 @@ format :csv do
 
   view :card_list do
     items = super()
-    if @depth.zero?
+    if depth.zero?
       title_row + items
     else
       items

@@ -17,7 +17,7 @@ class Card
       end
 
       def focal? # meaning the current card is the requested card
-        show_layout? ? main? : @depth.zero?
+        show_layout? ? main? : depth.zero?
       end
 
       def first_head?

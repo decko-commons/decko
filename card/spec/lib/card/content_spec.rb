@@ -26,7 +26,7 @@ describe Card::Content do
       rendered: ["Some Links and includes: ",
                  '<a class="wanted-card" ' \
                  'href="/the_card">' \
-                 "the text</a>",
+                 '<span class="card-title">the text</span></a>',
                  ", and ",
                  { options: { view: "Is Nestd",
                               nest_name: "This Card",

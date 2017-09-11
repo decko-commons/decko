@@ -125,7 +125,7 @@ format :json do
   end
 
   def essentials
-    return if @depth > max_depth
+    return if depth > max_depth
     card.item_cards.map do |item|
       nest item, view: :essentials
     end
@@ -192,7 +192,7 @@ def item_names args={}
     if context == :raw
       item_name
     else
-      item_name.to_name.to_absolute context
+      item_name.to_name.absolute context
     end
   end
 end
