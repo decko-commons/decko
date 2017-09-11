@@ -53,11 +53,28 @@ class CardSpecLoader
         config.use_transactional_fixtures = true
         config.use_instantiated_fixtures  = false
 
-        config.before(:each) do
+        config.before(:each) do |example|
           Delayed::Worker.delay_jobs = false
-          Card::Auth.current_id = @@joe_user_id
+          unless example.metadata[:as_bot]
+            Card::Auth.current_id =
+              example.metadata[:with_user] || @@joe_user_id
+          end
           Card::Cache.restore
           Card::Env.reset
+        end
+
+        config.around(:example, :as_bot) do |example|
+          Card::Auth.current_id = @@joe_user_id
+          Card::Auth.as_bot do
+            example.run
+          end
+        end
+
+        config.around(:example, :as_bot) do |example|
+          Card::Auth.current_id = @@joe_user_id
+          Card::Auth.as_bot do
+            example.run
+          end
         end
 
         config.after(:each) do

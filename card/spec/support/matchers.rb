@@ -4,6 +4,18 @@ RSpec::Matchers.define :be_valid do
   end
 end
 
+RSpec::Matchers.define :increase_card_count_by do |count|
+  def supports_block_expectations?
+    true # or some logic
+  end
+
+  match do |card_creation|
+    count += Card.count
+    card_creation.call
+    vales_match?(Card.count, count)
+  end
+end
+
 RSpec::Matchers.define :be_invalid do
   match do |card|
     # valid? clears errors

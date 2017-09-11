@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 require File.expand_path("../support/card_spec_loader.rb", __FILE__)
+require_relative "support/expectations"
 CardSpecLoader.init
 
 require "rr"
@@ -45,3 +46,4 @@ class ActiveSupport::Logger
     end
   end
 end
+
