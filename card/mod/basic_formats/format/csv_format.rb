@@ -8,6 +8,12 @@ class Card
       def content_type
         "text/comma-separated-values"
       end
+
+      def view_caching?
+        # TODO: make view caching handle non-strings
+        # (specifically stub_render)
+        false
+      end
     end
   end
 end

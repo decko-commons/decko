@@ -444,7 +444,7 @@ Style/NumericPredicate:
     - 'card/db/migrate_core_cards/20150807205221_create_references_for_search_cards.rb'
     - 'card/lib/card/format/render.rb'
     - 'card/mod/basic_formats/set/all/all_csv.rb'
-    - 'card/mod/core/set/all/fetch.rb'
+    - 'card/mod/core/set/all/cache_action.rb'
     - 'card/mod/core/set/all/tracked_attributes.rb'
     - 'card/mod/history/set/all/content_history.rb'
     - 'card/mod/standard/set/type/search_type.rb'
@@ -456,7 +456,7 @@ Style/NumericPredicate:
 # Cop supports --auto-correct.
 Style/PerlBackrefs:
   Exclude:
-    - 'card/mod/core/set/all/fetch.rb'
+    - 'card/mod/core/set/all/cache_action.rb'
     - 'wagn/features/support/paths.rb'
 
 # Offense count: 9

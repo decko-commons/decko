@@ -63,6 +63,10 @@ class Card
           source_location.second.to_s
       end
 
+      def view_caching?
+        true
+      end
+
       # setting (:alway, :never, :nested) designated in view definition
       def view_cache_setting view
         method = self.class.view_cache_setting_method view

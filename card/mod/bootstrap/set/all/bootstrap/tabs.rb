@@ -107,7 +107,7 @@ format :html do
 
   def tab_button_link target, text, link_attr={}
     add_class link_attr, "nav-link"
-    link_to fancy_title(text), link_attr.merge(
+    link_to text, link_attr.merge(
       path: target, role: "tab", "data-toggle" => "tab"
     )
   end
