@@ -1,13 +1,9 @@
 # -*- encoding : utf-8 -*-
 
 require File.expand_path("../support/card_spec_loader.rb", __FILE__)
-require_relative "support/expectations"
 CardSpecLoader.init
 
 require "rr"
-
-# used for SharedData::Users - required here so code won't show up in coverage
-require File.expand_path("../../db/seed/test/seed.rb", __FILE__)
 
 CardSpecLoader.prefork do
   FIXTURES_PATH = File.expand_path("../../db/seed/test/fixtures", __FILE__)

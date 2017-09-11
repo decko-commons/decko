@@ -13,6 +13,9 @@ module RenameMethods
   end
 
   def assert_rename card, new_name
+    if card.is_a? String
+      card = Card[card].refresh || raise("Couldn't find card named #{card}")
+    end
     attrs_before = name_invariant_attributes(card)
     actions_count_before = card.actions.count
     update card.name, name: new_name, update_referers: true
@@ -21,64 +24,50 @@ module RenameMethods
     assert_equal new_name, card.name
     assert Card[new_name]
   end
-
-  def card name
-    Card[name].refresh || raise("Couldn't find card named #{name}")
-  end
 end
 
 RSpec.describe Card::Set::All::Rename do
   include RenameMethods
-  # FIXME: these tests are TOO SLOW!
-  # 8s against server, 12s from command line.
-  # not sure if it's the card creation or the actual renaming process.
-  # Card#save needs optimized in general.
-  # Can't we just move this data to fixtures?
+  include CardExpectations
 
   it "renaming plus card to its own child" do
-    assert_rename card("A+B"), "A+B+T"
+    assert_rename "A+B", "A+B+T"
   end
 
   it "clears cache for old name" do
-    assert_rename Card["Menu"], "manure"
+    assert_rename "Menu", "manure"
     expect(Card["Menu"]).to be_nil
   end
 
   it "wipes old references by default" do
-    Card["Menu"].update_attributes! name: "manure"
+    update "Menu", name: "manure"
     expect(Card["manure"].references_in.size).to eq(0)
   end
 
   it "picks up new references" do
-    Card.create name: "kinds of poop", content: "[[manure]]"
-    assert_rename Card["Menu"], "manure"
-    expect(Card["manure"].references_in.size).to eq(2)
+    expect(Card["Z"].references_in.size).to eq(2)
+    assert_rename "Z", "Mister X"
+    expect(Card["Mister X"].references_in.size).to eq(3)
   end
 
   it "handles name variants" do
-    assert_rename card("B"), "b"
+    assert_rename "B", "b"
   end
 
   it "handles plus cards renamed to simple" do
-    assert_rename card("A+B"), "K"
+    assert_rename "A+B", "K"
   end
 
   it "handles flipped parts" do
-    assert_rename card("A+B"), "B+A"
+    assert_rename "A+B", "B+A"
   end
 
-  it "test_should_error_card_exists" do
-    @t = card "T"
-    @t.name = "A+B"
-    assert !@t.save, "save should fail"
-    assert @t.errors[:name], "has errors on key"
+  it "fails if card exists" do
+    expect { update "T", name: "A+B" }.to raise_error(/Name must be unique/)
   end
 
-  it "test_used_as_tag" do
-    @b = card "B"
-    @b.name = "A+D"
-    @b.save
-    assert @b.errors[:name]
+  it "fails if used as tag" do
+    expect { update "B", name: "A+D" }.to raise_error(/Name must be unique/)
   end
 
   it "updates descendants" do
@@ -86,39 +75,37 @@ RSpec.describe Card::Set::All::Rename do
     new_names = %w[Uno+Two Uno+Two+Three Four+Uno Four+Uno+Five]
     card_list = old_names.map {|name| Card[name]}
 
-    expect(old_names).to eq card_list.map(&:name)
-    Card["One"].update_attributes! name: "Uno"
-    expect(new_names).to eq card_list.map(&:reload).map(&:name)
+    expect(card_list.map(&:name)).to eq old_names
+    update "One", name: "Uno"
+    expect(card_list.map(&:reload).map(&:name)).to eq new_names
   end
 
-  it "test_should_error_invalid_name" do
-    @t = card "T"
-    @t.name = "YT_o~Yo"
-    @t.save
-    assert @t.errors[:name]
+  it "fails if name is invalid" do
+    expect { update "T", name: "YT/Yo" }
+      .to raise_error(/Validation failed: Name may not contain/)
   end
 
   example "simple to simple" do
-    assert_rename card("A"), "Alephant"
+    assert_rename "A", "Alephant"
   end
 
-  it "test_simple_to_junction_with_create" do
-    assert_rename card("T"), "C+J"
+  example "simple to junction with create" do
+    assert_rename "T", "C+J"
   end
 
-  it "test_reset_key" do
+  example "reset key" do
     c = Card["Basic Card"]
-    c.name = "banana card"
-    c.save!
+    update "Basic Card", name: "banana card"
     expect(c.key).to eq("banana_card")
     expect(Card["Banana Card"]).not_to be_nil
   end
 
-  it "test_rename_should_not_fail_when_updating_inaccessible_referer" do
+  it "does not fail when updating inaccessible referer" do
     Card.create! name: "Joe Card", content: "Whattup"
     Card::Auth.as "joe_admin" do
       Card.create! name: "Admin Card", content: "[[Joe Card]]"
     end
+
     c = Card["Joe Card"]
     c.update_attributes! name: "Card of Joe", update_referers: true
     assert_equal "[[Card of Joe]]", Card["Admin Card"].content
@@ -137,99 +124,48 @@ RSpec.describe Card::Set::All::Rename do
   end
 
   it "handles plus cards that have children" do
-    Card::Auth.as_bot do
-      Card.create name: "a+b+c+d"
-      ab = Card["a+b"]
-      assert_rename ab, "e+f"
-    end
+    assert_rename Card["a+b"], "e+f"
   end
 
-  context "chuck" do
-    before do
-      Card::Auth.as_bot do
-        Card.create! name: "chuck_wagn+chuck"
-      end
-    end
-
-    it "test_rename_name_substitution" do
-      c1 = Card["chuck_wagn+chuck"]
-      c2 = Card["chuck"]
-      assert_rename c2, "buck"
-      assert_equal "chuck_wagn+buck", Card.find(c1.id).name
-    end
-
-    it "test_reference_updates_plus_to_simple" do
-      c1 = Card::Auth.as_bot do
-        Card.create! name: "Huck", content: "[[chuck wagn+chuck]]"
-      end
-      c2 = Card["chuck_wagn+chuck"]
-      assert_rename c2, "schmuck"
-      c1 = Card.find(c1.id)
-      assert_equal "[[schmuck]]", c1.content
-    end
-  end
-
-  context "dairy" do
-    before do
-      Card::Auth.as_bot do
-        Card.create! name: "Dairy",
-                     type: "Cardtype",
-                     content: "[[/new/{{_self|name}}|new]]"
-      end
-    end
-
-    it "test_renaming_card_with_self_link_should_not_hang" do
-      c = Card["Dairy"]
-      c.name = "Buttah"
-      c.update_referers = true
-      c.save!
-      assert_equal "[[/new/{{_self|name}}|new]]", Card["Buttah"].content
+  context "self references" do
+    example "renaming card with self link should nothang" do
+      update "self aware", name: "buttah", update_referers: true
+      expect_content_of("Buttah").to eq "[[/new/{{_self|name}}|new]]"
     end
 
     it "renames card without updating references" do
-      c = Card["Dairy"]
-      c.update_attributes name: "Newt", update_referers: false
-      assert_equal "[[/new/{{_self|name}}|new]]", Card["Newt"].content
+      update "self aware", name: "Newt", update_referers: false
+      expect_content_of("Newt").to eq "[[/new/{{_self|name}}|new]]"
     end
   end
 
-  context "blues" do
-    before do
-      Card::Auth.as_bot do
-        [
-          ["Blue", ""],
-          ["blue includer 1", "{{Blue}}"],
-          ["blue includer 2", "{{blue|closed;other:stuff}}"],
-          ["blue linker 1", "[[Blue]]"],
-          ["blue linker 2", "[[blue]]"]
-        ].each do |name, content|
-          Card.create! name: name, content: content
-        end
-      end
+  context "references" do
+    it "updates nests" do
+      update "Blue", name: "Red", update_referers: true
+      expect_content_of("blue includer 1").to eq "{{Red}}"
+      expect_content_of("blue includer 2").to eq "{{Red|closed;other:stuff}}"
     end
 
-    it "test_updates_nests_when_renaming" do
-      c1 = Card["Blue"]
-      c2 = Card["blue includer 1"]
-      c3 = Card["blue includer 2"]
-      c1.update_attributes name: "Red", update_referers: true
-      assert_equal "{{Red}}", Card.find(c2.id).content
-      # NOTE these attrs pass through a hash stage that may not preserve order
-      assert_equal "{{Red|closed;other:stuff}}", Card.find(c3.id).content
+    it "tupdates nests when renaming to plus" do
+      update "Blue", name: "blue includer 1+color", update_referers: true
+      expect_content_of("blue includer 1").to eq "{{blue includer 1+color}}"
     end
 
-    it "test_updates_nests_when_renaming_to_plus" do
-      c1 = Card["Blue"]
-      c2 = Card["blue includer 1"]
-      c1.update_attributes name: "blue includer 1+color",
-                           update_referers: true
-      assert_equal "{{blue includer 1+color}}", Card.find(c2.id).content
-    end
-
-    it "test_reference_updates_on_case_variants" do
+    it "reference updates on case variants" do
       update "Blue", name: "Red", update_referers: true
       expect_content_of("blue linker 1").to eq "[[Red]]"
       expect_content_of("blue linker 2").to eq "[[Red]]"
+    end
+
+    example "reference updates plus to simple" do
+      assert_rename Card["A+B"], "schmuck"
+      expect_content_of("X").to eq "[[A]] [[schmuck]] [[T]]"
+    end
+
+    it "substitutes name part" do
+      c1 = Card["A+B"]
+      assert_rename Card["B"], "buck"
+      expect(Card.find(c1.id).name).to eq "A+buck"
     end
   end
 end

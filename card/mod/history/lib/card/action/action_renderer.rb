@@ -27,7 +27,7 @@ class Card
         bs_layout container: true, fluid: true do
           row do
             html <<-HTML
-              <ul class="action-list">
+              <ul class="action-list w-100">
                 <li class="glyphicon-bullet #{action.action_type}">
                   #{action_panel}
                 </li>

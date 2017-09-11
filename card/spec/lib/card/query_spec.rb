@@ -45,7 +45,7 @@ RSpec.describe Card::Query do
   end
 
   describe "in" do
-    it "works for content options" do
+    example "content option" do
       @query = { in: %w(AlphaBeta Theta) }
       is_expected.to eq(%w(A+B T))
     end
@@ -55,19 +55,21 @@ RSpec.describe Card::Query do
       is_expected.to eq(%w(A+B T))
     end
 
-    it "works on types" do
+    example "type option" do
       @query = { type: [:in, "Cardtype E", "Cardtype F"] }
       is_expected.to eq(%w(type-e-card type-f-card))
     end
   end
 
-  describe "member_of/member" do
-    it "member_of should find members" do
+  describe "member_of" do
+    it "finds members" do
       @query = { member_of: "r1" }
       is_expected.to eq(%w(u1 u2 u3))
     end
+  end
 
-    it "member should find roles" do
+  describe "member" do
+    it "finds roles" do
       @query = { member: { match: "u1" } }
       is_expected.to eq(%w(r1 r2 r3))
     end

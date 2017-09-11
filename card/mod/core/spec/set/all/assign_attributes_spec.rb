@@ -1,44 +1,37 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::AssignAttributes do
-  include CardExpectations
+  it "assigns attributes" do
+    card = Card.new name: "#name", type: :basic, content: "#content", codename: "#codename"
+    expect(card.attributes).to include(
+      "name" => "#name",
+      "db_content" => "#content",
+      "codename" => "#codename",
+      "type_id" => Card::BasicID
+    )
+  end
 
+  it "assigns subcards" do
+    card = Card.new name: "#name", subcards: { "sub" => { content: "subcontent" } }
+    expect(card.subcards.first).to eq "sub"
+    subcard = card.subcard "sub"
+    expect(subcard).to be_a(Card)
+    expect(subcard.content).to eq "subcontent"
+  end
 
-  # FIXME: - following tests more about fetch than set_name.
-  # this spec still needs lots of cleanup
-
-  it "test fetch with new when present" do
-    Card.create!(name: "Carrots")
-    cards_should_be_added 0 do
-      c = Card.fetch "Carrots", new: {}
-      c.save
-      expect(c).to be_instance_of(Card)
-      expect(Card.fetch("Carrots")).to be_instance_of(Card)
+  it "assigns subfields" do
+      card = Card.new name: "#name", subfields: { default: { content: "subcontent" } }
+      expect(card.subcards.first).to eq "name+*default"
+      subcard = card.subfield :default
+      expect(subcard).to be_a(Card)
+      expect(subcard.name).to eq "#name+*default"
+      expect(subcard.content).to eq "subcontent"
     end
-  end
 
-  it "test_simple" do
-    cards_should_be_added 1 do
-      expect(Card["Boo!"]).to be_nil
-      expect(Card.create(name: "Boo!")).to be_instance_of(Card)
-      expect(Card["Boo!"]).to be_instance_of(Card)
+  describe "set specific attributes" do
+    example "file card with set specfic attribute" do
+      card = Card.new name: "empty", type: :file, empty_ok: true
+      expect(card.empty_ok?).to be_truthy
     end
-  end
-
-  it "test fetch with new when not present" do
-    c = Card.fetch("Tomatoes", new: {})
-    expect do
-      c.save
-    end.to increase_card_count_by(1)
-    expect(c).to be_instance_of(Card)
-    expect(Card.fetch("Tomatoes")).to be_instance_of(Card)
-  end
-
-  private
-
-  def cards_should_be_added number
-    number += Card.all.count
-    yield
-    expect(Card.all.count).to eq(number)
   end
 end

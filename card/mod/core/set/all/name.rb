@@ -239,3 +239,10 @@ event :set_left_and_right, :store,
     self.left_id = self.right_id = nil
   end
 end
+
+event :name_update_finished, :finalize, changed: :name, on: :save do
+  # The events to update references has to happen after :cascade_name_changes,
+  # but :cascade_name_changes is defined after the reference events and
+  # and additionaly it is defined on :update but some of the reference
+  # events are on :save. Hence we need this additional hook to organize these events.
+end

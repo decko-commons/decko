@@ -15,7 +15,8 @@ def suspend_name name
   Card.where(id: id).update_all(name: tmp_name, key: tmp_name)
 end
 
-event :cascade_name_changes, :finalize, on: :update, changed: :name do
+event :cascade_name_changes, :finalize, on: :update, changed: :name,
+                                        before: :name_update_finished do
   des = descendants
   @descendants = nil # reset
 

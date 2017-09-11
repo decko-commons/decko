@@ -16,12 +16,10 @@ describe Card, "created by Card.new" do
     end
   end
 
-  it "does not override explicit content with default content" do
-    Card::Auth.as_bot do
-      Card.create! name: "blue+*right+*default", content: "joe", type: "Pointer"
-      c = Card.new name: "Lady+blue", content: "[[Jimmy]]"
-      expect(c.content).to eq("[[Jimmy]]")
-    end
+  it "does not override explicit content with default content", as_bot: true do
+    create "blue+*right+*default", content: "joe", type: "Pointer"
+    c = Card.new name: "Lady+blue", content: "[[Jimmy]]"
+    expect(c.content).to eq("[[Jimmy]]")
   end
 end
 
@@ -39,7 +37,7 @@ describe Card, "created by Card.create with valid attributes" do
   it "has the right class" do
     expect(@c.class).to eq(Card)
   end
-  it "has the right key"  do
+  it "has the right key" do
     expect(@c.key).to eq("new_card")
   end
   it "has the right name" do
@@ -50,11 +48,11 @@ describe Card, "created by Card.create with valid attributes" do
   end
 
   it "has the right content" do
-    @c.db_content == "Great Content"
+    expect(@c.db_content).to eq "Great Content"
   end
 
   it "is findable by name" do
-    expect(Card["New Card"].class).to eq(Card)
+    expect(Card["New Card"]).to be_a Card
   end
 end
 
@@ -68,15 +66,15 @@ describe Card, "create junction two parts" do
   end
 
   it "creates junction card" do
-    expect(Card["Peach+Pear"].class).to eq(Card)
+    expect(Card["Peach+Pear"]).to be_a(Card)
   end
 
   it "creates trunk card" do
-    expect(Card["Peach"].class).to eq(Card)
+    expect(Card["Peach"]).to be_a(Card)
   end
 
   it "creates tag card" do
-    expect(Card["Pear"].class).to eq(Card)
+    expect(Card["Pear"]).to be_a(Card)
   end
 end
 

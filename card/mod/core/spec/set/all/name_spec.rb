@@ -22,10 +22,9 @@ describe Card::Set::All::Name do
 
   describe "event: set_left_and_right" do
     it "test_create_junction" do
-      cards_should_be_added 3 do
-        pearch = Card.create name: "Peach+Pear", content: "juicy"
-        expect(pearch).to be_instance_of(Card)
-      end
+      expect do
+        Card.create! name: "Peach+Pear", content: "juicy"
+      end.to increase_card_count.by(3)
       expect(Card["Peach"]).to be_instance_of(Card)
       expect(Card["Pear"]).to be_instance_of(Card)
       assert_equal "juicy", Card["Peach+Pear"].content

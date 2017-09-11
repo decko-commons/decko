@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::All::Fetch do
+
+
   describe "#fetch" do
     it "returns and caches existing cards" do
       card_double = class_double("Card")
@@ -228,12 +230,14 @@ describe Card::Set::All::Fetch do
       new_card = Card.fetch "Never Seen Me Before", new: {}
       expect(new_card).to be_instance_of(Card)
       expect(new_card.new_record?).to be_truthy
+      expect { new_card.save! }.to increase_card_count.by(1)
     end
 
     it "returns a card if it finds one" do
       new_card = Card.fetch "A+B", new: {}
       expect(new_card).to be_instance_of(Card)
       expect(new_card.new_record?).to be_falsey
+      expect { new_card.save! }.not_to increase_card_count
     end
 
     it "takes a second hash of options as new card options" do
