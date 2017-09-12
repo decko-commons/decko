@@ -67,9 +67,19 @@ describe Card::Set::All::SendNotifications do
   end
 
   describe "content of notification email" do
+
+    def notification_email_for card_name, followed_set: "#{card_name}+*self"
+      Card[:follower_notification_email].format.render_mail(
+        context:   Card[card_name].refresh(true),
+        to:        Card["Joe User"].email,
+        follower:  Card["Joe User"].name,
+        followed_set:  followed_set,
+        follow_option: "*always"
+      ).text_part.body.raw_source
+    end
     context "for new card with subcards" do
       name = "card with fields"
-      content = "main content {{+field1}}  {{+field2}}"
+      content = "main content {{+field 1}}  {{+field 2}}"
       sub1_content = "content of field 1"
       sub2_content = "content of field 2"
       # before do
@@ -81,64 +91,33 @@ describe Card::Set::All::SendNotifications do
       # end
       let(:card) { Card["card with fields"]}
       subject do
-        Card[:follower_notification_email].format.render_mail(
-          context:   card.refresh(true),
-          to:        Card["Joe User"].email,
-          follower:  Card["Joe User"].name,
-          followed_set:  "#{card.name}+*self",
-          follow_option: "*always"
-        ).text_part.body.raw_source
+        notification_email_for card
       end
 
       it { is_expected.to include(content, sub1_content, sub2_content) }
 
       context "and missing permissions" do
-        context "for subcard" do
-          before do
-            create_or_update! "#{name}+field1+*self+*read",
-                              type: "Pointer", content: "[[Administrator]]"
-          end
-          it "excludes subcard content" do
-            is_expected.to not_include(sub1_content).and include sub2_content
-          end
+        example "for a field" do
+            expect(notification_email_for("card with fields and admin fields"))
+              .to not_include(sub1_content).and include sub2_content
         end
         context "for main card" do
-          subject do
-            Card[:follower_notification_email].format.render_mail(
-              context:   card.refresh(true),
-              to:        Card["Joe User"].email,
-              follower:  Card["Joe User"].name,
-              followed_set:  card.name + "+field1+*self",
-              follow_option: "*always"
-            ).text_part.body.raw_source
-          end
-
           before do
-            create_or_update! "#{name}+*self+*read",
-                              type: "Pointer", content: "[[Administrator]]"
             create_or_update! "#{name}+field1+*self+*read",
                               type: "Pointer", content: "[[Anyone]]"
           end
           specify do
-            is_expected.to include(sub1_content).and not_include(content)
+            email = notification_email_for "admin card with fields and admin fields",
+                                           followed_set: "#{card.name}+field 1+*self"
+            expect(email).to include(sub1_content).and not_include(content)
           end
         end
-        context "for all parts" do
-          before do
-            create_or_update! "#{name}+field1+*self+*read",
-                              type: "Pointer", content: "[[Administrator]]"
-            create_or_update! "#{name}+field2+*self+*read",
-                              type: "Pointer", content: "[[Administrator]]"
-            create_or_update! "#{name}+*self+*read",
-                              type: "Pointer", content: "[[Administrator]]"
-          end
-          specify do
-            is_expected.to not_include(content)
+        example "for all parts" do
+            expect("admin card with admin fields").to not_include(content)
                                .and not_include(sub1_content)
                                .and not_include(sub2_content)
             expect(Card["Joe User"].account.changes_visible?(@card.acts.last))
                           .to be_falsey
-          end
         end
       end
     end
@@ -158,13 +137,7 @@ describe Card::Set::All::SendNotifications do
     it "creates well formatted text message" do
       let(:card) { Card["card with fields"]}
 
-      result = Card[:follower_notification_email].format.render_mail(
-        context:   card,
-        to:        Card["Joe User"].email,
-        follower:  Card["Joe User"].name,
-        followed_set:  "#{card.name}+*self",
-        follow_option: "*always"
-      ).text_part.body.raw_source
+      result = notification_email_for card
       unfollow_link =
         "/update/Joe_User+*follow?card%5Bsubcards%5D%5Banother+"\
         "card+with+subcards%2B%2Aself%2BJoe+User%2B%2Afollow%5D=%2Anever"
