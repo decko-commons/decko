@@ -1,8 +1,40 @@
 RSpec::Matchers.define_negated_matcher :not_include, :include
+RSpec::Matchers.define_negated_matcher :be_not_virtual, :be_virtual
 
 RSpec::Matchers.define :be_valid do
   match do |card|
-    value_match?(true, card.errors.empty?)
+    values_match?(true, card.errors.empty?)
+  end
+end
+
+RSpec::Matchers.define :have_name do |name|
+  match do |card|
+    values_match?(name, card.name)
+  end
+end
+
+RSpec::Matchers.define :have_content do |content|
+  match do |card|
+    values_match?(content, card.content)
+  end
+end
+
+RSpec::Matchers.define :have_type do |type|
+  match do |card|
+    case type
+    when Symbol
+      values_match?(type, card.type_code)
+    when Integer
+      values_match?(type, card.type_id)
+    when String
+      values_match?(type, card.type_name)
+    end
+  end
+end
+
+RSpec::Matchers.define :have_raw_content do |content|
+  match do |card|
+    values_match?(content, card.raw_content)
   end
 end
 
@@ -13,6 +45,7 @@ RSpec::Matchers.define :increase_card_count do
 
   match do |card_creation|
     count = Card.count
+    #binding.pry
     card_creation.call
     if @diff
       values_match?(count + @diff, Card.count)

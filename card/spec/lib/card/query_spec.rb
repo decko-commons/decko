@@ -138,7 +138,7 @@ RSpec.describe Card::Query do
   describe "edited_by/editor_of" do
     it "finds card edited by joe using subquery" do
       @query = { edited_by: { match: "Joe User" } }
-      is_expected.to eq(%w(JoeLater JoeNow))
+      is_expected.to include("JoeLater", "JoeNow")
     end
 
     it "finds card edited by Wagn Bot" do
@@ -161,7 +161,7 @@ RSpec.describe Card::Query do
       c.content = "test3"
       c.save!
       @query = { edited_by: "Joe User" }
-      is_expected.to eq(%w(JoeLater JoeNow))
+      is_expected.to include("JoeLater", "JoeNow")
     end
 
     it "finds joe user among card's editors" do

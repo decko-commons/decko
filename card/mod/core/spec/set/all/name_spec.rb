@@ -21,13 +21,13 @@ describe Card::Set::All::Name do
   end
 
   describe "event: set_left_and_right" do
-    it "test_create_junction" do
+    example "create junction" do
       expect do
         Card.create! name: "Peach+Pear", content: "juicy"
       end.to increase_card_count.by(3)
-      expect(Card["Peach"]).to be_instance_of(Card)
-      expect(Card["Pear"]).to be_instance_of(Card)
-      assert_equal "juicy", Card["Peach+Pear"].content
+      expect(Card["Peach"]).to be_a(Card)
+      expect(Card["Pear"]).to be_a(Card)
+      expect(Card["Peach+Pear"]).to have_content "juicy"
     end
   end
 

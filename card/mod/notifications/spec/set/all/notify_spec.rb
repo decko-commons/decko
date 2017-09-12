@@ -61,62 +61,50 @@ shared_examples_for "notifications" do
   end
 end
 
-describe Card::Set::All::SendNotifications do
+RSpec.describe Card::Set::All::SendNotifications do
   before do
     ::Card.any_instance.stub(:'silent_change?').and_return(false)
   end
 
+  def notification_email_for card_name, followed_set: "#{card_name}+*self"
+    Card[:follower_notification_email].format.render_mail(
+      context:   Card[card_name].refresh(true),
+      to:        Card["Joe User"].email,
+      follower:  Card["Joe User"].name,
+      followed_set:  followed_set,
+      follow_option: "*always"
+    ).text_part.body.raw_source
+  end
+
   describe "content of notification email" do
 
-    def notification_email_for card_name, followed_set: "#{card_name}+*self"
-      Card[:follower_notification_email].format.render_mail(
-        context:   Card[card_name].refresh(true),
-        to:        Card["Joe User"].email,
-        follower:  Card["Joe User"].name,
-        followed_set:  followed_set,
-        follow_option: "*always"
-      ).text_part.body.raw_source
-    end
-    context "for new card with subcards" do
-      name = "card with fields"
-      content = "main content {{+field 1}}  {{+field 2}}"
-      sub1_content = "content of field 1"
-      sub2_content = "content of field 2"
-      # before do
-      #   Card::Auth.as_bot do
-      #     @card = Card.create!(name: name, content: content,
-      #                          subcards: { "+s1" => { content: sub1_content },
-      #                                      "+s2" => { content: sub2_content } })
-      #   end
-      # end
-      let(:card) { Card["card with fields"]}
-      subject do
-        notification_email_for card
-      end
 
-      it { is_expected.to include(content, sub1_content, sub2_content) }
+    context "for new card with subcards" do
+      specify do
+        expect(notification_email_for "card with fields")
+          .to include("main content", "content of field 1" , "content of field 2")
+      end
 
       context "and missing permissions" do
         example "for a field" do
             expect(notification_email_for("card with fields and admin fields"))
-              .to not_include(sub1_content).and include sub2_content
+              .to not_include("content of admin field 1")
+                    .and include("content of field 1")
         end
-        context "for main card" do
-          before do
-            create_or_update! "#{name}+field1+*self+*read",
-                              type: "Pointer", content: "[[Anyone]]"
-          end
-          specify do
-            email = notification_email_for "admin card with fields and admin fields",
-                                           followed_set: "#{card.name}+field 1+*self"
-            expect(email).to include(sub1_content).and not_include(content)
-          end
+
+        example "for main card" do
+          card_name = "admin card with fields and admin fields"
+          email = notification_email_for card_name,
+                                         followed_set: "#{card_name}+field 1+*self"
+          expect(email).to include("content of field 1").and not_include("main content")
         end
+
         example "for all parts" do
-            expect("admin card with admin fields").to not_include(content)
-                               .and not_include(sub1_content)
-                               .and not_include(sub2_content)
-            expect(Card["Joe User"].account.changes_visible?(@card.acts.last))
+          card = Card["admin card with admin fields"]
+            expect("admin card with admin fields")
+              .to not_include("main content").and not_include("content of admin field 1")
+                                             .and not_include("content of admin field 2")
+            expect(Card["Joe User"].account.changes_visible?(card.acts.last))
                           .to be_falsey
         end
       end
@@ -135,40 +123,41 @@ describe Card::Set::All::SendNotifications do
     end
 
     it "creates well formatted text message" do
-      let(:card) { Card["card with fields"]}
-
-      result = notification_email_for card
       unfollow_link =
-        "/update/Joe_User+*follow?card%5Bsubcards%5D%5Banother+"\
-        "card+with+subcards%2B%2Aself%2BJoe+User%2B%2Afollow%5D=%2Anever"
-      expect(result)
-        .to eq(%("another card with subcards" was just created by Joe User.
+        "/update/Joe_User+*follow?card%5Bsubcards%5D%5B"\
+        "card+with+fields%2B%2Aself%2BJoe+User%2B%2Afollow%5D=%2Anever"
+
+      expect(notification_email_for("card with fields"))
+        .to eq(
+      <<-TEXT
+"card with fields" was just created by Joe User.
 
    cardtype: Basic
-   content: main content {{+s1}}  {{+s2}}
+   content: main content {{+field 1}}  {{+field 2}}
 
 
 
 This update included the following changes:
 
-another card with subcards+s1 created
+card with fields+field 1 created
    cardtype: Basic
-   content: new content of field1
+   content: content of field 1
 
 
-another card with subcards+s2 created
+card with fields+field 2 created
    cardtype: Basic
-   content: new content of subcard 2
+   content: content of field 2
 
 
 
 
-See the card: /another_card_with_subcards
+See the card: /card_with_fields
 
-You received this email because you're following "another card with subcards".
+You received this email because you're following "card with fields".
 
 Use this link to unfollow #{unfollow_link}
-))
+TEXT
+)
     end
   end
 
