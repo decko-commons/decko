@@ -1,3 +1,5 @@
+RSpec::Matchers.define_negated_matcher :not_include, :include
+
 RSpec::Matchers.define :be_valid do
   match do |card|
     value_match?(true, card.errors.empty?)
