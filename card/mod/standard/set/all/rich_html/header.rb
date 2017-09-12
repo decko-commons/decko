@@ -1,7 +1,7 @@
 format :html do
   view :header do
     voo.hide :toggle, :toolbar
-    main_header + _optional_render_toolbar
+    main_header + _optional_render_toolbar.html_safe
   end
 
   def main_header

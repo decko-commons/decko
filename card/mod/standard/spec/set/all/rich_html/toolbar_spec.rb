@@ -10,6 +10,7 @@ describe Card::Set::All::RichHtml::Toolbar do
       end
     end
   end
+
   context "hidden toolbar" do
     subject do
       render_content "{{A|edit; hide: toolbar}}"

@@ -64,6 +64,11 @@ class Card
       @root = parent ? parent.root : self
     end
 
+    # @return [true/false]
+    def root?
+      !parent
+    end
+
     # neither view nor format has a parent
     # @return [true/false]
     def deep_root?

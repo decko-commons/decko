@@ -21,11 +21,18 @@ class Card
 
       # @return [Hash]
       def stub_hash
-        {
-          cast: card.cast,
-          options: normalized_options,
-          mode: format.nest_mode
-        }
+        with_mode cast: card.cast, options: normalized_options
+      end
+
+      # handle nest_mode in stub
+      # @return [Hash]
+      def with_mode hash
+        hash[:mode] = format.nest_mode if root?
+        # typically modes only override views on nests, but stubs create non-standard nests
+        # mode-based view overrides should NOT apply to standard render calls that have
+        # been replaced with stubs – only to standard nest calls. therefore modes are not
+        # stored in non-standard nest stubs
+        hash
       end
 
       def validate_stub!

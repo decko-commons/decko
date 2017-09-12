@@ -8,6 +8,11 @@ class Card
       def content_type
         "text/css"
       end
+
+      def view_caching?
+        false
+      end
+
     end
   end
 end
