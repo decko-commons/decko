@@ -481,8 +481,6 @@ describe Card::Set::Type::File do
     "public/files/~#{subject.id}/#{subject.last_action_id}.txt"
   end
 
-
-
   # expects access keys in card/spec/support/bucket_credentials.yml for the
   # bucket defined in `directory` in the following format:
   # aws:
