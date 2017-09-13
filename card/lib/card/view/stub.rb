@@ -11,7 +11,7 @@ class Card
     module Stub
       # @return [String]
       def stub
-        "<card-view>#{stub_json}</card-view>"
+        "<card-view>#{stub_json}</card-view>".html_safe
       end
 
       # @return [String] the stub_hash as JSON

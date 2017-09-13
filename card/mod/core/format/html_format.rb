@@ -71,7 +71,7 @@ class Card
          .gsub(/>/, "&gt;").gsub(/</, "&lt;")
       end
 
-      def content_type
+      def mime_type
         "text/html"
       end
     end

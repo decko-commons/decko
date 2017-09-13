@@ -50,6 +50,10 @@ class Card
       each_chunk { |chunk| chunk.process_chunk(&block) }
     end
 
+    def pieces
+      Array.wrap(__getobj__)
+    end
+
     def each_chunk
       return enum_for(:each_chunk) unless block_given?
 

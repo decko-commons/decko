@@ -77,7 +77,6 @@ class Card
       end
 
       def stub_render cached_content
-        return cached_content unless cached_content.is_a? String
         expand_stubs cached_content do |stub_hash|
           prepare_stub_nest(stub_hash) do |stub_card, mode, options, override|
             with_nest_mode(mode) { nest stub_card, options, override }
@@ -95,11 +94,20 @@ class Card
       end
 
       def expand_stubs cached_content
+        return cached_content unless cached_content.is_a? String
+
         conto = Card::Content.new cached_content, self, chunk_list: :stub
         conto.process_each_chunk do |stub_hash|
-          yield(stub_hash).to_s
+          yield(stub_hash)
         end
-        conto.to_s
+        if conto.pieces.size == 1
+          # for stubs in json format this converts a single stub back
+          # to it's original type (e.g. a hash)
+          # TODO: method name to_s is misleading
+          conto.pieces.first.to_s
+        else
+          conto.to_s
+        end
       end
 
       def api_render match, opts

@@ -5,7 +5,7 @@ class Card
     class CsvFormat < TextFormat
       register :csv
 
-      def content_type
+      def mime_type
         "text/comma-separated-values"
       end
 

@@ -5,7 +5,7 @@ class Card
     class JsFormat < Format
       register :js
 
-      def content_type
+      def mime_type
         "text/javascript"
       end
     end

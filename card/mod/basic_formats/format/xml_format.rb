@@ -5,7 +5,7 @@ class Card
     class XmlFormat < DataFormat
       register :xml
 
-      def content_type
+      def mime_type
         "text/xml"
       end
     end

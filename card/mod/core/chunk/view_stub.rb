@@ -9,6 +9,10 @@ class Card
           idx_char: "<"
         )
 
+        def initialize text, content
+          super
+        end
+
         def interpret match, _content
           @options_json = match[1]
           @stub_hash = JSON.parse(@options_json).symbolize_keys

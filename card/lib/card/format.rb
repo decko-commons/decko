@@ -118,7 +118,7 @@ class Card
       self.class.tagged view, tag
     end
 
-    def content_type
+    def mime_type
       "text/text"
     end
 
