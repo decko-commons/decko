@@ -33,6 +33,10 @@ class Card
           @stub_hash[:mode] = @stub_hash[:mode].to_sym
         end
 
+        def interpret_override
+          @stub_hash[:override] = @stub_hash[:override] == "true"
+        end
+
         def process_chunk
           @processed = yield @stub_hash
         end

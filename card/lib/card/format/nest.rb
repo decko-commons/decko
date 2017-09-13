@@ -15,11 +15,11 @@ class Card
         nest nest_name, opts
       end
 
-      def nest cardish, options={}, &block
+      def nest cardish, options={}, override=true, &block
         return "" if nest_invisible?
         nested_card = fetch_nested_card cardish, options
         view, options = interpret_nest_options nested_card, options
-        nest_render nested_card, view, options, &block
+        nest_render nested_card, view, options, override, &block
       end
 
       def interpret_nest_options nested_card, options
@@ -42,9 +42,9 @@ class Card
         :name
       end
 
-      def nest_render nested_card, view, options
+      def nest_render nested_card, view, options, override
         subformat = nest_subformat nested_card, options, view
-        view = subformat.modal_nest_view view
+        view = subformat.modal_nest_view view if override
         rendered = count_chars { subformat.optional_render view, options }
         block_given? ? yield(rendered, view) : rendered
       end
