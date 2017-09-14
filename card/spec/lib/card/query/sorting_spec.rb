@@ -25,7 +25,7 @@ describe Card::Query, "sorting" do
 
   it "plays nice with match" do
     @query = { match: "Z", type: "Basic", sort: "content" }
-    is_expected.to eq(%w(A B Z))
+    is_expected.to eq(%w(A B Z A+B+Y+Z))
   end
 
   it "sorts by plus card content" do

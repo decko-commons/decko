@@ -138,7 +138,7 @@ event :prepare_referer_update, :validate, on: :update, changed: :name do
 end
 
 # when name changes, update references to card
-event :refresh_references_in, :finalize, on: :save, changed: :name do
+event :refresh_references_in, :finalize, on: :save, after: :name_update_finished do
   Card::Reference.unmap_referees id if @action == :update && !update_referers
   Card::Reference.map_referees key, id
 end
@@ -156,7 +156,7 @@ end
 
 # on rename, update names in cards that refer to self by name (as directed)
 event :update_referer_content, :finalize,
-      on: :update, changed: :name,
+      on: :update, after: :name_update_finished,
       when: proc { |card| card.update_referers } do
   # FIXME: break into correct stages
   Auth.as_bot do
@@ -174,7 +174,7 @@ end
 # eg.  A links to X+Y.  if X+Y is renamed and we're not updating the link in A,
 # then we need to be sure that A has a partial reference
 event :update_referer_references_out, :finalize,
-      on: :update, changed: :name,
+      on: :update, after: :name_update_finished,
       when: proc { |c| !c.update_referers } do
   family_referers.map(&:update_references_out)
 end

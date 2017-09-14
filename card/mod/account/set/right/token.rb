@@ -5,15 +5,15 @@ DURATIONS = "second|minute|hour|day|week|month|year".freeze
 card_accessor :expiration
 
 view :raw do
-  "Private data"
+  tr :private_data
 end
 
 def validate! token
   error =
     case
-    when !real?           then [:token_not_found, "no token found"]
-    when expired?         then [:token_expired, "expired token"]
-    when content != token then [:incorrect_token, "token mismatch"]
+    when !real?           then [:token_not_found, tr(:error_token_not_found)]
+    when expired?         then [:token_expired, tr(:error_token_expired)]
+    when content != token then [:incorrect_token, tr(:error_token_mismatch)]
     end
   errors.add *error if error
 end
@@ -46,6 +46,6 @@ def term_from_string string
   re_match = /^(\d+)[\.\s]*(#{DURATIONS})s?$/.match(string)
   number, unit = re_match.captures if re_match
 
-  raise Card::Error::Oops, "illegal expiration value (eg '2 days')" unless unit
+  raise Card::Error::Oops, tr(:exception_bad_expiration, example: '2 days') unless unit
   number.to_i.send unit
 end

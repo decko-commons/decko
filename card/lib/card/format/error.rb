@@ -9,16 +9,20 @@ class Card
       end
 
       def debug_error e
-        debug = Card[:debugger]
-        raise e if debug && debug.content == "on"
+        raise e if Card[:debugger]&.content == "on"
       end
 
       def error_cardname
-        card && card.name.present? ? card.name : "unknown card"
+        if card&.name.present?
+          card.name
+        else
+          I18n.t :no_cardname, scope: [:lib, :card, :format, :error]
+        end
       end
 
       def rendering_error _exception, view
-        "Error rendering: #{error_cardname} (#{view} view)"
+        I18n.t :error_rendering, scope: [:lib, :card, :format, :error],
+               cardname: error_cardname, view: view
       end
     end
   end

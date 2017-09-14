@@ -67,9 +67,11 @@ describe Card::Set::Type::List do
 
     context "when the name of Stam Broker changed to Stam Trader" do
       before do
+        Card::Auth.as_bot do
         Card["Stam Broker"].update_attributes!(
           name: "Stam Trader", update_referers: true
         )
+        end
       end
       it { is_expected.to eq ["Darles Chickens", "Stam Trader"] }
     end
