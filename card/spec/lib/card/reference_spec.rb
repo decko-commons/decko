@@ -89,9 +89,9 @@ describe Card::Reference do
   end
 
   it "does not update references when not requested" do
-    watermelon = create! "watermelon", "mmmm"
-    watermelon_seeds = create! "watermelon+seeds", "black"
-    lew = create!("Lew", "likes [[watermelon]] and [[watermelon+seeds|seeds]]")
+    watermelon = create "watermelon", "mmmm"
+    watermelon_seeds = create "watermelon+seeds", "black"
+    lew = create("Lew", "likes [[watermelon]] and [[watermelon+seeds|seeds]]")
 
     assert_equal [watermelon.id, watermelon_seeds.id],
                  lew.references_out.order(:id).map(&:referee_id),
@@ -106,7 +106,7 @@ describe Card::Reference do
     expect(lew.reload.content).to eq(correct_content)
 
     ref_types = lew.references_out.order(:id).map(&:ref_type)
-    assert_equal ref_types, %w(L L P), "need partial references!"
+    expect(ref_types).to eq(%w(L L P)), "need partial references!"
     actual_referee_ids = lew.references_out.order(:id).map(&:referee_id)
     assert_equal actual_referee_ids, [nil, nil, Card.fetch_id("seed")],
                  'only partial reference to "seeds" should have referee_id'

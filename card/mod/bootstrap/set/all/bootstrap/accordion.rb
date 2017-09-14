@@ -12,7 +12,7 @@ format :html do
         index += 1
       end
     end
-    add_class args, "act-accordion-group"
+    add_class args, "act-accordion-group w-100"
     wrap_with :div, class: args[:class], id: "accordion-#{collapse_id}",
                     role: "tablist", "aria-multiselectable" => "true" do
       accordions

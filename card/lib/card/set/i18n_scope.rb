@@ -9,18 +9,23 @@ class Card
 
       # extract the mod name from the path of a set's tmp file
       def mod_name backtrace
-        set_path_parts(backtrace).first
+        parts = path_parts backtrace
+        parts[path_mod_index(parts)]
       end
 
       private
 
+      def path_parts backtrace
+        find_set_path(backtrace).split(File::SEPARATOR)
+      end
+
       # extract mod and set from real path
       # @example
-      #   a tmp paths looks like ~/mydeck/mod/core/set/all/event.rb/
+      #   if the path looks like ~/mydeck/mod/core/set/all/event.rb/
       #   this method returns ["core", "all", "event"]
       def set_path_parts backtrace
-        path_parts = find_set_path(backtrace).split(File::SEPARATOR)
-        res = path_parts[path_mod_index(path_parts)..-1]
+        parts = path_parts backtrace
+        res = parts[path_mod_index(parts)..-1]
         res.delete_at 1
         res[-1] = res.last.split(".").first
         res
@@ -28,7 +33,7 @@ class Card
 
       # extract mod and set from tmp path
       # @example
-      #   a tmp paths looks like ~/mydeck/tmp/set/mod002-core/all/event.rb/
+      #   a tmp path looks like ~/mydeck/tmp/set/mod002-core/all/event.rb/
       #   this method returns ["core", "all", "event"]
       def tmp_set_path_parts backtrace
         path_parts = find_tmp_set_path(backtrace).split(File::SEPARATOR)

@@ -30,8 +30,8 @@ end
 def last_change_on field, opts={}
   action_id = extract_action_id(opts[:before] || opts[:not_after])
 
-  # If thers is only one action then there are no entries in the changes table,
-  # so we can't do as sql search but the changes are accessible via the action.
+  # If there is only one action then there are no entries in the changes table,
+  # so we can't do a sql search but the changes are accessible via the action.
   if action_id == create_action.id
     return if opts[:before] # there is no before the first action
     create_action.change field
@@ -168,7 +168,7 @@ def draft_acts
   drafts.created_by(Card::Auth.current_id).map(&:act)
 end
 
-event :detect_conflict, :validate, on: :update, when: proc { |c| c.edit_conflict? } do
+event :detect_conflict, :validate, on: :update, when: :edit_conflict? do
   errors.add :conflict, "changes not based on latest revision"
 end
 

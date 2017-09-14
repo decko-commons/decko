@@ -84,7 +84,7 @@ end
 
 event :validate_accountability, :prepare_to_validate, on: :create do
   unless left && left.accountable?
-    errors.add :content, "not allowed on this card"
+    errors.add :content, tr(:error_not_allowed)
   end
 end
 
@@ -131,8 +131,7 @@ def reset_password_try_again
   send_reset_password_token
   { id: "_self",
     view: "message",
-    message: "Sorry, #{errors.first.last}. " \
-             "Please check your email for a new password reset link." }
+    message: tr(:sorry_email_reset, error_msg: errors.first.last) }
 end
 
 def edit_password_success_args; end

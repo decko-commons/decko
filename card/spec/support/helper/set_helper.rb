@@ -7,7 +7,7 @@ class Card
       # @return format object
       # @example add a view to a card's html format
       # format =
-      #   Card["A"].attach_to_format(:html) do
+      #   Card["A"].format_with(:html) do
       #     view :my_test_view do
       #       card.name
       #     end

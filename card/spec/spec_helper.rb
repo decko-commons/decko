@@ -5,9 +5,6 @@ CardSpecLoader.init
 
 require "rr"
 
-# used for SharedData::Users - required here so code won't show up in coverage
-require File.expand_path("../../db/seed/test/seed.rb", __FILE__)
-
 CardSpecLoader.prefork do
   FIXTURES_PATH = File.expand_path("../../db/seed/test/fixtures", __FILE__)
 
@@ -45,3 +42,4 @@ class ActiveSupport::Logger
     end
   end
 end
+

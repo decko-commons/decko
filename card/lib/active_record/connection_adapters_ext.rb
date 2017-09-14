@@ -3,7 +3,7 @@ module ActiveRecord
   module ConnectionAdapters
     class AbstractAdapter
       def match _string
-        raise "match not implemented"
+        raise I18n.t(:exception_not_implemented, scope: "lib.card.active_record_ext")
       end
 
       def cast_types

@@ -54,7 +54,7 @@ end
 include PermissionSpecHelper
 
 describe Card::Set::All::Permissions do
-  # FIXME: lots of good tests here, butmysql generally disorganized.
+  # FIXME: lots of good tests here, but generally disorganized.
 
   describe "reader rules" do
     before do

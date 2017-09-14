@@ -14,7 +14,7 @@ view :editor do
 end
 
 view :raw do
-  "<em>encrypted</em>"
+  "<em>#{tr :encrypted}</em>"
 end
 
 event :encrypt_password, :store,
@@ -34,7 +34,7 @@ end
 event :validate_password, :validate,
       on: :save do
   unless content.length > 3
-    errors.add :password, "must be at least 4 characters"
+    errors.add :password, tr(:password_length)
   end
 end
 

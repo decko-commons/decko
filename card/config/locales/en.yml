@@ -29,16 +29,26 @@ en:
       card_dayofwk_min_tz: '%A, %B %d, %Y %I:%M %p %Z'
       card_date_seconds: '%B %e, %Y %H:%M:%S'
       card_date_only: '%B %e, %Y'
+
+  sign_in: Sign in
+  sign_up: Sign up
+  sign_out: Sign out
+  invite: Invite
+  submit: Submit
+  cancel: Cancel
+  close: Close
+  delete: Delete
+
   lib:
     card:
       active_record_ext:
         exception_not_implemented: "%{func} not implemented"
       codename:
-        exception_missing_codename: Missing %{codename} %{code} (%{const})
-      exceptions:
+        exception_missing_codename: Missing codename %{code} (%{const})
+      error:
         exception_for_card: "for card %{cardname}: %{message}"
       format:
-        render:
+        error:
           exception_bad_arg: "bad %{category} argument: %{arg}"
           exception_bad_args: "bad %{category} arguments: %{args}"
           no_cardname: unknown card
