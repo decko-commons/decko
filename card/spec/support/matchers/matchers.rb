@@ -45,7 +45,6 @@ RSpec::Matchers.define :increase_card_count do
 
   match do |card_creation|
     count = Card.count
-    #binding.pry
     card_creation.call
     if @diff
       values_match?(count + @diff, Card.count)

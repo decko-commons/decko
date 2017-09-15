@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-  cattr_accessor :count
+  # cattr_accessor :count
 
   class Set::Type
     module CardtypeA
@@ -23,34 +23,34 @@ class Card
       end
     end
 
-    module CardtypeE
-      def self.included _base
-        Card.count = 2
-      end
-
-      def on_type_change
-        decrement_count
-      end
-
-      def decrement_count
-        Card.count -= 1
-      end
-    end
-
-    module CardtypeF
-      def self.included _base
-        Card.count = 2
-      end
-
-      # FIXME: create_extension doesn't exist anymore, need another hook
-      def create_extension
-        increment_count
-      end
-
-      def increment_count
-        Card.count += 1
-      end
-    end
+    # module CardtypeE
+    #   def self.included _base
+    #     Card.count = 2
+    #   end
+    #
+    #   def on_type_change
+    #     decrement_count
+    #   end
+    #
+    #   def decrement_count
+    #     Card.count -= 1
+    #   end
+    # end
+    #
+    # module CardtypeF
+    #   def self.included _base
+    #     Card.count = 2
+    #   end
+    #
+    #   # FIXME: create_extension doesn't exist anymore, need another hook
+    #   def create_extension
+    #     increment_count
+    #   end
+    #
+    #   def increment_count
+    #     Card.count += 1
+    #   end
+    # end
   end
 end
 
