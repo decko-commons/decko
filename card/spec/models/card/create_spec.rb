@@ -1,19 +1,16 @@
 # -*- encoding : utf-8 -*-
 
-# FIXME: this shouldn't be here
-describe Card::Set::Type::Cardtype, ".create with :codename" do
-  it "works" do
-    card = Card.create! name: "Foo Type", codename: "foo",
-                        type: "Cardtype"
-    expect(card.type_code).to eq(:cardtype)
-  end
-end
-
 describe Card, "created by Card.new" do
   before(:each) do
     Card::Auth.as_bot do
       @c = Card.new name: "New Card", content: "Great Content"
     end
+  end
+
+  it "does not create a new card until saved" do
+    expect do
+      Card.new(name: "foo", type: "Cardtype")
+    end.not_to increase_card_count
   end
 
   it "does not override explicit content with default content", as_bot: true do
@@ -95,5 +92,28 @@ describe Card, "create junction three parts" do
   end
 end
 
-describe Card, "types" do
+
+describe Card, "Joe User" do
+  before do
+    Card::Auth.as_bot do
+      @r3 = Card["r3"]
+      Card.create name: "Cardtype F+*type+*create", type: "Pointer", content: "[[r3]]"
+    end
+
+    @ucard = Card::Auth.current
+    @type_names = Card::Auth.createable_types
+  end
+
+  it "does not have r3 permissions" do
+    expect(@ucard.fetch(new: {}, trait: :roles).item_names.member?(@r3.name)).to be_falsey
+  end
+  it "ponders creating a card of Cardtype F, but find that he lacks create permissions" do
+    expect(Card.new(type: "Cardtype F").ok?(:create)).to be_falsey
+  end
+  it "does not find Cardtype F on its list of createable cardtypes" do
+    expect(@type_names.member?("Cardtype F")).to be_falsey
+  end
+  it "finds Basic on its list of createable cardtypes" do
+    expect(@type_names.member?("Basic")).to be_truthy
+  end
 end

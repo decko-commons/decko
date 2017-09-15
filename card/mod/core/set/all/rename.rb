@@ -16,7 +16,7 @@ def suspend_name name
 end
 
 event :cascade_name_changes, :finalize, on: :update, changed: :name,
-                                        before: :name_update_finished do
+                                        before: :name_change_finalized do
   des = descendants
   @descendants = nil # reset
 

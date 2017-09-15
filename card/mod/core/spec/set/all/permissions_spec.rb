@@ -56,171 +56,6 @@ include PermissionSpecHelper
 describe Card::Set::All::Permissions do
   # FIXME: lots of good tests here, but generally disorganized.
 
-  describe "reader rules" do
-    before do
-      @perm_card = Card.new name: "Home+*self+*read", type: "Pointer",
-                            content: "[[Anyone Signed In]]"
-    end
-
-    it "is *all+*read by default" do
-      card = Card.fetch("Home")
-      expect(card.read_rule_id).to eq(Card.fetch("*all+*read").id)
-      expect(card.who_can(:read)).to eq([Card::AnyoneID])
-      Card::Auth.as(:anonymous) { expect(card.ok?(:read)).to be_truthy }
-    end
-
-    it "updates to role ('Anyone Signed In')" do
-      name = @perm_card.name
-      Card::Auth.as_bot { @perm_card.save! }
-      pc = Card[name]
-      card = Card["Home"]
-      # warn "card #{name}, #{card.inspect}, #{pc.inspect}"
-      expect(pc).to be
-      expect(card.read_rule_id).to eq(pc.id)
-      expect(card.who_can(:read)).to eq([Card::AnyoneSignedInID])
-      Card::Auth.as(:anonymous) { expect(card.ok?(:read)).to be_falsey }
-    end
-
-    it "updates to user ('Joe Admin')" do
-      @perm_card.content = "[[Joe Admin]]"
-      Card::Auth.as_bot { @perm_card.save! }
-
-      card = Card.fetch("Home")
-      expect(card.read_rule_id).to eq(@perm_card.id)
-      expect(card.who_can(:read)).to eq([Card["joe_admin"].id])
-      Card::Auth.as(:anonymous) { expect(card.ok?(:read)).to be_falsey }
-      Card::Auth.as("joe_user")  { expect(card.ok?(:read)).to be_falsey }
-      Card::Auth.as("joe_admin") { expect(card.ok?(:read)).to be_truthy  }
-      Card::Auth.as_bot         { expect(card.ok?(:read)).to be_truthy  }
-    end
-
-    context "when more specific (self) rule is deleted" do
-      it "reverts to more general rule"  do
-        Card::Auth.as_bot do
-          @perm_card.save!
-          @perm_card.delete!
-        end
-        card = Card.fetch("Home")
-        expect(card.read_rule_id).to eq(Card.fetch("*all+*read").id)
-      end
-    end
-
-    context "when more specific (right) rule is deleted" do
-      it "reverts to more general rule" do
-        pc = nil
-        Card::Auth.as_bot do
-          pc = Card.create name: "B+*right+*read", type: "Pointer",
-                           content: "[[Anyone Signed In]]"
-        end
-        expect(pc).to be
-        card = Card.fetch("A+B")
-        expect(card.read_rule_id).to eq(pc.id)
-        # important to re-fetch to catch issues
-        # with detecting change in trash status.
-        pc = Card.fetch(pc.name)
-        Card::Auth.as_bot { pc.delete }
-        card = Card.fetch("A+B")
-        expect(card.read_rule_id).to eq(Card.fetch("*all+*read").id)
-      end
-    end
-
-    context "when more specific rule is renamed" do
-      it "reverts to more general rule" do
-        Card::Auth.as_bot do
-          @perm_card.save!
-          @perm_card = Card[@perm_card.name]
-          @perm_card.name = "Something else+*self+*read"
-          @perm_card.save!
-        end
-
-        card = Card.fetch("Home")
-        expect(card.read_rule_id).to eq(Card.fetch("*all+*read").id)
-      end
-    end
-
-    it "gets not overruled by a more general rule added later" do
-      Card::Auth.as_bot do
-        @perm_card.save!
-        c = Card.fetch("Home")
-        c.type_id = Card::PhraseID
-        c.save!
-        Card.create name: "Phrase+*type+*read", type: "Pointer",
-                    content: "[[Joe User]]"
-      end
-
-      card = Card.fetch("Home")
-      expect(card.read_rule_id).to eq(@perm_card.id)
-    end
-
-    it "gets updated when trunk type change makes " \
-       "type-plus-right apply / unapply" do
-      @perm_card.name = "Phrase+B+*type plus right+*read"
-      Card::Auth.as_bot { @perm_card.save! }
-      expect(Card.fetch("A+B").read_rule_id).to eq(Card.fetch("*all+*read").id)
-      c = Card.fetch("A")
-      c.type_id = Card::PhraseID
-      c.save!
-      expect(Card.fetch("A+B").read_rule_id).to eq(@perm_card.id)
-    end
-
-    it "works with relative settings" do
-      Card::Auth.as_bot do
-        @perm_card.save!
-        all_plus = Card.fetch "*all plus+*read", new: { content: "_left" }
-        all_plus.save
-      end
-      c = Card.new(name: "Home+Heart")
-      expect(c.who_can(:read)).to eq([Card::AnyoneSignedInID])
-      expect(c.permission_rule_id(:read)).to eq(@perm_card.id)
-      c.save
-      expect(c.read_rule_id).to eq(@perm_card.id)
-    end
-
-    it "gets updated when relative settings change" do
-      Card::Auth.as_bot do
-        all_plus = Card.fetch "*all plus+*read", new: { content: "_left" }
-        all_plus.save
-      end
-      c = Card.new(name: "Home+Heart")
-      expect(c.who_can(:read)).to eq([Card::AnyoneID])
-      expect(c.permission_rule_id(:read)).to(
-        eq(Card.fetch("*all+*read").id)
-      )
-      c.save
-      expect(c.read_rule_id).to eq(Card.fetch("*all+*read").id)
-      Card::Auth.as_bot { @perm_card.save! }
-      c2 = Card.fetch("Home+Heart")
-      expect(c2.who_can(:read)).to eq([Card::AnyoneSignedInID])
-      expect(c2.read_rule_id).to eq(@perm_card.id)
-      expect(Card.fetch("Home+Heart").read_rule_id).to(
-        eq(@perm_card.id)
-      )
-      Card::Auth.as_bot { @perm_card.delete }
-      expect(Card.fetch("Home").read_rule_id).to eq(Card.fetch("*all+*read").id)
-      expect(Card.fetch("Home+Heart").read_rule_id).to(
-        eq(Card.fetch("*all+*read").id)
-      )
-    end
-
-    it "insures that class overrides work with relative settings" do
-      Card::Auth.as_bot do
-        all_plus = Card.fetch "*all plus+*read", new: { content: "_left" }
-        all_plus.save
-        Card::Auth.as_bot { @perm_card.save! }
-        c = Card.create(name: "Home+Heart")
-        expect(c.read_rule_id).to eq(@perm_card.id)
-        r = Card.create name: "Heart+*right+*read", type: "Pointer",
-                        content: "[[Administrator]]"
-        expect(Card.fetch("Home+Heart").read_rule_id).to eq(r.id)
-      end
-    end
-
-    it "works on virtual+virtual cards" do
-      c = Card.fetch("Number+*type+by name")
-      expect(c.ok?(:read)).to be_truthy
-    end
-  end
-
   context "??" do
     before do
       Card::Auth.as_bot do
@@ -527,10 +362,28 @@ describe Card::Set::All::Permissions do
         .to eq(rule_id)
     end
   end
+
+
+  describe "cardtypes and permissions" do
+    specify "cardtype b has create role r1" do
+      expect(Card["Cardtype B+*type+*create"]).to have_content("[[r1]]")
+                                                    .and have_type :pointer
+    end
+
+    example "changing cardtype needs new cardtype's create permission", with: "Joe User" do
+      c = Card["basicname"]
+      c.update_attributes type: "cardtype_b"
+
+      expect(c.errors[:permission_denied])
+        .to include(/You don't have permission to change to this type/)
+      expect(Card["basicname"]).to have_type :basic
+    end
+
+    # example "changing cardtype needs new cardtype's create permission", with: "u1" do
+    #   update! "basicname", type: "cardtype_b"
+    #   expect { update! "basicname", content: "new content" }
+    #     .to raise_error(/You don't have permission to change to this type/)
+    # end
+  end
 end
 
-# FIXME-perm
-
-# need test for
-# changing cardtypes gives you correct permissions
-# (changing cardtype in general...)

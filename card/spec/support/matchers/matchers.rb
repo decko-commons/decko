@@ -13,6 +13,12 @@ RSpec::Matchers.define :have_name do |name|
   end
 end
 
+RSpec::Matchers.define :have_codename do |codename|
+  match do |card|
+    values_match?(codename, card.codename)
+  end
+end
+
 RSpec::Matchers.define :have_content do |content|
   match do |card|
     values_match?(content, card.content)
