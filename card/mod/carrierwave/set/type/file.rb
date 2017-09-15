@@ -34,7 +34,7 @@ format do
     source = source_url
     source ? yield(source) : ""
   rescue
-    "File Error"
+    tr :file_error
   end
 end
 
@@ -78,7 +78,7 @@ end
 format :html do
   view :core do |_args|
     handle_source do |source|
-      "<a href=\"#{source}\">Download #{showname voo.title}</a>"
+      "<a href=\"#{source}\">#{tr :download, title: showname(voo.title)}</a>"
     end
   end
 
@@ -126,7 +126,7 @@ format :html do
                 <button class="btn btn-danger delete cancel-upload"
                         data-type="DELETE">
                   <i class="glyphicon glyphicon-trash"></i>
-                  <span>Delete</span>
+                  <span>#{tr(:delete)}</span>
                 </button>
               </td>
             </tr>
