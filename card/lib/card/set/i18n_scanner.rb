@@ -10,7 +10,7 @@ class Card
       def scan_file(path)
         text = read_file(path)
 
-        text.scan(/\btr[( ]\s*["':](\w+)/).map do |_match|
+        text.scan(/[^\w._-]tr[( ]\s*["':](\w+)/).map do |_match|
           occurrence = occurrence_from_position(
               path, text, Regexp.last_match.offset(0).first)
           [absolute_key(".#{_match[0]}", path), occurrence]

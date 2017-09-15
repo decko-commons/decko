@@ -7,7 +7,7 @@ format :html do
   end
 
   view :new do
-    voo.title = invitation? ? I18n.t(:invite) : I18n.t(:sign_up)
+    voo.title = invitation? ? tr(:invite) : tr(:sign_up)
     super()
   end
 

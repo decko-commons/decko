@@ -13,7 +13,7 @@ def validate! token
     case
     when !real?           then [:token_not_found, tr(:error_token_not_found)]
     when expired?         then [:token_expired, tr(:error_token_expired)]
-    when content != token then [:incorrect_token, tr(:error_token_mismatch)]
+    when content != token then [:incorrect_token, tr(:error_incorrect_token)]
     end
   errors.add *error if error
 end

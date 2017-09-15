@@ -60,9 +60,9 @@ class Card
         elsif (hardcoded_layout = LAYOUTS[name])
           hardcoded_layout
         else
-          content_tag(:h1, I18n.t(:unknown_layout, scope: "mode.core.format.html_format",
+          content_tag(:h1, I18n.t(:unknown_layout, scope: "mod.core.format.html_format",
                                                    name: name)) +
-            I18n.t(:built_in, scope: "mode.core.format.html_format",
+            I18n.t(:built_in, scope: "mod.core.format.html_format",
                               build_in_layouts: LAYOUTS.keys.join(', '))
         end
       end
