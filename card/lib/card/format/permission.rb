@@ -38,7 +38,7 @@ class Card
 
       def subformats_nested_too_deeply?
         # prevent recursion
-        @depth >= Card.config.max_depth
+        depth >= Card.config.max_depth
       end
 
       def view_always_permitted? view

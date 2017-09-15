@@ -5,8 +5,14 @@ class Card
     class CsvFormat < TextFormat
       register :csv
 
-      def content_type
+      def mime_type
         "text/comma-separated-values"
+      end
+
+      def view_caching?
+        # TODO: make view caching handle non-strings
+        # (specifically stub_render)
+        false
       end
     end
   end

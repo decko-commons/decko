@@ -1,17 +1,6 @@
 class Cardname
   module Contextual
     RELATIVE_REGEXP = /\b_(left|right|whole|self|user|main|\d+|L*R?)\b/
-    EXTREMES = [:start, :end]
-    #
-    # @param context_name [String]
-    # @returns Cardname
-    def relative_name context_name
-      to_show(*context_name.to_name.parts).to_name
-    end
-
-    def absolute_name context_name
-      to_absolute_name(context_name)
-    end
 
     # @return true if name is left or right of context
     def child_of? context
@@ -21,12 +10,11 @@ class Cardname
     end
 
     def relative?
-      starts_with_joint? || s =~ RELATIVE_REGEXP
+      starts_with_joint? || (s =~ RELATIVE_REGEXP).present?
     end
 
     def simple_relative?
-      #relative? &&
-      stripped.to_name.starts_with_joint?
+      starts_with_joint? && (s =~ RELATIVE_REGEXP).nil?
     end
 
     def absolute?
@@ -38,38 +26,52 @@ class Cardname
     end
 
     def starts_with_joint?
-      length >= 2 && parts.first.empty?
+      junction? && parts.first.empty?
     end
 
-    def to_show *ignore
-      ignore.map!(&:to_name)
+    def from *from
+      name_from(*from).s
+    end
 
-      show_parts = parts.map do |part|
-        reject = (part.empty? || (part =~ /^_/) || ignore.member?(part.to_name))
-        reject ? nil : part
-      end
+    # if possible, relativize name into one beginning with a "+".  To do so, it must absolutize back to the correct
+    # original name in the context of "from"
+    def name_from *from
+      remaining = parts_excluding *from
+      return self unless context_relevant?(remaining)
+      compressed = remaining.compact.unshift(nil).to_name  # exactly one nil at beginning
+      key == compressed.absolute_name(from).key ? compressed : self
+    end
 
-      show_name = show_parts.compact.to_name.s
+    def context_relevant? remaining
+      remaining.compact.any? && # not all name parts in context
+        remaining != parts      # some name parts in context (could be faster test!)
+    end
 
-      case
-      when show_parts.compact.empty? then  self
-      when show_parts[0].nil?        then  self.class.joint + show_name
-      else show_name
+    def parts_excluding *string
+      exclude_name = string.to_name
+      exclude_keys = exclude_name ? exclude_name.part_names.map(&:key) : []
+      parts_minus exclude_keys
+    end
+
+    def parts_minus keys_to_ignore
+      parts.map do |part|
+        next if part.empty?
+        next if part =~ /^_/ # this removes relative parts.  why?
+        next if keys_to_ignore.member? part.to_name.key
+        part
       end
     end
 
-    def to_absolute context, args={}
-      context = context.to_name
-
+    def absolute context, args={}
+      context = (context || "").to_name
       new_parts = absolutize_contextual_parts context
       return "" if new_parts.empty?
-      absolutize_extremes new_parts, context
-
+      absolutize_extremes new_parts, context.s
       new_parts.join self.class.joint
     end
 
-    def to_absolute_name *args
-      self.class.new to_absolute(*args)
+    def absolute_name *args
+      absolute(*args).to_name
     end
 
     def nth_left n
@@ -113,11 +115,11 @@ class Cardname
 
     def absolutize_extremes new_parts, context
       [0, -1].each do |i|
-        next unless new_parts[i].empty?
+        next if new_parts[i].present?
         # following avoids recontextualizing with relative contexts.
-        # Eg, `+A+B+.to_absolute('+A')` should be +A+B, not +A+A+B.
-        next if new_parts.to_name.send "#{EXTREMES[i]}s_with?", context
-        new_parts[i] = context.to_s
+        # Eg, `+A+B+.absolute('+A')` should be +A+B, not +A+A+B.
+        next if new_parts.to_name.send "#{[ :start, :end ][i]}s_with?", context
+        new_parts[i] = context
       end
     end
 

@@ -53,9 +53,8 @@ format do
   def link_to_card cardish, text=nil, opts={}
     opts[:path] ||= {}
     name = opts[:path][:mark] = Card::Name.cardish cardish
-    text ||= name.to_name.to_show @context_names
     add_known_or_wanted_class opts, name
-    link_to text, opts
+    link_to (text || name), opts
   end
 
   def add_known_or_wanted_class opts, name

@@ -57,11 +57,11 @@ class Card
         show? view
       end
 
-      # test whether main_view is optional
+      # test whether view is optional
       # (@optional is set in normalize_options
+      # @return [true/false]
       def optional?
-        return @optional unless @optional.nil?
-        @optional = detect_if_optional
+        @optional
       end
 
       # translate raw hide, show options (which can be strings, symbols,

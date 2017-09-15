@@ -22,7 +22,7 @@ module Decko
       else
         render body: result.html_safe,
                status: status,
-               content_type: format.content_type
+               content_type: format.mime_type
       end
     end
 

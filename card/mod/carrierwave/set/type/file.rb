@@ -78,7 +78,7 @@ end
 format :html do
   view :core do |_args|
     handle_source do |source|
-      "<a href=\"#{source}\">#{tr :download, title: showname(voo.title)}</a>"
+      "<a href=\"#{source}\">#{tr :download, title: title_in_context(voo.title)}</a>"
     end
   end
 

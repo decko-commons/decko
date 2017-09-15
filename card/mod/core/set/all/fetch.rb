@@ -259,7 +259,8 @@ module ClassMethods
     when Symbol            then require_id_for_codename mark
     when Integer           then mark.to_i
     when Card              then mark.cardname
-    when String, Cardname then normalize_stringy_mark mark, opts
+    when nil               then "".to_name
+    when String, Cardname  then normalize_stringy_mark mark, opts
       # there are some situations where this breaks if we use Card::Name
       # rather than Cardname, which would seem more correct.
       # very hard to reproduce, not captured in a spec :(
@@ -285,7 +286,7 @@ module ClassMethods
 
   def fullname_from_mark name, new_opts={}
     if new_opts && (supercard = new_opts[:supercard])
-      name.to_name.to_absolute_name supercard.name
+      name.to_name.absolute_name supercard.name
     else
       name.to_name
     end

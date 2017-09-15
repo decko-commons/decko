@@ -50,11 +50,11 @@ RSpec.describe Card::Name do
     end
   end
 
-  describe "#to_absolute" do
+  describe "#absolute" do
     it "does session user substitution" do
-      expect("_user".to_name.to_absolute("A")).to eq(Card::Auth.current.name)
+      expect("_user".to_name.absolute("A")).to eq(Card::Auth.current.name)
       Card::Auth.as_bot do
-        expect("_user".to_name.to_absolute("A")).to eq(Card::Auth.current.name)
+        expect("_user".to_name.absolute("A")).to eq(Card::Auth.current.name)
       end
     end
   end

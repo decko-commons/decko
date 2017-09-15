@@ -11,9 +11,9 @@ format do
 
   def search_result_view
     case search_with_params
-    when Exception          then :search_error
-    when Integer            then :search_count
-    when @mode == :template then :raw
+    when Exception              then :search_error
+    when Integer                then :search_count
+    when nest_mode == :template then :raw
     else                         :card_list
     end
   end
@@ -58,7 +58,7 @@ format :html do
   end
 
   view :closed_content, cache: :never do
-    if @depth > max_depth
+    if depth > max_depth
       "..."
     else
       search_params[:limit] = closed_limit

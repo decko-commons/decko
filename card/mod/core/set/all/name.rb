@@ -2,37 +2,38 @@ require "uuid"
 
 module ClassMethods
   def uniquify_name name, rename=:new
-    return name unless Card.exists?(name)
+    return name unless Card.exists? name
+    uniq_name = generate_alternative_name name
+    return uniq_name unless rename == :old
+    rename!(name, uniq_name)
+    name
+  end
+
+  def generate_alternative_name name
     uniq_name = "#{name} 1"
     uniq_name.next! while Card.exists?(uniq_name)
-    if rename == :old
-      # name conflict resolved; original name can be used
-      Card[name].update_attributes! name: uniq_name,
-                                    update_referers: true
-      name
-    else
-      uniq_name
-    end
+    uniq_name
+  end
+
+  def rename! oldname, newname
+    Card[oldname].update_attributes! name: newname, update_referers: true
   end
 end
 
 def name= newname
-  cardname = newname.to_name
-  if @supercard
-    @supercard.subcards.rename key, cardname.key
-    @contextual_name = cardname.to_s
-    relparts = cardname.parts
-    if relparts.size == 2 &&
-       (relparts.first.blank? || relparts.first.to_name.key == @supercard.key)
-      @superleft = @supercard
-    end
-    cardname = cardname.to_absolute_name @supercard.name
-  end
-
+  cardname = superize_name newname.to_name
   newkey = cardname.key
   self.key = newkey if key != newkey
   update_subcard_names cardname
   write_attribute :name, cardname.s
+end
+
+def superize_name cardname
+  return cardname unless @supercard
+  @raw_name = cardname.s
+  @supercard.subcards.rename key, cardname.key
+  @superleft = @supercard if cardname.field_of? @supercard.name
+  cardname.absolute_name @supercard.name
 end
 
 def key= newkey
@@ -88,13 +89,13 @@ def junction?
   cardname.junction?
 end
 
-def contextual_name
-  @contextual_name || name
+def raw_name
+  @raw_name || name
 end
 
 def relative_name context_name=nil
   context_name ||= @supercard.cardname if @supercard
-  cardname.relative_name context_name
+  cardname.name_from context_name
 end
 
 def absolute_name context_name=nil

@@ -40,11 +40,9 @@ class Card
 
       def final_render view, args
         current_view(view) do
-          with_nest_mode view do
-            method = view_method view
-            rendered = method.arity.zero? ? method.call : method.call(args)
-            add_debug_info view, method, rendered
-          end
+          method = view_method view
+          rendered = method.arity.zero? ? method.call : method.call(args)
+          add_debug_info view, method, rendered
         end
       end
 
@@ -65,6 +63,10 @@ class Card
           source_location.second.to_s
       end
 
+      def view_caching?
+        true
+      end
+
       # setting (:alway, :never, :nested) designated in view definition
       def view_cache_setting view
         method = self.class.view_cache_setting_method view
@@ -75,10 +77,9 @@ class Card
       end
 
       def stub_render cached_content
-        return cached_content unless cached_content.is_a? String
         expand_stubs cached_content do |stub_hash|
-          prepare_stub_nest(stub_hash) do |stub_card, mode, options|
-            with_nest_mode(mode) { nest stub_card, options }
+          prepare_stub_nest(stub_hash) do |stub_card, mode, options, override|
+            with_nest_mode(mode) { nest stub_card, options, override }
           end
         end
       end
@@ -89,15 +90,24 @@ class Card
         if stub_card.key.present? && stub_card.key == card.key
           stub_options[:nest_name] ||= "_self"
         end
-        yield stub_card, stub_hash[:mode], stub_options
+        yield stub_card, stub_hash[:mode], stub_options, stub_hash[:override]
       end
 
       def expand_stubs cached_content
+        return cached_content unless cached_content.is_a? String
+
         conto = Card::Content.new cached_content, self, chunk_list: :stub
         conto.process_each_chunk do |stub_hash|
-          yield(stub_hash).to_s
+          yield(stub_hash)
         end
-        conto.to_s
+        if conto.pieces.size == 1
+          # for stubs in json format this converts a single stub back
+          # to it's original type (e.g. a hash)
+          # TODO: method name to_s is misleading
+          conto.pieces.first.to_s
+        else
+          conto.to_s
+        end
       end
 
       def api_render match, opts
@@ -135,6 +145,7 @@ class Card
       ensure
         @current_view = old_view
       end
+
     end
   end
 end

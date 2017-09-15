@@ -64,7 +64,7 @@ format :json do
     h = { name: card.name, type: card.type_name }
     h[:content] = card.content unless card.structure
     h[:codename] = card.codename if card.codename
-    h[:value] = _render_core if @depth < max_depth
+    h[:value] = _render_core if depth < max_depth
     h
   end
 

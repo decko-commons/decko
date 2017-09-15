@@ -24,18 +24,20 @@ class Card
 
       # @return [True/False]
       def field_of? context
+        return false unless junction?
         if context.present?
-          child_of?(context) && relative_name(context).length == 2
-          # junction? &&
-          #  absolute_name(context).left_name.key == context.to_name.key
-          # @child_of?(context_name) && relative_name(context_name).length == 2
+          absolute_name(context).left_name.key == context.to_name.key
         else
           s.match(/^\s*\+[^+]+$/).present?
         end
       end
 
+      def field_only?
+        relative? && stripped.to_name.parts.reject(&:blank?).first == parts.last
+      end
+
       def relative_field_name tag_name
-        field_name(tag_name).relative_name self
+        field_name(tag_name).name_from self
       end
 
       # @return [String]

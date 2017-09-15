@@ -38,8 +38,8 @@ format :html do
     if voo.params
       context = ((@parent && @parent.card) || card).name
       Rack::Utils.parse_nested_query(voo.params).each do |key, value|
-        value = value.to_name.to_absolute(context) if value
-        key = key.to_name.to_absolute(context)
+        value = value.to_name.absolute(context) if value
+        key = key.to_name.absolute(context)
         path_args[key] = value
       end
     end

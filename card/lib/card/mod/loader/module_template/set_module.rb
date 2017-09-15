@@ -49,7 +49,7 @@ class Card
           def preamble
             <<-RUBY.strip_heredoc
               #{"extend Card::Set" unless helper_module?}
-              def source_location; "#{@content_path}"; end
+              def self.source_location; "#{@content_path}"; end
             RUBY
           end
 

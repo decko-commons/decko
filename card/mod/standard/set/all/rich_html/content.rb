@@ -89,7 +89,7 @@ format :html do
   end
 
   view :title_link do |args|
-    title_text = args[:title_ready] || showname(voo.title)
+    title_text = args[:title_ready] || pov_name(voo.title)
     link_to_card card.cardname, title_text
   end
 
@@ -119,12 +119,14 @@ format :html do
   end
 
   view :closed do
-    voo.show :toggle
-    voo.hide! :toolbar
-    class_up "d0-card-body", "closed-content"
-    @content_body = true
-    @toggle_mode = :close
-    frame { _optional_render :closed_content }
+    with_nest_mode :closed do
+      voo.show :toggle
+      voo.hide! :toolbar
+      class_up "d0-card-body", "closed-content"
+      @content_body = true
+      @toggle_mode = :close
+      frame { _optional_render :closed_content }
+    end
   end
 
   view :change do
@@ -184,7 +186,7 @@ format :html do
   def related_card_from_options options
     related_card = options.delete :card
     return related_card if related_card
-    related_name = options.delete(:name).to_name.to_absolute_name card.cardname
+    related_name = options.delete(:name).to_name.absolute_name card.cardname
     Card.fetch related_name, new: {}
   end
 
@@ -225,11 +227,9 @@ format :html do
     )
   end
 
-  private
-
   def fancy_title title=nil
     wrap_with :span, class: classy("card-title") do
-      showname(title).to_name.parts.join fancy_joint
+      title.to_name.parts.join fancy_joint
     end
   end
 
@@ -237,3 +237,4 @@ format :html do
     wrap_with :span, "+", classy("joint")
   end
 end
+

@@ -17,7 +17,7 @@ class Card
       end
 
       def focal? # meaning the current card is the requested card
-        show_layout? ? main? : @depth.zero?
+        show_layout? ? main? : depth.zero?
       end
 
       def first_head?
@@ -73,7 +73,7 @@ class Card
          .gsub(/>/, "&gt;").gsub(/</, "&lt;")
       end
 
-      def content_type
+      def mime_type
         "text/html"
       end
     end

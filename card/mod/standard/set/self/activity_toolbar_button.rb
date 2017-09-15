@@ -1,7 +1,7 @@
 include_set Abstract::ToolbarSplitButton
 
 format :html do
-  view :core do
+  view :core, cache: :never do
     subject.toolbar_split_button "activity", view: :history, icon: :history do
       {
         history: (subject._render_history_link if card.history?),

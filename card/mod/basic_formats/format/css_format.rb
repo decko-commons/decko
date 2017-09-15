@@ -5,9 +5,14 @@ class Card
     class CssFormat < Format
       register :css
 
-      def content_type
+      def mime_type
         "text/css"
       end
+
+      def view_caching?
+        false
+      end
+
     end
   end
 end

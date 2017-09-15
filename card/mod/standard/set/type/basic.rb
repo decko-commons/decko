@@ -5,7 +5,7 @@ format :html do
   end
 
   def table_of_contents content
-    return if @mode == :closed || !content.present?
+    return if nest_mode == :closed || !content.present?
     min = card.rule(:table_of_contents).to_i
     # warn "table_of #{name}, #{min}"
     return unless min && min > 0

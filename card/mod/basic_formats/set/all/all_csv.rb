@@ -6,7 +6,7 @@ format :csv  do
   end
 
   def default_item_view
-    @depth.zero? ? :csv_row : :name
+    depth.zero? ? :csv_row : :name
   end
 
   view :csv_row do
