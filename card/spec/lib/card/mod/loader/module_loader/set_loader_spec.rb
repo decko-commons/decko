@@ -7,7 +7,7 @@ RSpec.describe Card::Mod::Loader::ModuleLoader::SetLoader do
   end
 
   it 'initializes the load strategy with the right module type and module template' do
-    expect(Card::Mod::Loader::ModuleLoader::LoadStrategy::Eval)
+    expect(Card::Mod::LoadStrategy::Eval)
       .to receive(:new).with(
         mod_dirs, :set,
         Card::Mod::Loader::ModuleTemplate::SetModule)

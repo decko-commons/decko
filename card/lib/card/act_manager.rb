@@ -1,3 +1,6 @@
+require_dependency "card/act_manager/stage_director"
+
+
 class Card
   # Manages the whole process of creating an {act Card::Act} ie. changing
   # a card and attached subcards.

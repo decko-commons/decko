@@ -11,21 +11,16 @@ Object.const_remove_if_defined :Card
 # b. how to extend them.
 #
 # It assumes that you've already read the introductory text
-# in {file:README_Developers.rdoc}.
-class Card < ApplicationRecord
-  # attributes that ActiveJob can handle
-  def self.serializable_attr_accessor *args
-    self.serializable_attributes = args
-    attr_accessor(*args)
-  end
+# in {file:README.rdoc}.
 
+class Card < ApplicationRecord
   require_dependency "active_record/connection_adapters_ext"
   require_dependency "card/codename"
   require_dependency "card/query"
   require_dependency "card/format"
   require_dependency "card/error"
   require_dependency "card/auth"
-  require_dependency "card/mod/loader"
+  require_dependency "card/mod"
   require_dependency "card/content"
   require_dependency "card/action"
   require_dependency "card/act"
@@ -34,7 +29,6 @@ class Card < ApplicationRecord
   require_dependency "card/subcards"
   require_dependency "card/view"
   require_dependency "card/act_manager"
-  require_dependency "card/act_manager/stage_director"
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id
@@ -46,6 +40,12 @@ class Card < ApplicationRecord
                  :set_specific_attributes, :current_act
   self.set_patterns = []
   self.error_codes = {}
+
+  # attributes that ActiveJob can handle
+  def self.serializable_attr_accessor *args
+    self.serializable_attributes = args
+    attr_accessor(*args)
+  end
 
   serializable_attr_accessor(
     :action, :supercard, :superleft,

@@ -101,7 +101,7 @@ class CardSpecLoader
     end
 
     def load_shared_examples
-      Card::Mod::Loader.mod_dirs.each "spec/shared_examples" do |shared_ex_dir|
+      Card::Mod.dirs.each "spec/shared_examples" do |shared_ex_dir|
         Dir["#{shared_ex_dir}/**/*.rb"].sort.each { |f| require f }
       end
     end
