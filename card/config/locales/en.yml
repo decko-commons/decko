@@ -30,14 +30,14 @@ en:
       card_date_seconds: '%B %e, %Y %H:%M:%S'
       card_date_only: '%B %e, %Y'
 
-  sign_in: Sign in
-  sign_up: Sign up
-  sign_out: Sign out
-  invite: Invite
-  submit: Submit
-  cancel: Cancel
-  close: Close
-  delete: Delete
+#  sign_in: Sign in
+#  sign_up: Sign up
+#  sign_out: Sign out
+#  invite: Invite
+#  submit: Submit
+#  cancel: Cancel
+#  close: Close
+#  delete: Delete
 
   lib:
     card:
@@ -433,13 +433,6 @@ en:
             cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
             add_card: Add %{cardname}
             error_cant_alter: can't alter this type; %{name} cards still exist
-          file:
-            file_error: File Error
-            download: Download %{title}
-            delete: Delete
-            add_item: Add %{attachment_name}...
-            replace_item: Replace %{attachment_name}...
-            ###### REVIEW PAUSED HERE
           list:
             type_right: must have a cardtype name as right part
             conflict_item_type: name conflicts with list items' type; delete content first
@@ -521,7 +514,7 @@ en:
             cached_card: Cached Card Inspect
             db_card: Database Card Inspect
           status:
-            deny_not_change_own_account: You don't have permission to change the status of your own account
+            deny_not_change_own_account: change the status of your own account
           token:
             private_data: Private data
             error_token_not_found: no token found
@@ -553,6 +546,13 @@ en:
         abstract:
           attachment:
             error_invalid_storage_type: "%{type} is not a valid file storage option"
+        type:
+          file:
+            file_error: File Error
+            download: Download %{title}
+            delete: Delete
+            add_item: Add %{attachment_name}...
+            replace_item: Replace %{attachment_name}...
     :admin:
       set:
         self:

@@ -12,17 +12,14 @@ format :html do
 
   view :type_formgroup do |args|
     if card.cards_of_type_exist?
-      wrap_with :div do
-        "Sorry, this card must remain a Cardtype so long as " \
-        "there are <strong>#{card.name}</strong> cards."
-      end
+      wrap_with :div, tr(:cards_exist, cardname: card.name)
     else
       super args
     end
   end
 
   view :add_link do |args|
-    voo.title ||= "Add #{card.name}"
+    voo.title ||= tr(:add_card, cardname: card.name)
     title = _render_title args
     link_to title, path: _render_add_path(args), class: args[:css_class]
   end
@@ -76,6 +73,6 @@ end
 
 event :check_for_cards_of_type, after: :validate_delete do
   if cards_of_type_exist?
-    errors.add :cardtype, "can't alter this type; #{name} cards still exist"
+    errors.add :cardtype, tr(:error_cant_alter, name: name)
   end
 end

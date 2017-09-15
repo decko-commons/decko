@@ -7,12 +7,12 @@ format :html do
   end
 
   view :new do
-    voo.title = invitation? ? I18n.t(:invite) : I18n.t(:sign_up)
+    voo.title = invitation? ? tr(:invite) : tr(:sign_up)
     super()
   end
 
   def default_name_formgroup_args _args
-    voo.help = "usually first and last name"
+    voo.help = tr :first_last_help
   end
 
   view :content_formgroup do
@@ -42,7 +42,9 @@ format :html do
     end
   end
 
-  view :core do |_args|
+  # TODO: started to move this to haml
+  view :core, template: :haml do |_args|
+    # @tr_header_key = card.creator_id == AnonymousID ? :signed_up_on :
     return if card.new_card? # necessary?
     headings = []
     by_anon = card.creator_id == AnonymousID
@@ -53,7 +55,7 @@ format :html do
     if (account = card.account)
       headings += verification_info account
     else
-      headings << "ERROR: signup card missing account"
+      headings << tr(:missing_account)
     end
     <<-HTML
       <div class="invite-links">
