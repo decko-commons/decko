@@ -125,7 +125,7 @@ format :json do
   end
 
   def essentials
-    return if depth > max_depth
+    return {} if depth > max_depth
     card.item_cards.map do |item|
       nest item, view: :essentials
     end
