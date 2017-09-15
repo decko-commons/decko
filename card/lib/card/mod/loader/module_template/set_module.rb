@@ -33,7 +33,7 @@ class Card
             # One line for the module chain and one line for the source_location method
             # The template changes so rarely that doesn't seem worth it to count
             # it during runtime
-            helper_module? ? -3 : -2
+            helper_module? ? -4 : -5
           end
 
           private
