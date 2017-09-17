@@ -19,6 +19,17 @@ RSpec.describe Card::Set::All::AssignAttributes do
     expect(subcard.content).to eq "subcontent"
   end
 
+  example "change type attribute", as_bot: true do
+    update "A", type_id: Card::CardtypeID
+    expect(Card["A"].type_code).to eq(:cardtype)
+  end
+
+  example "create cardtype with codename" do
+    card = Card.create! name: "Foo Type", codename: "foo",
+                        type: "Cardtype"
+    expect(card).to have_type(:cardtype).and have_codename "foo"
+  end
+
   it "assigns subfields" do
       card = Card.new name: "#name", subfields: { default: { content: "subcontent" } }
       expect(card.subcards.first).to eq "name+*default"

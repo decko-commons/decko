@@ -57,18 +57,21 @@ class CardSpecLoader
         config.before(:each) do |example|
           Delayed::Worker.delay_jobs = false
           unless example.metadata[:as_bot]
-            Card::Auth.current_id =
-              example.metadata[:with_user] || @@joe_user_id
+            user_id =
+              case example.metadata[:with_user]
+              when String
+                Card.fetch_id example.metadata[:with_user]
+              when Card
+                Card.id
+              when Integer
+                example.metadata[:with_user]
+              else
+                @@joe_user_id
+              end
+            Card::Auth.current_id = user_id
           end
           Card::Cache.restore
           Card::Env.reset
-        end
-
-        config.around(:example, :as_bot) do |example|
-          Card::Auth.current_id = @@joe_user_id
-          Card::Auth.as_bot do
-            example.run
-          end
         end
 
         config.around(:example, :as_bot) do |example|

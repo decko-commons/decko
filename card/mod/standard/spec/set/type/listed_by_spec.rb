@@ -152,12 +152,6 @@ describe Card::Set::Type::ListedBy do
 
         it { is_expected.to eq ["50 grades of shy", "Parry Hotter"] }
       end
-      context "when the name of the cardtype authors changed" do
-        before do
-          Card["author"].update_attributes! type_id: Card::BasicID
-        end
-        it { is_expected.to eq ["50 grades of shy", "Parry Hotter"] }
-      end
     end
   end
 end

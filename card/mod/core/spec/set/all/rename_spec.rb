@@ -94,8 +94,8 @@ RSpec.describe Card::Set::All::Rename do
   end
 
   example "reset key" do
-    c = Card["Basic Card"]
-    update "Basic Card", name: "banana card"
+    c = Card["basicname"]
+    update "basicname", name: "banana card"
     expect(c.key).to eq("banana_card")
     expect(Card["Banana Card"]).not_to be_nil
   end

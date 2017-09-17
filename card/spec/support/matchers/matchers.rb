@@ -13,6 +13,12 @@ RSpec::Matchers.define :have_name do |name|
   end
 end
 
+RSpec::Matchers.define :have_codename do |codename|
+  match do |card|
+    values_match?(codename, card.codename)
+  end
+end
+
 RSpec::Matchers.define :have_content do |content|
   match do |card|
     values_match?(content, card.content)
@@ -45,7 +51,6 @@ RSpec::Matchers.define :increase_card_count do
 
   match do |card_creation|
     count = Card.count
-    #binding.pry
     card_creation.call
     if @diff
       values_match?(count + @diff, Card.count)

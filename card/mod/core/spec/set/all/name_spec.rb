@@ -87,4 +87,10 @@ describe Card::Set::All::Name do
       expect(a.key).to eq("a")
     end
   end
+
+  describe "#descendants" do
+    it "finds descendants" do
+      expect(Card["A"].descendants.length).to be > 0
+    end
+  end
 end

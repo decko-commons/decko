@@ -243,7 +243,8 @@ class Card
         return unless method =~ /^create_(?<type>.+)$/
         cardtype_card = Card[Regexp.last_match[:type]] ||
                         Card[Regexp.last_match[:type].to_sym]
-        return unless cardtype_card&.type_id == Card::CardtypeID
+        return unless cardtype_card&.type_id == Card::CardtypeID ||
+                      cardtype_card.id == Card::SetID
         cardtype_card
       end
     end
