@@ -5,40 +5,45 @@
 # a quarter of its current length
 
 describe Card do
+  RSpec::Matchers.define :have_toc do
+    match do |card|
+      values_match?(/Table of Contents/, card.format.render_open_content)
+    end
+  end
+
+  let(:c1) { described_class["Onne Heading"] }
+  let(:c2) { described_class["Twwo Heading"] }
+  let(:c3) { described_class["Three Heading"] }
+  let(:rule_card) { c1.rule_card(:table_of_contents) }
+
   context "when there is a general toc rule of 2" do
     before do
       Card::Auth.as_bot do
         described_class.create! name: "Basic+*type+*table of contents", content: "2"
       end
-      expect(@c1 = described_class["Onne Heading"]).to be
-      expect(@c2 = described_class["Twwo Heading"]).to be
-      expect(@c3 = described_class["Three Heading"]).to be
-      expect(@c1.type_id).to eq(Card::BasicID)
-      expect(@rule_card = @c1.rule_card(:table_of_contents)).to be
+    end
+
+    specify do
+      expect(c1.type_id).to eq(Card::BasicID)
+      expect(rule_card).to be_a Card
     end
 
     describe ".rule" do
       it "has a value of 2" do
-        expect(@rule_card.content).to eq("2")
-        expect(@c1.rule(:table_of_contents)).to eq("2")
+        expect(rule_card.content).to eq("2")
+        expect(c1.rule(:table_of_contents)).to eq("2")
       end
     end
 
     describe "renders with/without toc" do
       it "does not render for 'Onne Heading'" do
-        expect(@c1.format.render_open_content).not_to match(/Table of Contents/)
+        expect(c1).not_to have_toc
       end
       it "renders for 'Twwo Heading'" do
-        expect(@c2.format.render_open_content).to match(/Table of Contents/)
+        expect(c2).to have_toc
       end
       it "renders for 'Three Heading'" do
-        expect(@c3.format.render_open_content).to match(/Table of Contents/)
-      end
-    end
-
-    describe ".rule_card" do
-      it "get the same card without the * and singular" do
-        expect(@c1.rule_card(:table_of_contents)).to eq(@rule_card)
+        expect(c3).to have_toc
       end
     end
 
@@ -81,31 +86,26 @@ describe Card do
 
   context "when I change the general toc setting to 1" do
     before do
-      expect(@c1 = described_class["Onne Heading"]).to be
-      expect(@c2 = described_class["Twwo Heading"]).to be
-      expect(@c1.type_id).to eq(Card::BasicID)
-      expect(@rule_card = @c1.rule_card(:table_of_contents)).to be
-      @rule_card.content = "1"
+      rule_card.content = "1"
     end
 
     describe ".rule" do
       it "has a value of 1" do
-        expect(@rule_card.content).to eq("1")
-        expect(@c1.rule(:table_of_contents)).to eq("1")
+        expect(c1.rule(:table_of_contents)).to eq("1")
       end
     end
 
     describe "renders with/without toc" do
       it "does not render toc for 'Onne Heading'" do
-        expect(@c1.format.render_open_content).to match(/Table of Contents/)
+        expect(c1).to have_toc
       end
       it "renders toc for 'Twwo Heading'" do
-        expect(@c2.format.render_open_content).to match(/Table of Contents/)
+        expect(c2).to have_toc
       end
       it "does not render for 'Twwo Heading' when changed to 3" do
-        @rule_card.content = "3"
-        expect(@c2.rule(:table_of_contents)).to eq("3")
-        expect(@c2.format.render_open_content).not_to match(/Table of Contents/)
+        rule_card.content = "3"
+        expect(c2.rule(:table_of_contents)).to eq("3")
+        expect(c2).not_to have_toc
       end
     end
   end
@@ -138,13 +138,13 @@ describe Card do
 
     describe "renders without toc" do
       it "does not render for 'Onne Heading'" do
-        expect(@c1.format.render_open_content).not_to match(/Table of Contents/)
+        expect(@c1).not_to have_toc
       end
       it "renders for 'Twwo Heading'" do
-        expect(@c2.format.render_open_content).not_to match(/Table of Contents/)
+        expect(@c2).not_to have_toc
       end
       it "renders for 'Three Heading'" do
-        expect(@c3.format.render_open_content).not_to match(/Table of Contents/)
+        expect(@c3).not_to have_toc
       end
     end
 
@@ -199,48 +199,44 @@ describe Card do
 
     describe "renders with/without toc" do
       it "does not render for 'Onne Heading'" do
-        expect(@c1.format.render_open_content).not_to match(/Table of Contents/)
+        expect(@c1).not_to have_toc
       end
       it "renders for 'Twwo Heading'" do
         expect(@c2.rule(:table_of_contents)).to eq("2")
-        expect(@c2.format.render_open_content).to match(/Table of Contents/)
+        expect(@c2).to have_toc
       end
       it "renders for 'Three Heading'" do
-        expect(@c3.format.render_open_content).to match(/Table of Contents/)
+        expect(@c3).to have_toc
       end
     end
   end
-  # end
 
   context "when I change the general toc setting to 1" do
+    let(:c1) { described_class["Onne Heading"] }
+    let(:c2) { described_class["Twwo Heading"] }
+    let(:rule_card) { c1.rule_card(:table_of_contents) }
+
     before do
-      expect(@c1 = described_class["Onne Heading"]).to be
-      # FIXME: CardtypeE should inherit from *default => Basic
-      # @c2 = Card.create name: 'toc2', type: "CardtypeE",
-      #                   content: Card['Twwo Heading'].content
-      expect(@c2 = described_class["Twwo Heading"]).to be
-      expect(@c1.type_id).to eq(Card::BasicID)
-      expect(@rule_card = @c1.rule_card(:table_of_contents)).to be
-      @rule_card.content = "1"
+      rule_card.content = "1"
     end
 
     describe ".rule" do
       it "has a value of 1" do
-        expect(@rule_card.content).to eq("1")
-        expect(@c1.rule(:table_of_contents)).to eq("1")
+        expect(rule_card.content).to eq("1")
+        expect(c1.rule(:table_of_contents)).to eq("1")
       end
     end
 
     describe "renders with/without toc" do
       it "does not render toc for 'Onne Heading'" do
-        expect(@c1.format.render_open_content).to match(/Table of Contents/)
+        expect(c1).to have_toc
       end
       it "renders toc for 'Twwo Heading'" do
-        expect(@c2.format.render_open_content).to match(/Table of Contents/)
+        expect(c2).to have_toc
       end
       it "does not render for 'Twwo Heading' when changed to 3" do
-        @rule_card.content = "3"
-        expect(@c2.format.render_open_content).not_to match(/Table of Contents/)
+        rule_card.content = "3"
+        expect(c2).not_to have_toc
       end
     end
   end
