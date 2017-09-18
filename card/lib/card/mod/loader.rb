@@ -6,16 +6,6 @@ require_relative "loader/module_loader/pattern_loader"
 require_relative "loader/module_loader/set_loader"
 
 class Card
-  class << self
-    def config
-      Cardio.config
-    end
-
-    def paths
-      Cardio.paths
-    end
-  end
-
   module Mod
     # Used to load all part of a mod,
     # i.e. initializers, patterns, formats, chunks, layouts and sets
@@ -29,14 +19,14 @@ class Card
         end
 
         def load_chunks
-          mod_dirs.each(:chunk) do |dir|
+          Mod.dirs.each(:chunk) do |dir|
             load_dir dir
           end
         end
 
         def load_layouts
           hash = {}
-          mod_dirs.each(:layout) do |dirname|
+          Mod.dirs.each(:layout) do |dirname|
             Dir.foreach(dirname) do |filename|
               next if filename =~ /^\./
               layout_name = filename.gsub(/\.html$/, "")
@@ -47,76 +37,35 @@ class Card
         end
 
         def set_loader
-          @set_loader ||= ModuleLoader::SetLoader.new mod_dirs
+          @set_loader ||= ModuleLoader::SetLoader.new Mod.dirs
         end
 
         def pattern_loader
-          @pattern_loader ||= Loader::ModuleLoader::PatternLoader.new mod_dirs
+          @pattern_loader ||= Loader::ModuleLoader::PatternLoader.new Mod.dirs
         end
 
         def mod_dirs
-          @mod_dirs ||= Mod::Dirs.new(Card.paths["mod"].existent)
-        end
-
-        def refresh_script_and_style
-          update_if_source_file_changed Card[:all, :script]
-          update_if_source_file_changed Card[:all, :style]
+          Mod.dirs
         end
 
         private
 
-        # regenerates the machine output if a source file of a input card
-        # has been changed
-        def update_if_source_file_changed machine_card
-          return unless machine_card
-          mtime_output = machine_card.machine_output_card.updated_at
-          return unless mtime_output
-          regenerate = false
-          input_cards_with_source_files(machine_card) do |i_card, files|
-            files.each do |path|
-              next unless File.mtime(path) > mtime_output
-              i_card.expire_machine_cache
-              regenerate = true
-              break
-            end
-          end
-          return unless regenerate
-          machine_card.regenerate_machine_output
-        end
-
-        def input_cards_with_source_files card
-          card.machine_input_card.extended_item_cards.each do |i_card|
-            next unless i_card.codename
-            next unless i_card.respond_to?(:existing_source_paths)
-            yield i_card, i_card.existing_source_paths
-          end
-        end
-
-        def source_files card
-          files = []
-          card.machine_input_card.extended_item_cards.each do |i_card|
-            next unless i_card.codename
-            next unless i_card.respond_to?(:existing_source_paths)
-            files << i_card.existing_source_paths
-          end
-          files.flatten
-        end
-
         def load_initializers
-          Card.config.paths["mod/config/initializers"].existent
-              .sort.each do |initializer|
+          Card.config.paths["mod/config/initializers"].existent.sort.each do |initializer|
             load initializer
           end
         end
 
+        # {Card::Format}
         def load_formats
-          # cheating on load issues now by putting all inherited-from formats in
-          # core mod.
+          # cheating on load issues now by putting all inherited-from formats in core mod.
           mod_dirs.each(:format) do |dir|
             load_dir dir
           end
         end
 
+        # load all files in directory
+        # @param dir [String] directory name
         def load_dir dir
           Dir["#{dir}/*.rb"].sort.each do |file|
             # puts Benchmark.measure("from #load_dir: rd: #{file}") {

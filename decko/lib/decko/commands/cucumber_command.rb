@@ -40,7 +40,7 @@ module Decko
       end
 
       def feature_paths
-        Card::Mod::Loader.mod_dirs.map do |p|
+        Card::Mod.dirs.map do |p|
           Dir.glob "#{p}/features"
         end.flatten
       end
