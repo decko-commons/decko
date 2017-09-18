@@ -5,7 +5,7 @@ class Card
   module Mod
     module Loader
       class ModuleLoader
-        class PatternLoader < Card::Mod::Loader::ModuleLoader
+        class PatternLoader < Loader::ModuleLoader
           @module_type = :set_pattern
           @module_template_class = ModuleTemplate::PatternModule
 
