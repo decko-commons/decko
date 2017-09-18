@@ -1,11 +1,13 @@
 class Card
 
-  def config
-    Cardio.config
-  end
+  class << self
+    def config
+      Cardio.config
+    end
 
-  def paths
-    Cardio.paths
+    def paths
+      Cardio.paths
+    end
   end
 
   module Mod

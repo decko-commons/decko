@@ -26,7 +26,7 @@ class Card
 
         def load_layouts
           hash = {}
-          mod_dirs.each(:layout) do |dirname|
+          Mod.dirs.each(:layout) do |dirname|
             Dir.foreach(dirname) do |filename|
               next if filename =~ /^\./
               layout_name = filename.gsub(/\.html$/, "")
@@ -48,16 +48,15 @@ class Card
           Mod.dirs
         end
 
-
         private
 
         def load_initializers
-          Card.config.paths["mod/config/initializers"].existent
-              .sort.each do |initializer|
+          Card.config.paths["mod/config/initializers"].existent.sort.each do |initializer|
             load initializer
           end
         end
 
+        # {Card::Format}
         def load_formats
           # cheating on load issues now by putting all inherited-from formats in core mod.
           mod_dirs.each(:format) do |dir|
@@ -74,13 +73,6 @@ class Card
             # }.format('%n: %t %r')
           end
         end
-
-        # TODO: move this out of mod handling!
-
-
-
-
-
       end
     end
   end
