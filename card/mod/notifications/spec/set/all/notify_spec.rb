@@ -76,6 +76,7 @@ RSpec.describe Card::Set::All::SendNotifications do
     ).text_part.body.raw_source
   end
 
+
   describe "content of notification email" do
 
 

@@ -127,7 +127,7 @@ describe Card::Set::Type::List do
   context "when the name of the cardtype books changed" do
     before do
       Card["book"].update_attributes!(
-        type_id: Card::BasicID, update_referers: true
+        name: "film", update_referers: true
       )
     end
     it { is_expected.to eq ["Darles Chickens", "Stam Broker"] }
@@ -136,9 +136,12 @@ describe Card::Set::Type::List do
   context "when the name of the cardtype authors changed" do
     before do
       Card["author"].update_attributes!(
-        type_id: Card::BasicID, update_referers: true
+        name: "publisher", update_referers: true
       )
     end
-    it { is_expected.to eq ["Darles Chickens", "Stam Broker"] }
+    specify do
+      expect(Card.fetch("Parry Hotter+publisher").item_names)
+        .to contain_exactly("Darles Chickens", "Stam Broker")
+    end
   end
 end

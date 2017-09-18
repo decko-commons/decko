@@ -23,7 +23,7 @@ Feature: Notifications
     #FIXME these double quotes are ugly
     And I should see |You received this email because you're following "all "Phrases""| in the email body
     When I am signed in as Joe Admin
-    And I follow "Unfollow" in the email
+    And I follow "Unfollow" in the email to "joe@admin.com"
     Then the card Phrase+*type+*followers should not point to "Joe Admin"
 
   Scenario: Watching a Card

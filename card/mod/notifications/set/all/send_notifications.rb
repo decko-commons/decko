@@ -132,7 +132,7 @@ end
 
 
 format do
-  view :list_of_changes, denial: :blank do |args|
+  view :list_of_changes, denial: :blank, cache: :never do |args|
     action = get_action(args)
 
 
@@ -152,7 +152,7 @@ format do
     end
   end
 
-  view :subedits, perms: :none do |args|
+  view :subedits, perms: :none, cache: :never do |args|
     subedits =
       get_act(args).actions_affecting(card).map do |action|
         if action.card_id != card.id
@@ -168,7 +168,7 @@ format do
     end
   end
 
-  view :subedit_notice, denial: :blank do |args|
+  view :subedit_notice, denial: :blank, cache: :never do |args|
     action = get_action(args)
     name_before_action =
       (action.value(:name) && action.previous_value(:name)) || card.name
@@ -205,7 +205,7 @@ format do
     set_card.follow_rule_name voo.closest_live_option(:follower)
   end
 
-  view :unfollow_url, perms: :none, closed: true do |_args|
+  view :unfollow_url, perms: :none, closed: true, cache: :never do |_args|
     if (rule_name = live_follow_rule_name)
       target_name = "#{voo.closest_live_option :follower}+#{Card[:follow].name}"
       update_path = page_path target_name, action: :update,
@@ -265,20 +265,20 @@ format do
 end
 
 format do
-  view :last_action_verb do |args|
+  view :last_action_verb, cache: :never do |args|
     act = get_act(args)
     "#{act.main_action.action_type}d"
   end
 end
 
 format :email_text do
-  view :last_action, perms: :none do |args|
+  view :last_action, perms: :none, cache: :never do |args|
     _render_last_action_verb args
   end
 end
 
 format :email_html do
-  view :last_action, perms: :none do |args|
+  view :last_action, perms: :none, cache: :never do |args|
     _render_last_action_verb args
   end
 
