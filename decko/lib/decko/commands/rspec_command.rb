@@ -13,9 +13,9 @@ module Decko
       end
 
       def command
-        "#{env_args} #{@opts[:executer]} " \
-          " #{@opts[:rescue]} rspec #{@rspec_args.shelljoin} #{@opts[:files]} "\
-          " --exclude-pattern \"./card/vendor/**/*\""
+        "#{env_args} #{@opts[:executer]} #{@opts[:rescue]}" \
+          "rspec #{@rspec_args.shelljoin} #{@opts[:files]} "\
+          "--exclude-pattern \"./card/vendor/**/*\""
       end
 
       private
