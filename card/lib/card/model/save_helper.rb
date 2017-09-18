@@ -231,7 +231,7 @@ class Card
 
 
       def method_missing method, *args
-        super unless (cardtype_card = extract_cardtype_from_method_name method)
+        return super unless (cardtype_card = extract_cardtype_from_method_name method)
         Card.create! create_args(*args).merge(type_id: cardtype_card.id)
       end
 
