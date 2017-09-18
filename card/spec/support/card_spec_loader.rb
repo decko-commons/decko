@@ -14,6 +14,7 @@ class CardSpecLoader
         require File.join ENV["RAILS_ROOT"], "config/environment"
         load_shared_examples
         require File.expand_path("../simplecov_helper.rb", __FILE__)
+        require File.expand_path("../../../db/seed/test/seed.rb", __FILE__)
 
         # Requires supporting ruby files with custom matchers and macros, etc,
         # in spec/support/ and its subdirectories.
@@ -53,11 +54,31 @@ class CardSpecLoader
         config.use_transactional_fixtures = true
         config.use_instantiated_fixtures  = false
 
-        config.before(:each) do
+        config.before(:each) do |example|
           Delayed::Worker.delay_jobs = false
-          Card::Auth.current_id = @@joe_user_id
+          unless example.metadata[:as_bot]
+            user_id =
+              case example.metadata[:with_user]
+              when String
+                Card.fetch_id example.metadata[:with_user]
+              when Card
+                Card.id
+              when Integer
+                example.metadata[:with_user]
+              else
+                @@joe_user_id
+              end
+            Card::Auth.current_id = user_id
+          end
           Card::Cache.restore
           Card::Env.reset
+        end
+
+        config.around(:example, :as_bot) do |example|
+          Card::Auth.current_id = @@joe_user_id
+          Card::Auth.as_bot do
+            example.run
+          end
         end
 
         config.after(:each) do

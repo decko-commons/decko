@@ -4,8 +4,8 @@ end
 
 view :core do
   case card.raw_content.to_i
-  when 1 then "yes"
-  when 0 then "no"
+  when 1 then tr(:yes)
+  when 0 then tr(:no)
   else
     "?"
   end

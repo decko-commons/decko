@@ -5,8 +5,8 @@ require "decko"
 require File.join Decko.card_gem_root, "spec/support/simplecov_helper.rb"
 require "simplecov"
 require "minitest/autorun"
+require "rspec"
 
-require "rspec/expectations"
 World(RSpec::Matchers)
 require "rspec-html-matchers"
 World(RSpecHtmlMatchers)

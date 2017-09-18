@@ -13,7 +13,7 @@ module Decko
 
       def command
         @cmd ||=
-          "#{env_args} #{@opts[:executer]} cucumber #{require_args} #{feature_args}"
+          "#{env_args} #{@opts[:executer] || "bundle exec"} cucumber #{require_args} #{feature_args}"
       end
 
       private

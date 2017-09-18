@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Codename, "Codename" do
+RSpec.describe Card::Codename, "Codename" do
   before do
     @codename = :default
   end
@@ -19,5 +19,10 @@ describe Card::Codename, "Codename" do
       expect(card.errors[:delete].first).to match "is a system card"
       expect(Card[@codename]).to be
     end
+  end
+
+  it "raises error for missing codename" do
+    expect { Card::NotACodenameID }
+      .to raise_error "Missing codename not_a_codename (NotACodenameID)"
   end
 end

@@ -1,5 +1,8 @@
-helper_path = File.expand_path "../helper/*.rb", __FILE__
-Dir[helper_path].each { |f| require f }
+%w[helper matchers].each do |load_dir|
+  load_path = File.expand_path "../#{load_dir}/*.rb", __FILE__
+  Dir[load_path].each { |f| require f }
+end
+
 
 class Card
   # to be included in  RSpec::Core::ExampleGroup

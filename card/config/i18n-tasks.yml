@@ -56,7 +56,8 @@ search:
     - mod/
 
   ## Root directories for relative keys resolution.
-  # relative_roots:
+  relative_roots:
+    - .
   #   - app/controllers
   #   - app/helpers
   #   - app/mailers
@@ -124,3 +125,9 @@ ignore_unused:
 #
 # <%#= I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::PatternMapper',
 #        patterns: [['\bSpree\.t[( ]\s*%{key}', 'spree.%{key}']] %>
+# <%#= I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::PatternMapper',
+#       patterns: [['\btee[( ]%{key}', '#{path}.%{key}']] %>
+
+#<%#= I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::PatternMapper',
+#       patterns: [['\baccount_link_text[( ]\s*%{key}', 'mod.account.set.self.account_links.%{key}']] %>
+<% require './lib/card/set/i18n_scanner' %>

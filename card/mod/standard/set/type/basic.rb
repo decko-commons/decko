@@ -33,7 +33,7 @@ format :html do
 
     if toc.flatten.length >= min
       content.replace(
-        %( <div class="table-of-contents"> <h5>Table of Contents</h5> ) +
+        %( <div class="table-of-contents"> <h5>#{tr(:toc)}</h5> ) +
           make_table_of_contents_list(toc) + "</div>" + content
       )
     end

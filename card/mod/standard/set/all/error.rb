@@ -108,7 +108,7 @@ format :html do
     wrap_with :span, title_in_context, class: "faint"
   end
 
-  view :conflict, error_code: 409 do
+  view :conflict, error_code: 409, cache: :never do
     actor_link = link_to_card card.last_action.act.actor.cardname
     expanded_act = wrap do
       _render_act act: card.last_action.act, act_seq: 0

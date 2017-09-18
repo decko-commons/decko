@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::Type::File do
+  DIRECTORY = "deckodev-test"
+
   def test_file no=1
     File.new(File.join(FIXTURES_PATH, "file#{no}.txt"))
   end
@@ -100,7 +102,7 @@ describe Card::Set::Type::File do
 
       it "renders absolute url to cloud" do
         is_expected
-          .to eq "http://#{directory}.s3.amazonaws.com/"\
+          .to eq "http://#{DIRECTORY}.s3.amazonaws.com/"\
                  "files/#{cloud_file.id}/#{cloud_file.last_action_id}.txt"
       end
     end
@@ -254,6 +256,37 @@ describe Card::Set::Type::File do
         end
       end
 
+    #   describe "cloud" do
+    #     before(:context) do
+    #       storage_config :cloud
+    #       @cloud_card = create_file_card :cloud, test_file, bucket: :test_bucket
+    #       storage_config :local
+    #     end
+    #     after(:context) do
+    #       Card::Auth.as_bot do
+    #         update "file card", codename: nil
+    #         Card["file card"].delete!
+    #       end
+    #     end
+    #     #subject { cloud_file }
+    #
+    #     it "stores correct identifier "\
+    #        "((<bucket>)/<card id>/<action id>.<ext>)" do
+    #       expect(@cloud_card.content)
+    #         .to eq "(test_bucket)/#{@cloud_card.id}/#{@cloud_card.last_action_id}.txt"
+    #     end
+    #
+    #     it "stores file" do
+    #       expect(@cloud_card.file.read.strip).to eq "file1"
+    #     end
+    #
+    #     it "generates correct absolute url" do
+    #       expect(@cloud_card.file.url)
+    #         .to eq "http://#{DIRECTORY}.s3.amazonaws.com/"\
+    #            "files/#{@cloud_card.id}/#{@cloud_card.last_action_id}.txt"
+    #     end
+    #   end
+    # end
       describe "cloud" do
         subject { cloud_file }
 
@@ -269,7 +302,7 @@ describe Card::Set::Type::File do
 
         it "generates correct absolute url" do
           expect(subject.file.url)
-            .to eq "http://#{directory}.s3.amazonaws.com/"\
+            .to eq "http://#{DIRECTORY}.s3.amazonaws.com/"\
                "files/#{subject.id}/#{subject.last_action_id}.txt"
         end
       end
@@ -468,8 +501,6 @@ describe Card::Set::Type::File do
     "public/files/~#{subject.id}/#{subject.last_action_id}.txt"
   end
 
-  let(:directory) { "deckodev-test" }
-
   # expects access keys in card/spec/support/bucket_credentials.yml for the
   # bucket defined in `directory` in the following format:
   # aws:
@@ -486,7 +517,7 @@ describe Card::Set::Type::File do
         provider: "fog/aws",
         credentials: bucket_credentials(:aws),
         subdirectory: "files",
-        directory: directory,
+        directory: DIRECTORY,
         public: true,
         attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
         authenticated_url_expiration: 180
