@@ -9,7 +9,7 @@ class BootstrapThemes < Card::Migration::Core
     end
 
     if credit_card = Card["*credit"]
-      credit_card.codename = "credit"
+      credit_card.codename = :credit
       credit_card.save!
     end
 

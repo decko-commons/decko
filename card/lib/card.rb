@@ -18,8 +18,8 @@ Object.const_remove_if_defined :Card
 #
 # There are four important card identifiers, sometimes called "marks".  Every card has a unique _name_, _key_, and _id_. Some cards also have a _codename_.
 #
-# * **@card.id** The _id_ is a simple integer.
-# * **@card.codename** The _codename_ is a Ruby Symbol.
+# * **@card.id** The _id_ is a simple Integer.
+# * **@card.codename** The _codename_ is a ruby Symbol.
 # * **@card.id** The _id_ is a simple integer.
 # * **@card.id** The _id_ is a simple integer.
 #

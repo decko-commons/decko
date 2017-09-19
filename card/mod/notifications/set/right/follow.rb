@@ -51,7 +51,7 @@ format :html do
   def follow_item_link_target
     set = card.rule_set
     setname = set.cardname
-    set.tag.codename == "self" ? setname.left : setname.field("by name")
+    set.tag.codename == :self ? setname.left : setname.field("by name")
   end
 
   def follow_item_link_text condition

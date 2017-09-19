@@ -145,7 +145,7 @@ format do
       (tmpl_set_name = parent.card.cardname.trunk_name) &&
       (tmpl_set_class_name = tmpl_set_name.tag_name) &&
       (tmpl_set_class_card = Card[tmpl_set_class_name]) &&
-      (tmpl_set_class_card.codename == "type")
+      (tmpl_set_class_card.codename == :type)
 
     tmpl_set_name.left_name
   end
