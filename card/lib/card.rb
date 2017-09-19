@@ -7,25 +7,60 @@ Object.const_remove_if_defined :Card
 #
 # This documentation is intended for developers who want to understand:
 #
-# a. how ruby Card objects work, and
-# b. how to extend them.
+#   1. how ruby Card objects work, and
+#   2. how to extend them.
 #
-# It assumes that you've already read the introductory text
-# in {file:README_Developers.rdoc}.
-class Card < ApplicationRecord
-  # attributes that ActiveJob can handle
-  def self.serializable_attr_accessor *args
-    self.serializable_attributes = args
-    attr_accessor(*args)
-  end
+# It assumes that you've already read the introductory text in {file:README.rdoc}.
+#
+# Throughout this document we will refer to @card as an instance of a Card object.
+#
+# ##Names
+#
+# There are four important card identifiers, sometimes called "marks".  Every card has a unique _name_, _key_, and _id_. Some cards also have a _codename_.
+#
+# * **@card.id** The _id_ is a simple integer.
+# * **@card.codename** The _codename_ is a Ruby Symbol.
+# * **@card.id** The _id_ is a simple integer.
+# * **@card.id** The _id_ is a simple integer.
+#
+# The _codename_
+# cardnames, codenames, keys, ids
+#
+#   Note that "company" here does not refer to its "name", but rather its "codename" (which an administrator might add to the Company card via the RESTful web API with a url like
+#
+#   /update/Company?card[codename]=company
 
+#
+#   Generally speaking, code should never refer to a card by name; otherwise it will break when the card is renamed.  Instead, it should use the codename, which will continue to work even if the canonical name is changed.
+#
+# ## Fetching
+#
+# ## Content
+# chunks
+#
+# ## Accounts
+# permission
+#
+# ## References
+# reference, query
+#
+# ## History
+# acts, actions, changes
+# subcards, act_manager
+#
+# ## Events
+# mailer
+#
+# ## Caching
+
+class Card < ApplicationRecord
   require_dependency "active_record/connection_adapters_ext"
   require_dependency "card/codename"
   require_dependency "card/query"
   require_dependency "card/format"
   require_dependency "card/error"
   require_dependency "card/auth"
-  require_dependency "card/mod/loader"
+  require_dependency "card/mod"
   require_dependency "card/content"
   require_dependency "card/action"
   require_dependency "card/act"
@@ -34,7 +69,6 @@ class Card < ApplicationRecord
   require_dependency "card/subcards"
   require_dependency "card/view"
   require_dependency "card/act_manager"
-  require_dependency "card/act_manager/stage_director"
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id
@@ -46,6 +80,12 @@ class Card < ApplicationRecord
                  :set_specific_attributes, :current_act
   self.set_patterns = []
   self.error_codes = {}
+
+  # attributes that ActiveJob can handle
+  def self.serializable_attr_accessor *args
+    self.serializable_attributes = args
+    attr_accessor(*args)
+  end
 
   serializable_attr_accessor(
     :action, :supercard, :superleft,
