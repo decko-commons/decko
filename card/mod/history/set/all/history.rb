@@ -8,7 +8,7 @@ end
 # :validate_delete_children
 
 def actionable?
-  history? || respond_to?(:attachment)
+  history?
 end
 
 event :assign_action, :initialize, when: proc { |c| c.actionable? } do
@@ -27,11 +27,33 @@ end
 # removes the action if there are no changes
 event :finalize_action, :finalize, when: :finalize_action? do
   if changed_fields.present?
-    store_card_changes
     @current_action.update_attributes! card_id: id
+
+    # Note: #last_change_on uses the id to sort by date
+    # so the changes for the create changes have to be created befire the first change
+    store_card_changes_for_create_action if first_change?
+    store_card_changes if @current_action.action_type != :create
   elsif @current_action.card_changes.reload.empty?
     @current_action.delete
     @current_action = nil
+  end
+end
+
+def first_change? # = update or delete
+  @current_action.action_type != :create && @current_action.card.actions.size == 2 &&
+    create_action.card_changes.empty?
+end
+
+def create_action
+  @create_action ||= actions.first
+end
+
+# changes for the create action are stored after the first update
+def store_card_changes_for_create_action
+  Card::Change::TRACKED_FIELDS.each do |f|
+    Card::Change.create field: f,
+                        value: attribute_before_act(f),
+                        card_action_id: create_action.id
   end
 end
 
@@ -45,8 +67,7 @@ def store_card_changes
 end
 
 def changed_fields
-  Card::Change::TRACKED_FIELDS & (saved_changes.keys | changes.keys |
-                                  mutations_from_database.changed_values.keys)
+  Card::Change::TRACKED_FIELDS & (changed_attribute_names_to_save | saved_changes.keys)
 end
 
 def finalize_action?
@@ -72,9 +93,7 @@ end
 event :rollback_actions,
       :prepare_to_validate, on: :update, when: :rollback_request? do
   revision = { subcards: {} }
-  rollback_actions = Env.params["action_ids"].map do |a_id|
-    Action.fetch(a_id) || nil
-  end
+
   rollback_actions.each do |action|
     if action.card_id == id
       revision.merge!(revision(action))
@@ -88,9 +107,17 @@ event :rollback_actions,
   abort :success
 end
 
+def rollback_actions
+  actions =
+    Env.params["revert_actions"].map do |a_id|
+      Action.fetch(a_id) || nil
+    end.compact
+  actions.map! { |a| a.previous_action } if Env.params["revert_to"] == "previous"
+  actions.compact
+end
+
 def rollback_request?
-  history? && Env && Env.params["action_ids"] &&
-    Env.params["action_ids"].class == Array
+  history? && Env&.params["revert_actions"]&.class == Array
 end
 
 # all acts with actions on self and on cards that are descendants of self and

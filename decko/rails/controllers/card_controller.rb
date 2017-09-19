@@ -57,7 +57,7 @@ class CardController < ActionController::Base
 
   def setup
     request.format = :html unless params[:format] # is this used??
-    Card::Mod::Loader.refresh_script_and_style if Rails.env.development?
+    Card::Machine.refresh_script_and_style if Rails.env.development?
     Card::Cache.renew
     Card::Env.reset controller: self
     # unprotect_card_params!
@@ -114,8 +114,7 @@ class CardController < ActionController::Base
     card.action = :read
     card.content = card.last_draft_content if use_draft?
 
-    formatname = format_from_params
-    format = card.format formatname
+    format = format_from_params card
 
     view ||= params[:view]
     result = card.act do
@@ -123,7 +122,7 @@ class CardController < ActionController::Base
     end
 
     status = format.error_status || status
-    deliver formatname, result, status
+    deliver format, result, status
   end
 
   def render_errors

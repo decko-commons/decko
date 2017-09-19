@@ -407,4 +407,22 @@ describe Card::Content do
       # end
     end
   end
+
+  describe "#pieces" do
+    def pieces content
+      Card::Content.new(content, Card["A"],).pieces
+    end
+
+    example "A {{B}}" do
+      expect(pieces("A {{B}}").size).to eq 2
+    end
+
+    example "A" do
+      expect(pieces("A").size).to eq 1
+    end
+
+    example "{{B}}" do
+      expect(pieces("{{B}}").size).to eq 1
+    end
+  end
 end

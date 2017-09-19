@@ -11,19 +11,26 @@ format :html do
   end
 
   view :act_list, cache: :never do |args|
-    acts = args.delete :acts
+    act_accordion args.delete(:acts) do |act, act_seq|
+      render_act args.merge(act: act, act_seq: act_seq)
+    end
+  end
+
+  def act_accordion acts
     page = params["page"] || 1
     count = acts.size + 1 - (page.to_i - 1) * ACTS_PER_PAGE
-    accordion_group(acts.map do |act|
-      if (act_card = act.card)
+    rendered_acts =
+      acts.map do |act|
+        unless act.card
+          Rails.logger.info "bad data, act: #{act}"
+          next
+        end
         count -= 1
-        act_card.format(:html).render_act args.merge(act: act, act_seq: count)
-      else
-        Rails.logger.info "bad data, act: #{act}"
-        ""
-      end
-    end, nil, class: "clear-both")
+        yield act, count
+      end.compact
+    accordion_group rendered_acts, nil, class: "clear-both"
   end
+
 
   view :act, cache: :never do |args|
     act_renderer(args[:act_context]).new(self, args[:act], args).render

@@ -86,7 +86,8 @@ class Card
       if (card_id = Codename[code])
         const_set const, card_id
       else
-        raise "Missing codename #{code} (#{const})"
+        raise I18n.t(:exception_missing_codename, scope: "lib.card.codename",
+                                                  code: code, const: const)
       end
     else
       super

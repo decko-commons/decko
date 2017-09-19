@@ -117,8 +117,9 @@ class Card
     end
 
     # used by rails time_ago
-    def timestamp_attributes_for_create
-      super << :acted_at
+    # timestamp is set by rails on create
+    def self.timestamp_attributes_for_create
+      super << "acted_at"
     end
   end
 end

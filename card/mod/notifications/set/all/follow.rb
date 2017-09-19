@@ -53,7 +53,7 @@ format :json do
 end
 
 format :html do
-  view :follow_link, tags: :unknown_ok, perms: :none do |args|
+  view :follow_link, tags: :unknown_ok, perms: :none, cache: :never do |args|
     hash = follow_link_hash args
     text = args[:icon] ? icon_tag(:flag) : ""
     span_attrs = "follow-verb menu-item-label"

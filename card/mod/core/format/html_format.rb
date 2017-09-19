@@ -60,8 +60,10 @@ class Card
         elsif (hardcoded_layout = LAYOUTS[name])
           hardcoded_layout
         else
-          "<h1>Unknown layout: #{name}</h1>"\
-          "Built-in Layouts: #{LAYOUTS.keys.join(', ')}"
+          content_tag(:h1, I18n.t(:unknown_layout, scope: "mod.core.format.html_format",
+                                                   name: name)) +
+            I18n.t(:built_in, scope: "mod.core.format.html_format",
+                              build_in_layouts: LAYOUTS.keys.join(', '))
         end
       end
 
@@ -69,6 +71,10 @@ class Card
         # to be used inside single quotes (makes for readable json attributes)
         s.to_s.gsub(/&/, "&amp;").gsub(/\'/, "&apos;")
          .gsub(/>/, "&gt;").gsub(/</, "&lt;")
+      end
+
+      def mime_type
+        "text/html"
       end
     end
   end

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::Scss do
+RSpec.describe Card::Set::Type::Scss do
   let(:scss) do
     <<-SCSS
       $link_color: #abcdef;
@@ -45,12 +45,10 @@ describe Card::Set::Type::Scss do
     end
   end
 
-  it "processes links and nests but not urls" do
-    Card::Auth.as_bot do
-      scss = ".TYPE-X.no-citations {\n  color: #BA5B5B;\n}\n"
-      card = Card.create! name: "minimal css", type: "scss", content: scss
-      card.format(:css).render_core.should == scss
-    end
+  it "processes links and nests but not urls", as_bot: true do
+    scss = ".TYPE-X.no-citations {\n  color: #BA5B5B;\n}\n"
+    card = Card.create! name: "minimal css", type: "scss", content: scss
+    card.format(:css).render_core.should == scss
   end
 
   it_behaves_like "content machine", that_produces: :css do

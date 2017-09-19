@@ -1,6 +1,9 @@
 class Card
   class Act
     class ActRenderer
+      # Use for the history for one specific card
+      # It shows only the actions of an act that are relevant
+      # for the card of the format that renders the act.
       class RelativeActRenderer < ActRenderer
         def title
           "<span class=\"nr\">##{@args[:act_seq]}</span>" +
@@ -23,9 +26,13 @@ class Card
           if @act.draft?
             autosaved_draft_link text: "continue editing",
                                  class: "collapse #{collapse_id}"
-          elsif !current_act?
+          elsif show_rollback_link?
             rollback_link
           end
+        end
+
+        def show_rollback_link?
+          !current_act?
         end
 
         def current_act?

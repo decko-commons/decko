@@ -7,17 +7,17 @@ class Bootstrap
       ""
     end
 
-    Component.add_div_method :div, nil do |opts, extra_args|
+    Component.def_div_method :div, nil do |opts, extra_args|
       prepend_class opts, extra_args.first if extra_args.present?
       opts
     end
 
-    Component.add_div_method :span, nil do |opts, extra_args|
+    Component.def_div_method :span, nil do |opts, extra_args|
       prepend_class opts, extra_args.first if extra_args.present?
       opts
     end
 
-    Component.add_tag_method :tag, nil, tag: :yield do |opts, extra_args|
+    Component.def_tag_method :tag, nil, tag: :yield do |opts, extra_args|
       prepend_class opts, extra_args[1] if extra_args[1].present?
       opts[:tag] = extra_args[0]
       opts

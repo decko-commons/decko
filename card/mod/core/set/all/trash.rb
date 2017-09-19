@@ -1,11 +1,12 @@
 Self::Admin.add_to_basket(
   :tasks,
   name: :empty_trash,
+  irreversible: true,
   execute_policy: -> { Card.empty_trash },
   stats: {
     title: "trashed cards",
     count: -> { Card.where(trash: true) },
-    link_text: "delete all",
+    link_text: "empty trash",
     task: "empty_trash"
   }
 )
@@ -84,7 +85,7 @@ event :validate_delete, :validate, on: :delete do
     %w[default style layout create read update delete]
   # FIXME: HACK! should be configured in the rule
 
-  if junction? && (l = left) && l.codename == "all" &&
+  if junction? && left&.codename == "all" &&
      undeletable_all_rules_tags.member?(right.codename)
     errors.add :delete, "#{name} is an indestructible rule"
   end

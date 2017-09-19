@@ -2,6 +2,16 @@
 # [task symbol, { execute_policy: block, stats_policy: block }]
 basket :tasks
 
+def run_task_from_task_basket task
+  task = task.to_sym
+  task_data = tasks.find {|h| h[:name].to_sym == task.to_sym}
+  if !irreversibles_tasks_allowed? && task_data[:irreversible]
+    not_allowed task_data[:stats][:link_text]
+  else
+    task_data[:execute_policy].call if task_data
+  end
+end
+
 event :admin_tasks, :initialize, on: :update do
   return unless (task = Env.params[:task])
   raise Card::Error::PermissionDenied, self unless Auth.always_ok?
@@ -11,11 +21,23 @@ event :admin_tasks, :initialize, on: :update do
   when :repair_permissions   then Card.repair_all_permissions
   when :clear_solid_cache    then Card.clear_solid_cache
   when :clear_machine_cache  then Card.reset_all_machines
+  when :clear_history
+    not_allowed "clear history" unless irreversibles_tasks_allowed?
+    Card::Action.delete_old
   else
-    task_data = tasks.find { |h| h[:name].to_sym == task.to_sym }
-    task_data[:execute_policy].call if task_data
+    run_task_from_task_basket task
   end
   abort :success
+end
+
+def not_allowed task
+  raise Card::Error::Oops,
+        "The admin task '#{task}' is disabled for security reasons.<br>"\
+        "You can enable it with the config option 'allow_irreversible_admin_tasks'"
+end
+
+def irreversibles_tasks_allowed?
+  Cardio.config.allow_irreversible_admin_tasks
 end
 
 format :html do
@@ -36,8 +58,8 @@ format :html do
         count: Card.where(trash: false) },
       { title: "actions",
         count: Card::Action,
-        link_text: "delete old",
-        task: "delete_old_revisions" },
+        link_text: "clear history",
+        task: "clear_history" },
       { title: "references",
         count: Card::Reference,
         link_text: "repair all",

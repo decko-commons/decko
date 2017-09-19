@@ -1,6 +1,10 @@
 # action id of the cached upload
 attr_accessor :action_id_of_cached_upload
 
+def actionable?
+  super || preliminary_upload?
+end
+
 event :upload_attachment, :prepare_to_validate,
       on: :save, when: proc { |c| c.preliminary_upload? } do
   save_original_filename  # save original filename as comment in action
@@ -42,7 +46,7 @@ end
 def assign_attachment file, original_filename
   send "#{attachment_name}=", file
   write_identifier
-  @current_action.update_attributes! comment: original_filename
+  @current_action.update_attributes! comment: original_filename if @current_action
 end
 
 event :delete_cached_upload_file_on_create, :integrate,

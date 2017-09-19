@@ -1,10 +1,7 @@
 module CoreExtensions
   module Module
-    RUBY_VERSION_18 = !!(RUBY_VERSION =~ /^1\.8/)
-
     def const_get_if_defined const
-      args = RUBY_VERSION_18 ? [const] : [const, false]
-      const_get(*args) if const_defined?(*args)
+      const_get(const, false) if const_defined?(const, false)
     end
 
     def const_remove_if_defined const

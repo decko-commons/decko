@@ -17,6 +17,9 @@ window.decko ||= {} #needed to run w/o *head.  eg. jasmine
 #  initfunc()
 
 $(window).ready ->
+  $('body').on 'click', '._stop_propagation', (event)->
+    event.stopPropagation()
+
   #pointer mod
   $('body').on 'click', '.pointer-item-add', (event)->
     last_item = $(this).closest('.content-editor').find '.pointer-li:last'

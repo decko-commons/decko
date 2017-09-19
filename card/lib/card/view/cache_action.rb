@@ -6,21 +6,23 @@ class Card
       # course of action based on config/status/options
       # @return [Symbol] :yield, :cache_yield, or
       def cache_action
-        action = send "#{cache_status}_cache_action"
-        log_cache_action action
+        log_cache_action do
+          send "#{cache_status}_cache_action"
+        end
+      end
+
+      def log_cache_action
+        action = yield
+        if false # TODO: make configurable
+          puts "VIEW CACHE [#{action}] (#{card.name}##{requested_view})"
+        end
         action
       end
 
-      def log_cache_action action
-        return false # TODO: make configurable
-        puts "FETCH_VIEW (#{card.name}##{requested_view})" \
-             "cache_action = #{action}"
-      end
-
-      # @return [Symbol] :off, :active, or :ready
+      # @return [Symbol] :off, :active, or :free
       def cache_status
         case
-        when cache_off?    then :off    # view caching is turned off, system-wide
+        when !cache_on?    then :off    # view caching is turned off, format- or system-wide
         when cache_active? then :active # another view cache is in progress; this view is inside it
         else                    :free   # no other cache in progress
         end
@@ -29,11 +31,11 @@ class Card
 
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # CACHE STATUS: OFF
-      # view caching is turned off, system-wide
+      # view caching is turned off, format- or system-wide
 
       # @return [True/False]
-      def cache_off?
-        !Card.config.view_cache
+      def cache_on?
+        Card.config.view_cache && format.view_caching?
       end
 
       # always skip all the magic
@@ -46,6 +48,7 @@ class Card
       # CACHE STATUS: FREE
       # caching is on; no other cache in progress
 
+      # @return [Symbol]
       def free_cache_action
         free_cache_ok? ? :cache_yield : :yield
       end
@@ -58,14 +61,24 @@ class Card
         # note: foreign options are a problem in the free cache, because
       end
 
+
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # CACHE STATUS: ACTIVE
       # another view cache is in progress; this view is inside it
 
+      # @return [Symbol]
       def active_cache_action
+        validate_active_cache_action do
+          active_cache_ok? ? active_cache_action_from_setting : :stub
+        end
+      end
+
+      # catch recursive views and invalid stubs
+      def validate_active_cache_action
         return :yield if ok_view == :too_deep
-        action = active_cache_ok? ? active_cache_setting : :stub
-        validate_stub if action == :stub
+        #FIXME - this allows "too deep" error to be cached inside another view. may need a "raise" cache action?
+        action = yield
+        validate_stub! if action == :stub
         action
       end
 
@@ -76,6 +89,8 @@ class Card
         active_cache_permissible?
       end
 
+      # apply any permission checks required by view.
+      # (do not cache views with nuanced permissions)
       def active_cache_permissible?
         case permission_task
         when :none                  then true
@@ -91,29 +106,36 @@ class Card
         @permission_task ||= Card::Format.perms[requested_view] || :read
       end
 
-      ACTIVE_CACHE_LEVEL =
-        {
-          always: :cache_yield, # read/write cache specifically for this view
-          standard: :yield,     # render view; it will only be cached within active view
-          never: :stub          # render a stub
-        }.freeze
-
-      def active_cache_setting
+      # determine the cache action from the cache setting (assuming cache status is "active")
+      # @return [Symbol] cache action
+      def active_cache_action_from_setting
         level = ACTIVE_CACHE_LEVEL[cache_setting]
         level || raise("unknown cache setting: #{cache_setting}")
       end
 
+      ACTIVE_CACHE_LEVEL = {
+        always:   :cache_yield, # read/write cache specifically for this view
+        standard: :yield,       # render view; it will only be cached within active view
+        never:    :stub         # render a stub
+      }.freeze
+
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # SHARED METHODS
 
-      # Each of the following represents an accepted value for cache
-      # directives on view definitions.  eg:
+      # Mod developers can configure cache directives on view definitions.  eg:
       #   view :myview, cache: :standard do ...
       #
+      # There are three possible values for those rules.
       # * *standard* (default) cache when possible, but avoid double caching
       #   (caching one view while already caching another)
       # * *always* cache whenever possible, even if that means double caching
       # * *never* don't ever cache this view
+      #
+      # Of these, "never" is most often used explicitly, usually in places
+      # where the view can be altered by things other than simple related card changes.
+      # It is important to note that to use "never", a view MUST be stubbable (ie, no
+      # foreign options). Otherwise the rendering may be involved in an active cache,
+      # reach an uncacheable view, attempt to stub it, and fail.
       #
       # @return [Symbol] :standard, :always, or :never
       def cache_setting

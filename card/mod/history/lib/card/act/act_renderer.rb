@@ -1,5 +1,3 @@
-# require_dependency File.expand_path("../../action/action_renderer", __FILE__)
-
 class Card
   class Act
     class ActRenderer
@@ -33,12 +31,11 @@ class Card
 
       def header
         #::Bootstrap.new(self).render do
-        #::Boo.bs do
         bs_layout do
           row 10, 2 do
             column do
               html title
-              tag(:span, "text-muted") { summary }
+              tag(:span, "text-muted pl-1 badge") {summary}
             end
             column act_links, class: "text-right"
           end
@@ -72,17 +69,18 @@ class Card
       end
 
       def link_to_act_card
-        link_to_card @act_card, icon_tag(:new_window)
+        link_to_card @act_card, icon_tag(:new_window), class: "_stop_propagation"
       end
 
       def link_to_history
         link_to_card @act_card, icon_tag(:history),
                      path: { view: :history, look_in_trash: true },
+                     class: "_stop_propagation",
                      rel: "nofollow"
       end
 
       def approved_actions
-        @approved_actions ||= actions.select { |a| a.card && a.card.ok?(:read) }
+        @approved_actions ||= actions #.select { |a| a.card && a.card.ok?(:read) }
         # FIXME: should not need to test for presence of card here.
       end
 
@@ -95,7 +93,7 @@ class Card
       def count_types
         @count_types ||=
           approved_actions.each_with_object(
-            Hash.new { |h, k| h[k] = 0 }
+            Hash.new {|h, k| h[k] = 0}
           ) do |action, type_cnt|
             type_cnt[action.action_type] += 1
           end
@@ -156,27 +154,58 @@ class Card
 
       def act_accordion_body
         wrap_with :div, id: collapse_id,
-                        class: "collapse #{collapse_id}" do
+                  class: "collapse #{collapse_id}" do
           wrap_with :div, details, class: "card-block"
         end
       end
 
+      # Revert:
+      #   current update
+      # Restore:
+      #   current deletion
+      # Revert and Restore:
+      #   old deletions
+      # blank:
+      #   current create
+      # save as current:
+      #   not current, not deletion
       def rollback_link
         return unless card.ok? :update
-        return unless (prior = previous_action)
-        wrap_with :div, class: "act-link collapse #{collapse_id}" do
-          link_to "Save as current",
-                  class: "slotter", remote: true,
-                  method: :post,    rel: "nofollow",
-                  "data-slot-selector" => ".card-slot.history-view",
-                  path: { action: :update, action_ids: prior,
-                          view: :open,     look_in_trash: true }
+        wrap_with :div, class: "act-link collapse #{collapse_id} pull-right" do
+          revert_link
+
+
+          # link_to "Save as current",
+          #         class: "slotter", remote: true,
+          #         method: :post, rel: "nofollow",
+          #         "data-slot-selector" => ".card-slot.history-view",
+          #         path: { action: :update, action_ids: prior,
+          #                 view: :open, look_in_trash: true }
         end
       end
 
-      def previous_action
-        # TODO: optimize
-        actions.reject { |action| action.card.last_action_id == action.id }
+      def revert_link
+        revert_actions_link "revert to this", revert_to: :this,
+                                              slot_selector: ".card-slot.history-view"
+      end
+
+      def revert_actions_link link_text, revert_to: :this, slot_selector:
+        return unless card.ok? :update
+        args = { remote: true, method: :post, rel: "nofollow",
+                    path: { action: :update, view: :open, look_in_trash: true,
+                            revert_actions: @act.actions.map(&:id),
+                            "data-slot-selector" => slot_selector } }
+        add_class args, "slotter"
+        args[:path][:revert_to] = revert_to
+        link_to link_text, args
+      end
+
+      def deletion_act?
+        act_type == :delete
+      end
+
+      def act_type
+        @act.main_action.action_type
       end
 
       def show_or_hide_changes_link
@@ -184,8 +213,8 @@ class Card
           @format.link_to_view(
             :act, "#{@args[:hide_diff] ? 'Show' : 'Hide'} changes",
             class: "slotter",
-            path: { act_id:      @args[:act].id,      act_seq: @args[:act_seq],
-                    hide_diff:  !@args[:hide_diff],   action_view: :expanded,
+            path: { act_id: @args[:act].id, act_seq: @args[:act_seq],
+                    hide_diff: !@args[:hide_diff], action_view: :expanded,
                     act_context: @args[:act_context], look_in_trash: true }
           )
         end

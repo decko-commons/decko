@@ -13,7 +13,7 @@ module Decko
 
       def command
         @cmd ||=
-          "#{env_args} bundle exec cucumber #{require_args} #{feature_args}"
+          "#{env_args} #{@opts[:executer] || "bundle exec"} cucumber #{require_args} #{feature_args}"
       end
 
       private
@@ -40,7 +40,7 @@ module Decko
       end
 
       def feature_paths
-        Card::Mod::Loader.mod_dirs.map do |p|
+        Card::Mod.dirs.map do |p|
           Dir.glob "#{p}/features"
         end.flatten
       end

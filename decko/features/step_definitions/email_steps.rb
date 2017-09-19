@@ -162,6 +162,10 @@ When /^(?:I|they) follow "([^"]*?)" in the email$/ do |link|   # "<- stop textma
   visit_in_email(link)
 end
 
+When /^(?:I|they) follow "([^"]*?)" in the email to "([^"]*?)"$/ do |link, address|   # "<- stop textmate from treating the rest of the file as a string
+  visit_in_email(link, address)
+end
+
 When /^(?:I|they) click the first link in the email$/ do
   click_first_link_in_email
 end

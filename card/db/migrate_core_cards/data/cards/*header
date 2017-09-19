@@ -3,7 +3,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-brand">
-      {{*logo|size:small}}
+      {{*logo|core;size:small}}
       {{*title|core}}
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-1">

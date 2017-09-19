@@ -40,7 +40,6 @@ class Card
     # @return [rendered view or a stub]
     def process
       process_live_options
-      process_visibility_options
       return if optional? && hide?(requested_view)
       fetch { yield ok_view, foreign_live_options }
     end
@@ -65,10 +64,21 @@ class Card
       @root = parent ? parent.root : self
     end
 
+    # @return [true/false]
+    def root?
+      !parent
+    end
+
     # neither view nor format has a parent
+    # @return [true/false]
     def deep_root?
       !parent && !format.parent
     end
 
+    # next voo object found tracing ancestry through parent voos and/or parent formats
+    # @return [Card::View]
+    def next_ancestor
+      parent || (format.parent && format.parent.voo)
+    end
   end
 end

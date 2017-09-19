@@ -8,7 +8,7 @@ event :update_ruled_cards, :finalize do
     self.class.clear_rule_cache
     set = rule_set
 
-    if right_id == Card::ReadID && (name_changed? || trash_changed?)
+    if right_id == Card::ReadID && (name_is_changing? || trash_is_changing?)
       update_read_ruled_cards set
     end
   end

@@ -35,10 +35,10 @@ de:
         exception_not_implemented: "%{func} nicht implementiert"
       codename:
         exception_missing_codename: nicht vorhanden %{codename} %{code} (%{const})
-      exceptions:
+      error:
         exception_for_card: "für Karte %{cardname}: %{message}"
       format:
-        render:
+        error:
           exception_bad_arg: "falsches %{category} Argument: %{arg}"
           exception_bad_args: "falsche %{category} Argumente: %{args}"
           no_cardname: unbekannte Karte
@@ -423,13 +423,6 @@ de:
             cards_exist: Entschuldigung, diese Karten muss ein Kartentyp bleiben, solange es noch %{cardname}-Karten gibt.
             add_card: Füge %{cardname} hinzu
             error_cant_alter: kann dieseh Typ nicht ändern; es gibt noch %{name}-Karten
-          file:
-            file_error: Dateifehler
-            download: Download %{title}
-            delete: Löschen
-            add_item: Füge %{attachment_name} hinzu...
-            replace_item: Ersetze %{attachment_name}...
-            ###### REVIEW PAUSED HERE
           list:
             type_right: benötigt einen Kartentypnamen als rechten Teil
             conflict_item_type: name conflicts with list items' type; delete content first
@@ -544,6 +537,14 @@ de:
         abstract:
           attachment:
             error_invalid_storage_type: "%{type} is not a valid file storage option"
+        type:
+          file:
+            file_error: Dateifehler
+            download: Download %{title}
+            delete: Löschen
+            add_item: Füge %{attachment_name} hinzu...
+            replace_item: Ersetze %{attachment_name}...
+            ###### REVIEW PAUSED HERE
     :admin:
       set:
         self:
@@ -554,9 +555,9 @@ de:
             captcha_keys: Dein Deck ist so konfiguriert, dass es [[*captcha]] nutzt, aber damit das funktioniert, benötigst Du neue Recaptcha-Schlüssel.
             instructions: Anleitungen
             howto_add_keys: "Neue Recaptcha-Schlüssel hinzufügen:"
-            howto_register: 1. Registriere deine Domain bei %{recaptcha_link}
-            howto_add: 2. Füge deine Schlüssel zu %{recaptcha_settings} hinzu
+            howto_register: Registriere deine Domain bei %{recaptcha_link}
+            howto_add: Füge deine Schlüssel zu %{recaptcha_settings} hinzu
             howto_turn_off: 'Captcha ausschalten:'
-            howto_go: 1. Gehe zu %{captcha_card}
-            howto_update: 2. Ändere alle *captcha-Regeln zu "no".
+            howto_go: Gehe zu %{captcha_card}
+            howto_update: Ändere alle *captcha-Regeln zu "no".
 

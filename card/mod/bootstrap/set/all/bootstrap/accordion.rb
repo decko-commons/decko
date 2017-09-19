@@ -1,5 +1,6 @@
 format :html do
-  def accordion_group list, collapse_id=card.cardname.safe_key, args={}
+  def accordion_group list, collapse_id=nil, args={}
+    collapse_id ||= card.cardname.safe_key
     accordions = ""
     index = 1
     case list
@@ -11,7 +12,7 @@ format :html do
         index += 1
       end
     end
-
+    add_class args, "act-accordion-group w-100"
     wrap_with :div, class: args[:class], id: "accordion-#{collapse_id}",
                     role: "tablist", "aria-multiselectable" => "true" do
       accordions
