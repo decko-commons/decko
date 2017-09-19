@@ -43,7 +43,7 @@ class Card
           def postamble
             <<-RUBY
               end
-              register @pattern.underscore.to_sym, (options || {})
+              register "#{@pattern}".underscore.to_sym, (options || {})
             RUBY
           end
 
