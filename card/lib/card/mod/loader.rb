@@ -18,7 +18,7 @@ class Card
 
     class Loader
 
-      def initialize load_strategy: :eval, mod_dirs: nil
+      def initialize(load_strategy=:eval, mod_dirs=nil)
         mod_dirs ||= Mod.dirs
         klass = load_strategy_class load_strategy
         @load_strategy = klass.new mod_dirs, self

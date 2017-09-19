@@ -8,12 +8,12 @@ RSpec.describe Card::Mod::Loader::SetPatternLoader do
   end
 
   it 'initializes the load strategy' do
-    expect(Card::Mod::LoadStrategy::Eval).to receive(:new)
-    described_class.new mod_dirs, load_strategy: :eval
+    expect(Card::Mod::LoadStrategy::Eval).to receive(:new).with(:eval, mod_dirs)
+    described_class.new :eval, mod_dirs
   end
 
   it "load mods" do
-    described_class.new(mod_dirs).load
+    described_class.new(:eval, mod_dirs).load
     expect(Card::Set.const_defined?("TestPattern")).to be_truthy
   end
 end
