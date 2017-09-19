@@ -33,8 +33,6 @@ Object.const_remove_if_defined :Card
 #
 #   Generally speaking, code should never refer to a card by name; otherwise it will break when the card is renamed.  Instead, it should use the codename, which will continue to work even if the canonical name is changed.
 #
-
-
 # ## Fetching
 #
 # ## Content
