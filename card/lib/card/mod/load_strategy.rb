@@ -1,18 +1,40 @@
+require_relative "load_strategy/eval"
+require_relative "load_strategy/pattern_tmp_files"
+require_relative "load_strategy/set_binding_magic"
+require_relative "load_strategy/set_tmp_files"
+require_relative "load_strategy/tmp_files"
+
 class Card
   module Mod
     # Shared code for the three different load strategies: Eval, TmpFiles and BindingMagic
     class LoadStrategy
-      def initialize mod_dirs, module_type, module_template
+
+      def self.klass symbol
+        case symbol
+          when :tmp_files     then TmpFiles
+          when :binding_magic then BindingMagic
+          else                     Eval
+        end
+      end
+
+      def initialize mod_dirs, loader
         @mod_dirs = mod_dirs
-        @module_type = module_type # :set or :set_pattern
-        @module_template = module_template
+        @loader = loader
       end
 
       private
 
+      def module_type
+        @loader.class.module_type
+      end
+
+      def module_template
+        @loader.class.module_class_template
+      end
+
       def each_file &block
-        @mod_dirs.each @module_type do |base_dir|
-          if @module_type == :set
+        @mod_dirs.each module_type do |base_dir|
+          if module_type == :set
             # I'm not sure if we really need this ordering by pattern for sets -pk
             Card::Set::Pattern.in_load_order.each do |pattern|
               each_file_in_dir base_dir, pattern, &block

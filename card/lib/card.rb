@@ -7,11 +7,43 @@ Object.const_remove_if_defined :Card
 #
 # This documentation is intended for developers who want to understand:
 #
-# a. how ruby Card objects work, and
-# b. how to extend them.
+#   1. how ruby Card objects work, and
+#   2. how to extend them.
 #
 # It assumes that you've already read the introductory text
 # in {file:README.rdoc}.
+#
+# ##Names
+# cardnames, codenames, keys, ids
+#
+#   Note that "company" here does not refer to its "name", but rather its "codename" (which an administrator might add to the Company card via the RESTful web API with a url like
+#
+#   /update/Company?card[codename]=company
+
+#
+#   Generally speaking, code should never refer to a card by name; otherwise it will break when the card is renamed.  Instead, it should use the codename, which will continue to work even if the canonical name is changed.
+#
+
+
+# ## Fetching
+#
+# ## Content
+# chunks
+#
+# ## Accounts
+# permission
+#
+# ## References
+# reference, query
+#
+# ## History
+# acts, actions, changes
+# subcards, act_manager
+#
+# ## Events
+# mailer
+#
+# ## Caching
 
 class Card < ApplicationRecord
   require_dependency "active_record/connection_adapters_ext"

@@ -29,7 +29,7 @@ class Card
 
         def write_tmp_file from_file, to_file, const_parts
           FileUtils.mkdir_p File.dirname(to_file)
-          mt = @module_template.new const_parts, from_file
+          mt = module_template.new const_parts, from_file
           File.write to_file, mt.to_s
         end
       end
