@@ -1,4 +1,4 @@
-class Decko
+class Card
   module Machine
     class << self
       def refresh_script_and_style
