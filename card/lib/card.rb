@@ -18,20 +18,10 @@ Object.const_remove_if_defined :Card
 #
 # There are four important card identifiers, sometimes called "marks".  Every card has a unique _name_, _key_, and _id_. Some cards also have a _codename_.
 #
-# * **@card.id** The _id_ is a simple Integer.
-# * **@card.codename** The _codename_, a Symbol, is the name by which a card can be referred to in code. The notion is that
-# * **@card.id** The _id_ is a simple integer.
-# * **@card.id** The _id_ is a simple integer.
-#
-# The _codename_
-# cardnames, codenames, keys, ids
-#
-#   Note that "company" here does not refer to its "name", but rather its "codename" (which an administrator might add to the Company card via the RESTful web API with a url like
-#
-#   /update/Company?card[codename]=company
-
-#
-#   Generally speaking, code should never refer to a card by name; otherwise it will break when the card is renamed.  Instead, it should use the codename, which will continue to work even if the canonical name is changed.
+# * **@card.name** The _name_, a String, is the most recognizable card mark.
+# * **@card.key** The _key_, a String, is a simple lower-case name variant.  All names with the same key are considered variants of each other.
+# * **@card.id** The _id_ is an Integer.
+# * **@card.codename** The _codename_, a Symbol, is the name by which a card can be referred to in code. See {Card::Codename}
 #
 # ## Fetching
 #
