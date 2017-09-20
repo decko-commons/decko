@@ -36,14 +36,14 @@ describe Card::Reference do
     create! "Submarine", "[[Yellow]]"
     create! "Sun", "[[Yellow]]"
     create! "Yellow"
-    yellow_refs = Card["Yellow"].referers.map(&:name).sort
+    yellow_refs = Card["Yellow"].referers.map(&:name).map(&:to_s).sort
     expect(yellow_refs).to eq(%w(Banana Submarine Sun))
 
     y = Card["Yellow"]
     y.type_id = Card.fetch_id "UserForm"
     y.save!
 
-    yellow_refs = Card["Yellow"].referers.map(&:name).sort
+    yellow_refs = Card["Yellow"].referers.map(&:name).map(&:to_s).sort
     expect(yellow_refs).to eq(%w(Banana Submarine Sun))
   end
 
@@ -174,7 +174,7 @@ describe Card::Reference do
     y_referers = Card["Y"].referers.map(&:name)
     expect(y_referers).to include("search with references")
 
-    search_referees = Card["search with references"].referees.map(&:name).sort
+    search_referees = Card["search with references"].referees.map(&:name).map(&:to_s).sort
     expect(search_referees).to eq(%w(A B X Y))
   end
 

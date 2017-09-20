@@ -151,15 +151,15 @@ RSpec.describe Card::Set::All::History do
           expect(act.actions.size).to eq(3)
         end
         it "adds action for left part of type create" do
-          expect(@left_action.card.name).to eq("left")
+          expect(@left_action.card.name.s).to eq("left")
           expect(@left_action.action_type).to eq(:create)
         end
         it "adds action for right part of type create" do
-          expect(@right_action.card.name).to eq("right")
+          expect(@right_action.card.name.s).to eq("right")
           expect(@right_action.action_type).to eq(:create)
         end
         it "adds action for plus card of type create" do
-          expect(@plus_action.card.name).to eq("left+right")
+          expect(@plus_action.card.name.s).to eq("left+right")
           expect(@plus_action.action_type).to eq(:create)
         end
         it "adds content change" do
@@ -188,7 +188,7 @@ RSpec.describe Card::Set::All::History do
           act = @card.acts.last
           expect(act.actions.count).to eq(1)
           expect(act.actions.last.action_type).to eq(:update)
-          expect(act.actions.last.card.name).to eq("left+right")
+          expect(act.actions.last.card.name.s).to eq("left+right")
         end
       end
     end
@@ -215,18 +215,18 @@ RSpec.describe Card::Set::All::History do
           expect(act.actions.size).to eq(3)
         end
         it "action for left part of type create" do
-          expect(@left_action.card.name).to eq("left")
+          expect(@left_action.card.name.s).to eq("left")
           expect(@left_action.action_type).to eq(:create)
         end
         it "superaction for left part" do
           expect(@left_action.super_action_id).to eq(@plus_action.id)
         end
         it "action for right part of type create" do
-          expect(@right_action.card.name).to eq("right")
+          expect(@right_action.card.name.s).to eq("right")
           expect(@right_action.action_type).to eq(:create)
         end
         it "action for plus card of type create" do
-          expect(@plus_action.card.name).to eq("left+right")
+          expect(@plus_action.card.name.s).to eq("left+right")
           expect(@plus_action.action_type).to eq(:create)
         end
         it "content change" do

@@ -16,7 +16,7 @@ describe Card::Set::All::Follow do
       end
     end
 
-    subject { Card[cardname].follower_names.sort }
+    subject { Card[cardname].follower_names.map(&:to_s).sort }
 
     context "followers of No One Sees Me" do
       let(:cardname) { "No One Sees Me" }

@@ -302,15 +302,13 @@ def follow_label
 end
 
 def follow_rule_name user=nil
-  if user
-    if user.is_a? String
-      "#{name}+#{user}+#{Card[:follow].name}"
-    else
-      "#{name}+#{user.name}+#{Card[:follow].name}"
-    end
-  else
-    "#{name}+#{Card[:all].name}+#{Card[:follow].name}"
-  end
+  follower = case user
+             when nil    then Card[:all].name
+             when String then user
+             when Name   then user.s
+             else             user.name
+             end
+  [name.s, follower, Card[:follow].name.s].join "+"
 end
 
 def all_user_ids_with_rule_for setting_code

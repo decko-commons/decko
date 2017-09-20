@@ -31,7 +31,7 @@ event :validate_uniqueness_of_name do
 end
 
 event :validate_legality_of_name do
-  if name.length > 255
+  if name.to_s.length > 255
     errors.add :name, "is too long (255 character maximum)"
   elsif cardname.blank?
     errors.add :name, "can't be blank"

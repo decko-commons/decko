@@ -232,12 +232,12 @@ describe Card::Set::All::Permissions do
       end
 
       Card::Auth.as(@u1) do
-        expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
+        expect(Card.search(content: "WeirdWord").map(&:name).map(&:to_s).sort).to(
           eq %w[c1 c2 c3]
         )
       end
       Card::Auth.as(@u2) do
-        expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
+        expect(Card.search(content: "WeirdWord").map(&:name).map(&:to_s).sort).to(
           eq %w[c2 c3]
         )
       end
@@ -256,14 +256,14 @@ describe Card::Set::All::Permissions do
       end
 
       Card::Auth.as(@u1) do
-        expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
+        expect(Card.search(content: "WeirdWord").map(&:name).map(&:to_s).sort).to(
           eq(%w[c1 c2 c3])
         )
       end
       # for Card::Auth.as to be effective, you can't have a logged in user
       Card::Auth.current_id = nil
       Card::Auth.as(@u2) do
-        expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
+        expect(Card.search(content: "WeirdWord").map(&:name).map(&:to_s).sort).to(
           eq(%w[c2 c3])
         )
       end

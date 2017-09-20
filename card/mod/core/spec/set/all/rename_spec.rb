@@ -6,8 +6,8 @@ module RenameMethods
       content: card.content,
       # updater_id:  card.updater_id,
       # revisions:   card.actions.count,
-      referers: card.referers.map(&:name).sort,
-      referees: card.referees.map(&:name).sort,
+      referers: card.referers.map(&:name).map(&:to_s).sort,
+      referees: card.referees.map(&:name).map(&:to_s).sort,
       descendants: card.descendants.map(&:id).sort
     }
   end

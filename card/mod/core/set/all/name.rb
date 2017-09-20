@@ -20,6 +20,10 @@ module ClassMethods
   end
 end
 
+def name
+  super&.to_name
+end
+
 def name= newname
   cardname = superize_name newname.to_name
   newkey = cardname.key
@@ -32,8 +36,8 @@ def superize_name cardname
   return cardname unless @supercard
   @raw_name = cardname.s
   @supercard.subcards.rename key, cardname.key
-  @superleft = @supercard if cardname.field_of? @supercard.name
-  cardname.absolute_name @supercard.name
+  @superleft = @supercard if cardname.field_of? @supercard.name.s
+  cardname.absolute_name @supercard.name.s
 end
 
 def key= newkey
@@ -61,10 +65,11 @@ def update_subcard_names new_name, name_to_replace=nil
         # replace the empty part
         "".to_name
       else
-        name
+        name.to_s
       end
+
     subcard.name = subcard.cardname.replace name_to_replace, new_name.s
-    subcard.update_subcard_names new_name, name
+    subcard.update_subcard_names new_name, name.s
   end
 end
 
@@ -214,7 +219,7 @@ event :set_autoname, :prepare_to_validate, on: :create do
     self.name = autoname autoname_card.content
     # FIXME: should give placeholder in approve phase
     # and finalize/commit change in store phase
-    autoname_card.refresh.update_column :db_content, name
+    autoname_card.refresh.update_column :db_content, name.s
   end
 end
 
