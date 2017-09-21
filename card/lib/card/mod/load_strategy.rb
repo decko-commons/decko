@@ -37,7 +37,7 @@ class Card
           if module_type == :set
             # I'm not sure if we really need this ordering by pattern for sets -pk
             Card::Set::Pattern.in_load_order.each do |pattern|
-              each_file_in_dir base_dir, pattern, &block
+              each_file_in_dir base_dir, pattern.to_s, &block
             end
           else
             each_file_in_dir base_dir, &block

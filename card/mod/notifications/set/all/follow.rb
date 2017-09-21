@@ -94,7 +94,7 @@ def follow_rule_card?
 end
 
 def follow_option?
-  codename && FollowOption.codenames.include?(codename.to_sym)
+  codename && FollowOption.codenames.include?(codename)
 end
 
 # used for the follow menu overwritten in type/set.rb and type/cardtype.rb

@@ -18,7 +18,7 @@ class Card
       end
 
       def save_location? card
-        !Env.ajax? && Env.html? && card.known? && (card.codename != "signin")
+        !Env.ajax? && Env.html? && card.known? && (card.codename != :signin)
       end
 
       def previous_location
