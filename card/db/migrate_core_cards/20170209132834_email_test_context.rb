@@ -34,7 +34,7 @@ class EmailTestContext < Card::Migration::Core
   end
 
   def update_if_unchanged name, content
-    return if (card = Card[name]) && card.updater.codename != "wagn_bot"
+    return if (card = Card[name]) && card.updater.codename != :wagn_bot
     ensure_card name, content: content
   end
 

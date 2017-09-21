@@ -1,11 +1,11 @@
 class Card
   module Mod
-    # Tries to build the module with as less string evaluation as possible.
+    # Tries to build the module with as little string evaluation as possible.
     # The problem here is that in methods like `module_eval` the Module.nesting
     # list gets lost so all references in mod files to constants in the
     # Card::Set namespace don't work.
-    # The solution is to construct a bending with the right Module.nesting list.
-    class BindingMagic < LoadStragey
+    # The solution is to construct a binding with the right Module.nesting list.
+    class BindingMagic < LoadStrategy
       def load_modules
         each_file do |abs_path, const_parts|
           sm = SetModule.new const_parts, abs_path

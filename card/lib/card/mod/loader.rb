@@ -2,20 +2,49 @@
 
 require_dependency "card/set"
 require_dependency "card/set_pattern"
-require_relative "loader/module_loader/pattern_loader"
-require_relative "loader/module_loader/set_loader"
+require_dependency "card/mod/loader/set_loader"
+require_dependency "card/mod/loader/set_pattern_loader"
 
 class Card
   module Mod
-    # Used to load all part of a mod,
+    # Card::Mod::Loader is used to load all part of a mod,
     # i.e. initializers, patterns, formats, chunks, layouts and sets
-    module Loader
+
+    # A Loader object provides tools for generating and loading sets and set patterns,
+    # each of which are typically written using a Decko DSL.
+
+    # The mods are given by a Mod::Dirs object.
+    # SetLoader can use three different strategies to load the set modules.
+
+    class Loader
+
+      def initialize(load_strategy=:eval, mod_dirs=nil)
+        mod_dirs ||= Mod.dirs
+        klass = load_strategy_class load_strategy
+        @load_strategy = klass.new mod_dirs, self
+      end
+
+      def load_strategy_class load_strategy
+        case load_strategy
+          when :tmp_files     then LoadStrategy::TmpFiles
+          when :binding_magic then LoadStrategy::BindingMagic
+          else                     LoadStrategy::Eval
+        end
+      end
+
+      def load
+        @load_strategy.load_modules
+      end
+
+
       class << self
+        attr_reader :module_type
+
         def load_mods
           load_initializers
-          pattern_loader.load
+          SetPatternLoader.new.load
           load_formats
-          set_loader.load
+          SetLoader.new.load
         end
 
         def load_chunks
@@ -36,16 +65,8 @@ class Card
           hash
         end
 
-        def set_loader
-          @set_loader ||= ModuleLoader::SetLoader.new Mod.dirs
-        end
-
-        def pattern_loader
-          @pattern_loader ||= Loader::ModuleLoader::PatternLoader.new Mod.dirs
-        end
-
-        def mod_dirs
-          Mod.dirs
+        def module_class_template
+          const_get :Template
         end
 
         private
@@ -59,7 +80,7 @@ class Card
         # {Card::Format}
         def load_formats
           # cheating on load issues now by putting all inherited-from formats in core mod.
-          mod_dirs.each(:format) do |dir|
+          Mod.dirs.each(:format) do |dir|
             load_dir dir
           end
         end

@@ -106,7 +106,7 @@ format :html do
   def core_inherit_for_content_for_self_set set_context
     task = card.tag.codename
     ancestor = Card[set_context.trunk_name.trunk_name]
-    links = ancestor.who_can(task.to_sym).map do |card_id|
+    links = ancestor.who_can(task).map do |card_id|
       link_to_card card_id, nil, target: args[:target]
     end * ", "
     "Inherit ( #{links} )"

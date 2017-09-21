@@ -74,7 +74,7 @@ def is_preference?
     (set = self[0..-3, skip_modules: true]) &&
     set.type_id == Card::SetID &&
     (user = self[-2, skip_modules: true]) &&
-    (user.type_id == Card::UserID || user.codename == "all")
+    (user.type_id == Card::UserID || user.codename == :all)
 end
 
 def rule setting_code, options={}

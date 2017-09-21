@@ -41,7 +41,7 @@ class AddEmailCards < Card::Migration::Core
 
     c = Card.fetch "*message", new: {}
     c.name     = "*html message"
-    c.codename = "html_message"
+    c.codename = :html_message
     c.save!
 
     Card.create! name: "*text message", codename: "text_message"

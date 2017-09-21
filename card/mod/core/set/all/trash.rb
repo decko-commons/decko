@@ -85,8 +85,8 @@ event :validate_delete, :validate, on: :delete do
     %w[default style layout create read update delete]
   # FIXME: HACK! should be configured in the rule
 
-  if junction? && left&.codename == "all" &&
-     undeletable_all_rules_tags.member?(right.codename)
+  if junction? && left&.codename == :all &&
+     undeletable_all_rules_tags.member?(right.codename.to_s)
     errors.add :delete, "#{name} is an indestructible rule"
   end
 
