@@ -2,8 +2,8 @@
 
 require_dependency "card/set"
 require_dependency "card/set_pattern"
-require_relative "loader/set_loader"
-require_relative "loader/set_pattern_loader"
+require_dependency "card/mod/loader/set_loader"
+require_dependency "card/mod/loader/set_pattern_loader"
 
 class Card
   module Mod
