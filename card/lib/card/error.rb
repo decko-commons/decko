@@ -26,7 +26,8 @@ class Card
 
       def build_message
         if (msg = @card.errors[:permission_denied])
-          "for card #{@card.name}: #{msg}"
+          I18n.t :exception_for_card, scope: [:lib, :card, :error],
+                                      cardname: @card.name, message: msg
         else
           super
         end

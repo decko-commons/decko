@@ -22,6 +22,15 @@ namespace :test do
     ENV["GENERATE_FIXTURES"] = "true"
     raise "must be test env" unless Rails.env == "test"
 
+    Rake::Task["test:repopulate_database"].invoke
+
+    puts ">>extracting to fixtures"
+    puts `rake test:extract_fixtures --trace`
+  end
+
+  desc "seeds database and populates it with test data"
+  task repopulate_database: :environment do
+    raise "must be test env" unless Rails.env == "test"
     Rake::Task["decko:reset_cache"]
 
     puts "reseed test db"
@@ -29,10 +38,8 @@ namespace :test do
 
     puts ">>populating test data"
     puts `rake test:populate_template_database --trace`
-
-    puts ">>extracting to fixtures"
-    puts `rake test:extract_fixtures --trace`
   end
+
 
   desc "dump current db to test fixtures"
   task extract_fixtures: :environment do

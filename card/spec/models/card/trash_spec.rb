@@ -14,25 +14,6 @@ describe Card, "deleting card" do
   end
 end
 
-describe Card, "deleted card" do
-  before do
-    Card::Auth.as_bot do
-      @c = Card["A"]
-      @c.delete!
-    end
-  end
-  it "is in the trash" do
-    expect(@c.trash).to be_truthy
-  end
-  it "comes out of the trash when a plus card is created" do
-    Card::Auth.as_bot do
-      Card.create(name: "A+*acct")
-      c = Card["A"]
-      expect(c.trash).to be_falsey
-    end
-  end
-end
-
 describe Card, "in trash" do
   it "is retrieved by fetch with new" do
     Card.create(name: "Betty").delete
@@ -55,27 +36,6 @@ describe Card, "plus cards" do
   end
 end
 
-# FIXME: these user tests should probably be in a set of cardtype specific tests somewhere..
-describe Card do
-  context "with revisions" do
-    before { Card::Auth.as_bot { @c = Card["Wagn Bot"] } }
-    it "does not be removable" do
-      expect(@c.delete).not_to be_truthy
-    end
-  end
-
-  context "without revisions" do
-    before do
-      Card::Auth.as_bot do
-        @c = Card.create! name: "User Must Die", type: "User"
-      end
-    end
-    it "is removable" do
-      expect(@c.delete!).to be_truthy
-    end
-  end
-end
-
 # NOT WORKING, BUT IT SHOULD
 # describe Card, "a part of an unremovable card" do
 #  before do
@@ -89,30 +49,12 @@ end
 #  end
 # end
 
-describe Card, "dependent removal" do
-  before do
-    @a = Card["A"]
-    @a.delete!
-    @c = Card.find_by_key "A+B+C".to_name.key
-  end
-
-  it "is trash" do
-    expect(@c.trash).to be_truthy
-  end
-
-  it "does not be findable by name" do
-    expect(Card["A+B+C"]).to eq(nil)
-  end
-end
-
 describe Card, "rename to trashed name" do
   before do
     Card::Auth.as_bot do
       @a = Card["A"]
       @b = Card["B"]
       @a.delete!  # trash
-      Rails.logger.info "\n\n~~~~~~~deleted~~~~~~~~\n\n\n"
-
       @b.update_attributes! name: "A", update_referers: true
     end
   end
@@ -218,28 +160,24 @@ describe Card, "junction revival" do
 end
 
 describe "remove tests" do
-  before do
-    @a = Card["A"]
-  end
-
   # I believe this is here to test a bug where cards with certain kinds of references
   # would fail to delete.  probably less of an issue now that delete is done through
   # trash.
   it "test_remove" do
-    assert @a.delete!, "card should be deleteable"
+    assert Card["A"].delete!, "card should be deleteable"
     assert_nil Card["A"]
   end
 
-  it "test_recreate_plus_card_name_variant" do
+  example "recreate plus card name variant" do
     Card.create(name: "rta+rtb").delete
     Card["rta"].update_attributes name: "rta!"
-    c = Card.create! name: "rta!+rtb"
-    assert Card["rta!+rtb"]
-    assert !Card["rta!+rtb"].trash
-    assert Card.find_by_key("rtb*trash").nil?
+    Card.create! name: "rta!+rtb"
+    expect(Card["rta!+rtb"]).to be_a Card
+    expect(Card["rta!+rtb"].trash).to be_falsey
+    expect(Card.find_by_key("rtb*trash")).to be_nil
   end
 
-  it "test_multiple_trash_collision" do
+  example "multiple trash collision" do
     Card.create(name: "alpha").delete
     3.times do
       b = Card.create(name: "beta")

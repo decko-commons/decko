@@ -100,10 +100,10 @@ class Card
         conto.process_each_chunk do |stub_hash|
           yield(stub_hash)
         end
+
         if conto.pieces.size == 1
           # for stubs in json format this converts a single stub back
           # to it's original type (e.g. a hash)
-          # TODO: method name to_s is misleading
           conto.pieces.first.to_s
         else
           conto.to_s

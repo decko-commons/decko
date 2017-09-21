@@ -1,11 +1,19 @@
-require_relative "../module_template"
-
 class Card
   module Mod
-    module Loader
-      class ModuleTemplate
-        # Generates the code for a set pattern module.
-        class PatternModule < ModuleTemplate
+    class Loader
+      class SetPatternLoader < Loader
+        @module_type = :set_pattern
+
+        def load_strategy_class load_strategy
+          case load_strategy
+          when :tmp_files
+            LoadStrategy::PatternTmpFiles
+          else :eval
+            LoadStrategy::Eval
+          end
+        end
+
+        class Template < ModuleTemplate
           def to_const
             return Object if simple_load?
             Card::Set.const_get_or_set(@pattern.camelize) do
@@ -15,7 +23,7 @@ class Card
 
           # correct line number for error messages
           def offset
-            -3
+            -6
           end
 
           private
@@ -43,6 +51,7 @@ class Card
             "end"
           end
         end
+
       end
     end
   end

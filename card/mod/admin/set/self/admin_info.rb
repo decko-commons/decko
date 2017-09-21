@@ -21,10 +21,15 @@ format :html do
 
   def render_warning_list warnings
     # 'ADMINISTRATOR WARNING'
-    admin_warn = I18n.t(:admin_warn,
-                        scope: "mod.admin.set.self.admin_info")
+    admin_warn = I18n.t(:admin_warn, scope: "mod.admin.set.self.admin_info")
     "<h5>#{admin_warn}</h5>" + warnings.join("\n")
   end
+
+  def render_warning_list_with_auto_scope warnings
+      # 'ADMINISTRATOR WARNING'
+      admin_warn = tx(:admin_warn)
+      "<h5>#{admin_warn}</h5>" + warnings.join("\n")
+    end
 
   def email_warning
     # "Email delivery is turned off."

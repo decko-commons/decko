@@ -18,6 +18,10 @@ class Card
         Card::Auth.as_bot { super }
       end
 
+      def update! name_or_args, content_or_args={}
+        update_card name_or_args, content_or_args
+      end
+
       def delete name
         Card::Auth.as_bot { Card[name].delete! }
       end

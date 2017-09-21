@@ -21,7 +21,7 @@ def source_dir
 end
 
 def find_file filename
-  mod_path = Card::Mod::Loader.mod_dirs.path file_content_mod_name
+  mod_path = Card::Mod.dirs.path file_content_mod_name
   file_path = File.join(mod_path, "lib", source_dir, filename)
   return unless File.exist? file_path
   file_path

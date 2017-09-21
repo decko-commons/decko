@@ -1,179 +1,112 @@
 # -*- encoding : utf-8 -*-
 
 shared_examples_for "notifications" do
+  let(:created) { Card["Created card"] }
+  let(:updated) { Card["Updated card"] }
+  let(:deleted) { Card.fetch("Deleted card", look_in_trash: true) }
+
   describe "#list_of_changes" do
-    name = "subedit notice"
-    content = "new content"
-
-    before do
-      @card = Card.create!(name: name, content: content)
-    end
-    subject { @card.format(format: format).render_list_of_changes }
-
-    context "for a new card" do
-      it { is_expected.to include "content: #{content}" }
-      it { is_expected.to include "cardtype: Basic" }
-    end
-    context "for a updated card" do
-      before do
-        @card.update_attributes!(
-          name: "bnn card", type: :pointer, content: "changed content"
-        )
-      end
-      it { is_expected.to include "new content: [[changed content]]" }
-      it { is_expected.to include "new cardtype: Pointer" }
-      it { is_expected.to include "new name: bnn card" }
-    end
-    context "for a deleted card" do
-      before { @card.delete }
-      it { is_expected.to be_empty }
+    def list_of_changes card, args={}
+      card.format(format: format).render_list_of_changes(args)
     end
 
-    context "for a given action" do
-      subject do
-        action = @card.last_action
-        @card.update_attributes!(
-          name: "bnn card", type: :pointer, content: "changed content"
-        )
-        @card.format(format: format).render_list_of_changes(action: action)
-      end
-
-      it { is_expected.to include "content: #{content}" }
+    example "for a new card" do
+      expect(list_of_changes(created))
+        .to include("content: new content", "cardtype: Basic")
     end
-    context "for a given action id" do
-      subject do
-        action_id = @card.last_action.id
-        @card.update_attributes!(
-          name: "bnn card", type: :pointer, content: "changed content"
-        )
-        @card.format(format: format)
-             .render_list_of_changes(action_id: action_id)
-      end
 
-      it { is_expected.to include "content: #{content}" }
+    example "for a updated card" do
+      expect(list_of_changes(updated))
+        .to include("new content: [[changed content]]",
+                    "new cardtype: Pointer",
+                    "new name: Updated card")
+    end
+
+    example "for a deleted card" do
+      expect(list_of_changes(deleted)).to be_empty
+    end
+
+    example "for a given action" do
+      action = updated.create_action
+      expect(list_of_changes(updated, action: action))
+        .to include "content: new content"
+    end
+
+    example "for a given action id" do
+      action_id = updated.create_action.id
+      expect(list_of_changes(updated, action_id: action_id))
+              .to include "content: new content"
     end
   end
 
   describe "subedit_notice" do
-    def list_of_changes_for card
-      card.db_content
-    end
-    name = "subedit notice card"
-    content = "new content"
-    before do
-      @card = Card.create!(name: name, content: content)
-    end
-    subject { @card.format(format: format).render_subedit_notice }
-
-    context "for a new card" do
-      it { is_expected.to include name }
-      it { is_expected.to include "created" }
-      it { is_expected.to include list_of_changes_for @card }
+    def subedit_notice card
+      card.format(format: format).render_subedit_notice
     end
 
-    context "for a updated card" do
-      changed_name = "changed subedit notice"
-      changed_content = "changed content"
-      before do
-        @card.update_attributes!(name: changed_name, content: changed_content)
-      end
-      it { is_expected.to include changed_name }
-      it { is_expected.to include "updated" }
-      it { is_expected.to include list_of_changes_for @card }
+    example "for a created card" do
+      expect(subedit_notice(created))
+        .to include("Created card", "created", "new content")
     end
 
-    context "for a deleted card" do
-      before { @card.delete }
-      it { is_expected.to include name }
-      it { is_expected.to include "deleted" }
+    example "for an updated card" do
+      expect(subedit_notice(updated))
+        .to include("Updated card", "updated", "changed content")
+    end
+
+    example "for a deleted card" do
+      expect(subedit_notice(deleted))
+        .to include("Deleted card", "deleted")
     end
   end
 end
 
-describe Card::Set::All::SendNotifications do
+RSpec.describe Card::Set::All::SendNotifications do
   before do
     ::Card.any_instance.stub(:'silent_change?').and_return(false)
   end
 
-  describe "content of notification email" do
-    context "for new card with subcards" do
-      name = "another card with subcards"
-      content = "main content {{+s1}}  {{+s2}}"
-      sub1_content = "new content of subcard 1"
-      sub2_content = "new content of subcard 2"
-      before do
-        Card::Auth.as_bot do
-          @card = Card.create!(name: name, content: content,
-                               subcards: { "+s1" => { content: sub1_content },
-                                           "+s2" => { content: sub2_content } })
-        end
-      end
-      subject do
-        Card[:follower_notification_email].format.render_mail(
-          context:   @card.refresh(true),
-          to:        Card["Joe User"].email,
-          follower:  Card["Joe User"].name,
-          followed_set:  "#{@card.name}+*self",
-          follow_option: "*always"
-        ).text_part.body.raw_source
-      end
+  def notification_email_for card_name, followed_set: "#{card_name}+*self"
+    Card[:follower_notification_email].format.render_mail(
+      context:   Card[card_name].refresh(true),
+      to:        Card["Joe User"].email,
+      follower:  Card["Joe User"].name,
+      followed_set:  followed_set,
+      follow_option: "*always"
+    ).text_part.body.raw_source
+  end
 
-      it { is_expected.to include content }
-      it { is_expected.to include sub1_content }
-      it { is_expected.to include sub2_content }
+
+  describe "content of notification email" do
+
+
+    context "for new card with subcards" do
+      specify do
+        expect(notification_email_for "card with fields")
+          .to include("main content", "content of field 1" , "content of field 2")
+      end
 
       context "and missing permissions" do
-        context "for subcard" do
-          before do
-            create_or_update! "#{name}+s1+*self+*read",
-                              type: "Pointer", content: "[[Administrator]]"
-          end
-          it "excludes subcard content" do
-            is_expected.not_to include sub1_content
-            is_expected.to include sub2_content
-          end
+        example "for a field" do
+            expect(notification_email_for("card with fields and admin fields"))
+              .to not_include("content of admin field 1")
+                    .and include("content of field 1")
         end
-        context "for main card" do
-          subject do
-            Card[:follower_notification_email].format.render_mail(
-              context:   @card.refresh(true),
-              to:        Card["Joe User"].email,
-              follower:  Card["Joe User"].name,
-              followed_set:  @card.name + "+s1+*self",
-              follow_option: "*always"
-            ).text_part.body.raw_source
-          end
 
-          before do
-            create_or_update! "#{name}+*self+*read",
-                              type: "Pointer", content: "[[Administrator]]"
-            create_or_update! "#{name}+s1+*self+*read",
-                              type: "Pointer", content: "[[Anyone]]"
-          end
-          it "includes subcard content" do
-            is_expected.to include sub1_content
-          end
-          it "excludes maincard content" do
-            is_expected.not_to include content
-            is_expected.not_to be_empty
-          end
+        example "for main card" do
+          card_name = "admin card with fields and admin fields"
+          email = notification_email_for card_name,
+                                         followed_set: "#{card_name}+field 1+*self"
+          expect(email).to include("content of field 1").and not_include("main content")
         end
-        context "for all parts" do
-          before do
-            create_or_update! "#{name}+s1+*self+*read",
-                              type: "Pointer", content: "[[Administrator]]"
-            create_or_update! "#{name}+s2+*self+*read",
-                              type: "Pointer", content: "[[Administrator]]"
-            create_or_update! "#{name}+*self+*read",
-                              type: "Pointer", content: "[[Administrator]]"
-          end
-          it { is_expected.not_to include content }
-          it { is_expected.not_to include sub1_content }
-          it { is_expected.not_to include sub2_content }
-          it "will not be send" do
-            expect(Card["Joe User"].account.changes_visible?(@card.acts.last))
-              .to be_falsey
-          end
+
+        example "for all parts" do
+          card = Card["admin card with admin fields"]
+            expect("admin card with admin fields")
+              .to not_include("main content").and not_include("content of admin field 1")
+                                             .and not_include("content of admin field 2")
+            expect(Card["Joe User"].account.changes_visible?(card.acts.last))
+                          .to be_falsey
         end
       end
     end
@@ -191,53 +124,41 @@ describe Card::Set::All::SendNotifications do
     end
 
     it "creates well formatted text message" do
-      name = "another card with subcards"
-      content = "main content {{+s1}}  {{+s2}}"
-      sub1_content = "new content of subcard 1"
-      sub2_content = "new content of subcard 2"
-      Card::Auth.as_bot do
-        @card = Card.create!(name: name, content: content,
-                             subcards: { "+s1" => { content: sub1_content },
-                                         "+s2" => { content: sub2_content } })
-      end
-      result = Card[:follower_notification_email].format.render_mail(
-        context:   @card,
-        to:        Card["Joe User"].email,
-        follower:  Card["Joe User"].name,
-        followed_set:  "#{@card.name}+*self",
-        follow_option: "*always"
-      ).text_part.body.raw_source
       unfollow_link =
-        "/update/Joe_User+*follow?card%5Bsubcards%5D%5Banother+"\
-        "card+with+subcards%2B%2Aself%2BJoe+User%2B%2Afollow%5D=%2Anever"
-      expect(result)
-        .to eq(%("another card with subcards" was just created by Joe User.
+        "/update/Joe_User+*follow?card%5Bsubcards%5D%5B"\
+        "card+with+fields%2B%2Aself%2BJoe+User%2B%2Afollow%5D=%2Anever"
+
+      expect(notification_email_for("card with fields"))
+        .to eq(
+      <<-TEXT
+"card with fields" was just created by Joe User.
 
    cardtype: Basic
-   content: main content {{+s1}}  {{+s2}}
+   content: main content {{+field 1}}  {{+field 2}}
 
 
 
 This update included the following changes:
 
-another card with subcards+s1 created
+card with fields+field 1 created
    cardtype: Basic
-   content: new content of subcard 1
+   content: content of field 1
 
 
-another card with subcards+s2 created
+card with fields+field 2 created
    cardtype: Basic
-   content: new content of subcard 2
+   content: content of field 2
 
 
 
 
-See the card: /another_card_with_subcards
+See the card: /card_with_fields
 
-You received this email because you're following "another card with subcards".
+You received this email because you're following "card with fields".
 
 Use this link to unfollow #{unfollow_link}
-))
+TEXT
+)
     end
   end
 

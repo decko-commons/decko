@@ -25,6 +25,14 @@ module Decko
             parser.on("-s", "--step", "Pause after each step") do |a|
               opts[:env] << "STEP=1" if a
             end
+            parser.on("--[no-]spring", "Run with spring") do |spring|
+              opts[:executer] =
+                if spring
+                 "spring"
+                else
+                 "bundle exec"
+                end
+            end
           end
         end
       end

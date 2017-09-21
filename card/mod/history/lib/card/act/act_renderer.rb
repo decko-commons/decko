@@ -1,5 +1,3 @@
-# require_dependency File.expand_path("../../action/action_renderer", __FILE__)
-
 class Card
   class Act
     class ActRenderer
