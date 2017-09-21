@@ -12,6 +12,8 @@ module ClassMethods
     end
   end
 
+  # translates various inputs into either an id or a name.
+  #
   # @param mark [Symbol, Integer, Card, String, or Card::Name]
   # @return [Integer or Card::Name]
   def id_or_name mark
@@ -27,29 +29,38 @@ module ClassMethods
     end
   end
 
+  # translates string identifiers into an id or name, including:
+  #   - string id notation (eg "~75")
+  #   - string codename notation (eg ":options")
+  #
+  # @param mark [String]
+  # @return [Integer or Card::Name]
   def id_or_name_from_string mark
     case mark
-    when /^\~(\d+)$/  # id, eg "~75"
-      Regexp.last_match[1].to_i
-    when /^\:(\w+)$/  # codename, eg ":options"
-      id_from_codename!Regexp.last_match[1].to_sym
-    else
-      mark.to_name
+    when /^\~(\d+)$/  then  Regexp.last_match[1].to_i
+    when /^\:(\w+)$/  then  id_from_codename!Regexp.last_match[1].to_sym
+    else                    mark.to_name
     end
   end
 
+  # @param parts [Array] of mark or mark parts
+  # @return [Integer or Card::Name]
   def compose_mark parts
     parts.flatten!
+    return id_or_name(parts.first) if parts.size == 1
     parts.map do |part|
-      normpart = id_or_name part
-      #normpart = fetch_name(normpart) if parts.size > 1
-      normpart
+      Card::Name.cardish id_or_name(part)
     end.join("+").to_name
   end
 
-  def id_from_codename! mark
-    id = Card::Codename[mark]
-    raise Card::Error::NotFound, "missing card with codename: #{mark}" unless id
-    id
+  # @param codename [Symbol]
+  # @return [Integer]
+  def id_from_codename! codename
+    Card::Codename[codename] || missing_codename!
   end
+
+  def missing_codename!
+    raise Card::Error::NotFound, "missing card with codename: #{mark}"
+  end
+
 end

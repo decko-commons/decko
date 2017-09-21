@@ -1,5 +1,5 @@
 module ClassMethods
-  def fetch_from_cache cache_key, local_only=false
+  def retrieve_from_cache cache_key, local_only=false
     return unless Card.cache
     if local_only
       Card.cache.soft.read cache_key
@@ -8,13 +8,13 @@ module ClassMethods
     end
   end
 
-  def fetch_from_cache_by_id id, local_only=false
-    name = fetch_from_cache "~#{id}", local_only
-    fetch_from_cache name, local_only if name
+  def retrieve_from_cache_by_id id, local_only=false
+    name = retrieve_from_cache "~#{id}", local_only
+    retrieve_from_cache name, local_only if name
   end
 
-  def fetch_from_cache_by_key key, local_only=false
-    fetch_from_cache key, local_only
+  def retrieve_from_cache_by_key key, local_only=false
+    retrieve_from_cache key, local_only
   end
 
   def new_for_cache card, name, opts
