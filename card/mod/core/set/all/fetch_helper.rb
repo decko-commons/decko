@@ -1,8 +1,10 @@
 
 module ClassMethods
 
-  def deep_fetch args
-    opts = deep_opts args
+  # a fetch method to support the needs of the card controller.
+  # should be in Decko?
+  def controller_fetch args
+    opts = controller_fetch_opts args
     if args[:action] == "create"
       # FIXME: we currently need a "new" card to catch duplicates
       # (otherwise save will just act like a normal update)
@@ -16,49 +18,19 @@ module ClassMethods
 
   private
 
-  def fetch_real_by_key key, opts={}
-
-    raise Card::Error, "fetch_real_by_key called with new args" if opts[:new]
-
-    # #fetch converts String to Card::Name. That can break in some cases.
-    # For example if you fetch "Siemens" by its key "siemen", you won't get
-    # "Siemens" because "siemen".to_name.key == "sieman"
-    # If you have a key of a real card use this method.
-
-    # look in cache
-    card = retrieve_from_cache_by_key key, opts[:local_only]
-    # look in db if needed
-    if retrieve_from_db?(card, opts)
-      card = retrieve_from_db :key, key, opts
-      write_to_cache card, opts if !card.nil? && !card.trash
-    end
-    return if card.nil?
-    card.include_set_modules unless opts[:skip_modules]
-    card
-  end
-
-  def standard_fetch_results card, mark, opts
-    if card.new_card?
-      new_card_fetch_results card, mark, opts
-    else
-      finalize_fetch_results card, opts
-    end
-  end
-
-  def new_card_fetch_results card, mark, opts
-    case
-      when opts[:new].present? then return card.renew(opts)
-      when opts[:new] # noop for empty hash
-      when opts[:skip_virtual] then return nil
-    end
-    card.assign_name_from_fetched_mark! mark, opts
-    return nil unless opts[:new] || card.known?
-    finalize_fetch_results card, opts
-  end
-
-  def finalize_fetch_results card, opts
-    card.include_set_modules unless opts[:skip_modules]
-    card
+  def controller_fetch_opts args
+    opts =
+        # clone doesn't work for Parameters
+        if args[:card].respond_to?(:to_unsafe_h)
+          args[:card].to_unsafe_h
+        else
+          (args[:card] || {}).clone
+        end
+    # clone so that original params remain unaltered.  need deeper clone?
+    opts[:type] ||= args[:type] if args[:type]
+    # for /new/:type shortcut.  we should handle in routing and deprecate this
+    opts[:name] ||= Card::Name.url_key_to_standard(args[:id])
+    opts
   end
 
   def validate_fetch_opts! opts
@@ -66,6 +38,13 @@ module ClassMethods
     raise Card::Error, "fetch called with new args and skip_virtual"
   end
 
+  def skip_type_lookup? opts
+    # if opts[:new] is not empty then we are initializing a variant that is
+    # different from the cached variant
+    # and can postpone type lookup for the cached variant
+    # if skipping virtual no need to look for actual type
+    opts[:skip_virtual] || opts[:new].present? || opts[:skip_type_lookup]
+  end
 
   def retrieve_existing mark, opts
     return [nil, false] unless mark.present?
@@ -104,27 +83,28 @@ module ClassMethods
     card
   end
 
-  def deep_opts args
-    opts =
-        # clone doesn't work for Parameters
-        if args[:card].respond_to?(:to_unsafe_h)
-          args[:card].to_unsafe_h
-        else
-          (args[:card] || {}).clone
-        end
-    # clone so that original params remain unaltered.  need deeper clone?
-    opts[:type] ||= args[:type] if args[:type]
-    # for /new/:type shortcut.  we should handle in routing and deprecate this
-    opts[:name] ||= Card::Name.url_key_to_standard(args[:id])
-    opts
+  def standard_fetch_results card, mark, opts
+    if card.new_card?
+      new_card_fetch_results card, mark, opts
+    else
+      finalize_fetch_results card, opts
+    end
   end
 
-  def skip_type_lookup? opts
-    # if opts[:new] is not empty then we are initializing a variant that is
-    # different from the cached variant
-    # and can postpone type lookup for the cached variant
-    # if skipping virtual no need to look for actual type
-    opts[:skip_virtual] || opts[:new].present? || opts[:skip_type_lookup]
+  def new_card_fetch_results card, mark, opts
+    case
+      when opts[:new].present? then return card.renew(opts)
+      when opts[:new] # noop for empty hash
+      when opts[:skip_virtual] then return nil
+    end
+    card.assign_name_from_fetched_mark! mark, opts
+    return nil unless opts[:new] || card.known?
+    finalize_fetch_results card, opts
+  end
+
+  def finalize_fetch_results card, opts
+    card.include_set_modules unless opts[:skip_modules]
+    card
   end
 
   def normalize_fetch_args args
