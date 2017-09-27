@@ -5,10 +5,10 @@ class Cardname
       !simple?
     end
 
-    def blank?
-      s.blank?
-    end
-    alias empty? blank?
+    #def blank?
+    #  s.blank?
+    #end#
+    #alias empty? blank?
 
     def valid?
       !parts.find do |pt|

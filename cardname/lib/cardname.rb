@@ -3,13 +3,14 @@
 require 'active_support/configurable'
 require 'active_support/inflector'
 require 'htmlentities'
-require_relative 'cardname/parts'
-require_relative 'cardname/variants'
-require_relative 'cardname/contextual'
-require_relative 'cardname/predicates'
-require_relative 'cardname/manipulate'
 
-class Cardname < Object
+class Cardname < String
+
+  require_relative 'cardname/parts'
+  require_relative 'cardname/variants'
+  require_relative 'cardname/contextual'
+  require_relative 'cardname/predicates'
+  require_relative 'cardname/manipulate'
 
   include Parts
   include Variants
@@ -36,10 +37,18 @@ class Cardname < Object
   @@cache = {}
 
   class << self
+    # def new obj
+#     #
+    #
+    # end
+
     def new obj
       return obj if obj.is_a? self.class
       str = stringify obj
       cached_name(str) || super(str)
+
+
+      # #s = s.encode('UTF-8') if RUBYENCODING
     end
 
     def cached_name str
@@ -79,30 +88,29 @@ class Cardname < Object
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # ~~~~~~~~~~~~~~~~~~~~~~ INSTANCE ~~~~~~~~~~~~~~~~~~~~~~~~~
   attr_reader :key, :s
-  alias to_s s
+
 
   def initialize str
-    @s = str.to_s.strip
-    @s = @s.encode('UTF-8') if RUBYENCODING
-    initialize_parts
-    @key = @part_keys.join(self.class.joint)
+  #  @s = str.to_s.strip
+  #  @s = @s.encode('UTF-8') if RUBYENCODING
     @@cache[str] = self
   end
 
-  def to_name
+  def s
     self
+  end
+  alias to_name s
+
+  def key
+    @key ||= part_keys.join(self.class.joint)
   end
 
   def length
-    parts.length
+    @length = parts.length
   end
 
   def size
     to_s.size
-  end
-
-  def inspect
-    "<#{self.class.name} key=#{key}[#{self}]>"
   end
 
   def == other

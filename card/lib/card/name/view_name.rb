@@ -21,21 +21,23 @@ class Card
       end
 
       def initialize str
-        @s = str.to_s.strip
-        @s = @s.encode("UTF-8") if RUBYENCODING
-        @key =
-          if @s.index(self.class.joint)
-            @parts = @s.split(/\s*#{JOINT_RE}\s*/)
-            @parts << "" if @s[-1, 1] == self.class.joint
-            @simple = false
-            @parts.map { |p| p.to_name.key } * self.class.joint
-          else
-            @parts = [str]
-            @simple = true
-            str.empty? ? "" : simple_key
-          end
-        @@name2viewnameobject[str] = self
+       # @s = str.to_s.strip
+       # @s = @s.encode("UTF-8") if RUBYENCODING
+       # @key =
+       #   if @s.index(self.class.joint)
+       #     @parts = @s.split(/\s*#{JOINT_RE}\s*/)
+       #     @parts << "" if @s[-1, 1] == self.class.joint
+       #     @simple = false
+       #     @parts.map { |p| p.to_name.key } * self.class.joint
+       #   else
+       #     @parts = [str]
+       #     @simple = true
+       #     str.empty? ? "" : simple_key
+       #   end
+       # @@name2viewnameobject[str] = self
       end
+
+
 
       def simple_key
         decoded.underscore.gsub(/[^#{OK4KEY_RE}]+/, "_")

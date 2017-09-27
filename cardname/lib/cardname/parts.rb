@@ -8,13 +8,16 @@ class Cardname
     alias simple? simple
     alias_method :to_a, :parts
 
-    def initialize_parts
-      # -1 = don't suppress trailing null fields
-      @parts = @s.split(/\s*#{JOINT_RE}\s*/, -1)
-      @simple = @parts.size <= 1
-      # simple check needed to avoid inifinite recursion
-      @part_keys =
-        @simple ? [simple_key] : @parts.map { |p| p.to_name.simple_key }
+    def parts
+      @parts = s.split(/\s*#{JOINT_RE}\s*/, -1)
+    end
+
+    def simple
+      @simple = parts.size <= 1
+    end
+
+    def part_keys
+      @part_keys ||= simple ? [simple_key] : parts.map { |p| p.to_name.simple_key }
     end
 
     def left
