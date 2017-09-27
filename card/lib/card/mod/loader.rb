@@ -17,7 +17,6 @@ class Card
     # SetLoader can use three different strategies to load the set modules.
 
     class Loader
-
       def initialize(load_strategy=:eval, mod_dirs=nil)
         mod_dirs ||= Mod.dirs
         klass = load_strategy_class load_strategy
