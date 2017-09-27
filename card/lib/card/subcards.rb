@@ -49,6 +49,7 @@ class Card
           multi_add args
         end
       else
+        binding.pry if name_or_card_or_attr.to_s =~ /sub3/
         new_by_attributes name_or_card_or_attr, attr_or_opts
       end
     end
@@ -206,14 +207,8 @@ class Card
     end
 
     def prepend_plus name
-      case name
-      when Symbol
-        "+#{Card[name].name}"
-      when /^\+/
-        name
-      else
-        "+#{name}"
-      end
+      name = name.to_name
+      name.s =~ /^\+/ ? name : "+#{name}"
     end
 
     def field_name_to_key name

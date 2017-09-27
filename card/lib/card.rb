@@ -21,18 +21,10 @@ Object.const_remove_if_defined :Card
 #
 # * **@card.id** The _id_ is a simple Integer.
 # * **@card.codename** The _codename_, a Symbol, is the name by which a card can be referred to in code. The notion is that
+# * **@card.key** The _id_ is a simple integer.
 # * **@card.id** The _id_ is a simple integer.
-# * **@card.id** The _id_ is a simple integer.
 #
-# The _codename_
-# cardnames, codenames, keys, ids
 #
-#   Note that "company" here does not refer to its "name", but rather its "codename" (which an administrator might add to the Company card via the RESTful web API with a url like
-#
-#   /update/Company?card[codename]=company
-
-#
-#   Generally speaking, code should never refer to a card by name; otherwise it will break when the card is renamed.  Instead, it should use the codename, which will continue to work even if the canonical name is changed.
 #
 # ## Fetching
 #

@@ -47,7 +47,7 @@ class RailsInflectionUpdates < Card::Migration::Core
         next unless name =~ plural
         # can't use fetch, because it uses the wrong key
         # find_by_name is case-insensitve and finds the wrong cards for camel case names
-        card = Card.where(name: name).find { |card| card.name == name }
+        card = Card.where(name: name).find { |card| card.name.to_s == name }
 
         unless_name_collision(card) do
           apply_to_content << i

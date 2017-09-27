@@ -361,21 +361,18 @@ describe Card::ActManager::StageDirector do
     it "has correct name if supercard's name get changed" do
       Card::Auth.as_bot do
         changed = false
-        in_stage :prepare_to_validate,
-                 on: :create,
-                 trigger: :create_subcards do
-          self.name = "main" if name.empty? && !changed
+        in_stage :prepare_to_validate, on: :create, trigger: :create_subcards do
+          self.name = "main" if name.s.empty? && !changed
         end
         expect(Card["main+sub1"].class).to eq(Card)
         expect(Card["main+sub2+sub3"].class).to eq(Card)
       end
     end
+
     it "has correct name if supercard's name get changed to a junction card" do
       Card::Auth.as_bot do
         changed = false
-        in_stage :prepare_to_validate,
-                 on: :create,
-                 trigger: :create_subcards do
+        in_stage :prepare_to_validate, on: :create, trigger: :create_subcards do
           if name.empty? && !changed
             self.name = "main1+main2"
             expect(subfield("sub1")).to be

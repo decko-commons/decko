@@ -200,7 +200,7 @@ class Card
         value && value.to_i
       when :cardtype
         type_card = value && Card.quick_fetch(value.to_i)
-        type_card && type_card.name.capitalize
+        type_card && type_card.name.s.capitalize
       else value
       end
     end

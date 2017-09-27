@@ -65,6 +65,7 @@ class Card
       end
 
       def process_target value
+        value = value.to_s
         case value
         when ""                     then ""
         when "*previous", :previous then :previous
