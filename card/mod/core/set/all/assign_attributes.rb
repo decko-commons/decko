@@ -32,6 +32,17 @@ end
 
 protected
 
+module ClassMethods
+  def assign_or_initialize_by name, attributes, fetch_opts={}
+    if (known_card = Card.fetch(name, fetch_opts))
+      known_card.refresh.assign_attributes attributes
+      known_card
+    else
+      Card.new attributes.merge(name: name)
+    end
+  end
+end
+
 def prepare_assignment_params args
   args = args.to_unsafe_h if args.respond_to?(:to_unsafe_h)
   params = ActionController::Parameters.new(args)

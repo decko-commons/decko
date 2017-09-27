@@ -78,7 +78,7 @@ class CardController < ActionController::Base
   end
 
   def load_card
-    @card = Card.deep_fetch params
+    @card = Card.controller_fetch params
     raise Card::Error::NotFound unless @card
     @card.select_action_by_params params #
     Card::Env[:main_name] = params[:main] || (card && card.name) || ""

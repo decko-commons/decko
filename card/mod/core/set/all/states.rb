@@ -1,3 +1,15 @@
+module ClassMethods
+  def exists? mark
+    card = quick_fetch mark
+    card.present?
+  end
+
+  def known? mark
+    card = fetch mark, skip_modules: true
+    card.present?
+  end
+end
+
 def state
   case
   when !known?     then :unknown

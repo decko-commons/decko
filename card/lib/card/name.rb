@@ -24,6 +24,10 @@ class Card
         end
       end
 
+      def compose parts
+        parts.flatten.map { |part| cardish part }.join joint
+      end
+
       def url_key_to_standard key
         key.to_s.tr "_", " "
       end

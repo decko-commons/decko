@@ -19,31 +19,53 @@ Object.const_remove_if_defined :Card
 #
 # There are four important card identifiers, sometimes called "marks".  Every card has a unique _name_, _key_, and _id_. Some cards also have a _codename_.
 #
-# * **@card.id** The _id_ is a simple Integer.
-# * **@card.codename** The _codename_, a Symbol, is the name by which a card can be referred to in code. The notion is that
-# * **@card.id** The _id_ is a simple integer.
-# * **@card.id** The _id_ is a simple integer.
+#       @card.name     # The name, a String, is the most recognizable card mark.
+#       @card.key      # The key, a String, is a simple lower-case name variant.
+#       @card.id       # The id is an Integer.
+#       @card.codename # The codename, a Symbol, is the name by which a card can be referred to in code.
 #
-# The _codename_
-# cardnames, codenames, keys, ids
+# All names with the same key (including the key itself) are considered variants of each other. No two cards can have names with the same key.
 #
-#   Note that "company" here does not refer to its "name", but rather its "codename" (which an administrator might add to the Company card via the RESTful web API with a url like
+# `@card.cardname` refers to the same name as ``@card.name``, but it is a {Card::Name} object and has many additional methods.
 #
-#   /update/Company?card[codename]=company
-
-#
-#   Generally speaking, code should never refer to a card by name; otherwise it will break when the card is renamed.  Instead, it should use the codename, which will continue to work even if the canonical name is changed.
+# {Card::Codename More about codenames.}
 #
 # ## Fetching
+#
+# The two main ways to retrieve cards are fetching (retrieving cards one at a time) and querying (retrieving lists of cards).
+#
+# Any of the above marks (name, key, id, codename) can be used to fetch a card, eg:
+#
+#      @card = Card.fetch "Garden" # returns the card with the name "Garden" (or, more precisely, with the key "garden")
+#      @card = Card.fetch 100      # returns the card with the id 100
+#      @card = Card.fetch :help    # returns the card with the codename help
+#
+# The fetch API will first try to find the card in the cache and will only look in the database if necessary.
+#
+# {file:mod/core/set/all/fetch.rb More about fetching}
+#
+# ## Type
+#
+# Every card has a type, and every type itself has an associated card. For example, _Paula_'s type might be _User_, so there is also a _User_ card.
+#
+# The type may be accessed in several ways:
+#
+#       @card.type_card    # returns type card [Card]
+#       @card.type_id      # returns id of type card [Integer]
+#       @card.type_name    # returns name of type card [String]
+#       @card.type_code    # returns codename of type card [Symbol]
+#
+# {file:mod/core/set/all/type.rb set module with type methods}
 #
 # ## Content
 # chunks
 #
+# ## Query
+# reference, query
+#
 # ## Accounts
 # permission
 #
-# ## References
-# reference, query
 #
 # ## History
 # acts, actions, changes
