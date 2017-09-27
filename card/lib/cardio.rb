@@ -72,6 +72,8 @@ module Cardio
       config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
       config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
 
+      #config.autoload_paths += Dir["#{root}/mod/*/set/**/"]
+
       default_configs.each_pair do |setting, value|
         set_default_value(config, setting, *value)
       end

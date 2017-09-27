@@ -59,9 +59,9 @@ format :html do
   end
 
   def wrap_classes slot
-    list = ["card-slot", "#{@current_view}-view", card.safe_set_keys]
-    list.push "STRUCTURE-#{voo.structure.to_name.key}" if voo.structure
-    list.shift unless slot
+    list = slot ? ["card-slot"] : []
+    list += ["#{@current_view}-view", card.safe_set_keys]
+    list << "STRUCTURE-#{voo.structure.to_name.key}" if voo.structure
     classy list
   end
 

@@ -2,7 +2,7 @@
 # developers.  Therefore they should contain only tasks for core developers.
 
 task :push_gems do
-  %w(card decko).each do |gem|
+  %w(card cardname decko).each do |gem|
     system %(
       cd #{gem}
       rm *.gem

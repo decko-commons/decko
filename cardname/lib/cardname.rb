@@ -88,7 +88,8 @@ class Cardname < String
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # ~~~~~~~~~~~~~~~~~~~~~~ INSTANCE ~~~~~~~~~~~~~~~~~~~~~~~~~
   attr_reader :key, :s
-
+  alias to_s s
+  alias to_str s
 
   def initialize str
   #  @s = str.to_s.strip

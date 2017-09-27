@@ -1,5 +1,33 @@
-RSpec::Matchers.define_negated_matcher :not_include, :include
-RSpec::Matchers.define_negated_matcher :be_not_virtual, :be_virtual
+#TODO: is this global namespace? module?
+def expect_card *marks
+  expect Card.cardish(marks)
+end
+
+RSpec::Matchers.define :exist do
+  match do |card|
+    should_be_true =
+      case card
+      when String
+        Card.exists? card
+      when Card
+        card.real?
+      else
+        card.present?
+      end
+    values_match? true, should_be_true
+  end
+
+  failure_message do |actual|
+    case actual
+    when String
+      "card '#{actual}' doesn't exist"
+    when Card
+      "#{actual.name} doesn't exist"
+    else
+      "#{actual} doesn't exist"
+    end
+  end
+end
 
 RSpec::Matchers.define :be_valid do
   match do |card|
@@ -7,23 +35,27 @@ RSpec::Matchers.define :be_valid do
   end
 end
 
-RSpec::Matchers.define :have_name do |name|
-  match do |card|
-    values_match?(name, card.name)
+[:name, :codename, :db_content, :content, :type_id].each do |field|
+  RSpec::Matchers.define "have_#{field}".to_sym do |name|
+    match do |card|
+      values_match?(name, card.send(field))
+    end
   end
 end
 
-RSpec::Matchers.define :have_codename do |codename|
-  match do |card|
-    values_match?(codename, card.codename)
-  end
-end
-
-RSpec::Matchers.define :have_content do |content|
-  match do |card|
-    values_match?(content, card.content)
-  end
-end
+# RSpec::Matchers.define :have_codename do |codename|
+#   match do |card|
+#     values_match?(codename, card.codename)
+#   end
+# end
+#
+# RSpec::Matchers.define :have_content do |content|
+#   match do |card|
+#     binding.pry
+#     puts card
+#     values_match?(content, card.content)
+#   end
+# end
 
 RSpec::Matchers.define :have_type do |type|
   match do |card|

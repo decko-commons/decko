@@ -400,3 +400,12 @@ warn = (stuff) -> console.log stuff if console?
 decko.slotReady (slot) ->
   slot.find('._disappear').delay(5000).animate(
     height: 0, 1000, -> $(this).hide())
+
+  if slot.hasClass("_refresh-timer")
+    setTimeout(
+      -> $.get slot.data("refresh-url"), (data, status) ->
+        slot.setSlotContent data
+        #new_slot = slot.replaceWith data
+        #new_slot.trigger('slotReady')
+      2000
+    )

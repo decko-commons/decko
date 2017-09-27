@@ -13,22 +13,30 @@ end
 
 format :html do
   view :editor do |args|
-    _render_hidden_content_field + raw(_render(part_view, args))
+    # FIXME: use voo
+    @item_list = args[:item_list]
+    @extra_css_class = args[:extra_css_class]
+    _render_hidden_content_field + super()
     # .merge(pointer_item_class: 'form-control')))
   end
 
-  def part_view
-    (c = card.rule(:input)) ? c.gsub(/[\[\]]/, "") : :list
+  def default_editor
+    :list
   end
 
-  view :list do |args|
-    args ||= {}
-    items = args[:item_list] || card.item_names(context: :raw)
+  view :list, cache: :never do |args|
+    @item_list = args[:item_list]
+    @extra_css_class = args[:extra_css_class]
+    list_input
+  end
+
+  def list_input
+    items = @item_list || card.item_names(context: :raw)
     items = [""] if items.empty?
     rendered_items = items.map do |item|
-      _render_list_item args.merge(pointer_item: item)
+      _render_list_item pointer_item: item
     end.join "\n"
-    extra_css_class = args[:extra_css_class] || "pointer-list-ul"
+    extra_css_class = @extra_css_class || "pointer-list-ul"
 
     <<-HTML
       <ul class="pointer-list-editor #{extra_css_class}"
@@ -71,7 +79,11 @@ format :html do
   end
 
   view :autocomplete do |args|
-    items = args[:item_list] || card.item_names(context: :raw)
+    autocomplete_input
+  end
+
+  def autocomplete_input
+    items = @item_list || card.item_names(context: :raw)
     items = [""] if items.empty?
     <<-HTML
       <div class="pointer-list-editor pointer-list-ul"
@@ -83,6 +95,10 @@ format :html do
   end
 
   view :checkbox do |_args|
+    checkbox_input
+  end
+
+  def checkbox_input
     options = card.option_names.map do |option_name|
       checked = card.item_names.include?(option_name)
       id = "pointer-checkbox-#{option_name.to_name.key}"
@@ -100,6 +116,10 @@ format :html do
   end
 
   view :multiselect do |_args|
+    multiselect_input
+  end
+
+  def multiselect_input
     select_tag(
       "pointer_multiselect-#{unique_id}",
       options_for_select(card.option_names, card.item_names),
@@ -108,6 +128,10 @@ format :html do
   end
 
   view :radio do |_args|
+    radio_input
+  end
+
+  def radio_input
     input_name = "pointer_radio_button-#{card.key}"
     options = card.option_names.map do |option_name|
       checked = (option_name == card.item_names.first)
@@ -142,6 +166,10 @@ format :html do
   end
 
   view :select do |_args|
+    select_input
+  end
+
+  def select_input
     options = [["-- Select --", ""]] + card.option_names.map { |x| [x, x] }
     select_tag("pointer_select-#{unique_id}",
                options_for_select(options, card.item_names.first),

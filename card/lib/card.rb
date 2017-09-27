@@ -2,6 +2,7 @@
 require "carrierwave"
 
 Object.const_remove_if_defined :Card
+#ActiveSupport::Dependencies.loaded.clear
 
 # Cards are wiki-inspired building blocks.
 #
