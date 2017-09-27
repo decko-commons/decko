@@ -1,7 +1,7 @@
 class Cardname
   module Variants
     def simple_key
-      return "" if @s.empty?
+      return "" if empty?
       decoded
         .underscore
         .gsub(/[^#{OK4KEY_RE}]+/, '_')
@@ -9,6 +9,8 @@ class Cardname
         .reject(&:empty?)
         .map { |key| self.class.stable_key(key) }
         .join('_')
+    #rescue
+    #  binding.pry
     end
 
     def url_key

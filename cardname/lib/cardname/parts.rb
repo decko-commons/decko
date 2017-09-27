@@ -5,7 +5,6 @@ class Cardname
   module Parts
     attr_reader :parts, :part_keys, :simple
 
-    alias simple? simple
     alias_method :to_a, :parts
 
     def parts
@@ -15,6 +14,7 @@ class Cardname
     def simple
       @simple = parts.size <= 1
     end
+    alias simple? simple
 
     def part_keys
       @part_keys ||= simple ? [simple_key] : parts.map { |p| p.to_name.simple_key }

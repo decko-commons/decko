@@ -18,8 +18,7 @@ class Cardname < String
   include Predicates
   include Manipulate
 
-  RUBYENCODING = RUBY_VERSION !~ /^1\.8/
-  OK4KEY_RE    = RUBYENCODING ? '\p{Word}\*' : '\w\*'
+  OK4KEY_RE = '\p{Word}\*'
 
   include ActiveSupport::Configurable
 
@@ -37,18 +36,10 @@ class Cardname < String
   @@cache = {}
 
   class << self
-    # def new obj
-#     #
-    #
-    # end
-
     def new obj
       return obj if obj.is_a? self.class
       str = stringify obj
       cached_name(str) || super(str)
-
-
-      # #s = s.encode('UTF-8') if RUBYENCODING
     end
 
     def cached_name str
@@ -88,19 +79,22 @@ class Cardname < String
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # ~~~~~~~~~~~~~~~~~~~~~~ INSTANCE ~~~~~~~~~~~~~~~~~~~~~~~~~
   attr_reader :key, :s
-  alias to_s s
-  alias to_str s
 
   def initialize str
   #  @s = str.to_s.strip
-  #  @s = @s.encode('UTF-8') if RUBYENCODING
-    @@cache[str] = self
+  #  @s = @s.encode('UTF-8')
+    @@cache[str] = super
   end
 
   def s
+    String.new self
+  end
+  alias to_s s
+  alias to_str s
+
+  def to_name
     self
   end
-  alias to_name s
 
   def key
     @key ||= part_keys.join(self.class.joint)
