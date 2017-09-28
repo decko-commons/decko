@@ -30,7 +30,7 @@ event :finalize_action, :finalize, when: :finalize_action? do
     @current_action.update_attributes! card_id: id
 
     # Note: #last_change_on uses the id to sort by date
-    # so the changes for the create changes have to be created befire the first change
+    # so the changes for the create changes have to be created before the first change
     store_card_changes_for_create_action if first_change?
     store_card_changes if @current_action.action_type != :create
   elsif @current_action.card_changes.reload.empty?
@@ -74,8 +74,8 @@ def finalize_action?
   actionable? && current_action
 end
 
-event :finalize_act,
-      after: :finalize_action,
+event :finalize_act, :integrate_with_delay_final,
+      #after: :finalize_action,
       when: proc { |c|  c.act_card? } do
   # removed subcards can leave behind actions without card id
   if @current_act.actions.reload.empty?
