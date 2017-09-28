@@ -33,8 +33,6 @@ class Card
            ensure_path
            return { cards: [], remotes: {} } unless File.exist? @path
            YAML.load_file(@path).deep_symbolize_keys
-         rescue
-           binding.pry
          end
 
          def find_card_attributes name

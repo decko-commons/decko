@@ -64,7 +64,7 @@ describe Card, "rename to trashed name" do
   end
 
   it "renames a to a*trash" do
-    expect((c = Card.find(@a.id)).cardname.to_s).to eq("A*trash")
+    expect((c = Card.find(@a.id)).name.to_s).to eq("A*trash")
     expect(c.name).to eq("A*trash")
     expect(c.key).to eq("a*trash")
   end

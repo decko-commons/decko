@@ -111,7 +111,7 @@ class Cardname
     end
 
     # full support of array methods caused trouble with `flatten` calls
-    # It splits the parts of cardnames in arrays
+    # It splits the parts of names in arrays
     # # name parts can be accessed and manipulated like an array
     # def method_missing method, *args, &block
     #   if ARRAY_METHODS.include? method # parts.respond_to?(method)

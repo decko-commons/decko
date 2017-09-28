@@ -21,7 +21,7 @@ class Card
           new_args = { name: nest_name, type: nest_opts[:type] }
 
           new_args[:supercard] = card.context_card unless nest_name.strip.blank?
-          # special case.  gets absolutized incorrectly. fix in cardname?
+          # special case.  gets absolutized incorrectly. fix in name?
 
           nest_new_main_args new_args if nest_name =~ /^_main\+/
           nest_new_content_args new_args, nest_name

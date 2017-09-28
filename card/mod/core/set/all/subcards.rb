@@ -1,5 +1,5 @@
 def field tag, opts={}
-  Card.fetch cardname.field(tag), opts
+  Card.fetch name.field(tag), opts
 end
 
 def subcard card_name

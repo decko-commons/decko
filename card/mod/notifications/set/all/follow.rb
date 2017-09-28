@@ -67,7 +67,7 @@ format :html do
       title:           hash[:title],
       "data-path"      => hash[:path],
       "data-toggle"    => "modal",
-      "data-target"    => "#modal-#{card.cardname.safe_key}"
+      "data-target"    => "#modal-#{card.name.safe_key}"
     )
     opts[:class] = "follow-link #{opts[:class]}"
     opts[:path] = hash[:path]

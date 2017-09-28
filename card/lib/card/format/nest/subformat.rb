@@ -24,7 +24,7 @@ class Card
         end
 
         def field_subformat field
-          field = card.cardname.field(field) unless field.is_a?(Card)
+          field = card.name.field(field) unless field.is_a?(Card)
           subformat field
         end
       end

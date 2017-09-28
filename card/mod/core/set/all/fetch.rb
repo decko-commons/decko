@@ -103,14 +103,14 @@ def fetch opts={}
   # should this fail as an incorrect api call?
   traits = Array.wrap traits
   traits.inject(self) do |card, trait|
-    Card.fetch card.cardname.trait(trait), opts
+    Card.fetch card.name.trait(trait), opts
   end
 end
 
 def renew args={}
   opts = args[:new].clone
   handle_default_content opts
-  opts[:name] ||= cardname
+  opts[:name] ||= name
   opts[:skip_modules] = args[:skip_modules]
   Card.new opts
 end

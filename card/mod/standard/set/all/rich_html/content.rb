@@ -90,7 +90,7 @@ format :html do
 
   view :title_link do |args|
     title_text = args[:title_ready] || pov_name(voo.title)
-    link_to_card card.cardname, title_text
+    link_to_card card.name, title_text
   end
 
   view :type_info do
@@ -110,7 +110,7 @@ format :html do
   end
 
   # view :anchor, perms: :none, tags: :unknown_ok do |args|
-  #   %{ <a id="#{card.cardname.url_key}" name="#{card.cardname.url_key}"></a> }
+  #   %{ <a id="#{card.name.url_key}" name="#{card.name.url_key}"></a> }
   # end
 
   view :type do |args|
@@ -186,7 +186,7 @@ format :html do
   def related_card_from_options options
     related_card = options.delete :card
     return related_card if related_card
-    related_name = options.delete(:name).to_name.absolute_name card.cardname
+    related_name = options.delete(:name).to_name.absolute_name card.name
     Card.fetch related_name, new: {}
   end
 

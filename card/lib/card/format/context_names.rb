@@ -12,7 +12,7 @@ class Card
       end
 
       def context_names_from_parent
-        part_keys = @card.cardname.part_names.map(&:key)
+        part_keys = @card.name.part_names.map(&:key)
         parent.context_names.reject { |n| !part_keys.include? n.key }
       end
 
@@ -32,7 +32,7 @@ class Card
       end
 
       def title_in_context title=nil
-        title = title ? title.to_name.absolute_name(card.cardname) : card.cardname
+        title = title ? title.to_name.absolute_name(card.name) : card.name
         title.from *context_names
       end
     end

@@ -9,7 +9,7 @@ end
 event :validate_list_item_type_change, :validate,
       on: :save, changed: :name do
   item_cards.each do |item_card|
-    next unless item_card.type_cardname.key != item_type_name.key
+    next unless item_card.type_name.key != item_type_name.key
     errors.add :name,
                "name conflicts with list items' type; " \
                "delete content first"
@@ -19,10 +19,10 @@ end
 event :validate_list_content, :validate,
       on: :save, changed: :content do
   item_cards.each do |item_card|
-    next unless item_card.type_cardname.key != item_type_name.key
+    next unless item_card.type_name.key != item_type_name.key
     errors.add :content,
                "#{item_card.name} has wrong cardtype; " \
-               "only cards of type #{cardname.right} are allowed"
+               "only cards of type #{name.right} are allowed"
   end
 end
 
@@ -97,15 +97,15 @@ def update_listed_by_cache_for item_keys, args={}
 end
 
 def item_type
-  cardname.right
+  name.right
 end
 
 def item_type_name
-  cardname.right_name
+  name.right_name
 end
 
 def item_type_card
-  cardname.right
+  name.right
 end
 
 def item_type_id

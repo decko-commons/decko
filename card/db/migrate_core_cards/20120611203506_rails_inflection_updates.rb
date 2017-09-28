@@ -13,7 +13,7 @@ class RailsInflectionUpdates < Card::Migration::Core
   end
 
   def unless_name_collision card
-    if (twin = Card.find_by_key(card.cardname.key)) && twin.id != card.id
+    if (twin = Card.find_by_key(card.name.key)) && twin.id != card.id
       if twin.trash
         twin.destroy
         yield

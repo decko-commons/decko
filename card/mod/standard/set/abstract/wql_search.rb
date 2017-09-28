@@ -32,7 +32,7 @@ end
 
 def standardized_query_args args
   args = query_args(args).symbolize_keys
-  args[:context] ||= cardname
+  args[:context] ||= name
   args
 end
 

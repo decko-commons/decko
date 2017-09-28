@@ -20,7 +20,7 @@ end
 format :email_text do
   view :email_addresses, cache: :never do |args|
     context = args[:context] || self
-    card.item_names(context: context.cardname).map do |item_name|
+    card.item_names(context: context.name).map do |item_name|
       # note that context is processed twice here because pointers absolutize
       # item_names by default while other types can return relative names.
       # That's poor default behavior and should be fixed!

@@ -1,7 +1,7 @@
 event :save_recently_edited_settings, :integrate,
       on: :save, when: proc { |c| c.is_rule? } do
   if (recent = Card[:recent_settings])
-    recent.insert_item 0, cardname.right
+    recent.insert_item 0, name.right
     recent.save
   end
 end
@@ -12,9 +12,9 @@ end
 
 def rule_set_name
   if is_preference?
-    cardname.trunk_name.trunk_name
+    name.trunk_name.trunk_name
   else
-    cardname.trunk_name
+    name.trunk_name
   end
 end
 
@@ -27,7 +27,7 @@ def rule_set
 end
 
 def rule_setting_name
-  cardname.tag
+  name.tag
 end
 
 def rule_setting_title
@@ -43,7 +43,7 @@ def rule_user_setting_name
 end
 
 def rule_user_name
-  is_preference? ? cardname.trunk_name.tag : nil
+  is_preference? ? name.trunk_name.tag : nil
 end
 
 def rule_user

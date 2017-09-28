@@ -6,7 +6,7 @@ format :html do
   def wrap slot=true
     @slot_view = @current_view
     debug_slot do
-      wrap_with :div, yield, id: card.cardname.url_key,
+      wrap_with :div, yield, id: card.name.url_key,
                              class: wrap_classes(slot),
                              data:  wrap_data
     end
@@ -15,7 +15,7 @@ format :html do
   def haml_wrap slot=true
     @slot_view = @current_view
     debug_slot do
-      haml_tag :div, id: card.cardname.url_key,
+      haml_tag :div, id: card.name.url_key,
                      class: wrap_classes(slot),
                      data:  wrap_data do
         yield

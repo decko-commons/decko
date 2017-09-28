@@ -57,7 +57,7 @@ def item_keys args={}
 end
 
 def include_item? item
-  key = item.is_a?(Card) ? item.cardname.key : item.to_name.key
+  key = item.is_a?(Card) ? item.name.key : item.to_name.key
   item_names.map { |name| name.to_name.key }.member? key
 end
 
@@ -92,7 +92,7 @@ def insert_id index, id
 end
 
 def extended_item_cards context=nil
-  context = (context ? context.cardname : cardname)
+  context = (context ? context.name : name)
   args = { limit: "" }
   items = item_cards(args.merge(context: context))
   extended_list = []
@@ -117,7 +117,7 @@ def extended_item_contents context=nil
 end
 
 def extended_list context=nil
-  context = (context ? context.cardname : cardname)
+  context = (context ? context.name : name)
   args = { limit: "" }
   item_cards(args.merge(context: context)).map do |x|
     x.item_cards(args)
@@ -244,7 +244,7 @@ format do
       next [name_or_card, options || {}] if name_or_card.is_a?(Card)
       options ||= Card.fetch_name name_or_card
       options = { title: options } if options.is_a?(String)
-      [card.cardname.field(name_or_card), options]
+      [card.name.field(name_or_card), options]
     end
   end
 

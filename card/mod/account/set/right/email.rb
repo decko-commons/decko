@@ -49,5 +49,5 @@ def ok_to_read
 end
 
 def own_email?
-  cardname.part_names[0].key == Auth.as_card.key
+  name.part_names[0].key == Auth.as_card.key
 end

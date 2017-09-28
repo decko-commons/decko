@@ -50,7 +50,7 @@ format :html do
 
   def follow_item_link_target
     set = card.rule_set
-    setname = set.cardname
+    setname = set.name
     set.tag.codename == :self ? setname.left : setname.field("by name")
   end
 

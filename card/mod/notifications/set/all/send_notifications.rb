@@ -13,7 +13,7 @@ class FollowerStash
       notify_direct_followers card
       return if !(left_card = card.left) || @visited.include?(left_card.key) ||
                 !(follow_field_rule = left_card.rule_card(:follow_fields))
-      follow_field_rule.item_names(context: left_card.cardname).each do |item|
+      follow_field_rule.item_names(context: left_card.name).each do |item|
         if @visited.include? item.to_name.key
           add_affected_card left_card
           break

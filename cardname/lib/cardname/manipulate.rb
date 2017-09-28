@@ -9,8 +9,6 @@ class Cardname
       return swap_part(old_name, new_name) if old_name.simple?
       return self unless include? old_name
       swap_all_subsequences(old_name, new_name).to_name
-    rescue
-      binding.pry
     end
 
     def swap_part oldpart, newpart
