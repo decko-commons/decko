@@ -1,16 +1,23 @@
 ::Card.error_codes[:conflict] = [:conflict, 409]
 
-def content
-  db_content || (new_card? && template.db_content)
-end
 
 def content= value
   self.db_content = value
 end
 
-def raw_content
-  structure ? template.db_content : content
+def content
+  structured_content || standard_content
 end
+alias raw_content content
+
+def standard_content
+  db_content || (new_card? && template.db_content)
+end
+
+def structured_content
+  structure && template.db_content
+end
+
 
 format do
   def chunk_list # override to customize by set
@@ -53,7 +60,7 @@ def last_draft_content
 end
 
 event :set_content, :store, on: :save do
-  self.db_content = content || "" # necessary?
+  self.db_content = standard_content || "" # necessary?
   self.db_content = Card::Content.clean!(db_content) if clean_html?
   @selected_action_id = @selected_content = nil
   clear_drafts

@@ -14,7 +14,7 @@ class SearchCardContext < Card::Migration::Core
     ]
     Card.search(type_id: ["in", Card::SearchTypeID, Card::SetID]).each do |card|
       next unless card.name.junction? && card.real?
-      content = card.content
+      content = card.db_content
       replace.each do |key, val|
         content.gsub!(/(#{sep})_(#{key})(?=#{sep})/, "\\1_#{val}")
       end

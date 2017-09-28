@@ -62,6 +62,14 @@ describe Card::Set::All::Fetch do
       expect(aself.set_names).to include("Set+*type")
     end
 
+    it "fetches structured cards" do
+      Card.create! name: "y+*right+*structure",
+                   content: "Formatted Content"
+      Card.create! name: "a+y", content: "DB Content"
+      card = Card.fetch("a+y")
+      expect(card).to be_real.and have_content("Formatted Content").and have_db_content("DB Content")
+    end
+
     it "handles name variants of cached cards" do
       expect(Card.fetch("yomama+*self").name).to eq("yomama+*self")
       expect(Card.fetch("YOMAMA+*self").name).to eq("YOMAMA+*self")
@@ -127,7 +135,7 @@ describe Card::Set::All::Fetch do
         it "initializes new cards" do
           card = Card.fetch "non-existent",
                             new: { default_content: "default content" }
-          expect(card.content).to eq "default content"
+          expect(card.db_content).to eq "default content"
         end
       end
       context "when new card exist" do
@@ -136,7 +144,7 @@ describe Card::Set::All::Fetch do
                    "+sub" => { content: "some content" }
           card = Card.fetch "new card+sub",
                             new: { default_content: "new content" }
-          expect(card.content).to eq "some content"
+          expect(card.db_content).to eq "some content"
         end
       end
     end
@@ -146,14 +154,6 @@ describe Card::Set::All::Fetch do
         Card::Auth.current_id = Card::WagnBotID
       end
 
-      it "prefers db cards to pattern virtual cards" do
-        Card.create! name: "y+*right+*structure",
-                     content: "Formatted Content"
-        Card.create! name: "a+y", content: "DB Content"
-        card = Card.fetch("a+y")
-        expect(card).to be_not_virtual.and have_content "DB Content"
-        expect(card.rule(:structure)).to eq("Formatted Content")
-      end
 
       it "prefers a pattern virtual card to trash cards" do
         Card.create!(name: "y+*right+*structure", content: "Formatted Content")

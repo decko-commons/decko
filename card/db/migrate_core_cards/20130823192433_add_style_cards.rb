@@ -76,7 +76,7 @@ class AddStyleCards < Card::Migration::Core
     # (this auto-generates cached file)
 
     default_skin =
-      if old_css.content =~ /\S/
+      if old_css.db_content =~ /\S/
         name = "customized classic skin"
         Card.create! name: name, type: "Skin",
                      content: "[[classic skin]]\n[[*css]]"

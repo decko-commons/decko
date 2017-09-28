@@ -3,7 +3,7 @@
 module RenameMethods
   def name_invariant_attributes card
     {
-      content: card.content,
+      content: card.db_content,
       # updater_id:  card.updater_id,
       # revisions:   card.actions.count,
       referers: card.referers.map(&:name).sort,
@@ -129,13 +129,15 @@ RSpec.describe Card::Set::All::Rename do
 
   context "self references" do
     example "renaming card with self link should nothang" do
+      pre_content = Card["self_aware"].content
       update "self aware", name: "buttah", update_referers: true
-      expect_content_of("Buttah").to eq "[[/new/{{_self|name}}|new]]"
+      expect_content_of("Buttah").to eq pre_content
     end
 
     it "renames card without updating references" do
+      pre_content = Card["self_aware"].content
       update "self aware", name: "Newt", update_referers: false
-      expect_content_of("Newt").to eq "[[/new/{{_self|name}}|new]]"
+      expect_content_of("Newt").to eq pre_content
     end
   end
 

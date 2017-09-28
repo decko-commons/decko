@@ -30,7 +30,7 @@ class BootstrapThemes < Card::Migration::Core
     import_json "skin_images.json"
 
     if sidebar_card = Card["*sidebar"]
-      new_content = sidebar_card.content.gsub(/(\*(logo|credit))\|content/, '\1|content_panel')
+      new_content = sidebar_card.db_content.gsub(/(\*(logo|credit))\|content/, '\1|content_panel')
       sidebar_card.update_attributes! content: new_content
     end
   end
