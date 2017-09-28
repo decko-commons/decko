@@ -79,7 +79,7 @@ describe Card::Set::All::Trash do
   describe "event: validate_delete" do
     it "certain 'all rules' should be indestructable" do
       rule = "*all+*default"
-      expect {Card[rule].delete!}
+      expect { Card[rule].delete! }
         .to raise_error(/is an indestructible rule/)
 
       expect(Card[rule]).to be_a Card
@@ -88,7 +88,7 @@ describe Card::Set::All::Trash do
     context "card with account" do
       context "with edits" do
         it "is not removable" do
-          expect {Card["Joe User"].delete!}
+          expect { Card["Joe User"].delete! }
             .to raise_error(/Edits have been made with Joe User's user account/)
         end
       end

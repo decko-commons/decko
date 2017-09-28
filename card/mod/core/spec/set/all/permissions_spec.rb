@@ -366,11 +366,12 @@ describe Card::Set::All::Permissions do
 
   describe "cardtypes and permissions" do
     specify "cardtype b has create role r1" do
-      expect(Card["Cardtype B+*type+*create"]).to have_content("[[r1]]")
+      expect(Card["Cardtype B+*type+*create"]).to have_content("[[r3]]")
                                                     .and have_type :pointer
     end
 
-    example "changing cardtype needs new cardtype's create permission", with: "Joe User" do
+    example "changing cardtype needs new cardtype's create permission", with_user: "u2" do
+      # u3 can update but not create cardtype b
       c = Card["basicname"]
       c.update_attributes type: "cardtype_b"
 

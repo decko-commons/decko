@@ -15,14 +15,14 @@ end
 
 # place for files of mod file cards
 def coded_dir new_mod=nil
-  dir = File.join mod_dir(new_mod), MOD_FILE_DIR, codename
+  dir = File.join mod_dir(new_mod), MOD_FILE_DIR, codename.to_s
   FileUtils.mkdir_p dir
   dir
 end
 
 def mod_dir new_mod=nil
   mod_name = new_mod || mod
-  dir = Card::Mod::Loader.mod_dirs.path(mod_name) || (mod_name.to_sym == :test && "test")
+  dir = Mod.dirs.path(mod_name) || (mod_name.to_sym == :test && "test")
 
   raise Error, "can't find mod \"#{mod_name}\"" unless dir
   dir

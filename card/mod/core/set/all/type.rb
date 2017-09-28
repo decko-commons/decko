@@ -32,6 +32,10 @@ def type= type_name
   self.type_id = Card.fetch_id type_name
 end
 
+def type_known?
+  type_id.present?
+end
+
 def get_type_id_from_structure
   return unless name && (t = template)
   reset_patterns # still necessary even with new template handling?

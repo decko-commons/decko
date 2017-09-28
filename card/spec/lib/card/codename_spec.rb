@@ -6,7 +6,7 @@ RSpec.describe Card::Codename, "Codename" do
   end
 
   it "is sane" do
-    expect(Card[@codename].codename).to eq(@codename.to_s) # would prefer Symbol eventually
+    expect(Card[@codename].codename).to eq(@codename)
     card_id = Card::Codename[@codename]
     expect(card_id).to be_a_kind_of Integer
     expect(Card::Codename[card_id]).to eq(@codename)

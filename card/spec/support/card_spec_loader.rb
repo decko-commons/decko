@@ -18,9 +18,9 @@ class CardSpecLoader
 
         # Requires supporting ruby files with custom matchers and macros, etc,
         # in spec/support/ and its subdirectories.
-        #  Dir[File.join(Cardio.gem_root, "spec/support/**/*.rb")].each do |f|
-        #    require f
-        #  end
+        Dir[File.join(Cardio.gem_root, "spec/support/matchers/*.rb")].each do |f|
+          require f
+        end
         yield if block_given?
       end
     end
@@ -57,18 +57,21 @@ class CardSpecLoader
         config.before(:each) do |example|
           Delayed::Worker.delay_jobs = false
           unless example.metadata[:as_bot]
-            Card::Auth.current_id =
-              example.metadata[:with_user] || @@joe_user_id
+            user_id =
+              case example.metadata[:with_user]
+              when String
+                Card.fetch_id example.metadata[:with_user]
+              when Card
+                Card.id
+              when Integer
+                example.metadata[:with_user]
+              else
+                @@joe_user_id
+              end
+            Card::Auth.current_id = user_id
           end
           Card::Cache.restore
           Card::Env.reset
-        end
-
-        config.around(:example, :as_bot) do |example|
-          Card::Auth.current_id = @@joe_user_id
-          Card::Auth.as_bot do
-            example.run
-          end
         end
 
         config.around(:example, :as_bot) do |example|
@@ -101,7 +104,7 @@ class CardSpecLoader
     end
 
     def load_shared_examples
-      Card::Mod::Loader.mod_dirs.each "spec/shared_examples" do |shared_ex_dir|
+      Card::Mod.dirs.each "spec/shared_examples" do |shared_ex_dir|
         Dir["#{shared_ex_dir}/**/*.rb"].sort.each { |f| require f }
       end
     end

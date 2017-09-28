@@ -72,6 +72,10 @@ def cardname
   name.to_name
 end
 
+def codename
+  super&.to_sym
+end
+
 def autoname name
   if Card.exists?(name) || ActManager.include?(name)
     autoname name.next
