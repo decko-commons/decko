@@ -15,7 +15,7 @@ format do
   end
 
   def source_url
-    return card.raw_content if card.web?
+    return card.content if card.web?
     internal_url selected_version.url
   end
 

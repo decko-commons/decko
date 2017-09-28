@@ -67,7 +67,7 @@ format do
 
   view :raw do
     scard = voo.structure ? Card[voo.structure] : card
-    scard ? scard.raw_content : _render_blank
+    scard ? scard.content : _render_blank
   end
 
   view :core, closed: true do

@@ -150,7 +150,7 @@ def contextual_content context_card, format_args={}, view_args={}
 end
 
 def each_chunk opts={}
-  content = opts[:content] || raw_content
+  content = opts[:content] || self.content
   chunk_type = opts[:chunk_type] || Card::Content::Chunk
   Card::Content.new(content, self).find_chunks(chunk_type).each do |chunk|
     next unless chunk.referee_name # filter commented nests

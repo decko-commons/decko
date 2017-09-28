@@ -10,7 +10,7 @@ class Card
   #
   # Here is a very simple view that just displays the card's id:
   #
-  # ```` view(:simple_content) { card.raw_content } ````
+  # ```` view(:simple_content) { card.content } ````
   #
   # But suppose you would like this view to appear differently in different
   # output formats.  You might need certain characters escaped in some formats

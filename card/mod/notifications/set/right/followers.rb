@@ -2,7 +2,7 @@
 
 include Card::Set::Type::Pointer
 
-def raw_content
+def content
   if left
     items =
       if (left.type_id == SetID) || (left.type_id == CardtypeID)

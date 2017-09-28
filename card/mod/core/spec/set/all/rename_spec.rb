@@ -117,9 +117,9 @@ RSpec.describe Card::Set::All::Rename do
       Card.create! name: "Orange", type: "Fruit", content: "[[Pit]]"
       Card.create! name: "Fruit+*type+*structure", content: "this [[Pit]]"
 
-      assert_equal "this [[Pit]]", Card["Orange"].raw_content
+      assert_equal "this [[Pit]]", Card["Orange"].content
       c.update_attributes! name: "Seed", update_referers: true
-      assert_equal "this [[Seed]]", Card["Orange"].raw_content
+      assert_equal "this [[Seed]]", Card["Orange"].content
     end
   end
 
