@@ -102,9 +102,9 @@ class Cardname
         end
     end
 
-    def + other
-      self.class.new(parts + other.to_name.parts)
-    end
+    # def + other
+    #   self.class.new(parts + other.to_name.parts)
+    # end
 
     def [] *args
       self.class.new parts[*args]

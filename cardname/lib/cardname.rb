@@ -78,16 +78,14 @@ class Cardname < String
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # ~~~~~~~~~~~~~~~~~~~~~~ INSTANCE ~~~~~~~~~~~~~~~~~~~~~~~~~
-  attr_reader :key, :s
+  attr_reader :key
 
   def initialize str
-  #  @s = str.to_s.strip
-  #  @s = @s.encode('UTF-8')
-    @@cache[str] = super
+    @@cache[str] = super str.strip.encode('UTF-8')
   end
 
   def s
-    String.new self
+    @s ||= String.new self
   end
   alias to_s s
   alias to_str s
@@ -98,14 +96,6 @@ class Cardname < String
 
   def key
     @key ||= part_keys.join(self.class.joint)
-  end
-
-  def length
-    @length = parts.length
-  end
-
-  def size
-    to_s.size
   end
 
   def == other

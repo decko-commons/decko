@@ -1,10 +1,9 @@
 event :rename, after: :set_name, on: :update do
-  if (existing_card = Card.find_by_key_and_trash(cardname.key, true)) &&
-    existing_card != self
-    existing_card.name = existing_card.name + "*trash"
-    existing_card.rename_without_callbacks
-    existing_card.save!
-  end
+  existing_card = Card.find_by_key_and_trash cardname.key, true
+  return if !existing_card || existing_card == self
+  existing_card.name = existing_card.name + "*trash"
+  existing_card.rename_without_callbacks
+  existing_card.save!
 end
 
 def suspend_name name

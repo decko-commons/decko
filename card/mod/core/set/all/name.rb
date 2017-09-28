@@ -20,6 +20,10 @@ module ClassMethods
   end
 end
 
+def name
+  super.to_name
+end
+
 def name= newname
   cardname = superize_name newname.to_name
   newkey = cardname.key

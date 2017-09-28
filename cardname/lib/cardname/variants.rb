@@ -9,8 +9,6 @@ class Cardname
         .reject(&:empty?)
         .map { |key| self.class.stable_key(key) }
         .join('_')
-    #rescue
-    #  binding.pry
     end
 
     def url_key
