@@ -70,12 +70,6 @@ RSpec::Matchers.define :have_type do |type|
   end
 end
 
-# RSpec::Matchers.define :have_raw_content do |content|
-#   match do |card|
-#     values_match?(content, card.content)
-#   end
-# end
-
 RSpec::Matchers.define :increase_card_count do
   chain(:by) do |diff|
     @diff = diff

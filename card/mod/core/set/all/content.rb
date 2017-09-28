@@ -8,7 +8,7 @@ end
 def content
   structured_content || standard_content
 end
-alias raw_content content
+alias raw_content content #DEPRECATED!
 
 def standard_content
   db_content || (new_card? && template.db_content)
