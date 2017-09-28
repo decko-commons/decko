@@ -67,7 +67,7 @@ def update_subcard_names new_name, name_to_replace=nil
       else
         name
       end
-    subcard.name = subcard.cardname.replace name_to_replace, new_name.s
+    subcard.name = subcard.cardname.swap name_to_replace, new_name.s
     subcard.update_subcard_names new_name, name
   end
 end

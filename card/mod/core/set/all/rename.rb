@@ -24,7 +24,7 @@ event :cascade_name_changes, :finalize, on: :update, changed: :name,
     # cards, have to go this low level to avoid callbacks.
     Rails.logger.info "cascading name: #{de.name}"
     Card.expire de.name # old name
-    newname = de.cardname.replace name_before_last_save, name
+    newname = de.cardname.swap name_before_last_save, name
     Card.where(id: de.id).update_all name: newname.to_s, key: newname.key
     de.update_referers = update_referers
     de.refresh_references_in

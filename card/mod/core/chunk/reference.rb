@@ -33,7 +33,7 @@ class Card
               chunk.replace_reference old_name, new_name
             end
           else
-            @name = name.to_name.replace(old_name, new_name)
+            @name = name.to_name.swap old_name, new_name
           end
         end
 
