@@ -74,17 +74,21 @@ def finalize_action?
   actionable? && current_action
 end
 
-event :finalize_act, :integrate_with_delay_final,
-      #after: :finalize_action,
+event :finalize_act,
+      after: :finalize_action,
       when: proc { |c|  c.act_card? } do
-  # removed subcards can leave behind actions without card id
-  if @current_act.actions.reload.empty?
-    @current_act.delete
-    @current_act = nil
-  else
-    @current_act.update_attributes! card_id: id
+  @current_act.update_attributes! card_id: id
+end
+
+event :remove_empty_act,
+      :integrate_with_delay_final,
+      when: proc { |c|  c.act_card? } do
+  if @current_act&.actions&.reload.empty?
+      @current_act.delete
+      @current_act = nil
   end
 end
+
 
 def act_card?
   self == Card::ActManager.act_card
