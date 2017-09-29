@@ -28,7 +28,7 @@ class Card
     end
   end
 
-  # The {Cache} class manages and integrates {Temporary} and {Persistent
+  # The {Cache} class manages and integrates {Temporary} and {Persistent}
   # caching. The {Temporary} cache is typically process- and request- specific
   # and is often "ahead" of the database; the {Persistent} cache is typically
   # shared across processes and tends to stay true to the database.

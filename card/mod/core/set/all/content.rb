@@ -18,7 +18,6 @@ def structured_content
   structure && template.db_content
 end
 
-
 format do
   def chunk_list # override to customize by set
     :default
