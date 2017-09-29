@@ -5,8 +5,6 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   source_root File.expand_path("../templates", __FILE__)
 
-  argument :deck_path, required: false
-
   class_option :database,
                type: :string, aliases: "-d", default: "mysql",
                desc: "Preconfigure for selected database " \
