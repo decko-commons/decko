@@ -70,7 +70,7 @@ format :html do
   def toolbar_simple_buttons
     wrap_with :form, class: "pull-right navbar-text" do
       wrap_with :div do
-        _optional_render :toolbar_buttons
+        _render :toolbar_buttons
       end
     end
   end
@@ -181,12 +181,12 @@ format :html do
   end
 
   view :toolbar_buttons, cache: :never do
-    related_button = _optional_render(:related_button).html_safe
+    related_button = _render(:related_button).html_safe
     wrap_with(:div, class: "btn-group btn-group-sm") do
       [
-        _optional_render(:delete_button,
+        _render(:delete_button,
                          optional: (card.ok?(:delete) ? :show : :hide)),
-        _optional_render(:refresh_button),
+        _render(:refresh_button),
         content_tag(:div, related_button, class: "hidden-xs-down pull-left")
       ]
     end

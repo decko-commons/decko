@@ -116,7 +116,7 @@ class Card
     end
 
     def method_missing method, *opts, &proc
-      if method =~ /(_)?(optional_)?render(_(\w+))?/
+      if method =~ /(_)?render(!)?(_(\w+))?/
         api_render Regexp.last_match, opts
       else
         pass_method_to_template_object(method, opts, proc) { yield }
@@ -124,7 +124,7 @@ class Card
     end
 
     def respond_to_missing? method_name, _include_private=false
-      (method_name =~ /(_)?(optional_)?render(_(\w+))?/) ||
+      (method_name =~ /(_)?render(!)?(_(\w+))?/) ||
         template.respond_to?(method_name)
     end
 

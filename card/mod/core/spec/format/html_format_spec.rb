@@ -82,7 +82,7 @@ describe Card::Format::HtmlFormat do
       #        @layout_card.content = "Hi {{A}}"
       #        Card::Auth.as_bot { @layout_card.save }
       #
-      #        expect(@main_card.format.render(:layout)).to match('Hi Alpha')
+      #        expect(@main_card.format.render!(:layout)).to match('Hi Alpha')
       #      end
 
       #      it "defaults to open view for main card" do
@@ -108,7 +108,7 @@ describe Card::Format::HtmlFormat do
         @layout_card.content = "Mainly {{_main|core}}"
         Card::Auth.as_bot { @layout_card.save }
 
-        expect(@layout_card.format.render(:layout)).to eq(
+        expect(@layout_card.format.render!(:layout)).to eq(
           "Mainly <div id=\"main\"><div class=\"CodeRay\">\n  " \
           "<div class=\"code\"><pre>Mainly {{_main|core}}</pre></div>\n" \
           "</div>\n</div>\n" \
@@ -126,7 +126,7 @@ describe Card::Format::HtmlFormat do
           Card.create name: "outer space", content: "{{_main|name}}"
         end
 
-        expect(@main_card.format.render(:layout)).to eq(
+        expect(@main_card.format.render!(:layout)).to eq(
           '<div id="main">Joe User</div>' + "\n" \
           '<div class="modal fade" role="dialog" id="modal-main-slot">' \
           '<div class="modal-dialog"><div class="modal-content">' \

@@ -15,7 +15,7 @@ format :json do
 
   def show view, args
     view ||= :content
-    raw = render view, args
+    raw = render! view, args
     return raw if raw.is_a? String
     method = params[:compress] ? :generate : :pretty_generate
     JSON.send method, raw

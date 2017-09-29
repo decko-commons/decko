@@ -21,7 +21,7 @@ format :html do
     if @card.new_card? && (l = @card.left) && l.solid_cache?
       l.update_solid_cache
       @card = Card.fetch card.name
-      render @denied_view
+      render! @denied_view
     else
       super()
     end

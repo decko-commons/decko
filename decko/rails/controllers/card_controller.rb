@@ -103,7 +103,7 @@ class CardController < ActionController::Base
     if !Card::Env.ajax? || success.hard_redirect?
       card_redirect success.to_url
     elsif success.target.is_a? String
-      render text: success.target
+      render! text: success.target
     else
       reset_card success.target
       show

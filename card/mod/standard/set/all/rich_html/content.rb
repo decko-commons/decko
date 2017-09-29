@@ -21,14 +21,14 @@ format :html do
     args[:view] = view if view
     @main = false
     @main_opts = args
-    render :layout, title: params[:layout]
+    render! :layout, title: params[:layout]
     # FIXME: using title because it's a standard view option.  hack!
   end
 
   def show_without_layout view, args
     @main = true if params[:is_main] || args[:main]
     view ||= args[:home_view] || :open
-    render view, args
+    render! view, args
   end
 
   view :layout, perms: :none do
@@ -40,7 +40,7 @@ format :html do
   view :content do
     class_up "card-slot", "d0-card-content"
     voo.hide :menu
-    wrap { [_optional_render_menu, _render_core] }
+    wrap { [_render_menu, _render_core] }
   end
 
   view :content_panel do
@@ -48,7 +48,7 @@ format :html do
     voo.hide :menu
     wrap do
       wrap_with :div, class: "card-block" do
-        [_optional_render_menu, _render_core]
+        [_render_menu, _render_core]
       end
     end
   end
@@ -57,10 +57,10 @@ format :html do
     @content_body = true
     wrap do
       [
-        _optional_render_menu,
+        _render_menu,
         _render_header,
         wrap_body { _render_core },
-        optional_render_comment_box
+        render_comment_box
       ]
     end
   end
@@ -70,7 +70,7 @@ format :html do
     @content_body = true
     wrap do
       [
-        _optional_render_menu,
+        _render_menu,
         wrap_with(:label, _render_title),
         wrap_body do
           _render_closed_content
@@ -105,7 +105,7 @@ format :html do
     voo.viz :toggle, (main? ? :hide : :show)
     @content_body = true
     frame do
-      [_render_open_content, optional_render_comment_box]
+      [_render_open_content, render_comment_box]
     end
   end
 
@@ -125,7 +125,7 @@ format :html do
       class_up "d0-card-body", "closed-content"
       @content_body = true
       @toggle_mode = :close
-      frame { _optional_render :closed_content }
+      frame { _render :closed_content }
     end
   end
 
@@ -133,9 +133,9 @@ format :html do
     voo.show :title_link
     voo.hide :menu
     wrap do
-      [_optional_render_title,
-       _optional_render_menu,
-       _optional_render_last_action]
+      [_render_title,
+       _render_menu,
+       _render_last_action]
     end
   end
 
