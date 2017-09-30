@@ -83,7 +83,7 @@ end
 event :remove_empty_act,
       :integrate_with_delay_final,
       when: proc { |c|  c.act_card? } do
-  if @current_act&.actions&.reload.empty?
+  if @current_act&.actions&.reload&.empty?
       @current_act.delete
       @current_act = nil
   end
