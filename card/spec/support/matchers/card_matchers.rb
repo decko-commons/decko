@@ -43,6 +43,29 @@ end
   end
 end
 
+RSpec::Matchers.define :have_a_field do |field_key|
+  chain(:with_content) do |content|
+    @content = content
+  end
+
+  chain(:pointing_to) do |pointing_to|
+    @pointing_to = pointing_to
+  end
+
+  match do |card|
+    return unless card.is_a?(Card)
+    return unless (field = card.fetch(trait: field_key))
+    if @content
+      values_match?(@content, field.content)
+    elsif @pointing_to
+      values_match?(:pointer, field.type_code) &&
+        values_match?(field.content, /\[\[#{@pointing_to}\]\]/)
+    else
+      values_match(Card, field.class)
+    end
+  end
+end
+
 # RSpec::Matchers.define :have_codename do |codename|
 #   match do |card|
 #     values_match?(codename, card.codename)
