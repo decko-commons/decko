@@ -62,4 +62,13 @@ describe Bootstrap::Component::Carousel do
       end
     end
   end
+
+  it "doesn't escape markup" do
+    carousel = subject.bs_carousel "csID", 0 do
+        item "<strong>item 2</strong>"
+    end
+    expect(carousel).to have_tag "div.carousel-item" do
+      with_tag :strong, text: "item 2"
+    end
+  end
 end

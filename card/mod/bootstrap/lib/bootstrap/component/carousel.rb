@@ -11,7 +11,7 @@ class Bootstrap
         @items = []
         instance_exec &block
 
-        @html.div class: "carousel slide", id: id, data: { ride: "carousel" } do
+        @html.div class: "carousel slide", id: id, "data-ride" => "carousel" do
           indicators
           items
           control_prev
@@ -30,7 +30,7 @@ class Bootstrap
             add_class html_opts, "active" if index == @active_item_index
             @html.div html_opts do
               item = item.call if item.respond_to?(:call)
-              @html.text!(item) if item.is_a?(String)
+              @html << item if item.is_a?(String)
             end
           end
         end
@@ -38,7 +38,7 @@ class Bootstrap
 
       def control_prev
         @html.a class: "carousel-control-prev", href: "##{@id}", role: "button",
-                data: { slide: "prev" } do
+                "data-slide" => "prev" do
           @html.span class: "carousel-control-prev-icon", "aria-hidden" => "true"
           @html.span "Previous", class: "sr-only"
         end
@@ -46,7 +46,7 @@ class Bootstrap
 
       def control_next
         @html.a class: "carousel-control-next", href: "##{@id}", role: "button",
-                data: { slide: "next" } do
+                "data-slide": "next"  do
           @html.span class: "carousel-control-next-icon", "aria-hidden" => "true"
           @html.span "Next", class: "sr-only"
         end

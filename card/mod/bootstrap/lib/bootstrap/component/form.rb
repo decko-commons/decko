@@ -40,7 +40,7 @@ class Bootstrap
       def input type, text: nil, label: nil, id: nil
         @html.input id: id, class: "form-control", type: type do
           @html.label label, for: id if label
-          @html.text! text if text
+          @html << text if text
         end
       end
 
@@ -56,7 +56,7 @@ class Bootstrap
         define_method tag do |text: nil, id:, label: |
           @html.input id: id, class: "form-control", type: tag do
             @html.label label, for: id if label
-            @html.text! text
+            @html << text
           end
         end
       end
