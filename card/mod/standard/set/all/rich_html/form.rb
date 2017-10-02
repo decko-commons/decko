@@ -146,7 +146,7 @@ format :html do
   end
 
   def form_for_multi_input_name
-    voo.live_options[:input_name] || "card#{subcard_input_names}"
+    voo&.live_options&.dig(:input_name) || "card#{subcard_input_names}"
   end
 
   def subcard_input_names
