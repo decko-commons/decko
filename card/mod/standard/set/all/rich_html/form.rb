@@ -142,7 +142,11 @@ format :html do
   end
 
   def form_for_multi
-    instantiate_builder("card#{subcard_input_names}", card, {})
+    instantiate_builder(form_for_multi_input_name, card, {})
+  end
+
+  def form_for_multi_input_name
+    voo.live_options[:input_name] || "card#{subcard_input_names}"
   end
 
   def subcard_input_names
