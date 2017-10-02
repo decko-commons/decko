@@ -7,7 +7,6 @@ format :html do
   end
 
   view :new do
-    binding.pry
     voo.title = invitation? ? tr(:invite) : tr(:sign_up)
     super()
   end
