@@ -38,13 +38,14 @@ format :html do
     end.join "\n"
     extra_css_class = @extra_css_class || "pointer-list-ul"
 
-    <<-HTML
+    raw(<<-HTML
       <ul class="pointer-list-editor #{extra_css_class}"
           data-options-card="#{options_card_name}">
         #{rendered_items}
       </ul>
       #{add_item_button}
     HTML
+    )
   end
 
   def options_card_name
