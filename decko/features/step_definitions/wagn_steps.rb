@@ -192,7 +192,7 @@ end
 def wait_for_ajax
   Timeout.timeout(Capybara.default_max_wait_time) do
     begin
-      sleep(0.5) until finished_all_ajax_requests?
+      sleep(0.25) until finished_all_ajax_requests?
     rescue Selenium::WebDriver::Error::UnknownError
       sleep(2) # HACK: to fix the issue that in layout.feature jQuery
       # after the layout change is not defined

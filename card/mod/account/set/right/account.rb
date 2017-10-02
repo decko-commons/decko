@@ -156,7 +156,6 @@ end
 
 event :send_account_verification_email, :integrate,
       on: :create, when: proc { |c| c.token.present? } do
-  binding.pry
   Card[:verification_email].deliver context: self, to: email
 end
 

@@ -1,3 +1,5 @@
+@javascript
+
 Feature: Signing up
   In order to be able to contribute content and be credited for my contributions
   As a content editor
@@ -8,10 +10,11 @@ Feature: Signing up
     And I edit "Sign up+*type+*captcha"
     And I uncheck "Content"
     And I press "Submit"
+        # By default Wagns are configured to require approval
+    Given Joe Admin creates Pointer card "User+*type+*create" with content "[[Anyone]]"
+
 
   Scenario: Signing up (without approval) and then signing out and back in
-    # By default Wagns are configured to require approval
-    Given Joe Admin creates Pointer card "User+*type+*create" with content "[[Anyone]]"
     And I am signed out
     #This is the needed permission configuration to allow signups without approval
 
