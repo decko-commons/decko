@@ -40,6 +40,10 @@ end
     match do |card|
       values_match?(name, card.send(field))
     end
+
+    failure_message do |card|
+      super() + ", but was #{card.send(field)}"
+    end
   end
 end
 
@@ -54,31 +58,30 @@ RSpec::Matchers.define :have_a_field do |field_key|
 
   match do |card|
     return unless card.is_a?(Card)
-    return unless (field = card.fetch(trait: field_key))
+    return unless (@field = card.fetch(trait: field_key))
+
     if @content
-      values_match?(@content, field.content)
+      values_match?(@content, @field.content)
     elsif @pointing_to
-      values_match?(:pointer, field.type_code) &&
-        values_match?(field.content, /\[\[#{@pointing_to}\]\]/)
+      values_match?(:pointer, @field.type_code) &&
+        values_match?(@field.content, /\[\[#{@pointing_to}\]\]/)
     else
-      values_match(Card, field.class)
+      values_match(Card, @field.class)
+    end
+  end
+
+  failure_message do |card|
+    return super(card) unless @field
+    if @content
+      "expected #{card} to have a field '#{field_key}' with content '#{@content}',
+but content is #{card.content.present? ? "empty" : card.content}"
+    elsif @pointing_to
+      "expected #{card} to have a field #{field_key} pointing to #{@pointing_to} but
+content is #{card.content}"
     end
   end
 end
 
-# RSpec::Matchers.define :have_codename do |codename|
-#   match do |card|
-#     values_match?(codename, card.codename)
-#   end
-# end
-#
-# RSpec::Matchers.define :have_content do |content|
-#   match do |card|
-#     binding.pry
-#     puts card
-#     values_match?(content, card.content)
-#   end
-# end
 
 RSpec::Matchers.define :have_type do |type|
   match do |card|
