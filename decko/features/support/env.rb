@@ -29,12 +29,12 @@ Before("@no-db-clean-between-scenarios") do |scenario|
   $feature_seeded.add scenario.feature.name
 end
 
-Before("~@background-jobs", "~@delayed-jobs", "~@javascript") do
+Before("not @background-jobs", "not @delayed-jobs", "not @javascript") do
  DatabaseCleaner.strategy = :transaction
  DatabaseCleaner.start
 end
 
-After("~@background-jobs", "~@delayed-jobs", "~@javascript") do
+After("not @background-jobs", "not @delayed-jobs", "not @javascript") do
  DatabaseCleaner.clean
 end
 

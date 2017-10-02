@@ -112,7 +112,7 @@ format :html do
       HTML
     end.join "\n"
 
-    %(<div class="pointer-checkbox-list">#{options}</div>)
+    raw %(<div class="pointer-checkbox-list">#{options}</div>)
   end
 
   view :multiselect do |_args|
@@ -147,7 +147,7 @@ format :html do
     end.join("\n")
     options = "no options" if options.empty?
 
-    %(<ul class="pointer-radio-list">#{options}</ul>)
+    raw %(<ul class="pointer-radio-list">#{options}</ul>)
   end
 
   def option_label option_name, id
