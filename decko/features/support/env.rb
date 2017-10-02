@@ -44,6 +44,10 @@ end
 
 Before("@javascript") do
   @javascript = true
+end
+
+Before do
+  puts "attempting resize!!"
   Capybara.page.current_window.resize_to(1440, 900)
 end
 

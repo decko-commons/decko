@@ -4,9 +4,13 @@ Feature: Signing up
   I want to signup for an account
 
   Background:
-    # By default Wagns are configured to require approval
+    Given I am signed in as "Joe Admin"
+    And I edit "Sign up+*type+*captcha"
+    And I uncheck "Content"
+    And I press "Submit"
 
   Scenario: Signing up (without approval) and then signing out and back in
+    # By default Wagns are configured to require approval
     Given Joe Admin creates Pointer card "User+*type+*create" with content "[[Anyone]]"
     And I am signed out
     #This is the needed permission configuration to allow signups without approval
@@ -25,6 +29,7 @@ Feature: Signing up
     Then I should see "Wanna B"
     And "Wanna B" should be signed in
 
+
     When I go to the home page
     And I follow "Sign out"
     Then I should not see "Wanna B"
@@ -35,7 +40,11 @@ Feature: Signing up
     And I press "Sign in"
     Then I should see "Wanna B"
     And "Wanna B" should be signed in
-  Scenario: Signing up with approval
+
+
+  #Scenario: Signing up with approval
+    #Given I am signed out
+
     #When I go to card "AccountRequest"
     #And In the main card content I click "Wanna B"
     #When In the main card content I click "Invite Wanna B"

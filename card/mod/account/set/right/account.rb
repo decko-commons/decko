@@ -104,12 +104,12 @@ event :set_default_status, :prepare_to_validate, on: :create do
   add_subfield :status, content: default_status
 end
 
-def confirm_ok?
+def can_approve?
   Card.new(type_id: Card.default_accounted_type_id).ok? :create
 end
 
 event :generate_confirmation_token,
-      :prepare_to_store, on: :create, when: :confirm_ok? do
+      :prepare_to_store, on: :create, when: :can_approve? do
   add_subfield :token, content: generate_token
 end
 
@@ -156,6 +156,7 @@ end
 
 event :send_account_verification_email, :integrate,
       on: :create, when: proc { |c| c.token.present? } do
+  binding.pry
   Card[:verification_email].deliver context: self, to: email
 end
 
