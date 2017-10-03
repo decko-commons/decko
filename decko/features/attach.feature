@@ -48,6 +48,7 @@ Feature: File Upload
     Then I should see "image2.jpg 69.8 KB"
     And I press "Submit"
     And I wait for ajax response
+    And I wait 2 seconds
     Then I should see an image of size "large" and type "jpg"
 
   Scenario: Changing a coded image
