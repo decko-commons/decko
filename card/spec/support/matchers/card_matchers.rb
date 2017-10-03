@@ -51,7 +51,6 @@ end
 #
 # RSpec::Matchers.define :have_content do |content|
 #   match do |card|
-#     binding.pry
 #     puts card
 #     values_match?(content, card.content)
 #   end

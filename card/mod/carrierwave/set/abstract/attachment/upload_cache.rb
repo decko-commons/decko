@@ -8,7 +8,6 @@ end
 event :upload_attachment, :prepare_to_validate,
       on: :save, when: proc { |c| c.preliminary_upload? } do
   save_original_filename  # save original filename as comment in action
-  # binding.pry
   write_identifier        # set db_content
   # (needs original filename to determine extension)
   store_attachment!
