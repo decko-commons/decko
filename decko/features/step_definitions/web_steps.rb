@@ -42,6 +42,7 @@ end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, with: value)
+  wait_for_ajax if @javascript && field == "card_name"
 end
 
 When /^(?:|I )fill in "([^"]*)" with '([^']*)'$/ do |field, value|

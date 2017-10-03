@@ -87,7 +87,7 @@ class Card
       def prepare_stub_nest stub_hash
         stub_card = Card.fetch_from_cast stub_hash[:cast]
         stub_options = stub_hash[:options]
-        if stub_card.key.present? && stub_card.key == card.key
+        if stub_card&.key.present? && stub_card.key == card.key
           stub_options[:nest_name] ||= "_self"
         end
         yield stub_card, stub_hash[:mode], stub_options, stub_hash[:override]

@@ -44,7 +44,7 @@ class Card
     extend Card::Cache::Prepopulate
 
     @prepopulating = %w(test cucumber).include? Rails.env
-    @no_rails_cache = %w(test cucumber).include?(Rails.env) ||
+    @no_rails_cache = %w(test).include?(Rails.env) ||
                       ENV["NO_RAILS_CACHE"]
     @@cache_by_class = {}
     cattr_reader :cache_by_class

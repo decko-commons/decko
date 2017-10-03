@@ -157,6 +157,7 @@ When /^(?:|I )upload the (.+) "(.+)"$/ do |attachment_name, filename|
   Capybara.ignore_hidden_elements = false
   attach_file "card_#{attachment_name}", find_file(filename)
   Capybara.ignore_hidden_elements = true
+  wait_for_ajax
 end
 
 def find_file filename
@@ -191,17 +192,16 @@ end
 
 def wait_for_ajax
   Timeout.timeout(Capybara.default_max_wait_time) do
-    begin
-      sleep(0.25) until finished_all_ajax_requests?
-    rescue Selenium::WebDriver::Error::UnknownError
-      sleep(2) # HACK: to fix the issue that in layout.feature jQuery
-      # after the layout change is not defined
-    end
+    sleep(0.5) until finished_all_ajax_requests?
   end
 end
 
 def finished_all_ajax_requests?
-  page.evaluate_script("jQuery.active").zero?
+  jquery_undefined? || page.evaluate_script("jQuery.active").zero?
+end
+
+def jquery_undefined?
+  page.evaluate_script("typeof(jQuery) === 'undefined'")
 end
 
 When /^I wait for ajax response$/ do
