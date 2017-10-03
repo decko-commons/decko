@@ -75,6 +75,7 @@ Feature: File Upload
     Then I should see "image.png 34.3 KB"
     And I press "Submit"
     And I wait for ajax response
+    And I wait 2 seconds
     Then I should see an image of size "medium" and type "png"
 
   Scenario: updating a file as a field in a form
@@ -95,6 +96,7 @@ Feature: File Upload
     Then I should see "image2.jpg 69.8 KB"
     And I press "Submit"
     And I wait for ajax response
+    And I wait 2 seconds
     Then I should see an image of size "medium" and type "jpg"
 
   Scenario: submit a form without updating a file
@@ -113,4 +115,5 @@ Feature: File Upload
     And I press "Submit"
     And I wait for ajax response
     Then I should see "+image"
+    And I wait 2 seconds
     And I should see an image of size "medium" and type "png"
