@@ -28,6 +28,7 @@ Feature: File Upload
     And I fill in "card_name" with "a test file"
     And I press "Submit"
     And I wait for ajax response
+    And I wait 2 seconds
     Then I should see "Download a test file"
 
   Scenario: Uploading and changing an image
