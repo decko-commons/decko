@@ -146,7 +146,7 @@ format :html do
   # then the subfield cards should be created on the new card not the existing
   # card that build the form
   def name_in_form
-    form_context == self ? '' : card.cardname.from(form_context.card.name)
+    form_context == self ? '' : "[#{card.cardname.from form_context.card.name}]"
   end
 
   def form
@@ -164,7 +164,7 @@ format :html do
   def form_prefices
     return "" if form_root? || !form_root
     return parent.form_prefices if parent.card == card
-    "#{parent.form_prefices}[subcards][#{name_in_form}]"
+    "#{parent.form_prefices}[subcards]#{name_in_form}"
   end
 
   def form_context
