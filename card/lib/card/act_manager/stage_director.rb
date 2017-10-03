@@ -133,7 +133,7 @@ class Card
 
       def to_s level=1
         str = @card.name.to_s.clone
-        if @subdirectors
+        if @subdirectors.present?
           subs = subdirectors.map { |d| "  " * level + d.to_s(level + 1) }.join "\n"
           str << "\n#{subs}"
         end

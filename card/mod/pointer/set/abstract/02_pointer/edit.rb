@@ -38,13 +38,14 @@ format :html do
     end.join "\n"
     extra_css_class = @extra_css_class || "pointer-list-ul"
 
-    <<-HTML
+    raw(<<-HTML
       <ul class="pointer-list-editor #{extra_css_class}"
           data-options-card="#{options_card_name}">
         #{rendered_items}
       </ul>
       #{add_item_button}
     HTML
+    )
   end
 
   def options_card_name
@@ -112,7 +113,7 @@ format :html do
       HTML
     end.join "\n"
 
-    %(<div class="pointer-checkbox-list">#{options}</div>)
+    raw %(<div class="pointer-checkbox-list">#{options}</div>)
   end
 
   view :multiselect do |_args|
@@ -147,7 +148,7 @@ format :html do
     end.join("\n")
     options = "no options" if options.empty?
 
-    %(<ul class="pointer-radio-list">#{options}</ul>)
+    raw %(<ul class="pointer-radio-list">#{options}</ul>)
   end
 
   def option_label option_name, id
