@@ -49,7 +49,6 @@ class Card
       # reset effectively clears the cache by setting a new stamp
       def reset
         @stamp = new_stamp
-        puts "new STAMP = #{@stamp}"
         @prefix = nil
         Cardio.cache.write stamp_key, @stamp
       end
@@ -121,7 +120,6 @@ class Card
       end
 
       def fetch key, &block
-        puts "fetching #{full_key(key)}"
         @store.fetch full_key(key), &block
       end
 
