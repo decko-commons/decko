@@ -152,7 +152,7 @@ class Card
       @soft.write key, value
     end
 
-    # like read, but also writes to hard cache
+    # read and (if not there yet) write
     # @param key [String]
     def fetch key, &block
       @soft.fetch(key) do

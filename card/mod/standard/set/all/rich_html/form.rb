@@ -146,6 +146,7 @@ format :html do
   # then the subfield cards should be created on the new card not the existing
   # card that build the form
   def name_in_form
+    binding.pry
     form_context == self ? '' : "[#{card.cardname.from form_context.card.name}]"
   end
 
