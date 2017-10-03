@@ -9,7 +9,7 @@ class Card
         def card_keys
           @card_keys ||=
             Card.set_patterns.inject({}) do |hash, set_pattern|
-              card_key = Card.quick_fetch(set_pattern.pattern_code.to_sym).key
+              card_key = Card.quick_fetch(set_pattern.pattern_code).key
               hash[card_key] = true
               hash
             end
@@ -17,7 +17,7 @@ class Card
 
         def in_load_order
           @in_load_order ||=
-            Card.set_patterns.reverse.map(&:pattern_code).unshift "abstract"
+            Card.set_patterns.reverse.map(&:pattern_code).unshift :abstract
         end
       end
 
@@ -60,6 +60,12 @@ class Card
           def anchor_parts_count
             @anchor_parts_count ||= (anchorless? ? 0 : 1)
           end
+
+          def module_key anchor_codes
+            return pattern_code.to_s.camelize if anchorless?
+            return unless anchor_codes # is this not an error?
+            ([pattern_code] + anchor_codes).map { |code| code.to_s.camelize }.join "::"
+          end
         end
 
         # Instance methods
@@ -67,28 +73,24 @@ class Card
         def initialize card
           unless self.class.anchorless?
             @anchor_name = self.class.anchor_name(card).to_name
-            @anchor_id = if self.class.respond_to? :anchor_id
-                           self.class.anchor_id card
-                         else
-                           Card.fetch_id @anchor_name
-                         end
+            @anchor_id = find_anchor_id card
           end
           self
+        end
+
+        def find_anchor_id card
+          if self.class.respond_to? :anchor_id
+            self.class.anchor_id card
+          else
+            Card.fetch_id @anchor_name
+          end
         end
 
         def module_key
           if defined? @module_key
             @module_key
           else
-            @module_key = begin
-              if self.class.anchorless?
-                self.class.pattern_code.camelize
-              elsif anchor_codenames
-                codenames = [self.class.pattern_code] +
-                            anchor_codenames.map(&:to_s)
-                codenames.map(&:camelize).join "::"
-              end
-            end
+            @module_key = self.class.module_key(anchor_codenames)
           end
         end
 
@@ -140,7 +142,7 @@ class Card
         end
 
         def safe_key
-          caps_part = self.class.pattern_code.tr(" ", "_").upcase
+          caps_part = self.class.pattern_code.to_s.tr(" ", "_").upcase
           if self.class.anchorless?
             caps_part
           else
@@ -150,7 +152,7 @@ class Card
 
         def rule_set_key
           if self.class.anchorless?
-            self.class.pattern_code
+            self.class.pattern_code.to_s
           elsif @anchor_id
             "#{@anchor_id}+#{self.class.pattern_code}"
           end

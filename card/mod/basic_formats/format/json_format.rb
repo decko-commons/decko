@@ -9,18 +9,14 @@ class Card
         "text/json"
       end
 
-      def expand_stubs cached_content, &block
-        case cached_content
+      def expand_stubs content, &block
+        case content
         when Hash
-          cached_content.each do |k, v|
-            cached_content[k] = expand_stubs v, &block
-          end
-        when String
-          super
+          content.each { |k, v| content[k] = expand_stubs v, &block }
         when Array
-          cached_content.map { |item| expand_stubs item, &block }
+          content.map { |item| expand_stubs item, &block }
         else
-          cached_content
+          super
         end
       end
     end

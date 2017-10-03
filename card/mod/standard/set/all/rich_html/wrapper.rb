@@ -59,9 +59,9 @@ format :html do
   end
 
   def wrap_classes slot
-    list = ["card-slot", "#{@current_view}-view", card.safe_set_keys]
-    list.push "STRUCTURE-#{voo.structure.to_name.key}" if voo.structure
-    list.shift unless slot
+    list = slot ? ["card-slot"] : []
+    list += ["#{@current_view}-view", card.safe_set_keys]
+    list << "STRUCTURE-#{voo.structure.to_name.key}" if voo.structure
     classy list
   end
 
@@ -132,12 +132,13 @@ format :html do
   end
 
   # alert_types: 'success', 'info', 'warning', 'danger'
-  def alert alert_type, dismissable=false, disappear=false
+  def alert alert_type, dismissable=false, disappear=false, args={}
     classes = ["alert", "alert-#{alert_type}"]
     classes << "alert-dismissible " if dismissable
     classes << "_disappear" if disappear
-
-    wrap_with :div, class: classy(classes), role: "alert" do
+    args.merge! role: "alert"
+    add_class args, classy(classes)
+    wrap_with :div, args do
       [(alert_close_button if dismissable), output(yield)]
     end
   end

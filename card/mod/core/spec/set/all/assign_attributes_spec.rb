@@ -27,7 +27,7 @@ RSpec.describe Card::Set::All::AssignAttributes do
   example "create cardtype with codename" do
     card = Card.create! name: "Foo Type", codename: "foo",
                         type: "Cardtype"
-    expect(card).to have_type(:cardtype).and have_codename "foo"
+    expect(card).to have_type(:cardtype).and have_codename :foo
   end
 
   it "assigns subfields" do

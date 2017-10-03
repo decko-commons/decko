@@ -1,7 +1,6 @@
 require_dependency "card/mod/loader"
 require_dependency "card/mod/dirs"
 
-
 class Card
   # A Card Mod (short for "module" or "modification") is a discrete piece of Decko functionality. Mods are how the Decko community develops and shares code. If you want to customize a deck in a way that can't be done on the site itself, try a mod.
   #
@@ -41,7 +40,7 @@ class Card
   # ## Other Directories
   #
   # Other ways your mod can extend Decko functionality include:
-  #   - **set_pattern** for additional {Card::SetPattern set patterns}, or types of sets.
+  #   - **set_pattern** for additional {Card::Set::Pattern set patterns}, or types of sets.
   #   - **format** for creating new formats
   #   - **chunk** provides tools for finding new patterns in card content
   #   - **layouts** can contain hardcoded layouts (layouts are more typically stored in content)

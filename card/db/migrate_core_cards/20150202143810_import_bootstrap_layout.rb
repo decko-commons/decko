@@ -34,7 +34,7 @@ class ImportBootstrapLayout < Card::Migration::Core
     # merge "style: functional" and "style: standard" into "style: cards"
     old_func = Card[:style_functional]
     old_func.name = "style: cards"
-    old_func.codename = "style_cards"
+    old_func.codename = :style_cards
     old_func.update_referers = true
     old_func.save!
 
