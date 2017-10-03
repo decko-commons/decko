@@ -54,6 +54,7 @@ def view_cache_keys new_key=nil
   @view_cache_keys << new_key if new_key
   append_missing_view_cache_keys
   @view_cache_keys.uniq!
+  @view_cache_keys
 end
 
 def append_missing_view_cache_keys
