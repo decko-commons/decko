@@ -28,7 +28,7 @@ Feature: File Upload
     And I fill in "card_name" with "a test file"
     And I press "Submit"
     And I wait for ajax response
-    And I wait 2 seconds
+    And I wait 4 seconds
     Then I should see "Download a test file"
 
   Scenario: Uploading and changing an image
@@ -40,6 +40,7 @@ Feature: File Upload
     And I fill in "card_name" with "a test image"
     And I press "Submit"
     And I wait for ajax response
+    And I wait 2 seconds
     Then I should see an image of size "large" and type "png"
     And I edit "a test image"
     And I upload the image "image2.jpg"
