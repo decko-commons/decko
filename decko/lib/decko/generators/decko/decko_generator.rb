@@ -5,8 +5,6 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   source_root File.expand_path("../templates", __FILE__)
 
-  argument :deck_path, required: false
-
   class_option :database,
                type: :string, aliases: "-d", default: "mysql",
                desc: "Preconfigure for selected database " \
@@ -130,8 +128,9 @@ class DeckoGenerator < Rails::Generators::AppBase
       Interactive.new(options, destination_root).run
     else
       puts "Now:
-1. Run `decko seed` to seed your database (see db configuration in config/database.yml).
-2. Run `decko server` to start your server"
+1. Run `cd #{File.basename(destination_root)}` to move your new deck directory
+2. Run `decko seed` to seed your database (see db configuration in config/database.yml).
+3. Run `decko server` to start your server"
     end
   end
 

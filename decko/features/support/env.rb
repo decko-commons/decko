@@ -29,12 +29,12 @@ Before("@no-db-clean-between-scenarios") do |scenario|
   $feature_seeded.add scenario.feature.name
 end
 
-Before("~@background-jobs", "~@delayed-jobs", "~@javascript") do
+Before("not @background-jobs", "not @delayed-jobs", "not @javascript") do
  DatabaseCleaner.strategy = :transaction
  DatabaseCleaner.start
 end
 
-After("~@background-jobs", "~@delayed-jobs", "~@javascript") do
+After("not @background-jobs", "not @delayed-jobs", "not @javascript") do
  DatabaseCleaner.clean
 end
 
@@ -46,6 +46,10 @@ Before("@javascript") do
   @javascript = true
 end
 
+Before do
+  Capybara.page.current_window.resize_to(1440, 900)
+end
+
 require "cucumber/rails"
 Cucumber::Rails::Database.autorun_database_cleaner = false
 # require "test_after_commit"
@@ -53,6 +57,7 @@ Cucumber::Rails::Database.autorun_database_cleaner = false
 Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
+Capybara.default_driver = :selenium
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
