@@ -35,7 +35,7 @@ class Card
           row 10, 2 do
             column do
               html title
-              tag(:span, "text-muted pl-1 badge") {summary}
+              tag(:span, "text-muted pl-1 badge") { summary }
             end
             column act_links, class: "text-right"
           end
@@ -93,7 +93,7 @@ class Card
       def count_types
         @count_types ||=
           approved_actions.each_with_object(
-            Hash.new {|h, k| h[k] = 0}
+            Hash.new { |h, k| h[k] = 0 }
           ) do |action, type_cnt|
             type_cnt[action.action_type] += 1
           end
@@ -186,18 +186,19 @@ class Card
 
       def revert_link
         revert_actions_link "revert to this", revert_to: :this,
-                                              slot_selector: ".card-slot.history-view"
+                            slot_selector: ".card-slot.history-view"
       end
 
-      def revert_actions_link link_text, revert_to: :this, slot_selector:
+      def revert_actions_link link_text, revert_to: :this, slot_selector: nil, html_args: {}
         return unless card.ok? :update
-        args = { remote: true, method: :post, rel: "nofollow",
-                    path: { action: :update, view: :open, look_in_trash: true,
-                            revert_actions: @act.actions.map(&:id),
-                            "data-slot-selector" => slot_selector } }
-        add_class args, "slotter"
-        args[:path][:revert_to] = revert_to
-        link_to link_text, args
+        html_args.merge! remote: true, method: :post, rel: "nofollow",
+                         path: { action: :update, view: :open, look_in_trash: true,
+                                 revert_actions: @act.actions.map(&:id),
+                                 revert_to: revert_to }
+
+        html_args[:path]["data-slot-selector"] = slot_selector if slot_selector
+        add_class html_args, "slotter"
+        link_to link_text, html_args
       end
 
       def deletion_act?

@@ -87,8 +87,6 @@ namespace :decko do
     Rake::Task["decko:update_assets_symlink"].invoke
   end
 
-
-
   desc "set symlink for assets"
   task :update_assets_symlink do
     assets_path = File.join(Rails.public_path, "assets")

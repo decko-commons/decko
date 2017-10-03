@@ -20,7 +20,7 @@ module Decko
       elsif format.is_a?(Card::Format::FileFormat) && status == 200
         send_file(*result)
       else
-        render body: result.html_safe,
+        render body: result.to_s.html_safe,
                status: status,
                content_type: format.mime_type
       end

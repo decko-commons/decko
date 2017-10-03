@@ -19,7 +19,7 @@ Feature: Reference
     And I wait for ajax response
     And I press "Rename and Update"
     And I wait for ajax response
-    And I wait 2 seconds
+    And I wait 4 seconds
     Then I go to card "Kawaii Man"
     And I should see "Srivigneshwar"
 

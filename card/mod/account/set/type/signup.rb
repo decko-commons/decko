@@ -2,7 +2,7 @@ format :html do
   def invitation?
     return @invitation unless @invitation.nil?
     @invitation = Auth.signed_in? &&
-                  (card.fetch trait: :account, new: {}).confirm_ok?
+                  (card.fetch trait: :account, new: {}).can_approve?
     # consider making account a card_accessor?
   end
 
@@ -87,13 +87,13 @@ format :html do
   end
 
   def approve_with_token_link account, token_action
-    return unless account.confirm_ok?
+    return unless account.can_approve?
     link_to_card card, "#{token_action} verification email",
                  path: { action: :update, approve_with_token: true }
   end
 
   def approve_without_token_link account
-    return unless account.confirm_ok?
+    return unless account.can_approve?
     link_to_card card, "Approve without verification",
                  path: { action: :update, approve_without_token: true }
   end
@@ -139,7 +139,7 @@ end
 event :approve_with_token, :validate,
       on: :update,
       when: proc { Env.params[:approve_with_token] } do
-  abort :failure, "illegal approval" unless account.confirm_ok?
+  abort :failure, "illegal approval" unless account.can_approve?
   account.reset_token
   account.send_account_verification_email
 end
@@ -147,7 +147,7 @@ end
 event :approve_without_token, :validate,
       on: :update,
       when: proc { Env.params[:approve_without_token] } do
-  abort :failure, "illegal approval" unless account.confirm_ok?
+  abort :failure, "illegal approval" unless account.can_approve?
   activate_account
 end
 
