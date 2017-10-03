@@ -53,8 +53,7 @@ class Card
       end
 
       def layout_from_card_or_code name
-        layout_card = Card.fetch name.to_s, skip_virtual: true,
-                                            skip_modules: true
+        layout_card = Card.quick_fetch name
         if layout_card && layout_card.ok?(:read)
           layout_card.content
         elsif (hardcoded_layout = LAYOUTS[name])
