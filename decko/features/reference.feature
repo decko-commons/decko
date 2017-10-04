@@ -15,7 +15,7 @@ Feature: Reference
     And I press "Rename"
     And I wait 1 seconds
     And I press "Rename and Update"
-    And I wait 2 seconds
+    And I wait 1 seconds
     Then I go to card "Kawaii Man"
     And I should see "Srivigneshwar"
 
