@@ -7,20 +7,20 @@ Feature: Navbox
     Given I go to the homepage
     And I fill in "_keyword" with "Joe"
 # possible to use placeholder?
-    And I wait a sec
+#    And I wait a sec
     Then I should see "Joe Camel"
     And I should see "JoeNow"
     Then I press enter to search
 #When I follow "search: Joe"
 # fixme: unable to click link so far...
-    And I wait a sec
+#    And I wait a sec
     Then I should see "Search results"
 
   Scenario: wql search
     Given I go to the homepage
     And I fill in "_keyword" with '{"type":"User"}'
     Then I press enter to search
-    And I wait a sec
+#    And I wait a sec
     Then I should see "Search results"
     And I should see "Big Brother"
 

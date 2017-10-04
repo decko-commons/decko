@@ -79,9 +79,6 @@ but content is #{card.content.present? ? "empty" : card.content}"
       "expected #{card} to have a field #{field_key} pointing to #{@pointing_to} but
 content is #{card.content}"
     end
-  end
-end
-
 
 RSpec::Matchers.define :have_type do |type|
   match do |card|

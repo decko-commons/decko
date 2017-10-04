@@ -107,11 +107,7 @@ format :html do
         <table role="presentation" class="table table-striped">
           <tbody class="files">
             <tr class="template-download fade show">
-              <td>
-                <span class="preview">
-                  #{preview}
-                </span>
-              </td>
+              <td><span class="preview">#{preview}</span></td>
               <td>
                 <p class="name">
                   #{card.original_filename}
