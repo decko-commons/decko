@@ -103,7 +103,7 @@ class AddEmailCards < Card::Migration::Core
         right: "email_config",
         referred_to_by: { right: { codename: "send" } }
       ).each do |card|
-        set_name = card.cardname.left
+        set_name = card.name.left
         card.name = "#{set_name.tr('*', '').tr('+', '_')}_email_template"
         card.type = "Email Template"
         card.save!

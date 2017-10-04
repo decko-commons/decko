@@ -38,7 +38,7 @@ class Card
          def find_card_attributes name
            key = name.to_name.key
            index = cards.find_index { |attr| attr[:key] == key } ||
-             cards.find_index { |attr| attr[:name] == name }
+             cards.find_index { |attr| attr[:name] == name.s }
            return unless index
            cards[index]
          end

@@ -10,6 +10,7 @@ Feature: Layouts
     And the card "*all+*layout" contains "[[simple layout]]"
     And I create Pointer card "User+*type+*layout" with content "[[user layout]]"
     And I create HTML card "user layout" with content "User Header {{_main}}"
+    And I wait for ajax response
 
   Scenario: I visit a Basic card with the simple layout
     When I go to card "*account links"

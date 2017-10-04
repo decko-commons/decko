@@ -1,7 +1,7 @@
 class Cardname
   module Variants
     def simple_key
-      return "" if @s.empty?
+      return "" if empty?
       decoded
         .underscore
         .gsub(/[^#{OK4KEY_RE}]+/, '_')

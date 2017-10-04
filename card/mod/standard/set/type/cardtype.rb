@@ -44,7 +44,7 @@ format :html do
       end
     end
     path_args[:action] = "new"
-    page_path card.cardname, path_args
+    page_path card.name, path_args
   end
 end
 

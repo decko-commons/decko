@@ -12,7 +12,9 @@ Feature: Reference
     And I go to rename "Vignesh"
     And I fill in "card_name" with "Srivigneshwar"
     And I press "Rename"
+    And I wait 2 seconds
     And I press "Rename and Update"
+    And I wait 2 seconds
     Then I go to card "Kawaii Man"
     And I should see "Srivigneshwar"
 

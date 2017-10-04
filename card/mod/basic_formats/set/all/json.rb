@@ -48,7 +48,7 @@ format :json do
   view :status, tags: :unknown_ok, perms: :none, cache: :never do
     status = card.state
     hash = { key: card.key,
-             url_key: card.cardname.url_key,
+             url_key: card.name.url_key,
              status: status }
     hash[:id] = card.id if status == :real
     hash

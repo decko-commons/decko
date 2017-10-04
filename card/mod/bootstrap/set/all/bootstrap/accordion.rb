@@ -1,6 +1,6 @@
 format :html do
   def accordion_group list, collapse_id=nil, args={}
-    collapse_id ||= card.cardname.safe_key
+    collapse_id ||= card.name.safe_key
     accordions = ""
     index = 1
     case list
@@ -19,7 +19,7 @@ format :html do
     end
   end
 
-  def accordion title, content, collapse_id=card.cardname.safe_key
+  def accordion title, content, collapse_id=card.name.safe_key
     accordion_content =
       case content
       when Hash  then accordion_group(content, collapse_id)

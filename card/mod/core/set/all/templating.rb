@@ -1,10 +1,10 @@
 
 def is_template?
-  cardname.trait_name? :structure, :default
+  name.trait_name? :structure, :default
 end
 
 def is_structure?
-  cardname.trait_name? :structure
+  name.trait_name? :structure
 end
 
 def template
@@ -49,7 +49,7 @@ def assigns_type?
   # needed because not all *structure templates govern the type of set members
   # for example, X+*type+*structure governs all cards of type X,
   # but the content rule does not (in fact cannot) have the type X.
-  return unless (set_pattern = Card.fetch cardname.trunk_name.tag_name,
+  return unless (set_pattern = Card.fetch name.trunk_name.tag_name,
                                           skip_modules: true)
   return unless (pattern_code = set_pattern.codename)
   return unless (set_class = Set::Pattern.find pattern_code)
@@ -64,7 +64,7 @@ end
 def virtual?
   return false unless new_card?
   if @virtual.nil?
-    cardname.simple? ? (@virtual = false) : template
+    name.simple? ? (@virtual = false) : template
   end
   @virtual
 end

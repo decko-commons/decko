@@ -25,6 +25,6 @@ format :html do
   end
 
   def toggle_label
-    label :content, card.cardname.tag
+    label :content, card.name.tag
   end
 end

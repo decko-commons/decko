@@ -12,7 +12,7 @@ def prototype_args anchor
 end
 
 def anchor_name card
-  card.cardname.tag
+  card.name.tag
 end
 
 def follow_label name

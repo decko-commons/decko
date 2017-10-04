@@ -5,7 +5,7 @@ format :html do
       [
         _render(:horizontal_menu, optional: :hide),
         _render_menu_link,
-        _render_modal_slot(modal_id: card.cardname.safe_key)
+        _render_modal_slot(modal_id: card.name.safe_key)
       ]
     end
   end
@@ -73,7 +73,7 @@ format :html do
 
   def menu_discuss_link opts
     menu_item "discuss", "comment",
-              opts.merge(related: :discussion.cardname.key)
+              opts.merge(related: :discussion.name.key)
   end
 
   def menu_follow_link opts
@@ -92,7 +92,7 @@ format :html do
   def menu_account_link opts
     menu_item "account", "person", opts.merge(
       view: :related,
-      path: { related: { name: "+#{:account.cardname.key}", view: :edit } }
+      path: { related: { name: "+#{:account.name.key}", view: :edit } }
     )
   end
 
@@ -150,6 +150,6 @@ format :html do
   end
 
   def discussion_card?
-    card.junction? && card.cardname.tag_name.key == :discussion.cardname.key
+    card.junction? && card.name.tag_name.key == :discussion.name.key
   end
 end

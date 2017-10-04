@@ -1,5 +1,5 @@
 def field tag, opts={}
-  Card.fetch cardname.field(tag), opts
+  Card.fetch name.field(tag), opts
 end
 
 def subcard card_name
@@ -67,7 +67,7 @@ event :handle_subcard_errors do
   subcards.each do |subcard|
     subcard.errors.each do |field, err|
       err = "#{field} #{err}" unless %i[content abort].member? field
-      errors.add subcard.name_from_super.s, err
+      errors.add subcard.name.from(name), err
     end
   end
 end

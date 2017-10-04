@@ -8,7 +8,7 @@ format :html do
     if card.left && Auth.signed_in?
       render_rule_editor args
     else
-      fname = "#{card.cardname.left}+#{Card[:followers].name}"
+      fname = "#{card.name.left}+#{Card[:followers].name}"
       fcard = Card.fetch fname
       nest fcard, view: :titled, items: { view: :link }
     end
