@@ -2,7 +2,7 @@
 # FIXME: the following don't really belong here, but they have to come after
 # the reference stuff.  we need to organize a bit!
 
-event :update_rule_cache, :integrate, when: :is_rule? do
+event :update_rule_cache, :finalize, when: :is_rule? do
   self.class.clear_rule_cache
 end
 
