@@ -146,12 +146,13 @@ format :html do
   # then the subfield cards should be created on the new card not the existing
   # card that build the form
   def name_in_form
-    form_context == self ? '' : "[#{card.cardname.from form_context.card.name}]"
+    return "" if form_root?
+    parent.name_in_form + "[#{card.cardname.from form_context.card.name}]"
   end
 
   def form
     @form ||= begin
-      @form_root = true unless form_root
+      @form_root = true unless parent&.form_root
       instantiate_builder("card#{name_in_form}", card, {})
     end
   end
