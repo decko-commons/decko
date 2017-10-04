@@ -96,7 +96,7 @@ class Card
 
       # reset the Persistent cache for all classes
       def reset_hard
-        Persistent.reset
+        Card::Cache::Persistent.reset
         cache_by_class.each_value do |cache|
           cache.hard.reset if cache.hard
         end
