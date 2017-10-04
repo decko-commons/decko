@@ -7,6 +7,6 @@ Capybara.configure do |config|
 end
 
 Before do
-  Card::Cache.reset_hard
-  Card::Cache.reset_soft
+  Card::Cache.reset_global
+  #Card::Cache.reset_soft
 end
