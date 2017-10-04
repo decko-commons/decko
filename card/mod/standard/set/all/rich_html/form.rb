@@ -145,15 +145,12 @@ format :html do
   # If you use subfield cards to render a form for a new card
   # then the subfield cards should be created on the new card not the existing
   # card that build the form
-  def name_in_form
-    return "" if form_root?
-    parent.name_in_form + "[#{card.cardname.from form_context.card.name}]"
-  end
+
 
   def form
     @form ||= begin
       @form_root = true unless parent&.form_root
-      instantiate_builder("card#{name_in_form}", card, {})
+      instantiate_builder(form_prefix, card, {})
     end
   end
 
@@ -162,10 +159,10 @@ format :html do
     form
   end
 
-  def form_prefices
-    return "" if form_root? || !form_root
-    return parent.form_prefices if parent.card == card
-    "#{parent.form_prefices}[subcards]#{name_in_form}"
+  def form_prefix
+    return "card" if form_root? || !form_root || !parent
+    return parent.form_prefix if parent.card == card
+    "#{parent.form_prefix}[subcards][#{card.name.from form_context.card.name}]"
   end
 
   def form_context
@@ -189,7 +186,6 @@ format :html do
       success_tags(success) + output(yield(cform))
     end
   end
-  
 
   # @param action [Symbol] :create or :update
   # @param opts [Hash] html options

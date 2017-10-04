@@ -87,7 +87,7 @@ When /^(.*) edits? "([^\"]*)" with plusses:/ do |username, cardname, plusses|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     plusses.hashes.first.each do |name, content|
-      set_content "card[subcards][#{cardname}+#{name}][content]", content
+      set_content "card[subcards][+#{name}][content]", content
     end
     click_button "Submit"
     wait_for_ajax
