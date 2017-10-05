@@ -62,7 +62,6 @@ RSpec::Matchers.define :have_a_field do |field_key|
 
     if @content
       values_match?(@content, @field.content)
-    elsif @pointing_to
       values_match?(:pointer, @field.type_code) &&
         values_match?(@field.content, /\[\[#{@pointing_to}\]\]/)
     else
@@ -79,6 +78,8 @@ but content is #{card.content.present? ? "empty" : card.content}"
       "expected #{card} to have a field #{field_key} pointing to #{@pointing_to} but
 content is #{card.content}"
     end
+  end
+end
 
 RSpec::Matchers.define :have_type do |type|
   match do |card|

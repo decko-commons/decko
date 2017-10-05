@@ -50,6 +50,10 @@ format do
   def chunk_list  # turn off autodetection of uri's
     :nest_only
   end
+
+  def default_nest_view
+    :raw
+  end
 end
 
 format :html do

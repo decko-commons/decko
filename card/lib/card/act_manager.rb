@@ -34,17 +34,17 @@ class Card
   #                                  validation    |    storage    | integration
   #                                 I    P2V  V    |  P2S  S    F  | IG   IGwD
   #-------------------------------------------------------------------------
-  #    attach subcard               yes! yes! yes  | yes  yes  yes |    yes
+  #    attach subcard               yes! yes! yes  | yes  yes  yes | yes  no
   #    detach subcard               yes! yes! yes  | yes  no   no! |    no!
   #    validate                     yes  yes  yes! |      no       |    no
-  # 1  insecure change              yes  yes! no   |      no!      |    no!
-  # 2  secure change                     yes       | yes! no!  no! |    no!
+  # 1) insecure change              yes  yes! no   |      no!      |    no!
+  # 2) secure change                     yes       | yes! no!  no! |    no!
   #    abort                             yes!      |      yes      |    yes?
   #    add errors                        yes!      |      no!      |    no!
-  # 3  create other cards                yes       |      yes      |    yes
+  # 3) create other cards                yes       |      yes      |    yes
   #    has id                            no        | no   no?  yes |    yes
   #    within web request                yes       |      yes      | yes  no
-  # 4  within transaction                yes       |      yes      |    no
+  # 4) within transaction                yes       |      yes      |    no
 
   #    available values:
   #    dirty attributes                  yes       |      yes      |    yes
@@ -66,10 +66,13 @@ class Card
   # 1) 'insecure' means a change of a card attribute that can possibly make
   #    the card invalid to save
   # 2) 'secure' means you are sure that the change doesn't affect the validation
-  # 3) If you call 'create', 'update_attributes' or 'save' the card will become
+  # 3) In all stages except IGwD:
+  #    If you call 'create', 'update_attributes' or 'save' the card will become
   #    part of the same act and all stage of the validation and storage phase
   #    will be executed immediately for that card. The integration phase will be
-  #    executed together with the act card and its subcards
+  #    executed together with the act card and its subcards.
+  #
+  #    In IGwD all these methods create a new act.
   # 4) This means if an exception is raised in the validation or storage phase
   #    everything will rollback. If the integration phase fails the db changes
   #    of the other two phases will remain persistent.
