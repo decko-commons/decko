@@ -51,9 +51,9 @@ format do
     :nest_only
   end
 
-  def default_nest_view
-    :raw
-  end
+  # def default_nest_view
+  #   :raw
+  # end
 end
 
 format :html do

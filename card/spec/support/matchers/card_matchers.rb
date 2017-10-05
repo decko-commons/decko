@@ -62,6 +62,7 @@ RSpec::Matchers.define :have_a_field do |field_key|
 
     if @content
       values_match?(@content, @field.content)
+    elsif @pointing_to
       values_match?(:pointer, @field.type_code) &&
         values_match?(@field.content, /\[\[#{@pointing_to}\]\]/)
     else
@@ -70,7 +71,7 @@ RSpec::Matchers.define :have_a_field do |field_key|
   end
 
   failure_message do |card|
-    return super(card) unless @field
+    return super() unless @field
     if @content
       "expected #{card} to have a field '#{field_key}' with content '#{@content}',
 but content is #{card.content.present? ? "empty" : card.content}"
