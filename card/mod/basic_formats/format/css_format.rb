@@ -12,7 +12,6 @@ class Card
       def view_caching?
         false
       end
-
     end
   end
 end

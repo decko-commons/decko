@@ -71,6 +71,9 @@ class Card
   module Set
     # Implements the event API for card sets
     module Event
+      DELAY_STAGES = ::Set.new([:integrate_with_delay_stage,
+                                :integrate_with_delay_final_stage])
+
       def event event, stage_or_opts={}, opts={}, &final
         if stage_or_opts.is_a? Symbol
           opts[:in] = stage_or_opts
@@ -101,8 +104,7 @@ class Card
       end
 
       def with_delay? opts
-        opts[:after] == :integrate_with_delay_stage ||
-          opts[:before] == :integrate_with_delay_stage
+        DELAY_STAGES.include?(opts[:after]) || DELAY_STAGES.include?(opts[:before])
       end
 
       def process_stage_opts opts

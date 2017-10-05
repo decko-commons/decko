@@ -71,7 +71,7 @@ RSpec::Matchers.define :have_a_field do |field_key|
   end
 
   failure_message do |card|
-    return super(card) unless @field
+    return super() unless @field
     if @content
       "expected #{card} to have a field '#{field_key}' with content '#{@content}',
 but content is #{card.content.present? ? "empty" : card.content}"
@@ -81,7 +81,6 @@ content is #{card.content}"
     end
   end
 end
-
 
 RSpec::Matchers.define :have_type do |type|
   match do |card|

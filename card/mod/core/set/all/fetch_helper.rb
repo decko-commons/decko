@@ -98,8 +98,8 @@ module ClassMethods
       when opts[:skip_virtual] then return nil
     end
     card.assign_name_from_fetched_mark! mark, opts
-    return nil unless opts[:new] || card.known?
     finalize_fetch_results card, opts
+    card if opts[:new] || card.known?
   end
 
   def finalize_fetch_results card, opts
