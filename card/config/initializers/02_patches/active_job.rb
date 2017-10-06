@@ -39,9 +39,15 @@ module Patches
       # all custom serialized arguments become hashes
       # hence for deserializing we only have to check hashes
       def deserialize_hash serialized_hash
-        return deserialize_object(serialized_hash) if serialized_hash[CLASS_NAME_KEY]
-        result = super
-        if (integer_keys = result.delete(INTEGER_KEYS_KEY))
+        if serialized_hash[CLASS_NAME_KEY]
+          deserialize_object serialized_hash
+        else
+          handle_integer_keys super
+        end
+      end
+
+      def handle_integer_keys result
+        if (integer_keys = result.delete(INTEGER_KEYS_KEY) && integer_keys.present?)
           result = transform_integer_keys(result, integer_keys)
         end
         result
@@ -51,16 +57,16 @@ module Patches
         value = hash[VALUE_KEY]
         class_name = hash[CLASS_NAME_KEY]
         case class_name
-         when "Symbol"
-           value.to_sym
-         when "Time", "DateTime"
-           Object.const_get(class_name).parse value
-         when "ActionController::Parameters"
-           # TODO: handle the permitted status
-           ActionController::Parameters.new deserialize_hash(value)
-         else
-           value
-         end
+        when "Symbol"
+          value.to_sym
+        when "Time", "DateTime"
+          Object.const_get(class_name).parse value
+        when "ActionController::Parameters"
+          # TODO: handle the permitted status
+          ActionController::Parameters.new deserialize_hash(value)
+        else
+          value
+        end
       end
 
       def transform_integer_keys(hash, integer_keys)
