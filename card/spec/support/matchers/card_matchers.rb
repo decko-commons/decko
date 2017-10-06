@@ -59,12 +59,11 @@ RSpec::Matchers.define :have_a_field do |field_key|
   match do |card|
     return unless card.is_a?(Card)
     return unless (@field = card.fetch(trait: field_key))
-
     if @content
       values_match?(@content, @field.content)
     elsif @pointing_to
       values_match?(:pointer, @field.type_code) &&
-        values_match?(@field.content, /\[\[#{@pointing_to}\]\]/)
+        @field.content.include?("[[#{@pointing_to}]]")
     else
       values_match(Card, @field.class)
     end
@@ -74,10 +73,10 @@ RSpec::Matchers.define :have_a_field do |field_key|
     return super() unless @field
     if @content
       "expected #{card} to have a field '#{field_key}' with content '#{@content}',
-but content is #{card.content.present? ? "empty" : card.content}"
+but content is #{@field.content.present? ? "empty" : @field.content}"
     elsif @pointing_to
       "expected #{card} to have a field #{field_key} pointing to #{@pointing_to} but
-content is #{card.content}"
+content is #{@field.content}"
     end
   end
 end
