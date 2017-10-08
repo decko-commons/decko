@@ -82,8 +82,8 @@ end
 
 event :remove_empty_act,
       :integrate_with_delay_final, when: :remove_empty_act? do
-  @current_act.delete
-  @current_act = nil
+  #@current_act.delete
+  #@current_act = nil
 end
 
 def remove_empty_act?
