@@ -1,5 +1,5 @@
 
-describe "Global Wagn variable", ->
+describe "Global decko variable", ->
   it "should be defined", ->
     expect(decko).toBeDefined
 

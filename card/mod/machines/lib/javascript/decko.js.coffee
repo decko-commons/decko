@@ -217,7 +217,7 @@ $(window).ready ->
         input = $(this).find '.file-upload'
         if input[1]
           $(this).notify(
-            "Wagn does not yet support multiple files in a single form.",
+            "Decko does not yet support multiple files in a single form.",
             "error"
           )
           return false
