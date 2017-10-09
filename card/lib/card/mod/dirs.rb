@@ -27,9 +27,14 @@ class Card
     # in load order with a preceding "mod" command (similar to a Gemfile).
     # The mods are expected in subdirectories with the mod names.
     #
+    # Mods in Modfiles are always loaded before mods in the Gemfile.
+    # If you have to change the order add gem mods to your Modfile using the
+    # mod_gem command. You can omit the 'card-mod' prefix.
+    #
     # Example for a mod directory:
     #   # my_mod/Modfile
     #   mod "twitter"
+    #   gem_mod "logger"
     #   mod "cache"
     #
     #   # directory structure
@@ -54,6 +59,7 @@ class Card
       # @param mod_paths [String, Array<String>] paths to directories that contain mods
       def initialize mod_paths=[]
         @mods = []
+        @loaded_gem_mods = ::Set.new
         @paths = {}
         mod_paths = Array(mod_paths)
         mod_paths.each do |mp|
@@ -76,6 +82,13 @@ class Card
         @mods << mod_name
         path ||= File.join @current_path, mod_name
         @paths[mod_name] = path
+      end
+
+      def gem_mod mod_name
+        specs = Bundler.definition.specs[mod_name]
+        specs = Bundler.definition.specs["card-mod-#{mod_name}"] unless specs.present?
+        raise Error, "Unknown gem mod \"#{mod_name}\". Make sure it is in your Gemfile." unless specs.present?
+        load_mod_from_gem_spec specs.first
       end
 
       alias_method :mod, :add_path
@@ -130,15 +143,20 @@ class Card
 
       def load_from_gemfile
         Bundler.definition.specs.map do |s|
-          mod_name =
-            if (m = s.name.match(/^card-mod-(.+)$/))
-              m[1]
-            else
-              s.metadata["card-mod"]
-            end
-          next unless mod_name
-          add_path mod_name, s.full_gem_path
+          load_mod_from_gem_spec s
         end.compact
+      end
+
+      def load_mod_from_gem_spec gem_spec
+        mod_name =
+          if (m = gem_spec.name.match(/^card-mod-(.+)$/))
+            m[1]
+          else
+            gem_spec.metadata["card-mod"]
+          end
+        return if !mod_name || @loaded_gem_mods.include?(mod_name)
+        @loaded_gem_mods << mod_name
+        add_path mod_name, gem_spec.full_gem_path
       end
 
       def tmp_dir modname, type
