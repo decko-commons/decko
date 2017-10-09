@@ -17,12 +17,11 @@ include SelectedAction
 
 format do
   view :source do
-    source_url
-  end
-
-  def source_url
+    file = card.attachment
+    return "" unless file.valid?
     internal_url card.attachment.url
   end
+
 
   view :core do
     handle_source do |source|
@@ -31,8 +30,9 @@ format do
   end
 
   def handle_source
-    source = source_url
-    source ? yield(source) : ""
+    source = render_source
+    return "" if source.blank?
+    block_given? ? yield(source) : source
   rescue
     tr :file_error
   end
@@ -40,7 +40,7 @@ end
 
 format :file do
   # returns send_file args.  not in love with this...
-  view :core, cache: :never do |args|
+  view :core do |args|
     # this means we only support known formats.  dislike.
     attachment_format = card.attachment_format(params[:format])
     return _render_not_found unless attachment_format
@@ -50,7 +50,7 @@ format :file do
   end
 
   def args_for_send_file
-    file = selected_file_version
+    file = selected_version
     [
       file.path,
       {
@@ -70,7 +70,7 @@ format :file do
     # r.headers["Cache-Control"] = "public"
   end
 
-  def selected_file_version
+  def selected_version
     card.attachment
   end
 end

@@ -159,6 +159,10 @@ module CarrierWave
     ].freeze
     delegate :store_dir, :retrieve_dir, :file_dir, :mod, :bucket, to: :model
 
+    def valid?
+      extension.present?
+    end
+
     def filename
       if model.coded?
         "#{model.type_code}#{extension}"
@@ -168,12 +172,13 @@ module CarrierWave
     end
 
     def extension
-      case
-      when file && file.extension.present? then ".#{file.extension}"
-      when card_content = model.content    then File.extname(card_content)
-      when orig = original_filename        then File.extname(orig)
-      else                                   ""
-      end.downcase
+      @extension ||=
+        case
+        when file && file.extension.present? then ".#{file.extension}"
+        when card_content = model.content    then File.extname(card_content)
+        when orig = original_filename        then File.extname(orig)
+        else                                   ""
+        end.downcase
     end
 
     # generate identifier that gets stored in the card's db_content field
