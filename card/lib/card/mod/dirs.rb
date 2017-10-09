@@ -84,11 +84,16 @@ class Card
         @paths[mod_name] = path
       end
 
-      def gem_mod mod_name
-        specs = Bundler.definition.specs[mod_name]
-        specs = Bundler.definition.specs["card-mod-#{mod_name}"] unless specs.present?
-        raise Error, "Unknown gem mod \"#{mod_name}\". Make sure it is in your Gemfile." unless specs.present?
-        load_mod_from_gem_spec specs.first
+      def gem_mod mod_name, path=nil
+        path ||= Cardio.gem_mod_paths[mod_name]
+        raise Error, "Unknown gem mod \"#{mod_name}\". Make sure it is in your Gemfile." unless path
+        add_gem_mod mod_name, path
+      end
+
+      def add_gem_mod mod_name, mod_path
+        return if @loaded_gem_mods.include?(mod_name)
+        @loaded_gem_mods << mod_name
+        add_path mod_name, mod_path
       end
 
       alias_method :mod, :add_path
@@ -142,21 +147,9 @@ class Card
       end
 
       def load_from_gemfile
-        Bundler.definition.specs.map do |s|
-          load_mod_from_gem_spec s
-        end.compact
-      end
-
-      def load_mod_from_gem_spec gem_spec
-        mod_name =
-          if (m = gem_spec.name.match(/^card-mod-(.+)$/))
-            m[1]
-          else
-            gem_spec.metadata["card-mod"]
-          end
-        return if !mod_name || @loaded_gem_mods.include?(mod_name)
-        @loaded_gem_mods << mod_name
-        add_path mod_name, gem_spec.full_gem_path
+        Cardio.gem_mod_paths.each do |mod_name, mod_path|
+          add_gem_mod mod_name, mod_path
+        end
       end
 
       def tmp_dir modname, type
