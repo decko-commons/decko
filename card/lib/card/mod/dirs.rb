@@ -131,13 +131,13 @@ class Card
       def load_from_gemfile
         Bundler.definition.specs.map do |s|
           mod_name =
-            if s.name =~ /^decko-mod-(.+)$/
-              $1
+            if (m = s.name.match(/^card-mod-(.+)$/))
+              m[1]
             else
               s.metadata["card-mod"]
             end
           next unless mod_name
-          add_path $1, s.full_gem_path
+          add_path mod_name, s.full_gem_path
         end.compact
       end
 
