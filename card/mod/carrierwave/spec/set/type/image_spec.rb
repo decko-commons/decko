@@ -63,7 +63,7 @@ describe Card::Set::Type::Image do
     describe "view: source" do
       it "renders url" do
         expect(subject.format.render(:source))
-          .to eq("/files/~#{subject.id}/#{subject.last_action_id}-medium.jpg")
+          .to eq("/files/~#{subject.id}/#{subject.last_action_id}-original.jpg")
       end
     end
 
@@ -128,9 +128,9 @@ describe Card::Set::Type::Image do
     end
 
     describe "source view" do
-      it "renders url with medium version" do
+      it "renders url with original version" do
         expect(subject.format.render_source)
-          .to eq "/files/:#{subject.codename}/standard-medium.png"
+          .to eq "/files/:#{subject.codename}/standard-original.png"
       end
     end
   end
