@@ -36,6 +36,10 @@ format do
   rescue
     tr :file_error
   end
+
+  def selected_version
+    card.attachment
+  end
 end
 
 format :file do
@@ -43,7 +47,7 @@ format :file do
   view :core do |args|
     # this means we only support known formats.  dislike.
     attachment_format = card.attachment_format(params[:format])
-    return _render_not_found unless attachment_format
+    return _render_not_found unless attachment_format.present?
     return card.format(:html).render_core(args) if card.remote_storage?
     set_response_headers
     args_for_send_file
@@ -70,9 +74,6 @@ format :file do
     # r.headers["Cache-Control"] = "public"
   end
 
-  def selected_version
-    card.attachment
-  end
 end
 
 format :html do
