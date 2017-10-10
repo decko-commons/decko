@@ -17,7 +17,11 @@ format do
   end
   
   def selected_version
-    voo.size == :original ? card.image : card.image.versions[voo.size.to_sym]
+    if voo.size && voo.size != :original
+      card.image.versions[voo.size.to_sym]
+    else
+      card.image
+    end
   end
 
   def handle_source
