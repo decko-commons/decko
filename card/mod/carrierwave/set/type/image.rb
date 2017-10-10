@@ -18,7 +18,11 @@ format do
   
   def selected_version
     size = determine_image_size
-    size && size != :original ? card.image.versions[size] : card.image
+    if size && size != :original
+      card.image.versions[size]
+    else
+      card.image
+    end
   end
 
   def handle_source
@@ -130,16 +134,4 @@ end
 format :file do
   include File::FileFormat
 
-  #def image_style
-  #  ["", "full"].member?(params[:size].to_s) ? :original : params[:size].to_sym
-  #end
-#
-  #def selected_file_version
-  #  style = voo.size = image_style.to_sym
-  #  if style && style != :original
-  #    card.attachment.versions[style]
-  #  else
-  #    card.attachment
-  #  end
-  #end
 end

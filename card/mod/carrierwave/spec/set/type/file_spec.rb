@@ -92,7 +92,7 @@ describe Card::Set::Type::File do
 
       it "renders protected url to be processed by wagn" do
         is_expected.to(
-          eq "/files/:#{coded_file.codename}/standard-original.png"
+          eq "/files/:#{coded_file.codename}/standard-medium.png"
         )
       end
     end
