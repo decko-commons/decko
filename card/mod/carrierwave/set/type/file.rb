@@ -30,7 +30,7 @@ format do
   end
 
   def handle_source
-    source = render_source
+    source = _render_source
     return "" if source.blank?
     block_given? ? yield(source) : source
   rescue
@@ -44,10 +44,10 @@ end
 
 format :file do
   # returns send_file args.  not in love with this...
-  view :core do |args|
+  view :core, cache: :never do |args|
     # this means we only support known formats.  dislike.
     attachment_format = card.attachment_format(params[:format])
-    return _render_not_found unless attachment_format.present?
+    return _render_not_found unless attachment_format
     return card.format(:html).render_core(args) if card.remote_storage?
     set_response_headers
     args_for_send_file
