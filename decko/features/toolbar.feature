@@ -1,7 +1,7 @@
 @javascript
 Feature: Toolbar
   In order to edit a card
-  As a Wagneer
+  As a Decker
   I want to be able to use the toolbar
 
 Background:
