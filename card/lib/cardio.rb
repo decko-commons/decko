@@ -135,6 +135,9 @@ module Cardio
       each_mod_path do |mod_path|
         add_mod_initializers mod_path
       end
+      gem_mod_paths.each do |mod_path|
+        add_initializers mod_path
+      end
     end
 
     def add_mod_initializers mod_path
