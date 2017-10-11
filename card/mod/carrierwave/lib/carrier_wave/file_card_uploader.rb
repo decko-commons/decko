@@ -172,13 +172,12 @@ module CarrierWave
     end
 
     def extension
-      @extension ||=
-        case
-        when file && file.extension.present? then ".#{file.extension}"
-        when card_content = model.content    then File.extname(card_content)
-        when orig = original_filename        then File.extname(orig)
-        else                                   ""
-        end.downcase
+      case
+      when file && file.extension.present? then ".#{file.extension}"
+      when card_content = model.content    then File.extname(card_content)
+      when orig = original_filename        then File.extname(orig)
+      else                                   ""
+      end.downcase
     end
 
     # generate identifier that gets stored in the card's db_content field

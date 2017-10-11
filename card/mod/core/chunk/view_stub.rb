@@ -4,9 +4,9 @@ class Card
       class ViewStub < Abstract
         Chunk.register_class(
           self,
-          prefix_re: Regexp.escape("<card-view>"),
-          full_re: /\<card-view\>([^\<]*)\<\/card-view\>/,
-          idx_char: "<"
+          prefix_re: Regexp.escape("(stub)"),
+          full_re: /\(stub\)([^\(]*)\(\/stub\)/,
+          idx_char: "("
         )
 
         def initialize text, content
