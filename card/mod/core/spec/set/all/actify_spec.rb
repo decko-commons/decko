@@ -100,6 +100,7 @@ RSpec.describe "act API" do
        end
 
       it "processes cards not in the same transaction" do
+        pending "act handling upgrade"
         with_test_events do
           test_event :integrate_with_delay, on: :create, for: "main card" do
             #Card.create! name: "sub card"
