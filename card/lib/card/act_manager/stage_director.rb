@@ -102,6 +102,14 @@ class Card
         end
       end
 
+      def run_delayed_event act
+        @running = true
+        @act = act
+        @stage = stage_index(:integrate_with_delay)
+        yield
+        run_subdirector_stages :integrate_with_delay
+      end
+
       def reset_stage
         @stage = -1
       end
