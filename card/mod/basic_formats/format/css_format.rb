@@ -9,7 +9,7 @@ class Card
         "text/css"
       end
 
-      def view_caching?
+      def self.view_caching?
         false
       end
     end

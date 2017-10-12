@@ -45,6 +45,10 @@ class Card
     attr_reader :card, :parent, :main_opts
     attr_accessor :form, :error_status
 
+    def self.view_caching?
+      true
+    end
+
     def initialize card, opts={}
       @card = card
       require_card_to_initialize!
