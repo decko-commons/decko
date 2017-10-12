@@ -12,32 +12,45 @@ format do
   view :source do
     return card.raw_content if card.web?
     image = selected_version
-    return "" unless image.valid?
+    # return "" unless image.valid?
     internal_url image.url
   end
   
   def selected_version
-    if voo.size && voo.size != :original
-      card.image.versions[voo.size.to_sym]
+    size = determine_image_size
+    if size && size != :original
+      card.image.versions[size]
     else
       card.image
     end
   end
 
   def handle_source
-    determine_image_size
     super
+  end
+
+  def closed_size
+    :icon
+  end
+
+  def main_size
+    :large
+  end
+
+  def default_size
+    :medium
   end
 
   def determine_image_size
     voo.size =
       case
-      when nest_mode == :closed then :icon
+      when nest_mode == :closed then closed_size
       when voo.size             then voo.size.to_sym
-      when main?                then :large
-      else                           :medium
+      when main?                then main_size
+      else                           default_size
       end
     voo.size = :original if voo.size == :full
+    voo.size
   end
 end
 
@@ -110,7 +123,7 @@ end
 
 format :css do
   view :core do
-    handle#_source
+    handle_source
   end
 
   view :content do  # why is this necessary?
@@ -121,16 +134,4 @@ end
 format :file do
   include File::FileFormat
 
-  #def image_style
-  #  ["", "full"].member?(params[:size].to_s) ? :original : params[:size].to_sym
-  #end
-#
-  #def selected_file_version
-  #  style = voo.size = image_style.to_sym
-  #  if style && style != :original
-  #    card.attachment.versions[style]
-  #  else
-  #    card.attachment
-  #  end
-  #end
 end

@@ -1,7 +1,7 @@
 @javascript
 Feature: Table of Contents
   In order to add a table of contents to a card
-  As a Wagneer
+  As a Decker
   I want to be able to set a minimum header number
 
   Background:

@@ -448,6 +448,7 @@ describe Card::ActManager::StageDirector do
     end
 
     it "update_attributes works integrate_with_delay stage" do
+      pending "act handling upgrade"
       act_cnt = Card["A"].acts.size
       with_delayed_jobs 1 do
         in_stage :integrate_with_delay,
@@ -465,6 +466,7 @@ describe Card::ActManager::StageDirector do
     end
 
     it "create works in integrate_with_delay stage" do
+      pending "act handling upgrade"
       in_stage :integrate_with_delay,
                on: :create, for: "act card",
                trigger: -> { Card.create! name: "act card" } do

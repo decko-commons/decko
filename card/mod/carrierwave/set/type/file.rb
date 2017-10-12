@@ -18,8 +18,8 @@ include SelectedAction
 format do
   view :source do
     file = card.attachment
-    return "" unless file.valid?
-    internal_url card.attachment.url
+    # return "" unless file.valid?
+    internal_url file.url
   end
 
 
@@ -30,17 +30,21 @@ format do
   end
 
   def handle_source
-    source = render_source
+    source = _render_source
     return "" if source.blank?
     block_given? ? yield(source) : source
   rescue
     tr :file_error
   end
+
+  def selected_version
+    card.attachment
+  end
 end
 
 format :file do
   # returns send_file args.  not in love with this...
-  view :core do |args|
+  view :core, cache: :never do |args|
     # this means we only support known formats.  dislike.
     attachment_format = card.attachment_format(params[:format])
     return _render_not_found unless attachment_format
@@ -70,9 +74,6 @@ format :file do
     # r.headers["Cache-Control"] = "public"
   end
 
-  def selected_version
-    card.attachment
-  end
 end
 
 format :html do
