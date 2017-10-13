@@ -74,7 +74,7 @@ module ClassMethods
 
   def retrieve_from_db? card, mark_type, mark_key, look_in_trash
     return false if card&.real?                                      # real card found in cache
-    return false if mark_type == :key && mark_key.to_name.relative?  # no relative names in db
+#    return false if mark_type == :key && mark_key.to_name.relative?  # no relative names in db
     card.nil? || (look_in_trash && !card.trash)                      # card not found in cache (or trash lookup)
   end
 
