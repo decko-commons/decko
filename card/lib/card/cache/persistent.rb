@@ -20,11 +20,29 @@ class Card
       class << self
         # name of current database; used here to insure that different databases
         # are cached separately
-        # @todo find better home for this method
+        # TODO: find better home for this method
         def database_name
           @database_name ||= (cfg = Cardio.config) &&
                              (dbcfg = cfg.database_configuration) &&
                              dbcfg[Rails.env]["database"]
+        end
+
+        def stamp
+          @stamp ||= Cardio.cache.fetch(stamp_key) { new_stamp }
+        end
+
+        # stamp generator
+        def new_stamp
+          Time.now.to_i.to_s(36) + rand(999).to_s(36)
+        end
+
+        def stamp_key
+          "#{database_name}-stamp"
+        end
+
+        def reset
+          @stamp = new_stamp
+          Cardio.cache.write stamp_key, @stamp
         end
       end
 
@@ -48,7 +66,7 @@ class Card
 
       # reset effectively clears the cache by setting a new stamp
       def reset
-        @stamp = new_stamp
+        @stamp = self.class.new_stamp
         @prefix = nil
         Cardio.cache.write stamp_key, @stamp
       end
@@ -63,22 +81,17 @@ class Card
       # the cache. Note that Cardio.cache is a simple Rails::Cache, not
       # a Card::Cache object.
       def stamp
-        @stamp ||= Cardio.cache.fetch(stamp_key) { new_stamp }
+        @stamp ||= Cardio.cache.fetch(stamp_key) { self.class.new_stamp }
       end
 
       # key for looking up the current stamp
       def stamp_key
-        "#{@database}/#{@class_key}/stamp"
-      end
-
-      # stamp generator
-      def new_stamp
-        Time.now.to_i.to_s(32) + rand(9999).to_s(32)
+        "#{@database}-#{@class_key}-#{self.class.stamp}-stamp"
       end
 
       # prefix added to cache key to create a system-wide unique key
       def prefix
-        @prefix ||= "#{@database}/#{@class_key}/#{stamp}"
+        @prefix ||= "#{@database}-#{@class_key}-#{stamp}:"
       end
 
       # returns prefix/key
