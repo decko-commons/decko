@@ -133,16 +133,7 @@ module Cardio
 
     def set_mod_paths
       each_mod_path do |mod_path|
-        add_mod_initializers mod_path
-      end
-      gem_mod_paths.each do |mod_path|
         add_initializers mod_path
-      end
-    end
-
-    def add_mod_initializers mod_path
-      Dir.glob("#{mod_path}/*/config/initializers").each do |initializers_dir|
-        paths["mod/config/initializers"] << initializers_dir
       end
     end
 
@@ -153,7 +144,12 @@ module Cardio
     end
 
     def each_mod_path
-      paths["mod"].each do |mod_path|
+      paths["mod"].each do |mods_path|
+        Dir.glob("#{mods_path}/*").each do |single_mod_path|
+          yield single_mod_path
+        end
+      end
+      gem_mod_paths.each do |mod_name, mod_path|
         yield mod_path
       end
     end
