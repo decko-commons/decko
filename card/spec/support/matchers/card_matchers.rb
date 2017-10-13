@@ -35,7 +35,7 @@ RSpec::Matchers.define :be_valid do
   end
 end
 
-[:name, :codename, :db_content, :content, :type_id].each do |field|
+[:name, :codename, :db_content, :type_id].each do |field|
   RSpec::Matchers.define "have_#{field}".to_sym do |name|
     match do |card|
       values_match?(name, card.send(field))

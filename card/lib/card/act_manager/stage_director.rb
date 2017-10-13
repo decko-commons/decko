@@ -154,6 +154,10 @@ class Card
         ActManager.card_changed old_card
       end
 
+      def finished_stage? stage
+        @stage > stage_index(stage)
+      end
+
       private
 
       def upto_stage stage
