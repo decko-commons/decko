@@ -3,6 +3,9 @@ def self.included host_class
   host_class.file_content_mod_name = Card::Set.mod_name(caller)
 end
 
+# FIXME: these should abstracted and configured on the types
+# (same codes for `rake card:create:codefile`)
+
 # @return [Array<String>, String] the name of file(s) to be loaded
 def source_files
   case type_id
