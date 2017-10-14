@@ -11,21 +11,24 @@ RSpec.describe "act API" do
   end
 
   describe "add subcards" do
-    class Card
-      def current_trans
-        ActiveRecord::Base.connection.current_transaction
-      end
-
-      def record_names trans=nil
-        trans ||= current_trans
-        current_trans.records.map(&:name)
-      end
+    def save_transaction
+      @trans = ActiveRecord::Base.connection.current_transaction
     end
+
+    def record_names
+      @trans.records.map(&:name)
+    end
+
+    after do
+      @trans = nil
+    end
+
     context "in integrate stage" do
       context "default subcard handling" do
         it "processes all cards in one transaction" do
           with_test_events do
             test_event :validate, on: :create, for: "main card" do
+              save_transaction
               add_subcard("sub card")
             end
 
@@ -39,29 +42,46 @@ RSpec.describe "act API" do
       end
 
       context "serial subcard handling" do
-        it "processes subcards in separate transaction" do
+        before do
           Delayed::Worker.delay_jobs = true
+        end
+        after do
+          Delayed::Worker.delay_jobs = false
+        end
+
+        class Card
+          def __current_trans
+            ActiveRecord::Base.connection.current_transaction
+          end
+
+          def __record_names trans=nil
+            trans ||= __current_trans
+            trans.records.map(&:name)
+          end
+        end
+
+        it "processes subcards in separate transaction" do
           with_test_events do
             test_event :validate, on: :create, for: "main card" do
               add_subcard("sub card", transact_in_stage: :integrate_with_delay)
             end
 
             test_event :finalize, on: :create, for: "main card" do
-              expect(record_names).to eq ["main card"]
+              expect(__record_names).to eq ["main card"]
               expect(subcard("sub card").director.stage).to eq nil
             end
 
             test_event :integrate, on: :create, for: "main card" do
-              expect(record_names).to eq []
+              expect(__record_names).to eq []
               expect(subcard("sub card").director.stage).to eq nil
             end
 
             test_event :finalize, on: :create, for: "sub card" do
-              expect(record_names).to eq ["sub card"]
+              expect(__record_names).to eq ["sub card"]
             end
 
             test_event :integrate_with_delay, on: :create do
-              expect(record_names).to eq []
+              expect(__record_names).to eq []
             end
             create_card
             expect(Delayed::Worker.new.work_off).to eq [2, 0]
@@ -69,7 +89,6 @@ RSpec.describe "act API" do
           end
         end
       end
-
     end
 
     describe "in integrate_with_delay stage" do
@@ -80,16 +99,7 @@ RSpec.describe "act API" do
         Delayed::Worker.delay_jobs = false
       end
 
-      def save_transaction trans
-        @trans = trans
-      end
-
-      def record_names
-        @trans.records.map(&:name)
-      end
-
       it "processes cards not in the same transaction" do
-        pending "act handling upgrade"
         with_test_events do
           test_event :integrate_with_delay, on: :create, for: "main card" do
             Card.create! name: "sub create card"
@@ -97,7 +107,7 @@ RSpec.describe "act API" do
           end
 
           test_event :finalize, on: :create, for: "main card" do
-            save_transaction current_trans
+            save_transaction
           end
 
           main_card = create_card
@@ -116,8 +126,14 @@ RSpec.describe "act API" do
   end
 
   describe "dirty attributes" do
+    before do
+      Delayed::Worker.delay_jobs = true
+    end
+    after do
+      Delayed::Worker.delay_jobs = false
+    end
+
     it "survives to integration phase" do
-      #Delayed::Worker.delay_jobs = true
       with_test_events do
         test_event :validate do
           self.content = "new content"
@@ -133,8 +149,8 @@ RSpec.describe "act API" do
           expect(name_before_act).to eq("A")
           expect(db_content_before_act).to eq("Alpha [[Z]]")
         end
-        Delayed::Worker.new.work_off
         Card["A"].update_attributes! name: "new name"
+        Delayed::Worker.new.work_off
       end
     end
 
@@ -159,13 +175,20 @@ RSpec.describe "act API" do
         end
         Card["A"].update_attributes! name: "new name"
       end
+      Delayed::Worker.new.work_off
       expect(@called_events).to eq(%i[i_name iwd_name])
     end
   end
 
   describe "Env" do
-    it "survives to integration phase" do
+    before do
       Delayed::Worker.delay_jobs = true
+    end
+    after do
+      Delayed::Worker.delay_jobs = false
+    end
+
+    it "survives to integration phase" do
       with_test_events do
         test_event :initialize, on: :create do
           Card::Env.root("new root")

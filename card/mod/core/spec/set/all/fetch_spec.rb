@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Fetch do
+RSpec.describe Card::Set::All::Fetch do
   describe "#fetch" do
     it "returns and caches existing cards" do
       card_double = class_double("Card")
