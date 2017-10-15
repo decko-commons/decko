@@ -18,7 +18,7 @@ include SelectedAction
 format do
   view :source do
     file = card.attachment
-    # return "" unless file.valid?
+    return "" unless file.valid?
     internal_url file.url
   end
 
