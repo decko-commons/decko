@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::ActManager::StageDirector do
+RSpec.describe Card::ActManager::StageDirector do
   describe "abortion" do
     let(:create_card) { Card.create name: "a card" }
     let(:create_card_with_subcard) do
@@ -448,7 +448,6 @@ describe Card::ActManager::StageDirector do
     end
 
     it "update_attributes works integrate_with_delay stage" do
-      pending "act handling upgrade"
       act_cnt = Card["A"].acts.size
       with_delayed_jobs 1 do
         in_stage :integrate_with_delay,
@@ -466,15 +465,18 @@ describe Card::ActManager::StageDirector do
     end
 
     it "create works in integrate_with_delay stage" do
-      in_stage :integrate_with_delay,
-               on: :create, for: "act card",
-               trigger: -> { Card.create! name: "act card" } do
-        Card.create! name: "created card", content: "new content"
+      with_delayed_jobs 1 do
+        in_stage :integrate_with_delay,
+                 on: :create, for: "act card",
+                 trigger: -> { Card.create! name: "act card" } do
+          Card.create! name: "created card", content: "new content"
+        end
       end
       expect(Card["created card"]).to exist.and have_db_content "new content"
-      expect(Card["created card"].acts.size).to eq(0), "no act added"
       expect(Card["act card"].acts.size).to eq(1), "new act for 'act card'"
       expect(Card["created card"].actions.last.act).to eq Card["act card"].acts.last
+      expect(Card["created card"].acts.size).to eq(0), "no act added"
+
     end
   end
 end

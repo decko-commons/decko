@@ -151,7 +151,7 @@ RSpec.describe Card::Set::All::Fetch do
                      content: "Formatted Content"
         Card.create! name: "a+y", content: "DB Content"
         card = Card.fetch("a+y")
-        expect(card).to be_not_virtual.and have_content "DB Content"
+        expect(card).to be_not_virtual.and have_db_content "DB Content"
         expect(card.rule(:structure)).to eq("Formatted Content")
       end
 
