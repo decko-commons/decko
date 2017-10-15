@@ -174,9 +174,9 @@ RSpec.describe "act API" do
           event_called :iwd_content
         end
         Card["A"].update_attributes! name: "new name"
+        Delayed::Worker.new.work_off
+        expect(@called_events).to eq(%i[i_name iwd_name])
       end
-      Delayed::Worker.new.work_off
-      expect(@called_events).to eq(%i[i_name iwd_name])
     end
   end
 

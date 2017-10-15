@@ -296,7 +296,7 @@ describe Card::ActManager::StageDirector do
             f:12
             f:1
             ig:1 ig:11 ig:111 ig:112v ig:12 ig:121
-            igwd:1 igwd:11 igwd:111 igwd:112v igwd:12 igwd:121
+            igwd:1 igwd:11 igwd:12 igwd:121 igwd:111 igwd:112v
           )
                          )
       end
@@ -466,7 +466,6 @@ describe Card::ActManager::StageDirector do
     end
 
     it "create works in integrate_with_delay stage" do
-      pending "act handling upgrade"
       in_stage :integrate_with_delay,
                on: :create, for: "act card",
                trigger: -> { Card.create! name: "act card" } do

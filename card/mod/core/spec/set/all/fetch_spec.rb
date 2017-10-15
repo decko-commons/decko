@@ -202,7 +202,7 @@ RSpec.describe Card::Set::All::Fetch do
         it "initializes card with default content" do
           card = Card.fetch "non-existent",
                             new: { default_content: "default content" }
-          expect(card).to have_content "default content"
+          expect(card).to have_db_content "default content"
         end
       end
       context "when new card exist" do
@@ -211,7 +211,7 @@ RSpec.describe Card::Set::All::Fetch do
                    "+sub" => { content: "some content" }
           card = Card.fetch "new card+sub",
                             new: { default_content: "new content" }
-          expect(card).to have_content "some content"
+          expect(card).to have_db_content "some content"
         end
       end
     end
