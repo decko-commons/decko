@@ -72,6 +72,8 @@ format :file do
     # currently using default "private", because proxy servers could block
     # needed permission checks
     # r.headers["Cache-Control"] = "public"
+  # rescue
+    # binding.pry
   end
 
 end
