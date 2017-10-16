@@ -30,6 +30,15 @@ module CoreExtensions
       Card::Name.new self
     end
 
+    def name?
+      # Although we want to check for instances of class Card::Name we can't use that
+      # class because it is renewed with every request
+      # (at least in development mode) but the name cache is persistent.
+      # Hence the name objects in the cache are objects of a different instance of the
+      # Card::Name class and is_a?(Card::Name) will return false
+      self.is_a? Cardname
+    end
+
     def to_viewname
       Card::Name::ViewName.new self
     end
