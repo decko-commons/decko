@@ -71,7 +71,8 @@ class Card
       end
     end
 
-    def page view, slot_opts
+    def page controller, view, slot_opts
+      @controller = controller
       @card.run_callbacks :show_page do
         show view, slot_opts
       end
@@ -82,7 +83,7 @@ class Card
     end
 
     def controller
-      Env[:controller] ||= CardController.new
+      @controller || Env[:controller] ||= CardController.new
     end
 
     def session
