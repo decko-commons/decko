@@ -22,7 +22,6 @@ format do
     internal_url file.url
   end
 
-
   view :core do
     handle_source do |source|
       card_url source
@@ -67,17 +66,19 @@ format :file do
   end
 
   def set_response_headers
-    return unless params[:explicit_file] && (r = controller.response)
-    r.headers["Expires"] = 1.year.from_now.httpdate
+    return unless params[:explicit_file] && (response = controller&.response)
+    response.headers["Expires"] = 1.year.from_now.httpdate
     # currently using default "private", because proxy servers could block
     # needed permission checks
     # r.headers["Cache-Control"] = "public"
+  # rescue
+  #  binding.pry
   end
 
 end
 
 format :html do
-  view :core do |_args|
+  view :core do
     handle_source do |source|
       "<a href=\"#{source}\">#{tr :download, title: title_in_context(voo.title)}</a>"
     end
