@@ -156,7 +156,7 @@ class Card
         ActManager.act_card.director.run_delayed_event act, &block
       ensure
         Card.current_act = nil
-        ActManager.act_card = nil
+        ActManager.clear
       end
 
       def to_s

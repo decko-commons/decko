@@ -47,10 +47,10 @@ RSpec.describe Card::ActManager::StageDirector do
             in_stage :integrate,
                      on: :save,
                      trigger: -> { create_card } do
-              raise Card::Abort, "rollback"
+              raise Card::Error::Abort, "rollback"
             end
           end
-        rescue Card::Abort => e
+        rescue Card::Error::Abort => e
         ensure
           is_expected.to be_truthy
         end
@@ -469,13 +469,13 @@ RSpec.describe Card::ActManager::StageDirector do
         in_stage :integrate_with_delay,
                  on: :create, for: "act card",
                  trigger: -> { Card.create! name: "act card" } do
-          Card.create! name: "created card", content: "new content"
+          Card.create! name: "iwd created card", content: "new content"
         end
       end
-      expect(Card["created card"]).to exist.and have_db_content "new content"
+      expect(Card["iwd created card"]).to exist.and have_db_content "new content"
       expect(Card["act card"].acts.size).to eq(1), "new act for 'act card'"
-      expect(Card["created card"].actions.last.act).to eq Card["act card"].acts.last
-      expect(Card["created card"].acts.size).to eq(0), "no act added"
+      expect(Card["iwd created card"].actions.last.act).to eq Card["act card"].acts.last
+      expect(Card["iwd created card"].acts.size).to eq(0), "no act added"
 
     end
   end

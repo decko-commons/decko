@@ -36,7 +36,6 @@ format :html do
       check_circe: "check-circle",
       reorder: "align-justify",
       commenting: :commenting,
-      pushpin: "thumb-tack"
     },
     glyphicon: {
       option_horizontal: "option-horizontal",
