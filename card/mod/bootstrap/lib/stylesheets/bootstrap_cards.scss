@@ -15,6 +15,7 @@ $label_color: #666666;
 $border_color: #999999;
 $header_color: #eeeeee;
 $credit_color: #186886; /* wagn blue */
+$gray-light: #e7e7e7;
 
 header {
   a {
@@ -63,7 +64,7 @@ form {
 
 
 .link-muted {
-  color: $gray-light;
+  color: $gray-light; // FIXME: this should depend on the theme
   &:hover {
     color: inherit;
   }
