@@ -366,7 +366,7 @@ describe Card::Set::All::Permissions do
 
   describe "cardtypes and permissions" do
     specify "cardtype b has create role r1" do
-      expect(Card["Cardtype B+*type+*create"]).to have_content("[[r3]]")
+      expect(Card["Cardtype B+*type+*create"]).to have_db_content("[[r3]]")
                                                     .and have_type :pointer
     end
 

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::ActManager::StageDirector do
+RSpec.describe Card::ActManager::StageDirector do
   describe "abortion" do
     let(:create_card) { Card.create name: "a card" }
     let(:create_card_with_subcard) do
@@ -47,10 +47,10 @@ describe Card::ActManager::StageDirector do
             in_stage :integrate,
                      on: :save,
                      trigger: -> { create_card } do
-              raise Card::Abort, "rollback"
+              raise Card::Error::Abort, "rollback"
             end
           end
-        rescue Card::Abort => e
+        rescue Card::Error::Abort => e
         ensure
           is_expected.to be_truthy
         end
@@ -296,7 +296,7 @@ describe Card::ActManager::StageDirector do
             f:12
             f:1
             ig:1 ig:11 ig:111 ig:112v ig:12 ig:121
-            igwd:1 igwd:11 igwd:111 igwd:112v igwd:12 igwd:121
+            igwd:1 igwd:11 igwd:12 igwd:121 igwd:111 igwd:112v
           )
                          )
       end
@@ -448,7 +448,6 @@ describe Card::ActManager::StageDirector do
     end
 
     it "update_attributes works integrate_with_delay stage" do
-      pending "act handling upgrade"
       act_cnt = Card["A"].acts.size
       with_delayed_jobs 1 do
         in_stage :integrate_with_delay,
@@ -466,16 +465,18 @@ describe Card::ActManager::StageDirector do
     end
 
     it "create works in integrate_with_delay stage" do
-      pending "act handling upgrade"
-      in_stage :integrate_with_delay,
-               on: :create, for: "act card",
-               trigger: -> { Card.create! name: "act card" } do
-        Card.create! name: "created card", content: "new content"
+      with_delayed_jobs 1 do
+        in_stage :integrate_with_delay,
+                 on: :create, for: "act card",
+                 trigger: -> { Card.create! name: "act card" } do
+          Card.create! name: "iwd created card", content: "new content"
+        end
       end
-      expect(Card["created card"]).to exist.and have_db_content "new content"
-      expect(Card["created card"].acts.size).to eq(0), "no act added"
+      expect(Card["iwd created card"]).to exist.and have_db_content "new content"
       expect(Card["act card"].acts.size).to eq(1), "new act for 'act card'"
-      expect(Card["created card"].actions.last.act).to eq Card["act card"].acts.last
+      expect(Card["iwd created card"].actions.last.act).to eq Card["act card"].acts.last
+      expect(Card["iwd created card"].acts.size).to eq(0), "no act added"
+
     end
   end
 end
