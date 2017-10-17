@@ -27,7 +27,7 @@ gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.versio
 group :test do
   gem 'rails-controller-testing'
   gem 'rspec'
-  gem 'rspec-rails'         # behavior-driven-development suite
+  gem 'rspec-rails', '~>3.6.1'         # behavior-driven-development suite
   gem 'spork', '>=0.9'
   gem 'rubocop'
   gem 'rubocop-decko'
