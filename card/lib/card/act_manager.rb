@@ -149,10 +149,10 @@ class Card
       # The whole ActManager setup is gone once we reach a integrate with delay
       # event processed by ActiveJob.
       # This is the improvised resetup to get subcards working.
-      def run_delayed_event act, &block
+      def run_delayed_event act, card, &block
         raise "no act for delayed event given" unless act
         Card.current_act = act
-        ActManager.act_card = act.card
+        ActManager.act_card = act.card || card
         ActManager.act_card.director.run_delayed_event act, &block
       ensure
         Card.current_act = nil
