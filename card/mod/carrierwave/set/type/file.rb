@@ -58,7 +58,7 @@ format :file do
       file.path,
       {
         type: file.content_type,
-        filename:  "#{card.cardname.safe_key}#{file.extension}",
+        filename:  "#{card.name.safe_key}#{file.extension}",
         x_sendfile: true,
         disposition: (params[:format] == "file" ? "attachment" : "inline")
       }
@@ -148,7 +148,7 @@ format :html do
              #{hidden_field_tag 'attachment_type_id', card.type_id}
              #{hidden_field card.attachment_name, class: 'attachment_card_name',
                                                   value: ''}
-             #{hidden_field_tag 'file_card_name', card.cardname.url_key}
+             #{hidden_field_tag 'file_card_name', card.name.url_key}
         </span>
       </div>
       <div id="progress" class="progress mb-2" style="display: none;">

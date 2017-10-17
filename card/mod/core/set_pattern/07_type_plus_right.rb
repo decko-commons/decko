@@ -18,7 +18,7 @@ end
 def anchor_name card
   left = card.left new: {}
   type_name = (left && left.type_name) || Card[Card.default_type_id].name
-  "#{type_name}+#{card.cardname.tag}"
+  "#{type_name}+#{card.name.tag}"
 end
 
 def follow_label name

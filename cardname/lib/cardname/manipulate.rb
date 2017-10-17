@@ -1,18 +1,18 @@
 class Cardname
   module Manipulate
-    # replace a subname
+    # swap a subname
     # keys are used for comparison
-    def replace old, new
+    def swap old, new
       old_name = old.to_name
       new_name = new.to_name
-      return self if old_name.length > length
-      return replace_part(old_name, new_name) if old_name.simple?
+      return self if old_name.num_parts > num_parts
+      return swap_part(old_name, new_name) if old_name.simple?
       return self unless include? old_name
-      replace_all_subsequences(old_name, new_name).to_name
+      swap_all_subsequences(old_name, new_name).to_name
     end
 
-    def replace_part oldpart, newpart
-      ensure_simpliness oldpart, "Use 'replace' to replace junctions"
+    def swap_part oldpart, newpart
+      ensure_simpliness oldpart, "Use 'swap' to swap junctions"
 
       oldpart = oldpart.to_name
       newpart = newpart.to_name
@@ -22,33 +22,37 @@ class Cardname
       end.to_name
     end
 
-    def replace_piece oldpiece, newpiece
+    def swap_piece oldpiece, newpiece
       oldpiece = oldpiece.to_name
       newpiece = newpiece.to_name
 
-      return replace_part oldpiece, newpiece if oldpiece.simple?
+      return swap_part oldpiece, newpiece if oldpiece.simple?
       return self unless self.starts_with?(oldpiece)
-      return newpiece if oldpiece.length == length
-      newpiece + self[oldpiece.length..-1]
+      return newpiece if oldpiece.num_parts == num_parts
+      self.class.new [newpiece, self[oldpiece.num_parts..-1]].flatten
+    end
+
+    def num_parts
+      parts.length
     end
 
     private
 
-    def replace_all_subsequences oldseq, newseq
+    def swap_all_subsequences oldseq, newseq
       res = []
       i = 0
-      while i <= length - oldseq.length
+      while i <= num_parts - oldseq.num_parts
         # for performance reasons: check first character first then the rest
         if oldseq.part_keys.first == part_keys[i] &&
-           oldseq.part_keys == part_keys[i, oldseq.length]
+           oldseq.part_keys == part_keys[i, oldseq.num_parts]
           res += newseq.parts
-          i += oldseq.length
+          i += oldseq.num_parts
         else
           res << parts[i]
           i += 1
         end
       end
-      res += parts[i..-1] if i < length
+      res += parts[i..-1] if i < num_parts
       res
     end
 

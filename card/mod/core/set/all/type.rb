@@ -25,7 +25,7 @@ def type_name_or_default
 end
 
 def type_cardname
-  type_card.try :cardname
+  type_card.try :name
 end
 
 def type= type_name

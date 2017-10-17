@@ -6,7 +6,7 @@ format do
 
   # NAME VIEWS
   view :name, closed: true, perms: :none do
-    name_variant card.cardname
+    name_variant card.name
   end
 
   def name_variant name
@@ -14,7 +14,7 @@ format do
   end
 
   view(:key,      closed: true, perms: :none) { card.key }
-  view(:linkname, closed: true, perms: :none) { card.cardname.url_key }
+  view(:linkname, closed: true, perms: :none) { card.name.url_key }
   view(:url,      closed: true, perms: :none) { card_url _render_linkname }
 
   view :title, closed: true, perms: :none do
@@ -142,7 +142,7 @@ format do
 
   def on_type_set
     return unless
-      (tmpl_set_name = parent.card.cardname.trunk_name) &&
+      (tmpl_set_name = parent.card.name.trunk_name) &&
       (tmpl_set_class_name = tmpl_set_name.tag_name) &&
       (tmpl_set_class_card = Card[tmpl_set_class_name]) &&
       (tmpl_set_class_card.codename == :type)

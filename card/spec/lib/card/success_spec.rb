@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Env::Success do
-  let(:context) { Card["A"].cardname }
+  let(:context) { Card["A"].name }
   let(:previous) { "/B" }
   let(:home)     { Card["Home"] }
   def success_params params

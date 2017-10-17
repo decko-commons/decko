@@ -35,7 +35,7 @@ end
 
 format do
   view :verify_url do
-    card_url path({ mark: card.cardname.left }.merge(token_path_opts))
+    card_url path({ mark: card.name.left }.merge(token_path_opts))
   end
 
   view :verify_days do

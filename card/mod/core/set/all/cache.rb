@@ -28,7 +28,7 @@ module ClassMethods
 end
 
 def expire_pieces
-  cardname.piece_names.each do |piece|
+  name.piece_names.each do |piece|
     Card.expire piece
   end
 end

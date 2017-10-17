@@ -136,7 +136,7 @@ class Card
       def to_url name_context=@name_context
         case (target = target(name_context))
         when Card
-          page_path target.cardname, params
+          page_path target.name, params
         else
           target
         end

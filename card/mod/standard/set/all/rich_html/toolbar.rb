@@ -48,7 +48,7 @@ format :html do
   end
 
   def tool_navbar
-    navbar "toolbar-#{card.cardname.safe_key}-#{voo.home_view}",
+    navbar "toolbar-#{card.name.safe_key}-#{voo.home_view}",
            toggle_align: :left, class: "slotter toolbar",
            navbar_type: "inverse",
            no_collapse: true do
@@ -155,7 +155,7 @@ format :html do
 
   def related_codename related_card
     return nil unless related_card
-    tag_card = Card.quick_fetch related_card.cardname.right
+    tag_card = Card.quick_fetch related_card.name.right
     tag_card && tag_card.codename
   end
 

@@ -100,7 +100,7 @@ def require_permission_rule! rule_id, action
 end
 
 def rule_class_name
-  trunk.type_id == Card::SetID ? cardname.trunk_name.tag : nil
+  trunk.type_id == Card::SetID ? name.trunk_name.tag : nil
 end
 
 def you_cant what

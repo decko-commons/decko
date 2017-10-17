@@ -49,7 +49,7 @@ format :html do
   end
 
   def options_card_name
-    (oc = card.options_rule_card) ? oc.cardname.url_key : ":all"
+    (oc = card.options_rule_card) ? oc.name.url_key : ":all"
   end
 
   def add_item_button

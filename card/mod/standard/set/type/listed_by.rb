@@ -13,7 +13,7 @@ event :validate_listed_by_content, :validate,
     errors.add(
       :content,
       "#{item_card.name} has wrong cardtype; " \
-      "only cards of type #{cardname.right} are allowed"
+      "only cards of type #{name.right} are allowed"
     )
   end
 end
@@ -27,18 +27,18 @@ event :update_content_in_list_cards, :prepare_to_validate,
     added_items   = new_items - old_items
     removed_items.each do |item|
       if (lc = list_card(item))
-        lc.drop_item cardname.left
+        lc.drop_item name.left
         subcards.add lc
       end
     end
     added_items.each do |item|
       if (lc = list_card(item))
-        lc.add_item cardname.left
+        lc.add_item name.left
         subcards.add lc
       else
         subcards.add(
           name: "#{Card[item].name}+#{left.type_name}", type: "list",
-          content: "[[#{cardname.left}]]"
+          content: "[[#{name.left}]]"
         )
       end
     end
@@ -60,7 +60,7 @@ end
 def listed_by
   Card.search(
     { type: "list", right: trunk.type_name,
-      left: { type: cardname.tag }, refer_to: cardname.trunk, return: :name }, "listed_by" # better wql comment would be...better
+      left: { type: name.tag }, refer_to: name.trunk, return: :name }, "listed_by" # better wql comment would be...better
   )
 end
 

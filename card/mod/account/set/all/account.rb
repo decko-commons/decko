@@ -26,8 +26,8 @@ end
 
 def own_account?
   # card is +*account card of signed_in user.
-  cardname.part_names[0].key == Auth.as_card.key &&
-    cardname.part_names[1].key == Card[:account].key
+  name.part_names[0].key == Auth.as_card.key &&
+    name.part_names[1].key == Card[:account].key
 end
 
 def read_rules

@@ -20,6 +20,10 @@ module ClassMethods
   end
 end
 
+def name
+  super.to_name
+end
+
 def name= newname
   cardname = superize_name newname.to_name
   newkey = cardname.key
@@ -55,21 +59,17 @@ def update_subcard_names new_name, name_to_replace=nil
     # +C should change to A+B+C. #replace doesn't work in this case
     # because the old name +B is not a part of +C
     name_to_replace ||=
-      if subcard.cardname.junction? &&
-         subcard.cardname.parts.first.empty? &&
+      if subcard.name.junction? &&
+         subcard.name.parts.first.empty? &&
          new_name.parts.first.present?
         # replace the empty part
         "".to_name
       else
         name
       end
-    subcard.name = subcard.cardname.replace name_to_replace, new_name.s
+    subcard.name = subcard.name.swap name_to_replace, new_name.s
     subcard.update_subcard_names new_name, name
   end
-end
-
-def cardname
-  name.to_name
 end
 
 def codename
@@ -84,13 +84,13 @@ def autoname name
   end
 end
 
-# FIXME: use delegations and include all cardname functions
+# FIXME: use delegations and include all name functions
 def simple?
-  cardname.simple?
+  name.simple?
 end
 
 def junction?
-  cardname.junction?
+  name.junction?
 end
 
 def raw_name
@@ -98,13 +98,13 @@ def raw_name
 end
 
 def relative_name context_name=nil
-  context_name ||= @supercard.cardname if @supercard
-  cardname.name_from context_name
+  context_name ||= @supercard.name if @supercard
+  name.name_from context_name
 end
 
 def absolute_name context_name=nil
-  context_name ||= @supercard.cardname if @supercard
-  cardname.absolute_name context_name
+  context_name ||= @supercard.name if @supercard
+  name.absolute_name context_name
 end
 
 def left *args
@@ -114,18 +114,18 @@ def left *args
   when attribute_is_changing?(:name) && name.to_name.trunk_name.key == name_before_act.to_name.key
     nil # prevent recursion when, eg, renaming A+B to A+B+C
   else
-    Card.fetch cardname.left, *args
+    Card.fetch name.left, *args
   end
 end
 
 def right *args
-  Card.fetch(cardname.right, *args) unless simple?
+  Card.fetch(name.right, *args) unless simple?
 end
 
 def [] *args
   case args[0]
   when Integer, Range
-    fetch_name = Array.wrap(cardname.parts[args[0]]).compact.join "+"
+    fetch_name = Array.wrap(name.parts[args[0]]).compact.join "+"
     Card.fetch(fetch_name, args[1] || {}) unless simple?
   else
     super
@@ -137,11 +137,11 @@ def trunk *args
 end
 
 def tag *args
-  simple? ? self : Card.fetch(cardname.right, *args)
+  simple? ? self : Card.fetch(name.right, *args)
 end
 
 def left_or_new args={}
-  left(args) || Card.new(args.merge(name: cardname.left))
+  left(args) || Card.new(args.merge(name: name.left))
 end
 
 def fields
@@ -184,17 +184,17 @@ end
 
 def repair_key
   Auth.as_bot do
-    correct_key = cardname.key
+    correct_key = name.key
     current_key = key
     return self if current_key == correct_key
 
     if (key_blocker = Card.find_by_key_and_trash(correct_key, true))
-      key_blocker.cardname = key_blocker.cardname + "*trash#{rand(4)}"
+      key_blocker.name = key_blocker.name + "*trash#{rand(4)}"
       key_blocker.save
     end
 
     saved =   (self.key      = correct_key) && save!
-    saved ||= (self.cardname = current_key) && save!
+    saved ||= (self.name = current_key) && save!
 
     if saved
       descendants.each(&:repair_key)
@@ -224,9 +224,9 @@ end
 
 event :set_left_and_right, :store,
       changed: :name, on: :save do
-  if cardname.junction?
+  if name.junction?
     %i[left right].each do |side|
-      sidename = cardname.send "#{side}_name"
+      sidename = name.send "#{side}_name"
       sidecard = Card[sidename]
 
       # eg, renaming A to A+B

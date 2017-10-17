@@ -5,7 +5,7 @@ format :html do
       [
         _render(:horizontal_menu, optional: :hide),
         _render_menu_link,
-        _render_modal_slot(modal_id: card.cardname.safe_key)
+        _render_modal_slot(modal_id: card.name.safe_key)
       ]
     end
   end
@@ -150,6 +150,6 @@ format :html do
   end
 
   def discussion_card?
-    card.junction? && card.cardname.tag_name.key == :discussion.cardname.key
+    card.junction? && card.name.tag_name.key == :discussion.cardname.key
   end
 end

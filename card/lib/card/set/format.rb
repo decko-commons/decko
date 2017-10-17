@@ -84,7 +84,7 @@ class Card
         self.views = Hash.new { |h, k| h[k] = {} }
 
         def view view, *args, &block
-          view = view.to_viewname.key.to_sym
+          #view = view.to_viewname.key.to_sym
           interpret_view_opts view, args[0] if block_given?
           view_method_block = view_block(view, args, &block)
           if async_view? args

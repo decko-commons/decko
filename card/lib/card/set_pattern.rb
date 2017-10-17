@@ -50,11 +50,11 @@ class Card
           end
 
           def pattern
-            Card.fetch(pattern_id, skip_modules: true).cardname
+            Card.fetch(pattern_id, skip_modules: true).name
           end
 
           def pattern_applies? card
-            junction_only? ? card.cardname.junction? : true
+            junction_only? ? card.name.junction? : true
           end
 
           def anchor_parts_count

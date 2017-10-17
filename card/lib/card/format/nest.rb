@@ -80,7 +80,7 @@ class Card
       #   home.nest :self         # => nest for '*self'
       #   home.field_nest :self   # => nest for 'Home+*self'
       def field_nest field, opts={}
-        field = card.cardname.field(field) unless field.is_a? Card
+        field = card.name.field(field) unless field.is_a? Card
         nest field, opts
       end
 

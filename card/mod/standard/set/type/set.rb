@@ -106,7 +106,7 @@ format :html do
   end
 
   def group_collapse_id group_key
-    "collapse-#{card.cardname.safe_key}-#{group_key}"
+    "collapse-#{card.name.safe_key}-#{group_key}"
   end
 
   def group_tabpanel group_key
@@ -183,7 +183,7 @@ format :html do
   end
 
   view :set_navbar do |_args|
-    id = "set-navbar-#{card.cardname.safe_key}-#{voo.home_view}"
+    id = "set-navbar-#{card.name.safe_key}-#{voo.home_view}"
     related_sets = card.related_sets(true)
     return "" if related_sets.size <= 1
     navbar id, brand: "Set", toggle_align: :right,
@@ -199,7 +199,7 @@ format :html do
   end
 
   view :rule_navbar do
-    navbar "rule-navbar-#{card.cardname.safe_key}-#{voo.home_view}",
+    navbar "rule-navbar-#{card.name.safe_key}-#{voo.home_view}",
            brand: 'Rules', toggle_align: :right,
            class: "slotter toolbar navbar-expand-md", navbar_type: "inverse",
            collapsed_content: close_link("float-right d-sm-none") do
@@ -259,8 +259,8 @@ end
 
 def inheritable?
   return true if junction_only?
-  cardname.trunk_name.junction? &&
-    cardname.tag_name.key == Card::Set::Self.pattern.key
+  name.trunk_name.junction? &&
+    name.tag_name.key == Card::Set::Self.pattern.key
 end
 
 def subclass_for_set
@@ -280,7 +280,7 @@ end
 
 def label
   if (klass = subclass_for_set)
-    klass.label cardname.left
+    klass.label name.left
   else
     ""
   end
@@ -295,7 +295,7 @@ end
 
 def follow_label
   if (klass = subclass_for_set)
-    klass.follow_label cardname.left
+    klass.follow_label name.left
   else
     ""
   end
@@ -373,7 +373,7 @@ def broader_sets
 end
 
 def prototype
-  opts = subclass_for_set.prototype_args cardname.trunk_name
+  opts = subclass_for_set.prototype_args name.trunk_name
   Card.fetch opts[:name], new: opts
 end
 

@@ -20,7 +20,7 @@ module ClassMethods
     case mark
     when Symbol            then id_from_codename! mark
     when Integer           then mark
-    when Card              then mark.cardname
+    when Card              then mark.name
     when nil               then "".to_name
     when String, Cardname  then id_or_name_from_string mark.to_s
     # there are some situations where this breaks if we use Card::Name
@@ -61,6 +61,8 @@ module ClassMethods
 
   def missing_codename! mark
     raise Card::Error::NotFound, "missing card with codename: #{mark}"
+  rescue
+    binding.pry
   end
 
 end

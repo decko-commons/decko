@@ -18,9 +18,9 @@ describe CoreExtensions do
   end
 
   context CoreExtensions::PersistentIdentifier do
-    describe "#cardname" do
+    describe "#name" do
       subject { :wagn_bot.cardname }
-      it "converts into a cardname" do
+      it "converts into a name" do
         is_expected.to be_instance_of Card::Name
         expect(subject.s).to eq "Wagn Bot"
       end

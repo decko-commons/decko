@@ -43,7 +43,7 @@ format :html do
     style_card ||= root.card.rule_card :style
     @css_path =
       if params[:debug] == "style"
-        page_path(style_card.cardname, item: :import, format: :css)
+        page_path(style_card.name, item: :import, format: :css)
       elsif style_card
         style_card.machine_output_url
       end
@@ -89,7 +89,7 @@ format :html do
     if root.search_params[:vars]
       root.search_params[:vars].each { |key, val| opts["_#{key}"] = val }
     end
-    href = page_path root.card.cardname, opts
+    href = page_path root.card.name, opts
     tag "link", rel: "alternate", type: "application/rss+xml",
                 title: "RSS", href: href
   end
