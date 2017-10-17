@@ -61,7 +61,7 @@ class Card
           @all_keys ||= keymap.each_with_object([]) { |(_k, v), a| a.push(*v) }
         end
 
-        # keys whose values can be set by Wagneers in card nests
+        # keys whose values can be set by Deckers in card nests
         # @return [Array]
         def carditect_keys
           @carditect_keys ||= ::Set.new(keymap[:both]) + keymap[:carditect]

@@ -1,23 +1,23 @@
-=Wagn: how pioneers roll
+=Decko: you hold the cards
 
-{<img src="https://semaphoreci.com/api/v1/projects/0d61c1f9-5ef0-4c5c-89c6-7664e247e4be/294670/shields_badge.svg" />}[https://semaphoreci.com/ethan/wagn]
-{<img src="https://badge.fury.io/rb/wagn.svg" alt="Gem Version" />}[https://badge.fury.io/rb/wagn]
+{<img src="https://semaphoreci.com/api/v1/projects/0d61c1f9-5ef0-4c5c-89c6-7664e247e4be/294670/shields_badge.svg" />}[https://semaphoreci.com/ethan/decko]
+{<img src="https://badge.fury.io/rb/decko.svg" alt="Gem Version" />}[https://badge.fury.io/rb/decko]
 {<img src="https://codeclimate.com/repos/56548cb6fafb98574e013c39/badges/be88db3f72d0fd06ace3/gpa.svg" />}[https://codeclimate.com/repos/56548cb6fafb98574e013c39/feed]
 
 ==Basics
 
-Wagn is serious web development made fun.
+Decko (formerly known as "Wagn") is serious web development made fun.
 
-"Wagneers" have used Wagn to create open community sites, private knowledge management sites, public proposal submission sites with private back-ends for review, project management systems, wikis, blogs, journals, forums, and more.
+"Deckers" have used Decko to create open community sites, private knowledge management sites, public proposal submission sites with private back-ends for review, project management systems, wikis, blogs, journals, forums, and more.
 
-Install Wagn, open a webpage, and get started. With Wagn's wiki-inspired building blocks, you can collaborate from day one on content, design, and structure create elegant web systems on the fly.  And ruby developers can take these creations even further with Wagn's development framework. Wagn's innovative Mods API supports boundless creativity while integrating seamlessly with structures created on the site.
+Install Decko, open a webpage, and get started. With Decko's wiki-inspired building blocks, you can collaborate from day one on content, design, and structure create elegant web systems on the fly.  And ruby developers can take these creations even further with Decko's development framework. Decko's innovative Mods API supports boundless creativity while integrating seamlessly with structures created on the site.
 
 Try it out with automated setup at Cloudstore[https://cldstr.com/wagn.org/wagn] (free hosting for one trial month) or set it up yourself following the instructions below.
 
 
 ==System Requirements
 
-Ruby[http://www.ruby-lang.org/en/]:: version 1.9.3 or higher
+Ruby[http://www.ruby-lang.org/en/]:: version 2.2.2 or higher
 Bundler[http://gembundler.com/]:: version 1.0 or higher
 ImageMagick[http://www.imagemagick.org/]::
 A database engine:: Either MySQL[http://www.mysql.com/] or PostgreSQL[http://www.postgresql.org/]
@@ -27,14 +27,14 @@ Node.js[https://nodejs.org/]:: or another {JavaScript runtime}[https://github.co
 
 ===1. install the gem
 
- gem install wagn
+ gem install decko
 
 Watch carefully for errors!
 
 
-===2. create a new wagn application
+===2. create a new deck
 
-  wagn new mysite
+  decko new _mysite_
 
 
 ===3. create / seed database
@@ -43,8 +43,8 @@ Edit the config/database.yml file as necessary. More about database configuratio
 
 Then run
 
-  cd mysite
-  wagn seed
+  cd _mysite_
+  decko seed
 
 ..to create and seed the database
 
@@ -53,7 +53,7 @@ Then run
 
 To fire up the default, built-in WEBrick server, just run:
 
-  wagn server
+  decko server
 
 ...and point your browser to http://localhost:3000 (unless otherwise configured).
 
@@ -69,7 +69,7 @@ Always back up your database and uploaded files.
 
 ====2. Update Libraries
 
-From your wagn root directory run:
+From your decko root directory run:
 
   bundle update
 
@@ -77,17 +77,17 @@ From your wagn root directory run:
 
 Run the following:
 
-  wagn update
+  decko update
 
 ====4. Restart your server.
 
 ===Upgrading pre-gem Wagn sites
 
-First check the Wagn version of your existing site.
+First check the Wagn/Decko version of your existing site.
 
 ====Version 1.10 or newer
 
-1. Create a new Wagn app using steps 1 and 2 from the installation section above.
+1. Create a new deck using steps 1 and 2 from the installation section above.
 2. Copy config/database.yml from the old site to the new one.
 3. Copy the old local/files contents to the new "files" directory.
 4. If you have edited wagn.yml in your old site, make the corresponding changes to the new config/application.rb file.
@@ -100,9 +100,9 @@ First update your Wagn to version 1.10 via the old update mechanisms, and then f
 
 ==More Resources
 
-If you're new to Wagn, you'll find lots more info at http://wagn.org
+If you're new to Decko, you'll find lots more info at http://wagn.org
 
-If you're looking to go deep into the code, start with this introduction
+If you're looking to go deep into the code, start with http://www.rubydoc.info/gems/card
 
 
 

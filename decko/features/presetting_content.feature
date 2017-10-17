@@ -1,6 +1,6 @@
 Feature: Presetting content
   In order to have an easy to use interface for creating cards
-  As a Wagneer
+  As a Decker
   I want to be able to create links specifying content for plus cards of templated cards
 
   Scenario: User age

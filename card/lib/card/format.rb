@@ -45,6 +45,10 @@ class Card
     attr_reader :card, :parent, :main_opts
     attr_accessor :form, :error_status
 
+    def self.view_caching?
+      true
+    end
+
     def initialize card, opts={}
       @card = card
       require_card_to_initialize!
@@ -67,7 +71,8 @@ class Card
       end
     end
 
-    def page view, slot_opts
+    def page controller, view, slot_opts
+      @controller = controller
       @card.run_callbacks :show_page do
         show view, slot_opts
       end
@@ -78,7 +83,7 @@ class Card
     end
 
     def controller
-      Env[:controller] ||= CardController.new
+      @controller || Env[:controller] ||= CardController.new
     end
 
     def session

@@ -60,7 +60,6 @@ class Card
                                       store: cache_type
       end
 
-      # establish clean context;
       # clear the temporary caches and ensure we're using the latest stamp
       # on the persistent caches.
       def renew
@@ -68,6 +67,12 @@ class Card
           cache.soft.reset
           cache.hard.renew if cache.hard
         end
+      end
+
+      # reset standard cached for all classes
+      def reset
+        reset_hard
+        reset_soft
       end
 
       # reset all caches for all classes
@@ -91,6 +96,7 @@ class Card
 
       # reset the Persistent cache for all classes
       def reset_hard
+        Card::Cache::Persistent.reset
         cache_by_class.each_value do |cache|
           cache.hard.reset if cache.hard
         end

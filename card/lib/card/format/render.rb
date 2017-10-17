@@ -63,10 +63,6 @@ class Card
           source_location.second.to_s
       end
 
-      def view_caching?
-        true
-      end
-
       # setting (:alway, :never, :nested) designated in view definition
       def view_cache_setting view
         method = self.class.view_cache_setting_method view
@@ -77,11 +73,13 @@ class Card
       end
 
       def stub_render cached_content
-        expand_stubs cached_content do |stub_hash|
+        result = expand_stubs cached_content do |stub_hash|
           prepare_stub_nest(stub_hash) do |stub_card, mode, options, override|
             with_nest_mode(mode) { nest stub_card, options, override }
           end
         end
+        puts "STUB IN RENDERED VIEW: #{result}" if result =~ /stub/
+        result
       end
 
       def prepare_stub_nest stub_hash

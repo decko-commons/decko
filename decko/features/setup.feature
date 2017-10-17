@@ -1,11 +1,11 @@
 Feature: Setting up
   In order to be able to start a new Wagn site
-  As a Wagneer
+  As a Decker
   I want to setup an initial account
   
   Background:
     
-  Scenario: Wagneer visits site for first time
+  Scenario: Decker visits site for first time
     Given site simulates setup need
 #done here bc cache gets cleared otherwise
   

@@ -86,13 +86,15 @@ format :html do
   def autocomplete_input
     items = @item_list || card.item_names(context: :raw)
     items = [""] if items.empty?
-    <<-HTML
-      <div class="pointer-list-editor pointer-list-ul"
-          data-options-card="#{options_card_name}">
-        #{text_field_tag 'pointer_item', items.first,
-                         class: 'pointer-item-text form-control'}
-      </div>
-    HTML
+    raw(
+      <<-HTML
+        <div class="pointer-list-editor pointer-list-ul"
+            data-options-card="#{options_card_name}">
+          #{text_field_tag 'pointer_item', items.first,
+                           class: 'pointer-item-text form-control'}
+        </div>
+      HTML
+    )
   end
 
   view :checkbox do |_args|

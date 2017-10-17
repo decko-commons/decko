@@ -35,26 +35,51 @@ RSpec::Matchers.define :be_valid do
   end
 end
 
-[:name, :codename, :db_content, :content, :type_id].each do |field|
+[:name, :codename, :db_content, :type_id].each do |field|
   RSpec::Matchers.define "have_#{field}".to_sym do |name|
     match do |card|
       values_match?(name, card.send(field))
     end
+
+    failure_message do |card|
+      super() + ", but was #{card.send(field)}"
+    end
   end
 end
 
-# RSpec::Matchers.define :have_codename do |codename|
-#   match do |card|
-#     values_match?(codename, card.codename)
-#   end
-# end
-#
-# RSpec::Matchers.define :have_content do |content|
-#   match do |card|
-#     puts card
-#     values_match?(content, card.content)
-#   end
-# end
+RSpec::Matchers.define :have_a_field do |field_key|
+  chain(:with_content) do |content|
+    @content = content
+  end
+
+  chain(:pointing_to) do |pointing_to|
+    @pointing_to = pointing_to
+  end
+
+  match do |card|
+    return unless card.is_a?(Card)
+    return unless (@field = card.fetch(trait: field_key))
+    if @content
+      values_match?(@content, @field.content)
+    elsif @pointing_to
+      values_match?(:pointer, @field.type_code) &&
+        @field.content.include?("[[#{@pointing_to}]]")
+    else
+      values_match(Card, @field.class)
+    end
+  end
+
+  failure_message do |card|
+    return super() unless @field
+    if @content
+      "expected #{card} to have a field '#{field_key}' with content '#{@content}',
+but content is #{@field.content.present? ? @field.content : "empty" }"
+    elsif @pointing_to
+      "expected #{card} to have a field #{field_key} pointing to #{@pointing_to} but
+content is #{@field.content}"
+    end
+  end
+end
 
 RSpec::Matchers.define :have_type do |type|
   match do |card|

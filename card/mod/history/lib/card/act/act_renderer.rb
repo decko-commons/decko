@@ -155,7 +155,7 @@ class Card
       def act_accordion_body
         wrap_with :div, id: collapse_id,
                   class: "collapse #{collapse_id}" do
-          wrap_with :div, details, class: "card-block"
+          wrap_with :div, details, class: "card-body"
         end
       end
 
@@ -171,7 +171,7 @@ class Card
       #   not current, not deletion
       def rollback_link
         return unless card.ok? :update
-        wrap_with :div, class: "act-link collapse #{collapse_id} pull-right" do
+        wrap_with :div, class: "act-link collapse #{collapse_id} float-right" do
           revert_link
 
 

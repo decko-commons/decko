@@ -38,13 +38,13 @@ format :html do
   def expanded_close_link
     opts = {}
     opts[:no_nav] = true
-    close_link "hidden-xs-down pull-right navbar-text"
+    close_link "d-none d-sm-inline float-right navbar-text"
   end
 
   def collapsed_close_link
     opts = {}
     opts[:no_nav] = true
-    close_link "pull-right hidden-sm-up navbar-text", opts
+    close_link "float-right d-sm-none navbar-text", opts
   end
 
   def tool_navbar
@@ -57,7 +57,7 @@ format :html do
   end
 
   def toolbar_split_buttons
-    wrap_with :form, class: "pull-left navbar-text" do
+    wrap_with :form, class: "float-left navbar-text" do
       [
         account_split_button,
         toolbar_button_card(:activity),
@@ -68,7 +68,7 @@ format :html do
   end
 
   def toolbar_simple_buttons
-    wrap_with :form, class: "pull-right navbar-text" do
+    wrap_with :form, class: "float-right navbar-text" do
       wrap_with :div do
         _optional_render :toolbar_buttons
       end
@@ -176,7 +176,7 @@ format :html do
     button_tag icon_tag(:pushpin).html_safe,
                situation: :primary, remote: true,
                title: "#{'un' if toolbar_pinned?}pin",
-               class: "btn-toolbar-control toolbar-pin hidden-xs-down " \
+               class: "btn-toolbar-control toolbar-pin d-none d-sm-inline " \
                       "#{'in' unless toolbar_pinned?}active"
   end
 
@@ -187,7 +187,7 @@ format :html do
         _optional_render(:delete_button,
                          optional: (card.ok?(:delete) ? :show : :hide)),
         _optional_render(:refresh_button),
-        content_tag(:div, related_button, class: "hidden-xs-down pull-left")
+        content_tag(:div, related_button, class: "d-none d-sm-inline float-left")
       ]
     end
   end
@@ -211,7 +211,9 @@ format :html do
   view :refresh_button do |_args|
     icon = main? ? "refresh" : "new-window"
     button_args = { card: card,  path: { slot: { show: :toolbar } } }
-    button_args[:class] = "hidden-xs-down" if card.accountable?
+    button_args[:class] = "d-none d-sm-inline
+
+" if card.accountable?
     toolbar_button "refresh", icon, button_args
   end
 
@@ -231,7 +233,7 @@ format :html do
   end
 
   def toolbar_button_text text, symbol, hide
-    hide ||= "hidden-xl-down"
+    hide ||= "d-none"
     css_classes = "menu-item-label #{hide}"
     rich_text = wrap_with :span, text.html_safe, class: css_classes
     icon_tag(symbol) + rich_text

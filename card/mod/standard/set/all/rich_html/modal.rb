@@ -31,18 +31,18 @@ format :html do
     wrap_with :div, class: "modal-menu" do
       [
         link_to(glyphicon("remove"),
-                path: "", class: "close-modal pull-right close",
+                path: "", class: "close-modal float-right close",
                 "data-dismiss" => "modal"),
         link_to(glyphicon("new-window"),
                 path: popout_params,
-                class: "pop-out-modal pull-right close ")
+                class: "pop-out-modal float-right close ")
       ]
     end
   end
 
   view :modal_footer, tags: :unknown_ok do
     button_tag "Close",
-               class: "btn-xs close-modal pull-right",
+               class: "btn-xs close-modal float-right",
                "data-dismiss" => "modal"
   end
 end

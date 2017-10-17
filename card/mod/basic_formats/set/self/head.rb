@@ -64,13 +64,18 @@ format :html do
   end
 
   def favicon
-    %i[favicon logo].each do |name|
-      if (c = Card[name]) && c.type_id == ImageID && !c.db_content.blank?
-        href = subformat(c)._render_source size: :small
-        return %(<link rel="shortcut icon" href="#{href}" />)
-      end
-    end
+    return "" unless favicon_code
+    %(<link rel="shortcut icon" href="#{nest favicon_code, view: :source, size: :small}" />)
   end
+
+  def favicon_code
+    @favicon_code ||=
+      %i[favicon logo].find do |name|
+        icon_card = Card[name]
+        icon_card.type_id == ImageID && !icon_card.db_content.blank?
+      end
+  end
+
 
   def universal_edit_button
     return if root.card.new_record? || !root.card.ok?(:update)

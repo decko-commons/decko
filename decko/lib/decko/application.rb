@@ -20,6 +20,17 @@ module Decko
       end
     end
 
+    initializer :load_card, after: :load_config_initializers, group: :all do
+       Card
+    end
+
+    initializer :load_mod_config_initializers, after: :load_card, group: :all do
+      Cardio.set_mod_initializer_paths
+      config.paths["mod/config/initializers"].existent.sort.each do |initializer|
+        load_config_initializer(initializer)
+      end
+    end
+
     class << self
       def inherited base
         super
@@ -81,8 +92,6 @@ module Decko
           add_path paths, "config/routes.rb",
                    with: "rails/application-routes.rb"
         end
-
-        Cardio.set_mod_paths # really this should happen later
 
         paths
       end

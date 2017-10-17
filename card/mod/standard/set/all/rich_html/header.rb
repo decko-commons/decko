@@ -20,7 +20,7 @@ format :html do
     wrap_with :div, class: "card-subheader navbar-inverse btn-primary active" do
       [
         _render_title,
-        (autosaved_draft_link(class: "pull-right") if show_draft_link?)
+        (autosaved_draft_link(class: "float-right") if show_draft_link?)
       ]
     end
     # toolbar_view_title(@slot_view) || _render_title(args)

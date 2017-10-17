@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Fetch do
+RSpec.describe Card::Set::All::Fetch do
   describe "#fetch" do
     it "returns and caches existing cards" do
       card_double = class_double("Card")
@@ -151,7 +151,7 @@ describe Card::Set::All::Fetch do
                      content: "Formatted Content"
         Card.create! name: "a+y", content: "DB Content"
         card = Card.fetch("a+y")
-        expect(card).to be_not_virtual.and have_content "DB Content"
+        expect(card).to be_not_virtual.and have_db_content "DB Content"
         expect(card.rule(:structure)).to eq("Formatted Content")
       end
 
@@ -202,7 +202,7 @@ describe Card::Set::All::Fetch do
         it "initializes card with default content" do
           card = Card.fetch "non-existent",
                             new: { default_content: "default content" }
-          expect(card).to have_content "default content"
+          expect(card).to have_db_content "default content"
         end
       end
       context "when new card exist" do
@@ -211,7 +211,7 @@ describe Card::Set::All::Fetch do
                    "+sub" => { content: "some content" }
           card = Card.fetch "new card+sub",
                             new: { default_content: "new content" }
-          expect(card).to have_content "some content"
+          expect(card).to have_db_content "some content"
         end
       end
     end
