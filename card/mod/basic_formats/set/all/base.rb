@@ -1,7 +1,7 @@
 format do
   def show view, args
     view ||= :core
-    render! view, args
+    render! view, args.merge(main_nest_options)
   end
 
   # NAME VIEWS

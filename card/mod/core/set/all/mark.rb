@@ -56,11 +56,13 @@ module ClassMethods
   # @param codename [Symbol]
   # @return [Integer]
   def id_from_codename! codename
-    Card::Codename[codename] || missing_codename!
+    Card::Codename[codename] || missing_codename!(codename)
   end
 
-  def missing_codename!
+  def missing_codename! mark
     raise Card::Error::NotFound, "missing card with codename: #{mark}"
+  rescue
+    binding.pry
   end
 
 end

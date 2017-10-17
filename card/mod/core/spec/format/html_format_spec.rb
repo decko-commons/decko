@@ -52,7 +52,7 @@ describe Card::Format::HtmlFormat do
         is_expected.to have_tag "div.d0-card-body.d0-card-content" \
                                 ".ALL.ALL_PLUS" \
                                 ".TYPE-basic.RIGHT-b.TYPE_PLUS_RIGHT-basic-b" \
-                                ".SELF-a-b.card-block.card-text",
+                                ".SELF-a-b.card-body.card-text",
                                 text:  /AlphaBeta/
       end
 

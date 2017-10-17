@@ -1,7 +1,7 @@
 @javascript
 Feature: Structure Rules
   In order to have patterned content
-  As a Wagneer
+  As a Decker
   I want to manage structure through rules
 
   Background:

@@ -12,10 +12,10 @@ format :html do
 
   view :menu_link do
     css_class =
-      show_view?(:horizontal_menu, :hide) ? "hidden-sm-up" : "_show-on-hover"
+      show_view?(:horizontal_menu, :hide) ? "d-sm-none" : "_show-on-hover"
 
     wrap_with :div, class: "vertical-card-menu card-menu #{css_class}" do
-      wrap_with :div, class: "btn-group slotter card-slot pull-right" do
+      wrap_with :div, class: "btn-group slotter card-slot float-right" do
         link_to_view :vertical_menu, menu_icon, path: menu_path_opts
       end
     end
@@ -33,7 +33,7 @@ format :html do
   end
 
   view :vertical_menu, cache: :never, tags: :unknown_ok do
-    wrap_with :ul, class: "btn-group pull-right slotter" do
+    wrap_with :ul, class: "btn-group float-right slotter" do
       [vertical_menu_toggle, vertical_menu_item_list]
     end
   end
@@ -54,8 +54,8 @@ format :html do
   end
 
   view :horizontal_menu, cache: :never do
-    wrap_with :div, class: "btn-group btn-group-sm slotter pull-right card-menu "\
-                             "horizontal-card-menu hidden-xs-down" do
+    wrap_with :div, class: "btn-group btn-group-sm slotter float-right card-menu "\
+                             "horizontal-card-menu d-none d-sm-block" do
       menu_item_list(class: "btn btn-default").join("\n").html_safe
     end
   end
@@ -73,7 +73,7 @@ format :html do
 
   def menu_discuss_link opts
     menu_item "discuss", "comment",
-              opts.merge(related: :discussion.name.key)
+              opts.merge(related: :discussion.cardname.key)
   end
 
   def menu_follow_link opts
@@ -92,7 +92,7 @@ format :html do
   def menu_account_link opts
     menu_item "account", "person", opts.merge(
       view: :related,
-      path: { related: { name: "+#{:account.name.key}", view: :edit } }
+      path: { related: { name: "+#{:account.cardname.key}", view: :edit } }
     )
   end
 
@@ -150,6 +150,6 @@ format :html do
   end
 
   def discussion_card?
-    card.junction? && card.name.tag_name.key == :discussion.name.key
+    card.junction? && card.name.tag_name.key == :discussion.cardname.key
   end
 end

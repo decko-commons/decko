@@ -53,8 +53,7 @@ class Card
       end
 
       def layout_from_card_or_code name
-        layout_card = Card.fetch name.to_s, skip_virtual: true,
-                                            skip_modules: true
+        layout_card = Card.quick_fetch name
         if layout_card && layout_card.ok?(:read)
           layout_card.content
         elsif (hardcoded_layout = LAYOUTS[name])
@@ -63,7 +62,7 @@ class Card
           content_tag(:h1, I18n.t(:unknown_layout, scope: "mod.core.format.html_format",
                                                    name: name)) +
             I18n.t(:built_in, scope: "mod.core.format.html_format",
-                              build_in_layouts: LAYOUTS.keys.join(', '))
+                              built_in_layouts: LAYOUTS.keys.join(', '))
         end
       end
 

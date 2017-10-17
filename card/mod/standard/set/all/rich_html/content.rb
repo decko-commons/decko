@@ -31,7 +31,7 @@ format :html do
     render! view, args
   end
 
-  view :layout, perms: :none do
+  view :layout, perms: :none, cache: :never do
     layout = process_content get_layout_content(voo.title),
                              content_opts: { chunk_list: :references }
     output [layout, _render_modal_slot]
@@ -47,7 +47,7 @@ format :html do
     class_up "card-slot", "d0-card-content card"
     voo.hide :menu
     wrap do
-      wrap_with :div, class: "card-block" do
+      wrap_with :div, class: "card-body" do
         [_render_menu, _render_core]
       end
     end
@@ -95,7 +95,7 @@ format :html do
 
   view :type_info do
     return unless show_view?(:toolbar, :hide) && card.type_code != :basic
-    wrap_with :span, class: "type-info pull-right" do
+    wrap_with :span, class: "type-info float-right" do
       link_to_card card.type_name, nil, class: "navbar-link"
     end
   end

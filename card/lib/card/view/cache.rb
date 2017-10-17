@@ -111,7 +111,7 @@ class Card
         end
 
         def caching?
-          @caching
+          !@caching.nil?
         end
 
         def caching voo

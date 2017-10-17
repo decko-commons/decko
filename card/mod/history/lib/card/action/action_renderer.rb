@@ -41,7 +41,7 @@ class Card
         bs_panel do
           if header
             heading do
-              div type_diff, class: "pull-right"
+              div type_diff, class: "float-right"
               div name_diff
             end
           end

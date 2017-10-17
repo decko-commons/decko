@@ -128,7 +128,7 @@ describe Card::Set::Type::Image do
     end
 
     describe "source view" do
-      it "renders url with medium version" do
+      it "renders url with original version" do
         expect(subject.format.render_source)
           .to eq "/files/:#{subject.codename}/standard-medium.png"
       end

@@ -27,9 +27,14 @@ class Card
     # in load order with a preceding "mod" command (similar to a Gemfile).
     # The mods are expected in subdirectories with the mod names.
     #
+    # Mods in Modfiles are always loaded before mods in the Gemfile.
+    # If you have to change the order add gem mods to your Modfile using the
+    # mod_gem command. You can omit the 'card-mod' prefix.
+    #
     # Example for a mod directory:
     #   # my_mod/Modfile
     #   mod "twitter"
+    #   gem_mod "logger"
     #   mod "cache"
     #
     #   # directory structure
@@ -54,6 +59,7 @@ class Card
       # @param mod_paths [String, Array<String>] paths to directories that contain mods
       def initialize mod_paths=[]
         @mods = []
+        @loaded_gem_mods = ::Set.new
         @paths = {}
         mod_paths = Array(mod_paths)
         mod_paths.each do |mp|
@@ -76,6 +82,18 @@ class Card
         @mods << mod_name
         path ||= File.join @current_path, mod_name
         @paths[mod_name] = path
+      end
+
+      def gem_mod mod_name, path=nil
+        path ||= Cardio.gem_mod_paths[mod_name]
+        raise Error, "Unknown gem mod \"#{mod_name}\". Make sure it is in your Gemfile." unless path
+        add_gem_mod mod_name, path
+      end
+
+      def add_gem_mod mod_name, mod_path
+        return if @loaded_gem_mods.include?(mod_name)
+        @loaded_gem_mods << mod_name
+        add_path mod_name, mod_path
       end
 
       alias_method :mod, :add_path
@@ -129,16 +147,9 @@ class Card
       end
 
       def load_from_gemfile
-        Bundler.definition.specs.map do |s|
-          mod_name =
-            if s.name =~ /^decko-mod-(.+)$/
-              $1
-            else
-              s.metadata["card-mod"]
-            end
-          next unless mod_name
-          add_path $1, s.full_gem_path
-        end.compact
+        Cardio.gem_mod_paths.each do |mod_name, mod_path|
+          add_gem_mod mod_name, mod_path
+        end
       end
 
       def tmp_dir modname, type

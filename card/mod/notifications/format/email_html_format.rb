@@ -8,6 +8,10 @@ class Card
       def internal_url relative_path
         card_url relative_path
       end
+
+      def self.view_caching?
+        false
+      end
     end
   end
 end

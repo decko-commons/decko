@@ -9,6 +9,8 @@ class Card
     #
     #
     module Event
+      include DelayedEvent
+
       def event event, stage_or_opts={}, opts={}, &final
         if stage_or_opts.is_a? Symbol
           opts[:in] = stage_or_opts
@@ -31,16 +33,14 @@ class Card
         end
 
         if with_delay? opts
-          delaying_method = "#{event}_with_delay"
-          define_event_delaying_method event, delaying_method, final_method_name
-          final_method_name = delaying_method
+          define_delayed_event_method event, final_method_name
+        else
+          define_event_method event, final_method_name
         end
-        define_event_method event, final_method_name
       end
 
       def with_delay? opts
-        opts[:after] == :integrate_with_delay_stage ||
-          opts[:before] == :integrate_with_delay_stage
+        DELAY_STAGES.include?(opts[:after]) || DELAY_STAGES.include?(opts[:before])
       end
 
       def process_stage_opts opts
@@ -65,36 +65,6 @@ class Card
             run_callbacks event do
               send call_method
             end
-          end
-        end
-      end
-
-      # creates an ActiveJob.
-      # The scheduled job gets the card object as argument and all serializable
-      # attributes of the card.
-      # (when the job is executed ActiveJob fetches the card from the database
-      # so all attributes get lost)
-      # @param event [String] the event used as queue name
-      # @param method_name [String] the name of the method we define to trigger
-      #   the actjve job
-      # @param final_method_name [String] the name of the method that get called
-      #   by the active job and finally executes the event
-      def define_event_delaying_method event, method_name, final_method_name
-        class_eval do
-          define_method(method_name, proc do
-            IntegrateWithDelayJob.set(queue: event).perform_later(
-              self, serialize_for_active_job, Card::Env.serialize,
-              Card::Auth.serialize, final_method_name
-            )
-          end)
-        end
-      end
-
-      class IntegrateWithDelayJob < ApplicationJob
-        def perform card, card_attribs, env, auth, method_name
-          card.deserialize_for_active_job! card_attribs
-          card.with_env_and_auth env, auth do
-            card.send method_name
           end
         end
       end

@@ -7,5 +7,5 @@ Capybara.configure do |config|
 end
 
 Before do
-  Card::Cache.restore
+  Card::Cache.reset
 end
