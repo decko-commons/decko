@@ -73,7 +73,7 @@ format :html do
 
   def menu_discuss_link opts
     menu_item "discuss", "comment",
-              opts.merge(related: :discussion.name.key)
+              opts.merge(related: :discussion.cardname.key)
   end
 
   def menu_follow_link opts
@@ -92,7 +92,7 @@ format :html do
   def menu_account_link opts
     menu_item "account", "person", opts.merge(
       view: :related,
-      path: { related: { name: "+#{:account.name.key}", view: :edit } }
+      path: { related: { name: "+#{:account.cardname.key}", view: :edit } }
     )
   end
 
@@ -150,6 +150,6 @@ format :html do
   end
 
   def discussion_card?
-    card.junction? && card.name.tag_name.key == :discussion.name.key
+    card.junction? && card.name.tag_name.key == :discussion.cardname.key
   end
 end
