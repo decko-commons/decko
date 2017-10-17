@@ -16,7 +16,7 @@ def prototype_args anchor
 end
 
 def anchor_name card
-  left = Card.quick_fetch card.name.left
+  left = Card.fetch card.name.left, new: {}
   type_name = left&.type_name || Card.default_type_id.cardname
   "#{type_name}+#{card.name.tag}"
 end
