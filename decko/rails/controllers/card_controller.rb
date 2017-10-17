@@ -60,6 +60,8 @@ class CardController < ActionController::Base
     Card::Machine.refresh_script_and_style if Rails.env.development?
     Card::Cache.renew
     Card::Env.reset controller: self
+    Card::ActManager.clear
+    Card.current_act
     # unprotect_card_params!
   end
 
