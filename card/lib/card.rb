@@ -48,7 +48,7 @@ Object.const_remove_if_defined :Card
 # There are two primary methods for accessing a card's content:
 #
 #       @card.db_content   # the content as it appears in the database
-#       @card.content      # the "official" content, which may be different if the card has a structure rule.
+#       @card.content      # the "official" content, which may be different from db_content when db_content is overridden with a structure rule.
 #
 # {Card::Content Processing card content}
 #
