@@ -115,7 +115,7 @@ format :html do
     settings = card.visible_settings group_key
     wrap_with :div, id: collapse_id, class: "panel-collapse collapse",
                     role: "tabpanel", "aria-labelledby" => heading_id do
-      wrap_with :div, class: "card-block" do
+      wrap_with :div, class: "card-body" do
         rules_table settings.map(&:codename)
       end
     end
@@ -187,9 +187,9 @@ format :html do
     related_sets = card.related_sets(true)
     return "" if related_sets.size <= 1
     navbar id, brand: "Set", toggle_align: :right,
-               class: "slotter toolbar navbar-toggleable-md",
+               class: "slotter toolbar navbar-expand-md",
                navbar_type: "inverse",
-               collapsed_content: close_link("pull-right hidden-sm-up") do
+               collapsed_content: close_link("float-right d-sm-none") do
       set_navbar_content related_sets
     end
   end
@@ -201,8 +201,8 @@ format :html do
   view :rule_navbar do
     navbar "rule-navbar-#{card.cardname.safe_key}-#{voo.home_view}",
            brand: 'Rules', toggle_align: :right,
-           class: "slotter toolbar navbar-toggleable-md", navbar_type: "inverse",
-           collapsed_content: close_link("pull-right hidden-sm-up") do
+           class: "slotter toolbar navbar-expand-md", navbar_type: "inverse",
+           collapsed_content: close_link("float-right d-sm-none") do
       rule_navbar_content
     end
   end

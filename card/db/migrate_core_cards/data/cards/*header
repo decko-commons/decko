@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse bg-primary navbar-toggleable-md navbar-static-top mb-3">
+<div class="navbar navbar-inverse bg-primary navbar-expand-md navbar-static-top mb-3">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-collapse-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

@@ -120,7 +120,7 @@ format :html do
                   #{number_to_human_size(card.attachment.size)}
                 </span>
               </td>
-              <td class="pull-right">
+              <td class="float-right">
                 <button class="btn btn-danger delete cancel-upload"
                         data-type="DELETE">
                   <i class="glyphicon glyphicon-trash"></i>

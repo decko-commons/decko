@@ -16,3 +16,6 @@
 [submodule "card/mod/bootstrap/vendor/tether"]
 	path = card/mod/bootstrap/vendor/tether
 	url = https://github.com/HubSpot/tether
+[submodule "card/mod/bootstrap/vendor/popper"]
+	path = card/mod/bootstrap/vendor/popper
+	url = https://github.com/FezVrasta/popper.js

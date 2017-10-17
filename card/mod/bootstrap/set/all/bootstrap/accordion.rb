@@ -47,7 +47,7 @@ format :html do
         </div>
         <div id="#{collapse_id}" class="collapse" \
                role="tabpanel" aria-labelledby="heading-#{collapse_id}">
-          <div class="card-block">
+          <div class="card-body">
             #{body}
           </div>
         </div>
