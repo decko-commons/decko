@@ -132,15 +132,16 @@ module Cardio
       add_initializers root
     end
 
-    def set_mod_paths
+    def set_mod_initializer_paths
       each_mod_path do |mod_path|
-        add_initializers mod_path
+        add_initializers mod_path, true
       end
     end
 
-    def add_initializers dir
+    def add_initializers dir, mod=false
       Dir.glob("#{dir}/config/initializers").each do |initializers_dir|
-        paths["config/initializers"] << initializers_dir
+        path_mark = mod ? "mod/config/initializers" : "config/initializers"
+        paths[path_mark] << initializers_dir
       end
     end
 
