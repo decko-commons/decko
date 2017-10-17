@@ -17,6 +17,7 @@ Feature: Layouts
   Scenario: I visit a User card with the user layout
     Given I create HTML card "user layout" with content "User Header {{_main}}"
     And I create Pointer card "User+*type+*layout" with content "[[user layout]]"
+    And I wait for ajax response
     When I go to card "Joe User"
     Then I should see "User Header"
 
