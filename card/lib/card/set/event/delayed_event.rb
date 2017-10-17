@@ -24,7 +24,7 @@ class Card
   end
 
   def with_act_manager &block
-    ActManager.run_delayed_event @current_act, &block
+    ActManager.run_delayed_event @current_act, self, &block
   end
 
   def serialize_for_active_job

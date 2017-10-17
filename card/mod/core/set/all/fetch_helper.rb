@@ -117,7 +117,7 @@ module ClassMethods
   end
 
   def absolutize_fetch_mark mark, supercard
-    return mark unless mark.is_a?(Card::Name) && supercard
+    return mark unless mark.name? && supercard
     mark.to_name.absolute_name supercard.name
   end
 

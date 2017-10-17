@@ -6,19 +6,27 @@ wrapDeckoLayout = ->
   if $footer
     $('body').append $footer
 
-wrapSidebarToggle = (toggle) ->
-  "<div class='container'><div class='row'>#{toggle}</div></div>"
+wrapSidebarToggle = (toggle, flex) ->
+  "<div class='container'><div class='row #{flex}'>#{toggle}</div></div>"
 
 containerClass = ->
   if $('body').hasClass('fluid') then "container-fluid" else "container"
 
+toggleButton = (side) ->
+  icon_dir = if side == 'left' then 'right' else 'left'
+  "<button class='offcanvas-toggle btn btn-secondary "+
+    "d-sm-none' data-toggle='offcanvas-#{side}'>" +
+    "<i class='material-icons'>chevron_#{icon_dir}</i></button>"
 
 sidebarToggle = (side) ->
-  icon_dir = if side == 'left' then 'right' else 'left'
-  "<button class='offcanvas-toggle offcanvas-toggle-#{side} btn btn-secondary "+
-    "hidden-sm-up' data-toggle='offcanvas-#{side}'>" +
-    "<i class='material-icons'>chevron-#{icon_dir}</i></button>"
+  if side == "both"
+    wrapSidebarToggle(toggleButton("left") + toggleButton("right"), "flex-row justify-content-between")
+  else if side == "left"
+    wrapSidebarToggle(toggleButton("left"), "flex-row")
+  else
+    wrapSidebarToggle(toggleButton("right"), "flex-row-reverse")
 
+2
 singleSidebar = (side) ->
   $article = $('body > article').first()
   $aside   = $('body > aside').first()
@@ -31,7 +39,7 @@ singleSidebar = (side) ->
   else
     $('body').append($article).append($aside)
   wrapDeckoLayout()
-  $article.prepend(wrapSidebarToggle(sidebarToggle(side)))
+  $article.prepend(sidebarToggle(side))
 
 doubleSidebar = ->
   $article    = $('body > article').first()
@@ -43,7 +51,7 @@ doubleSidebar = ->
   $asideRight.addClass("#{sideClass} sidebar-offcanvas-right")
   $('body').append($asideLeft).append($article).append($asideRight)
   wrapDeckoLayout()
-  toggles = wrapSidebarToggle(sidebarToggle('right') + sidebarToggle('left'))
+  toggles = sidebarToggle('both')
   $article.prepend(toggles)
 
 $.fn.extend toggleText: (a, b) ->
