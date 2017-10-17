@@ -17,11 +17,9 @@ include SelectedAction
 
 format do
   view :source do
-    source_url
-  end
-
-  def source_url
-    internal_url card.attachment.url
+    file = card.attachment
+    return "" unless file.valid?
+    internal_url file.url
   end
 
   view :core do
@@ -31,10 +29,15 @@ format do
   end
 
   def handle_source
-    source = source_url
-    source ? yield(source) : ""
+    source = _render_source
+    return "" if source.blank?
+    block_given? ? yield(source) : source
   rescue
     tr :file_error
+  end
+
+  def selected_version
+    card.attachment
   end
 end
 
@@ -50,7 +53,7 @@ format :file do
   end
 
   def args_for_send_file
-    file = selected_file_version
+    file = selected_version
     [
       file.path,
       {
@@ -63,20 +66,19 @@ format :file do
   end
 
   def set_response_headers
-    return unless params[:explicit_file] && (r = controller.response)
-    r.headers["Expires"] = 1.year.from_now.httpdate
+    return unless params[:explicit_file] && (response = controller&.response)
+    response.headers["Expires"] = 1.year.from_now.httpdate
     # currently using default "private", because proxy servers could block
     # needed permission checks
     # r.headers["Cache-Control"] = "public"
+  # rescue
+    # binding.pry
   end
 
-  def selected_file_version
-    card.attachment
-  end
 end
 
 format :html do
-  view :core do |_args|
+  view :core do
     handle_source do |source|
       "<a href=\"#{source}\">#{tr :download, title: title_in_context(voo.title)}</a>"
     end
@@ -107,11 +109,7 @@ format :html do
         <table role="presentation" class="table table-striped">
           <tbody class="files">
             <tr class="template-download fade show">
-              <td>
-                <span class="preview">
-                  #{preview}
-                </span>
-              </td>
+              <td><span class="preview">#{preview}</span></td>
               <td>
                 <p class="name">
                   #{card.original_filename}

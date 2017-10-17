@@ -63,11 +63,11 @@ class CardController < ActionController::Base
     # unprotect_card_params!
   end
 
-  def unprotect_card_params!
-    # FIXME:  always wear protection
-    return unless params[:card].is_a? ActionController::Parameters
-    params[:card].to_unsafe_h
-  end
+  #def unprotect_card_params!
+  #  # FIXME:  al#ways wear protection
+  #  return unless params[:card].is_a? ActionController::Parameters
+  #  params[:card].to_unsafe_h
+  #end
 
   def authenticate
     Card::Auth.set_current params[:token], params[:current]
@@ -118,7 +118,7 @@ class CardController < ActionController::Base
 
     view ||= params[:view]
     result = card.act do
-      format.page view, Card::Env.slot_opts
+      format.page self, view, Card::Env.slot_opts
     end
 
     status = format.error_status || status

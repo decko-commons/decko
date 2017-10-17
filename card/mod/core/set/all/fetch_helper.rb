@@ -54,9 +54,9 @@ module ClassMethods
     # look in cache
     card = send "retrieve_from_cache_by_#{mark_type}", mark_key, opts[:local_only]
 
-    if retrieve_from_db?(card, opts)
+    if retrieve_from_db? card, mark_type, mark_key, opts[:look_in_trash]
       # look in db if needed
-      card = retrieve_from_db mark_type, mark_key, opts
+      card = retrieve_from_db mark_type, mark_key, opts[:look_in_trash]
       needs_caching = !card.nil? && !card.trash
     end
 
@@ -72,13 +72,15 @@ module ClassMethods
     end
   end
 
-  def retrieve_from_db? card, opts
-    card.nil? || (opts[:look_in_trash] && card.new_card? && !card.trash)
+  def retrieve_from_db? card, mark_type, mark_key, look_in_trash
+    return false if card&.real?                                      # real card found in cache
+#    return false if mark_type == :key && mark_key.to_name.relative?  # no relative names in db
+    card.nil? || (look_in_trash && !card.trash)                      # card not found in cache (or trash lookup)
   end
 
-  def retrieve_from_db mark_type, mark_key, opts
+  def retrieve_from_db mark_type, mark_key, look_in_trash
     query = { mark_type => mark_key }
-    query[:trash] = false unless opts[:look_in_trash]
+    query[:trash] = false unless look_in_trash
     card = Card.where(query).take
     card
   end
@@ -98,8 +100,8 @@ module ClassMethods
       when opts[:skip_virtual] then return nil
     end
     card.assign_name_from_fetched_mark! mark, opts
-    return nil unless opts[:new] || card.known?
     finalize_fetch_results card, opts
+    card if opts[:new] || card.known?
   end
 
   def finalize_fetch_results card, opts

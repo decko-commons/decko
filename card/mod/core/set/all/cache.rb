@@ -54,6 +54,7 @@ def view_cache_keys new_key=nil
   @view_cache_keys << new_key if new_key
   append_missing_view_cache_keys
   @view_cache_keys.uniq!
+  @view_cache_keys
 end
 
 def append_missing_view_cache_keys
@@ -63,15 +64,15 @@ def append_missing_view_cache_keys
 end
 
 def hard_write_view_cache_keys
-  #  puts "WRITE VIEW CACHE KEYS (#{name}): #{view_cache_keys}"
+  # puts "WRITE VIEW CACHE KEYS (#{name}): #{view_cache_keys}"
   return unless Card.cache.hard
-  Card.cache.hard.write_attribute key, :view_cache_keys, @view_cache_keys
+  Card.cache.hard.write_attribute key, :view_cache_keys, view_cache_keys
 end
 
 def expire_views
-  #  puts "EXPIRE VIEW CACHE (#{name}): #{view_cache_keys}"
+  # puts "EXPIRE VIEW CACHE (#{name}): #{view_cache_keys}"
   return unless view_cache_keys.present?
-  Array.wrap(@view_cache_keys).each do |view_cache_key|
+  Array.wrap(view_cache_keys).each do |view_cache_key|
     Card::View.cache.delete view_cache_key
   end
   @view_cache_keys = nil

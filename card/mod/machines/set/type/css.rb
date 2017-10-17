@@ -30,6 +30,10 @@ def clean_html?
 end
 
 format do
+  # def default_nest_view
+  #   :raw
+  # end
+
   def chunk_list # turn off autodetection of uri's
     :references
   end

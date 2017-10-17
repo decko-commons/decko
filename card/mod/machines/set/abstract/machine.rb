@@ -158,14 +158,17 @@ def run_engine input_card
     return cached.content
   end
 
-  input = if input_card.respond_to? :machine_input
-            input_card.machine_input
-          else
-            input_card.format._render_raw
-          end
-  output = engine(input)
+  output = engine input_from_card(input_card)
   cache_output_part input_card, output
   output
+end
+
+def input_from_card input_card
+  if input_card.respond_to? :machine_input
+    input_card.machine_input
+  else
+    input_card.format._render_raw
+  end
 end
 
 def fetch_cache_card input_card, new=nil

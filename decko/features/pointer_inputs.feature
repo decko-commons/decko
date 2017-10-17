@@ -11,11 +11,9 @@ Feature: Pointer Inputs
 
   Scenario: Creating a card with select input
     Given I create Phrase card "friends+*right+*input" with content "select"
-    And I wait for ajax response
     When I go to card "Joe User+friends"
     And I select "Joe Camel" from "Content"
     And I press "Submit"
-    And I wait for ajax response
     And I go to card "Joe User+friends"
     Then I should see "Joe Camel"
 
@@ -25,7 +23,6 @@ Feature: Pointer Inputs
     When I edit "Joe User"
     And I select "Joe Admin" from "+friends"
     And I press "Submit"
-    And I wait for ajax response
     And I go to card "Joe User"
     Then I should see "Joe Admin"
 
@@ -34,7 +31,6 @@ Feature: Pointer Inputs
     When I go to card "Joe User+friends"
     And I select "Joe Camel" from "Content"
     And I press "Submit"
-    And I wait for ajax response
     And I go to card "Joe User+friends"
     Then I should see "Joe Camel"
 
@@ -52,7 +48,6 @@ Feature: Pointer Inputs
     When I go to card "Joe User+friends"
     And I choose "Joe Camel"
     And I press "Submit"
-    And I wait for ajax response
     And I go to card "Joe User+friends"
     Then I should see "Joe Camel"
 
@@ -64,13 +59,11 @@ Feature: Pointer Inputs
     Then I should see "boom yow yow"
     And I check "Joe Camel"
     And I press "Submit"
-    And I wait for ajax response
     And I go to card "Joe User+friends"
     Then I should see "Joe Camel"
     And I edit "Joe User+friends"
     And I uncheck "Joe Camel"
     And I press "Submit"
-    And I wait for ajax response
     And I go to card "Joe User+friends"
     Then I should not see "Joe Camel"
 

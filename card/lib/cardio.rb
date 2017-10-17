@@ -61,6 +61,7 @@ module Cardio
         file_buckets:           {},
         file_default_bucket:    nil,
 
+        allow_concurrency:      false,
         allow_irreversible_admin_tasks: false
       }
     end
@@ -68,15 +69,31 @@ module Cardio
     def set_config config
       @@config = config
 
-      config.autoload_paths += Dir["#{gem_root}/lib/**/"]
-      config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
-      config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
-
-      #config.autoload_paths += Dir["#{root}/mod/*/set/**/"]
+      add_lib_dirs_to_autoload_paths config
 
       default_configs.each_pair do |setting, value|
         set_default_value(config, setting, *value)
       end
+    end
+
+    def add_lib_dirs_to_autoload_paths config
+      config.autoload_paths += Dir["#{gem_root}/lib/**/"]
+      config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
+      config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
+      gem_mod_paths.each do |_mod_name, mod_path|
+        config.autoload_paths += Dir["#{mod_path}/lib/**/"]
+      end
+    end
+
+    # @return Hash with key mod names (without card-mod prefix) and values the
+    #   full path to the mod
+    def gem_mod_paths
+      @gem_mods ||=
+        Bundler.definition.specs.each_with_object({}) do |gem_spec, h|
+          mod_name = mod_name_from_gem_spec gem_spec
+          next unless mod_name
+          h[mod_name] = gem_spec.full_gem_path
+        end
     end
 
     def read_only?
@@ -117,13 +134,7 @@ module Cardio
 
     def set_mod_paths
       each_mod_path do |mod_path|
-        add_mod_initializers mod_path
-      end
-    end
-
-    def add_mod_initializers mod_path
-      Dir.glob("#{mod_path}/*/config/initializers").each do |initializers_dir|
-        paths["mod/config/initializers"] << initializers_dir
+        add_initializers mod_path
       end
     end
 
@@ -134,7 +145,12 @@ module Cardio
     end
 
     def each_mod_path
-      paths["mod"].each do |mod_path|
+      paths["mod"].each do |mods_path|
+        Dir.glob("#{mods_path}/*").each do |single_mod_path|
+          yield single_mod_path
+        end
+      end
+      gem_mod_paths.each do |mod_name, mod_path|
         yield mod_path
       end
     end
@@ -167,6 +183,16 @@ module Cardio
       end
 
       list.flatten
+    end
+
+    private
+
+    def mod_name_from_gem_spec gem_spec
+      if (m = gem_spec.name.match(/^card-mod-(.+)$/))
+        m[1]
+      else
+        gem_spec.metadata["card-mod"]
+      end
     end
   end
 end

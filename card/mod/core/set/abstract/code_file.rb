@@ -3,6 +3,9 @@ def self.included host_class
   host_class.file_content_mod_name = Card::Set.mod_name(caller)
 end
 
+# FIXME: these should abstracted and configured on the types
+# (same codes for `rake card:create:codefile`)
+
 # @return [Array<String>, String] the name of file(s) to be loaded
 def source_files
   case type_id
@@ -15,14 +18,16 @@ end
 
 def source_dir
   case type_id
-  when CoffeeScriptID, JavaScriptID then "javascript"
-  when CssID, ScssID then "stylesheets"
+  when CoffeeScriptID, JavaScriptID then "lib/javascript"
+  when CssID, ScssID then "lib/stylesheets"
+  else
+    "lib"
   end
 end
 
 def find_file filename
   mod_path = Card::Mod.dirs.path file_content_mod_name
-  file_path = File.join(mod_path, "lib", source_dir, filename)
+  file_path = File.join(mod_path, source_dir, filename)
   return unless File.exist? file_path
   file_path
 end
