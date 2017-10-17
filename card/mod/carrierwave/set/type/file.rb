@@ -72,7 +72,7 @@ format :file do
     # needed permission checks
     # r.headers["Cache-Control"] = "public"
   # rescue
-  #  binding.pry
+    # binding.pry
   end
 
 end
