@@ -32,7 +32,7 @@ def start_new_act opts
   self.director = nil
   ActManager.act_card = self
   if opts && opts[:success]
-    Env[:success] = Env::Success.new(cardname, Env.params[:success])
+    Env[:success] = Env::Success.new(name, Env.params[:success])
   end
   run_callbacks :act do
     yield
@@ -126,7 +126,7 @@ event :notable_exception_raised do
 end
 
 def success
-  Env.success(cardname)
+  Env.success(name)
 end
 
 [:name, :db_content, :trash, :type_id].each do |field|

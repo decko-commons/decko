@@ -79,7 +79,7 @@ format :json do
 
   def add_item exact
     return unless exact.new_card? &&
-                  exact.cardname.valid? &&
+                  exact.name.valid? &&
                   !exact.virtual? &&
                   exact.ok?(:create)
     exact.name
@@ -88,7 +88,7 @@ format :json do
   def new_item_of_type exact
     return unless (exact.type_id == Card::CardtypeID) &&
                   Card.new(type_id: exact.id).ok?(:create)
-    [exact.name, exact.cardname.url_key]
+    [exact.name, exact.name.url_key]
   end
 
   def goto_items term, exact

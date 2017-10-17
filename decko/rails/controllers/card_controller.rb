@@ -99,7 +99,7 @@ class CardController < ActionController::Base
 
   def render_success
     success = Card::Env.success
-    success.name_context = @card.cardname
+    success.name_context = @card.name
     if !Card::Env.ajax? || success.hard_redirect?
       card_redirect success.to_url
     elsif success.target.is_a? String

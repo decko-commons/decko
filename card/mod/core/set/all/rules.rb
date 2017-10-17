@@ -68,7 +68,7 @@ def is_standard_rule?
 end
 
 def is_preference?
-  cardname.parts.length > 2 &&
+  name.parts.length > 2 &&
     (r = right(skip_modules: true)) &&
     r.type_id == Card::SettingID &&
     (set = self[0..-3, skip_modules: true]) &&
@@ -121,7 +121,7 @@ def related_sets with_self=false
     sets << ["#{name}+*type", Card::Set::Type.label(name)]
   end
   sets << ["#{name}+*self", Card::Set::Self.label(name)] if with_self
-  if known? && cardname.simple?
+  if known? && name.simple?
     sets << ["#{name}+*right", Card::Set::Right.label(name)]
   end
   sets

@@ -26,7 +26,7 @@ format :css do
   end
 
   view :url, perms: :none do
-    page_path card.cardname, format: :css
+    page_path card.name, format: :css
   end
 
   def major_comment comment, char="-"

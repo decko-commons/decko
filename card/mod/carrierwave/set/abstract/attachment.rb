@@ -46,7 +46,7 @@ def file_ready_to_save?
 end
 
 def item_names _args={} # needed for flexmail attachments.  hacky.
-  [cardname]
+  [name]
 end
 
 def original_filename

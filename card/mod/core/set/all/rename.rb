@@ -1,10 +1,9 @@
 event :rename, after: :set_name, on: :update do
-  if (existing_card = Card.find_by_key_and_trash(cardname.key, true)) &&
-    existing_card != self
-    existing_card.name = existing_card.name + "*trash"
-    existing_card.rename_without_callbacks
-    existing_card.save!
-  end
+  existing_card = Card.find_by_key_and_trash name.key, true
+  return if !existing_card || existing_card == self
+  existing_card.name = existing_card.name + "*trash"
+  existing_card.rename_without_callbacks
+  existing_card.save!
 end
 
 def suspend_name name
@@ -25,7 +24,7 @@ event :cascade_name_changes, :finalize, on: :update, changed: :name,
     # cards, have to go this low level to avoid callbacks.
     Rails.logger.info "cascading name: #{de.name}"
     Card.expire de.name # old name
-    newname = de.cardname.replace name_before_last_save, name
+    newname = de.name.swap name_before_last_save, name
     Card.where(id: de.id).update_all name: newname.to_s, key: newname.key
     de.update_referers = update_referers
     de.refresh_references_in

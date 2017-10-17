@@ -207,8 +207,8 @@ def make_machine_output_coded mod=:machines
   update_machine_output
   Auth.as_bot do
     output_codename =
-      machine_output_card.cardname.parts.map do |part|
-        Card[part].codename.to_s || Card[part].cardname.safe_key
+      machine_output_card.name.parts.map do |part|
+        Card[part].codename.to_s || Card[part].name.safe_key
       end.join "_"
     machine_output_card.update_attributes! codename: output_codename,
                                            storage_type: :coded,

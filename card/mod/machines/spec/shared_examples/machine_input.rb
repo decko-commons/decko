@@ -32,7 +32,7 @@ shared_examples_for "machine input" do
       Card::Auth.as_bot do
         input.delete!
       end
-      f = Card.gimme machine.cardname
+      f = Card.gimme machine.name
       path = f.machine_output_path
       expect(File.read(path)).to eq("")
     end
@@ -45,7 +45,7 @@ shared_examples_for "machine input" do
   context "when updated" do
     it "updates output of related machine card" do
       input.putty content: card_content[:changed_in]
-      updated_machine = Card.gimme machine.cardname
+      updated_machine = Card.gimme machine.name
       path = updated_machine.machine_output_path
       expect(File.read(path)).to eq(card_content[:changed_out])
     end
@@ -56,7 +56,7 @@ shared_examples_for "machine input" do
       if machine.is_a? Card::Set::Type::Pointer
         machine << more_input
         machine.putty
-        updated_machine = Card.gimme machine.cardname
+        updated_machine = Card.gimme machine.name
         path = updated_machine.machine_output_path
         out = if card_content[:added_out]
                 card_content[:added_out]

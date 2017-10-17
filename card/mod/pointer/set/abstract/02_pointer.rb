@@ -180,7 +180,7 @@ def item args={}
 end
 
 def item_names args={}
-  context = args[:context] || context_card.cardname
+  context = args[:context] || context_card.name
   content = args[:content] || raw_content
   raw_items = content.to_s.split(/\n+/)
   if args[:limit].present? && args[:limit].to_i > 0

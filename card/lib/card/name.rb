@@ -18,8 +18,8 @@ class Card
     class << self
       def cardish mark
         case mark
-        when Card            then mark.cardname
-        when Symbol, Integer then Card.quick_fetch(mark).cardname
+        when Card            then mark.name
+        when Symbol, Integer then Card.quick_fetch(mark).name
         else                      mark.to_name
         end
       end

@@ -52,7 +52,7 @@ describe Card::Set::Type::Skin do
                             type: :pointer, content: "[[test skin supplier]]"
       skin << item
       skin.putty
-      updated_machine = Card.gimme machine.cardname
+      updated_machine = Card.gimme machine.name
       path = updated_machine.machine_output_path
       expect(File.read(path)).to eq(compressed_css)
     end
@@ -72,7 +72,7 @@ describe Card::Set::Type::Skin do
         machine.machine_output_url
         Card["skin_item"].update_attributes content: new_css
       end
-      updated_machine = Card.gimme machine.cardname
+      updated_machine = Card.gimme machine.name
       path = updated_machine.machine_output_path
       expect(File.read(path)).to eq(compressed_new_css)
       expect(updated_machine.machine_input_card.content)
