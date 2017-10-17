@@ -61,8 +61,6 @@ module ClassMethods
 
   def missing_codename! mark
     raise Card::Error::NotFound, "missing card with codename: #{mark}"
-  rescue
-    binding.pry
   end
 
 end
