@@ -13,6 +13,3 @@
 [submodule "card/mod/bootstrap/vendor/select2"]
 	path = card/mod/bootstrap/vendor/select2
 	url = https://github.com/select2/select2
-[submodule "card/mod/bootstrap/vendor/tether"]
-	path = card/mod/bootstrap/vendor/tether
-	url = https://github.com/HubSpot/tether

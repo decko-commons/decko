@@ -78,7 +78,7 @@ module ClassMethods
     card.nil? || (look_in_trash && !card.trash)                      # card not found in cache (or trash lookup)
   end
 
-  def retrieve_from_db mark_type, mark_key, look_in_trash
+  def retrieve_from_db mark_type, mark_key, look_in_trash=false
     query = { mark_type => mark_key }
     query[:trash] = false unless look_in_trash
     card = Card.where(query).take
@@ -117,7 +117,7 @@ module ClassMethods
   end
 
   def absolutize_fetch_mark mark, supercard
-    return mark unless mark.is_a?(Card::Name) && supercard
+    return mark unless mark.name? && supercard
     mark.to_name.absolute_name supercard.name
   end
 
