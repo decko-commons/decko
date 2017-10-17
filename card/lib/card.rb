@@ -19,14 +19,12 @@ Object.const_remove_if_defined :Card
 #
 # There are four important card identifiers, sometimes called "marks".  Every card has a unique _name_, _key_, and _id_. Some cards also have a _codename_.
 #
-#       @card.name     # The name, a String, is the most recognizable card mark.
+#       @card.name     # The name, a {Card::Name} object, is the most recognizable card mark.
 #       @card.key      # The key, a String, is a simple lower-case name variant.
 #       @card.id       # The id is an Integer.
 #       @card.codename # The codename, a Symbol, is the name by which a card can be referred to in code.
 #
 # All names with the same key (including the key itself) are considered variants of each other. No two cards can have names with the same key.
-#
-# `@card.cardname` refers to the same name as ``@card.name``, but it is a {Card::Name} object and has many additional methods.
 #
 # {Card::Codename More about codenames.}
 #
