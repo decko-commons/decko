@@ -13,6 +13,3 @@
 [submodule "card/mod/bootstrap/vendor/select2"]
 	path = card/mod/bootstrap/vendor/select2
 	url = https://github.com/select2/select2
-[submodule "card/mod/bootstrap/vendor/popper"]
-	path = card/mod/bootstrap/vendor/popper
-	url = https://github.com/FezVrasta/popper.js
