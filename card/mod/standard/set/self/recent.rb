@@ -9,7 +9,7 @@ format :html do
   view :core do
     voo.hide :history_legend unless voo.main
     bs_layout container: true, fluid: true do
-      html _optional_render_history_legend with_drafts: false
+      html _render_history_legend with_drafts: false
       row 12 do
         html _render_recent_acts
       end

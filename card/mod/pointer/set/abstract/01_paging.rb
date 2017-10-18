@@ -20,7 +20,7 @@ end
 
 format :html do
   def with_paging path_args={}
-    output [yield( paging_path_args(path_args)), _optional_render_paging]
+    output [yield( paging_path_args(path_args)), _render_paging]
   end
 
   view :paging, cache: :never do

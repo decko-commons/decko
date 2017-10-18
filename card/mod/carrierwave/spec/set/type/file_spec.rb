@@ -56,7 +56,7 @@ describe Card::Set::Type::File do
 
   describe "view: source" do
     def source_view card
-      card.format.render(:source)
+      card.format.render!(:source)
     end
     context "storage type: protected" do
       subject { source_view protected_file }

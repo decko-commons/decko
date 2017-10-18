@@ -84,7 +84,7 @@ format :html do
     wrap do
       [
         _render_menu,
-        _optional_render_subheader,
+        _render_subheader,
         frame_help,
         panel { wrap_body { yield } }
       ]
@@ -105,10 +105,10 @@ format :html do
     wrap slot do
         panel do
           [
-            _optional_render_menu,
-            _optional_render_header,
+            _render_menu,
+            _render_header,
             frame_help,
-            _optional_render(:flash),
+            _render(:flash),
             wrap_body { yield }
           ]
         end
@@ -118,7 +118,7 @@ format :html do
   def frame_help
     # TODO: address these args
     with_class_up "help-text", "alert alert-info" do
-      _optional_render :help
+      _render :help
     end
   end
 

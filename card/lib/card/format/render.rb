@@ -3,7 +3,7 @@ class Card
     # View rendering methods.
     #
     module Render
-      def render view, args={}
+      def render! view, args={}
         voo = View.new self, view, args, @voo
         with_voo voo do
           voo.process do |final_view, options|
@@ -106,18 +106,6 @@ class Card
         else
           conto.to_s
         end
-      end
-
-      def api_render match, opts
-        view = match[3] ? match[4] : opts.shift
-        args = opts[0] ? opts.shift.clone : {}
-        optional_render_args(args, opts) if match[2]
-        args[:skip_perms] = true if match[1]
-        render view, args
-      end
-
-      def optional_render_args args, opts
-        args[:optional] = opts.shift || :show
       end
 
       def view_method view
