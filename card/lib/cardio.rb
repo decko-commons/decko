@@ -114,11 +114,11 @@ module Cardio
 
       add_path "mod"
 
-      set_db_paths
-      set_initializer_paths
+      add_db_paths
+      add_initializer_paths
     end
 
-    def set_db_paths
+    def add_db_paths
       add_path "db"
       add_path "db/migrate"
       add_path "db/migrate_core_cards"
@@ -126,13 +126,14 @@ module Cardio
       add_path "db/seeds.rb", with: "db/seeds.rb"
     end
 
-    def set_initializer_paths
+    def add_initializer_paths
       add_path "config/initializers", glob: "**/*.rb"
       add_path "mod/config/initializers", glob: "**/*.rb"
       add_initializers root
+      add_mod_initializer_paths
     end
 
-    def set_mod_initializer_paths
+    def add_mod_initializer_paths
       each_mod_path do |mod_path|
         add_initializers mod_path, true
       end

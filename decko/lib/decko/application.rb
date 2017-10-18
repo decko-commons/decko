@@ -24,13 +24,6 @@ module Decko
        Card
     end
 
-    initializer :load_mod_config_initializers, after: :load_card, group: :all do
-      Cardio.set_mod_initializer_paths
-      config.paths["mod/config/initializers"].existent.sort.each do |initializer|
-        load_config_initializer(initializer)
-      end
-    end
-
     class << self
       def inherited base
         super
