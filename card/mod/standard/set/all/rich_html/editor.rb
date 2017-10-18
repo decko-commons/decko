@@ -30,7 +30,7 @@ format :html do
     :rich_text
   end
 
-  # overriden by mods that provide rich text editors
+  # overridden by mods that provide rich text editors
   def rich_text_input
     prosemirror_editor_input
   end
