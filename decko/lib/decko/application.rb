@@ -75,7 +75,6 @@ module Decko
         paths = super
         Cardio.set_paths paths
 
-        paths["mod"] << "mod"
         paths.add "files"
 
         paths["app/models"] = []

@@ -112,10 +112,12 @@ module Cardio
       add_path "tmp/set", root: root
       add_path "tmp/set_pattern", root: root
 
-      add_path "mod"
+      add_path "mod"        # add card gem's mod path
+      paths["mod"] << "mod" # add deck's mod path
 
       add_db_paths
       add_initializer_paths
+      add_mod_initializer_paths
     end
 
     def add_db_paths
@@ -128,12 +130,11 @@ module Cardio
 
     def add_initializer_paths
       add_path "config/initializers", glob: "**/*.rb"
-      add_path "mod/config/initializers", glob: "**/*.rb"
       add_initializers root
-      add_mod_initializer_paths
     end
 
     def add_mod_initializer_paths
+      add_path "mod/config/initializers", glob: "**/*.rb"
       each_mod_path do |mod_path|
         add_initializers mod_path, true
       end
@@ -152,7 +153,7 @@ module Cardio
           yield single_mod_path
         end
       end
-      gem_mod_paths.each do |mod_name, mod_path|
+      gem_mod_paths.each do |_mod_name, mod_path|
         yield mod_path
       end
     end
