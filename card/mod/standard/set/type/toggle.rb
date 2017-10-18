@@ -3,7 +3,7 @@ def checked?
 end
 
 view :core do
-  case card.raw_content.to_i
+  case card.content.to_i
   when 1 then tr(:yes)
   when 0 then tr(:no)
   else

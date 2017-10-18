@@ -53,7 +53,7 @@ format do
 
   view :search_error, cache: :never do
     sr_class = search_with_params.class.to_s
-    %(#{sr_class} :: #{search_with_params.message} :: #{card.raw_content})
+    %(#{sr_class} :: #{search_with_params.message} :: #{card.content})
   end
 
   view :card_list, cache: :never do

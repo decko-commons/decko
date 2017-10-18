@@ -4,3 +4,12 @@
 [submodule "card/tmpsets"]
 	path = card/tmpsets
 	url = https://github.com/decko-commons/decko-tmpsets.git
+[submodule "card/mod/bootstrap/vendor/bootswatch"]
+	path = card/mod/bootstrap/vendor/bootswatch
+	url = https://github.com/tkuther/bootswatch
+[submodule "card/mod/bootstrap/vendor/bootstrap"]
+	path = card/mod/bootstrap/vendor/bootstrap
+	url = https://github.com/twbs/bootstrap
+[submodule "card/mod/bootstrap/vendor/select2"]
+	path = card/mod/bootstrap/vendor/select2
+	url = https://github.com/select2/select2

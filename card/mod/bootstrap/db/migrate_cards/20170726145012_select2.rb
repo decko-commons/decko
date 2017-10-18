@@ -6,11 +6,11 @@ class Select2 < Card::Migration
                 type_id: Card::JavaScriptID,
                 to: "*all+*script"
 
-    add_style"select2",
-             type_id: Card::CssID,
+    add_style "select2",
+              type_id: Card::CssID,
                   to: "*all+*style"
 
-    add_style"select2 bootstrap",
+    add_style "select2 bootstrap",
                  type_id: Card::ScssID,
                       to: "*all+*style"
 

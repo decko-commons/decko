@@ -181,7 +181,7 @@ end
 
 def item_names args={}
   context = args[:context] || context_card.name
-  content = args[:content] || raw_content
+  content = args[:content] || self.content
   raw_items = content.to_s.split(/\n+/)
   if args[:limit].present? && args[:limit].to_i > 0
     offset = args[:offset] || 0

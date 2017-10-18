@@ -1,27 +1,47 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-  # The {Format} class is a key strut in the MoFoS
-  # _(Model-Format-Set)_ architecture.
+  # _Views_ are the primary way users interact with cards. Card::Format and its subclasses ({Card::Format::HtmlFormat}, {Card::Format::JsonFormat}, {Card::Format::XmlFormat}, etc) are responsible for defining and rendering _views_.
   #
-  # The primary means of transacting with the card Model (cards across time)
-  # is the _event_.  The primary means for displaying card content (cards across
-  # space) is the _view_. __Format objects manage card views__.
+  # However, Deck-coders (those who code in the Card/Decko framework) rarely write code directly in these classes. Instead they organize their code using {Card::Mods mods}. The {Card::Mod} docs explain how to set up a mod. Once you've done that, you're ready to define a view.  These docs will introduce the basics of view definition and
   #
-  # Here is a very simple view that just displays the card's id:
+  # Here is a very simple view that just defines a label for the card – its name:
   #
-  # ```` view(:simple_content) { card.raw_content } ````
+  #     view :label do
+  #       card.name
+  #     end
   #
-  # But suppose you would like this view to appear differently in different
-  # output formats.  You might need certain characters escaped in some formats
-  # (csv, html, etc) but not others.  You might like to make use of the
-  # aesthetic or structural benefits certain formats allow.
+  # If a format is not specified, the view is defined on the base format class, Card::Format. The following two definitions are equivalent to the definition above:
   #
-  # To this end we have format classes. {Format::HtmlFormat},
-  # {Format::JsonFormat}, {Format::XmlFormat}, etc, each are descendants of
-  # {Card::Format}.
+  #     format do
+  #       view(:label) { card.name }
+  #     end
   #
-  # For information on how Formats intersect with Sets, see {Card::Set::Format}
+  #     format(:base) { view(:label) { card.name } }
+  #
+  # But suppose you would like this view to appear differently in different output formats. For example, you'd like this label to have a tag with a class attribute HTML so that you can style it with CSS.
+  #
+  #     format :html do
+  #       view :label do
+  #         div(class: "my-label") { card.name }
+  #       end
+  #     end
+  #
+  # Note that in place of card.name, you could also use `super`, because this view is translated into a method on Card::Format::HtmlFormat, which inherits from Card::Format.
+  #
+  # ## Common arguments for view definitions
+  #
+  # * :perms - restricts view permissions. Value can be :create, :read, :update, :delete, or a Proc.
+  # * :tags - tag view as needed.
+  #
+  # The most commmon tag is "unknown_ok," which indicates that a view can be rendered even if the card is "unknown" (not real or virtual).
+  #
+  # ## Rendering views
+  #
+  # To render our label view, you can use either of these:
+  #
+  #     render :label
+  #     render_label
   #
   class Format
     include Card::Env::Location
@@ -45,6 +65,10 @@ class Card
     attr_reader :card, :parent, :main_opts
     attr_accessor :form, :error_status
 
+    def self.view_caching?
+      true
+    end
+
     def initialize card, opts={}
       @card = card
       require_card_to_initialize!
@@ -67,7 +91,8 @@ class Card
       end
     end
 
-    def page view, slot_opts
+    def page controller, view, slot_opts
+      @controller = controller
       @card.run_callbacks :show_page do
         show view, slot_opts
       end
@@ -78,7 +103,7 @@ class Card
     end
 
     def controller
-      Env[:controller] ||= CardController.new
+      @controller || Env[:controller] ||= CardController.new
     end
 
     def session

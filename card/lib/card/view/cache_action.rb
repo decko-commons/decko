@@ -35,7 +35,7 @@ class Card
 
       # @return [True/False]
       def cache_on?
-        Card.config.view_cache && format.view_caching?
+        Card.config.view_cache && format.class.view_caching?
       end
 
       # always skip all the magic

@@ -27,6 +27,7 @@ class Card
         rescue => e # don't rollback
           Card::Error.current = e
           warn "exception in integrate stage: #{e.message}"
+          warn e.backtrace.join "\n"
           @card.notable_exception_raised
           return false
         ensure

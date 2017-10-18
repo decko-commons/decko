@@ -31,8 +31,7 @@ namespace :card do
 
   desc "add items of the export card to import data"
   task pull_export: :environment do
-    importer.pull "export", items_only: true,
-                                           remote: ENV["from"]
+    importer.pull "export", items_only: true, remote: ENV["from"]
   end
 
   desc "add a new card to import data"

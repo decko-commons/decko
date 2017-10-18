@@ -159,6 +159,10 @@ module CarrierWave
     ].freeze
     delegate :store_dir, :retrieve_dir, :file_dir, :mod, :bucket, to: :model
 
+    def valid?
+      extension.present?
+    end
+
     def filename
       if model.coded?
         "#{model.type_code}#{extension}"

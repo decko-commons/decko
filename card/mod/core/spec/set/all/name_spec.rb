@@ -27,7 +27,7 @@ describe Card::Set::All::Name do
       end.to increase_card_count.by(3)
       expect(Card["Peach"]).to be_a(Card)
       expect(Card["Pear"]).to be_a(Card)
-      expect(Card["Peach+Pear"]).to have_content "juicy"
+      expect(Card["Peach+Pear"]).to have_db_content "juicy"
     end
   end
 

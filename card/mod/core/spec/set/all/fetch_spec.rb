@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Fetch do
+RSpec.describe Card::Set::All::Fetch do
   describe "#fetch" do
     it "returns and caches existing cards" do
       card_double = class_double("Card")
@@ -37,7 +37,7 @@ describe Card::Set::All::Fetch do
         expect(card).to be_a(Card).and have_name "Joe User+*email"
         expect(card.format.render_raw).to eq("joe@user.com")
       end
-      # card.raw_content.should == 'joe@user.com'
+      # card.content.should == 'joe@user.com'
       # cached_card = Card.cache.read('joe_user+*email')
       # cached_card.missing?.should be_true
       # cached_card.virtual?.should be_true
@@ -60,6 +60,15 @@ describe Card::Set::All::Fetch do
       Card.fetch "A+*self"
 
       expect(aself.set_names).to include("Set+*type")
+    end
+
+    it "fetches structured cards" do
+      Card::Auth.as_bot do
+        Card.create! name: "y+*right+*structure", content: "Formatted Content"
+        Card.create! name: "a+y", content: "DB Content"
+      end
+      card = Card.fetch("a+y")
+      expect(card).to be_real.and have_content("Formatted Content").and have_db_content("DB Content")
     end
 
     it "handles name variants of cached cards" do
@@ -127,7 +136,7 @@ describe Card::Set::All::Fetch do
         it "initializes new cards" do
           card = Card.fetch "non-existent",
                             new: { default_content: "default content" }
-          expect(card.content).to eq "default content"
+          expect(card.db_content).to eq "default content"
         end
       end
       context "when new card exist" do
@@ -136,7 +145,7 @@ describe Card::Set::All::Fetch do
                    "+sub" => { content: "some content" }
           card = Card.fetch "new card+sub",
                             new: { default_content: "new content" }
-          expect(card.content).to eq "some content"
+          expect(card.db_content).to eq "some content"
         end
       end
     end
@@ -151,7 +160,7 @@ describe Card::Set::All::Fetch do
                      content: "Formatted Content"
         Card.create! name: "a+y", content: "DB Content"
         card = Card.fetch("a+y")
-        expect(card).to be_not_virtual.and have_content "DB Content"
+        expect(card).to be_not_virtual.and have_db_content "DB Content"
         expect(card.rule(:structure)).to eq("Formatted Content")
       end
 
@@ -161,25 +170,25 @@ describe Card::Set::All::Fetch do
         Card.fetch("a+y").delete!
 
         card = Card.fetch("a+y")
-        expect(card).to be_virtual.and have_raw_content "Formatted Content"
+        expect(card).to be_virtual.and have_content "Formatted Content"
       end
 
       it "recognizes pattern overrides" do
         # ~~~ create right rule
         Card.create!(name: "y+*right+*structure", content: "Right Content")
         card = Card.fetch("a+y")
-        expect(card).to be_virtual.and have_raw_content "Right Content"
+        expect(card).to be_virtual.and have_content "Right Content"
 
         #        warn 'creating template'
         tpr = Card.create! name: "Basic+y+*type plus right+*structure",
                            content: "Type Plus Right Content"
         card = Card.fetch("a+y")
-        expect(card).to be_virtual.and have_raw_content "Type Plus Right Content"
+        expect(card).to be_virtual.and have_content "Type Plus Right Content"
 
         # ~~~ delete type plus right rule
         tpr.delete!
         card = Card.fetch("a+y")
-        expect(card).to be_virtual.and have_raw_content "Right Content"
+        expect(card).to be_virtual.and have_content "Right Content"
       end
 
       it "does not hit the database for every fetch_virtual lookup" do
@@ -202,7 +211,7 @@ describe Card::Set::All::Fetch do
         it "initializes card with default content" do
           card = Card.fetch "non-existent",
                             new: { default_content: "default content" }
-          expect(card).to have_content "default content"
+          expect(card).to have_db_content "default content"
         end
       end
       context "when new card exist" do
@@ -211,7 +220,7 @@ describe Card::Set::All::Fetch do
                    "+sub" => { content: "some content" }
           card = Card.fetch "new card+sub",
                             new: { default_content: "new content" }
-          expect(card).to have_content "some content"
+          expect(card).to have_db_content "some content"
         end
       end
     end
@@ -248,7 +257,7 @@ describe Card::Set::All::Fetch do
     it "finds cards with *right+*structure specified" do
       expect(Card.fetch("A+testsearch".to_name))
         .to be_virtual.and have_type(:search_type)
-                              .and have_raw_content '{"plus":"_self"}'
+                              .and have_content '{"plus":"_self"}'
     end
     context "fetched virtual card with new args" do
       it "fetchs the virtual card with type set in patterns" do
@@ -257,7 +266,7 @@ describe Card::Set::All::Fetch do
 
         c = Card.fetch("Home+testsearch".to_name)
         expect(c).to be_virtual.and have_type(:search_type)
-                                       .and have_raw_content('{"plus":"_self"}')
+                                       .and have_content('{"plus":"_self"}')
 
         patterns = c.instance_variable_get("@patterns").map(&:to_s)
         expect(patterns).to include("Search+*type")

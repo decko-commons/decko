@@ -30,7 +30,7 @@ def validate_token! test_token
 end
 
 def refreshed_token # TODO: explain why needed
-  token_card.refresh(true).content
+  token_card.refresh(true).db_content
 end
 
 format do

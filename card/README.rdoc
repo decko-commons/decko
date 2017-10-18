@@ -9,9 +9,9 @@ New folks should start here after playing with Decko but before digging into cod
 
 Yes, if:
 
-* <b>you're a Ruby developer</b>, or at least someone who does not fear ruby code. <b>Not a techie? {Try Decko.org}[http://decko.org]</b>
-* <b>you've experimented with Decko</b> enough to know the basics (cards, types, rules, etc.) <b>No idea what a card is? {Try Decko.org}[http://decko.org]</b>.
-* <b>you're looking at this page from a docs site</b> (ie, NOT GitHub) so you can use our links to navigate code. <b>Links look funny? {Try rubydocs.info}[http://rubydoc.info/gems/card].</b>
+* <b>You're a Ruby developer</b>, or at least someone who does not fear ruby code. <b>Not a techie? {Try Decko.org}[http://decko.org]</b>
+* <b>You've experimented with Decko</b> enough to know the basics ({cards}[docs/Card], types, rules, etc.) <b>No idea what a card is? {Try Decko.org}[http://decko.org]</b>.
+* <b>You're looking at this page from a docs site</b> (ie, NOT GitHub) so you can use our links to navigate code. <b>Links look funny? {Try rubydocs.info}[http://rubydoc.info/gems/card].</b>
 
 
 ===Decko: an _application_ or a <i>development framework</i>?

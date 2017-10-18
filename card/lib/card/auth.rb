@@ -4,7 +4,9 @@ require_dependency "card/auth/proxy"
 require_dependency "card/auth/setup"
 
 class Card
-  # Singleton methods for authentication. Manages current user,
+  # Singleton methods for account authentication and contextualization.
+  #
+  # Manages current user,
   # "as" user, and password verification.
   module Auth
     extend Permissions

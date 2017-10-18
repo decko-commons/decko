@@ -34,6 +34,7 @@ end
 
 When /^(?:|I )click on "([^"]*)"$/ do |link|
   click_link_or_button(link)
+  wait_for_ajax
 end
 
 When /^(?:|I )follow "([^"]*)" within "([^"]*)"$/ do |link, parent|

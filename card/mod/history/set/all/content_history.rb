@@ -3,15 +3,15 @@
 #  methods, but we need a distict module so that super will be able to refer to
 # the base methods.
 def content
-  if @selected_action_id
-    @selected_content ||= begin
-      change = last_change_on :db_content, not_after: @selected_action_id,
-                                           including_drafts: true
-      (change && change.value) || db_content
-    end
-  else
-    super
-  end
+  @selected_action_id ? selected_content : super
+end
+
+def selected_content
+  @selected_content ||= content_at_time_of_selected_action || db_content
+end
+
+def content_at_time_of_selected_action
+  last_change_on(:db_content, not_after: @selected_action_id, including_drafts: true)&.value
 end
 
 def content= value

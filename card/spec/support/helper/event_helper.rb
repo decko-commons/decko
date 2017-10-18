@@ -75,6 +75,20 @@ class Card
         stage_sym = :"#{stage}_stage"
         Card.skip_callback stage_sym, :after, name
       end
+
+      # Turn delayed jobs on and run jobs after the given block.
+      # If count is given check if it matches the number of created jobs.
+      def with_delayed_jobs count=nil
+        Delayed::Worker.delay_jobs = true
+        expect(Delayed::Job.count).to eq(0), "expected delayed job to start with an empty queue"
+        yield
+        if count
+          expect(Delayed::Job.count).to eq(count)
+        end
+        Delayed::Worker.new.work_off
+        expect(Delayed::Job.count).to eq(0), "not all delayed jobs were executed"
+        Delayed::Worker.delay_jobs = false
+      end
     end
   end
 end

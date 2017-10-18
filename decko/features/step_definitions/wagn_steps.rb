@@ -293,6 +293,13 @@ Given /^Jobs are dispatched$/ do
   Delayed::Worker.new.work_off
 end
 
+Then /^No errors in the job queue$/ do
+  if (last = Delayed::Job.last) && (last.last_error)
+    expect(last.last_error).to be_blank
+  end
+end
+
+
 Then /I submit$/ do
   click_button "Submit"
 end

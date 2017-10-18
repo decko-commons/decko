@@ -20,32 +20,37 @@ end
 
 event :update_content_in_list_cards, :prepare_to_validate,
       on: :save, changed: :content do
-  if content.present?
-    new_items = item_keys(content: content)
-    old_items = item_keys
-    removed_items = old_items - new_items
-    added_items   = new_items - old_items
-    removed_items.each do |item|
-      if (lc = list_card(item))
-        lc.drop_item name.left
-        subcards.add lc
-      end
-    end
-    added_items.each do |item|
-      if (lc = list_card(item))
-        lc.add_item name.left
-        subcards.add lc
-      else
-        subcards.add(
-          name: "#{Card[item].name}+#{left.type_name}", type: "list",
-          content: "[[#{name.left}]]"
-        )
-      end
+  return unless db_content.present?
+  new_items = item_keys(content: db_content)
+  old_items = item_keys(content: db_content_was)
+  remove_items(old_items - new_items)
+  add_items(new_items - old_items)
+end
+
+def remove_items items
+  items.each do |item|
+    next unless (lc = list_card item)
+    lc.drop_item name.left
+    subcards.add lc
+  end
+end
+
+def add_items items
+  items.each do |item|
+    if (lc = list_card(item))
+      lc.add_item name.left
+      subcards.add lc
+    else
+      subcards.add(name: "#{Card[item].name}+#{left.type_name}",
+                   type: "list",
+                   content: "[[#{name.left}]]")
     end
   end
 end
 
-def raw_content
+
+
+def content
   Card::Cache[Card::Set::Type::ListedBy].fetch(key) do
     generate_content
   end

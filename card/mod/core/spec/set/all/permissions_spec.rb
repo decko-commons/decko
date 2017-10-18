@@ -326,7 +326,7 @@ describe Card::Set::All::Permissions do
       Card::Auth.as_bot do
         @delete_rule_card = Card.fetch "*all+*delete", new: {}
         @delete_rule_card.type_id = Card::PointerID
-        @delete_rule_card.content = "[[Joe_User]]"
+        @delete_rule_card.db_content = "[[Joe_User]]"
         @delete_rule_card.save!
       end
     end
@@ -366,7 +366,7 @@ describe Card::Set::All::Permissions do
 
   describe "cardtypes and permissions" do
     specify "cardtype b has create role r1" do
-      expect(Card["Cardtype B+*type+*create"]).to have_content("[[r3]]")
+      expect(Card["Cardtype B+*type+*create"]).to have_db_content("[[r3]]")
                                                     .and have_type :pointer
     end
 

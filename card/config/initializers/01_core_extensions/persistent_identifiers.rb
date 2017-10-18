@@ -5,7 +5,7 @@ module CoreExtensions
       Card[self]
     end
 
-    def name
+    def cardname
       Card.quick_fetch(self).name
     end
   end

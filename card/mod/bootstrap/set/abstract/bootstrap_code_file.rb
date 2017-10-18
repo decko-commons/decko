@@ -5,7 +5,9 @@ def self.included host_class
     File.join(Cardio.gem_root, "mod",
               host_class.file_content_mod_name, "lib", "stylesheets")
   host_class.bootstrap_path =
-    File.join(host_class.stylesheets_dir, "bootstrap", "scss")
+  #  File.join(host_class.stylesheets_dir, "bootstrap", "scss")
+    File.join(Cardio.gem_root, "mod",
+                  host_class.file_content_mod_name, "vendor", "bootstrap", "scss")
 end
 
 def add_bs_subdir sub_dir

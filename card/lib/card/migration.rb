@@ -65,7 +65,7 @@ class Card::Migration < ActiveRecord::Migration[4.2]
         begin
           yield
         ensure
-          Card::Cache.reset_all
+          ::Card::Cache.reset_all
         end
       end
     end

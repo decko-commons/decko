@@ -18,7 +18,7 @@ format :html do
   end
 end
 
-def raw_content
+def content
   return "" unless left
   items =
     if (left.type_id == SetID) || (left.type_id == CardtypeID)

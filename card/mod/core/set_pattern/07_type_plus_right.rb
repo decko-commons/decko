@@ -16,8 +16,7 @@ def prototype_args anchor
 end
 
 def anchor_name card
-  left = card.left new: {}
-  type_name = (left && left.type_name) || Card[Card.default_type_id].name
+  type_name = card.left(new:{})&.type_name || Card.default_type_id.cardname
   "#{type_name}+#{card.name.tag}"
 end
 

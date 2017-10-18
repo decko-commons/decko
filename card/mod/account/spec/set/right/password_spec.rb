@@ -27,7 +27,7 @@ describe Card::Set::Right::Password do
         pw_card = acct.password_card
         pw_card.content = ""
         pw_card.save
-        expect(original_pw).to eq(pw_card.refresh(_force = true).content)
+        expect(original_pw).to eq(pw_card.refresh(_force = true).db_content)
       end
 
       it "does not break email editing" do

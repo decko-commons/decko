@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::ActManager::StageDirector do
+RSpec.describe Card::ActManager::StageDirector do
   describe "abortion" do
     let(:create_card) { Card.create name: "a card" }
     let(:create_card_with_subcard) do
@@ -47,10 +47,10 @@ describe Card::ActManager::StageDirector do
             in_stage :integrate,
                      on: :save,
                      trigger: -> { create_card } do
-              raise Card::Abort, "rollback"
+              raise Card::Error::Abort, "rollback"
             end
           end
-        rescue Card::Abort => e
+        rescue Card::Error::Abort => e
         ensure
           is_expected.to be_truthy
         end
@@ -69,9 +69,11 @@ describe Card::ActManager::StageDirector do
 
       it "does not execute subcard stages on create" do
         @called_events = []
+
         def event_called ev
           @called_events << ev
         end
+
         with_test_events do
           test_event :validate,
                      on: :create,
@@ -101,9 +103,11 @@ describe Card::ActManager::StageDirector do
 
       it "does not delete children" do
         @called_events = []
+
         def event_called ev
           @called_events << ev
         end
+
         with_test_events do
           test_event :validate,
                      on: :delete,
@@ -196,8 +200,8 @@ describe Card::ActManager::StageDirector do
           create_card_with_subcards
         end
         expect(order).to eq(
-          %w(v:1 v:11 v:111 v:12 v:121 pts:1 pts:11 pts:111 pts:12 pts:121)
-        )
+                           %w(v:1 v:11 v:111 v:12 v:121 pts:1 pts:11 pts:111 pts:12 pts:121)
+                         )
       end
     end
 
@@ -236,9 +240,9 @@ describe Card::ActManager::StageDirector do
           create_card_with_subcards
         end
         expect(order).to eq(
-          %w(store:1 store:11 store:111 finalize:111 finalize:11
+                           %w(store:1 store:11 store:111 finalize:111 finalize:11
              store:12 store:121 finalize:121 finalize:12 finalize:1)
-        )
+                         )
       end
     end
 
@@ -275,7 +279,7 @@ describe Card::ActManager::StageDirector do
         end
         # Delayed::Worker.new.work_off
         expect(order).to eq(
-          %w(
+                           %w(
             i:1 i:11 i:111 i:12 i:121
             ptv:1 ptv:11 ptv:111 ptv:12 ptv:121
             v:1 v:11 v:111
@@ -292,9 +296,9 @@ describe Card::ActManager::StageDirector do
             f:12
             f:1
             ig:1 ig:11 ig:111 ig:112v ig:12 ig:121
-            igwd:1 igwd:11 igwd:111 igwd:112v igwd:12 igwd:121
+            igwd:1 igwd:11 igwd:12 igwd:121 igwd:111 igwd:112v
           )
-        )
+                         )
       end
 
       it "with junction" do
@@ -328,7 +332,7 @@ describe Card::ActManager::StageDirector do
         end
         # Delayed::Worker.new.work_off
         expect(order).to eq(
-          %w(
+                           %w(
             i:1+2 i:11
             ptv:1+2 ptv:11
             v:1+2 v:11
@@ -341,7 +345,7 @@ describe Card::ActManager::StageDirector do
             ig:1+2 ig:11 ig:1 ig:2
             igwd:1+2 igwd:11 igwd:1 igwd:2
           )
-        )
+                         )
       end
     end
   end
@@ -409,7 +413,7 @@ describe Card::ActManager::StageDirector do
         in_stage :prepare_to_store,
                  on: :create,
                  trigger: -> { Card.create! name: "main" } do
-          case  name
+          case name
           when "main"
             add_subcard "subby", "+sub2" => {
               subcards: { "AARGH" => { "+sub4" => "more content" } }
@@ -430,7 +434,7 @@ describe Card::ActManager::StageDirector do
   end
 
   describe "creating and updating cards in stages" do
-    it "update_attributes works integrate stage" do
+    it "update_attributes works in integrate stage" do
       act_cnt = Card["A"].acts.size
       in_stage :integrate,
                on: :create,
@@ -438,10 +442,41 @@ describe Card::ActManager::StageDirector do
         Card["A"].update_attributes content: "changed content"
       end
       expect(Card["A"].content).to eq "changed content"
-      # no act added to A
-      expect(Card["A"].acts.size).to eq act_cnt
-      # new act for 'act card'
-      expect(Card["act card"].acts.size).to eq 1
+      expect(Card["A"].acts.size).to eq(act_cnt), "no act added to A"
+      expect(Card["act card"].acts.size).to eq(1), "new act for 'act card'"
+      expect(Card["A"].actions.last.act).to eq Card["act card"].acts.last
+    end
+
+    it "update_attributes works integrate_with_delay stage" do
+      act_cnt = Card["A"].acts.size
+      with_delayed_jobs 1 do
+        in_stage :integrate_with_delay,
+                 on: :create, for: "act card",
+                 trigger: -> { Card.create! name: "act card" } do
+          Card["A"].update_attributes content: "changed content"
+        end
+      end
+      expect(Card["A"].content).to eq "changed content"
+      expect(Card["A"].acts.size).to eq(act_cnt), "expected no new act on A"
+      expect(Card["act card"].acts.size).to eq(1), "new act for 'act card'"
+      expect(Card["A"].actions.last.act).to eq Card["act card"].acts.last
+
+      Delayed::Worker.delay_jobs = false
+    end
+
+    it "create works in integrate_with_delay stage" do
+      with_delayed_jobs 1 do
+        in_stage :integrate_with_delay,
+                 on: :create, for: "act card",
+                 trigger: -> { Card.create! name: "act card" } do
+          Card.create! name: "iwd created card", content: "new content"
+        end
+      end
+      expect(Card["iwd created card"]).to exist.and have_db_content "new content"
+      expect(Card["act card"].acts.size).to eq(1), "new act for 'act card'"
+      expect(Card["iwd created card"].actions.last.act).to eq Card["act card"].acts.last
+      expect(Card["iwd created card"].acts.size).to eq(0), "no act added"
+
     end
   end
 end
