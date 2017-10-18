@@ -186,7 +186,7 @@ When /I wait a sec/ do
   sleep 1
 end
 
-When /I wait (\d+) seconds$/ do |period|
+When /I wait (\d+) seconds?$/ do |period|
   sleep period.to_i
 end
 
