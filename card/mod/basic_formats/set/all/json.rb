@@ -62,7 +62,7 @@ format :json do
 
   view :atom, cache: :never do
     h = { name: card.name, type: card.type_name }
-    h[:content] = card.content unless card.structure
+    h[:content] = card.db_content unless card.structure
     h[:codename] = card.codename if card.codename
     h[:value] = _render_core if depth < max_depth
     h
@@ -91,7 +91,7 @@ format :json do
 
   def essentials
     return {} if card.structure
-    { content: card.content }
+    { content: card.db_content }
   end
 
   def request_url

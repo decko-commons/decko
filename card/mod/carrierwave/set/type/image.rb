@@ -10,7 +10,7 @@ format do
   end
 
   view :source do
-    return card.raw_content if card.web?
+    return card.content if card.web?
     image = selected_version
     return "" unless image.valid?
     internal_url image.url

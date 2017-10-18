@@ -211,7 +211,7 @@ end
 
 event :set_autoname, :prepare_to_validate, on: :create do
   if name.blank? && (autoname_card = rule_card(:autoname))
-    self.name = autoname autoname_card.content
+    self.name = autoname autoname_card.db_content
     # FIXME: should give placeholder in approve phase
     # and finalize/commit change in store phase
     autoname_card.refresh.update_column :db_content, name

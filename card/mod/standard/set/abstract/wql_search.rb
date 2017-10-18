@@ -11,7 +11,7 @@ end
 # override this to define search
 def wql_hash
   @wql_hash ||= begin
-    query = raw_content
+    query = content
     query = query.is_a?(Hash) ? query : parse_json_query(query)
     query.symbolize_keys
   end
