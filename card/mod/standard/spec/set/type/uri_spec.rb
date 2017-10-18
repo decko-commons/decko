@@ -10,7 +10,7 @@ describe Card::Set::Type::Uri do
     card = Card.create(type: "URI", name: "A URI card",
                        content: "http://wagn.org/Home")
     assert_view_select(
-      card.format.render("core"),
+      card.format.render!("core"),
       'a[class="external-link"][href="http://wagn.org/Home"]'
     ) do
       assert_select 'span[class="card-title"]', text: "A URI card"
@@ -22,7 +22,7 @@ describe Card::Set::Type::Uri do
                        content: "http://wagn.org/Home")
 
     assert_view_select(
-      card.format.render("core", title: "My Title"),
+      card.format.render!("core", title: "My Title"),
       'a[class="external-link"][href="http://wagn.org/Home"]'
     ) do
       assert_select 'span[class="card-title"]', text: "My Title"
@@ -31,15 +31,15 @@ describe Card::Set::Type::Uri do
 
   it "renders title view in a plain formatter" do
     card = Card["A"]
-    expect(card.format(:text).render("title", title: "My Title"))
+    expect(card.format(:text).render!("title", title: "My Title"))
       .to eq "My Title"
-    expect(card.format(:text).render("title")).to eq "A"
+    expect(card.format(:text).render!("title")).to eq "A"
   end
 
   it "renders url_link for regular cards" do
     card = Card["A"]
-    expect(card.format(:text).render("url_link")).to eq "/A"
-    assert_view_select card.format.render("url_link"),
+    expect(card.format(:text).render!("url_link")).to eq "/A"
+    assert_view_select card.format.render!("url_link"),
                        'a[class="internal-link"][href="/A"]',
                        text: "/A"
   end
@@ -47,9 +47,9 @@ describe Card::Set::Type::Uri do
   it "renders a url_link view" do
     card = Card.create(type: "URI", name: "A URI card",
                        content: "http://wagn.org/Home")
-    assert_view_select card.format.render("url_link"),
+    assert_view_select card.format.render!("url_link"),
                        'a[class="external-link"]',
                        text: "http://wagn.org/Home"
-    expect(card.format(:text).render("url_link")).to eq "http://wagn.org/Home"
+    expect(card.format(:text).render!("url_link")).to eq "http://wagn.org/Home"
   end
 end

@@ -105,12 +105,12 @@ describe Card::Format do
     end
 
     it "renders placeholder" do
-      expect(format.render(:lazy_view))
+      expect(format.render!(:lazy_view))
         .to eq "<card-view-placeholder data-url=/A?view=lazy_view_async_content/>"
     end
 
     it "renders content in _async_content view" do
-      expect(format.render(:lazy_view_async_content))
+      expect(format.render!(:lazy_view_async_content))
         .to eq "content"
     end
   end

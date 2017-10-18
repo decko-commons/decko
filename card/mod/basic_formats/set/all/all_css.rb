@@ -6,7 +6,7 @@ format :css do
 
   def show view, args
     view ||= :content
-    render view, args
+    render! view, args
   end
 
   view :titled do |args|

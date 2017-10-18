@@ -45,7 +45,7 @@ class Card
       def nest_render nested_card, view, options, override
         subformat = nest_subformat nested_card, options, view
         view = subformat.modal_nest_view view if override
-        rendered = count_chars { subformat.optional_render view, options }
+        rendered = count_chars { subformat.render view, options }
         block_given? ? yield(rendered, view) : rendered
       end
 

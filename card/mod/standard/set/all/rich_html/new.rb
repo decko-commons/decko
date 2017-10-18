@@ -8,8 +8,8 @@ format :html do
           new_view_hidden,
           new_view_name,
           new_view_type,
-          _optional_render_content_formgroup,
-          _optional_render_new_buttons
+          _render_content_formgroup,
+          _render_new_buttons
         ]
       end
     end
@@ -42,7 +42,7 @@ format :html do
   end
 
   def new_name_formgroup
-    output _optional_render_name_formgroup,
+    output _render_name_formgroup,
            hidden_field_tag("name_prompt", true)
   end
 

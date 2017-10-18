@@ -1,7 +1,7 @@
 format :html do
   view :header do
     voo.hide :toggle, :toolbar
-    main_header + _optional_render_toolbar.to_s.html_safe
+    main_header + _render_toolbar.to_s.html_safe
   end
 
   def main_header
@@ -13,7 +13,7 @@ format :html do
   end
 
   def header_title_elements
-    [_optional_render_toggle, _optional_render_title]
+    [_render_toggle, _render_title]
   end
 
   view :subheader do
