@@ -108,18 +108,6 @@ class Card
         end
       end
 
-      def api_render match, opts
-        view = match[3] ? match[4] : opts.shift
-        args = opts[0] ? opts.shift.clone : {}
-        render_args(args, opts) unless match[2]
-        args[:skip_perms] = true if match[1]
-        render! view, args
-      end
-
-      def render_args args, opts
-        args[:optional] = opts.shift || :show
-      end
-
       def view_method view
         unless supports_view? view
           voo.unsupported_view = view
