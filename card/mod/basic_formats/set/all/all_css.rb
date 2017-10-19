@@ -10,7 +10,7 @@ format :css do
   end
 
   view :titled do |args|
-    major_comment(%( Style Card: "#{card.name}" )) + _render_core(args)
+    major_comment(%( Style Card: \\"#{card.name}\\" )) + _render_core(args)
   end
 
   view :content do |args|
