@@ -35,8 +35,8 @@ event :validate_storage_type_update, :validate,
   #   to store it somewhere else. Currently, it only works to change the
   #   storage type if a new file is provided
   #   i.e. `update_attributes storage_type: :local` fails but
-  #        `update_attributes storage_type: :local, file: [file handle]` is ok
-  if cloud? && storage_type_changed? && !file_changed?
+  #        `update_attributes storage_type: :local, file: [file handle]` is okb
+  if cloud? && storage_type_changed? && !attachment_is_changing?
     errors.add :storage_type, "moving files from cloud elsewhere "\
                               "is not supported"
   end
@@ -47,8 +47,8 @@ event :loose_coded_status_on_update, :initialize, on: :update, when: :coded? do
   @new_storage_type ||= storage_type_from_config
 end
 
-event :change_bucket_if_read_only, :initialize, on: :update, when: :cloud? do
-  return unless bucket_config[:read_only]
+event :change_bucket_if_read_only, :initialize,
+      on: :update, when: :change_bucket_if_read_only? do
   @new_storage_type = storage_type_from_config
 end
 
@@ -92,6 +92,10 @@ end
 
 def will_be_stored_as
   @new_storage_type || storage_type
+end
+
+def change_bucket_if_read_only?
+  cloud? && bucket_config[:read_only] && attachment_is_changing?
 end
 
 def cloud?

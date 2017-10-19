@@ -42,7 +42,7 @@ def file_ready_to_save?
   attachment.file.present? &&
     !preliminary_upload? &&
     !save_preliminary_upload? &&
-    attachment_changed?
+    attachment_is_changing?
 end
 
 def item_names _args={} # needed for flexmail attachments.  hacky.
@@ -59,8 +59,18 @@ def unfilled?
     !content.present?
 end
 
+Card.define_dirty_methods attachment_name
+
 def attachment_changed?
   send "#{attachment_name}_changed?"
+end
+
+def attachment_is_changing?
+  send "#{attachment_name}_is_changing?"
+end
+
+def attachment_before_act
+  send "#{attachment_name}_before_act"
 end
 
 def create_versions?
