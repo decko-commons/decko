@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::File do
+RSpec.describe Card::Set::Type::File do
   DIRECTORY = "deckodev-test"
 
   def test_file no=1

@@ -1,7 +1,7 @@
 attr_writer :bucket, :storage_type
 
 event :storage_type_change, :store,
-      on: :update, when: proc { |c| c.storage_type_changed? } do
+      on: :update, when: :storage_type_changed? do
   # carrierwave stores file if @cache_id is not nil
   attachment.cache_stored_file!
   # attachment.retrieve_from_cache!(attachment.cache_name)
@@ -14,8 +14,7 @@ event :storage_type_change, :store,
   write_identifier
 end
 
-event :validate_storage_type, :validate,
-      on: :save do
+event :validate_storage_type, :validate, on: :save do
   if will_become_coded?
     unless mod || @new_mod
       errors.add :storage_type, "mod argument needed to save card as coded"
@@ -29,14 +28,13 @@ event :validate_storage_type, :validate,
   end
 end
 
-event :validate_storage_type_update, :validate,
-      on: :update do
+event :validate_storage_type_update, :validate, on: :update do
   # FIXME: make it possible to retrieve the file from cloud storage
   #   to store it somewhere else. Currently, it only works to change the
   #   storage type if a new file is provided
   #   i.e. `update_attributes storage_type: :local` fails but
   #        `update_attributes storage_type: :local, file: [file handle]` is ok
-  if cloud? && storage_type_changed? && !file_changed?
+  if cloud? && storage_type_changed? && !attachment_is_changing?
     errors.add :storage_type, "moving files from cloud elsewhere "\
                               "is not supported"
   end
@@ -47,7 +45,8 @@ event :loose_coded_status_on_update, :initialize, on: :update, when: :coded? do
   @new_storage_type ||= storage_type_from_config
 end
 
-event :change_bucket_if_read_only, :initialize, on: :update, when: :cloud? do
+event :change_bucket_if_read_only, :initialize,
+      on: :update, when: :change_bucket_if_read_only? do
   return unless bucket_config[:read_only]
   @new_storage_type = storage_type_from_config
 end
@@ -92,6 +91,10 @@ end
 
 def will_be_stored_as
   @new_storage_type || storage_type
+end
+
+def change_bucket_if_read_only?
+  cloud? && bucket_config[:read_only] && attachment_is_changing?
 end
 
 def cloud?

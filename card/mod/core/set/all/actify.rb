@@ -71,6 +71,16 @@ module ClassMethods
     end
     card
   end
+
+  def define_dirty_methods field
+    define_method "#{field}_before_act" do
+      attribute_before_act field
+    end
+
+    define_method "#{field}_is_changing?" do
+      attribute_is_changing? field
+    end
+  end
 end
 
 def save!(*)
@@ -129,14 +139,8 @@ def success
   Env.success(name)
 end
 
-[:name, :db_content, :trash, :type_id].each do |field|
-  define_method "#{field}_before_act" do
-    attribute_before_act field
-  end
-
-  define_method "#{field}_is_changing?" do
-      attribute_is_changing? field
-    end
+[:name, :db_content, :trash, :type_id, :attachment].each do |field|
+  Card.define_dirty_methods field
 end
 
 def attribute_before_act attr
