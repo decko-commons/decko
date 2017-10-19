@@ -120,7 +120,7 @@ class Card
       end
     end
 
-    RENDER_METHOD_RE = /^(_)?render(!)?(_(\w+))?/
+    RENDER_METHOD_RE = /^(_)?render(_(\w+))?(!)?/
 
     def respond_to_missing? method, _include_private=false
       (method =~ RENDER_METHOD_RE) || template.respond_to?(method)
@@ -135,9 +135,9 @@ class Card
     end
 
     def api_render match, opts
-      view = match[3] ? match[4] : opts.shift                 # view can be part of method name or first argument
+      view = match[2] ? match[3] : opts.shift                 # view can be part of method name or first argument
       args = opts[0] ? opts.shift.clone : {}                  # opts are opts ;)
-      args[:optional] = (opts.shift || :show) unless match[2] # bang (!) after render
+      args[:optional] = (opts.shift || :show) unless match[4] # bang (!) after render
       args[:skip_perms] = true if match[1]                    # underscore (_) before render
       render! view, args
     end
