@@ -40,10 +40,10 @@ class Card
         attr_reader :module_type
 
         def load_mods
-          load_initializers
           SetPatternLoader.new.load
           load_formats
           SetLoader.new.load
+          load_initializers
         end
 
         def load_chunks

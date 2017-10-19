@@ -49,7 +49,7 @@ class Card
   #   - **file** for any other supporting files
   #
 
-module Mod
+  module Mod
     class << self
       def load
         Loader.load_mods

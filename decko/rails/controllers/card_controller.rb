@@ -62,6 +62,7 @@ class CardController < ActionController::Base
     Card::Env.reset controller: self
     Card::ActManager.clear
     Card.current_act
+    puts "REQUEST: #{params}"
     # unprotect_card_params!
   end
 
@@ -124,6 +125,7 @@ class CardController < ActionController::Base
     end
 
     status = format.error_status || status
+    puts "RESULT: #{format.class}/#{status}"
     deliver format, result, status
   end
 
