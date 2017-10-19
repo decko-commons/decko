@@ -45,8 +45,8 @@ event :loose_coded_status_on_update, :initialize, on: :update, when: :coded? do
   @new_storage_type ||= storage_type_from_config
 end
 
-event :change_bucket_if_read_only, :initialize, on: :update, when: :cloud? do
-  binding.pry
+event :change_bucket_if_read_only, :initialize,
+      on: :update, when: :change_bucket_if_read_only? do
   return unless bucket_config[:read_only]
   @new_storage_type = storage_type_from_config
 end
@@ -91,6 +91,10 @@ end
 
 def will_be_stored_as
   @new_storage_type || storage_type
+end
+
+def change_bucket_if_read_only?
+  cloud? && bucket_config[:read_only] && attachment_is_changing?
 end
 
 def cloud?
