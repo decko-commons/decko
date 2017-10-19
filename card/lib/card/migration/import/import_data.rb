@@ -37,10 +37,11 @@ class Card
         end
 
         def select_cards names_or_keys
-          cards.map do |attributes|
-            next unless name_or_key_match attributes, names_or_keys
+          names_or_keys.map do |key|
+            attributes = find_card_attributes(key)
+            raise("no entry for #{key} in #{@path}") unless attributes
             prepare_for_import attributes
-          end.compact
+          end
         end
 
         def changed_cards
@@ -70,8 +71,7 @@ class Card
         end
 
         def url remote_name
-          remotes[remote_name.to_sym] ||
-            raise("unknown remote: #{remote_name}")
+          remotes[remote_name.to_sym] || raise("unknown remote: #{remote_name}")
         end
 
         private
@@ -83,13 +83,6 @@ class Card
           end
           card_data[:key] = data[:name].to_name.key
           [card_data, data[:content]]
-        end
-
-        def name_or_key_match attributes, names_or_keys
-          names_or_keys.any? do |nk|
-            nk == attributes[:name] || nk == attributes[:name].to_name.key ||
-              nk == attributes[:key]
-          end
         end
 
         def remotes
