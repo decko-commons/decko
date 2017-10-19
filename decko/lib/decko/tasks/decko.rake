@@ -11,35 +11,27 @@ CARD_TASKS =
 
 link_task CARD_TASKS, from: :decko, to: :card
 
-namespace :decko do
+decko_namespace = namespace :decko do
   desc "create a decko database from scratch, load initial data"
   task :seed do
-    ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
-    puts "dropping"
-    # FIXME: this should be an option, but should not happen on standard
-    # creates!
-    begin
-      Rake::Task["db:drop"].invoke
-    rescue
-      puts "not dropped"
-    end
+    seed
+  end
 
-    puts "creating"
-    Rake::Task["db:create"].invoke
-
-    puts "loading schema"
-    Rake::Task["db:schema:load"].invoke
-
-    Rake::Task["decko:load"].invoke
+  desc "create a decko database from scratch, load initial data, don't reset the cache"
+  task :seed_without_reset do
+    # This variant is needed to generate test databases for decks
+    # with custom codenames.
+    # The cache reset loads the environment. That tends to fail
+    # because of missing codenames that are added after the intial decko seed.
+    seed with_cache_reset: false
   end
 
   desc "clear and load fixtures with existing tables"
   task reseed: :environment do
     ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
 
-    Rake::Task["decko:clear"].invoke
-
-    Rake::Task["decko:load"].invoke
+    decko_namespace["clear"].invoke
+    decko_namespace["load"].invoke
   end
 
   desc "empty the card tables"
@@ -54,23 +46,27 @@ namespace :decko do
 
   desc "Load bootstrap data into database"
   task :load do
+    decko_namespace["load_without_reset"].invoke
+    puts "reset cache"
+    system "bundle exec rake decko:reset_cache" # needs loaded environment
+  end
+
+  desc "Load bootstrap data into database but don't reset cache"
+  task :load_without_reset do
     require "decko/engine"
     puts "update card_migrations"
-    Rake::Task["decko:assume_card_migrations"].invoke
+    decko_namespace["assume_card_migrations"].invoke
 
     if Rails.env == "test" && !ENV["GENERATE_FIXTURES"]
       puts "loading test fixtures"
       Rake::Task["db:fixtures:load"].invoke
     else
       puts "loading bootstrap"
-      Rake::Task["decko:bootstrap:load"].invoke
+      decko_namespace["bootstrap:load"].invoke
     end
 
     puts "set symlink for assets"
-    Rake::Task["decko:update_assets_symlink"].invoke
-
-    puts "reset cache"
-    system "bundle exec rake decko:reset_cache" # needs loaded environment
+    decko_namespace["update_assets_symlink"].invoke
   end
 
   desc "update decko gems and database"
@@ -81,10 +77,10 @@ namespace :decko do
       FileUtils.rm_rf Decko.paths["tmp"].first, secure: true
     end
     Dir.mkdir Decko.paths["tmp"].first
-    Rake::Task["decko:migrate"].invoke
+    decko_namespace["migrate"].invoke
     # FIXME: remove tmp dir / clear cache
     puts "set symlink for assets"
-    Rake::Task["decko:update_assets_symlink"].invoke
+    decko_namespace["update_assets_symlink"].invoke
   end
 
   desc "set symlink for assets"
@@ -104,6 +100,28 @@ namespace :decko do
     require "decko/engine"
 
     Cardio.assume_migrated_upto_version :core_cards
+  end
+
+  def seed with_cache_reset: true
+    ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
+    # FIXME: this should be an option, but should not happen on standard
+    # creates!
+    begin
+      Rake::Task["db:drop"].invoke
+    rescue
+      puts "not dropped"
+    end
+
+    puts "creating"
+    Rake::Task["db:create"].invoke
+
+    puts "loading schema"
+
+    Rake::Task["db:schema:load"].invoke
+
+    load_task = "decko:load"
+    load_task << "_without_reset" unless with_cache_reset
+    Rake::Task[load_task].invoke
   end
 
   namespace :emergency do

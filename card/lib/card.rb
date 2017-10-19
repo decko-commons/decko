@@ -111,6 +111,7 @@ class Card < ApplicationRecord
   require_dependency "card/subcards"
   require_dependency "card/view"
   require_dependency "card/act_manager"
+  require_dependency "card/dirty"
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id

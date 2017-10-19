@@ -59,8 +59,6 @@ def unfilled?
     !content.present?
 end
 
-Card.define_dirty_methods attachment_name
-
 def attachment_changed?
   send "#{attachment_name}_changed?"
 end

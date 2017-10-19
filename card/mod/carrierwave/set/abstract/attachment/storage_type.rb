@@ -47,7 +47,6 @@ end
 
 event :change_bucket_if_read_only, :initialize,
       on: :update, when: :change_bucket_if_read_only? do
-  return unless bucket_config[:read_only]
   @new_storage_type = storage_type_from_config
 end
 
@@ -284,7 +283,7 @@ end
 
 def storage_type= value
   known_storage_type? value
-  if @action == :update
+  if @action == :update && storage_type != value
     # we cant update the storage type directly here
     # if we do then the uploader doesn't find the file we want to update
     @new_storage_type = value
@@ -294,7 +293,7 @@ def storage_type= value
 end
 
 def mod= value
-  if @action == :update
+  if @action == :update && mod != value
     @new_mod = value.to_s
   else
     @mod = value.to_s
