@@ -40,7 +40,8 @@ event :validate_storage_type_update, :validate, on: :update do
   end
 end
 
-event :loose_coded_status_on_update, :initialize, on: :update, when: :coded? do
+event :lose_coded_status_on_update, :initialize, on: :update, when: :coded? do
+  # unless explicit
   return if @new_mod
   @new_storage_type ||= storage_type_from_config
 end
@@ -270,7 +271,7 @@ def update_storage_attributes
 end
 
 def storage_type_changed?
-  @new_bucket || @new_storage_type || @new_mod
+  @new_bucket || (@new_storage_type && @new_storage_type != storage_type) || @new_mod
 end
 
 def bucket= value
@@ -283,7 +284,7 @@ end
 
 def storage_type= value
   known_storage_type? value
-  if @action == :update && storage_type != value
+  if @action == :update #&& storage_type != value
     # we cant update the storage type directly here
     # if we do then the uploader doesn't find the file we want to update
     @new_storage_type = value
