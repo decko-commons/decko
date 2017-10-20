@@ -20,7 +20,8 @@ def abort status, msg="action canceled"
 end
 
 def act opts={}, &block
-  @action ||= identify_action opts[:trash]
+  opts ||= {}
+  @action ||= identify_action(opts[:trash])
   if ActManager.act_card
     add_to_act &block
   else
