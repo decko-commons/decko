@@ -60,7 +60,8 @@ class CardController < ActionController::Base
     Card::Machine.refresh_script_and_style if Rails.env.development?
     Card::Cache.renew
     Card::Env.reset controller: self
-    Card::ActManager.clear
+    puts "act_card present in setup" if Card::ActManager.act_card
+    # Card::ActManager.clear
     Card.current_act
     # puts "REQUEST: #{params}"
     # unprotect_card_params!

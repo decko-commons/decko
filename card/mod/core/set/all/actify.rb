@@ -30,9 +30,11 @@ def act opts={}, &block
 end
 
 def start_new_act opts
-  ActManager.clear
+  binding.pry if ActManager.act_card
+  #ActManager.clear
   self.director = nil
   ActManager.act_card = self
+  puts "start new act with act card: #{self}"
   Env.success(name) if opts[:success]
   run_callbacks(:act) { yield }
 ensure

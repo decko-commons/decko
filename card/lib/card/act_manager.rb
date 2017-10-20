@@ -90,6 +90,8 @@ class Card
       end
 
       def clear
+        binding.pry if !ActManager.act_card
+        puts "clear act_card (was #{ActManager.act_card})"
         ActManager.act_card = nil
         directors.each_pair do |card, _dir|
           card.director = nil
@@ -100,7 +102,7 @@ class Card
       def fetch card, opts={}
         return directors[card] if directors[card]
         directors.each_key do |dir_card|
-          return dir_card.director if dir_card.name == card.name
+          return dir_card.director if dir_card.name == card.name && dir_card.director
         end
         directors[card] = new_director card, opts
       end
@@ -150,10 +152,13 @@ class Card
       # event processed by ActiveJob.
       # This is the improvised resetup to get subcards working.
       def run_delayed_event act, card, &block
+        raise "no act for delayed event given" unless act
+
         return block.call unless act
-        # raise "no act for delayed event given" unless act
         Card.current_act = act
         ActManager.act_card = act.card || card
+        binding.pry unless ActManager.act_card
+        puts "set act_card for delayed event: #{ActManager.act_card }"
         ActManager.act_card.director.run_delayed_event act, &block
       ensure
         Card.current_act = nil

@@ -32,7 +32,7 @@ class Card
           return false
         ensure
           @card.clear_changes_information unless @abort
-          ActManager.clear if main? && !@card.only_storage_phase
+          # ActManager.clear if main? && !@card.only_storage_phase
         end
       end
     end
