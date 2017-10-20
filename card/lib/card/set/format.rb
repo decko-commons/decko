@@ -108,7 +108,7 @@ class Card
           view_content = "#{view}_async_content"
           define_standard_view_method view_content, &block
           define_standard_view_method view do
-            "<card-view-placeholder data-url=#{path view: view_content}/>"
+            %(<card-view-placeholder data-url="#{path view: view_content}" />)
           end
         end
 
