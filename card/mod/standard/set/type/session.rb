@@ -26,8 +26,4 @@ format :html do
   def default_core_args args
     args[:items] = { view: :name }
   end
-
-  def editor
-    :text_field
-  end
 end
