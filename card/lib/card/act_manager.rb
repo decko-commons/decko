@@ -90,9 +90,8 @@ class Card
       end
 
       def clear
-        binding.pry if !ActManager.act_card
-        puts "clear act_card (was #{ActManager.act_card})"
-        ActManager.act_card = nil
+        self.act_card = nil
+        Card.current_act = nil
         directors.each_pair do |card, _dir|
           card.director = nil
         end
@@ -157,11 +156,8 @@ class Card
         return block.call unless act
         Card.current_act = act
         ActManager.act_card = act.card || card
-        binding.pry unless ActManager.act_card
-        puts "set act_card for delayed event: #{ActManager.act_card }"
         ActManager.act_card.director.run_delayed_event act, &block
       ensure
-        Card.current_act = nil
         ActManager.clear
       end
 
