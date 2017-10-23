@@ -21,7 +21,6 @@ event :encrypt_password, :store,
       on: :save, changed: :content,
       when: proc { !Card::Env[:no_password_encryptions] } do
   # no_password_encryptions = hack for import - fix with api for ignoring events
-  binding.pry
   salt = left && left.salt
   # HACK: fix with better ORM handling
   salt = Card::Env[:salt] unless salt.present?
