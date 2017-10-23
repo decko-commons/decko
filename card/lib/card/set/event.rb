@@ -39,10 +39,6 @@ class Card
         end
       end
 
-      def with_delay? opts
-        DELAY_STAGES.include?(opts[:after]) || DELAY_STAGES.include?(opts[:before])
-      end
-
       def process_stage_opts opts
         if opts[:after] || opts[:before]
           # ignore :in options
@@ -81,68 +77,6 @@ class Card
           end
         end
       end
-    end
-  end
-  def deserialize_for_active_job! attr
-    attr.each do |attname, val|
-      instance_variable_set("@#{attname}", val)
-    end
-
-    include_set_modules
-  end
-
-  def with_env_and_auth env, auth
-    # If active jobs (and hence the integrate_with_delay events) don't run
-    # in a background process then Card::Env.deserialize! decouples the
-    # controller's params hash and the Card::Env's params hash with the
-    # effect that params changes in the CardController get lost
-    # (a crucial example are success params that are processed in
-    # CardController#update_params_for_success)
-    return yield if Decko.config.active_job.queue_adapter == :inline
-    Card::Auth.with auth do
-      Card::Env.with env do
-        yield
-      end
-    end
-  end
-
-  def serialize_for_active_job
-    serializable_attributes.each_with_object({}) do |name, hash|
-      hash[name] = instance_variable_get("@#{name}")
-    end
-  end
-
-  def serialize_value value
-    # ActiveJob doesn't accept symbols and Time as arguments
-    case value
-      when Symbol
-        { value: value.to_s, type: "symbol" }
-      when Time
-        { value: value.to_s, type: "time" }
-      when Hash
-        {
-            value: value.each_with_object({}) { |(k, v), h| h[k] = serialize_value(v) },
-            type: "hash"
-        }
-      when ActionController::Parameters
-        serialize_value value.to_unsafe_h
-      else
-        { value: value }
-    end
-  end
-
-  def deserialize_value val, type
-    case type
-      when "symbol"
-        val.to_sym
-      when "time"
-        DateTime.parse val
-      when "hash"
-        val.each_with_object({}) do |(k, v), h|
-          h[k] = deserialize_value v[:value], v[:type]
-        end
-      else
-        val
     end
   end
 

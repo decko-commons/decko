@@ -97,28 +97,29 @@ end
 
 event :rollback_actions,
       :prepare_to_validate, on: :update, when: :rollback_request? do
-  revision = { subcards: {} }
-
-  rollback_actions.each do |action|
+  update_args = { subcards: {} }
+  revert_actions.each do |action|
+    rev = action.card.revision(action, revert_to_previous_action?)
     if action.card_id == id
-      revision.merge!(revision(action))
+      update_args.merge! rev
     else
-      revision[:subcards][action.card.name] = revision(action)
+      update_args[:subcards][action.card.name] = rev
     end
   end
-  Env.params["action_ids"] = nil
-  update_attributes! revision
+  Env.params["revert_actions"] = nil
+  update_attributes! update_args
   clear_drafts
   abort :success
 end
 
-def rollback_actions
-  actions =
-    Env.params["revert_actions"].map do |a_id|
-      Action.fetch(a_id) || nil
-    end.compact
-  actions.map! { |a| a.previous_action } if Env.params["revert_to"] == "previous"
-  actions.compact
+def revert_to_previous_action?
+  Env.params["revert_to"] == "previous"
+end
+
+def revert_actions
+  Env.params["revert_actions"].map do |a_id|
+    Action.fetch(a_id) || nil
+  end.compact
 end
 
 def rollback_request?

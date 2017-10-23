@@ -39,7 +39,7 @@ class Card
         def select_cards names_or_keys
           names_or_keys.map do |key|
             attributes = find_card_attributes(key)
-            raise("no entry for #{key} in #{@path}") unless attributes
+            raise("no entry for #{key} (key: #{key.to_name.key}) in #{@path}") unless attributes
             prepare_for_import attributes
           end
         end

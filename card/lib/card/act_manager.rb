@@ -159,7 +159,9 @@ class Card
       # event processed by ActiveJob.
       # This is the improvised resetup to get subcards working.
       def run_delayed_event act, card, &block
-        raise "no act for delayed event given" unless act
+        # raise "no act for delayed event given" unless act
+        #   `rake wikirate:test:seed:update` fails with that
+
         return block.call unless act
         run_act(act.card || card) do
           act_card.director.run_delayed_event act, &block
