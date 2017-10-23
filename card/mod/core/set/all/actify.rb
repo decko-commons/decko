@@ -30,14 +30,11 @@ def act opts={}, &block
 end
 
 def start_new_act opts
-  # binding.pry if ActManager.act_card
-  # ActManager.clear
   self.director = nil
-  ActManager.act_card = self
-  Env.success(name) if opts[:success]
-  run_callbacks(:act) { yield }
-ensure
-  ActManager.clear
+  ActManager.run_act(self) do
+    Env.success(name) if opts[:success]
+    run_callbacks(:act) { yield }
+  end
 end
 
 def add_to_act

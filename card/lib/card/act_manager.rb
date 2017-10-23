@@ -89,6 +89,14 @@ class Card
         @directors ||= {}
       end
 
+      def run_act card
+        self.act_card = card
+        Card.current_act = self
+        yield
+      ensure
+        clear
+      end
+
       def clear
         self.act_card = nil
         Card.current_act = nil
@@ -152,13 +160,10 @@ class Card
       # This is the improvised resetup to get subcards working.
       def run_delayed_event act, card, &block
         raise "no act for delayed event given" unless act
-
         return block.call unless act
-        Card.current_act = act
-        ActManager.act_card = act.card || card
-        ActManager.act_card.director.run_delayed_event act, &block
-      ensure
-        ActManager.clear
+        run_act(act.card || card) do
+          act_card.director.run_delayed_event act, &block
+        end
       end
 
       def to_s

@@ -62,6 +62,7 @@ module Decko
         config.i18n.enforce_available_locales = true
         # config.active_record.raise_in_transactional_callbacks = true
 
+        config.allow_concurrency = false
         config.assets.enabled = false
         config.assets.version = "1.0"
 

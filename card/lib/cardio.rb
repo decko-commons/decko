@@ -61,7 +61,6 @@ module Cardio
         file_buckets:           {},
         file_default_bucket:    nil,
 
-        allow_concurrency:      false,
         allow_irreversible_admin_tasks: false
       }
     end
