@@ -206,14 +206,8 @@ class Card
     end
 
     def prepend_plus name
-      case name
-      when Symbol
-        "+#{Card[name].name}"
-      when /^\+/
-        name
-      else
-        "+#{name}"
-      end
+      name = name.to_name
+      name =~ /^\+/ ? name : "+#{name}"
     end
 
     def field_name_to_key name
