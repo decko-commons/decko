@@ -13,8 +13,10 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
   def update_default_bootstrap
     paths = [Skin.bootstrap_scss_path("functions"),
              Skin.bootstrap_scss_path("variables")]
+    puts "Update bootstrap default"
     Skin.new("Bootstrap default")
         .update_scss field_name: "variables", file_name: paths
+    puts "Finished"
   end
 
   class Skin
