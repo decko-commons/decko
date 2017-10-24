@@ -9,7 +9,7 @@ def prototype_args _anchor
 end
 
 def pattern_applies? card
-  card.cardname.rstar?
+  card.name.rstar?
 end
 
 def follow_label _name

@@ -13,12 +13,12 @@ class Card
         return unless save_location?(card)
         discard_locations_for card
         session[:previous_location] =
-          Env::Location.card_path card.cardname.url_key
+          Env::Location.card_path card.name.url_key
         location_history.push previous_location
       end
 
       def save_location? card
-        !Env.ajax? && Env.html? && card.known? && (card.codename != "signin")
+        !Env.ajax? && Env.html? && card.known? && (card.codename != :signin)
       end
 
       def previous_location

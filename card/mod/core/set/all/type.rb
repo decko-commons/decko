@@ -1,7 +1,7 @@
 
 module ClassMethods
   def default_type_id
-    @@default_type_id ||= Card[:all].fetch(trait: :default).type_id
+    @@default_type_id ||= Card[:all].fetch(trait: :default, skip_modules: true).type_id
   end
 end
 
@@ -25,11 +25,15 @@ def type_name_or_default
 end
 
 def type_cardname
-  type_card.try :cardname
+  type_card.try :name
 end
 
 def type= type_name
   self.type_id = Card.fetch_id type_name
+end
+
+def type_known?
+  type_id.present?
 end
 
 def get_type_id_from_structure

@@ -17,3 +17,15 @@ end
 class ActiveRecord::Relation
   include Patches::ActiveRecord::Relation
 end
+
+module ActiveJob::Arguments
+  class << self
+    prepend Patches::ActiveJob::Arguments
+  end
+end
+
+module ActionDispatch
+  class Reloader
+    extend Patches::ActionDispatch::Reloader
+  end
+end

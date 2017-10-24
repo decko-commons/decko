@@ -13,39 +13,44 @@ event :validate_listed_by_content, :validate,
     errors.add(
       :content,
       "#{item_card.name} has wrong cardtype; " \
-      "only cards of type #{cardname.right} are allowed"
+      "only cards of type #{name.right} are allowed"
     )
   end
 end
 
 event :update_content_in_list_cards, :prepare_to_validate,
       on: :save, changed: :content do
-  if content.present?
-    new_items = item_keys(content: content)
-    old_items = item_keys
-    removed_items = old_items - new_items
-    added_items   = new_items - old_items
-    removed_items.each do |item|
-      if (lc = list_card(item))
-        lc.drop_item cardname.left
-        subcards.add lc
-      end
-    end
-    added_items.each do |item|
-      if (lc = list_card(item))
-        lc.add_item cardname.left
-        subcards.add lc
-      else
-        subcards.add(
-          name: "#{Card[item].name}+#{left.type_name}", type: "list",
-          content: "[[#{cardname.left}]]"
-        )
-      end
+  return unless db_content.present?
+  new_items = item_keys(content: db_content)
+  old_items = item_keys(content: db_content_was)
+  remove_items(old_items - new_items)
+  add_items(new_items - old_items)
+end
+
+def remove_items items
+  items.each do |item|
+    next unless (lc = list_card item)
+    lc.drop_item name.left
+    subcards.add lc
+  end
+end
+
+def add_items items
+  items.each do |item|
+    if (lc = list_card(item))
+      lc.add_item name.left
+      subcards.add lc
+    else
+      subcards.add(name: "#{Card[item].name}+#{left.type_name}",
+                   type: "list",
+                   content: "[[#{name.left}]]")
     end
   end
 end
 
-def raw_content
+
+
+def content
   Card::Cache[Card::Set::Type::ListedBy].fetch(key) do
     generate_content
   end
@@ -60,7 +65,7 @@ end
 def listed_by
   Card.search(
     { type: "list", right: trunk.type_name,
-      left: { type: cardname.tag }, refer_to: cardname.trunk, return: :name }, "listed_by" # better wql comment would be...better
+      left: { type: name.tag }, refer_to: name.trunk, return: :name }, "listed_by" # better wql comment would be...better
   )
 end
 

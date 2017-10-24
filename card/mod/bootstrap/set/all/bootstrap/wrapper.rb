@@ -1,7 +1,7 @@
 format :html do
   def frame
     class_up "d0-card-header" , "card-header"
-    class_up "d0-card-body", "card-block card-text"
+    class_up "d0-card-body", "card-body card-text"
     super
   end
 

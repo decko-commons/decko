@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::File do
+RSpec.describe Card::Set::Type::File do
+  DIRECTORY = "deckodev-test"
+
   def test_file no=1
     File.new(File.join(FIXTURES_PATH, "file#{no}.txt"))
   end
@@ -54,7 +56,7 @@ describe Card::Set::Type::File do
 
   describe "view: source" do
     def source_view card
-      card.format.render(:source)
+      card.format.render!(:source)
     end
     context "storage type: protected" do
       subject { source_view protected_file }
@@ -100,7 +102,7 @@ describe Card::Set::Type::File do
 
       it "renders absolute url to cloud" do
         is_expected
-          .to eq "http://#{directory}.s3.amazonaws.com/"\
+          .to eq "http://#{DIRECTORY}.s3.amazonaws.com/"\
                  "files/#{cloud_file.id}/#{cloud_file.last_action_id}.txt"
       end
     end
@@ -138,7 +140,7 @@ describe Card::Set::Type::File do
         subject { protected_file }
 
         it "stores correct identifier (~<card id>/<action id>.<ext>)" do
-          expect(subject.content)
+          expect(subject.db_content)
             .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
         end
 
@@ -180,7 +182,7 @@ describe Card::Set::Type::File do
         subject { web_file }
 
         it "saves url as identifier" do
-          expect(subject.content).to eq web_url
+          expect(subject.db_content).to eq web_url
         end
 
         it "has correct original filename" do
@@ -195,7 +197,7 @@ describe Card::Set::Type::File do
           Card::Auth.as_bot do
             card = Card.create! name: "file card", type_id: Card::FileID,
                                 file: web_url, storage_type: :web
-            expect(card.content).to eq web_url
+            expect(card.db_content).to eq web_url
           end
         end
 
@@ -203,7 +205,7 @@ describe Card::Set::Type::File do
           Card::Auth.as_bot do
             card = Card.create! name: "file card", type_id: Card::FileID,
                                 remote_file_url: web_url, storage_type: :web
-            expect(card.content).to eq web_url
+            expect(card.db_content).to eq web_url
           end
         end
       end
@@ -216,11 +218,11 @@ describe Card::Set::Type::File do
           # File.open(File.join(file_dir, "test_mod.txt"),"w") do |f|
           #   f.puts "test"
           # end
-          Card::Mod::Loader.mod_dirs.mod "test_mod"
+          Card::Mod.dirs.mod "test_mod"
         end
         after do
           FileUtils.rm_rf mod_path
-          Card::Mod::Loader.mod_dirs.mods.delete "test_mod"
+          Card::Mod.dirs.mods.delete "test_mod"
         end
         subject do
           create_file_card :coded, test_file,
@@ -230,7 +232,7 @@ describe Card::Set::Type::File do
         let(:file_path) { File.join mod_path, "file", "mod_file", "file.txt" }
 
         it "stores correct identifier (:<codename>/<mod_name>.<ext>)" do
-          expect(subject.content)
+          expect(subject.db_content)
             .to eq ":#{subject.codename}/test_mod.txt"
         end
 
@@ -254,12 +256,43 @@ describe Card::Set::Type::File do
         end
       end
 
+    #   describe "cloud" do
+    #     before(:context) do
+    #       storage_config :cloud
+    #       @cloud_card = create_file_card :cloud, test_file, bucket: :test_bucket
+    #       storage_config :local
+    #     end
+    #     after(:context) do
+    #       Card::Auth.as_bot do
+    #         update "file card", codename: nil
+    #         Card["file card"].delete!
+    #       end
+    #     end
+    #     #subject { cloud_file }
+    #
+    #     it "stores correct identifier "\
+    #        "((<bucket>)/<card id>/<action id>.<ext>)" do
+    #       expect(@cloud_card.content)
+    #         .to eq "(test_bucket)/#{@cloud_card.id}/#{@cloud_card.last_action_id}.txt"
+    #     end
+    #
+    #     it "stores file" do
+    #       expect(@cloud_card.file.read.strip).to eq "file1"
+    #     end
+    #
+    #     it "generates correct absolute url" do
+    #       expect(@cloud_card.file.url)
+    #         .to eq "http://#{DIRECTORY}.s3.amazonaws.com/"\
+    #            "files/#{@cloud_card.id}/#{@cloud_card.last_action_id}.txt"
+    #     end
+    #   end
+    # end
       describe "cloud" do
         subject { cloud_file }
 
         it "stores correct identifier "\
            "((<bucket>)/<card id>/<action id>.<ext>)" do
-          expect(subject.content)
+          expect(subject.db_content)
             .to eq "(test_bucket)/#{subject.id}/#{subject.last_action_id}.txt"
         end
 
@@ -269,7 +302,7 @@ describe Card::Set::Type::File do
 
         it "generates correct absolute url" do
           expect(subject.file.url)
-            .to eq "http://#{directory}.s3.amazonaws.com/"\
+            .to eq "http://#{DIRECTORY}.s3.amazonaws.com/"\
                "files/#{subject.id}/#{subject.last_action_id}.txt"
         end
       end
@@ -315,11 +348,11 @@ describe Card::Set::Type::File do
     context "if storage type is coded" do
       before do
         FileUtils.mkdir_p mod_path
-        Card::Mod::Loader.mod_dirs.mod "test_mod"
+        Card::Mod.dirs.mod "test_mod"
       end
       after do
         FileUtils.rm_rf mod_path
-        Card::Mod::Loader.mod_dirs.mods.delete "test_mod"
+        Card::Mod.dirs.mods.delete "test_mod"
       end
 
       subject do
@@ -331,14 +364,14 @@ describe Card::Set::Type::File do
         storage_config :local
         subject.update_attributes! file: test_file(2)
         expect(subject.storage_type).to eq :local
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
       end
       it "keeps storage type coded if explicitly set" do
         storage_config :local
         subject.update_attributes! file: test_file(2), storage_type: :coded
         expect(subject.storage_type).to eq :coded
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq ":#{subject.codename}/test_mod.txt"
         expect(subject.attachment.path)
           .to match(%r{test_mod/file/mod_file/file.txt$})
@@ -388,7 +421,8 @@ describe Card::Set::Type::File do
       Card::Auth.as_bot do
         Card.create! name: "file card", type_code: "file",
                      file: File.new(File.join(FIXTURES_PATH, "file1.txt")),
-                     storage_type: @storage_type || :cloud
+                     storage_type: @storage_type || :cloud,
+                     bucket: :test_bucket
       end
     end
 
@@ -416,13 +450,13 @@ describe Card::Set::Type::File do
 
       it "copies file to mod" do
         @storage_type = :local
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
         Card::Auth.as_bot do
           subject.update_attributes! storage_type: :coded, mod: "test_mod",
                                      codename: "mod_file"
         end
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq ":#{subject.codename}/test_mod.txt"
         expect(File.exist?(file_path)).to be_truthy
       end
@@ -436,7 +470,7 @@ describe Card::Set::Type::File do
         Card::Auth.as_bot do
           subject.update_attributes! storage_type: :local
         end
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.png"
       end
     end
@@ -444,11 +478,11 @@ describe Card::Set::Type::File do
     context "from local to cloud" do
       it "copies file to cloud" do
         @storage_type = :local
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
         subject.update_attributes! storage_type: :cloud
 
-        expect(subject.content).to eq(
+        expect(subject.db_content).to eq(
           "(test_bucket)/#{subject.id}/#{subject.last_action_id}.txt"
         )
         url = subject.file.url
@@ -456,95 +490,6 @@ describe Card::Set::Type::File do
         file_content = open(url).read
         expect(file_content.strip).to eq "file1"
       end
-    end
-  end
-
-  describe "#bucket config" do
-    subject do
-      Card.new(name: "test", type_id: Card::FileID,
-               empty_ok: true, storage_type: :cloud,
-               bucket: :test_bucket).bucket_config
-    end
-
-    let(:bucket_config) do
-      {
-        test_bucket: {
-          provider: "fog/aws",
-          credentials: {
-            provider: "credential_provider",
-            region: "region",
-            host: "host",
-            endpoint: "endpoint",
-            aws_access_key_id: "aws_access_key_id",
-            aws_secret_access_key: "aws_secret_access_key"
-          },
-          subdirectory: "files",
-          directory: "directory",
-          public: true,
-          attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
-          authenticated_url_expiration: 180,
-          use_ssl_for_aws: true
-        }
-      }
-    end
-
-    before do
-      @old_bucket_config = Cardio.config.file_buckets
-      Cardio.config.file_buckets = bucket_config
-    end
-    after do
-      Cardio.config.file_buckets = @old_bucket_config
-      %w[PROVIDER CREDENTIALS_PROVIDER TEST_BUCKET_PROVIDER
-         TEST_BUCKET_CREDENTIALS_PROVIDER].each do |key|
-        ENV.delete key
-      end
-    end
-
-    it "takes config from Cardio.config" do
-      is_expected.to eq bucket_config[:test_bucket]
-    end
-
-    it "raises error if no bucket config given" do
-      Cardio.config.file_buckets = {}
-      expect { subject }.to raise_error(Card::Error)
-    end
-
-    it "takes config from env variables" do
-      Cardio.config.file_buckets = {}
-      ENV["PROVIDER"] = "env provider"
-      ENV["CREDENTIALS_PROVIDER"] = "env cred provider"
-      is_expected.to eq provider: "env provider",
-                        credentials: { provider:  "env cred provider" }
-    end
-
-    it "overrides Cardio.config with env variables" do
-      ENV["PROVIDER"] = "env provider"
-      ENV["CREDENTIALS_PROVIDER"] = "env cred provider"
-      changed_config = bucket_config[:test_bucket]
-      changed_config[:provider] =  "env provider"
-      changed_config[:credentials][:provider] = "env cred provider"
-      is_expected.to eq changed_config
-    end
-
-    it "prefers bucket specific env variables" do
-      ENV["PROVIDER"] = "ignore"
-      ENV["CREDENTIALS_PROVIDER"] = "ignore"
-      ENV["TEST_BUCKET_PROVIDER"] = "bucket provider"
-      ENV["TEST_BUCKET_CREDENTIALS_PROVIDER"] = "bucket cred provider"
-      changed_config = bucket_config[:test_bucket]
-      changed_config[:provider] =  "bucket provider"
-      changed_config[:credentials][:provider] = "bucket cred provider"
-      is_expected.to eq changed_config
-    end
-
-    it "finds any credential env variable" do
-      ENV["CREDENTIALS_MY_OWN_CLOUD_BUCKET"] = "my provider"
-      ENV["CREDENTIALS_MY_OWN_CLOUD"] = "ignore me"
-      ENV["TEST_BUCKET_CREDENTIALS_MY_OWN_CLOUD"] = "find me"
-      changed_config = bucket_config[:test_bucket]
-      changed_config[:credentials][:my_own_cloud_bucket] =  "my provider"
-      changed_config[:credentials][:my_own_cloud] = "find me"
-      is_expected.to eq changed_config
     end
   end
 
@@ -556,16 +501,23 @@ describe Card::Set::Type::File do
     "public/files/~#{subject.id}/#{subject.last_action_id}.txt"
   end
 
-  let(:directory) { "philipp-test" }
+  # expects access keys in card/spec/support/bucket_credentials.yml for the
+  # bucket defined in `directory` in the following format:
+  # aws:
+  #   provider: AWS
+  #   aws_access_key_id: ...
+  #   aws_secret_access_key: ...
+  #   region: eu-central-1
 
   def storage_config type=:local
     Cardio.config.file_storage = type
-    Wagn.config.file_buckets = {
+    # config.file_default_bucket
+    Decko.config.file_buckets = {
       test_bucket: {
         provider: "fog/aws",
         credentials: bucket_credentials(:aws),
         subdirectory: "files",
-        directory: directory,
+        directory: DIRECTORY,
         public: true,
         attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
         authenticated_url_expiration: 180

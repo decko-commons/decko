@@ -6,7 +6,7 @@ class Card
   class Error < StandardError
     cattr_accessor :current
 
-    class Oops < Error # wagneer problem (rename!)
+    class Oops < Error # carditect problem (rename!)
     end
 
     class BadQuery < Error
@@ -26,7 +26,8 @@ class Card
 
       def build_message
         if (msg = @card.errors[:permission_denied])
-          "for card #{@card.name}: #{msg}"
+          I18n.t :exception_for_card, scope: [:lib, :card, :error],
+                                      cardname: @card.name, message: msg
         else
           super
         end
@@ -61,7 +62,7 @@ class Card
         when Card::Error::NotFound, ActiveRecord::RecordNotFound,
              ActionController::MissingFile
           :not_found
-        when Wagn::BadAddress
+        when Decko::BadAddress
           :bad_address
         else
           problematic_exception_view card, exception

@@ -12,6 +12,8 @@ class Card
         case success_params
         when Hash
           apply(success_params)
+        when ActionController::Parameters
+          apply(success_params.to_unsafe_h)
         when nil then  self.name = "_self"
         else;  self.target = success_params
         end
@@ -38,7 +40,8 @@ class Card
         when Integer then @id = value
         when String then @name = value
         when Card then @card = value
-        else; self.target = value
+        else
+          self.target = value
         end
       end
 
@@ -86,7 +89,7 @@ class Card
         elsif @id
           Card.find @id
         elsif @name
-          Card.fetch @name.to_name.to_absolute(name_context), new: @new_args
+          Card.fetch @name.to_name.absolute(name_context), new: @new_args
         end
       end
 
@@ -133,7 +136,7 @@ class Card
       def to_url name_context=@name_context
         case (target = target(name_context))
         when Card
-          page_path target.cardname, params
+          page_path target.name, params
         else
           target
         end

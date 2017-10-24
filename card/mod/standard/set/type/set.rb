@@ -16,9 +16,9 @@ format :html do
     @selected_rule_navbar_view = selected_view
     wrap do
       [
-        _optional_render_set_label,
-        _optional_render_rule_navbar,
-        _optional_render_set_navbar,
+        _render_set_label,
+        _render_rule_navbar,
+        _render_set_navbar,
         yield
       ]
     end
@@ -35,7 +35,7 @@ format :html do
       wrap_with :div, class: "panel-group", id: "accordion",
                       role: "tablist", "aria-multiselectable" => "true" do
         Card::Setting.groups.keys.map do |group_key|
-          _optional_render group_key
+          _render group_key
         end
       end
     end
@@ -106,7 +106,7 @@ format :html do
   end
 
   def group_collapse_id group_key
-    "collapse-#{card.cardname.safe_key}-#{group_key}"
+    "collapse-#{card.name.safe_key}-#{group_key}"
   end
 
   def group_tabpanel group_key
@@ -115,7 +115,7 @@ format :html do
     settings = card.visible_settings group_key
     wrap_with :div, id: collapse_id, class: "panel-collapse collapse",
                     role: "tabpanel", "aria-labelledby" => heading_id do
-      wrap_with :div, class: "card-block" do
+      wrap_with :div, class: "card-body" do
         rules_table settings.map(&:codename)
       end
     end
@@ -183,13 +183,13 @@ format :html do
   end
 
   view :set_navbar do |_args|
-    id = "set-navbar-#{card.cardname.safe_key}-#{voo.home_view}"
+    id = "set-navbar-#{card.name.safe_key}-#{voo.home_view}"
     related_sets = card.related_sets(true)
     return "" if related_sets.size <= 1
     navbar id, brand: "Set", toggle_align: :right,
-               class: "slotter toolbar navbar-toggleable-md",
+               class: "slotter toolbar navbar-expand-md",
                navbar_type: "inverse",
-               collapsed_content: close_link("pull-right hidden-sm-up") do
+               collapsed_content: close_link("float-right d-sm-none") do
       set_navbar_content related_sets
     end
   end
@@ -199,10 +199,10 @@ format :html do
   end
 
   view :rule_navbar do
-    navbar "rule-navbar-#{card.cardname.safe_key}-#{voo.home_view}",
+    navbar "rule-navbar-#{card.name.safe_key}-#{voo.home_view}",
            brand: 'Rules', toggle_align: :right,
-           class: "slotter toolbar navbar-toggleable-md", navbar_type: "inverse",
-           collapsed_content: close_link("pull-right hidden-sm-up") do
+           class: "slotter toolbar navbar-expand-md", navbar_type: "inverse",
+           collapsed_content: close_link("float-right d-sm-none") do
       rule_navbar_content
     end
   end
@@ -227,7 +227,7 @@ format :html do
   def set_navbar_content related_sets
     wrap_with :ul, class: "nav navbar-nav nav-pills" do
       related_sets.map do |name, label|
-        slot_opts = { subheader: showname(name),
+        slot_opts = { subheader: title_in_context(name),
                       subframe: true,
                       hide: "header set_label rule_navbar",
                       show: "subheader set_navbar" }
@@ -259,8 +259,8 @@ end
 
 def inheritable?
   return true if junction_only?
-  cardname.trunk_name.junction? &&
-    cardname.tag_name.key == Card::Set::Self.pattern.key
+  name.trunk_name.junction? &&
+    name.tag_name.key == Card::Set::Self.pattern.key
 end
 
 def subclass_for_set
@@ -280,7 +280,7 @@ end
 
 def label
   if (klass = subclass_for_set)
-    klass.label cardname.left
+    klass.label name.left
   else
     ""
   end
@@ -295,7 +295,7 @@ end
 
 def follow_label
   if (klass = subclass_for_set)
-    klass.follow_label cardname.left
+    klass.follow_label name.left
   else
     ""
   end
@@ -373,7 +373,7 @@ def broader_sets
 end
 
 def prototype
-  opts = subclass_for_set.prototype_args cardname.trunk_name
+  opts = subclass_for_set.prototype_args name.trunk_name
   Card.fetch opts[:name], new: opts
 end
 

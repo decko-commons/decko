@@ -9,46 +9,60 @@ format do
     _render_core size: :icon
   end
 
-  view :source, cache: :never do
-    determine_image_size
-    source_url
+  view :source do
+    return card.content if card.web?
+    image = selected_version
+    return "" unless image.valid?
+    internal_url image.url
   end
-
-  def source_url
-    return card.raw_content if card.web?
-    internal_url selected_version.url
-  end
-
+  
   def selected_version
-    if voo.size == :original
-      card.image
+    size = determine_image_size
+    if size && size != :original
+      card.image.versions[size]
     else
-      card.image.versions[voo.size.to_sym]
+      card.image
     end
   end
 
-  def default_core_args _args={}
-    determine_image_size
+  def handle_source
+    super
+  end
+
+  def closed_size
+    :icon
+  end
+
+  def main_size
+    :large
+  end
+
+  def default_size
+    :medium
   end
 
   def determine_image_size
     voo.size =
       case
-      when @mode == :closed   then :icon
-      when voo.size           then voo.size.to_sym
-      when main?              then :large
-      else                         :medium
+      when nest_mode == :closed then closed_size
+      when voo.size             then voo.size.to_sym
+      when main?                then main_size
+      else                           default_size
       end
     voo.size = :original if voo.size == :full
+    voo.size
   end
 end
 
 format :html do
   include File::HtmlFormat
 
-  view :core, cache: :never do
+  # core HTML image view.
+  view :core do
     handle_source do |source|
-      if source == "missing"
+      if source.blank? || source == "missing"
+        # FIXME - these images should be "broken", not "missing"
+        # ("missing" is the view for "unknown" now, so we shouldn't further confuse things)
         "<!-- image missing #{@card.name} -->"
       else
         image_tag source
@@ -98,17 +112,18 @@ end
 
 format :email_html do
   view :inline do
-    determine_image_size
-    url_generator = voo.closest_live_option(:inline_attachment_url)
-    path = selected_version.path
-    return _render_source unless url_generator && ::File.exist?(path)
-    image_tag url_generator.call(path)
+    handle_source do |source|
+      url_generator = voo.closest_live_option(:inline_attachment_url)
+      path = selected_version.path
+      return source unless url_generator && ::File.exist?(path)
+      image_tag url_generator.call(path)
+    end
   end
 end
 
 format :css do
   view :core do
-    render_source
+    handle_source
   end
 
   view :content do  # why is this necessary?
@@ -119,16 +134,4 @@ end
 format :file do
   include File::FileFormat
 
-  def image_style
-    ["", "full"].member?(params[:size].to_s) ? :original : params[:size].to_sym
-  end
-
-  def selected_file_version
-    style = voo.size = image_style.to_sym
-    if style && style != :original
-      card.attachment.versions[style]
-    else
-      card.attachment
-    end
-  end
 end

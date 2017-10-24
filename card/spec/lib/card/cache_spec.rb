@@ -58,22 +58,22 @@ describe Card::Cache do
     @hard = ActiveSupport::Cache::MemoryStore.new
     @cache = Card::Cache.new store: @hard, database: "mydb"
 
-    expect(@cache.hard.prefix).to match(/^mydb\//)
+    expect(@cache.hard.prefix).to match(/^mydb-/)
     @cache.write("foo", "bar")
     expect(@cache.read("foo")).to eq("bar")
 
     # reset
     @cache.reset
-    expect(@cache.hard.prefix).to match(/^mydb\//)
+    expect(@cache.hard.prefix).to match(/^mydb-/)
     expect(@cache.read("foo")).to be_nil
 
     cache2 = Card::Cache.new store: @hard, database: "mydb"
-    expect(cache2.hard.prefix).to match(/^mydb\//)
+    expect(cache2.hard.prefix).to match(/^mydb-/)
   end
 
   describe "with file store" do
     before do
-      cache_path = "#{Wagn.root}/tmp/cache"
+      cache_path = "#{Decko.root}/tmp/cache"
       FileUtils.mkdir_p(cache_path) unless File.directory?(cache_path)
       @hard = ActiveSupport::Cache::FileStore.new cache_path
 

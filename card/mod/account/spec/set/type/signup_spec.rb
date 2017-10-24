@@ -7,7 +7,7 @@ describe Card::Set::Type::Signup do
 
   context "signup form form" do
     subject do
-      Card.new(type_id: Card::SignupID).format.render :new
+      Card.new(type_id: Card::SignupID).format.render! :new
     end
 
     it "prompts to signup" do

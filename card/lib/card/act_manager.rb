@@ -1,3 +1,6 @@
+require_dependency "card/act_manager/stage_director"
+
+
 class Card
   # Manages the whole process of creating an {act Card::Act} ie. changing
   # a card and attached subcards.
@@ -31,17 +34,17 @@ class Card
   #                                  validation    |    storage    | integration
   #                                 I    P2V  V    |  P2S  S    F  | IG   IGwD
   #-------------------------------------------------------------------------
-  #    attach subcard               yes! yes! yes  | yes  yes  yes |    yes
+  #    attach subcard               yes! yes! yes  | yes  yes  yes | yes  no
   #    detach subcard               yes! yes! yes  | yes  no   no! |    no!
   #    validate                     yes  yes  yes! |      no       |    no
-  # 1  insecure change              yes  yes! no   |      no!      |    no!
-  # 2  secure change                     yes       | yes! no!  no! |    no!
+  # 1) insecure change              yes  yes! no   |      no!      |    no!
+  # 2) secure change                     yes       | yes! no!  no! |    no!
   #    abort                             yes!      |      yes      |    yes?
   #    add errors                        yes!      |      no!      |    no!
-  # 3  create other cards                yes       |      yes      |    yes
+  # 3) create other cards                yes       |      yes      |    yes
   #    has id                            no        | no   no?  yes |    yes
   #    within web request                yes       |      yes      | yes  no
-  # 4  within transaction                yes       |      yes      |    no
+  # 4) within transaction                yes       |      yes      |    no
 
   #    available values:
   #    dirty attributes                  yes       |      yes      |    yes
@@ -63,10 +66,13 @@ class Card
   # 1) 'insecure' means a change of a card attribute that can possibly make
   #    the card invalid to save
   # 2) 'secure' means you are sure that the change doesn't affect the validation
-  # 3) If you call 'create', 'update_attributes' or 'save' the card will become
+  # 3) In all stages except IGwD:
+  #    If you call 'create', 'update_attributes' or 'save' the card will become
   #    part of the same act and all stage of the validation and storage phase
   #    will be executed immediately for that card. The integration phase will be
-  #    executed together with the act card and its subcards
+  #    executed together with the act card and its subcards.
+  #
+  #    In IGwD all these methods create a new act.
   # 4) This means if an exception is raised in the validation or storage phase
   #    everything will rollback. If the integration phase fails the db changes
   #    of the other two phases will remain persistent.
@@ -83,8 +89,17 @@ class Card
         @directors ||= {}
       end
 
+      def run_act card
+        self.act_card = card
+        Card.current_act = self
+        yield
+      ensure
+        clear
+      end
+
       def clear
-        ActManager.act_card = nil
+        self.act_card = nil
+        Card.current_act = nil
         directors.each_pair do |card, _dir|
           card.director = nil
         end
@@ -94,7 +109,7 @@ class Card
       def fetch card, opts={}
         return directors[card] if directors[card]
         directors.each_key do |dir_card|
-          return dir_card.director if dir_card.name == card.name
+          return dir_card.director if dir_card.name == card.name && dir_card.director
         end
         directors[card] = new_director card, opts
       end
@@ -138,6 +153,19 @@ class Card
 
       def running_act?
         (dir = act_director) && dir.running?
+      end
+
+      # The whole ActManager setup is gone once we reach a integrate with delay
+      # event processed by ActiveJob.
+      # This is the improvised resetup to get subcards working.
+      def run_delayed_event act, card, &block
+        # raise "no act for delayed event given" unless act
+        #   `rake wikirate:test:seed:update` fails with that
+
+        return block.call unless act
+        run_act(act.card || card) do
+          act_card.director.run_delayed_event act, &block
+        end
       end
 
       def to_s

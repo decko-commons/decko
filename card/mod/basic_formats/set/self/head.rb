@@ -43,7 +43,7 @@ format :html do
     style_card ||= root.card.rule_card :style
     @css_path =
       if params[:debug] == "style"
-        page_path(style_card.cardname, item: :import, format: :css)
+        page_path(style_card.name, item: :import, format: :css)
       elsif style_card
         style_card.machine_output_url
       end
@@ -53,23 +53,29 @@ format :html do
 
   def head_javascript
     output [
-      wagn_variables,
+      decko_variables,
       script_rule,
       ie9,
       mod_configs,
       trigger_slot_ready,
-      google_analytics
+      google_analytics,
+      # recaptcha
     ]
   end
 
   def favicon
-    %i[favicon logo].each do |name|
-      if (c = Card[name]) && c.type_id == ImageID && !c.db_content.blank?
-        href = subformat(c)._render_source size: :small
-        return %(<link rel="shortcut icon" href="#{href}" />)
-      end
-    end
+    return "" unless favicon_code
+    %(<link rel="shortcut icon" href="#{nest favicon_code, view: :source, size: :small}" />)
   end
+
+  def favicon_code
+    @favicon_code ||=
+      %i[favicon logo].find do |name|
+        icon_card = Card[name]
+        icon_card.type_id == ImageID && !icon_card.db_content.blank?
+      end
+  end
+
 
   def universal_edit_button
     return if root.card.new_record? || !root.card.ok?(:update)
@@ -83,7 +89,7 @@ format :html do
     if root.search_params[:vars]
       root.search_params[:vars].each { |key, val| opts["_#{key}"] = val }
     end
-    href = page_path root.card.cardname, opts
+    href = page_path root.card.name, opts
     tag "link", rel: "alternate", type: "application/rss+xml",
                 title: "RSS", href: href
   end

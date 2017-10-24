@@ -4,7 +4,7 @@ class Card
       include Fetch
       include Main
       include Subformat
-      include View
+      include Mode
 
       # nested by another card's content
       # (as opposed to a direct API nest)
@@ -15,11 +15,11 @@ class Card
         nest nest_name, opts
       end
 
-      def nest cardish, options={}, &block
+      def nest cardish, options={}, override=true, &block
         return "" if nest_invisible?
         nested_card = fetch_nested_card cardish, options
         view, options = interpret_nest_options nested_card, options
-        nest_render nested_card, view, options, &block
+        nest_render nested_card, view, options, override, &block
       end
 
       def interpret_nest_options nested_card, options
@@ -42,10 +42,10 @@ class Card
         :name
       end
 
-      def nest_render nested_card, view, options
+      def nest_render nested_card, view, options, override
         subformat = nest_subformat nested_card, options, view
-        view = subformat.modal_nest_view view
-        rendered = count_chars { subformat.optional_render view, options }
+        view = subformat.modal_nest_view view if override
+        rendered = count_chars { subformat.render view, options }
         block_given? ? yield(rendered, view) : rendered
       end
 
@@ -80,7 +80,7 @@ class Card
       #   home.nest :self         # => nest for '*self'
       #   home.field_nest :self   # => nest for 'Home+*self'
       def field_nest field, opts={}
-        field = card.cardname.field(field) unless field.is_a? Card
+        field = card.name.field(field) unless field.is_a? Card
         nest field, opts
       end
 
@@ -90,12 +90,12 @@ class Card
       private
 
       def nest_invisible?
-        @mode == :closed && @char_count && @char_count > max_char_count
+        nest_mode == :closed && @char_count && (@char_count > max_char_count)
       end
 
       def count_chars
         result = yield
-        return result unless @mode == :closed && result
+        return result unless nest_mode == :closed && result
         @char_count ||= 0
         @char_count += result.length
         result

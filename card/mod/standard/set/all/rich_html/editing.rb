@@ -1,13 +1,15 @@
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
   view :edit, perms: :update, tags: :unknown_ok, cache: :never do
-    voo.show :toolbar, :help
-    frame_and_form :update, edit_form_opts do
-      [
-        edit_view_hidden,
-        _optional_render_content_formgroup,
-        _optional_render_edit_buttons
-      ]
+    with_nest_mode :edit do
+      voo.show :toolbar, :help
+      frame_and_form :update, edit_form_opts do
+        [
+          edit_view_hidden,
+          _render_content_formgroup,
+          _render_edit_buttons
+        ]
+      end
     end
   end
 
@@ -39,7 +41,7 @@ format :html do
     frame_and_form({ action: :update, id: card.id },
                    "main-success" => "REDIRECT") do
       [hidden_edit_name_fields,
-       _optional_render_name_formgroup,
+       _render_name_formgroup,
        rename_confirmation_alert,
        edit_name_buttons]
     end

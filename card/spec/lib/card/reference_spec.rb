@@ -8,7 +8,7 @@ describe Card::Reference do
   describe "references on hard templated cards should get updated" do
     it "on structuree creation" do
       Card.create! name: "JoeForm", type: "UserForm"
-      Card["JoeForm"].format.render(:core)
+      Card["JoeForm"].format.render!(:core)
       assert_equal ["joe_form+age", "joe_form+description", "joe_form+name"],
                    Card["JoeForm"].includees.map(&:key).sort
     end
@@ -17,7 +17,7 @@ describe Card::Reference do
       Card.create! name: "SpecialForm", type: "Cardtype"
       Card.create! name: "Form1", type: "SpecialForm", content: "foo"
       Card.create! name: "SpecialForm+*type+*structure", content: "{{+bar}}"
-      Card["Form1"].format.render(:core)
+      Card["Form1"].format.render!(:core)
       expect(Card["Form1"].includees.map(&:key)).to eq(["form1+bar"])
     end
 
@@ -26,9 +26,8 @@ describe Card::Reference do
       tmpl = Card["UserForm+*type+*structure"]
       tmpl.content = "{{+monkey}} {{+banana}} {{+fruit}}"
       tmpl.save!
-      Card["JoeForm"].format.render(:core)
-      assert_equal ["joe_form+banana", "joe_form+fruit", "joe_form+monkey"],
-                   Card["JoeForm"].includees.map(&:key).sort
+      Card["JoeForm"].format.render!(:core)
+      expect(Card["JoeForm"].includees.map(&:key)).to contain_exactly("joe_form+banana", "joe_form+fruit", "joe_form+monkey")
     end
   end
 
@@ -90,9 +89,9 @@ describe Card::Reference do
   end
 
   it "does not update references when not requested" do
-    watermelon = create! "watermelon", "mmmm"
-    watermelon_seeds = create! "watermelon+seeds", "black"
-    lew = create!("Lew", "likes [[watermelon]] and [[watermelon+seeds|seeds]]")
+    watermelon = create "watermelon", "mmmm"
+    watermelon_seeds = create "watermelon+seeds", "black"
+    lew = create("Lew", "likes [[watermelon]] and [[watermelon+seeds|seeds]]")
 
     assert_equal [watermelon.id, watermelon_seeds.id],
                  lew.references_out.order(:id).map(&:referee_id),
@@ -107,7 +106,7 @@ describe Card::Reference do
     expect(lew.reload.content).to eq(correct_content)
 
     ref_types = lew.references_out.order(:id).map(&:ref_type)
-    assert_equal ref_types, %w(L L P), "need partial references!"
+    expect(ref_types).to eq(%w(L L P)), "need partial references!"
     actual_referee_ids = lew.references_out.order(:id).map(&:referee_id)
     assert_equal actual_referee_ids, [nil, nil, Card.fetch_id("seed")],
                  'only partial reference to "seeds" should have referee_id'

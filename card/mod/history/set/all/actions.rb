@@ -28,11 +28,12 @@ def nth_action index
         .order(:id).limit(1).offset(index - 1).first
 end
 
-def revision action
+def revision action, before_action=false
   # a "revision" refers to the state of all tracked fields
   # at the time of a given action
   action = Card::Action.fetch(action) if action.is_a? Integer
   return unless action
+  return revision_before_action action if before_action
   Card::Change::TRACKED_FIELDS.each_with_object({}) do |field, attr_changes|
     last_change = action.change(field) ||
                   last_change_on(field, not_after: action)
@@ -40,14 +41,48 @@ def revision action
   end
 end
 
-def delete_old_actions
-  Card::Change::TRACKED_FIELDS.each do |field|
-    # assign previous changes on each tracked field to the last action
-    next unless (la = last_action) && !la.change(field).present? &&
-                (last_change = last_change_on field)
-    # last_change comes as readonly record
-    last_change = Card::Change.find(last_change.id)
-    last_change.update_attributes!(card_action_id: last_action_id)
+def revision_before_action action
+  if (prev_action = action.previous_action)
+    revision prev_action
+  else
+    { trash: true }
   end
-  actions.where("id != ?", last_action_id).delete_all
+end
+
+# Delete all changes and old actions and make the last action the create action
+# (that way the changes for that action will be created with the first update)
+def make_last_action_the_initial_action
+  delete_all_changes
+  old_actions.delete_all
+  last_action.update_attributes! action_type: :create
+end
+
+# # moves for every field the last change to the last action and deletes all other actions
+# def clear_history
+#   Card::Change::TRACKED_FIELDS.each do |field|
+#       # assign previous changes on each tracked field to the last action
+#       next unless (la = last_action) && !la.change(field).present? &&
+#                   (last_change = last_change_on field)
+#       # last_change comes as readonly record
+#       last_change = Card::Change.find(last_change.id)
+#       last_change.update_attributes!(card_action_id: last_action_id)
+#   end
+#   delete_old_action
+# end
+
+def clear_history
+  delete_all_changes
+  delete_old_actions
+end
+
+def delete_old_actions
+  old_actions.delete_all
+end
+
+def delete_all_changes
+  Card::Change.where(card_action_id: Card::Action.where(card_id: id).pluck(:id)).delete_all
+end
+
+def old_actions
+  actions.where("id != ?", last_action_id)
 end

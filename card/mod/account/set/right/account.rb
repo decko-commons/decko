@@ -30,12 +30,12 @@ def validate_token! test_token
 end
 
 def refreshed_token # TODO: explain why needed
-  token_card.refresh(true).content
+  token_card.refresh(true).db_content
 end
 
 format do
   view :verify_url do
-    card_url path({ mark: card.cardname.left }.merge(token_path_opts))
+    card_url path({ mark: card.name.left }.merge(token_path_opts))
   end
 
   view :verify_days do
@@ -84,7 +84,7 @@ end
 
 event :validate_accountability, :prepare_to_validate, on: :create do
   unless left && left.accountable?
-    errors.add :content, "not allowed on this card"
+    errors.add :content, tr(:error_not_allowed)
   end
 end
 
@@ -104,12 +104,12 @@ event :set_default_status, :prepare_to_validate, on: :create do
   add_subfield :status, content: default_status
 end
 
-def confirm_ok?
+def can_approve?
   Card.new(type_id: Card.default_accounted_type_id).ok? :create
 end
 
 event :generate_confirmation_token,
-      :prepare_to_store, on: :create, when: :confirm_ok? do
+      :prepare_to_store, on: :create, when: :can_approve? do
   add_subfield :token, content: generate_token
 end
 
@@ -131,8 +131,7 @@ def reset_password_try_again
   send_reset_password_token
   { id: "_self",
     view: "message",
-    message: "Sorry, #{errors.first.last}. " \
-             "Please check your email for a new password reset link." }
+    message: tr(:sorry_email_reset, error_msg: errors.first.last) }
 end
 
 def edit_password_success_args; end

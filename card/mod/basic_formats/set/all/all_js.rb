@@ -5,6 +5,6 @@ format :js do
   end
 
   view :include_tag do |_args|
-    %(\n#{javascript_include_tag page_path(card.cardname)}\n )
+    %(\n#{javascript_include_tag page_path(card.name)}\n )
   end
 end

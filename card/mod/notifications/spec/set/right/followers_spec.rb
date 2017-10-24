@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::Right::Followers do
-  describe "#raw_content" do
+  describe "#content" do
     it "returns a pointer list of followers" do
       card = Card.fetch "All Eyes on me"
       expect(card.followers_card.item_names.sort)

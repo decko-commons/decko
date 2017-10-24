@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Right::Account do
+RSpec.describe Card::Set::Right::Account do
   describe "#create" do
     context "valid user" do
       # note - much of this is tested in account_request_spec
@@ -64,7 +64,7 @@ describe Card::Set::Right::Account do
 
     it "contains link to verify account" do
       raw_source = @mail.parts[0].body.raw_source
-      ["/update/#{@account.left.cardname.url_key}",
+      ["/update/#{@account.left.name.url_key}",
        "token=#{@account.token}"].each do |url_part|
         expect(raw_source).to include(url_part)
       end
@@ -93,7 +93,7 @@ describe Card::Set::Right::Account do
     it "contains password reset link" do
       raw_source = @mail.parts[0].body.raw_source
       token = @account.token_card.refresh(true).content
-      ["/update/#{@account.left.cardname.url_key}",
+      ["/update/#{@account.left.name.url_key}",
        "token=#{token}",
        "live_token=true",
        "event=reset_password"].each do |url_part|

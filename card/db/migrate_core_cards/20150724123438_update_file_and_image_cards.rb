@@ -14,14 +14,14 @@ class UpdateFileAndImageCards < Card::Migration::Core
   def update_cards_with_attachment
     Card.search(type: [:in, "file", "image"]).each do |card|
       update_history card
-      next unless card.content.present?
+      next unless card.db_content.present?
       update_db_content card
       update_filenames card
     end
   end
 
   def update_db_content card
-    attach_array = card.content.split "\n"
+    attach_array = card.db_content.split "\n"
     attach_array[0].match(/\.(?<ext>.+)$/) do |match|
       basename =
         if attach_array.size > 3 # mod file

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class Card::Migration < ActiveRecord::Migration
+class Card::Migration < ActiveRecord::Migration[4.2]
   include Card::Model::SaveHelper
   @type = :deck_cards
 
@@ -65,7 +65,7 @@ class Card::Migration < ActiveRecord::Migration
         begin
           yield
         ensure
-          Card::Cache.reset_all
+          ::Card::Cache.reset_all
         end
       end
     end

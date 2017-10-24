@@ -16,9 +16,7 @@ class Card
       end
 
       def create_card name_or_args, content_or_args=nil
-        args = standardize_args name_or_args, content_or_args
-        resolve_name_conflict args
-        Card.create! args
+        Card.create! create_args(name_or_args, content_or_args)
       end
 
       def update_card name, content_or_args
@@ -152,6 +150,12 @@ class Card
         end
       end
 
+      def create_args name_or_args, content_or_args=nil
+        args = standardize_args name_or_args, content_or_args
+        resolve_name_conflict args
+        args
+      end
+
       def name_from_args name_or_args
         name_or_args.is_a?(Hash) ? name_or_args[:name] : name_or_args
       end
@@ -171,7 +175,7 @@ class Card
       end
 
       def ensure_attributes card, args
-        args = args.with_indifferent_access
+        args = args.to_h.with_indifferent_access
         subcards = card.extract_subcard_args! args
         update_args =
           args.select do |key, value|
@@ -224,6 +228,25 @@ class Card
       alias_method :ensure, :ensure_card
       alias_method :ensure!, :ensure_card!
       alias_method :delete, :delete_card
+
+
+      def method_missing method, *args
+        return super unless (cardtype_card = extract_cardtype_from_method_name method)
+        Card.create! create_args(*args).merge(type_id: cardtype_card.id)
+      end
+
+      def respond_to_missing? method, _include_private=false
+        extract_cardtype_from_method_name(method) || super
+      end
+
+      def extract_cardtype_from_method_name method
+        return unless method =~ /^create_(?<type>.+)$/
+        cardtype_card = Card[Regexp.last_match[:type]] ||
+                        Card[Regexp.last_match[:type].to_sym]
+        return unless cardtype_card&.type_id == Card::CardtypeID ||
+                      cardtype_card.id == Card::SetID
+        cardtype_card
+      end
     end
   end
 end

@@ -120,6 +120,10 @@ class Card
         end
 
         def to_s
+          result
+        end
+
+        def result
           @process_chunk || @processed || @text
         end
 

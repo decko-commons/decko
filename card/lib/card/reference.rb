@@ -3,7 +3,7 @@
 class Card
   # a Reference is a directional relationship from one card (the referer)
   # to another (the referee).
-  class Reference < ActiveRecord::Base
+  class Reference < ApplicationRecord
     class << self
       # bulk insert improves performance considerably
       # array takes form [ [referer_id, referee_id, referee_key, ref_type], ...]
@@ -49,7 +49,7 @@ class Card
       end
 
       # repair references one by one (delete, create, delete, create...)
-      # slower, but better than #repair_all for use on running sites
+      # slower, but better than #recreate_all for use on running sites
       def repair_all
         delete_if_referer_missing
         Card.where(trash: false).find_each do |card|

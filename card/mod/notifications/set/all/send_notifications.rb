@@ -13,7 +13,7 @@ class FollowerStash
       notify_direct_followers card
       return if !(left_card = card.left) || @visited.include?(left_card.key) ||
                 !(follow_field_rule = left_card.rule_card(:follow_fields))
-      follow_field_rule.item_names(context: left_card.cardname).each do |item|
+      follow_field_rule.item_names(context: left_card.name).each do |item|
         if @visited.include? item.to_name.key
           add_affected_card left_card
           break
@@ -129,23 +129,30 @@ rescue => e
   notable_exception_raised
 end
 
+
+
 format do
-  view :list_of_changes, denial: :blank do |args|
+  view :list_of_changes, denial: :blank, cache: :never do |args|
     action = get_action(args)
 
-    relevant_fields =
-      case action.action_type
-      when :create then %i[cardtype content]
-      when :update then %i[name cardtype content]
-      when :delete then [:content]
-      end
 
-    relevant_fields.map do |type|
+    relevant_fields(action).map do |type|
       edit_info_for(type, action)
     end.compact.join
   end
 
-  view :subedits, perms: :none do |args|
+  def relevant_fields action
+    case action.action_type
+    when :create then
+      %i[cardtype content]
+    when :update then
+      %i[name cardtype content]
+    when :delete then
+      [:content]
+    end
+  end
+
+  view :subedits, perms: :none, cache: :never do |args|
     subedits =
       get_act(args).actions_affecting(card).map do |action|
         if action.card_id != card.id
@@ -161,7 +168,7 @@ format do
     end
   end
 
-  view :subedit_notice, denial: :blank do |args|
+  view :subedit_notice, denial: :blank, cache: :never do |args|
     action = get_action(args)
     name_before_action =
       (action.value(:name) && action.previous_value(:name)) || card.name
@@ -198,15 +205,14 @@ format do
     set_card.follow_rule_name voo.closest_live_option(:follower)
   end
 
-  view :unfollow_url, perms: :none, closed: true do |_args|
-    if (rule_name = live_follow_rule_name)
-      target_name = "#{voo.closest_live_option :follower}+#{Card[:follow].name}"
-      update_path = page_path target_name, action: :update,
-                                           card: { subcards: {
-                                             rule_name => Card[:never].name
-                                           } }
-      card_url update_path # absolutize path
-    end
+  view :unfollow_url, perms: :none, closed: true, cache: :never do |_args|
+    return "" unless (rule_name = live_follow_rule_name)
+    target_name = "#{voo.closest_live_option :follower}+#{Card[:follow].name}"
+    update_path = page_path target_name, action: :update,
+                            card: { subcards: {
+                                rule_name => Card[:never].name
+                            } }
+    card_url update_path # absolutize path
   end
 
   def edit_info_for field, action
@@ -219,7 +225,6 @@ format do
       else ""
       end
     item_title += "#{field}: "
-
     item_value =
       if action.action_type == :delete
         action.previous_value field
@@ -259,20 +264,20 @@ format do
 end
 
 format do
-  view :last_action_verb do |args|
+  view :last_action_verb, cache: :never do |args|
     act = get_act(args)
     "#{act.main_action.action_type}d"
   end
 end
 
 format :email_text do
-  view :last_action, perms: :none do |args|
+  view :last_action, perms: :none, cache: :never do |args|
     _render_last_action_verb args
   end
 end
 
 format :email_html do
-  view :last_action, perms: :none do |args|
+  view :last_action, perms: :none, cache: :never do |args|
     _render_last_action_verb args
   end
 

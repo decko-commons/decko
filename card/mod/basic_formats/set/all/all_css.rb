@@ -6,11 +6,11 @@ format :css do
 
   def show view, args
     view ||= :content
-    render view, args
+    render! view, args
   end
 
   view :titled do |args|
-    major_comment(%( Style Card: "#{card.name}" )) + _render_core(args)
+    major_comment(%( Style Card: \\"#{card.name}\\" )) + _render_core(args)
   end
 
   view :content do |args|
@@ -26,7 +26,7 @@ format :css do
   end
 
   view :url, perms: :none do
-    page_path card.cardname, format: :css
+    page_path card.name, format: :css
   end
 
   def major_comment comment, char="-"

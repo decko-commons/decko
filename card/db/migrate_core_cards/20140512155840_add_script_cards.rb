@@ -24,12 +24,12 @@ class AddScriptCards < Card::Migration::Core
   def up
     # JavaScript and CoffeeScript types
     card = Card.fetch "CoffeeScript", new: {}
-    card.codename = "coffee_script"
+    card.codename = :coffee_script
     card.type_id = Card::CardtypeID
     card.save!
 
     card = Card.fetch "JavaScript", new: {}
-    card.codename = "java_script"
+    card.codename = :java_script
     card.type_id = Card::CardtypeID
     card.save!
     # Card.create! name: 'JavaScript', codename: :java_script, type_id: Card::CardtypeID

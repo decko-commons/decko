@@ -2,17 +2,17 @@ format :html do
   def invitation?
     return @invitation unless @invitation.nil?
     @invitation = Auth.signed_in? &&
-                  (card.fetch trait: :account, new: {}).confirm_ok?
+                  (card.fetch trait: :account, new: {}).can_approve?
     # consider making account a card_accessor?
   end
 
   view :new do
-    voo.title = invitation? ? "Invite" : "Sign up"
+    voo.title = invitation? ? tr(:invite) : tr(:sign_up)
     super()
   end
 
   def default_name_formgroup_args _args
-    voo.help = "usually first and last name"
+    voo.help = tr :first_last_help
   end
 
   view :content_formgroup do
@@ -42,7 +42,9 @@ format :html do
     end
   end
 
-  view :core do |_args|
+  # TODO: started to move this to haml
+  view :core, template: :haml do |_args|
+    # @tr_header_key = card.creator_id == AnonymousID ? :signed_up_on :
     return if card.new_card? # necessary?
     headings = []
     by_anon = card.creator_id == AnonymousID
@@ -53,7 +55,7 @@ format :html do
     if (account = card.account)
       headings += verification_info account
     else
-      headings << "ERROR: signup card missing account"
+      headings << tr(:missing_account)
     end
     <<-HTML
       <div class="invite-links">
@@ -85,13 +87,13 @@ format :html do
   end
 
   def approve_with_token_link account, token_action
-    return unless account.confirm_ok?
+    return unless account.can_approve?
     link_to_card card, "#{token_action} verification email",
                  path: { action: :update, approve_with_token: true }
   end
 
   def approve_without_token_link account
-    return unless account.confirm_ok?
+    return unless account.can_approve?
     link_to_card card, "Approve without verification",
                  path: { action: :update, approve_without_token: true }
   end
@@ -137,7 +139,7 @@ end
 event :approve_with_token, :validate,
       on: :update,
       when: proc { Env.params[:approve_with_token] } do
-  abort :failure, "illegal approval" unless account.confirm_ok?
+  abort :failure, "illegal approval" unless account.can_approve?
   account.reset_token
   account.send_account_verification_email
 end
@@ -145,7 +147,7 @@ end
 event :approve_without_token, :validate,
       on: :update,
       when: proc { Env.params[:approve_without_token] } do
-  abort :failure, "illegal approval" unless account.confirm_ok?
+  abort :failure, "illegal approval" unless account.can_approve?
   activate_account
 end
 

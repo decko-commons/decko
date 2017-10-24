@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Require18Migrations < ActiveRecord::Migration
+class Require18Migrations < ActiveRecord::Migration[4.2]
   def self.up
     raise %(
 Your database is not ready to be migrated to #{Card::Version.release}.

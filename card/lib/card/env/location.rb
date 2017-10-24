@@ -8,7 +8,7 @@ class Card
 
       # TESTME
       def page_path title, opts={}
-        unless title.is_a? Card::Name
+        unless title.name?
           Rails.logger.warn "Pass only Card::Name to page_path " \
                             "(#{title} = #{title.class})"
         end

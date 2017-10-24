@@ -1,9 +1,13 @@
 class Card
   module SpecHelper
     module RenderHelper
+      def view view_name, card: { name: "test card", type: :basic }, format: :html
+        render_card_with_args view_name, card, format: format
+      end
+
       def render_editor type
         card = Card.create(name: "my favority #{type} + #{rand(4)}", type: type)
-        card.format.render(:edit)
+        card.format.render!(:edit)
       end
 
       def render_content content, format_args={}
@@ -23,13 +27,16 @@ class Card
       alias_method :render_view, :render_card
 
       def render_card_with_args view, card_args={}, format_args={}, view_args={}
-        card = begin
-          if card_args[:name]
+        card =
+          if card_args.is_a?(Card)
+            card_args
+          elsif card_args.is_a?(Symbol) || card_args.is_a?(String)
+            Card.fetch card_args
+          elsif card_args[:name]
             Card.fetch card_args[:name], new: card_args
           else
             Card.new card_args.merge(name: "Tempo Rary")
           end
-        end
         card.format(format_args)._render(view, view_args)
       end
     end

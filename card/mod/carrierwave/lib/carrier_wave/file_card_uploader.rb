@@ -159,6 +159,10 @@ module CarrierWave
     ].freeze
     delegate :store_dir, :retrieve_dir, :file_dir, :mod, :bucket, to: :model
 
+    def valid?
+      extension.present?
+    end
+
     def filename
       if model.coded?
         "#{model.type_code}#{extension}"
@@ -261,7 +265,7 @@ module CarrierWave
     end
 
     def action_id
-      model.selected_content_action_id
+      model.selected_content_action_id || action_id_stand_in
     end
 
     # delegate carrierwave's fog config methods to cardio's config methods
@@ -270,6 +274,12 @@ module CarrierWave
     end
 
     private
+
+    # used as action_id in the filename
+    # if card is not #actionable?
+    def action_id_stand_in
+      Time.now.to_i
+    end
 
     def storage
       case @model.storage_type

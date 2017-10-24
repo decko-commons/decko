@@ -13,7 +13,7 @@ format :html do
     if card.content == "_left"
       core_inherit_content
     else
-      render :pointer_core
+      render! :pointer_core
     end
   end
 
@@ -69,7 +69,7 @@ format :html do
   def inheritable?
     @inheritable ||=
       begin
-        set_name = card.cardname.trunk_name
+        set_name = card.name.trunk_name
         set_card = Card.fetch(set_name)
         not_set = set_card && set_card.type_id != SetID
         not_set ? false : set_card.inheritable?
@@ -87,7 +87,7 @@ format :html do
         #{check_box_tag 'inherit', 'inherit', inheriting?}
         <label>
           #{core_inherit_content target: 'wagn_role'}
-          #{wrap_with(:a, title: "use left's #{card.cardname.tag} rule") { '?' }}
+          #{wrap_with(:a, title: "use left's #{card.name.tag} rule") { '?' }}
         </label>
       </div>
     HTML
@@ -106,7 +106,7 @@ format :html do
   def core_inherit_for_content_for_self_set set_context
     task = card.tag.codename
     ancestor = Card[set_context.trunk_name.trunk_name]
-    links = ancestor.who_can(task.to_sym).map do |card_id|
+    links = ancestor.who_can(task).map do |card_id|
       link_to_card card_id, nil, target: args[:target]
     end * ", "
     "Inherit ( #{links} )"

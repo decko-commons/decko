@@ -53,7 +53,7 @@ format :json do
 end
 
 format :html do
-  view :follow_link, tags: :unknown_ok, perms: :none do |args|
+  view :follow_link, tags: :unknown_ok, perms: :none, cache: :never do |args|
     hash = follow_link_hash args
     text = args[:icon] ? icon_tag(:flag) : ""
     span_attrs = "follow-verb menu-item-label"
@@ -67,7 +67,7 @@ format :html do
       title:           hash[:title],
       "data-path"      => hash[:path],
       "data-toggle"    => "modal",
-      "data-target"    => "#modal-#{card.cardname.safe_key}"
+      "data-target"    => "#modal-#{card.name.safe_key}"
     )
     opts[:class] = "follow-link #{opts[:class]}"
     opts[:path] = hash[:path]
@@ -94,7 +94,7 @@ def follow_rule_card?
 end
 
 def follow_option?
-  codename && FollowOption.codenames.include?(codename.to_sym)
+  codename && FollowOption.codenames.include?(codename)
 end
 
 # used for the follow menu overwritten in type/set.rb and type/cardtype.rb

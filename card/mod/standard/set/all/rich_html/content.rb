@@ -21,17 +21,17 @@ format :html do
     args[:view] = view if view
     @main = false
     @main_opts = args
-    render :layout, title: params[:layout]
+    render! :layout, title: params[:layout]
     # FIXME: using title because it's a standard view option.  hack!
   end
 
   def show_without_layout view, args
     @main = true if params[:is_main] || args[:main]
     view ||= args[:home_view] || :open
-    render view, args
+    render! view, args
   end
 
-  view :layout, perms: :none do
+  view :layout, perms: :none, cache: :never do
     layout = process_content get_layout_content(voo.title),
                              content_opts: { chunk_list: :references }
     output [layout, _render_modal_slot]
@@ -40,15 +40,15 @@ format :html do
   view :content do
     class_up "card-slot", "d0-card-content"
     voo.hide :menu
-    wrap { [_optional_render_menu, _render_core] }
+    wrap { [_render_menu, _render_core] }
   end
 
   view :content_panel do
     class_up "card-slot", "d0-card-content card"
     voo.hide :menu
     wrap do
-      wrap_with :div, class: "card-block" do
-        [_optional_render_menu, _render_core]
+      wrap_with :div, class: "card-body" do
+        [_render_menu, _render_core]
       end
     end
   end
@@ -57,10 +57,10 @@ format :html do
     @content_body = true
     wrap do
       [
-        _optional_render_menu,
+        _render_menu,
         _render_header,
         wrap_body { _render_core },
-        optional_render_comment_box
+        render_comment_box
       ]
     end
   end
@@ -70,7 +70,7 @@ format :html do
     @content_body = true
     wrap do
       [
-        _optional_render_menu,
+        _render_menu,
         wrap_with(:label, _render_title),
         wrap_body do
           _render_closed_content
@@ -89,13 +89,13 @@ format :html do
   end
 
   view :title_link do |args|
-    title_text = args[:title_ready] || showname(voo.title)
-    link_to_card card.cardname, title_text
+    title_text = args[:title_ready] || pov_name(voo.title)
+    link_to_card card.name, title_text
   end
 
   view :type_info do
     return unless show_view?(:toolbar, :hide) && card.type_code != :basic
-    wrap_with :span, class: "type-info pull-right" do
+    wrap_with :span, class: "type-info float-right" do
       link_to_card card.type_name, nil, class: "navbar-link"
     end
   end
@@ -105,12 +105,12 @@ format :html do
     voo.viz :toggle, (main? ? :hide : :show)
     @content_body = true
     frame do
-      [_render_open_content, optional_render_comment_box]
+      [_render_open_content, render_comment_box]
     end
   end
 
   # view :anchor, perms: :none, tags: :unknown_ok do |args|
-  #   %{ <a id="#{card.cardname.url_key}" name="#{card.cardname.url_key}"></a> }
+  #   %{ <a id="#{card.name.url_key}" name="#{card.name.url_key}"></a> }
   # end
 
   view :type do |args|
@@ -119,21 +119,23 @@ format :html do
   end
 
   view :closed do
-    voo.show :toggle
-    voo.hide! :toolbar
-    class_up "d0-card-body", "closed-content"
-    @content_body = true
-    @toggle_mode = :close
-    frame { _optional_render :closed_content }
+    with_nest_mode :closed do
+      voo.show :toggle
+      voo.hide! :toolbar
+      class_up "d0-card-body", "closed-content"
+      @content_body = true
+      @toggle_mode = :close
+      frame { _render :closed_content }
+    end
   end
 
   view :change do
     voo.show :title_link
     voo.hide :menu
     wrap do
-      [_optional_render_title,
-       _optional_render_menu,
-       _optional_render_last_action]
+      [_render_title,
+       _render_menu,
+       _render_last_action]
     end
   end
 
@@ -171,15 +173,20 @@ format :html do
 
   def related_options args
     options = (args[:related] || params[:related])
-    options = { name: options } if options.is_a? String
-    return unless options.is_a? Hash
-    options.symbolize_keys
+    case options
+    when String
+      { name: options }
+    when Hash
+      options.symbolize_keys
+    when ActionController::Parameters
+      options.to_unsafe_h.symbolize_keys
+    end
   end
 
   def related_card_from_options options
     related_card = options.delete :card
     return related_card if related_card
-    related_name = options.delete(:name).to_name.to_absolute_name card.cardname
+    related_name = options.delete(:name).to_name.absolute_name card.name
     Card.fetch related_name, new: {}
   end
 
@@ -220,11 +227,9 @@ format :html do
     )
   end
 
-  private
-
   def fancy_title title=nil
     wrap_with :span, class: classy("card-title") do
-      showname(title).to_name.parts.join fancy_joint
+      title.to_name.parts.join fancy_joint
     end
   end
 
@@ -232,3 +237,4 @@ format :html do
     wrap_with :span, "+", classy("joint")
   end
 end
+

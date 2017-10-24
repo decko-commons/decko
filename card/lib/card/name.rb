@@ -1,28 +1,31 @@
 # -*- encoding : utf-8 -*-
 require_dependency "card/env"
 
-require "smart_name"
+require "cardname"
 
 class Card
-  # The SmartName class provides generalized of Card naming patterns
+  # The Cardname class provides generalized of Card naming patterns
   # (compound names, key-based variants, etc)
   #
   # Card::Name adds support for deeper card integration
-  class Name < SmartName
+  class Name < Cardname
     include FieldsAndTraits
     include ::Card::Name::NameVariants
 
     self.params  = Card::Env # yuck!
-    self.session = proc { Card::Auth.current.name }
-    self.banned_array = ["/"]
+    self.session = proc { Card::Auth.current.name } # also_yuck
 
     class << self
       def cardish mark
         case mark
-        when Card            then mark.cardname
-        when Symbol, Integer then Card.quick_fetch(mark).cardname
+        when Card            then mark.name
+        when Symbol, Integer then Card.quick_fetch(mark).name
         else                      mark.to_name
         end
+      end
+
+      def compose parts
+        parts.flatten.map { |part| cardish part }.join joint
       end
 
       def url_key_to_standard key
@@ -48,11 +51,6 @@ class Card
 
     def set?
       Set::Pattern.card_keys[tag_name.key]
-    end
-
-    # processes contextual title argument used in nests like "title: _left"
-    def title title_directive, context_names
-      title_directive.to_name.to_absolute_name(self).to_show(*context_names)
     end
   end
 end

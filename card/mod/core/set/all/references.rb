@@ -43,10 +43,10 @@ end
 
 # replace references in card content
 def replace_reference_syntax old_name, new_name
-  obj_content = Card::Content.new raw_content, self
+  obj_content = Card::Content.new content, self
   obj_content.find_chunks(Card::Content::Chunk::Reference).select do |chunk|
     next unless (old_ref_name = chunk.referee_name)
-    next unless (new_ref_name = old_ref_name.replace old_name, new_name)
+    next unless (new_ref_name = old_ref_name.swap old_name, new_name)
     chunk.referee_name = chunk.replace_reference old_name, new_name
     refs = Card::Reference.where referee_key: old_ref_name.key
     refs.update_all referee_key: new_ref_name.key
@@ -75,7 +75,7 @@ end
 # delete references from this card
 def delete_references_out
   raise "id required to delete references" if id.nil?
-  Card::Reference.delete_all referer_id: id
+  Card::Reference.where(referer_id: id).delete_all
 end
 
 # interpretation phase helps to prevent duplicate references
@@ -120,10 +120,10 @@ def reference_values_array ref_hash
   values
 end
 
-# invokes the given block for each reference in raw_content with
+# invokes the given block for each reference in content with
 # the reference name and reference type
 def each_reference_out
-  content_obj = Card::Content.new raw_content, self
+  content_obj = Card::Content.new content, self
   content_obj.find_chunks(Card::Content::Chunk::Reference).each do |chunk|
     yield(chunk.referee_name, chunk.reference_code)
   end
@@ -138,7 +138,7 @@ event :prepare_referer_update, :validate, on: :update, changed: :name do
 end
 
 # when name changes, update references to card
-event :refresh_references_in, :finalize, on: :save, changed: :name do
+event :refresh_references_in, :finalize, on: :save, after: :name_change_finalized do
   Card::Reference.unmap_referees id if @action == :update && !update_referers
   Card::Reference.map_referees key, id
 end
@@ -156,14 +156,14 @@ end
 
 # on rename, update names in cards that refer to self by name (as directed)
 event :update_referer_content, :finalize,
-      on: :update, changed: :name,
+      on: :update, after: :name_change_finalized,
       when: proc { |card| card.update_referers } do
   # FIXME: break into correct stages
   Auth.as_bot do
     family_referers.each do |card|
       next if card == self || card.structure
       card = card.refresh
-      card.db_content = card.replace_reference_syntax name_was, name
+      card.db_content = card.replace_reference_syntax name_before_last_save, name
       card.save!
     end
   end
@@ -174,7 +174,7 @@ end
 # eg.  A links to X+Y.  if X+Y is renamed and we're not updating the link in A,
 # then we need to be sure that A has a partial reference
 event :update_referer_references_out, :finalize,
-      on: :update, changed: :name,
+      on: :update, after: :name_change_finalized,
       when: proc { |c| !c.update_referers } do
   family_referers.map(&:update_references_out)
 end

@@ -1,51 +1,16 @@
 class Card
-  def deserialize_for_active_job! attr
-    attr.each do |attname, args|
-      # symbols are not allowed so all symbols arrive here as strings
-      # convert strings that were symbols before back to symbols
-      value = args[:symbol] ? args[:value].to_sym : args[:value]
-      instance_variable_set("@#{attname}", value)
-    end
-    include_set_modules
-  end
-
-  def with_env_and_auth env, auth
-    # If active jobs (and hence the integrate_with_delay events) don't run
-    # in a background process then Card::Env.deserialize! decouples the
-    # controller's params hash and the Card::Env's params hash with the
-    # effect that params changes in the CardController get lost
-    # (a crucial example are success params that are processed in
-    # CardController#update_params_for_success)
-    return yield if Wagn.config.active_job.queue_adapter == :inline
-    Card::Auth.with auth do
-      Card::Env.with env do
-        yield
-      end
-    end
-  end
-
-  def serialize_for_active_job
-    serializable_attributes.each_with_object({}) do |name, hash|
-      value = instance_variable_get("@#{name}")
-      hash[name] =
-        # ActiveJob doesn't accept symbols as arguments
-        if value.is_a? Symbol
-          { value: value.to_s, symbol: true }
-        else
-          { value: value }
-        end
-    end
-  end
-
-  def log_event_call event
-    Rails.logger.debug "#{name}: #{event}"
-    # puts "#{name}: #{event}"
-    # puts "#{Card::ActManager.to_s}".green
-  end
-
   module Set
-    # Implements the event API for card sets
+    # Events are the building blocks of the three transformative card actions: _create_, _update_, and _delete_. (The fourth kind of action, _read_, does not transform cards, and is associated with {Card::Format views}, not events).
+    #
+    # Whenever you create, update, or delete a card, the card goes through three phases:
+    #   * __validation__ makes sure all the data is in order
+    #   * __storage__ puts the data in the database
+    #   * __integration__ deals with any ramifications of those changes
+    #
+    #
     module Event
+      include DelayedEvent
+
       def event event, stage_or_opts={}, opts={}, &final
         if stage_or_opts.is_a? Symbol
           opts[:in] = stage_or_opts
@@ -68,16 +33,10 @@ class Card
         end
 
         if with_delay? opts
-          delaying_method = "#{event}_with_delay"
-          define_event_delaying_method event, delaying_method, final_method_name
-          final_method_name = delaying_method
+          define_delayed_event_method event, final_method_name
+        else
+          define_event_method event, final_method_name
         end
-        define_event_method event, final_method_name
-      end
-
-      def with_delay? opts
-        opts[:after] == :integrate_with_delay_stage ||
-          opts[:before] == :integrate_with_delay_stage
       end
 
       def process_stage_opts opts
@@ -106,36 +65,6 @@ class Card
         end
       end
 
-      # creates an ActiveJob.
-      # The scheduled job gets the card object as argument and all serializable
-      # attributes of the card.
-      # (when the job is executed ActiveJob fetches the card from the database
-      # so all attributes get lost)
-      # @param event [String] the event used as queue name
-      # @param method_name [String] the name of the method we define to trigger
-      #   the actjve job
-      # @param final_method_name [String] the name of the method that get called
-      #   by the active job and finally executes the event
-      def define_event_delaying_method event, method_name, final_method_name
-        class_eval do
-          define_method(method_name, proc do
-            IntegrateWithDelayJob.set(queue: event).perform_later(
-              self, serialize_for_active_job, Card::Env.serialize,
-              Card::Auth.serialize, final_method_name
-            )
-          end)
-        end
-      end
-
-      class IntegrateWithDelayJob < ActiveJob::Base
-        def perform card, card_attribs, env, auth, method_name
-          card.deserialize_for_active_job! card_attribs
-          card.with_env_and_auth env, auth do
-            card.send method_name
-          end
-        end
-      end
-
       def set_event_callbacks event, opts
         opts[:set] ||= self
         [:before, :after, :around].each do |kind|
@@ -149,5 +78,11 @@ class Card
         end
       end
     end
+  end
+
+  def log_event_call event
+    Rails.logger.debug "#{name}: #{event}"
+    # puts "#{name}: #{event}"
+    # puts "#{Card::ActManager.to_s}".green
   end
 end

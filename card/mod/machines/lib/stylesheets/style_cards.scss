@@ -70,7 +70,7 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
 }
 
 .menu-slot {
-  width:100%;
+  width: 100%;
   position: relative;
 
   span.menu-item-label {
@@ -84,9 +84,6 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
     li {
       white-space: nowrap;
       text-align: left;
-      a {
-        color: #333;
-      }
     }
     .dropdown-menu {
       right: -2px;
@@ -424,19 +421,15 @@ textarea {
 .pointer-list-editor {
   margin: 0px;
   padding: 0px;
-  input {
-    margin-right: 10px;
-    width: 65%;
-  }
   li {
     list-style: none;
     white-space: nowrap;
   }
-  .pointer-item-delete {
-    margin-left: 4px;
-    vertical-align: middle;
-    display: inline-block;
-    position: relative;
+
+  .input-group-btn {
+    .btn {
+      border-bottom-width: 1px;
+    }
   }
 
   .pointer-item-add {
@@ -546,26 +539,26 @@ ul.action-list {
   list-style-type: none;
   padding-left: 15px;
   li:before {
-    font-family: 'Glyphicons Halflings';
+    font-family: 'Material Icons';
     float: left;
     margin-top: 4px;
     margin-left: -17px;
   }
 
   li.update:before {
-    content: "\270f";
+    content: "edit";
   }
 
   li.create:before {
-    content: "\2b";
+    content: "add";
   }
 
   li.delete:before {
-    content: "\e020";
+    content: "delete";
   }
 
   li.draft:before {
-    content: "\e136";
+    content: "build";
   }
 }
 

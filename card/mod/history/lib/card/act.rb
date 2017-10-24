@@ -1,13 +1,9 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-  # An "act" is a group of recorded {Card::Action actions} on {Card cards}.
-  # Together, {Act acts}, {Action actions}, and {Change changes} comprise a
-  # comprehensive {Card card} history tracking system.
+  # An "act" is a group of recorded {Card::Action actions} on {Card cards}. Together, {Act acts}, {Action actions}, and {Change changes} comprise a comprehensive {Card card} history tracking system.
   #
-  # For example, if a given web form submissions updates the contents of
-  # three cards, then the submission will result in the recording of three
-  # {Action actions}, each of which is tied to one {Act act}.
+  # For example, if a given web form submissions updates the contents of three cards, then the submission will result in the recording of three {Action actions}, each of which is tied to one {Act act}.
   #
   # Each act records:
   #
@@ -16,7 +12,7 @@ class Card
   # - _acted_at_, a timestamp of the action
   # - the _ip_address_ of the actor where applicable.
   #
-  class Act < ActiveRecord::Base
+  class Act < ApplicationRecord
     before_save :assign_actor
     has_many :actions, -> { order :id }, foreign_key: :card_act_id,
                                          inverse_of: :act,
@@ -48,7 +44,7 @@ class Card
         sql = "card_actions.card_id IN (:card_ids) AND ( (draft is not true) "
         sql << (args[:with_drafts] ? "OR actor_id = :current_user_id)" : ")")
         vars = { card_ids: card_ids, current_user_id: Card::Auth.current_id }
-        joins(:actions).where(sql, vars).uniq.order(:id).reverse_order
+        joins(:actions).where(sql, vars).distinct.order(:id).reverse_order
       end
 
       # all actions that current user has permission to view
@@ -117,8 +113,9 @@ class Card
     end
 
     # used by rails time_ago
-    def timestamp_attributes_for_create
-      super << :acted_at
+    # timestamp is set by rails on create
+    def self.timestamp_attributes_for_create
+      super << "acted_at"
     end
   end
 end

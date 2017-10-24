@@ -12,7 +12,7 @@ format :html do
     tabs.each do |tab_name, tab_content|
       active_name ||= tab_name
       active_tab = (tab_name == active_name)
-      id = "#{card.cardname.safe_key}-#{tab_name.to_name.safe_key}"
+      id = "#{card.name.safe_key}-#{tab_name.to_name.safe_key}"
       tab_buttons += tab_button("##{id}", tab_name, active_tab)
       tab_panes += tab_pane(id, tab_content, active_tab)
     end
@@ -70,7 +70,7 @@ format :html do
   def standardize_tabs tabs, active_name
     tabs.each do |tab_view_name, tab_details|
       tab_title, url = tab_title_and_url(tab_details, tab_view_name)
-      id = "#{card.cardname.safe_key}-#{tab_view_name.to_name.safe_key}"
+      id = "#{card.name.safe_key}-#{tab_view_name.to_name.safe_key}"
       active_tab = (active_name == tab_view_name)
       yield tab_title, url, id, active_tab
     end
@@ -99,14 +99,15 @@ format :html do
   end
 
   def tab_button target, text, active=false, link_attr={}
+    add_class link_attr, "active" if active
     link = tab_button_link target, text, link_attr
-    li_args = { role: :presentation }
-    li_args[:class] = "active" if active
+    li_args = { role: :presentation, class: "nav-item" }
     wrap_with :li, link, li_args
   end
 
   def tab_button_link target, text, link_attr={}
-    link_to fancy_title(text), link_attr.merge(
+    add_class link_attr, "nav-link"
+    link_to text, link_attr.merge(
       path: target, role: "tab", "data-toggle" => "tab"
     )
   end

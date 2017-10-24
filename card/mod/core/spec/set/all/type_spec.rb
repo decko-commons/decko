@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::All::Type do
-  describe "card with wagneered type" do
+  describe "card with deckered type" do
     before do
       Card::Auth.as_bot do
         @type = Card.create! name: "Hat", type: "Cardtype"

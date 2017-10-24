@@ -2,77 +2,64 @@
 
 describe Card::Format::HtmlFormat do
   describe "views" do
-    it "content" do
-      assert_view_select(
-        render_card(:content, name: "A+B"),
-        'div[class="card-slot content-view ALL ALL_PLUS TYPE-basic '\
-        'RIGHT-b TYPE_PLUS_RIGHT-basic-b SELF-a-b d0-card-content"]'
-      )
+    specify "content" do
+      expect(view(:content, card: "A+B"))
+        .to have_tag(
+          'div[class="card-slot content-view ALL ALL_PLUS TYPE-basic '\
+          'RIGHT-b TYPE_PLUS_RIGHT-basic-b SELF-a-b d0-card-content"]'
+        )
     end
 
-    it "nests in multi edit" do
-      c = Card.new name: "ABook", type: "Book"
-      rendered = c.format.render :edit
-      assert_view_select rendered, "fieldset" do
-        assert_select 'div[class~="prosemirror-editor"]' do
-          assert_select "input[name=?]", "card[subcards][+illustrator][content]"
+    specify "nests in multi edit" do
+      expect(view(:edit, card: { type: "Book" })).to have_tag "fieldset" do
+        have_tag 'div[class~="prosemirror-editor"]' do
+          have_tag "input[name=?]", name: "card[subcards][+illustrator][content]"
         end
       end
     end
 
-    it "titled" do
-      result = render_card :titled, name: "A+B"
-      assert_view_select result, 'div[class~="titled-view"]' do
-        assert_select 'div[class~="d0-card-header"]' do
-          assert_select 'span[class~="card-title"]'
+    specify "titled" do
+      expect(view(:titled, card: "A+B")).to have_tag 'div[class~="titled-view"]' do
+        have_tag 'div[class~="d0-card-header"]' do
+          have_tag 'span[class~="card-title"]'
         end
-        assert_select 'div[class~="d0-card-body d0-card-content"]', "AlphaBeta"
+        have_tag 'div[class~="d0-card-body d0-card-content"]', "AlphaBeta"
       end
     end
 
-    context "Cards with special views" do
-    end
-
-    context "Simple page with Default Layout" do
-      before do
-        Card::Auth.as_bot do
-          card = Card["A+B"]
-          @simple_page = card.format.render(:layout)
-          # warn "render sp: #{card.inspect} :: #{@simple_page}"
-        end
-      end
+    context "simple page with Default Layout" do
+      subject { view(:layout, card: "A+B") }
 
       it "renders top menu" do
-        assert_view_select @simple_page, "header" do
-          assert_select 'a[class="internal-link"][href="/"]', "Home"
-          assert_select 'a[class="internal-link"][href="/:recent"]', "Recent"
-          assert_select 'form.navbox-form[action="/:search"]' do
-            assert_select 'input[name="_keyword"]'
+        is_expected.to have_tag "header" do
+          with_tag 'a.nav-link.internal-link[href="/"]', text: "Home"
+          with_tag 'a.nav-link.internal-link[href="/:recent"]', text: "Recent"
+          with_tag 'form.navbox-form[action="/:search"]' do
+            with_tag 'input[name="_keyword"]'
           end
         end
       end
 
       it "renders card header" do
-        # lots of duplication here...
-        assert_view_select @simple_page,
-                           'div[class="d0-card-header panel-heading"]' do
-          assert_select 'div[class="d0-card-header-title panel-title"]'
+        is_expected.to have_tag "div.d0-card-header.card-header" do
+          with_tag "div.d0-card-header-title" do
+            with_tag "span.card-title", text: "A+B"
+          end
         end
       end
 
       it "renders card content" do
-        assert_view_select(
-          @simple_page,
-          'div[class="d0-card-body d0-card-content ALL ALL_PLUS ' \
-          'TYPE-basic RIGHT-b TYPE_PLUS_RIGHT-basic-b SELF-a-b panel-body"]',
-          "AlphaBeta"
-        )
+        is_expected.to have_tag "div.d0-card-body.d0-card-content" \
+                                ".ALL.ALL_PLUS" \
+                                ".TYPE-basic.RIGHT-b.TYPE_PLUS_RIGHT-basic-b" \
+                                ".SELF-a-b.card-body.card-text",
+                                text:  /AlphaBeta/
       end
 
       it "renders card credit" do
-        assert_view_select @simple_page, 'div[class~="SELF-Xcredit"]' do
-          assert_select "img"
-          assert_select "a", "Wagn v#{Card::Version.release}"
+        is_expected.to have_tag 'div[class~="SELF-Xcredit"]' do
+          with_tag "img"
+          with_tag "a", text: "Wagn v#{Card::Version.release}"
         end
       end
     end
@@ -95,7 +82,7 @@ describe Card::Format::HtmlFormat do
       #        @layout_card.content = "Hi {{A}}"
       #        Card::Auth.as_bot { @layout_card.save }
       #
-      #        expect(@main_card.format.render(:layout)).to match('Hi Alpha')
+      #        expect(@main_card.format.render!(:layout)).to match('Hi Alpha')
       #      end
 
       #      it "defaults to open view for main card" do
@@ -121,7 +108,7 @@ describe Card::Format::HtmlFormat do
         @layout_card.content = "Mainly {{_main|core}}"
         Card::Auth.as_bot { @layout_card.save }
 
-        expect(@layout_card.format.render(:layout)).to eq(
+        expect(@layout_card.format.render!(:layout)).to eq(
           "Mainly <div id=\"main\"><div class=\"CodeRay\">\n  " \
           "<div class=\"code\"><pre>Mainly {{_main|core}}</pre></div>\n" \
           "</div>\n</div>\n" \
@@ -139,7 +126,7 @@ describe Card::Format::HtmlFormat do
           Card.create name: "outer space", content: "{{_main|name}}"
         end
 
-        expect(@main_card.format.render(:layout)).to eq(
+        expect(@main_card.format.render!(:layout)).to eq(
           '<div id="main">Joe User</div>' + "\n" \
           '<div class="modal fade" role="dialog" id="modal-main-slot">' \
           '<div class="modal-dialog"><div class="modal-content">' \

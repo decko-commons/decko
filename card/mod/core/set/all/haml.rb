@@ -1,3 +1,16 @@
+
+#set_scope = "haml"
+
+format do
+  define_method :the_scope do
+    set_scope
+  end
+
+  define_method :haml_scope do
+    set_scope
+  end
+end
+
 format do
   # Renders haml templates. The haml template can be passed as string or
   # block or a symbol that refers to a view template.

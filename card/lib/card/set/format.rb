@@ -84,7 +84,7 @@ class Card
         self.views = Hash.new { |h, k| h[k] = {} }
 
         def view view, *args, &block
-          view = view.to_viewname.key.to_sym
+          #view = view.to_viewname.key.to_sym
           interpret_view_opts view, args[0] if block_given?
           view_method_block = view_block(view, args, &block)
           if async_view? args
@@ -108,7 +108,7 @@ class Card
           view_content = "#{view}_async_content"
           define_standard_view_method view_content, &block
           define_standard_view_method view do
-            "<card-view-placeholder data-url=#{path view: view_content}/>"
+            %(<card-view-placeholder data-url="#{path view: view_content}" />)
           end
         end
 

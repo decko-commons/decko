@@ -1,13 +1,18 @@
 # action id of the cached upload
 attr_accessor :action_id_of_cached_upload
 
+def actionable?
+  super || preliminary_upload?
+end
+
 event :upload_attachment, :prepare_to_validate,
       on: :save, when: proc { |c| c.preliminary_upload? } do
   save_original_filename  # save original filename as comment in action
   write_identifier        # set db_content
   # (needs original filename to determine extension)
   store_attachment!
-  finalize_action         # create Card::Change entry for db_content
+  store_card_changes
+  # finalize_action         # create Card::Change entry for db_content
 
   card_id = new_card? ? upload_cache_card.id : id
   @current_action.update_attributes! draft: true, card_id: card_id
@@ -40,7 +45,7 @@ end
 def assign_attachment file, original_filename
   send "#{attachment_name}=", file
   write_identifier
-  @current_action.update_attributes! comment: original_filename
+  @current_action.update_attributes! comment: original_filename if @current_action
 end
 
 event :delete_cached_upload_file_on_create, :integrate,
@@ -66,8 +71,9 @@ end
 
 # used for uploads for new cards until the new card is created
 def upload_cache_card
+  cache_card_codename ="new_#{attachment_name}".to_sym
   @upload_cache_card ||=
-    Card["new_#{attachment_name}".to_sym] || Card[:new_file]
+    Card::Codename[cache_card_codename] ? Card[cache_card_codename] : Card[:new_file]
 end
 
 def preliminary_upload?

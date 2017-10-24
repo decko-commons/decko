@@ -20,7 +20,7 @@ class Card
   # * a boolean indicated whether the action is a _draft_
   # * a _comment_ (where applicable)
   #
-  class Action < ActiveRecord::Base
+  class Action < ApplicationRecord
     include Card::Action::Differ
     extend Card::Action::Admin
 
@@ -85,6 +85,10 @@ class Card
       TYPE_OPTIONS[read_attribute(:action_type)]
     end
 
+    def previous_action
+      Card::Action.where("id < ? AND card_id = ?", id, card_id).last
+    end
+
     # value set by action's {Change} to given field
     # @see #interpret_field #interpret_field for field param
     # @see #interpret_value #interpret_value for return values
@@ -113,6 +117,7 @@ class Card
     # @see #interpret_field #interpret_field for field param
     # @return [Change]
     def previous_change field
+      return nil if action_type == :create
       field = interpret_field field
       if @previous_changes && @previous_changes.key?(field)
         @previous_changes[field]
@@ -126,8 +131,30 @@ class Card
     # @return [Hash]
     def changes
       @changes ||=
-        card_changes.each_with_object({}) do |change, hash|
-          hash[change.field.to_sym] = change
+        if sole?
+          current_changes
+        else
+          card_changes.each_with_object({}) do |change, hash|
+            hash[change.field.to_sym] = change
+          end
+        end
+    end
+
+    # all action in hash form. { field1: new_value }
+    def changed_values
+      @changed_values ||= changes.each_with_object({}) do |(key,change), h|
+        h[key] = change.value
+      end
+    end
+
+    # @return [Hash]
+    def current_changes
+      return {} unless card
+      @current_changes ||=
+        Card::Change::TRACKED_FIELDS.each_with_object({}) do |field, hash|
+          hash[field.to_sym] = Card::Change.new field: field,
+                                                value: card.send(field),
+                                                card_action_id: id
         end
     end
 
@@ -176,6 +203,11 @@ class Card
         type_card && type_card.name.capitalize
       else value
       end
+    end
+
+    def sole?
+      card_changes.empty? &&
+        (action_type == :create || Card::Action.where(card_id: card_id).count == 1)
     end
   end
 end

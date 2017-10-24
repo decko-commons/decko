@@ -41,7 +41,7 @@ class AddEmailCards < Card::Migration::Core
 
     c = Card.fetch "*message", new: {}
     c.name     = "*html message"
-    c.codename = "html_message"
+    c.codename = :html_message
     c.save!
 
     Card.create! name: "*text message", codename: "text_message"
@@ -68,8 +68,8 @@ class AddEmailCards < Card::Migration::Core
     )
     if request_card = Card[:request]
       [:to, :from].each do |field|
-        if old_card = request_card.fetch(trait: field) && !old_card.content.blank?
-          Card.create! name: "signup alert email+#{Card[field].name}", content: old_card.content
+        if old_card = request_card.fetch(trait: field) && !old_card.db_content.blank?
+          Card.create! name: "signup alert email+#{Card[field].name}", content: old_card.db_content
         end
       end
       request_card.codename = nil
@@ -79,7 +79,7 @@ class AddEmailCards < Card::Migration::Core
     # update *from settings
 
     signup_alert_from = Card["signup alert email"].fetch(trait: :from, new: {})
-    if signup_alert_from.content.blank?
+    if signup_alert_from.db_content.blank?
       signup_alert_from.content = "_user"
       signup_alert_from.save!
     end
@@ -103,7 +103,7 @@ class AddEmailCards < Card::Migration::Core
         right: "email_config",
         referred_to_by: { right: { codename: "send" } }
       ).each do |card|
-        set_name = card.cardname.left
+        set_name = card.name.left
         card.name = "#{set_name.tr('*', '').tr('+', '_')}_email_template"
         card.type = "Email Template"
         card.save!

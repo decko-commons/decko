@@ -27,7 +27,7 @@ class Card
         bs_layout container: true, fluid: true do
           row do
             html <<-HTML
-              <ul class="action-list">
+              <ul class="action-list w-100">
                 <li class="glyphicon-bullet #{action.action_type}">
                   #{action_panel}
                 </li>
@@ -41,7 +41,7 @@ class Card
         bs_panel do
           if header
             heading do
-              div type_diff, class: "pull-right"
+              div type_diff, class: "float-right"
               div name_diff
             end
           end
@@ -81,11 +81,11 @@ class Card
       end
 
       def old_name
-        (name = @action.previous_value :name) && showname(name).to_s
+        (name = @action.previous_value :name) && title_in_context(name)
       end
 
       def new_name
-        showname(@action.value(:name)).to_s
+        title_in_context @action.value(:name)
       end
     end
   end

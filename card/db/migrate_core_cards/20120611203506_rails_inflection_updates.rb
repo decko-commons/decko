@@ -13,7 +13,7 @@ class RailsInflectionUpdates < Card::Migration::Core
   end
 
   def unless_name_collision card
-    if (twin = Card.find_by_key(card.cardname.key)) && twin.id != card.id
+    if (twin = Card.find_by_key(card.name.key)) && twin.id != card.id
       if twin.trash
         twin.destroy
         yield
@@ -65,12 +65,12 @@ class RailsInflectionUpdates < Card::Migration::Core
 
     cards_with_css = Card.search type: %w(in html css scss)
     cards_with_css.each do |card|
-      new_content = card.content
+      new_content = card.db_content
       content_changed = false
 
       apply_to_content.each do |i|
         plural, wrong_sing, correct_sing = corrections[i]
-        if card.content =~ wrong_sing
+        if card.db_content =~ wrong_sing
           content_changed = true
           new_content = new_content.gsub(wrong_sing, correct_sing)
         end

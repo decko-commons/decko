@@ -1,7 +1,7 @@
 format :html do
   view :header do
     voo.hide :toggle, :toolbar
-    main_header + _optional_render_toolbar
+    main_header + _render_toolbar.to_s.html_safe
   end
 
   def main_header
@@ -13,14 +13,14 @@ format :html do
   end
 
   def header_title_elements
-    [_optional_render_toggle, _optional_render_title]
+    [_render_toggle, _render_title]
   end
 
   view :subheader do
     wrap_with :div, class: "card-subheader navbar-inverse btn-primary active" do
       [
         _render_title,
-        (autosaved_draft_link(class: "pull-right") if show_draft_link?)
+        (autosaved_draft_link(class: "float-right") if show_draft_link?)
       ]
     end
     # toolbar_view_title(@slot_view) || _render_title(args)

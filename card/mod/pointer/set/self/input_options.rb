@@ -7,6 +7,6 @@ add_to_basket :options, "select"
 add_to_basket :options, "multiselect"
 add_to_basket :options, "list"
 
-def raw_content
+def content
   options.to_pointer_content
 end

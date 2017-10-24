@@ -2,37 +2,42 @@ require "uuid"
 
 module ClassMethods
   def uniquify_name name, rename=:new
-    return name unless Card.exists?(name)
+    return name unless Card.exists? name
+    uniq_name = generate_alternative_name name
+    return uniq_name unless rename == :old
+    rename!(name, uniq_name)
+    name
+  end
+
+  def generate_alternative_name name
     uniq_name = "#{name} 1"
     uniq_name.next! while Card.exists?(uniq_name)
-    if rename == :old
-      # name conflict resolved; original name can be used
-      Card[name].update_attributes! name: uniq_name,
-                                    update_referers: true
-      name
-    else
-      uniq_name
-    end
+    uniq_name
+  end
+
+  def rename! oldname, newname
+    Card[oldname].update_attributes! name: newname, update_referers: true
   end
 end
 
-def name= newname
-  cardname = newname.to_name
-  if @supercard
-    @supercard.subcards.rename key, cardname.key
-    @contextual_name = cardname.to_s
-    relparts = cardname.parts
-    if relparts.size == 2 &&
-       (relparts.first.blank? || relparts.first.to_name.key == @supercard.key)
-      @superleft = @supercard
-    end
-    cardname = cardname.to_absolute_name @supercard.name
-  end
+def name
+  super.to_name
+end
 
+def name= newname
+  cardname = superize_name newname.to_name
   newkey = cardname.key
   self.key = newkey if key != newkey
   update_subcard_names cardname
   write_attribute :name, cardname.s
+end
+
+def superize_name cardname
+  return cardname unless @supercard
+  @raw_name = cardname.s
+  @supercard.subcards.rename key, cardname.key
+  @superleft = @supercard if cardname.field_of? @supercard.name
+  cardname.absolute_name @supercard.name
 end
 
 def key= newkey
@@ -54,21 +59,21 @@ def update_subcard_names new_name, name_to_replace=nil
     # +C should change to A+B+C. #replace doesn't work in this case
     # because the old name +B is not a part of +C
     name_to_replace ||=
-      if subcard.cardname.junction? &&
-         subcard.cardname.parts.first.empty? &&
+      if subcard.name.junction? &&
+         subcard.name.parts.first.empty? &&
          new_name.parts.first.present?
         # replace the empty part
         "".to_name
       else
         name
       end
-    subcard.name = subcard.cardname.replace name_to_replace, new_name.s
+    subcard.name = subcard.name.swap name_to_replace, new_name.s
     subcard.update_subcard_names new_name, name
   end
 end
 
-def cardname
-  name.to_name
+def codename
+  super&.to_sym
 end
 
 def autoname name
@@ -79,48 +84,48 @@ def autoname name
   end
 end
 
-# FIXME: use delegations and include all cardname functions
+# FIXME: use delegations and include all name functions
 def simple?
-  cardname.simple?
+  name.simple?
 end
 
 def junction?
-  cardname.junction?
+  name.junction?
 end
 
-def contextual_name
-  @contextual_name || name
+def raw_name
+  @raw_name || name
 end
 
 def relative_name context_name=nil
-  context_name ||= @supercard.cardname if @supercard
-  cardname.relative_name context_name
+  context_name ||= @supercard.name if @supercard
+  name.name_from context_name
 end
 
 def absolute_name context_name=nil
-  context_name ||= @supercard.cardname if @supercard
-  cardname.absolute_name context_name
+  context_name ||= @supercard.name if @supercard
+  name.absolute_name context_name
 end
 
 def left *args
   case
   when simple?    then nil
   when @superleft then @superleft
-  when name_changed? && name.to_name.trunk_name.key == name_was.to_name.key
+  when attribute_is_changing?(:name) && name.to_name.trunk_name.key == name_before_act.to_name.key
     nil # prevent recursion when, eg, renaming A+B to A+B+C
   else
-    Card.fetch cardname.left, *args
+    Card.fetch name.left, *args
   end
 end
 
 def right *args
-  Card.fetch(cardname.right, *args) unless simple?
+  Card.fetch(name.right, *args) unless simple?
 end
 
 def [] *args
   case args[0]
   when Integer, Range
-    fetch_name = Array.wrap(cardname.parts[args[0]]).compact.join "+"
+    fetch_name = Array.wrap(name.parts[args[0]]).compact.join "+"
     Card.fetch(fetch_name, args[1] || {}) unless simple?
   else
     super
@@ -132,11 +137,11 @@ def trunk *args
 end
 
 def tag *args
-  simple? ? self : Card.fetch(cardname.right, *args)
+  simple? ? self : Card.fetch(name.right, *args)
 end
 
 def left_or_new args={}
-  left(args) || Card.new(args.merge(name: cardname.left))
+  left(args) || Card.new(args.merge(name: name.left))
 end
 
 def fields
@@ -179,17 +184,17 @@ end
 
 def repair_key
   Auth.as_bot do
-    correct_key = cardname.key
+    correct_key = name.key
     current_key = key
     return self if current_key == correct_key
 
     if (key_blocker = Card.find_by_key_and_trash(correct_key, true))
-      key_blocker.cardname = key_blocker.cardname + "*trash#{rand(4)}"
+      key_blocker.name = key_blocker.name + "*trash#{rand(4)}"
       key_blocker.save
     end
 
     saved =   (self.key      = correct_key) && save!
-    saved ||= (self.cardname = current_key) && save!
+    saved ||= (self.name = current_key) && save!
 
     if saved
       descendants.each(&:repair_key)
@@ -206,7 +211,7 @@ end
 
 event :set_autoname, :prepare_to_validate, on: :create do
   if name.blank? && (autoname_card = rule_card(:autoname))
-    self.name = autoname autoname_card.content
+    self.name = autoname autoname_card.db_content
     # FIXME: should give placeholder in approve phase
     # and finalize/commit change in store phase
     autoname_card.refresh.update_column :db_content, name
@@ -219,9 +224,9 @@ end
 
 event :set_left_and_right, :store,
       changed: :name, on: :save do
-  if cardname.junction?
+  if name.junction?
     %i[left right].each do |side|
-      sidename = cardname.send "#{side}_name"
+      sidename = name.send "#{side}_name"
       sidecard = Card[sidename]
 
       # eg, renaming A to A+B
@@ -240,36 +245,9 @@ event :set_left_and_right, :store,
   end
 end
 
-event :rename, after: :set_name, on: :update do
-  if (existing_card = Card.find_by_key_and_trash(cardname.key, true)) &&
-     existing_card != self
-    existing_card.name = existing_card.name + "*trash"
-    existing_card.rename_without_callbacks
-    existing_card.save!
-  end
-end
-
-def suspend_name name
-  # move the current card out of the way, in case the new name will require
-  # re-creating a card with the current name, ie.  A -> A+B
-  Card.expire name
-  tmp_name = "tmp:" + UUID.new.generate
-  Card.where(id: id).update_all(name: tmp_name, key: tmp_name)
-end
-
-event :cascade_name_changes, :finalize, on: :update, changed: :name do
-  des = descendants
-  @descendants = nil # reset
-
-  des.each do |de|
-    # here we specifically want NOT to invoke recursive cascades on these
-    # cards, have to go this low level to avoid callbacks.
-    Rails.logger.info "cascading name: #{de.name}"
-    Card.expire de.name # old name
-    newname = de.cardname.replace name_was, name
-    Card.where(id: de.id).update_all name: newname.to_s, key: newname.key
-    de.update_referers = update_referers
-    de.refresh_references_in
-    Card.expire newname
-  end
+event :name_change_finalized, :finalize, changed: :name, on: :save do
+  # The events to update references has to happen after :cascade_name_changes,
+  # but :cascade_name_changes is defined after the reference events and
+  # and additionaly it is defined on :update but some of the reference
+  # events are on :save. Hence we need this additional hook to organize these events.
 end

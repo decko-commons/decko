@@ -8,7 +8,7 @@ format :rss do
 
   def show view, args
     view ||= :feed
-    render view, args
+    render! view, args
   end
 
   # FIXME: integrate this with common XML features when it is added
@@ -40,7 +40,7 @@ format :rss do
   view :feed_item_list, cache: :never do
     raw_feed_items.each do |item|
       @xml.item do
-        subformat(item).render(:feed_item,
+        subformat(item).render!(:feed_item,
                                description_view: feed_item_description_view)
       end
     end
@@ -66,7 +66,7 @@ format :rss do
   end
 
   def description args
-    render(args[:description_view] || :open_content)
+    render!(args[:description_view] || :open_content)
   end
 
   def feed_item_description_view

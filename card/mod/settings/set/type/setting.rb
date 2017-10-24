@@ -66,7 +66,7 @@ format do
                     = subformat(rules[0])._render_closed_content
             - if !klass.anchorless?
               - duplicate_check(rules) do |rule, duplicate, changeover|
-                - setname = rule.cardname.trunk_name
+                - setname = rule.name.trunk_name
                 %tr{class: ('rule-changeover' if changeover)}
                   %td.rule-anchor
                     = link_to_card setname, setname.trunk_name

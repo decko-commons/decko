@@ -1,4 +1,4 @@
-class RemovePresentFromReferenceTable < ActiveRecord::Migration
+class RemovePresentFromReferenceTable < ActiveRecord::Migration[4.2]
   def up
     # remove_column :card_references, :present
   end

@@ -1,19 +1,23 @@
 # -*- encoding : utf-8 -*-
 require_dependency "card/cache"
-require_dependency "card/name"
 
 class Card
-  # {Card}'s names can be changed, and therefore names should not be directly
-  # mentioned in code, lest a name change break the application. Instead, a
-  # {Card} that needs specific code manipulations should be given a {Codename},
-  # a unique string identifier that will not change even if the card's name
+  # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned in code, lest a name change break the application.
+  #
+  # Instead, a {Card} that needs specific code manipulations should be given a {Codename}, which will not change even if the card's name
   # does.
   #
-  # The {Codename} class provides a fast cache for this slow-changing data.
-  # Every process maintains a complete cache that is not frequently reset
+  # An administrator might add to the Company card via the RESTful web API with a url like
   #
-  # Generally speaking, _codenames_ are represented by Symbols, _names_ are
-  # Strings, and _ids_ are Integers.
+  #     /update/CARDNAME?card[codename]=CODENAME
+  #
+  # ...or via the api like
+  #
+  #     Card[CARDNAME].update_attributes! codename: CODENAME
+  #
+  # Generally speaking, _codenames_ are represented by Symbols.
+  #
+  # The {Codename} class provides a fast cache for this slow-changing data. Every process maintains a complete cache that is not frequently reset
   #
   class Codename
     class << self
@@ -86,7 +90,8 @@ class Card
       if (card_id = Codename[code])
         const_set const, card_id
       else
-        raise "Missing codename #{code} (#{const})"
+        raise I18n.t(:exception_missing_codename, scope: "lib.card.codename",
+                                                  code: code, const: const)
       end
     else
       super

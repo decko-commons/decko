@@ -57,7 +57,7 @@ def item_keys args={}
 end
 
 def include_item? item
-  key = item.is_a?(Card) ? item.cardname.key : item.to_name.key
+  key = item.is_a?(Card) ? item.name.key : item.to_name.key
   item_names.map { |name| name.to_name.key }.member? key
 end
 
@@ -92,7 +92,7 @@ def insert_id index, id
 end
 
 def extended_item_cards context=nil
-  context = (context ? context.cardname : cardname)
+  context = (context ? context.name : name)
   args = { limit: "" }
   items = item_cards(args.merge(context: context))
   extended_list = []
@@ -117,7 +117,7 @@ def extended_item_contents context=nil
 end
 
 def extended_list context=nil
-  context = (context ? context.cardname : cardname)
+  context = (context ? context.name : name)
   args = { limit: "" }
   item_cards(args.merge(context: context)).map do |x|
     x.item_cards(args)
@@ -145,12 +145,12 @@ end
 def contextual_content context_card, format_args={}, view_args={}
   view = view_args.delete(:view) || :core
   with_context context_card do
-    format(format_args).render view, view_args
+    format(format_args).render! view, view_args
   end
 end
 
 def each_chunk opts={}
-  content = opts[:content] || raw_content
+  content = opts[:content] || self.content
   chunk_type = opts[:chunk_type] || Card::Content::Chunk
   Card::Content.new(content, self).find_chunks(chunk_type).each do |chunk|
     next unless chunk.referee_name # filter commented nests
@@ -244,7 +244,7 @@ format do
       next [name_or_card, options || {}] if name_or_card.is_a?(Card)
       options ||= Card.fetch_name name_or_card
       options = { title: options } if options.is_a?(String)
-      [card.cardname.field(name_or_card), options]
+      [card.name.field(name_or_card), options]
     end
   end
 
@@ -293,6 +293,14 @@ format :html do
     construct_tabs "tabs"
   end
 
+  view :carousel do
+    bs_carousel unique_id, 0 do
+      nest_item_array.each do |rendered_item|
+        item(rendered_item)
+      end
+    end
+  end
+
   def construct_tabs tab_type
     tabs = { active: {}, paths: {} }
     voo.items[:view] ||= :content
@@ -305,17 +313,17 @@ format :html do
 
   def construct_tab tabs, name, explicit_options
     tab_options = item_view_options explicit_options
-    title = tab_title tab_options[:title], name
-    tabs[:paths][title] = { title: title,
-                            path: nest_path(name, tab_options).html_safe }
+    tabs[:paths][name] = {
+        title: nest(name, view: :title, title: tab_options[:title]),
+        path: nest_path(name, tab_options).html_safe }
     return unless tabs[:active].empty?
-    tabs[:active] = { name: title, content: nest(name, tab_options) }
+    tabs[:active] = { name: name, content: nest(name, tab_options) }
   end
 
-  def tab_title title, name
-    return name unless title
-    name.to_name.title title, @context_names
-  end
+  #def tab_title title, name
+  #  return name unless title
+  #  name.to_name.title title, @context_names
+  #end
 
   # create a path for a nest with respect ot the nest options
   def nest_path name, nest_opts={}

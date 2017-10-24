@@ -100,7 +100,7 @@ def require_permission_rule! rule_id, action
 end
 
 def rule_class_name
-  trunk.type_id == Card::SetID ? cardname.trunk_name.tag : nil
+  trunk.type_id == Card::SetID ? name.trunk_name.tag : nil
 end
 
 def you_cant what
@@ -176,9 +176,12 @@ def ok_to_comment
   deny_because "No comments allowed on structured content" if structure
 end
 
-event :clear_read_rule, :store, on: :delete do
-  self.read_rule_id = self.read_rule_class = nil
-end
+# don't know why we introduced this
+# but we have to preserve read rules to make
+# delete acts visible in recent changes -pk
+# event :clear_read_rule, :store, on: :delete do
+#   self.read_rule_id = self.read_rule_class = nil
+# end
 
 event :set_read_rule, :store,
       on: :save, changed: %i[type_id name] do

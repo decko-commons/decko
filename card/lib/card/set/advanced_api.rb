@@ -23,6 +23,7 @@ class Card
                        :storage_type, :bucket, :mod
         uploader_class = args[:uploader] || ::CarrierWave::FileCardUploader
         mount_uploader name, uploader_class
+        Card.define_dirty_methods name
       end
 
       def stage_method method, opts={}, &block
@@ -41,9 +42,9 @@ class Card
       private
 
       # @param set_name [String] name of the constant to be defined
-      def define_set set_name
+      def define_set set_name, start_const=Card::Set
         constant_pieces = set_name.split("::")
-        constant_pieces.inject(Card::Set) do |set_mod, module_name|
+        constant_pieces.inject(start_const) do |set_mod, module_name|
           set_mod.const_get_or_set module_name do
             Module.new
           end

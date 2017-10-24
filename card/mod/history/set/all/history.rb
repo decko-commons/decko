@@ -8,7 +8,7 @@ end
 # :validate_delete_children
 
 def actionable?
-  history? || respond_to?(:attachment)
+  history?
 end
 
 event :assign_action, :initialize, when: proc { |c| c.actionable? } do
@@ -26,21 +26,48 @@ end
 # stores changes in the changes table and assigns them to the current action
 # removes the action if there are no changes
 event :finalize_action, :finalize, when: :finalize_action? do
-  @changed_fields = Card::Change::TRACKED_FIELDS.select do |f|
-    changed_attributes.member? f
-  end
-  if @changed_fields.present?
-    # FIXME: should be one bulk insert
-    @changed_fields.each do |f|
-      Card::Change.create field: f,
-                          value: self[f],
-                          card_action_id: @current_action.id
-    end
+  if changed_fields.present?
     @current_action.update_attributes! card_id: id
-  elsif @current_action.card_changes(true).empty?
+
+    # Note: #last_change_on uses the id to sort by date
+    # so the changes for the create changes have to be created before the first change
+    store_card_changes_for_create_action if first_change?
+    store_card_changes if @current_action.action_type != :create
+  elsif @current_action.card_changes.reload.empty?
     @current_action.delete
     @current_action = nil
   end
+end
+
+def first_change? # = update or delete
+  @current_action.action_type != :create && @current_action.card.actions.size == 2 &&
+    create_action.card_changes.empty?
+end
+
+def create_action
+  @create_action ||= actions.first
+end
+
+# changes for the create action are stored after the first update
+def store_card_changes_for_create_action
+  Card::Change::TRACKED_FIELDS.each do |f|
+    Card::Change.create field: f,
+                        value: attribute_before_act(f),
+                        card_action_id: create_action.id
+  end
+end
+
+def store_card_changes
+  # FIXME: should be one bulk insert
+  changed_fields.each do |f|
+    Card::Change.create field: f,
+                        value: self[f],
+                        card_action_id: @current_action.id
+  end
+end
+
+def changed_fields
+  Card::Change::TRACKED_FIELDS & (changed_attribute_names_to_save | saved_changes.keys)
 end
 
 def finalize_action?
@@ -50,14 +77,19 @@ end
 event :finalize_act,
       after: :finalize_action,
       when: proc { |c|  c.act_card? } do
-  # removed subcards can leave behind actions without card id
-  if @current_act.actions(true).empty?
-    @current_act.delete
-    @current_act = nil
-  else
-    @current_act.update_attributes! card_id: id
-  end
+  @current_act.update_attributes! card_id: id
 end
+
+event :remove_empty_act,
+      :integrate_with_delay_final, when: :remove_empty_act? do
+  #@current_act.delete
+  #@current_act = nil
+end
+
+def remove_empty_act?
+  act_card? && @current_act&.actions&.reload&.empty?
+end
+
 
 def act_card?
   self == Card::ActManager.act_card
@@ -65,26 +97,33 @@ end
 
 event :rollback_actions,
       :prepare_to_validate, on: :update, when: :rollback_request? do
-  revision = { subcards: {} }
-  rollback_actions = Env.params["action_ids"].map do |a_id|
-    Action.fetch(a_id) || nil
-  end
-  rollback_actions.each do |action|
+  update_args = { subcards: {} }
+  revert_actions.each do |action|
+    rev = action.card.revision(action, revert_to_previous_action?)
     if action.card_id == id
-      revision.merge!(revision(action))
+      update_args.merge! rev
     else
-      revision[:subcards][action.card.name] = revision(action)
+      update_args[:subcards][action.card.name] = rev
     end
   end
-  Env.params["action_ids"] = nil
-  update_attributes! revision
+  Env.params["revert_actions"] = nil
+  update_attributes! update_args
   clear_drafts
   abort :success
 end
 
+def revert_to_previous_action?
+  Env.params["revert_to"] == "previous"
+end
+
+def revert_actions
+  Env.params["revert_actions"].map do |a_id|
+    Action.fetch(a_id) || nil
+  end.compact
+end
+
 def rollback_request?
-  history? && Env && Env.params["action_ids"] &&
-    Env.params["action_ids"].class == Array
+  history? && Env&.params["revert_actions"]&.class == Array
 end
 
 # all acts with actions on self and on cards that are descendants of self and
@@ -135,7 +174,7 @@ format :html do
     class_up "d0-card-body",  "history-slot"
     frame do
       bs_layout container: true, fluid: true do
-        html _optional_render_history_legend(with_drafts: true)
+        html _render_history_legend(with_drafts: true)
         row 12 do
           html _render_act_list acts: history_acts
         end
@@ -155,6 +194,19 @@ format :html do
     end
   end
 
+  def revert_actions_link act, link_text,
+                          revert_to: :this, slot_selector: nil, html_args: {}
+    return unless card.ok? :update
+    html_args.merge! remote: true, method: :post, rel: "nofollow",
+                     path: { action: :update, view: :open, look_in_trash: true,
+                             revert_actions: act.actions.map(&:id),
+                             revert_to: revert_to }
+
+    html_args[:path]["data-slot-selector"] = slot_selector if slot_selector
+    add_class html_args, "slotter"
+    link_to link_text, html_args
+  end
+
   def history_acts
     card.intrusive_acts.page(page_from_params).per(ACTS_PER_PAGE)
   end
@@ -163,7 +215,7 @@ format :html do
     intrusive_acts = card.intrusive_acts
                          .page(page_from_params).per(ACTS_PER_PAGE)
     wrap_with :span, class: "slotter" do
-      paginate intrusive_acts, remote: true, theme: "twitter-bootstrap-3"
+      paginate intrusive_acts, remote: true, theme: "twitter-bootstrap-4"
     end
   end
 

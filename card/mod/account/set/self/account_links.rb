@@ -2,7 +2,7 @@
 format :html do
   def item_links _args=nil
     %i[my_card invite sign_out sign_up sign_in].map do |link_view|
-      optional_render link_view
+      render link_view
     end
   end
 
@@ -36,12 +36,12 @@ format :html do
   end
 
   view :my_card, link_options { Auth.signed_in? } do
-    link_to_card Auth.current.cardname, nil, id: "my-card-link", class: "nav-link"
+    link_to_card Auth.current.name, nil, id: "my-card-link", class: nav_link_class("my-card")
   end
 
   def account_link_text purpose
     voo.title ||
-      I18n.t(purpose, scope: "mod.standard.set.self.account_links")
+      I18n.t(purpose, scope: "mod.account.set.self.account_links")
   end
 
   view :raw do

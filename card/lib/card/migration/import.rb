@@ -1,5 +1,5 @@
-require "import_data"
-require "merger"
+require_relative "import/import_data"
+require_relative "import/merger"
 
 class Card
   class Migration
@@ -99,7 +99,7 @@ class Card
 
       def fetch_local_data name, view
         Card::Auth.as_bot do
-          Card[name].format(format: :json).render(view || :content)
+          Card[name].format(format: :json).render!(view || :content)
         end
       end
 

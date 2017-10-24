@@ -11,9 +11,9 @@ class Card
           @referee_name ||= begin
             rendered_name = render_obj(name)
             ref_card = fetch_referee_card rendered_name
-            ref_card ? ref_card.cardname : rendered_name.to_name
+            ref_card ? ref_card.name : rendered_name.to_name
           end
-          @referee_name = @referee_name.to_absolute(card.cardname).to_name
+          @referee_name = @referee_name.absolute(card.name).to_name
         end
 
         def referee_card
@@ -33,7 +33,7 @@ class Card
               chunk.replace_reference old_name, new_name
             end
           else
-            @name = name.to_name.replace(old_name, new_name)
+            @name = name.to_name.swap old_name, new_name
           end
         end
 

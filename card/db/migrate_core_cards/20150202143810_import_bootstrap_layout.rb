@@ -34,7 +34,7 @@ class ImportBootstrapLayout < Card::Migration::Core
     # merge "style: functional" and "style: standard" into "style: cards"
     old_func = Card[:style_functional]
     old_func.name = "style: cards"
-    old_func.codename = "style_cards"
+    old_func.codename = :style_cards
     old_func.update_referers = true
     old_func.save!
 
@@ -65,7 +65,7 @@ class ImportBootstrapLayout < Card::Migration::Core
 
     # update layouts to have explicit views in nests
     Card.search(type_id: Card::LayoutTypeID) do |lcard|
-      lcontent = Card::Content.new lcard.content, lcard
+      lcontent = Card::Content.new lcard.db_content, lcard
       lcontent.find_chunks(Card::Content::Chunk::Nest).each do |nest|
         nest.explicit_view =
           nest.options[:nest_name] == "_main" ? "open" : "core"

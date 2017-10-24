@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::History do
+RSpec.describe Card::Set::All::History do
   context "history view" do
     # before do
     #   Card.create! name: 'my histoer card'
@@ -26,11 +26,17 @@ describe Card::Set::All::History do
   end
 
   describe "#create_act_and_action" do
-    let!(:act_start_cnt) { Card::Act.count }
-    let(:content)        { "Nobody expects the Spanish inquisition" }
-    let(:act)            { @card.acts.last }
-    let(:action)         { act.actions.last }
+    let!(:act_start_cnt) {Card::Act.count}
+    let(:content) {"Nobody expects the Spanish inquisition"}
+    let(:act) {@card.acts.last}
+    let(:action) {act.actions.last}
 
+    INITIAL_VALUES = {
+      name: "single card",
+      type_id: Card::BasicID.to_s,
+      db_content: "Nobody expects the Spanish inquisition",
+      trash: "f"
+    }
     context "for single card" do
       before do
         @card = Card::Auth.as_bot do
@@ -42,20 +48,33 @@ describe Card::Set::All::History do
         it "adds new act" do
           expect(Card::Act.count).to eq(act_start_cnt + 1)
           expect(act.card_id).to eq(@card.id)
+          expect(act.acted_at).to be > Time.zone.now - 1.minute
         end
         it "adds create action" do
           expect(action.action_type).to eq(:create)
+        end
+        it "does not add card changes entries" do
+          expect(action.card_changes).to be_empty
+        end
+        it "fetches card changes from cards table" do
+          expect(action.changed_values).to eq(INITIAL_VALUES)
+
         end
       end
 
       context "when updated" do
         it "adds no act if nothing changed" do
-          @card.update_attributes  name: "single card", content: content
+          pending "act handling upgrade"
+          @card.update_attributes name: "single card", content: content
           expect(Card::Act.count).to eq(act_start_cnt + 1)
         end
         it "adds new act" do
           @card.update_attributes content: "new content"
           expect(Card::Act.count).to eq(act_start_cnt + 2)
+        end
+        it "adds changes to create action" do
+          @card.update_attributes content: "new content"
+          expect(@card.actions.first.changed_values).to eq INITIAL_VALUES
         end
       end
 
@@ -74,6 +93,9 @@ describe Card::Set::All::History do
         it "adds trash change" do
           expect(action.card_changes.last.field).to eq("trash")
           expect(action.card_changes.last.value).to be_truthy
+        end
+        it "adds changes to create action" do
+          expect(@card.actions.first.changed_values).to eq INITIAL_VALUES
         end
       end
 
@@ -96,7 +118,7 @@ describe Card::Set::All::History do
 
         it "doesn't create act and actions if subcard fails" do
           Card::Auth.as("joe_user") do
-            act_count    = Card::Act.count
+            act_count = Card::Act.count
             action_count = Card::Action.count
             Card.create name: "crete fail", subcards: { "*all+*create" => "" }
             expect(Card::Action.count).to eq action_count
@@ -142,8 +164,7 @@ describe Card::Set::All::History do
           expect(@plus_action.action_type).to eq(:create)
         end
         it "adds content change" do
-          changed_content =
-            @plus_action.card_changes.find_by_field_name(:db_content).value
+          changed_content = @plus_action.value(:db_content)
           expect(changed_content).to eq(content)
         end
         it "adds superaction for plus card" do
@@ -210,8 +231,7 @@ describe Card::Set::All::History do
           expect(@plus_action.action_type).to eq(:create)
         end
         it "content change" do
-          expect(@plus_action.card_changes(true)
-            .find_by_field_name(:db_content).value).to eq(content)
+          expect(@plus_action.value(:db_content)).to eq(content)
         end
       end
     end

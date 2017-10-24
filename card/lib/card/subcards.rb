@@ -1,14 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# API to create/update/delete additional cards together with the main card.
-# The most common case is for fields but subcards don't have to be descendants.
-#
-# Subcards can be added as card objects or attribute hashes.
-#
-# Use the methods defined in core/set/all/subcards.rb
-# Example
-# Together with "my address" you want to create the subcards
-# "my address+name", "my address+street", etc.
 class Card
   def subcards
     @subcards ||= Subcards.new(self)
@@ -18,6 +9,15 @@ class Card
     subcards.clear
   end
 
+  # API to create/update/delete additional cards together with the main card.
+  # The most common case is for fields but subcards don't have to be descendants.
+  #
+  # Subcards can be added as card objects or attribute hashes.
+  #
+  # Use the methods defined in core/set/all/subcards.rb
+  # Example
+  # Together with "my address" you want to create the subcards
+  # "my address+name", "my address+street", etc.
   class Subcards
     attr_accessor :context_card, :keys
     def initialize context_card
@@ -62,11 +62,11 @@ class Card
       if name_or_card.is_a? Card
         remove name_or_card
       else
-        absolute_name = @context_card.cardname.field_name(name_or_card)
+        absolute_name = @context_card.name.field_name(name_or_card)
         if @keys.include? absolute_name.key
           remove absolute_name
         else
-          remove @context_card.cardname.relative_field_name(name_or_card)
+          remove @context_card.name.relative_field_name(name_or_card)
         end
       end
     end
@@ -218,13 +218,13 @@ class Card
 
     def field_name_to_key name
       if @context_card.name =~ /^\+/
-        @context_card.cardname.relative_field_name(name).key
+        @context_card.name.relative_field_name(name).key
       else
-        absolute_key = @context_card.cardname.field_name(name).key
+        absolute_key = @context_card.name.field_name(name).key
         if @keys.include? absolute_key
           absolute_key
         else
-          @context_card.cardname.relative_field_name(name).key
+          @context_card.name.relative_field_name(name).key
         end
       end
     end
@@ -250,7 +250,7 @@ class Card
       attributes ||= {}
       absolute_name = absolutize_subcard_name name
       if absolute_name.field_of?(@context_card.name) &&
-         (absolute_name.parts.size - @context_card.cardname.parts.size) > 2
+         (absolute_name.parts.size - @context_card.name.parts.size) > 2
         left_card = new_by_attributes absolute_name.left
         new_by_card left_card, transact_in_stage: attributes[:transact_in_stage]
         left_card.subcards.new_by_attributes absolute_name, attributes
@@ -269,14 +269,14 @@ class Card
       if @context_card.name =~ /^\+/ || name.blank?
         name.to_name
       else
-        name.to_name.to_absolute_name(@context_card.name)
+        name.to_name.absolute_name(@context_card.name)
       end
     end
 
     def new_by_card card, opts={}
       card.supercard = @context_card
-      if !card.cardname.simple? &&
-         card.cardname.field_of?(@context_card.cardname)
+      if !card.name.simple? &&
+         card.name.field_of?(@context_card.name)
         card.superleft = @context_card
       end
       @keys << card.key

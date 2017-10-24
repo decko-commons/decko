@@ -7,7 +7,7 @@ require "cardio/schema.rb"
 
 ActiveSupport.on_load :card do
   if Card.take
-    Card::Mod::Loader.load_mods
+    Card::Mod.load
   else
     Rails.logger.warn "empty database"
   end
@@ -47,10 +47,10 @@ module Cardio
         acts_per_page:          10,
         space_last_in_multispace: true,
         closed_search_limit:    10,
-        paging_limit: 20,
+        paging_limit:           20,
 
         non_createable_types:   [%w(signup setting set)],
-        view_cache: false,
+        view_cache:             true,
 
         encoding:               "utf-8",
         request_logger:         false,
@@ -59,24 +59,44 @@ module Cardio
 
         file_storage:           :local,
         file_buckets:           {},
-        file_default_bucket: nil
+        file_default_bucket:    nil,
+
+        allow_irreversible_admin_tasks: false
       }
     end
 
     def set_config config
       @@config = config
 
-      config.autoload_paths += Dir["#{gem_root}/lib/**/"]
-      config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
-      config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
+      add_lib_dirs_to_autoload_paths config
 
       default_configs.each_pair do |setting, value|
         set_default_value(config, setting, *value)
       end
     end
 
+    def add_lib_dirs_to_autoload_paths config
+      config.autoload_paths += Dir["#{gem_root}/lib/**/"]
+      config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
+      config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
+      gem_mod_paths.each do |_mod_name, mod_path|
+        config.autoload_paths += Dir["#{mod_path}/lib/**/"]
+      end
+    end
+
+    # @return Hash with key mod names (without card-mod prefix) and values the
+    #   full path to the mod
+    def gem_mod_paths
+      @gem_mods ||=
+        Bundler.definition.specs.each_with_object({}) do |gem_spec, h|
+          mod_name = mod_name_from_gem_spec gem_spec
+          next unless mod_name
+          h[mod_name] = gem_spec.full_gem_path
+        end
+    end
+
     def read_only?
-      !ENV["WAGN_READ_ONLY"].nil?
+      !ENV["DECKO_READ_ONLY"].nil?
     end
 
     # In production mode set_config gets called twice.
@@ -91,13 +111,15 @@ module Cardio
       add_path "tmp/set", root: root
       add_path "tmp/set_pattern", root: root
 
-      add_path "mod"
+      add_path "mod"        # add card gem's mod path
+      paths["mod"] << "mod" # add deck's mod path
 
-      set_db_paths
-      set_initializer_paths
+      add_db_paths
+      add_initializer_paths
+      add_mod_initializer_paths
     end
 
-    def set_db_paths
+    def add_db_paths
       add_path "db"
       add_path "db/migrate"
       add_path "db/migrate_core_cards"
@@ -105,32 +127,32 @@ module Cardio
       add_path "db/seeds.rb", with: "db/seeds.rb"
     end
 
-    def set_initializer_paths
+    def add_initializer_paths
       add_path "config/initializers", glob: "**/*.rb"
-      add_path "mod/config/initializers", glob: "**/*.rb"
       add_initializers root
     end
 
-    def set_mod_paths
+    def add_mod_initializer_paths
+      add_path "mod/config/initializers", glob: "**/*.rb"
       each_mod_path do |mod_path|
-        add_mod_initializers mod_path
+        add_initializers mod_path, true
       end
     end
 
-    def add_mod_initializers mod_path
-      Dir.glob("#{mod_path}/*/config/initializers").each do |initializers_dir|
-        paths["mod/config/initializers"] << initializers_dir
-      end
-    end
-
-    def add_initializers dir
+    def add_initializers dir, mod=false
       Dir.glob("#{dir}/config/initializers").each do |initializers_dir|
-        paths["config/initializers"] << initializers_dir
+        path_mark = mod ? "mod/config/initializers" : "config/initializers"
+        paths[path_mark] << initializers_dir
       end
     end
 
     def each_mod_path
-      paths["mod"].each do |mod_path|
+      paths["mod"].each do |mods_path|
+        Dir.glob("#{mods_path}/*").each do |single_mod_path|
+          yield single_mod_path
+        end
+      end
+      gem_mod_paths.each do |_mod_name, mod_path|
         yield mod_path
       end
     end
@@ -157,12 +179,22 @@ module Cardio
     def migration_paths type
       list = paths["db/migrate#{schema_suffix type}"].to_a
       if type == :deck_cards
-        Card::Mod::Loader.mod_dirs.each("db/migrate_cards") do |path|
+        Card::Mod.dirs.each("db/migrate_cards") do |path|
           list += Dir.glob path
         end
       end
 
       list.flatten
+    end
+
+    private
+
+    def mod_name_from_gem_spec gem_spec
+      if (m = gem_spec.name.match(/^card-mod-(.+)$/))
+        m[1]
+      else
+        gem_spec.metadata["card-mod"]
+      end
     end
   end
 end

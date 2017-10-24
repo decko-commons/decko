@@ -1,6 +1,6 @@
 include Card::Set::Type::Pointer
 
-def raw_content
+def content
   item_names.map { |name| "[[#{name}]]" }
 end
 

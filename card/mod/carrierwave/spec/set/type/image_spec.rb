@@ -62,7 +62,7 @@ describe Card::Set::Type::Image do
 
     describe "view: source" do
       it "renders url" do
-        expect(subject.format.render(:source))
+        expect(subject.format.render!(:source))
           .to eq("/files/~#{subject.id}/#{subject.last_action_id}-medium.jpg")
       end
     end
@@ -70,7 +70,7 @@ describe Card::Set::Type::Image do
     describe "view: content changes" do
       it "gets image url" do
         render_args = { action: subject.last_action, diff_type: :expanded }
-        act_summary = subject.format.render :content_changes, render_args
+        act_summary = subject.format.render! :content_changes, render_args
         current_url = subject.image.versions[:medium].url
         expect(act_summary).to match(/#{Regexp.quote current_url}/)
       end
@@ -128,7 +128,7 @@ describe Card::Set::Type::Image do
     end
 
     describe "source view" do
-      it "renders url with medium version" do
+      it "renders url with original version" do
         expect(subject.format.render_source)
           .to eq "/files/:#{subject.codename}/standard-medium.png"
       end

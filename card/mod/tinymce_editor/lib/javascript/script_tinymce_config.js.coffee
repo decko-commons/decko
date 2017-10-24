@@ -1,19 +1,19 @@
-wagn.addEditor(
+decko.addEditor(
   '.tinymce-textarea',
   ->
-    wagn.initTinyMCE @[0].id
+    decko.initTinyMCE @[0].id
   ->
     tinyMCE.get(@[0].id).getContent()
 )
 
-$.extend wagn,
+$.extend decko,
   setTinyMCEConfig: (string) ->
     setter = ->
       try
         $.parseJSON string
       catch
         {}
-    wagn.tinyMCEConfig = setter()
+    decko.tinyMCEConfig = setter()
 
   initTinyMCE: (el_id) ->
     # verify_html: false -- note: this option needed for empty
@@ -22,13 +22,13 @@ $.extend wagn,
       plugins: 'autoresize'
       autoresize_max_height: 500
     }
-    user_conf = if wagn.tinyMCEConfig? then wagn.tinyMCEConfig else {}
+    user_conf = if decko.tinyMCEConfig? then decko.tinyMCEConfig else {}
     hard_conf = {
       mode: 'exact'
       elements: el_id
       # CSS could be made optional, but it may involve migrating old legacy
       # *tinyMCE settings to get rid of stale stuff.
-      content_css: wagn.cssPath
+      content_css: decko.cssPath
       entity_encoding: 'raw'
     }
     $.extend conf, user_conf, hard_conf

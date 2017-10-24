@@ -17,11 +17,9 @@ include SelectedAction
 
 format do
   view :source do
-    source_url
-  end
-
-  def source_url
-    internal_url card.attachment.url
+    file = card.attachment
+    return "" unless file.valid?
+    internal_url file.url
   end
 
   view :core do
@@ -31,10 +29,15 @@ format do
   end
 
   def handle_source
-    source = source_url
-    source ? yield(source) : ""
+    source = _render_source
+    return "" if source.blank?
+    block_given? ? yield(source) : source
   rescue
-    "File Error"
+    tr :file_error
+  end
+
+  def selected_version
+    card.attachment
   end
 end
 
@@ -50,12 +53,12 @@ format :file do
   end
 
   def args_for_send_file
-    file = selected_file_version
+    file = selected_version
     [
       file.path,
       {
         type: file.content_type,
-        filename:  "#{card.cardname.safe_key}#{file.extension}",
+        filename:  "#{card.name.safe_key}#{file.extension}",
         x_sendfile: true,
         disposition: (params[:format] == "file" ? "attachment" : "inline")
       }
@@ -63,22 +66,19 @@ format :file do
   end
 
   def set_response_headers
-    return unless params[:explicit_file] && (r = controller.response)
-    r.headers["Expires"] = 1.year.from_now.httpdate
+    return unless params[:explicit_file] && (response = controller&.response)
+    response.headers["Expires"] = 1.year.from_now.httpdate
     # currently using default "private", because proxy servers could block
     # needed permission checks
     # r.headers["Cache-Control"] = "public"
   end
 
-  def selected_file_version
-    card.attachment
-  end
 end
 
 format :html do
-  view :core do |_args|
+  view :core do
     handle_source do |source|
-      "<a href=\"#{source}\">Download #{showname voo.title}</a>"
+      "<a href=\"#{source}\">#{tr :download, title: title_in_context(voo.title)}</a>"
     end
   end
 
@@ -106,12 +106,8 @@ format :html do
                              value="#{card.selected_action_id}">
         <table role="presentation" class="table table-striped">
           <tbody class="files">
-            <tr class="template-download fade in">
-              <td>
-                <span class="preview">
-                  #{preview}
-                </span>
-              </td>
+            <tr class="template-download fade show">
+              <td><span class="preview">#{preview}</span></td>
               <td>
                 <p class="name">
                   #{card.original_filename}
@@ -122,11 +118,11 @@ format :html do
                   #{number_to_human_size(card.attachment.size)}
                 </span>
               </td>
-              <td class="pull-right">
+              <td class="float-right">
                 <button class="btn btn-danger delete cancel-upload"
                         data-type="DELETE">
                   <i class="glyphicon glyphicon-trash"></i>
-                  <span>Delete</span>
+                  <span>#{tr(:delete)}</span>
                 </button>
               </td>
             </tr>
@@ -150,10 +146,10 @@ format :html do
              #{hidden_field_tag 'attachment_type_id', card.type_id}
              #{hidden_field card.attachment_name, class: 'attachment_card_name',
                                                   value: ''}
-             #{hidden_field_tag 'file_card_name', card.cardname.url_key}
+             #{hidden_field_tag 'file_card_name', card.name.url_key}
         </span>
       </div>
-      <div id="progress" class="progress" style="display: none;">
+      <div id="progress" class="progress mb-2" style="display: none;">
         <div class="progress-bar progress-bar-success" style="width: 0%;"></div>
       </div>
       <div class="chosen-file"></div>

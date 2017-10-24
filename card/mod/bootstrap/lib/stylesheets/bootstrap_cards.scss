@@ -8,12 +8,14 @@
   Note: these styles do not appear in pre-bootstrap skins.
 */
 {{bootstrap default skin+variables}}
+{{style: bootstrap breakpoints}}
 
 
 $label_color: #666666;
 $border_color: #999999;
 $header_color: #eeeeee;
 $credit_color: #186886; /* wagn blue */
+$gray-light: #e7e7e7;
 
 header {
   a {
@@ -30,8 +32,6 @@ header {
 .card-menu  a {
   color: inherit;
 }
-
-
 
 label,
 .navbox-item-label {
@@ -64,7 +64,7 @@ form {
 
 
 .link-muted {
-  color: $gray-light;
+  color: $gray-light; // FIXME: this should depend on the theme
   &:hover {
     color: inherit;
   }
@@ -131,17 +131,10 @@ body.mceContentBody {
   padding: 5px !important;
   margin-bottom: 15px !important;
 }
-.offcanvas-toggle-right {
-  float: right;
-}
-.offcanvas-toggle-left {
-  float: left;
-}
-
 
 /*---------- Card menu ------------*/
 
-@media (min-width: $screen-xs-max) {
+@include media-breakpoint-up(xs) {
   .card-slot > .d0-card-frame > .menu-slot > .vertical-card-menu._show-on-hover {
     .btn-group.slotter {
       display: none;
@@ -291,6 +284,12 @@ body.mceContentBody {
    margin-bottom: 0;
  }
 
+/*-------- Toolbar --------*/
+.toolbar-close {
+  font-size: 20px !important;
+  font-weight: bolder !important;
+}
+
 /*-------- Icon Helpers --------*/
 .toggler>i.material-icons{
   color: #000;
@@ -301,8 +300,23 @@ body.mceContentBody {
   margin-right: 3px;
 }
 
-/*-------- Toolbar --------*/
-.toolbar-close {
-  font-size: 20px !important;
-  font-weight: bolder !important;
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+
+/*----------- Borders -------------*/
+.border-all{
+  border-width: 1px;
+  border-style: solid;
 }

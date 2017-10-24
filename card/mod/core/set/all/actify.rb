@@ -20,36 +20,27 @@ def abort status, msg="action canceled"
 end
 
 def act opts={}, &block
+  opts ||= {}
+  @action ||= identify_action(opts[:trash])
   if ActManager.act_card
-    add_to_act opts, &block
+    add_to_act &block
   else
     start_new_act opts, &block
   end
 end
 
 def start_new_act opts
-  ActManager.clear
   self.director = nil
-  ActManager.act_card = self
-  if opts && opts[:success]
-    Env[:success] = Env::Success.new(cardname, Env.params[:success])
+  ActManager.run_act(self) do
+    Env.success(name) if opts[:success]
+    run_callbacks(:act) { yield }
   end
-  run_callbacks :act do
-    yield
-  end
-ensure
-  ActManager.clear
 end
 
-def add_to_act opts
+def add_to_act
   # if only_storage_phase is true then the card is already part of the act
   return yield if ActManager.act_card == self || only_storage_phase
   director.reset_stage
-  if opts && opts[:trash]
-    @action = :delete
-  else
-    identify_action
-  end
   director.update_card self
   self.only_storage_phase = true
   yield
@@ -126,5 +117,6 @@ event :notable_exception_raised do
 end
 
 def success
-  Env.success(cardname)
+  Env.success(name)
 end
+

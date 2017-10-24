@@ -51,7 +51,7 @@ class Card
       def clause_to_hash clause
         case clause
         when Hash              then clause
-        when String, SmartName then { key: clause.to_name.key }
+        when String, Cardname then { key: clause.to_name.key }
         when Integer           then { id: clause }
         else raise Card::Error::BadQuery, "Invalid query args #{clause.inspect}"
         end
@@ -60,7 +60,7 @@ class Card
       def normalize_value val
         case val
         when Integer, Float, Symbol, Hash then val
-        when String, SmartName            then normalize_string_value val
+        when String, Cardname            then normalize_string_value val
         when Array                        then val.map { |v| normalize_value v }
         else raise Card::Error::BadQuery, "unknown WQL value type: #{val.class}"
         end
@@ -71,7 +71,7 @@ class Card
         when /^\$(\w+)$/                       # replace from @vars
           @vars[Regexp.last_match[1].to_sym].to_s.strip
         when /\b_/                             # absolutize based on @context
-          val.to_name.to_absolute(context)
+          val.to_name.absolute(context)
         else
           val
         end

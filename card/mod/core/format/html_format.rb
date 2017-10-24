@@ -17,7 +17,7 @@ class Card
       end
 
       def focal? # meaning the current card is the requested card
-        show_layout? ? main? : @depth.zero?
+        show_layout? ? main? : depth.zero?
       end
 
       def first_head?
@@ -53,15 +53,16 @@ class Card
       end
 
       def layout_from_card_or_code name
-        layout_card = Card.fetch name.to_s, skip_virtual: true,
-                                            skip_modules: true
+        layout_card = Card.quick_fetch name
         if layout_card && layout_card.ok?(:read)
           layout_card.content
         elsif (hardcoded_layout = LAYOUTS[name])
           hardcoded_layout
         else
-          "<h1>Unknown layout: #{name}</h1>"\
-          "Built-in Layouts: #{LAYOUTS.keys.join(', ')}"
+          content_tag(:h1, I18n.t(:unknown_layout, scope: "mod.core.format.html_format",
+                                                   name: name)) +
+            I18n.t(:built_in, scope: "mod.core.format.html_format",
+                              built_in_layouts: LAYOUTS.keys.join(', '))
         end
       end
 
@@ -69,6 +70,10 @@ class Card
         # to be used inside single quotes (makes for readable json attributes)
         s.to_s.gsub(/&/, "&amp;").gsub(/\'/, "&apos;")
          .gsub(/>/, "&gt;").gsub(/</, "&lt;")
+      end
+
+      def mime_type
+        "text/html"
       end
     end
   end

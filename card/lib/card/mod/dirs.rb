@@ -1,38 +1,112 @@
 class Card
+
+  class << self
+    def config
+      Cardio.config
+    end
+
+    def paths
+      Cardio.paths
+    end
+  end
+
   module Mod
+    # Dirs objects are used to manage the load paths for card mods.
+    # Mods can be loaded as gems and by using directories with mod subdirectories.
+    #
+    # 1. Gemfile
+    # A mod gem needs a metadata attribute with { "card-mod" => "the_mod_name" }
+    # or the name has to start with "card-mod-".
+    # Then you can just add it to your Gemfile. Otherwise it won't be recognized as mod.
+    #
+    # 2. mod directory
+    # Give a path to a directory with mods. The mods will be loaded in alphabetical order.
+    # To change the load order you can add number prefixes to the mod names
+    # (like "01_this_first") or add a Modfile.
+    # In the Modfile you list all the mods you want to be loaded from that directory
+    # in load order with a preceding "mod" command (similar to a Gemfile).
+    # The mods are expected in subdirectories with the mod names.
+    #
+    # Mods in Modfiles are always loaded before mods in the Gemfile.
+    # If you have to change the order add gem mods to your Modfile using the
+    # mod_gem command. You can omit the 'card-mod' prefix.
+    #
+    # Example for a mod directory:
+    #   # my_mod/Modfile
+    #   mod "twitter"
+    #   gem_mod "logger"
+    #   mod "cache"
+    #
+    #   # directory structure
+    #   my_mods/
+    #     Modfile
+    #     cache/
+    #       set/
+    #         all/
+    #           my_cache.rb
+    #     twitter/
+    #       set/
+    #         type/
+    #           basic.rb
+    #       set_pattern/
+    #         my_pattern.rb
+    #
+    # Dir checks always for gems. You can initialize an Dirs object with an additional
+    # array of paths to card mod directories.
     class Dirs < Array
       attr_reader :mods
 
-      def initialize mod_paths
+      # @param mod_paths [String, Array<String>] paths to directories that contain mods
+      def initialize mod_paths=[]
         @mods = []
+        @loaded_gem_mods = ::Set.new
         @paths = {}
         mod_paths = Array(mod_paths)
         mod_paths.each do |mp|
           @current_path = mp
           load_from_modfile || load_from_dir
         end
+        load_from_gemfile
         super()
         @mods.each do |mod_name|
           self << @paths[mod_name]
         end
       end
 
-      # add a new mod to mod load paths
-      def add_path mod_name
+      # Add a mod to mod load paths
+      def add_path mod_name, path=nil
         if @mods.include? mod_name
           raise Error,
                 "name conflict: mod with name \"#{mod_name}\" already loaded"
         end
         @mods << mod_name
-        @paths[mod_name] = File.join @current_path, mod_name
+        path ||= File.join @current_path, mod_name
+        @paths[mod_name] = path
+      end
+
+      def gem_mod mod_name, path=nil
+        path ||= Cardio.gem_mod_paths[mod_name]
+        raise Error, "Unknown gem mod \"#{mod_name}\". Make sure it is in your Gemfile." unless path
+        add_gem_mod mod_name, path
+      end
+
+      def add_gem_mod mod_name, mod_path
+        return if @loaded_gem_mods.include?(mod_name)
+        @loaded_gem_mods << mod_name
+        add_path mod_name, mod_path
       end
 
       alias_method :mod, :add_path
 
+      # @param mod_name [String] the name of a mod
+      # @return the path to mod `mod_name`
       def path mod_name
         @paths[mod_name]
       end
 
+      # Iterate over each mod directory
+      # @param type [Symbol] the type of modification like set, set_pattern, or format.
+      #   It is attached as subdirectory.
       def each type=nil
         super() do |path|
           dirname = type ? File.join(path, type.to_s) : path
@@ -70,6 +144,12 @@ class Card
           next if filename =~ /^\./
           add_path filename
         end.compact
+      end
+
+      def load_from_gemfile
+        Cardio.gem_mod_paths.each do |mod_name, mod_path|
+          add_gem_mod mod_name, mod_path
+        end
       end
 
       def tmp_dir modname, type

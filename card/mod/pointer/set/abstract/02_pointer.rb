@@ -5,12 +5,12 @@ stage_method :changed_item_names do
 end
 
 stage_method :dropped_item_names do
-  old_items = item_names content: db_content_was
+  old_items = item_names content: db_content_before_act
   old_items - item_names
 end
 
 stage_method :added_item_names do
-  old_items = item_names content: db_content_was
+  old_items = item_names content: db_content_before_act
   item_names - old_items
 end
 
@@ -125,7 +125,7 @@ format :json do
   end
 
   def essentials
-    return if @depth > max_depth
+    return {} if depth > max_depth
     card.item_cards.map do |item|
       nest item, view: :essentials
     end
@@ -180,8 +180,8 @@ def item args={}
 end
 
 def item_names args={}
-  context = args[:context] || context_card.cardname
-  content = args[:content] || raw_content
+  context = args[:context] || context_card.name
+  content = args[:content] || self.content
   raw_items = content.to_s.split(/\n+/)
   if args[:limit].present? && args[:limit].to_i > 0
     offset = args[:offset] || 0
@@ -192,7 +192,7 @@ def item_names args={}
     if context == :raw
       item_name
     else
-      item_name.to_name.to_absolute context
+      item_name.to_name.absolute context
     end
   end
 end

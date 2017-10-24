@@ -6,7 +6,7 @@ format :html do
   def wrap slot=true
     @slot_view = @current_view
     debug_slot do
-      wrap_with :div, yield, id: card.cardname.url_key,
+      wrap_with :div, yield, id: card.name.url_key,
                              class: wrap_classes(slot),
                              data:  wrap_data
     end
@@ -15,7 +15,7 @@ format :html do
   def haml_wrap slot=true
     @slot_view = @current_view
     debug_slot do
-      haml_tag :div, id: card.cardname.url_key,
+      haml_tag :div, id: card.name.url_key,
                      class: wrap_classes(slot),
                      data:  wrap_data do
         yield
@@ -53,15 +53,15 @@ format :html do
   end
 
   def debug_slot_wrap
-    pre = "<!--\n\n#{'  ' * @depth}"
+    pre = "<!--\n\n#{'  ' * depth}"
     post = " SLOT: #{h card.name}\n\n-->"
     [pre, "BEGIN", post, yield, pre, "END", post].join
   end
 
   def wrap_classes slot
-    list = ["card-slot", "#{@current_view}-view", card.safe_set_keys]
-    list.push "STRUCTURE-#{voo.structure.to_name.key}" if voo.structure
-    list.shift unless slot
+    list = slot ? ["card-slot"] : []
+    list += ["#{@current_view}-view", card.safe_set_keys]
+    list << "STRUCTURE-#{voo.structure.to_name.key}" if voo.structure
     classy list
   end
 
@@ -84,7 +84,7 @@ format :html do
     wrap do
       [
         _render_menu,
-        _optional_render_subheader,
+        _render_subheader,
         frame_help,
         panel { wrap_body { yield } }
       ]
@@ -105,10 +105,10 @@ format :html do
     wrap slot do
         panel do
           [
-            _optional_render_menu,
-            _optional_render_header,
+            _render_menu,
+            _render_header,
             frame_help,
-            _optional_render(:flash),
+            _render(:flash),
             wrap_body { yield }
           ]
         end
@@ -118,7 +118,7 @@ format :html do
   def frame_help
     # TODO: address these args
     with_class_up "help-text", "alert alert-info" do
-      _optional_render :help
+      _render :help
     end
   end
 
@@ -132,12 +132,13 @@ format :html do
   end
 
   # alert_types: 'success', 'info', 'warning', 'danger'
-  def alert alert_type, dismissable=false, disappear=false
+  def alert alert_type, dismissable=false, disappear=false, args={}
     classes = ["alert", "alert-#{alert_type}"]
     classes << "alert-dismissible " if dismissable
     classes << "_disappear" if disappear
-
-    wrap_with :div, class: classy(classes), role: "alert" do
+    args.merge! role: "alert"
+    add_class args, classy(classes)
+    wrap_with :div, args do
       [(alert_close_button if dismissable), output(yield)]
     end
   end

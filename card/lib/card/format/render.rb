@@ -3,7 +3,7 @@ class Card
     # View rendering methods.
     #
     module Render
-      def render view, args={}
+      def render! view, args={}
         voo = View.new self, view, args, @voo
         with_voo voo do
           voo.process do |final_view, options|
@@ -40,11 +40,9 @@ class Card
 
       def final_render view, args
         current_view(view) do
-          with_nest_mode view do
-            method = view_method view
-            rendered = method.arity.zero? ? method.call : method.call(args)
-            add_debug_info view, method, rendered
-          end
+          method = view_method view
+          rendered = method.arity.zero? ? method.call : method.call(args)
+          add_debug_info view, method, rendered
         end
       end
 
@@ -75,41 +73,39 @@ class Card
       end
 
       def stub_render cached_content
-        return cached_content unless cached_content.is_a? String
-        expand_stubs cached_content do |stub_hash|
-          prepare_stub_nest(stub_hash) do |stub_card, mode, options|
-            with_nest_mode(mode) { nest stub_card, options }
+        result = expand_stubs cached_content do |stub_hash|
+          prepare_stub_nest(stub_hash) do |stub_card, mode, options, override|
+            with_nest_mode(mode) { nest stub_card, options, override }
           end
         end
+        puts "STUB IN RENDERED VIEW: #{card.name}: #{voo.ok_view}\n#{result}" if result =~ /stub/
+        result
       end
 
       def prepare_stub_nest stub_hash
         stub_card = Card.fetch_from_cast stub_hash[:cast]
         stub_options = stub_hash[:options]
-        if stub_card.key.present? && stub_card.key == card.key
+        if stub_card&.key.present? && stub_card.key == card.key
           stub_options[:nest_name] ||= "_self"
         end
-        yield stub_card, stub_hash[:mode], stub_options
+        yield stub_card, stub_hash[:mode], stub_options, stub_hash[:override]
       end
 
       def expand_stubs cached_content
+        return cached_content unless cached_content.is_a? String
+
         conto = Card::Content.new cached_content, self, chunk_list: :stub
         conto.process_each_chunk do |stub_hash|
-          yield(stub_hash).to_s
+          yield(stub_hash)
         end
-        conto.to_s
-      end
 
-      def api_render match, opts
-        view = match[3] ? match[4] : opts.shift
-        args = opts[0] ? opts.shift.clone : {}
-        optional_render_args(args, opts) if match[2]
-        args[:skip_perms] = true if match[1]
-        render view, args
-      end
-
-      def optional_render_args args, opts
-        args[:optional] = opts.shift || :show
+        if conto.pieces.size == 1
+          # for stubs in json format this converts a single stub back
+          # to it's original type (e.g. a hash)
+          conto.pieces.first.to_s
+        else
+          conto.to_s
+        end
       end
 
       def view_method view
@@ -135,6 +131,7 @@ class Card
       ensure
         @current_view = old_view
       end
+
     end
   end
 end

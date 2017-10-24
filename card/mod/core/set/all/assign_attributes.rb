@@ -20,18 +20,31 @@ def extract_subcard_args! args
   subcards = args.delete("subcards") || args.delete(:subcards) || {}
   if (subfields = args.delete("subfields") || args.delete(:subfields))
     subfields.each_pair do |key, value|
-      subcards[cardname.field(key)] = value
+      subcards[name.field(key)] = value
     end
   end
   args.keys.each do |key|
     subcards[key] = args.delete(key) if key =~ /^\+/
   end
+  subcards = subcards.to_unsafe_h if subcards.respond_to?(:to_unsafe_h)
   subcards
 end
 
 protected
 
+module ClassMethods
+  def assign_or_initialize_by name, attributes, fetch_opts={}
+    if (known_card = Card.fetch(name, fetch_opts))
+      known_card.refresh.assign_attributes attributes
+      known_card
+    else
+      Card.new attributes.merge(name: name)
+    end
+  end
+end
+
 def prepare_assignment_params args
+  args = args.to_unsafe_h if args.respond_to?(:to_unsafe_h)
   params = ActionController::Parameters.new(args)
   params.permit!
   if params[:db_content].is_a? Array

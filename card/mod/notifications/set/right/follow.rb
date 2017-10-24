@@ -41,7 +41,7 @@ format :html do
 
   def follow_item_button condition
     action = add_follow_item?(condition) ? :add : :delete
-    _optional_render "#{action}_follow_rule_button"
+    _render "#{action}_follow_rule_button"
   end
 
   def follow_item_link condition
@@ -50,8 +50,8 @@ format :html do
 
   def follow_item_link_target
     set = card.rule_set
-    setname = set.cardname
-    set.tag.codename == "self" ? setname.left : setname.field("by name")
+    setname = set.name
+    set.tag.codename == :self ? setname.left : setname.field("by name")
   end
 
   def follow_item_link_text condition
@@ -68,7 +68,7 @@ format :html do
 
   view :follow_status do |args|
     ["<h4>Get notified about changes</h4>",
-     render(:follow_status_delete_options),
+     render!(:follow_status_delete_options),
      follow_status_link(card.name, args[:card_key])].join "\n\n"
   end
 

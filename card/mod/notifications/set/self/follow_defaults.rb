@@ -34,9 +34,9 @@ format :html do
     frame_and_form :update, hidden: { success: "_self",
                                       card: { update_all_users: false } } do
       [
-        _optional_render_content_formgroup,
-        _optional_render_confirm_update_all,
-        _optional_render_edit_buttons
+        _render_content_formgroup,
+        _render_confirm_update_all,
+        _render_edit_buttons
       ]
     end
   end

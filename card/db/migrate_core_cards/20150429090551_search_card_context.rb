@@ -13,14 +13,15 @@ class SearchCardContext < Card::Migration::Core
       ["",       "left"]
     ]
     Card.search(type_id: ["in", Card::SearchTypeID, Card::SetID]).each do |card|
-      next unless card.cardname.junction? && card.real?
-      content = card.content
+      next unless card.name.junction? && card.real?
+      content = card.db_content
       replace.each do |key, val|
         content.gsub!(/(#{sep})_(#{key})(?=#{sep})/, "\\1_#{val}")
       end
       card.update_column :db_content, content
       card.actions.each do |action|
         next unless (content_change = action.change :db_content)
+        next if content_change.new_record?
         content = content_change.value
         replace.each do |key, val|
           content.gsub!(/(#{sep})_(#{key})(?=#{sep})/, "\\1_#{val}")

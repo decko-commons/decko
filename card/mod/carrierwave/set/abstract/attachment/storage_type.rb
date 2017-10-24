@@ -1,7 +1,7 @@
 attr_writer :bucket, :storage_type
 
 event :storage_type_change, :store,
-      on: :update, when: proc { |c| c.storage_type_changed? } do
+      on: :update, when: :storage_type_changed? do
   # carrierwave stores file if @cache_id is not nil
   attachment.cache_stored_file!
   # attachment.retrieve_from_cache!(attachment.cache_name)
@@ -14,8 +14,7 @@ event :storage_type_change, :store,
   write_identifier
 end
 
-event :validate_storage_type, :validate,
-      on: :save do
+event :validate_storage_type, :validate, on: :save do
   if will_become_coded?
     unless mod || @new_mod
       errors.add :storage_type, "mod argument needed to save card as coded"
@@ -29,26 +28,26 @@ event :validate_storage_type, :validate,
   end
 end
 
-event :validate_storage_type_update, :validate,
-      on: :update do
+event :validate_storage_type_update, :validate, on: :update do
   # FIXME: make it possible to retrieve the file from cloud storage
   #   to store it somewhere else. Currently, it only works to change the
   #   storage type if a new file is provided
   #   i.e. `update_attributes storage_type: :local` fails but
   #        `update_attributes storage_type: :local, file: [file handle]` is ok
-  if cloud? && storage_type_changed? && !file_changed?
+  if cloud? && storage_type_changed? && !attachment_is_changing?
     errors.add :storage_type, "moving files from cloud elsewhere "\
                               "is not supported"
   end
 end
 
-event :loose_coded_status_on_update, :initialize, on: :update, when: :coded? do
+event :lose_coded_status_on_update, :initialize, on: :update, when: :coded? do
+  # unless explicit
   return if @new_mod
   @new_storage_type ||= storage_type_from_config
 end
 
-event :change_bucket_if_read_only, :initialize, on: :update, when: :cloud? do
-  return unless bucket_config[:read_only]
+event :change_bucket_if_read_only, :initialize,
+      on: :update, when: :change_bucket_if_read_only? do
   @new_storage_type = storage_type_from_config
 end
 
@@ -92,6 +91,10 @@ end
 
 def will_be_stored_as
   @new_storage_type || storage_type
+end
+
+def change_bucket_if_read_only?
+  cloud? && bucket_config[:read_only] && attachment_is_changing?
 end
 
 def cloud?
@@ -147,8 +150,17 @@ end
 
 def bucket
   @bucket ||= cloud? &&
-              ((new_card? && bucket_from_config) || bucket_from_content ||
-                bucket_from_config)
+              (new_card_bucket || bucket_from_content || bucket_from_config)
+end
+
+def new_card_bucket
+  return unless new_card?
+  # If the file is assigned before the bucket option we have to
+  # check if there is a bucket options in set_specific.
+  # That happens for exmaple when the file appears before the bucket in the
+  # options hash:
+  #   Card.create file: file_handle, bucket: "my_bucket"
+  set_specific[:bucket] || set_specific["bucket"] || bucket_from_config
 end
 
 def bucket_config
@@ -259,7 +271,7 @@ def update_storage_attributes
 end
 
 def storage_type_changed?
-  @new_bucket || @new_storage_type || @new_mod
+  @new_bucket || (@new_storage_type && @new_storage_type != storage_type) || @new_mod
 end
 
 def bucket= value
@@ -272,7 +284,7 @@ end
 
 def storage_type= value
   known_storage_type? value
-  if @action == :update
+  if @action == :update #&& storage_type != value
     # we cant update the storage type directly here
     # if we do then the uploader doesn't find the file we want to update
     @new_storage_type = value
@@ -282,7 +294,7 @@ def storage_type= value
 end
 
 def mod= value
-  if @action == :update
+  if @action == :update && mod != value
     @new_mod = value.to_s
   else
     @mod = value.to_s

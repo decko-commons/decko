@@ -4,15 +4,23 @@ class Card
       class ViewStub < Abstract
         Chunk.register_class(
           self,
-          prefix_re: Regexp.escape("<card-view>"),
-          full_re: /\<card-view\>([^\<]*)\<\/card-view\>/,
-          idx_char: "<"
+          prefix_re: Regexp.escape("(stub)"),
+          full_re: /\(stub\)([^\(]*)\(\/stub\)/,
+          idx_char: "("
         )
+
+        def initialize text, content
+          super
+        end
 
         def interpret match, _content
           @options_json = match[1]
-          @stub_hash = JSON.parse(@options_json).symbolize_keys
+          @stub_hash = JSON.parse(unescape @options_json).symbolize_keys
           interpret_hash_values
+        end
+
+        def unescape stub_json
+          stub_json.gsub '(', '_OParEN_'
         end
 
         def interpret_hash_values
@@ -31,6 +39,10 @@ class Card
 
         def interpret_mode
           @stub_hash[:mode] = @stub_hash[:mode].to_sym
+        end
+
+        def interpret_override
+          @stub_hash[:override] = @stub_hash[:override] == "true"
         end
 
         def process_chunk

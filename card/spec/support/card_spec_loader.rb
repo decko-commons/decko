@@ -14,12 +14,13 @@ class CardSpecLoader
         require File.join ENV["RAILS_ROOT"], "config/environment"
         load_shared_examples
         require File.expand_path("../simplecov_helper.rb", __FILE__)
+        require File.expand_path("../../../db/seed/test/seed.rb", __FILE__)
 
         # Requires supporting ruby files with custom matchers and macros, etc,
         # in spec/support/ and its subdirectories.
-        #  Dir[File.join(Cardio.gem_root, "spec/support/**/*.rb")].each do |f|
-        #    require f
-        #  end
+        Dir[File.join(Cardio.gem_root, "spec/support/matchers/*.rb")].each do |f|
+          require f
+        end
         yield if block_given?
       end
     end
@@ -53,17 +54,44 @@ class CardSpecLoader
         config.use_transactional_fixtures = true
         config.use_instantiated_fixtures  = false
 
-        config.before(:each) do
+        config.before(:each) do |example|
           Delayed::Worker.delay_jobs = false
-          Card::Auth.current_id = @@joe_user_id
+          unless example.metadata[:as_bot]
+            user_id =
+              case example.metadata[:with_user]
+              when String
+                Card.fetch_id example.metadata[:with_user]
+              when Card
+                Card.id
+              when Integer
+                example.metadata[:with_user]
+              else
+                @@joe_user_id
+              end
+            Card::Auth.current_id = user_id
+          end
           Card::Cache.restore
           Card::Env.reset
+        end
+
+        config.around(:example, :as_bot) do |example|
+          Card::Auth.current_id = @@joe_user_id
+          Card::Auth.as_bot do
+            example.run
+          end
         end
 
         config.after(:each) do
           Timecop.return
         end
         yield config if block_given?
+
+        # # only needed for < 3.5.0
+        # [:controller, :view, :request].each do |type|
+        #   config.include ::Rails::Controller::Testing::TestProcess, :type => type
+        #   config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
+        #   config.include ::Rails::Controller::Testing::Integration, :type => type
+        # end
       end
     end
 
@@ -76,7 +104,7 @@ class CardSpecLoader
     end
 
     def load_shared_examples
-      Card::Mod::Loader.mod_dirs.each "spec/shared_examples" do |shared_ex_dir|
+      Card::Mod.dirs.each "spec/shared_examples" do |shared_ex_dir|
         Dir["#{shared_ex_dir}/**/*.rb"].sort.each { |f| require f }
       end
     end

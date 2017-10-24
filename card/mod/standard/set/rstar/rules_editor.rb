@@ -55,7 +55,7 @@ format :html do
 
   def show_rule_set set
     wrap_with :div, class: "rule-set" do
-      %(<label>Applies to</label> #{link_to_card set.cardname, set.label}:)
+      %(<label>Applies to</label> #{link_to_card set.name, set.label}:)
     end
   end
 
@@ -103,14 +103,14 @@ format :html do
   end
 
   def link_to_open_rule
-    setting_title = card.cardname.tag.tr "*", ""
+    setting_title = card.name.tag.tr "*", ""
     link_to_view :open_rule, setting_title, class: "edit-rule-link slotter"
   end
 
   def closed_rule_content rule_card
     return "" unless rule_card
     nest rule_card, view: :closed_content,
-                    set_context: card.cardname.trunk_name
+                    set_context: card.name.trunk_name
   end
 
   def open_rule_setting_links
@@ -160,7 +160,7 @@ format :html do
   end
 
   def edit_rule_success
-    { id:   @rule_context.cardname.url_key,
+    { id:   @rule_context.name.url_key,
       view: "open_rule",
       item: "view_rule" }
   end
@@ -290,7 +290,7 @@ format :html do
   end
 
   def current_set_key
-    card.new_card? ? Card.quick_fetch(:all).cardname.key : card.rule_set_key
+    card.new_card? ? Card.quick_fetch(:all).name.key : card.rule_set_key
   end
 
   def related_set_formgroup

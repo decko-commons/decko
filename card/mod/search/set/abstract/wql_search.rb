@@ -11,7 +11,7 @@ end
 # override this to define search
 def wql_hash
   @wql_hash ||= begin
-    query = raw_content
+    query = content
     query = query.is_a?(Hash) ? query : parse_json_query(query)
     query.symbolize_keys
   end
@@ -32,7 +32,7 @@ end
 
 def standardized_query_args args
   args = query_args(args).symbolize_keys
-  args[:context] ||= cardname
+  args[:context] ||= name
   args
 end
 

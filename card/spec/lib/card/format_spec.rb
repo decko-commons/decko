@@ -81,9 +81,9 @@ describe Card::Format do
     end
 
     it "formats page_path" do
-      expect(text_format.page_path(card.cardname)).to eq "/" + card.name
-      expect(html_format.page_path(card.cardname)).to eq "/" + card.name
-      page_path = text_format.page_path card.cardname,
+      expect(text_format.page_path(card.name)).to eq "/" + card.name
+      expect(html_format.page_path(card.name)).to eq "/" + card.name
+      page_path = text_format.page_path card.name,
                                         format: "txt", opt1: 11, opt2: "foo"
       expect(page_path).to eq "/#{card.name}.txt?opt1=11&opt2=foo"
     end
@@ -105,12 +105,12 @@ describe Card::Format do
     end
 
     it "renders placeholder" do
-      expect(format.render(:lazy_view))
-        .to eq "<card-view-placeholder data-url=/A?view=lazy_view_async_content/>"
+      expect(format.render!(:lazy_view))
+        .to eq %(<card-view-placeholder data-url="/A?view=lazy_view_async_content" />)
     end
 
     it "renders content in _async_content view" do
-      expect(format.render(:lazy_view_async_content))
+      expect(format.render!(:lazy_view_async_content))
         .to eq "content"
     end
   end
