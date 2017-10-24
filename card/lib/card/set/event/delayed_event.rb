@@ -41,10 +41,8 @@ class Card
         class IntegrateWithDelayJob < ApplicationJob
           def perform act_id, card, card_attribs, env, auth, method_name
             card.deserialize_for_active_job! card_attribs
-            card.with_env_and_auth env, auth do
-              card.with_act_manager act_id do
-                card.send method_name
-              end
+            ActManager.contextualize act_id, card, env, auth do
+              card.send method_name
             end
           end
         end
@@ -57,26 +55,6 @@ class Card
       instance_variable_set("@#{attname}", val)
     end
     include_set_modules
-  end
-
-  def with_env_and_auth env, auth
-    # If active jobs (and hence the integrate_with_delay events) don't run
-    # in a background process then Card::Env.deserialize! decouples the
-    # controller's params hash and the Card::Env's params hash with the
-    # effect that params changes in the CardController get lost
-    # (a crucial example are success params that are processed in
-    # CardController#update_params_for_success)
-    return yield if Decko.config.active_job.queue_adapter == :inline
-    Card::Auth.with auth do
-      Card::Env.with env do
-        yield
-      end
-    end
-  end
-
-  def with_act_manager act_id, &block
-    act = Act.find act_id
-    ActManager.run_delayed_event act, self, &block
   end
 
   def serialize_for_active_job
@@ -93,16 +71,18 @@ class Card
     when Time
       { value: value.to_s, type: "time" }
     when Hash
-      {
-        value: value.each_with_object({}) { |(k, v), h| h[k] = serialize_value(v) },
-        type: "hash"
-      }
+      { value: serialize_hash_value(value), type: "hash"}
     when ActionController::Parameters
       serialize_value value.to_unsafe_h
     else
       { value: value }
     end
   end
+
+  def serialize_hash_value
+    value.each_with_object({}) { |(k, v), h| h[k] = serialize_value(v) }
+  end
+
 
   def deserialize_value val, type
     case type
@@ -111,11 +91,15 @@ class Card
     when "time"
       DateTime.parse val
     when "hash"
-      val.each_with_object({}) do |(k, v), h|
-        h[k] = deserialize_value v[:value], v[:type]
-      end
+      deserialize_hash_value val
     else
       val
+    end
+  end
+
+  def deserialize_hash_value value
+    value.each_with_object({}) do |(k, v), h|
+      h[k] = deserialize_value v[:value], v[:type]
     end
   end
 end

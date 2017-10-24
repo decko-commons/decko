@@ -167,6 +167,42 @@ class Card
         end
       end
 
+      # If active jobs (and hence the integrate_with_delay events) don't run
+      # in a background process then Card::Env.deserialize! decouples the
+      # controller's params hash and the Card::Env's params hash with the
+      # effect that params changes in the CardController get lost
+      # (a crucial example are success params that are processed in
+      # CardController#update_params_for_success)
+      def contextualize act_id, card, env, auth
+        if delaying?
+          contextualize_for_delay(act_id, card, env, auth) { yield }
+        else
+          yield
+        end
+      end
+
+      def delaying?
+        Delayed::Worker.delay_jobs && Decko.config.active_job.queue_adapter == :delayed_job
+      end
+
+      def contextualize_for_delay act_id, card, env, auth
+        self.act = Act.find act_id
+        with_env_and_auth env, auth do
+          self.act_card = act.card || card # shouldn't act always have a card?
+          yield
+        end
+      ensure
+        clear
+      end
+
+      def with_env_and_auth env, auth
+        Card::Auth.with auth do
+          Card::Env.with env do
+            yield
+          end
+        end
+      end
+
       def to_s
         act_director.to_s
         #directors.values.map(&:to_s).join "\n"
