@@ -77,7 +77,7 @@ class Card
   #    everything will rollback. If the integration phase fails the db changes
   #    of the other two phases will remain persistent.
   class ActManager
-    cattr_accessor :act_card
+    cattr_accessor :act, :act_card
 
     class << self
       def act_director
@@ -91,7 +91,6 @@ class Card
 
       def run_act card
         self.act_card = card
-        Card.current_act = self
         yield
       ensure
         clear
@@ -99,7 +98,7 @@ class Card
 
       def clear
         self.act_card = nil
-        Card.current_act = nil
+        self.act = nil
         directors.each_pair do |card, _dir|
           card.director = nil
         end
@@ -160,7 +159,8 @@ class Card
       # This is the improvised resetup to get subcards working.
       def run_delayed_event act, card, &block
         raise "no act for delayed event given" unless act
-        return block.call unless act
+        # return block.call unless act
+        self.act = act
         run_act(act.card || card) do
           act_card.director.run_delayed_event act, &block
         end

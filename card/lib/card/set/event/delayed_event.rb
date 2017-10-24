@@ -23,8 +23,9 @@ class Card
     end
   end
 
-  def with_act_manager &block
-    ActManager.run_delayed_event @current_act, self, &block
+  def with_act_manager act_id, &block
+    act = Act.find act_id
+    ActManager.run_delayed_event act, self, &block
   end
 
   def serialize_for_active_job
@@ -99,7 +100,7 @@ class Card
           class_eval do
             define_method(method_name, proc do
               IntegrateWithDelayJob.set(queue: event).perform_later(
-                self, serialize_for_active_job, Card::Env.serialize,
+                Card::ActManager.act.id, self, serialize_for_active_job, Card::Env.serialize,
                 Card::Auth.serialize, final_method_name
               )
             end)
@@ -107,10 +108,10 @@ class Card
         end
 
         class IntegrateWithDelayJob < ApplicationJob
-          def perform card, card_attribs, env, auth, method_name
+          def perform act_id, card, card_attribs, env, auth, method_name
             card.deserialize_for_active_job! card_attribs
             card.with_env_and_auth env, auth do
-              card.with_act_manager do
+              card.with_act_manager act_id do
                 card.send method_name
               end
             end
