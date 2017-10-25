@@ -120,7 +120,7 @@ class Card < ApplicationRecord
   has_many :drafts, -> { where(draft: true).order :id }, class_name: :Action
 
   cattr_accessor :set_patterns, :serializable_attributes, :error_codes,
-                 :set_specific_attributes, :current_act
+                 :set_specific_attributes
   self.set_patterns = []
   self.error_codes = {}
 
@@ -132,7 +132,7 @@ class Card < ApplicationRecord
 
   serializable_attr_accessor(
     :action, :supercard, :superleft,
-    :current_act, :current_action,
+    :current_action,
     :comment,                     # obviated soon
     :update_referers,             # wrong mechanism for this
     :update_all_users,            # if the above is wrong then this one too
