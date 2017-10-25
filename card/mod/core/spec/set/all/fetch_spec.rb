@@ -283,4 +283,39 @@ RSpec.describe Card::Set::All::Fetch do
       expect(Card.exists?("Mumblefunk is gone")).to eq(false)
     end
   end
+
+  describe "#fetch_name" do
+    example "symbol" do
+      expect(Card.fetch_name(:all)).to eq "*all"
+    end
+
+    example "string" do
+      expect(Card.fetch_name("home")).to eq "Home"
+    end
+
+    example "id" do
+      expect(Card.fetch_name(Card::BasicID)).to eq "Basic"
+    end
+
+    example "array" do
+      expect(Card.fetch_name(["a", "b"])).to eq "A+B"
+    end
+
+    example "param list" do
+      expect(Card.fetch_name("fruit", :type, "*create")).to eq "Fruit+*type+*create"
+    end
+
+    example "name doesn't exist" do
+      expect(Card.fetch_name("unknown_name")).to eq nil
+    end
+
+    example "fallback policy" do
+      name = Card.fetch_name("unknown_name") { "Unknown Name" }
+      expect(name).to eq "Unknown Name"
+    end
+
+    it "doesn't fetch virtual names" do
+      expect(Card.fetch_name(:all, :self, :create)).to eq nil
+    end
+  end
 end
