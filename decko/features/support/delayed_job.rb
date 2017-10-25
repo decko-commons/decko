@@ -1,5 +1,6 @@
+Card.config.active_job.queue_adapter = :delayed_job
+
 Before("@delayed-jobs") do
-  ActiveJob::Base.queue_adapter = :delayed_job
   Delayed::Worker.delay_jobs = true
 end
 

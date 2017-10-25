@@ -164,7 +164,7 @@ class Card
       # effect that params changes in the CardController get lost
       # (a crucial example are success params that are processed in
       # CardController#update_params_for_success)
-      def contextualize act_id, card, env, auth
+      def contextualize_delayed_event act_id, card, env, auth
         if delaying?
           contextualize_for_delay(act_id, card, env, auth) { yield }
         else
@@ -173,7 +173,7 @@ class Card
       end
 
       def delaying?
-        Delayed::Worker.delay_jobs && Decko.config.active_job.queue_adapter == :delayed_job
+        Delayed::Worker.delay_jobs && Card.config.active_job.queue_adapter == :delayed_job
       end
 
       # The whole ActManager setup is gone once we reach a integrate with delay
@@ -181,8 +181,8 @@ class Card
       # This is the improvised resetup to get subcards working.
       def contextualize_for_delay act_id, card, env, auth, &block
         self.act = Act.find act_id if act_id
-        return yield unless act
         with_env_and_auth env, auth do
+          return yield unless act
           run_act(act.card || card) do
             act_card.director.run_delayed_event act, &block
           end

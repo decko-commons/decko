@@ -41,7 +41,7 @@ class Card
         class IntegrateWithDelayJob < ApplicationJob
           def perform act_id, card, card_attribs, env, auth, method_name
             card.deserialize_for_active_job! card_attribs
-            ActManager.contextualize act_id, card, env, auth do
+            ActManager.contextualize_delayed_event act_id, card, env, auth do
               card.send method_name
             end
           end
