@@ -157,20 +157,7 @@ class Card
       def running_act?
         (dir = act_director) && dir.running?
       end
-
-      # The whole ActManager setup is gone once we reach a integrate with delay
-      # event processed by ActiveJob.
-      # This is the improvised resetup to get subcards working.
-      def run_delayed_event act, card, &block
-        # raise "no act for delayed event given" unless act
-        #   `rake wikirate:test:seed:update` fails with that
-        return block.call unless act
-        self.act = act
-        run_act(act.card || card) do
-          act_card.director.run_delayed_event act, &block
-        end
-      end
-
+      
       # If active jobs (and hence the integrate_with_delay events) don't run
       # in a background process then Card::Env.deserialize! decouples the
       # controller's params hash and the Card::Env's params hash with the
@@ -189,14 +176,17 @@ class Card
         Delayed::Worker.delay_jobs && Decko.config.active_job.queue_adapter == :delayed_job
       end
 
-      def contextualize_for_delay act_id, card, env, auth
-        self.act = Act.find act_id
+      # The whole ActManager setup is gone once we reach a integrate with delay
+      # event processed by ActiveJob.
+      # This is the improvised resetup to get subcards working.
+      def contextualize_for_delay act_id, card, env, auth, &block
+        self.act = Act.find act_id if act_id
+        return yield unless act
         with_env_and_auth env, auth do
-          self.act_card = act.card || card # shouldn't act always have a card?
-          yield
+          run_act(act.card || card) do
+            act_card.director.run_delayed_event act, &block
+          end
         end
-      ensure
-        clear
       end
 
       def with_env_and_auth env, auth

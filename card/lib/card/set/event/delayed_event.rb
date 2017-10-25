@@ -31,7 +31,7 @@ class Card
           class_eval do
             define_method(method_name, proc do
               IntegrateWithDelayJob.set(queue: event).perform_later(
-                Card::ActManager.act.id, self, serialize_for_active_job, Card::Env.serialize,
+                Card::ActManager.act&.id, self, serialize_for_active_job, Card::Env.serialize,
                 Card::Auth.serialize, final_method_name
               )
             end)
@@ -82,7 +82,6 @@ class Card
   def serialize_hash_value
     value.each_with_object({}) { |(k, v), h| h[k] = serialize_value(v) }
   end
-
 
   def deserialize_value val, type
     case type
