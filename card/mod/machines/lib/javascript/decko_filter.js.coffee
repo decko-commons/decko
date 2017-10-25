@@ -30,7 +30,7 @@ filterCategorySelected = (addFilterDropdown, selectedCategory, label) ->
   # $searchInputField.find("select").select2()
 
   $(widget.find("._add_filter_dropdown")).before($searchInputField)
-  $searchInput.find("._filter_input_field").focus()
+  $searchInputField.find("._filter_input_field").focus()
 
 
 addCategoryOption = (form, option) ->
