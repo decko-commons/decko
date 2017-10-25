@@ -131,7 +131,7 @@ describe Card::Set::Type::ListedBy do
         it "raises error" do
           expect do
             Card["Darles Chickens"].update_attributes! type_id: Card::BasicID
-          end.to raise_error
+          end.to raise_error(ActiveRecord::RecordInvalid, /Type can\'t be changed/)
         end
       end
       context "when the name of Darles Chickens+books changed" do
