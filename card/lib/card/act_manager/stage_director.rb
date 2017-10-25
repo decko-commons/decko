@@ -127,8 +127,7 @@ class Card
         unless act_director
           raise Card::Error, "act requested without a main stage director"
         end
-        act_director.act ||= Card::Act.create(ip_address: Env.ip)
-        ActManager.act = @act = act_director.act
+        @act = act_director.act ||= ActManager.need_act
       end
 
       def main_director

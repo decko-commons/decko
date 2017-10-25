@@ -96,6 +96,10 @@ class Card
         clear
       end
 
+      def need_act
+        self.act ||= Card::Act.create ip_address: Env.ip
+      end
+
       def clear
         self.act_card = nil
         self.act = nil

@@ -26,9 +26,11 @@ class Card
           run_single_stage :integrate_with_delay
         rescue => e # don't rollback
           Card::Error.current = e
-          warn "exception in integrate stage: #{e.message}"
-          warn e.backtrace.join "\n"
-          @card.notable_exception_raised
+          unless e.class == Card::Error::Abort
+            warn "exception in integrate phase: #{e.message}"
+            warn e.backtrace.join "\n"
+            @card.notable_exception_raised
+          end
           return false
         ensure
           @card.clear_changes_information unless @abort
