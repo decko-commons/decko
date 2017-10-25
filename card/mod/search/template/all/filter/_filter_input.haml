@@ -1,0 +1,8 @@
+.input-group.border-all.card-outline-primary.mr-2._filter_input
+  %span.input-group-btn
+    %button.btn.btn-primary.btn-sm._delete_filter_input{:type => "button"}
+      %strong
+        %i.material-icons close
+  %span.input-group-addon._selected_category
+    = category[:label]
+  = category[:input_field]
