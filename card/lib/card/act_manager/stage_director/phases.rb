@@ -27,7 +27,6 @@ class Card
         rescue => e # don't rollback
           Card::Error.current = e
           unless e.class == Card::Error::Abort
-            binding.pry
             warn "exception in integrate phase: #{e.message}"
             warn e.backtrace.join "\n"
             @card.notable_exception_raised
