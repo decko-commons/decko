@@ -1,4 +1,4 @@
-   # -*- encoding : utf-8 -*-
+# -*- encoding : utf-8 -*-
 
 describe Card do
   describe "test data" do
@@ -88,8 +88,8 @@ describe "basic card tests" do
   end
 
   it "update_should_create_subcards" do
-    banana = Card.create! name: "Banana"
-    Card.update banana.id, subcards: { "+peel" => { content: "yellow" } }
+    Card.create! name: "Banana"
+    Card["banana"].update_attributes! subcards: { "+peel" => { content: "yellow" } }
 
     peel = Card["Banana+peel"]
     expect(peel.content).       to eq("yellow")

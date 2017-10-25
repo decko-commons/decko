@@ -43,7 +43,7 @@ class Card
           "cards.id IS NULL"
         ).pluck_in_batches(:id) do |group_ids|
           # used to be .delete_all here, but that was failing on large dbs
-          puts "deleting batch of references"
+          Rails.logger.info "deleting batch of references"
           where("id in (#{group_ids.join ','})").delete_all
         end
       end
