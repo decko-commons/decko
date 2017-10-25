@@ -11,8 +11,12 @@ def actionable?
   history?
 end
 
-event :assign_action, :initialize, when: proc { |c| c.actionable? } do
-  act = director.need_act
+event :assign_act, :initialize do
+  director.need_act
+end
+
+event :assign_action, after: :assign_act, when: proc { |c| c.actionable? } do
+  act = ActManager.act
   @current_action = Card::Action.create(
     card_act_id: act.id,
     action_type: @action,
