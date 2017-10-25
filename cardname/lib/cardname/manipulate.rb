@@ -36,6 +36,11 @@ class Cardname
       parts.length
     end
 
+    def prepend_joint
+      joint = self.class.joint
+      self =~ /^#{Regexp.escape joint}/ ? self : (joint + self)
+    end
+
     private
 
     def swap_all_subsequences oldseq, newseq

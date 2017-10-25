@@ -50,7 +50,7 @@ module ClassMethods
     return id_or_name(parts.first) if parts.size == 1
     parts.map do |part|
       Card::Name.cardish id_or_name(part)
-    end.join("+").to_name
+    end.join(Card::Name.joint).to_name
   end
 
   # @param codename [Symbol]

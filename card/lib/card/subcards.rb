@@ -54,7 +54,8 @@ class Card
     end
 
     def add_child name, args
-      add prepend_plus(name), args
+      name = name.is_a?(Symbol) ? name.cardname : name.to_name
+      add name.prepend_joint, args
     end
     alias_method :add_field, :add_child
 
@@ -203,11 +204,6 @@ class Card
 
     def fetch_subcard key
       Card.fetch key, local_only: true, new: {}
-    end
-
-    def prepend_plus name
-      name = name.to_name
-      name =~ /^\+/ ? name : "+#{name}"
     end
 
     def field_name_to_key name
