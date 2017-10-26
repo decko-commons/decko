@@ -16,17 +16,18 @@ class Card
     self.session = proc { Card::Auth.current.name } # also_yuck
 
     class << self
-      def [] cardish
+      def [] *cardish
+        cardish = cardish.first if cardish.size <= 1
         case cardish
         when Card            then cardish.name
-        when Symbol, Integer then Card.fetch_name(cardish).name
+        when Symbol, Integer then Card.fetch_name(cardish)
         when Array           then compose cardish
         else                      cardish.to_name
         end
       end
 
       def compose parts
-        parts.flatten.map { |part| self[part] }.join joint
+        new parts.flatten.map { |part| self[part] }.join(joint)
       end
 
       def url_key_to_standard key
