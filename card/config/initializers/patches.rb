@@ -1,3 +1,4 @@
+#:nodoc: all
 module Kaminari
   module Helpers
     class Tag
@@ -7,13 +8,15 @@ module Kaminari
 end
 
 if defined? BetterErrors
+  #:nodoc: all
   module BetterErrors
     class StackFrame
-      suppress_warnings {include Patches::BetterErrors::StackFrame::TmpPath}
+      suppress_warnings { include Patches::BetterErrors::StackFrame::TmpPath }
     end
   end
 end
 
+#:nodoc: all
 module ActiveRecord
   class Relation
     include Patches::ActiveRecord::Relation
@@ -42,18 +45,21 @@ module ActiveRecord
   end
 end
 
+#:nodoc: all
 module ActiveJob::Arguments
   class << self
     prepend Patches::ActiveJob::Arguments
   end
 end
 
+#:nodoc: all
 module ActionDispatch
   class Reloader
     extend Patches::ActionDispatch::Reloader
   end
 end
 
+#:nodoc: all
 module ActiveSupport
   module Callbacks
     class Callback
