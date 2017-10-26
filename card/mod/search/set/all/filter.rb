@@ -5,8 +5,8 @@ format :html do
     render_haml :filter_form, categories: data, form_args: form_args
   end
 
-  def view_template_path view
-    super(view, __FILE__)
+  def view_template_path view, set_path= __FILE__
+    super(view, set_path)
   end
 end
 
