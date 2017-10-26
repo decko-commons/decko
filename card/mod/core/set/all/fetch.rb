@@ -83,7 +83,11 @@ module ClassMethods
   # @params *args - see #fetch
   # @return [Card::Name]
   def fetch_name *mark
-    Card::Name.compose mark
+    if (card = quick_fetch(mark))
+      card.name
+    elsif block_given?
+      yield
+    end
   end
 
   # @params *args - see #fetch

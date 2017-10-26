@@ -12,7 +12,7 @@ class Cardname
     end
 
     def swap_part oldpart, newpart
-      ensure_simpliness oldpart, "Use 'swap' to swap junctions"
+      ensure_simpleness oldpart, "Use 'swap' to swap junctions"
 
       oldpart = oldpart.to_name
       newpart = newpart.to_name
@@ -61,7 +61,7 @@ class Cardname
       res
     end
 
-    def ensure_simpliness part, msg=nil
+    def ensure_simpleness part, msg=nil
       return if part.to_name.simple?
       raise StandardError, "'#{part}' has to be simple. #{msg}"
     end
