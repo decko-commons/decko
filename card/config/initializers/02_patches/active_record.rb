@@ -78,7 +78,7 @@ module Patches
         end
       end
 
-      module PostgresSQLAdapter
+      module PostgreSQLAdapter
         def match string
           "~* #{string}"
         end

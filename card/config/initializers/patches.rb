@@ -27,8 +27,8 @@ module ActiveRecord
       prepend Patches::ActiveRecord::ConnectionAdapters::AbstractAdapter
     end
 
-    class PostgresSQLAdapter
-      prepend Patches::ActiveRecord::ConnectionAdapters::PostgresSQLAdapter
+    class PostgreSQLAdapter
+      prepend Patches::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
     end
 
     class MysqlAdapter
