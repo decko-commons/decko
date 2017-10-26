@@ -48,6 +48,10 @@ class Card
         def process_chunk
           @processed = yield @stub_hash
         end
+
+        def result
+          @processed
+        end
       end
     end
   end
