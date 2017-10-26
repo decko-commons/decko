@@ -111,7 +111,7 @@ module ClassMethods
 
   def normalize_fetch_args args
     opts = args.last.is_a?(Hash) ? args.pop : {}
-    mark = compose_mark args
+    mark = id_or_name args
     mark = absolutize_fetch_mark mark, opts.dig(:new, :supercard)
     [mark, opts]
   end

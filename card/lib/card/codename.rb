@@ -22,14 +22,45 @@ class Card
   class Codename
     class << self
       # returns codename for id and id for codename
-      # @param key [Integer, String]
-      # @return [String, Integer]
-      def [] key
-        return if key.nil?
-        codehash[key.is_a?(Integer) ? key : key.to_sym]
+      # @param key [Integer, Symbol, String, Card::Name]
+      # @return [Symbol]
+      def [] codename
+        case codename
+        when Integer
+          codehash[codename]
+        when Symbol, String
+          codehash.key?(codename.to_sym) && codename.to_sym
+        end
       end
 
-      # a Hash in which String keys have Integer values and vice versa
+      def id codename
+        case codename
+        when Integer then codehash.key?(codename) && codename
+        when Symbol, String then codehash[codename.to_sym]
+        end
+      end
+
+      def name codename
+        name! codename
+      rescue Error::UnknownCodename => _e
+        yield if block_given?
+      end
+
+      def card codename
+        if (card_id = id(codename))
+          Card[card_id]
+        elsif block_given?
+          yield
+        end
+      end
+
+      def exist? codename
+        id(codename).present?
+      end
+
+      alias_method :exists?, :exist?
+
+      # a Hash in which Symbol keys have Integer values and vice versa
       # @return [Hash]
       def codehash
         @codehash ||= load_codehash
@@ -39,6 +70,18 @@ class Card
       def reset_cache
         @codehash = nil
         Card.cache.delete "CODEHASH"
+      end
+
+      # @param codename [Symbol, String]
+      # @return [Integer]
+      def id! codename
+        id(codename) || unknown_codename!(codename)
+      end
+
+      # @param codename [Symbol, String]
+      # @return [Card::Name]
+      def name! codename
+        Card::Name[codename.to_sym]
       end
 
       private
@@ -75,6 +118,12 @@ class Card
         end
         hash
       end
+
+      def unknown_codename! mark
+        raise Card::Error::UnknownCodename, I18n.t(:exception_unknown_codename,
+                                            scope: "lib.card.codename",
+                                            codename: mark)
+      end
     end
   end
 
@@ -85,16 +134,9 @@ class Card
   # @return [Integer]
   # @raise error if codename is missing
   def self.const_missing const
-    if const.to_s =~ /^([A-Z]\S*)ID$/ &&
-       (code = Regexp.last_match(1).underscore.to_sym)
-      if (card_id = Codename[code])
-        const_set const, card_id
-      else
-        raise I18n.t(:exception_missing_codename, scope: "lib.card.codename",
-                                                  code: code, const: const)
-      end
-    else
-      super
-    end
+    return super unless const.to_s =~ /^([A-Z]\S*)ID$/
+    code = Regexp.last_match(1).underscore
+    code_id = Codename.id!(code)
+    const_set const, code_id
   end
 end

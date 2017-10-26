@@ -186,7 +186,7 @@ format do
 
   def nest_item cardish, options={}, &block
     options = item_view_options options
-    options[:nest_name] = Card::Name.cardish(cardish).s
+    options[:nest_name] = Card::Name[cardish].s
     nest cardish, options, &block
   end
 

@@ -49,20 +49,15 @@ class Card
 
       # @return [Card::Name]
       def trait_name tag_code
-        card_id = Card::Codename[tag_code]
-        raise Card::Error::NotFound, "unknown codename: #{tag_code}" unless card_id
-        [self, Card.quick_fetch(card_id).name].to_name
+        Card::Name[self, tag_code.to_sym]
       end
 
       # @return [True/False]
       def trait_name? *traitlist
-        junction? && begin
-          right_key = right_name.key
-          traitlist.find do |codename|
-            (card_id = Card::Codename[codename]) &&
-              (card = Card.quick_fetch card_id) &&
-              card.key == right_key
-          end.present?
+        return false unless junction?
+        right_key = right_name.key
+        traitlist.any? do |codename|
+          Codename.name(codename)&.key == right_key
         end
       end
     end
