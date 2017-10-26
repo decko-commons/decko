@@ -298,7 +298,7 @@ RSpec.describe Card::Set::All::Fetch do
     end
 
     example "array" do
-      expect(Card.fetch_name(["a", "b"])).to eq "A+B"
+      expect(Card.fetch_name(%w[a b])).to eq "A+B"
     end
 
     example "param list" do
