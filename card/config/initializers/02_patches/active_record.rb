@@ -84,7 +84,7 @@ module Patches
         end
       end
 
-      module MysqlCommon
+      module Mysql2Adapter
         def match string
           "REGEXP #{string}"
         end

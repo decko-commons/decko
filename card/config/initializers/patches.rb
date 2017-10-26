@@ -28,12 +28,8 @@ module ActiveRecord #:nodoc: all
       prepend Patches::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
     end
 
-    class MysqlAdapter < AbstractMysqlAdapter
-      include Patches::ActiveRecord::ConnectionAdapters::MysqlCommon
-    end
-
     class Mysql2Adapter < AbstractMysqlAdapter
-      include Patches::ActiveRecord::ConnectionAdapters::MysqlCommon
+      include Patches::ActiveRecord::ConnectionAdapters::Mysql2Adapter
     end
 
     class SQLiteAdapter < AbstractAdapter
