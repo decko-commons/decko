@@ -9,13 +9,37 @@ end
 if defined? BetterErrors
   module BetterErrors
     class StackFrame
-      suppress_warnings { include Patches::BetterErrors::StackFrame::TmpPath }
+      suppress_warnings {include Patches::BetterErrors::StackFrame::TmpPath}
     end
   end
 end
 
-class ActiveRecord::Relation
-  include Patches::ActiveRecord::Relation
+module ActiveRecord
+  class Relation
+    include Patches::ActiveRecord::Relation
+  end
+
+  module ConnectionAdapters
+    class AbstractAdapter
+      prepend Patches::ActiveRecord::ConnectionAdapters::AbstractAdapter
+    end
+
+    class PostgresSQLAdapter
+      prepend Patches::ActiveRecord::ConnectionAdapters::PostgresSQLAdapter
+    end
+
+    class MysqlAdapter
+      include Patches::ActiveRecord::ConnectionAdapters::MysqlCommon
+    end
+
+    class Mysql2Adapter
+      include Patches::ActiveRecord::ConnectionAdapters::MysqlCommon
+    end
+
+    class SQLiteAdapter
+      include Patches::ActiveRecord::ConnectionAdapters::SQLiteAdapter
+    end
+  end
 end
 
 module ActiveJob::Arguments
@@ -27,5 +51,13 @@ end
 module ActionDispatch
   class Reloader
     extend Patches::ActionDispatch::Reloader
+  end
+end
+
+module ActiveSupport
+  module Callbacks
+    class Callback
+      prepend Patches::ActiveSupport::Callbacks::Callback
+    end
   end
 end
