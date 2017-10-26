@@ -78,10 +78,12 @@ describe Card::Set::Type::List do
 
     # if content is invalid then fail
     context "when Stam Broker+books changes to Stam Broker+poems" do
-      it "raises error because content is invalid" do  # FIXME - bad description; content is not changed
+      it "raises error because content is invalid" do
+        # FIXME: - bad description; content is not changed
         expect do
           Card["Stam Broker+books"].update_attributes! name: "Stam Broker+poems"
-        end.to raise_error(ActiveRecord::RecordInvalid, /Name must have a cardtype name as right part/)
+        end.to raise_error(ActiveRecord::RecordInvalid,
+                           /Name must have a cardtype name as right part/)
       end
     end
     context "when Stam Broker+books changes to Stam Broker+not a type" do
@@ -90,7 +92,8 @@ describe Card::Set::Type::List do
           Card["Stam Broker+books"].update_attributes!(
             name: "Stam Broker+not a type"
           )
-        end.to raise_error(ActiveRecord::RecordInvalid, /Name must have a cardtype name as right part/)
+        end.to raise_error(ActiveRecord::RecordInvalid,
+                           /Name must have a cardtype name as right part/)
       end
     end
 
@@ -106,7 +109,8 @@ describe Card::Set::Type::List do
           Card["Parry Hotter+authors"].update_attributes!(
             name: "Parry Hotter+basics"
           )
-        end.to raise_error(ActiveRecord::RecordInvalid, /Name name conflicts with list items/)
+        end.to raise_error(ActiveRecord::RecordInvalid,
+                           /Name name conflicts with list items/)
       end
     end
   end

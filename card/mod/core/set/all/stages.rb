@@ -15,4 +15,3 @@ def identify_action explicit_delete=false
       :update
     end
 end
-

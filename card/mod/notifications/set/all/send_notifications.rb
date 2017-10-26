@@ -82,7 +82,7 @@ def notable_change?
 end
 
 def current_act_card?
-  return false unless act_card = ActManager.act_card
+  return false unless (act_card = ActManager.act_card)
   act_card.id.nil? || act_card.id == id
   # FIXME: currently card_id is nil for deleted acts (at least
   # in the store phase when it's tested).  The nil test was needed
@@ -108,7 +108,6 @@ event :notify_followers_after_delete, :integrate,
       on: :delete, when: proc { |ca|  ca.notable_change? } do
   notify_followers
 end
-
 
 def notify_followers
   act = ActManager.act

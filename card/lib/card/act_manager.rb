@@ -157,7 +157,7 @@ class Card
       def running_act?
         (dir = act_director) && dir.running?
       end
-      
+
       # If active jobs (and hence the integrate_with_delay events) don't run
       # in a background process then Card::Env.deserialize! decouples the
       # controller's params hash and the Card::Env's params hash with the

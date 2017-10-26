@@ -22,7 +22,8 @@ describe Card::Set::Type::ListedBy do
       Card["Parry Hotter+authors"].update_attributes!(
         name: "Parry Hotter+hidden"
       )
-    end.to raise_error(ActiveRecord::RecordInvalid, /Name must have a cardtype name as right part/)
+    end.to raise_error(ActiveRecord::RecordInvalid,
+                       /Name must have a cardtype name as right part/)
   end
 
   context 'when Darles Chickens is in the author list of \
