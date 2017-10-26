@@ -7,7 +7,7 @@ describe Card::Set::All::Filter do
   end
 
   specify "#filter_form" do
-    is_expected.to have_tag "form._filter_form" do
+    is_expected.to have_tag "._filter_widget" do
       with_tag "div._filter_input_field_prototypes" do
         with_tag "div._filter_input_field.a" do
           with_tag "input#a"
@@ -16,7 +16,7 @@ describe Card::Set::All::Filter do
           with_tag "select#b"
         end
         with_tag "div._filter_input_field.c" do
-          with_tag "select#c"
+          without_tag "select"
         end
       end
 
