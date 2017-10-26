@@ -296,7 +296,7 @@ RSpec.describe Card::ActManager::StageDirector do
             f:12
             f:1
             ig:1 ig:11 ig:111 ig:112v ig:12 ig:121
-            igwd:1 igwd:11 igwd:12 igwd:121 igwd:111 igwd:112v
+            igwd:1 igwd:11 igwd:111 igwd:112v igwd:12 igwd:121
           )
                          )
       end

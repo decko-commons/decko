@@ -77,7 +77,7 @@ class Card
   #    everything will rollback. If the integration phase fails the db changes
   #    of the other two phases will remain persistent.
   class ActManager
-    cattr_accessor :act_card
+    cattr_accessor :act, :act_card
 
     class << self
       def act_director
@@ -91,15 +91,18 @@ class Card
 
       def run_act card
         self.act_card = card
-        Card.current_act = self
         yield
       ensure
         clear
       end
 
+      def need_act
+        self.act ||= Card::Act.create ip_address: Env.ip
+      end
+
       def clear
         self.act_card = nil
-        Card.current_act = nil
+        self.act = nil
         directors.each_pair do |card, _dir|
           card.director = nil
         end
@@ -154,17 +157,43 @@ class Card
       def running_act?
         (dir = act_director) && dir.running?
       end
+      
+      # If active jobs (and hence the integrate_with_delay events) don't run
+      # in a background process then Card::Env.deserialize! decouples the
+      # controller's params hash and the Card::Env's params hash with the
+      # effect that params changes in the CardController get lost
+      # (a crucial example are success params that are processed in
+      # CardController#update_params_for_success)
+      def contextualize_delayed_event act_id, card, env, auth
+        if delaying?
+          contextualize_for_delay(act_id, card, env, auth) { yield }
+        else
+          yield
+        end
+      end
+
+      def delaying?
+        Delayed::Worker.delay_jobs && Card.config.active_job.queue_adapter == :delayed_job
+      end
 
       # The whole ActManager setup is gone once we reach a integrate with delay
       # event processed by ActiveJob.
       # This is the improvised resetup to get subcards working.
-      def run_delayed_event act, card, &block
-        # raise "no act for delayed event given" unless act
-        #   `rake wikirate:test:seed:update` fails with that
+      def contextualize_for_delay act_id, card, env, auth, &block
+        self.act = Act.find act_id if act_id
+        with_env_and_auth env, auth do
+          return yield unless act
+          run_act(act.card || card) do
+            act_card.director.run_delayed_event act, &block
+          end
+        end
+      end
 
-        return block.call unless act
-        run_act(act.card || card) do
-          act_card.director.run_delayed_event act, &block
+      def with_env_and_auth env, auth
+        Card::Auth.with auth do
+          Card::Env.with env do
+            yield
+          end
         end
       end
 
