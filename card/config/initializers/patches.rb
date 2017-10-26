@@ -1,5 +1,4 @@
-#:nodoc: all
-module Kaminari
+module Kaminari #:nodoc: all
   module Helpers
     class Tag
       include Patches::Kaminari::Helpers::Tag
@@ -8,16 +7,14 @@ module Kaminari
 end
 
 if defined? BetterErrors
-  #:nodoc: all
-  module BetterErrors
+  module BetterErrors #:nodoc: all
     class StackFrame
       suppress_warnings { include Patches::BetterErrors::StackFrame::TmpPath }
     end
   end
 end
 
-#:nodoc: all
-module ActiveRecord
+module ActiveRecord #:nodoc: all
   class Relation
     include Patches::ActiveRecord::Relation
   end
@@ -27,40 +24,37 @@ module ActiveRecord
       prepend Patches::ActiveRecord::ConnectionAdapters::AbstractAdapter
     end
 
-    class PostgreSQLAdapter
+    class PostgreSQLAdapter < AbstractAdapter
       prepend Patches::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
     end
 
-    class MysqlAdapter
+    class MysqlAdapter < AbstractMysqlAdapter
       include Patches::ActiveRecord::ConnectionAdapters::MysqlCommon
     end
 
-    class Mysql2Adapter
+    class Mysql2Adapter < AbstractMysqlAdapter
       include Patches::ActiveRecord::ConnectionAdapters::MysqlCommon
     end
 
-    class SQLiteAdapter
+    class SQLiteAdapter < AbstractAdapter
       include Patches::ActiveRecord::ConnectionAdapters::SQLiteAdapter
     end
   end
 end
 
-#:nodoc: all
-module ActiveJob::Arguments
+module ActiveJob::Arguments #:nodoc: all
   class << self
     prepend Patches::ActiveJob::Arguments
   end
 end
 
-#:nodoc: all
-module ActionDispatch
+module ActionDispatch #:nodoc: all
   class Reloader
     extend Patches::ActionDispatch::Reloader
   end
 end
 
-#:nodoc: all
-module ActiveSupport
+module ActiveSupport #:nodoc: all
   module Callbacks
     class Callback
       prepend Patches::ActiveSupport::Callbacks::Callback
