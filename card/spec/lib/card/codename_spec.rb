@@ -33,7 +33,7 @@ RSpec.describe Card::Codename, "Codename" do
 
     example "id" do
       all_id = Card.fetch_id(:all)
-      expect(Card::Codename.id(all_id).to eq all_id
+      expect(Card::Codename.id(all_id)).to eq all_id
     end
 
     example "string" do
@@ -57,6 +57,10 @@ RSpec.describe Card::Codename, "Codename" do
 
     example "string" do
       expect(Card::Codename["all"]).to eq :all
+    end
+
+    example "missing codename" do
+      expect(Card::Codename["unknown"]).to eq nil
     end
   end
 end

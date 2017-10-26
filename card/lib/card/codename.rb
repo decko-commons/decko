@@ -27,7 +27,7 @@ class Card
       def [] codename
         case codename
         when Integer
-          codehash(codename)
+          codehash[codename]
         when Symbol, String
           codehash.key?(codename.to_sym) && codename.to_sym
         end

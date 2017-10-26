@@ -17,14 +17,14 @@ module ClassMethods
   # @return [Integer or Card::Name]
   def id_or_name parts
     mark = parts.flatten
-    mark = mark.first if mark.one?
+    mark = mark.first if mark.size <= 1
     id_from_mark(mark) || name_from_mark(mark)
   end
 
   def id_from_mark mark
     case mark
     when Integer then mark
-    when Symbol  then id_from_codename! mark
+    when Symbol  then Card::Codename.id! mark
     when String  then id_from_string mark
     end
   end
