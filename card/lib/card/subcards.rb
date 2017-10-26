@@ -256,7 +256,7 @@ class Card
 
     def absolutize_subcard_name name
       name = Card::Name[name]
-      return name if @context_card.name.parts.first.empty?
+      return name if @context_card.name.parts.first.blank?
       name.absolute_name @context_card.name
     end
 
