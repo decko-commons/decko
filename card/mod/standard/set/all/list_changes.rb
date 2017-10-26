@@ -13,9 +13,13 @@ def linker_lists
               "lists that link to #{name}")
 end
 
+def codename_list_exist?
+  Codename.exists? :list
+end
+
 event :trunk_cardtype_of_a_list_relation_changed, :finalize,
       changed: :type, on: :update,
-      when: proc { Codename[:list] } do
+      when: :codename_list_exist? do
   type_key_was = (tk = Card.quick_fetch(type_id_before_last_save)) && tk.key
 
   list_fields.each do |card|
@@ -27,7 +31,7 @@ end
 
 event :trunk_name_of_a_list_relation_changed, :finalize,
       changed: :name,  on: :update,
-      when: proc { Codename[:list] } do
+      when: :codename_list_exist? do
   list_fields.each do |card|
     card.update_listed_by_cache_for card.item_keys
   end
@@ -36,7 +40,7 @@ end
 
 event :cardtype_of_list_item_changed, :validate,
       changed: :type, on: :save,
-      when: proc { Codename[:list] } do
+      when: :codename_list_exist? do
   linker_lists.each do |card|
     next unless card.item_type_id != type_id
     errors.add(:type,

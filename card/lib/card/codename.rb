@@ -22,14 +22,45 @@ class Card
   class Codename
     class << self
       # returns codename for id and id for codename
-      # @param key [Integer, String]
-      # @return [String, Integer]
-      def [] key
-        return if key.nil?
-        codehash[key.is_a?(Integer) ? key : key.to_sym]
+      # @param key [Integer, Symbol, String, Card::Name]
+      # @return [Symbol]
+      def [] codename
+        case codename
+        when Integer
+          codehash(codename)
+        when Symbol, String
+          codehash.key?(codename.to_sym) && codename.to_sym
+        end
       end
 
-      # a Hash in which String keys have Integer values and vice versa
+      def id codename
+        case codename
+        when Integer then codehash.key?(codename) && codename
+        when Symbol, String then codehash[codename.to_sym]
+        end
+      end
+
+      def name codename
+        name! codename
+      rescue Error::UnknownCodename => _e
+        yield if block_given?
+      end
+
+      def card codename
+        if (card_id = id(codename))
+          Card[card_id]
+        elsif block_given?
+          yield
+        end
+      end
+
+      def exist? codename
+        id(codename).present?
+      end
+
+      alias_method :exists?, :exist?
+
+      # a Hash in which Symbol keys have Integer values and vice versa
       # @return [Hash]
       def codehash
         @codehash ||= load_codehash
@@ -44,7 +75,13 @@ class Card
       # @param codename [Symbol, String]
       # @return [Integer]
       def id! codename
-        self[codename.to_sym] || unknown_codename!(codename)
+        id(codename) || unknown_codename!(codename)
+      end
+
+      # @param codename [Symbol, String]
+      # @return [Card::Name]
+      def name! codename
+        Card::Name[codename.to_sym]
       end
 
       private
