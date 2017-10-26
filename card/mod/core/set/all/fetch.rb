@@ -88,6 +88,8 @@ module ClassMethods
     elsif block_given?
       yield
     end
+  rescue Card::Error::NotFound => e
+    block_given? ? yield : raise(e)
   end
 
   # @params *args - see #fetch
