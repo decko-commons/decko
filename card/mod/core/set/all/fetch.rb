@@ -13,7 +13,7 @@ module ClassMethods
   #      1. a numeric id (Integer)
   #      2. a name/key (String or Card::Name)
   #      3. a codename (Symbol)
-  #    If you pass more then one mark they get joined with a '+'.
+  #    If you pass more then one mark or an array of marks they get joined with a '+'.
   #    The final argument can be a hash to set the following options
   #      :skip_virtual               Real cards only
   #      :skip_modules               Don't load Set modules
@@ -38,18 +38,20 @@ module ClassMethods
 
   # fetch only real (no virtual) cards
   #
-  # @params *args - see #fetch
+  # @params *mark - see #fetch
   # @return [Card]
-  def [] *args
-    fetch(*args, skip_virtual: true)
+  def [] *mark
+    fetch(*mark, skip_virtual: true)
   end
 
   # fetch real cards without set modules loaded. Should only be used for simple attributes
+  # @example
+  #   quick_fetch "A", :self, :structure
   #
-  # @params *args - see #fetch
+  # @params *mark - see #fetch
   # @return [Card]
-  def quick_fetch *args
-    fetch *args, skip_virtual: true, skip_modules: true
+  def quick_fetch *mark
+    fetch mark, skip_virtual: true, skip_modules: true
   end
 
   # fetch only from the soft cache
@@ -71,28 +73,28 @@ module ClassMethods
   # ATTRIBUTE FETCHING
   # The following methods optimize fetching of specific attributes
 
-  # @params *args - see #fetch
+  # @params *mark - see #fetch
   # @return [Integer]
-  def fetch_id *args
-    mark, _opts = normalize_fetch_args args
+  def fetch_id *mark
+    mark, _opts = normalize_fetch_args mark
     return mark if mark.is_a? Integer
     card = quick_fetch mark.to_s
     card && card.id
   end
 
-  # @params *args - see #fetch
+  # @params *mark - see #fetch
   # @return [Card::Name]
   def fetch_name *mark
     if (card = quick_fetch(mark))
       card.name
     elsif block_given?
-      yield
+      yield.name
     end
-  rescue Card::Error::NotFound => e
-    block_given? ? yield : raise(e)
+  rescue Card::Error::NotFound => e  # eg. if codename is missing
+    block_given? ? yield.name : raise(e)
   end
 
-  # @params *args - see #fetch
+  # @params *mark - see #fetch
   # @return [Integer]
   def fetch_type_id *mark
     (card = quick_fetch(mark)) && card.type_id

@@ -15,6 +15,9 @@ class Card
     class NotFound < StandardError
     end
 
+    class UnknownCodename < NotFound
+    end
+
     # permission errors
     class PermissionDenied < Error
       attr_reader :card

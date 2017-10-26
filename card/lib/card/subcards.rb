@@ -265,12 +265,9 @@ class Card
     end
 
     def absolutize_subcard_name name
-      name = Card.compose_mark name if name.is_a? Array
-      if @context_card.name =~ /^\+/ || name.blank?
-        name.to_name
-      else
-        name.to_name.absolute_name(@context_card.name)
-      end
+      name = Card::Name[name]
+      return name if @context_card.name.parts.first.empty?
+      name.absolute_name @context_card.name
     end
 
     def new_by_card card, opts={}

@@ -52,7 +52,7 @@ format do
 
   def link_to_card cardish, text=nil, opts={}
     opts[:path] ||= {}
-    name = opts[:path][:mark] = Card::Name.cardish cardish
+    name = opts[:path][:mark] = Card::Name[cardish]
     add_known_or_wanted_class opts, name
     link_to (text || name), opts
   end
@@ -72,7 +72,7 @@ format do
   end
 
   def link_to_related cardish, text=nil, opts={}
-    name = Card::Name.cardish cardish
+    name = Card::Name[cardish]
     opts[:path] ||= {}
     opts[:path][:related] ||= {}
     opts[:path][:related][:name] ||= "+#{name}"
@@ -138,7 +138,7 @@ format do
 
   def path_mark opts
     return "" if opts[:action] == :create || opts.delete(:no_mark)
-    name = opts[:mark] ? Card::Name.cardish(opts.delete(:mark)) : card.name
+    name = opts[:mark] ? Card::Name[opts.delete(:mark)] : card.name
     add_unknown_name_to_opts name.to_name, opts
     name.to_name.url_key
   end

@@ -49,9 +49,7 @@ class Card
 
       # @return [Card::Name]
       def trait_name tag_code
-        card_id = Card::Codename[tag_code]
-        raise Card::Error::NotFound, "unknown codename: #{tag_code}" unless card_id
-        [self, Card.quick_fetch(card_id).name].to_name
+        Card::Name[self, tag_code.to_sym]
       end
 
       # @return [True/False]

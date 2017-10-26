@@ -41,6 +41,12 @@ class Card
         Card.cache.delete "CODEHASH"
       end
 
+      # @param codename [Symbol, String]
+      # @return [Integer]
+      def id! codename
+        self[codename.to_sym] || unknown_codename!(codename)
+      end
+
       private
 
       # iterate through every card with a codename
@@ -75,6 +81,12 @@ class Card
         end
         hash
       end
+
+      def unknown_codename! mark
+        raise Card::Error::UnknownCodename, I18n.t(:exception_unknown_codename,
+                                            scope: "lib.card.codename",
+                                            codename: mark)
+      end
     end
   end
 
@@ -85,16 +97,9 @@ class Card
   # @return [Integer]
   # @raise error if codename is missing
   def self.const_missing const
-    if const.to_s =~ /^([A-Z]\S*)ID$/ &&
-       (code = Regexp.last_match(1).underscore.to_sym)
-      if (card_id = Codename[code])
-        const_set const, card_id
-      else
-        raise I18n.t(:exception_missing_codename, scope: "lib.card.codename",
-                                                  code: code, const: const)
-      end
-    else
-      super
-    end
+    return super unless const.to_s =~ /^([A-Z]\S*)ID$/
+    code = Regexp.last_match(1).underscore
+    code_id = Codename.id!(code)
+    const_set const, code_id
   end
 end
