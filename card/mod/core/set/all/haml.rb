@@ -52,6 +52,10 @@ format do
     end
   end
 
+  def render_haml_partial partial, locals={}, a_binding=nil
+    render_haml "_#{partial}".to_sym, locals, a_binding
+  end
+
   # @todo Make this more like Rails a implicit feature of a view.
   #   For a start use a different view command. Example
   #   # view/type/basic/my_view.haml:
