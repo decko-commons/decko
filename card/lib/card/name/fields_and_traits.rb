@@ -57,7 +57,7 @@ class Card
         return false unless junction?
         right_key = right_name.key
         traitlist.any? do |codename|
-          Codename.name(codename)&.key == right_key
+          Card::Codename.name(codename)&.key == right_key
         end
       end
     end
