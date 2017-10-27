@@ -29,7 +29,7 @@ class Card
         when Integer
           codehash[codename]
         when Symbol, String
-          codehash.key?(codename.to_sym) && codename.to_sym
+          codehash.key?(codename.to_sym) ? codename.to_sym : nil
         end
       end
 
