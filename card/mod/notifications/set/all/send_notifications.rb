@@ -82,10 +82,10 @@ def notable_change?
 end
 
 def current_act_card?
-  return false unless current_act
-  current_act.card_id.nil? || current_act.card_id == id
+  return false unless (act_card = ActManager.act_card)
+  act_card.id.nil? || act_card.id == id
   # FIXME: currently card_id is nil for deleted acts (at least
-  # in the store phase when it's tested).  This nil test was needed
+  # in the store phase when it's tested).  The nil test was needed
   # to make this work.
 end
 
@@ -105,22 +105,16 @@ event :stash_followers, :store,
 end
 
 event :notify_followers_after_delete, :integrate,
-      on: :delete, when: proc { |ca| ca.notable_change? } do
+      on: :delete, when: proc { |ca|  ca.notable_change? } do
   notify_followers
 end
 
 def notify_followers
-  @current_act.reload
-  @follower_stash ||= FollowerStash.new
-  @current_act.actions.each do |a|
-    next if !a.card || a.card.silent_change?
-    @follower_stash.add_affected_card a.card
-  end
-  @follower_stash.each_follower_with_reason do |follower, reason|
-    if follower.account && follower != @current_act.actor
-      follower.account.send_change_notice @current_act, reason[:set_card].name,
-                                          reason[:option]
-    end
+  act = ActManager.act
+  act.reload
+  act_followers(act).each_follower_with_reason do |follower, reason|
+    next if !follower.account || (follower == act.actor)
+    follower.account.send_change_notice act, reason[:set_card].name, reason[:option]
   end
 # this error handling should apply to all extend callback exceptions
 rescue => e
@@ -129,7 +123,14 @@ rescue => e
   notable_exception_raised
 end
 
-
+def act_followers act
+  @follower_stash ||= FollowerStash.new
+  act.actions.each do |a|
+    next if !a.card || a.card.silent_change?
+    @follower_stash.add_affected_card a.card
+  end
+  @follower_stash
+end
 
 format do
   view :list_of_changes, denial: :blank, cache: :never do |args|

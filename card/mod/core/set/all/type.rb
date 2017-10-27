@@ -1,7 +1,7 @@
 
 module ClassMethods
   def default_type_id
-    @@default_type_id ||= Card[:all].fetch(trait: :default).type_id
+    @@default_type_id ||= Card[:all].fetch(trait: :default, skip_modules: true).type_id
   end
 end
 

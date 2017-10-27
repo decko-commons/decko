@@ -25,7 +25,7 @@ describe Card::Set::All::Permissions do
     end
 
     it "updates to user ('Joe Admin')" do
-      @perm_card.content = "[[Joe Admin]]"
+      @perm_card.db_content = "[[Joe Admin]]"
       Card::Auth.as_bot { @perm_card.save! }
 
       card = Card.fetch("Home")

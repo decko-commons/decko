@@ -40,7 +40,7 @@ format :html do
       card.left.default_follow_set_card.name,
       Auth.current.name,
       Card[:follow].name
-    ].join("+")
+    ].join Card::Name.joint
     rule_context = Card.fetch preference_name, new: { type_id: PointerID }
 
     wrap_with :div, class: "edit-rule" do

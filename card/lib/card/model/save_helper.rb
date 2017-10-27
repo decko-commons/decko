@@ -102,7 +102,7 @@ class Card
       end
 
       def validate_setting setting
-        unless Card::Codename[setting] &&
+        unless Card::Codename.exist?(setting) &&
                Card.fetch_type_id(setting) == SettingID
           raise ArgumentError, "not a valid setting: #{setting}"
         end

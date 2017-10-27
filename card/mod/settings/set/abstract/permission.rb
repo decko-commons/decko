@@ -13,7 +13,7 @@ format :html do
     if card.content == "_left"
       core_inherit_content
     else
-      render :pointer_core
+      render! :pointer_core
     end
   end
 

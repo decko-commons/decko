@@ -40,8 +40,8 @@ end
 format :rss do
   view :feed_body do
     case raw_feed_items
-    when Exception then @xml.item(render(:search_error))
-    when Integer then @xml.item(render(:search_count))
+    when Exception then @xml.item(render!(:search_error))
+    when Integer then @xml.item(render!(:search_count))
     else super()
     end
   end

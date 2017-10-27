@@ -1,12 +1,13 @@
 class Card
-  def log_event_call event
-    Rails.logger.debug "#{name}: #{event}"
-    # puts "#{name}: #{event}"
-    # puts "#{Card::ActManager.to_s}".green
-  end
-
   module Set
-    # Implements the event API for card sets
+    # Events are the building blocks of the three transformative card actions: _create_, _update_, and _delete_. (The fourth kind of action, _read_, does not transform cards, and is associated with {Card::Format views}, not events).
+    #
+    # Whenever you create, update, or delete a card, the card goes through three phases:
+    #   * __validation__ makes sure all the data is in order
+    #   * __storage__ puts the data in the database
+    #   * __integration__ deals with any ramifications of those changes
+    #
+    #
     module Event
       include DelayedEvent
 
@@ -36,10 +37,6 @@ class Card
         else
           define_event_method event, final_method_name
         end
-      end
-
-      def with_delay? opts
-        DELAY_STAGES.include?(opts[:after]) || DELAY_STAGES.include?(opts[:before])
       end
 
       def process_stage_opts opts
@@ -81,5 +78,11 @@ class Card
         end
       end
     end
+  end
+
+  def log_event_call event
+    Rails.logger.debug "#{name}: #{event}"
+    # puts "#{name}: #{event}"
+    # puts "#{Card::ActManager.to_s}".green
   end
 end

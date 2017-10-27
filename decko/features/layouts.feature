@@ -17,7 +17,7 @@ Feature: Layouts
   Scenario: I visit a User card with the user layout
     Given I create Layout card "user layout" with content "User Header {{_main}}"
     And I create Pointer card "User+*type+*layout" with content "[[user layout]]"
-    And I wait 1 second
+    And I wait 1 seconds
     When I go to card "Joe User"
     Then I should see "User Header"
 

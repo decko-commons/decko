@@ -2,7 +2,7 @@
 format :html do
   def item_links _args=nil
     %i[my_card invite sign_out sign_up sign_in].map do |link_view|
-      optional_render link_view
+      render link_view
     end
   end
 

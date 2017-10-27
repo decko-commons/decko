@@ -23,6 +23,7 @@ class Card
                        :storage_type, :bucket, :mod
         uploader_class = args[:uploader] || ::CarrierWave::FileCardUploader
         mount_uploader name, uploader_class
+        Card.define_dirty_methods name
       end
 
       def stage_method method, opts={}, &block

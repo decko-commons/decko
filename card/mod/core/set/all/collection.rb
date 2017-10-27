@@ -145,12 +145,12 @@ end
 def contextual_content context_card, format_args={}, view_args={}
   view = view_args.delete(:view) || :core
   with_context context_card do
-    format(format_args).render view, view_args
+    format(format_args).render! view, view_args
   end
 end
 
 def each_chunk opts={}
-  content = opts[:content] || raw_content
+  content = opts[:content] || self.content
   chunk_type = opts[:chunk_type] || Card::Content::Chunk
   Card::Content.new(content, self).find_chunks(chunk_type).each do |chunk|
     next unless chunk.referee_name # filter commented nests
@@ -186,7 +186,7 @@ format do
 
   def nest_item cardish, options={}, &block
     options = item_view_options options
-    options[:nest_name] = Card::Name.cardish(cardish).s
+    options[:nest_name] = Card::Name[cardish].s
     nest cardish, options, &block
   end
 

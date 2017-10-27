@@ -77,7 +77,7 @@ class Card
   #    everything will rollback. If the integration phase fails the db changes
   #    of the other two phases will remain persistent.
   class ActManager
-    cattr_accessor :act_card
+    cattr_accessor :act, :act_card
 
     class << self
       def act_director
@@ -89,8 +89,20 @@ class Card
         @directors ||= {}
       end
 
+      def run_act card
+        self.act_card = card
+        yield
+      ensure
+        clear
+      end
+
+      def need_act
+        self.act ||= Card::Act.create ip_address: Env.ip
+      end
+
       def clear
-        ActManager.act_card = nil
+        self.act_card = nil
+        self.act = nil
         directors.each_pair do |card, _dir|
           card.director = nil
         end
@@ -100,7 +112,7 @@ class Card
       def fetch card, opts={}
         return directors[card] if directors[card]
         directors.each_key do |dir_card|
-          return dir_card.director if dir_card.name == card.name
+          return dir_card.director if dir_card.name == card.name && dir_card.director
         end
         directors[card] = new_director card, opts
       end
@@ -146,17 +158,43 @@ class Card
         (dir = act_director) && dir.running?
       end
 
+      # If active jobs (and hence the integrate_with_delay events) don't run
+      # in a background process then Card::Env.deserialize! decouples the
+      # controller's params hash and the Card::Env's params hash with the
+      # effect that params changes in the CardController get lost
+      # (a crucial example are success params that are processed in
+      # CardController#update_params_for_success)
+      def contextualize_delayed_event act_id, card, env, auth
+        if delaying?
+          contextualize_for_delay(act_id, card, env, auth) { yield }
+        else
+          yield
+        end
+      end
+
+      def delaying?
+        Delayed::Worker.delay_jobs && Card.config.active_job.queue_adapter == :delayed_job
+      end
+
       # The whole ActManager setup is gone once we reach a integrate with delay
       # event processed by ActiveJob.
       # This is the improvised resetup to get subcards working.
-      def run_delayed_event act, card, &block
-        raise "no act for delayed event given" unless act
-        Card.current_act = act
-        ActManager.act_card = act.card || card
-        ActManager.act_card.director.run_delayed_event act, &block
-      ensure
-        Card.current_act = nil
-        ActManager.clear
+      def contextualize_for_delay act_id, card, env, auth, &block
+        self.act = Act.find act_id if act_id
+        with_env_and_auth env, auth do
+          return yield unless act
+          run_act(act.card || card) do
+            act_card.director.run_delayed_event act, &block
+          end
+        end
+      end
+
+      def with_env_and_auth env, auth
+        Card::Auth.with auth do
+          Card::Env.with env do
+            yield
+          end
+        end
       end
 
       def to_s

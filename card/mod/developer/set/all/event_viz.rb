@@ -1,5 +1,3 @@
-require_dependency "active_support/callbacks_ext"
-
 # the events method is a developer's tool for visualizing the event order
 # for a given card.
 # For example, from a console you might run
@@ -11,7 +9,7 @@ require_dependency "active_support/callbacks_ext"
 #
 # Note: as of yet, the functionality is a bit rough.  It does not display events
 # that are called directly from within other events,
-# and certain event requirements (like the presence of a 'current_act') may
+# and certain event requirements (like the presence of an 'act') may
 # prevent events from showing up in the tree.
 def events action
   @action = action

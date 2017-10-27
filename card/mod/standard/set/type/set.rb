@@ -16,9 +16,9 @@ format :html do
     @selected_rule_navbar_view = selected_view
     wrap do
       [
-        _optional_render_set_label,
-        _optional_render_rule_navbar,
-        _optional_render_set_navbar,
+        _render_set_label,
+        _render_rule_navbar,
+        _render_set_navbar,
         yield
       ]
     end
@@ -35,7 +35,7 @@ format :html do
       wrap_with :div, class: "panel-group", id: "accordion",
                       role: "tablist", "aria-multiselectable" => "true" do
         Card::Setting.groups.keys.map do |group_key|
-          _optional_render group_key
+          _render group_key
         end
       end
     end
@@ -302,15 +302,12 @@ def follow_label
 end
 
 def follow_rule_name user=nil
-  if user
-    if user.is_a? String
-      "#{name}+#{user}+#{Card[:follow].name}"
-    else
-      "#{name}+#{user.name}+#{Card[:follow].name}"
-    end
-  else
-    "#{name}+#{Card[:all].name}+#{Card[:follow].name}"
-  end
+  follower = case user
+             when nil    then :all.cardname
+             when String then user
+             else             user.name
+             end
+  [name, follower, :follow.cardname].join "+"
 end
 
 def all_user_ids_with_rule_for setting_code

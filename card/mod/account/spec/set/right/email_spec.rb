@@ -34,7 +34,7 @@ describe Card::Set::Right::Email do
       it "downcases email" do
         Card::Auth.as_bot do
           @email_card.update_attributes! content: "QuIrE@example.com"
-          expect(@email_card.content).to eq("quire@example.com")
+          expect(@email_card.db_content).to eq("quire@example.com")
         end
       end
 

@@ -60,16 +60,7 @@ class CardController < ActionController::Base
     Card::Machine.refresh_script_and_style if Rails.env.development?
     Card::Cache.renew
     Card::Env.reset controller: self
-    Card::ActManager.clear
-    Card.current_act
-    # unprotect_card_params!
   end
-
-  #def unprotect_card_params!
-  #  # FIXME:  al#ways wear protection
-  #  return unless params[:card].is_a? ActionController::Parameters
-  #  params[:card].to_unsafe_h
-  #end
 
   def authenticate
     Card::Auth.set_current params[:token], params[:current]
@@ -105,7 +96,7 @@ class CardController < ActionController::Base
     if !Card::Env.ajax? || success.hard_redirect?
       card_redirect success.to_url
     elsif success.target.is_a? String
-      render text: success.target
+      render! text: success.target
     else
       reset_card success.target
       show
@@ -124,6 +115,7 @@ class CardController < ActionController::Base
     end
 
     status = format.error_status || status
+    # puts "RESULT: #{format.class}/#{status}"
     deliver format, result, status
   end
 

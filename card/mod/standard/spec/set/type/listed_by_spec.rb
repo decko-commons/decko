@@ -22,7 +22,8 @@ describe Card::Set::Type::ListedBy do
       Card["Parry Hotter+authors"].update_attributes!(
         name: "Parry Hotter+hidden"
       )
-    end.to raise_error
+    end.to raise_error(ActiveRecord::RecordInvalid,
+                       /Name must have a cardtype name as right part/)
   end
 
   context 'when Darles Chickens is in the author list of \
@@ -131,7 +132,7 @@ describe Card::Set::Type::ListedBy do
         it "raises error" do
           expect do
             Card["Darles Chickens"].update_attributes! type_id: Card::BasicID
-          end.to raise_error
+          end.to raise_error(ActiveRecord::RecordInvalid, /Type can\'t be changed/)
         end
       end
       context "when the name of Darles Chickens+books changed" do

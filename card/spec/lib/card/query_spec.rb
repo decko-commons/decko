@@ -193,13 +193,11 @@ RSpec.describe Card::Query do
 
     it "'or' doesn't mess up updated_by SQL" do
       @query = { or: { updated_by: "Narcissist" } }
-      puts Card::Query.new(@query).sql
       is_expected.to eq(%w(Magnifier+lens))
     end
 
     it "'or' doesn't mess up updater_of SQL" do
       @query = { or: { updater_of: "First" } }
-      puts Card::Query.new(@query).sql
       is_expected.to eq(["Wagn Bot"])
     end
   end

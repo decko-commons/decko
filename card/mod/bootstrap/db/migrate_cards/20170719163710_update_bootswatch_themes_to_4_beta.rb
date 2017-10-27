@@ -2,6 +2,7 @@
 
 class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
   def up
+    puts "Updating bootstrap themes ..."
     Skin.themes.each do |theme_name|
       puts theme_name
       Skin.new(theme_name).create_or_update
@@ -12,24 +13,28 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
   def update_default_bootstrap
     paths = [Skin.bootstrap_scss_path("functions"),
              Skin.bootstrap_scss_path("variables")]
+    puts "Update bootstrap default"
     Skin.new("Bootstrap default")
         .update_scss field_name: "variables", file_name: paths
+    puts "Finished"
   end
 
   class Skin
     include ::Card::Model::SaveHelper
 
-    def self.vendor_path
-      File.expand_path "../../../vendor", __FILE__
-    end
+    class << self
+      def vendor_path
+        File.expand_path "../../../vendor", __FILE__
+      end
 
-    def self.bootstrap_scss_path filename
-      File.join vendor_path, "bootstrap", "scss", "_#{filename}.scss"
-    end
+      def bootstrap_scss_path filename
+        File.join vendor_path, "bootstrap", "scss", "_#{filename}.scss"
+      end
 
-    def self.themes
-      json = File.read File.join(vendor_path, "bootswatch", "api", "4.json")
-      JSON.parse(json)["themes"].map { |theme| theme["name"] }
+      def themes
+        json = File.read File.join(vendor_path, "bootswatch", "api", "4.json")
+        JSON.parse(json)["themes"].map { |theme| theme["name"] }
+      end
     end
 
     def initialize theme_name
@@ -42,13 +47,16 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
       Card.exists?(@skin_name) ? update_skin : create_skin
     end
 
+
     def create_skin
       Card.create! name: @skin_name,
                    codename: @skin_codename,
                    type_id: Card::SkinID,
                    content: "[[themeless bootstrap skin]]\n[[+bootswatch theme]]",
                    subcards: {
-                     "+variables" => scss_args(["functions", "variables"]),
+                     "+variables" => scss_args([Skin.bootstrap_scss_path("functions"),
+                                                   Skin.bootstrap_scss_path("variables"),
+                                                   "variables"]),
                      "+style" => scss_args("bootswatch"),
                      "+Image" => thumbnail_args
                    }
@@ -98,7 +106,7 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
     end
 
     def base_resource_dir
-      File.join Skin.vendor_path, "bootswatch", @theme_name.downcase
+      File.join Skin.vendor_path, "bootswatch", @theme_name
       # Card::Migration::Core.data_path "b4_beta_themes/#{@theme_name.downcase.tr(" ","_")}"
     end
   end

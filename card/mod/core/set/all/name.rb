@@ -116,7 +116,7 @@ end
 def [] *args
   case args[0]
   when Integer, Range
-    fetch_name = Array.wrap(name.parts[args[0]]).compact.join "+"
+    fetch_name = Array.wrap(name.parts[args[0]]).compact.join Card::Name.joint
     Card.fetch(fetch_name, args[1] || {}) unless simple?
   else
     super
@@ -202,7 +202,7 @@ end
 
 event :set_autoname, :prepare_to_validate, on: :create do
   if name.blank? && (autoname_card = rule_card(:autoname))
-    self.name = autoname autoname_card.content
+    self.name = autoname autoname_card.db_content
     # FIXME: should give placeholder in approve phase
     # and finalize/commit change in store phase
     autoname_card.refresh.update_column :db_content, name

@@ -186,7 +186,7 @@ When /I wait a sec/ do
   sleep 1
 end
 
-When /I wait (\d+) seconds$/ do |period|
+When /I wait (\d+) seconds?$/ do |period|
   sleep period.to_i
 end
 
@@ -295,6 +295,7 @@ end
 
 Then /^No errors in the job queue$/ do
   if (last = Delayed::Job.last) && (last.last_error)
+    puts last.last_error
     expect(last.last_error).to be_blank
   end
 end

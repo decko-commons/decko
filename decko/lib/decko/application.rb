@@ -24,13 +24,6 @@ module Decko
        Card
     end
 
-    initializer :load_mod_config_initializers, after: :load_card, group: :all do
-      Cardio.set_mod_initializer_paths
-      config.paths["mod/config/initializers"].existent.sort.each do |initializer|
-        load_config_initializer(initializer)
-      end
-    end
-
     class << self
       def inherited base
         super
@@ -69,6 +62,7 @@ module Decko
         config.i18n.enforce_available_locales = true
         # config.active_record.raise_in_transactional_callbacks = true
 
+        config.allow_concurrency = false
         config.assets.enabled = false
         config.assets.version = "1.0"
 
@@ -82,7 +76,6 @@ module Decko
         paths = super
         Cardio.set_paths paths
 
-        paths["mod"] << "mod"
         paths.add "files"
 
         paths["app/models"] = []

@@ -94,9 +94,9 @@ RSpec::Matchers.define :have_type do |type|
   end
 end
 
-RSpec::Matchers.define :have_raw_content do |content|
+RSpec::Matchers.define :have_content do |content|
   match do |card|
-    values_match?(content, card.raw_content)
+    values_match?(content, card.content)
   end
 end
 

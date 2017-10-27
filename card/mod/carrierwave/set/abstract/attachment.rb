@@ -33,8 +33,7 @@ event :validate_file_exist, :validate, on: :save do
   end
 end
 
-event :write_identifier, after: :save_original_filename,
-                         when: proc { |c| !c.web? } do
+event :write_identifier, after: :save_original_filename, when: proc { |c| !c.web? } do
   self.content = attachment.db_content
 end
 
@@ -42,7 +41,7 @@ def file_ready_to_save?
   attachment.file.present? &&
     !preliminary_upload? &&
     !save_preliminary_upload? &&
-    attachment_changed?
+    attachment_is_changing?
 end
 
 def item_names _args={} # needed for flexmail attachments.  hacky.
@@ -61,6 +60,14 @@ end
 
 def attachment_changed?
   send "#{attachment_name}_changed?"
+end
+
+def attachment_is_changing?
+  send "#{attachment_name}_is_changing?"
+end
+
+def attachment_before_act
+  send "#{attachment_name}_before_act"
 end
 
 def create_versions?
@@ -86,8 +93,8 @@ def delete_files_for_action action
   end
 end
 
-def revision action
-  result = super action
+def revision action, before_action=false
+  return unless (result = super)
   result[:empty_ok] = true
   result
 end

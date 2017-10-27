@@ -12,9 +12,9 @@ def actionable?
 end
 
 event :assign_action, :initialize, when: proc { |c| c.actionable? } do
-  @current_act = director.need_act
+  act = director.need_act
   @current_action = Card::Action.create(
-    card_act_id: @current_act.id,
+    card_act_id: act.id,
     action_type: @action,
     draft: (Env.params["draft"] == "true")
   )
@@ -74,20 +74,18 @@ def finalize_action?
   actionable? && current_action
 end
 
-event :finalize_act,
-      after: :finalize_action,
-      when: proc { |c|  c.act_card? } do
-  @current_act.update_attributes! card_id: id
+event :finalize_act, after: :finalize_action, when: :act_card? do
+  Card::ActManager.act.update_attributes! card_id: id
 end
 
 event :remove_empty_act,
       :integrate_with_delay_final, when: :remove_empty_act? do
-  #@current_act.delete
-  #@current_act = nil
+  #Card::ActManager.act.delete
+  #Card::ActManager.act = nil
 end
 
 def remove_empty_act?
-  act_card? && @current_act&.actions&.reload&.empty?
+  act_card? && ActManager.act&.actions&.reload&.empty?
 end
 
 
@@ -97,28 +95,29 @@ end
 
 event :rollback_actions,
       :prepare_to_validate, on: :update, when: :rollback_request? do
-  revision = { subcards: {} }
-
-  rollback_actions.each do |action|
+  update_args = { subcards: {} }
+  revert_actions.each do |action|
+    rev = action.card.revision(action, revert_to_previous_action?)
     if action.card_id == id
-      revision.merge!(revision(action))
+      update_args.merge! rev
     else
-      revision[:subcards][action.card.name] = revision(action)
+      update_args[:subcards][action.card.name] = rev
     end
   end
-  Env.params["action_ids"] = nil
-  update_attributes! revision
+  Env.params["revert_actions"] = nil
+  update_attributes! update_args
   clear_drafts
   abort :success
 end
 
-def rollback_actions
-  actions =
-    Env.params["revert_actions"].map do |a_id|
-      Action.fetch(a_id) || nil
-    end.compact
-  actions.map! { |a| a.previous_action } if Env.params["revert_to"] == "previous"
-  actions.compact
+def revert_to_previous_action?
+  Env.params["revert_to"] == "previous"
+end
+
+def revert_actions
+  Env.params["revert_actions"].map do |a_id|
+    Action.fetch(a_id) || nil
+  end.compact
 end
 
 def rollback_request?
@@ -173,7 +172,7 @@ format :html do
     class_up "d0-card-body",  "history-slot"
     frame do
       bs_layout container: true, fluid: true do
-        html _optional_render_history_legend(with_drafts: true)
+        html _render_history_legend(with_drafts: true)
         row 12 do
           html _render_act_list acts: history_acts
         end
@@ -191,6 +190,19 @@ format :html do
         col content_legend, class: "text-right"
       end
     end
+  end
+
+  def revert_actions_link act, link_text,
+                          revert_to: :this, slot_selector: nil, html_args: {}
+    return unless card.ok? :update
+    html_args.merge! remote: true, method: :post, rel: "nofollow",
+                     path: { action: :update, view: :open, look_in_trash: true,
+                             revert_actions: act.actions.map(&:id),
+                             revert_to: revert_to }
+
+    html_args[:path]["data-slot-selector"] = slot_selector if slot_selector
+    add_class html_args, "slotter"
+    link_to link_text, html_args
   end
 
   def history_acts

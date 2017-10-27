@@ -16,3 +16,5 @@ Decko/EventLength:
   Enabled: true
   CountComments: false
   Max: 10
+AllCops:
+  TargetRubyVersion: 2.3

@@ -8,7 +8,7 @@ describe Card::Reference do
   describe "references on hard templated cards should get updated" do
     it "on structuree creation" do
       Card.create! name: "JoeForm", type: "UserForm"
-      Card["JoeForm"].format.render(:core)
+      Card["JoeForm"].format.render!(:core)
       assert_equal ["joe_form+age", "joe_form+description", "joe_form+name"],
                    Card["JoeForm"].includees.map(&:key).sort
     end
@@ -17,7 +17,7 @@ describe Card::Reference do
       Card.create! name: "SpecialForm", type: "Cardtype"
       Card.create! name: "Form1", type: "SpecialForm", content: "foo"
       Card.create! name: "SpecialForm+*type+*structure", content: "{{+bar}}"
-      Card["Form1"].format.render(:core)
+      Card["Form1"].format.render!(:core)
       expect(Card["Form1"].includees.map(&:key)).to eq(["form1+bar"])
     end
 
@@ -26,7 +26,7 @@ describe Card::Reference do
       tmpl = Card["UserForm+*type+*structure"]
       tmpl.content = "{{+monkey}} {{+banana}} {{+fruit}}"
       tmpl.save!
-      Card["JoeForm"].format.render(:core)
+      Card["JoeForm"].format.render!(:core)
       expect(Card["JoeForm"].includees.map(&:key)).to contain_exactly("joe_form+banana", "joe_form+fruit", "joe_form+monkey")
     end
   end

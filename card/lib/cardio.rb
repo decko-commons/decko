@@ -61,7 +61,6 @@ module Cardio
         file_buckets:           {},
         file_default_bucket:    nil,
 
-        allow_concurrency:      false,
         allow_irreversible_admin_tasks: false
       }
     end
@@ -112,13 +111,15 @@ module Cardio
       add_path "tmp/set", root: root
       add_path "tmp/set_pattern", root: root
 
-      add_path "mod"
+      add_path "mod"        # add card gem's mod path
+      paths["mod"] << "mod" # add deck's mod path
 
-      set_db_paths
-      set_initializer_paths
+      add_db_paths
+      add_initializer_paths
+      add_mod_initializer_paths
     end
 
-    def set_db_paths
+    def add_db_paths
       add_path "db"
       add_path "db/migrate"
       add_path "db/migrate_core_cards"
@@ -126,13 +127,13 @@ module Cardio
       add_path "db/seeds.rb", with: "db/seeds.rb"
     end
 
-    def set_initializer_paths
+    def add_initializer_paths
       add_path "config/initializers", glob: "**/*.rb"
-      add_path "mod/config/initializers", glob: "**/*.rb"
       add_initializers root
     end
 
-    def set_mod_initializer_paths
+    def add_mod_initializer_paths
+      add_path "mod/config/initializers", glob: "**/*.rb"
       each_mod_path do |mod_path|
         add_initializers mod_path, true
       end
@@ -151,7 +152,7 @@ module Cardio
           yield single_mod_path
         end
       end
-      gem_mod_paths.each do |mod_name, mod_path|
+      gem_mod_paths.each do |_mod_name, mod_path|
         yield mod_path
       end
     end

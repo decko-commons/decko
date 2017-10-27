@@ -20,7 +20,7 @@ $feature_seeded ||= ::Set.new
 # newer version of cucumber-rails. Consider adding your own code to a new file
 # instead of editing this one. Cucumber will automatically load all
 # features/**/*.rb files.
-Before("@background-jobs, @delayed-jobs, @javascript") do |scenario|
+Before("@background-jobs or @delayed-jobs or @javascript") do |scenario|
   # DatabaseCleaner.strategy = :truncation
   Card.seed_test_db unless $feature_seeded.include?(scenario.feature.name)
 end

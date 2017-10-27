@@ -55,7 +55,7 @@ format :html do
 
   view :horizontal_menu, cache: :never do
     wrap_with :div, class: "btn-group btn-group-sm slotter float-right card-menu "\
-                             "horizontal-card-menu d-none d-sm-block" do
+                             "horizontal-card-menu d-none d-sm-inline-flex" do
       menu_item_list(class: "btn btn-default").join("\n").html_safe
     end
   end

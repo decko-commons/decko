@@ -31,7 +31,7 @@ class Card
           end
 
           def register pattern_code, opts={}
-            if (self.pattern_id = Card::Codename[pattern_code])
+            if (self.pattern_id = Card::Codename.id(pattern_code))
               self.pattern_code = pattern_code
               Card.set_patterns.insert opts.delete(:index).to_i, self
               self.anchorless = !respond_to?(:anchor_name)
@@ -110,7 +110,7 @@ class Card
         def anchor_codenames
           anchor_parts.map do |part|
             part_id = Card.fetch_id part
-            part_id && Card::Codename[part_id.to_i] || (return nil)
+            Card::Codename[part_id] || return
           end
         end
 

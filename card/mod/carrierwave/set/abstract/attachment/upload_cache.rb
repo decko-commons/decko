@@ -71,9 +71,8 @@ end
 
 # used for uploads for new cards until the new card is created
 def upload_cache_card
-  cache_card_codename ="new_#{attachment_name}".to_sym
-  @upload_cache_card ||=
-    Card::Codename[cache_card_codename] ? Card[cache_card_codename] : Card[:new_file]
+  cache_card_codename = "new_#{attachment_name}"
+  @upload_cache_card ||= Codename.card(cache_card_codename) { Card[:new_file] }
 end
 
 def preliminary_upload?

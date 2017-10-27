@@ -25,12 +25,11 @@ Style/CollectionMethods:
     detect: 'find'
     find_all: 'select'
     reduce: 'inject'
-Style/DotPosition:
+Layout/DotPosition:
   EnforcedStyle: leading
 Style/Encoding:
   Description: Use UTF-8 as the source file encoding.
   Enabled: false
-  EnforcedStyle: when_needed
 Style/GuardClause:
   Description: Check for conditionals that can be replaced with guard clauses
   Enabled: true
@@ -46,7 +45,7 @@ Style/RegexpLiteral:
   Enabled: true
 Style/StringLiterals:
   EnforcedStyle: double_quotes
-Style/SpaceAroundEqualsInParameterDefault:
+Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -54,7 +53,7 @@ Metrics/MethodLength:
   Enabled: true
   CountComments: false
   Max: 15
-Style/ExtraSpacing:
+Layout/ExtraSpacing:
   Description: Do not use unnecessary spacing.
   Enabled: false
 Lint/AssignmentInCondition:

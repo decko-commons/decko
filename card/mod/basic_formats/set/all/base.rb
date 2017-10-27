@@ -1,7 +1,7 @@
 format do
   def show view, args
     view ||= :core
-    render view, args.merge(main_nest_options)
+    render! view, args.merge(main_nest_options)
   end
 
   # NAME VIEWS
@@ -67,7 +67,7 @@ format do
 
   view :raw do
     scard = voo.structure ? Card[voo.structure] : card
-    scard ? scard.raw_content : _render_blank
+    scard ? scard.content : _render_blank
   end
 
   view :core, closed: true do

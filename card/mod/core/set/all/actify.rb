@@ -20,36 +20,27 @@ def abort status, msg="action canceled"
 end
 
 def act opts={}, &block
+  opts ||= {}
+  @action ||= identify_action(opts[:trash])
   if ActManager.act_card
-    add_to_act opts, &block
+    add_to_act &block
   else
     start_new_act opts, &block
   end
 end
 
 def start_new_act opts
-  ActManager.clear
   self.director = nil
-  ActManager.act_card = self
-  if opts && opts[:success]
-    Env[:success] = Env::Success.new(name, Env.params[:success])
+  ActManager.run_act(self) do
+    Env.success(name) if opts[:success]
+    run_callbacks(:act) { yield }
   end
-  run_callbacks :act do
-    yield
-  end
-ensure
-  ActManager.clear
 end
 
-def add_to_act opts
+def add_to_act
   # if only_storage_phase is true then the card is already part of the act
   return yield if ActManager.act_card == self || only_storage_phase
   director.reset_stage
-  if opts && opts[:trash]
-    @action = :delete
-  else
-    identify_action
-  end
   director.update_card self
   self.only_storage_phase = true
   yield
@@ -129,36 +120,3 @@ def success
   Env.success(name)
 end
 
-[:name, :db_content, :trash, :type_id].each do |field|
-  define_method "#{field}_before_act" do
-    attribute_before_act field
-  end
-
-  define_method "#{field}_is_changing?" do
-      attribute_is_changing? field
-    end
-end
-
-def attribute_before_act attr
-  if saved_change_to_attribute? attr
-    attribute_before_last_save attr
-  elsif will_save_change_to_attribute? attr
-    mutations_from_database.changed_values[attr]
-  elsif not_in_callback?
-    attribute_was attr
-  else
-    _read_attribute attr
-  end
-end
-
-def not_in_callback? # or in integrate_with_delay stage
-  mutation_tracker.equal?(mutations_from_database)
-end
-
-def attribute_is_changing? attr
-  if not_in_callback?
-    attribute_changed? attr
-  else
-    saved_change_to_attribute?(attr) || will_save_change_to_attribute?(attr)
-  end
-end

@@ -29,8 +29,8 @@ format :html do
       card_form :update, recaptcha: :off do
         [
           hidden_signin_fields,
-          _optional_render_content_formgroup,
-          _optional_render_signin_buttons
+          _render_content_formgroup,
+          _render_signin_buttons
         ]
       end
     end
@@ -54,7 +54,7 @@ format :html do
 
   def signup_link
     text = I18n.t :or_sign_up, scope: "mod.account.set.self.signin"
-    subformat(Card[:account_links]).render :sign_up, title: text
+    subformat(Card[:account_links]).render! :sign_up, title: text
   end
 
   def reset_password_link

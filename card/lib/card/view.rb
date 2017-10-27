@@ -18,9 +18,7 @@ class Card
 
     # @return [Symbol]
     def self.canonicalize view
-      return if view.blank? # error?
-      view.to_sym
-#      view.to_viewname.key.to_sym
+      view.present? ? view.to_sym : nil # error for no view?
     end
 
     # @param format [Card::Format]

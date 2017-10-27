@@ -155,7 +155,7 @@ describe Card::Set::Type::Pointer do
         '[type="checkbox"]'\
         '[value="nonexistingcardmustnotexistthisistherule"]'\
         '[id="pointer-checkbox-nonexistingcardmustnotexistthisistherule"]'
-      debug_assert_view_select @pointer.format.render_checkbox, option_html
+      # debug_assert_view_select @pointer.format.render_checkbox, option_html
       assert_view_select @inherit_pointer.format.render_checkbox, option_html
     end
 

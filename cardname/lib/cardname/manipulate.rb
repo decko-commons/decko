@@ -12,7 +12,7 @@ class Cardname
     end
 
     def swap_part oldpart, newpart
-      ensure_simpliness oldpart, "Use 'swap' to swap junctions"
+      ensure_simpleness oldpart, "Use 'swap' to swap junctions"
 
       oldpart = oldpart.to_name
       newpart = newpart.to_name
@@ -36,6 +36,11 @@ class Cardname
       parts.length
     end
 
+    def prepend_joint
+      joint = self.class.joint
+      self =~ /^#{Regexp.escape joint}/ ? self : (joint + self)
+    end
+
     private
 
     def swap_all_subsequences oldseq, newseq
@@ -56,7 +61,7 @@ class Cardname
       res
     end
 
-    def ensure_simpliness part, msg=nil
+    def ensure_simpleness part, msg=nil
       return if part.to_name.simple?
       raise StandardError, "'#{part}' has to be simple. #{msg}"
     end

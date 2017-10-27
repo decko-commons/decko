@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::File do
+RSpec.describe Card::Set::Type::File do
   DIRECTORY = "deckodev-test"
 
   def test_file no=1
@@ -56,7 +56,7 @@ describe Card::Set::Type::File do
 
   describe "view: source" do
     def source_view card
-      card.format.render(:source)
+      card.format.render!(:source)
     end
     context "storage type: protected" do
       subject { source_view protected_file }
@@ -140,7 +140,7 @@ describe Card::Set::Type::File do
         subject { protected_file }
 
         it "stores correct identifier (~<card id>/<action id>.<ext>)" do
-          expect(subject.content)
+          expect(subject.db_content)
             .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
         end
 
@@ -182,7 +182,7 @@ describe Card::Set::Type::File do
         subject { web_file }
 
         it "saves url as identifier" do
-          expect(subject.content).to eq web_url
+          expect(subject.db_content).to eq web_url
         end
 
         it "has correct original filename" do
@@ -197,7 +197,7 @@ describe Card::Set::Type::File do
           Card::Auth.as_bot do
             card = Card.create! name: "file card", type_id: Card::FileID,
                                 file: web_url, storage_type: :web
-            expect(card.content).to eq web_url
+            expect(card.db_content).to eq web_url
           end
         end
 
@@ -205,7 +205,7 @@ describe Card::Set::Type::File do
           Card::Auth.as_bot do
             card = Card.create! name: "file card", type_id: Card::FileID,
                                 remote_file_url: web_url, storage_type: :web
-            expect(card.content).to eq web_url
+            expect(card.db_content).to eq web_url
           end
         end
       end
@@ -232,7 +232,7 @@ describe Card::Set::Type::File do
         let(:file_path) { File.join mod_path, "file", "mod_file", "file.txt" }
 
         it "stores correct identifier (:<codename>/<mod_name>.<ext>)" do
-          expect(subject.content)
+          expect(subject.db_content)
             .to eq ":#{subject.codename}/test_mod.txt"
         end
 
@@ -292,7 +292,7 @@ describe Card::Set::Type::File do
 
         it "stores correct identifier "\
            "((<bucket>)/<card id>/<action id>.<ext>)" do
-          expect(subject.content)
+          expect(subject.db_content)
             .to eq "(test_bucket)/#{subject.id}/#{subject.last_action_id}.txt"
         end
 
@@ -364,14 +364,14 @@ describe Card::Set::Type::File do
         storage_config :local
         subject.update_attributes! file: test_file(2)
         expect(subject.storage_type).to eq :local
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
       end
       it "keeps storage type coded if explicitly set" do
         storage_config :local
         subject.update_attributes! file: test_file(2), storage_type: :coded
         expect(subject.storage_type).to eq :coded
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq ":#{subject.codename}/test_mod.txt"
         expect(subject.attachment.path)
           .to match(%r{test_mod/file/mod_file/file.txt$})
@@ -450,13 +450,13 @@ describe Card::Set::Type::File do
 
       it "copies file to mod" do
         @storage_type = :local
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
         Card::Auth.as_bot do
           subject.update_attributes! storage_type: :coded, mod: "test_mod",
                                      codename: "mod_file"
         end
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq ":#{subject.codename}/test_mod.txt"
         expect(File.exist?(file_path)).to be_truthy
       end
@@ -470,7 +470,7 @@ describe Card::Set::Type::File do
         Card::Auth.as_bot do
           subject.update_attributes! storage_type: :local
         end
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.png"
       end
     end
@@ -478,11 +478,11 @@ describe Card::Set::Type::File do
     context "from local to cloud" do
       it "copies file to cloud" do
         @storage_type = :local
-        expect(subject.content)
+        expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
         subject.update_attributes! storage_type: :cloud
 
-        expect(subject.content).to eq(
+        expect(subject.db_content).to eq(
           "(test_bucket)/#{subject.id}/#{subject.last_action_id}.txt"
         )
         url = subject.file.url

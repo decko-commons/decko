@@ -45,7 +45,7 @@ describe Card::Set::All::EventConditions, "event" do
             add_to_log db_content_before_act
           end
         end
-        content_before_change = [Card["A"].content] * STAGES.size
+        content_before_change = [Card["A"].db_content] * STAGES.size
         change_content
         expect(@log).to contain_exactly(*content_before_change)
       end

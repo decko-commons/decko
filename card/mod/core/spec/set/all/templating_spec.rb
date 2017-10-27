@@ -37,7 +37,7 @@ describe Card::Set::All::Templating do
         @bt.save!
       end
       jb = @jb.refresh true
-      expect(jb.format.render(:raw)).to eq("Tomorrow")
+      expect(jb.format.render!(:raw)).to eq("Tomorrow")
       expect(jb.type_id).to eq(Card::PhraseID)
     end
 
@@ -48,7 +48,7 @@ describe Card::Set::All::Templating do
                      content: "Yesterday"
       end
       jb = @jb.refresh true
-      expect(jb.raw_content).to eq("Yesterday")
+      expect(jb.content).to eq("Yesterday")
       expect(jb.type_id).to eq(Card::PlainTextID)
     end
   end
@@ -74,7 +74,7 @@ describe Card::Set::All::Templating do
 
     it "applies to new cards" do
       pb = Card.new name: "Pete+birthday"
-      expect(pb.raw_content).to eq("Today!")
+      expect(pb.content).to eq("Today!")
       expect(pb.content).to eq("Today!")
     end
   end
@@ -104,7 +104,7 @@ describe Card::Set::All::Templating do
       end
 
       it "*right setting should override *type setting" do
-        expect(Card["Jim+birthday"].raw_content).to eq("Today")
+        expect(Card["Jim+birthday"].content).to eq("Today")
       end
 
       it "defers to normal content " \
@@ -112,7 +112,7 @@ describe Card::Set::All::Templating do
         Card::Auth.as_bot do
           Card.create! name: "Jim+birthday+*self+*structure", content: "_self"
         end
-        expect(Card["Jim+birthday"].raw_content).to eq("Yesterday")
+        expect(Card["Jim+birthday"].content).to eq("Yesterday")
       end
     end
   end
