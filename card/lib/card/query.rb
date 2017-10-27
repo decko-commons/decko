@@ -145,7 +145,7 @@ class Card
         return_simple record, retrn
       end
     end
-    
+
     def result_method retrn
       case
       when respond_to?(:"#{retrn}_result") then :"#{retrn}_result"
@@ -182,7 +182,7 @@ class Card
     def process_name name, pattern
       name = pattern.to_name.absolute(name) if pattern =~ /_\w+/
       return name unless alter_results?
-      [statement[:prepend], name, statement[:append]].compact * '+'
+      [statement[:prepend], name, statement[:append]].compact * Card::Name.joint
     end
 
     def alter_results?
@@ -191,14 +191,14 @@ class Card
 
     def card_result record, _field
       if alter_results?
-        Card.fetch process_name(record['name'])
+        Card.fetch process_name(record["name"])
       else
         fetch_or_instantiate record
       end
     end
 
     def fetch_or_instantiate record
-      card = Card.retrieve_from_cache record['key']
+      card = Card.retrieve_from_cache record["key"]
       unless card
         card = Card.instantiate record
         Card.write_to_cache card, {}
