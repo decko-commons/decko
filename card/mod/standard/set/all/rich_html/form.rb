@@ -154,22 +154,25 @@ format :html do
     end
   end
 
-  #def form_for_multi
-  #  instantiate_builder(form_for_multi_input_name, card, {})
-  #end
-  #
-  #def form_for_multi_input_name
-  #  voo&.live_options&.dig(:input_name) || "card#{subcard_input_names}"
-  #end
-
   def reset_form
     @form = nil
     form
   end
 
   def form_prefix
-    return "card" if form_root? || !form_root || !parent
-    return parent.form_prefix if parent.card == card
+    case
+    when (voo_prefix = form_prefix_from_voo) then voo_prefix         # configured
+    when form_root? || !form_root || !parent then "card"             # simple form
+    when parent.card == card                 then parent.form_prefix # card nests itself
+    else                                          edit_in_form_prefix
+    end
+  end
+
+  def form_prefix_from_voo
+    voo&.live_options&.dig :input_name
+  end
+
+  def edit_in_form_prefix
     "#{parent.form_prefix}[subcards][#{card.name.from form_context.card.name}]"
   end
 
