@@ -1,37 +1,52 @@
-
+require_dependency "card/env/location"
+require_dependency "card/env/location_history"
 
 class Card
-  require 'card/location'
-
-  # Card::Env can differ for each request; Card.config should not
+  # Card::Env is a module for containing the variable details of the environment
+  # in which Card operates.
+  #
+  # Env can differ for each request; Card.config should not.
   module Env
+    extend LocationHistory
+
+    SERIALIZABLE_ATTRIBUTES = ::Set.new [
+      :main_name, :params, :ip, :ajax, :html, :host, :protocol, :salt
+    ]
+
     class << self
       def reset args={}
-        @@env = { main_name: nil }
-
-        if (c = args[:controller])
-          self[:controller] = c
-          self[:session]    = c.request.session
-          self[:params]     = c.params
-          self[:ip]         = c.request.remote_ip
-          self[:ajax]       = c.request.xhr? || c.request.params[:simulate_xhr]
-          self[:html]       = [nil, 'html'].member?(c.params[:format])
-          self[:host]       = Card.config.override_host     || c.request.env['HTTP_HOST']
-          self[:protocol]   = Card.config.override_protocol || c.request.protocol
-        end
+        @env = { main_name: nil }
+        return self unless (c = args[:controller])
+        self[:controller] = c
+        self[:session]    = c.request.session
+        self[:params]     = c.params
+        self[:ip]         = c.request.remote_ip
+        self[:ajax]       = assign_ajax(c)
+        self[:html]       = assign_html(c)
+        self[:host]       = assign_host(c)
+        self[:protocol]   = assign_protocol(c)
+        self
       end
 
       def [] key
-        @@env[key.to_sym]
+        @env[key.to_sym]
       end
 
       def []= key, value
-        @@env[key.to_sym] = value
+        @env[key.to_sym] = value
       end
-
 
       def params
         self[:params] ||= {}
+      end
+
+      def slot_opts
+        # FIXME:  upgrade to safe parameters
+        self[:slot_opts] ||= begin
+          opts = params[:slot] || {}
+          opts = opts.to_unsafe_h if opts.is_a? ActionController::Parameters
+          opts.deep_symbolize_keys
+        end
       end
 
       def session
@@ -39,7 +54,7 @@ class Card
       end
 
       def success cardname=nil
-        self[:success] ||= Card::Success.new(cardname, params[:success])
+        self[:success] ||= Env::Success.new(cardname, params[:success])
       end
 
       def localhost?
@@ -54,68 +69,47 @@ class Card
         !self[:controller] || self[:html]
       end
 
+      def serialize
+        @env.select { |k, _v| SERIALIZABLE_ATTRIBUTES.include?(k) }
+      end
+
+      # @param serialized_env [Hash]
+      def with serialized_env
+        tmp_env = serialize if @env
+        @env ||= {}
+        @env.update serialized_env
+        yield
+      ensure
+        @env.update tmp_env if tmp_env
+      end
+
+      private
+
+      def assign_ajax c
+        c.request.xhr? || c.request.params[:simulate_xhr]
+      end
+
+      def assign_html c
+        [nil, "html"].member?(c.params[:format])
+      end
+
+      def assign_host c
+        Card.config.override_host || c.request.env["HTTP_HOST"]
+      end
+
+      def assign_protocol c
+        Card.config.override_protocol || c.request.protocol
+      end
+
       def method_missing method_id, *args
         case args.length
-        when 0 ; self[ method_id ]
-        when 1 ; self[ method_id ] = args[0]
-        else   ; super
+        when 0 then self[method_id]
+        when 1 then self[method_id] = args[0]
+        else super
         end
       end
     end
-
-    # session history helpers: we keep a history stack so that in the case of
-    # card removal we can crawl back up to the last un-removed location
-    module LocationHistory
-      #include Card::Location
-
-      def location_history
-        session[:history] ||= [Card::Location.card_path('')]
-        session[:history].shift if session[:history].size > 5
-        session[:history]
-      end
-
-      def save_location card
-        return if Env.ajax? || !Env.html? || !card.known? ||
-                  (card.codename == 'signin')
-        discard_locations_for card
-        session[:previous_location] =
-          Card::Location.card_path card.cardname.url_key
-        location_history.push previous_location
-      end
-
-      def previous_location
-        return unless location_history
-        session[:previous_location] ||= location_history.last
-      end
-
-      def discard_locations_for card
-        # quoting necessary because cards have things like "+*" in the names..
-        session[:history] = location_history.reject do |loc|
-          if (url_key = url_key_for_location(loc))
-            url_key.to_name.key == card.key
-          end
-        end.compact
-        session[:previous_location] = nil
-      end
-
-      def save_interrupted_action uri
-        session[:interrupted_action] = uri
-      end
-
-      def interrupted_action
-        session.delete :interrupted_action
-      end
-
-      def url_key_for_location(location)
-        location.match( /\/([^\/]*$)/ ) ? $1 : nil
-      end
-    end
-
-    extend LocationHistory
-
   end
-
-
-
-  Env.reset
 end
+
+Card::Env.reset

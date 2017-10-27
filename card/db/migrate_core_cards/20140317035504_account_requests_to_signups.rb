@@ -1,12 +1,11 @@
 # -*- encoding : utf-8 -*-
 
-class AccountRequestsToSignups < Card::CoreMigration
+class AccountRequestsToSignups < Card::Migration::Core
   def up
+    newname = "Sign up"
+    newname = "*signup" if Card.exists? newname
 
-    newname = 'Sign up'
-    newname = '*signup' if Card.exists? newname
-
-    #get old codename and name out of the way
+    # get old codename and name out of the way
     old_signup = Card[:signup]
     old_signup.name = "#{newname} - old"
     old_signup.codename = nil
@@ -17,7 +16,7 @@ class AccountRequestsToSignups < Card::CoreMigration
     # rename Account Request to "Sign up"
     new_signup = Card[:account_request]
     new_signup.name = newname
-    new_signup.update_referencers = true
+    new_signup.update_referers = true
     new_signup.codename = :signup
     new_signup.save!
 
@@ -27,7 +26,7 @@ class AccountRequestsToSignups < Card::CoreMigration
     thanks = Card[:thanks]
     if (signup_thanks = Card["#{old_signup.name}+#{thanks.name}"])
       signup_thanks.name = "#{new_signup.name}+#{Card[:type].name}+#{thanks.name}"
-      signup_thanks.update_referencers = true
+      signup_thanks.update_referers = true
       signup_thanks.save!
     end
 
@@ -37,14 +36,9 @@ class AccountRequestsToSignups < Card::CoreMigration
     end
 
     # turn captcha off by default on signup
-    rulename = [:signup, :type, :captcha].map { |code| Card[code].name } * '+'
+    rulename = [:signup, :type, :captcha].map { |code| Card[code].name } * "+"
     captcha_rule = Card.fetch rulename, new: {}
-    captcha_rule.content = '0'
+    captcha_rule.content = "0"
     captcha_rule.save!
-
-
   end
-
 end
-
-

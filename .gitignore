@@ -1,9 +1,13 @@
-.idea/
+Gemfile
+Gemfile.lock
+.idea/*
+.idea-old/*
 .jhw-cache
 .rvmrc
 .tm_properties
+.yardoc
 coverage
-/doc
+doc
 log/*
 pkg
 wagn*gem
@@ -14,3 +18,5 @@ decko*gem
 *.DS_Store
 *.swp
 test_work/*
+*.orig
+**/bucket_credentials.yml

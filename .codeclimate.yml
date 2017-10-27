@@ -6,6 +6,7 @@ languages:
 engines:
   rubocop:
     enabled: true
+    config: .codeclimate-rubocop.yml
     checks:
       Rubocop/Style/SpaceInsideStringInterpolation:
         enabled: false
@@ -26,7 +27,12 @@ ratings:
    - "**.rb"
 exclude_paths:
 - wagn/rails/assets/**/*
-- card/mod/03_machines/lib/javascript/**/*
-- card/mod/06_bootstrap/lib/javascript/**/*
+- card/mod/**/lib/javascript/*.js
+- card/mod/machines/lib/javascript/**/*
+- card/mod/machines/lib/javascript/**/*
+- card/mod/bootstrap/lib/javascript/**/*
+- card/db/**/*
+- card/doc/**
 - card/spec/**/*
 - wagn/spec/**/*
+- card/mod/**/file/**/*

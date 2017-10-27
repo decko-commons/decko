@@ -2,12 +2,13 @@ class Card
   class Query
     class Join
       attr_accessor :conditions, :side,
-        :from, :to,
-        :from_table, :to_table,
-        :from_alias, :to_alias,
-        :from_field, :to_field,
-        :superjoin, :subjoins
+                    :from, :to,
+                    :from_table, :to_table,
+                    :from_alias, :to_alias,
+                    :from_field, :to_field,
+                    :superjoin, :subjoins
 
+      # documentation??? -pk
       def initialize opts={}
         from_and_to opts
         opts.each do |key, value|
@@ -15,8 +16,9 @@ class Card
         end
         @from_field ||= :id
         @to_field   ||= :id
-        @conditions = []
-        @subjoins = []
+
+        @conditions = Array @conditions
+        @subjoins = Array @subjoins
         if @from.is_a? Join
           @superjoin = @from
           @superjoin.subjoins << self
@@ -28,15 +30,15 @@ class Card
         [:from, :to].each do |side|
           object = opts[side]
           case object
-          when nil; next
+          when nil then next
           when Array
             { table: object.shift, alias: object.shift, field: object.shift }
           when Card::Query
-            { table: 'cards', alias: object.table_alias }
+            { table: "cards", alias: object.table_alias }
           when Card::Query::Reference
-            { table: 'card_references', alias: object.table_alias }
+            { table: "card_references", alias: object.table_alias }
           when Card::Query::Join
-            fail "to: cannot be Join" if side == :to
+            raise "to: cannot be Join" if side == :to
             { table: object.to_table, alias: object.to_alias }
           else
             raise "invalid #{side} option: #{object}"
@@ -50,13 +52,13 @@ class Card
         if !@side.nil?
           @side
         else
-          in_or = from && from.is_a?(Card::Query) && from.mods[:conj] == 'or'
-          @side = in_or ? 'LEFT' : nil
+          in_or = from && from.is_a?(Card::Query) && from.mods[:conj] == "or"
+          @side = in_or ? "LEFT" : nil
         end
       end
 
       def left?
-        side == 'LEFT'
+        side == "LEFT"
       end
 
       def in_left?
@@ -66,8 +68,6 @@ class Card
           @in_left = left? || (!@superjoin.nil? && @superjoin.in_left?)
         end
       end
-
     end
   end
 end
-

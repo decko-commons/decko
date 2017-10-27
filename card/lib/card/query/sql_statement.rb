@@ -1,9 +1,9 @@
 class Card
   class Query
     class SqlStatement
-      def initialize query
+      def initialize query=nil
         @query = query
-        @mods = query.mods
+        @mods = query && query.mods
       end
 
       def build
@@ -40,10 +40,10 @@ class Card
 
       def fields
         table = @query.table_alias
-        field = @mods[:return]
+        field = @mods[:return] unless @mods[:return] =~ /_\w+/
         field = field.blank? ? :card : field.to_sym
         field = full_field(table, field)
-        [field, @mods[:sort_join_field]].compact * ', '
+        [field, @mods[:sort_join_field]].compact * ", "
       end
 
       def full_field table, field
@@ -72,7 +72,7 @@ class Card
       end
 
       def join_on_clause join
-        [join_clause(join), 'ON', on_clause(join)].join ' '
+        [join_clause(join), "ON", on_clause(join)].join " "
       end
 
       def deeper_joins join
@@ -84,7 +84,7 @@ class Card
       def join_clause join
         to_table = join.to_table
         to_table = "(#{to_table.sql})" if to_table.is_a? Card::Query
-        table_segment = [to_table, join.to_alias].join ' '
+        table_segment = [to_table, join.to_alias].join " "
 
         if join.left?
           djoins = deeper_joins(join)
@@ -92,7 +92,7 @@ class Card
             table_segment = "(#{table_segment} #{joins djoins})"
           end
         end
-        [join.side, 'JOIN', table_segment].compact.join ' '
+        [join.side, "JOIN", table_segment].compact.join " "
       end
 
       def on_clause join
@@ -100,7 +100,7 @@ class Card
         on_ids = [
           "#{join.from_alias}.#{join.from_field}",
           "#{join.to_alias}.#{join.to_field}"
-        ].join ' = '
+        ].join " = "
         on_conditions.unshift on_ids
         if join.to.is_a? Card::Query
           if join.to.conditions_on_join == join
@@ -108,7 +108,7 @@ class Card
           end
           on_conditions.push standard_conditions(join.to)
         end
-        basic_conditions(on_conditions) * ' AND '
+        basic_conditions(on_conditions) * " AND "
       end
 
       def where
@@ -146,18 +146,19 @@ class Card
       end
 
       def standard_conditions query
-        [trash_condition(query), permission_conditions(query)].compact * ' AND '
+        table = query.table_alias
+        [trash_condition(table), permission_conditions(table)].compact * " AND "
       end
 
-      def trash_condition query
-        "#{query.table_alias}.trash is false"
+      def trash_condition table
+        "#{table}.trash is false"
       end
 
-      def permission_conditions query
+      def permission_conditions table
         return if Auth.always_ok?
         read_rules = Auth.as_card.read_rules
-        read_rule_list = read_rules.present? ? read_rules.join(',') : 1
-        "#{query.table_alias}.read_rule_id IN (#{read_rule_list})"
+        read_rule_list = read_rules.present? ? read_rules.join(",") : 1
+        "#{table}.read_rule_id IN (#{read_rule_list})"
       end
 
       def group
@@ -178,22 +179,22 @@ class Card
       end
 
       def full_syntax
-        return if @query.superquery || @mods[:return] == 'count'
+        return if @query.superquery || @mods[:return] == "count"
         yield
       end
 
       def order
         full_syntax do
-          order_key ||= @mods[:sort].blank? ? 'update' : @mods[:sort]
+          order_key ||= @mods[:sort].blank? ? "update" : @mods[:sort]
 
           order_directives = [order_key].flatten.map do |key|
             dir = if @mods[:dir].blank?
-                    DEFAULT_ORDER_DIRS[key.to_sym] || 'asc'
+                    DEFAULT_ORDER_DIRS[key.to_sym] || "asc"
                   else
                     safe_sql @mods[:dir]
                   end
             sort_field key, @mods[:sort_as], dir
-          end.join ', '
+          end.join ", "
           "ORDER BY #{order_directives}"
         end
       end
@@ -202,12 +203,12 @@ class Card
         table = @query.table_alias
         order_field =
           case key
-          when 'id'             then "#{table}.id"
-          when 'update'         then "#{table}.updated_at"
-          when 'create'         then "#{table}.created_at"
-          when /^(name|alpha)$/ then "LOWER( #{table}.key )"
-          when 'content'        then "#{table}.db_content"
-          when 'relevance'      then "#{table}.updated_at" # deprecated
+          when "id"             then "#{table}.id"
+          when "update"         then "#{table}.updated_at"
+          when "create"         then "#{table}.created_at"
+          when /^(name|alpha)$/ then "#{table}.key"
+          when "content"        then "#{table}.db_content"
+          when "relevance"      then "#{table}.updated_at" # deprecated
           else
             safe_sql(key)
           end
@@ -218,8 +219,8 @@ class Card
 
       def safe_sql txt
         txt = txt.to_s
-        if txt.match(/[^\w\*\(\)\s\.\,]/)
-          fail "WQL contains disallowed characters: #{txt}"
+        if txt =~ /[^\w\*\(\)\s\.\,]/
+          raise "WQL contains disallowed characters: #{txt}"
         else
           txt
         end

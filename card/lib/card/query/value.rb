@@ -1,7 +1,6 @@
 class Card
   class Query
     class Value
-
       include Clause
 
       attr_reader :query, :operator, :value
@@ -14,46 +13,45 @@ class Card
 
       def parse_value rawvalue
         case rawvalue
-        when String, Integer then ['=', rawvalue]
+        when String, Integer then ["=", rawvalue]
         when Array           then [rawvalue[0], rawvalue[1..-1]]
         else raise("Invalid Condition Clause #{rawvalue}.inspect}")
         end
       end
 
       def canonicalize_operator
-        if target = OPERATORS[@operator.to_s]
-          @operator = target
-        else
-          fail BadQuery, "Invalid Operator #{@operator}"
+        unless (target = OPERATORS[@operator.to_s])
+          raise Card::Error::BadQuery, "Invalid Operator #{@operator}"
         end
+        @operator = target
       end
-
 
       def sqlize v
         case v
-        when Query;  v.to_sql
-        when Array;  "(" + v.flatten.collect {|x| sqlize(x)}.join(',') + ")"
+        when Query then  v.to_sql
+        when Array then  "(" + v.flatten.map { |x| sqlize(x) }.join(",") + ")"
         else quote(v.to_s)
         end
       end
 
       def to_sql field
-        op,v = @operator, @value
+        op = @operator
+        v = @value
         table = @query.table_alias
 
         field, v = case field.to_s
-          when "name"
-            ["#{table}.key", [v].flatten.map(&:to_name).map(&:key)]
-          when "content"
-            ["#{table}.db_content", v]
-          else
-            ["#{table}.#{safe_sql field}", v]
-          end
+                   when "name"
+                     ["#{table}.key", [v].flatten.map(&:to_name).map(&:key)]
+                   when "content"
+                     ["#{table}.db_content", v]
+                   else
+                     ["#{table}.#{safe_sql field}", v]
+                   end
 
-        v = v[0] if Array===v && v.length==1 && op != 'in'
-        if op=='~'
+        v = v[0] if Array === v && v.length == 1 && op != "in"
+        if op == "~"
           cxn, v = match_prep(v)
-          %{#{field} #{cxn.match(sqlize(v))}}
+          %(#{field} #{cxn.match(sqlize(v))})
         else
           "#{field} #{op} #{sqlize(v)}"
         end

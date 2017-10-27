@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 
-class AddMoreFollowingCards < Card::CoreMigration
+class AddMoreFollowingCards < Card::Migration::Core
   def up
     Card.create! name: "*follow", codename: "follow", type_code: :setting
-    Card.create! name: '*follow+*right+*default', type_code: :pointer
-    Card.create! name: '*follow+*right+*input', type_code: :pointer, content: "[[radio]]"
-    Card.create! name: '*follow+*right+*help', content: 'Get notified about changes', type_code: :phrase
+    Card.create! name: "*follow+*right+*default", type_code: :pointer
+    Card.create! name: "*follow+*right+*input", type_code: :pointer, content: "[[radio]]"
+    Card.create! name: "*follow+*right+*help", content: "Get notified about changes", type_code: :phrase
 
     Card.create! name: "*followers", codename: "followers"
     Card.create! name: "*follow fields", codename: "follow_fields", type_code: :setting
@@ -18,7 +18,7 @@ class AddMoreFollowingCards < Card::CoreMigration
     Card.create! name: "*never", codename: "never"
 
     # default follow rule
-    Card.create! name: '*follow defaults', codename: 'follow_defaults', type_code: :pointer
-    Card.create! name: "*all+*all+*follow", type_code: :pointer, content: '[[*never]]'
+    Card.create! name: "*follow defaults", codename: "follow_defaults", type_code: :pointer
+    Card.create! name: "*all+*all+*follow", type_code: :pointer, content: "[[*never]]"
   end
 end

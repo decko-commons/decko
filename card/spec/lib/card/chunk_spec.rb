@@ -1,17 +1,18 @@
 # -*- encoding : utf-8 -*-
-require 'card/chunk'
+require "card/content/chunk"
 
-describe Card::Chunk, "Chunk" do
+describe Card::Content::Chunk, "Chunk" do
   context "Class" do
-    it "should populate prefix map on load" do
-      expect(Card::Chunk.prefix_map.keys.size).to be > 0
-      expect(Card::Chunk.prefix_map['{'][:class]).to eq(Card::Chunk::Include)
+    it "populates prefix map on load" do
+      expect(Card::Content::Chunk.prefix_map_by_list[:default].keys.size)
+        .to be > 0
+      expect(Card::Content::Chunk.prefix_map_by_list[:default]["{"][:class])
+        .to eq(Card::Content::Chunk::Nest)
     end
-    
-    it "should find Chunk classes using matched prefix" do
-      expect(Card::Chunk.find_class_by_prefix('{{')).to eq(Card::Chunk::Include)
+
+    it "finds Chunk classes using matched prefix" do
+      expect(Card::Content::Chunk.find_class_by_prefix("{{"))
+        .to eq(Card::Content::Chunk::Nest)
     end
-    
   end
-  
 end

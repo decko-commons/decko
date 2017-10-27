@@ -1,6 +1,10 @@
-**/lib/**/*.rb                    \
+lib/**/*.rb                       \
+mod/*/format/*.rb                 \
+mod/*/chunk/*.rb                  \
+mod/*/lib/**/*.rb                 \
 tmpsets/set*/**/*.rb -            \
 **/*.rdoc                         \
 GPL                               \
 LICENSE                           \
 VERSION
+--markup markdown

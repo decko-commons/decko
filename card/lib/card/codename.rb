@@ -1,76 +1,142 @@
 # -*- encoding : utf-8 -*-
-require_dependency 'card/cache'
-require_dependency 'card/name'
+require_dependency "card/cache"
 
 class Card
+  # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned in code, lest a name change break the application.
+  #
+  # Instead, a {Card} that needs specific code manipulations should be given a {Codename}, which will not change even if the card's name
+  # does.
+  #
+  # An administrator might add to the Company card via the RESTful web API with a url like
+  #
+  #     /update/CARDNAME?card[codename]=CODENAME
+  #
+  # ...or via the api like
+  #
+  #     Card[CARDNAME].update_attributes! codename: CODENAME
+  #
+  # Generally speaking, _codenames_ are represented by Symbols.
+  #
+  # The {Codename} class provides a fast cache for this slow-changing data. Every process maintains a complete cache that is not frequently reset
+  #
   class Codename
-    @@codehash = nil
-
     class << self
-      # returns codename for id and vice versa.  not in love with this api --efm
-      def [] key
-        return if key.nil?
-        key = key.to_sym unless key.is_a? Integer
-        codehash[key]
+      # returns codename for id and id for codename
+      # @param key [Integer, Symbol, String, Card::Name]
+      # @return [Symbol]
+      def [] codename
+        case codename
+        when Integer
+          codehash[codename]
+        when Symbol, String
+          codehash.key?(codename.to_sym) ? codename.to_sym : nil
+        end
       end
 
+      def id codename
+        case codename
+        when Integer then codehash.key?(codename) && codename
+        when Symbol, String then codehash[codename.to_sym]
+        end
+      end
+
+      def name codename
+        name! codename
+      rescue Error::UnknownCodename => _e
+        yield if block_given?
+      end
+
+      def card codename
+        if (card_id = id(codename))
+          Card[card_id]
+        elsif block_given?
+          yield
+        end
+      end
+
+      def exist? codename
+        id(codename).present?
+      end
+
+      alias_method :exists?, :exist?
+
+      # a Hash in which Symbol keys have Integer values and vice versa
+      # @return [Hash]
       def codehash
-        @@codehash || load_hash
+        @codehash ||= load_codehash
       end
 
+      # clear cache both locally and in cache
       def reset_cache
-        @@codehash = nil
-        cache.write 'CODEHASH', nil
+        @codehash = nil
+        Card.cache.delete "CODEHASH"
       end
 
-      # only used in migration
-      def bootdata hash
-        @@codehash = hash
+      # @param codename [Symbol, String]
+      # @return [Integer]
+      def id! codename
+        id(codename) || unknown_codename!(codename)
+      end
+
+      # @param codename [Symbol, String]
+      # @return [Card::Name]
+      def name! codename
+        Card::Name[codename.to_sym]
       end
 
       private
 
-      def cache
-        Card::Cache[Codename]
-      end
-
+      # iterate through every card with a codename
+      # @yieldparam codename [Symbol]
+      # @yieldparam id [Integer]
       def each_codenamed_card
-        sql = 'select id, codename from cards where codename is not NULL'
+        sql = "select id, codename from cards where codename is not NULL"
         ActiveRecord::Base.connection.select_all(sql).each do |row|
-          yield row['codename'].to_sym, row['id'].to_i
+          yield row["codename"].to_sym, row["id"].to_i
         end
       end
 
+      # @todo remove duplicate checks here; should be caught upon creation
       def check_duplicates codehash, codename, card_id
-        # FIXME: remove duplicate checks here; should be caught upon creation
-        return unless codehash.has_key?(codename) || codehash.has_key?(card_id)
-        warn "dup code ID:#{card_id} (#{codehash[codename]}), " \
-             "CD:#{codename} (#{codehash[card_id]})"
+        return unless codehash.key?(codename) || codehash.key?(card_id)
+        warn "dup codename: #{codename}, ID:#{card_id} (#{codehash[codename]})"
       end
 
-      def load_hash
-        @@codehash = cache.read('CODEHASH') || begin
-          codehash = {}
-          each_codenamed_card do |codename, card_id|
-            check_duplicates codehash, codename, card_id
-            codehash[codename] = card_id
-            codehash[card_id] = codename
-          end
-          cache.write 'CODEHASH', codehash
+      # generate Hash for @codehash and put it in the cache
+      def load_codehash
+        Card.cache.fetch("CODEHASH") do
+          generate_codehash
         end
+      end
+
+      def generate_codehash
+        hash = {}
+        each_codenamed_card do |codename, card_id|
+          check_duplicates hash, codename, card_id
+          hash[codename] = card_id
+          hash[card_id] = codename
+        end
+        hash
+      end
+
+      def unknown_codename! mark
+        raise Card::Error::UnknownCodename, I18n.t(:exception_unknown_codename,
+                                            scope: "lib.card.codename",
+                                            codename: mark)
       end
     end
   end
 
+  # If a card has the codename _example_, then Card::ExampleID should
+  # return the id for that card. This method makes that help.
+  #
+  # @param const [Const]
+  # @return [Integer]
+  # @raise error if codename is missing
   def self.const_missing const
-    if const.to_s =~ /^([A-Z]\S*)ID$/ && (code = $1.underscore.to_sym)
-      if (card_id = Codename[code])
-        const_set const, card_id
-      else
-        raise "Missing codename #{code} (#{const})"
-      end
-    else
-      super
-    end
+    return super unless const.to_s =~ /^([A-Z]\S*)ID$/
+    code = Regexp.last_match(1).underscore
+    code_id = Codename.id!(code)
+    const_set const, code_id
   end
 end

@@ -1,0 +1,1155 @@
+/*!
+ * Wagn: [[http://wagn.org]]
+ * Copyright 2015 Grass Commons and other contributors; Licensed GPL
+ */
+
+/*
+This minimal CSS is needed for basic Wagn functionality.
+
+Without the following, menus will be barely usable, "closed" view will not appear on one line,
+and certain hidden information will show up.
+
+Note that this CSS is taken from code so that it will be updated automatically with releases.
+If you don't want certain rules, you may:
+  (a) override them, or
+  (b) choose not to include this card in your Skin
+
+Choosing (b) will mean your CSS will not be affected by automated updates.
+*/
+
+/* -- resets -- */
+
+.d0-card-frame,
+.d0-card-body,
+.ALL {
+  overflow: inherit;
+  white-space: normal;
+}
+
+/* NOTE: we recommend against styling ".card-slot", which is heavily used by javascript */
+
+
+/* --  hidden info -- */
+
+.ui-loader,
+.card-notice,
+.new-current-revision-id,
+.editor .revision-navigation,
+.editor .autosave-alert,
+.edit_name-view .alert,
+.btn.renamer-updater,
+.confirm_update_all-view,
+.follow-updater,
+.admin-error-message,
+.labeled-view .card-menu-link {
+  display: none
+}
+
+
+/* -- d0-card-frames and menus--*/
+.d0-card-frame {
+  .d0-card-frame-title {
+    display: inline-block;
+    overflow: hidden;
+    span.header-icon {
+      margin: 0px 5px;
+    }
+
+  }
+  .toggler {
+    display: inline-block;
+    position: relative;
+  }
+  .type-info {
+    margin-right: 10px;
+  }
+}
+
+.card-subheader {
+  width: 100%;
+}
+
+.menu-slot {
+  width: 100%;
+  position: relative;
+
+  span.menu-item-label {
+    margin-left: 5px;
+  }
+
+  .card-menu {
+    position: absolute;
+    right: 8px;
+    padding: 0.75rem 0;
+    li {
+      white-space: nowrap;
+      text-align: left;
+    }
+    .dropdown-menu {
+      right: -2px;
+      top: 18px;
+      min-width: 110px;
+    }
+    .dropdown-menu:before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid white;
+      position: absolute;
+      top: -5px;
+      right: 2px;
+    }
+  }
+
+  .vertical-card-menu .dropdown-menu {
+    //z-index: 2;
+  }
+
+  .horizontal-card-menu {
+    z-index: 100;
+    li {
+      height: 30px;
+    }
+    .btn {
+      padding: 6px 12px;
+    }
+  }
+}
+
+.d0-card-frame-title {
+  margin-right: 3px;
+}
+
+
+.dropdown-menu {
+  z-index: 1005;
+}
+
+.navbar.toolbar {
+  margin-bottom: 0;
+  .collapse > .navbar-form.navbar-left {
+    //padding-left: 0px;
+  }
+}
+
+.navbar .btn.btn-toolbar-control {
+  padding: 5px;
+  border: none;
+}
+
+.navbar-divide {
+  margin-left: 30px;
+  border-left: 1px solid;
+}
+
+.card-subheader {
+  height: 30px;
+  text-align: left;
+  font-size: 13px;
+  padding: 6px 15px 3px 15px;
+  > .card-title.panel-title {
+    font-size: 13px;
+  }
+}
+
+/*-- closed and labeled views --*/
+
+.closed-view {
+  position: relative;
+  > .d0-card-frame {
+    white-space: nowrap;
+    //padding-right: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: static;
+    width:100%;
+    > .d0-card-header{
+      float: left;
+    }
+  }
+  .card-menu.btn-group {
+    display: none;
+  }
+  .d0-card-frame {
+    display: inline-block;
+  }
+}
+.closed-content {
+  //display: inline;
+  //white-space: nowrap;
+
+  table, thead, tbody, tr, th, td, p, h1, h2, h3, h4, h5, h6, ul, li, pre, ol, div, span, a, blockquote, img, label, i {
+    display: inline;
+    white-space: nowrap;
+    float: none;
+  }
+  br, hr, input, textarea, object, :after, :before {
+    display: none;
+  }
+}
+
+.labeled-view:hover .card-menu {
+  display: inline-block;
+}
+
+/* -- change view --*/
+
+.change-view {
+  clear: both;
+  .last-update {
+    float:right;
+    text-align: right;
+    a {
+      white-space: nowrap;
+    }
+  }
+}
+
+/* -- file upload -- */
+.fileupload-buttonbar .btn, .fileupload-buttonbar .toggle {
+  margin-bottom: 5px;
+}
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.fileinput-button input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+    font-size: 200px;
+    direction: ltr;
+    cursor: pointer;
+}
+
+
+/* -- template-editor (editing template rule inclusions inline) -- */
+
+.template_editor-view > div {
+  float: left;
+}
+.template-editor-close {
+  float: right;
+}
+.template_link-view {
+  display: inline;
+}
+
+
+.navbox-item-label {
+  float: left;
+  position: relative;
+}
+
+
+/*-- misc --*/
+.card-editor {
+  white-space: normal;
+  padding-bottom: 15px;
+}
+pre,
+.TYPE-plain_text.d0-card-content,
+.SELF-Xhead.d0-card-content {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+.missing-view a {
+  display: inline;
+}
+
+.SELF-Xstat > .d0-card-content {
+  table {
+    width: 100%;
+  }
+  tr:nth-child(even) {
+    background: #eee;
+  }
+}
+
+
+/*
+The below provides styles for aspects of wagn sites not usually prioritized by skin designers.
+
+It includes basic styling for:
+
+  1. wagneer interface (sets, settings, rules)
+  2. editor interface (forms, fieldsets, menus, navbox, history)
+  3. views that by definition alter default styling (closed, labeled)
+  4. errors / warnings / notices
+  5. key default content for new installs (home page, sidebar)
+
+Most colors are greyscale; any that aren't are explained with comments beginning with "NOTGREY"
+
+Note that this CSS is taken from code so that it will be updated automatically with releases.
+If you don't want certain rules, you may (a) override them, or (b) choose not to include this card
+in your skin.  Choosing (b) will mean your CSS will not be affected by automated updates.
+*/
+
+/* -- resets -- */
+
+.d0-card-frame {
+  text-align: left;
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+/*-------------------- */
+/*- DYNAMIC ELEMENTS - */
+/*-------------------- */
+
+
+/* related view (used by many menu items, such as "referred to by")  */
+
+.ALL.related-view > .d0-card-frame > .d0-card-body {
+  padding: 0;
+}
+
+/* navboxes */
+
+.navbox-item-label {
+  font-size: 10px;
+  width: 50px;
+  padding: 3px 0 3px 5px;
+}
+
+.ui-menu-item {
+  .glyphicon {
+    float: left;
+    font-size: 10px;
+    padding: 3px 0 3px 0px;
+  }
+}
+
+
+
+
+/*-------------------- */
+/*- ONE-LINE VIEWS   - */
+/*-------------------- */
+
+.closed-view.panel {
+  margin: 0;
+  width: 100%;
+}
+.closed-content {
+  table, tbody, tr, th, td, p, h1, h2, h3, h4, h5, h6, ul, li, pre, ol, div, span, a, blockquote, img {
+    font-size: 1em;
+    margin: 0 6px 0 0;
+    padding: 0;
+    border:  0;
+  }
+  a {
+    margin: 0;
+  }
+  img {
+    max-height: 1em;
+    width: auto;
+  }
+}
+
+
+.labeled-view {
+  padding: 5px 0;
+  label h1,
+  .pointer-list,
+  .pointer-item,
+  .search-result-list,
+  .search-result-item {
+    font-size: 1em;
+  }
+  > .d0-card-content {
+    padding-left: 10px;
+  }
+}
+
+.labeled-view label,
+a.missing-labeled {
+  display: inline-block;
+  min-width: 30%;
+  text-align: right;
+}
+
+/*-------------------- */
+/*- EDIT INTERFACE   - */
+/*-------------------- */
+
+textarea,
+.content-editor > input[type=text],
+.content-editor > input[type=password],
+.name-editor input {
+  width: 97.5%;
+}
+/* width + padding = 99.5%, which leaves 0.5% for the borders.  This is imprecise, but borders can't be specified as a percentage */
+
+textarea {
+  max-height: 500px;
+}
+.name-editor.known-name input {
+  border: 3px solid #c22; /* NOTGREY - red for warning */
+}
+.name-messages {
+  font-style: italic;
+  background: #ffd;  /* NOTGREY - yellow for highlighting */
+}
+
+/* -- template-editor (editing template rule inclusions inline) -- */
+
+.template-editor-main {
+  width: 85%;
+}
+.template-editor-left,
+.template-editor-right {
+  width: 5%;
+  text-align: center;
+  font-size: 3em;
+  line-height: 2em;
+  white-space: nowrap;
+}
+
+
+
+.pointer-list-editor {
+  margin: 0px;
+  padding: 0px;
+  li {
+    list-style: none;
+    white-space: nowrap;
+  }
+
+  .input-group-btn {
+    .btn {
+      border-bottom-width: 1px;
+    }
+  }
+
+  .pointer-item-add {
+    margin-top: 10px;
+  }
+
+  .input-group-addon.handle {
+    padding-left: 1px;
+    padding-right: 1px;
+
+    .glyphicon-option-vertical.left {
+      margin-right: -7px;
+    }
+    .glyphicon-option-vertical.right {
+      margin-left: -7px;
+    }
+  }
+}
+
+.new-account-link {
+  text-align: center;
+}
+
+/* links to create missing cards */
+
+.missing-view a {
+  color: #999;
+  font-variant: small-caps;
+}
+
+.missing-view a:hover {
+  color: #069;
+  background: #ffc;
+}
+
+/*-------------------- */
+/*- SEARCH & POINTER - */
+/*-------------------- */
+
+
+div.pointer-list,
+div.search-result-list {
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+  .closed-view > .d0-card-frame {
+    margin-bottom: 0;
+  }
+}
+div.pointer-list .pointer-item,
+div.search-result-list .search-result-item {
+  margin: 0;
+}
+.search-result-item.item-link,
+.pointer-item.item-link,
+.search-result-item.item-name,
+.pointer-item.item-name {
+  text-indent: -15px;
+  padding-left: 15px;
+}
+.radio-option-description,
+.checkbox-option-description {
+  margin-left: 40px;
+}
+
+ul.pointer {
+  margin: 0px;
+  padding: 0px;
+}
+
+/*-------------------- */
+/*- HISTORY          - */
+/*-------------------- */
+
+$diff-green: #41ad41;
+$diff-red: #ff5050;
+
+.history-slot {
+  overflow: hidden;
+  clear: both;
+}
+
+.deleted-mark {
+  color: $diff-red;
+}
+
+.added-mark {
+  color: $diff-green;
+}
+
+.diff-deleted {
+  text-decoration: line-through;
+  color: $diff-red;
+  img {
+    border: 2px solid $diff-red;
+  }
+}
+.diff-added {
+  color: $diff-green;
+  img {
+    margin: 0px 4px 0px 4px;
+    border: 2px solid $diff-green;
+  }
+}
+
+ul.action-list {
+  list-style-type: none;
+  padding-left: 15px;
+  li:before {
+    font-family: 'Material Icons';
+    float: left;
+    margin-top: 4px;
+    margin-left: -17px;
+  }
+
+  li.update:before {
+    content: "edit";
+  }
+
+  li.create:before {
+    content: "add";
+  }
+
+  li.delete:before {
+    content: "delete";
+  }
+
+  li.draft:before {
+    content: "build";
+  }
+}
+
+
+/*-------------------- */
+/*- ERRORS / NOTICES - */
+/*-------------------- */
+
+/* FIXME - following should be consolidated / simplified */
+
+.exception p {
+  margin: 15px;
+}
+.errors-view {
+  margin: 10px;
+  padding: 10px;
+  border: 3px solid #966;   /* NOTGREY - red for error */
+  background: #ffa;         /* NOTGREY - yellow for highlighting */
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  border: 1px solid #777;
+  border-bottom: 2px solid #888;
+  border-right: 2px solid #888;
+  color: #333;
+}
+
+.card-notice {
+  background: #fff;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  margin: 0 0 4px 0;
+}
+
+
+#credit, /* these are both deprecated */
+.flash-notice {
+  color: #333;
+  font-size: 1.1em;
+  background: #fff;
+  border: 1px solid #888;
+  margin-bottom: 15px;
+  padding: 5px;
+  text-align: center;
+}
+
+
+.conflict-view {
+  text-align: left;
+  border: 1px solid grey;
+  padding: 10px;
+  margin-top: 12px;
+}
+
+
+/*-------------------------- */
+/*- KEY DEFAULT CONTENT    - */
+/*-------------------------- */
+
+.SELF-home-original.d0-card-content {
+  ul {
+    list-style-type: none;
+    margin: 1em;
+    padding: 0;
+  }
+  li {
+    padding: .8em;
+    margin: 0;
+    background: #eee
+  }
+  li:nth-child(even) {
+    background: #ddd;
+  }
+  aside {
+    float: right;
+    border: 1px solid #999;
+    background: white;
+    width: 33%;
+    padding: 1em;
+    margin: 36px 16px 2px 5px;
+    overflow: auto;
+    border-radius: 18px;
+    -moz-border-radius: 18px;
+    text-align: center;
+    h2 {
+      font-size: .9em;
+      padding: 0;
+      margin: 5px;
+    }
+    p {
+      font-size: .8em;
+    }
+  }
+}
+
+
+.SELF-wagneer_menu.d0-card-content {
+  > p {
+    margin-left: 6%;
+    text-indent: -6%;
+  }
+}
+
+
+
+/*-------------------------- */
+/*- SETS, SETTINGS, RULES  - */
+/*-------------------------- */
+
+
+.setting-rules,
+.set-rules {
+  width: 100%;
+}
+.setting-rules th,
+.set-rules th {
+  background: #aaa;
+  color: #eee;
+  padding: 5px 0;
+}
+.setting-rules th,
+.setting-rules td,
+.set-rules th,
+.set-rules td.rule-cell {
+  text-align: left;
+  padding: 2px 5px;
+}
+.set-rules th,
+.set-rules td.rule-cell {
+  border-bottom: 1px solid #eee;
+}
+.setting-klass,
+.rule-setting {
+  font-weight: bold;
+}
+td.rule-setting {
+  width: 30%;
+}
+.rule-set {
+  color: #666;
+  white-space: nowrap;
+}
+.rule-type-field {
+  max-width: 70%;
+  margin-right: 5px;
+}
+.closed-rule {
+  height: 30px;
+  td {
+    vertical-align: middle;
+  }
+  .rule-content {
+    width: 350px;
+  }
+}
+
+.rule-content-container {
+  max-width: 350px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: inherit;
+  background: inherit;
+  white-space: nowrap;
+}
+.rule-content-container {
+  .closed-content,
+  .closed-content .pointer-list,
+  .closed-content .search-list {
+    margin: 0;
+  }
+}
+tr.missing-rule > td {
+  background-color: #eee;
+  border-bottom: 1px solid #fff;
+}
+.rule-setting {
+  padding-top: 4px;
+}
+.open-rule > .rule-setting {
+  width: 28%;
+  float: left;
+}
+.open-rule .d0-card-body {
+  clear: both;
+}
+.open-rule .rule-instruction {
+  float: right;
+  text-align: left;
+  max-width: 68%;
+}
+.edit-rule {
+  .set-editor {
+    ul {
+      list-style-type: none;
+    }
+    .current-set-label {
+      font-weight: bold;
+    }
+  }
+  .edit-button-area {
+    clear: both;
+    padding-top: 5px;
+  }
+}
+.attention {
+  border: 3px solid red;
+}
+.rule-delete-section {
+  float: right;
+}
+.show-rule .rule-set {
+  margin-bottom: 10px;
+}
+.klass-row {
+  background: #eee;
+  border-top: 1px solid #ddd;
+}
+tr.rule-changeover td {
+  border-top: 1px solid #eee;
+  padding-top: 5px;
+}
+td.rule-anchor {
+  padding-left: 30px;
+}
+a.setting-link {
+  font-style: italic;
+  margin-left: 2%;
+  font-weight: normal;
+  color: #000;
+  white-space: nowrap;
+}
+h2.set-label {
+  padding-bottom: 10px;
+}
+
+.TYPE_PLUS_RIGHT-user-Xfollow .tab-pane {
+  margin-top: 15px;
+}
+
+/*------- permissions ------------------*/
+
+.perm-editor {
+  margin-left: 40px;
+}
+
+.perm-section {
+  margin-bottom: 20px;
+}
+.perm-section h5 {
+  margin: 0 0 10px 0;
+}
+
+/*-------------------------- */
+/*- MISCELLANEOUS          - */
+/*-------------------------- */
+
+.ui-menu-icons .ui-menu-item a {
+	padding-left: 0;
+}
+
+.ui-icon {
+  background-image: url([[/assets/smoothness/ui-icons_454545_256x240.png]])
+}
+
+/* note said this is o non-ie browsers do better with image floats.  looks over-specified.
+html>body .open-view {
+  width: auto;
+}
+*/
+
+/* the following classes are here because they're scheduled for deprecation */
+.faint {
+  color: #bbc;
+}
+.VIEW-type {
+  font-style: italic;
+  font-size: .85em;
+}
+
+.RIGHT-Xperformance_log.open-view {
+  font-size: 12px;
+  .panel-group {
+    margin-bottom: 0;
+  }
+  .panel-body {
+    padding: 0px 0px 0px 15px;
+  }
+  .panel-title {
+    font-size: 14px;
+  }
+}
+
+
+/*-------------------------- */
+/*- ProseMirror            - */
+/*-------------------------- */
+
+.ProseMirror {
+  position: relative;
+}
+
+.ProseMirror {
+  white-space: pre-wrap;
+}
+
+.ProseMirror ul, .ProseMirror ol {
+  padding-left: 30px;
+  cursor: default;
+}
+
+.ProseMirror blockquote {
+  padding-left: 1em;
+  border-left: 3px solid #eee;
+  margin-left: 0; margin-right: 0;
+}
+
+.ProseMirror pre {
+  white-space: pre-wrap;
+}
+
+.ProseMirror li {
+  position: relative;
+  pointer-events: none; /* Don't do weird stuff with marker clicks */
+}
+.ProseMirror li > * {
+  pointer-events: auto;
+}
+
+.ProseMirror-nodeselection *::selection, .ProseMirror-widget *::selection { background: transparent; }
+.ProseMirror-nodeselection *::-moz-selection, .ProseMirror-widget *::-moz-selection { background: transparent; }
+
+.ProseMirror-selectednode {
+  outline: 2px solid #8cf;
+}
+
+/* Make sure li selections wrap around markers */
+
+li.ProseMirror-selectednode {
+  outline: none;
+}
+
+li.ProseMirror-selectednode:after {
+  content: "";
+  position: absolute;
+  left: -32px;
+  right: -2px; top: -2px; bottom: -2px;
+  border: 2px solid #8cf;
+  pointer-events: none;
+}
+
+
+.ProseMirror-textblock-dropdown {
+  min-width: 3em;
+}
+
+.ProseMirror-menu {
+  margin: 0 -4px;
+  line-height: 1;
+}
+
+.ProseMirror-tooltip .ProseMirror-menu {
+  width: -webkit-fit-content;
+  width: fit-content;
+  white-space: pre;
+}
+
+.ProseMirror-menuitem {
+  margin-right: 3px;
+  display: inline-block;
+}
+
+.ProseMirror-menuseparator {
+  border-right: 1px solid #ddd;
+  margin-right: 3px;
+}
+
+.ProseMirror-menu-dropdown, .ProseMirror-menu-dropdown-menu {
+  font-size: 90%;
+  white-space: nowrap;
+}
+
+.ProseMirror-menu-dropdown {
+  vertical-align: 1px;
+  cursor: pointer;
+}
+
+.ProseMirror-menu-dropdown-wrap {
+  padding: 1px 14px 1px 4px;
+  display: inline-block;
+  position: relative;
+}
+
+.ProseMirror-menu-dropdown:after {
+  content: "";
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid currentColor;
+  opacity: .6;
+  position: absolute;
+  right: 2px;
+  top: calc(50% - 2px);
+}
+
+.ProseMirror-menu-dropdown-menu, .ProseMirror-menu-submenu {
+  position: absolute;
+  background: white;
+  color: #666;
+  border: 1px solid #aaa;
+  padding: 2px;
+}
+
+.ProseMirror-menu-dropdown-menu {
+  z-index: 15;
+  min-width: 6em;
+}
+
+.ProseMirror-menu-dropdown-item {
+  cursor: pointer;
+  padding: 2px 8px 2px 4px;
+}
+
+.ProseMirror-menu-dropdown-item:hover {
+  background: #f2f2f2;
+}
+
+.ProseMirror-menu-submenu-wrap {
+  position: relative;
+  margin-right: -4px;
+}
+
+.ProseMirror-menu-submenu-label:after {
+  content: "";
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 4px solid currentColor;
+  opacity: .6;
+  position: absolute;
+  right: 4px;
+  top: calc(50% - 4px);
+}
+
+.ProseMirror-menu-submenu {
+  display: none;
+  min-width: 4em;
+  left: 100%;
+  top: -3px;
+}
+
+.ProseMirror-menu-active {
+  background: #eee;
+  border-radius: 4px;
+}
+
+.ProseMirror-menu-active {
+  background: #eee;
+  border-radius: 4px;
+}
+
+.ProseMirror-menu-disabled {
+  opacity: .3;
+}
+
+.ProseMirror-menu-submenu-wrap:hover .ProseMirror-menu-submenu, .ProseMirror-menu-submenu-wrap-active .ProseMirror-menu-submenu {
+  display: block;
+}
+
+.ProseMirror-menubar {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  position: relative;
+  min-height: 1em;
+  color: #666;
+  padding: 1px 6px;
+  top: 0; left: 0; right: 0;
+  border-bottom: 1px solid silver;
+  background: white;
+  z-index: 10;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.ProseMirror-icon {
+  display: inline-block;
+  line-height: .8;
+  vertical-align: -2px; /* Compensate for padding */
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.ProseMirror-icon svg {
+  fill: currentColor;
+  height: 1em;
+}
+
+.ProseMirror-icon span {
+  vertical-align: text-top;
+}
+
+
+
+/* Add space around the hr to make clicking it easier */
+
+.ProseMirror-example-setup-style hr {
+  position: relative;
+  height: 6px;
+  border: none;
+}
+
+.ProseMirror-example-setup-style hr:after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 2px;
+  border-top: 2px solid silver;
+}
+
+.ProseMirror-example-setup-style img {
+  cursor: default;
+}
+
+.ProseMirror-example-setup-style table {
+  border-collapse: collapse;
+}
+
+.ProseMirror-example-setup-style td {
+  vertical-align: top;
+  border: 1px solid #ddd;
+  padding: 3px 5px;
+}
+
+.ProseMirror-prompt {
+  background: white;
+  padding: 5px 10px 5px 15px;
+  border: 1px solid silver;
+  position: fixed;
+  border-radius: 3px;
+  z-index: 11;
+  box-shadow: -.5px 2px 5px rgba(0, 0, 0, .2);
+}
+
+.ProseMirror-prompt h5 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 100%;
+  color: #444;
+}
+
+.ProseMirror-prompt input[type="text"],
+.ProseMirror-prompt textarea {
+  background: #eee;
+  border: none;
+  outline: none;
+}
+
+.ProseMirror-prompt input[type="text"] {
+  padding: 0 4px;
+}
+
+.ProseMirror-prompt-close {
+  position: absolute;
+  left: 2px; top: 1px;
+  color: #666;
+  border: none; background: transparent; padding: 0;
+}
+
+.ProseMirror-prompt-close:after {
+  content: "✕";
+  font-size: 12px;
+}
+
+.ProseMirror-invalid {
+  background: #ffc;
+  border: 1px solid #cc7;
+  border-radius: 4px;
+  padding: 5px 10px;
+  position: absolute;
+  min-width: 10em;
+}
+
+.ProseMirror-prompt-buttons {
+  margin-top: 5px;
+  display: none;
+}
+
+._prototype {
+  display: none!important;
+}
+
+._filter_container .input-group-btn .btn {
+  height: 100%;
+}
+
