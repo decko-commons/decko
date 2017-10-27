@@ -1,5 +1,3 @@
-require_dependency "active_support/callbacks_ext"
-
 # the events method is a developer's tool for visualizing the event order
 # for a given card.
 # For example, from a console you might run

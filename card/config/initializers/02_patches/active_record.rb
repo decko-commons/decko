@@ -62,5 +62,47 @@ module Patches
         end
       end
     end
+
+    module ConnectionAdapters
+      module AbstractAdapter
+        def match _string
+          raise I18n.t(:exception_not_implemented, scope: "lib.card.active_record_ext")
+        end
+
+        def cast_types
+          native_database_types.merge custom_cast_types
+        end
+
+        def custom_cast_types
+          {}
+        end
+      end
+
+      module PostgreSQLAdapter
+        def match string
+          "~* #{string}"
+        end
+      end
+
+      module Mysql2Adapter
+        def match string
+          "REGEXP #{string}"
+        end
+
+        def custom_cast_types
+          { string: { name: "char" },
+            integer: { name: "signed" },
+            text: { name: "char" },
+            float: { name: "decimal" },
+            binary: { name: "binary" } }
+        end
+      end
+
+      module SQLiteAdapter
+        def match string
+          "REGEXP #{string}"
+        end
+      end
+    end
   end
 end
