@@ -130,19 +130,19 @@ class Card
     # @return array of card objects by default
     def run
       retrn = statement[:return].present? ? statement[:return].to_s : "card"
-      result_method = result_method retrn
-      send :"return_#{simple_result? ? :simple : :list}", result_method, run_sql, retrn
+      return_method = :"return_#{simple_result?(retrn) ? :simple : :list}"
+      send return_method, run_sql, retrn
     end
 
     # @return [(not an Array)]
-    def return_simple result_method, sql_results, retrn
-      send result_method, sql_results, retrn
+    def return_simple sql_result, retrn
+      send result_method(retrn), sql_result, retrn
     end
 
     # @return [Array]
-    def return_list result_method, sql_results, retrn
+    def return_list sql_results, retrn
       sql_results.map do |record|
-        send result_method, record, retrn
+        return_simple record, retrn
       end
     end
     
@@ -198,7 +198,7 @@ class Card
     end
 
     def fetch_or_instantiate record
-      card = Card.fetch_from_cache record['key']
+      card = Card.retrieve_from_cache record['key']
       unless card
         card = Card.instantiate record
         Card.write_to_cache card, {}
