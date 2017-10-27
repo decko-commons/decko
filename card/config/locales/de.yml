@@ -34,7 +34,7 @@ de:
       active_record_ext:
         exception_not_implemented: "%{func} nicht implementiert"
       codename:
-        exception_missing_codename: nicht vorhanden %{codename} %{code} (%{const})
+        exception_unknown_codename: "unbekannter %{codename}"
       error:
         exception_for_card: "für Karte %{cardname}: %{message}"
       format:
@@ -44,8 +44,6 @@ de:
           no_cardname: unbekannte Karte
           error_rendering: "Render-Fehler: %{cardname} (%{view} view)"
         exception_init_without_card: Format ohne Karte initialisiert
-      name:
-        exception_unknown_codename: "unbekannter %{codename}: %{tag_code}"
       query:
         attributes:
           exception_bad_query: '"%{found_by}" value must be valid Search, aber %{name} ist ein %{type}' # TODO
