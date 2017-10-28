@@ -40,6 +40,7 @@ class Card
     require_dependency "card/query/attributes"
     require_dependency "card/query/sql_statement"
     require_dependency "card/query/join"
+    require_dependency "card/query/run"
 
     include Clause
     include Attributes
@@ -48,6 +49,7 @@ class Card
     include Sorting
     include Conjunctions
     include Helpers
+    include Run
 
     ATTRIBUTES = {
       basic:           %w( id name key type_id content left_id right_id
@@ -92,10 +94,6 @@ class Card
     # a card identifier from SQL and then hooking into our caching system (see
     # Card::Fetch)
 
-    def self.run statement, comment=nil
-      new(statement, comment).run
-    end
-
     def initialize statement, comment=nil
       @subqueries = []
       @conditions = []
@@ -124,93 +122,6 @@ class Card
     def default_comment
       return if @superquery || !Card.config.sql_comments
       statement.to_s
-    end
-
-    # run the current query
-    # @return array of card objects by default
-    def run
-      retrn = statement[:return].present? ? statement[:return].to_s : "card"
-      return_method = :"return_#{simple_result?(retrn) ? :simple : :list}"
-      send return_method, run_sql, retrn
-    end
-
-    # @return [(not an Array)]
-    def return_simple sql_result, retrn
-      send result_method(retrn), sql_result, retrn
-    end
-
-    # @return [Array]
-    def return_list sql_results, retrn
-      sql_results.map do |record|
-        return_simple record, retrn
-      end
-    end
-
-    def result_method retrn
-      case
-      when respond_to?(:"#{retrn}_result") then :"#{retrn}_result"
-      when (retrn =~ /id$/)                then :id_result
-      when (retrn =~ /_\w+/)               then :name_result
-      else                                      :default_result
-      end
-    end
-
-    def count_result results, _field
-      results.first["count"].to_i
-    end
-
-    def default_result record, field
-      record[field]
-    end
-
-    def id_result record, field
-      record[field].to_i
-    end
-
-    def raw_result record, _field
-      record
-    end
-
-    def simple_result? retrn
-      retrn == "count"
-    end
-
-    def name_result record, pattern
-      process_name record["name"], pattern
-    end
-
-    def process_name name, pattern
-      name = pattern.to_name.absolute(name) if pattern =~ /_\w+/
-      return name unless alter_results?
-      [statement[:prepend], name, statement[:append]].compact * Card::Name.joint
-    end
-
-    def alter_results?
-      statement[:prepend] || statement[:append]
-    end
-
-    def card_result record, _field
-      if alter_results?
-        Card.fetch process_name(record["name"])
-      else
-        fetch_or_instantiate record
-      end
-    end
-
-    def fetch_or_instantiate record
-      card = Card.retrieve_from_cache record["key"]
-      unless card
-        card = Card.instantiate record
-        Card.write_to_cache card, {}
-      end
-      card.include_set_modules
-      card
-    end
-
-    def run_sql
-      # puts "\nstatement = #{@statement}"
-      # puts "sql = #{sql}"
-      ActiveRecord::Base.connection.select_all(sql)
     end
 
     def sql
