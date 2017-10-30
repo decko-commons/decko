@@ -11,6 +11,10 @@ class Card
 
          def update_card_attributes card_data
            card_entry = find_card_attributes card_data[:name]
+           # we only want strings and not the whole name objects
+           # for name and type
+           card_data[:name] = card_data[:name].to_s
+           card_data[:type] = card_data[:type].to_s
            if card_entry
              card_entry.replace card_data
            else

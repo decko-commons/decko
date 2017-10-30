@@ -29,6 +29,7 @@ namespace :card do
     pull_card items_only: true
   end
 
+  # be rake card:pull_export from=live
   desc "add items of the export card to import data"
   task pull_export: :environment do
     importer.pull "export", items_only: true, remote: ENV["from"]
