@@ -54,7 +54,8 @@ class Card
     end
 
     def add_child name, args
-      add prepend_plus(name), args
+      name = name.is_a?(Symbol) ? name.cardname : name.to_name
+      add name.prepend_joint, args
     end
     alias_method :add_field, :add_child
 
@@ -205,17 +206,6 @@ class Card
       Card.fetch key, local_only: true, new: {}
     end
 
-    def prepend_plus name
-      case name
-      when Symbol
-        "+#{Card[name].name}"
-      when /^\+/
-        name
-      else
-        "+#{name}"
-      end
-    end
-
     def field_name_to_key name
       if @context_card.name =~ /^\+/
         @context_card.name.relative_field_name(name).key
@@ -265,12 +255,9 @@ class Card
     end
 
     def absolutize_subcard_name name
-      name = Card.compose_mark name if name.is_a? Array
-      if @context_card.name =~ /^\+/ || name.blank?
-        name.to_name
-      else
-        name.to_name.absolute_name(@context_card.name)
-      end
+      name = Card::Name[name]
+      return name if @context_card.name.parts.first.blank?
+      name.absolute_name @context_card.name
     end
 
     def new_by_card card, opts={}

@@ -7,7 +7,7 @@ module CoreExtensions
     end
 
     def to_name
-      Card.compose_mark self
+      Card::Name.compose self
     end
   end
 end

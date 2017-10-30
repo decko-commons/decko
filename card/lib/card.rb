@@ -95,7 +95,6 @@ Object.const_remove_if_defined :Card
 # {Card::Auth More on accounts}
 #
 class Card < ApplicationRecord
-  require_dependency "active_record/connection_adapters_ext"
   require_dependency "card/name"
   require_dependency "card/codename"
   require_dependency "card/query"
@@ -120,7 +119,7 @@ class Card < ApplicationRecord
   has_many :drafts, -> { where(draft: true).order :id }, class_name: :Action
 
   cattr_accessor :set_patterns, :serializable_attributes, :error_codes,
-                 :set_specific_attributes, :current_act
+                 :set_specific_attributes
   self.set_patterns = []
   self.error_codes = {}
 
@@ -132,7 +131,7 @@ class Card < ApplicationRecord
 
   serializable_attr_accessor(
     :action, :supercard, :superleft,
-    :current_act, :current_action,
+    :current_action,
     :comment,                     # obviated soon
     :update_referers,             # wrong mechanism for this
     :update_all_users,            # if the above is wrong then this one too

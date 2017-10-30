@@ -62,12 +62,6 @@ class CardController < ActionController::Base
     Card::Env.reset controller: self
   end
 
-  #def unprotect_card_params!
-  #  # FIXME:  al#ways wear protection
-  #  return unless params[:card].is_a? ActionController::Parameters
-  #  params[:card].to_unsafe_h
-  #end
-
   def authenticate
     Card::Auth.set_current params[:token], params[:current]
   end

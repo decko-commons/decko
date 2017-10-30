@@ -34,10 +34,6 @@ class Card
       @@user_specific.include? codename
     end
 
-    def to_type_id type
-      type.is_a?(Integer) ? type : Card::Codename[type]
-    end
-
     # usage:
     # setting_opts group:        :permission | :event | ...
     #              position:     <Fixnum> (starting at 1, default: add to end)
@@ -51,13 +47,7 @@ class Card
       @codename = opts[:codename] ||
                   name.match(/::(\w+)$/)[1].underscore.to_sym
       self.rule_type_editable = opts[:rule_type_editable]
-      self.restricted_to_type =
-        if opts[:restricted_to_type]
-          type_ids = [opts[:restricted_to_type]].flatten.map do |cardtype|
-            to_type_id(cardtype)
-          end
-          ::Set.new(type_ids)
-        end
+      self.restricted_to_type = permitted_type_ids opts[:restricted_to_type]
       return unless opts[:user_specific]
       @@user_specific << @codename
     end
@@ -76,6 +66,16 @@ class Card
 
     def applies_to_cardtype type_id
       !restricted_to_type || restricted_to_type.include?(type_id)
+    end
+
+    private
+
+    def permitted_type_ids types
+      return unless types
+      type_ids = Array.wrap(types).flatten.map do |cardtype|
+        Card::Codename.id cardtype
+      end
+      ::Set.new(type_ids)
     end
   end
 end

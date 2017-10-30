@@ -30,8 +30,8 @@ def handle_skip_args args
 end
 
 def initial_name name
-  name = Card.compose_mark name if name.is_a? Array
-  name.to_s
+  return name if name.is_a? String
+  Card::Name[name].to_s
 end
 
 def include_set_modules

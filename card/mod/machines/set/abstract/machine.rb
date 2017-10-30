@@ -60,7 +60,7 @@ class << self
     host_class.output_config = { filetype: "txt" }
 
     # for compatibility with old migrations
-    return unless  Codename[:machine_output]
+    return unless Codename.exist? :machine_output
 
     host_class.card_accessor :machine_output, type: :file
     host_class.card_accessor :machine_input, type: :pointer

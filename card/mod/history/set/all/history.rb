@@ -12,9 +12,9 @@ def actionable?
 end
 
 event :assign_action, :initialize, when: proc { |c| c.actionable? } do
-  @current_act = director.need_act
+  act = director.need_act
   @current_action = Card::Action.create(
-    card_act_id: @current_act.id,
+    card_act_id: act.id,
     action_type: @action,
     draft: (Env.params["draft"] == "true")
   )
@@ -74,20 +74,18 @@ def finalize_action?
   actionable? && current_action
 end
 
-event :finalize_act,
-      after: :finalize_action,
-      when: proc { |c|  c.act_card? } do
-  @current_act.update_attributes! card_id: id
+event :finalize_act, after: :finalize_action, when: :act_card? do
+  Card::ActManager.act.update_attributes! card_id: id
 end
 
 event :remove_empty_act,
       :integrate_with_delay_final, when: :remove_empty_act? do
-  #@current_act.delete
-  #@current_act = nil
+  #Card::ActManager.act.delete
+  #Card::ActManager.act = nil
 end
 
 def remove_empty_act?
-  act_card? && @current_act&.actions&.reload&.empty?
+  act_card? && ActManager.act&.actions&.reload&.empty?
 end
 
 

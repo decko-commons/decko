@@ -51,12 +51,14 @@ Feature: Updates for Children of watched cards
     When I edit "Banana" with plusses:
       |color|flavor|
       |spotted|mushy|
+    And I wait 1 second
     Then Joe Camel should be notified that "Joe User updated \"Banana\""
     When Joe Camel is watching "Banana+*self"
     And I wait a sec
     And I edit "Banana" with plusses:
       |color|flavor|
       |green|mushy|
+    And I wait 1 second
     Then Joe Camel should be notified that "Joe User updated \"Banana\""
     Given a clear email queue
     And I edit "Banana" with plusses:

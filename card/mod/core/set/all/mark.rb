@@ -13,54 +13,36 @@ module ClassMethods
   end
 
   # translates various inputs into either an id or a name.
-  #
-  # @param mark [Symbol, Integer, Card, String, or Card::Name]
+  # @param parts [Array<Symbol, Integer, String, Card::Name, Card>] a mark or mark parts
   # @return [Integer or Card::Name]
-  def id_or_name mark
+  def id_or_name parts
+    mark = parts.flatten
+    mark = mark.first if mark.size <= 1
+    id_from_mark(mark) || name_from_mark(mark)
+  end
+
+  def id_from_mark mark
     case mark
-    when Symbol            then id_from_codename! mark
-    when Integer           then mark
-    when Card              then mark.name
-    when nil               then "".to_name
-    when String, Cardname  then id_or_name_from_string mark.to_s
-    # there are some situations where this breaks if we use Card::Name
-    # rather than Cardname, which would seem more correct.
-    # very hard to reproduce, not captured in a spec :(
+    when Integer then mark
+    when Symbol  then Card::Codename.id! mark
+    when String  then id_from_string mark
     end
   end
 
-  # translates string identifiers into an id or name, including:
+  # translates string identifiers into an id:
   #   - string id notation (eg "~75")
   #   - string codename notation (eg ":options")
   #
   # @param mark [String]
-  # @return [Integer or Card::Name]
-  def id_or_name_from_string mark
+  # @return [Integer or nil]
+  def id_from_string mark
     case mark
     when /^\~(\d+)$/  then  Regexp.last_match[1].to_i
-    when /^\:(\w+)$/  then  id_from_codename!Regexp.last_match[1].to_sym
-    else                    mark.to_name
+    when /^\:(\w+)$/  then  Card::Codename.id! Regexp.last_match[1]
     end
   end
 
-  # @param parts [Array] of mark or mark parts
-  # @return [Integer or Card::Name]
-  def compose_mark parts
-    parts.flatten!
-    return id_or_name(parts.first) if parts.size == 1
-    parts.map do |part|
-      Card::Name.cardish id_or_name(part)
-    end.join("+").to_name
+  def name_from_mark mark
+    Card::Name[mark]
   end
-
-  # @param codename [Symbol]
-  # @return [Integer]
-  def id_from_codename! codename
-    Card::Codename[codename] || missing_codename!(codename)
-  end
-
-  def missing_codename! mark
-    raise Card::Error::NotFound, "missing card with codename: #{mark}"
-  end
-
 end

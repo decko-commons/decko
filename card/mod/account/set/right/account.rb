@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 include All::Permissions::Accounts
 
 card_accessor :email

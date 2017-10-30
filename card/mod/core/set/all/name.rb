@@ -125,7 +125,7 @@ end
 def [] *args
   case args[0]
   when Integer, Range
-    fetch_name = Array.wrap(name.parts[args[0]]).compact.join "+"
+    fetch_name = Array.wrap(name.parts[args[0]]).compact.join Card::Name.joint
     Card.fetch(fetch_name, args[1] || {}) unless simple?
   else
     super

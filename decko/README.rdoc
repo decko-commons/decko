@@ -17,7 +17,7 @@ Try it out with automated setup at Cloudstore[https://cldstr.com/wagn.org/wagn] 
 
 ==System Requirements
 
-Ruby[http://www.ruby-lang.org/en/]:: version 2.2.2 or higher
+Ruby[http://www.ruby-lang.org/en/]:: version 2.3 or higher
 Bundler[http://gembundler.com/]:: version 1.0 or higher
 ImageMagick[http://www.imagemagick.org/]::
 A database engine:: Either MySQL[http://www.mysql.com/] or PostgreSQL[http://www.postgresql.org/]
