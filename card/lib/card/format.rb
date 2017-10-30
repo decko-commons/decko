@@ -135,10 +135,10 @@ class Card
     end
 
     def api_render match, opts
-      view = match[2] ? match[3] : opts.shift                 # view can be part of method name or first argument
-      args = opts[0] ? opts.shift.clone : {}                  # opts are opts ;)
-      args[:optional] = (opts.shift || :show) unless match[4] # bang (!) after render
-      args[:skip_perms] = true if match[1]                    # underscore (_) before render
+      view = match[2] ? match[3] : opts.shift                   # view can be part of method name or first argument
+      args = opts[0] ? opts.shift.clone : {}                    # opts are opts ;)
+      args[:optional] = (opts.shift || args[:optional] || :show) unless match[4]   # bang (!) after render
+      args[:skip_perms] = true if match[1]                      # underscore (_) before render
       render! view, args
     end
 
