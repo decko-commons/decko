@@ -1,17 +1,17 @@
 $(window).ready ->
-  $('body').on "change", "._filter_input_field", ->
-    form = $(this).closest("._filter_form")
+  $('body').on "change", "._filter-input-field", ->
+    form = $(this).closest("._filter-form")
     form.submit()
 
-  $('body').on "click", "._filter_category_select", ->
-    addFilterDropdown = $(this).closest("._add_filter_dropdown")
+  $('body').on "click", "._filter-category-select", ->
+    addFilterDropdown = $(this).closest("._add-filter-dropdown")
     category = $(this).data("category")
     label = $(this).data("label")
     filterCategorySelected(addFilterDropdown, category, label)
 
-  $('body').on "click", "._delete_filter_input", ->
-    form = $(this).closest("._filter_form")
-    input = $(this).closest("._filter_input")
+  $('body').on "click", "._delete-filter-input", ->
+    form = $(this).closest("._filter-form")
+    input = $(this).closest("._filter-input")
     category = input.data("category")
 
     addCategoryOption(form, category)
@@ -19,33 +19,27 @@ $(window).ready ->
     form.submit()
 
 filterCategorySelected = (addFilterDropdown, selectedCategory, label) ->
-  widget = addFilterDropdown.closest("._filter_widget")
+  widget = addFilterDropdown.closest("._filter-widget")
 
   removeCategoryOption(addFilterDropdown, selectedCategory)
   showFilterInputField(selectedCategory, widget)
 
 
 showFilterInputField = (category, widget) ->
-  # add new search input field
-  $searchInputField = $(widget.find("._filter_input_field_prototypes > ._filter_input_field.#{category} > .input-group")[0])
+  $searchInputField = $(widget.find("._filter-input-field-prototypes > ._filter-input-field.#{category} > .input-group")[0])
 
-  # deal with select2
-  # $searchInputField.find(".select2-hidden-accessible").select2("destroy")
-  # $searchInputField = $($searchInputField.html()).clone(true)
-  # $searchInputField.find("select").select2()
-
-  $(widget.find("._add_filter_dropdown")).before($searchInputField)
-  $searchInputField.find("._filter_input_field").focus()
+  $(widget.find("._add-filter-dropdown")).before($searchInputField)
+  $searchInputField.find("._filter-input-field").focus()
 
 hideFilterInputField = (input) ->
-  widget = input.closest("._filter_widget")
+  widget = input.closest("._filter-widget")
   category = input.data("category")
-  $hiddenInputSlot = $(widget.find("._filter_input_field_prototypes > ._filter_input_field.#{category}")[0])
+  $hiddenInputSlot = $(widget.find("._filter-input-field-prototypes > ._filter-input-field.#{category}")[0])
   $hiddenInputSlot.append(input)
 
 
 addCategoryOption = (form, option) ->
-  form.find("._filter_category_select[data-category='#{option}']").show()
+  form.find("._filter-category-select[data-category='#{option}']").show()
 
 removeCategoryOption = (form, option) ->
-  form.find("._filter_category_select[data-category='#{option}']").hide()
+  form.find("._filter-category-select[data-category='#{option}']").hide()
