@@ -1,14 +1,14 @@
 
 .card.w-100
   .card-body
-    ._filter_widget
-      ._filter_input_field_prototypes.d-none
+    ._filter-widget
+      ._filter-input-field-prototypes.d-none
         - categories.each do |key, category|
-          ._filter_input_field{class: key}
+          ._filter-input-field{class: key}
             - unless category[:active]
               = render_haml_partial :filter_input, key: key, category: category
 
-      %form._filter_form{form_args, "accept-charset" => "UTF-8",
+      %form._filter-form{form_args, "accept-charset" => "UTF-8",
                                   "data-remote" => "true",
                                   :method => "get"}
         .d-flex.flex-row
@@ -19,12 +19,12 @@
               = sort_input_field
 
           %i.material-icons.text-muted.md-24.p-2 search
-          ._filter_container.d-flex.flew-row.flex-wrap
+          ._filter-container.d-flex.flew-row.flex-wrap
             - categories.each do |key, category|
               - if category[:active]
                 = render_haml_partial :filter_input, key: key, category: category
 
-            .dropdown._add_filter_dropdown
+            .dropdown._add-filter-dropdown
               %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false",
                                                       "aria-haspopup" => "true",
                                                       "data-toggle" => "dropdown",
@@ -32,7 +32,7 @@
                 Add filter
               .dropdown-menu
                 - categories.each do |key, category|
-                  %a.dropdown-item._filter_category_select{style: ("display: none;" if category[:active]),
+                  %a.dropdown-item._filter-category-select{style: ("display: none;" if category[:active]),
                                                            "data-category" => key,
                                                            "data-label" => category[:label],
                                                            :href => "#"}

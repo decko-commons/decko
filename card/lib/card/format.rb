@@ -120,7 +120,12 @@ class Card
       end
     end
 
-    RENDER_METHOD_RE = /^(_)?render(_(\w+))?(!)?/
+    RENDER_METHOD_RE = /^
+                          (?<underscore>_)?  # leading underscore to skip permission check
+                          render
+                          (?:_(?<view>\w+))? # view name
+                          (?<bang>!)?        # trailing bang to skip optional check
+                       $/x
 
     def respond_to_missing? method, _include_private=false
       (method =~ RENDER_METHOD_RE) || template.respond_to?(method)
@@ -135,11 +140,15 @@ class Card
     end
 
     def api_render match, opts
-      view = match[2] ? match[3] : opts.shift                   # view can be part of method name or first argument
-      args = opts[0] ? opts.shift.clone : {}                    # opts are opts ;)
-      args[:optional] = (opts.shift || args[:optional] || :show) unless match[4]   # bang (!) after render
-      args[:skip_perms] = true if match[1]                      # underscore (_) before render
-      render! view, args
+      view = match[:view] || opts.shift  # view can be part of method name or first argument
+      render! view, render_args(match[:underscore], match[:bang], opts)
+    end
+
+    def render_args underscore, bang, opts
+      args = opts[0] ? opts.shift.clone : {}   # opts are opts ;)
+      args[:optional] = (opts.shift || args[:optional] || :show) unless bang
+      args[:skip_perms] = true if underscore
+      args
     end
 
     def pass_method_to_template_object method, opts, proc
