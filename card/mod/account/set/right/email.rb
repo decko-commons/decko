@@ -1,11 +1,11 @@
 include All::Permissions::Accounts
 
-view :raw do
+def content
   case
-  when card.real? then card.content
+  when real? then super
   # following supports legacy behavior
   # (should be moved to User+*email+*type plus right)
-  when card.left.account then card.left.account.email
+  when left&.account then left.account.email
   else ""
   end
 end

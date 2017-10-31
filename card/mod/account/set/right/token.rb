@@ -4,7 +4,7 @@ DURATIONS = "second|minute|hour|day|week|month|year".freeze
 
 card_accessor :expiration
 
-view :raw do
+def content
   tr :private_data
 end
 

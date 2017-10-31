@@ -44,7 +44,7 @@ format :html do
       I18n.t(purpose, scope: "mod.account.set.self.account_links")
   end
 
-  view :raw do
+  def content
     item_links.join " "
   end
 

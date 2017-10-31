@@ -1,6 +1,5 @@
 
-view :raw do |_args|
-  # '%A, %B %d, %Y %I:%M %p %Z'
+def content
   I18n.localize(Time.now, format: :card_dayofwk_min_tz)
 end
 

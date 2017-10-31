@@ -13,8 +13,12 @@ view :editor do
   password_field :content, class: "d0-card-content", autocomplete: autocomplete
 end
 
-view :raw do
-  "<em>#{tr :encrypted}</em>"
+def content
+  tr :encrypted
+end
+
+view :core do
+  "<em>#{render_raw}</em>"
 end
 
 event :encrypt_password, :store,

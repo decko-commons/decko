@@ -2,7 +2,7 @@
 
 require_dependency "card/version"
 
-view :raw do |_args|
+def content
   Card::Version.release
 end
 
