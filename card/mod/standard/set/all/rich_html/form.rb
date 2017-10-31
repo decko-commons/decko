@@ -20,7 +20,7 @@ format :html do
 
   view :edit_in_form, cache: :never, perms: :update, tags: :unknown_ok do
     reset_form
-    @edit_in_form = true
+    @in_multi_card_editor = true
     edit_slot
   end
 
@@ -101,7 +101,7 @@ format :html do
 
   # test: are we already within a multi-card form?
   def in_multi_card_editor?
-    @edit_in_form.present?
+    @in_multi_card_editor.present?
   end
 
   def nests_editor?
