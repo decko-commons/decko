@@ -571,7 +571,7 @@ RSpec.describe Card::Query do
 
     it "handles _LL" do
       @return = "_LL"
-      is_expected.to eq ["A", ""]
+      is_expected.to eq ["A", "A+C"]
     end
   end
 end

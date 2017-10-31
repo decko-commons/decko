@@ -40,6 +40,7 @@ class Card
     require_dependency "card/query/attributes"
     require_dependency "card/query/sql_statement"
     require_dependency "card/query/join"
+    require_dependency "card/query/run"
 
     include Clause
     include Attributes
@@ -48,6 +49,7 @@ class Card
     include Sorting
     include Conjunctions
     include Helpers
+    include Run
 
     ATTRIBUTES = {
       basic:           %w( id name key type_id content left_id right_id
@@ -92,10 +94,6 @@ class Card
     # a card identifier from SQL and then hooking into our caching system (see
     # Card::Fetch)
 
-    def self.run statement, comment=nil
-      new(statement, comment).run
-    end
-
     def initialize statement, comment=nil
       @subqueries = []
       @conditions = []
@@ -126,69 +124,8 @@ class Card
       statement.to_s
     end
 
-    # run the current query
-    # @return array of card objects by default
-    def run
-      retrn ||= statement[:return].present? ? statement[:return].to_s : "card"
-      if retrn == "card"
-        get_results("name").map do |name|
-          Card.fetch name, new: {}
-        end
-      else
-        get_results retrn
-      end
-    end
-
-    # @return Integer for :count, otherwise Array of Strings or Integers
-    def get_results retrn
-      rows = run_sql
-      if retrn =~ /_\w+/
-        name_processor = contextual_name_processor retrn
-        rows.map do |row|
-          name_processor.call row["name"]
-        end
-      elsif retrn == "name" && (statement[:prepend] || statement[:append])
-        rows.map do |row|
-          [statement[:prepend], row["name"], statement[:append]].compact * "+"
-        end
-      else
-        case retrn
-        when "count" then rows.first["count"].to_i
-        when "raw"   then rows
-        when /id$/   then rows.map { |row| row[retrn].to_i }
-        else              rows.map { |row| row[retrn]      }
-        end
-      end
-    end
-
-    def run_sql
-      # puts "\nstatement = #{@statement}"
-      # puts "sql = #{sql}"
-      ActiveRecord::Base.connection.select_all(sql)
-    end
-
     def sql
       @sql ||= SqlStatement.new(self).build.to_s
-    end
-
-    def contextual_name_processor pattern
-      case pattern.downcase
-      when "_left", "_l"
-        ->(name) { name.to_name.left_name.to_s }
-      when "_right", "_r"
-        ->(name) { name.to_name.right_name.to_s }
-      else
-        chain = "name.to_name"
-        pattern.each_char do |ch|
-          case ch
-          when "l", "L"
-            chain += ".left_name"
-          when "r", "R"
-            chain += ".right_name"
-          end
-        end
-        eval "lambda { |name| #{chain}.to_s }"
-      end
     end
 
     # Query Hierarchy
