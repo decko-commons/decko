@@ -2,7 +2,7 @@ class Card
   class Content
     # tools for truncating content
     module Truncate
-      ELLISPES_HTML = '<span class="closed-content-ellipses">...</span>'.freeze
+      ELLIPSES_HTML = '<span class="closed-content-ellipses">...</span>'.freeze
 
       def smart_truncate input, words=25
         return if input.nil?
@@ -10,7 +10,7 @@ class Card
         # nuke partial tags at end of snippet
         wordstring.gsub!(/(<[^\>]+)$/, "")
         wordstring = close_tags wordstring
-        wordstring += ELLISPES_HTML if truncated
+        wordstring += ELLIPSES_HTML if truncated
         # wordstring += '...' if wordlist.length > l
         polish wordstring
       end

@@ -46,7 +46,6 @@ class Cardname
       remaining = parts_excluding *from
       return false if remaining.compact.empty? || # all name parts in context
                       remaining == parts          # no name parts in context
-                                                  # (could be faster test!)
       remaining
     end
 
