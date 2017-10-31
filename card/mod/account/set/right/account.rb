@@ -71,7 +71,6 @@ def content
 end
 
 format :html do
-
   view :edit do
     voo.structure = true
     voo.edit_structure = [[:email, "email"], [:password, "password"]]
