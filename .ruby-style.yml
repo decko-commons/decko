@@ -79,7 +79,7 @@ Metrics/BlockLength:
 RSpec/ExampleLength:
   Description: Checks for long examples.
   Enabled: true
-  Max: 10
+  Max: 25
 RSpec/FilePath:
   Description: Checks that spec file paths are consistent with the test subject.
   Enabled: true
