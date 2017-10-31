@@ -5,7 +5,6 @@ Feature: Reference
 
   Background:
     Given I am signed in as Joe Admin
-    And I wait for ajax response
 
   Scenario: Renaming a embed card
     When I create PlainText card "Vignesh" with content "Indian"

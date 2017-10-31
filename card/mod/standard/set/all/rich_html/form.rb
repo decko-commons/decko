@@ -19,8 +19,8 @@ format :html do
   end
 
   view :edit_in_form, cache: :never, perms: :update, tags: :unknown_ok do
-    @form = form_for_multi
-    @within_multi_edit = true
+    reset_form
+    @edit_in_form = true
     edit_slot
   end
 
@@ -101,7 +101,7 @@ format :html do
 
   # test: are we already within a multi-card form?
   def in_multi_card_editor?
-    @within_multi_edit.present?
+    @edit_in_form.present?
   end
 
   def nests_editor?
@@ -140,30 +140,53 @@ format :html do
       field_nest field, opts
     end.join "\n"
   end
-
-  def form_for_multi
-    instantiate_builder(form_for_multi_input_name, card, {})
-  end
-
-  def form_for_multi_input_name
-    voo&.live_options&.dig(:input_name) || "card#{subcard_input_names}"
-  end
-
-  def subcard_input_names
-    return "" if !form_root_format || form_root_format == self
-    return @parent.subcard_input_names if @parent.card == card
-    "#{@parent.subcard_input_names}[subcards][#{name_in_form}]"
-  end
+  ###
 
   # If you use subfield cards to render a form for a new card
   # then the subfield cards should be created on the new card not the existing
   # card that build the form
-  def name_in_form
-    relative_names_in_form? ? card.relative_name : card.raw_name
-  end
+
 
   def form
-    @form ||= form_for_multi
+    @form ||= begin
+      @form_root = true unless parent&.form_root
+      instantiate_builder(form_prefix, card, {})
+    end
+  end
+
+  def reset_form
+    @form = nil
+    form
+  end
+
+  def form_prefix
+    case
+    when (voo_prefix = form_prefix_from_voo) then voo_prefix         # configured
+    when form_root? || !form_root || !parent then "card"             # simple form
+    when parent.card == card                 then parent.form_prefix # card nests itself
+    else                                          edit_in_form_prefix
+    end
+  end
+
+  def form_prefix_from_voo
+    voo&.live_options&.dig :input_name
+  end
+
+  def edit_in_form_prefix
+    "#{parent.form_prefix}[subcards][#{card.name.from form_context.card.name}]"
+  end
+
+  def form_context
+    (form_root? || !form_root) ? self : parent
+  end
+
+  def form_root?
+    @form_root == true
+  end
+
+  def form_root
+    return self if @form_root
+    parent ? parent.form_root : nil
   end
 
   def card_form action, opts={}
@@ -172,20 +195,6 @@ format :html do
     form_for card, card_form_opts(action, opts) do |cform|
       @form = cform
       success_tags(success) + output(yield(cform))
-    end
-  end
-
-  # use relative names in the form
-  def relative_card_form action, opts={}, &block
-    with_relative_names_in_form do
-      card_form action, opts, &block
-    end
-  end
-
-  def form_root_format
-    if @form_root   then self
-    elsif !@parent  then nil
-    else                 @parent.form_root_format
     end
   end
 
@@ -227,16 +236,6 @@ format :html do
     end
   end
 
-  def with_relative_names_in_form
-    @relative_names_in_form = true
-    result = yield
-    @relative_names_in_form = nil
-    result
-  end
-
-  def relative_names_in_form?
-    @relative_names_in_form || (parent && parent.relative_names_in_form?)
-  end
 
   # FIELD VIEWS
 

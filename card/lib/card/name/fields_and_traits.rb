@@ -43,7 +43,6 @@ class Card
       # @return [String]
       def trait tag_code
         name = trait_name tag_code
-
         name.s
       end
 
