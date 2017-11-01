@@ -36,8 +36,10 @@ class Card
 
       def id codename
         case codename
-        when Integer then codehash.key?(codename) && codename
-        when Symbol, String then codehash[codename.to_sym]
+        when Symbol, String
+          codehash[codename.to_sym]
+        when Integer
+          codehash.key?(codename) ? codename : nil
         end
       end
 

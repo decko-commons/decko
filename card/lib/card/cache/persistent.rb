@@ -64,7 +64,8 @@ class Card
         @prefix = nil
       end
 
-      # reset effectively clears the cache by setting a new stamp
+      # reset effectively clears the cache by setting a new stamp.  However
+      # unlike annihilate, it won't bother other apps using the same cache engine.
       def reset
         @stamp = self.class.new_stamp
         @prefix = nil

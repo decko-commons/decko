@@ -88,7 +88,7 @@ module ClassMethods
     if (card = quick_fetch(mark))
       card.name
     elsif block_given?
-      yield
+      yield.to_name
     end
   rescue Card::Error::UnknownCodename => e  # eg. if codename is missing
     block_given? ? yield.to_name : raise(e)

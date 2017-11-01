@@ -43,7 +43,6 @@ class Card
       # @return [String]
       def trait tag_code
         name = trait_name tag_code
-
         name.s
       end
 
@@ -57,7 +56,7 @@ class Card
         return false unless junction?
         right_key = right_name.key
         traitlist.any? do |codename|
-          Codename.name(codename)&.key == right_key
+          Card::Codename.name(codename)&.key == right_key
         end
       end
     end

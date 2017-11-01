@@ -33,18 +33,20 @@ class Cardname
       name_from(*from).s
     end
 
-    # if possible, relativize name into one beginning with a "+".  To do so, it must absolutize back to the correct
+    # if possible, relativize name into one beginning with a "+".  The new name must absolutize back to the correct
     # original name in the context of "from"
     def name_from *from
-      remaining = parts_excluding *from
-      return self unless context_relevant?(remaining)
+      return self unless (remaining = remove_context *from)
       compressed = remaining.compact.unshift(nil).to_name  # exactly one nil at beginning
       key == compressed.absolute_name(from).key ? compressed : self
     end
 
-    def context_relevant? remaining
-      remaining.compact.any? && # not all name parts in context
-        remaining != parts      # some name parts in context (could be faster test!)
+    def remove_context *from
+      return false unless from.compact.present?
+      remaining = parts_excluding *from
+      return false if remaining.compact.empty? || # all name parts in context
+                      remaining == parts          # no name parts in context
+      remaining
     end
 
     def parts_excluding *string
