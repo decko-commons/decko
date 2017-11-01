@@ -1,17 +1,5 @@
 include All::Permissions::Accounts
 
-def content
-  case
-  when real? then super
-  # following supports legacy behavior
-  # (should be moved to User+*email+*type plus right)
-  when left&.account then left.account.email
-  else ""
-  end
-end
-
-view :core, :raw
-
 event :validate_email, :validate, on: :save do
   if content.present? && content !~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
     errors.add :content, tr(:error_invalid_address)

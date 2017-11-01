@@ -6,4 +6,4 @@ def content
   Card::Version.release
 end
 
-view :core, :raw
+# view :core, :raw

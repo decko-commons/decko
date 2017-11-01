@@ -1,5 +1,5 @@
 include All::Permissions::Accounts
 
-def content
+view :raw do
   tr :private_data
 end
