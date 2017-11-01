@@ -1,5 +1,9 @@
 $(window).ready ->
-  $('body').on "change", "._filter-input-field", ->
+  $('body').on "change", "._filter-input input", ->
+    form = $(this).closest("._filter-form")
+    form.submit()
+
+  $('body').on "change", "._filter-input select", ->
     form = $(this).closest("._filter-form")
     form.submit()
 
@@ -29,7 +33,7 @@ showFilterInputField = (category, widget) ->
   $searchInputField = $(widget.find("._filter-input-field-prototypes > ._filter-input-field.#{category} > .input-group")[0])
 
   $(widget.find("._add-filter-dropdown")).before($searchInputField)
-  $searchInputField.find("._filter-input-field").focus()
+  $searchInputField.find("._filter-input").focus()
 
 hideFilterInputField = (input) ->
   widget = input.closest("._filter-widget")

@@ -139,7 +139,7 @@ class Card
   def self.const_missing const
     return super unless const.to_s =~ /^([A-Z]\S*)ID$/
     code = Regexp.last_match(1).underscore
-    code_id = Codename.id!(code)
+    code_id = Card::Codename.id!(code)
     const_set const, code_id
   end
 end
