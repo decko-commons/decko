@@ -57,16 +57,17 @@ format do
   end
 end
 
-def content
-  # FIXME: use field_nest instead of parsing content
-  # Problem: when you do that then the fields are missing in the sign up form:
-  # output( [field_nest(:email, view: :titled, title: "email"),
-  #          field_nest(:password, view: :titled, title: "password")])
-  %({{+#{:email.cardname}|titled;title:email}}
-    {{+#{:password.cardname}|titled;title:password}})
-end
 
 format :html do
+  view :raw do
+    # FIXME: use field_nest instead of parsing content
+    # Problem: when you do that then the fields are missing in the sign up form:
+    # output( [field_nest(:email, view: :titled, title: "email"),
+    #          field_nest(:password, view: :titled, title: "password")])
+    %({{+#{:email.cardname}|titled;title:email}}
+      {{+#{:password.cardname}|titled;title:password}})
+  end
+
   view :edit do
     voo.structure = true
     voo.edit_structure = [[:email, "email"], [:password, "password"]]
