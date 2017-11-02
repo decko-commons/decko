@@ -1,4 +1,5 @@
 format :html do
+  # TODO: raw should be comprised of other views so that it can be cached.
   view :raw, cache: :never do
     output [
       head_meta,
