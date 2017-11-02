@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require_dependency "card/cache"
+require_dependency "card/name"
 
 class Card
   # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned in code, lest a name change break the application.
@@ -138,7 +139,7 @@ class Card
   def self.const_missing const
     return super unless const.to_s =~ /^([A-Z]\S*)ID$/
     code = Regexp.last_match(1).underscore
-    code_id = Codename.id!(code)
+    code_id = Card::Codename.id!(code)
     const_set const, code_id
   end
 end

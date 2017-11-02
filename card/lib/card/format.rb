@@ -51,6 +51,7 @@ class Card
     include ContextNames
     include Content
     include Error
+    include MethodDelegation
 
     extend Registration
 
@@ -110,7 +111,6 @@ class Card
       Env.session
     end
 
-
     def template
       @template ||= begin
         c = controller
@@ -118,34 +118,6 @@ class Card
         t.extend c.class._helpers
         t
       end
-    end
-
-    RENDER_METHOD_RE = /^(_)?render(_(\w+))?(!)?/
-
-    def respond_to_missing? method, _include_private=false
-      (method =~ RENDER_METHOD_RE) || template.respond_to?(method)
-    end
-
-    def method_missing method, *opts, &proc
-      if method =~ RENDER_METHOD_RE
-        api_render Regexp.last_match, opts
-      else
-        pass_method_to_template_object(method, opts, proc) { yield }
-      end
-    end
-
-    def api_render match, opts
-      view = match[2] ? match[3] : opts.shift                 # view can be part of method name or first argument
-      args = opts[0] ? opts.shift.clone : {}                  # opts are opts ;)
-      args[:optional] = (opts.shift || :show) unless match[4] # bang (!) after render
-      args[:skip_perms] = true if match[1]                    # underscore (_) before render
-      render! view, args
-    end
-
-    def pass_method_to_template_object method, opts, proc
-      proc = proc { |*a| raw yield(*a) } if proc
-      response = root.template.send method, *opts, &proc
-      response.is_a?(String) ? root.template.raw(response) : response
     end
 
     def tagged view, tag
