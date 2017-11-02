@@ -90,8 +90,8 @@ module ClassMethods
     elsif block_given?
       yield.to_name
     end
-  rescue Card::Error::NotFound => e  # eg. if codename is missing
-    block_given? ? yield.name : raise(e)
+  rescue Card::Error::UnknownCodename => e  # eg. if codename is missing
+    block_given? ? yield.to_name : raise(e)
   end
 
   # @params *mark - see #fetch
