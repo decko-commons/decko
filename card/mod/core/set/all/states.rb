@@ -3,6 +3,7 @@ module ClassMethods
     card = quick_fetch mark
     card.present?
   end
+  alias :exist? :exists?
 
   def known? mark
     card = fetch mark, skip_modules: true
