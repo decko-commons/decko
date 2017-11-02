@@ -62,7 +62,7 @@ decko_namespace = namespace :decko do
       Rake::Task["db:fixtures:load"].invoke
     else
       puts "loading bootstrap"
-      decko_namespace["bootstrap:load"].invoke
+      Rake::Task["db:seed"].invoke
     end
 
     puts "set symlink for assets"
