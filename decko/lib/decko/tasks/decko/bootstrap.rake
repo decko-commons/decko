@@ -26,9 +26,9 @@ namespace :decko do
     end
 
     def delete_ignored_cards
-      return unless ignore = Card["*ignore"]
+      return unless (ignore = Card["*ignore"])
       Card::Auth.as_bot do
-        ignore.item_cards.each &:delete!
+        ignore.item_cards.each(&:delete!)
       end
     end
 
