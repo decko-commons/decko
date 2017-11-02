@@ -57,7 +57,6 @@ format do
   end
 end
 
-
 format :html do
   view :raw do
     # FIXME: use field_nest instead of parsing content
