@@ -2,7 +2,7 @@ namespace :decko do
   namespace :bootstrap do
     desc "reseed, re-clean, and re-dump"
     task update: :environment do
-      %w(reseed bootstrap:clean bootstrap:dump).each do |task|
+      %w[reseed bootstrap:clean bootstrap:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
     end
@@ -20,13 +20,17 @@ namespace :decko do
       puts "clean cards"
       # change actors so we can delete unwanted user cards that made changes
       Card::Act.update_all actor_id: Card::WagnBotID
-      Card::Auth.as_bot do
-        ignoramus.item_cards.each(&:delete!) if (ignoramus = Card["*ignore"])
-      end
+      delete_ignored_cards
       clean_machines
       Card.empty_trash
     end
 
+    def delete_ignored_cards
+      return unless ignore = Card["*ignore"]
+      Card::Auth.as_bot do
+        ignore.item_cards.each &:delete!
+      end
+    end
 
     task clean_machines: :environment do
       clean_machines
@@ -56,7 +60,7 @@ namespace :decko do
           card.delete!
         end
       end
-    end#
+    end
 
     def clean_acts_and_actions
       clean_history
@@ -75,20 +79,18 @@ namespace :decko do
       puts "clean time and user stamps"
       conn = ActiveRecord::Base.connection
       who_and_when = [Card::WagnBotID, Time.now.utc.to_s(:db)]
-      conn.update(
-          "update cards set creator_id=%1$s, created_at='%2$s', updater_id=%1$s, updated_at='%2$s'" %
-              who_and_when
-      )
-      conn.update("update card_acts set actor_id=%s, acted_at='%s'" % who_and_when)
+      conn.update "UPDATE cards SET " \
+                  "creator_id=%1$s, created_at='%2$s', " \
+                  "updater_id=%1$s, updated_at='%2$s'" % who_and_when
+      conn.update "UPDATE card_acts SET actor_id=%s, acted_at='%s'" % who_and_when
     end
-
 
     desc "dump db to bootstrap fixtures"
     task dump: :environment do
       Card::Cache.reset_all
       DECKO_SEED_TABLES.each do |table|
         i = "000"
-        write_seed_file table do |file|
+        write_seed_file table do
           yamlize_records table do |record, hash|
             hash["#{table}_#{i.succ!}"] = record
           end
@@ -106,17 +108,15 @@ namespace :decko do
     def yamlize_records table
       data = ActiveRecord::Base.connection.select_all "select * from #{table}"
       YAML.dump(
-          data.each_with_object({}) do |record, hash|
-            record["trash"] = false if record.key? "trash"
-            record["draft"] = false if record.key? "draft"
-            yield record, hash
-          end
+        data.each_with_object({}) do |record, hash|
+          record["trash"] = false if record.key? "trash"
+          record["draft"] = false if record.key? "draft"
+          yield record, hash
+        end
       )
     end
   end
-
 end
-
 
 # desc "copy files from template database to standard mod and update cards"
 # task copy_mod_files: :environment do
@@ -133,14 +133,14 @@ end
 #   end
 # # end
 
-#def each_file_card
-#  Card.search(type: %w(in Image File), ne: "").each do |card|
-#    if card.coded? || card.codename == "new_file" ||
-#       card.codename == "new_image"
-#      puts "skipping #{card.name}: already in code"
-#    else
-#      puts "working on #{card.name}"
-#      yield card
-#    end
-#  end
-#end
+# def each_file_card
+#   Card.search(type: %w(in Image File), ne: "").each do |card|
+#     if card.coded? || card.codename == "new_file" ||
+#        card.codename == "new_image"
+#       puts "skipping #{card.name}: already in code"
+#     else
+#       puts "working on #{card.name}"
+#       yield card
+#     end
+#   end
+# end
