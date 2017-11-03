@@ -33,6 +33,11 @@ showFilterInputField = (category, widget) ->
   $searchInputField = $(widget.find("._filter-input-field-prototypes > ._filter-input-field.#{category} > .input-group")[0])
 
   $(widget.find("._add-filter-dropdown")).before($searchInputField)
+  # multiple select fields are skipped because it the importance filter on wikirate
+  # with preselected options got too much height because of this
+  $searchInputField.find('select:not([multiple])').select2(
+    dropdownAutoWidth: "true"
+  )
   $searchInputField.find("._filter-input").focus()
 
 hideFilterInputField = (input) ->
