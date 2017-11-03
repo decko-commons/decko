@@ -6,7 +6,7 @@
 	url = https://github.com/decko-commons/decko-tmpsets.git
 [submodule "card/mod/bootstrap/vendor/bootswatch"]
 	path = card/mod/bootstrap/vendor/bootswatch
-	url = https://github.com/tkuther/bootswatch
+	url = https://github.com/thomaspark/bootswatch
 [submodule "card/mod/bootstrap/vendor/bootstrap"]
 	path = card/mod/bootstrap/vendor/bootstrap
 	url = https://github.com/twbs/bootstrap
