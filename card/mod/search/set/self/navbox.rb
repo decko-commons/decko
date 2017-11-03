@@ -7,6 +7,9 @@ format :html do
     end
   end
 
+  # TODO: the more natural placeholder would be the content of the navbox card, no?
+  # Also, the forced division of "raw" and "core" should probably be replaced
+  # with a single haml template (for core view)
   def navbar_placeholder
     @@placeholder ||= begin
       holder_card = Card["#{Card[:navbox].name}+*placeholder"]

@@ -205,22 +205,21 @@ end
 
 def make_machine_output_coded mod=:machines
   update_machine_output
-  Auth.as_bot do
-    output_codename =
-      machine_output_card.name.parts.map do |part|
-        Card[part].codename.to_s || Card[part].name.safe_key
-      end.join "_"
-    machine_output_card.update_attributes! codename: output_codename,
-                                           storage_type: :coded,
-                                           mod: mod
+  Card::Auth.as_bot do
+    machine_output_card.update_attributes! storage_type: :coded, mod: mod,
+                                           codename: machine_output_codename
   end
+end
+
+def machine_output_codename
+  machine_output_card.name.parts.map do |part|
+    Card[part].codename&.to_s || Card[part].name.safe_key
+  end.join "_"
 end
 
 def regenerate_machine_output
   return unless ok?(:read)
-  lock do
-    run_machine
-  end
+  lock { run_machine }
 end
 
 def update_input_card

@@ -1,5 +1,5 @@
 include All::Permissions::Accounts
 
-view :raw do |_args|
+view :raw do
   tr :private_data
 end

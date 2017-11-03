@@ -11,9 +11,7 @@ class Card
       # regenerates the machine output if a source file of a input card
       # has been changed
       def update_if_source_file_changed machine_card
-        return unless machine_card
-        mtime_output = machine_card.machine_output_card.updated_at
-        return unless mtime_output
+        return unless (mtime_output = machine_card&.machine_output_card&.updated_at)
         regenerate = false
         input_cards_with_source_files(machine_card) do |i_card, files|
           files.each do |path|
