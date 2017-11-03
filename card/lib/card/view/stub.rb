@@ -9,18 +9,25 @@ class Card
     # A stub must contain all the information necessary to produce the view as intended.
     #
     module Stub
+
+      class << self
+        def escape stub_json
+          stub_json.gsub "(", "_OParEN_"
+        end
+
+        def unescape stub_json
+          stub_json.gsub "_OParEN_", "("
+        end
+      end
+
       # @return [String]
       def stub
-        "(stub)#{escape stub_json}(/stub)".html_safe
+        "(stub)#{Stub.escape stub_json}(/stub)".html_safe
       end
 
       # @return [String] the stub_hash as JSON
       def stub_json
         JSON.generate stub_hash
-      end
-
-      def escape stub_json
-        stub_json.gsub "(", "_OParEN_"
       end
 
       # @return [Hash]
