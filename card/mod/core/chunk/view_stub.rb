@@ -15,12 +15,8 @@ class Card
 
         def interpret match, _content
           @options_json = match[1]
-          @stub_hash = JSON.parse(unescape @options_json).symbolize_keys
+          @stub_hash = JSON.parse(Card::View::Stub.unescape @options_json).symbolize_keys
           interpret_hash_values
-        end
-
-        def unescape stub_json
-          stub_json.gsub "_OParEN_", "("
         end
 
         def interpret_hash_values

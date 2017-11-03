@@ -137,14 +137,6 @@ class DeckoGenerator < Rails::Generators::AppBase
   def database_gemfile_entry
     return [] if options[:skip_active_record]
     gem_name, gem_version = gem_for_database
-    if gem_name == "mysql2"
-      # && Gem.loaded_specs['rails'].version < Gem::Version.new('4.2.5')
-      # Rails update from 4.2.4 to 4.2.5 didn't help.
-      # Current mysql2 gem (0.4.1) is still causing trouble.
-      # Maybe with the next Rails release?
-      # Could also be that ruby 1.9.3 is the problem.
-      gem_version = "0.3.20"
-    end
     msg = "Use #{options[:database]} as the database for Active Record"
     GemfileEntry.version gem_name, gem_version, msg
   end
