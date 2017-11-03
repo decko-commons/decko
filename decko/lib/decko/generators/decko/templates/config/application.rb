@@ -19,18 +19,13 @@ module <%= app_const_base %>
     # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 
 
-    # Delayed jobs
-    # Moves time-consuming minor tasks that are part of a card update
-    # (like sending notifications to followers) to a background process.
-    # To activate it add the gems 'delayed_job_active_record' and 'daemons'
-    # to the Gemfile, uncomment the two lines below and run
-    # 'RAILS_ENV=production bin/delayed_job start' to start the background process.
+    # Background jobs
+    # Moves time-consuming minor tasks that are part of a card transaction (like sending notifications
+    # to followers) to a background process. To activate it add the 'daemons' gem to the Gemfile, uncomment
+    # the line below and run 'bin/delayed_job start' to start the background process.
     # See https://github.com/collectiveidea/delayed_job#running-jobs for more information
     #
-    # config.active_job.queue_adapter = :delayed_job
     # Delayed::Worker.delay_jobs = true
-
-    # The below keys are fine for testing but should not be used in production sites.
 
     # config.read_only = true
     # defaults to false
@@ -44,7 +39,7 @@ module <%= app_const_base %>
     # config.cache_store = :dalli_store, []
 
     # config.paths['files'] = 'files'
-    # where uploaded files are actually stored. (eg Image and File cards)
+    # directory in which uploaded files are actually stored. (eg Image and File cards)
 
     # config.file_storage = :local
     # File storage options (see http://decko.org/file_storage_options)
@@ -64,7 +59,7 @@ module <%= app_const_base %>
     #        aws_secret_access_key: 'secret-key',     # required
     #        region: 'eu-central-1',                  # optional, defaults to 'us-east-1'
     #        host: 's3.example.com',                  # optional, defaults to nil
-    #        endpoint: 'https://s3.example.com:8080' # optional, defaults to nil
+    #        endpoint: 'https://s3.example.com:8080'  # optional, defaults to nil
     #     },
     #     attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
     #     public: true,
