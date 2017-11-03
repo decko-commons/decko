@@ -20,7 +20,7 @@ class Card
       end
 
       def escape stub_json
-        stub_json.gsub '(', '_OParEN_'
+        stub_json.gsub "(", "_OParEN_"
       end
 
       # @return [Hash]
