@@ -1,8 +1,8 @@
 namespace :decko do
   namespace :bootstrap do
-    desc "reseed, re-clean, and re-dump"
+    desc "reseed, migrate, re-clean, and re-dump"
     task update: :environment do
-      %w[reseed bootstrap:clean bootstrap:dump].each do |task|
+      %w[reseed update bootstrap:clean bootstrap:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
     end
