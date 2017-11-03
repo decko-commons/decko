@@ -72,7 +72,6 @@ format :file do
     # needed permission checks
     # r.headers["Cache-Control"] = "public"
   end
-
 end
 
 format :html do
