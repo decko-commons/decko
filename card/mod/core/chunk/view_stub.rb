@@ -20,7 +20,7 @@ class Card
         end
 
         def unescape stub_json
-          stub_json.gsub "(", "_OParEN_"
+          stub_json.gsub "_OParEN_", "("
         end
 
         def interpret_hash_values
