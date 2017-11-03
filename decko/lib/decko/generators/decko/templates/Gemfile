@@ -1,18 +1,21 @@
 source 'http://rubygems.org'
 
 <% if @gem_path.present? %>
-gem 'decko',    :path=>"<%= @gemfile_gem_path %>/decko"
-gem 'card',     :path=>"<%= @gemfile_gem_path %>/card", :require => false
-gem 'cardname', :path=>"<%= @gemfile_gem_path %>/cardname", :require => false
+path "<%= @gemfile_gem_path %>" do
+  gem 'decko'
+  gem 'card', :require => false
+  gem 'cardname', :require => false
+end
 <% else %>
 gem 'decko'
 <% end %>
 
 gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.version}') if database_gemfile_entry.version %>
 
-# Use Unicorn or Thin as server
+# Use Thin or Unicorn as server
+gem 'thin'
 # gem 'unicorn'
-# gem 'thin'
+
 
 # Use Delayed::Job for the Active Job queue to run tasks like
 # sending in notifications in a background process.
