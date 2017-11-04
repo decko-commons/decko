@@ -4,7 +4,7 @@ RSpec.describe Card::Set::Type::File do
   DIRECTORY = "deckodev-test"
 
   def test_file no=1
-    File.new(File.join(FIXTURES_PATH, "file#{no}.txt"))
+    File.new(File.join(CARD_TEST_SEED_PATH, "file#{no}.txt"))
   end
 
   def create_file_card storage_type, file=test_file, opts={}
@@ -310,7 +310,7 @@ RSpec.describe Card::Set::Type::File do
 
     context "with subcards" do
       it "handles file subcards" do
-        file = File.open(File.join(FIXTURES_PATH, "file1.txt"))
+        file = File.open(File.join(CARD_TEST_SEED_PATH, "file1.txt"))
         Card.create! name: "new card with file",
                      subcards: {
                        "+my file" => {
@@ -420,7 +420,7 @@ RSpec.describe Card::Set::Type::File do
     subject do
       Card::Auth.as_bot do
         Card.create! name: "file card", type_code: "file",
-                     file: File.new(File.join(FIXTURES_PATH, "file1.txt")),
+                     file: File.new(File.join(CARD_TEST_SEED_PATH, "file1.txt")),
                      storage_type: @storage_type || :cloud,
                      bucket: :test_bucket
       end

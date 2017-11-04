@@ -6,7 +6,7 @@ CardSpecLoader.init
 require "rr"
 
 CardSpecLoader.prefork do
-  FIXTURES_PATH = File.expand_path("../../db/seed/test/fixtures", __FILE__)
+  CARD_TEST_SEED_PATH = File.expand_path("../../db/seed/test/fixtures", __FILE__)
 
   CardSpecLoader.rspec_config do |config|
     # require 'card-rspec-formatter'

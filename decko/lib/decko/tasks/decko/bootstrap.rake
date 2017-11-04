@@ -1,8 +1,10 @@
 namespace :decko do
   namespace :bootstrap do
-    desc "reseed, re-clean, and re-dump"
+    desc "reseed, migrate, re-clean, and re-dump"
     task update: :environment do
-      %w[reseed bootstrap:clean bootstrap:dump].each do |task|
+      ENV["STAMP_MIGRATIONS"] = "true"
+      ENV["GENERATE_FIXTURES"] = "true"
+      %w[reseed update bootstrap:clean bootstrap:supplement bootstrap:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
     end
@@ -11,7 +13,7 @@ namespace :decko do
     task clean: :environment do
       Card::Cache.reset_all
       clean_cards
-      clean_files
+      # clean_files
       clean_acts_and_actions
       Card::Cache.reset_all
     end
@@ -85,10 +87,21 @@ namespace :decko do
       conn.update "UPDATE card_acts SET actor_id=%s, acted_at='%s'" % who_and_when
     end
 
+    desc "add test data"
+    task supplement: :environment do
+      add_test_data
+    end
+
+    def add_test_data
+      return if Rails.env == "test"
+      load File.join(TEST_SEED_PATH, "seed.rb")
+      SharedData.add_test_data
+    end
+
     desc "dump db to bootstrap fixtures"
     task dump: :environment do
       Card::Cache.reset_all
-      DECKO_SEED_TABLES.each do |table|
+      CARD_SEED_TABLES.each do |table|
         i = "000"
         write_seed_file table do
           yamlize_records table do |record, hash|
@@ -99,7 +112,8 @@ namespace :decko do
     end
 
     def write_seed_file table
-      filename = File.join DECKO_SEED_PATH, "#{table}.yml"
+      path = Rails.env == "test" ? CARD_TEST_SEED_PATH : CARD_SEED_PATH
+      filename = File.join path, "#{table}.yml"
       File.open filename, "w" do |file|
         file.write yield
       end
