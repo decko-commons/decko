@@ -1,20 +1,8 @@
 
 include All::Permissions::Accounts
 
-view :editor do
-  card.content = ""
-
-  # HACK
-  autocomplete = if @parent && @parent.card.name == "*signin+*account"
-                   "on"
-                 else
-                   "off"
-                 end
-  password_field :content, class: "d0-card-content", autocomplete: autocomplete
-end
-
-view :raw do
-  "<em>#{tr :encrypted}</em>"
+def ok_to_read
+  own_account? ? true : super
 end
 
 event :encrypt_password, :store,
@@ -42,6 +30,22 @@ event :validate_password_present, :prepare_to_validate, on: :update do
   abort :success if content.blank?
 end
 
-def ok_to_read
-  own_account? ? true : super
+view :raw do
+  tr :encrypted
+end
+
+format :html do
+  view :core do
+    "<em>#{render_raw}</em"
+  end
+
+  view :editor do
+    card.content = ""
+    password_field :content, class: "d0-card-content", autocomplete: autocomplete?
+  end
+
+  def autocomplete?
+    return "on" if @parent && @parent.card.name == "*signin+*account" # HACK
+    "off"
+  end
 end

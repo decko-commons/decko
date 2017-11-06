@@ -38,9 +38,9 @@ def existing_source_paths
   end.compact
 end
 
-view :raw do |_args|
-  Array.wrap(card.source_files).map do |filename|
-    if (source_path = card.find_file(filename))
+def content
+  Array.wrap(source_files).map do |filename|
+    if (source_path = find_file filename)
       Rails.logger.info "reading file: #{source_path}"
       File.read source_path
     else

@@ -37,6 +37,6 @@ def stylesheets
   @stylesheets
 end
 
-view :raw do |_args|
-  card.stylesheets.join "\n"
+def content
+  stylesheets.join "\n"
 end
