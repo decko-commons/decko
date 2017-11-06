@@ -21,7 +21,7 @@ format do
     end
   end
 
-  def message_body mail, config, args, attachment_list
+  def message_body mail, config, args={}, attachment_list
     text_message = config.delete :text_message
     html_message = process_html_message mail, config, args
     if text_message.present? && html_message.present?
