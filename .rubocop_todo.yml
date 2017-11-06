@@ -246,7 +246,6 @@ Style/EachWithObject:
   Exclude:
     - 'card/lib/card/set_pattern.rb'
     - 'card/mod/standard/set/all/rich_html/wrapper.rb'
-    - 'wagn/lib/wagn/tasks/test.rake'
 
 # Offense count: 1
 # Cop supports --auto-correct.

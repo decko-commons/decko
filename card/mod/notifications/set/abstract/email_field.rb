@@ -9,34 +9,37 @@ format do
   end
 end
 
-format :html do
-  def pointer_items args
-    card.item_names(context: :raw).map do |iname|
-      wrap_item iname, args
-    end
-  end
-end
+# format :html do
+#   def pointer_items args
+#     card.item_names(context: :raw).map do |iname|
+#       wrap_item iname, args
+#     end
+#   end
+# end#
 
 format :email_text do
   view :email_addresses, cache: :never do |args|
     context = args[:context] || self
-    card.item_names(context: context.name).map do |item_name|
-      # note that context is processed twice here because pointers absolutize
+    card.item_names(context: context.name).map do |name|
+      # FIXME: context is processed twice here because pointers absolutize
       # item_names by default while other types can return relative names.
       # That's poor default behavior and should be fixed!
-      item_name = item_name.to_name.absolute(context).to_s
-      if item_name =~ /.+\@.+\..+/
-        item_name
-      elsif (item_card = Card.fetch(item_name))
-        if item_card.account
-          item_card.account.email
-        else
-          item_card.contextual_content(context, format: :email_text)
-              .split(/[,\n]/)
-        end
-      end
+      name = name.to_name.absolute context
+      email_address?(name) ? name : email_address_from_card(name, context)
     end.flatten.compact.join(", ")
   end
 
+  def email_address? string
+    string =~ /.+\@.+\..+/
+  end
+
+  def email_address_from_card name, context
+    card = Card.fetch name
+    card.account&.email || email_addresses_from_card_content(card, context)
+  end
+
+  def email_addresses_from_card_content card, context
+    card.contextual_content(context, format: :email_text).split(/[,\n]/)
+  end
 
 end
