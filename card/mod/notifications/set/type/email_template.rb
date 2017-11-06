@@ -61,7 +61,7 @@ format do
       mail.multipart_mixed text_message, html_message
     else
       mail.text_part { body text_message }
-      mail.html_part { fmt.html_body mail, html_message }
+      mail.html_part { fmt.html_body self, html_message }
     end
   end
 
