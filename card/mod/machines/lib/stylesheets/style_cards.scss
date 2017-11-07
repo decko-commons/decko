@@ -466,6 +466,14 @@ textarea {
 }
 
 /*-------------------- */
+/*- Lists            - */
+/*-------------------- */
+
+.pointer-radio-list {
+    list-style-type: none;
+}
+
+/*-------------------- */
 /*- SEARCH & POINTER - */
 /*-------------------- */
 
@@ -1152,4 +1160,3 @@ li.ProseMirror-selectednode:after {
 ._filter_container .input-group-btn .btn {
   height: 100%;
 }
-
