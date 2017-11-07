@@ -21,7 +21,7 @@ format do
     end
   end
 
-  def message_body mail, config, args={}, attachment_list
+  def message_body mail, config, args, attachment_list
     text_message = config.delete :text_message
     html_message = process_html_message mail, config, args
     if text_message.present? && html_message.present?
@@ -55,7 +55,7 @@ format do
     Card::Mailer.layout msg
   end
 
-  def text_and_html_message mail, text_message, html_message, attachment_list = nil
+  def text_and_html_message mail, text_message, html_message, attachment_list=nil
     fmt = self
     if attachment_list&.any?
       mail.multipart_mixed text_message, html_message
@@ -93,11 +93,11 @@ format do
       file_card = Card[cardname]
       next unless file_card&.respond_to? :attachment
       file = file_card.attachment
-      mail.add_file filename: attachment_name(file), content: File.read(file.path)
+      mail.add_file filename: attachment_name(file, i), content: File.read(file.path)
     end
   end
 
-  def attachment_name file
-    "attachment-#{i + 1}.#{file.extension}"
+  def attachment_name file, number
+    "attachment-#{number + 1}.#{file.extension}"
   end
 end

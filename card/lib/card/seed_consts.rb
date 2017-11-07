@@ -1,6 +1,6 @@
 unless defined? CARD_SEED_TABLES
   CARD_SEED_TABLES =
-    %w( cards card_actions card_acts card_changes card_references ).freeze
+    %w(cards card_actions card_acts card_changes card_references).freeze
 end
 
 unless defined? CARD_SEED_PATH

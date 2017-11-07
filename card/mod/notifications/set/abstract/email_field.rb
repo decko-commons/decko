@@ -41,5 +41,4 @@ format :email_text do
   def email_addresses_from_card_content card, context
     card.contextual_content(context, format: :email_text).split(/[,\n]/)
   end
-
 end

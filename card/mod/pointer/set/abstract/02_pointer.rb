@@ -187,9 +187,9 @@ end
 
 def raw_items content, limit, offset
   content ||= self.content
-  items = content.to_s.split /\n+/
+  items = content.to_s.split(/\n+/)
   limit = limit.to_i
-  return items unless limit > 0
+  return items unless limit.positive?
   items[offset.to_i, limit] || []
 end
 
