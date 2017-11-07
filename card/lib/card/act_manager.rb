@@ -173,7 +173,9 @@ class Card
       end
 
       def delaying?
-        Delayed::Worker.delay_jobs && Card.config.active_job.queue_adapter == :delayed_job
+        const_defined?("Delayed") &&
+          Delayed::Worker.delay_jobs &&
+          Card.config.active_job.queue_adapter == :delayed_job
       end
 
       # The whole ActManager setup is gone once we reach a integrate with delay

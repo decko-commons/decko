@@ -8,7 +8,7 @@ describe Card::Set::Type::Image do
   end
 
   it "handles size argument in nest syntax" do
-    file = File.new File.join(FIXTURES_PATH, "mao2.jpg")
+    file = File.new File.join(CARD_TEST_SEED_PATH, "mao2.jpg")
     image_card = Card.create! name: "TestImage", type: "Image", image: file
     including_card = Card.new name: "Image1",
                               content: "{{TestImage | core; size:small }}"
@@ -23,7 +23,7 @@ describe Card::Set::Type::Image do
     before do
       Card::Auth.as_bot do
         Card.create! name: "image card", type: "image",
-                     image: File.new(File.join(FIXTURES_PATH, "mao2.jpg"))
+                     image: File.new(File.join(CARD_TEST_SEED_PATH, "mao2.jpg"))
       end
     end
     subject { Card["image card"] }
@@ -79,7 +79,7 @@ describe Card::Set::Type::Image do
     context "updated file card" do
       before do
         subject.update_attributes!(
-          image: File.new(File.join(FIXTURES_PATH, "rails.gif"))
+          image: File.new(File.join(CARD_TEST_SEED_PATH, "rails.gif"))
         )
       end
       it "updates file" do
@@ -113,7 +113,7 @@ describe Card::Set::Type::Image do
     it "becomes a regular file when changed" do
       Card::Auth.as_bot do
         subject.update_attributes!(
-          image: File.new(File.join(FIXTURES_PATH, "rails.gif"))
+          image: File.new(File.join(CARD_TEST_SEED_PATH, "rails.gif"))
         )
       end
       expect(subject.coded?).to be_falsey
@@ -139,7 +139,7 @@ describe Card::Set::Type::Image do
     subject do
       Card::Auth.as_bot do
         Card.create! name: "image card", type: "image",
-                     image: File.new(File.join(FIXTURES_PATH, "mao2.jpg"))
+                     image: File.new(File.join(CARD_TEST_SEED_PATH, "mao2.jpg"))
       end
     end
 

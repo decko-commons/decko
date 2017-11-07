@@ -147,7 +147,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     subject(:config) { mailconfig(context: context_card) }
 
     let(:context_card) do
-      file = File.new(File.join(FIXTURES_PATH, "mao2.jpg"))
+      file = File.new(File.join(CARD_TEST_SEED_PATH, "mao2.jpg"))
       Card.create(
         name: "Banana",
         content: "data content [[A]]",
