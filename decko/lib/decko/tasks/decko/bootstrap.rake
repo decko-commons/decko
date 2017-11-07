@@ -13,7 +13,6 @@ namespace :decko do
     task clean: :environment do
       Card::Cache.reset_all
       clean_cards
-      # clean_files
       clean_acts_and_actions
       Card::Cache.reset_all
     end
@@ -41,28 +40,41 @@ namespace :decko do
     def clean_machines
       puts "clean machines"
       Card.reset_all_machines
-      [[:all, :script], [:all, :style], [:script_html5shiv_printshiv]].each do |name|
-        puts "coding machine output for #{Card::Name[*name]}"
-        Card[*name].make_machine_output_coded
+      reseed_machine_output
+      clean_inputs_and_outputs
+    end
+
+    def reseed_machine_output
+      machine_output_seed_names.each do |name|
+        puts "coding machine output for #{name}"
+        Card[name].make_machine_output_coded
       end
     end
 
-    def clean_files
-      puts "clean files"
-      Card::Cache.reset_all
-      # TODO: generalize to all unnecessary files
-      remove_old_machine_files
-    end
-
-    def remove_old_machine_files
+    def clean_inputs_and_outputs
       # FIXME: can this be associated with the machine module somehow?
       %w(machine_input machine_output).each do |codename|
         Card.search(right: { codename: codename }).each do |card|
-          FileUtils.rm_rf File.join("files", card.id.to_s), secure: true
+          FileUtils.rm_rf File.join("files", card.id.to_s), secure: true#
+          next if machine_output_seed_names.member? card.name.left_name.key
           card.delete!
         end
       end
     end
+
+    def machine_output_seed_names
+      @machine_output_seed_names ||=
+        [[:all, :script], [:all, :style], [:script_html5shiv_printshiv]].map do |name|
+          Card::Name[*name]
+        end
+    end
+
+    # def clean_files
+    #   puts "clean files"
+    #   Card::Cache.reset_all
+    #   # TODO: generalize to all unnecessary files
+    #   remove_old_machine_files
+    # end
 
     def clean_acts_and_actions
       clean_history
