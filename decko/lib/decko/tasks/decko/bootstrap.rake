@@ -45,7 +45,7 @@ namespace :decko do
     end
 
     def reseed_machine_output
-      machine_output_seed_names.each do |name|
+      machine_seed_names.each do |name|
         puts "coding machine output for #{name}"
         Card[name].make_machine_output_coded
       end
@@ -56,14 +56,18 @@ namespace :decko do
       %w(machine_input machine_output).each do |codename|
         Card.search(right: { codename: codename }).each do |card|
           FileUtils.rm_rf File.join("files", card.id.to_s), secure: true#
-          next if machine_output_seed_names.member? card.name.left_name.key
+          next if reserved_output? card.name
           card.delete!
         end
       end
     end
 
-    def machine_output_seed_names
-      @machine_output_seed_names ||=
+    def reserved_output? name
+      (machine_seed_names.member? name.left_name.key) && (name.right_name.key == :machine_output.cardname.key)
+    end
+
+    def machine_seed_names
+      @machine_seed_names ||=
         [[:all, :script], [:all, :style], [:script_html5shiv_printshiv]].map do |name|
           Card::Name[*name]
         end
