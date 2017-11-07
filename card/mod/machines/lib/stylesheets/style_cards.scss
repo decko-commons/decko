@@ -89,6 +89,9 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
       right: -2px;
       top: 18px;
       min-width: 110px;
+      .dropdown-item{
+        padding-left: 0.8rem;
+      }
     }
     .dropdown-menu:before {
       content: "";

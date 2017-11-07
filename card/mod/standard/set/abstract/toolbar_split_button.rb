@@ -13,7 +13,7 @@ format :html do
   def toolbar_split_button_link_text name, opts
     icon = icon_tag opts.delete(:icon)
     icon + content_tag(:span, "&nbsp;#{name}".html_safe,
-                       class: "d-sm-none")
+                       class: "d-none d-md-inline")
   end
 
   def subject
