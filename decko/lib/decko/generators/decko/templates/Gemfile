@@ -1,31 +1,33 @@
 source 'http://rubygems.org'
 
 <% if @gem_path.present? %>
-gem 'decko',    :path=>"<%= @gemfile_gem_path %>/decko"
-gem 'card',     :path=>"<%= @gemfile_gem_path %>/card", :require => false
-gem 'cardname', :path=>"<%= @gemfile_gem_path %>/cardname", :require => false
+path "<%= @gemfile_gem_path %>" do
+  gem 'decko'
+  gem 'card', :require => false
+  gem 'cardname', :require => false
+end
 <% else %>
 gem 'decko'
 <% end %>
 
 gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.version}') if database_gemfile_entry.version %>
 
-# Use Unicorn or Thin as server
+# WEBSERVER
+# To run a simple deck at localhost:3000, you can use thin (recommended), unicorn, or (Rails' default) Webrick
+gem 'thin'
 # gem 'unicorn'
-# gem 'thin'
 
-# Use Delayed::Job for the Active Job queue to run tasks like
-# sending in notifications in a background process.
-# To activate it you have to set config.active_job.queue_adapter to :delayed_job
-# in your config file and start the background process with
-# RAILS_ENV=production bin/delayed_job start
-# gem 'delayed_job_active_record', '~> 4.1'
+# To set up a production webserver, see http://wagn.org/wagn_in_production
+
+
+# BACKGROUNDING
+# The daemons gem is needed to run tasks like sending notifications in a background process.
+# See config/application.rb for configuration details.
 # gem 'daemons'
 
 
 <% if options['mod-dev'] || options['core-dev'] -%>
 group :test do
-  gem 'rails-controller-testing'
   gem 'rspec'
   gem 'rspec-rails', '~>3.6.1'         # behavior-driven-development suite
   gem 'spork', '>=0.9'
@@ -113,6 +115,8 @@ group :debug do
 end
 <% end %>
 
+# load gems needed in Gemfiles
+# You may need to alter this code if you move your mod(s) to an unconventional location.
 Dir.glob( 'mod/**{,/*/**}/Gemfile' ).each do |gemfile|
   instance_eval File.read(gemfile)
 end

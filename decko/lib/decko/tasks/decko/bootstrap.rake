@@ -1,8 +1,10 @@
 namespace :decko do
   namespace :bootstrap do
-    desc "reseed, re-clean, and re-dump"
+    desc "reseed, migrate, re-clean, and re-dump"
     task update: :environment do
-      %w[reseed bootstrap:clean bootstrap:dump].each do |task|
+      ENV["STAMP_MIGRATIONS"] = "true"
+      ENV["GENERATE_FIXTURES"] = "true"
+      %w[reseed update bootstrap:clean bootstrap:supplement bootstrap:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
     end
@@ -11,7 +13,6 @@ namespace :decko do
     task clean: :environment do
       Card::Cache.reset_all
       clean_cards
-      clean_files
       clean_acts_and_actions
       Card::Cache.reset_all
     end
@@ -39,28 +40,45 @@ namespace :decko do
     def clean_machines
       puts "clean machines"
       Card.reset_all_machines
-      [[:all, :script], [:all, :style], [:script_html5shiv_printshiv]].each do |name|
-        puts "coding machine output for #{Card::Name[*name]}"
-        Card[*name].make_machine_output_coded
+      reseed_machine_output
+      clean_inputs_and_outputs
+    end
+
+    def reseed_machine_output
+      machine_seed_names.each do |name|
+        puts "coding machine output for #{name}"
+        Card[name].make_machine_output_coded
       end
     end
 
-    def clean_files
-      puts "clean files"
-      Card::Cache.reset_all
-      # TODO: generalize to all unnecessary files
-      remove_old_machine_files
-    end
-
-    def remove_old_machine_files
+    def clean_inputs_and_outputs
       # FIXME: can this be associated with the machine module somehow?
       %w(machine_input machine_output).each do |codename|
         Card.search(right: { codename: codename }).each do |card|
-          FileUtils.rm_rf File.join("files", card.id.to_s), secure: true
+          FileUtils.rm_rf File.join("files", card.id.to_s), secure: true#
+          next if reserved_output? card.name
           card.delete!
         end
       end
     end
+
+    def reserved_output? name
+      (machine_seed_names.member? name.left_name.key) && (name.right_name.key == :machine_output.cardname.key)
+    end
+
+    def machine_seed_names
+      @machine_seed_names ||=
+        [[:all, :script], [:all, :style], [:script_html5shiv_printshiv]].map do |name|
+          Card::Name[*name]
+        end
+    end
+
+    # def clean_files
+    #   puts "clean files"
+    #   Card::Cache.reset_all
+    #   # TODO: generalize to all unnecessary files
+    #   remove_old_machine_files
+    # end
 
     def clean_acts_and_actions
       clean_history
@@ -85,10 +103,21 @@ namespace :decko do
       conn.update "UPDATE card_acts SET actor_id=%s, acted_at='%s'" % who_and_when
     end
 
+    desc "add test data"
+    task supplement: :environment do
+      add_test_data
+    end
+
+    def add_test_data
+      return unless Rails.env == "test"
+      load File.join(TEST_SEED_PATH, "seed.rb")
+      SharedData.add_test_data
+    end
+
     desc "dump db to bootstrap fixtures"
     task dump: :environment do
       Card::Cache.reset_all
-      DECKO_SEED_TABLES.each do |table|
+      CARD_SEED_TABLES.each do |table|
         i = "000"
         write_seed_file table do
           yamlize_records table do |record, hash|
@@ -99,7 +128,8 @@ namespace :decko do
     end
 
     def write_seed_file table
-      filename = File.join DECKO_SEED_PATH, "#{table}.yml"
+      path = Rails.env == "test" ? CARD_TEST_SEED_PATH : CARD_SEED_PATH
+      filename = File.join path, "#{table}.yml"
       File.open filename, "w" do |file|
         file.write yield
       end

@@ -28,7 +28,7 @@ $.extend decko,
     optionsCard ||= input.closest('.pointer-list-editor').data('options-card')
     input.autocomplete {
       source: decko.prepUrl decko.rootPath + '/' + optionsCard +
-          '.json?view=name_complete'
+          '.json?view=junction_name_complete'
     }
 
 pointerContent = (vals) ->

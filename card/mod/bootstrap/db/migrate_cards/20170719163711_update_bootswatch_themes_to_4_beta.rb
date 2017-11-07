@@ -20,6 +20,7 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
   end
 
   class Skin
+    require_dependency "card/model/save_helper"
     include ::Card::Model::SaveHelper
 
     class << self

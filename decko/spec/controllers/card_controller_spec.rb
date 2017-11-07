@@ -282,7 +282,7 @@ RSpec.describe CardController, type: :controller do
       before do
         Card::Auth.as_bot do
           Card.create! name: "mao2", type_code: "image",
-                       image: File.new(File.join(FIXTURES_PATH, "mao2.jpg"))
+                       image: File.new(File.join(CARD_TEST_SEED_PATH, "mao2.jpg"))
           Card.create! name: "mao2+*self+*read", content: "[[Administrator]]"
         end
       end

@@ -52,7 +52,7 @@ module Cardio
         non_createable_types:   [%w(signup setting set)],
         view_cache:             true,
 
-        encoding:               "utf-8",
+        encoding:                "utf-8",
         request_logger:         false,
         performance_logger:     false,
         sql_comments:           true,
@@ -67,6 +67,7 @@ module Cardio
 
     def set_config config
       @@config = config
+      config.active_job.queue_adapter = :delayed_job #better place for this?
 
       add_lib_dirs_to_autoload_paths config
 
