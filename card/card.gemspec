@@ -11,6 +11,7 @@ card_version = [1, vminor, vbits[2]].compact.map(&:to_s).join "."
 # card 1.(100+X).Y. Things will get much simpler after 2.0, when decko X.Y.Z
 # will map to card X.Y.Z.
 
+
 Gem::Specification.new do |s|
   s.name = "card"
   s.version = card_version
@@ -35,12 +36,14 @@ Gem::Specification.new do |s|
     gem_root = File.expand_path File.dirname(__FILE__)
     relative_submod_path = submod_path.gsub "#{gem_root}/", ""
     Dir.chdir(submod_path) do
-      morefiles = `git ls-files`.split $OUTPUT_RECORD_SEPARATOR
+      morefiles = `git ls-files`.split /\n/ #$OUTPUT_RECORD_SEPARATOR
+      #puts "ors = #{$OUTPUT_RECORD_SEPARATOR}"
       s.files += morefiles.map do |filename|
-        "#{relative_submod_path}/#{filename}"
-      end
+        "#{relative_submod_path}/#{filename}" #unless filename =~ /\s/
+      end.compact
     end
   end
+
 
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
