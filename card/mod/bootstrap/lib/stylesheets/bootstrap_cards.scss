@@ -300,6 +300,12 @@ body.mceContentBody {
   margin-right: 3px;
 }
 
+/* Material icon placement */
+.material-icons {
+  vertical-align: sub;
+  font-size: medium;
+}
+
 /* Rules for sizing the icon. */
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
