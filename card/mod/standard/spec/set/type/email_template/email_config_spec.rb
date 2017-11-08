@@ -111,13 +111,10 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
   describe "html message" do
     subject do
       config = mailconfig
-      config[:context] = Card[email_name]
-      config =
-        Card[email_name].process_html_message(config,
-                                              { context: Card[email_name] },
-                                              nil)
+      email_card = config[:context] = Card[email_name]
+      format = email_card.format :html
+      format.process_html_message Card::Mailer.new, config, context: email_card
       # TODO: very hacky to test this; screams for refactoring
-      config[:html_message]
     end
 
     it "uses *html_message field" do

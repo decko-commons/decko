@@ -62,7 +62,8 @@ class Card
       def process_name name, pattern
         name = pattern.to_name.absolute(name) if pattern =~ /_\w+/
         return name unless alter_results?
-        [statement[:prepend], name, statement[:append]].compact * Card::Name.joint
+        name_parts = [statement[:prepend], name, statement[:append]].compact
+        Card::Name[name_parts]
       end
 
       def alter_results?

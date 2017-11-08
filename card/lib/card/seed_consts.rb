@@ -1,6 +1,6 @@
 unless defined? CARD_SEED_TABLES
-  CARD_SEED_TABLES = %w( cards card_actions card_acts card_changes
-                         card_references ).freeze
+  CARD_SEED_TABLES =
+    %w(cards card_actions card_acts card_changes card_references).freeze
 end
 
 unless defined? CARD_SEED_PATH
@@ -11,4 +11,8 @@ end
 
 unless defined? CARD_TEST_SEED_PATH
   CARD_TEST_SEED_PATH = File.join(Cardio.gem_root, "db", "seed", "test", "fixtures")
+end
+
+unless defined? CARD_TEST_SEED_SCRIPT_PATH
+  CARD_TEST_SEED_SCRIPT_PATH = File.join(Cardio.gem_root, "db", "seed", "test", "seed.rb")
 end
