@@ -58,7 +58,6 @@ class Card
           source ||= source_location
           basename = ::File.basename(source, ".rb")
           source_dir = ::File.dirname(source)
-          #binding.pry
           ["./#{basename}", "."].each do |template_dir|
             path = try_haml_template_path(template_dir, view, source_dir)
             return path if path
