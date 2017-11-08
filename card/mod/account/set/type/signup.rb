@@ -42,58 +42,64 @@ format :html do
     end
   end
 
-  # TODO: started to move this to haml
-  view :core, template: :haml do |_args|
-    # @tr_header_key = card.creator_id == AnonymousID ? :signed_up_on :
+  def view_template_path view, set_path= __FILE__
+    super(view, set_path)
+  end
+
+  view :core do |_args|
     return if card.new_card? # necessary?
-    headings = []
-    by_anon = card.creator_id == AnonymousID
-    headings << %(
-      <strong>#{card.name}</strong> #{'was' unless by_anon} signed up on
-      #{format_date card.created_at}
-    )
-    if (account = card.account)
-      headings += verification_info account
+    render_haml_partial :core, lines: [signup_line] + account_lines,
+                               body: super()
+  end
+
+  def signup_line
+    [ "<strong>#{card.name}</strong>",
+      ("was" unless anonymous_signup?),
+      "signed up on #{format_date card.created_at}"
+    ].compact.join " "
+  end
+
+  def anonymous_signup?
+    card.creator_id == AnonymousID
+  end
+
+  def account_lines
+    if card.account
+      verification_lines
     else
-      headings << tr(:missing_account)
+      [tr(:missing_account)]
     end
-    <<-HTML
-      <div class="invite-links">
-        #{headings.map { |h| "<div>#{h}</div>" }.join "\n"}
-      </div>
-      #{process_content render_raw}
-    HTML
   end
 
-  def verification_info account
-    headings = []
-    token_action = "Send"
-    if account.token.present?
-      headings << "A verification email has been sent " \
-                  "#{"to #{account.email}" if account.email_card.ok? :read}"
-      token_action = "Resend"
-    end
-    links = verification_links account, token_action
-    headings << links * "" if links.any?
-    headings
+  def verification_lines
+    [ verification_sent_line, verification_link_line].compact
   end
 
-  def verification_links account, token_action
-    [
-      approve_with_token_link(account, token_action),
-      approve_without_token_link(account),
-      deny_link
-    ].compact
+  def verification_sent_line
+    account = card.account
+    return unless account.token.present? && account.email_card.ok?(:read)
+    "A verification email has been sent to #{account.email}"
   end
 
-  def approve_with_token_link account, token_action
-    return unless account.can_approve?
+  def verification_link_line
+    links = verification_links
+    return if links.empty?
+    links.join " "
+  end
+
+  def verification_links
+    [approve_with_token_link, approve_without_token_link, deny_link].compact
+  end
+
+  def approve_with_token_link
+    return unless card.account.can_approve?
+    token_action = card.account.token.present? ? "Resend" : "Send"
     link_to_card card, "#{token_action} verification email",
                  path: { action: :update, approve_with_token: true }
   end
 
-  def approve_without_token_link account
-    return unless account.can_approve?
+  def approve_without_token_link
+    return unless card.account.can_approve?
     link_to_card card, "Approve without verification",
                  path: { action: :update, approve_without_token: true }
   end
