@@ -20,15 +20,18 @@ $(window).ready ->
   $('body').on 'click', '._stop_propagation', (event)->
     event.stopPropagation()
 
-  #pointer mod
+  # POINTERS
+  #
+  # add pointer item when clicking on "add another" button
   $('body').on 'click', '.pointer-item-add', (event)->
-    last_item = $(this).closest('.content-editor').find '.pointer-li:last'
-    new_item = last_item.clone()
-    input = new_item.find('input')
-    input.val ''
-    last_item.after new_item
-    decko.initPointerList(input)
+    decko.addPointerItem this
     event.preventDefault() # Prevent link from following its href
+
+  # add pointer item when you hit enter in an item
+  $('body').on 'keydown', '.pointer-item-text', (event)->
+    if event.key == 'Enter'
+      decko.addPointerItem this
+      event.preventDefault() # was triggering extra item in unrelated pointer
 
   $('body').on 'click', '.pointer-item-delete', ->
     item = $(this).closest 'li'
@@ -92,56 +95,6 @@ $(window).ready ->
           menu_slot.replaceWith data
       }
 
-#     for slot in $('.card-slot')
-#       menu_slot = $(slot).find '.menu-slot:first'
-#       if menu_slot.size() > 0
-#         url  = decko.rootPath + '/~' + $(slot).data('card-id')
-#         params = { view: 'menu' }
-#         params['is_main'] = true if $(slot).isMain()
-#
-#         $.ajax url, {
-#           type: 'GET'
-#           data: params
-#           success : (data) ->
-#             menu_slot.replaceWith data
-#         }
-
-#  $('body').on 'click', '.update-follow-link', (event) ->
-#    anchor = $(this)
-#    url  = decko.rootPath + '/' + anchor.data('card_key') + '.json?view=follow_status'
-#    modal =  anchor.closest('.modal')
-#    modal.removeData()
-#    $.ajax url, {
-#      type : 'GET'
-#      dataType : 'json'
-#      success : (data) ->
-#        tags = $(modal).parent().find('.follow-link')
-#        tags.find('.follow-verb').html data.verb
-#        tags.attr 'href', data.path
-#        tags.attr 'title', data.title
-#        tags.data 'follow', data
-#    }
-
-#  $('body').on 'click', '.follow-toggle', (event) ->
-#    anchor = $(this)
-#    url  = decko.rootPath + '/update/' + anchor.data('rule_name') + '.json'
-#    $.ajax url, {
-#      type : 'POST'
-#      dataType : 'json'
-#      data : {
-#        'card[content]' : '[[' + anchor.data('follow').content + ']]'
-#        'success[view]' : 'follow_status'
-#        'success[id]'   : anchor.data('card_key')
-#      }
-#      success : (data) ->
-#        tags = anchor.closest('.modal').parent().find('.follow-toggle')
-#        tags.find('.follow-verb').html data.verb
-#        tags.attr 'title', data.title
-#        tags.removeClass( 'follow-toggle-on follow-toggle-off').addClass data.class
-#        tags.data 'follow', data
-#    }
-#    event.preventDefault() # Prevent link from following its href
-
   # permissions mod
   $('body').on 'click', '.perm-vals input', ->
     $(this).slot().find('#inherit').attr('checked',false)
@@ -175,9 +128,9 @@ $(window).ready ->
   #decko_org mod (for now)
   $('body').on 'click', '.shade-view h1', ->
     toggleThis = $(this).slot().find('.shade-content').is ':hidden'
-    toggleShade $(this).closest('.pointer-list').find('.shade-content:visible').parent()
+    decko.toggleShade $(this).closest('.pointer-list').find('.shade-content:visible').parent()
     if toggleThis
-      toggleShade $(this).slot()
+      decko.toggleShade $(this).slot()
 
 
   if firstShade = $('.shade-view h1')[0]
@@ -224,12 +177,24 @@ $(window).ready ->
     panel.find('.panel-collapse').collapse('show')
     event.stopPropagation()
 
+$.extend decko,
+  toggleShade: (shadeSlot) ->
+    shadeSlot.find('.shade-content').slideToggle 1000
+    shadeSlot.find('.glyphicon').toggleClass 'glyphicon-triangle-right glpyphicon-triangle-bottom'
 
-toggleShade = (shadeSlot) ->
-  shadeSlot.find('.shade-content').slideToggle 1000
-  shadeSlot.find('.glyphicon').toggleClass 'glyphicon-triangle-right glpyphicon-triangle-bottom'
+  addPointerItem: (el) ->
+    last_item = $(el).closest('.content-editor').find '.pointer-li:last'
+    new_input = decko.nextPointerInput last_item
+    new_input.val ''
+    new_input.focus()
+    decko.initPointerList new_input
 
-
+  nextPointerInput: (last_item)->
+    last_input = last_item.find 'input'
+    return last_input if last_input.val() == ''
+    new_item = last_item.clone()
+    last_item.after new_item
+    new_item.find 'input'
 
 
 
