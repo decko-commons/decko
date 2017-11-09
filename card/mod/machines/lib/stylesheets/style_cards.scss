@@ -71,7 +71,7 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
 
 .menu-slot {
   width: 100%;
-  position: relative;
+  //position: relative;
 
   span.menu-item-label {
     margin-left: 5px;
@@ -180,8 +180,9 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
   }
 }
 .closed-content {
-  //display: inline;
-  //white-space: nowrap;
+  margin-top: 2px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   table, thead, tbody, tr, th, td, p, h1, h2, h3, h4, h5, h6, ul, li, pre, ol, div, span, a, blockquote, img, label, i {
     display: inline;
