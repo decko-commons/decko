@@ -6,7 +6,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 
 //script: slot
 (function() {
-  var addCaptcha, addCategoryOption, containerClass, detectMobileBrowser, doubleSidebar, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, removeCategoryOption, reqIndex, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, toggleShade, warn, wrapDeckoLayout, wrapSidebarToggle;
+  var addCaptcha, addCategoryOption, containerClass, detectMobileBrowser, doubleSidebar, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, removeCategoryOption, reqIndex, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, warn, wrapDeckoLayout, wrapSidebarToggle;
 
   window.decko || (window.decko = {});
 
@@ -16,14 +16,17 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       return event.stopPropagation();
     });
     $('body').on('click', '.pointer-item-add', function(event) {
-      var input, last_item, new_item;
-      last_item = $(this).closest('.content-editor').find('.pointer-li:last');
-      new_item = last_item.clone();
-      input = new_item.find('input');
-      input.val('');
-      last_item.after(new_item);
-      decko.initPointerList(input);
+      decko.addPointerItem(this);
       return event.preventDefault();
+    });
+    $('body').on('keydown', '.pointer-item-text', function(event) {
+      if (event.key === 'Enter') {
+        decko.addPointerItem(this);
+        return event.preventDefault();
+      }
+    });
+    $('body').on('keyup', '.pointer-item-text', function(_event) {
+      return decko.updateAddItemButton(this);
     });
     $('body').on('click', '.pointer-item-delete', function() {
       var item;
@@ -127,9 +130,9 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
     $('body').on('click', '.shade-view h1', function() {
       var toggleThis;
       toggleThis = $(this).slot().find('.shade-content').is(':hidden');
-      toggleShade($(this).closest('.pointer-list').find('.shade-content:visible').parent());
+      decko.toggleShade($(this).closest('.pointer-list').find('.shade-content:visible').parent());
       if (toggleThis) {
-        return toggleShade($(this).slot());
+        return decko.toggleShade($(this).slot());
       }
     });
     if (firstShade = $('.shade-view h1')[0]) {
@@ -169,7 +172,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
         return $(this).text("hide < 100ms");
       }
     });
-    return $('body').on('click', '.show-fast-items', function(event) {
+    $('body').on('click', '.show-fast-items', function(event) {
       var panel;
       $(this).removeClass('show-fast-items');
       panel = $(this).closest('.panel-group');
@@ -178,12 +181,44 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       panel.find('.panel-collapse').collapse('show');
       return event.stopPropagation();
     });
+    return $('.pointer-list-editor').each(function() {
+      return decko.updateAddItemButton(this);
+    });
   });
 
-  toggleShade = function(shadeSlot) {
-    shadeSlot.find('.shade-content').slideToggle(1000);
-    return shadeSlot.find('.glyphicon').toggleClass('glyphicon-triangle-right glpyphicon-triangle-bottom');
-  };
+  $.extend(decko, {
+    toggleShade: function(shadeSlot) {
+      shadeSlot.find('.shade-content').slideToggle(1000);
+      return shadeSlot.find('.glyphicon').toggleClass('glyphicon-triangle-right glpyphicon-triangle-bottom');
+    },
+    addPointerItem: function(el) {
+      var newInput;
+      newInput = decko.nextPointerInput(decko.lastPointerItem(el));
+      newInput.val('');
+      newInput.focus();
+      decko.updateAddItemButton(el);
+      return decko.initPointerList(newInput);
+    },
+    nextPointerInput: function(lastItem) {
+      var lastInput, newItem;
+      lastInput = lastItem.find('input');
+      if (lastInput.val() === '') {
+        return lastInput;
+      }
+      newItem = lastItem.clone();
+      lastItem.after(newItem);
+      return newItem.find('input');
+    },
+    lastPointerItem: function(el) {
+      return $(el).closest('.content-editor').find('.pointer-li:last');
+    },
+    updateAddItemButton: function(el) {
+      var button, disabled;
+      button = $(el).closest('.content-editor').find('.pointer-item-add');
+      disabled = decko.lastPointerItem(el).find('input').val() === '';
+      return button.prop('disabled', disabled);
+    }
+  });
 
   $.extend(decko, {
     editorContentFunctionMap: {},
