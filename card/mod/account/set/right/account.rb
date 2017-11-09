@@ -31,8 +31,12 @@ def validate_token! test_token
   errors.empty?
 end
 
-def refreshed_token # TODO: explain why needed
-  token_card.refresh(true).db_content
+def refreshed_token
+  if token_card.id
+    token_card.refresh(true).db_content # TODO: explain why refresh is needed
+  else # eg when viewing email template
+    "[token]"
+  end
 end
 
 format do

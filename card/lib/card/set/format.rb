@@ -20,6 +20,8 @@ class Card
     #     render(:viewname, args)
     #
     module Format
+      require_dependency "card/set/format/haml_views"
+
       def format *format_names, &block
         format_names.compact!
         if format_names.empty?

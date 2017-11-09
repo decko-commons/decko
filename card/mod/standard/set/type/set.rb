@@ -188,7 +188,7 @@ format :html do
     return "" if related_sets.size <= 1
     navbar id, brand: "Set", toggle_align: :right,
                class: "slotter toolbar navbar-expand-md",
-               navbar_type: "inverse",
+               navbar_type: "dark",
                collapsed_content: close_link("float-right d-sm-none") do
       set_navbar_content related_sets
     end
@@ -201,7 +201,7 @@ format :html do
   view :rule_navbar do
     navbar "rule-navbar-#{card.name.safe_key}-#{voo.home_view}",
            brand: 'Rules', toggle_align: :right,
-           class: "slotter toolbar navbar-expand-md", navbar_type: "inverse",
+           class: "slotter toolbar navbar-expand-md bg-dark", navbar_type: "dark",
            collapsed_content: close_link("float-right d-sm-none") do
       rule_navbar_content
     end

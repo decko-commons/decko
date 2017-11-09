@@ -89,6 +89,9 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
       right: -2px;
       top: 18px;
       min-width: 110px;
+      .dropdown-item{
+        padding-left: 0.8rem;
+      }
     }
     .dropdown-menu:before {
       content: "";
@@ -463,6 +466,14 @@ textarea {
 .missing-view a:hover {
   color: #069;
   background: #ffc;
+}
+
+/*-------------------- */
+/*- Lists            - */
+/*-------------------- */
+
+.pointer-radio-list {
+    list-style-type: none;
 }
 
 /*-------------------- */
@@ -1152,4 +1163,3 @@ li.ProseMirror-selectednode:after {
 ._filter_container .input-group-btn .btn {
   height: 100%;
 }
-

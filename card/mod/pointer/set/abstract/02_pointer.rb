@@ -180,21 +180,27 @@ def item args={}
 end
 
 def item_names args={}
-  context = args[:context] || context_card.name
-  content = args[:content] || self.content
-  raw_items = content.to_s.split(/\n+/)
-  if args[:limit].present? && args[:limit].to_i > 0
-    offset = args[:offset] || 0
-    raw_items = raw_items[offset, args[:limit].to_i] || []
+  raw_items(args[:content], args[:limit], args[:offset]).map do |item|
+    polish_item item, args[:context]
   end
-  raw_items.map do |line|
-    item_name = line.gsub(/\[\[|\]\]/, "").strip
-    if context == :raw
-      item_name
-    else
-      item_name.to_name.absolute context
-    end
-  end
+end
+
+def raw_items content, limit, offset
+  content ||= self.content
+  items = content.to_s.split(/\n+/)
+  limit = limit.to_i
+  return items unless limit.positive?
+  items[offset.to_i, limit] || []
+end
+
+def polish_item item, context
+  item = strip_item(item).to_name
+  context ||= context_card.name
+  context == :raw ? item : item.absolute_name(context)
+end
+
+def strip_item item
+  item.gsub(/\[\[|\]\]/, "").strip
 end
 
 def item_ids args={}

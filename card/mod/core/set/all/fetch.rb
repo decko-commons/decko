@@ -134,6 +134,7 @@ end
 
 def refresh force=false
   return self unless force || frozen? || readonly?
+  return unless id
   fresh_card = self.class.find id
   fresh_card.include_set_modules
   fresh_card

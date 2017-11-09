@@ -11,7 +11,7 @@ format :html do
     nav_opts = opts[:navbar_opts] || {}
     nav_opts[:class] ||= opts[:class]
     add_class nav_opts,
-              "navbar navbar-inverse bg-#{opts.delete(:navbar_type) || 'primary'}"
+              "navbar navbar-dark bg-#{opts.delete(:navbar_type) || 'primary'}"
     content = yield
     if opts[:no_collapse]
       navbar_nocollapse content, nav_opts
@@ -21,7 +21,7 @@ format :html do
   end
 
   def navbar_nocollapse content, nav_opts
-    content = wrap_with(:div, content)
+    # content = wrap_with(:div, content)
     wrap_with :nav, content, nav_opts
   end
 

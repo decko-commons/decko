@@ -2,7 +2,7 @@
 
 describe CarrierWave::FileCardUploader do
   def test_file
-    File.new(File.join(FIXTURES_PATH, "file1.txt"))
+    File.new(File.join(CARD_TEST_SEED_PATH, "file1.txt"))
   end
 
   def create_file_card storage_type, file=test_file, opts={}
