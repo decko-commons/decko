@@ -6,7 +6,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 
 //script: slot
 (function() {
-  var addCaptcha, addCategoryOption, containerClass, detectMobileBrowser, doubleSidebar, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, removeCategoryOption, reqIndex, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, toggleShade, warn, wrapDeckoLayout, wrapSidebarToggle;
+  var addCaptcha, addCategoryOption, containerClass, detectMobileBrowser, doubleSidebar, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, removeCategoryOption, reqIndex, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, warn, wrapDeckoLayout, wrapSidebarToggle;
 
   window.decko || (window.decko = {});
 
@@ -16,14 +16,14 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       return event.stopPropagation();
     });
     $('body').on('click', '.pointer-item-add', function(event) {
-      var input, last_item, new_item;
-      last_item = $(this).closest('.content-editor').find('.pointer-li:last');
-      new_item = last_item.clone();
-      input = new_item.find('input');
-      input.val('');
-      last_item.after(new_item);
-      decko.initPointerList(input);
+      decko.addPointerItem(this);
       return event.preventDefault();
+    });
+    $('body').on('keydown', '.pointer-item-text', function(event) {
+      if (event.key === 'Enter') {
+        decko.addPointerItem(this);
+        return event.preventDefault();
+      }
     });
     $('body').on('click', '.pointer-item-delete', function() {
       var item;
@@ -127,9 +127,9 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
     $('body').on('click', '.shade-view h1', function() {
       var toggleThis;
       toggleThis = $(this).slot().find('.shade-content').is(':hidden');
-      toggleShade($(this).closest('.pointer-list').find('.shade-content:visible').parent());
+      decko.toggleShade($(this).closest('.pointer-list').find('.shade-content:visible').parent());
       if (toggleThis) {
-        return toggleShade($(this).slot());
+        return decko.toggleShade($(this).slot());
       }
     });
     if (firstShade = $('.shade-view h1')[0]) {
@@ -180,10 +180,30 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
     });
   });
 
-  toggleShade = function(shadeSlot) {
-    shadeSlot.find('.shade-content').slideToggle(1000);
-    return shadeSlot.find('.glyphicon').toggleClass('glyphicon-triangle-right glpyphicon-triangle-bottom');
-  };
+  $.extend(decko, {
+    toggleShade: function(shadeSlot) {
+      shadeSlot.find('.shade-content').slideToggle(1000);
+      return shadeSlot.find('.glyphicon').toggleClass('glyphicon-triangle-right glpyphicon-triangle-bottom');
+    },
+    addPointerItem: function(el) {
+      var last_item, new_input;
+      last_item = $(el).closest('.content-editor').find('.pointer-li:last');
+      new_input = decko.nextPointerInput(last_item);
+      new_input.val('');
+      new_input.focus();
+      return decko.initPointerList(new_input);
+    },
+    nextPointerInput: function(last_item) {
+      var last_input, new_item;
+      last_input = last_item.find('input');
+      if (last_input.val() === '') {
+        return last_input;
+      }
+      new_item = last_item.clone();
+      last_item.after(new_item);
+      return new_item.find('input');
+    }
+  });
 
   $.extend(decko, {
     editorContentFunctionMap: {},
