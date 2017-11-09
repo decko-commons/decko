@@ -232,7 +232,7 @@ format :html do
   end
 
   def rule_set_selection
-    wrap_with :div, class: "row" do
+    wrap_with :div, class: "row set-list" do
       [rule_set_formgroup,
        related_set_formgroup]
     end

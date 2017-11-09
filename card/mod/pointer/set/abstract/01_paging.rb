@@ -45,14 +45,14 @@ format :html do
 
   # First page is 0 (not 1)
   def page_link_li text, page, status, options={}
-    wrap_with :li, class: status do
+    wrap_with :li, class: "page-item #{status}" do
       page_link text, page, options
     end
   end
 
   def page_link text, page, options
-    return text unless page
-    options.merge! class: "card-paging-link slotter",
+    return content_tag(:div, text.html_safe, class: "page-link") unless page
+    options.merge! class: "card-paging-link slotter page-link",
                    remote: true,
                    path: paging_path_args(offset: page * limit)
     link_to raw(text), options
