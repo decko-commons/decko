@@ -1,11 +1,6 @@
 $(window).ready ->
-  $('body').on "change", "._filter-input input", ->
-    form = $(this).closest("._filter-form")
-    form.submit()
-
-  $('body').on "change", "._filter-input select", ->
-    form = $(this).closest("._filter-form")
-    form.submit()
+  $('body').on "change", "._filter-input input, ._filter-input select, ._filter-sort", ->
+    filterAndSort this
 
   $('body').on "click", "._filter-category-select", ->
     addFilterDropdown = $(this).closest("._add-filter-dropdown")
@@ -38,7 +33,7 @@ showFilterInputField = (category, widget) ->
   $searchInputField.find('select:not([multiple])').select2(
     dropdownAutoWidth: "true"
   )
-  $searchInputField.find("._filter-input").focus()
+  $searchInputField.find("input, select").focus()
 
 hideFilterInputField = (input) ->
   widget = input.closest("._filter-widget")
@@ -50,5 +45,9 @@ hideFilterInputField = (input) ->
 addCategoryOption = (form, option) ->
   form.find("._filter-category-select[data-category='#{option}']").show()
 
-removeCategoryOption = (form, option) ->
-  form.find("._filter-category-select[data-category='#{option}']").hide()
+removeCategoryOption = (el, option) ->
+  el.find("._filter-category-select[data-category='#{option}']").hide()
+
+filterAndSort = (el)->
+    form = $(el).closest("._filter-form")
+    form.submit()
