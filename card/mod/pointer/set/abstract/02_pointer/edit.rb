@@ -79,7 +79,7 @@ format :html do
     HTML
   end
 
-  view :autocomplete do |args|
+  view :autocomplete do |_args|
     autocomplete_input
   end
 
