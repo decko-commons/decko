@@ -51,7 +51,7 @@ format :html do
   end
 
   def page_link text, page, options
-    return content_tag(:div, text.html_safe, class:"page-link") unless page
+    return content_tag(:div, text.html_safe, class: "page-link") unless page
     options.merge! class: "card-paging-link slotter page-link",
                    remote: true,
                    path: paging_path_args(offset: page * limit)
