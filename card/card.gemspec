@@ -56,6 +56,7 @@ Gem::Specification.new do |s|
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
 
+
     # files and images
     ["carrierwave",                "~> 1.1"],
     ["mini_magick",                "~> 4.2"],
@@ -73,7 +74,8 @@ Gem::Specification.new do |s|
     # other
     ["diff-lcs",                   "~> 1.3"], # content diffs in histories
     ["recaptcha",                  "~> 4.3"],
-    ["twitter",                    "~> 6.1"]  # for event-based integration
+    ["twitter",                    "~> 6.1"], # for event-based integration
+    ["delayed_job_active_record",  "~> 4.1"]
 
 
   ].each do |dep|

@@ -114,7 +114,7 @@ format :html do
 
   def dropdown_button name, opts={}
     <<-HTML
-      <div class="btn-group btn-group-sm" role="group">
+      <div class="btn-group btn-group-sm #{opts[:extra_css_class]}" role="group">
         <button class="btn btn-primary dropdown-toggle"
                 data-toggle="dropdown" title="#{name}" aria-expanded="false"
                 aria-haspopup="true">

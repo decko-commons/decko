@@ -39,7 +39,7 @@ decko_namespace = namespace :decko do
     conn = ActiveRecord::Base.connection
 
     puts "delete all data in bootstrap tables"
-    DECKO_SEED_TABLES.each do |table|
+    CARD_SEED_TABLES.each do |table|
       conn.delete "delete from #{table}"
     end
   end
@@ -91,7 +91,6 @@ decko_namespace = namespace :decko do
       FileUtils.ln_s(Decko::Engine.paths["gem-assets"].first, assets_path)
     end
   end
-
 
   alias_task :migrate, "card:migrate"
 

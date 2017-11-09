@@ -15,10 +15,11 @@ format :html do
   view :toolbar, cache: :never do
     tool_navbar do
       [
-        expanded_close_link,
+        # expanded_close_link,
         toolbar_split_buttons,
-        collapsed_close_link,
-        toolbar_simple_buttons
+        # collapsed_close_link,
+        # toolbar_simple_buttons,
+        toolbar_right_buttons
       ]
     end
   end
@@ -38,7 +39,7 @@ format :html do
   def expanded_close_link
     opts = {}
     opts[:no_nav] = true
-    close_link "d-none d-sm-inline float-right navbar-text"
+    close_link "navbar-text"
   end
 
   def collapsed_close_link
@@ -50,14 +51,14 @@ format :html do
   def tool_navbar
     navbar "toolbar-#{card.name.safe_key}-#{voo.home_view}",
            toggle_align: :left, class: "slotter toolbar",
-           navbar_type: "inverse",
+           navbar_type: "dark",
            no_collapse: true do
       yield
     end
   end
 
   def toolbar_split_buttons
-    wrap_with :form, class: "float-left navbar-text" do
+    wrap_with :form, class: "navbar-text" do
       [
         account_split_button,
         toolbar_button_card(:activity),
@@ -68,10 +69,17 @@ format :html do
   end
 
   def toolbar_simple_buttons
-    wrap_with :form, class: "float-right navbar-text" do
-      wrap_with :div do
-        _render :toolbar_buttons
-      end
+    wrap_with :form, class: "navbar-text" do
+      _render :toolbar_buttons
+    end
+  end
+
+  def toolbar_right_buttons
+    wrap_with :div do
+      [
+          toolbar_simple_buttons,
+          expanded_close_link,
+      ]
     end
   end
 
@@ -134,7 +142,7 @@ format :html do
 
   def account_split_button
     return "" unless card.accountable?
-    toolbar_split_button "account", related: :account, icon: :user do
+    toolbar_split_button "account", related: :account, icon: :account_box do
       {
         account: link_to_related(:account, "details", path: { view: :edit }),
         roles:   link_to_related(:roles,   "roles"),
@@ -167,7 +175,7 @@ format :html do
         # toolbar_pin_button,
         link_to_view(voo.home_view || :open, icon_tag(:remove),
                      title: "cancel",
-                     class: "btn-toolbar-control toolbar-close ml-3 p-0")
+                     class: "btn-toolbar-control toolbar-close pl-1")
       ]
     end
   end
@@ -187,13 +195,13 @@ format :html do
         _render(:delete_button,
                          optional: (card.ok?(:delete) ? :show : :hide)),
         _render(:refresh_button),
-        content_tag(:div, related_button, class: "d-none d-sm-inline float-left")
+        _render(:related_button)
       ]
     end
   end
 
   view :related_button do
-    dropdown_button "", icon: :explore, class: "related" do
+    dropdown_button "", icon: :explore, class: "related", extra_css_class: "d-none d-md-inline" do
       [
         ["children",       :baby_formula, "*children"],
         # ["mates",          "bed",          "*mates"],
