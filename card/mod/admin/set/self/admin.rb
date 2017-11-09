@@ -41,7 +41,7 @@ def irreversibles_tasks_allowed?
 end
 
 format :html do
-  view :core do |_args|
+  view :core, cache: :never do |_args|
     stats = card_stats
     stats += cache_stats
     stats += memory_stats
