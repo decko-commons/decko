@@ -33,6 +33,9 @@ $(window).ready ->
       decko.addPointerItem this
       event.preventDefault() # was triggering extra item in unrelated pointer
 
+  $('body').on 'keyup', '.pointer-item-text', (_event)->
+    decko.updateAddItemButton this
+
   $('body').on 'click', '.pointer-item-delete', ->
     item = $(this).closest 'li'
     if item.closest('ul').find('.pointer-li').length > 1
@@ -177,25 +180,36 @@ $(window).ready ->
     panel.find('.panel-collapse').collapse('show')
     event.stopPropagation()
 
+  $('.pointer-list-editor').each ->
+    decko.updateAddItemButton this
+
+
 $.extend decko,
   toggleShade: (shadeSlot) ->
     shadeSlot.find('.shade-content').slideToggle 1000
     shadeSlot.find('.glyphicon').toggleClass 'glyphicon-triangle-right glpyphicon-triangle-bottom'
 
   addPointerItem: (el) ->
-    last_item = $(el).closest('.content-editor').find '.pointer-li:last'
-    new_input = decko.nextPointerInput last_item
-    new_input.val ''
-    new_input.focus()
-    decko.initPointerList new_input
+    newInput = decko.nextPointerInput decko.lastPointerItem(el)
+    newInput.val ''
+    newInput.focus()
+    decko.updateAddItemButton el
+    decko.initPointerList newInput
 
-  nextPointerInput: (last_item)->
-    last_input = last_item.find 'input'
-    return last_input if last_input.val() == ''
-    new_item = last_item.clone()
-    last_item.after new_item
-    new_item.find 'input'
+  nextPointerInput: (lastItem)->
+    lastInput = lastItem.find 'input'
+    return lastInput if lastInput.val() == ''
+    newItem = lastItem.clone()
+    lastItem.after newItem
+    newItem.find 'input'
 
+  lastPointerItem: (el)->
+    $(el).closest('.content-editor').find '.pointer-li:last'
+
+  updateAddItemButton: (el)->
+    button = $(el).closest('.content-editor').find '.pointer-item-add'
+    disabled = decko.lastPointerItem(el).find('input').val() == ''
+    button.prop 'disabled', disabled
 
 
 
