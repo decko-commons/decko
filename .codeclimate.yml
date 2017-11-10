@@ -22,11 +22,11 @@ ratings:
    paths:
    - card/lib/**
    - card/mod/**
-   - wagn/lib/**
-   - wagn/rails/**
+   - decko/lib/**
+   - decko/rails/**
    - "**.rb"
 exclude_paths:
-- wagn/rails/assets/**/*
+- decko/rails/assets/**/*
 - card/mod/**/lib/javascript/*.js
 - card/mod/machines/lib/javascript/**/*
 - card/mod/machines/lib/javascript/**/*
@@ -34,5 +34,5 @@ exclude_paths:
 - card/db/**/*
 - card/doc/**
 - card/spec/**/*
-- wagn/spec/**/*
+- decko/spec/**/*
 - card/mod/**/file/**/*
