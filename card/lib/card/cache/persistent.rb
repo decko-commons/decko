@@ -60,7 +60,7 @@ class Card
       # renew insures you're using the most current cache version by
       # reaffirming the stamp and prefix
       def renew
-        Rails.logger.debug "renew stamp for #{@class_key}"
+        Rails.logger.info "renew stamp for #{@class_key}"
         @stamp = nil
         @prefix = nil
       end
@@ -89,9 +89,8 @@ class Card
       # key for looking up the current stamp
       def stamp_key
         key = "#{@database}-#{@class_key}-#{self.class.stamp}-stamp"
-        Rails.logger.debug "stamp_key = #{key}"
+        Rails.logger.info "stamp_key = #{key}"
         key
-
       end
 
       # prefix added to cache key to create a system-wide unique key

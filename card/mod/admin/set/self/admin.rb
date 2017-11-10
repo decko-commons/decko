@@ -68,7 +68,7 @@ format :html do
   end
 
   def cache_stats
-    stats = [
+    [
       { title: "solid cache",
         count: solid_cache_count, unit: " cards",
         link_text: "clear solid cache",
@@ -78,11 +78,11 @@ format :html do
         link_text: "clear machine cache",
         task: "clear_machine_cache" }
     ]
-    return stats unless Card.config.view_cache
-    stats << { title: "view cache",
-               count: Card::View,
-               link_text: "clear view cache",
-               task: "clear_view_cache" }
+    # return stats unless Card.config.view_cache#
+    # stats << { title: "view cache",
+    #            count: Card::View,
+    #            link_text: "clear view cache",
+    #            task: "clear_view_cache" }
   end
 
   def memory_stats
