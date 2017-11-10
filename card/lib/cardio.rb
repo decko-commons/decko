@@ -61,6 +61,9 @@ module Cardio
         file_buckets:           {},
         file_default_bucket:    nil,
 
+        persistent_cache:       true,
+        prepopulate_cache:      false,
+        eager_machine_refresh:  false,
         allow_irreversible_admin_tasks: false
       }
     end

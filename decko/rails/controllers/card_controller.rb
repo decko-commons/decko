@@ -57,7 +57,7 @@ class CardController < ActionController::Base
 
   def setup
     request.format = :html unless params[:format] # is this used??
-    Card::Machine.refresh_script_and_style if Rails.env.development?
+    Card::Machine.refresh_script_and_style
     Card::Cache.renew
     Card::Env.reset controller: self
   end

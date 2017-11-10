@@ -12,6 +12,9 @@ Decko.application.class.configure do
 
   config.assets.enabled = true if Object.const_defined?(:JasmineRails)
 
+  config.persistent_cache = false
+  config.prepopulate_cache = true
+
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_files = true
   config.static_cache_control = "public, max-age=3600"

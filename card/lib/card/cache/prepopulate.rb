@@ -9,8 +9,12 @@ class Card
 
       private
 
+      def prepopulate?
+        Cardio.config.prepopulate_cache
+      end
+
       def prepopulate
-        return unless @prepopulating
+        return unless prepopulate?
         soft = Card.cache.soft
         @rule_cache ||= Card.rule_cache
         @user_ids_cache ||= Card.user_ids_cache

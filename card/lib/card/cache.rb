@@ -5,27 +5,6 @@ class Card
     def cache
       Card::Cache[Card]
     end
-
-    def write_to_cache card, opts
-      if opts[:local_only]
-        write_to_soft_cache card
-      elsif Card.cache
-        Card.cache.write card.key, card
-        Card.cache.write "~#{card.id}", card.key if card.id.to_i.nonzero?
-      end
-    end
-
-    def write_to_soft_cache card
-      return unless Card.cache
-      Card.cache.soft.write card.key, card
-      Card.cache.soft.write "~#{card.id}", card.key if card.id.to_i.nonzero?
-    end
-
-    def expire name
-      key = name.to_name.key
-      return unless (card = Card.cache.read key)
-      card.expire
-    end
   end
 
   # The {Cache} class manages and integrates {Temporary} and {Persistent}
@@ -55,15 +34,24 @@ class Card
       # @return [{Card::Cache}]
       def [] klass
         raise "nil klass" if klass.nil?
-        cache_type = (@no_rails_cache ? nil : Cardio.cache)
-        cache_by_class[klass] ||= new class: klass,
-                                      store: cache_type
+        cache_type = persistent_cache || nil
+        cache_by_class[klass] ||= new class: klass, store: cache_type
+      end
+
+      def persistent_cache
+        return @persistent_cache if !@persistent_cache.nil?
+        @persistent_cache =
+          case
+          when ENV["NO_RAILS_CACHE"]          then false
+          when Cardio.config.persistent_cache then Cardio.cache
+          else                                     false
+          end
       end
 
       # clear the temporary caches and ensure we're using the latest stamp
       # on the persistent caches.
       def renew
-        Card::Cache::Persistent.renew
+        Card::Cache::Persistent.renew if persistent
         cache_by_class.each_value do |cache|
           cache.soft.reset
           cache.hard.renew if cache.hard
@@ -97,7 +85,7 @@ class Card
 
       # reset the Persistent cache for all classes
       def reset_hard
-        Card::Cache::Persistent.reset
+        Card::Cache::Persistent.reset if persistent
         cache_by_class.each_value do |cache|
           cache.hard.reset if cache.hard
         end

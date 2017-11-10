@@ -1,11 +1,9 @@
 module ClassMethods
+
+
   def retrieve_from_cache cache_key, local_only=false
-    return unless Card.cache
-    if local_only
-      Card.cache.soft.read cache_key
-    else
-      Card.cache.read cache_key
-    end
+    return unless cache
+    local_only ? cache.soft.read(cache_key) : cache.read(cache_key)
   end
 
   def retrieve_from_cache_by_id id, local_only=false
@@ -15,6 +13,27 @@ module ClassMethods
 
   def retrieve_from_cache_by_key key, local_only=false
     retrieve_from_cache key, local_only
+  end
+
+  def write_to_cache card, opts
+    if opts[:local_only]
+      write_to_soft_cache card
+    elsif cache
+      cache.write card.key, card
+      cache.write "~#{card.id}", card.key if card.id.to_i.nonzero?
+    end
+  end
+
+  def write_to_soft_cache card
+    return unless cache
+    cache.soft.write card.key, card
+    cache.soft.write "~#{card.id}", card.key if card.id.to_i.nonzero?
+  end
+
+  def expire name
+    key = name.to_name.key
+    return unless (card = Card.cache.read key)
+    card.expire
   end
 
   def new_for_cache card, name, opts

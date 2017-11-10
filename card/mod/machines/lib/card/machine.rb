@@ -2,8 +2,13 @@ class Card
   module Machine
     class << self
       def refresh_script_and_style
+        return unless refresh_script_and_style?
         update_if_source_file_changed Card[:all, :script]
         update_if_source_file_changed Card[:all, :style]
+      end
+
+      def refresh_script_and_style?
+        Cardio.config.eager_machine_refresh
       end
 
       private
@@ -12,17 +17,13 @@ class Card
       # has been changed
       def update_if_source_file_changed machine_card
         return unless (mtime_output = machine_card&.machine_output_card&.updated_at)
-        regenerate = false
         input_cards_with_source_files(machine_card) do |i_card, files|
           files.each do |path|
             next unless File.mtime(path) > mtime_output
             i_card.expire_machine_cache
-            regenerate = true
-            break
+            return machine_card.regenerate_machine_output
           end
         end
-        return unless regenerate
-        machine_card.regenerate_machine_output
       end
 
       def input_cards_with_source_files card
