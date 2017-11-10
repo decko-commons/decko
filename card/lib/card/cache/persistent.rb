@@ -40,6 +40,10 @@ class Card
           "#{database_name}-stamp"
         end
 
+        def renew
+          @stamp = nil
+        end
+
         def reset
           @stamp = new_stamp
           Cardio.cache.write stamp_key, @stamp
@@ -60,7 +64,6 @@ class Card
       # renew insures you're using the most current cache version by
       # reaffirming the stamp and prefix
       def renew
-        Rails.logger.info "renew stamp for #{@class_key}"
         @stamp = nil
         @prefix = nil
       end
@@ -88,9 +91,7 @@ class Card
 
       # key for looking up the current stamp
       def stamp_key
-        key = "#{@database}-#{@class_key}-#{self.class.stamp}-stamp"
-        Rails.logger.info "stamp_key = #{key}"
-        key
+        "#{@database}-#{@class_key}-#{self.class.stamp}-stamp"
       end
 
       # prefix added to cache key to create a system-wide unique key
