@@ -63,6 +63,7 @@ class Card
       # clear the temporary caches and ensure we're using the latest stamp
       # on the persistent caches.
       def renew
+        Card::Cache::Persistent.renew
         cache_by_class.each_value do |cache|
           cache.soft.reset
           cache.hard.renew if cache.hard

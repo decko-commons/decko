@@ -40,6 +40,10 @@ class Card
           "#{database_name}-stamp"
         end
 
+        def renew
+          @stamp = nil
+        end
+
         def reset
           @stamp = new_stamp
           Cardio.cache.write stamp_key, @stamp
