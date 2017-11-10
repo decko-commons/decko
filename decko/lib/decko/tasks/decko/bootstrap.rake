@@ -110,7 +110,7 @@ namespace :decko do
 
     def add_test_data
       return unless Rails.env == "test"
-      load File.join(TEST_SEED_PATH, "seed.rb")
+      load CARD_TEST_SEED_SCRIPT_PATH
       SharedData.add_test_data
     end
 
