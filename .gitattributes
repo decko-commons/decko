@@ -1,0 +1,10 @@
+card/mod/machines/lib/javascript/*.js linguist-vendored
+card/mod/ace_editor/lib/javascript/script_ace.js linguist-vendored
+card/mod/prosemirror_editor/lib/javascript/script_prosemirror.js linguist-vendored
+card/mod/tinymce_editor/lib/javascript/script_tinymce.js linguist-vendored
+decko/rails/assets/tinymce/** linguist-vendored
+decko/rails/assets/ace/* linguist-vendored
+card/db/migrate_core_cards/data/themes/** linguist-vendored
+card/mod/machines/lib/stylesheets/style_jquery_ui_smoothness.css linguist-vendored
+decko/spec/javascripts/helpers/jasmine-jquery.js linguist-vendored
+/Users/philipp/dev/decko/gem/card/mod/machines/file/*/file.* linguist-generated
