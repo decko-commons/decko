@@ -1,3 +1,7 @@
+TEST_SEED_PATH = File.join(
+  ENV["CARD_SEED_REPO_PATH"] || [Cardio.gem_root, "db", "seed"], "test"
+)
+
 namespace :decko do
   namespace :bootstrap do
     desc "reseed, migrate, re-clean, and re-dump"

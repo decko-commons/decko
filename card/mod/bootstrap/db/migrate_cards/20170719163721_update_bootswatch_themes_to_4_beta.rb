@@ -32,7 +32,7 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
       end
 
       def themes
-        json = File.read File.join(vendor_path, "bootswatch", "api", "4.json")
+        json = File.read File.join(vendor_path, "bootswatch", "docs", "api", "4.json")
         JSON.parse(json)["themes"].map { |theme| theme["name"] }
       end
     end
@@ -92,7 +92,7 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
         codename: "#{@skin_codename}_image",
         type_id: Card::ImageID,
         mod: :bootstrap, storage_type: :coded,
-        image: File.open(resource_path("thumbnail.png"))
+        image: File.open(thumbnail_path)
       }
     end
 
@@ -105,9 +105,12 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
       end
     end
 
+    def thumbnail_path
+      File.join Skin.vendor_path, "bootswatch", "docs", @theme_name, "thumbnail.png"
+    end
+
     def base_resource_dir
-      File.join Skin.vendor_path, "bootswatch", @theme_name
-      # Card::Migration::Core.data_path "b4_beta_themes/#{@theme_name.downcase.tr(" ","_")}"
+      File.join Skin.vendor_path, "bootswatch", "dist", @theme_name
     end
   end
 end
