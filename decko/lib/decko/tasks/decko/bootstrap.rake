@@ -53,7 +53,7 @@ namespace :decko do
 
     def clean_inputs_and_outputs
       # FIXME: can this be associated with the machine module somehow?
-      %w(machine_input machine_output).each do |codename|
+      %w(machine_input machine_output machine_cache).each do |codename|
         Card.search(right: { codename: codename }).each do |card|
           FileUtils.rm_rf File.join("files", card.id.to_s), secure: true#
           next if reserved_output? card.name
@@ -63,7 +63,8 @@ namespace :decko do
     end
 
     def reserved_output? name
-      (machine_seed_names.member? name.left_name.key) && (name.right_name.key == :machine_output.cardname.key)
+      (machine_seed_names.member? name.left_name.key) &&
+        (name.right_name.key == :machine_output.cardname.key)
     end
 
     def machine_seed_names
