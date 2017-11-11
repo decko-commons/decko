@@ -1,7 +1,7 @@
 class Card
   module Machine
     REFRESHED="MACHINE_ASSETS_REFRESHED".freeze
-  end
+
     class << self
       def refresh_script_and_style
         return unless refresh_script_and_style?
@@ -24,13 +24,22 @@ class Card
       # regenerates the machine output if a source file of a input card
       # has been changed
       def update_if_source_file_changed machine_card
-        return unless (mtime_output = machine_card&.machine_output_card&.updated_at)
+        return unless (output_updated = output_last_updated(machine_card))
         input_cards_with_source_files(machine_card) do |i_card, files|
           files.each do |path|
-            next unless File.mtime(path) > mtime_output
+            next unless File.mtime(path) > output_updated
             i_card.expire_machine_cache
             return machine_card.regenerate_machine_output
           end
+        end
+      end
+
+      def output_last_updated machine_card
+        return unless (output_card = machine_card&.machine_output_card)
+        if output_card.coded?
+          File.mtime output_card.file.path
+        else
+          output_card.updated_at
         end
       end
 
