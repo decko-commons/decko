@@ -59,7 +59,7 @@ describe Card::Format::HtmlFormat do
       it "renders card credit" do
         is_expected.to have_tag 'div[class~="SELF-Xcredit"]' do
           with_tag "img"
-          with_tag "a", text: "Wagn v#{Card::Version.release}"
+          with_tag "a", text: "Decko v#{Card::Version.release}"
         end
       end
     end

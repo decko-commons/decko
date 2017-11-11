@@ -2,9 +2,7 @@
 
 RSpec.describe Card::Query do
   A_JOINEES = %w(B C D E F).freeze
-  CARDS_MATCHING_TWO = ["Joe User", "One+Two", "One+Two+Three",
-                        "script: slot+*all+*script+*machine cache",
-                        "Two"].freeze
+  CARDS_MATCHING_TWO = ["Joe User", "One+Two", "One+Two+Three", "Two"].freeze
 
   subject do
     Card::Query.run @query.reverse_merge return: :name, sort: :name
@@ -431,8 +429,7 @@ RSpec.describe Card::Query do
 
     it "gets only content when content is explicit" do
       @query = { content: [:match, "two"] }
-      is_expected.to eq(["Joe User", "script: ace+*all+*script+*machine cache",
-                         "script: slot+*all+*script+*machine cache"])
+      is_expected.to eq(["Joe User"])
     end
 
     it "gets only name when name is explicit" do

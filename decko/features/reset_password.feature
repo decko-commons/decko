@@ -14,7 +14,7 @@ Feature: Reset password
     And I enter "joe@user.com" into "*email"
     And I press "Reset my password"
     And I wait 4 seconds
-    Then "joe@user.com" should receive an email with subject "reset password for My Wagn"
+    Then "joe@user.com" should receive an email with subject "reset password for My Deck"
     
     When I open the email
     And I click the first link in the email

@@ -25,7 +25,7 @@ Feature: Signing up
     And I enter "wanna_pass" into "*password"
     And I press "Submit"
     Then I should see "Signup Success"
-    And "wanna@wagn.org" should receive an email with subject "verification link for My Wagn"
+    And "wanna@wagn.org" should receive an email with subject "verification link for My Deck"
 
     When I open the email
     And I click the first link in the email
