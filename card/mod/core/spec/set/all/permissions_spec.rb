@@ -100,9 +100,9 @@ describe Card::Set::All::Permissions do
       Card.where(trash: false).each do |ca|
         rule_id, rule_class = ca.permission_rule_id_and_class(:read)
         if rule_id != ca.read_rule_id
-          puts "read rule id mismatch for #{card} " \
+          puts "read rule id mismatch for #{ca.name} " \
                "expected #{rule_class}/#{rule_id}, " \
-               "got #{ca.read_rule_call}/#{ca.read_rule_id}"
+               "got #{ca.read_rule_class}/#{ca.read_rule_id}"
 
         end
         expect(rule_class).to eq(ca.read_rule_class)
