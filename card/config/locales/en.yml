@@ -485,7 +485,7 @@ en:
             errors_message: Sorry, %{item}. %{message}
           user:
             help_first_last: üblicherweise Vor- und Nachname
-            welcome: Willkommen, Wagneer!
+            welcome: Willkommen, Decker!
             get_started: Um loszulegen, erstelle einen Account.
             email_off: "WARNING: E-Mail-Versand ist deaktiviert. Ändere die Einstellung in %{path} um bei neuen Registrierungen Benachrichtigungen zu senden."
             set_up: Anlegen
