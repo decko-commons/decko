@@ -19,17 +19,21 @@ $.extend decko,
     # verify_html: false -- note: this option needed for empty
     #                             paragraphs to add space.
     conf = {
-      plugins: 'autoresize'
-      autoresize_max_height: 500
+      theme: "modern",
+      plugins: 'autoresize code lists hr link autolink table contextmenu textcolor colorpicker'
+      autoresize_max_height: 500,
+      toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat'
     }
     user_conf = if decko.tinyMCEConfig? then decko.tinyMCEConfig else {}
     hard_conf = {
-      mode: 'exact'
-      elements: el_id
+      selector: "##{el_id}",
+      branding: false
       # CSS could be made optional, but it may involve migrating old legacy
       # *tinyMCE settings to get rid of stale stuff.
       content_css: decko.cssPath
       entity_encoding: 'raw'
     }
     $.extend conf, user_conf, hard_conf
+    tinyMCE.baseURL = '/assets/tinymce'
+    tinyMCE.suffix = '.min'
     tinyMCE.init conf
