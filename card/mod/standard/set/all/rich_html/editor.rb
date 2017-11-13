@@ -32,7 +32,8 @@ format :html do
 
   # overridden by mods that provide rich text editors
   def rich_text_input
-    prosemirror_editor_input
+    default_editor = Cardio.config.rich_text_editor || :prosemirror
+    send "#{default_editor}_editor_input"
   end
 
   def text_area_input

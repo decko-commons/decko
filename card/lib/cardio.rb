@@ -60,6 +60,7 @@ module Cardio
         file_storage:           :local,
         file_buckets:           {},
         file_default_bucket:    nil,
+        rich_text_editor:       :prosemirror,
 
         persistent_cache:       true,
         prepopulate_cache:      false,
