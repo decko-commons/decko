@@ -20,9 +20,8 @@ $.extend decko,
     #                             paragraphs to add space.
     conf = {
       theme: "modern",
-      plugins: 'autoresize code lists hr link autolink table contextmenu textcolor colorpicker'
+      plugins: 'autoresize'
       autoresize_max_height: 500,
-      toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat'
     }
     user_conf = if decko.tinyMCEConfig? then decko.tinyMCEConfig else {}
     hard_conf = {
