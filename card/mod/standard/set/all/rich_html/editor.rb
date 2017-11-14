@@ -32,7 +32,7 @@ format :html do
 
   # overridden by mods that provide rich text editors
   def rich_text_input
-    default_editor = Cardio.config.rich_text_editor || :prosemirror
+    default_editor = Cardio.config.rich_text_editor || :tinymce
     send "#{default_editor}_editor_input"
   end
 
