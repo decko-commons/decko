@@ -136,7 +136,7 @@ class Card
       end
 
       # @return args
-      def standardize_args name_or_args, content_or_args
+      def standardize_args name_or_args, content_or_args=nil
         if name_or_args.is_a?(Hash)
           name_or_args
         else
@@ -236,7 +236,7 @@ class Card
       def method_missing method, *args
         method_name, cardtype_card = extract_cardtype_from_method_name method
         return super unless method_name
-        args = standardize_args *args
+        args = standardize_args(*args)
         send "#{method_name}_card", args.merge(type_id: cardtype_card.id)
       end
 
