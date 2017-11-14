@@ -15,6 +15,7 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
     end
     add_customizable_skin
     update_bootstrap_default
+    Card::Cache.reset_all
   end
 
   def remove_old_stuff
