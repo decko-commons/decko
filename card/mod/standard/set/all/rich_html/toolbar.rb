@@ -143,8 +143,8 @@ format :html do
   def account_split_button
     return "" unless card.accountable?
     toolbar_split_button "account", related: :account, icon: :account_box do
-      %i[ account roles created edited follow ].each_with_object({}) do |item, hash|
-        label = item == :account ? "details" : item.to_s # TODO: i18n
+      %i[account roles created edited follow].each_with_object({}) do |item, hash|
+        label = item == :account ? tr(:details) : tr(item)
         args = { class: "dropdown-item"}
         args[:path] = { related: { view: :edit } } if item == :account
         hash[item] = link_to_related item, label, args

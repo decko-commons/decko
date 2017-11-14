@@ -1,7 +1,7 @@
 format :html do
-  view :core do |args|
+  view :core do
     with_nest_mode :template do
-      super(args)
+      super()
     end
   end
 
