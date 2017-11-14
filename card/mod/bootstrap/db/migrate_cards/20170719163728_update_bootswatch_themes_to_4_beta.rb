@@ -2,21 +2,41 @@
 
 class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
   def up
+    remove_old_stuff
+    ensure_scss "style: bootstrap functions", codename: "style_bootstrap_functions"
+    ensure_scss "style: bootstrap variables", codename: "style_bootstrap_variables"
+    ensure_scss "style: bootstrap core", codename: "style_bootstrap_core"
+    add_icon_cards
+
     puts "Updating bootstrap themes ..."
     Skin.themes.each do |theme_name|
       puts theme_name
       Skin.new(theme_name).create_or_update
     end
-    update_default_bootstrap
+    add_customizable_skin
+    update_bootstrap_default
   end
 
-  def update_default_bootstrap
-    paths = [Skin.bootstrap_scss_path("functions"),
-             Skin.bootstrap_scss_path("variables")]
-    puts "Update bootstrap default"
-    Skin.new("Bootstrap default")
-        .update_scss field_name: "variables", file_name: paths
-    puts "Finished"
+  def remove_old_stuff
+    delete_code_card :bootswatch_shared
+    delete_card "bootswatch theme+*right+*structure"
+  end
+
+  def add_customizable_skin
+    skin = CustomizableSkin.new("customizable bootstrap")
+    skin.create_or_update
+  end
+
+  def update_bootstrap_default
+    ensure_scss "default bootstrap skin+bootswatch theme",
+                content: "{{style: bootstrap functions}}{{style: bootstrap variables}}{{style: bootstrap core}}"
+  end
+
+  def add_icon_cards
+    %w[font_awesome material_icons].each do |name|
+      ensure_css name.tr("_", " "), codename: name
+      Card["themeless bootstrap skin"].add_item! name.tr("_", " ")
+    end
   end
 
   class Skin
@@ -47,32 +67,25 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
       Card.exists?(@skin_name) ? update_skin : create_skin
     end
 
-
     def create_skin
       Card.create! name: @skin_name,
                    codename: @skin_codename,
                    type_id: Card::SkinID,
                    content: "[[themeless bootstrap skin]]\n[[+bootswatch theme]]",
-                   subcards: {
-                     "+variables" => scss_args([Skin.bootstrap_scss_path("functions"),
-                                                   Skin.bootstrap_scss_path("variables"),
-                                                   "variables"]),
-                     "+style" => scss_args("bootswatch"),
-                     "+Image" => thumbnail_args
-                   }
+                   subcards: create_subcard_args
     end
 
     def update_skin
-      update_scss file_name: [Skin.bootstrap_scss_path("functions"),
-                              Skin.bootstrap_scss_path("variables"),
-                              "variables"],
-                  field_name: "variables"
-      update_scss file_name: "bootswatch", field_name: "style"
+      update_css file_name: "bootstrap.css", field_name: "bootswatch theme"
       update_tumbnail
     end
 
     def update_scss file_name:, field_name: file_name
-      update_card "#{@skin_name}+#{field_name}", scss_args(file_name)
+      update_card "#{@skin_name}+#{field_name}", style_args(file_name)
+    end
+
+    def update_css file_name:, field_name: file_name
+      ensure_card "#{@skin_name}+#{field_name}", style_args(file_name, Card::CssID)
     end
 
     def update_tumbnail
@@ -81,10 +94,17 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
 
     private
 
-    def scss_args file_name
+    def create_subcard_args
+      {
+        "+bootswatch theme" => style_args("bootstrap.css", Card::CssID),
+        "+Image" => thumbnail_args
+      }
+    end
+
+    def style_args file_name, type_id=Card::ScssID
       paths = Array.wrap(file_name).map { |fn| resource_path(fn) }
       content = paths.map { |p| File.read(p) }.join "\n"
-      { type_id: Card::ScssID, content: content }
+      { type_id: type_id, content: content }
     end
 
     def thumbnail_args
@@ -111,6 +131,23 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
 
     def base_resource_dir
       File.join Skin.vendor_path, "bootswatch", "dist", @theme_name
+    end
+  end
+
+  class CustomizableSkin < Skin
+    def create_subcard_args
+      {
+        "+bootswatch theme" => {
+          type: :scss,
+          content: "{{style: bootstrap functions}}{{_left+variables}}{{style: bootstrap core}}{{_left+style}}"
+        },
+        "+variables" => style_args(Skin.bootstrap_scss_path("variables")),
+        "+style" => { type: :scss, content: "// Use this to override bootstrap css\n" }
+      }
+    end
+
+    def update_skin
+      update_scss file_name: Skin.bootstrap_scss_path("variables"), field_name: "variables"
     end
   end
 end
