@@ -11,7 +11,9 @@ Feature: autonaming
   Scenario: Simple cardtype autoname
     When I go to new Book
     And I press "Submit"
+    And I wait for ajax response
     Then I should see "Book_1"
     And I go to new Book
     And I press "Submit"
+    And I wait for ajax response
     Then I should see "Book_2"

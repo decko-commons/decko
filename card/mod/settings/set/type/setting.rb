@@ -47,10 +47,10 @@ format do
     end
   end
 
-  view :core do |args|
-    render_haml args: args do
+  view :core do
+    render_haml do
       <<-'HAML'.strip_heredoc
-        = _render_rule_help args
+        = _render_rule_help
         %table.setting-rules
           %tr
             %th Set
@@ -80,7 +80,7 @@ format do
     end
   end
 
-  view :rule_help do |_args|
+  view :rule_help do
     <<-HTML
       <div class="alert alert-info">
         #{process_content '{{+*right+*help|content}}'}
