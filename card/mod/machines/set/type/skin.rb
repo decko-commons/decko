@@ -3,4 +3,4 @@ include_set Abstract::MachineInput
 
 store_machine_output filetype: "css"
 
-include_set Abstract::Pointer
+include_set Pointer
