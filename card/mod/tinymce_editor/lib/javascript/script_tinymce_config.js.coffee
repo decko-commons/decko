@@ -19,13 +19,13 @@ $.extend decko,
     # verify_html: false -- note: this option needed for empty
     #                             paragraphs to add space.
     conf = {
-      theme: "modern",
+      theme: "modern"
       plugins: 'autoresize'
-      autoresize_max_height: 500,
+      autoresize_max_height: 500
     }
     user_conf = if decko.tinyMCEConfig? then decko.tinyMCEConfig else {}
     hard_conf = {
-      selector: "##{el_id}",
+      selector: "##{el_id}"
       branding: false
       # CSS could be made optional, but it may involve migrating old legacy
       # *tinyMCE settings to get rid of stale stuff.
