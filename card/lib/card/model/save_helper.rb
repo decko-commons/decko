@@ -46,6 +46,7 @@ class Card
         if name.is_a? Symbol
           return unless Card::Codename.exist? name
         end
+        return unless Card.exist?(name)
         update_card name, codename: nil
         delete_card name
       end
