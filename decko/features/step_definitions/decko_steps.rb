@@ -125,7 +125,7 @@ def set_tinymce_editor_content name, content
   find_editor "textarea[name='#{name}']" do |editors|
     editor_id = editors.first[:id]
     return unless page.evaluate_script("typeof tinyMCE != 'undefined' && "\
-                                       "tinyMCE.get('#{editor_id}') != 'undefined'")
+                                       "tinyMCE.get('#{editor_id}') != null")
     sleep(0.5)
     content = escape_quotes content
     page.execute_script "tinyMCE.get('#{editor_id}').setContent('#{content}')"
@@ -373,6 +373,12 @@ Then /^In (.*) I should see "([^\"]*)"$/ do |section, text|
     else
       expect(page).to have_content(text)
     end
+  end
+end
+
+Then /^I should see "([^\"]*)" in the editor$/ do |text|
+  within_frame 0 do
+    expect(page).to have_content(text)
   end
 end
 

@@ -12,7 +12,7 @@ Feature: Structure Rules
 
   Scenario: New structured card
     When I edit "Movie+*type+*structure"
-    Then I should see "{{+lead}}"
+    Then I should see "{{+lead}}" in the editor
     When I go to new Movie
     Then I should see "+director"
     And I should see "+lead"
@@ -35,7 +35,7 @@ Feature: Structure Rules
   Scenario: Default on a ranking set
     Given I create card "Home Movie+*right+*default" with content "Watch this"
     When I go to new Movie card named "Lew+Home Movie"
-    Then I should see "Watch this"
+    Then I should see "Watch this" in the editor
 
 
 
