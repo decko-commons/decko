@@ -216,7 +216,7 @@ format :html do
   end
 
   view :refresh_button do |_args|
-    icon = main? ? "refresh" : "new-window"
+    icon = main? ? "refresh" : "open_in_new"
     button_args = { card: card,  path: { slot: { show: :toolbar } } }
     button_args[:class] = "d-none d-sm-inline" if card.accountable?
     toolbar_button "refresh", icon, button_args
