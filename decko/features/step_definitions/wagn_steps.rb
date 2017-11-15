@@ -57,8 +57,8 @@ When /^(.*) edits? "([^\"]*)"$/ do |username, cardname|
   end
 end
 
-wysiwyg_re = /^(.*) edits? "([^\"]*)" entering "([^\"]*)" into wysiwyg$/
-When wysiwyg_re do |username, cardname, content|
+When /^(.*) edits? "([^\"]*)" entering "([^\"]*)" into wysiwyg$/ do
+  |username, cardname, content|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     page.execute_script "$('#main .d0-card-content').val('#{content}')"
@@ -67,8 +67,8 @@ When wysiwyg_re do |username, cardname, content|
   end
 end
 
-edit_re = /^(.*) edits? "([^\"]*)" setting (.*) to "([^\"]*)"$/
-When edit_re do |username, cardname, _field, content|
+When /^(.*) edits? "([^\"]*)" setting (.*) to "([^\"]*)"$/ do
+  |username, cardname, _field, content|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     set_content "card[content]", content
@@ -77,8 +77,7 @@ When edit_re do |username, cardname, _field, content|
   end
 end
 
-filling_re = /^(.*) edits? "([^\"]*)" filling in "([^\"]*)"$/
-When filling_re do |_username, cardname, content|
+When /^(.*) edits? "([^\"]*)" filling in "([^\"]*)"$/ do |_username, cardname, content|
   visit "/card/edit/#{cardname.to_name.url_key}"
   fill_in "card[content]", with: content
 end
@@ -105,46 +104,58 @@ def set_content name, content, _cardtype=nil
 end
 
 def set_ace_editor_content name, content
-  return unless all(".ace-editor-textarea[name='#{name}']").present? &&
-                page.evaluate_script("typeof ace != 'undefined'")
-  sleep(0.5)
-  page.execute_script "ace.edit($('.ace_editor').get(0))"\
-                      ".getSession().setValue('#{content}')"
-  true
+  find_editor ".ace-editor-textarea[name='#{name}']" do |_editors|
+    return unless page.evaluate_script("typeof ace != 'undefined'")
+    sleep(0.5)
+    content = escape_quotes content
+    page.execute_script "ace.edit($('.ace_editor').get(0))"\
+                        ".getSession().setValue('#{content}')"
+  end
 end
 
 def set_pm_editor_content name, content
-  (editors = all(".prosemirror-editor > [name='#{name}']"))
-  return unless editors.present?
-  editor_id = editors.first.first(:xpath, ".//..")[:id]
-  escaped_quotes = content.gsub("'", "\\'")
-  page.execute_script "$('##{editor_id} .ProseMirror').text('#{escaped_quotes}')"
-  true
+  find_editor ".prosemirror-editor > [name='#{name}']" do |editors|
+    content = escape_quotes content
+    editor_id = editors.first.first(:xpath, ".//..")[:id]
+    page.execute_script "$('##{editor_id} .ProseMirror').text('#{content}')"
+  end
 end
 
 def set_tinymce_editor_content name, content
-  editors = all("textarea[name='#{name}']")
-  editor_id = editors.first[:id]
+  find_editor "textarea[name='#{name}']" do |editors|
+    editor_id = editors.first[:id]
+    return unless page.evaluate_script("typeof tinyMCE != 'undefined' && "\
+                                       "tinyMCE.get('#{editor_id}') != 'undefined'")
+    sleep(0.5)
+    content = escape_quotes content
+    page.execute_script "tinyMCE.get('#{editor_id}').setContent('#{content}')"
+  end
+end
+
+def escape_quotes content
+  content.gsub("'", "\\'")
+end
+
+def find_editor selector
+  editors = all(selector)
   return unless editors.present?
-  escaped_quotes = content.gsub("'", "\\'")
-  page.execute_script "tinyMCE.get('#{editor_id}').setContent('#{content}')"
+  yield editors
   true
 end
 
-content_re = /^(.*) creates?\s*a?\s*([^\s]*) card "(.*)" with content "(.*)"$/
-When content_re do |username, cardtype, cardname, content|
+When /^(.*) creates?\s*a?\s*([^\s]*) card "(.*)" with content "(.*)"$/ do
+  |username, cardtype, cardname, content|
   create_card(username, cardtype, cardname, content) do
     set_content "card[content]", content, cardtype
   end
 end
 
-create_re = /^(.*) creates?\s*([^\s]*) card "([^"]*)"$/
-When create_re do |username, cardtype, cardname|
+When /^(.*) creates?\s*([^\s]*) card "([^"]*)"$/ do |username, cardtype, cardname|
   create_card username, cardtype, cardname
 end
 
-plus_re = /^(.*) creates?\s*([^\s]*) card "([^"]*)" with plusses:$/
-When plus_re do |username, cardtype, cardname, plusses|
+When /^(.*) creates?\s*([^\s]*) card "([^"]*)" with plusses:$/ do
+  |username, cardtype, cardname, plusses|
   create_card(username, cardtype, cardname) do
     plusses.hashes.first.each do |name, content|
       set_content "card[subcards][+#{name}][content]", content, cardtype
@@ -280,8 +291,7 @@ When /^I click "(.*)" within "(.*)"$/ do |link, selector|
   end
 end
 
-link_re = /^In (.*) I find link with class "(.*)" and click it$/
-When link_re do |section, css_class|
+When /^In (.*) I find link with class "(.*)" and click it$/ do |section, css_class|
   within scope_of(section) do
     find("a.#{css_class}").click
   end

@@ -21,11 +21,15 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
   def remove_old_stuff
     delete_code_card :bootswatch_shared
     delete_card "bootswatch theme+*right+*structure"
+    Card[:all, :style].drop_item! "style: select2"
+    Card[:all, :style].drop_item! "style: select2 bootstrap"
+    delete_code_card :bootswatch_shared
   end
 
   def add_customizable_skin
     skin = CustomizableSkin.new("customizable bootstrap")
     skin.create_or_update
+    ensure_card "customizable bootstrap skin", codename: "customizable_bootstrap_skin"
   end
 
   def update_bootstrap_default
