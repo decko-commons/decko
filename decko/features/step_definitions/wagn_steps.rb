@@ -99,6 +99,7 @@ def set_content name, content, _cardtype=nil
   wait_for_ajax
   set_ace_editor_content(name, content) ||
     set_pm_editor_content(name, content) ||
+    set_tinymce_editor_content(name, content) ||
     fill_in(name, with: content)
   Capybara.ignore_hidden_elements = true
 end
@@ -118,6 +119,15 @@ def set_pm_editor_content name, content
   editor_id = editors.first.first(:xpath, ".//..")[:id]
   escaped_quotes = content.gsub("'", "\\'")
   page.execute_script "$('##{editor_id} .ProseMirror').text('#{escaped_quotes}')"
+  true
+end
+
+def set_tinymce_editor_content name, content
+  editors = all("textarea[name='#{name}']")
+  editor_id = editors.first[:id]
+  return unless editors.present?
+  escaped_quotes = content.gsub("'", "\\'")
+  page.execute_script "tinyMCE.get('#{editor_id}').setContent('#{content}')"
   true
 end
 
