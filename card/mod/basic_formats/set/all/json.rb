@@ -21,11 +21,12 @@ format :json do
     JSON.send method, raw
   end
 
-  view :name_complete, cache: :never do
-    name_search
-  end
+  # TODO: design better autocomplete API
+  # view :name_complete, cache: :never do
+  #   name_search
+  # end
 
-  view :junction_name_complete, cache: :never do
+  view :name_complete, cache: :never do
     name_search query_attribute: :junction_complete
   end
 

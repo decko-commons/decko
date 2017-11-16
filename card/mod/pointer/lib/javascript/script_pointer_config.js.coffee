@@ -24,12 +24,13 @@ decko.editorInitFunctionMap['.pointer-list-editor'] = ->
 
 $.extend decko,
   initPointerList: (input) ->
-    optionsCard = input.closest('ul').data('options-card')
-    optionsCard ||= input.closest('.pointer-list-editor').data('options-card')
-    input.autocomplete {
-      source: decko.prepUrl decko.rootPath + '/' + optionsCard +
-          '.json?view=junction_name_complete'
-    }
+    decko.initAutoCardPlete input
+
+  initAutoCardPlete: (input) ->
+    optionsCard = input.data 'options-card'
+    return unless !!optionsCard
+    url = decko.rootPath + '/' + optionsCard + '.json?view=name_complete'
+    input.autocomplete { source: decko.prepUrl(url) }
 
 pointerContent = (vals) ->
   list = $.map $.makeArray(vals), (v) -> if v then '[[' + v + ']]'

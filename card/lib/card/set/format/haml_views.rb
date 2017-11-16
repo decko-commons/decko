@@ -44,13 +44,17 @@ class Card
           template = ::File.read template_path
           proc do |view_args|
             instance_exec view_args, &block
-            locals = instance_variables.each_with_object({}) do |var, h|
-              h[var.to_s.tr("@", "").to_sym] = instance_variable_get var
-            end
-            voo = View.new(self, view, view_args, @voo)
+            locals = instance_variable_hash
+            voo = View.new self, view, view_args, @voo
             with_voo voo do
               haml_to_html template, locals, nil, path: template_path
             end
+          end
+        end
+
+        def instance_variable_hash
+          instance_variables.each_with_object({}) do |var, h|
+            h[var.to_s.tr("@", "").to_sym] = instance_variable_get var
           end
         end
 
@@ -62,7 +66,7 @@ class Card
             path = try_haml_template_path(template_dir, view, source_dir)
             return path if path
           end
-          raise(Card::Error, "can't find haml template for #{view}")
+          raise Card::Error, "can't find haml template for #{view}"
         end
 
         def try_haml_template_path template_path, view, source_dir, ext="haml"

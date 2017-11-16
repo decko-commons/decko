@@ -1,16 +1,3 @@
-event :add_and_drop_items, :prepare_to_validate, on: :save do
-  adds = Env.params["add_item"]
-  drops = Env.params["drop_item"]
-  Array.wrap(adds).each { |i| add_item i } if adds
-  Array.wrap(drops).each { |i| drop_item i } if drops
-end
-
-event :insert_item_event, :prepare_to_validate,
-      on: :save, when: proc { Env.params["insert_item"] } do
-  index = Env.params["item_index"] || 0
-  insert_item index.to_i, Env.params["insert_item"]
-end
-
 format :html do
   view :editor do |args|
     # FIXME: use voo
@@ -25,31 +12,14 @@ format :html do
   end
 
   view :list, cache: :never do |args|
-    @item_list = args[:item_list]
-    @extra_css_class = args[:extra_css_class]
-    list_input
+    list_input args
   end
 
-  def list_input
-    items = @item_list || card.item_names(context: :raw)
-    items = [""] if items.empty?
-    rendered_items = items.map do |item|
-      _render_list_item pointer_item: item
-    end.join "\n"
-    extra_css_class = @extra_css_class || "pointer-list-ul"
-
-    raw(<<-HTML
-      <ul class="pointer-list-editor #{extra_css_class}"
-          data-options-card="#{options_card_name}">
-        #{rendered_items}
-      </ul>
-      #{add_item_button}
-    HTML
-    )
-  end
-
-  def options_card_name
-    (oc = card.options_rule_card) ? oc.name.url_key : ":all"
+  def list_input args={}
+    items = items_for_input args[:item_list]
+    extra_class = args[:extra_css_class] || "pointer-list-ul"
+    ul_classes = classy "pointer-list-editor", extra_class
+    render_haml_partial :list_input, items: items, ul_classes: ul_classes
   end
 
   def add_item_button
@@ -60,41 +30,23 @@ format :html do
     end
   end
 
-  view :list_item do |args|
-    <<-HTML
-      <li class="pointer-li mb-1">
-        <span class="input-group">
-          <span class="input-group-addon handle">
-            #{icon_tag :reorder}
-          </span>
-          #{text_field_tag 'pointer_item', args[:pointer_item],
-                           class: 'pointer-item-text form-control'}
-          <span class="input-group-btn">
-            <button class="pointer-item-delete btn btn-secondary" type="button">
-              #{icon_tag :remove}
-            </button>
-          </span>
-        </span>
-      </li>
-    HTML
+  view :list_item, template: :haml do |args|
+    @item = args[:pointer_item]
+    @options_card ||= options_card_name
   end
 
   view :autocomplete do |_args|
     autocomplete_input
   end
 
+  def items_for_input items
+    items ||= card.item_names context: :raw
+    items.empty? ? [""] : items
+  end
+
   def autocomplete_input
-    items = @item_list || card.item_names(context: :raw)
-    items = [""] if items.empty?
-    raw(
-      <<-HTML
-        <div class="pointer-list-editor pointer-list-ul"
-            data-options-card="#{options_card_name}">
-          #{text_field_tag 'pointer_item', items.first,
-                           class: 'pointer-item-text form-control'}
-        </div>
-      HTML
-    )
+    render_haml_partial :autocomplete_input, items: items_for_input(@item_list),
+                                             options_card: options_card_name
   end
 
   view :checkbox do |_args|
@@ -153,20 +105,7 @@ format :html do
     raw %(<ul class="pointer-radio-list">#{options}</ul>)
   end
 
-  def option_label option_name, id
-    %(<label for="#{id}">#{option_label_text option_name}</label>)
-  end
 
-  def option_label_text option_name
-    o_card = Card.fetch(option_name)
-    (o_card && o_card.label) || option_name
-  end
-
-  # @param option_type [String] "checkbox" or "radio"
-  def option_description option_type, option_name
-    return "" unless (description = pointer_option_description(option_name))
-    %(<div class="#{option_type}-option-description">#{description}</div>)
-  end
 
   view :select do |_args|
     select_input
@@ -177,89 +116,5 @@ format :html do
     select_tag("pointer_select-#{unique_id}",
                options_for_select(options, card.item_names.first),
                class: "pointer-select form-control")
-  end
-
-  def pointer_option_description option
-    pod_name = card.rule(:options_label) || "description"
-    dcard = Card["#{option}+#{pod_name}"]
-    return unless dcard && dcard.ok?(:read)
-    with_nest_mode :normal do
-      subformat(dcard).render_core
-    end
-  end
-end
-
-def items= array
-  self.content = ""
-  array.each { |i| self << i }
-  save!
-end
-
-def << item
-  newname =
-    case item
-    when Card    then item.name
-    when Integer then (c = Card[item]) && c.name
-    else              item
-    end
-  add_item newname
-end
-
-def add_item name, allow_duplicates=false
-  return if !allow_duplicates && include_item?(name)
-  self.content = "[[#{(item_names << name).reject(&:blank?) * "]]\n[["}]]"
-end
-
-def add_item! name
-  add_item(name) && save!
-end
-
-def drop_item name
-  return unless include_item? name
-  key = name.to_name.key
-  new_names = item_names.reject { |n| n.to_name.key == key }
-  self.content = new_names.empty? ? "" : "[[#{new_names * "]]\n[["}]]"
-end
-
-def drop_item! name
-  drop_item name
-  save!
-end
-
-def insert_item index, name
-  new_names = item_names
-  new_names.delete name
-  new_names.insert index, name
-  self.content = new_names.map { |new_name| "[[#{new_name}]]" }.join "\n"
-end
-
-def insert_item! index, name
-  insert_item index, name
-  save!
-end
-
-def option_names
-  result_names = configured_option_names
-
-  if (selected_options = item_names)
-    result_names += selected_options
-    result_names.uniq!
-  end
-  result_names
-end
-
-def configured_option_names
-  if (oc = options_rule_card)
-    oc.item_names context: name,
-                  limit: oc.respond_to?(:default_limit) ? oc.default_limit : 0
-  else
-    Card.search({ sort: "name", limit: 50, return: :name },
-                "option names for pointer: #{name}")
-  end
-end
-
-def option_cards
-  option_names.map do |name|
-    Card.fetch name, new: {}
   end
 end

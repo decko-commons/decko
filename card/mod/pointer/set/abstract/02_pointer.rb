@@ -195,8 +195,9 @@ end
 
 def polish_item item, context
   item = strip_item(item).to_name
+  return item if context == :raw
   context ||= context_card.name
-  context == :raw ? item : item.absolute_name(context)
+  item.absolute_name context
 end
 
 def strip_item item

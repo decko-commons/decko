@@ -7,8 +7,5 @@ format :html do
                               form_args: form_args
   end
 
-  def view_template_path view, set_path= __FILE__
-    super(view, set_path)
-  end
 end
 

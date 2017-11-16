@@ -16,8 +16,7 @@ format do
   # block or a symbol that refers to a view template.
   # @param  template_or_locals [Hash, String, Symbol]
   #   If a symbol is given then a template is expected in the corresponding view
-  #   directory. Note that {view_template_path} needs to be overridden in
-  #   that case to get the right path to the template.
+  #   directory.
   # @return [String] rendered haml as HTML
   # @example render a view template
   #   # view/type/basic/my_template.haml:
@@ -42,10 +41,9 @@ format do
   #     %p
   #       some haml
   def render_haml template_or_locals={}, locals_or_binding=nil, a_binding=nil
-    if template_or_locals.is_a?(Symbol)
-      return render_haml_template template_or_locals, locals_or_binding || {}
-    end
-    if block_given?
+    if template_or_locals.is_a? Symbol
+      render_haml_template template_or_locals, locals_or_binding || {}
+    elsif block_given?
       haml_to_html yield, template_or_locals, locals_or_binding
     else
       haml_to_html template_or_locals, locals_or_binding, a_binding
@@ -56,38 +54,34 @@ format do
     render_haml "_#{partial}".to_sym, locals, a_binding
   end
 
-  # @todo Make this more like Rails a implicit feature of a view.
-  #   For a start use a different view command. Example
-  #   # view/type/basic/my_view.haml:
-  #   = name
-  #
-  #   # set/type/basic.rb:
-  #   haml_view :myview do
-  #     @name = "Joe"
-  #   end
   def render_haml_template view, locals={}
-    template = ::File.read view_template_path(view)
+    path = view_template_path view
+    template = ::File.read path
     voo = View.new self, view, locals, @voo
     with_voo voo do
       haml_to_html template, locals
     end
+  rescue => e
+    raise Card::Error, "HAML error:\n  #{view}, #{path}\n:  #{e.message}"
   end
-
-  # @todo This is a hack to make haml view templates work.
-  #       Needs a general automatic solution.
-  # This method must be overridden in every set that uses haml templates
-  # so that `__FILE__` points to the right file.
-  # @return [String] path to haml view template
-  # @example
-  #   def view_template_path view
-  #     super(view, __FILE__)
-  #   end
 
   include Card::Set::Format::HamlViews
 
-  def view_template_path view, tmp_set_path=__FILE__
-    set_path =
-      tmp_set_path.gsub(%r{/tmp/set/mod\d+-([^/]+)/}, '/mod/\1/template/')
-    haml_template_path view, set_path
+  def haml_caller_path
+    caller.each do |line|
+      m = line.match /^(?<path>[^\:]*).*\`(?<method>.*)'$/
+      next if m[:method] =~ /^(view_template|render_haml|with_voo)/
+      next if m[:path] =~ /haml/
+      next unless m[:path] =~ /\.rb$/
+      return m[:path]
+    end
+    raise "haml_caller_path_not_found"
+  end
+
+  def view_template_path view
+    #, tmp_set_path=__FILE__
+    #set_path = tmp_set_path.gsub %r{/tmp/set/mod\d+-([^/]+)/},
+    #                             '/mod/\1/template/'
+    haml_template_path view, haml_caller_path
   end
 end

@@ -42,10 +42,6 @@ format :html do
     end
   end
 
-  def view_template_path view, set_path= __FILE__
-    super(view, set_path)
-  end
-
   view :core do |_args|
     return if card.new_card? # necessary?
     render_haml_partial :core, lines: [signup_line] + account_lines,
