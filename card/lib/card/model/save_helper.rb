@@ -38,13 +38,17 @@ class Card
       end
 
       def delete_card name
-        return unless (card = Card[name])
-        card.delete!
+        return unless Card.exist?(name)
+        Card[name].delete!
       end
 
       def delete_code_card name
-        update name, codename: nil
-        delete name
+        if name.is_a? Symbol
+          return unless Card::Codename.exist? name
+        end
+        return unless Card.exist?(name)
+        update_card name, codename: nil
+        delete_card name
       end
 
       # create if card doesn't exist
@@ -133,7 +137,7 @@ class Card
       end
 
       # @return args
-      def standardize_args name_or_args, content_or_args
+      def standardize_args name_or_args, content_or_args=nil
         if name_or_args.is_a?(Hash)
           name_or_args
         else
@@ -231,8 +235,10 @@ class Card
 
 
       def method_missing method, *args
-        return super unless (cardtype_card = extract_cardtype_from_method_name method)
-        Card.create! create_args(*args).merge(type_id: cardtype_card.id)
+        method_name, cardtype_card = extract_cardtype_from_method_name method
+        return super unless method_name
+        args = standardize_args(*args)
+        send "#{method_name}_card", args.merge(type_id: cardtype_card.id)
       end
 
       def respond_to_missing? method, _include_private=false
@@ -240,12 +246,12 @@ class Card
       end
 
       def extract_cardtype_from_method_name method
-        return unless method =~ /^create_(?<type>.+)$/
+        return unless method =~ /^(?<method_name>create|ensure)_(?<type>.+)(?:_card)?$/
         cardtype_card = Card[Regexp.last_match[:type]] ||
                         Card[Regexp.last_match[:type].to_sym]
         return unless cardtype_card&.type_id == Card::CardtypeID ||
                       cardtype_card.id == Card::SetID
-        cardtype_card
+        [Regexp.last_match[:method_name], cardtype_card]
       end
     end
   end

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Format::HtmlFormat do
+RSpec.describe Card::Format::HtmlFormat do
   describe "views" do
     specify "content" do
       expect(view(:content, card: "A+B"))
