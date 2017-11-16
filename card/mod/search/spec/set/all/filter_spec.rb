@@ -28,9 +28,9 @@ describe Card::Set::All::Filter do
       end
 
       with_tag "div.dropdown._add-filter-dropdown" do
-        with_tag "a.dropdown-item", with: { "data-category" => "a" }
-        with_tag "a.dropdown-item", with: { "data-category" => "b" }
-        with_tag "a.dropdown-item", with: { "data-category" => "c",
+        with_tag "a.dropdown-item", with: { "data-category": "a" }
+        with_tag "a.dropdown-item", with: { "data-category": "b" }
+        with_tag "a.dropdown-item", with: { "data-category": "c",
                                             style: "display: none;" }
       end
     end

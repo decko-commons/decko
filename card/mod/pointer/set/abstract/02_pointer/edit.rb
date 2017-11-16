@@ -19,7 +19,7 @@ format :html do
     items = items_for_input args[:item_list]
     extra_class = args[:extra_css_class] || "pointer-list-ul"
     ul_classes = classy "pointer-list-editor", extra_class
-    render_haml_partial :list_input, items: items, ul_classes: ul_classes
+    haml :list_input, items: items, ul_classes: ul_classes
   end
 
   def add_item_button
@@ -45,8 +45,8 @@ format :html do
   end
 
   def autocomplete_input
-    render_haml_partial :autocomplete_input, items: items_for_input(@item_list),
-                                             options_card: options_card_name
+    items = items_for_input @item_list
+    haml :autocomplete_input, items: items, options_card: options_card_name
   end
 
   view :checkbox do |_args|

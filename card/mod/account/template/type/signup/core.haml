@@ -1,0 +1,4 @@
+- if card.new_card? # necessary?
+  .invite-links
+    = lines.map { |h| "<div>#{h}</div>" }.join "\n"
+    = body

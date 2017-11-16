@@ -42,10 +42,9 @@ format :html do
     end
   end
 
-  view :core do |_args|
-    return if card.new_card? # necessary?
-    render_haml_partial :core, lines: [signup_line] + account_lines,
-                               body: super()
+  view :core, template: :haml do |_args|
+    @lines = [signup_line] + account_lines
+    @body = super()
   end
 
   def signup_line

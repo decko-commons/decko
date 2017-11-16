@@ -8,10 +8,10 @@
 #
 #  it "gets correct text" do
 #    x.report('with auto_scope') do
-#      Card[:admin_info].format(:html).render_warning_list_with_auto_scope([])
+#      Card[:admin_info].format(:html).warning_list_with_auto_scope([])
 #    end
 #    x.report('with explicit scope') do
-#      Card[:admin_info].format(:html).render_warning_list([])
+#      Card[:admin_info].format(:html).warning_list([])
 #    end
 #  end
 #end

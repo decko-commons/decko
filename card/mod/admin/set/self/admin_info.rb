@@ -15,17 +15,17 @@ format :html do
     end
     return "" if warnings.empty?
     alert :warning, true do
-      render_warning_list warnings
+      warning_list warnings
     end
   end
 
-  def render_warning_list warnings
+  def warning_list warnings
     # 'ADMINISTRATOR WARNING'
     admin_warn = I18n.t(:admin_warn, scope: "mod.admin.set.self.admin_info")
     "<h5>#{admin_warn}</h5>" + warnings.join("\n")
   end
 
-  def render_warning_list_with_auto_scope warnings
+  def warning_list_with_auto_scope warnings
       # 'ADMINISTRATOR WARNING'
       admin_warn = tx(:admin_warn)
       "<h5>#{admin_warn}</h5>" + warnings.join("\n")

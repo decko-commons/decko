@@ -2,6 +2,9 @@
 #set_scope = "haml"
 
 format do
+
+  include Card::Set::Format::HamlViews
+
   define_method :the_scope do
     set_scope
   end
@@ -9,9 +12,7 @@ format do
   define_method :haml_scope do
     set_scope
   end
-end
 
-format do
   # Renders haml templates. The haml template can be passed as string or
   # block or a symbol that refers to a view template.
   # @param  template_or_locals [Hash, String, Symbol]
@@ -26,10 +27,10 @@ format do
   #
   #   # set/type/basic.rb:
   #   view :my_view do
-  #     render_haml :my_template, name: "Joe:  # => "<p>Hi Joe<p/>"
+  #     haml :my_template, name: "Joe:  # => "<p>Hi Joe<p/>"
   #   end
   # @example use a block to pass haml
-  #   render_haml name: "Joe" do
+  #   haml name: "Joe" do
   #     <<-HAML.strip_heredoc
   #       %p
   #         Hi
@@ -40,48 +41,43 @@ format do
   #   - haml_wrap do
   #     %p
   #       some haml
-  def render_haml template_or_locals={}, locals_or_binding=nil, a_binding=nil
-    if template_or_locals.is_a? Symbol
-      render_haml_template template_or_locals, locals_or_binding || {}
-    elsif block_given?
-      haml_to_html yield, template_or_locals, locals_or_binding
+
+  def haml *args, &block
+    if args.first.is_a? Symbol
+      process_haml_template *args
     else
-      haml_to_html template_or_locals, locals_or_binding, a_binding
+      process_haml *args, &block
     end
   end
 
-  def render_haml_partial partial, locals={}, a_binding=nil
-    render_haml "_#{partial}".to_sym, locals, a_binding
+  def haml_partial partial, locals={}
+    locals[:template_path] ||= @template_path
+    process_haml_template "_#{partial}".to_sym, locals
   end
 
-  def render_haml_template view, locals={}
-    path = view_template_path view
-    template = ::File.read path
-    voo = View.new self, view, locals, @voo
-    with_voo voo do
-      haml_to_html template, locals
+  private
+
+  def process_haml *args
+    args.unshift yield if block_given?
+    haml_to_html *args
+  rescue
+    binding.pry
+  end
+
+  def process_haml_template template_name, locals={}
+    path = identify_template_path template_name, locals
+    with_template_path path do
+      haml_to_html ::File.read(path), locals
     end
   rescue => e
-    raise Card::Error, "HAML error:\n  #{view}, #{path}\n:  #{e.message}"
+    raise Card::Error, "HAML error #{template_name}: #{e.message}"
   end
 
-  include Card::Set::Format::HamlViews
-
-  def haml_caller_path
-    caller.each do |line|
-      m = line.match /^(?<path>[^\:]*).*\`(?<method>.*)'$/
-      next if m[:method] =~ /^(view_template|render_haml|with_voo)/
-      next if m[:path] =~ /haml/
-      next unless m[:path] =~ /\.rb$/
-      return m[:path]
-    end
-    raise "haml_caller_path_not_found"
-  end
-
-  def view_template_path view
-    #, tmp_set_path=__FILE__
-    #set_path = tmp_set_path.gsub %r{/tmp/set/mod\d+-([^/]+)/},
-    #                             '/mod/\1/template/'
-    haml_template_path view, haml_caller_path
+  def identify_template_path view, locals={}
+    deleteme = caller_locations
+    base_path = locals.delete(:template_path) || caller_locations[2].path
+    haml_template_path view, base_path
+  rescue => e
+    binding.pry
   end
 end

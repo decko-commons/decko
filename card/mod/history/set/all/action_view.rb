@@ -13,14 +13,14 @@ format :html do
   end
 
   view :action_summary do |args|
-    render_action_content args[:action], :summary
+    action_content args[:action], :summary
   end
 
   view :action_content_toggle do |args|
     toggle_action_content_link args[:action], args[:view_type]
   end
 
-  def render_action_content action, view_type
+  def action_content action, view_type
     return "" unless action.present?
     wrap do
       [

@@ -48,7 +48,7 @@ format do
   end
 
   view :core do
-    render_haml do
+    haml do
       <<-'HAML'.strip_heredoc
         = _render_rule_help
         %table.setting-rules
