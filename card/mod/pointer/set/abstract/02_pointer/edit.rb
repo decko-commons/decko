@@ -46,7 +46,7 @@ format :html do
 
   def autocomplete_input
     items = items_for_input @item_list
-    haml :autocomplete_input, items: items, options_card: options_card_name
+    haml :autocomplete_input, item: items.first, options_card: options_card_name
   end
 
   view :checkbox do |_args|

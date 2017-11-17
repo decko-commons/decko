@@ -60,8 +60,6 @@ format do
   def process_haml *args
     args.unshift yield if block_given?
     haml_to_html *args
-  rescue
-    binding.pry
   end
 
   def process_haml_template template_name, locals={}
@@ -74,10 +72,7 @@ format do
   end
 
   def identify_template_path view, locals={}
-    deleteme = caller_locations
     base_path = locals.delete(:template_path) || caller_locations[2].path
     haml_template_path view, base_path
-  rescue => e
-    binding.pry
   end
 end
