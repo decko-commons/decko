@@ -84,9 +84,9 @@ class Card
         def with_template_path path
           old_path = @template_path
           @template_path = path
-          result = yield
+          yield
+        ensure
           @template_path = old_path
-          result
         end
       end
     end
