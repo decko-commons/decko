@@ -23,24 +23,27 @@ filterCategorySelected = (addFilterDropdown, selectedCategory, label) ->
   removeCategoryOption(addFilterDropdown, selectedCategory)
   showFilterInputField(selectedCategory, widget)
 
-
 showFilterInputField = (category, widget) ->
-  $searchInputField = $(widget.find("._filter-input-field-prototypes > ._filter-input-field.#{category} > .input-group")[0])
+  selector = "._filter-input-field-prototypes > ._filter-input-field.#{category} > .input-group"
+  $inputField = $(widget.find(selector)[0])
 
-  $(widget.find("._add-filter-dropdown")).before($searchInputField)
+  $(widget.find("._add-filter-dropdown")).before($inputField)
+  setFilterInputWidth $inputField
+  decko.initAutoCardPlete($inputField.find('input')) # only has effect if there is a data-options-card value
+  $inputField.find("input, select").focus()
+
+setFilterInputWidth = ($inputField) ->
   # multiple select fields are skipped because it the importance filter on wikirate
   # with preselected options got too much height because of this
-  $searchInputField.find('select:not([multiple])').select2(
+  $inputField.find('select:not([multiple])').select2(
     dropdownAutoWidth: "true"
   )
-  $searchInputField.find("input, select").focus()
 
 hideFilterInputField = (input) ->
   widget = input.closest("._filter-widget")
   category = input.data("category")
   $hiddenInputSlot = $(widget.find("._filter-input-field-prototypes > ._filter-input-field.#{category}")[0])
   $hiddenInputSlot.append(input)
-
 
 addCategoryOption = (form, option) ->
   form.find("._filter-category-select[data-category='#{option}']").show()

@@ -39,11 +39,7 @@ format :json do
   end
 
   def name_search query_attribute: :complete, limit: AUTOCOMPLETE_LIMIT
-    # context is "" so that term will not be interpreted in the context
-    # of search card name.  However, this can break searches where the
-    # search card name is required (eg found_by)
-    card.search limit: limit, sort: "name", return: "name", context: "",
-                query_attribute => params[:term]
+    card.search limit: limit, sort: "name", return: "name", query_attribute => params[:term]
   end
 
   view :status, tags: :unknown_ok, perms: :none, cache: :never do
