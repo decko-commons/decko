@@ -125,8 +125,9 @@ end
 def reset_password_success
   token_card.used!
   Auth.signin left_id
-  { id: left.name, view: :related, related: { name: "+#{Card[:account].name}",
-                                              view: "edit" } }
+  { id: left.name,
+    view: :related,
+    related: { name: :account.cardname.prepend_joint, view: :edit } }
 end
 
 def reset_password_try_again
