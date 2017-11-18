@@ -77,6 +77,6 @@ def list_card item
   Card.fetch item, left.type_name
 end
 
-def unfilled?
+def blank?
   false
 end
