@@ -11,7 +11,7 @@ def subfield field_name
 end
 
 def subcards
-  @subcards ||= Subcards.new(self)
+  @subcards ||= Card::Subcards.new self
 end
 
 def subcards?
@@ -72,12 +72,12 @@ end
 event :handle_subcard_errors do
   subcards.each do |subcard|
     subcard.errors.each do |field, err|
-      subcard_error field, err
+      subcard_error subcard, field, err
     end
   end
 end
 
-def subcard_error field, err
+def subcard_error subcard, field, err
   err = "#{field} #{err}" unless %i[content abort].member? field
   errors.add subcard.name.from(name), err
 end

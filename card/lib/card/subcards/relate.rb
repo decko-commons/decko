@@ -1,8 +1,8 @@
-module Card::Subcards::Remove
+module Card::Subcards::Relate
 
 
   def field_name_to_key name
-    if @context_card.name.starts_with_joint
+    if @context_card.name.starts_with_joint?
       relative_child(name).key
     else
       child(name).key

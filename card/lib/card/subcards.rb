@@ -1,9 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-require_dependency "card/subcards/add"
-require_dependency "card/subcards/remove"
-require_dependency "card/subcards/relate"
-
 class Card
 
   # API to create/update/delete additional cards together with the main card.
@@ -16,6 +12,10 @@ class Card
   # Together with "my address" you want to create the subcards
   # "my address+name", "my address+street", etc.
   class Subcards
+    require_dependency "card/subcards/add"
+    require_dependency "card/subcards/remove"
+    require_dependency "card/subcards/relate"
+
     include Add
     include Remove
     include Relate
@@ -106,39 +106,4 @@ class Card
     end
   end
 
-  def right_id= card_or_id
-    write_card_or_id :right_id, card_or_id
-  end
-
-  def left_id= card_or_id
-    write_card_or_id :left_id, card_or_id
-  end
-
-  def type_id= card_or_id
-    write_card_or_id :type_id, card_or_id
-  end
-
-  def write_card_or_id attribute, card_or_id
-    if card_or_id.is_a? Card
-      write_card card_or_id
-    else
-      write_attribute attribute, card_or_id
-    end
-  end
-
-  def write_card attribute, card
-    if card.id
-      write_attribute attribute, card.id
-    else
-      add_subcard card
-      card.director.prior_store = true
-      with_id_when_exists(card) do |id|
-        write_attribute attribute, id
-      end
-    end
-  end
-
-  def with_id_when_exists card, &block
-    card.director.call_after_store(&block)
-  end
 end
