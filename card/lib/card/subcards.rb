@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-
   # API to create/update/delete additional cards together with the main card.
   # The most common case is for fields but subcards don't have to be descendants.
   #

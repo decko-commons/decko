@@ -1,5 +1,6 @@
 class Card
   class Subcards
+    # Methods for handling related subcards
     module Relate
       def field_name_to_key name
         if @context_card.name.starts_with_joint?

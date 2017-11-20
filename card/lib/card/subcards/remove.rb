@@ -1,5 +1,6 @@
 class Card
   class Subcards
+    # Methods for removing/clearing subcards
     module Remove
       def remove_child cardish
         child = cardish.is_a?(Card) ? cardish : child(cardish)

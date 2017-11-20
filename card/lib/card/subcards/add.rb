@@ -1,5 +1,6 @@
 class Card
   class Subcards
+    # Methods for adding subcards
     module Add
       # @example Add a subcard with name 'spoiler'
       #   add 'spoiler', type: 'Phrase', content: 'John Snow is a Targaryen'
@@ -63,19 +64,16 @@ class Card
       def new_by_attributes name, attributes={}
         attributes ||= {}
         absolute_name = absolutize_subcard_name name
-        if absolute_name.field_of?(@context_card.name) &&
-            (absolute_name.parts.size - @context_card.name.parts.size) > 2
-          left_card = new_by_attributes absolute_name.left
-          new_by_card left_card, transact_in_stage: attributes[:transact_in_stage]
-          left_card.subcards.new_by_attributes absolute_name, attributes
-        else
-          subcard_args = extract_subcard_args! name, attributes
-          t_i_s = attributes.delete(:transact_in_stage)
-          card = Card.assign_or_initialize_by absolute_name.s, attributes, local_only: true
-          subcard = new_by_card card, transact_in_stage: t_i_s
-          card.subcards.add subcard_args
-          subcard
-        end
+        subcard_args = extract_subcard_args! name, attributes
+        t_i_s = attributes.delete(:transact_in_stage)
+        card = initialize_by_attributes absolute_name, attributes
+        subcard = new_by_card card, transact_in_stage: t_i_s
+        card.subcards.add subcard_args
+        subcard
+      end
+
+      def initialize_by_attributes name, attributes
+        Card.assign_or_initialize_by name, attributes, local_only: true
       end
 
       # TODO: this method already exists as card instance method in
