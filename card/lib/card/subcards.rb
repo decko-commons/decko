@@ -104,5 +104,4 @@ class Card
       name.absolute_name @context_card.name
     end
   end
-
 end
