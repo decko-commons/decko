@@ -44,7 +44,7 @@ format :html do
 
   view :core, template: :haml do |_args|
     @lines = [signup_line] + account_lines
-    @body = super()
+    @body = process_content _render_raw
   end
 
   def signup_line
