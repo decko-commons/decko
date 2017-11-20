@@ -88,7 +88,7 @@ def use_default_content?
   !db_content_changed? && template && template.db_content.present?
 end
 
-def blank?
+def unfilled?
   blank_content? && blank_comment? && !subcards?
 end
 

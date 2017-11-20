@@ -84,7 +84,7 @@ end
 
 event :reject_empty_subcards, :prepare_to_validate do
   subcards.each_with_key do |subcard, key|
-    next unless subcard.new? && subcard.blank?
+    next unless subcard.new? && subcard.empty?
     remove_subcard(key)
     director.subdirectors.delete(subcard)
   end

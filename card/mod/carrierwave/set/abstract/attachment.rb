@@ -53,7 +53,7 @@ def original_filename
   attachment.original_filename
 end
 
-def blank?
+def unfilled?
   !attachment.present? && !save_preliminary_upload? && !subcards? && blank_content?
 end
 
