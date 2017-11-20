@@ -46,18 +46,16 @@ describe Card::Set::Type::Signup do
 
     it "renders in core view" do
       Card::Auth.as_bot do
+#        puts @signup.format.render_core
         expect(@signup.format.render_core).to have_tag "div.invite-links" do
           with_tag "div", text: "A verification email has been sent to wolf@wagn.org"
           with_tag "div" do
-            with_tag "a.wanted-card",
-                     href: "/update/Big_Bad_Wolf?approve_with_token=true",
-                     text: "Resend verification email"
-            with_tag "a.wanted-card",
-                     href: "/update/Big_Bad_Wolf?approve_without_token=true",
-                     text: "Approve without verification"
-            with_tag "a.wanted-card",
-                     href: "/delete/Big_Bad_Wolf",
-                     text: "Deny and delete"
+            with_tag "a", href: "/update/Big_Bad_Wolf?approve_with_token=true",
+                          text: "Resend verification email"
+            with_tag "a", href: "/update/Big_Bad_Wolf?approve_without_token=true",
+                          text: "Approve without verification"
+            with_tag "a", href: "/delete/Big_Bad_Wolf",
+                          text: "Deny and delete"
           end
         end
       end
