@@ -70,7 +70,7 @@ describe Card::Set::All::Name do
     it "checks uniqueness" do
       Card::Auth.as_bot do
         @card.update_attributes codename: "structure"
-         expect(@card.errors[:codename].first).to match(/already in use/)
+        expect(@card.errors[:codename].first).to match(/already in use/)
       end
     end
   end
