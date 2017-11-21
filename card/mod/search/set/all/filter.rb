@@ -6,6 +6,4 @@ format :html do
                        sort_input_field: sort_input_field,
                        form_args: form_args
   end
-
 end
-

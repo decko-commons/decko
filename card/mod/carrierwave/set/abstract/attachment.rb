@@ -54,8 +54,7 @@ def original_filename
 end
 
 def unfilled?
-  !attachment.present? && !save_preliminary_upload? && !subcards.present? &&
-    !content.present?
+  !attachment.present? && !save_preliminary_upload? && !subcards? && blank_content?
 end
 
 def attachment_changed?

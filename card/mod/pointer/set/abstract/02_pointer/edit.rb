@@ -105,8 +105,6 @@ format :html do
     raw %(<ul class="pointer-radio-list">#{options}</ul>)
   end
 
-
-
   view :select do |_args|
     select_input
   end
