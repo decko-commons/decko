@@ -19,10 +19,13 @@ describe Card::Set::All::RichHtml::Editing do
 
   describe "edit_nests view" do
     it "should show nest edit fields" do
-      mycard.content = "Hello, {{+B}}"
+      mycard.content = "{{absolute}} AND {{+relative}}"
       view = myformat.render :edit_nests
       puts view
-      expect(view).to have_tag "div"
+      expect(view).to have_tag "div.SELF-a" do
+        with_tag "div.card-editor", with: { card_name: "absolute" }
+        with_tag "div.card-editor", with: { card_name: "A+relative" }
+      end
     end
   end
 
