@@ -162,7 +162,7 @@ format :html do
     voo.show :toolbar
     frame do
       with_nest_mode :edit do
-        multi_card_edit_fields
+        multi_card_edit
       end
     end
   end

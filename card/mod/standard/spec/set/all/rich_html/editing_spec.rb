@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::All::RichHtml::Editing do
-  before do
-    @mycard = Card["A"].format
-  end
+
+  let(:mycard) { Card["A"] }
+  let(:myformat) { mycard.format }
 
   def assert_active_toolbar_pill view, content, related_view=false
     view_selector = related_view ? "related" : view
-    assert_view_select @mycard.render!(view),
+    assert_view_select myformat.render!(view),
                        "div[class~='card-slot #{view_selector}-view']" do
       assert_select 'nav[class="slotter toolbar navbar navbar-inverse"]' do
         assert_select 'ul[class="nav navbar-nav nav-pills"]' do
@@ -19,11 +19,12 @@ describe Card::Set::All::RichHtml::Editing do
 
   describe "edit_nests view" do
     it "should show nest edit fields" do
-      @mycard.content = "Hello, {{B}}"
-      expect(@mycard.render :edit_nests).to have_tag "div"
+      mycard.content = "Hello, {{+B}}"
+      view = myformat.render :edit_nests
+      puts view
+      expect(view).to have_tag "div"
     end
   end
-
 
   # outdated
   # TODO: write tests for new toolbar
