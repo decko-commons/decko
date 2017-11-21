@@ -92,7 +92,7 @@ class Card
       key = case cardish
             when Card   then cardish.key
             when Symbol then fetch_subcard(cardish).key
-            else             @cardish.to_name.key
+            else             cardish.to_name.key
             end
       key = absolutize_subcard_name(key).key unless @keys.include?(key)
       key
