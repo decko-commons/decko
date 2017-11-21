@@ -1,6 +1,5 @@
 ::Card.error_codes[:conflict] = [:conflict, 409]
 
-
 def content= value
   self.db_content = value
 end
@@ -59,24 +58,44 @@ def last_draft_content
 end
 
 event :set_content, :store, on: :save do
-  self.db_content = standard_content || "" # necessary?
-  self.db_content = Card::Content.clean!(db_content) if clean_html?
+  self.db_content = prepare_content
   @selected_action_id = @selected_content = nil
   clear_drafts
   reset_patterns_if_rule true
 end
 
-event :save_draft, :store,
-      on: :update, when: proc { Env.params["draft"] == "true" } do
+event :save_draft, :store, on: :update, when: :draft? do
   save_content_draft content
   abort :success
 end
 
-event :set_default_content, :prepare_to_validate,
-      on: :create, when: proc { |c| c.use_default_content? } do
+event :set_default_content,
+      :prepare_to_validate,
+      on: :create, when: :use_default_content? do
   self.db_content = template.db_content
+end
+
+def draft?
+  Env.params["draft"] == "true"
+end
+
+def prepare_content
+  cont = standard_content || "" # necessary?
+  clean_html? ? Card::Content.clean!(cont) : cont
 end
 
 def use_default_content?
   !db_content_changed? && template && template.db_content.present?
+end
+
+def unfilled?
+  blank_content? && blank_comment? && !subcards?
+end
+
+def blank_content?
+  content.blank? || content.strip.blank?
+end
+
+def blank_comment?
+  comment.blank? || comment.strip.blank?
 end
