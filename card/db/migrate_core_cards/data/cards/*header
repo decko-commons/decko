@@ -2,7 +2,7 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-collapse-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-brand">
+    <div class="navbar-brand" href="/">
       {{*logo|core;size:small}}
       {{*title|core}}
     </div>
