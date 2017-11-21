@@ -17,6 +17,14 @@ describe Card::Set::All::RichHtml::Editing do
     end
   end
 
+  describe "edit_nests view" do
+    it "should show nest edit fields" do
+      @mycard.content = "Hello, {{B}}"
+      expect(@mycard.render :edit_nests).to have_tag "div"
+    end
+  end
+
+
   # outdated
   # TODO: write tests for new toolbar
   # describe "edit view" do
