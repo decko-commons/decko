@@ -41,8 +41,6 @@ format :csv do
     titles = column_titles extra_titles
     return "" unless titles.present?
     CSV.generate_line titles.map(&:upcase)
-  rescue # reason for rescue?
-    ""
   end
 
   def column_titles extra_titles=nil

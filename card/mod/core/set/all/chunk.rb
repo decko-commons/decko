@@ -77,11 +77,15 @@ format do
 
   def each_nested_card content=nil, fields_only=true, &block
     processed = process_tally
-    content ||= _render_raw
-    card.each_nested_chunk content do |chunk|
+    each_nested_chunk content do |chunk|
       next if fields_only && !field_chunk?(chunk)
       process_nested_chunk chunk, processed, &block
     end
+  end
+
+  def each_nested_chunk content, &block
+    content ||= _render_raw
+    card.each_nested_chunk content, &block
   end
 
   def process_tally
