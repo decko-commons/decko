@@ -3,9 +3,7 @@ def extended_item_cards context=nil
   items = item_cards limit: "", context: (context || self).name
   list = []
   book = ::Set.new # avoid loops
-  until items.empty?
-    extend_item_list items, list, book
-  end
+  extend_item_list items, list, book until items.empty?
   list
 end
 
