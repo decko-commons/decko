@@ -138,6 +138,26 @@ describe Card::Subcards do
       end
       expect(Card["card with subs+sub1"].content).to eq "second"
     end
+
+    it "handles codenames" do
+      create "card with subs", subfields: { title: "title 1" }
+      expect_card("card with subs+*title").to exist.and have_db_content "title 1"
+    end
+
+    it "handles nested subfields" do
+      create "card with subs",
+             subfields: { "nested" => { subfields: { title: "title 2"} } }
+      expect_card("card with subs+nested+*title").to exist.and have_db_content "title 2"
+    end
+
+    it "handles nested codenames" do
+          Card::Auth.as_bot do
+             @card = Card.create!(
+               name: "card with subs", subfields: { title: "new title" }
+             )
+          end
+          expect_card("card with subs+*title").to exist.and have_db_content "new title"
+        end
   end
 
   describe "#add" do

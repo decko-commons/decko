@@ -227,7 +227,7 @@ class Card
       subcards = args.delete(:subcards) || {}
       if (subfields = args.delete(:subfields))
         subfields.each_pair do |key, value|
-          subcards[name.to_name.field(key)] = value
+          subcards[normalize_subfield_key(key)] = value
         end
       end
       args.keys.each do |key|
@@ -236,11 +236,20 @@ class Card
       subcards
     end
 
+    # ensure a leading '+'
+    def normalize_subfield_key key
+      if key.is_a?(Symbol) && Card::Codename.exist?(key)
+        key = Card::Codename.name(key)
+      end
+      key = "+#{key}" unless key.to_s.start_with? "+"
+      key
+    end
+
     def new_by_attributes name, attributes={}
       attributes ||= {}
       absolute_name = absolutize_subcard_name name
       if absolute_name.field_of?(@context_card.name) &&
-         (absolute_name.parts.size - @context_card.name.parts.size) > 2
+         (absolute_name.parts.size - @context_card.name.parts.size) >= 2
         left_card = new_by_attributes absolute_name.left
         new_by_card left_card, transact_in_stage: attributes[:transact_in_stage]
         left_card.subcards.new_by_attributes absolute_name, attributes
