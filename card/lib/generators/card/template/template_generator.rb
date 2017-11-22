@@ -27,7 +27,7 @@ class Card
         if !Dir.exist? mod_path
           warn "invalid mod name: #{file_name}. Directory #{mod_path} doesn't exist."
         # Card.set_patterns not loaded at this point
-        elsif !%w[self type type_plus_right ltype_rtype rstar star
+        elsif !%w[self type right type_plus_right ltype_rtype rstar star
                   type all_plus all].include? set_pattern
           warn "invalid set pattern: #{set_pattern}"
         else
