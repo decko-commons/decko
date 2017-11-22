@@ -5,7 +5,7 @@ format :html do
   end
 
   view :action_expanded do |args|
-    render_action_content args[:action], :expanded
+    action_content args[:action], :expanded
   end
 
   def default_action_summary_args args

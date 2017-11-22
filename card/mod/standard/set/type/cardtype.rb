@@ -26,7 +26,7 @@ format :html do
 
   view :add_button, view: :add_link
   def default_add_button_args args
-    args[:css_class] = "btn btn-default"
+    args[:css_class] = "btn btn-outline-secondary"
   end
 
   view :add_url do |args|

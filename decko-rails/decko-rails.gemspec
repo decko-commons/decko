@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.homepage      = "http://decko.org"
   s.licenses      = ["GPL-2.0", "GPL-3.0"]
 
-  s.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
+  s.files         = Dir["lib/*/**"]
 
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
