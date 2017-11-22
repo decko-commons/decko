@@ -2,7 +2,7 @@
 def chunks content, type
   content ||= self.content
   type ||= Card::Content::Chunk
-  Card::Content.new(content, self).find_chunks
+  Card::Content.new(content, self).find_chunks type
 end
 
 def each_chunk content, type
