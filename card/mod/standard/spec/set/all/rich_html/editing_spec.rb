@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::All::RichHtml::Editing do
-
   let(:mycard) { Card["A"] }
   let(:myformat) { mycard.format }
 
@@ -18,7 +17,7 @@ describe Card::Set::All::RichHtml::Editing do
   end
 
   describe "edit_nests view" do
-    it "should show nest edit fields" do
+    it "shows editors for both absolute and relative nests" do
       mycard.content = "{{absolute}} AND {{+relative}}"
       view = myformat.render :edit_nests
       puts view
