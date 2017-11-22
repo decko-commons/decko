@@ -32,5 +32,4 @@ describe Card::Format::MethodDelegation do
     expect(format).to receive(:render).with("viewname", optional: :hide)
     format.render_viewname :optional: :hide
   end
-
 end
