@@ -16,16 +16,17 @@ format :html do
   def construct_tab tabs, name, explicit_options
     tab_options = item_view_options explicit_options
     tabs[:paths][name] = {
-        title: nest(name, view: :title, title: tab_options[:title]),
-        path: nest_path(name, tab_options).html_safe }
+      title: nest(name, view: :title, title: tab_options[:title]),
+      path: nest_path(name, tab_options).html_safe
+    }
     return unless tabs[:active].empty?
     tabs[:active] = { name: name, content: nest(name, tab_options) }
   end
 
-  #def tab_title title, name
-  #  return name unless title
-  #  name.to_name.title title, @context_names
-  #end
+  # def tab_title title, name
+  #   return name unless title
+  #   name.to_name.title title, @context_names
+  # end
 
   view :pills do
     construct_tabs "pills"

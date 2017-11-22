@@ -81,7 +81,7 @@ format :html do
   def edit_slot
     case
     when inline_nests_editor?  then _render_core
-    when multi_card_editor?    then multi_card_edit fields_only=true
+    when multi_card_editor?    then multi_card_edit(true)
     when in_multi_card_editor? then editor_in_multi_card
     else                            single_card_edit_field
     end
