@@ -29,7 +29,7 @@ describe Card::Format::MethodDelegation do
   end
 
   it "optional: :hide overrides default" do
-    expect(format).to receive(:render).with("viewname", optional: :hide)
-    format.render_viewname :optional: :hide
+    expect(format).to receive(:render!).with("viewname", optional: :hide)
+    format.render_viewname optional: :hide
   end
 end
