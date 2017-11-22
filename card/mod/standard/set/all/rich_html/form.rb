@@ -96,7 +96,8 @@ format :html do
   def multi_card_editor?
     nests_editor? ||                         # editor configured in voo
       voo.structure || voo.edit_structure || # structure configured in voo
-      card.structure                         # structure in card rule
+      card.structure ||                      # structure in card rule
+      edit_fields.present?                   # list of fields in card rule
   end
 
   # test: are we already within a multi-card form?
@@ -127,8 +128,13 @@ format :html do
 
   def multi_card_edit_fields
     nested_fields_for_edit.map do |name, options|
+      options ||= {}
       options[:hide] = [options[:hide], :toolbar].compact
-      nest name, options
+      if options.delete(:absolute)
+        nest name, options
+      else
+        field_nest name, options
+      end
     end.join "\n"
   end
 

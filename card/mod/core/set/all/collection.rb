@@ -244,8 +244,13 @@ format do
       next [name_or_card, options || {}] if name_or_card.is_a?(Card)
       options ||= Card.fetch_name name_or_card
       options = { title: options } if options.is_a?(String)
-      [card.name.field(name_or_card), options]
+      name = normalize_edit_field_name(name_or_card, options)
+      [name, options]
     end
+  end
+
+  def normalize_edit_field_name name_or_card, options
+    options[:absolute] ? name_or_card : card.name.field(name_or_card)
   end
 
   def process_field chunk, processed, &_block
