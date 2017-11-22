@@ -55,9 +55,9 @@ format do
 
   def normalized_edit_fields
     edit_fields.map do |cardish, options|
-      cardname = Card::Name[cardish]
-      options = normalized_edit_field_options options, cardname
-      [card.name.field(cardname), options]
+      field_card = cardish.is_a?(Card) ? cardish : card.name.field(cardish)
+      options = normalized_edit_field_options options, Card::Name[cardish]
+      [field_card, options]
     end
   end
 
