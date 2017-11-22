@@ -194,6 +194,9 @@ $(window).ready ->
     return false if !$.rails.allowAction $(this)
     $.rails.handleRemote $(this)
 
+  $('body').on 'click', '._clickable.slotter', (event)->
+    $.rails.handleRemote $(this)
+
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     return if opt.skip_before_send
 
