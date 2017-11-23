@@ -56,7 +56,7 @@ format :html do
   view :horizontal_menu, cache: :never do
     wrap_with :div, class: "btn-group btn-group-sm slotter float-right card-menu "\
                              "horizontal-card-menu d-none d-sm-inline-flex" do
-      menu_item_list(class: "btn btn-default").join("\n").html_safe
+      menu_item_list(class: "btn btn-outline-secondary").join("\n").html_safe
     end
   end
 
@@ -77,7 +77,6 @@ format :html do
   end
 
   def menu_follow_link opts
-    add_class opts, "dropdown-item"
     _render_follow_link(icon: true, link_opts: opts)
   end
 
@@ -105,7 +104,7 @@ format :html do
 
   def menu_item text, icon, opts={}
     link_text = "#{material_icon(icon)}<span class='menu-item-label'>#{text}</span>"
-    add_class opts, "dropdown-item"
+    # add_class opts, "dropdown-item"
     smart_link_to link_text.html_safe, opts
   end
 

@@ -6,6 +6,13 @@ class Card
       include Subformat
       include Mode
 
+      def nest cardish, options={}, override=true, &block
+        return "" if nest_invisible?
+        nested_card = fetch_nested_card cardish, options
+        view, options = interpret_nest_options nested_card, options
+        nest_render nested_card, view, options, override, &block
+      end
+
       # nested by another card's content
       # (as opposed to a direct API nest)
       def content_nest opts={}
@@ -15,11 +22,11 @@ class Card
         nest nest_name, opts
       end
 
-      def nest cardish, options={}, override=true, &block
-        return "" if nest_invisible?
-        nested_card = fetch_nested_card cardish, options
-        view, options = interpret_nest_options nested_card, options
-        nest_render nested_card, view, options, override, &block
+      # create a path for a nest with respect ot the nest options
+      def nest_path name, nest_opts={}
+        path_opts = { slot: nest_opts.clone }
+        path_opts[:view] = path_opts[:slot].delete :view
+        page_path name, path_opts
       end
 
       def interpret_nest_options nested_card, options

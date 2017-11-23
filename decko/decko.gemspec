@@ -24,11 +24,11 @@ Gem::Specification.new do |s|
   s.homepage      = "http://decko.org"
   s.licenses      = ["GPL-2.0", "GPL-3.0"]
 
-  s.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
+  s.files         = Dir["README.rdoc", "LICENSE", "GPL",
+                        "{app,bin,lib,rails,script}/**/*"]
 
   s.bindir        = "bin"
   s.executables   = ["decko"]
-  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
   s.required_ruby_version = ">= 2.3"

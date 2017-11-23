@@ -81,7 +81,7 @@ format :html do
   def edit_slot
     case
     when inline_nests_editor?  then _render_core
-    when multi_card_editor?    then multi_card_edit_fields
+    when multi_card_editor?    then multi_card_edit(true)
     when in_multi_card_editor? then editor_in_multi_card
     else                            single_card_edit_field
     end
@@ -126,8 +126,8 @@ format :html do
     end
   end
 
-  def multi_card_edit_fields
-    nested_fields_for_edit.map do |name, options|
+  def multi_card_edit fields_only=false
+    nested_cards_for_edit(fields_only).map do |name, options|
       options ||= {}
       options[:hide] = [options[:hide], :toolbar].compact
       if options.delete(:absolute)
