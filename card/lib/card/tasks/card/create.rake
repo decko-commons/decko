@@ -21,9 +21,7 @@ namespace :card do
     desc "create folders and files for scripts or styles"
     task codefile: :environment do
       with_params(:mod, :name, :type) do |mod, name, category, type, type_codename|
-        create_content_file mod, name, type
-        create_rb_file mod, name
-        create_migration_file name, category, type_codename
+        FileCardCreator.new(mod, name, type).create
       end
     end
 
@@ -68,9 +66,7 @@ namespace :card do
       return unless parameters_present?(*keys)
       values = keys.map { |k| ENV[k.to_s] }
       mod, name, type = values
-      name = remove_prefix name
-      typecode = type_codename(type)
-      yield mod, name, category(typecode), type, typecode
+      yield mod, name, type
     end
 
     def remove_prefix name
