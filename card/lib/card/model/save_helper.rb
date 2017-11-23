@@ -179,7 +179,7 @@ class Card
       end
 
       def ensure_attributes card, args
-        args = args.to_h.with_indifferent_access
+        # args = args.to_h.with_indifferent_access
         subcards = card.extract_subcard_args! args
         update_args =
           args.select do |key, value|

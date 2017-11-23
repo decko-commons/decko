@@ -58,7 +58,7 @@ format :html do
   end
 
   def toolbar_split_buttons
-    wrap_with :form, class: "navbar-text" do
+    wrap_with :form do
       [
         account_split_button,
         toolbar_button_card(:activity),
@@ -69,7 +69,7 @@ format :html do
   end
 
   def toolbar_simple_buttons
-    wrap_with :form, class: "navbar-text" do
+    wrap_with :form do
       _render :toolbar_buttons
     end
   end
@@ -162,8 +162,7 @@ format :html do
 
   def related_codename related_card
     return nil unless related_card
-    tag_card = Card.quick_fetch related_card.name.right
-    tag_card && tag_card.codename
+    Card.quick_fetch(related_card.name.right)&.codename
   end
 
   def close_link extra_class, opts={}
