@@ -1,10 +1,8 @@
 class Card
+  # A Factory class
+  # It choses the class to create the file card accoring to the given type.
   class FileCardCreator
-    # %w[output_helper abstract_file_card style_card script_card haml_card].each do |f|
-    #   require_dependency "card/tasks/card/file_card_creator/#{f}"
-    # end
-
-    CARD_CLASSES = [StyleCard, ScriptCard, HamlCard]
+    CARD_CLASSES = [StyleCard, ScriptCard, HamlCard].freeze
 
     attr_reader :creator
 

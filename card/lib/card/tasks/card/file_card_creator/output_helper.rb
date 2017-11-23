@@ -1,5 +1,6 @@
 class Card
   class FileCardCreator
+    # Helper methods to write to files and the console.
     module OutputHelper
       def write_to_mod rel_dir, filename
         dir = File.join "mod", @mod, rel_dir

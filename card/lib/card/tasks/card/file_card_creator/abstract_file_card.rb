@@ -1,10 +1,7 @@
 class Card
   class FileCardCreator
+    # A template class for generating cards that are linked to source files.
     class AbstractFileCard
-      # %w[source_file migration_file ruby_file].each do |f|
-      #   require_dependency File.expand_path("../abstract_file_card/#{f}", __FILE__)
-      # end
-
       include OutputHelper
       include SourceFile
       include MigrationFile
@@ -21,7 +18,7 @@ class Card
 
       def initialize mod, name, type, codename: nil, force: false
         @mod = mod
-        @type = type
+        @type = type.to_sym
         @name = name
         @force = force
         @codename = codename || name.to_name.key
