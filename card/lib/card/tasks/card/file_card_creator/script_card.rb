@@ -11,6 +11,8 @@ class Card
       @category = :script
       @default_rule_name = "*all+*script"
 
+      private
+
       def source_file_ext
         @type == :coffee ? "js.coffee" : @type
       end

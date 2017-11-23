@@ -7,19 +7,23 @@ class Card
         FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
 
         path = File.join dir, filename
-        status, color =
-          if File.exist?(path)
-            if @force
-              ["overridden", :green]
-            else
-              ["file exists (use 'force=true' to override)", :yellow]
-            end
-          else
-            File.open(path, "w") do |opened_file|
-              yield(opened_file)
-            end
-            ["created", :green]
+        log_file_action path do
+          File.open(path, "w") do |opened_file|
+            yield(opened_file)
           end
+        end
+      end
+
+      def log_file_action path
+        status, color =
+          if File.exist?(path) && !@force
+            ["file exists (use 'force=true' to override)", :yellow]
+          else
+            status = File.exist?(path) ? "overridden" : "created"
+            yield
+            [status, :green]
+          end
+
         color_puts status, color, path
       end
 

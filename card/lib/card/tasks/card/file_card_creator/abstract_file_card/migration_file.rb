@@ -1,6 +1,9 @@
 class Card
   class FileCardCreator
     class AbstractFileCard
+      # Module that provides #create_migration_file method for classes that
+      # inherit from AbstractFileCard.
+      # It uses the decko generator to create the migration.
       module MigrationFile
         def create_migration_file
           puts "creating migration file...".yellow
@@ -9,6 +12,8 @@ class Card
           migration_file_name = migration_out[/db.*/]
           write_at migration_file_name, 5, indented_migration_content # 5 is line no.
         end
+
+        private
 
         def migrate_command
           cmd = "bundle exec decko generate card:migration add_#{@codename}"

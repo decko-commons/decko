@@ -11,6 +11,8 @@ class Card
       @category = :style
       @default_rule_name = "*all+*style"
 
+      private
+
       def type_codename
         @type_codename ||= @type.to_sym
       end

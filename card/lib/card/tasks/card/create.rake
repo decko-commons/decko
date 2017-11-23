@@ -22,8 +22,8 @@ namespace :card do
     desc "create folders and files for scripts, styles or haml"
     task codefile: :environment do
       set_default_rule_names
-      with_params(:mod, :name, :type, codename: nil, force: false) do
-        |mod, name, type, codename, force|
+      with_params :mod, :name, :type,
+                  codename: nil, force: false do |mod, name, type, codename, force|
         Card::FileCardCreator.new(mod, name, type, codename, force == "true").create
       end
     end
