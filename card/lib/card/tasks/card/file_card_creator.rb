@@ -1,62 +1,27 @@
 class Card
   class FileCardCreator
-    def initialize mod, name, type
-      @mod = mod
-      @type = type
-      @name = remove_prefix name
-      creator_class =
-        case type
-        when :css, :scss then StyleCardCreator
-        when :js, :coffee then ScriptCardCreator
-        when :haml then HamlCardCreator
-        else
-          color_puts "'#{type}' is not a valid type. "\
-                 "Please choose between js, coffee, css, scss and haml", :red
-        end
-      @creator = creator_class.new mod, name, type
-    end
+    # %w[output_helper abstract_file_card style_card script_card haml_card].each do |f|
+    #   require_dependency "card/tasks/card/file_card_creator/#{f}"
+    # end
 
-    def create
-      @creator.create
-      create_content_file
-      create_rb_file
-      create_migration_file
-    end
+    CARD_CLASSES = [StyleCard, ScriptCard, HamlCard]
 
-    def create_content_file
-      write_to_mod content_dir, content_filename do |f|
-        content = (card = Card.fetch(name)) ? card.content : ""
-        f.puts content
+    attr_reader :creator
+
+    def initialize mod, name, type, codename, force
+      card_class = FileCardCreator.card_class type
+      unless card_class
+        raise "'#{type}' is not a valid type. "\
+              "Please choose between js, coffee, css, scss and haml", :red
       end
+
+      @creator = card_class.new mod, name, type, codename: codename, force: force
     end
 
-    def create_rb_file
-      self_dir = File.join "set", "self"
-      self_file = @name + ".rb"
-      write_to_mod(self_dir, self_file) do |f|
-        f.puts("include_set Abstract::CodeFile")
-      end
+    def self.card_class type
+      CARD_CLASSES.find { |cc| cc.valid_type? type }
     end
 
-    def remove_prefix name
-      name.sub(/^(?:script|style):?_?\s*/, "")
-    end
-
-    def color_puts colored_text, color, text=""
-      puts "#{colored_text.send(color.to_s)} #{text}"
-    end
-
-    def content_filename
-      file_ext = @type == "coffee" ? ".js.coffee" : "." + @type
-      @name + file_ext
-    end
-
-    def type_id
-      "Card::#{type_codename.to_s.camelcase}ID"
-    end
-
-    def rule_card_name
-      DEFAULT_RULE[@category]
-    end
+    delegate :create, to: :creator
   end
 end
