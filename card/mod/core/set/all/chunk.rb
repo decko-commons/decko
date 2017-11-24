@@ -55,15 +55,21 @@ format do
 
   def normalized_edit_fields
     edit_fields.map do |cardish, options|
-      field_card = cardish.is_a?(Card) ? cardish : card.name.field(cardish)
-      options = normalized_edit_field_options options, Card::Name[cardish]
-      [field_card, options]
+      field_mark = normalized_edit_field_mark cardish, options
+      options = normalized_edit_field_options options, Card::Name[field_mark]
+      [field_mark, options]
     end
   end
 
   def normalized_edit_field_options options, cardname
     options ||= cardname
     options.is_a?(String) ? { title: options } : options
+  end
+
+  def normalized_edit_field_mark cardish, options
+    return cardish if cardish.is_a?(Card) ||
+                      (options.is_a?(Hash) && options.delete(:absolute))
+    card.name.field cardish
   end
 
   def process_field chunk, processed, &_block
