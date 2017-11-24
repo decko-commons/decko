@@ -190,7 +190,7 @@ class Card
               card.send(key) != value
             end
           end
-        return if update_args.empty? && subcards.unfilled?
+        return if update_args.empty? && subcards.empty?
         # FIXME: use ensure_attributes for subcards
         card.update_attributes! update_args.merge(subcards: subcards)
       end
