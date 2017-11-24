@@ -39,7 +39,10 @@ format :json do
   end
 
   def name_search query_attribute: :complete, limit: AUTOCOMPLETE_LIMIT
-    card.search limit: limit, sort: "name", return: "name", query_attribute => params[:term]
+    card.search limit: limit,
+                sort: "name",
+                return: "name",
+                query_attribute => params[:term]
   end
 
   view :status, tags: :unknown_ok, perms: :none, cache: :never do

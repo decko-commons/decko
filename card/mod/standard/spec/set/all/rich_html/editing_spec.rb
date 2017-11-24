@@ -1,18 +1,29 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::All::RichHtml::Editing do
-  before do
-    @mycard = Card["A"].format
-  end
+  let(:mycard) { Card["A"] }
+  let(:myformat) { mycard.format }
 
   def assert_active_toolbar_pill view, content, related_view=false
     view_selector = related_view ? "related" : view
-    assert_view_select @mycard.render!(view),
+    assert_view_select myformat.render!(view),
                        "div[class~='card-slot #{view_selector}-view']" do
       assert_select 'nav[class="slotter toolbar navbar navbar-inverse"]' do
         assert_select 'ul[class="nav navbar-nav nav-pills"]' do
           assert_select 'li[class~="active"] > a', content
         end
+      end
+    end
+  end
+
+  describe "edit_nests view" do
+    it "shows editors for both absolute and relative nests" do
+      mycard.content = "{{absolute}} AND {{+relative}}"
+      view = myformat.render :edit_nests
+      puts view
+      expect(view).to have_tag "div.SELF-a" do
+        with_tag "div.card-editor", with: { card_name: "absolute" }
+        with_tag "div.card-editor", with: { card_name: "A+relative" }
       end
     end
   end

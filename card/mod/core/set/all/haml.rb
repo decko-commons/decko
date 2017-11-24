@@ -1,8 +1,4 @@
-
-#set_scope = "haml"
-
 format do
-
   include Card::Set::Format::HamlViews
 
   define_method :the_scope do
@@ -44,9 +40,9 @@ format do
 
   def haml *args, &block
     if args.first.is_a? Symbol
-      process_haml_template *args
+      process_haml_template(*args)
     else
-      process_haml *args, &block
+      process_haml(*args, &block)
     end
   end
 
@@ -59,7 +55,7 @@ format do
 
   def process_haml *args
     args.unshift yield if block_given?
-    haml_to_html *args
+    haml_to_html(*args)
   end
 
   def process_haml_template template_name, locals={}

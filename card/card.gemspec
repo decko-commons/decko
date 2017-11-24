@@ -28,24 +28,9 @@ Gem::Specification.new do |s|
   s.homepage      = "http://decko.org"
   s.licenses      = ["GPL-2.0", "GPL-3.0"]
 
-  s.files         = `git ls-files`.split $INPUT_RECORD_SEPARATOR
+  s.files         = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", "card/.yardopts",
+                        "{config,db,lib,mod,tmpsets}/**/*"]
 
-  # add submodule files (seed data)
-  morepaths = `git submodule --quiet foreach pwd`.split $OUTPUT_RECORD_SEPARATOR
-  morepaths.each do |submod_path|
-    gem_root = File.expand_path File.dirname(__FILE__)
-    relative_submod_path = submod_path.gsub "#{gem_root}/", ""
-    Dir.chdir(submod_path) do
-      morefiles = `git ls-files`.split /\n/ #$OUTPUT_RECORD_SEPARATOR
-      #puts "ors = #{$OUTPUT_RECORD_SEPARATOR}"
-      s.files += morefiles.map do |filename|
-        "#{relative_submod_path}/#{filename}" #unless filename =~ /\s/
-      end.compact
-    end
-  end
-
-
-  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
   s.required_ruby_version = ">= 2.3"

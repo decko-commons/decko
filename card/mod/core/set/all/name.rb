@@ -200,6 +200,42 @@ rescue
   self
 end
 
+
+def right_id= card_or_id
+  write_card_or_id :right_id, card_or_id
+end
+
+def left_id= card_or_id
+  write_card_or_id :left_id, card_or_id
+end
+
+def type_id= card_or_id
+  write_card_or_id :type_id, card_or_id
+end
+
+def write_card_or_id attribute, card_or_id
+  if card_or_id.is_a? Card
+    write_attribute_to_card attribute, card_or_id
+  else
+    write_attribute attribute, card_or_id
+  end
+end
+
+def write_attribute_to_card attribute, card
+  if card.id
+    write_attribute attribute, card.id
+  else
+    add_subcard card
+    card.director.prior_store = true
+    with_id_when_exists(card) do |id|
+      write_attribute attribute, id
+    end
+  end
+end
+
+def with_id_when_exists card, &block
+  card.director.call_after_store(&block)
+end
 event :set_autoname, :prepare_to_validate, on: :create do
   if name.blank? && (autoname_card = rule_card(:autoname))
     self.name = autoname autoname_card.db_content

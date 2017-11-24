@@ -17,9 +17,9 @@ class Card
       def with_voo voo
         old_voo = @voo
         @voo = voo
-        result = yield
+        yield
+      ensure
         @voo = old_voo
-        result
       end
 
       def view_options_with_defaults view, options

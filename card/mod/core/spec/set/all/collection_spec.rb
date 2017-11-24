@@ -26,12 +26,12 @@ describe Card::Set::All::Collection do
     end
   end
 
-  describe "#extended_list" do
-    it "returns item's content for pointer setting" do
-      c = Card.new(name: "foo", type: "Pointer", content: "[[Z]]")
-      expect(c.extended_list).to eq(["I'm here to be referenced to"])
-    end
-  end
+  # describe "#extended_list" do
+  #   it "returns item's content for pointer setting" do
+  #     c = Card.new(name: "foo", type: "Pointer", content: "[[Z]]")
+  #     expect(c.extended_list).to eq(["I'm here to be referenced to"])
+  #   end
+  # end
 
   describe "#extended_item_cards" do
     it "returns the 'leaf cards' of a tree of pointer cards" do

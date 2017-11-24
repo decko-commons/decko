@@ -179,7 +179,7 @@ class Card
       end
 
       def ensure_attributes card, args
-        args = args.to_h.with_indifferent_access
+        # args = args.to_h.with_indifferent_access
         subcards = card.extract_subcard_args! args
         update_args =
           args.select do |key, value|
@@ -190,7 +190,7 @@ class Card
               card.send(key) != value
             end
           end
-        return if update_args.empty? && subcards.empty?
+        return if update_args.empty? && subcards.unfilled?
         # FIXME: use ensure_attributes for subcards
         card.update_attributes! update_args.merge(subcards: subcards)
       end

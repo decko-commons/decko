@@ -10,6 +10,18 @@ def subfield field_name
   subcards.field field_name
 end
 
+def subcards
+  @subcards ||= Card::Subcards.new self
+end
+
+def subcards?
+  subcards.present?
+end
+
+def expire_subcards
+  subcards.clear
+end
+
 # phase_method :attach_subcard, before: :store do |name_or_card, args=nil|
 # TODO: handle differently in different stages
 def attach_subcard name_or_card, args={}
@@ -57,26 +69,23 @@ def deep_clear_subcards
   subcards.deep_clear
 end
 
-def unfilled?
-  (content.empty? || content.strip.empty?) &&
-    (comment.blank? || comment.strip.blank?) &&
-    !subcards.present?
-end
-
 event :handle_subcard_errors do
   subcards.each do |subcard|
     subcard.errors.each do |field, err|
-      err = "#{field} #{err}" unless %i[content abort].member? field
-      errors.add subcard.name.from(name), err
+      subcard_error subcard, field, err
     end
   end
 end
 
+def subcard_error subcard, field, err
+  err = "#{field} #{err}" unless %i[content abort].member? field
+  errors.add subcard.name.from(name), err
+end
+
 event :reject_empty_subcards, :prepare_to_validate do
   subcards.each_with_key do |subcard, key|
-    if subcard.new? && subcard.unfilled?
-      remove_subcard(key)
-      director.subdirectors.delete(subcard)
-    end
+    next unless subcard.new? && subcard.unfilled?
+    remove_subcard(key)
+    director.subdirectors.delete(subcard)
   end
 end
