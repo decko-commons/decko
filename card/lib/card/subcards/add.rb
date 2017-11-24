@@ -84,7 +84,7 @@ class Card
         subcards = args.delete(:subcards) || {}
         if (subfields = args.delete(:subfields))
           subfields.each_pair do |key, value|
-            subcards[name.to_name.field(key)] = value
+            subcards[normalize_subfield_key(key)] = value
           end
         end
         args.keys.each do |key|
@@ -94,6 +94,14 @@ class Card
       end
 
       private
+
+      # ensure a leading '+'
+      def normalize_subfield_key key
+        if key.is_a?(Symbol) && Card::Codename.exist?(key)
+          key = Card::Codename.name(key)
+        end
+        key.to_name.prepend_joint
+      end
 
       # Handles hash with several subcards
       def multi_add args
