@@ -151,13 +151,13 @@ describe Card::Subcards do
     end
 
     it "handles nested codenames" do
-          Card::Auth.as_bot do
-             @card = Card.create!(
-               name: "card with subs", subfields: { title: "new title" }
-             )
-          end
-          expect_card("card with subs+*title").to exist.and have_db_content "new title"
-        end
+      Card::Auth.as_bot do
+        @card = Card.create!(
+          name: "card with subs", subfields: { title: "new title" }
+        )
+      end
+      expect_card("card with subs+*title").to exist.and have_db_content "new title"
+    end
   end
 
   describe "#add" do

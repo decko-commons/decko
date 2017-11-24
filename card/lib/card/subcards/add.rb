@@ -100,8 +100,7 @@ class Card
         if key.is_a?(Symbol) && Card::Codename.exist?(key)
           key = Card::Codename.name(key)
         end
-        key = "+#{key}" unless key.to_s.start_with? "+"
-        key
+        key.to_name.prepend_joint
       end
 
       # Handles hash with several subcards
