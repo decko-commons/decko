@@ -41,6 +41,8 @@ class Cardname
       self =~ /^#{Regexp.escape joint}/ ? self : (joint + self)
     end
 
+    alias_method :to_field, :prepend_joint
+
     private
 
     def swap_all_subsequences oldseq, newseq

@@ -9,7 +9,7 @@ class Card
           when Symbol, Integer then Card.fetch cardish
           when "_", "_self"    then card.context_card
           else
-            opts[:nest_name] = cardish.to_s
+            opts[:nest_name] = Card::Name[cardish].to_s
             Card.fetch cardish, new: nest_new_args(opts)
           end
         end
@@ -53,7 +53,6 @@ class Card
           return unless (nestcard_params = subcard_params[nest_name])
           nestcard_params["content"]
         end
-
       end
     end
   end
