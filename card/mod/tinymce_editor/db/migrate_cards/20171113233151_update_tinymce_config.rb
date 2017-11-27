@@ -4,6 +4,7 @@ class UpdateTinymceConfig < Card::Migration::Core
   TINYMCE_CONF = <<-JSON.strip_heredoc
     {
       "theme": "modern",
+      "menubar": "edit view insert format table",
       "plugins": "autoresize code lists hr link autolink table contextmenu textcolor colorpicker",
       "toolbar1": "formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat",
       "width":"100%",
