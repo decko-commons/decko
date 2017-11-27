@@ -1,5 +1,3 @@
-
-
 format :html do
   # FIELDSET VIEWS
   view :content_formgroup, cache: :never do
@@ -241,7 +239,6 @@ format :html do
       yield
     end
   end
-
 
   # FIELD VIEWS
 

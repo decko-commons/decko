@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.homepage      = "http://decko.org"
   s.licenses      = ["GPL-2.0", "GPL-3.0"]
 
-  s.files         = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", "card/.yardopts",
+  s.files         = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
                         "{config,db,lib,mod,tmpsets}/**/*"]
 
   s.require_paths = ["lib"]
