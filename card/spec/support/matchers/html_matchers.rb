@@ -18,7 +18,8 @@ module RSpecHtmlMatchers
     end
 
     def hightlight_syntax text, syntax = :html
-      text = Nokogiri::XML(text, &:noblanks).root.to_s if syntax == :html
+      text = Nokogiri::XML("<debug>#{text}</debug>", &:noblanks)
+               .root.children.to_s if syntax == :html
       CodeRay.scan(text, syntax).term
     end
   end
