@@ -36,8 +36,11 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
   end
 
   def update_bootstrap_default
-    ensure_card "default bootstrap skin+bootswatch theme", type_id: Card::ScssID,
-                content: "{{bootstrap: functions}}{{bootstrap: variables}}{{bootstrap: core}}"
+    ensure_card "bootstrap default skin+bootswatch theme",
+                type_id: Card::ScssID,
+                content: "{{bootstrap: functions}}" \
+                         "{{bootstrap: variables}}" \
+                         "{{bootstrap: core}}"
   end
 
   def add_icon_cards
