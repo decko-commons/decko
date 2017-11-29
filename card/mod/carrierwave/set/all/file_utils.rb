@@ -8,6 +8,7 @@ module ClassMethods
     draft_actions_with_attachment.each do |action|
       # we don't want to delete uploads in progress
       next unless old_enough?(action.created_at) && (card = action.card)
+      next if card.read_only?
       card.delete_files_for_action action
       action.delete
     end
