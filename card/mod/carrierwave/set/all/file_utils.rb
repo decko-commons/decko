@@ -5,12 +5,18 @@ module ClassMethods
   end
 
   def delete_tmp_files_of_cached_uploads
-    draft_actions_with_attachment.each do |action|
-      # we don't want to delete uploads in progress
-      next unless old_enough?(action.created_at) && (card = action.card)
-      next if card.read_only?
+    disposable_attachments do |card, action|
       card.delete_files_for_action action
       action.delete
+    end
+  end
+
+  def disposable_attachments
+    draft_actions_with_attachment.each do |action|
+      # we don't want to delete uploads in progress
+      next if card.read_only?
+      next unless old_enough?(action.created_at) && (card = action.card)
+      yield card, action
     end
   end
 
