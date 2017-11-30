@@ -9,17 +9,22 @@ module RSpecHtmlMatchers
     def with_sytnax_highlighting
       doc = @document
       tag = @tag
-      @document = hightlight_syntax @document
-      @tag = hightlight_syntax @tag, :css
+      @document = highlight_syntax @document
+      @tag = highlight_syntax @tag, :css
       yield
     ensure
       @document = doc
       @tag = tag
     end
 
-    def hightlight_syntax text, syntax = :html
-      text = Nokogiri::XML(text, &:noblanks).root.to_s if syntax == :html
+    def highlight_syntax text, syntax = :html
+      text = reformat_html text if syntax == :html
       CodeRay.scan(text, syntax).term
+    end
+
+    def reformat_html text
+      # needs an additional surrounding tag otherwise it returns only the first tag
+      Nokogiri::XML("<debug>#{text}</debug>", &:noblanks).root.children.to_s
     end
   end
 
