@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
 # Commonly used email steps
 #
 # To add your own steps make a custom_email_steps.rb

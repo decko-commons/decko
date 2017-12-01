@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
 #
 Then /the card (.*) should contain "([^\"]*)"$/ do |cardname, content|
   visit path_to("card #{cardname}")
@@ -79,7 +79,7 @@ Then /^"([^"]*)" should be selected for "([^"]*)"$/ do |value, field|
   expect(selected.inner_html).to match /#{value}/
 end
 
-Then /^I should see css class "([^\"]*)" within "(.*)"$/do |css_class, selector|
+Then /^I should see css class "([^\"]*)" within "(.*)"$/ do |css_class, selector|
   within selector do
     find(css_class)
   end

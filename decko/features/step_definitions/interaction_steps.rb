@@ -1,3 +1,6 @@
+# -*- encoding : utf-8 -*-
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
+
 When /^(?:|I )enter "([^"]*)" into "([^"]*)"$/ do |value, field|
   selector = ".RIGHT-#{field.to_name.safe_key} input.d0-card-content"
   find(selector).set value

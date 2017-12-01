@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
 
 # Given /^I sign in as (.+)$/ do |account_name|
 #   # FIXME: define a faster simulate method ("I am logged in as")
@@ -27,4 +27,3 @@ end
 Then /^"([^"]*)" should be signed in$/ do |user| # "
   has_css?(".my-card-link", text: user)
 end
-

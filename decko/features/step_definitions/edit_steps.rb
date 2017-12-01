@@ -1,3 +1,6 @@
+# -*- encoding : utf-8 -*-
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
+
 Given /^(.*) (is|am) watching "([^\"]+)"$/ do |user, _verb, cardname|
   Delayed::Worker.new.work_off
   user = Card::Auth.current.name if user == "I"
@@ -153,12 +156,21 @@ def find_editor selector
 end
 
 def signed_in_as username
-  sameuser = (username == "I")
-  sameuser ||= (Card::Auth.current.key == username.to_name.key)
+  return yield if same_user?(username)
+
+  preserve_existing_session do
+    step "I am signed in as #{username}"
+    yield
+  end
+end
+
+def same_user? username
+  (username == "I") || (Card::Auth.current.key == username.to_name.key)
+end
+
+def preserve_existing_session
   was_signed_in = Card::Auth.current_id if Card::Auth.signed_in?
-  step "I am signed in as #{username}" unless sameuser
   yield
-  return if sameuser
   msg = if was_signed_in
           "I am signed in as #{Card[was_signed_in].name}"
         else

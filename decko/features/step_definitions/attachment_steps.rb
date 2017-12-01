@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
 
 When /^(?:|I )upload the (.+) "(.+)"$/ do |attachment_name, filename|
   Capybara.ignore_hidden_elements = false
@@ -29,7 +29,7 @@ Then /^within "(.+)" I should see an image of size "(.+)" and type "(.+)"$/ do |
   end
 end
 
-Then  /^I should see a non-coded image of size "(.+)" and type "(.+)"$/ do |size, type|
+Then /^I should see a non-coded image of size "(.+)" and type "(.+)"$/ do |size, type|
   element = find("img[src*='#{size}.#{type}']")
   expect(element[:src]).to match(%r{/~\d+/})
 end
