@@ -45,6 +45,7 @@ format :html do
   def cancel_button args={}
     text = args.delete(:text) || "Cancel"
     args[:type] ||= "button"
+    args[:situation] ||= "outline-secondary"
     add_class args, (args[:href] ? "slotter" : "redirecter")
     args[:href] ||= Card.path_setting("/*previous")
     button_tag text, args
