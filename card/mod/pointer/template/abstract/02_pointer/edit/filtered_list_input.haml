@@ -1,5 +1,8 @@
 %div.filtered-list-editor
   %ul.filtered-list-review
     - items.each do |item|
-      = _render_list_item pointer_item: item
+      %li.filtered-list-item
+        = filtered_list_item item
+        %button.filtered-list-item-delete.btn.btn-secondary{:type => "button"}
+          = icon_tag :remove
   = add_item_button
