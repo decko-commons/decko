@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 # rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax, Metrics/LineLength
 
-Given /^(.*) (is|am) watching "([^\"]+)"$/ do |user, _verb, cardname|
+Given /^(.*) (is|am) watching "([^"]+)"$/ do |user, _verb, cardname|
   Delayed::Worker.new.work_off
   user = Card::Auth.current.name if user == "I"
   signed_in_as user do
@@ -9,14 +9,14 @@ Given /^(.*) (is|am) watching "([^\"]+)"$/ do |user, _verb, cardname|
   end
 end
 
-Given /^(.*) (is|am) not watching "([^\"]+)"$/ do |user, _verb, cardname|
+Given /^(.*) (is|am) not watching "([^"]+)"$/ do |user, _verb, cardname|
   user = Card::Auth.current.name if user == "I"
   signed_in_as user do
     step "the card #{cardname}+#{user}+*follow contains \"[[*never]]\""
   end
 end
 
-Given /^the card (.*) contains "([^\"]*)"$/ do |cardname, content|
+Given /^the card (.*) contains "([^"]*)"$/ do |cardname, content|
   Card::Auth.as_bot do
     card = Card.fetch cardname, new: {}
     card.content = content
@@ -24,7 +24,7 @@ Given /^the card (.*) contains "([^\"]*)"$/ do |cardname, content|
   end
 end
 
-When /^(.*) creates?\s*a?\s*([^\s]*) card "(.*)" with content "(.*)"$/ do |username, cardtype, cardname, content|
+When /^(.*) creates?\s*a?\s*([^\s]*) card "([^"]*)" with content "([^"]*)"$/ do |username, cardtype, cardname, content|
   create_card(username, cardtype, cardname, content) do
     set_content "card[content]", content, cardtype
   end
@@ -42,13 +42,13 @@ When /^(.*) creates?\s*([^\s]*) card "([^"]*)" with plusses:$/ do |username, car
   end
 end
 
-When /^(.*) edits? "([^\"]*)"$/ do |username, cardname|
+When /^(.*) edits? "([^"]*)"$/ do |username, cardname|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
   end
 end
 
-When /^(.*) edits? "([^\"]*)" entering "([^\"]*)" into wysiwyg$/ do |username, cardname, content|
+When /^(.*) edits? "([^"]*)" entering "([^"]*)" into wysiwyg$/ do |username, cardname, content|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     page.execute_script "$('#main .d0-card-content').val('#{content}')"
@@ -57,7 +57,7 @@ When /^(.*) edits? "([^\"]*)" entering "([^\"]*)" into wysiwyg$/ do |username, c
   end
 end
 
-When /^(.*) edits? "([^\"]*)" setting (.*) to "([^\"]*)"$/ do |username, cardname, _field, content|
+When /^(.*) edits? "([^"]*)" setting (.*) to "([^"]*)"$/ do |username, cardname, _field, content|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     set_content "card[content]", content
@@ -66,12 +66,12 @@ When /^(.*) edits? "([^\"]*)" setting (.*) to "([^\"]*)"$/ do |username, cardnam
   end
 end
 
-When /^(.*) edits? "([^\"]*)" filling in "([^\"]*)"$/ do |_username, cardname, content|
+When /^(.*) edits? "([^"]*)" filling in "([^"]*)"$/ do |_username, cardname, content|
   visit "/card/edit/#{cardname.to_name.url_key}"
   fill_in "card[content]", with: content
 end
 
-When /^(.*) edits? "([^\"]*)" with plusses:/ do |username, cardname, plusses|
+When /^(.*) edits? "([^"]*)" with plusses:/ do |username, cardname, plusses|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     plusses.hashes.first.each do |name, content|
@@ -82,7 +82,7 @@ When /^(.*) edits? "([^\"]*)" with plusses:/ do |username, cardname, plusses|
   end
 end
 
-When /^(.*) deletes? "([^\"]*)"$/ do |username, cardname|
+When /^(.*) deletes? "([^"]*)"$/ do |username, cardname|
   signed_in_as(username) do
     visit "/card/delete/#{cardname.to_name.url_key}"
   end
