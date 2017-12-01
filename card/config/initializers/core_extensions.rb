@@ -17,4 +17,5 @@ module CoreExtensions
   ::Symbol.include_extension PersistentIdentifier
   ::Integer.include_extension PersistentIdentifier
   ::Hash.extend Hash::ClassMethods::Nesting
+  ::MatchData.include_extension MatchData
 end
