@@ -1,0 +1,5 @@
+%div.filtered-list-editor
+  %ul.filtered-list-review
+    - items.each do |item|
+      = _render_list_item pointer_item: item
+  = add_item_button
