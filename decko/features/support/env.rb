@@ -47,7 +47,7 @@ Before("@javascript") do
 end
 
 Before do
-  # Capybara.page.current_window.resize_to 1440, 1280
+  Capybara.page.current_window.resize_to 1440, 1280
 end
 
 require "cucumber/rails"
