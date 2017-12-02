@@ -11,10 +11,13 @@ $.extend decko.editorContentFunctionMap,
       pointerContent @find('input:checked').map( -> $(this).val() )
     '.pointer-select-list': ->
       pointerContent @find('.pointer-select select').map( -> $(this).val() )
-    '.pointer-mixed': ->
-      element = '.pointer-checkbox-sublist input:checked,\
-                .pointer-sublist-ul input'
-      pointerContent @find(element).map( -> $(this).val() )
+    '.pointer-filtered-list': ->
+      pointerContent @find('.filtered-list-item').map( -> $(this).data('cardname') )
+    # can't find evidence that the following is in use: #efm
+    # '.pointer-mixed': ->
+    #   element = '.pointer-checkbox-sublist input:checked,\
+    #             .pointer-sublist-ul input'
+    #   pointerContent @find(element).map( -> $(this).val() )
     # must happen after pointer-list-ul, I think
     '.perm-editor': -> permissionsContent this
 

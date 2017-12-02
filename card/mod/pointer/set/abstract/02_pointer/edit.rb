@@ -130,4 +130,8 @@ format :html do
       wrap_item rendered, item_view
     end
   end
+
+  view :filter_items do
+    "hallelujah"
+  end
 end

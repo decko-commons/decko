@@ -1,8 +1,11 @@
 %div.filtered-list-editor
-  %ul.filtered-list-review
+  %ul.filtered-list-review.pointer-filtered-list
     - items.each do |item|
-      %li.filtered-list-item
-        = filtered_list_item item
-        %button.filtered-list-item-delete.btn.btn-secondary{:type => "button"}
-          = icon_tag :remove
-  = add_item_button
+      %li.filtered-list-item{ "data-cardname": item }
+        - nest_item item do |rendered, view|
+          %span{ class: "item-#{view}"}
+            = rendered
+        %span.filtered-list-item-button
+          %button.filtered-list-item-delete.btn.btn-secondary{:type => "button"}
+            = icon_tag :remove
+  = render_modal_link link_opts: { path: { view: :filter_items } }, title: "Add Item"
