@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
 # Commonly used email steps
 #
 # To add your own steps make a custom_email_steps.rb
@@ -112,7 +112,7 @@ Then /^(?:I|they) should see the email delivered from "([^"]*?)"$/ do |text|
   expect(current_email).to be_delivered_from(text)
 end
 
-Then /^(?:I|they) should see "([^\"]*)" in the email "([^"]*?)" header$/ do |text, name|
+Then /^(?:I|they) should see "([^"]*)" in the email "([^"]*?)" header$/ do |text, name|
   expect(current_email).to have_header(name, text)
 end
 

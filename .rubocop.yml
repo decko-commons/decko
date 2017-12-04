@@ -2,7 +2,7 @@ require:
   - rubocop-decko
   - rubocop-rspec
 inherit_from: .ruby-style.yml
-Style/IndentationConsistency:
+Layout/IndentationConsistency:
   AutoCorrect: false
 Style/MutableConstant:
   AutoCorrect: false
