@@ -24,6 +24,11 @@ RSpec.describe Card::Query do
       is_expected.to eq(%w(C+A D+A F+A))
     end
 
+    it "appends names to card results" do
+      res = Card::Query.run name: [:in, "C", "D", "F", "Z"], append: "A"
+      expect(res).to eq([Card["C+A"],Card["D+A"], Card["F+A"], nil])
+    end
+
     it "absolutizes names" do
       @query = {
         name: [:in, "C", "D", "F"],
