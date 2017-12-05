@@ -69,9 +69,9 @@ format :html do
   end
 
   def toolbar_simple_buttons
-    wrap_with :form do
+    #wrap_with :form do
       _render :toolbar_buttons
-    end
+    #end
   end
 
   def toolbar_right_buttons
