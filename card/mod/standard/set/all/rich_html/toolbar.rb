@@ -69,16 +69,14 @@ format :html do
   end
 
   def toolbar_simple_buttons
-    #wrap_with :form do
-      _render :toolbar_buttons
-    #end
+    _render :toolbar_buttons
   end
 
   def toolbar_right_buttons
     wrap_with :div do
       [
-          toolbar_simple_buttons,
-          expanded_close_link,
+        toolbar_simple_buttons,
+        expanded_close_link,
       ]
     end
   end
@@ -92,7 +90,7 @@ format :html do
       when :follow, :editors, :history    then "activity"
       when :edit_rules, :edit_nest_rules  then "rules"
       when :edit, :edit_name, :edit_type,
-           :edit_structure, :edit_nests   then "edit"
+        :edit_structure, :edit_nests   then "edit"
       when :related                       then active_related_toolbar_button
       end
   end
@@ -191,7 +189,7 @@ format :html do
     wrap_with(:div, class: "btn-group btn-group-sm") do
       [
         _render(:delete_button,
-                         optional: (card.ok?(:delete) ? :show : :hide)),
+                optional: (card.ok?(:delete) ? :show : :hide)),
         _render(:refresh_button),
         _render(:related_button)
       ]
@@ -208,8 +206,8 @@ format :html do
         ["references in",  :log_in,       "*referred_to_by"]
       ].map do |title, icon, tag|
         menu_item " #{title}", icon, related: tag,
-                                     path: { slot: { show: :toolbar,
-                                                     hide: :menu } }
+                  path: { slot: { show: :toolbar,
+                                  hide: :menu } }
       end
     end
   end
