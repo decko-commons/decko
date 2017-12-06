@@ -1,3 +1,6 @@
+# -*- encoding : utf-8 -*-
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
+
 When /I wait a sec/ do
   sleep 1
 end

@@ -1,4 +1,7 @@
-Given /^(.*) (is|am) watching "([^\"]+)"$/ do |user, _verb, cardname|
+# -*- encoding : utf-8 -*-
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax, Metrics/LineLength
+
+Given /^(.*) (is|am) watching "([^"]+)"$/ do |user, _verb, cardname|
   Delayed::Worker.new.work_off
   user = Card::Auth.current.name if user == "I"
   signed_in_as user do
@@ -6,14 +9,14 @@ Given /^(.*) (is|am) watching "([^\"]+)"$/ do |user, _verb, cardname|
   end
 end
 
-Given /^(.*) (is|am) not watching "([^\"]+)"$/ do |user, _verb, cardname|
+Given /^(.*) (is|am) not watching "([^"]+)"$/ do |user, _verb, cardname|
   user = Card::Auth.current.name if user == "I"
   signed_in_as user do
     step "the card #{cardname}+#{user}+*follow contains \"[[*never]]\""
   end
 end
 
-Given /^the card (.*) contains "([^\"]*)"$/ do |cardname, content|
+Given /^the card (.*) contains "([^"]*)"$/ do |cardname, content|
   Card::Auth.as_bot do
     card = Card.fetch cardname, new: {}
     card.content = content
@@ -21,8 +24,7 @@ Given /^the card (.*) contains "([^\"]*)"$/ do |cardname, content|
   end
 end
 
-When /^(.*) creates?\s*a?\s*([^\s]*) card "(.*)" with content "(.*)"$/ do
-  |username, cardtype, cardname, content|
+When /^(.*) creates?\s*a?\s*([^\s]*) card "([^"]*)" with content "([^"]*)"$/ do |username, cardtype, cardname, content|
   create_card(username, cardtype, cardname, content) do
     set_content "card[content]", content, cardtype
   end
@@ -32,8 +34,7 @@ When /^(.*) creates?\s*([^\s]*) card "([^"]*)"$/ do |username, cardtype, cardnam
   create_card username, cardtype, cardname
 end
 
-When /^(.*) creates?\s*([^\s]*) card "([^"]*)" with plusses:$/ do
-  |username, cardtype, cardname, plusses|
+When /^(.*) creates?\s*([^\s]*) card "([^"]*)" with plusses:$/ do |username, cardtype, cardname, plusses|
   create_card(username, cardtype, cardname) do
     plusses.hashes.first.each do |name, content|
       set_content "card[subcards][+#{name}][content]", content, cardtype
@@ -41,14 +42,13 @@ When /^(.*) creates?\s*([^\s]*) card "([^"]*)" with plusses:$/ do
   end
 end
 
-When /^(.*) edits? "([^\"]*)"$/ do |username, cardname|
+When /^(.*) edits? "([^"]*)"$/ do |username, cardname|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
   end
 end
 
-When /^(.*) edits? "([^\"]*)" entering "([^\"]*)" into wysiwyg$/ do
-  |username, cardname, content|
+When /^(.*) edits? "([^"]*)" entering "([^"]*)" into wysiwyg$/ do |username, cardname, content|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     page.execute_script "$('#main .d0-card-content').val('#{content}')"
@@ -57,8 +57,7 @@ When /^(.*) edits? "([^\"]*)" entering "([^\"]*)" into wysiwyg$/ do
   end
 end
 
-When /^(.*) edits? "([^\"]*)" setting (.*) to "([^\"]*)"$/ do
-  |username, cardname, _field, content|
+When /^(.*) edits? "([^"]*)" setting (.*) to "([^"]*)"$/ do |username, cardname, _field, content|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     set_content "card[content]", content
@@ -67,12 +66,12 @@ When /^(.*) edits? "([^\"]*)" setting (.*) to "([^\"]*)"$/ do
   end
 end
 
-When /^(.*) edits? "([^\"]*)" filling in "([^\"]*)"$/ do |_username, cardname, content|
+When /^(.*) edits? "([^"]*)" filling in "([^"]*)"$/ do |_username, cardname, content|
   visit "/card/edit/#{cardname.to_name.url_key}"
   fill_in "card[content]", with: content
 end
 
-When /^(.*) edits? "([^\"]*)" with plusses:/ do |username, cardname, plusses|
+When /^(.*) edits? "([^"]*)" with plusses:/ do |username, cardname, plusses|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     plusses.hashes.first.each do |name, content|
@@ -83,7 +82,7 @@ When /^(.*) edits? "([^\"]*)" with plusses:/ do |username, cardname, plusses|
   end
 end
 
-When /^(.*) deletes? "([^\"]*)"$/ do |username, cardname|
+When /^(.*) deletes? "([^"]*)"$/ do |username, cardname|
   signed_in_as(username) do
     visit "/card/delete/#{cardname.to_name.url_key}"
   end
@@ -153,12 +152,21 @@ def find_editor selector
 end
 
 def signed_in_as username
-  sameuser = (username == "I")
-  sameuser ||= (Card::Auth.current.key == username.to_name.key)
+  return yield if same_user?(username)
+
+  preserve_existing_session do
+    step "I am signed in as #{username}"
+    yield
+  end
+end
+
+def same_user? username
+  (username == "I") || (Card::Auth.current.key == username.to_name.key)
+end
+
+def preserve_existing_session
   was_signed_in = Card::Auth.current_id if Card::Auth.signed_in?
-  step "I am signed in as #{username}" unless sameuser
   yield
-  return if sameuser
   msg = if was_signed_in
           "I am signed in as #{Card[was_signed_in].name}"
         else

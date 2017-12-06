@@ -1,4 +1,5 @@
-require "byebug"
+# -*- encoding : utf-8 -*-
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
 
 Then /debug/ do
   require "pry"
@@ -11,8 +12,8 @@ Then /what/ do
 end
 
 Then /^No errors in the job queue$/ do
-  if (last = Delayed::Job.last) && (last.last_error)
-    puts last.last_error
-    expect(last.last_error).to be_blank
+  if (last_error = Delayed::Job.last&.last_error)
+    puts last_error
+    expect(last_error).to be_blank
   end
 end

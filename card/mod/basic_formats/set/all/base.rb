@@ -88,6 +88,10 @@ format do
     end
   end
 
+  view :labeled_content, :core
+
+  view :titled_content, :core
+
   view :blank, closed: true, perms: :none do
     ""
   end

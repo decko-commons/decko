@@ -5,7 +5,7 @@ format :html do
   end
 
   def bootstrapify_button options
-    situation = options.delete(:situation) || "default"
+    situation = options.delete(:situation) || "primary"
     options[:class] = [options[:class], "btn", "btn-#{situation}"].compact * " "
   end
 

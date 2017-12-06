@@ -1,9 +1,12 @@
+# -*- encoding : utf-8 -*-
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
+
 When /^(?:|I )enter "([^"]*)" into "([^"]*)"$/ do |value, field|
   selector = ".RIGHT-#{field.to_name.safe_key} input.d0-card-content"
   find(selector).set value
 end
 
-When /^In (.*) I follow "([^\"]*)"$/ do |section, link|
+When /^In (.*) I follow "([^"]*)"$/ do |section, link|
   within scope_of(section) do
     click_link link
   end
@@ -57,7 +60,7 @@ When /^I press enter to search$/ do
   find("#_keyword").native.send_keys(:return)
 end
 
-When /^I fill in "([^\"]*)" with$/ do |field, value|
+When /^I fill in "([^"]*)" with$/ do |field, value|
   fill_in(field, with: value)
 end
 

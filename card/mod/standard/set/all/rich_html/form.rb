@@ -128,11 +128,7 @@ format :html do
     nested_cards_for_edit(fields_only).map do |name, options|
       options ||= {}
       options[:hide] = [options[:hide], :toolbar].compact
-      if options.delete(:absolute)
-        nest name, options
-      else
-        field_nest name, options
-      end
+      nest name, options
     end.join "\n"
   end
 
