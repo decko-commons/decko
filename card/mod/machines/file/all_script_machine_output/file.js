@@ -6,7 +6,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 
 //script: slot
 (function() {
-  var addCaptcha, addCategoryOption, containerClass, detectMobileBrowser, doubleSidebar, filterAndSort, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, removeCategoryOption, reqIndex, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, warn, wrapDeckoLayout, wrapSidebarToggle;
+  var addCaptcha, addCategoryOption, containerClass, detectMobileBrowser, doubleSidebar, filterAndSort, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, removeCategoryOption, reqIndex, setFilterInputWidth, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, warn, wrapDeckoLayout, wrapSidebarToggle;
 
   window.decko || (window.decko = {});
 
@@ -543,13 +543,19 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
   };
 
   showFilterInputField = function(category, widget) {
-    var $searchInputField;
-    $searchInputField = $(widget.find("._filter-input-field-prototypes > ._filter-input-field." + category + " > .input-group")[0]);
-    $(widget.find("._add-filter-dropdown")).before($searchInputField);
-    $searchInputField.find('select:not([multiple])').select2({
+    var $inputField, selector;
+    selector = "._filter-input-field-prototypes > ._filter-input-field." + category + " > .input-group";
+    $inputField = $(widget.find(selector)[0]);
+    $(widget.find("._add-filter-dropdown")).before($inputField);
+    setFilterInputWidth($inputField);
+    decko.initAutoCardPlete($inputField.find('input'));
+    return $inputField.find("input, select").focus();
+  };
+
+  setFilterInputWidth = function($inputField) {
+    return $inputField.find('select:not([multiple])').select2({
       dropdownAutoWidth: "true"
     });
-    return $searchInputField.find("input, select").focus();
   };
 
   hideFilterInputField = function(input) {
@@ -814,6 +820,9 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       if (!$.rails.allowAction($(this))) {
         return false;
       }
+      return $.rails.handleRemote($(this));
+    });
+    $('body').on('click', '._clickable.slotter', function(event) {
       return $.rails.handleRemote($(this));
     });
     $('body').on('ajax:beforeSend', '.slotter', function(event, xhr, opt) {
