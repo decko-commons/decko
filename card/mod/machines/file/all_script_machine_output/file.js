@@ -18690,6 +18690,7 @@ $.extend( proto, {
       $.extend(conf, user_conf, hard_conf);
       tinyMCE.baseURL = '/assets/tinymce';
       tinyMCE.suffix = '.min';
+      tinyMCE.remove("#" + el_id);
       return tinyMCE.init(conf);
     }
   });
