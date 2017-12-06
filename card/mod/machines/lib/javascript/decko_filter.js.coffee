@@ -1,14 +1,14 @@
 $(window).ready ->
-  $('body').on "change", "._filter-input input, ._filter-input select, ._filter-sort", ->
+  $("body").on "change", "._filter-input input, ._filter-input select, ._filter-sort", ->
     filterAndSort this
 
-  $('body').on "click", "._filter-category-select", ->
+  $("body").on "click", "._filter-category-select", ->
     addFilterDropdown = $(this).closest("._add-filter-dropdown")
     category = $(this).data("category")
     label = $(this).data("label")
     filterCategorySelected(addFilterDropdown, category, label)
 
-  $('body').on "click", "._delete-filter-input", ->
+  $("body").on "click", "._delete-filter-input", ->
     form = $(this).closest("._filter-form")
     input = $(this).closest("._filter-input")
     category = input.data("category")
@@ -16,6 +16,18 @@ $(window).ready ->
     addCategoryOption(form, category)
     hideFilterInputField(input)
     form.submit()
+
+  $("body").on "click", ".filter-items .search-checkbox-item input", ->
+    input = $(this)
+    decko.boom = input
+    input.prop "checked", true
+    item = input.closest ".search-checkbox-item"
+    filter_box = item.closest ".filter-items"
+    bin = filter_box.find ".selected-bin"
+    bin.append item
+    # item.remove()
+
+
 
 filterCategorySelected = (addFilterDropdown, selectedCategory, label) ->
   widget = addFilterDropdown.closest("._filter-widget")
@@ -29,13 +41,13 @@ showFilterInputField = (category, widget) ->
 
   $(widget.find("._add-filter-dropdown")).before($inputField)
   setFilterInputWidth $inputField
-  decko.initAutoCardPlete($inputField.find('input')) # only has effect if there is a data-options-card value
+  decko.initAutoCardPlete($inputField.find("input")) # only has effect if there is a data-options-card value
   $inputField.find("input, select").focus()
 
 setFilterInputWidth = ($inputField) ->
   # multiple select fields are skipped because it the importance filter on wikirate
   # with preselected options got too much height because of this
-  $inputField.find('select:not([multiple])').select2(
+  $inputField.find("select:not([multiple])").select2(
     dropdownAutoWidth: "true"
   )
 

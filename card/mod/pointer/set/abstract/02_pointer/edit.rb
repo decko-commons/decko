@@ -115,23 +115,4 @@ format :html do
                options_for_select(options, card.item_names.first),
                class: "pointer-select form-control")
   end
-
-  view :filtered_list do
-    filtered_list_input
-  end
-
-  def filtered_list_input
-    items = card.item_names context: :raw
-    haml :filtered_list_input, items: items
-  end
-
-  def filtered_list_item item_card
-    nest_item item_card do |rendered, item_view|
-      wrap_item rendered, item_view
-    end
-  end
-
-  view :filter_items do
-    "hallelujah"
-  end
 end

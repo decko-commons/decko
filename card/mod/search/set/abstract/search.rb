@@ -106,24 +106,45 @@ format :csv do
 end
 
 format :html do
-  view :card_list do
+  def with_results
     return render_no_search_results if search_with_params.empty?
-    search_result_list do
-      search_with_params.map do |item_card|
-        nest_item item_card, size: voo.size do |rendered, item_view|
-          klass = "search-result-item item-#{item_view}"
-          %(<div class="#{klass}">#{rendered}</div>)
+    yield
+  end
+
+  view :card_list do
+    with_results do
+      search_result_list "search-result-list" do |item_card|
+        card_list_item item_card
+      end
+    end
+  end
+
+  def card_list_item item_card
+    nest_item item_card, size: voo.size do |rendered, item_view|
+      %(<div class="search-result-item item-#{item_view}">#{rendered}</div>)
+    end
+  end
+
+  def search_result_list klass
+    with_paging do
+      wrap_with :div, class: klass do
+        search_with_params.map do |item_card|
+          yield item_card
         end
       end
     end
   end
 
-  def search_result_list
-    with_paging do
-      wrap_with :div, class: "search-result-list" do
-        yield
+  view :checkbox_list do
+    with_results do
+      search_result_list "search-checkbox-list" do |item_card|
+        checkbox_item item_card
       end
     end
+  end
+
+  def checkbox_item item_card
+    haml :checkbox_item, unique_id: unique_id, item_card: item_card
   end
 
   def closed_limit

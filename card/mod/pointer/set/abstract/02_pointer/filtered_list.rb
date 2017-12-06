@@ -1,3 +1,0 @@
-format :html do
-
-end

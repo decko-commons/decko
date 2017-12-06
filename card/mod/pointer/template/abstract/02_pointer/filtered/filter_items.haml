@@ -1,0 +1,12 @@
+%table.filter-items
+  %tr
+    %td.filter-side
+      = filter_format.render :filter_form
+      = filter_format.render :checkbox_list, items: { view: item_view }
+    %td.selected-side
+      .selected-box{ style: "background: #ddd; padding: 10px; margin: 10px" }
+        %h5 Selected
+        .filter-help helpy helpy text text
+        .selected-bin
+
+
