@@ -51,28 +51,13 @@ class Card
         record
       end
 
-      def simple_result? retrn
-        retrn == "count"
-      end
-
       def name_result record, pattern
         process_name record["name"], pattern
       end
 
-      def process_name name, pattern
-        name = pattern.to_name.absolute(name) if pattern =~ /_\w+/
-        return name unless alter_results?
-        name_parts = [statement[:prepend], name, statement[:append]].compact
-        Card::Name[name_parts]
-      end
-
-      def alter_results?
-        statement[:prepend] || statement[:append]
-      end
-
       def card_result record, _field
         if alter_results?
-          Card.fetch process_name(record["name"])
+          Card.fetch alter_result(record["name"]), new: {}
         else
           fetch_or_instantiate record
         end
@@ -92,6 +77,25 @@ class Card
         # puts "\nstatement = #{@statement}"
         # puts "sql = #{sql}"
         ActiveRecord::Base.connection.select_all(sql)
+      end
+
+      def process_name name, pattern
+        name = pattern.to_name.absolute(name) if pattern =~ /_\w+/
+        return name unless alter_results?
+        alter_result name
+      end
+
+      def alter_result name
+        name_parts = [statement[:prepend], name, statement[:append]].compact
+        Card::Name[name_parts]
+      end
+
+      def simple_result? retrn
+        retrn == "count"
+      end
+
+      def alter_results?
+        statement[:prepend] || statement[:append]
       end
     end
   end
