@@ -232,9 +232,10 @@ format :html do
   end
 
   def rule_set_selection
-    wrap_with :div, class: "row set-list" do
-      [rule_set_formgroup,
-       related_set_formgroup]
+    wrap_with :div, class: "set-list container-fluid" do
+      wrap_with :div, class: "row" do
+        [rule_set_formgroup, related_set_formgroup]
+      end
     end
   end
 
