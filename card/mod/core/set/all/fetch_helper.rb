@@ -1,6 +1,4 @@
-
 module ClassMethods
-
   # a fetch method to support the needs of the card controller.
   # should be in Decko?
   def controller_fetch args
@@ -54,47 +52,6 @@ module ClassMethods
     # if skipping virtual no need to look for actual type
     opts[:skip_virtual] || opts[:new].present? || opts[:skip_type_lookup]
   end
-
-#  def retrieve_existing mark, opts
-#    return [nil, false] unless mark.present?
-#    mark_type, mark_key = retrievable_mark_type_and_value mark
-#    needs_caching = false # until proven true :)
-#
-#    # look in cache
-#    card = send "retrieve_from_cache_by_#{mark_type}", mark_key, opts[:local_only]
-#
-#    if retrieve_from_db? card, mark_type, mark_key, opts[:look_in_trash]
-#      # look in db if needed
-#      card = retrieve_from_db mark_type, mark_key, opts[:look_in_trash]
-#      needs_caching = !card.nil? && !card.trash
-#    end
-#
-#    [card, needs_caching]
-#  end#
-#
-#  def retrievable_mark_type_and_value mark
-#    # return mark_type and mark_value
-#    if mark.is_a? Integer
-#      [:id, mark]
-#    else
-#      [:key, mark.key]
-#    end
-#  end
-#
-#  def retrieve_from_db? card, mark_type, mark_key, look_in_trash
-#    return false if card&.real?                                      # real card found in cache
-##    return false if mark_type == :key && mark_key.to_name.relative?  # no relative names in db
-#    card.nil? || (look_in_trash && !card.trash)                      # card not found in cache (or trash lookup)
-#  end
-#
-#  def retrieve_from_db mark_type, mark_key, look_in_trash=false
-#    query = { mark_type => mark_key }
-#    query[:trash] = false unless look_in_trash
-#    card = Card.where(query).take
-#    card
-#  end
-
-
 
   # @return [{Card}, {True/False}] Card object and "needs_caching" ruling
   def retrieve_existing mark, opts

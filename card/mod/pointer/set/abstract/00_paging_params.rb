@@ -7,19 +7,18 @@ format do
     @offset ||= contextual_param(:offset) || 0
   end
 
-  def contextual_param param, int=true
+  def contextual_param param
     env_search_param(param) || voo_search_param(param)
   end
 
-  def env_search_param param, int=true
+  def env_search_param param
     return unless focal?
     val = Env.params[param]
-    return unless val.present?
-    int ? val.to_i : val
+    val.present? && val.to_i
   end
 
   def voo_search_param param
-    return unless voo.query
+    return unless voo&.query
     voo.query[param]
   end
 end

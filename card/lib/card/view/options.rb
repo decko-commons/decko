@@ -21,13 +21,13 @@ class Card
           :nest_syntax,    # full nest syntax
           :show,           # render these views when optional
           :hide            # do not render these views when optional
-        ],                 #   NOTE: show/hide can be single view (Symbol), list of views (Array),
+        ],                 #   show/hide can be view (Symbol), list of views (Array),
                            #   or comma separated views (String)
         heir: [
           :main,           # format object is page's "main" object (Boolean)
           :home_view,      # view for slot to return to when no view specified
           :edit_structure, # use a different structure for editing (Array)
-          :query           # contextual wql alterations for search cards
+          :query           # contextual wql alterations for search cards (Hash)
         ],
         both: [
           :help,           # cue text when editing
@@ -180,7 +180,6 @@ class Card
         @optional = opts.delete(:optional) || false
         opts
       end
-
 
       # typically options are already a hash.  this also handles an array of
       # hashes and nil.

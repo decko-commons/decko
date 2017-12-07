@@ -83,7 +83,7 @@ class CardController < ActionController::Base
   end
 
   def record_as_main
-    Card::Env[:main_name] = params[:main] || (card.name) || ""
+    Card::Env[:main_name] = params[:main] || card&.name || ""
   end
 
   def refresh_card
@@ -116,12 +116,12 @@ class CardController < ActionController::Base
     card.content = card.last_draft_content if use_draft?
 
     format = format_from_params card
-    result = render_page format
+    result = render_page format, view
     status = format.error_status || status
     deliver format, result, status
   end
 
-  def render_page format
+  def render_page format, view
     view ||= params[:view]
     card.act do
       format.page self, view, Card::Env.slot_opts
