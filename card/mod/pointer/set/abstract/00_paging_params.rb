@@ -18,7 +18,7 @@ format do
   end
 
   def voo_search_param param
-    return unless voo&.query
-    voo.query[param]
+    return unless voo&.wql
+    voo.wql[param]
   end
 end

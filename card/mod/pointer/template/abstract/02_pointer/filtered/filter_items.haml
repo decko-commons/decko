@@ -4,7 +4,7 @@
       = nest filter_card, view: :filter_form
       = nest filter_card, view: :checkbox_list,
                           items: { view: implicit_item_view },
-                          query: { limit: 7 }
+                          wql: { limit: 7 }
     %td.selected
       .selected-box{ style: "background: #ddd; padding: 10px; margin: 10px" }
         %h5 Selected
