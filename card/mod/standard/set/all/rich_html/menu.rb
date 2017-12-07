@@ -77,6 +77,7 @@ format :html do
   end
 
   def menu_follow_link opts
+    add_class opts, "dropdown-item"
     _render_follow_link(icon: true, link_opts: opts)
   end
 
@@ -105,6 +106,7 @@ format :html do
   def menu_item text, icon, opts={}
     link_text = "#{material_icon(icon)}<span class='menu-item-label'>#{text}</span>"
     # add_class opts, "dropdown-item"
+    add_class opts, "dropdown-item"
     smart_link_to link_text.html_safe, opts
   end
 
