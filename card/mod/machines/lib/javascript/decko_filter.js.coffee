@@ -17,16 +17,16 @@ $(window).ready ->
     hideFilterInputField(input)
     form.submit()
 
-  $("body").on "click", ".filter-items .unselected .search-checkbox-item input", ->
+  $("body").on "click", "._filter-items ._unselected ._search-checkbox-item input", ->
     selectFilteredItem $(this)
     updateFilterAfterSelection $(this)
 
-  $("body").on "click", ".filter-items .selected .search-checkbox-item input", ->
+  $("body").on "click", "._filter-items ._selected ._search-checkbox-item input", ->
     bin = selectedBin $(this)
     $(this).slot().remove()
     updateFilterAfterSelection bin
 
-  $("body").on "click", ".filter-items .add-selected", ->
+  $("body").on "click", "._filter-items ._add-selected", ->
     btn = $(this)
     content = newFilteredListContent btn
     btn.attr "href", addSelectedButtonUrl(btn, content)
@@ -52,10 +52,10 @@ selectFilteredItem = (checkbox) ->
   selectedBin(checkbox).append checkbox.slot()
 
 selectedBin = (el) ->
-  filterBox(el).find ".selected-bin"
+  filterBox(el).find "._selected-bin"
 
 filterBox = (el) ->
-  el.closest ".filter-items"
+  el.closest "._filter-items"
 
 selectedIds = (el) ->
   selectedData el, "cardId"
@@ -70,8 +70,8 @@ selectedData = (el, field) ->
 trackSelectedIds = (el) ->
   ids = selectedIds el
   box = filterBox el
-  box.find(".not-ids").val ids.toString()
-  box.find(".add-selected").attr "disabled", ids.length == 0
+  box.find("._not-ids").val ids.toString()
+  box.find("._add-selected").attr "disabled", ids.length == 0
 
 filterCategorySelected = (addFilterDropdown, selectedCategory, label) ->
   widget = addFilterDropdown.closest("._filter-widget")
