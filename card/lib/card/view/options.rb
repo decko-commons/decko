@@ -16,17 +16,18 @@ class Card
 
       @keymap = {
         carditect: [
-          :view,          # view to render
-          :nest_name,     # name as used in nest
-          :nest_syntax,   # full nest syntax
-          :show,          # render these views when optional
-          :hide           # do not render these views when optional
-        ],                # note: show/hide can be single view (Symbol), list of views (Array),
-                          # or comma separated views (String)
+          :view,           # view to render
+          :nest_name,      # name as used in nest
+          :nest_syntax,    # full nest syntax
+          :show,           # render these views when optional
+          :hide            # do not render these views when optional
+        ],                 #   NOTE: show/hide can be single view (Symbol), list of views (Array),
+                           #   or comma separated views (String)
         heir: [
           :main,           # format object is page's "main" object (Boolean)
           :home_view,      # view for slot to return to when no view specified
-          :edit_structure  # use a different structure for editing (Array)
+          :edit_structure, # use a different structure for editing (Array)
+          :query           # contextual wql alterations for search cards
         ],
         both: [
           :help,           # cue text when editing
@@ -36,10 +37,10 @@ class Card
           :editor,         # inline_nests makes a form within standard content (Symbol)
           :type,           # set the default type of new cards
           :size,           # set an image size
-          :params,         # parameters for add button.  deprecate?
+          :params,         # parameters for add button.  deprecate!
           :items,          # options for items (Hash)
           :cache           # change view cache behaviour
-        ],                 # (Symbol<:always, :standard, :never>)
+        ],                 #   (Symbol<:always, :standard, :never>)
         none: [
           :skip_perms,     # do not check permissions for this view (Boolean)
           :main_view       # this is main view of page (Boolean)
@@ -136,9 +137,14 @@ class Card
 
       # options to be used in data attributes of card slots (normalized options
       # with standard keys)
+      # FIXME: what we really want is options as they were when render was called.
+      # normalized is wrong because it can get changed before render. live is wrong
+      # because they can get changed after.  current solution is a compromise.
       # @return [Hash]
       def slot_options
-        normalized_options.select { |k, _v| Options.all_keys.include? k }
+        normalized_options.merge(view: requested_view).select do |k, _v|
+          Options.all_keys.include? k
+        end
       end
 
       def closest_live_option key

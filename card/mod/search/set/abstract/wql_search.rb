@@ -49,8 +49,8 @@ def empty_query_error!
 end
 
 format do
-  def default_search_params
-    @default_search_params ||= { limit: (card_content_limit || default_limit) }
+  def default_limit
+    card_content_limit || super
   end
 
   def card_content_limit

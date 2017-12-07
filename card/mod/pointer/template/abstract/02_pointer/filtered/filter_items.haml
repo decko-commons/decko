@@ -1,12 +1,20 @@
 %table.filter-items
   %tr
-    %td.filter-side
-      = filter_format.render :filter_form
-      = filter_format.render :checkbox_list, items: { view: item_view }
-    %td.selected-side
+    %td.unselected
+      = nest filter_card, view: :filter_form
+      = nest filter_card, view: :checkbox_list,
+                          items: { view: implicit_item_view },
+                          query: { limit: 7 }
+    %td.selected
       .selected-box{ style: "background: #ddd; padding: 10px; margin: 10px" }
         %h5 Selected
         .filter-help helpy helpy text text
         .selected-bin
-
+      .selected-item-buttons
+        = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
+        = button_tag "Add Selected", class: "add-selected slotter", disabled: true,
+                                     data: { "slot-selector": ".TYPE-pointer.edit-view",
+                                             "dismiss": "modal" },
+                                     href: card.name.url_key
+        // FIXME: pass selector
 

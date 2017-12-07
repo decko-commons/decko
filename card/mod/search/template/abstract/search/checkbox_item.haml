@@ -1,9 +1,7 @@
 
-%table.search-checkbox-item{ width: "100%" }
+%table.search-checkbox-item{ style: "width: 100%" }
   %tr
     %td.checkbox-side
       = check_box_tag "checkbox-#{unique_id}", item_card.key
-    %td.item-view-side
-      .selectable-item{ data: { "card-key": item_card.key },
-                        style: "background: #fff" }
-        = nest_item item_card
+    %td.item-view-side{ style: "background: #fff" }
+      = nest_item item_card

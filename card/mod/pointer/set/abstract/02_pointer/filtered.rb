@@ -13,15 +13,12 @@ format :html do
       wrap_item rendered, item_view
     end
   end
+
   # override
   # @return [Card] search card on which filtering is based
   def filter_card
     raise Card::Error "filtered search not "
   end
 
-  view :filter_items, template: :haml do
-    @filter_format = subformat filter_card
-    @item_view = implicit_item_view
-    #@filter_form = subformat(filter_card).render_filter_form
-  end
+  view :filter_items, template: :haml
 end

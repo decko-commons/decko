@@ -1,12 +1,16 @@
 format :html do
   view :modal_link do |args|
-    opts = args[:link_opts] || {}
-    opts[:path] ||= {}
+    opts = args[:link_opts]
     opts[:path][:layout] = :modal
-    opts["data-target"] = "#modal-main-slot"
-    opts["data-toggle"] = "modal"
     text = args[:link_text] || _render_title(args)
     link_to text, opts
+  end
+
+  def default_modal_link_args args
+    args[:link_opts] ||= {}
+    args[:link_opts].reverse_merge! path: {},
+                                    "data-target": "#modal-main-slot",
+                                    "data-toggle": "modal"
   end
 
   view :modal_slot, tags: :unknown_ok do |args|

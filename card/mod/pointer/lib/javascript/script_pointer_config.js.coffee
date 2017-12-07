@@ -35,9 +35,13 @@ $.extend decko,
     url = decko.rootPath + '/' + optionsCard + '.json?view=name_complete'
     input.autocomplete { source: decko.prepUrl(url) }
 
+  pointerContent: (vals) ->
+    list = $.map $.makeArray(vals), (v) -> if v then '[[' + v + ']]'
+    $.makeArray(list).join "\n"
+
 pointerContent = (vals) ->
-  list = $.map $.makeArray(vals), (v) -> if v then '[[' + v + ']]'
-  $.makeArray(list).join "\n"
+  decko.pointerContent vals
+  # deprecated. backwards compatibility
 
 permissionsContent = (ed) ->
   return '_left' if ed.find('#inherit').is(':checked')

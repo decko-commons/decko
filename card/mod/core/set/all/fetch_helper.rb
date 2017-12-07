@@ -4,33 +4,42 @@ module ClassMethods
   # a fetch method to support the needs of the card controller.
   # should be in Decko?
   def controller_fetch args
-    opts = controller_fetch_opts args
+    card_opts = controller_fetch_opts args
     if args[:action] == "create"
       # FIXME: we currently need a "new" card to catch duplicates
       # (otherwise save will just act like a normal update)
       # We may need a "#create" instance method to handle this checking?
-      Card.new opts
+      Card.new card_opts
     else
-      mark = args[:id] || opts[:name]
-      Card.fetch mark, look_in_trash: args[:look_in_trash], new: opts
+      standard_controller_fetch args, card_opts
     end
   end
 
   private
 
+  def standard_controller_fetch args, card_opts
+    mark = args[:id] || card_opts[:name]
+    card = Card.fetch mark, look_in_trash: args[:look_in_trash], new: card_opts
+    card.assign_attributes card_opts if args[:assign] && card&.real?
+    card
+  end
+
   def controller_fetch_opts args
-    opts =
-        # clone doesn't work for Parameters
-        if args[:card].respond_to?(:to_unsafe_h)
-          args[:card].to_unsafe_h
-        else
-          (args[:card] || {}).clone
-        end
-    # clone so that original params remain unaltered.  need deeper clone?
+    opts = safe_card_opts args[:card]
     opts[:type] ||= args[:type] if args[:type]
     # for /new/:type shortcut.  we should handle in routing and deprecate this
     opts[:name] ||= Card::Name.url_key_to_standard(args[:id])
     opts
+  end
+
+  def safe_card_opts card_opts
+    if card_opts.respond_to? :to_unsafe_h
+      # clone doesn't work for Parameters
+      card_opts.to_unsafe_h
+    else
+      # clone so that original params remain unaltered.  need deeper clone?
+      (card_opts || {}).clone
+    end
   end
 
   def validate_fetch_opts! opts
@@ -46,21 +55,57 @@ module ClassMethods
     opts[:skip_virtual] || opts[:new].present? || opts[:skip_type_lookup]
   end
 
+#  def retrieve_existing mark, opts
+#    return [nil, false] unless mark.present?
+#    mark_type, mark_key = retrievable_mark_type_and_value mark
+#    needs_caching = false # until proven true :)
+#
+#    # look in cache
+#    card = send "retrieve_from_cache_by_#{mark_type}", mark_key, opts[:local_only]
+#
+#    if retrieve_from_db? card, mark_type, mark_key, opts[:look_in_trash]
+#      # look in db if needed
+#      card = retrieve_from_db mark_type, mark_key, opts[:look_in_trash]
+#      needs_caching = !card.nil? && !card.trash
+#    end
+#
+#    [card, needs_caching]
+#  end#
+#
+#  def retrievable_mark_type_and_value mark
+#    # return mark_type and mark_value
+#    if mark.is_a? Integer
+#      [:id, mark]
+#    else
+#      [:key, mark.key]
+#    end
+#  end
+#
+#  def retrieve_from_db? card, mark_type, mark_key, look_in_trash
+#    return false if card&.real?                                      # real card found in cache
+##    return false if mark_type == :key && mark_key.to_name.relative?  # no relative names in db
+#    card.nil? || (look_in_trash && !card.trash)                      # card not found in cache (or trash lookup)
+#  end
+#
+#  def retrieve_from_db mark_type, mark_key, look_in_trash=false
+#    query = { mark_type => mark_key }
+#    query[:trash] = false unless look_in_trash
+#    card = Card.where(query).take
+#    card
+#  end
+
+
+
+  # @return [{Card}, {True/False}] Card object and "needs_caching" ruling
   def retrieve_existing mark, opts
     return [nil, false] unless mark.present?
     mark_type, mark_key = retrievable_mark_type_and_value mark
-    needs_caching = false # until proven true :)
-
-    # look in cache
     card = send "retrieve_from_cache_by_#{mark_type}", mark_key, opts[:local_only]
-
-    if retrieve_from_db? card, mark_type, mark_key, opts[:look_in_trash]
-      # look in db if needed
-      card = retrieve_from_db mark_type, mark_key, opts[:look_in_trash]
-      needs_caching = !card.nil? && !card.trash
+    if card&.real?
+      [card, false]
+    else
+      retrieve_from_db card, mark_type, mark_key, opts
     end
-
-    [card, needs_caching]
   end
 
   def retrievable_mark_type_and_value mark
@@ -72,17 +117,22 @@ module ClassMethods
     end
   end
 
-  def retrieve_from_db? card, mark_type, mark_key, look_in_trash
-    return false if card&.real?                                      # real card found in cache
-#    return false if mark_type == :key && mark_key.to_name.relative?  # no relative names in db
-    card.nil? || (look_in_trash && !card.trash)                      # card not found in cache (or trash lookup)
+  def retrieve_from_db card, mark_type, mark_key, opts
+    look_in_trash = opts[:look_in_trash]
+    return [card, false] unless retrieve_from_db? card, look_in_trash
+    card = retrieve_from_db! mark_type, mark_key, look_in_trash
+    needs_caching = !card.nil? && !card.trash
+    [card, needs_caching]
   end
 
-  def retrieve_from_db mark_type, mark_key, look_in_trash=false
+  def retrieve_from_db? card, look_in_trash
+    card.nil? || (look_in_trash && !card.trash)
+  end
+
+  def retrieve_from_db! mark_type, mark_key, look_in_trash=false
     query = { mark_type => mark_key }
     query[:trash] = false unless look_in_trash
-    card = Card.where(query).take
-    card
+    Card.where(query).take
   end
 
   def standard_fetch_results card, mark, opts
@@ -120,7 +170,6 @@ module ClassMethods
     return mark unless mark.name? && supercard
     mark.to_name.absolute_name supercard.name
   end
-
 end
 
 public

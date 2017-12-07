@@ -136,15 +136,19 @@ format :html do
   end
 
   view :checkbox_list do
-    with_results do
-      search_result_list "search-checkbox-list" do |item_card|
-        checkbox_item item_card
+    wrap do
+      with_results do
+        search_result_list "search-checkbox-list" do |item_card|
+          checkbox_item item_card
+        end
       end
     end
   end
 
   def checkbox_item item_card
-    haml :checkbox_item, unique_id: unique_id, item_card: item_card
+    subformat(item_card).wrap do
+      haml :checkbox_item, unique_id: unique_id, item_card: item_card
+    end
   end
 
   def closed_limit

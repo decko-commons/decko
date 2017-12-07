@@ -34,7 +34,7 @@ format :html do
   end
 
   def slot_options
-    options = voo.slot_options
+    options = voo ? voo.slot_options : {}
     name_context_slot_option options
     options
   end
@@ -61,7 +61,7 @@ format :html do
   def wrap_classes slot
     list = slot ? ["card-slot"] : []
     list += ["#{@current_view}-view", card.safe_set_keys]
-    list << "STRUCTURE-#{voo.structure.to_name.key}" if voo.structure
+    list << "STRUCTURE-#{voo.structure.to_name.key}" if voo&.structure
     classy list
   end
 
