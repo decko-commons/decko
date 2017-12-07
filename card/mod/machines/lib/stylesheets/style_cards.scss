@@ -69,6 +69,10 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
   width: 100%;
 }
 
+.d0-card-frame > .menu-slot > .card-menu {
+  padding: 0.75rem 0;
+}
+
 .menu-slot {
   width: 100%;
   //position: relative;
@@ -80,7 +84,14 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
   .card-menu {
     position: absolute;
     right: 8px;
-    padding: 0.75rem 0;
+    > .btn-group {
+      z-index: 1;
+
+      &.show {
+        z-index: 2;
+      }
+    }
+
     li {
       white-space: nowrap;
       text-align: left;
