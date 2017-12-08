@@ -32,7 +32,7 @@ format :html do
     # we probably want to pass on a lot more params than just view,
     # but not all of them
     # (eg we don't want layout, id, controller...)
-    wrap_with :div, class: "modal-menu" do
+    wrap_with :div, class: "modal-menu w-100" do
       [
         link_to(glyphicon("remove"),
                 path: "", class: "close-modal float-right close",
