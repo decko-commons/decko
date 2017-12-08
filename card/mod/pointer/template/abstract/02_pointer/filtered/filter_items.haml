@@ -7,14 +7,18 @@
           Choose metrics
           .badge.badge-secondary
             20
+      %a._select-all{ href: "#" }
+        select all
       = nest filter_card, view: :checkbox_list,
                           items: { view: implicit_item_view },
-                          wql: { limit: 7 }
+                          wql: { limit: 10 }
     ._selected.col-6.border.mt-2.nopadding
       .selected-box
         .card-header
           %h5 Selected
         .filter-help.alert.alert-secondary helpy helpy text text
+        %a._deselect-all{ href: "#" }
+        deselect all
         ._selected-bin
       .selected-item-buttons
         = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
@@ -22,5 +26,4 @@
                                      data: { "slot-selector": ".TYPE-pointer.edit-view",
                                              "dismiss": "modal" },
                                      href: card.name.url_key
-        // FIXME: pass selector
 

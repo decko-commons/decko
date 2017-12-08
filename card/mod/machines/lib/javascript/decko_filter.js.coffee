@@ -31,6 +31,17 @@ $(window).ready ->
     content = newFilteredListContent btn
     btn.attr "href", addSelectedButtonUrl(btn, content)
 
+  $("body").on "click", "._select-all", ->
+    filterBox($(this)).find("._unselected ._search-checkbox-item input").each ->
+      selectFilteredItem $(this)
+    updateFilterAfterSelection $(this)
+
+  $("body").on "click", "._deselect-all", ->
+    bin = selectedBin $(this)
+    filterBox($(this)).find("._selected ._search-checkbox-item input").each ->
+      $(this).slot().remove()
+    updateFilterAfterSelection bin
+
 newFilteredListContent = (el) ->
   oldContent = el.slot().find(".d0-card-content").val()
   newContent = decko.pointerContent selectedNames(el)
@@ -57,6 +68,16 @@ selectedBin = (el) ->
 filterBox = (el) ->
   el.closest "._filter-items"
 
+savedIds = (el) ->
+  filteredList = addSelectedButton($(el)).slot().find "._pointer-filtered-list"
+  filteredList.children().map( -> $(this).data "cardId" ).toArray()
+
+addSelectedButton = (el) ->
+  filterBox(el).find("._add-selected")
+
+deSelectAllLink = (el) ->
+  filterBox(el).find("._deselect-all")
+
 selectedIds = (el) ->
   selectedData el, "cardId"
 
@@ -68,10 +89,11 @@ selectedData = (el, field) ->
   slots.map( -> $(this).data field ).toArray()
 
 trackSelectedIds = (el) ->
-  ids = selectedIds el
+  ids = savedIds(el).concat selectedIds(el)
   box = filterBox el
   box.find("._not-ids").val ids.toString()
-  box.find("._add-selected").attr "disabled", ids.length == 0
+  addSelectedButton(el).attr "disabled", ids.length == 0
+  # deSelectAllLink(el).attr "disabled", ids.length == 0
 
 filterCategorySelected = (addFilterDropdown, selectedCategory, label) ->
   widget = addFilterDropdown.closest("._filter-widget")
@@ -109,3 +131,4 @@ removeCategoryOption = (el, option) ->
 filterAndSort = (el)->
   form = $(el).closest("._filter-form")
   form.submit()
+

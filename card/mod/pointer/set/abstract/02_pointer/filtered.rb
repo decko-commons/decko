@@ -4,8 +4,7 @@ format :html do
   end
 
   def filtered_list_input
-    items = card.item_names context: :raw
-    haml :filtered_list_input, items: items
+    haml :filtered_list_input
   end
 
   def filtered_list_item item_card

@@ -1,8 +1,8 @@
 %div.filtered-list-editor
   %ul.filtered-list-review._pointer-filtered-list.list-group.vertical.nopadding
-    - items.each do |item|
-      %li._filtered-list-item{ "data-cardname": item }
-        - nest_item item do |rendered, view|
+    - card.item_cards(context: :raw).each do |item_card|
+      %li._filtered-list-item{ data: item_card.format.wrap_data(false) }
+        - nest_item item_card do |rendered, view|
           %span{ class: "item-#{view} float-left w-75"}
             = rendered
         %span.filtered-list-item-button
@@ -10,9 +10,9 @@
             = icon_tag :remove
   %br
   .clearfix
+    - path_opts = { view: :filter_items,
+                    slot: { hide: :modal_footer },
+                    filter: { not_ids: card.item_ids.map(&:to_s).join(",") } }
     = render_modal_link title: "Add Item",
-                      link_opts: { class: "btn btn-sm btn-primary",
-                                   path: { view: :filter_items,
-                                           layout: :modal2,
-                                           slot: { hide: :modal_footer } } }
+                        link_opts: { class: "btn btn-sm btn-primary", path: path_opts }
 
