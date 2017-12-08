@@ -1,15 +1,20 @@
-%table._filter-items
-  %tr
-    %td._unselected
-      = nest filter_card, view: :filter_form
-      add 100
+._filter-items.container-fluid
+  .row
+    = nest filter_card, view: :filter_form
+    ._unselected.col-6.border.mt-2.nopadding
+      .card-header
+        %h5
+          Choose metrics
+          .badge.badge-secondary
+            20
       = nest filter_card, view: :checkbox_list,
                           items: { view: implicit_item_view },
                           wql: { limit: 7 }
-    %td._selected
-      .selected-box{ style: "background: #ddd; padding: 10px; margin: 10px" }
-        %h5 Selected
-        .filter-help helpy helpy text text
+    ._selected.col-6.border.mt-2.nopadding
+      .selected-box
+        .card-header
+          %h5 Selected
+        .filter-help.alert.alert-secondary helpy helpy text text
         ._selected-bin
       .selected-item-buttons
         = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
