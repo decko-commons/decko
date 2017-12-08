@@ -2,14 +2,17 @@
   %tr
     %td._unselected
       = nest filter_card, view: :filter_form
-      add 100
+      %a._select-all{ href: "#" }
+        select all
       = nest filter_card, view: :checkbox_list,
                           items: { view: implicit_item_view },
-                          wql: { limit: 7 }
+                          wql: { limit: 10 }
     %td._selected
       .selected-box{ style: "background: #ddd; padding: 10px; margin: 10px" }
         %h5 Selected
         .filter-help helpy helpy text text
+        %a._deselect-all{ href: "#" }
+          deselect all
         ._selected-bin
       .selected-item-buttons
         = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
@@ -17,5 +20,4 @@
                                      data: { "slot-selector": ".TYPE-pointer.edit-view",
                                              "dismiss": "modal" },
                                      href: card.name.url_key
-        // FIXME: pass selector
 

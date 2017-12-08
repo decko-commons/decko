@@ -3,30 +3,34 @@ format :html do
   # (1) gives CSS classes for styling and
   # (2) adds card data for javascript - including the "card-slot" class,
   #     which in principle is not supposed to be in styles
-  def wrap slot=true
+  def wrap slot=true, &block
+    method_wrap :wrap_with, slot, &block
+  end
+
+  def haml_wrap slot=true, &block
+    method_wrap :haml_tag, slot, &block
+  end
+
+  def method_wrap method, slot, &block
     @slot_view = @current_view
     debug_slot do
-      wrap_with :div, yield, id: card.name.url_key,
-                             class: wrap_classes(slot),
-                             data:  wrap_data
+      attribs = { id: card.name.url_key,
+                  class: wrap_classes(slot),
+                  data:  wrap_data }
+      send method, :div, attribs, &block
     end
   end
 
-  def haml_wrap slot=true
-    @slot_view = @current_view
-    debug_slot do
-      haml_tag :div, id: card.name.url_key,
-                     class: wrap_classes(slot),
-                     data:  wrap_data do
-        yield
-      end
+  def wrap_data slot=true
+    with_slot_data slot do
+      { "card-id": card.id, "card-name": h(card.name) }
     end
   end
 
-  def wrap_data
-    { "card-id"           => card.id,
-      "card-name"         => h(card.name),
-      "slot"              => slot_options }
+  def with_slot_data slot
+    hash = yield
+    hash[:slot] = slot_options if slot
+    hash
   end
 
   def slot_options_json
