@@ -2,16 +2,7 @@
   .row
     = nest filter_card, view: :filter_form
     ._unselected.col-6.border.mt-2.nopadding
-      .card-header
-        %h5
-          Choose metrics
-          .badge.badge-secondary
-            20
-      .p-3
-        %input#select-all._select-all{name: "", type: "checkbox", value: ""}
-        %label{for: "select-all"}
-          select all
-      = nest filter_card, view: :checkbox_list,
+      = nest filter_card, view: :select_item,
                           items: { view: implicit_item_view },
                           wql: { limit: 10 }
     ._selected.col-6.border.mt-2.nopadding
@@ -20,13 +11,18 @@
           %h5
             Selected
             .badge.badge-secondary
-              20
+              %span._selected-items
+                0
         .p-3
-          %input#deselect-all._deselect-all{name: "", type: "checkbox", value: ""}
-          %label{for: "deselect-all"}
-            deselect all
+          %input#deselect-all._deselect-all{ type: "checkbox", checked: true, disabled: true }
+          %label{ for: "deselect-all" }
+            deselect
+            %span._selected-items
+              0
+            following
         ._selected-bin
-      .filter-help.alert.alert-secondary helpy helpy text text
+      .filter-help.alert.alert-secondary
+
       .selected-item-buttons
         = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
         = button_tag "Add Selected", class: "_add-selected slotter", disabled: true,
