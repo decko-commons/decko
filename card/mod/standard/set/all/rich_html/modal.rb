@@ -1,7 +1,7 @@
 format :html do
   view :modal_link do |args|
     opts = args[:link_opts]
-    opts[:path][:layout] = :modal
+    opts[:path][:layout] ||= :modal
     text = args[:link_text] || _render_title(args)
     link_to text, opts
   end
@@ -34,10 +34,10 @@ format :html do
     # (eg we don't want layout, id, controller...)
     wrap_with :div, class: "modal-menu w-100" do
       [
-        link_to(glyphicon("remove"),
+        link_to(icon_tag("remove"),
                 path: "", class: "close-modal float-right close",
                 "data-dismiss" => "modal"),
-        link_to(glyphicon("new-window"),
+        link_to(icon_tag("external-link"),
                 path: popout_params,
                 class: "pop-out-modal float-right close ")
       ]
