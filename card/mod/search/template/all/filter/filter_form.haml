@@ -11,7 +11,8 @@
       %form._filter-form{form_args, "accept-charset" => "UTF-8",
                                   "data-remote" => "true",
                                   :method => "get"}
-        %input{ type: :hidden, name: "filter[not_ids]", class: "_not-ids", value: card.filter_param(:not_ids) }
+        - not_ids = params.dig :filter, :not_ids
+        %input{ type: :hidden, name: "filter[not_ids]", class: "_not-ids", value: not_ids }
         .d-flex.flex-row
           - if sort_input_field
             %i.material-icons.text-muted.md-24.p-2 sort
