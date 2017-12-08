@@ -34,10 +34,10 @@ format :html do
     # (eg we don't want layout, id, controller...)
     wrap_with :div, class: "modal-menu" do
       [
-        link_to(icon("remove"),
+        link_to(icon_tag("remove"),
                 path: "", class: "close-modal float-right close",
                 "data-dismiss" => "modal"),
-        link_to(icon("new-window"),
+        link_to(icon_tag("external-link"),
                 path: popout_params,
                 class: "pop-out-modal float-right close ")
       ]

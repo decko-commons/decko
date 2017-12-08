@@ -7,19 +7,26 @@
           Choose metrics
           .badge.badge-secondary
             20
-      %a._select-all{ href: "#" }
-        select all
+      .p-3
+        %input#select-all._select-all{name: "", type: "checkbox", value: ""}
+        %label{for: "select-all"}
+          select all
       = nest filter_card, view: :checkbox_list,
                           items: { view: implicit_item_view },
                           wql: { limit: 10 }
     ._selected.col-6.border.mt-2.nopadding
       .selected-box
         .card-header
-          %h5 Selected
-        .filter-help.alert.alert-secondary helpy helpy text text
-        %a._deselect-all{ href: "#" }
-        deselect all
+          %h5
+            Selected
+            .badge.badge-secondary
+              20
+        .p-3
+          %input#deselect-all._deselect-all{name: "", type: "checkbox", value: ""}
+          %label{for: "deselect-all"}
+            deselect all
         ._selected-bin
+      .filter-help.alert.alert-secondary helpy helpy text text
       .selected-item-buttons
         = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
         = button_tag "Add Selected", class: "_add-selected slotter", disabled: true,
