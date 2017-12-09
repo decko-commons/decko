@@ -19,12 +19,12 @@ $(window).ready ->
 
   $("body").on "click", "._filter-items ._unselected ._search-checkbox-item input", ->
     selectFilteredItem $(this)
-    updateFilterAfterSelection $(this)
+    updateAfterSelection $(this)
 
   $("body").on "click", "._filter-items ._selected ._search-checkbox-item input", ->
     bin = selectedBin $(this)
     $(this).slot().remove()
-    updateFilterAfterSelection bin
+    updateAfterSelection bin
 
   $("body").on "click", "._filter-items ._add-selected", ->
     btn = $(this)
@@ -34,13 +34,14 @@ $(window).ready ->
   $("body").on "click", "._select-all", ->
     filterBox($(this)).find("._unselected ._search-checkbox-item input").each ->
       selectFilteredItem $(this)
-    updateFilterAfterSelection $(this)
+    $(this).prop "checked", false
+    updateAfterSelection $(this)
 
   $("body").on "click", "._deselect-all", ->
-    bin = selectedBin $(this)
     filterBox($(this)).find("._selected ._search-checkbox-item input").each ->
       $(this).slot().remove()
-    updateFilterAfterSelection bin
+    $(this).prop "checked", true
+    updateAfterSelection $(this)
 
 newFilteredListContent = (el) ->
   oldContent = el.slot().find(".d0-card-content").val()
@@ -54,9 +55,35 @@ addSelectedButtonUrl = (btn, content) ->
   url_base = btn.attr("href") + "?" + $.param(query)
   decko.prepUrl url_base, btn.slot()
 
-updateFilterAfterSelection = (el) ->
+updateAfterSelection = (el) ->
   trackSelectedIds el
   filterAndSort filterBox(el).find "._filter-form"
+  updateSelectedCount el
+  updateUnselectedCount el
+
+updateSelectedCount = (el) ->
+  count = selectedBin(el).children().length
+  filterBox(el).find("._selected-items").html count
+  deSelectAllLink(el).attr "disabled", count == 0
+  addSelectedButton(el).attr "disabled", count == 0
+  updateSelectedSectionVisibility el, count > 0
+
+updateSelectedSectionVisibility = (el, items_present) ->
+  box = filterBox el
+  selected_items = box.find "._selected-item-list"
+  help_text = box.find "._filter-help"
+  if items_present
+    selected_items.show()
+    help_text.hide()
+  else
+    selected_items.hide()
+    help_text.show()
+
+updateUnselectedCount = (el) ->
+  box = filterBox(el)
+  count = box.find("._search-checkbox-list").children().length
+  box.find("._unselected-items").html count
+  box.find("._select-all").attr "disabled", count > 0
 
 selectFilteredItem = (checkbox) ->
   checkbox.prop "checked", true
@@ -92,8 +119,6 @@ trackSelectedIds = (el) ->
   ids = savedIds(el).concat selectedIds(el)
   box = filterBox el
   box.find("._not-ids").val ids.toString()
-  addSelectedButton(el).attr "disabled", ids.length == 0
-  # deSelectAllLink(el).attr "disabled", ids.length == 0
 
 filterCategorySelected = (addFilterDropdown, selectedCategory, label) ->
   widget = addFilterDropdown.closest("._filter-widget")
