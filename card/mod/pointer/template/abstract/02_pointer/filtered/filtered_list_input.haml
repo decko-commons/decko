@@ -1,14 +1,24 @@
 %div.filtered-list-editor
-  %ul.filtered-list-review._pointer-filtered-list
-    -  card.item_cards(context: :raw).each do |item_card|
+  %ul.filtered-list-review._pointer-filtered-list.list-group.vertical.nopadding
+    - card.item_cards(context: :raw).each do |item_card|
       %li._filtered-list-item{ data: item_card.format.wrap_data(false) }
+        %span._handle.float-left.m-2
+          = icon_tag :reorder
         - nest_item item_card do |rendered, view|
-          %span{ class: "item-#{view}"}
+          %span{ class: "item-#{view} float-left w-75"}
             = rendered
         %span.filtered-list-item-button
-          %button._filtered-list-item-delete.btn.btn-secondary{:type => "button"}
+          %button._filtered-list-item-delete.btn.btn-secondary.btn-sm.m-2{:type => "button"}
             = icon_tag :remove
-  - path_opts = { view: :filter_items,
-                  slot: { hide: :modal_footer },
-                  filter: { not_ids: card.item_ids.map(&:to_s).join(",") } }
-  = render_modal_link title: "Add Item", link_opts: { path: path_opts }
+  %br
+  .clearfix
+    - path_opts = { view: :filter_items,
+                    layout: :simple_modal,
+                    slot: { hide: :modal_footer },
+                    filter: { not_ids: card.item_ids.map(&:to_s).join(",") } }
+    = render_modal_link title: "Add Item",
+                        link_opts: { class: "btn btn-sm btn-primary",
+                                     "data-target": "#modal-filtered-list",
+                                     path: path_opts }
+= render_modal_slot modal_id: "filtered-list", dialog_class: "modal-lg"
+
