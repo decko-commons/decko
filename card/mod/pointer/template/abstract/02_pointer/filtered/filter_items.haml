@@ -13,20 +13,22 @@
             .badge.badge-secondary
               %span._selected-items
                 0
-        .p-3
-          %input#deselect-all._deselect-all{ type: "checkbox", checked: true, disabled: true }
-          %label{ for: "deselect-all" }
-            deselect
-            %span._selected-items
-              0
-            following
-        ._selected-bin
-      .filter-help.alert.alert-secondary
-        Filter, select, and add.
-      .selected-item-buttons
-        = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
-        = button_tag "Add Selected", class: "_add-selected slotter", disabled: true,
-                                     data: { "slot-selector": ".TYPE-pointer.edit-view",
-                                             "dismiss": "modal" },
+        ._selected-item-list{ style: "display:none" }
+          .p-3.deselector
+            %input#deselect-all._deselect-all{ type: "checkbox", checked: true, disabled: true }
+            %label{ for: "deselect-all" }
+              deselect
+              %span._selected-items
+                0
+              following
+          ._selected-bin
+      ._filter-help.alert.alert-secondary
+        Filter and select items to add them here.
+      .form-group
+        .selected-item-buttons
+          = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
+          = button_tag "Add Selected", class: "_add-selected slotter", disabled: true,
+                                       data: { "slot-selector": ".TYPE-pointer.edit-view",
+                                               "dismiss": "modal" },
                                      href: card.name.url_key
 

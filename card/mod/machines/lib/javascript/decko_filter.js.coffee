@@ -66,6 +66,18 @@ updateSelectedCount = (el) ->
   filterBox(el).find("._selected-items").html count
   deSelectAllLink(el).attr "disabled", count == 0
   addSelectedButton(el).attr "disabled", count == 0
+  updateSelectedSectionVisibility el, count > 0
+
+updateSelectedSectionVisibility = (el, items_present) ->
+  box = filterBox el
+  selected_items = box.find "._selected-item-list"
+  help_text = box.find "._filter-help"
+  if items_present
+    selected_items.show()
+    help_text.hide()
+  else
+    selected_items.hide()
+    help_text.show()
 
 updateUnselectedCount = (el) ->
   box = filterBox(el)

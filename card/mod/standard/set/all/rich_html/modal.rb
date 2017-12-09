@@ -17,7 +17,7 @@ format :html do
     id = "modal-#{args[:modal_id] || 'main-slot'}"
     dialog_args = { class: "modal-dialog" }
     add_class dialog_args, args[:dialog_class]
-    wrap_with(:div, class: "modal fade", role: "dialog", id: id) do
+    wrap_with(:div, class: "modal fade _modal-slot", role: "dialog", id: id) do
       wrap_with(:div, dialog_args) do
         wrap_with :div, class: "modal-content" do
           ""
