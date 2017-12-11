@@ -13,7 +13,7 @@ format :html do
     end
   end
 
-  # override
+  # for override
   # @return [Card] search card on which filtering is based
   def filter_card
     raise Card::Error "filtered search not "
