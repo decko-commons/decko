@@ -1,7 +1,7 @@
 
 def fetch_params params
   Env.params.select { |key, val| val && params.include?(key) }
-      .with_indifferent_access
+     .with_indifferent_access
 end
 
 def param_to_i key, default

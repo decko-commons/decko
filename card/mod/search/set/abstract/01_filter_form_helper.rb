@@ -1,15 +1,15 @@
 include_set Abstract::FilterHelper
 
 format :html do
-  def select_filter field, label=nil, default=nil, options=nil
+  def select_filter field, _label=nil, default=nil, options=nil
     options ||= filter_options field
     options.unshift(["--", ""]) unless default
-    select_filter_tag field, label, default, options
+    select_filter_tag field, default, options
   end
 
-  def multiselect_filter field, label=nil, default=nil, options=nil
+  def multiselect_filter field, _label=nil, default=nil, options=nil
     options ||= filter_options field
-    multiselect_filter_tag field, label, default, options
+    multiselect_filter_tag field, default, options
   end
 
   def text_filter field, opts={}
@@ -37,12 +37,12 @@ format :html do
     multiselect_filter type_codename, nil, nil, options
   end
 
-  def multiselect_filter_tag field, label, default, options, html_options={}
+  def multiselect_filter_tag field, default, options, html_options={}
     html_options[:multiple] = true
-    select_filter_tag field, label, default, options, html_options
+    select_filter_tag field, default, options, html_options
   end
 
-  def select_filter_tag field, _label, default, options, html_options={}
+  def select_filter_tag field, default, options, html_options={}
     name = filter_name field, html_options[:multiple]
     default = filter_param(field) || default
     options = options_for_select(options, default)
