@@ -20,7 +20,9 @@ end
 
 format :html do
   def with_paging path_args={}
-    output [yield( paging_path_args(path_args)), _render_paging]
+    with_paging_path_args path_args do
+      output [yield(@paging_path_args), _render_paging]
+    end
   end
 
   view :paging, cache: :never do
@@ -56,6 +58,14 @@ format :html do
                    remote: true,
                    path: paging_path_args(offset: page * limit)
     link_to raw(text), options
+  end
+
+  def with_paging_path_args args
+    tmp = @paging_path_args
+    @paging_path_args = paging_path_args args
+    yield
+  ensure
+    @paging_path_args = tmp
   end
 
   def paging_path_args local_args={}
