@@ -1,6 +1,21 @@
 include_set Abstract::FilterFormgroups
 include_set Abstract::Utility
 
+
+def filter_class
+  Card::FilterQuery
+end
+
+def filter_wql
+  return {} if filter_hash.empty?
+  filter_class.new(filter_keys_with_values, blocked_id_wql).to_wql
+end
+
+def blocked_id_wql
+  not_ids = filter_param :not_ids
+  not_ids.present? ? { id: ["not in", not_ids] } : {}
+end
+
 def advanced_filter_keys
   []
 end
@@ -28,12 +43,8 @@ def filter_hash
   @filter_hash ||= begin
     filter = Env.params[:filter]
     filter = filter.to_unsafe_h if filter&.respond_to?(:to_unsafe_h)
-    filter.is_a?(Hash) ? filter : default_filter_option
+    filter.is_a?(Hash) ? filter : {}
   end
-end
-
-def default_filter_option
-  {}
 end
 
 format :html do
