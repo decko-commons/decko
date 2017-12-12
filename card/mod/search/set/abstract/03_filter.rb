@@ -11,27 +11,33 @@ end
 #   Filter.new(filter_keys_with_values, Env.params[:sort], wql, &wql).to_wql
 # end
 
+# all filter keys in the order they were selected
+def all_filter_keys
+  @all_filter_keys ||= filter_keys_from_params | filter_keys | advanced_filter_keys
+end
+
+def filter_keys
+  [:name]
+end
+
+def filter_keys_from_params
+  filter_hash.keys.map(&:to_sym) - [:not_ids]
+end
+
+def filter_hash
+  @filter_hash ||= begin
+    filter = Env.params[:filter]
+    filter = filter.to_unsafe_h if filter&.respond_to?(:to_unsafe_h)
+    filter.is_a?(Hash) ? filter : default_filter_option
+  end
+end
+
+def default_filter_option
+  {}
+end
+
 format :html do
-  # all filter keys in the order they were selected
-  def all_filter_keys
-    @all_filter_keys ||= filter_keys_from_params | filter_keys | advanced_filter_keys
-  end
-
-  def filter_keys_from_params
-    filter_hash.keys.map(&:to_sym) - [:not_ids]
-  end
-
-  def filter_hash
-    @filter_hash ||= begin
-      filter = Env.params[:filter]
-      filter = filter.to_unsafe_h if filter&.respond_to?(:to_unsafe_h)
-      filter.is_a?(Hash) ? filter : default_filter_option
-    end
-  end
-
-  def default_filter_option
-    {}
-  end
+  delegate :filter_hash, to: :card
 
   def filter_fields slot_selector: nil, sort_field: nil
     form_args = { action: filter_action_path, class: "slotter" }
@@ -79,14 +85,14 @@ format :html do
     }
   end
 
-  def default_sort_option
-    :name
-  end
-
   view :sort_formgroup, cache: :never do
     selected_option = sort_param || card.default_sort_option
     options = options_for_select(sort_options, selected_option)
     select_tag "sort", options, class: "pointer-select _filter-sort",
                "data-minimum-results-for-search" => "Infinity"
   end
+end
+
+def default_sort_option
+  :name
 end
