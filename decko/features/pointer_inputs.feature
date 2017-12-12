@@ -67,6 +67,8 @@ Feature: Pointer Inputs
     And I go to card "Joe User+friends"
     Then I should not see "Joe Camel"
 
+  Sc
+
 # can't get fill_in to work. don't know why -efm
 #  Scenario: Creating a card with list input
 #    Given I go to card "Joe User+friends"
