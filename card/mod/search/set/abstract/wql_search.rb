@@ -10,7 +10,7 @@ end
 
 # override this to define search
 def wql_hash
-  @wql_hash = wql_from_content.merge filter_wql
+  @wql_hash = wql_from_content.merge filter_and_sort_wql
 end
 
 def wql_from_content

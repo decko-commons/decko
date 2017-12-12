@@ -27,8 +27,12 @@
       .form-group
         .selected-item-buttons
           = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
-          = button_tag "Add Selected", class: "_add-selected slotter", disabled: true,
+          = button_tag "Add Selected", class: "_add-selected slotter",
+                                       disabled: true,
+                                       type: "button",
+                                       href: card.name.url_key,
                                        data: { "slot-selector": ".TYPE-pointer.edit-view",
-                                               "dismiss": "modal" },
-                                     href: card.name.url_key
+                                               remote: true,
+                                               dismiss: "modal" }
+
 

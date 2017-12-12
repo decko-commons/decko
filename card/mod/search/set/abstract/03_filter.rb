@@ -5,9 +5,22 @@ def filter_class
   Card::FilterQuery
 end
 
+def filter_and_sort_wql
+  sort? ? filter_wql.merge(sort_wql) : filter_wql
+end
+
 def filter_wql
   return {} if filter_hash.empty?
   filter_class.new(filter_keys_with_values, blocked_id_wql).to_wql
+end
+
+def sort_wql
+  return {} if !sort? || sort_param.empty?
+  { sort: sort_param }
+end
+
+def sort?
+  true
 end
 
 def blocked_id_wql
@@ -18,12 +31,6 @@ end
 def advanced_filter_keys
   []
 end
-
-# def search_wql type_id, opts, params_keys, return_param=nil, &block
-#   wql = { type_id: type_id }
-#   wql[:return] = return_param if return_param
-#   Filter.new(filter_keys_with_values, Env.params[:sort], wql, &wql).to_wql
-# end
 
 # all filter keys in the order they were selected
 def all_filter_keys
