@@ -1,3 +1,5 @@
+
+
 format :html do
   view :filtered_list do
     filtered_list_input
@@ -13,10 +15,15 @@ format :html do
     end
   end
 
-  # override
+  # for override
   # @return [Card] search card on which filtering is based
   def filter_card
-    raise Card::Error "filtered search not "
+    return Card[:all] unless (options_card = card.options_rule_card)
+    if options_card.respond_to? :wql_hash
+      options_card
+    else
+      options_card.fetch trait: :referred_to_by
+    end
   end
 
   view :filter_items, template: :haml
