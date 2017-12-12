@@ -142,6 +142,10 @@ format :html do
     end
   end
 
+  def default_select_item_args _args
+    class_up "card-slot", "_filter-result-slot"
+  end
+
   view :checkbox_list, cache: :never do
     with_results do
       search_result_list "_search-checkbox-list" do |item_card|

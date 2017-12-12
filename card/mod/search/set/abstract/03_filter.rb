@@ -12,7 +12,7 @@ end
 
 def blocked_id_wql
   not_ids = filter_param :not_ids
-  not_ids.present? ? { id: ["not in", not_ids] } : {}
+  not_ids.present? ? { id: ["not in", not_ids.split(",")] } : {}
 end
 
 def advanced_filter_keys
