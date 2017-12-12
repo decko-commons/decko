@@ -15,7 +15,7 @@ format :html do
     end
   end
 
-  # override
+  # for override
   # @return [Card] search card on which filtering is based
   def filter_card
     return Card[:all] unless (options_card = card.options_rule_card)

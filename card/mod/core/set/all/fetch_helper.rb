@@ -61,10 +61,13 @@ module ClassMethods
     if card&.real?
       [card, false]
     else
-      retrieve_from_db card, mark_type, mark_key, opts
+      retrieve_from_db_if_needed card, mark_type, mark_key, opts[:look_in_trash]
     end
   end
 
+  # In both the cache and the db, ids and keys are used to retrieve card data.
+  # This method identifies the kind of mark to use and its value
+  # @return [Array] first item is :id or :key, second is corresponding value
   def retrievable_mark_type_and_value mark
     # return mark_type and mark_value
     if mark.is_a? Integer
@@ -74,19 +77,22 @@ module ClassMethods
     end
   end
 
-  def retrieve_from_db card, mark_type, mark_key, opts
-    look_in_trash = opts[:look_in_trash]
+  # @return [{Card}, {True/False}] Card object and "needs_caching" ruling
+  def retrieve_from_db_if_needed card, mark_type, mark_key, look_in_trash
     return [card, false] unless retrieve_from_db? card, look_in_trash
-    card = retrieve_from_db! mark_type, mark_key, look_in_trash
+    card = retrieve_from_db mark_type, mark_key, look_in_trash
     needs_caching = !card.nil? && !card.trash
     [card, needs_caching]
   end
 
+  # Don't use db lookup if a version of the card (usually a new card, here)
+  # was in the cache.  Do lookup if
+  # @return [True/False]
   def retrieve_from_db? card, look_in_trash
     card.nil? || (look_in_trash && !card.trash)
   end
 
-  def retrieve_from_db! mark_type, mark_key, look_in_trash=false
+  def retrieve_from_db mark_type, mark_key, look_in_trash=false
     query = { mark_type => mark_key }
     query[:trash] = false unless look_in_trash
     Card.where(query).take
