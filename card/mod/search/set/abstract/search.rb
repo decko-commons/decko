@@ -135,13 +135,13 @@ format :html do
     end
   end
 
-  view :select_item do
+  view :select_item, cache: :never do
     wrap do
       haml :select_item
     end
   end
 
-  view :checkbox_list do
+  view :checkbox_list, cache: :never do
     with_results do
       search_result_list "_search-checkbox-list" do |item_card|
         checkbox_item item_card
