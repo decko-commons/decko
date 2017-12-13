@@ -11,6 +11,11 @@ end
 
 def filter_wql
   return {} if filter_hash.empty?
+  filter_wql_from_params
+end
+
+# separate method is needed for tests
+def filter_wql_from_params
   filter_class.new(filter_keys_with_values, blocked_id_wql).to_wql
 end
 
@@ -113,5 +118,5 @@ format :html do
 end
 
 def default_sort_option
-  :name
+  wql_from_content[:sort]
 end
