@@ -10,11 +10,13 @@ end
 
 # override this to define search
 def wql_hash
-  @wql_hash ||= begin
-    query = content
-    query = query.is_a?(Hash) ? query : parse_json_query(query)
-    query.symbolize_keys
-  end
+  @wql_hash = wql_from_content.merge filter_and_sort_wql
+end
+
+def wql_from_content
+  query = content
+  query = query.is_a?(Hash) ? query : parse_json_query(query)
+  query.symbolize_keys
 end
 
 def query_args args={}

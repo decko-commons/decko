@@ -1,4 +1,4 @@
-describe Card::Set::All::Filter do
+describe Card::Set::Abstract::Filter do
   subject do
     Card["A"].format.filter_form a: { input_field: "<input id='a'/>", label: "A" },
                                  b: { input_field: "<select id='b'/>", label: "B" },

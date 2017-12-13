@@ -1,12 +1,13 @@
 
-
 format :html do
   view :filtered_list do
     filtered_list_input
   end
 
   def filtered_list_input
-    haml :filtered_list_input
+    with_nest_mode :normal do
+      haml :filtered_list_input
+    end
   end
 
   def filtered_list_item item_card
@@ -18,12 +19,9 @@ format :html do
   # for override
   # @return [Card] search card on which filtering is based
   def filter_card
-    return Card[:all] unless (options_card = card.options_rule_card)
-    if options_card.respond_to? :wql_hash
-      options_card
-    else
-      options_card.fetch trait: :referred_to_by
-    end
+    fcard = card.options_rule_card || Card[:all]
+    return fcard if fcard.respond_to? :wql_hash
+    fcard.fetch trait: :referred_to_by, new: {}
   end
 
   view :filter_items, template: :haml

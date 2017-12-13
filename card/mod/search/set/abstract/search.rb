@@ -1,5 +1,6 @@
 include_set Abstract::SearchParams
 include_set Abstract::Paging
+include_set Abstract::Filter
 
 def search _args={}
   raise Error, "search not overridden"
@@ -139,6 +140,10 @@ format :html do
     wrap do
       haml :select_item
     end
+  end
+
+  def default_select_item_args _args
+    class_up "card-slot", "_filter-result-slot"
   end
 
   view :checkbox_list, cache: :never do
