@@ -1,5 +1,4 @@
 
-
 format :html do
   view :filtered_list do
     filtered_list_input
@@ -22,6 +21,6 @@ format :html do
     return fcard if fcard.respond_to? :wql_hash
     fcard.fetch trait: :referred_to_by, new: {}
   end
-  
+
   view :filter_items, template: :haml
 end

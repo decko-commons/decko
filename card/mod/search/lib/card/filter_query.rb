@@ -1,4 +1,5 @@
 class Card
+  # Class for generating WQL based on filter params
   class FilterQuery
     def initialize filter_keys_with_values, extra_wql={}
       @filter_wql = Hash.new { |h, k| h[k] = [] }
