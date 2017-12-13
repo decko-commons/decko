@@ -1,6 +1,6 @@
 
 def sort_hash
-  { sort: (Env.params[:sort].present? ? Env.params[:sort] : default_sort_option) }
+  { sort: sort_param }
 end
 
 def filter_param field
@@ -8,7 +8,7 @@ def filter_param field
 end
 
 def sort_param
-  Env.params[:sort] || default_sort_option
+  Env.params[:sort] if Env.params[:sort].present?
 end
 
 def filter_keys_with_values

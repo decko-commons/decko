@@ -5,7 +5,9 @@ format :html do
   end
 
   def filtered_list_input
-    haml :filtered_list_input
+    with_nest_mode :normal do
+      haml :filtered_list_input
+    end
   end
 
   def filtered_list_item item_card
