@@ -15,7 +15,7 @@ def filter_wql
 end
 
 def sort_wql
-  return {} if !sort? || sort_param.empty?
+  return {} if !sort? || sort_param.blank?
   { sort: sort_param }
 end
 
