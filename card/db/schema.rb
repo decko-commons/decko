@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908114442) do
+ActiveRecord::Schema.define(version: 20170908114452) do
 
   create_table "card_actions", id: :integer, force: :cascade do |t|
     t.integer "card_id"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 20170908114442) do
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
-    t.text "handler", null: false
+    t.text "handler", limit: 16777215, null: false
     t.text "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
