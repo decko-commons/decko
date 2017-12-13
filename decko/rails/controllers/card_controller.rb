@@ -7,7 +7,7 @@ require_dependency "decko/response"
 require_dependency "card/mailer"  # otherwise Net::SMTPError rescues can cause
 # problems when error raised comes before Card::Mailer is mentioned
 
-# Wagn's only controller.
+# Decko's only controller.
 class CardController < ActionController::Base
   include Card::Env::Location
   include Recaptcha::Verify
