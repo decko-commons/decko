@@ -1,3 +1,5 @@
+
+
 format :html do
   view :new, perms: :create, tags: :unknown_ok, cache: :never do
     with_nest_mode :edit do
@@ -97,10 +99,14 @@ format :html do
   end
 
   view :new_buttons do
-    cancel_path = !main? && path(view: :missing)
     button_formgroup do
-      [standard_create_button, standard_cancel_button(cancel_path)]
+      [standard_create_button, standard_cancel_button(cancel_button_new_args)]
     end
+  end
+
+  # path to redirect to after canceling a new form
+  def cancel_button_new_args
+    { href: (main? ? path_to_previous : path(view: :missing)) }
   end
 
   def standard_create_button
