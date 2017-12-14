@@ -46,8 +46,17 @@ format :html do
     text = args.delete(:text) || "Cancel"
     args[:type] ||= "button"
     args[:situation] ||= "outline-secondary"
-    add_class args, (args[:href] ? "slotter" : "redirecter")
-    args[:href] ||= Card.path_setting("/*previous")
+    add_class args, cancel_strategy(args[:redirect], args[:href])
+    args[:href] ||= path_to_previous
     button_tag text, args
+  end
+
+  def cancel_strategy redirect, href
+    redirect = href.blank? if redirect.nil?
+    redirect ? "redirecter" : "slotter"
+  end
+
+  def path_to_previous
+    Card.path_setting "/*previous"
   end
 end
