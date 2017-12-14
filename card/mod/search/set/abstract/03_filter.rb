@@ -28,6 +28,10 @@ def sort?
   true
 end
 
+def current_sort
+  sort_param || default_sort_option
+end
+
 def blocked_id_wql
   not_ids = filter_param :not_ids
   not_ids.present? ? { id: ["not in", not_ids.split(",")] } : {}
@@ -109,9 +113,8 @@ format :html do
   end
 
   view :sort_formgroup, cache: :never do
-    selected_option = sort_param || card.default_sort_option
-    options = options_for_select(sort_options, selected_option)
-    select_tag "sort", options,
+    select_tag "sort",
+               options_for_select(sort_options, card.current_sort),
                class: "pointer-select _filter-sort",
                "data-minimum-results-for-search": "Infinity"
   end
