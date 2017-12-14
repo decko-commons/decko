@@ -70,7 +70,7 @@ format :html do
   def filter_form_data
     all_filter_keys.each_with_object({}) do |cat, h|
       h[cat] = { label: filter_label(cat),
-                 input_field: _render("#{cat}_formgroup"),
+                 input_field: _render("filter_#{cat}_formgroup"),
                  active: show_filter_field?(cat) }
     end
   end
