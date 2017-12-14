@@ -17,7 +17,10 @@ class Card
         return "" if nest_invisible?
         nested_card = fetch_nested_card cardish, options
         view, options = interpret_nest_options nested_card, options
-        nest_render nested_card, view, options, override, &block
+
+        with_nest_mode options.delete(:mode) do
+          nest_render nested_card, view, options, override, &block
+        end
       end
 
       # nested by another card's content
