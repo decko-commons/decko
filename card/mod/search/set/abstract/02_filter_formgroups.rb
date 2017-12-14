@@ -2,34 +2,34 @@ include_set Abstract::FilterFormHelper
 
 # FIXME: the vast majority of these need to be moved back to wikirate
 format :html do
-  view :name_formgroup, cache: :never do
+  view :filter_name_formgroup, cache: :never do
     text_filter :name
   end
 
-  view :project_formgroup, cache: :never do
+  view :filter_project_formgroup, cache: :never do
     select_filter_type_based :project
   end
 
-  view :year_formgroup, cache: :never do
+  view :filter_year_formgroup, cache: :never do
     select_filter :year, "Year", "most recent"
   end
 
-  view :wikirate_topic_formgroup, cache: :never do
+  view :filter_wikirate_topic_formgroup, cache: :never do
     # select_filter_type_based :wikirate_topic
     autocomplete_filter :wikirate_topic
   end
 
-  view :metric_formgroup, cache: :never do
+  view :filter_metric_formgroup, cache: :never do
     # select_filter_type_based :metric
     autocomplete_filter :metric
   end
 
-  view :wikirate_company_formgroup, cache: :never do
+  view :filter_wikirate_company_formgroup, cache: :never do
     # select_filter_type_based :wikirate_company
     autocomplete_filter :wikirate_company
   end
 
-  view :research_policy_formgroup, cache: :never do
+  view :filter_research_policy_formgroup, cache: :never do
     multiselect_filter :research_policy, "Research Policy"
   end
 
@@ -37,7 +37,7 @@ format :html do
     select_filter_type_based :research_policy
   end
 
-  view :metric_type_formgroup, cache: :never do
+  view :filter_metric_type_formgroup, cache: :never do
     multiselect_filter :metric_type, "Metric Type"
   end
 
@@ -45,19 +45,19 @@ format :html do
     select_filter :metric_type, "Metric Type"
   end
 
-  view :metric_value_formgroup, cache: :never do
+  view :filter_metric_value_formgroup, cache: :never do
     select_filter :metric_value, "Value", "exists"
   end
 
-  view :designer_formgroup, cache: :never do
+  view :filter_designer_formgroup, cache: :never do
     select_filter :designer, "Designer"
   end
 
-  view :importance_formgroup, cache: :never do
+  view :filter_importance_formgroup, cache: :never do
     multiselect_filter :importance, "My Vote", %w[upvotes novotes]
   end
 
-  view :industry_formgroup, cache: :never do
+  view :filter_industry_formgroup, cache: :never do
     select_filter :industry, "Industry"
   end
 
