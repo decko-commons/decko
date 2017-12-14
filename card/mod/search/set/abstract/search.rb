@@ -71,6 +71,7 @@ format do
     query_args = search_params.merge args
     card.cached_search query_args
   rescue Error::BadQuery => e
+    binding.pry
     e
   end
 
