@@ -1,32 +1,42 @@
 class Card
   class Query
     module Sorting
-      SORT_JOIN_TO_ITEM_MAP = { left: "left_id", right: "right_id" }.freeze
+      SORT_BY_ITEM_JOIN_MAP = { left: "left_id", right: "right_id" }.freeze
 
       def sort val
-        return nil if @superquery
+        return nil unless full?
         sort_field = val[:return] || "db_content"
+        val = val.clone
         item = val.delete(:item) || "left"
-
         if sort_field == "count"
           sort_by_count val, item
-        elsif (join_field = SORT_JOIN_TO_ITEM_MAP[item.to_sym])
-          sq = join_cards(val, to_field: join_field,
-                               side: "LEFT",
-                               conditions_on_join: true)
-          @mods[:sort] ||= "#{sq.table_alias}.#{sort_field}"
         else
-          raise Card::Error::BadQuery, "sort item: #{item} not yet implemented"
+          sort_by_item_join val, item, sort_field
         end
+      end
+
+      def sort_by_item_join val, item, sort_field
+        join_field = sort_by_item_join_field item
+        join = join_cards val, to_field: join_field,
+                               side: "LEFT",
+                               conditions_on_join: true
+        @mods[:sort] ||= "#{join.table_alias}.#{sort_field}"
+      end
+
+      def sort_by_item_join_field item
+        join_field = SORT_BY_ITEM_JOIN_MAP[item.to_sym]
+        raise Card::Error::BadQuery, "sort item: #{item} not yet implemented" unless join_field
+        join_field
       end
 
       # EXPERIMENTAL!
       def sort_by_count val, item
         method_name = "sort_by_count_#{item}"
-        unless respond_to?(method_name)
+        if respond_to? method_name
+          send method_name, val
+        else
           raise Card::Error::BadQuery, "count with item: #{item} not yet implemented"
         end
-        send method_name, val
       end
 
       def sort_by_count_referred_to val
