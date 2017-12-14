@@ -8,6 +8,21 @@ def search args={}
   query.run
 end
 
+def fetch_query args={}
+  @query ||= {}
+  @query[args.to_s] ||= query(args.clone) # cache query
+end
+
+def query args={}
+  Query.new standardized_query_args(args), name
+end
+
+def standardized_query_args args
+  args = query_args(args).symbolize_keys
+  args[:context] ||= name
+  args
+end
+
 # override this to define search
 def wql_hash
   @wql_hash ||= wql_from_content.merge filter_and_sort_wql
@@ -25,20 +40,6 @@ def query_args args={}
   wql_hash.merge args
 end
 
-def query args={}
-  Query.new standardized_query_args(args), name
-end
-
-def fetch_query args={}
-  @query ||= {}
-  @query[args.to_s] ||= query(args.clone) # cache query
-end
-
-def standardized_query_args args
-  args = query_args(args).symbolize_keys
-  args[:context] ||= name
-  args
-end
 
 def parse_json_query query
   empty_query_error! if query.empty?
