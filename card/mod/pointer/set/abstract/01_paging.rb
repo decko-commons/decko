@@ -93,8 +93,6 @@ format :html do
     return false if fewer_results_than_limit? # avoid extra count search
     # count search result instead
     limit < count_with_params
-  rescue
-    binding.pry
   end
 
   # clear we don't need paging even before running count query
