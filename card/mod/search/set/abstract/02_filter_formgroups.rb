@@ -1,5 +1,6 @@
 include_set Abstract::FilterFormHelper
 
+# FIXME: the vast majority of these need to be moved back to wikirate
 format :html do
   view :name_formgroup, cache: :never do
     text_filter :name
