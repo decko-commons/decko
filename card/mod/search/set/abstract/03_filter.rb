@@ -54,14 +54,6 @@ def filter_keys_from_params
   filter_hash.keys.map(&:to_sym) - [:not_ids]
 end
 
-def filter_hash
-  @filter_hash ||= begin
-    filter = Env.params[:filter]
-    filter = filter.to_unsafe_h if filter&.respond_to?(:to_unsafe_h)
-    filter.is_a?(Hash) ? filter : {}
-  end
-end
-
 format :html do
   delegate :filter_hash, to: :card
 

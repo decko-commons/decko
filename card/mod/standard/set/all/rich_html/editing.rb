@@ -31,9 +31,9 @@ format :html do
     submit_button class: "submit-button"
   end
 
-  def standard_cancel_button href=nil
-    href ||= path
-    cancel_button class: "cancel-button", href: href
+  def standard_cancel_button args={}
+    args.reverse_merge! class: "cancel-button", href: path
+    cancel_button args
   end
 
   view :edit_name, perms: :update do
@@ -125,7 +125,7 @@ format :html do
   def edit_type_buttons
     cancel_path = path view: :edit
     button_formgroup do
-      [standard_submit_button, standard_cancel_button(cancel_path)]
+      [standard_submit_button, standard_cancel_button(href: cancel_path)]
     end
   end
 
