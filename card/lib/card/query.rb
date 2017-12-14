@@ -152,7 +152,11 @@ class Card
     end
 
     def limit
-      @mods[:limit].to_i
+      mods[:limit].to_i
+    end
+
+    def full?
+      !superquery && mods[:return] != "count"
     end
   end
 end
