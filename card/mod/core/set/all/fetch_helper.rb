@@ -58,10 +58,20 @@ module ClassMethods
   def retrieve_existing mark, opts
     return [nil, false] unless mark.present?
     mark_type, mark_key = retrievable_mark_type_and_value mark
+    if (card = retrieve_from_cache_by_mark mark_type, mark_key, opts)
+      # we have an acceptable card in the cache
+      # (and don't need to cache it again!)
+      [card, false]
+    else
+      # try to find the card in the database
+      card = retrieve_from_db mark_type, mark_key, opts[:look_in_trash]
+      [card, !(card.nil? || card.trash)]
+    end
+  end
+
+  def retrieve_from_cache_by_mark mark_type, mark_key, opts
     card = send "retrieve_from_cache_by_#{mark_type}", mark_key, opts[:local_only]
-    return [card, false] if return_cached_card? card, opts[:look_in_trash]
-    card = retrieve_from_db mark_type, mark_key, opts[:look_in_trash]
-    [card, card.present?]
+    return_cached_card?(card, opts[:look_in_trash]) ? card : nil
   end
 
   # In both the cache and the db, ids and keys are used to retrieve card data.
