@@ -19,9 +19,18 @@ format :html do
   # for override
   # @return [Card] search card on which filtering is based
   def filter_card
+    filter_card_from_params || default_filter_card
+  end
+
+  def default_filter_card
     fcard = card.options_rule_card || Card[:all]
     return fcard if fcard.respond_to? :wql_hash
     fcard.fetch trait: :referred_to_by, new: {}
+  end
+
+  def filter_card_from_params
+    return unless params[:filter_card]
+    Card.fetch params[:filter_card], new: {}
   end
 
   view :filter_items, tags: :unknown_ok do

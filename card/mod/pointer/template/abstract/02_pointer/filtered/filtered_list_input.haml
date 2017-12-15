@@ -13,6 +13,8 @@
   %br
   .clearfix
     - path_opts = { view: :filter_items,
+                    item: implicit_item_view,
+                    filter_card: filter_card.name,
                     layout: :simple_modal,
                     slot: { hide: :modal_footer },
                     filter: { not_ids: card.item_ids.map(&:to_s).join(",") } }
@@ -21,4 +23,3 @@
                                      "data-target": "#modal-filtered-list",
                                      path: path_opts }
 = render_modal_slot modal_id: "filtered-list", dialog_class: "modal-lg"
-
