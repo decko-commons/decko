@@ -27,6 +27,10 @@ def filter_keys_with_values
   end.compact
 end
 
+def default_filter_option
+  {}
+end
+
 def offset
   param_to_i :offset, 0
 end
