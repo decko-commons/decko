@@ -24,19 +24,18 @@ class Card
       end
 
       def sort_by_item_join_field item
-        join_field = SORT_BY_ITEM_JOIN_MAP[item.to_sym]
-        raise Card::Error::BadQuery, "sort item: #{item} not yet implemented" unless join_field
-        join_field
+        SORT_BY_ITEM_JOIN_MAP[item.to_sym] || sort_method_not_implemented(:join, item)
       end
 
       # EXPERIMENTAL!
       def sort_by_count val, item
         method_name = "sort_by_count_#{item}"
-        if respond_to? method_name
-          send method_name, val
-        else
-          raise Card::Error::BadQuery, "count with item: #{item} not yet implemented"
-        end
+        sort_by_count_not_implemented :count, item unless respond_to? method_name
+        send method_name, val
+      end
+
+      def sort_method_not_implemented method, item
+        raise Card::Error::BadQuery, "sorting by ##{method}/#{item} not yet implemented"
       end
 
       def sort_by_count_referred_to val

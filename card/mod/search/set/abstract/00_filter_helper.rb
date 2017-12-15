@@ -7,6 +7,14 @@ def filter_param field
   filter_hash[field.to_sym]
 end
 
+def filter_hash
+  @filter_hash ||= begin
+    filter = Env.params[:filter]
+    filter = filter.to_unsafe_h if filter&.respond_to?(:to_unsafe_h)
+    filter.is_a?(Hash) ? filter : {}
+  end
+end
+
 def sort_param
   Env.params[:sort] if Env.params[:sort].present?
 end
@@ -17,6 +25,10 @@ def filter_keys_with_values
     next unless values.present?
     [key, values]
   end.compact
+end
+
+def default_filter_option
+  {}
 end
 
 def offset

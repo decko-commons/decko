@@ -40,7 +40,6 @@ def query_args args={}
   wql_hash.merge args
 end
 
-
 def parse_json_query query
   empty_query_error! if query.empty?
   JSON.parse query

@@ -28,6 +28,10 @@ def sort?
   true
 end
 
+def current_sort
+  sort_param || default_sort_option
+end
+
 def blocked_id_wql
   not_ids = filter_param :not_ids
   not_ids.present? ? { id: ["not in", not_ids.split(",")] } : {}
@@ -50,14 +54,6 @@ def filter_keys_from_params
   filter_hash.keys.map(&:to_sym) - [:not_ids]
 end
 
-def filter_hash
-  @filter_hash ||= begin
-    filter = Env.params[:filter]
-    filter = filter.to_unsafe_h if filter&.respond_to?(:to_unsafe_h)
-    filter.is_a?(Hash) ? filter : {}
-  end
-end
-
 format :html do
   delegate :filter_hash, to: :card
 
@@ -76,7 +72,7 @@ format :html do
   end
 
   def show_filter_field? field
-    filter_hash[field]
+    filter_hash.present? ? filter_hash[field] : card.default_filter_option[field]
   end
 
   def filter_label field
@@ -109,9 +105,8 @@ format :html do
   end
 
   view :sort_formgroup, cache: :never do
-    selected_option = sort_param || card.default_sort_option
-    options = options_for_select(sort_options, selected_option)
-    select_tag "sort", options,
+    select_tag "sort",
+               options_for_select(sort_options, card.current_sort),
                class: "pointer-select _filter-sort",
                "data-minimum-results-for-search": "Infinity"
   end
