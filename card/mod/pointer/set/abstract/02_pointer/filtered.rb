@@ -1,13 +1,16 @@
 
 format :html do
-  view :filtered_list, tags: :unknown_ok  do
-    filtered_list_input
+  view :filtered_list, tags: :unknown_ok do
+    with_nest_mode :normal do
+      class_up "card-slot", editor_id
+      wrap do
+        haml :filtered_list_input
+      end
+    end
   end
 
   def filtered_list_input
-    with_nest_mode :normal do
-      haml :filtered_list_input
-    end
+    _render_filtered_list
   end
 
   def filtered_list_item item_card
@@ -35,5 +38,11 @@ format :html do
 
   view :filter_items, tags: :unknown_ok do
     haml :filter_items
+  end
+
+  # currently actually used as a class
+  # (because we don't have api to override slot's id)
+  def editor_id
+    @editor_id ||= "editor#{unique_id}"
   end
 end

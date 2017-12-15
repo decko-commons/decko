@@ -51,8 +51,9 @@ newFilteredListContent = (el) ->
 
 addSelectedButtonUrl = (btn, content) ->
   view = btn.slot().data("slot")["view"]
-  query = { "card[content]" : content, "assign" : true, "view" : view }
-  url_base = btn.attr("href") + "?" + $.param(query)
+  card_args = { content: content, type: "Pointer" }
+  query = { assign: true, view: view, card: card_args }
+  url_base = decko.rootPath + btn.attr("href") + "&" + $.param(query)
   decko.prepUrl url_base, btn.slot()
 
 updateAfterSelection = (el) ->
