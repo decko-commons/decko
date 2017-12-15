@@ -1,5 +1,5 @@
 format :html do
-  view :modal_link do |args|
+  view :modal_link, tags: :unknown_ok do |args|
     opts = args[:link_opts]
     opts[:path][:layout] ||= :modal
     text = args[:link_text] || _render_title(args)

@@ -1,6 +1,6 @@
 
 format :html do
-  view :filtered_list do
+  view :filtered_list, tags: :unknown_ok  do
     filtered_list_input
   end
 
@@ -24,5 +24,7 @@ format :html do
     fcard.fetch trait: :referred_to_by, new: {}
   end
 
-  view :filter_items, template: :haml
+  view :filter_items, tags: :unknown_ok do
+    haml :filter_items
+  end
 end
