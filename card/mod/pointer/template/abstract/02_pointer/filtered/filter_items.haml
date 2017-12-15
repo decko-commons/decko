@@ -27,9 +27,8 @@
       .form-group
         .selected-item-buttons
           = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
+          - select_href = path item: params[:item], filter_card: params[:filter_card]
           = button_tag "Add Selected", class: "_add-selected slotter close-modal",
                                        disabled: true,
-                                       href: card.name.url_key,
-                                       data: { "slot-selector": ".TYPE-pointer.edit-view" }
-
-
+                                       href: select_href,
+                                       data: { "slot-selector": ".#{params[:editor_id]}" }
