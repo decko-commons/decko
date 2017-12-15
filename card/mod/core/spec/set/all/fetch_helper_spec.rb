@@ -3,14 +3,12 @@
 RSpec.describe Card::Set::All::FetchHelper do
   let(:retrieve) { test_retrieve_existing }
   let(:retrieve_from_trash) { test_retrieve_existing look_in_trash: true }
-  let(:spyCard) { spy Card }
 
   def test_retrieve_existing opts={}
     Card.send :retrieve_existing, "A".to_name, opts
   end
 
   describe "retrieve_existing" do
-
     it "looks for non-cached card in database" do
       expect_db_retrieval_with(:key, "a", nil) { retrieve }
     end
