@@ -7,7 +7,7 @@ Feature: Pointer Inputs
   Background:
     Given I am signed in as Joe Admin
     And I create Pointer card "friends+*right+*default"
-    # And I create Search card "friends+*right+*options" with content "{"type":"User"}"
+    And I create Search card "friends+*right+*options" with content "{"type":"User"}"
 
   Scenario: Creating a card with select input
     Given I create Phrase card "friends+*right+*input" with content "select"

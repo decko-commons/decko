@@ -2,8 +2,11 @@
 
 RSpec.describe Card::Set::All::FetchHelper do
   let :retrieve do
-    @opts ||= {}
-    Card.send(:retrieve_existing, mark, @opts).map &:class
+    Card.send(:retrieve_existing, mark, {}).map(&:class)
+  end
+
+  let :retrieve_from_trash do
+    Card.send(:retrieve_existing, mark, look_in_trash: true).map(&:class)
   end
 
   describe "retrieve_existing" do
@@ -28,10 +31,9 @@ RSpec.describe Card::Set::All::FetchHelper do
     end
 
     it "looks in db for new cards already in cache if 'look_in_trash' option used" do
-      @opts = { look_in_trash: true }
       Card.cache.write "a", Card.new
       expect(Card).to receive(:retrieve_from_db).with(:key, "a", true)
-      retrieve
+      retrieve_from_trash
     end
   end
 end
