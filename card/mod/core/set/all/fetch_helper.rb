@@ -53,16 +53,15 @@ module ClassMethods
     opts[:skip_virtual] || opts[:new].present? || opts[:skip_type_lookup]
   end
 
+  # look in cache.  if that doesn't work, look in database
   # @return [{Card}, {True/False}] Card object and "needs_caching" ruling
   def retrieve_existing mark, opts
     return [nil, false] unless mark.present?
     mark_type, mark_key = retrievable_mark_type_and_value mark
     card = send "retrieve_from_cache_by_#{mark_type}", mark_key, opts[:local_only]
-    if card&.real?
-      [card, false]
-    else
-      retrieve_from_db_if_needed card, mark_type, mark_key, opts[:look_in_trash]
-    end
+    return [card, false] if return_cached_card? card, opts[:look_in_trash]
+    card = retrieve_from_db mark_type, mark_key, opts[:look_in_trash]
+    [card, card.present?]
   end
 
   # In both the cache and the db, ids and keys are used to retrieve card data.
@@ -77,21 +76,12 @@ module ClassMethods
     end
   end
 
-  # @return [{Card}, {True/False}] Card object and "needs_caching" ruling
-  def retrieve_from_db_if_needed card, mark_type, mark_key, look_in_trash
-    return [card, false] unless retrieve_from_db? card, look_in_trash
-    card = retrieve_from_db mark_type, mark_key, look_in_trash
-    needs_caching = !card.nil? && !card.trash
-    [card, needs_caching]
+  def return_cached_card? card, look_in_trash
+    return false unless card
+    card.real? || !look_in_trash
   end
 
-  # Don't use db lookup if a version of the card (usually a new card, here)
-  # was in the cache.  Do lookup if
-  # @return [True/False]
-  def retrieve_from_db? card, look_in_trash
-    card.nil? || (look_in_trash && !card.trash)
-  end
-
+  # @return [Card, nil] Card object
   def retrieve_from_db mark_type, mark_key, look_in_trash=false
     query = { mark_type => mark_key }
     query[:trash] = false unless look_in_trash

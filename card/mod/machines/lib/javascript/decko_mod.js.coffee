@@ -43,9 +43,6 @@ $(window).ready ->
     else
       item.find('input').val ''
 
-  $('body').on 'click', '._filtered-list-item-delete', ->
-    $(this).closest('li').remove()
-
   $('body').on 'show.bs.tab', 'a.load[data-toggle=tab][data-url]', (e) ->
     tab_id = $(e.target).attr('href')
     url    = $(e.target).data('url')

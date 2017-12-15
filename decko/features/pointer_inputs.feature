@@ -79,10 +79,12 @@ Feature: Pointer Inputs
     And I wait for ajax response
     And I choose "Joe Camel"
     And I press "Add Selected"
+    And I wait for ajax response
     Then I should see "Joe Camel"
     And I press "Submit"
+    And I wait for ajax response
     And I go to card "Joe User+friends"
-    Then I should not see "Joe Camel"
+    Then I should see "Joe Camel"
 
 # can't get fill_in to work. don't know why -efm
 #  Scenario: Creating a card with list input

@@ -43,6 +43,9 @@ $(window).ready ->
     $(this).prop "checked", true
     updateAfterSelection $(this)
 
+  $('body').on 'click', '._filtered-list-item-delete', ->
+    $(this).closest('li').remove()
+
 newFilteredListContent = (el) ->
   oldContent = el.slot().find(".d0-card-content").val()
   newContent = decko.pointerContent selectedNames(el)
@@ -64,7 +67,7 @@ updateAfterSelection = (el) ->
 updateSelectedCount = (el) ->
   count = selectedBin(el).children().length
   filterBox(el).find("._selected-items").html count
-  deSelectAllLink(el).attr "disabled", count == 0
+  deselectAllLink(el).attr "disabled", count == 0
   addSelectedButton(el).attr "disabled", count == 0
   updateSelectedSectionVisibility el, count > 0
 
@@ -102,7 +105,7 @@ savedIds = (el) ->
 addSelectedButton = (el) ->
   filterBox(el).find("._add-selected")
 
-deSelectAllLink = (el) ->
+deselectAllLink = (el) ->
   filterBox(el).find("._deselect-all")
 
 selectedIds = (el) ->
