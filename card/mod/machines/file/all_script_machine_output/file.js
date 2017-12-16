@@ -6,7 +6,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 
 //script: slot
 (function() {
-  var addCaptcha, addCategoryOption, containerClass, detectMobileBrowser, doubleSidebar, filterAndSort, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, removeCategoryOption, reqIndex, setFilterInputWidth, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, warn, wrapDeckoLayout, wrapSidebarToggle;
+  var addCaptcha, addCategoryOption, addSelectedButton, addSelectedButtonUrl, containerClass, deSelectAllLink, detectMobileBrowser, doubleSidebar, filterAndSort, filterBox, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, newFilteredListContent, removeCategoryOption, reqIndex, savedIds, selectFilteredItem, selectedBin, selectedData, selectedIds, selectedNames, setFilterInputWidth, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, trackSelectedIds, updateFilterAfterSelection, warn, wrapDeckoLayout, wrapSidebarToggle;
 
   window.decko || (window.decko = {});
 
@@ -36,6 +36,9 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       } else {
         return item.find('input').val('');
       }
+    });
+    $('body').on('click', '._filtered-list-item-delete', function() {
+      return $(this).closest('li').remove();
     });
     $('body').on('show.bs.tab', 'a.load[data-toggle=tab][data-url]', function(e) {
       var tab_id, url;
@@ -514,17 +517,17 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
   });
 
   $(window).ready(function() {
-    $('body').on("change", "._filter-input input, ._filter-input select, ._filter-sort", function() {
+    $("body").on("change", "._filter-input input, ._filter-input select, ._filter-sort", function() {
       return filterAndSort(this);
     });
-    $('body').on("click", "._filter-category-select", function() {
+    $("body").on("click", "._filter-category-select", function() {
       var addFilterDropdown, category, label;
       addFilterDropdown = $(this).closest("._add-filter-dropdown");
       category = $(this).data("category");
       label = $(this).data("label");
       return filterCategorySelected(addFilterDropdown, category, label);
     });
-    return $('body').on("click", "._delete-filter-input", function() {
+    $("body").on("click", "._delete-filter-input", function() {
       var category, form, input;
       form = $(this).closest("._filter-form");
       input = $(this).closest("._filter-input");
@@ -533,7 +536,117 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       hideFilterInputField(input);
       return form.submit();
     });
+    $("body").on("click", "._filter-items ._unselected ._search-checkbox-item input", function() {
+      selectFilteredItem($(this));
+      return updateFilterAfterSelection($(this));
+    });
+    $("body").on("click", "._filter-items ._selected ._search-checkbox-item input", function() {
+      var bin;
+      bin = selectedBin($(this));
+      $(this).slot().remove();
+      return updateFilterAfterSelection(bin);
+    });
+    $("body").on("click", "._filter-items ._add-selected", function() {
+      var btn, content;
+      btn = $(this);
+      content = newFilteredListContent(btn);
+      return btn.attr("href", addSelectedButtonUrl(btn, content));
+    });
+    $("body").on("click", "._select-all", function() {
+      filterBox($(this)).find("._unselected ._search-checkbox-item input").each(function() {
+        return selectFilteredItem($(this));
+      });
+      return updateFilterAfterSelection($(this));
+    });
+    return $("body").on("click", "._deselect-all", function() {
+      var bin;
+      bin = selectedBin($(this));
+      filterBox($(this)).find("._selected ._search-checkbox-item input").each(function() {
+        return $(this).slot().remove();
+      });
+      return updateFilterAfterSelection(bin);
+    });
   });
+
+  newFilteredListContent = function(el) {
+    var newContent, oldContent;
+    oldContent = el.slot().find(".d0-card-content").val();
+    newContent = decko.pointerContent(selectedNames(el));
+    if (!oldContent) {
+      return newContent;
+    }
+    return oldContent + "\n" + newContent;
+  };
+
+  addSelectedButtonUrl = function(btn, content) {
+    var query, url_base, view;
+    view = btn.slot().data("slot")["view"];
+    query = {
+      "card[content]": content,
+      "assign": true,
+      "view": view
+    };
+    url_base = btn.attr("href") + "?" + $.param(query);
+    return decko.prepUrl(url_base, btn.slot());
+  };
+
+  updateFilterAfterSelection = function(el) {
+    trackSelectedIds(el);
+    return filterAndSort(filterBox(el).find("._filter-form"));
+  };
+
+  selectFilteredItem = function(checkbox) {
+    checkbox.prop("checked", true);
+    return selectedBin(checkbox).append(checkbox.slot());
+  };
+
+  selectedBin = function(el) {
+    return filterBox(el).find("._selected-bin");
+  };
+
+  filterBox = function(el) {
+    return el.closest("._filter-items");
+  };
+
+  savedIds = function(el) {
+    var filteredList;
+    filteredList = addSelectedButton($(el)).slot().find("._pointer-filtered-list");
+    return filteredList.children().map(function() {
+      return $(this).data("cardId");
+    }).toArray();
+  };
+
+  addSelectedButton = function(el) {
+    return filterBox(el).find("._add-selected");
+  };
+
+  deSelectAllLink = function(el) {
+    return filterBox(el).find("._deselect-all");
+  };
+
+  selectedIds = function(el) {
+    return selectedData(el, "cardId");
+  };
+
+  selectedNames = function(el) {
+    return selectedData(el, "cardName");
+  };
+
+  selectedData = function(el, field) {
+    var slots;
+    slots = selectedBin(el).children();
+    return slots.map(function() {
+      return $(this).data(field);
+    }).toArray();
+  };
+
+  trackSelectedIds = function(el) {
+    var box, ids;
+    ids = savedIds(el).concat(selectedIds(el));
+    box = filterBox(el);
+    box.find("._not-ids").val(ids.toString());
+    return addSelectedButton(el).attr("disabled", ids.length === 0);
+  };
 
   filterCategorySelected = function(addFilterDropdown, selectedCategory, label) {
     var widget;
@@ -548,12 +661,12 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
     $inputField = $(widget.find(selector)[0]);
     $(widget.find("._add-filter-dropdown")).before($inputField);
     setFilterInputWidth($inputField);
-    decko.initAutoCardPlete($inputField.find('input'));
+    decko.initAutoCardPlete($inputField.find("input"));
     return $inputField.find("input, select").focus();
   };
 
   setFilterInputWidth = function($inputField) {
-    return $inputField.find('select:not([multiple])').select2({
+    return $inputField.find("select:not([multiple])").select2({
       dropdownAutoWidth: "true"
     });
   };
@@ -18457,11 +18570,9 @@ $.extend( proto, {
         return $(this).val();
       }));
     },
-    '.pointer-mixed': function() {
-      var element;
-      element = '.pointer-checkbox-sublist input:checked,.pointer-sublist-ul input';
-      return pointerContent(this.find(element).map(function() {
-        return $(this).val();
+    '._pointer-filtered-list': function() {
+      return pointerContent(this.find('._filtered-list-item').map(function() {
+        return $(this).data('cardname');
       }));
     },
     '.perm-editor': function() {
@@ -18491,17 +18602,20 @@ $.extend( proto, {
       return input.autocomplete({
         source: decko.prepUrl(url)
       });
+    },
+    pointerContent: function(vals) {
+      var list;
+      list = $.map($.makeArray(vals), function(v) {
+        if (v) {
+          return '[[' + v + ']]';
+        }
+      });
+      return $.makeArray(list).join("\n");
     }
   });
 
   pointerContent = function(vals) {
-    var list;
-    list = $.map($.makeArray(vals), function(v) {
-      if (v) {
-        return '[[' + v + ']]';
-      }
-    });
-    return $.makeArray(list).join("\n");
+    return decko.pointerContent(vals);
   };
 
   permissionsContent = function(ed) {

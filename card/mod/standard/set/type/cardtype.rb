@@ -10,11 +10,11 @@ format :html do
     super args
   end
 
-  view :type_formgroup do |args|
+  view :type_formgroup do
     if card.cards_of_type_exist?
       wrap_with :div, tr(:cards_exist, cardname: card.name)
     else
-      super args
+      super()
     end
   end
 

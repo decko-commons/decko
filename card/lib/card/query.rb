@@ -78,7 +78,7 @@ class Card
     OPERATORS =
       %w(!= = =~ < > in ~).each_with_object({}) { |v, h| h[v] = v }.merge(
         {
-          eq: "=", gt: ">", lt: "<", match: "~", ne: "!=", "not in" => nil
+          eq: "=", gt: ">", lt: "<", match: "~", ne: "!=", "not in": "not in"
         }.stringify_keys
       )
 
@@ -152,7 +152,11 @@ class Card
     end
 
     def limit
-      @mods[:limit].to_i
+      mods[:limit].to_i
+    end
+
+    def full?
+      !superquery && mods[:return] != "count"
     end
   end
 end

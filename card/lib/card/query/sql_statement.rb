@@ -179,8 +179,7 @@ class Card
       end
 
       def full_syntax
-        return if @query.superquery || @mods[:return] == "count"
-        yield
+        @query.full? ? yield : return
       end
 
       def order

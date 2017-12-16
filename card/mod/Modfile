@@ -1,3 +1,4 @@
+mod 'utility'
 mod 'admin'
 mod 'core'
 mod 'history'

@@ -67,6 +67,25 @@ Feature: Pointer Inputs
     And I go to card "Joe User+friends"
     Then I should not see "Joe Camel"
 
+  Scenario: Creating a card with filtered list input
+    Given I create Phrase card "friends+*right+*input" with content "filtered list"
+    When I go to card "Joe User+friends"
+    And I click on "Add Item"
+    Then I should see "Select Item"
+    When I click on "Add filter"
+    And I click on "Keyword"
+    And I wait for ajax response
+    And I fill in "filter[name]" with "Joe"
+    And I wait for ajax response
+    And I choose "Joe Camel"
+    And I press "Add Selected"
+    And I wait for ajax response
+    Then I should see "Joe Camel"
+    And I press "Submit"
+    And I wait for ajax response
+    And I go to card "Joe User+friends"
+    Then I should see "Joe Camel"
+
 # can't get fill_in to work. don't know why -efm
 #  Scenario: Creating a card with list input
 #    Given I go to card "Joe User+friends"

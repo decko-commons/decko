@@ -8,9 +8,11 @@
             - unless category[:active]
               = haml_partial :filter_input, key: key, category: category
 
-      %form._filter-form{form_args, "accept-charset" => "UTF-8",
-                                  "data-remote" => "true",
-                                  :method => "get"}
+      %form._filter-form{form_args, "accept-charset": "UTF-8",
+                                    "data-remote": "true",
+                                    method: "get"}
+        - not_ids = params.dig :filter, :not_ids
+        %input{ type: :hidden, name: "filter[not_ids]", class: "_not-ids", value: not_ids }
         .d-flex.flex-row
           - if sort_input_field
             %i.material-icons.text-muted.md-24.p-2 sort
@@ -25,10 +27,10 @@
                 = haml_partial :filter_input, key: key, category: category
 
             .dropdown._add-filter-dropdown
-              %button.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false",
-                                                      "aria-haspopup" => "true",
-                                                      "data-toggle" => "dropdown",
-                                                      :type => "button"}
+              %button.btn.btn-secondary.dropdown-toggle{"aria-expanded": "false",
+                                                        "aria-haspopup": "true",
+                                                        "data-toggle": "dropdown",
+                                                        type: "button" }
                 Add filter
               .dropdown-menu
                 - categories.each do |key, category|
