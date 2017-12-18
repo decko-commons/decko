@@ -47,7 +47,7 @@ $(window).ready ->
     $(this).closest('li').remove()
 
 newFilteredListContent = (el) ->
-  oldContent = el.slot().find(".d0-card-content").val()
+  oldContent = el.slot().siblings(".d0-card-content").val()
   newContent = decko.pointerContent selectedNames(el)
   return newContent if !oldContent
   oldContent + "\n" + newContent
