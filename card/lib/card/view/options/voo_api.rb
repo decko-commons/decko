@@ -4,33 +4,6 @@ class Card
       # The methods of the VooApi module allow developers
       # to read and write options dynamically.
       module VooApi
-        class << self
-          def define_getter option_key
-            define_method option_key do
-              norm_method = "normalize_#{option_key}"
-              value = live_options[option_key]
-              try(norm_method, value) || value
-            end
-          end
-
-          def define_setter option_key
-            define_method "#{option_key}=" do |value|
-              live_options[option_key] = value
-            end
-          end
-
-          def included base
-            # Developers can also set most options directly via accessors,
-            # eg voo.title = "King"
-            # :view, :show, and :hide have non-standard access (see #accessible_keys)
-
-            base.accessible_keys.each do |option_key|
-              define_getter option_key
-              define_setter option_key
-            end
-          end
-        end
-
         # There are two primary options hashes:
 
         # - @normalized_options are determined upon initialization and do not change
@@ -44,6 +17,33 @@ class Card
         # @return [Hash]
         def live_options
           @live_options ||= process_live_options
+        end
+
+        class << self
+          def included base
+            # Developers can also set most options directly via accessors,
+            # eg voo.title = "King"
+            # :view, :show, and :hide have non-standard access (see #accessible_keys)
+
+            base.accessible_keys.each do |option_key|
+              define_getter option_key
+              define_setter option_key
+            end
+          end
+
+          def define_getter option_key
+            define_method option_key do
+              norm_method = "normalize_#{option_key}"
+              value = live_options[option_key]
+              try(norm_method, value) || value
+            end
+          end
+
+          def define_setter option_key
+            define_method "#{option_key}=" do |value|
+              live_options[option_key] = value
+            end
+          end
         end
 
         # "items", the option used to configure views of each of a list of cards, is
