@@ -4,6 +4,22 @@ class Card
       # The methods of the VooApi module allow developers
       # to read and write options dynamically.
       module VooApi
+        class << self
+          def define_getter option_key
+            define_method option_key do
+              norm_method = "normalize_#{option_key}"
+              value = live_options[option_key]
+              try(norm_method, value) || value
+            end
+          end
+
+          def define_setter option_key
+            define_method "#{option_key}=" do |value|
+              live_options[option_key] = value
+            end
+          end
+        end
+
         # There are two primary options hashes:
 
         # - @normalized_options are determined upon initialization and do not change
