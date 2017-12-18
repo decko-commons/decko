@@ -47,7 +47,7 @@ $(window).ready ->
     $(this).closest('li').remove()
 
 newFilteredListContent = (el) ->
-  oldContent = el.slot().find(".d0-card-content").val()
+  oldContent = el.slot().siblings(".d0-card-content").val()
   newContent = decko.pointerContent selectedNames(el)
   return newContent if !oldContent
   oldContent + "\n" + newContent
@@ -101,7 +101,7 @@ filterBox = (el) ->
 
 savedIds = (el) ->
   filteredList = addSelectedButton($(el)).slot().find "._pointer-filtered-list"
-  filteredList.siblings(".d0-card-content").map( -> $(this).data "cardId" ).toArray()
+  filteredList.children().map( -> $(this).data "cardId" ).toArray()
 
 addSelectedButton = (el) ->
   filterBox(el).find("._add-selected")
