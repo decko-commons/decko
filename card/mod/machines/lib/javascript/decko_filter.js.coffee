@@ -101,7 +101,7 @@ filterBox = (el) ->
 
 savedIds = (el) ->
   filteredList = addSelectedButton($(el)).slot().find "._pointer-filtered-list"
-  filteredList.children().map( -> $(this).data "cardId" ).toArray()
+  filteredList.siblings(".d0-card-content").map( -> $(this).data "cardId" ).toArray()
 
 addSelectedButton = (el) ->
   filterBox(el).find("._add-selected")
