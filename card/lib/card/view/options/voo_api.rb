@@ -18,6 +18,17 @@ class Card
               live_options[option_key] = value
             end
           end
+
+          def included base
+            # Developers can also set most options directly via accessors,
+            # eg voo.title = "King"
+            # :view, :show, and :hide have non-standard access (see #accessible_keys)
+
+            base.accessible_keys.each do |option_key|
+              define_getter option_key
+              define_setter option_key
+            end
+          end
         end
 
         # There are two primary options hashes:
@@ -33,15 +44,6 @@ class Card
         # @return [Hash]
         def live_options
           @live_options ||= process_live_options
-        end
-
-        # Developers can also set most options directly via accessors,
-        # eg voo.title = "King"
-        # :view, :show, and :hide have non-standard access (see #accessible_keys)
-
-        accessible_keys.each do |option_key|
-          define_getter option_key
-          define_setter option_key
         end
 
         # "items", the option used to configure views of each of a list of cards, is

@@ -46,9 +46,6 @@ class Card
       }
       # Note: option values are strings unless otherwise noted
 
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      # CLASS METHODS
-
       class << self
         attr_reader :keymap
 
