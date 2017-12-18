@@ -20,7 +20,7 @@
                     slot: { hide: :modal_footer },
                     filter: { not_ids: card.item_ids.map(&:to_s).join(",") } }
     = render_modal_link title: "Add Item",
-                        link_opts: { class: "btn btn-sm btn-primary",
+                        link_opts: { class: "btn btn-sm btn-primary _add-item-link",
                                      "data-target": "#modal-filtered-list",
                                      path: path_opts }
 = render_modal_slot modal_id: "filtered-list", dialog_class: "modal-lg"

@@ -49,9 +49,7 @@ class Card
         end
 
         def nest_content_from_subcard_params nest_name
-          return unless (subcard_params = params["subcards"])
-          return unless (nestcard_params = subcard_params[nest_name])
-          nestcard_params["content"]
+          params.dig "subcards", nest_name, "content"
         end
       end
     end

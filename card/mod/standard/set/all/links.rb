@@ -7,6 +7,7 @@ format :html do
     interpret_data_opts_to_link_to opts
     wrap_with :a, text, opts
   end
+  alias :link :link_to
 
   def interpret_data_opts_to_link_to opts
     %i[remote method].each do |key|
