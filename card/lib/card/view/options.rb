@@ -54,6 +54,18 @@ class Card
       class << self
         attr_reader :keymap
 
+        def add_option name, type
+          raise "invalid option type" unless @keymap.key?(type)
+          @keymap[type] << name
+          reset_keys_cache
+        end
+
+        def reset_keys_cache
+          @all_keys = nil
+          @carditect_keys = nil
+          @heir_keys = nil
+        end
+
         # KEY LISTS
 
         # all standard option keys
