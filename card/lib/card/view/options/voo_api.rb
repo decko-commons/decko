@@ -26,7 +26,7 @@ class Card
             # :view, :show, and :hide have non-standard access (see #accessible_keys)
 
             base.accessible_keys.each do |option_key|
-              define_getter option_key
+              define_getter option_key unless option_key == :items
               define_setter option_key
             end
           end
@@ -121,13 +121,15 @@ class Card
         end
 
         def process_live_options
-          opts = @live_options = normalized_options.clone
-          opts.merge! format.main_nest_options if opts[:main_view]
+          @live_options = normalized_options.clone
+          if @live_options[:main_view]
+            @live_options.merge! format.main_nest_options
+          end
           # main_nest_options are not processed in normalize_options so that
           # they're NOT locked in the stub.
           process_default_options
           process_visibility_options
-          opts
+          @live_options
         end
 
         # This method triggers the default_X_args methods which can alter the
