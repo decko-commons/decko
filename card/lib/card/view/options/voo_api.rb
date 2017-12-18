@@ -6,26 +6,27 @@ class Card
       module VooApi
         # There are two primary options hashes:
 
-        # - @normalized_options are determined upon initialization and do not change after that.
+        # - @normalized_options are determined upon initialization and do not change
+        # after that.
         # @return [Hash] options
         attr_reader :normalized_options
 
-        # - @live_options are dynamic and can be altered by the "voo" API at any time. Such alterations are
+        # - @live_options are dynamic and can be altered by the "voo" API at any time.
+        # Such alterations are
         #   NOT used in stubs
         # @return [Hash]
         def live_options
           @live_options ||= process_live_options
         end
 
-
-        # Developers can also set most options directly via accessors, eg voo.title = "King"
+        # Developers can also set most options directly via accessors,
+        # eg voo.title = "King"
         # :view, :show, and :hide have non-standard access (see #accessible_keys)
 
         accessible_keys.each do |option_key|
           define_getter option_key
           define_setter option_key
         end
-
 
         # "items", the option used to configure views of each of a list of cards, is
         # currently the only Hash option (thus this accessor override)
@@ -59,11 +60,11 @@ class Card
         # (arguably that should be done during normalization!)
 
         def normalize_editor value
-          value && value.to_sym
+          value&.to_sym
         end
 
         def normalize_cache value
-          value && value.to_sym
+          value&.to_sym
         end
 
         private
@@ -104,7 +105,8 @@ class Card
         def process_live_options
           opts = @live_options = normalized_options.clone
           opts.merge! format.main_nest_options if opts[:main_view]
-          # main_nest_options are not processed in normalize_options so that they're NOT locked in the stub.
+          # main_nest_options are not processed in normalize_options so that
+          # they're NOT locked in the stub.
           process_default_options
           process_visibility_options
           opts
