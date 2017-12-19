@@ -7,7 +7,7 @@ Feature: Pointer Inputs
   Background:
     Given I am signed in as Joe Admin
     And I create Pointer card "friends+*right+*default"
-    And I create Search card "friends+*right+*options" with content "{"type":"User"}"
+    And I create Search card "friends+*right+*options" for cards of type "User"
 
   Scenario: Creating a card with select input
     Given I create Phrase card "friends+*right+*input" with content "select"
@@ -53,7 +53,6 @@ Feature: Pointer Inputs
 
   Scenario: Creating a card with checkbox input
     Given I create Phrase card "friends+*right+*input" with content "checkbox"
-    #And I create a Phrase card "*all+*option label" with content "description"
     And I create a Phrase card "Joe Admin+description" with content "boom yow yow"
     When I go to card "Joe User+friends"
     Then I should see "boom yow yow"
@@ -76,8 +75,9 @@ Feature: Pointer Inputs
     And I click on "Keyword"
     And I wait for ajax response
     And I fill in "filter[name]" with "Joe"
+    When I click on "Add filter"
     And I wait for ajax response
-    And I choose "Joe Camel"
+    And I check "select-all"
     And I press "Add Selected"
     And I wait for ajax response
     Then I should see "Joe Camel"
@@ -85,15 +85,8 @@ Feature: Pointer Inputs
     And I wait for ajax response
     And I go to card "Joe User+friends"
     Then I should see "Joe Camel"
+    And I should not see "u1"
 
-# can't get fill_in to work. don't know why -efm
-#  Scenario: Creating a card with list input
-#    Given I go to card "Joe User+friends"
-#    Then I fill in "pointer_item" with "Joe Camel"
-#    And I press "Submit"
-#    When I go to card "Joe User"
-#    Then I should see "Joe Camel"
-#
 
 # should test:
 # switching type before create from pointers

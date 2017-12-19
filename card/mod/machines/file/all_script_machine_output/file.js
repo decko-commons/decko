@@ -6,7 +6,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 
 //script: slot
 (function() {
-  var addCaptcha, addCategoryOption, addSelectedButton, addSelectedButtonUrl, containerClass, deSelectAllLink, detectMobileBrowser, doubleSidebar, filterAndSort, filterBox, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, newFilteredListContent, removeCategoryOption, reqIndex, savedIds, selectFilteredItem, selectedBin, selectedData, selectedIds, selectedNames, setFilterInputWidth, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, trackSelectedIds, updateFilterAfterSelection, warn, wrapDeckoLayout, wrapSidebarToggle;
+  var addCaptcha, addCategoryOption, addSelectedButton, addSelectedButtonUrl, containerClass, deselectAllLink, detectMobileBrowser, doubleSidebar, filterAndSort, filterBox, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, newFilteredListContent, removeCategoryOption, reqIndex, savedIds, selectFilteredItem, selectedBin, selectedData, selectedIds, selectedNames, setFilterInputWidth, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, trackSelectedIds, updateAfterSelection, updateSelectedCount, updateSelectedSectionVisibility, updateUnselectedCount, warn, wrapDeckoLayout, wrapSidebarToggle;
 
   window.decko || (window.decko = {});
 
@@ -36,9 +36,6 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       } else {
         return item.find('input').val('');
       }
-    });
-    $('body').on('click', '._filtered-list-item-delete', function() {
-      return $(this).closest('li').remove();
     });
     $('body').on('show.bs.tab', 'a.load[data-toggle=tab][data-url]', function(e) {
       var tab_id, url;
@@ -538,13 +535,13 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
     });
     $("body").on("click", "._filter-items ._unselected ._search-checkbox-item input", function() {
       selectFilteredItem($(this));
-      return updateFilterAfterSelection($(this));
+      return updateAfterSelection($(this));
     });
     $("body").on("click", "._filter-items ._selected ._search-checkbox-item input", function() {
       var bin;
       bin = selectedBin($(this));
       $(this).slot().remove();
-      return updateFilterAfterSelection(bin);
+      return updateAfterSelection(bin);
     });
     $("body").on("click", "._filter-items ._add-selected", function() {
       var btn, content;
@@ -556,15 +553,18 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       filterBox($(this)).find("._unselected ._search-checkbox-item input").each(function() {
         return selectFilteredItem($(this));
       });
-      return updateFilterAfterSelection($(this));
+      $(this).prop("checked", false);
+      return updateAfterSelection($(this));
     });
-    return $("body").on("click", "._deselect-all", function() {
-      var bin;
-      bin = selectedBin($(this));
+    $("body").on("click", "._deselect-all", function() {
       filterBox($(this)).find("._selected ._search-checkbox-item input").each(function() {
         return $(this).slot().remove();
       });
-      return updateFilterAfterSelection(bin);
+      $(this).prop("checked", true);
+      return updateAfterSelection($(this));
+    });
+    return $('body').on('click', '._filtered-list-item-delete', function() {
+      return $(this).closest('li').remove();
     });
   });
 
@@ -579,20 +579,57 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
   };
 
   addSelectedButtonUrl = function(btn, content) {
-    var query, url_base, view;
+    var card_args, query, url_base, view;
     view = btn.slot().data("slot")["view"];
-    query = {
-      "card[content]": content,
-      "assign": true,
-      "view": view
+    card_args = {
+      content: content,
+      type: "Pointer"
     };
-    url_base = btn.attr("href") + "?" + $.param(query);
+    query = {
+      assign: true,
+      view: view,
+      card: card_args
+    };
+    url_base = decko.rootPath + btn.attr("href") + "&" + $.param(query);
     return decko.prepUrl(url_base, btn.slot());
   };
 
-  updateFilterAfterSelection = function(el) {
+  updateAfterSelection = function(el) {
     trackSelectedIds(el);
-    return filterAndSort(filterBox(el).find("._filter-form"));
+    filterAndSort(filterBox(el).find("._filter-form"));
+    updateSelectedCount(el);
+    return updateUnselectedCount(el);
+  };
+
+  updateSelectedCount = function(el) {
+    var count;
+    count = selectedBin(el).children().length;
+    filterBox(el).find("._selected-items").html(count);
+    deselectAllLink(el).attr("disabled", count === 0);
+    addSelectedButton(el).attr("disabled", count === 0);
+    return updateSelectedSectionVisibility(el, count > 0);
+  };
+
+  updateSelectedSectionVisibility = function(el, items_present) {
+    var box, help_text, selected_items;
+    box = filterBox(el);
+    selected_items = box.find("._selected-item-list");
+    help_text = box.find("._filter-help");
+    if (items_present) {
+      selected_items.show();
+      return help_text.hide();
+    } else {
+      selected_items.hide();
+      return help_text.show();
+    }
+  };
+
+  updateUnselectedCount = function(el) {
+    var box, count;
+    box = filterBox(el);
+    count = box.find("._search-checkbox-list").children().length;
+    box.find("._unselected-items").html(count);
+    return box.find("._select-all").attr("disabled", count > 0);
   };
 
   selectFilteredItem = function(checkbox) {
@@ -620,7 +657,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
     return filterBox(el).find("._add-selected");
   };
 
-  deSelectAllLink = function(el) {
+  deselectAllLink = function(el) {
     return filterBox(el).find("._deselect-all");
   };
 
@@ -644,8 +681,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
     var box, ids;
     ids = savedIds(el).concat(selectedIds(el));
     box = filterBox(el);
-    box.find("._not-ids").val(ids.toString());
-    return addSelectedButton(el).attr("disabled", ids.length === 0);
+    return box.find("._not-ids").val(ids.toString());
   };
 
   filterCategorySelected = function(addFilterDropdown, selectedCategory, label) {
@@ -1150,12 +1186,21 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       return $(this).hide();
     });
     if (slot.hasClass("_refresh-timer")) {
-      return setTimeout(function() {
+      setTimeout(function() {
         return $.get(slot.data("refresh-url"), function(data, status) {
           return slot.setSlotContent(data);
         });
       }, 2000);
     }
+    return slot.find('._modal-slot').each(function() {
+      var mslot;
+      mslot = $(this);
+      if ($.find("body #" + mslot.attr("id")).length > 1) {
+        return mslot.remove();
+      } else {
+        return $("body").append(mslot);
+      }
+    });
   });
 
 }).call(this);
@@ -18572,7 +18617,7 @@ $.extend( proto, {
     },
     '._pointer-filtered-list': function() {
       return pointerContent(this.find('._filtered-list-item').map(function() {
-        return $(this).data('cardname');
+        return $(this).data('cardName');
       }));
     },
     '.perm-editor': function() {
@@ -18586,6 +18631,13 @@ $.extend( proto, {
       cancel: ''
     });
     return decko.initPointerList(this.find('input'));
+  };
+
+  decko.editorInitFunctionMap['._pointer-filtered-list'] = function() {
+    return this.sortable({
+      handle: '._handle',
+      cancel: ''
+    });
   };
 
   $.extend(decko, {

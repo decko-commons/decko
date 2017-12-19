@@ -25,6 +25,14 @@ Given /^the card (.*) contains "([^"]*)"$/ do |cardname, content|
 end
 
 When /^(.*) creates?\s*a?\s*([^\s]*) card "([^"]*)" with content "([^"]*)"$/ do |username, cardtype, cardname, content|
+  set_content_and_create username, cardtype, cardname, content
+end
+
+When /^(.*) creates? Search card "([^"]*)" for cards of type "([^"]*)"$/ do |username, cardname, searchtype|
+  set_content_and_create username, "Search", cardname, %({"type":"#{searchtype}"})
+end
+
+def set_content_and_create username, cardtype, cardname, content
   create_card(username, cardtype, cardname, content) do
     set_content "card[content]", content, cardtype
   end
