@@ -88,7 +88,9 @@ format do
     end
   end
 
-  view :labeled_content, :core
+  view :labeled_content do
+    render_core
+  end
 
   view :titled_content, :core
 
@@ -109,7 +111,7 @@ format do
   view :open, :titled
 
   view :labeled do
-    "#{card.name}: #{_render_closed_content}"
+    "#{card.name}: #{_render_labeled_content}"
   end
   view :closed, :labeled
 
