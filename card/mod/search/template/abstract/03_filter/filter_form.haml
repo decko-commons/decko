@@ -15,27 +15,29 @@
         %input{ type: :hidden, name: "filter[not_ids]", class: "_not-ids", value: not_ids }
         .d-flex.flex-row
           - if sort_input_field
-            %i.material-icons.text-muted.md-24.p-2 sort
-            .input-group.sort-input-group.mb-2.card-outline-primary.mr-2
-              %span.input-group-addon sort
-              = sort_input_field
+            .sort-in-filter-form
+              %i.material-icons.text-muted.md-24.p-2.float-left sort
+              .input-group.sort-input-group.mb-2.card-outline-primary.mr-2
+                %span.input-group-addon sort
+                = sort_input_field
 
-          %i.material-icons.text-muted.md-24.p-2 search
-          ._filter-container.d-flex.flew-row.flex-wrap
-            - categories.each do |key, category|
-              - if category[:active]
-                = haml_partial :filter_input, key: key, category: category
+          .filter-in-filter-form
+            %i.material-icons.text-muted.md-24.p-2.float-left search
+            ._filter-container.d-flex.flew-row.flex-wrap
+              - categories.each do |key, category|
+                - if category[:active]
+                  = haml_partial :filter_input, key: key, category: category
 
-            .dropdown._add-filter-dropdown
-              %button.btn.btn-secondary.dropdown-toggle{"aria-expanded": "false",
-                                                        "aria-haspopup": "true",
-                                                        "data-toggle": "dropdown",
-                                                        type: "button" }
-                Add filter
-              .dropdown-menu
-                - categories.each do |key, category|
-                  %a.dropdown-item._filter-category-select{style: ("display: none;" if category[:active]),
-                                                           "data-category" => key,
-                                                           "data-label" => category[:label],
-                                                           :href => "#"}
-                    = category[:label]
+              .dropdown._add-filter-dropdown
+                %button.btn.btn-secondary.dropdown-toggle{"aria-expanded": "false",
+                                                          "aria-haspopup": "true",
+                                                          "data-toggle": "dropdown",
+                                                          type: "button" }
+                  Add filter
+                .dropdown-menu
+                  - categories.each do |key, category|
+                    %a.dropdown-item._filter-category-select{style: ("display: none;" if category[:active]),
+                                                             "data-category" => key,
+                                                             "data-label" => category[:label],
+                                                             :href => "#"}
+                      = category[:label]
