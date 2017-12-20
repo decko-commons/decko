@@ -31,4 +31,5 @@
           = button_tag "Add Selected", class: "_add-selected slotter close-modal",
                                        disabled: true,
                                        href: select_href,
-                                       data: { "slot-selector": ".#{params[:editor_id]}" }
+                                       data: { "slot-selector": ".#{params[:editor_id]}",
+                                               "item-selector": ".#{params[:item_selector]}" }
