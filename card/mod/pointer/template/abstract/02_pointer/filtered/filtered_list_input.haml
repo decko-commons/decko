@@ -16,7 +16,7 @@
                     item: implicit_item_view,
                     filter_card: filter_card.name,
                     layout: :simple_modal,
-                    editor_id: editor_id,
+                    slot_selector: editor_id,
                     item_selector: "_filtered-list-item",
                     slot: { hide: :modal_footer },
                     filter: { not_ids: card.item_ids.map(&:to_s).join(",") } }
