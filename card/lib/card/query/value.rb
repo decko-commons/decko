@@ -33,7 +33,7 @@ class Card
       end
 
       def operator? key
-        OPERATORS.has_key? key.to_s
+        OPERATORS.key? key.to_s
       end
 
       def sqlize v
@@ -63,9 +63,7 @@ class Card
       end
 
       def value_sql field, value
-        if field.to_sym == :name
-          value = [value].flatten.map(&:to_name).map &:key
-        end
+        value = [value].flatten.map(&:to_name).map(&:key) if field.to_sym == :name
         sqlize value
       end
     end
