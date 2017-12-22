@@ -61,9 +61,13 @@ class Card
         case val
         when Integer, Float, Symbol, Hash then val
         when String                       then normalize_string_value val
-        when Array                        then val.map { |v| normalize_value v }
+        when Array                        then normalize_array_value val
         else raise Card::Error::BadQuery, "unknown WQL value type: #{val.class}"
         end
+      end
+
+      def normalize_array_value val
+        val.map { |v| normalize_value v }
       end
 
       def normalize_string_value val

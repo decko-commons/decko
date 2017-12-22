@@ -105,7 +105,9 @@ format :html do
   end
 
   def metric_type_options
-    %i[researched formula wiki_rating].map { |n| Card.quick_fetch(n).name }
+    %i[researched formula wiki_rating score relationship].map do |codename|
+      Card::Name[codename]
+    end
   end
 
   def research_policy_options

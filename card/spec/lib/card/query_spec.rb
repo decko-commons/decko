@@ -67,6 +67,11 @@ RSpec.describe Card::Query do
       is_expected.to eq(%w(A+B T))
     end
 
+    it "is the default conjunction for arrays" do
+      @query = { name: %w(C D F) }
+      is_expected.to eq(%w(C D F))
+    end
+
     example "type option" do
       @query = { type: [:in, "Cardtype E", "Cardtype F"] }
       is_expected.to eq(%w(type-e-card type-f-card))

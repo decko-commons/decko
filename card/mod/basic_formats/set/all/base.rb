@@ -89,10 +89,12 @@ format do
   end
 
   view :labeled_content do
-    render_core
+    _render_core
   end
 
-  view :titled_content, :core
+  view :titled_content do
+    _render_core
+  end
 
   view :blank, closed: true, perms: :none do
     ""
