@@ -79,7 +79,7 @@ format :html do
   end
 
   def no_index
-    return unless root.card.new_card?
+    return unless root.card.unknown?
     '<meta name="robots" content="noindex">'
   end
 
