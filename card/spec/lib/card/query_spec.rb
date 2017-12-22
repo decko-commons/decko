@@ -69,8 +69,7 @@ RSpec.describe Card::Query do
 
     it "is the default conjunction for arrays" do
       @query = { name: %w(C D F) }
-        is_expected.to eq(%w(C D F))
-      end
+      is_expected.to eq(%w(C D F))
     end
 
     example "type option" do
