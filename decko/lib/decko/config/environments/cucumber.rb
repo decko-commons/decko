@@ -10,6 +10,7 @@ Decko.application.class.configure do
   # For more information see https://rspec.lighthouseapp.com/projects/16211/tickets/165
   config.cache_classes = true
 
+  config.persistent_cache = false
   config.prepopulate_cache = true
 
   # Log error messages when you accidentally call methods on nil.
