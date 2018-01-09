@@ -47,10 +47,7 @@ $(window).ready ->
     $(this).closest('li').remove()
 
 newFilteredListContent = (el) ->
-  oldContent = el.slot().siblings(".d0-card-content").val()
-  newContent = decko.pointerContent selectedNames(el)
-  return newContent if !oldContent
-  oldContent + "\n" + newContent
+  decko.pointerContent prefilteredNames(el).concat(selectedNames el)
 
 addSelectedButtonUrl = (btn, content) ->
   view = btn.slot().data("slot")["view"]
@@ -99,10 +96,19 @@ selectedBin = (el) ->
 filterBox = (el) ->
   el.closest "._filter-items"
 
-savedIds = (el) ->
-  filteredList = addSelectedButton($(el)).slot().find "._pointer-filtered-list"
-  filteredList.children().map( -> $(this).data "cardId" ).toArray()
+prefilteredIds = (el) ->
+  prefilteredData el, "cardId"
 
+prefilteredNames = (el) ->
+  prefilteredData el, "cardName"
+
+prefilteredData = (el, field) ->
+  btn = addSelectedButton el
+  selector = btn.data "itemSelector"
+  arrayFromField btn.slot().find(selector), field
+
+# this button contains the data about the form that opened the filter-items interface.
+# the itemSelector
 addSelectedButton = (el) ->
   filterBox(el).find("._add-selected")
 
@@ -116,11 +122,13 @@ selectedNames = (el) ->
   selectedData el, "cardName"
 
 selectedData = (el, field) ->
-  slots = selectedBin(el).children()
-  slots.map( -> $(this).data field ).toArray()
+  arrayFromField selectedBin(el).children(), field
+
+arrayFromField = (rows, field) ->
+  rows.map( -> $(this).data field ).toArray()
 
 trackSelectedIds = (el) ->
-  ids = savedIds(el).concat selectedIds(el)
+  ids = prefilteredIds(el).concat selectedIds(el)
   box = filterBox el
   box.find("._not-ids").val ids.toString()
 

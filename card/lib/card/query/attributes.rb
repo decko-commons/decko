@@ -27,7 +27,7 @@ class Card
       # content.
       # Example: { match: "name or content" } vs. { name: ["match", "a name"] }
       def match val
-        cxn, val = match_prep val
+        cxn = connection
         val.gsub!(/[^#{Card::Name::OK4KEY_RE}]+/, " ")
         return nil if val.strip.empty?
 
