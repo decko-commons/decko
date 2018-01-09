@@ -19,6 +19,18 @@ def prepare_migration
   # structures are loaded before schema_mode is set
 end
 
+# @param mod [Boolean] if true reset column information for models defined in
+#   in mods in the deck
+def reset_column_information mod=false
+  Rails.application.eager_load!
+  load_mod_lib if mod
+  ApplicationRecord.descendants.each(&:reset_column_information)
+end
+
+def load_mod_lib
+  Dir.glob(Cardio.root.join("mod/*/lib/*.rb")).each { |x| require_dependency x }
+end
+
 namespace :card do
   namespace :migrate do
     desc "migrate cards"
@@ -32,12 +44,29 @@ namespace :card do
         ActiveRecord::Migrator.migrate paths, version
         Rake::Task["db:_dump"].invoke # write schema.rb
       end
+      reset_column_information
     end
 
     desc "migrate core cards"
     task core_cards: :environment do
       require "card/migration/core"
       run_card_migration :core_cards
+    end
+
+    desc "migrate deck structure"
+    task deck_structure: :environment do
+      migrate_deck_structure
+    end
+
+    def migrate_deck_structure
+      require "card/migration/deck_structure"
+      ENV["SCHEMA"] = "#{Cardio.root}/db/schema.rb"
+      Cardio.schema_mode(:deck) do |paths|
+        ActiveRecord::Migrator.migrations_paths = paths
+        ActiveRecord::Migrator.migrate paths, version
+        Rake::Task["db:_dump"].invoke # write schema.rb
+      end
+      reset_column_information true
     end
 
     desc "migrate deck cards"
