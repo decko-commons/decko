@@ -23,10 +23,12 @@ end
 #   in mods in the deck
 def reset_column_information mod=false
   Rails.application.eager_load!
-  if mod
-    Dir.glob(Cardio.root.join('mod/*/lib/*.rb')).each { |x| require_dependency x }
-  end
+  load_mod_lib if mod
   ApplicationRecord.descendants.each(&:reset_column_information)
+end
+
+def load_mod_lib
+  Dir.glob(Cardio.root.join("mod/*/lib/*.rb")).each { |x| require_dependency x }
 end
 
 namespace :card do

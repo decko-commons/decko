@@ -107,8 +107,8 @@ module Patches
 
     module Migration
       module ClassMethods
-        def check_pending!(connection = ::ActiveRecord::Base.connection)
-          [:structure, :core_cards, :deck, :deck_cards].each do |migration_type|
+        def check_pending! connection=::ActiveRecord::Base.connection
+          %i[structure core_cards deck deck_cards].each do |migration_type|
             Cardio.schema_mode(migration_type) do |paths|
               ::ActiveRecord::Migrator.migrations_paths = paths
               super
