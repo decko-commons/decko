@@ -128,6 +128,7 @@ module Cardio
       add_path "db"
       add_path "db/migrate"
       add_path "db/migrate_core_cards"
+      add_path "db/migrate_deck", root: root, with: "db/migrate"
       add_path "db/migrate_deck_cards", root: root, with: "db/migrate_cards"
       add_path "db/seeds.rb", with: "db/seeds.rb"
     end
@@ -184,12 +185,17 @@ module Cardio
     def migration_paths type
       list = paths["db/migrate#{schema_suffix type}"].to_a
       if type == :deck_cards
-        Card::Mod.dirs.each("db/migrate_cards") do |path|
-          list += Dir.glob path
-        end
+        add_mod_migration_paths list
+      elsif type == :deck
+        add_mod_migration_paths list, "migrate"
       end
-
       list.flatten
+    end
+
+    def add_mod_migration_paths list, dir="migrate_cards"
+      Card::Mod.dirs.each("db/#{dir}") do |path|
+        list += Dir.glob path
+      end
     end
 
     private

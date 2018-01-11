@@ -18,6 +18,7 @@ format :html do
     <<-HTML
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      #{no_index}
     HTML
   end
 
@@ -77,6 +78,10 @@ format :html do
       end
   end
 
+  def no_index
+    return unless root.card.unknown?
+    '<meta name="robots" content="noindex">'
+  end
 
   def universal_edit_button
     return if root.card.new_record? || !root.card.ok?(:update)

@@ -8,7 +8,12 @@ def search args={}
   query.run
 end
 
+def cache_query?
+  true
+end
+
 def fetch_query args={}
+  @query = nil unless cache_query?
   @query ||= {}
   @query[args.to_s] ||= query(args.clone) # cache query
 end
@@ -25,10 +30,12 @@ end
 
 # override this to define search
 def wql_hash
+  @wql_hash = nil unless cache_query?
   @wql_hash ||= wql_from_content.merge filter_and_sort_wql
 end
 
 def wql_from_content
+  @wql_from_content = nil unless cache_query?
   @wql_from_content ||= begin
     query = content
     query = query.is_a?(Hash) ? query : parse_json_query(query)

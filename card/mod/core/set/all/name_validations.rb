@@ -5,13 +5,12 @@ event :permit_codename, :validate,
 end
 
 event :validate_uniqueness_of_codename do
-  return unless codename.present? && errors.empty? &&
-                Card.find_by_codename(codename).present?
+  return (self.codename = nil) if codename.blank?
+  return if errors.present? || !Card.find_by_codename(codename)
   errors.add :codename, "codename #{codename} already in use"
 end
 
-event :validate_name, :validate,
-      on: :save, changed: :name do
+event :validate_name, :validate, on: :save, changed: :name do
   validate_legality_of_name
   return if errors.any?
   validate_uniqueness_of_name
