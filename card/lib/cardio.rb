@@ -6,7 +6,6 @@ require djar if Gem::Specification.find_all_by_name(djar).any?
 require "cardio/schema.rb"
 
 ActiveSupport.on_load :after_card do
-  binding.pry
   if Card.take
     Card::Mod.load
   else
