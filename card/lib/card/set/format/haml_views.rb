@@ -44,7 +44,7 @@ class Card
           end
         end
 
-        def  haml_template_path view=nil, source=nil
+        def haml_template_path view=nil, source=nil
           each_template_path(source) do |template_dir, source_dir|
             path = try_haml_template_path template_dir, view, source_dir
             return path if path

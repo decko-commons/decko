@@ -28,9 +28,7 @@ class Card
 
       def define_event event, opts, &final
         final_method_name = "#{event}_without_callbacks" # should be private?
-        class_eval do
-          define_method final_method_name, &final
-        end
+        define_final_method final_method_name, &final
 
         if with_delay? opts
           define_delayed_event_method event, final_method_name
@@ -52,6 +50,12 @@ class Card
       def callback_name stage, after_subcards=false
         name = after_subcards ? "#{stage}_final_stage" : "#{stage}_stage"
         name.to_sym
+      end
+
+      def define_final_method method_name, &method
+        class_eval do
+          define_method method_name, &method
+        end
       end
 
       def define_event_method event, call_method
