@@ -5,7 +5,7 @@ djar = "delayed_job_active_record"
 require djar if Gem::Specification.find_all_by_name(djar).any?
 require "cardio/schema.rb"
 
-ActiveSupport.on_load :card do
+ActiveSupport.on_load :after_card do
   if Card.take
     Card::Mod.load
   else
@@ -136,6 +136,9 @@ module Cardio
     def add_initializer_paths
       add_path "config/initializers", glob: "**/*.rb"
       add_initializers root
+      each_mod_path do |mod_path|
+        add_initializers mod_path, false, "core_initializers"
+      end
     end
 
     def add_mod_initializer_paths
@@ -145,8 +148,8 @@ module Cardio
       end
     end
 
-    def add_initializers dir, mod=false
-      Dir.glob("#{dir}/config/initializers").each do |initializers_dir|
+    def add_initializers base_dir, mod=false, init_dir="initializers"
+      Dir.glob("#{base_dir}/config/#{init_dir}").each do |initializers_dir|
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
         paths[path_mark] << initializers_dir
       end
