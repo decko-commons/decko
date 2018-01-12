@@ -31,12 +31,8 @@ class Card
         class_eval do
           define_method final_method_name, &final
         end
-
-        if with_delay? opts
-          define_delayed_event_method event, final_method_name
-        else
-          define_event_method event, final_method_name
-        end
+        prefix = with_delay?(opts) ? :delayed_ : ""
+        send "define_#{prefix}_event_method", event, final_method_name
       end
 
       def process_stage_opts opts
