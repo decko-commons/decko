@@ -1,9 +1,10 @@
-describe Card::Set::All::Filter do
+describe Card::Set::Abstract::Filter do
   subject do
-    Card["A"].format.filter_form a: { input_field: "<input id='a'/>", label: "A" },
-                                 b: { input_field: "<select id='b'/>", label: "B" },
-                                 c: { input_field: "<select id='c'/>", label: "C",
-                                      active: true }
+    search_card = Card.new type: "Search"
+    search_card.format.filter_form a: { input_field: "<input id='a'/>", label: "A" },
+                                   b: { input_field: "<select id='b'/>", label: "B" },
+                                   c: { input_field: "<select id='c'/>", label: "C",
+                                        active: true }
   end
 
   specify "#filter_form" do

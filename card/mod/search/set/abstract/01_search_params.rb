@@ -6,24 +6,16 @@ format do
   end
 
   def search_params
-    @search_params ||= begin
-      p = default_search_params.clone
-      offset_and_limit_search_params p if focal?
-      p
-    end
+    @search_params ||= default_search_params
   end
 
+  # used for override
   def default_search_params
-    { limit: default_limit }
+    { limit: limit_param, offset: offset_param }
   end
 
   def default_limit
     100
-  end
-
-  def offset_and_limit_search_params hash
-    hash[:offset] = offset_param
-    hash[:limit] = limit_param
   end
 end
 

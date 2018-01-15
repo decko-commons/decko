@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
-require "carrierwave"
 
 Object.const_remove_if_defined :Card
+ActiveSupport.run_load_hooks(:before_card, self)
 # ActiveSupport::Dependencies.loaded.clear
 
 # Cards are wiki-inspired building blocks.
@@ -136,7 +136,7 @@ class Card < ApplicationRecord
     :update_referers,             # wrong mechanism for this
     :update_all_users,            # if the above is wrong then this one too
     :silent_change,               # and this probably too
-    :remove_rule_stash,
+    # :remove_rule_stash,
     :last_action_id_before_edit,
     :only_storage_phase,           # used to save subcards
     :changed_attributes
@@ -174,6 +174,7 @@ class Card < ApplicationRecord
   after_commit :integration_phase, unless: -> { only_storage_phase? }
 #  after_rollback :clean_up, unless: -> { only_storage_phase? }
 
-  extend CarrierWave::Mount
   ActiveSupport.run_load_hooks(:card, self)
 end
+
+ActiveSupport.run_load_hooks(:after_card, self)

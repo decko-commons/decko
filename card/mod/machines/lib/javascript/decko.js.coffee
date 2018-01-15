@@ -171,12 +171,12 @@ $(window).ready ->
 
   $('body').on 'ajax:success', '.slotter', (event, data, c, d) ->
     unless event.slotSuccessful
-      slot_top_pos = $(this).slot().offset().top
       $(this).slotSuccess data
       if $(this).hasClass "close-modal"
         $(this).closest('.modal').modal('hide')
       # should scroll to top after clicking on new page
       if $(this).hasClass "card-paging-link"
+        slot_top_pos = $(this).slot().offset().top
         $("body").scrollTop slot_top_pos
       event.slotSuccessful = true
 
@@ -266,8 +266,6 @@ $(window).ready ->
 
       confirmer.show 'blind'
       false
-
-
 
   $('body').on 'click', '.follow-updater', ->
     $(this).closest('form').find('#card_update_all_users').val 'true'
@@ -412,3 +410,14 @@ decko.slotReady (slot) ->
         #new_slot.trigger('slotReady')
       2000
     )
+
+  # this finds ._modal-slots and moves them to the end of the body
+  # this allows us to render modal slots inside slots that call them and yet
+  # avoid associated problems (eg nested forms and unintentional styling)
+  # note: it deletes duplicate modal slots
+  slot.find('._modal-slot').each ->
+    mslot = $(this)
+    if $.find("body #" + mslot.attr("id")).length > 1
+      mslot.remove()
+    else
+      $("body").append mslot
