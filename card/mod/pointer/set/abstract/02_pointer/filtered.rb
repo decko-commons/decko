@@ -37,7 +37,9 @@ format :html do
   end
 
   view :filter_items, tags: :unknown_ok do
-    haml :filter_items
+    wrap do
+      haml :filter_items
+    end
   end
 
   # currently actually used as a class
