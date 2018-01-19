@@ -59,7 +59,7 @@ format :html do
       [
         _render_menu,
         _render_header,
-        wrap_body { _render_core },
+        wrap_body { _render_titled_content },
         render_comment_box
       ]
     end
