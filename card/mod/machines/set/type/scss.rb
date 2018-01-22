@@ -9,7 +9,7 @@ format do
     Sass.compile scss, style: style
   rescue Sass::SyntaxError => e
     raise Card::Error, "Sass::SyntaxError (#{card.name}:#{e.sass_line}):" \
-                       "#{scss.lines[e.sass_line-1]}\n" \
+                       "#{scss.lines[e.sass_line - 1]}\n" \
                        "#{e.message}"
   end
 end

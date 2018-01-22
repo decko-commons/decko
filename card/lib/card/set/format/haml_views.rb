@@ -1,7 +1,7 @@
 class Card
   module Set
     module Format
-      TEMPLATE_DIR = ["template", "set"].freeze
+      TEMPLATE_DIR = %w[template set].freeze
 
       # Support haml templates in a Rails like way:
       # If the view option `template: :haml` is set then wagn expects a haml template
@@ -68,7 +68,7 @@ class Card
           template_path += ".#{ext}"
           TEMPLATE_DIR.each do |template_dir|
             path = ::File.expand_path(template_path, source_dir)
-                     .sub(%r{(/mod/[^/]+)/set/}, "\\1/#{template_dir}/")
+                         .sub(%r{(/mod/[^/]+)/set/}, "\\1/#{template_dir}/")
             return path if ::File.exist?(path)
           end
           false

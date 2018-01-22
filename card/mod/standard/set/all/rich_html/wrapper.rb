@@ -165,7 +165,6 @@ format :html do
     content = block_given? ? yield : content_or_args
     tag_args = block_given? ? content_or_args : html_args
     puts tag_args
-    $stop = true if tag_args.is_a?(Hash)  && tag_args.dig(:data, :slot)
     content_tag(tag, tag_args) { output(content).to_s.html_safe }
   end
 
