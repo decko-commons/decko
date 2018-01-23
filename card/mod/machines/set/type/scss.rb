@@ -8,7 +8,8 @@ format do
   def compile_scss scss, style=:expanded
     Sass.compile scss, style: style
   rescue Sass::SyntaxError => e
-    raise Card::Error, "Sass::SyntaxError (#{card.name}:#{e.sass_line}): " \
+    raise Card::Error, "Sass::SyntaxError (#{card.name}:#{e.sass_line}):" \
+                       "#{scss.lines[e.sass_line - 1]}\n" \
                        "#{e.message}"
   end
 end
