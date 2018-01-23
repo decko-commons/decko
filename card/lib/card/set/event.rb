@@ -59,11 +59,11 @@ class Card
 
       def define_event event, opts, &final
         simple_method_name = "#{event}_without_callbacks"
-        define_simple_method simple_method_name, &final
+        define_simple_method event, simple_method_name, &final
         define_event_method event, simple_method_name, opts
       end
 
-      def define_simple_method method_name, &method
+      def define_simple_method _event, method_name, &method
         class_eval do
           define_method method_name, &method
         end
