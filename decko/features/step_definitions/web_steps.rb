@@ -59,7 +59,6 @@ When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
 end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
-  binding.pry
   select(value, from: field)
 end
 
@@ -149,4 +148,5 @@ def fill_autocomplete(field, options = {})
   # page.find('ul.ui-autocomplete li.ui-menu-item a', :text => options[:with]).trigger(:mouseover).click()
   # page.execute_script %Q{ $("#{selector}").trigger('mouseenter').click() }
   page.execute_script "$(\"#{selector}\").mouseenter().click()"
+  wait_for_ajax
 end
