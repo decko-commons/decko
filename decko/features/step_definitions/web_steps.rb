@@ -50,11 +50,16 @@ When /^(?:|I )fill in "([^"]*)" with '([^']*)'$/ do |field, value|
   fill_in(field, with: value)
 end
 
+When /^(?:|I )fill in autocomplete "([^"]*)" with "([^']*)"$/ do |field, value|
+  fill_autocomplete(field, with: value)
+end
+
 When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
   fill_in(field, with: value)
 end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
+  binding.pry
   select(value, from: field)
 end
 
@@ -131,4 +136,17 @@ end
 
 Then /^show me the page$/ do
   save_and_open_page
+end
+
+
+def fill_autocomplete(field, options = {})
+  fill_in field, with: options[:with]
+  page.execute_script %Q{ $('##{field}').trigger('focus') }
+  page.execute_script %Q{ $('##{field}').trigger('keydown') }
+
+  selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains('#{options[:with]}'):first}
+  page.should have_selector('ul.ui-autocomplete li.ui-menu-item a')
+  # page.find('ul.ui-autocomplete li.ui-menu-item a', :text => options[:with]).trigger(:mouseover).click()
+  # page.execute_script %Q{ $("#{selector}").trigger('mouseenter').click() }
+  page.execute_script "$(\"#{selector}\").mouseenter().click()"
 end
