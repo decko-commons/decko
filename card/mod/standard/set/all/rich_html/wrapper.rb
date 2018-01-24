@@ -164,7 +164,6 @@ format :html do
   def wrap_with tag, content_or_args={}, html_args={}
     content = block_given? ? yield : content_or_args
     tag_args = block_given? ? content_or_args : html_args
-    puts tag_args
     content_tag(tag, tag_args) { output(content).to_s.html_safe }
   end
 
