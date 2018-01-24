@@ -137,16 +137,11 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
-
-def fill_autocomplete(field, options = {})
+def fill_autocomplete field, options = {}
   fill_in field, with: options[:with]
-  page.execute_script %Q{ $('##{field}').trigger('focus') }
-  page.execute_script %Q{ $('##{field}').trigger('keydown') }
-
-  selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains('#{options[:with]}'):first}
-  page.should have_selector('ul.ui-autocomplete li.ui-menu-item a')
-  # page.find('ul.ui-autocomplete li.ui-menu-item a', :text => options[:with]).trigger(:mouseover).click()
-  # page.execute_script %Q{ $("#{selector}").trigger('mouseenter').click() }
+  page.execute_script %{ $('##{field}').trigger('focus').trigger('keydown') }
+  selector = %{ul.ui-autocomplete li.ui-menu-item a:contains('#{options[:with]}'):first}
+  page.should have_selector("ul.ui-autocomplete li.ui-menu-item a")
   page.execute_script "$(\"#{selector}\").mouseenter().click()"
   wait_for_ajax
 end
