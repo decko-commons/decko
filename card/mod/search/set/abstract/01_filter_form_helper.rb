@@ -1,6 +1,14 @@
 include_set Abstract::FilterHelper
 
 format :html do
+  view :filter_name_formgroup, cache: :never do
+    text_filter :name
+  end
+
+  def sort_options
+    {}
+  end
+
   def select_filter field, _label=nil, default=nil, options=nil
     options ||= filter_options field
     options.unshift(["--", ""]) unless default
