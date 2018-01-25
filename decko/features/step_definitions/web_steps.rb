@@ -25,7 +25,7 @@ end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
-  wait_for_ajax if @javascript && (button == "Submit" || button =~ /rename/i)
+  # wait_for_ajax if @javascript && (button == "Submit" || button =~ /rename/i)
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
@@ -42,7 +42,7 @@ end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, with: value)
-  wait_for_ajax if @javascript && field == "card_name"
+  # wait_for_ajax if @javascript && field == "card_name"
 end
 
 When /^(?:|I )fill in "([^"]*)" with '([^']*)'$/ do |field, value|
