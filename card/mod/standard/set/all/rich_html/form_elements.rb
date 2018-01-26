@@ -1,7 +1,6 @@
 format :html do
   def success_tags opts
     return "" unless opts
-    binding.pry
     hidden_tags success: opts
   end
 
