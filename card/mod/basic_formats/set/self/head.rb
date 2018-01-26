@@ -34,7 +34,7 @@ format :html do
     if root.card
       bits << universal_edit_button
       # RSS # move to mods!
-      bits << rss_link if root.card.type_id == SearchTypeID
+      bits << rss_link
     end
     bits.compact.join "\n      "
   end
@@ -91,12 +91,7 @@ format :html do
   end
 
   def rss_link
-    opts = { format: :rss }
-    if root.search_params[:vars]
-      root.search_params[:vars].each { |key, val| opts["_#{key}"] = val }
-    end
-    href = page_path root.card.name, opts
-    tag "link", rel: "alternate", type: "application/rss+xml",
-                title: "RSS", href: href
+    return unless config.rss_enabled && root.respond_to?(:rss_link_tag)
+    root.rss_link_tag
   end
 end

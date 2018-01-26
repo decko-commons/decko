@@ -35,11 +35,11 @@ module Decko
     def update_params_for_success
       success = Card::Env.success
       Card::Env[:params] = self.params =
-        if success.soft_redirect?
-          success.params
-        else # need tests. insure we get slot, main...
-          params.merge success.params
-        end
+          if success.soft_redirect?
+            success.params
+          else # need tests. insure we get slot, main...
+            params.merge success.params
+          end
     end
 
     def send_deprecated_asset
