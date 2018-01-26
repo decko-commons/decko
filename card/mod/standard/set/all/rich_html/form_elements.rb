@@ -1,23 +1,17 @@
 format :html do
   def success_tags opts
     return "" unless opts
+    binding.pry
     hidden_tags success: opts
   end
 
+  # convert hash into a collection of hidden tags
   def hidden_tags hash, base=nil
-    # convert hash into a collection of hidden tags
-    result = ""
     hash ||= {}
-    hash.each do |key, val|
-      result +=
-        if val.is_a?(Hash)
-          hidden_tags val, key
-        else
-          name = base ? "#{base}[#{key}]" : key
-          hidden_field_tag name, val
-        end
+    hash.inject("") do |result, (key, val)|
+      base = base ? "#{base}[#{key}]" : key
+      result + (val.is_a?(Hash) ? hidden_tags(val, base) : hidden_field_tag(base, val))
     end
-    result
   end
 
   FIELD_HELPERS =
