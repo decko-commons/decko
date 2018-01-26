@@ -25,7 +25,7 @@ end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
-  wait_for_ajax if @javascript && (button == "Submit" || button =~ /rename/i)
+  # wait_for_ajax if @javascript && (button == "Submit" || button =~ /rename/i)
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
@@ -34,7 +34,6 @@ end
 
 When /^(?:|I )click on "([^"]*)"$/ do |link|
   click_link_or_button(link)
-  wait_for_ajax
 end
 
 When /^(?:|I )follow "([^"]*)" within "([^"]*)"$/ do |link, parent|
@@ -43,11 +42,15 @@ end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, with: value)
-  wait_for_ajax if @javascript && field == "card_name"
+  # wait_for_ajax if @javascript && field == "card_name"
 end
 
 When /^(?:|I )fill in "([^"]*)" with '([^']*)'$/ do |field, value|
   fill_in(field, with: value)
+end
+
+When /^(?:|I )fill in autocomplete "([^"]*)" with "([^']*)"$/ do |field, value|
+  fill_autocomplete(field, with: value)
 end
 
 When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
@@ -131,4 +134,13 @@ end
 
 Then /^show me the page$/ do
   save_and_open_page
+end
+
+def fill_autocomplete field, options = {}
+  fill_in field, with: options[:with]
+  page.execute_script %{ $('##{field}').trigger('focus').trigger('keydown') }
+  selector = %{ul.ui-autocomplete li.ui-menu-item a:contains('#{options[:with]}'):first}
+  page.should have_selector("ul.ui-autocomplete li.ui-menu-item a")
+  page.execute_script "$(\"#{selector}\").mouseenter().click()"
+  wait_for_ajax
 end

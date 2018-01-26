@@ -53,7 +53,7 @@ jQuery.fn.extend {
 
   updateSlot: (url) ->
     $slot = $(this)
-    return false unless $slot.isSlot
+    $slot = $slot.slot() unless $slot.isSlot
     unless url?
       url = decko.rootPath + '/~' + $slot.data('cardId') + "?view=" +
         $slot.data("slot")["view"]
