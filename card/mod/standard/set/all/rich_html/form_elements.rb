@@ -8,8 +8,9 @@ format :html do
   def hidden_tags hash, base=nil
     hash ||= {}
     hash.inject("") do |result, (key, val)|
-      base = base ? "#{base}[#{key}]" : key
-      result + (val.is_a?(Hash) ? hidden_tags(val, base) : hidden_field_tag(base, val))
+      new_base = base ? "#{base}[#{key}]" : key
+      result +
+        (val.is_a?(Hash) ? hidden_tags(val, new_base) : hidden_field_tag(new_base, val))
     end
   end
 
