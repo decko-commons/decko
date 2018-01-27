@@ -58,10 +58,12 @@ describe Card::Set::Type::SearchType do
   end
   describe "rss format" do
     it "render rss without errors" do
-      search_card = Card.create type: "Search", name: "Asearch",
-                                content: %({"id":"1"})
-      rss = search_card.format(:rss).render_feed
-      expect(rss).to have_tag("title", text: "Wagn Bot")
+      with_rss_enabled do
+        search_card = Card.create type: "Search", name: "Asearch",
+                                  content: %({"id":"1"})
+        rss = search_card.format(:rss).render_feed
+        expect(rss).to have_tag("title", text: "Wagn Bot")
+      end
     end
   end
 

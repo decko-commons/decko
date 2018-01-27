@@ -70,5 +70,12 @@ class Card
                  File.expand_path("../bucket_credentials.yml", __FILE__)
       File.exist?(yml_file) && YAML.load_file(yml_file).deep_symbolize_keys
     end
+
+    def with_rss_enabled
+      Card.config.rss_enabled = true
+      yield
+    ensure
+      Card.config.rss_enabled = false
+    end
   end
 end

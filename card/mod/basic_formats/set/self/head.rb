@@ -91,7 +91,7 @@ format :html do
   end
 
   def rss_link
-    return unless config.rss_enabled && root.respond_to?(:rss_link_tag)
+    return unless Card.config.rss_enabled && root.respond_to?(:rss_link_tag)
     root.rss_link_tag
   end
 end

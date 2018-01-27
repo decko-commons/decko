@@ -13,7 +13,7 @@ format :rss do
 
   # FIXME: integrate this with common XML features when it is added
   view :feed, cache: :never do
-    return "RSS feeds disabled" unless config.rss_enabled
+    return "RSS feeds disabled" unless Cardio.config.rss_enabled
     begin
       @xml.instruct! :xml, version: "1.0", standalone: "yes"
       @xml.rss version: "2.0",
