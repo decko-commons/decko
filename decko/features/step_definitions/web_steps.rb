@@ -136,7 +136,7 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
-def fill_autocomplete field, options = {}
+def fill_autocomplete field, options={}
   fill_in field, with: options[:with]
   page.execute_script %{ $('##{field}').trigger('focus').trigger('keydown') }
   selector = %{ul.ui-autocomplete li.ui-menu-item a:contains('#{options[:with]}'):first}
