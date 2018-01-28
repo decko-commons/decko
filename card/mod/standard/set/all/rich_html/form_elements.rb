@@ -4,20 +4,14 @@ format :html do
     hidden_tags success: opts
   end
 
+  # convert hash into a collection of hidden tags
   def hidden_tags hash, base=nil
-    # convert hash into a collection of hidden tags
-    result = ""
     hash ||= {}
-    hash.each do |key, val|
-      result +=
-        if val.is_a?(Hash)
-          hidden_tags val, key
-        else
-          name = base ? "#{base}[#{key}]" : key
-          hidden_field_tag name, val
-        end
+    hash.inject("") do |result, (key, val)|
+      new_base = base ? "#{base}[#{key}]" : key
+      result +
+        (val.is_a?(Hash) ? hidden_tags(val, new_base) : hidden_field_tag(new_base, val))
     end
-    result
   end
 
   FIELD_HELPERS =
