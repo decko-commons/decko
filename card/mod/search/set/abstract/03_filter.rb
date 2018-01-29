@@ -1,4 +1,4 @@
-include_set Abstract::FilterFormgroups
+include_set Abstract::FilterFormHelper
 include_set Abstract::Utility
 
 def filter_class

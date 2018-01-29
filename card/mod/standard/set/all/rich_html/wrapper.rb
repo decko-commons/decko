@@ -29,7 +29,9 @@ format :html do
 
   def with_slot_data slot
     hash = yield
-    hash[:slot] = slot_options if slot
+    # rails helper convert slot hash to json
+    # but haml joins nested keys with a dash
+    hash[:slot] = slot_options_json if slot
     hash
   end
 

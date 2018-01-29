@@ -26,7 +26,6 @@ def load_recaptcha_card_config setting
   card && card.db_content.present? && card.db_content
 end
 
-
 ActiveSupport.on_load :after_card do
   Recaptcha.configure do |config|
     # the seed task runs initializers so we have to check
