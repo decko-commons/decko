@@ -22,17 +22,28 @@ class Card
       #
       #   > render :with_instance_variables  # => "Luke is played by Mark Haml"
       module HamlViews
-        def haml_view_block view, &block
+        def haml_view_block view, wrap_with_slot, &block
           path = haml_template_path view
-          haml_template_proc ::File.read(path), path, &block
+          haml_template_proc ::File.read(path), path, wrap_with_slot, &block
         end
 
-        def haml_template_proc template, path, &block
+        def haml_template_proc template, path, wrap_with_slot, &block
           block_locals = block_given?
-          proc do |view_args|
-            with_template_path path do
-              locals = block_locals ? haml_block_locals(view_args, &block) : view_args
-              haml_to_html template, locals, nil, path: path
+          if wrap_with_slot
+            proc do |view_args|
+              with_template_path path do
+                locals = block_locals ? haml_block_locals(view_args, &block) : view_args
+                wrap do
+                  haml_to_html template, locals, nil, path: path
+                end
+              end
+            end
+          else
+            proc do |view_args|
+              with_template_path path do
+                locals = block_locals ? haml_block_locals(view_args, &block) : view_args
+                haml_to_html template, locals, nil, path: path
+              end
             end
           end
         end
@@ -75,6 +86,7 @@ class Card
         end
 
         def haml_to_html haml, locals={}, a_binding=nil, debug_info={}
+          # binding.pry unless haml.include? ".panel.panel-primary"
           a_binding ||= binding
           ::Haml::Engine.new(haml).render a_binding, locals || {}
         rescue Haml::SyntaxError => e
