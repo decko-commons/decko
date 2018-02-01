@@ -9,8 +9,21 @@ format :html do
     hash ||= {}
     hash.inject("") do |result, (key, val)|
       new_base = base ? "#{base}[#{key}]" : key
-      result +
-        (val.is_a?(Hash) ? hidden_tags(val, new_base) : hidden_field_tag(new_base, val))
+      result + process_hidden_value(val, new_base)
+    end
+  end
+
+  def process_hidden_value val, base
+    case val
+    when Hash
+      hidden_tags val, base
+    when Array
+      base += "[]"
+      val.map do |v|
+        hidden_field_tag base, v
+      end.join
+    else
+      hidden_field_tag base, val
     end
   end
 

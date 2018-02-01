@@ -75,4 +75,13 @@ format :html do
   def ace_mode
     :json
   end
+
+  def rss_link_tag
+    path_opts = { format: :rss }
+    Array(search_params[:vars]).compact.each { |k, v| opts["_#{k}"] = v }
+    tag "link", rel: "alternate",
+                type: "application/rss+xml",
+                title: "RSS",
+                href: path(path_opts)
+  end
 end
