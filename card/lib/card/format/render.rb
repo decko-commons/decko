@@ -79,7 +79,8 @@ class Card
           end
         end
         if result =~ /stub/
-          Rails.logger.info "STUB IN RENDERED VIEW: #{card.name}: #{voo.ok_view}\n#{result}"
+          Rails.logger.info "STUB IN RENDERED VIEW: #{card.name}: " \
+                            "#{voo.ok_view}\n#{result}"
         end
         result
       end

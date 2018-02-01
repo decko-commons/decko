@@ -28,10 +28,9 @@ class Card
         end
 
         def haml_template_proc template, path, wrap_with_slot, &block
-          block_locals = block_given?
           proc do |view_args|
             with_template_path path do
-              locals = block_locals ? haml_block_locals(view_args, &block) : view_args
+              locals = haml_block_locals view_args, &block
               html = haml_to_html template, locals, nil, path: path
               wrap_with_slot ? wrap { html } : html
             end
@@ -39,6 +38,7 @@ class Card
         end
 
         def haml_block_locals view_args, &block
+          return view_args unless block_given?
           instance_exec view_args, &block
           instance_variables.each_with_object({}) do |var, h|
             h[var.to_s.tr("@", "").to_sym] = instance_variable_get var
