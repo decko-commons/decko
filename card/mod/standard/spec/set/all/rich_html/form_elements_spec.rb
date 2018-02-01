@@ -19,16 +19,16 @@ RSpec.describe Card::Set::All::RichHtml::FormElements do
         .to have_tag(:input, with: { type: "hidden", name: "x[y]", value: "val3" })
     end
 
-    context "array values" do
-      subject { hidden_tags(a: { b: [1, 2] }) }
+    describe "array values" do
+      let(:tags) { hidden_tags(a: { b: [1, 2] }) }
 
       example "first array value" do
-        expect(subject)
+        expect(tags)
           .to have_tag(:input, with: { type: "hidden", name: "a[b][]", value: "1" })
       end
 
       example "second array value" do
-        expect(subject)
+        expect(tags)
           .to have_tag(:input, with: { type: "hidden", name: "a[b][]", value: "2" })
       end
     end
