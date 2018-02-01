@@ -35,4 +35,5 @@ $.extend decko,
     $.extend conf, user_conf, hard_conf
     tinyMCE.baseURL = '/assets/tinymce'
     tinyMCE.suffix = '.min'
+    tinyMCE.remove("##{el_id}")
     tinyMCE.init conf

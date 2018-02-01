@@ -43,7 +43,7 @@ class Card
                       hide: :hide, false => :hide, nil => :hide }
 
       def viz views, setting, force=false
-        Array.wrap(views).each do |view|
+        Array.wrap(views).flatten.each do |view|
           view = view.to_sym
           next if !force && viz_hash[view]
           viz_hash[view] = VIZ_SETTING[setting]

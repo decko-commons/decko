@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.homepage      = "http://decko.org"
   s.licenses      = ["GPL-2.0", "GPL-3.0"]
 
-  s.files         = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", "card/.yardopts",
+  s.files         = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
                         "{config,db,lib,mod,tmpsets}/**/*"]
 
   s.require_paths = ["lib"]
@@ -63,7 +63,8 @@ Gem::Specification.new do |s|
     ["diff-lcs",                   "~> 1.3"], # content diffs in histories
     ["recaptcha",                  "~> 4.3"],
     ["twitter",                    "~> 6.1"], # for event-based integration
-    ["delayed_job_active_record",  "~> 4.1"]
+    ["delayed_job_active_record",  "~> 4.1"],
+    ["minitest",                   "5.11.2"]
 
 
   ].each do |dep|

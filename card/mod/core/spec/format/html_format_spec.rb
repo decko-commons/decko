@@ -107,16 +107,12 @@ RSpec.describe Card::Format::HtmlFormat do
       it "does not recurse" do
         @layout_card.content = "Mainly {{_main|core}}"
         Card::Auth.as_bot { @layout_card.save }
-
-        expect(@layout_card.format.render!(:layout)).to eq(
-          "Mainly <div id=\"main\"><div class=\"CodeRay\">\n  " \
-          "<div class=\"code\"><pre>Mainly {{_main|core}}</pre></div>\n" \
-          "</div>\n</div>\n" \
-          '<div class="modal fade" role="dialog" id="modal-main-slot">' \
-          '<div class="modal-dialog"><div class="modal-content">' \
-          "</div></div></div>"
-        )
-        # probably better to check that it matches "Mainly" exactly twice.
+        rendered = @layout_card.format.render! :layout
+        expect(rendered).to have_tag "div#main" do
+          have_tag "div.code" do
+            have_tag("pre") { with_text "Mainly {{_main|core}}" }
+          end
+        end
       end
 
       it "handles nested _main references" do
@@ -125,13 +121,10 @@ RSpec.describe Card::Format::HtmlFormat do
           @layout_card.save!
           Card.create name: "outer space", content: "{{_main|name}}"
         end
-
-        expect(@main_card.format.render!(:layout)).to eq(
-          '<div id="main">Joe User</div>' + "\n" \
-          '<div class="modal fade" role="dialog" id="modal-main-slot">' \
-          '<div class="modal-dialog"><div class="modal-content">' \
-          "</div></div></div>"
-        )
+        rendered = @main_card.format.render! :layout
+        expect(rendered).to have_tag "div#main" do
+          with_text "Joe User"
+        end
       end
     end
   end

@@ -7,7 +7,7 @@ require_dependency "decko/response"
 require_dependency "card/mailer"  # otherwise Net::SMTPError rescues can cause
 # problems when error raised comes before Card::Mailer is mentioned
 
-# Wagn's only controller.
+# Decko's only controller.
 class CardController < ActionController::Base
   include Card::Env::Location
   include Recaptcha::Verify
@@ -73,9 +73,17 @@ class CardController < ActionController::Base
   def load_card
     @card = Card.controller_fetch params
     raise Card::Error::NotFound unless @card
-    @card.select_action_by_params params #
-    Card::Env[:main_name] = params[:main] || (card && card.name) || ""
+    load_action
+    record_as_main
     card.errors.any? ? render_errors : true
+  end
+
+  def load_action
+    @card.select_action_by_params params
+  end
+
+  def record_as_main
+    Card::Env[:main_name] = params[:main] || card&.name || ""
   end
 
   def refresh_card
@@ -108,15 +116,16 @@ class CardController < ActionController::Base
     card.content = card.last_draft_content if use_draft?
 
     format = format_from_params card
+    result = render_page format, view
+    status = format.error_status || status
+    deliver format, result, status
+  end
 
+  def render_page format, view
     view ||= params[:view]
-    result = card.act do
+    card.act do
       format.page self, view, Card::Env.slot_opts
     end
-
-    status = format.error_status || status
-    # puts "RESULT: #{format.class}/#{status}"
-    deliver format, result, status
   end
 
   def render_errors

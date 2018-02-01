@@ -97,6 +97,10 @@ def change_bucket_if_read_only?
   cloud? && bucket_config[:read_only] && attachment_is_changing?
 end
 
+def read_only?
+  web? || (cloud? && bucket_config[:read_only])
+end
+
 def cloud?
   storage_type == :cloud
 end

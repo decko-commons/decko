@@ -1,7 +1,7 @@
 class Card
   module Set
     module Format
-      TEMPLATE_DIR = "template".freeze
+      TEMPLATE_DIR = %w[template set].freeze
 
       # Support haml templates in a Rails like way:
       # If the view option `template: :haml` is set then wagn expects a haml template
@@ -22,29 +22,30 @@ class Card
       #
       #   > render :with_instance_variables  # => "Luke is played by Mark Haml"
       module HamlViews
-        def haml_view_block view, &block
+        def haml_view_block view, wrap_with_slot, &block
           path = haml_template_path view
-          haml_template_proc ::File.read(path), path, &block
+          haml_template_proc ::File.read(path), path, wrap_with_slot, &block
         end
 
-        def haml_template_proc template, path, &block
-          block_locals = block_given?
+        def haml_template_proc template, path, wrap_with_slot, &block
           proc do |view_args|
             with_template_path path do
-              locals = block_locals ? haml_block_locals(view_args, &block) : view_args
-              haml_to_html template, locals, nil, path: path
+              locals = haml_block_locals view_args, &block
+              html = haml_to_html template, locals, nil, path: path
+              wrap_with_slot ? wrap { html } : html
             end
           end
         end
 
         def haml_block_locals view_args, &block
+          return view_args unless block_given?
           instance_exec view_args, &block
           instance_variables.each_with_object({}) do |var, h|
             h[var.to_s.tr("@", "").to_sym] = instance_variable_get var
           end
         end
 
-        def  haml_template_path view=nil, source=nil
+        def haml_template_path view=nil, source=nil
           each_template_path(source) do |template_dir, source_dir|
             path = try_haml_template_path template_dir, view, source_dir
             return path if path
@@ -66,12 +67,16 @@ class Card
         def try_haml_template_path template_path, view, source_dir, ext="haml"
           template_path = File.join(template_path, view.to_s) if view.present?
           template_path += ".#{ext}"
-          path = ::File.expand_path(template_path, source_dir)
-                       .sub(%r{(/mod/[^/]+)/set/}, "\\1/#{TEMPLATE_DIR}/")
-          ::File.exist?(path) && path
+          TEMPLATE_DIR.each do |template_dir|
+            path = ::File.expand_path(template_path, source_dir)
+                         .sub(%r{(/mod/[^/]+)/set/}, "\\1/#{template_dir}/")
+            return path if ::File.exist?(path)
+          end
+          false
         end
 
         def haml_to_html haml, locals={}, a_binding=nil, debug_info={}
+          # binding.pry unless haml.include? ".panel.panel-primary"
           a_binding ||= binding
           ::Haml::Engine.new(haml).render a_binding, locals || {}
         rescue Haml::SyntaxError => e

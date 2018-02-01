@@ -20,7 +20,6 @@ describe Card::Set::All::RichHtml::Editing do
     it "shows editors for both absolute and relative nests" do
       mycard.content = "{{absolute}} AND {{+relative}}"
       view = myformat.render :edit_nests
-      puts view
       expect(view).to have_tag "div.SELF-a" do
         with_tag "div.card-editor", with: { card_name: "absolute" }
         with_tag "div.card-editor", with: { card_name: "A+relative" }

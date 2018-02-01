@@ -12,13 +12,7 @@ class Card
       include DelayedEvent
 
       def event event, stage_or_opts={}, opts={}, &final
-        if stage_or_opts.is_a? Symbol
-          opts[:in] = stage_or_opts
-        else
-          opts = stage_or_opts
-        end
-        process_stage_opts opts
-
+        opts = event_opts stage_or_opts, opts
         Card.define_callbacks event
         define_event event, opts, &final
         set_event_callbacks event, opts
@@ -26,27 +20,34 @@ class Card
 
       private
 
-      def define_event event, opts, &final
-        final_method_name = "#{event}_without_callbacks" # should be private?
-        class_eval do
-          define_method final_method_name, &final
-        end
+      # EVENT OPTS
 
-        if with_delay? opts
-          define_delayed_event_method event, final_method_name
+      def event_opts stage_or_opts, opts
+        opts = normalize_opts stage_or_opts, opts
+        process_stage_opts opts
+        process_action_opts opts
+        opts
+      end
+
+      def normalize_opts stage_or_opts, opts
+        if stage_or_opts.is_a? Symbol
+          opts[:in] = stage_or_opts
         else
-          define_event_method event, final_method_name
+          opts = stage_or_opts
         end
+        opts
+      end
+
+      def process_action_opts opts
+        opts[:on] = [:create, :update] if opts[:on] == :save
       end
 
       def process_stage_opts opts
         if opts[:after] || opts[:before]
           # ignore :in options
-        elsif opts[:in]
-          opts[:after] =
-            callback_name opts.delete(:in), opts.delete(:after_subcards)
+        elsif (in_opt = opts.delete :in)
+          opts[:after] = callback_name in_opt, opts.delete(:after_subcards)
         end
-        opts[:on] = [:create, :update] if opts[:on] == :save
       end
 
       def callback_name stage, after_subcards=false
@@ -54,27 +55,50 @@ class Card
         name.to_sym
       end
 
-      def define_event_method event, call_method
+      # EVENT DEFINITION
+
+      def define_event event, opts, &final
+        simple_method_name = "#{event}_without_callbacks"
+        define_simple_method event, simple_method_name, &final
+        define_event_method event, simple_method_name, opts
+      end
+
+      def define_simple_method _event, method_name, &method
+        class_eval do
+          define_method method_name, &method
+        end
+      end
+
+      def define_event_method event, method_name, opts
+        event_type = with_delay?(opts) ? :delayed : :standard
+        send "define_#{event_type}_event_method", event, method_name
+      end
+
+      def define_standard_event_method event, method_name
         class_eval do
           define_method event do
             log_event_call event
             run_callbacks event do
-              send call_method
+              send method_name
             end
           end
         end
       end
 
+      # EVENT CALLBACKS
+
       def set_event_callbacks event, opts
         opts[:set] ||= self
         [:before, :after, :around].each do |kind|
-          next unless (object_method = opts.delete(kind))
-          Card.class_eval do
-            set_callback(
-              object_method, kind, event,
-              prepend: true, if: proc { |c| c.event_applies?(opts) }
-            )
-          end
+          next unless (object_method = opts.delete kind)
+          set_event_callback object_method, kind, event, opts
+        end
+      end
+
+      def set_event_callback object_method, kind, event, opts
+        Card.class_eval do
+          set_callback object_method, kind, event,
+                       prepend: true, if: proc { |c| c.event_applies?(opts) }
         end
       end
     end

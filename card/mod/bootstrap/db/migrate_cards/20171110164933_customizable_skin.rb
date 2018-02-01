@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+# Migration to create cards for a customizable skin
 class CustomizableSkin < Card::Migration::Core
   def up
     data_dir = File.expand_path("../data/custom_theme", __FILE__)
@@ -7,8 +8,9 @@ class CustomizableSkin < Card::Migration::Core
     skin.create_or_update
   end
 
+  # Helper class to create customizable skin
   class CustomSkin
-    THEME_FIELDS = %w[colors components spacing cards fonts more]
+    THEME_FIELDS = %w[colors components spacing cards fonts more].freeze
 
     include ::Card::Model::SaveHelper
 
@@ -55,7 +57,9 @@ class CustomizableSkin < Card::Migration::Core
                    "#{theme_field_nests}\n"\
                    "{{bootstrap: core}}\n{{+style|title: style}}",
           subcards: custom_theme_subcard_args.merge(
-            "+style" => { type: :scss, content: "// Use this to override bootstrap css\n" }
+            "+style" => {
+              type: :scss, content: "// Use this to override bootstrap css\n"
+            }
           )
         }
       }
@@ -70,7 +74,7 @@ class CustomizableSkin < Card::Migration::Core
 
     def custom_theme_subcard_args
       THEME_FIELDS.each_with_object({}) do |name, h|
-        h["+#{name}"] =  theme_field_args(name)
+        h["+#{name}"] = theme_field_args(name)
       end
     end
 
@@ -81,5 +85,3 @@ class CustomizableSkin < Card::Migration::Core
     end
   end
 end
-
-

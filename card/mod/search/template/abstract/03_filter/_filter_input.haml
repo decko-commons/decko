@@ -1,0 +1,8 @@
+.input-group.mb-2.card-outline-primary.mr-2._filter-input.d-flex.flex-nowrap{"data-category" => key}
+  .input-group-prepend
+    %button.btn.btn-secondary._delete-filter-input{:type => "button"}
+      %strong
+        %i.material-icons close
+    %span.input-group-text._selected-category
+      = category[:label]
+  = category[:input_field]

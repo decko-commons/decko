@@ -18,6 +18,8 @@ format do
   def compile_coffee script
     ::CoffeeScript.compile script
   rescue => e
-    raise Card::Error, "CoffeeScript::Error (#{card.name}): #{e.message}"
+    line_nr = e.to_s.match(/\[stdin\]:(\d*)/)&.capture(0)&.to_i
+    line = script.lines[line_nr - 1] if line_nr
+    raise Card::Error, "CoffeeScript::Error (#{card.name}): #{e.message}: #{line}"
   end
 end

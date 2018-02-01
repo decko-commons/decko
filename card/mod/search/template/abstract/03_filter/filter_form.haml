@@ -1,0 +1,44 @@
+
+.card.w-100
+  .card-body
+    ._filter-widget
+      ._filter-input-field-prototypes.d-none
+        - categories.each do |key, category|
+          ._filter-input-field{class: key}
+            - unless category[:active]
+              = haml_partial :filter_input, key: key, category: category
+
+      %form._filter-form{form_args, "accept-charset": "UTF-8",
+                                    "data-remote": "true",
+                                    method: "get"}
+        - not_ids = params.dig :filter, :not_ids
+        %input{ type: :hidden, name: "filter[not_ids]", class: "_not-ids", value: not_ids }
+        .d-flex.flex-row
+          - if sort_input_field
+            .sort-in-filter-form
+              %i.material-icons.text-muted.md-24.p-2.float-left sort
+              .input-group.flex-nowrap.sort-input-group.mb-2.card-outline-primary.mr-5
+                .input-group-prepend
+                  %span.input-group-text sort
+                = sort_input_field
+
+          .filter-in-filter-form
+            %i.material-icons.text-muted.md-24.p-2.float-left search
+            ._filter-container.d-flex.flew-row.flex-wrap
+              - categories.each do |key, category|
+                - if category[:active]
+                  = haml_partial :filter_input, key: key, category: category
+
+              .dropdown._add-filter-dropdown
+                %button.btn.btn-secondary.dropdown-toggle{"aria-expanded": "false",
+                                                          "aria-haspopup": "true",
+                                                          "data-toggle": "dropdown",
+                                                          type: "button" }
+                  Add filter
+                .dropdown-menu
+                  - categories.each do |key, category|
+                    %a.dropdown-item._filter-category-select{style: ("display: none;" if category[:active]),
+                                                             "data-category" => key,
+                                                             "data-label" => category[:label],
+                                                             :href => "#"}
+                      = category[:label]

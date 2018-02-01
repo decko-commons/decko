@@ -1,0 +1,7 @@
+
+%table.search-checkbox-item._search-checkbox-item.w-100
+  %tr
+    %td.checkbox-side
+      = check_box_tag item_card.name, item_card.key
+    %td.item-view-side{ style: "background: #fff" }
+      = nest_item item_card

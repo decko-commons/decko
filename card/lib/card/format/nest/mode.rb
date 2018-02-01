@@ -18,12 +18,20 @@ class Card
         # run block with new_mode as nest_mode, then return to prior mode
         # @param new_mode [Symbol] :normal, :closed, :edit, or :template
         # @return block result
-        def with_nest_mode new_mode
+        def with_nest_mode new_mode, &block
+          if new_mode
+            with_altered_nest_mode new_mode, &block
+          else
+            yield
+          end
+        end
+
+        def with_altered_nest_mode new_mode
           old_mode = nest_mode
           @nest_mode = new_mode
-          result = yield
+          yield
+        ensure
           @nest_mode = old_mode
-          result
         end
 
         # view to be rendered in current mode

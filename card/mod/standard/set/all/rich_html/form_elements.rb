@@ -4,20 +4,27 @@ format :html do
     hidden_tags success: opts
   end
 
+  # convert hash into a collection of hidden tags
   def hidden_tags hash, base=nil
-    # convert hash into a collection of hidden tags
-    result = ""
     hash ||= {}
-    hash.each do |key, val|
-      result +=
-        if val.is_a?(Hash)
-          hidden_tags val, key
-        else
-          name = base ? "#{base}[#{key}]" : key
-          hidden_field_tag name, val
-        end
+    hash.inject("") do |result, (key, val)|
+      new_base = base ? "#{base}[#{key}]" : key
+      result + process_hidden_value(val, new_base)
     end
-    result
+  end
+
+  def process_hidden_value val, base
+    case val
+    when Hash
+      hidden_tags val, base
+    when Array
+      base += "[]"
+      val.map do |v|
+        hidden_field_tag base, v
+      end.join
+    else
+      hidden_field_tag base, val
+    end
   end
 
   FIELD_HELPERS =
@@ -45,8 +52,18 @@ format :html do
   def cancel_button args={}
     text = args.delete(:text) || "Cancel"
     args[:type] ||= "button"
-    add_class args, (args[:href] ? "slotter" : "redirecter")
-    args[:href] ||= Card.path_setting("/*previous")
+    args[:situation] ||= "outline-secondary"
+    add_class args, cancel_strategy(args[:redirect], args[:href])
+    args[:href] ||= path_to_previous
     button_tag text, args
+  end
+
+  def cancel_strategy redirect, href
+    redirect = href.blank? if redirect.nil?
+    redirect ? "redirecter" : "slotter"
+  end
+
+  def path_to_previous
+    Card.path_setting "/*previous"
   end
 end
