@@ -78,7 +78,9 @@ class Card
             with_nest_mode(mode) { nest stub_card, options, override }
           end
         end
-        Rails.logger.info "STUB IN RENDERED VIEW: #{card.name}: #{voo.ok_view}\n#{result}" if result =~ /stub/
+        if result =~ /stub/
+          Rails.logger.info "STUB IN RENDERED VIEW: #{card.name}: #{voo.ok_view}\n#{result}"
+        end
         result
       end
 

@@ -29,21 +29,11 @@ class Card
 
         def haml_template_proc template, path, wrap_with_slot, &block
           block_locals = block_given?
-          if wrap_with_slot
-            proc do |view_args|
-              with_template_path path do
-                locals = block_locals ? haml_block_locals(view_args, &block) : view_args
-                wrap do
-                  haml_to_html template, locals, nil, path: path
-                end
-              end
-            end
-          else
-            proc do |view_args|
-              with_template_path path do
-                locals = block_locals ? haml_block_locals(view_args, &block) : view_args
-                haml_to_html template, locals, nil, path: path
-              end
+          proc do |view_args|
+            with_template_path path do
+              locals = block_locals ? haml_block_locals(view_args, &block) : view_args
+              html = haml_to_html template, locals, nil, path: path
+              wrap_with_slot ? wrap { html } : html
             end
           end
         end
