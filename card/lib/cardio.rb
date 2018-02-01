@@ -51,6 +51,7 @@ module Cardio
 
         non_createable_types:   [%w(signup setting set)],
         view_cache:             true,
+        rss_enabled:            false,
 
         encoding:                "utf-8",
         request_logger:         false,
