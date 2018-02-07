@@ -896,6 +896,17 @@ html>body .open-view {
   }
 }
 
+/*-------------------------- */
+/*- Overlay                - */
+/*-------------------------- */
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+}
+
 
 /*-------------------------- */
 /*- ProseMirror            - */
