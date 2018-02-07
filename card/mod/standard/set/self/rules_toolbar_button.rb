@@ -1,7 +1,7 @@
 include_set Abstract::ToolbarSplitButton
 
 format :html do
-  view :core do
+  view :core, cache: :never do
     subject.toolbar_split_button("rules", view: :edit_rules, icon: :list) do
       dropdown_items
     end

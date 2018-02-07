@@ -91,7 +91,7 @@ group :test do
   # CUKES see features dir
   gem 'cucumber-rails', '~> 1.5', :require=>false # feature-driven-development suite
   gem 'capybara', '~> 2.14'
-  gem 'selenium-webdriver', '~> 3.3'
+  gem 'selenium-webdriver', '3.6.0'
   gem 'chromedriver-helper', '~> 1.1.0'
   # gem 'capybara-webkit'
   gem 'launchy'                                # lets cucumber launch browser windows

@@ -5,7 +5,7 @@ djar = "delayed_job_active_record"
 require djar if Gem::Specification.find_all_by_name(djar).any?
 require "cardio/schema.rb"
 
-ActiveSupport.on_load :card do
+ActiveSupport.on_load :after_card do
   if Card.take
     Card::Mod.load
   else
@@ -51,6 +51,7 @@ module Cardio
 
         non_createable_types:   [%w(signup setting set)],
         view_cache:             true,
+        rss_enabled:            false,
 
         encoding:                "utf-8",
         request_logger:         false,
@@ -128,6 +129,7 @@ module Cardio
       add_path "db"
       add_path "db/migrate"
       add_path "db/migrate_core_cards"
+      add_path "db/migrate_deck", root: root, with: "db/migrate"
       add_path "db/migrate_deck_cards", root: root, with: "db/migrate_cards"
       add_path "db/seeds.rb", with: "db/seeds.rb"
     end
@@ -135,6 +137,9 @@ module Cardio
     def add_initializer_paths
       add_path "config/initializers", glob: "**/*.rb"
       add_initializers root
+      each_mod_path do |mod_path|
+        add_initializers mod_path, false, "core_initializers"
+      end
     end
 
     def add_mod_initializer_paths
@@ -144,8 +149,8 @@ module Cardio
       end
     end
 
-    def add_initializers dir, mod=false
-      Dir.glob("#{dir}/config/initializers").each do |initializers_dir|
+    def add_initializers base_dir, mod=false, init_dir="initializers"
+      Dir.glob("#{base_dir}/config/#{init_dir}").each do |initializers_dir|
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
         paths[path_mark] << initializers_dir
       end
@@ -184,12 +189,17 @@ module Cardio
     def migration_paths type
       list = paths["db/migrate#{schema_suffix type}"].to_a
       if type == :deck_cards
-        Card::Mod.dirs.each("db/migrate_cards") do |path|
-          list += Dir.glob path
-        end
+        add_mod_migration_paths list
+      elsif type == :deck
+        add_mod_migration_paths list, "migrate"
       end
-
       list.flatten
+    end
+
+    def add_mod_migration_paths list, dir="migrate_cards"
+      Card::Mod.dirs.each("db/#{dir}") do |path|
+        list += Dir.glob path
+      end
     end
 
     private

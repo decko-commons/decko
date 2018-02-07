@@ -1,0 +1,31 @@
+%div.filtered-list-editor
+  %ul.filtered-list-review._pointer-filtered-list.list-group.vertical.nopadding
+    - card.item_cards(context: :raw).each do |item_card|
+      %li._filtered-list-item.clearfix{ data: item_card.format.wrap_data(false) }
+        %span._handle.float-left.m-2
+          = icon_tag :reorder
+        - nest_item item_card do |rendered, view|
+          %span{ class: "item-#{view} float-left w-75"}
+            = rendered
+        %span.filtered-list-item-button
+          %button._filtered-list-item-delete.btn.btn-secondary.btn-sm.m-2{:type => "button"}
+            = icon_tag :remove
+  %br
+  .clearfix
+    - path_opts = { view: :filter_items,
+                    item: implicit_item_view,
+                    filter_card: filter_card.name,
+                    layout: :simple_modal,
+                    slot_selector: editor_id,
+                    item_selector: "_filtered-list-item",
+                    slot: { hide: :modal_footer },
+                    filter: { not_ids: card.item_ids.map(&:to_s).join(",") } }
+    = render_modal_link title: "Add Item",
+                        link_opts: { class: "btn btn-sm btn-primary _add-item-link",
+                                     "data-target": "#modal-filtered-list",
+                                     path: path_opts }
+= render_modal_slot modal_id: "filtered-list", dialog_class: "modal-lg"
+
+// note: passing item and filter card because in some cases (eg Project+Metric on wikirate)
+// the link was losing set-identifying information (type of left)
+// would be preferable to have a more general solution to retain set-identifying info.

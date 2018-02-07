@@ -16,29 +16,43 @@ RSpec.describe Card::Query do
   end
 
   describe "append" do
-    it "finds real cards" do
-      @query = {
-        name: [:in, "C", "D", "F"],
-        append: "A"
-      }
-      is_expected.to eq(%w(C+A D+A F+A))
+    context "returning names" do
+      it "finds real cards" do
+        @query = {
+          name: [:in, "C", "D", "F"],
+          append: "A"
+        }
+        is_expected.to eq(%w(C+A D+A F+A))
+      end
+
+      it "absolutizes names" do
+        @query = {
+          name: [:in, "C", "D", "F"],
+          append: "_right",
+          context: "B+A"
+        }
+        is_expected.to eq(%w(C+A D+A F+A))
+      end
+
+      it "finds virtual cards" do
+        @query = {
+          name: [:in, "C", "D"],
+          append: "*plus cards"
+        }
+        is_expected.to eq(["C+*plus cards", "D+*plus cards"])
+      end
     end
 
-    it "absolutizes names" do
-      @query = {
-        name: [:in, "C", "D", "F"],
-        append: "_right",
-        context: "B+A"
-      }
-      is_expected.to eq(%w(C+A D+A F+A))
-    end
+    context "returning cards" do
+      it "appends name to card results" do
+        res = Card::Query.run name: [:in, "C", "D", "F"], append: "A"
+        expect(res).to contain_exactly(Card["C+A"], Card["D+A"], Card["F+A"])
+      end
 
-    it "finds virtual cards" do
-      @query = {
-        name: [:in, "C", "D"],
-        append: "*plus cards"
-      }
-      is_expected.to eq(["C+*plus cards", "D+*plus cards"])
+      it "instantiates unknown card" do
+        res = Card::Query.run name: "Z", append: "A"
+        expect(res.first).to be_a_new_card.and have_name "Z+A"
+      end
     end
   end
 
@@ -51,6 +65,11 @@ RSpec.describe Card::Query do
     it "finds the same thing in full syntax" do
       @query = { content: [:in, "Theta", "AlphaBeta"] }
       is_expected.to eq(%w(A+B T))
+    end
+
+    it "is the default conjunction for arrays" do
+      @query = { name: %w(C D F) }
+      is_expected.to eq(%w(C D F))
     end
 
     example "type option" do

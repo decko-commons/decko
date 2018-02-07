@@ -6,7 +6,7 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
 
 //script: slot
 (function() {
-  var addCaptcha, addCategoryOption, containerClass, detectMobileBrowser, doubleSidebar, filterAndSort, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, removeCategoryOption, reqIndex, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, warn, wrapDeckoLayout, wrapSidebarToggle;
+  var addCaptcha, addCategoryOption, addSelectedButton, addSelectedButtonUrl, containerClass, deselectAllLink, detectMobileBrowser, doubleSidebar, filterAndSort, filterBox, filterCategorySelected, hideFilterInputField, initCaptcha, navbox_results, navbox_select, navboxize, newFilteredListContent, removeCategoryOption, reqIndex, savedIds, selectFilteredItem, selectedBin, selectedData, selectedIds, selectedNames, setFilterInputWidth, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, trackSelectedIds, updateAfterSelection, updateSelectedCount, updateSelectedSectionVisibility, updateUnselectedCount, warn, wrapDeckoLayout, wrapSidebarToggle;
 
   window.decko || (window.decko = {});
 
@@ -514,17 +514,17 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
   });
 
   $(window).ready(function() {
-    $('body').on("change", "._filter-input input, ._filter-input select, ._filter-sort", function() {
+    $("body").on("change", "._filter-input input, ._filter-input select, ._filter-sort", function() {
       return filterAndSort(this);
     });
-    $('body').on("click", "._filter-category-select", function() {
+    $("body").on("click", "._filter-category-select", function() {
       var addFilterDropdown, category, label;
       addFilterDropdown = $(this).closest("._add-filter-dropdown");
       category = $(this).data("category");
       label = $(this).data("label");
       return filterCategorySelected(addFilterDropdown, category, label);
     });
-    return $('body').on("click", "._delete-filter-input", function() {
+    $("body").on("click", "._delete-filter-input", function() {
       var category, form, input;
       form = $(this).closest("._filter-form");
       input = $(this).closest("._filter-input");
@@ -533,7 +533,156 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       hideFilterInputField(input);
       return form.submit();
     });
+    $("body").on("click", "._filter-items ._unselected ._search-checkbox-item input", function() {
+      selectFilteredItem($(this));
+      return updateAfterSelection($(this));
+    });
+    $("body").on("click", "._filter-items ._selected ._search-checkbox-item input", function() {
+      var bin;
+      bin = selectedBin($(this));
+      $(this).slot().remove();
+      return updateAfterSelection(bin);
+    });
+    $("body").on("click", "._filter-items ._add-selected", function() {
+      var btn, content;
+      btn = $(this);
+      content = newFilteredListContent(btn);
+      return btn.attr("href", addSelectedButtonUrl(btn, content));
+    });
+    $("body").on("click", "._select-all", function() {
+      filterBox($(this)).find("._unselected ._search-checkbox-item input").each(function() {
+        return selectFilteredItem($(this));
+      });
+      $(this).prop("checked", false);
+      return updateAfterSelection($(this));
+    });
+    $("body").on("click", "._deselect-all", function() {
+      filterBox($(this)).find("._selected ._search-checkbox-item input").each(function() {
+        return $(this).slot().remove();
+      });
+      $(this).prop("checked", true);
+      return updateAfterSelection($(this));
+    });
+    return $('body').on('click', '._filtered-list-item-delete', function() {
+      return $(this).closest('li').remove();
+    });
   });
+
+  newFilteredListContent = function(el) {
+    var newContent, oldContent;
+    oldContent = el.slot().find(".d0-card-content").val();
+    newContent = decko.pointerContent(selectedNames(el));
+    if (!oldContent) {
+      return newContent;
+    }
+    return oldContent + "\n" + newContent;
+  };
+
+  addSelectedButtonUrl = function(btn, content) {
+    var card_args, query, url_base, view;
+    view = btn.slot().data("slot")["view"];
+    card_args = {
+      content: content,
+      type: "Pointer"
+    };
+    query = {
+      assign: true,
+      view: view,
+      card: card_args
+    };
+    url_base = decko.rootPath + btn.attr("href") + "&" + $.param(query);
+    return decko.prepUrl(url_base, btn.slot());
+  };
+
+  updateAfterSelection = function(el) {
+    trackSelectedIds(el);
+    filterAndSort(filterBox(el).find("._filter-form"));
+    updateSelectedCount(el);
+    return updateUnselectedCount(el);
+  };
+
+  updateSelectedCount = function(el) {
+    var count;
+    count = selectedBin(el).children().length;
+    filterBox(el).find("._selected-items").html(count);
+    deselectAllLink(el).attr("disabled", count === 0);
+    addSelectedButton(el).attr("disabled", count === 0);
+    return updateSelectedSectionVisibility(el, count > 0);
+  };
+
+  updateSelectedSectionVisibility = function(el, items_present) {
+    var box, help_text, selected_items;
+    box = filterBox(el);
+    selected_items = box.find("._selected-item-list");
+    help_text = box.find("._filter-help");
+    if (items_present) {
+      selected_items.show();
+      return help_text.hide();
+    } else {
+      selected_items.hide();
+      return help_text.show();
+    }
+  };
+
+  updateUnselectedCount = function(el) {
+    var box, count;
+    box = filterBox(el);
+    count = box.find("._search-checkbox-list").children().length;
+    box.find("._unselected-items").html(count);
+    return box.find("._select-all").attr("disabled", count > 0);
+  };
+
+  selectFilteredItem = function(checkbox) {
+    checkbox.prop("checked", true);
+    return selectedBin(checkbox).append(checkbox.slot());
+  };
+
+  selectedBin = function(el) {
+    return filterBox(el).find("._selected-bin");
+  };
+
+  filterBox = function(el) {
+    return el.closest("._filter-items");
+  };
+
+  savedIds = function(el) {
+    var filteredList;
+    filteredList = addSelectedButton($(el)).slot().find("._pointer-filtered-list");
+    return filteredList.children().map(function() {
+      return $(this).data("cardId");
+    }).toArray();
+  };
+
+  addSelectedButton = function(el) {
+    return filterBox(el).find("._add-selected");
+  };
+
+  deselectAllLink = function(el) {
+    return filterBox(el).find("._deselect-all");
+  };
+
+  selectedIds = function(el) {
+    return selectedData(el, "cardId");
+  };
+
+  selectedNames = function(el) {
+    return selectedData(el, "cardName");
+  };
+
+  selectedData = function(el, field) {
+    var slots;
+    slots = selectedBin(el).children();
+    return slots.map(function() {
+      return $(this).data(field);
+    }).toArray();
+  };
+
+  trackSelectedIds = function(el) {
+    var box, ids;
+    ids = savedIds(el).concat(selectedIds(el));
+    box = filterBox(el);
+    return box.find("._not-ids").val(ids.toString());
+  };
 
   filterCategorySelected = function(addFilterDropdown, selectedCategory, label) {
     var widget;
@@ -543,13 +692,19 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
   };
 
   showFilterInputField = function(category, widget) {
-    var $searchInputField;
-    $searchInputField = $(widget.find("._filter-input-field-prototypes > ._filter-input-field." + category + " > .input-group")[0]);
-    $(widget.find("._add-filter-dropdown")).before($searchInputField);
-    $searchInputField.find('select:not([multiple])').select2({
+    var $inputField, selector;
+    selector = "._filter-input-field-prototypes > ._filter-input-field." + category + " > .input-group";
+    $inputField = $(widget.find(selector)[0]);
+    $(widget.find("._add-filter-dropdown")).before($inputField);
+    setFilterInputWidth($inputField);
+    decko.initAutoCardPlete($inputField.find("input"));
+    return $inputField.find("input, select").focus();
+  };
+
+  setFilterInputWidth = function($inputField) {
+    return $inputField.find("select:not([multiple])").select2({
       dropdownAutoWidth: "true"
     });
-    return $searchInputField.find("input, select").focus();
   };
 
   hideFilterInputField = function(input) {
@@ -816,6 +971,9 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       }
       return $.rails.handleRemote($(this));
     });
+    $('body').on('click', '._clickable.slotter', function(event) {
+      return $.rails.handleRemote($(this));
+    });
     $('body').on('ajax:beforeSend', '.slotter', function(event, xhr, opt) {
       var args, data, iframeUploadFilter, input, widget;
       if (opt.skip_before_send) {
@@ -1028,12 +1186,21 @@ return!0}function Q(a,b,d,e){if(m.acceptData(a)){var f,g,h=m.expando,i=a.nodeTyp
       return $(this).hide();
     });
     if (slot.hasClass("_refresh-timer")) {
-      return setTimeout(function() {
+      setTimeout(function() {
         return $.get(slot.data("refresh-url"), function(data, status) {
           return slot.setSlotContent(data);
         });
       }, 2000);
     }
+    return slot.find('._modal-slot').each(function() {
+      var mslot;
+      mslot = $(this);
+      if ($.find("body #" + mslot.attr("id")).length > 1) {
+        return mslot.remove();
+      } else {
+        return $("body").append(mslot);
+      }
+    });
   });
 
 }).call(this);
@@ -18448,11 +18615,9 @@ $.extend( proto, {
         return $(this).val();
       }));
     },
-    '.pointer-mixed': function() {
-      var element;
-      element = '.pointer-checkbox-sublist input:checked,.pointer-sublist-ul input';
-      return pointerContent(this.find(element).map(function() {
-        return $(this).val();
+    '._pointer-filtered-list': function() {
+      return pointerContent(this.find('._filtered-list-item').map(function() {
+        return $(this).data('cardName');
       }));
     },
     '.perm-editor': function() {
@@ -18466,6 +18631,13 @@ $.extend( proto, {
       cancel: ''
     });
     return decko.initPointerList(this.find('input'));
+  };
+
+  decko.editorInitFunctionMap['._pointer-filtered-list'] = function() {
+    return this.sortable({
+      handle: '._handle',
+      cancel: ''
+    });
   };
 
   $.extend(decko, {
@@ -18482,17 +18654,20 @@ $.extend( proto, {
       return input.autocomplete({
         source: decko.prepUrl(url)
       });
+    },
+    pointerContent: function(vals) {
+      var list;
+      list = $.map($.makeArray(vals), function(v) {
+        if (v) {
+          return '[[' + v + ']]';
+        }
+      });
+      return $.makeArray(list).join("\n");
     }
   });
 
   pointerContent = function(vals) {
-    var list;
-    list = $.map($.makeArray(vals), function(v) {
-      if (v) {
-        return '[[' + v + ']]';
-      }
-    });
-    return $.makeArray(list).join("\n");
+    return decko.pointerContent(vals);
   };
 
   permissionsContent = function(ed) {
@@ -18681,6 +18856,7 @@ $.extend( proto, {
       $.extend(conf, user_conf, hard_conf);
       tinyMCE.baseURL = '/assets/tinymce';
       tinyMCE.suffix = '.min';
+      tinyMCE.remove("#" + el_id);
       return tinyMCE.init(conf);
     }
   });

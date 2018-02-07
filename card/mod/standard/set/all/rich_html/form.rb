@@ -127,12 +127,8 @@ format :html do
   def multi_card_edit fields_only=false
     nested_cards_for_edit(fields_only).map do |name, options|
       options ||= {}
-      options[:hide] = [options[:hide], :toolbar].compact
-      if options.delete(:absolute) || !fields_only
-        nest name, options
-      else
-        field_nest name, options
-      end
+      options[:hide] = [options[:hide], :toolbar].flatten.compact
+      nest name, options
     end.join "\n"
   end
 

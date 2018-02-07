@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
 
 When /^I open a new window for (.*)$/ do |account_name|
   str =

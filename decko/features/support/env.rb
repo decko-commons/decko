@@ -47,7 +47,7 @@ Before("@javascript") do
 end
 
 Before do
-  # Capybara.page.current_window.resize_to 1440, 1280
+  Capybara.page.current_window.resize_to 1440, 1280
 end
 
 require "cucumber/rails"
@@ -55,7 +55,7 @@ Cucumber::Rails::Database.autorun_database_cleaner = false
 # require "test_after_commit"
 
 Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
+  Capybara::Selenium::Driver.new(app, browser: :firefox)
 end
 Capybara.default_driver = :selenium
 

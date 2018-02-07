@@ -13,7 +13,13 @@ format :html do
       active_name ||= tab_name
       active_tab = (tab_name == active_name)
       id = "#{card.name.safe_key}-#{tab_name.to_name.safe_key}"
-      tab_buttons += tab_button("##{id}", tab_name, active_tab)
+      tab_content, button_attr =
+        if tab_content.is_a?(Hash)
+          [tab_content[:content], tab_content[:button_attr]]
+        else
+          [tab_content, {}]
+        end
+      tab_buttons += tab_button("##{id}", tab_name, active_tab, button_attr)
       tab_panes += tab_pane(id, tab_content, active_tab)
     end
     tab_panel tab_buttons, tab_panes, tab_type

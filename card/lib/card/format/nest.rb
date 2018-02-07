@@ -6,11 +6,21 @@ class Card
       include Subformat
       include Mode
 
+      # @param cardish card mark
+      # @param options [Hash]
+      # @option options [Symbol] view
+      # @option options [Symbol, Array<Symbol>] :hide hide optional subviews
+      # @option options [Symbol, Array<Symbol>] :show show optional subviews
+      # @option options [String] :title
+      # @param override ??
       def nest cardish, options={}, override=true, &block
         return "" if nest_invisible?
         nested_card = fetch_nested_card cardish, options
         view, options = interpret_nest_options nested_card, options
-        nest_render nested_card, view, options, override, &block
+
+        with_nest_mode options.delete(:mode) do
+          nest_render nested_card, view, options, override, &block
+        end
       end
 
       # nested by another card's content

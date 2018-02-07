@@ -112,7 +112,9 @@ format :html do
     smart_link_to link_text, opts
   end
 
-  def dropdown_button name, opts={}
+  def dropdown_button name, items_or_opts={}, opts={}
+    items = block_given? ? yield : items_or_opts
+    opts = items_or_opts if block_given?
     <<-HTML
       <div class="btn-group btn-group-sm #{opts[:extra_css_class]}" role="group">
         <button class="btn btn-primary dropdown-toggle"
@@ -121,7 +123,7 @@ format :html do
           #{icon_tag opts[:icon] if opts[:icon]} #{name}
           <span class="caret"></span>
         </button>
-        #{dropdown_list yield, opts[:class], opts[:active]}
+        #{dropdown_list items, opts[:class], opts[:active]}
       </div>
     HTML
   end

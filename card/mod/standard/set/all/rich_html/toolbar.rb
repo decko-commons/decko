@@ -69,7 +69,6 @@ format :html do
   end
 
   def toolbar_simple_buttons
-    #wrap_with :form do
       _render :toolbar_buttons
     #end
   end
@@ -78,7 +77,7 @@ format :html do
     wrap_with :div do
       [
           toolbar_simple_buttons,
-          expanded_close_link,
+        expanded_close_link
       ]
     end
   end
@@ -145,7 +144,7 @@ format :html do
     toolbar_split_button "account", related: :account, icon: :account_box do
       %i[account roles created edited follow].each_with_object({}) do |item, hash|
         label = item == :account ? tr(:details) : tr(item)
-        args = { class: "dropdown-item"}
+        args = { class: "dropdown-item" }
         args[:path] = { related: { view: :edit } } if item == :account
         hash[item] = link_to_related item, label, args
       end
@@ -154,7 +153,7 @@ format :html do
 
   def toolbar_button_card name
     button_codename = "#{name}_toolbar_button".to_sym
-    return "" unless button_card = Card[button_codename]
+    return "" unless (button_card = Card[button_codename])
     with_nest_mode :normal do
       nest button_card, view: :core
     end
@@ -187,7 +186,6 @@ format :html do
   end
 
   view :toolbar_buttons, cache: :never do
-    related_button = _render(:related_button).html_safe
     wrap_with(:div, class: "btn-group btn-group-sm") do
       [
         _render(:delete_button,
@@ -199,7 +197,8 @@ format :html do
   end
 
   view :related_button do
-    dropdown_button "", icon: :explore, class: "related", extra_css_class: "d-none d-md-inline" do
+    dropdown_button "", icon: :explore, class: "related",
+                        extra_css_class: "d-none d-md-inline" do
       [
         ["children",       :baby_formula, "*children"],
         # ["mates",          "bed",          "*mates"],
@@ -208,8 +207,7 @@ format :html do
         ["references in",  :log_in,       "*referred_to_by"]
       ].map do |title, icon, tag|
         menu_item " #{title}", icon, related: tag,
-                                     path: { slot: { show: :toolbar,
-                                                     hide: :menu } }
+                                     path: { slot: { show: :toolbar, hide: :menu } }
       end
     end
   end
@@ -226,7 +224,7 @@ format :html do
     success = main? ? "REDIRECT: *previous" : "TEXT: #{card.name} deleted"
     toolbar_button "delete", :trash,
                    path: { action: :delete, success: success },
-                   class: "slotter", remote: true, :'data-confirm' => confirm
+                   class: "slotter", remote: true, 'data-confirm': confirm
   end
 
   def toolbar_button text, symbol, opts={}
