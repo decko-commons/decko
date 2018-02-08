@@ -38,9 +38,9 @@ end
 group :test, :development do
   gem 'html2haml'
   gem 'rails-dev-tweaks'
-  gem 'jasmine'
-  gem 'jasmine-rails'
-  gem 'jasmine-jquery-rails'
+  # gem 'jasmine'
+  # gem 'jasmine-rails'
+  # gem 'jasmine-jquery-rails'
   gem 'sprockets' # just so above works
   gem 'phantomjs', '1.9.7.1' #locked because 1.9.8.0 is breaking
   gem 'colorize'
