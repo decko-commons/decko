@@ -13,9 +13,9 @@ format :html do
   end
 
   view :overlay_menu do
-     wrap_with :div, class: "btn-group btn-group-sm" do
-       [slotify_overlay_link, close_overlay_link]
-     end
+    wrap_with :div, class: "btn-group btn-group-sm" do
+      [slotify_overlay_link, close_overlay_link]
+    end
   end
 
   def slotify_overlay_link
@@ -26,7 +26,7 @@ format :html do
     overlay_menu_link :close, path: "#", "data-dismiss": "overlay"
   end
 
-  def overlay_menu_link icon, args={}
+  def overlay_menu_link icon, _args={}
     button_link fa_icon(icon, class: "fa-lg"), path: "#", "data-dismiss": "overlay"
   end
 

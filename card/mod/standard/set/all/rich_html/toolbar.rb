@@ -25,9 +25,7 @@ format :html do
   end
 
   def default_toolbar_args args
-    if params[:related]
-      @related_card, _opts = related_card_and_options args.clone
-    end
+    @related_card, _opts = related_card_and_options args.clone if params[:related]
     @rule_view = params[:rule_view]
   end
 
@@ -69,14 +67,14 @@ format :html do
   end
 
   def toolbar_simple_buttons
-      _render :toolbar_buttons
-    #end
+    _render :toolbar_buttons
+    # end
   end
 
   def toolbar_right_buttons
     wrap_with :div do
       [
-          toolbar_simple_buttons,
+        toolbar_simple_buttons,
         expanded_close_link
       ]
     end
@@ -189,7 +187,7 @@ format :html do
     wrap_with(:div, class: "btn-group btn-group-sm") do
       [
         _render(:delete_button,
-                         optional: (card.ok?(:delete) ? :show : :hide)),
+                optional: (card.ok?(:delete) ? :show : :hide)),
         _render(:refresh_button),
         _render(:related_button)
       ]
