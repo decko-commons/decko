@@ -109,8 +109,6 @@ format :html do
     case
     when parent && parent.voo.ok_view == :related
       :related_frame
-    when voo.ok_view == :overlay
-      :overlay_frame
     else
       :standard_frame
     end
@@ -121,8 +119,7 @@ format :html do
     wrap slot do
         panel do
           [
-            _render_menu,
-            _render_header,
+            frame_header,
             frame_help,
             _render(:flash),
             wrap_body { yield }
@@ -131,17 +128,11 @@ format :html do
     end
   end
 
-  def overlay_frame slot=true
-    voo.hide :horizontal_menu, :help
-    wrap slot, class: "d0-card-overlay" do
-      panel do
-        [
-          _render_overlay_header,
-          frame_help,
-          _render(:flash),
-          wrap_body { yield }
-        ]
-      end
+  def frame_header
+    if voo.ok_view == :overlay
+      _render_overlay_header
+    else
+      [_render_menu, _render_header]
     end
   end
 

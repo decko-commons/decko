@@ -4,8 +4,7 @@ format :html do
   end
 
   def overlay content=nil
-    class_up "d0-card-frame", "card"
-    class_up "card-slot", "_overlay bg-white", true
+    class_up "card-slot", "_overlay d0-card-overlay bg-white", true
     @content_body = true
     frame do
       block_given? ? yield : content
@@ -26,8 +25,9 @@ format :html do
     overlay_menu_link :close, path: "#", "data-dismiss": "overlay"
   end
 
-  def overlay_menu_link icon, _args={}
-    button_link fa_icon(icon, class: "fa-lg"), path: "#", "data-dismiss": "overlay"
+  def overlay_menu_link icon, args={}
+    add_class args, "border-light text-dark p-1"
+    button_link fa_icon(icon, class: "fa-lg"), args.merge(btn_type: "outline-secondary")
   end
 
   view :overlay_header do
