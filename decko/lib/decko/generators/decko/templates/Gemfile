@@ -38,9 +38,9 @@ end
 group :test, :development do
   gem 'html2haml'
   gem 'rails-dev-tweaks'
-  gem 'jasmine'
-  gem 'jasmine-rails'
-  gem 'jasmine-jquery-rails'
+  # gem 'jasmine'
+  # gem 'jasmine-rails'
+  # gem 'jasmine-jquery-rails'
   gem 'sprockets' # just so above works
   gem 'phantomjs', '1.9.7.1' #locked because 1.9.8.0 is breaking
   gem 'colorize'
@@ -91,7 +91,7 @@ group :test do
   # CUKES see features dir
   gem 'cucumber-rails', '~> 1.5', :require=>false # feature-driven-development suite
   gem 'capybara', '~> 2.14'
-  gem 'selenium-webdriver', '~> 3.3'
+  gem 'selenium-webdriver', '3.6.0'
   gem 'chromedriver-helper', '~> 1.1.0'
   # gem 'capybara-webkit'
   gem 'launchy'                                # lets cucumber launch browser windows

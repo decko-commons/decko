@@ -1,5 +1,6 @@
 include_set Abstract::SearchParams
 include_set Abstract::Paging
+include_set Abstract::Filter
 
 def search _args={}
   raise Error, "search not overridden"
@@ -106,23 +107,56 @@ format :csv do
 end
 
 format :html do
-  view :card_list do
+  def with_results
     return render_no_search_results if search_with_params.empty?
-    search_result_list do
-      search_with_params.map do |item_card|
-        nest_item item_card, size: voo.size do |rendered, item_view|
-          klass = "search-result-item item-#{item_view}"
-          %(<div class="#{klass}">#{rendered}</div>)
+    yield
+  end
+
+  view :card_list do
+    with_results do
+      search_result_list "search-result-list" do |item_card|
+        card_list_item item_card
+      end
+    end
+  end
+
+  def card_list_item item_card
+    nest_item item_card, size: voo.size do |rendered, item_view|
+      %(<div class="search-result-item item-#{item_view}">#{rendered}</div>)
+    end
+  end
+
+  def search_result_list klass
+    with_paging do
+      wrap_with :div, class: klass do
+        search_with_params.map do |item_card|
+          yield item_card
         end
       end
     end
   end
 
-  def search_result_list
-    with_paging do
-      wrap_with :div, class: "search-result-list" do
-        yield
+  view :select_item, cache: :never do
+    wrap do
+      haml :select_item
+    end
+  end
+
+  def default_select_item_args _args
+    class_up "card-slot", "_filter-result-slot"
+  end
+
+  view :checkbox_list, cache: :never do
+    with_results do
+      search_result_list "_search-checkbox-list" do |item_card|
+        checkbox_item item_card
       end
+    end
+  end
+
+  def checkbox_item item_card
+    subformat(item_card).wrap do
+      haml :checkbox_item, unique_id: unique_id, item_card: item_card
     end
   end
 

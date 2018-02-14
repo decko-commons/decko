@@ -55,6 +55,10 @@ class Card
         @new_args[:type] = type
       end
 
+      def type_id= type_id
+        @new_args[:type_id] = type_id.to_i
+      end
+
       def content= content
         @new_args[:content] = content
       end

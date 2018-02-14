@@ -3,30 +3,36 @@ format :html do
   # (1) gives CSS classes for styling and
   # (2) adds card data for javascript - including the "card-slot" class,
   #     which in principle is not supposed to be in styles
-  def wrap slot=true
+  def wrap slot=true, &block
+    method_wrap :wrap_with, slot, &block
+  end
+
+  def haml_wrap slot=true, &block
+    method_wrap :haml_tag, slot, &block
+  end
+
+  def method_wrap method, slot, &block
     @slot_view = @current_view
     debug_slot do
-      wrap_with :div, yield, id: card.name.url_key,
-                             class: wrap_classes(slot),
-                             data:  wrap_data
+      attribs = { id: card.name.url_key,
+                  class: wrap_classes(slot),
+                  data:  wrap_data }
+      send method, :div, attribs, &block
     end
   end
 
-  def haml_wrap slot=true
-    @slot_view = @current_view
-    debug_slot do
-      haml_tag :div, id: card.name.url_key,
-                     class: wrap_classes(slot),
-                     data:  wrap_data do
-        yield
-      end
+  def wrap_data slot=true
+    with_slot_data slot do
+      { "card-id": card.id, "card-name": h(card.name) }
     end
   end
 
-  def wrap_data
-    { "card-id"           => card.id,
-      "card-name"         => h(card.name),
-      "slot"              => slot_options }
+  def with_slot_data slot
+    hash = yield
+    # rails helper convert slot hash to json
+    # but haml joins nested keys with a dash
+    hash[:slot] = slot_options_json if slot
+    hash
   end
 
   def slot_options_json
@@ -34,7 +40,7 @@ format :html do
   end
 
   def slot_options
-    options = voo.slot_options
+    options = voo ? voo.slot_options : {}
     name_context_slot_option options
     options
   end
@@ -61,7 +67,7 @@ format :html do
   def wrap_classes slot
     list = slot ? ["card-slot"] : []
     list += ["#{@current_view}-view", card.safe_set_keys]
-    list << "STRUCTURE-#{voo.structure.to_name.key}" if voo.structure
+    list << "STRUCTURE-#{voo.structure.to_name.key}" if voo&.structure
     classy list
   end
 

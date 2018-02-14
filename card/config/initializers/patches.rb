@@ -19,6 +19,12 @@ module ActiveRecord #:nodoc: all
     include Patches::ActiveRecord::Relation
   end
 
+  class Migration
+    class << self
+      prepend Patches::ActiveRecord::Migration::ClassMethods
+    end
+  end
+
   module ConnectionAdapters
     class AbstractAdapter
       prepend Patches::ActiveRecord::ConnectionAdapters::AbstractAdapter

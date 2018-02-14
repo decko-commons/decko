@@ -88,6 +88,14 @@ format do
     end
   end
 
+  view :labeled_content do
+    _render_core
+  end
+
+  view :titled_content do
+    _render_core
+  end
+
   view :blank, closed: true, perms: :none do
     ""
   end
@@ -105,7 +113,7 @@ format do
   view :open, :titled
 
   view :labeled do
-    "#{card.name}: #{_render_closed_content}"
+    "#{card.name}: #{_render_labeled_content}"
   end
   view :closed, :labeled
 

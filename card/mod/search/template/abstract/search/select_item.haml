@@ -1,0 +1,14 @@
+.card-header
+  %h5
+    Select Item
+    .badge.badge-secondary
+      = card.count
+.p-3
+  %input#select-all._select-all{name: "", type: "checkbox", value: ""}
+  %label{for: "select-all"}
+  - if card.count > 0
+    select
+    %span._unselected-items
+      = search_with_params.size
+    following
+= render :checkbox_list

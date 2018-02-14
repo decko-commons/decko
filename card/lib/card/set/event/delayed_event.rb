@@ -11,10 +11,10 @@ class Card
           DELAY_STAGES.include?(opts[:after]) || DELAY_STAGES.include?(opts[:before])
         end
 
-        def define_delayed_event_method event, final_method_name
+        def define_delayed_event_method event, simple_method_name
           delaying_method = "#{event}_with_delay"
-          define_event_delaying_method event, delaying_method, final_method_name
-          define_event_method event, delaying_method
+          define_event_delaying_method event, delaying_method, simple_method_name
+          define_standard_event_method event, delaying_method
         end
 
         # creates an ActiveJob.

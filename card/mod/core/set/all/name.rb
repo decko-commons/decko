@@ -200,7 +200,6 @@ rescue
   self
 end
 
-
 def right_id= card_or_id
   write_card_or_id :right_id, card_or_id
 end

@@ -5,7 +5,7 @@ format :html do
   end
 end
 
-event :validate_number, :validate do
+event :validate_number, :validate, on: :save do
   errors.add :content, "'#{content}' is not numeric" unless valid_number?(content)
 end
 

@@ -78,6 +78,13 @@ namespace :card do
       Rake::Task["card:migrate:stamp"].invoke :core_cards
     end
 
+    puts "migrating deck structure"
+    Rake::Task["card:migrate:deck_structure"].execute
+    if stamp
+      Rake::Task["card:migrate:stamp"].reenable
+      Rake::Task["card:migrate:stamp"].invoke :core_cards
+    end
+
     puts "migrating deck cards"
     # not invoke because we don't want to reload environment
     Rake::Task["card:migrate:deck_cards"].execute
