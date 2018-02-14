@@ -108,6 +108,9 @@ ActiveRecord::Schema.define(version: 20170908114452) do
     t.index ["version"], name: "unique_schema_migrations_cards", unique: true
   end
 
+  create_table "schema_migrations_deck", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "schema_migrations_deck_cards", id: false, force: :cascade do |t|
     t.string "version", null: false
     t.index ["version"], name: "unique_schema_migrations_deck_cards", unique: true
