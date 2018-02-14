@@ -896,6 +896,34 @@ html>body .open-view {
   }
 }
 
+/*-------------------------- */
+/*- Overlay                - */
+/*-------------------------- */
+
+.overlay-container {
+  position: relative;
+}
+
+.d0-card-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+
+  > .d0-card-frame {
+    height: 100%;
+    width: 100%;
+
+    > .d0-card-header {
+      padding: 0.25rem 0.25rem 0.25rem 1.25rem;
+
+      .card-title {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
 
 /*-------------------------- */
 /*- ProseMirror            - */

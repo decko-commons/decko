@@ -25,6 +25,9 @@ $(window).ready ->
   $('body').on 'click', '._clickable.slotter', (event)->
     $.rails.handleRemote $(this)
 
+  $('body').on 'click', '[data-dismiss="overlay"]', (event) ->
+    $(this).slot().remove()
+
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     return if opt.skip_before_send
 

@@ -5,9 +5,13 @@ format :html do
   end
 
   def main_header
+    header_wrap header_title_elements
+  end
+
+  def header_wrap content=nil
     wrap_with :div, class: classy("d0-card-header") do
       wrap_with :div, class: classy("d0-card-header-title") do
-        header_title_elements
+        block_given? ? yield : content
       end
     end
   end
@@ -17,6 +21,7 @@ format :html do
   end
 
   view :subheader do
+    # FIXME: that looks like old css classes
     wrap_with :div, class: "card-subheader navbar-inverse btn-primary active" do
       [
         _render_title,

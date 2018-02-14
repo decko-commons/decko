@@ -33,6 +33,7 @@ class Card
       end
 
       def add_class options, klass
+        return if klass.blank?
         options[:class] = css_classes options[:class], klass
       end
 
