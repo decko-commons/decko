@@ -10,6 +10,7 @@ Feature: Signing up
     And I edit "Sign up+*type+*captcha"
     And I uncheck "Content"
     And I press "Submit"
+    And I wait for ajax response
         # By default Wagns are configured to require approval
     Given Joe Admin creates Pointer card "User+*type+*create" with content "[[Anyone]]"
 

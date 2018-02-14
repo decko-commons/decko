@@ -40,11 +40,11 @@ def refreshed_token
 end
 
 format do
-  view :verify_url do
+  view :verify_url, cache: :never do
     card_url path({ mark: card.name.left }.merge(token_path_opts))
   end
 
-  view :verify_days do
+  view :verify_days, cache: :never do
     (Card.config.token_expiry / 1.day).to_s
   end
 

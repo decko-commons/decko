@@ -188,17 +188,20 @@ module Cardio
 
     def migration_paths type
       list = paths["db/migrate#{schema_suffix type}"].to_a
-      if type == :deck_cards
-        add_mod_migration_paths list
-      elsif type == :deck
-        add_mod_migration_paths list, "migrate"
+      case type
+      when :core_cards
+        list += mod_migration_paths "migrate_core_cards"
+      when :deck_cards
+        list += mod_migration_paths "migrate_cards"
+      when :deck
+        list += mod_migration_paths "migrate"
       end
       list.flatten
     end
 
-    def add_mod_migration_paths list, dir="migrate_cards"
-      Card::Mod.dirs.each("db/#{dir}") do |path|
-        list += Dir.glob path
+    def mod_migration_paths dir
+      [].tap do |list|
+        Card::Mod.dirs.each("db/#{dir}") { |path| list.concat Dir.glob path }
       end
     end
 
