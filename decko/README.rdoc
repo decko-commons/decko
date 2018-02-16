@@ -62,7 +62,7 @@ WEBrick is great for a quick test run.  To run a production website, see http://
 
 ==Upgrading
 
-===Standard Upgrades
+===Standard Upgrade
 
 ====1. Backups
 Always back up your database and uploaded files.
@@ -81,7 +81,23 @@ Run the following:
 
 ====4. Restart your server.
 
-===Upgrading pre-gem Wagn sites
+===Upgrade to Decko from Wagn
+
+====1. update references to "wagn" in file content
+In your decko's root directory, edit Gemfile, config/application.rb, and config/routes.rb, and script/wagn,
+replacing "wagn" with "decko". (Keep the same capitalization pattern.)
+
+
+
+====2. update references to "wagn" in file names.
+From your decko root directory run:
+
+  mv script/wagn script/decko
+
+====3. continue as with Standard Upgrade
+See above.
+
+===Upgrade pre-gem Wagn site
 
 First check the Wagn/Decko version of your existing site.
 

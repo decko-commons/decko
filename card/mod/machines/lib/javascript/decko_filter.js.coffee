@@ -53,8 +53,8 @@ addSelectedButtonUrl = (btn, content) ->
   view = btn.slot().data("slot")["view"]
   card_args = { content: content, type: "Pointer" }
   query = { assign: true, view: view, card: card_args }
-  url_base = decko.rootPath + btn.attr("href") + "&" + $.param(query)
-  decko.prepUrl url_base, btn.slot()
+  path_base = btn.attr("href") + "&" + $.param(query)
+  decko.slotPath path_base, btn.slot()
 
 updateAfterSelection = (el) ->
   trackSelectedIds el
