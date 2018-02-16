@@ -6,13 +6,13 @@
 
 ==Basics
 
-Decko (formerly known as "Wagn") is serious web development made fun.
+Decko (formerly known as "Wagn") makes serious web development fun.
 
 "Deckers" have used Decko to create open community sites, private knowledge management sites, public proposal submission sites with private back-ends for review, project management systems, wikis, blogs, journals, forums, and more.
 
 Install Decko, open a webpage, and get started. With Decko's wiki-inspired building blocks, you can collaborate from day one on content, design, and structure create elegant web systems on the fly.  And ruby developers can take these creations even further with Decko's development framework. Decko's innovative Mods API supports boundless creativity while integrating seamlessly with structures created on the site.
 
-Try it out with automated setup at Cloudstore[https://cldstr.com/wagn.org/wagn] (free hosting for one trial month) or set it up yourself following the instructions below.
+Try it out!
 
 
 ==System Requirements
