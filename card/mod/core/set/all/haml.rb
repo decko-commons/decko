@@ -64,7 +64,7 @@ format do
       haml_to_html ::File.read(path), locals
     end
   rescue => e
-    raise Card::Error, "HAML error #{template_name}: #{e.message}"
+    raise Card::Error, "HAML error #{template_name}: #{e.message}\n#{e.backtrace}"
   end
 
   def identify_template_path view, locals={}

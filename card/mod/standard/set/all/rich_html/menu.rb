@@ -105,7 +105,6 @@ format :html do
 
   def menu_item text, icon, opts={}
     link_text = "#{material_icon(icon)}<span class='menu-item-label'>#{text}</span>"
-    # add_class opts, "dropdown-item"
     add_class opts, "dropdown-item"
     smart_link_to link_text.html_safe, opts
   end

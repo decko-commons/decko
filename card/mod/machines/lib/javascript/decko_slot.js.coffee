@@ -70,9 +70,9 @@ jQuery.fn.extend {
 #     v.attr 'data-slot', slotdata if slotdata?
 # else #simple text (not html)
       v = val
-    if overlay
-      s.prepend v
-      v.addClass "slot-overlay"
+    if v.hasClass("_overlay")
+      s.wrapAll('<div class="overlay-container">')
+      s.before v
     else
       s.replaceWith v
     v.trigger 'slotReady'
