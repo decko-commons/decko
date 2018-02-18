@@ -47,7 +47,7 @@ $(window).ready ->
     $(this).closest('li').remove()
 
 newFilteredListContent = (el) ->
-  decko.pointerContent prefilteredNames(el).concat(selectedNames el)
+  $.map(prefilteredIds(el).concat(selectedIds el), (id) -> "~" + id).join "\n"
 
 addSelectedButtonUrl = (btn, content) ->
   view = btn.slot().data("slot")["view"]
