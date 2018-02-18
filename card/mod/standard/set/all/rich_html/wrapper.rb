@@ -7,8 +7,8 @@ format :html do
     method_wrap :wrap_with, slot, slot_attr, &block
   end
 
-  def haml_wrap slot=true, &block
-    method_wrap :haml_tag, slot, &block
+  def haml_wrap slot=true, slot_attr={}, &block
+    method_wrap :haml_tag, slot, slot_attr, &block
   end
 
   def method_wrap method, slot, slot_attr, &block
