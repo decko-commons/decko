@@ -6,13 +6,13 @@
 
 ==Basics
 
-Decko (formerly known as "Wagn") is serious web development made fun.
+Decko (formerly known as "Wagn") makes serious web development fun.
 
 "Deckers" have used Decko to create open community sites, private knowledge management sites, public proposal submission sites with private back-ends for review, project management systems, wikis, blogs, journals, forums, and more.
 
 Install Decko, open a webpage, and get started. With Decko's wiki-inspired building blocks, you can collaborate from day one on content, design, and structure create elegant web systems on the fly.  And ruby developers can take these creations even further with Decko's development framework. Decko's innovative Mods API supports boundless creativity while integrating seamlessly with structures created on the site.
 
-Try it out with automated setup at Cloudstore[https://cldstr.com/wagn.org/wagn] (free hosting for one trial month) or set it up yourself following the instructions below.
+Try it out!
 
 
 ==System Requirements
@@ -62,7 +62,7 @@ WEBrick is great for a quick test run.  To run a production website, see http://
 
 ==Upgrading
 
-===Standard Upgrades
+===Standard Upgrade
 
 ====1. Backups
 Always back up your database and uploaded files.
@@ -81,7 +81,21 @@ Run the following:
 
 ====4. Restart your server.
 
-===Upgrading pre-gem Wagn sites
+===Upgrade to Decko from Wagn
+
+====1. update references to "wagn" in file content
+In your decko's root directory, edit Gemfile, config/application.rb, and config/routes.rb, and script/wagn,
+replacing "wagn" with "decko". (Keep the same capitalization pattern.)
+
+====2. update references to "wagn" in file names.
+From your decko root directory run:
+
+  mv script/wagn script/decko
+
+====3. continue as with Standard Upgrade
+See above.
+
+===Upgrade pre-gem Wagn site
 
 First check the Wagn/Decko version of your existing site.
 

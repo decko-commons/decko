@@ -1,5 +1,6 @@
 $.extend decko,
-  prepUrl: (url, slot)->
+  # returns full path with slot parameters
+  slotPath: (path, slot)->
     xtra = {}
     main = $('#main').children('.card-slot').data 'cardName'
     xtra['main'] = main if main?
@@ -8,7 +9,7 @@ $.extend decko,
       slotdata = slot.data 'slot'
       decko.slotParams slotdata, xtra, 'slot' if slotdata?
 
-    url + ( (if url.match /\?/ then '&' else '?') + $.param(xtra) )
+    decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(xtra) )
 
   slotParams: (raw, processed, prefix)->
     $.each raw, (key, value)->
@@ -55,9 +56,8 @@ jQuery.fn.extend {
     $slot = $(this)
     $slot = $slot.slot() unless $slot.isSlot
     unless url?
-      url = decko.rootPath + '/~' + $slot.data('cardId') + "?view=" +
-        $slot.data("slot")["view"]
-      url = decko.prepUrl url, $slot
+      path = '~' + $slot.data('cardId') + "?view=" + $slot.data("slot")["view"]
+      url = decko.slotPath path, $slot
     $slot.addClass 'slotter'
     $slot.attr 'href', url
     $.rails.handleRemote($slot)

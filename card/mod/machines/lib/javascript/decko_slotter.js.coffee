@@ -33,7 +33,7 @@ $(window).ready ->
 
     # avoiding duplication. could be better test?
     unless opt.url.match /home_view/
-      opt.url = decko.prepUrl opt.url, $(this).slot()
+      opt.url = decko.slotPath opt.url, $(this).slot()
 
     if $(this).is('form')
       if decko.recaptchaKey and $(this).attr('recaptcha')=='on' and
