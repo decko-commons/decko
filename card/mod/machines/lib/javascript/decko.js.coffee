@@ -1,11 +1,11 @@
 $.extend decko,
   # returns full path, including relative root
   # leading slash on relative path is optional
-  path: (rawpath) ->
-    if raw_path.match /^\//
-      raw_path
+  path: (rawPath) ->
+    if rawPath.match /^\//
+      rawPath
     else
-      decko.rootPath + '/' + raw_path
+      decko.rootPath + '/' + rawPath
 
   initializeEditors: (range, map) ->
     map = decko.editorInitFunctionMap unless map?
