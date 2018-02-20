@@ -15,11 +15,11 @@ $.extend decko,
       }
     $_fileupload = $(fileupload)
     if $_fileupload.closest("form").attr("action").indexOf("update") > -1
-      url = "/card/update/"+$(fileupload).siblings("#file_card_name").val()
+      url = "card/update/"+$(fileupload).siblings("#file_card_name").val()
     else
-      url = "/card/create"
+      url = "card/create"
     $(fileupload).fileupload(
-      url: url,
+      url: decko.path(url),
       dataType: 'html',
       done: decko.doneFile,
       add: decko.chooseFile,
