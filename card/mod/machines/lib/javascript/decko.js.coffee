@@ -5,7 +5,7 @@ $.extend decko,
     if raw_path.match /^\//
       raw_path
     else
-      decko.rootPath + '/' + relative_path
+      decko.rootPath + '/' + raw_path
 
   initializeEditors: (range, map) ->
     map = decko.editorInitFunctionMap unless map?
