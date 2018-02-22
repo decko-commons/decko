@@ -1,6 +1,6 @@
 $.extend decko,
-  # returns full path, including relative root
-  # leading slash on relative path is optional
+  # returns absolute path (starting with a slash)
+  # if rawPath is relative (no slash), this adds relative root
   path: (rawPath) ->
     if rawPath.match /^\//
       rawPath
