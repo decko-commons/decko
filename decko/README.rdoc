@@ -17,13 +17,16 @@ Try it out!
 
 ==System Requirements
 
-Ruby[http://www.ruby-lang.org/en/]:: version 2.3 or higher
+
+==Installation
+
+===1. install dependencies
+
+Ruby[http://www.ruby-lang.org/en/]:: version 2.3.1 or higher
 Bundler[http://gembundler.com/]:: version 1.0 or higher
 ImageMagick[http://www.imagemagick.org/]::
 A database engine:: Either MySQL[http://www.mysql.com/] or PostgreSQL[http://www.postgresql.org/]
-Node.js[https://nodejs.org/]:: or another {JavaScript runtime}[https://github.com/sstephenson/execjs]
-
-==Installation
+A JavaScript runtime::  Node.js[https://nodejs.org/] or other[https://github.com/sstephenson/execjs]
 
 ===1. install the gem
 
@@ -57,7 +60,8 @@ To fire up the default, built-in WEBrick server, just run:
 
 ...and point your browser to http://localhost:3000 (unless otherwise configured).
 
-WEBrick is great for a quick test run.  To run a production website, see http://www.wagn.org/wagn_in_production.
+For more information, see http://wagn.org/get_started.
+
 
 
 ==Upgrading
