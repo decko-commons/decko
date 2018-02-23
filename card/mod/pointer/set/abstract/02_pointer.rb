@@ -197,7 +197,7 @@ def raw_items content, limit, offset
 end
 
 def all_raw_items content=nil
-  (content || self.content).to_s.split /\n+/
+  (content || self.content).to_s.split(/\n+/)
 end
 
 def polish_item item, context
