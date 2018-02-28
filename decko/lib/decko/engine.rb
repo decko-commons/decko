@@ -40,7 +40,7 @@ module Decko
       Engine.paths["request_log"]   = Decko.paths["request_log"]
       Engine.paths["log"]           = Decko.paths["log"]
       Engine.paths["lib/tasks"]     = Decko.paths["lib/tasks"]
-      Engine.paths["config/routes"] = Decko.paths["config/routes"]
+      Engine.paths["config/routes.rb"] = Decko.paths["config/routes.rb"]
     end
 
     initializer :connect_on_load do
