@@ -64,6 +64,6 @@ format :html do
   end
 
   def path_to_previous
-    Card.path_setting "/*previous"
+    path mark: "*previous"
   end
 end
