@@ -32,8 +32,8 @@ RSpec.describe Card::Format::HtmlFormat do
 
       it "renders top menu" do
         is_expected.to have_tag "header" do
-          with_tag 'a.nav-link.internal-link[href="/"]', text: "Home"
-          with_tag 'a.nav-link.internal-link[href="/:recent"]', text: "Recent"
+          with_tag 'a.nav-link.internal-link[href=""]', text: "Home"
+          with_tag 'a.nav-link.internal-link[href=":recent"]', text: "Recent"
           with_tag 'form.navbox-form[action="/*search"]' do
             with_tag 'input[name="_keyword"]'
           end
