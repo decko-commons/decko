@@ -146,12 +146,6 @@ module ClassMethods
     end
   end
 
-  def path_setting name # shouldn't this be in location helper?
-    name ||= "/"
-    return name if name =~ /^(http|mailto)/
-    "#{Card.config.relative_url_root}#{name}"
-  end
-
   def toggle val
     val.to_s.strip == "1"
   end

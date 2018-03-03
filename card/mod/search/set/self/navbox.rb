@@ -23,7 +23,7 @@ format :html do
   end
 
   view :core do
-    form_tag Card.path_setting("/:search"),
+    form_tag path(mark: :search),
              method: "get", role: "search",
              class: classy("navbox-form", "nodblclick") do
       _render_raw
