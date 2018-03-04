@@ -123,4 +123,7 @@ If you're new to Decko, you'll find lots more info at http://wagn.org
 If you're looking to go deep into the code, start with http://www.rubydoc.info/gems/card
 
 
+==FAQ
+You may find some useful information [here](FAQ.md) when you encountered problems. 
+Please help update it if you solve a problem that is not listed there.
 
