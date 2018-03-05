@@ -4,17 +4,15 @@ require "active_support/core_ext/numeric/time"
 djar = "delayed_job_active_record"
 require djar if Gem::Specification.find_all_by_name(djar).any?
 require "cardio/schema.rb"
+require "cardio/utils.rb"
 
 ActiveSupport.on_load :after_card do
-  if Card.take
-    Card::Mod.load
-  else
-    Rails.logger.warn "empty database"
-  end
+  Card::Mod.load
 end
 
 module Cardio
   extend Schema
+  extend Utils
   CARD_GEM_ROOT = File.expand_path("../..", __FILE__)
 
   mattr_reader :paths, :config
