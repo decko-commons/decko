@@ -9,11 +9,11 @@ format :csv  do
     depth.zero? ? :csv_row : :name
   end
 
-  view :core do |args|
+  view :core do
     if (item_view_options[:view] == :name_with_fields) && focal?
       title_row("item name") + name_with_field_rows
     else
-      super(args)
+      super()
     end
   end
 
