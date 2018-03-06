@@ -44,8 +44,8 @@ class Card
           load_formats
           SetLoader.new.load
           load_initializers
-        rescue
-          raise Card::Error, "unrescued error loading mods"
+          # rescue
+          # raise Card::Error, "unrescued error loading mods"
         end
 
         def load_chunks
