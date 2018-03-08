@@ -30,7 +30,7 @@ class Card
         cxn = connection
         val.gsub!(/[^#{Card::Name::OK4KEY_RE}]+/, " ")
         return nil if val.strip.empty?
-
+        val.gsub!("*", '\\\\\\\\*')
         val_list = val.split(/\s+/).map do |v|
           name_or_content = [
             "replace(#{table_alias}.name,'+',' ')",

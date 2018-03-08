@@ -258,6 +258,11 @@ RSpec.describe Card::Query do
       @query = { match: "two :(!" }
       is_expected.to eq(CARDS_MATCHING_TWO)
     end
+
+    it "it can handle *" do
+      @query = { match: "*all" }
+      is_expected.to include("*all")
+    end
   end
 
   describe "search count" do
