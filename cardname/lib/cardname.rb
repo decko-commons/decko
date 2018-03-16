@@ -5,7 +5,6 @@ require 'active_support/inflector'
 require 'htmlentities'
 
 class Cardname < String
-
   require_relative 'cardname/parts'
   require_relative 'cardname/variants'
   require_relative 'cardname/contextual'
@@ -84,7 +83,8 @@ class Cardname < String
     end
 
     def dangerous_methods
-      [:replace].concat String.instance_methods.select { |m| m.to_s.ends_with?("!") }
+      bang_methods = String.instance_methods.select { |m| m.to_s.ends_with?("!") }
+      [:replace].concat bang_methods
     end
   end
 
@@ -104,11 +104,6 @@ class Cardname < String
 
   def to_name
     self
-  end
-
-  def replace str
-    reset
-    super
   end
 
   dangerous_methods.each do |m|

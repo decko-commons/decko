@@ -106,9 +106,8 @@ describe Cardname do
       expect("THE*ONE*AND$!ONLY".to_name).to be_valid
     end
 
-    it "rejects invalid names" do
-      expect("Tes/sd".to_name).not_to be_valid
-      expect("TEST/DDER".to_name).not_to be_valid
+    it "accepts escaped invalid characters" do
+      expect("this/THAT".to_name).to be_valid
     end
   end
 
@@ -146,6 +145,14 @@ describe Cardname do
   end
 
   describe "dangerous methods" do
+    RSpec::Matchers.define :have_attributes do |expected|
+      match do |obj|
+        expected.all? do |method, val|
+          obj.send(method) == val
+        end
+      end
+    end
+
     def name_with_cached_props str
       str.to_name.tap do |name|
         name.key
@@ -153,25 +160,30 @@ describe Cardname do
       end
     end
 
-    it "#replace updates key and parts" do
+    def expect_changed_props args
+      aggregate_failures do
+        args.each do |method, val|
+          expect(name.send(method)).to eq val
+        end
+      end
+    end
+
+    example "#replace update key and parts" do
       name = name_with_cached_props "A"
       name.replace("B")
-      expect(name.key).to eq "b"
-      expect(name.parts).to eq ["B"]
+      expect(name).to have_attributes key: "b", parts: ["B"]
     end
 
-    it "#gsub! updates key and parts" do
+    example "#gsub! update key and parts" do
       name = name_with_cached_props "AxxA"
       name.gsub!("xx", "B")
-      expect(name.key).to eq "aba"
-      expect(name.parts).to eq ["ABA"]
+      expect(name).to have_attributes key: "aba", parts: ["ABA"]
     end
 
-    it "#gsub! updates key and parts" do
+    example "#next! updates key and parts" do
       name = name_with_cached_props "abc1"
       name.next!
-      expect(name.key).to eq "abc2"
-      expect(name.parts).to eq ["abc2"]
+      expect(name).to have_attributes key: "abc2", parts: ["abc2"]
     end
   end
 end

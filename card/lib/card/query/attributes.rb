@@ -48,7 +48,7 @@ class Card
       end
 
       def junction_complete val
-        name_like ["#{val}%", "%+#{val}%"]
+        name_like %w[#{val}% %+#{val}%]
       end
 
       def extension_type _val
@@ -63,7 +63,7 @@ class Card
         cxn = connection
         or_join(
           [field_match("replace(#{table_alias}.name,'+',' ')", Cardname.escape(val), cxn),
-          field_match("#{table_alias}.db_content", val, cxn)]
+           field_match("#{table_alias}.db_content", val, cxn)]
         )
       end
 
