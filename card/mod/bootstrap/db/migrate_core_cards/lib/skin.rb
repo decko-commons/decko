@@ -50,17 +50,14 @@ class Skin
     ensure_card "#{@skin_name}+#{field_name}", style_args(file_name, Card::CssID)
   end
 
-  def update_tumbnail
+  def update_thumbnail
     update_card "#{@skin_name}+Image", thumbnail_args
   end
 
   private
 
   def create_subcard_args
-    {
-      "+bootswatch theme" => style_args("bootstrap.css", Card::CssID),
-      # "+Image" => thumbnail_args
-    }
+    { "+bootswatch theme" => style_args("bootstrap.css", Card::CssID) }
   end
 
   def style_args file_name, type_id=Card::ScssID
