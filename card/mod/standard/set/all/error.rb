@@ -75,7 +75,7 @@ format :html do
     warning = alert("warning", true) do
       %{
         <h3>Error message (visible to admin only)</h3>
-        <p><strong>#{exception.message}</strong></p>
+        <p><strong>#{CGI.escapeHTML exception.message}</strong></p>
         <div>#{exception.backtrace * "<br>\n"}</div>
       }
     end
