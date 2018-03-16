@@ -33,7 +33,7 @@ class Cardname < String
   Cardname.escape_map     = { ">" => "&#62;", "<" => "&#60;", "/" => "&#47;" }
 
   JOINT_RE = Regexp.escape joint
-  ESCAPE_RE = %r{[#{Cardname.escape_map.keys.join}]}.freeze
+  ESCAPE_RE = /[#{Regexp.escape Cardname.escape_map.keys.join}]/
 
   @@cache = {}
 
@@ -82,6 +82,10 @@ class Cardname < String
       return key_one unless key_one != key_two
       stabilize ? stable_key(key_two) : name
     end
+
+    def dangerous_methods
+      [:replace].concat String.instance_methods.select { |m| m.to_s.ends_with?("!") }
+    end
   end
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -102,22 +106,15 @@ class Cardname < String
     self
   end
 
-
-  def reset
-    instance_variables.each do |var|
-      instance_variable_set var, nil
-    end
-  end
-
   def replace str
     reset
     super
   end
 
-  instance_methods.select { |m| m.to_s.ends_with?("!") }.each do |m|
+  dangerous_methods.each do |m|
     define_method m do |*args, &block|
       reset
-      super *args, &block
+      super(*args, &block)
     end
   end
 
@@ -133,5 +130,13 @@ class Cardname < String
       else                                  other.to_s
       end
     other_key == key
+  end
+
+  private
+
+  def reset
+    instance_variables.each do |var|
+      instance_variable_set var, nil
+    end
   end
 end

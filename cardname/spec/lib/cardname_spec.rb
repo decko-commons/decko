@@ -145,25 +145,33 @@ describe Cardname do
     end
   end
 
-  describe "#replace" do
-    it "updates key and parts" do
-      name = "A".to_name
-      name.key
-      name.parts
+  describe "dangerous methods" do
+    def name_with_cached_props str
+      str.to_name.tap do |name|
+        name.key
+        name.parts
+      end
+    end
+
+    it "#replace updates key and parts" do
+      name = name_with_cached_props "A"
       name.replace("B")
       expect(name.key).to eq "b"
       expect(name.parts).to eq ["B"]
     end
-  end
 
-  describe "! methods" do
-    it "gsub! updates key and parts" do
-      name = "AxA".to_name
-      name.key
-      name.parts
-      name.gsub!("x", "B")
+    it "#gsub! updates key and parts" do
+      name = name_with_cached_props "AxxA"
+      name.gsub!("xx", "B")
       expect(name.key).to eq "aba"
       expect(name.parts).to eq ["ABA"]
+    end
+
+    it "#gsub! updates key and parts" do
+      name = name_with_cached_props "abc1"
+      name.next!
+      expect(name.key).to eq "abc2"
+      expect(name.parts).to eq ["abc2"]
     end
   end
 end
