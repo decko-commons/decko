@@ -30,7 +30,7 @@ class Cardname < String
   Cardname.var_re         = /\{([^\}]*\})\}/
   Cardname.uninflect      = :singularize
   Cardname.stabilize      = false
-  Cardname.escape_map     = { ">" => "&#62;", "<" => "&#62;", "/" => "&#47;" }
+  Cardname.escape_map     = { ">" => "&#62;", "<" => "&#60;", "/" => "&#47;" }
 
   JOINT_RE = Regexp.escape joint
   ESCAPE_RE = %r{[#{Cardname.escape_map.keys.join}]}.freeze

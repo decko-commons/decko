@@ -5,7 +5,11 @@ RSpec.describe Card::Query do
   CARDS_MATCHING_TWO = ["Joe User", "One+Two", "One+Two+Three", "Two"].freeze
 
   subject do
-    Card::Query.run @query.reverse_merge return: :name, sort: :name
+    query @query
+  end
+
+  def query args={}
+    Card::Query.run args.reverse_merge return: :name, sort: :name
   end
 
   it "does not alter original statement" do
@@ -588,6 +592,31 @@ RSpec.describe Card::Query do
     it "handles _LL" do
       @return = "_LL"
       is_expected.to eq ["A", "A+C"]
+    end
+  end
+
+  describe "escaped characters" do
+    let(:escaped_name) { "rabbit &#47; &#60;hole&#62;" }
+
+    before do
+      Card::Auth.as_bot do
+        Card.create! name: "rabbit / <hole>", content: "hole / world"
+      end
+    end
+
+    it "finds escaped characters with name search" do
+      result = query name: "rabbit / <hole>"
+      expect(result).to contain_exactly escaped_name
+    end
+
+    it "finds escaped characters with name match search" do
+      result = query name: ["match", "bit / ho"]
+      expect(result).to contain_exactly escaped_name
+    end
+
+    it "finds escaped characters in content" do
+      result = query content: ["match", "le / wo"]
+      expect(result).to contain_exactly escaped_name
     end
   end
 end
