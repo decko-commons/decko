@@ -27,18 +27,11 @@ class Card
       # content.
       # Example: { match: "name or content" } vs. { name: ["match", "a name"] }
       def match val
-        cxn = connection
         val.gsub!(/[^#{Card::Name::OK4KEY_RE}]+/, " ")
         return nil if val.strip.empty?
 
         val_list = val.split(/\s+/).map do |v|
-          name_or_content = [
-            "replace(#{table_alias}.name,'+',' ')",
-            "#{table_alias}.db_content"
-          ].map do |field|
-            %(#{field} #{cxn.match quote("[[:<:]]#{v}[[:>:]]")})
-          end
-          or_join name_or_content
+          name_or_content_match v
         end
         add_condition and_join(val_list)
       end
@@ -65,6 +58,18 @@ class Card
       end
 
       private
+
+      def name_or_content_match val
+        cxn = connection
+        or_join(
+          [field_match("replace(#{table_alias}.name,'+',' ')", Cardname.escape(val), cxn),
+          field_match("#{table_alias}.db_content", val, cxn)]
+        )
+      end
+
+      def field_match field, val, cxn
+        %(#{field} #{cxn.match quote("[[:<:]]#{val}[[:>:]]")})
+      end
 
       def name_like patterns, extra_cond=""
         likes =

@@ -23,22 +23,24 @@ class Cardname < String
   include ActiveSupport::Configurable
 
   config_accessor :joint, :banned_array, :var_re, :uninflect, :params,
-                  :session, :stabilize
+                  :session, :stabilize, :escape_map
 
   Cardname.joint          = '+'
   Cardname.banned_array   = %w{ / }
   Cardname.var_re         = /\{([^\}]*\})\}/
   Cardname.uninflect      = :singularize
   Cardname.stabilize      = false
+  Cardname.escape_map     = { ">" => "&#62;", "<" => "&#62;", "/" => "&#47;" }
 
   JOINT_RE = Regexp.escape joint
+  ESCAPE_RE = %r{[#{Cardname.escape_map.keys.join}]}.freeze
 
   @@cache = {}
 
   class << self
     def new obj
       return obj if obj.is_a? self.class
-      str = stringify obj
+      str = escape stringify(obj)
       cached_name(str) || super(str)
     end
 
@@ -55,6 +57,12 @@ class Cardname < String
         obj.map(&:to_s) * joint
       else
         obj.to_s
+      end
+    end
+
+    def escape str
+      str.gsub(ESCAPE_RE) do |match|
+        escape_map[match.to_s]
       end
     end
 
@@ -92,6 +100,25 @@ class Cardname < String
 
   def to_name
     self
+  end
+
+
+  def reset
+    instance_variables.each do |var|
+      instance_variable_set var, nil
+    end
+  end
+
+  def replace str
+    reset
+    super
+  end
+
+  instance_methods.select { |m| m.to_s.ends_with?("!") }.each do |m|
+    define_method m do |*args, &block|
+      reset
+      super *args, &block
+    end
   end
 
   def key

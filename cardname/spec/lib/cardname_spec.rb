@@ -144,4 +144,25 @@ describe Cardname do
       end
     end
   end
+
+  describe "#replace" do
+    example do
+      name = "A".to_name
+      name.key
+      name.replace("B")
+      expect(name.key).to eq "b"
+      expect(name.parts).to eq ["B"]
+    end
+  end
+
+  describe "! methods" do
+    example do
+      name = "AxA".to_name
+      name.key
+      name.parts
+      name.gsub!("x", "B")
+      expect(name.key).to eq "aba"
+      expect(name.parts).to eq ["ABA"]
+    end
+  end
 end
