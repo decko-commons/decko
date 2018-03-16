@@ -146,9 +146,10 @@ describe Cardname do
   end
 
   describe "#replace" do
-    example do
+    it "updates key and parts" do
       name = "A".to_name
       name.key
+      name.parts
       name.replace("B")
       expect(name.key).to eq "b"
       expect(name.parts).to eq ["B"]
@@ -156,7 +157,7 @@ describe Cardname do
   end
 
   describe "! methods" do
-    example do
+    it "gsub! updates key and parts" do
       name = "AxA".to_name
       name.key
       name.parts
