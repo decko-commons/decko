@@ -25,7 +25,7 @@ module Cardio
     def default_configs
       {
         read_only:              read_only?,
-        allow_inline_styles:    false,
+        allow_inline_styles:    true,
 
         recaptcha_public_key:   nil,
         recaptcha_private_key:  nil,
