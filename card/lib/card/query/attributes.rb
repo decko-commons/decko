@@ -48,7 +48,7 @@ class Card
       end
 
       def junction_complete val
-        name_like %w[#{val}% %+#{val}%]
+        name_like ["#{val}%", "%+#{val}%"]
       end
 
       def extension_type _val
