@@ -41,7 +41,8 @@ class Card
         ],                 #   (Symbol<:always, :standard, :never>)
         none: [
           :skip_perms,     # do not check permissions for this view (Boolean)
-          :main_view       # this is main view of page (Boolean)
+          :main_view,      # this is main view of page (Boolean)
+          :layout          #
         ]
       }
       # Note: option values are strings unless otherwise noted

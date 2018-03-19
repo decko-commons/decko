@@ -9,6 +9,10 @@ format do
     name_variant card.name
   end
 
+  def safe_name
+    card&.name
+  end
+
   def name_variant name
     voo.variant ? name.to_name.vary(voo.variant) : name
   end
@@ -18,7 +22,7 @@ format do
   view(:url,      closed: true, perms: :none) { card_url _render_linkname }
 
   view :title, closed: true, perms: :none do
-    name_variant title_in_context(voo.title)
+    name_variant(title_in_context(voo.title))
   end
 
   view :url_link, closed: true, perms: :none do
