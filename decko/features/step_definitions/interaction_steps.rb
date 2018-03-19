@@ -57,7 +57,7 @@ When /^I close the modal window$/ do
 end
 
 When /^I press enter to search$/ do
-  find("#_keyword").native.send_keys(:return)
+  find("#query_keyword").native.send_keys(:return)
 end
 
 When /^I fill in "([^"]*)" with$/ do |field, value|

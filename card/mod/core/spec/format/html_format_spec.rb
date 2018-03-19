@@ -35,7 +35,7 @@ RSpec.describe Card::Format::HtmlFormat do
           with_tag 'a.nav-link.internal-link[href=""]', text: "Home"
           with_tag 'a.nav-link.internal-link[href=":recent"]', text: "Recent"
           with_tag 'form.navbox-form[action="/*search"]' do
-            with_tag 'input[name="_keyword"]'
+            with_tag 'input[name="query[keyword]"]'
           end
         end
       end

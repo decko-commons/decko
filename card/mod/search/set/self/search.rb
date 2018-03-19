@@ -94,7 +94,7 @@ format :json do
   end
 
   def complete_term
-    term = params["_keyword"]
+    term = query_params[:keyword]
     if (term =~ /^\+/) && (main = params["main"])
       term = main + term
     end
