@@ -5,7 +5,11 @@ RSpec.describe Card::Query do
   CARDS_MATCHING_TWO = ["Joe User", "One+Two", "One+Two+Three", "Two"].freeze
 
   subject do
-    Card::Query.run @query.reverse_merge return: :name, sort: :name
+    query @query
+  end
+
+  def query args={}
+    Card::Query.run args.reverse_merge return: :name, sort: :name
   end
 
   it "does not alter original statement" do
