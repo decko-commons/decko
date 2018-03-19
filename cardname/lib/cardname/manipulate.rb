@@ -27,7 +27,7 @@ class Cardname
       newpiece = newpiece.to_name
 
       return swap_part oldpiece, newpiece if oldpiece.simple?
-      return self unless self.starts_with_parts?(oldpiece)
+      return self unless starts_with_parts?(oldpiece)
       return newpiece if oldpiece.num_parts == num_parts
       self.class.new [newpiece, self[oldpiece.num_parts..-1]].flatten
     end

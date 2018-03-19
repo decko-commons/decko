@@ -58,9 +58,8 @@ class Cardname < String
     end
 
     def banned_re
-      Regexp.escape joint
-      #/[#{Regexp.escape(banned_array << joint)}]'/
-      #%r{#{ (['['] + banned_array << joint) * '\\' + ']' }}
+      banned_chars = (banned_array << joint).join
+      /[#{Regexp.escape banned_chars}]/
     end
 
     # Sometimes the core rule "the key's key must be itself" (called "stable" below) is violated
