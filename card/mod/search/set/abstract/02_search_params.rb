@@ -11,7 +11,7 @@ format do
 
   # used for override
   def default_search_params
-    if qparams = query_params
+    if (qparams = query_params)
       paging_params.merge vars: qparams
     else
       paging_params
