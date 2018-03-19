@@ -14,16 +14,6 @@ def keyword_contains_wql? hash
 end
 
 format do
-  def default_search_params
-    hash = super
-    hash[:vars] = params[:vars] || {}
-    params.each do |key, val|
-      next unless key.to_s =~ /^\_(\w+)$/
-      hash[:vars][Regexp.last_match(1).to_sym] = val
-    end
-    hash
-  end
-
   view :search_error, cache: :never do
     sr_class = search_with_params.class.to_s
 

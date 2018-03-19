@@ -11,7 +11,15 @@ format do
 
   # used for override
   def default_search_params
+    paging_params.merge query_variable_params
+  end
+
+  def paging_params
     { limit: limit_param, offset: offset_param }
+  end
+
+  def query_variable_params
+    params[:query] ? { vars: params[:query] } : {}
   end
 
   def default_limit
