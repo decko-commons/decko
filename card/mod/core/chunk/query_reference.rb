@@ -62,7 +62,7 @@ module Card::Content::Chunk
 
       def keyword? str
         return unless str
-        QUERY_KEYWORDS.include?(str.tr(" ", "_").lowercase)
+        QUERY_KEYWORDS.include?(str.tr(" ", "_").downcase)
       end
     end
 

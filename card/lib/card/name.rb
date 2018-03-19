@@ -30,7 +30,7 @@ class Card
 
       def new str, validated_parts=nil
         return super str if str.nil?
-        raise ArgumentError, "use Card::Name[] with non-strings" unless str.is_a?(String)
+        enforce_string_arg str
 
         if !validated_parts && str.include?(joint)
           compose str.split(joint)
@@ -39,6 +39,10 @@ class Card
         else
           super str
         end
+      end
+
+      def enforce_string_arg str
+        raise ArgumentError, "use Card::Name[] with non-strings" unless str.is_a?(String)
       end
 
       def special_prefix? str
