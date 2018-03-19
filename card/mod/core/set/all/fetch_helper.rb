@@ -22,7 +22,7 @@ module ClassMethods
       (param || {}).clone
     end
   end
-  
+
   private
 
   def standard_controller_fetch args, card_opts
