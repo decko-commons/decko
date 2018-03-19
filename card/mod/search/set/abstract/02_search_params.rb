@@ -23,8 +23,8 @@ format do
   end
 
   def query_params
-    return nil unless (query_params = params[:query])
-    query_params.to_unsafe_h if query_params.respond_to?(:to_unsafe_h)
+    return nil unless (query_param = params[:query])
+    Card.safe_param query_param
   end
 
   def default_limit
