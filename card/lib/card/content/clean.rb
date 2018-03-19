@@ -10,7 +10,7 @@ class Card
 
       # allowed attributes
       allowed_tags.merge!(
-        "a" => %w[ref title target],
+        "a" => %w[href title target],
         "img" => %w[src alt title],
         "code" => ["lang"],
         "blockquote" => ["cite"]
