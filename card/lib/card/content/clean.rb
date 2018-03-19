@@ -10,14 +10,16 @@ class Card
 
       # allowed attributes
       allowed_tags.merge!(
-        "a" => %w(href title target),
-        "img" => %w(src alt title),
+        "a" => %w[href title target],
+        "img" => %w[src alt title],
         "code" => ["lang"],
         "blockquote" => ["cite"]
       )
 
       if Card.config.allow_inline_styles
-        allowed_tags["table"] += %w(cellpadding align border cellspacing)
+        allowed_tags["table"] += %w[cellpadding align border cellspacing data-mce-style]
+        allowed_tags["td"] += %w[scope data-mce-style]
+        allowed_tags["th"] += %w[scope data-mce-style]
       end
 
       allowed_tags.each_key do |k|
@@ -61,7 +63,7 @@ class Card
         return ['"', nil] unless all_attributes =~ /\b#{attrib}\s*=\s*(?=(.))/i
         q = '"'
         rest_value = $'
-        if (idx = %w(' ").index Regexp.last_match(1))
+        if (idx = %w[' "].index Regexp.last_match(1))
           q = Regexp.last_match(1)
         end
         reg_exp = ATTR_VALUE_RE[idx || 2]

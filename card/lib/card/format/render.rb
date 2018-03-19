@@ -49,7 +49,7 @@ class Card
       def add_debug_info view, method, rendered
         return rendered unless show_debug_info?
         <<-HTML
-          <view-debug view='#{card.name}##{view}' src='#{pretty_path method.source_location}' module='#{method.owner}'/>
+          <view-debug view='#{safe_name}##{view}' src='#{pretty_path method.source_location}' module='#{method.owner}'/>
           #{rendered}
         HTML
       end

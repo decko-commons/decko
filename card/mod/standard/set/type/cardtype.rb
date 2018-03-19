@@ -12,14 +12,14 @@ format :html do
 
   view :type_formgroup do
     if card.cards_of_type_exist?
-      wrap_with :div, tr(:cards_exist, cardname: card.name)
+      wrap_with :div, tr(:cards_exist, cardname: safe_name)
     else
       super()
     end
   end
 
   view :add_link do |args|
-    voo.title ||= tr(:add_card, cardname: card.name)
+    voo.title ||= tr(:add_card, cardname: safe_name)
     title = _render_title args
     link_to title, path: _render_add_path(args), class: args[:css_class]
   end
@@ -80,5 +80,11 @@ end
 event :check_for_cards_of_type_when_type_changed, :validate, changed: :type do
   if cards_of_type_exist?
     errors.add :cardtype, tr(:error_cant_alter, name: name)
+  end
+end
+
+event :validate_cardtype_name, :validate, on: :save, changed: :name do
+  if name =~ %r{[<>/]}
+    errors.add :name, tr(:error_invalid_character_in_cardtype, banned: "<, >, /")
   end
 end

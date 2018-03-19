@@ -59,12 +59,53 @@ RSpec.describe Card::Name do
     end
   end
 
+
+  describe "creation" do
+    it "translates simple codenames" do
+      expect(Card::Name[":self"]).to eq "*self"
+    end
+
+    it "translates simple ids" do
+      expect(Card::Name["~#{Card::SelfID}"]).to eq "*self"
+    end
+
+    it "translates junctions of codenames and ids" do
+      expect(Card::Name["A+~#{Card::SelfID}+:default"]).to eq "A+*self+*default"
+    end
+
+    it "interprets symbols as codenames" do
+      expect(Card::Name[:self]).to eq "*self"
+    end
+
+    it "interprets integers as ids" do
+      expect(Card::Name[Card::SelfID]).to eq "*self"
+    end
+
+    it "interprets array items as name parts" do
+      expect(Card::Name[["A", Card::SelfID, :default]]).to eq "A+*self+*default"
+    end
+  end
+
   describe "part creation" do
     it "creates parts" do
       Card::Auth.as_bot do
         Card.create name: "left+right"
       end
       expect(Card.fetch("right")).to be_truthy
+    end
+
+
+
+    it "translates codenames in strings" do
+      expect("A+:self".to_name.key).to eq "a+*self"
+    end
+
+    it "translates codenames in arrays" do
+      expect(["A", ":self"].to_name.key).to eq "a+*self"
+    end
+
+    it "translates id" do
+      expect("A+~#{Card.fetch_id(:self)}".to_name.key).to eq "a+*self"
     end
   end
 end
