@@ -23,14 +23,6 @@ format do
 end
 
 format :html do
-  def extra_paging_path_args
-    vars = query_with_params.vars
-    return {} unless vars.is_a? Hash
-    vars.each_with_object({}) do |(key, value), hash|
-      hash["_#{key}"] = value
-    end
-  end
-
   view :title, cache: :never do
     return super() unless (keyword = search_keyword) &&
                           (title = keyword_search_title(keyword))

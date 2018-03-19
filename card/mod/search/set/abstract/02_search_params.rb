@@ -23,8 +23,8 @@ format do
   end
 
   def query_params
-    return nil unless (query_param = params[:query])
-    Card.safe_param query_param
+    return nil unless (vars = params[:query])
+    Card.safe_param vars
   end
 
   def default_limit
@@ -35,6 +35,11 @@ end
 format :html do
   def default_limit
     Cardio.config.paging_limit || 20
+  end
+
+  def extra_paging_path_args
+    return {} unless (vars = query_params)
+    { query: vars }
   end
 end
 
