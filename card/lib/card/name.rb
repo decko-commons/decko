@@ -20,16 +20,17 @@ class Card
       def [] *cardish
         cardish = cardish.first if cardish.size <= 1
         case cardish
-        when Card            then cardish.name
-        when Symbol, Integer then Card.fetch_name(cardish)
-        when Array           then compose cardish
-        when String          then new cardish
+        when Card             then cardish.name
+        when Symbol, Integer  then Card.fetch_name(cardish)
+        when Array            then compose cardish
+        when String, NilClass then new cardish
         else
           raise ArgumentError, "#{cardish.class} not supported as name identifier"
         end
       end
 
       def new str, validated_parts=nil
+        return super str if str.nil?
         raise ArgumentError, "use Card::Name[] with non-strings" unless str.is_a?(String)
 
         if !validated_parts && str.include?(joint)
