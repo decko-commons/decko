@@ -15,6 +15,7 @@ class Card
     self.params  = Card::Env # yuck!
     self.session = proc { Card::Auth.current.name } # also_yuck
 
+
     class << self
       def [] *cardish
         cardish = cardish.first if cardish.size <= 1
@@ -22,12 +23,31 @@ class Card
         when Card            then cardish.name
         when Symbol, Integer then Card.fetch_name(cardish)
         when Array           then compose cardish
-        else                      cardish.to_name
+        when String          then new cardish
+        else
+          raise ArgumentError, "#{cardish.class} not supported as name identifier"
         end
       end
 
+      def new str, validated_parts=nil
+        raise ArgumentError, "use Card::Name[] with non-strings" unless str.is_a?(String)
+
+        if !validated_parts && str.include?(joint)
+          compose str.split(joint)
+        elsif special_prefix?(str)
+          Card.fetch_name str # handles ~ and :
+        else
+          super str
+        end
+      end
+
+      def special_prefix? str
+        str.start_with? "~", ":"
+      end
+
       def compose parts
-        new parts.flatten.map { |part| self[part] }.join(joint)
+        name_parts = parts.flatten.map { |part| self[part] }
+        new name_parts.join(joint), true
       end
 
       def url_key_to_standard key

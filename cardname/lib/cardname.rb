@@ -22,24 +22,22 @@ class Cardname < String
   include ActiveSupport::Configurable
 
   config_accessor :joint, :banned_array, :var_re, :uninflect, :params,
-                  :session, :stabilize, :escape_map
+                  :session, :stabilize
 
   Cardname.joint          = '+'
-  Cardname.banned_array   = %w{ / }
+  Cardname.banned_array   = []
   Cardname.var_re         = /\{([^\}]*\})\}/
   Cardname.uninflect      = :singularize
   Cardname.stabilize      = false
-  Cardname.escape_map     = { ">" => "&#62;", "<" => "&#60;", "/" => "&#47;" }
 
   JOINT_RE = Regexp.escape joint
-  ESCAPE_RE = /[#{Regexp.escape Cardname.escape_map.keys.join}]/
 
   @@cache = {}
 
   class << self
     def new obj
       return obj if obj.is_a? self.class
-      str = escape stringify(obj)
+      str = stringify(obj)
       cached_name(str) || super(str)
     end
 
@@ -59,14 +57,10 @@ class Cardname < String
       end
     end
 
-    def escape str
-      str.gsub(ESCAPE_RE) do |match|
-        escape_map[match.to_s]
-      end
-    end
-
     def banned_re
-      %r{#{ (['['] + banned_array << joint) * '\\' + ']' }}
+      Regexp.escape joint
+      #/[#{Regexp.escape(banned_array << joint)}]'/
+      #%r{#{ (['['] + banned_array << joint) * '\\' + ']' }}
     end
 
     # Sometimes the core rule "the key's key must be itself" (called "stable" below) is violated
