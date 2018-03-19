@@ -362,16 +362,20 @@ RSpec.describe CardController, type: :controller do
     end
 
     describe "delete" do
-      it "works" do
-        post :delete, params: { id: "A" }
-        assert_response :redirect
-        expect(Card["A"]).to eq(nil)
+      context "without ajax" do
+        it "deletes card and redirects" do
+          post :delete, params: { id: "A" }
+          assert_response :redirect
+          expect(Card["A"]).to eq(nil)
+        end
       end
 
-      it "works in ajax" do
-        post :delete, xhr: true, params: { id: "A" }
-        assert_response :success
-        expect(Card["A"]).to eq(nil)
+      context "with ajax" do
+        it "deletes card and renders directly" do
+          post :delete, xhr: true, params: { id: "A" }
+          assert_response :success
+          expect(Card["A"]).to eq(nil)
+        end
       end
 
       # FIXME: this should probably be files in the spot for a delete test
