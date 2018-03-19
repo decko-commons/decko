@@ -89,8 +89,6 @@ format :html do
     end
   end
 
-
-
   view :type_info do
     return unless show_view?(:toolbar, :hide) && card.type_code != :basic
     wrap_with :span, class: "type-info float-right" do
@@ -224,7 +222,4 @@ format :html do
       </span>
     )
   end
-
-
 end
-

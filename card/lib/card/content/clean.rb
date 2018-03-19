@@ -17,7 +17,9 @@ class Card
       )
 
       if Card.config.allow_inline_styles
-        allowed_tags["table"] += %w(cellpadding align border cellspacing)
+        allowed_tags["table"] += %w(cellpadding align border cellspacing data-mce-style)
+        allowed_tags["td"] += %w(scope data-mce-style)
+        allowed_tags["th"] += %w(scope data-mce-style)
       end
 
       allowed_tags.each_key do |k|

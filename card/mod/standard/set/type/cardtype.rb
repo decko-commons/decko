@@ -84,7 +84,7 @@ event :check_for_cards_of_type_when_type_changed, :validate, changed: :type do
 end
 
 event :validate_cardtype_name, :validate, on: :save, changed: :name do
-  if name.match(%r{[<>/]})
+  if name =~ %r{[<>/]}
     errors.add :name, tr(:error_invalid_character_in_cardtype, banned: "<, >, /")
   end
 end

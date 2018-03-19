@@ -56,14 +56,14 @@ module Card::Content::Chunk
         # matches cardnames that are not keywords
         # FIXME: would not match cardnames that are keywords
         match, offset = super(content, prefix)
-        return if !match || is_keyword?(match[1])
+        return if !match || keyword?(match[1])
         [match, offset]
       end
-    end
 
-    def is_keyword? str
-      return unless str
-      QUERY_KEYWORDS.include?(str.tr(" ", "_").lowercase)
+      def keyword? str
+        return unless str
+        QUERY_KEYWORDS.include?(str.tr(" ", "_").lowercase)
+      end
     end
 
     def interpret match, _content

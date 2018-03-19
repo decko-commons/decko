@@ -14,7 +14,7 @@ module CoreExtensions
 
     # don't interpret symbol/integer as codename/id
     def to_name
-      Card::Name.new self.to_s
+      Card::Name.new to_s
     end
   end
 end

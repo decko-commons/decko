@@ -1,9 +1,7 @@
 format :html do
   view :title do
     title = wrapped_title(super())
-    if show_view? :title_link, :hide
-      title = link_to_card card.name, title
-    end
+    title = link_to_card card.name, title if show_view? :title_link, :hide
     add_name_context
     title
   end

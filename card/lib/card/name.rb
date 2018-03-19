@@ -15,7 +15,6 @@ class Card
     self.params  = Card::Env # yuck!
     self.session = proc { Card::Auth.current.name } # also_yuck
 
-
     class << self
       def [] *cardish
         cardish = cardish.first if cardish.size <= 1
