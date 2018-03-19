@@ -79,6 +79,10 @@ class Cardname < String
       bang_methods = String.instance_methods.select { |m| m.to_s.ends_with?("!") }
       [:replace].concat bang_methods
     end
+
+    def split_parts str
+      str.split(/\s*#{JOINT_RE}\s*/, -1)
+    end
   end
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -33,7 +33,7 @@ class Card
 
         str = str.to_s
         if !validated_parts && str.include?(joint)
-          compose str.split(joint)
+          compose Cardname.split_parts(str)
         elsif special_prefix?(str)
           Card.fetch_name str # handles ~ and :
         else

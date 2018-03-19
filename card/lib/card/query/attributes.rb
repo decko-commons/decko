@@ -62,7 +62,7 @@ class Card
       def name_or_content_match val
         cxn = connection
         or_join(
-          [field_match("replace(#{table_alias}.name,'+',' ')", Cardname.escape(val), cxn),
+          [field_match("replace(#{table_alias}.name,'+',' ')", val, cxn),
            field_match("#{table_alias}.db_content", val, cxn)]
         )
       end

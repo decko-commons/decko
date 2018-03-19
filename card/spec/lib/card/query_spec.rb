@@ -594,29 +594,4 @@ RSpec.describe Card::Query do
       is_expected.to eq ["A", "A+C"]
     end
   end
-
-  describe "escaped characters" do
-    let(:escaped_name) { "rabbit &#47; &#60;hole&#62;" }
-
-    before do
-      Card::Auth.as_bot do
-        Card.create! name: "rabbit / <hole>", content: "hole / world"
-      end
-    end
-
-    it "finds escaped characters with name search" do
-      result = query name: "rabbit / <hole>"
-      expect(result).to contain_exactly escaped_name
-    end
-
-    it "finds escaped characters with name match search" do
-      result = query name: ["match", "bit / ho"]
-      expect(result).to contain_exactly escaped_name
-    end
-
-    it "finds escaped characters in content" do
-      result = query content: ["match", "le / wo"]
-      expect(result).to contain_exactly escaped_name
-    end
-  end
 end
