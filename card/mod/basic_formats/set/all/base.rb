@@ -70,8 +70,12 @@ format do
   # CONTENT VIEWS
 
   view :raw do
-    scard = voo.structure ? Card[voo.structure] : card
-    scard ? scard.content : _render_blank
+    structure_card&.content || _render_blank
+  end
+
+  def structure_card
+    return nil if voo.structure == true
+    voo.structure ? Card[voo.structure] : card
   end
 
   view :core, closed: true do
