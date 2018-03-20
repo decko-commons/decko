@@ -57,6 +57,13 @@ describe Card::Set::All::Name do
     end
   end
 
+  describe "event: escape_name" do
+    it "escapes invalid characters" do
+      c = Card.create! name: "8 / 5 <script>"
+      expect(c.name).to eq("8 &#47; 5 &#60;script&#62;")
+    end
+  end
+
   describe "codename" do
     before do
       @card = Card["a"]

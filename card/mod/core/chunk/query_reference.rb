@@ -23,7 +23,7 @@ module Card::Content::Chunk
         Card::Query::ATTRIBUTES.keys +
         Card::Query::CONJUNCTIONS.keys +
         %w[desc asc count]
-      ).map(&:to_name)
+      ).map(&:to_s)
     )
 
     Card::Content::Chunk.register_class(
@@ -53,9 +53,16 @@ module Card::Content::Chunk
 
     class << self
       def full_match content, prefix
+        # matches cardnames that are not keywords
+        # FIXME: would not match cardnames that are keywords
         match, offset = super(content, prefix)
-        return unless match && !QUERY_KEYWORDS.include?(match[1].to_name)
+        return if !match || keyword?(match[1])
         [match, offset]
+      end
+
+      def keyword? str
+        return unless str
+        QUERY_KEYWORDS.include?(str.tr(" ", "_").downcase)
       end
     end
 
