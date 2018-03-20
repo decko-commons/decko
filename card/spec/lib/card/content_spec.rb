@@ -368,11 +368,9 @@ describe Card::Content do
       it "allows permitted attributes" do
         assert_equal '<img src="foo">', Card::Content.clean!('<img src="foo">')
         assert_equal "<img alt='foo'>", Card::Content.clean!("<img alt='foo'>")
-        assert_equal '<img title="foo">',
-                     Card::Content.clean!("<img title=foo>")
+        assert_equal '<img title="foo">', Card::Content.clean!("<img title=foo>")
         assert_equal '<a href="foo">', Card::Content.clean!('<a href="foo">')
-        assert_equal '<code lang="foo">',
-                     Card::Content.clean!('<code lang="foo">')
+        assert_equal '<code lang="foo">', Card::Content.clean!('<code lang="foo">')
         assert_equal '<blockquote cite="foo">',
                      Card::Content.clean!('<blockquote cite="foo">')
       end
