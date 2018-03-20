@@ -39,6 +39,7 @@ namespace :card do
     desc "migrate structure"
     task structure: :environment do
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
+      ActiveRecord::Base.dump_schema_after_migration = false
       Cardio.schema_mode(:structure) do |paths|
         ActiveRecord::Migrator.migrations_paths = paths
         ActiveRecord::Migrator.migrate paths, version
@@ -49,6 +50,7 @@ namespace :card do
 
     desc "migrate core cards"
     task core_cards: :environment do
+      ActiveRecord::Base.dump_schema_after_migration = false
       require "card/migration/core"
       run_card_migration :core_cards
     end
