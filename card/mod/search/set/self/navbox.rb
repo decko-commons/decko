@@ -2,8 +2,8 @@
 format :html do
   view :raw do
     wrap_with :div, class: "form-group w-100" do
-      text_field_tag :_keyword, "", class: "_navbox navbox form-control w-100",
-                                    placeholder: navbar_placeholder
+      text_field_tag "query[keyword]", "", class: "_navbox navbox form-control w-100",
+                                           placeholder: navbar_placeholder
     end
   end
 
