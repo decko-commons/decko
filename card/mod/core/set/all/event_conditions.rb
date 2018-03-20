@@ -58,7 +58,7 @@ def wrong_stage opts
 end
 
 def wrong_action action
-  return false if on_condition_applies? action
+  return false if on_condition_applies?(nil, action)
   "on: #{action} method #{method} called on #{@action}"
 end
 
