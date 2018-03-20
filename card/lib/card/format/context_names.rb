@@ -32,8 +32,10 @@ class Card
       end
 
       def title_in_context title=nil
+        keep_safe = title&.html_safe?
         title = title ? title.to_name.absolute_name(card.name) : card.name
-        title.from *context_names
+        newtitle = title.from *context_names
+        keep_safe ? newtitle.html_safe : newtitle
       end
     end
   end

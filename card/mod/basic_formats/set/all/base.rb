@@ -5,8 +5,9 @@ format do
   end
 
   # NAME VIEWS
+
   view :name, closed: true, perms: :none do
-    name_variant card.name
+    name_variant safe_name
   end
 
   def safe_name
