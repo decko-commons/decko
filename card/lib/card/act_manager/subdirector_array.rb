@@ -19,6 +19,9 @@ class Card
         card = card.card if card.is_a? StageDirector
         each { |dir| return dir if dir.card == card }
         dir = ActManager.fetch card, parent: @parent
+        if dir.card != card
+          dir.replace_card card
+        end
         dir.main = false
         dir.parent = @parent
         dir.transact_in_stage = opts[:transact_in_stage]
