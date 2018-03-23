@@ -69,7 +69,6 @@ decko_namespace = namespace :decko do
     decko_namespace["update_assets_symlink"].invoke
   end
 
-
   desc "reset with an empty tmp directory"
   task :reset_tmp do
     tmp_dir = Decko.paths["tmp"].first
