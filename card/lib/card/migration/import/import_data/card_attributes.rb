@@ -30,6 +30,7 @@ class Card
          end
 
          def write_attributes
+           return unless File.writable? @path
            File.write @path, @data.to_yaml
          end
 
