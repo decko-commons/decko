@@ -110,6 +110,19 @@ class Card
         run_subdirector_stages :integrate_with_delay
       end
 
+      def rerun_up_to_current_stage
+        old_stage = @stage
+        reset_stage
+        catch_up_to_stage old_stage if old_stage
+      end
+
+      def replace_card card
+        card.action = @card.action
+        card.director = self
+        @card = card
+        rerun_up_to_current_stage
+      end
+
       def reset_stage
         @stage = -1
       end

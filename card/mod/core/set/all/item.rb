@@ -23,7 +23,7 @@ end
 
 def add_item item
   return if include_item? item
-  self.content = "#{content}\n#{name}"
+  self.content = "#{content}\n#{item}"
 end
 
 def drop_item item
