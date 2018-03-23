@@ -34,6 +34,8 @@ module ClassMethods
     return if card.nil?
     write_to_cache card, opts if needs_caching
     standard_fetch_results card, mark, opts
+  rescue ActiveModel::RangeError => _e
+    return Card.new name: "invalid name: #{mark}"
   end
 
   # fetch only real (no virtual) cards
@@ -90,6 +92,9 @@ module ClassMethods
     elsif block_given?
       yield.to_name
     end
+  rescue ActiveModel::RangeError => e
+    raise e
+    block_given? ? yield.to_name : nil
   rescue Card::Error::UnknownCodename => e  # eg. if codename is missing
     block_given? ? yield.to_name : raise(e)
   end

@@ -1,4 +1,6 @@
 format :html do
+  MENU_ITEMS = %i[edit discuss follow page rules account more]
+
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
     wrap_with :div, class: "menu-slot nodblclick" do
@@ -61,11 +63,20 @@ format :html do
   end
 
   def menu_item_list link_opts={}
-    %i[edit discuss follow page rules account more].map do |item|
-      next unless send "show_menu_item_#{item}?"
+    MENU_ITEMS.map do |item|
+      next unless show_menu_item?(item)
       send "menu_#{item}_link", link_opts
     end.compact
   end
+
+#   view :menu_edit_link, when: :show_menu_edit_link,
+#        params: [ :menu_item_class ]
+#
+#     menu_item class: menu_item_class
+# end
+  MENU_ITEMS.each do |item|
+  end
+
 
   def menu_edit_link opts
     menu_item "edit", "edit", opts.merge(view: :edit, path: menu_path_opts)
@@ -105,8 +116,13 @@ format :html do
 
   def menu_item text, icon, opts={}
     link_text = "#{material_icon(icon)}<span class='menu-item-label'>#{text}</span>"
+    classy "menu"
     add_class opts, "dropdown-item"
     smart_link_to link_text.html_safe, opts
+  end
+
+  def show_menu_item? item
+    voo&.show?("menu_item_#{item}") && send("show_menu_item_#{item}?")
   end
 
   def show_menu_item_discuss?
