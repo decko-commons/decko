@@ -25,9 +25,7 @@ format :html do
   end
 
   def default_toolbar_args args
-    if params[:related]
-      @related_card, _opts = related_card_and_options args.clone
-    end
+    @related_card, _opts = related_card_and_options args.clone if params[:related]
     @rule_view = params[:rule_view]
   end
 
@@ -70,6 +68,7 @@ format :html do
 
   def toolbar_simple_buttons
     _render :toolbar_buttons
+    # end
   end
 
   def toolbar_right_buttons
@@ -90,7 +89,7 @@ format :html do
       when :follow, :editors, :history    then "activity"
       when :edit_rules, :edit_nest_rules  then "rules"
       when :edit, :edit_name, :edit_type,
-        :edit_structure, :edit_nests   then "edit"
+           :edit_structure, :edit_nests   then "edit"
       when :related                       then active_related_toolbar_button
       end
   end
@@ -219,7 +218,7 @@ format :html do
   end
 
   view :delete_button do |_args|
-    confirm = "Are you sure you want to delete #{card.name}?"
+    confirm = "Are you sure you want to delete #{safe_name}?"
     success = main? ? "REDIRECT: *previous" : "TEXT: #{card.name} deleted"
     toolbar_button "delete", :trash,
                    path: { action: :delete, success: success },

@@ -1,6 +1,14 @@
 include_set Abstract::FilterHelper
 
 format :html do
+  view :filter_name_formgroup, cache: :never do
+    text_filter :name
+  end
+
+  def sort_options
+    {}
+  end
+
   def select_filter field, _label=nil, default=nil, options=nil
     options ||= filter_options field
     options.unshift(["--", ""]) unless default
@@ -22,7 +30,7 @@ format :html do
 
   def select_filter_type_based type_codename, order="asc"
     # take the card name as default label
-    options = type_options type_codename, order
+    options = type_options type_codename, order, 80
     select_filter type_codename, nil, nil, options
   end
 
@@ -70,8 +78,10 @@ format :html do
     end
   end
 
-  def type_options type_codename, order="asc"
+  def type_options type_codename, order="asc", max_length=nil
     type_card = Card[type_codename]
-    Card.search type_id: type_card.id, return: :name, sort: "name", dir: order
+    res = Card.search type_id: type_card.id, return: :name, sort: "name", dir: order
+    return res unless max_length
+    res.map { |i| i.size > max_length ? "#{i[0..max_length]}..." : i }
   end
 end

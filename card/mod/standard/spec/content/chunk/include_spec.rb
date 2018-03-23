@@ -2,15 +2,15 @@
 
 describe Card::Content::Chunk::Nest, "Inclusion" do
   context "syntax parsing" do
-    before do
-      @class = Card::Content::Chunk::Nest
-    end
-
     let :instance do
-      @class.new(@class.full_match(@chunk), nil)
+      described_class.new(described_class.full_match(@chunk), nil)
     end
     let(:options) { instance.options }
     let(:name) { instance.name }
+
+    def chunk_nest chunk
+      described_class.new(described_class.full_match(chunk), nil)
+    end
 
     it "ignores invisible comments" do
       expect(render_content("{{## now you see nothing}}")).to eq("")

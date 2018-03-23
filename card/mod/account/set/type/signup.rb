@@ -48,7 +48,7 @@ format :html do
   end
 
   def signup_line
-    [ "<strong>#{card.name}</strong>",
+    [ "<strong>#{safe_name}</strong>",
       ("was" unless anonymous_signup?),
       "signed up on #{format_date card.created_at}"
     ].compact.join " "

@@ -36,7 +36,7 @@ format :html do
 end
 
 format :rss do
-  def feed_item_description_view
-    :blank
+  view :feed_item_description do
+    render_blank
   end
 end

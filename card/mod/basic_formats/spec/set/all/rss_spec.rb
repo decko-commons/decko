@@ -2,8 +2,10 @@
 
 describe Card::Set::All::Rss do
   it "renders recent.rss" do
-    rendered = Card[:recent].format(:rss).show(nil, {})
-    expect(rendered).to match(/xml/)
+    with_rss_enabled do
+      rendered = Card[:recent].format(:rss).show(nil, {})
+      expect(rendered).to match(/xml/)
+    end
   end
 
   it "handles faulty search queries" do

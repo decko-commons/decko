@@ -21,9 +21,14 @@ class Card
 
       # @return [Array]
       def return_list sql_results, retrn
+        large_list sql_results.length if sql_results.length > 1000
         sql_results.map do |record|
           return_simple record, retrn
         end
+      end
+
+      def large_list length
+        Rails.logger.info "#{length} records returned by #{@statement}"
       end
 
       def result_method retrn

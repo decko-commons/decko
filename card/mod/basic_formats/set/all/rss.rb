@@ -13,6 +13,7 @@ format :rss do
 
   # FIXME: integrate this with common XML features when it is added
   view :feed, cache: :never do
+    return "RSS feeds disabled" unless Cardio.config.rss_enabled
     begin
       @xml.instruct! :xml, version: "1.0", standalone: "yes"
       @xml.rss version: "2.0",
@@ -34,14 +35,9 @@ format :rss do
   end
 
   view :feed_body, cache: :never do
-    render_feed_item_list
-  end
-
-  view :feed_item_list, cache: :never do
     raw_feed_items.each do |item|
       @xml.item do
-        subformat(item).render!(:feed_item,
-                               description_view: feed_item_description_view)
+        subformat(item).render! :feed_item
       end
     end
   end
@@ -50,10 +46,10 @@ format :rss do
     Card.global_setting(:title) + " : " + card.name.gsub(/^\*/, "")
   end
 
-  view :feed_item, cache: :never do |args|
+  view :feed_item do
     @xml.title card.name
     add_name_context
-    @xml.description description(args)
+    @xml.description render_feed_item_description
     @xml.pubDate pub_date
     @xml.link render_url
     @xml.guid render_url
@@ -65,12 +61,8 @@ format :rss do
     # cards, because not all to_s's take args (just actual dates)
   end
 
-  def description args
-    render!(args[:description_view] || :open_content)
-  end
-
-  def feed_item_description_view
-    :open_content
+  view :feed_item_description do
+    render_open_content
   end
 
   view :feed_description do "" end

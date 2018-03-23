@@ -106,9 +106,8 @@ describe Cardname do
       expect("THE*ONE*AND$!ONLY".to_name).to be_valid
     end
 
-    it "rejects invalid names" do
-      expect("Tes/sd".to_name).not_to be_valid
-      expect("TEST/DDER".to_name).not_to be_valid
+    it "accepts escaped invalid characters" do
+      expect("this/THAT".to_name).to be_valid
     end
   end
 
@@ -142,6 +141,49 @@ describe Cardname do
       it '"does not include "D+EF"' do
         expect(name.include? ("AD+EF")).to be_falsey
       end
+    end
+  end
+
+  describe "dangerous methods" do
+    RSpec::Matchers.define :have_attributes do |expected|
+      match do |obj|
+        expected.all? do |method, val|
+          obj.send(method) == val
+        end
+      end
+    end
+
+    def name_with_cached_props str
+      str.to_name.tap do |name|
+        name.key
+        name.parts
+      end
+    end
+
+    def expect_changed_props args
+      aggregate_failures do
+        args.each do |method, val|
+          expect(name.send(method)).to eq val
+        end
+      end
+    end
+
+    example "#replace update key and parts" do
+      name = name_with_cached_props "A"
+      name.replace("B")
+      expect(name).to have_attributes key: "b", parts: ["B"]
+    end
+
+    example "#gsub! update key and parts" do
+      name = name_with_cached_props "AxxA"
+      name.gsub!("xx", "B")
+      expect(name).to have_attributes key: "aba", parts: ["ABA"]
+    end
+
+    example "#next! updates key and parts" do
+      name = name_with_cached_props "abc1"
+      name.next!
+      expect(name).to have_attributes key: "abc2", parts: ["abc2"]
     end
   end
 end

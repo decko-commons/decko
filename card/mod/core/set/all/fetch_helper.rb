@@ -13,6 +13,16 @@ module ClassMethods
     end
   end
 
+  def safe_param param
+    if param.respond_to? :to_unsafe_h
+      # clone doesn't work for Parameters
+      param.to_unsafe_h
+    else
+      # clone so that original params remain unaltered.  need deeper clone?
+      (param || {}).clone
+    end
+  end
+
   private
 
   def standard_controller_fetch args, card_opts
@@ -23,21 +33,11 @@ module ClassMethods
   end
 
   def controller_fetch_opts args
-    opts = safe_card_opts args[:card]
+    opts = safe_param args[:card]
     opts[:type] ||= args[:type] if args[:type]
     # for /new/:type shortcut.  we should handle in routing and deprecate this
     opts[:name] ||= Card::Name.url_key_to_standard(args[:id])
     opts
-  end
-
-  def safe_card_opts card_opts
-    if card_opts.respond_to? :to_unsafe_h
-      # clone doesn't work for Parameters
-      card_opts.to_unsafe_h
-    else
-      # clone so that original params remain unaltered.  need deeper clone?
-      (card_opts || {}).clone
-    end
   end
 
   def validate_fetch_opts! opts

@@ -48,8 +48,6 @@ def add_items items
   end
 end
 
-
-
 def content
   Card::Cache[Card::Set::Type::ListedBy].fetch(key) do
     generate_content

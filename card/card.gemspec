@@ -64,6 +64,7 @@ Gem::Specification.new do |s|
     ["recaptcha",                  "~> 4.3"],
     ["twitter",                    "~> 6.1"], # for event-based integration
     ["delayed_job_active_record",  "~> 4.1"],
+    ["minitest",                   "5.11.2"],
     ["rake",                       "<= 12.3.0"]
 
 

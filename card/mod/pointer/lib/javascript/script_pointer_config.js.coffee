@@ -35,8 +35,8 @@ $.extend decko,
   initAutoCardPlete: (input) ->
     optionsCard = input.data 'options-card'
     return unless !!optionsCard
-    url = decko.rootPath + '/' + optionsCard + '.json?view=name_complete'
-    input.autocomplete { source: decko.prepUrl(url) }
+    path = optionsCard + '.json?view=name_complete'
+    input.autocomplete { source: decko.slotPath(path) }
 
   pointerContent: (vals) ->
     list = $.map $.makeArray(vals), (v) -> if v then '[[' + v + ']]'

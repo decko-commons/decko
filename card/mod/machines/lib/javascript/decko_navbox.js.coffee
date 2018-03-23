@@ -17,7 +17,7 @@ navbox_results = (request, response) ->
   formData = f.serialize() + '&view=complete'
 
   this.xhr = $.ajax {
-    url: decko.prepUrl decko.rootPath + '/:search.json'
+    url: decko.path ':search.json'
     data: formData
     dataType: "json"
     wagReq: ++reqIndex
@@ -42,17 +42,17 @@ navboxize = (term, results) ->
         i.icon = key
         i.term = term
       else if key == 'add'
-        i.href = '/card/new?card[name]=' + encodeURIComponent(val)
+        i.href = 'card/new?card[name]=' + encodeURIComponent(val)
       else if key == 'new'
         i.type = 'add' # for icon
-        i.href = '/new/' + val[1]
+        i.href = 'new/' + val[1]
 
       items.push i
 
   $.each results['goto'], (index, val) ->
     items.push {
       icon: 'arrow_forward', prefix: 'go to', value: val[0], label: val[1],
-      href: '/' + val[2]
+      href: val[2]
     }
 
   $.each items, (index, i) ->
@@ -67,6 +67,6 @@ navbox_select = (event, ui) ->
   if ui.item.term
     $(this).closest('form').submit()
   else
-    window.location = decko.rootPath + ui.item.href
+    window.location = decko.path(ui.item.href)
 
   $(this).attr('disabled', 'disabled')
