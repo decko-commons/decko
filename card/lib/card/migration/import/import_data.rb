@@ -12,7 +12,12 @@ class Card
         def self.update data_path
           data = ImportData.new(data_path)
           yield(data)
-          data.write_attributes
+          # TODO: re-enable #write_attributes
+          # ...but first we need to be able to turn off writing to cards.yml in the gem,
+          #    which can break installations where installers lack gem write permissions.
+          #    ideally we could also avoid writing when developing migrations
+          #    (eg ENV var)
+          # data.write_attributes
         end
 
         def self.load data_path, opts={}
