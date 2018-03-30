@@ -89,8 +89,8 @@ def current_act_card?
   # to make this work.
 end
 
-event :notify_followers_after_save, :integrate_with_delay, on: :save,
-                                                           when: :notable_change? do
+event :notify_followers_after_save,
+      :integrate_with_delay, on: :save, when: :notable_change? do
   notify_followers
 end
 
@@ -134,7 +134,11 @@ end
 
 format do
   view :list_of_changes, denial: :blank, cache: :never do
-    action = get_action
+    list_of_changes
+  end
+
+  def list_of_changes action=nil
+    action = notification_action action
     relevant_fields(action).map do |type|
       edit_info_for(type, action)
     end.compact.join
@@ -153,17 +157,18 @@ format do
 
   view :subedits, perms: :none, cache: :never do
     wrap_subedits do
-      act.actions_affecting(card).map do |action|
-        next if action.card_id == card.id
+      notification_act.actions_affecting(card).map do |action|
+        next if action.card_id == card.id || !action.card&.ok?(:read)
         action.card.format(format: @format).subedit_notice action
-      end.compact
+      end
     end
   end
 
   def subedit_notice action=nil
-    action ||= card.last_action
+    action = notification_action action
     wrap_subedit_item do
-      %(#{name_before_action} #{action.action_type}d #{render_list_of_changes(args)})
+      %(#{name_before_action action} #{action.action_type}d\n) +
+        list_of_changes(action)
     end
   end
 
@@ -229,16 +234,8 @@ format do
     wrap_list_item "#{item_title}#{item_value}"
   end
 
-  def act
-    @notification_act ||= card.acts.last
-  end
-
-  def get_action
-    @notification_action ||= card.last_action
-  end
-
   def wrap_subedits
-    subedits = yield
+    subedits = yield.compact.join
     return "" if subedits.blank?
     "\nThis update included the following changes:#{wrap_list subedits}"
   end
@@ -254,11 +251,17 @@ format do
   def wrap_subedit_item
     "\n#{yield}\n"
   end
-end
 
-format do
+  def notification_act act=nil
+    @notification_act ||= act || card.acts.last
+  end
+
+  def notification_action action=nil
+    action || card.last_action
+  end
+
   view :last_action_verb, cache: :never do
-    "#{act.main_action.action_type}d"
+    "#{notification_act.main_action.action_type}d"
   end
 end
 
