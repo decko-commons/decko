@@ -89,8 +89,8 @@ def current_act_card?
   # to make this work.
 end
 
-event :notify_followers_after_save, :integrate_with_delay,
-      on: :save, when: proc { |ca| ca.notable_change? } do
+event :notify_followers_after_save, :integrate_with_delay, on: :save,
+                                                           when: :notable_change? do
   notify_followers
 end
 
@@ -135,7 +135,6 @@ end
 format do
   view :list_of_changes, denial: :blank, cache: :never do
     action = get_action
-
     relevant_fields(action).map do |type|
       edit_info_for(type, action)
     end.compact.join
@@ -161,7 +160,7 @@ format do
     end
   end
 
-  def subedit_notice action
+  def subedit_notice action=nil
     action ||= card.last_action
     wrap_subedit_item do
       %(#{name_before_action} #{action.action_type}d #{render_list_of_changes(args)})
@@ -234,7 +233,7 @@ format do
     @notification_act ||= card.acts.last
   end
 
-  def action
+  def get_action
     @notification_action ||= card.last_action
   end
 

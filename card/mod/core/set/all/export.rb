@@ -8,7 +8,7 @@ format :json do
     # avoid loops
     return [] if @export_count > 5 || @exported_keys.include?(card.key)
     @exported_keys << card.key
-    Array.wrap(render_atom.concat(render_export_items)).flatten
+    Array.wrap(render_atom).concat(render_export_items).flatten
   end
 
   def default_export_items_args _args
