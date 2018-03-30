@@ -139,7 +139,8 @@ class Card < ApplicationRecord
     # :remove_rule_stash,
     :last_action_id_before_edit,
     :only_storage_phase,           # used to save subcards
-    :changed_attributes
+    :changed_attributes,
+    :skip_event
   )
 
   def serializable_attributes

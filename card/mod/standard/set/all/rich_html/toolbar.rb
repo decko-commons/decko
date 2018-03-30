@@ -218,7 +218,7 @@ format :html do
   end
 
   view :delete_button do |_args|
-    confirm = "Are you sure you want to delete #{card.name}?"
+    confirm = "Are you sure you want to delete #{safe_name}?"
     success = main? ? "REDIRECT: *previous" : "TEXT: #{card.name} deleted"
     toolbar_button "delete", :trash,
                    path: { action: :delete, success: success },

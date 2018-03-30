@@ -98,7 +98,7 @@ class Card
       def set_event_callback object_method, kind, event, opts
         Card.class_eval do
           set_callback object_method, kind, event,
-                       prepend: true, if: proc { |c| c.event_applies?(opts) }
+                       prepend: true, if: proc { |c| c.event_applies?(event, opts) }
         end
       end
     end

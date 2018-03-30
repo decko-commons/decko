@@ -14,7 +14,7 @@ class Card
 
       def error_cardname
         if card&.name.present?
-          card.name
+          safe_name
         else
           I18n.t :no_cardname, scope: [:lib, :card, :format, :error]
         end

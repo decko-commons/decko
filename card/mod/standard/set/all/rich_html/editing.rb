@@ -69,7 +69,7 @@ format :html do
   end
 
   def rename_confirmation_alert
-    msg = "<h5>Are you sure you want to rename <em>#{card.name}</em>?</h5>"
+    msg = "<h5>Are you sure you want to rename <em>#{safe_name}</em>?</h5>"
     msg << rename_effects_and_options
     alert("warning") { msg }
   end

@@ -81,8 +81,8 @@ RSpec.describe Card::Set::All::Rename do
   end
 
   it "fails if name is invalid" do
-    expect { update "T", name: "YT/Yo" }
-      .to raise_error(/Validation failed: Name may not contain/)
+    expect { update "T", name: "" }
+      .to raise_error(/Name can't be blank/)
   end
 
   example "simple to simple" do

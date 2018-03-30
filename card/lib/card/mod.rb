@@ -52,7 +52,12 @@ class Card
   module Mod
     class << self
       def load
-        Loader.load_mods
+        return if ENV["CARD_MODS"] == "none"
+        if Card.take
+          Loader.load_mods
+        else
+          Rails.logger.warn "empty database"
+        end
       end
 
       # @return an array of Rails::Path objects
