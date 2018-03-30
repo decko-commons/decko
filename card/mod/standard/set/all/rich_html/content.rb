@@ -105,13 +105,8 @@ format :html do
     end
   end
 
-  # view :anchor, perms: :none, tags: :unknown_ok do |args|
-  #   %{ <a id="#{card.name.url_key}" name="#{card.name.url_key}"></a> }
-  # end
-
-  view :type do |args|
-    klasses = ["cardtype", args[:type_class]].compact
-    link_to_card card.type_card, nil, class: klasses
+  view :type do
+    link_to_card card.type_card, nil, class: "cardtype"
   end
 
   view :closed do

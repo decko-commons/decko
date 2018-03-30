@@ -1,39 +1,86 @@
-ACTS_PER_PAGE = Card.config.acts_per_page
-
 format :html do
-  def default_act_args args
-    act = (args[:act]  ||= Act.find(params["act_id"]))
-    args[:act_seq]     ||= params["act_seq"]
-    args[:hide_diff]   ||= hide_diff?
-    args[:slot_class]  ||= "revision-#{act.id} history-slot list-group-item"
-    args[:action_view] ||= action_view
-    act_context args
+  view :act, cache: :never do
+    raise Card::Error, "act_id param required" unless (act_id = params["act_id"])
+    raise Card::NotFound "act not found" unless (act = Act.find act_id)
+    act_listing act
   end
 
-  view :act_list, cache: :never do |args|
-    act_accordion args.delete(:acts) do |act, act_seq|
-      render_act args.merge(act: act, act_seq: act_seq)
+  view :act_legend do
+    bs_layout do
+      row md: [12, 12], lg: [7, 5] do
+        col action_legend
+        col content_legend, class: "text-right"
+      end
     end
   end
 
-  def act_accordion acts
-    page = params["page"] || 1
-    count = acts.size + 1 - (page.to_i - 1) * ACTS_PER_PAGE
-    rendered_acts =
-      acts.map do |act|
-        unless act.card
-          Rails.logger.info "bad data, act: #{act}"
-          next
-        end
-        count -= 1
-        yield act, count
-      end.compact
-    accordion_group rendered_acts, nil, class: "clear-both"
+  # used (by history and recent)for rendering act lists with legend and paging
+  #
+  # @param acts [ActiveRecord::Relation] relation that will return acts objects
+  # @param context [Symbol] :relative or :absolute
+  # @param draft_legend [Symbol] :show or :hide
+  def acts_layout acts, context, per_page, draft_legend=:hide
+    bs_layout container: true, fluid: true do
+      html _render_act_legend(draft_legend => :draft_legend)
+      row(12) { act_list acts, context, per_page }
+      row(12) { act_paging acts, per_page }
+    end
   end
 
+  def act_list acts, context, per_page
+    act_accordion acts, per_page do |act, seq|
+      act.card.format(:html).act_listing act, seq, context
+    end
+  end
 
-  view :act, cache: :never do |args|
-    act_renderer(args[:act_context]).new(self, args[:act], args).render
+  def act_listing act, seq=nil, context=nil
+    opts = act_listing_opts_from_params(seq)
+    opts[:slot_class] = "revision-#{act.id} history-slot list-group-item"
+    context ||= params[:act_context].to_sym
+    act_renderer(context).new(self, act, opts).render
+  end
+
+  # TODO: consider putting all these under one top-level param, eg:
+  # act: { seq: X, diff: [show/hide], action_view: Y }
+  def act_listing_opts_from_params seq
+    { act_seq: (seq || params["act_seq"]),
+      action_view: (params["action_view"] || "summary").to_sym,
+      hide_diff: params["hide_diff"].to_s.strip == "true" }
+  end
+
+  def act_accordion acts, per_page
+    accordion_group nil, class: "clear-both" do
+      seq = act_list_starting_seq(acts, per_page) + 1
+      clean_acts(current_page_acts(acts, per_page)).map do |act|
+        seq -= 1
+        yield act, seq
+      end
+    end
+  end
+
+  def clean_acts acts
+    # FIXME - if we get rid of bad act data, this will not be necessary
+    # (in the meantime, it will make paging confusing)
+    acts.reject { |a| !a.card }
+  end
+
+  def current_page_acts acts, per_page
+    acts.page(acts_page_from_params).per(per_page)
+  end
+
+  def act_list_starting_seq acts, per_page
+    acts.size - (acts_page_from_params - 1) * per_page
+  end
+
+  def acts_page_from_params
+    @act_page_from_params ||= params["page"].present? ? params["page"].to_i : 1
+  end
+
+  def act_paging acts, per_page
+    wrap_with :span, class: "slotter" do
+      acts = current_page_acts acts, per_page
+      paginate acts, remote: true, theme: "twitter-bootstrap-4"
+    end
   end
 
   def action_icon action_type, extra_class=nil
@@ -46,14 +93,6 @@ format :html do
     icon_tag icon, extra_class
   end
 
-  def action_view
-    (params["action_view"] || "summary").to_sym
-  end
-
-  def hide_diff?
-    params["hide_diff"].to_s.strip == "true"
-  end
-
   private
 
   def act_renderer context
@@ -62,10 +101,5 @@ format :html do
     else
       Act::ActRenderer::RelativeActRenderer
     end
-  end
-
-  def act_context args
-    args[:act_context] =
-      (args[:act_context] || params["act_context"] || :relative).to_sym
   end
 end

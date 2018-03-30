@@ -27,16 +27,6 @@ describe Card::Set::Abstract::SolidCache do
         end
       end
     end
-    context "with solid cache disabled" do
-      it "ignores solid cache card content" do
-        @card.format_with_set(described_class) do |format|
-          Card::Auth.as_bot do
-            Card["A"].solid_cache_card.update_attributes! content: "cache"
-          end
-          expect(format._render_core(solid_cache: false)).to eq core_view
-        end
-      end
-    end
   end
 
   # rubocop:disable ClassAndModuleChildren

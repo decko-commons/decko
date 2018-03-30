@@ -17,7 +17,7 @@ format do
     ""
   end
 
-  view :not_found, perms: :none, error_code: 404 do |_args|
+  view :not_found, perms: :none, error_code: 404 do
     error_name = card.name.present? ? safe_name : "the card requested"
     %( Could not find #{error_name}. )
   end

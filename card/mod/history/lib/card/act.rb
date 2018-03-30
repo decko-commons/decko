@@ -40,9 +40,9 @@ class Card
       # @param args [Hash]
       #   with_drafts: [true, false]
       # @return [Array of Actions]
-      def find_all_with_actions_on card_ids, args={}
+      def find_all_with_actions_on card_ids, with_drafts=false
         sql = "card_actions.card_id IN (:card_ids) AND ( (draft is not true) "
-        sql << (args[:with_drafts] ? "OR actor_id = :current_user_id)" : ")")
+        sql << (with_drafts ? "OR actor_id = :current_user_id)" : ")")
         vars = { card_ids: card_ids, current_user_id: Card::Auth.current_id }
         joins(:actions).where(sql, vars).distinct.order(:id).reverse_order
       end

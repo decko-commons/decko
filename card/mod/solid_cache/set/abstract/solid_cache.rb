@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-# A card that includes Abstract::SolidCache caches its core view
-# in a '+*solid cache' card.
+# A card that includes Abstract::SolidCache has as its core view a cached version of
+# its "cachedable_core" view, which is storeed in a '+*solid cache' card.
 # If that card exists the core view returns its content as rendered view.
 # If it doesn't exist the usual core view is rendered and saved in that card.
 #
@@ -14,17 +14,10 @@ include_set Abstract::Lock
 
 def self.included host_class
   host_class.format(host_class.try(:cached_format) || :base) do
-    view :core, cache: :never do |args|
-      return super() unless args[:solid_cache]
+    view :core, cache: :never do
       card.update_solid_cache if card.solid_cache_card.new?
       subformat(card.solid_cache_card)._render_core
     end
-  end
-end
-
-format do
-  def default_core_args args
-    args[:solid_cache] = true unless args.key?(:solid_cache)
   end
 end
 
@@ -87,27 +80,16 @@ def expire_solid_cache _changed_card=nil
   end
 end
 
-def update_solid_cache changed_card=nil
+def update_solid_cache
   return unless solid_cache?
-  new_content =
-    if solid_cache_card.new?
-      generate_content_for_cache changed_card
-    else
-      updated_content_for_cache changed_card
-    end
-  return unless new_content
+  new_content = generate_content_for_cache
   write_to_solid_cache new_content
   new_content
 end
 
-def generate_content_for_cache changed_card=nil
+def generate_content_for_cache
   format_type = try(:cached_format) || :base
-  format(format_type)._render_core solid_cache: false,
-                                   changed_card: changed_card
-end
-
-def updated_content_for_cache _changed_card=nil
-  generate_content_for_cache
+  format(format_type)._render_cacheable_core
 end
 
 def write_to_solid_cache new_content

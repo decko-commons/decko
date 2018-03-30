@@ -6,7 +6,8 @@ format do
   include File::Format
 
   view :closed_content do
-    _render_core size: :icon
+    voo.size = :icon
+    _render_core
   end
 
   view :source do
@@ -83,14 +84,13 @@ format :html do
     true
   end
 
-  view :content_changes do |args|
-    action = args[:action]
-    voo.size = args[:diff_type] == :summary ? :icon : :medium
-    [old_image(action, args), new_image(action)].compact.join
+  def content_changes action, diff_type, hide_diff=false
+    voo.size = diff_type == :summary ? :icon : :medium
+    [old_image(action, hide_diff), new_image(action)].compact.join
   end
 
   def old_image action, args
-    return if args[:hide_diff] || !action
+    return if hide_diff || !action
     return unless (last_change = card.last_change_on(:db_content, before: action))
     card.with_selected_action_id last_change.card_action_id do
       Card::Content::Diff.render_deleted_chunk _render_core

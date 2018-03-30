@@ -21,11 +21,11 @@ format { include Card::Set::Type::Pointer::Format }
 format :html do
   include Card::Set::Type::Pointer::HtmlFormat
 
-  view :closed_content do |_args|
+  view :closed_content do
     ""
   end
 
-  view :core do |args|
+  view :core do
     <<-HTML
       <div role="tabpanel">
         <ul class="nav nav-tabs" role="tablist" id="myTab">
@@ -40,7 +40,7 @@ format :html do
         </ul>
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="following">
-            #{render_following_list args}
+            #{render_following_list}
           </div>
           <div role="tabpanel" class="tab-pane" id="ignoring">
             #{render_ignoring_list}
@@ -105,7 +105,7 @@ format :html do
     res
   end
 
-  view :following_list, cache: :never do |_args|
+  view :following_list, cache: :never do
     if !Auth.signed_in? || Auth.current_id != card.left.id
       hide_buttons = %i[delete_follow_rule_button add_follow_rule_button]
     end
@@ -127,7 +127,7 @@ format :html do
     end
   end
 
-  view :ignoring_list, cache: :never do |_args|
+  view :ignoring_list, cache: :never do
     ignore_list = []
     card.known_item_cards.each do |follow_rule|
       follow_rule.item_cards.each do |follow_option|
@@ -155,7 +155,7 @@ format :html do
     super(args)
   end
 
-  view :errors, perms: :none do |args|
+  view :errors, perms: :none do
     if card.errors.any?
       if card.errors.find { |attrib, _msg| attrib == :permission_denied }
         Env.save_interrupted_action(request.env["REQUEST_URI"])
@@ -165,7 +165,7 @@ format :html do
           "Please #{link_to_card :signin, 'sign in'}" # " #{to_task}"
         end
       else
-        super(args)
+        super()
       end
     end
   end

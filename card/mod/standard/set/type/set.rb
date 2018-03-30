@@ -182,7 +182,7 @@ format :html do
     ""
   end
 
-  view :set_navbar do |_args|
+  view :set_navbar do
     id = "set-navbar-#{card.name.safe_key}-#{voo.home_view}"
     related_sets = card.related_sets(true)
     return "" if related_sets.size <= 1

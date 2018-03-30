@@ -1,4 +1,6 @@
 format :html do
+  attr_accessor :rule_context
+
   def current_rule force_reload=true
     @current_rule = nil if force_reload
     @current_rule ||= begin
@@ -32,7 +34,9 @@ format :html do
 
   def open_rule_body rule_view
     wrap_with :div, class: "d0-card-body" do
-      nest current_rule, view: rule_view, rule_context: card
+      current_rule_format = subformat current_rule
+      current_rule_format.rule_context = card
+      current_rule_format.render rule_view
     end
   end
 
@@ -146,9 +150,9 @@ format :html do
     end
   end
 
-  view :edit_rule, cache: :never, tags: :unknown_ok do |args|
+  view :edit_rule, cache: :never, tags: :unknown_ok do
     return "not a rule" unless card.is_rule?
-    @rule_context = args[:rule_context] || card
+    @rule_context ||=  card
     @edit_rule_success = edit_rule_success
     action_args = { action: :update, no_mark: true }
 

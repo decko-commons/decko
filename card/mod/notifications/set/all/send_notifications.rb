@@ -133,9 +133,8 @@ def act_followers act
 end
 
 format do
-  view :list_of_changes, denial: :blank, cache: :never do |args|
-    action = get_action(args)
-
+  view :list_of_changes, denial: :blank, cache: :never do
+    action = get_action
 
     relevant_fields(action).map do |type|
       edit_info_for(type, action)
@@ -153,29 +152,24 @@ format do
     end
   end
 
-  view :subedits, perms: :none, cache: :never do |args|
-    subedits =
-      get_act(args).actions_affecting(card).map do |action|
-        if action.card_id != card.id
-          action.card.format(format: @format)
-                .render_subedit_notice(action: action)
-        end
-      end.compact.join
-
-    if subedits.present?
-      wrap_subedits subedits
-    else
-      ""
+  view :subedits, perms: :none, cache: :never do
+    wrap_subedits do
+      act.actions_affecting(card).map do |action|
+        next if action.card_id == card.id
+        action.card.format(format: @format).subedit_notice action
+      end.compact
     end
   end
 
-  view :subedit_notice, denial: :blank, cache: :never do |args|
-    action = get_action(args)
-    name_before_action =
-      (action.value(:name) && action.previous_value(:name)) || card.name
+  def subedit_notice action
+    action ||= card.last_action
+    wrap_subedit_item do
+      %(#{name_before_action} #{action.action_type}d #{render_list_of_changes(args)})
+    end
+  end
 
-    wrap_subedit_item %(#{name_before_action} #{action.action_type}d
-#{render_list_of_changes(args)})
+  def name_before_action action
+    (action.value(:name) && action.previous_value(:name)) || card.name
   end
 
   def followed_set_card
@@ -206,7 +200,7 @@ format do
     set_card.follow_rule_name voo.closest_live_option(:follower)
   end
 
-  view :unfollow_url, perms: :none, closed: true, cache: :never do |_args|
+  view :unfollow_url, perms: :none, closed: true, cache: :never do
     return "" unless (rule_name = live_follow_rule_name)
     target_name = "#{voo.closest_live_option :follower}+#{Card[:follow].name}"
     update_path = page_path target_name, action: :update,
@@ -236,18 +230,17 @@ format do
     wrap_list_item "#{item_title}#{item_value}"
   end
 
-  def get_act args
-    @notification_act ||= args[:act] ||
-                          (args[:act_id] && Act.find(args[:act_id])) ||
-                          card.acts.last
+  def act
+    @notification_act ||= card.acts.last
   end
 
-  def get_action args
-    args[:action] || (args[:action_id] && Action.fetch(args[:action_id])) ||
-      card.last_action
+  def action
+    @notification_action ||= card.last_action
   end
 
-  def wrap_subedits subedits
+  def wrap_subedits
+    subedits = yield
+    return "" if subedits.blank?
     "\nThis update included the following changes:#{wrap_list subedits}"
   end
 
@@ -259,27 +252,26 @@ format do
     "   #{item}\n"
   end
 
-  def wrap_subedit_item text
-    "\n#{text}\n"
+  def wrap_subedit_item
+    "\n#{yield}\n"
   end
 end
 
 format do
-  view :last_action_verb, cache: :never do |args|
-    act = get_act(args)
+  view :last_action_verb, cache: :never do
     "#{act.main_action.action_type}d"
   end
 end
 
 format :email_text do
-  view :last_action, perms: :none, cache: :never do |args|
-    _render_last_action_verb args
+  view :last_action, perms: :none, cache: :never do
+    _render_last_action_verb
   end
 end
 
 format :email_html do
-  view :last_action, perms: :none, cache: :never do |args|
-    _render_last_action_verb args
+  view :last_action, perms: :none, cache: :never do
+    _render_last_action_verb
   end
 
   def wrap_list list
@@ -290,7 +282,7 @@ format :email_html do
     "<li>#{item}</li>\n"
   end
 
-  def wrap_subedit_item text
-    "<li>#{text}</li>\n"
+  def wrap_subedit_item
+    "<li>#{yield}</li>\n"
   end
 end

@@ -91,7 +91,7 @@ format do
 end
 
 format :data do
-  view :card_list do |_args|
+  view :card_list do
     search_with_params.map do |item_card|
       nest_item item_card
     end

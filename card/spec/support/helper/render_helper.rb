@@ -14,10 +14,10 @@ class Card
         render_content_with_args content, format_args
       end
 
-      def render_content_with_args content, format_args={}, view_args={}
+      def render_content_with_args content, format_args={}
         @card ||= Card.new name: "Tempo Rary 2"
         @card.content = content
-        @card.format(format_args)._render :core, view_args
+        @card.format(format_args)._render :core
       end
 
       def render_card view, card_args={}, format_args={}

@@ -19,24 +19,6 @@ format do
   end
 end
 
-format :json do
-  view :export do |args|
-    # avoid running the search from options and structure that
-    # case a huge result or error
-    return [render_atom(args)] if card.content.empty? ||
-                                  card.name.include?("+*options") ||
-                                  card.name.include?("+*structure")
-    super(args)
-  end
-
-  view :export_items, cache: :never do |args|
-    card.item_names(limit: 0).map do |i_name|
-      next unless (i_card = Card[i_name])
-      subformat(i_card).render_atom(args)
-    end.flatten.reject(&:blank?)
-  end
-end
-
 format :rss do
   view :feed_body do
     case raw_feed_items

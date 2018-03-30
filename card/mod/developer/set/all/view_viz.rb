@@ -11,7 +11,7 @@ format :html do
         format_class.name =~ /^Card(::Set)?::(.+?)$/ #::(\w+Format)
         hash[Regexp.last_match(2)] = views
       end
-    accordion_group format_views
+    accordion_group() { format_views }
   end
 
   view :views_by_name do
