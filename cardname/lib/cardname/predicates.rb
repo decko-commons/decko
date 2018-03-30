@@ -12,18 +12,18 @@ class Cardname
     end
 
     # @return true if name starts with the same parts as `prefix`
-    def starts_with? prefix
+    def starts_with_parts? *prefix
       start_name = prefix.to_name
       start_name == self[0, start_name.num_parts]
     end
-    alias_method :start_with?, :starts_with?
+    alias_method :start_with_parts?, :starts_with_parts?
 
     # @return true if name ends with the same parts as `prefix`
-    def ends_with? postfix
-      end_name = postfix.to_name
+    def ends_with_parts? *suffix
+      end_name = suffix.to_name
       end_name == self[-end_name.num_parts..-1]
     end
-    alias_method :end_with?, :ends_with?
+    alias_method :end_with_parts?, :ends_with_parts?
 
     # @return true if name has a chain of parts that equals `subname`
     def include? subname

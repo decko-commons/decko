@@ -14,16 +14,6 @@ def keyword_contains_wql? hash
 end
 
 format do
-  def default_search_params
-    hash = super
-    hash[:vars] = params[:vars] || {}
-    params.each do |key, val|
-      next unless key.to_s =~ /^\_(\w+)$/
-      hash[:vars][Regexp.last_match(1).to_sym] = val
-    end
-    hash
-  end
-
   view :search_error, cache: :never do
     sr_class = search_with_params.class.to_s
 
@@ -33,14 +23,6 @@ format do
 end
 
 format :html do
-  def extra_paging_path_args
-    vars = query_with_params.vars
-    return {} unless vars.is_a? Hash
-    vars.each_with_object({}) do |(key, value), hash|
-      hash["_#{key}"] = value
-    end
-  end
-
   view :title, cache: :never do
     return super() unless (keyword = search_keyword) &&
                           (title = keyword_search_title(keyword))
@@ -104,7 +86,7 @@ format :json do
   end
 
   def complete_term
-    term = params["_keyword"]
+    term = query_params[:keyword]
     if (term =~ /^\+/) && (main = params["main"])
       term = main + term
     end

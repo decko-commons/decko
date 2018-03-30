@@ -50,5 +50,20 @@ describe Card::Set::All::EventConditions, "event" do
         expect(@log).to contain_exactly(*content_before_change)
       end
     end
+
+    specify "skip event condition" do
+      with_test_events do
+        test_event :validate, on: :update, optional: true, for: "A" do
+          add_to_log "not skipped"
+        end
+        Card["A"].update_attributes! content: "changed content", skip_event: :test_event_0
+
+        aggregate_failures do
+          expect(@log).to be_empty
+          Card["A"].update_attributes! content: "changed content"
+          expect(@log).to contain_exactly "not skipped"
+        end
+      end
+    end
   end
 end

@@ -5,7 +5,6 @@ require 'active_support/inflector'
 require 'htmlentities'
 
 class Cardname < String
-
   require_relative 'cardname/parts'
   require_relative 'cardname/variants'
   require_relative 'cardname/contextual'
@@ -26,7 +25,7 @@ class Cardname < String
                   :session, :stabilize
 
   Cardname.joint          = '+'
-  Cardname.banned_array   = %w{ / }
+  Cardname.banned_array   = []
   Cardname.var_re         = /\{([^\}]*\})\}/
   Cardname.uninflect      = :singularize
   Cardname.stabilize      = false
@@ -38,7 +37,7 @@ class Cardname < String
   class << self
     def new obj
       return obj if obj.is_a? self.class
-      str = stringify obj
+      str = stringify(obj)
       cached_name(str) || super(str)
     end
 
@@ -59,7 +58,8 @@ class Cardname < String
     end
 
     def banned_re
-      %r{#{ (['['] + banned_array << joint) * '\\' + ']' }}
+      banned_chars = (banned_array << joint).join
+      /[#{Regexp.escape banned_chars}]/
     end
 
     # Sometimes the core rule "the key's key must be itself" (called "stable" below) is violated
@@ -73,6 +73,15 @@ class Cardname < String
       key_two = key_one.send(uninflect)
       return key_one unless key_one != key_two
       stabilize ? stable_key(key_two) : name
+    end
+
+    def dangerous_methods
+      bang_methods = String.instance_methods.select { |m| m.to_s.ends_with?("!") }
+      [:replace].concat bang_methods
+    end
+
+    def split_parts str
+      str.split(/\s*#{JOINT_RE}\s*/, -1)
     end
   end
 
@@ -94,6 +103,13 @@ class Cardname < String
     self
   end
 
+  dangerous_methods.each do |m|
+    define_method m do |*args, &block|
+      reset
+      super(*args, &block)
+    end
+  end
+
   def key
     @key ||= part_keys.join(self.class.joint)
   end
@@ -106,5 +122,13 @@ class Cardname < String
       else                                  other.to_s
       end
     other_key == key
+  end
+
+  private
+
+  def reset
+    instance_variables.each do |var|
+      instance_variable_set var, nil
+    end
   end
 end

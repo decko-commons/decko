@@ -2,7 +2,7 @@
 
 describe Card::Set::Self::Search do
   def keyword_search value
-    Card::Env.params[:vars] = { keyword: value }
+    Card::Env.params[:query] = { keyword: value }
     Card[:search].format.search_with_params
   end
 

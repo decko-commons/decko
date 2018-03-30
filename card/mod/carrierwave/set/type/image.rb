@@ -63,7 +63,7 @@ format :html do
       if source.blank? || source == "missing"
         # FIXME - these images should be "broken", not "missing"
         # ("missing" is the view for "unknown" now, so we shouldn't further confuse things)
-        "<!-- image missing #{@card.name} -->"
+        "<!-- image missing #{safe_name} -->"
       else
         image_tag source
       end

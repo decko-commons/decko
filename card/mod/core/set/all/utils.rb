@@ -1,12 +1,4 @@
 module ClassMethods
-  def delete_tmp_files id=nil
-    dir = Cardio.paths["files"].existent.first + "/tmp"
-    dir += "/#{id}" if id
-    FileUtils.rm_rf dir, secure: true
-  rescue
-    Rails.logger.info "failed to remove tmp files"
-  end
-
   def merge_list attribs, opts={}
     unmerged = []
     attribs.each do |row|
@@ -48,9 +40,5 @@ module ClassMethods
     else
       card.update_attributes! attribs
     end
-  end
-
-  def seed_test_db
-    system "env RAILS_ENV=test bundle exec rake db:fixtures:load"
   end
 end
