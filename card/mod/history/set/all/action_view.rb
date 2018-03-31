@@ -1,14 +1,12 @@
 format :html do
   view :action_summary, cache: :never do
-    action_summary action_from_context
-  end
-
-  def action_summary action
+    action = voo.action || action_from_context
     action_content action, :summary
   end
 
   view :action_expanded, cache: :never do
-    action_content action_from_context, :expanded
+    action = voo.action || action_from_context
+    action_content action, :expanded
   end
 
   def action_content action, view_type

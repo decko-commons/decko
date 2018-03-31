@@ -1,8 +1,14 @@
 format :html do
   view :act, cache: :never do
-    raise Card::Error, "act_id param required" unless (act_id = params["act_id"])
-    raise Card::NotFound "act not found" unless (act = Act.find act_id)
-    act_listing act
+    act_listing act_from_context
+  end
+
+  def act_from_context
+    if (act_id = params["act_id"])
+      Act.find(act_id) || raise(Card::NotFound, "act not found")
+    else
+      card.last_action.act
+    end
   end
 
   view :act_legend do
@@ -36,7 +42,7 @@ format :html do
   def act_listing act, seq=nil, context=nil
     opts = act_listing_opts_from_params(seq)
     opts[:slot_class] = "revision-#{act.id} history-slot list-group-item"
-    context ||= params[:act_context].to_sym
+    context ||= (params[:act_context] || :absolute).to_sym
     act_renderer(context).new(self, act, opts).render
   end
 

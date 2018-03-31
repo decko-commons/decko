@@ -47,7 +47,7 @@ class Card
         joins(:actions).where(sql, vars).distinct.order(:id).reverse_order
       end
 
-      # all actions that current user has permission to view
+      # all acts with actions that current user has permission to view
       # @return [Array of Actions]
       def all_viewable
         card_join = "JOIN cards ON cards.id = card_actions.card_id"

@@ -6,8 +6,8 @@ def history?
 end
 
 # all acts with actions on self and on cards included in self (ie, acts shown in history)
-def historical_acts
-  @historical_acts ||= Act.find_all_with_actions_on (included_card_ids << id), true
+def history_acts
+  @history_acts ||= Act.find_all_with_actions_on (included_card_ids << id), true
 end
 
 format :html do
@@ -15,7 +15,7 @@ format :html do
     frame do
       voo.show :toolbar
       class_up "d0-card-body",  "history-slot"
-      acts_layout card.historical_acts, :relative, ACTS_PER_PAGE, :show
+      acts_layout card.history_acts, :relative, ACTS_PER_PAGE, :show
     end
   end
 
@@ -67,15 +67,6 @@ end
 
 def changed_fields
   Card::Change::TRACKED_FIELDS & (changed_attribute_names_to_save | saved_changes.keys)
-end
-
-def current_historical_act_number
-  @current_historical_act_number ||=
-    if historical_acts.first.actions.last.draft
-      historical_acts.size - 1
-    else
-      historical_acts.size
-    end
 end
 
 def included_card_ids

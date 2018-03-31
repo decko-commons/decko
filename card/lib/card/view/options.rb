@@ -25,7 +25,8 @@ class Card
           :main,           # format object is page's "main" object (Boolean)
           :home_view,      # view for slot to return to when no view specified
           :edit_structure, # use a different structure for editing (Array)
-          :wql             # contextual wql alterations for search cards (Hash)
+          :wql,            # contextual wql alterations for search cards (Hash)
+          :action          # a Card::Action object
         ],
         both: [
           :help,           # cue text when editing
