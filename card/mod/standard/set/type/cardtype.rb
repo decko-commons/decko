@@ -6,7 +6,9 @@ end
 
 format :html do
   view :type do
-    link_to_card card.type_card, nil, class: "cardtype no-edit"
+    link_args = { class: "cardtype" }
+    add_class link_args, "no-edit" if card.cards_of_type_exist?
+    link_to_card card.type_card, nil, link_args
   end
 
   view :type_formgroup do

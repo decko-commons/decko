@@ -19,6 +19,12 @@ format do
   end
 end
 
+format :json do
+  def items_for_export
+    card.item_cards
+  end
+end
+
 format :rss do
   view :feed_body do
     case raw_feed_items
