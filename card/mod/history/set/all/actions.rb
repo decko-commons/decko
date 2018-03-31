@@ -48,7 +48,7 @@ event :rollback_actions, :prepare_to_validate, on: :update, when: :rollback_requ
 end
 
 def rollback_request?
-  history? && Env&.params["revert_actions"]&.class == Array
+  history? && actions_to_revert.any?
 end
 
 def process_revert_actions
@@ -61,7 +61,7 @@ def process_revert_actions
 end
 
 def actions_to_revert
-  Env.params["revert_actions"].map do |a_id|
+  Array.wrap(Env.params["revert_actions"]).map do |a_id|
     Action.fetch(a_id) || nil
   end.compact
 end

@@ -34,7 +34,7 @@ format :html do
 
         <div class="perm-indiv perm-vals perm-section">
           <h5 class="text-muted">Individuals</h5>
-          #{list_input item_list: item_names, extra_css_class: "perm-indiv-ul"}
+          #{list_input item_list: item_names, extra_css_class: 'perm-indiv-ul'}
         </div>
       </div>
     )

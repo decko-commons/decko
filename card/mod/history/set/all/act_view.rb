@@ -59,7 +59,7 @@ format :html do
   end
 
   def clean_acts acts
-    # FIXME - if we get rid of bad act data, this will not be necessary
+    # FIXME: if we get rid of bad act data, this will not be necessary
     # (in the meantime, it will make paging confusing)
     acts.reject { |a| !a.card }
   end

@@ -14,4 +14,3 @@ end
 # def remove_empty_act?
 #   act_card? && ActManager.act&.actions&.reload&.empty?
 # end
-

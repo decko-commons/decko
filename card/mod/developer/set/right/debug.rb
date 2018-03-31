@@ -29,7 +29,7 @@ format :html do
       ans.shift
       hash[sm.to_s] = ans
     end
-    accordion_group() { sets }
+    accordion_group { sets }
   end
 
   def set_patterns_breadcrumb subject
