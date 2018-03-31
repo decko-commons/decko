@@ -20,14 +20,17 @@ format :html do
   end
 
   view :add_link do
-    voo.title ||= tr(:add_card, cardname: safe_name)
-    title = _render_title
-    link_to title, path: _render_add_path
+    add_link
   end
 
-  view :add_button, view: :add_link
-  def default_add_button_args args
-    args[:css_class] = "btn btn-outline-secondary"
+  view :add_button do
+    add_link "btn btn-outline-secondary"
+  end
+
+  def add_link css_class=nil
+    voo.title ||= tr(:add_card, cardname: safe_name)
+    title = _render_title
+    link_to title, path: _render_add_path, class: css_class
   end
 
   view :add_url do

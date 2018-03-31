@@ -5,9 +5,9 @@
 event :assign_action, :initialize, when: :actionable? do
   act = director.need_act
   @current_action = Card::Action.create(
-      card_act_id: act.id,
-      action_type: @action,
-      draft: (Env.params["draft"] == "true")
+    card_act_id: act.id,
+    action_type: @action,
+    draft: (Env.params["draft"] == "true")
   )
   if @supercard && @supercard != self
     @current_action.super_action = @supercard.current_action
