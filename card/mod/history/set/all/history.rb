@@ -7,8 +7,7 @@ end
 
 # all acts with actions on self and on cards included in self (ie, acts shown in history)
 def historical_acts
-  @historical_acts ||=
-    Act.find_all_with_actions_on (included_card_ids << id), with_drafts: true
+  @historical_acts ||= Act.find_all_with_actions_on (included_card_ids << id), true
 end
 
 format :html do
