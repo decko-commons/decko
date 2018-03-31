@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 # A card that includes Abstract::SolidCache has as its core view a cached version of
-# its "cachedable_core" view, which is storeed in a '+*solid cache' card.
+# its "cacheable_core" view, which is storeed in a '+*solid cache' card.
 # If that card exists the core view returns its content as rendered view.
 # If it doesn't exist the usual core view is rendered and saved in that card.
 #
@@ -58,7 +58,7 @@ module ClassMethods
     set_of_changed_card.event name, stage, args do
       Array.wrap(yield(self)).compact.each do |expired_cache_card|
         next unless expired_cache_card.solid_cache?
-        expired_cache_card.send method_name, self
+        expired_cache_card.send method_name
       end
     end
   end

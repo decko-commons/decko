@@ -7,14 +7,14 @@ describe Card::Set::Abstract::SolidCache do
     end
 
     # let(:core_view) { 'Alpha <a class="known-card" href="/Z">Z</a>' }
-    let(:core_view) { "Alpha Z[/Z]" }
+    let(:cacheable_core_view) { "view (cacheable_core) not supported for A" }
 
     context "with solid cache" do
       it "saves core view in solid cache card" do
-        @card.format_with_set(described_class, &:render_core)
+        @card.format_with_set described_class, &:render_core
         Card::Auth.as_bot do
           expect(Card["A", :solid_cache]).to be_instance_of(Card)
-          expect(Card["A", :solid_cache].content).to eq(core_view)
+          expect(Card["A", :solid_cache].content).to eq(cacheable_core_view)
         end
       end
 
@@ -36,8 +36,7 @@ describe Card::Set::Abstract::SolidCache do
       Card::Auth.as_bot do
         Card.create! name: "volatile", codename: "volatile",
                      content: "chopping"
-        Card.create! name: "cached", codename: "cached",
-                     content: "chopping and {{volatile|core}}"
+        Card.create! name: "cached", codename: "cached"
       end
       Card::Codename.reset_cache
     end
@@ -46,6 +45,10 @@ describe Card::Set::Abstract::SolidCache do
         module Card::Set::Self::Cached
           extend Card::Set
           include_set Card::Set::Abstract::SolidCache
+
+          view :cacheable_core do
+            process_content "chopping and {{volatile|core}}"
+          end
 
           ensure_set { Card::Set::Self::Volatile }
           cache_update_trigger Card::Set::Self::Volatile do
