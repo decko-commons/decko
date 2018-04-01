@@ -7,7 +7,8 @@ shared_examples_for "notifications" do
 
   describe "#list_of_changes" do
     def list_of_changes card, action=nil
-      card.format(format: format).list_of_changes(action)
+      args = action ? { action_id: action.id } : {}
+      card.format(format: format).render_list_of_changes args
     end
 
     example "for a new card" do

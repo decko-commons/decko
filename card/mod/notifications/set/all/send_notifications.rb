@@ -134,11 +134,7 @@ end
 
 format do
   view :list_of_changes, denial: :blank, cache: :never do
-    list_of_changes
-  end
-
-  def list_of_changes action=nil
-    action = notification_action action
+    action = notification_action voo.action_id
     relevant_fields(action).map do |type|
       edit_info_for(type, action)
     end.compact.join
@@ -168,7 +164,7 @@ format do
     action = notification_action voo.action_id
     wrap_subedit_item do
       %(#{name_before_action action} #{action.action_type}d\n) +
-        list_of_changes(action)
+        render_list_of_changes(action_id: action.id)
     end
   end
 
