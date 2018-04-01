@@ -159,13 +159,13 @@ format do
     wrap_subedits do
       notification_act.actions_affecting(card).map do |action|
         next if action.card_id == card.id || !action.card&.ok?(:read)
-        action.card.format(format: @format).subedit_notice action
+        action.card.format(format: @format).subedit_notice action_id: action.id
       end
     end
   end
 
-  def subedit_notice action=nil
-    action = notification_action action
+  view :subedit_notice do
+    action = notification_action voo.action_id
     wrap_subedit_item do
       %(#{name_before_action action} #{action.action_type}d\n) +
         list_of_changes(action)
@@ -256,8 +256,8 @@ format do
     @notification_act ||= act || card.acts.last
   end
 
-  def notification_action action=nil
-    action || card.last_action
+  def notification_action action_id
+    action_id ? Action.find(action_id) : card.last_action
   end
 
   view :last_action_verb, cache: :never do

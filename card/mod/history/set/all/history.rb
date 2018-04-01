@@ -1,5 +1,3 @@
-ACTS_PER_PAGE = 3 # Card.config.acts_per_page
-
 # track history (acts, actions, changes) on this card
 def history?
   true
@@ -7,7 +5,11 @@ end
 
 # all acts with actions on self and on cards included in self (ie, acts shown in history)
 def history_acts
-  @history_acts ||= Act.find_all_with_actions_on (included_card_ids << id), true
+  @history_acts ||= Act.all_with_actions_on(history_card_ids, true).order id: :desc
+end
+
+def history_card_ids
+  includee_ids << id
 end
 
 format :html do
@@ -15,7 +17,7 @@ format :html do
     frame do
       voo.show :toolbar
       class_up "d0-card-body",  "history-slot"
-      acts_layout card.history_acts, :relative, ACTS_PER_PAGE, :show
+      acts_layout card.history_acts, :relative, :show
     end
   end
 
@@ -69,8 +71,8 @@ def changed_fields
   Card::Change::TRACKED_FIELDS & (changed_attribute_names_to_save | saved_changes.keys)
 end
 
-def included_card_ids
-  @included_card_ids ||=
+def includee_ids
+  @includee_ids ||=
     Card::Reference.select(:referee_id).where(
       ref_type: "I", referer_id: id
     ).pluck("referee_id").compact.uniq

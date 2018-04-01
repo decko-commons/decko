@@ -1,12 +1,18 @@
 format :html do
-  view :action_summary, cache: :never do
-    action = voo.action || action_from_context
-    action_content action, :summary
+  view :action_summary do
+    action_content action_from_context, :summary
   end
 
-  view :action_expanded, cache: :never do
-    action = voo.action || action_from_context
-    action_content action, :expanded
+  view :action_expanded do
+    action_content action_from_context, :expanded
+  end
+
+  def action_from_context
+    if (action_id = voo.action_id || params[:action_id])
+      Action.find action_id
+    else
+      card.last_action
+    end
   end
 
   def action_content action, view_type
@@ -21,14 +27,6 @@ format :html do
     diff = action.new_content? && content_changes(action, view_type)
     return "<i>empty</i>" unless diff.present?
     diff
-  end
-
-  def action_from_context
-    if (action_id = params[:action_id])
-      Action.find action_id
-    else
-      card.last_action
-    end
   end
 
   def action_content_toggle action, view_type

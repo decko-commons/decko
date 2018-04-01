@@ -6,13 +6,14 @@ view :title do
 end
 
 def recent_acts
-  Act.all_viewable.order(id: :desc)
+  Act.all_viewable("draft is not true").order id: :desc
 end
 
 format :html do
   view :core do
     voo.hide :history_legend unless voo.main
-    acts_layout card.recent_acts, :absolute, ACTS_PER_PAGE
+    @acts_per_page = ACTS_PER_PAGE
+    acts_layout card.recent_acts, :absolute
   end
 end
 

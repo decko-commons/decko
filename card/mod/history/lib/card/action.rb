@@ -56,6 +56,14 @@ class Card
       def cache
         Card::Cache[Action]
       end
+
+      def all_with_cards
+        Action.joins "JOIN cards ON cards.id = card_actions.card_id"
+      end
+
+      def all_viewable
+        all_with_cards.where Query::SqlStatement.new.permission_conditions("cards")
+      end
     end
 
     # each action is associated with on and only one card

@@ -159,7 +159,7 @@ def followed_field? field_card
     follow_field_rule.item_names.find do |item|
       item.to_name.key == field_card.key ||
         (item.to_name.key == Card[:includes].key &&
-         included_card_ids.include?(field_card.id))
+         includee_ids.include?(field_card.id))
     end
 end
 

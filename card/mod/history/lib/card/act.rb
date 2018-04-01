@@ -35,32 +35,23 @@ class Card
         ).delete_all
       end
 
-      # all actions on a set of card ids
+      # all acts with actions on a given list of cards
       # @param card_ids [Array of Integers]
-      # @param args [Hash]
-      #   with_drafts: [true, false]
-      # @return [Array of Actions]
-      def find_all_with_actions_on card_ids, with_drafts=false
+      # @param with_drafts: [true, false] (only shows drafts of current user)
+      # @return [Array of Acts]
+      def all_with_actions_on card_ids, with_drafts=false
         sql = "card_actions.card_id IN (:card_ids) AND ( (draft is not true) "
         sql << (with_drafts ? "OR actor_id = :current_user_id)" : ")")
-        vars = { card_ids: card_ids, current_user_id: Card::Auth.current_id }
-        joins(:actions).where(sql, vars).distinct.order(:id).reverse_order
+        all_viewable([sql, { card_ids: card_ids,
+                             current_user_id: Card::Auth.current_id }]).distinct
       end
 
       # all acts with actions that current user has permission to view
       # @return [Array of Actions]
-      def all_viewable
-        card_join = "JOIN cards ON cards.id = card_actions.card_id"
-        action_conditions = [
-          "card_acts.id = card_act_id",
-          "card_actions.card_id is not null",
-          "draft is not true",
-          Query::SqlStatement.new.permission_conditions("cards")
-        ].compact.join " AND "
-
-        viewable_actions =
-          Action.joins(card_join).where(action_conditions).to_sql
-        where("card_id is not null AND EXISTS (#{viewable_actions})")
+      def all_viewable action_where = nil
+        viewable_actions = Action.all_viewable.where "card_acts.id = card_act_id"
+        viewable_actions = viewable_actions.where(action_where) if action_where
+        where("EXISTS (#{viewable_actions.to_sql})").where.not "card_id" => nil
       end
     end
 
@@ -101,7 +92,7 @@ class Card
     def actions_affecting card
       actions.select do |action|
         (card.id == action.card_id) ||
-          card.included_card_ids.include?(action.card_id)
+          card.includee_ids.include?(action.card_id)
       end
     end
 

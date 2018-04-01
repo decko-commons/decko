@@ -1,3 +1,5 @@
+ACTS_PER_PAGE = 3 # Card.config.acts_per_page
+
 format :html do
   view :act, cache: :never do
     act_listing act_from_context
@@ -25,16 +27,16 @@ format :html do
   # @param acts [ActiveRecord::Relation] relation that will return acts objects
   # @param context [Symbol] :relative or :absolute
   # @param draft_legend [Symbol] :show or :hide
-  def acts_layout acts, context, per_page, draft_legend=:hide
+  def acts_layout acts, context, draft_legend=:hide
     bs_layout container: true, fluid: true do
       html _render_act_legend(draft_legend => :draft_legend)
-      row(12) { act_list acts, context, per_page }
-      row(12) { act_paging acts, per_page }
+      row(12) { act_list acts, context }
+      row(12) { act_paging acts }
     end
   end
 
-  def act_list acts, context, per_page
-    act_accordion acts, per_page do |act, seq|
+  def act_list acts, context
+    act_accordion acts do |act, seq|
       act.card.format(:html).act_listing act, seq, context
     end
   end
@@ -54,10 +56,10 @@ format :html do
       hide_diff: params["hide_diff"].to_s.strip == "true" }
   end
 
-  def act_accordion acts, per_page
+  def act_accordion acts
     accordion_group nil, class: "clear-both" do
-      seq = act_list_starting_seq(acts, per_page) + 1
-      clean_acts(current_page_acts(acts, per_page)).map do |act|
+      seq = act_list_starting_seq(acts) + 1
+      clean_acts(current_page_acts(acts)).map do |act|
         seq -= 1
         yield act, seq
       end
@@ -70,21 +72,25 @@ format :html do
     acts.reject { |a| !a.card }
   end
 
-  def current_page_acts acts, per_page
-    acts.page(acts_page_from_params).per(per_page)
+  def current_page_acts acts
+    acts.page(acts_page_from_params).per acts_per_page
   end
 
-  def act_list_starting_seq acts, per_page
-    acts.size - (acts_page_from_params - 1) * per_page
+  def act_list_starting_seq acts
+    acts.size - (acts_page_from_params - 1) * acts_per_page
+  end
+
+  def acts_per_page
+    @acts_per_page || ACTS_PER_PAGE
   end
 
   def acts_page_from_params
     @act_page_from_params ||= params["page"].present? ? params["page"].to_i : 1
   end
 
-  def act_paging acts, per_page
+  def act_paging acts
     wrap_with :span, class: "slotter" do
-      acts = current_page_acts acts, per_page
+      acts = current_page_acts acts
       paginate acts, remote: true, theme: "twitter-bootstrap-4"
     end
   end
