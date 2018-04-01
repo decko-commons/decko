@@ -48,7 +48,7 @@ class Card
 
       # all acts with actions that current user has permission to view
       # @return [Array of Actions]
-      def all_viewable action_where = nil
+      def all_viewable action_where=nil
         viewable_actions = Action.all_viewable.where "card_acts.id = card_act_id"
         viewable_actions = viewable_actions.where(action_where) if action_where
         where("EXISTS (#{viewable_actions.to_sql})").where.not "card_id" => nil

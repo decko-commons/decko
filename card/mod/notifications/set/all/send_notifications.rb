@@ -253,7 +253,7 @@ format do
   end
 
   def notification_action action_id
-    action_id ? Action.find(action_id) : card.last_action
+    action_id ? Action.fetch(action_id) : card.last_action
   end
 
   view :last_action_verb, cache: :never do

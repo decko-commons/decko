@@ -148,7 +148,7 @@ class Card
         end
     end
 
-    # all action in hash form. { field1: new_value }
+    # all changed values in hash form. { field1: new_value }
     def changed_values
       @changed_values ||= changes.each_with_object({}) do |(key,change), h|
         h[key] = change.value
@@ -164,24 +164,6 @@ class Card
                                                 value: card.send(field),
                                                 card_action_id: id
         end
-    end
-
-    # does action change card's type?
-    # @return [true/false]
-    def new_type?
-      !value(:type_id).nil?
-    end
-
-    # does action change card's content?
-    # @return [true/false]
-    def new_content?
-      !value(:db_content).nil?
-    end
-
-    # does action change card's name?
-    # @return [true/false]
-    def new_name?
-      !value(:name).nil?
     end
 
     # translate field into fieldname as referred to in database

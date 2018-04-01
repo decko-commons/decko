@@ -9,7 +9,7 @@ format :html do
 
   def action_from_context
     if (action_id = voo.action_id || params[:action_id])
-      Action.find action_id
+      Action.fetch action_id
     else
       card.last_action
     end
