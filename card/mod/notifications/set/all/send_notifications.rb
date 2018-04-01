@@ -158,8 +158,8 @@ format do
   view :subedits, perms: :none, cache: :never do
     wrap_subedits do
       notification_act.actions_affecting(card).map do |action|
-        next if action.card_id == card.id || !action.card&.ok?(:read)
-        action.card.format(format: @format).subedit_notice action_id: action.id
+        next if action.card_id == card.id
+        action.card.format(format: @format).render_subedit_notice action_id: action.id
       end
     end
   end

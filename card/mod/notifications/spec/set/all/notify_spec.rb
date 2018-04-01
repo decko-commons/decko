@@ -35,7 +35,7 @@ shared_examples_for "notifications" do
 
   describe "subedit_notice" do
     def subedit_notice card
-      card.format(format: format).subedit_notice
+      card.format(format: format).render_subedit_notice
     end
 
     example "for a created card" do
