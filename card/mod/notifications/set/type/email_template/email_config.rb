@@ -4,9 +4,7 @@ def email_config args={}
 
   %i[to from cc bcc].each do |field_name|
     process_email_field(field_name, config, args) do |field_card|
-      field_card.process_email_addresses(
-        args[:context], { format: "email_text" }, args
-      )
+      field_card.process_email_addresses(args[:context], format: "email_text")
     end
   end
   process_email_field(:attach, config, args) do |field_card|

@@ -243,9 +243,6 @@ format :html do
     end
   end
 
-  # def default_edit_rule_args args
-  #   args[:set_context] ||= card.rule_set_name
-  # end
 
   def rule_set_formgroup
     tag = @rule_context.rule_user_setting_name
