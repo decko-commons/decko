@@ -34,7 +34,7 @@ format :html do
   view :layout, perms: :none, cache: :never do
     layout = process_content get_layout_content(voo.layout),
                              content_opts: { chunk_list: :references }
-    output [layout, _render_modal_slot]
+    output [layout, modal_slot]
   end
 
   view :content do

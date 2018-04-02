@@ -62,7 +62,7 @@ RSpec.describe Card::Set::All::SendNotifications do
   end
 
   def notification_email_for card_name, followed_set: "#{card_name}+*self"
-    Card[:follower_notification_email].format.render_mail(
+    Card[:follower_notification_email].format.mail(
       context:   Card[card_name].refresh(true),
       to:        Card["Joe User"].email,
       follower:  Card["Joe User"].name,

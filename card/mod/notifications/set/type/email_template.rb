@@ -4,14 +4,14 @@ def clean_html?
 end
 
 def deliver args={}
-  mail = format.render_mail(args)
+  mail = format.mail args
   mail.deliver
 rescue Net::SMTPError => exception
   errors.add :exception, exception.message
 end
 
 format do
-  view :mail, perms: :none, cache: :never do |args|
+  def mail args
     config = card.email_config args
     fmt = self # self is <Mail::Message> within the new_mail block
     Card::Mailer.new_mail config do

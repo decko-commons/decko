@@ -194,8 +194,7 @@ def send_change_notice act, followed_set, follow_option
 end
 
 format :email do
-  view :mail do |args|
-    args[:to] ||= card.email
-    super args
+  def mail args
+    super args.reverse_merge(to: card.email)
   end
 end
