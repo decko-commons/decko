@@ -78,7 +78,7 @@ format :html do
 
   def menu_follow_link opts
     add_class opts, "dropdown-item"
-    _render_follow_link(icon: true, link_opts: opts)
+    follow_link opts, true
   end
 
   def menu_page_link opts

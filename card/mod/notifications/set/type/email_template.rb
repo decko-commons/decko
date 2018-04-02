@@ -11,7 +11,7 @@ rescue Net::SMTPError => exception
 end
 
 format do
-  def mail args
+  def mail args={}
     config = card.email_config args
     fmt = self # self is <Mail::Message> within the new_mail block
     Card::Mailer.new_mail config do

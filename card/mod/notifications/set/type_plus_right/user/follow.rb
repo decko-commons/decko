@@ -106,10 +106,6 @@ format :html do
   end
 
   view :following_list, cache: :never do
-    if !Auth.signed_in? || Auth.current_id != card.left.id
-      hide_buttons = %i[delete_follow_rule_button add_follow_rule_button]
-    end
-
     sets = followed_by_set
     wrap_with :div, class: "pointer-list-editor" do
       wrap_with :ul, class: "delete-list list-group" do
@@ -117,8 +113,7 @@ format :html do
           sets[set_pattern].map do |rule|
             rule[:options].map do |option|
               wrap_with :li, class: "list-group-item" do
-                subformat(rule[:card]).render_follow_item condition: option,
-                                                          hide: hide_buttons
+                subformat(rule[:card]).follow_item option, show_follow_buttons?
               end
             end
           end
@@ -128,26 +123,29 @@ format :html do
   end
 
   view :ignoring_list, cache: :never do
+    wrap_with :div, class: "pointer-list-editor" do
+      wrap_with :ul, class: "delete-list list-group" do
+        ignored_cards.map do |rule_card|
+          wrap_with :li, class: "list-group-item" do
+            subformat(rule_card).follow_item :never.cardname, show_follow_buttons?
+          end
+        end.join "\n"
+      end
+    end
+  end
+
+  def ignored_cards
     ignore_list = []
     card.known_item_cards.each do |follow_rule|
       follow_rule.item_cards.each do |follow_option|
         ignore_list << follow_rule if follow_option.codename.to_sym == :never
       end
     end
-    if !Auth.signed_in? || Auth.current_id != card.left.id
-      hide_buttons = %i[delete_follow_rule_button add_follow_rule_button]
-    end
-    never = Card[:never].name
-    wrap_with :div, class: "pointer-list-editor" do
-      wrap_with :ul, class: "delete-list list-group" do
-        ignore_list.map do |rule_card|
-          wrap_with :li, class: "list-group-item" do
-            subformat(rule_card).render_follow_item condition: never,
-                                                    hide: hide_buttons
-          end
-        end.join "\n"
-      end
-    end
+    ignore_list
+  end
+
+  def show_follow_buttons?
+    Auth.signed_in? && Auth.current_id == card.left.id
   end
 
   def pointer_items args
