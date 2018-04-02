@@ -135,7 +135,7 @@ format :html do
 
   def open_rule_instruction
     wrap_with :div, class: "alert alert-info rule-instruction" do
-      process_content "{{#{card.rule_setting_name}+*right+*help|content}}"
+      rule_based_help
     end
   end
 
