@@ -74,7 +74,7 @@ class Card
 
       # indicates a code problem and therefore require full logging
       def problematic_exception_view card, exception
-        card.notable_exception_raised
+        card.notable_exception_raised if card
 
         if exception.is_a? ActiveRecord::RecordInvalid
           :errors

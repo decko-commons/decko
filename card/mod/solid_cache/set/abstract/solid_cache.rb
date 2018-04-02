@@ -10,8 +10,6 @@
 
 card_accessor :solid_cache, type: :html
 
-include_set Abstract::Lock
-
 def self.included host_class
   host_class.format(host_class.try(:cached_format) || :base) do
     view :core, cache: :never do
@@ -93,12 +91,5 @@ def generate_content_for_cache
 end
 
 def write_to_solid_cache new_content
-  lock do
-    if solid_cache_card.new_card?
-      solid_cache_card.update_attributes! content: new_content
-    elsif new_content != solid_cache_card.content
-      solid_cache_card.update_column :db_content, new_content
-      solid_cache_card.expire
-    end
-  end
+  solid_cache_card.write! new_content
 end
