@@ -1,4 +1,4 @@
-ACTS_PER_PAGE = 3 # Card.config.acts_per_page
+ACTS_PER_PAGE = Card.config.acts_per_page
 
 format :html do
   view :act, cache: :never do
