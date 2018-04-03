@@ -65,49 +65,46 @@ format :html do
   def menu_item_list link_opts={}
     MENU_ITEMS.map do |item|
       next unless show_menu_item?(item)
-      send "menu_#{item}_link", link_opts
+      send "menu_item_#{item}", link_opts
     end.compact
   end
 
-#   view :menu_edit_link, when: :show_menu_edit_link,
-#        params: [ :menu_item_class ]
-#
-#     menu_item class: menu_item_class
-# end
   MENU_ITEMS.each do |item|
+    view "menu_item_#{item}" do
+      send "menu_item_#{item}", {}
+    end
   end
 
-
-  def menu_edit_link opts
+  def menu_item_edit opts
     menu_item "edit", "edit", opts.merge(view: :edit, path: menu_path_opts)
   end
 
-  def menu_discuss_link opts
+  def menu_item_discuss opts
     menu_item "discuss", "comment",
               opts.merge(related: :discussion.cardname.key)
   end
 
-  def menu_follow_link opts
+  def menu_item_follow opts
     add_class opts, "dropdown-item"
     _render_follow_link(icon: true, link_opts: opts)
   end
 
-  def menu_page_link opts
+  def menu_item_page opts
     menu_item "page", "open_in_new", opts.merge(card: card)
   end
 
-  def menu_rules_link opts
+  def menu_item_rules opts
     menu_item "rules", "build", opts.merge(view: :edit_rules)
   end
 
-  def menu_account_link opts
+  def menu_item_account opts
     menu_item "account", "person", opts.merge(
       view: :related,
       path: { related: { name: "+#{:account.cardname.key}", view: :edit } }
     )
   end
 
-  def menu_more_link opts
+  def menu_item_more opts
     view = voo.home_view || :open
     menu_item "", :option_horizontal, opts.merge(
       view: view, path: { slot: { show: :toolbar } }
