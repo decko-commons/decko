@@ -28,7 +28,7 @@ format :json do
 
     # avoid running the search from +*options (huge results) and +*structure (errors)
     def unexportable_tag? tag_key
-      [:options, :structure].map { |code| code.cardname.key }.include? tag_key
+      %i[options structure].map { |code| code.cardname.key }.include? tag_key
     end
   end
 end
