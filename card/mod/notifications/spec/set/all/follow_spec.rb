@@ -88,8 +88,7 @@ describe Card::Set::All::Follow do
       #          CGI.escape("[[*always]]")
       #        end
 
-      link_class = "follow-link"
-      assert_view_select follow_view(name), "a[class~=#{link_class}][href*='']",
+      assert_view_select follow_view(name), "a[class~=follow-link][href*='']",
                          args[:text] || "follow"
     end
 
