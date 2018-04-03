@@ -243,7 +243,6 @@ format :html do
     end
   end
 
-
   def rule_set_formgroup
     tag = @rule_context.rule_user_setting_name
     narrower = []
