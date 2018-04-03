@@ -121,7 +121,7 @@ RSpec.describe Card::Subcards do
       expect_card("sub").to have_db_content "sub content 2"
     end
 
-    it "allows to change left card", as_bot: true do
+    it "attribute changes to left card are possible", as_bot: true do
       create_with_event "left part+right part", :prepare_to_store do
         add_subcard "left part", type_id: Card::PhraseID
       end
