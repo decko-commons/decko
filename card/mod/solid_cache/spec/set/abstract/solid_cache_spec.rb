@@ -33,7 +33,7 @@ describe Card::Set::Abstract::SolidCache do
           Card::Auth.as_bot do
             Card["A"].solid_cache_card.update_attributes! content: "cache"
           end
-          expect(format._render_core hide: :solid_cache).to eq core_view
+          expect(format._render_core(hide: :solid_cache)).to eq core_view
         end
       end
     end
