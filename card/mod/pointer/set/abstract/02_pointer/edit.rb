@@ -1,23 +1,19 @@
 format :html do
-  view :editor do |args|
-    # FIXME: use voo
-    @item_list = args[:item_list]
-    @extra_css_class = args[:extra_css_class]
+  view :editor do
     _render_hidden_content_field + super()
-    # .merge(pointer_item_class: 'form-control')))
   end
 
   def default_editor
     :list
   end
 
-  view :list, cache: :never do |args|
-    list_input args
+  view :list, cache: :never do
+    list_input
   end
 
   def list_input args={}
     items = items_for_input args[:item_list]
-    extra_class = args[:extra_css_class] || "pointer-list-ul"
+    extra_class = "pointer-list-ul"
     ul_classes = classy "pointer-list-editor", extra_class
     haml :list_input, items: items, ul_classes: ul_classes
   end
@@ -30,12 +26,11 @@ format :html do
     end
   end
 
-  view :list_item, template: :haml do |args|
-    @item = args[:pointer_item]
-    @options_card ||= options_card_name
+  def edit_list_item item
+    haml :list_item, pointer_item: item, options_card: options_card_name
   end
 
-  view :autocomplete do |_args|
+  view :autocomplete do
     autocomplete_input
   end
 
@@ -45,11 +40,11 @@ format :html do
   end
 
   def autocomplete_input
-    items = items_for_input @item_list
+    items = items_for_input
     haml :autocomplete_input, item: items.first, options_card: options_card_name
   end
 
-  view :checkbox do |_args|
+  view :checkbox do
     checkbox_input
   end
 
@@ -70,7 +65,7 @@ format :html do
     raw %(<div class="pointer-checkbox-list">#{options}</div>)
   end
 
-  view :multiselect do |_args|
+  view :multiselect do
     multiselect_input
   end
 
@@ -82,7 +77,7 @@ format :html do
     )
   end
 
-  view :radio do |_args|
+  view :radio do
     radio_input
   end
 
@@ -105,7 +100,7 @@ format :html do
     raw %(<ul class="pointer-radio-list">#{options}</ul>)
   end
 
-  view :select do |_args|
+  view :select do
     select_input
   end
 

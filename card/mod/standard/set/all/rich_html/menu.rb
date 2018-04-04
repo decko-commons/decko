@@ -5,7 +5,7 @@ format :html do
       [
         _render(:horizontal_menu, optional: :hide),
         _render_menu_link,
-        _render_modal_slot(modal_id: card.name.safe_key)
+        modal_slot(card.name.safe_key)
       ]
     end
   end
@@ -78,7 +78,7 @@ format :html do
 
   def menu_follow_link opts
     add_class opts, "dropdown-item"
-    _render_follow_link(icon: true, link_opts: opts)
+    follow_link opts, true
   end
 
   def menu_page_link opts

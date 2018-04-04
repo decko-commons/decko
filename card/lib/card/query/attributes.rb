@@ -41,7 +41,7 @@ class Card
       end
 
       def complete val
-        no_plus_card = (val =~ /\+/ ? "" : "and right_id is null")
+        no_plus_card = (val =~ /\+/ ? "" : "and #{table_alias}.right_id is null")
         # FIXME: -- this should really be more nuanced --
         # it breaks down after one plus
         name_like "#{val}%", no_plus_card

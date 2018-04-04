@@ -171,7 +171,7 @@ RSpec.describe Card::Set::Right::Account do
 
   describe "#send_change_notice" do
     subject(:mail) do
-      Card[:follower_notification_email].format.render_mail(
+      Card[:follower_notification_email].format.mail(
         context:       Card.fetch("A", look_in_trash: true),
         to:            "joe@user.com",
         follower:      Card["Joe User"],

@@ -4,9 +4,9 @@ def virtual?
 end
 
 format :html do
-  view :core do |args|
+  view :core do
     if card.left && Auth.signed_in?
-      render_rule_editor args
+      render_rule_editor
     else
       fname = "#{card.name.left}+#{Card[:followers].name}"
       fcard = Card.fetch fname
@@ -14,7 +14,7 @@ format :html do
     end
   end
 
-  view :status do |_args|
+  view :status do
     if (rcard = current_follow_rule_card)
       rcard.item_cards.map do |item|
         %(<div class="alert alert-success" role="alert">
@@ -26,16 +26,11 @@ format :html do
     end
   end
 
-  view :closed_content do |_args|
+  view :closed_content do
     ""
   end
 
-  # view :editor do |args|
-  #   hidden_field( :content, class: 'd0-card-content', 'no-autosave'=>true) +
-  #   (args.delete(:select_list) ? raw(render_rule_editor(args)) : super(args) )
-  # end
-
-  view :rule_editor do |_args|
+  view :rule_editor do
     preference_name = [
       card.left.default_follow_set_card.name,
       Auth.current.name,
@@ -45,11 +40,14 @@ format :html do
 
     wrap_with :div, class: "edit-rule" do
       follow_context = current_follow_rule_card || rule_context
-      subformat(follow_context).render_edit_rule(
-        rule_context: rule_context,
-        success: { view: "status", id: card.name }
-      )
+      edit_rule_format = subformat follow_context.render_edit_rule
+      edit_rule_format.rule_context = rule_context
+      edit_rule_format.render :edit_rule
     end
+  end
+
+  def edit_rule_success
+    { view: "status", id: card.name.url_key }
   end
 
   def current_follow_rule_card

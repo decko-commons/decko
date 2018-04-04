@@ -42,7 +42,7 @@ format :html do
     end
   end
 
-  view :core, template: :haml do |_args|
+  view :core, template: :haml do
     @lines = [signup_line] + account_lines
     @body = process_content _render_raw
   end

@@ -9,11 +9,23 @@ class Card
         diff_object(:name, opts).complete
       end
 
+      # does action change card's name?
+      # @return [true/false]
+      def new_name?
+        !value(:name).nil?
+      end
+
       # @return [rendered diff]
       # compare action's cardtype value with previous cardtype value
       def cardtype_diff opts={}
         return unless new_type?
         diff_object(:cardtype, opts).complete
+      end
+
+      # does action change card's type?
+      # @return [true/false]
+      def new_type?
+        !value(:type_id).nil?
       end
 
       # @return [rendered diff]
@@ -22,6 +34,12 @@ class Card
         return unless new_content?
         dobj = content_diff_object(opts)
         diff_type == :summary ? dobj.summary : dobj.complete
+      end
+
+      # does action change card's content?
+      # @return [true/false]
+      def new_content?
+        !value(:db_content).nil?
       end
 
       # test whether content was visibly removed

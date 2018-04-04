@@ -3,7 +3,7 @@ def virtual?
 end
 
 format :html do
-  view :core do |_args|
+  view :core do
     subject = card.left
 
     output [
@@ -34,7 +34,7 @@ format :html do
 
   def set_patterns_breadcrumb subject
     links = subject.patterns.reverse.map { |pattern| link_to_card pattern.to_s }
-    breadcrumb(links)
+    breadcrumb links
   end
   # rubocop:enable AccessorMethodName
 
