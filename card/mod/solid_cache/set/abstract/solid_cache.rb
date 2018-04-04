@@ -78,8 +78,8 @@ module ClassMethods
 end
 
 def with_solid_cache
-  card.update_solid_cache if card.solid_cache_card.new?
-  yield card.solid_cache_card
+  update_solid_cache if solid_cache_card.new?
+  yield solid_cache_card
 end
 
 def expire_solid_cache _changed_card=nil
