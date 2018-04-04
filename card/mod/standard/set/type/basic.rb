@@ -1,6 +1,6 @@
 format :html do
-  view :open_content do |args|
-    content = _render_core args
+  view :open_content do
+    content = _render_core
     table_of_contents(content) || content
   end
 

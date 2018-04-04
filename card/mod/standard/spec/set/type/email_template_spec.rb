@@ -3,13 +3,13 @@
 require "card/mailer"
 
 describe Card::Set::Type::EmailTemplate do
-  describe "view :mail" do
+  describe "#mail" do
     let(:content_type) do
       Card::Auth.current_id = Card::WagnBotID
       card = Card.create!(name: "content type test", type: :email_template,
                           subcards: @fields)
 
-      email = card.format.render_mail
+      email = card.format.mail
       email[:content_type].value
     end
 

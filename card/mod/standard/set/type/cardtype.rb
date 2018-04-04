@@ -5,9 +5,10 @@ def wql_hash
 end
 
 format :html do
-  view :type do |args|
-    args[:type_class] = "no-edit" if card.cards_of_type_exist?
-    super args
+  view :type do
+    link_args = { class: "cardtype" }
+    add_class link_args, "no-edit" if card.cards_of_type_exist?
+    link_to_card card.type_card, nil, link_args
   end
 
   view :type_formgroup do
@@ -18,22 +19,25 @@ format :html do
     end
   end
 
-  view :add_link do |args|
+  view :add_link do
+    add_link
+  end
+
+  view :add_button do
+    add_link "btn btn-outline-secondary"
+  end
+
+  def add_link css_class=nil
     voo.title ||= tr(:add_card, cardname: safe_name)
-    title = _render_title args
-    link_to title, path: _render_add_path(args), class: args[:css_class]
+    title = _render_title
+    link_to title, path: _render_add_path, class: css_class
   end
 
-  view :add_button, view: :add_link
-  def default_add_button_args args
-    args[:css_class] = "btn btn-outline-secondary"
+  view :add_url do
+    card_url _render_add_path
   end
 
-  view :add_url do |args|
-    card_url _render_add_path(args)
-  end
-
-  view :add_path do |_args|
+  view :add_path do
     path_args = {}
     if voo.params
       context = ((@parent && @parent.card) || card).name

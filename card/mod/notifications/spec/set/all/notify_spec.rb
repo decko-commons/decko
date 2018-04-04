@@ -6,8 +6,9 @@ shared_examples_for "notifications" do
   let(:deleted) { Card.fetch("Deleted card", look_in_trash: true) }
 
   describe "#list_of_changes" do
-    def list_of_changes card, args={}
-      card.format(format: format).render_list_of_changes(args)
+    def list_of_changes card, action=nil
+      args = action ? { action_id: action.id } : {}
+      card.format(format: format).render_list_of_changes args
     end
 
     example "for a new card" do
@@ -28,14 +29,8 @@ shared_examples_for "notifications" do
 
     example "for a given action" do
       action = updated.create_action
-      expect(list_of_changes(updated, action: action))
+      expect(list_of_changes(updated, action))
         .to include "content: new content"
-    end
-
-    example "for a given action id" do
-      action_id = updated.create_action.id
-      expect(list_of_changes(updated, action_id: action_id))
-              .to include "content: new content"
     end
   end
 
@@ -67,7 +62,7 @@ RSpec.describe Card::Set::All::SendNotifications do
   end
 
   def notification_email_for card_name, followed_set: "#{card_name}+*self"
-    Card[:follower_notification_email].format.render_mail(
+    Card[:follower_notification_email].format.mail(
       context:   Card[card_name].refresh(true),
       to:        Card["Joe User"].email,
       follower:  Card["Joe User"].name,
@@ -78,7 +73,6 @@ RSpec.describe Card::Set::All::SendNotifications do
 
 
   describe "content of notification email" do
-
 
     context "for new card with subcards" do
       specify do

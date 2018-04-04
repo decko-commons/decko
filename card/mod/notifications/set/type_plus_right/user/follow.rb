@@ -21,11 +21,11 @@ format { include Card::Set::Type::Pointer::Format }
 format :html do
   include Card::Set::Type::Pointer::HtmlFormat
 
-  view :closed_content do |_args|
+  view :closed_content do
     ""
   end
 
-  view :core do |args|
+  view :core do
     <<-HTML
       <div role="tabpanel">
         <ul class="nav nav-tabs" role="tablist" id="myTab">
@@ -40,7 +40,7 @@ format :html do
         </ul>
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="following">
-            #{render_following_list args}
+            #{render_following_list}
           </div>
           <div role="tabpanel" class="tab-pane" id="ignoring">
             #{render_ignoring_list}
@@ -105,11 +105,7 @@ format :html do
     res
   end
 
-  view :following_list, cache: :never do |_args|
-    if !Auth.signed_in? || Auth.current_id != card.left.id
-      hide_buttons = %i[delete_follow_rule_button add_follow_rule_button]
-    end
-
+  view :following_list, cache: :never do
     sets = followed_by_set
     wrap_with :div, class: "pointer-list-editor" do
       wrap_with :ul, class: "delete-list list-group" do
@@ -117,8 +113,7 @@ format :html do
           sets[set_pattern].map do |rule|
             rule[:options].map do |option|
               wrap_with :li, class: "list-group-item" do
-                subformat(rule[:card]).render_follow_item condition: option,
-                                                          hide: hide_buttons
+                subformat(rule[:card]).follow_item option, show_follow_buttons?
               end
             end
           end
@@ -127,27 +122,30 @@ format :html do
     end
   end
 
-  view :ignoring_list, cache: :never do |_args|
+  view :ignoring_list, cache: :never do
+    wrap_with :div, class: "pointer-list-editor" do
+      wrap_with :ul, class: "delete-list list-group" do
+        ignored_cards.map do |rule_card|
+          wrap_with :li, class: "list-group-item" do
+            subformat(rule_card).follow_item :never.cardname, show_follow_buttons?
+          end
+        end.join "\n"
+      end
+    end
+  end
+
+  def ignored_cards
     ignore_list = []
     card.known_item_cards.each do |follow_rule|
       follow_rule.item_cards.each do |follow_option|
         ignore_list << follow_rule if follow_option.codename.to_sym == :never
       end
     end
-    if !Auth.signed_in? || Auth.current_id != card.left.id
-      hide_buttons = %i[delete_follow_rule_button add_follow_rule_button]
-    end
-    never = Card[:never].name
-    wrap_with :div, class: "pointer-list-editor" do
-      wrap_with :ul, class: "delete-list list-group" do
-        ignore_list.map do |rule_card|
-          wrap_with :li, class: "list-group-item" do
-            subformat(rule_card).render_follow_item condition: never,
-                                                    hide: hide_buttons
-          end
-        end.join "\n"
-      end
-    end
+    ignore_list
+  end
+
+  def show_follow_buttons?
+    Auth.signed_in? && Auth.current_id == card.left.id
   end
 
   def pointer_items args
@@ -155,7 +153,7 @@ format :html do
     super(args)
   end
 
-  view :errors, perms: :none do |args|
+  view :errors, perms: :none do
     if card.errors.any?
       if card.errors.find { |attrib, _msg| attrib == :permission_denied }
         Env.save_interrupted_action(request.env["REQUEST_URI"])
@@ -165,7 +163,7 @@ format :html do
           "Please #{link_to_card :signin, 'sign in'}" # " #{to_task}"
         end
       else
-        super(args)
+        super()
       end
     end
   end

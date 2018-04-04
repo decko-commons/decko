@@ -34,7 +34,7 @@ format :html do
   view :layout, perms: :none, cache: :never do
     layout = process_content get_layout_content(voo.layout),
                              content_opts: { chunk_list: :references }
-    output [layout, _render_modal_slot]
+    output [layout, modal_slot]
   end
 
   view :content do
@@ -105,13 +105,8 @@ format :html do
     end
   end
 
-  # view :anchor, perms: :none, tags: :unknown_ok do |args|
-  #   %{ <a id="#{card.name.url_key}" name="#{card.name.url_key}"></a> }
-  # end
-
-  view :type do |args|
-    klasses = ["cardtype", args[:type_class]].compact
-    link_to_card card.type_card, nil, class: klasses
+  view :type do
+    link_to_card card.type_card, nil, class: "cardtype"
   end
 
   view :closed do
