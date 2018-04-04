@@ -6,7 +6,7 @@ describe Card::Set::Abstract::SolidCache do
       @card = Card["A"]
     end
 
-    let(:core_view) { 'Alpha <a class="known-card" href="/Z">Z</a>' }
+    let(:core_view) { "Alpha Z[/Z]" }
 
     context "with solid cache" do
       it "saves core view in solid cache card" do
@@ -26,6 +26,17 @@ describe Card::Set::Abstract::SolidCache do
         end
       end
     end
+
+    context "with solid cache disabled" do
+      it "ignores solid cache card content" do
+        @card.format_with_set(described_class) do |format|
+          Card::Auth.as_bot do
+            Card["A"].solid_cache_card.update_attributes! content: "cache"
+          end
+          expect(format._render_core hide: :solid_cache).to eq core_view
+        end
+      end
+    end
   end
 
   # rubocop:disable ClassAndModuleChildren
@@ -33,9 +44,10 @@ describe Card::Set::Abstract::SolidCache do
   context "when cached content expired" do
     before do
       Card::Auth.as_bot do
-        Card.create! name: "volatile", codename: "volatile",cd
+        Card.create! name: "volatile", codename: "volatile",
                      content: "chopping"
-        Card.create! name: "cached", codename: "cached"
+        Card.create! name: "cached", codename: "cached",
+                     content: "chopping and {{volatile|core}}"
       end
       Card::Codename.reset_cache
     end
@@ -44,10 +56,6 @@ describe Card::Set::Abstract::SolidCache do
         module Card::Set::Self::Cached
           extend Card::Set
           include_set Card::Set::Abstract::SolidCache
-
-          view :core do
-            process_content "chopping and {{volatile|core}}"
-          end
 
           ensure_set { Card::Set::Self::Volatile }
           cache_update_trigger Card::Set::Self::Volatile do
