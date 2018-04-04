@@ -1,6 +1,5 @@
 format :html do
-  def accordion_group collapse_id=nil, args={}
-    list = yield
+  def accordion_group list, collapse_id=nil, args={}
     collapse_id ||= card.name.safe_key
     accordions = ""
     index = 1
@@ -23,7 +22,7 @@ format :html do
   def accordion title, content, collapse_id=card.name.safe_key
     accordion_content =
       case content
-      when Hash  then accordion_group(collapse_id) { content }
+      when Hash  then accordion_group content, collapse_id
       when Array then content.present? && list_group(content)
       when String then content
       end

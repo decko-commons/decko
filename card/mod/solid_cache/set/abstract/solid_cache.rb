@@ -13,6 +13,14 @@ card_accessor :solid_cache, type: :html
 def self.included host_class
   host_class.format(host_class.try(:cached_format) || :base) do
     view :core, cache: :never do
+      if voo.hide? :cached_core
+        super()
+      else
+        _render_cached_core
+      end
+    end
+
+    view :cached_core do
       card.update_solid_cache if card.solid_cache_card.new?
       subformat(card.solid_cache_card)._render_core
     end
@@ -87,7 +95,7 @@ end
 
 def generate_content_for_cache
   format_type = try(:cached_format) || :base
-  format(format_type)._render_cacheable_core
+  format(format_type)._render_core hide: :cached_core
 end
 
 def write_to_solid_cache new_content

@@ -56,19 +56,21 @@ format :html do
       hide_diff: params["hide_diff"].to_s.strip == "true" }
   end
 
-  def act_accordion acts
-    accordion_group nil, class: "clear-both" do
-      seq = act_list_starting_seq(acts) + 1
-      clean_acts(current_page_acts(acts)).map do |act|
-        seq -= 1
-        yield act, seq
-      end
+  def act_accordion acts, &block
+    accordion_group acts_for_accordion(acts, &block), nil, class: "clear-both"
+  end
+
+  def acts_for_accordion acts
+    seq = act_list_starting_seq(acts) + 1
+    clean_acts(current_page_acts(acts)).map do |act|
+      seq -= 1
+      yield act, seq
     end
   end
 
   def clean_acts acts
     # FIXME: if we get rid of bad act data, this will not be necessary
-    # (in the meantime, it will make paging confusing)
+    # The current
     acts.reject { |a| !a.card }
   end
 

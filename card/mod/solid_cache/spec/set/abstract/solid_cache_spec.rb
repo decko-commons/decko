@@ -6,15 +6,14 @@ describe Card::Set::Abstract::SolidCache do
       @card = Card["A"]
     end
 
-    # let(:core_view) { 'Alpha <a class="known-card" href="/Z">Z</a>' }
-    let(:cacheable_core_view) { "view (cacheable_core) not supported for A" }
+    let(:core_view) { 'Alpha <a class="known-card" href="/Z">Z</a>' }
 
     context "with solid cache" do
       it "saves core view in solid cache card" do
         @card.format_with_set described_class, &:render_core
         Card::Auth.as_bot do
           expect(Card["A", :solid_cache]).to be_instance_of(Card)
-          expect(Card["A", :solid_cache].content).to eq(cacheable_core_view)
+          expect(Card["A", :solid_cache].content).to eq(core_view)
         end
       end
 
@@ -34,7 +33,7 @@ describe Card::Set::Abstract::SolidCache do
   context "when cached content expired" do
     before do
       Card::Auth.as_bot do
-        Card.create! name: "volatile", codename: "volatile",
+        Card.create! name: "volatile", codename: "volatile",cd
                      content: "chopping"
         Card.create! name: "cached", codename: "cached"
       end
@@ -46,7 +45,7 @@ describe Card::Set::Abstract::SolidCache do
           extend Card::Set
           include_set Card::Set::Abstract::SolidCache
 
-          view :cacheable_core do
+          view :core do
             process_content "chopping and {{volatile|core}}"
           end
 

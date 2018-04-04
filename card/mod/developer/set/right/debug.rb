@@ -29,12 +29,12 @@ format :html do
       ans.shift
       hash[sm.to_s] = ans
     end
-    accordion_group { sets }
+    accordion_group sets
   end
 
   def set_patterns_breadcrumb subject
     links = subject.patterns.reverse.map { |pattern| link_to_card pattern.to_s }
-    breadcrumb(links)
+    breadcrumb links
   end
   # rubocop:enable AccessorMethodName
 
