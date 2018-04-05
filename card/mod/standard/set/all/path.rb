@@ -26,8 +26,9 @@ format do
   # bypasses all processing
   # @option opts [String, Card::Name, Integer, Symbol, Card] :mark
   # @option opts [Symbol] :action card action (:create, :update, :delete)
+  # @option opts [Symbol] :format
   # @option opts [Hash] :card
-  # @option opts []
+  # @option opts [TrueClass] :no_mark
   def path opts={}
     return opts unless opts.is_a? Hash
     path = new_cardtype_path(opts) || standard_path(opts)
@@ -43,7 +44,7 @@ format do
   private
 
   def new_cardtype_path opts
-    return unless valid_opts_for_new_cardtype_path?
+    return unless valid_opts_for_new_cardtype_path? opts
     "new/#{path_mark opts}#{path_query opts}"
   end
 
@@ -109,7 +110,7 @@ format do
   end
 
   # name is same as url_key, so the url_key won't lose any info
-  def name_simple?
+  def name_simple? name
     name.s == Card::Name.url_key_to_standard(name.url_key)
   end
 end
