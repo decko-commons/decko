@@ -10,7 +10,7 @@ describe Card::Set::All::Links do
       assert_view_select actual, expected
     end
 
-    it "opens interal link in same tab" do
+    it "opens internal link in same tab" do
       actual = Card["Home"].format.link_to_resource "/Home"
       expected = 'a[target="_blank"]'
       assert_view_select actual, expected, false
