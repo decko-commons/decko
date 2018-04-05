@@ -2,10 +2,10 @@ format do
   # Decko uses "path" a bit unusually.  In most formats, it returns a full url.  In HTML,
   # it provides everything after the domain/port.
   #
-  # If you're feeling your saucy oats, you might point out that typically a "path" does not
+  # If you're feeling your saucy oats, you might point out that typically "paths" don't
   # include queries and fragment identifiers, much less protocols, domains, and ports.
-  # 10 pedantry points to you! But "path" has just four letters and, because it's smart about
-  # format needs, using it will lead you down the right ... something or other.
+  # 10 pedantry points to you! But "path" has just four letters and is smart about
+  # format needs, so using it will lead you down the right ... something or other.
 
   # Format#path is for generating standard card routes, eg, assuming the card
   # associated with the current format is named "current", it will generate paths like
@@ -43,10 +43,16 @@ format do
   private
 
   def new_cardtype_path opts
+    return unless valid_opts_for_new_cardtype_path?
+    "new/#{path_mark opts}#{path_query opts}"
+  end
+
+  def valid_opts_for_new_cardtype_path? opts
     return unless opts[:action] == :new
     opts.delete :action
-    return unless opts[:mark]
-    "new/#{path_mark opts}#{path_query opts}"
+    # "new" is not really an action and is only
+    # a valid value here for this path
+    opts[:mark].present?
   end
 
   def standard_path opts
@@ -56,11 +62,15 @@ format do
   def path_base opts
     mark = path_mark opts
     if (action = path_action opts)
-      mark.present? ? "#{action}/#{mark}" : "card/#{action}"
-      # the card/ prefix prevents interpreting action as cardname
+      action_base action, mark
     else
       mark
     end
+  end
+
+  def action_base action, mark
+    mark.present? ? "#{action}/#{mark}" : "card/#{action}"
+    # the card/ prefix prevents interpreting action as cardname
   end
 
   def path_action opts
@@ -69,10 +79,14 @@ format do
   end
 
   def path_mark opts
-    return "" if opts[:action] == :create || opts.delete(:no_mark)
+    return "" if markless_path? opts
     name = opts[:mark] ? Card::Name[opts.delete(:mark)] : card.name
     add_unknown_name_to_opts name.to_name, opts
     name.to_name.url_key
+  end
+
+  def markless_path? opts
+    opts[:action] == :create || opts.delete(:no_mark)
   end
 
   def path_extension opts
@@ -85,11 +99,18 @@ format do
   end
 
   def add_unknown_name_to_opts name, opts
-    return if opts[:card] && opts[:card][:name]
-    return if name.s == Card::Name.url_key_to_standard(name.url_key)
-    return if Card.known? name
+    return if name_specified?(opts) || name_simple?(name) || Card.known?(name)
     opts[:card] ||= {}
     opts[:card][:name] = name
+  end
+
+  def name_specified? opts
+    opts[:card] && opts[:card][:name]
+  end
+
+  # name is same as url_key, so the url_key won't lose any info
+  def name_simple?
+    name.s == Card::Name.url_key_to_standard(name.url_key)
   end
 end
 

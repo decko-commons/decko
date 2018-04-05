@@ -31,7 +31,7 @@ format do
   # @param opts [Hash]
   def link_to_card cardish, text=nil, opts={}
     add_to_path opts, mark: Card::Name[cardish]
-    link_to (text || name), opts
+    link_to (text || opts[:path][:mark]), opts
   end
 
   # link to the "related" view (handles many card menu items)
@@ -76,15 +76,19 @@ format do
 
   def resource_type resource
     case resource
-      when /^https?\:/          then "external-link"
-      when %r{^/}               then "internal-link"
-      when /^mailto\:/          then "email-link"
-      when RESOURCE_TYPE_REGEXP then Regexp.last_match(1) + "-link"
+    when /^https?\:/          then "external-link"
+    when %r{^/}               then "internal-link"
+    when /^mailto\:/          then "email-link"
+    when RESOURCE_TYPE_REGEXP then Regexp.last_match(1) + "-link"
     end
   end
 
   def clean_resource resource, resource_type
-    contextualize_path resource[1..-1] if resource_type == "internal-link"
+    if resource_type == "internal-link"
+      contextualize_path resource[1..-1]
+    else
+      resource
+    end
   end
 
   def add_to_path opts, new_hash
@@ -108,8 +112,9 @@ format :html do
   # card is "known" (real or virtual) or "wanted" (unknown)
   # TODO: upgrade from (known/wanted)-card to (real/virtual/unknown)-card
   def link_to_card cardish, text=nil, opts={}
+    name = Card::Name[cardish]
     add_to_path opts, mark: Card::Name[cardish]
-    add_known_or_wanted_class opts, opts[:path][:mark]
+    add_known_or_wanted_class opts, name
     link_to (text || name), opts
   end
 
