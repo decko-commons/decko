@@ -131,7 +131,7 @@ format do
 
   def path_action opts
     return unless (action = opts.delete(:action)&.to_sym)
-    %i[create update delete].find { |a| a == action}
+    %i[create update delete].find { |a| a == action }
   end
 
   def path_mark opts
