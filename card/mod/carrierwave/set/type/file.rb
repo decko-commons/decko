@@ -19,7 +19,7 @@ format do
   view :source do
     file = card.attachment
     return "" unless file.valid?
-    internal_url file.url
+    contextualize_path file.url
   end
 
   view :core do
