@@ -19,7 +19,7 @@ def content
     variables_card,
     Card[:bootstrap_variables],
     Card[:bootstrap_core],
-    #Card["style: bootstrap cards"],
+    Card["style: bootstrap cards"],
     bootswatch_card
   ].map do |card|
     card.content
