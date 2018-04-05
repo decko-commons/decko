@@ -116,14 +116,12 @@ format do
   end
 
   def standard_path opts
-    standardize_action! opts
-    mark = path_mark opts
-    base = path_base opts[:action], mark
-    base + path_query(opts)
+    path_base(opts) + path_extension(opts) + path_query(opts)
   end
 
-  def path_base action, mark
-    if action
+  def path_base opts
+    mark = path_mark opts
+    if (action = path_action opts)
       mark.present? ? "#{action}/#{mark}" : "card/#{action}"
       # the card/ prefix prevents interpreting action as cardname
     else
@@ -131,9 +129,9 @@ format do
     end
   end
 
-  def standardize_action! opts
-    return if %i[create update delete].member? opts[:action]
-    opts.delete :action
+  def path_action opts
+    return unless (action = opts.delete(:action)&.to_sym)
+    %i[create update delete].find { |a| a == action}
   end
 
   def path_mark opts
@@ -143,8 +141,12 @@ format do
     name.to_name.url_key
   end
 
+  def path_extension opts
+    extension = opts.delete :format
+    extension ? ".#{extension}" : ""
+  end
+
   def path_query opts
-    opts.delete :action
     opts.empty? ? "" : "?#{opts.to_param}"
   end
 
