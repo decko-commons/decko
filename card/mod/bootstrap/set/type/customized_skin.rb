@@ -6,6 +6,26 @@ store_machine_output filetype: "css"
 card_accessor :variables
 card_accessor :bootswatch
 
+#include_set Pointer
+
+def content
+  [
+    Card["style: jquery-ui-smoothness"],
+    Card["style: cards"],
+    Card["style: right sidebar"],
+    Card["font awesome"],
+    Card["material icons"],
+    Card[:bootstrap_functions],
+    variables_card,
+    Card[:bootstrap_variables],
+    Card[:bootstrap_core],
+    #Card["style: bootstrap cards"],
+    bootswatch_card
+  ].map do |card|
+    card.content
+  end.join "\n"
+end
+
 def theme_card_name
   "#{@theme} skin"
 end

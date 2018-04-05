@@ -12,7 +12,11 @@ class AddTypeCustomSkin < Card::Migration::Core
 
 
     Skin.themes.each do |theme_name|
-      Skin.new(theme_name).create_or_update
+      skin = Skin.new(theme_name)
+      ensure_card skin.skin_name, codename: skin.skin_codename
     end
+
+    delete_code_card "customizable bootstrap skin"
+    delete_code_card "readable skin" # no longer supported
   end
 end

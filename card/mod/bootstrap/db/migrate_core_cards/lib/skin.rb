@@ -17,6 +17,8 @@ class Skin
     end
   end
 
+  attr_reader :skin_name, :skin_codename
+
   def initialize theme_name
     @theme_name = theme_name.downcase
     @skin_name = "#{theme_name} skin"
@@ -57,10 +59,7 @@ class Skin
   private
 
   def create_subcard_args
-    {
     { "+bootswatch theme" => style_args("bootstrap.css", Card::CssID) }
-      "+Image" => thumbnail_args
-    }
   end
 
   def style_args file_name, type_id=Card::ScssID
