@@ -83,6 +83,14 @@ format do
   def path_query opts
     opts.empty? ? "" : "?#{opts.to_param}"
   end
+
+  def add_unknown_name_to_opts name, opts
+    return if opts[:card] && opts[:card][:name]
+    return if name.s == Card::Name.url_key_to_standard(name.url_key)
+    return if Card.known? name
+    opts[:card] ||= {}
+    opts[:card][:name] = name
+  end
 end
 
 public

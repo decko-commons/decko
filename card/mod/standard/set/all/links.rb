@@ -88,7 +88,7 @@ format do
   end
 
   def add_to_path opts, new_hash
-    opts[:path] = (opts[:path) || {}).merge new_hash
+    opts[:path] = (opts[:path] || {}).merge new_hash
   end
 end
 
@@ -148,13 +148,5 @@ format :html do
   def add_resource_opts opts, resource_type
     opts[:target] ||= "_blank" if resource_type == "external-link"
     add_class opts, resource_type
-  end
-
-  def add_unknown_name_to_opts name, opts
-    return if opts[:card] && opts[:card][:name]
-    return if name.s == Card::Name.url_key_to_standard(name.url_key)
-    return if Card.known? name
-    opts[:card] ||= {}
-    opts[:card][:name] = name
   end
 end
