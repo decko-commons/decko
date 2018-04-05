@@ -1,7 +1,7 @@
 include_set Type::Css
 
 format do
-  view :core, cache: :never do |_args|
+  view :core, cache: :never do
     compile_scss(process_content(_render_raw))
   end
 

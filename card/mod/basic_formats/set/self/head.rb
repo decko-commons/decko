@@ -23,10 +23,9 @@ format :html do
   end
 
   def head_title
-    title = root.card && root.card.name
-    title = nil if title.blank?
+    title = root.safe_name
     title = params[:action] if title == "*placeholder"
-    %(<title>#{title ? "#{title} - " : ''}#{Card.global_setting :title}</title>)
+    %(<title>#{title.present? ? "#{title} - " : ''}#{Card.global_setting :title}</title>)
   end
 
   def head_buttons

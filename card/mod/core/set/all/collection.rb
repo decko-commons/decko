@@ -58,8 +58,8 @@ def contextual_content context_card, format_args={}, view_args={}
 end
 
 format :html do
-  view :count do |args|
-    card.item_names(args).size
+  view :count do
+    card.item_names.size
   end
 
   view :carousel do

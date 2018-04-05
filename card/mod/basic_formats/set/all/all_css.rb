@@ -9,15 +9,15 @@ format :css do
     render! view, args
   end
 
-  view :titled do |args|
-    major_comment(%( Style Card: \\"#{card.name}\\" )) + _render_core(args)
+  view :titled do
+    major_comment(%( Style Card: \\"#{card.name}\\" )) + _render_core
   end
 
-  view :content do |args|
-    _render_core args
+  view :content do
+    _render_core
   end
 
-  view :missing do |_args|
+  view :missing do
     major_comment "MISSING Style Card: #{card.name}"
   end
 

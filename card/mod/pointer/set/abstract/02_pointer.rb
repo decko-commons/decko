@@ -39,7 +39,7 @@ format do
     end
   end
 
-  view :core do |_args|
+  view :core do
     pointer_items.join ", "
   end
 
@@ -55,6 +55,10 @@ end
 
 format :html do
   view :core, cache: :never do
+    standard_pointer_core
+  end
+
+  def standard_pointer_core
     with_paging do |paging_args|
       wrap_with :div, pointer_items(paging_args.extract!(:limit, :offset)),
                 class: "pointer-list"
@@ -117,11 +121,8 @@ format :json do
     params[:max_depth] || 1
   end
 
-  view :export_items do |args|
-    item_args = args.merge view: :export
-    card.known_item_cards.map do |item_card|
-      nest_item item_card, item_args
-    end.flatten.reject(&:blank?)
+  def items_for_export
+    card.item_cards
   end
 
   def essentials
@@ -179,6 +180,10 @@ def item args={}
   item_names(args).first
 end
 
+def count
+  all_raw_items.size
+end
+
 def item_names args={}
   raw_items(args[:content], args[:limit], args[:offset]).map do |item|
     polish_item item, args[:context]
@@ -186,11 +191,14 @@ def item_names args={}
 end
 
 def raw_items content, limit, offset
-  content ||= self.content
-  items = content.to_s.split(/\n+/)
+  items = all_raw_items content
   limit = limit.to_i
   return items unless limit.positive?
   items[offset.to_i, limit] || []
+end
+
+def all_raw_items content=nil
+  (content || self.content).to_s.split(/\n+/)
 end
 
 def polish_item item, context

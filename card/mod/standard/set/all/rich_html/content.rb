@@ -21,7 +21,7 @@ format :html do
     args[:view] = view if view
     @main = false
     @main_opts = args
-    render! :layout, title: params[:layout]
+    render! :layout, layout: params[:layout]
     # FIXME: using title because it's a standard view option.  hack!
   end
 
@@ -32,9 +32,9 @@ format :html do
   end
 
   view :layout, perms: :none, cache: :never do
-    layout = process_content get_layout_content(voo.title),
+    layout = process_content get_layout_content(voo.layout),
                              content_opts: { chunk_list: :references }
-    output [layout, _render_modal_slot]
+    output [layout, modal_slot]
   end
 
   view :content do
@@ -89,20 +89,6 @@ format :html do
     end
   end
 
-  view :title do
-    title = fancy_title super()
-    if show_view? :title_link, :hide
-      title = _render_title_link title_ready: title
-    end
-    add_name_context
-    title
-  end
-
-  view :title_link do |args|
-    title_text = args[:title_ready] || pov_name(voo.title)
-    link_to_card card.name, title_text
-  end
-
   view :type_info do
     return unless show_view?(:toolbar, :hide) && card.type_code != :basic
     wrap_with :span, class: "type-info float-right" do
@@ -119,13 +105,8 @@ format :html do
     end
   end
 
-  # view :anchor, perms: :none, tags: :unknown_ok do |args|
-  #   %{ <a id="#{card.name.url_key}" name="#{card.name.url_key}"></a> }
-  # end
-
-  view :type do |args|
-    klasses = ["cardtype", args[:type_class]].compact
-    link_to_card card.type_card, nil, class: klasses
+  view :type do
+    link_to_card card.type_card, nil, class: "cardtype"
   end
 
   view :closed do
@@ -236,15 +217,4 @@ format :html do
       </span>
     )
   end
-
-  def fancy_title title=nil
-    wrap_with :span, class: classy("card-title") do
-      title.to_name.parts.join fancy_joint
-    end
-  end
-
-  def fancy_joint
-    wrap_with :span, "+", classy("joint")
-  end
 end
-

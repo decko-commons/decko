@@ -1,5 +1,5 @@
 format :html do
-  view :core do |_args|
+  view :core do
     rows = trashed_cards.map { |tc| trash_table_row(tc) }
     output [
       restored,

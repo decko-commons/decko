@@ -87,7 +87,7 @@ $(window).ready ->
     if $(event.target).attr('id') != 'modal-main-slot'
       slot = $( event.target ).slot()
       menu_slot = slot.find '.menu-slot:first'
-      url  = decko.rootPath + '/~' + slot.data('card-id')
+      url = decko.path('~' + slot.data('card-id'))
       params = { view: 'menu' }
       params['is_main'] = true if slot.isMain()
       modal_content.empty()
@@ -145,7 +145,7 @@ $(window).ready ->
   $('body').on 'change', '.go-to-selected select', ->
     val = $(this).val()
     if val != ''
-      window.location = decko.rootPath + escape( val )
+      window.location = decko.path(escape(val))
 
   # performance log mod
   $('body').on 'click', '.open-slow-items', ->

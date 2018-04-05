@@ -63,7 +63,7 @@ format :html do
       if source.blank? || source == "missing"
         # FIXME - these images should be "broken", not "missing"
         # ("missing" is the view for "unknown" now, so we shouldn't further confuse things)
-        "<!-- image missing #{@card.name} -->"
+        "<!-- image missing #{safe_name} -->"
       else
         image_tag source
       end
@@ -72,10 +72,9 @@ format :html do
 
   def preview
     return if card.new_card? && !card.preliminary_upload?
-    voo.size = :medium
     wrap_with :div, class: "attachment-preview",
                     id: "#{card.attachment.filename}-preview" do
-      _render_core
+      _render_core size: :medium
     end
   end
 
@@ -83,14 +82,17 @@ format :html do
     true
   end
 
-  view :content_changes do |args|
-    action = args[:action]
-    voo.size = args[:diff_type] == :summary ? :icon : :medium
-    [old_image(action, args), new_image(action)].compact.join
+  view :content_changes do
+    content_changes card.last_action, :expanded
   end
 
-  def old_image action, args
-    return if args[:hide_diff] || !action
+  def content_changes action, diff_type, hide_diff=false
+    voo.size = diff_type == :summary ? :icon : :medium
+    [old_image(action, hide_diff), new_image(action)].compact.join
+  end
+
+  def old_image action, hide_diff
+    return if hide_diff || !action
     return unless (last_change = card.last_change_on(:db_content, before: action))
     card.with_selected_action_id last_change.card_action_id do
       Card::Content::Diff.render_deleted_chunk _render_core

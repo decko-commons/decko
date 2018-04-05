@@ -12,7 +12,7 @@ def self.member_names
 end
 
 format :data do
-  view :core do |_args|
+  view :core do
     wql = { left:  { type: Card::SetID },
             right: card.id,
             limit: 0 }
@@ -88,18 +88,13 @@ format do
     HTML
   end
 
-  view :closed_content do |_args|
+  view :closed_content do
     render_rule_help
   end
 end
 
 format :json do
-  view :export_items do |_args|
-    wql = { left:  { type: Card::SetID },
-            right: card.id,
-            limit: 0 }
-    Card.search(wql).compact.map do |rule|
-      subformat(rule).render_export
-    end.flatten
+  def items_for_export
+    Card.search left: { type: Card::SetID }, right: card.id, limit: 0
   end
 end

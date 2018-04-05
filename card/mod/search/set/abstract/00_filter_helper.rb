@@ -42,7 +42,7 @@ end
 
 format :html do
   def extra_paging_path_args
-    { filter: filter_hash }.merge sort_hash
+    super.merge(filter: filter_hash).merge sort_hash
   end
 
   def filter_active?

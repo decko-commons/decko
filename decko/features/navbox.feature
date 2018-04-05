@@ -5,7 +5,7 @@ Feature: Navbox
 
   Scenario: quick search
     Given I go to the homepage
-    And I fill in "_keyword" with "Joe"
+    And I fill in "query_keyword" with "Joe"
 # possible to use placeholder?
 #    And I wait a sec
     Then I should see "Joe Camel"
@@ -18,7 +18,7 @@ Feature: Navbox
 
   Scenario: wql search
     Given I go to the homepage
-    And I fill in "_keyword" with '{"type":"User"}'
+    And I fill in "query_keyword" with '{"type":"User"}'
     Then I press enter to search
 #    And I wait a sec
     Then I should see "Search results"
@@ -26,7 +26,7 @@ Feature: Navbox
 
   Scenario: paging
     Given I go to the homepage
-    And I fill in "_keyword" with "skin"
+    And I fill in "query_keyword" with "skin"
     Then I press enter to search
     Then I should see "Search results"
     And I should see "Sample Skin"

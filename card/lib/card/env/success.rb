@@ -73,7 +73,7 @@ class Card
         when ""                     then ""
         when "*previous", :previous then :previous
         when %r{^(http|/)}          then value
-        when /^TEXT:\s*(.+)/        then  Regexp.last_match(1)
+        when /^TEXT:\s*(.+)/        then Regexp.last_match(1)
         when /^REDIRECT:\s*(.+)/
           @redirect = true
           process_target Regexp.last_match(1)

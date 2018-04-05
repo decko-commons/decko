@@ -1,4 +1,12 @@
 $.extend decko,
+  # returns absolute path (starting with a slash)
+  # if rawPath is relative (no slash), this adds relative root
+  path: (rawPath) ->
+    if rawPath.match /^\//
+      rawPath
+    else
+      decko.rootPath + '/' + rawPath
+
   initializeEditors: (range, map) ->
     map = decko.editorInitFunctionMap unless map?
     $.each map, (selector, fn) ->
@@ -6,9 +14,7 @@ $.extend decko,
         fn.call $(this)
 
   pingName: (name, success)->
-    $.getJSON decko.rootPath + '/',
-              format: 'json', view: 'status', 'card[name]': name,
-              success
+    $.getJSON decko.path(''), format: 'json', view: 'status', 'card[name]': name, success
 
   isTouchDevice: ->
     if 'ontouchstart' of window or window.DocumentTouch and
@@ -55,8 +61,8 @@ jQuery.fn.extend {
       id = slot.data 'cardId'
       reportee = ''
 
-    # #might be better to put this href base in the html
-    submit_url  = decko.rootPath + '/update/~' + id
+    # might be better to put this href base in the html
+    submit_url = decko.path 'update/~' + id
     form_data = $('#edit_card_'+id).serializeArray().reduce( ((obj, item) ->
       obj[item.name] = item.value
       return obj
@@ -133,7 +139,7 @@ $(window).ready ->
       return false unless s.data('cardId')
       # fail if slot has not card id
       s.addClass 'slotter'
-      s.attr 'href', decko.rootPath + '/card/edit/~' + s.data('cardId')
+      s.attr 'href', decko.path('card/edit/~' + s.data('cardId'))
       $.rails.handleRemote(s)
       false # don't propagate up to next slot
 
@@ -181,7 +187,7 @@ $(window).ready ->
             'in virtual'
           else
             'already in'
-          msg.html '"<a href="' + decko.rootPath + '/' + data['url_key'] + '">' +
+          msg.html '"<a href="' + decko.path(data['url_key']) + '">' +
                    name + '</a>" ' + qualifier + ' use'
         else
           msg.html ''

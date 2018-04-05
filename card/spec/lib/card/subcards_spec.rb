@@ -169,6 +169,13 @@ describe Card::Subcards do
       @card.save!
       expect(Card["sub"].content).to eq "sub content"
     end
+
+    it "takes the changes of the last subcard call" do
+      @card.add_subcard "sub", content: "sub content 1"
+      @card.add_subcard "sub", content: "sub content 2"
+      @card.save!
+      expect(Card["sub"].content).to eq "sub content 2"
+    end
   end
   describe "two levels of subcards" do
     it "creates cards with subcards with subcards" do

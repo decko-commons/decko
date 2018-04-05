@@ -33,7 +33,7 @@ $.extend decko,
       entity_encoding: 'raw'
     }
     $.extend conf, user_conf, hard_conf
-    tinyMCE.baseURL = '/assets/tinymce'
+    tinyMCE.baseURL = decko.path('assets/tinymce')
     tinyMCE.suffix = '.min'
     tinyMCE.remove("##{el_id}")
     tinyMCE.init conf

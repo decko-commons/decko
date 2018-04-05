@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-# A card that includes Abstract::SolidCache caches its core view
-# in a '+*solid cache' card.
+# A card that includes Abstract::SolidCache has its "core" view fully rendered
+# and stored in a '+*solid cache' card.
 # If that card exists the core view returns its content as rendered view.
 # If it doesn't exist the usual core view is rendered and saved in that card.
 #
@@ -10,21 +10,18 @@
 
 card_accessor :solid_cache, type: :html
 
-include_set Abstract::Lock
-
 def self.included host_class
   host_class.format(host_class.try(:cached_format) || :base) do
-    view :core, cache: :never do |args|
-      return super() unless args[:solid_cache]
-      card.update_solid_cache if card.solid_cache_card.new?
-      subformat(card.solid_cache_card)._render_core
+    view :core, cache: :never do
+      return super() if voo.hide? :solid_cache
+      _render_solid_cache
     end
-  end
-end
 
-format do
-  def default_core_args args
-    args[:solid_cache] = true unless args.key?(:solid_cache)
+    view :solid_cache, cache: :never do
+      card.with_solid_cache do |cache_card|
+        subformat(cache_card)._render_core
+      end
+    end
   end
 end
 
@@ -65,7 +62,7 @@ module ClassMethods
     set_of_changed_card.event name, stage, args do
       Array.wrap(yield(self)).compact.each do |expired_cache_card|
         next unless expired_cache_card.solid_cache?
-        expired_cache_card.send method_name, self
+        expired_cache_card.send method_name
       end
     end
   end
@@ -80,6 +77,11 @@ module ClassMethods
   end
 end
 
+def with_solid_cache
+  update_solid_cache if solid_cache_card.new?
+  yield solid_cache_card
+end
+
 def expire_solid_cache _changed_card=nil
   return unless solid_cache? && solid_cache_card.real?
   Auth.as_bot do
@@ -87,36 +89,18 @@ def expire_solid_cache _changed_card=nil
   end
 end
 
-def update_solid_cache changed_card=nil
+def update_solid_cache
   return unless solid_cache?
-  new_content =
-    if solid_cache_card.new?
-      generate_content_for_cache changed_card
-    else
-      updated_content_for_cache changed_card
-    end
-  return unless new_content
+  new_content = generate_content_for_cache
   write_to_solid_cache new_content
   new_content
 end
 
-def generate_content_for_cache changed_card=nil
+def generate_content_for_cache
   format_type = try(:cached_format) || :base
-  format(format_type)._render_core solid_cache: false,
-                                   changed_card: changed_card
-end
-
-def updated_content_for_cache _changed_card=nil
-  generate_content_for_cache
+  format(format_type)._render_core hide: :solid_cache
 end
 
 def write_to_solid_cache new_content
-  lock do
-    if solid_cache_card.new_card?
-      solid_cache_card.update_attributes! content: new_content
-    elsif new_content != solid_cache_card.content
-      solid_cache_card.update_column :db_content, new_content
-      solid_cache_card.expire
-    end
-  end
+  solid_cache_card.write! new_content
 end

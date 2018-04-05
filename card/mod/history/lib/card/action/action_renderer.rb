@@ -67,7 +67,7 @@ class Card
 
       def content_diff
         return @action.raw_view if @action.action_type == :delete
-        @format.subformat(@action.card)._render_action_summary action: @action
+        @format.subformat(@action.card).render_action_summary action_id: @action.id
       end
 
       def type_diff

@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 require_relative "lib/skin"
 
+require_relative "lib/skin"
+
 class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
   def up
     remove_old_stuff

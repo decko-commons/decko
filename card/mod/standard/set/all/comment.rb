@@ -41,9 +41,8 @@ format do
     end
   end
 
-  view :comment_box,
-       denial: :blank, tags: :unknown_ok,
-       perms: ->(r) { r.card.ok? :comment } do
+  view :comment_box, denial: :blank, tags: :unknown_ok,
+                     perms: :comment, cache: :never do
     wrap_with :div, class: "comment-box nodblclick" do
       action = card.new_card? ? :create : :update
       card_form action do

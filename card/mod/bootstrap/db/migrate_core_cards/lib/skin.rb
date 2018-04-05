@@ -1,9 +1,10 @@
+# Update or create a bootstrap skin
 class Skin
   include ::Card::Model::SaveHelper
 
   class << self
     def vendor_path
-      File.expand_path "../../../vendor", __FILE__
+      File.expand_path "../../../../vendor", __FILE__
     end
 
     def bootstrap_scss_path filename
@@ -36,7 +37,9 @@ class Skin
 
   def update_skin
     update_css file_name: "bootstrap.css", field_name: "bootswatch theme"
-    update_tumbnail
+    # don't update thumbnails since they are stored as coded files in the gem
+    # there's a script for doing that
+    # update_tumbnail
   end
 
   def update_scss file_name:, field_name: file_name
@@ -47,7 +50,7 @@ class Skin
     ensure_card "#{@skin_name}+#{field_name}", style_args(file_name, Card::CssID)
   end
 
-  def update_tumbnail
+  def update_thumbnail
     update_card "#{@skin_name}+Image", thumbnail_args
   end
 
@@ -55,7 +58,7 @@ class Skin
 
   def create_subcard_args
     {
-      "+bootswatch theme" => style_args("bootstrap.css", Card::CssID),
+    { "+bootswatch theme" => style_args("bootstrap.css", Card::CssID) }
       "+Image" => thumbnail_args
     }
   end

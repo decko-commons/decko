@@ -24,7 +24,7 @@ format :html do
   end
 
   view :core, cache: :never do
-    voo.structure = true
+    voo.edit_structure = [signin_field(:email), signin_field(:password)]
     with_nest_mode :edit do
       card_form :update, recaptcha: :off do
         [
@@ -37,8 +37,7 @@ format :html do
   end
 
   def hidden_signin_fields
-    hidden_field_tag :success,
-                     "REDIRECT: #{Env.interrupted_action || '*previous'}"
+    hidden_field_tag :success, "REDIRECT: #{Env.interrupted_action || '*previous'}"
   end
 
   view :signin_buttons do
@@ -66,9 +65,8 @@ format :html do
 
   # FORGOT PASSWORD
   view :edit do
-    @forgot_password = true
     voo.title ||= card.i18n_signin(:forgot_password)
-    voo.structure ||= true
+    voo.edit_structure = [signin_field(:email)]
     voo.hide :help
     Auth.as_bot { super() }
   end
@@ -83,14 +81,6 @@ format :html do
   view :edit_buttons do
     text = I18n.t :reset_my_password, scope: "mod.account.set.self.signin"
     button_tag text, situation: "primary"
-  end
-
-  view :content_formgroup do
-    fields = [signin_field(:email)]
-    fields << signin_field(:password) unless @forgot_password
-    voo.edit_structure = fields
-
-    super()
   end
 
   def signin_field name

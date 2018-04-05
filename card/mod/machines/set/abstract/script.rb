@@ -65,8 +65,8 @@ format :html do
     :javascript
   end
 
-  view :content_changes do |args|
-    wrap_with(:pre) { super args }
+  def content_changes action, diff_type, hide_diff=false
+    wrap_with(:pre) { super }
   end
 
   view :core do

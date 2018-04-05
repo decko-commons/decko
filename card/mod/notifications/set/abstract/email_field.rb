@@ -1,6 +1,6 @@
 
-def process_email_addresses context_card, format_args, args
-  format(format_args).render_email_addresses(args.merge(context: context_card))
+def process_email_addresses context_card, format_args
+  format(format_args).email_addresses context_card
 end
 
 format do
@@ -18,8 +18,8 @@ end
 # end#
 
 format :email_text do
-  view :email_addresses, cache: :never do |args|
-    context = args[:context] || self
+  def email_addresses context
+    context ||= self
     card.item_names(context: context.name).map do |name|
       # FIXME: context is processed twice here because pointers absolutize
       # item_names by default while other types can return relative names.

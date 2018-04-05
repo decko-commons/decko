@@ -1,29 +1,20 @@
 format :html do
-  view :modal_link, tags: :unknown_ok do |args|
-    opts = args[:link_opts]
+  def modal_link text, opts={}
+    text ||= render_title
+    opts.reverse_merge! path: {},
+                        "data-target": "#modal-main-slot",
+                        "data-toggle": "modal"
     opts[:path][:layout] ||= :modal
-    text = args[:link_text] || _render_title(args)
     link_to text, opts
   end
 
-  def default_modal_link_args args
-    args[:link_opts] ||= {}
-    args[:link_opts].reverse_merge! path: {},
-                                    "data-target": "#modal-main-slot",
-                                    "data-toggle": "modal"
-  end
-
-  view :modal_slot, tags: :unknown_ok do |args|
-    id = "modal-#{args[:modal_id] || 'main-slot'}"
-    dialog_args = { class: "modal-dialog" }
-    add_class dialog_args, args[:dialog_class]
-    wrap_with(:div, class: "modal fade _modal-slot", role: "dialog", id: id) do
-      wrap_with(:div, dialog_args) do
-        wrap_with :div, class: "modal-content" do
-          ""
-        end
+  def modal_slot modal_id=nil, dialog_class=nil
+    wrap_with :div, class: "modal fade _modal-slot",
+                    role: "dialog", id: "modal-#{modal_id || 'main-slot'}" do
+      wrap_with :div, class: css_classes("modal-dialog", dialog_class) do
+        wrap_with(:div, class: "modal-content") { "" }
       end
-    end
+    end.html_safe
   end
 
   view :modal_menu, tags: :unknown_ok do

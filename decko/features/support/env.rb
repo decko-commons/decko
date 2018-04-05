@@ -22,7 +22,7 @@ $feature_seeded ||= ::Set.new
 # features/**/*.rb files.
 Before("@background-jobs or @delayed-jobs or @javascript") do |scenario|
   # DatabaseCleaner.strategy = :truncation
-  Card.seed_test_db unless $feature_seeded.include?(scenario.feature.name)
+  Cardio.seed_test_db unless $feature_seeded.include?(scenario.feature.name)
 end
 
 Before("@no-db-clean-between-scenarios") do |scenario|
@@ -39,7 +39,7 @@ After("not @background-jobs", "not @delayed-jobs", "not @javascript") do
 end
 
 at_exit do
-  Card.seed_test_db
+  Cardio.seed_test_db
 end
 
 Before("@javascript") do
@@ -47,7 +47,7 @@ Before("@javascript") do
 end
 
 Before do
-  Capybara.page.current_window.resize_to 1440, 1280
+  # Capybara.page.current_window.resize_to 1440, 1280
 end
 
 require "cucumber/rails"

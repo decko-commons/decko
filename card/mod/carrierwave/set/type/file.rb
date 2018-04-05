@@ -43,11 +43,11 @@ end
 
 format :file do
   # returns send_file args.  not in love with this...
-  view :core, cache: :never do |args|
+  view :core, cache: :never do
     # this means we only support known formats.  dislike.
     attachment_format = card.attachment_format(params[:format])
     return _render_not_found unless attachment_format
-    return card.format(:html).render_core(args) if card.remote_storage?
+    return card.format(:html).render_core if card.remote_storage?
     set_response_headers
     args_for_send_file
   end
@@ -96,7 +96,7 @@ format :html do
     ""
   end
 
-  view :preview_editor, tags: :unknown_ok, cache: :never do |_args|
+  view :preview_editor, tags: :unknown_ok, cache: :never do
     cached_upload_card_name = Card::Env.params[:attachment_upload]
     cached_upload_card_name.gsub!(/\[\w+\]$/, "[action_id_of_cached_upload]")
     <<-HTML
