@@ -1,13 +1,11 @@
-include_set Abstract::Machine
-include_set Abstract::MachineInput
-
-store_machine_output filetype: "css"
+include_set Type::Scss
 
 card_accessor :variables
 card_accessor :bootswatch
 
-#include_set Pointer
-
+# TODO: make it more visible/accessible/editable what's going on here in the content
+# TODO: style: bootstrap cards load default bootstrap variables but
+#       should depend on the theme specific variables
 def content
   [
     Card["style: jquery-ui-smoothness"],
@@ -40,7 +38,7 @@ event :validate_theme_template, :validate, on: :create do
   end
 end
 
-event :copy_theme, :prepare_to_store do
+event :copy_theme, :prepare_to_store, on: :create do
   add_subfield_from_file :variables
   add_subfield_from_file :bootswatch
 end
@@ -54,4 +52,12 @@ def add_subfield_from_file subfield
   content = ::File.exist?(path) ? ::File.read(path) : ""
 
   add_subfield subfield, type_id: ScssID, content: content
+end
+
+
+format :html do
+  def edit_fields
+    [[:variables, {title: ""}],
+     [:bootswatch, {title: "additional css changes"}]]
+  end
 end
