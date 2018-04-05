@@ -1,0 +1,12 @@
+.card.mb-4.box-shadow
+  .card-header
+    = card.name
+  %img.card-img-top{:alt => "Thumbnail", "data-holder-rendered" => "true",
+                    :src => field_nest(:image, view: :source, size: :large),
+                    :style => "width: 100%; display: block;"}
+  .card-body
+    .d-flex.justify-content-center.align-items-center
+      .btn-group
+        = select_button
+        %button.btn.btn-sm.btn-outline-primary{:type => "button"} Customize
+      -#%small.text-muted 9 mins
