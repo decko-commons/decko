@@ -8,7 +8,7 @@ format do
   # @param text [String] optional string associated with link
   # @param opts [Hash] optional Hash. In simple formats, :path is usually the only key
   def link_to text=nil, opts={}
-    path = path opts.delete(:path)
+    path = path((opts.delete(:path) || {}))
     if text && path != text
       "#{text}[#{path}]"
     else
@@ -17,10 +17,10 @@ format do
   end
 
   # link to a different view of the current card
-  # @param view [Symbol]
+  # @param view [Symbol,String]
   # @param text [String]
   # @param opts [Hash]
-  def link_to_view view, text, opts={}
+  def link_to_view view, text=nil, opts={}
     add_to_path opts, view: view unless view == :home
     link_to text, opts
   end
@@ -31,7 +31,7 @@ format do
   # @param opts [Hash]
   def link_to_card cardish, text=nil, opts={}
     add_to_path opts, mark: Card::Name[cardish]
-    link_to (text || opts[:path][:mark]), opts
+    link_to text, opts
   end
 
   # link to the "related" view (handles many card menu items)
@@ -39,11 +39,8 @@ format do
   # @param text [String]
   # @param opts [Hash]
   def link_to_related field_cardish, text=nil, opts={}
-    name = Card::Name[field_cardish]
-    opts[:path] ||= {}
-    opts[:path][:related] ||= {}
-    opts[:path][:related][:name] ||= "+#{name}"
-    link_to_view :related, (text || name), opts
+    add_to_path opts, related: { name: "+#{Card::Name[field_cardish]}" }
+    link_to_view :related, text, opts
   end
 
   # a "resource" is essentially a reference to something that
@@ -120,7 +117,7 @@ format :html do
 
   # in HTML, #link_to_view is automatically dynamic, meaning the link will bring
   # the new view to the current slot without reloading the page
-  def link_to_view view, text, opts={}
+  def link_to_view view, text=nil, opts={}
     opts.reverse_merge! remote: true, rel: "nofollow"
     super
   end
@@ -133,6 +130,13 @@ format :html do
     resource = clean_resource resource, resource_type
     add_resource_opts opts, resource_type
     link_to text, opts.merge(path: resource)
+  end
+
+  # in HTML, #link_to_related defaults to using the field name as text
+  def link_to_related field_cardish, text=nil, opts={}
+    name = Card::Name[field_cardish]
+    add_to_path opts, related: { name: "+#{name}" }
+    link_to_view :related, (text || name), opts
   end
 
   private
