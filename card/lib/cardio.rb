@@ -50,7 +50,7 @@ module Cardio
         paging_limit:           20,
 
         non_createable_types:   [%w(signup setting set)],
-        view_cache:             true,
+        view_cache:             false,
         rss_enabled:            false,
 
         encoding:                "utf-8",
