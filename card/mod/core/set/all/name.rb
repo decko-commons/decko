@@ -97,7 +97,6 @@ def raw_name
   @raw_name || name
 end
 
-
 def left *args
   case
   when simple?    then nil
@@ -184,7 +183,7 @@ def repair_key
       key_blocker.save
     end
 
-    saved =   (self.key      = correct_key) && save!
+    saved =   (self.key = correct_key) && save!
     saved ||= (self.name = current_key) && save!
 
     if saved
@@ -195,7 +194,7 @@ def repair_key
     end
     self
   end
-rescue
+rescue StandardError
   Rails.logger.info "BROKE ATTEMPTING TO REPAIR BROKEN KEY: #{key}"
   self
 end
@@ -273,11 +272,14 @@ def assign_side_id side
   # eg, renaming A to A+B
   old_name_in_way = (sidecard&.id && sidecard&.id == id)
   suspend_name(sidename) if old_name_in_way
-  side_id_or_card =
-    if !sidecard || old_name_in_way
-      add_subcard(sidename.s)
-    else
-      sidecard.id || sidecard
-    end
-  send "#{side}_id=", side_id_or_card
+  send "#{side}_id=", side_id_or_card(old_name_in_way, sidecard, sidename)
+end
+
+def side_id_or_card old_name_in_way, sidecard, sidename
+  if !sidecard || old_name_in_way
+    add_subcard(sidename.s)
+  else
+    # if sidecard doesn't have an id, it's already part of this act
+    sidecard.id || sidecard
+  end
 end

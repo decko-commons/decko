@@ -20,11 +20,6 @@ class Card
           @referee_card ||= referee_name && Card.fetch(referee_name)
         end
 
-        # FIXME: if we need this, then it should be faster, using fetch_id
-        # def referee_id
-        #   referee_card and referee_card.id
-        # end
-
         def replace_name_reference old_name, new_name
           @referee_card = nil
           @referee_name = nil
