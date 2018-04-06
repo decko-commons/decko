@@ -32,6 +32,7 @@ class Card
         return compose str if str.is_a?(Array)
 
         str = str.to_s
+
         if !validated_parts && str.include?(joint)
           compose Cardname.split_parts(str)
         elsif (id = Card.id_from_string(str))  # handles ~ and :

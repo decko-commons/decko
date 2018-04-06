@@ -127,8 +127,8 @@ RSpec.describe Card::Name do
       end
 
       it "fails if id is to long" do
-        expect { described_class.new("~250000000000") }
-          .to raise_error(Card::Error, "invalid mark: ~2500000000")
+        expect(described_class.new("~250000000000"))
+          .to eq "card id out of range: 250000000000"
       end
 
       it "fails for non-existent codename" do
