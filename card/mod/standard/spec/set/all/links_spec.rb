@@ -121,8 +121,8 @@ describe Card::Set::All::Links do
       it "adds remote handling and nofollow" do
         assert_view_select(link_to_view("listing", "list me"),
                            'a[href="/Home?view=listing"]' \
-                           '[data-remote=true]' \
-                           '[rel=nofollow]') { "list me" }
+                           "[data-remote=true]" \
+                           "[rel=nofollow]") { "list me" }
       end
     end
 
@@ -131,7 +131,7 @@ describe Card::Set::All::Links do
         assert_view_select(
           link_to_related(:discussion),
           'a[href="/Home?related%5Bname%5D=%2Bdiscussion&view=related"]' \
-          '[data-remote=true][rel=nofollow]'
+          "[data-remote=true][rel=nofollow]"
         ) { "list me" }
       end
     end
