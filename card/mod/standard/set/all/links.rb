@@ -120,7 +120,7 @@ format :html do
   # the new view to the current slot without reloading the page
   def link_to_view view, text=nil, opts={}
     opts.reverse_merge! remote: true, rel: "nofollow"
-    super
+    super view, (text || view), opts
   end
 
   # in HTML, #link_to_resource automatically adds a target to external resources

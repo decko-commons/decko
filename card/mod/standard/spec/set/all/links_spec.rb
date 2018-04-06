@@ -96,7 +96,7 @@ describe Card::Set::All::Links do
       end
 
       it "returns tag link with only href attribute for empty path hash" do
-        expect(link_to(nil, path:{})).to eq(%(<a href="/Home">/Home</a>))
+        expect(link_to(nil, path: {})).to eq(%(<a href="/Home">/Home</a>))
       end
 
       it "handles string paths" do
@@ -106,7 +106,33 @@ describe Card::Set::All::Links do
 
       it "handles :href in addition to :path" do
         expect(link_to(nil, href: "http://google.com"))
-            .to eq(%(<a href="http://google.com">http://google.com</a>))
+          .to eq(%(<a href="http://google.com">http://google.com</a>))
+      end
+    end
+
+    describe "#link_to_card" do
+      it "handles known cards" do
+        expect(link_to_card("Menu"))
+          .to eq(%(<a class="known-card" href="/Menu">Menu</a>))
+      end
+    end
+
+    describe "#link_to_view" do
+      it "adds remote handling and nofollow" do
+        assert_view_select(link_to_view("listing", "list me"),
+                           'a[href="/Home?view=listing"]' \
+                           '[data-remote=true]' \
+                           '[rel=nofollow]') { "list me" }
+      end
+    end
+
+    describe "#link_to_related" do
+      it "links to related, you know?" do
+        assert_view_select(
+          link_to_related(:discussion),
+          'a[href="/Home?related%5Bname%5D=%2Bdiscussion&view=related"]' \
+          '[data-remote=true][rel=nofollow]'
+        ) { "list me" }
       end
     end
 
