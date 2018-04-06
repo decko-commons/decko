@@ -17,7 +17,7 @@ format do
     ""
   end
 
-  view :not_found, perms: :none, error_code: 404 do |_args|
+  view :not_found, perms: :none, error_code: 404 do
     error_name = card.name.present? ? safe_name : "the card requested"
     %( Could not find #{error_name}. )
   end
@@ -110,9 +110,6 @@ format :html do
 
   view :conflict, error_code: 409, cache: :never do
     actor_link = link_to_card card.last_action.act.actor.name
-    expanded_act = wrap do
-      _render_act act: card.last_action.act, act_seq: 0
-    end
     class_up "card-slot", "error-view"
     wrap do # ENGLISH below
       alert "warning" do
@@ -121,7 +118,7 @@ format :html do
           <span class="new-current-revision-id">#{card.last_action_id}</span>
           <div>#{actor_link} has also been making changes.</div>
           <div>Please examine below, resolve above, and re-submit.</div>
-          #{expanded_act}
+          #{render_act}
         )
       end
     end

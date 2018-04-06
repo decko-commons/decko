@@ -26,6 +26,11 @@ def item_names args={}
   returning(:name, args) { search args }
 end
 
+def item_ids args={}
+  args[:limit] ||= 0
+  returning(:id, args) { search args }
+end
+
 def count args={}
   args[:offset] = 0
   args[:limit] = 0
@@ -86,7 +91,7 @@ format do
 end
 
 format :data do
-  view :card_list do |_args|
+  view :card_list do
     search_with_params.map do |item_card|
       nest_item item_card
     end

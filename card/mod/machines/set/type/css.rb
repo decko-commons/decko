@@ -52,7 +52,7 @@ format :html do
     :closed
   end
 
-  view :core do |_args|
+  view :core do
     # FIXME: scan must happen before process for inclusion interactions to
     # work, but this will likely cause
     # problems with including other css?
@@ -60,7 +60,9 @@ format :html do
                     content_opts: { size: :icon }
   end
 
-  view :content_changes, mod: Abstract::Script::HtmlFormat
+  def content_changes action, diff_type, hide_diff=false
+    wrap_with(:pre) { super }
+  end
 end
 
 format :css do

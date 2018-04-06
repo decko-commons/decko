@@ -15,63 +15,71 @@ event :cache_expired_for_type_change, :store,
   Card.follow_caches_expired
 end
 
-event :cache_expired_for_new_preference, :integrate,
-      when: proc { |c| c.follow_rule_card? }  do
+event :cache_expired_for_new_preference, :integrate, when: :follow_rule_card? do
   Card.follow_caches_expired
 end
 
 format do
-  def follow_link_hash args
-    toggle = args[:toggle] || (card.followed? ? :off : :on)
+  def follow_link_hash
+    toggle = card.followed? ? :off : :on
     hash = { class: "follow-toggle-#{toggle}" }
-    these_emails = "emails about changes to #{card.follow_label}"
-    case toggle
-    when :off
-      hash[:content] = "*never"
-      hash[:title]   = "stop sending #{these_emails}"
-      hash[:verb]    = "unfollow"
-    when :on
-      hash[:content] = "*always"
-      hash[:title]   = "send #{these_emails}"
-      hash[:verb]    = "follow"
-    end
-    set_card = card.default_follow_set_card
-    hash[:path] = path(
-      mark: set_card.follow_rule_name(Auth.current.name),
-      action: :update,
-      success: { layout: :modal, view: :follow_status },
-      card: { content: "[[#{hash[:content]}]]" }
-    )
+    hash.merge! send("follow_link_#{toggle}_hash")
+    hash[:path] = path mark: follow_link_mark,
+                       action: :update,
+                       success: { layout: :modal, view: :follow_status },
+                       card: { content: "[[#{hash[:content]}]]" }
     hash
+  end
+
+  def follow_link_on_hash
+    { content: "*always",
+      title: follow_link_title("send"),
+      verb: "follow" }
+  end
+
+  def follow_link_off_hash
+    { content: "*never",
+      title: follow_link_title("stop sending"),
+      verb: "unfollow" }
+  end
+
+  def follow_link_title action
+    "#{action} emails about changes to #{card.follow_label}"
+  end
+
+  def follow_link_mark
+    card.default_follow_set_card.follow_rule_name Auth.current.name
   end
 end
 
 format :json do
-  view :follow_status do |args|
-    follow_link_hash args
+  view :follow_status do
+    follow_link_hash
   end
 end
 
 format :html do
-  view :follow_link, tags: :unknown_ok, perms: :none, cache: :never do |args|
-    hash = follow_link_hash args
-    text = args[:icon] ? icon_tag(:flag) : ""
-    span_attrs = "follow-verb menu-item-label"
-    text += %(<span class="#{span_attrs}">#{hash[:verb]}</span>).html_safe
-    # follow_rule_card = Card.fetch(
-    #   card.default_follow_set_card.follow_rule_name(Auth.current.name),
-    #   new: {}
-    # )
-    opts = (args[:link_opts] || {}).clone
-    opts.merge!(
-      title:           hash[:title],
-      "data-path"      => hash[:path],
-      "data-toggle"    => "modal",
-      "data-target"    => "#modal-#{card.name.safe_key}"
+  view :follow_link do
+    follow_link
+  end
+
+  def follow_link opts={}, icon=false
+    hash = follow_link_hash
+    link_opts = opts.merge(
+      path: hash[:path],
+      title: hash[:title],
+      "data-path": hash[:path],
+      "data-toggle": "modal",
+      "data-target": "#modal-#{card.name.safe_key}",
+      class: css_classes("follow-link", opts[:class])
     )
-    opts[:class] = "follow-link #{opts[:class]}"
-    opts[:path] = hash[:path]
-    link_to text, opts
+    link_to follow_link_text(icon, hash[:verb]), link_opts
+  end
+
+  def follow_link_text icon, verb
+    verb = %(<span class="follow-verb menu-item-label">#{verb}<span>)
+    icon = icon ? icon_tag(:flag) : ""
+    [icon, verb].compact.join.html_safe
   end
 end
 
@@ -159,7 +167,7 @@ def followed_field? field_card
     follow_field_rule.item_names.find do |item|
       item.to_name.key == field_card.key ||
         (item.to_name.key == Card[:includes].key &&
-         included_card_ids.include?(field_card.id))
+         includee_ids.include?(field_card.id))
     end
 end
 

@@ -31,6 +31,9 @@ class Card
 
          def write_attributes
            File.write @path, @data.to_yaml
+         rescue SystemCallError
+           false
+           # card.yml not written
          end
 
          def read_attributes

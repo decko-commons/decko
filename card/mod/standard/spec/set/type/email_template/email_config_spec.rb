@@ -174,7 +174,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
 
     it "handles _self in html message" do
       update_field "*html message", content: "Triggered by {{_self|name}}"
-      mail = email.format.render_mail context: context_card
+      mail = email.format.mail context: context_card
       expect(mail.parts[1].body.raw_source).to include("Triggered by Banana")
     end
 
@@ -183,8 +183,8 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
                    content: "Nobody expects {{_left+surprise|core}}"
       Card.create name: "Banana+surprise", content: "the Spanish Inquisition"
       c = Card.create name: "Banana+emailtest", content: "data content"
-      mail = email.format.render_mail context: c
-      # c.format.render_mail.parts[1].body.raw_source
+      mail = email.format.mail context: c
+      # c.format.mail.parts[1].body.raw_source
       expected = mail.parts[1].body.raw_source
       # expected = mailconfig(context: c)[:html_message]
       expect(expected).to include "Nobody expects the Spanish Inquisition"
@@ -193,7 +193,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     it "handles inline image nests in html message  in core view" do
       Card::Env[:host] = "http://testhost"
       update_field "*html message", content: "Triggered by {{:logo|core}}"
-      mail = email.format.render_mail context: context_card
+      mail = email.format.mail context: context_card
       expect(mail.parts.size).to eq 2
       expect(mail.parts[0].mime_type).to eq "text/plain"
       expect(mail.parts[1].mime_type).to eq "text/html"
@@ -203,7 +203,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
 
     it "handles inline image nests in html message" do
       update_field "*html message", content: "Triggered by {{:logo|inline}}"
-      mail = email.format.render_mail context: context_card
+      mail = email.format.mail context: context_card
       expect(mail.parts[0].mime_type).to eq "image/png"
       url = mail.parts[0].url
       expect(mail.parts[2].mime_type).to eq "text/html"
@@ -213,7 +213,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
 
     it "handles image nests in html message in default view" do
       update_field "*html message", content: "Triggered by {{:logo|core}}"
-      mail = email.format.render_mail context: context_card
+      mail = email.format.mail context: context_card
       expect(mail.parts.size).to eq 2
       expect(mail.parts[0].mime_type).to eq "text/plain"
       expect(mail.parts[1].mime_type).to eq "text/html"
