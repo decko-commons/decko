@@ -125,7 +125,8 @@ RSpec.describe Card::Subcards do
       create_with_event "left part+right part", :prepare_to_store do
         add_subcard "left part", type_id: Card::PhraseID
       end
-      expect_card("left part").to have_type_id Card::PhraseID
+      expect_card("left part").to have_type Card::PhraseID
+      expect_card("left part+right part").to have_left_id Card.fetch_id("left part")
     end
   end
 

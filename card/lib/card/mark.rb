@@ -1,6 +1,6 @@
 
 class Card
-  class << self
+  module Mark
     ID_MARK_RE = /^\~(?<id>\d+)$/
     CODENAME_MARK_RE = /^\:(?<codename>\w+)$/
 
