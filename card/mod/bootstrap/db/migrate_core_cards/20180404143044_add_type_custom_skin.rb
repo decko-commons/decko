@@ -17,6 +17,10 @@ class AddTypeCustomSkin < Card::Migration::Core
     end
 
     delete_code_card "customizable bootstrap skin"
-    delete_code_card "readable skin" # no longer supported
+
+    # remove deprecated bootswatch skin
+    update_card "readable skin", codename: nil
+    update_card "readable skin+image", codename: nil, empty_ok: true
+    delete_card "readable skin"
   end
 end
