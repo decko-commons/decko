@@ -96,7 +96,9 @@ end
 public
 
 format :html do
-  # in HTML, #link_to adds special handling of "remote" and "method" opts
+  # in HTML, #link_to renders an anchor tag <a>
+  # it treats opts other than "path" as html opts for that tag,
+  # and it adds special handling of "remote" and "method" opts
   # (changes them into data attributes)
   def link_to text=nil, opts={}
     opts[:href] ||= path opts.delete(:path)
@@ -110,9 +112,8 @@ format :html do
   # TODO: upgrade from (known/wanted)-card to (real/virtual/unknown)-card
   def link_to_card cardish, text=nil, opts={}
     name = Card::Name[cardish]
-    add_to_path opts, mark: Card::Name[cardish]
     add_known_or_wanted_class opts, name
-    link_to (text || name), opts
+    super name, (text || name), opts
   end
 
   # in HTML, #link_to_view is automatically dynamic, meaning the link will bring
@@ -126,17 +127,14 @@ format :html do
   # so they will open in another tab. It also adds css classes indicating whether
   # the resource is internal or external
   def link_to_resource resource, text=nil, opts={}
-    resource_type = resource_type resource
-    resource = clean_resource resource, resource_type
-    add_resource_opts opts, resource_type
-    link_to text, opts.merge(path: resource)
+    add_resource_opts opts, resource_type(resource)
+    super
   end
 
   # in HTML, #link_to_related defaults to using the field name as text
   def link_to_related field_cardish, text=nil, opts={}
     name = Card::Name[field_cardish]
-    add_to_path opts, related: { name: "+#{name}" }
-    link_to_view :related, (text || name), opts
+    super name, (text || name), opts
   end
 
   private
