@@ -13,7 +13,7 @@ format do
     return card.content if card.web?
     image = selected_version
     return "" unless image.valid?
-    internal_url image.url
+    contextualize_path image.url
   end
   
   def selected_version
