@@ -123,3 +123,9 @@ format :html do
     card_path relative_path
   end
 end
+
+format :email_html do
+  def contextualize_path relative_path
+    card_url relative_path
+  end
+end

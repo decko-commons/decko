@@ -11,7 +11,6 @@ describe Card::Set::All::Path do
     Card.config.relative_url_root = nil
     Card::Env[:protocol] = nil
     Card::Env[:host] = nil
-
   end
 
   context "when in base format" do
@@ -24,35 +23,35 @@ describe Card::Set::All::Path do
     end
 
     it "handles other cards" do
-      expect(path mark: "B").to eq "/B"
+      expect(path(mark: "B")).to eq "/B"
     end
 
     it "handles codenames" do
-      expect(path mark: :all).to eq "/*all"
+      expect(path(mark: :all)).to eq "/*all"
     end
 
     it "handles ids" do
-      expect(path mark: Card::SetID).to eq "/Set"
+      expect(path(mark: Card::SetID)).to eq "/Set"
     end
 
     it "handles :no_mark" do
-      expect(path no_mark: true, id: "Donate").to eq "/?id=Donate"
+      expect(path(no_mark: true, id: "Donate")).to eq "/?id=Donate"
     end
 
     it "handles formats" do
-      expect(path format: :csv).to eq "/A.csv"
+      expect(path(format: :csv)).to eq "/A.csv"
     end
 
     it "handles actions" do
-      expect(path action: :update).to eq "/update/A"
+      expect(path(action: :update)).to eq "/update/A"
     end
 
     it "handles query strings" do
-      expect(path view: :listing).to eq "/A?view=listing"
+      expect(path(view: :listing)).to eq "/A?view=listing"
     end
 
     it "handles special new card of type paths" do
-      expect(path mark: :pointer, action: :new).to eq("/new/Pointer")
+      expect(path(mark: :pointer, action: :new)).to eq("/new/Pointer")
     end
 
     it "renders as absolute url" do

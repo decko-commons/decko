@@ -78,6 +78,10 @@ describe Card::Set::All::Links do
         expect(link_to_resource("http://www.www.com"))
           .to eq("http://www.www.com")
       end
+
+      it "doesn't alter absolute paths" do
+        expect(link_to_resource("/woogles")).to eq("/woogles")
+      end
     end
   end
 
@@ -85,6 +89,27 @@ describe Card::Set::All::Links do
     let :format do
       Card["Home"].format(:html)
     end
+
+    describe "#link_to" do
+      it "returns a simple anchor tag if only given text" do
+        expect(link_to("Germany")).to eq(%(<a>Germany</a>))
+      end
+
+      it "returns tag link with only href attribute for empty path hash" do
+        expect(link_to(nil, path:{})).to eq(%(<a href="/Home">/Home</a>))
+      end
+
+      it "handles string paths" do
+        expect(link_to(nil, path: "http://google.com"))
+          .to eq(%(<a href="http://google.com">http://google.com</a>))
+      end
+
+      it "handles :href in addition to :path" do
+        expect(link_to(nil, href: "http://google.com"))
+            .to eq(%(<a href="http://google.com">http://google.com</a>))
+      end
+    end
+
     describe "#link_to_resource" do
       it "opens external link in new tab" do
         assert_view_select link_to_resource("http://example.com"),
@@ -98,6 +123,5 @@ describe Card::Set::All::Links do
                            false
       end
     end
-
   end
 end
