@@ -95,6 +95,9 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # {Card::Auth More on accounts}
 #
 class Card < ApplicationRecord
+  require_dependency "card/mark"
+  extend Mark
+
   require_dependency "card/name"
   require_dependency "card/codename"
   require_dependency "card/query"

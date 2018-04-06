@@ -53,6 +53,15 @@ module ClassMethods
     opts[:skip_virtual] || opts[:new].present? || opts[:skip_type_lookup]
   end
 
+  def retrieve_or_new mark, opts
+    card, needs_caching = retrieve_existing mark, opts
+    if (new_card = new_for_cache card, mark, opts)
+      [new_card, true]
+    else
+      [card, needs_caching]
+    end
+  end
+
   # look in cache.  if that doesn't work, look in database
   # @return [{Card}, {True/False}] Card object and "needs_caching" ruling
   def retrieve_existing mark, opts

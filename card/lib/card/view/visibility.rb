@@ -11,7 +11,7 @@ class Card
       # test methods
 
       def hide? view
-        viz_hash[view] == :hide
+        viz_hash[view&.to_sym] == :hide
       end
 
       def show? view
