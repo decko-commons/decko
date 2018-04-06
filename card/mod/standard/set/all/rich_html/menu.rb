@@ -1,5 +1,5 @@
 format :html do
-  MENU_ITEMS = %i[edit discuss follow page rules account more]
+  MENU_ITEMS = %i[edit discuss follow page rules account more].freeze
 
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
