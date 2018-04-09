@@ -15,11 +15,11 @@ format :html do
   view :template_editor do
     wrap do
       [
-          wrap_with(:div, "{{", class: "template-editor-left"),
-          wrap_with(:div, class: "template-editor-main") do
-            render_template_editor_frame show: :template_closer
-          end,
-          wrap_with(:div, "}}", class: "template-editor-right")
+        wrap_with(:div, "{{", class: "template-editor-left"),
+        wrap_with(:div, class: "template-editor-main") do
+          render_template_editor_frame show: :template_closer
+        end,
+        wrap_with(:div, "}}", class: "template-editor-right")
       ]
     end
   end
