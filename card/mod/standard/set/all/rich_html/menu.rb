@@ -3,12 +3,18 @@ format :html do
 
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
-    wrap_with :div, class: "menu-slot nodblclick" do
+    wrap_menu do
       [
         _render(:horizontal_menu, optional: :hide),
         _render_menu_link,
         modal_slot(card.name.safe_key)
       ]
+    end
+  end
+
+  def wrap_menu
+    wrap_with :div, class: "menu-slot nodblclick" do
+      yield
     end
   end
 

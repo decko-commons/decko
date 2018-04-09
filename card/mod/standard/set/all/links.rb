@@ -116,8 +116,7 @@ format :html do
     super name, (text || name), opts
   end
 
-  # in HTML, #link_to_view is automatically dynamic, meaning the link will bring
-  # the new view to the current slot without reloading the page
+  # in HTML, #link_to_view defaults to a remote link with rel="nofollow".
   def link_to_view view, text=nil, opts={}
     opts.reverse_merge! remote: true, rel: "nofollow"
     super view, (text || view), opts
