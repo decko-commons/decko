@@ -70,37 +70,5 @@ describe Card::Set::All::Base do
         expect(render_card(:array, content: "yoing")).to eq(%(["yoing"]))
       end
     end
-
-    it "renders template rule of embed cards based on set" do
-      Card::Auth.as_bot
-      structure_card = Card.create!(
-        name: "test_card+*right+*structure",
-        type_id: Card::HTMLID,
-        content: "{{_left+test_another_card|content|content;"\
-                 "structure:test_another_card_structure}}"
-      )
-      Card.create! name: "test_another_card+*right+*structure",
-                   type_id: Card::SearchTypeID,
-                   content: ' {"type":"basic","left":"_1"}'
-      href = "/test_another_card+*right?view=template_editor"
-      text = "_left+test_another_card|content|content;"\
-             "structure:test_another_card_structure"
-
-      html = structure_card.format.render_open
-      expect(html).to have_tag("a", with: { class: "slotter", href: href },
-                                    text: text)
-    end
-  end
-
-  describe "date views" do
-    it "can be formatted with variant option" do
-      rendered = render_content "{{A|created_at; variant: %m/%d/%Y}}"
-      expect(rendered).to match(%r{\d\d/\d\d/20\d\d})
-    end
-
-    it "can handle colons" do
-      rendered = render_content "{{A|created_at; variant: %I:%M%P}}"
-      expect(rendered).to match(/\d\d\:\d\d\w\w/)
-    end
   end
 end
