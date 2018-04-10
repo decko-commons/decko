@@ -1,7 +1,7 @@
 format :html do
   view :core, cache: :never do
     escape_in_main do
-      nest root.card, view: :head_core
+      nest root.card, view: :head
     end
   end
 
