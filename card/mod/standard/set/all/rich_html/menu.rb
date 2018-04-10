@@ -82,7 +82,7 @@ format :html do
   end
 
   def menu_item_edit opts
-    menu_item "edit", "edit", opts.merge(view: :edit, path: menu_path_opts)
+    menu_item "edit", "edit", opts.merge(view: :edit)
   end
 
   def menu_item_discuss opts
