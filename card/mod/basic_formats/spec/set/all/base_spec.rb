@@ -82,13 +82,14 @@ describe Card::Set::All::Base do
       Card.create! name: "test_another_card+*right+*structure",
                    type_id: Card::SearchTypeID,
                    content: ' {"type":"basic","left":"_1"}'
-      href = "/test_another_card+*right?view=template_editor"
       text = "_left+test_another_card|content|content;"\
              "structure:test_another_card_structure"
 
       html = structure_card.format.render_open
-      expect(html).to have_tag("a", with: { class: "slotter", href: href },
-                                    text: text)
+      expect(html).to(
+        have_tag("a[href~='view=template_editor']", with: { class: "slotter"},
+                                                    text: text)
+      )
     end
   end
 
