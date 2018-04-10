@@ -24,7 +24,6 @@ describe Card::Set::Type::Set do
     end
   end
 
-
   describe "structure rule content" do
     let :nest_syntax do
       "_left+test_another_card|content|content;structure:test_another_card_structure"
@@ -56,7 +55,7 @@ describe Card::Set::Type::Set do
 
     it "produces template editor with close link within large brackets" do
       set_card = nested_card.fetch trait: :right
-      expect(set_card.format.render :template_editor).to have_tag("div.card-slot") do
+      expect(set_card.format.render(:template_editor)).to have_tag("div.card-slot") do
         with_tag "div.template-editor-left", text: "{{"
         with_tag "div.template-editor-main" do
           with_tag "div.template-closer"
@@ -64,7 +63,6 @@ describe Card::Set::Type::Set do
           with_tag "div.card-body"
         end
         with_tag "div.template-editor-right", text: "}}"
-
       end
     end
   end
