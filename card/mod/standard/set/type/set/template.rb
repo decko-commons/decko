@@ -47,7 +47,7 @@ format :html do
 
   view :template_closer do
     wrap_menu do
-      wrap_with "div", class: "card-menu" do
+      wrap_with "div", class: "card-menu template-closer" do
         link_to_view :template_link, icon_tag("remove"), class: "slotter"
       end
     end
