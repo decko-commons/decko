@@ -3,12 +3,18 @@ format :html do
 
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
-    wrap_with :div, class: "menu-slot nodblclick" do
+    wrap_menu do
       [
         _render(:horizontal_menu, optional: :hide),
         _render_menu_link,
         modal_slot(card.name.safe_key)
       ]
+    end
+  end
+
+  def wrap_menu
+    wrap_with :div, class: "menu-slot nodblclick" do
+      yield
     end
   end
 
@@ -76,7 +82,7 @@ format :html do
   end
 
   def menu_item_edit opts
-    menu_item "edit", "edit", opts.merge(view: :edit, path: menu_path_opts)
+    menu_item "edit", "edit", opts.merge(view: :edit)
   end
 
   def menu_item_discuss opts
