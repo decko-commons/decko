@@ -117,14 +117,14 @@ format :html do
   def standard_frame slot=true
     voo.hide :horizontal_menu, :help
     wrap slot do
-        panel do
-          [
-            frame_header,
-            frame_help,
-            _render(:flash),
-            wrap_body { yield }
-          ]
-        end
+      panel do
+        [
+          frame_header,
+          frame_help,
+          _render(:flash),
+          wrap_body { yield }
+        ]
+      end
     end
   end
 
