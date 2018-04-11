@@ -4,7 +4,8 @@ include_set Abstract::Machine
 store_machine_output filetype: "css"
 
 format do
-  def chunk_list  # turn off autodetection of uri's
+  # turn off autodetection of uri's
+  def chunk_list
     :nest_only
   end
 end
@@ -27,9 +28,7 @@ def free_skin_name
   name = "#{@theme} skin customized"
   if Card.exist?(name)
     name = "#{name} 1"
-    while Card.exist?(name) do
-      name.next!
-    end
+    name.next! while Card.exist?(name)
   end
   name
 end

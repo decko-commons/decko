@@ -16,6 +16,7 @@ RSpec.describe Card::Set::TypePlusRight::CustomizedSkin::Variables do
 
   it "fetches missing variable value from bootstrap source" do
     pending "card-cap-bg is temporarily removed from the variables list"
-    expect(card.variables_card.theme_colors).to include("card-cap-bg": "rgba($black, .03)")
+    expect(card.variables_card.theme_colors)
+      .to include("card-cap-bg": "rgba($black, .03)")
   end
 end

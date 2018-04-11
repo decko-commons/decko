@@ -31,7 +31,7 @@ def default_value_from_bootstrap name
 end
 
 def bootstrap_variables_scss
-  @bootstrap_variables ||= read_bootstrap_variables
+  @bootstrap_variables_scss ||= read_bootstrap_variables
 end
 
 def read_bootstrap_variables
@@ -63,7 +63,7 @@ format :html do
     #value = value[1..-1] if value.start_with? "$"
     options = VARIABLE_NAMES[:colors].map { |var| "$#{var}" }
     options << value unless options.include? value
-    select_tag "theme_colors[#{name}]", options_for_select(options , value), class: "tags"
+    select_tag "theme_colors[#{name}]", options_for_select(options, value), class: "tags"
   end
 
   def select_button target=parent.card
@@ -88,8 +88,8 @@ end
 def replace_values group, prefix=""
   values = variable_values_from_params group
   values.each_pair do |name, val|
-    if self.content.match definition_regex(name)
-      self.content.gsub! definition_regex(name), "\\k<before>#{prefix}#{val}\\k<after>"
+    if content.match definition_regex(name)
+      content.gsub! definition_regex(name), "\\k<before>#{prefix}#{val}\\k<after>"
     else
       self.content += "$#{name}: #{prefix}#{val} !default;\n"
     end
