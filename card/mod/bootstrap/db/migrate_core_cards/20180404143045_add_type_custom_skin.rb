@@ -19,7 +19,7 @@ class AddTypeCustomSkin < Card::Migration::Core
 
     # remove deprecated bootswatch skin
     Card.fetch("readable skin+image")&.update_column :codename, nil
-    #update_card "readable skin+image", codename: nil, empty_ok: true
+    # update_card "readable skin+image", codename: nil, empty_ok: true
     delete_code_card "readable skin"
   end
 end
