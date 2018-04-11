@@ -1,33 +1,5 @@
 format :html do
-  # add tuples containing a
-  #  - the codename of a card with javascript config (usually in json format)
-  #  - the name of a javascript method that handles the config
-  basket :mod_js_config
 
-  def ie9
-    ie9_card = Card[:script_html5shiv_printshiv]
-    "<!--[if lt IE 9]>"\
-    "#{javascript_include_tag ie9_card.machine_output_url if ie9_card}"\
-    "<![endif]-->"
-  end
-
-  def configure_double_click vars
-    case Card.config.double_click
-      when :off   then vars["decko.doubleClick"] = true
-      when
-    end
-     if Card.config.double_click
-  end
-
-  def trigger_slot_ready
-    <<-HTML
-      <script type="text/javascript">
-        $('document').ready(function() {
-          $('.card-slot').trigger('slotReady');
-        })
-      </script>
-    HTML
-  end
 
 
   def google_analytics_head_javascript
@@ -69,16 +41,4 @@ format :html do
   end
 
 
-
-
-  def mod_configs
-    mod_js_config.map do |codename, js_decko_function|
-      config_json = escape_javascript Card.global_setting(codename)
-      javascript_tag { "decko.#{js_decko_function}('#{config_json}')" }
-    end
-  end
-
-  def recaptcha
-    javascript_include_tag "https://www.google.com/recaptcha/api.js", async: "", defer: ""
-  end
 end

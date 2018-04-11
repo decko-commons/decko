@@ -12,13 +12,9 @@ format :html do
 
   def head_javascript
     output [
-      decko_variables,
-      # script_rule,
-      ie9,
       mod_configs,
       trigger_slot_ready,
-      google_analytics,
-      # recaptcha
+      google_analytics
     ]
   end
 
