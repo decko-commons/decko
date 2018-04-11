@@ -10,7 +10,7 @@ format :html do
   end
 
   def google_analytics_key
-    @google_analytics_key ||= "adfasdfasdfsa" # Card.global_setting :google_analytics_key
+    @google_analytics_key ||= Card.global_setting :google_analytics_key
   end
 
   def google_analytics_snippet_vars

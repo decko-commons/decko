@@ -58,7 +58,7 @@ format :html do
     end
   end
 
-  view :decko_script_variables, tags: :unknown_ok do
+  view :decko_script_variables, tags: :unknown_ok, cache: :never do
     string = ""
     decko_script_variables.each do |k, v|
       string += "#{k}=#{script_variable_to_js v};\n"
@@ -70,18 +70,19 @@ format :html do
     {
       "window.decko": { rootPath: Card.config.relative_url_root },
       "decko.doubleClick": Card.config.double_click,
-      "decko.cssPath": head_stylesheet_path
+      "decko.cssPath": head_stylesheet_path,
+      "decko.currentUserId": (Auth.current_id if Auth.signed_in?)
+
     }
   end
 
   def script_variable_to_js value
-    case value
-    when String, Symbol, NilClass
-      "'#{value}'"
-    when Hash
+    if value.is_a? Hash
       string = "{"
       value.each { |k, v| string += "#{k}:#{script_variable_to_js v}" }
       string + "}"
+    else
+      "'#{value}'"
     end
   end
 
