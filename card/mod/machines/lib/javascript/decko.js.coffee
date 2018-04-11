@@ -126,7 +126,7 @@ $(window).ready ->
   $('body').on 'click', 'button.redirecter', ->
     window.location = $(this).attr('href')
 
-  unless decko.noDoubleClick
+  unless decko.doubleClick == 'off'
     $('body').on 'dblclick', 'div', (event) ->
       t = $(this)
       return false if t.closest( '.nodblclick'  )[0]

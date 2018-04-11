@@ -1,7 +1,4 @@
 format :html do
-
-
-
   def google_analytics_head_javascript
     return unless (ga_key = Card.global_setting(:google_analytics_key))
     <<-HTML
@@ -39,6 +36,4 @@ format :html do
       </script>
     HTML
   end
-
-
 end
