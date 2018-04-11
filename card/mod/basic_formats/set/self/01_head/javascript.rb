@@ -4,19 +4,6 @@ format :html do
   #  - the name of a javascript method that handles the config
   basket :mod_js_config
 
-  def script_rule
-    manual_script = params[:script]
-    script_card   = Card[manual_script] if manual_script
-    script_card ||= root.card.rule_card :script
-
-    @js_tag =
-      if params[:debug] == "script"
-        script_card.format(:js).render_core items: { view: :include_tag }
-      elsif script_card
-        javascript_include_tag script_card.machine_output_url
-      end
-  end
-
   def ie9
     ie9_card = Card[:script_html5shiv_printshiv]
     "<!--[if lt IE 9]>"\
@@ -25,6 +12,13 @@ format :html do
   end
 
   def decko_variables
+    vars = {
+      "window.decko": ["{rootPath:'%<root>s'", { root: Card.config.relative_url_root }],
+      "decko.doubleClick": Card.config.double_click,
+      "decko.cssPath":
+
+      ""
+    }
     varvals = ["window.decko={rootPath:'#{Card.config.relative_url_root}'}"]
     card.have_recaptcha_keys? &&
       varvals << "decko.recaptchaKey='#{Card.config.recaptcha_public_key}'"
@@ -33,6 +27,14 @@ format :html do
     @css_path &&
       varvals << "decko.cssPath='#{@css_path}'"
     javascript_tag { varvals * ";" }
+  end
+
+  def configure_double_click vars
+    case Card.config.double_click
+      when :off   then vars["decko.doubleClick"] = true
+      when
+    end
+     if Card.config.double_click
   end
 
   def trigger_slot_ready

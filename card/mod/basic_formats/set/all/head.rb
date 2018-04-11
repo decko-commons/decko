@@ -6,18 +6,25 @@ end
 
 format :html do
   view :head, tags: :unknown_ok do
-    head_views.map { |viewname| render viewname }.flatten.compact.join "\n"
+    views_in_head.map { |viewname| render viewname }.flatten.compact.join "\n"
   end
 
-  def head_views
-    %i[meta_tags page_title_tag head_stylesheet head_javascript
+  def views_in_head
+    %i[meta_tags page_title_tag favicon head_stylesheet head_javascript
        universal_edit_button rss_links]
   end
 
-  view :meta_tags, tags: :unknown_ok, template: :haml
+  # FIXME: tags not working with `template: :haml`
+  view :meta_tags, tags: :unknown_ok do
+    haml :meta_tags #template: :haml
+  end
 
   view :page_title_tag, tags: :unknown_ok do
     content_tag(:title) { render :page_title }
+  end
+
+  view :favicon_tag, tags: :unknown_ok do
+    nest :favicon, view: :link_tag
   end
 
   view :universal_edit_button, denial: :blank, perms: :update do
@@ -26,15 +33,26 @@ format :html do
                 title: "Edit this page!", href: path(view: :edit)
   end
 
-  view :head_stylesheet, tag: :unknown_ok do
+  # these should render a view of the rule card
+  # it would then be safe to cache if combined with param handling
+  # (but note that machine clearing would need to reset card cache...)
+  view :head_stylesheet, tags: :unknown_ok, cache: :never do
     return unless (href = head_stylesheet_path)
     tag "link", href: href, media: "all", rel: "stylesheet", type: "text/css"
   end
 
-  view :head_javascript, tag: :unknown_ok do
+  view :head_javascript, tags: :unknown_ok, cache: :never do
     Array.wrap(head_javascript_paths).map do |path|
       javascript_include_tag path
     end
+  end
+
+  def decko_variables
+    {
+      "window.decko": "{rootPath:'#{Card.config.relative_url_root}'}",
+      "decko.doubleClick": Card.config.double_click,
+      "decko.cssPath": head_stylesheet_path
+    }
   end
 
   def param_or_rule_card setting
