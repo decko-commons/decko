@@ -47,7 +47,11 @@ format :html do
     end
   end
 
-  def decko_variables
+  view :decko_script_variables, tags: :unknown_ok do
+
+  end
+
+  def decko_script_variables
     {
       "window.decko": "{rootPath:'#{Card.config.relative_url_root}'}",
       "decko.doubleClick": Card.config.double_click,

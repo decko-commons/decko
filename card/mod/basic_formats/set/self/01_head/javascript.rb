@@ -11,24 +11,6 @@ format :html do
     "<![endif]-->"
   end
 
-  def decko_variables
-    vars = {
-      "window.decko": ["{rootPath:'%<root>s'", { root: Card.config.relative_url_root }],
-      "decko.doubleClick": Card.config.double_click,
-      "decko.cssPath":
-
-      ""
-    }
-    varvals = ["window.decko={rootPath:'#{Card.config.relative_url_root}'}"]
-    card.have_recaptcha_keys? &&
-      varvals << "decko.recaptchaKey='#{Card.config.recaptcha_public_key}'"
-    (c = Card[:double_click]) && !Card.toggle(c.content) &&
-      varvals << "decko.noDoubleClick=true"
-    @css_path &&
-      varvals << "decko.cssPath='#{@css_path}'"
-    javascript_tag { varvals * ";" }
-  end
-
   def configure_double_click vars
     case Card.config.double_click
       when :off   then vars["decko.doubleClick"] = true
