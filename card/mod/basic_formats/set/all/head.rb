@@ -23,7 +23,7 @@ format :html do
 
   # FIXME: tags not working with `template: :haml`
   view :meta_tags, tags: :unknown_ok do
-    haml :meta_tags #template: :haml
+    haml :meta_tags
   end
 
   view :html5shiv_tag, tags: :unknown_ok do
@@ -68,9 +68,9 @@ format :html do
 
   def decko_script_variables
     {
-        "window.decko": { rootPath: Card.config.relative_url_root },
-        "decko.doubleClick": Card.config.double_click,
-        "decko.cssPath": head_stylesheet_path
+      "window.decko": { rootPath: Card.config.relative_url_root },
+      "decko.doubleClick": Card.config.double_click,
+      "decko.cssPath": head_stylesheet_path
     }
   end
 
@@ -93,19 +93,24 @@ format :html do
     end
   end
 
-  def output_url_or_debug setting
+  def debug_or_machine_path setting, &block
     return unless (asset_card = param_or_rule_card setting)
-    params[:debug] == setting.to_s ? yield : asset_card.machine_output_url
+    debug_path(setting, asset_card, &block) || asset_card.machine_output_url
+  end
+
+  def debug_path setting, asset_card
+    return unless params[:debug] == setting.to_s
+    yield asset_card
   end
 
   def head_stylesheet_path
-    output_url_or_debug :style do |style_card|
+    debug_or_machine_path :style do |style_card|
       page_path style_card.name, item: :import, format: :css
     end
   end
 
   def head_javascript_paths
-    output_url_or_debug :script do |script_card|
+    debug_or_machine_path :script do |script_card|
       script_card.items.map do |script|
         script.format(:js).render :source
       end

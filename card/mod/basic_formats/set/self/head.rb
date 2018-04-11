@@ -8,14 +8,4 @@ format :html do
   def escape_in_main
     main? ? (h yield) : yield
   end
-
-
-  def head_javascript
-    output [
-      mod_configs,
-      trigger_slot_ready,
-      google_analytics
-    ]
-  end
-
 end
