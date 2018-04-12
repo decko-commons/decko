@@ -209,16 +209,16 @@ describe Card::Set::Type::Pointer do
   end
 
   describe "editor" do
-    let(:pointer_content) { "[[Jane]]\n[[John]]" }
-
     subject do
       pointer = Card.new name: "tp", type: "pointer", content: pointer_content
       pointer.format._render :editor
     end
 
+    let(:pointer_content) { "[[Jane]]\n[[John]]" }
+
     it "contains hidden content input" do
       is_expected.to have_tag(:input, name: "card[content]",
-                                      id:"card_content",
+                                      id: "card_content",
                                       content: pointer_content)
     end
 
