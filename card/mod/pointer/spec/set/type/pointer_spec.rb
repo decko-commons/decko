@@ -207,4 +207,35 @@ describe Card::Set::Type::Pointer do
       expect(pointer1.content).to eq "[[b1]]\n[[b2]]"
     end
   end
+
+  describe "editor" do
+    subject do
+      pointer = Card.new name: "tp", type: "pointer", content: pointer_content
+      pointer.format._render :editor
+    end
+
+    let(:pointer_content) { "[[Jane]]\n[[John]]" }
+
+    it "contains hidden content input" do
+      is_expected.to have_tag(:input, name: "card[content]",
+                                      id: "card_content",
+                                      content: pointer_content)
+    end
+
+    it "contains first item in input tag" do
+      is_expected.to have_tag(:li, class: "pointer-li") do
+        with_tag :input, name: "pointer_item", value: "Jane"
+      end
+    end
+
+    it "contains second item in input tag" do
+      is_expected.to have_tag(:li, class: "pointer-li") do
+        with_tag :input, name: "pointer_item", value: "John"
+      end
+    end
+
+    it "contains 'add another' button" do
+      is_expected.to have_tag(:button, type: :submit, text: /add another/)
+    end
+  end
 end
