@@ -3,7 +3,7 @@ module CoreExtensions
     # named_captures was introduced in Ruby 2.4.0
     if RUBY_VERSION =~ /^2.3/
       def named_captures
-        names.zip(match_data.captures).to_h
+        names.zip(captures).to_h
       end
     end
 
