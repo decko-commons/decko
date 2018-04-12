@@ -133,7 +133,7 @@ format :html do
                  class: "close-rule-link slotter"
   end
 
-  view :rule_help, tags: :unknown_ok, perms: :none do
+  view :rule_help, tags: :unknown_ok, perms: :none, cache: :never do
     wrap_with :div, class: "alert alert-info rule-instruction" do
       rule_based_help
     end

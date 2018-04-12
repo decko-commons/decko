@@ -78,6 +78,8 @@ format do
     end
   end
 
+  # Because +*help content renders in "template" mode when you render its content
+  # directly, we render the help text in the context of the *all+<setting> card
   view :rule_help do
     nest [:all, card.name], view: :rule_help
   end
