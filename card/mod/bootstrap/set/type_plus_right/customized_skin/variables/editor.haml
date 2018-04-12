@@ -1,0 +1,9 @@
+%h4 Colors
+- colors.each do |name, color|
+  = haml_partial :colorpicker, color_name: name, color: color
+%h4 Theme colors
+- theme_colors.each do |name, value|
+  .form-group.row
+    %label.col-sm-2.col-form-label
+      = name
+    = theme_color_picker name, value
