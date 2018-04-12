@@ -7,7 +7,7 @@ format :html do
 
   def standard_frame slot=true
     if panel_state
-      class_up "d0-card-frame", "card card-#{panel_state} card-inverse"
+      class_up "d0-card-frame", "card bg-#{panel_state} text-white"
     else
       class_up "d0-card-frame", "card"
     end

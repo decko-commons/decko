@@ -13,19 +13,19 @@ def options_rule_card
 end
 
 format :html do
-  def default_follow_item_args args
-    args[:condition] ||= Env.params[:condition] || "*always"
+  view :follow_item do
+    follow_item Env.params[:condition]
   end
 
-  view :follow_item, tags: :unknown_ok, cache: :never do |args|
-    condition = args[:condition]
+  def follow_item condition, button=true
+    condition ||= "*always"
     wrap do
       card_form action: :update, success: { view: :follow_item } do
         [
           follow_item_hidden_tags(condition),
-          follow_item_button(condition),
+          (follow_item_button(condition) if button),
           follow_item_link(condition)
-        ]
+        ].compact
       end
     end
   end
@@ -62,22 +62,21 @@ format :html do
     end
   end
 
-  def default_follow_status_args args
-    args[:card_key] ||= card.set_prototype.key
+  view :follow_status do
+    [
+      "<h4>Get notified about changes</h4>",
+      render!(:follow_status_delete_options),
+      follow_status_link
+    ].join "\n\n"
   end
 
-  view :follow_status do |args|
-    ["<h4>Get notified about changes</h4>",
-     render!(:follow_status_delete_options),
-     follow_status_link(card.name, args[:card_key])].join "\n\n"
-  end
-
-  def follow_status_link name, key
+  def follow_status_link
     # simplified this to straight link for now.
     # consider restoring to slotter action
-    link_to_card name, "more options",
+    link_to_card card.name, "more options",
                  path: { view: :edit_single_rule },
-                 class: "btn update-follow-link", "data-card_key" => key
+                 class: "btn update-follow-link",
+                 "data-card_key": card.set_prototype.key
   end
 
   view :follow_status_delete_options, cache: :never do
@@ -85,7 +84,7 @@ format :html do
       card.item_names.map do |option|
         wrap_with :li, class: "list-group-item" do
           condition = option == "*never" ? "*always" : option
-          subformat(card).render_follow_item condition: condition
+          subformat(card).follow_item condition
         end
       end.join "\n"
     end

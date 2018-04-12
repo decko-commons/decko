@@ -55,6 +55,10 @@ class Card
         @new_args[:type] = type
       end
 
+      def type_id= type_id
+        @new_args[:type_id] = type_id.to_i
+      end
+
       def content= content
         @new_args[:content] = content
       end
@@ -69,7 +73,7 @@ class Card
         when ""                     then ""
         when "*previous", :previous then :previous
         when %r{^(http|/)}          then value
-        when /^TEXT:\s*(.+)/        then  Regexp.last_match(1)
+        when /^TEXT:\s*(.+)/        then Regexp.last_match(1)
         when /^REDIRECT:\s*(.+)/
           @redirect = true
           process_target Regexp.last_match(1)

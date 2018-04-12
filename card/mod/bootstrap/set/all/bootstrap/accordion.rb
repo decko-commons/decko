@@ -22,7 +22,7 @@ format :html do
   def accordion title, content, collapse_id=card.name.safe_key
     accordion_content =
       case content
-      when Hash  then accordion_group(content, collapse_id)
+      when Hash  then accordion_group content, collapse_id
       when Array then content.present? && list_group(content)
       when String then content
       end

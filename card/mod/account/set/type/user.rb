@@ -40,7 +40,7 @@ format :html do
   def setup_hidden_fields
     hidden_tags(
       setup: true,
-      success: "REDIRECT: #{Card.path_setting '/'}",
+      success: "REDIRECT: #{path mark: ''}",
       "card[type_id]" => Card.default_accounted_type_id
     )
   end

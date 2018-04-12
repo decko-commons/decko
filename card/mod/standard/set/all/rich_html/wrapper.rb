@@ -3,21 +3,25 @@ format :html do
   # (1) gives CSS classes for styling and
   # (2) adds card data for javascript - including the "card-slot" class,
   #     which in principle is not supposed to be in styles
-  def wrap slot=true, &block
-    method_wrap :wrap_with, slot, &block
+  def wrap slot=true, slot_attr={}, &block
+    method_wrap :wrap_with, slot, slot_attr, &block
   end
 
-  def haml_wrap slot=true, &block
-    method_wrap :haml_tag, slot, &block
+  def haml_wrap slot=true, slot_attr={}, &block
+    method_wrap :haml_tag, slot, slot_attr, &block
   end
 
-  def method_wrap method, slot, &block
+  def method_wrap method, slot, slot_attr, &block
     @slot_view = @current_view
     debug_slot do
-      attribs = { id: card.name.url_key,
-                  class: wrap_classes(slot),
-                  data:  wrap_data }
-      send method, :div, attribs, &block
+      send method, :div, slot_attributes(slot, slot_attr), &block
+    end
+  end
+
+  def slot_attributes slot, slot_attr
+    { id: card.name.url_key, class: wrap_classes(slot), data: wrap_data }.tap do |hash|
+      add_class hash, slot_attr.delete(:class)
+      hash.deep_merge! slot_attr
     end
   end
 
@@ -98,26 +102,37 @@ format :html do
   end
 
   def frame &block
-    method = show_related_frame? ? :related_frame : :standard_frame
-    send method, &block
+    send frame_method, &block
   end
 
-  def show_related_frame?
-    parent && parent.voo.ok_view == :related
+  def frame_method
+    case
+    when parent && parent.voo.ok_view == :related
+      :related_frame
+    else
+      :standard_frame
+    end
   end
 
   def standard_frame slot=true
     voo.hide :horizontal_menu, :help
     wrap slot do
-        panel do
-          [
-            _render_menu,
-            _render_header,
-            frame_help,
-            _render(:flash),
-            wrap_body { yield }
-          ]
-        end
+      panel do
+        [
+          frame_header,
+          frame_help,
+          _render(:flash),
+          wrap_body { yield }
+        ]
+      end
+    end
+  end
+
+  def frame_header
+    if voo.ok_view == :overlay
+      _render_overlay_header
+    else
+      [_render_menu, _render_header]
     end
   end
 

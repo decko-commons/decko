@@ -39,6 +39,7 @@ namespace :card do
     desc "migrate structure"
     task structure: :environment do
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
+      ActiveRecord::Base.dump_schema_after_migration = false
       Cardio.schema_mode(:structure) do |paths|
         ActiveRecord::Migrator.migrations_paths = paths
         ActiveRecord::Migrator.migrate paths, version
@@ -49,6 +50,7 @@ namespace :card do
 
     desc "migrate core cards"
     task core_cards: :environment do
+      ActiveRecord::Base.dump_schema_after_migration = false
       require "card/migration/core"
       run_card_migration :core_cards
     end
@@ -60,13 +62,19 @@ namespace :card do
 
     def migrate_deck_structure
       require "card/migration/deck_structure"
-      ENV["SCHEMA"] = "#{Cardio.root}/db/schema.rb"
+      set_schema_path
       Cardio.schema_mode(:deck) do |paths|
         ActiveRecord::Migrator.migrations_paths = paths
         ActiveRecord::Migrator.migrate paths, version
         Rake::Task["db:_dump"].invoke # write schema.rb
       end
       reset_column_information true
+    end
+
+    def set_schema_path
+      schema_dir = "#{Cardio.root}/db"
+      Dir.mkdir schema_dir unless Dir.exist? schema_dir
+      ENV["SCHEMA"] = "#{schema_dir}/schema.rb"
     end
 
     desc "migrate deck cards"

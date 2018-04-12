@@ -1,0 +1,6 @@
+.album.py-5.bg-light
+  .container
+    .row
+      - themes.each do |theme|
+        .col-md-3
+          = nest theme, view: :thumbnail

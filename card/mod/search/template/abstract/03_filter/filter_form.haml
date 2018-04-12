@@ -17,8 +17,9 @@
           - if sort_input_field
             .sort-in-filter-form
               %i.material-icons.text-muted.md-24.p-2.float-left sort
-              .input-group.sort-input-group.mb-2.card-outline-primary.mr-5
-                %span.input-group-addon sort
+              .input-group.flex-nowrap.sort-input-group.mb-2.card-outline-primary.mr-5
+                .input-group-prepend
+                  %span.input-group-text sort
                 = sort_input_field
 
           .filter-in-filter-form

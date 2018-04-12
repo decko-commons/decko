@@ -40,11 +40,11 @@ def refreshed_token
 end
 
 format do
-  view :verify_url do
+  view :verify_url, cache: :never do
     card_url path({ mark: card.name.left }.merge(token_path_opts))
   end
 
-  view :verify_days do
+  view :verify_days, cache: :never do
     (Card.config.token_expiry / 1.day).to_s
   end
 
@@ -151,6 +151,7 @@ event :reset_token do
 end
 
 event :send_welcome_email do
+  # FIXME: needs codename
   welcome = Card["welcome email"]
   if welcome && welcome.type_code == :email_template
     welcome.deliver context: left, to: email
@@ -194,8 +195,7 @@ def send_change_notice act, followed_set, follow_option
 end
 
 format :email do
-  view :mail do |args|
-    args[:to] ||= card.email
-    super args
+  def mail args={}
+    super args.reverse_merge(to: card.email)
   end
 end

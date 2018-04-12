@@ -23,10 +23,9 @@ format :html do
   end
 
   def head_title
-    title = root.card && root.card.name
-    title = nil if title.blank?
+    title = root.safe_name
     title = params[:action] if title == "*placeholder"
-    %(<title>#{title ? "#{title} - " : ''}#{Card.global_setting :title}</title>)
+    %(<title>#{title.present? ? "#{title} - " : ''}#{Card.global_setting :title}</title>)
   end
 
   def head_buttons
@@ -34,7 +33,7 @@ format :html do
     if root.card
       bits << universal_edit_button
       # RSS # move to mods!
-      bits << rss_link if root.card.type_id == SearchTypeID
+      bits << rss_link
     end
     bits.compact.join "\n      "
   end
@@ -91,12 +90,7 @@ format :html do
   end
 
   def rss_link
-    opts = { format: :rss }
-    if root.search_params[:vars]
-      root.search_params[:vars].each { |key, val| opts["_#{key}"] = val }
-    end
-    href = page_path root.card.name, opts
-    tag "link", rel: "alternate", type: "application/rss+xml",
-                title: "RSS", href: href
+    return unless Card.config.rss_enabled && root.respond_to?(:rss_link_tag)
+    root.rss_link_tag
   end
 end

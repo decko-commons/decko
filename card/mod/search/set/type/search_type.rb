@@ -20,20 +20,15 @@ format do
 end
 
 format :json do
-  view :export do |args|
-    # avoid running the search from options and structure that
-    # case a huge result or error
-    return [render_atom(args)] if card.content.empty? ||
-                                  card.name.include?("+*options") ||
-                                  card.name.include?("+*structure")
-    super(args)
+  def items_for_export
+    return [] if card.content.empty? || unexportable_tag?(card.name.tag_name.key)
+    card.item_cards
   end
 
-  view :export_items, cache: :never do |args|
-    card.item_names(limit: 0).map do |i_name|
-      next unless (i_card = Card[i_name])
-      subformat(i_card).render_atom(args)
-    end.flatten.reject(&:blank?)
+  # avoid running the search from +*options (huge results) and +*structure (errors)
+  # TODO: make this configurable in set mods
+  def unexportable_tag? tag_key
+    %i[options structure].map { |code| code.cardname.key }.include? tag_key
   end
 end
 
@@ -74,5 +69,14 @@ format :html do
 
   def ace_mode
     :json
+  end
+
+  def rss_link_tag
+    path_opts = { format: :rss }
+    Array(search_params[:vars]).compact.each { |k, v| opts["_#{k}"] = v }
+    tag "link", rel: "alternate",
+                type: "application/rss+xml",
+                title: "RSS",
+                href: path(path_opts)
   end
 end

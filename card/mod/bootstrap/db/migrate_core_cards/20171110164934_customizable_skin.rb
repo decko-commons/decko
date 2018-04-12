@@ -3,9 +3,9 @@
 # Migration to create cards for a customizable skin
 class CustomizableSkin < Card::Migration::Core
   def up
-    data_dir = File.expand_path("../data/custom_theme", __FILE__)
-    skin = CustomSkin.new("customizable bootstrap", data_dir)
-    skin.create_or_update
+    # data_dir = File.expand_path("../data/custom_theme", __FILE__)
+    # skin = CustomSkin.new("customizable bootstrap", data_dir)
+    # skin.create_or_update
   end
 
   # Helper class to create customizable skin

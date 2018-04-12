@@ -131,6 +131,12 @@ class Card
         end
       end
 
+      def card name
+        directors.values.find do |dir|
+          dir.card.name == name
+        end&.card
+      end
+
       def add director
         # Rails.logger.debug "added: #{director.card.name}".green
         directors[director.card] = director

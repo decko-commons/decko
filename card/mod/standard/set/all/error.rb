@@ -17,8 +17,8 @@ format do
     ""
   end
 
-  view :not_found, perms: :none, error_code: 404 do |_args|
-    error_name = card.name.present? ? card.name : "the card requested"
+  view :not_found, perms: :none, error_code: 404 do
+    error_name = card.name.present? ? safe_name : "the card requested"
     %( Could not find #{error_name}. )
   end
 
@@ -75,7 +75,7 @@ format :html do
     warning = alert("warning", true) do
       %{
         <h3>Error message (visible to admin only)</h3>
-        <p><strong>#{exception.message}</strong></p>
+        <p><strong>#{CGI.escapeHTML exception.message}</strong></p>
         <div>#{exception.backtrace * "<br>\n"}</div>
       }
     end
@@ -105,14 +105,11 @@ format :html do
   end
 
   view :closed_missing, perms: :none do
-    wrap_with :span, title_in_context, class: "faint"
+    wrap_with :span, h(title_in_context), class: "faint"
   end
 
   view :conflict, error_code: 409, cache: :never do
     actor_link = link_to_card card.last_action.act.actor.name
-    expanded_act = wrap do
-      _render_act act: card.last_action.act, act_seq: 0
-    end
     class_up "card-slot", "error-view"
     wrap do # ENGLISH below
       alert "warning" do
@@ -121,7 +118,7 @@ format :html do
           <span class="new-current-revision-id">#{card.last_action_id}</span>
           <div>#{actor_link} has also been making changes.</div>
           <div>Please examine below, resolve above, and re-submit.</div>
-          #{expanded_act}
+          #{render_act}
         )
       end
     end
@@ -136,20 +133,20 @@ format :html do
     frame do
       card.errors.map do |attrib, msg|
         alert "warning", true do
-          attrib == :abort ? msg : standard_error_message(attrib, msg)
+          attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
         end
       end
     end
   end
 
   def standard_error_message attribute, message
-    "<strong>#{attribute.to_s.upcase}:</strong> #{message}"
+    "<strong>#{h attribute.to_s.upcase}:</strong> #{h message}"
   end
 
   view :not_found do # ug.  bad name.
     voo.hide! :menu
     voo.title = "Not Found"
-    card_label = card.name.present? ? "<em>#{card.name}</em>" : "that"
+    card_label = card.name.present? ? "<em>#{safe_name}</em>" : "that"
     frame do
       [wrap_with(:h2) { "Could not find #{card_label}." },
        sign_in_or_up_links]

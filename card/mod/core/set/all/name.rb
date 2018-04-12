@@ -97,7 +97,6 @@ def raw_name
   @raw_name || name
 end
 
-
 def left *args
   case
   when simple?    then nil
@@ -184,7 +183,7 @@ def repair_key
       key_blocker.save
     end
 
-    saved =   (self.key      = correct_key) && save!
+    saved =   (self.key = correct_key) && save!
     saved ||= (self.name = current_key) && save!
 
     if saved
@@ -195,7 +194,7 @@ def repair_key
     end
     self
   end
-rescue
+rescue StandardError
   Rails.logger.info "BROKE ATTEMPTING TO REPAIR BROKEN KEY: #{key}"
   self
 end
@@ -252,19 +251,7 @@ event :set_left_and_right, :store,
       changed: :name, on: :save do
   if name.junction?
     %i[left right].each do |side|
-      sidename = name.send "#{side}_name"
-      sidecard = Card[sidename]
-
-      # eg, renaming A to A+B
-      old_name_in_way = (sidecard && sidecard.id == id)
-      suspend_name(sidename) if old_name_in_way
-      side_id_or_card =
-        if !sidecard || old_name_in_way
-          add_subcard(sidename.s)
-        else
-          sidecard.id
-        end
-      send "#{side}_id=", side_id_or_card
+      assign_side_id side
     end
   else
     self.left_id = self.right_id = nil
@@ -276,4 +263,23 @@ event :name_change_finalized, :finalize, changed: :name, on: :save do
   # but :cascade_name_changes is defined after the reference events and
   # and additionaly it is defined on :update but some of the reference
   # events are on :save. Hence we need this additional hook to organize these events.
+end
+
+def assign_side_id side
+  sidename = name.send "#{side}_name"
+  sidecard = Card[sidename] || ActManager.card(sidename)
+
+  # eg, renaming A to A+B
+  old_name_in_way = (sidecard&.id && sidecard&.id == id)
+  suspend_name(sidename) if old_name_in_way
+  send "#{side}_id=", side_id_or_card(old_name_in_way, sidecard, sidename)
+end
+
+def side_id_or_card old_name_in_way, sidecard, sidename
+  if !sidecard || old_name_in_way
+    add_subcard(sidename.s)
+  else
+    # if sidecard doesn't have an id, it's already part of this act
+    sidecard.id || sidecard
+  end
 end

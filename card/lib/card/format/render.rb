@@ -49,7 +49,7 @@ class Card
       def add_debug_info view, method, rendered
         return rendered unless show_debug_info?
         <<-HTML
-          <view-debug view='#{card.name}##{view}' src='#{pretty_path method.source_location}' module='#{method.owner}'/>
+          <view-debug view='#{safe_name}##{view}' src='#{pretty_path method.source_location}' module='#{method.owner}'/>
           #{rendered}
         HTML
       end
@@ -78,7 +78,10 @@ class Card
             with_nest_mode(mode) { nest stub_card, options, override }
           end
         end
-        puts "STUB IN RENDERED VIEW: #{card.name}: #{voo.ok_view}\n#{result}" if result =~ /stub/
+        if result =~ /stub/
+          Rails.logger.info "STUB IN RENDERED VIEW: #{card.name}: " \
+                            "#{voo.ok_view}\n#{result}"
+        end
         result
       end
 

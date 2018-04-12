@@ -120,7 +120,7 @@ class Cardname
         next if new_parts[i].present?
         # following avoids recontextualizing with relative contexts.
         # Eg, `+A+B+.absolute('+A')` should be +A+B, not +A+A+B.
-        next if new_parts.to_name.send "#{[ :start, :end ][i]}s_with?", context
+        next if new_parts.to_name.send "#{[ :start, :end ][i]}s_with_parts?", context
         new_parts[i] = context
       end
     end

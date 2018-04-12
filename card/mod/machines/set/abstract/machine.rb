@@ -80,7 +80,7 @@ class << self
 
   def define_machine_views host_class
     host_class.format do
-      view :machine_output_url do |_args|
+      view :machine_output_url do
         machine_output_url
       end
     end

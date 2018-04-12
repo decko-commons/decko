@@ -25,12 +25,15 @@ $(window).ready ->
   $('body').on 'click', '._clickable.slotter', (event)->
     $.rails.handleRemote $(this)
 
+  $('body').on 'click', '[data-dismiss="overlay"]', (event) ->
+    $(this).slot().remove()
+
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     return if opt.skip_before_send
 
     # avoiding duplication. could be better test?
     unless opt.url.match /home_view/
-      opt.url = decko.prepUrl opt.url, $(this).slot()
+      opt.url = decko.slotPath opt.url, $(this).slot()
 
     if $(this).is('form')
       if decko.recaptchaKey and $(this).attr('recaptcha')=='on' and
@@ -78,7 +81,7 @@ $(window).ready ->
   $('body').on 'submit', 'form.slotter', (event)->
     if (target = $(this).attr 'main-success') and $(this).isMain()
       input = $(this).find '[name=success]'
-      if input and !(input.val().match /^REDIRECT/)
+      if input and input.val() and !(input.val().match /^REDIRECT/)
         input.val(
           (if target == 'REDIRECT' then target + ': ' + input.val() else target)
         )

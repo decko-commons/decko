@@ -4,17 +4,15 @@ require "active_support/core_ext/numeric/time"
 djar = "delayed_job_active_record"
 require djar if Gem::Specification.find_all_by_name(djar).any?
 require "cardio/schema.rb"
+require "cardio/utils.rb"
 
 ActiveSupport.on_load :after_card do
-  if Card.take
-    Card::Mod.load
-  else
-    Rails.logger.warn "empty database"
-  end
+  Card::Mod.load
 end
 
 module Cardio
   extend Schema
+  extend Utils
   CARD_GEM_ROOT = File.expand_path("../..", __FILE__)
 
   mattr_reader :paths, :config
@@ -27,7 +25,9 @@ module Cardio
     def default_configs
       {
         read_only:              read_only?,
-        allow_inline_styles:    false,
+
+        # if you disable inline styles tinymce's formatting options stop working
+        allow_inline_styles:    true,
 
         recaptcha_public_key:   nil,
         recaptcha_private_key:  nil,
@@ -50,7 +50,8 @@ module Cardio
         paging_limit:           20,
 
         non_createable_types:   [%w(signup setting set)],
-        view_cache:             true,
+        view_cache:             false,
+        rss_enabled:            false,
 
         encoding:                "utf-8",
         request_logger:         false,
@@ -187,17 +188,20 @@ module Cardio
 
     def migration_paths type
       list = paths["db/migrate#{schema_suffix type}"].to_a
-      if type == :deck_cards
-        add_mod_migration_paths list
-      elsif type == :deck
-        add_mod_migration_paths list, "migrate"
+      case type
+      when :core_cards
+        list += mod_migration_paths "migrate_core_cards"
+      when :deck_cards
+        list += mod_migration_paths "migrate_cards"
+      when :deck
+        list += mod_migration_paths "migrate"
       end
       list.flatten
     end
 
-    def add_mod_migration_paths list, dir="migrate_cards"
-      Card::Mod.dirs.each("db/#{dir}") do |path|
-        list += Dir.glob path
+    def mod_migration_paths dir
+      [].tap do |list|
+        Card::Mod.dirs.each("db/#{dir}") { |path| list.concat Dir.glob path }
       end
     end
 

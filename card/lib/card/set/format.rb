@@ -10,7 +10,7 @@ class Card
     # View definitions
     #
     #   When you declare:
-    #     view :view_name do |args|
+    #     view :view_name do
     #       #...your code here
     #     end
     #
@@ -127,12 +127,16 @@ class Card
         end
 
         def view_block view, args, &block
-          return haml_view_block(view, &block) if haml_view?(args)
+          return haml_view_block(view, wrap_with_slot?(args), &block) if haml_view?(args)
           block_given? ? block : lookup_alias_block(view, args)
         end
 
         def haml_view? args
           args.first.is_a?(Hash) && args.first[:template] == :haml
+        end
+
+        def wrap_with_slot? args
+          args.first.is_a?(Hash) && args.first[:slot]
         end
 
         def async_view? args

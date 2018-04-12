@@ -25,7 +25,8 @@ class Card
           :main,           # format object is page's "main" object (Boolean)
           :home_view,      # view for slot to return to when no view specified
           :edit_structure, # use a different structure for editing (Array)
-          :wql             # contextual wql alterations for search cards (Hash)
+          :wql,            # contextual wql alterations for search cards (Hash)
+          :action_id       # a Card::Action id (Integer)
         ],
         both: [
           :help,           # cue text when editing
@@ -41,7 +42,8 @@ class Card
         ],                 #   (Symbol<:always, :standard, :never>)
         none: [
           :skip_perms,     # do not check permissions for this view (Boolean)
-          :main_view       # this is main view of page (Boolean)
+          :main_view,      # this is main view of page (Boolean)
+          :layout          #
         ]
       }
       # Note: option values are strings unless otherwise noted

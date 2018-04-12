@@ -145,44 +145,11 @@ format :html do
     "Cannot currently edit Sets" # ENGLISH
   end
 
-  view :template_link, cache: :never do
-    wrap do
-      link = link_to_view :template_editor, parent.voo.nest_syntax,
-                          class: "slotter"
-      "{{#{link}}}"
-    end
-  end
-
-  view :template_closer do
-    link_classes = "slotter glyphicon glyphicon-remove template-editor-close"
-    link_to_view :template_link, "", class: link_classes
-  end
-
-  view :template_editor do
-    wrap do
-      [
-        wrap_with(:div, "{{", class: "template-editor-left"),
-        wrap_with(:div, class: "template-editor-main") do
-          render_template_editor_frame
-        end,
-        wrap_with(:div, "}}", class: "template-editor-right")
-      ]
-    end
-  end
-
-  view :template_editor_frame do
-    voo.title = card.label
-    voo.hide :set_label
-    template_frame do
-      _render_core
-    end
-  end
-
   view :closed_content do
     ""
   end
 
-  view :set_navbar do |_args|
+  view :set_navbar do
     id = "set-navbar-#{card.name.safe_key}-#{voo.home_view}"
     related_sets = card.related_sets(true)
     return "" if related_sets.size <= 1

@@ -11,6 +11,7 @@ def load_stylesheets
   add_bs_subdir "utilities"
   add_stylesheet_file "vendor/select2/dist/css/select2.min.css"
   add_stylesheet_file "lib/stylesheets/style_select2_bootstrap.scss"
+  add_stylesheet_file "vendor/bootstrap-colorpicker/src/sass/_colorpicker.scss"
 end
 
 

@@ -26,7 +26,7 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
   white-space: normal;
 }
 
-/* NOTE: we recommend against styling ".card-slot", which is heavily used by javascript */
+/* NOTE: we recommend against styling ".d0-card-slot", which is heavily used by javascript */
 
 
 /* --  hidden info -- */
@@ -346,8 +346,6 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
 }
 
 
-
-
 /*-------------------- */
 /*- ONE-LINE VIEWS   - */
 /*-------------------- */
@@ -371,7 +369,6 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
     width: auto;
   }
 }
-
 
 .labeled-view {
   padding: 5px 0;
@@ -893,6 +890,34 @@ html>body .open-view {
   }
   .panel-title {
     font-size: 14px;
+  }
+}
+
+/*-------------------------- */
+/*- Overlay                - */
+/*-------------------------- */
+
+.overlay-container {
+  position: relative;
+}
+
+.d0-card-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+
+  > .d0-card-frame {
+    height: 100%;
+    width: 100%;
+
+    > .d0-card-header {
+      padding: 0.25rem 0.25rem 0.25rem 1.25rem;
+
+      .card-title {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 

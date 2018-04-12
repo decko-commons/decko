@@ -16,7 +16,7 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   class_option "gem-path",
                type: :string, aliases: "-g", default: "", group: :runtime,
-               desc: "Path to local gem installation " \
+               desc: "Path to local decko repository " \
                      "(Default, use env DECKO_GEM_PATH)"
 
   class_option "mod-dev",

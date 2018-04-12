@@ -1,9 +1,10 @@
 %li.pointer-li.mb-1
   %span.input-group
-    %span.input-group-addon.handle
-      = icon_tag :reorder
+    %input-group-prepend.handle
+      %span.input-group-text
+        = icon_tag :reorder
     = text_field_tag "pointer_item", @item, class: "pointer-item-text form-control",
                                              "data-options-card": @options_card
-    %span.input-group-btn
+    %input-group-append
       %button.pointer-item-delete.btn.btn-secondary{:type => "button"}
         = icon_tag :remove

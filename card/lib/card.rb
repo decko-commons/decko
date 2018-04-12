@@ -95,6 +95,9 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # {Card::Auth More on accounts}
 #
 class Card < ApplicationRecord
+  require_dependency "card/mark"
+  extend Mark
+
   require_dependency "card/name"
   require_dependency "card/codename"
   require_dependency "card/query"
@@ -139,7 +142,8 @@ class Card < ApplicationRecord
     # :remove_rule_stash,
     :last_action_id_before_edit,
     :only_storage_phase,           # used to save subcards
-    :changed_attributes
+    :changed_attributes,
+    :skip_event
   )
 
   def serializable_attributes

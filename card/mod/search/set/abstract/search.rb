@@ -1,5 +1,5 @@
-include_set Abstract::SearchParams
 include_set Abstract::Paging
+include_set Abstract::SearchParams
 include_set Abstract::Filter
 
 def search _args={}
@@ -24,6 +24,11 @@ end
 def item_names args={}
   args[:limit] ||= 0
   returning(:name, args) { search args }
+end
+
+def item_ids args={}
+  args[:limit] ||= 0
+  returning(:id, args) { search args }
 end
 
 def count args={}
@@ -86,7 +91,7 @@ format do
 end
 
 format :data do
-  view :card_list do |_args|
+  view :card_list do
     search_with_params.map do |item_card|
       nest_item item_card
     end

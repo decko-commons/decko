@@ -77,6 +77,7 @@ format :json do
     {
       id: card.id,
       name: card.name,
+      key: card.key,
       url: path
     }
   end

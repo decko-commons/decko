@@ -59,12 +59,105 @@ RSpec.describe Card::Name do
     end
   end
 
-  describe "part creation" do
-    it "creates parts" do
-      Card::Auth.as_bot do
-        Card.create name: "left+right"
+
+  describe "creation" do
+    describe ".[]" do
+      it "translates simple codenames" do
+        expect(Card::Name[":self"]).to eq "*self"
       end
+
+      it "translates simple ids" do
+        expect(Card::Name["~#{Card::SelfID}"]).to eq "*self"
+      end
+
+      it "translates junctions of codenames and ids" do
+        expect(Card::Name["A+~#{Card::SelfID}+:default"]).to eq "A+*self+*default"
+      end
+
+      it "interprets symbols as codenames" do
+        expect(Card::Name[:self]).to eq "*self"
+      end
+
+      it "interprets integers as ids" do
+        expect(Card::Name[Card::SelfID]).to eq "*self"
+      end
+
+      it "interprets array items as name parts" do
+        expect(Card::Name[["A", Card::SelfID, :default]]).to eq "A+*self+*default"
+      end
+
+      example "nil" do
+        expect(Card::Name[nil]).to eq ""
+      end
+
+      it "fails for TrueClass" do
+        expect { Card::Name[true] }
+          .to raise_error ArgumentError
+      end
+    end
+
+    describe ".new" do
+      it "doesn't interpret symbols as codenames" do
+        expect(described_class.new(:no_codename)).to eq "no_codename"
+      end
+
+      it "doesn't interpret integers as ids" do
+        expect(described_class.new(25)).to eq "25"
+      end
+
+      it "doesn't interpret symbols and integers in arrays" do
+        expect(described_class.new(["A", :no_codename, 5])).to eq "A+no_codename+5"
+      end
+
+      it "interprets ~ as id" do
+        expect(described_class.new("~#{Card::SelfID}")).to eq "*self"
+      end
+
+      it "interprets : as codename" do
+        expect(described_class.new(":self")).to eq "*self"
+      end
+
+      it "interprets ~ and : in arrays" do
+        expect(described_class.new(["A", ":self", "5"])).to eq "A+*self+5"
+      end
+
+      it "fails for non-existent id" do
+        expect { described_class.new("~5000000") }
+          .to raise_error(Card::Error, "id doesn't exist: 5000000")
+      end
+
+      it "fails if id is to long" do
+        expect(described_class.new("~250000000000"))
+          .to eq "card id out of range: 250000000000"
+      end
+
+      it "fails for non-existent codename" do
+        expect { described_class.new(":no_codename") }
+          .to raise_error(Card::Error::UnknownCodename)
+      end
+
+      it "creates empty name for nil" do
+        expect(described_class.new(nil)).to eq ""
+      end
+    end
+  end
+
+  describe "part creation" do
+    it "creates parts", as_bot: true do
+      create "left+right"
       expect(Card.fetch("right")).to be_truthy
+    end
+
+    it "translates codenames in strings" do
+      expect("A+:self".to_name.key).to eq "a+*self"
+    end
+
+    it "translates codenames in arrays" do
+      expect(["A", ":self"].to_name.key).to eq "a+*self"
+    end
+
+    it "translates id" do
+      expect("A+~#{Card::SelfID}".to_name.key).to eq "a+*self"
     end
   end
 end

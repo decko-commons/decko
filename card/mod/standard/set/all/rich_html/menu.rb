@@ -1,12 +1,20 @@
 format :html do
+  MENU_ITEMS = %i[edit discuss follow page rules account more].freeze
+
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
-    wrap_with :div, class: "menu-slot nodblclick" do
+    wrap_menu do
       [
         _render(:horizontal_menu, optional: :hide),
         _render_menu_link,
-        _render_modal_slot(modal_id: card.name.safe_key)
+        modal_slot(card.name.safe_key)
       ]
+    end
+  end
+
+  def wrap_menu
+    wrap_with :div, class: "menu-slot nodblclick" do
+      yield
     end
   end
 
@@ -61,42 +69,48 @@ format :html do
   end
 
   def menu_item_list link_opts={}
-    %i[edit discuss follow page rules account more].map do |item|
-      next unless send "show_menu_item_#{item}?"
-      send "menu_#{item}_link", link_opts
+    MENU_ITEMS.map do |item|
+      next unless show_menu_item?(item)
+      send "menu_item_#{item}", link_opts
     end.compact
   end
 
-  def menu_edit_link opts
+  MENU_ITEMS.each do |item|
+    view "menu_item_#{item}" do
+      send "menu_item_#{item}", {}
+    end
+  end
+
+  def menu_item_edit opts
     menu_item "edit", "edit", opts.merge(view: :edit, path: menu_path_opts)
   end
 
-  def menu_discuss_link opts
+  def menu_item_discuss opts
     menu_item "discuss", "comment",
               opts.merge(related: :discussion.cardname.key)
   end
 
-  def menu_follow_link opts
+  def menu_item_follow opts
     add_class opts, "dropdown-item"
-    _render_follow_link(icon: true, link_opts: opts)
+    follow_link opts, true
   end
 
-  def menu_page_link opts
+  def menu_item_page opts
     menu_item "page", "open_in_new", opts.merge(card: card)
   end
 
-  def menu_rules_link opts
+  def menu_item_rules opts
     menu_item "rules", "build", opts.merge(view: :edit_rules)
   end
 
-  def menu_account_link opts
+  def menu_item_account opts
     menu_item "account", "person", opts.merge(
       view: :related,
       path: { related: { name: "+#{:account.cardname.key}", view: :edit } }
     )
   end
 
-  def menu_more_link opts
+  def menu_item_more opts
     view = voo.home_view || :open
     menu_item "", :option_horizontal, opts.merge(
       view: view, path: { slot: { show: :toolbar } }
@@ -105,9 +119,13 @@ format :html do
 
   def menu_item text, icon, opts={}
     link_text = "#{material_icon(icon)}<span class='menu-item-label'>#{text}</span>"
-    # add_class opts, "dropdown-item"
+    classy "menu"
     add_class opts, "dropdown-item"
     smart_link_to link_text.html_safe, opts
+  end
+
+  def show_menu_item? item
+    voo&.show?("menu_item_#{item}") && send("show_menu_item_#{item}?")
   end
 
   def show_menu_item_discuss?
