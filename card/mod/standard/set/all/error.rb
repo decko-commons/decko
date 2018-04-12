@@ -9,7 +9,7 @@ format do
     ""
   end
 
-  view :unsupported_view, perms: :none, tags: :unknown_ok do
+  view :unsupported_view, perms: :none, tags: :unknown_ok, error_code: 404 do
     "view (#{voo.unsupported_view}) not supported for #{error_cardname}"
   end
 
@@ -38,7 +38,7 @@ format do
     %{ Man, you're too deep.  (Too many levels of nests at a time) }
   end
 
-  view :too_slow, perms: :none, closed: true do
+  view :too_slow, perms: :none, closed: true, error_code: 408 do
     %( Timed out! #{title_in_context} took too long to load. )
   end
 end
