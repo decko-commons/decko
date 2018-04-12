@@ -196,15 +196,5 @@ format :html do
     "Please #{linx.join ' '} #{to_task}"
   end
 
-  view :server_error do
-    %{
-      <body>
-        <div class="dialog">
-          <h1>Wild Card!</h1>
-          <h2>500 Server Error</h2>
-          <p>Yuck, sorry about that.</p>
-        </div>
-      </body>
-    }
-  end
+  view :server_error, template: :haml
 end
