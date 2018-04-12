@@ -1,6 +1,13 @@
 decko.slotReady (slot) ->
   slot.find('select:not(._no-select2)').each (i) ->
-    $(this).select2(dropdownAutoWidth: "true")
+    opts = { dropdownAutoWidth: "true" }
+    if $(this).hasClass("tags")
+      opts.tags = "true"
+    $(this).select2(opts)
+
+  # TODO: move to better place
+  $('.colorpicker-component').colorpicker()
+
 
 $.fn.select2.defaults.set("theme", "bootstrap")
 

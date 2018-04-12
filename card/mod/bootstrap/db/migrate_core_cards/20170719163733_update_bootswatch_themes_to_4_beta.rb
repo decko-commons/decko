@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require_relative "lib/skin"
 
 require_relative "lib/skin"
 

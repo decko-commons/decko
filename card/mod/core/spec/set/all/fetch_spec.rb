@@ -297,6 +297,10 @@ RSpec.describe Card::Set::All::Fetch do
       expect(Card.fetch_name(Card::BasicID)).to eq "Basic"
     end
 
+    example "invalid id" do
+      expect(Card.fetch_name("~1836/[[/assets/fonts")).to be_nil
+    end
+
     example "array" do
       expect(Card.fetch_name(%w[a b])).to eq "A+B"
     end
