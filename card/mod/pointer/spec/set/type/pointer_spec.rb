@@ -217,25 +217,25 @@ describe Card::Set::Type::Pointer do
     end
 
     it "contains hidden content input" do
-      is_expected.to have_tag(:input, name: "card[content]",
-                                      id:"card_content",
-                                      content: pointer_content)
+      is_expected.to have_tag("input#card_content",
+                              with: { name: "card[content]",
+                                      value: pointer_content })
     end
 
     it "contains first item in input tag" do
-      is_expected.to have_tag(:li, class: "pointer-li") do
-        with_tag :input, name: "pointer_item", value: "Jane"
+      is_expected.to have_tag("li.pointer-li") do
+        with_tag :input, with: { name: "pointer_item", value: "Jane" }
       end
     end
 
     it "contains second item in input tag" do
-      is_expected.to have_tag(:li, class: "pointer-li") do
-        with_tag :input, name: "pointer_item", value: "John"
+      is_expected.to have_tag("li.pointer-li") do
+        with_tag :input, with: { name: "pointer_item", value: "John" }
       end
     end
 
     it "contains 'add another' button" do
-      is_expected.to have_tag(:button, type: :submit, text: /add another/)
+      is_expected.to have_tag(:button, with: { type: :submit }, text: /add another/)
     end
   end
 end
