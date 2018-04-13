@@ -12,8 +12,8 @@ describe Card::Set::Type::Setting do
     subject { Card[:read].format.render :rule_help }
 
     it "renders links (ie, not in template mode)" do
-      is_expected.to have_tag("div.RIGHT-Xhelp.content-view") do
-        with_tag "a.known-card", text: "Set"
+      is_expected.to have_tag("div.alert.alert-info.rule-instruction") do
+        with_tag "a.known-card", text: "Set", with: { href: "/Set" }
       end
     end
   end
