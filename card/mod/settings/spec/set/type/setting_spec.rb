@@ -7,4 +7,8 @@ describe Card::Set::Type::Setting do
       assert_view_select core, "table"
     end
   end
+
+  describe "rule help view" do
+    # it
+  end
 end
