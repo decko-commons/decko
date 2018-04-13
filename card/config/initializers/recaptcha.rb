@@ -11,6 +11,9 @@ def load_recaptcha_config setting
 end
 
 def default_setting setting
+  # when creating the database (with `decko seed`) this is called
+  # but fails because Card::Auth doesn't exist
+  return unless Card.const_defined? "Auth"
   Card::Auth::Permissions::RECAPTCHA_DEFAULTS[setting]
 end
 
