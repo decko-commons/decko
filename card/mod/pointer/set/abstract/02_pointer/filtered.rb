@@ -2,7 +2,7 @@
 format :html do
   view :filtered_list, tags: :unknown_ok do
     with_nest_mode :normal do
-      class_up "card-slot", editor_id
+      class_up "card-slot", filtered_list_id
       wrap do
         haml :filtered_list_input
       end
@@ -44,7 +44,7 @@ format :html do
 
   # currently actually used as a class
   # (because we don't have api to override slot's id)
-  def editor_id
-    @editor_id ||= "editor#{unique_id}"
+  def filtered_list_id
+    @filtered_list_id ||= "filtered-list-#{card.name.right_name.key}"
   end
 end
