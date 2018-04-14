@@ -2,7 +2,7 @@
 format :html do
   view :filtered_list, tags: :unknown_ok do
     with_nest_mode :normal do
-      class_up "card-slot", filtered_list_id
+      class_up "card-slot", filtered_list_slot_class
       wrap do
         haml :filtered_list_input
       end
@@ -36,7 +36,7 @@ format :html do
     Card.fetch params[:filter_card], new: {}
   end
 
-  view :filter_items, tags: :unknown_ok do
+  view :filter_items, tags: :unknown_ok, cache: :never do
     wrap do
       haml :filter_items
     end
@@ -44,7 +44,7 @@ format :html do
 
   # currently actually used as a class
   # (because we don't have api to override slot's id)
-  def filtered_list_id
-    @filtered_list_id ||= "filtered-list-#{card.name.right_name.key}"
+  def filtered_list_slot_class
+    @filtered_list_slot_class ||= "filtered-list-#{unique_id}"
   end
 end
