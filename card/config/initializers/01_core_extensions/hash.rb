@@ -52,6 +52,16 @@ module CoreExtensions
           old.is_a?(String) ? old + separator + new.to_s : new
         end
       end
+
+      def bury *array
+        key = array.shift
+        if array.size == 1
+          self[key] ||= array.first
+        else
+          self[key] ||= {}
+          self[key].bury array
+        end
+      end
     end
   end
 end

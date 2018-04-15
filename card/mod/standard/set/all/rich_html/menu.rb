@@ -87,7 +87,7 @@ format :html do
 
   def menu_item_discuss opts
     menu_item "discuss", "comment",
-              opts.merge(related: :discussion.cardname.key)
+              opts.bury(items: { nest_name: :discussion.cardname.key })
   end
 
   def menu_item_follow opts
@@ -106,7 +106,7 @@ format :html do
   def menu_item_account opts
     menu_item "account", "person", opts.merge(
       view: :related,
-      path: { related: { name: "+#{:account.cardname.key}", view: :edit } }
+      path: { slot: { items: { nest_name: "+#{:account.cardname.key}", view: :edit } } }
     )
   end
 

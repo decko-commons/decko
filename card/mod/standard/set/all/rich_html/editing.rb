@@ -129,33 +129,24 @@ format :html do
     end
   end
 
-  view :edit_rules, cache: :never, tags: :unknown_ok do |args|
+  view :edit_rules, cache: :never, tags: :unknown_ok do
     voo.show :set_navbar, :toolbar
     voo.hide :set_label, :rule_navbar
 
-    _render_related args.merge(
-      related: {
-        card: current_set_card,
-        view: :open
-      }
-    )
+    render_related items: { nest_name: current_set_card.name }
   end
 
-  view :edit_structure, cache: :never do |args|
+  view :edit_structure, cache: :never do
+    return unless card.structure
     voo.show :toolbar
-    render_related args.merge(
-      related: {
-        card: card.structure,
-        view: :edit
-      }
-      # FIXME: this stuff:
-      #  slot: {
-      #    cancel_slot_selector: ".card-slot.related-view",
-      #    cancel_path: card.format.path(view: :edit), hide: :edit_toolbar,
-      #    hidden: { success: { view: :open, "slot[subframe]" => true } }
-      #  }
-      # }
-    )
+    render_related items: { view: :edit, nest_name: card.structure_card.name }
+    # FIXME: this stuff:
+    #  slot: {
+    #    cancel_slot_selector: ".card-slot.related-view",
+    #    cancel_path: card.format.path(view: :edit), hide: :edit_toolbar,
+    #    hidden: { success: { view: :open, "slot[subframe]" => true } }
+    #  }
+    # }
   end
 
   view :edit_nests, cache: :never do

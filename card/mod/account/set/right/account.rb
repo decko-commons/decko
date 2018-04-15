@@ -127,7 +127,8 @@ def reset_password_success
   Auth.signin left_id
   { id: left.name,
     view: :related,
-    related: { name: :account.cardname.prepend_joint, view: :edit } }
+    slot: { items: { nest_name: :account.cardname.prepend_joint,
+                     view: :edit } } }
 end
 
 def reset_password_try_again
