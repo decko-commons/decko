@@ -38,7 +38,7 @@ end
 # cards that refer to self or any descendant
 def family_referers
   @family_referers ||= ([self] + descendants).map(&:referers).flatten.uniq
-  # FIXME: could be much more efficient!
+  # TODO: make this more efficient!
 end
 
 # replace references in card content

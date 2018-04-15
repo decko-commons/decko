@@ -7,7 +7,7 @@ def diff_args
 end
 
 format do
-  view :closed_content do |_args|
+  view :closed_content do
     ""
   end
 

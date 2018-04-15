@@ -26,7 +26,7 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
   white-space: normal;
 }
 
-/* NOTE: we recommend against styling ".card-slot", which is heavily used by javascript */
+/* NOTE: we recommend against styling ".d0-card-slot", which is heavily used by javascript */
 
 
 /* --  hidden info -- */
@@ -346,8 +346,6 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
 }
 
 
-
-
 /*-------------------- */
 /*- ONE-LINE VIEWS   - */
 /*-------------------- */
@@ -371,7 +369,6 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
     width: auto;
   }
 }
-
 
 .labeled-view {
   padding: 5px 0;

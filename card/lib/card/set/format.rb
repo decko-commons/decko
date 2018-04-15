@@ -10,7 +10,7 @@ class Card
     # View definitions
     #
     #   When you declare:
-    #     view :view_name do |args|
+    #     view :view_name do
     #       #...your code here
     #     end
     #

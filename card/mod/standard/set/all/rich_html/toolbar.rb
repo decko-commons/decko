@@ -210,14 +210,14 @@ format :html do
     end
   end
 
-  view :refresh_button do |_args|
+  view :refresh_button do
     icon = main? ? "refresh" : "open_in_new"
     button_args = { card: card,  path: { slot: { show: :toolbar } } }
     button_args[:class] = "d-none d-sm-inline" if card.accountable?
     toolbar_button "refresh", icon, button_args
   end
 
-  view :delete_button do |_args|
+  view :delete_button do
     confirm = "Are you sure you want to delete #{safe_name}?"
     success = main? ? "REDIRECT: *previous" : "TEXT: #{card.name} deleted"
     toolbar_button "delete", :trash,

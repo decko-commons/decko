@@ -58,22 +58,27 @@ def delete!
   update_attributes! trash: true unless new_card?
 end
 
-event :pull_from_trash, :prepare_to_store, on: :create do
-  if (trashed_card = Card.find_by_key_and_trash(key, true))
-    # a. (Rails way) tried Card.where(key: 'wagn_bot').select(:id), but it
-    # wouldn't work.  This #select generally breaks on cards. I think our
-    # initialization process screws with something
-    # b. (Wagn way) we could get card directly from fetch if we add
-    # :include_trashed (eg).
-    #    likely low ROI, but would be nice to have interface to retrieve cards
-    #    from trash...m
-    self.id = trashed_card.id
-    # update instead of create
-    @from_trash = true
-    @new_record = false
-  end
+event :manage_trash, :prepare_to_store, on: :create do
+  pull_from_trash!
   self.trash = false
   true
+end
+
+def pull_from_trash!
+  return unless (trashed_card = Card.find_by_key_and_trash key, true)
+  # fwiw, now we _could_ get card using fetch look_in_trash: true (not tried).
+
+  self.id = trashed_card.id
+  # following is needed so that #id_in_database returns existing card id
+  # (and record is updated correctly)
+  db_attributes["id"] = trashed_card.db_attributes["id"]
+
+  @from_trash = true
+  @new_record = false
+end
+
+def db_attributes
+  send(:mutations_from_database).send :attributes
 end
 
 event :validate_delete, :validate, on: :delete do

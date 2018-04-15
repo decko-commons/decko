@@ -1,30 +1,14 @@
 RESOURCE_TYPE_REGEXP = /^([a-zA-Z][\-+\.a-zA-Z\d]*):/
 
-format :html do
-  def link_to text=nil, opts={}
-    opts[:href] ||= path opts.delete(:path)
-    text = raw(text || opts[:href])
-    interpret_data_opts_to_link_to opts
-    wrap_with :a, text, opts
-  end
-
-  def interpret_data_opts_to_link_to opts
-    %i[remote method].each do |key|
-      next unless (val = opts.delete key)
-      opts["data-#{key}"] = val
-    end
-  end
-end
-
-format :css do
-  def link_to _text=nil, opts={}
-    card_url path(opts.delete(:path))
-  end
-end
-
+# The #link_to methods support smart formatting of links in multiple formats.
 format do
+  # Creates a "link", the meaning of which depends upon the format.  In this base
+  # format, the link looks like [text][absolute path]
+  #
+  # @param text [String] optional string associated with link
+  # @param opts [Hash] optional Hash. In simple formats, :path is usually the only key
   def link_to text=nil, opts={}
-    path = path opts.delete(:path)
+    path = path((opts.delete(:path) || {}))
     if text && path != text
       "#{text}[#{path}]"
     else
@@ -32,14 +16,60 @@ format do
     end
   end
 
+  # link to a different view of the current card
+  # @param view [Symbol,String]
+  # @param text [String]
+  # @param opts [Hash]
+  def link_to_view view, text=nil, opts={}
+    add_to_path opts, view: view unless view == :home
+    link_to text, opts
+  end
+
+  # link to a card other than the current card.
+  # @param cardish [Integer, Symbol, String, Card] a card identifier
+  # @param text [String]
+  # @param opts [Hash]
+  def link_to_card cardish, text=nil, opts={}
+    add_to_path opts, mark: Card::Name[cardish]
+    link_to text, opts
+  end
+
+  # link to the "related" view (handles many card menu items)
+  # @param field_cardish [Integer, Symbol, String, Card] identify the related field
+  # @param text [String]
+  # @param opts [Hash]
+  def link_to_related field_cardish, text=nil, opts={}
+    add_to_path opts, related: { name: "+#{Card::Name[field_cardish]}" }
+    link_to_view :related, text, opts
+  end
+
+  # a "resource" is essentially a reference to something that
+  # decko doesn't recognize to be a card.  Can be a remote url,
+  # a local url (that decko hasn't parsed) or a local path.
+  # @param resource [String]
+  # @param text [String]
+  # @param opts [Hash]
   def link_to_resource resource, text=nil, opts={}
-    case (resource_type = resource_type resource)
-    when "external-link" then opts[:target] ||= "_blank"
-    when "internal-link" then resource = internal_url resource[1..-1]
-    end
-    add_class opts, resource_type
+    resource = clean_resource resource, resource_type(resource)
     link_to text, opts.merge(path: resource)
   end
+
+  # smart_link_to is wrapper method for #link_to, #link_to_card, #link_to_view,
+  # #link_to_resource, and #link_to_related.  If the opts argument contains
+  # :view, :related, :card, or :resource, it will use the respective method to
+  # render a link.
+  #
+  # This is usually most useful when writing views that generate many different
+  # kinds of links.
+  def smart_link_to text, opts={}
+    if (linktype = %i[view related card resource].find { |key| opts[key] })
+      send "link_to_#{linktype}", opts.delete(linktype), text, opts
+    else
+      send :link_to, text, opts
+    end
+  end
+
+  private
 
   def resource_type resource
     case resource
@@ -50,12 +80,63 @@ format do
     end
   end
 
-  def link_to_card cardish, text=nil, opts={}
-    opts[:path] ||= {}
-    name = opts[:path][:mark] = Card::Name[cardish]
-    add_known_or_wanted_class opts, name
-    link_to (text || name), opts
+  def clean_resource resource, resource_type
+    if resource_type == "internal-link"
+      contextualize_path resource[1..-1]
+    else
+      resource
+    end
   end
+
+  def add_to_path opts, new_hash
+    opts[:path] = (opts[:path] || {}).merge new_hash
+  end
+end
+
+public
+
+format :html do
+  # in HTML, #link_to renders an anchor tag <a>
+  # it treats opts other than "path" as html opts for that tag,
+  # and it adds special handling of "remote" and "method" opts
+  # (changes them into data attributes)
+  def link_to text=nil, opts={}
+    opts[:href] ||= path opts.delete(:path)
+    text = raw(text || opts[:href])
+    interpret_data_opts_to_link_to opts
+    wrap_with :a, text, opts
+  end
+
+  # in HTML, #link_to_card adds special css classes indicated whether a
+  # card is "known" (real or virtual) or "wanted" (unknown)
+  # TODO: upgrade from (known/wanted)-card to (real/virtual/unknown)-card
+  def link_to_card cardish, text=nil, opts={}
+    name = Card::Name[cardish]
+    add_known_or_wanted_class opts, name
+    super name, (text || name), opts
+  end
+
+  # in HTML, #link_to_view defaults to a remote link with rel="nofollow".
+  def link_to_view view, text=nil, opts={}
+    opts.reverse_merge! remote: true, rel: "nofollow"
+    super view, (text || view), opts
+  end
+
+  # in HTML, #link_to_resource automatically adds a target to external resources
+  # so they will open in another tab. It also adds css classes indicating whether
+  # the resource is internal or external
+  def link_to_resource resource, text=nil, opts={}
+    add_resource_opts opts, resource_type(resource)
+    super
+  end
+
+  # in HTML, #link_to_related defaults to using the field name as text
+  def link_to_related field_cardish, text=nil, opts={}
+    name = Card::Name[field_cardish]
+    super name, (text || name), opts
+  end
+
+  private
 
   def add_known_or_wanted_class opts, name
     known = opts.delete :known
@@ -63,100 +144,15 @@ format do
     add_class opts, (known ? "known-card" : "wanted-card")
   end
 
-  # dynamic (ajax) link to a specific view
-  #
-  def link_to_view view, text, opts={}
-    opts.reverse_merge! path: {}, remote: true, rel: "nofollow"
-    opts[:path][:view] = view unless view == :home
-    link_to text, opts
-  end
-
-  def link_to_related cardish, text=nil, opts={}
-    name = Card::Name[cardish]
-    opts[:path] ||= {}
-    opts[:path][:related] ||= {}
-    opts[:path][:related][:name] ||= "+#{name}"
-    link_to_view :related, (text || name), opts
-  end
-
-  # smart_link_to is wrapper method for #link_to, #link_to_card, #link_to_view,
-  # #link_to_resource, and #link_to_related.  If the opts argument contains
-  # :view, :related, :card, or :resource, it will use the respective method to
-  # render a link.
-  def smart_link_to text, opts={}
-    if (linktype = %i[view related card resource].find { |key| opts[key] })
-      send "link_to_#{linktype}", opts.delete(linktype), text, opts
-    else
-      send :link_to, text, opts
+  def interpret_data_opts_to_link_to opts
+    %i[remote method].each do |key|
+      next unless (val = opts.delete key)
+      opts["data-#{key}"] = val
     end
   end
 
-  # path is for generating standard card routes, eg
-  #   [cardname]
-  #   [cardname]?[param]=[value]
-  #   [action]/[cardname]?[param]=[value]
-
-  # @param opts [Hash, String] a String is treated as a complete path and
-  # bypasses all processing
-  # @option opts [String, Card::Name, Integer, Symbol, Card] :mark
-  # @option opts [Symbol] :action card action (:create, :update, :delete)
-  # @option opts [Hash] :card
-  # @option opts []
-  def path opts={}
-    return opts unless opts.is_a? Hash
-    path = new_cardtype_path(opts) || standard_path(opts)
-    internal_url path
-  end
-
-  def new_cardtype_path opts
-    return unless opts[:action] == :new
-    opts.delete :action
-    return unless opts[:mark]
-    "new/#{path_mark opts}#{path_query opts}"
-  end
-
-  def standard_path opts
-    standardize_action! opts
-    mark = path_mark opts
-    base = path_base opts[:action], mark
-    base + path_query(opts)
-  end
-
-  def path_base action, mark
-    if action
-      mark.present? ? "#{action}/#{mark}" : "card/#{action}"
-      # the card/ prefix prevents interpreting action as cardname
-    else
-      mark
-    end
-  end
-
-  def standardize_action! opts
-    return if %i[create update delete].member? opts[:action]
-    opts.delete :action
-  end
-
-  def path_mark opts
-    return "" if opts[:action] == :create || opts.delete(:no_mark)
-    name = opts[:mark] ? Card::Name[opts.delete(:mark)] : card.name
-    add_unknown_name_to_opts name.to_name, opts
-    name.to_name.url_key
-  end
-
-  def path_query opts
-    opts.delete :action
-    opts.empty? ? "" : "?#{opts.to_param}"
-  end
-
-  def add_unknown_name_to_opts name, opts
-    return if opts[:card] && opts[:card][:name]
-    return if name.s == Card::Name.url_key_to_standard(name.url_key)
-    return if Card.known? name
-    opts[:card] ||= {}
-    opts[:card][:name] = name
-  end
-
-  def internal_url relative_path
-    card_path relative_path
+  def add_resource_opts opts, resource_type
+    opts[:target] ||= "_blank" if resource_type == "external-link"
+    add_class opts, resource_type
   end
 end

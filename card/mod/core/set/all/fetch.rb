@@ -24,16 +24,14 @@ module ClassMethods
   def fetch *args
     mark, opts = normalize_fetch_args args
     validate_fetch_opts! opts
-    card, needs_caching = retrieve_existing mark, opts
 
-    if (new_card = new_for_cache card, mark, opts)
-      card = new_card
-      needs_caching = true
-    end
+    card, needs_caching = retrieve_or_new mark, opts
 
     return if card.nil?
     write_to_cache card, opts if needs_caching
     standard_fetch_results card, mark, opts
+  rescue ActiveModel::RangeError => _e
+    return Card.new name: "card id out of range: #{mark}"
   end
 
   # fetch only real (no virtual) cards
@@ -90,6 +88,8 @@ module ClassMethods
     elsif block_given?
       yield.to_name
     end
+  rescue ActiveModel::RangeError => _e
+    block_given? ? yield.to_name : nil
   rescue Card::Error::UnknownCodename => e  # eg. if codename is missing
     block_given? ? yield.to_name : raise(e)
   end

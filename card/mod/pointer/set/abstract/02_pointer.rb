@@ -39,7 +39,7 @@ format do
     end
   end
 
-  view :core do |_args|
+  view :core do
     pointer_items.join ", "
   end
 
@@ -121,11 +121,8 @@ format :json do
     params[:max_depth] || 1
   end
 
-  view :export_items do |args|
-    item_args = args.merge view: :export
-    card.known_item_cards.map do |item_card|
-      nest_item item_card, item_args
-    end.flatten.reject(&:blank?)
+  def items_for_export
+    card.item_cards
   end
 
   def essentials
