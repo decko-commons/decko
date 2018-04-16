@@ -63,7 +63,8 @@ format :html do
     #value = value[1..-1] if value.start_with? "$"
     options = VARIABLE_NAMES[:colors].map { |var| "$#{var}" }
     options << value unless options.include? value
-    select_tag "theme_colors[#{name}]", options_for_select(options, value), class: "tags"
+    select_tag "theme_colors[#{name}]", options_for_select(options, value),
+               class: "tags form-control"
   end
 
   def select_button target=parent.card
