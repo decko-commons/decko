@@ -32,8 +32,7 @@ format :html do
   end
 
   view :layout, perms: :none, cache: :never do
-    layout = process_content get_layout_content(voo.layout),
-                             content_opts: { chunk_list: :references }
+    layout = process_content get_layout_content(voo.layout), chunk_list: :references
     output [layout, modal_slot]
   end
 
@@ -171,8 +170,7 @@ format :html do
   def rule_based_help
     return "" unless (rule_card = card.help_rule_card)
     with_nest_mode :normal do
-      process_content _render_raw(structure: rule_card.name),
-                      content_opts: { chunk_list: :references }
+      process_content _render_raw(structure: rule_card.name), chunk_list: :references
       # render help card with current card's format
       # so current card's context is used in help card nests
     end

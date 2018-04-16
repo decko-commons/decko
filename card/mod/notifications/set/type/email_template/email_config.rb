@@ -10,8 +10,8 @@ def email_config args={}
   process_email_field(:attach, config, args) do |field_card|
     field_card.extended_item_contents args[:context]
   end
-  process_message_field :subject, config, args, "email_text",
-                        content_opts: { chunk_list: :nest_only }
+  process_message_field :subject, config, args, "email_text" #,
+#                        content_opts: { chunk_list: :nest_only }
   process_message_field :text_message, config, args, "email_text"
 
   from_name, from_email =
@@ -51,11 +51,10 @@ def process_email_field field, config, args
     end
 end
 
-def process_message_field field, config, args, format, special_args=nil
-  process_email_field(field, config, args) do |field_card|
-    content_args = args.clone
-    content_args.merge! special_args if special_args
-    field_card.contextual_content args[:context], { format: format },
-                                  content_args
+def process_message_field field, config, args, format, view_args={}
+  local_args = args.clone
+  context = local_args.delete :context
+  process_email_field(field, config, local_args) do |field_card|
+    field_card.contextual_content context, { format: format }, view_args
   end
 end

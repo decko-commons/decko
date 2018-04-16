@@ -1,7 +1,7 @@
 RSpec.describe Card::View::Options do
   specify "#add_option" do
     expect(Card::View::Options.all_keys).not_to include :new_option
-    Card::View::Options.add_option :new_option, :carditect
+    Card::View::Options.add_option :new_option, :ruler
     expect(Card::View::Options.all_keys).to include :new_option
   end
 

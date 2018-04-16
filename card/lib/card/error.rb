@@ -6,10 +6,16 @@ class Card
   class Error < StandardError
     cattr_accessor :current
 
-    class Oops < Error # carditect problem (rename!)
+    class BadContent < Error
+    end
+
+    class BadRule < Error
     end
 
     class BadQuery < Error
+    end
+
+    class BadAddress < Error
     end
 
     class NotFound < StandardError
@@ -22,18 +28,18 @@ class Card
     class PermissionDenied < Error
       attr_reader :card
 
-      def initialize card
-        @card = card
-        super build_message
-      end
-
-      def build_message
-        if (msg = @card.errors[:permission_denied])
-          I18n.t :exception_for_card, scope: [:lib, :card, :error],
-                                      cardname: @card.name, message: msg
+      def initialize message
+        if message.is_a? Card
+          super message_from_card(card)
         else
           super
         end
+      end
+
+      def message_from_card card
+        I18n.t :exception_for_card, scope: [:lib, :card, :error],
+                                    cardname: card.name,
+                                    message: card.errors[:permission_denied]
       end
     end
 
@@ -47,28 +53,29 @@ class Card
       end
     end
 
+    # associating views with exceptions
     class << self
-      def exception_view card, exception
-        Card::Error.current = exception
+      ## NOTE: arguably the view and status should be handled in each error class
+      ## status is currently defined in the view
 
+      def exception_view card, exception
+        self.current = exception
+        simple_exception_view(card, exception) || problematic_exception_view(card, exception)
+      end
+
+      def simple_exception_view card, exception
+        # "simple" error messages are visible to end users and are generally not
+        # treated as software bugs (though they may be "ruler" bugs)
         case exception
-        ## arguably the view and status should be defined in the error class;
-        ## some are redundantly defined in view
-        when Card::Error::Oops, Card::Error::BadQuery
+        when BadContent, BadRule, BadQuery
           card.errors.add :exception, exception.message
-          # these error messages are visible to end users and are generally not
-          # treated as bugs.
-          # Probably want to rename accordingly.
           :errors
-        when Card::Error::PermissionDenied
-          :denial
-        when Card::Error::NotFound, ActiveRecord::RecordNotFound,
-             ActionController::MissingFile
-          :not_found
-        when Decko::BadAddress
+        when BadAddress
           :bad_address
-        else
-          problematic_exception_view card, exception
+        when PermissionDenied
+          :denial
+        when NotFound, ActiveRecord::RecordNotFound, ActionController::MissingFile
+          :not_found
         end
       end
 
@@ -78,8 +85,8 @@ class Card
 
         if exception.is_a? ActiveRecord::RecordInvalid
           :errors
-        # could also just check non-production mode...
         elsif Rails.logger.level.zero?
+          # raise error loudly when not in production (could be a better test!)
           raise exception
         else
           :server_error
@@ -87,7 +94,7 @@ class Card
       end
 
       # card view and HTTP status code associate with errors on card
-      # @todo  should prioritize certain error classes
+      # TODO: should prioritize certain error classes
       def view_and_status card
         card.errors.keys.each do |key|
           if (view_and_status = Card.error_codes[key])

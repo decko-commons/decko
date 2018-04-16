@@ -46,6 +46,6 @@ def term_from_string string
   re_match = /^(\d+)[\.\s]*(#{DURATIONS})s?$/.match(string)
   number, unit = re_match.captures if re_match
 
-  raise Card::Error::Oops, tr(:exception_bad_expiration, example: '2 days') unless unit
+  raise Card::Error::BadContent, tr(:exception_bad_expiration, example: '2 days') unless unit
   number.to_i.send unit
 end

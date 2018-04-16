@@ -77,6 +77,19 @@ class Card
           value&.to_sym
         end
 
+        def dig key
+          live_options.dig key
+        end
+
+        protected
+
+        # - @live_options are dynamic and can be altered by the "voo" API at any time.
+        # Such alterations are NOT used in stubs
+        # @return [Hash]
+        def live_options
+          @live_options ||= process_live_options
+        end
+
         private
 
         # option normalization includes standardizing options into a hash with
@@ -113,13 +126,6 @@ class Card
           end
         end
 
-        # - @live_options are dynamic and can be altered by the "voo" API at any time.
-        # Such alterations are NOT used in stubs
-        # @return [Hash]
-        def live_options
-          @live_options ||= process_live_options
-        end
-
         def process_live_options
           @live_options = normalized_options.clone
           if @live_options[:main_view]
@@ -147,7 +153,8 @@ class Card
         # @param opts [Hash] options hash
         # @return [Hash] options Hash
         def foreign_options_in opts
-          opts.reject { |k, _v| Options.all_keys.include? k }
+          foreign_opts = opts.reject { |k, _v| Options.all_keys.include? k }
+          foreign_opts.empty? ? nil : foreign_opts
         end
 
         # non-standard options that are found in normalized_options

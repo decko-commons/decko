@@ -169,7 +169,7 @@ format :html do
   end
 
   def form_prefix_from_voo
-    voo&.live_options&.dig :input_name
+    voo&.dig :input_name
   end
 
   def edit_in_form_prefix
