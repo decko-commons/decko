@@ -4,9 +4,9 @@ add_to_basket(
   execute_policy: -> { Card.update_all_storage_locations },
   stats: {
     title: "cards with attachment",
-    count: -> { Card.search(type_id: ["in", FileID, ImageID], return: :count) },
-    link_text: "update storage locations",
-    task: "update_file_storage_locations"
+    count: -> { Card.search(type_id: ["in", FileID, ImageID], return: :count) }
+    # link_text: "update storage locations",
+    # task: "update_file_storage_locations"
   }
 )
 

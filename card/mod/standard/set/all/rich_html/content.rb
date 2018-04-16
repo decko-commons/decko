@@ -181,7 +181,7 @@ format :html do
     Card.fetch related_name, new: {}
   end
 
-  view :help, tags: :unknown_ok do
+  view :help, tags: :unknown_ok, cache: :never do
     help_text = voo.help || rule_based_help
     return "" unless help_text.present?
     wrap_with :div, help_text, class: classy("help-text")

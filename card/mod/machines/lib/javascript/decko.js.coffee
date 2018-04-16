@@ -122,28 +122,8 @@ $(window).ready ->
       confirmer.show 'blind'
       false
 
-
   $('body').on 'click', 'button.redirecter', ->
     window.location = $(this).attr('href')
-
-  unless decko.noDoubleClick
-    $('body').on 'dblclick', 'div', (event) ->
-      t = $(this)
-      return false if t.closest( '.nodblclick'  )[0]
-      # fail if inside a div with "nodblclick" class
-      return false if t.closest( '.d0-card-header' )[0]
-      # fail if inside a card header
-      s = t.slot()
-      return false if s.find( '.card-editor' )[0]
-      # fail if there is an editor open in your slot
-      return false unless s.data('cardId')
-      # fail if slot has not card id
-      s.addClass 'slotter'
-      s.attr 'href', decko.path('card/edit/~' + s.data('cardId'))
-      $.rails.handleRemote(s)
-      false # don't propagate up to next slot
-
-#  $('body').on 'dblclick', '.nodblclick', -> false
 
   $('body').on 'change', '.live-type-field', ->
     $(this).data 'params', $(this).closest('form').serialize()
