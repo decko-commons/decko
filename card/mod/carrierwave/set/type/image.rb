@@ -62,12 +62,17 @@ format :html do
     handle_source do |source|
       if source.blank? || source == "missing"
         # FIXME - these images should be "broken", not "missing"
-        # ("missing" is the view for "unknown" now, so we shouldn't further confuse things)
-        "<!-- image missing #{safe_name} -->"
+        invalid_image source
       else
-        image_tag source
+        image_tag source, alt: card.name
+        # consider title..
       end
     end
+  end
+
+  def invalid_image source
+    # ("missing" is the view for "unknown" now, so we shouldn't further confuse things)
+    "<!-- invalid image for #{safe_name}; source: #{source} -->"
   end
 
   def preview

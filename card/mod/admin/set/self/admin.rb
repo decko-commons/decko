@@ -57,13 +57,13 @@ format :html do
       { title: "cards",
         count: Card.where(trash: false) },
       { title: "actions",
-        count: Card::Action,
-        link_text: "clear history",
-        task: "clear_history" },
+        count: Card::Action },
+      #  link_text: "clear history",
+      #  task: "clear_history" },
       { title: "references",
-        count: Card::Reference,
-        link_text: "repair all",
-        task: "repair_references" }
+        count: Card::Reference }
+      # link_text: "repair all",
+      # task: "repair_references" }
     ]
   end
 

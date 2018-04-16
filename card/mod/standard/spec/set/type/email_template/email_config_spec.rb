@@ -198,7 +198,8 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       expect(mail.parts[0].mime_type).to eq "text/plain"
       expect(mail.parts[1].mime_type).to eq "text/html"
       expect(mail.parts[1].body.raw_source)
-        .to include('<img src="http://testhost/files/:logo/standard-medium.png"')
+        .to have_tag(:img,
+                     with: { src: "http://testhost/files/:logo/standard-medium.png" })
     end
 
     it "handles inline image nests in html message" do
@@ -208,7 +209,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       url = mail.parts[0].url
       expect(mail.parts[2].mime_type).to eq "text/html"
       expect(mail.parts[2].body.raw_source).to include('<img src="cid:')
-      expect(mail.parts[2].body.raw_source).to include("<img src=\"#{url}\"")
+      expect(mail.parts[2].body.raw_source).to have_tag(:img, with: { src: url })
     end
 
     it "handles image nests in html message in default view" do
@@ -218,7 +219,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       expect(mail.parts[0].mime_type).to eq "text/plain"
       expect(mail.parts[1].mime_type).to eq "text/html"
       expect(mail.parts[1].body.raw_source)
-        .to include('<img src="/files/:logo/standard-medium.png"')
+        .to have_tag(:img, with: { src: "/files/:logo/standard-medium.png" })
     end
 
     it "handles contextual name for attachments" do
