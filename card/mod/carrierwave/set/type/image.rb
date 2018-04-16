@@ -115,7 +115,7 @@ end
 format :email_html do
   view :inline do
     handle_source do |source|
-      url_generator = voo.closest_live_option(:inline_attachment_url)
+      url_generator = voo.inherit(:inline_attachment_url)
       path = selected_version.path
       return source unless url_generator && ::File.exist?(path)
       image_tag url_generator.call(path)

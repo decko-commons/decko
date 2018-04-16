@@ -139,6 +139,8 @@ format :html do
     Card.fetch(set_name)
   end
 
+  # the related view nests a related card with a submenu
+  # the subcard is specified as an "item" card using the slot/voo api
   view :related, cache: :never do
     return unless related_card
     voo.show :toolbar, :menu, :help

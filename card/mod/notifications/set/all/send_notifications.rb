@@ -173,11 +173,11 @@ format do
   end
 
   def followed_set_card
-    (set_name = voo.closest_live_option(:followed_set)) && Card.fetch(set_name)
+    (set_name = voo.inherit(:followed_set)) && Card.fetch(set_name)
   end
 
   def follow_option_card
-    (option_name = voo.closest_live_option(:follow_option)) &&
+    (option_name = voo.inherit(:follow_option)) &&
       Card.fetch(option_name)
   end
 
@@ -191,18 +191,18 @@ format do
   end
 
   view :follower, perms: :none, closed: true do
-    voo.closest_live_option(:follower) || "follower"
+    voo.inherit(:follower) || "follower"
   end
 
   def live_follow_rule_name
     return unless (set_card = followed_set_card) &&
-                  voo.closest_live_option(:follower)
-    set_card.follow_rule_name voo.closest_live_option(:follower)
+                  voo.inherit(:follower)
+    set_card.follow_rule_name voo.inherit(:follower)
   end
 
   view :unfollow_url, perms: :none, closed: true, cache: :never do
     return "" unless (rule_name = live_follow_rule_name)
-    target_name = "#{voo.closest_live_option :follower}+#{Card[:follow].name}"
+    target_name = "#{voo.inherit :follower}+#{Card[:follow].name}"
     update_path = page_path target_name, action: :update,
                             card: { subcards: {
                                 rule_name => Card[:never].name

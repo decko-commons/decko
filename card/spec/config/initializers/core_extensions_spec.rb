@@ -18,15 +18,15 @@ describe CoreExtensions do
 
     describe "#bury" do
       it "works with a blank hash" do
-        expect({}.bury(:a, :b, :c)).to eq(a: { b: :c })
+        expect({}.bury(:a, :b, 1)).to eq(a: { b: 1 })
       end
 
-      it "works with an existing hash" do
-        expect({ d: :e }.bury(:a, :b, :c)).to eq({ a: { b: :c }, d: :e })
+      it "doesn't override existing hashes" do
+        expect({ d: :e }.bury(:a, :b, 4)).to eq({ a: { b: 4 }, d: :e })
       end
 
-      it "doesn't override values" do
-        expect({ a: { b: :d }}.bury(:a, :b, :c)).to eq(a: { b: :d })
+      it "overrides existing values" do
+        expect({ a: { b: 5 }}.bury(:a, :b, 6)).to eq(a: { b: 6 })
       end
     end
   end

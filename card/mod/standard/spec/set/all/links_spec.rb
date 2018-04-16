@@ -69,7 +69,7 @@ describe Card::Set::All::Links do
     describe "#link_to_related" do
       it "creates a link to a related view" do
         expect(link_to_related(:discussion))
-          .to eq("/Home?%5Bname%5D=%2Bdiscussion&view=related")
+          .to eq("/Home?slot%5Bitems%5D%5Bnest_name%5D=%2Bdiscussion&view=related")
       end
     end
 
