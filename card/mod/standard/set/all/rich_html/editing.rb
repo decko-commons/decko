@@ -158,18 +158,19 @@ format :html do
     end
   end
 
-  view :edit_nest_rules, cache: :never do |args|
-    return ""
-    # FIXME: - view can recurse.  temporarily turned off
-    voo.show :toolbar
-    view = args[:rule_view] || :field_related_rules
-    frame do
-      # with_nest_mode :edit do
-      nested_fields.map do |name, _options|
-        nest Card.fetch(name.to_name.trait(:self)),
-             view: :titled, title: name, rule_view: view,
-             hide: :set_label, show: :rule_navbar
-      end
-    end
-  end
+  # FIXME: - view can recurse.  temporarily turned off
+  #
+  # view :edit_nest_rules, cache: :never do
+  #   return ""#
+  #   voo.show :toolbar
+  #   view = args[:rule_view] || :field_related_rules
+  #   frame do
+  #     # with_nest_mode :edit do
+  #     nested_fields.map do |name, _options|
+  #       nest Card.fetch(name.to_name.trait(:self)),
+  #            view: :titled, title: name, rule_view: view,
+  #            hide: :set_label, show: :rule_navbar
+  #     end
+  #   end
+  # end
 end

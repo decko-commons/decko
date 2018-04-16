@@ -54,13 +54,18 @@ module CoreExtensions
       end
 
       def bury *array
+        # if array.find { |a| a.is_a? Hash }
+        #   raise StandardError, "no hashes in bury arguments"
+        # end
+
         key = array.shift
         if array.size == 1
           self[key] ||= array.first
         else
           self[key] ||= {}
-          self[key].bury array
+          self[key].bury *array
         end
+        self
       end
     end
   end

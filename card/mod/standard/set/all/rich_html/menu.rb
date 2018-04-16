@@ -87,7 +87,7 @@ format :html do
 
   def menu_item_discuss opts
     menu_item "discuss", "comment",
-              opts.bury(items: { nest_name: :discussion.cardname.key })
+              opts.merge(related: :discussion.cardname.key)
   end
 
   def menu_item_follow opts
