@@ -56,19 +56,23 @@ module CoreExtensions
       # opposite of #dig
       # eg. hash.bury(:a, :b, 7) will make sure hash[:a][:b] is eq
       # @return [Hash] with arbitrary depth
-      def bury(*array)
-        # if array.find { |a| a.is_a? Hash }
-        #   raise StandardError, "no hashes in bury arguments"
-        # end
-
+      def bury *array
+        validate_bury_array! array
         key = array.shift
         if array.size == 1
           self[key] = array.first
         else
-          self[key] ||= {}
+          self[key] ||=
           self[key].bury(*array)
         end
         self
+      end
+
+      private
+
+      def validate_bury_array! array
+        return unless array.find { |a| a.is_a? Hash }
+        raise StandardError, "no hashes in bury arguments"
       end
     end
   end
