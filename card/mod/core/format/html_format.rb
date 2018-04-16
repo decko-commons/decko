@@ -20,10 +20,6 @@ class Card
         show_layout? ? main? : depth.zero?
       end
 
-      def first_head?
-        @first_head ? false : (@first_head = true)
-      end
-
       def default_nest_view
         # FIXME: not sure this makes sense as a rule...
         card.rule(:default_html_view) || :titled

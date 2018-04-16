@@ -24,8 +24,6 @@ def set_classes_with_rules
   Card.set_patterns.reverse.map do |set_class|
     wql = { left:  { type: Card::SetID },
             right: id,
-            # sort:  'content',
-
             sort:  %w[content name],
             limit: 0 }
     wql[:left][(set_class.anchorless? ? :id : :right_id)] = set_class.pattern_id
@@ -80,12 +78,10 @@ format do
     end
   end
 
+  # Because +*help content renders in "template" mode when you render its content
+  # directly, we render the help text in the context of the *all+<setting> card
   view :rule_help do
-    <<-HTML
-      <div class="alert alert-info">
-        #{process_content '{{+*right+*help|content}}'}
-      </div>
-    HTML
+    nest [:all, card.name], view: :rule_help
   end
 
   view :closed_content do

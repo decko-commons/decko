@@ -24,14 +24,17 @@ format :html do
 
     wrap_with :div, class: "vertical-card-menu card-menu #{css_class}" do
       wrap_with :div, class: "btn-group slotter card-slot float-right" do
-        link_to_view :vertical_menu, menu_icon, path: menu_path_opts
+        link_to_view :vertical_menu, menu_icon, path: menu_link_path_opts
       end
     end
   end
 
-  def menu_path_opts
-    opts = { slot: { home_view: (voo.home_view || @slot_view),
-                     name_context: context_names_to_params } }
+  # this should probably be added in javascript.
+  # the menu link is not a "slotter", because it doesn't replace the whole
+  # slot (it just adds a menu). But it should use the js code that adds slot
+  # information to urls
+  def menu_link_path_opts
+    opts = { slot: { home_view: voo.home_view } }
     opts[:is_main] = true if main?
     opts
   end
@@ -82,7 +85,7 @@ format :html do
   end
 
   def menu_item_edit opts
-    menu_item "edit", "edit", opts.merge(view: :edit, path: menu_path_opts)
+    menu_item "edit", "edit", opts.merge(view: :edit)
   end
 
   def menu_item_discuss opts
@@ -119,7 +122,6 @@ format :html do
 
   def menu_item text, icon, opts={}
     link_text = "#{material_icon(icon)}<span class='menu-item-label'>#{text}</span>"
-    classy "menu"
     add_class opts, "dropdown-item"
     smart_link_to link_text.html_safe, opts
   end

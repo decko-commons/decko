@@ -81,10 +81,14 @@ Feature: Pointer Inputs
     And I press "Add Selected"
     And I wait for ajax response
     Then I should see "Joe Camel"
+    And I click on "Add Item"
+    And I check "Big_Brother"
+    And I press "Add Selected"
     And I press "Submit"
     And I wait for ajax response
     And I go to card "Joe User+friends"
     Then I should see "Joe Camel"
+    And I should see "Big Brother"
     And I should not see "u1"
 
 
