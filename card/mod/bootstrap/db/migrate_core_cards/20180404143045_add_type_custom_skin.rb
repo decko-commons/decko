@@ -7,6 +7,7 @@ class AddTypeCustomSkin < Card::Migration::Core
     ensure_card "Customized skin",
                 type_id: Card::CardtypeID,
                 codename: "customized_skin"
+    ensure_card "*stylesheets", codename: "stylesheets"
     ensure_card "*bootswatch", codename: "bootswatch"
     ensure_card "*variables", codename: "variables"
 
@@ -19,7 +20,6 @@ class AddTypeCustomSkin < Card::Migration::Core
 
     # remove deprecated bootswatch skin
     Card.fetch("readable skin+image")&.update_column :codename, nil
-    # update_card "readable skin+image", codename: nil, empty_ok: true
     delete_code_card "readable skin"
   end
 end
