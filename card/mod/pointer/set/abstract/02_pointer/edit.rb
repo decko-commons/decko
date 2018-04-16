@@ -27,7 +27,7 @@ format :html do
   end
 
   def edit_list_item item
-    haml :list_item, pointer_item: item, options_card: options_card_name
+    haml :list_item, item: item, options_card: options_card_name
   end
 
   view :autocomplete do
