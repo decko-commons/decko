@@ -1,6 +1,6 @@
 decko.slotReady (slot) ->
   slot.find('select:not(._no-select2)').each (i) ->
-    opts = { dropdownAutoWidth: "true" }
+    opts = { containerCssClass: ":all:", dropdownAutoWidth: "true" }
     if $(this).hasClass("tags")
       opts.tags = "true"
     $(this).select2(opts)
