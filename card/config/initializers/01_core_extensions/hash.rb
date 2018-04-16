@@ -62,7 +62,7 @@ module CoreExtensions
         if array.size == 1
           self[key] = array.first
         else
-          self[key] ||=
+          self[key] ||= {}
           self[key].bury(*array)
         end
         self
