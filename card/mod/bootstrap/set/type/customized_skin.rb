@@ -1,7 +1,6 @@
 include_set Type::Scss
-
 card_accessor :variables
-card_accessor :skin
+card_accessor :stylesheets
 
 # TODO: make it more visible/accessible/editable what's going on here in the content
 # TODO: style: bootstrap cards load default bootstrap variables but
@@ -18,7 +17,7 @@ def content
     Card[:bootstrap_variables],
     Card[:bootstrap_core],
     Card["style: bootstrap cards"],
-    skin_card.item_cards
+    stylesheets_card.extended_item_cards
   ].flatten.compact.map(&:content).join "\n"
 end
 
@@ -40,9 +39,9 @@ event :copy_theme, :prepare_to_store, on: :create do
   add_subfield_from_file :variables
   if @theme
     theme_style = add_subfield_from_file :bootswatch
-    add_subfield :skin, type_id: SkinID, content: "[[#{theme_style.name}]]"
+    add_subfield :stylesheets, type_id: SkinID, content: "[[#{theme_style.name}]]"
   else
-    add_subfield :skin, type_id: SkinID
+    add_subfield :stylesheets, type_id: SkinID
   end
 end
 
@@ -66,6 +65,10 @@ end
 format :html do
   def edit_fields
     [[:variables, { title: "" }],
-     [:bootswatch, { title: "additional css changes" }]]
+     [:stylesheets, { title: "additional css changes" }]]
+  end
+
+  view :closed_content do
+    ""
   end
 end

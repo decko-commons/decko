@@ -97,5 +97,5 @@ def replace_values group, prefix=""
 end
 
 def variable_values_from_params group
-  Env.params[group].slice(*VARIABLE_NAMES[group])
+  Env.params.dig(:group)&.slice(*VARIABLE_NAMES[group]) || {}
 end
