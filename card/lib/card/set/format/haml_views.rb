@@ -30,7 +30,7 @@ class Card
         def haml_template_proc template, path, wrap_with_slot, &block
           proc do
             with_template_path path do
-              locals = haml_block_locals &block
+              locals = haml_block_locals(&block)
               html = haml_to_html template, locals, nil, path: path
               wrap_with_slot ? wrap { html } : html
             end
@@ -38,7 +38,7 @@ class Card
         end
 
         def haml_block_locals &block
-          instance_exec &block if block_given?
+          instance_exec(&block) if block_given?
           instance_variables.each_with_object({}) do |var, h|
             h[var.to_s.tr("@", "").to_sym] = instance_variable_get var
           end

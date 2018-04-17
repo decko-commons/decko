@@ -3,16 +3,16 @@ def clean_html?
   false
 end
 
-def deliver context, fields={}, auth_user=nil
-  mail = format.mail context, fields, auth_user
+def deliver context=nil, fields={}, opts={}
+  mail = format.mail context, fields, opts
   mail.deliver
 rescue Net::SMTPError => exception
   errors.add :exception, exception.message
 end
 
 format do
-  def mail context, fields={}, auth_user=nil
-    config = card.email_config context, fields, auth_user
+  def mail context=nil, fields={}, opts={}
+    config = card.email_config context, fields, opts
     fmt = self # self is <Mail::Message> within the new_mail block
     Card::Mailer.new_mail config do
       fmt.message_body self, config
@@ -21,7 +21,7 @@ format do
   end
 
   def message_body mail, config
-    config[:html_message] = config[:html_message].call mail
+    config[:html_message] &&= config[:html_message].call mail
     method, args = body_method_and_args config[:html_message].present?,
                                         config[:text_message].present?
     args = Array.wrap(args).map { |arg| config[arg] }

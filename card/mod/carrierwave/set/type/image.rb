@@ -121,7 +121,7 @@ format :email_html do
   view :inline, cache: :never do
     handle_source do |source|
       return source unless (mail = inherit :active_mail) &&
-                            ::File.exist?(path = selected_version.path)
+                           ::File.exist?(path = selected_version.path)
       url = attach_image mail, path
       image_tag url
     end

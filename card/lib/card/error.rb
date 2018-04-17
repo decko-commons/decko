@@ -9,9 +9,6 @@ class Card
     class BadContent < Error
     end
 
-    class BadRule < Error
-    end
-
     class BadQuery < Error
     end
 
@@ -60,14 +57,15 @@ class Card
 
       def exception_view card, exception
         self.current = exception
-        simple_exception_view(card, exception) || problematic_exception_view(card, exception)
+        simple_exception_view(card, exception) ||
+          problematic_exception_view(card, exception)
       end
 
       def simple_exception_view card, exception
         # "simple" error messages are visible to end users and are generally not
         # treated as software bugs (though they may be "ruler" bugs)
         case exception
-        when BadContent, BadRule, BadQuery
+        when BadContent, BadQuery
           card.errors.add :exception, exception.message
           :errors
         when BadAddress

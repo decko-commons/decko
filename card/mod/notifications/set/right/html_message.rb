@@ -5,8 +5,7 @@ def clean_html?
 end
 
 format :email_html do
-  def email_content context, active_mail
-    @active_mail = active_mail
+  def email_content context
     content = contextual_content context
     return unless content.present?
     Card::Mailer.layout content

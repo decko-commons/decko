@@ -173,12 +173,17 @@ format do
   end
 
   def followed_set_card
-    (set_name = voo.inherit(:followed_set)) && Card.fetch(set_name)
+    (set_name = active_notice(:followed_set)) && Card.fetch(set_name)
   end
 
   def follow_option_card
-    (option_name = voo.inherit(:follow_option)) &&
+    (option_name = active_notice(:follow_option)) &&
       Card.fetch(option_name)
+  end
+
+  def active_notice key
+    return unless (@active_notice ||= inherit(:active_notice))
+    @active_notice[key]
   end
 
   view :followed, perms: :none, closed: true do
@@ -191,18 +196,17 @@ format do
   end
 
   view :follower, perms: :none, closed: true do
-    voo.inherit(:follower) || "follower"
+    active_notice(:follower) || "follower"
   end
 
   def live_follow_rule_name
-    return unless (set_card = followed_set_card) &&
-                  voo.inherit(:follower)
-    set_card.follow_rule_name voo.inherit(:follower)
+    return unless (set_card = followed_set_card) && (follower = active_notice(:follower))
+    set_card.follow_rule_name follower
   end
 
   view :unfollow_url, perms: :none, closed: true, cache: :never do
     return "" unless (rule_name = live_follow_rule_name)
-    target_name = "#{voo.inherit :follower}+#{Card[:follow].name}"
+    target_name = "#{active_notice(:follower)}+#{Card[:follow].name}"
     update_path = page_path target_name, action: :update,
                             card: { subcards: {
                                 rule_name => Card[:never].name
