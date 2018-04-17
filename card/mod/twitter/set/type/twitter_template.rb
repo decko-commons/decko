@@ -8,7 +8,7 @@ card_reader :message
 require "twitter"
 
 def deliver args={}
-  client.update message_card.contextual_content(args[:context])
+  client.update message_card.format.contextual_content(args[:context])
 end
 
 def client

@@ -1,60 +1,97 @@
-def email_config args={}
-  config = {}
-  args[:context] ||= self
+EMAIL_FIELDS =
+  %i[to from cc bcc attach subject text_message html_message].freeze
 
-  %i[to from cc bcc].each do |field_name|
-    process_email_field(field_name, config, args) do |field_card|
-      field_card.process_email_addresses(args[:context], format: "email_text")
-    end
-  end
-  process_email_field(:attach, config, args) do |field_card|
-    field_card.extended_item_contents args[:context]
-  end
-  process_message_field :subject, config, args, "email_text" #,
-#                        content_opts: { chunk_list: :nest_only }
-  process_message_field :text_message, config, args, "email_text"
+EMAIL_FIELD_METHODS =
+  { subject: :contextual_content,
+    text_message: :contextual_content,
+    attach: :extended_item_contents }.freeze
 
-  from_name, from_email =
-    if config[:from] =~ /(.*)\<(.*)>/
-      [Regexp.last_match(1).strip, Regexp.last_match(2)]
-    else
-      [nil, config[:from]]
-    end
-
-  if (default_from = Card::Mailer.default[:from])
-    config[:from] =
-      if from_email
-        %("#{from_name || from_email}" <#{default_from}>)
-      else
-        default_from
-      end
-    config[:reply_to] ||= config[:from]
-  elsif config[:from].blank?
-    config[:from] = Card[Card::WagnBotID].account.email
+def email_config context, fields={}, auth_user=nil
+  @active_email_context = context || self
+  config = EMAIL_FIELDS.each_with_object({}) do |field, conf|
+    conf[field] = fields[key] || email_field_from_card(field, auth_user)
   end
+  safe_from_and_reply_to! config
   config.select { |_k, v| v.present? }
 end
 
-def process_email_field field, config, args
-  config[field] =
-    if args[field]
-      args[field]
-    elsif (field_card = fetch(trait: field))
-      # configuration can be anything visible to configurer
-      user = (args[:follower] && Card.fetch(args[:follower])) ||
-             field_card.updater
-      Auth.as(user) do
-        yield(field_card)
-      end
-    else
-      ""
-    end
+def email_field_from_card field, auth_user
+  return unless (field_card = fetch(trait: field))
+  with_email_auth field_card, auth_user do
+    special_email_field_method(field, field_card) ||
+      standard_email_field(field, field_card)
+  end
 end
 
-def process_message_field field, config, args, format, view_args={}
-  local_args = args.clone
-  context = local_args.delete :context
-  process_email_field(field, config, local_args) do |field_card|
-    field_card.contextual_content context, { format: format }, view_args
+def special_email_field_method field, field_card
+  method = "email_#{field}_field"
+  return unless respond_to? method
+  send method, field_card
+end
+
+# FIXME: handle these
+#      user = (args[:follower] && Card.fetch(args[:follower])) ||
+#             field_card.updater
+
+def with_email_auth field_card, auth_user
+  # unless otherwise specified, use permissions of user who last configured field card
+  Auth.as((auth_user || field_card.updater)) do
+    yield
+  end
+end
+
+def standard_email_field field, field_card
+  method = EMAIL_FIELD_METHODS[field] || :email_addresses
+  field_card.format(:email_text).send method, @active_email_context
+end
+
+def email_html_message_field message_card
+  Proc.new do |mail|
+    message_card.format(:email_html).email_content @active_email_context, mail
+  end
+end
+
+# def process_html_message mail, config, args
+#   msg_args = args.merge inline_attachment_url: inline_attachment_lambda(mail)
+#   card.process_message_field :html_message, config, msg_args, "email_html"
+#   html_message_with_layout config.delete(:html_message)
+# end
+#
+# def inline_attachment_lambda mail
+#   # inline attachments require mail object. the current solution is to pass a block
+#   # to the view where it is needed to create the image tag
+#   # (see inline view in Type::Image::EmailHtmlFormat)
+#   # it could make more sense to give the image direct access to the mail object?
+#   lambda do |path|
+#     mail.attachments.inline[path] = ::File.read path
+#     mail.attachments[path].url
+#   end
+# end
+
+# whenever a default "from" field is configured in Card::Mailer, emails are always
+# actually "from" that address
+def safe_from_and_reply_to! config
+  conf_name, conf_email = configured_from_name_and_email config[:from]
+  actual_email = Card::Mailer.default[:from] || conf_email
+  config[:from] = email_from_field_value conf_name, conf_email, actual_email
+  config[:reply_to] ||= actual_email
+end
+
+def email_from_field_value conf_name, conf_email, actual_email
+  conf_text = conf_name || conf_email
+  if conf_text != actual_email
+    %("#{conf_text}" <#{actual_email}>)
+  elsif actual_email.present?
+    actual_email
+  else
+    Card[Card::WagnBotID].account.email
+  end
+end
+
+def configured_from_name_and_email raw_string
+  if raw_string =~ /(.*)\<(.*)>/
+    [Regexp.last_match(1).strip, Regexp.last_match(2)]
+  else
+    [nil, raw_string]
   end
 end

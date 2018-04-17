@@ -38,25 +38,6 @@ def collection?
   item_cards != [self]
 end
 
-def context_card
-  @context_card || self
-end
-
-def with_context card
-  old_context = @context_card
-  @context_card = card if card
-  yield
-ensure
-  @context_card = old_context
-end
-
-def contextual_content context_card, format_args={}, view_args={}
-  view = view_args.delete(:view) || :core
-  with_context context_card do
-    format(format_args).render! view, view_args
-  end
-end
-
 format :html do
   view :count do
     card.item_names.size

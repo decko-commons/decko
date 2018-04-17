@@ -113,7 +113,7 @@ format do
 end
 
 format :email_html do
-  view :inline do
+  view :inline, cache: :never do
     handle_source do |source|
       url_generator = voo.inherit(:inline_attachment_url)
       path = selected_version.path

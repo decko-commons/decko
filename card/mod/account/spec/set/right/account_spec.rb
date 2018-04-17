@@ -171,13 +171,15 @@ RSpec.describe Card::Set::Right::Account do
 
   describe "#send_change_notice" do
     subject(:mail) do
-      Card[:follower_notification_email].format.mail(
-        context:       Card.fetch("A", look_in_trash: true),
-        to:            "joe@user.com",
-        follower:      Card["Joe User"],
-        followed_set:  Card[:all],
-        follow_option: Card[:always]
-      )
+      template = Card[:follower_notification_email]
+      template.format.mail Card.fetch("A", look_in_trash: true),
+                                           { to: "joe@user.com" },
+                                           Card["Joe User"]
+      # FIXME: handle these!!
+      #   follower:      Card["Joe User"],
+      #   followed_set:  Card[:all],
+      #   follow_option: Card[:always]
+      # )
     end
 
     it "works for deleted card" do
