@@ -13,13 +13,20 @@ VARIABLE_NAMES = {
 # TODO: deal with that
 
 def variable_value name
-  value_from_scss_source(name, content) || default_value_from_bootstrap(name)
+  value_from_scss(name, content) ||
+    value_from_variables_card(name) ||
+    default_value_from_bootstrap(name)
 end
 
-def value_from_scss_source name, source
+def value_from_scss name, source
   name = name.to_s
   name = name[1..-1] if name.start_with?("$")
   source.match(definition_regex(name))&.capture(:value)
+end
+
+def value_from_variables_card name
+  return unless (var_card = left.variables_card) && var_card.content.present?
+  value_from_scss name, var_card.content
 end
 
 def definition_regex name
@@ -27,16 +34,11 @@ def definition_regex name
 end
 
 def default_value_from_bootstrap name
-  value_from_scss_source name, bootstrap_variables_scss
+  value_from_scss name, bootstrap_variables_scss
 end
 
 def bootstrap_variables_scss
-  @bootstrap_variables_scss ||= read_bootstrap_variables
-end
-
-def read_bootstrap_variables
-  path = File.expand_path("../../../../vendor/bootstrap/scss/_variables.scss", __FILE__)
-  File.exist?(path) ? File.read(path) : ""
+  @bootstrap_variables_scss ||= Type::CustomizedSkin.read_bootstrap_variables
 end
 
 def colors
