@@ -76,6 +76,12 @@ RSpec.describe Card::Content::Chunk::Link do
                 text: "Marie"
   end
 
+  it "allows html in the link text" do
+    expect(render_content("[[arms|<strong>arms</strong>]]")).to have_tag(:a) do
+      with_tag :strong, text: "arms"
+    end
+  end
+
   it "doesn't escape content outside of link" do
     content =
       render_content "wgw&nbsp; [[http://www.google.com|google]] &nbsp;  <br>"

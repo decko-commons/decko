@@ -52,6 +52,7 @@ module Cardio
         non_createable_types:   [%w(signup setting set)],
         view_cache:             false,
         rss_enabled:            false,
+        double_click:           :signed_in,
 
         encoding:                "utf-8",
         request_logger:         false,

@@ -9,7 +9,7 @@ format do
     ""
   end
 
-  view :unsupported_view, perms: :none, tags: :unknown_ok do
+  view :unsupported_view, perms: :none, tags: :unknown_ok, error_code: 404 do
     "view (#{voo.unsupported_view}) not supported for #{error_cardname}"
   end
 
@@ -23,11 +23,7 @@ format do
   end
 
   view :server_error, perms: :none, error_code: 500 do
-    %(
-      Wagn Hitch!  Server Error. Yuck, sorry about that.
-      To tell us more and follow the fix,
-      add a support ticket at http://wagn.org/new/Support_Ticket
-    )
+    ["Wild Card!", "500 Server Error", "Yuck, sorry about that.", ":("].join "\n\n"
   end
 
   view :denial, perms: :none, error_code: 403 do
@@ -42,7 +38,7 @@ format do
     %{ Man, you're too deep.  (Too many levels of nests at a time) }
   end
 
-  view :too_slow, perms: :none, closed: true do
+  view :too_slow, perms: :none, closed: true, error_code: 408 do
     %( Timed out! #{title_in_context} took too long to load. )
   end
 end
@@ -200,20 +196,5 @@ format :html do
     "Please #{linx.join ' '} #{to_task}"
   end
 
-  view :server_error do
-    %{
-      <body>
-        <div class="dialog">
-          <h1>Wagn Hitch :(</h1>
-          <p>Server Error. Yuck, sorry about that.</p>
-          <p>
-            <a href="http://www.wagn.org/new/Support_Ticket">
-              Add a support ticket
-            </a>
-            to tell us more and follow the fix.
-          </p>
-        </div>
-      </body>
-    }
-  end
+  view :server_error, template: :haml
 end

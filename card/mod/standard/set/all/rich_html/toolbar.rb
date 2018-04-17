@@ -249,8 +249,7 @@ format :html do
   }.each do |viewname, viewtitle|
 
     view "#{viewname}_link" do
-      voo.title ||= viewtitle
-      link_to_view viewname, voo.title, class: "dropdown-item"
+      link_to_view viewname, viewtitle, class: "dropdown-item"
     end
   end
 

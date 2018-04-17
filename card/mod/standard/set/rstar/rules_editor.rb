@@ -26,7 +26,7 @@ format :html do
     return "not a rule" unless card.is_rule?
     rule_view = open_rule_body_view
     open_rule_wrap(rule_view) do
-      [open_rule_instruction,
+      [render_rule_help,
        open_rule_setting_links,
        open_rule_body(rule_view)]
     end
@@ -133,7 +133,7 @@ format :html do
                  class: "close-rule-link slotter"
   end
 
-  def open_rule_instruction
+  view :rule_help, tags: :unknown_ok, perms: :none, cache: :never do
     wrap_with :div, class: "alert alert-info rule-instruction" do
       rule_based_help
     end
