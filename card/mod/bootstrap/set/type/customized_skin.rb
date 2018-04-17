@@ -1,7 +1,8 @@
-module ClassMethods
+class << self
   def read_bootstrap_variables
-    path = File.expand_path("../../../../vendor/bootstrap/scss/_variables.scss", __FILE__)
-    File.exist?(path) ? File.read(path) : ""
+    path =
+      ::File.expand_path("../../../vendor/bootstrap/scss/_variables.scss", __FILE__)
+    ::File.exist?(path) ? ::File.read(path) : ""
   end
 end
 
@@ -60,7 +61,7 @@ def add_stylesheets_subfield
 end
 
 def add_variables_subfield
-  theme_content = content_from_theme_file :variables
+  theme_content = content_from_theme_file(:variables)
   default_content = Type::CustomizedSkin.read_bootstrap_variables
   add_subfield :variables,
                type_id: ScssID,
@@ -69,15 +70,15 @@ end
 
 def add_subfield_from_file field_name, file_name=nil
   file_name ||= field_name
-  content = content_from_theme_file(file_name) || ""
+  content = content_from_theme_file(file_name)
   add_subfield field_name, type_id: ScssID, content: content
 end
 
 def content_from_theme_file subfield
-  @theme.present? &&
+  (@theme.present? &&
     (path = ::File.join source_dir, "_#{subfield}.scss") &&
     ::File.exist?(path) &&
-    ::File.read(path)
+    ::File.read(path)) || ""
 end
 
 def source_dir

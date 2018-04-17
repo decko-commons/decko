@@ -16,7 +16,7 @@ class MigrateCustomizedSkin < Card::Migration::Core
   end
 
   def migrate_customizable_bootstrap_skin
-    referers = Card.search refers_to: { codename: OLD_SKIN.to_s }
+    referers = Card.search refer_to: { codename: OLD_SKIN.to_s }
     return unless referers.present?
     replace_old_skin referers
     build_new_skin
