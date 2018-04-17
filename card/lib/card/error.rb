@@ -27,7 +27,7 @@ class Card
 
       def initialize message
         if message.is_a? Card
-          super message_from_card(card)
+          super message_from_card(message)
         else
           super
         end

@@ -182,7 +182,8 @@ format do
   end
 
   def active_notice key
-    return unless (@active_notice ||= inherit(:active_notice))
+    @active_notice ||= inherit :active_notice
+    return unless @active_notice
     @active_notice[key]
   end
 

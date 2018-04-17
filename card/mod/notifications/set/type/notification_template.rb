@@ -2,8 +2,8 @@ card_reader :contextual_class
 card_reader :disappear
 card_reader :message
 
-def deliver args={}
-  success.flash alert_message(args[:context])
+def deliver context
+  success.flash alert_message(context)
 end
 
 def alert_message context
@@ -15,7 +15,7 @@ format :html do
   def alert_message context, message_card
     mformat = subformat message_card
     alert card.alert_class, true, card.disappear? do
-      mformat.contextual_context context, view: alert_view(mformat)
+      mformat.contextual_content context, view: alert_view(mformat)
     end
   end
 

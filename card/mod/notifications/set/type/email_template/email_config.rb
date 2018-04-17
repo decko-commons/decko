@@ -22,37 +22,33 @@ end
 
 def email_field_from_card field, auth, format_opts
   return unless (field_card = fetch(trait: field))
-  with_email_auth field_card, auth do
-    special_email_field_method(field, field_card, format_opts) ||
-      standard_email_field(field, field_card, format_opts)
-  end
+  auth ||= field_card.updater
+  special_email_field_method(field, field_card, auth, format_opts) ||
+    standard_email_field(field, field_card, auth, format_opts)
 end
 
-def special_email_field_method field, field_card, format_opts
+def special_email_field_method field, field_card, auth, format_opts
   method = "email_#{field}_field"
   return unless respond_to? method
-  send method, field_card, format_opts
+  send method, field_card, auth, format_opts
 end
 
-def with_email_auth field_card, auth_user
-  # unless otherwise specified, use permissions of user who last configured field card
-  Auth.as((auth_user || field_card.updater)) do
-    yield
-  end
-end
-
-def standard_email_field field, field_card, format_opts
+def standard_email_field field, field_card, auth, format_opts
   method = EMAIL_FIELD_METHODS[field] || :email_addresses
   format_opts = format_opts.merge format: :email_text
-  field_card.format(format_opts).send method, @active_email_context
+  Auth.as auth do
+    field_card.format(format_opts).send method, @active_email_context
+  end
 end
 
 # html messages return procs because image attachments can't be properly rendered
 # without a mail object. (which isn't available at initial config time)
-def email_html_message_field message_card, format_opts
+def email_html_message_field message_card, auth, format_opts
   proc do |mail|
-    format_opts = format_opts.merge format: :email_html, active_mail: mail
-    message_card.format(:email_html).email_content @active_email_context
+    Auth.as auth do
+      format_opts = format_opts.merge format: :email_html, active_mail: mail
+      message_card.format(format_opts).email_content @active_email_context
+    end
   end
 end
 
