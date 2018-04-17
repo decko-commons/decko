@@ -10,6 +10,7 @@ class AddTypeCustomSkin < Card::Migration::Core
     ensure_card "*stylesheets", codename: "stylesheets"
     ensure_card "*bootswatch", codename: "bootswatch"
     ensure_card "*variables", codename: "variables"
+    ensure_card "*colors", codename: "colors"
 
     Skin.themes.each do |theme_name|
       skin = Skin.new(theme_name)
