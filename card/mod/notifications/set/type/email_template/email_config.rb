@@ -46,7 +46,7 @@ def standard_email_field field, field_card
 end
 
 def email_html_message_field message_card
-  Proc.new do |mail|
+  proc do |mail|
     message_card.format(:email_html).email_content @active_email_context, mail
   end
 end

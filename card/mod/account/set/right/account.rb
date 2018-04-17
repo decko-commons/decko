@@ -154,9 +154,7 @@ end
 event :send_welcome_email do
   # FIXME: needs codename
   welcome = Card["welcome email"]
-  if welcome&.type_code == :email_template
-    welcome.deliver self, to: email
-  end
+  welcome.deliver self, to: email if welcome&.type_code == :email_template
 end
 
 event :send_account_verification_email, :integrate,

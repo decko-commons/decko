@@ -173,8 +173,7 @@ RSpec.describe Card::Set::Right::Account do
     subject(:mail) do
       template = Card[:follower_notification_email]
       template.format.mail Card.fetch("A", look_in_trash: true),
-                                           { to: "joe@user.com" },
-                                           Card["Joe User"]
+                                      { to: "joe@user.com" }, Card["Joe User"]
       # FIXME: handle these!!
       #   follower:      Card["Joe User"],
       #   followed_set:  Card[:all],
