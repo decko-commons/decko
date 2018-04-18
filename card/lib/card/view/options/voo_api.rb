@@ -97,12 +97,17 @@ class Card
         # handling for main_views.
         def normalize_options
           @normalized_options = opts = options_to_hash @raw_options.clone
-          opts[:view] = @raw_view
-          inherit_from_parent if parent
-          opts[:main] = true if format.main?
           @optional = opts.delete(:optional) || false
+          add_implicit_options!
+          inherit_from_parent!
           validate_options! opts
           opts
+        end
+
+        def add_implicit_options!
+          @normalized_options[:view] = @raw_view
+          @normalized_options[:main] = true if format.main?
+          # opts[:context_names] = format.context_names
         end
 
         # typically options are already a hash.  this also handles an array of
@@ -120,9 +125,10 @@ class Card
 
         # standard inheritance from parent view object
         def inherit_from_parent
+          return unless parent
           Options.heir_keys.each do |key|
-            parent_value = parent.live_options[key]
-            normalized_options[key] ||= parent_value if parent_value
+            next unless (parent_value = parent.live_options[key])
+            normalized_options[key] ||= parent_value
           end
         end
 
@@ -156,18 +162,6 @@ class Card
           foreign_opts = opts.reject { |k, _v| Options.all_keys.include? k }
           foreign_opts.empty? ? nil : foreign_opts
         end
-
-        # non-standard options that are found in normalized_options
-        # # @return [Hash] options Hash
-        # def foreign_normalized_options
-        #   @foreign_normalize_options ||= foreign_options_in normalized_options
-        # end
-
-        # # non-standard options that are found in live_options
-        # # @return [Hash] options Hash
-        # def foreign_live_options
-        #   foreign_options_in live_options
-        # end
       end
     end
   end

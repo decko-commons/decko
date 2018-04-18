@@ -27,8 +27,8 @@ class Card
           :edit_structure, # use a different structure for editing (Array)
           :wql,            # contextual wql alterations for search cards (Hash)
           :action_id,      # a Card::Action id (Integer)
-          :content_opts,   # options for Card::Content.new
-          :context_names   # names used to contextualize titles
+          :content_opts    # options for Card::Content.new
+          # :context_names   # names used to contextualize titles
         ],
         both: [
           :help,           # cue text when editing
