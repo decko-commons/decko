@@ -57,22 +57,13 @@ class Card
           end
         end
 
-        def inherit key
-          if live_options.key? key
-            live_options[key]
-          elsif (ancestor = next_ancestor)
-            ancestor.inherit key
-          end
-        end
-
-        protected
-
-        # - @live_options are dynamic and can be altered by the "voo" API at any time.
-        # Such alterations are NOT used in stubs
-        # @return [Hash]
-        def live_options
-          @live_options ||= process_live_options
-        end
+        # def inherit key
+        #   if live_options.key? key
+        #     live_options[key]
+        #   elsif (ancestor = next_ancestor)
+        #     ancestor.inherit key
+        #   end
+        # end
 
         # ACCESSOR_HELPERS
         # methods that follow the normalize_#{key} pattern are called by accessors
@@ -84,6 +75,15 @@ class Card
 
         def normalize_cache value
           value&.to_sym
+        end
+
+        protected
+
+        # - @live_options are dynamic and can be altered by the "voo" API at any time.
+        # Such alterations are NOT used in stubs
+        # @return [Hash]
+        def live_options
+          @live_options ||= process_live_options
         end
 
         private
