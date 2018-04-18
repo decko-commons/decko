@@ -99,7 +99,7 @@ class Card
           @normalized_options = opts = options_to_hash @raw_options.clone
           @optional = opts.delete(:optional) || false
           add_implicit_options!
-          inherit_from_parent!
+          inherit_options_from_parent!
           validate_options! opts
           opts
         end
@@ -124,12 +124,16 @@ class Card
         end
 
         # standard inheritance from parent view object
-        def inherit_from_parent
+        def inherit_options_from_parent!
           return unless parent
-          Options.heir_keys.each do |key|
-            next unless (parent_value = parent.live_options[key])
-            normalized_options[key] ||= parent_value
+          Options.heir_keys.each do |option_key|
+            inherit_from_parent! option_key
           end
+        end
+
+        def inherit_from_parent! option_key
+          return unless (parent_value = parent.live_options[option_key])
+          @normalized_options[option_key] ||= parent_value
         end
 
         def process_live_options
