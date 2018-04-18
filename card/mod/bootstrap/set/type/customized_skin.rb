@@ -11,20 +11,11 @@ card_accessor :colors
 card_accessor :variables
 card_accessor :stylesheets
 
-# TODO: make it more visible/accessible/editable what's going on here in the content
 # TODO: style: bootstrap cards load default bootstrap variables but
 #       should depend on the theme specific variables
 def content
   Abstract::BootswatchTheme.theme_content [colors_card, variables_card],
                                           stylesheets_card.extended_item_cards
-  [
-
-    colors_card,
-    variables_card,
-    Card[:bootstrap_core],
-    Card[:style_bootstrap_cards],
-    stylesheets_card.extended_item_cards
-  ].flatten.compact.map(&:content).join "\n"
 end
 
 def theme_card_name
@@ -79,7 +70,7 @@ end
 
 format :html do
   def edit_fields
-    [[:colors, { title: "Colors" }],
+    [[:colors, { title: "" }],
      [:variables, { title: "Variables" }],
      [:stylesheets, { title: "Styles" }]]
   end
