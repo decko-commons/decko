@@ -15,17 +15,14 @@ card_accessor :stylesheets
 # TODO: style: bootstrap cards load default bootstrap variables but
 #       should depend on the theme specific variables
 def content
+  Abstract::BootswatchTheme.theme_content [colors_card, variables_card],
+                                          stylesheets_card.extended_item_cards
   [
-    Card["style: jquery-ui-smoothness"],
-    Card["style: cards"],
-    Card["style: right sidebar"],
-    Card["font awesome"],
-    Card["material icons"],
-    Card[:bootstrap_functions],
+
     colors_card,
     variables_card,
     Card[:bootstrap_core],
-    Card["style: bootstrap cards"],
+    Card[:style_bootstrap_cards],
     stylesheets_card.extended_item_cards
   ].flatten.compact.map(&:content).join "\n"
 end
@@ -53,7 +50,7 @@ end
 def add_stylesheets_subfield
   opts = { type_id: SkinID }
   if @theme
-    theme_style = add_subfield_from_file :bootswatch
+    theme_style = add_bootswatch_subfield
     opts[:content] = "[[#{theme_style.name}]]"
   end
 
@@ -61,28 +58,23 @@ def add_stylesheets_subfield
 end
 
 def add_variables_subfield
-  theme_content = content_from_theme_file(:variables)
+  theme_content = content_from_theme(:variables)
   default_content = Type::CustomizedSkin.read_bootstrap_variables
   add_subfield :variables,
                type_id: ScssID,
                content: "#{theme_content}\n\n\n#{default_content}"
 end
 
-def add_subfield_from_file field_name, file_name=nil
-  file_name ||= field_name
-  content = content_from_theme_file(file_name)
-  add_subfield field_name, type_id: ScssID, content: content
+def add_bootswatch_subfield
+  add_subfield field_name, type_id: ScssID, content: content_from_theme(:bootswatch)
 end
 
-def content_from_theme_file subfield
-  (@theme.present? &&
-    (path = ::File.join source_dir, "_#{subfield}.scss") &&
-    ::File.exist?(path) &&
-    ::File.read(path)) || ""
+def theme_card
+  @theme_card ||= @theme && Card["#{@theme}_skin".to_sym]
 end
 
-def source_dir
-  @source_dir ||= ::File.expand_path "../../../vendor/bootswatch/dist/#{@theme}", __FILE__
+def content_from_theme subfield
+  theme_card&.send("#{subfield}_scss") || ""
 end
 
 format :html do

@@ -12,6 +12,7 @@ VARIABLE_NAMES = {
 # (see bootstrap's _variables.scss)
 # TODO: deal with that
 
+# @param name [String] a scss variable name (it can start with a $)
 def variable_value name
   value_from_scss(name, content) ||
     value_from_variables_card(name) ||
