@@ -161,15 +161,19 @@ format :html do
 
   def form_prefix
     case
-    when @explicit_form_prefix               then @explicit_form_prefix # configured
-    when form_root? || !form_root || !parent then "card"                # simple form
-    when parent.card == card                 then parent.form_prefix    # card nests self
+    when explicit_form_prefix                then explicit_form_prefix # configured
+    when form_root? || !form_root || !parent then "card"               # simple form
+    when parent.card == card                 then parent.form_prefix   # card nests self
     else                                          edit_in_form_prefix
     end
   end
 
   def edit_in_form_prefix
     "#{parent.form_prefix}[subcards][#{card.name.from form_context.card.name}]"
+  end
+
+  def explicit_form_prefix
+    inherit :explicit_form_prefix
   end
 
   def form_context

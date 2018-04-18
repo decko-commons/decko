@@ -14,7 +14,7 @@ class Card
         if content.is_a? Card::Content
           content
         else
-          Card::Content.new content, self, (content_opts || voo.content_opts)
+          Card::Content.new content, self, (content_opts || voo&.content_opts)
         end
       end
 
