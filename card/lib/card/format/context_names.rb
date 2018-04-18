@@ -11,7 +11,7 @@ class Card
         end
       end
 
-      def relevant_context_names do
+      def relevant_context_names
         part_keys = @card.name.part_names.map(&:key)
         yield.reject { |n| !part_keys.include? n.key }
       end
