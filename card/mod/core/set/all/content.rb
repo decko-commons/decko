@@ -51,7 +51,7 @@ format do
 end
 
 format :html do
-  view :hidden_content_field, tags: :unknown_ok do
+  view :hidden_content_field, tags: :unknown_ok, cache: :never do
     hidden_field :content, class: "d0-card-content"
   end
 end

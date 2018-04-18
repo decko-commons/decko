@@ -57,13 +57,13 @@ class Card
           end
         end
 
-        def inherit key
-          if live_options.key? key
-            live_options[key]
-          elsif (ancestor = next_ancestor)
-            ancestor.inherit key
-          end
-        end
+        # def inherit key
+        #   if live_options.key? key
+        #     live_options[key]
+        #   elsif (ancestor = next_ancestor)
+        #     ancestor.inherit key
+        #   end
+        # end
 
         # ACCESSOR_HELPERS
         # methods that follow the normalize_#{key} pattern are called by accessors
@@ -75,10 +75,6 @@ class Card
 
         def normalize_cache value
           value&.to_sym
-        end
-
-        def dig key
-          live_options.dig key
         end
 
         protected
@@ -99,7 +95,7 @@ class Card
           @normalized_options = opts = options_to_hash @raw_options.clone
           @optional = opts.delete(:optional) || false
           add_implicit_options!
-          inherit_from_parent!
+          inherit_options_from_parent!
           validate_options! opts
           opts
         end
@@ -124,12 +120,16 @@ class Card
         end
 
         # standard inheritance from parent view object
-        def inherit_from_parent
+        def inherit_options_from_parent!
           return unless parent
-          Options.heir_keys.each do |key|
-            next unless (parent_value = parent.live_options[key])
-            normalized_options[key] ||= parent_value
+          Options.heir_keys.each do |option_key|
+            inherit_from_parent! option_key
           end
+        end
+
+        def inherit_from_parent! option_key
+          return unless (parent_value = parent.live_options[option_key])
+          @normalized_options[option_key] ||= parent_value
         end
 
         def process_live_options
