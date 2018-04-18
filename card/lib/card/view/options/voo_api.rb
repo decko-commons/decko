@@ -65,6 +65,15 @@ class Card
           end
         end
 
+        protected
+
+        # - @live_options are dynamic and can be altered by the "voo" API at any time.
+        # Such alterations are NOT used in stubs
+        # @return [Hash]
+        def live_options
+          @live_options ||= process_live_options
+        end
+
         # ACCESSOR_HELPERS
         # methods that follow the normalize_#{key} pattern are called by accessors
         # (arguably that should be done during normalization!)
@@ -75,19 +84,6 @@ class Card
 
         def normalize_cache value
           value&.to_sym
-        end
-
-        def dig key
-          live_options.dig key
-        end
-
-        protected
-
-        # - @live_options are dynamic and can be altered by the "voo" API at any time.
-        # Such alterations are NOT used in stubs
-        # @return [Hash]
-        def live_options
-          @live_options ||= process_live_options
         end
 
         private

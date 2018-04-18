@@ -38,7 +38,7 @@ class Card
           :editor,         # inline_nests makes a form within standard content (Symbol)
           :type,           # set the default type of new cards
           :size,           # set an image size
-          :params,         # parameters for add button.  deprecate!
+          :params,         # parameters for add button.  deprecated!
           :items,          # options for items (Hash)
           :cache           # change view cache behaviour
         ],                 #   (Symbol<:always, :standard, :never>)

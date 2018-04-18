@@ -94,6 +94,7 @@ class Card
 
     def page controller, view, slot_opts
       @controller = controller
+      name_context
       @card.run_callbacks :show_page do
         show view, slot_opts
       end
