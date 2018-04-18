@@ -1,19 +1,19 @@
 class Card
   class Format
     module ContextNames
-
       def context_names
         @context_names ||= initial_context_names
       end
 
       def initial_context_names
-        @initial_context_names ||=
-          parent ? context_names_from_parent : context_names_from_params
+        @initial_context_names ||= relevant_context_names do
+          parent ? parent.context_names : context_names_from_params
+        end
       end
 
-      def context_names_from_parent
+      def relevant_context_names do
         part_keys = @card.name.part_names.map(&:key)
-        parent.context_names.reject { |n| !part_keys.include? n.key }
+        yield.reject { |n| !part_keys.include? n.key }
       end
 
       def context_names_from_params
