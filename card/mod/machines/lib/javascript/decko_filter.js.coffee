@@ -147,9 +147,9 @@ showFilterInputField = (category, widget) ->
   $inputField.find("input, select").focus()
 
 setFilterInputWidth = ($inputField) ->
-  # multiple select fields are skipped because it the importance filter on wikirate
-  # with preselected options got too much height because of this
-  $inputField.find("select:not([multiple])").select2(
+  $inputField.find("select").select2(
+    containerCssClass: ":all:"
+    width: "auto"
     dropdownAutoWidth: "true"
   )
 

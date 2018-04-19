@@ -16,21 +16,21 @@
         .d-flex.flex-row
           - if sort_input_field
             .sort-in-filter-form
-              %i.material-icons.text-muted.md-24.p-2.float-left sort
-              .input-group.flex-nowrap.sort-input-group.mb-2.card-outline-primary.mr-5
+              %i.material-icons.text-muted.md-24.p-1.float-left sort
+              .input-group.input-group-sm.flex-nowrap.sort-input-group.mb-2.card-outline-primary.mr-5
                 .input-group-prepend
                   %span.input-group-text sort
                 = sort_input_field
 
           .filter-in-filter-form
-            %i.material-icons.text-muted.md-24.p-2.float-left search
+            %i.material-icons.text-muted.md-24.p-1.float-left search
             ._filter-container.d-flex.flew-row.flex-wrap
               - categories.each do |key, category|
                 - if category[:active]
                   = haml_partial :filter_input, key: key, category: category
 
               .dropdown._add-filter-dropdown
-                %button.btn.btn-secondary.dropdown-toggle{"aria-expanded": "false",
+                %button.btn.btn-sm.btn-secondary.dropdown-toggle{"aria-expanded": "false",
                                                           "aria-haspopup": "true",
                                                           "data-toggle": "dropdown",
                                                           type: "button" }
