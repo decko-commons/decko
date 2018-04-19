@@ -4,8 +4,8 @@ require "generators/card"
 
 class Card
   module Generators
-    # A wagn generator that creates a haml template for a view.
-    # Run "wagn generate card:template" to get usage information.
+    # A decko generator that creates a haml template for a view.
+    # Run "decko generate card:template" to get usage information.
     class TemplateGenerator < NamedBase
       source_root File.expand_path("../templates", __FILE__)
 
