@@ -6,20 +6,34 @@ class << self
   end
 end
 
-include_set Type::Scss
+include_set Abstract::BootswatchTheme
+
 card_accessor :colors
 card_accessor :variables
 card_accessor :stylesheets
 
-# TODO: style: bootstrap cards load default bootstrap variables but
-#       should depend on the theme specific variables
-def content
-  Abstract::BootswatchTheme.theme_content [colors_card, variables_card],
-                                          stylesheets_card.extended_item_cards
+def variable_card_names
+  [:colors, :variables].map { |s| Card.fetch_name name, s }
+end
+
+def stylesheet_card_names
+  [Card.fetch_name(name, :stylesheets)]
+end
+
+def variables_input
+  [colors_card, variables_card]
+end
+
+def stylesheets_input
+  stylesheets_card.extended_item_cards
 end
 
 def theme_card_name
   "#{@theme} skin"
+end
+
+def theme_codename
+  "#{@theme}_skin".to_sym
 end
 
 event :validate_theme_template, :validate, on: :create do
@@ -61,7 +75,7 @@ def add_bootswatch_subfield
 end
 
 def theme_card
-  @theme_card ||= @theme && Card["#{@theme}_skin".to_sym]
+  @theme_card ||= @theme && Card[theme_codename]
 end
 
 def content_from_theme subfield

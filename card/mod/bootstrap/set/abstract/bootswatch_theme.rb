@@ -1,52 +1,93 @@
 include_set Type::Scss
 
-class << self
-  # @param variables [Card, String, Array<Card, String>]
-  # @param styles [Card, String, Array<Card, String>]
-  def theme_content variables, styles
-    [
-      pre_variables,
-      to_content(variables),
-      post_variables,
-      to_content(styles)
-    ].join "\n"
-  end
+CONTENT_PARTS = [:pre_variables, :variables, :post_variables, :stylesheets]
 
-  def to_content cards_or_strings
-    inp = Array.wrap(cards_or_strings)
-    inp.flatten.map do |i|
-      i.is_a?(Card) ? i.content : i
-    end.join "\n"
-  end
+PRE_VARIABLES_CARD_NAMES = [
+  :style_jquery_ui_smoothness,
+  :style_cards,
+  "style: right sidebar",
+  :font_awesome,
+  :material_icons,
+  :bootstrap_functions
+]
 
-  def pre_variables
-    load_content :style_jquery_ui_smoothness,
-                 :style_cards,
-                 "style: right sidebar",
-                 :font_awesome, :material_icons,
-                 :bootstrap_functions
-  end
+POST_VARIABLES_CARD_NAMES = [
+  :bootstrap_core,
+  :style_bootstrap_cards
+]
 
-  def post_variables
-    load_content :bootstrap_core, :style_bootstrap_cards
-  end
+# @return Array<Card::Name,String>
+def variable_card_names
+  []
+end
 
-  def load_content *names
-    cards = names.map { |n| Card[n] }
-    cards.compact.map(&:content).join "\n"
-  end
+# @return Array<Card::Name,String>
+def stylesheets_card_names
+  []
 end
 
 def content
-  Abstract::BootswatchTheme.theme_content variables_scss, bootswatch_scss
+  CONTENT_PARTS.map do |n|
+    send "#{n}_content"
+  end.join "\n"
 end
 
-def variables_scss
+def pre_variables_content
+  load_content *PRE_VARIABLES_CARD_NAMES
+end
+
+def variables_content
+  to_content variables_input
+end
+
+def post_variables_content
+  load_content *POST_VARIABLES_CARD_NAMES
+end
+
+def stylesheets_content
+  to_content stylesheets_input
+end
+
+def item_names _args={}
+  (PRE_VARIABLES_CARD_NAMES + variable_card_names +
+    POST_VARIABLES_CARD_NAMES + stylesheet_card_names).compact.map do |n|
+    Card.fetch_name(n)
+  end.compact
+end
+
+def item_cards _args={}
+  item_names.map do |n|
+    Card.fetch n
+  end.compact
+end
+
+# @return [Card, String, Array<Card, String>] strings must be valid (s)css; cards
+#         must be of type (S)CSS
+def variables_input
   scss_from_theme_file :variables
 end
 
-def bootswatch_scss
+# @return [Card, String, Array<Card,String>] strings must be valid (s)css; cards
+#         must be of type (S)CSS
+def stylesheets_input
   scss_from_theme_file :bootswatch
+end
+
+def to_content cards_or_strings
+  inputs = Array.wrap(cards_or_strings).flatten
+  inputs.map do |inp|
+    if inp.is_a?(Card)
+      inp.content
+      # inp.extented_item_cards.map { |ca| ca.content }.join "\n"
+    else
+      inp
+    end
+  end.join "\n"
+end
+
+def load_content *names
+  cards = names.map { |n| Card[n] }
+  cards.compact.map(&:content).join "\n"
 end
 
 def scss_from_theme_file file
