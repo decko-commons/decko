@@ -46,7 +46,7 @@ module Card::Content::Chunk
 
     # view options
     def options
-      link_text ? { title: link_text.html_safe } : {}
+      link_text ? { title: link_text } : {}
     end
 
     def objectify raw
