@@ -7,12 +7,14 @@ class Card
       include Mode
 
       # @param cardish card mark
-      # @param options [Hash]
+      # @param options [Hash] view options
       # @option options [Symbol] view
       # @option options [Symbol, Array<Symbol>] :hide hide optional subviews
       # @option options [Symbol, Array<Symbol>] :show show optional subviews
       # @option options [String] :title
-      # @param override ??
+      # @param override [True/False] by default, nest can be overridden depending on
+      # the current @nest_mode.  (Eg, if editing, you can override a content view with
+      # an editor). Setting override to false turns this off
       def nest cardish, options={}, override=true, &block
         return "" if nest_invisible?
         nested_card = fetch_nested_card cardish, options
