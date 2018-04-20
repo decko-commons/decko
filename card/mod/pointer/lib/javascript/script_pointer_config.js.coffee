@@ -1,7 +1,7 @@
 $.extend decko.editorContentFunctionMap,
-    '.pointer-select': ->
+    'select.pointer-select': ->
       pointerContent @val()
-    '.pointer-multiselect': ->
+    'select.pointer-multiselect': ->
       pointerContent @val()
     '.pointer-radio-list': ->
       pointerContent @find('input:checked').val()
