@@ -107,7 +107,7 @@ format :html do
   view :sort_formgroup, cache: :never do
     select_tag "sort",
                options_for_select(sort_options, card.current_sort),
-               class: "pointer-select _filter-sort",
+               class: "pointer-select _filter-sort form-control",
                "data-minimum-results-for-search": "Infinity"
   end
 end
