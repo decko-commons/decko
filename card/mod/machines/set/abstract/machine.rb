@@ -54,19 +54,66 @@ module MachineClassMethods
   end
 end
 
+card_accessor :machine_output, type: :file
+card_accessor :machine_input, type: :pointer
+
+def before_engine
+end
+
+def engine_input
+  # TODO: replace with call of extended_item_cards
+  # traverse through all levels of pointers and
+  # collect all item cards as input
+  items = [self]
+  new_input = []
+  already_extended = {} # avoid loops
+  loop_limit = 5
+  until items.empty?
+    item = items.shift
+    next if item.trash || already_extended[item.id].to_i > loop_limit
+    if item.item_cards == [item] # no pointer card
+      new_input << item
+    else
+      # item_cards instantiates non-existing cards
+      # we don't want those
+      items.insert(0, item.item_cards.reject(&:unknown?))
+      items.flatten!
+
+      new_input << item if item != self && item.known?
+      already_extended[item] = already_extended[item].to_i + 1
+    end
+  end
+  new_input
+end
+
+def engine input
+  input
+end
+
+def after_engine output
+  filetype = output_config[:filetype]
+  file = Tempfile.new [id.to_s, ".#{filetype}"]
+  file.write output
+  file.rewind
+  Card::Auth.as_bot do
+    p = machine_output_card
+    p.file = file
+    p.save!
+  end
+  file.close
+  file.unlink
+end
+
+view :machine_output_url do
+  machine_output_url
+end
+
 class << self
   def included host_class
     host_class.extend(MachineClassMethods)
+    host_class.mattr_accessor :output_config
     host_class.output_config = { filetype: "txt" }
 
-    # for compatibility with old migrations
-    return unless Codename.exist? :machine_output
-
-    host_class.card_accessor :machine_output, type: :file
-    host_class.card_accessor :machine_input, type: :pointer
-
-    set_default_machine_behaviour host_class
-    define_machine_views host_class
     define_machine_events host_class
   end
 
@@ -75,68 +122,6 @@ class << self
     event_name = "reset_machine_output_#{event_suffix}".to_sym
     host_class.event event_name, after: :expire_related, on: :save do
       reset_machine_output
-    end
-  end
-
-  def define_machine_views host_class
-    host_class.format do
-      view :machine_output_url do
-        machine_output_url
-      end
-    end
-  end
-
-  def set_default_machine_behaviour host_class
-    set_default_input_collection_method host_class
-    set_default_input_preparation_method host_class
-    set_default_output_storage_method host_class
-    host_class.machine_engine { |input| input }
-  end
-
-  def set_default_input_preparation_method host_class
-    host_class.prepare_machine_input {}
-  end
-
-  def set_default_output_storage_method host_class
-    host_class.store_machine_output do |output|
-      filetype = host_class.output_config[:filetype]
-      file = Tempfile.new [id.to_s, ".#{filetype}"]
-      file.write output
-      file.rewind
-      Card::Auth.as_bot do
-        p = machine_output_card
-        p.file = file
-        p.save!
-      end
-      file.close
-      file.unlink
-    end
-  end
-
-  def set_default_input_collection_method host_class
-    host_class.collect_input_cards do
-      # traverse through all levels of pointers and
-      # collect all item cards as input
-      items = [self]
-      new_input = []
-      already_extended = {} # avoid loops
-      loop_limit = 5
-      until items.empty?
-        item = items.shift
-        next if item.trash || already_extended[item.id].to_i > loop_limit
-        if item.item_cards == [item] # no pointer card
-          new_input << item
-        else
-          # item_cards instantiates non-existing cards
-          # we don't want those
-          items.insert(0, item.item_cards.reject(&:unknown?))
-          items.flatten!
-
-          new_input << item if item != self && item.known?
-          already_extended[item] = already_extended[item].to_i + 1
-        end
-      end
-      new_input
     end
   end
 end
@@ -152,15 +137,18 @@ def run_machine joint="\n"
   after_engine output
 end
 
-def run_engine input_card
-  return if input_card.is_a? Card::Set::Type::Pointer
-  if (cached = fetch_cache_card(input_card))
-    return cached.content
-  end
+def direct_machine_input? input_card
+  !input_card.is_a?(Card::Set::Type::Pointer) ||
+    input_card.respond_to?(:machine_input)
+end
 
-  output = engine input_from_card(input_card)
-  cache_output_part input_card, output
-  output
+def run_engine input_card
+  return unless direct_machine_input? input_card
+  return cached.content if (cached = fetch_cache_card(input_card))
+
+  engine(input_from_card(input_card)).tap do |output|
+    cache_output_part input_card, output
+  end
 end
 
 def input_from_card input_card
@@ -168,38 +156,6 @@ def input_from_card input_card
     input_card.machine_input
   else
     input_card.format._render_raw
-  end
-end
-
-def fetch_cache_card input_card, new=nil
-  new &&= { type_id: PlainTextID }
-  Card.fetch input_card.name, name, :machine_cache, new: new
-end
-
-def cache_output_part input_card, output
-  Auth.as_bot do
-    # save virtual cards first
-    # otherwise the cache card will save it to get the left_id
-    # and trigger the cache update again
-    input_card.save! if input_card.new_card?
-
-    cache_card = fetch_cache_card(input_card, true)
-    cache_card.update_attributes! content: output
-  end
-end
-
-def reset_machine_output
-  Auth.as_bot do
-    (moc = machine_output_card) && moc.real? && moc.delete!
-    update_input_card
-  end
-end
-
-def update_machine_output
-  return unless ok?(:read)
-  lock do
-    update_input_card
-    run_machine
   end
 end
 
@@ -217,21 +173,6 @@ def machine_output_codename
   end.join "_"
 end
 
-def regenerate_machine_output
-  return unless ok?(:read)
-  lock { run_machine }
-end
-
-def update_input_card
-  if Card::ActManager.running_act?
-    input_card = attach_subcard! machine_input_card
-    input_card.content = ""
-    engine_input.each { |input| input_card << input }
-  else
-    machine_input_card.items = engine_input
-  end
-end
-
 def input_item_cards
   machine_input_card.item_cards
 end
@@ -247,8 +188,4 @@ def machine_output_path
   machine_output_card.file.path
 end
 
-def ensure_machine_output
-  output = fetch trait: :machine_output
-  return if output && output.selected_content_action_id
-  update_machine_output
-end
+

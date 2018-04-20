@@ -6,7 +6,7 @@ class << self
   end
 end
 
-include_set Abstract::BootswatchTheme
+include_set Type::BootswatchTheme
 
 card_accessor :colors
 card_accessor :variables
@@ -16,8 +16,14 @@ def variable_card_names
   [:colors, :variables].map { |s| Card.fetch_name name, s }
 end
 
-def stylesheet_card_names
+def stylesheets_card_names
   [Card.fetch_name(name, :stylesheets)]
+end
+
+def extended_stylesheets_cards
+  stylesheets_card_names.map do |n|
+    Card.fetch(n).extended_item_cards
+  end.flatten.compact
 end
 
 def variables_input

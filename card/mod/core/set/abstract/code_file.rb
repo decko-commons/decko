@@ -38,6 +38,10 @@ def existing_source_paths
   end.compact
 end
 
+def source_changed? since:
+  existing_source_paths.any? { |path| ::File.mtime(path) > since }
+end
+
 def content
   Array.wrap(source_files).map do |filename|
     if (source_path = find_file filename)
