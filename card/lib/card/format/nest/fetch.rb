@@ -8,10 +8,22 @@ class Card
           when Card            then cardish
           when Symbol, Integer then Card.fetch cardish
           when "_", "_self"    then card.context_card
-          else
-            opts[:nest_name] = Card::Name[cardish].to_s
-            Card.fetch cardish, new: nest_new_args(opts)
+          else new_card_for_nest cardish, opts
           end
+        rescue Card::Error::UnknownCodename
+          not_found_codename_for_nest cardish, opts
+        end
+
+        def new_card_for_nest cardish, opts
+          opts[:nest_name] = Card::Name[cardish].to_s
+          Card.fetch cardish, new: nest_new_args(opts)
+        end
+
+        def not_found_codename_for_nest cardish, opts
+          opts[:view] = :not_found
+          c = Card.new name: Array.wrap(cardish).join(Card::Name.joint).to_s
+          c.errors.add :codename, "unknown codename in #{cardish}"
+          c
         end
 
         private

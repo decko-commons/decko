@@ -126,11 +126,13 @@ format :html do
     voo.hide! :menu
     class_up "d0-card-frame", "card card-warning card-inverse"
     class_up "alert", "card-error-msg"
-    frame do
-      card.errors.map do |attrib, msg|
-        alert "warning", true do
-          attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
-        end
+    frame { standard_errors }
+  end
+
+  def standard_errors
+    card.errors.map do |attrib, msg|
+      alert "warning", true do
+        attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
       end
     end
   end
@@ -142,10 +144,17 @@ format :html do
   view :not_found do # ug.  bad name.
     voo.hide! :menu
     voo.title = "Not Found"
-    card_label = card.name.present? ? "<em>#{safe_name}</em>" : "that"
     frame do
-      [wrap_with(:h2) { "Could not find #{card_label}." },
-       sign_in_or_up_links]
+      [not_found_errors, sign_in_or_up_links]
+    end
+  end
+
+  def not_found_errors
+    if card.errors.any?
+      standard_errors
+    else
+      card_label = card.name.present? ? "<em>#{safe_name}</em>" : "that"
+      wrap_with(:h2) { "Could not find #{card_label}." }
     end
   end
 
