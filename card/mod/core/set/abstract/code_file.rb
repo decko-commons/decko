@@ -58,4 +58,8 @@ format :html do
   view :editor do
     "Content is stored in file and can't be edited."
   end
+
+  def standard_submit_button
+    multi_card_editor? ? super : ""
+  end
 end

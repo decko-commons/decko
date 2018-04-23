@@ -11,6 +11,7 @@
 include_set Type::Scss
 include_set Abstract::Machine
 include_set Abstract::CodeFile
+include_set Abstract::SkinThumbnail
 
 CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets]
 
@@ -124,7 +125,7 @@ def to_content cards_or_strings
   inputs.map do |inp|
     if inp.is_a?(Card)
       # inp.content
-      inp.extented_item_cards.map(&:content).join "\n"
+      inp.extended_item_cards.map(&:content).join "\n"
     else
       inp
     end
@@ -143,7 +144,8 @@ def scss_from_theme_file file
 end
 
 def theme_name
-  codename.match(/^(.+)_skin$/).capture(0)
+  codename&.match(/^(.+)_skin$/)&.capture(0) ||
+    name.match(/^(.+)[ _][sS]kin/).capture(0)&.downcase
 end
 
 def source_dir
@@ -153,7 +155,7 @@ end
 
 
 format :html do
-  view :my_post do
-    "hey"
+  view :thumbnail, template: :haml do
+    voo.show! :customize_button, :thumbnail_image
   end
 end
