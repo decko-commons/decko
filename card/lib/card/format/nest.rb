@@ -29,7 +29,7 @@ class Card
       end
 
       def prepare_view
-        view = view_opts[:view] || format.implicit_nest_viewmod
+        view = view_opts[:view] || format.implicit_nest_view
         # TODO: canonicalize view and modal_nest_view handling should be in Card::View,
         # not here. (Make sure processing only happens on nests/root views)
         Card::View.canonicalize view
