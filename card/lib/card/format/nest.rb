@@ -8,6 +8,7 @@ class Card
         @format = format
         @view_opts = view_opts
         @format_opts = format_opts
+        @override = format_opts.delete(:override) || true
         @card ||= fetch_card cardish
         # note: fetch_card can alter view_opts[:nest_name]
       end
@@ -15,7 +16,7 @@ class Card
       def prepare
         prepare_view_and_opts!
         subformat = prepare_subformat
-        view = subformat.modal_nest_view @view
+        @view = subformat.modal_nest_view @view if @override
         yield subformat, view
       end
 
