@@ -83,7 +83,7 @@ describe Card::Format do
     it "formats path" do
       expect(text_format.path(card.name)).to eq "/" + card.name
       expect(html_format.path(card.name)).to eq "/" + card.name
-      path = text_format.path mark: card.name, format: "txt", opt1: 11, opt2: "foo"
+      path = html_format.path mark: card.name, format: "txt", opt1: 11, opt2: "foo"
       expect(path).to eq "/#{card.name}.txt?opt1=11&opt2=foo"
     end
 
