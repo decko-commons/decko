@@ -26,12 +26,8 @@ class Card
       Card["A"].with_set(described_class)
     end
 
-    def format_subject format
+    def format_subject format=:html
       card_subject.format_with_set(described_class, format)
-    end
-
-    def expect_view view, format: :html
-      expect(format_subject(format).render(view))
     end
 
     def assert_view_select view_html, *args, &block
