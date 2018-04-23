@@ -29,7 +29,7 @@ class Card
       end
 
       def prepare_view
-        view = view_opts[:view] || format.implicit_nest_view
+        view = view_opts[:view] || format.implicit_nest_viewmod
         # TODO: canonicalize view and modal_nest_view handling should be in Card::View,
         # not here. (Make sure processing only happens on nests/root views)
         Card::View.canonicalize view
@@ -37,7 +37,7 @@ class Card
 
       # @return [Format] subformat object
       def prepare_subformat
-        return self if reuse_format?
+        return format if reuse_format?
         sub = format.subformat card, format_opts
         sub.main! if view_opts[:main]
         sub
@@ -48,7 +48,7 @@ class Card
       # caching
       def reuse_format?
         view_opts[:nest_name] =~ /^_(self)?$/ &&
-          format.context_card == card &&
+          format.context_card == format.card &&
           !nest_recursion_risk?
       end
 
