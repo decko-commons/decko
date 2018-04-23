@@ -2,9 +2,17 @@ class Card
   class Format
     module Nest
       module Subformat
-        def subformat subcard
-          subcard = Card.fetch(subcard, new: {}) unless subcard.is_a?(Card)
-          self.class.new subcard, parent: self, format_class: self.class, form: @form
+        # note: while it is possible to have a subformat of a different class,
+        # the :format_class value takes precedence over :format.
+        def subformat subcard, opts={}
+          subcard = subformat_card subcard
+          opts = opts.merge(parent: self).reverse_merge(format_class: self.class)
+          self.class.new subcard, opts
+        end
+
+        def subformat_card subcard
+          return subcard if subcard.is_a? Card
+          Card.fetch subcard, new: {}
         end
 
         def root
