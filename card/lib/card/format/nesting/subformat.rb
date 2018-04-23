@@ -1,6 +1,7 @@
 class Card
   class Format
-    module Nest
+    module Nesting
+      # Formats can have subformats. Lineage can be retraced through "parent" format.
       module Subformat
         # note: while it is possible to have a subformat of a different class,
         # the :format_class value takes precedence over :format.
@@ -8,11 +9,6 @@ class Card
           subcard = subformat_card subcard
           opts = opts.merge(parent: self).reverse_merge(format_class: self.class)
           self.class.new subcard, opts
-        end
-
-        def subformat_card subcard
-          return subcard if subcard.is_a? Card
-          Card.fetch subcard, new: {}
         end
 
         def root
@@ -23,11 +19,14 @@ class Card
           @depth ||= parent ? (parent.depth + 1) : 0
         end
 
+        # is format's card the format of the main card on a page?
         def main?
           depth.zero?
         end
 
-        def focal? # meaning the current card is the requested card
+        # is format's card the format of the requested card?
+        # (can be different from main in certain formats, see override in HtmlFormat)
+        def focal?
           depth.zero?
         end
 
@@ -39,6 +38,13 @@ class Card
         def inherit variable
           variable = "@#{variable}" unless variable.to_s.start_with? "@"
           instance_variable_get(variable) || parent&.inherit(variable)
+        end
+
+        private
+
+        def subformat_card subcard
+          return subcard if subcard.is_a? Card
+          Card.fetch subcard, new: {}
         end
       end
     end

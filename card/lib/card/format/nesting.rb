@@ -1,5 +1,6 @@
 class Card
   class Format
+    # the core of the nesting api
     module Nesting
       include Main
       include Subformat
@@ -43,11 +44,11 @@ class Card
         :name
       end
 
-      private
-
       def implicit_nest_view
         voo_items_view || default_nest_view
       end
+
+      private
 
       def nest_invisible?
         nest_mode == :closed && @char_count && (@char_count > max_char_count)

@@ -1,6 +1,6 @@
 class Card
   class Format
-    module Nest
+    class Nest
       # Fetch card for a nest
       module Fetch
         private
@@ -10,22 +10,25 @@ class Card
           when Card            then cardish
           when Symbol, Integer then Card.fetch cardish
           when "_", "_self"    then format.context_card
-          else                      Card.fetch cardish, new: new_card_args
+          else                      new_card cardish
           end
         end
 
+        def new_card cardish
+          view_opts[:nest_name] = Card::Name[cardish].to_s
+          Card.fetch cardish, new: new_card_args
+        end
+
         def new_card_args
-          {
-            name: (view_opts[:nest_name] = Card::Name[cardish].to_s),
-            type: view_opts[:type]
-          }.merge(new_supercard_args)
-            .merge(new_main_args)
-            .merge(new_content_args)
+          args = { name: view_opts[:nest_name], type: view_opts[:type] }
+          args.merge(new_supercard_args)
+              .merge(new_main_args)
+              .merge(new_content_args)
         end
 
         def new_supercard_args
           # special case.  gets absolutized incorrectly. fix in name?
-          return {} unless view_opts[:nest_name].strip_blank?
+          return {} if view_opts[:nest_name].strip.blank?
           { supercard: format.context_card }
         end
 

@@ -1,5 +1,6 @@
 class Card
   class Format
+    # processing nests
     class Nest
       include Fetch
       attr_accessor :format, :card, :view, :view_opts, :format_opts
