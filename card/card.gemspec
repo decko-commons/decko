@@ -65,9 +65,9 @@ Gem::Specification.new do |s|
     ["twitter",                    "~> 6.1"], # for event-based integration
     ["delayed_job_active_record",  "~> 4.1"],
     ["minitest",                   "5.11.2"],
-    ["rake",                       "<= 12.3.0"]
+    ["rake",                       "<= 12.3.0"],
 
-
+    ["rails", "< 5.2"]  # 5.2 removes mutation_tracker
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end

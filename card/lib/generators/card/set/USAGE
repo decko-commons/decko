@@ -2,13 +2,13 @@ Description:
     Generates new set files in mods and matching specs.
 
 Example:
-    wagn generate card:set standard type tshirt
+    decko generate card:set standard type tshirt
 
     This will create:
         mod/standard/set/type/tshirt.rb
         mod/standard/spec/set/type/tshirt_spec.rb
 
-    wagn generate card:set standard type_plus_right basic about tshirt
+    decko generate card:set standard type_plus_right basic about tshirt
 
     This will create:
         mods/standard/set/type_plus_right/basic/about/tshirt.rb
