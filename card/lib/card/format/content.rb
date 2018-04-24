@@ -10,12 +10,13 @@ class Card
         content_object.to_s
       end
 
-      def get_content_object content, content_opts
-        if content.is_a? Card::Content
-          content
-        else
-          Card::Content.new content, self, (content_opts || voo&.content_opts)
-        end
+      # nested by another card's content
+      # (as opposed to a direct API nest)
+      def content_nest opts={}
+        return opts[:comment] if opts.key? :comment # commented nest
+        nest_name = opts[:nest_name]
+        return main_nest(opts) if main_nest?(nest_name)
+        nest nest_name, opts
       end
 
       def format_date date, include_time=true
@@ -60,6 +61,16 @@ class Card
       def output *content
         content = yield if block_given?
         Array.wrap(content).flatten.compact.join "\n"
+      end
+
+      private
+
+      def get_content_object content, content_opts
+        if content.is_a? Card::Content
+          content
+        else
+          Card::Content.new content, self, (content_opts || voo&.content_opts)
+        end
       end
     end
   end

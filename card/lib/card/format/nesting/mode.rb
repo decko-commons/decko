@@ -1,13 +1,16 @@
 class Card
   class Format
-    module Nest
+    module Nesting
+      # Nest modes are states that can alter a nest's view
       module Mode
         # A nest can be rendered in one of four modes: normal, closed, edit, or template.
 
         # In _normal_ mode nests are rendered in the requested view without alteration.
         # In _closed_ mode nest rendering is altered to fit within a single line
-        # In _edit_ mode, a nest's view is replaced (where applicable) with a form element to edit content
-        # In _template_ mode, the view is replaced with a link to a nest editor to edit rules and options for that nest
+        # In _edit_ mode, a nest's view is replaced (where applicable) with a form
+        #    element to edit content
+        # In _template_ mode, the view is replaced with a link to a nest editor to edit
+        #    rules and options for that nest
 
         # current nest mode
         # @return [Symbol] :normal, :closed, :edit, or :template
@@ -66,7 +69,8 @@ class Card
         # @param view [Symbol]
         # @return [Symbol] viewname
         def view_in_closed_mode view
-          configured_view_in_closed_mode(view) || (card.known? ? :closed_content : :closed_missing)
+          configured_view_in_closed_mode(view) ||
+            (card.known? ? :closed_content : :closed_missing)
         end
 
         # the view configured in view definition for use when nested in closed mode

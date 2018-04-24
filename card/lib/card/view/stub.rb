@@ -32,10 +32,10 @@ class Card
 
       # @return [Hash]
       def stub_hash
-        with_override mode: format.nest_mode,
-                      cast: card.cast,
-                      options: normalized_options,
-                      override: root?
+        with_override cast: card.cast,
+                      view_opts: normalized_options,
+                      format_opts: { nest_mode: format.nest_mode,
+                                     override: root? }
       end
 
       # handle nest_mode in stub
