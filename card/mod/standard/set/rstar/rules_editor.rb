@@ -113,8 +113,7 @@ format :html do
 
   def closed_rule_content rule_card
     return "" unless rule_card
-    @set_context = card.name.trunk_name
-    nest rule_card, view: :closed_content
+    nest rule_card, { view: :closed_content }, set_context: card.name.trunk_name
   end
 
   def open_rule_setting_links
