@@ -4,7 +4,7 @@ class Card
     class Join
       JOIN_OPT_KEYS = %i[side conditions
                          from from_table from_alias from_field
-                         to     to_table   to_alias   to_field].freeze
+                         to to_table to_alias to_field].freeze
       attr_accessor(*JOIN_OPT_KEYS)
 
       # These two manage hierarchy of nested joins
@@ -53,7 +53,7 @@ class Card
       end
 
       def left?
-        side.to_s.downcase == "left"
+        side == "LEFT"
       end
 
       private
@@ -77,13 +77,12 @@ class Card
 
       def directional_hash_for_object side, object
         case object
-          when nil         then return
-          when Hash        then object
-          when Array       then dir_hash(*object)
-          when Card::Query then dir_hash "cards", object.table_alias
-          when Reference   then dir_hash "card_references", object.table_alias
-          when Join        then join_join side, object
-          else             raise "invalid #{side} option: #{object}"
+          when nil              then return
+          when Hash             then object
+          when Array            then dir_hash(*object)
+          when Query, Reference then dir_hash_for_query object
+          when Join             then dir_hash_for_join side, object
+          else                       dir_error(side, object)
         end
       end
 
@@ -93,9 +92,21 @@ class Card
         hash
       end
 
-      def join_join side, object
+      def dir_hash_for_query query
+        table = case query
+                when Query     then "cards"
+                when Reference then "card_references"
+                end
+        dir_hash table, query.table_alias
+      end
+
+      def dir_hash_for_join side, object
         raise "to: cannot be Join" if side == :to
         dir_hash object.to_table, object.to_alias
+      end
+
+      def dir_error side, object
+        raise Card::Error::BadQuery, "invalid #{side} option: #{object}"
       end
 
       def convert_opts_to_instance_variables opts
