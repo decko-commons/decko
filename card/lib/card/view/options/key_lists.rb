@@ -10,8 +10,8 @@ class Card
 
         # keys whose values can be set by Deckers in card nests
         # @return [Array]
-        def carditect_keys
-          @carditect_keys ||= ::Set.new(keymap[:both]) + keymap[:carditect]
+        def ruler_keys
+          @ruler_keys ||= ::Set.new(keymap[:both]) + keymap[:ruler]
         end
 
         # keys that follow simple standard inheritance pattern from parent views
@@ -32,7 +32,7 @@ class Card
 
         def reset_key_lists
           @all_keys = nil
-          @carditect_keys = nil
+          @ruler_keys = nil
           @heir_keys = nil
         end
       end

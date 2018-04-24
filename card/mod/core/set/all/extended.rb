@@ -11,6 +11,10 @@ def extended_item_contents context=nil
   extended_item_cards(context).map(&:item_names).flatten
 end
 
+format do
+  delegate :extended_item_contents, to: :card
+end
+
 private
 
 def extend_item_list items, list, book

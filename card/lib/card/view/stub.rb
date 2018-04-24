@@ -41,7 +41,6 @@ class Card
       # handle nest_mode in stub
       # @return [Hash]
       def with_override hash
-
         # typically modes only override views on nests, but stubs create non-standard nests
         # mode-based view overrides should NOT apply to standard render calls that have
         # been replaced with stubs - only to standard nest calls. therefore modes are not
@@ -50,25 +49,18 @@ class Card
       end
 
       def validate_stub!
-        reject_foreign_options_in_stub!
-        #reject_illegal_stub_values!
+        # reject_illegal_stub_values!
       end
 
-      #def reject_illegal_stub_values!
-      #  normalized_options.each do |key, value|
-      #    next unless value =~ /\</
-      #    raise invalid_stub + " has illegal value for #{key}: #{value}"
-      #  end
-      #end
+      # def reject_illegal_stub_values!
+      #   normalized_options.each do |key, value|
+      #     next unless value =~ /\</
+      #     raise invalid_stub + " has illegal value for #{key}: #{value}"
+      #   end
+      # end
 
       def invalid_stub
         "INVALID STUB: #{card.name}/#{ok_view}"
-      end
-
-
-      def reject_foreign_options_in_stub!
-        return if foreign_normalized_options.empty?
-        raise invalid_stub + " has foreign options: #{foreign_normalized_options}"
       end
     end
   end

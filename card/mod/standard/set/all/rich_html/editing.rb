@@ -129,33 +129,24 @@ format :html do
     end
   end
 
-  view :edit_rules, cache: :never, tags: :unknown_ok do |args|
+  view :edit_rules, cache: :never, tags: :unknown_ok do
     voo.show :set_navbar, :toolbar
     voo.hide :set_label, :rule_navbar
 
-    _render_related args.merge(
-      related: {
-        card: current_set_card,
-        view: :open
-      }
-    )
+    render_related items: { nest_name: current_set_card.name }
   end
 
-  view :edit_structure, cache: :never do |args|
+  view :edit_structure, cache: :never do
+    return unless card.structure
     voo.show :toolbar
-    render_related args.merge(
-      related: {
-        card: card.structure,
-        view: :edit
-      }
-      # FIXME: this stuff:
-      #  slot: {
-      #    cancel_slot_selector: ".card-slot.related-view",
-      #    cancel_path: card.format.path(view: :edit), hide: :edit_toolbar,
-      #    hidden: { success: { view: :open, "slot[subframe]" => true } }
-      #  }
-      # }
-    )
+    render_related items: { view: :edit, nest_name: card.structure_card.name }
+    # FIXME: this stuff:
+    #  slot: {
+    #    cancel_slot_selector: ".card-slot.related-view",
+    #    cancel_path: card.format.path(view: :edit), hide: :edit_toolbar,
+    #    hidden: { success: { view: :open, "slot[subframe]" => true } }
+    #  }
+    # }
   end
 
   view :edit_nests, cache: :never do
@@ -167,18 +158,19 @@ format :html do
     end
   end
 
-  view :edit_nest_rules, cache: :never do |args|
-    return ""
-    # FIXME: - view can recurse.  temporarily turned off
-    voo.show :toolbar
-    view = args[:rule_view] || :field_related_rules
-    frame do
-      # with_nest_mode :edit do
-      nested_fields.map do |name, _options|
-        nest Card.fetch(name.to_name.trait(:self)),
-             view: :titled, title: name, rule_view: view,
-             hide: :set_label, show: :rule_navbar
-      end
-    end
-  end
+  # FIXME: - view can recurse.  temporarily turned off
+  #
+  # view :edit_nest_rules, cache: :never do
+  #   return ""#
+  #   voo.show :toolbar
+  #   view = args[:rule_view] || :field_related_rules
+  #   frame do
+  #     # with_nest_mode :edit do
+  #     nested_fields.map do |name, _options|
+  #       nest Card.fetch(name.to_name.trait(:self)),
+  #            view: :titled, title: name, rule_view: view,
+  #            hide: :set_label, show: :rule_navbar
+  #     end
+  #   end
+  # end
 end

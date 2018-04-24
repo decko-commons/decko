@@ -127,7 +127,8 @@ def reset_password_success
   Auth.signin left_id
   { id: left.name,
     view: :related,
-    related: { name: :account.cardname.prepend_joint, view: :edit } }
+    slot: { items: { nest_name: :account.cardname.prepend_joint,
+                     view: :edit } } }
 end
 
 def reset_password_try_again
@@ -153,21 +154,19 @@ end
 event :send_welcome_email do
   # FIXME: needs codename
   welcome = Card["welcome email"]
-  if welcome && welcome.type_code == :email_template
-    welcome.deliver context: left, to: email
-  end
+  welcome.deliver self, to: email if welcome&.type_code == :email_template
 end
 
 event :send_account_verification_email, :integrate,
       on: :create, when: proc { |c| c.token.present? } do
-  Card[:verification_email].deliver context: self, to: email
+  Card[:verification_email].deliver self, to: email
 end
 
 event :send_reset_password_token do
   Auth.as_bot do
     token_card.update_attributes! content: generate_token
   end
-  Card[:password_reset_email].deliver context: self, to: email
+  Card[:password_reset_email].deliver self, to: email
 end
 
 def ok_to_read
@@ -185,17 +184,16 @@ def send_change_notice act, followed_set, follow_option
   return unless changes_visible?(act)
   Auth.as(left.id) do
     Card[:follower_notification_email].deliver(
-      context:       act.card,
-      to:            email,
-      follower:      left.name,
-      followed_set:  followed_set,
-      follow_option: follow_option
+      act.card, { to: email }, auth: left,
+                               active_notice: { follower: left.name,
+                                                followed_set:  followed_set,
+                                                follow_option: follow_option }
     )
   end
 end
 
 format :email do
-  def mail args={}
-    super args.reverse_merge(to: card.email)
+  def mail context, fields
+    super context, fields.reverse_merge(to: card.email)
   end
 end
