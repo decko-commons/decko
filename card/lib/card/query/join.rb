@@ -56,8 +56,7 @@ class Card
         hash[:field] = field if field
         hash
       end
-
-
+      
       def side
         if !@side.nil?
           @side
