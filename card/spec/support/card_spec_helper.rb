@@ -22,6 +22,14 @@ class Card
       #      "#{@request.session[:user]}"
     end
 
+    def card_subject
+      Card["A"].with_set(described_class)
+    end
+
+    def format_subject format=:html
+      card_subject.format_with_set(described_class, format)
+    end
+
     def assert_view_select view_html, *args, &block
       node = Nokogiri::HTML::Document.parse(view_html).root
       if block_given?
