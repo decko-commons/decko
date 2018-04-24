@@ -14,7 +14,7 @@ format :html do
   view :editor, template: :haml
 
   def themes
-    Card.search type_id: SkinID
+    card.rule_card(:options).item_cards
   end
 end
 

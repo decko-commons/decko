@@ -1,71 +1,105 @@
-include_set Type::Scss
+class << self
+  def read_bootstrap_variables
+    path =
+      ::File.expand_path("../../../vendor/bootstrap/scss/_variables.scss", __FILE__)
+    ::File.exist?(path) ? ::File.read(path) : ""
+  end
+end
 
+include_set Type::BootswatchTheme
+
+card_accessor :colors
 card_accessor :variables
-card_accessor :skin
+card_accessor :stylesheets
 
-# TODO: make it more visible/accessible/editable what's going on here in the content
-# TODO: style: bootstrap cards load default bootstrap variables but
-#       should depend on the theme specific variables
-def content
-  [
-    Card["style: jquery-ui-smoothness"],
-    Card["style: cards"],
-    Card["style: right sidebar"],
-    Card["font awesome"],
-    Card["material icons"],
-    Card[:bootstrap_functions],
-    variables_card,
-    Card[:bootstrap_variables],
-    Card[:bootstrap_core],
-    Card["style: bootstrap cards"],
-    skin_card.item_cards
-  ].flatten.compact.map(&:content).join "\n"
+def variable_card_names
+  [:colors, :variables].map { |s| Card.fetch_name name, s }
+end
+
+def stylesheets_card_names
+  [Card.fetch_name(name, :stylesheets)]
+end
+
+def extended_stylesheets_cards
+  stylesheets_card_names.map do |n|
+    Card.fetch(n).extended_item_cards
+  end.flatten.compact
+end
+
+def variables_input
+  [colors_card, variables_card]
+end
+
+def stylesheets_input
+  stylesheets_card.extended_item_cards
 end
 
 def theme_card_name
-  "#{@theme} skin"
+  "#{theme_name} skin"
+end
+
+def theme_name
+  Env.params[:theme].present? && Env.params[:theme]
+end
+
+def theme_codename
+  theme_name && "#{theme_name}_skin".to_sym
 end
 
 event :validate_theme_template, :validate, on: :create do
-  if (@theme = Env.params[:theme]).present?
-    if Card.fetch_type_id(theme_card_name) != Card::SkinID
-      errors.add :abort, "not a valid theme: #{@theme}"
+  if theme_name
+    if Card.fetch_type_id(theme_card_name) != Card::BootswatchThemeID
+      errors.add :abort, "not a valid theme: #{theme_name}"
     elsif !Dir.exist?(source_dir)
-      errors.add :abort, "can't find source for theme \"#{@theme}\""
+      errors.add :abort, "can't find source for theme \"#{theme_name}\""
     end
   end
 end
 
 event :copy_theme, :prepare_to_store, on: :create do
-  add_subfield_from_file :variables
-  if @theme
-    theme_style = add_subfield_from_file :bootswatch
-    add_subfield :skin, type_id: SkinID, content: "[[#{theme_style.name}]]"
-  else
-    add_subfield :skin, type_id: SkinID
+  add_subfield :colors, type_id: ScssID
+  add_variables_subfield
+  add_stylesheets_subfield
+end
+
+def add_stylesheets_subfield
+  opts = { type_id: SkinID }
+  if theme_name
+    theme_style = add_bootswatch_subfield
+    opts[:content] = "[[#{theme_style.name}]]"
   end
+
+  add_subfield :stylesheets, opts
 end
 
-def source_dir
-  @source_dir ||= ::File.expand_path "../../../vendor/bootswatch/dist/#{@theme}", __FILE__
+def add_variables_subfield
+  theme_content = content_from_theme(:variables)
+  default_content = Type::CustomizedSkin.read_bootstrap_variables
+  add_subfield :variables,
+               type_id: ScssID,
+               content: "#{theme_content}\n\n\n#{default_content}"
 end
 
-def add_subfield_from_file field_name, file_name=nil
-  file_name ||= field_name
-  content = content_from_file(file_name) || ""
-  add_subfield field_name, type_id: ScssID, content: content
+def add_bootswatch_subfield
+  add_subfield :bootswatch, type_id: ScssID, content: content_from_theme(:bootswatch)
 end
 
-def content_from_file subfield
-  @theme.present? &&
-    (path = ::File.join source_dir, "_#{subfield}.scss") &&
-    ::File.exist?(path) &&
-    ::File.read(path)
+def theme_card
+  @theme_card ||= theme_codename && Card[theme_codename]
+end
+
+def content_from_theme subfield
+  theme_card&.scss_from_theme_file subfield
 end
 
 format :html do
   def edit_fields
-    [[:variables, { title: "" }],
-     [:bootswatch, { title: "additional css changes" }]]
+    [[:colors, { title: "" }],
+     [:variables, { title: "Variables" }],
+     [:stylesheets, { title: "Styles" }]]
+  end
+
+  view :closed_content do
+    ""
   end
 end
