@@ -18,13 +18,18 @@ class Card
         @from_field ||= :id
         @to_field   ||= :id
 
-        @conditions = Array @conditions
-        @subjoins = Array @subjoins
-        if @from.is_a? Join
-          @superjoin = @from
-          @superjoin.subjoins << self
+        @conditions = Array(@conditions).compact
+        @subjoins = []
+        register_superjoin
+      end
+
+      def side
+        if !@side.nil?
+          @side.to_s.upcase
+        else
+          in_or = from && from.is_a?(Card::Query) && from.mods[:conj] == "or"
+          @side = in_or ? "LEFT" : nil
         end
-        self
       end
 
       def from_and_to opts
