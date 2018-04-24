@@ -8,8 +8,8 @@
 # To do that it is a machine itself  and stores the generated machine output as its
 # content which will trigger the updates of other machines that use this card.
 
-include_set Type::Scss
 include_set Abstract::Machine
+include_set Type::Scss
 include_set Abstract::CodeFile
 include_set Abstract::SkinThumbnail
 
