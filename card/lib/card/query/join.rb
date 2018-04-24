@@ -39,7 +39,7 @@ class Card
         convert_opts_to_instance_variables opts
 
         @conditions = Array @conditions
-        @subjoins = Array @subjoins
+        @subjoins = []
         register_superjoin
       end
 
@@ -105,8 +105,9 @@ class Card
       end
 
       def register_superjoin
-        @superjoin = @from if @from.is_a? Join
-        @superjoin.subjoins << self if @superjoin
+        return unless @from.is_a? Join
+        @superjoin = @from
+        @superjoin.subjoins << self
       end
     end
   end
