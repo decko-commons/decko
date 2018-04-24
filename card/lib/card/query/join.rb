@@ -8,7 +8,8 @@ class Card
                     :from_field, :to_field,
                     :superjoin, :subjoins
 
-      # documentation??? -pk
+      # The example clause:
+      # cards left join card_actions on cards.id =
       def initialize opts={}
         from_and_to opts
         opts.each do |key, value|
@@ -28,25 +29,34 @@ class Card
 
       def from_and_to opts
         [:from, :to].each do |side|
-          object = opts[side]
-          case object
-          when nil then next
-          when Array
-            { table: object.shift, alias: object.shift, field: object.shift }
-          when Card::Query
-            { table: "cards", alias: object.table_alias }
-          when Card::Query::Reference
-            { table: "card_references", alias: object.table_alias }
-          when Card::Query::Join
-            raise "to: cannot be Join" if side == :to
-            { table: object.to_table, alias: object.to_alias }
-          else
-            raise "invalid #{side} option: #{object}"
-          end.map do |key, value|
+          directional_hash_for_object(side, opts[side]).map do |key, value|
             opts[:"#{side}_#{key}"] ||= value
           end
         end
       end
+
+      def join_join side, object
+        raise "to: cannot be Join" if side == :to
+        dir_hash object.to_table, object.to_alias
+      end
+
+      def directional_hash_for_object side, object
+        case object
+          when nil         then return
+          when Array       then dir_hash(*object)
+          when Card::Query then dir_hash "cards", object.table_alias
+          when Reference   then dir_hash "card_references", object.table_alias
+          when Join        then join_join side, object
+          else             raise "invalid #{side} option: #{object}"
+        end
+      end
+
+      def dir_hash table, table_alias, field=nil
+        hash = { table: table, alias: table_alias }
+        hash[:field] = field if field
+        hash
+      end
+
 
       def side
         if !@side.nil?
