@@ -13,8 +13,12 @@ class Card
                            default: false, group: :runtime,
                            desc: "create set files in Card gem"
 
+      class_option "spec-only", type: :boolean,
+                                 default: false, group: :runtime,
+                                 desc: "create only spec file"
+
       def create_files
-        template "set_template.erb", set_path
+        template "set_template.erb", set_path unless options["spec-only"]
         template "set_spec_template.erb", set_path("spec")
       end
 
