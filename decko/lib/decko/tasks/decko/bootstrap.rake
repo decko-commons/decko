@@ -23,7 +23,14 @@ namespace :decko do
       Card::Act.update_all actor_id: Card::WagnBotID
       delete_ignored_cards
       clean_machines
+      clean_unwanted_cards
       Card.empty_trash
+    end
+
+    def clean_unwanted_cards
+      Card.search(right: { codename: ["in", "all", "bootswatch theme"] }).each do |card|
+        card.delete!
+      end
     end
 
     def delete_ignored_cards

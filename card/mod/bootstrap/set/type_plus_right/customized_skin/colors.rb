@@ -12,14 +12,22 @@ VARIABLE_NAMES = {
 # (see bootstrap's _variables.scss)
 # TODO: deal with that
 
+# @param name [String] a scss variable name (it can start with a $)
 def variable_value name
-  value_from_scss_source(name, content) || default_value_from_bootstrap(name)
+  value_from_scss(name, content) ||
+    value_from_variables_card(name) ||
+    default_value_from_bootstrap(name)
 end
 
-def value_from_scss_source name, source
+def value_from_scss name, source
   name = name.to_s
   name = name[1..-1] if name.start_with?("$")
   source.match(definition_regex(name))&.capture(:value)
+end
+
+def value_from_variables_card name
+  return unless (var_card = left.variables_card) && var_card.content.present?
+  value_from_scss name, var_card.content
 end
 
 def definition_regex name
@@ -27,16 +35,11 @@ def definition_regex name
 end
 
 def default_value_from_bootstrap name
-  value_from_scss_source name, bootstrap_variables_scss
+  value_from_scss name, bootstrap_variables_scss
 end
 
 def bootstrap_variables_scss
-  @bootstrap_variables_scss ||= read_bootstrap_variables
-end
-
-def read_bootstrap_variables
-  path = File.expand_path("../../../../vendor/bootstrap/scss/_variables.scss", __FILE__)
-  File.exist?(path) ? File.read(path) : ""
+  @bootstrap_variables_scss ||= Type::CustomizedSkin.read_bootstrap_variables
 end
 
 def colors
@@ -63,7 +66,8 @@ format :html do
     #value = value[1..-1] if value.start_with? "$"
     options = VARIABLE_NAMES[:colors].map { |var| "$#{var}" }
     options << value unless options.include? value
-    select_tag "theme_colors[#{name}]", options_for_select(options, value), class: "tags"
+    select_tag "theme_colors[#{name}]", options_for_select(options, value),
+               class: "tags form-control"
   end
 
   def select_button target=parent.card
@@ -97,5 +101,5 @@ def replace_values group, prefix=""
 end
 
 def variable_values_from_params group
-  Env.params[group].slice(*VARIABLE_NAMES[group])
+  Env.params.dig(:group)&.slice(*VARIABLE_NAMES[group]) || {}
 end

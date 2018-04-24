@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Right::Style do
+RSpec.describe Card::Set::Right::Style do
   #  describe "#delet"
   #  it "deletes tempfile"
   let(:css)                    { "#box { display: block }"  }

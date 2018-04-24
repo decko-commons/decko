@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::Css do
+RSpec.describe Card::Set::Type::Css do
   let(:css)                    { "#box { display: block }" }
   let(:compressed_css)         { "#box{display:block}\n" }
   let(:changed_css)            { "#box { display: inline }" }

@@ -57,7 +57,8 @@ format :html do
 
     css_class =
       html_options[:multiple] ? "pointer-multiselect" : "pointer-select"
-    add_class(html_options, css_class + " filter-input #{field} _filter_input_field")
+    add_class(html_options,
+              css_class + " filter-input #{field} _filter_input_field form-control")
 
     select_tag name, options, html_options
   end
