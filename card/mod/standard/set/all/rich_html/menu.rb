@@ -109,7 +109,7 @@ format :html do
   def menu_item_account opts
     menu_item "account", "person", opts.merge(
       view: :related,
-      path: { related: { name: "+#{:account.cardname.key}", view: :edit } }
+      path: { slot: { items: { nest_name: "+#{:account.cardname.key}", view: :edit } } }
     )
   end
 

@@ -1,8 +1,4 @@
 
-def process_email_addresses context_card, format_args
-  format(format_args).email_addresses context_card
-end
-
 format do
   def chunk_list  # turn off autodetection of uri's
     :references
@@ -39,6 +35,6 @@ format :email_text do
   end
 
   def email_addresses_from_card_content card, context
-    card.contextual_content(context, format: :email_text).split(/[,\n]/)
+    subformat(card).contextual_content(context).split(/[,\n]/)
   end
 end

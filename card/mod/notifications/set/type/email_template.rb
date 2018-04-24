@@ -3,56 +3,39 @@ def clean_html?
   false
 end
 
-def deliver args={}
-  mail = format.mail args
+def deliver context=nil, fields={}, opts={}
+  mail = format.mail context, fields, opts
   mail.deliver
 rescue Net::SMTPError => exception
   errors.add :exception, exception.message
 end
 
 format do
-  def mail args={}
-    config = card.email_config args
+  def mail context=nil, fields={}, opts={}
+    config = card.email_config context, fields, opts
     fmt = self # self is <Mail::Message> within the new_mail block
     Card::Mailer.new_mail config do
-      attachment_list = config.delete :attach
-      fmt.message_body self, config, args, attachment_list
-      fmt.add_attachments self, attachment_list
+      fmt.message_body self, config
+      fmt.add_attachments self, config.delete(:attach)
     end
   end
 
-  def message_body mail, config, args, attachment_list
-    text_message = config.delete :text_message
-    html_message = process_html_message mail, config, args
-    if text_message.present? && html_message.present?
-      text_and_html_message mail, text_message, html_message, attachment_list
-    elsif html_message.present?
-      html_body mail, html_message
+  def message_body mail, config
+    config[:html_message] &&= config[:html_message].call mail
+    method, args = body_method_and_args config[:html_message].present?,
+                                        config[:text_message].present?
+    args = Array.wrap(args).map { |arg| config[arg] }
+    send method, mail, *args
+  end
+
+  def body_method_and_args html, text
+    if html && text
+      [:text_and_html_message, %i[text_message html_message attach]]
+    elsif html
+      %i[html_body html_message]
     else
-      text_body mail, text_message
+      %i[text_body text_message]
     end
-  end
-
-  def process_html_message mail, config, args
-    msg_args = args.merge inline_attachment_url: inline_attachment_lambda(mail)
-    card.process_message_field :html_message, config, msg_args, "email_html"
-    html_message_with_layout config.delete(:html_message)
-  end
-
-  def inline_attachment_lambda mail
-    # inline attachments require mail object. the current solution is to pass a block
-    # to the view where it is needed to create the image tag
-    # (see inline view in Type::Image::EmailHtmlFormat)
-    # it could make more sense to give the image direct access to the mail object?
-    lambda do |path|
-      mail.attachments.inline[path] = ::File.read path
-      mail.attachments[path].url
-    end
-  end
-
-  def html_message_with_layout msg
-    return unless msg.present?
-    Card::Mailer.layout msg
   end
 
   def text_and_html_message mail, text_message, html_message, attachment_list=nil

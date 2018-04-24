@@ -9,7 +9,7 @@ format :html do
     wrap_with :div, pointer_items, class: "pointer-list"
   end
 
-  view :core do
+  view :core, cache: :never do
     if card.content == "_left"
       core_inherit_content
     else
@@ -17,7 +17,7 @@ format :html do
     end
   end
 
-  view :closed_content do
+  view :closed_content, cache: :never do
     render_core items: { view: :link }
   end
 
@@ -85,26 +85,30 @@ format :html do
       <div class="perm-inheritance perm-section">
         #{check_box_tag 'inherit', 'inherit', inheriting?}
         <label>
-          #{core_inherit_content target: 'wagn_role'}
+          #{core_inherit_content}
           #{wrap_with(:a, title: "use left's #{card.name.tag} rule") { '?' }}
         </label>
       </div>
     HTML
   end
 
-  def core_inherit_content args={}
-    sc = args[:set_context]
-    text = if sc && sc.tag_name.key == Card[:self].key
-             core_inherit_for_content_for_self_set sc
+  def core_inherit_content
+    text = if in_context_of_self_set?
+             core_inherit_for_content_for_self_set
            else
              "Inherit from left card"
            end
     %(<span class="inherit-perm">#{text}</span>)
   end
 
-  def core_inherit_for_content_for_self_set set_context
+  def in_context_of_self_set?
+    return false unless @set_context
+    @set_context.to_name.tag_name.key == Card[:self].key
+  end
+
+  def core_inherit_for_content_for_self_set
     task = card.tag.codename
-    ancestor = Card[set_context.trunk_name.trunk_name]
+    ancestor = Card[@set_context.trunk_name.trunk_name]
     links = ancestor.who_can(task).map do |card_id|
       link_to_card card_id, nil, target: args[:target]
     end * ", "
