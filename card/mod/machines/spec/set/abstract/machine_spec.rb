@@ -9,12 +9,9 @@ RSpec.describe Card::Set::Abstract::Machine do
       expect(File.exist?(path)).to be_truthy
     end
   end
-
-
+  
   example "machine config" do
-    card = Card["A"].with_set do
-      include Abstract::Machine
-    end
-    expect(card).to repsond_to :engine_input
+    card = Card["A"].with_set Card::Set::Abstract::Machine
+    expect(card).to respond_to :engine_input
   end
 end
