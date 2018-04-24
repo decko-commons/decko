@@ -144,8 +144,8 @@ def scss_from_theme_file file
 end
 
 def theme_name
-  codename&.match(/^(.+)_skin$/)&.capture(0) ||
-    name.match(/^(.+)[ _][sS]kin/).capture(0)&.downcase
+  /^(.+)_skin$/.match(codename)&.capture(0) ||
+    /^(.+)[ _][sS]kin/.match(name).capture(0)&.downcase
 end
 
 def source_dir
