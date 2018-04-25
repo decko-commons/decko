@@ -60,19 +60,19 @@ describe Card::Set::All::Collection do
     # refers to 'Z'
     it "processes nests relative to context card" do
       c = create "foo", content: "{{_self+B|core}}"
-      expect(c.contextual_content(context_card)).to eq("AlphaBeta")
+      expect(c.format.contextual_content(context_card)).to eq("AlphaBeta")
     end
 
     # why the heck is this good?  -efm
     it "returns content even when context card is hard templated" do
       create "A+*self+*structure", content: "Banana"
       c = create "foo", content: "{{_self+B|core}}"
-      expect(c.contextual_content(context_card)).to eq("AlphaBeta")
+      expect(c.format.contextual_content(context_card)).to eq("AlphaBeta")
     end
 
     it "doesn't use chunk list of context card" do
       c = create "foo", content: "test@email.com", type: "HTML"
-      expect(c.contextual_content(context_card)).not_to have_tag "a"
+      expect(c.format.contextual_content(context_card)).not_to have_tag "a"
     end
   end
 

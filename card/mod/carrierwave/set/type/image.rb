@@ -118,13 +118,18 @@ format do
 end
 
 format :email_html do
-  view :inline do
+  view :inline, cache: :never do
     handle_source do |source|
-      url_generator = voo.closest_live_option(:inline_attachment_url)
-      path = selected_version.path
-      return source unless url_generator && ::File.exist?(path)
-      image_tag url_generator.call(path)
+      return source unless (mail = inherit :active_mail) &&
+                           ::File.exist?(path = selected_version.path)
+      url = attach_image mail, path
+      image_tag url
     end
+  end
+
+  def attach_image mail, path
+    mail.attachments.inline[path] = ::File.read path
+    mail.attachments[path].url
   end
 end
 
@@ -140,5 +145,4 @@ end
 
 format :file do
   include File::FileFormat
-
 end

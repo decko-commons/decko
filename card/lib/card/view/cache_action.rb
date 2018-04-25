@@ -55,12 +55,8 @@ class Card
 
       # @return [True/False]
       def free_cache_ok?
-        cache_setting != :never &&
-          foreign_live_options.empty? &&
-          clean_enough_to_cache?
-        # note: foreign options are a problem in the free cache, because
+        cache_setting != :never && clean_enough_to_cache?
       end
-
 
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # CACHE STATUS: ACTIVE

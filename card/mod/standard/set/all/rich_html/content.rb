@@ -32,8 +32,7 @@ format :html do
   end
 
   view :layout, perms: :none, cache: :never do
-    layout = process_content get_layout_content(voo.layout),
-                             content_opts: { chunk_list: :references }
+    layout = process_content get_layout_content(voo.layout), chunk_list: :references
     output [layout, modal_slot]
   end
 
@@ -139,46 +138,27 @@ format :html do
     Card.fetch(set_name)
   end
 
-  # subheader = with_name_context(card.name) do
-  #   subformat(rcard)._render_title(args)
-  # end
-
-  view :related, cache: :never do |args|
-    related_card, options = related_card_and_options args
+  # the related view nests a related card with a submenu
+  # the subcard is specified as an "item" card using the slot/voo api
+  view :related, cache: :never do
     return unless related_card
     voo.show :toolbar, :menu, :help
     frame do
       voo.hide :header, :toggle
-      nest related_card, options
+      nest @related_card, related_options
     end
   end
 
-  def related_card_and_options args
-    return unless (options = related_options(args))
-    related_card = related_card_from_options options
-    options[:view] ||= :open
-    options[:show] ||= []
-    options[:show] << :comment_box if related_card.show_comment_box_in_related?
-    [related_card, options]
+  def related_card
+    return unless (nest_name = voo.items[:nest_name])
+    @related_card = Card.fetch nest_name.to_name.absolute_name(card.name), new: {}
   end
 
-  def related_options args
-    options = (args[:related] || params[:related])
-    case options
-    when String
-      { name: options }
-    when Hash
-      options.symbolize_keys
-    when ActionController::Parameters
-      options.to_unsafe_h.symbolize_keys
-    end
-  end
-
-  def related_card_from_options options
-    related_card = options.delete :card
-    return related_card if related_card
-    related_name = options.delete(:name).to_name.absolute_name card.name
-    Card.fetch related_name, new: {}
+  def related_options
+    opts = voo.items || {}
+    opts[:view] ||= :open
+    opts.reverse_merge!(show: :comment_box) if @related_card.show_comment_box_in_related?
+    opts
   end
 
   view :help, tags: :unknown_ok, cache: :never do
@@ -190,8 +170,7 @@ format :html do
   def rule_based_help
     return "" unless (rule_card = card.help_rule_card)
     with_nest_mode :normal do
-      process_content _render_raw(structure: rule_card.name),
-                      content_opts: { chunk_list: :references }
+      process_content _render_raw(structure: rule_card.name), chunk_list: :references
       # render help card with current card's format
       # so current card's context is used in help card nests
     end

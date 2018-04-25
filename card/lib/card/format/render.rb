@@ -6,8 +6,8 @@ class Card
       def render! view, args={}
         voo = View.new self, view, args, @voo
         with_voo voo do
-          voo.process do |final_view, options|
-            final_render final_view, options
+          voo.process do |final_view|
+            final_render final_view
           end
         end
       rescue => e
@@ -38,10 +38,10 @@ class Card
         visibility == :show
       end
 
-      def final_render view, args
+      def final_render view
         current_view(view) do
           method = view_method view
-          rendered = method.arity.zero? ? method.call : method.call(args)
+          rendered = method.call
           add_debug_info view, method, rendered
         end
       end
@@ -134,7 +134,6 @@ class Card
       ensure
         @current_view = old_view
       end
-
     end
   end
 end
