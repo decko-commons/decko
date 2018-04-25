@@ -30,14 +30,10 @@ end
 
 event :validate_uniqueness_of_name do
   # validate uniqueness of name
-  condition_sql = "cards.key = ? and trash=?"
-  condition_params = [name.key, false]
-  unless new_record?
-    condition_sql << " AND cards.id <> ?"
-    condition_params << id
-  end
-  if (c = Card.find_by(condition_sql, *condition_params))
-    errors.add :name, "must be unique; '#{c.name}' already exists."
+  rel = Card.where key: name.key, trash: false
+  rel = rel.where "id <> ?", id if id
+  if (existing = rel.take)
+    errors.add :name, "must be unique; '#{existing.name}' already exists."
   end
 end
 
@@ -48,16 +44,25 @@ event :validate_legality_of_name do
     errors.add :name, "can't be blank"
   elsif name.parts.include? ""
     errors.add :name, "is incomplete"
-  else
-    unless name.valid?
-      errors.add :name, "may not contain any of the following characters: " \
-                        "#{Card::Name.banned_array * ' '}"
-    end
-    # this is to protect against using a plus card as a tag
-    return unless name.junction? && simple? && id &&
-                  Auth.as_bot { Card.count_by_wql right_id: id } > 0
+  elsif !name.valid?
+    errors.add :name, "may not contain any of the following characters: " \
+                      "#{Card::Name.banned_array * ' '}"
+  elsif changing_existing_tag_to_junction?
     errors.add :name, "#{name} in use as a tag"
   end
+end
+
+def changing_existing_tag_to_junction?
+  return false unless changing_name_to_junction?
+  name_in_use_as_tag?
+end
+
+def name_in_use_as_tag?
+  Auth.as_bot { Card.count_by_wql right_id: id }.positive?
+end
+
+def changing_name_to_junction?
+  name.junction? && simple?
 end
 
 event :validate_key, after: :validate_name, on: :save do
