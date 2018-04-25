@@ -69,7 +69,7 @@ describe Card::Set::All::Links do
     describe "#link_to_related" do
       it "creates a link to a related view" do
         expect(link_to_related(:discussion))
-          .to eq("/Home?related%5Bname%5D=%2Bdiscussion&view=related")
+          .to eq("/Home?slot%5Bitems%5D%5Bnest_name%5D=%2Bdiscussion&view=related")
       end
     end
 
@@ -130,7 +130,7 @@ describe Card::Set::All::Links do
       it "links to related, you know?" do
         assert_view_select(
           link_to_related(:discussion),
-          'a[href="/Home?related%5Bname%5D=%2Bdiscussion&view=related"]' \
+          'a[href="/Home?slot%5Bitems%5D%5Bnest_name%5D=%2Bdiscussion&view=related"]' \
           "[data-remote=true][rel=nofollow]"
         ) { "list me" }
       end

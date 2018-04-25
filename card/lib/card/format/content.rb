@@ -1,20 +1,20 @@
 class Card
   class Format
     module Content
-      def process_content override_content=nil, opts={}
+      def process_content override_content=nil, content_opts=nil
         content = override_content || render_raw || ""
-        content_object = get_content_object content, opts
+        content_object = get_content_object content, content_opts
         content_object.process_each_chunk do |chunk_opts|
-          content_nest chunk_opts.merge(opts)
+          content_nest chunk_opts
         end
         content_object.to_s
       end
 
-      def get_content_object content, opts
+      def get_content_object content, content_opts
         if content.is_a? Card::Content
           content
         else
-          Card::Content.new content, self, opts.delete(:content_opts)
+          Card::Content.new content, self, (content_opts || voo&.content_opts)
         end
       end
 

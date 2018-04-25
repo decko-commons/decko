@@ -15,6 +15,20 @@ describe CoreExtensions do
         expect(nested_hash[:a]).to be_instance_of ::Set
       end
     end
+
+    describe "#bury" do
+      it "works with a blank hash" do
+        expect({}.bury(:a, :b, 1)).to eq(a: { b: 1 })
+      end
+
+      it "doesn't override existing hashes" do
+        expect({ d: :e }.bury(:a, :b, 4)).to eq({ a: { b: 4 }, d: :e })
+      end
+
+      it "overrides existing values" do
+        expect({ a: { b: 5 }}.bury(:a, :b, 6)).to eq(a: { b: 6 })
+      end
+    end
   end
 
   context CoreExtensions::PersistentIdentifier do
