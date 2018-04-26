@@ -147,7 +147,7 @@ format :html do
     end
   end
 
-  def default_select_item_args _args
+  before :select_item do
     class_up "card-slot", "_filter-result-slot"
   end
 

@@ -1,6 +1,6 @@
 class Card
   class Format
-    module Nest
+    module Nesting
       # Handle the main nest
       module Main
         def wrap_main
