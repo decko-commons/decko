@@ -2,14 +2,12 @@ describe Card::Set::All::NameEvents do
   describe "event: set_name" do
     it "handles case variants" do
       c = Card.create! name: "chump"
-      expect(c.name).to eq("chump")
-      c.name = "Chump"
-      c.save!
+      c.update_attributes! name: "Chump"
       expect(c.name).to eq("Chump")
     end
 
-    context "changing from plus card to simple" do
-      let (:card) { Card.create! name: "four+five" }
+    context "when changing from plus card to simple" do
+      let(:card) { Card.create! name: "four+five" }
 
       before do
         card.update_attributes! name: "nine"
@@ -31,12 +29,17 @@ describe Card::Set::All::NameEvents do
 
   describe "event: set_left_and_right" do
     example "create junction" do
-      expect do
+      before do
         Card.create! name: "Peach+Pear", content: "juicy"
-      end.to increase_card_count.by(3)
-      expect(Card["Peach"]).to be_a(Card)
-      expect(Card["Pear"]).to be_a(Card)
-      expect(Card["Peach+Pear"]).to have_db_content "juicy"
+      end
+
+      it "creates left card" do
+        expect(Card["Peach"]).to be_a(Card)
+      end
+
+      it "creates right card" do
+        expect(Card["Pear"]).to be_a(Card)
+      end
     end
   end
 
