@@ -1,18 +1,16 @@
 describe Card::Set::All::Codename do
   describe "codename" do
-    before do
-      @card = Card["a"]
-    end
+    let(:card) { Card["a"] }
 
     it "requires admin permission" do
-      @card.update_attributes codename: "structure"
-      expect(@card.errors[:codename].first).to match(/only admins/)
+      card.update_attributes codename: "structure"
+      expect(card.errors[:codename].first).to match(/only admins/)
     end
 
     it "checks uniqueness" do
       Card::Auth.as_bot do
-        @card.update_attributes codename: "structure"
-        expect(@card.errors[:codename].first).to match(/already in use/)
+        card.update_attributes codename: "structure"
+        expect(card.errors[:codename].first).to match(/already in use/)
       end
     end
   end

@@ -1,20 +1,31 @@
 describe Card::Set::All::NameEvents do
   describe "event: set_name" do
     it "handles case variants" do
-      @c = Card.create! name: "chump"
-      expect(@c.name).to eq("chump")
-      @c.name = "Chump"
-      @c.save!
-      expect(@c.name).to eq("Chump")
+      c = Card.create! name: "chump"
+      expect(c.name).to eq("chump")
+      c.name = "Chump"
+      c.save!
+      expect(c.name).to eq("Chump")
     end
 
-    it "handles changing from plus card to simple" do
-      c = Card.create! name: "four+five"
-      c.name = "nine"
-      c.save!
-      expect(c.name).to eq("nine")
-      expect(c.left_id).to eq(nil)
-      expect(c.right_id).to eq(nil)
+    context "changing from plus card to simple" do
+      let (:card) { Card.create! name: "four+five" }
+
+      before do
+        card.update_attributes! name: "nine"
+      end
+
+      it "assigns the cardname" do
+        expect(card.name).to eq("nine")
+      end
+
+      it "removes the left id" do
+        expect(card.left_id).to eq(nil)
+      end
+
+      it "removes the right id" do
+        expect(card.right_id).to eq(nil)
+      end
     end
   end
 
@@ -49,7 +60,7 @@ describe Card::Set::All::NameEvents do
 
     it "handles trashed names" do
       b1 = Card.create! type: "Book"
-      Card::Auth.as_bot {b1.delete}
+      Card::Auth.as_bot { b1.delete }
       b1 = Card.create! type: "Book"
       expect(b1.name).to eq("b1")
     end
