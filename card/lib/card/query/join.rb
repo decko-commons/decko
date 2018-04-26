@@ -38,7 +38,7 @@ class Card
         interpret_from_and_to opts
         convert_opts_to_instance_variables opts
 
-        @conditions = Array @conditions
+        @conditions = Array(@conditions).compact
         @subjoins = []
         register_superjoin
       end

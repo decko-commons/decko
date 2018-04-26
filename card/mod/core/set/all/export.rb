@@ -1,5 +1,5 @@
 format :json do
-  def default_export_args _args
+  before :export do
     @export_count ? @export_count += 1 : @export_count = 1
     @exported_keys ||= ::Set.new
   end
@@ -11,7 +11,7 @@ format :json do
     Array.wrap(render_atom).concat(render_export_items).flatten
   end
 
-  def default_export_items_args _args
+  before :export_items do
     @exported_keys ||= ::Set.new
   end
 

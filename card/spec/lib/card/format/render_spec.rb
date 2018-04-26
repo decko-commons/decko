@@ -8,6 +8,7 @@ describe Card::Format::Render do
 
   describe "view cache" do
     before { Cardio.config.view_cache = true }
+    after { Cardio.config.view_cache = false }
 
     let(:cache_key) do
       "z-Card::Format::HtmlFormat-normal-home_view:content;"\
@@ -22,5 +23,6 @@ describe Card::Format::Render do
       is_expected.not_to receive(:fetch)
       render_content "{{Z|cache:never}}"
     end
+
   end
 end

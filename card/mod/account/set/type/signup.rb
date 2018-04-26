@@ -11,7 +11,7 @@ format :html do
     super()
   end
 
-  def default_name_formgroup_args _args
+  before :name_formgroup do
     voo.help = tr :first_last_help
   end
 
