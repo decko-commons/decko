@@ -72,10 +72,6 @@ def update_subcard_names new_name, name_to_replace=nil
   end
 end
 
-def codename
-  super&.to_sym
-end
-
 def autoname name
   if Card.exists?(name) || ActManager.include?(name)
     autoname name.next
@@ -233,53 +229,4 @@ end
 
 def with_id_when_exists card, &block
   card.director.call_after_store(&block)
-end
-event :set_autoname, :prepare_to_validate, on: :create do
-  if name.blank? && (autoname_card = rule_card(:autoname))
-    self.name = autoname autoname_card.db_content
-    # FIXME: should give placeholder in approve phase
-    # and finalize/commit change in store phase
-    autoname_card.refresh.update_column :db_content, name
-  end
-end
-
-event :set_name, :store, changed: :name do
-  expire
-end
-
-event :set_left_and_right, :store,
-      changed: :name, on: :save do
-  if name.junction?
-    %i[left right].each do |side|
-      assign_side_id side
-    end
-  else
-    self.left_id = self.right_id = nil
-  end
-end
-
-event :name_change_finalized, :finalize, changed: :name, on: :save do
-  # The events to update references has to happen after :cascade_name_changes,
-  # but :cascade_name_changes is defined after the reference events and
-  # and additionaly it is defined on :update but some of the reference
-  # events are on :save. Hence we need this additional hook to organize these events.
-end
-
-def assign_side_id side
-  sidename = name.send "#{side}_name"
-  sidecard = Card[sidename] || ActManager.card(sidename)
-
-  # eg, renaming A to A+B
-  old_name_in_way = (sidecard&.id && sidecard&.id == id)
-  suspend_name(sidename) if old_name_in_way
-  send "#{side}_id=", side_id_or_card(old_name_in_way, sidecard, sidename)
-end
-
-def side_id_or_card old_name_in_way, sidecard, sidename
-  if !sidecard || old_name_in_way
-    add_subcard(sidename.s)
-  else
-    # if sidecard doesn't have an id, it's already part of this act
-    sidecard.id || sidecard
-  end
 end

@@ -31,6 +31,11 @@ def load_mod_lib
   Dir.glob(Cardio.root.join("mod/*/lib/*.rb")).each { |x| require_dependency x }
 end
 
+def without_dumping
+  ActiveRecord::Base.dump_schema_after_migration = false
+  yield
+end
+
 namespace :card do
   namespace :migrate do
     desc "migrate cards"
@@ -39,20 +44,21 @@ namespace :card do
     desc "migrate structure"
     task structure: :environment do
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
-      ActiveRecord::Base.dump_schema_after_migration = false
-      Cardio.schema_mode(:structure) do |paths|
-        ActiveRecord::Migrator.migrations_paths = paths
-        ActiveRecord::Migrator.migrate paths, version
-        Rake::Task["db:_dump"].invoke # write schema.rb
+      without_dumping do
+        Cardio.schema_mode(:structure) do |paths|
+          ActiveRecord::Migrator.migrations_paths = paths
+          ActiveRecord::Migrator.migrate paths, version
+        end
       end
       reset_column_information
     end
 
     desc "migrate core cards"
     task core_cards: :environment do
-      ActiveRecord::Base.dump_schema_after_migration = false
-      require "card/migration/core"
-      run_card_migration :core_cards
+      without_dumping do
+        require "card/migration/core"
+        run_card_migration :core_cards
+      end
     end
 
     desc "migrate deck structure"
