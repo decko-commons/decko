@@ -22,10 +22,8 @@ class Card
         @voo = old_voo
       end
 
-      def view_options_with_defaults view, options
-        default_method = "default_#{view}_args"
-        send default_method, options if respond_to? default_method
-        options
+      def before_view view
+        try "_before_#{view}"
       end
 
       def voo

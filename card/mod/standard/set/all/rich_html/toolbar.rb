@@ -18,11 +18,11 @@ format :html do
     end
   end
 
-  def default_toolbar_args _args
+  before :toolbar do
     @rule_view = params[:rule_view]
   end
 
-  # def default_toolbar_args args
+  # before :toolbar do
   #   args[:nested_fields] = nested_fields
   #   args[:active_toolbar_button] ||= active_toolbar_button @slot_view, args
   # end
