@@ -207,12 +207,9 @@ format do
 
   view :unfollow_url, perms: :none, closed: true, cache: :never do
     return "" unless (rule_name = live_follow_rule_name)
-    target_name = "#{active_notice(:follower)}+#{Card[:follow].name}"
-    update_path = page_path target_name, action: :update,
-                            card: { subcards: {
-                                rule_name => Card[:never].name
-                            } }
-    card_url update_path # absolutize path
+    card_url path(mark: "#{active_notice(:follower)}+#{Card[:follow].name}",
+                  action: :update,
+                  card: { subcards: { rule_name => Card[:never].name } })
   end
 
   def edit_info_for field, action

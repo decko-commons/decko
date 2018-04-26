@@ -45,7 +45,7 @@ class Card
   #
   class Format
     include Card::Env::Location
-    include Nest
+    include Nesting
     include Permission
     include Render
     include ContextNames

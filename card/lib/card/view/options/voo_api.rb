@@ -139,15 +139,15 @@ class Card
           end
           # main_nest_options are not processed in normalize_options so that
           # they're NOT locked in the stub.
-          process_default_options
+          process_before_view
           process_visibility_options
           @live_options
         end
 
-        # This method triggers the default_X_args methods which can alter the
+        # This method triggers the "before" blocks which can alter the
         # @live_options hash both directly and indirectly (via the voo API)
-        def process_default_options
-          format.view_options_with_defaults requested_view, live_options
+        def process_before_view
+          format.before_view requested_view
         end
 
         def validate_options! opts
