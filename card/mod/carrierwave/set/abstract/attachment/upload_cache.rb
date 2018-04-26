@@ -72,7 +72,7 @@ end
 # used for uploads for new cards until the new card is created
 def upload_cache_card
   cache_card_codename = "new_#{attachment_name}"
-  @upload_cache_card ||= Codename.card(cache_card_codename) { Card[:new_file] }
+  @upload_cache_card ||= Card::Codename.card(cache_card_codename) { Card[:new_file] }
 end
 
 def preliminary_upload?
