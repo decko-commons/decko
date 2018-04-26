@@ -27,6 +27,11 @@ class Card
           field = card.name.field(field) unless field.is_a?(Card)
           subformat field
         end
+
+        def inherit variable
+          variable = "@#{variable}" unless variable.to_s.start_with? "@"
+          instance_variable_get(variable) || parent&.inherit(variable)
+        end
       end
     end
   end

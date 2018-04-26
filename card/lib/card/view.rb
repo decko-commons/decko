@@ -40,7 +40,7 @@ class Card
     def process
       process_live_options
       return if optional? && hide?(requested_view)
-      fetch { yield ok_view, foreign_live_options }
+      fetch { yield ok_view }
     end
 
     # the view to "attempt".  Typically the same as @raw_view, but @raw_view can

@@ -20,12 +20,12 @@ describe Card::Set::Self::Admin do
 
     it "clearing trash is denied" do
       expect { run_admin_task :empty_trash }
-        .to raise_error Card::Error::Oops, /The admin task 'empty trash'/
+        .to raise_error Card::Error::PermissionDenied, /The admin task 'empty trash'/
     end
 
     it "clearing history is denied" do
       expect { run_admin_task :clear_history }
-        .to raise_error Card::Error::Oops, /The admin task 'clear history'/
+        .to raise_error Card::Error::PermissionDenied, /The admin task 'clear history'/
     end
 
     context "irreversible tasks allowed" do

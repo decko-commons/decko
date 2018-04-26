@@ -1,23 +1,25 @@
 class Card
   class Format
     module ContextNames
-
       def context_names
         @context_names ||= initial_context_names
       end
 
       def initial_context_names
-        @initial_context_names ||=
-          parent ? context_names_from_parent : context_names_from_params
+        @initial_context_names ||= relevant_context_names do
+          parent ? parent.context_names : context_names_from_params
+        end
       end
 
-      def context_names_from_parent
+      def relevant_context_names
         part_keys = @card.name.part_names.map(&:key)
-        parent.context_names.reject { |n| !part_keys.include? n.key }
+        yield.reject { |n| !part_keys.include? n.key }
       end
 
+      # "slot[name_context]" param is a string;
+      # @context_names is an array
       def context_names_from_params
-        return [] unless (name_list = Card::Env.slot_opts[:name_context])
+        return [] unless (name_list = Card::Env.slot_opts.delete(:name_context))
         name_list.to_s.split(",").map(&:to_name)
       end
 

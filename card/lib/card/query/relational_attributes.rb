@@ -22,15 +22,11 @@ class Card
       # for `updater_of`
       def editor_of val, action_table_id=nil, action_condition=nil
         action_table_id ||= table_id true
-        act_join = Join.new(
-          from: self,
-          to: ["card_acts", "a#{table_id true}", "actor_id"]
-        )
+        act_join = Join.new from: self,
+                            to: ["card_acts", "a#{table_id true}", "actor_id"]
         joins << act_join
         action_join = Join.new(
-          from: act_join,
-          to: ["card_actions", "an#{action_table_id}", "card_act_id"],
-          superjoin: act_join
+          from: act_join, to: ["card_actions", "an#{action_table_id}", "card_act_id"]
         )
         # Join.new resets @conditions, so we have to set it after
         # initialization
