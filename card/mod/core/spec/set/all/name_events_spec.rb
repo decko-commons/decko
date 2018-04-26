@@ -28,7 +28,7 @@ describe Card::Set::All::NameEvents do
   end
 
   describe "event: set_left_and_right" do
-    example "create junction" do
+    context "when creating junctions" do
       before do
         Card.create! name: "Peach+Pear", content: "juicy"
       end
