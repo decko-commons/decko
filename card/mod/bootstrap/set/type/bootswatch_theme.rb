@@ -49,6 +49,12 @@ def source_files
   end.flatten.compact
 end
 
+def existing_source_paths
+  extended_input_cards.map do |i_card|
+    i_card.try(:existing_source_paths)
+  end.flatten.compact
+end
+
 def extended_input_cards
   names = PRE_VARIABLES_CARD_NAMES + variable_card_names + POST_VARIABLES_CARD_NAMES
   cards = names.map { |n| Card.fetch n }
