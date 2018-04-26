@@ -21,36 +21,39 @@ class Card
       # action_table_id and action_condition are needed to reuse that method
       # for `updater_of`
       def editor_of val, action_table_id=nil, action_condition=nil
-        action_table_id ||= table_id true
-        act_join = Join.new from: self,
-                            to: ["card_acts", "a#{table_id true}", "actor_id"]
+        act_join = acts_join self, :actor_id
         joins << act_join
-        action_join = Join.new(
-          from: act_join, to: ["card_actions", "an#{action_table_id}", "card_act_id"]
+        # all acts where current query finds actor
+        action_table_id ||= table_id true
+        join_cards(
+          val, from_field: "card_id",
+               from: actions_join(act_join, "an#{action_table_id}", "card_act_id",
+                                  conditions: action_condition)
         )
-        # Join.new resets @conditions, so we have to set it after
-        # initialization
-        action_join.conditions << action_condition if action_condition
-        join_cards val, from: action_join, from_field: "card_id"
+        # joins cards updated in those acts
       end
 
+      def acts_join from, to_field, opts={}
+        join_args = { from: from, to: ["card_acts", "a#{table_id true}", to_field] }
+        Join.new join_args.merge(opts)
+      end
+
+      def actions_join from, to_alias, to_field, opts={}
+        join_args = { from: from, to: ["card_actions", to_alias, to_field] }
+        Join.new join_args.merge(opts)
+      end
 
       # action_table_id and action_condition are needed to reuse that method
       # for `updated_by`
       def edited_by val, action_table_id=nil, action_condition=nil
         action_table_id ||= table_id true
-        action_join = Join.new(
-          from: self,
-          to: ["card_actions", "an#{action_table_id}", "card_id"],
-        )
-        action_join.conditions << action_condition if action_condition
+        action_join = actions_join self, "an#{action_table_id}", "card_id",
+                                   conditions: action_condition
         joins << action_join
-        act_join = Join.new(
-          from: action_join,
-          from_field: "card_act_id",
-          to: ["card_acts", "a#{table_id true}"]
-        )
-        join_cards val, from: act_join, from_field: "actor_id"
+        # joins actions that edited cards found by current query
+        join_cards val, from_field: "actor_id",
+                        from: acts_join(action_join, :id, from_field: "card_act_id")
+        # joins cards via acts of those actions
       end
 
       # edited but not created

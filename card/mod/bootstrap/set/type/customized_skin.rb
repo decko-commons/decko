@@ -85,7 +85,7 @@ def add_bootswatch_subfield
 end
 
 def theme_card
-  @theme_card ||= theme_codename && Card[theme_codename]
+  @theme_card ||= theme_codename && Card[theme_codename] || nil
 end
 
 def content_from_theme subfield
