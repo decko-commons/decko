@@ -49,7 +49,6 @@ describe Card::Set::Abstract::SolidCache do
         Card.create! name: "cached", codename: "cached",
                      content: "chopping and {{volatile|core}}"
       end
-      Card::Codename.reset_cache
     end
     describe ".cache_update_trigger" do
       before do

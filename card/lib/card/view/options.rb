@@ -6,14 +6,14 @@ class Card
       # (a) whether an option's value can be set by a Carditect via nests, and
       # (b) whether nested views can inherit the option from a parent view.
       #
-      #                  use in nests  | don't use
+      #                  for rulers  | not for rulers
       #                 ________________________________
-      #       inherit  | both          | heir
-      # don't inherit  | carditect     | none
+      #       inherit  | both        | heir
+      # don't inherit  | ruler       | none
       #
       # (note: each option will likely some day merit its own object)
       @keymap = {
-        carditect: [
+        ruler: [
           :view,           # view to render
           :nest_name,      # name as used in nest
           :nest_syntax,    # full nest syntax
@@ -26,7 +26,9 @@ class Card
           :home_view,      # view for slot to return to when no view specified
           :edit_structure, # use a different structure for editing (Array)
           :wql,            # contextual wql alterations for search cards (Hash)
-          :action_id       # a Card::Action id (Integer)
+          :action_id,      # a Card::Action id (Integer)
+          :content_opts    # options for Card::Content.new
+          # :context_names   # names used to contextualize titles
         ],
         both: [
           :help,           # cue text when editing
@@ -36,7 +38,7 @@ class Card
           :editor,         # inline_nests makes a form within standard content (Symbol)
           :type,           # set the default type of new cards
           :size,           # set an image size
-          :params,         # parameters for add button.  deprecate!
+          :params,         # parameters for add button.  deprecated!
           :items,          # options for items (Hash)
           :cache           # change view cache behaviour
         ],                 #   (Symbol<:always, :standard, :never>)
