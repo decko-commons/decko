@@ -11,16 +11,12 @@ class AccountRequestsToSignups < Card::Migration::Core
     old_signup.codename = nil
     old_signup.save!
 
-    Card::Codename.reset_cache
-
     # rename Account Request to "Sign up"
     new_signup = Card[:account_request]
     new_signup.name = newname
     new_signup.update_referers = true
     new_signup.codename = :signup
     new_signup.save!
-
-    Card::Codename.reset_cache
 
     # move old "*signup+*thanks" to "Sign up+*type+*thanks"
     thanks = Card[:thanks]
