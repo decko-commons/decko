@@ -151,11 +151,11 @@ module ClassMethods
   end
 
   def rule_cache_key row
-    return false unless (setting_code = Codename[row["setting_id"].to_i])
+    return false unless (setting_code = Card::Codename[row["setting_id"].to_i])
 
     anchor_id = row["anchor_id"]
     set_class_id = anchor_id.nil? ? row["set_id"] : row["set_tag_id"]
-    return false unless (set_class_code = Codename[set_class_id.to_i])
+    return false unless (set_class_code = Card::Codename[set_class_id.to_i])
 
     [anchor_id, set_class_code, setting_code].compact.map(&:to_s) * "+"
   end
@@ -189,10 +189,10 @@ module ClassMethods
   def all_user_ids_with_rule_for set_card, setting_code
     key =
       if (l = set_card.left) && (r = set_card.right)
-        set_class_code = Codename[r.id]
+        set_class_code = Card::Codename[r.id]
         "#{l.id}+#{set_class_code}+#{setting_code}"
       else
-        set_class_code = Codename[set_card.id]
+        set_class_code = Card::Codename[set_card.id]
         "#{set_class_code}+#{setting_code}"
       end
     user_ids = user_ids_cache[key] || []
