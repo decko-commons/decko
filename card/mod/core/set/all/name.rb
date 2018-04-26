@@ -72,10 +72,6 @@ def update_subcard_names new_name, name_to_replace=nil
   end
 end
 
-def codename
-  super&.to_sym
-end
-
 def autoname name
   if Card.exists?(name) || ActManager.include?(name)
     autoname name.next

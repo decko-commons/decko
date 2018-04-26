@@ -1,26 +1,15 @@
-# CODENAME EVENTS
+# STAGE: prepare to validate
 
-event :validate_codename, :validate, on: :update, changed: :codename do
-  validate_codename_permission
-  validate_codename_uniqueness
+event :set_autoname, :prepare_to_validate, on: :create do
+  if name.blank? && (autoname_card = rule_card(:autoname))
+    self.name = autoname autoname_card.db_content
+    # FIXME: should give placeholder in approve phase
+    # and finalize/commit change in store phase
+    autoname_card.refresh.update_column :db_content, name
+  end
 end
 
-def validate_codename_permission
-  return if Auth.always_ok?
-  errors.add :codename, "only admins can set codename"
-end
-
-def validate_codename_uniqueness
-  return (self.codename = nil) if codename.blank?
-  return if errors.present? || !Card.find_by_codename(codename)
-  errors.add :codename, "codename #{codename} already in use"
-end
-
-event :reset_codename_cache, :integrate, changed: :codename do
-  Card::Codename.reset_cache
-end
-
-# CARDNAME EVENTS
+# STAGE: validate
 
 event :validate_name, :validate, on: :save, changed: :name do
   validate_legality_of_name
@@ -52,19 +41,6 @@ event :validate_legality_of_name do
   end
 end
 
-def changing_existing_tag_to_junction?
-  return false unless changing_name_to_junction?
-  name_in_use_as_tag?
-end
-
-def name_in_use_as_tag?
-  Auth.as_bot { Card.count_by_wql right_id: id }.positive?
-end
-
-def changing_name_to_junction?
-  name.junction? && simple?
-end
-
 event :validate_key, after: :validate_name, on: :save do
   if key.empty?
     errors.add :key, "cannot be blank" if errors.empty?
@@ -73,14 +49,7 @@ event :validate_key, after: :validate_name, on: :save do
   end
 end
 
-event :set_autoname, :prepare_to_validate, on: :create do
-  if name.blank? && (autoname_card = rule_card(:autoname))
-    self.name = autoname autoname_card.db_content
-    # FIXME: should give placeholder in approve phase
-    # and finalize/commit change in store phase
-    autoname_card.refresh.update_column :db_content, name
-  end
-end
+# STAGE: store
 
 event :set_name, :store, changed: :name do
   expire
@@ -97,6 +66,8 @@ event :set_left_and_right, :store,
   end
 end
 
+# STAGE: finalize
+
 event :name_change_finalized, :finalize, changed: :name, on: :save do
   # The events to update references has to happen after :cascade_name_changes,
   # but :cascade_name_changes is defined after the reference events and
@@ -105,6 +76,19 @@ event :name_change_finalized, :finalize, changed: :name, on: :save do
 end
 
 private
+
+def changing_existing_tag_to_junction?
+  return false unless changing_name_to_junction?
+  name_in_use_as_tag?
+end
+
+def name_in_use_as_tag?
+  Auth.as_bot { Card.count_by_wql right_id: id }.positive?
+end
+
+def changing_name_to_junction?
+  name.junction? && simple?
+end
 
 def assign_side_id side
   sidename = name.send "#{side}_name"
