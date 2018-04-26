@@ -7,6 +7,7 @@ class MigrateCustomizedSkin < Card::Migration::Core
   def up
     ensure_card "*stylesheets", codename: "stylesheets"
     ensure_card "*colors", codename: "colors"
+    ensure_card "style: right sidebar", codename: "style_right_sidebar"
     Card::Cache.reset_all
 
     migrate_customizable_bootstrap_skin
