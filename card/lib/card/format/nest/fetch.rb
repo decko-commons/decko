@@ -13,16 +13,11 @@ class Card
           else                      new_card cardish
           end
         rescue Card::Error::UnknownCodename
-          not_found_codename_for_nest cardish, opts
+          not_found_codename cardish
         end
 
-        def new_card_for_nest cardish, opts
-          opts[:nest_name] = Card::Name[cardish].to_s
-          Card.fetch cardish, new: nest_new_args(opts)
-        end
-
-        def not_found_codename_for_nest cardish, opts
-          opts[:view] = :not_found
+        def not_found_codename cardish
+          @view = :not_found
           c = Card.new name: Array.wrap(cardish).join(Card::Name.joint).to_s
           c.errors.add :codename, "unknown codename in #{cardish}"
           c
