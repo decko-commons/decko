@@ -58,7 +58,7 @@ format :html do
     ok? :comment
   end
 
-  def rendering_error exception, view
+  def nested_error exception, view
     debug_error exception if Auth.always_ok?
     details = Auth.always_ok? ? backtrace_link(exception) : error_cardname
     wrap_with :span, class: "render-error alert alert-danger" do
