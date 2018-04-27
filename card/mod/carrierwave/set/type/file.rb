@@ -95,5 +95,9 @@ format :html do
     Card::Env.params[:attachment_upload].gsub /\[\w+\]$/, "[action_id_of_cached_upload]"
   end
 
+  def preview_editor_delete_text
+    tr :delete
+  end
+
   view :preview_editor, tags: :unknown_ok, cache: :never, template: :haml
 end
