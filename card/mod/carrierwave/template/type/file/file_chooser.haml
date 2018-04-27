@@ -2,10 +2,8 @@
   = preview
   %span.btn.btn-success.fileinput-button
     %i.glyphicon.glyphicon-cloud-upload
-    %span
-      = card.new_card? ? 'Add' : 'Replace'
-      = humanized_attachment_name
-      \...
+    %span<
+      = action_text
     %input.file-upload.slotter.form-control{ id: "card_#{card.type_code}",
                                              name: "card[#{card.type_code}]",
                                              type: "file" }
