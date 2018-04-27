@@ -40,25 +40,32 @@ class Card
 
       def sort_by_count_referred_to val
         @mods[:sort] = "coalesce(count,0)" # needed for postgres
-        cs = Query.new(
-          return: "coalesce(count(*), 0) as count",
-          group: "sort_join_field",
-          superquery: self
-        )
-        subselect = Query.new val.merge(return: "id", superquery: self)
-        cs.add_condition "referer_id in (#{subselect.sql})"
+        sort_query = count_sort_query
+        sort_query.add_condition "referer_id in (#{count_subselect(val).sql})"
         # FIXME: - SQL generated before SQL phase
-        cs.joins << Join.new(
-          from: cs,
-          to: %w(card_references wr referee_id)
-        )
-        cs.mods[:sort_join_field] = "#{cs.table_alias}.id as sort_join_field"
-        # HACK!
 
-        joins << Join.new(
-          from: self,
-          to: [cs, "srtbl", "sort_join_field"]
-        )
+        sort_query.joins << Join.new(from: sort_query, side: "LEFT",
+                                     to: %w(card_references wr referee_id))
+        join_count_sort_query sort_query
+      end
+
+      def join_count_sort_query sort_query
+        sort_query.mods[:sort_join_field] =
+            "#{sort_query.table_alias}.id as sort_join_field"
+        # FIXME: HACK!
+
+        joins << Join.new(from: self, side: "LEFT",
+                          to: [sort_query, "srtbl", "sort_join_field"])
+      end
+
+      def count_subselect val
+        Query.new val.merge(return: "id", superquery: self)
+      end
+
+      def count_sort_query
+        Query.new return: "coalesce(count(*), 0) as count",
+                  group: "sort_join_field",
+                  superquery: self
       end
     end
   end

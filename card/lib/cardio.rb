@@ -49,7 +49,7 @@ module Cardio
         closed_search_limit:    10,
         paging_limit:           20,
 
-        non_createable_types:   [%w(signup setting set)],
+        non_createable_types:   [%w(signup setting set bootswatch_theme)],
         view_cache:             false,
         rss_enabled:            false,
         double_click:           :signed_in,

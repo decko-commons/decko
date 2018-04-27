@@ -36,9 +36,11 @@ class Card
       end
 
       def view *args, &block
-        format do
-          view(*args, &block)
-        end
+        format { view(*args, &block) }
+      end
+
+      def before view, &block
+        format { before view, &block }
       end
 
       def define_on_format format_name=:base, &block
@@ -84,6 +86,10 @@ class Card
 
         mattr_accessor :views
         self.views = Hash.new { |h, k| h[k] = {} }
+
+        def before view, &block
+          define_method "_before_#{view}", &block
+        end
 
         def view view, *args, &block
           #view = view.to_viewname.key.to_sym

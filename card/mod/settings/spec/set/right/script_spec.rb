@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Right::Script do
+RSpec.describe Card::Set::Right::Script do
   let(:js)                    { 'alert( "Hi" );'    }
   let(:compressed_js)         { 'alert("Hi");'      }
   let(:changed_js)            { 'alert( "Hello" );' }

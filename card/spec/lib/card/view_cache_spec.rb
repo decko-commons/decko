@@ -9,13 +9,16 @@ describe Card::View do
   end
 
   def html_message_for user
-    Card["follower notification email"].format(:email_html)
-      .mail(context: Card["All Eyes On Me"],
-            to: "#{user}@user.com",
-            follower: user,
-            followed_set: "All Eyes On Me+*self",
-            follow_option: "*always")
-      .html_part.body.raw_source
+    Card["follower notification email"].format.mail(
+      Card["All Eyes On Me"],
+      { to: "#{user}@user.com" },
+      auth: user,
+      active_notice: {
+        follower: user,
+        followed_set: "All Eyes On Me+*self",
+        follow_option: "*always"
+      }
+    ).html_part.body.raw_source
   end
 
   example "email templates" do

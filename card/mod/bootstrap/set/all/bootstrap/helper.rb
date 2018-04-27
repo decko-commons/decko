@@ -194,4 +194,9 @@ format :html do
       end
     end
   end
+
+  def badge_tag content, options={}
+    add_class options, "badge"
+    wrap_with :span, content, options
+  end
 end

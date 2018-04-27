@@ -31,7 +31,7 @@ event :admin_tasks, :initialize, on: :update do
 end
 
 def not_allowed task
-  raise Card::Error::Oops,
+  raise Card::Error::PermissionDenied,
         "The admin task '#{task}' is disabled for security reasons.<br>"\
         "You can enable it with the config option 'allow_irreversible_admin_tasks'"
 end

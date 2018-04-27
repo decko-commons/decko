@@ -11,14 +11,6 @@ class Card
         # @return [Hash] options
         attr_reader :normalized_options
 
-        # - @live_options are dynamic and can be altered by the "voo" API at any time.
-        # Such alterations are
-        #   NOT used in stubs
-        # @return [Hash]
-        def live_options
-          @live_options ||= process_live_options
-        end
-
         class << self
           def included base
             # Developers can also set most options directly via accessors,
@@ -65,13 +57,13 @@ class Card
           end
         end
 
-        def closest_live_option key
-          if live_options.key? key
-            live_options[key]
-          elsif (ancestor = next_ancestor)
-            ancestor.closest_live_option key
-          end
-        end
+        # def inherit key
+        #   if live_options.key? key
+        #     live_options[key]
+        #   elsif (ancestor = next_ancestor)
+        #     ancestor.inherit key
+        #   end
+        # end
 
         # ACCESSOR_HELPERS
         # methods that follow the normalize_#{key} pattern are called by accessors
@@ -85,6 +77,15 @@ class Card
           value&.to_sym
         end
 
+        protected
+
+        # - @live_options are dynamic and can be altered by the "voo" API at any time.
+        # Such alterations are NOT used in stubs
+        # @return [Hash]
+        def live_options
+          @live_options ||= process_live_options
+        end
+
         private
 
         # option normalization includes standardizing options into a hash with
@@ -92,11 +93,17 @@ class Card
         # handling for main_views.
         def normalize_options
           @normalized_options = opts = options_to_hash @raw_options.clone
-          opts[:view] = @raw_view
-          inherit_from_parent if parent
-          opts[:main] = true if format.main?
           @optional = opts.delete(:optional) || false
+          add_implicit_options!
+          inherit_options_from_parent!
+          validate_options! opts
           opts
+        end
+
+        def add_implicit_options!
+          @normalized_options[:view] = @raw_view
+          @normalized_options[:main] = true if format.main?
+          # opts[:context_names] = format.context_names
         end
 
         # typically options are already a hash.  this also handles an array of
@@ -113,11 +120,16 @@ class Card
         end
 
         # standard inheritance from parent view object
-        def inherit_from_parent
-          Options.heir_keys.each do |key|
-            parent_value = parent.live_options[key]
-            normalized_options[key] ||= parent_value if parent_value
+        def inherit_options_from_parent!
+          return unless parent
+          Options.heir_keys.each do |option_key|
+            inherit_from_parent! option_key
           end
+        end
+
+        def inherit_from_parent! option_key
+          return unless (parent_value = parent.live_options[option_key])
+          @normalized_options[option_key] ||= parent_value
         end
 
         def process_live_options
@@ -127,37 +139,28 @@ class Card
           end
           # main_nest_options are not processed in normalize_options so that
           # they're NOT locked in the stub.
-          process_default_options
+          process_before_view
           process_visibility_options
           @live_options
         end
 
-        # This method triggers the default_X_args methods which can alter the
+        # This method triggers the "before" blocks which can alter the
         # @live_options hash both directly and indirectly (via the voo API)
-        def process_default_options
-          format.view_options_with_defaults requested_view, live_options
+        def process_before_view
+          format.before_view requested_view
         end
 
-        # "foreign" options are non-standard options.  They're allowed, but they
-        # prevent independent caching (and thus stubbing)
-
-        # non-standard options that are found in normalized_options
-        # @return [Hash] options Hash
-        def foreign_normalized_options
-          @foreign_normalize_options ||= foreign_options_in normalized_options
-        end
-
-        # non-standard options that are found in live_options
-        # @return [Hash] options Hash
-        def foreign_live_options
-          foreign_options_in live_options
+        def validate_options! opts
+          return unless (foreign_opts = foreign_options_in opts)
+          raise Card::Error, "illegal view options: #{foreign_opts}"
         end
 
         # find non-standard option in Hash
         # @param opts [Hash] options hash
         # @return [Hash] options Hash
         def foreign_options_in opts
-          opts.reject { |k, _v| Options.all_keys.include? k }
+          foreign_opts = opts.reject { |k, _v| Options.all_keys.include? k }
+          foreign_opts.empty? ? nil : foreign_opts
         end
       end
     end

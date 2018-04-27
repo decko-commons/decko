@@ -80,12 +80,11 @@ describe Card::Format do
                            )
     end
 
-    it "formats page_path" do
-      expect(text_format.page_path(card.name)).to eq "/" + card.name
-      expect(html_format.page_path(card.name)).to eq "/" + card.name
-      page_path = text_format.page_path card.name,
-                                        format: "txt", opt1: 11, opt2: "foo"
-      expect(page_path).to eq "/#{card.name}.txt?opt1=11&opt2=foo"
+    it "formats path" do
+      expect(text_format.path(card.name)).to eq "/" + card.name
+      expect(html_format.path(card.name)).to eq "/" + card.name
+      path = html_format.path mark: card.name, format: "txt", opt1: 11, opt2: "foo"
+      expect(path).to eq "/#{card.name}.txt?opt1=11&opt2=foo"
     end
 
     it "fomats full path and url" do

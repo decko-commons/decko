@@ -11,7 +11,7 @@ end
 def execute_card_events args
   setting = "on_#{args[:on]}".to_sym
   event_cards(setting).each do |event_card|
-    event_card.deliver(context: self)
+    event_card.deliver self
   end
 end
 
