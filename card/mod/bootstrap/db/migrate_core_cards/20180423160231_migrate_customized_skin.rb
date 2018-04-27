@@ -47,42 +47,42 @@ class BootstrapSkinMigrator
 end
 
 class Skin
-  def customized?
-    skin_cards.any? do |name_parts|
-      (card = Card.fetch(name_parts)) && !card.pristine?
-    end
-  end
-
-  def skin_cards
-    [[skin_name, "bootswatch theme"],
-     [skin_name, "style"],
-     [skin_name, "variables"]]
-  end
-
-  def migrate
-    new_name = "#{skin_name} customized"
-    ensure_card new_name, type_id: Card::CustomizedSkinID
-    ensure_card [new_name, :variables],
-                type_id: Card::ScssID,
-                content: Card.fetch(skin_name, "variables")&.content
-    ensure_card [new_name, :bootswatch],
-                type_id: Card::ScssID,
-                content: Card.fetch(skin_name, "style")&.content
-    update_skin_references
-    delete_deprecated_skin_cards
-  end
-
   def delete_deprecated_skin_cards
     skin_cards.each do |name_parts|
       delete_card name_parts
     end
   end
 
-  def update_skin_references
-    Card.search(refer_to: skin_name).each do |ref|
-      new_content = ref.content.gsub(/#{theme_name}[ _]skin/i, "#{skin_name} customized")
-      card.update_attributes! content: new_content
-    end
+  # def customized?
+  #   skin_cards.any? do |name_parts|
+  #     (card = Card.fetch(name_parts)) && !card.pristine?
+  #   end
+  # end
+
+  def skin_cards
+    [[skin_name, "bootswatch theme"],
+     [skin_name, "style"],
+     [skin_name, "variables"]]
+  end
+  #
+  # def migrate
+  #   new_name = "#{skin_name} customized"
+  #   ensure_card new_name, type_id: Card::CustomizedSkinID
+  #   ensure_card [new_name, :variables],
+  #               type_id: Card::ScssID,
+  #               content: Card.fetch(skin_name, "variables")&.content
+  #   ensure_card [new_name, :bootswatch],
+  #               type_id: Card::ScssID,
+  #               content: Card.fetch(skin_name, "style")&.content
+  #   update_skin_references
+  #   delete_deprecated_skin_cards
+  # end
+  #
+  # def update_skin_references
+  #   Card.search(refer_to: skin_name).each do |ref|
+  #     new_content = ref.content.gsub(/#{theme_name}[ _]skin/i, "#{skin_name} customized")
+  #     card.update_attributes! content: new_content
+  #   end
   end
 end
 
@@ -96,15 +96,12 @@ class MigrateCustomizedSkin < Card::Migration::Core
 
     BootstrapSkinMigrator.migrate
 
-    migrate_customized_bootswatch_skins
-    delete_deprecated_skin_cards
-
     Card.reset_all_machines
   end
 
   def migrate_customized_bootswatch_skins
     Skin.each do |skin|
-      skin.migrate if skin.customized?
+      skin.delete_deprecated_skin_cards
     end
   end
 end
