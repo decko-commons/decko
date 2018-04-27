@@ -77,7 +77,7 @@ format :html do
   end
 
   def file_chooser_action_text
-    action = card.new_card? ? 'Add' : 'Replace'
+    action = card.new_card? ? "Add" : "Replace"
     "#{action} #{humanized_attachment_name}..."
   end
 
