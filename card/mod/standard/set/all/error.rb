@@ -153,8 +153,7 @@ format :html do
     if card.errors.any?
       standard_errors
     else
-      card_label = card.name.present? ? "<em>#{safe_name}</em>" : "that"
-      wrap_with(:h2) { "Could not find #{card_label}." }
+      haml :not_found
     end
   end
 

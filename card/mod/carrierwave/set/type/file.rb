@@ -92,7 +92,7 @@ format :html do
   end
 
   def cached_upload_card_name
-    Card::Env.params[:attachment_upload].gsub /\[\w+\]$/, "[action_id_of_cached_upload]"
+    Card::Env.params[:attachment_upload].gsub(/\[\w+\]$/, "[action_id_of_cached_upload]")
   end
 
   def preview_editor_delete_text
