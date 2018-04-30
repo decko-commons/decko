@@ -3,27 +3,16 @@
 require_relative "lib/skin"
 
 class Skin
-  def delete_deprecated_skin_cards
-    skin_cards.each do |name_parts|
-      delete_card name_parts
-    end
-  end
-
   # def customized?
   #   skin_cards.any? do |name_parts|
   #     (card = Card.fetch(name_parts)) && !card.pristine?
   #   end
   # end
-
-  def skin_cards
-    [[skin_name, "bootswatch theme"],
-     [skin_name, "style"],
-     [skin_name, "variables"]]
-  end
+  #
   #
   # def migrate
   #   new_name = "#{skin_name} customized"
-  #   ensure_card new_name, type_id: Card::CustomizedSkinID
+  #   ensure_card new_name, type_id: Card::CustomizedBootswatchSkinID
   #   ensure_card [new_name, :variables],
   #               type_id: Card::ScssID,
   #               content: Card.fetch(skin_name, "variables")&.content
@@ -42,8 +31,7 @@ class Skin
   # end
 end
 
-
-class MigrateCustomizedSkin < Card::Migration::Core
+class MigrateCustomizedBootstrapSkin < Card::Migration::Core
   NEW_SKIN = "customized bootstrap skin"
   OLD_SKIN = :customizable_bootstrap_skin
 
@@ -54,15 +42,8 @@ class MigrateCustomizedSkin < Card::Migration::Core
     Card::Cache.reset_all
 
     migrate_customizable_bootstrap_skin
-    migrate_customized_bootswatch_skins
 
     Card.reset_all_machines
-  end
-
-  def migrate_customized_bootswatch_skins
-    Skin.each do |skin|
-      skin.delete_deprecated_skin_cards
-    end
   end
 
   def migrate_customizable_bootstrap_skin
@@ -81,7 +62,7 @@ class MigrateCustomizedSkin < Card::Migration::Core
   end
 
   def build_new_skin
-    ensure_card NEW_SKIN, type_id: Card::CustomizedSkinID
+    ensure_card NEW_SKIN, type_id: Card::CustomizedBootswatchSkinID
 
     variables =
       %w[colors components spacing cards fonts more].map do |name|

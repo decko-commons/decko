@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::Type::CustomizedSkin do
+RSpec.describe Card::Set::Type::CustomizedBootswatchSkin do
   specify ".read_bootstrap_variables" do
     expect(described_class.read_bootstrap_variables).to include "$primary"
   end

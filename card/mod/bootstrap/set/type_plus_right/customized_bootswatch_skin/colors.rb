@@ -39,7 +39,7 @@ def default_value_from_bootstrap name
 end
 
 def bootstrap_variables_scss
-  @bootstrap_variables_scss ||= Type::CustomizedSkin.read_bootstrap_variables
+  @bootstrap_variables_scss ||= Type::CustomizedBootswatchSkin.read_bootstrap_variables
 end
 
 def colors

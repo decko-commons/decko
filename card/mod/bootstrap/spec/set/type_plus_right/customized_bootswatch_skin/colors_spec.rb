@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::TypePlusRight::CustomizedSkin::Colors do
+RSpec.describe Card::Set::TypePlusRight::CustomizedBootswatchSkin::Colors do
   let(:card) do
     Card::Env.params[:theme] = "journal"
     Card::Auth.as_bot do

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Type::BootswatchTheme do
+RSpec.describe Card::Set::Type::BootswatchSkin do
   CUSTOM_CSS = "body{background-color:#123}"
   YETI_THEME_CSS = "background-color:#f6f6f6;"
 
