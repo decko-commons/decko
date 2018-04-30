@@ -1,10 +1,10 @@
 namespace :decko do
-  namespace :bootstrap do
+  namespace :seed do
     desc "reseed, migrate, re-clean, and re-dump"
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed update bootstrap:clean bootstrap:supplement bootstrap:dump].each do |task|
+      %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
     end
@@ -23,12 +23,12 @@ namespace :decko do
       Card::Act.update_all actor_id: Card::WagnBotID
       delete_ignored_cards
       clean_machines
-      clean_unwanted_cards
+      # clean_unwanted_cards
       Card.empty_trash
     end
 
     def clean_unwanted_cards
-      Card.search(right: { codename: ["in", "all", "bootswatch theme"] }).each do |card|
+      Card.search(right: { codename: "all" }).each do |card|
         card.delete!
       end
     end

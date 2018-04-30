@@ -2,50 +2,6 @@
 
 require_relative "lib/skin"
 
-class BootstrapSkinMigrator
-  NEW_SKIN = "customized bootstrap skin"
-  OLD_SKIN = :customizable_bootstrap_skin
-
-  class << self
-    def migrate
-      migrate_customizable_bootstrap_skin
-      delete_code_card OLD_SKIN
-    end
-
-    def migrate_customizable_bootstrap_skin
-      referers = Card.search refer_to: { codename: OLD_SKIN.to_s }
-      return unless referers.present?
-      replace_old_skin referers
-      build_new_skin
-    end
-
-    def replace_old_skin referers
-      referers.each do |ref|
-        new_content = ref.content.gsub(/customizable[ _]bootstrap[ _]skin/i, NEW_SKIN)
-        ref.update_attributes! content: new_content
-      end
-    end
-
-    def build_new_skin
-      ensure_card NEW_SKIN, type_id: Card::CustomizedSkinID
-
-      variables =
-        %w[colors components spacing cards fonts more].map do |name|
-          Card.fetch(OLD_SKIN, "custom theme", name)&.content
-        end.compact
-      ensure_card [NEW_SKIN, :variables], type_id: Card::ScssID,
-                  content: variables.join("\n\n")
-
-      custom_style =
-        Card.fetch(OLD_SKIN, "custom theme", "style")&.content || ""
-      ensure_card "customized bootstrap style", type_id: Card::ScssID, content: custom_style
-      update_card [NEW_SKIN, :stylesheets],
-                  content: "[[customized bootstrap style]]"
-
-    end
-  end
-end
-
 class Skin
   def delete_deprecated_skin_cards
     skin_cards.each do |name_parts|
@@ -83,18 +39,22 @@ class Skin
   #     new_content = ref.content.gsub(/#{theme_name}[ _]skin/i, "#{skin_name} customized")
   #     card.update_attributes! content: new_content
   #   end
-  end
+  # end
 end
 
 
 class MigrateCustomizedSkin < Card::Migration::Core
+  NEW_SKIN = "customized bootstrap skin"
+  OLD_SKIN = :customizable_bootstrap_skin
+
   def up
     ensure_card "*stylesheets", codename: "stylesheets"
     ensure_card "*colors", codename: "colors"
     ensure_card "style: right sidebar", codename: "style_right_sidebar"
     Card::Cache.reset_all
 
-    BootstrapSkinMigrator.migrate
+    migrate_customizable_bootstrap_skin
+    migrate_customized_bootswatch_skins
 
     Card.reset_all_machines
   end
@@ -103,5 +63,38 @@ class MigrateCustomizedSkin < Card::Migration::Core
     Skin.each do |skin|
       skin.delete_deprecated_skin_cards
     end
+  end
+
+  def migrate_customizable_bootstrap_skin
+    referers = Card.search refer_to: { codename: OLD_SKIN.to_s }
+    return unless referers.present?
+    replace_old_skin referers
+    build_new_skin
+    delete_code_card OLD_SKIN
+  end
+
+  def replace_old_skin referers
+    referers.each do |ref|
+      new_content = ref.content.gsub(/customizable[ _]bootstrap[ _]skin/i, NEW_SKIN)
+      ref.update_attributes! content: new_content
+    end
+  end
+
+  def build_new_skin
+    ensure_card NEW_SKIN, type_id: Card::CustomizedSkinID
+
+    variables =
+      %w[colors components spacing cards fonts more].map do |name|
+        Card.fetch(OLD_SKIN, "custom theme", name)&.content
+      end.compact
+    ensure_card [NEW_SKIN, :variables], type_id: Card::ScssID,
+                content: variables.join("\n\n")
+
+    custom_style =
+      Card.fetch(OLD_SKIN, "custom theme", "style")&.content || ""
+    ensure_card "customized bootstrap style", type_id: Card::ScssID, content: custom_style
+    update_card [NEW_SKIN, :stylesheets],
+                content: "[[customized bootstrap style]]"
+
   end
 end

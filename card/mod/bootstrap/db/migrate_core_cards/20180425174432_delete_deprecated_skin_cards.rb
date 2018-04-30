@@ -5,6 +5,7 @@ require_relative "lib/skin"
 class Skin
   def delete_deprecated_skin_cards
     skin_cards.each do |name_parts|
+      next if Card.fetch(name_parts).
       delete_card name_parts
     end
   end
@@ -20,7 +21,9 @@ end
 class DeleteDeprecatedSkinCards < Card::Migration::Core
   def up
     Skin.each do |skin|
-       skin.delete_deprecated_skin_cards
-     end
+      skin.delete_deprecated_skin_cards
+    end
+    Skin.new("bootstrap default").delete_deprecated_skin_cards
+    delete_card "default bootstrap skin"
   end
 end
