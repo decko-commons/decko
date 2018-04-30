@@ -11,7 +11,7 @@ class Card
         @format_opts = format_opts
         @override = format_opts.delete(:override) || true
         @card ||= fetch_card cardish
-        # note: fetch_card can alter view_opts[:nest_name]
+        # note: fetch_card can alter view and view_opts[:nest_name]
       end
 
       def prepare
@@ -25,7 +25,7 @@ class Card
 
       def prepare_view_and_opts!
         view_opts[:nest_name] ||= card.name
-        @view = prepare_view
+        @view ||= prepare_view
         # TODO: handle in closed / edit view definitions
         view_opts[:home_view] ||= [:closed, :edit].member?(view) ? :open : view
       end

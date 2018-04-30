@@ -12,6 +12,15 @@ class Card
           when "_", "_self"    then format.context_card
           else                      new_card cardish
           end
+        rescue Card::Error::UnknownCodename
+          not_found_codename cardish
+        end
+
+        def not_found_codename cardish
+          @view = :not_found
+          c = Card.new name: Array.wrap(cardish).join(Card::Name.joint).to_s
+          c.errors.add :codename, "unknown codename in #{cardish}"
+          c
         end
 
         def new_card cardish
