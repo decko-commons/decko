@@ -63,7 +63,7 @@ format :html do
   end
 
   def theme_color_picker name, value
-    #value = value[1..-1] if value.start_with? "$"
+    # value = value[1..-1] if value.start_with? "$"
     options = VARIABLE_NAMES[:colors].map { |var| "$#{var}" }
     options << value unless options.include? value
     select_tag "theme_colors[#{name}]", options_for_select(options, value),

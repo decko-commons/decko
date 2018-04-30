@@ -13,7 +13,7 @@ card_accessor :variables
 card_accessor :stylesheets
 
 def variable_card_names
-  [:colors, :variables].map { |s| Card.fetch_name name, s }
+  %i[colors variables].map { |s| Card.fetch_name name, s }
 end
 
 def stylesheets_card_names
