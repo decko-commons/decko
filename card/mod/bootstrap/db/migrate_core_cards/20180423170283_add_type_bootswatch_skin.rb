@@ -24,7 +24,7 @@ class AddTypeBootswatchSkin < Card::Migration::Core
       puts "updating #{skin_name}"
       card = Card.fetch(skin_name)
       next puts "card not found" unless card
-      card.update_attributes! type_id: Card::BootswatchThemeID
+      card.update_attributes! type_id: Card::BootswatchSkinID
     end
   end
 end
