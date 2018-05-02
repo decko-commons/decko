@@ -2,11 +2,11 @@
 
 require_relative "lib/skin"
 
-class AddTypeCustomSkin < Card::Migration::Core
+class AddTypeCustomizedBootswatchSkin < Card::Migration::Core
   def up
-    ensure_card "Customized skin",
+    ensure_card "Customized bootswatch skin",
                 type_id: Card::CardtypeID,
-                codename: "customized_skin"
+                codename: "customized_bootswatch_skin"
     ensure_card "*stylesheets", codename: "stylesheets"
     ensure_card "*bootswatch", codename: "bootswatch"
     ensure_card "*variables", codename: "variables"

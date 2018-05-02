@@ -58,7 +58,7 @@ format :html do
     ok? :comment
   end
 
-  def rendering_error exception, view
+  def nested_error exception, view
     debug_error exception if Auth.always_ok?
     details = Auth.always_ok? ? backtrace_link(exception) : error_cardname
     wrap_with :span, class: "render-error alert alert-danger" do
@@ -126,11 +126,13 @@ format :html do
     voo.hide! :menu
     class_up "d0-card-frame", "card card-warning card-inverse"
     class_up "alert", "card-error-msg"
-    frame do
-      card.errors.map do |attrib, msg|
-        alert "warning", true do
-          attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
-        end
+    frame { standard_errors }
+  end
+
+  def standard_errors
+    card.errors.map do |attrib, msg|
+      alert "warning", true do
+        attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
       end
     end
   end
@@ -142,10 +144,16 @@ format :html do
   view :not_found do # ug.  bad name.
     voo.hide! :menu
     voo.title = "Not Found"
-    card_label = card.name.present? ? "<em>#{safe_name}</em>" : "that"
     frame do
-      [wrap_with(:h2) { "Could not find #{card_label}." },
-       sign_in_or_up_links]
+      [not_found_errors, sign_in_or_up_links]
+    end
+  end
+
+  def not_found_errors
+    if card.errors.any?
+      standard_errors
+    else
+      haml :not_found
     end
   end
 
