@@ -17,12 +17,9 @@ class Skin
   end
 end
 
-
 class DeleteDeprecatedSkinCards < Card::Migration::Core
   def up
-    Skin.each do |skin|
-      skin.delete_deprecated_skin_cards
-    end
+    Skin.each(&:delete_deprecated_skin_cards)
     Skin.new("bootstrap default").delete_deprecated_skin_cards
     delete_card "default bootstrap skin"
   end

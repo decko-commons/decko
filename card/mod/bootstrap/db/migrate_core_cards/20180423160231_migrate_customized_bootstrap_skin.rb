@@ -33,7 +33,7 @@ class Skin
 end
 
 class MigrateCustomizedBootstrapSkin < Card::Migration::Core
-  NEW_SKIN = "customized bootstrap skin"
+  NEW_SKIN = "customized bootstrap skin".freeze
   OLD_SKIN = :customizable_bootstrap_skin
 
   def up
