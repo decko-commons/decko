@@ -25,7 +25,8 @@ class Skin
   #
   # def update_skin_references
   #   Card.search(refer_to: skin_name).each do |ref|
-  #     new_content = ref.content.gsub(/#{theme_name}[ _]skin/i, "#{skin_name} customized")
+  #     new_content = ref.content.gsub(/#{theme_name}[ _]skin/i,
+  #       "#{skin_name} customized")
   #     card.update_attributes! content: new_content
   #   end
   # end
@@ -69,13 +70,12 @@ class MigrateCustomizedBootstrapSkin < Card::Migration::Core
         Card.fetch(OLD_SKIN, "custom theme", name)&.content
       end.compact
     ensure_card [NEW_SKIN, :variables], type_id: Card::ScssID,
-                content: variables.join("\n\n")
+                                        content: variables.join("\n\n")
 
     custom_style =
       Card.fetch(OLD_SKIN, "custom theme", "style")&.content || ""
     ensure_card "customized bootstrap style", type_id: Card::ScssID, content: custom_style
     update_card [NEW_SKIN, :stylesheets],
                 content: "[[customized bootstrap style]]"
-
   end
 end

@@ -11,9 +11,8 @@ class AddTypeBootswatchSkin < Card::Migration::Core
     Card::Cache.reset_all
 
     ensure_card "Bootswatch skin", type_id: Card::CardtypeID,
-                                    codename: "bootswatch_skin"
-    update_card [:style, :right, :options],
-                content: STYLE_INPUT_SEARCH
+                                   codename: "bootswatch_skin"
+    update_card %i[style right options], content: STYLE_INPUT_SEARCH
     Card::Cache.reset_all
     change_type_of_skins
   end
