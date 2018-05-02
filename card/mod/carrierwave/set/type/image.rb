@@ -15,7 +15,7 @@ format do
     return "" unless image.valid?
     contextualize_path image.url
   end
-  
+
   def selected_version
     size = determine_image_size
     if size && size != :original
@@ -59,14 +59,26 @@ format :html do
 
   # core HTML image view.
   view :core do
+    with_valid_source do |source|
+      image_tag source, alt: card.name
+    end
+  end
+
+  def with_valid_source
     handle_source do |source|
       if source.blank? || source == "missing"
         # FIXME - these images should be "broken", not "missing"
         invalid_image source
       else
-        image_tag source, alt: card.name
+        yield source
         # consider title..
       end
+    end
+  end
+
+  view :full_width do
+    with_valid_source do |source|
+      image_tag source, alt: card.name, class: "w-100"
     end
   end
 
