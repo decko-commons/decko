@@ -1,10 +1,10 @@
 namespace :decko do
-  namespace :bootstrap do
+  namespace :seed do
     desc "reseed, migrate, re-clean, and re-dump"
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed update bootstrap:clean bootstrap:supplement bootstrap:dump].each do |task|
+      %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
     end
@@ -23,14 +23,12 @@ namespace :decko do
       Card::Act.update_all actor_id: Card::WagnBotID
       delete_ignored_cards
       clean_machines
-      clean_unwanted_cards
+      # clean_unwanted_cards
       Card.empty_trash
     end
 
     def clean_unwanted_cards
-      Card.search(right: { codename: ["in", "all", "bootswatch theme"] }).each do |card|
-        card.delete!
-      end
+      Card.search(right: { codename: "all" }).each(&:delete!)
     end
 
     def delete_ignored_cards
@@ -60,9 +58,9 @@ namespace :decko do
 
     def clean_inputs_and_outputs
       # FIXME: can this be associated with the machine module somehow?
-      %w(machine_input machine_output machine_cache).each do |codename|
+      %w[machine_input machine_output machine_cache].each do |codename|
         Card.search(right: { codename: codename }).each do |card|
-          FileUtils.rm_rf File.join("files", card.id.to_s), secure: true#
+          FileUtils.rm_rf File.join("files", card.id.to_s), secure: true
           next if reserved_output? card.name
           card.delete!
         end
@@ -76,7 +74,7 @@ namespace :decko do
 
     def machine_seed_names
       @machine_seed_names ||=
-        [[:all, :script], [:all, :style], [:script_html5shiv_printshiv]].map do |name|
+        [%i[all script], %i[all style], [:script_html5shiv_printshiv]].map do |name|
           Card::Name[*name]
         end
     end
@@ -97,7 +95,7 @@ namespace :decko do
       puts "clean history"
       act = Card::Act.create! actor_id: Card::WagnBotID, card_id: Card::WagnBotID
       Card::Action.make_current_state_the_initial_state act
-      #conn.execute("truncate card_acts")
+      # conn.execute("truncate card_acts")
       ActiveRecord::Base.connection.execute("truncate sessions")
     end
 

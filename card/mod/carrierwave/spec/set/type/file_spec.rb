@@ -128,7 +128,7 @@ RSpec.describe Card::Set::Type::File do
     end
 
     it "handles urls as source" do
-      url = "http://wagn.org/files/bruce_logo-large-122798.png"
+      url = "https://decko.org/files/bruce_logo-large-122798.png"
       storage_config :local
       Card.create! name: "url test", type_id: Card::FileID, remote_file_url: url
       expect(Card["url test"].file.size).to be > 0
