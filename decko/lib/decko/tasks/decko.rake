@@ -44,25 +44,28 @@ decko_namespace = namespace :decko do
     end
   end
 
-  desc "Load bootstrap data into database"
+  desc "Load seed data into database"
   task :load do
     decko_namespace["load_without_reset"].invoke
     puts "reset cache"
     system "bundle exec rake decko:reset_cache" # needs loaded environment
   end
 
-  desc "Load bootstrap data into database but don't reset cache"
+  desc "Load seed data into database but don't reset cache"
   task :load_without_reset do
     require "decko/engine"
-    puts "update card_migrations"
-    decko_namespace["assume_card_migrations"].invoke
+    # puts "update card_migrations"
+    # decko_namespace["assume_card_migrations"].invoke
 
     if Rails.env == "test" && !ENV["GENERATE_FIXTURES"]
       puts "loading test fixtures"
       Rake::Task["db:fixtures:load"].invoke
     else
-      puts "loading bootstrap"
-      Rake::Task["db:seed"].invoke
+      puts "loading seed data"
+      # db:seed checks for pending migrations. We don't want that because
+      # as part of the seeding process we update the migration table
+      ActiveRecord::Tasks::DatabaseTasks.load_seed
+      # :Rake::Task["db:seed"].invoke
     end
 
     puts "set symlink for assets"
@@ -105,7 +108,6 @@ decko_namespace = namespace :decko do
   desc "insert existing card migrations into schema_migrations_cards to avoid re-migrating"
   task :assume_card_migrations do
     require "decko/engine"
-
     Cardio.assume_migrated_upto_version :core_cards
   end
 

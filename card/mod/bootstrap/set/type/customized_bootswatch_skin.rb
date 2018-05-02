@@ -6,14 +6,14 @@ class << self
   end
 end
 
-include_set Type::BootswatchTheme
+include_set Type::BootswatchSkin
 
 card_accessor :colors
 card_accessor :variables
 card_accessor :stylesheets
 
 def variable_card_names
-  [:colors, :variables].map { |s| Card.fetch_name name, s }
+  %i[colors variables].map { |s| Card.fetch_name name, s }
 end
 
 def stylesheets_card_names
@@ -48,7 +48,7 @@ end
 
 event :validate_theme_template, :validate, on: :create do
   if theme_name
-    if Card.fetch_type_id(theme_card_name) != Card::BootswatchThemeID
+    if Card.fetch_type_id(theme_card_name) != Card::BootswatchSkinID
       errors.add :abort, "not a valid theme: #{theme_name}"
     elsif !Dir.exist?(source_dir)
       errors.add :abort, "can't find source for theme \"#{theme_name}\""
@@ -74,7 +74,7 @@ end
 
 def add_variables_subfield
   theme_content = content_from_theme(:variables)
-  default_content = Type::CustomizedSkin.read_bootstrap_variables
+  default_content = Type::CustomizedBootswatchSkin.read_bootstrap_variables
   add_subfield :variables,
                type_id: ScssID,
                content: "#{theme_content}\n\n\n#{default_content}"
@@ -85,7 +85,7 @@ def add_bootswatch_subfield
 end
 
 def theme_card
-  @theme_card ||= theme_codename && Card[theme_codename]
+  @theme_card ||= theme_codename ? Card[theme_codename] : nil
 end
 
 def content_from_theme subfield

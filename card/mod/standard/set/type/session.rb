@@ -27,7 +27,7 @@ def content= val
 end
 
 format :html do
-  def default_core_args _args
+  before :core do
     voo.items[:view] = :name
   end
 end

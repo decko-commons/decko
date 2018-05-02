@@ -47,8 +47,7 @@ format :html do
         path_args[key] = value
       end
     end
-    path_args[:action] = "new"
-    page_path card.name, path_args
+    path path_args.merge(action: :new, mark: card.name)
   end
 end
 

@@ -10,8 +10,6 @@ class UserDataToCards < Card::Migration::Core
       Card.create! name: "*#{codename}", codename: codename
     end
 
-    Card::Codename.reset_cache
-
     puts "setting read permissions for account cards (Administrator)"
     [:password, :token, :salt, :status, :email, :account].each do |codename|
       rule_name = [codename, :right, :read].map { |code| Card[code].name } * "+"

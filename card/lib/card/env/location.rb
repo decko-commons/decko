@@ -1,22 +1,8 @@
 class Card
   module Env
     module Location
-      # page_path    takes a Card::Name, adds the format and query string to
-      #              url_key (site-absolute)
       # card_path    makes a relative path site-absolute (if not already)
       # card_url     makes it a full url (if not already)
-
-      # TESTME
-      def page_path title, opts={}
-        unless title.name?
-          Rails.logger.warn "Pass only Card::Name to page_path " \
-                            "(#{title} = #{title.class})"
-        end
-        format = opts[:format] ? ".#{opts.delete(:format)}" : ""
-        action = opts[:action] ? "#{opts.delete(:action)}/" : ""
-        query  = opts.present? ? "?#{opts.to_param}" : ""
-        card_path "#{action}#{title.to_name.url_key}#{format}#{query}"
-      end
 
       def card_path rel_path
         unless rel_path.is_a? String

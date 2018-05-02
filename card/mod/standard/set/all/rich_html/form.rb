@@ -146,17 +146,17 @@ format :html do
   # then the subfield cards should be created on the new card not the existing
   # card that build the form
 
-
   def form
-    @form ||= begin
-      @form_root = true unless parent&.form_root
-      instantiate_builder(form_prefix, card, {})
-    end
+    @form ||= inherit(:form) || new_form
+  end
+
+  def new_form
+    @form_root = true unless parent&.form_root
+    instantiate_builder(form_prefix, card, {})
   end
 
   def reset_form
-    @form = nil
-    form
+    @form = new_form
   end
 
   def form_prefix
