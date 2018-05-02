@@ -62,8 +62,10 @@ decko_namespace = namespace :decko do
       Rake::Task["db:fixtures:load"].invoke
     else
       puts "loading seed data"
+      # db:seed checks for pending migrations. We don't want that because
+      # as part of the seeding process we update the migration table
       ActiveRecord::Tasks::DatabaseTasks.load_seed
-      # fe :Rake::Task["db:seed"].invoke
+      # :Rake::Task["db:seed"].invoke
     end
 
     puts "set symlink for assets"

@@ -41,7 +41,7 @@ include_set Type::Scss
 include_set Abstract::CodeFile
 include_set Abstract::SkinThumbnail
 
-CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets]
+CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets].freeze
 
 PRE_VARIABLES_CARD_NAMES = %i[
   style_jquery_ui_smoothness
@@ -50,13 +50,13 @@ PRE_VARIABLES_CARD_NAMES = %i[
   font_awesome
   material_icons
   bootstrap_functions
-]
+].freeze
 
 POST_VARIABLES_CARD_NAMES = %i[
   bootstrap_variables
   bootstrap_core
   style_bootstrap_cards
-]
+].freeze
 
 # reject cards that don't contribute directly to the content like skin or pointer cards
 def engine_input

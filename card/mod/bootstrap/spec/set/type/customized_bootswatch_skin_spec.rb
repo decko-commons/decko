@@ -1,13 +1,13 @@
 RSpec.describe Card::Set::Type::CustomizedBootswatchSkin do
-  specify ".read_bootstrap_variables" do
-    expect(described_class.read_bootstrap_variables).to include "$primary"
-  end
-
   let(:card) do
     Card::Env.params[:theme] = "journal"
     Card::Auth.as_bot do
-      create_customized_skin "my skin"
+      create_customized_bootswatch_skin "my skin"
     end
+  end
+
+  specify ".read_bootstrap_variables" do
+    expect(described_class.read_bootstrap_variables).to include "$primary"
   end
 
   it "copies content from source file" do
