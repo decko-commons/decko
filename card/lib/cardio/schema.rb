@@ -8,6 +8,13 @@ module Cardio
       end
     end
 
+    def migrate type, version=nil, verbose=false
+      migration_context type do |mc|
+        ActiveRecord::Migration.verbose = verbose
+        mc.migrate version
+      end
+    end
+
     def schema_suffix type
       case type
       when :core_cards then "_core_cards"
@@ -21,6 +28,12 @@ module Cardio
       with_suffix type do
         paths = Cardio.migration_paths(type)
         yield(paths)
+      end
+    end
+
+    def migration_context type
+      with_suffix type do
+        yield ActiveRecord::MigrationContext.new(Cardio.migration_paths(type))
       end
     end
 

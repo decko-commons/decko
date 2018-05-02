@@ -1,11 +1,8 @@
+
 def run_card_migration core_or_deck
   prepare_migration
   verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
-  Cardio.schema_mode(core_or_deck) do |paths|
-    ActiveRecord::Migrator.migrations_paths = paths
-    ActiveRecord::Migration.verbose = verbose
-    ActiveRecord::Migrator.migrate paths, version
-  end
+  Cardio.migrate core_or_deck, version, verbose
 end
 
 def prepare_migration
@@ -45,10 +42,7 @@ namespace :card do
     task structure: :environment do
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
       without_dumping do
-        Cardio.schema_mode(:structure) do |paths|
-          ActiveRecord::Migrator.migrations_paths = paths
-          ActiveRecord::Migrator.migrate paths, version
-        end
+        Cardio.migrate :structure, version
       end
       reset_column_information
     end
@@ -69,11 +63,8 @@ namespace :card do
     def migrate_deck_structure
       require "card/migration/deck_structure"
       set_schema_path
-      Cardio.schema_mode(:deck) do |paths|
-        ActiveRecord::Migrator.migrations_paths = paths
-        ActiveRecord::Migrator.migrate paths, version
-        Rake::Task["db:_dump"].invoke # write schema.rb
-      end
+      Cardio.migrate :deck, version
+      Rake::Task["db:_dump"].invoke # write schema.rb
       reset_column_information true
     end
 
@@ -96,8 +87,7 @@ namespace :card do
       raise "VERSION is required" unless version
       ActiveRecord::Migration.verbose = verbose
       ActiveRecord::SchemaMigration.where(version: version.to_s).delete_all
-      ActiveRecord::Migrator.run :up, Cardio.migration_paths(:deck_cards),
-                                 version
+      Cardio.migrate :deck_cards, version
     end
 
     # maybe we should move this to a method?
