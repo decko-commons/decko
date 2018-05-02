@@ -193,4 +193,8 @@ format :html do
   view :thumbnail, template: :haml do
     voo.show! :customize_button, :thumbnail_image
   end
+
+  view :closed_content do
+    ""
+  end
 end
