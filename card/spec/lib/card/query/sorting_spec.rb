@@ -44,14 +44,12 @@ describe Card::Query, "sorting" do
     end
   end
 
-  it "sorts by count" do
-    Card::Auth.as_bot do
-      @query = {
-        name: [:in, "*always", "*never", "*edited"],
-        sort: { right: "*follow", item: "referred_to", return: "count" }
-      }
-      is_expected.to eq(["*never", "*edited", "*always"])
-    end
+  it "sorts by count", as_bot: true do
+    @query = {
+      name: [:in, "*always", "*never", "*edited"],
+      sort: { right: "*follow", item: "referred_to", return: "count" }
+    }
+    is_expected.to eq(["*never", "*edited", "*always"])
   end
 
   #  it 'sorts by update' do

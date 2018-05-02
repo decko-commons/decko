@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Type::BootswatchTheme do
-  CUSTOM_CSS = "body{background-color:#123}"
-  YETI_THEME_CSS = "background-color:#f6f6f6;"
+RSpec.describe Card::Set::Type::BootswatchSkin do
+  CUSTOM_CSS = "body{background-color:#123}".freeze
+  YETI_THEME_CSS = "background-color:#f6f6f6;".freeze
 
   let(:customized_skin) do
     Card::Env.params[:theme] = "yeti"
-    create "customized yeti skin", type: :customized_skin
+    create "customized yeti skin", type: :customized_bootswatch_skin
   end
 
   let(:style_with_customized_theme) do
