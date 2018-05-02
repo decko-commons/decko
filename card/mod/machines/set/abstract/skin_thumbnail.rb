@@ -17,7 +17,7 @@ format :html do
   end
 
   view :thumbnail_image do
-    field_nest(:image, view: :core)
+    field_nest(:image, view: :full_width)
   end
 
   def select_button target = parent.card

@@ -1,7 +1,7 @@
 .card.mb-4.box-shadow
   .card-header
     = card.name
-  = field_nest(:image, view: :core, class: "w-100")
+  = render_thumbnail_image
   .card-body
     .d-flex.justify-content-center.align-items-center
       .btn-group
