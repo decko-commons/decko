@@ -1,11 +1,39 @@
-# Usually machine cards store all involved input cards of all nested levels
-# in there +*machine_input pointer.
+# Bootswatch themes are free themes for bootstrap available at https://bootswatch.com/.
+# For every bootswatch theme we have one card of card type "bootswatch theme".
+# They all have codenames following the pattern "#{theme_name}_skin".
+#
+# The original bootswatch theme is build from two files, `_variables.scss` and
+# `_bootswatch.scss`. The original bootstrap scss has to be put between those two.
+# `_variables.scss` overrides bootstrap variables, `_bootswatch.scss` overrides
+# bootstrap css (variables are defined with `!default` hence only the first appearance
+# has an effect, for css the last appearance counts)
+#
+# The content of a bootswatch theme card consists of four parts:
+#   * pre_variables: hard-coded theme independent stuff (e.g. icons)
+#       and bootstrap functions to make the available in the variables part
+#   * variables: the content from `_variables.scss`,
+#   * post_variables: the bootstrap css and libraries like select2 and
+#       bootstrap-colorpicker that depend on the theme
+#   * stylesheets: the content from `_bootswatch.scss`
+#
+# For the original bootswatch theme all those parts are hard-coded and the content
+# is taken from files.
+# The bootswatch theme content is taken directly from the files in the bootswatch
+# submodule. For the rest we use code file cards.
+# Cards of type "customized skin" have the same structure but make the variables
+# and stylesheets part editable.
+#
+# Bootswatch theme cards are machine cards for the following reason.
+# Machine cards ususally store all involved input cards of all nested levels in
+# there +*machine_input pointer. All those input cards
+# are processed separately and the result is joined to build the machine output.
 # That's a problem for this card when it's used as input.
 # A lot of the items depend on the variables scss and can't
-# be processed independently. Therefore we return only self as item cards.
+# be processed independently. Therefore we return only self as item card and join
+# the content of all the item cards in the content of the bootswatch theme card.
 # But then this card has to forward updates of its items to the machine cards it provides
 # input for.
-# To do that it is a machine itself  and stores the generated machine output as its
+# To do that it is a machine itself and stores the generated machine output as its
 # content which will trigger the updates of other machines that use this card.
 
 include_set Abstract::Machine
@@ -13,7 +41,7 @@ include_set Type::Scss
 include_set Abstract::CodeFile
 include_set Abstract::SkinThumbnail
 
-CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets]
+CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets].freeze
 
 PRE_VARIABLES_CARD_NAMES = %i[
   style_jquery_ui_smoothness
@@ -22,33 +50,33 @@ PRE_VARIABLES_CARD_NAMES = %i[
   font_awesome
   material_icons
   bootstrap_functions
-]
+].freeze
 
 POST_VARIABLES_CARD_NAMES = %i[
   bootstrap_variables
   bootstrap_core
   style_bootstrap_cards
-]
+].freeze
 
+# reject cards that don't contribute directly to the content like skin or pointer cards
 def engine_input
-  # reject e.g. skin cards among the stylesheets cards
   extended_input_cards.select { |ca| ca.type_id.in? [ScssID, CssID] }
 end
 
+# Don't create "+*machine output" file card
+# instead save the the output as the card's content is
 def after_engine output
   Card::Auth.as_bot { update_attributes! db_content: output }
 end
 
-# def machine_input
-#   content
-# end
-
+# needed to make the refresh_script_and_style method work with these cards
 def source_files
   extended_input_cards.map do |i_card|
     i_card.try(:source_files)
   end.flatten.compact
 end
 
+# needed to make the refresh_script_and_style method work with these cards
 def existing_source_paths
   extended_input_cards.map do |i_card|
     i_card.try(:existing_source_paths)
@@ -114,12 +142,14 @@ def item_cards _args={}
   [self]
 end
 
+# override to customize the theme or to make it customizable
 # @return [Card, String, Array<Card, String>] strings must be valid (s)css; cards
 #         must be of type (S)CSS
 def variables_input
   scss_from_theme_file :variables
 end
 
+# override to customize the theme or to make it customizable
 # @return [Card, String, Array<Card,String>] strings must be valid (s)css; cards
 #         must be of type (S)CSS
 def stylesheets_input
@@ -158,7 +188,6 @@ def source_dir
   @source_dir ||=
     ::File.expand_path "../../../vendor/bootswatch/dist/#{theme_name}", __FILE__
 end
-
 
 format :html do
   view :thumbnail, template: :haml do

@@ -1,0 +1,3 @@
+def history?
+  false
+end

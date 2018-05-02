@@ -47,8 +47,9 @@ class Card
           return unless Card::Codename.exist? name
         end
         return unless Card.exist?(name)
-        update_card name, codename: nil
-        delete_card name
+        card = Card[name]
+        card.update_attributes! codename: nil
+        card.delete!
       end
 
       # create if card doesn't exist

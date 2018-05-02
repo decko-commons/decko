@@ -4,6 +4,10 @@ DURATIONS = "second|minute|hour|day|week|month|year".freeze
 
 card_accessor :expiration
 
+def history?
+  false
+end
+
 view :raw do
   tr :private_data
 end

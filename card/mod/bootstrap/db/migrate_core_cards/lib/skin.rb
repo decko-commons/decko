@@ -15,9 +15,16 @@ class Skin
       json = File.read File.join(vendor_path, "bootswatch", "docs", "api", "4.json")
       JSON.parse(json)["themes"].map { |theme| theme["name"] }
     end
+
+    def each
+      themes.each do |theme_name|
+        skin = Skin.new(theme_name)
+        yield skin
+      end
+    end
   end
 
-  attr_reader :skin_name, :skin_codename
+  attr_reader :skin_name, :skin_codename, :theme_name
 
   def initialize theme_name
     @theme_name = theme_name.downcase

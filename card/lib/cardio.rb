@@ -49,7 +49,8 @@ module Cardio
         closed_search_limit:    10,
         paging_limit:           20,
 
-        non_createable_types:   [%w(signup setting set bootswatch_theme)],
+        non_createable_types:   [%w[signup setting set
+                                   bootswatch_skin customized_bootswatch_skin]],
         view_cache:             false,
         rss_enabled:            false,
         double_click:           :signed_in,

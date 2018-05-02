@@ -2,15 +2,17 @@
 
 require_relative "lib/skin"
 
-class AddBootswatchTheme < Card::Migration::Core
+class AddTypeBootswatchSkin < Card::Migration::Core
+  STYLE_INPUT_SEARCH = <<-JSON.strip_heredoc
+    {"type": {"codename": ["in", "skin", "bootswatch_skin", "customized_bootswatch_skin"]}, "sort": "name"}
+  JSON
   def up
     ensure_card "style: right sidebar", codename: "style_right_sidebar"
     Card::Cache.reset_all
 
-    ensure_card "Bootswatch theme", type_id: Card::CardtypeID,
-                                    codename: "bootswatch_theme"
-    update_card [:style, :right, :options],
-                content: '{"type":["in", "Skin", "Bootswatch theme"],"sort":"name"}'
+    ensure_card "Bootswatch skin", type_id: Card::CardtypeID,
+                                   codename: "bootswatch_skin"
+    update_card %i[style right options], content: STYLE_INPUT_SEARCH
     Card::Cache.reset_all
     change_type_of_skins
   end
@@ -21,7 +23,7 @@ class AddBootswatchTheme < Card::Migration::Core
       puts "updating #{skin_name}"
       card = Card.fetch(skin_name)
       next puts "card not found" unless card
-      card.update_attributes! type_id: Card::BootswatchThemeID
+      card.update_attributes! type_id: Card::BootswatchSkinID
     end
   end
 end

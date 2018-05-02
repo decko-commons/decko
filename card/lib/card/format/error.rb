@@ -4,10 +4,10 @@ class Card
       def rescue_view e, view
         raise e if Rails.env =~ /^cucumber|test$/
         if focal?
-          render Card::Error.exception_view(@card, e)
+          focal_error e, view
         else
           # TODO: consider rendering dynamic error view here.
-          rendering_error e, view
+          nested_error e, view
         end
       end
 
@@ -23,7 +23,12 @@ class Card
         end
       end
 
-      def rendering_error _exception, view
+      def focal_error e, view
+        card.errors.add view.to_s, e.message if card.errors.empty?
+        render Card::Error.exception_view card, e
+      end
+
+      def nested_error _exception, view
         I18n.t :error_rendering, scope: [:lib, :card, :format, :error],
                cardname: error_cardname, view: view
       end
