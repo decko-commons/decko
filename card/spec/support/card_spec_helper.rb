@@ -7,7 +7,7 @@ end
 class Card
   # to be included in  RSpec::Core::ExampleGroup
   module SpecHelper
-    include RenderHelper
+    include ViewHelper
     include EventHelper
     include SaveHelper
 
