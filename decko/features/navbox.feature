@@ -29,6 +29,6 @@ Feature: Navbox
     And I fill in "query_keyword" with "skin"
     Then I press enter to search
     Then I should see "Search results"
-    And I should see "Sample Customized bootswatch skin"
+    And I should see "Sketchy skin"
     When I click on "2"
-    Then I should see "solar skin"
+    Then I should see "lux skin"
