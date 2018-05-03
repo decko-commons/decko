@@ -1,10 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Reference do
-  before do
-    Card::Auth.current_id = Card::WagnBotID
-  end
-
+RSpec.describe Card::Reference, as_bot: true do
   describe "references on hard templated cards should get updated" do
     it "on structuree creation" do
       Card.create! name: "JoeForm", type: "UserForm"
@@ -14,9 +10,9 @@ describe Card::Reference do
     end
 
     it "on template creation" do
-      Card.create! name: "SpecialForm", type: "Cardtype"
-      Card.create! name: "Form1", type: "SpecialForm", content: "foo"
-      Card.create! name: "SpecialForm+*type+*structure", content: "{{+bar}}"
+      create "SpecialForm", type: "Cardtype"
+      create "Form1", type: "SpecialForm", content: "foo"
+      create "SpecialForm+*type+*structure", content: "{{+bar}}"
       Card["Form1"].format.render!(:core)
       expect(Card["Form1"].includees.map(&:key)).to eq(["form1+bar"])
     end
