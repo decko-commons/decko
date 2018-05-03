@@ -22,9 +22,13 @@ event :update_content_in_list_cards, :prepare_to_validate,
       on: :save, changed: :content do
   return unless db_content.present?
   new_items = item_keys(content: db_content)
-  old_items = item_keys(content: db_content_before_act)
+  old_items = item_keys(content: old_content)
   remove_items(old_items - new_items)
   add_items(new_items - old_items)
+end
+
+def old_content
+  db_content_before_act.present? ? db_content_before_act : content_cache.read(key)
 end
 
 def remove_items items
@@ -48,8 +52,12 @@ def add_items items
   end
 end
 
+def content_cache
+  Card::Cache[Card::Set::Type::ListedBy]
+end
+
 def content
-  Card::Cache[Card::Set::Type::ListedBy].fetch(key) do
+  content_cache.fetch(key) do
     generate_content
   end
 end
