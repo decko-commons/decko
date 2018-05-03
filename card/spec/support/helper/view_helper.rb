@@ -1,6 +1,16 @@
 class Card
   module SpecHelper
-    module RenderHelper
+    module ViewHelper
+      module ViewDescriber
+        def describe_views *views
+          views.flatten.each do |view|
+            describe "view: #{view}" do
+              yield view
+            end
+          end
+        end
+      end
+
       def expect_view view, format: :html
         expect(format_subject(format).render(view))
       end
