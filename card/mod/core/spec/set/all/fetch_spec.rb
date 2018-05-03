@@ -48,9 +48,9 @@ RSpec.describe Card::Set::All::Fetch do
       expect(Card.fetch("A+*self")).not_to be_nil
     end
 
-    it "fetches newly virtual cards" do
+    it "fetches newly virtual cards", as_bot: true do
       expect(Card.fetch("A+virtual")).to be_nil
-      Card::Auth.as_bot { Card.create name: "virtual+*right+*structure" }
+      create "virtual+*right+*structure"
       expect(Card.fetch("A+virtual")).not_to be_nil
     end
 

@@ -26,7 +26,7 @@ class Card
   end
 
   def not_in_callback? # or in integrate_with_delay stage
-    mutation_tracker.equal?(mutations_from_database)
+    mutations_before_last_save.equal?(mutations_from_database)
   end
 
   def attribute_is_changing? attr
