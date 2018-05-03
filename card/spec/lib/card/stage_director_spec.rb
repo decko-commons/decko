@@ -350,6 +350,16 @@ RSpec.describe Card::ActManager::StageDirector do
     end
   end
 
+  example "dirty checks work in intergration stage" do
+    executed = false
+    in_stage :integrate, on: :create,
+                         when: proc { |c| c.db_content_changed? },
+                         trigger: -> { create "changed content" } do
+      executed = true
+    end
+    expect(executed).to be_truthy
+  end
+
   describe "subcards" do
     def create_subcards
       Card.create! name: "", subcards: {
