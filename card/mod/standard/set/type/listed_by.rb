@@ -22,7 +22,7 @@ event :update_content_in_list_cards, :prepare_to_validate,
       on: :save, changed: :content do
   return unless db_content.present?
   new_items = item_keys(content: db_content)
-  old_items = item_keys(content: db_content_was)
+  old_items = item_keys(content: db_content_before_act)
   remove_items(old_items - new_items)
   add_items(new_items - old_items)
 end

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::List do
+RSpec.describe Card::Set::Type::List do
   subject { Card.fetch("Parry Hotter+authors").item_names.sort }
 
   before do
