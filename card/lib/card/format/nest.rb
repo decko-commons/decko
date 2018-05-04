@@ -8,8 +8,8 @@ class Card
       def initialize format, cardish, view_opts={}, format_opts={}
         @format = format
         @view_opts = view_opts
-        @format_opts = format_opts
-        @override = format_opts.delete(:override) || true
+        @format_opts = format_opts.clone
+        @override = @format_opts.delete(:override) != false
         @card ||= fetch_card cardish
         # note: fetch_card can alter view and view_opts[:nest_name]
       end
