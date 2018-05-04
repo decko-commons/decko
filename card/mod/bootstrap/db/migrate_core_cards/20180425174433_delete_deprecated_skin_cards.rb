@@ -5,7 +5,7 @@ require_relative "lib/skin"
 class Skin
   def delete_deprecated_skin_cards
     skin_cards.each do |name_parts|
-      next if !Card.fetch(name_parts) || Card.fetch(name_parts).pristine?
+      next if !Card.fetch(name_parts) || !Card.fetch(name_parts).pristine?
       delete_card name_parts
     end
   end
