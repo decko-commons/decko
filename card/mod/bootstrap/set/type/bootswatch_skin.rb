@@ -8,12 +8,13 @@
 # bootstrap css (variables are defined with `!default` hence only the first appearance
 # has an effect, for css the last appearance counts)
 #
-# The content of a bootswatch theme card consists of four parts:
+# The content of a bootswatch theme card consists of five parts:
 #   * pre_variables: hard-coded theme independent stuff (e.g. icons)
 #       and bootstrap functions to make the available in the variables part
 #   * variables: the content from `_variables.scss`,
 #   * post_variables: the bootstrap css and libraries like select2 and
 #       bootstrap-colorpicker that depend on the theme
+#   * mod_styles: styles provided by mods
 #   * stylesheets: the content from `_bootswatch.scss`
 #
 # For the original bootswatch theme all those parts are hard-coded and the content
@@ -41,7 +42,7 @@ include_set Type::Scss
 include_set Abstract::CodeFile
 include_set Abstract::SkinThumbnail
 
-CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets].freeze
+CONTENT_PARTS = %i[pre_variables variables post_variables mod_styles stylesheets].freeze
 
 PRE_VARIABLES_CARD_NAMES = %i[
   style_jquery_ui_smoothness
@@ -56,7 +57,6 @@ POST_VARIABLES_CARD_NAMES = %i[
   bootstrap_variables
   bootstrap_core
   style_bootstrap_cards
-  style_mods
 ].freeze
 
 # reject cards that don't contribute directly to the content like skin or pointer cards
@@ -87,6 +87,7 @@ end
 def extended_input_cards
   names = PRE_VARIABLES_CARD_NAMES + variable_card_names + POST_VARIABLES_CARD_NAMES
   cards = names.map { |n| Card.fetch n }
+  cards += mod_styles_input
   cards += extended_stylesheets_cards
   cards.compact
 end
@@ -124,6 +125,10 @@ def post_variables_content
   load_content(*POST_VARIABLES_CARD_NAMES)
 end
 
+def mod_styles_content
+  to_content mod_styles_input
+end
+
 def stylesheets_content
   to_content stylesheets_input
 end
@@ -155,6 +160,10 @@ end
 #         must be of type (S)CSS
 def stylesheets_input
   scss_from_theme_file :bootswatch
+end
+
+def mod_styles_input
+  Card[:style_mods].extended_item_cards
 end
 
 def to_content cards_or_strings
