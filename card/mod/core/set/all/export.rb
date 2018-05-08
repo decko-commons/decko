@@ -1,7 +1,7 @@
 format :json do
   before :export do
-    @export_count ? @export_count += 1 : @export_count = 1
-    @exported_keys ||= ::Set.new
+    @export_count = inherit(:export_count).to_i + 1
+    @exported_keys = inherit(:exported_keys) || ::Set.new
   end
 
   view :export, cache: :never do
@@ -12,18 +12,19 @@ format :json do
   end
 
   before :export_items do
-    @exported_keys ||= ::Set.new
+    @exported_keys = inherit(:exported_keys) || ::Set.new
   end
 
   view :export_items, cache: :never do
     valid_items_for_export.map do |item|
+      puts item
       nest item, view: :export
     end
   end
 
   def items_for_export
     items = []
-    card.each_nested_chunk do |chunk|
+    each_nested_chunk(nil) do |chunk|
       next if main_nest_chunk? chunk
       items << chunk.referee_card
     end
