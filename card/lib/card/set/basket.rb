@@ -38,7 +38,9 @@ class Card
       def abstract_basket name
         # the basket has to be defined on the including set
         # (instead on the set itself)
+
         define_singleton_method :included do |host|
+          super(host)
           host.basket name
         end
       end

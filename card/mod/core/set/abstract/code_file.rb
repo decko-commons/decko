@@ -54,6 +54,14 @@ def content
   end.compact.join "\n"
 end
 
+def coffee_files files
+  files.map { |file| "script_#{file}.js.coffee" }
+end
+
+def scss_files files
+  files.map { |file| "style_#{file}.scss" }
+end
+
 format :html do
   view :editor do
     "Content is stored in file and can't be edited."
