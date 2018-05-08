@@ -63,3 +63,11 @@ format :html do
     multi_card_editor? ? super : ""
   end
 end
+
+def coffee_files files
+  files.map { |f| "script_#{f}.js.coffee" }
+end
+
+def scss_files files
+  files.map { |f| "style_#{f}.scss" }
+end
