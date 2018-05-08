@@ -8,7 +8,7 @@ class AddTypeBootswatchSkin < Card::Migration::Core
   JSON
   def up
     ensure_card "style: mods", codename: "style_mods",
-                type_id: Card::PointerID
+                               type_id: Card::PointerID
     ensure_card "style: right sidebar", codename: "style_right_sidebar"
     Card::Cache.reset_all
 
