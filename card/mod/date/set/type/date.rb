@@ -1,4 +1,3 @@
-
 format :html do
   def editor
     :calendar
