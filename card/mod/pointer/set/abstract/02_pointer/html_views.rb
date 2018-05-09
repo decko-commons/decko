@@ -45,15 +45,7 @@ format :html do
     haml :list_input, items: items, ul_classes: ul_classes
   end
 
-  def add_item_button
-    button_tag(class: "pointer-item-add") { glyphicon("plus") + " add another" }
-  end
-
-  def edit_list_item item
-    haml :list_item, item: item, options_card: options_card_name
-  end
-
-  %i[autocomplete checkbox multiselect radio].each do |editor_view|
+  %i[autocomplete checkbox radio select multiselect].each do |editor_view|
     view(editor_view) { send "#{editor_view}_input" }
   end
 
@@ -64,12 +56,6 @@ format :html do
 
   def checkbox_input
     haml :checkbox_input
-  end
-
-  def multiselect_input
-    select_tag "pointer_multiselect-#{unique_id}",
-               options_for_select(card.option_names, card.item_names),
-               multiple: true, class: "pointer-multiselect form-control"
   end
 
   def radio_input
@@ -83,10 +69,15 @@ format :html do
                class: "pointer-select form-control")
   end
 
+  def multiselect_input
+    select_tag "pointer_multiselect-#{unique_id}",
+               options_for_select(card.option_names, card.item_names),
+               multiple: true, class: "pointer-multiselect form-control"
+  end
+
   private
 
-  # currently only used by :list and :autocomplete.
-  # could be generalized?
+  # currently only used by :list and :autocomplete. could be generalized?
   def items_for_input items=nil
     items ||= card.item_names context: :raw
     items.empty? ? [""] : items

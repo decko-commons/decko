@@ -1,5 +1,8 @@
 # ~~~~~~~~~~~~ READING ITEMS ~~~~~~~~~~~~
 
+# While each of the three main methods for returning lists of items can handle arguments,
+# they are most commonly used without them.
+
 # @return [Array] list of Card::Name objects
 # @param args [Hash]
 # @option args [String] :content override card content
@@ -13,22 +16,19 @@ def item_names args={}
   raw_item_strings(args[:content], args[:limit], args[:offset]).map do |item|
     clean_item_name item, args[:context]
   end.compact
-rescue => e
-  binding.pry
 end
 
-# @return [Array] list of integers
+# @return [Array] list of integers (card ids of items)
 # @param args [Hash] see #item_names
 def item_ids args={}
-  item_names(args).map do |name|
-    Card.fetch_id name
-  end.compact
+  item_names(args).map { |name| Card.fetch_id name }.compact
 end
 
 # @return [Array] list of Card objects
 # @param args [Hash] see #item_names for additional options
-# @option
-
+# @option args [String] :complete keyword to use in searching among items
+# @option args [True/False] :known_only if true, return only known cards
+# @option args [String] :type name of type to be used for unknown cards
 def item_cards args={}
   return item_cards_search(args) if args[:complete]
   return known_item_cards(args) if args[:known_only]
@@ -124,6 +124,8 @@ def new_unknown_item_args args
   itype ? { type: itype } : {}
 end
 
+# TODO: support type_code and type_id. (currently type)
+# uses name, because its most common use is from WQL
 def item_type
   opt = options_rule_card
   # FIXME: need better recursion prevention

@@ -57,6 +57,6 @@ format :html do
   def option_description_core option
     # DISCUSS: "options label" is an obscure rule. still support?
     desc_name = card.rule(:options_label) || "description"
-    nest Card[option, desc_name], view: :core, mode: :normal
+    nest Card[option, desc_name], { view: :core }, nest_mode: :normal
   end
 end
