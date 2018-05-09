@@ -56,6 +56,7 @@ POST_VARIABLES_CARD_NAMES = %i[
   bootstrap_variables
   bootstrap_core
   style_bootstrap_cards
+  style_mods
 ].freeze
 
 # reject cards that don't contribute directly to the content like skin or pointer cards
