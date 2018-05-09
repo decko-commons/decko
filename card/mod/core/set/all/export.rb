@@ -17,7 +17,6 @@ format :json do
 
   view :export_items, cache: :never do
     valid_items_for_export.map do |item|
-      puts item
       nest item, view: :export
     end
   end
