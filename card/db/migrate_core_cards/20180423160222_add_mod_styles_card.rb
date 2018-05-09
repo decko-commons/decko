@@ -7,5 +7,7 @@ class AddModStylesCard < Card::Migration::Core
     ensure_card "script: libraries",
                 codename: "script_libraries",
                 type_id: Card::PointerID
+    Card.fetch(:all, :script)&.insert_item! 4, "script: libraries"
+    Card::Cache.reset_all
   end
 end
