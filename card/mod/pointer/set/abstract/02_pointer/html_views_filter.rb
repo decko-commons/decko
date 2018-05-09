@@ -1,16 +1,20 @@
 
 format :html do
   view :filtered_list, tags: :unknown_ok do
+    filtered_list_input
+  end
+
+  view :filter_items, tags: :unknown_ok, cache: :never do
+    wrap() { haml :filter_items }
+  end
+
+  def filtered_list_input
     with_nest_mode :normal do
       class_up "card-slot", filtered_list_slot_class
       wrap do
         haml :filtered_list_input
       end
     end
-  end
-
-  def filtered_list_input
-    _render_filtered_list
   end
 
   def filtered_list_item item_card
@@ -34,12 +38,6 @@ format :html do
   def filter_card_from_params
     return unless params[:filter_card]
     Card.fetch params[:filter_card], new: {}
-  end
-
-  view :filter_items, tags: :unknown_ok, cache: :never do
-    wrap do
-      haml :filter_items
-    end
   end
 
   # currently actually used as a class

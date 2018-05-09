@@ -133,7 +133,7 @@ RSpec.describe Card::Name do
 
       it "fails for non-existent codename" do
         expect { described_class.new(":no_codename") }
-          .to raise_error(Card::Error::UnknownCodename)
+          .to raise_error(Card::Error::CodenameNotFound)
       end
 
       it "creates empty name for nil" do
