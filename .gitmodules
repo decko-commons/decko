@@ -13,3 +13,15 @@
 [submodule "card/mod/bootstrap/vendor/bootstrap-colorpicker"]
 	path = card/mod/bootstrap/vendor/bootstrap-colorpicker
 	url = https://github.com/farbelous/bootstrap-colorpicker.git
+[submodule "card/mod/bootstrap/vendor/bootswatch"]
+	path = card/mod/bootstrap/vendor/bootswatch
+	url = https://github.com/thomaspark/bootswatch
+[submodule "card/mod/machines/vendor/jquery_rails"]
+	path = card/mod/machines/vendor/jquery_rails
+	url = https://github.com/rails/jquery-rails
+[submodule "card/mod/date/vendor/moment"]
+	path = card/mod/date/vendor/moment
+	url = https://github.com/moment/moment
+[submodule "card/mod/date/vendor/tempusdominus"]
+	path = card/mod/date/vendor/tempusdominus
+	url = https://github.com/tempusdominus/bootstrap-4

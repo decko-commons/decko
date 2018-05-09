@@ -20,20 +20,6 @@ def stylesheets_card_names
   [Card.fetch_name(name, :stylesheets)]
 end
 
-def extended_stylesheets_cards
-  stylesheets_card_names.map do |n|
-    Card.fetch(n).extended_item_cards
-  end.flatten.compact
-end
-
-def variables_input
-  [colors_card, variables_card]
-end
-
-def stylesheets_input
-  stylesheets_card.extended_item_cards
-end
-
 def theme_card_name
   "#{theme_name} skin"
 end
