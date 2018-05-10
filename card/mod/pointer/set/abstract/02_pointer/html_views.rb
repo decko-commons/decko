@@ -65,7 +65,7 @@ format :html do
   def select_input
     options = [["-- Select --", ""]] + card.option_names.map { |x| [x, x] }
     select_tag("pointer_select-#{unique_id}",
-               options_for_select(options, card.item_names.first),
+               options_for_select(options, card.item_name),
                class: "pointer-select form-control")
   end
 

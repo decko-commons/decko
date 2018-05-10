@@ -29,5 +29,5 @@ def disappear?
 end
 
 def alert_class
-  contextual_class.present? ? contextual_class_card.item_names.first : :success
+  contextual_class.present? ? contextual_class_card.item_name : :success
 end

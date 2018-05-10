@@ -35,6 +35,13 @@ def item_cards args={}
   all_item_cards args
 end
 
+# #item_name, #item_id, and #item_card each return a single item, rather than an array.
+%i[name id card].each do |obj|
+  define_method "item_#{obj}" do |args={}|
+    send("item_#{obj}s", args.merge(limit: 1)).first
+  end
+end
+
 # ~~~~~~~~~~~~ ALTERING ITEMS ~~~~~~~~~~~~
 
 # set card content based on array and save card
@@ -138,13 +145,16 @@ end
 def raw_item_strings content, limit, offset
   items = all_raw_item_strings content
   limit = limit.to_i
-  return items unless limit.positive?
-  items[offset.to_i, limit] || []
+  offset = offset.to_i
+  return items unless limit.positive? || offset.positive?
+  items[offset, (limit.zero? ? items.size : limit)] || []
 end
 
 def all_raw_item_strings content=nil
   (content || self.content).to_s.split(/\n+/)
 end
+
+private
 
 def clean_item_name item, context
   item = strip_item(item).to_name
