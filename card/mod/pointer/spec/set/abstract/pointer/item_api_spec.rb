@@ -14,42 +14,43 @@ describe Card::Set::Abstract::Pointer do
   end
 
   describe "add_item" do
+    let(:pointer) { Card.new name: "tp", type: "pointer" }
+
     it "add to empty ref list" do
-      pointer = Card.new name: "tp", type: "pointer", content: ""
       pointer.add_item "John"
-      pointer.content.should == "[[John]]"
+      expect(pointer.content).to eq("[[John]]")
     end
 
     it "add to existing ref list" do
-      pointer = Card.new name: "tp", type: "pointer", content: "[[Jane]]"
+      pointer.content = "[[Jane]]"
       pointer.add_item "John"
-      pointer.content.should == "[[Jane]]\n[[John]]"
+      expect(pointer.content).to eq("[[Jane]]\n[[John]]")
     end
 
     it "not add duplicate entries" do
-      pointer = Card.new name: "tp", type: "pointer", content: "[[Jane]]"
+      pointer.content = "[[Jane]]"
       pointer.add_item "Jane"
-      pointer.content.should == "[[Jane]]"
+      expect(pointer.content).to eq("[[Jane]]")
     end
   end
 
   describe "drop_item" do
+    let :pointer do
+      Card.new name: "tp", type: "pointer", content: "[[Jane]]\n[[John]]"
+    end
+
     it "remove the link" do
-      content = "[[Jane]]\n[[John]]"
-      pointer = Card.new name: "tp", type: "pointer", content: content
       pointer.drop_item "Jane"
-      pointer.content.should == "[[John]]"
+      expect(pointer.content).to eq("[[John]]")
     end
 
     it "not fail on non-existent reference" do
-      content = "[[Jane]]\n[[John]]"
-      pointer = Card.new name: "tp", type: "pointer", content: content
       pointer.drop_item "Bigfoot"
-      pointer.content.should == content
+      expect(pointer.content).to eq("[[Jane]]\n[[John]]")
     end
 
     it "remove the last link" do
-      pointer = Card.new name: "tp", type: "pointer", content: "[[Jane]]"
+      pointer.drop_item "John"
       pointer.drop_item "Jane"
       pointer.content.should == ""
     end
