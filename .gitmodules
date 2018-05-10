@@ -25,3 +25,6 @@
 [submodule "card/mod/date/vendor/tempusdominus"]
 	path = card/mod/date/vendor/tempusdominus
 	url = https://github.com/tempusdominus/bootstrap-4
+[submodule "card/mod/machines/vendor/jquery_file_upload"]
+	path = card/mod/machines/vendor/jquery_file_upload
+	url = https://github.com/blueimp/jQuery-File-Upload
