@@ -11,7 +11,8 @@ describe Card::Set::Abstract::Pointer do
     end
 
     describe_views :core, :closed_content, :editor,
-                   :list, :autocomplete, :checkbox, :radio, :select, :multiselect do |view|
+                   :list, :autocomplete, :checkbox,
+                   :radio, :select, :multiselect do |view|
       it "doesn't have errors" do
         expect(pointer.format.render(view)).to lack_errors
       end
@@ -54,12 +55,11 @@ describe Card::Set::Abstract::Pointer do
     end
 
     it "includes nonexisting card in checkbox options" do
-      option_html =
-          'input[class="pointer-checkbox-button"]'\
-          '[checked="checked"]'\
-          '[type="checkbox"]'\
-          '[value="nonexistingcardmustnotexistthisistherule"]'\
-          '[id="pointer-checkbox-nonexistingcardmustnotexistthisistherule"]'
+      option_html = 'input[class="pointer-checkbox-button"]' \
+                    '[checked="checked"]' \
+                    '[type="checkbox"]' \
+                    '[value="nonexistingcardmustnotexistthisistherule"]' \
+                    '[id="pointer-checkbox-nonexistingcardmustnotexistthisistherule"]'
       # debug_assert_view_select @pointer.format.render_checkbox, option_html
       assert_view_select inherit_pointer.format.render_checkbox, option_html
     end
