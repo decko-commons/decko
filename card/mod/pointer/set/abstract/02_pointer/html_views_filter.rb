@@ -5,7 +5,7 @@ format :html do
   end
 
   view :filter_items, tags: :unknown_ok, cache: :never do
-    wrap() { haml :filter_items }
+    wrap { haml :filter_items }
   end
 
   def filtered_list_input

@@ -21,7 +21,7 @@ def standard_option_names
 end
 
 def option_names_from_rules
-  return unless rule_card = options_rule_card
+  return unless (rule_card = options_rule_card)
   rule_card.item_names context: name, limit: rule_card.try(:default_limit).to_i
 end
 
@@ -44,8 +44,7 @@ format :html do
   end
 
   def option_label_text option_name
-    o_card = Card.fetch(option_name)
-    (o_card && o_card.label) || option_name
+    Card.fetch(option_name)&.label || option_name
   end
 
   # @param option_type [String] "checkbox" or "radio"

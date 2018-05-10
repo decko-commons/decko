@@ -70,20 +70,17 @@ describe Card::Set::Abstract::Pointer do
     end
   end
 
-
   describe "#standardize_item" do
     it "handles unlinked items" do
-      pointer1 = Card.create!(
-          name: "pointer1", type: "Pointer", content: "bracketme"
-      )
-      pointer1.content.should == "[[bracketme]]"
+      pointer.update_attributes! content: "bracketme"
+      expect(pointer.content).to eq("[[bracketme]]")
     end
 
-    it "handles array" do
-      pointer1 = Card.create!(
-          name: "pointer1", type: "Pointer", content: ["b1", "[[b2]]"]
-      )
-      expect(pointer1.content).to eq "[[b1]]\n[[b2]]"
+    it "handles array on create" do
+      pointer1 = Card.create! name: "pointer1",
+                              type: "Pointer",
+                              content: ["b1", "[[b2]]"]
+      expect(pointer1.content).to eq("[[b1]]\n[[b2]]")
     end
   end
 end

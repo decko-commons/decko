@@ -21,11 +21,14 @@ end
 # in the same action, this event will be run and will treat the content like
 # it' still pointer content.  The "when" clause helps with that (but is a hack)
 event :standardize_items, :prepare_to_validate,
-      on: :save, changed: :content,
-      when: proc { |c| c.type_id == Card::PointerID } do
+      on: :save, changed: :content, when: :still_pointer? do
   self.content = item_names(context: :raw).map do |name|
     "[[#{name}]]"
   end.join "\n"
+end
+
+def still_pointer?
+  type_id == Card::PointerID
 end
 
 stage_method :changed_item_names do

@@ -19,30 +19,38 @@ describe Card::Set::Abstract::Pointer do
   end
 
   describe "editors" do
-    before do
+    let(:item_name) { "nonexistingcardmustnotexistthisistherule" }
+
+    let(:pointer) do
       Card::Auth.as_bot do
-        @card_name = "nonexistingcardmustnotexistthisistherule"
-        @pointer = Card.create name: "tp", type: "pointer",
-                               content: "[[#{@card_name}]]"
-        # similar tests for an inherited type of Pointer
-        @my_list = Card.create! name: "MyList", type_id: Card::CardtypeID
+        Card.create name: "tp", type: "pointer", content: "[[#{item_name}]]"
+      end
+    end
+
+    let(:new_type) do
+      Card::Auth.as_bot do
+        mylist = Card.create! name: "MyList", type_id: Card::CardtypeID
         Card.create name: "MyList+*type+*default", type_id: Card::PointerID
-        @inherit_pointer = Card.create name: "ip", type_id: @my_list.id,
-                                       content: "[[#{@card_name}]]"
+        mylist
+      end
+    end
+
+    let(:inherit_pointer) do
+      Card::Auth.as_bot do
+        Card.create name: "ip", type_id: new_type.id, content: "[[#{item_name}]]"
       end
     end
 
     it "includes nonexisting card in radio options" do
-      common_html =
-          'input[class="pointer-radio-button"]'\
-          '[checked="checked"]'\
-          '[type="radio"]'\
-          '[value="nonexistingcardmustnotexistthisistherule"]'\
-          '[id="pointer-radio-nonexistingcardmustnotexistthisistherule"]'
+      common_html = 'input[class="pointer-radio-button"]' \
+                    '[checked="checked"]' \
+                    '[type="radio"]' \
+                    '[value="nonexistingcardmustnotexistthisistherule"]' \
+                    '[id="pointer-radio-nonexistingcardmustnotexistthisistherule"]'
       option_html = common_html + '[name="pointer_radio_button-tp"]'
-      assert_view_select @pointer.format.render_radio, option_html
+      assert_view_select pointer.format.render_radio, option_html
       option_html = common_html + '[name="pointer_radio_button-ip"]'
-      assert_view_select @inherit_pointer.format.render_radio, option_html
+      assert_view_select inherit_pointer.format.render_radio, option_html
     end
 
     it "includes nonexisting card in checkbox options" do
@@ -53,22 +61,22 @@ describe Card::Set::Abstract::Pointer do
           '[value="nonexistingcardmustnotexistthisistherule"]'\
           '[id="pointer-checkbox-nonexistingcardmustnotexistthisistherule"]'
       # debug_assert_view_select @pointer.format.render_checkbox, option_html
-      assert_view_select @inherit_pointer.format.render_checkbox, option_html
+      assert_view_select inherit_pointer.format.render_checkbox, option_html
     end
 
     it "includes nonexisting card in select options" do
-      option_html = "option[value='#{@card_name}'][selected='selected']"
-      assert_view_select @pointer.format.render_select, option_html, @card_name
-      assert_view_select @inherit_pointer.format.render_select, option_html,
-                         @card_name
+      option_html = "option[value='#{item_name}'][selected='selected']"
+      assert_view_select pointer.format.render_select, option_html, item_name
+      assert_view_select inherit_pointer.format.render_select, option_html,
+                         item_name
     end
 
     it "includes nonexisting card in multiselect options" do
-      option_html = "option[value='#{@card_name}'][selected='selected']"
-      assert_view_select @pointer.format.render_multiselect, option_html,
-                         @card_name
-      assert_view_select @inherit_pointer.format.render_multiselect,
-                         option_html, @card_name
+      option_html = "option[value='#{item_name}'][selected='selected']"
+      assert_view_select pointer.format.render_multiselect, option_html,
+                         item_name
+      assert_view_select inherit_pointer.format.render_multiselect,
+                         option_html, item_name
     end
   end
 
