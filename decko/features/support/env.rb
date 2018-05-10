@@ -11,8 +11,8 @@ World(RSpec::Matchers)
 require "rspec-html-matchers"
 World(RSpecHtmlMatchers)
 
-require "capybara-select2"
-include Capybara::Select2
+# require "capybara-select2"
+# include Capybara::Select2
 
 require "pry"
 

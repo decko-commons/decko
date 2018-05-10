@@ -4,6 +4,7 @@ end
 
 When(/^I enter '([^']*)' in the navbox$/) do |arg|
   enter_select2(arg, '.navbox-form')
+  wait_for_ajax # wait for search results
 end
 
 When /^(?:|I )select2 "([^"]*)" from "([^"]*)"$/ do |value, field|
@@ -15,7 +16,6 @@ def select_from_select2(value, attrs)
   list = find(:xpath, '//span[@class="select2-results"]', visible: :all)
   list.find("li", text: value).click
 end
-
 
 def enter_select2 value, css
   select2_container = find(:css, css)
