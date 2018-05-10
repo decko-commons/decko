@@ -6,13 +6,13 @@ class << self
   end
 end
 
-include_set Type::BootswatchSkin
+include_set Abstract::BootswatchTheme
 
 card_accessor :colors
 card_accessor :variables
 card_accessor :stylesheets
 
-def variable_card_names
+def variables_card_names
   %i[colors variables].map { |s| Card.fetch_name name, s }
 end
 

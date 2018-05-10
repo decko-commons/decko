@@ -58,7 +58,7 @@ POST_VARIABLES_CARD_NAMES = %i[
 ].freeze
 
 # @return Array<Card::Name,String>
-def variable_card_names
+def variables_card_names
   []
 end
 
@@ -121,7 +121,7 @@ def stylesheets_content
 end
 
 def input_names _args={}
-  (PRE_VARIABLES_CARD_NAMES + variable_card_names +
+  (PRE_VARIABLES_CARD_NAMES + variables_card_names +
     POST_VARIABLES_CARD_NAMES + stylesheets_card_names).compact.map do |n|
     Card.fetch_name(n)
   end.compact
