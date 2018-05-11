@@ -1,4 +1,5 @@
 include_set Abstract::WqlSearch
+include_set Type::Json
 
 format do
   view :core, cache: :never do
@@ -61,14 +62,6 @@ format :html do
       # TODO: if item is queryified to be "name", then that should work.
       # otherwise use link
     end
-  end
-
-  def editor
-    :ace_editor
-  end
-
-  def ace_mode
-    :json
   end
 
   def rss_link_tag

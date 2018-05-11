@@ -20,10 +20,10 @@ class AddDatepicker < Card::Migration::Core
     ensure_card "style: datepicker",
                 codename: "style_datepicker", type_id: Card::ScssID
     ensure_card "script: datepicker config",
-                    codename: "script_datepicker_config", type_id: Card::CoffeeScriptID
+                codename: "script_datepicker_config", type_id: Card::CoffeeScriptID
     ensure_card "*datepicker",
                 codename: "datepicker", type_id: Card::JsonID,
                 content: DEFAULT_CONFIG
-    ensure_card [:datepicker, :self, :help], content: HELP_TEXT
+    ensure_card %i[datepicker self help], content: HELP_TEXT
   end
 end
