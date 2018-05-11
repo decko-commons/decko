@@ -1,5 +1,4 @@
-event :update_follow_rules, :finalize,
-      on: :save, when: proc { |c| c.update_all_users } do
+event :update_follow_rules, :finalize, on: :save, when: :update_all_users do
   defaults = item_names.map do |item|
     if (set_card = Card.fetch item.to_name.left) && set_card.type_code == :set
       option_card = Card.fetch(item.to_name.right) ||
@@ -28,6 +27,8 @@ event :update_follow_rules, :finalize,
   end
   Card.follow_caches_expired
 end
+
+
 
 format :html do
   view :edit, perms: :update, tags: :unknown_ok do

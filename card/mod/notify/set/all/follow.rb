@@ -2,20 +2,9 @@ card_accessor :followers
 
 FOLLOWER_IDS_CACHE_KEY = "FOLLOWER_IDS".freeze
 
-# FIXME: this should be in type/set
-event :cache_expired_for_new_set, :store,
-      on: :create,
-      when: proc { |c| c.type_id == Card::SetID } do
-  Card.follow_caches_expired
-end
-
 event :cache_expired_for_type_change, :store,
       on: :update, changed: %i[type_id name] do
   # FIXME: expire (also?) after save
-  Card.follow_caches_expired
-end
-
-event :cache_expired_for_new_preference, :integrate, when: :follow_rule_card? do
   Card.follow_caches_expired
 end
 
@@ -95,10 +84,6 @@ end
 
 def follower_names
   followers.map(&:name)
-end
-
-def follow_rule_card?
-  is_preference? && rule_setting_name == "*follow"
 end
 
 def follow_option?
