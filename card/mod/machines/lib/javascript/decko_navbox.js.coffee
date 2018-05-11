@@ -1,47 +1,26 @@
 $(window).ready ->
-  $.fn.select2.amd.require([
-    'select2/selection/single'
-    'select2/selection/multiple',
-    'select2/selection/search',
-    'select2/dropdown',
-    'select2/dropdown/attachBody',
-    'select2/dropdown/closeOnSelect',
-    'select2/compat/containerCss',
-    'select2/utils'
-  ], (SingleSelection, MultipleSelection, Search, Dropdown, AttachBody, CloseOnSelect, ContainerCss, Utils) ->
+  navbox = $('._navbox')
+  navbox.select2
+    placeholder: navbox.attr("placeholder")
+    escapeMarkup: (markup) ->
+      markup
+    minimumInputLength: 1
+    maximumSelectionSize: 1
+    ajax:
+      url: decko.path ':search.json'
+      data: (params) ->
+        query: { keyword: params.term }
+        view: "complete"
+      processResults: (data) ->
+        results: navboxize(data)
+      cache: true
+    templateResult: formatNavboxItem
+    templateSelection: formatNavboxSelectedItem
+    multiple: true
+    containerCssClass: 'select2-navbox-autocomplete'
 
-    SelectionAdapter = Utils.Decorate(MultipleSelection, Search, ContainerCss)
-
-    DropdownAdapter = Utils.Decorate(
-      Utils.Decorate(Dropdown, CloseOnSelect),
-      AttachBody
-    )
-
-    navbox = $('._navbox')
-    navbox.select2
-      placeholder: navbox.attr("placeholder")
-      escapeMarkup: (markup) ->
-        markup
-      minimumInputLength: 1
-      maximumSelectionSize: 1
-      ajax:
-        url: decko.path ':search.json'
-        data: (params) ->
-          query: { keyword: params.term }
-          view: "complete"
-        processResults: (data) ->
-          results: navboxize(data)
-        cache: true
-      allowClear: false
-      templateResult: formatNavboxItem
-      templatSelection: formatNavboxSelectedItem
-      selectionAdapter: Utils.Decorate(MultipleSelection, Search, ContainerCss)
-      dropdownAdapter: DropdownAdapter
-      containerCssClass: ':all:'
-  )
-  $("body").on "select2:select", "._navbox", (e) ->
+  navbox.on "select2:select", (e) ->
     navboxSelect(e)
-
 
 formatNavboxItem = (i) ->
   if i.loading
@@ -89,4 +68,4 @@ navboxSelect = (event) ->
   else
     $(event.target).closest('form').submit()
 
-  $(this).attr('disabled', 'disabled')
+  $(event.target).attr('disabled', 'disabled')
