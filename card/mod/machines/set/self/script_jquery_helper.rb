@@ -1,9 +1,15 @@
 include_set Abstract::CodeFile
+Self::ScriptLibraries.add_item :script_jquery_helper
 
 def source_files
   # jquery.ui.all must be after jquery.mobile to override dialog weirdness *
-  # jquery.ui.autocomplete must be after jquery.ui stuff
   # FIXME removed  jquerymobile.js. Doesn't work with the new jquery version
-  %w[ jquery-ui.js jquery.ui.autocomplete.html.js jquery.autosize.js
-      jquery.fileupload.js jquery.iframe-transport.js jquery_ujs.js ]
+  # as fas as I'm aware of the only jquery widgets we use are
+  # autocomplete, sortable, autosize and fileupload
+  # autocomplete and sortable are intergrated in jquery-ui
+  # don't know if iframe-transport is needed
+  %w[jquery-ui.js
+     jquery.autosize.js
+     ../../vendor/jquery_file_upload/js/jquery.fileupload.js
+     ../../vendor/jquery_file_upload/js/jquery.iframe-transport.js]
 end

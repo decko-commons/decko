@@ -2,7 +2,6 @@ $.extend decko,
   editorContentFunctionMap: {}
 
   editorInitFunctionMap: {
-    '.date-editor': -> @datepicker { dateFormat: 'yy-mm-dd' }
     'textarea': -> $(this).autosize()
     '.file-upload': -> decko.upload_file(this)
     '.etherpad-textarea': ->

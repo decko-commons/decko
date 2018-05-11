@@ -56,10 +56,6 @@ When /^I close the modal window$/ do
   page.find(".modal-menu .close-modal").click
 end
 
-When /^I press enter to search$/ do
-  find("#query_keyword").native.send_keys(:return)
-end
-
 When /^I fill in "([^"]*)" with$/ do |field, value|
   fill_in(field, with: value)
 end

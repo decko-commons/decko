@@ -4,7 +4,6 @@ include_set Abstract::AceEditor
 
 Self::InputOptions.add_to_basket :options, "text area"
 Self::InputOptions.add_to_basket :options, "text field"
-Self::InputOptions.add_to_basket :options, "calendar"
 
 format :html do
   def editor
@@ -43,9 +42,5 @@ format :html do
 
   def text_field_input
     text_field :content, class: "d0-card-content"
-  end
-
-  def calendar_input
-    text_field :content, class: "date-editor"
   end
 end
