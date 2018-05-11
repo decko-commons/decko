@@ -7,10 +7,6 @@
   These styles are intended to help bridge the default card context with bootstrap styling.
   Note: these styles do not appear in pre-bootstrap skins.
 */
-{{bootstrap: functions}}
-{{bootstrap: variables}}
-{{bootstrap: breakpoints}}
-
 
 $label_color: #666666;
 $border_color: #999999;
@@ -330,4 +326,13 @@ body.mceContentBody {
 .border-all{
   border-width: 1px;
   border-style: solid;
+}
+
+#query_keyword + .select2-container--bootstrap  .select2-selection__choice__remove {
+  display: none !important;
+}
+
+#query_keyword + .select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+  background: none !important;
+  border: none !important;
 }

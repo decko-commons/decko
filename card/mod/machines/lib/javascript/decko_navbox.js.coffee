@@ -34,15 +34,12 @@ $(window).ready ->
         cache: true
       allowClear: false
       templateResult: formatNavboxItem
-      templateSelection: formatNavboxSelectedItem
-      selectionAdapter: SelectionAdapter
+      templatSelection: formatNavboxSelectedItem
+      selectionAdapter: Utils.Decorate(MultipleSelection, Search, ContainerCss)
       dropdownAdapter: DropdownAdapter
-      containerCssClass: 'select2-autocomplete'
-
-    navbox.on "select2:select", (e) ->
-      navboxSelect(e)
+      containerCssClass: ':all:'
   )
-  $('._navbox').on "select2:select", (e) ->
+  $("body").on "select2:select", "._navbox", (e) ->
     navboxSelect(e)
 
 
