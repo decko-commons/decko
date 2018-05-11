@@ -1,24 +1,50 @@
 $(window).ready ->
-  navbox = $('._navbox')
-  navbox.select2
-    placeholder: navbox.attr("placeholder")
-    escapeMarkup: (markup) ->
-      markup
-    minimumInputLength: 1
-    maximumSelectionSize: 1
-    ajax:
-      url: decko.path ':search.json'
-      data: (params) ->
-        query: { keyword: params.term }
-        view: "complete"
-      processResults: (data) ->
-        results: navboxize(data)
-      cache: true
-    templateResult: formatNavboxItem
-    templateSelection: formatNavboxSelectedItem
+  $.fn.select2.amd.require([
+    'select2/selection/single'
+    'select2/selection/multiple',
+    'select2/selection/search',
+    'select2/dropdown',
+    'select2/dropdown/attachBody',
+    'select2/dropdown/closeOnSelect',
+    'select2/compat/containerCss',
+    'select2/utils'
+  ], (SingleSelection, MultipleSelection, Search, Dropdown, AttachBody, CloseOnSelect, ContainerCss, Utils) ->
 
-  navbox.on "select2:select", (e) ->
+    SelectionAdapter = Utils.Decorate(MultipleSelection, Search, ContainerCss)
+
+    DropdownAdapter = Utils.Decorate(
+      Utils.Decorate(Dropdown, CloseOnSelect),
+      AttachBody
+    )
+
+    navbox = $('._navbox')
+    navbox.select2
+      placeholder: navbox.attr("placeholder")
+      escapeMarkup: (markup) ->
+        markup
+      minimumInputLength: 1
+      maximumSelectionSize: 1
+      ajax:
+        url: decko.path ':search.json'
+        data: (params) ->
+          query: { keyword: params.term }
+          view: "complete"
+        processResults: (data) ->
+          results: navboxize(data)
+        cache: true
+      allowClear: false
+      templateResult: formatNavboxItem
+      templateSelection: formatNavboxSelectedItem
+      selectionAdapter: SelectionAdapter
+      dropdownAdapter: DropdownAdapter
+      containerCssClass: 'select2-autocomplete'
+
+    navbox.on "select2:select", (e) ->
+      navboxSelect(e)
+  )
+  $('._navbox').on "select2:select", (e) ->
     navboxSelect(e)
+
 
 formatNavboxItem = (i) ->
   if i.loading
