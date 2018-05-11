@@ -1,4 +1,5 @@
 include_set Abstract::CodeFile
+Self::ScriptLibraries.add_item :script_select2
 
 def source_files
   # full version of select2 is needed to support containerCssClass config option

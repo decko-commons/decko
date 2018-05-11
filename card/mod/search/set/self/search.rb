@@ -53,6 +53,7 @@ format :json do
 
     {
       search: true,
+      term: term,
       add: add_item(exact),
       new: new_item_of_type(exact),
       goto: goto_items(term, exact)
@@ -64,20 +65,20 @@ format :json do
                   exact.name.valid? &&
                   !exact.virtual? &&
                   exact.ok?(:create)
-    exact.name
+    [exact.name, exact.name.url_key]
   end
 
   def new_item_of_type exact
     return unless (exact.type_id == Card::CardtypeID) &&
                   Card.new(type_id: exact.id).ok?(:create)
-    [exact.name, exact.name.url_key]
+    [exact.name, "new/#{exact.name.url_key}"]
   end
 
   def goto_items term, exact
     goto_names = Card.search goto_wql(term), "goto items for term: #{term}"
     goto_names.unshift exact.name if add_exact_to_goto_names? exact, goto_names
     goto_names.map do |name|
-      [name, highlight(name, term), name.to_name.url_key]
+      [name, name.to_name.url_key, highlight(name, term)]
     end
   end
 

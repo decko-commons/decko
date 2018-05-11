@@ -8,14 +8,14 @@ RSpec.describe Card::View::Options do
   describe "#accessible keys" do
     specify "accessible keys" do
       expect(Card::View::Options.accessible_keys)
-        .to include :nest_name, :nest_syntax, :main, :home_view, :edit_structure, :wql,
-                    :help, :structure, :title, :variant, :editor, :type, :size, :params,
-                    :items, :cache, :skip_perms, :main_view
+        .to include *%i[nest_name nest_syntax main home_view edit_structure wql
+                        help structure title variant editor type size params
+                        items cache skip_perms main_view]
     end
 
     specify "non-accessible keys" do
       expect(Card::View::Options.accessible_keys)
-        .not_to include :view, :show, :hide
+        .not_to contain_exactly :view, :show, :hide
     end
   end
 end
