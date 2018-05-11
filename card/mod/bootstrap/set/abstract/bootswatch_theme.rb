@@ -148,7 +148,7 @@ end
 
 def theme_name
   /^(.+)_skin$/.match(codename)&.capture(0) ||
-    /^(.+)[ _][sS]kin/.match(name).capture(0)&.downcase
+    /^(.+)[ _][sS]kin/.match(name)&.capture(0)&.downcase
 end
 
 def source_dir

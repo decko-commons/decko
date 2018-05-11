@@ -25,6 +25,6 @@ RSpec.describe Card::Set::Self::ScriptJqueryHelper do
   it "loads jquery.iframe-transport" do
     # Used to be there and is part of the jquery.fileupload gem.
     # No idea if we depend on it -pk
-    is_expected.to include "jQuery File Upload Plugin"
+    is_expected.to include "jQuery Iframe Transport Plugin"
   end
 end
