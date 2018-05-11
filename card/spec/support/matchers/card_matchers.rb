@@ -3,6 +3,8 @@ def expect_card *marks
   expect Card.cardish(marks)
 end
 
+
+
 RSpec::Matchers.define :exist do
   match do |card|
     should_be_true =

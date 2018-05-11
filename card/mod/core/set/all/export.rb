@@ -1,12 +1,12 @@
 format :json do
   before :export do
-    @export_count = inherit(:export_count).to_i + 1
+    @export_depth = inherit(:export_depth).to_i + 1
     @exported_keys = inherit(:exported_keys) || ::Set.new
   end
 
   view :export, cache: :never do
     # avoid loops
-    return [] if @export_count > 5 || @exported_keys.include?(card.key)
+    return [] if @export_depth > 5 || @exported_keys.include?(card.key)
     @exported_keys << card.key
     Array.wrap(render_atom).concat(render_export_items).flatten
   end

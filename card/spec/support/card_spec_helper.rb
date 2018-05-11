@@ -30,6 +30,10 @@ class Card
       card_subject.format_with_set(described_class, format)
     end
 
+    def expect_content
+      expect(card_subject.content)
+    end
+
     def assert_view_select view_html, *args, &block
       node = Nokogiri::HTML::Document.parse(view_html).root
       if block_given?
