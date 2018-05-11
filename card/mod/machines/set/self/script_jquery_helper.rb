@@ -5,8 +5,8 @@ def source_files
   # jquery.ui.all must be after jquery.mobile to override dialog weirdness *
   # FIXME removed  jquerymobile.js. Doesn't work with the new jquery version
   # as fas as I'm aware of the only jquery widgets we use are
-  # autocomplete, autosize and fileupload
-  # autocomplete is intergrated in jquery-ui
+  # autocomplete, sortable, autosize and fileupload
+  # autocomplete and sortable are intergrated in jquery-ui
   # don't know if iframe-transport is needed
   %w[jquery-ui.js
      jquery.autosize.js
