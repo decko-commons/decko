@@ -25,51 +25,11 @@ def add_follow_item? condition
 end
 
 format :html do
-  view :follow_status do
-    [
-        "<h4>Get notified about changes</h4>",
-        render!(:follow_status_delete_options),
-        follow_status_link
-    ].join "\n\n"
-  end
+  # shows a follow item link for each of the current follow options
+  view :follow_status, template: :haml
 
-  def follow_status_link
-    # simplified this to straight link for now.
-    # consider restoring to slotter action
-    link_to_card card.name, "more options",
-                 path: { view: :edit_single_rule },
-                 class: "btn update-follow-link",
-                 "data-card_key": card.set_prototype.key
-  end
-
-  view :follow_status_delete_options, cache: :never do
-    wrap_with(:ul, class: "delete-list list-group") do
-      card.item_names.map do |option|
-        wrap_with :li, class: "list-group-item" do
-          condition = option == "*never" ? "*always" : option
-          subformat(card).follow_item condition
-        end
-      end.join "\n"
-    end
-  end
-
-  view :delete_follow_rule_button do
-    button_tag(type: :submit,
-               class: "btn-xs btn-item-delete btn-primary",
-               "aria-label" => "Left Align") do
-      tag :span, class: "glyphicon glyphicon-ok", "aria-hidden" => "true"
-    end
-  end
-
-  view :add_follow_rule_button do
-    button_tag(type: :submit,
-               class: "btn-xs btn-item-add",
-               "aria-label" => "Left Align") do
-      tag :span, class: "glyphicon glyphicon-plus", "aria-hidden" => "true"
-    end
-  end
-
-  view :follow_item do
+  # interface to view/alter a specific rule option
+  view :follow_item, cache: :never do
     follow_item Env.params[:condition]
   end
 
@@ -86,6 +46,8 @@ format :html do
     end
   end
 
+  private
+
   def follow_item_hidden_tags condition
     condkey = card.add_follow_item?(condition) ? :add_item : :drop_item
     hidden_tags condition: condition, condkey => condition
@@ -93,7 +55,19 @@ format :html do
 
   def follow_item_button condition
     action = card.add_follow_item?(condition) ? :add : :delete
-    _render "#{action}_follow_rule_button"
+    button_tag type: :submit, "aria-label": "Left Align",
+               class: "btn-xs #{follow_item_button_class action}" do
+      follow_item_icon action
+      tag :span, class: "glyphicon glyphicon-ok", "aria-hidden": "true"
+    end
+  end
+
+  def follow_item_button_class action
+    action == :add ? "btn-item-add" : "btn-item-delete btn-primary"
+  end
+
+  def follow_item_icon action
+    glyphicon(action == :add ? :plus : :ok)
   end
 
   def follow_item_link condition

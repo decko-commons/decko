@@ -1,10 +1,10 @@
 # Notify
 
-A mod for handling notifications regarding card changes.
+Follow cards, get notified when they change.
 
 ## Sets
 
-The primary cards ruling notifications are:
+Cards ruling notifications include:
 
 ### Follow preferences (or follow rules)
 | name | type | content |
@@ -18,7 +18,7 @@ Each rule determines cases in which the _User_ should be notified about changes 
 |:----:|:----:|:-------:|
 |\*_optionname_| Basic | (blank)
 
-Each follow preference can have one or more of the following values
+Each follow preference can point to one or more of the following follow options.
 
 - _always:_ notify user after every create, update, and delete 
 - _never:_ do not notify user

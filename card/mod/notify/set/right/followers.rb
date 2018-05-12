@@ -2,15 +2,7 @@
 
 # X+*followers provides a list of all users following X.
 
-include Card::Set::Type::Pointer
-
-format do
-  include Card::Set::Type::Pointer::Format
-end
-
-format :html do
-  include Card::Set::Type::Pointer::HtmlFormat
-end
+include_set Abstract::Pointer
 
 format :html do
   view :core, cache: :never do

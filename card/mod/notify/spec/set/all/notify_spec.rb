@@ -56,7 +56,7 @@ shared_examples_for "notifications" do
   end
 end
 
-RSpec.describe Card::Set::All::SendNotifications do
+RSpec.describe Card::Set::All::Notify do
   before do
     ::Card.any_instance.stub(:'silent_change?').and_return(false)
   end
