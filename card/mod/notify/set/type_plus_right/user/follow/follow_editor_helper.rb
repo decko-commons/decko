@@ -11,11 +11,10 @@ format :html do
 
   # constructs hash of rules/options for "Ignore" tab
   def ignoring_rules_and_options &block
-    binding.pry
-    hash = ignore_rules.each_with_object({}) do |rule, hash|
+    rule_opts_hash = ignore_rules.each_with_object({}) do |rule, hash|
       hash[rule] = [:never.cardname]
     end
-    rules_and_options_by_set_pattern hash, &block
+    rules_and_options_by_set_pattern rule_opts_hash, &block
   end
 
   private
@@ -31,7 +30,7 @@ format :html do
   # @param rule_opts_hash [Hash] { rule1_card => rule1_follow_options }
   # for each rule/option variant, yields with rule_card and option params
   def rules_and_options_by_set_pattern rule_opts_hash
-    pattern_hash= set_pattern_hash rule_opts_hash
+    pattern_hash = set_pattern_hash rule_opts_hash
     Card.set_patterns.reverse.map do |pattern|
       pattern_hash[pattern].each do |rule_card, options|
         options.each do |option|

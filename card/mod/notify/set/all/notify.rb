@@ -29,7 +29,7 @@ end
 
 def notable_change?
   !silent_change? && current_act_card? &&
-      Card::Auth.current_id != WagnBotID && followable?
+    (Card::Auth.current_id != WagnBotID) && followable?
 end
 
 private
@@ -55,7 +55,7 @@ def act_followers act
 end
 
 def silent_change
-  @silent_change || (@supercard && @supercard.silent_change)
+  @silent_change || @supercard&.silent_change
 end
 
 def silent_change?

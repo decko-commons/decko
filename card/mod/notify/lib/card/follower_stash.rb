@@ -59,7 +59,7 @@ class Card
 
     def includee_search card
       Card.search({ return: "key", included_by: card.name },
-                  "follow cards included by #{left_card.name}")
+                  "follow cards included by #{card.name}")
     end
 
     def visited? name

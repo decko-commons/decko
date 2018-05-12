@@ -77,7 +77,7 @@ RSpec.describe Card::Set::All::Notify do
     context "for new card with subcards" do
       specify do
         expect(notification_email_for "card with fields")
-          .to include("main content", "content of field 1" , "content of field 2")
+          .to include("main content", "content of field 1", "content of field 2")
       end
 
       context "and missing permissions" do
@@ -97,10 +97,11 @@ RSpec.describe Card::Set::All::Notify do
         example "for all parts" do
           card = Card["admin card with admin fields"]
             expect("admin card with admin fields")
-              .to not_include("main content").and not_include("content of admin field 1")
-                                             .and not_include("content of admin field 2")
+              .to not_include("main content")
+              .and not_include("content of admin field 1")
+              .and not_include("content of admin field 2")
             expect(Card["Joe User"].account.changes_visible?(card.acts.last))
-                          .to be_falsey
+              .to be_falsey
         end
       end
     end

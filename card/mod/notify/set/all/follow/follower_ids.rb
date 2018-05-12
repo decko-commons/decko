@@ -75,9 +75,7 @@ def direct_follower_ids _args={}
     set_names.each do |set_name|
       set_card = Card.fetch(set_name)
       set_card.all_user_ids_with_rule_for(:follow).each do |user_id|
-        if !result.include?(user_id) && follow_rule_applies?(user_id)
-          result << user_id
-        end
+        result << user_id if !result.include?(user_id) && follow_rule_applies?(user_id)
       end
     end
   end
@@ -91,7 +89,7 @@ def all_direct_follower_ids_with_reason
       set_card = Card.fetch(set_name)
       set_card.all_user_ids_with_rule_for(:follow).each do |user_id|
         next if visited.include?(user_id) ||
-            !(follow_option = follow_rule_applies?(user_id))
+          !(follow_option = follow_rule_applies?(user_id))
         visited << user_id
         yield(user_id, set_card: set_card, option: follow_option)
       end
@@ -101,7 +99,9 @@ end
 
 def follow_rule_applies? follower_id
   each_follow_rule_option follower_id do |option|
-    return true if follow_rule_option_applies? follower_id, option
+    next unless follow_rule_option_applies? follower_id, option
+    # FIXME: method ending in question mark should return True/False
+    option.gsub(/[\[\]]/, "")
   end
   false
 end

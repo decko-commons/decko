@@ -28,8 +28,6 @@ event :update_follow_rules, :finalize, on: :save, when: :update_all_users do
   Card.follow_caches_expired
 end
 
-
-
 format :html do
   view :edit, perms: :update, tags: :unknown_ok do
     frame_and_form :update, hidden: { success: "_self",

@@ -19,13 +19,12 @@ format do
     action = notification_action voo.action_id
     wrap_subedit_item do
       %(#{name_before_action action} #{action.action_type}d\n) +
-          render_list_of_changes(action_id: action.id)
+        render_list_of_changes(action_id: action.id)
     end
   end
 
   view :followed, perms: :none, closed: true do
-    if (set_card = followed_set_card) &&
-        (option_card = follow_option_card)
+    if (set_card = followed_set_card) && (option_card = follow_option_card)
       option_card.description set_card
     else
       "*followed set of cards*"
@@ -49,9 +48,9 @@ format do
 
   def relevant_fields action
     case action.action_type
-      when :create then %i[cardtype content]
-      when :update then %i[name cardtype content]
-      when :delete then %i[content]
+    when :create then %i[cardtype content]
+    when :update then %i[name cardtype content]
+    when :delete then %i[content]
     end
   end
 

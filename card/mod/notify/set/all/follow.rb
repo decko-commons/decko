@@ -17,8 +17,6 @@ def follow_option?
   codename && FollowOption.codenames.include?(codename)
 end
 
-
-
 # used for the follow menu overwritten in type/set.rb and type/cardtype.rb
 # for sets and cardtypes it doesn't check whether the users is following the
 # card itself instead it checks whether he is following the complete set
@@ -36,8 +34,6 @@ def followed?
   followed_by? Auth.current_id
 end
 
-
-
 # returns true if according to the follow_field_rule followers of self also
 # follow changes of field_card
 def followed_field? field_card
@@ -48,4 +44,3 @@ def followed_field? field_card
          includee_ids.include?(field_card.id))
     end
 end
-

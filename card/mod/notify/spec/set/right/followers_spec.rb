@@ -43,7 +43,7 @@ describe Card::Set::Right::Followers do
 
     it "recognizes +*following changes" do
       Card::Auth.as_bot do
-        card = Card["Joe User"].follow "Look At Me"
+        Card["Joe User"].follow "Look At Me"
       end
       @card = Card["Look At Me"]
       is_expected.to include "Joe User"
