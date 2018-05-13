@@ -141,7 +141,6 @@ describe Card::Set::All::Follow do
       it "renders following link" do
         assert_following_view "Magnifier+lens",
                               add_set: "Magnifier+lens+*self",
-
                               user: "Narcissist"
       end
     end

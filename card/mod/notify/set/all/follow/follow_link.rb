@@ -45,12 +45,12 @@ format :html do
   def follow_link opts={}, icon=false
     hash = follow_link_hash
     link_opts = opts.merge(
-        path: hash[:path],
-        title: hash[:title],
-        "data-path": hash[:path],
-        "data-toggle": "modal",
-        "data-target": "#modal-#{card.name.safe_key}",
-        class: css_classes("follow-link", opts[:class])
+      path: hash[:path],
+      title: hash[:title],
+      "data-path": hash[:path],
+      "data-toggle": "modal",
+      "data-target": "#modal-#{card.name.safe_key}",
+      class: css_classes("follow-link", opts[:class])
     )
     link_to follow_link_text(icon, hash[:verb]), link_opts
   end

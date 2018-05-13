@@ -73,18 +73,17 @@ RSpec.describe Card::Set::All::Notify do
   end
 
   describe "content of notification email" do
-
-    context "for new card with subcards" do
+    context "when new card with subcards" do
       specify do
         expect(notification_email_for "card with fields")
           .to include("main content", "content of field 1", "content of field 2")
       end
 
-      context "and missing permissions" do
+      context "with missing permissions" do
         example "for a field" do
-            expect(notification_email_for("card with fields and admin fields"))
-              .to not_include("content of admin field 1")
-                    .and include("content of field 1")
+          expect(notification_email_for("card with fields and admin fields"))
+            .to not_include("content of admin field 1")
+            .and include("content of field 1")
         end
 
         example "for main card" do
@@ -96,12 +95,12 @@ RSpec.describe Card::Set::All::Notify do
 
         example "for all parts" do
           card = Card["admin card with admin fields"]
-            expect("admin card with admin fields")
-              .to not_include("main content")
-              .and not_include("content of admin field 1")
-              .and not_include("content of admin field 2")
-            expect(Card["Joe User"].account.changes_visible?(card.acts.last))
-              .to be_falsey
+          expect("admin card with admin fields")
+            .to not_include("main content")
+            .and not_include("content of admin field 1")
+            .and not_include("content of admin field 2")
+          expect(Card["Joe User"].account.changes_visible?(card.acts.last))
+            .to be_falsey
         end
       end
     end
@@ -119,43 +118,8 @@ RSpec.describe Card::Set::All::Notify do
     end
 
     it "creates well formatted text message" do
-      unfollow_link =
-        "/update/Joe_User+*follow?card%5Bsubcards%5D%5B"\
-        "card+with+fields%2B%2Aself%2BJoe+User%2B%2Afollow%5D=%2Anever"
-
-      email = notification_email_for("card with fields")
-      puts email
-
-      expect(email)
-        .to eq(
-      <<-TEXT
-"card with fields" was just created by Joe User.
-
-   cardtype: Basic
-   content: main content {{+field 1}}  {{+field 2}}
-
-
-
-This update included the following changes:
-
-card with fields+field 1 created
-   cardtype: Basic
-   content: content of field 1
-
-card with fields+field 2 created
-   cardtype: Basic
-   content: content of field 2
-
-
-
-
-See the card: /card_with_fields
-
-You received this email because you're following "card with fields".
-
-Use this link to unfollow #{unfollow_link}
-TEXT
-)
+      path = File.expand_path "../notify_email.txt", __FILE__
+      expect(notification_email_for("card with fields")).to eq(File.read(path))
     end
   end
 
@@ -263,7 +227,7 @@ TEXT
           Card.create name: "Sunglasses+about"
         end
 
-        context "and follow fields rule contains subcards" do
+        context "when follow fields rule contains subcards" do
           it "sends notification of new subcard" do
             new_card = Card.new name: "Sunglasses+producer"
             expect_user("Sunglasses fan")
@@ -278,7 +242,7 @@ TEXT
           end
         end
 
-        context "and follow fields rule contains *include" do
+        context "when follow fields rule contains *include" do
           it "sends notification of new included card" do
             new_card = Card.new name: "Sunglasses+lens"
             expect_user("Sunglasses fan").to be_notified_of "Sunglasses+*self"
@@ -297,7 +261,7 @@ TEXT
           end
         end
 
-        context "and follow fields rule doesn't contain *include" do
+        context "when follow fields rule doesn't contain *include" do
           it "doesn't send notification of included card" do
             expect_user("Big Brother").not_to be_notified
             Card.create! name: "Google glass+price"

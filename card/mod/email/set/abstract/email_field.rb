@@ -1,6 +1,7 @@
 
 format do
-  def chunk_list  # turn off autodetection of uri's
+  # turn off autodetection of uri's
+  def chunk_list
     :references
   end
 end

@@ -89,7 +89,7 @@ def all_direct_follower_ids_with_reason
       set_card = Card.fetch(set_name)
       set_card.all_user_ids_with_rule_for(:follow).each do |user_id|
         next if visited.include?(user_id) ||
-          !(follow_option = follow_rule_applies?(user_id))
+                !(follow_option = follow_rule_applies?(user_id))
         visited << user_id
         yield(user_id, set_card: set_card, option: follow_option)
       end
