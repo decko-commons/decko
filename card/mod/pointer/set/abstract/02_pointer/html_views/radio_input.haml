@@ -1,0 +1,14 @@
+%ul.pointer-radio-list
+  - options = card.option_names
+  - if options.empty?
+    no options
+  - else
+    - input_name = "pointer_radio_button-#{card.key}"
+    - options.each do |option_name|
+      - checked = option_name == card.item_name
+      - id = "pointer-radio-#{option_name.to_name.key}"
+      %li.pointer-radio.radio
+        = radio_button_tag input_name, option_name, checked,
+                           id: id, class: "pointer-radio-button"
+        = option_label option_name, id
+        = option_description "radio", option_name
