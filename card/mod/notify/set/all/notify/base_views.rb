@@ -15,7 +15,7 @@ format do
     end
   end
 
-  view :subedit_notice do
+  view :subedit_notice, cache: :never do
     action = notification_action voo.action_id
     wrap_subedit_item do
       %(#{name_before_action action} #{action.action_type}d\n) +
@@ -81,7 +81,7 @@ format do
   def edit_info_for field, action
     return nil unless (value = action.value field)
     value = action.previous_value if action.action_type == :delete
-    wrap_list_item "#{notification_action_label action} #{field}: #{value}"
+    wrap_list_item "  #{notification_action_label action} #{field}: #{value}"
   end
 
   def notification_action_label action
@@ -94,7 +94,7 @@ format do
   def wrap_subedits
     subedits = yield.compact.join
     return "" if subedits.blank?
-    "\nThis update included the following changes:#{wrap_list subedits}"
+    "\nThis update included the following changes:\n#{wrap_list subedits}"
   end
 
   def wrap_list list
@@ -102,7 +102,7 @@ format do
   end
 
   def wrap_list_item item
-    "  #{item}\n"
+    "#{item}\n"
   end
 
   def wrap_subedit_item

@@ -45,7 +45,7 @@ class Card
 
     def included? card, field
       return unless field.to_name.key == includes_card_key
-      @visited.intersection(includee_set(card)).empty?
+      @visited.intersection(includee_set(card)).any?
     end
 
     def includes_card_key

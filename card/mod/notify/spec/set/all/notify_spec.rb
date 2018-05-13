@@ -142,7 +142,6 @@ card with fields+field 1 created
    cardtype: Basic
    content: content of field 1
 
-
 card with fields+field 2 created
    cardtype: Basic
    content: content of field 2
