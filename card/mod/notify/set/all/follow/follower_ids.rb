@@ -101,7 +101,7 @@ def follow_rule_applies? follower_id
   each_follow_rule_option follower_id do |option|
     next unless follow_rule_option_applies? follower_id, option
     # FIXME: method ending in question mark should return True/False
-    option.gsub(/[\[\]]/, "")
+    return option.gsub(/[\[\]]/, "")
   end
   false
 end

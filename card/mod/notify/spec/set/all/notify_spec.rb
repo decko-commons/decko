@@ -123,7 +123,10 @@ RSpec.describe Card::Set::All::Notify do
         "/update/Joe_User+*follow?card%5Bsubcards%5D%5B"\
         "card+with+fields%2B%2Aself%2BJoe+User%2B%2Afollow%5D=%2Anever"
 
-      expect(notification_email_for("card with fields"))
+      email = notification_email_for("card with fields")
+      puts email
+
+      expect(email)
         .to eq(
       <<-TEXT
 "card with fields" was just created by Joe User.

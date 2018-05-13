@@ -102,7 +102,7 @@ format do
   end
 
   def wrap_list_item item
-    "   #{item}\n"
+    "  #{item}\n"
   end
 
   def wrap_subedit_item
