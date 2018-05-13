@@ -1,4 +1,3 @@
-
 format :html do
   view :filtered_list, tags: :unknown_ok do
     filtered_list_input
