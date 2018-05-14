@@ -72,28 +72,31 @@ end
 # one can also "indirectly" follow cards by  following parent cards or other
 # cards that nest this one.
 def direct_follower_ids _args={}
-  result = ::Set.new
-  with_follower_candidate_ids do
-    set_names.each do |set_name|
-      set_card = Card.fetch(set_name)
-      set_card.all_user_ids_with_rule_for(:follow).each do |user_id|
-        result << user_id if !result.include?(user_id) && follow_rule_applies?(user_id)
-      end
-    end
-  end
-  result
+  all_direct_follower_ids
 end
 
 def all_direct_follower_ids_with_reason
+  all_direct_follower_ids do |user_id, set_card, follow_option|
+    yield user_id, set_card: set_card, option: follow_option
+  end
+end
+
+def all_direct_follower_ids
+  ids = ::Set.new
+  each_direct_follower_id do |user_id, set_card|
+    next if ids.include?(user_id) || !(follow_option = follow_rule_applies?(user_id))
+    ids << user_id
+    yield user_id, set_card, follow_option if block_given?
+  end
+  ids
+end
+
+def each_direct_follower_id
   with_follower_candidate_ids do
-    visited = ::Set.new
     set_names.each do |set_name|
       set_card = Card.fetch(set_name)
       set_card.all_user_ids_with_rule_for(:follow).each do |user_id|
-        next if visited.include?(user_id) ||
-                !(follow_option = follow_rule_applies?(user_id))
-        visited << user_id
-        yield(user_id, set_card: set_card, option: follow_option)
+        yield user_id, set_card
       end
     end
   end
