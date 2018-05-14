@@ -75,7 +75,7 @@ RSpec.describe Card::Set::All::Notify do
   describe "content of notification email" do
     context "when new card with subcards" do
       specify do
-        expect(notification_email_for "card with fields")
+        expect(notification_email_for("card with fields"))
           .to include("main content", "content of field 1", "content of field 2")
       end
 

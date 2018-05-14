@@ -20,21 +20,25 @@ describe Card::Set::All::Follow do
 
     context "when not followed" do
       let(:cardname) { "No One Sees Me" }
+
       it { is_expected.to eq([]) }
     end
 
     context "when only field is followed" do
       let(:cardname) { "Magnifier" }
+
       it { is_expected.to eq([]) }
     end
 
     context "when followed as a field" do
       let(:cardname) { "Magnifier+lens" }
+
       it { is_expected.to eq ["Big Brother", "Narcissist"] }
     end
 
     context "with many followers" do
       let(:cardname) { "Sunglasses" }
+
       it do
         is_expected.to eq ["Big Brother", "Narcissist", "Optic fan", "Sara",
                            "Sunglasses fan"]
@@ -43,6 +47,7 @@ describe Card::Set::All::Follow do
 
     context "with parent with many followers" do
       let(:cardname) { "Sunglasses+tint" }
+
       it do
         is_expected.to eq ["Big Brother", "Narcissist", "Optic fan", "Sara",
                            "Sunglasses fan"]
@@ -51,6 +56,7 @@ describe Card::Set::All::Follow do
 
     context "when Google glass" do
       let(:cardname) { "Google glass" }
+
       it { is_expected.to eq ["Big Brother", "Optic fan", "Sara"] }
     end
   end

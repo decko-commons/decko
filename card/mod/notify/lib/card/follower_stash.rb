@@ -37,10 +37,14 @@ class Card
     def notify_field_followers card
       return unless (fields = notify_fields card)
       fields.each do |field|
-        next unless visited?(field.to_name) || included?(card, field)
-        add_affected_card card
-        break
+        break if add_field_follower card, field
       end
+    end
+
+    def add_field_follower card, field
+      return false unless visited?(field.to_name) || included?(card, field)
+      add_affected_card card
+      true
     end
 
     def included? card, field
