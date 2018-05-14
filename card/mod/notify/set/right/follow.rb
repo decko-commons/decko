@@ -45,7 +45,9 @@ end
 
 format :html do
   # shows a follow item link for each of the current follow options
-  view :follow_status, template: :haml
+  view :follow_status, cache: :never do
+    wrap { haml :follow_status }
+  end
 
   # interface to view/alter a specific rule option
   view :follow_item, cache: :never do

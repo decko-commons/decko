@@ -34,7 +34,12 @@ format :html do
   end
 
   # renders follow tab and ignore tab
-  view :core, template: :haml
+  view :core do
+    lazy_loading_tabs({ "follow_tab" => "Follow", "ignore_tab" => "Ignore" },
+                      "follow_tab") do
+      render_follow_tab
+    end
+  end
 
   view :follow_tab, cache: :never do
     haml :follow_editor, items_method: :following_rules_and_options

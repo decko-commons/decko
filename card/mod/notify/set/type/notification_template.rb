@@ -1,3 +1,5 @@
+# FIXME - does this have any use?
+
 card_reader :contextual_class
 card_reader :disappear
 card_reader :message
