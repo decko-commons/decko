@@ -26,8 +26,9 @@ describe Card::Set::Type::NotificationTemplate do
     describe "#deliver" do
       it "is called on update" do
         notify_card = Card["success"]
-        expect(notify_card).to receive(:deliver).once
+        allow(notify_card).to receive(:deliver)
         Card["A"].update_attributes! content: "change"
+        expect(notify_card).to have_received(:deliver).once
       end
     end
 

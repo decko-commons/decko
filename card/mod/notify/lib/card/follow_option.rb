@@ -39,6 +39,7 @@ class Card
       set_card.follow_label
     end
 
+    # manipulate follow options from Card class
     module ClassMethods
       # args:
       # position: <Fixnum> (starting at 1, default: add to end)

@@ -58,8 +58,8 @@ end
 
 RSpec.describe Card::Set::All::Notify do
   # typically notifications are not sent on non-web-requests
-  before { Card::Set::All::Notify.force_notifications = true }
-  after { Card::Set::All::Notify.force_notifications = false }
+  before { described_class.force_notifications = true }
+  after { described_class.force_notifications = false }
 
   def notification_email_for card_name, followed_set: "#{card_name}+*self"
     follower = Card["Joe User"]
@@ -205,9 +205,8 @@ RSpec.describe Card::Set::All::Notify do
 
     context "when following *right sets" do
       it "sends notifications of new card" do
-        new_card = Card.new name: "Telescope+lens"
         expect_user("Big Brother").to be_notified_of "lens+*right", "*always"
-        new_card.save!
+        Card.create! name: "Telescope+lens"
       end
 
       it "sends notifications of update" do
@@ -239,15 +238,12 @@ RSpec.describe Card::Set::All::Notify do
 
         context "when follow fields rule contains subcards" do
           it "sends notification of new subcard" do
-            new_card = Card.new name: "Sunglasses+producer"
-            expect_user("Sunglasses fan")
-              .to be_notified_of "Sunglasses+*self", "*always"
-            new_card.save!
+            expect_user("Sunglasses fan").to be_notified_of "Sunglasses+*self", "*always"
+            Card.create! name: "Sunglasses+producer"
           end
 
           it "sends notification of updated subcard" do
-            expect_user("Sunglasses fan")
-              .to be_notified_of "Sunglasses+*self", "*always"
+            expect_user("Sunglasses fan").to be_notified_of "Sunglasses+*self", "*always"
             update "Sunglasses+price"
           end
         end

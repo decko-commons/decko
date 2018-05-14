@@ -6,6 +6,7 @@ event :cache_expired_for_type_change, :store,
   Card.follow_caches_expired
 end
 
+# follow cache methods on Card class
 module ClassMethods
   def follow_caches_expired
     Card.clear_follower_ids_cache

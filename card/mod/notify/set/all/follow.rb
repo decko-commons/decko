@@ -37,10 +37,12 @@ end
 # returns true if according to the follow_field_rule followers of self also
 # follow changes of field_card
 def followed_field? field_card
-  (follow_field_rule = rule_card(:follow_fields)) ||
-    follow_field_rule.item_names.find do |item|
-      item.to_name.key == field_card.key ||
-        (item.to_name.key == Card[:includes].key &&
-         includee_ids.include?(field_card.id))
+  rule_card(:follow_fields)&.item_names.find do |item|
+    case item.to_name.key
+    when field_card.key
+      true
+    when :includes.cardname.key
+      includee_ids.include? field_card.id
     end
+  end
 end

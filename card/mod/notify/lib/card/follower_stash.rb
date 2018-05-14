@@ -1,4 +1,5 @@
 class Card
+  # stash followers of a given card
   class FollowerStash
     def initialize card=nil
       @followed_affected_cards = Hash.new { |h, v| h[v] = [] }
