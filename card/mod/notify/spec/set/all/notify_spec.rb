@@ -161,7 +161,7 @@ RSpec.describe Card::Set::All::Notify do
       update "Google glass"
     end
 
-    it "sends only one notification per user"  do
+    it "sends notification of name updates"  do
       Card.create! name: "WOW", content: "{{Big Brother|link}}"
       Card::Auth.as_bot do
         Card.create! name: "Users+*type+John+*follow", type_id: Card::PointerID,

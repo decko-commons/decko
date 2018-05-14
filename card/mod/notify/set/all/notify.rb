@@ -32,6 +32,10 @@ def notable_change?
     (Card::Auth.current_id != WagnBotID) && followable?
 end
 
+def silent_change?
+  silent_change
+end
+
 private
 
 def notify_followers_of act
@@ -56,10 +60,6 @@ end
 
 def silent_change
   @silent_change || @supercard&.silent_change
-end
-
-def silent_change?
-  silent_change
 end
 
 def current_act_card?

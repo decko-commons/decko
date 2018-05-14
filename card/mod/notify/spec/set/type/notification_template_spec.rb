@@ -17,7 +17,7 @@ describe Card::Set::Type::NotificationTemplate do
     end
   end
 
-  context "notification template without fields" do
+  context "without fields" do
     before do
       create "success", type_id: Card::NotificationTemplateID,
                         content: "success"
@@ -39,7 +39,7 @@ describe Card::Set::Type::NotificationTemplate do
     end
   end
 
-  context "notification template with fields" do
+  context "with fields" do
     before do
       create "success",
              type_id: Card::NotificationTemplateID,

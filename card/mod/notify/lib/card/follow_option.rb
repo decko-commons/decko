@@ -1,31 +1,34 @@
 # -*- encoding : utf-8 -*-
 
 class Card
+  # module to be included in cards used as options for follow rules
   module FollowOption
-    mattr_reader :test, :follower_candidate_ids
-    @@test = {}
-    @@follower_candidate_ids = {}
+    @test = {}
+    @follower_candidate_ids = {}
+    @options = { all: [], main: [], restrictive: [] }
 
-    @@options = { all: [], main: [], restrictive: [] }
+    class << self
+      attr_reader :test, :follower_candidate_ids, :options
 
-    def self.included host_class
-      host_class.extend ClassMethods
-    end
+      def included host_class
+        host_class.extend ClassMethods
+      end
 
-    def self.codenames type=:all
-      @@options[type]
-    end
+      def codenames type=:all
+        options[type]
+      end
 
-    def self.cards
-      codenames.map { |codename| Card[codename] }
-    end
+      def cards
+        codenames.map { |codename| Card[codename] }
+      end
 
-    def self.restrictive_options
-      codenames :restrictive
-    end
+      def restrictive_options
+        codenames :restrictive
+      end
 
-    def self.main_options
-      codenames :main
+      def main_options
+        codenames :main
+      end
     end
 
     def restrictive_option?
