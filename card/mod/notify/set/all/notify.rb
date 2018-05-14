@@ -1,6 +1,11 @@
-event :only_notify_on_web_requests, :initialize,
-      when: proc { !Card::Env[:controller] } do
+mattr_accessor :force_notifications
+
+event :silence_notifications, :initialize, when: :silence_notifications? do
   @silent_change = true
+end
+
+def silence_notifications?
+  !(Card::Env[:controller] || force_notifications)
 end
 
 event :notify_followers_after_save,

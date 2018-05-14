@@ -1,5 +1,3 @@
-card_accessor :followers
-
 FOLLOWER_IDS_CACHE_KEY = "FOLLOWER_IDS".freeze
 
 event :cache_expired_for_type_change, :store,
@@ -66,9 +64,10 @@ def direct_followers
   end
 end
 
-# all ids of users that follow this card because of a follow rule that applies
-# to this card doesn't include users that follow this card because they are
-# following parent cards or other cards that include this card
+# all ids of users that "directly" follow this card
+# "direct" means there is a follow rule that applies explicitly to this card.
+# one can also "indirectly" follow cards by  following parent cards or other
+# cards that nest this one.
 def direct_follower_ids _args={}
   result = ::Set.new
   with_follower_candidate_ids do

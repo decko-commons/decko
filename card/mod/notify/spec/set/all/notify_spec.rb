@@ -57,9 +57,9 @@ shared_examples_for "notifications" do
 end
 
 RSpec.describe Card::Set::All::Notify do
-  before do
-    ::Card.any_instance.stub(:'silent_change?').and_return(false)
-  end
+  # typically notifications are not sent on non-web-requests
+  before { Card::Set::All::Notify.force_notifications = true }
+  after { Card::Set::All::Notify.force_notifications = false }
 
   def notification_email_for card_name, followed_set: "#{card_name}+*self"
     follower = Card["Joe User"]
@@ -93,14 +93,24 @@ RSpec.describe Card::Set::All::Notify do
           expect(email).to include("content of field 1").and not_include("main content")
         end
 
-        example "for all parts" do
-          card = Card["admin card with admin fields"]
-          expect("admin card with admin fields")
-            .to not_include("main content")
-            .and not_include("content of admin field 1")
-            .and not_include("content of admin field 2")
-          expect(Card["Joe User"].account.changes_visible?(card.acts.last))
-            .to be_falsey
+        context "with multiple restricted parts" do
+          let(:admin_card) { "admin card with admin fields" }
+          let(:notification_email) { notification_email_for admin_card }
+
+          it "does not notify about restricted content" do
+            expect(notification_email)
+              .to not_include("main content")
+              .and not_include("content of admin field 1")
+              .and not_include("content of admin field 2")
+          end
+
+          # FIXME: does this really test anything?
+          # the notification email doesn't represent an actual change
+          it "does not show up as a visible change to non-admin user" do
+            notification_email
+            expect(Card["Joe User"].account)
+              .not_to be_changes_visible(Card[admin_card].acts.last)
+          end
         end
       end
     end

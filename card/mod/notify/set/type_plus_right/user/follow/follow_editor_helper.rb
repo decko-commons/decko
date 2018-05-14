@@ -30,7 +30,7 @@ format :html do
   # @param rule_opts_hash [Hash] { rule1_card => rule1_follow_options }
   # for each rule/option variant, yields with rule_card and option params
   def rules_and_options_by_set_pattern rule_opts_hash
-    pattern_hash = set_pattern_hash rule_opts_hash
+    pattern_hash = a_set_pattern_hash rule_opts_hash
     Card.set_patterns.reverse.map do |pattern|
       pattern_hash[pattern].each do |rule_card, options|
         options.each do |option|
@@ -40,7 +40,7 @@ format :html do
     end
   end
 
-  def set_pattern_hash rule_opts_hash
+  def a_set_pattern_hash rule_opts_hash
     pattern_hash = Hash.new { |h, k| h[k] = [] }
     rule_opts_hash.each do |rule_card, options|
       pattern_hash[rule_card.rule_set.subclass_for_set] << [rule_card, options]
@@ -78,7 +78,7 @@ format :html do
   def suggested_following_rule_options_hash
     return {} unless card.current_user?
     card.suggestions.each_with_object({}) do |sug, hash|
-      set_card, opt = set_and_option_suggestion(sug) || set_only_suggestion(sug)
+      set_card, opt = a_set_and_option_suggestion(sug) || a_set_only_suggestion(sug)
       hash[set_card.follow_rule_name(card.trunk).key] = [opt]
     end
   end
@@ -86,7 +86,7 @@ format :html do
   # @param sug [String] follow suggestion
   # @return [Array] set_card and option
   # suggestion value contains both set and follow option
-  def set_and_option_suggestion sug
+  def a_set_and_option_suggestion sug
     return unless (set_card = valid_set_card(sug.to_name.left))
     sugtag = sug.to_name.right
     # FIXME: option should be unambiguously name or codename (if codename use colon)
@@ -97,7 +97,7 @@ format :html do
   # @param sug [String] follow suggestion
   # @return [Array] set_card and option
   # suggestion value contains only set (implies *always)
-  def set_only_suggestion sug
+  def a_set_only_suggestion sug
     return unless (set_card = valid_set_card(sug))
     yield set_card, :always.cardname
   end

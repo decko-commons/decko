@@ -72,11 +72,16 @@ format do
 
   def add_attachments mail, list
     return unless list.present?
-    list.each_with_index do |cardname, i|
-      file_card = Card[cardname]
-      next unless file_card&.respond_to? :attachment
-      file = file_card.attachment
-      mail.add_file filename: attachment_name(file, i), content: File.read(file.path)
+    each_valid_attachment list do |file, index|
+      mail.add_file filename: attachment_name(file, index),
+                    content: File.read(file.path)
+    end
+  end
+
+  def each_valid_attachment list
+    list.each_with_index do |cardname, index|
+      next unless (file = Card[cardname]&.try(:attachment))
+      yield file, index
     end
   end
 
