@@ -82,20 +82,19 @@ def all_direct_follower_ids_with_reason
   end
 end
 
-def all_direct_follower_ids
+def all_direct_follower_ids &block
   ids = ::Set.new
   each_direct_follower_id do |user_id, set_card|
-    next unless (follow_option = direct_follower_option user_id, ids)
-    yield user_id, set_card, follow_option if block_given?
+    next if ids.include?(user_id) || !direct_follower_option(user_id, set_card, &block)
+    ids << user_id
   end
   ids
 end
 
-def direct_follower_option user_id, ids
-  return if ids.include? user_id
-  option = follow_rule_option user_id
-  ids << user_id if option
-  option
+def direct_follower_option user_id, set_card
+  return unless (option = follow_rule_option user_id)
+  yield user_id, set_card, option if block_given?
+  true
 end
 
 def each_direct_follower_id
