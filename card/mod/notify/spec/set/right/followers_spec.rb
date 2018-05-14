@@ -27,68 +27,64 @@ describe Card::Set::Right::Followers do
   end
 
   describe "item_names" do
-    subject { @card.followers_card.item_names.sort }
+    def followers_of cardish
+      card = cardish.is_a?(Card) ? cardish : Card[cardish]
+      card.followers_card.item_names.sort
+    end
 
     it "is an array of followers" do
-      @card = Card["All Eyes On Me"]
-      is_expected.to eq ["Big Brother", "John", "Sara"]
+      expect(followers_of("All Eyes On Me")).to eq ["Big Brother", "John", "Sara"]
     end
 
     it "recognizes card name changes" do
-      @card = Card["Look At Me"]
-      @card.update_referers = true
-      @card.update_attributes! name: "Look away"
-      is_expected.to eq ["Big Brother"]
+      card = Card["Look At Me"]
+      card.update_referers = true
+      card.update_attributes! name: "Look away"
+      expect(followers_of(card)).to eq ["Big Brother"]
     end
 
     it "recognizes +*following changes" do
-      Card::Auth.as_bot do
-        Card["Joe User"].follow "Look At Me"
-      end
-      @card = Card["Look At Me"]
-      is_expected.to include "Joe User"
+      Card::Auth.as_bot { Card["Joe User"].follow "Look At Me" }
+      expect(followers_of("Look At Me")).to include "Joe User"
     end
 
     context "when following a card" do
       it "contains follower" do
-        @card = Card["All Eye On Me"]
-        is_expected.to include("Big Brother")
+        expect(followers_of("All Eyes On Me")).to include("Big Brother")
       end
     end
 
     context "when following a *self set" do
       it "contains follower" do
-        @card = Card["Look At Me"]
-        is_expected.to include("Big Brother")
+        expect(followers_of("Look At Me")).to include("Big Brother")
       end
     end
 
     context "when following a *type set" do
       it "contains follower" do
-        @card = Card.create! name: "telescope", type: "Optic"
-        is_expected.to include("Big Brother")
+        card = Card.create! name: "telescope", type: "Optic"
+        expect(followers_of(card)).to include("Big Brother")
       end
     end
 
     context "when following a *right set" do
       it "contains follower" do
-        @card = Card.create! name: "telescope+lens"
-        is_expected.to include("Big Brother")
+        card = Card.create! name: "telescope+lens"
+        expect(followers_of(card)).to include("Big Brother")
       end
     end
 
     context "when following a *type plus right set" do
       it "contains follower" do
-        @card = Card["Sunglasses+tint"]
-        is_expected.to include("Big Brother")
+        expect(followers_of("Sunglasses+tint")).to include("Big Brother")
       end
     end
 
     context "when following content I created" do
       it "contains creator" do
         Card::Auth.current_id = Card["Big Brother"].id
-        @card = Card.create! name: "created by Follower"
-        is_expected.to include("Big Brother")
+        card = Card.create! name: "created by Follower"
+        expect(followers_of(card)).to include("Big Brother")
       end
     end
 
@@ -98,24 +94,22 @@ describe Card::Set::Right::Followers do
           Card["Sara"].follow "*all", "*edited"
         end
 
-        @card = Card.create! name: "edited by Sara"
+        card = Card.create! name: "edited by Sara"
         Card::Auth.current_id = Card["Sara"].id
-        @card.update_attributes! content: "some content"
-        is_expected.to include("Sara")
+        card.update_attributes! content: "some content"
+        expect(followers_of(card)).to include("Sara")
       end
     end
 
-    context "for a set card" do
+    context "when called on a set card" do
       it "contains followers of that set" do
-        @card = Card["lens+*right"]
-        is_expected.to include("Big Brother")
+        expect(followers_of("lens+*right")).to include("Big Brother")
       end
     end
 
-    context "for a type card" do
+    context "when called on a type card" do
       it "contains followers of that type" do
-        @card = Card["Optic"]
-        is_expected.to include("Optic fan")
+        expect(followers_of("Optic")).to include("Optic fan")
       end
     end
   end

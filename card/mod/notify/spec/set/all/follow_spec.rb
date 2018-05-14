@@ -18,45 +18,39 @@ describe Card::Set::All::Follow do
 
     subject { Card[cardname].follower_names.sort }
 
-    context "followers of No One Sees Me" do
+    context "when not followed" do
       let(:cardname) { "No One Sees Me" }
-
       it { is_expected.to eq([]) }
     end
 
-    context "followers of Magnifier" do
+    context "when only field is followed" do
       let(:cardname) { "Magnifier" }
-
       it { is_expected.to eq([]) }
     end
 
-    context "followers of Magnifier+lens" do
+    context "when followed as a field" do
       let(:cardname) { "Magnifier+lens" }
-
       it { is_expected.to eq ["Big Brother", "Narcissist"] }
     end
 
-    context "followers of Sunglasses" do
+    context "with many followers" do
       let(:cardname) { "Sunglasses" }
-
       it do
         is_expected.to eq ["Big Brother", "Narcissist", "Optic fan", "Sara",
                            "Sunglasses fan"]
       end
     end
 
-    context "followers of Sunglasses+tint" do
+    context "with parent with many followers" do
       let(:cardname) { "Sunglasses+tint" }
-
       it do
         is_expected.to eq ["Big Brother", "Narcissist", "Optic fan", "Sara",
                            "Sunglasses fan"]
       end
     end
 
-    context "followers of Google glass" do
+    context "when Google glass" do
       let(:cardname) { "Google glass" }
-
       it { is_expected.to eq ["Big Brother", "Optic fan", "Sara"] }
     end
   end
