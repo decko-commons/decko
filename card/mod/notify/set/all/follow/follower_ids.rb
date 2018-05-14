@@ -1,5 +1,7 @@
 FOLLOWER_IDS_CACHE_KEY = "FOLLOWER_IDS".freeze
 
+card_accessor :followers
+
 event :cache_expired_for_type_change, :store,
       on: :update, changed: %i[type_id name] do
   # FIXME: expire (also?) after save

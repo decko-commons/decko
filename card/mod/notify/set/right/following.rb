@@ -40,7 +40,7 @@ format :html do
 
     wrap_with :div, class: "edit-rule" do
       follow_context = current_follow_rule_card || rule_context
-      edit_rule_format = subformat(follow_context).render_edit_rule
+      edit_rule_format = subformat follow_context
       edit_rule_format.rule_context = rule_context
       edit_rule_format.render :edit_rule
     end
