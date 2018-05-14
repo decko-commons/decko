@@ -84,11 +84,16 @@ end
 def all_direct_follower_ids
   ids = ::Set.new
   each_direct_follower_id do |user_id, set_card|
-    next if ids.include?(user_id) || !(follow_option = follow_rule_applies?(user_id))
+    next unless (follow_option = direct_follower_option user_id, ids)
     ids << user_id
     yield user_id, set_card, follow_option if block_given?
   end
   ids
+end
+
+def direct_follower_option user_id, ids
+  return if ids.include? user_id
+  follow_rule_applies? user_id
 end
 
 def each_direct_follower_id

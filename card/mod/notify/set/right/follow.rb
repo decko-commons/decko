@@ -2,8 +2,6 @@
 # While the user follow dashboard ([User]+:follow`) is also in this Set, its
 # customizations are handled in TypePlusRight::User::Follow
 
-include All::Permissions::Follow
-
 event :cache_expired_for_new_preference, :integrate, when: :is_preference? do
   Card.follow_caches_expired
 end
@@ -22,6 +20,27 @@ end
 
 def add_follow_item? condition
   new_card? || !include_item?(condition)
+end
+
+def ok_to_update
+  permit :update
+end
+
+def ok_to_create
+  permit :create
+end
+
+def ok_to_delete
+  permit :delete
+end
+
+def permit action, verb=nil
+  if %i[create delete update].include?(action) && Auth.signed_in? &&
+      (user = rule_user) && Auth.current_id == user.id
+    true
+  else
+    super action, verb
+  end
 end
 
 format :html do

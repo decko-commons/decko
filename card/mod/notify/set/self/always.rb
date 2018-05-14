@@ -1,4 +1,4 @@
-include Card::FollowOption
+include_set Abstract::FollowOption
 
 follow_opts position: 2
 
