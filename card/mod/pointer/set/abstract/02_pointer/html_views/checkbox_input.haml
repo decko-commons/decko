@@ -1,0 +1,9 @@
+.pointer-checkbox-list
+  - card.option_names.each do |option_name|
+    - id = "pointer-checkbox-#{option_name.to_name.key}"
+    - checked = card.item_names.include? option_name
+    .pointer-checkbox
+      = check_box_tag "pointer_checkbox-#{unique_id}", option_name, checked,
+                      id: id, class: "pointer-checkbox-button"
+      = option_label option_name, id
+      = option_description "checkbox", option_name

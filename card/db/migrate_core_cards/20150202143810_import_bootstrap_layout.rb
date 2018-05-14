@@ -15,7 +15,7 @@ class ImportBootstrapLayout < Card::Migration::Core
       style_rule_card  = all.fetch trait: :style
       if layout_rule_card.pristine? && style_rule_card.pristine?
         layout_rule_card.update_attributes! content: "[[Default Layout]]"
-        if style_rule_card.item_names.first == "customized classic skin"
+        if style_rule_card.item_name == "customized classic skin"
           Card.create! name: "customized bootstrap skin", type: "Skin",
                        content: "[[classic bootstrap skin]]\n[[*css]]"
           style_rule_card.update_attributes!(

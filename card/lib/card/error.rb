@@ -18,7 +18,7 @@ class Card
     class NotFound < StandardError
     end
 
-    class UnknownCodename < NotFound
+    class CodenameNotFound < NotFound
     end
 
     # permission errors
