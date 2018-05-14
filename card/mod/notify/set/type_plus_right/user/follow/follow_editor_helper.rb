@@ -1,5 +1,7 @@
 # all the following methods are used to construct the Follow and Ignore tabs
 
+# TODO: these object representations are complex enough for their own class
+
 format :html do
   # constructs hash of rules/options for "Follow" tab
   def following_rules_and_options &block
@@ -88,10 +90,13 @@ format :html do
   # suggestion value contains both set and follow option
   def a_set_and_option_suggestion sug
     return unless (set_card = valid_set_card(sug.to_name.left))
-    sugtag = sug.to_name.right
+    [set_card, suggested_follow_option(sug.to_name.right)]
+  end
+
+  def suggested_follow_option name
     # FIXME: option should be unambiguously name or codename (if codename use colon)
-    option_card = Card.fetch(sugtag) || Card[sugtag.to_sym]
-    [set_card, (option_card.follow_option? ? option_card.name : :always.cardname)]
+    option_card = Card.fetch(name) || Card[name.to_sym]
+    option_card&.follow_option? ? option_card.name : :always.cardname
   end
 
   # @param sug [String] follow suggestion

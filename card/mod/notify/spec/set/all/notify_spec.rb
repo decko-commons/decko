@@ -155,6 +155,21 @@ RSpec.describe Card::Set::All::Notify do
       Card[card_name].update_attributes! name: new_name, update_referers: true
     end
 
+    def self.notify_on_create_and_update user, trigger, create_name, update_name
+      update_name ||= create_name
+
+      it "sends notifications of new card" do
+        expect_user(user).to be_notified_of trigger, "*always"
+        create_args = create_name.is_a?(String) ? { name: create_name} : create_name
+        Card.create! create_args
+      end
+
+      it "sends notifications of update" do
+        expect_user(user).to be_notified_of trigger, "*always"
+        update update_name
+      end
+    end
+
     it "sends notifications of edits" do
       expect_user("Big Brother").to be_notified_of "All Eyes On Me+*self"
       update "All Eyes On Me"
@@ -191,28 +206,15 @@ RSpec.describe Card::Set::All::Notify do
         Card::Auth.current_id = Card["joe admin"].id
       end
 
-      it "sends notifications of new card" do
-        new_card = Card.new name: "Microscope", type: "Optic"
-        expect_user("Optic fan").to be_notified_of "Optic+*type", "*always"
-        new_card.save!
-      end
-
-      it "sends notification of update" do
-        expect_user("Optic fan").to be_notified_of "Optic+*type", "*always"
-        update "Sunglasses"
-      end
+      notify_on_create_and_update "Optic fan", "Optic+*type",
+                                  { name: "Microsoft", type: "Optic" },
+                                  "Sunglasses"
     end
 
-    context "when following *right sets" do
-      it "sends notifications of new card" do
-        expect_user("Big Brother").to be_notified_of "lens+*right", "*always"
-        Card.create! name: "Telescope+lens"
-      end
 
-      it "sends notifications of update" do
-        expect_user("Big Brother").to be_notified_of "lens+*right", "*always"
-        update "Magnifier+lens"
-      end
+    context "when following *right sets" do
+      notify_on_create_and_update "Big Brother", "lens+*right",
+                                  "Telescope+lens", "Magnifier+lens"
     end
 
     context 'when following "*created"' do
@@ -237,33 +239,17 @@ RSpec.describe Card::Set::All::Notify do
         end
 
         context "when follow fields rule contains subcards" do
-          it "sends notification of new subcard" do
-            expect_user("Sunglasses fan").to be_notified_of "Sunglasses+*self", "*always"
-            Card.create! name: "Sunglasses+producer"
-          end
-
-          it "sends notification of updated subcard" do
-            expect_user("Sunglasses fan").to be_notified_of "Sunglasses+*self", "*always"
-            update "Sunglasses+price"
-          end
+          notify_on_create_and_update "Sunglasses fan", "Sunglasses+*self",
+                                      "Sunglasses+producer", "Sunglasses+price"
         end
 
         context "when follow fields rule contains *include" do
-          it "sends notification of new included card" do
-            new_card = Card.new name: "Sunglasses+lens"
-            expect_user("Sunglasses fan").to be_notified_of "Sunglasses+*self"
-            new_card.save!
-          end
-
-          it "sends notification of updated included card" do
-            expect_user("Sunglasses fan").to be_notified_of "Sunglasses+*self"
-            update "Sunglasses+tint"
-          end
+          notify_on_create_and_update "Sunglasses fan", "Sunglasses+*self",
+                                      "Sunglasses+lens", "Sunglasses+tint"
 
           it "doesn't send notification of not included card" do
-            new_card = Card.new name: "Sunglasses+frame"
             expect_user("Sunglasses fan").not_to be_notified
-            new_card.save!
+            Card.create! name: "Sunglasses+frame"
           end
         end
 

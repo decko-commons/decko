@@ -15,7 +15,7 @@ def content
   item_names.map { |item| "[[#{item}]]" }.join "\n"
 end
 
-def item_names
+def item_names _args={}
   return [] unless left
   special_left_followers || left.follower_names
 end
