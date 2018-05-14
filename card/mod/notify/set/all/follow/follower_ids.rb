@@ -77,15 +77,15 @@ end
 
 def all_direct_follower_ids_with_reason
   all_direct_follower_ids do |user_id, set_card, follow_option|
-    yield user_id, set_card: set_card, option: follow_option
+    reason = follow_option.gsub(/[\[\]]/, "")
+    yield user_id, set_card: set_card, option: reason
   end
 end
 
 def all_direct_follower_ids
-  ids = ::Set.new
+  ids = []
   each_direct_follower_id do |user_id, set_card|
     next unless (follow_option = direct_follower_option user_id, ids)
-    ids << user_id
     yield user_id, set_card, follow_option if block_given?
   end
   ids
@@ -93,7 +93,9 @@ end
 
 def direct_follower_option user_id, ids
   return if ids.include? user_id
-  follow_rule_applies? user_id
+  option = follow_rule_option user_id
+  ids << user_id if option
+  option
 end
 
 def each_direct_follower_id
@@ -108,12 +110,13 @@ def each_direct_follower_id
 end
 
 def follow_rule_applies? follower_id
-  each_follow_rule_option follower_id do |option|
-    next unless follow_rule_option_applies? follower_id, option
-    # FIXME: method ending in question mark should return True/False
-    return option.gsub(/[\[\]]/, "")
+  !follow_rule_option(follower_id).nil?
+end
+
+def follow_rule_option follower_id
+  all_follow_rule_options(follower_id).find do |option|
+    follow_rule_option_applies? follower_id, option
   end
-  false
 end
 
 def follow_rule_option_applies? follower_id, option
@@ -135,12 +138,10 @@ def follower_candidate_ids_for_option option_code
   block.call self
 end
 
-def each_follow_rule_option follower_id
+def all_follow_rule_options follower_id
   follow_rule = rule :follow, user_id: follower_id
   return unless follow_rule.present?
-  follow_rule.split("\n").each do |option|
-    yield option
-  end
+  follow_rule.split("\n")
 end
 
 def with_follower_candidate_ids

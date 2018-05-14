@@ -36,7 +36,7 @@ end
 
 def permit action, verb=nil
   if %i[create delete update].include?(action) && Auth.signed_in? &&
-      (user = rule_user) && Auth.current_id == user.id
+     (user = rule_user) && Auth.current_id == user.id
     true
   else
     super action, verb

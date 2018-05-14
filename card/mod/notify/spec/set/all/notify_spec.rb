@@ -201,7 +201,7 @@ RSpec.describe Card::Set::All::Notify do
       update "No One Sees Me"
     end
 
-    notify_on_create "Optic fan", "Optic+*type", { name: "Microsoft", type: "Optic" }
+    notify_on_create "Optic fan", "Optic+*type", name: "Microsoft", type: "Optic"
     notify_on_update "Optic fan", "Optic+*type", "Sunglasses"
 
     notify_on_create "Big Brother", "lens+*right", "Telescope+lens"
