@@ -83,7 +83,7 @@ def all_direct_follower_ids_with_reason
 end
 
 def all_direct_follower_ids
-  ids = []
+  ids = ::Set.new
   each_direct_follower_id do |user_id, set_card|
     next unless (follow_option = direct_follower_option user_id, ids)
     yield user_id, set_card, follow_option if block_given?
