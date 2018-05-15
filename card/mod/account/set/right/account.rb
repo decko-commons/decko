@@ -152,8 +152,7 @@ event :reset_token do
 end
 
 event :send_welcome_email do
-  # FIXME: needs codename
-  welcome = Card["welcome email"]
+  welcome = Card[:welcome_email]
   welcome.deliver self, to: email if welcome&.type_code == :email_template
 end
 

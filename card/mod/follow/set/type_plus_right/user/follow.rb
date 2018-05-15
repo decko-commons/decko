@@ -19,9 +19,8 @@ def item_names _args={}
   end
 end
 
-# TODO: codename!
 def suggestions
-  Card["follow suggestions"]&.item_names || []
+  Card[:follow_suggestions]&.item_names || []
 end
 
 def current_user?

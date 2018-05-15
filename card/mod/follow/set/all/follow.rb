@@ -10,7 +10,7 @@ end
 
 # the set card to be followed if you want to follow changes of card
 def default_follow_set_card
-  Card.fetch("#{name}+*self")
+  Card.fetch name, :self
 end
 
 def follow_option?

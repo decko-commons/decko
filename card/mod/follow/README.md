@@ -1,6 +1,6 @@
-# Notify
+# Follow
 
-Follow cards, get notified when they change.
+Follow sets cards, get notified when any card in the set changes.
 
 ## Sets
 

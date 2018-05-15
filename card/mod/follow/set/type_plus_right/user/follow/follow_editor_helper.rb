@@ -94,7 +94,8 @@ format :html do
   end
 
   def suggested_follow_option name
-    # FIXME: option should be unambiguously name or codename (if codename use colon)
+    # FIXME: option should be unambiguously name or codename
+    # (if codename use colon or Symbol)
     option_card = Card.fetch(name) || Card[name.to_sym]
     option_card&.follow_option? ? option_card.name : :always.cardname
   end
