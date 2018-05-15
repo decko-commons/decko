@@ -90,7 +90,7 @@ module ClassMethods
     end
   rescue ActiveModel::RangeError => _e
     block_given? ? yield.to_name : nil
-  rescue Card::Error::UnknownCodename => e  # eg. if codename is missing
+  rescue Card::Error::CodenameNotFound => e
     block_given? ? yield.to_name : raise(e)
   end
 

@@ -7,7 +7,7 @@ format :html do
   end
 
   def test_context_card
-    (tc = card.left.fetch(trait: :test_context)) && tc.item_cards.first
+    card.left.fetch(trait: :test_context)&.item_card
   end
 end
 
