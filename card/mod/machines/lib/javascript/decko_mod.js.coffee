@@ -20,29 +20,6 @@ $(window).ready ->
   $('body').on 'click', '._stop_propagation', (event)->
     event.stopPropagation()
 
-  # POINTERS
-  #
-  # add pointer item when clicking on "add another" button
-  $('body').on 'click', '.pointer-item-add', (event)->
-    decko.addPointerItem this
-    event.preventDefault() # Prevent link from following its href
-
-  # add pointer item when you hit enter in an item
-  $('body').on 'keydown', '.pointer-item-text', (event)->
-    if event.key == 'Enter'
-      decko.addPointerItem this
-      event.preventDefault() # was triggering extra item in unrelated pointer
-
-  $('body').on 'keyup', '.pointer-item-text', (_event)->
-    decko.updateAddItemButton this
-
-  $('body').on 'click', '.pointer-item-delete', ->
-    item = $(this).closest 'li'
-    if item.closest('ul').find('.pointer-li').length > 1
-      item.remove()
-    else
-      item.find('input').val ''
-
   $('body').on 'show.bs.tab', 'a.load[data-toggle=tab][data-url]', (e) ->
     tab_id = $(e.target).attr('href')
     url    = $(e.target).data('url')
@@ -124,7 +101,6 @@ $(window).ready ->
 #  $('body').on 'click', '.rule-cancel-button', ->
 #    $(this).closest('tr').find('.close-rule-link').click()
 
-
   $('body').on 'click', '.submit-modal', ->
     $(this).closest('.modal-content').find('form').submit()
 
@@ -139,9 +115,7 @@ $(window).ready ->
   if firstShade = $('.shade-view h1')[0]
     $(firstShade).trigger 'click'
 
-
   # following not in use??
-
   $('body').on 'change', '.go-to-selected select', ->
     val = $(this).val()
     if val != ''
@@ -180,36 +154,11 @@ $(window).ready ->
     panel.find('.panel-collapse').collapse('show')
     event.stopPropagation()
 
-  $('.pointer-list-editor').each ->
-    decko.updateAddItemButton this
-
-
 $.extend decko,
   toggleShade: (shadeSlot) ->
     shadeSlot.find('.shade-content').slideToggle 1000
     shadeSlot.find('.glyphicon').toggleClass 'glyphicon-triangle-right glpyphicon-triangle-bottom'
 
-  addPointerItem: (el) ->
-    newInput = decko.nextPointerInput decko.lastPointerItem(el)
-    newInput.val ''
-    newInput.focus()
-    decko.updateAddItemButton el
-    decko.initPointerList newInput
-
-  nextPointerInput: (lastItem)->
-    lastInput = lastItem.find 'input'
-    return lastInput if lastInput.val() == ''
-    newItem = lastItem.clone()
-    lastItem.after newItem
-    newItem.find 'input'
-
-  lastPointerItem: (el)->
-    $(el).closest('.content-editor').find '.pointer-li:last'
-
-  updateAddItemButton: (el)->
-    button = $(el).closest('.content-editor').find '.pointer-item-add'
-    disabled = decko.lastPointerItem(el).find('input').val() == ''
-    button.prop 'disabled', disabled
 
 
 
