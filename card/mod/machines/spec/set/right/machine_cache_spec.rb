@@ -1,5 +1,21 @@
 # -*- encoding : utf-8 -*-
 
+RSpec.shared_examples_for "virtual content" do |virtual_content|
+  let(:vc) { virtual_content }
+  
+  it "saves content in virtual table" do
+    virtual = Card::Virtual.find_by_content vc
+    aggregate_failures do
+      expect(virtual.left_id).to eq Card.fetch_id(:all)
+      expect(Card.fetch(:all, :machine_cache).content).to eq vc
+    end
+  end
+
+  it "doesn't save content in cards table" do
+    expect(Card.search(content: vc)).to be_empty
+  end
+end
+
 RSpec.describe Card::Set::Right::MachineCache, as_bot: true do
   VIRTUAL_CONTENT = "be or not to be".freeze
 
@@ -13,30 +29,12 @@ RSpec.describe Card::Set::Right::MachineCache, as_bot: true do
 
   context "when content is updated" do
     before { update_virtual }
-
-    it "saves content in virtual table" do
-      virtual = Card::Virtual.find_by_content VIRTUAL_CONTENT
-      expect(virtual.left_id).to eq Card.fetch_id(:all)
-      expect(Card.fetch(:all, :machine_cache).content).to eq VIRTUAL_CONTENT
-    end
-
-    it "doesn't save content in cards table" do
-      expect(Card.search(content: VIRTUAL_CONTENT)).to be_empty
-    end
+    include_examples "virtual content", VIRTUAL_CONTENT
   end
 
   context "when card is created" do
     before { create_virtual }
-
-    it "saves content in virtual table" do
-      virtual = Card::Virtual.find_by_content VIRTUAL_CONTENT
-      expect(virtual.left_id).to eq Card.fetch_id(:all)
-      expect(Card.fetch(:all, :machine_cache).content).to eq VIRTUAL_CONTENT
-    end
-
-    it "doesn't save content in cards table" do
-      expect(Card.search(content: VIRTUAL_CONTENT)).to be_empty
-    end
+    include_examples "virtual content", VIRTUAL_CONTENT
   end
 
   context "when trash is set to true" do

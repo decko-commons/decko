@@ -1,7 +1,10 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-  class Virtual < ApplicationRecord # ActiveRecord::Base
+  # Model for the card_virtuals table.
+  # It provides method to get and store content for virtual cards from
+  # the card_virtuals table.
+  class Virtual < ApplicationRecord
     def update new_content
       update_attributes! content: new_content
       new_content

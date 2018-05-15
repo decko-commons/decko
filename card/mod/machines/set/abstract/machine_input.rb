@@ -63,13 +63,10 @@ def self.search_involved_machines name, host_class
 end
 
 def expire_machine_cache
-  Card.search(right_plus: [
-                { codename: "machine_input" },
-                { link_to: name }
-              ],
+  Card.search(right_plus: [{ codename: "machine_input" }, { link_to: name }],
               return: :name).each do |machine_name|
     cache_card = Card.fetch(name, machine_name, :machine_cache)
-    next unless cache_card && cache_card.content.present?
+    next unless cache_card&.content.present?
     Auth.as_bot { cache_card.update_attributes! trash: true }
   end
 end

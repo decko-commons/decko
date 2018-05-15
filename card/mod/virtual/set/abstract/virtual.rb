@@ -41,5 +41,3 @@ def delete!
   # delete although it's new
   update_attributes! trash: true
 end
-
-
