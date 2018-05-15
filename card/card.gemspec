@@ -67,7 +67,8 @@ Gem::Specification.new do |s|
     ["minitest",                   "5.11.2"],
     ["rake",                       "<= 12.3.0"],
 
-    ["rails", "~> 5.2"]
+    ["rails", "~> 5.2"],
+    ["bootswatch", "4.1.1"]
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end
