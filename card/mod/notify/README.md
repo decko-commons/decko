@@ -9,14 +9,20 @@ Cards ruling notifications include:
 ### Follow preferences (or follow rules)
 | name | type | content |
 |:----:|:----:|:-------:|
-| [Set]+[User]+:follow | Pointer |list of follow options|
+| [Set]+[User]+:follow | Pointer | list of follow options |
 
 Each rule determines cases in which the _User_ should be notified about changes to the _Set_.
+
+These cards have special permission handling, granting full permission to the _User_.
+
+Special views include:
+- _follow_item_
+- _follow_status_
 
 ### Follow options
 | name | type | content |
 |:----:|:----:|:-------:|
-|\*_optionname_| Basic | (blank)
+| \*_optionname_| Basic | (blank) |
 
 Each follow preference can point to one or more of the following follow options.
 
@@ -28,14 +34,39 @@ Each follow preference can point to one or more of the following follow options.
 ### Follow dashboard
 | name | type | content |
 |:----:|:----:|:-------:|
-|[User]+:follow|Pointer(virtual)|list of sets
+| [User]+:follow | Pointer(virtual) | list of sets |
 
 Core view shows Follow and Ignore tabs.  Each tab has a list of the 
-user's preferences in `follow_item` view.
+user's preferences in `follow_item` view. Navigate to this card via the
+card submenu (`account > follow`).
 
-Views include:
+Special views include:
 - _follow_tab_
 - _ignore_tab_
+
+### Following status
+| name | type | content |
+|:----:|:----:|:-------:|
+| +:following | Pointer(virtual) | card's follow status for current user |
+
+With this card, users can see and/or edit whether they are following the 
+card in question.
+
+This view is seen via the "follow" item in the main card menu or via
+`activity > follow` in the submenu.
+
+Special views include:
+- _core_ a follow edit interface if signed in
+- _status_
+
+### Followers
+| name | type | content |
+|:----:|:----:|:-------:|
+| +:followers | Pointer(virtual) | list of users |
+
+User who are following the card in question.
+
+(not integrated into interface)
 
 ### Email template
 | name | type | content |
@@ -51,3 +82,12 @@ Useful views added by this mod include:
 - _followed:_ label of set followed
 - _unfollow_url:_ link to remove the following rule that led to this email
 
+## Lib
+
+### Card::FollowerStash
+
+A class for stashing followers of a given card.
+
+### Card::FollowOption
+
+A module for tracking and grouping follow options and their processing code.

@@ -3,8 +3,11 @@
 class Card
   # module to be included in cards used as options for follow rules
   module FollowOption
+    # Hash containing an applicability test for each option (block)
     @test = {}
+    # Hash containing an id-list-generating block for each option
     @follower_candidate_ids = {}
+    # Hash that registers / groups options
     @options = { all: [], main: [], restrictive: [] }
 
     class << self

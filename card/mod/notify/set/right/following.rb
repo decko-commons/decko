@@ -8,9 +8,7 @@ format :html do
     if card.left && Auth.signed_in?
       render_rule_editor
     else
-      fname = "#{card.name.left}+#{Card[:followers].name}"
-      fcard = Card.fetch fname
-      nest fcard, view: :titled, items: { view: :link }
+      nest Card.fetch(card.name.left, :followers), view: :titled, items: { view: :link }
     end
   end
 
@@ -31,19 +29,16 @@ format :html do
   end
 
   view :rule_editor do
-    preference_name = [
-      card.left.default_follow_set_card.name,
-      Auth.current.name,
-      Card[:follow].name
-    ].join Card::Name.joint
     rule_context = Card.fetch preference_name, new: { type_id: PointerID }
-
     wrap_with :div, class: "edit-rule" do
       follow_context = current_follow_rule_card || rule_context
-      edit_rule_format = subformat follow_context
-      edit_rule_format.rule_context = rule_context
-      edit_rule_format.render :edit_rule
+      nest follow_context, { view: :edit_rule }, rule_context: rule_context
     end
+  end
+
+  def preference_name
+    set_name = card.left.default_follow_set_card.name
+    Card::Name[set_name, Auth.current.name, :follow]
   end
 
   def edit_rule_success
