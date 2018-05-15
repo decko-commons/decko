@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Right::MachineCache, as_bot: true do
-  VIRTUAL_CONTENT = "be or not to be"
+  VIRTUAL_CONTENT = "be or not to be".freeze
 
   def create_virtual
     Card.create name: "*all+*machine_cache", content: VIRTUAL_CONTENT

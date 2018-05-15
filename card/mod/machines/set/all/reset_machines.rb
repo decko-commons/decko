@@ -1,6 +1,4 @@
 module ClassMethods
-
-
   def reset_all_machines
     Auth.as_bot do
       Card.search(right: { codename: "machine_output" }).each do |card|
