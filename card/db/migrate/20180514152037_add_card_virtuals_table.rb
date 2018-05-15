@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 
-class AddCardVirtualsTable < Card::Migration::Core
+class AddCardVirtualsTable < ActiveRecord::Migration[4.2]
   def up
     drop_table :card_virtuals if table_exists? :card_virtuals
     create_table :card_virtuals do |t|
       t.integer :left_id
-      t.integer :right_id, limit: 16777215
-      t.text :content
+      t.integer :right_id
+      t.text :content, limit: 16777215
     end
 
     add_index :card_virtuals, :right_id, name: "left_id_index"

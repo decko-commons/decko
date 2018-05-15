@@ -10,19 +10,19 @@ class Card
     class << self
       def create card, virtual_content=nil
         validate_card card
-        virtual = new left_id: left_id(card),
-                      right_id: right_id(card),
-                      content: virtual_content || card.generate_virtual_content
+        virtual_content ||= block_given? ? yield : card.generate_virtual_content
+        virtual = new left_id: left_id(card), right_id: right_id(card),
+                      content: virtual_content
         virtual.save!
         virtual
       end
 
-      def fetch_value card
-        find_value_by_card(card) || create(card).value
+      def fetch_content card, &block
+        find_content_by_card(card) || create(card, &block).content
       end
 
-      def fetch card
-        find_by_card(card) || create(card)
+      def fetch card, &block
+        find_by_card(card) || create(card, &block)
       end
 
       def refresh card
@@ -31,8 +31,8 @@ class Card
         virtual.update card.generate_virtual_content
       end
 
-      def find_value_by_card card
-        where_card(card).pluck(:value).first
+      def find_content_by_card card
+        where_card(card).pluck(:content).first
       end
 
       def find_by_card card

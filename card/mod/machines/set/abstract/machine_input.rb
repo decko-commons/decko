@@ -68,9 +68,8 @@ def expire_machine_cache
                 { link_to: name }
               ],
               return: :name).each do |machine_name|
-    next unless (cache = Card.fetch(name, machine_name, :machine_cache))
-    Auth.as_bot do
-      cache.update_attributes! trash: true
-    end
+    cache_card = Card.fetch(name, machine_name, :machine_cache)
+    next unless cache_card && cache_card.content.present?
+    Auth.as_bot { cache_card.update_attributes! trash: true }
   end
 end

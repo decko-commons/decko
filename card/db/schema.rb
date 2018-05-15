@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908114452) do
+ActiveRecord::Schema.define(version: 2018_05_14_152037) do
 
   create_table "card_actions", id: :integer, force: :cascade do |t|
     t.integer "card_id"
@@ -59,6 +59,14 @@ ActiveRecord::Schema.define(version: 20170908114452) do
     t.text "content", null: false
     t.index ["card_id"], name: "revisions_card_id_index"
     t.index ["creator_id"], name: "revisions_created_by_index"
+  end
+
+  create_table "card_virtuals", id: :integer, force: :cascade do |t|
+    t.integer "left_id"
+    t.integer "right_id"
+    t.text "content", limit: 16777215
+    t.index ["left_id"], name: "right_id_index"
+    t.index ["right_id"], name: "left_id_index"
   end
 
   create_table "cards", id: :integer, force: :cascade do |t|
