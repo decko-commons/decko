@@ -1,3 +1,17 @@
+# DEPRECATED
+#
+# Despite its name (*follow defaults)card does not influence defaults for *follow rules.
+# What it does is provide a mechanism (with interface) for updating all users so that
+# they follow the items that are its content.
+#
+# PLAN:
+# - actual defaults should be handled as much as possible with something like
+#   the *defaults rule
+# - on the *admin page, we can have a link so sharks can update all the pristine cards
+#   to use whatever the actual defaults representation is (see previous point)
+# - if you truly want to override existing follow rules, that may be monkey territory?
+# - we will delete “*follow defaults” after the above are completed
+
 event :update_follow_rules, :finalize, on: :save, when: :update_all_users do
   defaults = item_names.map do |item|
     if (set_card = Card.fetch item.to_name.left) && set_card.type_code == :set

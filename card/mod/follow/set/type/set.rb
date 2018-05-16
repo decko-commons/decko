@@ -14,19 +14,11 @@ def follow_rule_name user=nil
   Card::Name[[name, user, :follow].compact]
 end
 
-def follow_rule_card user=nil
-  Card.fetch follow_rule_name(user)
-end
-
-def follow_rule? user=nil
-  Card.exists? follow_rule_name(user)
-end
-
 def followed_by? user_id=nil
   all_members_followed_by? user_id
 end
 
-def default_follow_set_card
+def follow_set_card
   self
 end
 

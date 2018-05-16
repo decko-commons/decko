@@ -50,101 +50,52 @@ end
 
 def follower_ids
   @follower_ids = read_follower_ids_cache || begin
-    result = direct_follower_ids
-    left_card = left
-    while left_card
-      result += left_card.direct_follower_ids if left_card.followed_field? self
-      left_card = left_card.left
-    end
+    result = direct_follower_ids + indirect_follower_ids
     write_follower_ids_cache result
     result
   end
 end
 
+def indirect_follower_ids
+  result = []
+  left_card = left
+  while left_card
+    result += left_card.direct_follower_ids if left_card.followed_field? self
+    left_card = left_card.left
+  end
+  result
+end
+
+# all users (cards) that "directly" follow this card
+# "direct" means there is a follow rule that applies explicitly to this card.
+# one can also "indirectly" follow cards by  following parent cards or other
+# cards that nest this one.
 def direct_followers
   direct_follower_ids.map do |id|
     Card.fetch(id)
   end
 end
 
-# all ids of users that "directly" follow this card
-# "direct" means there is a follow rule that applies explicitly to this card.
-# one can also "indirectly" follow cards by  following parent cards or other
-# cards that nest this one.
-def direct_follower_ids _args={}
-  all_direct_follower_ids
-end
-
-def all_direct_follower_ids_with_reason
-  all_direct_follower_ids do |user_id, set_card, follow_option|
-    reason = follow_option.gsub(/[\[\]]/, "")
-    yield user_id, set_card: set_card, option: reason
-  end
-end
-
-def all_direct_follower_ids &block
+def direct_follower_ids &block
   ids = ::Set.new
-  each_direct_follower_id do |user_id, set_card|
-    next if ids.include?(user_id) || !direct_follower_option(user_id, set_card, &block)
-    ids << user_id
+  set_names.each do |set_name|
+    direct_follower_ids_for_set set_name, ids, &block
   end
   ids
 end
 
-def direct_follower_option user_id, set_card
-  return unless (option = follow_rule_option user_id)
-  yield user_id, set_card, option if block_given?
-  true
-end
-
-def each_direct_follower_id
-  with_follower_candidate_ids do
-    set_names.each do |set_name|
-      set_card = Card.fetch(set_name)
-      set_card.all_user_ids_with_rule_for(:follow).each do |user_id|
-        yield user_id, set_card
-      end
-    end
+def direct_follower_ids_for_set set_name, ids
+  set_card = Card.fetch(set_name)
+  set_card.all_user_ids_with_rule_for(:follow).each do |user_id|
+    next if ids.include?(user_id) || !(option = follow_rule_option user_id)
+    yield user_id, set_card, option if block_given?
+    ids << user_id
   end
 end
 
-def follow_rule_applies? follower_id
-  !follow_rule_option(follower_id).nil?
-end
-
-def follow_rule_option follower_id
-  all_follow_rule_options(follower_id).find do |option|
-    follow_rule_option_applies? follower_id, option
+def each_direct_follower_id_with_reason
+  direct_follower_ids do |user_id, set_card, follow_option|
+    reason = follow_option.gsub(/[\[\]]/, "")
+    yield user_id, set_card: set_card, option: reason
   end
-end
-
-def follow_rule_option_applies? follower_id, option
-  option_code = option.to_name.code
-  candidate_ids = follower_candidate_ids_for_option option_code
-  follow_rule_option_applies_to_candidates? follower_id, option_code, candidate_ids
-end
-
-def follow_rule_option_applies_to_candidates? follower_id, option_code, candidate_ids
-  if (test = FollowOption.test[option_code])
-    test.call follower_id, candidate_ids
-  else
-    candidate_ids.include? follower_id
-  end
-end
-
-def follower_candidate_ids_for_option option_code
-  return [] unless (block = FollowOption.follower_candidate_ids[option_code])
-  block.call self
-end
-
-def all_follow_rule_options follower_id
-  follow_rule = rule :follow, user_id: follower_id
-  return [] unless follow_rule.present?
-  follow_rule.split("\n")
-end
-
-def with_follower_candidate_ids
-  @follower_candidate_ids = {}
-  yield
-  @follower_candidate_ids = nil
 end

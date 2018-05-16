@@ -27,7 +27,7 @@ format do
   end
 
   def follow_link_mark
-    card.default_follow_set_card.follow_rule_name Auth.current.name
+    card.follow_set_card.follow_rule_name Auth.current.name
   end
 end
 

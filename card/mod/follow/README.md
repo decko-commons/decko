@@ -45,6 +45,14 @@ Special views include:
 - _ignore_tab_
 
 ### Follow suggestions
+| name | type | content |
+|:----:|:----:|:-------:|
+| :follow_suggestions | Pointer | list of follow settings |
+
+This advanced global setting lets sharks determine what suggestions will appear on the
+follow dashboard.  Any item not currently followed will be suggested.
+
+Each suggestion can take the form of either `[Set]` or `[Set]+[Follow Option]`.
 
 ### Following status
 | name | type | content |
@@ -84,6 +92,16 @@ Useful views added by this mod include:
 - _followed:_ label of set followed
 - _unfollow_url:_ link to remove the following rule that led to this email
 
+### Follow fields
+| name | type | content |
+|:----:|:----:|:-------:|
+| [Set]+:follow_fields | Pointer (rule) | list of fields |
+
+These rules rules are advanced configuration that let sharks determine which of a card’s fields
+are automatically followed when a user follow that card.
+
+The default value is `:includes`, which means that nested cards are followed by default.
+
 ## Lib
 
 ### Card::FollowerStash
@@ -96,10 +114,7 @@ A module for tracking and grouping follow options and their processing code.
 
 
 ## TODO
-- document follow fields/ include
-- document *follow suggestions
 - move notification template
-- add proposed plan to *follow defaults
 - review / address follow references in:
   - type/user
   - right/account

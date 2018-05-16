@@ -30,7 +30,7 @@ class Card
     private
 
     def notify_direct_followers card
-      card.all_direct_follower_ids_with_reason do |user_id, reason|
+      card.each_direct_follower_id_with_reason do |user_id, reason|
         notify Card.fetch(user_id), of: reason
       end
     end

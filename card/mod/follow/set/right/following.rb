@@ -37,7 +37,7 @@ format :html do
   end
 
   def preference_name
-    set_name = card.left.default_follow_set_card.name
+    set_name = card.left.follow_set_card.name
     Card::Name[set_name, Auth.current.name, :follow]
   end
 
