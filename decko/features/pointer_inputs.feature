@@ -78,12 +78,12 @@ Feature: Pointer Inputs
     When I click on "Add filter"
     And I wait for ajax response
     And I check "select-all"
-    And I press "Add Selected"
+    And I click on "Add Selected"
     And I wait for ajax response
     Then I should see "Joe Camel"
     And I click on "Add Item"
     And I check "Big_Brother"
-    And I press "Add Selected"
+    And I click on "Add Selected"
     And I press "Submit"
     And I wait for ajax response
     And I go to card "Joe User+friends"

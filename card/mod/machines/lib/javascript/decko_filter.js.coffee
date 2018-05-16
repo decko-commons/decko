@@ -66,7 +66,11 @@ updateSelectedCount = (el) ->
   count = selectedBin(el).children().length
   filterBox(el).find("._selected-items").html count
   deselectAllLink(el).attr "disabled", count == 0
-  addSelectedButton(el).attr "disabled", count == 0
+  if count > 0
+    addSelectedButton(el).removeClass("disabled")
+  else
+    addSelectedButton(el).addClass("disabled")
+
   updateSelectedSectionVisibility el, count > 0
 
 updateSelectedSectionVisibility = (el, items_present) ->
