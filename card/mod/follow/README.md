@@ -44,6 +44,8 @@ Special views include:
 - _follow_tab_
 - _ignore_tab_
 
+### Follow suggestions
+
 ### Following status
 | name | type | content |
 |:----:|:----:|:-------:|
