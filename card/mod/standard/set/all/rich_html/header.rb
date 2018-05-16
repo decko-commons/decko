@@ -52,10 +52,6 @@ format :html do
     end
   end
 
-  def show_follow?
-    Auth.signed_in? && !card.new_card? && card.followable?
-  end
-
   def structure_editable?
     card.structure && card.template.ok?(:update)
   end

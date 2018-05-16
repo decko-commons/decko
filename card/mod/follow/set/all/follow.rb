@@ -1,3 +1,7 @@
+def show_follow?
+  Auth.signed_in? && !card.new_card? && card.followable?
+end
+
 # for override
 def followable?
   true

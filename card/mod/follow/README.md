@@ -114,10 +114,7 @@ A module for tracking and grouping follow options and their processing code.
 
 
 ## TODO
-- move notification template
 - review / address follow references in:
-  - type/user
-  - right/account
   - rich_html/
     - header
     - menu
