@@ -39,12 +39,13 @@ class MigrateCustomizedBootstrapSkin < Card::Migration::Core
   def up
     ensure_card "*stylesheets", codename: "stylesheets"
     ensure_card "*colors", codename: "colors"
+    ensure_card "style: mods", codename: "style_mods", type_id: Card::PointerID
     ensure_card "style: right sidebar", codename: "style_right_sidebar"
     Card::Cache.reset_all
 
     migrate_customizable_bootstrap_skin
 
-    Card.reset_all_machines
+    # Card.reset_all_machines
   end
 
   def migrate_customizable_bootstrap_skin

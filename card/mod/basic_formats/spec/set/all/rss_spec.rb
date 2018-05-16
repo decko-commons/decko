@@ -8,13 +8,6 @@ describe Card::Set::All::Rss do
     end
   end
 
-  it "handles faulty search queries" do
-    bad_search = Card.create! name: "Bad Search",
-                              type: "Search", content: "not no search"
-    rendered = bad_search.format(:rss).render_feed_body
-    expect(rendered).to have_tag("item", text: /Card::Error::BadQuery/)
-  end
-
   it "handles bad queries" do
     bad_search = Card.create! name: "Bad Search",
                               type: "Search", content: '{"found_by":"home"}'

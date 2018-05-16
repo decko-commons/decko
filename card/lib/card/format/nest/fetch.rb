@@ -12,7 +12,7 @@ class Card
           when "_", "_self"    then format.context_card
           else                      new_card cardish
           end
-        rescue Card::Error::UnknownCodename
+        rescue Card::Error::CodenameNotFound
           not_found_codename cardish
         end
 

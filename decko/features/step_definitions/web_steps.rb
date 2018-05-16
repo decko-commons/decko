@@ -57,16 +57,6 @@ When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
   fill_in(field, with: value)
 end
 
-def select2(value, attrs)
-    find("[name='#{attrs[:from]}'] + .select2-container").click
-    list = find(:xpath, '//span[@class="select2-results"]', visible: :all)
-    list.find("li", text: value).click
-  end
-
-When /^(?:|I )select2 "([^"]*)" from "([^"]*)"$/ do |value, field|
-  select2(value, from: field)
-end
-
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   select(value, from: field)
 end

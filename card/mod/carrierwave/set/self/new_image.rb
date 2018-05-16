@@ -8,6 +8,6 @@ format :html do
   end
 
   view :editor, cache: :never do
-    super ()
+    super()
   end
 end
