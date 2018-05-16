@@ -12,9 +12,9 @@ end
 
 def follow_rule_name user=nil
   follower = case user
-               when nil    then :all.cardname
-               when String then user
-               else             user.name
+             when nil    then :all.cardname
+             when String then user
+             else             user.name
              end
   [name, follower, :follow.cardname].join "+"
 end

@@ -1,7 +1,7 @@
 
 format :html do
   COMMON_RULE_SETTINGS =
-      %i[create read update delete structure default style].freeze
+    %i[create read update delete structure default style].freeze
 
   view :core, cache: :never do
     voo.show :set_label, :rule_navbar
@@ -14,10 +14,10 @@ format :html do
     @selected_rule_navbar_view = selected_view
     wrap do
       [
-          _render_set_label,
-          _render_rule_navbar,
-          _render_set_navbar,
-          yield
+        _render_set_label,
+        _render_rule_navbar,
+        _render_set_navbar,
+        yield
       ]
     end
   end
@@ -71,7 +71,7 @@ format :html do
     wrap_with :h3, card.label, class: "set-label"
   end
 
-  Card::Setting.groups.keys.each do |group_key|
+  Card::Setting.groups.each_key do |group_key|
     view group_key.to_sym do
       settings = card.visible_settings group_key
       return unless settings.present?
@@ -96,9 +96,9 @@ format :html do
     related_sets = card.related_sets(true)
     return "" if related_sets.size <= 1
     navbar id, brand: "Set", toggle_align: :right,
-           class: "slotter toolbar navbar-expand-md",
-           navbar_type: "dark",
-           collapsed_content: close_link("float-right d-sm-none") do
+               class: "slotter toolbar navbar-expand-md",
+               navbar_type: "dark",
+               collapsed_content: close_link("float-right d-sm-none") do
       set_navbar_content related_sets
     end
   end
@@ -109,7 +109,7 @@ format :html do
 
   view :rule_navbar do
     navbar "rule-navbar-#{card.name.safe_key}-#{voo.home_view}",
-           brand: 'Rules', toggle_align: :right,
+           brand: "Rules", toggle_align: :right,
            class: "slotter toolbar navbar-expand-md bg-dark", navbar_type: "dark",
            collapsed_content: close_link("float-right d-sm-none") do
       rule_navbar_content
@@ -141,10 +141,9 @@ format :html do
                       hide: "header set_label rule_navbar",
                       show: "subheader set_navbar" }
         link = link_to_card name, label, remote: true,
-                            path: { view: @slot_view,
-                                    slot: slot_opts },
-                            class: "nav-link"
-
+                                         path: { view: @slot_view,
+                                                 slot: slot_opts },
+                                         class: "nav-link"
         li_pill link, name == card.name
       end
     end
