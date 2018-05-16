@@ -9,3 +9,7 @@ end
 def follow_set_card
   Card.fetch name, :type
 end
+
+def list_direct_followers?
+  true
+end

@@ -3,12 +3,14 @@ def followable?
   true
 end
 
-# for override
 def follow_label
   name
 end
 
-# for override
+def list_direct_followers?
+  false
+end
+
 def follow_option?
   codename && FollowOption.codenames.include?(codename)
 end
@@ -22,8 +24,8 @@ def follow_rule_name user=nil
   follow_set_card&.follow_rule_name user
 end
 
-def follow_rule_card user=nil
-  Card.fetch follow_rule_name(user)
+def follow_rule_card user=nil, args={}
+  Card.fetch follow_rule_name(user), args
 end
 
 def follow_rule? user=nil
@@ -61,6 +63,8 @@ def nested_card? card
   @nested_ids ||= includee_ids
   @nested_ids.include? card.id
 end
+
+## the following methods all handle _explicit_ (direct) follow rules (not fields)
 
 def follow_rule_applies? follower_id
   !follow_rule_option(follower_id).nil?

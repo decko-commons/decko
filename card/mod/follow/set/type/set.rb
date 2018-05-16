@@ -2,6 +2,10 @@ event :cache_expired_for_new_set, :store, on: :create do
   Card.follow_caches_expired
 end
 
+def list_direct_followers?
+  true
+end
+
 def follow_label
   if (klass = subclass_for_set)
     klass.short_label name.left_name

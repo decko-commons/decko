@@ -50,7 +50,7 @@ end
 
 def follower_ids
   @follower_ids = read_follower_ids_cache || begin
-    result = direct_follower_ids + indirect_follower_ids
+    result = direct_follower_ids.to_a + indirect_follower_ids
     write_follower_ids_cache result
     result
   end
@@ -60,7 +60,7 @@ def indirect_follower_ids
   result = []
   left_card = left
   while left_card
-    result += left_card.direct_follower_ids if left_card.followed_field? self
+    result += left_card.direct_follower_ids.to_a if left_card.followed_field? self
     left_card = left_card.left
   end
   result
@@ -79,13 +79,12 @@ end
 def direct_follower_ids &block
   ids = ::Set.new
   set_names.each do |set_name|
-    direct_follower_ids_for_set set_name, ids, &block
+    direct_follower_ids_for_set Card.fetch(set_name), ids, &block
   end
   ids
 end
 
-def direct_follower_ids_for_set set_name, ids
-  set_card = Card.fetch(set_name)
+def direct_follower_ids_for_set set_card, ids
   set_card.all_user_ids_with_rule_for(:follow).each do |user_id|
     next if ids.include?(user_id) || !(option = follow_rule_option user_id)
     yield user_id, set_card, option if block_given?
