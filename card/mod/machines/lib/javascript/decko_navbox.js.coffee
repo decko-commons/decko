@@ -16,6 +16,8 @@ $(window).ready ->
       cache: true
     templateResult: formatNavboxItem
     templateSelection: formatNavboxSelectedItem
+    multiple: true
+    containerCssClass: 'select2-navbox-autocomplete'
 
   navbox.on "select2:select", (e) ->
     navboxSelect(e)
@@ -66,4 +68,4 @@ navboxSelect = (event) ->
   else
     $(event.target).closest('form').submit()
 
-  $(this).attr('disabled', 'disabled')
+  $(event.target).attr('disabled', 'disabled')

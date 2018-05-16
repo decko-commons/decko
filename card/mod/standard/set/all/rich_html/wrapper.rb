@@ -91,6 +91,7 @@ format :html do
 
   def related_frame
     voo.show :menu
+    class_up "menu-slot", "text-white"
     wrap do
       [
         _render_menu,

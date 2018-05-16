@@ -9,11 +9,7 @@ format :html do
   end
 
   def header_wrap content=nil
-    wrap_with :div, class: classy("d0-card-header") do
-      wrap_with :div, class: classy("d0-card-header-title") do
-        block_given? ? yield : content
-      end
-    end
+    haml :header_wrap, content: (block_given? ? yield : output(content))
   end
 
   def header_title_elements
@@ -21,14 +17,12 @@ format :html do
   end
 
   view :subheader do
-    # FIXME: that looks like old css classes
-    wrap_with :div, class: "card-subheader navbar-inverse btn-primary active" do
+    wrap_with :div, class: "card-subheader bg-primary text-white" do
       [
         _render_title,
         (autosaved_draft_link(class: "float-right") if show_draft_link?)
       ]
     end
-    # toolbar_view_title(@slot_view) || _render_title(args)
   end
 
   def show_draft_link?

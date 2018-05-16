@@ -13,7 +13,7 @@ format :html do
   end
 
   def wrap_menu
-    wrap_with :div, class: "menu-slot nodblclick" do
+    wrap_with :div, class: classy(%w(menu-slot nodblclick)) do
       yield
     end
   end

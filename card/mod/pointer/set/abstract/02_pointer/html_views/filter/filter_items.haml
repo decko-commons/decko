@@ -1,11 +1,11 @@
 ._filter-items.container-fluid
   .row
     = nest filter_card, view: :filter_form
-    ._unselected.col-6.border.mt-2.nopadding
+    ._unselected.col-6.border.mt-2.pl-0.pr-0
       = nest filter_card, view: :select_item,
                           items: { view: implicit_item_view },
                           wql: { limit: 10 }
-    ._selected.col-6.border.mt-2.nopadding
+    ._selected.col-6.border.mt-2.pl-0.pr-0
       .selected-box
         .card-header
           %h5
@@ -21,15 +21,15 @@
               %span._selected-items
                 0
               following
-          ._selected-bin
+          ._selected-bin.pr-2
       ._filter-help.alert.alert-secondary
         Filter and select items to add them here.
       .form-group
-        .selected-item-buttons
+        .selected-item-buttons.pl-3
           = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
-          - select_href = path item: params[:item], filter_card: params[:filter_card]
-          = button_tag "Add Selected", class: "_add-selected slotter close-modal",
-                                       disabled: true,
-                                       href: select_href,
-                                       data: { "slot-selector": ".#{params[:slot_selector]}",
-                                               "item-selector": ".#{params[:item_selector]}" }
+          = link_to "Add Selected", path: { item: params[:item],
+                                            filter_card: params[:filter_card] },
+                                    class: "_add-selected slotter close-modal btn btn-primary disabled",
+                                    data: { "slot-selector": ".#{params[:slot_selector]}",
+                                            "item-selector": ".#{params[:item_selector]}",
+                                            remote: true }
