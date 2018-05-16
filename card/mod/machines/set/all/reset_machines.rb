@@ -5,7 +5,7 @@ module ClassMethods
         card.update_columns trash: true
         card.expire
       end
-      Card::Virtual.where(right_id: Card.fetch_id(:machine_cache)).delete_all
+      Card::Virtual.where(right_id: MachineCacheID).delete_all
     end
   end
 end

@@ -9,6 +9,10 @@ def content
 end
 alias raw_content content #DEPRECATED!
 
+def content?
+  content.present?
+end
+
 def standard_content
   db_content || (new_card? && template.db_content)
 end

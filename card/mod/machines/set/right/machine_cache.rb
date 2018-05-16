@@ -1,4 +1,4 @@
-include_set Abstract::Virtual
+include_set Abstract::VirtualCache
 
 def clean_html?
   false
