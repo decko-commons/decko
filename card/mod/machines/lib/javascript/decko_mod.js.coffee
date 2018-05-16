@@ -68,18 +68,14 @@ $(window).ready ->
       data : 'card[content]=true'
 
   # following mod
-  $('body').on 'click', '.btn-item-delete', ->
-    $(this).find('.glyphicon').addClass("glyphicon-hourglass").removeClass("glyphicon-remove")
-  $('body').on 'click', '.btn-item-add', ->
-    $(this).find('.glyphicon').addClass("glyphicon-hourglass").removeClass("glyphicon-plus")
-
+  $('body').on 'click', '.btn-item', ->
+    $(this).find('i').html('hourglass_full')
   $('body').on 'mouseenter', '.btn-item-delete', ->
-    $(this).find('.glyphicon').addClass("glyphicon-remove").removeClass("glyphicon-ok")
+    $(this).find('i').html('remove')
     $(this).addClass("btn-danger").removeClass("btn-primary")
   $('body').on 'mouseleave', '.btn-item-delete', ->
-    $(this).find('.glyphicon').addClass("glyphicon-ok").removeClass("glyphicon-remove")
+    $(this).find('i').html('check')
     $(this).addClass("btn-primary").removeClass("btn-danger")
-
 
   # modal mod
   $('body').on 'hidden.bs.modal', (event) ->

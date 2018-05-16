@@ -77,9 +77,8 @@ format :html do
   def follow_item_button condition
     action = card.add_follow_item?(condition) ? :add : :delete
     button_tag type: :submit, "aria-label": "Left Align",
-               class: "btn-xs #{follow_item_button_class action}" do
+               class: "btn-sm btn-item #{follow_item_button_class action}" do
       follow_item_icon action
-      tag :span, class: "glyphicon glyphicon-ok", "aria-hidden": "true"
     end
   end
 
@@ -88,7 +87,7 @@ format :html do
   end
 
   def follow_item_icon action
-    glyphicon(action == :add ? :plus : :ok)
+    icon_tag(action == :add ? :add : :check)
   end
 
   def follow_item_link condition

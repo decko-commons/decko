@@ -91,3 +91,19 @@ A class for stashing followers of a given card.
 ### Card::FollowOption
 
 A module for tracking and grouping follow options and their processing code.
+
+
+## TODO
+- document follow fields/ include
+- document *follow suggestions
+- move notification template
+- add proposed plan to *follow defaults
+- review / address follow references in:
+  - type/user
+  - right/account
+  - rich_html/
+    - header
+    - menu
+    - toolbar
+  - all/rules
+  
