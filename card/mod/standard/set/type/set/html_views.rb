@@ -73,8 +73,7 @@ format :html do
 
   Card::Setting.groups.each_key do |group_key|
     view group_key.to_sym do
-      settings = card.visible_settings group_key
-      return unless settings.present?
+      next unless card.visible_settings(group_key).present?
       haml :group_panel, group_key: group_key
     end
   end
@@ -152,7 +151,7 @@ format :html do
   def view_link_pill name, view
     selected_view = @selected_rule_navbar_view || @slot_view || voo.home_view
     link = link_to_view view, name, class: "nav-link slotter", role: "pill",
-                        path: { slot: { show: :rule_navbar } }
+                                    path: { slot: { show: :rule_navbar } }
     li_pill link, selected_view == view
   end
 end

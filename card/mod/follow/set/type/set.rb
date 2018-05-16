@@ -4,19 +4,22 @@ end
 
 def follow_label
   if (klass = subclass_for_set)
-    klass.short_label name.left
+    klass.short_label name.left_name
   else
     ""
   end
 end
 
 def follow_rule_name user=nil
-  follower = case user
-             when nil    then :all.cardname
-             when String then user
-             else             user.name
-             end
-  [name, follower, :follow.cardname].join "+"
+  Card::Name[[name, user, :follow].compact]
+end
+
+def follow_rule_card user=nil
+  Card.fetch follow_rule_name(user)
+end
+
+def follow_rule? user=nil
+  Card.exists? follow_rule_name(user)
 end
 
 def followed_by? user_id=nil
@@ -33,22 +36,20 @@ end
 
 def all_members_followed_by? user_id=nil
   return false unless prototype.followed_by?(user_id)
-  return true if set_followed_by? user_id
-  broader_sets.each do |b_s|
-    if (set_card = Card.fetch(b_s)) && set_card.set_followed_by?(user_id)
-      return true
-    end
+  directly_followed_by?(user_id) || broader_set_followed_by?(user_id)
+end
+
+def broader_set_followed_by? user_id
+  broader_sets.find do |set_name|
+    Card.fetch(set_name)&.directly_followed_by? user_id
   end
-  false
 end
 
-def set_followed?
-  set_followed_by? Auth.current_id
+def directly_followed?
+  directly_followed_by? Auth.current_id
 end
 
-def set_followed_by? user_id=nil
-  (
-  user_id &&
-      (user = Card.find(user_id)) && Card.fetch(follow_rule_name(user.name))
-  ) || Card.fetch(follow_rule_name)
+def directly_followed_by? user_id=nil
+  return true if user_id && follow_rule?(user_id)
+  follow_rule?
 end

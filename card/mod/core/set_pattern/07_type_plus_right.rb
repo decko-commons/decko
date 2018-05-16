@@ -5,16 +5,13 @@
 }
 
 def label name
-  %(All "+%s" cards on "%s" cards) % label_parts(name)
+  name = name.to_name
+  %(All "+#{name.tag}" cards on "#{name.left}" cards)
 end
 
 def short_label name
-  %(all "+%s" on "%ss") % label_parts(name)
-end
-
-def label_parts name
   name = name.to_name
-  [name.tag, name.left]
+  %(all "+#{name.tag}" on "#{name.left}s")
 end
 
 def prototype_args anchor
