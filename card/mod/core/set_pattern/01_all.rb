@@ -2,10 +2,10 @@ def label _name
   "All cards"
 end
 
-def prototype_args _anchor
-  {}
+def short_label _name
+  "everything"
 end
 
-def follow_label _name
-  "everything"
+def prototype_args _anchor
+  {}
 end

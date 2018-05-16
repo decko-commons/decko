@@ -4,7 +4,7 @@ end
 
 def follow_label
   if (klass = subclass_for_set)
-    klass.follow_label name.left
+    klass.short_label name.left
   else
     ""
   end

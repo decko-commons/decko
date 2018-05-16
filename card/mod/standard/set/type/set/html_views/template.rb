@@ -13,15 +13,7 @@ format :html do
 
   # TODO: hamlize
   view :template_editor do
-    wrap do
-      [
-        wrap_with(:div, "{{", class: "template-editor-left"),
-        wrap_with(:div, class: "template-editor-main") do
-          render_template_editor_frame show: :template_closer
-        end,
-        wrap_with(:div, "}}", class: "template-editor-right")
-      ]
-    end
+    wrap { haml :template_editor }
   end
 
   def frame_header
