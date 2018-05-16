@@ -28,7 +28,7 @@ end
 def find_file filename
   mod_path = Card::Mod.dirs.path file_content_mod_name
   file_path = File.join(mod_path, source_dir, filename)
-  if !File.exist?(file_path)
+  unless File.exist?(file_path)
     Rails.logger.info "couldn't locate file #{filename} at #{file_path}"
     return nil
   end
