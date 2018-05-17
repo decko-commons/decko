@@ -2,12 +2,11 @@ include_set Abstract::CodeFile
 Self::ScriptLibraries.add_item :script_jquery_helper
 
 def source_files
-  # jquery.ui.all must be after jquery.mobile to override dialog weirdness *
-  # FIXME removed  jquerymobile.js. Doesn't work with the new jquery version
-  # as fas as I'm aware of the only jquery widgets we use are
-  # autocomplete, sortable, autosize and fileupload
-  # autocomplete and sortable are intergrated in jquery-ui
-  # don't know if iframe-transport is needed
+  # jquery-ui includes all interaction components, the dialog and the autocomplete widget
+  # and all dependencies for those
+  # decko depends on autocomplete, sortable, jquery.autosize and jquery.fileupload
+  # the dialog widget is not used in decko but in wikirate
+  # don't know if iframe-transport is needed but it used to be there
   %w[jquery-ui.js
      jquery.autosize.js
      ../../vendor/jquery_file_upload/js/jquery.fileupload.js
