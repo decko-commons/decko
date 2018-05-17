@@ -50,17 +50,17 @@ end
 
 def follower_ids
   @follower_ids = read_follower_ids_cache || begin
-    result = direct_follower_ids.to_a + indirect_follower_ids
+    result = direct_follower_ids + indirect_follower_ids
     write_follower_ids_cache result
     result
   end
 end
 
 def indirect_follower_ids
-  result = []
+  result = ::Set.new
   left_card = left
   while left_card
-    result += left_card.direct_follower_ids.to_a if left_card.followed_field? self
+    result += left_card.direct_follower_ids if left_card.followed_field? self
     left_card = left_card.left
   end
   result

@@ -116,7 +116,6 @@ A module for tracking and grouping follow options and their processing code.
 ## TODO
 - review / address follow references in:
   - rich_html/
-    - header
     - menu
     - toolbar
   - all/rules

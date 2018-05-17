@@ -19,7 +19,7 @@ end
 # integrate_with_delay phase
 event :stash_followers, :store, on: :delete, when: :notable_change? do
   act_card.follower_stash ||= FollowerStash.new
-  act_card.follower_stash.add_affected_card self
+  act_card.follower_stash.check_card self
 end
 
 event :notify_followers_after_delete, :integrate, on: :delete, when: :notable_change? do
@@ -58,7 +58,7 @@ def act_followers act
   @follower_stash ||= FollowerStash.new
   act.actions.each do |a|
     next if !a.card || a.card.silent_change?
-    @follower_stash.add_affected_card a.card
+    @follower_stash.check_card a.card
   end
   @follower_stash
 end
