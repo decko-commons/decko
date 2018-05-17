@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Abstract::VirtualCache do
+RSpec.describe Card::Virtual do
   let(:virtual_content) { "vc" }
 
   let(:card) do
