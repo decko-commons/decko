@@ -28,6 +28,10 @@ class Card
         end
       end
 
+      # def refer key, val
+      #   add_condition "EXISTS (#{Reference.new(key, val, self).to_sql})"
+      # end
+
       def id_from_val val
         case val
         when Integer then val

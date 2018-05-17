@@ -30,20 +30,27 @@ class Card::Query
 
       direction, *reftype = DEFINITIONS[key.to_sym]
       @infield, @outfield = FIELDMAP[direction]
+      add_reftype_conditions reftype
+      process_val val
+    end
 
-      if reftype.present?
-        operator = (reftype.size == 1 ? "=" : "IN")
-        quoted_letters = reftype.map { |letter| "'#{letter}'" } * ", "
-        @conditions << "ref_type #{operator} (#{quoted_letters})"
-      end
+    def to_sql
 
+    end
+
+    def process_val val
       if val == "_none"
         @conditions << "present = 0"
       else
         @cardquery = val
       end
+    end
 
-      self
+    def add_reftype_conditions reftype
+      return unless reftype.present?
+      operator = (reftype.size == 1 ? "=" : "IN")
+      quoted_letters = reftype.map { |letter| "'#{letter}'" } * ", "
+      @conditions << "ref_type #{operator} (#{quoted_letters})"
     end
   end
 end
