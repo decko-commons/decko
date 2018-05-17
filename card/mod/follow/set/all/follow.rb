@@ -31,4 +31,3 @@ end
 def follow_rule? user=nil
   Card.exists? follow_rule_name(user)
 end
-
