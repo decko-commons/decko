@@ -145,7 +145,7 @@ end
 def previous_action action_id
   return unless action_id
   action_index = actions.find_index { |a| a.id == action_id }
-  actions[action_index - 1] if action_index.to_i.nonzero?
+  all_actions[action_index - 1] if action_index.to_i.nonzero?
 end
 
 def revised_at
