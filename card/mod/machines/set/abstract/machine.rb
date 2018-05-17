@@ -144,7 +144,7 @@ end
 
 def run_engine input_card
   return unless direct_machine_input? input_card
-  if (cached = fetch_cache_card(input_card))
+  if (cached = fetch_cache_card(input_card)) && cached.content?
     return cached.content
   end
 

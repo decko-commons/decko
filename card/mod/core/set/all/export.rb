@@ -6,7 +6,7 @@ format :json do
 
   view :export, cache: :never do
     # avoid loops
-    return [] if @export_depth > 5 || @exported_keys.include?(card.key)
+    return [] if @export_depth > 4 || @exported_keys.include?(card.key)
     @exported_keys << card.key
     Array.wrap(render_atom).concat(render_export_items).flatten
   end
