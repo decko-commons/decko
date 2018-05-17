@@ -1,7 +1,3 @@
-def show_follow?
-  Auth.signed_in? && !card.new_card? && card.followable?
-end
-
 # for override
 def followable?
   true
@@ -35,4 +31,3 @@ end
 def follow_rule? user=nil
   Card.exists? follow_rule_name(user)
 end
-

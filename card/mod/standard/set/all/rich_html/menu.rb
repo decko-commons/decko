@@ -1,6 +1,6 @@
 format :html do
   mattr_accessor :menu_items
-  self.menu_items = %i[edit discuss follow page rules account more].freeze
+  self.menu_items = %i[edit discuss follow page rules account more]
 
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
@@ -73,13 +73,13 @@ format :html do
   end
 
   def menu_item_list link_opts={}
-    self.menu_items.map do |item|
+    menu_items.map do |item|
       next unless show_menu_item?(item)
       send "menu_item_#{item}", link_opts
     end.compact
   end
 
-  self.menu_items.each do |item|
+  menu_items.each do |item|
     view "menu_item_#{item}" do
       send "menu_item_#{item}", {}
     end

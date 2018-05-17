@@ -6,10 +6,10 @@ end
 # for sets and cardtypes it doesn't check whether the users is following the
 # card itself instead it checks whether he is following the complete set
 def followed_by? user_id
-  follow_rule_applies?(user_id) || left&.followed_by_as_field?(self)
+  follow_rule_applies?(user_id) || left&.followed_by_as_field?(self, user_id)
 end
 
-def followed_by_as_field? field
+def followed_by_as_field? field, user_id
   followed_field?(field) && followed_by?(user_id)
 end
 
