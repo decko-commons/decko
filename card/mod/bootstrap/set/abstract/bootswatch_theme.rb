@@ -153,7 +153,8 @@ end
 
 def source_dir
   @source_dir ||=
-    ::File.expand_path "../../../vendor/bootswatch/dist/#{theme_name}", __FILE__
+    File.join(Gem.loaded_specs["bootswatch"].full_gem_path, "assets", "stylesheets",
+              "bootswatch", theme_name)
 end
 
 format :html do

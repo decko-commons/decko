@@ -1,10 +1,4 @@
-def history?
-  false
-end
-
-def followable?
-  false
-end
+include_set Abstract::VirtualCache
 
 def clean_html?
   false

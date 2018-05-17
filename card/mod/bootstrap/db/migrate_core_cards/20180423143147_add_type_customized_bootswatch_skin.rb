@@ -4,9 +4,18 @@ require_relative "lib/skin"
 
 class AddTypeCustomizedBootswatchSkin < Card::Migration::Core
   def up
-    ensure_card "Customized bootswatch skin",
-                type_id: Card::CardtypeID,
-                codename: "customized_bootswatch_skin"
+    delete_code_card :customized_bootswatch_skin
+    if (card = Card.fetch("Customized bootswatch skin"))
+      if card.codename != "customized_bootswatch_skin"
+        delete_code_card :customized_bootswatch_skin
+      end
+      card.update_attributes! type_id: Card::CardtypeID,
+                              codename: "customized_bootswatch_skin"
+    else
+      ensure_card "Customized bootswatch skin",
+                  type_id: Card::CardtypeID,
+                  codename: "customized_bootswatch_skin"
+    end
     ensure_card "*stylesheets", codename: "stylesheets"
     ensure_card "*bootswatch", codename: "bootswatch"
     ensure_card "*variables", codename: "variables"
