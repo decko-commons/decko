@@ -6,7 +6,7 @@ format :html do
   # @param active_name [String] label of the tab that should be active at the
   # beginning (default is the first)
   # @return [HTML] bootstrap tabs element with all content preloaded
-  def static_tabs tabs, active_name=nil, tab_type="tabs"
+  def static_tabs tabs, active_name=nil, tab_type="tabs", args={}
     tab_buttons = ""
     tab_panes = ""
     tabs.each do |tab_name, tab_content|
@@ -20,7 +20,7 @@ format :html do
           [tab_content, {}]
         end
       tab_buttons += tab_button("##{id}", tab_name, active_tab, button_attr)
-      tab_panes += tab_pane(id, tab_content, active_tab)
+      tab_panes += tab_pane(id, tab_content, active_tab, args[:pane])
     end
     tab_panel tab_buttons, tab_panes, tab_type
   end
@@ -119,11 +119,10 @@ format :html do
   end
 
   def tab_pane id, content, active=false, args=nil
-    args ||= {}
-    args.reverse_merge! role: :tabpanel,
-                        id: id
-    add_class args, "tab-pane"
-    add_class args, "active" if active
-    wrap_with :div, content, args
+    pane_args = { role: :tabpanel, id: id }
+    pane_args.merge! args if args.present?
+    add_class pane_args, "tab-pane"
+    add_class pane_args, "active" if active
+    wrap_with :div, content, pane_args
   end
 end
