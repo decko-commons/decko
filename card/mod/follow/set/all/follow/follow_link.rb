@@ -1,4 +1,8 @@
 format do
+  def show_follow?
+    Auth.signed_in? && !card.new_card? && card.followable?
+  end
+
   def follow_link_hash
     toggle = card.followed? ? :off : :on
     hash = { class: "follow-toggle-#{toggle}" }
