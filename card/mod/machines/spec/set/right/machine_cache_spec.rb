@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.shared_examples_for "virtual content" do |virtual_content|
-  let(:vc) { virtual_content }
-  
+RSpec.shared_examples_for "virtual content" do
+  let(:vc) { "be or not to be" }
+
   it "saves content in virtual table" do
     virtual = Card::Virtual.find_by_content vc
     aggregate_failures do
@@ -17,24 +17,24 @@ RSpec.shared_examples_for "virtual content" do |virtual_content|
 end
 
 RSpec.describe Card::Set::Right::MachineCache, as_bot: true do
-  VIRTUAL_CONTENT = "be or not to be".freeze
+  let(:virtual_content) { "be or not to be" }
 
   def create_virtual
-    Card.create name: "*all+*machine_cache", content: VIRTUAL_CONTENT
+    Card.create name: "*all+*machine_cache", content: virtual_content
   end
 
   def update_virtual
-    Card.fetch(:all, :machine_cache).update_attributes! content: VIRTUAL_CONTENT
+    Card.fetch(:all, :machine_cache).update_attributes! content: virtual_content
   end
 
   context "when content is updated" do
     before { update_virtual }
-    include_examples "virtual content", VIRTUAL_CONTENT
+    include_examples "virtual content"
   end
 
   context "when card is created" do
     before { create_virtual }
-    include_examples "virtual content", VIRTUAL_CONTENT
+    include_examples "virtual content"
   end
 
   context "when trash is set to true" do
@@ -45,7 +45,7 @@ RSpec.describe Card::Set::Right::MachineCache, as_bot: true do
     end
 
     it "deletes content in virtual table" do
-      virtual = Card::Virtual.find_by_content VIRTUAL_CONTENT
+      virtual = Card::Virtual.find_by_content virtual_content
       expect(virtual).to be_nil
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe Card::Set::Right::MachineCache, as_bot: true do
     end
 
     it "deletes content in virtual table" do
-      virtual = Card::Virtual.find_by_content VIRTUAL_CONTENT
+      virtual = Card::Virtual.find_by_content virtual_content
       expect(virtual).to be_nil
     end
   end
