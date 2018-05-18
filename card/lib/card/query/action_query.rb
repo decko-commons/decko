@@ -1,5 +1,6 @@
 class Card
   module Query
+    # support CQL queries that require the card_acts table
     class ActionQuery < AbstractQuery
       def table
         "card_actions"

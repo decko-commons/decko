@@ -1,5 +1,6 @@
 class Card
   module Query
+    # interpret CQL queries, transform them into SQL, and run them.
     class CardQuery < AbstractQuery
       include Clause
       include Run
@@ -26,7 +27,6 @@ class Card
         super statement
         @comment = comment || default_comment
         interpret @statement
-        self
       end
 
       def default_comment
@@ -58,7 +58,6 @@ class Card
       def full?
         !superquery && mods[:return] != "count"
       end
-
     end
   end
 end

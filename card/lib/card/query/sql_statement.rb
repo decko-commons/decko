@@ -12,7 +12,7 @@ class Card
       def build
         @fields = fields
         @tables = tables
-        @joins  = joins @query.all_joins
+        @joins  = joins
         @where  = where
         @group  = group
         @order  = order

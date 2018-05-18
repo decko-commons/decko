@@ -18,6 +18,10 @@ class Card
           exists :card, val, { id: :id }, fasten: :not_exist
         end
 
+        def current_conjunction
+          @mods[:conj].blank? ? :and : @mods[:conj]
+        end
+
         private
 
         def conjunction val
@@ -31,7 +35,7 @@ class Card
             subquery.interpret val_item
           end
         end
-        
+
         def conjoinable_val val
           return val if val.is_a? Array
           clause_to_hash(val).map { |key, value| { key => value } }

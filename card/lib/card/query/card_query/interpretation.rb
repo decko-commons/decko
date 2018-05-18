@@ -1,6 +1,8 @@
 class Card
   module Query
     class CardQuery
+      # Interpret CQL. Once interpreted, SQL can be generated.
+      #
       module Interpretation
         # normalize and extract meaning from a clause
         # @param clause [Hash, String, Integer] statement or chunk thereof
@@ -116,12 +118,8 @@ class Card
             # same conjunction as container, no need for subcondition
             val.each { |v| send method, key, v }
           else
-            send conj, val.map { |v| { key => v } }
+            send conj, (val.map { |v| { key => v } })
           end
-        end
-
-        def current_conjunction
-          @mods[:conj].blank? ? :and : @mods[:conj]
         end
       end
     end

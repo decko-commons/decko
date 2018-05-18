@@ -1,13 +1,8 @@
 class Card
   module Query
+    # support the use of the card_references table in CQL
     class ReferenceQuery < AbstractQuery
-
       RELATIONSHIPS = {
-        # syntax:
-        # wql query key => [ direction, {reference_type} ]
-        # direction      = :out | :in
-        # reference_type =  'L' | 'I' | 'P'
-
         refer_to: [:out, "L", "I"], referred_to_by: [:in, "L", "I"],
         link_to:  [:out, "L"],      linked_to_by:   [:in, "L"],
         include:  [:out, "I"],      included_by:    [:in, "I"]

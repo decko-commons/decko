@@ -1,13 +1,23 @@
 class Card
   module Query
     class SqlStatement
-      # handle joins in SqlStatement
+      # handle transformation of joins from Query representation to SQL
       module Joins
-        def joins join_list
+        def joins
+          join_joins direct_joins
+        end
+
+        def direct_joins
+          @query.direct_subqueries.unshift(@query).map do |query|
+            query.joins
+          end.flatten
+        end
+
+        def join_joins join_list
           clauses = []
           join_list.each do |join|
             clauses << join_on_clause(join)
-            clauses << joins(deeper_joins join) unless join.left?
+            clauses << join_joins(deeper_joins(join)) unless join.left?
           end
           clauses.flatten * "\n"
         end
