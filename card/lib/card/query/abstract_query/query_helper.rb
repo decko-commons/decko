@@ -5,7 +5,7 @@ class Card
       module QueryHelper
         def direct_subqueries
           direct = subqueries.select { |s| s.fasten == :direct }
-          direct + direct.map { |s| s.direct_subqueries }.flatten
+          direct + direct.map(&:direct_subqueries).flatten
         end
 
         def table_alias

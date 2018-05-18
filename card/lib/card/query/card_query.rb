@@ -4,8 +4,9 @@ class Card
     class CardQuery < AbstractQuery
       include Clause
       include Run
-      include Attributes
+      include SpecialAttributes
       include RelationalAttributes
+      include AttributeHelper
       include Interpretation
       include Sorting
       include Conjunctions

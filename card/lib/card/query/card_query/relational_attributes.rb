@@ -1,6 +1,8 @@
 class Card
   module Query
     class CardQuery
+      # interpret CQL attributes that relate multiple cards
+      # each method below corresponds to a relational CQL term
       module RelationalAttributes
         def refer key, val
           subquery class: ReferenceQuery, fasten: :exist, key => val
@@ -75,25 +77,6 @@ class Card
 
         def plus val
           any(left_plus: val, right_plus: val.deep_clone)
-        end
-
-        private
-
-        def exists_action action, val
-          exists :action, { action => val }, card_id: :id
-        end
-
-        def exists_act action, val
-          exists :act, { action => val }, actor_id: :id
-        end
-
-        def junction val, side, field
-          exists :card, junction_val(val, side), field => :id
-        end
-
-        def junction_val val, side
-          part_clause, junction_clause = val.is_a?(Array) ? val : [val, {}]
-          clause_to_hash(junction_clause).merge side => part_clause
         end
       end
     end

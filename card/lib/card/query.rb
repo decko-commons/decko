@@ -35,20 +35,20 @@ class Card
   #    [ field_string_or_sym, Card::Value::Query object ]
   module Query
     ATTRIBUTES = {
-      basic:          %w(  id name key type_id content left_id right_id
-                           creator_id updater_id codename read_rule_id        ),
-      relational:     %w(  type part left right
-                           editor_of edited_by last_editor_of last_edited_by
-                           creator_of created_by member_of member
-                           updater_of updated_by),
-      plus_relational: %w( plus left_plus right_plus),
-      ref_relational:  %w( refer_to referred_to_by
-                           link_to linked_to_by
-                           include included_by                                   ),
-      conjunction:     %w( and or all any),
-      special:         %w( found_by not sort match name_match complete
-                           junction_complete extension_type),
-      ignore:          %w( prepend append view params vars size)
+      basic:           %w(id name key type_id content left_id right_id
+                          creator_id updater_id codename read_rule_id),
+      relational:      %w(type part left right
+                          editor_of edited_by last_editor_of last_edited_by
+                          creator_of created_by member_of member
+                          updater_of updated_by),
+      plus_relational: %w(plus left_plus right_plus),
+      ref_relational:  %w(refer_to referred_to_by
+                          link_to linked_to_by
+                          include included_by),
+      conjunction:     %w(and or all any),
+      special:         %w(found_by not sort match name_match complete
+                          junction_complete extension_type),
+      ignore:          %w(prepend append view params vars size)
     }.each_with_object({}) do |pair, h|
       pair[1].each { |v| h[v.to_sym] = pair[0] }
     end
@@ -56,14 +56,14 @@ class Card
     CONJUNCTIONS = { any: :or, in: :or, or: :or, all: :and, and: :and }.freeze
 
     MODIFIERS = %w(conj return sort sort_as group dir limit offset)
-                    .each_with_object({}) { |v, h| h[v.to_sym] = nil }
+                .each_with_object({}) { |v, h| h[v.to_sym] = nil }
 
     OPERATORS =
-        %w(!= = =~ < > in ~).each_with_object({}) { |v, h| h[v] = v }.merge(
-          {
-            eq: "=", gt: ">", lt: "<", match: "~", ne: "!=", "not in": "not in"
-          }.stringify_keys
-        )
+      %w(!= = =~ < > in ~).each_with_object({}) { |v, h| h[v] = v }.merge(
+        {
+          eq: "=", gt: ">", lt: "<", match: "~", ne: "!=", "not in": "not in"
+        }.stringify_keys
+      )
 
     DEFAULT_ORDER_DIRS = { update: "desc", relevance: "desc" }.freeze
 

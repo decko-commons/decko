@@ -1,6 +1,7 @@
 class Card
   module Query
     class CardQuery
+      # handle relational (not simple) CQL sort values
       module Sorting
         SORT_BY_ITEM_JOIN_MAP = { left: "left_id", right: "right_id" }.freeze
 
@@ -9,6 +10,10 @@ class Card
           sort_field = val[:return] || "db_content"
           val = val.clone
           item = val.delete(:item) || "left"
+          sort_by val, item, sort_field
+        end
+
+        def sort_by val, item, sort_field
           if sort_field == "count"
             sort_by_count val, item
           else
@@ -48,13 +53,13 @@ class Card
           # FIXME: - SQL generated before SQL phase
 
           sort_query.joins << Join.new(from: sort_query, side: "LEFT",
-                                       to: %w(card_references wr referee_id))
+                                       to: %w[card_references wr referee_id])
           join_count_sort_query sort_query
         end
 
         def join_count_sort_query sort_query
           sort_query.mods[:sort_join_field] =
-              "#{sort_query.table_alias}.id as sort_join_field"
+            "#{sort_query.table_alias}.id as sort_join_field"
           # FIXME: HACK!
 
           joins << Join.new(from: self, side: "LEFT",
