@@ -21,7 +21,7 @@ class Card
           end
         end
 
-        # sort: { count: referred_to_by { right: "*follow" } }
+        # sort: { referred_to_by { right: "*follow" }, return count }
 
         def sort_by_item_join val, item, sort_field
           join_field = sort_by_item_join_field item

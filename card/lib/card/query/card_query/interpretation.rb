@@ -7,7 +7,8 @@ class Card
         INTERPRET_METHOD = { basic: :add_condition,
                              special: :relate,
                              relational: :relate,
-                             plus_relational: :relate_compound }.freeze
+                             plus_relational: :relate_compound,
+                             conjunction: :send }.freeze
 
         # normalize and extract meaning from a clause
         # @param clause [Hash, String, Integer] statement or chunk thereof
@@ -44,61 +45,25 @@ class Card
         end
 
         def interpret_attributes key, val
-          case (attr = ATTRIBUTES[key])
-          when :basic, :special, :relational, :plus_relational
-            send INTERPRET_METHOD[attr], key, val
-          when :conjunction          then send key, val
-          when :ref_relational       then relate key, val, method: :refer
-          else                            bad_attribute!(key)
+          attribute = ATTRIBUTES[key]
+          if (method = INTERPRET_METHOD[attribute])
+            send method, key, val
+          else
+            interpret_special_attribute attribute, key, val
+          end
+        end
+
+        def interpret_special_attribute attribute, key, val
+          case attribute
+          when :ref_relational  then relate key, val, method: :refer
+          when :ignore          then nil # NOOP
+          else                       bad_attribute!(key)
           end
         end
 
         def bad_attribute! key
           return if key == :ignore
           raise Card::Error::BadQuery, "Invalid attribute #{key}"
-        end
-
-        def normalize_clause clause
-          clause = clause_to_hash clause
-          clause.symbolize_keys!
-          clause.each do |key, val|
-            next if key.to_sym == :return
-            clause[key] = normalize_value val
-          end
-          clause
-        end
-
-        def clause_to_hash clause
-          case clause
-          when Hash              then clause
-          when String            then { key: clause.to_name.key }
-          when Integer           then { id: clause }
-          else raise Card::Error::BadQuery, "Invalid query args #{clause.inspect}"
-          end
-        end
-
-        def normalize_value val
-          case val
-          when Integer, Float, Symbol, Hash then val
-          when String                       then normalize_string_value val
-          when Array                        then normalize_array_value val
-          else raise Card::Error::BadQuery, "unknown WQL value type: #{val.class}"
-          end
-        end
-
-        def normalize_array_value val
-          val.map { |v| normalize_value v }
-        end
-
-        def normalize_string_value val
-          case val.to_s
-          when /^\$(\w+)$/                       # replace from @vars
-            @vars[Regexp.last_match[1].to_sym].to_s.strip
-          when /\b_/                             # absolutize based on @context
-            val.to_name.absolute(context)
-          else
-            val
-          end
         end
 
         def relate_compound key, val

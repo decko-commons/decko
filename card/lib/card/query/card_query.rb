@@ -8,6 +8,7 @@ class Card
       include RelationalAttributes
       include AttributeHelper
       include Interpretation
+      include Normalization
       include Sorting
       include Conjunctions
       # Query Execution
