@@ -24,8 +24,7 @@ class Card
         end
 
         def not val
-          subquery = exists_card val, id: :id
-          subquery.fasten = :not_exist
+          exists :card, val, { id: :id }, fasten: :not_exist
         end
 
         def conjunction val

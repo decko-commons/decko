@@ -26,6 +26,12 @@ class Card
       end
     end
 
+    def interpret hash
+      hash.each do |action, card|
+        send action, card
+      end
+    end
+
     def full?
       false
     end
@@ -77,11 +83,19 @@ class Card
         (joins + subqueries.select{|s| s.fasten == :direct }.map(&:all_joins)).flatten
     end
 
-    def exists_card val, where
-      s = subquery fasten: :exist
+    def exists subquery_type, val, where, subquery_args={}
+      s = subquery exists_subquery_args(subquery_args, subquery_type)
       s.interpret val
       s.exists_where where if where
       s
+    end
+
+    def exists_subquery_args args, type
+      args.reverse_merge! fasten: :exist
+      unless type == :card
+        args[:class] = Card::Query.const_get("#{type.capitalize}Query")
+      end
+      args
     end
 
     def exists_where hash
@@ -96,7 +110,7 @@ class Card
       if (id = id_from_val(val))
         interpret id_field => id
       else
-        exists_card val, id: id_field
+        exists :card, val, id: id_field
       end
     end
 

@@ -19,6 +19,8 @@ class Card
           format_conditions cond_list, query
         end
 
+        # depending on how a query is "fastened", its conditions may be rendered
+        # along with the superquery's
         def conditions_from subqueries
           subqueries.map do |query|
             next if query.conditions_on_join
@@ -34,6 +36,7 @@ class Card
           "#{'NOT ' if negate}EXISTS (\n#{subquery.sql}\n)"
         end
 
+        # the conditions stored in the query's @conditions variable
         def basic_conditions conditions
           conditions.map do |condition|
             case condition
@@ -49,8 +52,9 @@ class Card
         end
 
         # handle trash and permissions
+        # only applies to card queries
         def implicit_conditions query
-          return unless query.table == "cards"
+          return unless query.is_a?(Card::Query)
           table = query.table_alias
           [trash_condition(table), permission_conditions(table)].compact * " AND "
         end

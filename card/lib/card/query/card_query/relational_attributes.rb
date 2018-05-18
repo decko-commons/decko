@@ -2,6 +2,10 @@ class Card
   class Query
     class CardQuery
       module RelationalAttributes
+        def refer key, val
+          subquery class: ReferenceQuery, fasten: :exist, key => val
+        end
+
         def type val
           restrict :type_id, val
         end
@@ -19,62 +23,28 @@ class Card
           restrict :right_id, val
         end
 
-        def editor_off
-          subquery
+        def editor_of val
+          exists_act :action_on, val
         end
 
-        # action_table_id and action_condition are needed to reuse that method
-        # for `updater_of`
-        def editor_of val, action_table_id=nil, action_condition=nil
-          act_join = acts_join self, :actor_id
-          joins << act_join
-          # all acts where current query finds actor
-          action_table_id ||= table_id true
-          join_cards(
-            val, from_field: "card_id",
-                 from: actions_join(act_join, "an#{action_table_id}", "card_act_id",
-                                    conditions: action_condition)
-          )
-          # joins cards updated in those acts
-        end
-
-        def acts_join from, to_field, opts={}
-          join_args = { from: from, to: ["card_acts", "a#{table_id true}", to_field] }
-          Join.new join_args.merge(opts)
-        end
-
-        def actions_join from, to_alias, to_field, opts={}
-          join_args = { from: from, to: ["card_actions", to_alias, to_field] }
-          Join.new join_args.merge(opts)
-        end
-
-        # action_table_id and action_condition are needed to reuse that method
-        # for `updated_by`
-        def edited_by val, action_table_id=nil, action_condition=nil
-          action_table_id ||= table_id true
-          action_join = actions_join self, "an#{action_table_id}", "card_id",
-                                     conditions: action_condition
-          joins << action_join
-          # joins actions that edited cards found by current query
-          join_cards val, from_field: "actor_id",
-                          from: acts_join(action_join, :id, from_field: "card_act_id")
-          # joins cards via acts of those actions
-        end
-
-        # edited but not created
-        def updated_by val
-          action_table_id = table_id true
-          edited_by val, action_table_id, "an#{action_table_id}.action_type = 1"
-        end
-
-        # editor but not creator
         def updater_of val
-          action_table_id = table_id true
-          editor_of val, action_table_id, "an#{action_table_id}.action_type = 1"
+          exists_act :update_action_on, val
+        end
+
+        def exists_action action, val
+          exists :action, { action => val }, { card_id: :id }
+        end
+
+        def edited_by val
+          exists_action :action_by, val
+        end
+
+        def updated_by val
+          exists_action :update_action_by, val
         end
 
         def last_editor_of val
-          exists_card val, updater_id: :id
+          exists :card, val, updater_id: :id
         end
 
         def last_edited_by val
@@ -82,7 +52,7 @@ class Card
         end
 
         def creator_of val
-          exists_card val, creator_id: :id
+          exists :card, val, creator_id: :id
         end
 
         def created_by val
@@ -111,11 +81,19 @@ class Card
           any(left_plus: val, right_plus: val.deep_clone)
         end
 
+        private
+
+        def exists_act action, val
+          exists :act, { action => val }, { actor_id: :id }
+        end
+
         def junction val, side, field
+          exists :card, junction_val(val, side), field => :id
+        end
+
+        def junction_val val, side
           part_clause, junction_clause = val.is_a?(Array) ? val : [val, {}]
-          junction_val = clause_to_hash(junction_clause).merge side => part_clause
-          # join_cards junction_val, to_field: to_field
-          exists_card junction_val, field => :id
+          clause_to_hash(junction_clause).merge side => part_clause
         end
       end
     end

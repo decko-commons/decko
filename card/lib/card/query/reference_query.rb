@@ -1,9 +1,5 @@
 class Card
   class Query
-    def refer key, val
-      subquery class: ReferenceQuery, fasten: :exist, key => val
-    end
-
     class ReferenceQuery < AbstractQuery
 
       RELATIONSHIPS = {
@@ -51,7 +47,7 @@ class Card
         elsif (id = id_from_val(outcard))
           outfield_id outfield, id
         else
-          exists_card outcard, id: outfield
+          exists :card, outcard, id: outfield
         end
       end
 
