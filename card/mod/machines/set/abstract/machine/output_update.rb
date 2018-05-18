@@ -35,19 +35,18 @@ def update_input_card
 end
 
 def input_cards_with_changed_source output_updated
-  machine_input_card.extended_item_cards.each do |i_card|
-    next unless i_card.respond_to? :source_changed?
-    yield i_card if i_card.source_changed?(since: output_updated)
+  machine_input_card.extended_item_cards.select do |i_card|
+    i_card.try(:source_changed?, since: output_updated)
   end
 end
 
 # regenerates the machine output if a source file of a input card has been changed
 def update_if_source_file_changed
   return unless (output_updated = output_updated_at)
-  input_cards_with_changed_source(output_updated) do |i_card|
-    i_card.expire_machine_cache
-    return regenerate_machine_output
-  end
+  changed = input_cards_with_changed_source(output_updated)
+  return if changed.empty?
+  changed.each { |i_card| i_card.expire_machine_cache }
+  regenerate_machine_output
 end
 
 def output_updated_at
