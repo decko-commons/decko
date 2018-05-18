@@ -34,22 +34,16 @@ class Card
   # Each condition is either a SQL-ready string (boo) or an Array in this form:
   #    [ field_string_or_sym, Card::Value::Query object ]
   class Query < AbstractQuery
-    require_dependency "card/query/clause"
-    require_dependency "card/query/value"
-    require_dependency "card/query/reference"
-    require_dependency "card/query/attributes"
-    require_dependency "card/query/sql_statement"
-    require_dependency "card/query/join"
-    require_dependency "card/query/run"
+    require_dependency "card/query/reference_query"
 
     include Clause
-    include Attributes
-    include RelationalAttributes
-    include Interpretation
-    include Sorting
-    include Conjunctions
-    include Helpers
     include Run
+    include CardQuery::Attributes
+    include CardQuery::RelationalAttributes
+    include CardQuery::Interpretation
+    include CardQuery::Sorting
+    include CardQuery::Conjunctions
+    include CardQuery::Helpers
 
     ATTRIBUTES = {
       basic:           %w( id name key type_id content left_id right_id

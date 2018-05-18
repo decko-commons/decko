@@ -7,7 +7,7 @@ class Card
 
         def where
           conditions = [explicit_conditions(@query), implicit_conditions(@query)]
-          conditions = conditions.reject(&:blank?).join "\nAND "
+          conditions = conditions.reject(&:blank?).join " AND "
           "WHERE #{conditions}" unless conditions.blank?
         end
 
@@ -20,17 +20,24 @@ class Card
         end
 
         def conditions_from subqueries
-          subqueries.map do |subquery|
-            next if subquery.conditions_on_join || subquery.fasten == :nested
-            explicit_conditions subquery
+          subqueries.map do |query|
+            next if query.conditions_on_join
+            case query.fasten
+            when :exist     then exist_condition query
+            when :not_exist then exist_condition query, true
+            else                 explicit_conditions query
+            end
           end
+        end
+
+        def exist_condition subquery, negate=nil
+          "#{'NOT ' if negate}EXISTS (\n#{subquery.sql}\n)"
         end
 
         def basic_conditions conditions
           conditions.map do |condition|
             case condition
             when String    then condition
-            when Reference then "EXISTS( #{condition.sql} )"
             when Array     then standard_condition(condition)
             end
           end

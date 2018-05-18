@@ -1,8 +1,8 @@
 class Card
   class AbstractQuery
-    attr_reader :statement, :mods, :conditions, :vars, :fasten,
+    attr_reader :statement, :mods, :conditions, :vars,
                 :subqueries, :superquery, :comment
-    attr_accessor :joins, :conditions_on_join, :table_seq
+    attr_accessor :joins, :conditions_on_join, :table_seq, :fasten
 
     def initialize statement
       @subqueries = []
@@ -75,6 +75,49 @@ class Card
     def all_joins
       @all_joins ||=
         (joins + subqueries.select{|s| s.fasten == :direct }.map(&:all_joins)).flatten
+    end
+
+    def exists_card val, where
+      s = subquery fasten: :exist
+      s.interpret val
+      s.exists_where where if where
+      s
+    end
+
+    def exists_where hash
+      hash.each { |k, v| superfield k, v }
+    end
+
+    def superfield myfield, superfield
+      add_condition "#{fld myfield} = #{superquery.fld superfield}"
+    end
+
+    def restrict id_field, val
+      if (id = id_from_val(val))
+        interpret id_field => id
+      else
+        exists_card val, id: id_field
+      end
+    end
+
+    def id_from_val val
+      case val
+      when Integer then val
+      when String  then Card.fetch_id(val)
+      end
+    end
+
+    def add_condition *args
+      @conditions <<
+        if args.size > 1
+          [args.shift, Query::Value.new(args.shift, self)]
+        else
+          args[0]
+        end
+    end
+
+    def current_conjunction
+      "AND"
     end
   end
 end
