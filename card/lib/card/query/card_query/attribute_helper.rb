@@ -24,10 +24,8 @@ class Card
 
         def name_or_content_match val
           cxn = connection
-          or_join(
-              [field_match("replace(#{table_alias}.name,'+',' ')", val, cxn),
-               field_match("#{table_alias}.db_content", val, cxn)]
-          )
+          or_join([field_match("replace(#{table_alias}.name,'+',' ')", val, cxn),
+                   field_match("#{table_alias}.db_content", val, cxn)])
         end
 
         def field_match field, val, cxn
@@ -36,9 +34,9 @@ class Card
 
         def name_like patterns, extra_cond=""
           likes =
-              Array(patterns).map do |pat|
-                "lower(#{table_alias}.name) LIKE lower(#{quote pat})"
-              end
+            Array(patterns).map do |pat|
+              "lower(#{table_alias}.name) LIKE lower(#{quote pat})"
+            end
           add_condition "#{or_join(likes)} #{extra_cond}"
         end
 

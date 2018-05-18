@@ -4,6 +4,11 @@ class Card
       # Interpret CQL. Once interpreted, SQL can be generated.
       #
       module Interpretation
+        INTERPRET_METHOD = { basic: :add_condition,
+                             special: :relate,
+                             relational: :relate,
+                             plus_relational: :relate_compound }.freeze
+
         # normalize and extract meaning from a clause
         # @param clause [Hash, String, Integer] statement or chunk thereof
         def interpret clause
@@ -39,18 +44,17 @@ class Card
         end
 
         def interpret_attributes key, val
-          case ATTRIBUTES[key]
-          when :basic                then add_condition key, val
+          case (attr = ATTRIBUTES[key])
+          when :basic, :special, :relational, :plus_relational
+            send INTERPRET_METHOD[attr], key, val
           when :conjunction          then send key, val
-          when :special, :relational then relate key, val
           when :ref_relational       then relate key, val, method: :refer
-          when :plus_relational      then relate_compound key, val
-          when :ignore               then nil # noop
           else                            bad_attribute!(key)
           end
         end
 
         def bad_attribute! key
+          return if key == :ignore
           raise Card::Error::BadQuery, "Invalid attribute #{key}"
         end
 
