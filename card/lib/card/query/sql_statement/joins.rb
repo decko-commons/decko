@@ -8,9 +8,7 @@ class Card
         end
 
         def direct_joins
-          @query.direct_subqueries.unshift(@query).map do |query|
-            query.joins
-          end.flatten
+          @query.direct_subqueries.unshift(@query).map { &:joins }.flatten
         end
 
         def join_joins join_list

@@ -8,7 +8,7 @@ class Card
                   :subqueries, :superquery, :comment
       attr_accessor :joins, :conditions_on_join, :table_seq, :fasten
 
-      def initialize statement, comment=nil
+      def initialize statement, _comment=nil
         @subqueries = []
         @conditions = []
         @joins = []

@@ -4,7 +4,7 @@ class Card
       # shared methods for queries
       module QueryHelper
         def direct_subqueries
-          direct = subqueries.select{ |s| s.fasten == :direct }
+          direct = subqueries.select { |s| s.fasten == :direct }
           direct + direct.map { |s| s.direct_subqueries }.flatten
         end
 
@@ -68,18 +68,18 @@ class Card
 
         def id_from_val val
           case val
-            when Integer then val
-            when String  then Card.fetch_id(val)
+          when Integer then val
+          when String  then Card.fetch_id(val)
           end
         end
 
         def add_condition *args
           @conditions <<
-              if args.size > 1
-                [args.shift, Query::Value.new(args.shift, self)]
-              else
-                args[0]
-              end
+            if args.size > 1
+              [args.shift, Query::Value.new(args.shift, self)]
+            else
+              args[0]
+            end
         end
 
         def current_conjunction

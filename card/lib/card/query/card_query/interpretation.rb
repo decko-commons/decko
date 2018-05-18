@@ -40,16 +40,18 @@ class Card
 
         def interpret_attributes key, val
           case ATTRIBUTES[key]
-          when :basic            then add_condition key, val
-          when :conjunction      then send key, val
-          when :relational       then relate key, val
-          when :special          then relate key, val
-          when :ref_relational   then relate key, val, method: :refer
-          when :plus_relational  then relate_compound key, val
-          when :ignore           then # noop
-          else
-            raise Card::Error::BadQuery, "Invalid attribute #{key}"
+          when :basic                then add_condition key, val
+          when :conjunction          then send key, val
+          when :special, :relational then relate key, val
+          when :ref_relational       then relate key, val, method: :refer
+          when :plus_relational      then relate_compound key, val
+          when :ignore               then nil # noop
+          else                            bad_attribute!(key)
           end
+        end
+
+        def bad_attribute! key
+          raise Card::Error::BadQuery, "Invalid attribute #{key}"
         end
 
         def normalize_clause clause
