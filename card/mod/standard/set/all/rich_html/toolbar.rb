@@ -188,7 +188,7 @@ format :html do
   end
 
   view :related_button do
-    dropdown_button "", icon: :explore, class: "related",
+    dropdown_button "", icon: :explore, class: "related dropdown-menu-right",
                         extra_css_class: "d-none d-md-inline" do
       [
         ["children",       :baby_formula, "*children"],
