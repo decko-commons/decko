@@ -77,12 +77,12 @@ class Card
 
       def directional_hash_for_object side, object
         case object
-          when nil              then return
-          when Hash             then object
-          when Array            then dir_hash(*object)
-          when Query, Reference then dir_hash_for_query object
-          when Join             then dir_hash_for_join side, object
-          else                       dir_error(side, object)
+        when nil              then return
+        when Hash             then object
+        when Array            then dir_hash(*object)
+        when Query, Reference then dir_hash_for_query object
+        when Join             then dir_hash_for_join side, object
+        else                       dir_error(side, object)
         end
       end
 

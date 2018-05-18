@@ -30,7 +30,7 @@ class Card
         when :conjunction      then send key, val
         when :relational       then relate key, val
         when :special          then relate key, val
-        when :ref_relational   then relate key, val, method: :join_references
+        when :ref_relational   then relate key, val, method: :refer
         when :plus_relational  then relate_compound key, val
         when :ignore           then # noop
         else
@@ -119,11 +119,6 @@ class Card
 
       def current_conjunction
         @mods[:conj].blank? ? :and : @mods[:conj]
-      end
-
-      def all_joins
-        @all_joins ||=
-          (joins + subqueries.select(&:unjoined).map(&:all_joins)).flatten
       end
     end
   end

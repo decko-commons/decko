@@ -8,7 +8,7 @@ class Card
                   '"found_by" value must be valid Search, ' \
                   "but #{c.name} is a #{c.type_name}"
           end
-          subquery c.wql_hash.merge(unjoined: true, context: c.name)
+          subquery c.wql_hash.merge(fasten: :direct, context: c.name)
         end
       end
 

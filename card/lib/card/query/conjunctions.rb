@@ -13,7 +13,7 @@ class Card
       alias in any
 
       def conjoin val, conj
-        sq = subquery unjoined: true, conj: conj
+        sq = subquery fasten: :direct, conj: conj
         unless val.is_a? Array
           val = clause_to_hash(val).map { |key, value| { key => value } }
         end

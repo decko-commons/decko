@@ -21,24 +21,29 @@ class Card
 
         def conditions_from subqueries
           subqueries.map do |subquery|
-            next if subquery.conditions_on_join
+            next if subquery.conditions_on_join || subquery.fasten == :nested
             explicit_conditions subquery
           end
         end
 
         def basic_conditions conditions
           conditions.map do |condition|
-            if condition.is_a? String
-              condition
-            else
-              field, val = condition
-              val.to_sql field
+            case condition
+            when String    then condition
+            when Reference then "EXISTS( #{condition.sql} )"
+            when Array     then standard_condition(condition)
             end
           end
         end
 
+        def standard_condition condition
+          field, val = condition
+          val.to_sql field
+        end
+
         # handle trash and permissions
         def implicit_conditions query
+          return unless query.table == "cards"
           table = query.table_alias
           [trash_condition(table), permission_conditions(table)].compact * " AND "
         end

@@ -22,7 +22,7 @@ class Card
 
       def to_s
         [comment,
-         "SELECT DISTINCT #{@fields}",
+         "SELECT #{@fields}",
          "FROM #{@tables}",
          @joins,
          @where,
@@ -38,7 +38,7 @@ class Card
       end
 
       def tables
-        "cards #{@query.table_alias}"
+        "#{@query.table} #{@query.table_alias}"
       end
 
       def fields

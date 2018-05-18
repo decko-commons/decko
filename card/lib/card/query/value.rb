@@ -16,6 +16,7 @@ class Card
         case rawvalue
         when String, Integer then ["=", rawvalue]
         when Array           then parse_array_value rawvalue
+        when Reference       then # noop
         else raise("Invalid Condition Clause #{rawvalue}.inspect}")
         end
       end

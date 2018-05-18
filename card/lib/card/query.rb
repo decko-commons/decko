@@ -12,7 +12,7 @@ class Card
   # examples there are in JSON, like Search card content, but statements in
   # Card::Query are in ruby form.
   #
-  # In Wagn's current form, Card::Query generates and executes SQL statements.
+  # In Decko's current form, Card::Query generates and executes SQL statements.
   # However, the SQL generation is largely (not yet fully) separated from the
   # WQL statement interpretation.
   #
@@ -33,7 +33,7 @@ class Card
   #
   # Each condition is either a SQL-ready string (boo) or an Array in this form:
   #    [ field_string_or_sym, Card::Value::Query object ]
-  class Query
+  class Query < AbstractQuery
     require_dependency "card/query/clause"
     require_dependency "card/query/value"
     require_dependency "card/query/reference"
@@ -84,10 +84,6 @@ class Card
 
     DEFAULT_ORDER_DIRS = { update: "desc", relevance: "desc" }.freeze
 
-    attr_reader :statement, :mods, :conditions, :comment, :vars,
-                :subqueries, :superquery, :unjoined
-    attr_accessor :joins, :conditions_on_join, :table_seq
-
     # Query Execution
 
     # By default a query returns card objects. This is accomplished by returning
@@ -95,28 +91,10 @@ class Card
     # Card::Fetch)
 
     def initialize statement, comment=nil
-      @subqueries = []
-      @conditions = []
-      @joins = []
-      @mods = {}
-      @statement = statement.clone
-
-      @context    = @statement.delete(:context) || nil
-      @unjoined   = @statement.delete(:unjoined) || nil
-      @superquery = @statement.delete(:superquery) || nil
-      @vars       = initialize_vars
-
+      super statement
       @comment = comment || default_comment
-
       interpret @statement
       self
-    end
-
-    def initialize_vars
-      if (v = @statement.delete :vars) then v.symbolize_keys
-      elsif @superquery                then @superquery.vars
-      else                                  {}
-      end
     end
 
     def default_comment
@@ -133,16 +111,6 @@ class Card
     # query objects.  This nesting allows to find, for example, cards that
     # link to cards that link to cards....
 
-    def root
-      @root ||= @superquery ? @superquery.root : self
-    end
-
-    def subquery opts={}
-      subquery = Query.new opts.merge(superquery: self)
-      @subqueries << subquery
-      subquery
-    end
-
     def context
       if !@context.nil?
         @context
@@ -157,6 +125,14 @@ class Card
 
     def full?
       !superquery && mods[:return] != "count"
+    end
+
+    def table
+      "cards"
+    end
+
+    def table_prefix
+      "c"
     end
   end
 end
