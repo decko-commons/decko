@@ -1,5 +1,6 @@
 format :html do
-  MENU_ITEMS = %i[edit discuss follow page rules account more].freeze
+  mattr_accessor :menu_items
+  self.menu_items = %i[edit discuss follow page rules account more]
 
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
@@ -13,7 +14,7 @@ format :html do
   end
 
   def wrap_menu
-    wrap_with :div, class: "menu-slot nodblclick" do
+    wrap_with :div, class: classy(%w(menu-slot nodblclick)) do
       yield
     end
   end
@@ -72,13 +73,13 @@ format :html do
   end
 
   def menu_item_list link_opts={}
-    MENU_ITEMS.map do |item|
+    menu_items.map do |item|
       next unless show_menu_item?(item)
       send "menu_item_#{item}", link_opts
     end.compact
   end
 
-  MENU_ITEMS.each do |item|
+  menu_items.each do |item|
     view "menu_item_#{item}" do
       send "menu_item_#{item}", {}
     end

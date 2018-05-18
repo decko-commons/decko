@@ -152,8 +152,7 @@ event :reset_token do
 end
 
 event :send_welcome_email do
-  # FIXME: needs codename
-  welcome = Card["welcome email"]
+  welcome = Card[:welcome_email]
   welcome.deliver self, to: email if welcome&.type_code == :email_template
 end
 
@@ -178,18 +177,6 @@ def changes_visible? act
     return true if action.card.ok? :read
   end
   false
-end
-
-def send_change_notice act, followed_set, follow_option
-  return unless changes_visible?(act)
-  Auth.as(left.id) do
-    Card[:follower_notification_email].deliver(
-      act.card, { to: email }, auth: left,
-                               active_notice: { follower: left.name,
-                                                followed_set:  followed_set,
-                                                follow_option: follow_option }
-    )
-  end
 end
 
 format :email do

@@ -7,7 +7,7 @@ class FollowingToFollowRule < Card::Migration::Core
       following_card.item_names.each do |followed_set_name|
         set_card = Card.fetch(followed_set_name, new: {})
         if set_card.type_code != :set
-          set_card = set_card.default_follow_set_card
+          set_card = set_card.follow_set_card
         end
         rule = Card.fetch set_card.follow_rule_name(user_name), new: { type: "pointer" }
         rule.content = "[[*always]]"
