@@ -1,5 +1,5 @@
 class Card
-  class Query
+  module Query
     class CardQuery
       module RelationalAttributes
         def refer key, val
@@ -29,10 +29,6 @@ class Card
 
         def updater_of val
           exists_act :update_action_on, val
-        end
-
-        def exists_action action, val
-          exists :action, { action => val }, { card_id: :id }
         end
 
         def edited_by val
@@ -83,8 +79,12 @@ class Card
 
         private
 
+        def exists_action action, val
+          exists :action, { action => val }, card_id: :id
+        end
+
         def exists_act action, val
-          exists :act, { action => val }, { actor_id: :id }
+          exists :act, { action => val }, actor_id: :id
         end
 
         def junction val, side, field

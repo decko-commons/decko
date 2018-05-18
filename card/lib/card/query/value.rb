@@ -1,5 +1,5 @@
 class Card
-  class Query
+  module Query
     class Value
       include Clause
       SQL_FIELD = { name: "key", content: "db_content" }.freeze
@@ -16,7 +16,6 @@ class Card
         case rawvalue
         when String, Integer then ["=", rawvalue]
         when Array           then parse_array_value rawvalue
-        when Reference       then # noop
         else raise("Invalid Condition Clause #{rawvalue}.inspect}")
         end
       end

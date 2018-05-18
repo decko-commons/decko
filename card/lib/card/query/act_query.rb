@@ -1,5 +1,5 @@
 class Card
-  class Query
+  module Query
     class ActQuery < AbstractQuery
       def table
         "card_acts"

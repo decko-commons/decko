@@ -1,28 +1,39 @@
 class Card
-  class Query
+  module Query
     class CardQuery
       module Interpretation
         # normalize and extract meaning from a clause
         # @param clause [Hash, String, Integer] statement or chunk thereof
         def interpret clause
-          interpret_by_key normalize_clause(clause)
+          normalize_clause(clause).each do |key, val|
+            interpret_item key, val
+          end
         end
 
-        def interpret_by_key clause
-          clause.each do |key, val|
-            case
-            when OPERATORS.key?(key.to_s) && !ATTRIBUTES[key]
-              # eg "match" is both operator and attribute;
-              # interpret as attribute when "match" is key
-              interpret content: [key, val]
-            when MODIFIERS.key?(key) && !clause[key].is_a?(Hash)
-              # eg when "sort" is hash, it can have subqueries
-              # and must be interpreted like an attribute
-              @mods[key] = val.is_a?(Array) ? val : val.to_s
-            else
-              interpret_attributes key, val
-            end
+        def interpret_item key, val
+          if interpret_as_content? key
+            interpret content: [key, val]
+          elsif interpret_as_modifier? key, val
+            interpret_modifier key, val
+          else
+            interpret_attributes key, val
           end
+        end
+
+        def interpret_as_content? key
+          # eg "match" is both operator and attribute;
+          # interpret as attribute when "match" is key
+          OPERATORS.key?(key.to_s) && !ATTRIBUTES[key]
+        end
+
+        def interpret_as_modifier? key, val
+          # eg when "sort" is hash, it can have subqueries
+          # and must be interpreted like an attribute
+          MODIFIERS.key?(key) && !val.is_a?(Hash)
+        end
+
+        def interpret_modifier key, val
+          @mods[key] = val.is_a?(Array) ? val : val.to_s
         end
 
         def interpret_attributes key, val

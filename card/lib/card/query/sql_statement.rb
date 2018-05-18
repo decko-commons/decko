@@ -1,5 +1,5 @@
 class Card
-  class Query
+  module Query
     class SqlStatement
       include Joins
       include Where

@@ -1,10 +1,9 @@
 
 class Card
-  class Query
+  module Query
     class SqlStatement
       # handle where clause in SqlStatement
       module Where
-
         def where
           conditions = [explicit_conditions(@query), implicit_conditions(@query)]
           conditions = conditions.reject(&:blank?).join " AND "
@@ -54,7 +53,7 @@ class Card
         # handle trash and permissions
         # only applies to card queries
         def implicit_conditions query
-          return unless query.is_a?(Card::Query)
+          return unless query.is_a?(CardQuery)
           table = query.table_alias
           [trash_condition(table), permission_conditions(table)].compact * " AND "
         end

@@ -1,10 +1,5 @@
 class Card
-  class Query
-
-    def self.run statement, comment=nil
-      new(statement, comment).run
-    end
-
+  module Query
     module Run
       # run the current query
       # @return array of card objects by default

@@ -1,5 +1,5 @@
 class Card
-  class Query
+  module Query
     class ReferenceQuery < AbstractQuery
 
       RELATIONSHIPS = {
@@ -14,8 +14,8 @@ class Card
       }.freeze
 
       FIELDMAP = {
-        out: [:referer_id, :referee_id],
-        in:  [:referee_id, :referer_id]
+        out: %i[referer_id referee_id],
+        in:  %i[referee_id referer_id]
       }.freeze
 
       def table

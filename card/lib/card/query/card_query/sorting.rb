@@ -1,5 +1,5 @@
 class Card
-  class Query
+  module Query
     class CardQuery
       module Sorting
         SORT_BY_ITEM_JOIN_MAP = { left: "left_id", right: "right_id" }.freeze

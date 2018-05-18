@@ -1,5 +1,5 @@
 class Card
-  class Query
+  module Query
     class CardQuery
       module Attributes
         def found_by val
