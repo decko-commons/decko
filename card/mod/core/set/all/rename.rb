@@ -23,11 +23,20 @@ event :cascade_name_changes, :finalize, on: :update, changed: :name,
     # here we specifically want NOT to invoke recursive cascades on these
     # cards, have to go this low level to avoid callbacks.
     Rails.logger.info "cascading name: #{de.name}"
-    Card.expire de.name # old name
     newname = de.name.swap name_before_last_save, name
+    check_for_conflict de.name, newname
+    Card.expire de.name # old name
     Card.where(id: de.id).update_all name: newname.to_s, key: newname.key
     de.update_referers = update_referers
     de.refresh_references_in
     Card.expire newname
   end
+end
+
+def check_for_conflict old_name, new_name
+  return unless ActManager.include? new_name
+  raise Card::Error, "conflict in act: "\
+                     "the name of '#{old_name}' is changing to '#{new_name}' "\
+                     "which is also a subcard of this act."
+
 end
