@@ -38,5 +38,4 @@ def check_for_conflict old_name, new_name
   raise Card::Error, "conflict in act: "\
                      "the name of '#{old_name}' is changing to '#{new_name}' "\
                      "which is also a subcard of this act."
-
 end

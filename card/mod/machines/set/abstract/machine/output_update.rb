@@ -45,7 +45,7 @@ def update_if_source_file_changed
   return unless (output_updated = output_updated_at)
   changed = input_cards_with_changed_source(output_updated)
   return if changed.empty?
-  changed.each { |i_card| i_card.expire_machine_cache }
+  changed.each(&:expire_machine_cache)
   regenerate_machine_output
 end
 
