@@ -2,6 +2,14 @@ class Card
   module Query
     class CardQuery
       # handle relational (not simple) CQL sort values
+      #
+      # sorting with subqueries is not fully supported; only a few experimental
+      # examples have been attempted, and even for those the syntax is likely
+      # to change.
+      #
+      # Generally speaking, sorting subqueries will require a JOIN strategy (as
+      # opposed to the "WHERE EXISTS" strategy that is central to queries' main
+      # conditions.)
       module Sorting
         SORT_BY_ITEM_JOIN_MAP = { left: "left_id", right: "right_id" }.freeze
 
