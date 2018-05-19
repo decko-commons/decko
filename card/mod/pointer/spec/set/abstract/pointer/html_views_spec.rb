@@ -12,7 +12,7 @@ describe Card::Set::Abstract::Pointer do
 
     describe_views :core, :closed_content, :editor,
                    :list, :autocomplete, :checkbox,
-                   :radio, :select, :multiselect do |view|
+                   :radio, :select, :multiselect do
       it "doesn't have errors" do
         expect(pointer.format.render(view)).to lack_errors
       end

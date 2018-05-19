@@ -4,10 +4,10 @@ def label _name
   'All "+" cards'
 end
 
-def prototype_args _anchor
-  { name: "+" }
+def short_label _name
+  'all "+" cards'
 end
 
-def follow_label _name
-  'all "+" cards'
+def prototype_args _anchor
+  { name: "+" }
 end

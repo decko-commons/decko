@@ -103,9 +103,7 @@ def rule_card_id setting_code, options={}
 end
 
 def preference_card_id_lookups setting_code, options={}
-  user_id = options[:user_id] ||
-            (options[:user] && options[:user].id) ||
-            Auth.current_id
+  user_id = options[:user_id] || options[:user]&.id || Auth.current_id
   return unless user_id
   ["#{setting_code}+#{AllID}", "#{setting_code}+#{user_id}"]
 end

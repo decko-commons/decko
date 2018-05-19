@@ -1,0 +1,5 @@
+.pointer-list-editor
+  %ul.delete-list.list-group
+    - send items_method do |rule_card, option|
+      %li.list-group-item
+        = subformat(rule_card).follow_item option, card.current_user?

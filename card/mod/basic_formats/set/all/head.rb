@@ -112,7 +112,7 @@ format :html do
 
   def head_javascript_paths
     debug_or_machine_path :script do |script_card|
-      script_card.items.map do |script|
+      script_card.item_cards.map do |script|
         script.format(:js).render :source
       end
     end
