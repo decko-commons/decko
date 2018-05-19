@@ -93,7 +93,7 @@ format :html do
 
   def glyphicon_icon_tag icon, opts={}
     prepend_class opts, "glyphicon glyphicon-#{icon_class(:glyphicon, icon)}"
-    wrap_with :span, "", opts.merge("aria-hidden" => true)
+    wrap_with :span, "", opts.merge("aria-hidden": true)
   end
 
   def font_awesome_icon_tag icon, opts={}

@@ -1,0 +1,14 @@
+- heading_id =  "heading-#{group_key}"
+- collapse_id = "collapse-#{card.name.safe_key}-#{group_key}"
+.card
+  .card-header{ role: "tab", id: heading_id }
+    %h5.mb-0
+      = link_to (Card::Setting.group_names[group_key] || group_key.to_s),
+                href: "##{collapse_id}",
+                "data-toggle": "collapse",   "aria-expanded": "false",
+                "data-parent": "#accordion", "aria-controls": collapse_id
+.panel-collapse.collapse{ id: collapse_id,
+                          role: "tabpanel",
+                          "aria-labelledby": heading_id }
+  .card-body
+    = rules_table card.visible_settings(group_key)

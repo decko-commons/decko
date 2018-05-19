@@ -6,6 +6,8 @@ Layout/IndentationConsistency:
   AutoCorrect: false
 Style/MutableConstant:
   AutoCorrect: false
+Style/MixinUsage:
+  Enabled: false
 Decko/ViewLength:
   Description: Avoid views longer than 15 lines of code.
   Enabled: true

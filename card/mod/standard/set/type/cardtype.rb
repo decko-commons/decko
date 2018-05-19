@@ -53,19 +53,6 @@ end
 
 include Basic
 
-def follow_label
-  default_follow_set_card.follow_label
-end
-
-def followed_by? user_id=nil
-  default_follow_set_card.all_members_followed_by? user_id
-end
-
-def default_follow_set_card
-  # FIXME: use codename
-  Card.fetch("#{name}+*type")
-end
-
 def cards_of_type_exist?
   !new_card? && Card.where(trash: false, type_id: id).exists?
 end

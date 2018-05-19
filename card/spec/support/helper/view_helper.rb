@@ -2,11 +2,10 @@ class Card
   module SpecHelper
     module ViewHelper
       module ViewDescriber
-        def describe_views *views
-          views.flatten.each do |view|
-            describe "view: #{view}" do
-              yield view
-            end
+        def describe_views *views, &block
+          views.flatten.each do |v|
+            let(:view) { v }
+            describe "view: #{v}", &block
           end
         end
       end

@@ -28,7 +28,7 @@ class Card
           row do
             html <<-HTML
               <ul class="action-list w-100">
-                <li class="glyphicon-bullet #{action.action_type}">
+                <li class="#{action.action_type}">
                   #{action_panel}
                 </li>
               </ul>
