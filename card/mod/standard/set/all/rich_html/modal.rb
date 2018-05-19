@@ -19,7 +19,7 @@ format :html do
 
   view :modal_menu, tags: :unknown_ok do
     wrap_with :div, class: "modal-menu w-100" do
-      [close_modal_window, popop_out_modal_window]
+      [close_modal_window, pop_out_modal_window]
     end
   end
 
@@ -29,13 +29,13 @@ format :html do
                               "data-dismiss": "modal"
   end
 
-  def popop_out_modal_window
+  def pop_out_modal_window
     # we probably want to pass on a lot more params than just view,
     # but not all of them
     # (eg we don't want layout, id, controller...)
     popout_params = params[:view] ? { view: params[:view] } : {}
-    link_to icon_tag :new_window, path: popout_params,
-                                  class: "pop-out-modal float-right close "
+    link_to icon_tag(:new_window), path: popout_params,
+                                   class: "pop-out-modal float-right close "
   end
 
   view :modal_footer, tags: :unknown_ok do

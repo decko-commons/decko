@@ -14,6 +14,6 @@
             = number_to_human_size card.attachment.size
         %td.float-right
           %button.btn.btn-danger.delete.cancel-upload{ "data-type": "DELETE" }
-            %i.glyphicon.glyphicon-trash
+            = icon_tag :delete
             %span
               = preview_editor_delete_text
