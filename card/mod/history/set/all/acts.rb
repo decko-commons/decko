@@ -12,5 +12,5 @@ event :remove_empty_act, :integrate_with_delay_final, when: :remove_empty_act? d
 end
 
 def remove_empty_act?
-  act_card? && ActManager.act&.actions&.reload&.empty?
+  act_card? && ActManager.act&.ar_actions&.reload&.empty?
 end

@@ -1,5 +1,5 @@
 class Card
-  class Query
+  module Query
     class Value
       include Clause
       SQL_FIELD = { name: "key", content: "db_content" }.freeze
