@@ -6,9 +6,9 @@ Feature: Presetting content
   Scenario: User age
     Given I am signed in as Joe User
     And I go to new Book presetting name to "Harry Potter" and author to "JK Rowling"
+    And I wait a sec
     And I press "Submit"
     And I wait for ajax response
-    And I wait a sec
     When I go to card "Harry Potter+author"
     Then I should see "JK Rowling"
 
