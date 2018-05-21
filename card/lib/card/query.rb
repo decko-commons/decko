@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class Card
+  require_dependency "card/query/card_query"
   # Card::Query is for finding implicit lists (or counts of lists) of cards.
   #
   # Search and Set cards use Card::Query to query the database, and it's also
