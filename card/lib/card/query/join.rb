@@ -1,5 +1,5 @@
 class Card
-  class Query
+  module Query
     # object representation of Card::Query joins
     class Join
       JOIN_OPT_KEYS = %i[side conditions
@@ -77,12 +77,12 @@ class Card
 
       def directional_hash_for_object side, object
         case object
-          when nil              then return
-          when Hash             then object
-          when Array            then dir_hash(*object)
-          when Query, Reference then dir_hash_for_query object
-          when Join             then dir_hash_for_join side, object
-          else                       dir_error(side, object)
+        when nil              then nil
+        when Hash             then object
+        when Array            then dir_hash(*object)
+        when AbstractQuery    then dir_hash_for_query object
+        when Join             then dir_hash_for_join side, object
+        else                       dir_error(side, object)
         end
       end
 
@@ -93,11 +93,7 @@ class Card
       end
 
       def dir_hash_for_query query
-        table = case query
-                when Query     then "cards"
-                when Reference then "card_references"
-                end
-        dir_hash table, query.table_alias
+        dir_hash query.table, query.table_alias
       end
 
       def dir_hash_for_join side, object
