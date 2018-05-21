@@ -79,12 +79,12 @@ end
 def direct_follower_ids &block
   ids = ::Set.new
   set_names.each do |set_name|
-    direct_follower_ids_for_set set_from_name(set_name), ids, &block
+    direct_follower_ids_for_set setcard_from_name(set_name), ids, &block
   end
   ids
 end
 
-def set_from_name set_name
+def setcard_from_name set_name
   Card.fetch set_name, new: { type_id: Card::SetID }
 end
 

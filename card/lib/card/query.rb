@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-  require_dependency "card/query/card_query"
   # Card::Query is for finding implicit lists (or counts of lists) of cards.
   #
   # Search and Set cards use Card::Query to query the database, and it's also
@@ -35,6 +34,8 @@ class Card
   # Each condition is either a SQL-ready string (boo) or an Array in this form:
   #    [ field_string_or_sym, Card::Value::Query object ]
   module Query
+    require_dependency "card/query/card_query"
+
     ATTRIBUTES = {
       basic:           %w(id name key type_id content left_id right_id
                           creator_id updater_id codename read_rule_id),

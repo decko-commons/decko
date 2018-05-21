@@ -34,7 +34,7 @@ event :cascade_name_changes, :finalize, on: :update, changed: :name,
 end
 
 def check_for_conflict old_name, new_name
-  return unless ActManager.include? new_name && (old_name.key != new_name.key)
+  return unless ActManager.include?(new_name) && (old_name.key != new_name.key)
   raise Card::Error, "conflict in act: "\
                      "the name of '#{old_name}' is changing to '#{new_name}' "\
                      "which is also a subcard of this act."
