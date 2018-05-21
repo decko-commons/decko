@@ -67,7 +67,7 @@ format :html do
   def with_valid_source
     handle_source do |source|
       if source.blank? || source == "missing"
-        # FIXME - these images should be "broken", not "missing"
+        # FIXME: these images should be "broken", not "missing"
         invalid_image source
       else
         yield source

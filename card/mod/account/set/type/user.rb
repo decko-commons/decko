@@ -76,14 +76,3 @@ event :signin_after_setup, :integrate,
       on: :create, when: proc { Card::Env.params[:setup] } do
   Auth.signin id
 end
-
-def follow follow_name, option="*always"
-  return unless
-    (card = Card.fetch follow_name) &&
-    (set_card = card.default_follow_set_card) &&
-    (follow_rule_name = set_card.follow_rule_name(name)) &&
-    (follow_rule = Card.fetch follow_rule_name, new: {})
-  follow_rule.drop_item "*never"
-  follow_rule.add_item option
-  follow_rule.save!
-end

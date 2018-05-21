@@ -72,7 +72,7 @@ class Card
       # catch recursive views and invalid stubs
       def validate_active_cache_action
         ok_view == :too_deep ? :yield : yield
-        # FIXME - this allows "too deep" error to be cached inside another view.
+        # FIXME: this allows "too deep" error to be cached inside another view.
         # may need a "raise" cache action?
       end
 

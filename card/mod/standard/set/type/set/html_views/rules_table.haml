@@ -1,0 +1,9 @@
+%table.set-rules.table
+  %tr.rule-group
+    %th.rule-heading Trait
+    %th.rule-heading Content
+    %th.rule-heading Set
+  - settings.each do |setting|
+    - next unless show_view? setting
+    - rule_card = card.fetch trait: setting, new: {}
+    = nest(rule_card, view: :closed_rule).html_safe

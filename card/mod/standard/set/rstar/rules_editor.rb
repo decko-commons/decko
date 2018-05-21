@@ -235,10 +235,8 @@ format :html do
   end
 
   def rule_set_selection
-    wrap_with :div, class: "set-list container-fluid" do
-      wrap_with :div, class: "row" do
-        [rule_set_formgroup, related_set_formgroup]
-      end
+    wrap_with :div, class: "set-list" do
+      [rule_set_formgroup, related_set_formgroup]
     end
   end
 
@@ -319,11 +317,11 @@ format :html do
 
   def rule_radio set_name, state
     label_classes = ["set-label", ("current-set-label" if state == :current)]
-    icon = glyphicon "question-sign", "link-muted"
+    icon = icon_tag "open_in_new", "link-muted"
     wrap_with :label, class: label_classes.compact.join(" ") do
       [yield,
        rule_radio_label(set_name, state),
-       link_to_card(set_name, icon, target: "wagn_set")]
+       link_to_card(set_name, icon, target: "decko_set")]
     end
   end
 
