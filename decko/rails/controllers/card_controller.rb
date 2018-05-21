@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 require_dependency "card"
-
-require_dependency "decko/exceptions"
 require_dependency "decko/response"
 require_dependency "card/mailer"  # otherwise Net::SMTPError rescues can cause
 # problems when error raised comes before Card::Mailer is mentioned
@@ -57,7 +55,7 @@ class CardController < ActionController::Base
 
   def setup
     request.format = :html unless params[:format] # is this used??
-    Card::Machine.refresh_script_and_style
+    Card::Machine.refresh_script_and_style unless params[:explicit_file]
     Card::Cache.renew
     Card::Env.reset controller: self
   end

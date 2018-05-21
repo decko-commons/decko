@@ -5,30 +5,25 @@ Feature: Navbox
 
   Scenario: quick search
     Given I go to the homepage
-    And I fill in "query_keyword" with "Joe"
-# possible to use placeholder?
-#    And I wait a sec
+    When I enter "Joe" in the navbox
     Then I should see "Joe Camel"
     And I should see "JoeNow"
     Then I press enter to search
-#When I follow "search: Joe"
-# fixme: unable to click link so far...
-#    And I wait a sec
-    Then I should see "Search results"
+    Then I should see "Search results for: Joe"
 
   Scenario: wql search
     Given I go to the homepage
-    And I fill in "query_keyword" with '{"type":"User"}'
+    When I enter '{"type":"User"}' in the navbox
     Then I press enter to search
-#    And I wait a sec
     Then I should see "Search results"
     And I should see "Big Brother"
 
   Scenario: paging
     Given I go to the homepage
-    And I fill in "query_keyword" with "skin"
+    When I enter "skin" in the navbox
+    Then I should see "search: skin"
     Then I press enter to search
     Then I should see "Search results"
-    And I should see "Solar skin+bootswatch theme"
+    And I should see "Sketchy skin"
     When I click on "2"
-    Then I should see "United skin"
+    Then I should see "lux skin"

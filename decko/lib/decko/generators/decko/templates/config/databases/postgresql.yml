@@ -1,11 +1,14 @@
 # PostgreSQL. Versions 8.2 and up are supported.
-development:
+
+shared:
   adapter: postgresql
   encoding: unicode
-  database: <%= app_name %>_development
   pool: 5
   username: <%= app_name %>
   password:
+
+development:
+  database: <%= app_name %>_development
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -26,19 +29,10 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test: &test
-  adapter: postgresql
-  encoding: unicode
   database: <%= app_name %>_test
-  pool: 5
-  username: <%= app_name %>
-  password:
 
 cucumber: *test
 
-production: 
-  adapter: postgresql
-  encoding: unicode
+production:
   database: <%= app_name %>_production
-  pool: 5
-  username: <%= app_name %>
-  password:
+

@@ -1,8 +1,9 @@
 $.extend decko,
   # returns absolute path (starting with a slash)
+  # if rawPath is complete url, this returns the complete url
   # if rawPath is relative (no slash), this adds relative root
   path: (rawPath) ->
-    if rawPath.match /^\//
+    if rawPath.match /^\/|:\/\//
       rawPath
     else
       decko.rootPath + '/' + rawPath

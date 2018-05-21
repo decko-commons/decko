@@ -7,7 +7,7 @@ end
 class Card
   # to be included in  RSpec::Core::ExampleGroup
   module SpecHelper
-    include RenderHelper
+    include ViewHelper
     include EventHelper
     include SaveHelper
 
@@ -28,6 +28,10 @@ class Card
 
     def format_subject format=:html
       card_subject.format_with_set(described_class, format)
+    end
+
+    def expect_content
+      expect(card_subject.content)
     end
 
     def assert_view_select view_html, *args, &block

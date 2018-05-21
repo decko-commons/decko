@@ -54,15 +54,10 @@ format :file do
 
   def args_for_send_file
     file = selected_version
-    [
-      file.path,
-      {
-        type: file.content_type,
-        filename:  "#{card.name.safe_key}#{file.extension}",
-        x_sendfile: true,
-        disposition: (params[:format] == "file" ? "attachment" : "inline")
-      }
-    ]
+    [file.path, { type: file.content_type,
+                  filename:  "#{card.name.safe_key}#{file.extension}",
+                  x_sendfile: true,
+                  disposition: (params[:format] == "file" ? "attachment" : "inline") }]
   end
 
   def set_response_headers
@@ -81,11 +76,16 @@ format :html do
     end
   end
 
+  def file_chooser_action_text
+    action = card.new_card? ? "Add" : "Replace"
+    "#{action} #{humanized_attachment_name}..."
+  end
+
   view :editor do
     if card.web? || card.no_upload?
       return text_field(:content, class: "d0-card-content")
     end
-    file_chooser
+    haml :file_chooser, action_text: file_chooser_action_text
   end
 
   def humanized_attachment_name
@@ -96,62 +96,15 @@ format :html do
     ""
   end
 
-  view :preview_editor, tags: :unknown_ok, cache: :never do
-    cached_upload_card_name = Card::Env.params[:attachment_upload]
-    cached_upload_card_name.gsub!(/\[\w+\]$/, "[action_id_of_cached_upload]")
-    <<-HTML
-      <div class="chosen-file">
-        <input type="hidden" name="#{cached_upload_card_name}"
-                             value="#{card.selected_action_id}">
-        <table role="presentation" class="table table-striped">
-          <tbody class="files">
-            <tr class="template-download fade show">
-              <td><span class="preview">#{preview}</span></td>
-              <td>
-                <p class="name">
-                  #{card.original_filename}
-                </p>
-              </td>
-              <td>
-                <span class="size">
-                  #{number_to_human_size(card.attachment.size)}
-                </span>
-              </td>
-              <td class="float-right">
-                <button class="btn btn-danger delete cancel-upload"
-                        data-type="DELETE">
-                  <i class="glyphicon glyphicon-trash"></i>
-                  <span>#{tr(:delete)}</span>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    HTML
+  def cached_upload_card_name
+    Card::Env.params[:attachment_upload].gsub(/\[\w+\]$/, "[action_id_of_cached_upload]")
   end
 
-  def file_chooser
-    <<-HTML
-      <div class="choose-file">
-        #{preview}
-        <span class="btn btn-success fileinput-button">
-            <i class="glyphicon glyphicon-cloud-upload"></i>
-            <span>
-                #{card.new_card? ? 'Add' : 'Replace'} #{humanized_attachment_name}...
-            </span>
-             <input class="file-upload slotter form-control" type="file"
-                name="card[#{card.type_code}]" id="card_#{card.type_code}">
-             #{hidden_field_tag 'attachment_type_id', card.type_id}
-             #{hidden_field card.attachment_name, class: 'attachment_card_name',
-                                                  value: ''}
-             #{hidden_field_tag 'file_card_name', card.name.url_key}
-        </span>
-      </div>
-      <div id="progress" class="progress mb-2" style="display: none;">
-        <div class="progress-bar progress-bar-success" style="width: 0%;"></div>
-      </div>
-      <div class="chosen-file"></div>
-    HTML
+  def preview_editor_delete_text
+    tr :delete
+  end
+
+  view :preview_editor, tags: :unknown_ok, cache: :never do
+    haml :preview_editor
   end
 end

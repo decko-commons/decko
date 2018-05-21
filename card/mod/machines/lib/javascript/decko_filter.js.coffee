@@ -1,12 +1,18 @@
+$.extend decko,
+  filterCategorySelected: ($selected_item) ->
+    addFilterDropdown = $selected_item.closest("._add-filter-dropdown")
+    category = $selected_item.data("category")
+    widget = addFilterDropdown.closest("._filter-widget")
+    removeCategoryOption(addFilterDropdown, category)
+    showFilterInputField(category, widget)
+
 $(window).ready ->
   $("body").on "change", "._filter-input input, ._filter-input select, ._filter-sort", ->
     filterAndSort this
 
+
   $("body").on "click", "._filter-category-select", ->
-    addFilterDropdown = $(this).closest("._add-filter-dropdown")
-    category = $(this).data("category")
-    label = $(this).data("label")
-    filterCategorySelected(addFilterDropdown, category, label)
+    decko.filterCategorySelected($(this))
 
   $("body").on "click", "._delete-filter-input", ->
     form = $(this).closest("._filter-form")
@@ -66,7 +72,11 @@ updateSelectedCount = (el) ->
   count = selectedBin(el).children().length
   filterBox(el).find("._selected-items").html count
   deselectAllLink(el).attr "disabled", count == 0
-  addSelectedButton(el).attr "disabled", count == 0
+  if count > 0
+    addSelectedButton(el).removeClass("disabled")
+  else
+    addSelectedButton(el).addClass("disabled")
+
   updateSelectedSectionVisibility el, count > 0
 
 updateSelectedSectionVisibility = (el, items_present) ->
@@ -131,11 +141,6 @@ trackSelectedIds = (el) ->
   ids = prefilteredIds(el).concat selectedIds(el)
   box = filterBox el
   box.find("._not-ids").val ids.toString()
-
-filterCategorySelected = (addFilterDropdown, selectedCategory, label) ->
-  widget = addFilterDropdown.closest("._filter-widget")
-  removeCategoryOption(addFilterDropdown, selectedCategory)
-  showFilterInputField(selectedCategory, widget)
 
 showFilterInputField = (category, widget) ->
   selector = "._filter-input-field-prototypes > ._filter-input-field.#{category} > .input-group"

@@ -106,13 +106,13 @@ format :html do
 
   def head_stylesheet_path
     debug_or_machine_path :style do |style_card|
-      page_path style_card.name, item: :import, format: :css
+      path mark: style_card.name, item: :import, format: :css
     end
   end
 
   def head_javascript_paths
     debug_or_machine_path :script do |script_card|
-      script_card.items.map do |script|
+      script_card.item_cards.map do |script|
         script.format(:js).render :source
       end
     end

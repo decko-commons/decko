@@ -2,6 +2,10 @@ def label name
   %(The card "#{name}")
 end
 
+def short_label name
+  name
+end
+
 def prototype_args anchor
   { name: anchor }
 end
@@ -12,8 +16,4 @@ end
 
 def anchor_id card
   card.id
-end
-
-def follow_label name
-  name
 end

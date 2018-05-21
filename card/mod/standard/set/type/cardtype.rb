@@ -47,25 +47,11 @@ format :html do
         path_args[key] = value
       end
     end
-    path_args[:action] = "new"
-    page_path card.name, path_args
+    path path_args.merge(action: :new, mark: card.name)
   end
 end
 
 include Basic
-
-def follow_label
-  default_follow_set_card.follow_label
-end
-
-def followed_by? user_id=nil
-  default_follow_set_card.all_members_followed_by? user_id
-end
-
-def default_follow_set_card
-  # FIXME: use codename
-  Card.fetch("#{name}+*type")
-end
 
 def cards_of_type_exist?
   !new_card? && Card.where(trash: false, type_id: id).exists?

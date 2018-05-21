@@ -3,16 +3,16 @@
 describe Card::Set::Type::Cardtype do
   describe "view: add_button" do
     it "creates link with correct path" do
-      add_link = render_content "{{Basic|add_button}}"
-      assert_view_select add_link, 'a[href="/new/Basic"]', "Add Basic"
+      expect(render_content("{{Basic|add_button}}"))
+        .to have_tag('a[href="/new/Basic"]', text: "Add Basic")
     end
     it "handles title argument" do
-      add_link = render_content "{{Basic|add_button;title: custom link text}}"
-      assert_view_select add_link, 'a[href="/new/Basic"]', "custom link text"
+      expect(render_content("{{Basic|add_button;title: custom link text}}"))
+        .to have_tag('a[href="/new/Basic"]', text: "custom link text")
     end
     it "handles params" do
-      add_link = render_content "{{Basic|add_button;params:_project=_self}}"
-      assert_view_select add_link, 'a[href="/new/Basic?_project=Tempo+Rary+2"]'
+      expect(render_content("{{Basic|add_button;params:_project=_self}}"))
+        .to have_tag('a[href="/new/Basic?_project=Tempo+Rary+2"]')
     end
   end
 

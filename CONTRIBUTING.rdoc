@@ -1,12 +1,12 @@
-=Thinking about contributing to Wagn?
+=Thinking about contributing to Decko?
 Welcome! And thanks for taking the first step.
 
-We want to make contributing to Wagn as rewarding an experience as possible. Please jump in, and ask away for help.
+We want to make contributing to Decko as rewarding an experience as possible. Please jump in, and ask away for help.
 
-FIXME - contact routes here (support ticket, google group, etc.  slack?)
+FIXME: contact routes here (support ticket, google group, etc.  slack?)
 
 ==Basics
-The Wagn team makes heavy use of {GitHub's pull request system}[https://help.github.com/articles/using-pull-requests].  If you're not familiar with pull requests, that's the best place to start.
+The Decko team makes heavy use of {GitHub's pull request system}[https://help.github.com/articles/using-pull-requests].  If you're not familiar with pull requests, that's the best place to start.
 
 A great pull request is:
 * small - so the team can review changes incrementally
@@ -14,7 +14,7 @@ A great pull request is:
 * explained - with a clear title and comments
 
 ==Developing Mods
-Mods (short for modules, modifications, modicums, modesty, whatever...) are the main mechanism for extending Wagn behaviors, and they're a great place to start learning how to contribute.
+Mods (short for modules, modifications, modicums, modesty, whatever...) are the main mechanism for extending Decko behaviors, and they're a great place to start learning how to contribute.
 
 Documentation is still sparse, but you can get a sense for how to start by reading lib/card/set.rb.
 

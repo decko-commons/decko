@@ -3,6 +3,8 @@ def expect_card *marks
   expect Card.cardish(marks)
 end
 
+
+
 RSpec::Matchers.define :exist do
   match do |card|
     should_be_true =
@@ -73,7 +75,7 @@ RSpec::Matchers.define :have_a_field do |field_key|
     return super() unless @field
     if @content
       "expected #{card} to have a field '#{field_key}' with content '#{@content}',
-but content is #{@field.content.present? ? @field.content : "empty" }"
+but content is #{@field.content? ? @field.content : "empty" }"
     elsif @pointing_to
       "expected #{card} to have a field #{field_key} pointing to #{@pointing_to} but
 content is #{@field.content}"

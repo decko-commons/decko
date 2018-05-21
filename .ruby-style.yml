@@ -45,6 +45,9 @@ Style/RegexpLiteral:
   Enabled: true
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+Style/Documentation:
+  Exclude:
+    - '**/migrate*/*.rb'
 Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 Style/FrozenStringLiteralComment:

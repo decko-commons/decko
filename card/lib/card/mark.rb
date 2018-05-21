@@ -50,9 +50,10 @@ class Card
     def bad_mark mark
       case mark
       when ID_MARK_RE
-        raise Card::Error, "id doesn't exist: #{Regexp.last_match[:id]}"
+        raise Card::Error::NotFound, "id doesn't exist: #{Regexp.last_match[:id]}"
       when CODENAME_MARK_RE
-        raise Card::Error, "codename doesn't exist: #{Regexp.last_match[:codename]}"
+        raise Card::Error::CodenameNotFound,
+              "codename doesn't exist: #{Regexp.last_match[:codename]}"
       else
         raise Card::Error, "invalid mark: #{mark}"
       end

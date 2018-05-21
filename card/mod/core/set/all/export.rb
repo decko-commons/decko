@@ -1,18 +1,18 @@
 format :json do
-  def default_export_args _args
-    @export_count ? @export_count += 1 : @export_count = 1
-    @exported_keys ||= ::Set.new
+  before :export do
+    @export_depth = inherit(:export_depth).to_i + 1
+    @exported_keys = inherit(:exported_keys) || ::Set.new
   end
 
   view :export, cache: :never do
     # avoid loops
-    return [] if @export_count > 5 || @exported_keys.include?(card.key)
+    return [] if @export_depth > 4 || @exported_keys.include?(card.key)
     @exported_keys << card.key
     Array.wrap(render_atom).concat(render_export_items).flatten
   end
 
-  def default_export_items_args _args
-    @exported_keys ||= ::Set.new
+  before :export_items do
+    @exported_keys = inherit(:exported_keys) || ::Set.new
   end
 
   view :export_items, cache: :never do
@@ -23,7 +23,7 @@ format :json do
 
   def items_for_export
     items = []
-    card.each_nested_chunk do |chunk|
+    each_nested_chunk(nil) do |chunk|
       next if main_nest_chunk? chunk
       items << chunk.referee_card
     end

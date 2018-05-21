@@ -147,13 +147,13 @@ format :html do
     end
   end
 
-  def default_select_item_args _args
+  before :select_item do
     class_up "card-slot", "_filter-result-slot"
   end
 
   view :checkbox_list, cache: :never do
     with_results do
-      search_result_list "_search-checkbox-list" do |item_card|
+      search_result_list "_search-checkbox-list pr-2" do |item_card|
         checkbox_item item_card
       end
     end

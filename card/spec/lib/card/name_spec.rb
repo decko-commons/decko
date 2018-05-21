@@ -123,7 +123,7 @@ RSpec.describe Card::Name do
 
       it "fails for non-existent id" do
         expect { described_class.new("~5000000") }
-          .to raise_error(Card::Error, "id doesn't exist: 5000000")
+          .to raise_error(Card::Error::NotFound, "id doesn't exist: 5000000")
       end
 
       it "fails if id is to long" do
@@ -133,7 +133,7 @@ RSpec.describe Card::Name do
 
       it "fails for non-existent codename" do
         expect { described_class.new(":no_codename") }
-          .to raise_error(Card::Error::UnknownCodename)
+          .to raise_error(Card::Error::CodenameNotFound)
       end
 
       it "creates empty name for nil" do

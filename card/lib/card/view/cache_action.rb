@@ -55,12 +55,8 @@ class Card
 
       # @return [True/False]
       def free_cache_ok?
-        cache_setting != :never &&
-          foreign_live_options.empty? &&
-          clean_enough_to_cache?
-        # note: foreign options are a problem in the free cache, because
+        cache_setting != :never && clean_enough_to_cache?
       end
-
 
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # CACHE STATUS: ACTIVE
@@ -75,11 +71,9 @@ class Card
 
       # catch recursive views and invalid stubs
       def validate_active_cache_action
-        return :yield if ok_view == :too_deep
-        #FIXME - this allows "too deep" error to be cached inside another view. may need a "raise" cache action?
-        action = yield
-        validate_stub! if action == :stub
-        action
+        ok_view == :too_deep ? :yield : yield
+        # FIXME: this allows "too deep" error to be cached inside another view.
+        # may need a "raise" cache action?
       end
 
       # @return [True/False]

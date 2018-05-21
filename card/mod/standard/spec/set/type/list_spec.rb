@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::List do
+RSpec.describe Card::Set::Type::List do
   subject { Card.fetch("Parry Hotter+authors").item_names.sort }
 
   before do
@@ -13,6 +13,11 @@ describe Card::Set::Type::List do
       )
     end
   end
+
+  let :authors do
+    Card.fetch("Parry Hotter+authors").item_names.sort
+  end
+
   describe "Parry Hotter+authors" do
     context "when 'Parry Hotter' is added to Joe-Ann Rolwings's books" do
       before do
@@ -30,15 +35,12 @@ describe Card::Set::Type::List do
     end
 
     context "when 'Parry Hotter' is dropped from Stam Brokers's books" do
-      before do
-        Card::Auth.as_bot do
-          Card["Stam Brokers+books"].update_attributes!(
-            content: "[[50 grades of shy]]"
-          )
-        end
+      specify "Stam Broker is no longer an author of Parry Hotter", as_bot: true do
+        update "Stam Brokers+books", content: "[[50 grades of shy]]"
+        expect(authors).to contain_exactly "Darles Chickens"
       end
-      it { is_expected.to eq ["Darles Chickens"] }
     end
+
     context "when Stam Broker is deleted" do
       before do
         Card["Stam Broker"].delete

@@ -14,22 +14,15 @@ format :html do
 
   view :toolbar, cache: :never do
     tool_navbar do
-      [
-        # expanded_close_link,
-        toolbar_split_buttons,
-        # collapsed_close_link,
-        # toolbar_simple_buttons,
-        toolbar_right_buttons
-      ]
+      [toolbar_split_buttons, toolbar_right_buttons]
     end
   end
 
-  def default_toolbar_args args
-    @related_card, _opts = related_card_and_options args.clone if params[:related]
+  before :toolbar do
     @rule_view = params[:rule_view]
   end
 
-  # def default_toolbar_args args
+  # before :toolbar do
   #   args[:nested_fields] = nested_fields
   #   args[:active_toolbar_button] ||= active_toolbar_button @slot_view, args
   # end
@@ -143,7 +136,7 @@ format :html do
       %i[account roles created edited follow].each_with_object({}) do |item, hash|
         label = item == :account ? tr(:details) : tr(item)
         args = { class: "dropdown-item" }
-        args[:path] = { related: { view: :edit } } if item == :account
+        args[:path] = { slot: { items: { view: :edit } } } if item == :account
         hash[item] = link_to_related item, label, args
       end
     end

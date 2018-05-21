@@ -6,8 +6,8 @@ class Card
       def render! view, args={}
         voo = View.new self, view, args, @voo
         with_voo voo do
-          voo.process do |final_view, options|
-            final_render final_view, options
+          voo.process do |final_view|
+            final_render final_view
           end
         end
       rescue => e
@@ -22,10 +22,8 @@ class Card
         @voo = old_voo
       end
 
-      def view_options_with_defaults view, options
-        default_method = "default_#{view}_args"
-        send default_method, options if respond_to? default_method
-        options
+      def before_view view
+        try "_before_#{view}"
       end
 
       def voo
@@ -38,10 +36,10 @@ class Card
         visibility == :show
       end
 
-      def final_render view, args
+      def final_render view
         current_view(view) do
           method = view_method view
-          rendered = method.arity.zero? ? method.call : method.call(args)
+          rendered = method.call
           add_debug_info view, method, rendered
         end
       end
@@ -74,8 +72,8 @@ class Card
 
       def stub_render cached_content
         result = expand_stubs cached_content do |stub_hash|
-          prepare_stub_nest(stub_hash) do |stub_card, mode, options, override|
-            with_nest_mode(mode) { nest stub_card, options, override }
+          prepare_stub_nest(stub_hash) do |stub_card, view_opts|
+            nest stub_card, view_opts, stub_hash[:format_opts]
           end
         end
         if result =~ /stub/
@@ -87,11 +85,11 @@ class Card
 
       def prepare_stub_nest stub_hash
         stub_card = Card.fetch_from_cast stub_hash[:cast]
-        stub_options = stub_hash[:options]
+        view_opts = stub_hash[:view_opts]
         if stub_card&.key.present? && stub_card.key == card.key
-          stub_options[:nest_name] ||= "_self"
+          view_opts[:nest_name] ||= "_self"
         end
-        yield stub_card, stub_hash[:mode], stub_options, stub_hash[:override]
+        yield stub_card, view_opts
       end
 
       def expand_stubs cached_content
@@ -134,7 +132,6 @@ class Card
       ensure
         @current_view = old_view
       end
-
     end
   end
 end

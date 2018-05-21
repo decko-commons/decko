@@ -15,7 +15,7 @@ format do
     return "" unless image.valid?
     contextualize_path image.url
   end
-  
+
   def selected_version
     size = determine_image_size
     if size && size != :original
@@ -59,14 +59,26 @@ format :html do
 
   # core HTML image view.
   view :core do
+    with_valid_source do |source|
+      image_tag source, alt: card.name
+    end
+  end
+
+  def with_valid_source
     handle_source do |source|
       if source.blank? || source == "missing"
-        # FIXME - these images should be "broken", not "missing"
+        # FIXME: these images should be "broken", not "missing"
         invalid_image source
       else
-        image_tag source, alt: card.name
+        yield source
         # consider title..
       end
+    end
+  end
+
+  view :full_width do
+    with_valid_source do |source|
+      image_tag source, alt: card.name, class: "w-100"
     end
   end
 
@@ -118,13 +130,18 @@ format do
 end
 
 format :email_html do
-  view :inline do
+  view :inline, cache: :never do
     handle_source do |source|
-      url_generator = voo.closest_live_option(:inline_attachment_url)
-      path = selected_version.path
-      return source unless url_generator && ::File.exist?(path)
-      image_tag url_generator.call(path)
+      return source unless (mail = inherit :active_mail) &&
+                           ::File.exist?(path = selected_version.path)
+      url = attach_image mail, path
+      image_tag url
     end
+  end
+
+  def attach_image mail, path
+    mail.attachments.inline[path] = ::File.read path
+    mail.attachments[path].url
   end
 end
 
@@ -140,5 +157,4 @@ end
 
 format :file do
   include File::FileFormat
-
 end

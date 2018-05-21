@@ -8,11 +8,15 @@ format :html do
 end
 
 event :update_structurees_references, :integrate,
-      when: proc { |c| c.db_content_changed? || c.action == :delete } do
+      when: :update_structurees_references? do
   return unless (query = structuree_query)
   Auth.as_bot do
     query.run.each(&:update_references_out)
   end
+end
+
+def update_structurees_references?
+  db_content_changed? || action == :delete
 end
 
 event :reset_cache_to_use_new_structure,

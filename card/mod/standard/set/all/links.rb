@@ -39,7 +39,7 @@ format do
   # @param text [String]
   # @param opts [Hash]
   def link_to_related field_cardish, text=nil, opts={}
-    add_to_path opts, related: { name: "+#{Card::Name[field_cardish]}" }
+    opts.bury :path, :slot, :items, :nest_name, "+#{Card::Name[field_cardish]}"
     link_to_view :related, text, opts
   end
 

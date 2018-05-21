@@ -89,10 +89,9 @@ class Card
       # set current from token or session
       def set_current token, current
         if token
-          ok = set_current_from_token token, current
-          raise Card::Error::Oops, "token authentication failed" unless ok
-          # arguably should be PermissionDenied; that requires a card object,
-          # and that's not loaded yet.
+          unless set_current_from_token(token, current)
+            raise Card::Error::PermissionDenied, "token authentication failed"
+          end
         else
           set_current_from_session
         end

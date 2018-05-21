@@ -1,55 +1,67 @@
 class Card
   class Format
-    module Nest
+    class Nest
       # Fetch card for a nest
       module Fetch
-        def fetch_nested_card cardish, opts={}
+        private
+
+        def fetch_card cardish
           case cardish
           when Card            then cardish
           when Symbol, Integer then Card.fetch cardish
-          when "_", "_self"    then card.context_card
-          else
-            opts[:nest_name] = Card::Name[cardish].to_s
-            Card.fetch cardish, new: nest_new_args(opts)
+          when "_", "_self"    then format.context_card
+          else                      new_card cardish
           end
+        rescue Card::Error::CodenameNotFound
+          not_found_codename cardish
         end
 
-        private
+        def not_found_codename cardish
+          @view = :not_found
+          c = Card.new name: Array.wrap(cardish).join(Card::Name.joint).to_s
+          c.errors.add :codename, "unknown codename in #{cardish}"
+          c
+        end
 
-        def nest_new_args nest_opts
-          nest_name = nest_opts[:nest_name].to_s
-          new_args = { name: nest_name, type: nest_opts[:type] }
+        def new_card cardish
+          view_opts[:nest_name] = Card::Name[cardish].to_s
+          Card.fetch cardish, new: new_card_args
+        end
 
-          new_args[:supercard] = card.context_card unless nest_name.strip.blank?
+        def new_card_args
+          args = { name: view_opts[:nest_name], type: view_opts[:type] }
+          args.merge(new_supercard_args)
+              .merge(new_main_args)
+              .merge(new_content_args)
+        end
+
+        def new_supercard_args
           # special case.  gets absolutized incorrectly. fix in name?
-
-          nest_new_main_args new_args if nest_name =~ /^_main\+/
-          nest_new_content_args new_args, nest_name
-          new_args
+          return {} if view_opts[:nest_name].strip.blank?
+          { supercard: format.context_card }
         end
 
-        def nest_new_main_args new_args
-          # FIXME: this is a rather hacky way to get @superleft
-          # to work on new cards named _main+whatever
-          new_args[:name] = new_args[:name].gsub(/^_main\+/, "+")
-          new_args[:supercard] = root.card
+        def new_main_args
+          nest_name = view_opts[:nest_name]
+          return {} unless nest_name =~ /main/
+          { name: nest_name.gsub(/^_main\+/, "+"),
+            supercard: format.root.card }
         end
 
-        def nest_new_content_args new_args, nest_name
-          content = nest_content_from_shorthand_param(nest_name) ||
-                    nest_content_from_subcard_params(nest_name)
-          new_args[:content] = content if content.present?
+        def new_content_args
+          content = content_from_shorthand_param || content_from_subcard_params
+          content ? { content: content } : {}
         end
 
-        def nest_content_from_shorthand_param nest_name
-          shorthand_param = nest_name.tr "+", "_"
+        def content_from_shorthand_param
           # FIXME: this is a lame shorthand; could be another card's key
           # should be more robust and managed by Card::Name
-          params[shorthand_param]
+          shorthand_param = view_opts[:nest_name].tr "+", "_"
+          Env.params[shorthand_param]
         end
 
-        def nest_content_from_subcard_params nest_name
-          params.dig "subcards", nest_name, "content"
+        def content_from_subcard_params
+          Env.params.dig "subcards", view_opts[:nest_name], "content"
         end
       end
     end
