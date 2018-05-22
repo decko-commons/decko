@@ -24,7 +24,7 @@ class Card
     include Card::Action::Differ
     extend Card::Action::Admin
 
-    belongs_to :act, foreign_key: :card_act_id, inverse_of: :actions
+    belongs_to :act, foreign_key: :card_act_id, inverse_of: :ar_actions
     has_many :card_changes, foreign_key: :card_action_id,
                             inverse_of: :action,
                             dependent: :delete_all,
@@ -135,6 +135,12 @@ class Card
       end
     end
 
+    def all_changes
+      self.class.cache.fetch("#{id}-changes") do
+        card_changes.find_all.to_a
+      end
+    end
+
     # all action {Change changes} in hash form. { field1: Change1 }
     # @return [Hash]
     def changes
@@ -142,7 +148,7 @@ class Card
         if sole?
           current_changes
         else
-          card_changes.each_with_object({}) do |change, hash|
+          all_changes.each_with_object({}) do |change, hash|
             hash[change.field.to_sym] = change
           end
         end
@@ -196,7 +202,7 @@ class Card
     end
 
     def sole?
-      card_changes.empty? &&
+      all_changes.empty? &&
         (action_type == :create || Card::Action.where(card_id: card_id).count == 1)
     end
   end

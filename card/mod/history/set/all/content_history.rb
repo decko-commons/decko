@@ -22,7 +22,7 @@ end
 def save_content_draft content
   super
   acts.create do |act|
-    act.actions.build(draft: true, card_id: id, action_type: :update)
+    act.ar_actions.build(draft: true, card_id: id, action_type: :update)
        .card_changes.build(field: :db_content, value: content)
   end
 end
@@ -145,7 +145,7 @@ end
 def previous_action action_id
   return unless action_id
   action_index = actions.find_index { |a| a.id == action_id }
-  actions[action_index - 1] if action_index.to_i.nonzero?
+  all_actions[action_index - 1] if action_index.to_i.nonzero?
 end
 
 def revised_at

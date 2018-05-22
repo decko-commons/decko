@@ -1,9 +1,13 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-  # An "act" is a group of recorded {Card::Action actions} on {Card cards}. Together, {Act acts}, {Action actions}, and {Change changes} comprise a comprehensive {Card card} history tracking system.
+  # An "act" is a group of recorded {Card::Action actions} on {Card cards}.
+  # Together, {Act acts}, {Action actions}, and {Change changes} comprise a
+  # comprehensive {Card card} history tracking system.
   #
-  # For example, if a given web form submissions updates the contents of three cards, then the submission will result in the recording of three {Action actions}, each of which is tied to one {Act act}.
+  # For example, if a given web form submissions updates the contents of three cards,
+  # then the submission will result in the recording of three {Action actions}, each
+  # of which is tied to one {Act act}.
   #
   # Each act records:
   #
@@ -14,11 +18,9 @@ class Card
   #
   class Act < ApplicationRecord
     before_save :assign_actor
-    has_many :actions, -> { order :id }, foreign_key: :card_act_id,
-                                         inverse_of: :act,
-                                         class_name: "Card::Action"
-    belongs_to :actor, class_name: "Card"
-
+    has_many :ar_actions, -> { order :id }, foreign_key: :card_act_id,
+                                            inverse_of: :act,
+                                            class_name: "Card::Action"
     class << self
       # remove all acts that have no card. (janitorial)
       def delete_cardless
@@ -53,6 +55,14 @@ class Card
         viewable_actions = viewable_actions.where(action_where) if action_where
         where("EXISTS (#{viewable_actions.to_sql})").where.not "card_id" => nil
       end
+
+      def cache
+        Card::Cache[Card::Act]
+      end
+    end
+
+    def actor
+      Card.fetch actor_id
     end
 
     # the act's primary card
@@ -63,11 +73,19 @@ class Card
       res.include_set_modules
     end
 
+    # list of all actions that are part of the act
+    # @return [Array]
+    def actions
+      self.class.cache.fetch("#{id}-actions") { ar_actions.find_all.to_a }
+    end
+
     # act's action on the card in question
     # @param card_id [Integer]
     # @return [Card::Action]
     def action_on card_id
-      actions.where("card_id = #{card_id} and draft is not true").first
+      actions.find do |action|
+        action.card_id == card_id && !action.draft
+      end
     end
 
     # act's action on primary card if it exists. otherwise act's first action
