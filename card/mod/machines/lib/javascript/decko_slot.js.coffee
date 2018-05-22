@@ -60,6 +60,8 @@ jQuery.fn.extend {
       url = decko.slotPath path, $slot
     $slot.addClass 'slotter'
     $slot.attr 'href', url
+    $slot.data "url", url
+    $slot.data "remote", true
     $.rails.handleRemote($slot)
 
   setSlotContent: (val, overlay=false) ->
