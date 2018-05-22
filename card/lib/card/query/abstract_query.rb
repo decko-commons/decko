@@ -54,6 +54,14 @@ class Card
         @subqueries << subquery
         subquery
       end
+
+      def context
+        if !@context.nil?
+          @context
+        else
+          @context = @superquery ? @superquery.context : ""
+        end
+      end
     end
   end
 end
