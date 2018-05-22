@@ -75,7 +75,8 @@ class Card
 
     # list of all actions that are part of the act
     # @return [Array]
-    def actions
+    def actions cached=true
+      return ar_actions unless cached
       self.class.cache.fetch("#{id}-actions") { ar_actions.find_all.to_a }
     end
 
