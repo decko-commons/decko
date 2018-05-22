@@ -12,7 +12,7 @@ class Card
   # examples there are in JSON, like Search card content, but statements in
   # Card::Query are in ruby form.
   #
-  # In Wagn's current form, Card::Query generates and executes SQL statements.
+  # In Decko's current form, Card::Query generates and executes SQL statements.
   # However, the SQL generation is largely (not yet fully) separated from the
   # WQL statement interpretation.
   #
@@ -33,38 +33,23 @@ class Card
   #
   # Each condition is either a SQL-ready string (boo) or an Array in this form:
   #    [ field_string_or_sym, Card::Value::Query object ]
-  class Query
-    require_dependency "card/query/clause"
-    require_dependency "card/query/value"
-    require_dependency "card/query/reference"
-    require_dependency "card/query/attributes"
-    require_dependency "card/query/sql_statement"
-    require_dependency "card/query/join"
-    require_dependency "card/query/run"
-
-    include Clause
-    include Attributes
-    include RelationalAttributes
-    include Interpretation
-    include Sorting
-    include Conjunctions
-    include Helpers
-    include Run
+  module Query
+    require_dependency "card/query/card_query"
 
     ATTRIBUTES = {
-      basic:           %w( id name key type_id content left_id right_id
-                           creator_id updater_id codename read_rule_id        ),
-      relational:      %w( type part left right
-                           editor_of edited_by last_editor_of last_edited_by
-                           creator_of created_by member_of member
-                           updater_of updated_by),
+      basic:           %w(id name key type_id content left_id right_id
+                          creator_id updater_id codename read_rule_id),
+      relational:      %w(type part left right
+                          editor_of edited_by last_editor_of last_edited_by
+                          creator_of created_by member_of member
+                          updater_of updated_by),
       plus_relational: %w(plus left_plus right_plus),
-      ref_relational:  %w( refer_to referred_to_by
-                           link_to linked_to_by
-                           include included_by                                ),
+      ref_relational:  %w(refer_to referred_to_by
+                          link_to linked_to_by
+                          include included_by),
       conjunction:     %w(and or all any),
-      special:         %w(found_by not sort match name_match complete junction_complete
-                          extension_type),
+      special:         %w(found_by not sort match name_match complete
+                          junction_complete extension_type),
       ignore:          %w(prepend append view params vars size)
     }.each_with_object({}) do |pair, h|
       pair[1].each { |v| h[v.to_sym] = pair[0] }
@@ -84,79 +69,14 @@ class Card
 
     DEFAULT_ORDER_DIRS = { update: "desc", relevance: "desc" }.freeze
 
-    attr_reader :statement, :mods, :conditions, :comment, :vars,
-                :subqueries, :superquery, :unjoined
-    attr_accessor :joins, :conditions_on_join, :table_seq
-
-    # Query Execution
-
-    # By default a query returns card objects. This is accomplished by returning
-    # a card identifier from SQL and then hooking into our caching system (see
-    # Card::Fetch)
-
-    def initialize statement, comment=nil
-      @subqueries = []
-      @conditions = []
-      @joins = []
-      @mods = {}
-      @statement = statement.clone
-
-      @context    = @statement.delete(:context) || nil
-      @unjoined   = @statement.delete(:unjoined) || nil
-      @superquery = @statement.delete(:superquery) || nil
-      @vars       = initialize_vars
-
-      @comment = comment || default_comment
-
-      interpret @statement
-      self
-    end
-
-    def initialize_vars
-      if (v = @statement.delete :vars) then v.symbolize_keys
-      elsif @superquery                then @superquery.vars
-      else                                  {}
+    class << self
+      def new statement, comment=nil
+        Query::CardQuery.new statement, comment
       end
-    end
 
-    def default_comment
-      return if @superquery || !Card.config.sql_comments
-      statement.to_s
-    end
-
-    def sql
-      @sql ||= SqlStatement.new(self).build.to_s
-    end
-
-    # Query Hierarchy
-    # @root, @subqueries, and @superquery are used to track a hierarchy of
-    # query objects.  This nesting allows to find, for example, cards that
-    # link to cards that link to cards....
-
-    def root
-      @root ||= @superquery ? @superquery.root : self
-    end
-
-    def subquery opts={}
-      subquery = Query.new opts.merge(superquery: self)
-      @subqueries << subquery
-      subquery
-    end
-
-    def context
-      if !@context.nil?
-        @context
-      else
-        @context = @superquery ? @superquery.context : ""
+      def run statement, comment=nil
+        new(statement, comment).run
       end
-    end
-
-    def limit
-      mods[:limit].to_i
-    end
-
-    def full?
-      !superquery && mods[:return] != "count"
     end
   end
 end

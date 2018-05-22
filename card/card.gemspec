@@ -66,9 +66,8 @@ Gem::Specification.new do |s|
     ["delayed_job_active_record",  "~> 4.1"],
     ["minitest",                   "5.11.2"],
     ["rake",                       "<= 12.3.0"],
-
-    ["rails", "~> 5.2"],
-    ["bootswatch", "4.1.1"]
+    # ["bootswatch", "4.1.1"],
+    ["rails", "~> 5.2"]
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end

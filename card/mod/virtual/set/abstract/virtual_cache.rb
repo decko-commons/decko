@@ -19,7 +19,7 @@ end
 # called to refresh the virtual content
 # the default way is to use the card's template content
 def generate_virtual_content
-  template.db_content
+  template&.db_content
 end
 
 event :save_virtual_content, :prepare_to_store, on: :save, changed: :content do
