@@ -45,14 +45,6 @@ class Card
       # query objects.  This nesting allows to find, for example, cards that
       # link to cards that link to cards....
 
-      def context
-        if !@context.nil?
-          @context
-        else
-          @context = @superquery ? @superquery.context : ""
-        end
-      end
-
       def limit
         mods[:limit].to_i
       end
