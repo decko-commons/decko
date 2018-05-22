@@ -118,7 +118,7 @@ format :html do
   end
 
   def machine_cache_count
-    Card.search right: { codename: "machine_cache" }, return: "count"
+    Card::Virtual.where(right_id: MachineCacheID).count
   end
 
   def delete_sessions_link months

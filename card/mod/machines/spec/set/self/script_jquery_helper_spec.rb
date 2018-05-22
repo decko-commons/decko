@@ -7,7 +7,7 @@ RSpec.describe Card::Set::Self::ScriptJqueryHelper do
     # We use jquery-ui with selectable and autocomplete included.
     # All other additional stuff in jquery-ui is there because those two
     # depend on it.
-    is_expected.to include "jQuery UI - v1.12.1 - 2018-05-10"
+    is_expected.to include "jQuery UI - v1.12.1"
   end
 
   it "loads jquery.autosize" do

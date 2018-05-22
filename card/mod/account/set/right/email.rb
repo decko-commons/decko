@@ -1,7 +1,7 @@
 include All::Permissions::Accounts
 
 event :validate_email, :validate, on: :save do
-  if content.present? && content !~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+  if content? && content !~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
     errors.add :content, tr(:error_invalid_address)
   end
 end

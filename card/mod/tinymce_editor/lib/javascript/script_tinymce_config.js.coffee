@@ -22,6 +22,7 @@ $.extend decko,
       theme: "modern"
       plugins: 'autoresize'
       autoresize_max_height: 500
+      mobile: { theme: 'mobile' }
     }
     user_conf = if decko.tinyMCEConfig? then decko.tinyMCEConfig else {}
     hard_conf = {

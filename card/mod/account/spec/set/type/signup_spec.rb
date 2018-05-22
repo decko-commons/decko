@@ -176,12 +176,10 @@ describe Card::Set::Type::Signup do
   context "a welcome email card exists" do
     before do
       Card::Auth.as_bot do
-        Card.create! name: "welcome email",
-                     type_id: Card::EmailTemplateID,
-                     subcards: {
-                       "+*subject" => "welcome",
-                       "+*html_message" => "Welcome {{_self|name}}"
-                     }
+        Card[:welcome_email].update_attributes!(
+          subcards: { "+*subject" => "welcome",
+                      "+*html_message" => "Welcome {{_self|name}}" }
+        )
       end
       Mail::TestMailer.deliveries.clear
       @signup = Card.create! name: "Big Bad Sheep",

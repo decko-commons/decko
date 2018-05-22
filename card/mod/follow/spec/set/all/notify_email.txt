@@ -1,0 +1,25 @@
+"card with fields" was just created by Joe User.
+
+   cardtype: Basic
+   content: main content {{+field 1}}  {{+field 2}}
+
+
+
+This update included the following changes:
+
+card with fields+field 1 created
+   cardtype: Basic
+   content: content of field 1
+
+card with fields+field 2 created
+   cardtype: Basic
+   content: content of field 2
+
+
+
+
+See the card: /card_with_fields
+
+You received this email because you're following "card with fields".
+
+Use this link to unfollow /update/Joe_User+*follow?card%5Bsubcards%5D%5Bcard+with+fields%2B%2Aself%2BJoe+User%2B%2Afollow%5D=%2Anever
