@@ -12,9 +12,17 @@ class Card
       private
 
       def refresh_script_and_style?
-        Cardio.config.eager_machine_refresh || cautious_refresh?
+        case Cardio.config.machine_refresh
+        when :eager    then true
+        when :cautious then cautious_refresh?
+        when :never    then false
+        else
+          raise Card::Error,
+                "unknown option for machine_refresh: #{Cardio.config.machine_refresh}"
+        end
       end
 
+      # only refresh when cache was cleared
       def cautious_refresh?
         return false unless Card::Cache.persistent_cache
         return false if Card.cache.read REFRESHED

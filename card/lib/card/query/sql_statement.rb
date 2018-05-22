@@ -29,7 +29,7 @@ class Card
          @group,
          @order,
          @limit_and_offset
-        ].compact * "\n"
+        ].compact.join " "
       end
 
       def comment

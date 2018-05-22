@@ -67,7 +67,7 @@ module Cardio
 
         persistent_cache:       true,
         prepopulate_cache:      false,
-        eager_machine_refresh:  false,
+        machine_refresh:        :cautious, # options: eager, cautious, never
         allow_irreversible_admin_tasks: false
       }
     end
