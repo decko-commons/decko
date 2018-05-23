@@ -17,6 +17,31 @@ If you don't want certain rules, you may:
 Choosing (b) will mean your CSS will not be affected by automated updates.
 */
 
+/*-- greys --*/
+$d-white: #fff;
+$d-grey: grey;
+$d-grey-1: #f2f2f2;
+$d-grey-2: #eee;
+$d-grey-3: #ddd;
+$d-grey-4: #bbc;
+$d-grey-5: #666;
+$d-grey-6: #888;
+$d-grey-7: #999;
+$d-black: #000;
+
+/*-- other colours --*/
+$d-red-1: #c22;
+$d-red-2: #966;
+$d-blue: #069;
+$d-cyan: #8cf;
+
+/*-- yellows --*/
+$d-yellow-1: #ffd;
+$d-yellow-2: #ffc;
+$d-yellow-3: #ffa;
+$d-yellow-4: #cc7;
+
+
 /* -- resets -- */
 
 .d0-card-frame,
@@ -286,7 +311,7 @@ pre,
     width: 100%;
   }
   tr:nth-child(even) {
-    background: #eee;
+    background: $d-grey-2;
   }
 }
 
@@ -407,11 +432,11 @@ textarea {
   max-height: 500px;
 }
 .name-editor.known-name input {
-  border: 3px solid #c22; /* NOTGREY - red for warning */
+  border: 3px solid $d-red-1; /* NOTGREY - red for warning */
 }
 .name-messages {
   font-style: italic;
-  background: #ffd;  /* NOTGREY - yellow for highlighting */
+  background: $d-yellow-1;  /* NOTGREY - yellow for highlighting */
 }
 
 /* -- template-editor (editing template rule inclusions inline) -- */
@@ -489,12 +514,12 @@ textarea {
 /* links to create missing cards */
 
 .missing-view a {
-  color: #999;
+  color: $d-grey-7;
   font-variant: small-caps;
 }
 
 .missing-view a:hover {
-  color: #069;
+  color: $d-blue;
   background: #ffc;
 }
 
@@ -616,18 +641,18 @@ ul.action-list {
 .errors-view {
   margin: 10px;
   padding: 10px;
-  border: 3px solid #966;   /* NOTGREY - red for error */
-  background: #ffa;         /* NOTGREY - yellow for highlighting */
+  border: 3px solid $d-red-2;   /* NOTGREY - red for error */
+  background: $d-yellow-3;         /* NOTGREY - yellow for highlighting */
   border-radius: 8px;
   -moz-border-radius: 8px;
   border: 1px solid #777;
-  border-bottom: 2px solid #888;
-  border-right: 2px solid #888;
+  border-bottom: 2px solid $d-grey-6;
+  border-right: 2px solid $d-grey-6;
   color: #333;
 }
 
 .card-notice {
-  background: #fff;
+  background: $d-white;
   font-weight: bold;
   font-style: italic;
   text-align: center;
@@ -639,8 +664,8 @@ ul.action-list {
 .flash-notice {
   color: #333;
   font-size: 1.1em;
-  background: #fff;
-  border: 1px solid #888;
+  background: $d-white;
+  border: 1px solid $d-grey-6;
   margin-bottom: 15px;
   padding: 5px;
   text-align: center;
@@ -649,7 +674,7 @@ ul.action-list {
 
 .conflict-view {
   text-align: left;
-  border: 1px solid grey;
+  border: 1px solid $d-grey;
   padding: 10px;
   margin-top: 12px;
 }
@@ -668,14 +693,14 @@ ul.action-list {
   li {
     padding: .8em;
     margin: 0;
-    background: #eee
+    background: $d-grey-2;
   }
   li:nth-child(even) {
-    background: #ddd;
+    background: $d-grey-3;
   }
   aside {
     float: right;
-    border: 1px solid #999;
+    border: 1px solid $d-grey-7;
     background: white;
     width: 33%;
     padding: 1em;
@@ -717,7 +742,7 @@ ul.action-list {
 .setting-rules th,
 .set-rules th {
   background: #aaa;
-  color: #eee;
+  color: $d-grey-2;
   padding: 5px 0;
 }
 .setting-rules th,
@@ -729,7 +754,7 @@ ul.action-list {
 }
 .set-rules th,
 .set-rules td.rule-cell {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid $d-grey-2;
 }
 .setting-klass,
 .rule-setting {
@@ -739,7 +764,7 @@ td.rule-setting {
   width: 30%;
 }
 .rule-set {
-  color: #666;
+  color: $d-grey-5;
   white-space: nowrap;
 }
 .rule-type-field {
@@ -772,8 +797,8 @@ td.rule-setting {
   }
 }
 tr.missing-rule > td {
-  background-color: #eee;
-  border-bottom: 1px solid #fff;
+  background-color: $d-grey-2;
+  border-bottom: 1px solid $d-white;
 }
 .rule-setting {
   padding-top: 4px;
@@ -815,11 +840,11 @@ tr.missing-rule > td {
   margin-bottom: 10px;
 }
 .klass-row {
-  background: #eee;
-  border-top: 1px solid #ddd;
+  background: $d-grey-2;
+  border-top: 1px solid $d-grey-3;
 }
 tr.rule-changeover td {
-  border-top: 1px solid #eee;
+  border-top: 1px solid $d-grey-2;
   padding-top: 5px;
 }
 td.rule-anchor {
@@ -829,7 +854,7 @@ a.setting-link {
   font-style: italic;
   margin-left: 2%;
   font-weight: normal;
-  color: #000;
+  color: $d-black;
   white-space: nowrap;
 }
 h2.set-label {
@@ -873,7 +898,7 @@ html>body .open-view {
 
 /* the following classes are here because they're scheduled for deprecation */
 .faint {
-  color: #bbc;
+  color: $d-grey-4;
 }
 .VIEW-type {
   font-style: italic;
@@ -941,7 +966,7 @@ html>body .open-view {
 
 .ProseMirror blockquote {
   padding-left: 1em;
-  border-left: 3px solid #eee;
+  border-left: 3px solid $d-grey-2;
   margin-left: 0; margin-right: 0;
 }
 
@@ -961,7 +986,7 @@ html>body .open-view {
 .ProseMirror-nodeselection *::-moz-selection, .ProseMirror-widget *::-moz-selection { background: transparent; }
 
 .ProseMirror-selectednode {
-  outline: 2px solid #8cf;
+  outline: 2px solid $d-cyan;
 }
 
 /* Make sure li selections wrap around markers */
@@ -975,7 +1000,7 @@ li.ProseMirror-selectednode:after {
   position: absolute;
   left: -32px;
   right: -2px; top: -2px; bottom: -2px;
-  border: 2px solid #8cf;
+  border: 2px solid $d-cyan;
   pointer-events: none;
 }
 
@@ -1001,7 +1026,7 @@ li.ProseMirror-selectednode:after {
 }
 
 .ProseMirror-menuseparator {
-  border-right: 1px solid #ddd;
+  border-right: 1px solid $d-grey-3;
   margin-right: 3px;
 }
 
@@ -1035,7 +1060,7 @@ li.ProseMirror-selectednode:after {
 .ProseMirror-menu-dropdown-menu, .ProseMirror-menu-submenu {
   position: absolute;
   background: white;
-  color: #666;
+  color: $d-grey-5;
   border: 1px solid #aaa;
   padding: 2px;
 }
@@ -1051,7 +1076,7 @@ li.ProseMirror-selectednode:after {
 }
 
 .ProseMirror-menu-dropdown-item:hover {
-  background: #f2f2f2;
+  background: $d-grey-1;
 }
 
 .ProseMirror-menu-submenu-wrap {
@@ -1078,12 +1103,12 @@ li.ProseMirror-selectednode:after {
 }
 
 .ProseMirror-menu-active {
-  background: #eee;
+  background: $d-grey-2;
   border-radius: 4px;
 }
 
 .ProseMirror-menu-active {
-  background: #eee;
+  background: $d-grey-2;
   border-radius: 4px;
 }
 
@@ -1100,7 +1125,7 @@ li.ProseMirror-selectednode:after {
   border-top-right-radius: inherit;
   position: relative;
   min-height: 1em;
-  color: #666;
+  color: $d-grey-5;
   padding: 1px 6px;
   top: 0; left: 0; right: 0;
   border-bottom: 1px solid silver;
@@ -1157,7 +1182,7 @@ li.ProseMirror-selectednode:after {
 
 .ProseMirror-example-setup-style td {
   vertical-align: top;
-  border: 1px solid #ddd;
+  border: 1px solid $d-grey-3;
   padding: 3px 5px;
 }
 
@@ -1180,7 +1205,7 @@ li.ProseMirror-selectednode:after {
 
 .ProseMirror-prompt input[type="text"],
 .ProseMirror-prompt textarea {
-  background: #eee;
+  background: $d-grey-2;
   border: none;
   outline: none;
 }
@@ -1192,7 +1217,7 @@ li.ProseMirror-selectednode:after {
 .ProseMirror-prompt-close {
   position: absolute;
   left: 2px; top: 1px;
-  color: #666;
+  color: $d-grey-5;
   border: none; background: transparent; padding: 0;
 }
 
@@ -1202,8 +1227,8 @@ li.ProseMirror-selectednode:after {
 }
 
 .ProseMirror-invalid {
-  background: #ffc;
-  border: 1px solid #cc7;
+  background: $d-yellow-2;
+  border: 1px solid $d-yellow-4;
   border-radius: 4px;
   padding: 5px 10px;
   position: absolute;
