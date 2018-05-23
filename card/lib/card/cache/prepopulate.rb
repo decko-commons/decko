@@ -15,16 +15,31 @@ class Card
 
       def prepopulate
         return unless prepopulate?
-        soft = Card.cache.soft
-        @rule_cache ||= Card.rule_cache
-        @user_ids_cache ||= Card.user_ids_cache
-        @read_rule_cache ||= Card.read_rule_cache
-        @rule_keys_cache ||= Card.rule_keys_cache
-        soft.write "RULES", @rule_cache
-        soft.write "READRULES", @read_rule_cache
-        soft.write "USER_IDS", @user_ids_cache
-        soft.write "RULE_KEYS", @rule_keys_cache
+        prepopulate_rule_caches
+        # prepopulate_card_cache
       end
+
+      def prepopulate_cache variable
+        @prepopulated ||= {}
+        value = @prepopulated[variable] ||= yield
+        Card.cache.soft.write variable, value
+      end
+
+      def prepopulate_rule_caches
+        prepopulate_cache("RULES") { Card.rule_cache }
+        prepopulate_cache("READRULES") { Card.read_rule_cache }
+        prepopulate_cache("USER_IDS") { Card.user_ids_cache }
+        prepopulate_cache("RULES") { Card.rule_keys_cache }
+      end
+
+      # def prepopulate_card_cache
+      #   prepopulate_cache "ALL_CARDS" do
+      #     Card.find_each do |card|
+      #       Card.write_to_cache card
+      #     end
+      #     true
+      #   end
+      # end
     end
   end
 end

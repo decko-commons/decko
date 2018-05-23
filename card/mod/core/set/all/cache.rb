@@ -15,8 +15,8 @@ module ClassMethods
     retrieve_from_cache key, local_only
   end
 
-  def write_to_cache card, opts
-    if opts[:local_only]
+  def write_to_cache card, local_only=false
+    if local_only
       write_to_soft_cache card
     elsif cache
       cache.write card.key, card
