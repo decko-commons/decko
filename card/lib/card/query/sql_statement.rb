@@ -21,15 +21,21 @@ class Card
       end
 
       def to_s
-        [comment,
-         "SELECT #{@fields}",
-         "FROM #{@tables}",
-         @joins,
-         @where,
-         @group,
-         @order,
-         @limit_and_offset
+        [
+          comment, select, from, @joins, @where, @group, @order, @limit_and_offset
         ].compact.join " "
+      end
+
+      def select
+        "#{leading_space}  SELECT #{@fields}"
+      end
+
+      def from
+        "FROM #{@tables}"
+      end
+
+      def leading_space
+        " " * (@query.depth * 2)
       end
 
       def comment

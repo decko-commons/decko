@@ -79,7 +79,7 @@ class Card
         end
 
         def condition_joint query
-          "\n#{query.current_conjunction.upcase} "
+          " #{query.current_conjunction.upcase} "
         end
       end
     end

@@ -59,8 +59,16 @@ class Card
         if !@context.nil?
           @context
         else
-          @context = @superquery ? @superquery.context : ""
+          @context = superquery ? superquery.context : ""
         end
+      end
+
+      def depth
+        @depth ||= case
+                   when !superquery       then 0
+                   when fasten == :direct then superquery.depth
+                   else                        superquery.depth + 1
+                   end
       end
     end
   end

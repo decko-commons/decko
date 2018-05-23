@@ -17,11 +17,11 @@ class Card
             clauses << join_on_clause(join)
             clauses << join_joins(deeper_joins(join)) unless join.left?
           end
-          clauses.flatten * "\n"
+          clauses.flatten * " "
         end
 
         def join_on_clause join
-          [join_clause(join), "ON", on_clause(join)].join " "
+          ["\n", join_clause(join), "ON", on_clause(join)].join " "
         end
 
         def join_clause join
@@ -32,7 +32,7 @@ class Card
           if join.left? && (djoins = deeper_joins(join)).present?
             table_segment = "(#{table_segment} #{joins djoins})"
           end
-          [join.side, "JOIN", table_segment].compact.join " "
+          [leading_space, join.side, "JOIN", table_segment].compact.join " "
         end
 
         def deeper_joins join
