@@ -35,14 +35,14 @@ class Card
           "#{table_alias}.#{field_name}"
         end
 
-        def exists subquery_type, val, where, subquery_args={}
-          s = subquery exists_subquery_args(subquery_args, subquery_type)
+        def tie subquery_type, val, where, subquery_args={}
+          s = subquery tie_subquery_args(subquery_args, subquery_type)
           s.interpret val
           s.exists_where where if where
           s
         end
 
-        def exists_subquery_args args, type
+        def tie_subquery_args args, type
           args.reverse_merge! fasten: :exist
           unless type == :card
             args[:class] = Card::Query.const_get("#{type.capitalize}Query")
@@ -62,7 +62,7 @@ class Card
           if (id = id_from_val(val))
             interpret id_field => id
           else
-            exists :card, val, id: id_field
+            tie :card, val, id: id_field
           end
         end
 

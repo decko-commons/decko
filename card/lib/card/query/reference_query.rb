@@ -42,7 +42,7 @@ class Card
         elsif (id = id_from_val(outcard))
           outfield_id outfield, id
         else
-          exists :card, outcard, id: outfield
+          tie :card, outcard, id: outfield
         end
       end
 

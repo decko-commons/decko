@@ -26,23 +26,23 @@ class Card
         end
 
         def editor_of val
-          exists_act :action_on, val
+          tie_act :action_on, val
         end
 
         def updater_of val
-          exists_act :update_action_on, val
+          tie_act :update_action_on, val
         end
 
         def edited_by val
-          exists_action :action_by, val
+          tie_action :action_by, val
         end
 
         def updated_by val
-          exists_action :update_action_by, val
+          tie_action :update_action_by, val
         end
 
         def last_editor_of val
-          exists :card, val, updater_id: :id
+          tie :card, val, updater_id: :id
         end
 
         def last_edited_by val
@@ -50,7 +50,7 @@ class Card
         end
 
         def creator_of val
-          exists :card, val, creator_id: :id
+          tie :card, val, creator_id: :id
         end
 
         def created_by val
