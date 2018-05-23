@@ -6,6 +6,7 @@ class Card
       include Run
       include SpecialAttributes
       include RelationalAttributes
+      include ReferenceAttributes
       include AttributeHelper
       include Interpretation
       include Normalization

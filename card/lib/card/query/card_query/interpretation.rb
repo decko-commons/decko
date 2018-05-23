@@ -7,6 +7,7 @@ class Card
         INTERPRET_METHOD = { basic: :add_condition,
                              special: :relate,
                              relational: :relate,
+                             ref_relational: :relate,
                              plus_relational: :relate_compound,
                              conjunction: :send }.freeze
 
@@ -55,7 +56,6 @@ class Card
 
         def interpret_special_attribute attribute, key, val
           case attribute
-          when :ref_relational  then relate key, val, method: :refer
           when :ignore          then nil # NOOP
           else                       bad_attribute!(key)
           end

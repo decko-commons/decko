@@ -4,16 +4,15 @@ class Card
       # shared methods for queries
       module QueryHelper
         def direct_subqueries
-          direct = subqueries.select { |s| s.fasten == :direct }
-          direct + direct.map(&:direct_subqueries).flatten
+          subqueries_with_fasten :direct
         end
 
-        def join_subqueries
+        def subqueries_with_fasten fasten
           list = []
           subqueries.each do |s|
-            next unless [:direct, :join].include? s.fasten
+            next unless Array.wrap(fasten).include? s.fasten
             list << s
-            list += s.join_subqueries
+            list += s.subqueries_with_fasten s.fasten
           end
           list
         end
@@ -43,27 +42,32 @@ class Card
           interpret_tie subquery(subquery_args), val, conditions
         end
 
-        def interpret_tie subquery, val, conditions
+        # these conditions are specifically the tie/join conditions
+        def interpret_tie subquery, val, fields={}
+          fields = { from: :id, to: :id }.merge fields
           subquery.interpret val
           case subquery.fasten
           when :exist, :not_exist
-            subquery.super_conditions conditions if conditions
+            subquery.super_conditions fields if fields.present?
+          when :in
+            tie_with_in subquery, fields
           when :join
-            join_on subquery, conditions
+            join_on subquery, fields
           end
           subquery
         end
 
-        def super_conditions hash
-          hash.each { |k, v| superfield k, v }
+        #def tie_with_in subquery, conditions
+#
+        #end
+
+        def super_conditions fields
+          superfield fields[:from], fields[:to]
         end
 
-        def join_on subquery, conditions
-          join_args = { from: self, to: subquery }
-          if conditions
-            to_field = join_args[:to_field] = conditions.keys.first
-            join_args[:from_field] = conditions[to_field]
-          end
+        def join_on subquery, fields={}
+          join_args = { from: self, from_field: fields[:from],
+                        to: subquery, to_field: fields[:to] }
           join_args[:side] = :left if current_conjunction == "or"
           joins << Join.new(join_args)
         end
@@ -76,7 +80,7 @@ class Card
           if (id = id_from_val(val))
             interpret id_field => id
           else
-            tie :card, val, id: id_field
+            tie :card, val, from: id_field
           end
         end
 
