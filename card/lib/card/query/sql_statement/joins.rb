@@ -4,23 +4,16 @@ class Card
       # handle transformation of joins from Query representation to SQL
       module Joins
         def joins
-          join_joins direct_joins(@query)
+          joins_on_query(@query).map do |join|
+            join_and_on_clauses join
+          end.join " "
         end
 
-        def direct_joins query
-          query.direct_subqueries.unshift(query).map(&:joins).flatten
+        def joins_on_query query
+          query.join_subqueries.unshift(query).map(&:joins).flatten
         end
 
-        def join_joins join_list
-          clauses = []
-          join_list.each do |join|
-            clauses << join_on_clause(join)
-            clauses << join_joins(deeper_joins(join)) unless join.left?
-          end
-          clauses.flatten * " "
-        end
-
-        def join_on_clause join
+        def join_and_on_clauses join
           ["\n", join_clause(join), "ON", on_clause(join)].join " "
         end
 
@@ -28,17 +21,7 @@ class Card
           to_table = join.to_table
           to_table = "(#{to_table.sql})" if to_table.is_a? CardQuery
           table_segment = [to_table, join.to_alias].join " "
-
-          if join.left? && (djoins = deeper_joins(join)).present?
-            table_segment = "(#{table_segment} #{joins djoins})"
-          end
           [leading_space, join.side, "JOIN", table_segment].compact.join " "
-        end
-
-        def deeper_joins join
-          deeper_joins = join.subjoins
-          deeper_joins += direct_joins(join.to) if join.to.is_a? CardQuery
-          deeper_joins
         end
 
         def on_clause join

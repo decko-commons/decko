@@ -32,7 +32,7 @@ class Card
         end
 
         def exist_condition subquery, negate=nil
-          "#{'NOT ' if negate}EXISTS (\n#{subquery.sql}\n)"
+          "#{'NOT ' if negate}EXISTS (\n#{subquery.sql}\n#{leading_space})"
         end
 
         # the conditions stored in the query's @conditions variable

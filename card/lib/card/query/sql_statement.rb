@@ -27,7 +27,7 @@ class Card
       end
 
       def select
-        "#{leading_space}  SELECT #{@fields}"
+        "#{leading_space}SELECT DISTINCT #{@fields}"
       end
 
       def from
@@ -40,7 +40,7 @@ class Card
 
       def comment
         return nil unless Card.config.sql_comments && @query.comment
-        "/* #{@query.comment} */"
+        "/* #{@query.comment} */\n"
       end
 
       def tables

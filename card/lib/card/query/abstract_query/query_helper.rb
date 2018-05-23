@@ -8,50 +8,65 @@ class Card
           direct + direct.map(&:direct_subqueries).flatten
         end
 
+        def join_subqueries
+          heirs = subqueries.select { |s| [:direct, :join].include? s.fasten }
+          heirs + heirs.map(&:join_subqueries).flatten.uniq
+        end
+
         def table_alias
           @table_alias ||= begin
             if fasten == :direct
               @superquery.table_alias
             else
-              "#{table_prefix}#{table_id}"
+              "#{table_prefix}#{depth}#{table_suffix}"
             end
           end
         end
 
-        # generates an id used to identify a table variable in the sql statement
-        def table_id force=false
-          if force
-            tick_table_seq!
-          else
-            @table_id ||= tick_table_seq!
-          end
+        def table_suffix
+          return if root?
+          map ||= root.table_suffix_map
+          map[depth] = map[depth] ? (map[depth] + 1) : 0
+          "_#{map[depth]}"
         end
 
-        def tick_table_seq!
-          root.table_seq = root.table_seq.to_i + 1
+        def table_suffix_map
+          @table_suffix_map ||= {}
         end
 
         def fld field_name
           "#{table_alias}.#{field_name}"
         end
 
-        def tie subquery_type, val, where, subquery_args={}
-          s = subquery tie_subquery_args(subquery_args, subquery_type)
-          s.interpret val
-          s.exists_where where if where
-          s
+        def tie subquery_type, val, conditions, subquery_args={}
+          subquery_args[:fasten] ||= :join
+          subquery_args[:class] = Query.class_for subquery_type
+          interpret_tie subquery(subquery_args), val, conditions
         end
 
-        def tie_subquery_args args, type
-          args.reverse_merge! fasten: :exist
-          unless type == :card
-            args[:class] = Card::Query.const_get("#{type.capitalize}Query")
+        def interpret_tie subquery, val, conditions
+          subquery.interpret val
+          case subquery.fasten
+          when :exist, :not_exist
+            subquery.super_conditions conditions if conditions
+          when :join
+            join_on subquery, conditions
           end
-          args
+          subquery
         end
 
-        def exists_where hash
+        def super_conditions hash
           hash.each { |k, v| superfield k, v }
+        end
+
+        def join_on subquery, conditions
+          join_args = { from: self, to: subquery }
+          if conditions
+            to_field = join_args[:to_field] = conditions.keys.first
+            join_args[:from_field] = conditions[to_field]
+          end
+          join_args[:side] = :left if current_conjunction == "or"
+          joins << Join.new(join_args)
         end
 
         def superfield myfield, superfield

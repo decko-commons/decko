@@ -5,7 +5,7 @@ class Card
     class AbstractQuery
       include QueryHelper
       attr_reader :statement, :mods, :conditions, :vars,
-                  :subqueries, :superquery, :comment
+                  :subqueries, :superquery, :comment, :original
       attr_accessor :joins, :conditions_on_join, :table_seq, :fasten
 
       def initialize statement, _comment=nil
@@ -14,6 +14,7 @@ class Card
         @joins = []
         @mods = {}
 
+        @original = statement.clone
         @statement = statement.clone
 
         @context    = @statement.delete(:context) || nil
@@ -46,6 +47,10 @@ class Card
 
       def root
         @root ||= @superquery ? @superquery.root : self
+      end
+
+      def root?
+        root == self
       end
 
       def subquery opts={}
