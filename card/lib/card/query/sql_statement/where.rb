@@ -26,13 +26,14 @@ class Card
             case query.fasten
             when :exist     then exist_condition query
             when :not_exist then exist_condition query, true
+            when :in        then in_condition query
             else                 explicit_conditions query
             end
           end
         end
 
         def exist_condition subquery, negate=nil
-          "#{'NOT ' if negate}EXISTS (\n#{subquery.sql}\n#{leading_space})"
+          "#{'NOT ' if negate}EXISTS (#{spaced_subquery_sql subquery})"
         end
 
         # the conditions stored in the query's @conditions variable
@@ -43,6 +44,14 @@ class Card
             when Array     then standard_condition(condition)
             end
           end
+        end
+
+        def spaced_subquery_sql subquery
+          "\n#{subquery.sql}\n#{leading_space}"
+        end
+
+        def in_condition subquery
+          "#{subquery.mods[:in_field]} IN (#{spaced_subquery_sql subquery})"
         end
 
         def standard_condition condition

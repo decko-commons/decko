@@ -37,10 +37,6 @@ class Card
         statement.to_s
       end
 
-      def sql
-        @sql ||= SqlStatement.new(self).build.to_s
-      end
-
       # Query Hierarchy
       # @root, @subqueries, and @superquery are used to track a hierarchy of
       # query objects.  This nesting allows to find, for example, cards that
