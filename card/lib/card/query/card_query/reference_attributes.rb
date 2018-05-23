@@ -1,7 +1,7 @@
 class Card
   module Query
     class CardQuery
-    # interpret CQL attributes that involve references from one card to another
+      # interpret CQL attributes that involve references from one card to another
       module ReferenceAttributes
         def self.define_reference_method methodname, reftype, ref_method, ref_field
           define_method methodname do |val|
@@ -12,7 +12,7 @@ class Card
         end
 
         {
-          refer_to: ["L", "I"],
+          refer_to: %w[L I],
           link_to:  "L",
           include:  "I"
         }.each do |methodname, reftype|
@@ -20,9 +20,9 @@ class Card
         end
 
         {
-          referred_to_by: [:in, "L", "I"],
-          linked_to_by:   [:in, "L"],
-          included_by:    [:in, "I"]
+          referred_to_by: %w[L I],
+          linked_to_by:   "L",
+          included_by:    "I"
         }.each do |methodname, reftype|
           define_reference_method methodname, reftype, :referer, :referee_id
         end

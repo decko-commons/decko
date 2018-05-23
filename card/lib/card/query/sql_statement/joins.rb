@@ -46,7 +46,7 @@ class Card
           on_conditions.unshift ["#{join.from_alias}.#{join.from_field}",
                                  "#{join.to_alias}.#{join.to_field}"].join(" = ")
           on_conditions += on_card_conditions(join) if join.to.is_a? CardQuery
-          "ON #{basic_conditions(on_conditions) * ' AND ' }"
+          "ON #{basic_conditions(on_conditions) * ' AND '}"
         end
 
         def on_card_conditions join

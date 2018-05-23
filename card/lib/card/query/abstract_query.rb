@@ -19,13 +19,13 @@ class Card
         @mods = {}
 
         @statement = statement.clone
-        @context    = @statement.delete(:context) || nil
+        @context = @statement.delete(:context) || nil
         @superquery = @statement.delete(:superquery) || nil
 
-        @fasten     = @statement.delete(:fasten)  || DEFAULT_FASTEN
+        @fasten = @statement.delete(:fasten) || DEFAULT_FASTEN
         table_alias
 
-        @vars       = initialize_vars
+        @vars = initialize_vars
       end
 
       def initialize_vars
