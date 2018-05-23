@@ -1,7 +1,7 @@
 $.extend decko,
   editorContentFunctionMap: {}
+
   editorInitFunctionMap: {
-    '.date-editor': -> @datepicker { dateFormat: 'yy-mm-dd' }
     'textarea': -> $(this).autosize()
     '.file-upload': -> decko.upload_file(this)
     '.etherpad-textarea': ->
@@ -31,3 +31,36 @@ jQuery.fn.extend {
     field.val new_val
     field.change() if init_val != new_val
 }
+
+doubleClickActiveMap = {off: false, on: true, signed_in: decko.currentUserId}
+
+doubleClickActive = () ->
+  doubleClickActiveMap[decko.doubleClick]
+  # else alert "illegal configuration: " + decko.doubleClick
+
+doubleClickApplies = (el) ->
+  return false if ['.nodblclick', '.d0-card-header', '.card-editor'].some (klass) ->
+    el.closest(klass)[0]
+    # double click inactive inside header, editor, or tag with "nodblclick" class
+  slot = el.slot()
+  return false if slot.find('.card-editor')[0]
+  # false if there is a card-editor open inside slot
+  slot.data 'cardId'
+
+
+
+triggerDoubleClickEditingOn = (el)->
+  slot = el.slot()
+  slot.addClass 'slotter'
+  slot.attr 'href', decko.path('~' + slot.data('cardId') + '?view=edit')
+  $.rails.handleRemote slot
+
+$(window).ready ->
+  if doubleClickActive()
+    $('body').on 'dblclick', 'div', (_event) ->
+      if doubleClickApplies $(this)
+        triggerDoubleClickEditingOn $(this)
+      false # don't propagate up to next slot
+
+
+

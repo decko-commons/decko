@@ -7,7 +7,7 @@ end
 class Card
   # to be included in  RSpec::Core::ExampleGroup
   module SpecHelper
-    include RenderHelper
+    include ViewHelper
     include EventHelper
     include SaveHelper
 
@@ -20,6 +20,18 @@ class Card
       @request.session[:user] = Card::Auth.current_id
       # warn "(ath)login_as #{user.inspect}, #{Card::Auth.current_id}, "\
       #      "#{@request.session[:user]}"
+    end
+
+    def card_subject
+      Card["A"].with_set(described_class)
+    end
+
+    def format_subject format=:html
+      card_subject.format_with_set(described_class, format)
+    end
+
+    def expect_content
+      expect(card_subject.content)
     end
 
     def assert_view_select view_html, *args, &block
@@ -69,6 +81,13 @@ class Card
       yml_file = ENV["BUCKET_CREDENTIALS_PATH"] ||
                  File.expand_path("../bucket_credentials.yml", __FILE__)
       File.exist?(yml_file) && YAML.load_file(yml_file).deep_symbolize_keys
+    end
+
+    def with_rss_enabled
+      Card.config.rss_enabled = true
+      yield
+    ensure
+      Card.config.rss_enabled = false
     end
   end
 end

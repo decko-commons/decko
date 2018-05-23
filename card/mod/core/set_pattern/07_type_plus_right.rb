@@ -5,7 +5,13 @@
 }
 
 def label name
-  %(All "+#{name.to_name.tag}" cards on "#{name.to_name.left_name}" cards)
+  name = name.to_name
+  %(All "+#{name.tag}" cards on "#{name.left}" cards)
+end
+
+def short_label name
+  name = name.to_name
+  %(all "+#{name.tag}" on "#{name.left}s")
 end
 
 def prototype_args anchor
@@ -18,8 +24,4 @@ end
 def anchor_name card
   type_name = card.left(new:{})&.type_name || Card.default_type_id.cardname
   "#{type_name}+#{card.name.tag}"
-end
-
-def follow_label name
-  %(all "+#{name.to_name.tag}" on "#{name.to_name.left_name}s")
 end

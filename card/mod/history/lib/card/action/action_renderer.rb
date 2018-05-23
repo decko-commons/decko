@@ -28,7 +28,7 @@ class Card
           row do
             html <<-HTML
               <ul class="action-list w-100">
-                <li class="glyphicon-bullet #{action.action_type}">
+                <li class="#{action.action_type}">
                   #{action_panel}
                 </li>
               </ul>
@@ -57,7 +57,7 @@ class Card
         else
           link_to_view(
             :related, name_changes,
-            path: { related: { view: "history", name: @action.card.name } },
+            path: { slot: { items: { view: "history", nest_name: @action.card.name } } },
             remote: true,
             class: "slotter",
             # "data-slot-selector" => ".card-slot.history-view"
@@ -67,7 +67,7 @@ class Card
 
       def content_diff
         return @action.raw_view if @action.action_type == :delete
-        @format.subformat(@action.card)._render_action_summary action: @action
+        @format.subformat(@action.card).render_action_summary action_id: @action.id
       end
 
       def type_diff

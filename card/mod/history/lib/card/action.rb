@@ -24,7 +24,7 @@ class Card
     include Card::Action::Differ
     extend Card::Action::Admin
 
-    belongs_to :act, foreign_key: :card_act_id, inverse_of: :actions
+    belongs_to :act, foreign_key: :card_act_id, inverse_of: :ar_actions
     has_many :card_changes, foreign_key: :card_action_id,
                             inverse_of: :action,
                             dependent: :delete_all,
@@ -55,6 +55,14 @@ class Card
       # @return [Card::Cache]
       def cache
         Card::Cache[Action]
+      end
+
+      def all_with_cards
+        Action.joins "JOIN cards ON cards.id = card_actions.card_id"
+      end
+
+      def all_viewable
+        all_with_cards.where Query::SqlStatement.new.permission_conditions("cards")
       end
     end
 
@@ -127,6 +135,12 @@ class Card
       end
     end
 
+    def all_changes
+      self.class.cache.fetch("#{id}-changes") do
+        card_changes.find_all.to_a
+      end
+    end
+
     # all action {Change changes} in hash form. { field1: Change1 }
     # @return [Hash]
     def changes
@@ -134,13 +148,13 @@ class Card
         if sole?
           current_changes
         else
-          card_changes.each_with_object({}) do |change, hash|
+          all_changes.each_with_object({}) do |change, hash|
             hash[change.field.to_sym] = change
           end
         end
     end
 
-    # all action in hash form. { field1: new_value }
+    # all changed values in hash form. { field1: new_value }
     def changed_values
       @changed_values ||= changes.each_with_object({}) do |(key,change), h|
         h[key] = change.value
@@ -156,24 +170,6 @@ class Card
                                                 value: card.send(field),
                                                 card_action_id: id
         end
-    end
-
-    # does action change card's type?
-    # @return [true/false]
-    def new_type?
-      !value(:type_id).nil?
-    end
-
-    # does action change card's content?
-    # @return [true/false]
-    def new_content?
-      !value(:db_content).nil?
-    end
-
-    # does action change card's name?
-    # @return [true/false]
-    def new_name?
-      !value(:name).nil?
     end
 
     # translate field into fieldname as referred to in database
@@ -206,7 +202,7 @@ class Card
     end
 
     def sole?
-      card_changes.empty? &&
+      all_changes.empty? &&
         (action_type == :create || Card::Action.where(card_id: card_id).count == 1)
     end
   end

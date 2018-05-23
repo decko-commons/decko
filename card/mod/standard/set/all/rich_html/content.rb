@@ -21,7 +21,7 @@ format :html do
     args[:view] = view if view
     @main = false
     @main_opts = args
-    render! :layout, title: params[:layout]
+    render! :layout, layout: params[:layout]
     # FIXME: using title because it's a standard view option.  hack!
   end
 
@@ -32,9 +32,8 @@ format :html do
   end
 
   view :layout, perms: :none, cache: :never do
-    layout = process_content get_layout_content(voo.title),
-                             content_opts: { chunk_list: :references }
-    output [layout, _render_modal_slot]
+    layout = process_content get_layout_content(voo.layout), chunk_list: :references
+    output [layout, modal_slot]
   end
 
   view :content do
@@ -59,38 +58,34 @@ format :html do
       [
         _render_menu,
         _render_header,
-        wrap_body { _render_core },
+        wrap_body { _render_titled_content },
         render_comment_box
       ]
     end
   end
 
   view :labeled do
-    class_up "d0-card-body", "closed-content"
+    class_up "d0-card-body", "labeled-content"
     @content_body = true
     wrap do
       [
         _render_menu,
-        wrap_with(:label, _render_title),
-        wrap_body do
-          _render_closed_content
-        end
+        labeled_row
       ]
     end
   end
 
-  view :title do
-    title = fancy_title super()
-    if show_view? :title_link, :hide
-      title = _render_title_link title_ready: title
+  def labeled_row
+    haml do
+      <<-HAML.strip_heredoc
+        .row
+          .col-4.text-right
+            .label
+              = _render_title
+          .col
+            = wrap_body { _render_labeled_content }
+      HAML
     end
-    add_name_context
-    title
-  end
-
-  view :title_link do |args|
-    title_text = args[:title_ready] || pov_name(voo.title)
-    link_to_card card.name, title_text
   end
 
   view :type_info do
@@ -109,13 +104,8 @@ format :html do
     end
   end
 
-  # view :anchor, perms: :none, tags: :unknown_ok do |args|
-  #   %{ <a id="#{card.name.url_key}" name="#{card.name.url_key}"></a> }
-  # end
-
-  view :type do |args|
-    klasses = ["cardtype", args[:type_class]].compact
-    link_to_card card.type_card, nil, class: klasses
+  view :type do
+    link_to_card card.type_card, nil, class: "cardtype"
   end
 
   view :closed do
@@ -148,49 +138,30 @@ format :html do
     Card.fetch(set_name)
   end
 
-  # subheader = with_name_context(card.name) do
-  #   subformat(rcard)._render_title(args)
-  # end
-
-  view :related, cache: :never do |args|
-    related_card, options = related_card_and_options args
+  # the related view nests a related card with a submenu
+  # the subcard is specified as an "item" card using the slot/voo api
+  view :related, cache: :never do
     return unless related_card
     voo.show :toolbar, :menu, :help
     frame do
       voo.hide :header, :toggle
-      nest related_card, options
+      nest @related_card, related_options
     end
   end
 
-  def related_card_and_options args
-    return unless (options = related_options(args))
-    related_card = related_card_from_options options
-    options[:view] ||= :open
-    options[:show] ||= []
-    options[:show] << :comment_box if related_card.show_comment_box_in_related?
-    [related_card, options]
+  def related_card
+    return unless (nest_name = voo.items[:nest_name])
+    @related_card = Card.fetch nest_name.to_name.absolute_name(card.name), new: {}
   end
 
-  def related_options args
-    options = (args[:related] || params[:related])
-    case options
-    when String
-      { name: options }
-    when Hash
-      options.symbolize_keys
-    when ActionController::Parameters
-      options.to_unsafe_h.symbolize_keys
-    end
+  def related_options
+    opts = voo.items || {}
+    opts[:view] ||= :open
+    opts.reverse_merge!(show: :comment_box) if @related_card.show_comment_box_in_related?
+    opts
   end
 
-  def related_card_from_options options
-    related_card = options.delete :card
-    return related_card if related_card
-    related_name = options.delete(:name).to_name.absolute_name card.name
-    Card.fetch related_name, new: {}
-  end
-
-  view :help, tags: :unknown_ok do
+  view :help, tags: :unknown_ok, cache: :never do
     help_text = voo.help || rule_based_help
     return "" unless help_text.present?
     wrap_with :div, help_text, class: classy("help-text")
@@ -199,8 +170,7 @@ format :html do
   def rule_based_help
     return "" unless (rule_card = card.help_rule_card)
     with_nest_mode :normal do
-      process_content _render_raw(structure: rule_card.name),
-                      content_opts: { chunk_list: :references }
+      process_content _render_raw(structure: rule_card.name), chunk_list: :references
       # render help card with current card's format
       # so current card's context is used in help card nests
     end
@@ -226,15 +196,4 @@ format :html do
       </span>
     )
   end
-
-  def fancy_title title=nil
-    wrap_with :span, class: classy("card-title") do
-      title.to_name.parts.join fancy_joint
-    end
-  end
-
-  def fancy_joint
-    wrap_with :span, "+", classy("joint")
-  end
 end
-

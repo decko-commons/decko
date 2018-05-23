@@ -7,10 +7,6 @@
   These styles are intended to help bridge the default card context with bootstrap styling.
   Note: these styles do not appear in pre-bootstrap skins.
 */
-{{bootstrap: functions}}
-{{bootstrap: variables}}
-{{bootstrap: breakpoints}}
-
 
 $label_color: #666666;
 $border_color: #999999;
@@ -136,17 +132,21 @@ body.mceContentBody {
 /*---------- Card menu ------------*/
 
 @include media-breakpoint-up(xs) {
-  .card-slot > .d0-card-frame > .menu-slot > .vertical-card-menu._show-on-hover {
-    .btn-group.slotter {
-      display: none;
-      &.open {
-        display: inline-block;
+  .card-slot > .d0-card-frame, .card-slot {
+    > .menu-slot > .vertical-card-menu._show-on-hover {
+      .btn-group.slotter {
+        display: none;
+        &.open {
+          display: inline-block;
+        }
       }
     }
   }
 
-  .card-slot:hover > .d0-card-frame > .menu-slot > .vertical-card-menu._show-on-hover .btn-group.slotter {
-    display: inline-block;
+  .card-slot:hover > .d0-card-frame, .card-slot:hover {
+    > .menu-slot > .vertical-card-menu._show-on-hover .btn-group.slotter {
+      display: inline-block;
+    }
   }
 }
 
@@ -326,4 +326,15 @@ body.mceContentBody {
 .border-all{
   border-width: 1px;
   border-style: solid;
+}
+
+.select2-container--bootstrap .select2-navbox-autocomplete.select2-selection--multiple {
+  .select2-selection__choice {
+    background: none !important;
+    border: none !important;
+  }
+
+  .select2-selection__choice__remove {
+    display: none !important;
+  }
 }

@@ -20,7 +20,7 @@ class Card
       # Override Rails default banner (wagn is the command name).
       def banner
         usage_arguments = arguments.map(&:usage) * " "
-        text = "wagn generate #{namespace} #{usage_arguments} [options]"
+        text = "decko generate #{namespace} #{usage_arguments} [options]"
         text.gsub(/\s+/, " ")
       end
     end

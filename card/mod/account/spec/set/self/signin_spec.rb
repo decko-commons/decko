@@ -2,7 +2,7 @@
 
 # FIXME: need more specific assertions
 
-describe Card::Set::Self::Signin do
+RSpec.describe Card::Set::Self::Signin do
   before do
     @card = Card[:signin]
   end

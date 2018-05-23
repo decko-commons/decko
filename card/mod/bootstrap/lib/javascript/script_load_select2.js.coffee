@@ -1,8 +1,17 @@
+$.fn.select2.defaults.set("theme", "bootstrap")
+
 decko.slotReady (slot) ->
   slot.find('select:not(._no-select2)').each (i) ->
-    $(this).select2(dropdownAutoWidth: "true")
+    opts = { dropdownAutoWidth: "true", containerCssClass: ":all:", width: "auto" }
+    if $(this).hasClass("tags")
+      opts.tags = "true"
+    $(this).select2(opts)
 
-$.fn.select2.defaults.set("theme", "bootstrap")
+  # TODO: move to better place
+  $('.colorpicker-component').colorpicker()
+
+
+
 
 
 #  slot.find('.pointer-multiselect').each (i) ->

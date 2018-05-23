@@ -7,12 +7,11 @@ module Card::Query::Clause
     txt =~ /[^\w\*\(\)\s\.\,]/ ? raise("WQL contains disallowed characters: #{txt}") : txt
   end
 
-    def quote v
-      ActiveRecord::Base.connection.quote(v)
-    end
+  def quote v
+    connection.quote(v)
+  end
 
-    def match_prep v
-      cxn ||= ActiveRecord::Base.connection
-      [cxn, v]
-    end
+  def connection
+    @connection ||= ActiveRecord::Base.connection
+  end
 end

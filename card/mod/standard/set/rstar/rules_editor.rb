@@ -1,4 +1,6 @@
 format :html do
+  attr_accessor :rule_context
+
   def current_rule force_reload=true
     @current_rule = nil if force_reload
     @current_rule ||= begin
@@ -24,7 +26,7 @@ format :html do
     return "not a rule" unless card.is_rule?
     rule_view = open_rule_body_view
     open_rule_wrap(rule_view) do
-      [open_rule_instruction,
+      [render_rule_help,
        open_rule_setting_links,
        open_rule_body(rule_view)]
     end
@@ -32,7 +34,9 @@ format :html do
 
   def open_rule_body rule_view
     wrap_with :div, class: "d0-card-body" do
-      nest current_rule, view: rule_view, rule_context: card
+      current_rule_format = subformat current_rule
+      current_rule_format.rule_context = card
+      current_rule_format.render rule_view
     end
   end
 
@@ -109,8 +113,7 @@ format :html do
 
   def closed_rule_content rule_card
     return "" unless rule_card
-    nest rule_card, view: :closed_content,
-                    set_context: card.name.trunk_name
+    nest rule_card, { view: :closed_content }, set_context: card.name.trunk_name
   end
 
   def open_rule_setting_links
@@ -129,9 +132,9 @@ format :html do
                  class: "close-rule-link slotter"
   end
 
-  def open_rule_instruction
+  view :rule_help, tags: :unknown_ok, perms: :none, cache: :never do
     wrap_with :div, class: "alert alert-info rule-instruction" do
-      process_content "{{#{card.rule_setting_name}+*right+*help|content}}"
+      rule_based_help
     end
   end
 
@@ -146,9 +149,9 @@ format :html do
     end
   end
 
-  view :edit_rule, cache: :never, tags: :unknown_ok do |args|
+  view :edit_rule, cache: :never, tags: :unknown_ok do
     return "not a rule" unless card.is_rule?
-    @rule_context = args[:rule_context] || card
+    @rule_context ||=  card
     @edit_rule_success = edit_rule_success
     action_args = { action: :update, no_mark: true }
 
@@ -232,15 +235,10 @@ format :html do
   end
 
   def rule_set_selection
-    wrap_with :div, class: "row set-list" do
-      [rule_set_formgroup,
-       related_set_formgroup]
+    wrap_with :div, class: "set-list" do
+      [rule_set_formgroup, related_set_formgroup]
     end
   end
-
-  # def default_edit_rule_args args
-  #   args[:set_context] ||= card.rule_set_name
-  # end
 
   def rule_set_formgroup
     tag = @rule_context.rule_user_setting_name
@@ -319,11 +317,11 @@ format :html do
 
   def rule_radio set_name, state
     label_classes = ["set-label", ("current-set-label" if state == :current)]
-    icon = glyphicon "question-sign", "link-muted"
+    icon = icon_tag "open_in_new", "link-muted"
     wrap_with :label, class: label_classes.compact.join(" ") do
       [yield,
        rule_radio_label(set_name, state),
-       link_to_card(set_name, icon, target: "wagn_set")]
+       link_to_card(set_name, icon, target: "decko_set")]
     end
   end
 

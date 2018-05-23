@@ -11,6 +11,9 @@ World(RSpec::Matchers)
 require "rspec-html-matchers"
 World(RSpecHtmlMatchers)
 
+# require "capybara-select2"
+# include Capybara::Select2
+
 require "pry"
 
 $feature_seeded ||= ::Set.new
@@ -22,7 +25,7 @@ $feature_seeded ||= ::Set.new
 # features/**/*.rb files.
 Before("@background-jobs or @delayed-jobs or @javascript") do |scenario|
   # DatabaseCleaner.strategy = :truncation
-  Card.seed_test_db unless $feature_seeded.include?(scenario.feature.name)
+  Cardio.seed_test_db unless $feature_seeded.include?(scenario.feature.name)
 end
 
 Before("@no-db-clean-between-scenarios") do |scenario|
@@ -39,7 +42,7 @@ After("not @background-jobs", "not @delayed-jobs", "not @javascript") do
 end
 
 at_exit do
-  Card.seed_test_db
+  Cardio.seed_test_db
 end
 
 Before("@javascript") do
@@ -55,7 +58,7 @@ Cucumber::Rails::Database.autorun_database_cleaner = false
 # require "test_after_commit"
 
 Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
+  Capybara::Selenium::Driver.new(app, browser: :firefox)
 end
 Capybara.default_driver = :selenium
 

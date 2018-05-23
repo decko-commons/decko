@@ -1,6 +1,9 @@
 class Card
-  class Query
+  module Query
     class SqlStatement
+      include Joins
+      include Where
+
       def initialize query=nil
         @query = query
         @mods = query && query.mods
@@ -9,7 +12,7 @@ class Card
       def build
         @fields = fields
         @tables = tables
-        @joins  = joins @query.all_joins
+        @joins  = joins
         @where  = where
         @group  = group
         @order  = order
@@ -19,14 +22,14 @@ class Card
 
       def to_s
         [comment,
-         "SELECT DISTINCT #{@fields}",
+         "SELECT #{@fields}",
          "FROM #{@tables}",
          @joins,
          @where,
          @group,
          @order,
          @limit_and_offset
-        ].compact * "\n"
+        ].compact.join " "
       end
 
       def comment
@@ -35,7 +38,7 @@ class Card
       end
 
       def tables
-        "cards #{@query.table_alias}"
+        "#{@query.table} #{@query.table_alias}"
       end
 
       def fields
@@ -62,105 +65,6 @@ class Card
         end
       end
 
-      def joins join_list
-        clauses = []
-        join_list.each do |join|
-          clauses << join_on_clause(join)
-          clauses << joins(deeper_joins join) unless join.left?
-        end
-        clauses.flatten * "\n"
-      end
-
-      def join_on_clause join
-        [join_clause(join), "ON", on_clause(join)].join " "
-      end
-
-      def deeper_joins join
-        deeper_joins = join.subjoins
-        deeper_joins += join.to.all_joins if join.to.is_a? Card::Query
-        deeper_joins
-      end
-
-      def join_clause join
-        to_table = join.to_table
-        to_table = "(#{to_table.sql})" if to_table.is_a? Card::Query
-        table_segment = [to_table, join.to_alias].join " "
-
-        if join.left?
-          djoins = deeper_joins(join)
-          unless djoins.empty?
-            table_segment = "(#{table_segment} #{joins djoins})"
-          end
-        end
-        [join.side, "JOIN", table_segment].compact.join " "
-      end
-
-      def on_clause join
-        on_conditions = join.conditions
-        on_ids = [
-          "#{join.from_alias}.#{join.from_field}",
-          "#{join.to_alias}.#{join.to_field}"
-        ].join " = "
-        on_conditions.unshift on_ids
-        if join.to.is_a? Card::Query
-          if join.to.conditions_on_join == join
-            on_conditions.push query_conditions(join.to)
-          end
-          on_conditions.push standard_conditions(join.to)
-        end
-        basic_conditions(on_conditions) * " AND "
-      end
-
-      def where
-        conditions = [query_conditions(@query), standard_conditions(@query)]
-        conditions = conditions.reject(&:blank?).join "\nAND "
-        "WHERE #{conditions}" unless conditions.blank?
-      end
-
-      def query_conditions query
-        cond_list = basic_conditions query.conditions
-        cond_list +=
-          query.subqueries.map do |subquery|
-            next if subquery.conditions_on_join
-            query_conditions subquery
-          end
-        cond_list.reject!(&:blank?)
-
-        if cond_list.size > 1
-          cond_list = cond_list.join "\n#{query.current_conjunction.upcase} "
-          "(#{cond_list})"
-        else
-          cond_list.join
-        end
-      end
-
-      def basic_conditions conditions
-        conditions.map do |condition|
-          if condition.is_a? String
-            condition
-          else
-            field, val = condition
-            val.to_sql field
-          end
-        end
-      end
-
-      def standard_conditions query
-        table = query.table_alias
-        [trash_condition(table), permission_conditions(table)].compact * " AND "
-      end
-
-      def trash_condition table
-        "#{table}.trash is false"
-      end
-
-      def permission_conditions table
-        return if Auth.always_ok?
-        read_rules = Auth.as_card.read_rules
-        read_rule_list = read_rules.present? ? read_rules.join(",") : 1
-        "#{table}.read_rule_id IN (#{read_rule_list})"
-      end
-
       def group
         group = @mods[:group]
         "GROUP BY #{safe_sql group}" if group.present?
@@ -179,8 +83,7 @@ class Card
       end
 
       def full_syntax
-        return if @query.superquery || @mods[:return] == "count"
-        yield
+        @query.full? ? yield : return
       end
 
       def order

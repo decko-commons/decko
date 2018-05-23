@@ -1,0 +1,9 @@
+%h4
+  Get notified about changes
+%ul.delete-list.list-group
+  - card.item_names.each do |option|
+    %li.list-group-item
+      = follow_item(option == "*never" ? "*always" : option)
+= link_to_view :edit_single_rule, "more options",
+               class: "btn update-follow-link slotter",
+               "data-card_key": card.set_prototype.key

@@ -3,30 +3,40 @@ format :html do
   # (1) gives CSS classes for styling and
   # (2) adds card data for javascript - including the "card-slot" class,
   #     which in principle is not supposed to be in styles
-  def wrap slot=true
+  def wrap slot=true, slot_attr={}, &block
+    method_wrap :wrap_with, slot, slot_attr, &block
+  end
+
+  def haml_wrap slot=true, slot_attr={}, &block
+    method_wrap :haml_tag, slot, slot_attr, &block
+  end
+
+  def method_wrap method, slot, slot_attr, &block
     @slot_view = @current_view
     debug_slot do
-      wrap_with :div, yield, id: card.name.url_key,
-                             class: wrap_classes(slot),
-                             data:  wrap_data
+      send method, :div, slot_attributes(slot, slot_attr), &block
     end
   end
 
-  def haml_wrap slot=true
-    @slot_view = @current_view
-    debug_slot do
-      haml_tag :div, id: card.name.url_key,
-                     class: wrap_classes(slot),
-                     data:  wrap_data do
-        yield
-      end
+  def slot_attributes slot, slot_attr
+    { id: card.name.url_key, class: wrap_classes(slot), data: wrap_data }.tap do |hash|
+      add_class hash, slot_attr.delete(:class)
+      hash.deep_merge! slot_attr
     end
   end
 
-  def wrap_data
-    { "card-id"           => card.id,
-      "card-name"         => h(card.name),
-      "slot"              => slot_options }
+  def wrap_data slot=true
+    with_slot_data slot do
+      { "card-id": card.id, "card-name": h(card.name) }
+    end
+  end
+
+  def with_slot_data slot
+    hash = yield
+    # rails helper convert slot hash to json
+    # but haml joins nested keys with a dash
+    hash[:slot] = slot_options_json if slot
+    hash
   end
 
   def slot_options_json
@@ -34,7 +44,7 @@ format :html do
   end
 
   def slot_options
-    options = voo.slot_options
+    options = voo ? voo.slot_options : {}
     name_context_slot_option options
     options
   end
@@ -61,7 +71,7 @@ format :html do
   def wrap_classes slot
     list = slot ? ["card-slot"] : []
     list += ["#{@current_view}-view", card.safe_set_keys]
-    list << "STRUCTURE-#{voo.structure.to_name.key}" if voo.structure
+    list << "STRUCTURE-#{voo.structure.to_name.key}" if voo&.structure
     classy list
   end
 
@@ -70,83 +80,6 @@ format :html do
     css_classes += ["d0-card-content", card.safe_set_keys] if @content_body
     wrap_with :div, class: classy(*css_classes) do
       yield
-    end
-  end
-
-  def panel
-    wrap_with :div, class: classy("d0-card-frame") do
-      yield
-    end
-  end
-
-  def related_frame
-    voo.show :menu
-    wrap do
-      [
-        _render_menu,
-        _render_subheader,
-        frame_help,
-        panel { wrap_body { yield } }
-      ]
-    end
-  end
-
-  def frame &block
-    method = show_related_frame? ? :related_frame : :standard_frame
-    send method, &block
-  end
-
-  def show_related_frame?
-    parent && parent.voo.ok_view == :related
-  end
-
-  def standard_frame slot=true
-    voo.hide :horizontal_menu, :help
-    wrap slot do
-        panel do
-          [
-            _render_menu,
-            _render_header,
-            frame_help,
-            _render(:flash),
-            wrap_body { yield }
-          ]
-        end
-    end
-  end
-
-  def frame_help
-    # TODO: address these args
-    with_class_up "help-text", "alert alert-info" do
-      _render :help
-    end
-  end
-
-  def frame_and_form action, form_opts={}
-    form_opts ||= {}
-    frame do
-      card_form action, form_opts do
-        output yield
-      end
-    end
-  end
-
-  # alert_types: 'success', 'info', 'warning', 'danger'
-  def alert alert_type, dismissable=false, disappear=false, args={}
-    classes = ["alert", "alert-#{alert_type}"]
-    classes << "alert-dismissible " if dismissable
-    classes << "_disappear" if disappear
-    args.merge! role: "alert"
-    add_class args, classy(classes)
-    wrap_with :div, args do
-      [(alert_close_button if dismissable), output(yield)]
-    end
-  end
-
-  def alert_close_button
-    wrap_with :button, type: "button", "data-dismiss" => "alert",
-                       class: "close", "aria-label" => "Close" do
-      wrap_with :span, "&times;", "aria-hidden" => true
     end
   end
 

@@ -11,7 +11,7 @@ format :html do
     super()
   end
 
-  def default_name_formgroup_args _args
+  before :name_formgroup do
     voo.help = tr :first_last_help
   end
 
@@ -42,13 +42,13 @@ format :html do
     end
   end
 
-  view :core, template: :haml do |_args|
+  view :core, template: :haml do
     @lines = [signup_line] + account_lines
     @body = process_content _render_raw
   end
 
   def signup_line
-    [ "<strong>#{card.name}</strong>",
+    [ "<strong>#{safe_name}</strong>",
       ("was" unless anonymous_signup?),
       "signed up on #{format_date card.created_at}"
     ].compact.join " "

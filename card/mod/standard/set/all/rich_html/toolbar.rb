@@ -14,24 +14,15 @@ format :html do
 
   view :toolbar, cache: :never do
     tool_navbar do
-      [
-        # expanded_close_link,
-        toolbar_split_buttons,
-        # collapsed_close_link,
-        # toolbar_simple_buttons,
-        toolbar_right_buttons
-      ]
+      [toolbar_split_buttons, toolbar_right_buttons]
     end
   end
 
-  def default_toolbar_args args
-    if params[:related]
-      @related_card, _opts = related_card_and_options args.clone
-    end
+  before :toolbar do
     @rule_view = params[:rule_view]
   end
 
-  # def default_toolbar_args args
+  # before :toolbar do
   #   args[:nested_fields] = nested_fields
   #   args[:active_toolbar_button] ||= active_toolbar_button @slot_view, args
   # end
@@ -69,16 +60,15 @@ format :html do
   end
 
   def toolbar_simple_buttons
-    wrap_with :form do
-      _render :toolbar_buttons
-    end
+    _render :toolbar_buttons
+    # end
   end
 
   def toolbar_right_buttons
     wrap_with :div do
       [
-          toolbar_simple_buttons,
-          expanded_close_link,
+        toolbar_simple_buttons,
+        expanded_close_link
       ]
     end
   end
@@ -145,8 +135,8 @@ format :html do
     toolbar_split_button "account", related: :account, icon: :account_box do
       %i[account roles created edited follow].each_with_object({}) do |item, hash|
         label = item == :account ? tr(:details) : tr(item)
-        args = { class: "dropdown-item"}
-        args[:path] = { related: { view: :edit } } if item == :account
+        args = { class: "dropdown-item" }
+        args[:path] = { slot: { items: { view: :edit } } } if item == :account
         hash[item] = link_to_related item, label, args
       end
     end
@@ -154,7 +144,7 @@ format :html do
 
   def toolbar_button_card name
     button_codename = "#{name}_toolbar_button".to_sym
-    return "" unless button_card = Card[button_codename]
+    return "" unless (button_card = Card[button_codename])
     with_nest_mode :normal do
       nest button_card, view: :core
     end
@@ -187,11 +177,10 @@ format :html do
   end
 
   view :toolbar_buttons, cache: :never do
-    related_button = _render(:related_button).html_safe
     wrap_with(:div, class: "btn-group btn-group-sm") do
       [
         _render(:delete_button,
-                         optional: (card.ok?(:delete) ? :show : :hide)),
+                optional: (card.ok?(:delete) ? :show : :hide)),
         _render(:refresh_button),
         _render(:related_button)
       ]
@@ -199,7 +188,8 @@ format :html do
   end
 
   view :related_button do
-    dropdown_button "", icon: :explore, class: "related", extra_css_class: "d-none d-md-inline" do
+    dropdown_button "", icon: :explore, class: "related dropdown-menu-right",
+                        extra_css_class: "d-none d-md-inline" do
       [
         ["children",       :baby_formula, "*children"],
         # ["mates",          "bed",          "*mates"],
@@ -208,25 +198,24 @@ format :html do
         ["references in",  :log_in,       "*referred_to_by"]
       ].map do |title, icon, tag|
         menu_item " #{title}", icon, related: tag,
-                                     path: { slot: { show: :toolbar,
-                                                     hide: :menu } }
+                                     path: { slot: { show: :toolbar, hide: :menu } }
       end
     end
   end
 
-  view :refresh_button do |_args|
+  view :refresh_button do
     icon = main? ? "refresh" : "open_in_new"
     button_args = { card: card,  path: { slot: { show: :toolbar } } }
     button_args[:class] = "d-none d-sm-inline" if card.accountable?
     toolbar_button "refresh", icon, button_args
   end
 
-  view :delete_button do |_args|
-    confirm = "Are you sure you want to delete #{card.name}?"
+  view :delete_button do
+    confirm = "Are you sure you want to delete #{safe_name}?"
     success = main? ? "REDIRECT: *previous" : "TEXT: #{card.name} deleted"
     toolbar_button "delete", :trash,
                    path: { action: :delete, success: success },
-                   class: "slotter", remote: true, :'data-confirm' => confirm
+                   class: "slotter", remote: true, 'data-confirm': confirm
   end
 
   def toolbar_button text, symbol, opts={}
@@ -260,8 +249,7 @@ format :html do
   }.each do |viewname, viewtitle|
 
     view "#{viewname}_link" do
-      voo.title ||= viewtitle
-      link_to_view viewname, voo.title, class: "dropdown-item"
+      link_to_view viewname, viewtitle, class: "dropdown-item"
     end
   end
 

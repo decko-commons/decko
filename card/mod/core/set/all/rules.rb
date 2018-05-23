@@ -103,9 +103,7 @@ def rule_card_id setting_code, options={}
 end
 
 def preference_card_id_lookups setting_code, options={}
-  user_id = options[:user_id] ||
-            (options[:user] && options[:user].id) ||
-            Auth.current_id
+  user_id = options[:user_id] || options[:user]&.id || Auth.current_id
   return unless user_id
   ["#{setting_code}+#{AllID}", "#{setting_code}+#{user_id}"]
 end
@@ -146,22 +144,16 @@ module ClassMethods
     end
   end
 
-  def path_setting name # shouldn't this be in location helper?
-    name ||= "/"
-    return name if name =~ /^(http|mailto)/
-    "#{Card.config.relative_url_root}#{name}"
-  end
-
   def toggle val
     val.to_s.strip == "1"
   end
 
   def rule_cache_key row
-    return false unless (setting_code = Codename[row["setting_id"].to_i])
+    return false unless (setting_code = Card::Codename[row["setting_id"].to_i])
 
     anchor_id = row["anchor_id"]
     set_class_id = anchor_id.nil? ? row["set_id"] : row["set_tag_id"]
-    return false unless (set_class_code = Codename[set_class_id.to_i])
+    return false unless (set_class_code = Card::Codename[set_class_id.to_i])
 
     [anchor_id, set_class_code, setting_code].compact.map(&:to_s) * "+"
   end
@@ -195,10 +187,10 @@ module ClassMethods
   def all_user_ids_with_rule_for set_card, setting_code
     key =
       if (l = set_card.left) && (r = set_card.right)
-        set_class_code = Codename[r.id]
+        set_class_code = Card::Codename[r.id]
         "#{l.id}+#{set_class_code}+#{setting_code}"
       else
-        set_class_code = Codename[set_card.id]
+        set_class_code = Card::Codename[set_card.id]
         "#{set_class_code}+#{setting_code}"
       end
     user_ids = user_ids_cache[key] || []

@@ -19,15 +19,38 @@ class Card
       def [] *cardish
         cardish = cardish.first if cardish.size <= 1
         case cardish
-        when Card            then cardish.name
-        when Symbol, Integer then Card.fetch_name(cardish)
-        when Array           then compose cardish
-        else                      cardish.to_name
+        when Card             then cardish.name
+        when Symbol, Integer  then Card.fetch_name(cardish)
+        when Array            then smart_compose cardish
+        when String, NilClass then new cardish
+        else
+          raise ArgumentError, "#{cardish.class} not supported as name identifier"
         end
       end
 
+      def new str, validated_parts=nil
+        return compose str if str.is_a?(Array)
+
+        str = str.to_s
+
+        if !validated_parts && str.include?(joint)
+          compose Cardname.split_parts(str)
+        elsif (id = Card.id_from_string(str))  # handles ~ and :
+          Card.fetch_name(id) { Card.bad_mark(str) }
+        else
+          super str
+        end
+      end
+
+      # interprets symbols/integers as codenames/ids
+      def smart_compose parts
+        name_parts = parts.flatten.map { |part| self[part] }
+        new name_parts.join(joint), true
+      end
+
       def compose parts
-        new parts.flatten.map { |part| self[part] }.join(joint)
+        name_parts = parts.flatten.map { |part| new part }
+        new name_parts.join(joint), true
       end
 
       def url_key_to_standard key

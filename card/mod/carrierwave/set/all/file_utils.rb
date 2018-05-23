@@ -5,11 +5,20 @@ module ClassMethods
   end
 
   def delete_tmp_files_of_cached_uploads
+    cards_with_disposable_attachments do |card, action|
+      card.delete_files_for_action action
+      action.delete
+    end
+  end
+
+  def cards_with_disposable_attachments
     draft_actions_with_attachment.each do |action|
       # we don't want to delete uploads in progress
       next unless old_enough?(action.created_at) && (card = action.card)
-      card.delete_files_for_action action
-      action.delete
+      # we can't delete attachments we don't have write access to
+      next if card.read_only?
+
+      yield card, action
     end
   end
 

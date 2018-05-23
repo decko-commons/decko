@@ -1,8 +1,11 @@
 
 class Card
   def restore_changes_information
+    # restores changes for integration phase
+    # (rails cleared them in an after_create/after_update hook which is
+    #  executed before the integration phase)
     return unless saved_changes.present?
-    @changed_attributes = previous_mutation_tracker.changed_values
+    @mutations_from_database = mutations_before_last_save
   end
 
   def clean_after_stage_fail
@@ -108,6 +111,19 @@ class Card
         @stage = stage_index(:integrate_with_delay)
         yield
         run_subdirector_stages :integrate_with_delay
+      end
+
+      def rerun_up_to_current_stage
+        old_stage = @stage
+        reset_stage
+        catch_up_to_stage old_stage if old_stage
+      end
+
+      def replace_card card
+        card.action = @card.action
+        card.director = self
+        @card = card
+        rerun_up_to_current_stage
       end
 
       def reset_stage

@@ -5,10 +5,10 @@ card_reader :access_secret
 
 card_reader :message
 
-require "twitter"
+# require "twitter"
 
-def deliver args={}
-  client.update message_card.contextual_content(args[:context])
+def deliver context
+  client.update message_card.format.contextual_content(context)
 end
 
 def client

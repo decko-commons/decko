@@ -8,7 +8,7 @@ class Cardname
     alias_method :to_a, :parts
 
     def parts
-      @parts = s.split(/\s*#{JOINT_RE}\s*/, -1)
+      @parts = Cardname.split_parts s
     end
 
     def simple

@@ -1,97 +1,18 @@
 format :html do
-  # TODO: raw should be comprised of other views so that it can be cached.
-  view :raw, cache: :never do
-    output [
-      head_meta,
-      head_title,
-      head_buttons,
-      head_stylesheets,
-      head_javascript
-    ]
-  end
-
+  # when *head is rendered in the main body of a page, we escape the HTML
+  # otherwise (most typically in the head tag, of course), we render the
+  # HTML unescaped
   view :core, cache: :never do
-    root.first_head? ? _render_raw : CGI.escapeHTML(_render_raw)
-  end
-
-  def head_meta
-    <<-HTML
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    HTML
-  end
-
-  def head_title
-    title = root.card && root.card.name
-    title = nil if title.blank?
-    title = params[:action] if title == "*placeholder"
-    %(<title>#{title ? "#{title} - " : ''}#{Card.global_setting :title}</title>)
-  end
-
-  def head_buttons
-    bits = [favicon]
-    if root.card
-      bits << universal_edit_button
-      # RSS # move to mods!
-      bits << rss_link if root.card.type_id == SearchTypeID
+    escape_in_main do
+      nest root.card, view: :head
+      # note that the head tag for each card is different
+      # (different title, different style rules, etc)
+      # so we don't cache the core of *head, but we _do_ cache some
+      # views within each head (see all/head.rb)
     end
-    bits.compact.join "\n      "
   end
 
-  def head_stylesheets
-    manual_style = params[:style]
-    style_card = Card[manual_style] if manual_style
-    style_card ||= root.card.rule_card :style
-    @css_path =
-      if params[:debug] == "style"
-        page_path(style_card.name, item: :import, format: :css)
-      elsif style_card
-        style_card.machine_output_url
-      end
-    return unless @css_path
-    %(<link href="#{@css_path}" media="all" rel="stylesheet" type="text/css" />)
-  end
-
-  def head_javascript
-    output [
-      decko_variables,
-      script_rule,
-      ie9,
-      mod_configs,
-      trigger_slot_ready,
-      google_analytics,
-      # recaptcha
-    ]
-  end
-
-  def favicon
-    return "" unless favicon_code
-    %(<link rel="shortcut icon" href="#{nest favicon_code, view: :source, size: :small}" />)
-  end
-
-  def favicon_code
-    @favicon_code ||=
-      %i[favicon logo].find do |name|
-        icon_card = Card[name]
-        icon_card.type_id == ImageID && !icon_card.db_content.blank?
-      end
-  end
-
-
-  def universal_edit_button
-    return if root.card.new_record? || !root.card.ok?(:update)
-    href = root.path view: :edit
-    tag "link", rel: "alternate", type: "application/x-wiki",
-                title: "Edit this page!", href: href
-  end
-
-  def rss_link
-    opts = { format: :rss }
-    if root.search_params[:vars]
-      root.search_params[:vars].each { |key, val| opts["_#{key}"] = val }
-    end
-    href = page_path root.card.name, opts
-    tag "link", rel: "alternate", type: "application/rss+xml",
-                title: "RSS", href: href
+  def escape_in_main
+    main? ? (h yield) : yield
   end
 end

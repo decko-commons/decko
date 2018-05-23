@@ -1,72 +1,71 @@
 $(window).ready ->
-#navbox mod
-  $('._navbox').autocomplete {
-    html: 'html',
-    source: navbox_results,
-    select: navbox_select
-# autoFocus: true,
-# this makes it so the first option ("search") is pre-selected.
-# sadly, it also causes odd navbox behavior, resetting the search term
-  }
+  navbox = $('._navbox')
+  navbox.select2
+    placeholder: navbox.attr("placeholder")
+    escapeMarkup: (markup) ->
+      markup
+    minimumInputLength: 1
+    maximumSelectionSize: 1
+    ajax:
+      url: decko.path ':search.json'
+      data: (params) ->
+        query: { keyword: params.term }
+        view: "complete"
+      processResults: (data) ->
+        results: navboxize(data)
+      cache: true
+    templateResult: formatNavboxItem
+    templateSelection: formatNavboxSelectedItem
+    multiple: true
+    containerCssClass: 'select2-navbox-autocomplete'
 
-#navbox mod
-reqIndex = 0 #prevents race conditions
+  navbox.on "select2:select", (e) ->
+    navboxSelect(e)
 
-navbox_results = (request, response) ->
-  f = this.element.closest 'form'
-  formData = f.serialize() + '&view=complete'
+formatNavboxItem = (i) ->
+  if i.loading
+    return i.text
+  '<i class="material-icons">' + i.icon + '</i>' +
+  '<span class="navbox-item-label">' + i.prefix + ':</span> ' +
+  '<span class="navbox-item-value">' + i.label + '</span>'
 
-  this.xhr = $.ajax {
-    url: decko.prepUrl decko.rootPath + '/:search.json'
-    data: formData
-    dataType: "json"
-    wagReq: ++reqIndex
-    success: ( data, status ) ->
-      response navboxize(request.term, data) if this.wagReq == reqIndex
-    error: ->
-      response [] if this.wagReq == reqIndex
-  }
+formatNavboxSelectedItem = (i) ->
+  unless i.icon
+    return i.text
+  '<i class="material-icons">' + i.icon + '</i>' +
+  '<span class="navbox-item-value">' + i.label + '</span>'
 
-navboxize = (term, results) ->
+navboxize = (results) ->
   items = []
+  term = results.term
+  if results["search"]
+    # id is what the form sends
+    items.push navboxItem(prefix: "search", id: term, text: term)
 
-  $.each ['search', 'add', 'new'], (index, key) ->
+  $.each ['add', 'new'], (index, key) ->
     if val = results[key]
-      i = {
-        value: term,
-        prefix: key,
-        icon: 'add',
-        label: '<strong class="highlight">' + term + '</strong>'
-      }
-      if key == 'search'
-        i.icon = key
-        i.term = term
-      else if key == 'add'
-        i.href = '/card/new?card[name]=' + encodeURIComponent(val)
-      else if key == 'new'
-        i.type = 'add' # for icon
-        i.href = '/new/' + val[1]
-
-      items.push i
+      items.push navboxItem(prefix: key, icon: "add", text: val[0], href: val[1])
 
   $.each results['goto'], (index, val) ->
-    items.push {
-      icon: 'arrow_forward', prefix: 'go to', value: val[0], label: val[1],
-      href: '/' + val[2]
-    }
-
-  $.each items, (index, i) ->
-    i.label =
-      '<i class="material-icons">' + i.icon + '</i>' +
-      '<span class="navbox-item-label">' + i.prefix + ':</span> ' +
-      '<span class="navbox-item-value">' + i.label + '</span>'
+    i = navboxItem(
+      prefix: "go to", id: index, icon: "arrow_forward",
+      text: val[0], href: val[1], label: val[2]
+    )
+    items.push i
 
   items
 
-navbox_select = (event, ui) ->
-  if ui.item.term
-    $(this).closest('form').submit()
-  else
-    window.location = decko.rootPath + ui.item.href
+navboxItem = (data) ->
+  data.id ||= data.prefix
+  data.icon ||= data.prefix
+  data.label ||= '<strong class="highlight">' + data.text + '</strong>'
+  data
 
-  $(this).attr('disabled', 'disabled')
+navboxSelect = (event) ->
+  item = event.params.data
+  if item.href
+    window.location = decko.path(item.href)
+  else
+    $(event.target).closest('form').submit()
+
+  $(event.target).attr('disabled', 'disabled')

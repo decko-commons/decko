@@ -22,8 +22,12 @@ def content
   Env.session[key]
 end
 
+def content= val
+  Env.session[key] = val
+end
+
 format :html do
-  def default_core_args args
-    args[:items] = { view: :name }
+  before :core do
+    voo.items[:view] = :name
   end
 end

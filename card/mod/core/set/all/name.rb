@@ -72,10 +72,6 @@ def update_subcard_names new_name, name_to_replace=nil
   end
 end
 
-def codename
-  super&.to_sym
-end
-
 def autoname name
   if Card.exists?(name) || ActManager.include?(name)
     autoname name.next
@@ -96,7 +92,6 @@ end
 def raw_name
   @raw_name || name
 end
-
 
 def left *args
   case
@@ -184,7 +179,7 @@ def repair_key
       key_blocker.save
     end
 
-    saved =   (self.key      = correct_key) && save!
+    saved =   (self.key = correct_key) && save!
     saved ||= (self.name = current_key) && save!
 
     if saved
@@ -195,11 +190,10 @@ def repair_key
     end
     self
   end
-rescue
+rescue StandardError
   Rails.logger.info "BROKE ATTEMPTING TO REPAIR BROKEN KEY: #{key}"
   self
 end
-
 
 def right_id= card_or_id
   write_card_or_id :right_id, card_or_id
@@ -235,46 +229,4 @@ end
 
 def with_id_when_exists card, &block
   card.director.call_after_store(&block)
-end
-event :set_autoname, :prepare_to_validate, on: :create do
-  if name.blank? && (autoname_card = rule_card(:autoname))
-    self.name = autoname autoname_card.db_content
-    # FIXME: should give placeholder in approve phase
-    # and finalize/commit change in store phase
-    autoname_card.refresh.update_column :db_content, name
-  end
-end
-
-event :set_name, :store, changed: :name do
-  expire
-end
-
-event :set_left_and_right, :store,
-      changed: :name, on: :save do
-  if name.junction?
-    %i[left right].each do |side|
-      sidename = name.send "#{side}_name"
-      sidecard = Card[sidename]
-
-      # eg, renaming A to A+B
-      old_name_in_way = (sidecard && sidecard.id == id)
-      suspend_name(sidename) if old_name_in_way
-      side_id_or_card =
-        if !sidecard || old_name_in_way
-          add_subcard(sidename.s)
-        else
-          sidecard.id
-        end
-      send "#{side}_id=", side_id_or_card
-    end
-  else
-    self.left_id = self.right_id = nil
-  end
-end
-
-event :name_change_finalized, :finalize, changed: :name, on: :save do
-  # The events to update references has to happen after :cascade_name_changes,
-  # but :cascade_name_changes is defined after the reference events and
-  # and additionaly it is defined on :update but some of the reference
-  # events are on :save. Hence we need this additional hook to organize these events.
 end

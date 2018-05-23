@@ -10,6 +10,7 @@ Feature: Signing up
     And I edit "Sign up+*type+*captcha"
     And I uncheck "Content"
     And I press "Submit"
+    And I wait for ajax response
         # By default Wagns are configured to require approval
     Given Joe Admin creates Pointer card "User+*type+*create" with content "[[Anyone]]"
 
@@ -25,6 +26,7 @@ Feature: Signing up
     And I enter "wanna_pass" into "*password"
     And I press "Submit"
     Then I should see "Signup Success"
+    And I wait a sec
     And "wanna@wagn.org" should receive an email with subject "verification link for My Deck"
 
     When I open the email

@@ -15,8 +15,8 @@ class Card
 
       @creator = card_class.new mod, name, type, codename: codename, force: force
     end
-
     def self.card_class type
+
       CARD_CLASSES.find { |cc| cc.valid_type? type }
     end
 

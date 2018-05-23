@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::SearchType do
+RSpec.describe Card::Set::Type::SearchType do
   it "wraps search items with correct view class" do
     Card.create type: "Search", name: "Asearch", content: %({"type":"User"})
     c = render_content("{{Asearch|core|name}}")
@@ -13,6 +13,11 @@ describe Card::Set::Type::SearchType do
              .scan("search-result-item item-titled").size).to eq(14)
   end
 
+  it "fails for invalid search syntax" do
+    expect { create_search_type "Bad Search", content: "not no search" }
+      .to raise_error(/Invalid json unexpected token at 'not no search'/)
+  end
+
   it "handles returning 'count'" do
     rendered = render_card(:core,
                            type: "Search",
@@ -21,22 +26,15 @@ describe Card::Set::Type::SearchType do
   end
 
   it "passes item args correctly" do
-    Card.create!(
-      name: "Pointer2Searches",
-      type_id: Card::PointerID,
-      content: "[[Layout+*type+by name]]\n[[PlainText+*type+by name]]"
-    )
+    create_pointer "Pointer2Searches",
+                   content: "[[Layout+*type+by name]]\n[[PlainText+*type+by name]]"
     r = render_content "{{Pointer2Searches|core|closed|hide:menu}}"
     expect(r.scan('"view":"link"').size).to eq(0)
     expect(r.scan("item-closed").size).to eq(2) # there are two of each
   end
 
   it "handles type update from pointer" do
-    pointer_card = Card.create!(
-      name: "PointerToSearches",
-      type_id: Card::PointerID
-    )
-
+    pointer_card = create_pointer "PointerToSearches"
     pointer_card.update_attributes! type_id: Card::SearchTypeID,
                                     content: %({"type":"User"})
     expect(pointer_card.content).to eq(%({"type":"User"}))
@@ -44,8 +42,7 @@ describe Card::Set::Type::SearchType do
 
   context "references" do
     before do
-      Card.create type: "Search", name: "search with references",
-                  content: '{"name":"Y"}'
+      create_search_type "search with references", content: '{"name":"Y"}'
     end
     subject do
       Card["search with references"]
@@ -56,12 +53,15 @@ describe Card::Set::Type::SearchType do
       expect(subject.content).to eq '{"name":"YYY"}'
     end
   end
+
   describe "rss format" do
     it "render rss without errors" do
-      search_card = Card.create type: "Search", name: "Asearch",
-                                content: %({"id":"1"})
-      rss = search_card.format(:rss).render_feed
-      expect(rss).to have_tag("title", text: "Wagn Bot")
+      with_rss_enabled do
+        search_card = Card.create type: "Search", name: "Asearch",
+                                  content: %({"id":"1"})
+        rss = search_card.format(:rss).render_feed
+        expect(rss).to have_tag("title", text: "Wagn Bot")
+      end
     end
   end
 

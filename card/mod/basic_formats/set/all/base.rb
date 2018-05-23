@@ -5,8 +5,13 @@ format do
   end
 
   # NAME VIEWS
+
   view :name, closed: true, perms: :none do
-    name_variant card.name
+    name_variant safe_name
+  end
+
+  def safe_name
+    card&.name
   end
 
   def name_variant name
@@ -18,7 +23,7 @@ format do
   view(:url,      closed: true, perms: :none) { card_url _render_linkname }
 
   view :title, closed: true, perms: :none do
-    name_variant title_in_context(voo.title)
+    name_variant(title_in_context(voo.title))
   end
 
   view :url_link, closed: true, perms: :none do
@@ -66,8 +71,12 @@ format do
   # CONTENT VIEWS
 
   view :raw do
-    scard = voo.structure ? Card[voo.structure] : card
-    scard ? scard.content : _render_blank
+    structure_card&.content || _render_blank
+  end
+
+  def structure_card
+    return nil if voo.structure == true
+    voo.structure ? Card[voo.structure] : card
   end
 
   view :core, closed: true do
@@ -88,6 +97,14 @@ format do
     end
   end
 
+  view :labeled_content do
+    _render_core
+  end
+
+  view :titled_content do
+    _render_core
+  end
+
   view :blank, closed: true, perms: :none do
     ""
   end
@@ -105,7 +122,7 @@ format do
   view :open, :titled
 
   view :labeled do
-    "#{card.name}: #{_render_closed_content}"
+    "#{card.name}: #{_render_labeled_content}"
   end
   view :closed, :labeled
 

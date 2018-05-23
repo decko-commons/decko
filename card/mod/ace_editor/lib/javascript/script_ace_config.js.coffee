@@ -43,7 +43,7 @@ $.extend decko,
     ).insertBefore(textarea)
     textarea.css "visibility", "hidden"
     textarea.css "height", "0px"
-    ace.config.set('basePath','/assets/ace')
+    ace.config.set('basePath', decko.path('assets/ace'))
     editor = ace.edit(editDiv[0])
     editor.getSession().setValue textarea.val()
     decko.configAceEditor(editor, mode)
@@ -53,19 +53,3 @@ aceEditorContent = (element) ->
   ace_div = $(element).siblings(".ace_editor")
   editor = ace.edit(ace_div[0])
   editor.getSession().getValue()
-
-
-
-
-$.extend decko,
-
-
-  initProseMirror: (el_id) ->
-    conf = {
-      menuBar: true,
-      tooltipMenu: false
-    }
-    hard_conf = { docFormat: "html" }
-    user_conf = if decko.proseMirrorConfig? then decko.proseMirrorConfig else {}
-    $.extend conf, user_conf, hard_conf
-    createProseMirror(el_id, conf)

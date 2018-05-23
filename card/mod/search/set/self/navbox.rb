@@ -2,8 +2,8 @@
 format :html do
   view :raw do
     wrap_with :div, class: "form-group w-100" do
-      text_field_tag :_keyword, "", class: "_navbox navbox form-control w-100",
-                                    placeholder: navbar_placeholder
+      select_tag "query[keyword]", "", class: "_navbox navbox form-control w-100",
+                                       placeholder: navbar_placeholder
     end
   end
 
@@ -18,12 +18,12 @@ format :html do
   end
 
   view :navbar do
-    class_up "navbox-form", "form-inline w-25"
+    class_up "navbox-form", "form-inline col-3"
     _render_core
   end
 
   view :core do
-    form_tag Card.path_setting("/:search"),
+    form_tag path(mark: :search),
              method: "get", role: "search",
              class: classy("navbox-form", "nodblclick") do
       _render_raw

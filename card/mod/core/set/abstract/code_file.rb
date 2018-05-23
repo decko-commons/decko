@@ -28,7 +28,10 @@ end
 def find_file filename
   mod_path = Card::Mod.dirs.path file_content_mod_name
   file_path = File.join(mod_path, source_dir, filename)
-  return unless File.exist? file_path
+  unless File.exist?(file_path)
+    Rails.logger.info "couldn't locate file #{filename} at #{file_path}"
+    return nil
+  end
   file_path
 end
 
@@ -38,14 +41,15 @@ def existing_source_paths
   end.compact
 end
 
+def source_changed? since:
+  existing_source_paths.any? { |path| ::File.mtime(path) > since }
+end
+
 def content
   Array.wrap(source_files).map do |filename|
     if (source_path = find_file filename)
       Rails.logger.info "reading file: #{source_path}"
       File.read source_path
-    else
-      Rails.logger.info "couldn't locate file: #{filename}"
-      nil
     end
   end.compact.join "\n"
 end
@@ -54,4 +58,16 @@ format :html do
   view :editor do
     "Content is stored in file and can't be edited."
   end
+
+  def standard_submit_button
+    multi_card_editor? ? super : ""
+  end
+end
+
+def coffee_files files
+  files.map { |f| "script_#{f}.js.coffee" }
+end
+
+def scss_files files
+  files.map { |f| "style_#{f}.scss" }
 end

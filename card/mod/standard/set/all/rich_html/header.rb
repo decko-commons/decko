@@ -5,11 +5,11 @@ format :html do
   end
 
   def main_header
-    wrap_with :div, class: classy("d0-card-header") do
-      wrap_with :div, class: classy("d0-card-header-title") do
-        header_title_elements
-      end
-    end
+    header_wrap header_title_elements
+  end
+
+  def header_wrap content=nil
+    haml :header_wrap, content: (block_given? ? yield : output(content))
   end
 
   def header_title_elements
@@ -17,13 +17,12 @@ format :html do
   end
 
   view :subheader do
-    wrap_with :div, class: "card-subheader navbar-inverse btn-primary active" do
+    wrap_with :div, class: "card-subheader bg-primary text-white" do
       [
         _render_title,
         (autosaved_draft_link(class: "float-right") if show_draft_link?)
       ]
     end
-    # toolbar_view_title(@slot_view) || _render_title(args)
   end
 
   def show_draft_link?
@@ -51,10 +50,6 @@ format :html do
         wrap_with(:li, class: "nav-item") { link }
       end.join "\n"
     end
-  end
-
-  def show_follow?
-    Auth.signed_in? && !card.new_card? && card.followable?
   end
 
   def structure_editable?

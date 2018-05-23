@@ -13,9 +13,9 @@ format do
     return card.content if card.web?
     image = selected_version
     return "" unless image.valid?
-    internal_url image.url
+    contextualize_path image.url
   end
-  
+
   def selected_version
     size = determine_image_size
     if size && size != :original
@@ -59,23 +59,39 @@ format :html do
 
   # core HTML image view.
   view :core do
+    with_valid_source do |source|
+      image_tag source, alt: card.name
+    end
+  end
+
+  def with_valid_source
     handle_source do |source|
       if source.blank? || source == "missing"
-        # FIXME - these images should be "broken", not "missing"
-        # ("missing" is the view for "unknown" now, so we shouldn't further confuse things)
-        "<!-- image missing #{@card.name} -->"
+        # FIXME: these images should be "broken", not "missing"
+        invalid_image source
       else
-        image_tag source
+        yield source
+        # consider title..
       end
     end
   end
 
+  view :full_width do
+    with_valid_source do |source|
+      image_tag source, alt: card.name, class: "w-100"
+    end
+  end
+
+  def invalid_image source
+    # ("missing" is the view for "unknown" now, so we shouldn't further confuse things)
+    "<!-- invalid image for #{safe_name}; source: #{source} -->"
+  end
+
   def preview
     return if card.new_card? && !card.preliminary_upload?
-    voo.size = :medium
     wrap_with :div, class: "attachment-preview",
                     id: "#{card.attachment.filename}-preview" do
-      _render_core
+      _render_core size: :medium
     end
   end
 
@@ -83,14 +99,17 @@ format :html do
     true
   end
 
-  view :content_changes do |args|
-    action = args[:action]
-    voo.size = args[:diff_type] == :summary ? :icon : :medium
-    [old_image(action, args), new_image(action)].compact.join
+  view :content_changes do
+    content_changes card.last_action, :expanded
   end
 
-  def old_image action, args
-    return if args[:hide_diff] || !action
+  def content_changes action, diff_type, hide_diff=false
+    voo.size = diff_type == :summary ? :icon : :medium
+    [old_image(action, hide_diff), new_image(action)].compact.join
+  end
+
+  def old_image action, hide_diff
+    return if hide_diff || !action
     return unless (last_change = card.last_change_on(:db_content, before: action))
     card.with_selected_action_id last_change.card_action_id do
       Card::Content::Diff.render_deleted_chunk _render_core
@@ -111,13 +130,18 @@ format do
 end
 
 format :email_html do
-  view :inline do
+  view :inline, cache: :never do
     handle_source do |source|
-      url_generator = voo.closest_live_option(:inline_attachment_url)
-      path = selected_version.path
-      return source unless url_generator && ::File.exist?(path)
-      image_tag url_generator.call(path)
+      return source unless (mail = inherit :active_mail) &&
+                           ::File.exist?(path = selected_version.path)
+      url = attach_image mail, path
+      image_tag url
     end
+  end
+
+  def attach_image mail, path
+    mail.attachments.inline[path] = ::File.read path
+    mail.attachments[path].url
   end
 end
 
@@ -133,5 +157,4 @@ end
 
 format :file do
   include File::FileFormat
-
 end

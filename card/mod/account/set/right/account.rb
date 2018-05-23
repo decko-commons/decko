@@ -40,11 +40,11 @@ def refreshed_token
 end
 
 format do
-  view :verify_url do
+  view :verify_url, cache: :never do
     card_url path({ mark: card.name.left }.merge(token_path_opts))
   end
 
-  view :verify_days do
+  view :verify_days, cache: :never do
     (Card.config.token_expiry / 1.day).to_s
   end
 
@@ -127,7 +127,8 @@ def reset_password_success
   Auth.signin left_id
   { id: left.name,
     view: :related,
-    related: { name: :account.cardname.prepend_joint, view: :edit } }
+    slot: { items: { nest_name: :account.cardname.prepend_joint,
+                     view: :edit } } }
 end
 
 def reset_password_try_again
@@ -151,22 +152,20 @@ event :reset_token do
 end
 
 event :send_welcome_email do
-  welcome = Card["welcome email"]
-  if welcome && welcome.type_code == :email_template
-    welcome.deliver context: left, to: email
-  end
+  welcome = Card[:welcome_email]
+  welcome.deliver self, to: email if welcome&.type_code == :email_template
 end
 
 event :send_account_verification_email, :integrate,
       on: :create, when: proc { |c| c.token.present? } do
-  Card[:verification_email].deliver context: self, to: email
+  Card[:verification_email].deliver self, to: email
 end
 
 event :send_reset_password_token do
   Auth.as_bot do
     token_card.update_attributes! content: generate_token
   end
-  Card[:password_reset_email].deliver context: self, to: email
+  Card[:password_reset_email].deliver self, to: email
 end
 
 def ok_to_read
@@ -180,22 +179,8 @@ def changes_visible? act
   false
 end
 
-def send_change_notice act, followed_set, follow_option
-  return unless changes_visible?(act)
-  Auth.as(left.id) do
-    Card[:follower_notification_email].deliver(
-      context:       act.card,
-      to:            email,
-      follower:      left.name,
-      followed_set:  followed_set,
-      follow_option: follow_option
-    )
-  end
-end
-
 format :email do
-  view :mail do |args|
-    args[:to] ||= card.email
-    super args
+  def mail context, fields
+    super context, fields.reverse_merge(to: card.email)
   end
 end

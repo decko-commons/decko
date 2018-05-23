@@ -127,12 +127,8 @@ format :html do
   def multi_card_edit fields_only=false
     nested_cards_for_edit(fields_only).map do |name, options|
       options ||= {}
-      options[:hide] = [options[:hide], :toolbar].compact
-      if options.delete(:absolute) || !fields_only
-        nest name, options
-      else
-        field_nest name, options
-      end
+      options[:hide] = [options[:hide], :toolbar].flatten.compact
+      nest name, options
     end.join "\n"
   end
 
@@ -150,34 +146,34 @@ format :html do
   # then the subfield cards should be created on the new card not the existing
   # card that build the form
 
-
   def form
-    @form ||= begin
-      @form_root = true unless parent&.form_root
-      instantiate_builder(form_prefix, card, {})
-    end
+    @form ||= inherit(:form) || new_form
+  end
+
+  def new_form
+    @form_root = true unless parent&.form_root
+    instantiate_builder(form_prefix, card, {})
   end
 
   def reset_form
-    @form = nil
-    form
+    @form = new_form
   end
 
   def form_prefix
     case
-    when (voo_prefix = form_prefix_from_voo) then voo_prefix         # configured
-    when form_root? || !form_root || !parent then "card"             # simple form
-    when parent.card == card                 then parent.form_prefix # card nests itself
+    when explicit_form_prefix                then explicit_form_prefix # configured
+    when form_root? || !form_root || !parent then "card"               # simple form
+    when parent.card == card                 then parent.form_prefix   # card nests self
     else                                          edit_in_form_prefix
     end
   end
 
-  def form_prefix_from_voo
-    voo&.live_options&.dig :input_name
-  end
-
   def edit_in_form_prefix
     "#{parent.form_prefix}[subcards][#{card.name.from form_context.card.name}]"
+  end
+
+  def explicit_form_prefix
+    inherit :explicit_form_prefix
   end
 
   def form_context

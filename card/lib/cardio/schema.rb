@@ -8,10 +8,18 @@ module Cardio
       end
     end
 
+    def migrate type, version=nil, verbose=false
+      migration_context type do |mc|
+        ActiveRecord::Migration.verbose = verbose
+        mc.migrate version
+      end
+    end
+
     def schema_suffix type
       case type
       when :core_cards then "_core_cards"
       when :deck_cards then "_deck_cards"
+      when :deck then "_deck"
       else ""
       end
     end
@@ -20,6 +28,12 @@ module Cardio
       with_suffix type do
         paths = Cardio.migration_paths(type)
         yield(paths)
+      end
+    end
+
+    def migration_context type
+      with_suffix type do
+        yield ActiveRecord::MigrationContext.new(Cardio.migration_paths(type))
       end
     end
 
@@ -45,10 +59,14 @@ module Cardio
     end
 
     def schema_stamp_path type
-      root_dir = (type == :deck_cards ? root : gem_root)
+      root_dir = deck_migration?(type) ? root : gem_root
       stamp_dir = ENV["SCHEMA_STAMP_PATH"] || File.join(root_dir, "db")
 
       File.join stamp_dir, "version#{schema_suffix type}.txt"
+    end
+
+    def deck_migration? type
+      type.in? %i[deck_cards deck]
     end
   end
 end

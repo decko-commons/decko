@@ -78,6 +78,13 @@ namespace :card do
       Rake::Task["card:migrate:stamp"].invoke :core_cards
     end
 
+    puts "migrating deck structure"
+    Rake::Task["card:migrate:deck_structure"].execute
+    if stamp
+      Rake::Task["card:migrate:stamp"].reenable
+      Rake::Task["card:migrate:stamp"].invoke :core_cards
+    end
+
     puts "migrating deck cards"
     # not invoke because we don't want to reload environment
     Rake::Task["card:migrate:deck_cards"].execute
@@ -97,5 +104,17 @@ namespace :card do
   desc "reset machine output"
   task reset_machine_output: :environment do
     Card.reset_all_machines
+  end
+
+  desc "refresh machine output"
+  task refresh_machine_output: :environment do
+    Card.reset_all_machines
+    Card::Auth.as_bot do
+      [%i[all script],
+       %i[all style],
+       %i[script_html5shiv_printshiv]].each do |name_parts|
+        Card[*name_parts].update_machine_output
+      end
+    end
   end
 end

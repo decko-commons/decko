@@ -44,52 +44,63 @@ decko_namespace = namespace :decko do
     end
   end
 
-  desc "Load bootstrap data into database"
+  desc "Load seed data into database"
   task :load do
     decko_namespace["load_without_reset"].invoke
     puts "reset cache"
     system "bundle exec rake decko:reset_cache" # needs loaded environment
   end
 
-  desc "Load bootstrap data into database but don't reset cache"
+  desc "Load seed data into database but don't reset cache"
   task :load_without_reset do
     require "decko/engine"
-    puts "update card_migrations"
-    decko_namespace["assume_card_migrations"].invoke
+    # puts "update card_migrations"
+    # decko_namespace["assume_card_migrations"].invoke
 
     if Rails.env == "test" && !ENV["GENERATE_FIXTURES"]
       puts "loading test fixtures"
       Rake::Task["db:fixtures:load"].invoke
     else
-      puts "loading bootstrap"
-      Rake::Task["db:seed"].invoke
+      puts "loading seed data"
+      # db:seed checks for pending migrations. We don't want that because
+      # as part of the seeding process we update the migration table
+      ActiveRecord::Tasks::DatabaseTasks.load_seed
+      # :Rake::Task["db:seed"].invoke
     end
 
     puts "set symlink for assets"
     decko_namespace["update_assets_symlink"].invoke
+  end
+
+  desc "reset with an empty tmp directory"
+  task :reset_tmp do
+    tmp_dir = Decko.paths["tmp"].first
+    if Decko.paths["tmp"].existent
+      Dir.foreach(tmp_dir) do |filename|
+        next if filename.starts_with? "."
+        FileUtils.rm_rf File.join(tmp_dir, filename), secure: true
+      end
+    else
+      Dir.mkdir tmp_dir
+    end
   end
 
   desc "update decko gems and database"
   task :update do
     ENV["NO_RAILS_CACHE"] = "true"
-    # system 'bundle update'
-    if Decko.paths["tmp"].existent
-      FileUtils.rm_rf Decko.paths["tmp"].first, secure: true
-    end
-    Dir.mkdir Decko.paths["tmp"].first
     decko_namespace["migrate"].invoke
-    # FIXME: remove tmp dir / clear cache
-    puts "set symlink for assets"
+    decko_namespace["reset_tmp"].invoke
+    Card::Cache.reset_all
     decko_namespace["update_assets_symlink"].invoke
   end
 
   desc "set symlink for assets"
   task :update_assets_symlink do
-    assets_path = File.join(Rails.public_path, "assets")
-    if Rails.root.to_s != Decko.gem_root && !File.exist?(assets_path)
-      FileUtils.rm assets_path if File.symlink? assets_path
-      FileUtils.ln_s(Decko::Engine.paths["gem-assets"].first, assets_path)
-    end
+    return if Rails.root.to_s == Decko.gem_root # inside decko gem
+    assets_path = File.join Rails.public_path, "assets"
+    FileUtils.rm assets_path if File.symlink? assets_path
+    return if File.exist? assets_path # could not clean. make more noise?
+    FileUtils.ln_s Decko::Engine.paths["gem-assets"].first, assets_path
   end
 
   alias_task :migrate, "card:migrate"
@@ -97,7 +108,6 @@ decko_namespace = namespace :decko do
   desc "insert existing card migrations into schema_migrations_cards to avoid re-migrating"
   task :assume_card_migrations do
     require "decko/engine"
-
     Cardio.assume_migrated_upto_version :core_cards
   end
 

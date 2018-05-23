@@ -4,12 +4,27 @@
 [submodule "card/tmpsets"]
 	path = card/tmpsets
 	url = https://github.com/decko-commons/decko-tmpsets.git
-[submodule "card/mod/bootstrap/vendor/bootswatch"]
-	path = card/mod/bootstrap/vendor/bootswatch
-	url = https://github.com/decko-commons/bootswatch
 [submodule "card/mod/bootstrap/vendor/bootstrap"]
 	path = card/mod/bootstrap/vendor/bootstrap
 	url = https://github.com/twbs/bootstrap
 [submodule "card/mod/bootstrap/vendor/select2"]
 	path = card/mod/bootstrap/vendor/select2
 	url = https://github.com/select2/select2
+[submodule "card/mod/bootstrap/vendor/bootstrap-colorpicker"]
+	path = card/mod/bootstrap/vendor/bootstrap-colorpicker
+	url = https://github.com/farbelous/bootstrap-colorpicker.git
+[submodule "card/mod/bootstrap/vendor/bootswatch"]
+	path = card/mod/bootstrap/vendor/bootswatch
+	url = https://github.com/thomaspark/bootswatch
+[submodule "card/mod/machines/vendor/jquery_rails"]
+	path = card/mod/machines/vendor/jquery_rails
+	url = https://github.com/rails/jquery-rails
+[submodule "card/mod/date/vendor/moment"]
+	path = card/mod/date/vendor/moment
+	url = https://github.com/moment/moment
+[submodule "card/mod/date/vendor/tempusdominus"]
+	path = card/mod/date/vendor/tempusdominus
+	url = https://github.com/tempusdominus/bootstrap-4
+[submodule "card/mod/machines/vendor/jquery_file_upload"]
+	path = card/mod/machines/vendor/jquery_file_upload
+	url = https://github.com/blueimp/jQuery-File-Upload

@@ -9,7 +9,7 @@ format do
     ""
   end
 
-  view :unsupported_view, perms: :none, tags: :unknown_ok do
+  view :unsupported_view, perms: :none, tags: :unknown_ok, error_code: 404 do
     "view (#{voo.unsupported_view}) not supported for #{error_cardname}"
   end
 
@@ -17,17 +17,13 @@ format do
     ""
   end
 
-  view :not_found, perms: :none, error_code: 404 do |_args|
-    error_name = card.name.present? ? card.name : "the card requested"
+  view :not_found, perms: :none, error_code: 404 do
+    error_name = card.name.present? ? safe_name : "the card requested"
     %( Could not find #{error_name}. )
   end
 
   view :server_error, perms: :none, error_code: 500 do
-    %(
-      Wagn Hitch!  Server Error. Yuck, sorry about that.
-      To tell us more and follow the fix,
-      add a support ticket at http://wagn.org/new/Support_Ticket
-    )
+    ["Wild Card!", "500 Server Error", "Yuck, sorry about that.", ":("].join "\n\n"
   end
 
   view :denial, perms: :none, error_code: 403 do
@@ -42,7 +38,7 @@ format do
     %{ Man, you're too deep.  (Too many levels of nests at a time) }
   end
 
-  view :too_slow, perms: :none, closed: true do
+  view :too_slow, perms: :none, closed: true, error_code: 408 do
     %( Timed out! #{title_in_context} took too long to load. )
   end
 end
@@ -62,7 +58,7 @@ format :html do
     ok? :comment
   end
 
-  def rendering_error exception, view
+  def nested_error exception, view
     debug_error exception if Auth.always_ok?
     details = Auth.always_ok? ? backtrace_link(exception) : error_cardname
     wrap_with :span, class: "render-error alert alert-danger" do
@@ -75,7 +71,7 @@ format :html do
     warning = alert("warning", true) do
       %{
         <h3>Error message (visible to admin only)</h3>
-        <p><strong>#{exception.message}</strong></p>
+        <p><strong>#{CGI.escapeHTML exception.message}</strong></p>
         <div>#{exception.backtrace * "<br>\n"}</div>
       }
     end
@@ -105,14 +101,11 @@ format :html do
   end
 
   view :closed_missing, perms: :none do
-    wrap_with :span, title_in_context, class: "faint"
+    wrap_with :span, h(title_in_context), class: "faint"
   end
 
   view :conflict, error_code: 409, cache: :never do
     actor_link = link_to_card card.last_action.act.actor.name
-    expanded_act = wrap do
-      _render_act act: card.last_action.act, act_seq: 0
-    end
     class_up "card-slot", "error-view"
     wrap do # ENGLISH below
       alert "warning" do
@@ -121,7 +114,7 @@ format :html do
           <span class="new-current-revision-id">#{card.last_action_id}</span>
           <div>#{actor_link} has also been making changes.</div>
           <div>Please examine below, resolve above, and re-submit.</div>
-          #{expanded_act}
+          #{render_act}
         )
       end
     end
@@ -133,26 +126,34 @@ format :html do
     voo.hide! :menu
     class_up "d0-card-frame", "card card-warning card-inverse"
     class_up "alert", "card-error-msg"
-    frame do
-      card.errors.map do |attrib, msg|
-        alert "warning", true do
-          attrib == :abort ? msg : standard_error_message(attrib, msg)
-        end
+    frame { standard_errors }
+  end
+
+  def standard_errors
+    card.errors.map do |attrib, msg|
+      alert "warning", true do
+        attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
       end
     end
   end
 
   def standard_error_message attribute, message
-    "<strong>#{attribute.to_s.upcase}:</strong> #{message}"
+    "<strong>#{h attribute.to_s.upcase}:</strong> #{h message}"
   end
 
   view :not_found do # ug.  bad name.
     voo.hide! :menu
     voo.title = "Not Found"
-    card_label = card.name.present? ? "<em>#{card.name}</em>" : "that"
     frame do
-      [wrap_with(:h2) { "Could not find #{card_label}." },
-       sign_in_or_up_links]
+      [not_found_errors, sign_in_or_up_links]
+    end
+  end
+
+  def not_found_errors
+    if card.errors.any?
+      standard_errors
+    else
+      haml :not_found
     end
   end
 
@@ -203,20 +204,5 @@ format :html do
     "Please #{linx.join ' '} #{to_task}"
   end
 
-  view :server_error do
-    %{
-      <body>
-        <div class="dialog">
-          <h1>Wagn Hitch :(</h1>
-          <p>Server Error. Yuck, sorry about that.</p>
-          <p>
-            <a href="http://www.wagn.org/new/Support_Ticket">
-              Add a support ticket
-            </a>
-            to tell us more and follow the fix.
-          </p>
-        </div>
-      </body>
-    }
-  end
+  view :server_error, template: :haml
 end

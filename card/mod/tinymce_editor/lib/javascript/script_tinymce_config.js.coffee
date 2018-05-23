@@ -22,6 +22,7 @@ $.extend decko,
       theme: "modern"
       plugins: 'autoresize'
       autoresize_max_height: 500
+      mobile: { theme: 'mobile' }
     }
     user_conf = if decko.tinyMCEConfig? then decko.tinyMCEConfig else {}
     hard_conf = {
@@ -33,6 +34,7 @@ $.extend decko,
       entity_encoding: 'raw'
     }
     $.extend conf, user_conf, hard_conf
-    tinyMCE.baseURL = '/assets/tinymce'
+    tinyMCE.baseURL = decko.path('assets/tinymce')
     tinyMCE.suffix = '.min'
+    tinyMCE.remove("##{el_id}")
     tinyMCE.init conf

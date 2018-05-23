@@ -48,9 +48,9 @@ RSpec.describe Card::Set::All::Fetch do
       expect(Card.fetch("A+*self")).not_to be_nil
     end
 
-    it "fetches newly virtual cards" do
+    it "fetches newly virtual cards", as_bot: true do
       expect(Card.fetch("A+virtual")).to be_nil
-      Card::Auth.as_bot { Card.create name: "virtual+*right+*structure" }
+      create "virtual+*right+*structure"
       expect(Card.fetch("A+virtual")).not_to be_nil
     end
 
@@ -295,6 +295,10 @@ RSpec.describe Card::Set::All::Fetch do
 
     example "id" do
       expect(Card.fetch_name(Card::BasicID)).to eq "Basic"
+    end
+
+    example "invalid id" do
+      expect(Card.fetch_name("~1836/[[/assets/fonts")).to be_nil
     end
 
     example "array" do

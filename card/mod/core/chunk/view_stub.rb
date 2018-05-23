@@ -29,16 +29,15 @@ class Card
           @stub_hash[:cast].symbolize_keys!
         end
 
-        def interpret_options
-          @stub_hash[:options].symbolize_keys!
+        def interpret_view_opts
+          @stub_hash[:view_opts].symbolize_keys!
         end
 
-        def interpret_mode
-          @stub_hash[:mode] = @stub_hash[:mode].to_sym
-        end
-
-        def interpret_override
-          @stub_hash[:override] = @stub_hash[:override] == "true"
+        def interpret_format_opts
+          hash = @stub_hash[:format_opts]
+          hash.symbolize_keys!
+          hash[:nest_mode] = hash[:nest_mode].to_sym
+          hash[:override] = hash[:override] == "true"
         end
 
         def process_chunk

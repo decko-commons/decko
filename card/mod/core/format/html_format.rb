@@ -20,10 +20,6 @@ class Card
         show_layout? ? main? : depth.zero?
       end
 
-      def first_head?
-        @first_head ? false : (@first_head = true)
-      end
-
       def default_nest_view
         # FIXME: not sure this makes sense as a rule...
         card.rule(:default_html_view) || :titled
@@ -47,7 +43,7 @@ class Card
       def layout_from_rule
         if (rule = card.rule_card :layout) &&
            (rule.type_id == Card::PointerID) &&
-           (layout_name = rule.item_names.first)
+           (layout_name = rule.item_name)
           layout_from_card_or_code layout_name
         end
       end

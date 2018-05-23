@@ -1,11 +1,8 @@
+
 def run_card_migration core_or_deck
   prepare_migration
   verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
-  Cardio.schema_mode(core_or_deck) do |paths|
-    ActiveRecord::Migrator.migrations_paths = paths
-    ActiveRecord::Migration.verbose = verbose
-    ActiveRecord::Migrator.migrate paths, version
-  end
+  Cardio.migrate core_or_deck, version, verbose
 end
 
 def prepare_migration
@@ -19,6 +16,23 @@ def prepare_migration
   # structures are loaded before schema_mode is set
 end
 
+# @param mod [Boolean] if true reset column information for models defined in
+#   in mods in the deck
+def reset_column_information mod=false
+  Rails.application.eager_load!
+  load_mod_lib if mod
+  ApplicationRecord.descendants.each(&:reset_column_information)
+end
+
+def load_mod_lib
+  Dir.glob(Cardio.root.join("mod/*/lib/*.rb")).each { |x| require_dependency x }
+end
+
+def without_dumping
+  ActiveRecord::Base.dump_schema_after_migration = false
+  yield
+end
+
 namespace :card do
   namespace :migrate do
     desc "migrate cards"
@@ -27,17 +41,37 @@ namespace :card do
     desc "migrate structure"
     task structure: :environment do
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
-      Cardio.schema_mode(:structure) do |paths|
-        ActiveRecord::Migrator.migrations_paths = paths
-        ActiveRecord::Migrator.migrate paths, version
-        Rake::Task["db:_dump"].invoke # write schema.rb
+      without_dumping do
+        Cardio.migrate :structure, version
       end
+      reset_column_information
     end
 
     desc "migrate core cards"
     task core_cards: :environment do
-      require "card/migration/core"
-      run_card_migration :core_cards
+      without_dumping do
+        require "card/migration/core"
+        run_card_migration :core_cards
+      end
+    end
+
+    desc "migrate deck structure"
+    task deck_structure: :environment do
+      migrate_deck_structure
+    end
+
+    def migrate_deck_structure
+      require "card/migration/deck_structure"
+      set_schema_path
+      Cardio.migrate :deck, version
+      Rake::Task["db:_dump"].invoke # write schema.rb
+      reset_column_information true
+    end
+
+    def set_schema_path
+      schema_dir = "#{Cardio.root}/db"
+      Dir.mkdir schema_dir unless Dir.exist? schema_dir
+      ENV["SCHEMA"] = "#{schema_dir}/schema.rb"
     end
 
     desc "migrate deck cards"
@@ -53,8 +87,7 @@ namespace :card do
       raise "VERSION is required" unless version
       ActiveRecord::Migration.verbose = verbose
       ActiveRecord::SchemaMigration.where(version: version.to_s).delete_all
-      ActiveRecord::Migrator.run :up, Cardio.migration_paths(:deck_cards),
-                                 version
+      Cardio.migrate :deck_cards, version
     end
 
     # maybe we should move this to a method?

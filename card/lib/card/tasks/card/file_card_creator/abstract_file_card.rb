@@ -21,7 +21,7 @@ class Card
         @type = type.to_sym
         @name = name
         @force = force
-        @codename = codename || name.to_name.key
+        @codename = codename || name.underscore.tr(" ", "_")
       end
 
       def create

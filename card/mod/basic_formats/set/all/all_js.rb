@@ -4,7 +4,7 @@ format :js do
     :core
   end
 
-  view :include_tag do |_args|
-    %(\n#{javascript_include_tag page_path(card.name)}\n )
+  view :source do
+    path format: :js
   end
 end

@@ -12,6 +12,7 @@ module Patches
           p = params_for(page)
           p.delete :controller
           p.delete :action
+          # TODO: make sure paging works with new related handling
           if p["related"]
             p["related"]["page"] = p["page"]
             p["related"]["subslot"] = true

@@ -5,12 +5,15 @@ def load_recaptcha_config setting
   setting = "recaptcha_#{setting}".to_sym
   Cardio.config.send(
     "#{setting}=", load_recaptcha_card_config(setting) || # card content
-                   Cardio.config.send(setting) || # application.rb
-                   default_setting(setting)
+    Cardio.config.send(setting) || # application.rb
+    default_setting(setting)
   )
 end
 
 def default_setting setting
+  # when creating the database (with `decko seed`) this is called
+  # but fails because Card::Auth doesn't exist
+  return unless Card.const_defined? "Auth"
   Card::Auth::Permissions::RECAPTCHA_DEFAULTS[setting]
 end
 
@@ -26,18 +29,20 @@ def load_recaptcha_card_config setting
   card && card.db_content.present? && card.db_content
 end
 
-Recaptcha.configure do |config|
-  # the seed task runs initializers so we have to check
-  # if the cards table is ready before we use it here
-  CONFIG_OPTIONS =
-    {
-      public_key: :site_key,
-      private_key: :secret_key,
-      proxy: :proxy
-    }
-  if card_table_ready?
-    CONFIG_OPTIONS.each do |codename, setting|
-      config.send "#{setting}=", load_recaptcha_config(codename)
+ActiveSupport.on_load :after_card do
+  Recaptcha.configure do |config|
+    # the seed task runs initializers so we have to check
+    # if the cards table is ready before we use it here
+    CONFIG_OPTIONS =
+      {
+        public_key: :site_key,
+        private_key: :secret_key,
+        proxy: :proxy
+      }
+    if card_table_ready?
+      CONFIG_OPTIONS.each do |codename, setting|
+        config.send "#{setting}=", load_recaptcha_config(codename)
+      end
     end
   end
 end

@@ -14,16 +14,6 @@ def keyword_contains_wql? hash
 end
 
 format do
-  def default_search_params
-    hash = super
-    hash[:vars] = params[:vars] || {}
-    params.each do |key, val|
-      next unless key.to_s =~ /^\_(\w+)$/
-      hash[:vars][Regexp.last_match(1).to_sym] = val
-    end
-    hash
-  end
-
   view :search_error, cache: :never do
     sr_class = search_with_params.class.to_s
 
@@ -33,14 +23,6 @@ format do
 end
 
 format :html do
-  def extra_paging_path_args
-    vars = query_with_params.vars
-    return {} unless vars.is_a? Hash
-    vars.each_with_object({}) do |(key, value), hash|
-      hash["_#{key}"] = value
-    end
-  end
-
   view :title, cache: :never do
     return super() unless (keyword = search_keyword) &&
                           (title = keyword_search_title(keyword))
@@ -71,6 +53,7 @@ format :json do
 
     {
       search: true,
+      term: term,
       add: add_item(exact),
       new: new_item_of_type(exact),
       goto: goto_items(term, exact)
@@ -82,20 +65,20 @@ format :json do
                   exact.name.valid? &&
                   !exact.virtual? &&
                   exact.ok?(:create)
-    exact.name
+    [exact.name, exact.name.url_key]
   end
 
   def new_item_of_type exact
     return unless (exact.type_id == Card::CardtypeID) &&
                   Card.new(type_id: exact.id).ok?(:create)
-    [exact.name, exact.name.url_key]
+    [exact.name, "new/#{exact.name.url_key}"]
   end
 
   def goto_items term, exact
     goto_names = Card.search goto_wql(term), "goto items for term: #{term}"
     goto_names.unshift exact.name if add_exact_to_goto_names? exact, goto_names
     goto_names.map do |name|
-      [name, highlight(name, term), name.to_name.url_key]
+      [name, name.to_name.url_key, highlight(name, term)]
     end
   end
 
@@ -104,7 +87,7 @@ format :json do
   end
 
   def complete_term
-    term = params["_keyword"]
+    term = query_params[:keyword]
     if (term =~ /^\+/) && (main = params["main"])
       term = main + term
     end

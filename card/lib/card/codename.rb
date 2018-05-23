@@ -45,7 +45,7 @@ class Card
 
       def name codename
         name! codename
-      rescue Error::UnknownCodename => _e
+      rescue Error::CodenameNotFound => _e
         yield if block_given?
       end
 
@@ -123,7 +123,7 @@ class Card
       end
 
       def unknown_codename! mark
-        raise Card::Error::UnknownCodename, I18n.t(:exception_unknown_codename,
+        raise Card::Error::CodenameNotFound, I18n.t(:exception_unknown_codename,
                                             scope: "lib.card.codename",
                                             codename: mark)
       end

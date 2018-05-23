@@ -63,9 +63,11 @@ Gem::Specification.new do |s|
     ["diff-lcs",                   "~> 1.3"], # content diffs in histories
     ["recaptcha",                  "~> 4.3"],
     ["twitter",                    "~> 6.1"], # for event-based integration
-    ["delayed_job_active_record",  "~> 4.1"]
-
-
+    ["delayed_job_active_record",  "~> 4.1"],
+    ["minitest",                   "5.11.2"],
+    ["rake",                       "<= 12.3.0"],
+    # ["bootswatch", "4.1.1"],
+    ["rails", "~> 5.2"]
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end

@@ -31,6 +31,10 @@ class Card
         remove_test_event stage, :in_stage_test
       end
 
+      def create_with_event name, stage, opts={}, &event_block
+        in_stage stage, opts.merge(for: name, trigger: -> { create name }), &event_block
+      end
+
       # if you need more then one test event (otherwise use #in_stage)
       # @example
       #   with_test_events do

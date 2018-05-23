@@ -1,5 +1,80 @@
 # -*- encoding : utf-8 -*-
 
+# must be called on all actions and before :set_name, :process_subcards and
+# :validate_delete_children
+event :assign_action, :initialize, when: :actionable? do
+  act = director.need_act
+  @current_action = Card::Action.create(
+    card_act_id: act.id,
+    action_type: @action,
+    draft: (Env.params["draft"] == "true")
+  )
+  if @supercard && @supercard != self
+    @current_action.super_action = @supercard.current_action
+  end
+end
+
+# can we store an action?
+def actionable?
+  history?
+end
+
+# stores changes in the changes table and assigns them to the current action
+# removes the action if there are no changes
+event :finalize_action, :finalize, when: :finalize_action? do
+  if changed_fields.present?
+    @current_action.update_attributes! card_id: id
+
+    # Note: #last_change_on uses the id to sort by date
+    # so the changes for the create changes have to be created before the first change
+    store_card_changes_for_create_action if first_change?
+    store_card_changes if @current_action.action_type != :create
+  elsif @current_action.card_changes.reload.empty?
+    @current_action.delete
+    @current_action = nil
+  end
+end
+
+def finalize_action?
+  actionable? && current_action
+end
+
+event :rollback_actions, :prepare_to_validate, on: :update, when: :rollback_request? do
+  update_args = process_revert_actions
+  Env.params["revert_actions"] = nil
+  update_attributes! update_args
+  clear_drafts
+  abort :success
+end
+
+def rollback_request?
+  history? && actions_to_revert.any?
+end
+
+def process_revert_actions
+  update_args = { subcards: {} }
+  reverting_to_previous = Env.params["revert_to"] == "previous"
+  actions_to_revert.each do |action|
+    merge_revert_action! action, update_args, reverting_to_previous
+  end
+  update_args
+end
+
+def actions_to_revert
+  Array.wrap(Env.params["revert_actions"]).map do |a_id|
+    Action.fetch(a_id) || nil
+  end.compact
+end
+
+def merge_revert_action! action, update_args, reverting_to_previous
+  rev = action.card.revision(action, reverting_to_previous)
+  if action.card_id == id
+    update_args.merge! rev
+  else
+    update_args[:subcards][action.card.name] = rev
+  end
+end
+
 def select_action_by_params params
   return unless (action = find_action_by_params(params))
   run_callbacks :select_action do
@@ -14,7 +89,7 @@ def find_action_by_params args
     if (action = Action.fetch(args[:rev_id])) && action.card_id == id
       action
     end
-  # revision id is probalby a mod (e.g. if you request
+  # revision id is probably a mod (e.g. if you request
   # files/:logo/standard.png)
   elsif args[:rev_id]
     last_action
@@ -85,4 +160,26 @@ end
 
 def old_actions
   actions.where("id != ?", last_action_id)
+end
+
+def create_action
+  @create_action ||= actions.first
+end
+
+# changes for the create action are stored after the first update
+def store_card_changes_for_create_action
+  Card::Change::TRACKED_FIELDS.each do |f|
+    Card::Change.create field: f,
+                        value: attribute_before_act(f),
+                        card_action_id: create_action.id
+  end
+end
+
+def store_card_changes
+  # FIXME: should be one bulk insert
+  changed_fields.each do |f|
+    Card::Change.create field: f,
+                        value: self[f],
+                        card_action_id: @current_action.id
+  end
 end

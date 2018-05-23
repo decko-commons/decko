@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908114442) do
+ActiveRecord::Schema.define(version: 2018_05_14_152037) do
 
   create_table "card_actions", id: :integer, force: :cascade do |t|
     t.integer "card_id"
@@ -61,6 +61,14 @@ ActiveRecord::Schema.define(version: 20170908114442) do
     t.index ["creator_id"], name: "revisions_created_by_index"
   end
 
+  create_table "card_virtuals", id: :integer, force: :cascade do |t|
+    t.integer "left_id"
+    t.integer "right_id"
+    t.text "content", limit: 16777215
+    t.index ["left_id"], name: "right_id_index"
+    t.index ["right_id"], name: "left_id_index"
+  end
+
   create_table "cards", id: :integer, force: :cascade do |t|
     t.string "name", null: false
     t.string "key", null: false
@@ -91,7 +99,7 @@ ActiveRecord::Schema.define(version: 20170908114442) do
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
-    t.text "handler", null: false
+    t.text "handler", limit: 16777215, null: false
     t.text "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
@@ -106,6 +114,9 @@ ActiveRecord::Schema.define(version: 20170908114442) do
   create_table "schema_migrations_core_cards", id: false, force: :cascade do |t|
     t.string "version", null: false
     t.index ["version"], name: "unique_schema_migrations_cards", unique: true
+  end
+
+  create_table "schema_migrations_deck", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "schema_migrations_deck_cards", id: false, force: :cascade do |t|

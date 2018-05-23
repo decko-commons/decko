@@ -31,7 +31,7 @@ event :admin_tasks, :initialize, on: :update do
 end
 
 def not_allowed task
-  raise Card::Error::Oops,
+  raise Card::Error::PermissionDenied,
         "The admin task '#{task}' is disabled for security reasons.<br>"\
         "You can enable it with the config option 'allow_irreversible_admin_tasks'"
 end
@@ -41,7 +41,7 @@ def irreversibles_tasks_allowed?
 end
 
 format :html do
-  view :core, cache: :never do |_args|
+  view :core, cache: :never do
     stats = card_stats
     stats += cache_stats
     stats += memory_stats
@@ -57,13 +57,13 @@ format :html do
       { title: "cards",
         count: Card.where(trash: false) },
       { title: "actions",
-        count: Card::Action,
-        link_text: "clear history",
-        task: "clear_history" },
+        count: Card::Action },
+      #  link_text: "clear history",
+      #  task: "clear_history" },
       { title: "references",
-        count: Card::Reference,
-        link_text: "repair all",
-        task: "repair_references" }
+        count: Card::Reference }
+      # link_text: "repair all",
+      # task: "repair_references" }
     ]
   end
 
@@ -118,7 +118,7 @@ format :html do
   end
 
   def machine_cache_count
-    Card.search right: { codename: "machine_cache" }, return: "count"
+    Card::Virtual.where(right_id: MachineCacheID).count
   end
 
   def delete_sessions_link months
