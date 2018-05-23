@@ -9,8 +9,13 @@ class Card
         end
 
         def join_subqueries
-          heirs = subqueries.select { |s| [:direct, :join].include? s.fasten }
-          heirs + heirs.map(&:join_subqueries).flatten.uniq
+          list = []
+          subqueries.each do |s|
+            next unless [:direct, :join].include? s.fasten
+            list << s
+            list += s.join_subqueries
+          end
+          list
         end
 
         def table_alias
@@ -18,20 +23,14 @@ class Card
             if fasten == :direct
               @superquery.table_alias
             else
-              "#{table_prefix}#{depth}#{table_suffix}"
+              "#{table_prefix}#{next_table_suffix}"
             end
           end
         end
 
-        def table_suffix
-          return if root?
-          map ||= root.table_suffix_map
-          map[depth] = map[depth] ? (map[depth] + 1) : 0
-          "_#{map[depth]}"
-        end
-
-        def table_suffix_map
-          @table_suffix_map ||= {}
+        def next_table_suffix
+          return root.next_table_suffix unless root?
+          @table_suffix = (@table_suffix || -1) + 1
         end
 
         def fld field_name
