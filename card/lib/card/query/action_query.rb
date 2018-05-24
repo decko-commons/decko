@@ -11,7 +11,7 @@ class Card
       end
 
       def action_by card
-        tie :act, { act_by: card }, id: :card_act_id
+        tie :act, { act_by: card }, from: :card_act_id
       end
 
       def update_action_by card
@@ -20,7 +20,7 @@ class Card
       end
 
       def action_on card
-        tie :card, card, id: :card_id
+        tie :card, card, from: :card_id
       end
 
       def update_action_on card

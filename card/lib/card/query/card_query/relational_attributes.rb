@@ -4,10 +4,6 @@ class Card
       # interpret CQL attributes that relate multiple cards
       # each method below corresponds to a relational CQL term
       module RelationalAttributes
-        def refer key, val
-          subquery class: ReferenceQuery, fasten: :exist, key => val
-        end
-
         def type val
           restrict :type_id, val
         end
@@ -42,7 +38,7 @@ class Card
         end
 
         def last_editor_of val
-          tie :card, val, updater_id: :id
+          tie :card, val, to: :updater_id
         end
 
         def last_edited_by val
@@ -50,7 +46,7 @@ class Card
         end
 
         def creator_of val
-          tie :card, val, creator_id: :id
+          tie :card, val, to: :creator_id
         end
 
         def created_by val

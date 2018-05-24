@@ -6,6 +6,7 @@ class Card
       include Run
       include SpecialAttributes
       include RelationalAttributes
+      include ReferenceAttributes
       include AttributeHelper
       include Interpretation
       include Normalization
@@ -34,10 +35,6 @@ class Card
       def default_comment
         return if @superquery || !Card.config.sql_comments
         statement.to_s
-      end
-
-      def sql
-        @sql ||= SqlStatement.new(self).build.to_s
       end
 
       # Query Hierarchy

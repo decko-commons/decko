@@ -27,7 +27,7 @@ class Card
       end
 
       def select
-        "#{leading_space}  SELECT #{@fields}"
+        "#{leading_space}SELECT DISTINCT #{@fields}"
       end
 
       def from
@@ -40,7 +40,7 @@ class Card
 
       def comment
         return nil unless Card.config.sql_comments && @query.comment
-        "/* #{@query.comment} */"
+        "/* #{@query.comment} */\n"
       end
 
       def tables
@@ -49,7 +49,7 @@ class Card
 
       def fields
         table = @query.table_alias
-        field = @mods[:return] unless @mods[:return] =~ /_\w+/
+        field = @mods[:return] unless @mods[:return] =~ /^_\w+/
         field = field.blank? ? :card : field.to_sym
         field = full_field(table, field)
         [field, @mods[:sort_join_field]].compact * ", "
