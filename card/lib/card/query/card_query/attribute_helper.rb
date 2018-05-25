@@ -5,16 +5,16 @@ class Card
       module AttributeHelper
         private
 
-        def exists_action action, val
-          exists :action, { action => val }, card_id: :id
+        def tie_action action, val
+          tie :action, { action => val }, to: :card_id
         end
 
-        def exists_act action, val
-          exists :act, { action => val }, actor_id: :id
+        def tie_act action, val
+          tie :act, { action => val }, to: :actor_id
         end
 
         def junction val, side, field
-          exists :card, junction_val(val, side), field => :id
+          tie :card, junction_val(val, side), to: field
         end
 
         def junction_val val, side

@@ -21,20 +21,26 @@ class Card
       end
 
       def to_s
-        [comment,
-         "SELECT #{@fields}",
-         "FROM #{@tables}",
-         @joins,
-         @where,
-         @group,
-         @order,
-         @limit_and_offset
+        [
+          comment, select, from, @joins, @where, @group, @order, @limit_and_offset
         ].compact.join " "
+      end
+
+      def select
+        "#{leading_space}SELECT DISTINCT #{@fields}"
+      end
+
+      def from
+        "FROM #{@tables}"
+      end
+
+      def leading_space
+        " " * (@query.depth * 2)
       end
 
       def comment
         return nil unless Card.config.sql_comments && @query.comment
-        "/* #{@query.comment} */"
+        "/* #{@query.comment} */\n"
       end
 
       def tables
@@ -43,7 +49,7 @@ class Card
 
       def fields
         table = @query.table_alias
-        field = @mods[:return] unless @mods[:return] =~ /_\w+/
+        field = @mods[:return] unless @mods[:return] =~ /^_\w+/
         field = field.blank? ? :card : field.to_sym
         field = full_field(table, field)
         [field, @mods[:sort_join_field]].compact * ", "

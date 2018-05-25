@@ -19,18 +19,10 @@ class AddTypeCustomizedBootswatchSkin < Card::Migration::Core
   end
 
   def rename_customized_bootswatch_skin
-    delete_code_card :customized_bootswatch_skin
-    if (card = Card.fetch("Customized bootswatch skin"))
-      if card.codename != "customized_bootswatch_skin"
-        delete_code_card :customized_bootswatch_skin
-      end
-      card.update_attributes! type_id: Card::CardtypeID,
-                              codename: "customized_bootswatch_skin"
-    else
-      ensure_card "Customized bootswatch skin",
-                  type_id: Card::CardtypeID,
-                  codename: "customized_bootswatch_skin"
-    end
+    ensure_card :customized_bootswatch_skin,
+                name: "Customized bootswatch skin",
+                type_id: Card::CardtypeID,
+                codename: "customized_bootswatch_skin"
   end
 
   def remove_deprecated_bootswatch_skins

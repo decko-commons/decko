@@ -4,6 +4,10 @@ class Card
     # handles query hierarchy
     class AbstractQuery
       include QueryHelper
+      include Tie
+
+      DEFAULT_FASTEN = :join
+
       attr_reader :statement, :mods, :conditions, :vars,
                   :subqueries, :superquery, :comment
       attr_accessor :joins, :conditions_on_join, :table_seq, :fasten
@@ -15,12 +19,13 @@ class Card
         @mods = {}
 
         @statement = statement.clone
-
-        @context    = @statement.delete(:context) || nil
-        @fasten     = @statement.delete(:fasten)  || :join
+        @context = @statement.delete(:context) || nil
         @superquery = @statement.delete(:superquery) || nil
 
-        @vars       = initialize_vars
+        @fasten = @statement.delete(:fasten) || DEFAULT_FASTEN
+        table_alias
+
+        @vars = initialize_vars
       end
 
       def initialize_vars
@@ -41,11 +46,15 @@ class Card
       end
 
       def sql
-        Query::SqlStatement.new(self).build.to_s
+        @sql ||= Query::SqlStatement.new(self).build.to_s
       end
 
       def root
         @root ||= @superquery ? @superquery.root : self
+      end
+
+      def root?
+        root == self
       end
 
       def subquery opts={}
@@ -59,8 +68,16 @@ class Card
         if !@context.nil?
           @context
         else
-          @context = @superquery ? @superquery.context : ""
+          @context = superquery ? superquery.context : ""
         end
+      end
+
+      def depth
+        @depth ||= case
+                   when !superquery       then 0
+                   when fasten == :direct then superquery.depth
+                   else                        superquery.depth + 1
+                   end
       end
     end
   end

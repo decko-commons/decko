@@ -66,7 +66,7 @@ class Card
           ensure_attributes card, args
           card
         else
-          Card.create! args.merge(name: name)
+          Card.create! args.reverse_merge(name: name)
         end
       end
 

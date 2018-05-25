@@ -77,6 +77,10 @@ class Card
       def run statement, comment=nil
         new(statement, comment).run
       end
+
+      def class_for type
+        const_get "#{type.capitalize}Query"
+      end
     end
   end
 end
