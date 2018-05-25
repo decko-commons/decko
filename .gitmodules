@@ -15,7 +15,7 @@
 	url = https://github.com/farbelous/bootstrap-colorpicker.git
 [submodule "card/mod/bootstrap/vendor/bootswatch"]
 	path = card/mod/bootstrap/vendor/bootswatch
-	url = https://github.com/thomaspark/bootswatch
+	url = https://github.com/decko-commons/bootswatch
 [submodule "card/mod/machines/vendor/jquery_rails"]
 	path = card/mod/machines/vendor/jquery_rails
 	url = https://github.com/rails/jquery-rails
