@@ -1,5 +1,4 @@
 format :html do
-
   # the related view nests a related card with a submenu
   # the subcard is specified as an "item" card using the slot/voo api
   view :related, cache: :never do
