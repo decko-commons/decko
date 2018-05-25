@@ -8,9 +8,8 @@ class Card
     #
     # In principle, the Query class should "interpret" statements into a few objects and
     # a clean Query hierarchy. The SqlStatement class should be able to traverse that
-    # hierarchy and do little more than run "to_sql" on its parts, and in so doing construct
-    # a valid SQL statement.
-
+    # hierarchy and do little more than run "to_sql" on its parts, and in so doing
+    # construct a valid SQL statement.
     class SqlStatement
       include Joins
       include Where

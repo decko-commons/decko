@@ -1,11 +1,24 @@
 class Card
   module Query
+    # convert @query sort rep into order by statement
+    # order information is stored in @mods[:sort], @mods[:sort_as], and
+    # @mods[:dir]
     class SqlStatement
+      ORDER_MAP = {
+        "id"        => "id",
+        "update"    => "updated_at",
+        "create"    => "created_at",
+        "name"      => "key",
+        "content"   => "db_content",
+        "alpha"     => "key",       # DEPRECATED
+        "relevance" => "updated_at" # DEPRECATED
+      }
+
       # build ORDER BY clause
       module Order
         def order
           full_syntax do
-            "ORDER BY #{order_directives.join ', ' }"
+            "ORDER BY #{order_directives.join ', '}"
           end
         end
 
@@ -22,16 +35,11 @@ class Card
         end
 
         def order_field order_key
-          table = @query.table_alias
           order_as do
-            case order_key
-              when "id"             then "#{table}.id"
-              when "update"         then "#{table}.updated_at"
-              when "create"         then "#{table}.created_at"
-              when /^(name|alpha)$/ then "#{table}.key"
-              when "content"        then "#{table}.db_content"
-              when "relevance"      then "#{table}.updated_at" # deprecated
-              else                       safe_sql order_key
+            if (field = ORDER_MAP[order_key])
+              "#{@query.table_alias}.#{field}"
+            else
+              safe_sql order_key
             end
           end
         end
@@ -39,7 +47,7 @@ class Card
         def order_as
           field = yield
           return field unless (as = @mods[:sort_as])
-          "CAST(#{field} AS #{cast_type(safe_sql as)})"
+          "CAST(#{field} AS #{cast_type(safe_sql(as))})"
         end
 
         def order_dir order_key
