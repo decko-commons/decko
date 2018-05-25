@@ -13,7 +13,6 @@ class Card
     # CardQuery as its child.
     #
     # See AbstractQuery::Tie for more on how tables can be connected.
-
     class AbstractQuery
       include QueryHelper
       include Tie
