@@ -138,29 +138,6 @@ format :html do
     Card.fetch(set_name)
   end
 
-  # the related view nests a related card with a submenu
-  # the subcard is specified as an "item" card using the slot/voo api
-  view :related, cache: :never do
-    return unless related_card
-    voo.show :toolbar, :menu, :help
-    frame do
-      voo.hide :header, :toggle
-      nest @related_card, related_options
-    end
-  end
-
-  def related_card
-    return unless (nest_name = voo.items[:nest_name])
-    @related_card = Card.fetch nest_name.to_name.absolute_name(card.name), new: {}
-  end
-
-  def related_options
-    opts = voo.items || {}
-    opts[:view] ||= :open
-    opts.reverse_merge!(show: :comment_box) if @related_card.show_comment_box_in_related?
-    opts
-  end
-
   view :help, tags: :unknown_ok, cache: :never do
     help_text = voo.help || rule_based_help
     return "" unless help_text.present?
