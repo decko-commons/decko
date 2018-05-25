@@ -37,19 +37,27 @@ class Card
     require_dependency "card/query/card_query"
 
     ATTRIBUTES = {
+      # Each of the "basic" fields corresponds directly to a database field.
+      # their values are translated fairly directly into SQL-safe values
       basic:           %w(id name key type_id content left_id right_id
                           creator_id updater_id codename read_rule_id),
-      relational:      %w(type part left right
+      # "Relational" values can involve tying multiple queries together
+      relational:      %w(type
+                          part left right
                           editor_of edited_by last_editor_of last_edited_by
-                          creator_of created_by member_of member
-                          updater_of updated_by),
-      plus_relational: %w(plus left_plus right_plus),
-      ref_relational:  %w(refer_to referred_to_by
+                          creator_of created_by
+                          updater_of updated_by
                           link_to linked_to_by
-                          include included_by),
-      conjunction:     %w(and or all any),
-      special:         %w(found_by not sort match name_match complete
+                          include included_by
+
+                          refer_to referred_to_by
+                          member_of member
+
+                          found_by not sort match name_match complete
                           junction_complete extension_type),
+
+      plus_relational: %w(plus left_plus right_plus),
+      conjunction:     %w(and or all any),
       ignore:          %w(prepend append view params vars size)
     }.each_with_object({}) do |pair, h|
       pair[1].each { |v| h[v.to_sym] = pair[0] }

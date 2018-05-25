@@ -5,9 +5,7 @@ class Card
       #
       module Interpretation
         INTERPRET_METHOD = { basic: :add_condition,
-                             special: :relate,
                              relational: :relate,
-                             ref_relational: :relate,
                              plus_relational: :relate_compound,
                              conjunction: :send }.freeze
 

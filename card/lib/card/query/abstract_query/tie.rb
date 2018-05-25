@@ -29,16 +29,15 @@ class Card
         end
 
         def fasten_tie subquery, fields={}
-          method = "tie_with_#{subquery.fasten == :not_exist ? :exist : subquery.fasten}"
+          method = "tie_with_#{subquery.fasten}"
           send method, subquery, fields
           subquery
         end
 
         def tie_with_join subquery, fields={}
-          join_args = { from: self, from_field: fields[:from],
-                        to: subquery, to_field: fields[:to] }
-          join_args[:side] = :left if current_conjunction == "or"
-          joins << Join.new(join_args)
+          join = Join.new tie_with_join_args(subquery, fields)
+          negate_join(subquery, join, fields) if subquery.negate
+          joins << join
         end
 
         def tie_with_in subquery, fields
@@ -48,6 +47,32 @@ class Card
 
         def tie_with_exist subquery, fields
           subquery.super_conditions fields if fields.present?
+        end
+
+        def fasten
+          @fasten ||= root? ? :join : inherit_fasten
+        end
+
+        def tie_with_join_args subquery, fields
+          args = { from: self, from_field: fields[:from],
+                   to: subquery, to_field: fields[:to] }
+          args[:side] = :left if left_join? subquery
+          args
+        end
+
+        def left_join? subquery
+          current_conjunction == "or" || subquery.negate
+          # reverse conjunction if negated?
+        end
+
+        def negate_join subquery, join, fields
+          subquery.conditions_on_join = join
+          add_condition "#{subquery.fld fields[:to]} is null"
+        end
+
+        def inherit_fasten
+          superfasten = superquery.fasten
+          superfasten == :direct ? superquery.inherit_fasten : superfasten
         end
 
         def super_conditions fields
