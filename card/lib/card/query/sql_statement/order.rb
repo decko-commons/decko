@@ -12,7 +12,7 @@ class Card
         "content"   => "db_content",
         "alpha"     => "key",       # DEPRECATED
         "relevance" => "updated_at" # DEPRECATED
-      }
+      }.freeze
 
       # build ORDER BY clause
       module Order
