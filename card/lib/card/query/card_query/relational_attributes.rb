@@ -3,6 +3,10 @@ class Card
     class CardQuery
       # interpret CQL attributes that relate multiple cards
       # each method below corresponds to a relational CQL term
+      #
+      # NOTE: methods using "restrict" can  be executed without
+      # tying in an additional query if the val in question can be
+      # reduced to an id.
       module RelationalAttributes
         def type val
           restrict :type_id, val
@@ -51,14 +55,6 @@ class Card
 
         def created_by val
           restrict :creator_id, val
-        end
-
-        def member_of val
-          interpret right_plus: [RolesID, refer_to: val]
-        end
-
-        def member val
-          interpret referred_to_by: { left: val, right: RolesID }
         end
 
         # ~~~~~~ PLUS RELATIONAL

@@ -1,16 +1,26 @@
 class Card
   module Query
     # superclass for CardQuery, ReferenceQuery, ActQuery, and ActionQuery
-    # handles query hierarchy
+    #
+    # Each of the Query classes handle interpretation of hash "statements"
+    # into a number of objects known to the SqlStatement class, including
+    # @conditions, @joins, @comment, and the catch-all @mods
+    #
+    # Sql queries involving multiple tables are made possible by the query
+    # hierarchy as tracked by subqueries (children) and superqueries (parents).
+    # For example, if one card links to another, then this can be represented
+    # as a CardQuery with a ReferenceQuery child that in turn has another
+    # CardQuery as its child.
+    #
+    # See AbstractQuery::Tie for more on how tables can be connected.
+
     class AbstractQuery
       include QueryHelper
       include Tie
 
-      DEFAULT_FASTEN = :join
-
       attr_reader :statement, :mods, :conditions, :vars,
-                  :subqueries, :superquery, :comment
-      attr_accessor :joins, :conditions_on_join, :table_seq, :fasten
+                  :subqueries, :superquery, :comment, :negate
+      attr_accessor :joins, :conditions_on_join, :table_seq
 
       def initialize statement, _comment=nil
         @subqueries = []
@@ -19,16 +29,18 @@ class Card
         @mods = {}
 
         @statement = statement.clone
-        @context = @statement.delete(:context) || nil
-        @superquery = @statement.delete(:superquery) || nil
-
-        @fasten = @statement.delete(:fasten) || DEFAULT_FASTEN
+        init_instance_vars :context, :superquery, :fasten, :negate
+        @vars = init_query_vars
         table_alias
-
-        @vars = initialize_vars
       end
 
-      def initialize_vars
+      def init_instance_vars *varnames
+        varnames.each do |varname|
+          instance_variable_set "@#{varname}", (@statement.delete(varname) || nil)
+        end
+      end
+
+      def init_query_vars
         if (v = @statement.delete :vars) then v.symbolize_keys
         elsif @superquery                then @superquery.vars
         else                                  {}

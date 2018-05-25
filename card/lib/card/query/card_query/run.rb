@@ -77,7 +77,6 @@ class Card
 
         def run_sql
           # puts "\nstatement = #{@statement}"
-          # puts "sql = #{sql}"
           ActiveRecord::Base.connection.select_all(sql)
         end
 

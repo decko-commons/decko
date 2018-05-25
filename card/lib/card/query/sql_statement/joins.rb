@@ -22,7 +22,7 @@ class Card
         end
 
         def join_clause_parts join, table, subclause, on
-          parts = [leading_space, join.side, "JOIN"]
+          parts = ["\n#{leading_space}", join.side, "JOIN"]
           if join.left? && subclause.present?
             parts + ["(#{table} #{subclause})", on]
           else

@@ -26,6 +26,17 @@ class Card
         }.each do |methodname, reftype|
           define_reference_method methodname, reftype, :referer, :referee_id
         end
+
+        # shortcut methods for role references
+        # DEPRECATE?
+
+        def member_of val
+          interpret right_plus: [RolesID, refer_to: val]
+        end
+
+        def member val
+          interpret referred_to_by: { left: val, right: RolesID }
+        end
       end
     end
   end
