@@ -66,7 +66,7 @@ class Card
           ensure_attributes card, args
           card
         else
-          Card.create! args.reverse_merge(name: name)
+          Card.create! args.merge(name: name)
         end
       end
 
@@ -83,7 +83,6 @@ class Card
           Card.create! args
         end
       end
-
 
       # Creates or updates a trait card with codename and right rules.
       # Content for rules that are pointer cards by default
