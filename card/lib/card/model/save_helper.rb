@@ -60,13 +60,14 @@ class Card
       #   ensure_card "Under Score", type: :pointer # => changes the type to pointer
       #                                             #    but not the name
       def ensure_card name_or_args, content_or_args=nil
-        args = standardize_args name_or_args, content_or_args
-        name = args.delete(:name)
+        name = name_or_args.is_a?(Hash) ? args[:name] : name_or_args
+        args = standardize_ensure_args name_or_args, content_or_args
+
         if (card = Card[name])
           ensure_attributes card, args
           card
         else
-          Card.create! args.merge(name: name)
+          Card.create! add_name(name, args)
         end
       end
 
@@ -145,13 +146,27 @@ class Card
         end
       end
 
+      def hashify value_or_hash, key
+        if value_or_hash.is_a?(Hash)
+          value_or_hash
+        elsif value_or_hash.nil?
+          {}
+        else
+          { key => value_or_hash }
+        end
+      end
+
+      def standardize_ensure_args name_or_args, content_or_args
+        if name_or_args.is_a?(Hash)
+          name_or_args
+        else
+          hashify content_or_args, :content
+        end
+      end
+
       def standardize_update_args name_or_args, content_or_args
         return name_or_args if name_or_args.is_a?(Hash)
-        if content_or_args.is_a?(String)
-          { content: content_or_args }
-        else
-          content_or_args
-        end
+        hashify content_or_args, :content
       end
 
       def create_args name_or_args, content_or_args=nil
