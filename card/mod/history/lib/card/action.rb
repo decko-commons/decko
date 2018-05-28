@@ -25,6 +25,7 @@ class Card
     extend Card::Action::Admin
 
     belongs_to :act, foreign_key: :card_act_id, inverse_of: :ar_actions
+    belongs_to :ar_card, foreign_key: :card_id, inverse_of: :actions, class_name: "Card"
     has_many :card_changes, foreign_key: :card_action_id,
                             inverse_of: :action,
                             dependent: :delete_all,
@@ -58,11 +59,11 @@ class Card
       end
 
       def all_with_cards
-        Action.joins "JOIN cards ON cards.id = card_actions.card_id"
+        joins :ar_card
       end
 
       def all_viewable
-        all_with_cards.where Query::SqlStatement.new.permission_conditions("cards")
+        all_with_cards.where Query::CardQuery.viewable_sql
       end
     end
 
