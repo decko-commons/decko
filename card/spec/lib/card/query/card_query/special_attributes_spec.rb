@@ -35,10 +35,11 @@ RSpec.describe Card::Query::CardQuery::SpecialAttributes do
 
   describe "found_by" do
     before do
-      Card::Auth.as_bot
-      Card.create(
-          name: "Simple Search", type: "Search", content: '{"name":"A"}'
-      )
+      Card::Auth.as_bot do
+        Card.create(
+            name: "Simple Search", type: "Search", content: '{"name":"A"}'
+        )
+      end
     end
 
     it "finds cards returned by search of given name" do
