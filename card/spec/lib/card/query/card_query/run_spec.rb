@@ -3,37 +3,27 @@ RSpec.describe Card::Query::CardQuery::Run do
   include QuerySpecHelper
 
   it "does not alter original statement" do
-    @query = { right_plus: { name: %w(in tag source) } }
-    query_clone = @query.deep_clone
-    Card::Query.run @query
-    expect(query_clone).to eq(@query)
+    query = { right_plus: { name: %w(in tag source) } }
+    query_clone = query.deep_clone
+    Card::Query.run query
+    expect(query_clone).to eq(query)
   end
 
   describe "alter_result (append)" do
     context "when returning names" do
       it "finds real cards" do
-        @query = {
-            name: [:in, "C", "D", "F"],
-            append: "A"
-        }
-        is_expected.to eq(%w(C+A D+A F+A))
+        expect(run_query(name: [:in, "C", "D", "F"], append: "A"))
+          .to eq(%w(C+A D+A F+A))
       end
 
       it "absolutizes names" do
-        @query = {
-            name: [:in, "C", "D", "F"],
-            append: "_right",
-            context: "B+A"
-        }
-        is_expected.to eq(%w(C+A D+A F+A))
+        expect(run_query(name: [:in, "C", "D", "F"], append: "_right", context: "B+A"))
+          .to eq(%w(C+A D+A F+A))
       end
 
       it "finds virtual cards" do
-        @query = {
-            name: [:in, "C", "D"],
-            append: "*plus cards"
-        }
-        is_expected.to eq(["C+*plus cards", "D+*plus cards"])
+        expect(run_query(name: [:in, "C", "D"], append: "*plus cards"))
+          .to eq(["C+*plus cards", "D+*plus cards"])
       end
     end
 
@@ -51,22 +41,20 @@ RSpec.describe Card::Query::CardQuery::Run do
   end
 
   describe "process_name (relative return value)" do
-    subject do
-      Card::Query.run right: "C", return: @return, sort: :name
+    def returning field
+      Card::Query.run right: "C", return: field, sort: :name
     end
+
     it "handles _left" do
-      @return = "_left"
-      is_expected.to eq %w(A+B A)
+      expect(returning("_left")).to eq %w(A+B A)
     end
 
     it "handles _right" do
-      @return = "_right"
-      is_expected.to eq %w(C C)
+      expect(returning("_right")).to eq %w(C C)
     end
 
     it "handles _LL" do
-      @return = "_LL"
-      is_expected.to eq ["A", "A+C"]
+      expect(returning("_LL")).to eq ["A", "A+C"]
     end
   end
 end

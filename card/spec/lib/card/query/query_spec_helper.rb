@@ -10,11 +10,10 @@ module QuerySpecHelper
   end
 
   def self.included base
-    base.subject { query @query }
     base.extend Fasten
   end
 
-  def query statement={}
+  def run_query statement={}
     statement.reverse_merge! return: :name, sort: :name
     statement[:fasten] = fasten if try(:fasten)
     Card::Query.run statement

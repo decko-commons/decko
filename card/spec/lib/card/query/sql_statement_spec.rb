@@ -4,26 +4,23 @@ RSpec.describe Card::Query::SqlStatement do
 
   describe "limit and offset" do
     it "returns limit" do
-      @query = { part: "A", limit: 5 }
-      expect(subject.size).to eq(5)
+      expect(run_query(part: "A", limit: 5).size).to eq(5)
     end
 
     it "does not break if offset but no limit" do
-      @query = { part: "A", offset: 5 }
-      expect(subject.size).not_to eq(0)
+      expect(run_query(part: "A", offset: 5)).not_to eq(0)
     end
 
     it "does not break count" do
-      query = { match: "two", offset: 1 }
-      expect(Card.count_by_wql(query)).to eq(cards_matching_two.length)
+      expect(Card.count_by_wql({ match: "two", offset: 1 }))
+        .to eq(cards_matching_two.length)
     end
   end
 
   describe "trash handling" do
     it "does not find cards in the trash" do
       Card["A+B"].delete!
-      @query = { left: "A" }
-      is_expected.to eq(["A+C", "A+D", "A+E"])
+      expect(run_query(left: "A")).to eq(["A+C", "A+D", "A+E"])
     end
   end
 
@@ -32,8 +29,7 @@ RSpec.describe Card::Query::SqlStatement do
       Card::Auth.as_bot do
         Card.create name: "C+*self+*read", type: "Pointer", content: "[[R1]]"
       end
-      @query = { plus: "A" }
-      is_expected.to eq(%w(B D E F))
+      expect(run_query(plus: "A")).to eq(%w(B D E F))
     end
 
     context "when nested" do

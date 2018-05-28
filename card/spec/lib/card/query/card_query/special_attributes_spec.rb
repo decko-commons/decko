@@ -6,29 +6,24 @@ RSpec.describe Card::Query::CardQuery::SpecialAttributes do
 
   describe "match" do
     it "reachs content and name via shortcut" do
-      @query = { match: "two" }
-      is_expected.to eq(cards_matching_two)
+      expect(run_query(match: "two")).to eq(cards_matching_two)
     end
 
     it "gets only content when content is explicit" do
-      @query = { content: [:match, "two"] }
-      is_expected.to eq(["Joe User"])
+      expect(run_query(content: [:match, "two"])).to eq(["Joe User"])
     end
 
     it "gets only name when name is explicit" do
-      @query = { name: [:match, "two"] }
-      is_expected.to eq(["One+Two", "One+Two+Three", "Two"])
+      expect(run_query(name: [:match, "two"])).to eq(["One+Two", "One+Two+Three", "Two"])
     end
 
     context "with keyword" do
       it "escapes nonword characters" do
-        @query = { match: "two :(!" }
-        is_expected.to eq(cards_matching_two)
+        expect(run_query(match: "two :(!")).to eq(cards_matching_two)
       end
 
       it "it can handle *" do
-        @query = { match: "*all" }
-        is_expected.to include("*all")
+        expect(run_query(match: "*all")).to include("*all")
       end
     end
   end
@@ -36,42 +31,31 @@ RSpec.describe Card::Query::CardQuery::SpecialAttributes do
   describe "found_by" do
     before do
       Card::Auth.as_bot do
-        Card.create(
-            name: "Simple Search", type: "Search", content: '{"name":"A"}'
-        )
+        Card.create(name: "Simple Search", type: "Search", content: '{"name":"A"}')
       end
     end
 
     it "finds cards returned by search of given name" do
-      @query = { found_by: "Simple Search" }
-      is_expected.to eq(["A"])
+      expect(run_query(found_by: "Simple Search")).to eq(["A"])
     end
 
     it "finds cards returned by virtual cards" do
       image_cards = Card.search type: "Image", return: :name, sort: :name
-      @query = { found_by: "Image+*type+by name" }
-      is_expected.to eq(image_cards)
+      expect(run_query(found_by: "Image+*type+by name")).to eq(image_cards)
     end
 
     it "plays nicely with other properties and relationships" do
-      explicit_query = { plus: { name: "A" }, return: :name, sort: :name }
-      @query = { plus: { found_by: "Simple Search" } }
-      is_expected.to eq(Card::Query.run(explicit_query))
+      expect(run_query(plus: { found_by: "Simple Search" }))
+        .to eq(Card::Query.run(plus: { name: "A" }, return: :name, sort: :name))
     end
 
     it "plays work with virtual cards" do
-      @query = { found_by: "A+*self", plus: "C" }
-      is_expected.to eq(["A"])
+      expect(run_query(found_by: "A+*self", plus: "C")).to eq(["A"])
     end
 
     it "is able to handle _self" do
-      @query = {
-        context: "Simple Search",
-        left: { found_by: "_self" },
-        right: "B",
-        return: :name
-      }
-      is_expected.to eq(["A+B"])
+      expect(run_query(context: "Simple Search", left: { found_by: "_self" },
+                       right: "B", return: :name)).to eq(["A+B"])
     end
   end
 end
