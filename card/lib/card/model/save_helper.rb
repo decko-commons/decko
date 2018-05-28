@@ -84,7 +84,6 @@ class Card
         end
       end
 
-
       # Creates or updates a trait card with codename and right rules.
       # Content for rules that are pointer cards by default
       # is converted to pointer format.

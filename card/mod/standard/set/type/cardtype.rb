@@ -63,7 +63,7 @@ end
 
 event :check_for_cards_of_type, after: :validate_delete do
   if cards_of_type_exist?
-    errors.add :cardtype, tr(:cards_exist, name: name)
+    errors.add :cardtype, tr(:cards_exist, cardname: name)
   end
 end
 
