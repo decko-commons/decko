@@ -42,4 +42,12 @@ module OverrideCodeFile
     Rails.logger.info "reading file: #{path}"
     @stylesheets << File.read(path)
   end
+
+  def source_changed since:
+    false
+  end
+
+  def existing_source_paths
+    []
+  end
 end
