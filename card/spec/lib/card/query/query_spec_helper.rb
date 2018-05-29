@@ -10,7 +10,6 @@ module QuerySpecHelper
   end
 
   def self.included base
-    base.subject { run_query @query }
     base.extend Fasten
   end
 
