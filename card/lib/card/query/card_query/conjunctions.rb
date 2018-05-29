@@ -15,7 +15,7 @@ class Card
         alias_method :in, :any
 
         def not val
-          exists :card, val, { id: :id }, fasten: :not_exist
+          tie :card, val, { id: :id }, negate: true
         end
 
         def current_conjunction

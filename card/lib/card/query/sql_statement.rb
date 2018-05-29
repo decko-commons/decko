@@ -1,8 +1,19 @@
 class Card
   module Query
+    # The SqlStatement class generates sql from the Query classes.  However, the logic
+    # is not yet as cleanly separated as it should be.
+
+    # At present, SqlStatement contains (imho) too much knowledge about card constructs.
+    # For example, all the permission and trash handling is here.
+    #
+    # In principle, the Query class should "interpret" statements into a few objects and
+    # a clean Query hierarchy. The SqlStatement class should be able to traverse that
+    # hierarchy and do little more than run "to_sql" on its parts, and in so doing
+    # construct a valid SQL statement.
     class SqlStatement
       include Joins
       include Where
+      include Order
 
       def initialize query=nil
         @query = query
@@ -21,20 +32,26 @@ class Card
       end
 
       def to_s
-        [comment,
-         "SELECT #{@fields}",
-         "FROM #{@tables}",
-         @joins,
-         @where,
-         @group,
-         @order,
-         @limit_and_offset
+        [
+          comment, select, from, @joins, @where, @group, @order, @limit_and_offset
         ].compact.join " "
+      end
+
+      def select
+        "#{leading_space}SELECT DISTINCT #{@fields}"
+      end
+
+      def from
+        "FROM #{@tables}"
+      end
+
+      def leading_space
+        " " * (@query.depth * 2)
       end
 
       def comment
         return nil unless Card.config.sql_comments && @query.comment
-        "/* #{@query.comment} */"
+        "/* #{@query.comment} */\n"
       end
 
       def tables
@@ -43,7 +60,7 @@ class Card
 
       def fields
         table = @query.table_alias
-        field = @mods[:return] unless @mods[:return] =~ /_\w+/
+        field = @mods[:return] unless @mods[:return] =~ /^_\w+/
         field = field.blank? ? :card : field.to_sym
         field = full_field(table, field)
         [field, @mods[:sort_join_field]].compact * ", "
@@ -84,40 +101,6 @@ class Card
 
       def full_syntax
         @query.full? ? yield : return
-      end
-
-      def order
-        full_syntax do
-          order_key ||= @mods[:sort].blank? ? "update" : @mods[:sort]
-
-          order_directives = [order_key].flatten.map do |key|
-            dir = if @mods[:dir].blank?
-                    DEFAULT_ORDER_DIRS[key.to_sym] || "asc"
-                  else
-                    safe_sql @mods[:dir]
-                  end
-            sort_field key, @mods[:sort_as], dir
-          end.join ", "
-          "ORDER BY #{order_directives}"
-        end
-      end
-
-      def sort_field key, as, dir
-        table = @query.table_alias
-        order_field =
-          case key
-          when "id"             then "#{table}.id"
-          when "update"         then "#{table}.updated_at"
-          when "create"         then "#{table}.created_at"
-          when /^(name|alpha)$/ then "#{table}.key"
-          when "content"        then "#{table}.db_content"
-          when "relevance"      then "#{table}.updated_at" # deprecated
-          else
-            safe_sql(key)
-          end
-        order_field = "CAST(#{order_field} AS #{cast_type(safe_sql as)})" if as
-        @fields += ", #{order_field}"
-        "#{order_field} #{dir}"
       end
 
       def safe_sql txt
