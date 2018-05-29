@@ -43,7 +43,7 @@ module OverrideCodeFile
     @stylesheets << File.read(path)
   end
 
-  def source_changed since:
+  def source_changed _since:
     false
   end
 
