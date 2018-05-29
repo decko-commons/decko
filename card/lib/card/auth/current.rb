@@ -5,7 +5,7 @@ class Card
       # set current user in process and session
       def signin signin_id
         self.current_id = signin_id
-        session[:user] = signin_id if session
+        set_session_user signin_id
       end
 
       # current user is not anonymous
@@ -101,10 +101,10 @@ class Card
       def set_current_from_session
         self.current_id =
           if session
-            if (card_id = session[:user]) && Card.exists?(card_id)
+            if (card_id = session_user) && Card.exists?(card_id)
               card_id
             else
-              session[:user] = nil
+              set_session_user nil
             end
           end
         current_id
@@ -154,6 +154,22 @@ class Card
                                      { content: value }] },
                       "find +*account for #{fieldname} (#{value})").first
         end
+      end
+
+      def session_user
+        session && session[session_user_key]
+      end
+
+      def set_session_user card_id
+        session[session_user_key] = card_id if session
+      end
+
+      def session_user_key
+        "user_#{database.underscore}".to_sym
+      end
+
+      def database
+        Rails.configuration.database_configuration.dig Rails.env, "database"
       end
     end
   end

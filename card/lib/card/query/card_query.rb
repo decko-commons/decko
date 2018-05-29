@@ -18,6 +18,10 @@ class Card
       # a card identifier from SQL and then hooking into our caching system (see
       # Card::Fetch)
 
+      def self.viewable_sql
+        Card::Query::SqlStatement.new.permission_conditions("cards")
+      end
+
       def table
         "cards"
       end
