@@ -13,4 +13,10 @@ RSpec.describe Card::Set::Type::CustomizedBootswatchSkin do
   it "copies content from source file" do
     expect(card.variables).to include("$cyan:    #369 !default;")
   end
+
+  it "includes color definitions", as_bot: true do
+    card
+    ensure_card ["my skin", :colors], content: "$primary: $cyan !default"
+    expect(card.content).to include "$primary: $cyan !default"
+  end
 end
