@@ -136,7 +136,7 @@ def item_cards _args={}
 end
 
 def load_content *names
-  cards = names.map { |n| Card.fetch(n)&.extended_item_cards }
+  cards = names.flatten.map { |n| Card.fetch(n)&.extended_item_cards }
   cards.flatten.compact.map(&:content).join "\n"
 end
 
