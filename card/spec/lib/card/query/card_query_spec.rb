@@ -4,8 +4,7 @@ RSpec.describe Card::Query::CardQuery do
 
   describe "basics" do
     it "is case insensitive for name" do
-      @query = { name: "a" }
-      is_expected.to eq(["A"])
+      expect(run_query(name: "a")).to eq(["A"])
     end
 
     it "returns count" do
@@ -15,23 +14,20 @@ RSpec.describe Card::Query::CardQuery do
 
   describe "in" do
     example "content option" do
-      @query = { in: %w(AlphaBeta Theta) }
-      is_expected.to eq(%w(A+B T))
+      expect(run_query(in: %w(AlphaBeta Theta))).to eq(%w(A+B T))
     end
 
     it "finds the same thing in full syntax" do
-      @query = { content: [:in, "Theta", "AlphaBeta"] }
-      is_expected.to eq(%w(A+B T))
+      expect(run_query(content: [:in, "Theta", "AlphaBeta"])).to eq(%w(A+B T))
     end
 
     it "is the default conjunction for arrays" do
-      @query = { name: %w(C D F) }
-      is_expected.to eq(%w(C D F))
+      expect(run_query(name: %w(C D F))).to eq(%w(C D F))
     end
 
     example "type option" do
-      @query = { type: [:in, "Cardtype E", "Cardtype F"] }
-      is_expected.to eq(%w(type-e-card type-f-card))
+      expect(run_query(type: [:in, "Cardtype E", "Cardtype F"]))
+        .to eq(%w(type-e-card type-f-card))
     end
   end
 
@@ -48,13 +44,11 @@ RSpec.describe Card::Query::CardQuery do
 
   describe "content equality" do
     it "matchs content explicitly" do
-      @query = { content: ["=", "I'm number two"] }
-      is_expected.to eq(["Joe User"])
+      expect(run_query(content: ["=", "I'm number two"])).to eq(["Joe User"])
     end
 
     it "matchs via shortcut" do
-      @query = { "=" => "I'm number two" }
-      is_expected.to eq(["Joe User"])
+      expect(run_query("=" => "I'm number two")).to eq(["Joe User"])
     end
   end
 end

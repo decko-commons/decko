@@ -4,38 +4,32 @@ RSpec.describe Card::Query::CardQuery::Conjunctions do
 
   describe "and" do
     it "acts as a simple passthrough with operators" do
-      @query = { and: { match: "two" } }
-      is_expected.to eq(cards_matching_two)
+      expect(run_query(and: { match: "two" })).to eq(cards_matching_two)
     end
 
     it "acts as a simple passthrough with relationships" do
-      @query = { and: {}, type: "Cardtype E" }
-      is_expected.to eq(["type-e-card"])
+      expect(run_query(and: {}, type: "Cardtype E")).to eq(["type-e-card"])
     end
 
     it 'works within "or"' do
-      @query = { or: { name: "Z", and: { left: "A", right: "C" } } }
-      is_expected.to eq(["A+C", "Z"])
+      expect(run_query(or: { name: "Z", and: { left: "A", right: "C" } }))
+        .to eq(["A+C", "Z"])
     end
   end
 
   describe "any" do
     it "works with :plus" do
-      @query = { plus: "A", any: { name: "B", match: "K" } }
-      is_expected.to eq(["B"])
+      expect(run_query(plus: "A", any: { name: "B", match: "K" })).to eq(["B"])
     end
 
     it "works with multiple plusses" do
-      @query = { or: { right_plus: "A", plus: "B" } }
-      is_expected.to eq(%w(A C D F))
+      expect(run_query(or: { right_plus: "A", plus: "B" })).to eq(%w(A C D F))
     end
   end
 
   describe "not" do
-    it "excludes cards matching not criteria" do
-      Card::Auth.as_bot
-      @query = { plus: "A", not: { plus: "A+B" } }
-      is_expected.to eq(%w(B D E F))
+    it "excludes cards matching not criteria", as_bot: true do
+      expect(run_query(plus: "A", not: { plus: "A+B" })).to eq(%w(B D E F))
     end
   end
 
@@ -44,53 +38,49 @@ RSpec.describe Card::Query::CardQuery::Conjunctions do
 
   describe "multiple values" do
     it "handles :all as the first element of an Array" do
-      @query = { member_of: [:all, { name: "r1" }, { key: "r2" }] }
-      is_expected.to eq(%w(u1 u2))
+      expect(run_query(member_of: [:all, { name: "r1" }, { key: "r2" }]))
+        .to eq(%w(u1 u2))
     end
 
     it "handles act like :all by default" do
-      @query = { member_of: [{ name: "r1" }, { key: "r2" }] }
-      is_expected.to eq(%w(u1 u2))
+      expect(run_query(member_of: [{ name: "r1" }, { key: "r2" }]))
+        .to eq(%w(u1 u2))
     end
 
     it "handles :any as the first element of an Array" do
-      @query = { member_of: [:any, { name: "r1" }, { key: "r2" }] }
-      is_expected.to eq(%w(u1 u2 u3))
+      expect(run_query(member_of: [:any, { name: "r1" }, { key: "r2" }]))
+        .to eq(%w(u1 u2 u3))
     end
 
     it "handles :any as a relationship" do
-      @query = { member_of: { any: [{ name: "r1" }, { key: "r2" }] } }
-      is_expected.to eq(%w(u1 u2 u3))
+      expect(run_query(member_of: { any: [{ name: "r1" }, { key: "r2" }] }))
+        .to eq(%w(u1 u2 u3))
     end
 
     it "handles explicit conjunctions in plus_relational keys" do
-      @query = { right_plus: [:all, "e", "c"] }
-      is_expected.to eq(%w(A))
+      expect(run_query(right_plus: [:all, "e", "c"])).to eq(%w(A))
     end
 
     it "handles multiple values for right_part in compound relations" do
-      @query = { right_plus: [["e", {}], "c"] }
-      is_expected.to eq(%w(A)) # first element is array
+      # note: first element is array
+      expect(run_query(right_plus: [["e", {}], "c"])).to eq(%w(A))
     end
 
     it "does not interpret simple arrays as multi values for plus" do
-      @query = { right_plus: %w(e c) }
-      is_expected.to eq([]) # NOT interpreted as multi-value
+      # NOT interpreted as multi-value
+      expect(run_query(right_plus: %w(e c))).to eq([])
     end
 
     it "handles :and for references" do
-      @query = { refer_to: [:and, "a", "b"] }
-      is_expected.to eq(%w(Y))
+      expect(run_query(refer_to: [:and, "a", "b"])).to eq(%w(Y))
     end
 
     it "handles :or for references" do
-      @query = { refer_to: [:or, "b", "z"] }
-      is_expected.to eq(%w(A B Y))
+      expect(run_query(refer_to: [:or, "b", "z"])).to eq(%w(A B Y))
     end
 
     it "handles treat simple arrays like :all for references" do
-      @query = { refer_to: %w(A T) }
-      is_expected.to eq(%w(X Y))
+      expect(run_query(refer_to: %w(A T))).to eq(%w(X Y))
     end
   end
 end

@@ -198,7 +198,7 @@ class Card
       end
 
       # @return args
-      def standardize_args name_or_args, content_or_args = nil
+      def standardize_args name_or_args, content_or_args=nil
         if name_or_args.is_a?(Hash)
           name_or_args
         else
@@ -229,7 +229,7 @@ class Card
         hashify content_or_args, :content
       end
 
-      def create_args name_or_args, content_or_args = nil
+      def create_args name_or_args, content_or_args=nil
         args = standardize_args name_or_args, content_or_args
         resolve_name_conflict args
         args
@@ -254,24 +254,26 @@ class Card
       end
 
       def ensure_attributes card, args
-        # args = args.to_h.with_indifferent_access
         subcards = card.extract_subcard_args! args
-        update_args =
-          args.select do |key, value|
-            if key =~ /^\+/
-              subfields[key] = value
-              false
-            elsif key.to_sym == :name
-              card.name.to_s != value
-            else
-              card.send(key) != value
-            end
-          end
+        update_args = changing_args card, args
+
         return if update_args.empty? && subcards.empty?
         # FIXME: use ensure_attributes for subcards
         card.update_attributes! update_args.merge(subcards: subcards)
       end
 
+      def changing_args card, args
+        args.select do |key, value|
+          if key =~ /^\+/
+            subfields[key] = value
+            false
+          elsif key.to_sym == :name
+            card.name.to_s != value
+          else
+            card.send(key) != value
+          end
+        end
+      end
     end
   end
 end

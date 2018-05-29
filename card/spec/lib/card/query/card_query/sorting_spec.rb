@@ -1,55 +1,44 @@
-describe Card::Query, "sorting" do
-  subject do
-    Card::Query.run @query.reverse_merge return: :name, sort: :name
-  end
-
+require_relative "../query_spec_helper"
+RSpec.describe Card::Query::CardQuery::Sorting do
+  include QuerySpecHelper
+  
   it "sorts by create" do
     Card.create! name: "classic bootstrap skin head"
     # classic skin head is created more recently than classic skin,
     # which is in the seed data
-    @query = { sort: "create", name: [:match, "classic bootstrap skin"] }
-    is_expected.to eq(
-                     ["classic bootstrap skin", "classic bootstrap skin head"]
-                   )
+    expect(run_query(sort: "create", name: [:match, "classic bootstrap skin"]))
+      .to eq(["classic bootstrap skin", "classic bootstrap skin head"])
   end
 
   it "sorts by name" do
-    @query = { name: %w(in B Z A Y C X), sort: "name", dir: "desc" }
-    is_expected.to eq(%w(Z Y X C B A))
+    expect(run_query(name: %w(in B Z A Y C X), sort: "name", dir: "desc"))
+      .to eq(%w(Z Y X C B A))
   end
 
   it "sorts by content" do
-    @query = { name: %w(in Z T A), sort: "content" }
-    is_expected.to eq(%w(A Z T))
+    expect(run_query(name: %w(in Z T A), sort: "content")).to eq(%w(A Z T))
   end
 
   it "plays nice with match" do
-    @query = { match: "Z", type: "Basic", sort: "content" }
-    is_expected.to eq(%w(A B Z A+B+Y+Z))
+    expect(run_query(match: "Z", type: "Basic", sort: "content"))
+      .to eq(%w(A B Z A+B+Y+Z))
   end
 
   it "sorts by plus card content" do
     Card::Auth.as_bot do
-      c = Card.fetch("Setting+*self+*table of contents")
-      c.content = "10"
-      c.save
+      Card["Setting+*self+*table of contents"].update_attributes! content: 10
       Card.create! name: "Basic+*type+*table of contents", content: "3"
-
-      @query = {
-        right_plus: "*table of contents",
-        sort: { right: "*table_of_contents" },
-        sort_as: "integer"
-      }
-      is_expected.to eq(%w(*all Basic+*type Setting+*self))
+      expect(run_query(right_plus: "*table of contents",
+                       sort: { right: "*table_of_contents" },
+                       sort_as: "integer"))
+        .to eq(%w(*all Basic+*type Setting+*self))
     end
   end
 
   it "sorts by count", as_bot: true do
-    @query = {
-      name: [:in, "*always", "*never", "*edited"],
-      sort: { right: "*follow", item: "referred_to", return: "count" }
-    }
-    is_expected.to eq(["*never", "*edited", "*always"])
+    expect(run_query(name: [:in, "*always", "*never", "*edited"],
+                     sort: { right: "*follow", item: "referred_to", return: "count" }))
+      .to eq(["*never", "*edited", "*always"])
   end
 
   #  it 'sorts by update' do
