@@ -8,12 +8,15 @@ class Card
 
         def referee_name
           return if name.nil?
-          @referee_name ||= begin
-            rendered_name = render_obj(name)
-            ref_card = fetch_referee_card rendered_name
-            ref_card ? ref_card.name : rendered_name.to_name
-          end
+          @referee_name ||= referee_name_from_rendered(render_obj(name))
           @referee_name = @referee_name.absolute(card.name).to_name
+        rescue Card::Error::NotFound
+          # do not break on missing id/codename references.
+        end
+
+        def referee_name_from_rendered rendered_name
+          ref_card = fetch_referee_card rendered_name
+          ref_card ? ref_card.name : rendered_name.to_name
         end
 
         def referee_card
