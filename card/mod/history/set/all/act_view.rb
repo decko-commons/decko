@@ -31,12 +31,12 @@ format :html do
     bs_layout container: true, fluid: true do
       html _render_act_legend(draft_legend => :draft_legend)
       row(12) { act_list acts, context }
-      row(12) { act_paging acts }
+      row(12) { act_paging acts, context }
     end
   end
 
   def act_list acts, context
-    act_accordion acts do |act, seq|
+    act_accordion acts, context do |act, seq|
       act.card.format(:html).act_listing act, seq, context
     end
   end
@@ -56,16 +56,24 @@ format :html do
       hide_diff: params["hide_diff"].to_s.strip == "true" }
   end
 
-  def act_accordion acts, &block
-    accordion_group acts_for_accordion(acts, &block), nil, class: "clear-both"
+  def act_accordion acts, context, &block
+    accordion_group acts_for_accordion(acts, context, &block), nil, class: "clear-both"
   end
 
-  def acts_for_accordion acts
-    seq = act_list_starting_seq(acts) + 1
+  def acts_for_accordion acts, context
     clean_acts(current_page_acts(acts)).map do |act|
-      seq -= 1
-      yield act, seq
+      with_act_seq(context, acts) do |seq|
+        yield act, seq
+      end
     end
+  end
+
+  def with_act_seq context, acts
+    yield(context == :absolute ? nil : current_act_seq(acts))
+  end
+
+  def current_act_seq acts
+    @act_seq = @act_seq ? (@act_seq += 1) : act_list_starting_seq(acts)
   end
 
   def clean_acts acts
@@ -79,7 +87,7 @@ format :html do
   end
 
   def act_list_starting_seq acts
-    acts.size - (acts_page_from_params - 1) * acts_per_page
+    acts.size - (acts_page_from_params - 1) * acts_per_page + 1
   end
 
   def acts_per_page
@@ -90,11 +98,17 @@ format :html do
     @act_page_from_params ||= params["page"].present? ? params["page"].to_i : 1
   end
 
-  def act_paging acts
+  def act_paging acts, context
     wrap_with :span, class: "slotter" do
       acts = current_page_acts acts
-      paginate acts, remote: true, theme: "twitter-bootstrap-4"
+      opts = { remote: true, theme: "twitter-bootstrap-4" }
+      opts[:total_pages] = 10 if limited_paging? context
+      paginate acts, opts
     end
+  end
+
+  def limited_paging? context
+    context == :absolute && Act.count > 1000
   end
 
   def action_icon action_type, extra_class=nil
