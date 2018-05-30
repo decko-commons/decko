@@ -6,7 +6,12 @@ view :title do
 end
 
 def recent_acts
-  Act.all_viewable("draft is not true").order id: :desc
+  action_relation = qualifying_actions.where "card_acts.id = card_act_id"
+  Act.where("EXISTS (#{action_relation.to_sql})").order id: :desc
+end
+
+def qualifying_actions
+  Action.all_viewable.where "draft is not true"
 end
 
 format :html do
