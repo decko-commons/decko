@@ -60,7 +60,7 @@ class Card
       #   ensure_card "Under Score", type: :pointer # => changes the type to pointer
       #                                             #    but not the name
       def ensure_card name_or_args, content_or_args=nil
-        name = name_or_args.is_a?(Hash) ? args[:name] : name_or_args
+        name = name_or_args.is_a?(Hash) ? name_or_args[:name] : name_or_args
         args = standardize_ensure_args name_or_args, content_or_args
         ensure_card_simplified name, args
       end
@@ -174,12 +174,16 @@ class Card
       private
 
       def ensure_card_simplified name, args
-        if (card = Card[name])
-          ensure_attributes card, args
-          card
-        else
-          Card.create! add_name(name, args)
-        end
+        ensure_card_update(name, args) || Card.create!(add_name(name, args))
+      end
+
+      def ensure_card_update name, args
+        card = Card[name]
+        return unless card
+        ensure_attributes card, args
+        card
+      rescue Card::Error::CodenameNotFound => _e
+        false
       end
 
       def validate_setting setting
