@@ -60,14 +60,9 @@ class Card
       #   ensure_card "Under Score", type: :pointer # => changes the type to pointer
       #                                             #    but not the name
       def ensure_card name_or_args, content_or_args=nil
-        args = standardize_args name_or_args, content_or_args
-        name = args.delete(:name)
-        if (card = Card[name])
-          ensure_attributes card, args
-          card
-        else
-          Card.create! args.merge(name: name)
-        end
+        name = name_or_args.is_a?(Hash) ? name_or_args[:name] : name_or_args
+        args = standardize_ensure_args name_or_args, content_or_args
+        ensure_card_simplified name, args
       end
 
       # create if card doesn't exist
@@ -76,14 +71,10 @@ class Card
       # For example if a card with name "under_score" exists
       # then `ensure_card "Under Score"` renames it to "Under Score"
       def ensure_card! name_or_args, content_or_args=nil
-        args = standardize_args name_or_args, content_or_args
-        if (card = Card[args[:name]])
-          ensure_attributes card, args
-        else
-          Card.create! args
-        end
+        name = name_or_args.is_a?(Hash) ? args[:name] : name_or_args
+        args = standardize_ensure_args name_or_args, content_or_args
+        ensure_card_simplified name, add_name(name, args)
       end
-
 
       # Creates or updates a trait card with codename and right rules.
       # Content for rules that are pointer cards by default
@@ -106,21 +97,6 @@ class Card
         ensure_card [trait, :right, setting], card_args
       end
 
-      def validate_setting setting
-        unless Card::Codename.exist?(setting) &&
-               Card.fetch_type_id(setting) == SettingID
-          raise ArgumentError, "not a valid setting: #{setting}"
-        end
-      end
-
-      def normalize_trait_rule_args setting, value
-        return value if value.is_a? Hash
-        if Card.fetch_type_id([setting, :right, :default]) == PointerID
-          value = Array(value).to_pointer_content
-        end
-        { content: value }
-      end
-
       # if card with same name exists move it out of the way
       def create_card! name_or_args, content_or_args=nil
         args = standardize_args name_or_args, content_or_args
@@ -135,65 +111,6 @@ class Card
       def create_or_update_card! name_or_args, content_or_args=nil
         args = standardize_args name_or_args, content_or_args
         create_or_update args.reverse_merge(rename_if_conflict: :new)
-      end
-
-      # @return args
-      def standardize_args name_or_args, content_or_args=nil
-        if name_or_args.is_a?(Hash)
-          name_or_args
-        else
-          add_name name_or_args, content_or_args || {}
-        end
-      end
-
-      def standardize_update_args name_or_args, content_or_args
-        return name_or_args if name_or_args.is_a?(Hash)
-        if content_or_args.is_a?(String)
-          { content: content_or_args }
-        else
-          content_or_args
-        end
-      end
-
-      def create_args name_or_args, content_or_args=nil
-        args = standardize_args name_or_args, content_or_args
-        resolve_name_conflict args
-        args
-      end
-
-      def name_from_args name_or_args
-        name_or_args.is_a?(Hash) ? name_or_args[:name] : name_or_args
-      end
-
-      def add_name name, content_or_args
-        if content_or_args.is_a?(String)
-          { content: content_or_args, name: name }
-        else
-          content_or_args.reverse_merge name: name
-        end
-      end
-
-      def resolve_name_conflict args
-        rename = args.delete :rename_if_conflict
-        return unless args[:name] && rename
-        args[:name] = Card.uniquify_name args[:name], rename
-      end
-
-      def ensure_attributes card, args
-        # args = args.to_h.with_indifferent_access
-        subcards = card.extract_subcard_args! args
-        update_args =
-          args.select do |key, value|
-            if key =~ /^\+/
-              subfields[key] = value
-              false
-            else
-              card.send(key) != value
-            end
-          end
-        return if update_args.empty? && subcards.empty?
-        # FIXME: use ensure_attributes for subcards
-        card.update_attributes! update_args.merge(subcards: subcards)
       end
 
       def add_style name, opts={}
@@ -213,7 +130,6 @@ class Card
                           opts[:type_id] || Card::CoffeeScriptID,
                           opts[:to] || "*all+*script"
       end
-
 
       def add_coderule_item name, prefix, type_id, to
         codename = "#{prefix}_#{name.tr(' ', '_').underscore}"
@@ -253,6 +169,114 @@ class Card
         return unless cardtype_card&.type_id == Card::CardtypeID ||
                       cardtype_card.id == Card::SetID
         [Regexp.last_match[:method_name], cardtype_card]
+      end
+
+      private
+
+      def ensure_card_simplified name, args
+        ensure_card_update(name, args) || Card.create!(add_name(name, args))
+      end
+
+      def ensure_card_update name, args
+        card = Card[name]
+        return unless card
+        ensure_attributes card, args
+        card
+      rescue Card::Error::CodenameNotFound => _e
+        false
+      end
+
+      def validate_setting setting
+        unless Card::Codename.exist?(setting) &&
+               Card.fetch_type_id(setting) == SettingID
+          raise ArgumentError, "not a valid setting: #{setting}"
+        end
+      end
+
+      def normalize_trait_rule_args setting, value
+        return value if value.is_a? Hash
+        if Card.fetch_type_id([setting, :right, :default]) == PointerID
+          value = Array(value).to_pointer_content
+        end
+        { content: value }
+      end
+
+      # @return args
+      def standardize_args name_or_args, content_or_args=nil
+        if name_or_args.is_a?(Hash)
+          name_or_args
+        else
+          add_name name_or_args, content_or_args || {}
+        end
+      end
+
+      def hashify value_or_hash, key
+        if value_or_hash.is_a?(Hash)
+          value_or_hash
+        elsif value_or_hash.nil?
+          {}
+        else
+          { key => value_or_hash }
+        end
+      end
+
+      def standardize_ensure_args name_or_args, content_or_args
+        if name_or_args.is_a?(Hash)
+          name_or_args
+        else
+          hashify content_or_args, :content
+        end
+      end
+
+      def standardize_update_args name_or_args, content_or_args
+        return name_or_args if name_or_args.is_a?(Hash)
+        hashify content_or_args, :content
+      end
+
+      def create_args name_or_args, content_or_args=nil
+        args = standardize_args name_or_args, content_or_args
+        resolve_name_conflict args
+        args
+      end
+
+      def name_from_args name_or_args
+        name_or_args.is_a?(Hash) ? name_or_args[:name] : name_or_args
+      end
+
+      def add_name name, content_or_args
+        if content_or_args.is_a?(String)
+          { content: content_or_args, name: name }
+        else
+          content_or_args.reverse_merge name: name
+        end
+      end
+
+      def resolve_name_conflict args
+        rename = args.delete :rename_if_conflict
+        return unless args[:name] && rename
+        args[:name] = Card.uniquify_name args[:name], rename
+      end
+
+      def ensure_attributes card, args
+        subcards = card.extract_subcard_args! args
+        update_args = changing_args card, args
+
+        return if update_args.empty? && subcards.empty?
+        # FIXME: use ensure_attributes for subcards
+        card.update_attributes! update_args.merge(subcards: subcards)
+      end
+
+      def changing_args card, args
+        args.select do |key, value|
+          if key =~ /^\+/
+            subfields[key] = value
+            false
+          elsif key.to_sym == :name
+            card.name.to_s != value
+          else
+            card.send(key) != value
+          end
+        end
       end
     end
   end

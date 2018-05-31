@@ -28,7 +28,7 @@ module ClassMethods
     card, needs_caching = retrieve_or_new mark, opts
 
     return if card.nil?
-    write_to_cache card, opts if needs_caching
+    write_to_cache card, opts[:local_only] if needs_caching
     standard_fetch_results card, mark, opts
   rescue ActiveModel::RangeError => _e
     return Card.new name: "card id out of range: #{mark}"

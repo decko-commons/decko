@@ -56,7 +56,7 @@ end
 
 def act_followers act
   @follower_stash ||= FollowerStash.new
-  act.actions.each do |a|
+  act.actions(false).each do |a|
     next if !a.card || a.card.silent_change?
     @follower_stash.check_card a.card
   end

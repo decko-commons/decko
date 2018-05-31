@@ -6,6 +6,7 @@ class Card
       include Run
       include SpecialAttributes
       include RelationalAttributes
+      include ReferenceAttributes
       include AttributeHelper
       include Interpretation
       include Normalization
@@ -16,6 +17,10 @@ class Card
       # By default a query returns card objects. This is accomplished by returning
       # a card identifier from SQL and then hooking into our caching system (see
       # Card::Fetch)
+
+      def self.viewable_sql
+        Card::Query::SqlStatement.new.permission_conditions("cards")
+      end
 
       def table
         "cards"
@@ -34,10 +39,6 @@ class Card
       def default_comment
         return if @superquery || !Card.config.sql_comments
         statement.to_s
-      end
-
-      def sql
-        @sql ||= SqlStatement.new(self).build.to_s
       end
 
       # Query Hierarchy

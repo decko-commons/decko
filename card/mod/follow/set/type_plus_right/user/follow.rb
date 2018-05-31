@@ -32,6 +32,10 @@ format :html do
     ""
   end
 
+  view :edit do
+    render :open
+  end
+
   # renders follow tab and ignore tab
   view :core do
     lazy_loading_tabs({ "follow_tab" => "Follow", "ignore_tab" => "Ignore" },

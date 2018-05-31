@@ -25,14 +25,27 @@ class Card
             next if query.conditions_on_join
             case query.fasten
             when :exist     then exist_condition query
-            when :not_exist then exist_condition query, true
+            when :in        then in_condition query
             else                 explicit_conditions query
             end
           end
         end
 
-        def exist_condition subquery, negate=nil
-          "#{'NOT ' if negate}EXISTS (\n#{subquery.sql}\n)"
+        def exist_condition query
+          "#{maybe_not query}EXISTS (#{spaced_subquery_sql query})"
+        end
+
+        def maybe_not query
+          query.negate ? "NOT " : ""
+        end
+
+        def in_condition query
+          field = query.mods[:in_field]
+          "#{field} #{maybe_not query}IN (#{spaced_subquery_sql query})"
+        end
+
+        def spaced_subquery_sql subquery
+          "\n#{subquery.sql}\n#{leading_space}"
         end
 
         # the conditions stored in the query's @conditions variable
@@ -79,7 +92,7 @@ class Card
         end
 
         def condition_joint query
-          "\n#{query.current_conjunction.upcase} "
+          " #{query.current_conjunction.upcase} "
         end
       end
     end

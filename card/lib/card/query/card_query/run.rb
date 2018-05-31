@@ -69,7 +69,7 @@ class Card
           card = Card.retrieve_from_cache record["key"]
           unless card
             card = Card.instantiate record
-            Card.write_to_cache card, {}
+            Card.write_to_cache card
           end
           card.include_set_modules
           card
@@ -77,7 +77,6 @@ class Card
 
         def run_sql
           # puts "\nstatement = #{@statement}"
-          # puts "sql = #{sql}"
           ActiveRecord::Base.connection.select_all(sql)
         end
 

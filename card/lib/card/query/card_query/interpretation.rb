@@ -5,7 +5,6 @@ class Card
       #
       module Interpretation
         INTERPRET_METHOD = { basic: :add_condition,
-                             special: :relate,
                              relational: :relate,
                              plus_relational: :relate_compound,
                              conjunction: :send }.freeze
@@ -49,21 +48,17 @@ class Card
           if (method = INTERPRET_METHOD[attribute])
             send method, key, val
           else
-            interpret_special_attribute attribute, key, val
+            non_standard_attribute attribute
           end
         end
 
-        def interpret_special_attribute attribute, key, val
-          case attribute
-          when :ref_relational  then relate key, val, method: :refer
-          when :ignore          then nil # NOOP
-          else                       bad_attribute!(key)
-          end
+        def non_standard_attribute attribute
+          return if attribute == :ignore
+          bad_attribute! attribute
         end
 
-        def bad_attribute! key
-          return if key == :ignore
-          raise Card::Error::BadQuery, "Invalid attribute #{key}"
+        def bad_attribute! attribute
+          raise Card::Error::BadQuery, "Invalid attribute #{attribute}"
         end
 
         def relate_compound key, val
