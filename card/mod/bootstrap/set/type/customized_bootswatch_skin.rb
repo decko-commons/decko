@@ -42,17 +42,34 @@ event :validate_theme_template, :validate, on: :create do
   end
 end
 
-event :copy_theme, :prepare_to_store, on: :create do
-  add_subfield :colors, type_id: ScssID
-  add_variables_subfield
-  add_stylesheets_subfield
+event :initialize_because_of_type_change, :prepare_to_store, on: :update, changed: :type do
+  initialize_theme old_skin_items
 end
 
-def add_stylesheets_subfield
+def old_skin_items
+  skin = Card.new(type: :pointer, content: db_content_before_act)
+  skin.drop_item "bootstrap default skin"
+  skin.item_names
+end
+
+event :copy_theme, :prepare_to_store, on: :create do
+  initialize_theme
+end
+
+def initialize_theme style_item_names=nil
+  add_subfield :colors, type_id: ScssID
+  add_variables_subfield
+  add_stylesheets_subfield style_item_names
+end
+
+def add_stylesheets_subfield style_items=nil
   opts = { type_id: SkinID }
   if theme_name
     theme_style = add_bootswatch_subfield
     opts[:content] = "[[#{theme_style.name}]]"
+  end
+  if style_items
+    opts[:content] = [opts[:content], style_items].flatten.compact.to_pointer_content
   end
 
   add_subfield :stylesheets, opts
