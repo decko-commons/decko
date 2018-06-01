@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::All::RichHtml::Editing do
+  extend Card::SpecHelper::ViewHelper::ViewDescriber
+
   let(:mycard) { Card["A"] }
   let(:myformat) { mycard.format }
 
@@ -24,6 +26,13 @@ describe Card::Set::All::RichHtml::Editing do
         with_tag "div.card-editor", with: { card_name: "absolute" }
         with_tag "div.card-editor", with: { card_name: "A+relative" }
       end
+    end
+  end
+
+  describe_views :edit, :edit_buttons, :edit_name, :edit_type, :edit_rules,
+                 :edit_structure, :edit_nests do
+    it "doesn't have errors" do
+      expect(mycard.format.render(view)).to lack_errors
     end
   end
 
