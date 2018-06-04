@@ -47,12 +47,10 @@ doubleClickApplies = (el) ->
   # false if there is a card-editor open inside slot
   slot.data 'cardId'
 
-
-
 triggerDoubleClickEditingOn = (el)->
   slot = el.slot()
   slot.addClass 'slotter'
-  slot.attr 'href', decko.path('~' + slot.data('cardId') + '?view=edit')
+  slot[0].href = decko.path('~' + slot.data('cardId') + '?view=edit')
   $.rails.handleRemote slot
 
 $(window).ready ->
