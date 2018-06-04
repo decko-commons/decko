@@ -42,7 +42,8 @@ event :validate_theme_template, :validate, on: :create do
   end
 end
 
-event :initialize_because_of_type_change, :prepare_to_store, on: :update, changed: :type do
+event :initialize_because_of_type_change, :prepare_to_store,
+      on: :update, changed: :type do
   initialize_theme old_skin_items
 end
 
