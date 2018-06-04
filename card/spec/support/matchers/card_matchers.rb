@@ -58,6 +58,10 @@ RSpec::Matchers.define :have_a_field do |field_key|
     @pointing_to = pointing_to
   end
 
+  chain(:refering_to) do |refering_to|
+    @refering_to = refering_to
+  end
+
   match do |card|
     return unless card.is_a?(Card)
     return unless (@field = card.fetch(trait: field_key))
@@ -66,6 +70,8 @@ RSpec::Matchers.define :have_a_field do |field_key|
     elsif @pointing_to
       values_match?(:pointer, @field.type_code) &&
         @field.content.include?("[[#{@pointing_to}]]")
+    elsif @refering_to
+      @field.content.include?("[[#{@refering_to}]]")
     else
       values_match(Card, @field.class)
     end
@@ -78,7 +84,7 @@ RSpec::Matchers.define :have_a_field do |field_key|
 but content is #{@field.content? ? @field.content : "empty" }"
     elsif @pointing_to
       "expected #{card} to have a field #{field_key} pointing to #{@pointing_to} but
-content is #{@field.content}"
+content is '#{@field.content}'"
     end
   end
 end

@@ -19,4 +19,13 @@ RSpec.describe Card::Set::Type::CustomizedBootswatchSkin do
     ensure_card ["my skin", :colors], content: "$primary: $cyan !default"
     expect(card.content).to include "$primary: $cyan !default"
   end
+
+  example "update old skin", as_bot: true do
+    create_skin "old skin", content: ["bootstrap default skin", "custom css"]
+    card = Card["old skin"]
+    card.update_attributes! type_id: Card::CustomizedBootswatchSkinID
+
+    expect_card("old skin")
+      .to have_a_field(:stylesheets).refering_to "custom css"
+  end
 end
