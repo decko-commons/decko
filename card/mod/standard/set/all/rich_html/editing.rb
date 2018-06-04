@@ -139,7 +139,7 @@ format :html do
   view :edit_structure, cache: :never do
     return unless card.structure
     voo.show :toolbar
-    render_related items: { view: :edit, nest_name: card.structure_card.name }
+    render_related items: { view: :edit, nest_name: card.structure_rule_card.name }
     # FIXME: this stuff:
     #  slot: {
     #    cancel_slot_selector: ".card-slot.related-view",

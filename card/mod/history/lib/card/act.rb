@@ -42,18 +42,17 @@ class Card
       # @param with_drafts: [true, false] (only shows drafts of current user)
       # @return [Array of Acts]
       def all_with_actions_on card_ids, with_drafts=false
-        sql = "card_actions.card_id IN (:card_ids) AND ( (draft is not true) "
-        sql << (with_drafts ? "OR actor_id = :current_user_id)" : ")")
-        all_viewable([sql, { card_ids: card_ids,
-                             current_user_id: Card::Auth.current_id }]).distinct
+        sql = "card_actions.card_id IN (:card_ids) AND (draft is not true"
+        sql << (with_drafts ? " OR actor_id = :user_id)" : ")")
+        all_viewable([sql, { card_ids: card_ids, user_id: Card::Auth.current_id }])
       end
 
       # all acts with actions that current user has permission to view
-      # @return [Array of Actions]
+      # @return [ActiveRecord Relation]
       def all_viewable action_where=nil
-        viewable_actions = Action.all_viewable.where "card_acts.id = card_act_id"
-        viewable_actions = viewable_actions.where(action_where) if action_where
-        where("EXISTS (#{viewable_actions.to_sql})").where.not "card_id" => nil
+        relation = joins(ar_actions: :ar_card)
+        relation = relation.where(action_where) if action_where
+        relation.where(Query::CardQuery.viewable_sql).where.not(card_id: nil).distinct
       end
 
       def cache

@@ -60,7 +60,7 @@ class Card
       #   ensure_card "Under Score", type: :pointer # => changes the type to pointer
       #                                             #    but not the name
       def ensure_card name_or_args, content_or_args=nil
-        name = name_or_args.is_a?(Hash) ? args[:name] : name_or_args
+        name = name_or_args.is_a?(Hash) ? name_or_args[:name] : name_or_args
         args = standardize_ensure_args name_or_args, content_or_args
         ensure_card_simplified name, args
       end
@@ -174,12 +174,16 @@ class Card
       private
 
       def ensure_card_simplified name, args
-        if (card = Card[name])
-          ensure_attributes card, args
-          card
-        else
-          Card.create! add_name(name, args)
-        end
+        ensure_card_update(name, args) || Card.create!(add_name(name, args))
+      end
+
+      def ensure_card_update name, args
+        card = Card[name]
+        return unless card
+        ensure_attributes card, args
+        card
+      rescue Card::Error::CodenameNotFound => _e
+        false
       end
 
       def validate_setting setting
@@ -198,7 +202,7 @@ class Card
       end
 
       # @return args
-      def standardize_args name_or_args, content_or_args = nil
+      def standardize_args name_or_args, content_or_args=nil
         if name_or_args.is_a?(Hash)
           name_or_args
         else
@@ -229,7 +233,7 @@ class Card
         hashify content_or_args, :content
       end
 
-      def create_args name_or_args, content_or_args = nil
+      def create_args name_or_args, content_or_args=nil
         args = standardize_args name_or_args, content_or_args
         resolve_name_conflict args
         args
@@ -254,24 +258,26 @@ class Card
       end
 
       def ensure_attributes card, args
-        # args = args.to_h.with_indifferent_access
         subcards = card.extract_subcard_args! args
-        update_args =
-          args.select do |key, value|
-            if key =~ /^\+/
-              subfields[key] = value
-              false
-            elsif key.to_sym == :name
-              card.name.to_s != value
-            else
-              card.send(key) != value
-            end
-          end
+        update_args = changing_args card, args
+
         return if update_args.empty? && subcards.empty?
         # FIXME: use ensure_attributes for subcards
         card.update_attributes! update_args.merge(subcards: subcards)
       end
 
+      def changing_args card, args
+        args.select do |key, value|
+          if key =~ /^\+/
+            subfields[key] = value
+            false
+          elsif key.to_sym == :name
+            card.name.to_s != value
+          else
+            card.send(key) != value
+          end
+        end
+      end
     end
   end
 end

@@ -4,13 +4,13 @@ RSpec.describe Card::Query::CardQuery::Interpretation do
 
   describe "vars" do
     it "replace placeholders" do
-      @query = { match: "$keyword", vars: { keyword: "two" } }
-      is_expected.to eq(cards_matching_two)
+      expect(run_query(match: "$keyword", vars: { keyword: "two" }))
+        .to eq(cards_matching_two)
     end
 
     it "replace placeholders in nested queries" do
-      @query = { and: { match: "$keyword" }, vars: { keyword: "two" } }
-      is_expected.to eq(cards_matching_two)
+      expect(run_query(and: { match: "$keyword" }, vars: { keyword: "two" }))
+        .to eq(cards_matching_two)
     end
   end
 end

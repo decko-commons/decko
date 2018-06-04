@@ -15,46 +15,37 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         ].sort
 
         it "finds cards of this type" do
-          @query = { type: "_self", context: "User" }
-          is_expected.to eq(user_cards)
+          expect(run_query(type: "_self", context: "User")).to eq(user_cards)
         end
 
         it "finds User cards " do
-          @query = { type: "User" }
-          is_expected.to eq(user_cards)
+          expect(run_query(type: "User")).to eq(user_cards)
         end
 
         it "handles casespace variants" do
-          @query = { type: "users" }
-          is_expected.to eq(user_cards)
+          expect(run_query(type: "users")).to eq(user_cards)
         end
       end
 
       describe "plus/part" do
-
         it "finds plus cards" do
-          @query = { plus: "A" }
-          is_expected.to eq(A_JOINEES)
+          expect(run_query(plus: "A")).to eq(A_JOINEES)
         end
 
         it "finds connection cards" do
-          @query = { part: "A" }
-          is_expected.to eq(%w(A+B A+C A+D A+E C+A D+A F+A))
+          expect(run_query(part: "A")).to eq(%w(A+B A+C A+D A+E C+A D+A F+A))
         end
 
         it "finds left connection cards" do
-          @query = { left: "A" }
-          is_expected.to eq(%w(A+B A+C A+D A+E))
+          expect(run_query(left: "A")).to eq(%w(A+B A+C A+D A+E))
         end
 
         it "finds right connection cards based on name" do
-          @query = { right: "A" }
-          is_expected.to eq(%w(C+A D+A F+A))
+          expect(run_query(right: "A")).to eq(%w(C+A D+A F+A))
         end
 
         it "finds right connection cards based on content" do
-          @query = { right: { content: "Alpha [[Z]]" } }
-          is_expected.to eq(%w(C+A D+A F+A))
+          expect(run_query(right: { content: "Alpha [[Z]]" })).to eq(%w(C+A D+A F+A))
         end
       end
 
@@ -65,29 +56,26 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "finds connection cards" do
-          @query = { part: "_self", context: "A" }
-          is_expected.to eq(%w(A+B A+C A+D A+E C+A D+A F+A))
+          expect(run_query(part: "_self", context: "A"))
+            .to eq(%w(A+B A+C A+D A+E C+A D+A F+A))
         end
 
         it "is able to use parts of nonexistent cards in search" do
-          expect(Card["B+A"]).to be_nil
-          @query = { left: "_right", right: "_left", context: "B+A" }
-          is_expected.to eq(["A+B"])
+          raise Card::Error, "B+A exists" if Card["B+A"]
+          expect(run_query(left: "_right", right: "_left", context: "B+A"))
+            .to eq(["A+B"])
         end
 
         it "finds plus cards for _self" do
-          @query = { plus: "_self", context: "A" }
-          is_expected.to eq(A_JOINEES)
+          expect(run_query(plus: "_self", context: "A")).to eq(A_JOINEES)
         end
 
         it "finds plus cards for _left" do
-          @query = { plus: "_left", context: "A+B" }
-          is_expected.to eq(A_JOINEES)
+          expect(run_query(plus: "_left", context: "A+B")).to eq(A_JOINEES)
         end
 
         it "finds plus cards for _right" do
-          @query = { plus: "_right", context: "C+A" }
-          is_expected.to eq(A_JOINEES)
+          expect(run_query(plus: "_right", context: "C+A")).to eq(A_JOINEES)
         end
       end
 
@@ -97,33 +85,30 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "finds Joe User as the card's creator" do
-          @query = { creator_of: "Create Test" }
-          is_expected.to eq(["Joe User"])
+          expect(run_query(creator_of: "Create Test")).to eq(["Joe User"])
         end
 
         it "finds card created by Joe User" do
-          @query = { created_by: "Joe User", eq: "sufficiently distinctive" }
-          is_expected.to eq(["Create Test"])
+          expect(run_query(created_by: "Joe User", eq: "sufficiently distinctive"))
+            .to eq(["Create Test"])
         end
       end
 
       describe "edited_by/editor_of" do
         it "finds card edited by joe using subquery" do
-          @query = { edited_by: { match: "Joe User" } }
-          is_expected.to include("JoeLater", "JoeNow")
+          expect(run_query(edited_by: { match: "Joe User" }))
+            .to include("JoeLater", "JoeNow")
         end
 
         it "finds card edited by Wagn Bot" do
           # this is a weak test, since it gives the name, but different sorting
           # mechanisms in other db setups
           # was having it return *account in some cases and 'A' in others
-          @query = { edited_by: "Wagn Bot", name: "A" }
-          is_expected.to eq(%w(A))
+          expect(run_query(edited_by: "Wagn Bot", name: "A")).to eq(%w(A))
         end
 
         it "fails gracefully if user isn't there" do
-          @query = { edited_by: "Joe LUser" }
-          is_expected.to eq([])
+          expect(run_query(edited_by: "Joe LUser")).to eq([])
         end
 
         it "does not give duplicate results for multiple edits" do
@@ -132,13 +117,11 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
           c.save
           c.content = "test3"
           c.save!
-          @query = { edited_by: "Joe User" }
-          is_expected.to include("JoeLater", "JoeNow")
+          expect(run_query(edited_by: "Joe User")).to include("JoeLater", "JoeNow")
         end
 
         it "finds joe user among card's editors" do
-          @query = { editor_of: "JoeLater" }
-          is_expected.to eq(["Joe User"])
+          expect(run_query(editor_of: "JoeLater")).to eq(["Joe User"])
         end
       end
 
@@ -150,45 +133,39 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "finds Joe User as the card's last editor" do
-          @query = { last_editor_of: "A" }
-          is_expected.to eq(["Joe User"])
+          expect(run_query(last_editor_of: "A")).to eq(["Joe User"])
         end
 
         it "finds card created by Joe User" do
-          @query = { last_edited_by: "Joe User", eq: "peculicious" }
-          is_expected.to eq(["A"])
+          expect(run_query(last_edited_by: "Joe User", eq: "peculicious"))
+            .to eq(["A"])
         end
       end
 
       describe "updated_by/updater_of" do
         it "finds card updated by Narcissist" do
-          @query = { updated_by: "Narcissist" }
-          is_expected.to eq(%w(Magnifier+lens))
+          expect(run_query(updated_by: "Narcissist")).to eq(%w(Magnifier+lens))
         end
 
         it "finds Narcississt as the card's updater" do
-          @query = { updater_of: "Magnifier+lens" }
-          is_expected.to eq(%w(Narcissist))
+          expect(run_query(updater_of: "Magnifier+lens")).to eq(%w(Narcissist))
         end
 
         it "does not give duplicate results for multiple updates" do
-          @query = { updater_of: "First" }
-          is_expected.to eq(["Wagn Bot"])
+          expect(run_query(updater_of: "First")).to eq(["Wagn Bot"])
         end
 
         it "does not give results if not updated" do
-          @query = { updater_of: "Sunglasses+price" }
-          is_expected.to be_empty
+          expect(run_query(updater_of: "Sunglasses+price")).to be_empty
         end
 
         it "'or' doesn't mess up updated_by SQL" do
-          @query = { or: { updated_by: "Narcissist" } }
-          is_expected.to eq(%w(Magnifier+lens))
+          expect(run_query(or: { updated_by: "Narcissist" }))
+            .to eq(%w(Magnifier+lens))
         end
 
         it "'or' doesn't mess up updater_of SQL" do
-          @query = { or: { updater_of: "First" } }
-          is_expected.to eq(["Wagn Bot"])
+          expect(run_query(or: { updater_of: "First" })).to eq(["Wagn Bot"])
         end
       end
     end
