@@ -35,7 +35,7 @@ end
 
 def files_base_dir_configuration_error
   raise StandardError,
-        "missing directory for file cache (usually files in deck root)"
+        "missing directory for file cache (default is `files` in deck root)"
 end
 
 # used in the indentifier
