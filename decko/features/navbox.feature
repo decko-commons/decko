@@ -24,6 +24,6 @@ Feature: Navbox
     Then I should see "search: skin"
     Then I press enter to search
     Then I should see "Search results"
-    And I should see "Sketchy skin"
+    And I should see "cerulean skin"
     When I click on "2"
-    Then I should see "lux skin"
+    Then I should see "materia skin"
