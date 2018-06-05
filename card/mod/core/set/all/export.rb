@@ -12,7 +12,7 @@ format :json do
   end
 
   def max_export_depth
-    Env.params[:max_depth].present? ? Env.params[:max_depth].to_i : 4
+    Env.params[:max_export_depth].present? ? Env.params[:max_export_depth].to_i : 2
   end
 
   before :export_items do
