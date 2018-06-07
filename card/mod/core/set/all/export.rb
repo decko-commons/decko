@@ -6,9 +6,13 @@ format :json do
 
   view :export, cache: :never do
     # avoid loops
-    return [] if @export_depth > 4 || @exported_keys.include?(card.key)
+    return [] if @export_depth > max_export_depth || @exported_keys.include?(card.key)
     @exported_keys << card.key
     Array.wrap(render_atom).concat(render_export_items).flatten
+  end
+
+  def max_export_depth
+    Env.params[:max_export_depth].present? ? Env.params[:max_export_depth].to_i : 2
   end
 
   before :export_items do

@@ -10,7 +10,7 @@ format :json do
   end
 
   def max_depth
-    params[:max_depth] || 1
+    params[:max_depth].present? ? params[:max_depth].to_i : 1
   end
 
   def show view, args
