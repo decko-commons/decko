@@ -1,5 +1,5 @@
 event :validate_json, :validate, on: :save, changed: :content do
-  check_json_syntax
+  check_json_syntax if content.present?
 end
 
 def check_json_syntax

@@ -1,7 +1,11 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Export do
+RSpec.describe Card::Set::All::Export do
   describe "rendering json in export mode" do
+    before do
+      Card::Env.params[:max_export_depth] = 4
+    end
+
     def export_pointer content, type=:pointer
       export_name = "#{type} export card"
       create export_name, type: type, content: content
