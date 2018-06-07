@@ -29,7 +29,13 @@ def mod_dir new_mod=nil
 end
 
 def files_base_dir
-  bucket ? bucket_config[:subdirectory] : Card.paths["files"].existent.first
+  dir = bucket ? bucket_config[:subdirectory] : Card.paths["files"].existent.first
+  dir || files_base_dir_configuration_error
+end
+
+def files_base_dir_configuration_error
+  raise StandardError,
+        "missing directory for file cache (default is `files` in deck root)"
 end
 
 # used in the indentifier
