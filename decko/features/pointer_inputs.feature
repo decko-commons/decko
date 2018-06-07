@@ -75,8 +75,11 @@ Feature: Pointer Inputs
     And I click on "Keyword"
     And I wait for ajax response
     And I fill in "filter[name]" with "Joe"
+
+    # these two are just to trigger the filter
     When I click on "Add filter"
     And I wait for ajax response
+
     And I check "select-all"
     And I click on "Add Selected"
     And I wait for ajax response
