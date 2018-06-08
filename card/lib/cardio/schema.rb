@@ -8,7 +8,7 @@ module Cardio
       end
     end
 
-    def migrate type, version=nil, verbose=false
+    def migrate type, version=nil, verbose=true
       migration_context type do |mc|
         ActiveRecord::Migration.verbose = verbose
         mc.migrate version
