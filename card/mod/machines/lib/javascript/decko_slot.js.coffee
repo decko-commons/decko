@@ -27,12 +27,14 @@ $.extend decko,
 
 jQuery.fn.extend {
   slot: (status="success") ->
-    if @data("slot-#{status}-selector")
-      @findSlot(@data("slot-#{status}-selector"))
-    else if @data("slot-selector")
-      @findSlot(@data("slot-selector"))
-    else
-      @closest '.card-slot'
+    @selectSlot("slot-#{status}-selector") ||
+      @selectSlot("slot-selector") ||
+      @closest(".card-slot")
+
+  selectSlot: (selectorName) ->
+    if selector = @data(selectorName)
+      slot = @findSlot selector
+      slot[0] && slot
 
   isSlot: ->
     $(this).hasClass "card-slot"
@@ -80,6 +82,7 @@ jQuery.fn.extend {
     else
       s.replaceWith v
     v.trigger 'slotReady'
+    v.find(".card-slot").trigger "slotReady"
     v
 
 
