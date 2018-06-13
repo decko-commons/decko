@@ -15,18 +15,14 @@ RSpec.describe Card::Set::Type::Scss do
     SCSS
   end
   let(:compressed_changed_css) { "a{color:#fedcba}\n" }
-
-  before do
-    @scss_card = Card[:style_cards]
-  end
+  let(:scss_card) { Card[:style_right_sidebar] }
 
   it "highlights code in html" do
-    assert_view_select @scss_card.format(:html).render_core,
-                       "div[class=CodeRay]"
+    assert_view_select scss_card.format(:html).render_core, "div[class=CodeRay]"
   end
 
   it "does not highlight code in css" do
-    expect(@scss_card.format(:css).render_core).not_to match(/CodeRay/)
+    expect(scss_card.format(:css).render_core).not_to match(/CodeRay/)
   end
 
   it_behaves_like "machine input"  do
@@ -40,8 +36,8 @@ RSpec.describe Card::Set::Type::Scss do
       Card.gimme! "style with scss+*style", type: :pointer
     end
     let(:card_content) do
-      { in:           scss,         out:     compressed_css,
-        changed_in:   changed_scss, changed_out: compressed_changed_css }
+      { in:         scss,         out:     compressed_css,
+        changed_in: changed_scss, changed_out: compressed_changed_css }
     end
   end
 
@@ -54,8 +50,8 @@ RSpec.describe Card::Set::Type::Scss do
   it_behaves_like "content machine", that_produces: :css do
     let(:machine_card) { Card.gimme! "test scss", type: :scss, content: scss }
     let(:card_content) do
-      { in:           scss,         out:     compressed_css,
-        changed_in:   changed_scss, changed_out: compressed_changed_css }
+      { in:         scss,         out:     compressed_css,
+        changed_in: changed_scss, changed_out: compressed_changed_css }
     end
   end
 end
