@@ -17,22 +17,9 @@ If you don't want certain rules, you may:
 Choosing (b) will mean your CSS will not be affected by automated updates.
 */
 
-
 /*-- yellows --*/
 $d-yellow-1: #ffd;
-$d-yellow-3: #ffa;
-
-
-/*-- ProseMirror color variables */
-
-$d-yellow-4: #cc7;
-$d-yellow-2: #ffc;
-$d-grey-1: $gray-200;
-$d-grey-2: $gray-300;
-$d-grey-3: $gray-400;
-$d-grey-5: $gray-600;
-$d-cyan: $cyan;
-
+$d-yellow-2: #ffa;
 
 /* -- resets -- */
 
@@ -633,7 +620,7 @@ ul.action-list {
   margin: 10px;
   padding: 10px;
   border: 3px solid $red;   /* NOTGREY - red for error */
-  background: $d-yellow-3;         /* NOTGREY - yellow for highlighting */
+  background: $d-yellow-2;         /* NOTGREY - yellow for highlighting */
   border-radius: 8px;
   -moz-border-radius: 8px;
   border: 1px solid #777;
@@ -878,7 +865,7 @@ h2.set-label {
 }
 
 .ui-icon {
-  background-image: url([[/assets/smoothness/ui-icons_454545_256x240.png]])
+  background-image: url([[/assets/machines/jquery-ui-smoothness/ui-icons_454545_256x240.png]])
 }
 
 /* note said this is o non-ie browsers do better with image floats.  looks over-specified.
@@ -909,6 +896,26 @@ html>body .open-view {
   }
 }
 
+.closed-content a.external-link,
+a.external-link {
+  color: #03998d !important;
+  background: none !important;
+  padding-right: 2px !important;
+  position: relative;
+}
+
+.closed-content a.external-link:after,
+a.external-link:after {
+  content: "\f08e";
+  right: -2px;
+  position: relative;
+  bottom: 4px;
+  font-family: fontAwesome;
+  font-size: 8px;
+  text-decoration: none !important;
+  display: inline;
+}
+
 /*-------------------------- */
 /*- Overlay                - */
 /*-------------------------- */
@@ -935,300 +942,6 @@ html>body .open-view {
       }
     }
   }
-}
-
-
-/*-------------------------- */
-/*- ProseMirror            - */
-/*-------------------------- */
-
-.ProseMirror {
-  position: relative;
-}
-
-.ProseMirror {
-  white-space: pre-wrap;
-}
-
-.ProseMirror ul, .ProseMirror ol {
-  padding-left: 30px;
-  cursor: default;
-}
-
-.ProseMirror blockquote {
-  padding-left: 1em;
-  border-left: 3px solid $gray-300;
-  margin-left: 0; margin-right: 0;
-}
-
-.ProseMirror pre {
-  white-space: pre-wrap;
-}
-
-.ProseMirror li {
-  position: relative;
-  pointer-events: none; /* Don't do weird stuff with marker clicks */
-}
-.ProseMirror li > * {
-  pointer-events: auto;
-}
-
-.ProseMirror-nodeselection *::selection, .ProseMirror-widget *::selection { background: transparent; }
-.ProseMirror-nodeselection *::-moz-selection, .ProseMirror-widget *::-moz-selection { background: transparent; }
-
-.ProseMirror-selectednode {
-  outline: 2px solid $d-cyan;
-}
-
-/* Make sure li selections wrap around markers */
-
-li.ProseMirror-selectednode {
-  outline: none;
-}
-
-li.ProseMirror-selectednode:after {
-  content: "";
-  position: absolute;
-  left: -32px;
-  right: -2px; top: -2px; bottom: -2px;
-  border: 2px solid $d-cyan;
-  pointer-events: none;
-}
-
-
-.ProseMirror-textblock-dropdown {
-  min-width: 3em;
-}
-
-.ProseMirror-menu {
-  margin: 0 -4px;
-  line-height: 1;
-}
-
-.ProseMirror-tooltip .ProseMirror-menu {
-  width: -webkit-fit-content;
-  width: fit-content;
-  white-space: pre;
-}
-
-.ProseMirror-menuitem {
-  margin-right: 3px;
-  display: inline-block;
-}
-
-.ProseMirror-menuseparator {
-  border-right: 1px solid $d-grey-3;
-  margin-right: 3px;
-}
-
-.ProseMirror-menu-dropdown, .ProseMirror-menu-dropdown-menu {
-  font-size: 90%;
-  white-space: nowrap;
-}
-
-.ProseMirror-menu-dropdown {
-  vertical-align: 1px;
-  cursor: pointer;
-}
-
-.ProseMirror-menu-dropdown-wrap {
-  padding: 1px 14px 1px 4px;
-  display: inline-block;
-  position: relative;
-}
-
-.ProseMirror-menu-dropdown:after {
-  content: "";
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid currentColor;
-  opacity: .6;
-  position: absolute;
-  right: 2px;
-  top: calc(50% - 2px);
-}
-
-.ProseMirror-menu-dropdown-menu, .ProseMirror-menu-submenu {
-  position: absolute;
-  background: white;
-  color: $d-grey-5;
-  border: 1px solid #aaa;
-  padding: 2px;
-}
-
-.ProseMirror-menu-dropdown-menu {
-  z-index: 15;
-  min-width: 6em;
-}
-
-.ProseMirror-menu-dropdown-item {
-  cursor: pointer;
-  padding: 2px 8px 2px 4px;
-}
-
-.ProseMirror-menu-dropdown-item:hover {
-  background: $d-grey-1;
-}
-
-.ProseMirror-menu-submenu-wrap {
-  position: relative;
-  margin-right: -4px;
-}
-
-.ProseMirror-menu-submenu-label:after {
-  content: "";
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-left: 4px solid currentColor;
-  opacity: .6;
-  position: absolute;
-  right: 4px;
-  top: calc(50% - 4px);
-}
-
-.ProseMirror-menu-submenu {
-  display: none;
-  min-width: 4em;
-  left: 100%;
-  top: -3px;
-}
-
-.ProseMirror-menu-active {
-  background: $d-grey-2;
-  border-radius: 4px;
-}
-
-.ProseMirror-menu-active {
-  background: $d-grey-2;
-  border-radius: 4px;
-}
-
-.ProseMirror-menu-disabled {
-  opacity: .3;
-}
-
-.ProseMirror-menu-submenu-wrap:hover .ProseMirror-menu-submenu, .ProseMirror-menu-submenu-wrap-active .ProseMirror-menu-submenu {
-  display: block;
-}
-
-.ProseMirror-menubar {
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
-  position: relative;
-  min-height: 1em;
-  color: $d-grey-5;
-  padding: 1px 6px;
-  top: 0; left: 0; right: 0;
-  border-bottom: 1px solid silver;
-  background: white;
-  z-index: 10;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  overflow: visible;
-}
-
-.ProseMirror-icon {
-  display: inline-block;
-  line-height: .8;
-  vertical-align: -2px; /* Compensate for padding */
-  padding: 2px 8px;
-  cursor: pointer;
-}
-
-.ProseMirror-icon svg {
-  fill: currentColor;
-  height: 1em;
-}
-
-.ProseMirror-icon span {
-  vertical-align: text-top;
-}
-
-
-
-/* Add space around the hr to make clicking it easier */
-
-.ProseMirror-example-setup-style hr {
-  position: relative;
-  height: 6px;
-  border: none;
-}
-
-.ProseMirror-example-setup-style hr:after {
-  content: "";
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  top: 2px;
-  border-top: 2px solid silver;
-}
-
-.ProseMirror-example-setup-style img {
-  cursor: default;
-}
-
-.ProseMirror-example-setup-style table {
-  border-collapse: collapse;
-}
-
-.ProseMirror-example-setup-style td {
-  vertical-align: top;
-  border: 1px solid $d-grey-3;
-  padding: 3px 5px;
-}
-
-.ProseMirror-prompt {
-  background: white;
-  padding: 5px 10px 5px 15px;
-  border: 1px solid silver;
-  position: fixed;
-  border-radius: 3px;
-  z-index: 11;
-  box-shadow: -.5px 2px 5px rgba(0, 0, 0, .2);
-}
-
-.ProseMirror-prompt h5 {
-  margin: 0;
-  font-weight: normal;
-  font-size: 100%;
-  color: #444;
-}
-
-.ProseMirror-prompt input[type="text"],
-.ProseMirror-prompt textarea {
-  background: $d-grey-2;
-  border: none;
-  outline: none;
-}
-
-.ProseMirror-prompt input[type="text"] {
-  padding: 0 4px;
-}
-
-.ProseMirror-prompt-close {
-  position: absolute;
-  left: 2px; top: 1px;
-  color: $d-grey-5;
-  border: none; background: transparent; padding: 0;
-}
-
-.ProseMirror-prompt-close:after {
-  content: "✕";
-  font-size: 12px;
-}
-
-.ProseMirror-invalid {
-  background: $d-yellow-2;
-  border: 1px solid $d-yellow-4;
-  border-radius: 4px;
-  padding: 5px 10px;
-  position: absolute;
-  min-width: 10em;
-}
-
-.ProseMirror-prompt-buttons {
-  margin-top: 5px;
-  display: none;
 }
 
 ._prototype {

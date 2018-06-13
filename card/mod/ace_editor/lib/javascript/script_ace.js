@@ -2079,7 +2079,7 @@ var TextInput = function(parentNode, host) {
         } else if (data == PLACEHOLDER.charAt(0)) {
             if (afterContextMenu)
                 host.execCommand("del", {source: "ace"});
-            else // some versions of android do not fire keydown when pressing backspace
+            else // some ace.jss of android do not fire keydown when pressing backspace
                 host.execCommand("backspace", {source: "ace"});
         } else {
             if (data.substring(0, 2) == PLACEHOLDER)

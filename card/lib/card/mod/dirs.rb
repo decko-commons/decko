@@ -131,6 +131,14 @@ class Card
         end
       end
 
+      def each_assets_path
+        @mods.each do |mod|
+          path = File.join(@paths[mod], "public", "assets")
+          next unless Dir.exist? path
+          yield mod, path
+        end
+      end
+
       private
 
       def load_from_modfile

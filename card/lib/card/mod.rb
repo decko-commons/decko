@@ -2,7 +2,9 @@ require_dependency "card/mod/loader"
 require_dependency "card/mod/dirs"
 
 class Card
-  # A Card Mod (short for "module" or "modification") is a discrete piece of Decko functionality. Mods are how the Decko community develops and shares code. If you want to customize a deck in a way that can't be done on the site itself, try a mod.
+  # A Card Mod (short for "module" or "modification") is a discrete piece of Decko
+  # functionality. Mods are how the Decko community develops and shares code.
+  # If you want to customize a deck in a way that can't be done on the site itself, try a mod.
   #
   # The simplest way to add a mod is in the `mod` directory of your deck, eg:
   #
@@ -12,7 +14,10 @@ class Card
   #
   # ## Set Modules
   #
-  # Set modules define methods for a given set of cards and their format objects. They are defined in a mod's _set_ directory. For example, suppose you've created a mod that called *biz*, your deck has Company cards, and you want to extend the behavior of those cards.
+  # Set modules define methods for a given set of cards and their format objects.
+  # They are defined in a mod's _set_ directory. For example, suppose you've created a
+  # mod that called *biz*, your deck has Company cards, and you want to extend the
+  # behavior of those cards.
   #
   # You can add a set module like so:
   #
@@ -23,7 +28,8 @@ class Card
   #       mod/biz/set/type/company.rb
   #       mod/biz/spec/set/type/company.rb
   #
-  # If you would like to break this code into smaller files, you can extend this pattern into another directory, eg:
+  # If you would like to break this code into smaller files, you can extend this
+  # pattern into another directory, eg:
   #
   #       mod/biz/set/type/company/foo.rb
   #       mod/biz/set/type/company/bar.rb
