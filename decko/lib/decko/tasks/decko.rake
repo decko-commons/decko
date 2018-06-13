@@ -99,7 +99,6 @@ decko_namespace = namespace :decko do
     return if Rails.root.to_s == Decko.gem_root # inside decko gem
     assets_path = File.join Rails.public_path, "assets"
     FileUtils.rm assets_path if File.symlink? assets_path
-    return if File.exist? assets_path # could not clean. make more noise?
     #FileUtils.ln_s Decko::Engine.paths["gem-assets"].first, assets_path
     FileUtils.mkdir assets_path unless Dir.exist?(assets_path)
     Card::Mod.dirs.each_assets_path do |mod, target|
