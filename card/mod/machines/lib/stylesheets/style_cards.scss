@@ -17,29 +17,21 @@ If you don't want certain rules, you may:
 Choosing (b) will mean your CSS will not be affected by automated updates.
 */
 
-/*-- greys --*/
-$d-white: $white;
-$d-grey:  $gray-400;
-$d-grey-1: $gray-200;
-$d-grey-2: $gray-300;
-$d-grey-3: $gray-400;
-$d-grey-4: $gray-400;
-$d-grey-5: $gray-600;
-$d-grey-6: $gray-600;
-$d-grey-7: $gray-600;
-$d-black: $black;
-
-/*-- other colours --*/
-$d-red-1: $red;
-$d-red-2: $red;
-$d-blue: $blue;
-$d-cyan: $cyan;
 
 /*-- yellows --*/
 $d-yellow-1: #ffd;
-$d-yellow-2: #ffc; // ProseMirror
 $d-yellow-3: #ffa;
-$d-yellow-4: #cc7; // ProseMirror
+
+
+/*-- ProseMirror color variables */
+
+$d-yellow-4: #cc7;
+$d-yellow-2: #ffc;
+$d-grey-1: $gray-200;
+$d-grey-2: $gray-300;
+$d-grey-3: $gray-400;
+$d-grey-5: $gray-600;
+$d-cyan: $cyan;
 
 
 /* -- resets -- */
@@ -310,7 +302,7 @@ pre,
     width: 100%;
   }
   tr:nth-child(even) {
-    background: $d-grey-2;
+    background: $gray-300;
   }
 }
 
@@ -431,7 +423,7 @@ textarea {
   max-height: 500px;
 }
 .name-editor.known-name input {
-  border: 3px solid $d-red-1; /* NOTGREY - red for warning */
+  border: 3px solid $red; /* NOTGREY - red for warning */
 }
 .name-messages {
   font-style: italic;
@@ -513,12 +505,12 @@ textarea {
 /* links to create missing cards */
 
 .missing-view a {
-  color: $d-grey-7;
+  color: $gray-600;
   font-variant: small-caps;
 }
 
 .missing-view a:hover {
-  color: $d-blue;
+  color: $blue;
   background: #ffc;
 }
 
@@ -640,18 +632,18 @@ ul.action-list {
 .errors-view {
   margin: 10px;
   padding: 10px;
-  border: 3px solid $d-red-2;   /* NOTGREY - red for error */
+  border: 3px solid $red;   /* NOTGREY - red for error */
   background: $d-yellow-3;         /* NOTGREY - yellow for highlighting */
   border-radius: 8px;
   -moz-border-radius: 8px;
   border: 1px solid #777;
-  border-bottom: 2px solid $d-grey-6;
-  border-right: 2px solid $d-grey-6;
+  border-bottom: 2px solid $gray-600;
+  border-right: 2px solid $gray-600;
   color: #333;
 }
 
 .card-notice {
-  background: $d-white;
+  background: $white;
   font-weight: bold;
   font-style: italic;
   text-align: center;
@@ -663,8 +655,8 @@ ul.action-list {
 .flash-notice {
   color: #333;
   font-size: 1.1em;
-  background: $d-white;
-  border: 1px solid $d-grey-6;
+  background: $white;
+  border: 1px solid $gray-600;
   margin-bottom: 15px;
   padding: 5px;
   text-align: center;
@@ -673,7 +665,7 @@ ul.action-list {
 
 .conflict-view {
   text-align: left;
-  border: 1px solid $d-grey;
+  border: 1px solid $gray-400;
   padding: 10px;
   margin-top: 12px;
 }
@@ -692,14 +684,14 @@ ul.action-list {
   li {
     padding: .8em;
     margin: 0;
-    background: $d-grey-2;
+    background: $gray-300;
   }
   li:nth-child(even) {
-    background: $d-grey-3;
+    background: $gray-400;
   }
   aside {
     float: right;
-    border: 1px solid $d-grey-7;
+    border: 1px solid $gray-600;
     background: white;
     width: 33%;
     padding: 1em;
@@ -741,7 +733,7 @@ ul.action-list {
 .setting-rules th,
 .set-rules th {
   background: #aaa;
-  color: $d-grey-2;
+  color: $gray-300;
   padding: 5px 0;
 }
 .setting-rules th,
@@ -753,7 +745,7 @@ ul.action-list {
 }
 .set-rules th,
 .set-rules td.rule-cell {
-  border-bottom: 1px solid $d-grey-2;
+  border-bottom: 1px solid $gray-300;
 }
 .setting-klass,
 .rule-setting {
@@ -763,7 +755,7 @@ td.rule-setting {
   width: 30%;
 }
 .rule-set {
-  color: $d-grey-5;
+  color: $gray-600;
   white-space: nowrap;
 }
 .rule-type-field {
@@ -796,8 +788,8 @@ td.rule-setting {
   }
 }
 tr.missing-rule > td {
-  background-color: $d-grey-2;
-  border-bottom: 1px solid $d-white;
+  background-color: $gray-300;
+  border-bottom: 1px solid $white;
 }
 .rule-setting {
   padding-top: 4px;
@@ -839,11 +831,11 @@ tr.missing-rule > td {
   margin-bottom: 10px;
 }
 .klass-row {
-  background: $d-grey-2;
-  border-top: 1px solid $d-grey-3;
+  background: $gray-300;
+  border-top: 1px solid $gray-400;
 }
 tr.rule-changeover td {
-  border-top: 1px solid $d-grey-2;
+  border-top: 1px solid $gray-300;
   padding-top: 5px;
 }
 td.rule-anchor {
@@ -853,7 +845,7 @@ a.setting-link {
   font-style: italic;
   margin-left: 2%;
   font-weight: normal;
-  color: $d-black;
+  color: $black;
   white-space: nowrap;
 }
 h2.set-label {
@@ -897,7 +889,7 @@ html>body .open-view {
 
 /* the following classes are here because they're scheduled for deprecation */
 .faint {
-  color: $d-grey-4;
+  color: $gray-400;
 }
 .VIEW-type {
   font-style: italic;
@@ -965,7 +957,7 @@ html>body .open-view {
 
 .ProseMirror blockquote {
   padding-left: 1em;
-  border-left: 3px solid $d-grey-2;
+  border-left: 3px solid $gray-300;
   margin-left: 0; margin-right: 0;
 }
 
