@@ -45,13 +45,13 @@ CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets].freeze
 
 PRE_VARIABLES_CARD_NAMES = %i[
   style_jquery_ui_smoothness
-  style_cards
   style_right_sidebar
   bootstrap_functions
 ].freeze
 
 POST_VARIABLES_CARD_NAMES = %i[
   bootstrap_core
+  style_cards
   style_bootstrap_cards
   style_libraries
   style_mods
