@@ -68,7 +68,7 @@ format :html do
 
   def decko_script_variables
     {
-      "window.decko": { rootPath: Card.config.relative_url_root },
+      "window.decko": { rootUrl: card_url("") },
       "decko.doubleClick": Card.config.double_click,
       "decko.cssPath": head_stylesheet_path,
       "decko.currentUserId": (Auth.current_id if Auth.signed_in?)
