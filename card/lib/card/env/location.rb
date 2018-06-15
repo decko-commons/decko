@@ -17,7 +17,7 @@ class Card
       end
 
       def card_url rel
-        rel.match?(/^https?\:/) ? rel : "#{protocol_and_host}#{card_path rel}"
+        (rel =~ /^https?\:/) ? rel : "#{protocol_and_host}#{card_path rel}"
       end
 
       def protocol_and_host
