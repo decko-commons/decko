@@ -8,11 +8,9 @@
   Note: these styles do not appear in pre-bootstrap skins.
 */
 
-$label_color: #666666;
-$border_color: #999999;
-$header_color: #eeeeee;
-$credit_color: #186886; /* wagn blue */
-$gray-light: #e7e7e7;
+$label_color: $gray-600;
+$header_color: $gray-200;
+$credit_color: $primary;
 
 header {
   a {
@@ -61,7 +59,7 @@ form {
 
 
 .link-muted {
-  color: $gray-light; // FIXME: this should depend on the theme
+  color: $text-muted;
   &:hover {
     color: inherit;
   }
@@ -154,7 +152,7 @@ body.mceContentBody {
 
 .change-view {
   padding: 5px 0px;
-  border-bottom: 1px dotted $border_color;
+  border-bottom: 1px dotted $border-color;
   .change-card{
     font-weight: bold;
   }
@@ -249,7 +247,7 @@ body.mceContentBody {
 .SELF-Xlogo.content_panel-view,
 .SELF-Xcredit.content_panel-view {
   text-align: center;
-  background: #fff;
+  background: $white;
   img {
     max-width: 100%;
   }
@@ -293,10 +291,10 @@ body.mceContentBody {
 
 /*-------- Icon Helpers --------*/
 .toggler>i.material-icons{
-  color: #000;
+  color: $black;
   font-size: 15px;
   font-weight: bolder!important;
-  border: 2px solid #000;
+  border: 2px solid $black;
   border-radius: 3px;
   margin-right: 3px;
 }

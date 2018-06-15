@@ -10,6 +10,10 @@ class Card
         Card::Auth.as_bot { super }
       end
 
+      def create_card name_or_args, content_or_args=nil
+        Card::Auth.as_bot { super }
+      end
+
       def create_or_update name_or_args, content_or_args=nil
         Card::Auth.as_bot { super }
       end

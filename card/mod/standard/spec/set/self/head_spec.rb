@@ -39,8 +39,8 @@ describe Card::Set::Self::Head do
       is_expected.to match(/trigger\W*slotReady/)
     end
 
-    it "sets rootPath" do
-      is_expected.to match(/window\.decko\W+rootPath/)
+    it "sets rootUrl" do
+      is_expected.to match(/window\.decko\W+rootUrl/)
     end
   end
 end
