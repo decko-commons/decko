@@ -17,11 +17,11 @@ class Card
       end
 
       def card_url rel
-        if rel =~ /^https?\:/
-          rel
-        else
-          "#{Card::Env[:protocol]}#{Card::Env[:host]}#{card_path rel}"
-        end
+        rel.match?(/^https?\:/) ? rel : "#{protocol_and_host}#{card_path rel}"
+      end
+
+      def protocol_and_host
+        Card.config.protocol_and_host || "#{Card::Env[:protocol]}#{Card::Env[:host]}"
       end
 
       extend Location # ??
