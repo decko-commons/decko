@@ -1,5 +1,5 @@
 Feature: Setting up
-  In order to be able to start a new Wagn site
+  In order to be able to start a new deck
   As a Decker
   I want to setup an initial account
   
@@ -13,7 +13,7 @@ Feature: Setting up
     Then I should see "Welcome"
     
     When I fill in "card_name" with "The Newber"
-    And I enter "newb@wagn.org" into "*email"
+    And I enter "newb@decko.org" into "*email"
     And I enter "newb_pass" into "*password"
     And I press "Set up"
     Then I should see "The Newber"
@@ -23,7 +23,7 @@ Feature: Setting up
 
     When I follow "Sign out"
     And I follow "Sign in"
-    And I enter "newb@wagn.org" into "*email"
+    And I enter "newb@decko.org" into "*email"
     And I enter "newb_pass" into "*password"
     And I press "Sign in"
     Then I should see "The Newber"

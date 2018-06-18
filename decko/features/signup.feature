@@ -11,7 +11,7 @@ Feature: Signing up
     And I uncheck "Content"
     And I press "Submit"
     And I wait for ajax response
-        # By default Wagns are configured to require approval
+    # By default decks are configured to require approval
     Given Joe Admin creates Pointer card "User+*type+*create" with content "[[Anyone]]"
 
 
@@ -22,12 +22,12 @@ Feature: Signing up
     When I go to the home page
     And I follow "Sign up"
     And I fill in "card_name" with "Wanna B"
-    And I enter "wanna@wagn.org" into "*email"
+    And I enter "wanna@decko.org" into "*email"
     And I enter "wanna_pass" into "*password"
     And I press "Submit"
     Then I should see "Signup Success"
     And I wait a sec
-    And "wanna@wagn.org" should receive an email with subject "verification link for My Deck"
+    And "wanna@decko.org" should receive an email with subject "verification link for My Deck"
 
     When I open the email
     And I click the first link in the email
@@ -40,7 +40,7 @@ Feature: Signing up
     Then I should not see "Wanna B"
 
     When I follow "Sign in"
-    And I enter "wanna@wagn.org" into "*email"
+    And I enter "wanna@decko.org" into "*email"
     And I enter "wanna_pass" into "*password"
     And I press "Sign in"
     Then I should see "Wanna B"

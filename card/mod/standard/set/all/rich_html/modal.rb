@@ -1,5 +1,9 @@
 format :html do
-  def modal_link text, opts={}
+  view :modal_link do
+    modal_link
+  end
+
+  def modal_link text=nil, opts={}
     text ||= render_title
     opts.reverse_merge! path: {},
                         "data-target": "#modal-main-slot",
