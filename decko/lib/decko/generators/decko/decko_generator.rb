@@ -5,23 +5,23 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   source_root File.expand_path("../templates", __FILE__)
 
-  class_option :database,
-               type: :string, aliases: "-d", default: "mysql",
-               desc: "Preconfigure for selected database " \
-                     "(options: #{DATABASES.join('/')})"
+  class_option "mod-dev",
+               type: :boolean, aliases: "-m", default: false, group: :runtime,
+               desc: "Prepare deck for mod development"
 
   class_option "core-dev",
                type: :boolean, aliases: "-c", default: false, group: :runtime,
-               desc: "Prepare deck for decko core testing"
+               desc: "Prepare deck for core development"
 
   class_option "gem-path",
                type: :string, aliases: "-g", default: "", group: :runtime,
                desc: "Path to local decko repository " \
                      "(Default, use env DECKO_GEM_PATH)"
 
-  class_option "mod-dev",
-               type: :boolean, aliases: "-m", default: false, group: :runtime,
-               desc: "Prepare deck for mod testing"
+  class_option :database,
+               type: :string, aliases: "-d", default: "mysql",
+               desc: "Preconfigure for selected database " \
+                     "(options: #{DATABASES.join('/')})"
 
   class_option "interactive",
                type: :boolean, aliases: "-i", default: false, group: :runtime,
@@ -149,17 +149,16 @@ class DeckoGenerator < Rails::Generators::AppBase
   end
 
   def core_dev_setup
-    shared_dev_setup
     prompt_for_gem_path
-
     @include_jasmine_engine = true
     @spec_path = @gem_path
     @spec_helper_path = File.join @spec_path, "card", "spec", "spec_helper"
 
     # ending slash is important in order to load support and step folders
     @features_path = File.join @gem_path, "decko/features/"
-    javascript_spec_setup "decko_jasmine"
     @simplecov_config = "card_core_dev_simplecov_filters"
+    shared_dev_setup
+    javascript_spec_setup "decko_jasmine"
   end
 
   def prompt_for_gem_path
@@ -169,10 +168,10 @@ class DeckoGenerator < Rails::Generators::AppBase
   end
 
   def mod_dev_setup
-    shared_dev_setup
     @spec_path = "mod/"
     @spec_helper_path = "./spec/spec_helper"
     @simplecov_config = "card_simplecov_filters"
+    shared_dev_setup
     inside("spec") { template "spec_helper.rb" }
     javascript_spec_setup "deck_jasmine"
   end
