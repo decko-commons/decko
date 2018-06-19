@@ -7,11 +7,21 @@ class Card
   # If you want to customize a deck in a way that can't be done on the site itself,
   # try a mod.
   #
-  # The simplest way to add a mod is in the `mod` directory of your deck, eg:
+  # The simplest way to add a mod is to run this command in your deck:
   #
-  #     DECKNAME/mod/MODNAME
+  #     decko generate card:mod MOD_NAME
   #
-  # In most mods, the focal point is the set modules.
+  # This will create the follow directories:
+  #
+  #     DECK_NAME/mod/MOD_NAME
+  #     DECK_NAME/mod/MOD_NAME/lib
+  #     DECK_NAME/mod/MOD_NAME/public
+  #     DECK_NAME/mod/MOD_NAME/set
+  #
+  # The lib directory contains libraries, of course. And files in the public directory
+  # are public and served directly.
+  #
+  # But in most mods, the focal point is the *set* directory.
   #
   # ## Set Modules
   #
@@ -22,7 +32,7 @@ class Card
   #
   # You can add a set module like so:
   #
-  #       card generate set biz type company
+  #       decko generate set biz type company
   #
   # This will create the following two files:
   #
@@ -48,14 +58,10 @@ class Card
   # ## Other Directories
   #
   # Other ways your mod can extend Decko functionality include:
+  #   - **format** for creating new formats (think file extensions)
   #   - **set_pattern** for additional {Card::Set::Pattern set patterns}, or types of sets.
-  #   - **format** for creating new formats
   #   - **chunk** provides tools for finding new patterns in card content
-  #   - **layouts** can contain hardcoded layouts (layouts are more typically stored in content)
-  #   - **lib** for ruby libraries
-  #   - **file** for any other supporting files
-  #
-
+  #   - **file** for fixed initial card content
   module Mod
     class << self
       def load
@@ -66,7 +72,6 @@ class Card
           Rails.logger.warn "empty database"
         end
       end
-
       # @return an array of Rails::Path objects
       def dirs
         @dirs ||= Dirs.new(Card.paths["mod"].existent)
