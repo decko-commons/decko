@@ -30,7 +30,6 @@ class DeckoGenerator < Rails::Generators::AppBase
   public_task :set_default_accessors!
   public_task :create_root
 
-
   ## should probably eventually use rails-like AppBuilder approach,
   # but this is a first step.
   def dev_setup
@@ -174,7 +173,7 @@ class DeckoGenerator < Rails::Generators::AppBase
     @spec_path = "mod/"
     @spec_helper_path = "./spec/spec_helper"
     @simplecov_config = "card_simplecov_filters"
-    inside ("spec") { template "spec_helper.rb" }
+    inside("spec") { template "spec_helper.rb" }
     javascript_spec_setup "deck_jasmine"
   end
 
