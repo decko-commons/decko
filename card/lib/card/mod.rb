@@ -22,7 +22,7 @@ class Card
   #
   # You can add a set module like so:
   #
-  #       card generate set biz type company
+  #       decko generate set biz type company
   #
   # This will create the following two files:
   #
