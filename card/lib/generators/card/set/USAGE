@@ -2,14 +2,14 @@ Description:
     Generates new set files in mods and matching specs.
 
 Example:
-    decko generate card:set standard type tshirt
+    decko generate card:set clothing type tshirt
 
     This will create:
-        mod/standard/set/type/tshirt.rb
-        mod/standard/spec/set/type/tshirt_spec.rb
+        mod/clothing/set/type/tshirt.rb
+        mod/clothing/spec/set/type/tshirt_spec.rb
 
-    decko generate card:set standard type_plus_right basic about tshirt
+    decko generate card:set clothing type_plus_right basic about tshirt
 
     This will create:
-        mods/standard/set/type_plus_right/basic/about/tshirt.rb
-        mods/standard/spec/set/type_plus_right/basic/about/tshirt_spec.rb
+        mods/clothing/set/type_plus_right/basic/about/tshirt.rb
+        mods/clothing/spec/set/type_plus_right/basic/about/tshirt_spec.rb
