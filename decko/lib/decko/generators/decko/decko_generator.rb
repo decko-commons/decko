@@ -5,23 +5,23 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   source_root File.expand_path("../templates", __FILE__)
 
-  class_option :database,
-               type: :string, aliases: "-d", default: "mysql",
-               desc: "Preconfigure for selected database " \
-                     "(options: #{DATABASES.join('/')})"
+  class_option "mod-dev",
+               type: :boolean, aliases: "-m", default: false, group: :runtime,
+               desc: "Prepare deck for mod development"
 
   class_option "core-dev",
                type: :boolean, aliases: "-c", default: false, group: :runtime,
-               desc: "Prepare deck for decko core testing"
+               desc: "Prepare deck for core development"
 
   class_option "gem-path",
                type: :string, aliases: "-g", default: "", group: :runtime,
                desc: "Path to local decko repository " \
                      "(Default, use env DECKO_GEM_PATH)"
 
-  class_option "mod-dev",
-               type: :boolean, aliases: "-m", default: false, group: :runtime,
-               desc: "Prepare deck for mod testing"
+  class_option :database,
+               type: :string, aliases: "-d", default: "mysql",
+               desc: "Preconfigure for selected database " \
+                     "(options: #{DATABASES.join('/')})"
 
   class_option "interactive",
                type: :boolean, aliases: "-i", default: false, group: :runtime,
@@ -33,22 +33,12 @@ class DeckoGenerator < Rails::Generators::AppBase
   ## should probably eventually use rails-like AppBuilder approach,
   # but this is a first step.
   def dev_setup
-    # TODO: rename or split, gem_path points to the source repo,
-    # card and decko gems are subdirs
-    @gemfile_gem_path = @gem_path = options["gem-path"]
-    env_gem_path = ENV["DECKO_GEM_PATH"]
-    if env_gem_path.present?
-      @gemfile_gem_path = %q(#{ENV['DECKO_GEM_PATH']})
-      @gem_path = env_gem_path
-    end
-
+    determine_gemfile_gem_path
     @include_jasmine_engine = false
     if options["core-dev"]
       core_dev_setup
-      shared_dev_setup
     elsif options["mod-dev"]
       mod_dev_setup
-      shared_dev_setup
     end
   end
 
@@ -147,43 +137,56 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   protected
 
-  def core_dev_setup
-    if @gem_path.blank?
-      @gemfile_gem_path =
-        @gem_path = ask("Enter the path to your local decko gem installation: ")
+  def determine_gemfile_gem_path
+    # TODO: rename or split, gem_path points to the source repo,
+    # card and decko gems are subdirs
+    if (env_gem_path = ENV["DECKO_GEM_PATH"]).present?
+      @gemfile_gem_path = %q(#{ENV['DECKO_GEM_PATH']})
+      @gem_path = env_gem_path
+    else
+      @gemfile_gem_path = @gem_path = options["gem-path"]
     end
+  end
 
+  def core_dev_setup
+    prompt_for_gem_path
     @include_jasmine_engine = true
     @spec_path = @gem_path
     @spec_helper_path = File.join @spec_path, "card", "spec", "spec_helper"
-    empty_directory "spec"
-
-    @cardio_gem_root = File.join @gem_path, "card"
-    @decko_gem_root = File.join @gem_path, "decko"
-    inside "spec" do
-      template File.join("javascripts", "support", "decko_jasmine.yml"),
-               File.join("javascripts", "support", "jasmine.yml")
-    end
 
     # ending slash is important in order to load support and step folders
     @features_path = File.join @gem_path, "decko/features/"
-
     @simplecov_config = "card_core_dev_simplecov_filters"
+    shared_dev_setup
+    javascript_spec_setup "decko_jasmine"
+  end
+
+  def prompt_for_gem_path
+    return if @gem_path.present?
+    @gemfile_gem_path =
+      @gem_path = ask("Enter the path to your local decko gem installation: ")
   end
 
   def mod_dev_setup
     @spec_path = "mod/"
     @spec_helper_path = "./spec/spec_helper"
     @simplecov_config = "card_simplecov_filters"
-    empty_directory "spec"
+    shared_dev_setup
+    inside("spec") { template "spec_helper.rb" }
+    javascript_spec_setup "deck_jasmine"
+  end
+
+  def javascript_spec_setup jasmine_prefix
     inside "spec" do
-      template "spec_helper.rb"
-      template File.join("javascripts", "support", "deck_jasmine.yml"),
+      template File.join("javascripts", "support", "#{jasmine_prefix}.yml"),
                File.join("javascripts", "support", "jasmine.yml")
     end
   end
 
   def shared_dev_setup
+    @cardio_gem_root = File.join @gem_path, "card"
+    @decko_gem_root = File.join @gem_path, "decko"
+    empty_directory "spec"
     template "rspec", ".rspec"
     template "simplecov", ".simplecov"
     empty_directory "bin"
