@@ -99,7 +99,6 @@ RSpec.describe Card::Set::All::Permissions do
     it "reader setting" do
       Card.where(trash: false).each do |ca|
         rule_id, rule_class = ca.permission_rule_id_and_class :read
-        puts ca
         expect(ca.read_rule_class).to eq(rule_class),
                                       "read rule class mismatch for #{ca.name}"
         expect(ca.read_rule_id).to eq(rule_id),
