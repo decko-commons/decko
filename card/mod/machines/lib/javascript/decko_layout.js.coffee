@@ -26,7 +26,6 @@ sidebarToggle = (side) ->
   else
     wrapSidebarToggle(toggleButton("right"), "flex-row-reverse")
 
-2
 singleSidebar = (side) ->
   $article = $('body > article').first()
   $aside   = $('body > aside').first()
