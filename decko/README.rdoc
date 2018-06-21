@@ -28,14 +28,14 @@ ImageMagick[http://www.imagemagick.org/]::
 A database engine:: Either MySQL[http://www.mysql.com/] or PostgreSQL[http://www.postgresql.org/]
 A JavaScript runtime::  Node.js[https://nodejs.org/] or other[https://github.com/sstephenson/execjs]
 
-===1. install the gem
+===2. install the gem
 
     gem install decko
 
 Watch carefully for errors!
 
 
-===2. create a new deck
+===3. create a new deck
 
     decko new MY_DECK
 
@@ -49,7 +49,7 @@ Options:
     -g, [--gem-path=GEM-PATH]                # Path to local decko repository (Default, use env DECKO_GEM_PATH)
     -i, [--interactive], [--no-interactive]  # Prompt with dynamic installation options
 
-===3. create / seed database
+===4. create / seed database
 
 Edit the config/database.yml file as necessary. More about database configuration at https://www.decko.org/database_configuration.
 
