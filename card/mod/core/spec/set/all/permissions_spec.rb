@@ -53,7 +53,7 @@ end
 
 include PermissionSpecHelper
 
-describe Card::Set::All::Permissions do
+RSpec.describe Card::Set::All::Permissions do
   # FIXME: lots of good tests here, but generally disorganized.
 
   context "??" do
@@ -99,8 +99,10 @@ describe Card::Set::All::Permissions do
     it "reader setting" do
       Card.where(trash: false).each do |ca|
         rule_id, rule_class = ca.permission_rule_id_and_class :read
-        expect(rule_class).to eq(ca.read_rule_class)
-        expect(rule_id).to eq(ca.read_rule_id), "read rule id mismatch for #{ca.name}"
+        expect(ca.read_rule_class).to eq(rule_class),
+                                      "read rule class mismatch for #{ca.name}"
+        expect(ca.read_rule_id).to eq(rule_id),
+                                   "read rule id mismatch for #{ca.name}"
       end
     end
 
