@@ -157,10 +157,10 @@ end
 # on rename, update names in cards that refer to self by name (as directed)
 event :update_referer_content, :finalize,
       on: :update, after: :name_change_finalized,
-      when: proc { |card| card.update_referers } do
+      when: :update_referers  do
   # FIXME: break into correct stages
   Auth.as_bot do
-    family_referers.each do |card|
+    referers.each do |card|
       next if card == self || card.structure
       card = card.refresh
       card.db_content = card.replace_reference_syntax name_before_last_save, name
@@ -175,6 +175,10 @@ end
 # then we need to be sure that A has a partial reference
 event :update_referer_references_out, :finalize,
       on: :update, after: :name_change_finalized,
-      when: proc { |c| !c.update_referers } do
-  family_referers.map(&:update_references_out)
+      when: :not_update_referers do
+  referers.map(&:update_references_out)
+end
+
+def not_update_referers
+  !update_referers
 end
