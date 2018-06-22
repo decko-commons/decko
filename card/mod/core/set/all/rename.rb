@@ -1,8 +1,8 @@
-event :rename, after: :set_name, on: :update do
+event :rename_in_trash, after: :set_name, on: :update do
   existing_card = Card.find_by_key_and_trash name.key, true
   return if !existing_card || existing_card == self
   existing_card.name = existing_card.name + "*trash"
-  existing_card.rename_without_callbacks
+  existing_card.rename_in_trash_without_callbacks
   existing_card.save!
 end
 
@@ -14,22 +14,34 @@ def suspend_name name
   Card.where(id: id).update_all(name: tmp_name, key: tmp_name)
 end
 
+event :validate_renaming, :validate, on: :update, changed: :name do
+  if db_content_is_changing?
+    errors.add :content, "cannot change content while changing name"
+  end
+  if type_id_is_changing?
+    errors.add :type, "cannot change type while changing name"
+  end
+end
+
+
 event :cascade_name_changes, :finalize, on: :update, changed: :name,
                                         before: :name_change_finalized do
-  des = descendants
+  #des = descendants
   @descendants = nil # reset
 
-  des.each do |de|
+  children.each do |de|
     # here we specifically want NOT to invoke recursive cascades on these
     # cards, have to go this low level to avoid callbacks.
     Rails.logger.info "cascading name: #{de.name}"
     newname = de.name.swap name_before_last_save, name
-    check_for_conflict de.name, newname
+    # check_for_conflict de.name, newname
     Card.expire de.name # old name
-    Card.where(id: de.id).update_all name: newname.to_s, key: newname.key
-    de.update_referers = update_referers
-    de.refresh_references_in
-    Card.expire newname
+    attach_subcard de.name, name: newname, update_referers: update_referers
+
+    # Card.where(id: de.id).update_all name: newname.to_s, key: newname.key
+    # de.update_referers = update_referers
+    # de.refresh_references_in
+    # Card.expire newname
   end
 end
 
