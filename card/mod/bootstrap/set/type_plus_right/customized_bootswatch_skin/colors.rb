@@ -82,6 +82,11 @@ format :html do
                          customize: true },
                  class: "btn btn-sm btn-outline-primary"
   end
+
+  view :bar do
+    voo.hide :bar_middle
+    super()
+  end
 end
 
 event :translate_variables_to_scss, :prepare_to_validate, on: :update do

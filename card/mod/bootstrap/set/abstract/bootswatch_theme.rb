@@ -10,7 +10,7 @@
 #
 # The content of a bootswatch theme card consists of four parts:
 #   * pre_variables: hard-coded theme independent stuff
-#       and bootstrap functions to make the available in the variables part
+#       and bootstrap functions to make them available in the variables part
 #   * variables: the content from `_variables.scss`,
 #   * post_variables: the bootstrap css and libraries like select2 and
 #       bootstrap-colorpicker that depend on the theme

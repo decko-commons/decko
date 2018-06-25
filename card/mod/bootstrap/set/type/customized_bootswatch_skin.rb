@@ -12,6 +12,18 @@ card_accessor :colors
 card_accessor :variables
 card_accessor :stylesheets
 
+def top_level_item_cards
+  cards = PRE_VARIABLES_CARD_NAMES.map { |n| Card[n] }
+  cards += [colors_card, variables_card]
+  cards += POST_VARIABLES_CARD_NAMES.map { |n| Card[n] }
+  cards << stylesheets_card
+  cards
+end
+
+def editable_item_cards
+  [colors_card, variables_card, stylesheets_card]
+end
+
 def variables_card_names
   %i[colors variables].map { |s| Card.fetch_name name, s }
 end
