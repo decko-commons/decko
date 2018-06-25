@@ -39,6 +39,10 @@ class Card
         format { view(*args, &block) }
       end
 
+      def view_for_override *args, &block
+        format { view_for_override(*args, &block) }
+      end
+
       def before view, &block
         format { before view, &block }
       end
@@ -104,6 +108,12 @@ class Card
             define_async_view_method view, &view_method_block
           else
             define_standard_view_method view, &view_method_block
+          end
+        end
+
+        def view_for_override viewname
+          view viewname do
+            "override '#{viewname}' view"
           end
         end
 

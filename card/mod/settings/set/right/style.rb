@@ -11,6 +11,10 @@ format do
 end
 
 format :html do
+  def default_item_view
+    :bar
+  end
+
   view :editor, template: :haml
 
   def themes

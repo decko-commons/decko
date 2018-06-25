@@ -1,0 +1,11 @@
+- middle = voo.show? :bar_middle
+.bar.border.left-stripe.d-flex.justify-content-between.p-0.double-border-fix-bottom.with-fancy-border
+  .bar-left.p-2.font-weight-bold.d-flex.align-items-center.grow-2
+    = render :bar_left
+  - if middle
+    .bar-middle.col-3.d-none.d-md-inline.p-3.border-left
+      = render :bar_middle
+  .bar-right.p-3.border-left.text-align-right
+    = render :bar_right
+    = render :bar_page_link
+    = render :bar_expand_link

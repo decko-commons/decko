@@ -1,6 +1,20 @@
+include_set Abstract::BsBadge
+
 format :html do
   view :core, cache: :never do
     standard_pointer_core
+  end
+
+  def stat_number
+    card.item_count
+  end
+
+  def stat_label
+    stat_number  == 1 ? "item" : "items"
+  end
+
+  view :bar_right do
+    ""
   end
 
   def standard_pointer_core

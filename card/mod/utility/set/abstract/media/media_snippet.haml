@@ -1,0 +1,9 @@
+.media{media_opts}
+  .media-left.image-box{class: "m-2 #{size}"}
+    %a{href: "#"}
+      %img.media-object{class: size, src: src.html_safe, alt: alt}
+  .media-body
+    - if title != ""
+      %h5.media-heading
+        = title
+    = text
