@@ -18,15 +18,12 @@ event :validate_renaming, :validate, on: :update, changed: :name do
   if db_content_is_changing?
     errors.add :content, "cannot change content while changing name"
   end
-  if type_id_is_changing?
-    errors.add :type, "cannot change type while changing name"
-  end
+  errors.add :type, "cannot change type while changing name" if type_id_is_changing?
 end
-
 
 event :cascade_name_changes, :finalize, on: :update, changed: :name,
                                         before: :name_change_finalized do
-  #des = descendants
+  # des = descendants
   @descendants = nil # reset
 
   children.each do |child|
@@ -39,7 +36,6 @@ event :cascade_name_changes, :finalize, on: :update, changed: :name,
     attach_subcard child.name,
                    superleft: self,
                    name: newname, update_referers: update_referers
-
 
     # Card.where(id: de.id).update_all name: newname.to_s, key: newname.key
     # de.update_referers = update_referers
