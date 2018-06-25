@@ -139,12 +139,12 @@ RSpec.describe "act API" do
           self.content = "new content"
           changed_attributes
         end
-        test_event :integrate do
+        test_event :integrate, for: "new name" do
           expect(name_is_changing?).to be_truthy
           expect(name_before_act).to eq("A")
           expect(db_content_before_act).to eq("Alpha [[Z]]")
         end
-        test_event :integrate_with_delay do
+        test_event :integrate_with_delay, for: "new name" do
           expect(name_is_changing?).to be_truthy
           expect(name_before_act).to eq("A")
           expect(db_content_before_act).to eq("Alpha [[Z]]")
@@ -161,13 +161,13 @@ RSpec.describe "act API" do
       end
 
       with_test_events do
-        test_event :integrate, changed: :name do
+        test_event :integrate, changed: :name, for: "new name" do
           event_called :i_name
         end
         test_event :integrate, changed: :content do
           event_called :i_content
         end
-        test_event :integrate_with_delay, changed: :name do
+        test_event :integrate_with_delay, changed: :name, for: "new name" do
           event_called :iwd_name
         end
         test_event :integrate_with_delay, changed: :content do

@@ -29,14 +29,17 @@ event :cascade_name_changes, :finalize, on: :update, changed: :name,
   #des = descendants
   @descendants = nil # reset
 
-  children.each do |de|
+  children.each do |child|
     # here we specifically want NOT to invoke recursive cascades on these
     # cards, have to go this low level to avoid callbacks.
-    Rails.logger.info "cascading name: #{de.name}"
-    newname = de.name.swap name_before_last_save, name
+    Rails.logger.info "cascading name: #{child.name}"
+    newname = child.name.swap name_before_last_save, name
     # check_for_conflict de.name, newname
-    Card.expire de.name # old name
-    attach_subcard de.name, name: newname, update_referers: update_referers
+    Card.expire child.name # old name
+    attach_subcard child.name,
+                   superleft: self,
+                   name: newname, update_referers: update_referers
+
 
     # Card.where(id: de.id).update_all name: newname.to_s, key: newname.key
     # de.update_referers = update_referers
