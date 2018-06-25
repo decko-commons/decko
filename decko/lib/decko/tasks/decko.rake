@@ -99,6 +99,7 @@ decko_namespace = namespace :decko do
     prepped_asset_path do |assets_path|
       Card::Mod.dirs.each_assets_path do |mod, target|
         link = File.join assets_path, mod
+        FileUtils.rm_rf link
         FileUtils.ln_s target, link, force: true
       end
     end

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::EventConditions, "event" do
+RSpec.describe Card::Set::All::EventConditions, "event" do
   let(:create_card) {Card.create!(name: "main card")}
   let(:create_card_with_subcards) do
     Card.create name: "main card",
@@ -51,7 +51,7 @@ describe Card::Set::All::EventConditions, "event" do
       end
     end
 
-    specify "skip event condition" do
+    specify "skip_event condition" do
       with_test_events do
         test_event :validate, on: :update, optional: true, for: "A" do
           add_to_log "not skipped"
@@ -62,6 +62,44 @@ describe Card::Set::All::EventConditions, "event" do
           expect(@log).to be_empty
           Card["A"].update_attributes! content: "changed content"
           expect(@log).to contain_exactly "not skipped"
+        end
+      end
+    end
+
+    specify "skip_event condition in subcard" do
+      with_test_events do
+        test_event :validate, on: :update, optional: true, for: "A+B" do
+          add_to_log "not skipped"
+        end
+        Card["A"].update_attributes! content: "changed content",
+                                     skip_event: :test_event_0,
+                                     subcards: { "+B" => "changed +B content" }
+
+        aggregate_failures do
+          expect(@log).to be_empty
+          Card["A"].update_attributes! content: "changed content",
+                                       subcards: { "+B" => "changed +B content" }
+          expect(@log).to contain_exactly "not skipped"
+        end
+      end
+    end
+
+    specify "skip_event_in_action condition" do
+      with_test_events do
+        test_event :validate, on: :update, optional: true do
+          add_to_log "#{name} not skipped"
+        end
+        Card["A"].update_attributes! content: "changed content",
+                                     skip_event_in_action: :test_event_0,
+                                     subcards: { "+B" => "changed +B content" }
+
+        aggregate_failures do
+          expect(@log).to contain_exactly "A+B not skipped"
+          Card["A"].update_attributes! content: "changed content",
+                                       subcards: { "+B" => "changed +B content" }
+          expect(@log).to contain_exactly "A+B not skipped",
+                                          "A not skipped",
+                                          "A+B not skipped"
         end
       end
     end
