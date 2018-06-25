@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Right::Followers do
+RSpec.describe Card::Set::Right::Followers do
   describe "#content" do
     it "returns a pointer list of followers" do
       card = Card.fetch "All Eyes on me"

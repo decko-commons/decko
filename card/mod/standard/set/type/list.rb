@@ -82,12 +82,13 @@ def update_all_items
 end
 
 def update_listed_by_cache_for item_keys, args={}
-  type_key = args[:type_key] || left.type_card.key
+  type_key = args[:type_key] || left&.type_card&.key
+  return unless type_key
 
   item_keys.each do |item_key|
     key = "#{item_key}+#{type_key}"
     next unless Card::Cache[Card::Set::Type::ListedBy].exist? key
-    if (card = Card.fetch(key))
+    if (card = Card.fetch(key)) && card.left
       card.update_cached_list
       card.update_references_out
     else
