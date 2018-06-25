@@ -28,28 +28,43 @@ ImageMagick[http://www.imagemagick.org/]::
 A database engine:: Either MySQL[http://www.mysql.com/] or PostgreSQL[http://www.postgresql.org/]
 A JavaScript runtime::  Node.js[https://nodejs.org/] or other[https://github.com/sstephenson/execjs]
 
-===1. install the gem
+===2. install the gem
 
- gem install decko
+    gem install decko
 
 Watch carefully for errors!
 
 
-===2. create a new deck
+===3. create a new deck
 
-  decko new _mysite_
+    decko new MY_DECK
 
+Options:
+    -f, [--force]                            # Overwrite files that already exist
+    -p, [--pretend], [--no-pretend]          # Run but do not make any changes
+    -q, [--quiet], [--no-quiet]              # Suppress status output
+    -s, [--skip], [--no-skip]                # Skip files that already exist
+    -m, [--mod-dev], [--no-mod-dev]          # Prepare deck for mod development
+    -c, [--core-dev], [--no-core-dev]        # Prepare deck for core development
+    -g, [--gem-path=GEM-PATH]                # Path to local decko repository (Default, use env DECKO_GEM_PATH)
+    -i, [--interactive], [--no-interactive]  # Prompt with dynamic installation options
 
-===3. create / seed database
+===4. create / seed database
 
-Edit the config/database.yml file as necessary. More about database configuration at http://www.wagn.org/database_configuration.
+Edit the config/database.yml file as necessary. More about database configuration at https://www.decko.org/database_configuration.
 
 Then run
 
-  cd _mysite_
-  decko seed
+      cd MY_DECK
+      decko seed
 
 ..to create and seed the database
+
+Options:
+    -p, --production                 decko:seed production database (default)
+    -t, --test                       decko:seed test database
+    -d, --development                decko:seed development database
+    -a, --all                        decko:seed production, test, and development database
 
 
 ===4. start your server
@@ -60,7 +75,16 @@ To fire up the default, built-in WEBrick server, just run:
 
 ...and point your browser to http://localhost:3000 (unless otherwise configured).
 
-For more information, see http://wagn.org/get_started.
+Options:
+  -p, [--port=port]                        # Runs Decko on the specified port - defaults to 3000.
+  -b, [--binding=IP]                       # Binds Decko to the specified IP - defaults to 'localhost' in development and '0.0.0.0' in other environments'.
+  -c, [--config=file]                      # Uses a custom rackup configuration. (default: config.ru)
+  -d, [--daemon], [--no-daemon]            # Runs server as a Daemon.
+  -e, [--environment=name]                 # Specifies the environment to run this server under (development/test/production).
+  -P, [--pid=PID]                          # Specifies the PID file. (efault: tmp/pids/server.pid)
+      [--early-hints], [--no-early-hints]  # Enables HTTP/2 early hints.
+
+For more information, see https://decko.org/get_started.
 
 
 
@@ -118,10 +142,10 @@ First update your Wagn to version 1.10 via the old update mechanisms, and then f
 
 ==More Resources
 
-If you're new to Decko, you'll find lots more info at http://wagn.org
+If you're new to Decko, you'll find lots more info at https://decko.org
 
-Installation problems? Installation: http://wagn.org/installation
+Installation problems? Installation: https://decko.org/installation
 
 If you're looking to go deep into the code, start with http://www.rubydoc.info/gems/card
 
-Thinking about contributing (troubleshooting) to Wagn? here[link:CONTRIBUTING.rdoc]
+Thinking about contributing to Decko? here[link:CONTRIBUTING.rdoc]

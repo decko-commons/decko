@@ -1,0 +1,16 @@
+Description:
+    Generates new mod
+
+Example:
+    decko generate card:mod clothing
+
+    This will create:
+        mod/clothing/
+          lib/
+            javascript/
+            stylesheets/
+          public/
+            assets/
+          set/
+
+
