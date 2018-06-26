@@ -67,7 +67,6 @@ def skip_event? event
   @names_of_skipped_events.include? event
 end
 
-
 def skipped_events
   events = Array.wrap(skip_event_in_action) + Array.wrap(act_card.skip_event)
   ::Set.new events.map(&:to_sym)
