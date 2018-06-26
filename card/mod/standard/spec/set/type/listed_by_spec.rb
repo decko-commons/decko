@@ -26,8 +26,8 @@ RSpec.describe Card::Set::Type::ListedBy do
                        /Name must have a cardtype name as right part/)
   end
 
-  context 'when Darles Chickens is in the author list of \
-           "Parry Hotter" and "50 grades of shy"' do
+  context "when Darles Chickens is in the author list of" \
+          '"Parry Hotter" and "50 grades of shy"' do
     describe "Darles Chickens+books" do
       subject { listed_by }
 
