@@ -30,6 +30,7 @@ def name= newname
   self.key = newkey if key != newkey
   update_subcard_names cardname
   write_attribute :name, cardname.s
+  name
 end
 
 def superize_name cardname
