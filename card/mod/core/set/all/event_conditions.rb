@@ -34,7 +34,7 @@ end
 
 def optional_condition_applies? event, optional
   return true unless optional
-  skip_event? event
+  !skip_event? event
 end
 
 def single_changed_condition_applies? db_column
@@ -63,6 +63,11 @@ def wrong_action action
 end
 
 def skip_event? event
-  @names_of_skipped_events ||= ::Set.new(Array.wrap(skip_event).map(&:to_sym))
-  !@names_of_skipped_events.include? event
+  @names_of_skipped_events ||= skipped_events
+  @names_of_skipped_events.include? event
+end
+
+def skipped_events
+  events = Array.wrap(skip_event_in_action) + Array.wrap(act_card.skip_event)
+  ::Set.new events.map(&:to_sym)
 end
