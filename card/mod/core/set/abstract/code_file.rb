@@ -60,7 +60,8 @@ format :html do
   end
 
   view :bar_middle do
-    fa_icon("exclamation-circle") + " file"
+    fa_icon("exclamation-circle", class: "text-muted pr-2") +
+      wrap_with(:span, "file", class: "text-muted")
   end
 
   def standard_submit_button

@@ -13,13 +13,24 @@ format :html do
     wrap { haml :expanded_bar }
   end
 
+  view :expanded_edit_bar, perms: :none do
+    _render_expanded_bar!
+  end
+
+  before :bar do
+    class_up "bar-left", "p-2 font-weight-bold d-flex align-items-center grow-2"
+    class_up "bar-middle", "col-3 d-none d-md-flex align-items-center p-3 border-left"
+    class_up "bar-right", "p-3 border-left d-flex align-items-center justify-content-end text-align-right"
+  end
+
   view :bar_left do
     class_up "card-title", "mb-0"
     render :title
   end
 
+
   view :bar_right do
-    ""
+    render :edit_button, optional: :hide
   end
 
   view :bar_middle do
@@ -27,7 +38,7 @@ format :html do
   end
 
   view :bar_bottom do
-    if mode == :edit
+    if nest_mode == :edit
       render :edit
     else
       render :core
@@ -56,5 +67,10 @@ format :html do
 
   view :bar_collapse_link do
     link_to_view :bar, icon_tag(:arrow_drop_down, class: "md-24"), class: toggle_class
+  end
+
+  view :edit_button do
+    link_to_view :edit, "Edit",
+                 class: "btn btn-sm btn-outline-primary slotter mr-2"
   end
 end

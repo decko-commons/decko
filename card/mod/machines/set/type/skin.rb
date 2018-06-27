@@ -1,5 +1,5 @@
 include_set Abstract::MachineInput
-include_set Abstract::SkinThumbnail
+include_set Abstract::SkinBox
 include_set Pointer
 
 

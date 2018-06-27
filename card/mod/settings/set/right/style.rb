@@ -11,6 +11,8 @@ format do
 end
 
 format :html do
+  HIDDEN_SKINS = %w[bootstrap_default_skin themeless_bootstrap_skin bootstrap_default_skin
+                  classic_bootstrap_skin].freeze
   def default_item_view
     :bar
   end
@@ -19,6 +21,13 @@ format :html do
 
   def themes
     card.rule_card(:options).item_cards
+  end
+
+  def selectable_themes
+    themes.reject do |theme_card|
+      theme_card.right&.codename == :stylesheets ||
+        theme_card.key.in?(HIDDEN_SKINS)
+    end
   end
 end
 

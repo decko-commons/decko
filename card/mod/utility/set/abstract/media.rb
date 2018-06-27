@@ -18,6 +18,7 @@ format :html do
   end
 
   def text_with_image opts={}
+    class_up "media-left", "m-2"
     @image_card = Card.cardish(opts[:image]) if opts[:image]
     opts[:media_opts] = {} unless opts[:media_opts]
     text_with_image_args opts

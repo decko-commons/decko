@@ -1,8 +1,10 @@
-.box.col-3.float-left
-  .p-0.drop-shadow.rounded-0.top-border-default.mb-4
-    .box-top.border-bottom.p-2.d-flex
+.card.p-0.drop-shadow.rounded-0.top-border-default.mb-4{class: classy("box")}
+  - if voo.show? :box_top
+    .card-header{class: classy("box-top")}
       = render :box_top
-    .box-middle.border-bottom.p-2
+  - if voo.show? :box_middle
+    .card-body{class: classy("box-middle")}
       = render :box_middle
-    .box-bottom.p-2.d-flex
+  - if voo.show? :box_bottom
+    .card-footer{class: classy("box-bottom")}
       = render :box_bottom
