@@ -86,7 +86,8 @@ format :html do
   end
 
   def menu_item_edit opts
-    menu_item "edit", "edit", opts.merge(view: :edit)
+    # menu_item "edit", "edit", opts.merge(view: :edit)
+    menu_item "edit", "edit", modal_link_opts(size: :full, path: { bridge: { view: :edit }})
   end
 
   def menu_item_discuss opts

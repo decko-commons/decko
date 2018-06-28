@@ -275,8 +275,12 @@ body.mceContentBody {
 .modal-menu .close{
   font-size: 16px;
   margin-left: 10px;
-
 }
+
+.modal-dialog.modal-full {
+  max-width: 95%;
+}
+
 
 /*-------- Help Texts --------*/
  .alert-info p:last-child {

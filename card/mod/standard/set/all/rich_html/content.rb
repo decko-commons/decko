@@ -20,9 +20,19 @@ format :html do
   def show_with_layout view, args
     args[:view] = view if view
     @main = false
-    @main_opts = args
+
+    if show_as_modal? view
+      @modal_opts = args
+    else
+      @main_opts = args
+    end
+
     render! :layout, layout: params[:layout]
     # FIXME: using title because it's a standard view option.  hack!
+  end
+
+  def show_as_modal? view
+    return true if view.to_sym == :edit
   end
 
   def show_without_layout view, args
@@ -30,6 +40,10 @@ format :html do
     view ||= args[:home_view] || :open
     render! view, args
   end
+
+  #view :edit, bridge: blah
+
+  # def layout layout
 
   view :layout, perms: :none, cache: :never do
     layout = process_content get_layout_content(voo.layout), chunk_list: :references

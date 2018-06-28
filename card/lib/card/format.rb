@@ -63,7 +63,7 @@ class Card
       send "#{accessor_name}=", {}
     end
 
-    attr_reader :card, :parent, :main_opts
+    attr_reader :card, :parent, :main_opts, :modal_opts
     attr_accessor :form, :error_status
 
     def self.view_caching?
