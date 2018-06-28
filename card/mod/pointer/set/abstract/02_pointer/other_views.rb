@@ -27,11 +27,7 @@ format do
 
   def pointer_items args={}
     page_args = args.extract! :limit, :offset
-    card.item_cards(page_args).map do |item_card|
-      nest_item item_card, args do |rendered, item_view|
-        wrap_item rendered, item_view
-      end
-    end
+    listing card.item_cards(page_args), args
   end
 end
 

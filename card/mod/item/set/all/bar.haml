@@ -1,0 +1,12 @@
+.bar.border.left-stripe.d-flex.justify-content-between.p-0.double-border-fix-bottom.with-fancy-border
+  - if voo.show? :bar_left
+    %div{class: classy("bar-left")}
+      = render :bar_left
+  - if voo.show? :bar_middle
+    %div{class: classy("bar-middle")}
+      = render :bar_middle
+  - if voo.show? :bar_right
+    %div{class: classy("bar-right")}
+      = render :bar_right
+      = render :bar_page_link
+      = render :bar_expand_link
