@@ -18,16 +18,17 @@ format :html do
   end
 
   before :bar do
-    class_up "bar-left", "p-2 font-weight-bold d-flex align-items-center grow-2"
-    class_up "bar-middle", "col-3 d-none d-md-flex align-items-center p-3 border-left"
-    class_up "bar-right", "p-3 border-left d-flex align-items-center justify-content-end text-align-right"
+    shared = "align-items-center"
+    class_up "bar-left", "p-2 font-weight-bold d-flex grow-2 #{shared}"
+    class_up "bar-middle", "col-3 d-none d-md-flex p-3 border-left #{shared}"
+    class_up "bar-right",
+             "p-3 border-left d-flex justify-content-end text-align-right #{shared}"
   end
 
   view :bar_left do
     class_up "card-title", "mb-0"
     render :title
   end
-
 
   view :bar_right do
     render :edit_button, optional: :hide

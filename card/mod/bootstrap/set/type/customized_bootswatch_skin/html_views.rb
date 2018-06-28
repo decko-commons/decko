@@ -6,17 +6,19 @@ format :html do
     labeled_badge card.item_count, "items"
   end
 
-  view :bar_right do
-    edit_button
+  view :core, template: :haml do
   end
 
-  view :core, template: :haml do
-
+  view :bar_right do
+    ""
   end
 
   before :bar do
     super()
-    class_up "bar-middle", "col-3 d-none d-md-flex p-3 border-left d-flex align-items-center p-0", true
+    voo.show :edit_button
+    class_up "bar-middle",
+             "col-3 d-none d-md-flex p-3 border-left d-flex align-items-center p-0",
+             true
   end
 
   view :bar_left do
@@ -25,7 +27,7 @@ format :html do
   end
 
   view :bar_bottom do
-    listing(card.editable_item_cards, view: :bar).join
+    render_core
   end
 
   def edit_slot
