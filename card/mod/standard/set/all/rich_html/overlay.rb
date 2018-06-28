@@ -33,6 +33,10 @@ format :html do
   view :overlay_header do
     class_up "d0-card-header", "bg-white text-dark", true
     class_up "d0-card-header-title", "d-flex justify-content-between", true
-    header_wrap [_render_title, _render_overlay_menu]
+    header_wrap [_render_overlay_title, _render_overlay_menu]
+  end
+
+  view :overlay_title do
+    _render_title
   end
 end
