@@ -27,6 +27,5 @@ format :html do
     wrap_with :code do
       render_core
     end
-    # listing(card.input_names.map { |n| Card.fetch(n) }).join
   end
 end

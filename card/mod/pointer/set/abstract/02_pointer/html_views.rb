@@ -10,7 +10,7 @@ format :html do
   end
 
   def stat_label
-    stat_number  == 1 ? "item" : "items"
+    stat_number == 1 ? "item" : "items"
   end
 
   def standard_pointer_core
