@@ -1,6 +1,7 @@
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
-  view :edit, perms: :update, tags: :unknown_ok, cache: :never do
+  view :edit, perms: :update, tags: :unknown_ok, cache: :never,
+              bridge: true do
     with_nest_mode :edit do
       voo.show :toolbar, :help
       frame_and_form :update, edit_form_opts do

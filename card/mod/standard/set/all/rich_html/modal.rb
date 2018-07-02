@@ -11,6 +11,7 @@ format :html do
 
   def modal_dialog_classes opts
     classes = []
+    return classes unless opts.present?
     if (size = opts.delete(:size)) && size != :medium
      classes << "modal-#{MODAL_SIZE[size]}"
     end
@@ -31,34 +32,51 @@ format :html do
     opts
   end
 
-  def modal_slot modal_id=nil
+  def modal_slot modal_id="main-slot"
+    class_up_modal_dialog modal_id
     wrap_with :div, class: "modal fade _modal-slot",
-              role: "dialog", id: "modal-#{modal_id || 'main-slot'}" do
-      wrap_with :div, class: "modal-dialog" do
+              role: "dialog", id: "modal-#{modal_id}" do
+      wrap_with :div, class: classy("modal-dialog") do
         wrap_with :div, class: "modal-content" do
-          modal_content unless modal_id
+          modal_content(modal_id)
         end
       end
     end.html_safe
   end
 
-  def modal_content
-    return unless root.modal_opts
+  def class_up_modal_dialog modal_id
+    return unless main_modal_with_content?(modal_id)
+    class_up "modal-dialog", modal_dialog_classes(root.modal_opts)
+  end
+
+  def modal_content modal_id
+    return unless main_modal_with_content?(modal_id)
     with_nest_mode :normal do
-      nest root.card, root.modal_opts
+      opts = inherit :modal_opts
+      wrap_layout opts, "modal"
+      nest root.card, opts
+#      root.card.format.render_with_layout "modal", root.modal_opts
+#     nest root.card, root.modal_opts.merge
     end
+  end
+
+  def wrap_layout opts, layout
+    opts[:layout] =
+      if opts[:layout]
+        Array.wrap(opts[:layout], layout).flatten
+      else
+        layout
+      end
+  end
+
+  def main_modal_with_content? modal_id
+    root.modal_opts.present? && modal_id == "main-slot"
   end
 
   view :modal_menu, tags: :unknown_ok do
     wrap_with :div, class: "modal-menu w-100" do
       [close_modal_window, pop_out_modal_window]
     end
-  end
-
-  view :modal_dialog_classes, cache: :never, perms: :none, tags: :unknown_ok do
-    classes = ["modal-dialog"]
-    classes << "modal-#{Env.params[:modal_size]}" if Env.params[:modal_size]
-    classy classes
   end
 
   def close_modal_window

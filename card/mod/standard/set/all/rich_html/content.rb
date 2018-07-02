@@ -19,21 +19,44 @@ format :html do
 
   def show_with_layout view, args
     args[:view] = view if view
-    @main = false
+    assign_modal_opts view, args
+    main_opts = @modal_opts.present? ? {} : args
+    render_with_layout params[:layout], main_opts
 
-    if show_as_modal? view
-      @modal_opts = args
-    else
-      @main_opts = args
-    end
-
-    render! :layout, layout: params[:layout]
     # FIXME: using title because it's a standard view option.  hack!
   end
 
-  def show_as_modal? view
-    return true if view.to_sym == :edit
+  def render_with_layout layout, args={}
+    @main = false
+    with_main_opts args do
+      render! :layout, layout: layout
+    end
   end
+
+  def with_main_opts args
+    old_main_opts = @main_opts
+    @main_opts = args
+    yield
+  ensure
+    @main_opts = old_main_opts
+  end
+
+  def assign_modal_opts view, args
+    return unless (opts = explicit_modal_opts(view) || modal_opts_for_bridge(view))
+    @modal_opts = opts.merge args
+  end
+
+  def explicit_modal_opts view
+    return unless (setting = view_setting(:modal, view))
+    setting == true ? { size: :medium } : setting
+  end
+
+  def modal_opts_for_bridge view
+    return unless view_setting(:bridge, view)
+    { size: :full, layout: :bridge }
+  end
+
+  #     nedst view, layout: whatever
 
   def show_without_layout view, args
     @main = true if params[:is_main] || args[:main]
@@ -47,7 +70,8 @@ format :html do
 
   view :layout, perms: :none, cache: :never do
     layout = process_content get_layout_content(voo.layout), chunk_list: :references
-    output [layout, modal_slot]
+
+    output [layout, (modal_slot if depth.zero?)]
   end
 
   view :content do

@@ -30,7 +30,7 @@ class Card
         end
 
         def main_nest_options
-          opts = root.main_opts || {}
+          opts = inherit(:main_opts) || {}
           main_nest_size_opt opts
           main_nest_items_opt opts
           opts
