@@ -69,8 +69,7 @@ format :html do
   # def layout layout
 
   view :layout, perms: :none, cache: :never do
-    layout = process_content get_layout_content(voo.layout), chunk_list: :references
-
+    layout = process_layout voo.layout
     output [layout, (modal_slot if depth.zero?)]
   end
 

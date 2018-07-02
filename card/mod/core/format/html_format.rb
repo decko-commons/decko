@@ -30,7 +30,23 @@ class Card
         :closed
       end
 
-      # helper methods for layout view
+      def process_layout layout
+        send "process_#{layout_type layout}_layout"
+      end
+
+      def layout_type layout
+
+
+
+        process_card_layout
+        when :html
+        process_html_layout layout
+      end
+      layout = process_content get_layout_content(voo.layout), chunk_list: :references
+    end
+
+
+    # helper methods for layout view
       def get_layout_content requested_layout
         Auth.as_bot do
           if requested_layout
