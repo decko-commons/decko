@@ -11,7 +11,8 @@ class Card
 
       # TODO: use CodeFile cards for these
       # builtin layouts allow for rescue / testing
-      LAYOUTS = Mod::Loader.load_layouts.merge "none" => "{{_main}}"
+      HTML_LAYOUTS = Mod::Loader.load_layouts(:html).merge "none" => "{{_main}}"
+      HAML_LAYOUTS = Mod::Loader.load_layouts(:haml)
 
       def main?
         !@main.nil?
@@ -30,53 +31,46 @@ class Card
         :closed
       end
 
-      def process_layout layout
-        send "process_#{layout_type layout}_layout"
+      def process_layout layout_name
+        layout_name ||= layout_name_from_rule
+        send "process_#{layout_type layout_name}_layout", layout_name
       end
 
-      def layout_type layout
-
-
-
-        process_card_layout
-        when :html
-        process_html_layout layout
-      end
-      layout = process_content get_layout_content(voo.layout), chunk_list: :references
-    end
-
-
-    # helper methods for layout view
-      def get_layout_content requested_layout
-        Auth.as_bot do
-          if requested_layout
-            layout_from_card_or_code requested_layout
-          else
-            layout_from_rule
-          end
-        end
+      def process_haml_layout layout
       end
 
-      def layout_from_rule
-        if (rule = card.rule_card :layout) &&
-           (rule.type_id == Card::PointerID) &&
-           (layout_name = rule.item_name)
-          layout_from_card_or_code layout_name
-        end
+      def process_content_layout layout_name
+        content = layout_from_card_or_code layout_name
+        process_content content, chunk_list: :references
       end
 
-      def layout_from_card_or_code name
-        layout_card = Card.quick_fetch name
-        if layout_card && layout_card.ok?(:read)
-          layout_card.content
-        elsif (hardcoded_layout = LAYOUTS[name])
-          hardcoded_layout
-        else
-          content_tag(:h1, I18n.t(:unknown_layout, scope: "mod.core.format.html_format",
-                                                   name: name)) +
-            I18n.t(:built_in, scope: "mod.core.format.html_format",
-                              built_in_layouts: LAYOUTS.keys.join(', '))
-        end
+      def layout_type layout_name
+        HAML_LAYOUTS[layout_name.to_s].present? ? :haml : :content
+      end
+
+      def layout_name_from_rule
+        card.rule_card(:layout)&.try :item_name
+      end
+
+      def layout_from_card_or_code layout_name
+        layout_card_content(layout_name) || HTML_LAYOUTS(layout_name) || unknown_layout
+      end
+
+      def layout_card_content layout_name
+        layout_card = Card.quick_fetch layout_name
+        return unless layout_card.type_id == Card::LayoutTypeID
+        layout_card.content
+      end
+
+      def unknown_layout
+        output [
+          content_tag(:h1, I18n.t(:unknown_layout,
+                                  scope: "mod.core.format.html_format",
+                                  name: name)),
+          I18n.t(:built_in,
+                 scope: "mod.core.format.html_format",
+                 built_in_layouts: LAYOUTS.keys.join(', '))
+        ]
       end
 
       def html_escape_except_quotes s

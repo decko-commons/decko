@@ -14,8 +14,8 @@ format :html do
     params.dig(:bridge, key) || try("default_bridge_#{key}")
   end
 
-  view :bridge, template: :haml do
-  end
+  #view :bridge, template: :haml do
+  #end
 
   view :bridge_main do
     wrap do

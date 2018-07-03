@@ -63,7 +63,7 @@ format :html do
   def wrap_layout opts, layout
     opts[:layout] =
       if opts[:layout]
-        Array.wrap(opts[:layout], layout).flatten
+        Array.wrap([opts[:layout], layout]).flatten.compact
       else
         layout
       end
