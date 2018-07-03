@@ -7,7 +7,7 @@ class Card
           yield # no wrapping in base format
         end
 
-        def main_nest opts
+        def main_nest opts={}
           wrap_main do
             with_nest_mode :normal do
               nest root.card, opts.merge(main_view: true, main: true)

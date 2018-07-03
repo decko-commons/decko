@@ -5,7 +5,7 @@ end
 def help_rule_card
   setting = new_card? ? [:add_help, { fallback: :help }] : :help
   help_card = rule_card(*setting)
-  help_card if help_card && help_card.ok?(:read)
+  help_card if help_card&.ok?(:read)
 end
 
 format :html do
@@ -13,64 +13,10 @@ format :html do
     send "show_#{show_layout? ? :with : :without}_layout", view, args
   end
 
-  def show_layout?
-    !Env.ajax? || params[:layout]
-  end
-
-  def show_with_layout view, args
-    args[:view] = view if view
-    assign_modal_opts view, args
-    main_opts = @modal_opts.present? ? {} : args
-    render_with_layout params[:layout], main_opts
-
-    # FIXME: using title because it's a standard view option.  hack!
-  end
-
-  def render_with_layout layout, args={}
-    @main = false
-    with_main_opts args do
-      render! :layout, layout: layout
-    end
-  end
-
-  def with_main_opts args
-    old_main_opts = @main_opts
-    @main_opts = args
-    yield
-  ensure
-    @main_opts = old_main_opts
-  end
-
-  def assign_modal_opts view, args
-    return unless (opts = explicit_modal_opts(view) || modal_opts_for_bridge(view))
-    @modal_opts = opts.merge args
-  end
-
-  def explicit_modal_opts view
-    return unless (setting = view_setting(:modal, view))
-    setting == true ? { size: :medium } : setting
-  end
-
-  def modal_opts_for_bridge view
-    return unless view_setting(:bridge, view)
-    { size: :full, layout: :bridge }
-  end
-
-  #     nedst view, layout: whatever
-
   def show_without_layout view, args
     @main = true if params[:is_main] || args[:main]
     view ||= args[:home_view] || :open
     render! view, args
-  end
-
-  #view :edit, bridge: blah
-
-  # def layout layout
-
-  view :layout, perms: :none, cache: :never do
-    layout = process_layout voo.layout
-    output [layout, (modal_slot if depth.zero?)]
   end
 
   view :content do
@@ -168,9 +114,7 @@ format :html do
 
   def current_set_card
     set_name = params[:current_set]
-    if card.known? && card.type_id == Card::CardtypeID
-      set_name ||= "#{card.name}+*type"
-    end
+    set_name ||= "#{card.name}+*type" if card.known? && card.type_id == Card::CardtypeID
     set_name ||= "#{card.name}+*self"
     Card.fetch(set_name)
   end

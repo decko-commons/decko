@@ -101,4 +101,14 @@ format :html do
       wrap_with(tag, args) { item }
     end.join "\n"
   end
+
+  private
+
+  def html_escape_except_quotes string
+    # to be used inside single quotes (makes for readable json attributes)
+    string.to_s.gsub(/&/,  "&amp;")
+               .gsub(/\'/, "&apos;")
+               .gsub(/>/,  "&gt;")
+               .gsub(/</,  "&lt;")
+  end
 end

@@ -15,9 +15,8 @@ class Card
 
     # The mods are given by a Mod::Dirs object.
     # SetLoader can use three different strategies to load the set modules.
-
     class Loader
-      def initialize(load_strategy=:eval, mod_dirs=nil)
+      def initialize load_strategy=:eval, mod_dirs=nil
         mod_dirs ||= Mod.dirs
         klass = load_strategy_class load_strategy
         @load_strategy = klass.new mod_dirs, self
@@ -25,16 +24,15 @@ class Card
 
       def load_strategy_class load_strategy
         case load_strategy
-          when :tmp_files     then LoadStrategy::TmpFiles
-          when :binding_magic then LoadStrategy::BindingMagic
-          else                     LoadStrategy::Eval
+        when :tmp_files     then LoadStrategy::TmpFiles
+        when :binding_magic then LoadStrategy::BindingMagic
+        else                     LoadStrategy::Eval
         end
       end
 
       def load
         @load_strategy.load_modules
       end
-
 
       class << self
         attr_reader :module_type
@@ -58,7 +56,7 @@ class Card
           hash = {}
           Mod.dirs.each(:layout) do |dirname|
             Dir.foreach(dirname) do |filename|
-              next if filename =~ /^\./
+              next if filename =~ /^\./ || filename !~ /\.#{extension}$/
               layout_name = filename.gsub(/\.#{extension}$/, "")
               hash[layout_name] = File.read File.join(dirname, filename)
             end

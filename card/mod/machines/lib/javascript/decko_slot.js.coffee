@@ -77,7 +77,9 @@ jQuery.fn.extend {
 # else #simple text (not html)
       v = val
     if v.hasClass("_overlay")
-      s.wrapAll('<div class="overlay-container">')
+      unless s.parent().hasClass("overlay-container")
+        s.wrapAll('<div class="overlay-container">')
+        s.addClass("_bottomlay-slot")
       s.before v
     else
       s.replaceWith v

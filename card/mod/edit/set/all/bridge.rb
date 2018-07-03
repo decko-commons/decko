@@ -10,21 +10,8 @@ format :html do
                    ["references out", :log_out,      :refers_to],
                    ["references in",  :log_in,       :referred_to_by]].freeze
 
-  def bridge_param key
-    params.dig(:bridge, key) || try("default_bridge_#{key}")
-  end
-
-  #view :bridge, template: :haml do
-  #end
-
-  view :bridge_main do
-    wrap do
-      render bridge_view
-    end
-  end
-
   view :bridge_breadcrumbs do
-    "bread"
+    "breadcrumbs"
   end
 
   view :bridge_tabs do
@@ -32,23 +19,10 @@ format :html do
   end
 
   view :follow_buttons do
-    "Buttons"
-  end
-
-  def bridge_view
-    @bridge_view ||= bridge_param :view
-  end
-
-  def bridge_tab
-    @bridge_view ||= bridge_param :tab
-  end
-
-  def default_bridge_view
-    :core
+    follow_link_hash class: "btn btn-primary"
   end
 
   view :history_tab do
-
   end
 
   view :discussion_tab do
@@ -63,7 +37,10 @@ format :html do
   end
 
   def bridge_link_opts
-    { "data-slot-selector": ".card-slot.bridge_main-view", remote: true, class: "slotter",
-    path: { view: :overlay }}
+    slot_selector =
+      ".bridge-main > #main > .card-slot, "\
+      ".bridge-main > #main > .overlay-container > .card-slot._bottomlay-slot"
+    { "data-slot-selector": slot_selector, remote: true, class: "slotter",
+      path: { view: :overlay } }
   end
 end

@@ -1,5 +1,5 @@
 format :html do
-  MODAL_SIZE = { small: "sm", medium: nil, large: "lg", full: "full" }
+  MODAL_SIZE = { small: "sm", medium: nil, large: "lg", full: "full" }.freeze
   view :modal_link do
     modal_link _render_title, size: voo.size
   end
@@ -12,12 +12,9 @@ format :html do
   def modal_dialog_classes opts
     classes = []
     return classes unless opts.present?
-    if (size = opts.delete(:size)) && size != :medium
-     classes << "modal-#{MODAL_SIZE[size]}"
-    end
-    if opts.delete(:vertically_centered)
-      classes << "modal-dialog-centered"
-    end
+    size = opts.delete :size
+    classes << "modal-#{MODAL_SIZE[size]}" if size && size != :medium
+    classes << "modal-dialog-centered" if opts.delete(:vertically_centered)
     classes.join " "
   end
 
@@ -35,7 +32,7 @@ format :html do
   def modal_slot modal_id="main-slot"
     class_up_modal_dialog modal_id
     wrap_with :div, class: "modal fade _modal-slot",
-              role: "dialog", id: "modal-#{modal_id}" do
+                    role: "dialog", id: "modal-#{modal_id}" do
       wrap_with :div, class: classy("modal-dialog") do
         wrap_with :div, class: "modal-content" do
           modal_content(modal_id)
@@ -52,15 +49,12 @@ format :html do
   def modal_content modal_id
     return unless main_modal_with_content?(modal_id)
     with_nest_mode :normal do
-      opts = inherit :modal_opts
-      wrap_layout opts, "modal"
-      nest root.card, opts
-#      root.card.format.render_with_layout "modal", root.modal_opts
-#     nest root.card, root.modal_opts.merge
+      layout = root.modal_opts.delete(:layout) || "modal"
+      root.card.format.render_with_layout layout.to_s, root.modal_opts
     end
   end
 
-  def wrap_layout opts, layout
+  def add_layout opts, layout
     opts[:layout] =
       if opts[:layout]
         Array.wrap([opts[:layout], layout]).flatten.compact
