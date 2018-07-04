@@ -26,6 +26,7 @@ format :html do
                         "data-modal-class": modal_dialog_classes(opts)
 
     opts[:path][:layout] ||= :modal
+    opts[:path] = "#bs"
     opts
   end
 

@@ -71,12 +71,8 @@ RSpec.describe Card::Set::All::RichHtml::Layout do
   #   render layout_card, view: :closed
   # end
 
-  it "renders nested layout" do
-    result = format_subject.render :core, layout: [:modal, :bridge]
-    expect
+  context "when layout in params" do
   end
-
-
 
   def with_layout content
     create_layout "tmp layout", content: content

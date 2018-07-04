@@ -16,10 +16,9 @@ format :html do
 
   def show_with_layout view, args
     args[:view] = view if view
-    assign_modal_opts view, args
+    assign_modal_opts view, args unless Env.ajax?
     main_opts = @modal_opts.present? ? {} : args
     render_with_layout params[:layout], main_opts
-
     # FIXME: using title because it's a standard view option.  hack!
   end
 
@@ -62,10 +61,6 @@ format :html do
     haml HAML_LAYOUTS[layout_name]
   end
 
-  def bridge_layout
-
-  end
-
   def process_content_layout layout_name
     content = layout_from_card_or_code layout_name
     process_content content, chunk_list: :references
@@ -100,5 +95,4 @@ format :html do
   def built_in_layouts
     HTML_LAYOUTS.merge(HAML_LAYOUTS).keys.sort.join ", "
   end
-
 end

@@ -1,15 +1,15 @@
 format :html do
-  view :overlay do
-    overlay [_render_open_content, render_comment_box]
-  end
-
-  def overlay content=nil
-    class_up "card-slot", "_overlay d0-card-overlay bg-white", true
-    @content_body = true
-    frame do
-      block_given? ? yield : content
-    end
-  end
+  # view :overlay do
+  #   overlay [_render_open_content, render_comment_box]
+  # end
+#
+  # def overlay content=nil
+  #   class_up "card-slot", "_overlay d0-card-overlay bg-white", true
+  #   @content_body = true
+  #   frame do
+  #     block_given? ? yield : content
+  #   end
+  # end
 
   view :overlay_menu do
     wrap_with :div, class: "btn-group btn-group-sm" do

@@ -9,8 +9,7 @@ $(window).ready ->
   $('._modal-slot').each ->
     openModalIfPresent $(this)
 
-#$('body').on ', (event) ->
-decko.slotReady (slot) ->
+
   $("._modal-slot").on "show.bs.modal", (event) ->
     link = $(event.target)
     dialog = $(this).find(".modal-dialog")
@@ -18,6 +17,18 @@ decko.slotReady (slot) ->
     classes_from_link = link.data("modal-class")
     if classes_from_link
       dialog.addClass classes_from_link
+
+#$('body').on ', (event) ->
+decko.slotReady (slot) ->
+  # slot.find("._modal-link").on "click", (event) ->
+  #   link = $(this)
+  #   modal_slot = $(link.data("target"))
+  #   dialog = modal_slot.find(".modal-dialog")
+  #   dialog.attr("class", "modal-dialog")
+  #   classes_from_link = link.data "modal-class"
+  #   if classes_from_link
+  #     dialog.addClass classes_from_link
+
 
   # this finds ._modal-slots and moves them to the end of the body
   # this allows us to render modal slots inside slots that call them and yet
