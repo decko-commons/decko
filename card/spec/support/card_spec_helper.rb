@@ -65,7 +65,6 @@ class Card
           padding: 1em 0px 1em 1em;
         }
         .CodeRay .code pre { overflow: auto }
-      </style>
     HTML
 
     def users
@@ -88,6 +87,14 @@ class Card
       yield
     ensure
       Card.config.rss_enabled = false
+    end
+
+    module ClassMethods
+      def check_views_for_errors card, *views
+        views.flatten.each do |view|
+          it_behaves_like "view without errors", view, card
+        end
+      end
     end
   end
 end

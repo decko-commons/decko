@@ -98,12 +98,14 @@ class CardSpecLoader
     def helper
       require File.expand_path "../card_spec_helper.rb", __FILE__
       RSpec::Core::ExampleGroup.send :include, Card::SpecHelper
+      RSpec::Core::ExampleGroup.send :extend, Card::SpecHelper::ClassMethods
       Card.send :include, Card::SpecHelper::CardHelper
       Card.send :include, Card::SpecHelper::SetHelper
       Card.send :extend, Card::SpecHelper::CardHelper::ClassMethods
     end
 
     def load_shared_examples
+      require File.expand_path "../card_shared_examples", __FILE__
       Card::Mod.dirs.each "spec/shared_examples" do |shared_ex_dir|
         Dir["#{shared_ex_dir}/**/*.rb"].sort.each { |f| require f }
       end
