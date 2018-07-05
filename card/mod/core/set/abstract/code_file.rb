@@ -59,6 +59,11 @@ format :html do
     "Content is stored in file and can't be edited."
   end
 
+  view :bar_middle do
+    fa_icon("exclamation-circle", class: "text-muted pr-2") +
+      wrap_with(:span, "file", class: "text-muted")
+  end
+
   def standard_submit_button
     multi_card_editor? ? super : ""
   end

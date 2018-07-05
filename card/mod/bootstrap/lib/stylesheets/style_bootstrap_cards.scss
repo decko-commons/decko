@@ -11,6 +11,7 @@
 $label_color: $gray-600;
 $header_color: $gray-200;
 $credit_color: $primary;
+$bar_stripe_color: $gray-700;
 
 header {
   a {
@@ -57,12 +58,18 @@ form {
   padding: 0px;
 }
 
-
 .link-muted {
   color: $text-muted;
   &:hover {
     color: inherit;
   }
+}
+
+.grow-1 {
+  flex-grow: 1;
+}
+.grow-2 {
+  flex-grow: 2;
 }
 
 /*-------- Special Pages --------*/
@@ -336,3 +343,12 @@ body.mceContentBody {
     display: none !important;
   }
 }
+
+.bar-top.left-stripe, .bar.left-stripe {
+  border-left: 4px solid $bar_stripe_color !important;
+}
+
+.bar-bottom .bar.left-stripe {
+  border-left: 3px solid $bar_stripe_color !important;
+}
+
