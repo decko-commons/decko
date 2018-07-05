@@ -27,6 +27,7 @@ $.extend decko,
 
 jQuery.fn.extend {
   slot: (status="success") ->
+
     @selectSlot("slot-#{status}-selector") ||
       @selectSlot("slot-selector") ||
       @closest(".card-slot")
@@ -68,7 +69,7 @@ jQuery.fn.extend {
     $slot.data "remote", true
     $.rails.handleRemote($slot)
 
-  setSlotContent: (val, overlay=false) ->
+  setSlotContent: (val, mode="standard") ->
     s = @slot()
     v = $(val)
     unless v[0]
@@ -81,19 +82,23 @@ jQuery.fn.extend {
         s.wrapAll('<div class="overlay-container">')
         s.addClass("_bottomlay-slot")
       s.before v
+    else if mode="modal"
+      
     else
       s.replaceWith v
+
+
     v.trigger 'slotReady'
     v.find(".card-slot").trigger "slotReady"
     v
 
 
-  slotSuccess: (data, overlay) ->
+  slotSuccess: (data, mode="standard") ->
     if data.redirect
       window.location=data.redirect
     else
       notice = @attr('notify-success')
-      newslot = @setSlotContent data, overlay
+      newslot = @setSlotContent data, mode
 
       if newslot.jquery # sometimes response is plaintext
         decko.initializeEditors newslot
