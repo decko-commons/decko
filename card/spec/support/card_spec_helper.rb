@@ -90,9 +90,9 @@ class Card
     end
 
     module ClassMethods
-      def check_views_for_errors card, *views
+      def check_views_for_errors *views
         views.flatten.each do |view|
-          it_behaves_like "view without errors", view, card
+          it_behaves_like "view without errors", view
         end
       end
     end
