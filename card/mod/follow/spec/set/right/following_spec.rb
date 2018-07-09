@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::Right::Following do
-  extend Card::SpecHelper::ViewHelper::ViewDescriber
-
   context "when admin is following" do
     let(:following) { Card.fetch "Joe Admin", :following }
 

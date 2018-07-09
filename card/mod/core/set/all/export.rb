@@ -26,12 +26,10 @@ format :json do
   end
 
   def items_for_export
-    items = []
-    each_nested_chunk(nil) do |chunk|
+    nest_chunks.map do |chunk|
       next if main_nest_chunk? chunk
-      items << chunk.referee_card
-    end
-    items
+      chunk.referee_card
+    end.compact
   end
 
   def valid_items_for_export
