@@ -50,12 +50,21 @@ module ClassMethods
   end
 end
 
-def delete
-  update_attributes trash: true unless new_card?
+def delete args={}
+  add_to_trash args do |delete_args|
+    update_attributes delete_args
+  end
 end
 
-def delete!
-  update_attributes! trash: true unless new_card?
+def delete! args={}
+  add_to_trash args do |delete_args|
+    update_attributes! delete_args
+  end
+end
+
+def add_to_trash args
+  return if new_card?
+  yield args.merge trash: true
 end
 
 event :manage_trash, :prepare_to_store, on: :create do

@@ -76,7 +76,11 @@ def listed_by
 end
 
 def update_cached_list
-  Card::Cache[Card::Set::Type::ListedBy].write key, generate_content
+  if trunk
+    Card::Cache[Card::Set::Type::ListedBy].write key, generate_content
+  else
+    Card::Cache[Card::Set::Type::ListedBy].delete key
+  end
 end
 
 def list_card item

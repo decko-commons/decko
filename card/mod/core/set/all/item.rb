@@ -16,6 +16,10 @@ def item_keys args={}
   end
 end
 
+def item_count args={}
+  item_names(args).size
+end
+
 def include_item? item
   key = item.is_a?(Card) ? item.name.key : item.to_name.key
   item_names.map { |name| name.to_name.key }.member? key
@@ -88,5 +92,17 @@ format do
     return if options[:type]
     type_from_rule = card.item_type
     options[:type] = type_from_rule if type_from_rule
+  end
+
+  def listing listing_cards, item_args={}
+    listing_cards.map do |item_card|
+      nest_item item_card, item_args do |rendered, item_view|
+        wrap_item rendered, item_view
+      end
+    end
+  end
+
+  def wrap_item rendered, item_view
+    %(<div class="item-#{item_view}">#{rendered}</div>)
   end
 end

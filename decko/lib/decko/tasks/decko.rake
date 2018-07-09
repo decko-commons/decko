@@ -99,6 +99,7 @@ decko_namespace = namespace :decko do
     prepped_asset_path do |assets_path|
       Card::Mod.dirs.each_assets_path do |mod, target|
         link = File.join assets_path, mod
+        FileUtils.rm_rf link
         FileUtils.ln_s target, link, force: true
       end
     end
@@ -107,8 +108,10 @@ decko_namespace = namespace :decko do
   def prepped_asset_path
     return if Rails.root.to_s == Decko.gem_root # inside decko gem
     assets_path = File.join Rails.public_path, "assets"
-    FileUtils.rm_rf assets_path
-    FileUtils.mkdir assets_path
+    if File.symlink?(assets_path) || !File.directory?(assets_path)
+      FileUtils.rm_rf assets_path
+      FileUtils.mkdir assets_path
+    end
     yield assets_path
   end
 

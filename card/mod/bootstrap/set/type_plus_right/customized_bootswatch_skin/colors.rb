@@ -70,17 +70,21 @@ format :html do
                class: "tags form-control"
   end
 
-  def select_button target=parent.card
-    link_to_card target, "Select",
-                 path: { action: :update, card: { content: "[[#{card.name}]]" } },
-                 class: "btn btn-sm btn-outline-primary"
+  before :bar_right do
+    voo.show :edit_button
   end
 
-  def customize_button target=parent.card
-    link_to_card target, "Customize",
-                 path: { action: :update, card: { content: "[[#{card.name}]]" },
-                         customize: true },
-                 class: "btn btn-sm btn-outline-primary"
+  view :bar_middle do
+    <<-HTML
+      <div class="colorpicker-element">
+        <div class="input-group-addon">
+          <span class="bg-body border p-1">Text</span>
+          <span class="bg-dark text-light border p-1">Nav</span>
+            <i class="bg-primary"></i>
+          <i class="bg-secondary"></i>
+        </div>
+      </div>
+    HTML
   end
 end
 
@@ -101,5 +105,5 @@ def replace_values group, prefix=""
 end
 
 def variable_values_from_params group
-  Env.params.dig(:group)&.slice(*VARIABLE_NAMES[group]) || {}
+  Env.params.dig(group)&.slice(*VARIABLE_NAMES[group]) || {}
 end

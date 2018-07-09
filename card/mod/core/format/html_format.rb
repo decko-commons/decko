@@ -9,6 +9,7 @@ class Card
 
       attr_accessor :options_need_save, :start_time, :skip_autosave
 
+      # TODO: use CodeFile cards for these
       # builtin layouts allow for rescue / testing
       LAYOUTS = Mod::Loader.load_layouts.merge "none" => "{{_main}}"
 

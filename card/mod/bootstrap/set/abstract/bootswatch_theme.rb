@@ -10,7 +10,7 @@
 #
 # The content of a bootswatch theme card consists of four parts:
 #   * pre_variables: hard-coded theme independent stuff
-#       and bootstrap functions to make the available in the variables part
+#       and bootstrap functions to make them available in the variables part
 #   * variables: the content from `_variables.scss`,
 #   * post_variables: the bootstrap css and libraries like select2 and
 #       bootstrap-colorpicker that depend on the theme
@@ -39,7 +39,7 @@
 include_set Abstract::Machine
 include_set Type::Scss
 include_set Abstract::CodeFile
-include_set Abstract::SkinThumbnail
+include_set Abstract::SkinBox
 
 CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets].freeze
 
@@ -154,14 +154,4 @@ end
 def source_dir
   @source_dir ||=
     ::File.expand_path "../../../vendor/bootswatch/dist/#{theme_name}", __FILE__
-end
-
-format :html do
-  view :thumbnail, template: :haml do
-    voo.show! :customize_button, :thumbnail_image
-  end
-
-  view :closed_content do
-    ""
-  end
 end
