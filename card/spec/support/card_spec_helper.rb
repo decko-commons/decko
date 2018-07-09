@@ -40,6 +40,10 @@ class Card
       # items: r1, r2, r3
     end
 
+    def sample_search
+      Card.fetch "Books+*type+by name"
+    end
+
     def assert_view_select view_html, *args, &block
       node = Nokogiri::HTML::Document.parse(view_html).root
       if block_given?

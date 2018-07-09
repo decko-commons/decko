@@ -16,9 +16,19 @@ format do
   def count_with_params args={}
     card.item_names(args).count
   end
+
+  def total_pages
+    ((count_with_params - 1) / limit).to_i
+  end
+
+  def current_page
+    (offset / limit).to_i
+  end
 end
 
 format :html do
+  PAGE_LI_CLASS = { ellipses: "disabled", current: "active" }.freeze
+
   def with_paging path_args={}
     with_paging_path_args path_args do
       output [yield(@paging_path_args), _render_paging]
@@ -37,8 +47,6 @@ format :html do
   end
 
   def paging_links
-    total_pages = ((count_with_params - 1) / limit).to_i
-    current_page = (offset / limit).to_i
     PagingLinks.new(total_pages, current_page)
                .build do |text, page, status, options|
       page_link_li text, page, status, options
@@ -47,16 +55,20 @@ format :html do
 
   # First page is 0 (not 1)
   def page_link_li text, page, status, options={}
-    wrap_with :li, class: "page-item #{status}" do
+    wrap_with :li, class: page_link_li_class(status) do
       page_link text, page, options
     end
+  end
+
+  def page_link_li_class status
+    ["page-item", PAGE_LI_CLASS[status]].compact.join " "
   end
 
   def page_link text, page, options
     return content_tag(:div, text.html_safe, class: "page-link") unless page
     options.merge! class: "card-paging-link slotter page-link",
                    remote: true,
-                   path: paging_path_args(offset: page * limit)
+                   path: page_link_path_args(page)
     link_to raw(text), options
   end
 
@@ -78,6 +90,11 @@ format :html do
     )
     @paging_path_args.merge! extra_paging_path_args
     @paging_path_args.merge local_args
+
+  end
+
+  def page_link_path_args page
+    paging_path_args.merge offset: page * limit
   end
 
   def paging_view
@@ -99,5 +116,26 @@ format :html do
   def fewer_results_than_limit?
     return false unless offset.zero?
     limit > offset + search_with_params.length
+  end
+end
+
+format :json do
+  def page_link_path_args page
+    {
+      limit: limit,
+      offset: page * limit,
+      format: :json
+    }
+  end
+
+  def paging_urls
+    return {} unless total_pages > 1
+    hash = {}
+    PagingLinks.new(total_pages, current_page)
+      .build do |_text, page, status, _options|
+      next unless status.in? %i[next previous]
+      hash[status] = path page_link_path_args(page)
+    end
+    { paging: hash }
   end
 end
