@@ -50,6 +50,10 @@ end
 # JSON views
 
 format :json do
+  def item_cards
+    card.item_cards
+  end
+
   def max_depth
     params[:max_depth] || 1
   end
@@ -63,6 +67,10 @@ format :json do
     card.item_cards.map do |item|
       nest item, view: :essentials
     end
+  end
+
+  view :links do
+    []
   end
 end
 

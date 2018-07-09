@@ -79,7 +79,7 @@ format :csv  do
   def column_titles extra_titles=nil
     res = Array extra_titles
     card1 = Card.fetch card.item_names(limit: 1).first
-    card1.each_nested_chunk do |chunk|
+    card1.nest_chunks.each do |chunk|
       res << column_title(chunk.options)
     end
     res.compact
