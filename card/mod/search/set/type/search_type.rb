@@ -21,14 +21,6 @@ format do
 end
 
 format :json do
-  def item_cards
-    search_with_params
-  end
-
-  view :molecule, cache: :never do
-    super().merge paging_urls
-  end
-
   def items_for_export
     return [] if card.content.empty? || unexportable_tag?(card.name.tag_name.key)
     card.item_cards

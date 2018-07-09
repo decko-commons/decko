@@ -133,7 +133,7 @@ format :json do
     hash = {}
     PagingLinks.new(total_pages, current_page)
       .build do |_text, page, status, _options|
-      next unless status.in? %i[next previous]
+      next unless page && status.in?(%i[next previous])
       hash[status] = path page_link_path_args(page)
     end
     { paging: hash }
