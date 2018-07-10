@@ -17,7 +17,8 @@ RSpec.describe Card::Set::All::Json do
       it "has link url" do
         expect_view(:molecule, format: :json)
           .to eq atom_values.merge items: [],
-                                   links: [json_url("Z")]
+                                   links: [json_url("Z")],
+                                   ancestors: []
       end
     end
 
@@ -31,7 +32,8 @@ RSpec.describe Card::Set::All::Json do
       it "has link urls" do
         expect_view(:molecule, format: :json)
           .to eq atom_values.merge items: [],
-                                   links: ["http://xkcd.com", url("Z")]
+                                   links: ["http://xkcd.com", url("Z")],
+                                   ancestors: []
       end
     end
 
@@ -43,7 +45,8 @@ RSpec.describe Card::Set::All::Json do
       it "has nests" do
         expect_view(:molecule, format: :json)
           .to eq atom_values.merge items: [atom_values(Card["Z"])],
-                                   links: []
+                                   links: [],
+                                   ancestors: []
       end
     end
   end
