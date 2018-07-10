@@ -68,12 +68,16 @@ format :json do
       card: _render_atom }
   end
 
+  view :content do
+    render_page
+  end
+
   view :nucleus, cache: :never do
     {
-        id: card.id,
-        name: card.name,
-        url: path(format: :json),
-        html_url: path
+      id: card.id,
+      name: card.name,
+      url: path(format: :json),
+      html_url: path
     }
   end
 
