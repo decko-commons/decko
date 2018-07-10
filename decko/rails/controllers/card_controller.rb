@@ -57,6 +57,7 @@ class CardController < ActionController::Base
     Card::Machine.refresh_script_and_style unless params[:explicit_file]
     Card::Cache.renew
     Card::Env.reset controller: self
+    request.format = :html if Card::Env.ajax? && !params[:format]
   end
 
   def authenticate
