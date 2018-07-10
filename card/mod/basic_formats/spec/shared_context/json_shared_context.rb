@@ -1,4 +1,4 @@
-RSpec.shared_context "json context", :shared_context => :json do
+RSpec.shared_context "json context", shared_context: :json do
   before do
     Card::Env[:host] = "json.com"
     Card::Env[:protocol] = "http://"
@@ -19,7 +19,7 @@ RSpec.shared_context "json context", :shared_context => :json do
       id: card.id,
       name: card.name,
       url: json_url(card.name.url_key),
-      html_url: "#{root}/#{card.name.url_key}",
+      html_url: "#{root}/#{card.name.url_key}"
     }
   end
 
@@ -36,5 +36,4 @@ RSpec.shared_context "json context", :shared_context => :json do
   def structured_atom_values card=card_subject
     atom_values card, structured: true
   end
-
 end

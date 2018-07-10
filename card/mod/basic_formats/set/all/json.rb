@@ -100,18 +100,16 @@ format :json do
   view :links, cache: :never do
     card.link_chunks.map do |chunk|
       if chunk.referee_name
-        path mark: chunk.referee_name , format: :json
+        path mark: chunk.referee_name, format: :json
       else
         link_to_resource chunk.link_target
       end
     end
   end
 
-
   view :molecule, cache: :never do
     _render_atom.merge items: _render_items, links: _render_links
   end
-
 
   # minimum needed to re-fetch card
   view :cast, cache: :never do

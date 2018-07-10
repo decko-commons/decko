@@ -90,7 +90,6 @@ format :html do
     )
     @paging_path_args.merge! extra_paging_path_args
     @paging_path_args.merge local_args
-
   end
 
   def page_link_path_args page
@@ -130,12 +129,19 @@ format :json do
 
   def paging_urls
     return {} unless total_pages > 1
+    { paging: paging_urls_hash }
+  end
+
+  def paging_urls_hash
     hash = {}
     PagingLinks.new(total_pages, current_page)
-      .build do |_text, page, status, _options|
-      next unless page && status.in?(%i[next previous])
-      hash[status] = path page_link_path_args(page)
+               .build do |_text, page, status, _options|
+      add_paging_url hash, page, status
     end
-    { paging: hash }
+  end
+
+  def add_paging_url hash, page, status
+    return unless page && status.in?(%i[next previous])
+    hash[status] = path page_link_path_args(page)
   end
 end

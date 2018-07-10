@@ -129,7 +129,7 @@ RSpec.describe Card::Set::Type::SearchType do
         expect(view(:items, card: card_subject, format: :json).size).to eq 3
       end
 
-      context "paging" do
+      context "with paging" do
         def paging_url offset
           json_url(card_subject.name.url_key, "limit=1&offset=#{offset}")
         end
@@ -142,10 +142,8 @@ RSpec.describe Card::Set::Type::SearchType do
           Card::Env.params[:limit] = 1
         end
 
-
         it "shows next link" do
-          expect(paging_values)
-            .to eq(next: paging_url(1))
+          expect(paging_values).to eq(next: paging_url(1))
         end
 
         it "shows next and previous link" do
