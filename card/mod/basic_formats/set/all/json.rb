@@ -7,11 +7,11 @@ format :json do
   AUTOCOMPLETE_LIMIT = 8 # number of name suggestions for autocomplete text fields
 
   def default_nest_view
-    :atom
+    :molecule
   end
 
   def default_item_view
-    params[:item] || :atom
+    params[:item] || :molecule
   end
 
   def max_depth
@@ -22,7 +22,7 @@ format :json do
   # eg layout=stamp gives you the metadata currently in "page" view
   # and layout=none gives you ONLY the requested view (default atom)
   def show view, args
-    view ||= :page
+    view ||= :molecule
     raw = render! view, args
     return raw if raw.is_a? String
     method = params[:compress] ? :generate : :pretty_generate
@@ -89,7 +89,8 @@ format :json do
     h = _render_nucleus
     h[:type] = card.type_name
     h[:type_url] = path mark: card.type_name, format: :json
-    h[:molecule_url] = path format: :json, view: :molecule
+    h[:atom_url] = path format: :json, view: :atom
+    h[:nucleus_url] = path format: :json, view: :nucleus
     h[:content] = card.db_content unless card.structure
     h[:codename] = card.codename if card.codename
     h

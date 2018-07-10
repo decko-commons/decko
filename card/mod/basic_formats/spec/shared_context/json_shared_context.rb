@@ -27,7 +27,8 @@ RSpec.shared_context "json context", shared_context: :json do
     values = nucleus_values(card).merge(
       type: card.type_name,
       type_url: json_url(card.type_name),
-      molecule_url: json_url(card.name.url_key, "view=molecule")
+      atom_url: json_url(card.name.url_key, "view=atom"),
+      nucleus_url: json_url(card.name.url_key, "view=nucleus")
     )
     values[:content] = card.content unless structured
     values
