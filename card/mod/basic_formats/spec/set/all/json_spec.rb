@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::Json, "JSON mod" do
+RSpec.describe Card::Set::All::Json do
   include_context "json context"
   specify "nucleus view" do
     expect_view(:nucleus, format: :json)
@@ -17,7 +17,7 @@ RSpec.describe Card::Set::All::Json, "JSON mod" do
       it "has link url" do
         expect_view(:molecule, format: :json)
           .to eq atom_values.merge items: [],
-                                   links: [ json_url("Z") ]
+                                   links: [json_url("Z")]
       end
     end
 
@@ -31,13 +31,13 @@ RSpec.describe Card::Set::All::Json, "JSON mod" do
       it "has link urls" do
         expect_view(:molecule, format: :json)
           .to eq atom_values.merge items: [],
-                                   links: [ "http://xkcd.com", url("Z") ]
+                                   links: ["http://xkcd.com", url("Z")]
       end
     end
 
     context "with nests" do
       def card_subject
-         Card["B"]
+        Card["B"]
       end
 
       it "has nests" do

@@ -68,18 +68,22 @@ format :json do
       card: _render_atom }
   end
 
-  view :core, cache: :never do
-    {
+  view :content do
+    render_page
+  end
+
+  view :content do
+    render_page
       card.name => card.content
     }
   end
 
   view :nucleus, cache: :never do
     {
-        id: card.id,
-        name: card.name,
-        url: path(format: :json),
-        html_url: path
+      id: card.id,
+      name: card.name,
+      url: path(format: :json),
+      html_url: path
     }
   end
 
@@ -102,7 +106,7 @@ format :json do
   view :links, cache: :never do
     card.link_chunks.map do |chunk|
       if chunk.referee_name
-        path mark: chunk.referee_name , format: :json
+        path mark: chunk.referee_name, format: :json
       else
         link_to_resource chunk.link_target
       end
@@ -121,7 +125,6 @@ format :json do
                        ancestors: _render_ancestors
 
   end
-
 
   # minimum needed to re-fetch card
   view :cast, cache: :never do

@@ -53,7 +53,7 @@ module Decko
 
     def format_name_from_params
       return :file if params[:explicit_file]
-      format = request.parameters[:format]
+      format = request.format
       # unknown format
       return :file unless Card::Format.registered.member?(format)
       format.to_sym
