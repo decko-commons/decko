@@ -138,6 +138,7 @@ format :json do
                .build do |_text, page, status, _options|
       add_paging_url hash, page, status
     end
+    hash
   end
 
   def add_paging_url hash, page, status
