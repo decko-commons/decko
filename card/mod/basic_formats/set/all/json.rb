@@ -7,11 +7,11 @@ format :json do
   AUTOCOMPLETE_LIMIT = 8 # number of name suggestions for autocomplete text fields
 
   def default_nest_view
-    :molecule
+    :atom
   end
 
   def default_item_view
-    params[:item] || :molecule
+    params[:item] || :atom
   end
 
   def max_depth
