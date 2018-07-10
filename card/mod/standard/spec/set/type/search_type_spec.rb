@@ -120,7 +120,7 @@ RSpec.describe Card::Set::Type::SearchType do
     end
 
     describe "view: items" do
-      it "returnes atom values for items" do
+      it "returns atom values for items" do
         expect_view(:items, format: :json)
           .to include(*item_names.map { |i| structured_atom_values Card[i] })
       end
