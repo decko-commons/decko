@@ -68,6 +68,12 @@ format :json do
       card: _render_atom }
   end
 
+  view :core, cache: :never do
+    {
+      card.name => card.content
+    }
+  end
+
   view :nucleus, cache: :never do
     {
         id: card.id,
@@ -103,9 +109,17 @@ format :json do
     end
   end
 
+  view :ancestors, cache: :never do
+    card.name.ancestors.map do |name|
+      nest name
+    end
+  end
 
   view :molecule, cache: :never do
-    _render_atom.merge items: _render_items, links: _render_links
+    _render_atom.merge items: _render_items,
+                       links: _render_links,
+                       ancestors: _render_ancestors
+
   end
 
 
