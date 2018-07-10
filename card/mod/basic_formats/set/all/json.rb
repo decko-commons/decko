@@ -72,10 +72,8 @@ format :json do
     render_page
   end
 
-  view :content do
-    render_page
-      card.name => card.content
-    }
+  view :core do
+    { card.name => card.content }
   end
 
   view :nucleus, cache: :never do
