@@ -54,10 +54,10 @@ class CardController < ActionController::Base
   before_action :refresh_card, only: [:create, :update, :delete]
 
   def setup
-    request.format = :html unless params[:format] # is this used??
     Card::Machine.refresh_script_and_style unless params[:explicit_file]
     Card::Cache.renew
     Card::Env.reset controller: self
+    request.format = :html if Card::Env.ajax? && !params[:format]
   end
 
   def authenticate

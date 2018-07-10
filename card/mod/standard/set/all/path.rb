@@ -117,6 +117,12 @@ end
 
 public
 
+format :json do
+  def add_unknown_name_to_opts name, opts
+    # noop
+  end
+end
+
 format :html do
   # in HTML, decko paths rendered as relative to the site's root.
   def contextualize_path relative_path

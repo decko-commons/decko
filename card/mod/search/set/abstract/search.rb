@@ -90,6 +90,16 @@ format do
   end
 end
 
+format :json do
+  def item_cards
+    search_with_params
+  end
+
+  view :molecule, cache: :never do
+    super().merge paging_urls
+  end
+end
+
 format :data do
   view :card_list do
     search_with_params.map do |item_card|

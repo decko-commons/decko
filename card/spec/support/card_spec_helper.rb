@@ -10,6 +10,7 @@ class Card
     include ViewHelper
     include EventHelper
     include SaveHelper
+    include JsonHelper
 
     # ~~~~~~~~~  HELPER METHODS ~~~~~~~~~~~~~~~#
     include Rails::Dom::Testing::Assertions::SelectorAssertions
@@ -32,6 +33,15 @@ class Card
 
     def expect_content
       expect(card_subject.content)
+    end
+
+    def sample_pointer
+      Card["u1+*roles"]
+      # items: r1, r2, r3
+    end
+
+    def sample_search
+      Card.fetch "Books+*type+by name"
     end
 
     def assert_view_select view_html, *args, &block
@@ -65,7 +75,6 @@ class Card
           padding: 1em 0px 1em 1em;
         }
         .CodeRay .code pre { overflow: auto }
-      </style>
     HTML
 
     def users
@@ -88,6 +97,14 @@ class Card
       yield
     ensure
       Card.config.rss_enabled = false
+    end
+
+    module ClassMethods
+      def check_views_for_errors *views
+        views.flatten.each do |view|
+          it_behaves_like "view without errors", view
+        end
+      end
     end
   end
 end

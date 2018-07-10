@@ -34,11 +34,14 @@ RSpec.describe Card::Set::All::Export do
           a_hash_including(name: "A+B", type: "Basic", content: "AlphaBeta")
         )
       end
+
       it "stops while the depth count > 10" do
-        expect(export_pointer("pointer export card")).to include(
-          name: "pointer export card", type: "Pointer",
-          content: "[[pointer export card]]"
-        )
+        expect(export_pointer("pointer export card"))
+          .to include(
+            a_hash_including(name: "pointer export card",
+                             type: "Pointer",
+                             content: "[[pointer export card]]")
+          )
       end
     end
 
