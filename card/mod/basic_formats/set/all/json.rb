@@ -11,7 +11,7 @@ format :json do
   end
 
   def default_item_view
-    params[:item] || :molecule
+    params[:item] || :atom
   end
 
   def max_depth
