@@ -46,7 +46,8 @@ Gem::Specification.new do |s|
 
 
     # files and images
-    ["carrierwave",                "~> 1.1"],
+    #    ["carrierwave",                "~> 1.1"],
+    ["carrierwave",                 "1.2.2"],
     ["mini_magick",                "~> 4.2"],
 
     # assets (JavaScript, CSS, etc)

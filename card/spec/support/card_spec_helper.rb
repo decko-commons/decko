@@ -10,6 +10,7 @@ class Card
     include ViewHelper
     include EventHelper
     include SaveHelper
+    include JsonHelper
 
     # ~~~~~~~~~  HELPER METHODS ~~~~~~~~~~~~~~~#
     include Rails::Dom::Testing::Assertions::SelectorAssertions
@@ -32,6 +33,15 @@ class Card
 
     def expect_content
       expect(card_subject.content)
+    end
+
+    def sample_pointer
+      Card["u1+*roles"]
+      # items: r1, r2, r3
+    end
+
+    def sample_search
+      Card.fetch "Books+*type+by name"
     end
 
     def assert_view_select view_html, *args, &block

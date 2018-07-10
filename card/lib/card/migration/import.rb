@@ -99,7 +99,7 @@ class Card
 
       def fetch_local_data name, view
         Card::Auth.as_bot do
-          Card[name].format(format: :json).render!(view || :content)
+          Card[name].format(format: :json).render!(view || :page)
         end
       end
 

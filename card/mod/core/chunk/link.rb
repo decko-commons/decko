@@ -70,6 +70,14 @@ module Card::Content::Chunk
       end
     end
 
+    def link_target
+      if @explicit_link
+        render_obj @explicit_link
+      elsif @name
+        referee_name
+      end
+    end
+
     def process_chunk
       @process_chunk ||= render_link
     end
