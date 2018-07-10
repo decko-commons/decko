@@ -86,6 +86,7 @@ class Card
       def prepare_stub_nest stub_hash
         stub_card = Card.fetch_from_cast stub_hash[:cast]
         view_opts = stub_hash[:view_opts]
+        voo.normalize_special_options! view_opts
         if stub_card&.key.present? && stub_card.key == card.key
           view_opts[:nest_name] ||= "_self"
         end

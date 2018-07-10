@@ -35,6 +35,10 @@ class Card
       expect(card_subject.content)
     end
 
+    def sample_voo
+      Card::View.new Card["A"].format, :core
+    end
+
     def sample_pointer
       Card["u1+*roles"]
       # items: r1, r2, r3
