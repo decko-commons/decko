@@ -3,3 +3,22 @@
   <head> {{*head|core}} </head>
   <body id="wagn"> {{_main}} </body>
 </html>
+
+
+<!--
+<!DOCTYPE HTML>
+<html>
+</html>
+
+
+view :core, prepend: :head, around: :html
+
+
+view :edit, bridge: true
+
+view :edit, in: :bridge
+
+view :bridge, :in :modal
+
+view :mo-->
+

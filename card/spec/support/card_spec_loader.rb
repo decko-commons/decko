@@ -72,6 +72,7 @@ class CardSpecLoader
           end
           Card::Cache.restore
           Card::Env.reset
+          Card::Env[:params] = example.metadata[:params] if example.metadata[:params]
         end
 
         config.around(:example, :as_bot) do |example|

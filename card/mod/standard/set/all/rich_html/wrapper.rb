@@ -76,11 +76,19 @@ format :html do
   end
 
   def wrap_body
+    wrap_with(:div, class: body_css_classes) { yield }
+  end
+
+  def haml_wrap_body
+    wrap_body do
+      capture_haml { yield }
+    end
+  end
+
+  def body_css_classes
     css_classes = ["d0-card-body"]
     css_classes += ["d0-card-content", card.safe_set_keys] if @content_body
-    wrap_with :div, class: classy(*css_classes) do
-      yield
-    end
+    classy(*css_classes)
   end
 
   def wrap_main
@@ -100,5 +108,15 @@ format :html do
     content.compact.map do |item|
       wrap_with(tag, args) { item }
     end.join "\n"
+  end
+
+  private
+
+  def html_escape_except_quotes string
+    # to be used inside single quotes (makes for readable json attributes)
+    string.to_s.gsub(/&/,  "&amp;")
+               .gsub(/\'/, "&apos;")
+               .gsub(/>/,  "&gt;")
+               .gsub(/</,  "&lt;")
   end
 end

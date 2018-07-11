@@ -9,7 +9,8 @@ format do
     hash.merge! send("follow_link_#{toggle}_hash")
     hash[:path] = path mark: follow_link_mark,
                        action: :update,
-                       success: { layout: :modal, view: :follow_status },
+                       "data-slot-selector": bridge_slot_selector,
+                       success: { layout: :overlay, view: :follow_status },
                        card: { content: "[[#{hash[:content]}]]" }
     hash
   end
@@ -55,6 +56,19 @@ format :html do
       "data-toggle": "modal",
       "data-target": "#modal-#{card.name.safe_key}",
       class: css_classes("follow-link", opts[:class])
+    )
+    link_to follow_link_text(icon, hash[:verb]), link_opts
+  end
+
+  def follow_bridge_link opts={}, icon=false
+    hash = follow_link_hash
+    link_opts = opts.merge(
+        path: hash[:path],
+        title: hash[:title],
+        "data-path": hash[:path],
+        "data-slot-selector": bridge_slot_selector,
+        remote: true,
+        class: css_classes("follow-link", opts[:class], "slotter")
     )
     link_to follow_link_text(icon, hash[:verb]), link_opts
   end

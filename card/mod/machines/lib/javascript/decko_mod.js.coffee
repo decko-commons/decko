@@ -16,6 +16,18 @@ window.decko ||= {} #needed to run w/o *head.  eg. jasmine
 #      s.parentNode.insertBefore ga, s
 #  initfunc()
 
+refresh_menu = (slot) ->
+  menu_slot = slot.find '.menu-slot:first'
+  url = decko.path('~' + slot.data('card-id'))
+  params = {view: 'menu'}
+  params['is_main'] = true if slot.isMain()
+  $.ajax url, {
+    type: 'GET'
+    data: params
+    success: (data) ->
+      menu_slot.replaceWith data
+  }
+
 $(window).ready ->
   $('body').on 'click', '._stop_propagation', (event)->
     event.stopPropagation()
@@ -53,23 +65,6 @@ $(window).ready ->
   $('body').on 'mouseleave', '.btn-item-delete', ->
     $(this).find('i').html('check')
     $(this).addClass("btn-primary").removeClass("btn-danger")
-
-  # modal mod
-  $('body').on 'hidden.bs.modal', (event) ->
-    modal_content = $(event.target).find('.modal-dialog > .modal-content')
-    if $(event.target).attr('id') != 'modal-main-slot'
-      slot = $( event.target ).slot()
-      menu_slot = slot.find '.menu-slot:first'
-      url = decko.path('~' + slot.data('card-id'))
-      params = { view: 'menu' }
-      params['is_main'] = true if slot.isMain()
-      modal_content.empty()
-      $.ajax url, {
-        type : 'GET'
-        data: params
-        success : (data) ->
-          menu_slot.replaceWith data
-      }
 
   # permissions mod
   $('body').on 'click', '.perm-vals input', ->

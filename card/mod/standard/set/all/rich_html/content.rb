@@ -5,7 +5,7 @@ end
 def help_rule_card
   setting = new_card? ? [:add_help, { fallback: :help }] : :help
   help_card = rule_card(*setting)
-  help_card if help_card && help_card.ok?(:read)
+  help_card if help_card&.ok?(:read)
 end
 
 format :html do
@@ -13,27 +13,10 @@ format :html do
     send "show_#{show_layout? ? :with : :without}_layout", view, args
   end
 
-  def show_layout?
-    !Env.ajax? || params[:layout]
-  end
-
-  def show_with_layout view, args
-    args[:view] = view if view
-    @main = false
-    @main_opts = args
-    render! :layout, layout: params[:layout]
-    # FIXME: using title because it's a standard view option.  hack!
-  end
-
   def show_without_layout view, args
     @main = true if params[:is_main] || args[:main]
     view ||= args[:home_view] || :open
     render! view, args
-  end
-
-  view :layout, perms: :none, cache: :never do
-    layout = process_content get_layout_content(voo.layout), chunk_list: :references
-    output [layout, modal_slot]
   end
 
   view :content do
@@ -131,9 +114,7 @@ format :html do
 
   def current_set_card
     set_name = params[:current_set]
-    if card.known? && card.type_id == Card::CardtypeID
-      set_name ||= "#{card.name}+*type"
-    end
+    set_name ||= "#{card.name}+*type" if card.known? && card.type_id == Card::CardtypeID
     set_name ||= "#{card.name}+*self"
     Card.fetch(set_name)
   end

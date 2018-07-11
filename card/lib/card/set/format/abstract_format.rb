@@ -56,13 +56,15 @@ class Card
         def interpret_view_opts view, opts
           return unless opts.present?
           Card::Format.interpret_view_opts view, opts
-          extract_view_cache_rules view, opts.delete(:cache)
+          VIEW_SETTINGS.each do |setting_name|
+            define_view_setting_method view, setting_name, opts.delete(setting_name)
+          end
         end
 
-        def extract_view_cache_rules view, cache_rule
-          return unless cache_rule
-          methodname = Card::Format.view_cache_setting_method view
-          define_method(methodname) { cache_rule }
+        def define_view_setting_method view, setting_name, setting_value
+          return unless setting_value
+          method_name = Card::Format.view_setting_method_name view, setting_name
+          define_method(method_name) { setting_value}
         end
 
         def view_block view, args, &block
