@@ -1,22 +1,16 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::Abstract::Pointer do
-  extend Card::SpecHelper::ViewHelper::ViewDescriber
-
   context "with simple Pointer" do
-    let(:pointer) do
+    def card_subject
       pointer = Card["Sample Pointer"]
       pointer << "A"
       pointer
     end
 
-    describe_views :core, :closed_content, :editor,
-                   :list, :autocomplete, :checkbox,
-                   :radio, :select, :multiselect do
-      it "doesn't have errors" do
-        expect(pointer.format.render(view)).to lack_errors
-      end
-    end
+    check_views_for_errors :core, :closed_content, :editor,
+                           :list, :autocomplete, :checkbox,
+                           :radio, :select, :multiselect
   end
 
   describe "editors" do

@@ -102,6 +102,10 @@ class Cardname
         end
     end
 
+    def ancestors
+      @ancestors ||= pieces.reject { |p| p == self}
+    end
+
     # def + other
     #   self.class.new(parts + other.to_name.parts)
     # end

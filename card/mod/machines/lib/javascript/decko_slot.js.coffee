@@ -27,6 +27,7 @@ $.extend decko,
 
 jQuery.fn.extend {
   slot: (status="success") ->
+
     @selectSlot("slot-#{status}-selector") ||
       @selectSlot("slot-selector") ||
       @closest(".card-slot")

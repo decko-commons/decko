@@ -27,11 +27,7 @@ format do
 
   def pointer_items args={}
     page_args = args.extract! :limit, :offset
-    card.item_cards(page_args).map do |item_card|
-      nest_item item_card, args do |rendered, item_view|
-        wrap_item rendered, item_view
-      end
-    end
+    listing card.item_cards(page_args), args
   end
 end
 
@@ -54,6 +50,10 @@ end
 # JSON views
 
 format :json do
+  def item_cards
+    card.item_cards
+  end
+
   def max_depth
     params[:max_depth] || 1
   end
@@ -67,6 +67,10 @@ format :json do
     card.item_cards.map do |item|
       nest item, view: :essentials
     end
+  end
+
+  view :links do
+    []
   end
 end
 

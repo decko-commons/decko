@@ -3,17 +3,17 @@ class Card
     # Manages options for card views, including those used in nest syntax
     module Options
       # the keymap represents a 2x2 matrix, where the factors are
-      # (a) whether an option's value can be set by a Carditect via nests, and
+      # (a) whether an option's value can be set by a shark via nests, and
       # (b) whether nested views can inherit the option from a parent view.
       #
-      #                  for rulers  | not for rulers
+      #                  for sharks  | not for sharks
       #                 ________________________________
       #       inherit  | both        | heir
-      # don't inherit  | ruler       | none
+      # don't inherit  | shark       | none
       #
       # (note: each option will likely some day merit its own object)
       @keymap = {
-        ruler: [
+        shark: [
           :view,           # view to render
           :nest_name,      # name as used in nest
           :nest_syntax,    # full nest syntax

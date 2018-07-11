@@ -73,7 +73,7 @@ format :html do
   end
 
   def current_act_seq acts
-    @act_seq = @act_seq ? (@act_seq += 1) : act_list_starting_seq(acts)
+    @act_seq = @act_seq ? (@act_seq -= 1) : act_list_starting_seq(acts)
   end
 
   def clean_acts acts
@@ -87,7 +87,7 @@ format :html do
   end
 
   def act_list_starting_seq acts
-    acts.size - (acts_page_from_params - 1) * acts_per_page + 1
+    acts.size - (acts_page_from_params - 1) * acts_per_page
   end
 
   def acts_per_page
