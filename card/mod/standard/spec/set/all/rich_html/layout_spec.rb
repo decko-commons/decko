@@ -39,6 +39,24 @@ RSpec.describe Card::Set::All::RichHtml::Layout do
     end
   end
 
+  example "layout as render option" do
+    expect(format_subject.render(:core, layout: :bridge))
+      .to have_tag :pre
+
+  end
+
+  example "layout as nest option" do
+    expect(format_subject.nest("A", layout: :pre))
+      .to have_tag :pre
+  end
+
+  example "layout as param" do
+    expect(format_subject.nest("A", layout: :pre))
+      .to have_tag :pre
+  end
+
+
+
   let(:main_card) { Card.fetch("Joe User") }
 
   #      it "defaults to core view when in layout mode" do

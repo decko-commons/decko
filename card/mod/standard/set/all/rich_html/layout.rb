@@ -1,4 +1,6 @@
 
+nest({ wikipedia: { editable: false, type: :phrase, default: "dfds" }}, :about, :address)
+
 format :html do
   # TODO: use CodeFile cards for these
   # builtin layouts allow for rescue / testing
@@ -8,6 +10,24 @@ format :html do
   view :layout, perms: :none, cache: :never do
     layout = process_layout voo.layout
     output [layout, (modal_slot if root?)]
+  end
+
+  def show_full_page?
+    !Env.ajax?
+  end
+
+  def page_wrapper content
+    <<-HTML.strip_heredoc
+      <!DOCTYPE HTML>
+      <html>
+        <head>
+          #{card.rule(:head)}
+        </head>
+        <body>
+          #{content}
+        </body>
+      </html>
+    HTML
   end
 
   def show_layout?

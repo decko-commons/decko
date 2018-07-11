@@ -10,7 +10,8 @@ end
 
 format :html do
   def show view, args
-    send "show_#{show_layout? ? :with : :without}_layout", view, args
+    content = send "show_#{show_layout? ? :with : :without}_layout", view, args
+    show_full_page? ? content : page_wrapper(content)
   end
 
   def show_without_layout view, args

@@ -82,5 +82,11 @@ describe Card::Set::Abstract::Pointer do
                               content: ["b1", "[[b2]]"]
       expect(pointer1.content).to eq("[[b1]]\n[[b2]]")
     end
+
+    it "handles arrays for subfields" do
+      create "super card", subfields: { "a pointer" => { content: ["b1", "[[b2]]"],
+                                                         type_id: Card::PointerID }}
+      expect_card("super card+a pointer").to have_db_content "[[b1]]\n[[b2]]"
+    end
   end
 end

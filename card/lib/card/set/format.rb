@@ -83,6 +83,15 @@ class Card
         modules[:base_format][format_class] << mod
       end
 
+      class << self
+        def layout_method_name layout
+          "_layout_#{layout}"
+        end
+
+        def view_method_name view
+          "_view_#{view}"
+        end
+      end
       # All Format modules are extended with this module in order to support
       # the basic format API (ok, view definitions.  It's just view
       # definitions.)
@@ -116,9 +125,13 @@ class Card
           end
         end
 
+        def layout layout, &block
+          define_method Card::Set::Format.layout_method_name(layout), &block
+        end
+
         def define_standard_view_method view, &block
           views[self][view] = block
-          define_method "_view_#{view}", &block
+          define_method Card::Set::Format.view_method_name(view), &block
         end
 
         def define_async_view_method view, &block

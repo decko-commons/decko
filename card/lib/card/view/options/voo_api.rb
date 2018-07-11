@@ -77,6 +77,10 @@ class Card
           value&.to_sym
         end
 
+        def normalize_layout value
+          Array.wrap value
+        end
+
         protected
 
         # - @live_options are dynamic and can be altered by the "voo" API at any time.

@@ -25,7 +25,8 @@ format :html do
 
     wrap_with :div, class: "vertical-card-menu card-menu #{css_class}" do
       wrap_with :div, class: "btn-group slotter card-slot float-right" do
-        link_to_view :vertical_menu, menu_icon, path: menu_link_path_opts
+        link_to_view "edit", fa_icon("edit"), path: { layout: :bridge }, remote: true, "data-slotter-mode": "modal", class: "slotter"
+        # link_to_view :vertical_menu, menu_icon, path: menu_link_path_opts
       end
     end
   end
@@ -87,8 +88,9 @@ format :html do
 
   def menu_item_edit opts
     # menu_item "edit", "edit", opts.merge(view: :edit)
-    menu_item "edit", "edit",
-              modal_link_opts(size: :full, path: { layout: :modal_bridge, view: :edit })
+    # menu_item "edit", "edit",
+    #           modal_link_opts(size: :full, path: { layout: :modal_bridge, view: :edit })
+    menu_item "edit", "edit", path: { layout: :bridge }, remote: true, "data-slotter-mode": "modal", class: "slotter"
   end
 
   def menu_item_discuss opts

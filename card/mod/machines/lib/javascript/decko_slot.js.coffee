@@ -68,32 +68,50 @@ jQuery.fn.extend {
     $slot.data "remote", true
     $.rails.handleRemote($slot)
 
-  setSlotContent: (val, overlay=false) ->
-    s = @slot()
+  setSlotContent: (val, mode) ->
     v = $(val)
     unless v[0]
 #   if slotdata = s.attr 'data-slot'
 #     v.attr 'data-slot', slotdata if slotdata?
 # else #simple text (not html)
       v = val
+
     if v.hasClass("_overlay")
-      unless s.parent().hasClass("overlay-container")
-        s.wrapAll('<div class="overlay-container">')
-        s.addClass("_bottomlay-slot")
-      s.before v
+      mode == "overlay"
+    else if v.hasClass("_modal")
+      mode == "modal"
+
+    s = if mode == "modal" then modalSlot() else @slot()
+
+    if mode == "overlay"
+      s.addOverlay(v)
     else
       s.replaceWith v
+    if mode == "modal"
+      v.modalify()
+      v.closest("#modal-container").modal("show")
     v.trigger 'slotReady'
     v.find(".card-slot").trigger "slotReady"
     v
 
+  addOverlay: (overlay) ->
+    unless @parent().hasClass("overlay-container")
+      @wrapAll('<div class="overlay-container">')
+      @addClass("_bottomlay-slot")
+    @before overlay
 
-  slotSuccess: (data, overlay) ->
+  modalify: ->
+    unless @hasClass("modal-dialog")
+      @addClass("modal-dialog").wrapInner('<div class="modal-content">')
+
+  # mode can be "standard", "overlay" or "modal"
+  slotSuccess: (data, mode) ->
     if data.redirect
       window.location=data.redirect
     else
       notice = @attr('notify-success')
-      newslot = @setSlotContent data, overlay
+      mode ||= "standard"
+      newslot = @setSlotContent data, mode
 
       if newslot.jquery # sometimes response is plaintext
         decko.initializeEditors newslot

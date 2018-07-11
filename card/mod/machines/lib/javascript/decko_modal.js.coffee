@@ -20,6 +20,8 @@ $(window).ready ->
 
 #$('body').on ', (event) ->
 decko.slotReady (slot) ->
+#  if slot.parent().is("#modal-container")
+#    slot.parent().modal("show")
   # slot.find("._modal-link").on "click", (event) ->
   #   link = $(this)
   #   modal_slot = $(link.data("target"))
@@ -41,6 +43,17 @@ decko.slotReady (slot) ->
     else
       $("body").append mslot
 
+
+modalSlot = ->
+  slot = $("#modal-container > .card-slot")
+  if slot.length > 0 then slot else createModalSlot()
+
+createModalSlot = ->
+  slot = $('<div/>', class: "card-slot")
+  $("body").append(
+    $('<div/>', id: "modal-container", class: "modal fade").append(slot)
+  )
+  slot
 
 openModalIfPresent = (mslot) ->
   if mslot.find(".modal-content").html().length > 0
