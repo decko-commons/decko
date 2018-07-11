@@ -1,4 +1,9 @@
 format :json do
+  # because card.item_cards returns "[[#{self}]]"
+  def item_cards
+    uniq_nested_cards
+  end
+
   AUTOCOMPLETE_LIMIT = 8 # number of name suggestions for autocomplete text fields
 
   def default_nest_view
@@ -13,8 +18,11 @@ format :json do
     params[:max_depth].present? ? params[:max_depth].to_i : 1
   end
 
+  # TODO: support layouts in json
+  # eg layout=stamp gives you the metadata currently in "page" view
+  # and layout=none gives you ONLY the requested view (default atom)
   def show view, args
-    view ||= :content
+    view ||= :molecule
     raw = render! view, args
     return raw if raw.is_a? String
     method = params[:compress] ? :generate : :pretty_generate
@@ -54,18 +62,67 @@ format :json do
     hash
   end
 
-  view :content, cache: :never do
+  view :page, cache: :never do
     { url: request_url,
       timestamp: Time.now.to_s,
       card: _render_atom }
   end
 
+  view :content do
+    render_page
+  end
+
+  view :core do
+    { card.name => card.content }
+  end
+
+  view :nucleus, cache: :never do
+    {
+      id: card.id,
+      name: card.name,
+      url: path(format: :json),
+      html_url: path
+    }
+  end
+
   view :atom, cache: :never do
-    h = { name: card.name, type: card.type_name }
+    h = _render_nucleus
+    h[:type] = card.type_name
+    h[:type_url] = path mark: card.type_name, format: :json
+    h[:atom_url] = path format: :json, view: :atom
+    h[:nucleus_url] = path format: :json, view: :nucleus
     h[:content] = card.db_content unless card.structure
     h[:codename] = card.codename if card.codename
-    h[:value] = _render_core if depth < max_depth
     h
+  end
+
+  view :items, cache: :never do
+    item_cards.map do |i_card|
+      nest i_card
+    end
+  end
+
+  view :links, cache: :never do
+    card.link_chunks.map do |chunk|
+      if chunk.referee_name
+        path mark: chunk.referee_name, format: :json
+      else
+        link_to_resource chunk.link_target
+      end
+    end
+  end
+
+  view :ancestors, cache: :never do
+    card.name.ancestors.map do |name|
+      nest name
+    end
+  end
+
+  view :molecule, cache: :never do
+    _render_atom.merge items: _render_items,
+                       links: _render_links,
+                       ancestors: _render_ancestors
+
   end
 
   # minimum needed to re-fetch card

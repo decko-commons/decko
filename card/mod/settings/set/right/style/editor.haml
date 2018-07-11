@@ -1,6 +1,6 @@
-.album.py-5.bg-light
+.album.bg-light
   .container
     .row
-      - themes.each do |theme|
-        .col-md-3
-          = nest theme, view: :thumbnail
+      - selectable_themes.each do |theme|
+        .col-md-4
+          = nest theme, view: :box

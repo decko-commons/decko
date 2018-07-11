@@ -1,0 +1,10 @@
+.card.p-0.drop-shadow.rounded-0.top-border-default.mb-4{class: classy("box")}
+  - if voo.show? :box_top
+    .card-header{class: classy("box-top")}
+      = render :box_top
+  - if voo.show? :box_middle
+    .card-body{class: classy("box-middle")}
+      = render :box_middle
+  - if voo.show? :box_bottom
+    .card-footer{class: classy("box-bottom")}
+      = render :box_bottom

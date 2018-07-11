@@ -1,6 +1,25 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Abstract::Pointer do
+RSpec.describe Card::Set::Abstract::Pointer do
+  describe "json" do
+    include_context "json context"
+
+    def card_subject
+      sample_pointer
+    end
+
+    let(:item_names) { %w[r1 r2 r3] }
+
+    specify "view: links" do
+      expect_view(:links, format: :json).to eq([])
+    end
+
+    specify "view: items" do
+      expect_view(:items, format: :json)
+        .to contain_exactly(*item_names.map { |i| structured_atom_values Card[i] })
+    end
+  end
+
   describe "css" do
     let(:css) { "#box { display: block }" }
 

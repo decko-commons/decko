@@ -24,10 +24,12 @@ Decko::Engine.routes.draw do
   match ":id(.:format)" => "card#update", via: :put
   match ":id(.:format)" => "card#delete", via: :delete
 
+  get ":id/view/:view(.:format)" => "card#read"
+
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~
   # legacy
   get "new/:type"                  => "card#read",   view: "new"
-  get "card/:view(/:id(.:format))" => "card#read",   view: /new|options|edit/
+  get "card/:view(/:id(.:format))" => "card#read",   view: /new|edit/
 
   get "account/signin"             => "card#read",   id: ":signin"
   get "account/signout"            => "card#delete", id: ":signin"
