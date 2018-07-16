@@ -19,15 +19,34 @@ format :html do
   end
 
   def standard_frame slot=true
+    with_frame slot do
+      wrap_body { yield }
+    end
+  end
+
+  def haml_overlay_frame slot=true
+    with_frame slot, render_overlay_header do
+      haml_wrap_body { yield }
+    end
+  end
+
+  def overlay_frame slot=true
+    with_frame slot, render_overlay_header do
+      wrap_body { yield }
+    end
+  end
+
+  def overlay_main opts={}
+    overlay_frame true do
+      main_nest opts
+    end
+  end
+
+  def with_frame slot=true, header=frame_header
     voo.hide :horizontal_menu, :help
     wrap slot do
       panel do
-        [
-          frame_header,
-          frame_help,
-          _render(:flash),
-          wrap_body { yield }
-        ]
+        [header, frame_help, _render(:flash), yield]
       end
     end
   end
@@ -46,11 +65,7 @@ format :html do
   end
 
   def frame_header
-    if voo.ok_view == :overlay
-      _render_overlay_header
-    else
-      [_render_menu, _render_header]
-    end
+    [_render_menu, _render_header]
   end
 
   def frame_help

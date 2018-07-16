@@ -63,11 +63,17 @@ class Card
 
       # setting (:alway, :never, :nested) designated in view definition
       def view_cache_setting view
-        method = self.class.view_cache_setting_method view
-        coded_setting = respond_to?(method) ? send(method) : :standard
+        coded_setting = view_setting(:cache, view) || :standard
+        # method = self.class.view_cache_setting_method view
+        # coded_setting = respond_to?(method) ? send(method) : :standard
         return :never if coded_setting == :never
         # seems unwise to override a hard-coded "never"
         (voo && voo.cache) || coded_setting
+      end
+
+      def view_setting setting_name, view
+        method = self.class.view_setting_method_name view, setting_name
+        try method
       end
 
       def stub_render cached_content
@@ -86,6 +92,7 @@ class Card
       def prepare_stub_nest stub_hash
         stub_card = Card.fetch_from_cast stub_hash[:cast]
         view_opts = stub_hash[:view_opts]
+        voo.normalize_special_options! view_opts
         if stub_card&.key.present? && stub_card.key == card.key
           view_opts[:nest_name] ||= "_self"
         end

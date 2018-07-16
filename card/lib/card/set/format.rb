@@ -19,6 +19,13 @@ class Card
     #   The external api with checks:
     #     render(:viewname, args)
     #
+    #  TODO:
+    #  introduce view settings
+    #    modal: { size: :large},
+    #    cache
+    #    perms
+    #    tags: :unknown_ok
+    #    bridge
     module Format
       require_dependency "card/set/format/haml_views"
       require_dependency "card/set/format/abstract_format"

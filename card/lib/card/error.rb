@@ -63,7 +63,7 @@ class Card
 
       def simple_exception_view card, exception
         # "simple" error messages are visible to end users and are generally not
-        # treated as software bugs (though they may be "ruler" bugs)
+        # treated as software bugs (though they may be "shark" bugs)
         case exception
         when BadContent, BadQuery
           card.errors.add :exception, exception.message

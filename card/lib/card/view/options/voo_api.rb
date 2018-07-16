@@ -25,15 +25,13 @@ class Card
 
           def define_getter option_key
             define_method option_key do
-              norm_method = "normalize_#{option_key}"
-              value = live_options[option_key]
-              try(norm_method, value) || value
+              live_options[option_key]
             end
           end
 
           def define_setter option_key
             define_method "#{option_key}=" do |value|
-              live_options[option_key] = value
+              live_options[option_key] = special_option_value(option_key, value) || value
             end
           end
         end
@@ -69,12 +67,29 @@ class Card
         # methods that follow the normalize_#{key} pattern are called by accessors
         # (arguably that should be done during normalization!)
 
+        def normalize_special_options! opts
+          opts.each do |option_key, value|
+            new_value = special_option_value option_key, value
+            opts[option_key] = new_value if new_value
+          end
+        end
+
+        def special_option_value option_key, value
+          try "normalize_#{option_key}", value
+        end
+
         def normalize_editor value
           value&.to_sym
         end
 
         def normalize_cache value
           value&.to_sym
+        end
+
+        def normalize_layout value
+          Array.wrap(value).map do |v|
+            v.is_a?(Symbol) ? v : v.strip.split(/\s*,\s*/)
+          end.compact.flatten.map(&:to_sym)
         end
 
         protected
@@ -93,12 +108,14 @@ class Card
         # handling for main_views.
         def normalize_options
           @normalized_options = opts = options_to_hash @raw_options.clone
+          normalize_special_options! opts
           @optional = opts.delete(:optional) || false
           add_implicit_options!
           inherit_options_from_parent!
           validate_options! opts
           opts
         end
+
 
         def add_implicit_options!
           @normalized_options[:view] = @raw_view
