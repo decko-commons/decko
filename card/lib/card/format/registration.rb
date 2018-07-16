@@ -54,8 +54,8 @@ class Card
         end
       end
 
-      def view_cache_setting_method view
-        "view_#{view}_cache_setting"
+      def view_setting_method_name view, setting_name
+        "view_#{view}_#{setting_name}_setting"
       end
 
       def class_from_name formatname

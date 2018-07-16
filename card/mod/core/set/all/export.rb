@@ -27,7 +27,7 @@ format :json do
 
   def items_for_export
     nest_chunks.map do |chunk|
-      next if main_nest_chunk? chunk
+      next if chunk.try :main?
       chunk.referee_card
     end.compact
   end
@@ -40,14 +40,5 @@ format :json do
 
   def valid_export_card? ecard
     ecard.real? && ecard != card && !@exported_keys.include?(ecard.key)
-  end
-
-  def main_nest_chunk? chunk
-    chunk_nest_name(chunk) == "_main"
-  end
-
-  def chunk_nest_name chunk
-    return unless chunk.respond_to? :options
-    chunk.options&.dig :nest_name
   end
 end

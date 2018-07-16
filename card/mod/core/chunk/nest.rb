@@ -56,7 +56,7 @@ class Card
             if key == :item
               options_hash[:items] ||= {}
               options_hash[:items][:view] = value
-            elsif Card::View::Options.ruler_keys.include? key
+            elsif Card::View::Options.shark_keys.include? key
               options_hash[key] = value
               # else
               # handle other keys
@@ -90,6 +90,14 @@ class Card
           else
             @text.sub! "}}", "|#{view}}}"
           end
+        end
+
+        def main?
+          nest_name == "_main"
+        end
+
+        def nest_name
+          options&.dig :nest_name
         end
 
         private

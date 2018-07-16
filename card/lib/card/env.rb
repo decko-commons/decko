@@ -44,9 +44,17 @@ class Card
         # FIXME:  upgrade to safe parameters
         self[:slot_opts] ||= begin
           opts = params[:slot] || {}
+          opts.merge shortcut_slot_opts
           opts = opts.to_unsafe_h if opts.is_a? ActionController::Parameters
           opts.deep_symbolize_keys
         end
+      end
+
+      def shortcut_slot_opts
+        opts = {}
+        opts[:size] = params[:size].to_sym if params[:size]
+        opts[:items] = { view: params[:item].to_sym } if params[:item].present?
+        opts
       end
 
       def session

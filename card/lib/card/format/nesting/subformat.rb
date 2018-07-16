@@ -19,6 +19,10 @@ class Card
           @depth ||= parent ? (parent.depth + 1) : 0
         end
 
+        def root?
+          depth.zero?
+        end
+
         # is format's card the format of the main card on a page?
         def main?
           depth.zero?

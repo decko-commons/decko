@@ -212,13 +212,4 @@ decko.slotReady (slot) ->
       2000
     )
 
-  # this finds ._modal-slots and moves them to the end of the body
-  # this allows us to render modal slots inside slots that call them and yet
-  # avoid associated problems (eg nested forms and unintentional styling)
-  # note: it deletes duplicate modal slots
-  slot.find('._modal-slot').each ->
-    mslot = $(this)
-    if $.find("body #" + mslot.attr("id")).length > 1
-      mslot.remove()
-    else
-      $("body").append mslot
+
