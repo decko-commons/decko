@@ -5,7 +5,8 @@ class Card
     module Render
       MAX_LAYOUT_NESTING = 15
 
-      def render! view, view_options={}
+      # view=open&layout=simple
+      def render! view, view_options = {}
         voo = View.new self, view, view_options, @voo
         with_voo voo do
           voo.process do |final_view|
@@ -36,9 +37,13 @@ class Card
       def process_next_layout
         layout = @layout_stack.pop
         if layout.respond_to?(:call)
-          layout.call
-        else
-          send Card::Set::Format.layout_method_name(layout)
+          if voo.main
+            wrap_main
+
+            layout.call
+          else
+            send Card::Set::Format.layout_method_name(layout)
+          end
         end
       end
 
@@ -78,7 +83,7 @@ class Card
         @voo
       end
 
-      def show_view? view, default_viz=:show
+      def show_view? view, default_viz = :show
         voo.process_visibility_options # trigger viz processing
         visibility = voo.viz_hash[view] || default_viz
         visibility == :show

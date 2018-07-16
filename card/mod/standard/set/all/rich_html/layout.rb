@@ -1,11 +1,44 @@
 
-nest({ wikipedia: { editable: false, type: :phrase, default: "dfds" }}, :about, :address)
+# nest({ wikipedia: { editable: false, type: :phrase, default: "dfds" }}, :about, :address)
 
 format :html do
   # TODO: use CodeFile cards for these
   # builtin layouts allow for rescue / testing
   HTML_LAYOUTS = Mod::Loader.load_layouts(:html).merge "none" => "{{_main}}"
   HAML_LAYOUTS = Mod::Loader.load_layouts(:haml)
+
+  def show_without_page_layout view, args
+    @main = true if params[:is_main] || args[:main]
+    view ||= args[:home_view] || :open
+    render! view, args
+  end
+
+  def show_with_page_layout view, args
+    binding.pry
+    args[:view] = view if view
+    args[:main] = true
+    args[:main_view] = true
+    assign_modal_opts view, args unless Env.ajax?
+    view_opts = @modal_opts.present? ? {} : args
+    layout = params[:layout] || card.rule(:layout) || :default
+    render_with_layout view, layout, view_opts
+    # FIXME: using title because it's a standard view option.  hack!
+  end
+
+  def render_with_layout view, layout, args={}
+    @main = false
+    view ||= default_nest_view
+    args[:layout] = [layout, args[:layout]].flatten.compact
+    render! view, args
+  end
+
+  def with_main_opts args
+    old_main_opts = @main_opts
+    @main_opts = args
+    yield
+  ensure
+    @main_opts = old_main_opts
+  end
 
   view :layout, perms: :none, cache: :never do
     layout = process_layout voo.layout
@@ -21,7 +54,7 @@ format :html do
       <!DOCTYPE HTML>
       <html>
         <head>
-          #{card.rule(:head)}
+          #{head_content}
         </head>
         <body>
           #{content}
@@ -30,31 +63,14 @@ format :html do
     HTML
   end
 
+  def head_content
+    card.rule_card(:head).item_cards.map do |item|
+      nest item, view: :core
+    end.join "\n"
+  end
+
   def show_layout?
     !Env.ajax? || params[:layout]
-  end
-
-  def show_with_layout view, args
-    args[:view] = view if view
-    assign_modal_opts view, args unless Env.ajax?
-    main_opts = @modal_opts.present? ? {} : args
-    render_with_layout params[:layout], main_opts
-    # FIXME: using title because it's a standard view option.  hack!
-  end
-
-  def render_with_layout layout, args={}
-    @main = false
-    with_main_opts args do
-      render! :layout, layout: layout
-    end
-  end
-
-  def with_main_opts args
-    old_main_opts = @main_opts
-    @main_opts = args
-    yield
-  ensure
-    @main_opts = old_main_opts
   end
 
   def assign_modal_opts view, args

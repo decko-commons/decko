@@ -29,6 +29,7 @@ class Card
           @main = true
         end
 
+        # view=edit&items=closed
         def main_nest_options
           opts = inherit(:main_opts) || {}
           main_nest_size_opt opts

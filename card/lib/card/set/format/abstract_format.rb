@@ -11,6 +11,8 @@ class Card
         include Set::Basket
         include Set::Format::HamlViews
 
+        VIEW_SETTINGS = %i[cache modal bridge]
+
         mattr_accessor :views
         self.views = Hash.new { |h, k| h[k] = {} }
 
@@ -34,6 +36,10 @@ class Card
           end
         end
 
+        def layout layout, &block
+          define_method Card::Set::Format.layout_method_name(layout), &block
+        end
+
         def view_for_override viewname
           view viewname do
             "override '#{viewname}' view"
@@ -42,7 +48,7 @@ class Card
 
         def define_standard_view_method view, &block
           views[self][view] = block
-          define_method "_view_#{view}", &block
+          define_method Card::Set::Format.view_method_name(view), &block
         end
 
         def define_async_view_method view, &block

@@ -92,6 +92,14 @@ class Card
           end
         end
 
+        def main?
+          nest_name == "_main"
+        end
+
+        def nest_name
+          options&.dig :nest_name
+        end
+
         private
 
         def each_option attr_string
