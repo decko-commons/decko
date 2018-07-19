@@ -65,14 +65,11 @@ class Card
       def add_test_event stage, name, opts={}, &event_block
         # use random set module that is always included so that the
         # event applies to all cards
-        opts[:set] ||= Card::Set::All::Fetch
+        set_module = opts.delete(:set) || Card
         if (only_for_card = opts.delete(:for))
           opts[:when] = proc { |c| c.name == only_for_card }
         end
-        Card.class_eval do
-          extend Card::Set::Event
-          event name, stage, opts, &event_block
-        end
+        Card::Set::Event.new(name, stage, opts, set_module, &event_block).register
       end
 
       def remove_test_event stage, name
