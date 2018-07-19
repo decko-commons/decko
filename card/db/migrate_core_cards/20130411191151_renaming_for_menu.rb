@@ -8,7 +8,7 @@ class RenamingForMenu < Card::Migration::Core
       "*links"      => "*links to",
       "*inclusions" => "*includes",
       "*linkers"    => "*linked to by",
-      "*nesters"  => "*included by",
+      "*includers"  => "*included by",
       "*plus cards" => "*children",
       "*plus parts" => "*mates",
       "*editing"    => "*edited"
