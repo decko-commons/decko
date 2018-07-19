@@ -32,8 +32,8 @@ class Card
         def validate_when_value val
           return if val.is_a?(Symbol) || val.is_a?(Proc)
           raise ArgumentError,
-               "invalid value for condition 'when' in event '#{@event}'\n" \
-               "must be a symbol or a proc"
+                "invalid value for condition 'when' in event '#{@event}'\n" \
+                "must be a symbol or a proc"
         end
 
         def valid_values condition
@@ -68,7 +68,7 @@ class Card
           end
         end
 
-        def callback_name stage, after_subcards = false
+        def callback_name stage, after_subcards=false
           name = after_subcards ? "#{stage}_final_stage" : "#{stage}_stage"
           name.to_sym
         end

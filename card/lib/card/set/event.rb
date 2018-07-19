@@ -31,7 +31,7 @@ class Card
 
       attr_reader :set_module, :opts
 
-      def initialize event, stage_or_opts={}, opts={}, set_module, &final
+      def initialize event, stage_or_opts, opts, set_module, &final
         @event = event
         @set_module = set_module
         @opts = event_opts stage_or_opts, opts

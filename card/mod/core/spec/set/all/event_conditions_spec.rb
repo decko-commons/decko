@@ -61,7 +61,8 @@ RSpec.describe Card::Set::All::EventConditions do
 
           aggregate_failures do
             expect(@log).to be_empty
-            Card["A"].update_attributes! content: "changed content", trigger: :test_event_0
+            Card["A"].update_attributes! content: "changed content",
+                                         trigger: :test_event_0
             expect(@log).to contain_exactly "triggered"
           end
         end
@@ -69,7 +70,6 @@ RSpec.describe Card::Set::All::EventConditions do
     end
 
     describe "skip option" do
-
       specify "skip_event condition" do
         with_test_events do
           test_event :validate, on: :update, skip: :allowed, for: "A" do

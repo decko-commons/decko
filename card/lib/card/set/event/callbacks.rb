@@ -3,7 +3,7 @@ class Card
     class Event
       module Callbacks
         def set_event_callbacks
-          [:before, :after, :around].each do |kind|
+          %i[before after around].each do |kind|
             next unless (object_method = @opts.delete kind)
             set_event_callback object_method, kind
           end
