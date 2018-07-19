@@ -6,7 +6,7 @@ RSpec.describe Card::Reference, as_bot: true do
       Card.create! name: "JoeForm", type: "UserForm"
       Card["JoeForm"].format.render!(:core)
       assert_equal ["joe_form+age", "joe_form+description", "joe_form+name"],
-                   Card["JoeForm"].includees.map(&:key).sort
+                   Card["JoeForm"].nestees.map(&:key).sort
     end
 
     it "on template creation" do
@@ -14,7 +14,7 @@ RSpec.describe Card::Reference, as_bot: true do
       create "Form1", type: "SpecialForm", content: "foo"
       create "SpecialForm+*type+*structure", content: "{{+bar}}"
       Card["Form1"].format.render!(:core)
-      expect(Card["Form1"].includees.map(&:key)).to eq(["form1+bar"])
+      expect(Card["Form1"].nestees.map(&:key)).to eq(["form1+bar"])
     end
 
     it "on template update" do
@@ -23,7 +23,7 @@ RSpec.describe Card::Reference, as_bot: true do
       tmpl.content = "{{+monkey}} {{+banana}} {{+fruit}}"
       tmpl.save!
       Card["JoeForm"].format.render!(:core)
-      expect(Card["JoeForm"].includees.map(&:key)).to contain_exactly("joe_form+banana", "joe_form+fruit", "joe_form+monkey")
+      expect(Card["JoeForm"].nestees.map(&:key)).to contain_exactly("joe_form+banana", "joe_form+fruit", "joe_form+monkey")
     end
   end
 
@@ -47,8 +47,8 @@ RSpec.describe Card::Reference, as_bot: true do
     Card.create name: "bob+city"
     Card.create name: "address+*right+*default", content: "{{_L+city}}"
     Card.create name: "bob+address"
-    expect(Card.fetch("bob+address").includees.map(&:name)).to eq(["bob+city"])
-    expect(Card.fetch("bob+city").includers.map(&:name)).to eq(["bob+address"])
+    expect(Card.fetch("bob+address").nestees.map(&:name)).to eq(["bob+city"])
+    expect(Card.fetch("bob+city").nesters.map(&:name)).to eq(["bob+address"])
   end
 
   it "pickup new links on rename" do
@@ -129,8 +129,8 @@ RSpec.describe Card::Reference, as_bot: true do
     create! "rgb"
     green_rgb = Card.create! name: "green+rgb", content: "#00ff00"
 
-    expect(green.reload.includees.map(&:name)).to eq(["green+rgb"])
-    expect(green_rgb.reload.includers.map(&:name)).to eq(["green"])
+    expect(green.reload.nestees.map(&:name)).to eq(["green+rgb"])
+    expect(green_rgb.reload.nesters.map(&:name)).to eq(["green"])
   end
 
   it "simple link" do
@@ -150,8 +150,8 @@ RSpec.describe Card::Reference, as_bot: true do
   it "simple nest" do
     Card.create name: "alpha"
     Card.create name: "beta", content: "I nest {{alpha}}"
-    expect(Card["beta"].includees.map(&:name)).to eq(["alpha"])
-    expect(Card["alpha"].includers.map(&:name)).to eq(["beta"])
+    expect(Card["beta"].nestees.map(&:name)).to eq(["alpha"])
+    expect(Card["alpha"].nesters.map(&:name)).to eq(["beta"])
   end
 
   it "non simple link" do

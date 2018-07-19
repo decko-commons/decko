@@ -4,9 +4,7 @@ class Card
   module Set
     module Format
       # All Format modules are extended with this module in order to support
-      # the basic format API (ok, view definitions.  It's just view
-      # definitions.)
-      # No longer just view definitions. Also basket definitions now.
+      # the basic format API, including view, layout, and basket definitions
       module AbstractFormat
         include Set::Basket
         include Set::Format::HamlViews

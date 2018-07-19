@@ -9,24 +9,30 @@ PARTIAL_REF_CODE = "P".freeze
 
 # cards that refer to self
 def referers
-  references_in.map(&:referer_id).map(&Card.method(:fetch)).compact
+  referer_cards_from_references references_in
 end
 
 # cards that include self
-def includers
-  refs = references_in.where(ref_type: "I")
-  refs.map(&:referer_id).map(&Card.method(:fetch)).compact
+def nesters
+  referer_cards_from_references references_in.where(ref_type: "I")
+end
+
+def referer_cards_from_references references
+  references.map(&:referer_id).uniq.map(&Card.method(:fetch)).compact
 end
 
 # cards that self refers to
 def referees
-  references_out.map { |ref| Card.fetch ref.referee_key, new: {} }
+  referees_from_references references_out
 end
 
 # cards that self includes
-def includees
-  refs = references_out.where(ref_type: "I")
-  refs.map { |ref| Card.fetch ref.referee_key, new: {} }
+def nestees
+  referees_from_references references_out.where(ref_type: "I")
+end
+
+def referees_from_references references
+  references.map(&:referee_key).uniq.map { |key| Card.fetch key, new: {} }
 end
 
 # cards that refer to self by name
@@ -38,7 +44,7 @@ end
 # cards that refer to self or any descendant
 def family_referers
   @family_referers ||= ([self] + descendants).map(&:referers).flatten.uniq
-  # TODO: make this more efficient!
+  # TODO: make this more efficient using partial references!
 end
 
 # replace references in card content
@@ -160,7 +166,7 @@ event :update_referer_content, :finalize,
       when: :update_referers  do
   # FIXME: break into correct stages
   Auth.as_bot do
-    referers.uniq.each do |card|
+    referers.each do |card|
       next if card == self || card.structure
       new_content = card.replace_reference_syntax name_before_last_save, name
       card.refresh.update_attributes! content: new_content

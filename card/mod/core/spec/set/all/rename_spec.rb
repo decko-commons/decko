@@ -148,7 +148,7 @@ RSpec.describe Card::Set::All::Rename do
       expect_content_of("blue includer 2").to eq "{{Red|closed;other:stuff}}"
     end
 
-    it "tupdates nests when renaming to plus" do
+    it "updates nests when renaming to plus" do
       update "Blue", name: "blue includer 1+color", update_referers: true
       expect_content_of("blue includer 1").to eq "{{blue includer 1+color}}"
     end
@@ -157,6 +157,12 @@ RSpec.describe Card::Set::All::Rename do
       update "Blue", name: "Red", update_referers: true
       expect_content_of("blue linker 1").to eq "[[Red]]"
       expect_content_of("blue linker 2").to eq "[[Red]]"
+    end
+
+    it "handles link to and nest of same card" do
+      update "blue linker 1", content: "[[Blue]] is {{Blue|name}}"
+      update "Blue", name: "Red", update_referers: true
+      expect_content_of("blue linker 1").to eq "[[Red]] is {{Red|name}}"
     end
 
     example "reference updates plus to simple" do
