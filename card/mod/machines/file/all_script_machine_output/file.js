@@ -11777,8 +11777,7 @@ return jQuery;
       } else {
         s.replaceWith(el);
       }
-      v.triggerSlotReady();
-      return v;
+      return el.triggerSlotReady();
     },
     triggerSlotReady: function() {
       this.trigger("slotReady");
