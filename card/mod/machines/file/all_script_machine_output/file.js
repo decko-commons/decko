@@ -11781,7 +11781,7 @@ return jQuery;
     },
     triggerSlotReady: function() {
       this.trigger("slotReady");
-      return this.find(".card-slot").triggerSlotReady();
+      return this.find(".card-slot").trigger("slotReady");
     },
     slotSuccess: function(data, overlay) {
       var newslot, notice;

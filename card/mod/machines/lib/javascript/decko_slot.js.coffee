@@ -89,7 +89,7 @@ jQuery.fn.extend {
 
   triggerSlotReady: () ->
     @trigger "slotReady"
-    @find(".card-slot").triggerSlotReady()
+    @find(".card-slot").trigger "slotReady"
 
   slotSuccess: (data, overlay) ->
     if data.redirect
