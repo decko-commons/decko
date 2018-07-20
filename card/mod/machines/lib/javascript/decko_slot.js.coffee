@@ -72,6 +72,7 @@ jQuery.fn.extend {
     s = @slot()
     v = $(val)[0] && $(val) || val
     if typeof(v) == "string"
+      # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)
       s.replaceWith v
     else
       s.setSlotContentFromElement v
@@ -84,8 +85,7 @@ jQuery.fn.extend {
       s.before el
     else
       s.replaceWith el
-    v.triggerSlotReady()
-    v
+    el.triggerSlotReady()
 
   triggerSlotReady: () ->
     @trigger "slotReady"
