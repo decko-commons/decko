@@ -19,14 +19,16 @@ class Card
       #   end
       def in_stage stage, opts={}, &event_block
         Card.rspec_binding = binding
+        trigger = opts.delete(:trigger)
+        trigger = method(trigger) if trigger.is_a?(Symbol)
         add_test_event stage, :in_stage_test, opts, &event_block
-        trigger =
-          if opts[:trigger].is_a?(Symbol)
-            method(opts[:trigger])
-          else
-            opts[:trigger]
-          end
-        trigger.call
+        ensure_clean_up stage do
+          trigger.call
+        end
+      end
+
+      def ensure_clean_up stage
+        yield
       ensure
         remove_test_event stage, :in_stage_test
       end
@@ -65,14 +67,11 @@ class Card
       def add_test_event stage, name, opts={}, &event_block
         # use random set module that is always included so that the
         # event applies to all cards
-        opts[:set] ||= Card::Set::All::Fetch
+        set_module = opts.delete(:set) || Card::Set::All::Fetch
         if (only_for_card = opts.delete(:for))
           opts[:when] = proc { |c| c.name == only_for_card }
         end
-        Card.class_eval do
-          extend Card::Set::Event
-          event name, stage, opts, &event_block
-        end
+        Card::Set::Event.new(name, stage, opts, set_module, &event_block).register
       end
 
       def remove_test_event stage, name
