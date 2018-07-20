@@ -18,29 +18,29 @@ RSpec.describe Card::Set::All::References do
 
   describe "#nesters" do
     it "returns all cards that nest card" do
-      expect(Card["Blue"].nesters.map(&:name).sort)
+      expect(Card["Blue"].nesters.map(&:name))
         .to contain_exactly("blue includer 1", "blue includer 2")
     end
   end
 
   describe "#referee" do
     it "returns all cards that card nests" do
-      expect(Card["Y"].referees.map(&:name)).to contain_exactly(*%w[A A+B B T])
+      expect(Card["Y"].referees.map(&:name)).to contain_exactly("A", "A+B", "B", "T")
     end
 
     it "returns all cards that card links to and their ancestors" do
       # NOTE: B is not directly referred to; the reference is implied by the link to A+B
-      expect(Card["X"].referees.map(&:name).sort).to contain_exactly(*%w[A A+B B T])
+      expect(Card["X"].referees.map(&:name)).to contain_exactly("A", "A+B", "B", "T")
     end
   end
 
   describe "#nestee" do
     it "returns all cards that card nests" do
-      expect(Card["Y"].nestees.map(&:name).sort).to contain_exactly(*%w[A A+B B T])
+      expect(Card["Y"].nestees.map(&:name)).to contain_exactly("A", "A+B", "B", "T")
     end
 
     it "returns all cards that card links to" do
-      expect(Card["X"].nestees.map(&:name).sort).to eq([])
+      expect(Card["X"].nestees.map(&:name)).to eq([])
     end
   end
 end
