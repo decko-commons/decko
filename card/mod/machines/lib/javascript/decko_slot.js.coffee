@@ -68,23 +68,28 @@ jQuery.fn.extend {
     $slot.data "remote", true
     $.rails.handleRemote($slot)
 
-  setSlotContent: (val, overlay=false) ->
+  setSlotContent: (val, _overlay=false) ->
     s = @slot()
-    v = $(val)
-    unless v[0]
-#   if slotdata = s.attr 'data-slot'
-#     v.attr 'data-slot', slotdata if slotdata?
-# else #simple text (not html)
-      v = val
-    if v.hasClass("_overlay")
-      s.wrapAll('<div class="overlay-container">')
-      s.before v
-    else
+    v = $(val)[0] && $(val) || val
+    if typeof(v) == "string"
+      # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)
       s.replaceWith v
-    v.trigger 'slotReady'
-    v.find(".card-slot").trigger "slotReady"
+    else
+      s.setSlotContentFromElement v
     v
 
+  setSlotContentFromElement: (el) ->
+    s = $(this)
+    if el.hasClass("_overlay")
+      s.wrapAll('<div class="overlay-container">')
+      s.before el
+    else
+      s.replaceWith el
+    el.triggerSlotReady()
+
+  triggerSlotReady: () ->
+    @trigger "slotReady"
+    @find(".card-slot").trigger "slotReady"
 
   slotSuccess: (data, overlay) ->
     if data.redirect
