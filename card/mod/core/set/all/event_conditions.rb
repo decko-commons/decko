@@ -20,6 +20,7 @@ def on_condition_applies? _event, actions
 end
 
 def changed_condition_applies? _event, db_columns
+  return true unless @action == :update
   db_columns = Array(db_columns).compact
   return true if db_columns.empty?
   db_columns.any? { |col| single_changed_condition_applies? col }
@@ -51,7 +52,7 @@ def single_changed_condition_applies? db_column
     when :type    then "type_id"
     else db_column.to_s
     end
-  @action != :delete && attribute_is_changing?(db_column)
+  attribute_is_changing?(db_column)
 end
 
 def wrong_stage opts
