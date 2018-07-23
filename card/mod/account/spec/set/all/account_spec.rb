@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 --*-
+# -*- encoding : utf-8 --*--
 
 RSpec.describe Card::Set::All::Account do
   describe "accountable?" do
