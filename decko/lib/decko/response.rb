@@ -84,6 +84,11 @@ module Decko
       end
     end
 
+    def validate_id_encoding id
+      # we should find the place where we produce these bad urls
+      id.valid_encoding? ? id : id.force_encoding("ISO-8859-1").encode("UTF-8")
+    end
+
     def prompt_setup?
       Card::Auth.needs_setup? && Card::Env.html?
     end
@@ -92,11 +97,6 @@ module Decko
       params[:card] = { type_id: Card.default_accounted_type_id }
       params[:view] = "setup"
       ""
-    end
-
-    def validate_id_encoding id
-      # we should find the place where we produce these bad urls
-      id.valid_encoding? ? id : id.force_encoding("ISO-8859-1").encode("UTF-8")
     end
 
     def use_draft?

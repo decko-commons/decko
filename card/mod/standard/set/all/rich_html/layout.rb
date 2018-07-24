@@ -14,7 +14,6 @@ format :html do
   end
 
   def show_with_page_layout view, args
-    binding.pry
     args[:view] = view if view
     args[:main] = true
     args[:main_view] = true
