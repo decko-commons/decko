@@ -11755,29 +11755,25 @@ return jQuery;
       return $.rails.handleRemote($slot);
     },
     setSlotContent: function(val, _overlay) {
-      var s, v;
+      var el, s;
       if (_overlay == null) {
         _overlay = false;
       }
       s = this.slot();
-      v = $(val)[0] && $(val) || val;
-      if (typeof v === "string") {
-        s.replaceWith(v);
-      } else {
-        s.setSlotContentFromElement(v);
-      }
-      return v;
+      el = $(val)[0] && $(val) || val;
+      s.updateSlotWithElement(el);
+      el.triggerSlotReady();
+      return el;
     },
-    setSlotContentFromElement: function(el) {
+    updateSlotWithElement: function(el) {
       var s;
       s = $(this);
       if (el.hasClass("_overlay")) {
         s.wrapAll('<div class="overlay-container">');
-        s.before(el);
+        return s.before(el);
       } else {
-        s.replaceWith(el);
+        return s.replaceWith(el);
       }
-      return el.triggerSlotReady();
     },
     triggerSlotReady: function() {
       this.trigger("slotReady");

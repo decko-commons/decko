@@ -70,22 +70,18 @@ jQuery.fn.extend {
 
   setSlotContent: (val, _overlay=false) ->
     s = @slot()
-    v = $(val)[0] && $(val) || val
-    if typeof(v) == "string"
-      # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)
-      s.replaceWith v
-    else
-      s.setSlotContentFromElement v
-    v
+    el = $(val)[0] && $(val) || val
+    s.updateSlotWithElement el
+    el.triggerSlotReady()
+    el
 
-  setSlotContentFromElement: (el) ->
+  updateSlotWithElement: (el) ->
     s = $(this)
     if el.hasClass("_overlay")
       s.wrapAll('<div class="overlay-container">')
       s.before el
     else
       s.replaceWith el
-    el.triggerSlotReady()
 
   triggerSlotReady: () ->
     @trigger "slotReady"

@@ -212,10 +212,15 @@ format :html do
 
   view :delete_button do
     confirm = "Are you sure you want to delete #{safe_name}?"
-    success = main? ? "REDIRECT: *previous" : "TEXT: #{card.name} deleted"
+    success = main? ? "REDIRECT: *previous" : { view: :just_deleted }
     toolbar_button "delete", :trash,
                    path: { action: :delete, success: success },
                    class: "slotter", remote: true, 'data-confirm': confirm
+  end
+
+  # TODO: add undo functionality
+  view :just_deleted, tag: :unknown_ok do
+    "#{render_title} deleted"
   end
 
   def toolbar_button text, symbol, opts={}

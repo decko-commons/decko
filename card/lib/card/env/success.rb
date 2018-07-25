@@ -84,7 +84,6 @@ class Card
         when ""                     then ""
         when "*previous", :previous then :previous
         when %r{^(http|/)}          then value
-        when /^TEXT:\s*(.+)/        then Regexp.last_match(1)
         when /^REDIRECT:\s*(.+)/
           @redirect = true
           process_target Regexp.last_match(1)
@@ -109,7 +108,6 @@ class Card
       end
 
       def target name_context=@name_context
-        "h"
         card(name_context) ||
           (@target == :previous ? Card::Env.previous_location : @target) ||
           Card.fetch(name_context)
