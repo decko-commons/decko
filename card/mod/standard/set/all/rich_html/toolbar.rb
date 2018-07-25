@@ -220,7 +220,7 @@ format :html do
 
   # TODO: add undo functionality
   view :just_deleted, tag: :unknown_ok do
-    "#{render_title} deleted"
+    wrap { "#{render_title} deleted" }
   end
 
   def toolbar_button text, symbol, opts={}

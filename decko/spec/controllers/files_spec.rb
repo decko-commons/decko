@@ -10,7 +10,7 @@ Decko::RestSpecHelper.describe_api do
       end
 
       it "creates missing machine output file" do
-        args = { params: { id: @all_style.machine_output_card.name,
+        args = { params: { mark: @all_style.machine_output_card.name,
                            format: "css",
                            explicit_file: true } }
         get :read, args
@@ -26,7 +26,7 @@ Decko::RestSpecHelper.describe_api do
       let(:all_js) { Card[:all, :script] }
 
       it "has correct MIME type" do
-        get :read, params: { id: all_js.machine_output_card.name, format: "js" }
+        get :read, params: { mark: all_js.machine_output_card.name, format: "js" }
         expect(response.status).to eq 200
         expect(response.content_type).to eq "text/javascript"
       end
@@ -42,17 +42,17 @@ Decko::RestSpecHelper.describe_api do
       end
 
       it "handles image with no read permission" do
-        get :read, params: { id: "mao2" }
+        get :read, params: { mark: "mao2" }
         assert_response 403, "denies html card view"
-        get :read, params: { id: "mao2", format: "jpg" }
+        get :read, params: { mark: "mao2", format: "jpg" }
         assert_response 403, "denies simple file view"
       end
 
       it "handles image with read permission" do
         login_as "joe_admin"
-        get :read, params: { id: "mao2" }
+        get :read, params: { mark: "mao2" }
         assert_response 200
-        get :read, params: { id: "mao2", format: "jpg" }
+        get :read, params: { mark: "mao2", format: "jpg" }
         assert_response 200
       end
     end

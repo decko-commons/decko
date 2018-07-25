@@ -70,18 +70,22 @@ jQuery.fn.extend {
 
   setSlotContent: (val, _overlay=false) ->
     s = @slot()
-    el = $(val)[0] && $(val) || val
-    s.updateSlotWithElement el
-    el.triggerSlotReady()
-    el
+    v = $(val)[0] && $(val) || val
+    if typeof(v) == "string"
+      # needed to support unwrapped views
+      s.replaceWith v
+    else
+      s.setSlotContentFromElement v
+    v
 
-  updateSlotWithElement: (el) ->
+  setSlotContentFromElement: (el) ->
     s = $(this)
     if el.hasClass("_overlay")
       s.wrapAll('<div class="overlay-container">')
       s.before el
     else
       s.replaceWith el
+    el.triggerSlotReady()
 
   triggerSlotReady: () ->
     @trigger "slotReady"

@@ -29,7 +29,7 @@ class Card
 
       def << value
         if value.is_a? Hash
-          interpret_params_hash value
+          apply value
         else
           self.target = value
         end
@@ -91,7 +91,7 @@ class Card
         end
       end
 
-      def intepret_params_hash hash
+      def apply hash
         hash.each_pair do |key, value|
           self[key] = value
         end

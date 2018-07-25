@@ -150,8 +150,7 @@ RSpec.describe Card::Set::Right::Account do
                                         3.days.ago.strftime("%F %T")
       @account.token_card.expire
 
-      expect(trigger_reset).to eq(true)
-      # successfully completes save
+      trigger_reset
 
       expect(@account.token).not_to eq(@token)
       # token gets updated
