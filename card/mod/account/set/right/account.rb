@@ -55,9 +55,9 @@ end
 # only triggered when called directly (as methods)
 
 event :reset_token do
-  Auth.as_bot do
-    token_card.update_attributes! content: generate_token
-  end
+  token = generate_token
+  Auth.as_bot { token_card.update_attributes! content: token }
+  token
 end
 
 event :send_welcome_email do

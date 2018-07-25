@@ -169,7 +169,7 @@ class Card
       # controller's params hash and the Card::Env's params hash with the
       # effect that params changes in the CardController get lost
       # (a crucial example are success params that are processed in
-      # CardController#update_params_for_success)
+      # CardController#soft_redirect)
       def contextualize_delayed_event act_id, card, env, auth
         if delaying?
           contextualize_for_delay(act_id, card, env, auth) { yield }

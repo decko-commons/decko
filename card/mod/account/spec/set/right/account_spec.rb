@@ -132,13 +132,14 @@ RSpec.describe Card::Set::Right::Account do
       @account.send_reset_password_token
       @token = @account.token
       Card::Env.params[:token] = @token
-      Card::Env.params[:card] = { trigger: "reset_password" }
       Card::Auth.current_id = Card::AnonymousID
     end
 
+    let(:trigger_reset) { @account.update_attributes! trigger: :reset_password }
+
     it "authenticates with correct token" do
       expect(Card::Auth.current_id).to eq(Card::AnonymousID)
-      expect(@account.save).to eq(true)
+      trigger_reset
       expect(Card::Auth.current_id).to eq(@account.left_id)
       @account = @account.refresh true
       # expect(@account.fetch(trait: :token)).to be_nil
@@ -148,9 +149,8 @@ RSpec.describe Card::Set::Right::Account do
       @account.token_card.update_column :updated_at,
                                         3.days.ago.strftime("%F %T")
       @account.token_card.expire
-      result = @account.save
 
-      expect(result).to eq(true)
+      expect(trigger_reset).to eq(true)
       # successfully completes save
 
       expect(@account.token).not_to eq(@token)
@@ -162,8 +162,7 @@ RSpec.describe Card::Set::Right::Account do
 
     it "does not work if token is wrong" do
       Card::Env.params[:token] = @token + "xxx"
-      Card::Env.params[:card] = { trigger: "reset_password" }
-      @account.save
+      trigger_reset
       expect(@account.errors[:incorrect_token].first).to match(/mismatch/)
     end
   end

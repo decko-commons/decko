@@ -2,48 +2,48 @@
 
 Decko::Engine.routes.draw do
   files = Decko::Engine.config.files_web_path
-  file_matchers = { id: /[^-]+/, explicit_file: true, rev_id: /[^-]+/ }
+  file_matchers = { mark: /[^-]+/, explicit_file: true, rev_id: /[^-]+/ }
 
   root "card#read"
 
   # explicit file request
-  get({ "#{files}/:id/:rev_id(-:size).:format" => "card#read" }.merge(file_matchers))
+  get({ "#{files}/:mark/:rev_id(-:size).:format" => "card#read" }.merge(file_matchers))
 
   # DEPRECATED (old file and asset requests)
-  get({ "#{files}/:id(-:size)-:rev_id.:format" => "card#read" }.merge(file_matchers))
+  get({ "#{files}/:mark(-:size)-:rev_id.:format" => "card#read" }.merge(file_matchers))
   %w[assets javascripts jasmine].each do |prefix|
-    get "#{prefix}/*id" => "card#asset"
+    get "#{prefix}/*mark" => "card#asset"
   end
 
   # Standard GET request
-  get "(/wagn)/:id(.:format)" => "card#read"  # /wagn is deprecated
+  get "(/wagn)/:mark(.:format)" => "card#read"  # /wagn is deprecated
 
   # Alternate GET requests
-  get "new/:type" => "card#read", view: "new" # common case for card without id
-  get ":id/view/:view(.:format)" => "card#read" # simplifies API documentation
+  get "new/:type" => "card#read", view: "new" # common case for card without mark
+  get ":mark/view/:view(.:format)" => "card#read" # simplifies API documentation
 
-  # RESTful (without id)
+  # RESTful (without mark)
   post   "/" => "card#create"
   put    "/" => "card#update"
   patch  "/" => "card#update"
   delete "/" => "card#delete"
 
-  # RESTful (with id)
-  match ":id(.:format)" => "card#create", via: :post
-  match ":id(.:format)" => "card#update", via: :put
-  match ":id(.:format)" => "card#update", via: :patch
-  match ":id(.:format)" => "card#delete", via: :delete
+  # RESTful (with mark)
+  match ":mark(.:format)" => "card#create", via: :post
+  match ":mark(.:format)" => "card#update", via: :put
+  match ":mark(.:format)" => "card#update", via: :patch
+  match ":mark(.:format)" => "card#delete", via: :delete
 
   # explicit GET alternatives for transactions
   %w[create read update delete asset].each do |action|
-    get "(card)/#{action}(/:id(.:format))"  => "card", action: action
+    get "(card)/#{action}(/:mark(.:format))"  => "card", action: action
   end
 
   # for super-explicit over-achievers
-  match "(card)/create(/:id(.:format))" => "card#create", via: [:post, :patch]
-  match "(card)/update(/:id(.:format))" => "card#update", via: [:post, :put, :patch]
-  match "(card)/delete(/:id(.:format))" => "card#delete", via: :delete
+  match "(card)/create(/:mark(.:format))" => "card#create", via: [:post, :patch]
+  match "(card)/update(/:mark(.:format))" => "card#update", via: [:post, :put, :patch]
+  match "(card)/delete(/:mark(.:format))" => "card#delete", via: :delete
 
   # Wildcard for bad addresses
-  get "*id" => "card#read", view: "bad_address"
+  get "*mark" => "card#read", view: "bad_address"
 end

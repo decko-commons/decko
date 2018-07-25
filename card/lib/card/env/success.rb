@@ -1,28 +1,37 @@
 class Card
   module Env
+    # Success objects
     class Success
       include Card::Env::Location
 
       attr_accessor :params, :redirect, :id, :name, :card, :name_context
 
-      def initialize name_context=nil, success_params=nil
+      def initialize name_context=nil, success_args=nil
         @name_context = name_context
         @new_args = {}
         @params = OpenStruct.new
-        case success_params
-        when Hash
-          apply(success_params)
-        when ActionController::Parameters
-          apply(success_params.to_unsafe_h)
-        when nil then  self.name = "_self"
-        else;  self.target = success_params
+        self << normalize_success_args(success_args)
+      end
+
+      def in_context name_context
+        self.name_context = name_context
+        self
+      end
+
+      def normalize_success_args success_args
+        case success_args
+        when Hash                         then success_args
+        when ActionController::Parameters then success_args.to_unsafe_h
+        when nil                          then { name: "_self" }
+        else                                   success_args
         end
       end
 
       def << value
-        case value
-        when Hash then apply value
-        else; self.target = value
+        if value.is_a? Hash
+          interpret_params_hash value
+        else
+          self.target = value
         end
       end
 
@@ -35,6 +44,7 @@ class Card
         @redirect == :soft
       end
 
+      # TODO: refactor to use cardish
       def mark= value
         case value
         when Integer then @id = value
@@ -45,6 +55,7 @@ class Card
         end
       end
 
+      # @deprecated
       def id= id
         # for backwards compatibility use mark here.
         # id was often used for the card name
@@ -81,8 +92,8 @@ class Card
         end
       end
 
-      def apply args
-        args.each_pair do |key, value|
+      def intepret_params_hash hash
+        hash.each_pair do |key, value|
           self[key] = value
         end
       end
@@ -98,6 +109,7 @@ class Card
       end
 
       def target name_context=@name_context
+        "h"
         card(name_context) ||
           (@target == :previous ? Card::Env.previous_location : @target) ||
           Card.fetch(name_context)
