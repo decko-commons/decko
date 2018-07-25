@@ -96,8 +96,7 @@ RSpec.describe Card::Set::Right::Account do
       ["/update/#{@account.left.name.url_key}",
        "token=#{token}",
        "live_token=true",
-       "event=reset_password"].each do |url_part|
-
+       "card%5Btrigger%5D=reset_password"].each do |url_part|
         expect(raw_source).to include(url_part)
       end
     end
@@ -133,7 +132,7 @@ RSpec.describe Card::Set::Right::Account do
       @account.send_reset_password_token
       @token = @account.token
       Card::Env.params[:token] = @token
-      Card::Env.params[:event] = "reset_password"
+      Card::Env.params[:card] = { trigger: "reset_password" }
       Card::Auth.current_id = Card::AnonymousID
     end
 
@@ -163,7 +162,7 @@ RSpec.describe Card::Set::Right::Account do
 
     it "does not work if token is wrong" do
       Card::Env.params[:token] = @token + "xxx"
-      Card::Env.params[:event] = "reset_password"
+      Card::Env.params[:card] = { trigger: "reset_password" }
       @account.save
       expect(@account.errors[:incorrect_token].first).to match(/mismatch/)
     end

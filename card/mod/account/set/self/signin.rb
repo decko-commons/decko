@@ -30,9 +30,7 @@ end
 # triggered by clicking "Reset my Password", this sends out the verification password
 # and aborts (does not sign in)
 event :send_reset_password_token, before: :signin, on: :update, trigger: :required do
-  email = subfield :email
-  email &&= email.content
-
+  email = subfield(:email)&.content
   account = Auth.find_account_by_email email
   send_reset_password_email_or_fail account
 end
@@ -168,5 +166,3 @@ format :html do
                   nest_name: nest_name, skip_perms: true }]
   end
 end
-
-

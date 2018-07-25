@@ -1,55 +1,49 @@
 # -*- encoding : utf-8 -*-
 
 Decko::Engine.routes.draw do
-  # most common
-  root "card#read"
-  get "#{Decko::Engine.config.files_web_path}/:id/:rev_id(-:size).:format" =>
-    "card#read", id: /[^-]+/, rev_id: /[^-]+/, explicit_file: true
-  get "#{Decko::Engine.config.files_web_path}/:id(-:size)-:rev_id.:format" =>
-    "card#read", id: /[^-]+/, explicit_file: true  # deprecated
-  get "assets/*filename"      => "card#asset"
-  get "javascripts/*filename" => "card#asset"
-  get "jasmine/*filename"     => "card#asset"
+  files = Decko::Engine.config.files_web_path
+  file_matchers = { id: /[^-]+/, explicit_file: true, rev_id: /[^-]+/ }
 
-  get "recent(.:format)"      => "card#read", id: ":recent" # obviate by making links use codename
-  #  match ':view:(:id(.:format))'          => 'card#read', via: :get
+  root "card#read"
+
+  # explicit file request
+  get({ "#{files}/:id/:rev_id(-:size).:format" => "card#read" }.merge(file_matchers))
+
+  # DEPRECATED (old file and asset requests)
+  get({ "#{files}/:id(-:size)-:rev_id.:format" => "card#read" }.merge(file_matchers))
+  %w[assets javascripts jasmine].each do |prefix|
+    get "#{prefix}/*id" => "card#asset"
+  end
+
+  # Standard GET request
   get "(/wagn)/:id(.:format)" => "card#read"  # /wagn is deprecated
 
-  # RESTful
+  # Alternate GET requests
+  get "new/:type" => "card#read", view: "new" # common case for card without id
+  get ":id/view/:view(.:format)" => "card#read" # simplifies API documentation
+
+  # RESTful (without id)
   post   "/" => "card#create"
   put    "/" => "card#update"
+  patch  "/" => "card#update"
   delete "/" => "card#delete"
 
+  # RESTful (with id)
   match ":id(.:format)" => "card#create", via: :post
   match ":id(.:format)" => "card#update", via: :put
+  match ":id(.:format)" => "card#update", via: :patch
   match ":id(.:format)" => "card#delete", via: :delete
 
-  get ":id/view/:view(.:format)" => "card#read"
-
-  # ~~~~~~~~~~~~~~~~~~~~~~~~~~
-  # legacy
-  get "new/:type"                  => "card#read",   view: "new"
-  get "card/:view(/:id(.:format))" => "card#read",   view: /new|edit/
-
-  get "account/signin"             => "card#read",   id: ":signin"
-  get "account/signout"            => "card#delete", id: ":signin"
-  get "account/signup"             => "card#read",   view: "new",  card: { type_code: :signup }
-  get "account/invite"             => "card#read",   view: "new",  card: { type_code: :signup }
-  get "account/accept"             => "card#read",   view: "edit", card: { type_code: :signup }
-  # use type_code rather than id because in some cases (eg populating test data) routes must get loaded without loading Card
-
-  get "admin/stats"                => "card#read",   id: ":admin"
-  get "admin/:task"                => "card#update", id: ":admin"
-  # ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  # standard non-RESTful
+  # explicit GET alternatives for transactions
   %w[create read update delete asset].each do |action|
     get "(card)/#{action}(/:id(.:format))"  => "card", action: action
   end
 
+  # for super-explicit over-achievers
   match "(card)/create(/:id(.:format))" => "card#create", via: [:post, :patch]
   match "(card)/update(/:id(.:format))" => "card#update", via: [:post, :put, :patch]
   match "(card)/delete(/:id(.:format))" => "card#delete", via: :delete
-  # other
+
+  # Wildcard for bad addresses
   get "*id" => "card#read", view: "bad_address"
 end

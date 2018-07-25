@@ -152,7 +152,7 @@ end
 
 format do
   view :verify_url, cache: :never do
-    path token_path_opts.merge(mark: card.name.left)
+    card_url path(token_path_opts.merge(mark: card.name.left))
   end
 
   view :verify_days, cache: :never do
@@ -160,7 +160,7 @@ format do
   end
 
   view :reset_password_url do
-    path token_path_opts.merge(card: { trigger: :reset_password })
+    card_url path(token_path_opts.merge(card: { trigger: :reset_password }))
   end
 
   view :reset_password_days do
