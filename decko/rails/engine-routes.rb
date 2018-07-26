@@ -15,12 +15,13 @@ Decko::Engine.routes.draw do
     get "#{prefix}/*mark" => "card#asset"
   end
 
-  # Standard GET request
+  # Standard GET requests
   get "(/wagn)/:mark(.:format)" => "card#read"  # /wagn is deprecated
 
   # Alternate GET requests
   get "new/:type" => "card#read", view: "new" # common case for card without mark
   get ":mark/view/:view(.:format)" => "card#read" # simplifies API documentation
+  get "card/:view(/:id(.:format))" => "card#read", view: /new|edit/ # legacy
 
   # RESTful (without mark)
   post   "/" => "card#create"
