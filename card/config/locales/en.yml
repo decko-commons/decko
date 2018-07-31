@@ -281,7 +281,6 @@ en:
             too_slow: Timed out! %{showname} took too long to load.
             error_rendering: error rendering
             error_message: Error message (visible to admin only)
-            unsupported_view: view %{view} not supported for %{cardname}
             add_thing: Add %{title}
             conflict: Conflict!
             also_changes: "%{actor_link} has also been making changes."

@@ -10,7 +10,7 @@ format do
   end
 
   view :unsupported_view, perms: :none, tags: :unknown_ok, error_code: 404 do
-    "view (#{voo.unsupported_view}) not supported for #{error_cardname}"
+    tr(:unsupported_view, view: voo.unsupported_view, cardname: error_cardname)
   end
 
   view :missing, perms: :none do

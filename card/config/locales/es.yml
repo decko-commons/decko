@@ -23,7 +23,7 @@
 #    Format names for time and date are begun with a 'card_' prefix to
 #    minimize the chances of interference with other gems or applications.
 ---
-en:
+es:
   time:
     formats:
       card_dayofwk_min_tz: '%A, %B %d, %Y %I:%M %p %Z'
@@ -281,7 +281,6 @@ en:
             too_slow: Caducado! %{showname} tomó demasiado tiempo para cargar..
             error_rendering: procesando errores
             error_message: Mensaje de error (visible solo para el administrador)
-            unsupported_view: vista %{view} no soportado para %{cardname}
             add_thing: Agregar %{title}
             conflict: Conflicto!
             also_changes: "%{actor_link} también ha estado haciendo cambios."
