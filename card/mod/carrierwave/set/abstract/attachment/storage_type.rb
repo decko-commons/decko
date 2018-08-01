@@ -16,12 +16,8 @@ end
 
 event :validate_storage_type, :validate, on: :save do
   if will_become_coded?
-    unless mod || @new_mod
-      errors.add :storage_type, "mod argument needed to save card as coded"
-    end
-    if codename.blank?
-      errors.add :storage_type, "codename needed for storage type coded"
-    end
+    errors.add :storage_type, tr(:mod_argument_needed) unless mod || @new_mod
+    errors.add :storage_type, tr(:codename_needed_for_storage) if codename.blank?
   end
   unless known_storage_type? will_be_stored_as
     errors.add :storage_type, "unknown storage type: #{@new_storage_type}"

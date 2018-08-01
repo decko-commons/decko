@@ -92,7 +92,7 @@ end
 
 event :require_email, :prepare_to_validate,
       after: :validate_accountability, on: :create do
-  errors.add :email, "required" unless subfield(:email)
+  errors.add :email, tr(:required) unless subfield(:email)
 end
 
 event :set_default_salt, :prepare_to_validate, on: :create do

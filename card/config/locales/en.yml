@@ -97,6 +97,9 @@ en:
             error_banned_characters: "may not contain any of the following characters: %{banned}"
             error_name_tag: "%{name} in use as a tag"
             error_wrong_key: wrong key '%{key}' for name %{name}
+            error_name_incomplete: is incomplete
+            error_name_changing_type: cannot change type while changing name
+            error_name_changing_content: cannot change content while changing name
           name:
             search_children: "(%{side}) children of %{parent_name}"
           permissions:
@@ -271,6 +274,7 @@ en:
             unsupported_view: view (%{view}) not supported for %{cardname}
             not_found_named: Could not find %{cardname}.
             not_found_no_name: Could not find the card requested
+            not_found_error: Could not find %{error_name}
             server_error: "\nWagn Hitch!  Server Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
             se_hitch: 'Wagn Hitch :('
             se_sorry: Server Error. Yuck, sorry about that.
@@ -281,7 +285,6 @@ en:
             too_slow: Timed out! %{showname} took too long to load.
             error_rendering: error rendering
             error_message: Error message (visible to admin only)
-            unsupported_view: view %{view} not supported for %{cardname}
             add_thing: Add %{title}
             conflict: Conflict!
             also_changes: "%{actor_link} has also been making changes."
@@ -304,6 +307,20 @@ en:
             sign_in_task: Please %{signin_link} to %{task} this.
             sign_in_up_no_task: Please %{signin_link} or %{signup_link} to do that.
             sign_in_no_task: Please %{signin_link} to do that.
+            not_valid_theme: not a valid theme %{theme_name}
+            cant_find_source_theme: can't find source for theme %{theme_name}
+            url_is_missing: url is missing
+            is_missing: is missing
+            codename_only_admins: only admins can set codename
+            dont_do_this_error: don't do this
+            required: required
+            invalid_json: invalid json
+            mod_argument_needed: mod argument needed to save card as coded
+            codename_needed_for_storage: codename needed for storage type coded
+            unknown_storage_type: unknown storage type %{new_storage_type}
+            moving_files_from_not_supported: moving files from cloud elsewhere is not supported
+            not_find_configuration_for_bucket: couldn't find configuration for bucket %{bucket}
+            not_find_credentials_for_bucket: couldn't find credentials for bucket %{bucket}
           list_changes:
             search_list_fields: list fields
             search_listed_by_fields: listed by fields
@@ -456,10 +473,10 @@ en:
             by_group: by group
             by_name: by name
             recent: recent
+            cannot_currently_edit_set: Cannot currently edit Sets
           toggle:
             # Warning: unless careful, yes/no get converted to true/false
             :yes: 'yes'
-            :no: 'no'
     #:bootstrap: #No known language-specfic messages
     :account:
       set:
