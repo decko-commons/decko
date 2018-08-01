@@ -87,6 +87,9 @@ de:
             error_banned_characters: "darf keine der folgenden Zeichen enthalten: %{banned}"
             error_name_tag: "%{name} bereits als Tag benutzt"
             error_wrong_key: falscher Schlüssel '%{key}' für Name %{name}
+            error_name_incomplete: ist unvollständig
+            error_name_changing_type: kann den Typ beim Ändern des Namens nicht ändern
+            error_name_changing_content: Inhalt kann nicht geändert werden, während der Name geändert wird
           name:
             search_children: "(%{side}) Kinder von %{parent_name}"
           permissions:
@@ -261,6 +264,7 @@ de:
             unsupported_view: Ansicht (%{view}) nicht unterstützt für %{cardname}
             not_found_named: Konnte %{cardname} nicht finden.
             not_found_no_name: Konnte die geforderte Karte nicht finden
+            not_found_error: Konnte nicht finden %{error_name}
             server_error: "\nWagn Störung!  Server Error. Ups, entschuldige bitte.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
             se_hitch: 'Wagn Störung :('
             se_sorry: Server Error. Yuck, sorry about that.
@@ -293,6 +297,19 @@ de:
             sign_in_task: Bitte %{signin_link} um das zu %{task}.
             sign_in_up_no_task: Bitte %{signin_link} oder %{signup_link} um das zu tun.
             sign_in_no_task: Bitte %{signin_link} um das zu tun.
+            not_valid_theme: kein gültiges Thema %{theme_name}
+            cant_find_source_theme: Quelle für das Thema kann nicht gefunden werden %{theme_name}
+            url_is_missing: URL fehlt
+            is_missing: wird vermisst
+            codename_only_admins: Nur Administratoren können Codenamen festlegen
+            required: erforderlich
+            invalid_json: json ungültig
+            mod_argument_needed: mod Argument benötigt, um die Karte als codiert zu speichern
+            codename_needed_for_storage: codename benötigt für den Speichertyp codiert
+            unknown_storage_type: unbekannter Speichertyp %{new_storage_type}
+            moving_files_from_not_supported: verschieben von Dateien aus der Cloud an anderer Stelle wird nicht unterstützt
+            not_find_configuration_for_bucket: konnte die Konfiguration für den Bucket nicht finden %{bucket}
+            not_find_credentials_for_bucket: anmeldeinformationen für den Bucket konnten nicht gefunden werden %{bucket}
           list_changes:
             search_list_fields: list fields
             search_listed_by_fields: listed by fields
@@ -445,6 +462,7 @@ de:
             by_group: nach Kategorie
             by_name: nach Name
             recent: zuletzt benutzt
+            cannot_currently_edit_set: Derzeit können Sätze nicht bearbeitet werden
           toggle:
             # Warning: unless careful, yes/no get converted to true/false
             :yes: 'yes'

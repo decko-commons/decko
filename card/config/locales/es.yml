@@ -97,6 +97,9 @@ es:
             error_banned_characters: "no puede contener ninguno de los siguientes caracteres: %{banned}"
             error_name_tag: "%{name} en uso como una etiqueta"
             error_wrong_key: llave incorrecta '%{key}' para nombre %{name}
+            error_name_incomplete: esta incompleto
+            error_name_changing_type: no puede cambiar el tipo mientras cambia el nombre
+            error_name_changing_content: no puede cambiar el contenido mientras cambia el nombre
           name:
             search_children: "(%{side}) niños de %{parent_name}"
           permissions:
@@ -270,7 +273,8 @@ es:
           error:
             unsupported_view: vista (%{view}) no soportado para %{cardname}
             not_found_named: No pudo encontrar %{cardname}.
-            not_found_no_name: No se pudo encontrar la tarjeta requested
+            not_found_no_name: No se pudo encontrar la tarjeta solicitada
+            not_found_error: No se puedo encontrar %{error_name}
             server_error: "\nWagn Hitch!  Error del Servidor. Yuck, perdon por eso.\nPara decirnos más y seguir la solución,\nagregue un ticket de soporte en %{ticket_link}\n"
             se_hitch: 'Wagn Hitch :('
             se_sorry: Error del Servidor. Yuck, perdón por eso.
@@ -278,7 +282,7 @@ es:
             denial: Permiso denegado
             bad_address: "404: Mala direccion"
             too_deep: Hombre, eres muy profundo. (Demasiados niveles de nidos a la vez)
-            too_slow: Caducado! %{showname} tomó demasiado tiempo para cargar..
+            too_slow: Caducado! %{showname} tomó demasiado tiempo para cargar.
             error_rendering: procesando errores
             error_message: Mensaje de error (visible solo para el administrador)
             add_thing: Agregar %{title}
@@ -303,6 +307,19 @@ es:
             sign_in_task: Por favor %{signin_link} a %{task} esto.
             sign_in_up_no_task: Por favor %{signin_link} o %{signup_link} para hacer eso.
             sign_in_no_task: Por favor %{signin_link} para hacer eso.
+            not_valid_theme: no es un tema válido %{theme_name}
+            cant_find_source_theme: no se puede encontrar la fuente del tema %{theme_name}
+            url_is_missing: falta url
+            is_missing: esta perdido
+            codename_only_admins: solo los administradores pueden establecer el nombre clave
+            required: required
+            invalid_json: json invalido
+            mod_argument_needed: argumento de modificación necesario para guardar la tarjeta codificada
+            codename_needed_for_storage: nombre clave necesario para el tipo de almacenamiento codificado
+            unknown_storage_type: tipo de almacenamiento desconocido %{new_storage_type}
+            moving_files_from_not_supported: mover archivos de la nube en otro lugar no es compatible
+            not_find_configuration_for_bucket: no se pudo encontrar la configuración para el cubo %{bucket}
+            not_find_credentials_for_bucket: no se pudo encontrar las credenciales para el cubo %{bucket}
           list_changes:
             search_list_fields: campos de lista
             search_listed_by_fields: listado por campos
@@ -455,6 +472,7 @@ es:
             by_group: por grupo
             by_name: por nombre
             recent: reciente
+            cannot_currently_edit_set: No se puede editar conjuntos actualmente
           toggle:
             # Warning: unless careful, yes/no get converted to true/false
             :yes: 'si'
