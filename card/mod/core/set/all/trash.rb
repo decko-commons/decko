@@ -103,9 +103,8 @@ event :validate_delete, :validate, on: :delete do
      undeletable_all_rules_tags.member?(right.codename.to_s)
     errors.add :delete, tr(:error_indestructible, name: name)
   end
-  
-  if account && has_edits? 
-    errors.add :delete, tr(:error_user_edits, name: name)
+
+  errors.add :delete, tr(:error_user_edits, name: name) if account && has_edits?
 end
 
 event :validate_delete_children, after: :validate_delete, on: :delete do

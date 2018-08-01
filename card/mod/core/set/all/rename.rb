@@ -15,8 +15,7 @@ def suspend_name name
 end
 
 event :validate_renaming, :validate, on: :update, changed: :name do
-  if db_content_is_changing? 
-    errors.add :content, tr(:error_name_changing_content)
+  errors.add :content, tr(:error_name_changing_content) if db_content_is_changing?
   errors.add :type, tr(:error_name_changing_type) if type_id_is_changing?
 end
 
