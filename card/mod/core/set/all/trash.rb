@@ -94,19 +94,15 @@ event :validate_delete, :validate, on: :delete do
   unless codename.blank?
     errors.add :delete, tr(:error_system_card, name: name, codename: codename)
   end
-
   undeletable_all_rules_tags =
     %w[default style layout create read update delete]
   # FIXME: HACK! should be configured in the rule
-
   if junction? && left&.codename == :all &&
      undeletable_all_rules_tags.member?(right.codename.to_s)
     errors.add :delete, tr(:error_indestructible, name: name)
   end
-
-  if account && has_edits?
+  if account && has_edits? 
     errors.add :delete, tr(:error_user_edits, name: name)
-  end
 end
 
 event :validate_delete_children, after: :validate_delete, on: :delete do
