@@ -83,7 +83,7 @@ format :html do
   end
 
   view :editor do
-    "Cannot currently edit Sets" # ENGLISH
+    tr(:cannot_currently_edit_set) # ENGLISH
   end
 
   view :closed_content do
