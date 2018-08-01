@@ -10,7 +10,7 @@ format do
   end
 
   view :unsupported_view, perms: :none, tags: :unknown_ok, error_code: 404 do
-    "view (#{voo.unsupported_view}) not supported for #{error_cardname}"
+    tr(:unsupported_view, view: voo.unsupported_view, cardname: error_cardname)
   end
 
   view :missing, perms: :none do
@@ -19,7 +19,7 @@ format do
 
   view :not_found, perms: :none, error_code: 404 do
     error_name = card.name.present? ? safe_name : "the card requested"
-    %( Could not find #{error_name}. )
+    tr(:not_found_error, error_name: error_name)
   end
 
   view :server_error, perms: :none, error_code: 500 do
@@ -27,19 +27,19 @@ format do
   end
 
   view :denial, perms: :none, error_code: 403 do
-    focal? ? "Permission Denied" : ""
+    focal? ? tr(:denial) : ""
   end
 
   view :bad_address, perms: :none, error_code: 404 do
-    %( 404: Bad Address )
+    tr(:bad_address)
   end
 
   view :too_deep, perms: :none, closed: true do
-    %{ Man, you're too deep.  (Too many levels of nests at a time) }
+    tr(:too_deep)
   end
 
   view :too_slow, perms: :none, closed: true, error_code: 408 do
-    %( Timed out! #{title_in_context} took too long to load. )
+    tr(:too_slow, showname: title_in_context)
   end
 end
 

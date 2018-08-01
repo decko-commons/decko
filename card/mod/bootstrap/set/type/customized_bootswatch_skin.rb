@@ -47,9 +47,9 @@ end
 event :validate_theme_template, :validate, on: :create do
   if theme_name
     if Card.fetch_type_id(theme_card_name) != Card::BootswatchSkinID
-      errors.add :abort, "not a valid theme: #{theme_name}"
+      errors.add :abort, tr(:not_valid_theme, theme_name: theme_name)
     elsif !Dir.exist?(source_dir)
-      errors.add :abort, "can't find source for theme \"#{theme_name}\""
+      errors.add :abort, tr(:cant_find_source_theme, theme_name: theme_name)
     end
   end
 end

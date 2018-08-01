@@ -11,9 +11,7 @@ event :validate_listed_by_content, :validate,
   item_cards(content: content).each do |item_card|
     next unless item_card.type_id != right.id
     errors.add(
-      :content,
-      "#{item_card.name} has wrong cardtype; " \
-      "only cards of type #{name.right} are allowed"
+      :content, tr(:only_type, cardname: item_card.name, cardtype: name.right)
     )
   end
 end

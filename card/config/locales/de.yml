@@ -271,7 +271,6 @@ de:
             too_slow: Timed out! %{showname} hat zu lange zum Laden gebraucht.
             error_rendering: error rendering
             error_message: Fehlermeldung (nur für Administratoren sichtbar)
-            unsupported_view: Ansicht %{view} nicht unterstützt für %{cardname}
             add_thing: Füge %{title} hinzu
             conflict: Konflikt!
             also_changes: "%{actor_link} hat gleichzeitig Änderungen gemacht."

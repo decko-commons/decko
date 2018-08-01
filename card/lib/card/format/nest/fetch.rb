@@ -19,7 +19,7 @@ class Card
         def not_found_codename cardish
           @view = :not_found
           c = Card.new name: Array.wrap(cardish).join(Card::Name.joint).to_s
-          c.errors.add :codename, "unknown codename in #{cardish}"
+          c.errors.add :codename, tr(:exception_unknown_codename, codename: cardish)
           c
         end
 
