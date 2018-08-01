@@ -18,7 +18,7 @@ event :validate_list_content, :validate,
       on: :save, changed: :content do
   item_cards.each do |item_card|
     next unless item_card.type_name.key != item_type_name.key
-    errors.add :content, tr(:only_type, cardname: item_card.name, cardtype: name.right )
+    errors.add :content, tr(:only_type, cardname: item_card.name, cardtype: name.right)
   end
 end
 

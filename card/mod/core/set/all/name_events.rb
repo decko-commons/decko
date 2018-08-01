@@ -34,7 +34,7 @@ event :validate_legality_of_name do
   elsif name.parts.include? ""
     errors.add :name, tr(:error_name_incomplete)
   elsif !name.valid?
-    errors.add :name, tr(:error_banned_characters, banned: Card::Name.banned_array * ' ')
+    errors.add :name, tr(:error_banned_characters, banned: Card::Name.banned_array * " ")
   elsif changing_existing_tag_to_junction?
     errors.add :name, tr(:error_name_tag, name: name)
   end

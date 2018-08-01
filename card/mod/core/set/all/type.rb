@@ -44,7 +44,12 @@ end
 
 event :validate_type_change, :validate, on: :update, changed: :type_id do
   if (c = dup) && c.action == :create && !c.valid?
-    errors.add :type, tr(:error_cant_change_errors, name: name, type_id: type_id, error_messages: c.errors.full_messages * ", ")
+    errors.add :type, tr(
+      :error_cant_change_errors,
+      name: name, 
+      type_id: type_id,
+      error_messages: c.errors.full_messages * ", "
+    )
   end
 end
 
