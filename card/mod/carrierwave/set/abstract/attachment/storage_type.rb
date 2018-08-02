@@ -329,7 +329,7 @@ def validate_temporary_storage_type_change new_storage_type=nil
   end
 
   if new_storage_type == :coded && codename.blank?
-    raise Error, tr(:codename_needed_for_storage)
+    raise Error, "codename needed for storage type :coded"
   end
 end
 
