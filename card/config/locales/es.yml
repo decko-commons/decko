@@ -188,8 +188,9 @@ es:
     :bootstrap:
       set: 
         type:
-          not_valid_theme: no es un tema valido %{theme_name}
-          cannot_source_theme: no se puede encontrar la fuente del tema %{theme_name}
+            customized_bootswatch_skin:
+              not_valid_theme: no es un tema valido %{theme_name}
+              cannot_source_theme: no se puede encontrar la fuente del tema %{theme_name}
     :carrierwave:
       set:
         abstract:
