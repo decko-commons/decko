@@ -5,7 +5,7 @@ end
 def check_json_syntax
   JSON.parse content
 rescue JSON::ParserError => e
-  errors.add tr(:invalid_json), e.message.sub(/^\d+: /, "").to_s
+  errors.add "invalid json", e.message.sub(/^\d+: /, "").to_s
 end
 
 format :html do

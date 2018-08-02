@@ -174,7 +174,17 @@ de:
             #description: Beschreibung
             comment_style_group: STYLE GROUP
             search_opt_names_ptr: option names for pointer
-          invalid_json: ungültiger json
+          #invalid_json: ungültiger json
+    :bootstrap:
+      set: 
+        type:
+          not_valid_theme: not a valid theme %{theme_name}
+          cannot_source_theme: Quelle für das Thema kann nicht gefunden werden %{theme_name}
+    :carrierwave:
+      set:
+        abstract:
+          url_is_missing: url fehlt
+          is_missing: wird vermisst
     #:03_machines: # No language-specific items known to be present in Ruby files
     :settings:
       lib:
