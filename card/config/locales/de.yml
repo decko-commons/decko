@@ -92,6 +92,9 @@ de:
             is_incomplete: ist unvollständig
           name:
             search_children: "(%{side}) Kinder von %{parent_name}"
+          rename:
+            cannot_change_content: inhalt kann nicht geändert werden, während der Name geändert wird
+            cannot_change_type: kann den Typ beim Ändern des Namens nicht ändern
           permissions:
             error_no_action_rule: Keine %{action} Regel für %{name}
             you_cant: Du hast keine Berechtigung zu %{what}
