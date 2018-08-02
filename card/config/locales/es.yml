@@ -494,6 +494,7 @@ es:
           account:
             error_not_allowed: no permitido en esta tarjeta
             sorry_email_reset: Lo siento, %{error_msg}. Por favor revise su correo electrónico para un nuevo enlace de restablecimiento de contraseña.
+            required: requerido
           email:
             error_invalid_address: debe ser una dirección válida
             search_email_duplicate: correo electrónico duplicado? (%{content})

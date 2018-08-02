@@ -494,6 +494,7 @@ en:
           account:
             error_not_allowed: not allowed on this card
             sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
+            required: required
           email:
             error_invalid_address: must be valid address
             search_email_duplicate: email duplicate? (%{content})
