@@ -184,6 +184,7 @@ en:
             #description: description
             comment_style_group: STYLE GROUP
             search_opt_names_ptr: option names for pointer
+          invalid_json: invalid json
     #:machines: # No language-specific items known to be present in Ruby files
     :settings:
       lib:

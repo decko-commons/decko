@@ -184,6 +184,7 @@ es:
             #description: description
             comment_style_group: GRUPO ESTILO
             search_opt_names_ptr: nombres de opcion para el puntero
+          invalid_json: json invalido
     #:machines: # No language-specific items known to be present in Ruby files
     :settings:
       lib:
