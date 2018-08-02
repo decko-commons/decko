@@ -82,14 +82,16 @@ es:
           built_in: "Diseños incorporados: %{built_in_layouts}"
       set:
         all:
+          codename: 
+            only_admins_codename: solo los administradores pueden establecer el nombre clave
+            error_code_in_use: nombre clave %{codename} ya esta en uso
           event:
             outside_event_phases: metodo de fase %{method} llamado fuera de las fases del evento
             called_in_stage: "%{item} metodo %{method} llamado en etapa %{stage}"
             called_on_action: "en: %{xaction} metodo %{method} llamado en %{yaction}"
           fetch:
             exception_fetch_arg_skipvirt: "%{func} llamado con nuevos argumentos y %{sv}"
-          name_validations:
-            error_code_in_use: nombre clave %{codename} ya esta en uso
+          name_events:
             error_name_exists: debe ser unico; '%{name}' ya existe.
             error_too_long: es demasiado largo (255 caracteres como maximo; longitud es %{length})
             error_blank_name: no puede estar en blanco
@@ -97,6 +99,7 @@ es:
             error_banned_characters: "no puede contener ninguno de los siguientes caracteres: %{banned}"
             error_name_tag: "%{name} en uso como una etiqueta"
             error_wrong_key: llave incorrecta '%{key}' para nombre %{name}
+            is_incomplete: esta incompleto
           name:
             search_children: "(%{side}) niños de %{parent_name}"
           permissions:

@@ -72,14 +72,16 @@ de:
           built_in: "Built-in Layouts: %{built_in_layouts}"
       set:
         all:
+          codename: 
+            only_admins_codename: cur Administratoren können Codenamen festlegen
+            error_code_in_use: codename %{codename} wird bereits benutzt
           event:
             outside_event_phases: phase method %{method} called outside of event phases
             called_in_stage: "%{item} method %{method} called in stage %{stage}"
             called_on_action: "on: %{xaction} method %{method} called on %{yaction}"
           fetch:
             exception_fetch_arg_skipvirt: "%{func} called with new arguments and %{sv}"
-          name_validations:
-            error_code_in_use: Codename %{codename} wird bereits benutzt
+          name_events:
             error_name_exists: muss eindeutig sein; '%{name}' exisitiert bereits.
             error_too_long: ist zu lang (%{length} Zeichen; erlaubt sind maximal 255)
             error_blank_name: darf nicht frei bleiben
@@ -87,6 +89,7 @@ de:
             error_banned_characters: "darf keine der folgenden Zeichen enthalten: %{banned}"
             error_name_tag: "%{name} bereits als Tag benutzt"
             error_wrong_key: falscher Schlüssel '%{key}' für Name %{name}
+            is_incomplete: ist unvollständig
           name:
             search_children: "(%{side}) Kinder von %{parent_name}"
           permissions:

@@ -15,11 +15,11 @@ private
 
 def validate_codename_permission
   return if Auth.always_ok?
-  errors.add :codename, "only admins can set codename"
+  errors.add :codename, tr(:only_admins_codename)
 end
 
 def validate_codename_uniqueness
   return (self.codename = nil) if codename.blank?
   return if errors.present? || !Card.find_by_codename(codename)
-  errors.add :codename, "codename #{codename} already in use"
+  errors.add :codename, tr(:error_code_in_use, codename: codename)
 end

@@ -82,14 +82,16 @@ en:
           built_in: "Built-in Layouts: %{built_in_layouts}"
       set:
         all:
+          codename: 
+            only_admins_codename: only admins can set codename
+            error_code_in_use: codename %{codename} already in use
           event:
             outside_event_phases: phase method %{method} called outside of event phases
             called_in_stage: "%{item} method %{method} called in stage %{stage}"
             called_on_action: "on: %{xaction} method %{method} called on %{yaction}"
           fetch:
             exception_fetch_arg_skipvirt: "%{func} called with new arguments and %{sv}"
-          name_validations:
-            error_code_in_use: codename %{codename} already in use
+          name_events:
             error_name_exists: must be unique; '%{name}' already exists.
             error_too_long: is too long (255 character maximum; length is %{length})
             error_blank_name: can't be blank
@@ -97,6 +99,7 @@ en:
             error_banned_characters: "may not contain any of the following characters: %{banned}"
             error_name_tag: "%{name} in use as a tag"
             error_wrong_key: wrong key '%{key}' for name %{name}
+            is_incomplete: is incomplete
           name:
             search_children: "(%{side}) children of %{parent_name}"
           permissions:
