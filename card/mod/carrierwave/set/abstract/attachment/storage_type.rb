@@ -20,7 +20,10 @@ event :validate_storage_type, :validate, on: :save do
     errors.add :storage_type, tr(:codename_needed_for_storage) if codename.blank?
   end
   unless known_storage_type? will_be_stored_as
-    errors.add :storage_type, tr(:unknown_storage_type, new_storage_type: @new_storage_type)
+    errors.add :storage_type, tr(
+      :unknown_storage_type,
+      new_storage_type: @new_storage_type
+    )
   end
 end
 
