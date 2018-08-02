@@ -186,8 +186,13 @@ de:
       set:
         abstract:
           attachment:
-            url_is_missing: url fehlt
-            is_missing: wird vermisst
+            url_is_missing: url is missing
+            is_missing: is missing
+            storage_type:
+              mod_argument_needed_to_save: mod argument needed to save card as coded
+              codename_needed_for_storage: codename needed for storage type coded
+              unknown_storage_type: unknown storage type %{new_storage_type}
+              moving_files_is_not_supported: moving files from cloud elsewhere is not supported
     #:03_machines: # No language-specific items known to be present in Ruby files
     :settings:
       lib:
