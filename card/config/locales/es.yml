@@ -184,7 +184,8 @@ es:
             #description: description
             comment_style_group: GRUPO ESTILO
             search_opt_names_ptr: nombres de opcion para el puntero
-          #invalid_json: json invalido
+          json:
+            invalid_json: invalid json
     :bootstrap:
       set: 
         type:
@@ -194,8 +195,9 @@ es:
     :carrierwave:
       set:
         abstract:
-          url_is_missing: falta la url
-          is_missing: esta perdido
+          attachment:
+            url_is_missing: falta la url
+            is_missing: esta perdido
     #:machines: # No language-specific items known to be present in Ruby files
     :settings:
       lib:
