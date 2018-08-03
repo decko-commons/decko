@@ -161,9 +161,9 @@ format :html do
     return if Auth.signed_in?
     signin_link = link_to_card :signin, tr(:sign_in_c)
     signup_link = link_to tr(:sign_up_c), path: { action: :new, mark: :signup }
-    wrap_with(:div) {
-      tr(:sign_in_or_up, signin_link: signin_link, signup_link: signup_link) 
-    }
+    wrap_with(:div) do
+      tr(:sign_in_or_up, signin_link: signin_link, signup_link: signup_link)
+    end
   end
 
   view :denial do
