@@ -74,6 +74,11 @@ en:
       set:
         format:
           exception_alias_fail: cannot find %{optview} view in %{optmod}; failed to alias %{view} in %{self}
+  spec:
+    lib:
+      card:
+       stage_director_spec:
+        dont_do_this: don't do this  
   mod:
     :core:
       format:
