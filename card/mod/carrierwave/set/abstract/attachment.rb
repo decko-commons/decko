@@ -28,7 +28,7 @@ event :validate_file_exist, :validate, on: :save do
   if will_be_stored_as == :web
     errors.add tr(:url_is_missing) if content.blank?
   elsif !attachment.file.present?
-    errors.add attachment_name, tr(:is missing)
+    errors.add attachment_name, tr(:is_missing)
   end
 end
 
