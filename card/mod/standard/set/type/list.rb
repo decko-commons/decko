@@ -2,7 +2,7 @@ include_set Pointer
 
 event :validate_list_name, :validate, on: :save, changed: :name do
   if !junction? || !right || right.type_id != CardtypeID
-    errors.add :name, "must have a cardtype name as right part"
+    errors.add :name, tr(:type_right)
   end
 end
 
@@ -10,9 +10,7 @@ event :validate_list_item_type_change, :validate,
       on: :save, changed: :name do
   item_cards.each do |item_card|
     next unless item_card.type_name.key != item_type_name.key
-    errors.add :name,
-               "name conflicts with list items' type; " \
-               "delete content first"
+    errors.add :name, tr(:conflict_item_type)
   end
 end
 
@@ -20,9 +18,11 @@ event :validate_list_content, :validate,
       on: :save, changed: :content do
   item_cards.each do |item_card|
     next unless item_card.type_name.key != item_type_name.key
-    errors.add :content,
-               "#{item_card.name} has wrong cardtype; " \
-               "only cards of type #{name.right} are allowed"
+    errors.add :content, tr(
+      :only_type_allowed,
+      cardname: item_card.name,
+      cardtype: name.right
+    )
   end
 end
 

@@ -198,9 +198,9 @@ format :html do
   end
 
   def denial_message_with_links to_task
-    linx = [link_to_card(:signin, "sign in")]
+    linx = [link_to_card(:signin, tr(:sign_in)]
     if Card.new(type_id: Card::SignupID).ok?(:create)
-      linx += ["or", link_to("sign up", path: { action: "new", mark: :signup })]
+      linx += ["or", link_to(tr(:sign_up), path: { action: "new", mark: :signup })]
     end
     Env.save_interrupted_action request.env["REQUEST_URI"]
     "Please #{linx.join ' '} #{to_task}"
