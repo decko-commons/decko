@@ -2,7 +2,7 @@ include_set Pointer
 
 event :validate_listed_by_name, :validate, on: :save, changed: :name do
   if !junction? || !right || right.type_id != CardtypeID
-    errors.add :name, "must have a cardtype name as right part"
+    errors.add :name, tr(:cardtype_right)
   end
 end
 
@@ -10,11 +10,7 @@ event :validate_listed_by_content, :validate,
       on: :save, changed: :content do
   item_cards(content: content).each do |item_card|
     next unless item_card.type_id != right.id
-    errors.add(
-      :content,
-      "#{item_card.name} has wrong cardtype; " \
-      "only cards of type #{name.right} are allowed"
-    )
+    errors.add(:content, tr(:only_type, cardname: item_card.name, cardtype: name.right))
   end
 end
 
