@@ -1,9 +1,7 @@
 include_set Pointer
 
 event :validate_list_name, :validate, on: :save, changed: :name do
-  if !junction? || !right || right.type_id != CardtypeID
-    errors.add :name, tr(:type_right)
-  end
+  errors.add :name, tr(:type_right) if !junction? || !right || right.type_id != CardtypeID
 end
 
 event :validate_list_item_type_change, :validate,
