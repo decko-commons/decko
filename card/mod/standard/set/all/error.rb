@@ -145,7 +145,7 @@ format :html do
     voo.hide! :menu
     voo.title = "Not Found"
     frame do
-      [not_found_errors, sign_in_or_up_links]
+      [not_found_errors, sign_in_or_up_links("to create it")]
     end
   end
 
@@ -157,11 +157,25 @@ format :html do
     end
   end
 
-  def sign_in_or_up_links
+  def sign_in_or_up_links to_task
     return if Auth.signed_in?
-    signin_link = link_to_card :signin, "Sign in"
-    signup_link = link_to "Sign up", path: { action: :new, mark: :signup }
-    wrap_with(:div) { "#{signin_link} or #{signup_link} to create it." }
+    links = [signin_link, signup_link].compact.join " or "
+    wrap_with(:div) do
+      ["Please", links, to_task].join(" ") + "."
+    end
+  end
+
+  def signin_link
+    link_to_card :signin, "sign in"
+  end
+
+  def signup_link
+    return unless signup_ok?
+    link_to "sign up", path: { action: :new, mark: :signup }
+  end
+
+  def signup_ok?
+    Card.new(type_id: Card::SignupID).ok? :create
   end
 
   view :denial do
@@ -176,32 +190,31 @@ format :html do
 
   def loud_denial
     frame do
-      [
-        wrap_with(:h1, "Sorry!"),
-        wrap_with(:div, loud_denial_message)
-      ]
+      [wrap_with(:h1, "Sorry!"),
+       wrap_with(:div, loud_denial_message)]
     end
   end
 
   def loud_denial_message
-    to_task = @denied_task ? "to #{@denied_task} this." : "to do that."
-    case
-    when @denied_task != :read && Card.config.read_only
-      "We are currently in read-only mode.  Please try again later."
-    when Auth.signed_in?
-      "You need permission #{to_task}"
+    read_only_denial_message || authorization_denial_message
+  end
+
+  def read_only_denial_message
+    return unless @denied_task != :read && Card.config.read_only
+    "We are currently in read-only mode.  Please try again later."
+  end
+
+  def authorization_denial_message
+    if Auth.signed_in?
+      "You need permission #{to_do_unauthorized_task}"
     else
-      denial_message_with_links to_task
+      Env.save_interrupted_action request.env["REQUEST_URI"]
+      sign_in_or_up_links to_do_unauthorized_task
     end
   end
 
-  def denial_message_with_links to_task
-    linx = [link_to_card(:signin, "sign in")]
-    if Card.new(type_id: Card::SignupID).ok?(:create)
-      linx += ["or", link_to("sign up", path: { action: "new", mark: :signup })]
-    end
-    Env.save_interrupted_action request.env["REQUEST_URI"]
-    "Please #{linx.join ' '} #{to_task}"
+  def to_do_unauthorized_task
+    @denied_task ? "to #{@denied_task} this" : "to do that"
   end
 
   view :server_error, template: :haml

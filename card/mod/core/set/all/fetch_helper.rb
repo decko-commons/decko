@@ -26,7 +26,7 @@ module ClassMethods
   private
 
   def standard_controller_fetch args, card_opts
-    mark = args[:id] || card_opts[:name]
+    mark = args[:mark] || card_opts[:name]
     card = Card.fetch mark, look_in_trash: args[:look_in_trash], new: card_opts
     card.assign_attributes card_opts if args[:assign] && card&.real?
     card
@@ -36,7 +36,7 @@ module ClassMethods
     opts = safe_param args[:card]
     opts[:type] ||= args[:type] if args[:type]
     # for /new/:type shortcut.  we should handle in routing and deprecate this
-    opts[:name] ||= Card::Name.url_key_to_standard(args[:id])
+    opts[:name] ||= Card::Name.url_key_to_standard(args[:mark])
     opts
   end
 
