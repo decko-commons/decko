@@ -69,32 +69,38 @@ jQuery.fn.extend {
     $slot.data "remote", true
     $.rails.handleRemote($slot)
 
-  setSlotContent: (val, mode) ->
-    v = $(val)
-    unless v[0]
-#   if slotdata = s.attr 'data-slot'
-#     v.attr 'data-slot', slotdata if slotdata?
-# else #simple text (not html)
-      v = val
+  setSlotContent: (val, _overlay=false) ->
+    v = $(val)[0] && $(val) || val
 
-    if v.hasClass("_overlay")
-      mode == "overlay"
-    else if v.hasClass("_modal")
-      mode == "modal"
 
-    s = if mode == "modal" then modalSlot() else @slot()
-
-    if mode == "overlay"
-      s.addOverlay(v)
+    if typeof(v) == "string"
+      # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)
+      @slot().replaceWith v
     else
-      s.replaceWith v
-    if mode == "modal"
-      v.modalify()
-      v.closest("#modal-container").modal("show")
-    v.trigger 'slotReady'
-    v.find(".card-slot").trigger "slotReady"
+      if v.hasClass("_overlay")
+        mode == "overlay"
+      else if v.hasClass("_modal")
+        mode == "modal"
+
+      s = if mode == "modal" then modalSlot() else @slot()
+      s.setSlotContentFromElement v
     v
 
+  setSlotContentFromElement: (el, mode) ->
+    s = $(this)
+    if mode == "overlay"
+      s.addOverlay(el)    
+    else
+      s.replaceWith el
+      if mode == "modal"
+        el.modalify()
+        el.closest("#modal-container").modal("show")
+    el.triggerSlotReady()
+
+  triggerSlotReady: () ->
+    @trigger "slotReady"
+    @find(".card-slot").trigger "slotReady"
+  
   addOverlay: (overlay) ->
     unless @parent().hasClass("overlay-container")
       @wrapAll('<div class="overlay-container">')
@@ -104,7 +110,7 @@ jQuery.fn.extend {
   modalify: ->
     unless @hasClass("modal-dialog")
       @addClass("modal-dialog").wrapInner('<div class="modal-content">')
-
+  
   # mode can be "standard", "overlay" or "modal"
   slotSuccess: (data, mode) ->
     if data.redirect

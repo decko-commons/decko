@@ -77,6 +77,14 @@ format :html do
 
   def filter_label field
     return "Keyword" if field.to_sym == :name
+    filter_label_from_method(field) || filter_label_from_name(field)
+  end
+
+  def filter_label_from_method field
+    try "#{field}_filter_label"
+  end
+
+  def filter_label_from_name field
     Card.fetch_name(field) { field.to_s.capitalize }
   end
 

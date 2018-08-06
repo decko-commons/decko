@@ -126,7 +126,7 @@ describe Card::Content::Chunk::Nest, "Inclusion" do
 
       r = bob_address.reload.format.render_core
       assert_view_select r, "div[class~=d0-card-content]", "Sparta"
-      expect(Card.fetch("bob+address").includees.map(&:name))
+      expect(Card.fetch("bob+address").nestees.map(&:name))
         .to eq([bob_city.name])
     end
 
@@ -180,7 +180,7 @@ describe Card::Content::Chunk::Nest, "Inclusion" do
       wooga = Card.create! name: "Wooga", type: "SpecialType"
       wooga_age = create! "#{wooga.name}#{Card::Name.joint}age", "39"
       expect(wooga_age.format.render_core).to eq("39")
-      expect(wooga_age.includers.map(&:name)).to eq(["Wooga"])
+      expect(wooga_age.nesters.map(&:name)).to eq(["Wooga"])
     end
   end
 end
