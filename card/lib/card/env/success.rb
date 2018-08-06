@@ -21,7 +21,7 @@ class Card
       def normalize_success_args success_args
         case success_args
         when nil
-          self.mark= "_self"
+          self.mark = "_self"
           {}
         when ActionController::Parameters
           success_args.to_unsafe_h

@@ -205,13 +205,16 @@ format :html do
   end
 
   def authorization_denial_message
-    to_task = @denied_task ? "to #{@denied_task} this" : "to do that"
     if Auth.signed_in?
-      "You need permission #{to_task}"
+      "You need permission #{to_do_unauthorized_task}"
     else
       Env.save_interrupted_action request.env["REQUEST_URI"]
-      sign_in_or_up_links to_task
+      sign_in_or_up_links to_do_unauthorized_task
     end
+  end
+
+  def to_do_unauthorized_task
+    @denied_task ? "to #{@denied_task} this" : "to do that"
   end
 
   view :server_error, template: :haml

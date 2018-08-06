@@ -31,7 +31,7 @@ Decko::Engine.routes.draw do
 
   # RESTful (with mark)
   match ":mark(.:format)" => "card#create", via: :post
-  match ":mark(.:format)" => "card#update", via: [:put, :patch]
+  match ":mark(.:format)" => "card#update", via: %i[put patch]
   match ":mark(.:format)" => "card#delete", via: :delete
 
   # explicit GET alternatives for transactions
@@ -40,8 +40,8 @@ Decko::Engine.routes.draw do
   end
 
   # for super-explicit over-achievers
-  match "(card)/create(/:mark(.:format))" => "card#create", via: [:post, :patch]
-  match "(card)/update(/:mark(.:format))" => "card#update", via: [:post, :put, :patch]
+  match "(card)/create(/:mark(.:format))" => "card#create", via: %i[post patch]
+  match "(card)/update(/:mark(.:format))" => "card#update", via: %i[post put patch]
   match "(card)/delete(/:mark(.:format))" => "card#delete", via: :delete
 
   # Wildcard for bad addresses

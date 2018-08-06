@@ -1,13 +1,14 @@
 # -*- encoding : utf-8 -*-
 
 module Decko
-  # For use in REST API specs
+  # for use in REST API specs
   module RestSpecMethods
     def with_token_for usermark
       yield Card[usermark].account.reset_token
     end
   end
 
+  # for use in REST API specs
   module RestSpecHelper
     def self.describe_api &block
       RSpec.describe CardController, type: :controller do
