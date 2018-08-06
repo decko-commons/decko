@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::RichHtml::Layout do
-
   context "simple page with Default Layout" do
     subject { view(:layout, card: "A+B") }
 

@@ -26,11 +26,13 @@ $.extend decko,
         func.call this, $(this)
 
 jQuery.fn.extend {
-  slot: (status="success") ->
-
-    @selectSlot("slot-#{status}-selector") ||
-      @selectSlot("slot-selector") ||
-      @closest(".card-slot")
+  slot: (status="success", mode="normal") ->
+    if mode == "modal"
+      modalSlot()
+    else
+      @selectSlot("slot-#{status}-selector") ||
+        @selectSlot("slot-selector") ||
+        @closest(".card-slot")
 
   selectSlot: (selectorName) ->
     if selector = @data(selectorName)
@@ -69,21 +71,18 @@ jQuery.fn.extend {
     $slot.data "remote", true
     $.rails.handleRemote($slot)
 
-  setSlotContent: (val, _overlay=false) ->
+  setSlotContent: (val, mode) ->
     v = $(val)[0] && $(val) || val
-
 
     if typeof(v) == "string"
       # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)
-      @slot().replaceWith v
+      @slot("success", mode).replaceWith v
     else
       if v.hasClass("_overlay")
-        mode == "overlay"
+        mode = "overlay"
       else if v.hasClass("_modal")
-        mode == "modal"
-
-      s = if mode == "modal" then modalSlot() else @slot()
-      s.setSlotContentFromElement v
+        mode = "modal"
+      @slot("success", mode).setSlotContentFromElement v, mode
     v
 
   setSlotContentFromElement: (el, mode) ->

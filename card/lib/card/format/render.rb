@@ -39,7 +39,6 @@ class Card
         if layout.respond_to?(:call)
           if voo.main
             wrap_main
-
             layout.call
           else
             send Card::Set::Format.layout_method_name(layout)
