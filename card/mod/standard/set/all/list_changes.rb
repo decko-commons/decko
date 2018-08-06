@@ -43,8 +43,6 @@ event :cardtype_of_list_item_changed, :validate,
       when: :codename_list_exist? do
   linker_lists.each do |card|
     next unless card.item_type_id != type_id
-    errors.add(:type,
-               "can't be changed because #{name} " \
-               "is referenced by list card #{card.name}")
+    errors.add :type, tr(:error_is_referenced, name: name, cardname: card.name)
   end
 end
