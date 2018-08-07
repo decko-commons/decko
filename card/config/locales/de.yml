@@ -325,6 +325,7 @@ de:
             sign_in_up_no_task: Bitte %{signin_link} oder %{signup_link} um das zu tun.
             sign_in_no_task: Bitte %{signin_link} um das zu tun.
             or: oder
+            please: bitte
           list_changes:
             search_list_fields: list fields
             search_listed_by_fields: listed by fields

@@ -145,7 +145,7 @@ format :html do
     voo.hide! :menu
     voo.title = "Not Found"
     frame do
-      [not_found_errors, sign_in_or_up_links]
+      [not_found_errors, sign_in_or_up_links("to create it")]
     end
   end
 
@@ -157,13 +157,25 @@ format :html do
     end
   end
 
-  def sign_in_or_up_links
+  def sign_in_or_up_links to_task
     return if Auth.signed_in?
-    signin_link = link_to_card :signin, tr(:sign_in_c)
-    signup_link = link_to tr(:sign_up_c), path: { action: :new, mark: :signup }
+    links = [signin_link, signup_link].compact.join tr(:or)
     wrap_with(:div) do
-      tr(:sign_in_or_up, signin_link: signin_link, signup_link: signup_link)
+      [tr(:please), links, to_task].join(" ") + "."
     end
+  end
+
+  def signin_link
+    link_to_card :signin, tr(:sign_in_c)
+  end
+
+  def signup_link
+    return unless signup_ok?
+    link_to tr(:sign_up_c), path: { action: :new, mark: :signup }
+  end
+
+  def signup_ok?
+    Card.new(type_id: Card::SignupID).ok? :create
   end
 
   view :denial do
@@ -178,10 +190,8 @@ format :html do
 
   def loud_denial
     frame do
-      [
-        wrap_with(:h1, "Sorry!"),
-        wrap_with(:div, loud_denial_message)
-      ]
+      [wrap_with(:h1, tr(:sorry)),
+       wrap_with(:div, loud_denial_message)]
     end
   end
 
@@ -193,7 +203,8 @@ format :html do
     when Auth.signed_in?
       tr(:need_permission_task, task: to_task)
     else
-      denial_message_with_links to_task
+      Env.save_interrupted_action request.env["REQUEST_URI"]
+      sign_in_or_up_links to_do_unauthorized_task
     end
   end
 

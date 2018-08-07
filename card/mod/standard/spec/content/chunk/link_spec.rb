@@ -57,9 +57,9 @@ RSpec.describe Card::Content::Chunk::Link do
   end
 
   it "handles relative urls" do
-    assert_link "[[/recent]]", class: "internal-link",
-                               href: "/recent",
-                               text: "/recent"
+    assert_link "[[/*recent]]", class: "internal-link",
+                                href: "/*recent",
+                                text: "/*recent"
   end
 
   it "handles absolute urls" do

@@ -49,37 +49,43 @@ class CardController < ActionController::Base
 
   before_action :setup, except: [:asset]
   before_action :authenticate, except: [:asset]
-  before_action :load_id, only: [:read]
+  before_action :load_mark, only: [:read]
   before_action :load_card, except: [:asset]
+  before_action :load_action, only: [:read]
   before_action :refresh_card, only: [:create, :update, :delete]
 
   def setup
     Card::Machine.refresh_script_and_style unless params[:explicit_file]
     Card::Cache.renew
     Card::Env.reset controller: self
-    request.format = :html if Card::Env.ajax? && !params[:format]
   end
 
   def authenticate
     Card::Auth.set_current params[:token], params[:current]
   end
 
-  def load_id
-    params[:id] = interpret_id params[:id]
+  def load_mark
+    params[:mark] = interpret_mark params[:mark]
   end
 
   def load_card
-    @card = Card.controller_fetch params
-    raise Card::Error::NotFound unless @card
-    load_action
-    record_as_main
-    card.errors.any? ? render_errors : true
+    handle_errors do
+      @card = Card.controller_fetch params
+      raise Card::Error::NotFound unless card
+      record_as_main
+    end
   end
 
   def load_action
-    @card.select_action_by_params params
+    handle_errors do
+      card.select_action_by_params params
+      if params[:edit_draft] && card.drafts.present?
+        card.content = card.last_draft_content
+      end
+    end
   end
 
+  # TODO: refactor this away this when new layout handling is ready
   def record_as_main
     Card::Env[:main_name] = params[:main] || card&.name || ""
   end
@@ -96,27 +102,27 @@ class CardController < ActionController::Base
     end
   end
 
+  def handle_errors
+    yield
+    card.errors.any? ? render_errors : true
+  end
+
+  # successful create, update, or delete action
   def render_success
-    success = Card::Env.success
-    success.name_context = @card.name
-    if !Card::Env.ajax? || success.hard_redirect?
-      card_redirect success.to_url
-    elsif success.target.is_a? String
-      render plain: success.target
+    success = Card::Env.success.in_context card.name
+    if Card::Env.ajax? && !success.hard_redirect?
+      soft_redirect success
     else
-      reset_card success.target
-      show
+      hard_redirect success.to_url
     end
   end
 
   def show view=nil, status=200
     card.action = :read
-    card.content = card.last_draft_content if use_draft?
-
-    format = format_from_params card
+    format = load_format
     result = render_page format, view
     status = format.error_status || status
-    deliver format, result, status
+    respond format, result, status
   end
 
   def render_page format, view

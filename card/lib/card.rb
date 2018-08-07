@@ -144,9 +144,9 @@ class Card < ApplicationRecord
     :only_storage_phase,          # used to save subcards
     :changed_attributes,
     :skip,                        # skip event(s) for all cards in act
-    :skip_in_action,               # skip event for just this card
+    :skip_in_action,              # skip event for just this card
     :trigger,                     # trigger event(s) for all cards in act
-    :trigger_in_action             # trigger event for just this card
+    :trigger_in_action            # trigger event for just this card
   )
 
   alias_method :skip_event, :skip

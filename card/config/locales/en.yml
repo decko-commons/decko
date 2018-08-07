@@ -335,6 +335,7 @@ en:
             sign_in_up_no_task: Please %{signin_link} or %{signup_link} to do that.
             sign_in_no_task: Please %{signin_link} to do that.
             or: or 
+            please: please
           list_changes:
             search_list_fields: list fields
             search_listed_by_fields: listed by fields

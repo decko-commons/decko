@@ -334,7 +334,8 @@ es:
             sign_in_task: Por favor %{signin_link} a %{task} esto.
             sign_in_up_no_task: Por favor %{signin_link} o %{signup_link} para hacer eso.
             sign_in_no_task: Por favor %{signin_link} para hacer eso.
-            or: o 
+            or: o
+            please: por favor 
           list_changes:
             search_list_fields: campos de lista
             search_listed_by_fields: listado por campos
