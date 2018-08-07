@@ -199,16 +199,18 @@ format :html do
     to_task = @denied_task ? "to #{@denied_task} this." : "to do that."
 
     case
-    when @denied_task != :read && Card.config.read_only
-      deniel_message = tr(:read_only)
+    when denied_task_read
+      tr(:read_only)
     when Auth.signed_in?
-      deniel_message = tr(:need_permission_task, task: to_task)
+      tr(:need_permission_task, task: to_task)
     else
       Env.save_interrupted_action request.env["REQUEST_URI"]
-      deniel_message = sign_in_or_up_links to_do_unauthorized_task
+      sign_in_or_up_links to_do_unauthorized_task
     end
+  end
 
-    deniel_message
+  def denied_task_read
+    @denied_task != :read && Card.config.read_only
   end
 
   def denial_message_with_links to_task
