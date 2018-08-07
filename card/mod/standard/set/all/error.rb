@@ -198,14 +198,17 @@ format :html do
   def loud_denial_message
     to_task = @denied_task ? "to #{@denied_task} this." : "to do that."
 
-    if @denied_task != :read && Card.config.read_only
-      tr(:read_only)
-    elsif Auth.signed_in?
-      tr(:need_permission_task, task: to_task)
+    case
+    when @denied_task != :read && Card.config.read_only
+      deniel_message = tr(:read_only)
+    when Auth.signed_in?
+      deniel_message = tr(:need_permission_task, task: to_task)
     else
       Env.save_interrupted_action request.env["REQUEST_URI"]
-      sign_in_or_up_links to_do_unauthorized_task
+      deniel_message = sign_in_or_up_links to_do_unauthorized_task
     end
+
+    deniel_message
   end
 
   def denial_message_with_links to_task
