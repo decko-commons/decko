@@ -12,9 +12,7 @@ card_accessor :token
 
 # legal to add +*account card
 event :validate_accountability, :prepare_to_validate, on: :create do
-  unless left && left.accountable?
-    errors.add :content, tr(:error_not_allowed)
-  end
+  errors.add :content, tr(:error_not_allowed) unless left&.accountable?
 end
 
 event :require_email, :prepare_to_validate,
