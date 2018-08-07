@@ -326,6 +326,8 @@ de:
             sign_in_no_task: Bitte %{signin_link} um das zu tun.
             or: oder
             please: bitte
+            denied_task: zu %{denied_task} dies
+            to_do_that: das zu tun
           list_changes:
             search_list_fields: list fields
             search_listed_by_fields: listed by fields

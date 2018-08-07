@@ -196,10 +196,10 @@ format :html do
   end
 
   def loud_denial_message
-    to_task = @denied_task ? "to #{@denied_task} this." : "to do that."
+    to_task = @denied_task ? tr(:denied_task, denied_task: @denied_task) : tr(:to_do_that)
 
     case
-    when denied_task_read
+    when not_denied_task_read?
       tr(:read_only)
     when Auth.signed_in?
       tr(:need_permission_task, task: to_task)
@@ -209,7 +209,7 @@ format :html do
     end
   end
 
-  def denied_task_read
+  def not_denied_task_read?
     @denied_task != :read && Card.config.read_only
   end
 
