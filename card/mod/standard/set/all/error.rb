@@ -223,7 +223,7 @@ format :html do
       [tr(:or), link_to(tr(:sign_up), path: { action: "new", mark: :signup })]
     end
     Env.save_interrupted_action request.env["REQUEST_URI"]
-    "Please #{linx.join ' '} #{to_task}"
+    "#{tr(:please)} #{linx.join ' '} #{to_task}"
   end
 
   view :server_error, template: :haml
