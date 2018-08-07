@@ -213,6 +213,10 @@ format :html do
     @denied_task != :read && Card.config.read_only
   end
 
+  def to_do_unauthorized_task
+    @denied_task ? tr(:denied_task, denied_task: @denied_task) : tr(:to_do_that)
+  end
+
   def denial_message_with_links to_task
     linx = [link_to_card(:signin, "sign in")]
     if Card.new(type_id: Card::SignupID).ok?(:create)
