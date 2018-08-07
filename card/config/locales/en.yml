@@ -20,7 +20,7 @@
 #    with either 'lib.card' or 'mod.0d_modname' and these patterns are
 #    sufficiently distinctive that key collisions with translations
 #    for applications or other gems are believed to be unlikely.
-#    Format names for time and date are begun with a 'card_' prefix to
+#    Format names for time and date are begun with a 'card_'  prefix to
 #    minimize the chances of interference with other gems or applications.
 ---
 en:
