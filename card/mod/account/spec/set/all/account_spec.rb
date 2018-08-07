@@ -1,5 +1,3 @@
-# -*- encoding : utf-8 --*-
-
 RSpec.describe Card::Set::All::Account do
   describe "accountable?" do
     it "is false for cards with *accountable rule off" do
