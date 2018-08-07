@@ -124,6 +124,7 @@ de:
             error_indestructible: "%{name} ist eine unzerstörbare Regel"
             error_user_edits: "Wurde bearbeitet mit %{name}s Account.\nLöschen würde den Verlauf durcheinander bringen."
             error_cant_delete_child: "kann %{child_name} nicht löschen: %{message}"
+            exception_almost_deleted: Die aktuelle Datei wurde nur knapp entfernt
           type:
             error_cant_change_errors: "von %{name} kann nicht geändert werden; Fehler beim Erstellen von %{type_id}: %{error_messages}"
             error_no_such_type: Typ existiert nicht

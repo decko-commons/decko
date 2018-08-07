@@ -134,6 +134,7 @@ es:
             error_indestructible: "%{name} es una regla indestructible"
             error_user_edits: "Las ediciones se han hecho un %{name}'s cuenta de usuario.\nEliminar esta tarjeta arruinaria nuestra historia."
             error_cant_delete_child: "no puede eliminarse %{child_name}: %{message}"
+            exception_almost_deleted: Se evitó de forma muy estrecha eliminar el archivo actual
           type:
             error_cant_change_errors: "de %{name} no se puede cambiar; creando nuevos errores %{type_id}: %{error_messages}"
             error_no_such_type: No hay tal tipo

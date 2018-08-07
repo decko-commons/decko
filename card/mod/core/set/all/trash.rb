@@ -31,7 +31,7 @@ module ClassMethods
     file_ids = all_file_ids
     file_ids.each do |file_id|
       next unless trashed_card_ids.member?(file_id)
-      raise Card::Error, "Narrowly averted deleting current file" if Card.exists?(file_id)
+      raise Card::Error, tr(:exception_almost_deleted) if Card.exists?(file_id)
       ::FileUtils.rm_rf "#{dir}/#{file_id}", secure: true
     end
   end

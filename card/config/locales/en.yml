@@ -134,6 +134,7 @@ en:
             error_indestructible: "%{name} is an indestructible rule"
             error_user_edits: "Edits have been made with %{name}'s user account.\nDeleting this card would mess up our history."
             error_cant_delete_child: "can't delete %{child_name}: %{message}"
+            exception_almost_deleted: Narrowly averted deleting current file
           type:
             error_cant_change_errors: "of %{name} can't be changed; errors creating new %{type_id}: %{error_messages}"
             error_no_such_type: No such type
