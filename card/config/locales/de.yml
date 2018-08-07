@@ -192,7 +192,7 @@ de:
       set: 
         type:
             customized_bootswatch_skin:
-              not_valid_theme: not a valid theme %{theme_name}
+              not_valid_theme: kein gültiges Thema %{theme_name}
               cannot_source_theme: Quelle für das Thema kann nicht gefunden werden %{theme_name}
     :carrierwave:
       set:
@@ -324,6 +324,7 @@ de:
             sign_in_task: Bitte %{signin_link} um das zu %{task}.
             sign_in_up_no_task: Bitte %{signin_link} oder %{signup_link} um das zu tun.
             sign_in_no_task: Bitte %{signin_link} um das zu tun.
+            or: oder
           list_changes:
             search_list_fields: list fields
             search_listed_by_fields: listed by fields

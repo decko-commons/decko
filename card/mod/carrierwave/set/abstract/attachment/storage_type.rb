@@ -230,7 +230,7 @@ end
 
 def bucket_from_config
   Cardio.config.file_default_bucket ||
-    (Cardio.config.file_buckets & Cardio.config.file_buckets.keys.first)
+    (Cardio.config.file_buckets&.keys&.first)
 end
 
 def storage_type
