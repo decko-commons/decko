@@ -21,6 +21,7 @@ format :html do
     class_up "media-left", "m-2"
     @image_card = Card.cardish(opts[:image]) if opts[:image]
     opts[:media_opts] = {} unless opts[:media_opts]
+    opts[:media_left] = "" unless opts[:media_left]
     text_with_image_args opts
     haml :media_snippet, opts
   end

@@ -60,8 +60,15 @@ class Card
       #   ensure_card "Under Score", type: :pointer # => changes the type to pointer
       #                                             #    but not the name
       def ensure_card name_or_args, content_or_args=nil
-        name = name_or_args.is_a?(Hash) ? name_or_args[:name] : name_or_args
-        args = standardize_ensure_args name_or_args, content_or_args
+        name, args = standardize_ensure_args name_or_args, content_or_args
+        ensure_card_simplified name, args
+      end
+
+      # like ensure_card but derives codename from name if no codename is given.
+      # The derived codename is all lower case with underscores; "*" and ":" are removed
+      def ensure_code_card name_or_args, content_or_args=nil
+        name, args =  standardize_ensure_args name_or_args, content_or_args
+        args[:codename] = name.downcase.tr(" ", "_").tr(":*", "") unless args[:codename]
         ensure_card_simplified name, args
       end
 
@@ -71,8 +78,7 @@ class Card
       # For example if a card with name "under_score" exists
       # then `ensure_card "Under Score"` renames it to "Under Score"
       def ensure_card! name_or_args, content_or_args=nil
-        name = name_or_args.is_a?(Hash) ? args[:name] : name_or_args
-        args = standardize_ensure_args name_or_args, content_or_args
+        name, args = standardize_ensure_args name_or_args, content_or_args
         ensure_card_simplified name, add_name(name, args)
       end
 
@@ -221,11 +227,13 @@ class Card
       end
 
       def standardize_ensure_args name_or_args, content_or_args
-        if name_or_args.is_a?(Hash)
-          name_or_args
-        else
-          hashify content_or_args, :content
-        end
+        name = name_or_args.is_a?(Hash) ? name_or_args[:name] : name_or_args
+        args = if name_or_args.is_a?(Hash)
+                 name_or_args
+               else
+                 hashify content_or_args, :content
+               end
+        [name, args]
       end
 
       def standardize_update_args name_or_args, content_or_args
