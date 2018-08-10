@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::All::Bar do
-  # SPECSTUB
   specify "view thin_bar" do
     expect_view(:thin_bar).to have_tag("div.card-slot.bar-view")
   end

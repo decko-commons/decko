@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::All::Tabs do
-  # SPECSTUB
   specify "view tabs" do
     expect_view(:tabs).to have_tag("div.tabbable") do
       with_tag "ul.nav"
