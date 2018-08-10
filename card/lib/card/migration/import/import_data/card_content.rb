@@ -20,7 +20,7 @@ class Card
           end
 
           def content_path data
-            filename = data[:key] || data[:name].to_name.key
+            filename = (data[:key] || data[:name]).to_name.safe_key
             File.join @card_content_dir, filename
           end
         end
