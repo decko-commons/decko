@@ -27,7 +27,7 @@ format :html do
 
   def warning_list_with_auto_scope warnings
     # 'ADMINISTRATOR WARNING'
-    admin_warn = tx(:admin_warn)
+    admin_warn = tr(:admin_warn)
     "<h5>#{admin_warn}</h5>" + warnings.join("\n")
   end
 
