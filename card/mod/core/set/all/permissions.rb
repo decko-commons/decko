@@ -95,7 +95,7 @@ def require_permission_rule! rule_id, action
   return if rule_id
   # RULE missing.  should not be possible.
   # generalize this to handling of all required rules
-  errors.add :permission_denied, "No #{action} rule for #{name}"
+  errors.add :permission_denied, tr(:error_no_action_rule, action: action, name: name)
   raise Card::Error::PermissionDenied, self
 end
 

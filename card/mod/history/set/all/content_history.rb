@@ -169,7 +169,7 @@ def draft_acts
 end
 
 event :detect_conflict, :validate, on: :update, when: :edit_conflict? do
-  errors.add :conflict, "changes not based on latest revision"
+  errors.add :conflict, tr(:error_not_latest_revision)
 end
 
 def edit_conflict?

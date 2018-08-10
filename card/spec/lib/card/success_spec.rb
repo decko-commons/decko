@@ -32,13 +32,6 @@ describe Card::Env::Success do
       it { is_expected.to eq home }
     end
 
-    context "initialized with TEXT string" do
-      before do
-        success_params "TEXT: Hi"
-      end
-      it { is_expected.to eq "Hi" }
-    end
-
     context "initialized with card object" do
       before do
         success_params home

@@ -1,28 +1,40 @@
 class Card
   module Env
+    # Success objects
     class Success
       include Card::Env::Location
 
       attr_accessor :params, :redirect, :id, :name, :card, :name_context
 
-      def initialize name_context=nil, success_params=nil
+      def initialize name_context=nil, success_args=nil
         @name_context = name_context
         @new_args = {}
         @params = OpenStruct.new
-        case success_params
-        when Hash
-          apply(success_params)
+        self << normalize_success_args(success_args)
+      end
+
+      def in_context name_context
+        self.name_context = name_context
+        self
+      end
+
+      def normalize_success_args success_args
+        case success_args
+        when nil
+          self.mark = "_self"
+          {}
         when ActionController::Parameters
-          apply(success_params.to_unsafe_h)
-        when nil then  self.name = "_self"
-        else;  self.target = success_params
+          success_args.to_unsafe_h
+        else
+          success_args
         end
       end
 
       def << value
-        case value
-        when Hash then apply value
-        else; self.target = value
+        if value.is_a? Hash
+          apply value
+        else
+          self.target = value
         end
       end
 
@@ -35,6 +47,7 @@ class Card
         @redirect == :soft
       end
 
+      # TODO: refactor to use cardish
       def mark= value
         case value
         when Integer then @id = value
@@ -45,6 +58,7 @@ class Card
         end
       end
 
+      # @deprecated
       def id= id
         # for backwards compatibility use mark here.
         # id was often used for the card name
@@ -73,7 +87,6 @@ class Card
         when ""                     then ""
         when "*previous", :previous then :previous
         when %r{^(http|/)}          then value
-        when /^TEXT:\s*(.+)/        then Regexp.last_match(1)
         when /^REDIRECT:\s*(.+)/
           @redirect = true
           process_target Regexp.last_match(1)
@@ -81,8 +94,8 @@ class Card
         end
       end
 
-      def apply args
-        args.each_pair do |key, value|
+      def apply hash
+        hash.each_pair do |key, value|
           self[key] = value
         end
       end

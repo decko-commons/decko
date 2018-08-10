@@ -72,7 +72,7 @@ jQuery.fn.extend {
     s = @slot()
     v = $(val)[0] && $(val) || val
     if typeof(v) == "string"
-      # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)
+      # needed to support unwrapped views
       s.replaceWith v
     else
       s.setSlotContentFromElement v
