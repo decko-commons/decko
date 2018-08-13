@@ -159,7 +159,7 @@ format :html do
 
   def sign_in_or_up_links to_task
     return if Auth.signed_in?
-    links = [signin_link, signup_link].compact.join tr(:or)
+    links = [signin_link, signup_link].compact.join " #{tr :or} "
     wrap_with(:div) do
       [tr(:please), links, to_task].join(" ") + "."
     end
