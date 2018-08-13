@@ -9,4 +9,10 @@ describe Card::Set::Type::PlainText do
     expect(render_card(:core, type: "Plain Text", content: "<b></b>"))
       .to eq "&lt;b&gt;&lt;/b&gt;"
   end
+
+  specify "view core" do
+    expect_view(:core).to have_tag("a.known-card") do
+      with_tag "span.card-title"
+    end
+  end
 end
