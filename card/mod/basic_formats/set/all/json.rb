@@ -97,9 +97,7 @@ format :json do
   end
 
   view :items, cache: :never do
-    item_cards.map do |i_card|
-      nest i_card
-    end
+    listing item_cards
   end
 
   view :links, cache: :never do
