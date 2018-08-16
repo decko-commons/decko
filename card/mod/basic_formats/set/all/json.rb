@@ -138,7 +138,7 @@ format :json do
   end
 
   view :export_item do
-    item = { name: card.name, type: card.type_name }
+    item = { name: card.name, type: card.type_name, content: card.content }
     item[:codename] = card.codename if card.codename
     item
   end
