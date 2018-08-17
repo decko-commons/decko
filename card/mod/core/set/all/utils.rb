@@ -35,6 +35,7 @@ module ClassMethods
       next unless attribs[attach] && attribs[attach].is_a?(String)
       attribs[attach] = ::File.open(attribs[attach])
     end
+    opts[:skip_renaming] = true
     if opts[:pristine] && !card.pristine?
       false
     else
