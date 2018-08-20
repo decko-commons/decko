@@ -11,10 +11,6 @@ format do
     end
   end
 
-  def wrap_item item, _args={}
-    item # no wrap in base
-  end
-
   def nest_item_array
     card.item_cards.map do |item|
       nest_item item

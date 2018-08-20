@@ -37,7 +37,7 @@ module ClassMethods
   end
 
   private
-  
+
   def resolve_file_attributes! attribs
     %i[image file].each do |attach|
       next unless attribs[attach] && attribs[attach].is_a?(String)
