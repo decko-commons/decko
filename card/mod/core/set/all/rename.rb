@@ -14,7 +14,7 @@ def suspend_name name
   Card.where(id: id).update_all(name: tmp_name, key: tmp_name)
 end
 
-event :validate_renaming, :validate, on: :update, changed: :name do
+event :validate_renaming, :validate, on: :update, changed: :name, skip: :allowed do
   errors.add :content, tr(:cannot_change_content) if db_content_is_changing?
   errors.add :type, tr(:cannot_change_type) if type_id_is_changing?
 end
