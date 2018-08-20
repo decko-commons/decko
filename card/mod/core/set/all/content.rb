@@ -115,6 +115,10 @@ def prepare_content
   clean_html? ? Card::Content.clean!(cont) : cont
 end
 
+def clean_html?
+  true
+end
+
 def use_default_content?
   !db_content_changed? && template && template.db_content.present?
 end
