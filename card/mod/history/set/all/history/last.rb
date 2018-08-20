@@ -12,10 +12,9 @@ def last_change_on field, opts={}
 
   # If there is only one action then there are no entries in the changes table,
   # so we can't do a sql search but the changes are accessible via the action.
-  case
-  when no_last_change? action_id, opts[:before]
+  if no_last_change? action_id, opts[:before]
     nil
-  when create_action_last_change? action_id
+  elsif create_action_last_change? action_id
     create_action.change field
   else
     last_change_from_action_id action_id, field, opts

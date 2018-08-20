@@ -1,7 +1,8 @@
 def revision action, before_action=false
   # a "revision" refers to the state of all tracked fields
   # at the time of a given action
-  return unless (action = Card::Action.fetch(action) if action.is_a? Integer)
+  action = Card::Action.fetch(action) if action.is_a? Integer
+  return unless action
   if before_action
     revision_before_action action
   else
