@@ -8,14 +8,6 @@ def history_card_ids
   includee_ids << id
 end
 
-def creator
-  Card[creator_id]
-end
-
-def updater
-  Card[updater_id]
-end
-
 # FIXME: optimize (no need to instantiate all actions and changes!)
 def first_change? # = update or delete
   @current_action.action_type != :create && @current_action.card.actions.size == 2 &&
@@ -60,13 +52,13 @@ def delete_old_actions
 end
 
 def delete_all_changes
-  Card::Change.where(card_action_id: Card::Action.where(card_id: id).pluck(:id)).delete_all
+  Card::Change.where(card_action_id: all_action_ids).delete_all
 end
 
 def save_content_draft content
   super
   acts.create do |act|
     act.ar_actions.build(draft: true, card_id: id, action_type: :update)
-      .card_changes.build(field: :db_content, value: content)
+       .card_changes.build(field: :db_content, value: content)
   end
 end

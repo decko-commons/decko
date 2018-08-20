@@ -24,8 +24,7 @@ def select_action action_id
 end
 
 def selected_action_id
-  @selected_action_id || (@current_action && @current_action.id) ||
-    last_action_id
+  @selected_action_id || (@current_action&.id) || last_action_id
 end
 
 def selected_action_id= action_id
@@ -42,7 +41,8 @@ def selected_content
 end
 
 def content_at_time_of_selected_action
-  last_change_on(:db_content, not_after: @selected_action_id, including_drafts: true)&.value
+  lc = last_change_on(:db_content, not_after: @selected_action_id, including_drafts: true)
+  lc&.value
 end
 
 def with_selected_action_id action_id

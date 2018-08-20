@@ -72,10 +72,6 @@ def updater
   Card[updater_id]
 end
 
-def clean_html?
-  true
-end
-
 def save_content_draft _content
   clear_drafts
 end

@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
 
+def all_action_ids
+  Card::Action.where(card_id: id).pluck :id
+end
+
 def action_from_id action_id
   return unless action_id.is_a?(Integer) || action_id =~ /^\d+$/
   # if not an integer revision id is probably a mod (e.g. if you request
@@ -19,7 +23,7 @@ end
 
 def nth_action index
   index = index.to_i
-  return unless id && index > 0
+  return unless id && index.positive?
   Action.where("draft is not true AND card_id = #{id}")
         .order(:id).limit(1).offset(index - 1).first
 end
@@ -113,22 +117,3 @@ format :html do
     end
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
