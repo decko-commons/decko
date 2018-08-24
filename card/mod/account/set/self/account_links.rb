@@ -52,12 +52,9 @@ format :html do
       I18n.t(purpose, scope: "mod.account.set.self.account_links")
   end
 
-
   def nav_link_class type
     "nav-link #{classy(type)}"
   end
-
-
 
   def show_signup_link?
     !Auth.signed_in? && Card.new(type_id: Card::SignupID).ok?(:create)
