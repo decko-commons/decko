@@ -25,7 +25,7 @@ class Card
         end
 
         def complete val
-          add_condition name_like("#{val.to_name.key}%", val =~ /\+/)
+          add_condition key_like("#{val.to_name.key}%", val =~ /\+/)
         end
 
         private
@@ -36,7 +36,7 @@ class Card
         end
 
         def name_match val
-          name_like "%#{val.to_name.key}%", true
+          key_like "%#{val.to_name.key}%"
         end
 
         def content_match val, cxn
@@ -48,14 +48,12 @@ class Card
         end
 
         # TODO: move sql to SqlStatement
-        def name_like pattern, no_junction
+        def key_like pattern, no_junction=false
           conds = ["#{table_alias}.key LIKE #{quote pattern}"]
           conds << "#{table_alias}.right_id is null" if no_junction
           # FIXME: -- this should really be more nuanced --
           # it includes all descendants after one plus
-          res = conds.join " AND "
-          puts res
-          res
+          conds.join " AND "
         end
       end
     end
