@@ -30,27 +30,39 @@ format :json do
   end
 
   # TODO: design better autocomplete API
-  # view :name_complete, cache: :never do
-  #   name_search
-  # end
-
   view :name_complete, cache: :never do
-    name_search query_attribute: :junction_complete
+    complete_search
   end
 
   view :name_match, cache: :never do
-    starts_with = name_search query_attribute: :junction_complete
+    starts_with = complete_search
     remaining_slots = AUTOCOMPLETE_LIMIT - starts_with.size
     return starts_with if remaining_slots.zero?
-    starts_with + name_search(query_attribute: :name_match,
-                              limit: remaining_slots)
+    starts_with + match_search(remaining_slots)
   end
 
-  def name_search query_attribute: :complete, limit: AUTOCOMPLETE_LIMIT
-    card.search limit: limit,
-                sort: "name",
-                return: "name",
-                query_attribute => params[:term]
+  def complete_search limit: AUTOCOMPLETE_LIMIT
+    card.search name_wql(limit).merge(complete_wql)
+  end
+
+  def name_match limit=AUTOCOMPLETE_LIMIT
+    card.search name_wql(limit).merge(match_wql)
+  end
+
+  def name_wql limit
+    { limit: limit, sort: "name", return: "name" }
+  end
+
+  def complete_wql
+    { complete: term_param }
+  end
+
+  def match_wql
+    { name: [:match, term_param] }
+  end
+
+  def term_param
+    params[:term]
   end
 
   view :status, tags: :unknown_ok, perms: :none, cache: :never do

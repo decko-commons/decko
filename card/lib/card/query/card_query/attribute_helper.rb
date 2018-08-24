@@ -22,24 +22,6 @@ class Card
           clause_to_hash(junction_clause).merge side => part_clause
         end
 
-        def name_or_content_match val
-          cxn = connection
-          or_join([field_match("replace(#{table_alias}.name,'+',' ')", val, cxn),
-                   field_match("#{table_alias}.db_content", val, cxn)])
-        end
-
-        def field_match field, val, cxn
-          %(#{field} #{cxn.match quote("[[:<:]]#{val}[[:>:]]")})
-        end
-
-        def name_like patterns, extra_cond=""
-          likes =
-            Array(patterns).map do |pat|
-              "lower(#{table_alias}.name) LIKE lower(#{quote pat})"
-            end
-          add_condition "#{or_join(likes)} #{extra_cond}"
-        end
-
         def found_by_statement card
           card&.try(:wql_hash) || invalid_found_by_card!(card)
         end

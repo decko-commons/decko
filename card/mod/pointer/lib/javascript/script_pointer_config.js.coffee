@@ -37,7 +37,7 @@ $.extend decko,
   initAutoCardPlete: (input) ->
     optionsCard = input.data 'options-card'
     return unless !!optionsCard
-    path = optionsCard + '.json?view=name_complete'
+    path = optionsCard + '.json?view=name_match'
     input.autocomplete { source: decko.slotPath(path) }
 
   pointerContent: (vals) ->

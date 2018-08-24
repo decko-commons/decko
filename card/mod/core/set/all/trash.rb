@@ -112,11 +112,15 @@ event :validate_delete_children, after: :validate_delete, on: :delete do
     # prevents errors in cases where a child is deleted prior to this point
     # and thus is not returned by the fetch in #children
 
-    child.trash = true
-    add_subcard child
+    delete_as_subcard child
     # next if child.valid?
     # child.errors.each do |field, message|
     #   errors.add field, "can't delete #{child.name}: #{message}"
     # end
   end
+end
+
+def delete_as_subcard subcard
+  subcard.trash = true
+  add_subcard subcard
 end

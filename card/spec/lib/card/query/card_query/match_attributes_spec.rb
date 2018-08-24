@@ -1,8 +1,8 @@
 require_relative "../query_spec_helper"
-RSpec.describe Card::Query::CardQuery::SpecialAttributes do
+RSpec.describe Card::Query::CardQuery::MatchAttributes do
   include QuerySpecHelper
 
-  # TODO: add specs for: #name_match, #complete, #junction_complete
+  # TODO: add specs for: #complete
 
   describe "match" do
     it "reachs content and name via shortcut" do

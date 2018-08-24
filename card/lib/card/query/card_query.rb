@@ -4,7 +4,7 @@ class Card
     class CardQuery < AbstractQuery
       include Clause
       include Run
-      include SpecialAttributes
+      include MatchAttributes
       include RelationalAttributes
       include ReferenceAttributes
       include AttributeHelper
