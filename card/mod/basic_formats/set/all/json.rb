@@ -45,7 +45,7 @@ format :json do
     card.search name_wql(limit).merge(complete_wql)
   end
 
-  def name_match limit=AUTOCOMPLETE_LIMIT
+  def match_search limit=AUTOCOMPLETE_LIMIT
     card.search name_wql(limit).merge(match_wql)
   end
 
