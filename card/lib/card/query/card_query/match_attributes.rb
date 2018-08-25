@@ -28,15 +28,16 @@ class Card
           add_condition key_like("#{val.to_name.key}%", val =~ /\+/)
         end
 
+        # DEPRECATE - make use name: ["match", val]
+        def name_match val
+          key_like "%#{val.to_name.key}%"
+        end
+
         private
 
         def name_or_content_match val
           cxn = connection
           or_join([name_match(val), content_match(val, cxn)])
-        end
-
-        def name_match val
-          key_like "%#{val.to_name.key}%"
         end
 
         def content_match val, cxn

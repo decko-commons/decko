@@ -53,7 +53,7 @@ class Card
                           refer_to referred_to_by
                           member_of member
 
-                          found_by not sort match complete
+                          found_by not sort match name_match complete
                           extension_type],
 
       plus_relational: %w[plus left_plus right_plus],

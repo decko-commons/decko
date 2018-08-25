@@ -58,7 +58,7 @@ format :json do
   end
 
   def match_wql
-    { name: [:match, term_param] }
+    { name_match: term_param }
   end
 
   def term_param
