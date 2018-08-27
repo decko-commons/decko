@@ -7,7 +7,7 @@ class Card
       include MatchAttributes
       include RelationalAttributes
       include ReferenceAttributes
-      include AttributeHelper
+      include FoundBy
       include Interpretation
       include Normalization
       include Sorting

@@ -1,19 +1,13 @@
 class Card
   module Query
     class CardQuery
-      # handle special CQL attributes
+      # Implements the match attributes that match always against content and/or name.
+      # Currently that's different from the match operator that can be restricted to
+      # names or content.
+      # Example: { match: "name or content" } vs. { name: ["match", "a name"] }
+      # TODO: unify handling for both using full text indexing
       module MatchAttributes
-        def found_by val
-          found_by_cards(val).compact.each do |card|
-            subquery found_by_statement(card).merge(fasten: :direct, context: card.name)
-          end
-        end
-
-        # Implements the match attribute that matches always against content and name.
-        # Currently that's different from the match operator that can be restricted to
-        # names or content.
-        # Example: { match: "name or content" } vs. { name: ["match", "a name"] }
-        # TODO: unify handling for both using full text indexing
+        # match term anywhere in name or content
         def match val
           val.gsub!(/[^#{Card::Name::OK4KEY_RE}]+/, " ")
           return nil if val.strip.empty?
@@ -24,12 +18,13 @@ class Card
           add_condition and_join(val_list)
         end
 
+        # match names beginning with term
         def complete val
           add_condition key_like("#{val.to_name.key}%", val =~ /\+/)
         end
 
-        # DEPRECATE - move to name: ["match", val]
-
+        # match term anywhere in name
+        # DEPRECATE - move handling to name: ["match", val]
         def name_match val
           add_condition name_like(val)
         end
@@ -60,6 +55,16 @@ class Card
           # FIXME: -- this should really be more nuanced --
           # it includes all descendants after one plus
           conds.join " AND "
+        end
+
+        # TODO: use standard conjunction handling
+
+        def or_join conditions
+          "(#{Array(conditions).join ' OR '})"
+        end
+
+        def and_join conditions
+          "(#{Array(conditions).join ' AND '})"
         end
       end
     end
