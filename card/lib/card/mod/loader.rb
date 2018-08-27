@@ -9,6 +9,7 @@ class Card
   module Mod
     # Card::Mod::Loader is used to load all part of a mod,
     # i.e. initializers, patterns, formats, chunks, layouts and sets
+    # cards are not accessible at this point
 
     # A Loader object provides tools for generating and loading sets and set patterns,
     # each of which are typically written using a Decko DSL.

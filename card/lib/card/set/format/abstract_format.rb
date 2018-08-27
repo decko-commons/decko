@@ -37,6 +37,7 @@ class Card
         end
 
         def layout layout, &block
+          Card::Layout.register_built_in_layout layout
           define_method Card::Set::Format.layout_method_name(layout), &block
         end
 

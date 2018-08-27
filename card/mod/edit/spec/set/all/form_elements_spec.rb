@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::All::RichHtml::FormElements do
+RSpec.describe Card::Set::All::FormElements do
   describe "#hidden_tags" do
     def hidden_tags opts
       Card["A"].format.hidden_tags opts

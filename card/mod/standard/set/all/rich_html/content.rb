@@ -9,11 +9,6 @@ def help_rule_card
 end
 
 format :html do
-  def show view, args
-    content = send "show_#{show_layout? ? :with : :without}_page_layout", view, args
-    show_full_page? ? page_wrapper(content) : content
-  end
-
   view :content do
     class_up "card-slot", "d0-card-content"
     voo.hide :menu

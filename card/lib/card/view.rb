@@ -11,6 +11,7 @@ class Card
     include Cache
     include Stub
     include Options
+    include Layout
     extend Cache::ClassMethods
 
     attr_reader :format, :parent, :card

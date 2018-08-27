@@ -18,5 +18,6 @@ decko*gem
 *.DS_Store
 *.swp
 test_work/*
+*.iml
 *.orig
 **/bucket_credentials.yml

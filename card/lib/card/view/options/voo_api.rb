@@ -89,7 +89,7 @@ class Card
         def normalize_layout value
           Array.wrap(value).map do |v|
             v.is_a?(Symbol) ? v : v.strip.split(/\s*,\s*/)
-          end.compact.flatten.map(&:to_sym)
+          end.compact.flatten #.map(&:to_sym)
         end
 
         protected

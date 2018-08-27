@@ -244,7 +244,7 @@ class Card
       end
 
       def add_name name, content_or_args
-        if content_or_args.is_a?(String)
+        if content_or_args.is_a?(String) || content_or_args.is_a?(Array)
           { content: content_or_args, name: name }
         else
           content_or_args.reverse_merge name: name

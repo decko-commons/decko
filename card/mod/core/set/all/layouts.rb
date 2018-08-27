@@ -1,4 +1,12 @@
 format :html do
+  def wrap_with_layout layout, &block
+    voo.wrap_with_layout layout, &block
+  end
+
+  def layout_nest
+    voo.render_layouts
+  end
+
   layout :pre do  #{{_main|raw}}
     wrap_with :pre do
       layout_nest
@@ -30,12 +38,12 @@ format :html do
 
   layout :bridge do
     wrap_with_layout :modal do
-      bridge_layout
+      haml BRIDGE_HAML
     end
   end
 
   layout :modal do
-    modal_layout
+    haml MODAL_HAML
   end
 
   layout :overlay do
@@ -44,17 +52,26 @@ format :html do
      overlay_main
   end
 
-  def modal_layout
-    <<-HTML
-      <div class="modal-header clearfix">
-        #{render_modal_menu}
-      </div>
-      <div class="modal-body ">
-        #{layout_nest}
-      </div>
-      <div class="modal-footer">
-        #{render_modal_footer}
-      </div>
-    HTML
-  end
+  MODAL_HAML =
+    <<-HAML.strip_heredoc
+      .modal-header.clearfix
+        = render_modal_menu
+      .modal-body
+        = layout_nest
+      .modal-footer
+        = render_modal_footer
+    HAML
+
+  BRIDGE_HAML =
+    <<-HAML.strip_heredoc
+      .bridge
+        .row{class: classy("card-header")}
+          = render_bridge_breadcrumbs
+        .row
+          .col-8.bridge-main
+            = layout_nest
+          .col-4.bridge-sidebar
+            = render_follow_buttons
+            = render_bridge_tabs
+    HAML
 end

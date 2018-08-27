@@ -1,21 +1,21 @@
 class Card
   class Format
     module Content
-      def process_content override_content=nil, content_opts=nil
+      def process_content override_content=nil, content_opts=nil, &main_nest_block
         content = override_content || render_raw || ""
         content_object = get_content_object content, content_opts
         content_object.process_each_chunk do |chunk_opts|
-          content_nest chunk_opts
+          content_nest chunk_opts, &main_nest_block
         end
         content_object.to_s
       end
 
       # nested by another card's content
       # (as opposed to a direct API nest)
-      def content_nest opts={}
+      def content_nest opts={}, &main_nest_block
         return opts[:comment] if opts.key? :comment # commented nest
         nest_name = opts[:nest_name]
-        return main_nest(opts) if main_nest?(nest_name)
+        return main_nest(opts, &main_nest_block) if main_nest?(nest_name)
         nest nest_name, opts
       end
 

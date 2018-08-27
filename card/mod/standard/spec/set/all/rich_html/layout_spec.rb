@@ -1,9 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::RichHtml::Layout do
-
+RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
   context "simple page with Default Layout" do
-    subject { view(:layout, card: "A+B") }
+    subject { Card["A+B"].format.show(:core, {}) }
 
     it "renders top menu" do
       is_expected.to have_tag "header" do
@@ -39,58 +38,46 @@ RSpec.describe Card::Set::All::RichHtml::Layout do
     end
   end
 
-  example "layout as render option" do
-    expect(format_subject.render(:core, layout: :bridge))
-      .to have_tag :pre
+  example "layout as rule" do
+    with_layout "<pre>Hey {{_main}}</pre>"
+    expect(format_subject.show(:core, {}))
+      .to have_tag :pre do
+        with_text /Hey/
+        with_tag "div#main", /Alpha/
+    end
+  end
 
+  example "layout with custom view of main" do
+    with_layout "<pre>Hey {{_main|name}}</pre>"
+    expect(format_subject.show(:core, {}))
+      .to have_tag :pre do
+        with_text /Hey/
+        with_tag "div#main", "A"
+    end
+  end
+
+  example "layout as render option" do
+    expect(format_subject.render(:core, layout: :pre))
+      .to have_tag :pre, /Alpha/
   end
 
   example "layout as nest option" do
     expect(format_subject.nest("A", layout: :pre))
-      .to have_tag :pre
+      .to have_tag :pre, /Alpha/
   end
 
   example "layout as param" do
     expect(format_subject.nest("A", layout: :pre))
-      .to have_tag :pre
+      .to have_tag :pre, /Alpha/
   end
 
-
-
-  let(:main_card) { Card.fetch("Joe User") }
-
-  #      it "defaults to core view when in layout mode" do
-  #        @layout_card.content = "Hi {{A}}"
-  #        Card::Auth.as_bot { @layout_card.save }
-  #
-  #        expect(@main_card.format.render!(:layout)).to match('Hi Alpha')
-  #      end
-
-  #      it "defaults to open view for main card" do
-  #        @layout_card.content='Open up {{_main}}'
-  #        Card::Auth.as_bot { @layout_card.save }
-  #
-  #        result = @main_card.format.render_layout
-  #        expect(result).to match(/Open up/)
-  #        expect(result).to match(/card-header/)
-  #        expect(result).to match(/Joe User/)
-  #      end
-  #
-  # script:
-  # style:
-  #
-  # layout: modal
-  #
-  # {{_main}}
-  #
-  # {{_main}}
-
-  # with_main_card_and_opts card, opts do
-  #   render layout_card, view: :closed
-  # end
-
-  context "when layout in params" do
+  example "nested layouts" do
+    expect(format_subject.render(:core, layout: :bridge))
+          .to have_tag "div.modal-body" do
+      with_tag "div.bridge", /Alpha/
+    end
   end
+
 
   def with_layout content
     create_layout "tmp layout", content: content
@@ -99,18 +86,10 @@ RSpec.describe Card::Set::All::RichHtml::Layout do
 
   let(:layout_card) { Card["tmp layout"] }
 
-  it "renders custom view of main" do
-    with_layout "Hey {{_main|name}}"
-
-    result = main_card.format.render_layout
-    expect(result).to match(/Hey.*div.*Joe User/)
-    expect(result).not_to match(/d0-card-header/)
-  end
-
   it "does not recurse" do
     with_layout "Mainly {{_main|core}}"
 
-    expect_view(:layout, card: layout_card).to have_tag "div#main" do
+    expect(layout_card.format.show(:core, {})).to have_tag "div#main" do
       with_tag "div.code" do
         with_tag "pre", "Mainly {{_main|core}}"
       end
@@ -121,6 +100,7 @@ RSpec.describe Card::Set::All::RichHtml::Layout do
     with_layout "{{outer space|core}}"
     create "outer space", content: "{{_main|name}}"
 
-    expect_view(:layout, card: main_card).to have_tag "div#main", "Joe User"
+    expect(format_subject.show(:core, {}))
+      .to have_tag "div#main", "A"
   end
 end

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::RichHtml::Editing do
+describe Card::Set::All::Editing do
   describe "edit_nests view" do
     it "shows editors for both absolute and relative nests" do
       card_subject.content = "{{absolute}} AND {{+relative}}"

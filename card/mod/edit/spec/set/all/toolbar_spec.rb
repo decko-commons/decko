@@ -1,4 +1,4 @@
-describe Card::Set::All::RichHtml::Toolbar do
+describe Card::Set::All::Toolbar do
   context "show toolbar" do
     subject do
       render_content "{{A|edit}}"

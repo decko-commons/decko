@@ -16,6 +16,7 @@ end
 
 event :validate_renaming, :validate, on: :update, changed: :name do
   if db_content_is_changing?
+    binding.pry
     errors.add :content, "cannot change content while changing name"
   end
   errors.add :type, "cannot change type while changing name" if type_id_is_changing?
