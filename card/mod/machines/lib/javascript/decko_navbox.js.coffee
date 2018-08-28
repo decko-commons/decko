@@ -10,7 +10,7 @@ $(window).ready ->
       url: decko.path ':search.json'
       data: (params) ->
         query: { keyword: params.term }
-        view: "name_match"
+        view: "complete"
       processResults: (data) ->
         results: navboxize(data)
       cache: true
