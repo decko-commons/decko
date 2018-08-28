@@ -19,6 +19,11 @@ def abort status, msg="action canceled"
   raise Card::Error::Abort.new(status, msg)
 end
 
+def aborting
+  yield
+  errors.any? ? abort(:failure) : abort(:success)
+end
+
 def act opts={}, &block
   opts ||= {}
   @action ||= identify_action(opts[:trash])

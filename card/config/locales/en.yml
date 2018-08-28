@@ -20,7 +20,7 @@
 #    with either 'lib.card' or 'mod.0d_modname' and these patterns are
 #    sufficiently distinctive that key collisions with translations
 #    for applications or other gems are believed to be unlikely.
-#    Format names for time and date are begun with a 'card_' prefix to
+#    Format names for time and date are begun with a 'card_'  prefix to
 #    minimize the chances of interference with other gems or applications.
 ---
 en:
@@ -74,6 +74,11 @@ en:
       set:
         format:
           exception_alias_fail: cannot find %{optview} view in %{optmod}; failed to alias %{view} in %{self}
+  spec:
+    lib:
+      card:
+       stage_director_spec:
+        dont_do_this: don't do this  
   mod:
     :core:
       format:
@@ -83,14 +88,16 @@ en:
           available_layouts: "Available Layouts: %{available_layouts}"
       set:
         all:
+          codename: 
+            only_admins_codename: only admins can set codename
+            error_code_in_use: codename %{codename} already in use
           event:
             outside_event_phases: phase method %{method} called outside of event phases
             called_in_stage: "%{item} method %{method} called in stage %{stage}"
             called_on_action: "on: %{xaction} method %{method} called on %{yaction}"
           fetch:
             exception_fetch_arg_skipvirt: "%{func} called with new arguments and %{sv}"
-          name_validations:
-            error_code_in_use: codename %{codename} already in use
+          name_events:
             error_name_exists: must be unique; '%{name}' already exists.
             error_too_long: is too long (255 character maximum; length is %{length})
             error_blank_name: can't be blank
@@ -98,8 +105,12 @@ en:
             error_banned_characters: "may not contain any of the following characters: %{banned}"
             error_name_tag: "%{name} in use as a tag"
             error_wrong_key: wrong key '%{key}' for name %{name}
+            is_incomplete: is incomplete
           name:
             search_children: "(%{side}) children of %{parent_name}"
+          rename:
+            cannot_change_content: cannot change content while changing name
+            cannot_change_type: cannot change type while changing name
           permissions:
             error_no_action_rule: No %{action} rule for %{name}
             you_cant: You don't have permission to %{what}
@@ -124,6 +135,7 @@ en:
             error_indestructible: "%{name} is an indestructible rule"
             error_user_edits: "Edits have been made with %{name}'s user account.\nDeleting this card would mess up our history."
             error_cant_delete_child: "can't delete %{child_name}: %{message}"
+            exception_almost_deleted: Narrowly averted deleting current file
           type:
             error_cant_change_errors: "of %{name} can't be changed; errors creating new %{type_id}: %{error_messages}"
             error_no_such_type: No such type
@@ -185,6 +197,25 @@ en:
             #description: description
             comment_style_group: STYLE GROUP
             search_opt_names_ptr: option names for pointer
+          json:
+            invalid_json: invalid json
+    :bootstrap:
+      set: 
+        type:
+            customized_bootswatch_skin:
+              not_valid_theme: not a valid theme %{theme_name}
+              cannot_source_theme: can't find source for theme %{theme_name}
+    :carrierwave:
+      set:
+        abstract:
+          attachment:
+            url_is_missing: url is missing
+            is_missing: is missing
+            storage_type:
+              mod_argument_needed_to_save: mod argument needed to save card as coded
+              codename_needed_for_storage: codename needed for storage type coded
+              unknown_storage_type: unknown storage type %{new_storage_type}
+              moving_files_is_not_supported: moving files from cloud elsewhere is not supported
     #:machines: # No language-specific items known to be present in Ruby files
     :settings:
       lib:
@@ -282,7 +313,6 @@ en:
             too_slow: Timed out! %{showname} took too long to load.
             error_rendering: error rendering
             error_message: Error message (visible to admin only)
-            unsupported_view: view %{view} not supported for %{cardname}
             add_thing: Add %{title}
             conflict: Conflict!
             also_changes: "%{actor_link} has also been making changes."
@@ -305,6 +335,10 @@ en:
             sign_in_task: Please %{signin_link} to %{task} this.
             sign_in_up_no_task: Please %{signin_link} or %{signup_link} to do that.
             sign_in_no_task: Please %{signin_link} to do that.
+            or: or 
+            please: please
+            denied_task: to %{denied_task} this 
+            to_do_that: to do that
           list_changes:
             search_list_fields: list fields
             search_listed_by_fields: listed by fields
@@ -496,6 +530,7 @@ en:
           account:
             error_not_allowed: not allowed on this card
             sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
+            required: required
           email:
             error_invalid_address: must be valid address
             search_email_duplicate: email duplicate? (%{content})

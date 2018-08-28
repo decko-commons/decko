@@ -64,6 +64,11 @@ de:
       set:
         format:
           exception_alias_fail: cannot find %{optview} view in %{optmod}; failed to alias %{view} in %{self}
+  spec:
+    lib:
+      card:
+       stage_director_spec:
+        dont_do_this: tu das nicht  
   mod:
     :core:
       format:
@@ -73,14 +78,16 @@ de:
           available_layouts: "Verfügbare Layouts: %{available_layouts}"
       set:
         all:
+          codename: 
+            only_admins_codename: cur Administratoren können Codenamen festlegen
+            error_code_in_use: codename %{codename} wird bereits benutzt
           event:
             outside_event_phases: phase method %{method} called outside of event phases
             called_in_stage: "%{item} method %{method} called in stage %{stage}"
             called_on_action: "on: %{xaction} method %{method} called on %{yaction}"
           fetch:
             exception_fetch_arg_skipvirt: "%{func} called with new arguments and %{sv}"
-          name_validations:
-            error_code_in_use: Codename %{codename} wird bereits benutzt
+          name_events:
             error_name_exists: muss eindeutig sein; '%{name}' exisitiert bereits.
             error_too_long: ist zu lang (%{length} Zeichen; erlaubt sind maximal 255)
             error_blank_name: darf nicht frei bleiben
@@ -88,8 +95,12 @@ de:
             error_banned_characters: "darf keine der folgenden Zeichen enthalten: %{banned}"
             error_name_tag: "%{name} bereits als Tag benutzt"
             error_wrong_key: falscher Schlüssel '%{key}' für Name %{name}
+            is_incomplete: ist unvollständig
           name:
             search_children: "(%{side}) Kinder von %{parent_name}"
+          rename:
+            cannot_change_content: inhalt kann nicht geändert werden, während der Name geändert wird
+            cannot_change_type: kann den Typ beim Ändern des Namens nicht ändern
           permissions:
             error_no_action_rule: Keine %{action} Regel für %{name}
             you_cant: Du hast keine Berechtigung zu %{what}
@@ -114,6 +125,7 @@ de:
             error_indestructible: "%{name} ist eine unzerstörbare Regel"
             error_user_edits: "Wurde bearbeitet mit %{name}s Account.\nLöschen würde den Verlauf durcheinander bringen."
             error_cant_delete_child: "kann %{child_name} nicht löschen: %{message}"
+            exception_almost_deleted: Die aktuelle Datei wurde nur knapp entfernt
           type:
             error_cant_change_errors: "von %{name} kann nicht geändert werden; Fehler beim Erstellen von %{type_id}: %{error_messages}"
             error_no_such_type: Typ existiert nicht
@@ -175,6 +187,25 @@ de:
             #description: Beschreibung
             comment_style_group: STYLE GROUP
             search_opt_names_ptr: option names for pointer
+          json:
+            invalid_json: invalid json
+    :bootstrap:
+      set: 
+        type:
+            customized_bootswatch_skin:
+              not_valid_theme: kein gültiges Thema %{theme_name}
+              cannot_source_theme: Quelle für das Thema kann nicht gefunden werden %{theme_name}
+    :carrierwave:
+      set:
+        abstract:
+          attachment:
+            url_is_missing: URL fehlt
+            is_missing: fehlt
+            storage_type:
+              mod_argument_needed_to_save: mod Argument benötigt, um die Karte als codiert zu speichern
+              codename_needed_for_storage: codename für den codierten Speichertyp erforderlich
+              unknown_storage_type: unbekannter Speichertyp %{new_storage_type}
+              moving_files_is_not_supported: das Verschieben von Dateien aus der Cloud an anderer Stelle wird nicht unterstützt
     #:03_machines: # No language-specific items known to be present in Ruby files
     :settings:
       lib:
@@ -272,7 +303,6 @@ de:
             too_slow: Timed out! %{showname} hat zu lange zum Laden gebraucht.
             error_rendering: error rendering
             error_message: Fehlermeldung (nur für Administratoren sichtbar)
-            unsupported_view: Ansicht %{view} nicht unterstützt für %{cardname}
             add_thing: Füge %{title} hinzu
             conflict: Konflikt!
             also_changes: "%{actor_link} hat gleichzeitig Änderungen gemacht."
@@ -295,6 +325,10 @@ de:
             sign_in_task: Bitte %{signin_link} um das zu %{task}.
             sign_in_up_no_task: Bitte %{signin_link} oder %{signup_link} um das zu tun.
             sign_in_no_task: Bitte %{signin_link} um das zu tun.
+            or: oder
+            please: bitte
+            denied_task: zu %{denied_task} dies
+            to_do_that: das zu tun
           list_changes:
             search_list_fields: list fields
             search_listed_by_fields: listed by fields
@@ -459,6 +493,7 @@ de:
           account:
             error_not_allowed: nicht erlaubt für diese Karte
             sorry_email_reset: Entschuldigung, %{error_msg}. Please check your email for a new password reset link.
+            required: erforderlich
           email:
             error_invalid_address: ungültige Adresse
             search_email_duplicate: E-Mail-Duplikat? (%{content})

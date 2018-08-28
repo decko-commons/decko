@@ -1,0 +1,606 @@
+# I18n 'card' messages for the "en" (Spanish) locale
+#
+# conventions:
+#
+#  key name prefixes:
+#    'exception_' begins key of text to be used in a raised exception
+#    'error_' begins key of text to be added to an error list (usuallly)
+#    'search_' begins key of text to be used in WQL search comment
+#    'deny_' begins key of text to be used in denying action due to permissions
+#    (Not all key names begin with a prefix. In the absence of a prefix,
+#    the way the text will be used is generic and not explicitly hinted at.)
+#
+#  scope:
+#    scope values correspond to the path to the source file where the
+#    translation lookup occurs, relative to the root of the 'card' gem,
+#    with slashes replaced by dots and the final .rb extension omitted.
+#    So, a scope might be
+#      'lib.card.format.render' or 'mod.01_core.set.all.permisssions'
+#    Although there isn't a common prefix for all scopes, scopes begin
+#    with either 'lib.card' or 'mod.0d_modname' and these patterns are
+#    sufficiently distinctive that key collisions with translations
+#    for applications or other gems are believed to be unlikely.
+#    Format names for time and date are begun with a 'card_' prefix to
+#    minimize the chances of interference with other gems or applications.
+---
+es:
+  time:
+    formats:
+      card_dayofwk_min_tz: '%A, %B %d, %Y %I:%M %p %Z'
+      card_date_seconds: '%B %e, %Y %H:%M:%S'
+      card_date_only: '%B %e, %Y'
+
+#  sign_in: Sign in
+#  sign_up: Sign up
+#  sign_out: Sign out
+#  invite: Invite
+#  submit: Submit
+#  cancel: Cancel
+#  close: Close
+#  delete: Delete
+
+  lib:
+    card:
+      active_record_ext:
+        exception_not_implemented: "%{func} no se ha implementado"
+      codename:
+        exception_unknown_codename: "nombre desconocido: %{codename}"
+      error:
+        exception_for_card: "para la tarjeta %{cardname}: %{message}"
+      format:
+        error:
+          exception_bad_arg: "mal %{category} argumento: %{arg}"
+          exception_bad_args: "malos %{category} argumentos: %{args}"
+          no_cardname: tarjeta desconocida
+          error_rendering: "Error al renderizar: %{cardname} (%{view} view)"
+        exception_init_without_card: formato inicializado sin tarjeta
+      query:
+        attributes:
+          exception_bad_query: '"%{found_by}" el valor debe ser una busqueda valida, pero %{name} es un %{type}'
+        clause:
+          exception_bad_chars: "WQL contiene caracteres no permitidos: %{text}"
+        interpretation:
+          exception_invalid_attribute: Atributo invalido %{key}
+          exception_invalid_args: Args de consulta no validos %{items}
+          exception_unknown_valtype: "tipo de valor de WQL desconocido: %{klass}"
+        join:
+          exception_to_not_join: "%{to} no puede ser %{join}"
+          exception_invalid_option: "opcion %{side} invalida: %{object}"
+        sorting:
+          exception_sort_not_implemented: "ordernar el articulo: %{item} aun no implementado"
+        value:
+          exception_bad_condition_clause: Cláusula de condición inválida %{item}
+          exception_invalid_operator: Operador Invalido %{operator}
+      set:
+        format:
+          exception_alias_fail: no puede encontrar %{optview} vista en %{optmod}; no se pudo el alias %{view} en %{self}
+  spec:
+    lib:
+      card:
+       stage_director_spec:
+        dont_do_this: no hagas esto 
+  mod:
+    :core:
+      format:
+        html_format:
+          unknown_layout: "Diseño desconocido: %{name}"
+          built_in: "Diseños incorporados: %{built_in_layouts}"
+      set:
+        all:
+          codename: 
+            only_admins_codename: solo los administradores pueden establecer el nombre clave
+            error_code_in_use: nombre clave %{codename} ya esta en uso
+          event:
+            outside_event_phases: metodo de fase %{method} llamado fuera de las fases del evento
+            called_in_stage: "%{item} metodo %{method} llamado en etapa %{stage}"
+            called_on_action: "en: %{xaction} metodo %{method} llamado en %{yaction}"
+          fetch:
+            exception_fetch_arg_skipvirt: "%{func} llamado con nuevos argumentos y %{sv}"
+          name_events:
+            error_name_exists: debe ser unico; '%{name}' ya existe.
+            error_too_long: es demasiado largo (255 caracteres como maximo; longitud es %{length})
+            error_blank_name: no puede estar en blanco
+            error_blank_key: no puede estar en blanco
+            error_banned_characters: "no puede contener ninguno de los siguientes caracteres: %{banned}"
+            error_name_tag: "%{name} en uso como una etiqueta"
+            error_wrong_key: llave incorrecta '%{key}' para nombre %{name}
+            is_incomplete: esta incompleto
+          name:
+            search_children: "(%{side}) niños de %{parent_name}"
+          rename:
+            cannot_change_content: no puede cambiar el contenido mientras cambia el nombre
+            cannot_change_type: no puede cambiar el tipo mientras cambia el nombre
+          permissions:
+            error_no_action_rule: Ninguna regla de %{action} para %{name}
+            you_cant: No tienes permiso para %{what}
+            deny_read_only: Actualmente en modo de solo lectura
+            deny_verb_name: No tienes permiso para %{verb} %{name}
+            deny_verb_this: No tienes permiso para %{verb} this
+            deny_create: No tienes permiso para crear %{part_card_name}
+            deny_read_this: No tienes permiso para leer esto
+            deny_change_to_type: No tienes permiso para cambiar a este tipo (Necesitas crear un permiso)
+            deny_no_comment_template: No se permiten comentarios en las plantillas
+            deny_no_comment_structured: No se permiten comentarios sobre el contenido estructurado
+          references:
+            exception_need_id: id requerido para identificar referencias
+          rules:
+            search_userprefcards: "tarjetas de preferencia para el usuario: %{name}"
+          stages:
+            exception_no_override_act: no se permite anular el acto actual
+          tracked_attributes:
+            error_unknown_type: "%{type} no es un tipo conocido."
+          trash:
+            error_system_card: "%{name} es una tarjeta de sistema. (%{codename})"
+            error_indestructible: "%{name} es una regla indestructible"
+            error_user_edits: "Las ediciones se han hecho un %{name}'s cuenta de usuario.\nEliminar esta tarjeta arruinaria nuestra historia."
+            error_cant_delete_child: "no puede eliminarse %{child_name}: %{message}"
+            exception_almost_deleted: Se evitó de forma muy estrecha eliminar el archivo actual
+          type:
+            error_cant_change_errors: "de %{name} no se puede cambiar; creando nuevos errores %{type_id}: %{error_messages}"
+            error_no_such_type: No hay tal tipo
+            error_hard_templated: no se puede cambiar porque %{name} es una plantilla dificil de %{type_name}
+          utils:
+            exception_almost_deleted: Se evitó de forma muy estrecha eliminar el archivo actual
+      set_pattern:
+        :01_all:
+          label_set_all_cards: Todas las cartas
+          label_setfollow_all_cards: Todo
+        :02_all_plus:
+          label_set_plus_cards: Todas "+" las cartas
+          label_setfollow_plus_cards: Todas "+" las cartas
+        :03_type:
+          label_set_type_cards: Todas "%{name}" las cartas
+          label_setfollow_type_cards: Todos los "%{name}s"
+        :04_star:
+          label_set_star_cards: Todas las "*" cartas
+          label_setfollow_star_cards: Todas las "*" cartas
+        :05_rstar:
+          label_set_rstar_cards: Todas las "+*" cartas
+          label_setfollow_rstar_cards: Todas las "+*" cartas
+        :06_right:
+          label_set_right_cards: Todas las "+%{name}" cartas
+          label_setfollow_right_cards: Todos los "+%{name}s"
+        :07_type_plus_right:
+          label_set_typeplusright_cards: Todas las "+%{right}" cartas en "%{type}" cartas
+          label_setfollow_typeplusright_cards: Todas las "+%{right}" en "%{type}s"
+        :08_self:
+          label_set_self_card: La carta "%{name}"
+    :history:
+      set:
+        all:
+          content_history:
+            error_not_latest_revision: Cambios no basados en la ultima revision
+          history:
+            time_ago: "hace %{elapsed__time_in_words}"
+            current: Actual
+            added: Agregado
+            deleted: Eliminado
+            save_as_current: Guardar como actual
+            show_changes: Mostrar cambios
+            hide_changes: Ocultar cambios
+    :basic_types:
+      set:
+        abstract:
+          code_file:
+            exception_not_set_path: "no es una ruta establecida: %{path}"
+            content_in_file: El contenido se almacena en un archivo y no se puede editar.
+        all:
+          all_css:
+            comment_style_card: Tarjeta de estilo
+            comment_missing_style_card: Falta tarjeta de estilo
+          file:
+            file_not_supported: La representación de archivos de esta tarjeta aún no es compatible
+        type:
+          pointer:
+            label_select: Seleccionar
+            #description: description
+            comment_style_group: GRUPO ESTILO
+            search_opt_names_ptr: nombres de opcion para el puntero
+          json:
+            invalid_json: invalid json
+    :bootstrap:
+      set: 
+        type:
+            customized_bootswatch_skin:
+              not_valid_theme: no es un tema valido %{theme_name}
+              cannot_source_theme: no se puede encontrar la fuente del tema %{theme_name}
+    :carrierwave:
+      set:
+        abstract:
+          attachment:
+            url_is_missing: falta la URL
+            is_missing: falta
+            storage_type:
+              mod_argument_needed_to_save: argumento de mod necesario para guardar la tarjeta como codificada
+              codename_needed_for_storage: nombre de código necesario para el tipo de almacenamiento codificado
+              unknown_storage_type: tipo de almacenamiento desconocido %{new_storage_type}
+              moving_files_is_not_supported: no se admite el traslado de archivos desde la nube en otro lugar
+    #:machines: # No language-specific items known to be present in Ruby files
+    :settings:
+      lib:
+        card:
+          setting:
+            templating: Plantilla
+            permission: Permisos
+            webpage: Pagina Web
+            pointer: Puntero
+            editing_cue: Editando pistas
+            event: Eventos
+            other: Otro
+            config: Configuracion
+      set:
+        abstract:
+          permission:
+            search_roles_by_name: Roles por Nombre
+            use_lefts_rule: Usar la regla %{tag} 
+            groups: Grupos
+            individuals: Individuos
+            inherit_links: Heredar ( %{links} )
+            inherit: Heredar
+            inherit_from_left: Heredar de la tarjeta izquierda
+        type:
+          setting:
+            search_all_setting: Todas las tarjetas de configuracion
+    :email:
+      set:
+        all:
+          follow:
+            emails_stop: deje de enviar correos electrónicos sobre cambios en %{cardlabel}
+            emails_send: enviar correos electrónicos sobre cambios a %{cardlabel}
+            unfollow: dejar de seguir
+            follow: seguir
+          notify:
+            follow_included: siga las tarjetas incluidas por %{cardname}
+            followed_card: tarjeta seguida
+            follower: seguidor
+            new: nuevo
+            deleted: borrado
+            update_changes: "\nEsta actualización incluye los siguientes cambios:%{changes}"
+        right:
+          follow:
+            more_options: mas opciones
+            heading_get_notified: Recibe notificaciones sobre cambios
+          following:
+            no_preference: Ninguna preferencia siguiente
+        self:
+          always:
+            following: Siguiendo
+            follow: seguir
+          created:
+            following_created: El siguiente contenido que has creado
+            follow_if_created: sigue si creé
+            thing_created: "%{label} yo creé"
+          edited:
+            following_edited: El siguiente contenido editado
+            follow_if_edited: sigue si edité
+            thing_edited: "%{label} Yo edité"
+          follow_defaults:
+            confirm_update_all_heading: ¿Estás seguro de que deseas cambiar las reglas de seguimiento predeterminadas?
+            confirm_update_all_text: Puede elegir actualizar a todos los usuarios existentes. Esto puede tardar un rato.
+            submit_update: Enviar y actualizar a todos los usuarios
+            updating: Actualizando
+            submit: Enviar
+          never:
+            ignoring: Postergación
+            ignore: ignorar
+        type_plus_right:
+          user:
+            follow:
+              problems_card: Problemas con %{cardname}
+              sign_in: registrarse
+              please_sign_in: Por favor %{sign_in}
+    :standard:
+      set:
+        all:
+          comment:
+            author_not_signed_in: "%{comment_author} (Not signed in)"
+            anonymous: Anónimo
+            my_name_is: "<label>My Name is:</label> %{author_field}"
+            comment: Comentario
+            commenting: Comentando
+          error:
+            unsupported_view: vista (%{view}) no soportado para %{cardname}
+            not_found_named: No pudo encontrar %{cardname}.
+            not_found_no_name: No se pudo encontrar la tarjeta requested
+            server_error: "\nWagn Hitch!  Error del Servidor. Yuck, perdon por eso.\nPara decirnos más y seguir la solución,\nagregue un ticket de soporte en %{ticket_link}\n"
+            se_hitch: 'Wagn Hitch :('
+            se_sorry: Error del Servidor. Yuck, perdón por eso.
+            se_ticket: <a href="%{ticket_link}">Agregue un ticket de soporte</a> para decirnos más y seguir la solución.
+            denial: Permiso denegado
+            bad_address: "404: Mala direccion"
+            too_deep: Hombre, eres muy profundo. (Demasiados niveles de nidos a la vez)
+            too_slow: Caducado! %{showname} tomó demasiado tiempo para cargar..
+            error_rendering: procesando errores
+            error_message: Mensaje de error (visible solo para el administrador)
+            add_thing: Agregar %{title}
+            conflict: Conflicto!
+            also_changes: "%{actor_link} también ha estado haciendo cambios."
+            conflict_instruction: Por favor, examine a continuación, resuelva arriba y vuelva a enviar.
+            problems_no_name: Problemas
+            problems_name: Problemas con %{cardname}
+            sign_in_c: Registrarse
+            sign_up_c: Regístrate
+            sign_in: Registrarse
+            sign_up: Regístrate
+            not_found: Extraviado
+            sign_in_or_up: "%{signin_link} o %{signup_link} para crearlo."
+            not_found_card: No pudo encontrar %{cardname}
+            not_found_that: No pude encontrar eso.
+            read_only: Actualmente estamos en modo de solo lectura. Por favor, inténtelo de nuevo más tarde.
+            sorry: Lo siento!
+            need_permission_task: Necesitas permiso para %{task} esto.
+            need_permission_no_task: Necesitas permiso para hacer eso.
+            sign_in_up_task: Por favor %{signin_link} o %{signup_link} a %{task} this.
+            sign_in_task: Por favor %{signin_link} a %{task} esto.
+            sign_in_up_no_task: Por favor %{signin_link} o %{signup_link} para hacer eso.
+            sign_in_no_task: Por favor %{signin_link} para hacer eso.
+            or: o
+            please: por favor
+            denied_task: a %{denied_task} esto  
+            to_do_that: para hacer eso
+          list_changes:
+            search_list_fields: campos de lista
+            search_listed_by_fields: listado por campos
+            search_lists_that_link: listas que enlazan a %{name}
+            error_is_referenced: no se puede cambiar porque %{name} está referenciado por la tarjeta de lista %{cardname}
+          rich_html:
+            content:
+              action_verb_added: agregado
+              action_verb_deleted: eliminado
+              action_verb_edited: editado
+              updated_how_when_who: "%{action_verb} %{elapsed_time_in_words} hace %{who}"
+            editing:
+              new_type: Nuevo %{type_name}
+              new: Nuevo
+              confirm_rename: ¿Estás seguro de que quieres cambiar el nombre? %{cardname}?
+              alter_related:
+                one: Alterar automáticamente 1 nombre relacionado.
+                other: alternar automáticamente %{count} los nombres relacionados.
+              affect_refs:
+                one: afectar al menos 1 referencia a "%{cardname}"
+                other: afectar al menos %{count} referencia a "%{cardname}"
+              update_ignore: Puedes elegir <em>actualizar o ignorar</em> los referentes.
+              change_will: Este cambio...
+              rename_update: Renombrar y actualizar
+              renaming: Renombrar
+              rename: Rebautizar
+            form:
+              unsupported_action_class: "sin soporte card_form clase de acción: %{actionclass}"
+              submit: Enviar
+              submitting: Sumisión
+              cancel: Cancelar
+            menu:
+              edit: editar
+              discuss: discutir
+              page: página
+              rules: reglas
+              account: cuenta
+            modal:
+              close: Cerrar
+            toolbar:
+              account: cuenta
+              activity: actividad
+              all: todas
+              autosaved_draft: borrador de autoguardado
+              by_group: por grup
+              by_name: por nombre
+              cancel: cancelar
+              card_delete_confirm: estas seguro que quieres borrarlo %{cardname}?
+              card_deleted: "%{cardname} borrado"
+              children: niños
+              common: común
+              content: contenido
+              created: creado
+              delete: borrar
+              details: detalles
+              discuss: discutir
+              edit: editar
+              edited: editado
+              editors: editores
+              engage: comprometer
+              follow: seguir
+              history: historia
+              mates: compañeros
+              name: nombre
+              nests: nidos
+              pin_pin: alfiler
+              pin_unpin: desprender
+              recent: reciente
+              references_out: referencias
+              references_in: referencias en
+              refresh: refrescar
+              roles: roles
+              rules: reglas
+              structure: estructura
+              type: tipo
+            wrapper:
+              close: Cerrar
+        rstar:
+          rules_editor:
+            not_a_rule: no es una regla
+            applies_to: "<label>Se aplica a</label> %{card_link}:"
+            no_current_rule: Sin regla actual
+            cancel: Cancelar
+            delete_revert_rule: Eliminar volverá a %{rule_setting_name} regla para %{card_label}
+            delete: Eliminar
+            set: conjunto
+            related_set: conjunto relacionado
+            current: actual
+            delete_narrower:
+              one: Esta regla no tendrá ningún efecto en esta tarjeta a menos que elimine la regla más %{rules_sentence}.
+              other: Esta regla no tendrá ningún efecto en esta tarjeta a menos que elimine las reglas más %{rules_sentence}.
+            submit: Enviar
+        self:
+          head:
+            edit_page: ¡Edita esta página!
+          recent:
+            recent_changes: Cambios recientes
+          search:
+            results_for: "Resultados de búsqueda para: %{keyword}"
+            search_goto_items: "ir a los artículos para el término: %{term}"
+          stats:
+            stat: Estadistica
+            value: Valor
+            action: Accion
+            cards: Cartas
+            trashed_cards: tarjetas de basura
+            delete_all: eliminar todos
+            actions: acciones
+            delete_old: eliminar viejo
+            references: referencias
+            repair_all: repara todo
+            view_cache: ver caché
+            clear_view_cache: limpiar cache de vista
+            memory_now: memoria ahora
+            clear_cache: limpiar cache
+            # memory previous
+            memory_prev: memoria anterior
+            # memory difference
+            memory_diff: memoria dif
+            megabyte_suffix: M
+        type:
+          basic:
+            toc: Tabla de contenido
+          cardtype:
+            cards_exist: Lo sentimos, esta tarjeta debe seguir siendo un Cardtype siempre y cuando haya %{cardname} cartas.
+            add_card: Agregar %{cardname}
+            error_cant_alter: no puede alterar este tipo; %{name} las tarjetas todavía existen
+            error_invalid_character_in_cardtype: "no puede contener ninguno de los siguientes caracteres: %{banned}"
+          list:
+            type_right: debe tener un nombre de cardtype como parte derecha
+            conflict_item_type: el nombre entra en conflicto con elementos de la lista' tipo; eliminar contenido primero
+            only_type_allowed: "%{cardname} tiene un tipo de tarjeta incorrecto; solo cartas de tipo %{cardtype} están permitidos"
+          listed_by:
+            cardtype_right: debe tener un nombre de tipo de tarjeta como parte derecha
+            only_type: "%{cardname} tiene un cardtype incorrecto; solo cartas de tipo %{cardtype} están permitidos"
+          number:
+            not_numeric: "'%{content}' no es numerico"
+          search_type:
+            no_limit_exception: OH NO .. no hay límite
+            no_content_exception: "Error en carta '%{name}': no se puede ejecutar la búsqueda con contenido vacío"
+            no_results: no hay resultados
+            previous: Anterior
+            next: Siguiente
+          set:
+            cant_edit: No se puede editar conjuntos actualmente
+            rules: Reglas
+            set: Conjunto
+            field: campo
+            common: común
+            by_group: por grupo
+            by_name: por nombre
+            recent: reciente
+          toggle:
+            # Warning: unless careful, yes/no get converted to true/false
+            :yes: 'si'
+            :no: 'no'
+    #:bootstrap: #No known language-specfic messages
+    :account:
+      set:
+        type:
+          signup:
+            sign_up: Regístrate
+            invite: Invitación
+            send_invite: Enviar invitacion
+            first_last_help: usualmente nombre y apellido
+            signed_up_on: "%{name} se registró en %{date}"
+            was_signed_up_on: "%{name} se registró en %{date}"
+            missing_account: "ERROR: tarjeta de registro cuenta faltante"
+            send: Enviar
+            resend: Reenviar
+            verification: Se envió un correo electrónico de verificación
+            verification_to: Un email de verificación ha sido enviado a %{email}
+            action_verify_email: "%{action} correo electrónico de verificación"
+            approve_without: Aprobar sin verificación
+            deny_delete: Denegar y borrar
+            field_manip_abort: no hay manipulación de campo a mediados de activación
+            no_account_abort: ninguna cuenta asociada con %{name}
+            illegal_approval_abort: aprobación ilegal
+            check_email_reset: Por favor revisa tu correo electrónico para un nuevo enlace de restablecimiento de contraseña.
+            errors_message: Lo siento, %{item}. %{message}
+          user:
+            help_first_last: usualmente nombre y apellido
+            welcome: Bienvenido, Decker!
+            get_started: Para comenzar, crea una cuenta.
+            email_off: "ADVERTENCIA: el correo electrónico está deshabilitado. Cambie la configuración en %{path} para enviar notificaciones de nuevos registros.."
+            set_up: invertir
+            setting_up: Ponte
+        right:
+          account:
+            error_not_allowed: no permitido en esta tarjeta
+            sorry_email_reset: Lo siento, %{error_msg}. Por favor revise su correo electrónico para un nuevo enlace de restablecimiento de contraseña.
+            required: requerido
+          email:
+            error_invalid_address: debe ser una dirección válida
+            search_email_duplicate: correo electrónico duplicado? (%{content})
+            error_not_unique: debe ser único
+            deny_email_restricted: ver el correo electrónico está restringido a administradores y titulares de cuentas
+          password:
+            encrypted: encriptado
+            password_length: debe tener al menos 4 caracteres
+          salt:
+            private_data: Datos privados
+          stats:
+            field: Campo
+            cache_value: Cache Val
+            db_value: Base de Datos Val
+            cache_db_compare: Cache/Base de Datos Comparación
+            cached_card: Tarjeta en caché Inspeccionar
+            db_card: Inspección de tarjeta de base de datos
+          status:
+            deny_not_change_own_account: cambiar el estado de su propia cuenta
+          token:
+            private_data: Datos privados
+            error_token_not_found: token no encontrado
+            error_token_expired: token caducado
+            error_incorrect_token: token no coincide
+            exception_bad_expiration: valor de expiracion ilegal (eg '%{example}')
+        self:
+          account_links:
+            sign_up: Regístrate
+            sign_in: Registrarse
+            invite: Invitación
+            sign_out: desconectar
+          signin:
+            sign_in_title: Registrarse
+            sign_in: Registrarse
+            or_sign_up: '...o registrarse!'
+            reset_password: RESTABLECER LA CONTRASEÑA
+            forgot_password: Se te olvidó tu contraseña
+            reset_my_password: Restablecer mi contraseña
+            check_email: Revisa tu correo electrónico para ver un enlace para restablecer tu contraseña
+            error_unknown_email: Correo electrónico no reconocido.
+            error_not_active: Lo siento, esa cuenta no está activa.
+            error_wrong_password: Contraseña incorrecta
+            abort_bad_signin_args: mal iniciar sesión en argumentos
+            error_not_active: no activo
+            error_not_recognized: no reconocido
+    :carrierwave:
+      set:
+        abstract:
+          attachment:
+            error_invalid_storage_type: "%{type} no es una opción de almacenamiento de archivos válida"
+        type:
+          file:
+            file_error: Error de archivo
+            download: Descargar %{title}
+            delete: Borrar
+            add_item: Agregar %{attachment_name}...
+            replace_item: Reemplazar %{attachment_name}...
+    :admin:
+      set:
+        self:
+          admin_info:
+            email_off: La entrega del correo electrónico está desactivada. Cambie la configuración en %{path} para enviar notificaciones de registro.
+            admin_warn: ADVERTENCIA DEL ADMINISTRADOR
+            captcha_temp: Su captcha actualmente está trabajando con configuraciones temporales. Esto está bien para una instalación local, pero necesitará nuevas claves recaptcha si desea que este sitio sea público.
+            captcha_keys: Está configurado para usar [[*captcha]], pero para que funcione necesita nuevas claves recaptcha.
+            instructions: Instrucciones
+            howto_add_keys: "Cómo agregar nuevas claves recaptcha:"
+            howto_register: Registre su dominio en %{recaptcha_link}
+            howto_add: Agrega tus llaves a %{recaptcha_settings}
+            howto_turn_off: 'Cómo desactivar el captcha:'
+            howto_go: Ir a %{captcha_card}
+            howto_update: Actualice todas las reglas *captcha a "no".
+
+

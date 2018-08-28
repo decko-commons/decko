@@ -26,10 +26,10 @@ format :html do
   end
 
   def warning_list_with_auto_scope warnings
-      # 'ADMINISTRATOR WARNING'
-      admin_warn = tx(:admin_warn)
-      "<h5>#{admin_warn}</h5>" + warnings.join("\n")
-    end
+    # 'ADMINISTRATOR WARNING'
+    admin_warn = tr(:admin_warn)
+    "<h5>#{admin_warn}</h5>" + warnings.join("\n")
+  end
 
   def email_warning
     # "Email delivery is turned off."

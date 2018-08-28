@@ -97,9 +97,7 @@ format :json do
   end
 
   view :items, cache: :never do
-    item_cards.map do |i_card|
-      nest i_card
-    end
+    listing item_cards
   end
 
   view :links, cache: :never do
@@ -137,6 +135,12 @@ format :json do
       key: card.key,
       url: path
     }
+  end
+
+  view :export_item do
+    item = { name: card.name, type: card.type_name, content: card.content }
+    item[:codename] = card.codename if card.codename
+    item
   end
 
   view :essentials do

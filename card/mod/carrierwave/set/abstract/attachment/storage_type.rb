@@ -16,15 +16,14 @@ end
 
 event :validate_storage_type, :validate, on: :save do
   if will_become_coded?
-    unless mod || @new_mod
-      errors.add :storage_type, "mod argument needed to save card as coded"
-    end
-    if codename.blank?
-      errors.add :storage_type, "codename needed for storage type coded"
-    end
+    errors.add :storage_type, tr(:mod_argument_needed_to_save) unless mod || @new_mod
+    errors.add :storage_type, tr(:codename_needed_for_storage) if codename.blank?
   end
   unless known_storage_type? will_be_stored_as
-    errors.add :storage_type, "unknown storage type: #{@new_storage_type}"
+    errors.add :storage_type, tr(
+      :unknown_storage_type,
+      new_storage_type: @new_storage_type
+    )
   end
 end
 
@@ -35,8 +34,7 @@ event :validate_storage_type_update, :validate, on: :update do
   #   i.e. `update_attributes storage_type: :local` fails but
   #        `update_attributes storage_type: :local, file: [file handle]` is ok
   if cloud? && storage_type_changed? && !attachment_is_changing?
-    errors.add :storage_type, "moving files from cloud elsewhere "\
-                              "is not supported"
+    errors.add :storage_type, tr(:moving_files_is_not_supported)
   end
 end
 
@@ -199,7 +197,7 @@ end
 def load_bucket_config_from_env config
   config ||= {}
   CarrierWave::FileCardUploader::CONFIG_OPTIONS.each do |key|
-    next if key.in? [:attributes, :credentials]
+    next if key.in? %i[attributes credentials]
     replace_with_env_variable config, key
   end
   config[:credentials] ||= {}
@@ -232,7 +230,7 @@ end
 
 def bucket_from_config
   Cardio.config.file_default_bucket ||
-    (Cardio.config.file_buckets && Cardio.config.file_buckets.keys.first)
+    (Cardio.config.file_buckets&.keys&.first)
 end
 
 def storage_type
@@ -308,7 +306,7 @@ end
 def with_storage_options opts={}
   old_values = {}
   validate_temporary_storage_type_change opts[:storage_type]
-  [:storage_type, :mod, :bucket].each do |opt_name|
+  %i[storage_type mod bucket].each do |opt_name|
     next unless opts[opt_name]
     old_values[opt_name] = instance_variable_get "@#{opt_name}"
     instance_variable_set "@#{opt_name}", opts[opt_name]
@@ -330,8 +328,9 @@ def validate_temporary_storage_type_change new_storage_type=nil
   new_storage_type ||= @new_storage_type
   return unless new_storage_type
   unless known_storage_type? new_storage_type
-    raise Error, "unknown storage type: #{new_storage_type}"
+    raise Error, tr(:unknown_storage_type, new_storage_type: new_storage_type)
   end
+
   if new_storage_type == :coded && codename.blank?
     raise Error, "codename needed for storage type :coded"
   end

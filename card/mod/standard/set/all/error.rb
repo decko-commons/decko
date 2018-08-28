@@ -10,7 +10,7 @@ format do
   end
 
   view :unsupported_view, perms: :none, tags: :unknown_ok, error_code: 404 do
-    "view (#{voo.unsupported_view}) not supported for #{error_cardname}"
+    tr(:unsupported_view, view: voo.unsupported_view, cardname: error_cardname)
   end
 
   view :missing, perms: :none do
@@ -18,28 +18,28 @@ format do
   end
 
   view :not_found, perms: :none, error_code: 404 do
-    error_name = card.name.present? ? safe_name : "the card requested"
-    %( Could not find #{error_name}. )
+    error_name = card.name.present? ? safe_name : tr(:not_found_no_name)
+    tr(:not_found_named, cardname: error_name)
   end
 
   view :server_error, perms: :none, error_code: 500 do
-    ["Wild Card!", "500 Server Error", "Yuck, sorry about that.", ":("].join "\n\n"
+    tr(:server_error)
   end
 
   view :denial, perms: :none, error_code: 403 do
-    focal? ? "Permission Denied" : ""
+    focal? ? tr(:denial) : ""
   end
 
   view :bad_address, perms: :none, error_code: 404 do
-    %( 404: Bad Address )
+    tr(:bad_address)
   end
 
   view :too_deep, perms: :none, closed: true do
-    %{ Man, you're too deep.  (Too many levels of nests at a time) }
+    tr(:too_deep)
   end
 
   view :too_slow, perms: :none, closed: true, error_code: 408 do
-    %( Timed out! #{title_in_context} took too long to load. )
+    tr(:too_slow, showname: title_in_context)
   end
 end
 
@@ -62,7 +62,7 @@ format :html do
     debug_error exception if Auth.always_ok?
     details = Auth.always_ok? ? backtrace_link(exception) : error_cardname
     wrap_with :span, class: "render-error alert alert-danger" do
-      ["error rendering", details, "(#{view} view)"].join "\n"
+      [tr(:error_rendering), details, "(#{view} view)"].join "\n"
     end
   end
 
@@ -122,7 +122,7 @@ format :html do
 
   view :errors, perms: :none do
     return if card.errors.empty?
-    voo.title = card.name.blank? ? "Problems" : "Problems with #{card.name}"
+    voo.title = card.name.blank? ? "Problems" : tr(:problems_name, cardname: card.name)
     voo.hide! :menu
     class_up "d0-card-frame", "card card-warning card-inverse"
     class_up "alert", "card-error-msg"
@@ -145,7 +145,7 @@ format :html do
     voo.hide! :menu
     voo.title = "Not Found"
     frame do
-      [not_found_errors, sign_in_or_up_links]
+      [not_found_errors, sign_in_or_up_links("to create it")]
     end
   end
 
@@ -157,11 +157,25 @@ format :html do
     end
   end
 
-  def sign_in_or_up_links
+  def sign_in_or_up_links to_task
     return if Auth.signed_in?
-    signin_link = link_to_card :signin, "Sign in"
-    signup_link = link_to "Sign up", path: { action: :new, mark: :signup }
-    wrap_with(:div) { "#{signin_link} or #{signup_link} to create it." }
+    links = [signin_link, signup_link].compact.join " #{tr :or} "
+    wrap_with(:div) do
+      [tr(:please), links, to_task].join(" ") + "."
+    end
+  end
+
+  def signin_link
+    link_to_card :signin, tr(:sign_in_c)
+  end
+
+  def signup_link
+    return unless signup_ok?
+    link_to tr(:sign_up_c), path: { action: :new, mark: :signup }
+  end
+
+  def signup_ok?
+    Card.new(type_id: Card::SignupID).ok? :create
   end
 
   view :denial do
@@ -176,32 +190,40 @@ format :html do
 
   def loud_denial
     frame do
-      [
-        wrap_with(:h1, "Sorry!"),
-        wrap_with(:div, loud_denial_message)
-      ]
+      [wrap_with(:h1, tr(:sorry)),
+       wrap_with(:div, loud_denial_message)]
     end
   end
 
   def loud_denial_message
-    to_task = @denied_task ? "to #{@denied_task} this." : "to do that."
+    to_task = @denied_task ? tr(:denied_task, denied_task: @denied_task) : tr(:to_do_that)
+
     case
-    when @denied_task != :read && Card.config.read_only
-      "We are currently in read-only mode.  Please try again later."
+    when not_denied_task_read?
+      tr(:read_only)
     when Auth.signed_in?
-      "You need permission #{to_task}"
+      tr(:need_permission_task, task: to_task)
     else
-      denial_message_with_links to_task
+      Env.save_interrupted_action request.env["REQUEST_URI"]
+      sign_in_or_up_links to_do_unauthorized_task
     end
+  end
+
+  def not_denied_task_read?
+    @denied_task != :read && Card.config.read_only
+  end
+
+  def to_do_unauthorized_task
+    @denied_task ? tr(:denied_task, denied_task: @denied_task) : tr(:to_do_that)
   end
 
   def denial_message_with_links to_task
     linx = [link_to_card(:signin, "sign in")]
     if Card.new(type_id: Card::SignupID).ok?(:create)
-      linx += ["or", link_to("sign up", path: { action: "new", mark: :signup })]
+      [tr(:or), link_to(tr(:sign_up), path: { action: "new", mark: :signup })]
     end
     Env.save_interrupted_action request.env["REQUEST_URI"]
-    "Please #{linx.join ' '} #{to_task}"
+    "#{tr(:please)} #{linx.join ' '} #{to_task}"
   end
 
   view :server_error, template: :haml

@@ -23,7 +23,7 @@ def content
 end
 
 def content= val
-  Env.session[key] = val
+  self.db_content = Env.session[key] = val
 end
 
 format :html do

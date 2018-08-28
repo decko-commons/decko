@@ -1,6 +1,6 @@
 class Card
   module Set
-    module Event
+    class Event
       module DelayedEvent
         DELAY_STAGES = ::Set.new([:integrate_with_delay_stage,
                                   :integrate_with_delay_final_stage]).freeze
@@ -11,28 +11,23 @@ class Card
           DELAY_STAGES.include?(opts[:after]) || DELAY_STAGES.include?(opts[:before])
         end
 
-        def define_delayed_event_method event, simple_method_name
-          delaying_method = "#{event}_with_delay"
-          define_event_delaying_method event, delaying_method, simple_method_name
-          define_standard_event_method event, delaying_method
+        def define_delayed_event_method
+          define_event_delaying_method
+          define_standard_event_method delaying_method_name
         end
 
-        # creates an ActiveJob.
+        # creates a method that creates an ActiveJob that calls the event method.
         # The scheduled job gets the card object as argument and all serializable
         # attributes of the card.
         # (when the job is executed ActiveJob fetches the card from the database
         # so all attributes get lost)
-        # @param event [String] the event used as queue name
-        # @param method_name [String] the name of the method we define to trigger
-        #   the actjve job
-        # @param final_method_name [String] the name of the method that get called
-        #   by the active job and finally executes the event
-        def define_event_delaying_method event, method_name, final_method_name
-          class_eval do
-            define_method(method_name, proc do
-              IntegrateWithDelayJob.set(queue: event).perform_later(
+        # It uses the event as queue name
+        def define_event_delaying_method
+          @set_module.class_exec(self) do |event|
+            define_method(event.delaying_method_name, proc do
+              IntegrateWithDelayJob.set(queue: event.name).perform_later(
                 Card::ActManager.act&.id, self, serialize_for_active_job, Card::Env.serialize,
-                Card::Auth.serialize, final_method_name
+                Card::Auth.serialize, event.simple_method_name
               )
             end)
           end
