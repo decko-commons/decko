@@ -46,7 +46,7 @@ RSpec.describe Card::View::Options do
 
   describe "#normalize_layout" do
     it "converts single layouts to arrays" do
-      expect(sample_voo.normalize_layout("simple")).to eq([:simple])
+      expect(sample_voo.normalize_layout("simple")).to eq(["simple"])
     end
 
     it "works when layout is already a symbol" do
@@ -54,7 +54,7 @@ RSpec.describe Card::View::Options do
     end
 
     it "works when layout is already an array" do
-      expect(sample_voo.normalize_layout([:simple, "default"])).to eq(%i[simple default])
+      expect(sample_voo.normalize_layout([:simple, "default"])).to eq([:simple, "default"])
     end
   end
 end
