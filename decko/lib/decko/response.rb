@@ -34,9 +34,16 @@ module Decko
     def soft_redirect success
       @card = success.target
       require_card_for_soft_redirect!
-      self.params = Card::Env[:params] = Card::Env.success.params
+      self.params = Card::Env[:params] = soft_redirect_params
       load_action
       show
+    end
+
+    def soft_redirect_params
+      new_params = params.clone
+      new_params.delete :card
+      new_params.delete :action
+      new_params.merge Card::Env.success.params
     end
 
     def require_card_for_soft_redirect!
