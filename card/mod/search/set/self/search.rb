@@ -91,9 +91,4 @@ format :json do
     end
     term
   end
-
-  # hacky.  here for override
-  def goto_wql term
-    { complete: term, limit: 8, sort: "name", return: "name" }
-  end
 end
