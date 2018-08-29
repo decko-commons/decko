@@ -4,8 +4,6 @@ format :json do
     uniq_nested_cards
   end
 
-  AUTOCOMPLETE_LIMIT = 8 # number of name suggestions for autocomplete text fields
-
   def default_nest_view
     :atom
   end
@@ -27,42 +25,6 @@ format :json do
     return raw if raw.is_a? String
     method = params[:compress] ? :generate : :pretty_generate
     JSON.send method, raw
-  end
-
-  # TODO: design better autocomplete API
-  view :name_complete, cache: :never do
-    complete_search
-  end
-
-  view :name_match, cache: :never do
-    starts_with = complete_search
-    remaining_slots = AUTOCOMPLETE_LIMIT - starts_with.size
-    return starts_with if remaining_slots.zero?
-    starts_with + match_search(remaining_slots)
-  end
-
-  def complete_search limit: AUTOCOMPLETE_LIMIT
-    card.search name_wql(limit).merge(complete_wql)
-  end
-
-  def match_search limit=AUTOCOMPLETE_LIMIT
-    card.search name_wql(limit).merge(match_wql)
-  end
-
-  def name_wql limit
-    { limit: limit, sort: "name", return: "name" }
-  end
-
-  def complete_wql
-    { complete: term_param }
-  end
-
-  def match_wql
-    { name_match: term_param }
-  end
-
-  def term_param
-    params[:term]
   end
 
   view :status, tags: :unknown_ok, perms: :none, cache: :never do

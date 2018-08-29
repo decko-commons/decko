@@ -53,25 +53,6 @@ def each_item_name_with_options _content=nil
 end
 
 format do
-  view :search_count, cache: :never do
-    search_with_params.to_s
-  end
-
-  view :search_error, cache: :never do
-    sr_class = search_with_params.class.to_s
-    %(#{sr_class} :: #{search_with_params.message} :: #{card.content})
-  end
-
-  view :card_list, cache: :never do
-    if search_with_params.empty?
-      "no results"
-    else
-      search_with_params.map do |item_card|
-        nest_item item_card
-      end.join "\n"
-    end
-  end
-
   def search_with_params args={}
     query_args = search_params.merge args
     card.cached_search query_args
@@ -85,101 +66,12 @@ format do
 
   def implicit_item_view
     view = voo_items_view || query_with_params.statement[:item] ||
-           default_item_view
+      default_item_view
     Card::View.canonicalize view
   end
-end
 
-format :json do
-  def item_cards
-    search_with_params
-  end
-
-  view :molecule, cache: :never do
-    super().merge paging_urls
-  end
-end
-
-format :data do
-  view :card_list do
-    search_with_params.map do |item_card|
-      nest_item item_card
-    end
-  end
-end
-
-format :csv do
-  view :core, mod: All::AllCsv::CsvFormat
-
-  view :card_list do
-    items = super()
-    if depth.zero?
-      title_row + items
-    else
-      items
-    end
-  end
-end
-
-format :html do
   def with_results
     return render_no_search_results if search_with_params.empty?
     yield
-  end
-
-  view :card_list do
-    with_results do
-      search_result_list "search-result-list" do |item_card|
-        card_list_item item_card
-      end
-    end
-  end
-
-  def card_list_item item_card
-    nest_item item_card, size: voo.size do |rendered, item_view|
-      %(<div class="search-result-item item-#{item_view}">#{rendered}</div>)
-    end
-  end
-
-  def search_result_list klass
-    with_paging do
-      wrap_with :div, class: klass do
-        search_with_params.map do |item_card|
-          yield item_card
-        end
-      end
-    end
-  end
-
-  view :select_item, cache: :never do
-    wrap do
-      haml :select_item
-    end
-  end
-
-  before :select_item do
-    class_up "card-slot", "_filter-result-slot"
-  end
-
-  view :checkbox_list, cache: :never do
-    with_results do
-      search_result_list "_search-checkbox-list pr-2" do |item_card|
-        checkbox_item item_card
-      end
-    end
-  end
-
-  def checkbox_item item_card
-    subformat(item_card).wrap do
-      haml :checkbox_item, unique_id: unique_id, item_card: item_card
-    end
-  end
-
-  def closed_limit
-    [search_params[:limit].to_i, Card.config.closed_search_limit].min
-  end
-
-  view :no_search_results do
-    wrap_with :div, "", class: "search-no-results"
   end
 end

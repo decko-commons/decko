@@ -1,5 +1,3 @@
-include_set Abstract::SearchParams
-
 def query_args args={}
   return super unless keyword_contains_wql? args
   args.merge parse_keyword_wql(args)
@@ -48,7 +46,7 @@ end
 
 format :json do
   view :complete, cache: :never do
-    term = complete_term
+    term = term_param
     exact = Card.fetch term, new: {}
 
     {
@@ -86,7 +84,7 @@ format :json do
     exact.known? && !goto_names.find { |n| n.to_name.key == exact.key }
   end
 
-  def complete_term
+  def term_param
     term = query_params[:keyword]
     if (term =~ /^\+/) && (main = params["main"])
       term = main + term
