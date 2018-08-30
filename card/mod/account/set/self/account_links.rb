@@ -1,7 +1,15 @@
 
 format :html do
+  view :core, cache: :never do
+    status_class = Auth.signed_in? ? "logged-in" : "logged-out"
+    wrap_with :span, id: "logging", class: status_class do
+      item_links.join " "
+    end
+  end
+
   def item_links _args=nil
-    %i[my_card invite sign_out sign_up sign_in].map do |link_view|
+    # removed invite for now
+    %i[my_card sign_out sign_up sign_in].map do |link_view|
       render link_view
     end.compact
   end
@@ -44,19 +52,8 @@ format :html do
       I18n.t(purpose, scope: "mod.account.set.self.account_links")
   end
 
-  view :raw do
-    item_links.join " "
-  end
-
   def nav_link_class type
     "nav-link #{classy(type)}"
-  end
-
-  view :core, cache: :never do
-    status_class = Auth.signed_in? ? "logged-in" : "logged-out"
-    wrap_with :span, id: "logging", class: status_class do
-      render_raw
-    end
   end
 
   def show_signup_link?

@@ -52,7 +52,7 @@ event :validate_type_change, :validate, on: :update, changed: :type_id do
   end
 end
 
-event :validate_type, :validate, changed: :type_id do
+event :validate_type, :validate, changed: :type_id, on: :save do
   errors.add :type, tr(:error_no_such_type) unless type_name
 
   if (rt = structure) && rt.assigns_type? && type_id != rt.type_id

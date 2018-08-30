@@ -131,7 +131,7 @@ RSpec.describe Card::Set::Type::SearchType do
 
       context "with paging" do
         def paging_url offset
-          json_url(card_subject.name.url_key, "limit=1&offset=#{offset}")
+          json_url card_subject.name.url_key, "item=atom&limit=1&offset=#{offset}"
         end
 
         let(:paging_values) do
