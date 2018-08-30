@@ -8,7 +8,7 @@ format :json do
     # avoid loops
     return [] if @export_depth > max_export_depth || @exported_keys.include?(card.key)
     @exported_keys << card.key
-    Array.wrap(render_atom).concat(render_export_items).flatten
+    Array.wrap(render_export_item).concat(render_export_items).flatten
   end
 
   def max_export_depth
@@ -23,6 +23,12 @@ format :json do
     valid_items_for_export.map do |item|
       nest item, view: :export
     end
+  end
+
+  view :export_item do
+    item = { name: card.name, type: card.type_name, content: card.content }
+    item[:codename] = card.codename if card.codename
+    item
   end
 
   def items_for_export
