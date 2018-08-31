@@ -20,7 +20,7 @@ class Card
         end
 
         def main_nest? nest_name
-          nest_name == "_main" && !root.already_mained?
+          nest_name == "_main" # && !root.already_mained?
         end
 
         def already_mained?

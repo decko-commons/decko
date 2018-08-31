@@ -40,6 +40,39 @@ class Card
           define_wrap_with_method wrapper_name, method_name
         end
 
+        def layout layout, &block
+          Card::Layout.register_built_in_layout layout
+          method_name = Card::Set::Format.layout_method_name(layout)
+          define_method method_name, &block
+          wrapper layout do
+            send method_name
+          end
+          # define_method "#{method_name}_with_main" do
+          #   wrap_main do
+          #      send method_name
+          #    end
+          # end
+          # define_wrap_with_method layout, "#{method_name}_with_main"
+
+
+          #class_exec do
+            # define_method "wrap_with_#{layout}" do |&block|
+            #   wrap_main do
+            #     send method_name
+            #   end
+            # end
+          #end
+          # instance_exec(self) do |format|
+          #   wrapper layout do
+          #     format.wrap_main &block
+          #       #send Card::Set::Format.layout_method_name(layout)
+          #     #)
+          #     #::Card::Layout.render layout, self)
+          #   end
+          # end
+
+        end
+
         attr_accessor :interiour
 
         private
@@ -47,7 +80,7 @@ class Card
         # expects a tag with options that defines the wrap
         def define_tag_wrapper method_name, tag_name, default_opts
           class_eval do
-            define_method method_name do |interiour, opts={}|
+            define_method method_name do |opts={}|
               content_tag tag_name, interiour, default_opts.merge(opts)
             end
           end
@@ -71,6 +104,7 @@ class Card
                 else
                   args
                 end
+              #instance_variable_set "@interiour", @interiour
               if method(wrapper_method_name).arity.zero?
                 send wrapper_method_name
               else

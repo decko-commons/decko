@@ -124,8 +124,11 @@ format :html do
   private
 
   def act_renderer context
-    if context == :absolute
+    case context
+    when :absolute
       Act::ActRenderer::AbsoluteActRenderer
+    when :reltive_link
+      Act::ActRenderer::RelativeLinkActRenderer
     else
       Act::ActRenderer::RelativeActRenderer
     end

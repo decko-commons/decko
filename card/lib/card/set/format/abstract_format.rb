@@ -36,27 +36,6 @@ class Card
           end
         end
 
-        def layout layout, &block
-          Card::Layout.register_built_in_layout layout
-          method_name = Card::Set::Format.layout_method_name(layout)
-          class_exec do
-            define_method "wrap_with_#{layout}" do
-              wrap_main do
-                block.call
-              end
-            end
-          end
-          # instance_exec(self) do |format|
-          #   wrapper layout do
-          #     format.wrap_main &block
-          #       #send Card::Set::Format.layout_method_name(layout)
-          #     #)
-          #     #::Card::Layout.render layout, self)
-          #   end
-          # end
-
-        end
-
         def view_for_override viewname
           view viewname do
             "override '#{viewname}' view"

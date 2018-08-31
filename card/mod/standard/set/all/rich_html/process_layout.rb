@@ -20,7 +20,6 @@ format :html do
   end
 
   def render_with_layout view, layout, args={}
-    # @main = false
     view_opts = Layout.main_nest_opts(layout, self)
     view ||= view_opts.delete(:view) || default_nest_view
     view_opts[:layout] = layout
@@ -32,24 +31,8 @@ format :html do
   end
 
   def explicit_modal_wrapper? view
-    view_setting(:modal, view) || view_setting(:bridge, view) ||
-      (view_setting(:wrap, view) &&
+    (view_setting(:wrap, view) &&
        Array.wrap(view_setting(:wrap, view)).include?(:modal))
-  end
-
-  def assign_modal_opts view, args
-    return unless (opts = explicit_modal_opts(view) || modal_opts_for_bridge(view))
-    @modal_opts = opts.merge args
-  end
-
-  def explicit_modal_opts view
-    return unless (setting = view_setting(:modal, view))
-    setting == true ? { size: :medium } : setting
-  end
-
-  def modal_opts_for_bridge view
-    return unless view_setting(:bridge, view)
-    { size: :full, layout: :modal_bridge }
   end
 
   def process_haml_layout layout_name

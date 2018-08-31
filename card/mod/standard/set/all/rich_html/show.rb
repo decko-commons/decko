@@ -1,7 +1,7 @@
 format :html do
   def show view, args
     content = send "show_#{show_layout? ? :with : :without}_page_layout", view, args
-    show_full_page? ? page_wrapper(content) : content
+    show_full_page? ? wrap_with_html_page(content) : content
   end
 
   def show_without_page_layout view, args
@@ -15,16 +15,14 @@ format :html do
     !Env.ajax?
   end
 
-  def page_wrapper content
+  wrapper :html_page do
     <<-HTML.strip_heredoc
       <!DOCTYPE HTML>
       <html>
         <head>
           #{head_content}
         </head>
-        <body class="right-sidebar">
-          #{content}
-        </body>
+        #{interiour}
       </html>
     HTML
   end

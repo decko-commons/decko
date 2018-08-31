@@ -18,7 +18,7 @@ class Card
         #return voo.render_layouts if main_nest?(nest_name)
         #return main_nest(opts, &main_nest_block) if main_nest?(nest_name)
         if main_nest?(nest_name)
-          @rendered || main_nest(opts)
+          wrap_main { @rendered || main_nest(opts) }
         else
           nest nest_name, opts
         end

@@ -90,10 +90,13 @@ jQuery.fn.extend {
     if mode == "overlay"
       s.addOverlay(el)
     else
-      s.replaceWith el
-      if mode == "modal"
-        el.modalify()
-        el.closest("#modal-container").modal("show", $slotter)
+      if el.hasClass("_modal-slot") or mode == "modal"
+        el = el.modalify()
+        $("body > ._modal-slot").replaceWith el
+        el.modal("show", $slotter)
+      else
+        s.replaceWith el
+
     el.triggerSlotReady()
 
 
@@ -108,8 +111,15 @@ jQuery.fn.extend {
     @before overlay
 
   modalify: ->
-    unless @hasClass("modal-dialog")
-      @addClass("modal-dialog").wrapInner('<div class="modal-content">')
+    if @hasClass("_modal-slot")
+      this
+    else
+      modalSlot = $('<div/>', id: "modal-container", class: "modal fade _modal-slot")
+      modalSlot.append($('<div/>' , class: "modal-dialog"))
+               .append($('<div/>', class: "modal-content"))
+               .append(this)
+      modalSlot
+
 
   # mode can be "standard", "overlay" or "modal"
   slotSuccess: (data, $slotter) ->

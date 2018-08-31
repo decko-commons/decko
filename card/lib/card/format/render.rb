@@ -8,11 +8,9 @@ class Card
         voo = View.new self, view, view_options, @voo
         with_voo voo do
           voo.process do |final_view|
-            #voo.with_layout do
-              voo.with_wrapper do
-                final_render final_view
-              end
-            #end
+            with_wrapper do
+              final_render final_view
+            end
           end
         end
       rescue => e
@@ -25,6 +23,25 @@ class Card
         yield
       ensure
         @voo = old_voo
+      end
+
+      def with_wrapper &render_block
+        if voo.layout.present?
+          voo.wrap ||= []
+          voo.wrap.push voo.layout.to_name.key
+        end
+
+        @rendered = render_block.call
+        return @rendered unless voo.wrap.present?
+        wrap_with_wrapper
+      end
+
+      def wrap_with_wrapper
+        voo.wrap.reverse.each do |wrapper|
+          @rendered = try("wrap_with_#{wrapper}") { @rendered } ||
+                      Card::Layout::CardLayout.new(wrapper, self).render
+        end
+        @rendered
       end
 
       def before_view view

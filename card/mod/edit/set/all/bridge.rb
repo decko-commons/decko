@@ -15,7 +15,13 @@ format :html do
   end
 
   view :bridge_breadcrumbs do
-    "breadcrumbs"
+    <<-HTML
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="#">#{card.name}</a></li>
+      </ol>
+    </nav>
+    HTML
   end
 
   view :bridge_tabs do
@@ -35,6 +41,9 @@ format :html do
   end
 
   view :history_tab do
+    class_up "d0-card-body",  "history-slot"
+    voo.hide :act_legend
+    acts_bridge_layout card.history_acts
   end
 
   view :rules_tab do
@@ -62,7 +71,13 @@ format :html do
 
 
   def bridge_slot_selector
-    ".bridge-main > #main > .card-slot, "\
-    ".bridge-main > #main > .overlay-container > .card-slot._bottomlay-slot"
+    ".bridge-main > .card-slot, "\
+    ".bridge-main > .overlay-container > .card-slot._bottomlay-slot"
+  end
+
+  wrapper :bridge do
+    wrap_with_modal size: :full do
+      haml :bridge
+    end
   end
 end

@@ -1,8 +1,9 @@
 format :html do
   MODAL_SIZE = { small: "sm", medium: nil, large: "lg", full: "full" }.freeze
 
-  wrapper :modal do |interiour, opts={}|
+  wrapper :modal do |opts={}|
     haml :modal_dialog, body: interiour,
+                        classes: modal_dialog_classes(opts),
                         menu: opts[:menu] || render_modal_menu,
                         footer: opts[:footer] || render_modal_footer
   end

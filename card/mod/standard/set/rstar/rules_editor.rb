@@ -35,7 +35,7 @@ format :html do
   view :overlay_rule, cache: :never, tags: :unknown_ok do
     return "not a rule" unless card.is_rule?
     rule_view = open_rule_body_view
-    overlay_frame do
+    wrap_with_overlay do
       open_rule_wrap(rule_view) do
         [render_rule_help,
          open_rule_setting_links,
@@ -45,7 +45,7 @@ format :html do
   end
 
   view :overlay_title do
-    card.name
+    setting_title
   end
 
   def open_rule_body rule_view
@@ -101,12 +101,14 @@ format :html do
 
   def closed_rule_link_cell _rule_card
     wrap_rule_cell "rule-setting" do
-      setting_title = card.name.tag.tr "*", ""
       opts = bridge_link_opts(class: "edit-rule-link slotter")
       opts[:path].delete(:layout)
       link_to_view :overlay_rule, setting_title, opts
-
     end
+  end
+
+  def setting_title
+    card.name.tag.tr "*", ""
   end
 
   def closed_rule_setting_cell _rule_card

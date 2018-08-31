@@ -1,9 +1,9 @@
 # TODO: use same slotReady approach as below
 $(window).ready ->
-  $('body').on 'hidden.bs.modal', (event) ->
-    if $(event.target).attr('id') != 'modal-main-slot'
-      modal_content = $(event.target).find('.modal-dialog > .modal-content')
-      modal_content.empty()
+#  $('body').on 'hidden.bs.modal', (event) ->
+#    if $(event.target).attr('id') != 'modal-main-slot'
+#      modal_content = $(event.target).find('.modal-dialog > .modal-content')
+#      modal_content.empty()
 
   $('._modal-slot').each ->
     openModalIfPresent $(this)
@@ -15,12 +15,13 @@ $(window).ready ->
 
 addModalDialogClasses = ($modal_slot, $link) ->
   dialog = $modal_slot.find(".modal-dialog")
-  classes_from_link = ($link? && link.data("modal-class")) || $modal_slot.data("modal-class")
+  classes_from_link =
+    if $link? then $link.data("modal-class") else $modal_slot.data("modal-class")
   if classes_from_link? and dialog?
     dialog.addClass classes_from_link
 
 decko.slotReady (slot) ->
-  # this finds ._modal-slots and moves them to the end of the body
+  # this finds ._modal-slots and moves them toa the end of the body
   # this allows us to render modal slots inside slots that call them and yet
   # avoid associated problems (eg nested forms and unintentional styling)
   # note: it deletes duplicate modal slots
@@ -54,14 +55,15 @@ decko.slotReady (slot) ->
 #        $(modal_selector).trigger 'loaded.bs.modal'
 
 modalSlot = ->
-  slot = $("#modal-container > .card-slot")
+  slot = $("#modal-container")
   if slot.length > 0 then slot else createModalSlot()
 
 createModalSlot = ->
-  slot = $('<div/>', class: "card-slot")
-  $("body").append(
-    $('<div/>', id: "modal-container", class: "modal fade _modal-slot").append(slot)
-  )
+  #slot = $('<div/>', class: "card-slot")
+  slot = $('<div/>', id: "modal-container", class: "modal fade _modal-slot")
+  $("body").append(slot)
+  #$('<div/>', id: "modal-container", class: "modal fade _modal-slot") #.append(slot)
+  #)
   slot
 
 openModalIfPresent = (mslot) ->

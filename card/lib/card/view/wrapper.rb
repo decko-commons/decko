@@ -4,18 +4,18 @@ class Card
     module Wrapper
       def with_wrapper &render_block
         if layout.present?
-          wrap ||= []
+          self.wrap ||= []
           wrap.push layout.to_name.key
         end
 
-        @rendered = render_block.call
-        return @rendered unless wrap.present?
+        format.rendered = render_block.call
+        return format.rendered unless wrap.present?
         wrap.reverse.each do |wrapper|
-          @rendered =
-            format.try("wrap_with_#{wrapper}") { @rendered } ||
+          format.rendered =
+            format.try("wrap_with_#{wrapper}") { format.rendered } ||
               Card::Layout::CardLayout.new(wrapper, format).render
         end
-        @rendered
+        format.rendered
       end
     end
   end

@@ -10,14 +10,29 @@ class Card
       end
 
       def fetch_main_nest_opts
-        main_nest_opts_from_content
+        find_main_nest_chunk&.options ||
+          raise(Card::Error, "no main nest found in layout \"#{@layout}\"")
       end
 
-      def main_nest_opts_from_content
-        content = Card::Content.new(layout_card.content, @format, chunk_list: :nest_only)
+      MAIN_NESTING_LIMIT = 5
+
+      def find_main_nest_chunk card=layout_card, depth=0
+        content = Card::Content.new(card.content, @format, chunk_list: :nest_only)
+        return false unless content.each_chunk.count > 0
+        main_chunk(content) || go_deeper(content, depth)
+      end
+
+      def go_deeper content, depth
+        return false if depth > MAIN_NESTING_LIMIT
         content.each_chunk do |chunk|
-          return chunk.options if chunk.main?
+          main_chunk = find_main_nest_chunk chunk.referee_card, depth + 1
+          return main_chunk if main_chunk
         end
+        false
+      end
+
+      def main_chunk content
+        content.each_chunk.find { |chunk| chunk.main? }
       end
     end
   end

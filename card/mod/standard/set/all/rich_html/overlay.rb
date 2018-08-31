@@ -2,7 +2,7 @@ format :html do
   # view :overlay do
   #   overlay [_render_open_content, render_comment_box]
   # end
-#
+  #
   # def overlay content=nil
   #   class_up "card-slot", "_overlay d0-card-overlay bg-white", true
   #   @content_body = true
@@ -30,7 +30,7 @@ format :html do
     button_link fa_icon(icon, class: "fa-lg"), args.merge(btn_type: "outline-secondary")
   end
 
-  view :overlay_header do
+  view :overlay_header, tags: :unknown_ok do
     class_up "d0-card-header", "bg-white text-dark", true
     class_up "d0-card-header-title", "d-flex justify-content-between", true
     header_wrap [_render_overlay_title, _render_overlay_menu]
@@ -38,5 +38,13 @@ format :html do
 
   view :overlay_title do
     _render_title
+  end
+
+  wrapper :overlay do
+    class_up "card-slot", "_overlay d0-card-overlay bg-white", true
+    @content_body = true
+    overlay_frame true do
+      interiour
+    end
   end
 end

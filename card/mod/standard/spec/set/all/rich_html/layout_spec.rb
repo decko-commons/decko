@@ -92,8 +92,9 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
 
   def with_layout content
     Card::Layout.clear_cache
-    create_layout "tmp layout", content: content
+    create_layout "tmp layout", content: "<body>#{content}</body>"
     Card["*all+*layout"].content = "[[tmp layout]]"
+    Card["tmp layout"].refresh
   end
 
   let(:layout_card) { Card["tmp layout"] }

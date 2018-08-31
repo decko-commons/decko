@@ -1,14 +1,8 @@
 format :html do
-  def wrap_with_layout layout, &block
-    voo.wrap_with_layout layout, &block
-  end
+  attr_reader :interiour
 
   def layout_nest
-    @rendered_main_nest
-  end
-
-  def interiour
-Z    @interiour
+    wrap_main { interiour }
   end
 
   layout :pre do  #{{_main|raw}}
@@ -38,35 +32,5 @@ Z    @interiour
     HTML
   end
 
-  wrapper :bridge do |interiour|
-    @interiour = interiour
-    wrap_with_modal do
-      haml BRIDGE_HAML
-    end
-  end
 
-
-
-  wrapper :overlay do
-     class_up "card-slot", "_overlay d0-card-overlay bg-white", true
-     @content_body = true
-     overlay_frame true do
-       layout_nest
-     end
-  end
-
-
-
-  BRIDGE_HAML =
-    <<-HAML.strip_heredoc
-      .bridge
-        .row{class: classy("card-header")}
-          = render_bridge_breadcrumbs
-        .row
-          .col-8.bridge-main
-            = interiour
-          .col-4.bridge-sidebar
-            = render_follow_buttons
-            = render_bridge_tabs
-    HAML
 end

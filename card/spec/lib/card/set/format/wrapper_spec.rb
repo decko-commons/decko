@@ -3,9 +3,11 @@ RSpec.describe Card::Set::Format::Wrapper do
     let(:format) do
       Card["A"].format_with do
         wrapper :cream do
-          wrap_with :div do
-            "cream_#{interiour}_cream"
-          end
+          "cream_#{interiour}_cream"
+        end
+
+        wrapper :icon do
+          icon_tag interiour
         end
       end
     end
@@ -15,7 +17,11 @@ RSpec.describe Card::Set::Format::Wrapper do
     end
 
     it "is wrapped with cream" do
-      is_expected.to eq "cream_cake_cream"
+      is_expected.to  eq "cream_cake_cream"
+    end
+
+    it "is possible to use format methods in wrapper" do
+      expect(format.wrap_with_icon("edit")).to have_tag :i, "edit"
     end
   end
 
@@ -38,7 +44,7 @@ RSpec.describe Card::Set::Format::Wrapper do
 
     context "when called with content argument" do
       subject do
-        format.wrap_with_cream "cake"Z
+        format.wrap_with_cream "cake"
       end
 
       it "is wrapped with cream" do
