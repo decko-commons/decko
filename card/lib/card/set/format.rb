@@ -90,7 +90,11 @@ class Card
 
       class << self
         def layout_method_name layout
-          "_layout_#{layout}"
+          "_layout_#{layout.to_name.key}"
+        end
+
+        def wrapper_method_name wrapper
+          "_wrapper_#{wrapper}"
         end
 
         def view_method_name view

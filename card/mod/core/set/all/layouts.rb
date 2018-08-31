@@ -4,7 +4,11 @@ format :html do
   end
 
   def layout_nest
-    voo.render_layouts
+    @rendered_main_nest
+  end
+
+  def interiour
+Z    @interiour
   end
 
   layout :pre do  #{{_main|raw}}
@@ -18,7 +22,7 @@ format :html do
   end
 
   layout :no_side do # {{_main|open}}
-    <<-HTML.strip_heredoec
+    <<-HTML.strip_heredoc
       <header>#{nest :header, view: :core}</header>
       <article>#{layout_nest}</article>
       <footer>{nest :footer, view: :core}</footer>
@@ -34,33 +38,24 @@ format :html do
     HTML
   end
 
-  # view :edit, layout:
-
-  layout :bridge do
-    wrap_with_layout :modal do
+  wrapper :bridge do |interiour|
+    @interiour = interiour
+    wrap_with_modal do
       haml BRIDGE_HAML
     end
   end
 
-  layout :modal do
-    haml MODAL_HAML
-  end
 
-  layout :overlay do
+
+  wrapper :overlay do
      class_up "card-slot", "_overlay d0-card-overlay bg-white", true
      @content_body = true
-     overlay_main
+     overlay_frame true do
+       layout_nest
+     end
   end
 
-  MODAL_HAML =
-    <<-HAML.strip_heredoc
-      .modal-header.clearfix
-        = render_modal_menu
-      .modal-body
-        = layout_nest
-      .modal-footer
-        = render_modal_footer
-    HAML
+
 
   BRIDGE_HAML =
     <<-HAML.strip_heredoc
@@ -69,7 +64,7 @@ format :html do
           = render_bridge_breadcrumbs
         .row
           .col-8.bridge-main
-            = layout_nest
+            = interiour
           .col-4.bridge-sidebar
             = render_follow_buttons
             = render_bridge_tabs

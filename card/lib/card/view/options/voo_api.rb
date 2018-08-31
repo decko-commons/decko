@@ -86,10 +86,8 @@ class Card
           value&.to_sym
         end
 
-        def normalize_layout value
-          Array.wrap(value).map do |v|
-            v.is_a?(Symbol) ? v : v.strip.split(/\s*,\s*/)
-          end.compact.flatten #.map(&:to_sym)
+        def normalize_wrap value
+          Array.wrap(value).compact.flatten
         end
 
         protected
@@ -115,7 +113,6 @@ class Card
           validate_options! opts
           opts
         end
-
 
         def add_implicit_options!
           @normalized_options[:view] = @raw_view
@@ -151,13 +148,10 @@ class Card
 
         def process_live_options
           @live_options = normalized_options.clone
-          if @live_options[:main_view]
-            @live_options.merge! format.main_nest_options
-          end
-          # main_nest_options are not processed in normalize_options so that
-          # they're NOT locked in the stub.
+          process_main_nest_options
           process_before_view
           process_visibility_options
+          process_view_wrappers
           @live_options
         end
 
@@ -165,6 +159,23 @@ class Card
         # @live_options hash both directly and indirectly (via the voo API)
         def process_before_view
           format.before_view requested_view
+        end
+
+        # adds the wrappers that
+        def process_view_wrappers
+          view_wrappers = format.view_setting(:wrap, ok_view)
+          if view_wrappers.present?
+            @live_options[:wrap] = [@live_options[:wrap], view_wrappers].flatten.compact
+          end
+        end
+
+        # merge the options of the main nest into the @live_options
+        # They are not processed in normalize_options so that
+        # they're NOT locked in the stub.
+        def process_main_nest_options
+          if @live_options[:main_view]
+            @live_options.merge! format.main_nest_options
+          end
         end
 
         def validate_options! opts

@@ -7,7 +7,7 @@ class Card
           yield # no wrapping in base format
         end
 
-        def main_nest opts={}, &block
+        def main_nest opts={}
           wrap_main do
             with_nest_mode :normal do
               if block_given?

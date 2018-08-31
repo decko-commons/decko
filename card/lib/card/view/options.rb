@@ -18,7 +18,8 @@ class Card
           :nest_name,      # name as used in nest
           :nest_syntax,    # full nest syntax
           :show,           # render these views when optional
-          :hide            # do not render these views when optional
+          :hide,            # do not render these views when optional
+          :wrap            # wrap the nest with a wrapper
         ],                 #   show/hide can be view (Symbol), list of views (Array),
                            #   or comma separated views (String)
         # NOTE: although show and hide are in this non-inheriting group, they are

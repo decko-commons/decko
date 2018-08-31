@@ -12,6 +12,7 @@ class Card
     include Stub
     include Options
     include Layout
+    include Wrapper
     extend Cache::ClassMethods
 
     attr_reader :format, :parent, :card

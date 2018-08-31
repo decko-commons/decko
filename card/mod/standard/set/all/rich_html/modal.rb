@@ -1,5 +1,12 @@
 format :html do
   MODAL_SIZE = { small: "sm", medium: nil, large: "lg", full: "full" }.freeze
+
+  wrapper :modal do |interiour, opts={}|
+    haml :modal_dialog, body: interiour,
+                        menu: opts[:menu] || render_modal_menu,
+                        footer: opts[:footer] || render_modal_footer
+  end
+
   view :modal_link do
     modal_link _render_title, size: voo.size
   end
@@ -28,6 +35,13 @@ format :html do
     opts[:path][:layout] ||= :modal
     opts[:path] = "javascript:void()"
     opts
+  end
+
+  def wrap_with_modal_slot modal
+    wrap_with :div, id: "modal-container", class: "modal fade _modal-slot",
+                        "data-modal-class": "modal-full", role: "dialog" do
+      modal
+    end
   end
 
   def modal_slot modal_id="main-slot"

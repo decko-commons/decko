@@ -31,6 +31,7 @@ format :html do
   end
 
   def overlay_frame slot=true
+    class_up "card-slot", "_overlay"
     with_frame slot, render_overlay_header do
       wrap_body { yield }
     end

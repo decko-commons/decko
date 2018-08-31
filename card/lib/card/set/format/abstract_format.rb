@@ -8,8 +8,10 @@ class Card
       module AbstractFormat
         include Set::Basket
         include Set::Format::HamlViews
+        include Set::Format::Wrapper
 
-        VIEW_SETTINGS = %i[cache modal bridge]
+
+        VIEW_SETTINGS = %i[cache modal bridge wrap]
 
         mattr_accessor :views
         self.views = Hash.new { |h, k| h[k] = {} }
@@ -36,7 +38,23 @@ class Card
 
         def layout layout, &block
           Card::Layout.register_built_in_layout layout
-          define_method Card::Set::Format.layout_method_name(layout), &block
+          method_name = Card::Set::Format.layout_method_name(layout)
+          class_exec do
+            define_method "wrap_with_#{layout}" do
+              wrap_main do
+                block.call
+              end
+            end
+          end
+          # instance_exec(self) do |format|
+          #   wrapper layout do
+          #     format.wrap_main &block
+          #       #send Card::Set::Format.layout_method_name(layout)
+          #     #)
+          #     #::Card::Layout.render layout, self)
+          #   end
+          # end
+
         end
 
         def view_for_override viewname

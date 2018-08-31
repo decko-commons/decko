@@ -71,7 +71,7 @@ jQuery.fn.extend {
     $slot.data "remote", true
     $.rails.handleRemote($slot)
 
-  setSlotContent: (val, mode) ->
+  setSlotContent: (val, mode, $slotter) ->
     v = $(val)[0] && $(val) || val
 
     if typeof(v) == "string"
@@ -82,24 +82,25 @@ jQuery.fn.extend {
         mode = "overlay"
       else if v.hasClass("_modal")
         mode = "modal"
-      @slot("success", mode).setSlotContentFromElement v, mode
+      @slot("success", mode).setSlotContentFromElement v, mode, $slotter
     v
 
-  setSlotContentFromElement: (el, mode) ->
+  setSlotContentFromElement: (el, mode, $slotter) ->
     s = $(this)
     if mode == "overlay"
-      s.addOverlay(el)    
+      s.addOverlay(el)
     else
       s.replaceWith el
       if mode == "modal"
         el.modalify()
-        el.closest("#modal-container").modal("show")
+        el.closest("#modal-container").modal("show", $slotter)
     el.triggerSlotReady()
+
 
   triggerSlotReady: () ->
     @trigger "slotReady"
     @find(".card-slot").trigger "slotReady"
-  
+
   addOverlay: (overlay) ->
     unless @parent().hasClass("overlay-container")
       @wrapAll('<div class="overlay-container">')
@@ -109,15 +110,16 @@ jQuery.fn.extend {
   modalify: ->
     unless @hasClass("modal-dialog")
       @addClass("modal-dialog").wrapInner('<div class="modal-content">')
-  
+
   # mode can be "standard", "overlay" or "modal"
-  slotSuccess: (data, mode) ->
+  slotSuccess: (data, $slotter) ->
+    mode = $slotter.data("slotter-mode")
     if data.redirect
       window.location=data.redirect
     else
       notice = @attr('notify-success')
       mode ||= "standard"
-      newslot = @setSlotContent data, mode
+      newslot = @setSlotContent data, mode, $slotter
 
       if newslot.jquery # sometimes response is plaintext
         decko.initializeEditors newslot

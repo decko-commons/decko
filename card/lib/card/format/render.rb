@@ -3,15 +3,16 @@ class Card
     # View rendering methods.
     #
     module Render
-
       # view=open&layout=simple
       def render! view, view_options = {}
         voo = View.new self, view, view_options, @voo
         with_voo voo do
           voo.process do |final_view|
-            voo.with_layouts(final_view) do
-              final_render final_view
-            end
+            #voo.with_layout do
+              voo.with_wrapper do
+                final_render final_view
+              end
+            #end
           end
         end
       rescue => e

@@ -8,7 +8,7 @@ format :html do
       [
         _render(:horizontal_menu, optional: :hide),
         _render_menu_link,
-        modal_slot(card.name.safe_key)
+        # modal_slot(card.name.safe_key)
       ]
     end
   end
@@ -25,7 +25,8 @@ format :html do
 
     wrap_with :div, class: "vertical-card-menu card-menu #{css_class}" do
       wrap_with :div, class: "btn-group slotter card-slot float-right" do
-        link_to_view "edit", fa_icon("edit"), path: { layout: :bridge }, remote: true, "data-slotter-mode": "modal", class: "slotter"
+        link_to_view "edit", fa_icon("edit"), path: { layout: :bridge }, remote: true, "data-slotter-mode": "modal", class: "slotter",
+                     "data-modal-class": "modal-full"
         # link_to_view :vertical_menu, menu_icon, path: menu_link_path_opts
       end
     end

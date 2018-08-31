@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
   context "simple page with Default Layout" do
-    subject { Card["A+B"].format.show(:core, {}) }
+    subject { Card["A+B"].format.show(:open, {}) }
 
     it "renders top menu" do
       is_expected.to have_tag "header" do
@@ -38,21 +38,32 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     end
   end
 
-  example "layout as rule" do
-    with_layout "<pre>Hey {{_main}}</pre>"
-    expect(format_subject.show(:core, {}))
-      .to have_tag :pre do
-        with_text /Hey/
-        with_tag "div#main", /Alpha/
+  describe "layout defined by rule" do
+    it "renders layout from card" do
+      with_layout "<pre>Hey {{_main}}</pre>"
+      expect(format_subject.show(:core, {}))
+        .to have_tag :pre do
+          with_text /Hey/
+          with_tag "div#main", /Alpha/
+      end
     end
-  end
 
-  example "layout with custom view of main" do
-    with_layout "<pre>Hey {{_main|name}}</pre>"
-    expect(format_subject.show(:core, {}))
-      .to have_tag :pre do
-        with_text /Hey/
-        with_tag "div#main", "A"
+    it "respects custom view in params" do
+      with_layout "<pre>Hey {{_main}}</pre>"
+        expect(format_subject.show(:type, {}))
+          .to have_tag :pre do
+            with_text /Hey/
+            with_tag "div#main", "Basic"
+        end
+    end
+
+    it "respect custom view in main nest" do
+      with_layout "<pre>Hey {{_main|type}}</pre>"
+      expect(format_subject.show(nil, {}))
+        .to have_tag :pre do
+          with_text /Hey/
+          with_tag "div#main", "Basic"
+      end
     end
   end
 
@@ -71,15 +82,16 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       .to have_tag :pre, /Alpha/
   end
 
-  example "nested layouts" do
-    expect(format_subject.render(:core, layout: :bridge))
-          .to have_tag "div.modal-body" do
-      with_tag "div.bridge", /Alpha/
-    end
-  end
+  # example "nested layouts" do
+  #   expect(format_subject.render(:core, layout: :bridge))
+  #         .to have_tag "div.modal-body" do
+  #     with_tag "div.bridge", /Alpha/
+  #   end
+  # end
 
 
   def with_layout content
+    Card::Layout.clear_cache
     create_layout "tmp layout", content: content
     Card["*all+*layout"].content = "[[tmp layout]]"
   end
@@ -89,7 +101,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
   it "does not recurse" do
     with_layout "Mainly {{_main|core}}"
 
-    expect(layout_card.format.show(:core, {})).to have_tag "div#main" do
+    expect(layout_card.format.show(nil, {})).to have_tag "div#main" do
       with_tag "div.code" do
         with_tag "pre", "Mainly {{_main|core}}"
       end

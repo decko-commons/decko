@@ -1,27 +1,40 @@
-
-# nest({ wikipedia: { editable: false, type: :phrase, default: "dfds" }}, :about, :address)
-
 format :html do
   # TODO: use CodeFile cards for these
   # builtin layouts allow for rescue / testing
   HTML_LAYOUTS = Mod::Loader.load_layouts(:html).merge "none" => "{{_main}}"
   HAML_LAYOUTS = Mod::Loader.load_layouts(:haml)
 
-  def with_main_opts args
-    old_main_opts = @main_opts
-    @main_opts = args
-    yield
-  ensure
-    @main_opts = old_main_opts
+  def show_with_page_layout view, args
+    args[:view] = view if view
+    args[:main] = true
+    args[:main_view] = true
+    assign_modal_opts view, args unless Env.ajax?
+    layout = params[:layout] || layout_name_from_rule || :default
+    if explicit_modal_wrapper?(view)
+      output [render_with_layout(nil, layout, {}),
+              render!(view, args)]
+    else
+      render_with_layout view, layout, args
+    end
+    # FIXME: using title because it's a standard view option.  hack!
   end
 
-  view :layout, perms: :none, cache: :never do
-    layout = process_layout voo.layout
-    output [layout, (modal_slot if root?)]
+  def render_with_layout view, layout, args={}
+    # @main = false
+    view_opts = Layout.main_nest_opts(layout, self)
+    view ||= view_opts.delete(:view) || default_nest_view
+    view_opts[:layout] = layout
+    render! view, view_opts.merge(args)
   end
 
   def show_layout?
     !Env.ajax? || params[:layout]
+  end
+
+  def explicit_modal_wrapper? view
+    view_setting(:modal, view) || view_setting(:bridge, view) ||
+      (view_setting(:wrap, view) &&
+       Array.wrap(view_setting(:wrap, view)).include?(:modal))
   end
 
   def assign_modal_opts view, args
@@ -38,11 +51,6 @@ format :html do
     return unless view_setting(:bridge, view)
     { size: :full, layout: :modal_bridge }
   end
-
-  # def process_layout layout_name
-  #   layout_name ||= layout_name_from_rule
-  #   send "process_#{layout_type layout_name}_layout", layout_name.to_s
-  # end
 
   def process_haml_layout layout_name
     haml HAML_LAYOUTS[layout_name]
@@ -64,7 +72,6 @@ format :html do
   def layout_from_card_or_code name
     layout_card_content(name) || HTML_LAYOUTS[name] || unknown_layout(name)
   end
-
 
   def built_in_layouts
     HTML_LAYOUTS.merge(HAML_LAYOUTS).keys.sort.join ", "

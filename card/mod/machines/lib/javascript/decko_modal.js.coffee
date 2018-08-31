@@ -4,34 +4,22 @@ $(window).ready ->
     if $(event.target).attr('id') != 'modal-main-slot'
       modal_content = $(event.target).find('.modal-dialog > .modal-content')
       modal_content.empty()
-      refresh_menu($(event.target).slot())
 
   $('._modal-slot').each ->
     openModalIfPresent $(this)
+    addModalDialogClasses $(this)
 
+  $('body').on "show.bs.modal", "._modal-slot", (event) ->
+    link = $(event.relatedTarget)
+    addModalDialogClasses $(this), link
 
-  $("._modal-slot").on "show.bs.modal", (event) ->
-    link = $(event.target)
-    dialog = $(this).find(".modal-dialog")
-    dialog.attr("class", "modal-dialog")
-    classes_from_link = link.data("modal-class")
-    if classes_from_link
-      dialog.addClass classes_from_link
+addModalDialogClasses = ($modal_slot, $link) ->
+  dialog = $modal_slot.find(".modal-dialog")
+  classes_from_link = ($link? && link.data("modal-class")) || $modal_slot.data("modal-class")
+  if classes_from_link? and dialog?
+    dialog.addClass classes_from_link
 
-#$('body').on ', (event) ->
 decko.slotReady (slot) ->
-#  if slot.parent().is("#modal-container")
-#    slot.parent().modal("show")
-  # slot.find("._modal-link").on "click", (event) ->
-  #   link = $(this)
-  #   modal_slot = $(link.data("target"))
-  #   dialog = modal_slot.find(".modal-dialog")
-  #   dialog.attr("class", "modal-dialog")
-  #   classes_from_link = link.data "modal-class"
-  #   if classes_from_link
-  #     dialog.addClass classes_from_link
-
-
   # this finds ._modal-slots and moves them to the end of the body
   # this allows us to render modal slots inside slots that call them and yet
   # avoid associated problems (eg nested forms and unintentional styling)
@@ -43,6 +31,27 @@ decko.slotReady (slot) ->
     else
       $("body").append mslot
 
+  slot.find('.modal.fade').on 'loaded.bs.modal', (_e) ->
+    $(this).trigger 'slotReady'
+
+  # found this in bootstrap_modal_wagn.js written by Henry in 2015
+  # don't know if we still need it  -pk
+#  slot.find('[data-toggle="modal"]').off('click').on 'click', (e) ->
+#    e.preventDefault()
+#    e.stopPropagation()
+#    $this = $(this)
+#    href = $this.attr('href')
+#    modal_selector = $this.data('target')
+#    $(modal_selector).modal 'show', $this
+#    $.ajax
+#      url: href
+#      type: 'GET'
+#      success: (html) ->
+#        $(modal_selector + ' .modal-content').html html
+#        $(modal_selector).trigger 'loaded.bs.modal'
+#      error: (jqXHR, textStatus) ->
+#        $(modal_selector + ' .modal-content').html jqXHR.responseText
+#        $(modal_selector).trigger 'loaded.bs.modal'
 
 modalSlot = ->
   slot = $("#modal-container > .card-slot")
@@ -51,10 +60,12 @@ modalSlot = ->
 createModalSlot = ->
   slot = $('<div/>', class: "card-slot")
   $("body").append(
-    $('<div/>', id: "modal-container", class: "modal fade").append(slot)
+    $('<div/>', id: "modal-container", class: "modal fade _modal-slot").append(slot)
   )
   slot
 
 openModalIfPresent = (mslot) ->
-  if mslot.find(".modal-content").html().length > 0
+  modal_content = mslot.find(".modal-content")
+  if modal_content.length > 0 && modal_content.html().length > 0
     mslot.modal("show")
+

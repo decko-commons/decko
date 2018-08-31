@@ -1,6 +1,6 @@
 format :html do
   BRIDGE_TABS = { discussion_tab: "Discussion",
-                  rules: "Rules",
+                  rules_tab: "Rules",
                   history_tab: "History",
                   related_tab: "Related" }.freeze
 
@@ -11,7 +11,7 @@ format :html do
                    ["references in",  :log_in,       :referred_to_by]].freeze
 
   def bridge_param key
-    params.dig(:bridge, key) || try("default_bridge_#{key}")
+    params.dig(:bridge, key)&.to_sym || try("default_bridge_#{key}")
   end
 
   view :bridge_breadcrumbs do
@@ -19,7 +19,7 @@ format :html do
   end
 
   view :bridge_tabs do
-    lazy_loading_tabs BRIDGE_TABS, bridge_tab
+    lazy_loading_tabs BRIDGE_TABS, bridge_tab, _render(bridge_tab)
   end
 
   def bridge_tab
@@ -37,6 +37,10 @@ format :html do
   view :history_tab do
   end
 
+  view :rules_tab do
+    nest current_set_card.name, view: :bridge_rules_tab
+  end
+
   view :discussion_tab do
     field_nest :discussion, view: :titled, show: :comment_box, hide: :title
   end
@@ -52,7 +56,7 @@ format :html do
     opts.merge! "data-slot-selector": bridge_slot_selector,
                 remote: true, class: "slotter"
     opts.bury :path, :layout, :overlay
-    opts[:path][:view] ||= :open_content
+    opts[:path][:view] ||= :content
     opts
   end
 

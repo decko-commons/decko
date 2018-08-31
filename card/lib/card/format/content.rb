@@ -1,22 +1,27 @@
 class Card
   class Format
     module Content
-      def process_content override_content=nil, content_opts=nil, &main_nest_block
+      def process_content override_content=nil, content_opts=nil
         content = override_content || render_raw || ""
         content_object = get_content_object content, content_opts
         content_object.process_each_chunk do |chunk_opts|
-          content_nest chunk_opts, &main_nest_block
+          content_nest chunk_opts
         end
         content_object.to_s
       end
 
       # nested by another card's content
       # (as opposed to a direct API nest)
-      def content_nest opts={}, &main_nest_block
+      def content_nest opts={}
         return opts[:comment] if opts.key? :comment # commented nest
         nest_name = opts[:nest_name]
-        return main_nest(opts, &main_nest_block) if main_nest?(nest_name)
-        nest nest_name, opts
+        #return voo.render_layouts if main_nest?(nest_name)
+        #return main_nest(opts, &main_nest_block) if main_nest?(nest_name)
+        if main_nest?(nest_name)
+          @rendered || main_nest(opts)
+        else
+          nest nest_name, opts
+        end
       end
 
       def format_date date, include_time=true

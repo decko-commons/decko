@@ -210,19 +210,6 @@ format :html do
     toolbar_button "refresh", icon, button_args
   end
 
-  view :delete_button do
-    confirm = "Are you sure you want to delete #{safe_name}?"
-    success = main? ? "REDIRECT: *previous" : { view: :just_deleted }
-    toolbar_button "delete", :trash,
-                   path: { action: :delete, success: success },
-                   class: "slotter", remote: true, 'data-confirm': confirm
-  end
-
-  # TODO: add undo functionality
-  view :just_deleted, tag: :unknown_ok do
-    wrap { "#{render_title} deleted" }
-  end
-
   def toolbar_button text, symbol, opts={}
     link_text = toolbar_button_text text, symbol, opts.delete(:hide)
     opts[:class] = [opts[:class], "btn btn-primary"].compact * " "

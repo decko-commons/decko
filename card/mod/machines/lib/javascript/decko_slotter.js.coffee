@@ -2,7 +2,7 @@ $(window).ready ->
   $('body').on 'ajax:success', '.slotter', (event, data, c, d) ->
     unless event.slotSuccessful
       $this = $(this)
-      $this.slotSuccess data, $this.data("slotter-mode")
+      $this.slotSuccess data, $this
       if $this.hasClass "close-modal"
         $this.closest('.modal').modal('hide')
       # should scroll to top after clicking on new page

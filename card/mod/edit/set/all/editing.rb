@@ -4,27 +4,55 @@ format :html do
               bridge: true do
     with_nest_mode :edit do
       voo.show :toolbar, :help
-      frame_and_form :update, edit_form_opts do
-        [
-          edit_view_hidden,
-          _render_content_formgroup,
-          _render_edit_buttons
-        ]
+      wrap do
+        card_form :update, edit_form_opts do
+          [
+            _render_edit_name_row,
+            _render_edit_type_row,
+            edit_view_hidden,
+            _render_content_formgroup,
+            _render_edit_buttons
+          ]
+        end
       end
     end
   end
 
   def edit_form_opts
     # for override
+    {}
   end
 
   def edit_view_hidden
     # for override
   end
 
+  view :edit_name_row do
+    edit_row "Name", card.name, :edit_name_form
+  end
+
+  view :edit_type_row do
+     edit_row "Type", link_to_card(card.type), :edit_type_form
+   end
+
+
+  def edit_row title, content, edit_view
+    class_up "card-slot", "d-flex"
+    link =
+      link_to_view(edit_view, fa_icon(:edit), class: "ml-auto edit-link slotter")
+
+    wrap class: "d-flex" do
+      ["<label class='w-50px'>#{title}</label>",
+       content,
+       link]
+    end
+  end
+
   view :edit_buttons do
     button_formgroup do
-      [standard_submit_button, standard_cancel_button]
+      wrap_with "div", class: "d-flex" do
+        [standard_submit_button, standard_cancel_button, delete_button]
+      end
     end
   end
 
@@ -33,89 +61,36 @@ format :html do
   end
 
   def standard_cancel_button args={}
-    args.reverse_merge! class: "cancel-button", href: path
+    args.reverse_merge! class: "cancel-button ml-1", href: path
     cancel_button args
   end
 
-  view :edit_name, perms: :update do
-    voo.show :toolbar
-    frame_and_form({ action: :update, id: card.id },
-                   "main-success" => "REDIRECT") do
-      [hidden_edit_name_fields,
-       _render_name_formgroup,
-       rename_confirmation_alert,
-       edit_name_buttons]
-    end
+  def delete_button
+    confirm = "Are you sure you want to delete #{safe_name}?"
+    success = main? ? "REDIRECT: *previous" : { view: :just_deleted }
+    link_to "Delete",
+                path: { action: :delete, success: success },
+                class: "slotter btn btn-danger ml-auto", remote: true, 'data-confirm': confirm
   end
 
-  def hidden_edit_name_fields
-    hidden_tags success:  "_self",
-                old_name: card.name,
-                card: { update_referers: false }
+  # TODO: add undo functionality
+  view :just_deleted, tag: :unknown_ok do
+    wrap { "#{render_title} deleted" }
   end
 
-  def edit_name_buttons
-    button_formgroup do
-      [rename_and_update_button, rename_button, standard_cancel_button]
-    end
-  end
-
-  def rename_and_update_button
-    submit_button text: "Rename and Update", disable_with: "Renaming",
-                  class: "renamer-updater"
-  end
-
-  def rename_button
-    button_tag "Rename", data: { disable_with: "Renaming" }, class: "renamer"
-  end
-
-  def rename_confirmation_alert
-    msg = "<h5>Are you sure you want to rename <em>#{safe_name}</em>?</h5>"
-    msg << rename_effects_and_options
-    alert("warning") { msg }
-  end
-
-  def rename_effects_and_options
-    descendant_effect = rename_descendant_effect
-    referer_effect, referer_option = rename_referer_effect_and_option
-    effects = [descendant_effect, referer_effect].compact
-    return "" if effects.empty?
-    format_rename_effects_and_options effects, referer_option
-  end
-
-  def format_rename_effects_and_options effects, referer_option
-    effects = effects.map { |effect| "<li>#{effect}</li>" }.join
-    info = %(<h6>This change will...</h6>)
-    info += %(<ul>#{effects}</ul>)
-    info += %(<p>#{referer_option}</p>) if referer_option
-    info
-  end
-
-  def rename_descendant_effect
-    descendants = card.descendants
-    return unless descendants.any? # FIXME: count, don't instantiate
-    "automatically alter #{descendants.size} related name(s)."
-  end
-
-  def rename_referer_effect_and_option
-    referers = card.family_referers
-    return unless referers.any? # FIXME: count, don't instantiate
-    count = referers.size
-    refs = count == 1 ? "reference" : "references"
-    effect = "affect at least #{count} #{refs} to \"#{card.name}\""
-    effect += hidden_field_tag(:referers, count)
-    option = "You may choose to <em>update or ignore</em> the referers."
-    [effect, option]
-  end
 
   view :edit_type, cache: :never, perms: :update do
     voo.show :toolbar
-    frame_and_form :update do
-      [
-        hidden_edit_type_fields,
-        _render_type_formgroup,
-        edit_type_buttons
-      ]
+    frame do
+      _render_edit_type_form
+    end
+  end
+
+  view :edit_type_form, cache: :never, perms: :update do
+    card_form :update do
+      output [hidden_edit_type_fields,
+              _render_type_formgroup,
+              edit_type_buttons]
     end
   end
 
@@ -131,10 +106,10 @@ format :html do
   end
 
   view :edit_rules, cache: :never, tags: :unknown_ok do
-    voo.show :set_navbar, :toolbar
-    voo.hide :set_label, :rule_navbar
+    voo.show :set_navbar
+    voo.hide :set_label, :rule_navbar, :toolbar
 
-    render_related items: { nest_name: current_set_card.name }
+    render_related items: { nest_name: current_set_card.name, view: :bridge_rules_tab }
   end
 
   view :edit_structure, cache: :never do
