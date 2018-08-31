@@ -39,10 +39,11 @@ class Card
               next unless (p_map = prefix_map_by_chunkname[chunkname])
               h.merge! p_map
             end
-          prefix_map_by_list[key]
         end
 
         def find_class_by_prefix prefix, chunk_list_key=:default
+          validate_chunk_list_key chunk_list_key
+
           prefix_map = prefix_map_by_list[chunk_list_key]
           config = prefix_map[prefix[0, 1]] ||
                    prefix_map[prefix[-1, 1]] ||
@@ -53,13 +54,25 @@ class Card
           config[:class]
         end
 
-        def get_prefix_regexp chunk_list_key
-          prefix_regexp_by_list[chunk_list_key] ||= begin
-            prefix_res = raw_list[chunk_list_key].map do |chunkname|
+        def prefix_regexp chunk_list_key
+          prefix_regexp_by_list[chunk_list_key] ||=
+            build_prefix_regexp chunk_list_key
+        end
+
+        def build_prefix_regexp chunk_list_key
+          validate_chunk_list_key chunk_list_key
+
+          prefix_res =
+            raw_list[chunk_list_key].map do |chunkname|
               chunk_class = const_get chunkname
               chunk_class.config[:prefix_re]
             end
-            /(?:#{ prefix_res * '|' })/m
+          /(?:#{ prefix_res * '|' })/m
+        end
+
+        def validate_chunk_list_key chunk_list_key
+          unless raw_list.key? chunk_list_key
+            raise ArgumentError, "invalid chunk list key: #{chunk_list_key}"
           end
         end
       end
