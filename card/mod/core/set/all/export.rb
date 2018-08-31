@@ -57,7 +57,6 @@ format :json do
   end
 
   def valid_items_for_export
-
     items_for_export.flatten.reject(&:blank?).uniq.find_all do |card|
       valid_export_card? card
     end

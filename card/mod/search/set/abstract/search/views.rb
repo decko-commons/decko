@@ -33,26 +33,26 @@ format :json do
 
   # TODO: design better autocomplete API
   view :name_complete, cache: :never do
-    complete_search AUTOCOMPLETE_LIMIT
+    complete_search limit: AUTOCOMPLETE_LIMIT
   end
 
   view :name_match, cache: :never do
-    complete_or_match_search AUTOCOMPLETE_LIMIT
+    complete_or_match_search limit: AUTOCOMPLETE_LIMIT
   end
 
-  def complete_or_match_search limit=AUTOCOMPLETE_LIMIT
-    starts_with = complete_search limit
+  def complete_or_match_search limit: AUTOCOMPLETE_LIMIT
+    starts_with = complete_search limit: limit
     remaining_slots = limit - starts_with.size
     return starts_with if remaining_slots.zero?
-    starts_with + match_search(remaining_slots)
+    starts_with + match_search(not_names: starts_with, limit: remaining_slots)
   end
 
-  def complete_search limit=AUTOCOMPLETE_LIMIT
+  def complete_search limit: AUTOCOMPLETE_LIMIT
     card.search name_wql(limit).merge(complete_wql)
   end
 
-  def match_search limit=AUTOCOMPLETE_LIMIT
-    card.search name_wql(limit).merge(match_wql)
+  def match_search limit: AUTOCOMPLETE_LIMIT, not_names: []
+    card.search name_wql(limit).merge(match_wql(not_names))
   end
 
   def name_wql limit
@@ -63,8 +63,10 @@ format :json do
     { complete: term_param }
   end
 
-  def match_wql
-    { name_match: term_param }
+  def match_wql not_names
+    wql = { name_match: term_param }
+    wql["not in"] = not_names if not_names.any?
+    wql
   end
 
   def term_param
