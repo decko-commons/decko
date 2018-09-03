@@ -1,5 +1,3 @@
-include_set Abstract::SearchParams
-
 def query_args args={}
   return super unless keyword_contains_wql? args
   args.merge parse_keyword_wql(args)
@@ -48,7 +46,7 @@ end
 
 format :json do
   view :complete, cache: :never do
-    term = complete_term
+    term = term_param
     exact = Card.fetch term, new: {}
 
     {
@@ -75,7 +73,7 @@ format :json do
   end
 
   def goto_items term, exact
-    goto_names = Card.search goto_wql(term), "goto items for term: #{term}"
+    goto_names = complete_or_match_search
     goto_names.unshift exact.name if add_exact_to_goto_names? exact, goto_names
     goto_names.map do |name|
       [name, name.to_name.url_key, highlight(name, term)]
@@ -86,16 +84,11 @@ format :json do
     exact.known? && !goto_names.find { |n| n.to_name.key == exact.key }
   end
 
-  def complete_term
+  def term_param
     term = query_params[:keyword]
     if (term =~ /^\+/) && (main = params["main"])
       term = main + term
     end
     term
-  end
-
-  # hacky.  here for override
-  def goto_wql term
-    { complete: term, limit: 8, sort: "name", return: "name" }
   end
 end

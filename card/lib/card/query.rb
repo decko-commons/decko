@@ -54,7 +54,7 @@ class Card
                           member_of member
 
                           found_by not sort match name_match complete
-                          junction_complete extension_type],
+                          extension_type],
 
       plus_relational: %w[plus left_plus right_plus],
       conjunction:     %w[and or all any],
