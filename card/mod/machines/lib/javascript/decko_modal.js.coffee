@@ -20,6 +20,7 @@ addModalDialogClasses = ($modal_slot, $link) ->
   if classes_from_link? and dialog?
     dialog.addClass classes_from_link
 
+
 decko.slotReady (slot) ->
   # this finds ._modal-slots and moves them toa the end of the body
   # this allows us to render modal slots inside slots that call them and yet

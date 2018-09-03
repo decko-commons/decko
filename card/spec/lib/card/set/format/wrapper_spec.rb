@@ -90,4 +90,22 @@ RSpec.describe Card::Set::Format::Wrapper do
       is_expected.to eq "cream_cake_cream"
     end
   end
+
+  describe "nested wrapper" do
+    let(:format) do
+      Card["A"].format_with do
+        view :kwai, wrap: :bridge do
+          "water"
+        end
+      end
+    end
+
+    subject { format.render_kwai }
+
+    it "wrapped with bridge" do
+      is_expected.to have_tag "sadf"
+    end
+  end
+
+
 end

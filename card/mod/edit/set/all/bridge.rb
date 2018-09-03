@@ -47,7 +47,10 @@ format :html do
   end
 
   view :rules_tab do
-    nest current_set_card.name, view: :bridge_rules_tab
+    class_up "card-slot", "flex-column", true
+    wrap do
+      nest current_set_card.name, view: :bridge_rules_tab
+    end
   end
 
   view :discussion_tab do

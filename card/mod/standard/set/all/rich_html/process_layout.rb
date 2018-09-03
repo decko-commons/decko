@@ -8,7 +8,6 @@ format :html do
     args[:view] = view if view
     args[:main] = true
     args[:main_view] = true
-    assign_modal_opts view, args unless Env.ajax?
     layout = params[:layout] || layout_name_from_rule || :default
     if explicit_modal_wrapper?(view)
       output [render_with_layout(nil, layout, {}),
@@ -31,8 +30,9 @@ format :html do
   end
 
   def explicit_modal_wrapper? view
-    (view_setting(:wrap, view) &&
-       Array.wrap(view_setting(:wrap, view)).include?(:modal))
+    return unless view_setting(:wrap, view)
+    wrappers = Array.wrap(view_setting(:wrap, view))
+    wrappers.include?(:modal) || wrappers.include?(:bridge)
   end
 
   def process_haml_layout layout_name

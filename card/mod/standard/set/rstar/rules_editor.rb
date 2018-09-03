@@ -82,8 +82,10 @@ format :html do
   view :closed_rule, cache: :never, tags: :unknown_ok do
     return "not a rule" unless card.is_rule?
     rule_card = find_existing_rule_card
+    cols = %i[setting set]
+    cols.insert(1, :content) if voo.show? :content
     wrap_closed_rule rule_card do
-      %i[setting content set].map do |cell|
+      cols.map do |cell|
         send "closed_rule_#{cell}_cell", rule_card
       end
     end

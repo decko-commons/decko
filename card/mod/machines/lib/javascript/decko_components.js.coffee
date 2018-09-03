@@ -5,5 +5,13 @@ $(window).ready ->
     tab_id = $(e.target).attr('href')
     url    = $(e.target).data('url')
     $(e.target).removeClass('load')
-    $(tab_id).load(url)
+    $.ajax
+      url: url
+      type: 'GET'
+      success: (html) ->
+        $(tab_id).append(html)
+        $(tab_id).triggerSlotReady()
 
+
+  $('body').on "select2:select", "._submit-on-select", (event) ->
+    $(event.target).closest('form').submit()

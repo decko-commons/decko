@@ -10,9 +10,6 @@ format :html do
     _render rule_view
   end
 
-  view :bridge_rules_tab, cache: :never do
-    haml :compact_rules_table, settings: card.visible_setting_codenames.sort
-  end
 
   def with_label_and_navbars selected_view
     @selected_rule_navbar_view = selected_view
