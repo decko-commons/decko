@@ -166,7 +166,7 @@ class Card
           view_wrappers = format.view_setting(:wrap, ok_view)
           return unless view_wrappers.present?
           @live_options[:wrap] = Array.wrap(@live_options[:wrap])
-          if view_wrappers.is_a? Hash
+          if view_wrappers.is_a? ::Hash
             view_wrappers.each_pair do |name, opts|
               @live_options[:wrap] << [name, opts]
             end

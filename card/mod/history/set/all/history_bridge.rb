@@ -1,10 +1,10 @@
 
 format :html do
-  view :creator_credit, wrap: :div, cache: :never do
+  view :creator_credit, wrap: { div: { class: "text-muted m-2" } }, cache: :never do
     "Created by #{nest card.creator, view: :link} #{time_ago_in_words(card.created_at)} ago"
   end
 
-  view :updated_by, wrap: :div, cache: :never do
+  view :updated_by, wrap: { div: { class: "text-muted m-2" } }, cache: :never do
     updaters = Card.search(updater_of: { id: card.id })
     return "" unless updaters.present?
     "Updated by #{humanized_search_result updaters}"
@@ -28,12 +28,12 @@ format :html do
   end
 
   def acts_bridge_layout acts, context=:bridge
-    bs_layout container: true, fluid: true do
-       row(12) { _render_creator_credit }
-       row(12) { _render_updated_by }
-       row(12) { act_link_list acts, context }
-       row(12) { act_paging acts, context }
-    end
+    output [
+        _render_creator_credit,
+        _render_updated_by,
+        act_link_list(acts, context),
+        act_paging(acts, context)
+           ]
   end
 
   def act_link_list acts, context
@@ -56,6 +56,7 @@ format :html do
     opts = act_listing_opts_from_params(nil)
     act = act_from_context
     ar = act_renderer(:bridge).new(self, act, opts)
+    class_up "action-list", "m-4"
     wrap_with_overlay title: ar.overlay_title do
       act_listing act, opts[:act_seq], :bridge
     end

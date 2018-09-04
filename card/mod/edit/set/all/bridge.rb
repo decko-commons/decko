@@ -46,14 +46,14 @@ format :html do
     acts_bridge_layout card.history_acts
   end
 
-  view :bridge_tab do
+  view :rules_tab do
     wrap do
       nest current_set_card.name, view: :bridge_rules_tab
     end
   end
 
-  view :discussion_tab do
-    field_nest :discussion, view: :titled, show: :comment_box, hide: :title
+  view :discussion_tab, wrap: { div: { class: "ml-2 mr-2" } } do
+    field_nest :discussion, view: :titled, show: :comment_box, hide: [:title, :menu]
   end
 
   view :related_tab do

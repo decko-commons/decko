@@ -24,10 +24,11 @@ class Card
       end
 
       def render
+        classes = @format.classy('action-list')
         bs_layout container: true, fluid: true do
           row do
             html <<-HTML
-              <ul class="action-list w-100">
+              <ul class="#{classes} w-100">
                 <li class="#{action.action_type}">
                   #{action_panel}
                 </li>

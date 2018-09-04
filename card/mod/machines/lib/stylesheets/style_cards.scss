@@ -963,10 +963,39 @@ a.external-link:after {
 }
 
 // Bridge
-.modal-dialog.no-gaps > .modal-content > .modal-body {
-  padding: 0;
+.modal-dialog.no-gaps > .modal-content {
+  > .modal-body {
+    padding: 0;
+  }
+  > .modal-header > nav > ol.breadcrumb {
+    margin-bottom: 0;
+    padding: 0.2rem 0.3rem;
+  }
+}
+
+$bridge-line-color: $gray-300;
+
+.bridge-main {
+  border-right: 1px solid $bridge-line-color;
+}
+
+.bridge-sidebar {
+  background-color: $gray-100;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .bridge-main {
-  border-right: 1px solid $gray-400;
+  padding-left: 0;
+  padding-right: 0;
+  > .edit-view {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+.d0-card-overlay > .d0-card-frame > .d0-card-header {
+  border-bottom: 1px solid $bridge-line-color;
+  padding-left: -15px!important;
+  padiong-right: -15px!important;
 }

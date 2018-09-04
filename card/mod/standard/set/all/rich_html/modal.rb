@@ -53,7 +53,7 @@ format :html do
 
   def close_modal_window
     link_to icon_tag(:close), path: "",
-                              class: "close-modal float-right close",
+                              class: "close-modal close",
                               "data-dismiss": "modal"
   end
 
@@ -63,6 +63,6 @@ format :html do
     # (eg we don't want layout, id, controller...)
     popout_params = params[:view] ? { view: params[:view] } : {}
     link_to icon_tag(:new_window), path: popout_params,
-                                   class: "pop-out-modal float-right close "
+                                   class: "pop-out-modal close"
   end
 end
