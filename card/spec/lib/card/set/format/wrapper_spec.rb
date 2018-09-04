@@ -78,16 +78,27 @@ RSpec.describe Card::Set::Format::Wrapper do
           "cream_#{interiour}_cream"
         end
 
+        wrapper :cherry, :div, class: "cherry"
+
         view :cream_cake, wrap: :cream do
+          "cake"
+        end
+
+        view :cherry_cake, wrap: :cherry do
           "cake"
         end
       end
     end
 
-    subject { format.render_cream_cake }
+    subject {  }
 
     it "is wrapped with cream" do
-      is_expected.to eq "cream_cake_cream"
+      expect(format.render_cream_cake).to eq "cream_cake_cream"
+    end
+
+    it "is wrapped with cherries" do
+      expect(format.render_cherry_cake)
+        .to have_tag "div.cherry", "cake"
     end
   end
 
@@ -106,6 +117,4 @@ RSpec.describe Card::Set::Format::Wrapper do
       is_expected.to have_tag "sadf"
     end
   end
-
-
 end

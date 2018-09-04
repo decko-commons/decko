@@ -46,8 +46,7 @@ format :html do
     acts_bridge_layout card.history_acts
   end
 
-  view :rules_tab do
-    class_up "card-slot", "flex-column", true
+  view :bridge_tab do
     wrap do
       nest current_set_card.name, view: :bridge_rules_tab
     end
@@ -71,7 +70,6 @@ format :html do
     opts[:path][:view] ||= :content
     opts
   end
-
 
   def bridge_slot_selector
     ".bridge-main > .card-slot, "\

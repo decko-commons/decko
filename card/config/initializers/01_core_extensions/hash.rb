@@ -62,7 +62,7 @@ module CoreExtensions
         if array.size == 1
           self[key] = array.first
         else
-          self[key] = {} unless self[key].is_a? Hash
+          self[key] = {} unless self[key].is_a? ::Hash
           self[key].bury(*array)
         end
         self

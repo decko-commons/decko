@@ -15,7 +15,6 @@ format :html do
     else
       render_with_layout view, layout, args
     end
-    # FIXME: using title because it's a standard view option.  hack!
   end
 
   def render_with_layout view, layout, args={}

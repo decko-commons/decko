@@ -30,13 +30,6 @@ format :html do
     end
   end
 
-  def overlay_frame slot=true
-    class_up "card-slot", "_overlay"
-    with_frame slot, render_overlay_header do
-      wrap_body { yield }
-    end
-  end
-
   def overlay_main opts={}
     overlay_frame true do
       main_nest opts

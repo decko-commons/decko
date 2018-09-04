@@ -78,10 +78,10 @@ class Card
         private
 
         # expects a tag with options that defines the wrap
-        def define_tag_wrapper method_name, tag_name, default_opts
+        def define_tag_wrapper method_name, tag_name, default_opts={}
           class_eval do
             define_method method_name do |opts={}|
-              content_tag tag_name, interiour, default_opts.merge(opts)
+              wrap_with(tag_name, interiour, default_opts.merge(opts))
             end
           end
         end

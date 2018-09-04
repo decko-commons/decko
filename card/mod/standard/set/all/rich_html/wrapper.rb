@@ -119,4 +119,6 @@ format :html do
                .gsub(/>/,  "&gt;")
                .gsub(/</,  "&lt;")
   end
+
+  wrapper :div, :div
 end

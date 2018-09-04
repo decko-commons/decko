@@ -31,20 +31,32 @@ format :html do
   end
 
   view :overlay_header, tags: :unknown_ok do
+    overlay_header
+  end
+
+  def overlay_header title=nil
+    title ||= _render_overlay_title
     class_up "d0-card-header", "bg-white text-dark", true
     class_up "d0-card-header-title", "d-flex justify-content-between", true
-    header_wrap [_render_overlay_title, _render_overlay_menu]
+    header_wrap [title, _render_overlay_menu]
   end
 
   view :overlay_title do
     _render_title
   end
 
-  wrapper :overlay do
+  wrapper :overlay do |opts|
     class_up "card-slot", "_overlay d0-card-overlay bg-white", true
     @content_body = true
-    overlay_frame true do
+    overlay_frame true, overlay_header(opts[:title]) do
       interiour
     end
   end
+
+  def overlay_frame slot=true, header=render_overlay_header
+     class_up "card-slot", "_overlay"
+     with_frame slot, header do
+       wrap_body { yield }
+     end
+   end
 end
