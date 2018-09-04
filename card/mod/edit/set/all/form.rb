@@ -92,19 +92,19 @@ format :html do
 
   # test: are we opening a new multi-card form?
   def multi_card_editor?
-    nests_editor? ||                         # editor configured in voo
-      voo.structure || voo.edit_structure || # structure configured in voo
-      card.structure ||                      # structure in card rule
-      edit_fields.present?                   # list of fields in card rule
+    voo.structure || voo.edit_structure || # structure configured in voo
+      card.structure ||                    # structure in card rule
+      edit_fields?                         # list of fields in card rule
+  end
+
+  # override and return true to optimize
+  def edit_fields?
+    edit_fields.present?
   end
 
   # test: are we already within a multi-card form?
   def in_multi_card_editor?
     @in_multi_card_editor.present?
-  end
-
-  def nests_editor?
-    voo.editor == :nests
   end
 
   def single_card_edit_field
