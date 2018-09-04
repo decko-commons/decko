@@ -72,10 +72,6 @@ def updater
   Card[updater_id]
 end
 
-def clean_html?
-  true
-end
-
 def save_content_draft _content
   clear_drafts
 end
@@ -113,6 +109,10 @@ end
 def prepare_content
   cont = standard_content || "" # necessary?
   clean_html? ? Card::Content.clean!(cont) : cont
+end
+
+def clean_html?
+  true
 end
 
 def use_default_content?
