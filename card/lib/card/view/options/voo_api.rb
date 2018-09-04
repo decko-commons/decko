@@ -164,8 +164,14 @@ class Card
         # adds the wrappers that
         def process_view_wrappers
           view_wrappers = format.view_setting(:wrap, ok_view)
-          if view_wrappers.present?
-            @live_options[:wrap] = [@live_options[:wrap], view_wrappers].flatten.compact
+          return unless view_wrappers.present?
+          @live_options[:wrap] = Array.wrap(@live_options[:wrap])
+          if view_wrappers.is_a? Hash
+            view_wrappers.each_pair do |name, opts|
+              @live_options[:wrap] << [name, opts]
+            end
+          else
+            @live_options[:wrap] += Array.wrap(view_wrappers)
           end
         end
 

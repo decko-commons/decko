@@ -1,15 +1,16 @@
 
 format :html do
-  view :creator_credit, wrap: :div do
+  view :creator_credit, wrap: :div, cache: :never do
     "Created by #{nest card.creator, view: :link} #{time_ago_in_words(card.created_at)} ago"
   end
 
-  view :updated_by, wrap: :div do
+  view :updated_by, wrap: :div, cache: :never do
     updaters = Card.search(updater_of: { id: card.id })
+    return "" unless updaters.present?
     "Updated by #{humanized_search_result updaters}"
   end
 
-  view :shorter_pointer_content do
+  view :shorter_pointer_content, cache: :never do
     nest card, view: :shorter_search_result, hide: :link
   end
 
@@ -26,7 +27,7 @@ format :html do
     reduced.to_sentence
   end
 
-  def acts_bridge_layout acts, context=:relative_link
+  def acts_bridge_layout acts, context=:bridge
     bs_layout container: true, fluid: true do
        row(12) { _render_creator_credit }
        row(12) { _render_updated_by }
@@ -37,15 +38,14 @@ format :html do
 
   def act_link_list acts, context
     act_list_group acts, context do |act, seq|
-      act.card.format(:html).act_link_list_item act, seq, context
+      act_link_list_item act, seq, context
     end
   end
 
   def act_link_list_item act, seq=nil, context=nil
     opts = act_listing_opts_from_params(seq)
     opts[:slot_class] = "revision-#{act.id} history-slot list-group-item"
-    context ||= (params[:act_context] || :absolute).to_sym
-    act_renderer(context).new(self, act, opts).render_bridge_link
+    act_renderer(:bridge).new(self, act, opts).bridge_link
   end
 
   def act_list_group acts, context, &block
@@ -53,9 +53,11 @@ format :html do
   end
 
   view :bridge_act, cache: :never do
-    wrap_with_overlay title: "hello" do
-      act_listing act_from_context
+    opts = act_listing_opts_from_params(nil)
+    act = act_from_context
+    ar = act_renderer(:bridge).new(self, act, opts)
+    wrap_with_overlay title: ar.overlay_title do
+      act_listing act, opts[:act_seq], :bridge
     end
   end
-
 end

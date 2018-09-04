@@ -114,9 +114,9 @@ format :html do
     case context
     when :absolute
       Act::ActRenderer::AbsoluteActRenderer
-    when :relative_link
-      Act::ActRenderer::RelativeLinkActRenderer
-    else
+    when :bridge
+      Act::ActRenderer::BridgeActRenderer
+    else # relative
       Act::ActRenderer::RelativeActRenderer
     end
   end

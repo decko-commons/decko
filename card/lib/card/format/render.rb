@@ -37,8 +37,8 @@ class Card
       end
 
       def wrap_with_wrapper
-        voo.wrap.reverse.each do |wrapper|
-          @rendered = try("wrap_with_#{wrapper}") { @rendered } ||
+        voo.wrap.reverse.each do |wrapper, opts|
+          @rendered = try("wrap_with_#{wrapper}", opts) { @rendered } ||
                       Card::Layout::CardLayout.new(wrapper, self).render
         end
         @rendered

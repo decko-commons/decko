@@ -961,3 +961,12 @@ a.external-link:after {
 .edit-link {
   color: inherit;
 }
+
+// Bridge
+.modal-dialog.no-gaps > .modal-content > .modal-body {
+  padding: 0;
+}
+
+.bridge-main {
+  border-right: 1px solid $gray-400;
+}

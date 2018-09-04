@@ -4,12 +4,13 @@ format :html do
   wrapper :modal do |opts={}|
     haml :modal_dialog, body: interiour,
                         classes: modal_dialog_classes(opts),
+                        title: opts[:title]  || "",
                         menu: opts[:menu] || render_modal_menu,
                         footer: opts[:footer] || render_modal_footer
   end
 
   view :modal_menu, tags: :unknown_ok do
-    wrap_with :div, class: "modal-menu w-100" do
+    wrap_with :div, class: "modal-menu ml-auto" do
       [close_modal_window, pop_out_modal_window]
     end
   end
@@ -30,7 +31,7 @@ format :html do
   end
 
   def modal_dialog_classes opts
-    classes = []
+    classes = [classy("modal-dialog")]
     return classes unless opts.present?
     size = opts.delete :size
     classes << "modal-#{MODAL_SIZE[size]}" if size && size != :medium

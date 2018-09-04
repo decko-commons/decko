@@ -80,17 +80,17 @@ RSpec.describe Card::Set::Format::Wrapper do
 
         wrapper :cherry, :div, class: "cherry"
 
+        wrapper :choc, :div, class: "choc"
+
         view :cream_cake, wrap: :cream do
           "cake"
         end
 
-        view :cherry_cake, wrap: :cherry do
+        view :cherry_cake, wrap: [:cherry, [:choc, { class: "white" }]] do
           "cake"
         end
       end
     end
-
-    subject {  }
 
     it "is wrapped with cream" do
       expect(format.render_cream_cake).to eq "cream_cake_cream"
@@ -98,9 +98,11 @@ RSpec.describe Card::Set::Format::Wrapper do
 
     it "is wrapped with cherries" do
       expect(format.render_cherry_cake)
-        .to have_tag "div.cherry", "cake"
+        .to have_tag "div.cherry" do
+          with_tag "div.choc.white", "cake"
+        end
+      end
     end
-  end
 
   describe "nested wrapper" do
     let(:format) do
@@ -114,7 +116,15 @@ RSpec.describe Card::Set::Format::Wrapper do
     subject { format.render_kwai }
 
     it "wrapped with bridge" do
-      is_expected.to have_tag "sadf"
+      is_expected.to have_tag "div#modal-container.modal._modal-slot" do
+        with_tag "div.modal-dialog" do
+          with_tag "div.modal-content" do
+            with_tag "div.modal-body" do
+              with_tag "div.bridge", "A"
+            end
+          end
+        end
+      end
     end
   end
 end

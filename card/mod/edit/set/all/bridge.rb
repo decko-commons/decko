@@ -77,7 +77,8 @@ format :html do
   end
 
   wrapper :bridge do
-    wrap_with_modal size: :full do
+    class_up "modal-dialog", "no-gaps"
+    wrap_with_modal size: :full, title: _render_bridge_breadcrumbs do
       haml :bridge
     end
   end

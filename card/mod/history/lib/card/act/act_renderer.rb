@@ -29,12 +29,6 @@ class Card
         act_accordion
       end
 
-      def render_bridge_link
-        opts = @format.bridge_link_opts(path: { act_id: @act.id, view: :bridge_act })
-        opts[:path].delete :layout
-        link_to_card @act_card, title, opts
-      end
-
       def header
         #::Bootstrap.new(self).render do
         bs_layout do

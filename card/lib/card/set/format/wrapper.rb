@@ -81,7 +81,8 @@ class Card
         def define_tag_wrapper method_name, tag_name, default_opts={}
           class_eval do
             define_method method_name do |opts={}|
-              wrap_with(tag_name, interiour, default_opts.merge(opts))
+              add_class opts, default_opts[:class]
+              wrap_with(tag_name, interiour, opts.reverse_merge(default_opts))
             end
           end
         end

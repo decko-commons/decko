@@ -1,7 +1,9 @@
 #modal-container.modal.fade._modal-slot{role: "dialog"}
-  .modal-dialog{class: classes}
+  -# .modal-dialog
+  %div{class: classes}
     .modal-content
       .modal-header.clearfix
+        = title
         = menu
       .modal-body
         = body
