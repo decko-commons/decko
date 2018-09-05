@@ -80,7 +80,17 @@ format :html do
   end
 
   def rules_table settings
-    haml :rules_table, settings: settings
+    haml :rules_table, settings: settings,
+                       item_view: voo.show?(:content) ? :closed_rule : :rule_link
+  end
+
+  def rule_table_row setting
+    return "" unless show_view? setting
+    rule_card = card.fetch trait: setting, new: {}
+    row_view, optional_content =
+      voo.hide?(:content) ? [:rule_link, :hide] : [:closed_rule, :show]
+
+    nest(rule_card, view: row_view, optional_content => :content ).html_safe
   end
 
   view :editor do

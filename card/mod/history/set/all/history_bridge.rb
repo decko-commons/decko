@@ -36,14 +36,15 @@ format :html do
   end
 
   def act_link_list acts, context
-    act_list_group acts, context do |act, seq|
+    items = acts_for_accordion(acts, context) do |act, seq|
       act_link_list_item act, seq, context
     end
+    bridge_pills items
   end
 
   def act_link_list_item act, seq=nil, _context=nil
     opts = act_listing_opts_from_params(seq)
-    opts[:slot_class] = "revision-#{act.id} history-slot list-group-item"
+    opts[:slot_class] = "revision-#{act.id} history-slot nav-item"
     act_renderer(:bridge).new(self, act, opts).bridge_link
   end
 

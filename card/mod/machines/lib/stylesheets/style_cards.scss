@@ -999,3 +999,13 @@ $bridge-line-color: $gray-300;
   padding-left: -15px!important;
   padiong-right: -15px!important;
 }
+
+.bridge-pills > .nav-item {
+  background-color: $list-group-bg;
+  border: 1px solid $list-group-border-color;
+  border-left: 5px solid $list-group-border-color;
+
+  &:hover {
+    border-left: 5px solid $list-group-active-bg;
+  }
+}

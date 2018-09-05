@@ -28,6 +28,6 @@ format :html do
   end
 
   def head_content
-    nest card.rule_card(:head), view: :item_cores
+    nest card.rule_card(:head), view: :core
   end
 end

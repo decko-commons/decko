@@ -18,7 +18,7 @@ format :html do
     <<-HTML
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active"><a href="#">#{card.name}</a></li>
+        <li class="breadcrumb-item active">card.name</li>
       </ol>
     </nav>
     HTML
@@ -47,6 +47,7 @@ format :html do
   end
 
   view :rules_tab do
+    class_up "card-slot", "flex-column", true
     wrap do
       nest current_set_card.name, view: :bridge_rules_tab
     end
@@ -58,9 +59,17 @@ format :html do
 
   view :related_tab do
     links = RELATED_ITEMS.map do |text, _icon, field|
-      link_to_card [card, field], text, bridge_link_opts
+      opts = bridge_link_opts.merge("data-toggle": "pill")
+      add_class opts, "nav-link"
+      link_to_card [card, field], text,  opts
     end
-    list_group links
+    bridge_pills links
+  end
+
+  def bridge_pills items
+    list_tag class: "nav nav-pills bridge-pills flex-column", items: { class: "nav-item" } do
+      items
+    end
   end
 
   def bridge_link_opts opts={}
