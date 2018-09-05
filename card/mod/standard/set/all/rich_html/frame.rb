@@ -24,18 +24,6 @@ format :html do
     end
   end
 
-  def haml_overlay_frame slot=true
-    with_frame slot, render_overlay_header do
-      haml_wrap_body { yield }
-    end
-  end
-
-  def overlay_main opts={}
-    overlay_frame true do
-      main_nest opts
-    end
-  end
-
   def with_frame slot=true, header=frame_header
     voo.hide :horizontal_menu, :help
     wrap slot do
@@ -81,25 +69,6 @@ format :html do
   def panel
     wrap_with :div, class: classy("d0-card-frame") do
       yield
-    end
-  end
-
-  # alert_types: 'success', 'info', 'warning', 'danger'
-  def alert alert_type, dismissable=false, disappear=false, args={}
-    classes = ["alert", "alert-#{alert_type}"]
-    classes << "alert-dismissible " if dismissable
-    classes << "_disappear" if disappear
-    args.merge! role: "alert"
-    add_class args, classy(classes)
-    wrap_with :div, args do
-      [(alert_close_button if dismissable), output(yield)]
-    end
-  end
-
-  def alert_close_button
-    wrap_with :button, type: "button", "data-dismiss": "alert",
-                       class: "close", "aria-label": "Close" do
-      wrap_with :span, "&times;", "aria-hidden" => true
     end
   end
 end

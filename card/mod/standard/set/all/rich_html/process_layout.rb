@@ -10,8 +10,7 @@ format :html do
     args[:main_view] = true
     layout = params[:layout] || layout_name_from_rule || :default
     if explicit_modal_wrapper?(view)
-      output [render_with_layout(nil, layout, {}),
-              render!(view, args)]
+      output [render_with_layout(nil, layout, {}), render!(view, args)]
     else
       render_with_layout view, layout, args
     end

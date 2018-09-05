@@ -4,7 +4,7 @@ format :html do
   wrapper :modal do |opts={}|
     haml :modal_dialog, body: interiour,
                         classes: modal_dialog_classes(opts),
-                        title: opts[:title]  || "",
+                        title: opts[:title] || "",
                         menu: opts[:menu] || render_modal_menu,
                         footer: opts[:footer] || render_modal_footer
   end

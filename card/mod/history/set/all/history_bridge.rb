@@ -1,4 +1,3 @@
-
 format :html do
   view :creator_credit, wrap: { div: { class: "text-muted m-2" } }, cache: :never do
     "Created by #{nest card.creator, view: :link} #{time_ago_in_words(card.created_at)} ago"
@@ -29,11 +28,11 @@ format :html do
 
   def acts_bridge_layout acts, context=:bridge
     output [
-        _render_creator_credit,
-        _render_updated_by,
-        act_link_list(acts, context),
-        act_paging(acts, context)
-           ]
+      _render_creator_credit,
+      _render_updated_by,
+      act_link_list(acts, context),
+      act_paging(acts, context)
+    ]
   end
 
   def act_link_list acts, context
@@ -42,7 +41,7 @@ format :html do
     end
   end
 
-  def act_link_list_item act, seq=nil, context=nil
+  def act_link_list_item act, seq=nil, _context=nil
     opts = act_listing_opts_from_params(seq)
     opts[:slot_class] = "revision-#{act.id} history-slot list-group-item"
     act_renderer(:bridge).new(self, act, opts).bridge_link

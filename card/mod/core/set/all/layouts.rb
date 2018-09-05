@@ -31,6 +31,4 @@ format :html do
       <footer>{nest :footer, view: :core}</footer>
     HTML
   end
-
-
 end

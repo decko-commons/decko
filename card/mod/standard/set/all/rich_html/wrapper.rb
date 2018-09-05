@@ -115,9 +115,9 @@ format :html do
   def html_escape_except_quotes string
     # to be used inside single quotes (makes for readable json attributes)
     string.to_s.gsub(/&/,  "&amp;")
-               .gsub(/\'/, "&apos;")
-               .gsub(/>/,  "&gt;")
-               .gsub(/</,  "&lt;")
+          .gsub(/\'/, "&apos;")
+          .gsub(/>/,  "&gt;")
+          .gsub(/</,  "&lt;")
   end
 
   wrapper :div, :div

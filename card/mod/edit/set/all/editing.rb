@@ -32,9 +32,8 @@ format :html do
   end
 
   view :edit_type_row do
-     edit_row "Type", link_to_card(card.type), :edit_type_form
-   end
-
+    edit_row "Type", link_to_card(card.type), :edit_type_form
+  end
 
   def edit_row title, content, edit_view
     class_up "card-slot", "d-flex"
@@ -69,15 +68,14 @@ format :html do
     confirm = "Are you sure you want to delete #{safe_name}?"
     success = main? ? "REDIRECT: *previous" : { view: :just_deleted }
     link_to "Delete",
-                path: { action: :delete, success: success },
-                class: "slotter btn btn-danger ml-auto", remote: true, 'data-confirm': confirm
+            path: { action: :delete, success: success },
+            class: "slotter btn btn-danger ml-auto", remote: true, 'data-confirm': confirm
   end
 
   # TODO: add undo functionality
   view :just_deleted, tag: :unknown_ok do
     wrap { "#{render_title} deleted" }
   end
-
 
   view :edit_type, cache: :never, perms: :update do
     voo.show :toolbar

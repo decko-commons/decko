@@ -30,12 +30,4 @@ format :html do
   def head_content
     nest card.rule_card(:head), view: :item_cores
   end
-
-  def with_main_opts args
-    old_main_opts = @main_opts
-    @main_opts = args
-    yield
-  ensure
-    @main_opts = old_main_opts
-  end
 end
