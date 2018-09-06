@@ -49,6 +49,11 @@ $d-yellow-2: #ffa;
   display: none
 }
 
+/* Help text */
+.help-text {
+  color: $text-muted  
+}
+
 
 /* -- d0-card-frames and menus--*/
 .d0-card-frame {
@@ -994,14 +999,22 @@ $bridge-line-color: $gray-300;
   }
 }
 
-.overlay-container
-.d0-card-overlay
-> .d0-card-frame
-> .d0-card-content {
-    overflow-y: scroll;
-    height: 100%;
+.overlay-container {
+
+  .card-slot.overlay_rule-view {
+      border-left: 5px solid $primary;
+  }
+
+  .d0-card-overlay
+  > .d0-card-frame
+  > .d0-card-content {
+      overflow-y: scroll;
+      height: 100%;
+      padding: 0 1.5rem; // px-4
+  }
 
 }
+
 
 .d0-card-overlay > .d0-card-frame > .d0-card-header {
   border-bottom: 1px solid $bridge-line-color;

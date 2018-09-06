@@ -16,7 +16,7 @@ format :html do
   end
 
   view :overlay_menu do
-    wrap_with :div, class: "btn-group btn-group-sm" do
+    wrap_with :div, class: "btn-group btn-group-sm align-self-start" do
       [slotify_overlay_link, close_overlay_link]
     end
   end
@@ -30,7 +30,7 @@ format :html do
   end
 
   def overlay_menu_link icon, args={}
-    add_class args, "border-light text-dark p-1"
+    add_class args, "border-light text-dark p-1 ml-1"
     button_link fa_icon(icon, class: "fa-lg"), args.merge(btn_type: "outline-secondary")
   end
 
