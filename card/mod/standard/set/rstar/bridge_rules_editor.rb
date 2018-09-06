@@ -1,13 +1,25 @@
 format :html do
   view :overlay_rule, cache: :never, tags: :unknown_ok do
     return "not a rule" unless card.is_rule?
-    rule_view = open_rule_body_view
+
+    current_rule_format = subformat current_rule
+    current_rule_format.rule_context = card
+
     wrap_with_overlay do
-      open_rule_wrap(rule_view) do
-        [open_rule_setting_links,
-         open_rule_body(rule_view)]
-      end
+      current_rule_format.rule_form
     end
+  end
+
+  def rule_form
+    edit_rule_form do
+      [
+        hidden_tags(success: @edit_rule_success),
+        render_rule_form
+      ].join
+    end
+  end
+
+  view :rule_form, cache: :never, tags: :unknown_ok, template: :haml do
   end
 
   view :overlay_title do
@@ -19,7 +31,7 @@ format :html do
 
   view :overlay_rule_help, tags: :unknown_ok, perms: :none, cache: :never do
     wrap_with :div, class: "help-text rule-instruction" do
-      rule_based_help
+      output [rule_based_help, link_to_all_rules]
     end
   end
 end

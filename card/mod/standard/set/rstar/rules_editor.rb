@@ -181,16 +181,19 @@ format :html do
   end
 
   view :edit_rule, cache: :never, tags: :unknown_ok do
-    return "not a rule" unless card.is_rule?
-    @rule_context ||=  card
-    @edit_rule_success = edit_rule_success
-    action_args = { action: :update, no_mark: true }
-
-    card_form action_args, class: "card-rule-form" do |_form|
+    edit_rule_form do
       [hidden_tags(success: @edit_rule_success),
        rule_editor,
        edit_rule_buttons].join
     end
+  end
+
+  def edit_rule_form &block
+    return "not a rule" unless card.is_rule?
+    @rule_context ||=  card
+    @edit_rule_success = edit_rule_success
+    action_args = { action: :update, no_mark: true }
+    card_form action_args, class: "card-rule-form", &block
   end
 
   def edit_rule_success
