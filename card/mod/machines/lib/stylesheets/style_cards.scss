@@ -988,7 +988,7 @@ $bridge-line-color: $gray-300;
 .bridge-main {
   padding-left: 0;
   padding-right: 0;
-  > .edit-view {
+  > .edit-view, > .overlay-container > .edit-view {
     padding-left: 15px;
     padding-right: 15px;
   }

@@ -108,10 +108,16 @@ jQuery.fn.extend {
     @find(".card-slot").trigger "slotReady"
 
   addOverlay: (overlay) ->
-    unless @parent().hasClass("overlay-container")
+    if @parent().hasClass("overlay-container")
+      if $(overlay).hasClass("_stack-overlay")
+        @before overlay
+      else
+        @parent().find("._overlay").replaceWith overlay
+    else
       @wrapAll('<div class="overlay-container">')
       @addClass("_bottomlay-slot")
-    @before overlay
+      @before overlay
+
 
   modalify: ->
     if @hasClass("_modal-slot")
