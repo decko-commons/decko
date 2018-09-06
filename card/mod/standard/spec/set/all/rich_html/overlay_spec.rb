@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::RichHtml::Overlay do
-  describe "overlay layout", params: { layout: :overlay } do
+  describe "overlay layout", params: { slot: { wrap: :overlay } } do
     # before do
     #   Card::Env.params[:layout] = :overlay
     # end

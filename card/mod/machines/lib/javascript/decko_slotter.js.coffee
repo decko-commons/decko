@@ -85,3 +85,5 @@ $(window).ready ->
         input.val(
           (if target == 'REDIRECT' then target + ': ' + input.val() else target)
         )
+
+removeOverlay = (overlay) ->
