@@ -994,6 +994,15 @@ $bridge-line-color: $gray-300;
   }
 }
 
+.overlay-container
+.d0-card-overlay
+> .d0-card-frame
+> .d0-card-content {
+    overflow-y: scroll;
+    height: 100%;
+
+}
+
 .d0-card-overlay > .d0-card-frame > .d0-card-header {
   border-bottom: 1px solid $bridge-line-color;
   padding-left: -15px!important;
@@ -1008,4 +1017,13 @@ $bridge-line-color: $gray-300;
   &:hover {
     border-left: 5px solid $list-group-active-bg;
   }
+}
+
+.bridge-sidebar {
+    min-height: calc(100vh - 160px);
+
+}
+.overlay-container {
+    height: 100%;
+    overflow: hidden;
 }

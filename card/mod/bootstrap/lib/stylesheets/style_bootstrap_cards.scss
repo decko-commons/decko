@@ -285,7 +285,8 @@ body.mceContentBody {
 }
 
 .modal-dialog.modal-full {
-  max-width: 95%;
+  max-width: 99%;
+  margin: 1%;
 }
 
 
@@ -355,4 +356,3 @@ body.mceContentBody {
 .bar-bottom .bar.left-stripe {
   border-left: 3px solid $bar_stripe_color !important;
 }
-
