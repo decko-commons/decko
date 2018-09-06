@@ -58,6 +58,11 @@ form {
   padding: 0px;
 }
 
+.form-group > label {
+  color: $dark;
+  font-weight: bold;
+}
+
 .link-muted {
   color: $text-muted;
   &:hover {
@@ -285,7 +290,8 @@ body.mceContentBody {
 }
 
 .modal-dialog.modal-full {
-  max-width: 95%;
+  max-width: 99%;
+  margin: 1%;
 }
 
 
@@ -355,4 +361,3 @@ body.mceContentBody {
 .bar-bottom .bar.left-stripe {
   border-left: 3px solid $bar_stripe_color !important;
 }
-

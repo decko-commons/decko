@@ -24,7 +24,7 @@ format :html do
 
   view :overlay_title do
       wrap_with(:div, class: "d-flex flex-column") do
-        [wrap_with(:div, setting_title, class: "title"),
+        [wrap_with(:div, setting_title, class: "title bold"),
          render_overlay_rule_help]
       end
   end

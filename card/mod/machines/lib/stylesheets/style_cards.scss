@@ -49,6 +49,39 @@ $d-yellow-2: #ffa;
   display: none
 }
 
+/* Help text */
+.help-text {
+  color: $text-muted
+}
+
+.guide-line-number {
+    display: inline-block;
+    background: #000;
+    color: $white;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    font-size: 61%;
+    text-align: center;
+    padding-top: 2px;
+    font-weight: bold;
+    margin-left: -1.7rem; // ~ pl-4
+    position: relative;
+    top: -3px;
+    left: -4.5px;
+}
+
+.guide-line {
+  border-left: 1px solid $border-color;
+}
+
+.rule-section {
+  padding-left: 20px;
+  h4 {
+    position: relative;
+    top: -4px;
+  }
+}
 
 /* -- d0-card-frames and menus--*/
 .d0-card-frame {
@@ -994,6 +1027,23 @@ $bridge-line-color: $gray-300;
   }
 }
 
+.overlay-container {
+
+  .card-slot.overlay_rule-view {
+      border-left: 5px solid $primary;
+  }
+
+  .d0-card-overlay
+  > .d0-card-frame
+  > .d0-card-content {
+      overflow-y: scroll;
+      height: 100%;
+      padding: 0 1.5rem; // px-4
+  }
+
+}
+
+
 .d0-card-overlay > .d0-card-frame > .d0-card-header {
   border-bottom: 1px solid $bridge-line-color;
   padding-left: -15px!important;
@@ -1008,4 +1058,13 @@ $bridge-line-color: $gray-300;
   &:hover {
     border-left: 5px solid $list-group-active-bg;
   }
+}
+
+.bridge-sidebar {
+    min-height: calc(100vh - 160px);
+
+}
+.overlay-container {
+    height: 100%;
+    overflow: hidden;
 }
