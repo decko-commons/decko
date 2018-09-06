@@ -58,6 +58,11 @@ form {
   padding: 0px;
 }
 
+.form-group > label {
+  color: $dark;
+  font-weight: bold;
+}
+
 .link-muted {
   color: $text-muted;
   &:hover {

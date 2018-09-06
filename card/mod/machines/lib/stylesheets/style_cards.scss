@@ -51,9 +51,37 @@ $d-yellow-2: #ffa;
 
 /* Help text */
 .help-text {
-  color: $text-muted  
+  color: $text-muted
 }
 
+.guide-line-number {
+    display: inline-block;
+    background: #000;
+    color: $white;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    font-size: 61%;
+    text-align: center;
+    padding-top: 2px;
+    font-weight: bold;
+    margin-left: -1.7rem; // ~ pl-4
+    position: relative;
+    top: -3px;
+    left: -4.5px;
+}
+
+.guide-line {
+  border-left: 1px solid $border-color;
+}
+
+.rule-section {
+  padding-left: 20px;
+  h4 {
+    position: relative;
+    top: -4px;
+  }
+}
 
 /* -- d0-card-frames and menus--*/
 .d0-card-frame {
