@@ -32,20 +32,11 @@ format :html do
     end
   end
 
-  view :overlay_rule, cache: :never, tags: :unknown_ok do
-    return "not a rule" unless card.is_rule?
-    rule_view = open_rule_body_view
-    wrap_with_overlay do
-      open_rule_wrap(rule_view) do
-        [render_rule_help,
-         open_rule_setting_links,
-         open_rule_body(rule_view)]
-      end
-    end
-  end
 
-  view :overlay_title do
-    setting_title
+  view :rule_help, tags: :unknown_ok, perms: :none, cache: :never do
+    wrap_with :div, class: "alert alert-info rule-instruction" do
+      rule_based_help
+    end
   end
 
   def open_rule_body rule_view

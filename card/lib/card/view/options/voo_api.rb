@@ -87,6 +87,7 @@ class Card
         end
 
         def normalize_wrap value
+          value = value.split(",").map(&:strip) if value.is_a? String
           Array.wrap(value).compact.flatten
         end
 
