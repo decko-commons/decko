@@ -87,18 +87,21 @@ jQuery.fn.extend {
 
   setSlotContentFromElement: (el, mode, $slotter) ->
     s = $(this)
+    breadcrumb = el.find("ol.breadcrumb")
+    existing_breadcrumb = $(".modal-header > nav > ol.breadcrumb")
+    if breadcrumb.length > 0 && existing_breadcrumb.length > 0
+      existing_breadcrumb.replaceWith breadcrumb
+
     if mode == "overlay"
       s.addOverlay(el)
+    else if el.hasClass("_modal-slot") or mode == "modal"
+      el = el.modalify()
+      $("body > ._modal-slot").replaceWith el
+      el.modal("show", $slotter)
     else
-      if el.hasClass("_modal-slot") or mode == "modal"
-        el = el.modalify()
-        $("body > ._modal-slot").replaceWith el
-        el.modal("show", $slotter)
-      else
-        s.replaceWith el
+      s.replaceWith el
 
     el.triggerSlotReady()
-
 
   triggerSlotReady: () ->
     @trigger "slotReady"

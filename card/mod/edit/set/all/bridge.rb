@@ -18,7 +18,7 @@ format :html do
     <<-HTML
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active">card.name</li>
+        <li class="breadcrumb-item active">#{card.name}</li>
       </ol>
     </nav>
     HTML
