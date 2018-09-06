@@ -969,7 +969,10 @@ a.external-link:after {
 
     > .d0-card-header {
       padding: 0.25rem 0.25rem 0.25rem 1.25rem;
-
+      .title {
+        font-weight: bold;
+        text-transform: capitalize;
+      }
       .card-title {
         margin-bottom: 0;
       }
