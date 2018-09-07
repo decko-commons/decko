@@ -20,8 +20,15 @@ format :html do
   end
 
   view :menu_link do
+    menu_link
+  end
+
+
+  def menu_link
     css_class =
       show_view?(:horizontal_menu, :hide) ? "d-sm-none" : "_show-on-hover"
+
+    css_class = "" unless show_view?(:hover_link)
 
     wrap_with :div, class: "vertical-card-menu card-menu #{css_class}" do
       wrap_with :div, class: "btn-group slotter card-slot float-right" do

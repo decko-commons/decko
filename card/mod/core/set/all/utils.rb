@@ -38,7 +38,11 @@ module ClassMethods
     if opts[:pristine] && !card.pristine?
       false
     else
-      card.update_attributes! attribs
+      if !card.new? && (new_name = attribs.delete("name"))
+        card.update_attributes! name: new_name unless new_name.to_s == card.name.to_s
+        card = fetch new_name
+      end
+      card.update_attributes! attribs if attribs.present?
     end
   end
 end
