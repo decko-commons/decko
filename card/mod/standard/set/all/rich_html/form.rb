@@ -29,7 +29,7 @@ format :html do
   end
 
   def button_formgroup
-    wrap_with :div, class: "form-group" do
+    wrap_with :div, class: classy("form-group") do
       wrap_with :div, yield
     end
   end
