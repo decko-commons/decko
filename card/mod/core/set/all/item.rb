@@ -102,6 +102,12 @@ format do
     end
   end
 
+  def wrap_item item, _args={}
+    item # no wrap in base
+  end
+end
+
+format :html do
   def wrap_item rendered, item_view
     %(<div class="item-#{item_view}">#{rendered}</div>)
   end

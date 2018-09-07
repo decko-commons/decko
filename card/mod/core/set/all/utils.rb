@@ -31,18 +31,27 @@ module ClassMethods
   def merge name, attribs={}, opts={}
     # puts "merging #{name}"
     card = fetch name, new: {}
-    %i[image file].each do |attach|
-      next unless attribs[attach] && attribs[attach].is_a?(String)
-      attribs[attach] = ::File.open(attribs[attach])
-    end
-    if opts[:pristine] && !card.pristine?
-      false
-    else
-      if !card.new? && (new_name = attribs.delete("name"))
+    return unless mergeable? card, opts[:pristine]
+    resolve_file_attributes! attribs
+         if !card.new? && (new_name = attribs.delete("name"))
         card.update_attributes! name: new_name unless new_name.to_s == card.name.to_s
         card = fetch new_name
       end
       card.update_attributes! attribs if attribs.present?
     end
+  end
+
+  private
+
+  def resolve_file_attributes! attribs
+    %i[image file].each do |attach|
+      next unless attribs[attach] && attribs[attach].is_a?(String)
+      attribs[attach] = ::File.open(attribs[attach])
+    end
+  end
+
+  def mergeable? card, pristine_only
+    return true unless pristine_only
+    !card.pristine?
   end
 end

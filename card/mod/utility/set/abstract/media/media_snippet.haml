@@ -1,6 +1,6 @@
 .media{media_opts}
-  .media-left{class: classy("media-left")}
-    .image-box{class: [classy("image-box"), size]}
+  .media-left
+    .image-box{class: "mr-1 #{size}"}
       %a{href: "#"}
         %img.media-object{class: size, src: src.html_safe, alt: alt}
     = media_left_extras

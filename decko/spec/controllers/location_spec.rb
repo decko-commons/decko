@@ -11,14 +11,14 @@ describe CardController, "location test from old integration" do
 
   describe "previous location" do
     it "gets updated after viewing" do
-      get :read, params: { id: "Joe_User" }
+      get :read, params: { mark: "Joe_User" }
       assert_equal "/Joe_User", Card::Env.previous_location
     end
 
     it "doesn't link to nonexistent cards" do
-      get :read, params: { id: "Joe_User" }
-      get :read, params: { id: "Not_Me" }
-      get :read, params: { id: "*previous" }
+      get :read, params: { mark: "Joe_User" }
+      get :read, params: { mark: "Not_Me" }
+      get :read, params: { mark: "*previous" }
       assert_redirected_to "/Joe_User"
     end
   end

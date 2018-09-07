@@ -123,6 +123,7 @@ format :json do
     {
       limit: limit,
       offset: page * limit,
+      item: default_item_view, # hack. need standard voo handling
       format: :json
     }
   end

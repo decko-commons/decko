@@ -4,10 +4,10 @@ class Card
     class CardQuery < AbstractQuery
       include Clause
       include Run
-      include SpecialAttributes
+      include MatchAttributes
       include RelationalAttributes
       include ReferenceAttributes
-      include AttributeHelper
+      include FoundBy
       include Interpretation
       include Normalization
       include Sorting

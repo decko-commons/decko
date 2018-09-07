@@ -15,4 +15,12 @@ RSpec.describe Card::Set::TypePlusRight::CustomizedBootswatchSkin::Colors do
     expect(card.colors_card.theme_colors)
       .to include("card-cap-bg": "rgba($black, .03)")
   end
+
+  specify "view bar_middle" do
+    expect_view(:bar_middle).to have_tag("div.colorpicker-element") do
+      with_tag "div.input-group-addon"
+      with_tag "span"
+      with_tag "i"
+    end
+  end
 end

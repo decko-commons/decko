@@ -70,6 +70,25 @@ class Card
         def plus val
           any(left_plus: val, right_plus: val.deep_clone)
         end
+
+        private
+
+        def tie_action action, val
+          tie :action, { action => val }, to: :card_id
+        end
+
+        def tie_act action, val
+          tie :act, { action => val }, to: :actor_id
+        end
+
+        def junction val, side, field
+          tie :card, junction_val(val, side), to: field
+        end
+
+        def junction_val val, side
+          part_clause, junction_clause = val.is_a?(Array) ? val : [val, {}]
+          clause_to_hash(junction_clause).merge side => part_clause
+        end
       end
     end
   end
