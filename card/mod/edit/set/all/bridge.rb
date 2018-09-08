@@ -74,7 +74,8 @@ format :html do
 
   def bridge_link_opts opts={}
     opts.merge! "data-slot-selector": bridge_slot_selector,
-                remote: true, class: "slotter"
+                remote: true
+    add_class opts, "slotter"
     opts.bury :path, :layout, :overlay
     opts[:path][:view] ||= :content
     opts
