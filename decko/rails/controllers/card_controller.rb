@@ -132,7 +132,6 @@ class CardController < ActionController::Base
   end
 
   def render_errors
-    binding.pry
     show :errors, 422
   end
 

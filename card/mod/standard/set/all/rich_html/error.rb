@@ -73,7 +73,7 @@ format :html do
 
   def commentable? view
     return false unless self.class.tagged(view, :comment) &&
-      show_view?(:comment_box, :hide)
+                        show_view?(:comment_box, :hide)
     ok? :comment
   end
 
@@ -81,7 +81,7 @@ format :html do
     debug_error exception if Auth.always_ok?
     details = Auth.always_ok? ? backtrace_link(exception) : error_cardname
     wrap_with :span, class: "render-error alert alert-danger" do
-      [tr(:error_rendering, scope: [:lib, :card, :format, :error],
+      [tr(:error_rendering, scope: %i[lib card format error],
                             cardname: details,
                             view: view)]
     end

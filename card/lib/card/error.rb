@@ -16,9 +16,9 @@ class Card
     end
 
     def message_from_card card
-      I18n.t :exception_for_card, scope: [:lib, :card, :error],
-             cardname: card.name,
-             message: card.errors[:permission_denied]
+      I18n.t :exception_for_card, scope: %i[lib card error],
+                                  cardname: card.name,
+                                  message: card.errors[:permission_denied]
     end
 
     class OpenError < Error
@@ -34,7 +34,6 @@ class Card
     end
 
     class ServerError < Error
-
     end
 
     class NotFound < Error

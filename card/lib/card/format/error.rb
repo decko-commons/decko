@@ -2,7 +2,6 @@ class Card
   class Format
     module Error
       def rescue_view e, view
-        binding.pry
         # make config option; don't refer directly to env
         raise e if Rails.env =~ /^cucumber|test$/
         method = focal? ? :focal_error : :rendering_error
@@ -13,7 +12,7 @@ class Card
         if card&.name.present?
           safe_name
         else
-          I18n.t :no_cardname, scope: [:lib, :card, :format, :error]
+          I18n.t :no_cardname, scope: %i[lib card format error]
         end
       end
 

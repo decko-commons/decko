@@ -63,7 +63,6 @@ format do
     search_with_params args.merge return: :count
   end
 
-
   def implicit_item_view view_from_query_params=nil
     view = voo_items_view || view_from_query_params || default_item_view
     Card::View.canonicalize view
