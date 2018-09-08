@@ -50,3 +50,23 @@ module ClassMethods
     !card.pristine?
   end
 end
+
+
+def measure desc
+  $times ||= {}
+  res = nil
+  t = Benchmark.measure do
+    res = yield
+  end
+  if $times.key? desc
+    $times[desc] = t + $times[desc]
+  else
+    $times[desc] = t
+  end
+  puts "#{desc}: #{t}".red
+  res
+end
+
+format do
+  delegate :measure, to: :card
+end

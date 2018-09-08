@@ -104,6 +104,17 @@ format :html do
     card.name.tag.tr "*", ""
   end
 
+  view :rule_bridge_link, tags: :unknown_ok do
+    opts = bridge_link_opts(class: "edit-rule-link slotter nav-link",
+                            "data-toggle": "pill")
+    opts[:path].delete(:layout)
+    link_to_view(:overlay_rule, (setting_title + short_help_text), opts)
+  end
+
+  def short_help_text
+    '<div class="help-text">short help text</div>'
+  end
+
   def closed_rule_setting_cell _rule_card
     wrap_rule_cell "rule-setting" do
       link_to_open_rule
@@ -263,7 +274,7 @@ format :html do
   end
 
   def rule_content_formgroup
-    formgroup "rule", editor: "content" do
+    formgroup "content", editor: "content", help: false do
       content_field true
     end
   end
@@ -278,7 +289,7 @@ format :html do
     tag = @rule_context.rule_user_setting_name
     narrower = []
     option_list "set" do
-      rule_set_options.map do |set_name, state|
+      rule_set_options.inject do |set_name, state|
         rule_set_radio_button set_name, tag, state, narrower
       end
     end
@@ -376,7 +387,7 @@ format :html do
   end
 
   def option_list title
-    formgroup title, editor: "set", class: "col-xs-6" do
+    formgroup title, editor: "set", class: "col-xs-6", help: false do
       wrap_with :ul do
         wrap_each_with(:li, class: "radio") { yield }
       end
