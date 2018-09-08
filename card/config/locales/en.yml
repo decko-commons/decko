@@ -316,28 +316,8 @@ en:
             conflict: Conflict!
             also_changes: "%{actor_link} has also been making changes."
             conflict_instruction: Please examine below, resolve above, and re-submit.
-            problems_no_name: Problems
-            problems_name: Problems with %{cardname}
-            sign_in_c: Sign in
-            sign_up_c: Sign up
-            sign_in: sign in
-            sign_up: sign up
             not_found: Not Found
-            sign_in_or_up: "%{signin_link} or %{signup_link} to create it."
             not_found_card: Could not find %{cardname}
-            not_found_that: Could not find that.
-            read_only: We are currently in read-only mode.  Please try again later.
-            sorry: Sorry!
-            need_permission_task: You need permission to %{task} this.
-            need_permission_no_task: You need permission to do that.
-            sign_in_up_task: Please %{signin_link} or %{signup_link} to %{task} this.
-            sign_in_task: Please %{signin_link} to %{task} this.
-            sign_in_up_no_task: Please %{signin_link} or %{signup_link} to do that.
-            sign_in_no_task: Please %{signin_link} to do that.
-            or: or 
-            please: please
-            denied_task: to %{denied_task} this 
-            to_do_that: to do that
           list_changes:
             search_list_fields: list fields
             search_listed_by_fields: listed by fields
@@ -364,6 +344,17 @@ en:
               rename_update: Rename and Update
               renaming: Renaming
               rename: Rename
+            error:
+              problems_name: Problems with %{cardname}
+              please: Please
+              sign_in: sign in
+              or: or
+              sign_up: sign up
+              read_only: We are currently in read-only mode.  Please try again later.
+              sorry: Sorry!
+              need_permission_task: You need permission to %{task} this.
+              to_do_that: to do that
+              denied_task: to %{denied_task} this
             form:
               unsupported_action_class: "unsupported card_form action class: %{actionclass}"
               submit: Submit

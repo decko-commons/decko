@@ -121,7 +121,6 @@ class CardController < ActionController::Base
     card.action = :read
     format = load_format
     result = render_page format, view
-    status = format.error_status || status
     respond format, result, status
   end
 
@@ -133,13 +132,14 @@ class CardController < ActionController::Base
   end
 
   def render_errors
-    view, status = Card::Error.view_and_status(card) || [:errors, 422]
-    show view, status
+    binding.pry
+    show :errors, 422
   end
 
   rescue_from StandardError do |exception|
-    Rails.logger.info "exception = #{exception.class}: #{exception.message}"
     @card ||= Card.new
-    show Card::Error.exception_view(@card, exception)
+    exception = Card::Error.cardify_exception exception
+    # exception.report!
+    show exception.class.view, exception.class.status
   end
 end

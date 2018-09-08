@@ -57,14 +57,14 @@ class Card
 
     cattr_accessor :registered
     self.registered = []
-    VIEW_VARS = [ :perms, :denial, :closed, :error_code ]
-    (VIEW_VARS + [ :view_tags, :aliases ]).each do |accessor_name|
+    VIEW_VARS = [:perms, :denial, :closed]
+    (VIEW_VARS + [:view_tags, :aliases]).each do |accessor_name|
       cattr_accessor accessor_name
       send "#{accessor_name}=", {}
     end
 
     attr_reader :card, :parent, :main_opts
-    attr_accessor :form, :error_status
+    attr_accessor :form
 
     def self.view_caching?
       true

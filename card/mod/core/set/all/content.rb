@@ -1,5 +1,3 @@
-::Card.error_codes[:conflict] = [:conflict, 409]
-
 def content= value
   self.db_content = value
 end

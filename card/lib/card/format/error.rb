@@ -2,17 +2,11 @@ class Card
   class Format
     module Error
       def rescue_view e, view
+        binding.pry
+        # make config option; don't refer directly to env
         raise e if Rails.env =~ /^cucumber|test$/
-        if focal?
-          focal_error e, view
-        else
-          # TODO: consider rendering dynamic error view here.
-          nested_error e, view
-        end
-      end
-
-      def debug_error e
-        raise e if Card[:debugger]&.content == "on"
+        method = focal? ? :focal_error : :rendering_error
+        send method, e, view
       end
 
       def error_cardname
@@ -24,13 +18,13 @@ class Card
       end
 
       def focal_error e, view
-        card.errors.add view.to_s, e.message if card.errors.empty?
-        render Card::Error.exception_view card, e
+        card.errors.add :view, rendering_error(e, view) if card.errors.empty?
+        raise e
       end
 
-      def nested_error _exception, view
-        I18n.t :error_rendering, scope: [:lib, :card, :format, :error],
-               cardname: error_cardname, view: view
+      def rendering_error _exception, view
+        tr :error_rendering, scope: [:lib, :card, :format, :error],
+                             cardname: error_cardname, view: view
       end
     end
   end
