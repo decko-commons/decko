@@ -26,5 +26,13 @@ RSpec.describe Card::Format::HtmlFormat do
         have_tag 'div[class~="d0-card-body d0-card-content"]', "AlphaBeta"
       end
     end
+
+    it "joins arrays" do
+      format =
+        Card["A"].format_with do
+          view(:array) { ["A", nil, ["B", "C"]] }
+        end
+      expect(format.render_array).to eq "A\nB\nC"
+    end
   end
 end

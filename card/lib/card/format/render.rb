@@ -61,9 +61,13 @@ class Card
       def final_render view
         current_view(view) do
           method = view_method view
-          rendered = method.call
+          rendered = final_render_call method
           add_debug_info view, method, rendered
         end
+      end
+
+      def final_render_call method
+        method.call
       end
 
       def add_debug_info view, method, rendered
