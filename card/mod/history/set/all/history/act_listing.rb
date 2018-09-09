@@ -15,7 +15,7 @@ format :html do
   # @param context [Symbol] :relative or :absolute
   # @param draft_legend [Symbol] :show or :hide
   def acts_layout acts, context, draft_legend=:hide
-    bs_layout container: true, fluid: true do
+    bs_layout container: false, fluid: false do
       html _render_act_legend(draft_legend => :draft_legend)
       row(12) { act_list acts, context }
       row(12) { act_paging acts, context }

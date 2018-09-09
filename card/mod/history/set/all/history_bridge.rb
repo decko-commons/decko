@@ -56,7 +56,7 @@ format :html do
     opts = act_listing_opts_from_params(nil)
     act = act_from_context
     ar = act_renderer(:bridge).new(self, act, opts)
-    class_up "action-list", "m-4"
+    class_up "action-list", "my-3"
     wrap_with_overlay title: ar.overlay_title do
       [ breadcrumb([card.name, "History"]),
       act_listing(act, opts[:act_seq], :bridge)

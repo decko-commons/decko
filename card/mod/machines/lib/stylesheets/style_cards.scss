@@ -583,6 +583,8 @@ ul.pointer {
 
 $diff-green: #41ad41;
 $diff-red: #ff5050;
+$diff-red-bg: lighten($diff-red, 30%);
+$diff-green-bg: lighten($diff-green, 50%);
 
 .history-slot {
   overflow: hidden;
@@ -600,12 +602,15 @@ $diff-red: #ff5050;
 .diff-deleted {
   text-decoration: line-through;
   color: $diff-red;
+  background: $diff-red-bg;
   img {
     border: 2px solid $diff-red;
   }
 }
 .diff-added {
   color: $diff-green;
+  background: $diff-green-bg;
+  text-decoration: none;
   img {
     margin: 0px 4px 0px 4px;
     border: 2px solid $diff-green;
@@ -615,6 +620,9 @@ $diff-red: #ff5050;
 ul.action-list {
   list-style-type: none;
   padding-left: 15px;
+  li {
+    border: 1px solid $border-color;
+  }
   li:before {
     font-family: 'Material Icons';
     float: left;
@@ -628,10 +636,13 @@ ul.action-list {
 
   li.create:before {
     content: "add";
+    color: $diff-green;
+
   }
 
   li.delete:before {
     content: "delete";
+    color: $diff-red;
   }
 
   li.draft:before {
