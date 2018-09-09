@@ -8,7 +8,7 @@ class Card
     class_attribute :status_code, :view
 
     self.view = :errors
-    self.status_code = 500
+    self.status_code = 422
 
     attr_accessor :card
 
@@ -35,6 +35,9 @@ class Card
 
     # error attributable to code (as opposed to card configuration)
     class ServerError < Error
+      self.view = :server_error
+      self.status_code = 500
+
       def report!
         super
         card&.notable_exception_raised
@@ -94,6 +97,8 @@ class Card
 
       def card_error_class exception
         case exception
+        when ActiveRecord::RecordInvalid
+          Card::Error
         when ActiveRecord::RecordNotFound, ActionController::MissingFile
           Card::Error::NotFound
         else
