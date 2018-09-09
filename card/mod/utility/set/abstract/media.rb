@@ -13,6 +13,7 @@ format :html do
   end
 
   def text_with_image opts={}
+    class_up "media-left", "m-2"
     @image_card = Card.cardish(opts[:image]) if opts[:image]
     haml :media_snippet, normalized_text_with_image_opts(opts)
   end
@@ -26,6 +27,7 @@ format :html do
                         alt: image_alt,
                         size: :original,
                         media_opts: {},
-                        media_left_extras: ""
+                        media_left_extras: "",
+                        media_left: ""
   end
 end

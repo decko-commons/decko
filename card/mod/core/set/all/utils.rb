@@ -33,7 +33,7 @@ module ClassMethods
     card = fetch name, new: {}
     return unless mergeable? card, opts[:pristine]
     resolve_file_attributes! attribs
-    card.update_attributes! attribs.reverse_merge(skip: :validate_renaming)
+    card.safe_update! attribs
   end
 
   private
@@ -51,6 +51,15 @@ module ClassMethods
   end
 end
 
+# sepaarte name and other attributes
+def safe_update! attribs
+  $times ||= {}
+  if !new? && (new_name = attribs.delete("name"))
+    update_attributes! name: new_name unless new_name.to_s == name.to_s
+    res = yield
+  update_attributes! attribs if attribs.present?
+  end
+end
 
 def measure desc
   $times ||= {}
