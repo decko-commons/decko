@@ -5,20 +5,28 @@ class Card
   # (arguably most of these should be Card::Exception)
   class Error < StandardError
     cattr_accessor :current
-    class_attribute :status, :message, :view
+    class_attribute :status_code, :view
 
     self.view = :errors
-    self.status = 500
+    self.status_code = 500
 
-    def initialize message, error_status=nil
-      self.status = error_status
-      super message.is_a?(Card) ? message_from_card(message) : message
+    attr_accessor :card
+
+    def initialize message
+      if message.is_a? Card
+        self.card = message
+        message = message_from_card
+      end
+      super message
     end
 
-    def message_from_card card
+    def message_from_card
       I18n.t :exception_for_card, scope: %i[lib card error],
-                                  cardname: card.name,
-                                  message: card.errors[:permission_denied]
+             cardname: card.name, message: card_message_text
+    end
+
+    def card_message_text
+      card.errors.first.message
     end
 
     class OpenError < Error
@@ -36,8 +44,9 @@ class Card
     class ServerError < Error
     end
 
+    # card not found
     class NotFound < Error
-      self.status = 404
+      self.status_code = 404
       self.view = :not_found
     end
 
@@ -46,8 +55,12 @@ class Card
 
     # permission errors
     class PermissionDenied < OpenError
-      self.status = 403
+      self.status_code = 403
       self.view = :denial
+
+      def card_message_text
+        card.errors[:permission].message
+      end
     end
 
     # exception class for aborting card actions
