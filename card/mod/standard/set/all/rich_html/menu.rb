@@ -14,7 +14,7 @@ format :html do
   end
 
   def wrap_menu
-    wrap_with :div, class: classy(%w(menu-slot nodblclick)) do
+    wrap_with :div, class: classy(%w[menu-slot nodblclick]) do
       yield
     end
   end
@@ -23,17 +23,19 @@ format :html do
     menu_link
   end
 
-
   def menu_link
-    css_class =
-      show_view?(:horizontal_menu, :hide) ? "d-sm-none" : "_show-on-hover"
-
-    css_class = "" unless show_view?(:hover_link)
-
-    wrap_with :div, class: "vertical-card-menu card-menu #{css_class}" do
+    wrap_with :div, class: "vertical-card-menu card-menu #{menu_link_classes}" do
       wrap_with :div, class: "btn-group slotter card-slot float-right" do
         link_to_view :vertical_menu, menu_icon, path: menu_link_path_opts
       end
+    end
+  end
+
+  def menu_link_classes
+    if show_view? :hover_link
+      show_view?(:horizontal_menu, :hide) ? "d-sm-none" : "_show-on-hover"
+    else
+      ""
     end
   end
 
@@ -67,7 +69,7 @@ format :html do
   def vertical_menu_item_list
     wrap_with :ul, class: "dropdown-menu dropdown-menu-right", role: "menu" do
       menu_item_list.map do |item|
-        %{<li>#{item}</li>}
+        %(<li>#{item}</li>)
       end.join("\n").html_safe
     end
   end

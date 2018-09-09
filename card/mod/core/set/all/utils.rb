@@ -33,11 +33,7 @@ module ClassMethods
     card = fetch name, new: {}
     return unless mergeable? card, opts[:pristine]
     resolve_file_attributes! attribs
-    if !card.new? && (new_name = attribs.delete("name"))
-      card.update_attributes! name: new_name unless new_name.to_s == card.name.to_s
-      card = fetch new_name
-    end
-    card.update_attributes! attribs if attribs.present?
+    card.safe_update! attribs
   end
 
   private
@@ -53,4 +49,12 @@ module ClassMethods
     return true unless pristine_only
     !card.pristine?
   end
+end
+
+# sepaarte name and other attributes
+def safe_update! attribs
+  if !new? && (new_name = attribs.delete("name"))
+    update_attributes! name: new_name unless new_name.to_s == name.to_s
+  end
+  update_attributes! attribs if attribs.present?
 end

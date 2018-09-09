@@ -67,7 +67,7 @@ class Card
       # like ensure_card but derives codename from name if no codename is given.
       # The derived codename is all lower case with underscores; "*" and ":" are removed
       def ensure_code_card name_or_args, content_or_args=nil
-        name, args =  standardize_ensure_args name_or_args, content_or_args
+        name, args = standardize_ensure_args name_or_args, content_or_args
         args[:codename] = name.downcase.tr(" ", "_").tr(":*", "") unless args[:codename]
         ensure_card_simplified name, args
       end
