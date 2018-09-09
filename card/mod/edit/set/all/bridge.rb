@@ -17,8 +17,9 @@ format :html do
   view :bridge_breadcrumbs do
     <<-HTML
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">#{card.name}</li>
+      <ol class="breadcrumb _bridge-breadcrumb">
+        <li class="breadcrumb-item">#{card.name}</li>
+        <li class="breadcrumb-item active">Edit</li>
       </ol>
     </nav>
     HTML
@@ -36,8 +37,9 @@ format :html do
     :discussion_tab
   end
 
-  view :follow_buttons do
-    follow_bridge_link class: "btn btn-sm btn-primary"
+  view :follow_buttons, wrap: :slot do
+    [follow_bridge_link(class:"btn btn-sm btn-primary"),
+     followers_bridge_link]
   end
 
   view :history_tab do
@@ -88,6 +90,7 @@ format :html do
 
   wrapper :bridge do
     class_up "modal-dialog", "no-gaps"
+    voo.hide! :modal_footer
     wrap_with_modal size: :full, title: _render_bridge_breadcrumbs do
       haml :bridge
     end

@@ -87,10 +87,6 @@ jQuery.fn.extend {
 
   setSlotContentFromElement: (el, mode, $slotter) ->
     s = $(this)
-    breadcrumb = el.find("ol.breadcrumb")
-    existing_breadcrumb = $(".modal-header > nav > ol.breadcrumb")
-    if breadcrumb.length > 0 && existing_breadcrumb.length > 0
-      existing_breadcrumb.replaceWith breadcrumb
 
     if mode == "overlay"
       s.addOverlay(el)
@@ -129,6 +125,12 @@ jQuery.fn.extend {
                .append(this)
       modalSlot
 
+  bridgeUpdate: (overlayClosed=false) ->
+    return unless @closest(".bridge").length > 0
+    if @data("breadcrumb")
+      $(".modal-header ._bridge-breadcrumb li:last-child").text(@data("breadcrumb"))
+    if overlayClosed
+      $(".bridge-pills > .nav-item > .nav-link.active").removeClass("active")
 
   # mode can be "standard", "overlay" or "modal"
   slotSuccess: (data, $slotter) ->
