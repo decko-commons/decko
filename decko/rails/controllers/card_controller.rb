@@ -76,9 +76,7 @@ class CardController < ActionController::Base
 
   def load_action
     card.select_action_by_params params
-    if params[:edit_draft] && card.drafts.present?
-      card.content = card.last_draft_content
-    end
+    card.content = card.last_draft_content if params[:edit_draft] && card.drafts.present?
   end
 
   # TODO: refactor this away this when new layout handling is ready

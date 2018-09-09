@@ -33,6 +33,7 @@ class Card
       card.errors.first&.message
     end
 
+    # error attributable to code (as opposed to card configuration)
     class ServerError < Error
       def report!
         super
@@ -50,9 +51,6 @@ class Card
     end
 
     class BadQuery < OpenError
-    end
-
-    class ServerError < Error
     end
 
     # card not found
