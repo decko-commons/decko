@@ -64,7 +64,7 @@ class Card
     end
 
     attr_reader :card, :parent, :main_opts
-    attr_accessor :form
+    attr_accessor :form, :error_status
 
     def self.view_caching?
       true

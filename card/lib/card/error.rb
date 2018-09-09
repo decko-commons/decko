@@ -12,7 +12,7 @@ class Card
 
     attr_accessor :card
 
-    def initialize message
+    def initialize message=nil
       if message.is_a? Card
         self.card = message
         message = message_from_card
@@ -57,7 +57,7 @@ class Card
     end
 
     # card not found
-    class NotFound < Error
+    class NotFound < OpenError
       self.status_code = 404
       self.view = :not_found
     end
@@ -69,6 +69,10 @@ class Card
     class PermissionDenied < OpenError
       self.status_code = 403
       self.view = :denial
+
+      # def initialize status, denied_task=nil
+      #   super
+      # end
 
       def card_message_text
         card.errors[:permission_denied]
@@ -89,20 +93,28 @@ class Card
     class << self
       def cardify_exception exception, card
         unless exception.is_a? Card::Error
-          exception = card_error_class(exception).new exception.message
+          exception = card_error_class(exception, card).new exception.message
         end
         exception.card ||= card
         exception
       end
 
-      def card_error_class exception
+      def card_error_class exception, card
         case exception
         when ActiveRecord::RecordInvalid
-          Card::Error
+          invalid_card_error_class card
         when ActiveRecord::RecordNotFound, ActionController::MissingFile
           Card::Error::NotFound
         else
           Card::Error::ServerError
+        end
+      end
+
+      def invalid_card_error_class card
+        if card.errors.key?(:permission_denied)
+          Card::Error::PermissionDenied
+        else
+          Card::Error
         end
       end
     end

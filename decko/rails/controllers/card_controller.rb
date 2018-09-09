@@ -110,6 +110,7 @@ class CardController < ActionController::Base
     card.action = :read
     format = load_format
     result = render_page format, view
+    status = format.error_status || status
     respond format, result, status
   end
 

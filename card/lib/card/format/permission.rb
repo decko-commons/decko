@@ -46,12 +46,8 @@ class Card
       end
 
       def deny_view view
-        if focal? && voo.root?
-          @denied_view = view
-          raise Card::Error::PermissionDenied, self
-        else
-          Card::Format.denial[view] || :denial
-        end
+        root.error_status = 403 if focal? && voo.root?
+        Card::Format.denial[view] || :denial
       end
 
       def task_denied_for_view view
@@ -65,6 +61,7 @@ class Card
 
       def view_for_unknown _view
         # note: overridden in HTML
+        root.error_status = 404 if focal?
         focal? ? :not_found : :missing
       end
 

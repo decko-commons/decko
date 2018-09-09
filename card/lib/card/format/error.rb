@@ -3,7 +3,7 @@ class Card
     module Error
       def rescue_view e, view
         # make config option; don't refer directly to env
-        raise e if Rails.env =~ /^cucumber|test$/
+        raise e if Rails.env =~ /^cucumber$/
         method = focal? ? :focal_error : :rendering_error
         send method, e, view
       end

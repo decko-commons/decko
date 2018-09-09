@@ -236,7 +236,7 @@ end
 
 event :check_permissions, :validate do
   track_permission_errors do
-    ok! action_for_permission_check
+    ok? action_for_permission_check
   end
 end
 
