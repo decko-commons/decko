@@ -5,7 +5,7 @@ format :html do
     current_rule_format = subformat current_rule
     current_rule_format.rule_context = card
 
-    wrap_with_overlay do
+    wrap_with_overlay slot: { "data-breadcrumb": "Rule editing" } do
       current_rule_format.rule_form
     end
   end

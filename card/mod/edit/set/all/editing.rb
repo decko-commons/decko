@@ -1,10 +1,11 @@
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
   view :edit, perms: :update, tags: :unknown_ok, cache: :never,
-              bridge: true, wrap: :bridge do
+              bridge: true,
+              wrap: :bridge do
     with_nest_mode :edit do
       voo.show :toolbar, :help
-      wrap do
+      wrap true, "data-breadcrumb": "Editing" do
         card_form :update, edit_form_opts do
           [
             _render_edit_name_row,
@@ -69,7 +70,7 @@ format :html do
     success = main? ? "REDIRECT: *previous" : { view: :just_deleted }
     link_to "Delete",
             path: { action: :delete, success: success },
-            class: "slotter btn btn-danger ml-auto", remote: true, 'data-confirm': confirm
+            class: "slotter btn btn-outline-danger ml-auto", remote: true, 'data-confirm': confirm
   end
 
   # TODO: add undo functionality

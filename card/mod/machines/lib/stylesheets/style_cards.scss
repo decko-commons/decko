@@ -1030,6 +1030,7 @@ $bridge-line-color: $gray-300;
   background-color: $gray-100;
   padding-left: 0;
   padding-right: 0;
+  min-height: calc(100vh - 90px);
 }
 
 .bridge-main {
@@ -1074,10 +1075,6 @@ $bridge-line-color: $gray-300;
   }
 }
 
-.bridge-sidebar {
-    min-height: calc(100vh - 90px);
-
-}
 .overlay-container {
     height: 100%;
     overflow: hidden;

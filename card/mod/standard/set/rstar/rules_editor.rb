@@ -227,7 +227,7 @@ format :html do
     return if card.new_card?
     options = { remote: true,
                 type: "button",
-                class: "rule-delete-button slotter",
+                class: "rule-delete-button slotter btn-outline-danger",
                 href: path(action: :delete, success: @edit_rule_success) }
     options["data-slot-selector"] = slot_selector if args[:slot_selector]
     delete_button_confirmation_option options, args[:fallback_set]

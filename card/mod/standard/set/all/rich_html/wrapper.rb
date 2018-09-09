@@ -7,6 +7,12 @@ format :html do
     method_wrap :wrap_with, slot, slot_attr, &block
   end
 
+  wrapper :slot do |opts|
+    method_wrap :wrap_with, true, opts do
+      interiour
+    end
+  end
+
   def haml_wrap slot=true, slot_attr={}, &block
     method_wrap :haml_tag, slot, slot_attr, &block
   end

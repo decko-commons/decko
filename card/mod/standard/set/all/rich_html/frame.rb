@@ -24,9 +24,9 @@ format :html do
     end
   end
 
-  def with_frame slot=true, header=frame_header
+  def with_frame slot=true, header=frame_header, slot_opts={}
     voo.hide :horizontal_menu, :help
-    wrap slot do
+    wrap slot, slot_opts do
       panel do
         [header, frame_help, _render(:flash), yield]
       end

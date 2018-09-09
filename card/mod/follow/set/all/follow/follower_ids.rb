@@ -56,6 +56,10 @@ def follower_ids
   end
 end
 
+def followers_count
+  follower_ids.size
+end
+
 def indirect_follower_ids
   result = ::Set.new
   left_card = left

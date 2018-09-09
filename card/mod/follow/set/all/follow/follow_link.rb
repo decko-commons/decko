@@ -73,6 +73,10 @@ format :html do
     link_to follow_link_text(icon, hash[:verb]), link_opts
   end
 
+  def followers_bridge_link
+    link_to_card card.name.field(:followers), "#{card.followers_count} followers", bridge_link_opts(class: "btn btn-sm ml-2 btn-secondary", remote: true)
+  end
+
   def follow_link_text icon, verb
     verb = %(<span class="follow-verb menu-item-label">#{verb}<span>)
     icon = icon ? icon_tag(:flag) : ""

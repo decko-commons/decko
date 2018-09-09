@@ -2,7 +2,7 @@ format :html do
   wrapper :overlay do |opts|
     class_up "card-slot", "_overlay d0-card-overlay bg-white", true
     @content_body = true
-    overlay_frame true, overlay_header(opts[:title]) do
+    overlay_frame true, overlay_header(opts[:title]), opts[:slot] do
       interiour
     end
   end
@@ -41,23 +41,24 @@ format :html do
     header_wrap [title, _render_overlay_menu]
   end
 
-  def overlay_frame slot=true, header=render_overlay_header
-    overlay_framer slot, header do
+  def overlay_frame slot=true, header=render_overlay_header, slot_opts=nil
+    slot_opts ||= {}
+    overlay_framer slot, header, slot_opts do
       wrap_body { yield }
     end
   end
 
   def haml_overlay_frame slot=true, header=render_overlay_header
-    overlay_framer slot, header do
+    overlay_framer slot, header, {} do
       haml_wrap_body { yield }
     end
   end
 
   private
 
-  def overlay_framer slot, header
+  def overlay_framer slot, header, slot_opts
     class_up "card-slot", "_overlay"
-     with_frame slot, header do
+     with_frame slot, header, slot_opts do
        yield
      end
   end

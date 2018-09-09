@@ -8,9 +8,7 @@ class Card
         voo = View.new self, view, view_options, @voo
         with_voo voo do
           voo.process do |final_view|
-            with_wrapper do
-              final_render final_view
-            end
+            final_render final_view
           end
         end
       rescue => e
@@ -60,9 +58,11 @@ class Card
 
       def final_render view
         current_view(view) do
-          method = view_method view
-          rendered = final_render_call method
-          add_debug_info view, method, rendered
+          with_wrapper do
+            method = view_method view
+            rendered = final_render_call method
+            add_debug_info view, method, rendered
+          end
         end
       end
 
