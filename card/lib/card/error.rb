@@ -25,8 +25,19 @@ class Card
              scope: %i[lib card error], cardname: card.name, message: card_message_text
     end
 
+    def report!
+      Rails.logger.info "exception = #{self.class}: #{message}"
+    end
+
     def card_message_text
-      card.errors.first.message
+      card.errors.first&.message
+    end
+
+    class ServerError < Error
+      def report!
+        super
+        card&.notable_exception_raised
+      end
     end
 
     class OpenError < Error
@@ -59,7 +70,7 @@ class Card
       self.view = :denial
 
       def card_message_text
-        card.errors[:permission].message
+        card.errors[:permission_denied]
       end
     end
 
@@ -75,20 +86,20 @@ class Card
 
     # associating views with exceptions
     class << self
-      ## NOTE: arguably the view and status should be handled in each error class
-      ## status is currently defined in the view
-
-      def cardify_exception exception
-        return exception if exception.is_a? Card::Error
-        card_exception_class(exception).new exception.message
+      def cardify_exception exception, card
+        unless exception.is_a? Card::Error
+          exception = card_error_class(exception).new exception.message
+        end
+        exception.card ||= card
+        exception
       end
 
-      def card_exception_class exception
+      def card_error_class exception
         case exception
         when ActiveRecord::RecordNotFound, ActionController::MissingFile
-          Card::NotFound
+          Card::Error::NotFound
         else
-          Card::ServerError
+          Card::Error::ServerError
         end
       end
     end
