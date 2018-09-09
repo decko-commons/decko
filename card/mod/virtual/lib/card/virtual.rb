@@ -20,6 +20,14 @@ class Card
         virtual
       end
 
+      def create_or_update card, virtual_content
+        if (virtual_card = find_by_card(card))
+          virtual_card.update virtual_content
+        else
+          create card, virtual_content
+        end
+      end
+
       def fetch_content card, &block
         find_content_by_card(card) || create(card, &block).content
       end

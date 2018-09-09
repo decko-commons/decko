@@ -14,7 +14,7 @@ format :html do
   end
 
   def formgroup_label editor_type, title
-    return if voo&.hide?(:title)
+    return if voo&.hide?(:title) || title.blank?
     label_type = editor_type || :content
     form.label label_type, title
   end

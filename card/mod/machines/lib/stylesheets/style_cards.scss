@@ -1071,3 +1071,36 @@ $bridge-line-color: $gray-300;
     height: 100%;
     overflow: hidden;
 }
+
+.help-text.rule-instruction > div p:last-child {
+  margin-bottom: 0;
+}
+
+
+.bridge {
+  .perm-editor {
+    margin-left: 0;
+  }
+
+  .set-editor {
+    ul {
+      background: $white;
+      padding-left: 0;
+      margin-left: 15px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+    li.radio {
+      padding: 10px 0px 0px 15px;
+      border-left: 1px solid $bridge-line-color;
+      border-top: 1px solid $bridge-line-color;
+      margin-top: 10px;
+    }
+  }
+}
+
+.text-muted-link {
+  color: $text-muted;
+}

@@ -16,7 +16,7 @@ format :html do
   end
 
   view :overlay_menu do
-    wrap_with :div, class: "btn-group btn-group-sm align-self-start" do
+    wrap_with :div, class: "btn-group btn-group-sm align-self-start ml-auto" do
       [slotify_overlay_link, close_overlay_link]
     end
   end
@@ -37,7 +37,7 @@ format :html do
   def overlay_header title=nil
     title ||= _render_overlay_title
     class_up "d0-card-header", "bg-white text-dark", true
-    class_up "d0-card-header-title", "d-flex justify-content-between", true
+    class_up "d0-card-header-title", "d-flex", true
     header_wrap [title, _render_overlay_menu]
   end
 
