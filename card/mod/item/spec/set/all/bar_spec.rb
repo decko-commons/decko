@@ -13,8 +13,8 @@ describe Card::Set::All::Bar do
     expect_view(:bar_middle).to have_tag("span.labeled-badge")
   end
 
-  specify "view bar_bottomm" do
-    expect_view(:bar_bottomm).to have_tag("strong")
+  specify "view bar_bottom" do
+    expect_view(:bar_bottom).to match /Alpha/
   end
 
   specify "view bar_page_link" do

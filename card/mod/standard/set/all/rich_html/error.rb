@@ -79,8 +79,7 @@ format :html do
   end
 
   def rendering_error exception, view
-    error_modal(exception) +
-      wrap_with(:span, class: "render-error alert alert-danger") { super }
+    wrap_with(:span, class: "render-error alert alert-danger") { super }
   end
 
   def error_modal_id
