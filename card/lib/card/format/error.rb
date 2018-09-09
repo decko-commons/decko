@@ -8,7 +8,7 @@ class Card
         send method, e, view
       end
 
-      def error_cardname
+      def error_cardname _exception
         if card&.name.present?
           safe_name
         else
@@ -17,13 +17,17 @@ class Card
       end
 
       def focal_error e, view
-        card.errors.add :view, rendering_error(e, view) if card.errors.empty?
+        card.errors.add "#{view} view", rendering_error(e, view) if card.errors.empty?
         raise e
       end
 
-      def rendering_error _exception, view
-        tr :error_rendering, scope: [:lib, :card, :format, :error],
-                             cardname: error_cardname, view: view
+      def rendering_error exception, view
+        if exception.is_a? Card::Error::OpenError
+          exception.message
+        else
+          tr :error_rendering, scope: [:lib, :card, :format, :error],
+             cardname: error_cardname(exception), view: view
+        end
       end
     end
   end

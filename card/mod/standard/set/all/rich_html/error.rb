@@ -1,15 +1,6 @@
 format :html do
   view :server_error, template: :haml
 
-  view :unsupported_view, perms: :none, tags: :unknown_ok do
-    %(
-      <strong>
-        view <em>#{voo.unsupported_view}</em>
-        not supported for <em>#{error_cardname}</em>
-      </strong>
-    )
-  end
-
   view :message, perms: :none, tags: :unknown_ok do
     frame { params[:message] }
   end
@@ -77,27 +68,47 @@ format :html do
     ok? :comment
   end
 
+  def show_all_errors?
+    # make configurable by env
+    Auth.always_ok? || Rails.env.development?
+  end
+
+  def error_cardname exception
+    cardname = super
+    show_all_errors? ? backtrace_link(cardname) : cardname
+  end
+
   def rendering_error exception, view
-    debug_error exception if Auth.always_ok?
-    details = Auth.always_ok? ? backtrace_link(exception) : error_cardname
-    wrap_with :span, class: "render-error alert alert-danger" do
-      [tr(:error_rendering, scope: %i[lib card format error],
-                            cardname: details,
-                            view: view)]
+    error_modal(exception) +
+    wrap_with(:span, class: "render-error alert alert-danger") do
+      super
     end
   end
 
-  def backtrace_link exception
-    class_up "alert", "render-error-message errors-view admin-error-message"
-    warning = alert("warning", true) do
+  def error_modal_id
+    @error_modal_id ||= unique_id
+  end
+
+  def error_modal exception
+    # BRING ME BACK
+    return unless show_all_errors?
+    modal_slot error_modal_id do
       %{
-        <h3>Error message (visible to admin only)</h3>
-        <p><strong>#{CGI.escapeHTML exception.message}</strong></p>
-        <div>#{exception.backtrace * "<br>\n"}</div>
-      }
+      <h3>Error message (visible to admin only)</h3>
+      <p><strong>#{CGI.escapeHTML exception.message}</strong></p>
+      <div>#{exception.backtrace * "<br>\n"}</div>
+    }
     end
-    link = link_to_card error_cardname, nil, class: "render-error-link"
-    link + warning
+  end
+
+  def backtrace_link cardname
+    #class_up "alert", "render-error-message errors-view admin-error-message"
+    return "[[#{cardname}]]"
+
+    link_to cardname,
+            "data-target": "#modal-#{error_modal_id}",
+            "data-toggle": "modal",
+            class: "render-error-link"
   end
 
   def standard_errors

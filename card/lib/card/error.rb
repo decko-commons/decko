@@ -44,15 +44,11 @@ class Card
       end
     end
 
+    # error whose message can be shown to any user
     class OpenError < Error
     end
 
-    class ViewError < OpenError
-    end
-
-    class BadContent < OpenError
-    end
-
+    # error in WQL query
     class BadQuery < OpenError
     end
 
@@ -65,14 +61,16 @@ class Card
     class CodenameNotFound < NotFound
     end
 
+    # two editors altering the same card at once
+    class EditConflict < OpenError
+      self.status_code = 409
+      self.view = :conflict
+    end
+
     # permission errors
     class PermissionDenied < OpenError
       self.status_code = 403
       self.view = :denial
-
-      # def initialize status, denied_task=nil
-      #   super
-      # end
 
       def card_message_text
         card.errors[:permission_denied]
@@ -91,6 +89,9 @@ class Card
 
     # associating views with exceptions
     class << self
+      KEY_MAP = { permission_denied: PermissionDenied,
+                  conflict: EditConflict }
+
       def cardify_exception exception, card
         unless exception.is_a? Card::Error
           exception = card_error_class(exception, card).new exception.message
@@ -111,11 +112,10 @@ class Card
       end
 
       def invalid_card_error_class card
-        if card.errors.key?(:permission_denied)
-          Card::Error::PermissionDenied
-        else
-          Card::Error
+        KEY_MAP.each do |key, klass|
+          return klass if card.errors.key? key
         end
+        Card::Error
       end
     end
   end
