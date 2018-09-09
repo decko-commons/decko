@@ -26,7 +26,7 @@ class Card
           exception.message
         else
           tr :error_rendering, scope: [:lib, :card, :format, :error],
-             cardname: error_cardname(exception), view: view
+                               cardname: error_cardname(exception), view: view
         end
       end
     end

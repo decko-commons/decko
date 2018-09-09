@@ -90,7 +90,7 @@ class Card
     # associating views with exceptions
     class << self
       KEY_MAP = { permission_denied: PermissionDenied,
-                  conflict: EditConflict }
+                  conflict: EditConflict }.freeze
 
       def cardify_exception exception, card
         unless exception.is_a? Card::Error
