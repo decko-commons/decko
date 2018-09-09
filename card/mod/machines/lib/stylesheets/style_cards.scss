@@ -1050,7 +1050,7 @@ $bridge-line-color: $gray-300;
 .d0-card-overlay > .d0-card-frame > .d0-card-header {
   border-bottom: 1px solid $bridge-line-color;
   padding-left: -15px!important;
-  padiong-right: -15px!important;
+  padding-right: -15px!important;
 }
 
 .bridge-pills > .nav-item {
@@ -1064,7 +1064,7 @@ $bridge-line-color: $gray-300;
 }
 
 .bridge-sidebar {
-    min-height: calc(100vh - 160px);
+    min-height: calc(100vh - 90px);
 
 }
 .overlay-container {
