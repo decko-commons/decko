@@ -178,6 +178,11 @@ en:
             save_as_current: Save as current
             show_changes: Show changes
             hide_changes: Hide changes
+    :basic_formats:
+      set:
+        all:
+          base:
+            too_deep: Man, you're too deep.  (Too many levels of nests at a time)
     :basic_types:
       set:
         abstract:
@@ -308,7 +313,6 @@ en:
             se_ticket: <a href="%{ticket_link}">Add a support ticket</a> to tell us more and follow the fix.
             denial: Permission Denied
             bad_address: "404: Bad Address"
-            too_deep: Man, you're too deep.  (Too many levels of nests at a time)
             too_slow: Timed out! %{showname} took too long to load.
             error_rendering: error rendering
             error_message: Error message (visible to admin only)

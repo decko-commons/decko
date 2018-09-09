@@ -168,6 +168,11 @@ de:
             save_as_current: Als aktuelle Fassung speichern
             show_changes: Zeige Änderungen
             hide_changes: Verstecke Änderungen
+    :basic_formats:
+      set:
+        all:
+          base:
+            too_deep: Man, you're too deep.  (Zu viele Level von Nester auf einmal)
     :basic_types:
       set:
         abstract:
@@ -298,7 +303,6 @@ de:
             se_ticket: <a href="%{ticket_link}">Erstelle ein Support-Ticket</a> to tell us more and follow the fix.
             denial: Zugriff verweigert
             bad_address: "404: Bad Address"
-            too_deep: Man, you're too deep.  (Zu viele Level von Nester auf einmal)
             too_slow: Timed out! %{showname} hat zu lange zum Laden gebraucht.
             error_rendering: error rendering
             error_message: Fehlermeldung (nur für Administratoren sichtbar)

@@ -178,6 +178,11 @@ es:
             save_as_current: Guardar como actual
             show_changes: Mostrar cambios
             hide_changes: Ocultar cambios
+    :basic_formats:
+      set:
+        all:
+          base:
+            too_deep: Hombre, eres muy profundo. (Demasiados niveles de nidos a la vez)
     :basic_types:
       set:
         abstract:
@@ -308,7 +313,6 @@ es:
             se_ticket: <a href="%{ticket_link}">Agregue un ticket de soporte</a> para decirnos más y seguir la solución.
             denial: Permiso denegado
             bad_address: "404: Mala direccion"
-            too_deep: Hombre, eres muy profundo. (Demasiados niveles de nidos a la vez)
             too_slow: Caducado! %{showname} tomó demasiado tiempo para cargar..
             error_rendering: procesando errores
             error_message: Mensaje de error (visible solo para el administrador)
