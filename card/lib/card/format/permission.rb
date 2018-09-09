@@ -46,7 +46,7 @@ class Card
       end
 
       def deny_view view
-        if focal?
+        if focal? && voo.root?
           @denied_view = view
           raise Card::Error::PermissionDenied, self
         else

@@ -21,8 +21,8 @@ class Card
     end
 
     def message_from_card
-      I18n.t :exception_for_card, scope: %i[lib card error],
-             cardname: card.name, message: card_message_text
+      I18n.t :exception_for_card,
+             scope: %i[lib card error], cardname: card.name, message: card_message_text
     end
 
     def card_message_text
