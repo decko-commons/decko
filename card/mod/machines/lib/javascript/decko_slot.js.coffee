@@ -91,7 +91,7 @@ jQuery.fn.extend {
     if mode == "overlay"
       s.addOverlay(el)
     else if el.hasClass("_modal-slot") or mode == "modal"
-      el = el.modalify()
+      el = el.modalify($slotter)
       $("body > ._modal-slot").replaceWith el
       el.modal("show", $slotter)
     else
@@ -110,12 +110,26 @@ jQuery.fn.extend {
       else
         @parent().find("._overlay").replaceWith overlay
     else
+      @find(".tinymce-textarea").each ->
+        tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
       @wrapAll('<div class="overlay-container">')
       @addClass("_bottomlay-slot")
       @before overlay
 
+  removeOverlay: () ->
+    if @siblings().length == 1
+      bottomlay = $(@siblings()[0])
+      if bottomlay.hasClass("_bottomlay-slot")
+        bottomlay.unwrap().removeClass("_bottomlay-slot").bridgeUpdate(true)
+        bottomlay.find(".tinymce-textarea").each ->
+          decko.initTinyMCE($(this).attr("id"))
 
-  modalify: ->
+    @remove()
+
+
+  modalify: ($slotter) ->
+    if $slotter.data("modal-body")?
+      @find(".modal-body").append($slotter.data("modal-body"))
     if @hasClass("_modal-slot")
       this
     else

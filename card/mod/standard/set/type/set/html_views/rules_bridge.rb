@@ -24,7 +24,8 @@ format :html do
     end
     select_tag(:mark,
                options_for_select(options),
-               class: "_submit-on-select form-control")
+               class: "_submit-on-select form-control",
+               "data-minimum-results-for-search": "Infinity")
   end
 
   def rules_filter

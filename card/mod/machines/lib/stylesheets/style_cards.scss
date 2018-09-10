@@ -121,51 +121,6 @@ $d-yellow-2: #ffa;
   .card-menu {
     position: absolute;
     right: 8px;
-    > .btn-group {
-      z-index: 1;
-
-      &.show {
-        z-index: 2;
-      }
-    }
-
-    li {
-      white-space: nowrap;
-      text-align: left;
-    }
-    .dropdown-menu {
-      right: -2px;
-      top: 18px;
-      min-width: 110px;
-      .dropdown-item{
-        padding-left: 0.8rem;
-      }
-    }
-    .dropdown-menu:before {
-      content: "";
-      width: 0;
-      height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 5px solid white;
-      position: absolute;
-      top: -5px;
-      right: 2px;
-    }
-  }
-
-  .vertical-card-menu .dropdown-menu {
-    //z-index: 2;
-  }
-
-  .horizontal-card-menu {
-    z-index: 100;
-    li {
-      height: 30px;
-    }
-    .btn {
-      padding: 6px 12px;
-    }
   }
 }
 

@@ -13,8 +13,9 @@ $(window).ready ->
         $(tab_id).append(html)
         $(tab_id).triggerSlotReady()
 
-
   $('body').on "select2:select", "._submit-on-select", (event) ->
     $(event.target).closest('form').submit()
+
+
 
 

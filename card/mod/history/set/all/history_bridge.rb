@@ -6,14 +6,15 @@ format :html do
   view :updated_by, wrap: { div: { class: "text-muted m-2" } }, cache: :never do
     updaters = Card.search(updater_of: { id: card.id })
     return "" unless updaters.present?
-    "Updated by #{humanized_search_result updaters}"
+
+    "Updated by #{humanized_search_result updaters, others_target: Card.fetch(card, :editors)}"
   end
 
   view :shorter_pointer_content, cache: :never do
     nest card, view: :shorter_search_result, hide: :link
   end
 
-  def humanized_search_result item_cards, item_view=:link, max_count=3
+  def humanized_search_result item_cards, item_view: :link, max_count: 3, others_target: card
     return "" unless item_cards.present?
     total = item_cards.size
     fetch_count = total > max_count ? max_count - 1 : max_count
@@ -22,7 +23,7 @@ format :html do
       item_cards.first(fetch_count).map do |c|
         nest c, view: item_view
       end
-    reduced << link_to_card(card,  "#{total - fetch_count} others") if total > max_count
+    reduced << link_to_card(others_target,  "#{total - fetch_count} others") if total > max_count
     reduced.to_sentence
   end
 

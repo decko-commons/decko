@@ -112,7 +112,7 @@ format :html do
   end
 
   def short_help_text
-    '<div class="help-text">short help text</div>'
+    "<div class=\"help-text\">#{card.short_help_text}</div>"
   end
 
   def closed_rule_setting_cell _rule_card

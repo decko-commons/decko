@@ -26,8 +26,7 @@ $(window).ready ->
     $.rails.handleRemote $(this)
 
   $('body').on 'click', '[data-dismiss="overlay"]', (event) ->
-    removeOverlay($(this).slot())
-
+    $(this).slot().removeOverlay()
 
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
@@ -88,11 +87,5 @@ $(window).ready ->
           (if target == 'REDIRECT' then target + ': ' + input.val() else target)
         )
 
-removeOverlay = (overlay) ->
-  if overlay.siblings().length == 1
-    bottomlay = $(overlay.siblings()[0])
-    bottomlay.unwrap().removeClass("_bottomlay-slot").bridgeUpdate(true)
-
-  overlay.remove()
 
 

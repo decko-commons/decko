@@ -1,8 +1,8 @@
 format :html do
-  BRIDGE_TABS = { discussion_tab: "Discussion",
-                  rules_tab: "Rules",
+  BRIDGE_TABS = { engage_tab: "Engage",
                   history_tab: "History",
-                  related_tab: "Related" }.freeze
+                  related_tab: "Related",
+                  rules_tab: "Rules" }.freeze
 
   RELATED_ITEMS = [["children",       :baby_formula, :children],
                    # ["mates",          "bed",          "*mates"],
@@ -37,9 +37,8 @@ format :html do
     :discussion_tab
   end
 
-  view :follow_buttons, wrap: :slot do
-    [follow_bridge_link(class:"btn btn-sm btn-primary"),
-     followers_bridge_link]
+  view :follow_section, wrap: :slot do
+    follow_section
   end
 
   view :history_tab do
@@ -55,8 +54,21 @@ format :html do
     end
   end
 
-  view :discussion_tab, wrap: { div: { class: "ml-2 mr-2" } } do
-    field_nest :discussion, view: :titled, show: :comment_box, hide: [:title, :menu]
+  view :enagage_tab, wrap: { div: { class: "m-3 mt-4" } } do
+    [follow_section, discussion_section]
+  end
+
+  def follow_section
+    follow = wrap_with :div, class: "btn-group btn-group-sm" do
+      [follow_bridge_link(class:"btn btn-sm btn-primary"), link_to_card("Home", icon_tag("more_horiz"), class:"btn btn-sm btn-primary")]
+    end
+    wrap_with :div, class: "mb-3" do
+      [follow, followers_bridge_link]
+    end
+  end
+
+  def discussion_section
+    field_nest(:discussion, view: :titled, title: "Discussion", show: :comment_box, hide: [:menu])
   end
 
   view :related_tab do
@@ -94,5 +106,22 @@ format :html do
     wrap_with_modal size: :full, title: _render_bridge_breadcrumbs do
       haml :bridge
     end
+  end
+
+  def show_discuss_tab?
+    discussion_card = bridge_discussion_card
+    return unless discussion_card
+    permission_task = discussion_card.new_card? ? :comment : :read
+    discussion_card.ok? permission_task
+  end
+
+  def bridge_discussion_card
+    return if card.new_card?
+    return if discussion_card?
+    card.fetch trait: :discussion, skip_modules: true, new: {}
+  end
+
+  def discussion_card?
+    card.junction? && card.name.tag_name.key == :discussion.cardname.key
   end
 end

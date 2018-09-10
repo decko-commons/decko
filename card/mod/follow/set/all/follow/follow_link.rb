@@ -66,7 +66,8 @@ format :html do
         path: hash[:path],
         title: hash[:title],
         "data-path": hash[:path],
-        "data-slot-selector": bridge_slot_selector,
+        "data-hover-text": "follow me",
+        #"data-slot-selector": bridge_slot_selector,
         remote: true,
         class: css_classes("follow-link", opts[:class], "slotter")
     )
@@ -74,7 +75,9 @@ format :html do
   end
 
   def followers_bridge_link
-    link_to_card card.name.field(:followers), "#{card.followers_count} followers", bridge_link_opts(class: "btn btn-sm ml-2 btn-secondary", remote: true)
+    cnt = card.followers_count
+    link_to_card card.name.field(:followers), "#{cnt} follower#{'s' unless cnt == 1}",
+                 bridge_link_opts(class: "btn btn-sm ml-2 btn-secondary", remote: true)
   end
 
   def follow_link_text icon, verb

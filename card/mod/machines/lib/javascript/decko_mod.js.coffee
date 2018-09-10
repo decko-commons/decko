@@ -30,6 +30,14 @@ $(window).ready ->
     $(this).find('i').html('check')
     $(this).addClass("btn-primary").removeClass("btn-danger")
 
+  $('body').on 'mouseenter', 'a[data-hover-text]', ->
+    text = $(this).text()
+    $(this).data("original-text", text)
+    $(this).text($(this).data("hover-text"))
+
+  $('body').on 'mouseleave', 'a[data-hover-text]', ->
+    $(this).text($(this).data("original-text"))
+
   # permissions mod
   $('body').on 'click', '.perm-vals input', ->
     $(this).slot().find('#inherit').attr('checked',false)

@@ -4,7 +4,7 @@ format :html do
               bridge: true,
               wrap: :bridge do
     with_nest_mode :edit do
-      voo.show :toolbar, :help
+      voo.show :help
       wrap true, "data-breadcrumb": "Editing" do
         card_form :update, edit_form_opts do
           [
@@ -15,6 +15,18 @@ format :html do
             _render_edit_buttons
           ]
         end
+      end
+    end
+  end
+
+  view :edit_in_place, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
+    with_nest_mode :edit do
+      card_form :update, edit_form_opts do
+        [
+          edit_view_hidden,
+          _render_content_formgroup,
+          _render_edit_buttons
+        ]
       end
     end
   end
@@ -51,16 +63,21 @@ format :html do
   view :edit_buttons do
     button_formgroup do
       wrap_with "div", class: "d-flex" do
-        [standard_submit_button, standard_cancel_button, delete_button]
+        [standard_submit_button, edit_cancel_button, delete_button]
       end
     end
   end
 
   def standard_submit_button
-    submit_button class: "submit-button"
+    modal_submit_button(class: "submit-button btn-sm mr-3", text: "Save") + submit_button(class: "submit-button btn-sm mr-3", text: "Save and Close")
   end
 
-  def standard_cancel_button args={}
+
+  def edit_cancel_button
+    modal_close_button "Cancel", situation: "secondary", class: "btn-sm"
+  end
+
+  def standard_modal_cancel_button args={}
     args.reverse_merge! class: "cancel-button ml-1", href: path
     cancel_button args
   end
@@ -70,7 +87,7 @@ format :html do
     success = main? ? "REDIRECT: *previous" : { view: :just_deleted }
     link_to "Delete",
             path: { action: :delete, success: success },
-            class: "slotter btn btn-outline-danger ml-auto", remote: true, 'data-confirm': confirm
+            class: "slotter btn btn-outline-danger ml-auto btn-sm", remote: true, 'data-confirm': confirm
   end
 
   # TODO: add undo functionality
@@ -79,7 +96,6 @@ format :html do
   end
 
   view :edit_type, cache: :never, perms: :update do
-    voo.show :toolbar
     frame do
       _render_edit_type_form
     end
