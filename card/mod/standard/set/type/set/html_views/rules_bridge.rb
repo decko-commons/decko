@@ -31,11 +31,11 @@ format :html do
     form_tag path(mark: "", slot: { hide: [:set_label, :rule_navbar, :set_navbar, :content] }),
              remote: true, method: "get", role: "filter",
              "data-slot-selector": "#home-rule_tab > .card-slot > .card-slot",
-             class: classy("nodblclick slotter form-inline m-2") do
+             class: classy("nodblclick slotter form-inline slim-select2 m-2") do
       output [
-               label_tag(:view, "Filter", class: "mr-2"),
+               label_tag(:view, icon_tag("filter_list"), class: "mr-2"),
                setting_select,
-               content_tag(:span, "rules that apply to set ...", class: "ml-2"),
+               content_tag(:span, "rules that apply to set ...", class: "mx-2 small"),
                set_select
              ]
     end

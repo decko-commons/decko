@@ -626,27 +626,31 @@ ul.action-list {
   li:before {
     font-family: 'Material Icons';
     float: left;
-    margin-top: 4px;
-    margin-left: -17px;
+    margin-top: 8px;
+    margin-left: -2rem;
+    font-size: 120%;
+    padding-left: 4px;
   }
 
   li.update:before {
     content: "edit";
+    color: $gray-600;
   }
 
   li.create:before {
-    content: "add";
+    content: "add_circle";
     color: $diff-green;
 
   }
 
   li.delete:before {
-    content: "delete";
+    content: "remove_circle";
     color: $diff-red;
   }
 
   li.draft:before {
     content: "build";
+    color: $gray-600;
   }
 }
 
@@ -1036,6 +1040,9 @@ $bridge-line-color: $gray-300;
 .bridge-main {
   padding-left: 0;
   padding-right: 0;
+  > .edit-view{
+    padding-top: 10px;
+  }
   > .edit-view, > .overlay-container > .edit-view {
     padding-left: 15px;
     padding-right: 15px;
@@ -1065,14 +1072,18 @@ $bridge-line-color: $gray-300;
   padding-right: -15px!important;
 }
 
-.bridge-pills > .nav-item {
+.bridge-pills > .nav-item > a {
   background-color: $list-group-bg;
   border: 1px solid $list-group-border-color;
-  border-left: 5px solid $list-group-border-color;
-
-  &:hover {
-    border-left: 5px solid $list-group-active-bg;
+  border-left: 3px solid $list-group-border-color;
+  margin-bottom: -1px;
+  &:hover, &.active {
+    border-left-color: $list-group-active-bg;
   }
+}
+
+.nav-pills .nav-link.active .help-text {
+  color: lighten($primary, 40%);
 }
 
 .overlay-container {

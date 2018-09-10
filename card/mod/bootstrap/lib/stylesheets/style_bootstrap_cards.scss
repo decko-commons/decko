@@ -361,3 +361,26 @@ body.mceContentBody {
 .bar-bottom .bar.left-stripe {
   border-left: 3px solid $bar_stripe_color !important;
 }
+
+/*----------- Tweak tabs -------------*/
+
+.nav-tabs .nav-item {
+  margin-left: -1px; // remove double border on tabs
+}
+
+/*----------- Slim Select2 -------------*/
+
+.slim-select2 {
+  .select2-container--bootstrap {
+    .select2-selection, &.select2-container--open .select2-selection {
+      padding-top: 2px;
+      height: 1.5rem;
+    }
+    .select2-selection--single .select2-selection__rendered {
+      font-size: 80%;
+    }
+    .select2-results__option {
+      font-size: 80%;
+    }
+  }
+}
