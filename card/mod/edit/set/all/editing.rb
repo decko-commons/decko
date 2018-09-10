@@ -74,11 +74,11 @@ format :html do
 
 
   def edit_cancel_button
-    modal_close_button "Cancel", situation: "secondary", class: "btn-sm"
+    modal_close_button "Cancel", situation: "secondary", class: "btn-sm ml-4"
   end
 
-  def standard_modal_cancel_button args={}
-    args.reverse_merge! class: "cancel-button ml-1", href: path
+  def standard_cancel_button args={}
+    args.reverse_merge! class: "cancel-button ml-4", href: path
     cancel_button args
   end
 

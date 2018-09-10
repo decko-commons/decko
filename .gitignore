@@ -1,5 +1,7 @@
 Gemfile
 Gemfile.lock
+.tags
+.tags_swap
 .idea/*
 .idea-old/*
 .jhw-cache

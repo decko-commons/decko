@@ -51,7 +51,7 @@ format :html do
   # redirect to *previous if no :href is given
   def cancel_button args={}
     text = args.delete(:text) || "Cancel"
-    add_class args, "btn btn-#{args.delete(:situation) || 'outline-secondary'}"
+    add_class args, "btn btn-#{args.delete(:situation) || 'secondary'}"
     add_class args, cancel_strategy(args[:redirect], args[:href])
     args[:href] ||= path_to_previous
     args["data-remote"] = true

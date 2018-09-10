@@ -57,8 +57,8 @@ class Card
       def summary
         %i[create update delete draft].map do |type|
           next unless count_types[type] > 0
-          "#{@format.action_icon type} #{count_types[type]}"
-        end.compact.join " | "
+          "#{@format.action_icon type}<small> #{count_types[type]}</small>"
+        end.compact.join "<small class='text-muted'> | </small>"
       end
 
       def act_links
@@ -172,7 +172,7 @@ class Card
       def rollback_link
         return unless card.ok? :update
         wrap_with :div, class: "act-link collapse #{collapse_id} float-right" do
-          revert_link
+          content_tag(:small, revert_link)
 
 
           # link_to "Save as current",

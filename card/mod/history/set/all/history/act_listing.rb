@@ -100,9 +100,9 @@ format :html do
 
   def action_icon action_type, extra_class=nil
     icon = case action_type
-           when :create then :plus
+           when :create then :add_circle
            when :update then :pencil
-           when :delete then :trash
+           when :delete then :remove_cirlce
            when :draft then :wrench
            end
     icon_tag icon, extra_class
