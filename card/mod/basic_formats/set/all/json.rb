@@ -42,12 +42,11 @@ format :json do
       card: _render_atom }
   end
 
-  view :content do
-    render_page
-  end
-
   view :core do
-    { card.name => card.content }
+    card.content
+  end
+  view :content do
+    render_core
   end
 
   view :nucleus, cache: :never do
@@ -65,7 +64,7 @@ format :json do
     h[:type_url] = path mark: card.type_name, format: :json
     h[:atom_url] = path format: :json, view: :atom
     h[:nucleus_url] = path format: :json, view: :nucleus
-    h[:content] = card.db_content unless card.structure
+    h[:content] = render_content unless card.structure
     h[:codename] = card.codename if card.codename
     h
   end
