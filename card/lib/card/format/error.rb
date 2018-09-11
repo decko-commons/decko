@@ -4,6 +4,8 @@ class Card
       def rescue_view e, view
         # make config option; don't refer directly to env
         raise e if Rails.env =~ /^cucumber$/
+        # TODO: unify with Card::Error#report
+        Rails.logger.info "#{e.message}\n#{e.backtrace}"
         method = focal? ? :focal_error : :rendering_error
         send method, e, view
       end

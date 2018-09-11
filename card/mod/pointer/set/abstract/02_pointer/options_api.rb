@@ -1,3 +1,19 @@
+# TODO: some of this should be moved to right/options!!
+
+def options_hash
+  json_options? ? options_card.parse_content : option_hash_from_names
+end
+
+def json_options?
+  options_card.type_id == Card::JsonID
+end
+
+def option_hash_from_names
+  option_names.each_with_object({}) do |name, hash|
+    hash[name]= name
+  end
+end
+
 def option_names
   if (selected_options = item_names)
     (standard_option_names + selected_options).uniq
@@ -32,9 +48,17 @@ def option_names_from_search
               "option names for pointer: #{name}")
 end
 
+def options_card
+  Card.fetch options_card_name
+end
+
+def options_card_name
+  options_rule_card&.name&.url_key || ":all"
+end
+
 format do
   def options_card_name
-    (oc = card.options_rule_card) ? oc.name.url_key : ":all"
+    card.options_card_name
   end
 end
 

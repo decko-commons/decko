@@ -75,7 +75,7 @@ format :html do
 
   def error_cardname exception
     cardname = super
-    show_all_errors? ? backtrace_link(cardname) : cardname
+    show_all_errors? ? backtrace_link(cardname, exception) : cardname
   end
 
   def rendering_error exception, view
@@ -86,21 +86,17 @@ format :html do
     @error_modal_id ||= unique_id
   end
 
-  # def error_modal exception
-  #   # BRING ME BACK
-  #   return unless show_all_errors?
-  #   modal_slot error_modal_id do
-  #     %{
-  #     <h3>Error message (visible to admin only)</h3>
-  #     <p><strong>#{CGI.escapeHTML exception.message}</strong></p>
-  #     <div>#{exception.backtrace * "<br>\n"}</div>
-  #   }
-  #   end
-  # end
+  def error_message exception
+    %{
+      <h3>Error message (visible to admin only)</h3>
+      <p><strong>#{CGI.escapeHTML exception.message}</strong></p>
+      <div>#{exception.backtrace * "<br>\n"}</div>
+    }
+  end
 
-  def backtrace_link cardname
-    # class_up "alert", "render-error-message errors-view admin-error-message"
-    return "[[#{cardname}]]"
+  def backtrace_link cardname, _exception
+    # TODO: make this a modal link after new modal handling is merged in
+    wrap_with(:span, title: error_message(exception)) { cardname }
   end
 
   def standard_errors

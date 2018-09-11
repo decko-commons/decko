@@ -14,7 +14,7 @@ describe Card::Set::All::Bar do
   end
 
   specify "view bar_bottom" do
-    expect_view(:bar_bottom).to match /Alpha/
+    expect_view(:bar_bottom).to match(/Alpha/)
   end
 
   specify "view bar_page_link" do
