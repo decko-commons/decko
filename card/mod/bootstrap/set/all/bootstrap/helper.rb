@@ -204,6 +204,6 @@ format :html do
     opts = { class: "pl-1 text-muted-link", path: "#", "data-toggle": "popover",
              "data-trigger": :focus, "data-content": text }
     opts["data-title"] = title if title
-    link
+    link_to fa_icon("question-circle"), opts
   end
 end
