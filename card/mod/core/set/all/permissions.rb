@@ -1,7 +1,3 @@
-
-Card.error_codes.merge! permission_denied: [:denial, 403],
-                        captcha: [:errors, 449]
-
 module ClassMethods
   def repair_all_permissions
     Card.where("(read_rule_class is null or read_rule_id is null) and trash is false")

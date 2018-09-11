@@ -3,7 +3,6 @@ include_set Abstract::BsBadge
 
 format :html do
   before :box do
-    super()
     voo.show! :customize_button, :box_middle
   end
 
