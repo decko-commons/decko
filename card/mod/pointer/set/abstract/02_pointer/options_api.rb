@@ -5,7 +5,7 @@ def options_hash
 end
 
 def json_options?
-  options_card.type_id == Card::JsonID
+  options_card&.type_id == Card::JsonID
 end
 
 def option_hash_from_names
