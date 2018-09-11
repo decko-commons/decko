@@ -143,9 +143,16 @@ class Card < ApplicationRecord
     :last_action_id_before_edit,
     :only_storage_phase,          # used to save subcards
     :changed_attributes,
-    :skip_event,                  # skip event(s) for all cards in act
-    :skip_event_in_action         # skip event for just this card
+    :skip,                        # skip event(s) for all cards in act
+    :skip_in_action,              # skip event for just this card
+    :trigger,                     # trigger event(s) for all cards in act
+    :trigger_in_action            # trigger event for just this card
   )
+
+  alias_method :skip_event, :skip
+  alias_method :skip_event_in_action, :skip_in_action
+  alias_method :trigger_event, :trigger
+  alias_method :trigger_event_in_action, :trigger_in_action
 
   def serializable_attributes
     self.class.serializable_attributes + set_specific.keys

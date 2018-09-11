@@ -36,7 +36,7 @@ class Card
   #        b) then uses Card::Set module to provide API for the most common set methods.
   #
   module Set
-    include Event
+    include Event::Api
     include Trait
     include Basket
     include Inheritance

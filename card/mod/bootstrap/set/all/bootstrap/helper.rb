@@ -199,4 +199,11 @@ format :html do
     add_class options, "badge"
     wrap_with :span, content, options
   end
+
+  def popover_link text, title=nil
+    opts = { class: "pl-1 text-muted-link", path: "#", "data-toggle": "popover",
+             "data-trigger": :focus, "data-content": text }
+    opts["data-title"] = title if title
+    link_to fa_icon("question-circle"), opts
+  end
 end

@@ -9,13 +9,13 @@ format :html do
     {}
   end
 
-  def select_filter field, _label=nil, default=nil, options=nil
+  def select_filter field, default=nil, options=nil
     options ||= filter_options field
     options.unshift(["--", ""]) unless default
     select_filter_tag field, default, options
   end
 
-  def multiselect_filter field, _label=nil, default=nil, options=nil
+  def multiselect_filter field, default=nil, options=nil
     options ||= filter_options field
     multiselect_filter_tag field, default, options
   end
@@ -31,7 +31,7 @@ format :html do
   def select_filter_type_based type_codename, order="asc"
     # take the card name as default label
     options = type_options type_codename, order, 80
-    select_filter type_codename, nil, nil, options
+    select_filter type_codename, nil, options
   end
 
   def autocomplete_filter type_code, options_card=nil
@@ -42,7 +42,7 @@ format :html do
 
   def multiselect_filter_type_based type_codename
     options = type_options type_codename
-    multiselect_filter type_codename, nil, nil, options
+    multiselect_filter type_codename, nil, options
   end
 
   def multiselect_filter_tag field, default, options, html_options={}

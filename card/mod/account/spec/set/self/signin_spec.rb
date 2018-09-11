@@ -51,10 +51,6 @@ RSpec.describe Card::Set::Self::Signin do
   end
 
   context "#reset password" do
-    before do
-      Card::Env.params[:reset_password] = true
-    end
-
     it "is triggered by an update" do
       # Card['joe admin'].account.token.should be_nil FIXME:  this should be t
       @card.update_attributes! "+*email" => "joe@admin.com"
@@ -62,7 +58,8 @@ RSpec.describe Card::Set::Self::Signin do
     end
 
     it "returns an error if email is not found" do
-      @card.update_attributes "+*email" => "schmoe@admin.com"
+      @card.update_attributes! "+*email" => "schmoe@admin.com",
+                               trigger: :send_reset_password_token
       expect(@card.errors[:email].first).to match(/not recognized/)
     end
   end

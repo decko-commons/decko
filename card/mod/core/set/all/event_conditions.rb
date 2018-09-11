@@ -1,15 +1,16 @@
-EVENT_CONDITIONS = %i[set on changed when optional].freeze
+def event_applies? event
+  return unless set_condition_applies? event.set_module
 
-def event_applies? event, opts
-  EVENT_CONDITIONS.all? do |key|
-    send "#{key}_condition_applies?", event, opts[key]
+  Card::Set::Event::CONDITIONS.all? do |key|
+    send "#{key}_condition_applies?", event, event.opts[key]
   end
 end
 
 private
 
-def set_condition_applies? _event, set_module
-  singleton_class.include?(set_module)
+def set_condition_applies? set_module
+  # events on Card are used for testing
+  set_module == Card || singleton_class.include?(set_module)
 end
 
 def on_condition_applies? _event, actions
@@ -19,6 +20,7 @@ def on_condition_applies? _event, actions
 end
 
 def changed_condition_applies? _event, db_columns
+  return true unless @action == :update
   db_columns = Array(db_columns).compact
   return true if db_columns.empty?
   db_columns.any? { |col| single_changed_condition_applies? col }
@@ -32,9 +34,14 @@ def when_condition_applies? _event, block
   end
 end
 
-def optional_condition_applies? event, optional
-  return true unless optional
+def skip_condition_applies? event, allowed
+  return true unless allowed == :allowed
   !skip_event? event
+end
+
+def trigger_condition_applies? event, required
+  return true unless required == :required
+  trigger_event? event
 end
 
 def single_changed_condition_applies? db_column
@@ -45,7 +52,7 @@ def single_changed_condition_applies? db_column
     when :type    then "type_id"
     else db_column.to_s
     end
-  @action != :delete && attribute_is_changing?(db_column)
+  attribute_is_changing?(db_column)
 end
 
 def wrong_stage opts
@@ -64,10 +71,20 @@ end
 
 def skip_event? event
   @names_of_skipped_events ||= skipped_events
-  @names_of_skipped_events.include? event
+  @names_of_skipped_events.include? event.name
 end
 
 def skipped_events
   events = Array.wrap(skip_event_in_action) + Array.wrap(act_card.skip_event)
+  ::Set.new events.map(&:to_sym)
+end
+
+def trigger_event? event
+  @names_of_triggered_events ||= triggered_events
+  @names_of_triggered_events.include? event.name
+end
+
+def triggered_events
+  events = Array.wrap(trigger_event_in_action) + Array.wrap(act_card.trigger_event)
   ::Set.new events.map(&:to_sym)
 end

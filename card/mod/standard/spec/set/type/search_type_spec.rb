@@ -105,4 +105,60 @@ RSpec.describe Card::Set::Type::SearchType do
       end
     end
   end
+
+  describe "json" do
+    include_context "json context"
+
+    def card_subject
+      sample_search
+    end
+
+    let(:item_names) { ["50 grades of shy", "Iliad", "Parry Hotter"] }
+
+    specify "view: links" do
+      expect_view(:links, format: :json).to eq([])
+    end
+
+    describe "view: items" do
+      it "returns atom values for items" do
+        expect_view(:items, format: :json)
+          .to include(*item_names.map { |i| structured_atom_values Card[i] })
+      end
+
+      it "returns all items" do
+        expect(view(:items, card: card_subject, format: :json).size).to eq 3
+      end
+
+      context "with paging" do
+        def paging_url offset
+          json_url card_subject.name.url_key, "item=atom&limit=1&offset=#{offset}"
+        end
+
+        let(:paging_values) do
+          view(:molecule, card: card_subject, format: :json)[:paging]
+        end
+
+        before do
+          Card::Env.params[:limit] = 1
+        end
+
+        it "shows next link" do
+          expect(paging_values).to eq(next: paging_url(1))
+        end
+
+        it "shows next and previous link" do
+          Card::Env.params[:offset] = 1
+          expect(paging_values)
+            .to eq(next: paging_url(2),
+                   previous: paging_url(0))
+        end
+
+        it "shows previous link" do
+          Card::Env.params[:offset] = 2
+          expect(paging_values)
+            .to eq(previous: paging_url(1))
+        end
+      end
+    end
+  end
 end

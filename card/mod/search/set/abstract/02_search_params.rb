@@ -45,7 +45,7 @@ end
 
 format :json do
   def default_limit
-    0
+    20
   end
 end
 

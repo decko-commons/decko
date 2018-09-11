@@ -1,15 +1,6 @@
 class Card
   module SpecHelper
     module ViewHelper
-      module ViewDescriber
-        def describe_views *views, &block
-          views.flatten.each do |v|
-            let(:view) { v }
-            describe "view: #{v}", &block
-          end
-        end
-      end
-
       def expect_view view, format: :html
         expect(format_subject(format).render(view))
       end

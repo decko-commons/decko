@@ -19,8 +19,13 @@ class Card
         def not_found_codename cardish
           @view = :not_found
           c = Card.new name: Array.wrap(cardish).join(Card::Name.joint).to_s
-          c.errors.add :codename, "unknown codename in #{cardish}"
+          c.errors.add :codename, not_found_codename_error(cardish)
           c
+        end
+
+        def not_found_codename_error codename
+          ::I18n.t :exception_unknown_codename, codename: codename,
+                                                scope: "lib.card.codename"
         end
 
         def new_card cardish

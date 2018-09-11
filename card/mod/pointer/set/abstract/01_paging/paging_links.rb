@@ -53,12 +53,12 @@ class PagingLinks
 
   def previous_page_link
     paging_item '<span aria-hidden="true">&laquo;</span>', previous_page,
-                "aria-label" => "Previous"
+                "aria-label" => "Previous", status: :previous
   end
 
   def next_page_link
     paging_item '<span aria-hidden="true">&raquo;</span>', next_page,
-                "aria-label" => "Next"
+                "aria-label" => "Next", status: :next
   end
 
   def direct_page_link page
@@ -67,15 +67,15 @@ class PagingLinks
   end
 
   def ellipse
-    @render_item.call "<span>...</span>", false
+    paging_item "<span>...</span>", nil, status: :ellipses
   end
 
   def paging_item text, page, options={}
     status =
       if page == @current
-        :active
-      elsif !page
-        :disabled
+        :current
+      else
+        options.delete :status
       end
     @render_item.call text, page, status, options
   end

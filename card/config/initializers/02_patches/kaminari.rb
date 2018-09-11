@@ -18,8 +18,8 @@ module Patches
             p["related"]["subslot"] = true
             p = p["related"]
           end
-          id = p.delete("id") || p.delete("name")
-          Card.fetch(id).format.path p
+          mark = p.delete("mark") || p.delete("name")
+          Card.fetch(mark).format.path p
         end
 
         private

@@ -131,37 +131,43 @@ RSpec.describe Card::Set::All::Rename do
     example "renaming card with self link should nothang" do
       pre_content = Card["self_aware"].content
       update "self aware", name: "buttah", update_referers: true
-      expect_content_of("Buttah").to eq pre_content
+      expect_card("Buttah").to have_content(pre_content)
     end
 
     it "renames card without updating references" do
       pre_content = Card["self_aware"].content
       update "self aware", name: "Newt", update_referers: false
-      expect_content_of("Newt").to eq pre_content
+      expect_card("Newt").to have_content(pre_content)
     end
   end
 
   context "references" do
     it "updates nests" do
       update "Blue", name: "Red", update_referers: true
-      expect_content_of("blue includer 1").to eq "{{Red}}"
-      expect_content_of("blue includer 2").to eq "{{Red|closed;other:stuff}}"
+      expect_card("blue includer 1").to have_content("{{Red}}")
+      expect_card("blue includer 2").to have_content("{{Red|closed;other:stuff}}")
     end
 
-    it "tupdates nests when renaming to plus" do
+    it "updates nests when renaming to plus" do
       update "Blue", name: "blue includer 1+color", update_referers: true
-      expect_content_of("blue includer 1").to eq "{{blue includer 1+color}}"
+      expect_card("blue includer 1").to have_content("{{blue includer 1+color}}")
     end
 
     it "reference updates on case variants" do
       update "Blue", name: "Red", update_referers: true
-      expect_content_of("blue linker 1").to eq "[[Red]]"
-      expect_content_of("blue linker 2").to eq "[[Red]]"
+      expect_card("blue linker 1").to have_content("[[Red]]")
+      expect_card("blue linker 2").to have_content("[[Red]]")
+    end
+
+    it "handles link to and nest of same card" do
+      update "blue linker 1", content: "[[Blue]] is {{Blue|name}}"
+      update "Blue", name: "Red", update_referers: true
+      expect_card("blue linker 1").to have_content("[[Red]] is {{Red|name}}")
     end
 
     example "reference updates plus to simple" do
       assert_rename Card["A+B"], "schmuck"
-      expect_content_of("X").to eq "[[A]] [[schmuck]] [[T]]"
+      expect_card("X").to have_content("[[A]] [[schmuck]] [[T]]")
     end
 
     it "substitutes name part" do

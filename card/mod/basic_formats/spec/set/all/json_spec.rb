@@ -1,6 +1,56 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Json, "JSON mod" do
+RSpec.describe Card::Set::All::Json do
+  include_context "json context"
+  specify "nucleus view" do
+    expect_view(:nucleus, format: :json)
+      .to eq nucleus_values
+  end
+
+  specify "atom view" do
+    expect_view(:atom, format: :json)
+      .to eq atom_values
+  end
+
+  describe "molecule view" do
+    context "with internal link" do
+      it "has link url" do
+        expect_view(:molecule, format: :json)
+          .to eq atom_values.merge items: [],
+                                   links: [json_url("Z")],
+                                   ancestors: []
+      end
+    end
+
+    context "with external link" do
+      def card_subject
+        @card ||= create "external link",
+                         content: "[[http://xkcd.com|link text]]" \
+                                  "[[/Z]]"
+      end
+
+      it "has link urls" do
+        expect_view(:molecule, format: :json)
+          .to eq atom_values.merge items: [],
+                                   links: ["http://xkcd.com", url("Z")],
+                                   ancestors: []
+      end
+    end
+
+    context "with nests" do
+      def card_subject
+        Card["B"]
+      end
+
+      it "has nests" do
+        expect_view(:molecule, format: :json)
+          .to eq atom_values.merge items: [atom_values(Card["Z"])],
+                                   links: [],
+                                   ancestors: []
+      end
+    end
+  end
+
   context "status view" do
     it "handles real and virtual cards" do
       jf = Card::Format::JsonFormat

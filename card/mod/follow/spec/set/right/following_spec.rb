@@ -1,15 +1,17 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::Right::Following do
-  extend Card::SpecHelper::ViewHelper::ViewDescriber
-
   context "when admin is following" do
-    let(:following) { Card.fetch "Joe Admin", :following }
+    def card_subject
+      Card.fetch "Joe Admin", :following
+    end
 
-    describe_views :core, :status, :rule_editor do
-      it "doesn't have errors" do
-        expect(following.format.render(view)).to lack_errors
-      end
+    check_views_for_errors :core, :status, :rule_editor
+  end
+
+  specify "view core" do
+    expect_view(:core).to have_tag("div.card-slot") do
+      with_tag "div.menu-slot.nodblclick"
     end
   end
 end

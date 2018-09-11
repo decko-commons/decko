@@ -1,24 +1,11 @@
 ACTS_PER_PAGE = Card.config.acts_per_page
 
 format :html do
-  view :act, cache: :never do
-    act_listing act_from_context
-  end
-
   def act_from_context
     if (act_id = params["act_id"])
       Act.find(act_id) || raise(Card::NotFound, "act not found")
     else
       card.last_action.act
-    end
-  end
-
-  view :act_legend do
-    bs_layout do
-      row md: [12, 12], lg: [7, 5] do
-        col action_legend
-        col content_legend, class: "text-right"
-      end
     end
   end
 
@@ -73,7 +60,7 @@ format :html do
   end
 
   def current_act_seq acts
-    @act_seq = @act_seq ? (@act_seq += 1) : act_list_starting_seq(acts)
+    @act_seq = @act_seq ? (@act_seq -= 1) : act_list_starting_seq(acts)
   end
 
   def clean_acts acts
@@ -87,7 +74,7 @@ format :html do
   end
 
   def act_list_starting_seq acts
-    acts.size - (acts_page_from_params - 1) * acts_per_page + 1
+    acts.size - (acts_page_from_params - 1) * acts_per_page
   end
 
   def acts_per_page

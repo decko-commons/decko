@@ -1,4 +1,4 @@
-describe Card::Set::Type::NotificationTemplate do
+RSpec.describe Card::Set::Type::NotificationTemplate do
   include ActionController::TestCase::Behavior
   before do
     @routes = Decko::Engine.routes
@@ -11,7 +11,7 @@ describe Card::Set::Type::NotificationTemplate do
 
   def notify
     Card::Auth.as_bot do
-      post :update, params: { id: "~#{Card['A'].id}",
+      post :update, params: { mark: "A",
                               card: { "content" => "change" } },
                     xhr: true
     end

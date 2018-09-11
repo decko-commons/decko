@@ -22,30 +22,29 @@ event :validate_uniqueness_of_name do
   rel = Card.where key: name.key, trash: false
   rel = rel.where "id <> ?", id if id
   if (existing = rel.take)
-    errors.add :name, "must be unique; '#{existing.name}' already exists."
+    errors.add :name, tr(:error_name_exists, name: existing.name)
   end
 end
 
 event :validate_legality_of_name do
   if name.length > 255
-    errors.add :name, "is too long (255 character maximum)"
+    errors.add :name, tr(:error_too_long, length: name.length)
   elsif name.blank?
-    errors.add :name, "can't be blank"
+    errors.add :name, tr(:error_blank_name)
   elsif name.parts.include? ""
-    errors.add :name, "is incomplete"
+    errors.add :name, tr(:is_incomplete)
   elsif !name.valid?
-    errors.add :name, "may not contain any of the following characters: " \
-                      "#{Card::Name.banned_array * ' '}"
+    errors.add :name, tr(:error_banned_characters, banned: Card::Name.banned_array * " ")
   elsif changing_existing_tag_to_junction?
-    errors.add :name, "#{name} in use as a tag"
+    errors.add :name, tr(:error_name_tag, name: name)
   end
 end
 
 event :validate_key, after: :validate_name, on: :save do
   if key.empty?
-    errors.add :key, "cannot be blank" if errors.empty?
+    errors.add :key, tr(:error_blank_key) if errors.empty?
   elsif key != name.key
-    errors.add :key, "wrong key '#{key}' for name #{name}"
+    errors.add :key, tr(:error_wrong_key, key: key, name: name)
   end
 end
 
