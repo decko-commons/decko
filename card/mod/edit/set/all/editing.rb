@@ -5,7 +5,7 @@ format :html do
               wrap: :bridge do
     with_nest_mode :edit do
       voo.show :help
-      wrap true, "data-breadcrumb": "Editing" do
+      wrap true, breadcrumb_data("Editing", "edit") do
         card_form :update, edit_form_opts do
           [
             _render_edit_name_row,

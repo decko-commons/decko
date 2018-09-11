@@ -21,9 +21,12 @@ $.extend decko,
 
   slotReady: (func)->
     $('document').ready ->
-      $('body').on 'slotReady', '.card-slot', (e) ->
+      $('body').on 'slotReady', '.card-slot', (e, slotter) ->
         e.stopPropagation()
-        func.call this, $(this)
+        if slotter?
+          func.call this, $(this), $(slotter)
+        else
+          func.call this, $(this)
 
 jQuery.fn.extend {
   slot: (status="success", mode="normal") ->
@@ -97,11 +100,11 @@ jQuery.fn.extend {
     else
       s.replaceWith el
 
-    el.triggerSlotReady()
+    el.triggerSlotReady($slotter)
 
-  triggerSlotReady: () ->
-    @trigger "slotReady"
-    @find(".card-slot").trigger "slotReady"
+  triggerSlotReady: (slotter) ->
+    @trigger "slotReady", slotter
+    @find(".card-slot").trigger "slotReady", slotter
 
   addOverlay: (overlay) ->
     if @parent().hasClass("overlay-container")
@@ -120,7 +123,7 @@ jQuery.fn.extend {
     if @siblings().length == 1
       bottomlay = $(@siblings()[0])
       if bottomlay.hasClass("_bottomlay-slot")
-        bottomlay.unwrap().removeClass("_bottomlay-slot").bridgeUpdate(true)
+        bottomlay.unwrap().removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
         bottomlay.find(".tinymce-textarea").each ->
           decko.initTinyMCE($(this).attr("id"))
 
@@ -139,12 +142,23 @@ jQuery.fn.extend {
                .append(this)
       modalSlot
 
-  bridgeUpdate: (overlayClosed=false) ->
+  # overlayClosed=true means the bridge update was
+  # triggered by closing an overly
+  updateBridge: (overlayClosed=false, slotter) ->
     return unless @closest(".bridge").length > 0
     if @data("breadcrumb")
-      $(".modal-header ._bridge-breadcrumb li:last-child").text(@data("breadcrumb"))
+      @updateBreadcrumb()
+    else if slotter and $(slotter).data("breadcrumb")
+      $(slotter).updateBreadcrumb()
+
     if overlayClosed
       $(".bridge-pills > .nav-item > .nav-link.active").removeClass("active")
+
+  updateBreadcrumb: () ->
+    bc_item = $(".modal-header ._bridge-breadcrumb li:last-child")
+    bc_item.text(this.data("breadcrumb"))
+    bc_item.attr("class", "breadcrumb-item active #{this.data('breadcrumb-class')}")
+
 
   # mode can be "standard", "overlay" or "modal"
   slotSuccess: (data, $slotter) ->

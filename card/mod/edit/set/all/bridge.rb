@@ -37,6 +37,7 @@ format :html do
     links = RELATED_ITEMS.map do |text, _icon, field|
       opts = bridge_link_opts.merge("data-toggle": "pill")
       add_class opts, "nav-link"
+      opts.merge! breadcrumb_data("Related")
       link_to_card [card, field], text,  opts
     end
     bridge_pills links
@@ -161,5 +162,10 @@ format :html do
       [follow_bridge_link(class:"btn btn-sm btn-primary"),
        link_to_card("Home", icon_tag("more_horiz"), class:"btn btn-sm btn-primary")]
     end
+  end
+
+  def breadcrumb_data title, html_class=nil
+    html_class ||= title.underscore
+    { "data-breadcrumb": title, "data-breadcrumb-class": html_class}
   end
 end
