@@ -48,47 +48,13 @@ format :html do
     )
   end
 
-  def show_menu_item_discuss?
-    discussion_card = menu_discussion_card
-    return unless discussion_card
-    permission_task = discussion_card.new_card? ? :comment : :read
-    discussion_card.ok? permission_task
-  end
 
   def show_menu_item_page?
     card.name.present? && !main?
   end
 
-  def show_menu_item_rules?
-    card.virtual?
-  end
-
   def show_menu_item_edit?
     return unless card.real?
     card.ok?(:update) || structure_editable?
-  end
-
-  def show_menu_item_account?
-    return unless card.real?
-    card.account && card.ok?(:update)
-  end
-
-  def show_menu_item_follow?
-    return unless card.real?
-    show_follow?
-  end
-
-  def show_menu_item_more?
-    card.real?
-  end
-
-  def menu_discussion_card
-    return if card.new_card?
-    return if discussion_card?
-    card.fetch trait: :discussion, skip_modules: true, new: {}
-  end
-
-  def discussion_card?
-    card.junction? && card.name.tag_name.key == :discussion.cardname.key
   end
 end

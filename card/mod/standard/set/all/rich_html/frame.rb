@@ -33,21 +33,8 @@ format :html do
     end
   end
 
-  def related_frame
-    voo.show :menu
-    class_up "menu-slot", "text-white"
-    wrap do
-      [
-        _render_menu,
-        _render_subheader,
-        frame_help,
-        panel { wrap_body { yield } }
-      ]
-    end
-  end
-
   def frame_header
-    [_render_menu, _render_header]
+    _render_header
   end
 
   def frame_help
