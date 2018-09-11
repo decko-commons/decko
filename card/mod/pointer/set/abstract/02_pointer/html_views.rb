@@ -73,7 +73,7 @@ format :html do
   end
 
   def select_input
-    options = {"-- Select --" => "" }.merge card.options_hash
+    options = { "-- Select --" => "" }.merge card.options_hash
     select_tag("pointer_select-#{unique_id}",
                options_for_select(options, card.item_name),
                class: "pointer-select form-control")

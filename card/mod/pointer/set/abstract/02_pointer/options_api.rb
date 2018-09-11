@@ -10,7 +10,7 @@ end
 
 def option_hash_from_names
   option_names.each_with_object({}) do |name, hash|
-    hash[name]= name
+    hash[name] = name
   end
 end
 
