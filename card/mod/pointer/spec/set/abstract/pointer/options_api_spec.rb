@@ -1,6 +1,6 @@
 RSpec.describe Card::Set::Abstract::Pointer::OptionsApi do
   def define_options_rule type_id, content
-    Card.create! name:[:pointer, :type, :options], type_id: type_id, content: content
+    Card.create! name: %i[pointer type options], type_id: type_id, content: content
   end
 
   let :sample_pointer do
@@ -18,7 +18,7 @@ RSpec.describe Card::Set::Abstract::Pointer::OptionsApi do
       end
 
       it "takes name and value from cardname" do
-        expect(options_hash).to eq({ "A"=>"A", "B"=>"B" })
+        expect(options_hash).to eq("A" => "A", "B" => "B")
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe Card::Set::Abstract::Pointer::OptionsApi do
       end
 
       it "takes key/value pairs from JSON hash" do
-        expect(options_hash).to eq({ "A"=>"C", "B"=>"D" })
+        expect(options_hash).to eq("A" => "C", "B" => "D")
       end
     end
   end
