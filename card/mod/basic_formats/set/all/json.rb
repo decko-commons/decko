@@ -45,9 +45,7 @@ format :json do
   view :core do
     card.content
   end
-  view :content do
-    render_core
-  end
+  view :content, :core
 
   view :nucleus, cache: :never do
     {
