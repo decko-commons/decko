@@ -74,7 +74,7 @@ format :html do
 
 
   def edit_cancel_button
-    modal_close_button "Cancel", situation: "secondary", class: "btn-sm ml-4"
+    modal_close_button "Cancel", situation: "secondary", class: "btn-sm"
   end
 
   def standard_cancel_button args={}

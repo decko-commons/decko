@@ -1,7 +1,7 @@
 
 format :html do
   COMMON_RULE_SETTINGS =
-    %i[create read update delete structure default style].freeze
+    %i[create read update delete structure default].freeze
 
   view :core, cache: :never do
     voo.show :set_label, :rule_navbar
@@ -9,7 +9,6 @@ format :html do
     rule_view = params[:rule_view] || :common_rules
     _render rule_view
   end
-
 
   def with_label_and_navbars selected_view
     @selected_rule_navbar_view = selected_view
@@ -101,18 +100,6 @@ format :html do
     ""
   end
 
-  view :set_navbar do
-    id = "set-navbar-#{card.name.safe_key}-#{voo.home_view}"
-    related_sets = card.related_sets(true)
-    return "" if related_sets.size <= 1
-    navbar id, brand: "Set", toggle_align: :right,
-               class: "slotter toolbar navbar-expand-md",
-               navbar_type: "dark",
-               collapsed_content: close_link("float-right d-sm-none") do
-      set_navbar_content related_sets
-    end
-  end
-
   def li_pill content, active
     "<li role='presentation' class='nav-item #{'active' if active}'>#{content}</li>"
   end
@@ -139,22 +126,6 @@ format :html do
     wrap_with :ul, class: "nav navbar-nav nav-pills" do
       rule_navbar_pills.map do |label, symbol|
         view_link_pill label, symbol
-      end
-    end
-  end
-
-  def set_navbar_content related_sets
-    wrap_with :ul, class: "nav navbar-nav nav-pills" do
-      related_sets.map do |name, label|
-        slot_opts = { subheader: title_in_context(name),
-                      subframe: true,
-                      hide: "header set_label rule_navbar",
-                      show: "subheader set_navbar" }
-        link = link_to_card name, label, remote: true,
-                                         path: { view: @slot_view,
-                                                 slot: slot_opts },
-                                         class: "nav-link"
-        li_pill link, name == card.name
       end
     end
   end

@@ -1073,6 +1073,12 @@ $bridge-line-color: $gray-300;
       margin-top: 10px;
     }
   }
+
+  .bridge-sidebar {
+    .d0-card-header-title > .card-title {
+      font-size: 1rem;
+    }
+  }
 }
 
 .text-muted-link {

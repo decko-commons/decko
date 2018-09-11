@@ -16,6 +16,10 @@ class Card
       host_class.mattr_accessor :restricted_to_type, :rule_type_editable, :short_help_text
     end
 
+    def self.codenames
+      Card::Setting.groups.values.flatten.compact.map(&:codename)
+    end
+
     @@group_names = {
       templating:  "Templating",
       permission:  "Permissions",
