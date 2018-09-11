@@ -2,7 +2,7 @@ class Card
   class Format
     module Permission
       def ok_view view, skip_perms=false
-        raise Card::Error::OpenError, tr(:too_deep) if subformats_nested_too_deeply?
+        raise Card::Error::UserError, tr(:too_deep) if subformats_nested_too_deeply?
         approved_view = check_view view, skip_perms
         handle_view_denial view, approved_view
         approved_view

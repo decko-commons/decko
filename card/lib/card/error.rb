@@ -25,7 +25,7 @@ class Card
              scope: %i[lib card error], cardname: card.name, message: card_message_text
     end
 
-    def report!
+    def report
       Rails.logger.info "exception = #{self.class}: #{message}"
     end
 
@@ -38,22 +38,22 @@ class Card
       self.view = :server_error
       self.status_code = 500
 
-      def report!
+      def report
         super
         card&.notable_exception_raised
       end
     end
 
     # error whose message can be shown to any user
-    class OpenError < Error
+    class UserError < Error
     end
 
     # error in WQL query
-    class BadQuery < OpenError
+    class BadQuery < UserError
     end
 
     # card not found
-    class NotFound < OpenError
+    class NotFound < UserError
       self.status_code = 404
       self.view = :not_found
     end
@@ -62,13 +62,13 @@ class Card
     end
 
     # two editors altering the same card at once
-    class EditConflict < OpenError
+    class EditConflict < UserError
       self.status_code = 409
       self.view = :conflict
     end
 
     # permission errors
-    class PermissionDenied < OpenError
+    class PermissionDenied < UserError
       self.status_code = 403
       self.view = :denial
 

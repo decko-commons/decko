@@ -27,7 +27,8 @@ format do
   end
 
   view :bad_address, perms: :none do
-    raise Card::Error::OpenError, tr(:bad_address)
+    root.error_status = 404
+    tr(:bad_address)
   end
 
   def unsupported_view_error_message view
@@ -37,13 +38,21 @@ end
 
 format :json do
   view :errors do
-    { error_status: error_status,
-      errors: error_list }
+    format_error error_list
   end
 
   view :server_error, :errors
   view :denial, :errors
   view :not_found, :errors
+
+  view :bad_address do
+    format_error super()
+  end
+
+  def format_error error
+    { error_status: error_status,
+      errors: error }
+  end
 
   def error_list
     card.errors.each_with_object([]) do |(field, message), list|

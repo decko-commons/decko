@@ -111,7 +111,7 @@ class Card
 
       def view_method view
         unless supports_view? view
-          raise Card::Error::OpenError, unsupported_view_error_message(view)
+          raise Card::Error::UserError, unsupported_view_error_message(view)
         end
         method view_method_name(view)
       end

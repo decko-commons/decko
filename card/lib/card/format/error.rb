@@ -24,7 +24,7 @@ class Card
       end
 
       def rendering_error exception, view
-        if exception.is_a? Card::Error::OpenError
+        if exception.is_a? Card::Error::UserError
           exception.message
         else
           tr :error_rendering, scope: [:lib, :card, :format, :error],

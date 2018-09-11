@@ -125,7 +125,7 @@ class CardController < ActionController::Base
     @card ||= Card.new
     Card::Error.current = exception
     error = Card::Error.cardify_exception exception, card
-    error.report!
+    error.report
     show error.class.view, error.class.status_code
   end
 end
