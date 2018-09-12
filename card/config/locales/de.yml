@@ -168,6 +168,11 @@ de:
             save_as_current: Als aktuelle Fassung speichern
             show_changes: Zeige Änderungen
             hide_changes: Verstecke Änderungen
+    :basic_formats:
+      set:
+        all:
+          base:
+            too_deep: Man, you're too deep.  (Zu viele Level von Nester auf einmal)
     :basic_types:
       set:
         abstract:
@@ -298,36 +303,15 @@ de:
             se_ticket: <a href="%{ticket_link}">Erstelle ein Support-Ticket</a> to tell us more and follow the fix.
             denial: Zugriff verweigert
             bad_address: "404: Bad Address"
-            too_deep: Man, you're too deep.  (Zu viele Level von Nester auf einmal)
             too_slow: Timed out! %{showname} hat zu lange zum Laden gebraucht.
             error_rendering: error rendering
             error_message: Fehlermeldung (nur für Administratoren sichtbar)
             add_thing: Füge %{title} hinzu
             conflict: Konflikt!
+            not_found: Nicht gefunden
             also_changes: "%{actor_link} hat gleichzeitig Änderungen gemacht."
             conflict_instruction: Bitte überprüfe den Konflikt unten, behebe ihn oben, und sende erneut.
-            problems_no_name: Probleme
-            problems_name: Probleme mit %{cardname}
-            sign_in_c: Anmelden
-            sign_up_c: Registrieren
-            sign_in: anmelden
-            sign_up: registrieren
-            not_found: Nicht gefunden
-            sign_in_or_up: "%{signin_link} oder %{signup_link} um es zu erstellen."
-            not_found_card: Konnte %{cardname} nicht finden
-            not_found_that: Konnte das nicht finden.
-            read_only: Wir sind im Moment im Nur-Lese-Modus. Versuche es später noch einmal.
-            sorry: Sorry!
-            need_permission_task: You need permission to %{task} this.
-            need_permission_no_task: You need permission to do that.
-            sign_in_up_task: Bitte %{signin_link} oder %{signup_link} um das zu %{task}.
-            sign_in_task: Bitte %{signin_link} um das zu %{task}.
-            sign_in_up_no_task: Bitte %{signin_link} oder %{signup_link} um das zu tun.
-            sign_in_no_task: Bitte %{signin_link} um das zu tun.
-            or: oder
-            please: bitte
-            denied_task: zu %{denied_task} dies
-            to_do_that: das zu tun
+
           list_changes:
             search_list_fields: list fields
             search_listed_by_fields: listed by fields
@@ -354,6 +338,17 @@ de:
               rename_update: Umbenennen und aktualisieren
               renaming: Wird umbenannt
               rename: Umbenennen
+            error:
+              problems_name: Probleme mit %{cardname}
+              please: Bitte
+              sign_in: anmelden
+              or: oder
+              sign_up: registrieren
+              read_only: Wir sind im Moment im Nur-Lese-Modus. Versuche es später noch einmal.
+              sorry: Sorry!
+              need_permission_task: You need permission to %{task} this.
+              to_do_that: das zu tun
+              denied_task: zu %{denied_task} dies
             form:
               unsupported_action_class: "unsupported card_form action class: %{actionclass}"
               submit: Speichern

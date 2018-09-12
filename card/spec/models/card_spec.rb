@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card do
+RSpec.describe Card do
   describe "test data" do
     it "is findable by name" do
       expect(Card["Wagn Bot"]).to be_a Card
@@ -123,7 +123,6 @@ describe "basic card tests" do
       end
     end
   end
-
 
   it "create_without_read_permission" do
     c = Card.create!(name: "Banana", type: "Fruit", content: "mush")
