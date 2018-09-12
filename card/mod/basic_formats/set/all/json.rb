@@ -9,7 +9,7 @@ format :json do
   end
 
   def default_item_view
-    params[:item] || :atom
+    params[:item] || :name
   end
 
   def max_depth
@@ -66,7 +66,7 @@ format :json do
   end
 
   view :items, cache: :never do
-    listing item_cards
+    listing item_cards, view: :atom
   end
 
   view :links, cache: :never do
