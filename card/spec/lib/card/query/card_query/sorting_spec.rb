@@ -8,6 +8,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
     # which is in the seed data
     expect(run_query(sort: "create", name: [:match, "classic bootstrap skin"]))
       .to eq(["classic bootstrap skin",
+              "classic bootstrap skin+*stylesheets",
               "classic bootstrap skin head"])
   end
 
