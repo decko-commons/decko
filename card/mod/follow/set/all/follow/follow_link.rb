@@ -1,88 +1,75 @@
-format do
-  def show_follow?
-    Auth.signed_in? && !card.new_card? && card.followable?
+#! no set module
+class FollowLink
+  cattr_accessor :rule_content, :link_text, :action, :css_class, :hover_text
+  def initialize format
+    @format = format
+    @card = format.card
   end
 
-  def follow_link_hash
-    toggle = card.followed? ? :off : :on
-    hash = { class: "follow-toggle-#{toggle}" }
-    hash.merge! send("follow_link_#{toggle}_hash")
-    hash[:path] = path mark: follow_link_mark,
-                       action: :update,
-                       "data-slot-selector": bridge_slot_selector,
-                       success: { layout: :overlay, view: :follow_status },
-                       card: { content: "[[#{hash[:content]}]]" }
-    hash
-  end
-
-  def follow_link_on_hash
-    { content: "*always",
-      title: follow_link_title("send"),
-      verb: "follow" }
-  end
-
-  def follow_link_off_hash
-    { content: "*never",
-      title: follow_link_title("stop sending"),
-      verb: "unfollow" }
-  end
-
-  def follow_link_title action
-    "#{action} emails about changes to #{card.follow_label}"
-  end
-
-  def follow_link_mark
-    card.follow_set_card.follow_rule_name Auth.current.name
-  end
-end
-
-format :json do
-  view :follow_status do
-    follow_link_hash
-  end
-end
-
-format :html do
-  view :follow_link do
-    follow_link
-  end
-
-  def follow_link opts={}, icon=false
-    hash = follow_link_hash
-    link_opts = opts.merge(
-      path: hash[:path],
-      title: hash[:title],
-      "data-path": hash[:path],
+  def modal_link icon=false
+    opts = link_opts.merge(
+      "data-path": link_opts[:path],
       "data-toggle": "modal",
       "data-target": "#modal-#{card.name.safe_key}",
-      class: css_classes("follow-link", opts[:class])
+      class: css_classes("follow-link", link_opts[:class]))
+    format.link_to render_link_text(icon), opts
+  end
+
+  def bridge_link
+    opts = link_opts.merge(
+      remote: true,
+      class: css_classes("follow-link", opts[:class], "slotter btn btn-primary")
     )
-    link_to follow_link_text(icon, hash[:verb]), link_opts
+    opts["data-hover-text"] = @hover_text if @hover_text
+    opts[:path][:success][:view] = :follow_section
+    link_to render_link_text, opts
   end
 
-  def follow_bridge_link opts={}, icon=false
-    hash = follow_link_hash
-    link_opts = opts.merge(
-        path: hash[:path],
-        title: hash[:title],
-        "data-path": hash[:path],
-        "data-hover-text": "follow me",
-        #"data-slot-selector": bridge_slot_selector,
-        remote: true,
-        class: css_classes("follow-link", opts[:class], "slotter")
-    )
-    link_to follow_link_text(icon, hash[:verb]), link_opts
+  def link_opts
+    { content: @rule_content,
+      title: title,
+      verb: @link_text,
+      path: path,
+      class: @css_class }
   end
 
-  def followers_bridge_link
-    cnt = card.followers_count
-    link_to_card card.name.field(:followers), "#{cnt} follower#{'s' unless cnt == 1}",
-                 bridge_link_opts(class: "btn btn-sm ml-2 btn-secondary", remote: true)
-  end
-
-  def follow_link_text icon, verb
-    verb = %(<span class="follow-verb menu-item-label">#{verb}<span>)
+  def render_link_text icon=false
+    verb = %(<span class="follow-verb">#{@link_text}<span>)
     icon = icon ? icon_tag(:flag) : ""
     [icon, verb].compact.join.html_safe
   end
+
+
+  private
+
+  def mark
+    @card.follow_set_card.follow_rule_name Auth.current.name
+  end
+
+  def path view=:follow_status
+    format.path mark: mark,
+                action: :update,
+                success: { view: :follow_status },
+                card: { content: "[[#{@rule_content}]]" }
+  end
+
+  def title
+    "#{@action} emails about changes to #{@card.follow_label}"
+  end
+end
+
+
+class StartFollowLink < FollowLink
+  @rule_content = "*never"
+  @link_text = "follow"
+  @action = "send"
+  @css_class = "follow-toggle-on"
+end
+
+class StopFollowLink < FollowLink
+  @rule_content = "*always"
+  @link_text = "following"
+  @hover_text = "unfollow"
+  @action = "stop sending"
+  @css_class = "follow-toggle-off"
 end
