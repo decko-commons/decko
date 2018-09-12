@@ -25,7 +25,6 @@ RSpec.describe Card::Set::All::Json do
                                    ancestors: [],
                                    type: basic_nucleus,
                                    html_url: "http://json.com/A"
-
       end
     end
 
