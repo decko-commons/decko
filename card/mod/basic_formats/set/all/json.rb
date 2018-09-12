@@ -50,18 +50,18 @@ format :json do
   end
 
   view :nucleus, cache: :never do
-    {
-      id: card.id,
-      name: card.name,
-      url: path(format: :json)
-    }
+    h = { id: card.id,
+          name: card.name,
+          type: card.type_name,
+          url: path(format: :json) }
+    h[:codename] = card.codename if card.codename
+    h
   end
 
+  # TODO: add simple values for fields
   view :atom, cache: :never, tags: :unknown_ok do
     h = _render_nucleus
-    h[:type] = card.type_name
     h[:content] = render_content if card.known? && !card.structure
-    h[:codename] = card.codename if card.codename
     h
   end
 
@@ -81,7 +81,7 @@ format :json do
 
   view :ancestors, cache: :never do
     card.name.ancestors.map do |name|
-      nest name
+      nest name, view: :nucleus
     end
   end
 
@@ -90,7 +90,7 @@ format :json do
                        links: _render_links,
                        ancestors: _render_ancestors,
                        html_url: path,
-                       type: nest(card.type_card)
+                       type: nest(card.type_card, view: :nucleus)
 
   end
 
