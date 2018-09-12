@@ -78,7 +78,7 @@ class Card
         # @return [Symbol] viewname
         def configured_view_in_closed_mode view
           closed_config = Card::Format.closed[view]
-          return view if closed_config == true || Card::Format.error_code[view]
+          return view if closed_config == true
           closed_config
         end
       end

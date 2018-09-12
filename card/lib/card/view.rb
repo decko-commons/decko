@@ -16,7 +16,6 @@ class Card
     extend Cache::ClassMethods
 
     attr_reader :format, :parent, :card
-    attr_accessor :unsupported_view
 
     # @return [Symbol]
     def self.canonicalize view
