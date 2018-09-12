@@ -178,6 +178,11 @@ es:
             save_as_current: Guardar como actual
             show_changes: Mostrar cambios
             hide_changes: Ocultar cambios
+    :basic_formats:
+      set:
+        all:
+          base:
+            too_deep: Hombre, eres muy profundo. (Demasiados niveles de nidos a la vez)
     :basic_types:
       set:
         abstract:
@@ -308,7 +313,6 @@ es:
             se_ticket: <a href="%{ticket_link}">Agregue un ticket de soporte</a> para decirnos más y seguir la solución.
             denial: Permiso denegado
             bad_address: "404: Mala direccion"
-            too_deep: Hombre, eres muy profundo. (Demasiados niveles de nidos a la vez)
             too_slow: Caducado! %{showname} tomó demasiado tiempo para cargar..
             error_rendering: procesando errores
             error_message: Mensaje de error (visible solo para el administrador)
@@ -316,28 +320,8 @@ es:
             conflict: Conflicto!
             also_changes: "%{actor_link} también ha estado haciendo cambios."
             conflict_instruction: Por favor, examine a continuación, resuelva arriba y vuelva a enviar.
-            problems_no_name: Problemas
-            problems_name: Problemas con %{cardname}
-            sign_in_c: Registrarse
-            sign_up_c: Regístrate
-            sign_in: Registrarse
-            sign_up: Regístrate
             not_found: Extraviado
-            sign_in_or_up: "%{signin_link} o %{signup_link} para crearlo."
             not_found_card: No pudo encontrar %{cardname}
-            not_found_that: No pude encontrar eso.
-            read_only: Actualmente estamos en modo de solo lectura. Por favor, inténtelo de nuevo más tarde.
-            sorry: Lo siento!
-            need_permission_task: Necesitas permiso para %{task} esto.
-            need_permission_no_task: Necesitas permiso para hacer eso.
-            sign_in_up_task: Por favor %{signin_link} o %{signup_link} a %{task} this.
-            sign_in_task: Por favor %{signin_link} a %{task} esto.
-            sign_in_up_no_task: Por favor %{signin_link} o %{signup_link} para hacer eso.
-            sign_in_no_task: Por favor %{signin_link} para hacer eso.
-            or: o
-            please: por favor
-            denied_task: a %{denied_task} esto  
-            to_do_that: para hacer eso
           list_changes:
             search_list_fields: campos de lista
             search_listed_by_fields: listado por campos
@@ -364,6 +348,17 @@ es:
               rename_update: Renombrar y actualizar
               renaming: Renombrar
               rename: Rebautizar
+            error:
+              problems_name: Problemas con %{cardname}
+              please: por favor
+              sign_in: Registrarse
+              or: o
+              sign_up: Regístrate
+              read_only: Actualmente estamos en modo de solo lectura. Por favor, inténtelo de nuevo más tarde.
+              sorry: Lo siento!
+              need_permission_task: Necesitas permiso para %{task} esto.
+              to_do_that: para hacer eso
+              denied_task: a %{denied_task} esto
             form:
               unsupported_action_class: "sin soporte card_form clase de acción: %{actionclass}"
               submit: Enviar

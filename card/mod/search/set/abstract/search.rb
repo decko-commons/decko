@@ -37,10 +37,9 @@ def count args={}
   returning(:count, args) { search args }
 end
 
+# for override
 def item_type
-  type = wql_hash[:type]
-  return if type.is_a?(Array) || type.is_a?(Hash)
-  type
+  nil
 end
 
 def each_item_name_with_options _content=nil
@@ -64,8 +63,8 @@ format do
     search_with_params args.merge return: :count
   end
 
-  def implicit_item_view
-    view = voo_items_view || query_with_params.statement[:item] || default_item_view
+  def implicit_item_view view_from_query_params=nil
+    view = voo_items_view || view_from_query_params || default_item_view
     Card::View.canonicalize view
   end
 

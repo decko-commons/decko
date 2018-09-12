@@ -1,5 +1,5 @@
-include_set Abstract::WqlSearch
 include_set Type::Json
+include_set Abstract::WqlSearch
 
 format do
   view :core, cache: :never do
@@ -48,6 +48,10 @@ format :rss do
 end
 
 format :html do
+  view :core do
+    _render search_result_view
+  end
+
   view :closed do
     voo.hide :closed_content
     super()

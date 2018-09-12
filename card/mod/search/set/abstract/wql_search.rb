@@ -59,6 +59,12 @@ def empty_query_error!
         "Error in card '#{name}':can't run search with empty content"
 end
 
+def item_type
+  type = wql_hash[:type]
+  return if type.is_a?(Array) || type.is_a?(Hash)
+  type
+end
+
 format do
   def default_limit
     card_content_limit || super
@@ -68,6 +74,10 @@ format do
     card.wql_hash[:limit]
   rescue
     nil
+  end
+
+  def implicit_item_view
+    super query_with_params.statement[:item]
   end
 
   def query_with_params

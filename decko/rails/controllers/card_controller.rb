@@ -18,7 +18,7 @@ class CardController < ActionController::Base
   #  PUBLIC METHODS
 
   def create
-    handle { card.save }
+    handle { card.save! }
   end
 
   def read
@@ -26,11 +26,11 @@ class CardController < ActionController::Base
   end
 
   def update
-    card.new_card? ? create : handle { card.update_attributes params[:card] }
+    card.new_card? ? create : handle { card.update_attributes! params[:card] }
   end
 
   def delete
-    handle { card.delete }
+    handle { card.delete! }
   end
 
   # @deprecated
@@ -69,20 +69,14 @@ class CardController < ActionController::Base
   end
 
   def load_card
-    handle_errors do
-      @card = Card.controller_fetch params
-      raise Card::Error::NotFound unless card
-      record_as_main
-    end
+    @card = Card.controller_fetch params
+    raise Card::Error::NotFound unless card
+    record_as_main
   end
 
   def load_action
-    handle_errors do
-      card.select_action_by_params params
-      if params[:edit_draft] && card.drafts.present?
-        card.content = card.last_draft_content
-      end
-    end
+    card.select_action_by_params params
+    card.content = card.last_draft_content if params[:edit_draft] && card.drafts.present?
   end
 
   # TODO: refactor this away this when new layout handling is ready
@@ -98,13 +92,8 @@ class CardController < ActionController::Base
 
   def handle
     card.act(success: true) do
-      yield ? render_success : render_errors
+      yield && render_success
     end
-  end
-
-  def handle_errors
-    yield
-    card.errors.any? ? render_errors : true
   end
 
   # successful create, update, or delete action
@@ -132,14 +121,11 @@ class CardController < ActionController::Base
     end
   end
 
-  def render_errors
-    view, status = Card::Error.view_and_status(card) || [:errors, 422]
-    show view, status
-  end
-
   rescue_from StandardError do |exception|
-    Rails.logger.info "exception = #{exception.class}: #{exception.message}"
     @card ||= Card.new
-    show Card::Error.exception_view(@card, exception)
+    Card::Error.current = exception
+    error = Card::Error.cardify_exception exception, card
+    error.report
+    show error.class.view, error.class.status_code
   end
 end
