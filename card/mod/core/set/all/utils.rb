@@ -53,8 +53,12 @@ end
 
 # sepaarte name and other attributes
 def safe_update! attribs
-  if !new? && (new_name = attribs.delete("name"))
-    update_attributes! name: new_name unless new_name.to_s == name.to_s
-  end
+  separate_name_update! attribs.delete("name") unless new?
   update_attributes! attribs if attribs.present?
+end
+
+def separate_name_update! new_name
+  return if new_name.to_s == name.to_s
+
+  update_attributes! name: new_name
 end
