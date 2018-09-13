@@ -46,6 +46,10 @@ end
 # JSON views
 
 format :json do
+  view :content do
+    card.item_names
+  end
+
   def item_cards
     card.item_cards
   end

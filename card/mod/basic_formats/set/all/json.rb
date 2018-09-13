@@ -9,7 +9,7 @@ format :json do
   end
 
   def default_item_view
-    params[:item] || :atom
+    params[:item] || :name
   end
 
   def max_depth
@@ -43,34 +43,30 @@ format :json do
   end
 
   view :core do
-    card.content
+    card.known? ? render_content : nil
   end
   view :content do
-    render_core
+    card.content
   end
 
   view :nucleus, cache: :never do
-    {
-      id: card.id,
-      name: card.name,
-      url: path(format: :json),
-      html_url: path
-    }
-  end
-
-  view :atom, cache: :never do
-    h = _render_nucleus
-    h[:type] = card.type_name
-    h[:type_url] = path mark: card.type_name, format: :json
-    h[:atom_url] = path format: :json, view: :atom
-    h[:nucleus_url] = path format: :json, view: :nucleus
-    h[:content] = render_content unless card.structure
+    h = { id: card.id,
+          name: card.name,
+          type: card.type_name,
+          url: path(format: :json) }
     h[:codename] = card.codename if card.codename
     h
   end
 
+  # TODO: add simple values for fields
+  view :atom, cache: :never, tags: :unknown_ok do
+    h = _render_nucleus
+    h[:content] = render_content if card.known? && !card.structure
+    h
+  end
+
   view :items, cache: :never do
-    listing item_cards
+    listing item_cards, view: :atom
   end
 
   view :links, cache: :never do
@@ -85,14 +81,16 @@ format :json do
 
   view :ancestors, cache: :never do
     card.name.ancestors.map do |name|
-      nest name
+      nest name, view: :nucleus
     end
   end
 
   view :molecule, cache: :never do
     _render_atom.merge items: _render_items,
                        links: _render_links,
-                       ancestors: _render_ancestors
+                       ancestors: _render_ancestors,
+                       html_url: path,
+                       type: nest(card.type_card, view: :nucleus)
 
   end
 
