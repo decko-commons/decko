@@ -2,7 +2,7 @@
 
 require "card/action"
 
-describe Card, "deleting card" do
+RSpec.describe Card, "deleting card" do
   it "requires permission" do
     a = Card["a"]
     Card::Auth.as :anonymous do
