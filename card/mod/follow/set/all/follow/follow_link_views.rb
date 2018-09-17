@@ -15,11 +15,16 @@ format :json do
 end
 
 format :html do
-  def follow_link
+  def follow_button
+    follow_link_class.new(self).button
+  end
+
+
+  def follow_modal_link
     follow_link_class.new(self).modal_link
   end
 
-  view :follow_link do
+  view :follow_button, cache: :never do
     follow_link
   end
 end

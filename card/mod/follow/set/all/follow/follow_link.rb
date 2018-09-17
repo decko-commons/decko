@@ -1,6 +1,9 @@
 #! no set module
 class FollowLink
-  cattr_accessor :rule_content, :link_text, :action, :css_class, :hover_text
+  attr_reader :format, :rule_content, :link_text, :action, :css_class, :hover_text
+
+  delegate :link_to, to: :format
+
   def initialize format
     @format = format
     @card = format.card
@@ -12,33 +15,30 @@ class FollowLink
       "data-toggle": "modal",
       "data-target": "#modal-#{card.name.safe_key}",
       class: css_classes("follow-link", link_opts[:class]))
-    format.link_to render_link_text(icon), opts
+    link_to render_link_text(icon), opts
   end
 
-  def bridge_link
-    opts = link_opts.merge(
+  def button
+    opts = link_opts(:follow_section).merge(
       remote: true,
-      class: css_classes("follow-link", opts[:class], "slotter btn btn-primary")
+      class: @format.css_classes("follow-link", link_opts[:class],
+                                 "slotter btn btn-sm btn-primary")
     )
-    opts["data-hover-text"] = @hover_text if @hover_text
-    opts[:path][:success][:view] = :follow_section
+    opts["data-hover-text"] = hover_text if hover_text
     link_to render_link_text, opts
   end
 
-  def link_opts
-    { content: @rule_content,
-      title: title,
-      verb: @link_text,
-      path: path,
-      class: @css_class }
+  def link_opts success_view=:follow_status
+    { title: title,
+      path: path(success_view),
+      class: css_class }
   end
 
   def render_link_text icon=false
-    verb = %(<span class="follow-verb">#{@link_text}<span>)
+    verb = %(<span class="follow-verb">#{link_text}</span>)
     icon = icon ? icon_tag(:flag) : ""
     [icon, verb].compact.join.html_safe
   end
-
 
   private
 
@@ -47,29 +47,13 @@ class FollowLink
   end
 
   def path view=:follow_status
-    format.path mark: mark,
+    @format.path mark: mark,
                 action: :update,
-                success: { view: :follow_status },
-                card: { content: "[[#{@rule_content}]]" }
+                success: { id: @card.name, view: view },
+                card: { content: "[[#{rule_content}]]" }
   end
 
   def title
-    "#{@action} emails about changes to #{@card.follow_label}"
+    "#{action} emails about changes to #{@card.follow_label}"
   end
-end
-
-
-class StartFollowLink < FollowLink
-  @rule_content = "*never"
-  @link_text = "follow"
-  @action = "send"
-  @css_class = "follow-toggle-on"
-end
-
-class StopFollowLink < FollowLink
-  @rule_content = "*always"
-  @link_text = "following"
-  @hover_text = "unfollow"
-  @action = "stop sending"
-  @css_class = "follow-toggle-off"
 end

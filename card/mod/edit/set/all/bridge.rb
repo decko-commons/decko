@@ -50,7 +50,7 @@ format :html do
   end
 
   def default_bridge_tab
-    :engage_tab
+    show_account_tab? ? :account_tab : :engage_tab
   end
 
   def breadcrumb_data title, html_class=nil

@@ -373,42 +373,6 @@ en:
               account: account
             modal:
               close: Close
-            toolbar:
-              account: account
-              activity: activity
-              all: all
-              autosaved_draft: autosaved draft
-              by_group: by group
-              by_name: by name
-              cancel: cancel
-              card_delete_confirm: Are you sure you want to delete %{cardname}?
-              card_deleted: "%{cardname} deleted"
-              children: children
-              common: common
-              content: content
-              created: created
-              delete: delete
-              details: details
-              discuss: discuss
-              edit: edit
-              edited: edited
-              editors: editors
-              engage: engage
-              follow: follow
-              history: history
-              mates: mates
-              name: name
-              nests: nests
-              pin_pin: pin
-              pin_unpin: unpin
-              recent: recent
-              references_out: references out
-              references_in: references in
-              refresh: refresh
-              roles: roles
-              rules: rules
-              structure: structure
-              type: type
             wrapper:
               close: Close
         rstar:
@@ -598,5 +562,45 @@ en:
             howto_turn_off: 'How to turn captcha off:'
             howto_go: Go to %{captcha_card}
             howto_update: Update all *captcha rules to "no".
-
+    :edit:
+      set:
+        all:
+          bridge:
+            tab_views:
+               account: account
+               activity: activity
+               all: all
+               autosaved_draft: autosaved draft
+               by_group: by group
+               by_name: by name
+               cancel: cancel
+               card_delete_confirm: Are you sure you want to delete %{cardname}?
+               card_deleted: "%{cardname} deleted"
+               children: children
+               common: common
+               content: content
+               created: created
+               delete: delete
+               details: details
+               discuss: discuss
+               edit: edit
+               edited: edited
+               editors: editors
+               engage: engage
+               follow: follow
+               history: history
+               mates: mates
+               name: name
+               nests: nests
+               pin_pin: pin
+               pin_unpin: unpin
+               recent: recent
+               references_out: references out
+               references_in: references in
+               refresh: refresh
+               roles: roles
+               rules: rules
+               structure: structure
+               type: type
+               
 
