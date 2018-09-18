@@ -94,7 +94,7 @@ format :html do
     }
   end
 
-  def backtrace_link cardname, _exception
+  def backtrace_link cardname, exception
     # TODO: make this a modal link after new modal handling is merged in
     wrap_with(:span, title: error_message(exception)) { cardname }
   end
