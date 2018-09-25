@@ -34,7 +34,7 @@ end
 
 def standard_option_names
   if json_options?
-    options_hash.values
+    options_hash.values.map(&:to_name)
   else
     options_card.item_names context: name, limit: rule_card.try(:default_limit).to_i
   end
