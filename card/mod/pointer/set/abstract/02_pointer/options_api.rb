@@ -36,8 +36,14 @@ def standard_option_names
   if json_options?
     options_hash.values.map(&:to_name)
   else
-    options_card.item_names context: name, limit: rule_card.try(:default_limit).to_i
+    option_names_from_items
   end
+end
+
+def option_names_from_items
+  o_card = options_card
+  limit = o_card.try(:default_limit).to_i
+  o_card.item_names context: name, limit: limit
 end
 
 def options_card
