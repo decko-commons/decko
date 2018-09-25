@@ -216,10 +216,8 @@ RSpec.describe Card::Set::All::Fetch do
       end
       context "when new card exist" do
         it "doesn't change content" do
-          Card.new name: "new card",
-                   "+sub" => { content: "some content" }
-          card = Card.fetch "new card+sub",
-                            new: { default_content: "new content" }
+          Card.new name: "new card", "+sub" => { content: "some content" }
+          card = Card.fetch "new card+sub", new: { default_content: "new content" }
           expect(card).to have_db_content "some content"
         end
       end
@@ -271,6 +269,21 @@ RSpec.describe Card::Set::All::Fetch do
         patterns = c.instance_variable_get("@patterns").map(&:to_s)
         expect(patterns).to include("Search+*type")
       end
+    end
+  end
+
+  describe "#id"do
+    it "handles integer args" do
+      expect(Card.id(1234)).to eq(1234)
+    end
+
+    it "handles card args" do
+      a = Card["A"]
+      expect(Card.id(a)).to eq(a.id)
+    end
+
+    it "handles symbols" do
+      expect(Card.id(:structure)).to eq(Card::StructureID)
     end
   end
 
