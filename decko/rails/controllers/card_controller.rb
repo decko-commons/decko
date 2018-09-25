@@ -92,7 +92,7 @@ class CardController < ActionController::Base
 
   def handle
     card.act(success: true) do
-      yield && render_success
+      yield ? render_success : raise(Card::Error::UserError)
     end
   end
 
