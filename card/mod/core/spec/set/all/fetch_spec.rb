@@ -272,7 +272,7 @@ RSpec.describe Card::Set::All::Fetch do
     end
   end
 
-  describe "#id"do
+  describe "#id" do
     it "handles integer args" do
       expect(Card.id(1234)).to eq(1234)
     end
