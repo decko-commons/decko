@@ -74,6 +74,7 @@ event :handle_subcard_errors do
     subcard.errors.each do |field, err|
       subcard_error subcard, field, err
     end
+    subcard.errors.clear
   end
 end
 
