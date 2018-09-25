@@ -33,23 +33,15 @@ def options_rule_card
 end
 
 def standard_option_names
-  option_names_from_rules || option_names_from_search
-end
-
-def option_names_from_rules
-  return unless (rule_card = options_rule_card)
-  rule_card.item_names context: name, limit: rule_card.try(:default_limit).to_i
-end
-
-# TODO: let's either (a) document why it's useful to hard-code a search for the
-# first 50 names as options, or (b) remove this.  EFM votes for B
-def option_names_from_search
-  Card.search({ sort: "name", limit: 50, return: :name },
-              "option names for pointer: #{name}")
+  if json_options?
+    options_hash.values
+  end
+    options_card.item_names context: name, limit: rule_card.try(:default_limit).to_i
+  end
 end
 
 def options_card
-  Card.fetch options_card_name
+  options_rule_card || Card[:all]
 end
 
 def options_card_name
