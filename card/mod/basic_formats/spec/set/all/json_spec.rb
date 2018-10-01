@@ -13,12 +13,18 @@ RSpec.describe Card::Set::All::Json do
   end
 
   describe "molecule view" do
+    def basic_nucleus
+      Card["Basic"].format(:json).render :nucleus
+    end
+
     context "with internal link" do
       it "has link url" do
         expect_view(:molecule, format: :json)
           .to eq atom_values.merge items: [],
                                    links: [json_url("Z")],
-                                   ancestors: []
+                                   ancestors: [],
+                                   type: basic_nucleus,
+                                   html_url: "http://json.com/A"
       end
     end
 
@@ -33,7 +39,9 @@ RSpec.describe Card::Set::All::Json do
         expect_view(:molecule, format: :json)
           .to eq atom_values.merge items: [],
                                    links: ["http://xkcd.com", url("Z")],
-                                   ancestors: []
+                                   ancestors: [],
+                                   type: basic_nucleus,
+                                   html_url: "http://json.com/external_link"
       end
     end
 
@@ -46,7 +54,9 @@ RSpec.describe Card::Set::All::Json do
         expect_view(:molecule, format: :json)
           .to eq atom_values.merge items: [atom_values(Card["Z"])],
                                    links: [],
-                                   ancestors: []
+                                   ancestors: [],
+                                   type: basic_nucleus,
+                                   html_url: "http://json.com/B"
       end
     end
   end

@@ -6,6 +6,7 @@ Gemfile.lock
 .rvmrc
 .tm_properties
 .yardoc
+*.iml
 coverage
 doc
 log/*
