@@ -23,8 +23,9 @@ class Card
 
         def bridge_link
           opts = @format.bridge_link_opts(
-            path: { act_id: @act.id, view: :bridge_act, act_seq: @args[:act_seq] })
-          add_class opts, "d-flex"
+            path: { act_id: @act.id, view: :bridge_act, act_seq: @args[:act_seq] },
+            "data-toggle": "pill")
+          add_class opts, "d-flex nav-link"
           opts[:path].delete :layout
           link_to_card @card, title, opts
         end

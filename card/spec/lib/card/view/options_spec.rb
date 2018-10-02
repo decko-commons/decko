@@ -29,7 +29,7 @@ RSpec.describe Card::View::Options do
       sample_voo.normalize_special_options! options
     end
 
-    let(:options) { { editor: "list", layout: "simple, default", cache: "never" } }
+    let(:options) { { editor: "list", wrap: "simple, default", cache: "never" } }
 
     it "normalizes editor option to symbol" do
       expect(options[:editor]).to eq(:list)
@@ -40,21 +40,17 @@ RSpec.describe Card::View::Options do
     end
 
     it "normalizes layout option to array of symbols" do
-      expect(options[:layout]).to eq(%i[simple default])
+      expect(options[:wrap]).to eq(%i[simple default])
     end
   end
 
-  describe "#normalize_layout" do
-    it "converts single layouts to arrays" do
-      expect(sample_voo.normalize_layout("simple")).to eq(["simple"])
+  describe "#normalize_wrap" do
+    it "converts single wrap to arrays" do
+      expect(sample_voo.normalize_wrap("simple")).to eq(["simple"])
     end
 
-    it "works when layout is already a symbol" do
-      expect(sample_voo.normalize_layout(:simple)).to eq([:simple])
-    end
-
-    it "works when layout is already an array" do
-      expect(sample_voo.normalize_layout([:simple, "default"])).to eq([:simple, "default"])
+    it "works when wrap is already an array" do
+      expect(sample_voo.normalize_wrap([:simple, "default"])).to eq([:simple, "default"])
     end
   end
 end

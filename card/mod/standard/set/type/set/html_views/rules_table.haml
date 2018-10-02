@@ -5,7 +5,5 @@
       %th.rule-heading Content
     %th.rule-heading Set
   - settings.each do |setting|
-    - next unless show_view? setting
-    - rule_card = card.fetch trait: setting, new: {}
-    - optional_content = (voo.hide?(:content) ? :hide : :show)
-    = nest(rule_card, view: :closed_rule, optional_content => :content ).html_safe
+    = rule_table_row setting
+

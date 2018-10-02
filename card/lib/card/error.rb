@@ -101,6 +101,8 @@ class Card
       end
 
       def card_error_class exception, card
+        # "simple" error messages are visible to end users and are generally not
+        # treated as software bugs (though they may be "shark" bugs)
         case exception
         when ActiveRecord::RecordInvalid
           invalid_card_error_class card

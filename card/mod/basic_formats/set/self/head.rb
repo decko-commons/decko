@@ -12,6 +12,10 @@ format :html do
     end
   end
 
+  view :editor do
+    "Content is can't be edited."
+  end
+
   def escape_in_main
     main? ? (h yield) : yield
   end

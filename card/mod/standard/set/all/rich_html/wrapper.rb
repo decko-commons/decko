@@ -7,6 +7,12 @@ format :html do
     method_wrap :wrap_with, slot, slot_attr, &block
   end
 
+  wrapper :slot do |opts|
+    method_wrap :wrap_with, true, opts do
+      interiour
+    end
+  end
+
   def haml_wrap slot=true, slot_attr={}, &block
     method_wrap :haml_tag, slot, slot_attr, &block
   end
@@ -115,9 +121,9 @@ format :html do
   def html_escape_except_quotes string
     # to be used inside single quotes (makes for readable json attributes)
     string.to_s.gsub(/&/,  "&amp;")
-               .gsub(/\'/, "&apos;")
-               .gsub(/>/,  "&gt;")
-               .gsub(/</,  "&lt;")
+          .gsub(/\'/, "&apos;")
+          .gsub(/>/,  "&gt;")
+          .gsub(/</,  "&lt;")
   end
 
   wrapper :div, :div

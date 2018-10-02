@@ -21,9 +21,12 @@ $.extend decko,
 
   slotReady: (func)->
     $('document').ready ->
-      $('body').on 'slotReady', '.card-slot', (e) ->
+      $('body').on 'slotReady', '.card-slot', (e, slotter) ->
         e.stopPropagation()
-        func.call this, $(this)
+        if slotter?
+          func.call this, $(this), $(slotter)
+        else
+          func.call this, $(this)
 
 jQuery.fn.extend {
   slot: (status="success", mode="normal") ->
@@ -87,30 +90,49 @@ jQuery.fn.extend {
 
   setSlotContentFromElement: (el, mode, $slotter) ->
     s = $(this)
+
     if mode == "overlay"
       s.addOverlay(el)
+    else if el.hasClass("_modal-slot") or mode == "modal"
+      el = el.modalify($slotter)
+      $("body > ._modal-slot").replaceWith el
+      el.modal("show", $slotter)
     else
-      if el.hasClass("_modal-slot") or mode == "modal"
-        el = el.modalify()
-        $("body > ._modal-slot").replaceWith el
-        el.modal("show", $slotter)
-      else
-        s.replaceWith el
+      s.replaceWith el
 
-    el.triggerSlotReady()
+    el.triggerSlotReady($slotter)
 
-
-  triggerSlotReady: () ->
-    @trigger "slotReady"
-    @find(".card-slot").trigger "slotReady"
+  triggerSlotReady: (slotter) ->
+    @trigger "slotReady", slotter
+    @find(".card-slot").trigger "slotReady", slotter
 
   addOverlay: (overlay) ->
-    unless @parent().hasClass("overlay-container")
+    if @parent().hasClass("overlay-container")
+      if $(overlay).hasClass("_stack-overlay")
+        @before overlay
+      else
+        @parent().find("._overlay").replaceWith overlay
+    else
+      @find(".tinymce-textarea").each ->
+        tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
       @wrapAll('<div class="overlay-container">')
       @addClass("_bottomlay-slot")
-    @before overlay
+      @before overlay
 
-  modalify: ->
+  removeOverlay: () ->
+    if @siblings().length == 1
+      bottomlay = $(@siblings()[0])
+      if bottomlay.hasClass("_bottomlay-slot")
+        bottomlay.unwrap().removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
+        bottomlay.find(".tinymce-textarea").each ->
+          decko.initTinyMCE($(this).attr("id"))
+
+    @remove()
+
+
+  modalify: ($slotter) ->
+    if $slotter.data("modal-body")?
+      @find(".modal-body").append($slotter.data("modal-body"))
     if @hasClass("_modal-slot")
       this
     else
@@ -119,6 +141,23 @@ jQuery.fn.extend {
                .append($('<div/>', class: "modal-content"))
                .append(this)
       modalSlot
+
+  # overlayClosed=true means the bridge update was
+  # triggered by closing an overly
+  updateBridge: (overlayClosed=false, slotter) ->
+    return unless @closest(".bridge").length > 0
+    if @data("breadcrumb")
+      @updateBreadcrumb()
+    else if slotter and $(slotter).data("breadcrumb")
+      $(slotter).updateBreadcrumb()
+
+    if overlayClosed
+      $(".bridge-pills > .nav-item > .nav-link.active").removeClass("active")
+
+  updateBreadcrumb: () ->
+    bc_item = $(".modal-header ._bridge-breadcrumb li:last-child")
+    bc_item.text(this.data("breadcrumb"))
+    bc_item.attr("class", "breadcrumb-item active #{this.data('breadcrumb-class')}")
 
 
   # mode can be "standard", "overlay" or "modal"

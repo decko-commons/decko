@@ -31,6 +31,11 @@ class Card
       def mime_type
         "text/html"
       end
+
+      def final_render_call method
+        rendered = super
+        rendered.is_a?(Array) ? output(rendered) : rendered
+      end
     end
   end
 end

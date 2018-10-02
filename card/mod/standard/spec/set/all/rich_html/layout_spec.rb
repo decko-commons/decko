@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
+  let(:layout_card) { Card["tmp layout"] }
+
   context "simple page with Default Layout" do
     subject { Card["A+B"].format.show(:open, {}) }
 
@@ -43,7 +45,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       with_layout "<pre>Hey {{_main}}</pre>"
       expect(format_subject.show(:core, {}))
         .to have_tag :pre do
-          with_text /Hey/
+        with_text(/Hey/)
           with_tag "div#main", /Alpha/
       end
     end
@@ -52,7 +54,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       with_layout "<pre>Hey {{_main}}</pre>"
         expect(format_subject.show(:type, {}))
           .to have_tag :pre do
-            with_text /Hey/
+          with_text(/Hey/)
             with_tag "div#main", "Basic"
         end
     end
@@ -61,7 +63,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       with_layout "<pre>Hey {{_main|type}}</pre>"
       expect(format_subject.show(nil, {}))
         .to have_tag :pre do
-          with_text /Hey/
+        with_text /Hey/
           with_tag "div#main", "Basic"
       end
     end
@@ -77,18 +79,10 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       .to have_tag :pre, /Alpha/
   end
 
-  example "layout as param" do
-    expect(format_subject.nest("A", layout: :pre))
+  example "layout as param", params: { layout: :pre } do
+    expect(format_subject.show(:core, layout: {}))
       .to have_tag :pre, /Alpha/
   end
-
-  # example "nested layouts" do
-  #   expect(format_subject.render(:core, layout: :bridge))
-  #         .to have_tag "div.modal-body" do
-  #     with_tag "div.bridge", /Alpha/
-  #   end
-  # end
-
 
   def with_layout content
     Card::Layout.clear_cache
@@ -96,8 +90,6 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     Card["*all+*layout"].content = "[[tmp layout]]"
     Card["tmp layout"].refresh
   end
-
-  let(:layout_card) { Card["tmp layout"] }
 
   it "does not recurse" do
     with_layout "Mainly {{_main|core}}"

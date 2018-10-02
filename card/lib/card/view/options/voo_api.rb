@@ -87,6 +87,7 @@ class Card
         end
 
         def normalize_wrap value
+          value = value.split(",").map(&:strip) if value.is_a? String
           Array.wrap(value).compact.flatten
         end
 
@@ -179,9 +180,7 @@ class Card
         # They are not processed in normalize_options so that
         # they're NOT locked in the stub.
         def process_main_nest_options
-          if @live_options[:main_view]
-            @live_options.merge! format.main_nest_options
-          end
+          @live_options.merge! format.main_nest_options if @live_options[:main_view]
         end
 
         def validate_options! opts

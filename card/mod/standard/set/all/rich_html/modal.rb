@@ -1,12 +1,33 @@
 format :html do
   MODAL_SIZE = { small: "sm", medium: nil, large: "lg", full: "full" }.freeze
+  CLOSE_OPTS = { class: "close-modal", "data-dismiss": "modal"}
 
   wrapper :modal do |opts={}|
     haml :modal_dialog, body: interiour,
                         classes: modal_dialog_classes(opts),
-                        title: opts[:title]  || "",
+                        title: opts[:title] || "",
                         menu: opts[:menu] || render_modal_menu,
                         footer: opts[:footer] || render_modal_footer
+  end
+
+  view :modal, wrap: :modal do
+    ""
+  end
+
+  def show_in_modal_link link_text, body
+    link_to_view :modal, link_text, "data-modal-body": body, "data-slotter-mode": "modal", class: "slotter"
+  end
+
+  def modal_close_button link_text="Close", opts={}
+    classes = opts.delete(:class)
+    button_opts = opts.merge(CLOSE_OPTS)
+    add_class button_opts, classes if classes
+    button_tag link_text, button_opts
+  end
+
+  def modal_submit_button opts={}
+    add_class opts, "submit-button close-modal"
+    submit_button opts
   end
 
   view :modal_menu, tags: :unknown_ok do

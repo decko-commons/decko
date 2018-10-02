@@ -15,7 +15,7 @@ format :html do
   # @param context [Symbol] :relative or :absolute
   # @param draft_legend [Symbol] :show or :hide
   def acts_layout acts, context, draft_legend=:hide
-    bs_layout container: true, fluid: true do
+    bs_layout container: false, fluid: false do
       html _render_act_legend(draft_legend => :draft_legend)
       row(12) { act_list acts, context }
       row(12) { act_paging acts, context }
@@ -100,9 +100,9 @@ format :html do
 
   def action_icon action_type, extra_class=nil
     icon = case action_type
-           when :create then :plus
+           when :create then :add_circle
            when :update then :pencil
-           when :delete then :trash
+           when :delete then :remove_cirlce
            when :draft then :wrench
            end
     icon_tag icon, extra_class

@@ -1,71 +1,44 @@
 format :html do
-  BRIDGE_TABS = { discussion_tab: "Discussion",
-                  rules_tab: "Rules",
+  BRIDGE_TABS = { account_tab: "Account",
+                  engage_tab: "Engage",
                   history_tab: "History",
-                  related_tab: "Related" }.freeze
+                  related_tab: "Related",
+                  rules_tab: "Rules" }.freeze
 
-  RELATED_ITEMS = [["children",       :baby_formula, :children],
-                   # ["mates",          "bed",          "*mates"],
-                   # FIXME: optimize and restore
-                   ["references out", :log_out,      :refers_to],
-                   ["references in",  :log_in,       :referred_to_by]].freeze
-
-  def bridge_param key
-    params.dig(:bridge, key)&.to_sym || try("default_bridge_#{key}")
+  wrapper :bridge do
+    class_up "modal-dialog", "no-gaps"
+    voo.hide! :modal_footer
+    wrap_with_modal size: :full, title: bridge_breadcrumbs do
+      haml :bridge
+    end
   end
 
-  view :bridge_breadcrumbs do
-    <<-HTML
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active"><a href="#">#{card.name}</a></li>
-      </ol>
-    </nav>
-    HTML
-  end
-
-  view :bridge_tabs do
-    lazy_loading_tabs BRIDGE_TABS, bridge_tab, _render(bridge_tab)
+  def bridge_tabs
+    lazy_loading_tabs visible_bridge_tabs, bridge_tab, _render(bridge_tab)
   end
 
   def bridge_tab
     @bridge_tab ||= bridge_param :tab
   end
 
-  def default_bridge_tab
-    :discussion_tab
+  def bridge_param key
+    params.dig(:bridge, key)&.to_sym || try("default_bridge_#{key}")
   end
 
-  view :follow_buttons do
-    follow_bridge_link class: "btn btn-sm btn-primary"
-  end
-
-  view :history_tab do
-    class_up "d0-card-body",  "history-slot"
-    voo.hide :act_legend
-    acts_bridge_layout card.history_acts
-  end
-
-  view :rules_tab do
-    wrap do
-      nest current_set_card.name, view: :bridge_rules_tab
-    end
-  end
-
-  view :discussion_tab, wrap: { div: { class: "ml-2 mr-2" } } do
-    field_nest :discussion, view: :titled, show: :comment_box, hide: [:title, :menu]
-  end
-
-  view :related_tab do
-    links = RELATED_ITEMS.map do |text, _icon, field|
-      link_to_card [card, field], text, bridge_link_opts
-    end
-    list_group links
+  def bridge_breadcrumbs
+    <<-HTML.strip_heredoc
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb _bridge-breadcrumb">
+        <li class="breadcrumb-item">#{card.name}</li>
+        <li class="breadcrumb-item active">Edit</li>
+      </ol>
+    </nav>
+    HTML
   end
 
   def bridge_link_opts opts={}
-    opts.merge! "data-slot-selector": bridge_slot_selector,
-                remote: true, class: "slotter"
+    opts.merge! "data-slot-selector": bridge_slot_selector, remote: true
+    add_class opts, "slotter"
     opts.bury :path, :layout, :overlay
     opts[:path][:view] ||= :content
     opts
@@ -76,10 +49,12 @@ format :html do
     ".bridge-main > .overlay-container > .card-slot._bottomlay-slot"
   end
 
-  wrapper :bridge do
-    class_up "modal-dialog", "no-gaps"
-    wrap_with_modal size: :full, title: _render_bridge_breadcrumbs do
-      haml :bridge
-    end
+  def default_bridge_tab
+    show_account_tab? ? :account_tab : :engage_tab
+  end
+
+  def breadcrumb_data title, html_class=nil
+    html_class ||= title.underscore
+    { "data-breadcrumb": title, "data-breadcrumb-class": html_class}
   end
 end

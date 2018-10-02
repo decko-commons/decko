@@ -30,6 +30,10 @@ def rule_setting_name
   name.tag
 end
 
+def short_help_text
+  Card[rule_setting_name].short_help_text
+end
+
 def rule_setting_title
   rule_setting_name.tr "*", ""
 end

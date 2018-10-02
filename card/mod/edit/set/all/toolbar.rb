@@ -13,9 +13,7 @@ format :html do
   end
 
   view :toolbar, cache: :never do
-    tool_navbar do
-      [toolbar_split_buttons, toolbar_right_buttons]
-    end
+    ""
   end
 
   before :toolbar do

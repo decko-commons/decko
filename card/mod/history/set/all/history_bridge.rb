@@ -1,4 +1,3 @@
-
 format :html do
   view :creator_credit, wrap: { div: { class: "text-muted m-2" } }, cache: :never do
     "Created by #{nest card.creator, view: :link} #{time_ago_in_words(card.created_at)} ago"
@@ -7,14 +6,15 @@ format :html do
   view :updated_by, wrap: { div: { class: "text-muted m-2" } }, cache: :never do
     updaters = Card.search(updater_of: { id: card.id })
     return "" unless updaters.present?
-    "Updated by #{humanized_search_result updaters}"
+
+    "Updated by #{humanized_search_result updaters, others_target: Card.fetch(card, :editors)}"
   end
 
   view :shorter_pointer_content, cache: :never do
     nest card, view: :shorter_search_result, hide: :link
   end
 
-  def humanized_search_result item_cards, item_view=:link, max_count=3
+  def humanized_search_result item_cards, item_view: :link, max_count: 3, others_target: card
     return "" unless item_cards.present?
     total = item_cards.size
     fetch_count = total > max_count ? max_count - 1 : max_count
@@ -23,28 +23,29 @@ format :html do
       item_cards.first(fetch_count).map do |c|
         nest c, view: item_view
       end
-    reduced << link_to_card(card,  "#{total - fetch_count} others") if total > max_count
+    reduced << link_to_card(others_target,  "#{total - fetch_count} others") if total > max_count
     reduced.to_sentence
   end
 
   def acts_bridge_layout acts, context=:bridge
     output [
-        _render_creator_credit,
-        _render_updated_by,
-        act_link_list(acts, context),
-        act_paging(acts, context)
-           ]
+      _render_creator_credit,
+      _render_updated_by,
+      act_link_list(acts, context),
+      act_paging(acts, context)
+    ]
   end
 
   def act_link_list acts, context
-    act_list_group acts, context do |act, seq|
+    items = acts_for_accordion(acts, context) do |act, seq|
       act_link_list_item act, seq, context
     end
+    bridge_pills items
   end
 
-  def act_link_list_item act, seq=nil, context=nil
+  def act_link_list_item act, seq=nil, _context=nil
     opts = act_listing_opts_from_params(seq)
-    opts[:slot_class] = "revision-#{act.id} history-slot list-group-item"
+    opts[:slot_class] = "revision-#{act.id} history-slot nav-item"
     act_renderer(:bridge).new(self, act, opts).bridge_link
   end
 
@@ -56,9 +57,9 @@ format :html do
     opts = act_listing_opts_from_params(nil)
     act = act_from_context
     ar = act_renderer(:bridge).new(self, act, opts)
-    class_up "action-list", "m-4"
-    wrap_with_overlay title: ar.overlay_title do
-      act_listing act, opts[:act_seq], :bridge
+    class_up "action-list", "my-3"
+    wrap_with_overlay title: ar.overlay_title, slot: breadcrumb_data("History") do
+      act_listing(act, opts[:act_seq], :bridge)
     end
   end
 end

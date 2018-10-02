@@ -120,7 +120,7 @@ RSpec.describe Card::Set::Format::Wrapper do
         with_tag "div.modal-dialog" do
           with_tag "div.modal-content" do
             with_tag "div.modal-body" do
-              with_tag "div.bridge", "A"
+              with_tag "div.bridge", /water/
             end
           end
         end

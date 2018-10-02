@@ -51,7 +51,7 @@ module ClassMethods
   end
 end
 
-# sepaarte name and other attributes
+# separate name and other attributes
 def safe_update! attribs
   separate_name_update! attribs.delete("name") unless new?
   update_attributes! attribs if attribs.present?
@@ -61,4 +61,23 @@ def separate_name_update! new_name
   return if new_name.to_s == name.to_s
 
   update_attributes! name: new_name
+end
+
+def measure desc
+  $times ||= {}
+  res = nil
+  t = Benchmark.measure do
+    res = yield
+  end
+  if $times.key? desc
+    $times[desc] = t + $times[desc]
+  else
+    $times[desc] = t
+  end
+  puts "#{desc}: #{t}".red
+  res
+end
+
+format do
+  delegate :measure, to: :card
 end

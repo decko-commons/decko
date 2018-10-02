@@ -1,13 +1,19 @@
 class Card
   class Layout
     class UnknownLayout < Layout
+      SCOPE = "mod.core.format.html_format"
+
       def render
-        scope = "mod.core.format.html_format"
-        @format.output [
-                         @format.content_tag(:h1, @format.tr(:unknown_layout, scope: scope, name: @layout)),
-                         @format.tr(:available_layouts, scope: scope,
-                                    available_layouts: self.class.built_in_layouts)
-                       ]
+        @format.output [header, text]
+      end
+
+      def header
+        @format.content_tag(:h1, @format.tr(:unknown_layout, scope: SCOPE, name: @layout))
+      end
+
+      def text
+        @format.tr(:available_layouts, scope: SCOPE,
+                                       available_layouts: self.class.built_in_layouts)
       end
     end
   end
