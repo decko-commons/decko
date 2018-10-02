@@ -122,10 +122,8 @@ class Card < ApplicationRecord
   has_many :actions, -> { where(draft: [nil, false]).order :id }
   has_many :drafts, -> { where(draft: true).order :id }, class_name: :Action
 
-  cattr_accessor :set_patterns, :serializable_attributes, :error_codes,
-                 :set_specific_attributes
+  cattr_accessor :set_patterns, :serializable_attributes, :set_specific_attributes
   self.set_patterns = []
-  self.error_codes = {}
 
   # attributes that ActiveJob can handle
   def self.serializable_attr_accessor *args

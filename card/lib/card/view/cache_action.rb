@@ -64,16 +64,7 @@ class Card
 
       # @return [Symbol]
       def active_cache_action
-        validate_active_cache_action do
-          active_cache_ok? ? active_cache_action_from_setting : :stub
-        end
-      end
-
-      # catch recursive views and invalid stubs
-      def validate_active_cache_action
-        ok_view == :too_deep ? :yield : yield
-        # FIXME: this allows "too deep" error to be cached inside another view.
-        # may need a "raise" cache action?
+        active_cache_ok? ? active_cache_action_from_setting : :stub
       end
 
       # @return [True/False]

@@ -2,23 +2,15 @@ class Card
   class Format
     module Permission
       def ok_view view, skip_perms=false
-        return :too_deep if subformats_nested_too_deeply?
+        raise Card::Error::UserError, tr(:too_deep) if subformats_nested_too_deeply?
         approved_view = check_view view, skip_perms
         handle_view_denial view, approved_view
-        assign_view_error_status approved_view
-
         approved_view
       end
 
       def handle_view_denial view, approved_view
         return if approved_view == view
         @denied_view = view
-      end
-
-      def assign_view_error_status view
-        return unless focal?
-        return unless (error_code = Card::Format.error_code[view])
-        root.error_status = error_code
       end
 
       def check_view view, skip_perms
@@ -47,10 +39,15 @@ class Card
 
       def permitted_view view
         if (@denied_task = task_denied_for_view view)
-          Card::Format.denial[view] || :denial
+          deny_view view
         else
           view
         end
+      end
+
+      def deny_view view
+        root.error_status = 403 if focal? && voo.root?
+        Card::Format.denial[view] || :denial
       end
 
       def task_denied_for_view view
@@ -64,6 +61,7 @@ class Card
 
       def view_for_unknown _view
         # note: overridden in HTML
+        root.error_status = 404 if focal?
         focal? ? :not_found : :missing
       end
 

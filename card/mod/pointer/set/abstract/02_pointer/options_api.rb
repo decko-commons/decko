@@ -1,3 +1,19 @@
+# TODO: some of this should be moved to right/options!!
+
+def options_hash
+  json_options? ? options_card.parse_content : option_hash_from_names
+end
+
+def json_options?
+  options_card&.type_id == Card::JsonID
+end
+
+def option_hash_from_names
+  option_names.each_with_object({}) do |name, hash|
+    hash[name] = name
+  end
+end
+
 def option_names
   if (selected_options = item_names)
     (standard_option_names + selected_options).uniq
@@ -17,24 +33,30 @@ def options_rule_card
 end
 
 def standard_option_names
-  option_names_from_rules || option_names_from_search
+  if json_options?
+    options_hash.values.map(&:to_name)
+  else
+    option_names_from_items
+  end
 end
 
-def option_names_from_rules
-  return unless (rule_card = options_rule_card)
-  rule_card.item_names context: name, limit: rule_card.try(:default_limit).to_i
+def option_names_from_items
+  o_card = options_card
+  limit = o_card.try(:default_limit).to_i
+  o_card.item_names context: name, limit: limit
 end
 
-# TODO: let's either (a) document why it's useful to hard-code a search for the
-# first 50 names as options, or (b) remove this.  EFM votes for B
-def option_names_from_search
-  Card.search({ sort: "name", limit: 50, return: :name },
-              "option names for pointer: #{name}")
+def options_card
+  options_rule_card || Card[:all]
+end
+
+def options_card_name
+  options_rule_card&.name&.url_key || ":all"
 end
 
 format do
   def options_card_name
-    (oc = card.options_rule_card) ? oc.name.url_key : ":all"
+    card.options_card_name
   end
 end
 

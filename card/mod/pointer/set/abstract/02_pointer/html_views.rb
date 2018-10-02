@@ -79,7 +79,7 @@ format :html do
   end
 
   def select_input
-    options = [["-- Select --", ""]] + card.option_names.map { |x| [x, x] }
+    options = { "-- Select --" => "" }.merge card.options_hash
     select_tag("pointer_select-#{unique_id}",
                options_for_select(options, card.item_name),
                class: "pointer-select form-control")
@@ -87,7 +87,7 @@ format :html do
 
   def multiselect_input
     select_tag "pointer_multiselect-#{unique_id}",
-               options_for_select(card.option_names, card.item_names),
+               options_for_select(card.options_hash, card.item_names),
                multiple: true, class: "pointer-multiselect form-control"
   end
 

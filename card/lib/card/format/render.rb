@@ -140,8 +140,7 @@ class Card
 
       def view_method view
         unless supports_view? view
-          voo.unsupported_view = view
-          view = :unsupported_view
+          raise Card::Error::UserError, unsupported_view_error_message(view)
         end
         method Card::Set::Format.view_method_name(view)
       end
