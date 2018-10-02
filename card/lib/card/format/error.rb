@@ -2,11 +2,7 @@ class Card
   class Format
     module Error
       def rescue_view e, view
-        # make config option; don't refer directly to env
-        raise e if Rails.env =~ /^cucumber$/
-        # TODO: unify with Card::Error#report
-        Rails.logger.info "#{e.message}\n#{e.backtrace}"
-        method = focal? ? :focal_error : :rendering_error
+        method = loud_error? ? :loud_error : :quiet_error
         send method, e, view
       end
 
@@ -18,9 +14,19 @@ class Card
         end
       end
 
-      def focal_error e, view
+      def loud_error?
+        focal? || Card.config.raise_all_rendering_errors
+      end
+
+      def loud_error e, view
         card.errors.add "#{view} view", rendering_error(e, view) if card.errors.empty?
         raise e
+      end
+
+      def quiet_error e, view
+        # TODO: unify with Card::Error#report
+        Rails.logger.info "#{e.message}\n#{e.backtrace}"
+        rendering_error e, view
       end
 
       def rendering_error exception, view

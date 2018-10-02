@@ -20,13 +20,15 @@ format :html do
 
   def google_analytics_snippet_vars_string
     google_analytics_snippet_vars.map do |array|
-      "_gaq.push([#{array.map { |i| "'#{i}'" }.join ', '}]);"
-    end.join " "
+      <<-JAVASCRIPT
+      _gaq.push([#{array.map { |i| "'#{i}'" }.join ', '}]);
+      JAVASCRIPT
+    end.join
   end
 
   def google_analytics_snippet_javascript
     <<-JAVASCRIPT
-      var _gaq = _gaq || []; #{google_analytics_snippet_vars_string}
+      var _gaq = _gaq || [];#{"\n" + google_analytics_snippet_vars_string}
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';

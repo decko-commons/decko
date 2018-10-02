@@ -56,6 +56,8 @@ Decko.application.class.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
+  config.raise_all_rendering_errors = true
+
   config.active_job.queue_adapter = :delayed_job
   # Note: With delay_jobs set to false integrate_with_delay events don't run
   # in a separate process and hence can behave differently from a real

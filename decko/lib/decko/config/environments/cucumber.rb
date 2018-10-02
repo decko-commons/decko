@@ -34,4 +34,6 @@ Decko.application.class.configure do
   config.action_mailer.delivery_method = :test
 
   config.use_transactional_fixtures = false
+
+  config.raise_all_rendering_errors = true
 end
