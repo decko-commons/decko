@@ -1,24 +1,30 @@
 format :html do
+  # note: depends on js with selector ".edit_name-view .card-form"
   view :edit_name, perms: :update do
     frame do
-      _render_edit_name_form
+      edit_name_form
     end
   end
 
-  view :edit_name_form, perms: :update do
+  # note: depends on js with selector ".edit_name_form-view .card-form"
+  view :edit_name_form, perms: :update, wrap: :slot do
+    edit_name_form :edit_name_row
+  end
+
+  def edit_name_form success_view=nil
     card_form({ action: :update, id: card.id },
-                       "main-success" => "REDIRECT") do
-      output [hidden_edit_name_fields,
+              "main-success" => "REDIRECT") do
+      output [hidden_edit_name_fields(success_view),
               _render_name_formgroup,
               rename_confirmation_alert,
               edit_name_buttons]
     end
   end
 
-  def hidden_edit_name_fields
-    hidden_tags success:  "_self",
-                old_name: card.name,
-                card: { update_referers: false }
+  def hidden_edit_name_fields success_view=nil
+    success = { id: "_self" }
+    success[:view] = success_view if success_view
+    hidden_tags success: success, old_name: card.name, card: { update_referers: false }
   end
 
   def edit_name_buttons
@@ -39,7 +45,7 @@ format :html do
   def rename_confirmation_alert
     msg = "<h5>Are you sure you want to rename <em>#{safe_name}</em>?</h5>"
     msg << rename_effects_and_options
-    alert("warning") { msg }
+    alert("warning", false, false, class: "hidden-alert") { msg }
   end
 
   def rename_effects_and_options

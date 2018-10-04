@@ -103,7 +103,7 @@ $(window).ready ->
   $('body').on 'click', '.renamer-updater', ->
     $(this).closest('form').find('#card_update_referers').val 'true'
 
-  $('body').on 'submit', '.edit_name-view .card-form', ->
+  $('body').on 'submit', '.edit_name-view .card-form, .edit_name_form-view .card-form', ->
     confirmer = $(this).find '.alert'
     if confirmer.is ':hidden'
       if $(this).find('#referers').val() > 0

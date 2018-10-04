@@ -28,6 +28,8 @@ $(window).ready ->
   $('body').on 'click', '[data-dismiss="overlay"]', (event) ->
     $(this).slot().removeOverlay()
 
+  $('body').on 'click', '._close-and-success', (event) ->
+    $(this).closest('.slotter').data("slotter-mode", "standard").addClass("close-modal")
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     return if opt.skip_before_send

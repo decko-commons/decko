@@ -163,7 +163,9 @@ jQuery.fn.extend {
   # mode can be "standard", "overlay" or "modal"
   slotSuccess: (data, $slotter) ->
     mode = $slotter.data("slotter-mode")
-    if data.redirect
+    if mode == "silent-success"
+      return
+    else if data.redirect
       window.location=data.redirect
     else
       notice = @attr('notify-success')
