@@ -37,9 +37,8 @@ format :html do
     return if card.errors.empty?
     voo.title = card.name.blank? ? "Problems" : tr(:problems_name, cardname: card.name)
     voo.hide! :menu
-    class_up "d0-card-frame", "card card-warning card-inverse"
     class_up "alert", "card-error-msg"
-    frame { standard_errors }
+    standard_errors voo.title
   end
 
   view :not_found do
@@ -99,11 +98,18 @@ format :html do
     wrap_with(:span, title: error_message(exception)) { cardname }
   end
 
-  def standard_errors
+  def standard_errors heading=nil
+    alert "warning", true do
+      [
+        (wrap_with(:h4, heading, class: "alert-heading") if heading),
+        error_messages.join("<hr>")
+      ]
+    end
+  end
+
+  def error_messages
     card.errors.map do |attrib, msg|
-      alert "warning", true do
-        attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
-      end
+      attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
     end
   end
 

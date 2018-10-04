@@ -19,7 +19,6 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
 
 /*-- yellows --*/
 $d-yellow-1: #ffd;
-$d-yellow-2: #ffa;
 
 /* -- resets -- */
 
@@ -40,7 +39,7 @@ $d-yellow-2: #ffa;
 .new-current-revision-id,
 .editor .revision-navigation,
 .editor .autosave-alert,
-.edit_name-view .alert,
+.hidden-alert,
 .btn.renamer-updater,
 .confirm_update_all-view,
 .follow-updater,
@@ -619,18 +618,6 @@ ul.action-list {
 .exception p {
   margin: 15px;
 }
-.errors-view {
-  margin: 10px;
-  padding: 10px;
-  border: 3px solid $red;   /* NOTGREY - red for error */
-  background: $d-yellow-2;         /* NOTGREY - yellow for highlighting */
-  border-radius: 8px;
-  -moz-border-radius: 8px;
-  border: 1px solid #777;
-  border-bottom: 2px solid $gray-600;
-  border-right: 2px solid $gray-600;
-  color: #333;
-}
 
 .card-notice {
   background: $white;
@@ -638,6 +625,10 @@ ul.action-list {
   font-style: italic;
   text-align: center;
   margin: 0 0 4px 0;
+
+  .card-error-msg {
+    text-align: left;
+  }
 }
 
 
