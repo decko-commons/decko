@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::All::Bar do
-  specify "view thin_bar" do
-    expect_view(:thin_bar).to have_tag("div.card-slot.bar-view")
+  specify "view mini_bar" do
+    expect_view(:mini_bar).to have_tag("div.card-slot.bar-view")
   end
 
   specify "view bar_left" do

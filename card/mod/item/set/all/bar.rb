@@ -1,7 +1,7 @@
 include_set Abstract::BsBadge
 
 format :html do
-  view :thin_bar do
+  view :mini_bar do
     render_bar hide: :bar_middle
   end
 
@@ -35,7 +35,7 @@ format :html do
   end
 
   view :bar_middle do
-    labeled_badge stat_number, stat_label
+    ""
   end
 
   view :bar_bottom do
@@ -46,13 +46,13 @@ format :html do
     end
   end
 
-  def stat_number
-    card.content.lines.count
-  end
-
-  def stat_label
-    stat_number == 1 ? "line" : "lines"
-  end
+  # def stat_number
+  #   card.content.lines.count
+  # end
+  #
+  # def stat_label
+  #   stat_number == 1 ? "line" : "lines"
+  # end
 
   view :bar_page_link do
     link_to_card card, icon_tag(:open_in_new), class: "text-muted"
