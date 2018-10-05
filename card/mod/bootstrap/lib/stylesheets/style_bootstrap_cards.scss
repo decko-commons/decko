@@ -11,7 +11,10 @@
 $label_color: $gray-600;
 $header_color: $gray-200;
 $credit_color: $primary;
+// $bar-border-color: $grey-100;
+// $box-border-color: $grey-100;
 $bar_stripe_color: $gray-700;
+$box_stripe_color: $gray-700;
 
 header {
   a {
@@ -344,11 +347,26 @@ body.mceContentBody {
   }
 }
 
-.bar-top.left-stripe, .bar.left-stripe {
+/*----------- Bars and Boxes -------------*/
+
+.bar, .box {
+  .missing-view {
+    // TODO: obviate in ruby with better unknown API
+    display: none;
+  }
+}
+
+.item-box {
+  display: inline-block;
+  min-width: 260px;
+  width: 15%;
+  padding: 10px 1%;
+}
+
+.bar {
   border-left: 4px solid $bar_stripe_color !important;
 }
 
-.bar-bottom .bar.left-stripe {
-  border-left: 3px solid $bar_stripe_color !important;
+.box {
+  border-top: 3px solid $box_stripe_color !important;
 }
-

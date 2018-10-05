@@ -1,4 +1,6 @@
-.bar.border.left-stripe.d-flex.justify-content-between.p-0.double-border-fix-bottom.with-fancy-border
+- bar_classes = css_classes classy("bar"), card.safe_set_keys, "with-fancy-border",
+                            "justify-content-between", "double-border-fix-bottom"
+.collapsed-bar.d-flex.border.p-0{class: bar_classes}
   - if voo.show? :bar_left
     %div{class: classy("bar-left")}
       = render :bar_left

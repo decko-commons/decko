@@ -1,5 +1,6 @@
-.expanded-bar.with-fancy-border
-  .bar-top.border.left-stripe.d-flex.justify-content-between.p-0
+- bar_classes = css_classes classy("bar"), card.safe_set_keys
+.expanded-bar.border.with-fancy-border
+  .bar-top.border.d-flex.justify-content-between.p-0{class: bar_classes}
     .bar-left.p-2.d-flex.align-items-center.font-weight-bold
       = render :bar_left
     .bar-right.p-3.border-left.text-align-right
