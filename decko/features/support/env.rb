@@ -60,7 +60,24 @@ Cucumber::Rails::Database.autorun_database_cleaner = false
 Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app, browser: :firefox)
 end
-Capybara.default_driver = :selenium
+
+Capybara.register_driver(:selenium_chrome_headless) do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w(no-sandbox disable-gpu) }
+  )
+
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+  )
+end
+
+Capybara.javascript_driver = :selenium
+Capybara.default_driver =  :selenium
+#Capybara.server = :webrick
+
+
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd

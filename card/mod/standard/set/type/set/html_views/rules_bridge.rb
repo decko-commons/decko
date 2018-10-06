@@ -57,7 +57,7 @@ format :html do
   end
 
   view :rules_list do
-    group = params[:group] || :common
+    group = params[:group]&.to_sym || :common
     rules_list group, setting_list(group)
   end
 
