@@ -32,7 +32,7 @@ format do
   end
 
   view :errors do
-    "Problem:\n\n#{standard_errors}"
+    ["Problem:", "", standard_errors].flatten.join "\n"
   end
 
   def standard_errors
