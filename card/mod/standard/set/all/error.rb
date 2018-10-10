@@ -31,6 +31,23 @@ format do
     tr(:bad_address)
   end
 
+  view :errors do
+    "Problem:\n\n#{standard_errors}"
+  end
+
+  def standard_errors
+    card.errors.map do |attrib, msg|
+      alert "warning", true do
+        attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
+      end
+    end
+  end
+
+  # for override
+  def standard_error_message attribute, message
+    "#{attribute.to_s.upcase}: #{message}"
+  end
+
   def unsupported_view_error_message view
     tr(:unsupported_view, view: view, cardname: card.name)
   end
