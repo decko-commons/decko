@@ -1,11 +1,26 @@
 include_set Abstract::Search
 
 def search args={}
-  query = fetch_query(args)
-  # forces explicit limiting
-  # can be 0 or less to force no limit
-  raise "OH NO.. no limit" unless query.mods[:limit]
-  query.run
+  with_skipping args do
+    query = fetch_query(args)
+    # forces explicit limiting
+    # can be 0 or less to force no limit
+    raise "OH NO.. no limit" unless query.mods[:limit]
+    query.run
+  end
+end
+
+# for override, eg when required subqueries are known to be missing
+def skip_search?
+  false
+end
+
+def with_skipping args
+  skip_search? ? skipped_search_result(args) : yield
+end
+
+def skipped_search_result args={}
+  args[:return] == :count ? 0 : []
 end
 
 def cache_query?

@@ -9,7 +9,7 @@ describe Card::Set::All::Bar do
     expect_view(:bar_left).to have_tag("span.card-title")
   end
 
-  specify "view bar_middle" do
+  xspecify "view bar_middle" do
     expect_view(:bar_middle).to have_tag("span.labeled-badge")
   end
 
