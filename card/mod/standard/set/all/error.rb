@@ -37,9 +37,7 @@ format do
 
   def standard_errors
     card.errors.map do |attrib, msg|
-      alert "warning", true do
-        attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
-      end
+      attrib == :abort ? msg : standard_error_message(attrib, msg)
     end
   end
 
