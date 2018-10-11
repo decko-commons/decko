@@ -99,14 +99,6 @@ format :html do
     wrap_with(:span, title: error_message(exception)) { cardname }
   end
 
-  def standard_errors
-    card.errors.map do |attrib, msg|
-      alert "warning", true do
-        attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
-      end
-    end
-  end
-
   def standard_error_message attribute, message
     "<strong>#{h attribute.to_s.upcase}:</strong> #{h message}"
   end
