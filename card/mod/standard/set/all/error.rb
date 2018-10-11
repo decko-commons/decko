@@ -32,14 +32,12 @@ format do
   end
 
   view :errors do
-    "Problem:\n\n#{standard_errors}"
+    ["Problem:", "", standard_errors].flatten.join "\n"
   end
 
   def standard_errors
     card.errors.map do |attrib, msg|
-      alert "warning", true do
-        attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
-      end
+      attrib == :abort ? msg : standard_error_message(attrib, msg)
     end
   end
 
