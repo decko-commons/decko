@@ -9,12 +9,12 @@ format do
     offset_param
   end
 
-  def search_with_params args={}
-    card.item_names(args)
+  def search_with_params
+    card.item_names
   end
 
-  def count_with_params args={}
-    card.item_names(args).count
+  def count_with_params
+    card.item_names.count
   end
 
   def total_pages
