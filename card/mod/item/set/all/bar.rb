@@ -19,10 +19,20 @@ format :html do
 
   before :bar do
     shared = "align-items-center"
-    class_up "bar-left", " col-5 p-2 font-weight-bold d-flex grow-2 #{shared}"
-    class_up "bar-middle", "col-4 d-none d-md-flex p-3 border-left #{shared}"
+    class_up "bar-left", "p-2 font-weight-bold d-flex grow-2 #{shared}"
     class_up "bar-right",
-             "col-3 p-3 border-left d-flex justify-content-end text-align-right #{shared}"
+             "p-3 border-left d-flex justify-content-end text-align-right #{shared}"
+    if voo.show? :bar_middle
+      class_up_bar_sides 5, 3
+      class_up "bar-middle", "col-4 d-none d-md-flex p-3 border-left #{shared}"
+    else
+      class_up_bar_sides 7, 5
+    end
+  end
+
+  def class_up_bar_sides left, right
+    class_up "bar-left", "col-#{left}"
+    class_up "bar-right", "col-#{right}"
   end
 
   view :bar_left do
