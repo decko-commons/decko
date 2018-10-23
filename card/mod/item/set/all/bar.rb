@@ -2,10 +2,6 @@ include_set Abstract::BsBadge
 
 format :html do
   view :mini_bar do
-    shared = "align-items-center"
-    mini_class = "col-5 border-left d-flex justify-content-end text-align-right #{shared}"
-    class_up "bar-left", "col-7 p-2 font-weight-bold d-flex grow-2 #{shared}"
-    class_up "bar-right", mini_class
     render_bar hide: :bar_middle
   end
 
