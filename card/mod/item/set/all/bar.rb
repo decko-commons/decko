@@ -66,7 +66,7 @@ format :html do
   # end
 
   view :bar_page_link do
-    link_to_card card, icon_tag(:open_in_new), class: "text-muted"
+    link_to_card card, icon_tag(:open_in_new), class: "text-muted pl-3"
   end
 
   def toggle_class
