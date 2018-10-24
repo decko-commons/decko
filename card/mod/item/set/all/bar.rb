@@ -31,8 +31,8 @@ format :html do
   end
 
   def class_up_bar_sides left, right
-    class_up "bar-left", "col-#{left}"
-    class_up "bar-right", "col-#{right}"
+    class_up "bar-left", "col-#{left}", true
+    class_up "bar-right", "col-#{right}", true
   end
 
   view :bar_left do
