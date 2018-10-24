@@ -365,20 +365,20 @@ body.mceContentBody {
 }
 
 .box-top {
-    display: flex;
-    height: 60px;
-    flex-direction: column;
-    justify-content: center;
-    overflow: auto;
+  display: flex;
+  min-height: 60px;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
 }
 
 .box-middle {
-    height: 180px;
-    img {
-        object-fit: contain;
-        height: 130px;
-        width: 190px;
-    }
+  min-height: 180px;
+  img {
+    object-fit: contain;
+    height: 130px;
+    width: 190px;
+  }
 }
 
 .bar {
