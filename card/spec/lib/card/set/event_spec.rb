@@ -5,7 +5,6 @@ describe Card::Set::Event do
       @called = true
     end
 
-
     with_test_events do
       test_event :integrate_with_delay, on: :update, for: "A" do
         event_called

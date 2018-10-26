@@ -6,7 +6,13 @@ format :html do
   end
 
   view :bar do
+    class_up_bar_sides *bar_side_cols
+    # note: above cannot be in `before`, because before blocks run before viz processing
     wrap { haml :bar }
+  end
+
+  def bar_side_cols
+    voo.show?(:bar_middle) ? [5, 3] : [7, 5]
   end
 
   view :expanded_bar do
@@ -20,9 +26,14 @@ format :html do
   before :bar do
     shared = "align-items-center"
     class_up "bar-left", "p-2 font-weight-bold d-flex grow-2 #{shared}"
-    class_up "bar-middle", "col-3 d-none d-md-flex p-3 border-left #{shared}"
+    class_up "bar-middle", "col-4 d-none d-md-flex p-3 border-left #{shared}"
     class_up "bar-right",
              "p-3 border-left d-flex justify-content-end text-align-right #{shared}"
+  end
+
+  def class_up_bar_sides left, right
+    class_up "bar-left", "col-#{left}", true
+    class_up "bar-right", "col-#{right}", true
   end
 
   view :bar_left do
@@ -55,7 +66,7 @@ format :html do
   # end
 
   view :bar_page_link do
-    link_to_card card, icon_tag(:open_in_new), class: "text-muted"
+    link_to_card card, icon_tag(:open_in_new), class: "text-muted pl-2"
   end
 
   def toggle_class
