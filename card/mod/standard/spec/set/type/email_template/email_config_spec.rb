@@ -131,8 +131,8 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       Card::Env[:protocol] = "http://"
       Card::Env[:host] = "www.fake.com"
       is_expected.to include 'Card link(<a class="known-card" '\
-                               'href="http://www.fake.com/A">' \
-                               '<span class="card-title">A</span></a>)'
+                             'href="http://www.fake.com/A">' \
+                             '<span class="card-title" title="A">A</span></a>)'
     end
   end
 
