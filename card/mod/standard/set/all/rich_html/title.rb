@@ -25,7 +25,7 @@ format :html do
   end
 
   def wrapped_title title
-    wrap_with :span, class: classy("card-title") do
+    wrap_with :span, class: classy("card-title"), title: title do
       title.to_name.parts.join wrapped_joint
     end
   end
