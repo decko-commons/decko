@@ -349,7 +349,7 @@ body.mceContentBody {
 
 /*----------- Bars and Boxes -------------*/
 
-.bar, .box {
+.expanded-bar, .bar, .box {
   .missing-view {
     // TODO: obviate in ruby with better unknown API
     display: none;
@@ -388,6 +388,7 @@ body.mceContentBody {
 .box {
   border-top: 3px solid $box_stripe_color !important;
 }
+
 .badge {
   vertical-align: text-top!important;
 }
