@@ -349,7 +349,7 @@ body.mceContentBody {
 
 /*----------- Bars and Boxes -------------*/
 
-.bar, .box {
+.expanded-bar, .bar, .box {
   .missing-view {
     // TODO: obviate in ruby with better unknown API
     display: none;
@@ -370,6 +370,11 @@ body.mceContentBody {
   flex-direction: column;
   justify-content: center;
   overflow: auto;
+  h1, h2, h3, h4, h5, h6, div, span, a {
+    white-space: nowrap;
+    overflow:  hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .box-middle {
@@ -379,6 +384,8 @@ body.mceContentBody {
     height: 130px;
     width: 190px;
   }
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bar {
@@ -388,6 +395,7 @@ body.mceContentBody {
 .box {
   border-top: 3px solid $box_stripe_color !important;
 }
+
 .badge {
   vertical-align: text-top!important;
 }

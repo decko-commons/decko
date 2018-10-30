@@ -36,15 +36,31 @@ format :html do
     output [layout, modal_slot]
   end
 
-  view :content do
+  def prepare_content_slot
     class_up "card-slot", "d0-card-content"
     voo.hide :menu
+  end
+
+  before(:content) { prepare_content_slot }
+
+  view :content do
     wrap { [_render_menu, _render_core] }
   end
 
+  before(:content_with_title) { prepare_content_slot }
+
+  view :content_with_title do
+    wrap true, title: card.format(:text).render_core do
+      [_render_menu, _render_core]
+    end
+  end
+
+  before :content_panel do
+    prepare_content_slot
+    class_up "card-slot", "card", true
+  end
+
   view :content_panel do
-    class_up "card-slot", "d0-card-content card"
-    voo.hide :menu
     wrap do
       wrap_with :div, class: "card-body" do
         [_render_menu, _render_core]
