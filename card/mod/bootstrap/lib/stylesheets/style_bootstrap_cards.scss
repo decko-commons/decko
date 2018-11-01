@@ -354,6 +354,9 @@ body.mceContentBody {
     // TODO: obviate in ruby with better unknown API
     display: none;
   }
+  div, span, a {
+    overflow: hidden;
+  }
 }
 
 .item-box {
