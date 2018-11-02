@@ -6,7 +6,7 @@ class Card
   #
   #  Rules can defined onto Sets in two ways:
   #
-  #  - **Card rules** are defined in card content. These are generally configured via the web interface and are thus documented at http://wagn.org/rules.
+  #  - **Card rules** are defined in card content. These are generally configured via the web interface and are thus documented at https://decko.org/rules.
   #  - **Code rules** can be defined in a 'set module'.
   #
   # The {Card::Mod} docs explain how to create mods and set_modules. This page explains how those modules become useful.

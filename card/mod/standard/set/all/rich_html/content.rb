@@ -80,28 +80,14 @@ format :html do
     end
   end
 
-  view :labeled do
-    class_up "d0-card-body", "labeled-content"
-    @content_body = true
-    wrap do
-      [
-        _render_menu,
-        labeled_row
-      ]
-    end
-  end
+  # view :property do
+  #   voo.title ||= card.name.right
+  #   render_labeled
+  # end
 
-  def labeled_row
-    haml do
-      <<-HAML.strip_heredoc
-        .row
-          .col-4.text-right
-            .label
-              = _render_title
-          .col
-            = wrap_body { _render_labeled_content }
-      HAML
-    end
+  view :labeled, tags: :unknown_ok do
+    @content_body = true
+    wrap(true, class: "row") { [_render_menu, haml(:labeled)] }
   end
 
   view :type_info do

@@ -47,7 +47,7 @@ class AddStyleCards < Card::Migration::Core
                  content: "select"
     Card.create! name: "#{style_set}+#{Card[:help].name}",
                  content: "Skin (collection of stylesheets) for card's page." \
-                          "[[http://wagn.org/skins|more]]"
+                          "[[https://decko.org/skins|more]]"
 
     # IMPORT STYLESHEETS
 

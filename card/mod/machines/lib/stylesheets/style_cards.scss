@@ -1,5 +1,5 @@
 /*!
- * Decko: [[http://wagn.org]]
+ * Decko: [[https://decko.org]]
  * Copyright 2015 Grass Commons and other contributors; Licensed GPL
  */
 
@@ -375,23 +375,17 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
 
 .labeled-view {
   padding: 5px 0;
-  label h1,
-  .pointer-list,
-  .pointer-item,
-  .search-result-list,
-  .search-result-item {
-    font-size: 1em;
+  .labeled-content {
+    font-weight: bold;
+    .pointer-list,
+    .pointer-item,
+    .search-result-list,
+    .search-result-item {
+      font-size: 1em;
+      padding: 0;
+      text-indent: 0;
+    }
   }
-  > .d0-card-content {
-    padding-left: 10px;
-  }
-}
-
-.labeled-view label,
-a.missing-labeled {
-  display: inline-block;
-  min-width: 30%;
-  text-align: right;
 }
 
 /*-------------------- */
@@ -491,14 +485,12 @@ textarea {
 
 /* links to create missing cards */
 
-.missing-view a {
-  color: $gray-600;
+a.missing-link {
+  color: $text-muted;
   font-variant: small-caps;
-}
-
-.missing-view a:hover {
-  color: $blue;
-  background: #ffc;
+  &:hover {
+    color: $primary;
+  }
 }
 
 /*-------------------- */

@@ -20,7 +20,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
 
   before do
     Card::Auth.current_id = Card::WagnBotID
-    chunk_test = "Url(wagn.org) Link([[http://wagn.org|Wagn]])"\
+    chunk_test = "Url(wagn.org) Link([[https://decko.org|Wagn]])"\
                  " Inclusion({{B|name}}) Card link([[A]])"
     Card.create! name: email_name, type: :email_template, subcards: {
       "+*to" => "joe@user.com",
@@ -84,7 +84,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       is_expected.to include "Url(wagn.org)"
     end
     it "does not render link" do
-      is_expected.to include "Link(Wagn[http://wagn.org])"
+      is_expected.to include "Link(Wagn[https://decko.org])"
     end
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
@@ -101,7 +101,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       is_expected.to include "Url(wagn.org)"
     end
     it "renders link" do
-      is_expected.to include "Link(Wagn[http://wagn.org])"
+      is_expected.to include "Link(Wagn[https://decko.org])"
     end
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
@@ -118,11 +118,11 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     end
     it "renders url" do
       is_expected.to include 'Url(<a target="_blank" class="external-link" '\
-                               'href="http://wagn.org">wagn.org</a>)'
+                               'href="https://decko.org">wagn.org</a>)'
     end
     it "renders link" do
       is_expected.to include 'Link(<a target="_blank" class="external-link" '\
-                               'href="http://wagn.org">Wagn</a>)'
+                               'href="https://decko.org">Wagn</a>)'
     end
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
