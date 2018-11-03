@@ -121,7 +121,7 @@ class CardController < ActionController::Base
     end
   end
 
-  if !Rails.env.development?
+  unless !Rails.env.development?
     rescue_from StandardError do |exception|
       @card ||= Card.new
       Card::Error.current = exception
