@@ -87,7 +87,14 @@ format :html do
 
   view :labeled, tags: :unknown_ok do
     @content_body = true
-    wrap(true, class: "row") { [_render_menu, haml(:labeled)] }
+    wrap(true, class: "row") do
+      [_render_menu,
+       labeled(render_title, wrap_body { render_labeled_content })]
+    end
+  end
+
+  def labeled label, content
+    haml :labeled, label: label, content: content
   end
 
   view :type_info do
