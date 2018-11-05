@@ -97,8 +97,16 @@ format do
     end
   end
 
-  view :labeled_content do
-    _render_core
+  view :labeled_content, tags: :unknown_ok do
+    valid_labeled_content { render_core }
+  end
+
+  def valid_labeled_content
+    if card.known?
+      yield
+    else
+      createable { missing_link(fa_icon("plus-square")) }
+    end
   end
 
   view :titled_content do

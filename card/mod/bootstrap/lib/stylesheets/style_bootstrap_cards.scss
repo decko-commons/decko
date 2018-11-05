@@ -1,5 +1,5 @@
 /*!
- * Wagn: [[http://wagn.org]]
+ * Decko: [[https://decko.org]]
  * Copyright 2015 Grass Commons and other contributors; Licensed GPL
  */
 
@@ -353,6 +353,9 @@ body.mceContentBody {
   .missing-view {
     // TODO: obviate in ruby with better unknown API
     display: none;
+  }
+  div, span, a {
+    overflow: hidden;
   }
 }
 
