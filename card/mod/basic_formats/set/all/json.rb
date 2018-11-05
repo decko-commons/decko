@@ -45,6 +45,7 @@ format :json do
   view :core do
     card.known? ? render_content : nil
   end
+
   view :content do
     card.content
   end
