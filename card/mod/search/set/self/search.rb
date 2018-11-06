@@ -28,7 +28,7 @@ format :html do
   end
 
   def keyword_search_title keyword
-    %(Search results for: <span class="search-keyword">#{keyword}</span>)
+    %(Search results for: <span class="search-keyword">#{h keyword}</span>)
   end
 
   def search_keyword
