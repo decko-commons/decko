@@ -174,4 +174,10 @@ format do
 
     tmpl_set_name.left_name
   end
+
+  # DEPRECATED
+  view :naked do
+    Rails.logger.info "DEPRECATED: naked view (used with #{card.name} card)"
+    render_core
+  end
 end
