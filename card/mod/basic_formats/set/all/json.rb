@@ -104,7 +104,7 @@ format :json do
   view :cast, cache: :never do
     card.cast
   end
-  
+
   ## DEPRECATED
   view :marks do
     {
