@@ -1,6 +1,6 @@
 format :html do
   view :source do
-    source = super()
+    source = card.type_id == Card::ImageID ? super() : nil
     source.present? ? source : nest(:logo, view: :source, size: voo.size)
   end
 
