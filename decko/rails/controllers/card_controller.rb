@@ -121,13 +121,20 @@ class CardController < ActionController::Base
     end
   end
 
-  unless Rails.env.development?
-    rescue_from StandardError do |exception|
-      @card ||= Card.new
-      Card::Error.current = exception
-      error = Card::Error.cardify_exception exception, card
-      error.report
-      show error.class.view, error.class.status_code
+  def handle_exception exception
+    @card ||= Card.new
+    Card::Error.current = exception
+    error = Card::Error.cardify_exception exception, card
+    error.report
+    show error.class.view, error.class.status_code
+  end
+
+  class << self
+    def rescue_from_class klass
+      rescue_from(klass) { |exception| handle_exception exception }
     end
   end
+
+  rescue_from_class ActiveRecord::RecordInvalid
+  rescue_from_class(Rails.env.development? ? Card::Error::UserError : StandardError)
 end
