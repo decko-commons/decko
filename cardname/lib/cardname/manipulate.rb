@@ -42,10 +42,10 @@ class Cardname
     end
 
     def sub_in str, with:
-      str.gsub(capitalize.pluralize, with.capitalize.pluralize)
-         .gsub(capitalize.singularize, with.capitalize.singularize)
-         .gsub(downcase.pluralize, with.downcase.pluralize)
-         .gsub(downcase.singularize, with.downcase.singularize)
+      [:capitalize, :downcase].product([:pluralize, :singularize])
+                              .inject(str) do |s, (m1, m2)|
+        s.gsub(/\b#{send(m1).send(m2)}\b/, with.send(m1).send(m2))
+      end
     end
 
     alias_method :to_field, :prepend_joint
