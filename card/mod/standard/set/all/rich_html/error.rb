@@ -6,11 +6,18 @@ format :html do
   end
 
   view :missing do
-    return "" unless card.ok? :create  # should this be moved into ok_view?
+    createable do
+      wrap { missing_link("#{fa_icon 'plus-square'} #{_render_title}") }
+    end
+  end
+
+  def createable
+    card.ok?(:create) ? yield : ""
+  end
+
+  def missing_link text
     path_opts = voo.type ? { card: { type: voo.type } } : {}
-    link_text = "Add #{_render_title}"
-    klass = "slotter missing-#{@denied_view || voo.home_view}"
-    wrap { link_to_view :new, link_text, path: path_opts, class: klass }
+    link_to_view :new, text, path: path_opts, class: "slotter missing-link"
   end
 
   view :closed_missing, perms: :none do
@@ -97,14 +104,6 @@ format :html do
   def backtrace_link cardname, exception
     # TODO: make this a modal link after new modal handling is merged in
     wrap_with(:span, title: error_message(exception)) { cardname }
-  end
-
-  def standard_errors
-    card.errors.map do |attrib, msg|
-      alert "warning", true do
-        attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
-      end
-    end
   end
 
   def standard_error_message attribute, message

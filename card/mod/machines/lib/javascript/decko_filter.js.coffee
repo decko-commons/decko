@@ -8,8 +8,8 @@ $.extend decko,
 
 $(window).ready ->
   $("body").on "change", "._filter-input input, ._filter-input select, ._filter-sort", ->
+    return if weirdoSelect2FilterBreaker this
     filterAndSort this
-
 
   $("body").on "click", "._filter-category-select", ->
     decko.filterCategorySelected($(this))
@@ -51,6 +51,10 @@ $(window).ready ->
 
   $('body').on 'click', '._filtered-list-item-delete', ->
     $(this).closest('li').remove()
+
+# sometimes this element shows up as changed and breaks the filter.
+weirdoSelect2FilterBreaker = (el) ->
+  $(el).hasClass "select2-search__field"
 
 newFilteredListContent = (el) ->
   $.map(prefilteredIds(el).concat(selectedIds el), (id) -> "~" + id).join "\n"

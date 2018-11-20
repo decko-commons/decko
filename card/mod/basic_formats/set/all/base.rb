@@ -97,8 +97,16 @@ format do
     end
   end
 
-  view :labeled_content do
-    _render_core
+  view :labeled_content, tags: :unknown_ok do
+    valid_labeled_content { render_core }
+  end
+
+  def valid_labeled_content
+    if card.known?
+      yield
+    else
+      createable { missing_link(fa_icon("plus-square")) }
+    end
   end
 
   view :titled_content do
@@ -165,5 +173,11 @@ format do
       (tmpl_set_class_card.codename == :type)
 
     tmpl_set_name.left_name
+  end
+
+  # DEPRECATED
+  view :naked do
+    Rails.logger.info "DEPRECATED: naked view (used with #{card.name} card)"
+    render_core
   end
 end

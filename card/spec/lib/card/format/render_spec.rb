@@ -12,7 +12,7 @@ describe Card::Format::Render do
 
     let(:cache_key) do
       "z-Card::Format::HtmlFormat-normal-home_view:content;"\
-      "nest_name:Z;nest_syntax:Z|content;view:contentcontent:show"
+      "nest_name:Z;nest_syntax:Z|content;view:contentcontent:show;menu:hide"
     end
 
     subject { Card::Cache[Card::View] }
@@ -23,6 +23,5 @@ describe Card::Format::Render do
       is_expected.not_to receive(:fetch)
       render_content "{{Z|cache:never}}"
     end
-
   end
 end

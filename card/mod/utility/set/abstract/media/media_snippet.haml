@@ -1,8 +1,7 @@
 .media{media_opts}
   .media-left
     .image-box{class: "mr-1 #{size}"}
-      %a{href: "#"}
-        %img.media-object{class: size, src: src.html_safe, alt: alt}
+      %img.media-object{class: size, src: src.html_safe, alt: alt}
     = media_left_extras
   .media-body
     - if title != ""

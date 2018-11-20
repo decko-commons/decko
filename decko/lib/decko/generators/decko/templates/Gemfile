@@ -17,7 +17,7 @@ gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.versio
 gem 'thin'
 # gem 'unicorn'
 
-# To set up a production webserver, see http://wagn.org/wagn_in_production
+# To set up a production webserver, see https://decko.org/wagn_in_production
 
 
 # BACKGROUNDING

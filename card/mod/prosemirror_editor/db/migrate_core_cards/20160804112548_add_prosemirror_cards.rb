@@ -25,6 +25,6 @@ class AddProsemirrorCards < Card::Migration
     "Configure [[http://prosemirror.net|ProseMirror]], "\
     "Decko's default "\
     "[[http://en.wikipedia.org/wiki/Wysiwyg|wysiwyg]] editor. "\
-    "[[http://wagn.org/ProseMirror|more]]"
+    "[[https://decko.org/ProseMirror|more]]"
   end
 end

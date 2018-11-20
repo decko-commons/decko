@@ -74,7 +74,7 @@
       {
         "name": "*credit",
         "type": "Basic",
-        "content": "<div>{{+image}}</div>\r\n<div><a href=\"http://wagn.org\">Wagn v{{*version|core}}</a></div>"
+        "content": "<div>{{+image}}</div>\r\n<div><a href=\"https://decko.org\">Wagn v{{*version|core}}</a></div>"
       },
       {
         "name": "*main menu",
