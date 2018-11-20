@@ -123,6 +123,14 @@ format :json do
   end
 end
 
+format :css do
+  # in CSS, decko paths rendered as relative to the site's root.
+  # absolute paths lead to invalid assets path in css for cukes
+  def contextualize_path relative_path
+    card_path relative_path
+  end
+end
+
 format :html do
   # in HTML, decko paths rendered as relative to the site's root.
   def contextualize_path relative_path
