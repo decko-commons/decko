@@ -122,7 +122,7 @@ class Card
       def act_accordion
         context = @act.main_action.draft ? :warning : :default
         <<-HTML
-        <div class="card card-#{context}">
+        <div class="card card-#{context} nodblclick">
           #{act_accordion_panel}
         </div>
         HTML
@@ -131,7 +131,6 @@ class Card
       def accordion_expand_options
         {
           "data-toggle" => "collapse",
-          "data-parent" => "#accordion-#{collapse_id}",
           "data-target" => ".#{collapse_id}",
           "aria-expanded" => true,
           "aria-controls" => collapse_id
@@ -154,6 +153,7 @@ class Card
 
       def act_accordion_body
         wrap_with :div, id: collapse_id,
+                  "data-parent": ".act-accordion-group",
                   class: "collapse #{collapse_id}" do
           wrap_with :div, details, class: "card-body"
         end
