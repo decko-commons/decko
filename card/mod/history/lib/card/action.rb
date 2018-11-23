@@ -85,9 +85,9 @@ class Card
       # What's more, we _definitely_ don't want to hard code special behavior for
       # specific types in here!
 
-      #, skip_modules: true
-      #return res unless res && res.type_id.in?([FileID, ImageID])
-      #res.include_set_modules
+      # , skip_modules: true
+      # return res unless res && res.type_id.in?([FileID, ImageID])
+      # res.include_set_modules
     end
 
     # remove action from action cache

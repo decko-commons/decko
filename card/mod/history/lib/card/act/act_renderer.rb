@@ -153,8 +153,8 @@ class Card
 
       def act_accordion_body
         wrap_with :div, id: collapse_id,
-                  "data-parent": ".act-accordion-group",
-                  class: "collapse #{collapse_id}" do
+                        class: "collapse #{collapse_id}",
+                        "data-parent": ".act-accordion-group" do
           wrap_with :div, details, class: "card-body"
         end
       end
