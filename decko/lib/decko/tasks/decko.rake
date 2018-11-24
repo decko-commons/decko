@@ -179,14 +179,13 @@ decko_namespace = namespace :decko do
   end
 end
 
-
 def failing_loudly task
   yield
 rescue
   # TODO: fix this so that message appears *after* the errors.
   # Solution should ensure that rake still exits with error code 1!
-  fail "\n>>>>>> FAILURE! #{task} did not complete successfully." \
-       "\n>>>>>> Please address errors and re-run:\n\n\n"
+  raise "\n>>>>>> FAILURE! #{task} did not complete successfully." \
+        "\n>>>>>> Please address errors and re-run:\n\n\n"
 end
 
 def version
