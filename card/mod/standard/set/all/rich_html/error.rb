@@ -107,7 +107,7 @@ format :html do
   end
 
   def standard_error_message attribute, message
-    "<strong>#{h attribute.to_s.upcase}:</strong> #{h message}"
+    "<div><strong>#{h attribute.to_s.upcase}:</strong> #{h message}</div>"
   end
 
   def not_found_errors

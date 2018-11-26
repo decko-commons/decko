@@ -106,7 +106,12 @@ format :html do
 
   # path to redirect to after canceling a new form
   def cancel_button_new_args
-    { href: (main? ? path_to_previous : path(view: :missing)) }
+    href = case
+           when main?          then path_to_previous
+           when voo&.home_view then path(view: voo.home_view)
+           else                     path(view: :missing)
+           end
+    { href: href }
   end
 
   def standard_create_button
