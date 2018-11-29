@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::Type::File do
   DIRECTORY = "deckodev-test"
-  ENV["STORE_CODED_FILES"] = true
+  ENV["STORE_CODED_FILES"] = "true"
 
   def test_file no=1
     File.new(File.join(CARD_TEST_SEED_PATH, "file#{no}.txt"))
