@@ -173,10 +173,10 @@ module CarrierWave
 
     def extension
       case
-      when file && file.extension.present? then ".#{file.extension}"
-      when card_content = model.content    then File.extname(card_content)
-      when orig = original_filename        then File.extname(orig)
-      else                                   ""
+      when file&.extension.present?     then ".#{file.extension}"
+      when card_content = model.content then File.extname(card_content)
+      when orig = original_filename     then File.extname(orig)
+      else                              ""
       end.downcase
     end
 
