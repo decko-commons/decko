@@ -34,6 +34,8 @@ end
 
 event :write_identifier, after: :save_original_filename, when: proc { |c| !c.web? } do
   self.content = attachment.db_content
+  Rails.logger.info "wrote identifier: #{self.content}"
+  self.content
 end
 
 def file_ready_to_save?
