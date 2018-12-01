@@ -172,7 +172,6 @@ module CarrierWave
     end
 
     def extension
-      Rails.logger.info "extension: #{file&.extension}, #{file&.path}"
       case
       when file&.extension.present?     then ".#{file.extension}"
       when card_content = model.content then File.extname(card_content)
