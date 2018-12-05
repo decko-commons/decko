@@ -205,6 +205,7 @@ module CarrierWave
       end
     end
 
+    # @option opts [Symbol] :absolute - return absolute url
     def url opts={}
       if model.cloud?
         file&.url
@@ -216,8 +217,12 @@ module CarrierWave
     end
 
     def local_url opts={}
-      "%s/%s/%s" % [card_path(Card.config.files_web_path), file_dir,
-                    full_filename(url_filename(opts))]
+      "%s/%s/%s" % [local_url_base(opts), file_dir, full_filename(url_filename(opts))]
+    end
+
+    def local_url_base opts={}
+      web_path = Card.config.files_web_path
+      opts.delete(:absolute) ? card_url(web_path) : card_path(web_path)
     end
 
     def public_path

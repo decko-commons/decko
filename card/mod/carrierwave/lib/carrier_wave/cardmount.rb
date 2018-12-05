@@ -17,7 +17,8 @@ module CarrierWave
       super
 
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
-        event :store_#{column}_event, :finalize, on: :save do
+        event :store_#{column}_event, :finalize,
+              on: :save, when: :store_#{column}_event? do
           store_#{column}!
         end
 
@@ -37,6 +38,11 @@ module CarrierWave
         event :remove_previously_stored_#{column}_event, :finalize,
               on: :update, when: proc { |c| !c.history?} do
           remove_previously_stored_#{column}
+        end
+
+        # don't attempt to store coded images unless ENV specifies it
+        def store_#{column}_event?
+          !coded? || ENV["STORE_CODED_FILES"]
         end
 
         def attachment
@@ -67,6 +73,7 @@ module CarrierWave
         def remote_#{column}_url=(url)
           assign_file(url) { super }
         end
+
 
         def assign_file file
           db_column = _mounter(:#{column}).serialization_column

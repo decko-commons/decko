@@ -65,8 +65,12 @@ module Decko
     # Both this file and that would make sense as submodules of CardController
 
     def load_format
-      request.format = :html if Card::Env.ajax? && !params[:format]
+      request.format = :html if implicit_html?
       card.format format_name_from_params
+    end
+
+    def implicit_html?
+      (Card::Env.ajax? && !params[:format]) || request.format.to_s == "*/*"
     end
 
     def format_name_from_params
