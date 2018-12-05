@@ -11,7 +11,7 @@ module ClassMethods
     if Card::Codename.exist? codename
       add_to_basket :item_codenames, codename
     else
-      warn "unknown codename '#{codename}' added to code pointer"
+      Rails.logger.info "unknown codename '#{codename}' added to code pointer"
     end
   end
 end

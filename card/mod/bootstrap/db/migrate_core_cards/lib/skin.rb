@@ -60,7 +60,7 @@ class Skin
   end
 
   def update_thumbnail
-    update_card "#{@skin_name}+Image", thumbnail_args
+    ensure_card "#{@skin_name}+Image", thumbnail_args
   end
 
   private
