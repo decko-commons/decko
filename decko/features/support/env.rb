@@ -65,26 +65,24 @@ end
 Capybara.register_driver :selenium_headless_chrome do |app|
   Capybara::Selenium::Driver.load_selenium
   browser_options = ::Selenium::WebDriver::Chrome::Options.new
-  browser_options.args << '--headless'
-  browser_options.args << '--disable-gpu'
+  browser_options.args << "--headless"
+  browser_options.args << "--disable-gpu"
   # Sandbox cannot be used inside unprivileged Docker container
-  browser_options.args << '--no-sandbox'
+  browser_options.args << "--no-sandbox"
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w(headless disable-gpu no-sandbox) }
+    chromeOptions: { args: %w[headless disable-gpu no-sandbox] }
   )
 
-  Capybara::Selenium::Driver.new app,
-    browser: :chrome,
-    desired_capabilities: capabilities
+  Capybara::Selenium::Driver.new app, browser: :chrome,
+                                      desired_capabilities: capabilities
 end
 
 Capybara.default_driver = :selenium_firefox
 Capybara.javascript_driver = :selenium_firefox
-
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd

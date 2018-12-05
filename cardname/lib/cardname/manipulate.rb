@@ -42,7 +42,7 @@ class Cardname
     end
 
     def sub_in str, with:
-      [:capitalize, :downcase].product([:pluralize, :singularize])
+      %i[capitalize downcase].product(%i[pluralize singularize])
                               .inject(str) do |s, (m1, m2)|
         s.gsub(/\b#{send(m1).send(m2)}\b/, with.send(m1).send(m2))
       end
