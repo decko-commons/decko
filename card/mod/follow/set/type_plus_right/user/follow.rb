@@ -52,6 +52,10 @@ format :html do
     haml :follow_editor, items_method: :ignoring_rules_and_options
   end
 
+  def show_button?
+    card.current_user? || Auth.always_ok?
+  end
+
   def pointer_items args
     voo.items[:view] ||= :link
     super(args)

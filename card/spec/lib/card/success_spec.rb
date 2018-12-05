@@ -41,9 +41,9 @@ describe Card::Env::Success do
 
     context "initialized with url" do
       before do
-        success_params "http://wagn.org"
+        success_params "https://decko.org"
       end
-      it  { is_expected.to eq "http://wagn.org" }
+      it  { is_expected.to eq "https://decko.org" }
     end
   end
 
