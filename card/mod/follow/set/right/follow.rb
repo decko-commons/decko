@@ -35,8 +35,7 @@ def ok_to_delete
 end
 
 def permit action, verb=nil
-  if %i[create delete update].include?(action) &&
-    allowed_to_change_follow_status?
+  if %i[create delete update].include?(action) && allowed_to_change_follow_status?
     true
   else
     super action, verb
@@ -46,7 +45,6 @@ end
 def allowed_to_change_follow_status?
   Auth.signed_in? &&
     ((user = rule_user) && Auth.current_id == user.id) || Auth.always_ok?
-
 end
 
 format :html do
