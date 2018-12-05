@@ -41,6 +41,13 @@ class Cardname
       self =~ /^#{Regexp.escape joint}/ ? self : (joint + self)
     end
 
+    def sub_in str, with:
+      %i[capitalize downcase].product(%i[pluralize singularize])
+                             .inject(str) do |s, (m1, m2)|
+        s.gsub(/\b#{send(m1).send(m2)}\b/, with.send(m1).send(m2))
+      end
+    end
+
     alias_method :to_field, :prepend_joint
 
     private

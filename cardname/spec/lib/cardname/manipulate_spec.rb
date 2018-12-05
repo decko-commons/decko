@@ -71,4 +71,22 @@ RSpec.describe Cardname::Manipulate do
       expect(swap"a+b","a+B" => "X?+C").to eq("X?+C")
     end
   end
+
+  describe "#sub_in" do
+    def sub old, new, str
+      old.to_name.sub_in str, with: new
+    end
+    it "substitutes parts" do
+      expect(sub("Ponies", "Camel", "pony farm Ponies")).to eq "camel farm Camels"
+    end
+    it "substitutes plural version" do
+      expect(sub("Pony", "Camel", "ponies")).to eq "camels"
+    end
+    it "substitutes plural capital version" do
+      expect(sub("Pony", "Camel", "Ponies")).to eq "Camels"
+    end
+    it "substitutes singular capital version" do
+      expect(sub("ponies", "Camels", "Pony")).to eq "Camel"
+    end
+  end
 end

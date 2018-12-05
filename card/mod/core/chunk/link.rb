@@ -89,20 +89,19 @@ module Card::Content::Chunk
 
     def replace_reference old_name, new_name
       replace_name_reference old_name, new_name
+      replace_link_text old_name, new_name
+      @text =
+        @link_text.nil? ? "[[#{referee_name}]]" : "[[#{referee_name}|#{@link_text}]]"
+    end
 
+    def replace_link_text old_name, new_name
       if @link_text.is_a?(Card::Content)
         @link_text.find_chunks(Card::Content::Chunk::Reference).each do |chunk|
           chunk.replace_reference old_name, new_name
         end
-      elsif old_name.to_name == @link_text
-        @link_text = new_name
+      elsif @link_text.present?
+        @link_text = old_name.to_name.sub_in(@link_text, with: new_name)
       end
-
-      @text = if @link_text.nil?
-                "[[#{referee_name}]]"
-              else
-                "[[#{referee_name}|#{@link_text}]]"
-              end
     end
   end
 end
