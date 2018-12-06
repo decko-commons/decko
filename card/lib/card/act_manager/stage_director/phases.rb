@@ -14,7 +14,10 @@ class Card
           catch_up_to_stage :prepare_to_store
           run_single_stage :store, &block
           run_single_stage :finalize
-          raise ActiveRecord::Rollback if @card.errors.any?
+          if @card.errors.any?
+            @card.expire_pieces
+            raise Card::User::ServerError, "errors added in storage phase."
+          end
         ensure
           @from_trash = nil
         end

@@ -164,12 +164,11 @@ end
 event :update_referer_content, :finalize,
       on: :update, after: :name_change_finalized,
       when: :update_referers  do
-  # FIXME: break into correct stages
   Auth.as_bot do
     referers.each do |card|
       next if card == self || card.structure
       new_content = card.replace_reference_syntax name_before_last_save, name
-      card.refresh.update_attributes! content: new_content
+      attach_subcard card.name, content: new_content
     end
   end
 end
