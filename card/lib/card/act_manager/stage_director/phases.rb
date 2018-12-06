@@ -16,7 +16,8 @@ class Card
           run_single_stage :finalize
           if @card.errors.any?
             @card.expire_pieces
-            raise Card::Error::ServerError, "errors added in storage phase."
+            raise Card::Error::ServerError,
+                  "errors added in storage phase: #{@card.errors.full_messages * ','}"
           end
         ensure
           @from_trash = nil
