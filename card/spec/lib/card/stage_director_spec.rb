@@ -15,7 +15,7 @@ RSpec.describe Card::ActManager::StageDirector do
         in_stage :validate,
                  on: :save,
                  trigger: -> { create_card } do
-          errors.add :stop, tr(:dont_do_this)
+          errors.add :stop, "don't do this"
         end
         is_expected.to be_falsey
       end
@@ -23,7 +23,7 @@ RSpec.describe Card::ActManager::StageDirector do
       it "stops act in storage phase" do
         in_stage :store, on: :save,
                          trigger: -> { create_card } do
-          errors.add :stop, tr(:dont_do_this)
+          errors.add :stop, "don't do this"
         end
         is_expected.to be_falsey
       end
