@@ -301,8 +301,7 @@ class Card
       # the :store stage and the :finalize stage
       def trigger_storage_phase_callback
         @stage = stage_index :prepare_to_store
-        @card.only_storage_phase = true
-        @card.save! no_act: true, validate: false
+        @card.save_as_subcard!
       end
     end
 

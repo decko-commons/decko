@@ -44,7 +44,6 @@ RSpec.describe Card::Set::All::References do
     end
   end
 
-
   describe "event :update_referer_content" do
     it "handles self references" do
       c = Card["A"]
