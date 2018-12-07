@@ -168,8 +168,9 @@ event :update_referer_content, :finalize,
     referers.each do |card|
       next if card.structure
       new_content = card.replace_reference_syntax name_before_last_save, name
-      card.refresh.update_attributes! content: new_content
-      # attach_subcard card.name, content: new_content
+      card.update_attributes! content: new_content
+      attach_subcard card.name, content: new_content,
+                                skip: %i[validate_renaming check_permissions!]
     end
   end
 end

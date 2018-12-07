@@ -91,9 +91,8 @@ class CardController < ActionController::Base
   # ----------( HELPER METHODS ) -------------
 
   def handle
-    card.act(success: true) do
-      yield ? render_success : raise(Card::Error::UserError)
-    end
+    Card::Env.success card.name
+    yield ? render_success : raise(Card::Error::UserError)
   end
 
   # successful create, update, or delete action
@@ -116,7 +115,7 @@ class CardController < ActionController::Base
 
   def render_page format, view
     view ||= params[:view]
-    card.act do
+    card.actify do
       format.page self, view, Card::Env.slot_opts
     end
   end

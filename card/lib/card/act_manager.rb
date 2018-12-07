@@ -91,6 +91,7 @@ class Card
 
       def run_act card
         self.act_card = card
+        # add new_director(card)
         yield
       ensure
         clear
@@ -109,12 +110,13 @@ class Card
         @directors = nil
       end
 
+      # FIXME: use "parent" instead of opts (it's the only option)
       def fetch card, opts={}
         return directors[card] if directors[card]
         directors.each_key do |dir_card|
           return dir_card.director if dir_card.name == card.name && dir_card.director
         end
-        directors[card] = new_director card, opts
+        add new_director(card, opts)
       end
 
       def include? name
