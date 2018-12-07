@@ -91,8 +91,8 @@ end
 # }
 def interpret_reference ref_hash, referee_name, ref_type
   return unless referee_name # eg commented nest has no referee_name
-  referee_key = (referee_name = referee_name.to_name).key
-  return if referee_key == key # don't create self reference
+  referee_name = referee_name.to_name
+  referee_key = referee_name.key
 
   referee_id = Card.fetch_id(referee_name)
   ref_hash[referee_key] ||= [referee_id]
@@ -166,7 +166,7 @@ event :update_referer_content, :finalize,
       when: :update_referers  do
   Auth.as_bot do
     referers.each do |card|
-      next if card == self || card.structure
+      next if card.structure
       new_content = card.replace_reference_syntax name_before_last_save, name
       card.refresh.update_attributes! content: new_content
       # attach_subcard card.name, content: new_content
