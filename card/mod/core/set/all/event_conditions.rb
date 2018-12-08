@@ -35,8 +35,8 @@ def when_condition_applies? _event, block
 end
 
 def skip_condition_applies? event, allowed
-  return true unless allowed == :allowed
-  !skip_event? event
+  event = event.to_s
+  !(standard_skip_event?(event, allowed) || force_skip_event?(event))
 end
 
 def trigger_condition_applies? event, required
@@ -69,14 +69,25 @@ def wrong_action action
   "on: #{action} method #{method} called on #{@action}"
 end
 
+def standard_skip_event? event, allowed
+  return false if allowed == :allowed
+  skipped_events.include? event
+end
+
+def force_skip_event? event
+  skipped_events.include? "#{event}!"
+end
+
 def skip_event? event
   @names_of_skipped_events ||= skipped_events
   @names_of_skipped_events.include? event.name
 end
 
 def skipped_events
-  events = Array.wrap(skip_event_in_action) + Array.wrap(act_card.skip_event)
-  ::Set.new events.map(&:to_sym)
+  @skipped_events ||= begin
+    events = Array.wrap(skip_event_in_action) + Array.wrap(act_card.skip_event)
+    ::Set.new events.map(&:to_s)
+  end
 end
 
 def trigger_event? event
