@@ -43,4 +43,13 @@ RSpec.describe Card::Set::All::References do
       expect(Card["X"].nestees.map(&:name)).to eq([])
     end
   end
+
+  describe "event :update_referer_content" do
+    it "handles self references" do
+      c = Card["A"]
+      c.update_attributes! content: "[[A]]"
+      c.refresh.update_attributes! name: "AAA", update_referers: true
+      expect(c.refresh.content).to eq("[[AAA]]")
+    end
+  end
 end
