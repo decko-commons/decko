@@ -35,7 +35,8 @@ def when_condition_applies? _event, block
 end
 
 def skip_condition_applies? event, allowed
-  event = event.to_s
+  return true if skipped_events.empty?
+  event = event.name.to_s
   !(standard_skip_event?(event, allowed) || force_skip_event?(event))
 end
 
@@ -70,17 +71,12 @@ def wrong_action action
 end
 
 def standard_skip_event? event, allowed
-  return false if allowed == :allowed
+  return false unless allowed == :allowed
   skipped_events.include? event
 end
 
 def force_skip_event? event
   skipped_events.include? "#{event}!"
-end
-
-def skip_event? event
-  @names_of_skipped_events ||= skipped_events
-  @names_of_skipped_events.include? event.name
 end
 
 def skipped_events
