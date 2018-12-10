@@ -8,6 +8,16 @@ def actify &block
   end
 end
 
+def save_as_subcard!
+  @subcard_save = true
+  self.only_storage_phase = true
+  save! validate: false
+ensure
+  @subcard_save = nil
+end
+
+private
+
 def start_new_act
   self.director = nil
   ActManager.run_act(self) do
@@ -16,27 +26,23 @@ def start_new_act
 end
 
 def add_to_act
-  raise_if_duplicate_director
+  return yield if already_in_act?
+  # raise_if_duplicate_director
   director.reset_stage
   director.update_card self
   self.only_storage_phase = true
   yield
 end
 
-def raise_if_duplicate_director
-  return unless name.present? && ActManager.directors[self]
-  raise Card::Error::ServerError,
-        "Cannot add #{name} to act; it's already there."
+def already_in_act?
+  name.present? && ActManager.directors[self]
 end
 
-
-def save_as_subcard!
-  @subcard_save = true
-  self.only_storage_phase = true
-  save! validate: false
-ensure
-  @subcard_save = nil
-end
+# def raise_if_duplicate_director
+#   return unless
+#   raise Card::Error::ServerError,
+#         "Cannot add #{name} to act; it's already there."
+# end
 
 # This is a workaround to help navigate the fact that in active record,
 # #update! calls #with_transaction_returning_status, which calls #save!,
@@ -53,8 +59,6 @@ ensure
   @called = nil
 end
 
-# This may not strictly be necessary, since it would lead to a duplicate director,
-# but it's an extra safeguard.
 def raise_if_duplicate_call method
   @called ||= {}
   return unless @called[method]
