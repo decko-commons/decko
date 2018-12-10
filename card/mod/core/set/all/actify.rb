@@ -24,7 +24,7 @@ def add_to_act
 end
 
 def raise_if_duplicate_director
-  return unless ActManager.directors[self]
+  return unless name.present? && ActManager.directors[self]
   raise Card::Error::ServerError,
         "Cannot add #{name} to act; it's already there."
 end
