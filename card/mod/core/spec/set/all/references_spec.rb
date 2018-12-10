@@ -45,11 +45,9 @@ RSpec.describe Card::Set::All::References do
   end
 
   describe "event :update_referer_content" do
-    xit "handles self references" do
-      c = Card["A"]
-      c.update_attributes! content: "[[A]]"
-      c.refresh.update_attributes! name: "AAA", update_referers: true
-      expect(c.refresh.content).to eq("[[AAA]]")
+    it "handles self references" do
+      Card["A"].update! name: "AAA", update_referers: true
+      expect(Card["X"].content).to eq("[[AAA]] [[AAA+B]] [[T]]")
     end
   end
 end
