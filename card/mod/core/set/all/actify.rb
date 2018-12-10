@@ -29,7 +29,6 @@ def raise_if_duplicate_director
         "Cannot add #{name} to act; it's already there."
 end
 
-
 def save_as_subcard!
   @subcard_save = true
   self.only_storage_phase = true

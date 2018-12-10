@@ -35,7 +35,7 @@ def when_condition_applies? _event, block
 end
 
 def skip_condition_applies? event, allowed
-  return true if skipped_events.empty?
+  return true if skip_events.empty?
   event = event.name.to_s
   !(standard_skip_event?(event, allowed) || force_skip_event?(event))
 end
@@ -72,15 +72,19 @@ end
 
 def standard_skip_event? event, allowed
   return false unless allowed == :allowed
-  skipped_events.include? event
+  skip_events.include? event
 end
 
 def force_skip_event? event
-  skipped_events.include? "#{event}!"
+  forced_skip_events.include? event
 end
 
-def skipped_events
-  @skipped_events ||= begin
+def forced_skip_events
+  @forced_skip_events ||= Set.new skip_events.find { |e| e.last == "!" }
+end
+
+def skip_events
+  @skip_events ||= begin
     events = Array.wrap(skip_event_in_action) + Array.wrap(act_card.skip_event)
     ::Set.new events.map(&:to_s)
   end
