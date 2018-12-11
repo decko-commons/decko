@@ -93,6 +93,7 @@ def interpret_reference ref_hash, referee_name, ref_type
   return unless referee_name # eg commented nest has no referee_name
   referee_name = referee_name.to_name
   referee_key = referee_name.key
+  return if referee_key == key # don't create self reference
 
   referee_id = Card.fetch_id(referee_name)
   ref_hash[referee_key] ||= [referee_id]
