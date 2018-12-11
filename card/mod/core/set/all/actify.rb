@@ -1,22 +1,11 @@
-
-def actify &block
-  @action || identify_action
+def act &block
+  @action ||= identify_action
   if ActManager.act_card
     add_to_act &block
   else
     start_new_act &block
   end
 end
-
-def save_as_subcard!
-  @subcard_save = true
-  self.only_storage_phase = true
-  save! validate: false
-ensure
-  @subcard_save = nil
-end
-
-private
 
 def start_new_act
   self.director = nil
@@ -26,60 +15,48 @@ def start_new_act
 end
 
 def add_to_act
-  return yield if already_in_act?
-  # raise_if_duplicate_director
+  # if only_storage_phase is true then the card is already part of the act
+  return yield if ActManager.act_card == self || only_storage_phase
   director.reset_stage
   director.update_card self
   self.only_storage_phase = true
   yield
 end
 
-def already_in_act?
-  name.present? && ActManager.directors[self]
-end
+module ClassMethods
+  def create! opts
+    card = Card.new opts
+    card.act do
+      card.save!
+    end
+    card
+  end
 
-# def raise_if_duplicate_director
-#   return unless
-#   raise Card::Error::ServerError,
-#         "Cannot add #{name} to act; it's already there."
-# end
-
-# This is a workaround to help navigate the fact that in active record,
-# #update! calls #with_transaction_returning_status, which calls #save!,
-# which ALSO calls #with_transaction_returning_status.
-#
-# We want to allow one update! and one save! call for a given card in a
-# given act.  But we want to raise an error if one of those is called twice.
-def call_only_once method
-  already = !@called.nil?
-  raise_if_duplicate_call method
-  @called[method] = true
-  yield already
-ensure
-  @called = nil
-end
-
-def raise_if_duplicate_call method
-  @called ||= {}
-  return unless @called[method]
-  raise Card::Error::ServerError,
-        "attempted multiple #{method} calls on #{name} card in one act"
-end
-
-def in_act caller_method, &block
-  return yield if @subcard_save
-  call_only_once caller_method do |called|
-    return yield if called
-    actify &block
+  def create opts
+    card = Card.new opts
+    card.act do
+      card.save
+    end
+    card
   end
 end
 
-# this is an override of standard rails behavior that rescues abort
-# makes it so that :success abortions do not rollback
-def with_transaction_returning_status
-  caller_method = caller_locations(1, 1)[0].label
-  in_act caller_method do
-    super
-  end
+def save!(*)
+  act { super }
 end
 
+def save(*)
+  act { super }
+end
+
+def valid?(*)
+  act { super }
+end
+
+def update_attributes *args
+  act { super }
+end
+
+def update_attributes! *args
+  act { super }
+end

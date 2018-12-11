@@ -115,7 +115,7 @@ class CardController < ActionController::Base
 
   def render_page format, view
     view ||= params[:view]
-    card.actify do
+    card.act do
       format.page self, view, Card::Env.slot_opts
     end
   end
