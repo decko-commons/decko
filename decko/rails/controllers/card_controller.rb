@@ -26,7 +26,7 @@ class CardController < ActionController::Base
   end
 
   def update
-    card.new_card? ? create : handle { card.update! params[:card] }
+    card.new_card? ? create : handle { card.update_attributes! params[:card] }
   end
 
   def delete
@@ -91,8 +91,10 @@ class CardController < ActionController::Base
   # ----------( HELPER METHODS ) -------------
 
   def handle
-    Card::Env.success card.name
-    yield ? render_success : raise(Card::Error::UserError)
+    card.act do
+      Card::Env.success card.name
+      yield ? render_success : raise(Card::Error::UserError)
+    end
   end
 
   # successful create, update, or delete action
