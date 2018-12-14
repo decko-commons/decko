@@ -20,7 +20,7 @@ describe Card::Set::Abstract::SolidCache do
       it "uses solid cache card content as core view" do
         @card.format_with_set(described_class) do |format|
           Card::Auth.as_bot do
-            Card["A"].solid_cache_card.update_attributes! content: "cache"
+            Card["A"].solid_cache_card.update! content: "cache"
           end
           expect(format._render_core).to eq "cache"
         end
@@ -31,7 +31,7 @@ describe Card::Set::Abstract::SolidCache do
       it "ignores solid cache card content" do
         @card.format_with_set(described_class) do |format|
           Card::Auth.as_bot do
-            Card["A"].solid_cache_card.update_attributes! content: "cache"
+            Card["A"].solid_cache_card.update! content: "cache"
           end
           expect(format._render_core(hide: :solid_cache)).to eq core_view
         end
@@ -65,7 +65,7 @@ describe Card::Set::Abstract::SolidCache do
 
       it "updates solid cache card" do
         Card::Auth.as_bot do
-          Card["volatile"].update_attributes! content: "changing"
+          Card["volatile"].update! content: "changing"
         end
         expect(Card["cached", :solid_cache].content)
           .to eq "chopping and changing"
@@ -89,7 +89,7 @@ describe Card::Set::Abstract::SolidCache do
         Card["cached"].format(:html)._render_core
         expect(Card["cached", :solid_cache]).to be_instance_of Card
         Card::Auth.as_bot do
-          Card["volatile"].update_attributes! content: "changing"
+          Card["volatile"].update! content: "changing"
         end
         expect(Card["cached", :solid_cache]).to be_falsey
       end

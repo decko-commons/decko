@@ -19,36 +19,9 @@ def structured_content
   structure && template.db_content
 end
 
-def context_card
-  @context_card || self
-end
-
-def with_context context_card
-  old_context = @context_card
-  @context_card = context_card if context_card
-  yield
-ensure
-  @context_card = old_context
-end
-
 format do
   def chunk_list # override to customize by set
     :default
-  end
-
-  def context_card
-    card.context_card
-  end
-
-  def with_context context_card
-    card.with_context context_card do
-      yield
-    end
-  end
-
-  def contextual_content context_card, options={}
-    view = options.delete(:view) || :core
-    with_context(context_card) { render! view, options }
   end
 end
 
@@ -83,7 +56,7 @@ def last_draft_content
 end
 
 event :set_content, :store, on: :save do
-  self.db_content = prepare_content
+  self.db_content = prepare_db_content
   @selected_action_id = @selected_content = nil
   clear_drafts
   reset_patterns_if_rule true
@@ -104,9 +77,18 @@ def draft?
   Env.params["draft"] == "true"
 end
 
-def prepare_content
-  cont = standard_content || "" # necessary?
+def prepare_db_content
+  cont = standard_db_content || "" # necessary?
   clean_html? ? Card::Content.clean!(cont) : cont
+end
+
+def standard_db_content
+  if structure
+    # do not override db_content with content from structure
+    db_content
+  else
+    standard_content
+  end
 end
 
 def clean_html?

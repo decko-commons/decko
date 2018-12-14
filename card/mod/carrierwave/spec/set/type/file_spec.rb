@@ -329,7 +329,7 @@ RSpec.describe Card::Set::Type::File do
   context "updating" do
     subject do
       card = protected_file
-      card.update_attributes! file: test_file(2)
+      card.update! file: test_file(2)
       card
     end
 
@@ -363,14 +363,14 @@ RSpec.describe Card::Set::Type::File do
 
       it "changes storage type to default" do
         storage_config :local
-        subject.update_attributes! file: test_file(2)
+        subject.update! file: test_file(2)
         expect(subject.storage_type).to eq :local
         expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
       end
       it "keeps storage type coded if explicitly set" do
         storage_config :local
-        subject.update_attributes! file: test_file(2), storage_type: :coded
+        subject.update! file: test_file(2), storage_type: :coded
         expect(subject.storage_type).to eq :coded
         expect(subject.db_content)
           .to eq ":#{subject.codename}/test_mod.txt"
@@ -432,7 +432,7 @@ RSpec.describe Card::Set::Type::File do
       after { Cardio.config.file_storage = :local }
       it "copies file to local file system" do
         # not yet supported
-        expect { Card[subject.name].update_attributes!(storage_type: :local) }
+        expect { Card[subject.name].update!(storage_type: :local) }
           .to raise_error(ActiveRecord::RecordInvalid)
         # expect(subject.content)
         #   .to eq "~#{subject.id}/#{subject.last_action_id - 1}.txt"
@@ -454,7 +454,7 @@ RSpec.describe Card::Set::Type::File do
         expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
         Card::Auth.as_bot do
-          subject.update_attributes! storage_type: :coded, mod: "test_mod",
+          subject.update! storage_type: :coded, mod: "test_mod",
                                      codename: "mod_file"
         end
         expect(subject.db_content)
@@ -469,7 +469,7 @@ RSpec.describe Card::Set::Type::File do
       it "copies file to mod" do
         @storage_type = :local
         Card::Auth.as_bot do
-          subject.update_attributes! storage_type: :local
+          subject.update! storage_type: :local
         end
         expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.png"
@@ -481,7 +481,7 @@ RSpec.describe Card::Set::Type::File do
         @storage_type = :local
         expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
-        subject.update_attributes! storage_type: :cloud
+        subject.update! storage_type: :cloud
 
         expect(subject.db_content).to eq(
           "(test_bucket)/#{subject.id}/#{subject.last_action_id}.txt"

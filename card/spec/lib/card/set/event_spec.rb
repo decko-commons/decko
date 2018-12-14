@@ -13,7 +13,7 @@ describe Card::Set::Event do
       end
 
       Card::Env.params[:level1] = ActionController::Parameters.new level2: :a_symbol
-      Card["A"].update_attributes! content: "new content"
+      Card["A"].update! content: "new content"
 
       expect(@called).to eq true
     end

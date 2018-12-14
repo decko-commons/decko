@@ -47,7 +47,7 @@ module CarrierWave
   #               remote_file_url: "http://a.file.in/the.web"
   #
   # @example Updating a image card using a remote url
-  #   card.update_attributes remote_image_url: "http://a.image/somewhere.png"
+  #   card.update remote_image_url: "http://a.image/somewhere.png"
   #
   # ## Storage types
   # You can choose between four different storage options
@@ -93,7 +93,7 @@ module CarrierWave
   #   }
   #
   #   # wagn console or rake task:
-  #   card.update_attributes storage_type: :cloud, bucket: :aws_bucket
+  #   card.update storage_type: :cloud, bucket: :aws_bucket
   #
   # @example Creating a file card with fixed external link
   #   Card.create name: "file card", type_id: Card::FileID,

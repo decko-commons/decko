@@ -17,7 +17,7 @@ class AddEmailCards < Card::Migration::Core
       default_rule.save!
 
       Card.search(right: { codename: field.to_s }).each do |field_card|
-        field_card.update_attributes! type_id: Card::PointerID
+        field_card.update! type_id: Card::PointerID
       end
 
       options_rule = set.fetch(trait: :options, new: { type_code: :search_type })
@@ -118,7 +118,7 @@ class AddEmailCards < Card::Migration::Core
 
     send = Card[:send]
     return unless send
-    send.update_attributes codename: nil
+    send.update codename: nil
     send.delete!
   end
 end

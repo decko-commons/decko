@@ -67,7 +67,7 @@ class Card
   #    the card invalid to save
   # 2) 'secure' means you are sure that the change doesn't affect the validation
   # 3) In all stages except IGwD:
-  #    If you call 'create', 'update_attributes' or 'save' the card will become
+  #    If you call 'create', 'update' or 'save' the card will become
   #    part of the same act and all stage of the validation and storage phase
   #    will be executed immediately for that card. The integration phase will be
   #    executed together with the act card and its subcards.

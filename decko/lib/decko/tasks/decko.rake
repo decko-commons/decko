@@ -164,7 +164,7 @@ decko_namespace = namespace :decko do
 
       Card.search(right: { codename: "following" }).each do |following|
         Card::Auth.as_bot do
-          following.update_attributes! content: ""
+          following.update! content: ""
         end
       end
 

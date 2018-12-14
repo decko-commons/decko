@@ -50,7 +50,7 @@ RSpec.describe Card::Set::Type::List do
     context "when the cardtype of Stam Broker changed" do
       it "raises an error" do
         @card = Card["Stam Broker"]
-        @card.update_attributes type_id: Card::BasicID
+        @card.update type_id: Card::BasicID
         expect(@card.errors[:type].first).to match(
           /can't be changed because .+ is referenced by list/
         )
@@ -58,7 +58,7 @@ RSpec.describe Card::Set::Type::List do
     end
     context "when the name of Parry Hotter changed to Parry Moppins" do
       before do
-        Card["Parry Hotter"].update_attributes! name: "Parry Moppins"
+        Card["Parry Hotter"].update! name: "Parry Moppins"
       end
       subject do
         Card.fetch("Parry Moppins+authors").item_names.sort
@@ -70,7 +70,7 @@ RSpec.describe Card::Set::Type::List do
     context "when the name of Stam Broker changed to Stam Trader" do
       before do
         Card::Auth.as_bot do
-        Card["Stam Broker"].update_attributes!(
+        Card["Stam Broker"].update!(
           name: "Stam Trader", update_referers: true
         )
         end
@@ -83,7 +83,7 @@ RSpec.describe Card::Set::Type::List do
       it "raises error because content is invalid" do
         # FIXME: - bad description; content is not changed
         expect do
-          Card["Stam Broker+books"].update_attributes! name: "Stam Broker+poems"
+          Card["Stam Broker+books"].update! name: "Stam Broker+poems"
         end.to raise_error(ActiveRecord::RecordInvalid,
                            /Name must have a cardtype name as right part/)
       end
@@ -91,7 +91,7 @@ RSpec.describe Card::Set::Type::List do
     context "when Stam Broker+books changes to Stam Broker+not a type" do
       it "raises error because name needs cardtype name as right part" do
         expect do
-          Card["Stam Broker+books"].update_attributes!(
+          Card["Stam Broker+books"].update!(
             name: "Stam Broker+not a type"
           )
         end.to raise_error(ActiveRecord::RecordInvalid,
@@ -101,14 +101,14 @@ RSpec.describe Card::Set::Type::List do
 
     context "when the cartype of Parry Hotter changed" do
       before do
-        Card["Parry Hotter"].update_attributes! type_id: Card::BasicID
+        Card["Parry Hotter"].update! type_id: Card::BasicID
       end
       it { is_expected.to eq ["Darles Chickens", "Stam Broker"] }
     end
     context "when Parry Hotter+authors to Parry Hotter+basics" do
       it "raises error because content is invalid" do
         expect do
-          Card["Parry Hotter+authors"].update_attributes!(
+          Card["Parry Hotter+authors"].update!(
             name: "Parry Hotter+basics"
           )
         end.to raise_error(ActiveRecord::RecordInvalid,
@@ -132,7 +132,7 @@ RSpec.describe Card::Set::Type::List do
 
   context "when the name of the cardtype books changed" do
     before do
-      Card["book"].update_attributes!(
+      Card["book"].update!(
         name: "film", update_referers: true
       )
     end
@@ -141,7 +141,7 @@ RSpec.describe Card::Set::Type::List do
 
   context "when the name of the cardtype authors changed" do
     before do
-      Card["author"].update_attributes!(
+      Card["author"].update!(
         name: "publisher", update_referers: true
       )
     end

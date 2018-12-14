@@ -22,7 +22,7 @@ class Card
       def update_card name, content_or_args
         args = standardize_update_args name, content_or_args
         resolve_name_conflict args
-        Card[name].update_attributes! args
+        Card[name].update! args
       end
 
       def create_or_update_card name_or_args, content_or_args=nil
@@ -48,7 +48,7 @@ class Card
         end
         return unless Card.exist?(name)
         card = Card[name]
-        card.update_attributes! codename: nil
+        card.update! codename: nil
         card.delete!
       end
 
@@ -271,7 +271,7 @@ class Card
 
         return if update_args.empty? && subcards.empty?
         # FIXME: use ensure_attributes for subcards
-        card.update_attributes! update_args.merge(subcards: subcards,
+        card.update! update_args.merge(subcards: subcards,
                                                   skip: :validate_renaming)
       end
 

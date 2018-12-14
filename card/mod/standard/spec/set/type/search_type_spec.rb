@@ -35,7 +35,7 @@ RSpec.describe Card::Set::Type::SearchType do
 
   it "handles type update from pointer" do
     pointer_card = create_pointer "PointerToSearches"
-    pointer_card.update_attributes! type_id: Card::SearchTypeID,
+    pointer_card.update! type_id: Card::SearchTypeID,
                                     content: %({"type":"User"})
     expect(pointer_card.content).to eq(%({"type":"User"}))
   end
@@ -49,7 +49,7 @@ RSpec.describe Card::Set::Type::SearchType do
     end
 
     it "updates query if referee changed" do
-      Card["Y"].update_attributes! name: "YYY", update_referers: true
+      Card["Y"].update! name: "YYY", update_referers: true
       expect(subject.content).to eq '{"name":"YYY"}'
     end
   end

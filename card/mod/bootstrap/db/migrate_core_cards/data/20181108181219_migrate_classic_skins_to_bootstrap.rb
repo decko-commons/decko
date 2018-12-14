@@ -17,11 +17,11 @@ class MigrateClassicSkinsToBootstrap < ActiveRecord::Migration[5.2]
   def change
     style_rule = Card[:all, :style]
     if style_rule.item_names.first.key.in? UNSUPPORTED_SKINS
-      style_rule.update_attributes! content: DEFAULT_SKIN
+      style_rule.update! content: DEFAULT_SKIN
     end
 
     layout_rule = Card[:all, :layout]
     return unless layout_rule.item_names.first.key == UNSUPPORTED_LAYOUT
-    layout_rule.update_attributes! content: DEFAULT_LAYOUT
+    layout_rule.update! content: DEFAULT_LAYOUT
   end
 end

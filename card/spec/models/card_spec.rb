@@ -35,7 +35,7 @@ RSpec.describe Card do
     before do
       Card::Auth.as_bot do
         @c = Card["basicname"]
-        @c.update_attributes! content: "foo"
+        @c.update! content: "foo"
       end
     end
 
@@ -89,7 +89,7 @@ describe "basic card tests" do
 
   it "update_should_create_subcards" do
     Card.create! name: "Banana"
-    Card["banana"].update_attributes! subcards: { "+peel" => { content: "yellow" } }
+    Card["banana"].update! subcards: { "+peel" => { content: "yellow" } }
 
     peel = Card["Banana+peel"]
     expect(peel.content).       to eq("yellow")
@@ -114,7 +114,7 @@ describe "basic card tests" do
     it "update doesn't create subcards" do
       b = create! "Banana"
       Card::Auth.as Card::AnonymousID do
-        b.update_attributes subcards: { "+peel" => { content: "yellow" } }
+        b.update subcards: { "+peel" => { content: "yellow" } }
         expect(b.errors[:permission_denied]).not_to be_empty
 
         c = Card.update(b.id, subcards: { "+peel" => { content: "yellow" } })

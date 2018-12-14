@@ -19,7 +19,7 @@ describe Card::Set::All::Observer do
                    content: "[[mail template]]"
     end
     card = Card.fetch "mail test"
-    expect { Card::Auth.as_bot { card.update_attributes(content: "test") } }
+    expect { Card::Auth.as_bot { card.update(content: "test") } }
       .to change { Mail::TestMailer.deliveries.count }.by(1)
   end
 

@@ -5,9 +5,9 @@ describe Card::Set::Right::Password do
     @account = Card::Auth.find_account_by_email("joe@user.com")
   end
 
-  describe "#update_attributes" do
+  describe "#update" do
     it "encrypts password" do
-      @account.password_card.update_attributes! content: "new password"
+      @account.password_card.update! content: "new password"
       expect(@account.password).not_to eq("new password")
       authenticated = Card::Auth.authenticate "joe@user.com", "new password"
       assert_equal @account, authenticated
@@ -15,7 +15,7 @@ describe Card::Set::Right::Password do
 
     it "validates password" do
       password_card = @account.password_card
-      password_card.update_attributes content: "2b"
+      password_card.update content: "2b"
       expect(password_card.errors[:password]).not_to be_empty
     end
 
@@ -31,7 +31,7 @@ describe Card::Set::Right::Password do
       end
 
       it "does not break email editing" do
-        @account.update_attributes! subcards: { "+*password" => "",
+        @account.update! subcards: { "+*password" => "",
                                                 "+*email" => "joe2@user.com" }
         expect(@account.email).to eq("joe2@user.com")
         expect(@account.password).not_to be_empty

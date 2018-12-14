@@ -107,19 +107,19 @@ RSpec.describe Card::Set::Right::Account do
     end
   end
 
-  describe "#update_attributes" do
+  describe "#update" do
     before do
       @account = Card::Auth.find_account_by_email("joe@user.com")
     end
 
     it "resets password" do
-      @account.password_card.update_attributes!(content: "new password")
+      @account.password_card.update!(content: "new password")
       authenticated = Card::Auth.authenticate "joe@user.com", "new password"
       assert_equal @account, authenticated
     end
 
     it "does not rehash password when updating email" do
-      @account.email_card.update_attributes! content: "joe2@user.com"
+      @account.email_card.update! content: "joe2@user.com"
       authenticated = Card::Auth.authenticate "joe2@user.com", "joe_pass"
       assert_equal @account, authenticated
     end
@@ -135,7 +135,7 @@ RSpec.describe Card::Set::Right::Account do
       Card::Auth.current_id = Card::AnonymousID
     end
 
-    let(:trigger_reset) { @account.update_attributes! trigger: :reset_password }
+    let(:trigger_reset) { @account.update! trigger: :reset_password }
 
     it "authenticates with correct token" do
       expect(Card::Auth.current_id).to eq(Card::AnonymousID)

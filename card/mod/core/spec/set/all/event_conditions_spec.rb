@@ -18,7 +18,7 @@ RSpec.describe Card::Set::All::EventConditions do
     end
 
     def change_content
-      Card["A"].update_attributes! content: "changed content"
+      Card["A"].update! content: "changed content"
     end
 
     before do
@@ -57,11 +57,11 @@ RSpec.describe Card::Set::All::EventConditions do
           test_event :validate, on: :update, trigger: :required, for: "A" do
             add_to_log "triggered"
           end
-          Card["A"].update_attributes! content: "changed content"
+          Card["A"].update! content: "changed content"
 
           aggregate_failures do
             expect(@log).to be_empty
-            Card["A"].update_attributes! content: "changed content",
+            Card["A"].update! content: "changed content",
                                          trigger: :test_event_0
             expect(@log).to contain_exactly "triggered"
           end
@@ -75,11 +75,11 @@ RSpec.describe Card::Set::All::EventConditions do
           test_event :validate, on: :update, skip: :allowed, for: "A" do
             add_to_log "executed"
           end
-          Card["A"].update_attributes! content: "changed content", skip: :test_event_0
+          Card["A"].update! content: "changed content", skip: :test_event_0
 
           aggregate_failures do
             expect(@log).to be_empty
-            Card["A"].update_attributes! content: "changed content"
+            Card["A"].update! content: "changed content"
             expect(@log).to contain_exactly "executed"
           end
         end
@@ -90,13 +90,13 @@ RSpec.describe Card::Set::All::EventConditions do
           test_event :validate, on: :update, skip: :allowed, for: "A+B" do
             add_to_log "not skipped"
           end
-          Card["A"].update_attributes! content: "changed content",
+          Card["A"].update! content: "changed content",
                                        skip: :test_event_0,
                                        subcards: { "+B" => "changed +B content" }
 
           aggregate_failures do
             expect(@log).to be_empty
-            Card["A"].update_attributes! content: "changed content",
+            Card["A"].update! content: "changed content",
                                          subcards: { "+B" => "changed +B content" }
             expect(@log).to contain_exactly "not skipped"
           end
@@ -108,13 +108,13 @@ RSpec.describe Card::Set::All::EventConditions do
           test_event :validate, on: :update, skip: :allowed do
             add_to_log "#{name} not skipped"
           end
-          Card["A"].update_attributes! content: "changed content",
+          Card["A"].update! content: "changed content",
                                        skip_in_action: :test_event_0,
                                        subcards: { "+B" => "changed +B content" }
 
           aggregate_failures do
             expect(@log).to contain_exactly "A+B not skipped"
-            Card["A"].update_attributes! content: "changed content",
+            Card["A"].update! content: "changed content",
                                          subcards: { "+B" => "changed +B content" }
             expect(@log).to contain_exactly "A+B not skipped",
                                             "A not skipped",

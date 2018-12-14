@@ -91,18 +91,18 @@ RSpec.describe Card::Set::All::Account do
       let(:account) {card.account}
 
       it "handles email updates" do
-        card.update_attributes! "+*account" => { "+*email" => "joe@user.co.uk" }
+        card.update! "+*account" => { "+*email" => "joe@user.co.uk" }
         expect(account.email).to eq("joe@user.co.uk")
       end
 
       it "lets Wagn Bot block accounts", as_bot: true do
-        card.account.status_card.update_attributes! content: "blocked"
+        card.account.status_card.update! content: "blocked"
         expect(account.blocked?).to be_truthy
       end
 
       it "does not allow a user to block or unblock himself" do
         expect do
-          account.status_card.update_attributes! content: "blocked"
+          account.status_card.update! content: "blocked"
         end.to raise_error(ActiveRecord::RecordInvalid,
                            "Validation failed: Permission denied You don't have "\
                          "permission to change the status of your own account")
