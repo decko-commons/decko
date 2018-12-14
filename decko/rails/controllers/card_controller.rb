@@ -134,8 +134,13 @@ class CardController < ActionController::Base
     def rescue_from_class klass
       rescue_from(klass) { |exception| handle_exception exception }
     end
+
+    def rescue_all?
+      Card.config.rescue_all_in_controller
+      true # DELETE ME!!!
+    end
   end
 
   rescue_from_class ActiveRecord::RecordInvalid
-  rescue_from_class(Rails.env.development? ? Card::Error::UserError : StandardError)
+  rescue_from_class(rescue_all? ? StandardError : Card::Error::UserError)
 end
