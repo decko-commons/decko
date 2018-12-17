@@ -44,6 +44,12 @@ Decko.application.class.configure do
   # See everything in the log (default is :info)
   config.log_level = :debug
 
+  # if false, most rendering errors will be rescued and made visible only
+  # in the nest where the error occurred
+  config.raise_all_rendering_errors = true
+
+  # if false, application will raise errors that make it to controller.
+  config.rescue_all_in_controller = false
 
   # config.performance_logger = {
   #     methods:   [:event, :search, :fetch, :view],  # choose methods to log

@@ -97,7 +97,13 @@ class Card
           exception = card_error_class(exception, card).new exception.message
         end
         exception.card ||= card
+        add_card_errors card, exception if exception.card.errors.empty?
         exception
+      end
+
+      def add_card_errors card, exception
+        label = exception.class.to_s.split("::").last
+        card.errors.add label, exception.message
       end
 
       def card_error_class exception, card

@@ -91,7 +91,8 @@ class CardController < ActionController::Base
   # ----------( HELPER METHODS ) -------------
 
   def handle
-    card.act(success: true) do
+    card.act do
+      Card::Env.success card.name
       yield ? render_success : raise(Card::Error::UserError)
     end
   end
@@ -133,8 +134,13 @@ class CardController < ActionController::Base
     def rescue_from_class klass
       rescue_from(klass) { |exception| handle_exception exception }
     end
+
+    def rescue_all?
+      Card.config.rescue_all_in_controller
+      true # DELETE ME!!!
+    end
   end
 
   rescue_from_class ActiveRecord::RecordInvalid
-  rescue_from_class(Rails.env.development? ? Card::Error::UserError : StandardError)
+  rescue_from_class(rescue_all? ? StandardError : Card::Error::UserError)
 end

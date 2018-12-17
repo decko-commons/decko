@@ -72,7 +72,8 @@ module Cardio
         machine_refresh:        :cautious, # options: eager, cautious, never
 
         allow_irreversible_admin_tasks: false,
-        raise_all_rendering_errors:     true
+        raise_all_rendering_errors:     false,
+        rescue_all_in_controller:       true
       }
     end
 
