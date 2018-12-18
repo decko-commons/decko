@@ -271,8 +271,7 @@ class Card
 
         return if update_args.empty? && subcards.empty?
         # FIXME: use ensure_attributes for subcards
-        card.update! update_args.merge(subcards: subcards,
-                                                  skip: :validate_renaming)
+        card.update! update_args.merge(subcards: subcards, skip: :validate_renaming)
       end
 
       def changing_args card, args

@@ -226,8 +226,7 @@ RSpec.describe Card::Set::Type::File do
           Card::Mod.dirs.mods.delete "test_mod"
         end
         subject do
-          create_file_card :coded, test_file,
-                           codename: "mod_file", mod: "test_mod"
+          create_file_card :coded, test_file, codename: "mod_file", mod: "test_mod"
         end
 
         let(:file_path) { File.join mod_path, "file", "mod_file", "file.txt" }
@@ -357,8 +356,7 @@ RSpec.describe Card::Set::Type::File do
       end
 
       subject do
-        create_file_card :coded, test_file,
-                         codename: "mod_file", mod: "test_mod"
+        create_file_card :coded, test_file, codename: "mod_file", mod: "test_mod"
       end
 
       it "changes storage type to default" do
@@ -454,8 +452,7 @@ RSpec.describe Card::Set::Type::File do
         expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
         Card::Auth.as_bot do
-          subject.update! storage_type: :coded, mod: "test_mod",
-                                     codename: "mod_file"
+          subject.update! storage_type: :coded, mod: "test_mod", codename: "mod_file"
         end
         expect(subject.db_content)
           .to eq ":#{subject.codename}/test_mod.txt"

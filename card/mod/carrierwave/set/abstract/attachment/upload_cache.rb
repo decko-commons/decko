@@ -42,7 +42,7 @@ end
 def assign_attachment file, original_filename
   send "#{attachment_name}=", file
   write_identifier
-  @current_action.update! comment: original_filename if @current_action
+  @current_action&.update! comment: original_filename
 end
 
 event :delete_cached_upload_file_on_create, :integrate,

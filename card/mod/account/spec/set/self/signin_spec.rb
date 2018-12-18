@@ -33,19 +33,19 @@ RSpec.describe Card::Set::Self::Signin do
   context "#update" do
     it "triggers signin with valid credentials" do
       @card.update! "+*email" => "joe@admin.com",
-                               "+*password" => "joe_pass"
+                    "+*password" => "joe_pass"
       expect(Card::Auth.current).to eq(Card["joe admin"])
     end
 
     it "does not trigger signin with bad email" do
       @card.update! "+*email" => "schmoe@admin.com",
-                               "+*password" => "joe_pass"
+                    "+*password" => "joe_pass"
       expect(@card.errors[:signin].first).to match(/Unrecognized email/)
     end
 
     it "does not trigger signin with bad password" do
       @card.update! "+*email" => "joe@admin.com",
-                               "+*password" => "joe_fail"
+                    "+*password" => "joe_fail"
       expect(@card.errors[:signin].first).to match(/Wrong password/)
     end
   end
@@ -58,8 +58,7 @@ RSpec.describe Card::Set::Self::Signin do
     end
 
     it "returns an error if email is not found" do
-      @card.update! "+*email" => "schmoe@admin.com",
-                               trigger: :send_reset_password_token
+      @card.update! "+*email" => "schmoe@admin.com", trigger: :send_reset_password_token
       expect(@card.errors[:email].first).to match(/not recognized/)
     end
   end

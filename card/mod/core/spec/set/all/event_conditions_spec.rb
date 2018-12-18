@@ -61,8 +61,7 @@ RSpec.describe Card::Set::All::EventConditions do
 
           aggregate_failures do
             expect(@log).to be_empty
-            Card["A"].update! content: "changed content",
-                                         trigger: :test_event_0
+            Card["A"].update! content: "changed content", trigger: :test_event_0
             expect(@log).to contain_exactly "triggered"
           end
         end
@@ -91,13 +90,13 @@ RSpec.describe Card::Set::All::EventConditions do
             add_to_log "not skipped"
           end
           Card["A"].update! content: "changed content",
-                                       skip: :test_event_0,
-                                       subcards: { "+B" => "changed +B content" }
+                            skip: :test_event_0,
+                            subcards: { "+B" => "changed +B content" }
 
           aggregate_failures do
             expect(@log).to be_empty
             Card["A"].update! content: "changed content",
-                                         subcards: { "+B" => "changed +B content" }
+                              subcards: { "+B" => "changed +B content" }
             expect(@log).to contain_exactly "not skipped"
           end
         end
@@ -109,13 +108,13 @@ RSpec.describe Card::Set::All::EventConditions do
             add_to_log "#{name} not skipped"
           end
           Card["A"].update! content: "changed content",
-                                       skip_in_action: :test_event_0,
-                                       subcards: { "+B" => "changed +B content" }
+                            skip_in_action: :test_event_0,
+                            subcards: { "+B" => "changed +B content" }
 
           aggregate_failures do
             expect(@log).to contain_exactly "A+B not skipped"
             Card["A"].update! content: "changed content",
-                                         subcards: { "+B" => "changed +B content" }
+                              subcards: { "+B" => "changed +B content" }
             expect(@log).to contain_exactly "A+B not skipped",
                                             "A not skipped",
                                             "A+B not skipped"

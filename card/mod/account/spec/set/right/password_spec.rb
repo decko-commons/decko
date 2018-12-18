@@ -31,8 +31,7 @@ describe Card::Set::Right::Password do
       end
 
       it "does not break email editing" do
-        @account.update! subcards: { "+*password" => "",
-                                                "+*email" => "joe2@user.com" }
+        @account.update! subcards: { "+*password" => "", "+*email" => "joe2@user.com" }
         expect(@account.email).to eq("joe2@user.com")
         expect(@account.password).not_to be_empty
       end

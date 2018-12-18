@@ -32,8 +32,8 @@ describe "#send_change_notice" do
       u2.add_item "A"
 
       a = Card.fetch "A"
-      a.update(content: "new content",
-                          subcards: { "+B" => { content: "hidden content" } })
+      a.update content: "new content",
+               subcards: { "+B" => { content: "hidden content" } }
     end
 
     it "sends no email if changes not visible" do

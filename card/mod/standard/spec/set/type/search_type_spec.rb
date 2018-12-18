@@ -35,8 +35,7 @@ RSpec.describe Card::Set::Type::SearchType do
 
   it "handles type update from pointer" do
     pointer_card = create_pointer "PointerToSearches"
-    pointer_card.update! type_id: Card::SearchTypeID,
-                                    content: %({"type":"User"})
+    pointer_card.update! type_id: Card::SearchTypeID, content: %({"type":"User"})
     expect(pointer_card.content).to eq(%({"type":"User"}))
   end
 
