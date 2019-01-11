@@ -6,11 +6,6 @@ event :cache_expired_for_new_preference, :integrate, when: :is_preference? do
   Card.follow_caches_expired
 end
 
-event :cache_expired_for_new_preference_for_delayed_job, :integrate_with_delay,
-      when: :is_preference? do
-  Card.follow_caches_expired
-end
-
 def option_cards
   Card::FollowOption.cards.compact
 end

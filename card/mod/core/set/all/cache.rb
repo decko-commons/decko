@@ -114,7 +114,3 @@ def expire_id cache
   return unless id.present?
   cache.delete "~#{id}"
 end
-
-event :expire_delayed_job_cache, :integrate_with_delay do
-  expire_pieces
-end
