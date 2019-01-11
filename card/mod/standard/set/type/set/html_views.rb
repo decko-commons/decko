@@ -135,9 +135,7 @@ format :html do
   def set_navbar_content related_sets
     wrap_with :ul, class: "nav navbar-nav nav-pills" do
       related_sets.map do |name, label|
-        slot_opts = { subheader: title_in_context(name),
-                      subframe: true,
-                      hide: "header set_label rule_navbar",
+        slot_opts = { hide: "header set_label rule_navbar",
                       show: "subheader set_navbar" }
         link = link_to_card name, label, remote: true,
                                          path: { view: @slot_view,
