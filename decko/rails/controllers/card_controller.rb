@@ -137,7 +137,6 @@ class CardController < ActionController::Base
 
     def rescue_all?
       Card.config.rescue_all_in_controller
-      true # DELETE ME!!!
     end
   end
 
