@@ -70,7 +70,10 @@ module Cardio
         persistent_cache:       true,
         prepopulate_cache:      false,
         machine_refresh:        :cautious, # options: eager, cautious, never
-        allow_irreversible_admin_tasks: false
+
+        allow_irreversible_admin_tasks: false,
+        raise_all_rendering_errors:     false,
+        rescue_all_in_controller:       true
       }
     end
 

@@ -6,11 +6,18 @@ format :html do
   end
 
   view :missing do
-    return "" unless card.ok? :create  # should this be moved into ok_view?
+    createable do
+      wrap { missing_link("#{fa_icon 'plus-square'} #{_render_title}") }
+    end
+  end
+
+  def createable
+    card.ok?(:create) ? yield : ""
+  end
+
+  def missing_link text
     path_opts = voo.type ? { card: { type: voo.type } } : {}
-    link_text = "Add #{_render_title}"
-    klass = "slotter missing-#{@denied_view || voo.home_view}"
-    wrap { link_to_view :new, link_text, path: path_opts, class: klass }
+    link_to_view :new, text, path: path_opts, class: "slotter missing-link"
   end
 
   view :closed_missing, perms: :none do
@@ -114,7 +121,7 @@ format :html do
   end
 
   def standard_error_message attribute, message
-    "<strong>#{h attribute.to_s.upcase}:</strong> #{h message}"
+    "<div><strong>#{h attribute.to_s.upcase}:</strong> #{h message}</div>"
   end
 
   def not_found_errors

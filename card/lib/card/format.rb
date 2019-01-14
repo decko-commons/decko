@@ -126,7 +126,7 @@ class Card
     end
 
     def mime_type
-      "text/text"
+      "text/plain"
     end
 
     def to_sym

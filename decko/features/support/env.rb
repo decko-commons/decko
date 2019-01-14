@@ -6,6 +6,7 @@ require File.join Decko.card_gem_root, "spec/support/simplecov_helper.rb"
 require "simplecov"
 require "minitest/autorun"
 require "rspec"
+require "selenium/webdriver"
 
 World(RSpec::Matchers)
 require "rspec-html-matchers"
@@ -57,13 +58,23 @@ require "cucumber/rails"
 Cucumber::Rails::Database.autorun_database_cleaner = false
 # require "test_after_commit"
 
-Capybara.register_driver :selenium do |app|
+Capybara.register_driver :selenium_firefox do |app|
   Capybara::Selenium::Driver.new(app, browser: :firefox)
 end
 
-Capybara.register_driver(:selenium_chrome_headless) do |app|
+Capybara.register_driver :selenium_headless_chrome do |app|
+  Capybara::Selenium::Driver.load_selenium
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.args << "--headless"
+  browser_options.args << "--disable-gpu"
+  # Sandbox cannot be used inside unprivileged Docker container
+  browser_options.args << "--no-sandbox"
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+end
+
+Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w(no-sandbox disable-gpu) }
+    chromeOptions: { args: %w[headless disable-gpu no-sandbox] }
   )
 
   Capybara::Selenium::Driver.new(
@@ -72,8 +83,9 @@ Capybara.register_driver(:selenium_chrome_headless) do |app|
     desired_capabilities: capabilities
   )
 end
+Capybara.default_driver = :selenium_firefox
 
-Capybara.javascript_driver = :selenium
+Capybara.javascript_driver = :selenium_firefox
 Capybara.default_driver =  :selenium
 #Capybara.server = :webrick
 

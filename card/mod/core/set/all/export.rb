@@ -13,7 +13,7 @@ format :json do
   # returns an array of Hashes (each in export_item view)
   view :export_items, cache: :never do
     exporting_uniques do
-      export_items_in_view :export_item
+      export_items_in_view(:export).flatten
     end
   end
 

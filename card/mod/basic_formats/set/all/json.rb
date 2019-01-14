@@ -42,9 +42,15 @@ format :json do
       card: _render_atom }
   end
 
+  def request_url
+    req = controller.request
+    req ? req.original_url : path
+  end
+
   view :core do
     card.known? ? render_content : nil
   end
+
   view :content do
     card.content
   end
@@ -63,6 +69,15 @@ format :json do
     h = _render_nucleus
     h[:content] = render_content if card.known? && !card.structure
     h
+  end
+
+  view :molecule, cache: :never do
+    _render_atom.merge items: _render_items,
+                       links: _render_links,
+                       ancestors: _render_ancestors,
+                       html_url: path,
+                       type: nest(card.type_card, view: :nucleus)
+
   end
 
   view :items, cache: :never do
@@ -85,20 +100,12 @@ format :json do
     end
   end
 
-  view :molecule, cache: :never do
-    _render_atom.merge items: _render_items,
-                       links: _render_links,
-                       ancestors: _render_ancestors,
-                       html_url: path,
-                       type: nest(card.type_card, view: :nucleus)
-
-  end
-
   # minimum needed to re-fetch card
   view :cast, cache: :never do
     card.cast
   end
 
+  ## DEPRECATED
   view :marks do
     {
       id: card.id,
@@ -119,11 +126,6 @@ format :json do
   def essentials
     return {} if card.structure
     { content: card.db_content }
-  end
-
-  def request_url
-    req = controller.request
-    req ? req.original_url : path
   end
 end
 

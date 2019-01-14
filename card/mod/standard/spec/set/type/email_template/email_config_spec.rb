@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 require "card/mailer"
+require "card/seed_consts"
 
 describe Card::Set::Type::EmailTemplate::EmailConfig do
   let(:email_name) { "a mail template" }
@@ -20,7 +21,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
 
   before do
     Card::Auth.current_id = Card::WagnBotID
-    chunk_test = "Url(wagn.org) Link([[http://wagn.org|Wagn]])"\
+    chunk_test = "Url(decko.org) Link([[https://decko.org|Decko]])"\
                  " Inclusion({{B|name}}) Card link([[A]])"
     Card.create! name: email_name, type: :email_template, subcards: {
       "+*to" => "joe@user.com",
@@ -81,10 +82,10 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       is_expected.to include "*subject"
     end
     it "does not render url" do
-      is_expected.to include "Url(wagn.org)"
+      is_expected.to include "Url(decko.org)"
     end
     it "does not render link" do
-      is_expected.to include "Link(Wagn[http://wagn.org])"
+      is_expected.to include "Link(Decko[https://decko.org])"
     end
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
@@ -98,10 +99,10 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       is_expected.to include "*text message"
     end
     it "does not render url" do
-      is_expected.to include "Url(wagn.org)"
+      is_expected.to include "Url(decko.org)"
     end
     it "renders link" do
-      is_expected.to include "Link(Wagn[http://wagn.org])"
+      is_expected.to include "Link(Decko[https://decko.org])"
     end
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
@@ -118,11 +119,11 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     end
     it "renders url" do
       is_expected.to include 'Url(<a target="_blank" class="external-link" '\
-                               'href="http://wagn.org">wagn.org</a>)'
+                               'href="http://decko.org">decko.org</a>)'
     end
     it "renders link" do
       is_expected.to include 'Link(<a target="_blank" class="external-link" '\
-                               'href="http://wagn.org">Wagn</a>)'
+                               'href="https://decko.org">Decko</a>)'
     end
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
@@ -131,8 +132,8 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       Card::Env[:protocol] = "http://"
       Card::Env[:host] = "www.fake.com"
       is_expected.to include 'Card link(<a class="known-card" '\
-                               'href="http://www.fake.com/A">' \
-                               '<span class="card-title">A</span></a>)'
+                             'href="http://www.fake.com/A">' \
+                             '<span class="card-title" title="A">A</span></a>)'
     end
   end
 

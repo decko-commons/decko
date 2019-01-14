@@ -1,5 +1,5 @@
 format :html do
-  view :flash, cache: :never do
+  view :flash, cache: :never, tags: :unknown_ok do
     flash_notice = params[:flash] || Env.success.flash
     return "" unless flash_notice.present? && focal?
     Array(flash_notice).join "\n"
