@@ -1,10 +1,6 @@
 format :html do
   view :bridge_rules_tab, cache: :never do
-    rules_table =
-      wrap do
-        render_common_rules_list hide: [:content, :set_label, :set_navbar, :rule_navbar]
-      end
-    output [ rules_filter, rules_table ]
+    output [ rules_filter, render_rules_list]
   end
 
   SETTING_OPTIONS = [["Common", :common_rules], ["All", :all_rules],
@@ -14,12 +10,13 @@ format :html do
   FIELD_SETTINGS = %i[default help structure].freeze
 
   def setting_select
-    select_tag(:group, options_for_select(setting_options),
+    select_tag(:group, grouped_options_for_select(setting_options),
                class: "_submit-on-select form-control")
   end
 
   def setting_options
-    SETTING_OPTIONS + Card::Setting.group_names.keys + Card::Setting.codenames
+    [ ["Categories", SETTING_OPTIONS], ["Groups", Card::Setting.group_names.keys],
+      ["Single rules", card.visible_setting_codenames]]
   end
 
   def set_select
@@ -35,7 +32,7 @@ format :html do
   def rules_filter
     form_tag path(mark: "", view: :rules_list, slot: { hide: [:set_label, :rule_navbar, :set_navbar, :content] }),
              remote: true, method: "get", role: "filter",
-             "data-slot-selector": "#home-rule_tab > .card-slot > .card-slot",
+             "data-slot-selector": ".card-slot.rules_list-view",
              class: classy("nodblclick slotter form-inline slim-select2 m-2") do
       output [
                label_tag(:view, icon_tag("filter_list"), class: "mr-2"),
@@ -56,23 +53,28 @@ format :html do
     nest(rule_card, view: :rule_bridge_link).html_safe
   end
 
-  view :rules_list do
+
+  view :rules_list, wrap: :slot do
     group = params[:group]&.to_sym || :common
     rules_list group, setting_list(group)
   end
 
   def setting_list group
     case group
-    when :all
+    when :all, :all_rules
       card.visible_setting_codenames.sort
-    when :recent
+    when :recent, :recent_rules
       recent_settings
-    when :common
+    when :common, :common_rules
       card.visible_setting_codenames & COMMON_RULE_SETTINGS
-    when :field_related
+    when :field_related, :field_related_rules
       field_related_settings
     else
-      card.visible_settings group
+      if Card::Setting.groups[group]
+        card.visible_settings(group).map(&:codename)
+      else
+        [group]
+      end
     end
   end
 
