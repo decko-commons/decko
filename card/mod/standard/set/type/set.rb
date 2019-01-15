@@ -59,7 +59,7 @@ end
 
 def visible_settings group=nil
   settings =
-    group ? Card::Setting.groups[group] : Card::Setting.groups.values.flatten.compact
+    (group && Card::Setting.groups[group]) || Card::Setting.groups.values.flatten.compact
   settings.reject do |setting|
     !setting || !setting.applies_to_cardtype(prototype.type_id)
   end

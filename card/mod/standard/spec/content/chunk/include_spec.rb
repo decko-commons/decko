@@ -154,7 +154,7 @@ describe Card::Content::Chunk::Nest, "Inclusion" do
       create! "Quentin", "{{Admin}}"
       adm = Card["Quentin"]
       adm.update_attributes content: "{{Oak}}"
-      expect(adm.format.render_core).to match(/too deep/)
+      expect { adm.format.render_core }.to raise_error(Card::Error::UserError, /too deep/)
     end
 
     it "handles missing cards" do

@@ -1,5 +1,5 @@
 /*!
- * Decko: [[http://wagn.org]]
+ * Decko: [[https://decko.org]]
  * Copyright 2015 Grass Commons and other contributors; Licensed GPL
  */
 
@@ -19,7 +19,6 @@ Choosing (b) will mean your CSS will not be affected by automated updates.
 
 /*-- yellows --*/
 $d-yellow-1: #ffd;
-$d-yellow-2: #ffa;
 
 /* -- resets -- */
 
@@ -40,7 +39,7 @@ $d-yellow-2: #ffa;
 .new-current-revision-id,
 .editor .revision-navigation,
 .editor .autosave-alert,
-.edit_name-view .alert,
+.hidden-alert,
 .btn.renamer-updater,
 .confirm_update_all-view,
 .follow-updater,
@@ -363,23 +362,17 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
 
 .labeled-view {
   padding: 5px 0;
-  label h1,
-  .pointer-list,
-  .pointer-item,
-  .search-result-list,
-  .search-result-item {
-    font-size: 1em;
+  .labeled-content {
+    font-weight: bold;
+    .pointer-list,
+    .pointer-item,
+    .search-result-list,
+    .search-result-item {
+      font-size: 1em;
+      padding: 0;
+      text-indent: 0;
+    }
   }
-  > .d0-card-content {
-    padding-left: 10px;
-  }
-}
-
-.labeled-view label,
-a.missing-labeled {
-  display: inline-block;
-  min-width: 30%;
-  text-align: right;
 }
 
 /*-------------------- */
@@ -479,14 +472,12 @@ textarea {
 
 /* links to create missing cards */
 
-.missing-view a {
-  color: $gray-600;
+a.missing-link {
+  color: $text-muted;
   font-variant: small-caps;
-}
-
-.missing-view a:hover {
-  color: $blue;
-  background: #ffc;
+  &:hover {
+    color: $primary;
+  }
 }
 
 /*-------------------- */
@@ -619,18 +610,6 @@ ul.action-list {
 .exception p {
   margin: 15px;
 }
-.errors-view {
-  margin: 10px;
-  padding: 10px;
-  border: 3px solid $red;   /* NOTGREY - red for error */
-  background: $d-yellow-2;         /* NOTGREY - yellow for highlighting */
-  border-radius: 8px;
-  -moz-border-radius: 8px;
-  border: 1px solid #777;
-  border-bottom: 2px solid $gray-600;
-  border-right: 2px solid $gray-600;
-  color: #333;
-}
 
 .card-notice {
   background: $white;
@@ -638,6 +617,10 @@ ul.action-list {
   font-style: italic;
   text-align: center;
   margin: 0 0 4px 0;
+
+  .card-error-msg {
+    text-align: left;
+  }
 }
 
 

@@ -52,15 +52,18 @@ def each_item_name_with_options _content=nil
 end
 
 format do
-  def search_with_params args={}
-    query_args = search_params.merge args
+  def search_with_params
+    search_with_rescue search_params
+  end
+
+  def count_with_params
+    search_with_rescue search_params.merge(return: :count)
+  end
+
+  def search_with_rescue query_args
     card.cached_search query_args
   rescue Error::BadQuery => e
     e
-  end
-
-  def count_with_params args={}
-    search_with_params args.merge return: :count
   end
 
   def implicit_item_view view_from_query_params=nil

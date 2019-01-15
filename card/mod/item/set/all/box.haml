@@ -1,10 +1,11 @@
-.card.p-0.drop-shadow.rounded-0.top-border-default.mb-4{class: classy("box")}
+- box_classes = css_classes classy("box"), card.safe_set_keys
+.card.p-0.drop-shadow.rounded-0.mb-4.nodblclick{class: box_classes}
   - if voo.show? :box_top
-    .card-header{class: classy("box-top")}
+    .card-header.text-center{class: classy("box-top")}
       = render :box_top
   - if voo.show? :box_middle
     .card-body{class: classy("box-middle")}
       = render :box_middle
   - if voo.show? :box_bottom
-    .card-footer{class: classy("box-bottom")}
+    .card-footer.text-center{class: classy("box-bottom")}
       = render :box_bottom

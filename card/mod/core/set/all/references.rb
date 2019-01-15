@@ -91,7 +91,8 @@ end
 # }
 def interpret_reference ref_hash, referee_name, ref_type
   return unless referee_name # eg commented nest has no referee_name
-  referee_key = (referee_name = referee_name.to_name).key
+  referee_name = referee_name.to_name
+  referee_key = referee_name.key
   return if referee_key == key # don't create self reference
 
   referee_id = Card.fetch_id(referee_name)
@@ -162,15 +163,12 @@ end
 
 # on rename, update names in cards that refer to self by name (as directed)
 event :update_referer_content, :finalize,
-      on: :update, after: :name_change_finalized,
-      when: :update_referers  do
-  # FIXME: break into correct stages
-  Auth.as_bot do
-    referers.each do |card|
-      next if card == self || card.structure
-      new_content = card.replace_reference_syntax name_before_last_save, name
-      card.refresh.update_attributes! content: new_content
-    end
+      on: :update, after: :name_change_finalized, when: :update_referers do
+  referers.each do |card|
+    next if card.structure
+    card.skip = %i[validate_renaming check_permissions!]
+    attach_subcard card.name,
+                   content: card.replace_reference_syntax(name_before_last_save, name)
   end
 end
 

@@ -58,13 +58,14 @@ format do
     haml_to_html(*args)
   end
 
-  def process_haml_template template_name, locals={}
+  def process_haml_template template_name, *args
+    locals = args.first || {}
     path = identify_template_path template_name, locals
     with_template_path path do
-      haml_to_html ::File.read(path), locals
+      haml_to_html ::File.read(path), *args
     end
-  rescue => e
-    raise Card::Error, "HAML error #{template_name}: #{e.message}\n#{e.backtrace}"
+    # rescue => e
+    #   raise Card::Error, "HAML error #{template_name}: #{e.message}\n#{e.backtrace}"
   end
 
   def identify_template_path view, locals={}

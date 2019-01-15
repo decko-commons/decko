@@ -1,16 +1,28 @@
 format :html do
   view :server_error, template: :haml
 
+  view :debug_server_error, wrap: { modal: { size: :full } } do
+    error_page = BetterErrors::ErrorPage.new(Card::Error.current, { "PATH_INFO" => request.env["REQUEST_URI"] } )
+    haml :debug_server_error, {}, error_page
+  end
+
   view :message, perms: :none, tags: :unknown_ok do
     frame { params[:message] }
   end
 
   view :missing do
-    return "" unless card.ok? :create  # should this be moved into ok_view?
+    createable do
+      wrap { missing_link("#{fa_icon 'plus-square'} #{_render_title}") }
+    end
+  end
+
+  def createable
+    card.ok?(:create) ? yield : ""
+  end
+
+  def missing_link text
     path_opts = voo.type ? { card: { type: voo.type } } : {}
-    link_text = "Add #{_render_title}"
-    klass = "slotter missing-#{@denied_view || voo.home_view}"
-    wrap { link_to_view :new, link_text, path: path_opts, class: klass }
+    link_to_view :new, text, path: path_opts, class: "slotter missing-link"
   end
 
   view :closed_missing, perms: :none do
@@ -37,9 +49,8 @@ format :html do
     return if card.errors.empty?
     voo.title = card.name.blank? ? "Problems" : tr(:problems_name, cardname: card.name)
     voo.hide! :menu
-    class_up "d0-card-frame", "card card-warning card-inverse"
     class_up "alert", "card-error-msg"
-    frame { standard_errors }
+    standard_errors voo.title
   end
 
   view :not_found do
@@ -94,21 +105,28 @@ format :html do
     }
   end
 
-  def backtrace_link cardname, _exception
+  def backtrace_link cardname, exception
     # TODO: make this a modal link after new modal handling is merged in
     wrap_with(:span, title: error_message(exception)) { cardname }
   end
 
-  def standard_errors
+  def standard_errors heading=nil
+    alert "warning", true do
+      [
+        (wrap_with(:h4, heading, class: "alert-heading") if heading),
+        error_messages.join("<hr>")
+      ]
+    end
+  end
+
+  def error_messages
     card.errors.map do |attrib, msg|
-      alert "warning", true do
-        attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
-      end
+      attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
     end
   end
 
   def standard_error_message attribute, message
-    "<strong>#{h attribute.to_s.upcase}:</strong> #{h message}"
+    "<div><strong>#{h attribute.to_s.upcase}:</strong> #{h message}</div>"
   end
 
   def not_found_errors

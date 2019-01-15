@@ -1,16 +1,17 @@
-<div class="navbar navbar-inverse bg-primary navbar-expand-md navbar-static-top mb-3">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-collapse-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="{{*home|home_path}}">
-      {{*logo|core;size:small}}
-      {{*title|core}}
-    </a>
-    <div class="collapse navbar-collapse" id="navbar-collapse-1">
-      <div class="navbar-nav mr-auto">
-        {{*main menu|navbar_links}}
-      </div>
-      {{*navbox|navbar}}
-      {{*account links|navbar_links}}
-    </div>
-</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+  <a class="navbar-brand" href="{{*home|home_path}}">
+    {{*logo|core;size:small}}
+    {{*title|core}}
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      {{*main menu|navbar_links}}
+    </ul>
+    {{*navbox|navbar}}
+    {{*account links|navbar_links}}
+  </div>
+</nav>

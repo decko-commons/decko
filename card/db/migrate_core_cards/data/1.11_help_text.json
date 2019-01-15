@@ -7,7 +7,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>When \"yes\", users permitted to create [[*account+*right|+*account cards]] can add [[http://wagn.org/account|accounts]] to these cards.</p>"
+        "parts": "<p>When \"yes\", users permitted to create [[*account+*right|+*account cards]] can add [[https://decko.org/account|accounts]] to these cards.</p>"
       }
     ]
   },
@@ -31,7 +31,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Autogenerate name for new cards by incrementing this value. <em>[[http://wagn.org/autonaming|more]]</em></p>"
+        "parts": "<p>Autogenerate name for new cards by incrementing this value. <em>[[https://decko.org/autonaming|more]]</em></p>"
       }
     ]
   },
@@ -43,7 +43,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Anti-spam setting.  Requires non-signed-in users to complete a [[http://wagn.org/captcha|captcha]] before adding or editing cards (where permitted).</p>"
+        "parts": "<p>Anti-spam setting.  Requires non-signed-in users to complete a [[https://decko.org/captcha|captcha]] before adding or editing cards (where permitted).</p>"
       }
     ]
   },
@@ -103,7 +103,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Add custom CSS styling.  <em>[[http://wagn.org/Skin|more]]</em></p>"
+        "parts": "<p>Add custom CSS styling.  <em>[[https://decko.org/Skin|more]]</em></p>"
       }
     ]
   },
@@ -115,7 +115,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Template for initial type and content of new cards. <em>[[http://wagn.org/formatting|more]]</em></p>"
+        "parts": "<p>Template for initial type and content of new cards. <em>[[https://decko.org/formatting|more]]</em></p>"
       }
     ]
   },
@@ -163,7 +163,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>[[http://wagn.org/custom_help_text|Help text]] people will see when editing.</p>"
+        "parts": "<p>[[https://decko.org/custom_help_text|Help text]] people will see when editing.</p>"
       }
     ]
   },
@@ -211,7 +211,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Default page layout.  <em>[[http://wagn.org/custom_layouts | more]]</em></p>"
+        "parts": "<p>Default page layout.  <em>[[https://decko.org/custom_layouts | more]]</em></p>"
       }
     ]
   },
@@ -259,7 +259,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Labels for [[Pointer]] radio button and checkbox items.  <em>[[http://wagn.org/Pointer|more]]</em></p>"
+        "parts": "<p>Labels for [[Pointer]] radio button and checkbox items.  <em>[[https://decko.org/Pointer|more]]</em></p>"
       }
     ]
   },
@@ -271,7 +271,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Value options for [[Pointer]] cards. Can itself be a Pointer or a [[Search]]. <em>[[http://wagn.org/Pointer|more]]</em></p>"
+        "parts": "<p>Value options for [[Pointer]] cards. Can itself be a Pointer or a [[Search]]. <em>[[https://decko.org/Pointer|more]]</em></p>"
       }
     ]
   },
@@ -319,7 +319,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Configures email to be sent when card is created. <em>[[http://wagn.org/flexible_email|more]]</em></p>"
+        "parts": "<p>Configures email to be sent when card is created. <em>[[https://decko.org/flexible_email|more]]</em></p>"
       }
     ]
   },
@@ -331,7 +331,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Sidebar content of [[Default Layout]]. <em>[[http://wagn.org/sidebar|more]]</em></p>"
+        "parts": "<p>Sidebar content of [[Default Layout]]. <em>[[https://decko.org/sidebar|more]]</em></p>"
       }
     ]
   },
@@ -343,7 +343,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Controls cards' content / structure. <em>[[http://wagn.org/formatting|more]]</em></p>"
+        "parts": "<p>Controls cards' content / structure. <em>[[https://decko.org/formatting|more]]</em></p>"
       }
     ]
   },
@@ -355,7 +355,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Autogenerate [[http://wagn.org/table_of_contents|table of contents]] on cards with at least this many headers (\"0\" means never).</p>"
+        "parts": "<p>Autogenerate [[https://decko.org/table_of_contents|table of contents]] on cards with at least this many headers (\"0\" means never).</p>"
       }
     ]
   },
@@ -367,7 +367,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Destination after card is created. <em>[[http://wagn.org/Custom_thank_you_messages_for_forms|more]]</em></p>"
+        "parts": "<p>Destination after card is created. <em>[[https://decko.org/Custom_thank_you_messages_for_forms|more]]</em></p>"
       }
     ]
   },
@@ -379,7 +379,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Configure [[http://tinymce.com|TinyMCE]], Wagn's default [[http://en.wikipedia.org/wiki/Wysiwyg|wysiwyg]] editor. <em>[[http://wagn.org/TinyMCE|more]]</em></p>\r\n<p> </p>"
+        "parts": "<p>Configure [[http://tinymce.com|TinyMCE]], Wagn's default [[http://en.wikipedia.org/wiki/Wysiwyg|wysiwyg]] editor. <em>[[https://decko.org/TinyMCE|more]]</em></p>\r\n<p> </p>"
       }
     ]
   },
@@ -403,7 +403,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>Configures email to be sent using [[http://wagn.org/flexible_email|flexible email]]. </p>"
+        "parts": "<p>Configures email to be sent using [[https://decko.org/flexible_email|flexible email]]. </p>"
       }
     ]
   }

@@ -1,3 +1,7 @@
+event :fail_always, :validate do
+  # errors.add :content, "boing"
+end
+
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
   view :edit, perms: :update, tags: :unknown_ok, cache: :never,
@@ -6,15 +10,17 @@ format :html do
     with_nest_mode :edit do
       voo.show :help
       wrap true, breadcrumb_data("Editing", "edit") do
-        card_form :update, edit_form_opts do
+        [
+          _render_edit_name_row,
+          _render_edit_type_row,
+        card_form(:update, edit_form_opts) do
           [
-            _render_edit_name_row,
-            _render_edit_type_row,
             edit_view_hidden,
             _render_content_formgroup,
             _render_edit_buttons
           ]
-        end
+          end
+        ]
       end
     end
   end
@@ -33,7 +39,7 @@ format :html do
 
   def edit_form_opts
     # for override
-    {}
+    { "data-slot-selector": "#main > .card-slot", "data-slot-error-selector": ".card-slot" }
   end
 
   def edit_view_hidden
@@ -69,7 +75,8 @@ format :html do
   end
 
   def standard_submit_button
-    modal_submit_button(class: "submit-button btn-sm mr-3", text: "Save") + submit_button(class: "submit-button btn-sm mr-3", text: "Save and Close")
+    modal_submit_button(class: "submit-button btn-sm mr-3", text: "Save") +
+      submit_button(class: "submit-button btn-sm mr-3 _close-and-success", text: "Save and Close")
   end
 
 
@@ -93,31 +100,6 @@ format :html do
   # TODO: add undo functionality
   view :just_deleted, tag: :unknown_ok do
     wrap { "#{render_title} deleted" }
-  end
-
-  view :edit_type, cache: :never, perms: :update do
-    frame do
-      _render_edit_type_form
-    end
-  end
-
-  view :edit_type_form, cache: :never, perms: :update do
-    card_form :update do
-      output [hidden_edit_type_fields,
-              _render_type_formgroup,
-              edit_type_buttons]
-    end
-  end
-
-  def hidden_edit_type_fields
-    hidden_field_tag "success[view]", "edit"
-  end
-
-  def edit_type_buttons
-    cancel_path = path view: :edit
-    button_formgroup do
-      [standard_submit_button, standard_cancel_button(href: cancel_path)]
-    end
   end
 
   view :edit_rules, cache: :never, tags: :unknown_ok do

@@ -1,15 +1,22 @@
 include_set Abstract::BsBadge
 
 format :html do
-  view :thin_bar do
+  view :mini_bar do
     render_bar hide: :bar_middle
   end
 
   view :bar do
+    class_up_bar_sides(*bar_side_cols(voo.show?(:bar_middle)))
+    # note: above cannot be in `before`, because before blocks run before viz processing
     wrap { haml :bar }
   end
 
+  def bar_side_cols middle=true
+    middle ? [5, 3] : [7, 5]
+  end
+
   view :expanded_bar do
+    class_up_bar_sides(*bar_side_cols(false))
     wrap { haml :expanded_bar }
   end
 
@@ -17,12 +24,20 @@ format :html do
     _render_expanded_bar!
   end
 
-  before :bar do
+  before(:bar) { bar_classes }
+  before(:expanded_bar) { bar_classes }
+
+  def bar_classes
     shared = "align-items-center"
     class_up "bar-left", "p-2 font-weight-bold d-flex grow-2 #{shared}"
-    class_up "bar-middle", "col-3 d-none d-md-flex p-3 border-left #{shared}"
+    class_up "bar-middle", "col-4 d-none d-md-flex p-3 border-left #{shared}"
     class_up "bar-right",
              "p-3 border-left d-flex justify-content-end text-align-right #{shared}"
+  end
+
+  def class_up_bar_sides left, right
+    class_up "bar-left", "col-#{left}", true
+    class_up "bar-right", "col-#{right}", true
   end
 
   view :bar_left do
@@ -35,7 +50,7 @@ format :html do
   end
 
   view :bar_middle do
-    labeled_badge stat_number, stat_label
+    ""
   end
 
   view :bar_bottom do
@@ -46,16 +61,16 @@ format :html do
     end
   end
 
-  def stat_number
-    card.content.lines.count
-  end
-
-  def stat_label
-    stat_number == 1 ? "line" : "lines"
-  end
+  # def stat_number
+  #   card.content.lines.count
+  # end
+  #
+  # def stat_label
+  #   stat_number == 1 ? "line" : "lines"
+  # end
 
   view :bar_page_link do
-    link_to_card card, icon_tag(:open_in_new), class: "text-muted"
+    link_to_card card, icon_tag(:open_in_new), class: "text-muted pl-2"
   end
 
   def toggle_class

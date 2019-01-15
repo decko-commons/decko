@@ -123,6 +123,19 @@ format :json do
   end
 end
 
+format :css do
+  def contextualize_path relative_path
+    if Card.config.file_storage == :local
+      # absolute paths lead to invalid assets path in css for cukes
+      card_path relative_path
+    else
+      # ...but relative paths are problematic when machine output and
+      # hard-coded assets (like fonts) are on different servers
+      card_url relative_path
+    end
+  end
+end
+
 format :html do
   # in HTML, decko paths rendered as relative to the site's root.
   def contextualize_path relative_path

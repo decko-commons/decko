@@ -259,6 +259,7 @@ class Card
         if main? && !block_given?
           raise Card::Error, "need block to store main card"
         end
+
         # the block is the ActiveRecord block from the around save callback that
         # saves the card
         if block_given?
@@ -300,8 +301,7 @@ class Card
       # the :store stage and the :finalize stage
       def trigger_storage_phase_callback
         @stage = stage_index :prepare_to_store
-        @card.only_storage_phase = true
-        @card.save! validate: false
+        @card.save_as_subcard!
       end
     end
 

@@ -229,10 +229,10 @@ class Card
       def standardize_ensure_args name_or_args, content_or_args
         name = name_or_args.is_a?(Hash) ? name_or_args[:name] : name_or_args
         args = if name_or_args.is_a?(Hash)
-                 name_or_args
-               else
-                 hashify content_or_args, :content
-               end
+          name_or_args
+        else
+          hashify content_or_args, :content
+        end
         [name, args]
       end
 
@@ -271,7 +271,8 @@ class Card
 
         return if update_args.empty? && subcards.empty?
         # FIXME: use ensure_attributes for subcards
-        card.update_attributes! update_args.merge(subcards: subcards)
+        card.update_attributes! update_args.merge(subcards: subcards,
+                                                  skip: :validate_renaming)
       end
 
       def changing_args card, args

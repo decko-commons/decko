@@ -8,7 +8,7 @@ class Card
   #
   # Query "statements" (objects, really) are made in WQL (Wagn Query
   # Language). Because WQL is used by Deckers, the primary language
-  # documentation is on wagn.org. (http://wagn.org/WQL_Syntax). Note that the
+  # documentation is on wagn.org. (https://decko.org/WQL_Syntax). Note that the
   # examples there are in JSON, like Search card content, but statements in
   # Card::Query are in ruby form.
   #

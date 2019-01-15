@@ -71,6 +71,15 @@ module ClassMethods
   # ATTRIBUTE FETCHING
   # The following methods optimize fetching of specific attributes
 
+  def id cardish
+    case cardish
+    when Integer then cardish
+    when Card then cardish.id
+    when Symbol then Card::Codename.id cardish
+    else fetch_id cardish
+    end
+  end
+
   # @params *mark - see #fetch
   # @return [Integer]
   def fetch_id *mark

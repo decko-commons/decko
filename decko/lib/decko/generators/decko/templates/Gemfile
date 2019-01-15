@@ -17,7 +17,7 @@ gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.versio
 gem 'thin'
 # gem 'unicorn'
 
-# To set up a production webserver, see http://wagn.org/wagn_in_production
+# To set up a production webserver, see https://decko.org/wagn_in_production
 
 
 # BACKGROUNDING
@@ -45,6 +45,9 @@ group :test, :development do
   gem 'phantomjs', '1.9.7.1' #locked because 1.9.8.0 is breaking
   gem 'colorize'
   gem 'delayed_job_active_record', '~> 4.1'
+
+  gem 'better_errors'
+  gem 'binding_of_caller'
 
   <%- if spring_install? %>
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -109,11 +112,6 @@ group :test do
 end
 
 gem 'ruby-prof', :group=>:profile  # profiling
-
-group :debug do
-  gem 'better_errors'
-  gem 'binding_of_caller'
-end
 <% end %>
 
 # load gems needed in Gemfiles

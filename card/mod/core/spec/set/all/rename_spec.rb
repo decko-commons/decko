@@ -18,7 +18,7 @@ module RenameMethods
     end
     attrs_before = name_invariant_attributes(card)
     actions_count_before = card.actions.count
-    update card.name, name: new_name, update_referers: true
+    update! card.name, name: new_name, update_referers: true
     expect(card.actions.count).to eq(actions_count_before + 1)
     assert_equal attrs_before, name_invariant_attributes(card)
     assert_equal new_name, card.name

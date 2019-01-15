@@ -16,7 +16,7 @@ $(window).ready ->
       event.slotSuccessful = true
 
   $('body').on 'ajax:error', '.slotter', (event, xhr) ->
-    $(this).slotError xhr.status, xhr.responseText
+    $(this).slotError xhr.status, xhr.responseText, $(this)
 
   $('body').on 'click', 'button.slotter', (event)->
     return false if !$.rails.allowAction $(this)
@@ -28,6 +28,8 @@ $(window).ready ->
   $('body').on 'click', '[data-dismiss="overlay"]', (event) ->
     $(this).slot().removeOverlay()
 
+  $('body').on 'click', '._close-and-success', (event) ->
+    $(this).closest('.slotter').data("slotter-mode", "standard").addClass("close-modal")
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     return if opt.skip_before_send
@@ -86,6 +88,3 @@ $(window).ready ->
         input.val(
           (if target == 'REDIRECT' then target + ': ' + input.val() else target)
         )
-
-
-

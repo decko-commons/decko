@@ -1,5 +1,8 @@
-
 include All::Permissions::Accounts
+
+def history?
+  false
+end
 
 def ok_to_read
   own_account? ? true : super
@@ -9,7 +12,7 @@ event :encrypt_password, :store,
       on: :save, changed: :content,
       when: proc { !Card::Env[:no_password_encryptions] } do
   # no_password_encryptions = hack for import - fix with api for ignoring events
-  salt = left && left.salt
+  salt = left&.salt
   # HACK: fix with better ORM handling
   salt = Card::Env[:salt] unless salt.present?
   self.content = Auth.encrypt content, salt

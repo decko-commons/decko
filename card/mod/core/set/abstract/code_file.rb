@@ -59,6 +59,10 @@ format :html do
     "Content is stored in file and can't be edited."
   end
 
+  view :file_size do
+    "#{card.name}: #{number_to_human_size card.content.bytesize}"
+  end
+
   view :bar_middle do
     fa_icon("exclamation-circle", class: "text-muted pr-2") +
       wrap_with(:span, "file", class: "text-muted")
