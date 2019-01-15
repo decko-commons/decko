@@ -16,7 +16,7 @@ $(window).ready ->
       event.slotSuccessful = true
 
   $('body').on 'ajax:error', '.slotter', (event, xhr) ->
-    $(this).slotError xhr.status, xhr.responseText
+    $(this).slotError xhr.status, xhr.responseText, $(this)
 
   $('body').on 'click', 'button.slotter', (event)->
     return false if !$.rails.allowAction $(this)
@@ -88,6 +88,3 @@ $(window).ready ->
         input.val(
           (if target == 'REDIRECT' then target + ': ' + input.val() else target)
         )
-
-
-

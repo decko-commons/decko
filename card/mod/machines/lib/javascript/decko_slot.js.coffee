@@ -94,9 +94,7 @@ jQuery.fn.extend {
     if mode == "overlay"
       s.addOverlay(el)
     else if el.hasClass("_modal-slot") or mode == "modal"
-      el = el.modalify($slotter)
-      $("body > ._modal-slot").replaceWith el
-      el.modal("show", $slotter)
+      el.showAsModal($slotter)
     else
       s.replaceWith el
 
@@ -106,18 +104,29 @@ jQuery.fn.extend {
     @trigger "slotReady", slotter
     @find(".card-slot").trigger "slotReady", slotter
 
+  showAsModal: ($slotter) ->
+    el = @modalify($slotter)
+    $("body > ._modal-slot").replaceWith el
+    $('.modal-backdrop').remove();
+    el.modal("show", $slotter)
+
   addOverlay: (overlay) ->
     if @parent().hasClass("overlay-container")
       if $(overlay).hasClass("_stack-overlay")
         @before overlay
       else
-        @parent().find("._overlay").replaceWith overlay
+        @replaceOverlay(overlay)
     else
       @find(".tinymce-textarea").each ->
         tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
       @wrapAll('<div class="overlay-container">')
       @addClass("_bottomlay-slot")
       @before overlay
+
+
+  replaceOverlay: (overlay) ->
+    @parent().find("._overlay").replaceWith overlay
+    $(".bridge-sidebar .tab-pane:not(.active) .bridge-pills > .nav-item > .nav-link.active").removeClass("active")
 
   removeOverlay: () ->
     if @siblings().length == 1
@@ -129,7 +138,6 @@ jQuery.fn.extend {
 
     @remove()
 
-
   modalify: ($slotter) ->
     if $slotter.data("modal-body")?
       @find(".modal-body").append($slotter.data("modal-body"))
@@ -137,9 +145,11 @@ jQuery.fn.extend {
       this
     else
       modalSlot = $('<div/>', id: "modal-container", class: "modal fade _modal-slot")
-      modalSlot.append($('<div/>' , class: "modal-dialog"))
-               .append($('<div/>', class: "modal-content"))
-               .append(this)
+      modalSlot.append(
+        $('<div/>' , class: "modal-dialog").append(
+          $('<div/>', class: "modal-content").append(this)
+        )
+      )
       modalSlot
 
   # overlayClosed=true means the bridge update was
@@ -177,9 +187,11 @@ jQuery.fn.extend {
         if notice?
           newslot.notify notice, "success"
 
-  slotError: (status, result) ->
+  slotError: (status, result, $slotter) ->
     if status == 403 #permission denied
       @setSlotContent result
+    else if status == 900
+      $(result).showAsModal $slotter
     else
       @notify result, "error"
       if status == 409 #edit conflict
