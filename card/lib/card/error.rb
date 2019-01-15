@@ -35,8 +35,13 @@ class Card
 
     # error attributable to code (as opposed to card configuration)
     class ServerError < Error
-      self.view = :server_error
-      self.status_code = 500
+      def self.view
+        Card[:debugger]&.content =~ /on/ ? :debug_server_error : :server_error
+      end
+
+      def self.status_code
+        Card[:debugger]&.content =~ /on/ ? 900 : 500
+      end
 
       def report
         super

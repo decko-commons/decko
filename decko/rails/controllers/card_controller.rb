@@ -123,11 +123,16 @@ class CardController < ActionController::Base
   end
 
   def handle_exception exception
+    raise exception if debug_exception?
     @card ||= Card.new
     Card::Error.current = exception
     error = Card::Error.cardify_exception exception, card
     error.report
     show error.class.view, error.class.status_code
+  end
+
+  def debug_exception?
+    Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
   end
 
   class << self
@@ -137,7 +142,6 @@ class CardController < ActionController::Base
 
     def rescue_all?
       Card.config.rescue_all_in_controller
-      true # DELETE ME!!!
     end
   end
 

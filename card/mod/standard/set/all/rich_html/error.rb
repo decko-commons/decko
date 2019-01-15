@@ -1,6 +1,11 @@
 format :html do
   view :server_error, template: :haml
 
+  view :debug_server_error, wrap: { modal: { size: :full } } do
+    error_page = BetterErrors::ErrorPage.new(Card::Error.current, { "PATH_INFO" => request.env["REQUEST_URI"] } )
+    haml :debug_server_error, {}, error_page
+  end
+
   view :message, perms: :none, tags: :unknown_ok do
     frame { params[:message] }
   end

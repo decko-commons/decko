@@ -46,6 +46,9 @@ group :test, :development do
   gem 'colorize'
   gem 'delayed_job_active_record', '~> 4.1'
 
+  gem 'better_errors'
+  gem 'binding_of_caller'
+
   <%- if spring_install? %>
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'listen', '3.0.6'
@@ -109,11 +112,6 @@ group :test do
 end
 
 gem 'ruby-prof', :group=>:profile  # profiling
-
-group :debug do
-  gem 'better_errors'
-  gem 'binding_of_caller'
-end
 <% end %>
 
 # load gems needed in Gemfiles

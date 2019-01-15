@@ -75,6 +75,7 @@
       /* Wide */
       @media screen and (min-width: 1100px) {
           header.exception {
+             position: fixed;
              top: 0;
              left: 0;
              right: 0;
@@ -82,6 +83,7 @@
 
           nav.sidebar,
           .frame_info {
+              position: fixed;
               top: 95px;
               bottom: 0;
 
@@ -192,6 +194,21 @@
           }
       }
 
+  <haml_silent>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </haml_silent>
       /* ---------------------------------------------------------------------
        * Navigation
        * --------------------------------------------------------------------- */
@@ -715,13 +732,13 @@
 %section.backtrace
   %nav.sidebar
     %nav.tabs
-      %a#application_frames{href: "#"} Application Frames
-      %a#all_frames{href: "#"} All Frames
+      %a#application_frames{:href => "#"} Application Frames
+      %a#all_frames{:href => "#"} All Frames
     %ul.frames
       - backtrace_frames.each_with_index do |frame, index|
-        %li{class: "#{frame.context}", "data-context" => "#{frame.context}", "data-index" => index}
+        %li{:class => "#{frame.context}", "data-context" => "#{frame.context}", "data-index" => index}
           %span.stroke
-          %i{class: "icon #{frame.context}"}
+          %i{:class => "icon #{frame.context}"}
           .info
             .name
               %strong= frame.class_name
@@ -731,5 +748,268 @@
               , line
               %span.line= frame.line
   - backtrace_frames.each_with_index do |frame, index|
-    .frame_info{id: "frame_info_#{index}", style: "display:none;"}
+    .frame_info{:id => "frame_info_#{index}", :style => "display:none;"}
+:javascript
+  (function() {
 
+    var OID = "#{id}";
+
+    var previousFrame = null;
+    var previousFrameInfo = null;
+    var allFrames = document.querySelectorAll("ul.frames li");
+    var allFrameInfos = document.querySelectorAll(".frame_info");
+
+    function apiCall(method, opts, cb) {
+        var req = new XMLHttpRequest();
+        req.open("POST", "//" + window.location.host + "/__better_errors/" + OID + "/" + method, true);
+      req.setRequestHeader("Content-Type", "application/json");
+        req.send(JSON.stringify(opts));
+        req.onreadystatechange = function() {
+            if(req.readyState == 4) {
+                var res = JSON.parse(req.responseText);
+                cb(res);
+            }
+        };
+    }
+
+    function escapeHTML(html) {
+        return html.replace(/&/, "&amp;").replace(/</g, "&lt;");
+    }
+
+    function REPL(index) {
+        this.index = index;
+
+        var previousCommands = JSON.parse(localStorage.getItem("better_errors_previous_commands"));
+        if(previousCommands === null) {
+          localStorage.setItem("better_errors_previous_commands", JSON.stringify([]));
+          previousCommands = [];
+        }
+
+        this.previousCommandOffset = previousCommands.length;
+    }
+
+    REPL.all = [];
+
+    REPL.prototype.install = function(containerElement) {
+        this.container = containerElement;
+
+        this.promptElement  = this.container.querySelector(".command-line .prompt");
+        this.inputElement   = this.container.querySelector("input");
+        this.outputElement  = this.container.querySelector("pre");
+
+        var self = this;
+        this.inputElement.onkeydown = function(ev) {
+            self.onKeyDown(ev);
+        };
+
+        this.setPrompt(">>");
+
+        REPL.all[this.index] = this;
+    }
+
+    REPL.prototype.focus = function() {
+        this.inputElement.focus();
+    };
+
+    REPL.prototype.setPrompt = function(prompt) {
+        this._prompt = prompt;
+        this.promptElement.innerHTML = escapeHTML(prompt);
+    };
+
+    REPL.prototype.getInput = function() {
+        return this.inputElement.value;
+    };
+
+    REPL.prototype.setInput = function(text) {
+        this.inputElement.value = text;
+
+        if(this.inputElement.setSelectionRange) {
+            // set cursor to end of input
+            this.inputElement.setSelectionRange(text.length, text.length);
+        }
+    };
+
+    REPL.prototype.writeRawOutput = function(output) {
+        this.outputElement.innerHTML += output;
+        this.outputElement.scrollTop = this.outputElement.scrollHeight;
+    };
+
+    REPL.prototype.writeOutput = function(output) {
+        this.writeRawOutput(escapeHTML(output));
+    };
+
+    REPL.prototype.sendInput = function(line) {
+        var self = this;
+        apiCall("eval", { "index": this.index, source: line }, function(response) {
+            if(response.error) {
+                self.writeOutput(response.error + "\n");
+            }
+            self.writeOutput(self._prompt + " ");
+            self.writeRawOutput(response.highlighted_input + "\n");
+            self.writeOutput(response.result);
+            self.setPrompt(response.prompt);
+            self.setInput(response.prefilled_input);
+        });
+    };
+
+    REPL.prototype.onEnterKey = function() {
+        var text = this.getInput();
+        if(text != "" && text !== undefined) {
+            var previousCommands = JSON.parse(localStorage.getItem("better_errors_previous_commands"));
+            this.previousCommandOffset = previousCommands.push(text);
+            if(previousCommands.length > 100) {
+              previousCommands.splice(0, 1);
+              this.previousCommandOffset -= 1;
+            }
+            localStorage.setItem("better_errors_previous_commands", JSON.stringify(previousCommands));
+        }
+        this.setInput("");
+        this.sendInput(text);
+    };
+
+    REPL.prototype.onNavigateHistory = function(direction) {
+        this.previousCommandOffset += direction;
+        var previousCommands = JSON.parse(localStorage.getItem("better_errors_previous_commands"));
+
+        if(this.previousCommandOffset < 0) {
+            this.previousCommandOffset = -1;
+            this.setInput("");
+            return;
+        }
+
+        if(this.previousCommandOffset >= previousCommands.length) {
+            this.previousCommandOffset = previousCommands.length;
+            this.setInput("");
+            return;
+        }
+
+        this.setInput(previousCommands[this.previousCommandOffset]);
+    };
+
+    REPL.prototype.onKeyDown = function(ev) {
+        if(ev.keyCode == 13) {
+            this.onEnterKey();
+        } else if(ev.keyCode == 38 || (ev.ctrlKey && ev.keyCode == 80)) {
+            // the user pressed the up arrow or Ctrl-P
+            this.onNavigateHistory(-1);
+            ev.preventDefault();
+            return false;
+        } else if(ev.keyCode == 40 || (ev.ctrlKey && ev.keyCode == 78)) {
+            // the user pressed the down arrow or Ctrl-N
+            this.onNavigateHistory(1);
+            ev.preventDefault();
+            return false;
+        }
+    };
+
+    function switchTo(el) {
+        if(previousFrameInfo) previousFrameInfo.style.display = "none";
+        previousFrameInfo = el;
+
+        el.style.display = "block";
+
+        var replInput = el.querySelector('.be-console input');
+        if (replInput) replInput.focus();
+    }
+
+    function selectFrameInfo(index) {
+        var el = allFrameInfos[index];
+        if(el) {
+            if (el.loaded) {
+                return switchTo(el);
+            }
+
+            apiCall("variables", { "index": index }, function(response) {
+                el.loaded = true;
+                if(response.error) {
+                    el.innerHTML = "<h2 class='error'>" + escapeHTML(response.error) + "</h2>";
+                    if(response.explanation) {
+                      el.innerHTML += "<p class='explanation'>" + escapeHTML(response.explanation) + "</p>";
+                    }
+                    el.innerHTML += "<p><a target='_new' href='https://github.com/BetterErrors/better_errors'>More about Better Errors</a></p>";
+                } else {
+                    el.innerHTML = response.html;
+
+                    var repl = el.querySelector(".be-repl .be-console");
+                    if(repl) {
+                        new REPL(index).install(repl);
+                    }
+                }
+                switchTo(el);
+            });
+        }
+    }
+
+    for(var i = 0; i < allFrames.length; i++) {
+        (function(i, el) {
+            var el = allFrames[i];
+            el.onclick = function() {
+                if(previousFrame) {
+                    previousFrame.className = "";
+                }
+                el.className = "selected";
+                previousFrame = el;
+
+                selectFrameInfo(el.attributes["data-index"].value);
+            };
+        })(i);
+    }
+
+    // Click the first application frame
+    (
+      document.querySelector(".frames li.application") ||
+      document.querySelector(".frames li")
+    ).onclick();
+
+    // This is the second query performed for frames; maybe the 'allFrames' list
+    // currently used and this list can be better used to avoid the repetition:
+    var applicationFramesCount = document.querySelectorAll(
+        "ul.frames li[data-context=application]"
+    ).length;
+
+    var applicationFramesButtonIsInstalled = false;
+    var applicationFramesButton = document.getElementById("application_frames");
+    var allFramesButton = document.getElementById("all_frames");
+
+    // The application frames button only needs to be bound if
+    // there are actually any application frames to look at.
+    var installApplicationFramesButton = function() {
+        applicationFramesButton.onclick = function() {
+            allFramesButton.className = "";
+            applicationFramesButton.className = "selected";
+            for(var i = 0; i < allFrames.length; i++) {
+                if(allFrames[i].attributes["data-context"].value == "application") {
+                    allFrames[i].style.display = "block";
+                } else {
+                    allFrames[i].style.display = "none";
+                }
+            }
+            return false;
+        };
+
+        applicationFramesButtonIsInstalled = true;
+    }
+
+    allFramesButton.onclick = function() {
+        if(applicationFramesButtonIsInstalled) {
+            applicationFramesButton.className = "";
+        }
+
+        allFramesButton.className = "selected";
+        for(var i = 0; i < allFrames.length; i++) {
+            allFrames[i].style.display = "block";
+        }
+        return false;
+    };
+
+    // If there are no application frames, select the 'All Frames'
+    // tab by default.
+    if(applicationFramesCount > 0) {
+        installApplicationFramesButton();
+        applicationFramesButton.onclick();
+    } else {
+        applicationFramesButton.className = "disabled";
+        applicationFramesButton.title = "No application frames available";
+        allFramesButton.onclick();
+    }
+  })();
