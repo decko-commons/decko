@@ -37,7 +37,7 @@ class Card
         end
 
         def name_like val
-          key_like "%#{val.to_name.key}%"
+          key_like "%#{val.to_name.key}%", true
         end
 
         def content_match val, cxn
