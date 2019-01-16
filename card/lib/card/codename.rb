@@ -14,7 +14,7 @@ class Card
   #
   # ...or via the api like
   #
-  #     Card[CARDNAME].update_attributes! codename: CODENAME
+  #     Card[CARDNAME].update! codename: CODENAME
   #
   # Generally speaking, _codenames_ are represented by Symbols.
   #

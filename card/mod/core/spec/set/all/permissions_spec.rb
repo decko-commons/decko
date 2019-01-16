@@ -227,7 +227,7 @@ RSpec.describe Card::Set::All::Permissions do
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
         [@c1, @c2, @c3].each do |c|
-          c.update_attributes content: "WeirdWord"
+          c.update content: "WeirdWord"
         end
         Card.create(name: "c1+*self+*read", type: "Pointer", content: "[[u1]]")
       end
@@ -251,7 +251,7 @@ RSpec.describe Card::Set::All::Permissions do
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
         [@c1, @c2, @c3].each do |c|
-          c.update_attributes content: "WeirdWord"
+          c.update content: "WeirdWord"
         end
         Card.create(name: "c1+*self+*read", type: "Pointer", content: "[[r3]]")
       end
@@ -374,7 +374,7 @@ RSpec.describe Card::Set::All::Permissions do
     example "changing cardtype needs new cardtype's create permission", with_user: "u2" do
       # u3 can update but not create cardtype b
       c = Card["basicname"]
-      c.update_attributes type: "cardtype_b"
+      c.update type: "cardtype_b"
 
       expect(c.errors[:permission_denied])
         .to include(/You don't have permission to change to this type/)

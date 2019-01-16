@@ -86,7 +86,7 @@ RSpec.describe Card::Subcards do
 
     it "works together with type change" do
       card = create "card with subs", "+sub1" => "first"
-      card.update_attributes! type_id: Card::PhraseID, "+sub1" => "second"
+      card.update! type_id: Card::PhraseID, "+sub1" => "second"
       expect(Card["card with subs+sub1"].content).to eq "second"
     end
 

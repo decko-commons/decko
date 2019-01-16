@@ -2,7 +2,7 @@ describe Card::Set::All::NameEvents do
   describe "event: set_name" do
     it "handles case variants" do
       c = Card.create! name: "chump"
-      c.update_attributes! name: "Chump"
+      c.update! name: "Chump"
       expect(c.name).to eq("Chump")
     end
 
@@ -10,7 +10,7 @@ describe Card::Set::All::NameEvents do
       let(:card) { Card.create! name: "four+five" }
 
       before do
-        card.update_attributes! name: "nine"
+        card.update! name: "nine"
       end
 
       it "assigns the cardname" do

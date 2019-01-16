@@ -41,7 +41,7 @@ end
 #  before do
 #     Card::Auth.as(Card::WagnBotID)
 #     # this ugly setup makes it so A+Admin is the actual user with edits..
-#     Card["Wagn Bot"].update_attributes! name: "A+Wagn Bot"
+#     Card["Wagn Bot"].update! name: "A+Wagn Bot"
 #  end
 #  it "does not be removable" do
 #    @a = Card['A']
@@ -55,7 +55,7 @@ describe Card, "rename to trashed name" do
       @a = Card["A"]
       @b = Card["B"]
       @a.delete!  # trash
-      @b.update_attributes! name: "A", update_referers: true
+      @b.update! name: "A", update_referers: true
     end
   end
 
@@ -170,7 +170,7 @@ describe "remove tests" do
 
   example "recreate plus card name variant" do
     Card.create(name: "rta+rtb").delete
-    Card["rta"].update_attributes name: "rta!"
+    Card["rta"].update name: "rta!"
     Card.create! name: "rta!+rtb"
     expect(Card["rta!+rtb"]).to be_a Card
     expect(Card["rta!+rtb"].trash).to be_falsey

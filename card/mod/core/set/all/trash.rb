@@ -50,13 +50,13 @@ end
 
 def delete args={}
   add_to_trash args do |delete_args|
-    update_attributes delete_args
+    update delete_args
   end
 end
 
 def delete! args={}
   add_to_trash args do |delete_args|
-    update_attributes! delete_args
+    update! delete_args
   end
 end
 

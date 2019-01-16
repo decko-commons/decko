@@ -5,7 +5,7 @@ describe Card::Set::Abstract::Pointer do
   end
 
   def pointer_update content
-    -> { Card["tp"].update_attributes! content: content }
+    -> { Card["tp"].update! content: content }
   end
 
   describe "#added_item_names" do
@@ -72,7 +72,7 @@ describe Card::Set::Abstract::Pointer do
 
   describe "#standardize_item" do
     it "handles unlinked items" do
-      pointer.update_attributes! content: "bracketme"
+      pointer.update! content: "bracketme"
       expect(pointer.content).to eq("[[bracketme]]")
     end
 

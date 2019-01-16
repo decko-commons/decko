@@ -34,10 +34,10 @@ end
 
 def delete
   # delete although it's new
-  update_attributes trash: true
+  update trash: true
 end
 
 def delete!
   # delete although it's new
-  update_attributes! trash: true
+  update! trash: true
 end

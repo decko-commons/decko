@@ -54,7 +54,7 @@ RSpec.describe Card::Reference, as_bot: true do
   it "pickup new links on rename" do
     @l = create!("L", "[[Ethan]]")  # no Ethan card yet...
     @e = create!("Earthman")
-    @e.update_attributes! name: "Ethan" # NOW there is an Ethan card
+    @e.update! name: "Ethan" # NOW there is an Ethan card
     #  do we need the links to be caught before reloading the card?
     expect(Card["Ethan"].referers.map(&:name).include?("L")).not_to eq(nil)
   end
@@ -110,14 +110,14 @@ RSpec.describe Card::Reference, as_bot: true do
 
   it "update referencing content on rename junction card" do
     @ab = Card["A+B"] # linked to from X, included by Y
-    @ab.update_attributes! name: "Peanut+Butter", update_referers: true
+    @ab.update! name: "Peanut+Butter", update_referers: true
     @x = Card["X"]
     expect(@x.content).to eq("[[A]] [[Peanut+Butter]] [[T]]")
   end
 
   it "update referencing content on rename junction card" do
     @ab = Card["A+B"] # linked to from X, included by Y
-    @ab.update_attributes! name: "Peanut+Butter", update_referers: false
+    @ab.update! name: "Peanut+Butter", update_referers: false
     @x = Card["X"]
     expect(@x.content).to eq("[[A]] [[A+B]] [[T]]")
   end
@@ -176,13 +176,13 @@ RSpec.describe Card::Reference, as_bot: true do
 
   it "handles contextual names in Basic cards" do
     Card.create type: "Basic", name: "basic w refs", content: "{{_+A}}"
-    Card["A"].update_attributes! name: "AAA", update_referers: true
+    Card["A"].update! name: "AAA", update_referers: true
     expect(Card["basic w refs"].content).to eq "{{_+AAA}}"
   end
 
   it "handles contextual names in Search cards" do
     Card.create type: "Search", name: "search w refs", content: '{"name":"_+A"}'
-    Card["A"].update_attributes! name: "AAA", update_referers: true
+    Card["A"].update! name: "AAA", update_referers: true
     expect(Card["search w refs"].content).to eq '{"name":"_+AAA"}'
   end
 

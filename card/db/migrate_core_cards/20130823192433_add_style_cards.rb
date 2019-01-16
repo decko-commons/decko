@@ -4,7 +4,7 @@ class AddStyleCards < Card::Migration::Core
   def up
     # TAKE "CSS" CODENAME FROM OLD *CSS CARD
     old_css = Card[:css]
-    old_css.update_attributes codename: nil
+    old_css.update codename: nil
     # old *css card no longer needs this codename
 
     # CREATE CSS AND SCSS TYPES
@@ -12,16 +12,16 @@ class AddStyleCards < Card::Migration::Core
     # need better api to support this?
     css_attributes = { codename: :css, type_id: Card::CardtypeID }
     new_css = Card.fetch "CSS", new: css_attributes
-    new_css.update_attributes(css_attributes) unless new_css.new_card?
+    new_css.update(css_attributes) unless new_css.new_card?
     new_css.save!
 
-    old_css.update_attributes type_id: new_css.id
+    old_css.update type_id: new_css.id
 
     Card.create! name: "SCSS", codename: :scss, type_id: Card::CardtypeID
 
     skin_attributes = { codename: :skin, type_id: Card::CardtypeID }
     skin_card = Card.fetch "Skin", new: skin_attributes
-    skin_card.update_attributes(skin_attributes) unless skin_card.new_card?
+    skin_card.update(skin_attributes) unless skin_card.new_card?
     skin_card.save!
 
     # PERMISSIONS FOR CSS AND SCSS TYPES
@@ -93,7 +93,7 @@ class AddStyleCards < Card::Migration::Core
     rescue
       if default_skin =~ /customized/
         all_style = Card["#{Card[:all].name}+*style"]
-        all_style.update_attributes content: "[[classic skin]]"
+        all_style.update content: "[[classic skin]]"
       end
     end
   end

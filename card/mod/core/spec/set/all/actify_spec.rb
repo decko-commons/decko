@@ -149,7 +149,7 @@ RSpec.describe "act API" do
           expect(name_before_act).to eq("A")
           expect(db_content_before_act).to eq("Alpha [[Z]]")
         end
-        Card["A"].update_attributes! name: "new name"
+        Card["A"].update! name: "new name"
         Delayed::Worker.new.work_off
       end
     end
@@ -173,7 +173,7 @@ RSpec.describe "act API" do
         test_event :integrate_with_delay, changed: :content do
           event_called :iwd_content
         end
-        Card["A"].update_attributes! name: "new name"
+        Card["A"].update! name: "new name"
         Delayed::Worker.new.work_off
         expect(@called_events).to eq(%i[i_name iwd_name])
       end

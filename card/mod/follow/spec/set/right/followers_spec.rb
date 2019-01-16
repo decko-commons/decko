@@ -39,7 +39,7 @@ RSpec.describe Card::Set::Right::Followers do
     it "recognizes card name changes" do
       card = Card["Look At Me"]
       card.update_referers = true
-      card.update_attributes! name: "Look away"
+      card.update! name: "Look away"
       expect(followers_of(card)).to eq ["Big Brother"]
     end
 
@@ -96,7 +96,7 @@ RSpec.describe Card::Set::Right::Followers do
 
         card = Card.create! name: "edited by Sara"
         Card::Auth.current_id = Card["Sara"].id
-        card.update_attributes! content: "some content"
+        card.update! content: "some content"
         expect(followers_of(card)).to include("Sara")
       end
     end

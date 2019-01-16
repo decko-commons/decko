@@ -54,13 +54,13 @@ end
 # separate name and other attributes
 def safe_update! attribs
   separate_name_update! attribs.delete("name") unless new?
-  update_attributes! attribs if attribs.present?
+  update! attribs if attribs.present?
 end
 
 def separate_name_update! new_name
   return if new_name.to_s == name.to_s
 
-  update_attributes! name: new_name
+  update! name: new_name
 end
 
 def measure desc
