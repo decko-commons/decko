@@ -26,7 +26,7 @@ class CardController < ActionController::Base
   end
 
   def update
-    card.new_card? ? create : handle { card.update_attributes! params[:card] }
+    card.new_card? ? create : handle { card.update! params[:card] }
   end
 
   def delete

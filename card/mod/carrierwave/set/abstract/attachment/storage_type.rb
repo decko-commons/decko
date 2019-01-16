@@ -31,8 +31,8 @@ event :validate_storage_type_update, :validate, on: :update do
   # FIXME: make it possible to retrieve the file from cloud storage
   #   to store it somewhere else. Currently, it only works to change the
   #   storage type if a new file is provided
-  #   i.e. `update_attributes storage_type: :local` fails but
-  #        `update_attributes storage_type: :local, file: [file handle]` is ok
+  #   i.e. `update storage_type: :local` fails but
+  #        `update storage_type: :local, file: [file handle]` is ok
   if cloud? && storage_type_changed? && !attachment_is_changing?
     errors.add :storage_type, tr(:moving_files_is_not_supported)
   end

@@ -12,7 +12,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
   end
 
   def update_field name, args={}
-    Card["#{email_name}+#{name}"].update_attributes! args
+    Card["#{email_name}+#{name}"].update! args
   end
 
   def create_field name, args={}
@@ -71,7 +71,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     #      we can't decided whether a email address like [[_left]] is valid;
     #      depends on the context
     #   Card.fetch("a mail template+*to").
-    #     update_attributes(content: "invalid mail address")
+    #     update(content: "invalid mail address")
     # end
   end
 

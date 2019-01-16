@@ -27,7 +27,7 @@ RSpec.describe Card::Set::Type::NotificationTemplate do
       it "is called on update" do
         notify_card = Card["success"]
         allow(notify_card).to receive(:deliver)
-        Card["A"].update_attributes! content: "change"
+        Card["A"].update! content: "change"
         expect(notify_card).to have_received(:deliver).once
       end
     end

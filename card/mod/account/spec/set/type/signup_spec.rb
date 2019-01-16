@@ -82,7 +82,7 @@ describe Card::Set::Type::Signup do
     it "is activated by an update" do
       Card::Env.params[:token] = @token
       @signup = Card.fetch "big bad wolf"
-      @signup.update_attributes({})
+      @signup.update({})
       # puts @signup.errors.full_messages * "\n"
       expect(@signup.errors).to be_empty
       expect(@signup.type_id).to eq(Card::UserID)
@@ -96,7 +96,7 @@ describe Card::Set::Type::Signup do
       @account.token_card.expire
       Card::Env.params[:token] = @token
       @signup = Card.fetch "big bad wolf"
-      result = @signup.update_attributes!({})
+      result = @signup.update!({})
       # successfully completes save
       expect(result).to eq(true)
       @account.reload
@@ -176,7 +176,7 @@ describe Card::Set::Type::Signup do
   context "a welcome email card exists" do
     before do
       Card::Auth.as_bot do
-        Card[:welcome_email].update_attributes!(
+        Card[:welcome_email].update!(
           subcards: { "+*subject" => "welcome",
                       "+*html_message" => "Welcome {{_self|name}}" }
         )

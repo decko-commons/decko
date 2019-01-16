@@ -66,7 +66,7 @@ describe Card::Set::All::Trash do
     # @signup =
     #   create_signup "born to die",
     #                 "+*account" => { "+*email" => "wolf@wagn.org", "+*password" => "wolf" }
-    # @signup.update_attributes!({})
+    # @signup.update!({})
     # Card::Cache.reset_all
     #
     # Card::Auth.as_bot do

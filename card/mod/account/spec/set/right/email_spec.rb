@@ -33,19 +33,19 @@ describe Card::Set::Right::Email do
 
       it "downcases email" do
         Card::Auth.as_bot do
-          @email_card.update_attributes! content: "QuIrE@example.com"
+          @email_card.update! content: "QuIrE@example.com"
           expect(@email_card.db_content).to eq("quire@example.com")
         end
       end
 
       it "requires valid email" do
-        @email_card.update_attributes content: "boop"
+        @email_card.update content: "boop"
         expect(@email_card.errors[:content].first)
           .to match(/must be valid address/)
       end
 
       it "requires unique email" do
-        @email_card.update_attributes content: "joe@user.com"
+        @email_card.update content: "joe@user.com"
         expect(@email_card.errors[:content].first).to match(/must be unique/)
       end
     end

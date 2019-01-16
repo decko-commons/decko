@@ -150,11 +150,11 @@ RSpec.describe Card::Set::All::Notify do
     end
 
     def update card_name, new_content="updated content"
-      Card[card_name].update_attributes! content: new_content
+      Card[card_name].update! content: new_content
     end
 
     def update_name card_name, new_name="updated content"
-      Card[card_name].update_attributes! name: new_name, update_referers: true
+      Card[card_name].update! name: new_name, update_referers: true
     end
 
     def self.notify_on_create user, trigger, create_name

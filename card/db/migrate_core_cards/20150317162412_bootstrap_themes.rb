@@ -31,7 +31,7 @@ class BootstrapThemes < Card::Migration::Core
 
     if sidebar_card = Card["*sidebar"]
       new_content = sidebar_card.db_content.gsub(/(\*(logo|credit))\|content/, '\1|content_panel')
-      sidebar_card.update_attributes! content: new_content
+      sidebar_card.update! content: new_content
     end
   end
 end

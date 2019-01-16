@@ -33,7 +33,7 @@ class UserDataToCards < Card::Migration::Core
     puts "supporting legacy handling of +*email on User cards"
     oldname = [:email,           :right, :structure].map { |code| Card[code].name } * "+"
     newname = [:user, :email, :type_plus_right, :structure].map { |code| Card[code].name } * "+"
-    Card[oldname].update_attributes! name: newname
+    Card[oldname].update! name: newname
 
     puts "importing all user details (for those not in trash) into +*account attributes"
     Card::Env[:no_password_encryptions] = true

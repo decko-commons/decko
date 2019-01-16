@@ -27,7 +27,7 @@ class Skin
   #   Card.search(refer_to: skin_name).each do |ref|
   #     new_content = ref.content.gsub(/#{theme_name}[ _]skin/i,
   #       "#{skin_name} customized")
-  #     card.update_attributes! content: new_content
+  #     card.update! content: new_content
   #   end
   # end
 end
@@ -59,7 +59,7 @@ class MigrateCustomizedBootstrapSkin < Card::Migration::Core
   def replace_old_skin referers
     referers.each do |ref|
       new_content = ref.content.gsub(/customizable[ _]bootstrap[ _]skin/i, NEW_SKIN)
-      ref.update_attributes! content: new_content
+      ref.update! content: new_content
     end
   end
 
