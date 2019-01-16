@@ -3,7 +3,7 @@
 RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
   let(:layout_card) { Card["tmp layout"] }
 
-  context "simple page with Default Layout" do
+  describe "simple page with Default Layout" do
     subject(:open_view) { Card["A+B"].format.show(:open, {}) }
 
     it "renders top menu" do
@@ -26,10 +26,10 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
 
     it "renders card content" do
       expect(open_view).to have_tag "div.d0-card-body.d0-card-content" \
-                                ".ALL.ALL_PLUS" \
-                                ".TYPE-basic.RIGHT-b.TYPE_PLUS_RIGHT-basic-b" \
-                                ".SELF-a-b.card-body.card-text",
-                              text:  /AlphaBeta/
+                                    ".ALL.ALL_PLUS" \
+                                    ".TYPE-basic.RIGHT-b.TYPE_PLUS_RIGHT-basic-b" \
+                                    ".SELF-a-b.card-body.card-text",
+                                    text:  /AlphaBeta/
     end
 
     it "renders card credit" do
@@ -43,28 +43,25 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
   describe "layout defined by rule" do
     it "renders layout from card" do
       with_layout "<pre>Hey {{_main}}</pre>"
-      expect(format_subject.show(:core, {}))
-        .to have_tag :pre do
+      expect(format_subject.show(:core, {})).to have_tag :pre do
         with_text(/Hey/)
-          with_tag "div#main", /Alpha/
+        with_tag "div#main", /Alpha/[]
       end
     end
 
     it "respects custom view in params" do
       with_layout "<pre>Hey {{_main}}</pre>"
-        expect(format_subject.show(:type, {}))
-          .to have_tag :pre do
-          with_text(/Hey/)
-            with_tag "div#main", "Basic"
-        end
+      expect(format_subject.show(:type, {})).to have_tag :pre do
+        with_text(/Hey/)
+        with_tag "div#main", "Basic"
+      end
     end
 
     it "respect custom view in main nest" do
       with_layout "<pre>Hey {{_main|type}}</pre>"
-      expect(format_subject.show(nil, {}))
-        .to have_tag :pre do
-        with_text /Hey/
-          with_tag "div#main", "Basic"
+      expect(format_subject.show(nil, {})).to have_tag :pre do
+        with_text(/Hey/)
+        with_tag "div#main", "Basic"
       end
     end
   end

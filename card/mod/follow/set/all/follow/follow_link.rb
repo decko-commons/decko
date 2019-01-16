@@ -14,7 +14,8 @@ class FollowLink
       "data-path": link_opts[:path],
       "data-toggle": "modal",
       "data-target": "#modal-#{card.name.safe_key}",
-      class: css_classes("follow-link", link_opts[:class]))
+      class: css_classes("follow-link", link_opts[:class])
+    )
     link_to render_link_text(icon), opts
   end
 
@@ -48,9 +49,9 @@ class FollowLink
 
   def path view=:follow_status
     @format.path mark: mark,
-                action: :update,
-                success: { id: @card.name, view: view },
-                card: { content: "[[#{rule_content}]]" }
+                 action: :update,
+                 success: { id: @card.name, view: view },
+                 card: { content: "[[#{rule_content}]]" }
   end
 
   def title

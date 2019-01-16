@@ -1,10 +1,6 @@
 format :html do
   view :bridge_rules_tab, cache: :never do
-    output [ rules_filter, render_rules_list]
-      wrap do
-        render_common_rules_list hide: %i[content set_label set_navbar rule_navbar]
-      end
-    output [rules_filter, rules_table]
+    output [rules_filter, render_rules_list]
   end
 
   SETTING_OPTIONS = [["Common", :common_rules], ["All", :all_rules],
@@ -19,8 +15,8 @@ format :html do
   end
 
   def setting_options
-    [ ["Categories", SETTING_OPTIONS], ["Groups", Card::Setting.group_names.keys],
-      ["Single rules", card.visible_setting_codenames]]
+    [["Categories", SETTING_OPTIONS], ["Groups", Card::Setting.group_names.keys],
+     ["Single rules", card.visible_setting_codenames]]
   end
 
   def set_select
@@ -59,7 +55,6 @@ format :html do
     nest(rule_card, view: :rule_bridge_link).html_safe
   end
 
-
   view :rules_list, wrap: :slot do
     group = params[:group]&.to_sym || :common
     rules_list group, setting_list(group)
@@ -78,7 +73,7 @@ format :html do
     else
       if Card::Setting.groups[group]
         card.visible_settings(group).map(&:codename)
-    else
+      else
         [group]
       end
     end

@@ -1,12 +1,15 @@
 format :html do
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
+
     menu
   end
 
   def menu
     wrap_with :div, class: "card-menu #{menu_link_classes} float-right" do
-      link_to_view "edit", menu_icon, remote: true, "data-slotter-mode": "modal", class: "slotter", "data-modal-class": "modal-full"
+      link_to_view "edit", menu_icon,
+                   remote: true, "data-slotter-mode": "modal",
+                   class: "slotter", "data-modal-class": "modal-full"
     end
   end
 
@@ -32,7 +35,6 @@ format :html do
     fa_icon "edit"
   end
 
-
   def menu_item_page opts
     menu_item "page", "open_in_new", opts.merge(card: card)
   end
@@ -48,13 +50,13 @@ format :html do
     )
   end
 
-
   def show_menu_item_page?
     card.name.present? && !main?
   end
 
   def show_menu_item_edit?
     return unless card.real?
+
     card.ok?(:update) || structure_editable?
   end
 end

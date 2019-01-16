@@ -19,7 +19,6 @@ format :html do
     follow_link_class.new(self).button
   end
 
-
   def follow_modal_link
     follow_link_class.new(self).modal_link
   end

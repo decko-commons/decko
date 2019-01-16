@@ -18,8 +18,8 @@ RSpec.describe Card::Set::All::Follow::FollowLinkViews do
 
     specify "view :follow_link" do
       expect_view(:follow_button).to have_tag("a", with: {
-        "data-hover-text": "unfollow"
-      }) do
+                                                "data-hover-text": "unfollow"
+                                              }) do
         with_text "following"
       end
     end

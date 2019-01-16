@@ -65,6 +65,7 @@ format :html do
   # this does not look specific to following!
   view :errors, perms: :none do
     return unless card.errors.any?
+
     if card.errors.find { |attrib, _msg| attrib == :permission_denied }
       Env.save_interrupted_action(request.env["REQUEST_URI"])
       voo.title = "Problems with #{card.name}"
