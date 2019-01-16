@@ -77,7 +77,7 @@ describe Card::Set::Type::Image do
 
     context "updated file card" do
       before do
-        subject.update_attributes!(
+        subject.update!(
           image: File.new(File.join(CARD_TEST_SEED_PATH, "rails.gif"))
         )
       end
@@ -111,7 +111,7 @@ describe Card::Set::Type::Image do
 
     it "becomes a regular file when changed" do
       Card::Auth.as_bot do
-        subject.update_attributes!(
+        subject.update!(
           image: File.new(File.join(CARD_TEST_SEED_PATH, "rails.gif"))
         )
       end

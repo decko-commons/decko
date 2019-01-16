@@ -57,7 +57,7 @@ class RailsInflectionUpdates < Card::Migration::Core
           elsif Card.find_by_key new_key
             puts "Could not update #{name}. Key '#{new_key}' already exists."
           else
-            card.update_attributes! key: new_key
+            card.update! key: new_key
           end
         end
       end
@@ -75,7 +75,7 @@ class RailsInflectionUpdates < Card::Migration::Core
           new_content = new_content.gsub(wrong_sing, correct_sing)
         end
       end
-      card.update_attributes! content: new_content if content_changed
+      card.update! content: new_content if content_changed
     end
   end
 end

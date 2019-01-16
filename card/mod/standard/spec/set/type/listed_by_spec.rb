@@ -19,7 +19,7 @@ RSpec.describe Card::Set::Type::ListedBy do
   end
   it "doesn't allow non-cardtype as right part" do
     expect do
-      Card["Parry Hotter+authors"].update_attributes!(
+      Card["Parry Hotter+authors"].update!(
         name: "Parry Hotter+hidden"
       )
     end.to raise_error(ActiveRecord::RecordInvalid,
@@ -43,7 +43,7 @@ RSpec.describe Card::Set::Type::ListedBy do
 
       context "when Darles Chickens is removed from Parry Hotter's list" do
         before do
-          Card["Parry Hotter+authors"].update_attributes!(
+          Card["Parry Hotter+authors"].update!(
             content: "[[Stam Broker]]"
           )
         end
@@ -85,7 +85,7 @@ RSpec.describe Card::Set::Type::ListedBy do
               }
             )
             Card.fetch("Adventures of Buckleharry Finn+authors")
-                .update_attributes!(content: "[[Darles Chickens]]")
+                .update!(content: "[[Darles Chickens]]")
           end
         end
         it do
@@ -101,14 +101,14 @@ RSpec.describe Card::Set::Type::ListedBy do
 
       context "when the cardtype of Parry Hotter changed" do
         before do
-          Card["Parry Hotter"].update_attributes! type_id: Card::BasicID
+          Card["Parry Hotter"].update! type_id: Card::BasicID
         end
         it { is_expected.to eq ["50 grades of shy"] }
       end
       context "when the name of Parry Hotter changed to Parry Moppins" do
         before do
           Card::Auth.as_bot do
-            Card["Parry Hotter"].update_attributes!(
+            Card["Parry Hotter"].update!(
               name: "Parry Moppins",
               update_referers: true
             )
@@ -119,7 +119,7 @@ RSpec.describe Card::Set::Type::ListedBy do
 
       context "when the name of Darles Chickens changed" do
         before do
-          Card["Darles Chickens"].update_attributes!(
+          Card["Darles Chickens"].update!(
             name: "Darles Eggs",
             update_referers: true
           )
@@ -131,7 +131,7 @@ RSpec.describe Card::Set::Type::ListedBy do
       context "when the cartype of Darles Chickens changed" do
         it "raises error" do
           expect do
-            Card["Darles Chickens"].update_attributes! type_id: Card::BasicID
+            Card["Darles Chickens"].update! type_id: Card::BasicID
           end.to raise_error(ActiveRecord::RecordInvalid, /Type can\'t be changed/)
         end
       end
@@ -139,7 +139,7 @@ RSpec.describe Card::Set::Type::ListedBy do
         subject { Card.fetch("Darles Chickens+authors").item_names.sort }
 
         before do
-          Card["Darles Chickens+books"].update_attributes!(
+          Card["Darles Chickens+books"].update!(
             name: "Darles Chickens+authors"
           )
         end
@@ -147,7 +147,7 @@ RSpec.describe Card::Set::Type::ListedBy do
       end
       context "when the name of the cardtype books changed" do
         before do
-          Card["book"].update_attributes! name: "literature"
+          Card["book"].update! name: "literature"
         end
         subject { Card.fetch("Darles Chickens+literature").item_names.sort }
 

@@ -75,7 +75,7 @@ end
 # Don't create "+*machine output" file card
 # instead save the the output as the card's content is
 def after_engine output
-  Card::Auth.as_bot { update_attributes! db_content: output }
+  Card::Auth.as_bot { update! db_content: output }
 end
 
 # needed to make the refresh_script_and_style method work with these cards

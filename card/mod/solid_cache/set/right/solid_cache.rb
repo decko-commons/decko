@@ -15,7 +15,7 @@ end
 def write! new_content
   lock do
     if new_card?
-      update_attributes! content: new_content
+      update! content: new_content
     elsif new_content != solid_cache_card.content
       update_column :db_content, new_content
       expire

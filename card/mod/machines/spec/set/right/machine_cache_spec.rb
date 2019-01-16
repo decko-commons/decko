@@ -24,7 +24,7 @@ RSpec.describe Card::Set::Right::MachineCache, as_bot: true do
   end
 
   def update_virtual
-    Card.fetch(:all, :machine_cache).update_attributes! content: virtual_content
+    Card.fetch(:all, :machine_cache).update! content: virtual_content
   end
 
   context "when content is updated" do
@@ -41,7 +41,7 @@ RSpec.describe Card::Set::Right::MachineCache, as_bot: true do
     before do
       create_virtual
       card = Card.fetch(:all, :machine_cache)
-      card.update_attributes! trash: true
+      card.update! trash: true
     end
 
     it "deletes content in virtual table" do

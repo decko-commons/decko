@@ -14,7 +14,7 @@ class Card
       # @example
       #   in_stage :initialize,
       #            for: "my test card",
-      #            trigger: -> { test_card.update_attributes! content: '' } do
+      #            trigger: -> { test_card.update! content: '' } do
       #     expect(item_names).to eq []
       #   end
       def in_stage stage, opts={}, &event_block

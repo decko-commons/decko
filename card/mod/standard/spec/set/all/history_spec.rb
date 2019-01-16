@@ -65,15 +65,15 @@ RSpec.describe Card::Set::All::History do
       context "when updated" do
         it "adds no act if nothing changed" do
           pending "act handling upgrade"
-          @card.update_attributes name: "single card", content: content
+          @card.update name: "single card", content: content
           expect(Card::Act.count).to eq(act_start_cnt + 1)
         end
         it "adds new act" do
-          @card.update_attributes content: "new content"
+          @card.update content: "new content"
           expect(Card::Act.count).to eq(act_start_cnt + 2)
         end
         it "adds changes to create action" do
-          @card.update_attributes content: "new content"
+          @card.update content: "new content"
           expect(@card.actions.first.changed_values).to eq INITIAL_VALUES
         end
       end
@@ -174,7 +174,7 @@ RSpec.describe Card::Set::All::History do
 
       context "when updated" do
         it "adds act for left card" do
-          @card.update_attributes subcards: {
+          @card.update subcards: {
             "+right" => {
               content: "New content", db_content: "New Content"
             }
@@ -183,7 +183,7 @@ RSpec.describe Card::Set::All::History do
           expect(act.card).to eq(@card)
         end
         it "adds action for subcard" do
-          @card.update_attributes subcards: {
+          @card.update subcards: {
             "+right" => { content: "New Content" }
           }
           act = @card.acts.last

@@ -446,12 +446,12 @@ RSpec.describe Card::ActManager::StageDirector do
   end
 
   describe "creating and updating cards in stages" do
-    it "update_attributes works in integrate stage" do
+    it "update works in integrate stage" do
       act_cnt = Card["A"].acts.size
       in_stage :integrate,
                on: :create,
                trigger: -> { Card.create! name: "act card" } do
-        Card["A"].update_attributes content: "changed content"
+        Card["A"].update content: "changed content"
       end
       expect(Card["A"].content).to eq "changed content"
       expect(Card["A"].acts.size).to eq(act_cnt), "no act added to A"
@@ -459,13 +459,13 @@ RSpec.describe Card::ActManager::StageDirector do
       expect(Card["A"].actions.last.act).to eq Card["act card"].acts.last
     end
 
-    it "update_attributes works integrate_with_delay stage" do
+    it "update works integrate_with_delay stage" do
       act_cnt = Card["A"].acts.size
       with_delayed_jobs 1 do
         in_stage :integrate_with_delay,
                  on: :create, for: "act card",
                  trigger: -> { Card.create! name: "act card" } do
-          Card["A"].update_attributes content: "changed content"
+          Card["A"].update content: "changed content"
         end
       end
       expect(Card["A"].content).to eq "changed content"

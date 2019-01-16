@@ -29,7 +29,7 @@ class AddRecaptchaKeyAndAdminInfoCards < Card::Migration::Core
   def add_admin_info_to_home_card
     return unless (home = Card[Card[:home].db_content])
     new_content = home.db_content.prepend "{{*admin info|content}}\n"
-    home.update_attributes! content: new_content
+    home.update! content: new_content
   end
 
   def create_recaptcha_settings

@@ -41,7 +41,7 @@ describe Card::Auth do
       @joeadmin = Card["Joe Admin"]
       @token = "abcd"
       Card::Auth.as_bot do
-        @joeadmin.account.token_card.update_attributes! content: @token
+        @joeadmin.account.token_card.update! content: @token
       end
     end
 

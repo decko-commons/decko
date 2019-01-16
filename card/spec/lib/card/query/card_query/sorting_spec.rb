@@ -29,7 +29,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
 
   it "sorts by plus card content" do
     Card::Auth.as_bot do
-      Card["Setting+*self+*table of contents"].update_attributes! content: 10
+      Card["Setting+*self+*table of contents"].update! content: 10
       Card.create! name: "Basic+*type+*table of contents", content: "3"
       expect(run_query(right_plus: "*table of contents",
                        sort: { right: "*table_of_contents" },
@@ -50,7 +50,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   #    Card::Query.run(
   #    match: 'two', sort: 'update', dir: 'desc'
   #    ).map(&:name).should == ['One+Two+Three', 'One+Two','Two','Joe User']
-  #    Card['Two'].update_attributes! content: 'new bar'
+  #    Card['Two'].update! content: 'new bar'
   #    Card::Query.run(
   #    match: 'two', sort: 'update', dir: 'desc'
   #    ).map(&:name).should == ['Two','One+Two+Three', 'One+Two','Joe User']
