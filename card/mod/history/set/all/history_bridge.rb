@@ -1,29 +1,32 @@
 format :html do
   view :creator_credit, wrap: { div: { class: "text-muted m-2" } }, cache: :never do
-    "Created by #{nest card.creator, view: :link} #{time_ago_in_words(card.created_at)} ago"
+    "Created by #{nest card.creator, view: :link} "\
+    "#{time_ago_in_words(card.created_at)} ago"
   end
 
   view :updated_by, wrap: { div: { class: "text-muted m-2" } }, cache: :never do
     updaters = Card.search(updater_of: { id: card.id })
     return "" unless updaters.present?
 
-    "Updated by #{humanized_search_result updaters, others_target: Card.fetch(card, :editors)}"
+    updaters = humanized_search_result updaters, others_target: Card.fetch(card, :editors)
+    "Updated by #{updaters}"
   end
 
   view :shorter_pointer_content, cache: :never do
     nest card, view: :shorter_search_result, hide: :link
   end
 
-  def humanized_search_result item_cards, item_view: :link, max_count: 3, others_target: card
+  def humanized_search_result item_cards, item_view: :link, max_count: 3,
+                              others_target: card
     return "" unless item_cards.present?
+
     total = item_cards.size
     fetch_count = total > max_count ? max_count - 1 : max_count
 
-    reduced =
-      item_cards.first(fetch_count).map do |c|
-        nest c, view: item_view
-      end
-    reduced << link_to_card(others_target,  "#{total - fetch_count} others") if total > max_count
+    reduced = item_cards.first(fetch_count).map { |c| nest c, view: item_view }
+    if total > max_count
+      reduced << link_to_card(others_target,  "#{total - fetch_count} others")
+    end
     reduced.to_sentence
   end
 

@@ -39,8 +39,8 @@ RSpec.describe Card::View::Options do
       expect(options[:cache]).to eq(:never)
     end
 
-    it "normalizes layout option to array of symbols" do
-      expect(options[:wrap]).to eq(%i[simple default])
+    it "normalizes layout option to array" do
+      expect(options[:wrap]).to eq(%w[simple default])
     end
   end
 

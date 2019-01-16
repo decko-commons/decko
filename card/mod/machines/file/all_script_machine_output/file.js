@@ -11754,9 +11754,7 @@ return jQuery;
       if (mode === "overlay") {
         s.addOverlay(el);
       } else if (el.hasClass("_modal-slot") || mode === "modal") {
-        el = el.modalify($slotter);
-        $("body > ._modal-slot").replaceWith(el);
-        el.modal("show", $slotter);
+        el.showAsModal($slotter);
       } else {
         s.replaceWith(el);
       }
@@ -11766,12 +11764,19 @@ return jQuery;
       this.trigger("slotReady", slotter);
       return this.find(".card-slot").trigger("slotReady", slotter);
     },
+    showAsModal: function($slotter) {
+      var el;
+      el = this.modalify($slotter);
+      $("body > ._modal-slot").replaceWith(el);
+      $('.modal-backdrop').remove();
+      return el.modal("show", $slotter);
+    },
     addOverlay: function(overlay) {
       if (this.parent().hasClass("overlay-container")) {
         if ($(overlay).hasClass("_stack-overlay")) {
           return this.before(overlay);
         } else {
-          return this.parent().find("._overlay").replaceWith(overlay);
+          return this.replaceOverlay(overlay);
         }
       } else {
         this.find(".tinymce-textarea").each(function() {
@@ -11781,6 +11786,10 @@ return jQuery;
         this.addClass("_bottomlay-slot");
         return this.before(overlay);
       }
+    },
+    replaceOverlay: function(overlay) {
+      this.parent().find("._overlay").replaceWith(overlay);
+      return $(".bridge-sidebar .tab-pane:not(.active) .bridge-pills > .nav-item > .nav-link.active").removeClass("active");
     },
     removeOverlay: function() {
       var bottomlay;
@@ -11809,9 +11818,9 @@ return jQuery;
         });
         modalSlot.append($('<div/>', {
           "class": "modal-dialog"
-        })).append($('<div/>', {
+        }).append($('<div/>', {
           "class": "modal-content"
-        })).append(this);
+        }).append(this)));
         return modalSlot;
       }
     },
@@ -11856,9 +11865,11 @@ return jQuery;
         }
       }
     },
-    slotError: function(status, result) {
+    slotError: function(status, result, $slotter) {
       if (status === 403) {
         return this.setSlotContent(result);
+      } else if (status === 900) {
+        return $(result).showAsModal($slotter);
       } else {
         this.notify(result, "error");
         if (status === 409) {
@@ -11981,7 +11992,7 @@ return jQuery;
       }
     });
     $('body').on('ajax:error', '.slotter', function(event, xhr) {
-      return $(this).slotError(xhr.status, xhr.responseText);
+      return $(this).slotError(xhr.status, xhr.responseText, $(this));
     });
     $('body').on('click', 'button.slotter', function(event) {
       if (!$.rails.allowAction($(this))) {
@@ -12051,7 +12062,12 @@ return jQuery;
   });
 
   decko.slotReady(function(slot, slotter) {
-    return slot.updateBridge(false, slotter);
+    var links;
+    slot.updateBridge(false, slotter);
+    links = slot.find('ul._auto-single-select > li.nav-item > a.nav-link');
+    if (links.length === 1) {
+      return $(links[0]).click();
+    }
   });
 
   $(window).ready(function() {});

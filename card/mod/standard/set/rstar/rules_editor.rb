@@ -299,7 +299,7 @@ format :html do
     tag = @rule_context.rule_user_setting_name
     narrower = []
     option_list "set" do
-      rule_set_options.inject do |set_name, state|
+      rule_set_options.map do |set_name, state|
         rule_set_radio_button set_name, tag, state, narrower
       end
     end
