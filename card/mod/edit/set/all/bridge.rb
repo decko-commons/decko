@@ -37,7 +37,8 @@ format :html do
   end
 
   def bridge_link_opts opts={}
-    opts.merge! "data-slot-selector": bridge_slot_selector, remote: true
+    opts[:"data-slot-selector"] = bridge_slot_selector
+    opts[:remote] = true
     add_class opts, "slotter"
     opts.bury :path, :layout, :overlay
     opts[:path][:view] ||= :content
@@ -55,6 +56,6 @@ format :html do
 
   def breadcrumb_data title, html_class=nil
     html_class ||= title.underscore
-    { "data-breadcrumb": title, "data-breadcrumb-class": html_class}
+    { "data-breadcrumb": title, "data-breadcrumb-class": html_class }
   end
 end

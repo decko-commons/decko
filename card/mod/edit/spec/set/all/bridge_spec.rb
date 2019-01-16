@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Bridge do
+RSpec.describe Card::Set::All::Bridge do
   describe "edit_nests view" do
     it "shows editors for both absolute and relative nests" do
       card_subject.content = "{{absolute}} AND {{+relative}}"

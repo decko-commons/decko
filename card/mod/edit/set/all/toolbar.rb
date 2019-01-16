@@ -87,6 +87,7 @@ format :html do
 
   def active_related_toolbar_button
     return unless (codename = related_codename @related_card)
+
     case codename
     when :discussion, :editors                        then "activity"
     when :account, :roles, :edited, :created, :follow then "account"
@@ -115,11 +116,11 @@ format :html do
   def edit_split_button
     toolbar_split_button "edit", view: :edit, icon: :edit do
       {
-        edit:       _render_edit_link,
+        edit: _render_edit_link,
         edit_nests: (_render_edit_nests_link if nests_editable?),
-        structure:  (_render_edit_structure_link if structure_editable?),
-        edit_name:  _render_edit_name_link,
-        edit_type:  _render_edit_type_link
+        structure: (_render_edit_structure_link if structure_editable?),
+        edit_name: _render_edit_name_link,
+        edit_type: _render_edit_type_link
       }
     end
   end
@@ -130,6 +131,7 @@ format :html do
 
   def account_split_button
     return "" unless card.accountable?
+
     toolbar_split_button "account", related: :account, icon: :account_box do
       %i[account roles created edited follow].each_with_object({}) do |item, hash|
         label = item == :account ? tr(:details) : tr(item)
@@ -143,6 +145,7 @@ format :html do
   def toolbar_button_card name
     button_codename = "#{name}_toolbar_button".to_sym
     return "" unless (button_card = Card[button_codename])
+
     with_nest_mode :normal do
       nest button_card, view: :core
     end
@@ -150,6 +153,7 @@ format :html do
 
   def related_codename related_card
     return nil unless related_card
+
     Card.quick_fetch(related_card.name.right)&.codename
   end
 
@@ -230,12 +234,12 @@ format :html do
   end
 
   {
-    edit:           "content",
-    edit_name:      "name",
-    edit_type:      "type",
-    edit_nests:     "nests",
+    edit: "content",
+    edit_name: "name",
+    edit_type: "type",
+    edit_nests: "nests",
     edit_structure: "structure",
-    history:        "history"
+    history: "history"
   }.each do |viewname, viewtitle|
 
     view "#{viewname}_link" do

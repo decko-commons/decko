@@ -49,6 +49,7 @@ format :html do
 
   def type_field_current_value args, typelist
     return if args.delete :no_current_type
+
     if !card.new_card? && !typelist.include?(card.type_name)
       # current type should be an option on existing cards,
       # regardless of create perms
@@ -73,6 +74,7 @@ format :html do
   def content_field_revision_tracking skip_rev_id
     card.last_action_id_before_edit = card.last_action_id
     return if !card || card.new_card? || skip_rev_id
+
     hidden_field :last_action_id_before_edit, class: "current_revision_id"
   end
 
@@ -85,7 +87,8 @@ format :html do
     end
   end
 
-  # test: render nests within a normal rendering of the card's content? (as opposed to a standardized form)
+  # test: render nests within a normal rendering of the card's content?
+  # (as opposed to a standardized form)
   def inline_nests_editor?
     voo.editor == :inline_nests
   end
@@ -177,7 +180,7 @@ format :html do
   end
 
   def form_context
-    (form_root? || !form_root) ? self : parent
+    form_root? || !form_root ? self : parent
   end
 
   def form_root?
@@ -186,6 +189,7 @@ format :html do
 
   def form_root
     return self if @form_root
+
     parent ? parent.form_root : nil
   end
 
@@ -240,6 +244,7 @@ format :html do
 
   def add_junction_class
     return unless card.name.junction?
+
     class_up "card-editor", "RIGHT-#{card.name.tag_name.safe_key}"
   end
 end

@@ -15,6 +15,7 @@ format :html do
 
   def formgroup_label editor_type, title
     return if voo&.hide?(:title) || title.blank?
+
     label_type = editor_type || :content
     form.label label_type, title
   end
@@ -28,6 +29,7 @@ format :html do
 
   def formgroup_help_text text=nil
     return "" if text == false
+
     class_up "help-text", "help-block"
     voo.help = text if voo && text.to_s != "true"
     _render_help

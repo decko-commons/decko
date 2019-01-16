@@ -1,6 +1,6 @@
 format :html do
   def visible_bridge_tabs
-    BRIDGE_TABS.select do |key, title|
+    BRIDGE_TABS.select do |key, _title|
       send "show_#{key}?"
     end
   end
@@ -9,11 +9,13 @@ format :html do
 
   def show_account_tab?
     return unless card.real?
+
     card.account && card.ok?(:update)
   end
 
   def show_engage_tab?
     return unless card.real?
+
     show_follow? || show_discussion?
   end
 
@@ -32,6 +34,7 @@ format :html do
   def show_discussion?
     d_card = discussion_card
     return unless d_card
+
     permission_task = d_card.new_card? ? :comment : :read
     d_card.ok? permission_task
   end
@@ -42,6 +45,7 @@ format :html do
 
   def discussion_card
     return if card.new_card? || discussion_card?
+
     card.fetch trait: :discussion, skip_modules: true, new: {}
   end
 end

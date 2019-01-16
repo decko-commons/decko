@@ -53,6 +53,7 @@ format :html do
     referer_effect, referer_option = rename_referer_effect_and_option
     effects = [descendant_effect, referer_effect].compact
     return "" if effects.empty?
+
     format_rename_effects_and_options effects, referer_option
   end
 
@@ -67,12 +68,14 @@ format :html do
   def rename_descendant_effect
     descendants = card.descendants
     return unless descendants.any? # FIXME: count, don't instantiate
+
     "automatically alter #{descendants.size} related name(s)."
   end
 
   def rename_referer_effect_and_option
     referers = card.family_referers
     return unless referers.any? # FIXME: count, don't instantiate
+
     count = referers.size
     refs = count == 1 ? "reference" : "references"
     effect = "affect at least #{count} #{refs} to \"#{card.name}\""

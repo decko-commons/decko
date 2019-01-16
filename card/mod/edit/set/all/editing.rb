@@ -5,20 +5,19 @@ end
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
   view :edit, perms: :update, tags: :unknown_ok, cache: :never,
-              bridge: true,
-              wrap: :bridge do
+              bridge: true, wrap: :bridge do
     with_nest_mode :edit do
       voo.show :help
       wrap true, breadcrumb_data("Editing", "edit") do
         [
           _render_edit_name_row,
           _render_edit_type_row,
-        card_form(:update, edit_form_opts) do
-          [
-            edit_view_hidden,
-            _render_content_formgroup,
-            _render_edit_buttons
-          ]
+          card_form(:update, edit_form_opts) do
+            [
+              edit_view_hidden,
+              _render_content_formgroup,
+              _render_edit_buttons
+            ]
           end
         ]
       end
@@ -76,9 +75,9 @@ format :html do
 
   def standard_submit_button
     modal_submit_button(class: "submit-button btn-sm mr-3", text: "Save") +
-      submit_button(class: "submit-button btn-sm mr-3 _close-and-success", text: "Save and Close")
+      submit_button(class: "submit-button btn-sm mr-3 _close-and-success",
+                    text: "Save and Close")
   end
-
 
   def edit_cancel_button
     modal_close_button "Cancel", situation: "secondary", class: "btn-sm"
@@ -94,7 +93,8 @@ format :html do
     success = main? ? "REDIRECT: *previous" : { view: :just_deleted }
     link_to "Delete",
             path: { action: :delete, success: success },
-            class: "slotter btn btn-outline-danger ml-auto btn-sm", remote: true, 'data-confirm': confirm
+            class: "slotter btn btn-outline-danger ml-auto btn-sm", remote: true,
+            'data-confirm': confirm
   end
 
   # TODO: add undo functionality
@@ -111,6 +111,7 @@ format :html do
 
   view :edit_structure, cache: :never do
     return unless card.structure
+
     voo.show :toolbar
     render_related items: { view: :edit, nest_name: card.structure_rule_card.name }
     # FIXME: this stuff:

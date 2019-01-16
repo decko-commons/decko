@@ -1,6 +1,7 @@
 format :html do
   def follow_section
     return unless show_follow?
+
     wrap_with :div, class: "mb-3" do
       [follow_button_group, followers_bridge_link, follow_overview_button]
     end
@@ -19,13 +20,14 @@ format :html do
 
   def follow_advanced
     link_to_card card.follow_rule_card(Auth.current.name), icon_tag("more_horiz"),
-                 bridge_link_opts(class:"btn btn-sm btn-primary",
+                 bridge_link_opts(class: "btn btn-sm btn-primary",
                                   path: { view: :overlay_rule })
   end
 
   def followers_bridge_link
     cnt = card.followers_count
     link_to_card card.name.field(:followers), "#{cnt} follower#{'s' unless cnt == 1}",
-                 bridge_link_opts(class: "btn btn-sm ml-2 btn-secondary slotter", remote: true)
+                 bridge_link_opts(class: "btn btn-sm ml-2 btn-secondary slotter",
+                                  remote: true)
   end
 end

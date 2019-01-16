@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::CoffeeScript do
+RSpec.describe Card::Set::Type::CoffeeScript do
   let(:coffee)                    { 'alert "Hi"  '    }
   let(:compressed_coffee)         { '(function(){alert("Hi")}).call(this);'    }
   let(:changed_coffee)            { 'alert "Hello"  ' }

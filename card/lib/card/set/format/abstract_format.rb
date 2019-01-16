@@ -21,6 +21,7 @@ class Card
         end
 
         def view view, *args, &block
+          #binding.pry
           # view = view.to_viewname.key.to_sym
           interpret_view_opts view, args[0] if block_given?
           view_method_block = view_block(view, args, &block)

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Follow do
+RSpec.describe Card::Set::All::Follow do
   def follow_view card_name
     render_card :follow_link, name: card_name
   end
@@ -61,7 +61,9 @@ describe Card::Set::All::Follow do
     end
   end
 
-  describe "view: follow_link" do
+  # doesn't exist anymore
+  # didn't check if it can be adjusted to knew follow ui
+  xdescribe "view: follow_link" do
     before do
       Card::Auth.current_id = Card["Big Brother"].id
     end

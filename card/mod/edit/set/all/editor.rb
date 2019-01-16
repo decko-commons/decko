@@ -16,6 +16,7 @@ format :html do
 
   def editor_defined_by_card
     return unless (editor_card = Card[editor])
+
     nest editor_card, view: :core
   end
 

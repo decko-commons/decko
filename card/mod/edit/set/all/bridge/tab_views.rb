@@ -36,14 +36,18 @@ format :html do
 
   def discussion_section
     return unless show_discussion?
+
     field_nest(:discussion, view: :titled, title: "Discussion", show: :comment_box,
-               hide: [:menu])
+                            hide: [:menu])
   end
 
   def account_items
     %i[account roles created edited follow].map do |item|
       if item == :account
-        [tr(:details), item, bridge_link_opts(path: { view: :edit, hide: [:edit_name_row, :edit_type_row], layout: :overlay })]
+        [tr(:details), item,
+         bridge_link_opts(path: { view: :edit,
+                                  hide: %i[edit_name_row edit_type_row],
+                                  layout: :overlay })]
       else
         [tr(item), item]
       end

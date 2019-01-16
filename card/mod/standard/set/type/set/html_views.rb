@@ -13,9 +13,9 @@ format :html do
     @selected_rule_navbar_view = selected_view
     wrap do
       [
-        _render_set_label,
-        _render_rule_navbar,
-        _render_set_navbar,
+        # _render_set_label,
+        # _render_rule_navbar,
+        # _render_set_navbar,
         yield
       ]
     end
