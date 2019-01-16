@@ -16,7 +16,7 @@ module ClassMethods
   end
 
   def rename! oldname, newname
-    Card[oldname].update_attributes! name: newname, update_referers: true
+    Card[oldname].update! name: newname, update_referers: true
   end
 end
 

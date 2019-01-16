@@ -153,7 +153,7 @@ describe Card::Content::Chunk::Nest, "Inclusion" do
       create! "Oak", "{{Quentin}}"
       create! "Quentin", "{{Admin}}"
       adm = Card["Quentin"]
-      adm.update_attributes content: "{{Oak}}"
+      adm.update content: "{{Oak}}"
       expect { adm.format.render_core }.to raise_error(Card::Error::UserError, /too deep/)
     end
 

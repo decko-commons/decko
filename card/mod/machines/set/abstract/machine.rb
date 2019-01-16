@@ -165,7 +165,7 @@ def make_machine_output_coded mod=:machines
   update_machine_output
   Card::Auth.as_bot do
     ENV["STORE_CODED_FILES"] = "true"
-    machine_output_card.update_attributes! storage_type: :coded, mod: mod,
+    machine_output_card.update! storage_type: :coded, mod: mod,
                                            codename: machine_output_codename
     ENV["STORE_CODED_FILES"] = nil
   end

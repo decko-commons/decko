@@ -27,7 +27,7 @@ class WatchersToFollowing < Card::Migration::Core
     end
 
     if watchers = Card[:watchers]
-      watchers.update_attributes codename: nil
+      watchers.update codename: nil
       watchers.delete!
     end
   end

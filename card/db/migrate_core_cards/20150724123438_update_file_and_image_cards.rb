@@ -63,7 +63,7 @@ class UpdateFileAndImageCards < Card::Migration::Core
     card.actions.each do |action|
       if (content_change = action.change :db_content)
         original_filename = content_change.value.split("\n").first
-        action.update_attributes! comment: original_filename
+        action.update! comment: original_filename
       end
     end
   end
@@ -74,7 +74,7 @@ class UpdateFileAndImageCards < Card::Migration::Core
        simplex_skin slate_skin spacelab_skin superhero_skin united_skin
        yeti_skin).each do |name|
       next unless (card = Card[name.to_sym])
-      card.update_attributes! codename: nil
+      card.update! codename: nil
       if (card = Card.fetch name, :image)
         card.update_column :codename, "#{name}_image"
       end

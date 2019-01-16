@@ -39,7 +39,7 @@ end
 def make_last_action_the_initial_action
   delete_all_changes
   old_actions.delete_all
-  last_action.update_attributes! action_type: :create
+  last_action.update! action_type: :create
 end
 
 def clear_history

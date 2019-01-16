@@ -54,7 +54,7 @@ end
 
 event :reset_token do
   token = generate_token
-  Auth.as_bot { token_card.update_attributes! content: token }
+  Auth.as_bot { token_card.update! content: token }
   token
 end
 
@@ -65,7 +65,7 @@ end
 
 event :send_reset_password_token do
   Auth.as_bot do
-    token_card.update_attributes! content: generate_token
+    token_card.update! content: generate_token
   end
   Card[:password_reset_email].deliver self, to: email
 end

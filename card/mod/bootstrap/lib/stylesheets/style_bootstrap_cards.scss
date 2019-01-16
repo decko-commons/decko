@@ -402,6 +402,9 @@ body.mceContentBody {
 
 .bar {
   border-left: 3px solid $bar_stripe_color !important;
+  .bar-nav {
+    min-width: 36px;
+  }
 }
 
 .badge {

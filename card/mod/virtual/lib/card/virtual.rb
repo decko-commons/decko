@@ -6,7 +6,7 @@ class Card
   # the card_virtuals table.
   class Virtual < ApplicationRecord
     def update new_content
-      update_attributes! content: new_content
+      update! content: new_content
       new_content
     end
 

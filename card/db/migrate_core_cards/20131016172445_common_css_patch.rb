@@ -5,7 +5,7 @@ class CommonCssPatch < Card::Migration::Core
     dir = File.join data_path, "1.12_stylesheets"
     card = Card["style: common"]
     if card && card.pristine?
-      card.update_attributes! content: File.read("#{dir}/common.scss")
+      card.update! content: File.read("#{dir}/common.scss")
     end
   end
 end

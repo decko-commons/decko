@@ -14,7 +14,7 @@ event :prepare_attachment, :prepare_to_validate, on: :save, when: :preliminary_u
   # finalize_action         # create Card::Change entry for db_content
 
   card_id = new_card? ? upload_cache_card.id : id
-  @current_action.update_attributes! draft: true, card_id: card_id
+  @current_action.update! draft: true, card_id: card_id
   success << {
     target: (new_card? ? upload_cache_card : self),
     type: type_name,
@@ -42,7 +42,7 @@ end
 def assign_attachment file, original_filename
   send "#{attachment_name}=", file
   write_identifier
-  @current_action.update_attributes! comment: original_filename if @current_action
+  @current_action&.update! comment: original_filename
 end
 
 event :delete_cached_upload_file_on_create, :integrate,

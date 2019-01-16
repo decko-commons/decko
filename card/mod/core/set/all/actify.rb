@@ -53,10 +53,10 @@ def valid?(*)
   act { super }
 end
 
-def update_attributes *args
+def update *args
   act { super }
 end
 
-def update_attributes! *args
+def update! *args
   act { super }
 end
