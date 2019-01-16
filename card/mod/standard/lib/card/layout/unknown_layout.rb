@@ -1,7 +1,7 @@
 class Card
   class Layout
     class UnknownLayout < Layout
-      SCOPE = "mod.core.format.html_format"
+      SCOPE = "mod.core.format.html_format".freeze
 
       def render
         @format.output [header, text]

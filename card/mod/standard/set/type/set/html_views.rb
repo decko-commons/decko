@@ -1,4 +1,3 @@
-
 format :html do
   COMMON_RULE_SETTINGS =
     %i[create read update delete structure default].freeze
@@ -74,6 +73,7 @@ format :html do
   Card::Setting.groups.each_key do |group_key|
     view group_key.to_sym do
       next unless card.visible_settings(group_key).present?
+
       haml :group_panel, group_key: group_key
     end
   end
@@ -85,11 +85,12 @@ format :html do
 
   def rule_table_row setting
     return "" unless show_view? setting
+
     rule_card = card.fetch trait: setting, new: {}
     row_view, optional_content =
-      voo.hide?(:content) ? [:rule_link, :hide] : [:closed_rule, :show]
+      voo.hide?(:content) ? %i[rule_link hide] : %i[closed_rule show]
 
-    nest(rule_card, view: row_view, optional_content => :content ).html_safe
+    nest(rule_card, view: row_view, optional_content => :content).html_safe
   end
 
   view :editor do

@@ -72,6 +72,7 @@ format :html do
 
   view :type_info do
     return unless show_view?(:toolbar, :hide) && card.type_code != :basic
+
     wrap_with :span, class: "type-info float-right" do
       link_to_card card.type_name, nil, class: "navbar-link"
     end
@@ -121,11 +122,13 @@ format :html do
   view :help, tags: :unknown_ok, cache: :never do
     help_text = voo.help || rule_based_help
     return "" unless help_text.present?
+
     wrap_with :div, help_text, class: classy("help-text")
   end
 
   def rule_based_help
     return "" unless (rule_card = card.help_rule_card)
+
     with_nest_mode :normal do
       process_content rule_card.content, chunk_list: :references
       # render help card with current card's format
@@ -136,8 +139,10 @@ format :html do
   view :last_action do
     act = card.last_act
     return unless act
+
     action = act.action_on card.id
     return unless action
+
     action_verb =
       case action.action_type
       when :create then "added"

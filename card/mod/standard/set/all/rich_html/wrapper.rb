@@ -57,6 +57,7 @@ format :html do
 
   def name_context_slot_option opts
     return unless initial_context_names.present?
+
     opts[:name_context] = initial_context_names.map(&:key) * ","
   end
 
@@ -99,6 +100,7 @@ format :html do
 
   def wrap_main
     return yield if Env.ajax? || params[:layout] == "none"
+
     wrap_with :div, yield, id: "main"
   end
 

@@ -2,9 +2,9 @@ format :html do
   view :bridge_rules_tab, cache: :never do
     rules_table =
       wrap do
-        render_common_rules_list hide: [:content, :set_label, :set_navbar, :rule_navbar]
+        render_common_rules_list hide: %i[content set_label set_navbar rule_navbar]
       end
-    output [ rules_filter, rules_table ]
+    output [rules_filter, rules_table]
   end
 
   SETTING_OPTIONS = [["Common", :common_rules], ["All", :all_rules],
@@ -33,16 +33,17 @@ format :html do
   end
 
   def rules_filter
-    form_tag path(mark: "", view: :rules_list, slot: { hide: [:set_label, :rule_navbar, :set_navbar, :content] }),
+    form_tag path(mark: "", view: :rules_list,
+                  slot: { hide: %i[set_label rule_navbar set_navbar content] }),
              remote: true, method: "get", role: "filter",
              "data-slot-selector": "#home-rule_tab > .card-slot > .card-slot",
              class: classy("nodblclick slotter form-inline slim-select2 m-2") do
       output [
-               label_tag(:view, icon_tag("filter_list"), class: "mr-2"),
-               setting_select,
-               content_tag(:span, "rules that apply to set ...", class: "mx-2 small"),
-               set_select
-             ]
+        label_tag(:view, icon_tag("filter_list"), class: "mr-2"),
+        setting_select,
+        content_tag(:span, "rules that apply to set ...", class: "mx-2 small"),
+        set_select
+      ]
     end
   end
 
@@ -52,6 +53,7 @@ format :html do
 
   def rules_list_item setting
     return "" unless show_view? setting
+
     rule_card = card.fetch trait: setting, new: {}
     nest(rule_card, view: :rule_bridge_link).html_safe
   end
@@ -83,7 +85,7 @@ format :html do
   view :grouped_rules_list do
     with_label_and_navbars :grouped_rules do
       wrap_with :div, class: "panel-group", id: "accordion",
-                role: "tablist", "aria-multiselectable": "true" do
+                      role: "tablist", "aria-multiselectable": "true" do
         Card::Setting.groups.keys.map do |group_key|
           _render group_key
         end

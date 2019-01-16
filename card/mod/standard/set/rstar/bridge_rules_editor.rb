@@ -23,16 +23,17 @@ format :html do
   end
 
   view :overlay_title do
-    [wrap_with(:h5, (setting_title), class: "title font-weight-bold"),
+    [wrap_with(:h5, setting_title, class: "title font-weight-bold"),
      render_overlay_rule_help]
   end
 
   view :overlay_rule_help, tags: :unknown_ok, perms: :none, cache: :never do
-    #wrap_with :div, class: "help-text rule-instruction d-flex justify-content-between" do
+    # wrap_with :div, class: "help-text rule-instruction d-flex justify-content-between"
+    # do
 
-      #output [wrap_with(:div, rule_based_help), setting_link]
-    #end
-    popover_link([rule_based_help, setting_link].join " ")
+    # output [wrap_with(:div, rule_based_help), setting_link]
+    # end
+    popover_link([rule_based_help, setting_link].join(" "))
   end
 
   def setting_link
@@ -59,11 +60,12 @@ format :html do
     res
   end
 
-  def bridge_option_list title
+  def bridge_option_list _title
     index = -1
     formgroup "", editor: "set", class: "col-xs-6", help: false do
       yield.inject("") do |res, radio|
         index += 1
+        # TODO
         if false # index.in? [2,3]
           wrap_with(:li, radio, class: "radio") + res
         else

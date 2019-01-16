@@ -30,6 +30,7 @@ format :html do
 
   def explicit_modal_wrapper? view
     return unless view_setting(:wrap, view)
+
     wrappers = Array.wrap(view_setting(:wrap, view))
     wrappers.include?(:modal) || wrappers.include?(:bridge)
   end

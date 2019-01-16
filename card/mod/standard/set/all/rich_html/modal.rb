@@ -1,6 +1,6 @@
 format :html do
   MODAL_SIZE = { small: "sm", medium: nil, large: "lg", full: "full" }.freeze
-  CLOSE_OPTS = { class: "close-modal", "data-dismiss": "modal"}
+  CLOSE_OPTS = { class: "close-modal", "data-dismiss": "modal" }.freeze
 
   wrapper :modal do |opts={}|
     haml :modal_dialog, body: interiour,
@@ -15,7 +15,8 @@ format :html do
   end
 
   def show_in_modal_link link_text, body
-    link_to_view :modal, link_text, "data-modal-body": body, "data-slotter-mode": "modal", class: "slotter"
+    link_to_view :modal, link_text,
+                 "data-modal-body": body, "data-slotter-mode": "modal", class: "slotter"
   end
 
   def modal_close_button link_text="Close", opts={}
@@ -54,6 +55,7 @@ format :html do
   def modal_dialog_classes opts
     classes = [classy("modal-dialog")]
     return classes unless opts.present?
+
     size = opts.delete :size
     classes << "modal-#{MODAL_SIZE[size]}" if size && size != :medium
     classes << "modal-dialog-centered" if opts.delete(:vertically_centered)

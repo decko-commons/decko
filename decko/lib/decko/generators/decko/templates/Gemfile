@@ -36,6 +36,9 @@ group :test do
 end
 
 group :test, :development do
+  gem 'colorize'
+  gem 'cypress-on-rails', '~> 1.2'
+  gem 'delayed_job_active_record', '~> 4.1'
   gem 'html2haml'
   gem 'rails-dev-tweaks'
   # gem 'jasmine'
@@ -43,8 +46,6 @@ group :test, :development do
   # gem 'jasmine-jquery-rails'
   gem 'sprockets' # just so above works
   gem 'phantomjs', '1.9.7.1' #locked because 1.9.8.0 is breaking
-  gem 'colorize'
-  gem 'delayed_job_active_record', '~> 4.1'
 
   gem 'better_errors'
   gem 'binding_of_caller'

@@ -58,8 +58,8 @@ format :html do
 
   def overlay_framer slot, header, slot_opts
     class_up "card-slot", "_overlay"
-     with_frame slot, header, slot_opts do
-       yield
-     end
+    with_frame slot, header, slot_opts do
+      yield
+    end
   end
 end

@@ -19,11 +19,13 @@ class Card
       def find_main_nest_chunk card=layout_card, depth=0
         content = Card::Content.new(card.content, @format, chunk_list: :nest_only)
         return false unless content.each_chunk.count > 0
+
         main_chunk(content) || go_deeper(content, depth)
       end
 
       def go_deeper content, depth
         return false if depth > MAIN_NESTING_LIMIT
+
         content.each_chunk do |chunk|
           main_chunk = find_main_nest_chunk chunk.referee_card, depth + 1
           return main_chunk if main_chunk
@@ -32,7 +34,7 @@ class Card
       end
 
       def main_chunk content
-        content.each_chunk.find { |chunk| chunk.main? }
+        content.each_chunk.find(&:main?)
       end
     end
   end

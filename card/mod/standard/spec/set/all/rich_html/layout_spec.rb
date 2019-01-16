@@ -4,10 +4,10 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
   let(:layout_card) { Card["tmp layout"] }
 
   context "simple page with Default Layout" do
-    subject { Card["A+B"].format.show(:open, {}) }
+    subject(:open_view) { Card["A+B"].format.show(:open, {}) }
 
     it "renders top menu" do
-      is_expected.to have_tag "header" do
+      expect(open_view).to have_tag "header" do
         with_tag 'a.nav-link.internal-link[href="/"]', text: "Home"
         with_tag 'a.nav-link.internal-link[href=":recent"]', text: "Recent"
         with_tag 'form.navbox-form[action="/*search"]' do
@@ -17,7 +17,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     end
 
     it "renders card header" do
-      is_expected.to have_tag "div.d0-card-header.card-header" do
+      expect(open_view).to have_tag "div.d0-card-header.card-header" do
         with_tag "div.d0-card-header-title" do
           with_tag "span.card-title", text: "A+B"
         end
@@ -25,7 +25,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     end
 
     it "renders card content" do
-      is_expected.to have_tag "div.d0-card-body.d0-card-content" \
+      expect(open_view).to have_tag "div.d0-card-body.d0-card-content" \
                                 ".ALL.ALL_PLUS" \
                                 ".TYPE-basic.RIGHT-b.TYPE_PLUS_RIGHT-basic-b" \
                                 ".SELF-a-b.card-body.card-text",
@@ -33,7 +33,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     end
 
     it "renders card credit" do
-      is_expected.to have_tag 'div[class~="SELF-Xcredit"]' do
+      expect(open_view).to have_tag 'div[class~="SELF-Xcredit"]' do
         with_tag "img"
         with_tag "a", text: "Decko v#{Card::Version.release}"
       end
