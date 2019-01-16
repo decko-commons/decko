@@ -70,6 +70,11 @@ class CardSpecLoader
               end
             Card::Auth.current_id = user_id
           end
+
+          if example.metadata[:output_length]
+            RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length =
+              example.metadata[:output_length]
+          end
           Card::Cache.restore
           Card::Env.reset
         end
