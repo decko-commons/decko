@@ -259,10 +259,12 @@ $d-yellow-2: #ffa;
   display: inline;
 }
 
-
 .navbox-item-label {
   float: left;
   position: relative;
+}
+.navbox-item-value mark {
+  padding: 0.2em 0;
 }
 
 
