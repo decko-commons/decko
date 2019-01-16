@@ -15,6 +15,7 @@ class Card
         validate_card card
         virtual_content ||= block_given? ? yield : card.generate_virtual_content
         virtual = new left_id: left_id(card), right_id: right_id(card),
+                      left_key: card.name.left_key,
                       content: virtual_content
         virtual.save!
         virtual
@@ -43,7 +44,7 @@ class Card
       end
 
       def find_content_by_card card
-        where_card(card).pluck(:content).first
+        where_card(card)&.pluck(:content)&.first
       end
 
       def find_by_card card
@@ -53,7 +54,13 @@ class Card
       private
 
       def where_card card
-        where left_id: left_id(card), right_id: right_id(card)
+        query = { right_id: right_id(card) }
+        if (lid = left_id(card))
+          query[:left_id] = lid
+        else
+          query[:left_key] = card.name.left_key
+        end
+        where query
       end
 
       def left_id card

@@ -9,7 +9,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     it "renders top menu" do
       expect(open_view).to have_tag "header" do
         with_tag 'a.nav-link.internal-link[href="/"]', text: "Home"
-        with_tag 'a.nav-link.internal-link[href=":recent"]', text: "Recent"
+        with_tag 'a.nav-link.internal-link[href="/:recent"]', text: "Recent"
         with_tag 'form.navbox-form[action="/*search"]' do
           with_tag 'select[name="query[keyword]"]'
         end
@@ -45,7 +45,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       with_layout "<pre>Hey {{_main}}</pre>"
       expect(format_subject.show(:core, {})).to have_tag :pre do
         with_text(/Hey/)
-        with_tag "div#main", /Alpha/[]
+        with_tag "div#main", /Alpha/
       end
     end
 
