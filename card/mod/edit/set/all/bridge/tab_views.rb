@@ -19,7 +19,7 @@ format :html do
     bridge_pills bridge_pill_items(RELATED_ITEMS, "Related")
   end
 
-  view :rules_tab, wrap: :slot do
+  view :rules_tab do
     class_up "card-slot", "flex-column", true
     wrap do
       nest current_set_card, view: :bridge_rules_tab
@@ -51,7 +51,8 @@ format :html do
   end
 
   def bridge_pills items
-    list_tag class: "nav nav-pills bridge-pills flex-column", items: { class: "nav-item" } do
+    list_tag class: "nav nav-pills _auto-single-select bridge-pills flex-column",
+             items: { class: "nav-item" } do
       items
     end
   end
