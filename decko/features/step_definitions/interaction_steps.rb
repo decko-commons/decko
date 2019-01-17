@@ -114,7 +114,7 @@ module Capybara
         # descendant-or-self::text doesn't find it
         first :xpath,
               "//label[descendant-or-self::text()='#{label}']/..//#{type}",
-              options.merge(wait: 5)
+              options.merge(wait: 5, minimum: 0)
       end
     end
   end

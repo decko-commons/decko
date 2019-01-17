@@ -94,8 +94,8 @@ group :test do
   end
 
   # CUKES see features dir
-  gem 'cucumber-rails', '~> 1.5', :require=>false # feature-driven-development suite
-  gem 'capybara', '~> 2.14'
+  gem 'cucumber-rails', '~> 1.6', :require=>false # feature-driven-development suite
+  gem 'capybara', '~> 3.12.0'
   gem 'selenium-webdriver', '3.6.0'
   gem 'chromedriver-helper', '~> 1.1.0'
   # gem 'capybara-webkit'
