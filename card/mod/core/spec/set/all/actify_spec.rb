@@ -10,6 +10,49 @@ RSpec.describe "act API" do
                 }
   end
 
+  describe "#act" do
+    let(:card) { Card["A"] }
+    before do
+      allow(card).to receive(:act).and_return nil
+    end
+
+    it "is called by valid?" do
+      expect(card).to receive :act
+      card.valid?
+    end
+
+    it "is called by #save!" do
+      expect(card).to receive :act
+      card.save!
+    end
+
+    it "is called by #save" do
+      expect(card).to receive :act
+      card.save
+    end
+
+    it "is called by #update" do
+      expect(card).to receive :act
+      card.update content: "A"
+    end
+
+    it "is called by #update!" do
+      expect(card).to receive :act
+      card.update! content: "A"
+    end
+
+    it "is called by #update_attributes" do
+      expect(card).to receive :act
+      card.update_attributes content: "A"
+    end
+
+    it "is called by #update_attributes!" do
+      expect(card).to receive :act
+      card.update_attributes! content: "A"
+    end
+
+  end
+
   describe "add subcards" do
     def save_transaction
       @trans = ActiveRecord::Base.connection.current_transaction

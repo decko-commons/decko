@@ -60,3 +60,6 @@ end
 def update! *args
   act { super }
 end
+
+alias_method :update_attributes, :update
+alias_method :update_attributes!, :update!
