@@ -54,10 +54,11 @@ class Card
       end
 
       def main_nest_opts layout_name, format
-        layouts[layout_name] ||
-          register_layout(layout_name) do
-            layout_class(layout_name).new(layout_name, format).fetch_main_nest_opts
-          end
+        opts = layouts[layout_name] ||
+               register_layout(layout_name) do
+                  layout_class(layout_name).new(layout_name, format).fetch_main_nest_opts
+               end
+        opts.clone
       end
     end
 
