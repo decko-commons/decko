@@ -2,9 +2,7 @@ module CoreExtensions
   module Object
     def deep_clone
       case self
-      when Fixnum, Bignum, Float, NilClass, FalseClass, TrueClass, Symbol
-        # FIXME: Fixnum and Bignum are deprecated in Ruby 2.4 but need to be supported here
-        # so long as decko supports older ruby versions
+      when Integer, Float, NilClass, FalseClass, TrueClass, Symbol
         klone = self
       when Hash
         klone = clone

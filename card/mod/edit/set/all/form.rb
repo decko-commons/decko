@@ -113,7 +113,7 @@ format :html do
   def single_card_edit_field
     if voo.show?(:type_formgroup) || voo.show?(:name_formgroup)
       # display content field in formgroup for consistency with other fields
-      formgroup("", editor: :content, help: false) { content_field }
+      formgroup("content", editor: :content, help: false) { content_field }
     else
       editor_wrap(:content) { content_field }
     end

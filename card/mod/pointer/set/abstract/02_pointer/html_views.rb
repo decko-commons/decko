@@ -91,6 +91,25 @@ format :html do
                multiple: true, class: "pointer-multiselect form-control"
   end
 
+  def add_item_modal_link
+    link_to "Add Item",
+            path: { view: :filter_items,
+                    item: implicit_item_view,
+                    filter_card: filter_card.name,
+                    slot_selector: filtered_list_slot_class,
+                    item_selector: "_filtered-list-item",
+                    slot: { hide: :modal_footer },
+                    filter: { not_ids: card.item_ids.map(&:to_s).join(",") } },
+            "data-slotter-mode": "modal",
+            "data-modal-class": modal_dialog_classes(size: :large),
+            class: "btn btn-sm btn-primary _add-item-link slotter",
+            remote: true
+  end
+
+  def add_item_overlay_link
+
+  end
+
   private
 
   # currently only used by :list and :autocomplete. could be generalized?
