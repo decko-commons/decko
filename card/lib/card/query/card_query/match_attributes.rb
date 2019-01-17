@@ -49,7 +49,7 @@ class Card
         end
 
         # TODO: move sql to SqlStatement
-        def key_like pattern, junction_ok=false
+        def key_like pattern, junction_ok=true
           conds = ["#{table_alias}.key LIKE #{quote pattern}"]
           conds << "#{table_alias}.right_id is null" unless junction_ok
           # FIXME: -- this should really be more nuanced --

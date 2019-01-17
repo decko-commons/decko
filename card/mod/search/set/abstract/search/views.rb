@@ -65,7 +65,7 @@ format :json do
 
   def match_wql not_names
     wql = { name_match: term_param }
-    wql["not in"] = not_names if not_names.any?
+    wql[:name] = ["not in"] + not_names if not_names.any?
     wql
   end
 
