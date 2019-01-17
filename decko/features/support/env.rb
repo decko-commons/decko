@@ -85,11 +85,8 @@ Capybara.register_driver :headless_chrome do |app|
 end
 Capybara.default_driver = :selenium_firefox
 
-Capybara.javascript_driver = :selenium_firefox
-Capybara.default_driver =  :selenium
-#Capybara.server = :webrick
-
-
+Capybara.javascript_driver =  :selenium_firefox
+# Capybara.server = :webrick
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
