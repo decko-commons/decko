@@ -15,6 +15,14 @@ class Card
           @root ||= parent ? parent.root : self
         end
 
+        def main
+          if main?
+            self
+          elsif !root?
+            parent.main
+          end
+        end
+
         def depth
           @depth ||= parent ? (parent.depth + 1) : 0
         end

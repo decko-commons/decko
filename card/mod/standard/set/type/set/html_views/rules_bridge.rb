@@ -36,11 +36,11 @@ format :html do
              "data-slot-selector": ".card-slot.rules_list-view",
              class: classy("nodblclick slotter form-inline slim-select2 m-2") do
       output [
-               label_tag(:view, icon_tag("filter_list"), class: "mr-2"),
-               setting_select,
-               content_tag(:span, "rules that apply to set ...", class: "mx-2 small"),
-               set_select
-             ]
+        label_tag(:view, icon_tag("filter_list"), class: "mr-2"),
+        setting_select,
+        content_tag(:span, "rules that apply to set ...", class: "mx-2 small"),
+        set_select
+      ]
     end
   end
 
@@ -69,8 +69,6 @@ format :html do
     card.visible_settings(group).map(&:codename) if Card::Setting.groups[group]
   end
 
-
-
   def category_setting_list cat
     case cat
     when :all, :all_rules
@@ -84,7 +82,6 @@ format :html do
     end
   end
 
-
   view :all_rules_list do
     rules_list :all, card.visible_setting_codenames.sort
   end
@@ -92,7 +89,7 @@ format :html do
   view :grouped_rules_list do
     with_label_and_navbars :grouped_rules do
       wrap_with :div, class: "panel-group", id: "accordion",
-                role: "tablist", "aria-multiselectable": "true" do
+                      role: "tablist", "aria-multiselectable": "true" do
         Card::Setting.groups.keys.map do |group_key|
           _render group_key
         end

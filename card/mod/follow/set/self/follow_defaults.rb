@@ -33,8 +33,6 @@ def follow_defaults
   item_names.map do |item|
     if (set_card = Card.fetch item.to_name.left)&.type_code == :set
       [set_card, follow_option(item)]
-    elsif (set_card = Card.fetch sug)&.type_code == :set
-      [set_card, "*always"]
     end
   end.compact
 end
