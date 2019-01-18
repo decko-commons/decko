@@ -1,6 +1,12 @@
 format do
   def show_follow?
-    Auth.signed_in? && !card.new_card? && card.followable?
+    follower? && !card.new_card? && card.followable?
+  end
+
+  def follower?
+    # only User cards can follow until preferences are generalized to all
+    # accounted cards.
+    Auth.signed_in? && Auth.current.type_id == UserID
   end
 
   def follow_link_hash

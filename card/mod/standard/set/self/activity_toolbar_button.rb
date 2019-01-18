@@ -6,7 +6,7 @@ format :html do
       {
         history: (subject._render_history_link if card.history?),
         discussion: subject.link_to_related(:discussion, "discuss", class: "dropdown-item"),
-        follow:  subject.follow_link(class: "dropdown-item"),
+        follow: (subject.follow_link(class: "dropdown-item") if show_follow?),
         editors: subject.link_to_related(:editors, "editors", class: "dropdown-item")
       }
     end
