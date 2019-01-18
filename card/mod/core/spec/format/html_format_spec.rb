@@ -5,9 +5,9 @@ RSpec.describe Card::Format::HtmlFormat do
     specify "content" do
       expect(view(:content, card: "A+B"))
         .to have_tag(
-              'div[class="card-slot content-view ALL ALL_PLUS TYPE-basic '\
-        'RIGHT-b TYPE_PLUS_RIGHT-basic-b SELF-a-b d0-card-content"]'
-            )
+          'div[class="card-slot content-view ALL ALL_PLUS TYPE-basic '\
+    'RIGHT-b TYPE_PLUS_RIGHT-basic-b SELF-a-b d0-card-content"]'
+        )
     end
 
     specify "nests in multi edit" do
@@ -30,10 +30,9 @@ RSpec.describe Card::Format::HtmlFormat do
     it "joins arrays" do
       format =
         Card["A"].format_with do
-          view(:array) { ["A", nil, ["B", "C"]] }
+          view(:array) { ["A", nil, %w[B C]] }
         end
       expect(format.render_array).to eq "A\nB\nC"
     end
   end
 end
-

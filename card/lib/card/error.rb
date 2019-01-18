@@ -40,6 +40,8 @@ class Card
       end
 
       def self.status_code
+        # Errors with status code 900 are displayed as modal instead of inside
+        # the "card-notice" div
         Card[:debugger]&.content =~ /on/ ? 900 : 500
       end
 

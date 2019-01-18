@@ -77,6 +77,7 @@ def measure desc
   puts "#{desc}: #{t}".red
   res
 end
+# rubocop:enable Style/GlobalVars
 
 format do
   delegate :measure, to: :card
