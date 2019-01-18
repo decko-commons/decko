@@ -1,7 +1,11 @@
 format :html do
   def show view, args
-    content = send "show_#{show_layout? ? :with : :without}_page_layout", view, args
+    content = send show_method, view, args
     show_full_page? ? wrap_with_html_page(content) : content
+  end
+
+  def show_method
+    "show_#{show_layout? ? :with : :without}_page_layout"
   end
 
   def show_without_page_layout view, args

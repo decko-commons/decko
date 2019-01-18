@@ -102,7 +102,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     with_layout "{{outer space|core}}"
     create "outer space", content: "{{_main|name}}"
 
-    expect(format_subject.show(:core, {}))
+    expect(format_subject.show(nil, {}))
       .to have_tag "div#main", "A"
   end
 end

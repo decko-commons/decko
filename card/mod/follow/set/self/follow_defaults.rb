@@ -31,19 +31,18 @@ end
 
 def follow_defaults
   item_names.map do |item|
-    if (set_card = Card.fetch item.to_name.left) && set_card.type_code == :set
-      option_card = Card.fetch(item.to_name.right) ||
-        Card[item.to_name.right.to_sym]
-      option = if option_card.follow_option?
-                 option_card.name
-               else
-                 "*always"
-               end
-      [set_card, option]
-    elsif (set_card = Card.fetch sug) && set_card.type_code == :set
+    if (set_card = Card.fetch item.to_name.left)&.type_code == :set
+      [set_card, follow_option(item)]
+    elsif (set_card = Card.fetch sug)&.type_code == :set
       [set_card, "*always"]
     end
   end.compact
+end
+
+def follow_option item
+  option_card =
+    Card.fetch(item.to_name.right) || Card[item.to_name.right.to_sym]
+  option_card.follow_option? ? option_card.name : "*always"
 end
 
 format :html do

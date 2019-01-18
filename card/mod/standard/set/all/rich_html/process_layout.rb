@@ -5,16 +5,24 @@ format :html do
   HAML_LAYOUTS = Mod::Loader.load_layouts(:haml)
 
   def show_with_page_layout view, args
+    main!
+    args = main_render_args view, args
+    if explicit_modal_wrapper? view
+      render_outside_of_layout view, args
+    else
+      render_with_layout view, page_layout, args
+    end
+  end
+
+  def main_render_args view, args
     args[:view] = view if view
     args[:main] = true
     args[:main_view] = true
-    main!
-    layout = params[:layout] || layout_name_from_rule || :default
-    if explicit_modal_wrapper?(view)
-      output [render_with_layout(nil, layout, {}), render!(view, args)]
-    else
-      render_with_layout view, layout, args
-    end
+    args
+  end
+
+  def page_layout
+    params[:layout] || layout_name_from_rule || :default
   end
 
   def render_with_layout view, layout, args={}
@@ -22,6 +30,13 @@ format :html do
     view ||= view_opts.delete(:view) || default_nest_view
     view_opts[:layout] = layout
     render! view, view_opts.reverse_merge(args)
+  end
+
+  def render_outside_of_layout view, args
+    output [
+             render_with_layout(nil, page_layout, {}),
+             render!(view, args)
+           ]
   end
 
   def show_layout?
