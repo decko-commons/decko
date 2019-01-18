@@ -123,7 +123,7 @@ class CardController < ActionController::Base
   end
 
   def handle_exception exception
-    raise exception #if debug_exception?(exception)
+    raise exception if debug_exception?(exception)
     @card ||= Card.new
     Card::Error.current = exception
     error = Card::Error.cardify_exception exception, card

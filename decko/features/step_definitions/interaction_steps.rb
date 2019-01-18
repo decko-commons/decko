@@ -6,6 +6,11 @@ When /^(?:|I )enter "([^"]*)" into "([^"]*)"$/ do |value, field|
   find(selector).set value
 end
 
+When /^(?:|I )enter "([^"]*)" into "([^"]*)" in modal$/ do |value, field|
+  selector = ".modal .RIGHT-#{field.to_name.safe_key} input.d0-card-content"
+  find(selector).set value
+end
+
 When /^In (.*) I follow "([^"]*)"$/ do |section, link|
   within scope_of(section) do
     click_link link

@@ -60,8 +60,17 @@ format :html do
     rules_list group, setting_list(group)
   end
 
-  def setting_list group
-    case group
+  # @param val setting category, setting group or single setting
+  def setting_list val
+    category_setting_list(val) || group_setting_list(val) || [val]
+  end
+
+  def group_setting_list group
+    card.visible_settings(group).map(&:codename) if Card::Setting.groups[group]
+  end
+
+  def category_setting_list cat
+    case cat
     when :all, :all_rules
       card.visible_setting_codenames.sort
     when :recent, :recent_rules
@@ -70,12 +79,6 @@ format :html do
       card.visible_setting_codenames & COMMON_RULE_SETTINGS
     when :field_related, :field_related_rules
       field_related_settings
-    else
-      if Card::Setting.groups[group]
-        card.visible_settings(group).map(&:codename)
-      else
-        [group]
-      end
     end
   end
 

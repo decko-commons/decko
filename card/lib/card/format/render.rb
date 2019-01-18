@@ -30,12 +30,11 @@ class Card
         end
 
         @rendered = yield
-        return @rendered unless voo.wrap.present?
-
         wrap_with_wrapper
       end
 
       def wrap_with_wrapper
+        return @rendered unless voo.wrap.present?
         voo.wrap.reverse_each do |wrapper, opts|
           @rendered = try("wrap_with_#{wrapper}", opts) { @rendered } ||
                       Card::Layout::CardLayout.new(wrapper, self).render

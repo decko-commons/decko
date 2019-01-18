@@ -74,35 +74,48 @@ RSpec.describe Card::Set::Format::Wrapper do
   describe "wrapper as view setting" do
     let(:format) do
       Card["A"].format_with do
-        wrapper :cream do
-          "cream_#{interiour}_cream"
-        end
+        wrapper(:cherry, :div, class: "cherry")
+        wrapper(:choc, :div, class: "choc")
+        wrapper(:cream) { "cream_#{interiour}_cream" }
 
-        wrapper :cherry, :div, class: "cherry"
-
-        wrapper :choc, :div, class: "choc"
-
-        view :cream_cake, wrap: :cream do
-          "cake"
-        end
-
-        view :cherry_cake, wrap: [:cherry, [:choc, { class: "white" }]] do
-          "cake"
-        end
+        view(:cream_cake, wrap: :cream) { "cake" }
+        view(:cherry_cake, wrap: [:cherry, [:choc, { class: "white" }]]) { "cake" }
+        view(:cherry_choc_cake, wrap: { cherry: { class: "sour" },
+                                        choc: { class: "white" } }) { "cake" }
       end
     end
 
-    it "is wrapped with cream" do
+    it "wraps with cream" do
       expect(format.render_cream_cake).to eq "cream_cake_cream"
     end
 
-    it "is wrapped with cherries" do
-      expect(format.render_cherry_cake)
-        .to have_tag "div.cherry" do
-          with_tag "div.choc.white", "cake"
-        end
+    it "wraps with cherries and white chocolate" do
+      expect(format.render_cherry_cake).to have_tag "div.cherry" do
+        with_tag "div.choc.white", "cake"
       end
     end
+
+    it "wraps with sour cherries and white chocolate" do
+      expect(format.render_cherry_choc_cake).to have_tag "div.cherry.sour" do
+        with_tag "div.choc.white", "cake"
+      end
+    end
+
+    context "with before hook" do
+      let(:format) do
+        Card["A"].format_with do
+          wrapper(:cream) { "#{classy("cream")}_#{interiour}_cream" }
+
+          before(:whipped_cream_cake) { class_up "cream", "whipped" }
+          view(:whipped_cream_cake, wrap: :cream) { "cake" }
+        end
+      end
+
+      it "wraps with whipped cream" do
+        expect(format.render_whipped_cream_cake).to eq "cream whipped_cake_cream"
+      end
+    end
+  end
 
   describe "nested wrapper" do
     let(:format) do
