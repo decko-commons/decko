@@ -27,7 +27,7 @@ event :set_default_salt, :prepare_to_validate, on: :create do
 end
 
 event :set_default_status, :prepare_to_validate, on: :create do
-  default_status = try(:default_account_status) || "active"
+  default_status = left&.try(:default_account_status) || "active"
   add_subfield :status, content: default_status
 end
 

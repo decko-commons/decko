@@ -15,6 +15,7 @@ class Card
       def parse_value rawvalue
         case rawvalue
         when String, Integer then ["=", rawvalue]
+        when Symbol          then ["=", Card::Codename.id(rawvalue)]
         when Array           then parse_array_value rawvalue
         else raise("Invalid Condition Clause #{rawvalue}.inspect}")
         end

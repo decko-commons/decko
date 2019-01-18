@@ -18,6 +18,7 @@ class Card
           when Hash              then clause
           when String            then { key: clause.to_name.key }
           when Integer           then { id: clause }
+          when Symbol            then { id: Card::Codename.id(clause) }
           else raise Card::Error::BadQuery, "Invalid query args #{clause.inspect}"
           end
         end

@@ -95,6 +95,7 @@ class Card
           case val
           when Integer then val
           when String  then Card.fetch_id(val)
+          when Symbol  then Card::Codename.id(val)
           end
         end
       end
