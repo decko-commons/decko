@@ -9,7 +9,7 @@ Style/MutableConstant:
 Style/MixinUsage:
   Enabled: false
 Lint/ScriptPermission:
-  Enabled: false  # conflicts with no-set-module comments
+  Enabled: false
 Decko/ViewLength:
   Description: Avoid views longer than 15 lines of code.
   Enabled: true

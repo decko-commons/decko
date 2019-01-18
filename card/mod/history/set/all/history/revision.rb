@@ -3,6 +3,7 @@ def revision action, before_action=false
   # at the time of a given action
   action = Card::Action.fetch(action) if action.is_a? Integer
   return unless action
+
   if before_action
     revision_before_action action
   else

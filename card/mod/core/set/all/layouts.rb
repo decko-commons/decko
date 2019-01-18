@@ -5,7 +5,7 @@ format :html do
     wrap_main { interiour }
   end
 
-  layout :pre do  #{{_main|raw}}
+  layout :pre do  # {{_main|raw}}
     wrap_with :pre do
       layout_nest
     end

@@ -4,14 +4,14 @@ class Card
     #
     module Render
       # view=open&layout=simple
-      def render! view, view_options = {}
+      def render! view, view_options={}
         voo = View.new self, view, view_options, @voo
         with_voo voo do
           voo.process do |final_view|
             final_render final_view
           end
         end
-      rescue => e
+      rescue StandardError => e
         rescue_view e, view
       end
 
@@ -23,19 +23,20 @@ class Card
         @voo = old_voo
       end
 
-      def with_wrapper &render_block
+      def with_wrapper
         if voo.layout.present?
           voo.wrap ||= []
           voo.wrap.push voo.layout.to_name.key
         end
 
-        @rendered = render_block.call
+        @rendered = yield
         return @rendered unless voo.wrap.present?
+
         wrap_with_wrapper
       end
 
       def wrap_with_wrapper
-        voo.wrap.reverse.each do |wrapper, opts|
+        voo.wrap.reverse_each do |wrapper, opts|
           @rendered = try("wrap_with_#{wrapper}", opts) { @rendered } ||
                       Card::Layout::CardLayout.new(wrapper, self).render
         end
@@ -50,7 +51,7 @@ class Card
         @voo
       end
 
-      def show_view? view, default_viz = :show
+      def show_view? view, default_viz=:show
         voo.process_visibility_options # trigger viz processing
         visibility = voo.viz_hash[view] || default_viz
         visibility == :show
@@ -72,6 +73,7 @@ class Card
 
       def add_debug_info view, method, rendered
         return rendered unless show_debug_info?
+
         <<-HTML
           <view-debug view='#{safe_name}##{view}' src='#{pretty_path method.source_location}' module='#{method.owner}'/>
           #{rendered}
@@ -83,7 +85,7 @@ class Card
       end
 
       def pretty_path source_location
-        source_location.first.gsub(%r{^.+mod\d+-([^/]+)}, '\1: ') + ':' +
+        source_location.first.gsub(%r{^.+mod\d+-([^/]+)}, '\1: ') + ":" +
           source_location.second.to_s
       end
 
@@ -93,8 +95,9 @@ class Card
         # method = self.class.view_cache_setting_method view
         # coded_setting = respond_to?(method) ? send(method) : :standard
         return :never if coded_setting == :never
+
         # seems unwise to override a hard-coded "never"
-        (voo && voo.cache) || coded_setting
+        (voo&.cache) || coded_setting
       end
 
       def view_setting setting_name, view
@@ -146,6 +149,7 @@ class Card
         unless supports_view? view
           raise Card::Error::UserError, unsupported_view_error_message(view)
         end
+
         method Card::Set::Format.view_method_name(view)
       end
 

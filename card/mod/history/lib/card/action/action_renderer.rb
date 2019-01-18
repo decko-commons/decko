@@ -24,7 +24,7 @@ class Card
       end
 
       def render
-        classes = @format.classy('action-list')
+        classes = @format.classy("action-list")
         bs_layout container: true, fluid: true do
           row do
             html <<-HTML
@@ -60,7 +60,7 @@ class Card
             :related, name_changes,
             path: { slot: { items: { view: "history", nest_name: @action.card.name } } },
             remote: true,
-            class: "slotter",
+            class: "slotter"
             # "data-slot-selector" => ".card-slot.history-view"
           )
         end
@@ -68,16 +68,19 @@ class Card
 
       def content_diff
         return @action.raw_view if @action.action_type == :delete
+
         @format.subformat(@action.card).render_action_summary action_id: @action.id
       end
 
       def type_diff
         return "" unless @action.new_type?
+
         @hide_diff ? @action.value(:cardtype) : @action.cardtype_diff
       end
 
       def name_changes
         return old_name unless @action.new_name?
+
         @hide_diff ? new_name : Card::Content::Diff.complete(old_name, new_name)
       end
 

@@ -66,7 +66,7 @@ format :html do
   def clean_acts acts
     # FIXME: if we get rid of bad act data, this will not be necessary
     # The current
-    acts.reject { |a| !a.card }
+    acts.select(&:card)
   end
 
   def current_page_acts acts
@@ -82,7 +82,7 @@ format :html do
   end
 
   def acts_page_from_params
-    @act_page_from_params ||= params["page"].present? ? params["page"].to_i : 1
+    @acts_page_from_params ||= params["page"].present? ? params["page"].to_i : 1
   end
 
   def act_paging acts, context
