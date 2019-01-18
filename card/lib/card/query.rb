@@ -39,37 +39,37 @@ class Card
     ATTRIBUTES = {
       # Each of the "basic" fields corresponds directly to a database field.
       # their values are translated fairly directly into SQL-safe values
-      basic:           %w[id name key type_id content left_id right_id
-                          creator_id updater_id codename read_rule_id],
+      basic: %w[id name key type_id content left_id right_id
+                creator_id updater_id codename read_rule_id],
       # "Relational" values can involve tying multiple queries together
-      relational:      %w[type
-                          part left right
-                          editor_of edited_by last_editor_of last_edited_by
-                          creator_of created_by
-                          updater_of updated_by
-                          link_to linked_to_by
-                          include included_by
+      relational: %w[type
+                     part left right
+                     editor_of edited_by last_editor_of last_edited_by
+                     creator_of created_by
+                     updater_of updated_by
+                     link_to linked_to_by
+                     include included_by
 
-                          refer_to referred_to_by
-                          member_of member
+                     refer_to referred_to_by
+                     member_of member
 
-                          found_by not sort match name_match complete
-                          extension_type],
+                     found_by not sort match name_match complete
+                     extension_type],
 
       plus_relational: %w[plus left_plus right_plus],
-      conjunction:     %w[and or all any],
-      ignore:          %w[prepend append view params vars size]
+      conjunction: %w[and or all any],
+      ignore: %w[prepend append view params vars size]
     }.each_with_object({}) do |pair, h|
       pair[1].each { |v| h[v.to_sym] = pair[0] }
     end
 
     CONJUNCTIONS = { any: :or, in: :or, or: :or, all: :and, and: :and }.freeze
 
-    MODIFIERS = %w(conj return sort sort_as group dir limit offset)
+    MODIFIERS = %w[conj return sort sort_as group dir limit offset]
                 .each_with_object({}) { |v, h| h[v.to_sym] = nil }
 
     OPERATORS =
-      %w(!= = =~ < > in ~).each_with_object({}) { |v, h| h[v] = v }.merge(
+      %w[!= = =~ < > in ~].each_with_object({}) { |v, h| h[v] = v }.merge(
         {
           eq: "=", gt: ">", lt: "<", match: "~", ne: "!=", "not in": "not in"
         }.stringify_keys

@@ -9,7 +9,7 @@ class Card
     end
   end
 
-  [:name, :db_content, :trash, :type_id].each do |field|
+  %i[name db_content trash type_id].each do |field|
     define_dirty_methods field
   end
 
@@ -25,7 +25,8 @@ class Card
     end
   end
 
-  def not_in_callback? # or in integrate_with_delay stage
+  def not_in_callback?
+    # or in integrate_with_delay stage
     mutations_before_last_save.equal?(mutations_from_database)
   end
 

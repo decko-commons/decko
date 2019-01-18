@@ -20,9 +20,11 @@ class Card
 
       # Fetch view via cache and, when appropriate, render its stubs
       #
-      # If this is a free cache action (see CacheAction), we go through the stubs and render them now.
-      # If the cache is active (ie, we are inside another view), we do not worry about stubs but keep going,
-      # because the free cache we're inside will take care of those stubs.
+      # If this is a free cache action (see CacheAction), we go through the stubs and
+      # render them now.
+      # If the cache is active (ie, we are inside another view), we do not worry about
+      # stubs but keep going, because the free cache we're inside will take care of
+      # those stubs.
       #
       # @return [String (usually)] rendered view
       def cache_render
@@ -32,7 +34,8 @@ class Card
 
       # Is there already a view cache in progress on which this one depends?
       #
-      # Note that if you create a brand new independent format object (ie, not a subformat)
+      # Note that if you create a brand new independent format object
+      # (ie, not a subformat)
       # its activity will be treated as unrelated to this caching/rendering.
       #
       # @return [true/false]
@@ -56,7 +59,7 @@ class Card
         self.class.caching(self) { yield }
       end
 
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # VIEW CACHE KEY
 
       def cache_key
@@ -94,15 +97,14 @@ class Card
 
       def option_value_to_string value
         case value
-          when Hash then "{#{hash_for_cache_key value}}"
-          when Array then array_for_cache_key(value)
-          else value.to_s
+        when Hash then "{#{hash_for_cache_key value}}"
+        when Array then array_for_cache_key(value)
+        else value.to_s
         end
       end
 
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # cache-related Card::View class methods
-
       module ClassMethods
         def cache
           Card::Cache[Card::View]

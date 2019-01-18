@@ -14,9 +14,10 @@ class Card
       # (as opposed to a direct API nest)
       def content_nest opts={}
         return opts[:comment] if opts.key? :comment # commented nest
+
         nest_name = opts[:nest_name]
-        #return voo.render_layouts if main_nest?(nest_name)
-        #return main_nest(opts, &main_nest_block) if main_nest?(nest_name)
+        # return voo.render_layouts if main_nest?(nest_name)
+        # return main_nest(opts, &main_nest_block) if main_nest?(nest_name)
         if main_nest?(nest_name)
           wrap_main { main.rendered || main_nest(opts) }
         else
@@ -40,6 +41,7 @@ class Card
 
       def add_class options, klass
         return if klass.blank?
+
         options[:class] = css_classes options[:class], klass
       end
 
@@ -55,6 +57,7 @@ class Card
 
       def id_counter
         return @parent.id_counter if @parent
+
         @id_counter ||= 0
         @id_counter += 1
       end

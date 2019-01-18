@@ -25,7 +25,7 @@ class Card
         def accessible_keys
           all_keys - [   # (all but the following)
             :view,       # view is accessed as requested_view or ok_view and cannot be
-                         # directly manipulated
+            # directly manipulated
             :show, :hide # these have a more extensive API (see Card::View::Visibility)
           ]
         end

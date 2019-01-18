@@ -1,7 +1,6 @@
 class Card
   class Format
     module Registration
-
       def register format
         registered << format.to_s
       end
@@ -17,6 +16,7 @@ class Card
 
       def format_class opts
         return opts[:format_class] if opts[:format_class]
+
         format = opts[:format] || :html
         class_from_name format_class_name(format)
       end
@@ -30,6 +30,7 @@ class Card
 
       def format_sym format
         return format if format.is_a? Symbol
+
         match = format.to_s.match(/::(?<format>[^:]+)Format/)
         match ? match[:format].underscore.to_sym : :base
       end
@@ -42,12 +43,14 @@ class Card
       def extract_class_vars view, opts
         Card::Format::VIEW_VARS.each do |varname|
           next unless (value = opts.delete varname)
+
           send(varname)[view] = value
         end
       end
 
       def extract_view_tags view, tags
         return unless tags
+
         Array.wrap(tags).each do |tag|
           view_tags[view] ||= {}
           view_tags[view][tag] = true
@@ -68,6 +71,7 @@ class Card
 
       def tagged view, tag
         return unless view && tag && (viewhash = view_tags[view.to_sym])
+
         viewhash[tag.to_sym]
       end
 

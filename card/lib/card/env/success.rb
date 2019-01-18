@@ -4,7 +4,9 @@ class Card
     class Success
       include Card::Env::Location
 
-      attr_accessor :params, :redirect, :id, :name, :card, :name_context
+      attr_accessor :redirect, :name, :name_context
+      attr_writer :params, :card
+      attr_reader :id
 
       def initialize name_context=nil, success_args=nil
         @name_context = name_context
@@ -157,6 +159,10 @@ class Card
         else
           target
         end
+      end
+
+      def respond_to_missing? method_name, _include_private=false
+        method_name =~ /^\w+=?$/ || super
       end
 
       def method_missing method, *args

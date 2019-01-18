@@ -1,12 +1,14 @@
 # -*- encoding : utf-8 -*-
+
 require_dependency "card/cache"
 require_dependency "card/name"
 
 class Card
-  # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned in code, lest a name change break the application.
+  # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned
+  # in code, lest a name change break the application.
   #
-  # Instead, a {Card} that needs specific code manipulations should be given a {Codename}, which will not change even if the card's name
-  # does.
+  # Instead, a {Card} that needs specific code manipulations should be given a {Codename},
+  # which will not change even if the card's name does.
   #
   # An administrator might add to the Company card via the RESTful web API with a url like
   #
@@ -18,7 +20,8 @@ class Card
   #
   # Generally speaking, _codenames_ are represented by Symbols.
   #
-  # The {Codename} class provides a fast cache for this slow-changing data. Every process maintains a complete cache that is not frequently reset
+  # The {Codename} class provides a fast cache for this slow-changing data.
+  # Every process maintains a complete cache that is not frequently reset
   #
   class Codename
     class << self
@@ -102,6 +105,7 @@ class Card
       # @todo remove duplicate checks here; should be caught upon creation
       def check_duplicates codehash, codename, card_id
         return unless codehash.key?(codename) || codehash.key?(card_id)
+
         Rails.logger.debug "dup codename: #{codename}, "\
                            "ID:#{card_id} (#{codehash[codename]})"
       end
@@ -125,8 +129,8 @@ class Card
 
       def unknown_codename! mark
         raise Card::Error::CodenameNotFound, I18n.t(:exception_unknown_codename,
-                                            scope: "lib.card.codename",
-                                            codename: mark)
+                                                    scope: "lib.card.codename",
+                                                    codename: mark)
       end
     end
   end
@@ -139,6 +143,7 @@ class Card
   # @raise error if codename is missing
   def self.const_missing const
     return super unless const.to_s =~ /^([A-Z]\S*)ID$/
+
     code = Regexp.last_match(1).underscore
     code_id = Card::Codename.id!(code)
     const_set const, code_id

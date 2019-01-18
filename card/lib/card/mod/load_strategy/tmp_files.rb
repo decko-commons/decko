@@ -13,6 +13,7 @@ class Card
 
         def prepare_tmp_dir path
           return unless rewrite_tmp_files?
+
           p = Card.paths[path]
           FileUtils.rm_rf p.first, secure: true if p.existent.first
           Dir.mkdir p.first

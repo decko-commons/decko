@@ -29,6 +29,7 @@ class Card
         unless (target = OPERATORS[@operator.to_s])
           raise Card::Error::BadQuery, "Invalid Operator #{@operator}"
         end
+
         @operator = target
       end
 

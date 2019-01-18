@@ -14,6 +14,7 @@ class Card
         @current_id = @as_id if @current_id.nil?
 
         return unless block_given?
+
         yield
       ensure
         if block_given?
