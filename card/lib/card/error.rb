@@ -64,13 +64,13 @@ class Card
     end
 
     class CodenameNotFound < NotFound
-        end
+    end
 
     # two editors altering the same card at once
     class EditConflict < UserError
       self.status_code = 409
       self.view = :conflict
-      end
+    end
 
     # permission errors
     class PermissionDenied < UserError
@@ -127,7 +127,7 @@ class Card
       def invalid_card_error_class card
         KEY_MAP.each do |key, klass|
           return klass if card.errors.key? key
-          end
+        end
         Card::Error
       end
     end

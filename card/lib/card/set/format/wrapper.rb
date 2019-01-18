@@ -33,7 +33,7 @@ class Card
             #               wrap_block.call opts
             #             end
             define_method method_name, &wrap_block
-            #define_block_wrapper method_name, &wrap_block
+            # define_block_wrapper method_name, &wrap_block
           else
             define_tag_wrapper method_name, *args
           end
@@ -54,14 +54,13 @@ class Card
           # end
           # define_wrap_with_method layout, "#{method_name}_with_main"
 
-
-          #class_exec do
-            # define_method "wrap_with_#{layout}" do |&block|
-            #   wrap_main do
-            #     send method_name
-            #   end
-            # end
-          #end
+          # class_exec do
+          # define_method "wrap_with_#{layout}" do |&block|
+          #   wrap_main do
+          #     send method_name
+          #   end
+          # end
+          # end
           # instance_exec(self) do |format|
           #   wrapper layout do
           #     format.wrap_main &block
@@ -70,7 +69,6 @@ class Card
           #     #::Card::Layout.render layout, self)
           #   end
           # end
-
         end
 
         attr_accessor :interiour
@@ -88,16 +86,16 @@ class Card
         end
 
         # expects a block that defines the wrap
-        def define_block_wrapper method_name, &wrap_block
-          #class_eval do
+        def define_block_wrapper _method_name
+          # class_eval do
           # define_method method_name do |_interiour, opts={}|
-          wrap_block.call opts
+          yield opts
           # end
         end
 
         # defines the wrap_with_... method that you call to use the wrapper
         def define_wrap_with_method wrapper_name, wrapper_method_name
-          class_exec(self) do |format|
+          class_exec(self) do |_format|
             define_method "wrap_with_#{wrapper_name}" do |*args, &interiour|
               @interiour, opts =
                 if interiour
@@ -105,7 +103,7 @@ class Card
                 else
                   args
                 end
-              #instance_variable_set "@interiour", @interiour
+              # instance_variable_set "@interiour", @interiour
               if method(wrapper_method_name).arity.zero?
                 send wrapper_method_name
               else

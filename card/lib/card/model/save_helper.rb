@@ -39,6 +39,7 @@ class Card
 
       def delete_card name
         return unless Card.exist?(name)
+
         Card[name].delete!
       end
 
@@ -47,6 +48,7 @@ class Card
           return unless Card::Codename.exist? name
         end
         return unless Card.exist?(name)
+
         card = Card[name]
         card.update! codename: nil
         card.delete!
@@ -120,7 +122,7 @@ class Card
       end
 
       def add_style name, opts={}
-        name.sub!(/^style\:?\s?/, '') # in case name is given with prefix
+        name.sub!(/^style\:?\s?/, "") # in case name is given with prefix
         # remove it so that we don't double it
 
         add_coderule_item name, "style",
@@ -129,7 +131,7 @@ class Card
       end
 
       def add_script name, opts={}
-        name.sub!(/^script\:?\s?/, '') # in case name is given with prefix
+        name.sub!(/^script\:?\s?/, "") # in case name is given with prefix
         # remove it so that we don't double it
 
         add_coderule_item name, "script",
@@ -142,7 +144,7 @@ class Card
         name = "#{prefix}: #{name}"
 
         ensure_card name, type_id: type_id,
-                    codename: codename
+                          codename: codename
         Card[to].add_item! name
       end
 
@@ -156,10 +158,10 @@ class Card
       alias_method :ensure!, :ensure_card!
       alias_method :delete, :delete_card
 
-
       def method_missing method, *args
         method_name, cardtype_card = extract_cardtype_from_method_name method
         return super unless method_name
+
         args = standardize_args(*args)
         send "#{method_name}_card", args.merge(type_id: cardtype_card.id)
       end
@@ -170,10 +172,12 @@ class Card
 
       def extract_cardtype_from_method_name method
         return unless method =~ /^(?<method_name>create|ensure)_(?<type>.+)(?:_card)?$/
+
         cardtype_card = Card[Regexp.last_match[:type]] ||
                         Card[Regexp.last_match[:type].to_sym]
         return unless cardtype_card&.type_id == Card::CardtypeID ||
                       cardtype_card.id == Card::SetID
+
         [Regexp.last_match[:method_name], cardtype_card]
       end
 
@@ -186,6 +190,7 @@ class Card
       def ensure_card_update name, args
         card = Card[name]
         return unless card
+
         ensure_attributes card, args
         card
       rescue Card::Error::CodenameNotFound => _e
@@ -201,6 +206,7 @@ class Card
 
       def normalize_trait_rule_args setting, value
         return value if value.is_a? Hash
+
         if Card.fetch_type_id([setting, :right, :default]) == PointerID
           value = Array(value).to_pointer_content
         end
@@ -229,15 +235,16 @@ class Card
       def standardize_ensure_args name_or_args, content_or_args
         name = name_or_args.is_a?(Hash) ? name_or_args[:name] : name_or_args
         args = if name_or_args.is_a?(Hash)
-          name_or_args
-        else
-          hashify content_or_args, :content
+                 name_or_args
+               else
+                 hashify content_or_args, :content
         end
         [name, args]
       end
 
       def standardize_update_args name_or_args, content_or_args
         return name_or_args if name_or_args.is_a?(Hash)
+
         hashify content_or_args, :content
       end
 
@@ -262,6 +269,7 @@ class Card
       def resolve_name_conflict args
         rename = args.delete :rename_if_conflict
         return unless args[:name] && rename
+
         args[:name] = Card.uniquify_name args[:name], rename
       end
 
@@ -270,6 +278,7 @@ class Card
         update_args = changing_args card, args
 
         return if update_args.empty? && subcards.empty?
+
         # FIXME: use ensure_attributes for subcards
         card.update! update_args.merge(subcards: subcards, skip: :validate_renaming)
       end
