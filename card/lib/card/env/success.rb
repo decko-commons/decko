@@ -161,10 +161,6 @@ class Card
         end
       end
 
-      def respond_to_missing? method_name, _include_private=false
-        method_name =~ /^\w+=?$/ || super
-      end
-
       def method_missing method, *args
         case method
         when /^(\w+)=$/

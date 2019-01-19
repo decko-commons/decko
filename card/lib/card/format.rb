@@ -1,9 +1,14 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-  # _Views_ are the primary way users interact with cards. Card::Format and its subclasses ({Card::Format::HtmlFormat}, {Card::Format::JsonFormat}, {Card::Format::XmlFormat}, etc) are responsible for defining and rendering _views_.
+  # _Views_ are the primary way users interact with cards. Card::Format and its subclasses
+  # ({Card::Format::HtmlFormat}, {Card::Format::JsonFormat}, {Card::Format::XmlFormat},
+  # etc) are responsible for defining and rendering _views_.
   #
-  # However, Deck-coders (those who code in the Card/Decko framework) rarely write code directly in these classes. Instead they organize their code using {Card::Mods mods}. The {Card::Mod} docs explain how to set up a mod. Once you've done that, you're ready to define a view.  These docs will introduce the basics of view definition and
+  # However, Deck-coders (those who code in the Card/Decko framework) rarely write code
+  # directly in these classes. Instead they organize their code using {Card::Mods mods}.
+  # The {Card::Mod} docs explain how to set up a mod. Once you've done that, you're ready
+  # to define a view.  These docs will introduce the basics of view definition and
   #
   # Here is a very simple view that just defines a label for the card – its name:
   #
@@ -11,7 +16,8 @@ class Card
   #       card.name
   #     end
   #
-  # If a format is not specified, the view is defined on the base format class, Card::Format. The following two definitions are equivalent to the definition above:
+  # If a format is not specified, the view is defined on the base format class,
+  # Card::Format. The following two definitions are equivalent to the definition above:
   #
   #     format do
   #       view(:label) { card.name }
@@ -19,7 +25,9 @@ class Card
   #
   #     format(:base) { view(:label) { card.name } }
   #
-  # But suppose you would like this view to appear differently in different output formats. For example, you'd like this label to have a tag with a class attribute HTML so that you can style it with CSS.
+  # But suppose you would like this view to appear differently in different output
+  # formats. For example, you'd like this label to have a tag with a class attribute HTML
+  # so that you can style it with CSS.
   #
   #     format :html do
   #       view :label do
@@ -27,14 +35,18 @@ class Card
   #       end
   #     end
   #
-  # Note that in place of card.name, you could also use `super`, because this view is translated into a method on Card::Format::HtmlFormat, which inherits from Card::Format.
+  # Note that in place of card.name, you could also use `super`, because this view is
+  # translated into a method on Card::Format::HtmlFormat, which inherits from
+  # Card::Format.
   #
   # ## Common arguments for view definitions
   #
-  # * :perms - restricts view permissions. Value can be :create, :read, :update, :delete, or a Proc.
+  # * :perms - restricts view permissions. Value can be :create, :read, :update, :delete,
+  #            or a Proc.
   # * :tags - tag view as needed.
   #
-  # The most commmon tag is "unknown_ok," which indicates that a view can be rendered even if the card is "unknown" (not real or virtual).
+  # The most commmon tag is "unknown_ok," which indicates that a view can be rendered even
+  # if the card is "unknown" (not real or virtual).
   #
   # ## Rendering views
   #

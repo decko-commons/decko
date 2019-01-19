@@ -12,7 +12,13 @@ module CoreExtensions
         klone.clear
         each { |v| klone << v.deep_clone }
       else
-        klone = clone
+        klone =
+          if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("2.4") &&
+             (self.is_a?(Fixnum) || self.is_a?(Bignum))
+            self
+          else
+            clone
+          end
       end
       klone.deep_clone_instance_variables
       klone
