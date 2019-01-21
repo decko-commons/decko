@@ -3,7 +3,8 @@
 RSpec.describe Card::Set::Right::Account do
   describe "#create" do
     let(:dummy_account_args) do
-      { name: "TmpUser",
+      {
+        name: "TmpUser",
         "+*account" => {
           "+*email" => "tmpuser@wagn.org",
           "+*password" => "tmp_pass"
@@ -26,8 +27,8 @@ RSpec.describe Card::Set::Right::Account do
     end
 
     it "checks accountability of 'accounted' card" do
-      @unaccountable = Card.create(dummy_account_args)
-      expect(@unaccountable.errors["+*account"].first).to eq("not allowed on this card")
+      unaccountable = Card.create(dummy_account_args)
+      expect(unaccountable.errors["+*account"].first).to eq("not allowed on this card")
     end
 
     it "works for any accountable card -- not just User type" do
@@ -36,8 +37,8 @@ RSpec.describe Card::Set::Right::Account do
         Card.create! name: rule_name, content: "1"
       end
 
-      @accountable = Card.create(dummy_account_args)
-      expect(@accountable.errors).to be_empty
+      accountable = Card.create(dummy_account_args)
+      expect(accountable.errors).to be_empty
     end
 
     it "requires email" do

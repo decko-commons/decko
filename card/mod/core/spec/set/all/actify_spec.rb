@@ -12,7 +12,7 @@ RSpec.describe "act API" do
 
   describe "#act" do
     let(:card) { Card["A"] }
-    
+
     before do
       allow(card).to receive(:act).and_return nil
     end
