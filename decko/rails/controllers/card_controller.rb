@@ -132,7 +132,9 @@ class CardController < ActionController::Base
   end
 
   def debug_exception? e
-    !e.is_a?(Card::Error::UserError) && Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
+    !e.is_a?(Card::Error::UserError) &&
+      !e.is_a?(ActiveRecord::RecordInvalid) &&
+      Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
   end
 
   class << self
@@ -146,5 +148,6 @@ class CardController < ActionController::Base
   end
 
   rescue_from_class ActiveRecord::RecordInvalid
-  rescue_from_class(rescue_all? ? StandardError : Card::Error::UserError)
+  rescue_from_class Card::Error::UserError
+  #rescue_from_class StandardError if rescue_all?
 end

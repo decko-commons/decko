@@ -1,6 +1,6 @@
 format :html do
   MODAL_SIZE = { small: "sm", medium: nil, large: "lg", full: "full" }.freeze
-  CLOSE_OPTS = { class: "close-modal", "data-dismiss": "modal" }.freeze
+  MODAL_CLOSE_OPTS = { class: "_close-modal", "data-dismiss": "modal" }.freeze
 
   wrapper :modal do |opts={}|
     haml :modal_dialog, body: interiour,
@@ -21,13 +21,13 @@ format :html do
 
   def modal_close_button link_text="Close", opts={}
     classes = opts.delete(:class)
-    button_opts = opts.merge(CLOSE_OPTS)
+    button_opts = opts.merge(MODAL_CLOSE_OPTS)
     add_class button_opts, classes if classes
     button_tag link_text, button_opts
   end
 
   def modal_submit_button opts={}
-    add_class opts, "submit-button close-modal"
+    add_class opts, "submit-button _close-modal"
     submit_button opts
   end
 
@@ -39,7 +39,7 @@ format :html do
 
   view :modal_footer, tags: :unknown_ok do
     button_tag "Close",
-               class: "btn-xs close-modal float-right",
+               class: "btn-xs _close-modal float-right",
                "data-dismiss" => "modal"
   end
 
@@ -76,7 +76,7 @@ format :html do
 
   def close_modal_window
     link_to icon_tag(:close), path: "",
-                              class: "close-modal close",
+                              class: "_close-modal close",
                               "data-dismiss": "modal"
   end
 

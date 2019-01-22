@@ -5,7 +5,7 @@ format :html do
                    ["references out", :refers_to],
                    ["references in",  :referred_to_by]].freeze
 
-  view :engage_tab, wrap: { div: { class: "m-3 mt-4" } } do
+  view :engage_tab, wrap: { div: { class: "m-3 mt-4 _engage-tab" } } do
     [render_follow_section, discussion_section].compact
   end
 

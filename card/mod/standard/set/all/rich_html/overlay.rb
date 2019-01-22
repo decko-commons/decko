@@ -1,4 +1,6 @@
 format :html do
+  OVERLAY_CLOSE_OPTS = { class: "_close-overlay btn-sm", "data-dismiss": "overlay" }.freeze
+
   wrapper :overlay do |opts|
     class_up "card-slot", "_overlay d0-card-overlay bg-white", true
     @content_body = true
@@ -27,6 +29,18 @@ format :html do
 
   def close_overlay_link
     overlay_menu_link :close, path: "#", "data-dismiss": "overlay"
+  end
+
+  def overlay_close_button link_text="Close", opts={}
+    classes = opts.delete(:class)
+    button_opts = opts.merge(OVERLAY_CLOSE_OPTS)
+    add_class button_opts, classes if classes
+    button_tag link_text, button_opts
+  end
+
+  def overlay_save_and_close_button
+    submit_button text: "Save and Close", class: "_close-overlay-on-success",
+                  "data-cy": "submit-overlay"
   end
 
   def overlay_menu_link icon, args={}

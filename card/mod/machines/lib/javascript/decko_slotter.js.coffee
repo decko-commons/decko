@@ -2,16 +2,20 @@ $(window).ready ->
   $('body').on 'ajax:success', '.slotter', (event, data, c, d) ->
     unless event.slotSuccessful
       $this = $(this)
-      $this.slotSuccess data, $this
-      if $this.hasClass "close-modal"
+      if $this.hasClass "_close-overlay"
+        $this.slot().removeOverlay()
+      else
+        $this.slotSuccess data, $this
+
+      if $this.hasClass "_close-modal"
         $this.closest('.modal').modal('hide')
       # should scroll to top after clicking on new page
       if $this.hasClass "card-paging-link"
         slot_top_pos = $this.slot().offset().top
         $("body").scrollTop slot_top_pos
       if $this.data("update-foreign-slot")
-        $slot = $this.find_slot $this.data("update-foreign-slot")
-        $slot.updateSlot $this.data("update-foreign-slot-url")
+        $slot = $this.findSlot $this.data("update-foreign-slot")
+        $slot.updateSlot $this.data("update-foreign-slot-url") if $slot.length > 0
 
       event.slotSuccessful = true
 
@@ -28,8 +32,11 @@ $(window).ready ->
   $('body').on 'click', '[data-dismiss="overlay"]', (event) ->
     $(this).slot().removeOverlay()
 
-  $('body').on 'click', '._close-and-success', (event) ->
-    $(this).closest('.slotter').data("slotter-mode", "standard").addClass("close-modal")
+  $('body').on 'click', '._close-overlay-on-success', (event) ->
+    $(this).closest('.slotter').data("slotter-mode", "standard").addClass("_close-overlay")
+
+  $('body').on 'click', '._close-modal-on-success', (event) ->
+    $(this).closest('.slotter').data("slotter-mode", "standard").addClass("_close-modal")
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     return if opt.skip_before_send

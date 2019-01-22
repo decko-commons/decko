@@ -74,9 +74,17 @@ format :html do
   end
 
   def standard_submit_button
-    modal_submit_button(class: "submit-button btn-sm mr-3", text: "Save") +
-      submit_button(class: "submit-button btn-sm mr-3 _close-and-success",
-                    text: "Save and Close")
+     standard_save_button + standard_save_and_close_button
+  end
+
+  def standard_save_button
+    submit_button(class: "submit-button btn-sm mr-3", text: "Save")
+  end
+
+  # @param close: [:modal, :overlay]stand
+  def standard_save_and_close_button close: :modal
+    submit_button(class: "submit-button btn-sm mr-3 _close-#{close}-on-success",
+                  text: "Save and Close", "data-cy": "submit-#{close}")
   end
 
   def edit_cancel_button
@@ -88,13 +96,19 @@ format :html do
     cancel_button args
   end
 
-  def delete_button
-    confirm = "Are you sure you want to delete #{safe_name}?"
-    success = main? ? "REDIRECT: *previous" : { view: :just_deleted }
-    link_to "Delete",
-            path: { action: :delete, success: success },
-            class: "slotter btn btn-outline-danger ml-auto btn-sm", remote: true,
-            'data-confirm': confirm
+  def delete_button opts={}
+    link_to "Delete", delete_button_opts(opts)
+  end
+
+  def delete_button_opts opts={}
+    add_class opts,  "slotter btn btn-outline-danger ml-auto btn-sm"
+    opts["data-confirm"] = opts.delete(:confirm) ||
+      "Are you sure you want to delete #{safe_name}?"
+    success = opts.delete(:success) ||
+      (main? ? "REDIRECT: *previous" : { view: :just_deleted })
+    opts[:path] = { action: :delete, success: success }
+    opts[:remote] = true
+    opts
   end
 
   # TODO: add undo functionality

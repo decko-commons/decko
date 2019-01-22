@@ -71,6 +71,10 @@ format :html do
     end
   end
 
+  def rule_form_args
+    super.merge "data-update-foreign-slot": ".card-slot.follow_section-view"
+  end
+
   private
 
   def follow_item_hidden_tags condition

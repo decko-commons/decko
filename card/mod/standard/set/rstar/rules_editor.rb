@@ -61,9 +61,9 @@ format :html do
 
     voo.items[:view] ||= :link
     output [
-      show_rule_set(card.rule_set),
-      _render_core
-    ]
+             show_rule_set(card.rule_set),
+             _render_core
+           ]
   end
 
   def show_rule_set set
@@ -205,62 +205,76 @@ format :html do
     end
   end
 
+  def rule_form_args
+    { class: "card-rule-form" }
+  end
+
   def edit_rule_form &block
     return "not a rule" unless card.is_rule?
 
     @rule_context ||=  card
     @edit_rule_success = edit_rule_success
     action_args = { action: :update, no_mark: true }
-    card_form action_args, class: "card-rule-form", &block
+    card_form action_args, rule_form_args, &block
   end
 
   def edit_rule_success
     { id:   @rule_context.name.url_key,
-      view: "open_rule",
-      item: "view_rule" }
+      view: "overlay_rule" }
   end
 
   def edit_rule_buttons
     wrap_with(:div, class: "button-area") do
       [
-        edit_rule_delete_button,
-        edit_rule_submit_button,
-        edit_rule_cancel_button
+        standard_save_button,
+        standard_save_and_close_button(close: :overlay),
+        edit_rule_cancel_button,
+        edit_rule_delete_button
       ]
     end
+  end
+
+  def edit_rule_cancel_button
+    overlay_close_button "Cancel", situation: "secondary", class: "btn-sm"
   end
 
   def edit_rule_delete_button args={}
     return if card.new_card?
 
-    options = { remote: true,
-                type: "button",
-                class: "rule-delete-button slotter btn-outline-danger",
-                href: path(action: :delete, success: @edit_rule_success) }
-    options["data-slot-selector"] = slot_selector if args[:slot_selector]
-    delete_button_confirmation_option options, args[:fallback_set]
+    delete_opts = {
+      confirm: delete_confirm(args[:fallback_set]),
+      success: @edit_rule_success,
+      class: "_close-overlay-on-success"
+    }
+    delete_opts["data-slot-selector"] = slot_selector if args[:slot_selector]
     wrap_with :span, class: "rule-delete-section" do
-      button_tag "Delete", options
+      delete_button delete_opts
     end
   end
 
-  def delete_button_confirmation_option options, fallback_set
-    return unless fallback_set && (fallback_set_card = Card.fetch fallback_set)
-
+  def delete_confirm fallback_set
     setting = card.rule_setting_name
-    options["data-confirm"] = "Deleting will revert to #{setting} rule "\
-                              "for #{fallback_set_card.label}"
+
+    if fallback_set && (fallback_set_card = Card.fetch(fallback_set))
+      "Deleting will revert to #{setting} rule for #{fallback_set_card.label}"
+    else
+      "Are you sure you want to delete the #{setting} rule for #{rule_set_description}?"
+    end
+  end
+
+  def rule_set_description
+    card.rule_set.label.tap { |s| s[0] = s[0].downcase }
   end
 
   def edit_rule_submit_button
     submit_button class: "rule-submit-button"
   end
 
-  def edit_rule_cancel_button
-    cancel_view = card.new_card? ? :closed_rule : :open_rule
-    cancel_button class: "rule-cancel-button",
-                  href: path(view: cancel_view, success: false)
-  end
+  # def edit_rule_cancel_button
+  #   cancel_view = card.new_card? ? :closed_rule : :open_rule
+  #   cancel_button class: "rule-cancel-button",
+  #                 href: path(view: cancel_view, success: false)
+  # end
 
   def rule_editor
     wrap_with(:div, class: "card-editor") do
