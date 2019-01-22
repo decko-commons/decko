@@ -36,10 +36,29 @@ class Card
       def wrap_with_wrapper
         return @rendered unless voo.wrap.present?
         voo.wrap.reverse.each do |wrapper, opts|
-          @rendered = try("wrap_with_#{wrapper}", opts) { @rendered } ||
-                      Card::Layout::CardLayout.new(wrapper, self).render
+          @rendered = render_with_wrapper(wrapper, opts) ||
+                      render_with_card_layout(wrapper) ||
+                      raise_wrap_error(wrapper)
         end
         @rendered
+      end
+
+      def render_with_wrapper wrapper, opts
+        try("wrap_with_#{wrapper}", opts) { @rendered }
+      end
+
+      def render_with_card_layout mark
+        return unless Card::Layout.card_layout? mark
+
+        Card::Layout::CardLayout.new(mark, self).render
+      end
+
+      def raise_wrap_error wrapper
+        if wrapper.is_a? String
+          raise UserError, "unknown layout card: #{wrapper}"
+        else
+          raise ArgumentError, "unknown wrapper: #{wrapper}"
+        end
       end
 
       def before_view view

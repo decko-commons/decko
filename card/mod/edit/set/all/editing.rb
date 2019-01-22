@@ -24,6 +24,27 @@ format :html do
     end
   end
 
+  view :edit_content, perms: :update, tags: :unknown_ok, cache: :never,
+                      wrap: { modal: { footer: "",
+                                       title: :render_title } } do
+    with_nest_mode :edit do
+      voo.show :help
+      wrap true do
+        [
+          card_form(:update, edit_form_opts) do
+            [
+              edit_view_hidden,
+              _render_content_formgroup,
+              _render_edit_buttons
+            ]
+          end
+        ]
+      end
+    end
+  end
+
+
+
   view :edit_in_place, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
     with_nest_mode :edit do
       card_form :update, edit_form_opts do

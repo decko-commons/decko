@@ -46,8 +46,15 @@ format :html do
   def explicit_modal_wrapper? view
     return unless view_setting(:wrap, view)
 
-    wrappers = Array.wrap(view_setting(:wrap, view))
-    wrappers.include?(:modal) || wrappers.include?(:bridge)
+    wrapper_names(view_setting(:wrap, view)).any? { |n| n == :modal || n == :bridge }
+  end
+
+  def wrapper_names wrappers
+    case wrappers
+    when Hash  then wrappers.keys
+    when Array then wrappers.map { |w| w.is_a?(Array) ? w.first : w }
+    else            [wrappers]
+    end
   end
 
   def process_haml_layout layout_name

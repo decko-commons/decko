@@ -5,9 +5,22 @@ format :html do
   wrapper :modal do |opts={}|
     haml :modal_dialog, body: interiour,
                         classes: modal_dialog_classes(opts),
-                        title: opts[:title] || "",
+                        title: modal_title(opts[:title]),
                         menu: opts[:menu] || render_modal_menu,
                         footer: opts[:footer] || render_modal_footer
+  end
+
+  def modal_title title
+    return "" unless title
+
+    case title
+    when Symbol
+      respond_to?(title) ? send(title) : title
+    when Proc
+      title.call(self)
+    else
+      title
+    end
   end
 
   view :modal, wrap: :modal do

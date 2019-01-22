@@ -105,4 +105,6 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     expect(format_subject.show(nil, {}))
       .to have_tag "div#main", "A"
   end
+
+
 end

@@ -121,11 +121,21 @@ format :html do
 
   # FORGOT PASSWORD
   view :edit do
+    reset_password_voo
+    Auth.as_bot { super() }
+  end
+
+  view :edit_content do
+    reset_password_voo
+    Auth.as_bot { super() }
+  end
+
+  def reset_password_voo
     voo.title ||= card.i18n_signin(:forgot_password)
     voo.edit_structure = [signin_field(:email)]
     voo.hide :help
-    Auth.as_bot { super() }
   end
+
 
   view :edit_buttons do
     text = I18n.t :reset_my_password, scope: "mod.account.set.self.signin"
@@ -148,7 +158,7 @@ format :html do
 
   def reset_password_link
     text = I18n.t :reset_password, scope: "mod.account.set.self.signin"
-    reset_link = link_to_view :edit, text, path: { slot: { hide: :toolbar } }
+    reset_link = link_to_view :edit_content, text
     # FIXME: inline styling
     raw("<div style='float:right'>#{reset_link}</div>")
   end
