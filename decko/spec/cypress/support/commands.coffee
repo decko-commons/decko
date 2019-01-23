@@ -26,3 +26,8 @@
 
 Cypress.Commands.add "el", (id) =>
   cy.get("[data-cy=#{id}]")
+
+Cypress.Commands.add "tinymce_type", (text) =>
+  cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->
+    cy.window().then (win) ->
+      win.tinyMCE.get(id).setContent(text)

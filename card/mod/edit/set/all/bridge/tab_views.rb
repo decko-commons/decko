@@ -44,10 +44,7 @@ format :html do
   def account_items
     %i[account roles created edited follow].map do |item|
       if item == :account
-        [tr(:details), item,
-         bridge_link_opts(path: { view: :edit,
-                                  hide: %i[edit_name_row edit_type_row],
-                                  layout: :overlay })]
+        [tr(:details), item, { view: :edit, hide: %i[edit_name_row edit_type_row] }]
       else
         [tr(item), item]
       end
@@ -64,9 +61,13 @@ format :html do
   def bridge_pill_items data, breadcrumb
     data.map do |text, field, extra_opts|
       opts = bridge_link_opts.merge("data-toggle": "pill")
-      add_class opts, "nav-link"
       opts.merge! breadcrumb_data(breadcrumb)
-      opts.merge! extra_opts if extra_opts
+      if extra_opts
+        classes = extra_opts.delete :class
+        add_class opts, classes if classes
+        opts.deep_merge! extra_opts
+      end
+      add_class opts, "nav-link"
       link_to_card [card, field], text,  opts
     end
   end

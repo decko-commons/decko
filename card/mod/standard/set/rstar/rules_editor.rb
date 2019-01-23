@@ -110,7 +110,8 @@ format :html do
 
   view :rule_bridge_link, tags: :unknown_ok do
     opts = bridge_link_opts(class: "edit-rule-link slotter nav-link",
-                            "data-toggle": "pill")
+                            "data-toggle": "pill",
+                            "data-cy": "#{setting_title.to_name.key}-pill")
     opts[:path].delete(:layout)
     link_to_view(:overlay_rule, (setting_title + short_help_text), opts)
   end

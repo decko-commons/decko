@@ -44,14 +44,13 @@ format :html do
   end
 
 
-
   view :edit_in_place, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
     with_nest_mode :edit do
       card_form :update, edit_form_opts do
         [
           edit_view_hidden,
           _render_content_formgroup,
-          _render_edit_buttons
+          _render_edit_in_place_buttons
         ]
       end
     end
@@ -67,19 +66,32 @@ format :html do
   end
 
   view :edit_name_row do
-    edit_row "Name", card.name, :edit_name_form
+    edit_row_fixed_width "Name", card.name, :edit_name_form
   end
 
   view :edit_type_row do
-    edit_row "Type", link_to_card(card.type), :edit_type_form
+    edit_row_fixed_width "Type", link_to_card(card.type), :edit_type_form
   end
 
-  def edit_row title, content, edit_view
-    class_up "card-slot", "d-flex"
-    link =
-      link_to_view(edit_view, fa_icon(:edit), class: "ml-auto edit-link slotter")
+  view :edit_row do
+    edit_row render_title, render_content
+  end
 
-    wrap class: "d-flex" do
+  def edit_row title, content
+    class_up "card-slot", "col-sm-11 d-flex", true
+    link =
+      link_to_view :edit_in_place, fa_icon(:edit), class: "ml-2 edit-link slotter"
+    content = wrap() { [content, link] }
+    wrap_with :div, class: "row" do
+      ["<label class='col-sm-1'>#{title}</label>", content]
+    end
+  end
+
+  def edit_row_fixed_width title, content, edit_view
+    class_up "card-slot", "d-flex", true
+    link = link_to_view edit_view, fa_icon(:edit), class: "ml-auto edit-link slotter"
+
+    wrap do
       ["<label class='w-50px'>#{title}</label>",
        content,
        link]
@@ -90,6 +102,14 @@ format :html do
     button_formgroup do
       wrap_with "div", class: "d-flex" do
         [standard_submit_button, edit_cancel_button, delete_button]
+      end
+    end
+  end
+
+  view :edit_in_place_buttons do
+    button_formgroup do
+      wrap_with "div", class: "d-flex" do
+        [standard_save_button, edit_cancel_button, delete_button]
       end
     end
   end
