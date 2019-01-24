@@ -9,7 +9,7 @@ format :html do
 
   wrapper :slot do |opts|
     method_wrap :wrap_with, true, opts do
-      interiour
+      interior
     end
   end
 
@@ -129,4 +129,5 @@ format :html do
   end
 
   wrapper :div, :div
+  wrapper :em, :em
 end

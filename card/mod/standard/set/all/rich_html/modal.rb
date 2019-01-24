@@ -3,7 +3,7 @@ format :html do
   MODAL_CLOSE_OPTS = { class: "_close-modal", "data-dismiss": "modal" }.freeze
 
   wrapper :modal do |opts={}|
-    haml :modal_dialog, body: interiour,
+    haml :modal_dialog, body: interior,
                         classes: modal_dialog_classes(opts),
                         title: modal_title(opts[:title]),
                         menu: opts[:menu] || render_modal_menu,

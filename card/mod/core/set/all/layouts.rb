@@ -1,8 +1,8 @@
 format :html do
-  attr_reader :interiour
+  attr_reader :interior
 
   def layout_nest
-    wrap_main { interiour }
+    wrap_main { interior }
   end
 
   layout :pre do  #{{_main|raw}}

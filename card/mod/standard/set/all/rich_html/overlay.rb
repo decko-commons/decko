@@ -5,7 +5,7 @@ format :html do
     class_up "card-slot", "_overlay d0-card-overlay bg-white", true
     @content_body = true
     overlay_frame true, overlay_header(opts[:title]), opts[:slot] do
-      interiour
+      interior
     end
   end
 

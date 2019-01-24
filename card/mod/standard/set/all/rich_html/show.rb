@@ -26,7 +26,7 @@ format :html do
         <head>
           #{head_content}
         </head>
-        #{interiour}
+        #{interior}
       </html>
     HTML
   end
