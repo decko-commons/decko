@@ -46,7 +46,7 @@ format :html do
 
   view :edit_in_place, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
     with_nest_mode :edit do
-      card_form :update, edit_form_opts do
+      card_form :update, success: { view: :editable } do
         [
           edit_view_hidden,
           _render_content_formgroup,
@@ -73,18 +73,15 @@ format :html do
     edit_row_fixed_width "Type", link_to_card(card.type), :edit_type_form
   end
 
-  view :edit_row do
-    edit_row render_title, render_content
+  view :edit_row, wrap: { div: { class: "row" }} do
+    ["<label class='col-sm-1'>#{render_title}</label>",
+     "<div class='col-sm-11'>#{render_editable}</div>"]
   end
 
-  def edit_row title, content
-    class_up "card-slot", "col-sm-11 d-flex", true
+  view :editable, perms: :update, tags: :unknown_ok do
     link =
       link_to_view :edit_in_place, fa_icon(:edit), class: "ml-2 edit-link slotter"
-    content = wrap() { [content, link] }
-    wrap_with :div, class: "row" do
-      ["<label class='col-sm-1'>#{title}</label>", content]
-    end
+    wrap { [render_core, link] }
   end
 
   def edit_row_fixed_width title, content, edit_view
@@ -109,7 +106,7 @@ format :html do
   view :edit_in_place_buttons do
     button_formgroup do
       wrap_with "div", class: "d-flex" do
-        [standard_save_button, edit_cancel_button, delete_button]
+        [standard_save_button, cancel_in_place_button, delete_button]
       end
     end
   end
@@ -134,6 +131,11 @@ format :html do
 
   def standard_cancel_button args={}
     args.reverse_merge! class: "cancel-button ml-4", href: path
+    cancel_button args
+  end
+
+  def cancel_in_place_button args={}
+    args.reverse_merge! class: "cancel-button btn-sm", href: path(view: :editable)
     cancel_button args
   end
 
