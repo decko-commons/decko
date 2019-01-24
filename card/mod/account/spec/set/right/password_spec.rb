@@ -9,6 +9,10 @@ RSpec.describe Card::Set::Right::Password do
     expect(password_card.format.render_core).to have_tag :em, "encrypted"
   end
 
+  def card_subject
+    password_card
+  end
+
   check_html_views_for_errors
 
   describe "#update" do
