@@ -94,6 +94,16 @@ body.mceContentBody {
 }
 
 
+/*----------- Navbox --------------*/
+
+.select2-navbox-dropdown > .select2-results > .select2-results__options {
+  max-height: none !important;
+}
+
+.navbox-form .select2-container {
+  width: 100%
+}
+
 /*----------- Sidebar -------------*/
 
 .row.row-offcanvas {
