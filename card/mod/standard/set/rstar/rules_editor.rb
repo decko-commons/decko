@@ -227,8 +227,8 @@ format :html do
   def edit_rule_buttons
     wrap_with(:div, class: "button-area") do
       [
-        standard_save_button,
-        standard_save_and_close_button(close: :overlay),
+        standard_save_button(class: "_rule-submit-button"),
+        standard_save_and_close_button(class: "_rule-submit-button", close: :overlay),
         edit_rule_cancel_button,
         edit_rule_delete_button
       ]
@@ -268,7 +268,7 @@ format :html do
   end
 
   def edit_rule_submit_button
-    submit_button class: "rule-submit-button"
+    submit_button class: "_rule-submit-button"
   end
 
   # def edit_rule_cancel_button
@@ -332,7 +332,7 @@ format :html do
   end
 
   def rule_set_radio_button set_name, tag, state, narrower
-    warning = narrower_rule_warning narrower, state, set_name
+    warning = rule_warning narrower, state, set_name
     checked = checked_set_button? set_name, selected_rule_set
     rule_radio set_name, state do
       radio_text = "#{set_name}+#{tag}"
@@ -340,6 +340,13 @@ format :html do
     end
   end
 
+  def rule_warning narrower, state, set_name
+    return "This rule will affect all cards! Are you sure?" if set_name == "*all"
+    narrower_rule_warning narrower, state, set_name
+  end
+
+  # warn user if rule change won't have a effect on the current card
+  # because there is a narrower rule
   def narrower_rule_warning narrower_rules, state, set_name
     return unless state.in? %i[current overwritten]
 

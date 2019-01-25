@@ -48,7 +48,7 @@ $(window).ready ->
     slot.find('.perm-indiv input').val('')
 
   # rstar mod
-  $('body').on 'click', '.rule-submit-button', ->
+  $('body').on 'click', '._rule-submit-button', ->
     f = $(this).closest('form')
     checked = f.find('.set-editor input:checked')
     if checked.val()
