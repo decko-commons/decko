@@ -1,9 +1,11 @@
-%table.set-rules.table
-  %tr.rule-group
-    %th.rule-heading Trait
-    - if voo.show? :content
-      %th.rule-heading Content
-    %th.rule-heading Set
-  - settings.each do |setting|
-    = rule_table_row setting
+%table.table.table-sm
+  %thead.thead-dark
+    %tr.rule-group
+      %th.rule-heading Trait
+      - if voo.show? :content
+        %th.rule-heading Content
+      %th.rule-heading Set
+  %tbody
+    - settings.each do |setting|
+      = rule_table_row setting
 

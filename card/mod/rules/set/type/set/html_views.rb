@@ -6,7 +6,22 @@ format :html do
     voo.show :set_label, :rule_navbar
     voo.hide :set_navbar
     rule_view = params[:rule_view] || :common_rules
-    _render rule_view
+
+    table_rules_filter + _render(rule_view)
+  end
+
+  def table_rules_filter
+    form_tag path(mark: "", view: :rules_list,
+                  slot: { hide: %i[set_label rule_navbar set_navbar content] }),
+             remote: true, method: "get", role: "filter",
+             "data-slot-selector": ".card-slot.rules_list-view",
+             class: classy("nodblclick slotter form-inline slim-select2 m-2") do
+      output [
+               label_tag(:view, icon_tag("filter_list"), class: "mr-2"),
+               setting_select,
+               content_tag(:span, "rules that apply to set #{card.name}", class: "mx-2 small"),
+             ]
+    end
   end
 
   def with_label_and_navbars selected_view
@@ -14,8 +29,8 @@ format :html do
     wrap do
       [
         # _render_set_label,
-        # _render_rule_navbar,
         # _render_set_navbar,
+        _render_rule_navbar,
         yield
       ]
     end
@@ -48,8 +63,8 @@ format :html do
 
   view :common_rules do
     with_label_and_navbars :common_rules do
-      settings = card.visible_setting_codenames & COMMON_RULE_SETTINGS
       # "&" = set intersection
+      settings = card.visible_setting_codenames & COMMON_RULE_SETTINGS
       rules_table settings
     end
   end
@@ -94,7 +109,7 @@ format :html do
   end
 
   view :editor do
-    "Cannot currently edit Sets" # ENGLISH
+    "Cannot currently edit Sets" # LOCALIZE
   end
 
   view :closed_content do

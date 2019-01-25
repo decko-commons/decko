@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::Set do
+RSpec.describe Card::Set::Type::Set do
+
   describe :junction_only? do
     it "identifies sets that only apply to plus cards" do
       expect(Card.fetch("*all").junction_only?).to be_falsey
