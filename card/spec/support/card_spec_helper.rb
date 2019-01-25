@@ -35,6 +35,10 @@ class Card
       expect(card_subject.content)
     end
 
+    def sample_voo
+      Card::View.new Card["A"].format, :core
+    end
+
     def sample_pointer
       Card["u1+*roles"]
       # items: r1, r2, r3
@@ -102,8 +106,18 @@ class Card
     module ClassMethods
       def check_views_for_errors *views
         views.flatten.each do |view|
-          it_behaves_like "view without errors", view
+          include_context "view without errors", view
         end
+      end
+
+      def check_format_for_view_errors format_module
+        views = Card::Set::Format::AbstractFormat.views[format_module].keys
+        check_views_for_errors *views
+      end
+
+      def check_html_views_for_errors
+        html_format_class = described_class.const_get("HtmlFormat")
+        check_format_for_view_errors html_format_class
       end
     end
   end

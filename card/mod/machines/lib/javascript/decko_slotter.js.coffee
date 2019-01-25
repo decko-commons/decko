@@ -2,7 +2,7 @@ $(window).ready ->
   $('body').on 'ajax:success', '.slotter', (event, data, c, d) ->
     unless event.slotSuccessful
       $this = $(this)
-      $this.slotSuccess data, $this.hasClass("_slotter-overlay")
+      $this.slotSuccess data, $this
       if $this.hasClass "close-modal"
         $this.closest('.modal').modal('hide')
       # should scroll to top after clicking on new page
@@ -16,7 +16,7 @@ $(window).ready ->
       event.slotSuccessful = true
 
   $('body').on 'ajax:error', '.slotter', (event, xhr) ->
-    $(this).slotError xhr.status, xhr.responseText
+    $(this).slotError xhr.status, xhr.responseText, $(this)
 
   $('body').on 'click', 'button.slotter', (event)->
     return false if !$.rails.allowAction $(this)
@@ -26,7 +26,10 @@ $(window).ready ->
     $.rails.handleRemote $(this)
 
   $('body').on 'click', '[data-dismiss="overlay"]', (event) ->
-    $(this).slot().remove()
+    $(this).slot().removeOverlay()
+
+  $('body').on 'click', '._close-and-success', (event) ->
+    $(this).closest('.slotter').data("slotter-mode", "standard").addClass("close-modal")
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     return if opt.skip_before_send

@@ -1,4 +1,3 @@
-
 # must be called on all actions and before :set_name, :process_subcards and
 # :validate_delete_children
 event :assign_action, :initialize, when: :actionable? do

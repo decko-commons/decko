@@ -26,7 +26,7 @@ format :html do
 
   view :new_buttons do
     button_formgroup do
-      [standard_submit_button, invite_button].compact
+      [standard_create_button, invite_button].compact
     end
   end
 

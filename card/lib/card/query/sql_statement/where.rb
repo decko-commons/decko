@@ -1,4 +1,3 @@
-
 class Card
   module Query
     class SqlStatement
@@ -23,6 +22,7 @@ class Card
         def conditions_from subqueries
           subqueries.map do |query|
             next if query.conditions_on_join
+
             case query.fasten
             when :exist     then exist_condition query
             when :in        then in_condition query
@@ -67,6 +67,7 @@ class Card
         # only applies to card queries
         def implicit_conditions query
           return unless query.is_a?(CardQuery)
+
           table = query.table_alias
           [trash_condition(table), permission_conditions(table)].compact * " AND "
         end
@@ -77,6 +78,7 @@ class Card
 
         def permission_conditions table
           return if Auth.always_ok?
+
           read_rules = Auth.as_card.read_rules
           read_rule_list = read_rules.present? ? read_rules.join(",") : 1
           "#{table}.read_rule_id IN (#{read_rule_list})"

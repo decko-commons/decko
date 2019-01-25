@@ -28,6 +28,7 @@ gem 'thin'
 
 <% if options['mod-dev'] || options['core-dev'] -%>
 group :test do
+  gem 'capybara-puma'
   gem 'rspec'
   gem 'rspec-rails', '~>3.6.1'         # behavior-driven-development suite
   gem 'spork', '>=0.9'
@@ -36,6 +37,9 @@ group :test do
 end
 
 group :test, :development do
+  gem 'colorize'
+  gem 'cypress-on-rails', '~> 1.2'
+  gem 'delayed_job_active_record', '~> 4.1'
   gem 'html2haml'
   gem 'rails-dev-tweaks'
   # gem 'jasmine'
@@ -43,8 +47,9 @@ group :test, :development do
   # gem 'jasmine-jquery-rails'
   gem 'sprockets' # just so above works
   gem 'phantomjs', '1.9.7.1' #locked because 1.9.8.0 is breaking
-  gem 'colorize'
-  gem 'delayed_job_active_record', '~> 4.1'
+
+  gem 'better_errors'
+  gem 'binding_of_caller'
 
   <%- if spring_install? %>
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -89,8 +94,8 @@ group :test do
   end
 
   # CUKES see features dir
-  gem 'cucumber-rails', '~> 1.5', :require=>false # feature-driven-development suite
-  gem 'capybara', '~> 2.14'
+  gem 'cucumber-rails', '~> 1.6', :require=>false # feature-driven-development suite
+  gem 'capybara', '~> 3.12'
   gem 'selenium-webdriver', '3.6.0'
   gem 'chromedriver-helper', '~> 1.1.0'
   # gem 'capybara-webkit'
@@ -109,11 +114,6 @@ group :test do
 end
 
 gem 'ruby-prof', :group=>:profile  # profiling
-
-group :debug do
-  gem 'better_errors'
-  gem 'binding_of_caller'
-end
 <% end %>
 
 # load gems needed in Gemfiles

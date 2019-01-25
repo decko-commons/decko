@@ -31,12 +31,14 @@ class Card
       # @return [{Card::Cache}]
       def [] klass
         raise "nil klass" if klass.nil?
+
         cache_type = persistent_cache || nil
         cache_by_class[klass] ||= new class: klass, store: cache_type
       end
 
       def persistent_cache
-        return @persistent_cache if !@persistent_cache.nil?
+        return @persistent_cache unless @persistent_cache.nil?
+
         @persistent_cache =
           case
           when ENV["NO_RAILS_CACHE"]          then false
@@ -51,7 +53,7 @@ class Card
         renew_persistent
         cache_by_class.each_value do |cache|
           cache.soft.reset
-          cache.hard.renew if cache.hard
+          cache.hard&.renew
         end
       end
 
@@ -79,7 +81,7 @@ class Card
       def reset_global
         cache_by_class.each_value do |cache|
           cache.soft.reset
-          cache.hard.annihilate if cache.hard
+          cache.hard&.annihilate
         end
         reset_other
       end
@@ -88,7 +90,7 @@ class Card
       def reset_hard
         Card::Cache::Persistent.reset if persistent_cache
         cache_by_class.each_value do |cache|
-          cache.hard.reset if cache.hard
+          cache.hard&.reset
         end
       end
 
@@ -144,7 +146,7 @@ class Card
     # @param key [String]
     # @param value
     def write key, value
-      @hard.write key, value if @hard
+      @hard&.write key, value
       @soft.write key, value
     end
 
@@ -159,21 +161,20 @@ class Card
     # delete specific cache entries by key
     # @param key [String]
     def delete key
-      @hard.delete key if @hard
+      @hard&.delete key
       @soft.delete key
     end
 
     # reset both caches (for a given Card::Cache instance)
     def reset
-      @hard.reset if @hard
+      @hard&.reset
       @soft.reset
     end
 
     # test for the existence of the key in either cache
     # @return [true/false]
     def exist? key
-      @soft.exist?(key) || (@hard && @hard.exist?(key))
+      @soft.exist?(key) || (@hard&.exist?(key))
     end
   end
 end
-

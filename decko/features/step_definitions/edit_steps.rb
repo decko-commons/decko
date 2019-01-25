@@ -60,8 +60,7 @@ When /^(.*) edits? "([^"]*)" entering "([^"]*)" into wysiwyg$/ do |username, car
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     page.execute_script "$('#main .d0-card-content').val('#{content}')"
-    click_button "Submit"
-    wait_for_ajax
+    submit
   end
 end
 
@@ -69,9 +68,13 @@ When /^(.*) edits? "([^"]*)" setting (.*) to "([^"]*)"$/ do |username, cardname,
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     set_content "card[content]", content
-    click_button "Submit"
-    wait_for_ajax
+    submit
   end
+end
+
+def submit
+  click_button "Save and Close"
+  wait_for_ajax
 end
 
 When /^(.*) edits? "([^"]*)" filling in "([^"]*)"$/ do |_username, cardname, content|
@@ -85,8 +88,7 @@ When /^(.*) edits? "([^"]*)" with plusses:/ do |username, cardname, plusses|
     plusses.hashes.first.each do |name, content|
       set_content "card[subcards][+#{name}][content]", content
     end
-    click_button "Submit"
-    wait_for_ajax
+    submit
   end
 end
 
@@ -153,7 +155,7 @@ def escape_quotes content
 end
 
 def find_editor selector
-  editors = all(selector)
+  editors = all(selector, wait: false)
   return unless editors.present?
   yield editors
   true

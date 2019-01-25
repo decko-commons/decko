@@ -5,6 +5,8 @@ decko.slotReady (slot) ->
     opts = { dropdownAutoWidth: "true", containerCssClass: ":all:", width: "auto" }
     if $(this).hasClass("tags")
       opts.tags = "true"
+    if $(this).data("minimum-results-for-search")?
+      opts.minimumResultsForSearch = $(this).data("minimum-results-for-search")
     $(this).select2(opts)
 
   # TODO: move to better place

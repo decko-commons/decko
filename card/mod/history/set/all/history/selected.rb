@@ -1,4 +1,3 @@
-
 # if these aren't in a nested module, the methods just overwrite the base
 #  methods, but we need a distinct module so that super will be able to refer to
 # the base methods.
@@ -14,6 +13,7 @@ end
 def select_action_by_params params
   action = nth_action(params[:rev]) || action_from_id(params[:rev_id])
   return unless action
+
   select_action action.id
 end
 

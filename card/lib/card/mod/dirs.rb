@@ -1,5 +1,4 @@
 class Card
-
   class << self
     def config
       Cardio.config
@@ -86,12 +85,16 @@ class Card
 
       def gem_mod mod_name, path=nil
         path ||= Cardio.gem_mod_paths[mod_name]
-        raise Error, "Unknown gem mod \"#{mod_name}\". Make sure it is in your Gemfile." unless path
+        unless path
+          raise Error, "Unknown gem mod \"#{mod_name}\". Make sure it is in your Gemfile."
+        end
+
         add_gem_mod mod_name, path
       end
 
       def add_gem_mod mod_name, mod_path
         return if @loaded_gem_mods.include?(mod_name)
+
         @loaded_gem_mods << mod_name
         add_path mod_name, mod_path
       end
@@ -111,6 +114,7 @@ class Card
         super() do |path|
           dirname = type ? File.join(path, type.to_s) : path
           next unless Dir.exist? dirname
+
           yield dirname
         end
       end
@@ -119,6 +123,7 @@ class Card
         @mods.each do |mod|
           path = tmp_dir mod, type
           next unless Dir.exist? path
+
           yield path
         end
       end
@@ -127,6 +132,7 @@ class Card
         @mods.each do |mod|
           dirname = type ? File.join(@paths[mod], type.to_s) : @paths[mod]
           next unless Dir.exist? dirname
+
           yield dirname, tmp_dir(mod, type)
         end
       end
@@ -135,6 +141,7 @@ class Card
         @mods.each do |mod|
           path = File.join(@paths[mod], "public", "assets")
           next unless Dir.exist? path
+
           yield mod, path
         end
       end
@@ -144,12 +151,14 @@ class Card
       def load_from_modfile
         modfile_path = File.join @current_path, "Modfile"
         return unless File.exist? modfile_path
+
         eval File.read(modfile_path), binding
       end
 
       def load_from_dir
         Dir.entries(@current_path).sort.each do |filename|
           next if filename =~ /^\./
+
           add_path filename
         end.compact
       end

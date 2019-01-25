@@ -106,6 +106,7 @@ class Card
     # @return [Symbol]
     def action_type
       return :draft if draft
+
       TYPE_OPTIONS[read_attribute(:action_type)]
     end
 
@@ -118,6 +119,7 @@ class Card
     # @see #interpret_value #interpret_value for return values
     def value field
       return unless (change = change field)
+
       interpret_value field, change.value
     end
 
@@ -127,6 +129,7 @@ class Card
     def previous_value field
       return if action_type == :create
       return unless (previous_change = previous_change field)
+
       interpret_value field, previous_change.value
     end
 
@@ -142,8 +145,9 @@ class Card
     # @return [Change]
     def previous_change field
       return nil if action_type == :create
+
       field = interpret_field field
-      if @previous_changes && @previous_changes.key?(field)
+      if @previous_changes&.key?(field)
         @previous_changes[field]
       else
         @previous_changes ||= {}
@@ -172,7 +176,7 @@ class Card
 
     # all changed values in hash form. { field1: new_value }
     def changed_values
-      @changed_values ||= changes.each_with_object({}) do |(key,change), h|
+      @changed_values ||= changes.each_with_object({}) do |(key, change), h|
         h[key] = change.value
       end
     end
@@ -180,6 +184,7 @@ class Card
     # @return [Hash]
     def current_changes
       return {} unless card
+
       @current_changes ||=
         Card::Change::TRACKED_FIELDS.each_with_object({}) do |field, hash|
           hash[field.to_sym] = Card::Change.new field: field,
@@ -209,10 +214,10 @@ class Card
     def interpret_value field, value
       case field.to_sym
       when :type_id
-        value && value.to_i
+        value&.to_i
       when :cardtype
         type_card = value && Card.quick_fetch(value.to_i)
-        type_card && type_card.name.capitalize
+        type_card&.name&.capitalize
       else value
       end
     end

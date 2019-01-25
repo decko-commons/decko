@@ -12,11 +12,13 @@ end
 
 def content
   return "" unless left
+
   item_names.map { |item| "[[#{item}]]" }.join "\n"
 end
 
 def item_names _args={}
   return [] unless left
+
   left.follow_set_card.prototype.follower_names
 end
 

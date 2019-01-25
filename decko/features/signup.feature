@@ -8,8 +8,8 @@ Feature: Signing up
   Background:
     Given I am signed in as "Joe Admin"
     And I edit "Sign up+*type+*captcha"
-    And I uncheck "Content"
-    And I press "Submit"
+    And I uncheck "content"
+    And I press "Save and Close"
     And I wait for ajax response
     # By default decks are configured to require approval
     Given Joe Admin creates Pointer card "User+*type+*create" with content "[[Anyone]]"

@@ -6,6 +6,7 @@ class Card
       # @return [rendered diff]
       def name_diff opts={}
         return unless new_name?
+
         diff_object(:name, opts).complete
       end
 
@@ -19,6 +20,7 @@ class Card
       # compare action's cardtype value with previous cardtype value
       def cardtype_diff opts={}
         return unless new_type?
+
         diff_object(:cardtype, opts).complete
       end
 
@@ -32,6 +34,7 @@ class Card
       # compare action's content value with previous content value
       def content_diff diff_type=:expanded, opts=nil
         return unless new_content?
+
         dobj = content_diff_object(opts)
         diff_type == :summary ? dobj.summary : dobj.complete
       end

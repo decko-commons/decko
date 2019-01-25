@@ -12,6 +12,7 @@ class Card
       # move to Set::Pattern?
       def num_set_parts pattern_code
         return 1 if pattern_code == :abstract
+
         Pattern.find(pattern_code).anchor_parts_count
       end
 
