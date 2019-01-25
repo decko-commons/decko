@@ -259,10 +259,12 @@ $d-yellow-2: #ffa;
   display: inline;
 }
 
-
 .navbox-item-label {
   float: left;
   position: relative;
+}
+.navbox-item-value mark {
+  padding: 0.2em 0;
 }
 
 
@@ -888,24 +890,23 @@ html>body .open-view {
   }
 }
 
-.closed-content a.external-link,
 a.external-link {
-  color: #03998d !important;
-  background: none !important;
-  padding-right: 2px !important;
-  position: relative;
+  // color: $warning;
+  &:after {
+    content: "\f08e";
+    right: -2px;
+    position: relative;
+    bottom: 4px;
+    font-family: fontAwesome;
+    font-size: 8px;
+    text-decoration: none !important;
+    display: inline;
+  }
 }
 
-.closed-content a.external-link:after,
-a.external-link:after {
-  content: "\f08e";
-  right: -2px;
-  position: relative;
-  bottom: 4px;
-  font-family: fontAwesome;
-  font-size: 8px;
-  text-decoration: none !important;
-  display: inline;
+a.external-link,
+.closed-content a.external-link {
+  padding-right: 2px !important;
 }
 
 /*-------------------------- */
