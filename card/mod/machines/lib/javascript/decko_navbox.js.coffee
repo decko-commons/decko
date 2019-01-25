@@ -42,7 +42,7 @@ navboxize = (results) ->
   term = results.term
   if results["search"]
     # id is what the form sends
-    items.push navboxItem(prefix: "search", id: term, text: term)
+    items.push navboxItem(prefix: "search", id: term[0], text: term[1])
 
   $.each ['add', 'new'], (index, key) ->
     if val = results[key]
