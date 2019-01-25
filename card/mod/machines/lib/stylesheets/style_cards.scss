@@ -486,7 +486,7 @@ a.missing-link {
 /*- Lists            - */
 /*-------------------- */
 
-.pointer-radio-list {
+.pointer-radio-list, .filtered-list-review {
     list-style-type: none;
 }
 
@@ -953,6 +953,9 @@ a.external-link,
 }
 
 // Bridge
+._modal-fallback {
+  z-index: 1010;
+}
 .modal-header .card-title {
   margin-bottom: 0;
 }

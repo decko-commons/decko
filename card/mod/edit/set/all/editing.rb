@@ -43,19 +43,6 @@ format :html do
     end
   end
 
-
-  view :edit_in_place, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
-    with_nest_mode :edit do
-      card_form :update, success: { view: :editable } do
-        [
-          edit_view_hidden,
-          _render_content_formgroup,
-          _render_edit_in_place_buttons
-        ]
-      end
-    end
-  end
-
   def edit_form_opts
     # for override
     { "data-slot-selector": "#main > .card-slot", "data-slot-error-selector": ".card-slot" }
@@ -65,93 +52,12 @@ format :html do
     # for override
   end
 
-  view :edit_name_row do
-    edit_row_fixed_width "Name", card.name, :edit_name_form
-  end
-
-  view :edit_type_row do
-    edit_row_fixed_width "Type", link_to_card(card.type), :edit_type_form
-  end
-
-  view :edit_row, wrap: { div: { class: "row" }} do
-    ["<label class='col-sm-1'>#{render_title}</label>",
-     "<div class='col-sm-11'>#{render_editable}</div>"]
-  end
-
-  view :editable, perms: :update, tags: :unknown_ok do
-    link =
-      link_to_view :edit_in_place, fa_icon(:edit), class: "ml-2 edit-link slotter"
-    wrap { [render_core, link] }
-  end
-
-  def edit_row_fixed_width title, content, edit_view
-    class_up "card-slot", "d-flex", true
-    link = link_to_view edit_view, fa_icon(:edit), class: "ml-auto edit-link slotter"
-
-    wrap do
-      ["<label class='w-50px'>#{title}</label>",
-       content,
-       link]
-    end
-  end
-
   view :edit_buttons do
     button_formgroup do
       wrap_with "div", class: "d-flex" do
         [standard_submit_button, edit_cancel_button, delete_button]
       end
     end
-  end
-
-  view :edit_in_place_buttons do
-    button_formgroup do
-      wrap_with "div", class: "d-flex" do
-        [standard_save_button, cancel_in_place_button, delete_button]
-      end
-    end
-  end
-
-  def standard_submit_button
-     standard_save_button + standard_save_and_close_button
-  end
-
-  def standard_save_button
-    submit_button(class: "submit-button btn-sm mr-3", text: "Save")
-  end
-
-  # @param close: [:modal, :overlay]stand
-  def standard_save_and_close_button close: :modal
-    submit_button(class: "submit-button btn-sm mr-3 _close-#{close}-on-success",
-                  text: "Save and Close", "data-cy": "submit-#{close}")
-  end
-
-  def edit_cancel_button
-    modal_close_button "Cancel", situation: "secondary", class: "btn-sm"
-  end
-
-  def standard_cancel_button args={}
-    args.reverse_merge! class: "cancel-button ml-4", href: path
-    cancel_button args
-  end
-
-  def cancel_in_place_button args={}
-    args.reverse_merge! class: "cancel-button btn-sm", href: path(view: :editable)
-    cancel_button args
-  end
-
-  def delete_button opts={}
-    link_to "Delete", delete_button_opts(opts)
-  end
-
-  def delete_button_opts opts={}
-    add_class opts,  "slotter btn btn-outline-danger ml-auto btn-sm"
-    opts["data-confirm"] = opts.delete(:confirm) ||
-      "Are you sure you want to delete #{safe_name}?"
-    success = opts.delete(:success) ||
-      (main? ? "REDIRECT: *previous" : { view: :just_deleted })
-    opts[:path] = { action: :delete, success: success }
-    opts[:remote] = true
-    opts
   end
 
   # TODO: add undo functionality

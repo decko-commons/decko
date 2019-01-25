@@ -22,6 +22,13 @@ addModalDialogClasses = ($modal_slot, $link) ->
 
 
 decko.slotReady (slot) ->
+  $('body').on 'hidden.bs.modal', (_event) ->
+    if $("._modal-fallback").length > 0
+      modal = $($("._modal-fallback")[0]).detach()
+      modal.addClass("_modal-slot").removeClass("_modal-fallback")
+      $("body > ._modal-slot").replaceWith(modal)
+
+
   # this finds ._modal-slots and moves them toa the end of the body
   # this allows us to render modal slots inside slots that call them and yet
   # avoid associated problems (eg nested forms and unintentional styling)

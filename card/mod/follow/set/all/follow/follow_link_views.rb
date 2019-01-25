@@ -24,6 +24,6 @@ format :html do
   end
 
   view :follow_button, cache: :never do
-    follow_link
+    follow_button
   end
 end

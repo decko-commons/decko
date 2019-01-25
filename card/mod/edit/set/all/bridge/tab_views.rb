@@ -19,7 +19,7 @@ format :html do
     bridge_pills bridge_pill_items(RELATED_ITEMS, "Related")
   end
 
-  view :rules_tab do
+  view :rules_tab, tag: :unknown_ok do
     class_up "card-slot", "flex-column", true
     wrap do
       nest current_set_card, view: :bridge_rules_tab
@@ -67,6 +67,7 @@ format :html do
         add_class opts, classes if classes
         opts.deep_merge! extra_opts
       end
+      opts["data-cy"] = "#{text.to_name.key}-pill"
       add_class opts, "nav-link"
       link_to_card [card, field], text,  opts
     end

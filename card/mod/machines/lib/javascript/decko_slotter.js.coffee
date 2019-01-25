@@ -9,6 +9,9 @@ $(window).ready ->
 
       if $this.hasClass "_close-modal"
         $this.closest('.modal').modal('hide')
+
+
+
       # should scroll to top after clicking on new page
       if $this.hasClass "card-paging-link"
         slot_top_pos = $this.slot().offset().top

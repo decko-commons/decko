@@ -8,7 +8,13 @@ format :html do
   end
 
   def class_down klass, classier
-    class_list.delete klass if class_list[klass] == classier
+    return unless class_list[klass]
+
+    if class_list[klass] == classier
+      class_list.delete klass
+    else
+      class_list[klass].gsub!(/#{classier}\s?/, "")
+    end
   end
 
   def with_class_up klass, classier, force=false

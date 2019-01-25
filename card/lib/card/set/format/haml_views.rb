@@ -75,7 +75,6 @@ class Card
         end
 
         def haml_to_html haml, locals={}, a_binding=nil, debug_info={}
-          # binding.pry unless haml.include? ".panel.panel-primary"
           a_binding ||= binding
           ::Haml::Engine.new(haml).render a_binding, locals || {}
         rescue Haml::SyntaxError => e

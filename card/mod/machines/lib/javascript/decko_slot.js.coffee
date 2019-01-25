@@ -30,7 +30,7 @@ $.extend decko,
 
 jQuery.fn.extend {
   slot: (status="success", mode="normal") ->
-    if mode == "modal"
+    if mode == "modal" || mode == "modalstack"
       modalSlot()
     else
       @selectSlot("slot-#{status}-selector") ||
@@ -106,8 +106,15 @@ jQuery.fn.extend {
 
   showAsModal: ($slotter) ->
     el = @modalify($slotter)
-    $("body > ._modal-slot").replaceWith el
-    $('.modal-backdrop').remove();
+    if $("body > ._modal-slot").is(":visible") &&
+       $slotter.data("slotter-mode") == "modalstack"
+      mslot = $("body > ._modal-slot").detach()
+      mslot.removeClass("_modal-slot").addClass("_modal-fallback")
+      mslot.insertAfter(".modal-backdrop")
+      el.insertBefore(".modal-backdrop")
+    else
+      $("body > ._modal-slot").replaceWith el
+
     el.modal("show", $slotter)
 
   addOverlay: (overlay) ->
