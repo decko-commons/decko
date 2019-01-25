@@ -58,7 +58,7 @@ class Card
         end
 
         def bad_attribute! attribute
-          raise Card::Error::BadQuery, "Invalid attribute #{attribute}"
+          raise Error::BadQuery, "Invalid attribute: #{attribute}"
         end
 
         def relate_compound key, val
