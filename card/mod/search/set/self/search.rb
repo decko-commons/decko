@@ -51,7 +51,7 @@ format :json do
 
     {
       search: true,
-      term: [term, h(term)],
+      term: term,
       add: add_item(exact),
       new: new_item_of_type(exact),
       goto: goto_items(term, exact)
