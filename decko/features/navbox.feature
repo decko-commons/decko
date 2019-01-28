@@ -21,7 +21,7 @@ Feature: Navbox
   Scenario: paging
     Given I go to the homepage
     When I enter "skin" in the navbox
-    Then I should see "search: skin"
+    Then I should see in search "search: skin"
     Then I press enter to search
     Then I should see "Search results"
     And I should see "cerulean skin"

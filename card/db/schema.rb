@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2018_05_14_152037) do
   create_table "card_virtuals", id: :integer, force: :cascade do |t|
     t.integer "left_id"
     t.integer "right_id"
+    t.string "left_key"
     t.text "content", limit: 16777215
     t.index ["left_id"], name: "right_id_index"
     t.index ["right_id"], name: "left_id_index"

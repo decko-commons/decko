@@ -83,6 +83,7 @@ format :html do
     type_card = Card[type_codename]
     res = Card.search type_id: type_card.id, return: :name, sort: "name", dir: order
     return res unless max_length
+
     res.map { |i| [trim_option(i, max_length), i] }
   end
 

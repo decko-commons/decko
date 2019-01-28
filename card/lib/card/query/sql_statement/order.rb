@@ -5,12 +5,12 @@ class Card
     # @mods[:dir]
     class SqlStatement
       ORDER_MAP = {
-        "id"        => "id",
-        "update"    => "updated_at",
-        "create"    => "created_at",
-        "name"      => "key",
-        "content"   => "db_content",
-        "alpha"     => "key",       # DEPRECATED
+        "id" => "id",
+        "update" => "updated_at",
+        "create" => "created_at",
+        "name" => "key",
+        "content" => "db_content",
+        "alpha" => "key",       # DEPRECATED
         "relevance" => "updated_at" # DEPRECATED
       }.freeze
 
@@ -47,6 +47,7 @@ class Card
         def order_as
           field = yield
           return field unless (as = @mods[:sort_as])
+
           "CAST(#{field} AS #{cast_type(safe_sql(as))})"
         end
 

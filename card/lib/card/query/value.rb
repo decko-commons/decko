@@ -30,6 +30,7 @@ class Card
         unless (target = OPERATORS[@operator.to_s])
           raise Error::BadQuery, "Invalid operator: #{@operator}"
         end
+
         @operator = target
       end
 

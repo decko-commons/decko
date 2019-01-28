@@ -6,6 +6,11 @@ When /^(?:|I )enter "([^"]*)" into "([^"]*)"$/ do |value, field|
   find(selector).set value
 end
 
+When /^(?:|I )enter "([^"]*)" into "([^"]*)" in modal$/ do |value, field|
+  selector = ".modal .RIGHT-#{field.to_name.safe_key} input.d0-card-content"
+  find(selector).set value
+end
+
 When /^In (.*) I follow "([^"]*)"$/ do |section, link|
   within scope_of(section) do
     click_link link
@@ -114,7 +119,7 @@ module Capybara
         # descendant-or-self::text doesn't find it
         first :xpath,
               "//label[descendant-or-self::text()='#{label}']/..//#{type}",
-              options.merge(wait: 5)
+              options.merge(wait: 5, minimum: 0)
       end
     end
   end

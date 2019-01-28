@@ -24,6 +24,7 @@ format do
 
   def query_params
     return nil unless (vars = params[:query])
+
     Card.safe_param vars
   end
 
@@ -39,6 +40,7 @@ format :html do
 
   def extra_paging_path_args
     return {} unless (vars = query_params)
+
     { query: vars }
   end
 end

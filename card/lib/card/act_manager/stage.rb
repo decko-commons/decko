@@ -1,8 +1,8 @@
 class Card
   class ActManager
     module Stage
-      STAGES = [:initialize, :prepare_to_validate, :validate, :prepare_to_store,
-                :store, :finalize, :integrate, :after_integrate, :integrate_with_delay].freeze
+      STAGES = %i[initialize prepare_to_validate validate prepare_to_store
+                  store finalize integrate after_integrate integrate_with_delay].freeze
       stage_index = {}
       STAGES.each_with_index do |stage, i|
         stage_index[stage] = i
@@ -22,9 +22,9 @@ class Card
       def stage_index stage
         case stage
         when Symbol then
-          return STAGE_INDEX[stage]
+          STAGE_INDEX[stage]
         when Integer then
-          return stage
+          stage
         else
           raise Card::Error, "not a valid stage: #{stage}"
         end
@@ -36,7 +36,7 @@ class Card
           (opts[:before] && before?(opts[:before])) ||
           (opts[:after] && after?(opts[:after])) ||
           true # no phase restriction in opts
-        )
+      )
       end
 
       def before? allowed_phase

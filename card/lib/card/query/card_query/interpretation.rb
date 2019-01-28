@@ -54,6 +54,7 @@ class Card
 
         def non_standard_attribute attribute
           return if attribute == :ignore
+
           bad_attribute! attribute
         end
 

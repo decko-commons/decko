@@ -58,6 +58,12 @@ class Card
       def cache
         Card::Cache[Card::Act]
       end
+
+      # used by rails time_ago
+      # timestamp is set by rails on create
+      def timestamp_attributes_for_create
+        super << "acted_at"
+      end
     end
 
     def actor
@@ -68,7 +74,8 @@ class Card
     # @return [Card]
     def card
       res = Card.fetch card_id, look_in_trash: true, skip_modules: true
-      return res unless res && res.type_id.in?([FileID, ImageID])
+      return res unless res&.type_id&.in?([FileID, ImageID])
+
       res.include_set_modules
     end
 
@@ -76,6 +83,7 @@ class Card
     # @return [Array]
     def actions cached=true
       return ar_actions unless cached
+
       self.class.cache.fetch("#{id}-actions") { ar_actions.find_all.to_a }
     end
 
@@ -119,12 +127,6 @@ class Card
     # used by before filter
     def assign_actor
       self.actor_id ||= Auth.current_id
-    end
-
-    # used by rails time_ago
-    # timestamp is set by rails on create
-    def self.timestamp_attributes_for_create
-      super << "acted_at"
     end
   end
 end

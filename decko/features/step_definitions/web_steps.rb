@@ -128,6 +128,19 @@ Then /^(?:|I )should see "([^"]*)"$/ do |text|
   expect(page).to have_content(text)
 end
 
+Then /^(?:|I )should see in search "([^"]*)"$/ do |text|
+  Capybara.ignore_hidden_elements = false
+  expect(page).to have_content(text)
+  Capybara.ignore_hidden_elements = true
+end
+
+Then /^(?:|I )should see file "([^"]*)"$/ do |text|
+  # for unknown reasons capybara thinks that the file info is not visible
+  Capybara.ignore_hidden_elements = false
+  expect(page).to have_content(text)
+  Capybara.ignore_hidden_elements = true
+end
+
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   expect(page).to_not have_content(text)
 end

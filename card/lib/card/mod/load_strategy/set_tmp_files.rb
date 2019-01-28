@@ -3,11 +3,11 @@ class Card
     class LoadStrategy
       # The {TmpFiles} load strategy version for set modules
       class SetTmpFiles < LoadStrategy::TmpFiles
-
         private
 
         def generate_tmp_files
           return unless prepare_tmp_dir "tmp/set"
+
           @mod_dirs.each_with_tmp(:set) do |mod_dir, mod_tmp_dir|
             Dir.mkdir mod_tmp_dir
             Dir.glob("#{mod_dir}/**/*.rb").each do |abs_path|

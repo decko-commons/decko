@@ -11,6 +11,7 @@ class Card
       # @param format_opts [Hash] opts will be passed on to subformat
       def nest cardish, view_opts={}, format_opts={}
         return "" if nest_invisible?
+
         nest = Card::Format::Nest.new self, cardish, view_opts, format_opts
         nest.prepare do |subformat, view|
           rendered = count_chars { subformat.render view, view_opts }
@@ -53,6 +54,7 @@ class Card
       def count_chars
         result = yield
         return result unless nest_mode == :closed && result
+
         @char_count ||= 0
         @char_count += result.length
         result

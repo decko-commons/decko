@@ -29,11 +29,14 @@ class Card
       # given module and all of its containing modules as described
       # by its fully qualified name in inner-to-outer order.
       def module_path_binding mod
-        raise ArgumentError.new(
-          "Can't determine path nesting for a module with a blank name"
-        ) if mod.name.to_s.empty?
-        m, b = nil, TOPLEVEL_BINDING
-        mod.name.split('::').each do |part|
+        if mod.name.to_s.empty?
+          raise ArgumentError,
+                "Can't determine path nesting for a module with a blank name"
+        end
+
+        m = nil
+        b = TOPLEVEL_BINDING
+        mod.name.split("::").each do |part|
           m, b =
             eval(
               "[ #{part} , #{part}.module_eval('binding') ]",
@@ -41,6 +44,7 @@ class Card
             )
         end
         raise "Module found at name path not same as specified module" unless m == mod
+
         b
       end
     end

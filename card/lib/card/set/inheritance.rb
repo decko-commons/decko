@@ -51,6 +51,7 @@ class Card
         each_format set do |format, format_mods|
           format_sym = Card::Format.format_sym format
           next unless applicable_format?(format_sym, opts[:except], opts[:only])
+
           format_mods.each do |format_mod|
             define_on_format format_sym do
               include format_mod
@@ -67,6 +68,7 @@ class Card
         format_type = "#{set_type}_format".to_sym
         modules[format_type].each_pair do |format, set_format_mod_hash|
           next unless (format_mods = set_format_mod_hash[set.shortname])
+
           yield format, format_mods
         end
       end
@@ -75,6 +77,7 @@ class Card
         format_sym = Card::Format.format_sym format
         return false if except && Array(except).include?(format_sym)
         return false if only && !Array(only).include?(format_sym)
+
         true
       end
     end
