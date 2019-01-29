@@ -163,7 +163,7 @@ format :html do
     case
     when explicit_form_prefix                then explicit_form_prefix # configured
     when form_root? || !form_root || !parent then "card"               # simple form
-    when parent.card == card                 then parent.form_prefix   # card nests self
+    when parent.card.name == card.name       then parent.form_prefix   # card nests self
     else                                          edit_in_form_prefix
     end
   end
