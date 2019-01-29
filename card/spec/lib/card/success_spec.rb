@@ -1,13 +1,15 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Env::Success do
+RSpec.describe Card::Env::Success do
   let(:context) { Card["A"].name }
   let(:previous) { "/B" }
   let(:home)     { Card["Home"] }
+
   def success_params params
     Card::Env.save_location Card["B"]
     @success = Card::Env::Success.new context, params
   end
+
   describe "#target" do
     subject { @success.target }
 
@@ -49,6 +51,7 @@ describe Card::Env::Success do
 
   describe "#to_url" do
     subject { @success.to_url }
+
     context "with params" do
       context "using initilization" do
         before do

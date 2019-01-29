@@ -1,7 +1,7 @@
 format :html do
   view :header do
-    voo.hide :toggle, :toolbar
-    main_header + _render_toolbar.to_s.html_safe
+    voo.hide :toggle
+    main_header
   end
 
   def main_header
@@ -13,16 +13,7 @@ format :html do
   end
 
   def header_title_elements
-    [_render_toggle, _render_title]
-  end
-
-  view :subheader do
-    wrap_with :div, class: "card-subheader bg-primary text-white" do
-      [
-        _render_title,
-        (autosaved_draft_link(class: "float-right") if show_draft_link?)
-      ]
-    end
+    [_render_toggle, _render_title, _render_menu]
   end
 
   def show_draft_link?

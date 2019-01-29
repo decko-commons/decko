@@ -54,14 +54,13 @@ def setting_codenames_by_group
 end
 
 def visible_setting_codenames
-  @visible_settings ||=
-    Card::Setting.groups.values.flatten.compact.select do |setting|
-      setting.applies_to_cardtype(prototype.type_id)
-    end.map(&:codename)
+  @visible_setting_codenames ||= visible_settings.map(&:codename)
 end
 
-def visible_settings group
-  Card::Setting.groups[group].reject do |setting|
+def visible_settings group=nil
+  settings =
+    (group && Card::Setting.groups[group]) || Card::Setting.groups.values.flatten.compact
+  settings.reject do |setting|
     !setting || !setting.applies_to_cardtype(prototype.type_id)
   end
 end

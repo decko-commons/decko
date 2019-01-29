@@ -3,7 +3,7 @@ format :html do
     filtered_list_input
   end
 
-  view :filter_items, tags: :unknown_ok, cache: :never do
+  view :filter_items, tags: :unknown_ok, cache: :never, wrap: :modal do
     wrap { haml :filter_items }
   end
 

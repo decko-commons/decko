@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require "card/version"
 
 class RequireEarlierMigrations < ActiveRecord::Migration[4.2]

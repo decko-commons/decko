@@ -10,6 +10,7 @@ end
 event :update_structurees_references, :integrate,
       when: :update_structurees_references? do
   return unless (query = structuree_query)
+
   Auth.as_bot do
     query.run.each(&:update_references_out)
   end
@@ -32,6 +33,7 @@ end
 
 def structuree_names
   return [] unless (query = structuree_query(return: :name))
+
   Auth.as_bot do
     query.run
   end
@@ -54,5 +56,6 @@ end
 def structuree_query args={}
   set_card = trunk
   return unless set_card.type_id == SetID
+
   set_card.fetch_query args
 end

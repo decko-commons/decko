@@ -1,4 +1,3 @@
-
 def restrictive_option?
   Card::FollowOption.restrictive_options.include? codename
 end

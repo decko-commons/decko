@@ -15,6 +15,7 @@ class Card
 
       def prepopulate
         return unless prepopulate?
+
         prepopulate_rule_caches
         # prepopulate_card_cache
       end

@@ -26,6 +26,7 @@ class Card
 
         def conjunction val
           return unless [String, Symbol].member? val.class
+
           CONJUNCTIONS[val.to_sym]
         end
 
@@ -38,6 +39,7 @@ class Card
 
         def conjoinable_val val
           return val if val.is_a? Array
+
           clause_to_hash(val).map { |key, value| { key => value } }
         end
       end

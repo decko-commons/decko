@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Rstar::Rules do
+RSpec.describe Card::Set::Rstar::Rules do
   it "renders setting view for a right set" do
     r = Card["*read+*right"].format.render_open
     expect(r).not_to match(/error/i)

@@ -40,20 +40,19 @@ class Card
 
       # advanced write method
       VIZ_SETTING = { show: :show, true => :show,
-                      hide: :hide, false => :hide, nil => :hide }
+                      hide: :hide, false => :hide, nil => :hide }.freeze
 
       def viz views, setting, force=false
         Array.wrap(views).flatten.each do |view|
           view = view.to_sym
           next if !force && viz_hash[view]
+
           viz_hash[view] = VIZ_SETTING[setting]
         end
       end
 
       def visible? view
-        unless viz_hash[view]
-          viz view, yield
-        end
+        viz view, yield unless viz_hash[view]
         show? view
       end
 
@@ -74,7 +73,7 @@ class Card
 
       # takes an options_hash and processes it to update viz_hash
       def process_visibility options_hash
-        [:hide, :show].each do |setting|
+        %i[hide show].each do |setting|
           list = viz_view_list options_hash.delete(setting)
           viz list, setting, true
         end

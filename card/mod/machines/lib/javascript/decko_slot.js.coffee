@@ -21,15 +21,21 @@ $.extend decko,
 
   slotReady: (func)->
     $('document').ready ->
-      $('body').on 'slotReady', '.card-slot', (e) ->
+      $('body').on 'slotReady', '.card-slot', (e, slotter) ->
         e.stopPropagation()
-        func.call this, $(this)
+        if slotter?
+          func.call this, $(this), $(slotter)
+        else
+          func.call this, $(this)
 
 jQuery.fn.extend {
-  slot: (status="success") ->
-    @selectSlot("slot-#{status}-selector") ||
-      @selectSlot("slot-selector") ||
-      @closest(".card-slot")
+  slot: (status="success", mode="normal") ->
+    if mode == "modal"
+      modalSlot()
+    else
+      @selectSlot("slot-#{status}-selector") ||
+        @selectSlot("slot-selector") ||
+        @closest(".card-slot")
 
   selectSlot: (selectorName) ->
     if selector = @data(selectorName)
@@ -68,44 +74,124 @@ jQuery.fn.extend {
     $slot.data "remote", true
     $.rails.handleRemote($slot)
 
-  setSlotContent: (val, _overlay=false) ->
-    s = @slot()
+  setSlotContent: (val, mode, $slotter) ->
     v = $(val)[0] && $(val) || val
+
     if typeof(v) == "string"
-      # needed to support unwrapped views
-      s.replaceWith v
+      # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)
+      @slot("success", mode).replaceWith v
     else
-      s.setSlotContentFromElement v
+      if v.hasClass("_overlay")
+        mode = "overlay"
+      else if v.hasClass("_modal")
+        mode = "modal"
+      @slot("success", mode).setSlotContentFromElement v, mode, $slotter
     v
 
-  setSlotContentFromElement: (el) ->
+  setSlotContentFromElement: (el, mode, $slotter) ->
     s = $(this)
-    if el.hasClass("_overlay")
-      s.wrapAll('<div class="overlay-container">')
-      s.before el
+
+    if mode == "overlay"
+      s.addOverlay(el)
+    else if el.hasClass("_modal-slot") or mode == "modal"
+      el.showAsModal($slotter)
     else
       s.replaceWith el
-    el.triggerSlotReady()
 
-  triggerSlotReady: () ->
-    @trigger "slotReady"
-    @find(".card-slot").trigger "slotReady"
+    el.triggerSlotReady($slotter)
 
-  slotSuccess: (data, overlay) ->
-    if data.redirect
+  triggerSlotReady: (slotter) ->
+    @trigger "slotReady", slotter
+    @find(".card-slot").trigger "slotReady", slotter
+
+  showAsModal: ($slotter) ->
+    el = @modalify($slotter)
+    $("body > ._modal-slot").replaceWith el
+    $('.modal-backdrop').remove();
+    el.modal("show", $slotter)
+
+  addOverlay: (overlay) ->
+    if @parent().hasClass("overlay-container")
+      if $(overlay).hasClass("_stack-overlay")
+        @before overlay
+      else
+        @replaceOverlay(overlay)
+    else
+      @find(".tinymce-textarea").each ->
+        tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
+      @wrapAll('<div class="overlay-container">')
+      @addClass("_bottomlay-slot")
+      @before overlay
+
+
+  replaceOverlay: (overlay) ->
+    @parent().find("._overlay").replaceWith overlay
+    $(".bridge-sidebar .tab-pane:not(.active) .bridge-pills > .nav-item > .nav-link.active").removeClass("active")
+
+  removeOverlay: () ->
+    if @siblings().length == 1
+      bottomlay = $(@siblings()[0])
+      if bottomlay.hasClass("_bottomlay-slot")
+        bottomlay.unwrap().removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
+        bottomlay.find(".tinymce-textarea").each ->
+          decko.initTinyMCE($(this).attr("id"))
+
+    @remove()
+
+  modalify: ($slotter) ->
+    if $slotter.data("modal-body")?
+      @find(".modal-body").append($slotter.data("modal-body"))
+    if @hasClass("_modal-slot")
+      this
+    else
+      modalSlot = $('<div/>', id: "modal-container", class: "modal fade _modal-slot")
+      modalSlot.append(
+        $('<div/>' , class: "modal-dialog").append(
+          $('<div/>', class: "modal-content").append(this)
+        )
+      )
+      modalSlot
+
+  # overlayClosed=true means the bridge update was
+  # triggered by closing an overly
+  updateBridge: (overlayClosed=false, slotter) ->
+    return unless @closest(".bridge").length > 0
+    if @data("breadcrumb")
+      @updateBreadcrumb()
+    else if slotter and $(slotter).data("breadcrumb")
+      $(slotter).updateBreadcrumb()
+
+    if overlayClosed
+      $(".bridge-pills > .nav-item > .nav-link.active").removeClass("active")
+
+  updateBreadcrumb: () ->
+    bc_item = $(".modal-header ._bridge-breadcrumb li:last-child")
+    bc_item.text(this.data("breadcrumb"))
+    bc_item.attr("class", "breadcrumb-item active #{this.data('breadcrumb-class')}")
+
+
+  # mode can be "standard", "overlay" or "modal"
+  slotSuccess: (data, $slotter) ->
+    mode = $slotter.data("slotter-mode")
+    if mode == "silent-success"
+      return
+    else if data.redirect
       window.location=data.redirect
     else
       notice = @attr('notify-success')
-      newslot = @setSlotContent data, overlay
+      mode ||= "standard"
+      newslot = @setSlotContent data, mode, $slotter
 
       if newslot.jquery # sometimes response is plaintext
         decko.initializeEditors newslot
         if notice?
           newslot.notify notice, "success"
 
-  slotError: (status, result) ->
+  slotError: (status, result, $slotter) ->
     if status == 403 #permission denied
       @setSlotContent result
+    else if status == 900
+      $(result).showAsModal $slotter
     else
       @notify result, "error"
       if status == 409 #edit conflict

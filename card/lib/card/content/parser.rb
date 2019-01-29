@@ -21,6 +21,7 @@ class Card
         @content = content
         @chunks = []
         return @chunks unless content.is_a? String
+
         @position = @last_position = 0
         @interval_string = ""
         parse_chunks
@@ -30,7 +31,7 @@ class Card
       private
 
       def parse_chunks
-        prefix_regexp = Chunk.get_prefix_regexp @chunk_list
+        prefix_regexp = Chunk.prefix_regexp @chunk_list
         match_prefices prefix_regexp
         handle_remainder
       end

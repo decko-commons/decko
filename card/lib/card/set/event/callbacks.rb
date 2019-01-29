@@ -5,6 +5,7 @@ class Card
         def set_event_callbacks
           %i[before after around].each do |kind|
             next unless (object_method = @opts.delete kind)
+
             set_event_callback object_method, kind
           end
         end

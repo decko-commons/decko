@@ -8,6 +8,8 @@ class Card
           clause.symbolize_keys!
           clause.each do |key, val|
             next if key.to_sym == :return
+            # when return values are relative, they are relative to the name of the
+            # card returned, not the context card
             clause[key] = normalize_value val
           end
           clause
@@ -19,16 +21,16 @@ class Card
           when String            then { key: clause.to_name.key }
           when Integer           then { id: clause }
           when Symbol            then { id: Card::Codename.id(clause) }
-          else raise Card::Error::BadQuery, "Invalid query args #{clause.inspect}"
+          else raise Error::BadQuery, "Invalid clause: #{clause.inspect}"
           end
         end
 
         def normalize_value val
           case val
-          when Integer, Float, Symbol, Hash then val
+          when Integer, Float, Hash, Symbol then val
           when String                       then normalize_string_value val
           when Array                        then normalize_array_value val
-          else raise Card::Error::BadQuery, "unknown WQL value type: #{val.class}"
+          else raise Error::BadQuery, "Invalid value type: #{val.class} (#{val.inspect})"
           end
         end
 

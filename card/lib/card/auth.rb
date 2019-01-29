@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require_dependency "card/auth/permissions"
 require_dependency "card/auth/proxy"
 require_dependency "card/auth/setup"

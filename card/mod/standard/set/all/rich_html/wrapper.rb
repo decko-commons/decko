@@ -7,6 +7,12 @@ format :html do
     method_wrap :wrap_with, slot, slot_attr, &block
   end
 
+  wrapper :slot do |opts|
+    method_wrap :wrap_with, true, opts do
+      interiour
+    end
+  end
+
   def haml_wrap slot=true, slot_attr={}, &block
     method_wrap :haml_tag, slot, slot_attr, &block
   end
@@ -51,6 +57,7 @@ format :html do
 
   def name_context_slot_option opts
     return unless initial_context_names.present?
+
     opts[:name_context] = initial_context_names.map(&:key) * ","
   end
 
@@ -76,15 +83,24 @@ format :html do
   end
 
   def wrap_body
+    wrap_with(:div, class: body_css_classes) { yield }
+  end
+
+  def haml_wrap_body
+    wrap_body do
+      capture_haml { yield }
+    end
+  end
+
+  def body_css_classes
     css_classes = ["d0-card-body"]
     css_classes += ["d0-card-content", card.safe_set_keys] if @content_body
-    wrap_with :div, class: classy(*css_classes) do
-      yield
-    end
+    classy(*css_classes)
   end
 
   def wrap_main
     return yield if Env.ajax? || params[:layout] == "none"
+
     wrap_with :div, yield, id: "main"
   end
 
@@ -101,4 +117,16 @@ format :html do
       wrap_with(tag, args) { item }
     end.join "\n"
   end
+
+  private
+
+  def html_escape_except_quotes string
+    # to be used inside single quotes (makes for readable json attributes)
+    string.to_s.gsub(/&/,  "&amp;")
+          .gsub(/\'/, "&apos;")
+          .gsub(/>/,  "&gt;")
+          .gsub(/</,  "&lt;")
+  end
+
+  wrapper :div, :div
 end
