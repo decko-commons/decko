@@ -6,6 +6,7 @@ format :html do
   def standard_save_button opts={}
     add_class opts, "submit-button btn-sm mr-3"
     opts[:text] ||= "Save"
+    opts["data-cy"] = "save"
     submit_button opts
   end
 
@@ -13,14 +14,14 @@ format :html do
   #
   def standard_save_and_close_button opts={}
     close = opts.delete(:close) || :modal
-    add_class opts, "submit-button btn-sm mr-3 _close-#{close}-on-success"
+    add_class opts, "submit-button btn-sm mr-3 _close-#{close}-on-success-and-update-origin"
     opts.reverse_merge! text: "Save and Close", "data-cy": "submit-#{close}"
 
     submit_button opts
   end
 
   def standard_cancel_button args={}
-    args.reverse_merge! class: "cancel-button ml-4", href: path
+    args.reverse_merge! class: "cancel-button ml-4", href: path, "data-cy": "cancel"
     cancel_button args
   end
 

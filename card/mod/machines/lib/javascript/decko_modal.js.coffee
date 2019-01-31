@@ -77,5 +77,7 @@ createModalSlot = ->
 openModalIfPresent = (mslot) ->
   modal_content = mslot.find(".modal-content")
   if modal_content.length > 0 && modal_content.html().length > 0
+    $("#main > .card-slot").addClass("_modal-origin")
     mslot.modal("show")
+
 

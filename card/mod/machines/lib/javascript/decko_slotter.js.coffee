@@ -10,8 +10,6 @@ $(window).ready ->
       if $this.hasClass "_close-modal"
         $this.closest('.modal').modal('hide')
 
-
-
       # should scroll to top after clicking on new page
       if $this.hasClass "card-paging-link"
         slot_top_pos = $this.slot().offset().top
@@ -36,10 +34,21 @@ $(window).ready ->
     $(this).slot().removeOverlay()
 
   $('body').on 'click', '._close-overlay-on-success', (event) ->
-    $(this).closest('.slotter').data("slotter-mode", "standard").addClass("_close-overlay")
+    $(this).closest('.slotter').data("slotter-mode", "replace").addClass("_close-overlay")
 
   $('body').on 'click', '._close-modal-on-success', (event) ->
-    $(this).closest('.slotter').data("slotter-mode", "standard").addClass("_close-modal")
+    $(this).closest('.slotter').data("slotter-mode", "replace").addClass("_close-modal")
+
+  $('body').on 'click', '._close-modal-on-success-and-update-origin', (event) ->
+    $(this).closest('.slotter').data("slotter-mode", "update-modal-origin").addClass("_close-modal")
+
+  $('body').on 'submit', 'form.slotter', (event)->
+    if (target = $(this).attr 'main-success') and $(this).isMain()
+      input = $(this).find '[name=success]'
+      if input and input.val() and !(input.val().match /^REDIRECT/)
+        input.val(
+          (if target == 'REDIRECT' then target + ': ' + input.val() else target)
+        )
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     return if opt.skip_before_send
@@ -51,50 +60,41 @@ $(window).ready ->
     if $(this).is('form')
       if decko.recaptchaKey and $(this).attr('recaptcha')=='on' and
           !($(this).find('.g-recaptcha')[0])
-# if there is already a recaptcha on the page then we don't have to
-# load the recaptcha script
-        if $('.g-recaptcha')[0]
-          addCaptcha(this)
-        else
-          initCaptcha(this)
+        loadCaptcha(this)
         return false
 
       if data = $(this).data 'file-data'
 # NOTE - this entire solution is temporary.
         input = $(this).find '.file-upload'
-        if input[1]
-          $(this).notify(
-            "Decko does not yet support multiple files in a single form.",
-            "error"
-          )
-          return false
-
-        widget = input.data 'blueimpFileupload' #jQuery UI widget
-
-        # browsers that can't do ajax uploads use iframe
-        unless widget._isXHRUpload(widget.options)
-# can't do normal redirects.
-          $(this).find('[name=success]').val('_self')
-          # iframe response not passed back;
-          # all responses treated as success.  boo
-          opt.url += '&simulate_xhr=true'
-          # iframe is not xhr request,
-          # so would otherwise get full response with layout
-          iframeUploadFilter = (data)-> data.find('body').html()
-          opt.dataFilter = iframeUploadFilter
-        # gets rid of default html and body tags
-
-        args = $.extend opt, (widget._getAJAXSettings data), url: opt.url
-        # combines settings from decko's slotter and jQuery UI's upload widget
-        args.skip_before_send = true #avoid looping through this method again
-
-        $.ajax( args )
+        decko.uploadWithBlueimp(input, data)
         false
 
-  $('body').on 'submit', 'form.slotter', (event)->
-    if (target = $(this).attr 'main-success') and $(this).isMain()
-      input = $(this).find '[name=success]'
-      if input and input.val() and !(input.val().match /^REDIRECT/)
-        input.val(
-          (if target == 'REDIRECT' then target + ': ' + input.val() else target)
-        )
+$.extend decko,
+  uploadWithBlueimp: (input, data) ->
+    if input[1]
+      $(this).notify(
+        "Decko does not yet support multiple files in a single form.",
+        "error"
+      )
+      return false
+
+    widget = input.data 'blueimpFileupload' #jQuery UI widget
+
+    # browsers that can't do ajax uploads use iframe
+    unless widget._isXHRUpload(widget.options)
+      # can't do normal redirects.
+      $(this).find('[name=success]').val('_self')
+      # iframe response not passed back;
+      # all responses treated as success.  boo
+      opt.url += '&simulate_xhr=true'
+      # iframe is not xhr request,
+      # so would otherwise get full response with layout
+      iframeUploadFilter = (data)-> data.find('body').html()
+      opt.dataFilter = iframeUploadFilter
+    # gets rid of default html and body tags
+
+    args = $.extend opt, (widget._getAJAXSettings data), url: opt.url
+    # combines settings from decko's slotter and jQuery UI's upload widget
+    args.skip_before_send = true #avoid looping through this method again
+
+    $.ajax( args )

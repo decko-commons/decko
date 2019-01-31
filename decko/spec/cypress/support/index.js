@@ -16,7 +16,7 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 import './on-rails'
-import './login'
+import './decko'
 import './bridge'
 
 // Alternatively you can use CommonJS syntax:

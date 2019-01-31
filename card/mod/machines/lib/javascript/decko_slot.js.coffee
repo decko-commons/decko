@@ -1,3 +1,60 @@
+# There are three places that can control what happens after an ajax request
+#  1. the element that triggered the request (eg. a link or a button)
+#  2. the closest ".slotter" element
+#      (if the trigger itself isn't a slotter,
+#       a common example is that a form is a slotter but the form buttons aren't)
+#  3. the slot returned by the request
+#
+# A slot is an element marked with "card-slot" class, a slotter has a "slotter" class.
+# By the default, the closest slot of the slotter is replaced with the new slot that the
+# request returned. The behavior can be changed with css classes and data attributes.
+#
+#  To 1. The trigger element has only a few options to override the slotter.
+#    classes:
+#    "_close-modal-on-success"
+#    "_close-overlay-on-success"
+#
+#  To 2. The slotter is the standard way to define what happens with request result
+#    data:
+#    slot-selector
+#        a css selector that defines which slot will be replaced
+#    slot-success-selector/slot-error-selector
+#        the same as slot-selector but only used
+#        for success case or error case, respectively
+#    update-foreign-slot
+#        a css selector to specify an additional slot that will be
+#        updated after the request
+#    update-foreign-slot-url
+#        a url to fetch the new content for the additional slot
+#        if not given the slot is updated with the same card and view that used before
+#    slotter-mode
+#        possible values are
+#          replace (default)
+#             replace the closest slot with new slot
+#          modal
+#             show new slot in modal
+#          overlay
+#             show new slot in overlay
+#          update-modal-origin
+#             update closest slot of the slotter that opened the modal
+#             (assumes that the request was triggered from a modal)
+#             If you need the update origin together with another mode then use
+#             update-foreign-slot=".card-slot._modal-origin".
+#          silent-success
+#             do nothing
+#
+#    classes:
+#    _close-overlay
+#    _close-modal
+#
+#   To 3. Similar as 1, the slot has a few overlay and modal options.
+#     classes:
+#     _modal
+#        show slot in modal
+#     _overlay
+#        show slot in overlay
+#
+#
 $.extend decko,
   # returns full path with slot parameters
   slotPath: (path, slot)->
@@ -113,7 +170,9 @@ jQuery.fn.extend {
       el.insertBefore(".modal-backdrop")
     else
       $("body > ._modal-slot").replaceWith el
+      $("._modal-origin").removeClass("_modal-origin")
 
+    $slotter.slot().addClass("_modal-origin")
     el.modal("show", $slotter)
 
   addOverlay: (overlay) ->
@@ -175,12 +234,14 @@ jQuery.fn.extend {
     bc_item.text(this.data("breadcrumb"))
     bc_item.attr("class", "breadcrumb-item active #{this.data('breadcrumb-class')}")
 
-
   # mode can be "standard", "overlay" or "modal"
   slotSuccess: (data, $slotter) ->
     mode = $slotter.data("slotter-mode")
     if mode == "silent-success"
       return
+    else if mode == "update-modal-origin" # update slot of the slotter that opened the modal
+      $(".slotter._modal-origin").slot().updateSlot()
+
     else if data.redirect
       window.location=data.redirect
     else

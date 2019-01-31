@@ -3,24 +3,24 @@ format :html do
   # (1) gives CSS classes for styling and
   # (2) adds card data for javascript - including the "card-slot" class,
   #     which in principle is not supposed to be in styles
-  def wrap slot=true, slot_attr={}, &block
-    method_wrap :wrap_with, slot, slot_attr, &block
+  def wrap slot=true, slot_attr={}, tag=:div, &block
+    method_wrap :wrap_with, tag, slot, slot_attr, &block
   end
 
   wrapper :slot do |opts|
-    method_wrap :wrap_with, true, opts do
+    method_wrap :wrap_with, :div, true, opts do
       interior
     end
   end
 
-  def haml_wrap slot=true, slot_attr={}, &block
-    method_wrap :haml_tag, slot, slot_attr, &block
+  def haml_wrap slot=true, slot_attr={}, tag=:div &block
+    method_wrap :haml_tag, tag, slot, slot_attr, &block
   end
 
-  def method_wrap method, slot, slot_attr, &block
+  def method_wrap method, tag, slot, slot_attr, &block
     @slot_view = @current_view
     debug_slot do
-      send method, :div, slot_attributes(slot, slot_attr), &block
+      send method, tag, slot_attributes(slot, slot_attr), &block
     end
   end
 

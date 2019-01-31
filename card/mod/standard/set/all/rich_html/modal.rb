@@ -1,6 +1,7 @@
 format :html do
   MODAL_SIZE = { small: "sm", medium: nil, large: "lg", full: "full" }.freeze
-  MODAL_CLOSE_OPTS = { class: "_close-modal", "data-dismiss": "modal" }.freeze
+  MODAL_CLOSE_OPTS = { class: "_close-modal", "data-dismiss": "modal",
+                       "data-cy": "close-modal" }.freeze
 
   wrapper :modal do |opts={}|
     haml :modal_dialog, body: interior,

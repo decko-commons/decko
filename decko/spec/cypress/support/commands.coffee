@@ -24,8 +24,11 @@
 # -- This is will overwrite an existing command --
 # Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add "el", (id) =>
-  cy.get("[data-cy=#{id}]")
+Cypress.Commands.add "el", prevSubject: "optional", (subject, id) =>
+  if subject?
+    subject.find("[data-cy=#{id}]")
+  else
+    cy.get("[data-cy=#{id}]")
 
 Cypress.Commands.add "tinymce_type", (text) =>
   cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->

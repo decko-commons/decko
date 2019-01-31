@@ -33,10 +33,17 @@ format :html do
   end
 
   def render_outside_of_layout view, args
-    output [
-             render_with_layout(nil, page_layout, {}),
-             render!(view, args)
-           ]
+    body = render_with_layout(nil, page_layout, {})
+    modal = render!(view, args)
+    if body.include?("</body>")
+      # a bit hacky
+      # the problem is that the body tag has to be in the layout
+      # so that you can add layout css classes like <body class="right-sidebar">
+      body.sub!("</body>", "#{modal}</body>")
+    else
+      body += modal
+    end
+    body
   end
 
   def show_layout?
