@@ -11,6 +11,7 @@ end
 
 def filter_wql
   return {} if filter_hash.empty?
+
   filter_wql_from_params
 end
 
@@ -21,6 +22,7 @@ end
 
 def sort_wql
   return {} if !sort? || sort_param.blank?
+
   sort_hash
 end
 
@@ -77,6 +79,7 @@ format :html do
 
   def filter_label field
     return "Keyword" if field.to_sym == :name
+
     filter_label_from_method(field) || filter_label_from_name(field)
   end
 

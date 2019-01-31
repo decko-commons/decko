@@ -47,7 +47,7 @@ class Card
         if !@side.nil?
           @side.to_s.upcase
         else
-          in_or = from && from.is_a?(Card::Query) && from.mods[:conj] == "or"
+          in_or = from&.is_a?(Card::Query) && from.mods[:conj] == "or"
           @side = in_or ? "LEFT" : nil
         end
       end
@@ -68,7 +68,7 @@ class Card
       #
       # In all cases, if the field is not specified, it is assumed to be :id
       def interpret_from_and_to opts
-        [:from, :to].each do |side|
+        %i[from to].each do |side|
           directional_hash_for_object(side, opts[side]).map do |key, value|
             opts[:"#{side}_#{key}"] ||= value
           end
@@ -98,6 +98,7 @@ class Card
 
       def dir_hash_for_join side, object
         raise "to: cannot be Join" if side == :to
+
         dir_hash object.to_table, object.to_alias
       end
 
@@ -113,6 +114,7 @@ class Card
 
       def register_superjoin
         return unless @from.is_a? Join
+
         @superjoin = @from
         @superjoin.subjoins << self
       end

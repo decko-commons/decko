@@ -13,16 +13,16 @@ class Card
 
         {
           refer_to: %w[L I],
-          link_to:  "L",
-          include:  "I"
+          link_to: "L",
+          include: "I"
         }.each do |methodname, reftype|
           define_reference_method methodname, reftype, :referee, :referer_id
         end
 
         {
           referred_to_by: %w[L I],
-          linked_to_by:   "L",
-          included_by:    "I"
+          linked_to_by: "L",
+          included_by: "I"
         }.each do |methodname, reftype|
           define_reference_method methodname, reftype, :referer, :referee_id
         end

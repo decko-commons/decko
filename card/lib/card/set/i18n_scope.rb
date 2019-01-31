@@ -44,27 +44,26 @@ class Card
       end
 
       def find_tmp_set_path backtrace
-        path = backtrace.find {|line| line.include? "tmp/set/"}
-        unless path
-          raise Error, "couldn't find set path in backtrace: #{backtrace}"
-        end
+        path = backtrace.find { |line| line.include? "tmp/set/" }
+        raise Error, "couldn't find set path in backtrace: #{backtrace}" unless path
+
         path
       end
 
       def find_set_path backtrace
-        path = backtrace.find {|line| line =~ %r{(?<!card)/set/}}
-        unless path
-          raise Error, "couldn't find set path in backtrace: #{backtrace}"
-        end
+        path = backtrace.find { |line| line =~ %r{(?<!card)/set/} }
+        raise Error, "couldn't find set path in backtrace: #{backtrace}" unless path
+
         path
       end
 
       # index of the mod part in the tmp path
       def tmp_path_mod_index parts
         unless (set_index = parts.index("set")) &&
-          parts.size >= set_index + 2
+               parts.size >= set_index + 2
           raise Error, "not a valid set path: #{path}"
         end
+
         set_index + 1
       end
 
@@ -76,9 +75,10 @@ class Card
       # index of the mod part in the path
       def path_mod_index parts
         unless (set_index = parts.index("set")) &&
-          parts.size >= set_index + 2
+               parts.size >= set_index + 2
           raise Error, "not a valid set path: #{path}"
         end
+
         set_index - 1
       end
     end

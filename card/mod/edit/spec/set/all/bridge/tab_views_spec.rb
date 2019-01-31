@@ -4,7 +4,6 @@ describe Card::Set::All::Bridge::TabViews do
   check_views_for_errors :engage_tab, :history_tab, :related_tab, :rules_tab,
                          :account_tab, :follow_section
 
-
   specify "view :related_tab" do
     expect_view(:related_tab).to have_tag :ul do
       with_tag "li.nav-item" do
@@ -12,5 +11,4 @@ describe Card::Set::All::Bridge::TabViews do
       end
     end
   end
-
 end

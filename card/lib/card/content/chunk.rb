@@ -28,6 +28,7 @@ class Card
           prefix_map_by_chunkname[klassname] = { prefix_index => klass.config }
           raw_list.each do |key, list|
             next unless list.include? klassname
+
             prefix_map_by_list[key].merge! prefix_map_by_chunkname[klassname]
           end
         end
@@ -37,6 +38,7 @@ class Card
           prefix_map_by_list[key] =
             list.each_with_object({}) do |chunkname, h|
               next unless (p_map = prefix_map_by_chunkname[chunkname])
+
               h.merge! p_map
             end
         end
@@ -80,10 +82,10 @@ class Card
       # not sure whether this is best place.
       # Could really happen almost anywhere
       # (even before chunk classes are loaded).
-      register_list :default, [
-        :URI, :HostURI, :EmailURI, :EscapedLiteral, :Nest, :Link
+      register_list :default, %i[
+        URI HostURI EmailURI EscapedLiteral Nest Link
       ]
-      register_list :references,  [:EscapedLiteral, :Nest, :Link]
+      register_list :references,  %i[EscapedLiteral Nest Link]
       register_list :nest_only, [:Nest]
       register_list :query, [:QueryReference]
       register_list :stub, [:ViewStub]
@@ -146,7 +148,7 @@ class Card
 
         def as_json _options={}
           @process_chunk || @processed ||
-            "not rendered #{self.class}, #{card && card.name}"
+            "not rendered #{self.class}, #{card&.name}"
         end
       end
     end

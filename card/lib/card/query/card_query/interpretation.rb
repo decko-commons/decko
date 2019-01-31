@@ -54,11 +54,12 @@ class Card
 
         def non_standard_attribute attribute
           return if attribute == :ignore
+
           bad_attribute! attribute
         end
 
         def bad_attribute! attribute
-          raise Card::Error::BadQuery, "Invalid attribute #{attribute}"
+          raise Error::BadQuery, "Invalid attribute: #{attribute}"
         end
 
         def relate_compound key, val

@@ -15,6 +15,7 @@ class Card
 
         def sort val
           return nil unless full?
+
           sort_field = val[:return] || "db_content"
           val = val.clone
           item = val.delete(:item) || "left"

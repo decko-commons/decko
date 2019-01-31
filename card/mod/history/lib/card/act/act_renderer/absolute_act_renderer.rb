@@ -19,8 +19,8 @@ class Card
         end
 
         def revert_link
-          revert_actions_link "revert to previous version", revert_to: :previous,
-                              slot_selector: "#main > .card-slot"
+          revert_actions_link "revert to previous version",
+                              revert_to: :previous, slot_selector: "#main > .card-slot"
         end
 
         def actions

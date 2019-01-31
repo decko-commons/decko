@@ -18,7 +18,7 @@ format :html do
   end
 
   view :navbar do
-    class_up "navbox-form", "form-inline col-md-3"
+    class_up "navbox-form", "form-inline col-md-6"
     _render_core
   end
 

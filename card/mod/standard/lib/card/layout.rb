@@ -29,6 +29,7 @@ class Card
 
       def register_layout new_layout
         return if layouts[new_layout]
+
         layouts[new_layout] = block_given? ? yield : {}
       end
 
@@ -56,7 +57,7 @@ class Card
       def main_nest_opts layout_name, format
         opts = layouts[layout_name] ||
                register_layout(layout_name) do
-                  layout_class(layout_name).new(layout_name, format).fetch_main_nest_opts
+                 layout_class(layout_name).new(layout_name, format).fetch_main_nest_opts
                end
         opts.clone
       end

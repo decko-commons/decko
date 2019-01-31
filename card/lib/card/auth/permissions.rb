@@ -12,6 +12,7 @@ class Card
       def always_ok?
         usr_id = as_id
         return false unless usr_id
+
         always_ok_usr_id? usr_id
       end
 

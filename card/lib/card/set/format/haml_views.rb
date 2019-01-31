@@ -84,6 +84,7 @@ class Card
 
         def template_location debug_info
           return "" unless debug_info[:path]
+
           Pathname.new(debug_info[:path])
                   .relative_path_from(Pathname.new(Dir.pwd))
         end

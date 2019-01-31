@@ -11,6 +11,7 @@ class Card
         def match val
           val.gsub!(/[^#{Card::Name::OK4KEY_RE}]+/, " ")
           return nil if val.strip.empty?
+
           val.gsub!("*", '\\\\\\\\*')
           val_list = val.split(/\s+/).map do |v|
             name_or_content_match v
