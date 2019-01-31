@@ -7,27 +7,13 @@ format :html do
     end
   end
 
-  def current_rule_form success_view: :overlay_rule
-    current_rule_format = subformat current_rule
-    current_rule_format.rule_form success_view, card
-  end
-
-  def rule_form success_view, rule_context
-    @rule_context = rule_context
-    edit_rule_form success_view do
-      [
-        hidden_tags(success: @edit_rule_success),
-        render_rule_form
-      ].join
-    end
-  end
-
-  view :rule_form, cache: :never, tags: :unknown_ok, template: :haml do
+  view :modal_rule, cache: :never, tags: :unknown_ok, wrap: :modal do
+    return "not a rule" unless card.is_rule?
+    current_rule_form
   end
 
   view :overlay_title do
-    [wrap_with(:h5, setting_title, class: "title font-weight-bold"),
-     render_overlay_rule_help]
+    edit_rule_title
   end
 
   view :overlay_rule_help, tags: :unknown_ok, perms: :none, cache: :never do
@@ -41,6 +27,7 @@ format :html do
 
   def setting_link
     wrap_with :div, class: "ml-auto" do
+      # FIXME: hardcoded count
       link_to_card card.rule_setting_name, " (37 #{card.rule_setting_title} rules)",
                    class: "text-muted", target: "wagn_setting"
     end

@@ -39,18 +39,6 @@ format :html do
     end
   end
 
-  # used in tables shown in set cards' core view
-  view :rule_link, tags: :unknown_ok do
-    return "not a rule" unless card.is_rule?
-
-    rule_card = find_existing_rule_card
-    wrap_closed_rule rule_card do
-      %i[link set].map do |cell|
-        send "closed_rule_#{cell}_cell", rule_card
-      end
-    end
-  end
-
   view :rule_bridge_link, tags: :unknown_ok do
     opts = bridge_link_opts(class: "edit-rule-link slotter nav-link",
                             "data-toggle": "pill",
@@ -59,47 +47,12 @@ format :html do
     link_to_view(:overlay_rule, (setting_title + short_help_text), opts)
   end
 
-  def closed_rule_link_cell _rule_card
-    wrap_rule_cell "rule-setting" do
-      opts = bridge_link_opts(class: "edit-rule-link slotter")
-      opts[:path].delete(:layout)
-      link_to_view :overlay_rule, setting_title, opts
-    end
-  end
-
   def setting_title
     card.name.tag.tr "*", ""
   end
 
   def short_help_text
     "<div class=\"help-text\">#{card.short_help_text}</div>"
-  end
-
-  def closed_rule_setting_cell _rule_card
-    wrap_rule_cell "rule-setting" do
-      link_to_open_rule
-    end
-  end
-
-  def closed_rule_content_cell rule_card
-    wrap_rule_cell "rule-content" do
-      rule_content_container { closed_rule_content rule_card }
-    end
-  end
-
-  def closed_rule_set_cell rule_card
-    wrap_rule_cell "rule-set" do
-      rule_card ? rule_card.trunk.label : ""
-    end
-  end
-
-  def wrap_closed_rule rule_card
-    klass = rule_card&.real? ? "known-rule" : "missing-rule"
-    wrap_with(:tr, class: "card-slot closed-rule #{klass}") { yield }
-  end
-
-  def wrap_rule_cell css_class
-    wrap_with(:td, class: "rule-cell #{css_class}") { yield }
   end
 
   def rule_content_container
@@ -155,23 +108,6 @@ format :html do
     end
   end
 
-  def rule_form_args
-    { class: "card-rule-form" }
-  end
-
-  def edit_rule_form success_view, &block
-    return "not a rule" unless card.is_rule?
-
-    @rule_context ||= card
-    @edit_rule_success = edit_rule_success(success_view)
-    action_args = { action: :update, no_mark: true }
-    card_form action_args, rule_form_args, &block
-  end
-
-  def edit_rule_success view="overlay_rule"
-    { id:   @rule_context.name.url_key,
-      view: view }
-  end
 
   def rule_set_description
     card.rule_set.label.tap { |s| s[0] = s[0].downcase }
@@ -203,7 +139,6 @@ format :html do
       content_field true
     end
   end
-
 
   def current_set_key
     card.new_card? ? Card.quick_fetch(:all).name.key : card.rule_set_key

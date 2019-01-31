@@ -60,7 +60,7 @@ format :html do
 
     rule_card = card.fetch trait: setting, new: {}
     row_view, optional_content =
-      voo.hide?(:content) ? %i[rule_link hide] : %i[closed_rule show]
+      voo.hide?(:content) ? %i[rule_link hide] : %i[rule_row show]
 
     nest(rule_card, view: row_view, optional_content => :content).html_safe
   end
