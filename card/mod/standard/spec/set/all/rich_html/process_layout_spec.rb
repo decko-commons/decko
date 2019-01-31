@@ -59,7 +59,6 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
 
     it "respect custom view in main nest" do
       with_layout "<pre>Hey {{_main|type}}</pre>"
-                         .and_return [:other, [:modal, { opts: :a} ]]
       expect(format_subject.show(nil, {})).to have_tag :pre do
         with_text(/Hey/)
         with_tag "div#main", "Basic"
@@ -107,3 +106,5 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       .to have_tag "div#main", "A"
   end
 end
+
+
