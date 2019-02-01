@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require "open-uri"
 
 class Card
@@ -30,7 +31,7 @@ class Card
               #{message}
             </body>
           </html>
-         HTML
+        HTML
       end
     end
   end

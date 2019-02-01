@@ -62,12 +62,14 @@ class Card
 
           def write_dels
             return if @dels.empty?
+
             @result.write_deleted_chunk @dels.join
             @dels = []
           end
 
           def write_adds
             return if @adds.empty?
+
             @result.write_added_chunk @adds.join
             @adds = []
           end

@@ -14,11 +14,13 @@ class Card
 
         def subtitle
           return "" unless @act.card_id != @format.card.id
+
           wrap_with :small, "act on #{absolute_title}"
         end
 
         def act_links
           return unless (content = rollback_or_edit_link)
+
           wrap_with :small, content
         end
 
@@ -37,6 +39,7 @@ class Card
 
         def current_act?
           return unless @format.card.last_act && @act
+
           @act.id == @format.card.last_act.id
         end
 

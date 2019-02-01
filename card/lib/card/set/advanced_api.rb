@@ -32,9 +32,9 @@ class Card
           define_method method do |*args|
             if (error = wrong_stage(opts) || wrong_action(opts[:on]))
               raise Card::Error, error
-            else
-              send "_#{method}", *args
             end
+
+            send "_#{method}", *args
           end
         end
       end

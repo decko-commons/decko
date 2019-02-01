@@ -10,13 +10,15 @@ RSpec.describe Card::Set::All::FormElements do
     end
 
     example "deep nested arguments" do
-      tags = hidden_tags(a: { b: { c: "val1" },  d: "val2" }, x: { y: "val3" } )
-      expect(tags)
-        .to have_tag(:input, with: { type: "hidden", name: "a[b][c]", value: "val1" })
-      expect(tags)
-        .to have_tag(:input, with: { type: "hidden", name: "a[d]", value: "val2" })
-      expect(tags)
-        .to have_tag(:input, with: { type: "hidden", name: "x[y]", value: "val3" })
+      tags = hidden_tags a: { b: { c: "val1" }, d: "val2" }, x: { y: "val3" }
+      aggregate_failures do
+        expect(tags)
+          .to have_tag(:input, with: { type: "hidden", name: "a[b][c]", value: "val1" })
+        expect(tags)
+          .to have_tag(:input, with: { type: "hidden", name: "a[d]", value: "val2" })
+        expect(tags)
+          .to have_tag(:input, with: { type: "hidden", name: "x[y]", value: "val3" })
+      end
     end
 
     describe "array values" do

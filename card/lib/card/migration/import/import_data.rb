@@ -39,7 +39,9 @@ class Card
         def select_cards names_or_keys
           names_or_keys.map do |key|
             attributes = find_card_attributes(key)
-            raise("no entry for #{key} (key: #{key.to_name.key}) in #{@path}") unless attributes
+            unless attributes
+              raise("no entry for #{key} (key: #{key.to_name.key}) in #{@path}")
+            end
             prepare_for_import attributes
           end
         end
@@ -47,6 +49,7 @@ class Card
         def changed_cards
           cards.map do |data|
             next unless changed?(data)
+
             prepare_for_import data
           end.compact
         end
@@ -78,7 +81,7 @@ class Card
 
         def split_attributes_and_content data
           card_data = {}
-          [:name, :type, :codename].each do |key|
+          %i[name type codename].each do |key|
             card_data[key] = data[key] if data[key]
           end
           card_data[:key] = data[:name].to_name.key
@@ -96,7 +99,7 @@ class Card
         def prepare_for_import data
           hash = card_attributes(data)
           hash[:content] = card_content(data)
-          [:file, :image].each do |attach|
+          %i[file image].each do |attach|
             hash[attach] &&= card_attachment(attach, data)
           end
           hash.with_indifferent_access

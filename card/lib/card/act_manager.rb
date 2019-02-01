@@ -1,6 +1,5 @@
 require_dependency "card/act_manager/stage_director"
 
-
 class Card
   # Manages the whole process of creating an {act Card::Act} ie. changing
   # a card and attached subcards.
@@ -82,6 +81,7 @@ class Card
     class << self
       def act_director
         return unless act_card
+
         act_card.director
       end
 
@@ -113,6 +113,7 @@ class Card
       # FIXME: use "parent" instead of opts (it's the only option)
       def fetch card, opts={}
         return directors[card] if directors[card]
+
         directors.each_key do |dir_card|
           return dir_card.director if dir_card.name == card.name && dir_card.director
         end
@@ -146,11 +147,13 @@ class Card
 
       def card_changed old_card
         return unless (director = @directors.delete old_card)
+
         add director
       end
 
       def delete director
         return unless @directors
+
         @directors.delete director.card
         director.delete
       end
@@ -193,6 +196,7 @@ class Card
         self.act = Act.find act_id if act_id
         with_env_and_auth env, auth do
           return yield unless act
+
           run_act(act.card || card) do
             act_card.director.run_delayed_event act, &block
           end
@@ -209,7 +213,7 @@ class Card
 
       def to_s
         act_director.to_s
-        #directors.values.map(&:to_s).join "\n"
+        # directors.values.map(&:to_s).join "\n"
       end
     end
   end

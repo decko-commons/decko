@@ -8,7 +8,7 @@ class Card
           case load_strategy
           when :tmp_files
             LoadStrategy::PatternTmpFiles
-          else :eval
+          else # :eval
             LoadStrategy::Eval
           end
         end
@@ -16,6 +16,7 @@ class Card
         class Template < ModuleTemplate
           def to_const
             return Object if simple_load?
+
             Card::Set.const_get_or_set(@pattern.camelize) do
               Class.new(Card::Set::Pattern::Abstract)
             end
@@ -51,7 +52,6 @@ class Card
             "end"
           end
         end
-
       end
     end
   end

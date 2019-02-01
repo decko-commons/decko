@@ -10,8 +10,7 @@ class Card
         include Set::Format::HamlViews
         include Set::Format::Wrapper
 
-
-        VIEW_SETTINGS = %i[cache modal bridge wrap]
+        VIEW_SETTINGS = %i[cache modal bridge wrap].freeze
 
         mattr_accessor :views
         self.views = Hash.new { |h, k| h[k] = {} }
@@ -21,7 +20,7 @@ class Card
         end
 
         def view view, *args, &block
-          #binding.pry
+          # binding.pry
           # view = view.to_viewname.key.to_sym
           interpret_view_opts view, args[0] if block_given?
           view_method_block = view_block(view, args, &block)
@@ -58,6 +57,7 @@ class Card
 
         def interpret_view_opts view, opts
           return unless opts.present?
+
           Card::Format.interpret_view_opts view, opts
           VIEW_SETTINGS.each do |setting_name|
             define_view_setting_method view, setting_name, opts.delete(setting_name)
@@ -66,12 +66,14 @@ class Card
 
         def define_view_setting_method view, setting_name, setting_value
           return unless setting_value
+
           method_name = Card::Format.view_setting_method_name view, setting_name
-          define_method(method_name) { setting_value}
+          define_method(method_name) { setting_value }
         end
 
         def view_block view, args, &block
           return haml_view_block(view, wrap_with_slot?(args), &block) if haml_view?(args)
+
           block_given? ? block : lookup_alias_block(view, args)
         end
 

@@ -41,6 +41,7 @@ class Card
     def process
       process_live_options
       return if optional? && hide?(requested_view)
+
       fetch { yield ok_view }
     end
 
@@ -78,7 +79,7 @@ class Card
     # next voo object found tracing ancestry through parent voos and/or parent formats
     # @return [Card::View]
     def next_ancestor
-      parent || (format.parent && format.parent.voo)
+      parent || (format.parent&.voo)
     end
   end
 end

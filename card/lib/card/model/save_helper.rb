@@ -238,7 +238,7 @@ class Card
                  name_or_args
                else
                  hashify content_or_args, :content
-        end
+               end
         [name, args]
       end
 

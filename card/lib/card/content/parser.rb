@@ -21,6 +21,7 @@ class Card
         @content = content
         @chunks = []
         return @chunks unless content.is_a? String
+
         @position = @last_position = 0
         @interval_string = ""
         parse_chunks

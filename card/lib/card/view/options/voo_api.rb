@@ -137,6 +137,7 @@ class Card
         # standard inheritance from parent view object
         def inherit_options_from_parent!
           return unless parent
+
           Options.heir_keys.each do |option_key|
             inherit_from_parent! option_key
           end
@@ -144,6 +145,7 @@ class Card
 
         def inherit_from_parent! option_key
           return unless (parent_value = parent.live_options[option_key])
+
           @normalized_options[option_key] ||= parent_value
         end
 
@@ -166,6 +168,7 @@ class Card
         def process_view_wrappers
           view_wrappers = format.view_setting(:wrap, ok_view)
           return unless view_wrappers.present?
+
           @live_options[:wrap] = Array.wrap(@live_options[:wrap])
           if view_wrappers.is_a? ::Hash
             view_wrappers.each_pair do |name, opts|
@@ -185,6 +188,7 @@ class Card
 
         def validate_options! opts
           return unless (foreign_opts = foreign_options_in opts)
+
           raise Card::Error, "illegal view options: #{foreign_opts}"
         end
 

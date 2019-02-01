@@ -105,6 +105,10 @@ format :html do
   end
 end
 
+def default_account_status
+  "pending"
+end
+
 event :activate_by_token, :validate, on: :update,
                                      when: proc { |c| c.has_token? } do
   abort :failure, "no field manipulation mid-activation" if subcards.present?

@@ -106,9 +106,7 @@ format :html do
             remote: true
   end
 
-  def add_item_overlay_link
-
-  end
+  def add_item_overlay_link; end
 
   private
 

@@ -9,14 +9,15 @@ class Card
   module Env
     extend LocationHistory
 
-    SERIALIZABLE_ATTRIBUTES = ::Set.new [
-      :main_name, :params, :ip, :ajax, :html, :host, :protocol, :salt
+    SERIALIZABLE_ATTRIBUTES = ::Set.new %i[
+      main_name params ip ajax html host protocol salt
     ]
 
     class << self
       def reset args={}
         @env = { main_name: nil }
         return self unless (c = args[:controller])
+
         self[:controller] = c
         self[:session]    = c.request.session
         self[:params]     = c.params

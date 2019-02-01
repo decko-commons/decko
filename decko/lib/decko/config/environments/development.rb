@@ -24,6 +24,7 @@ Decko.application.class.configure do
   if defined?(RailsDevTweaks)
     config.dev_tweaks.autoload_rules do
       skip "/files"
+      skip "/favicon.ico"
       skip /view\=status/
     end
   end

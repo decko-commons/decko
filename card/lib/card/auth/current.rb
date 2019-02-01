@@ -113,7 +113,7 @@ class Card
       # set the current user based on token
       def set_current_from_token token, current=nil
         account = find_account_by_token token
-        if account && account.validate_token!(token)
+        if account&.validate_token!(token)
           unless current && always_ok_usr_id?(account.left_id)
             # can override current only if admin
             current = account.left_id
