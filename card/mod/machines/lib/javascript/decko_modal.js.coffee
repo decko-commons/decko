@@ -9,10 +9,6 @@ $(window).ready ->
     openModalIfPresent $(this)
     addModalDialogClasses $(this)
 
-  $('body').on "show.bs.modal", "._modal-slot", (event) ->
-    link = $(event.relatedTarget)
-    addModalDialogClasses $(this), link
-
 addModalDialogClasses = ($modal_slot, $link) ->
   dialog = $modal_slot.find(".modal-dialog")
   classes_from_link =
@@ -20,13 +16,19 @@ addModalDialogClasses = ($modal_slot, $link) ->
   if classes_from_link? and dialog?
     dialog.addClass classes_from_link
 
-
 decko.slotReady (slot) ->
+  $('body').on "show.bs.modal", "._modal-slot", (event) ->
+    link = $(event.relatedTarget)
+    addModalDialogClasses $(this), link
+    $(this).modal("handleUpdate")
+
   $('body').on 'hidden.bs.modal', (_event) ->
     if $("._modal-fallback").length > 0
       modal = $($("._modal-fallback")[0]).detach()
       modal.addClass("_modal-slot").removeClass("_modal-fallback")
       $("body > ._modal-slot").replaceWith(modal)
+    else
+      $(".modal-dialog").remove()
 
 
   # this finds ._modal-slots and moves them toa the end of the body

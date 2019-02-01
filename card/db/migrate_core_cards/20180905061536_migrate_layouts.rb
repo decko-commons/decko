@@ -2,7 +2,7 @@
 
 class MigrateLayouts < Card::Migration::Core
   def up
-    Card.search type: "Layout" do |card|
+    Card.search referred_to_by: { right: :layout } do |card|
       update_layout_card card
       create_head_rules card
     end

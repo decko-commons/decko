@@ -13,7 +13,7 @@ format :html do
     end
   end
 
-  def haml_wrap slot=true, slot_attr={}, tag=:div &block
+  def haml_wrap slot=true, slot_attr={}, tag=:div, &block
     method_wrap :haml_tag, tag, slot, slot_attr, &block
   end
 
