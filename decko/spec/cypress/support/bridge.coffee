@@ -7,5 +7,3 @@ Cypress.Commands.add "bridge", () =>
 Cypress.Commands.add "bridge_sidebar", () =>
   cy.get(".bridge .bridge-sidebar") #.as("bridge-sidebar")
 
-#Cypress.Commands.add "select_set", (set="self") =>
-#  cy.get(".bridge .bridge-sidebar").as("bridge-sidebar")

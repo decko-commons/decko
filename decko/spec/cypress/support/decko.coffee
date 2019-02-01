@@ -1,13 +1,3 @@
-Cypress.Commands.add "login", (email="joe@admin.com", password="joe_pass") =>
-  cy.request
-    method: "POST",
-    url: "/update/*signin",
-    body:
-      card:
-        subcards:
-          "+*email": { content: email }
-          "+*password": { content: password }
-
 # find card slot by card name (and view)
 Cypress.Commands.add "slot", (cardname, view) =>
   selector = ".card-slot.SELF-#{cardname}"
@@ -17,6 +7,9 @@ Cypress.Commands.add "slot", (cardname, view) =>
 # click the edit icon
 Cypress.Commands.add "click_edit",  { prevSubject: 'element'}, (subject) =>
   subject.find(".card-menu > a").click(force: true)
+
+Cypress.Commands.add "main_slot", () =>
+  cy.get("#main > .card-slot")
 
 Cypress.Commands.add "expect_main_title", (text) =>
   cy.get("#main > .card-slot > .d0-card-frame > .d0-card-header > .d0-card-header-title > .card-title")
@@ -42,7 +35,7 @@ Cypress.Commands.add "clear_machine_cache", () =>
     url: "/update/*admin?task=clear_machine_cache"
 
 Cypress.Commands.add "select2", prevSubject: "optional", (subject, name, value) =>
-  selector = "select[name='card[type]'] + .select2-container"
+  selector = "select[name='#{name}'] + .select2-container"
   if subject
     subject.find(selector).click()
   else

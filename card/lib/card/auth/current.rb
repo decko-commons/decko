@@ -161,7 +161,7 @@ class Card
       end
 
       def set_session_user card_id
-        session[session_user_key] = card_id if session
+        session[session_user_key] = card_id #if session
       end
 
       def session_user_key

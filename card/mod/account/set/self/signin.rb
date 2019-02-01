@@ -44,7 +44,8 @@ def i18n_signin key
 end
 
 def authenticate_or_abort email, pword
-  abort :failure, i18n_signin(:abort_bad_signin_args) unless email && pword
+  abort :failure, i18n_signin(:email_missing) unless email
+  abort :failure, i18n_signin(:password_missing) unless pword
   if (account = Auth.authenticate(email, pword))
     Auth.signin account.left_id
   else

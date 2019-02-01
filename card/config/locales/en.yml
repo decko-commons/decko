@@ -83,7 +83,7 @@ en:
           available_layouts: "Available Layouts: %{available_layouts}"
       set:
         all:
-          codename: 
+          codename:
             only_admins_codename: only admins can set codename
             error_code_in_use: codename %{codename} already in use
           event:
@@ -200,7 +200,7 @@ en:
           json:
             invalid_json: invalid json
     :bootstrap:
-      set: 
+      set:
         type:
             customized_bootswatch_skin:
               not_valid_theme: not a valid theme %{theme_name}
@@ -527,7 +527,8 @@ en:
             error_unknown_email: Unrecognized email.
             error_not_active: Sorry, that account is not active.
             error_wrong_password: Wrong password
-            abort_bad_signin_args: bad sign in arguments
+            email_missing: email can't be blank
+            password_missing: password can't be blank
             error_not_active: not active
             error_not_recognized: not recognized
     :carrierwave:
@@ -597,5 +598,5 @@ en:
                rules: rules
                structure: structure
                type: type
-               
+
 

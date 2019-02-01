@@ -73,7 +73,7 @@ de:
           available_layouts: "Verfügbare Layouts: %{available_layouts}"
       set:
         all:
-          codename: 
+          codename:
             only_admins_codename: cur Administratoren können Codenamen festlegen
             error_code_in_use: codename %{codename} wird bereits benutzt
           event:
@@ -190,7 +190,7 @@ de:
           json:
             invalid_json: invalid json
     :bootstrap:
-      set: 
+      set:
         type:
             customized_bootswatch_skin:
               not_valid_theme: kein gültiges Thema %{theme_name}
@@ -526,7 +526,8 @@ de:
             error_unknown_email: Unbekannte E-Mail-Adresse.
             error_not_active: Entschuldigung, der Account ist nicht aktiviert.
             error_wrong_password: Falsches Passwort
-            abort_bad_signin_args: ungültige Anmeldedaten
+            email_missing: E-Mail-Addresse fehlt
+            password_missing: Passwort fehlt
             error_not_active: nicht aktiviert
             error_not_recognized: unbekannt
         type:

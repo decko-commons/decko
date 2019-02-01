@@ -86,7 +86,41 @@ $.extend decko,
           func.call this, $(this)
 
 jQuery.fn.extend {
-  slot: (status="success", mode="normal") ->
+  # mode can be "replace", "overlay" or "modal"
+  slotSuccess: (data, $slotter) ->
+    mode = $slotter.data("slotter-mode")
+    if mode == "silent-success"
+      return
+    else if mode == "update-modal-origin"
+      # update slot of the slotter that opened the modal
+      $("._modal-origin").slot().updateSlot()
+    else if data.redirect
+      window.location = data.redirect
+    else
+      notice = @attr('notify-success')
+      mode ||= "replace"
+      newslot = @setSlotContent data, mode, $slotter
+
+      if newslot.jquery # sometimes response is plaintext
+        decko.initializeEditors newslot
+        if notice?
+          newslot.notify notice, "success"
+
+  slotError: (status, result, $slotter) ->
+    if status == 403 #permission denied
+      @setSlotContent result
+    else if status == 900
+      $(result).showAsModal $slotter
+    else
+      @notify result, "error"
+      if status == 409 #edit conflict
+        @slot().find('.current_revision_id').val(
+          @slot().find('.new-current-revision-id').text()
+        )
+      else if status == 449
+        @slot().find('g-recaptcha').reloadCaptcha()
+
+  slot: (status="success", mode="replace") ->
     if mode == "modal"
       modalSlot()
     else
@@ -188,7 +222,6 @@ jQuery.fn.extend {
       @addClass("_bottomlay-slot")
       @before overlay
 
-
   replaceOverlay: (overlay) ->
     @parent().find("._overlay").replaceWith overlay
     $(".bridge-sidebar .tab-pane:not(.active) .bridge-pills > .nav-item > .nav-link.active").removeClass("active")
@@ -233,38 +266,4 @@ jQuery.fn.extend {
     bc_item = $(".modal-header ._bridge-breadcrumb li:last-child")
     bc_item.text(this.data("breadcrumb"))
     bc_item.attr("class", "breadcrumb-item active #{this.data('breadcrumb-class')}")
-
-  # mode can be "standard", "overlay" or "modal"
-  slotSuccess: (data, $slotter) ->
-    mode = $slotter.data("slotter-mode")
-    if mode == "silent-success"
-      return
-    else if mode == "update-modal-origin" # update slot of the slotter that opened the modal
-      $(".slotter._modal-origin").slot().updateSlot()
-
-    else if data.redirect
-      window.location=data.redirect
-    else
-      notice = @attr('notify-success')
-      mode ||= "standard"
-      newslot = @setSlotContent data, mode, $slotter
-
-      if newslot.jquery # sometimes response is plaintext
-        decko.initializeEditors newslot
-        if notice?
-          newslot.notify notice, "success"
-
-  slotError: (status, result, $slotter) ->
-    if status == 403 #permission denied
-      @setSlotContent result
-    else if status == 900
-      $(result).showAsModal $slotter
-    else
-      @notify result, "error"
-      if status == 409 #edit conflict
-        @slot().find('.current_revision_id').val(
-          @slot().find('.new-current-revision-id').text()
-        )
-      else if status == 449
-        @slot().find('g-recaptcha').reloadCaptcha()
 }
