@@ -4,6 +4,7 @@ format :html do
   view :related, cache: :never do
     name, options = related_item
     return unless related_card name
+
     voo.show :toolbar, :menu, :help
     frame do
       voo.hide :header, :toggle

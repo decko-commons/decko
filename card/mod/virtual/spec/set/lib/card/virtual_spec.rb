@@ -6,7 +6,7 @@ RSpec.describe Card::Virtual do
   let(:card) do
     double("virtual card", junction?: true,
                            generate_virtual_content: virtual_content,
-                           left_id: 1, right_id: 5)
+                           left_id: 1, right_id: 5, name: "virtual card".to_name)
   end
 
   let(:create_virtual) { described_class.create(card) }

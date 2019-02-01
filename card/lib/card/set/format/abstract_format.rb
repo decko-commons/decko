@@ -8,6 +8,9 @@ class Card
       module AbstractFormat
         include Set::Basket
         include Set::Format::HamlViews
+        include Set::Format::Wrapper
+
+        VIEW_SETTINGS = %i[cache modal bridge wrap].freeze
 
         mattr_accessor :views
         self.views = Hash.new { |h, k| h[k] = {} }
@@ -17,6 +20,7 @@ class Card
         end
 
         def view view, *args, &block
+          # binding.pry
           # view = view.to_viewname.key.to_sym
           interpret_view_opts view, args[0] if block_given?
           view_method_block = view_block(view, args, &block)
@@ -40,7 +44,7 @@ class Card
 
         def define_standard_view_method view, &block
           views[self][view] = block
-          define_method "_view_#{view}", &block
+          define_method Card::Set::Format.view_method_name(view), &block
         end
 
         def define_async_view_method view, &block
@@ -53,18 +57,23 @@ class Card
 
         def interpret_view_opts view, opts
           return unless opts.present?
+
           Card::Format.interpret_view_opts view, opts
-          extract_view_cache_rules view, opts.delete(:cache)
+          VIEW_SETTINGS.each do |setting_name|
+            define_view_setting_method view, setting_name, opts.delete(setting_name)
+          end
         end
 
-        def extract_view_cache_rules view, cache_rule
-          return unless cache_rule
-          methodname = Card::Format.view_cache_setting_method view
-          define_method(methodname) { cache_rule }
+        def define_view_setting_method view, setting_name, setting_value
+          return unless setting_value
+
+          method_name = Card::Format.view_setting_method_name view, setting_name
+          define_method(method_name) { setting_value }
         end
 
         def view_block view, args, &block
           return haml_view_block(view, wrap_with_slot?(args), &block) if haml_view?(args)
+
           block_given? ? block : lookup_alias_block(view, args)
         end
 

@@ -12,18 +12,9 @@
             = icon_tag :remove
   %br
   .clearfix
-    = modal_link "Add Item",
-                 path: { view: :filter_items,
-                         item: implicit_item_view,
-                         filter_card: filter_card.name,
-                         layout: :simple_modal,
-                         slot_selector: filtered_list_slot_class,
-                         item_selector: "_filtered-list-item",
-                         slot: { hide: :modal_footer },
-                         filter: { not_ids: card.item_ids.map(&:to_s).join(",") } },
-                 class: "btn btn-sm btn-primary _add-item-link",
-                 "data-target": "#modal-filtered-list"
-= modal_slot "filtered-list", "modal-lg"
+    = add_item_modal_link
+-# "data-target": "#modal-filtered-list"
+-# = modal_slot "filtered-list", "modal-lg"
 
 // note: passing item and filter card because in some cases (eg Project+Metric on wikirate)
 // the link was losing set-identifying information (type of left)

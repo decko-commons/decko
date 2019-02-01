@@ -17,6 +17,7 @@ end
 # follow changes of field_card
 def followed_field? field_card
   return unless (follow_field_rule = rule_card(:follow_fields))
+
   follow_field_rule.item_names(context: self).find do |item|
     case item.to_name.key
     when field_card.key         then true
@@ -45,6 +46,7 @@ end
 def all_follow_rule_options follower_id
   follow_rule = rule :follow, user_id: follower_id
   return [] unless follow_rule.present?
+
   follow_rule.split("\n")
 end
 
@@ -64,5 +66,6 @@ end
 
 def follower_candidate_ids_for_option option_code
   return [] unless (block = FollowOption.follower_candidate_ids[option_code])
+
   block.call self
 end

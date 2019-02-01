@@ -43,6 +43,7 @@ class Card
 
       def add_reftype_condition reftype
         return unless reftype.present?
+
         reftype = Array.wrap reftype
         operator = (reftype.size == 1 ? "=" : "IN")
         quoted_letters = reftype.map { |letter| "'#{letter}'" } * ", "

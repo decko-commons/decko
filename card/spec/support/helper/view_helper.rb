@@ -1,8 +1,13 @@
 class Card
   module SpecHelper
+    # helper for card views in specs
     module ViewHelper
-      def expect_view view, format: :html
-        expect(format_subject(format).render(view))
+      def expect_view view_name, format: :html, card: nil
+        if card
+          expect(view(view_name, card: card, format: format))
+        else
+          expect(format_subject(format).render(view_name))
+        end
       end
 
       def view view_name, card: { name: "test card", type: :basic }, format: :html

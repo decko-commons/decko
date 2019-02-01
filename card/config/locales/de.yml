@@ -70,6 +70,7 @@ de:
         html_format:
           unknown_layout: "Unbekanntes Layout: %{name}"
           built_in: "Built-in Layouts: %{built_in_layouts}"
+          available_layouts: "Verfügbare Layouts: %{available_layouts}"
       set:
         all:
           codename: 

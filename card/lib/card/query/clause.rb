@@ -1,17 +1,22 @@
+class Card
+  module Query
+    module Clause
+      #    attr_accessor :clause
 
-module Card::Query::Clause
-  #    attr_accessor :clause
+      def safe_sql text
+        txt = text.to_s
+        raise "WQL contains disallowed characters: #{txt}" if txt =~ /[^\w\s*().,]/
 
-  def safe_sql txt
-    txt = txt.to_s
-    txt =~ /[^\w\*\(\)\s\.\,]/ ? raise("WQL contains disallowed characters: #{txt}") : txt
-  end
+        txt
+      end
 
-  def quote v
-    connection.quote(v)
-  end
+      def quote v
+        connection.quote(v)
+      end
 
-  def connection
-    @connection ||= ActiveRecord::Base.connection
+      def connection
+        @connection ||= ActiveRecord::Base.connection
+      end
+    end
   end
 end

@@ -6,10 +6,12 @@ end
 
 def action_from_id action_id
   return unless action_id.is_a?(Integer) || action_id =~ /^\d+$/
+
   # if not an integer revision id is probably a mod (e.g. if you request
   # files/:logo/standard.png)
   action = Action.fetch action_id
   return unless action.card_id == id
+
   action
 end
 
@@ -24,12 +26,14 @@ end
 def nth_action index
   index = index.to_i
   return unless id && index.positive?
+
   Action.where("draft is not true AND card_id = #{id}")
         .order(:id).limit(1).offset(index - 1).first
 end
 
 def new_content_action_id
   return unless @current_action && current_action_changes_content?
+
   @current_action.id
 end
 
@@ -48,6 +52,7 @@ format :html do
 
   def action_content action, view_type
     return "" unless action.present?
+
     wrap do
       [action_content_toggle(action, view_type),
        content_diff(action, view_type)]
@@ -57,11 +62,13 @@ format :html do
   def content_diff action, view_type
     diff = action.new_content? && content_changes(action, view_type)
     return "<i>empty</i>" unless diff.present?
+
     diff
   end
 
   def action_content_toggle action, view_type
     return unless show_action_content_toggle?(action, view_type)
+
     toggle_action_content_link action, view_type
   end
 
@@ -71,9 +78,10 @@ format :html do
 
   def toggle_action_content_link action, view_type
     other_view_type = view_type == :expanded ? :summary : :expanded
+    css_class = "slotter revision-#{action.card_act_id} float-right"
     link_to_view "action_#{other_view_type}",
-                 icon_tag(action_arrow_dir(view_type)),
-                 class: "slotter revision-#{action.card_act_id} float-right",
+                 icon_tag(action_arrow_dir(view_type), class: "md-24"),
+                 class: css_class,
                  path: { action_id: action.id, look_in_trash: true }
   end
 
@@ -84,6 +92,7 @@ format :html do
   def revert_actions_link act, link_text,
                           revert_to: :this, slot_selector: nil, html_args: {}
     return unless card.ok? :update
+
     html_args.merge! remote: true, method: :post, rel: "nofollow",
                      path: { action: :update, view: :open, look_in_trash: true,
                              revert_actions: act.actions.map(&:id),

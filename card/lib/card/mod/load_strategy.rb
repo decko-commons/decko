@@ -10,9 +10,9 @@ class Card
     class LoadStrategy
       def self.klass symbol
         case symbol
-          when :tmp_files     then TmpFiles
-          when :binding_magic then BindingMagic
-          else                     Eval
+        when :tmp_files     then TmpFiles
+        when :binding_magic then BindingMagic
+        else                     Eval
         end
       end
 
@@ -56,7 +56,7 @@ class Card
       def parts_from_path path
         # remove file extension and number prefixes
         parts = path.gsub(/\.rb/, "").gsub(%r{(?<=\A|/)\d+_}, "").split(File::SEPARATOR)
-        parts.map &:camelize
+        parts.map(&:camelize)
       end
     end
   end

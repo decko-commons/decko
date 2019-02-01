@@ -19,6 +19,13 @@ class Card
     #   The external api with checks:
     #     render(:viewname, args)
     #
+    #  TODO:
+    #  introduce view settings
+    #    modal: { size: :large},
+    #    cache
+    #    perms
+    #    tags: :unknown_ok
+    #    bridge
     module Format
       require_dependency "card/set/format/haml_views"
       require_dependency "card/set/format/abstract_format"
@@ -79,6 +86,20 @@ class Card
       def all_set_format_mod! format_class, mod
         modules[:base_format][format_class] ||= []
         modules[:base_format][format_class] << mod
+      end
+
+      class << self
+        def layout_method_name layout
+          "_layout_#{layout.to_name.key}"
+        end
+
+        def wrapper_method_name wrapper
+          "_wrapper_#{wrapper}"
+        end
+
+        def view_method_name view
+          "_view_#{view}"
+        end
       end
     end
   end

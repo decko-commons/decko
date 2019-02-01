@@ -11,6 +11,7 @@ class Card
       def remove name_or_card
         key = subcard_key name_or_card
         return unless @keys.include? key
+
         @keys.delete key
         clear_key key
       end
@@ -32,6 +33,7 @@ class Card
       def deep_clear cleared=::Set.new
         each_card do |card|
           next if cleared.include? card.id
+
           cleared << card.id
           card.subcards.deep_clear cleared
         end

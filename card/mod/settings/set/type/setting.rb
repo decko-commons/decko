@@ -49,7 +49,7 @@ format do
     haml do
       <<-'HAML'.strip_heredoc
         = _render_rule_help
-        %table.setting-rules
+        %table.table.table-borderless.setting-rules
           %tr
             %th Set
             %th Rule

@@ -69,7 +69,7 @@ format do
   def implicit_item_view view_from_query_params=nil
     view = voo_items_view || view_from_query_params || default_item_view
     Card::View.canonicalize view
-  end
+    end
 
   def with_results
     return render_no_search_results if search_with_params.empty?

@@ -20,30 +20,6 @@ $(window).ready ->
   $('body').on 'click', '._stop_propagation', (event)->
     event.stopPropagation()
 
-  $('body').on 'show.bs.tab', 'a.load[data-toggle=tab][data-url]', (e) ->
-    tab_id = $(e.target).attr('href')
-    url    = $(e.target).data('url')
-    $(e.target).removeClass('load')
-    $(tab_id).load(url)
-
-
-  # toolbar mod
-  $('body').on 'click', '.toolbar-pin.active', (e) ->
-    e.preventDefault()
-    $(this).blur()
-    $('.toolbar-pin').removeClass('active').addClass('inactive')
-    $.ajax '/*toolbar_pinned',
-      type : 'PUT'
-      data : 'card[content]=false'
-
-  $('body').on 'click', '.toolbar-pin.inactive', (e) ->
-    e.preventDefault()
-    $(this).blur()
-    $('.toolbar-pin').removeClass('inactive').addClass('active')
-    $.ajax '/*toolbar_pinned',
-      type : 'PUT'
-      data : 'card[content]=true'
-
   # following mod
   $('body').on 'click', '.btn-item', ->
     $(this).find('i').html('hourglass_full')
@@ -54,22 +30,13 @@ $(window).ready ->
     $(this).find('i').html('check')
     $(this).addClass("btn-primary").removeClass("btn-danger")
 
-  # modal mod
-  $('body').on 'hidden.bs.modal', (event) ->
-    modal_content = $(event.target).find('.modal-dialog > .modal-content')
-    if $(event.target).attr('id') != 'modal-main-slot'
-      slot = $( event.target ).slot()
-      menu_slot = slot.find '.menu-slot:first'
-      url = decko.path('~' + slot.data('card-id'))
-      params = { view: 'menu' }
-      params['is_main'] = true if slot.isMain()
-      modal_content.empty()
-      $.ajax url, {
-        type : 'GET'
-        data: params
-        success : (data) ->
-          menu_slot.replaceWith data
-      }
+  $('body').on 'mouseenter', 'a[data-hover-text]', ->
+    text = $(this).text()
+    $(this).data("original-text", text)
+    $(this).text($(this).data("hover-text"))
+
+  $('body').on 'mouseleave', 'a[data-hover-text]', ->
+    $(this).text($(this).data("original-text"))
 
   # permissions mod
   $('body').on 'click', '.perm-vals input', ->
@@ -119,7 +86,6 @@ $(window).ready ->
 
   # performance log mod
   $('body').on 'click', '.open-slow-items', ->
-
     panel = $(this).closest('.panel-group')
     panel.find('.open-slow-items').removeClass('open-slow-items').addClass('close-slow-items')
     panel.find('.toggle-fast-items').text("show < 100ms")

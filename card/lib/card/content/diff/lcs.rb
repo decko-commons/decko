@@ -34,9 +34,7 @@ class Card
             processor.run @result
           else
             list = split_and_preprocess(new_text)
-            if @exclude_pattern
-              list = list.reject { |word| word.match @exclude_pattern }
-            end
+            list = list.reject { |word| word.match @exclude_pattern } if @exclude_pattern
             # CAUTION: postproces and added_chunk changed order
             # and no longer postprocess for summary
             @result.write_added_chunk list.join
