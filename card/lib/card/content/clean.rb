@@ -3,10 +3,10 @@ class Card
     # tools for cleaning content, especially for restricing unwanted HTML
     module Clean
       allowed_tags = {}
-      %w(
+      %w[
         br i b pre cite caption strong em ins sup sub del ol hr ul li p
         div h1 h2 h3 h4 h5 h6 span table tr td th tbody thead tfoot
-      ).each { |tag| allowed_tags[tag] = [] }
+      ].each { |tag| allowed_tags[tag] = [] }
 
       # allowed attributes
       allowed_tags.merge!(
@@ -61,6 +61,7 @@ class Card
 
       def process_attribute attrib, all_attributes
         return ['"', nil] unless all_attributes =~ /\b#{attrib}\s*=\s*(?=(.))/i
+
         q = '"'
         rest_value = $'
         if (idx = %w[' "].index Regexp.last_match(1))
@@ -74,6 +75,7 @@ class Card
       # NOTE allows classes beginning with "w-" (deprecated)
       def process_attribute_match rest_value, reg_exp, attrib
         return rest_value unless (match = rest_value.match reg_exp)
+
         rest_value = match[0]
         if attrib == "class"
           rest_value.split(/\s+/).select { |s| s =~ /^w-/i }.join(" ")

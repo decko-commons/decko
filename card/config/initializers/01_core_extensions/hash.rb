@@ -56,14 +56,14 @@ module CoreExtensions
       # opposite of #dig
       # eg. hash.bury(:a, :b, 7) will make sure hash[:a][:b] equals 7
       # @return [Hash] with arbitrary depth
-      def bury *array
-        key = array.shift
-        validate_bury_key! key
-        if array.size == 1
-          self[key] = array.first
+      def bury *val
+        k = val.shift
+        validate_bury_key! k
+        if val.size == 1
+          self[k] = val.first
         else
-          self[key] = {} unless self[key].is_a? Hash
-          self[key].bury(*array)
+          self[k] = {} unless self[k].is_a? ::Hash
+          self[k].bury(*val)
         end
         self
       end

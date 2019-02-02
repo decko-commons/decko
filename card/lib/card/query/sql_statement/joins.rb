@@ -32,6 +32,7 @@ class Card
 
         def subjoins join
           return unless join.to.is_a? AbstractQuery
+
           joins join.to
         end
 

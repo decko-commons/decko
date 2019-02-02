@@ -5,37 +5,10 @@ end
 def help_rule_card
   setting = new_card? ? [:add_help, { fallback: :help }] : :help
   help_card = rule_card(*setting)
-  help_card if help_card && help_card.ok?(:read)
+  help_card if help_card&.ok?(:read)
 end
 
 format :html do
-  def show view, args
-    send "show_#{show_layout? ? :with : :without}_layout", view, args
-  end
-
-  def show_layout?
-    !Env.ajax? || params[:layout]
-  end
-
-  def show_with_layout view, args
-    args[:view] = view if view
-    @main = false
-    @main_opts = args
-    render! :layout, layout: params[:layout]
-    # FIXME: using title because it's a standard view option.  hack!
-  end
-
-  def show_without_layout view, args
-    @main = true if params[:is_main] || args[:main]
-    view ||= args[:home_view] || :open
-    render! view, args
-  end
-
-  view :layout, perms: :none, cache: :never do
-    layout = process_content get_layout_content(voo.layout), chunk_list: :references
-    output [layout, modal_slot]
-  end
-
   def prepare_content_slot
     class_up "card-slot", "d0-card-content"
     voo.hide :menu
@@ -99,6 +72,7 @@ format :html do
 
   view :type_info do
     return unless show_view?(:toolbar, :hide) && card.type_code != :basic
+
     wrap_with :span, class: "type-info float-right" do
       link_to_card card.type_name, nil, class: "navbar-link"
     end
@@ -140,9 +114,7 @@ format :html do
 
   def current_set_card
     set_name = params[:current_set]
-    if card.known? && card.type_id == Card::CardtypeID
-      set_name ||= "#{card.name}+*type"
-    end
+    set_name ||= "#{card.name}+*type" if card.known? && card.type_id == Card::CardtypeID
     set_name ||= "#{card.name}+*self"
     Card.fetch(set_name)
   end
@@ -150,11 +122,13 @@ format :html do
   view :help, tags: :unknown_ok, cache: :never do
     help_text = voo.help || rule_based_help
     return "" unless help_text.present?
+
     wrap_with :div, help_text, class: classy("help-text")
   end
 
   def rule_based_help
     return "" unless (rule_card = card.help_rule_card)
+
     with_nest_mode :normal do
       process_content rule_card.content, chunk_list: :references
       # render help card with current card's format
@@ -165,8 +139,10 @@ format :html do
   view :last_action do
     act = card.last_act
     return unless act
+
     action = act.action_on card.id
     return unless action
+
     action_verb =
       case action.action_type
       when :create then "added"

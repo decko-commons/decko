@@ -1,5 +1,7 @@
 Gemfile
 Gemfile.lock
+.tags
+.tags_swap
 .idea/*
 .idea-old/*
 .jhw-cache
@@ -19,5 +21,6 @@ decko*gem
 *.DS_Store
 *.swp
 test_work/*
+*.iml
 *.orig
 **/bucket_credentials.yml

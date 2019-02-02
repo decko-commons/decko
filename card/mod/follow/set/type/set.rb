@@ -32,6 +32,7 @@ end
 
 def all_members_followed_by? user_id=nil
   return false unless prototype.followed_by?(user_id)
+
   directly_followed_by?(user_id) || broader_set_followed_by?(user_id)
 end
 
@@ -47,5 +48,6 @@ end
 
 def directly_followed_by? user_id=nil
   return true if user_id && follow_rule?(user_id)
+
   follow_rule?
 end

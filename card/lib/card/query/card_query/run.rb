@@ -83,6 +83,7 @@ class Card
         def process_name name, pattern
           name = pattern.to_name.absolute(name) if pattern =~ /_\w+/
           return name unless alter_results?
+
           alter_result name
         end
 

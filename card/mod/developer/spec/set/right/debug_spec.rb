@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Right::Debug do
+RSpec.describe Card::Set::Right::Debug do
   context "core view" do
     it "has a table" do
       Card::Auth.as_bot do

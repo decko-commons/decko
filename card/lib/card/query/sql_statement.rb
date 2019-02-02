@@ -17,7 +17,7 @@ class Card
 
       def initialize query=nil
         @query = query
-        @mods = query && query.mods
+        @mods = query&.mods
       end
 
       def build
@@ -51,6 +51,7 @@ class Card
 
       def comment
         return nil unless Card.config.sql_comments && @query.comment
+
         "/* #{@query.comment} */\n"
       end
 
@@ -91,7 +92,7 @@ class Card
         full_syntax do
           limit = @mods[:limit]
           offset = @mods[:offset]
-          if limit.to_i > 0
+          if limit.to_i.positive?
             string =  "LIMIT  #{limit.to_i} "
             string += "OFFSET #{offset.to_i} " if offset.present?
             string
@@ -105,11 +106,9 @@ class Card
 
       def safe_sql txt
         txt = txt.to_s
-        if txt =~ /[^\w\*\(\)\s\.\,]/
-          raise "WQL contains disallowed characters: #{txt}"
-        else
-          txt
-        end
+        raise "WQL contains disallowed characters: #{txt}" if txt =~ /[^\w\s*().,]/
+
+        txt
       end
 
       def cast_type type

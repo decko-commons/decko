@@ -1,4 +1,3 @@
-
 def run_card_migration core_or_deck
   prepare_migration
   verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
@@ -36,7 +35,7 @@ end
 namespace :card do
   namespace :migrate do
     desc "migrate cards"
-    task cards: [:core_cards, :deck_cards]
+    task cards: %i[core_cards deck_cards]
 
     desc "migrate structure"
     task structure: :environment do
@@ -85,6 +84,7 @@ namespace :card do
       version = ENV["VERSION"] ? ENV["VERSION"].to_i : nil
       verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
       raise "VERSION is required" unless version
+
       ActiveRecord::Migration.verbose = verbose
       ActiveRecord::SchemaMigration.where(version: version.to_s).delete_all
       Cardio.migrate :deck_cards, version
@@ -100,7 +100,7 @@ namespace :card do
 
       Cardio.schema_mode args[:type] do
         version = ActiveRecord::Migrator.current_version
-        if version.to_i > 0 && (file = open(stamp_file, "w"))
+        if version.to_i > 0 && (file = ::File.open(stamp_file, "w"))
           puts ">>  writing version: #{version} to #{stamp_file}"
           file.puts version
         end

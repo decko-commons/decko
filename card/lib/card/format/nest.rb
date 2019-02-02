@@ -27,7 +27,7 @@ class Card
         view_opts[:nest_name] ||= card.name
         @view ||= prepare_view
         # TODO: handle in closed / edit view definitions
-        view_opts[:home_view] ||= [:closed, :edit].member?(view) ? :open : view
+        view_opts[:home_view] ||= %i[closed edit].member?(view) ? :open : view
       end
 
       def prepare_view
@@ -40,6 +40,7 @@ class Card
       # @return [Format] subformat object
       def prepare_subformat
         return format if reuse_format?
+
         sub = format.subformat card, format_opts
         sub.main! if view_opts[:main]
         sub
@@ -63,8 +64,8 @@ class Card
 
       def content_view?
         # TODO: this should be specified in view definition
-        [
-          :core, :content, :titled, :open, :closed, :open_content
+        %i[
+          core content titled open closed open_content
         ].member? @view.to_sym
       end
     end

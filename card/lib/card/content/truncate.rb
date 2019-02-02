@@ -6,6 +6,7 @@ class Card
 
       def smart_truncate input, words=25
         return if input.nil?
+
         truncated, wordstring = truncate input, words
         # nuke partial tags at end of snippet
         wordstring.gsub!(/(<[^\>]+)$/, "")
@@ -18,7 +19,7 @@ class Card
       def truncate input, words
         wordlist = input.to_s.split
         l = words.to_i - 1
-        l = 0 if l < 0
+        l = 0 if l.negative?
         truncating = wordlist.length > l
         wordstring = truncating ? wordlist[0..l].join(" ") : input.to_s
         [truncating, wordstring]
@@ -48,11 +49,13 @@ class Card
         # match tags with self closing and mark them as closed
         wordstring.scan(%r{\<([^\>\s/]+)[^\>]*?/\>}).each do |t|
           next unless (x = tags.index(t[0]))
+
           tags.slice!(x)
         end
         # match close tags
         wordstring.scan(%r{\</([^\>\s/]+)[^\>]*?\>}).each do |t|
           next unless (x = tags.rindex(t[0]))
+
           tags.slice!(x)
         end
         tags

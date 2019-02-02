@@ -13,18 +13,20 @@ class Card
 
       def relevant_context_names
         part_keys = @card.name.part_names.map(&:key)
-        yield.reject { |n| !part_keys.include? n.key }
+        yield.select { |n| part_keys.include? n.key }
       end
 
       # "slot[name_context]" param is a string;
       # @context_names is an array
       def context_names_from_params
         return [] unless (name_list = Card::Env.slot_opts.delete(:name_context))
+
         name_list.to_s.split(",").map(&:to_name)
       end
 
       def context_names_to_params
         return if context_names.empty?
+
         context_names.join(",")
       end
 
@@ -36,7 +38,7 @@ class Card
       def title_in_context title=nil
         keep_safe = title&.html_safe?
         title = title ? title.to_name.absolute_name(card.name) : card.name
-        newtitle = title.from *context_names
+        newtitle = title.from(*context_names)
         keep_safe ? newtitle.html_safe : newtitle
       end
     end

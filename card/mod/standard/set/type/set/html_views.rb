@@ -1,7 +1,6 @@
-
 format :html do
   COMMON_RULE_SETTINGS =
-    %i[create read update delete structure default style].freeze
+    %i[create read update delete structure default].freeze
 
   view :core, cache: :never do
     voo.show :set_label, :rule_navbar
@@ -14,9 +13,9 @@ format :html do
     @selected_rule_navbar_view = selected_view
     wrap do
       [
-        _render_set_label,
-        _render_rule_navbar,
-        _render_set_navbar,
+        # _render_set_label,
+        # _render_rule_navbar,
+        # _render_set_navbar,
         yield
       ]
     end
@@ -74,12 +73,24 @@ format :html do
   Card::Setting.groups.each_key do |group_key|
     view group_key.to_sym do
       next unless card.visible_settings(group_key).present?
+
       haml :group_panel, group_key: group_key
     end
   end
 
   def rules_table settings
-    haml :rules_table, settings: settings
+    haml :rules_table, settings: settings,
+                       item_view: voo.show?(:content) ? :closed_rule : :rule_link
+  end
+
+  def rule_table_row setting
+    return "" unless show_view? setting
+
+    rule_card = card.fetch trait: setting, new: {}
+    row_view, optional_content =
+      voo.hide?(:content) ? %i[rule_link hide] : %i[closed_rule show]
+
+    nest(rule_card, view: row_view, optional_content => :content).html_safe
   end
 
   view :editor do
@@ -88,18 +99,6 @@ format :html do
 
   view :closed_content do
     ""
-  end
-
-  view :set_navbar do
-    id = "set-navbar-#{card.name.safe_key}-#{voo.home_view}"
-    related_sets = card.related_sets(true)
-    return "" if related_sets.size <= 1
-    navbar id, brand: "Set", toggle_align: :right,
-               class: "slotter toolbar navbar-expand-md",
-               navbar_type: "dark",
-               collapsed_content: close_link("float-right d-sm-none") do
-      set_navbar_content related_sets
-    end
   end
 
   def li_pill content, active
@@ -128,20 +127,6 @@ format :html do
     wrap_with :ul, class: "nav navbar-nav nav-pills" do
       rule_navbar_pills.map do |label, symbol|
         view_link_pill label, symbol
-      end
-    end
-  end
-
-  def set_navbar_content related_sets
-    wrap_with :ul, class: "nav navbar-nav nav-pills" do
-      related_sets.map do |name, label|
-        slot_opts = { hide: "header set_label rule_navbar",
-                      show: "subheader set_navbar" }
-        link = link_to_card name, label, remote: true,
-                                         path: { view: @slot_view,
-                                                 slot: slot_opts },
-                                         class: "nav-link"
-        li_pill link, name == card.name
       end
     end
   end

@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 require "sass"
+require "benchmark"
+
 include_set Abstract::Machine
 include_set Abstract::MachineInput
 
@@ -11,7 +13,7 @@ machine_input do
 end
 
 def compress_css input
-  Sass.compile input, style: :compressed
+  compress_css? ? Sass.compile(input, style: :compressed) : input
 rescue => e
   raise Card::Error, css_compression_error(e)
 end
@@ -30,6 +32,11 @@ end
 
 def clean_html?
   false
+end
+
+def compress_css?
+  return true
+  !Rails.env.development?
 end
 
 format do

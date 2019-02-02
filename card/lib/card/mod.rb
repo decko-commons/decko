@@ -59,19 +59,22 @@ class Card
   #
   # Other ways your mod can extend Decko functionality include:
   #   - **format** for creating new formats (think file extensions)
-  #   - **set_pattern** for additional {Card::Set::Pattern set patterns}, or types of sets.
+  #   - **set_pattern** for additional {Card::Set::Pattern set patterns},
+  #     or types of sets.
   #   - **chunk** provides tools for finding new patterns in card content
   #   - **file** for fixed initial card content
   module Mod
     class << self
       def load
         return if ENV["CARD_MODS"] == "none"
+
         if Card.take
           Loader.load_mods
         else
           Rails.logger.warn "empty database"
         end
       end
+
       # @return an array of Rails::Path objects
       def dirs
         @dirs ||= Dirs.new(Card.paths["mod"].existent)

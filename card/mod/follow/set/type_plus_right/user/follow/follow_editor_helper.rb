@@ -79,6 +79,7 @@ format :html do
   # @return Hash # { suggested_rule1 => rule1_follow_options }
   def suggested_following_rule_options_hash
     return {} unless card.current_user?
+
     card.suggestions.each_with_object({}) do |sug, hash|
       set_card, opt = a_set_and_option_suggestion(sug) || a_set_only_suggestion(sug)
       hash[set_card.follow_rule_name(card.trunk).key] = [opt]
@@ -90,6 +91,7 @@ format :html do
   # suggestion value contains both set and follow option
   def a_set_and_option_suggestion sug
     return unless (set_card = valid_set_card(sug.to_name.left))
+
     [set_card, suggested_follow_option(sug.to_name.right)]
   end
 
@@ -105,6 +107,7 @@ format :html do
   # suggestion value contains only set (implies *always)
   def a_set_only_suggestion sug
     return unless (set_card = valid_set_card(sug))
+
     yield set_card, :always.cardname
   end
 

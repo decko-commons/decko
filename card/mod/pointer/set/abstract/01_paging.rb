@@ -37,6 +37,7 @@ format :html do
 
   view :paging, cache: :never do
     return "" unless paging_needed?
+
     <<-HTML
       <nav>
         <ul class="pagination paging">
@@ -66,6 +67,7 @@ format :html do
 
   def page_link text, page, options
     return content_tag(:div, text.html_safe, class: "page-link") unless page
+
     options.merge! class: "card-paging-link slotter page-link",
                    remote: true,
                    path: page_link_path_args(page)
@@ -97,7 +99,7 @@ format :html do
   end
 
   def paging_view
-    (voo && voo.home_view) || voo.slot_options[:view] || :content
+    voo&.home_view || voo.slot_options[:view] || :content
   end
 
   def extra_paging_path_args
@@ -107,6 +109,7 @@ format :html do
   def paging_needed?
     return false if limit < 1
     return false if fewer_results_than_limit? # avoid extra count search
+
     # count search result instead
     limit < count_with_params
   end
@@ -114,6 +117,7 @@ format :html do
   # clear we don't need paging even before running count query
   def fewer_results_than_limit?
     return false unless offset.zero?
+
     limit > offset + search_with_params.length
   end
 end
@@ -130,6 +134,7 @@ format :json do
 
   def paging_urls
     return {} unless total_pages > 1
+
     { paging: paging_urls_hash }
   end
 
@@ -144,6 +149,7 @@ format :json do
 
   def add_paging_url hash, page, status
     return unless page && status.in?(%i[next previous])
+
     hash[status] = path page_link_path_args(page)
   end
 end
