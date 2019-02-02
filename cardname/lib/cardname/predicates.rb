@@ -6,8 +6,9 @@ class Cardname
     end
 
     def valid?
+      return true if NOTHING_BANNED
       !parts.find do |pt|
-        pt.match self.class.banned_re
+        pt.match BANNED_RE
       end
     end
 
