@@ -58,7 +58,9 @@ class Cardname < String
     end
 
     def nothing_banned?
-      @nothing_banned.nil? ? (@nothing_banned = banned_array.empty?) : @nothing_banned
+      return @nothing_banned if !@nothing_banned.nil?
+
+      @nothing_banned = banned_array.empty?
     end
 
     def banned_re
