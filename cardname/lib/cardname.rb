@@ -31,9 +31,6 @@ class Cardname < String
   Cardname.stabilize      = false
 
   JOINT_RE = Regexp.escape joint
-  NOTHING_BANNED = banned_array.empty?
-  BANNED_RE =  /[#{Regexp.escape (banned_array << joint).join}]/
-
 
   @@cache = {}
 
@@ -58,6 +55,14 @@ class Cardname < String
       else
         obj.to_s
       end
+    end
+
+    def nothing_banned?
+      @nothing_banned.nil? ? (@nothing_banned = banned_array.empty?) : @nothing_banned
+    end
+
+    def banned_re
+      @@banned_re ||= /[#{Regexp.escape (banned_array << joint).join}]/
     end
 
     # Sometimes the core rule "the key's key must be itself" (called "stable" below) is violated
