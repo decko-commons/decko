@@ -34,8 +34,6 @@ format :html do
   end
 
   def edit_rule_form success_view, &block
-    return "not a rule" unless card.is_rule?
-
     @rule_context ||= card
     @edit_rule_success = edit_rule_success(success_view)
     action_args = { action: :update, no_mark: true }

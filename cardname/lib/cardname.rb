@@ -77,7 +77,7 @@ class Cardname < String
 
     def dangerous_methods
       bang_methods = String.instance_methods.select { |m| m.to_s.ends_with?("!") }
-      [:replace].concat bang_methods
+      %i[replace concat clear].concat bang_methods
     end
 
     def split_parts str
@@ -87,7 +87,7 @@ class Cardname < String
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # ~~~~~~~~~~~~~~~~~~~~~~ INSTANCE ~~~~~~~~~~~~~~~~~~~~~~~~~
-  attr_reader :key
+  attr_accessor :key
 
   def initialize str
     @@cache[str] = super str.strip.encode('UTF-8')
@@ -103,11 +103,30 @@ class Cardname < String
     self
   end
 
+  def unfrozen
+    # https://stackoverflow.com/questions/35633367/how-to-unfreeze-an-object-in-ruby
+    Fiddle::Pointer.new(object_id * 2)[1] &= ~(1 << 3)
+    yield
+  ensure
+    freeze
+  end
+
   dangerous_methods.each do |m|
     define_method m do |*args, &block|
       reset
       super(*args, &block)
     end
+  end
+
+  # dangerous, too
+  def []= index, val
+    p = parts
+    p[index] = val
+    replace p
+  end
+
+  def << val
+    replace(parts << val)
   end
 
   def key
@@ -127,6 +146,7 @@ class Cardname < String
   private
 
   def reset
+    self.class.reset_cache s
     instance_variables.each do |var|
       instance_variable_set var, nil
     end

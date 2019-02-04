@@ -1,17 +1,19 @@
-describe 'engage tab', () ->
+describe 'account tab', () ->
   before ->
-    cy.login()
+    cy.login("sample@user.com", "sample_pass")
 
   beforeEach ->
-    cy.visit_bridge("Joe Admin")
+    cy.visit_bridge("Sample User")
 
-  specify 'change email', () ->
+  specify.only 'change email', () ->
     cy.bridge_sidebar().get('.nav-tabs a:first').click()
     cy.el("detail-pill").click()
-    cy.get(".SELF-joe_admin-Xaccount-Xemail.editable-view a.edit-link").click()
-    cy.get("input.d0-card-content").clear().type("joee@admin.com")
-    cy.get(".SELF-joe_admin-Xaccount-Xemail.editable-view")
-      .should("contain", "joee@admin.com")
-    cy.get(".SELF-joe_admin-Xaccount-Xemail.editable-view a.edit-link").click()
-    cy.get("input.d0-card-content").type("joe@admin.com")
+    cy.get(".SELF-sample_user-Xaccount-Xemail.editable-view a.edit-link").click()
+    cy.get("input.d0-card-content").clear().type("sam@user.com{enter}")
+    cy.get(".SELF-sample_user-Xaccount-Xemail.editable-view")
+      .should("contain", "sam@user.com")
+
+    # edit back
+    cy.get(".SELF-sample_user-Xaccount-Xemail.editable-view a.edit-link").click()
+    cy.get("input.d0-card-content").clear().type("sample@user.com{enter}")
 

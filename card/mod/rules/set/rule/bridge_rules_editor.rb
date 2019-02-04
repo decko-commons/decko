@@ -1,14 +1,11 @@
 format :html do
   view :overlay_rule, cache: :never, tags: :unknown_ok do
-    return "not a rule" unless card.is_rule?
-
     wrap_with_overlay slot: breadcrumb_data("Rule editing", "rules") do
       current_rule_form
     end
   end
 
   view :modal_rule, cache: :never, tags: :unknown_ok, wrap: :modal do
-    return "not a rule" unless card.is_rule?
     current_rule_form
   end
 

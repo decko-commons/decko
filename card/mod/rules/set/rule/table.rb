@@ -3,8 +3,6 @@ format :html do
                    wrap: { modal: { size: :large,
                                     title: :edit_rule_title,
                                     footer: "" } } do
-    return "not a rule" unless card.is_rule?
-
     current_rule_form success_view: :rule_row, form_type: :modal
   end
 
@@ -16,8 +14,6 @@ format :html do
   end
 
   view :rule_row, cache: :never, tags: :unknown_ok do
-    return "not a rule" unless card.is_rule?
-
     rule_card = find_existing_rule_card
     cols = %i[setting set]
     cols.insert(1, :content) if voo.show? :content

@@ -1,4 +1,4 @@
-event :save_recently_edited_settings, :integrate, on: :save, when: :is_rule? do
+event :save_recently_edited_settings, :integrate, on: :save do
   if (recent = Card[:recent_settings])
     recent.insert_item 0, name.right
     attach_subcard recent

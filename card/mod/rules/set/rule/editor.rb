@@ -23,7 +23,6 @@ format :html do
   end
 
   view :show_rule, cache: :never, tags: :unknown_ok do
-    return "not a rule" unless card.is_rule?
     return "No Current Rule" if card.new_card?
 
     voo.items[:view] ||= :link
@@ -110,7 +109,7 @@ format :html do
 
 
   def rule_set_description
-    card.rule_set.label.tap { |s| s[0] = s[0].downcase }
+    card.rule_set.label.to_s.tap { |s| s[0] = s[0].downcase }
   end
 
   def rule_editor

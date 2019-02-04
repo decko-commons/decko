@@ -1,8 +1,6 @@
 format :html do
   # used in tables shown in set cards' core view
   view :rule_link, tags: :unknown_ok do
-    return "not a rule" unless card.is_rule?
-
     rule_card = find_existing_rule_card
     wrap_closed_rule rule_card do
       %i[link set].map do |cell|
@@ -12,8 +10,6 @@ format :html do
   end
 
   view :rule_modal_link, tags: :unknown_ok do
-     return "not a rule" unless card.is_rule?
-
      rule_card = find_existing_rule_card
      nest
      wrap_closed_rule rule_card do
