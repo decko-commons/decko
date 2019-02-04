@@ -1,7 +1,7 @@
 # encoding: utf-8
 require File.expand_path("../spec_helper", File.dirname(__FILE__))
 
-describe Cardname do
+RSpec.describe Cardname do
   describe "#key" do
     it "lowercases and underscores" do
       expect("This Name".to_name.key).to eq("this_name")
@@ -168,16 +168,36 @@ describe Cardname do
       end
     end
 
-    example "#replace update key and parts" do
-      name = name_with_cached_props "A"
-      name.replace("B")
-      expect(name).to have_attributes key: "b", parts: ["B"]
+    describe "#replace" do
+      it "updates key and parts" do
+        name = name_with_cached_props "A"
+        name.replace("B")
+        expect(name).to have_attributes key: "b", parts: ["B"]
+      end
+
+      it "invalidates cache" do
+        name = name_with_cached_props "A"
+        name.replace("B")
+        expect(Cardname.cached_name("A")).to be_nil
+      end
     end
 
     example "#gsub! update key and parts" do
       name = name_with_cached_props "AxxA"
       name.gsub!("xx", "B")
       expect(name).to have_attributes key: "aba", parts: ["ABA"]
+    end
+
+    example "[]= replaces part" do
+      name = name_with_cached_props "a+b"
+      name[0]= "c+e"
+      expect(name.parts).to eq %w[c e b]
+    end
+
+    example "<< adds part" do
+      name = name_with_cached_props "a+b"
+      name << "c+e"
+      expect(name.parts).to eq %w[a b c e]
     end
 
     example "#next! updates key and parts" do

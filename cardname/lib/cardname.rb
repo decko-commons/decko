@@ -87,7 +87,7 @@ class Cardname < String
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # ~~~~~~~~~~~~~~~~~~~~~~ INSTANCE ~~~~~~~~~~~~~~~~~~~~~~~~~
-  attr_accessor :key
+  attr_reader :key
 
   def initialize str
     @@cache[str] = super str.strip.encode('UTF-8')
@@ -101,14 +101,6 @@ class Cardname < String
 
   def to_name
     self
-  end
-
-  def unfrozen
-    # https://stackoverflow.com/questions/35633367/how-to-unfreeze-an-object-in-ruby
-    Fiddle::Pointer.new(object_id * 2)[1] &= ~(1 << 3)
-    yield
-  ensure
-    freeze
   end
 
   dangerous_methods.each do |m|

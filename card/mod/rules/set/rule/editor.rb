@@ -107,9 +107,8 @@ format :html do
     end
   end
 
-
   def rule_set_description
-    card.rule_set.label.to_s.tap { |s| s[0] = s[0].downcase }
+    card.rule_set.short_label
   end
 
   def rule_editor
