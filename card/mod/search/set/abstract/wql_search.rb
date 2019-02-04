@@ -103,3 +103,9 @@ format do
     query_with_params.limit
   end
 end
+
+format :html do
+  def default_limit
+    card_content_limit || super
+  end
+end

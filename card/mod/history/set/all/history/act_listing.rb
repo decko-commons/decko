@@ -23,8 +23,8 @@ format :html do
   end
 
   def act_list acts, context
-    fmt = context == :relative ? self : act.card.format(:html)
     act_accordion acts, context do |act, seq|
+      fmt = context == :relative ? self : act.card.format(:html)
       fmt.act_listing act, seq, context
     end
   end

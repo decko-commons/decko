@@ -57,9 +57,12 @@ class Cardname < String
       end
     end
 
+    def nothing_banned?
+      @nothing_banned.nil? ? (@nothing_banned = banned_array.empty?) : @nothing_banned
+    end
+
     def banned_re
-      banned_chars = (banned_array << joint).join
-      /[#{Regexp.escape banned_chars}]/
+      @@banned_re ||= /[#{Regexp.escape (banned_array << joint).join}]/
     end
 
     # Sometimes the core rule "the key's key must be itself" (called "stable" below) is violated
