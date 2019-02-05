@@ -48,3 +48,9 @@ Cypress.Commands.add "login", (email="joe@admin.com", password="joe_pass") =>
         subcards:
           "+*email": { content: email }
           "+*password": { content: password }
+
+
+Cypress.Commands.add "logout", () =>
+  cy.request
+    method: "DELETE",
+    url: "/delete/*signin"

@@ -1,6 +1,7 @@
 describe "/*signin", () =>
   before ->
     cy.clearCookies()
+    cy.logout()
 
   beforeEach ->
     cy.visit "/*signin"

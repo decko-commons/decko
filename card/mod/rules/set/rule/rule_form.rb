@@ -41,7 +41,7 @@ format :html do
   end
 
   def rule_form_args
-    { class: "card-rule-form", "data-slotter-mode": "update-modal-origin" }
+    { class: "card-rule-form", "data-slotter-mode": "update-origin" }
   end
 
   def edit_rule_success view="overlay_rule"

@@ -5,7 +5,10 @@ describe 'account tab', () ->
   beforeEach ->
     cy.visit_bridge("Sample User")
 
-  specify.only 'change email', () ->
+  after ->
+    cy.logout()
+
+  specify 'change email', () ->
     cy.bridge_sidebar().get('.nav-tabs a:first').click()
     cy.el("detail-pill").click()
     cy.get(".SELF-sample_user-Xaccount-Xemail.editable-view a.edit-link").click()

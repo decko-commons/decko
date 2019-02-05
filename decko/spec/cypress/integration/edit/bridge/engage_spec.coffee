@@ -1,6 +1,8 @@
 describe 'engage tab', () ->
   before ->
     cy.login()
+    cy.unfollow("A")
+    cy.clear_machine_cache()
 
   beforeEach ->
     cy.visit_bridge()
@@ -25,6 +27,7 @@ describe 'engage tab', () ->
 
     cy.bridge_sidebar().should("contain", "1 follower").and("contain", "following")
       .get('.follow-link').click()
+    cy.unfollow("A")
 
   specify "all followed cards", () ->
     cy.el("follow-overview").click()

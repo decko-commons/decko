@@ -35,9 +35,9 @@
 #             show new slot in modal
 #          overlay
 #             show new slot in overlay
-#          update-modal-origin
-#             update closest slot of the slotter that opened the modal
-#             (assumes that the request was triggered from a modal)
+#          update-origin
+#             update closest slot of the slotter that opened the modal or overlay
+#             (assumes that the request was triggered from a modal or overlay)
 #             If you need the update origin together with another mode then use
 #             update-foreign-slot=".card-slot._modal-origin".
 #          silent-success
@@ -85,44 +85,10 @@ $.extend decko,
         else
           func.call this, $(this)
 
-jQuery.fn.extend {
-  # mode can be "replace", "overlay" or "modal"
-  slotSuccess: (data, $slotter) ->
-    mode = $slotter.data("slotter-mode")
-    if mode == "silent-success"
-      return
-    else if mode == "update-modal-origin"
-      # update slot of the slotter that opened the modal
-      $("._modal-origin").slot().updateSlot()
-    else if data.redirect
-      window.location = data.redirect
-    else
-      notice = @attr('notify-success')
-      mode ||= "replace"
-      newslot = @setSlotContent data, mode, $slotter
-
-      if newslot.jquery # sometimes response is plaintext
-        decko.initializeEditors newslot
-        if notice?
-          newslot.notify notice, "success"
-
-  slotError: (status, result, $slotter) ->
-    if status == 403 #permission denied
-      @setSlotContent result
-    else if status == 900
-      $(result).showAsModal $slotter
-    else
-      @notify result, "error"
-      if status == 409 #edit conflict
-        @slot().find('.current_revision_id').val(
-          @slot().find('.new-current-revision-id').text()
-        )
-      else if status == 449
-        @slot().find('g-recaptcha').reloadCaptcha()
-
+jQuery.fn.extend
   slot: (status="success", mode="replace") ->
     if mode == "modal"
-      modalSlot()
+      @modalSlot()
     else
       @selectSlot("slot-#{status}-selector") ||
         @selectSlot("slot-selector") ||
@@ -151,9 +117,11 @@ jQuery.fn.extend {
     else
       target_slot
 
-  updateSlot: (url) ->
+  reloadSlot: (url) ->
     $slot = $(this)
     $slot = $slot.slot() unless $slot.isSlot
+    return unless $slot[0]
+
     unless url?
       path = '~' + $slot.data('cardId') + "?view=" + $slot.data("slot")["view"]
       url = decko.slotPath path, $slot
@@ -180,90 +148,15 @@ jQuery.fn.extend {
     v
 
   setSlotContentFromElement: (el, mode, $slotter) ->
-    s = $(this)
-
     if mode == "overlay"
-      s.addOverlay(el)
+      @addOverlay(el, $slotter)
     else if el.hasClass("_modal-slot") or mode == "modal"
       el.showAsModal($slotter)
     else
-      s.replaceWith el
+      @replaceWith el
 
     el.triggerSlotReady($slotter)
 
   triggerSlotReady: (slotter) ->
     @trigger "slotReady", slotter
     @find(".card-slot").trigger "slotReady", slotter
-
-  showAsModal: ($slotter) ->
-    el = @modalify($slotter)
-    if $("body > ._modal-slot").is(":visible")
-      mslot = $("body > ._modal-slot").detach()
-      mslot.removeClass("_modal-slot").addClass("_modal-fallback")
-      mslot.insertAfter(".modal-backdrop")
-      el.insertBefore(".modal-backdrop")
-    else
-      $("body > ._modal-slot").replaceWith el
-      $("._modal-origin").removeClass("_modal-origin")
-
-    $slotter.slot().addClass("_modal-origin")
-    el.modal("show", $slotter)
-
-  addOverlay: (overlay) ->
-    if @parent().hasClass("overlay-container")
-      if $(overlay).hasClass("_stack-overlay")
-        @before overlay
-      else
-        @replaceOverlay(overlay)
-    else
-      @find(".tinymce-textarea").each ->
-        tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
-      @wrapAll('<div class="overlay-container">')
-      @addClass("_bottomlay-slot")
-      @before overlay
-
-  replaceOverlay: (overlay) ->
-    @parent().find("._overlay").replaceWith overlay
-    $(".bridge-sidebar .tab-pane:not(.active) .bridge-pills > .nav-item > .nav-link.active").removeClass("active")
-
-  removeOverlay: () ->
-    if @siblings().length == 1
-      bottomlay = $(@siblings()[0])
-      if bottomlay.hasClass("_bottomlay-slot")
-        bottomlay.unwrap().removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
-        bottomlay.find(".tinymce-textarea").each ->
-          decko.initTinyMCE($(this).attr("id"))
-
-    @remove()
-
-  modalify: ($slotter) ->
-    if $slotter.data("modal-body")?
-      @find(".modal-body").append($slotter.data("modal-body"))
-    if @hasClass("_modal-slot")
-      this
-    else
-      modalSlot = $('<div/>', id: "modal-container", class: "modal fade _modal-slot")
-      modalSlot.append(
-        $('<div/>' , class: "modal-dialog").append(
-          $('<div/>', class: "modal-content").append(this)
-        )
-      )
-      modalSlot
-
-  # overlayClosed=true means the bridge update was
-  # triggered by closing an overly
-  updateBridge: (overlayClosed=false, slotter) ->
-    return unless @closest(".bridge").length > 0
-    if @data("breadcrumb")
-      @updateBreadcrumb()
-    else if slotter and $(slotter).data("breadcrumb")
-      $(slotter).updateBreadcrumb()
-
-    if overlayClosed
-      $(".bridge-pills > .nav-item > .nav-link.active").removeClass("active")
-
-  updateBreadcrumb: () ->
-    bc_item = $(".modal-header ._bridge-breadcrumb li:last-child")
-    bc_item.text(this.data("breadcrumb"))
-    bc_item.attr("class", "breadcrumb-item active #{this.data('breadcrumb-class')}")
-}

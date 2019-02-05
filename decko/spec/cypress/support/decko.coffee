@@ -42,3 +42,8 @@ Cypress.Commands.add "select2", prevSubject: "optional", (subject, name, value) 
     cy.get(selector).click()
 
   cy.get("span.select2-results").contains(value).click()
+
+Cypress.Commands.add "unfollow", (card, user="Joe_Admin") =>
+  cy.request
+    method: "POST",
+    url: "/update/#{card}+*self+#{user}+*follow?card%5Bcontent%5D=%5B%5B%2Anever%5D%5D"

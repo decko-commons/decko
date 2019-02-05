@@ -14,7 +14,7 @@ format :html do
   #
   def standard_save_and_close_button opts={}
     close = opts.delete(:close) || :modal
-    add_class opts, "submit-button btn-sm mr-3 _close-#{close}-on-success-and-update-origin"
+    add_class opts, "submit-button btn-sm mr-3 _close-#{close}-on-success _update-origin"
     opts.reverse_merge! text: "Save and Close", "data-cy": "submit-#{close}"
 
     submit_button opts

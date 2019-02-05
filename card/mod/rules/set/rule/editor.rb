@@ -108,7 +108,7 @@ format :html do
   end
 
   def rule_set_description
-    card.rule_set.short_label
+    card.rule_set.follow_label
   end
 
   def rule_editor
