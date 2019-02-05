@@ -28,7 +28,9 @@ def load_mod_lib
 end
 
 def without_dumping
-  ActiveRecord::Base.dump_schema_after_migration = false
+  unless ENV["GENERATE_FIXTURES"]
+    ActiveRecord::Base.dump_schema_after_migration = false
+  end
   yield
 end
 
