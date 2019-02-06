@@ -2,7 +2,7 @@ describe 'editing pointers', () ->
   before ->
     cy.login()
 
-  specify 'change with filtered list input', () ->
+  specify.only 'change with filtered list input', () ->
     cy.visit_bridge("joes")
     cy.get("._add-item-link").click()
     cy.get(".checkbox-side").first().click()

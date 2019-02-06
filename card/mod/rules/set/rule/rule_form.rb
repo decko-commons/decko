@@ -45,11 +45,7 @@ format :html do
   end
 
   def edit_rule_success view="overlay_rule"
-    { id:   @rule_context.name.url_key,
+    { id: @rule_context.name.url_key,
       view: view }
   end
 end
-
-
-
-

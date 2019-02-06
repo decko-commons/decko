@@ -1,4 +1,4 @@
-Feature: The homepage
+Feature: homepage
 
   I want to open the homepage
 

@@ -89,7 +89,7 @@ $.extend decko,
     slot
 
   removeModal: ->
-    if $("._modal-fallback").length > 0
+    if $("._modal-fallback")[0]
       decko.popModal()
     else
       $(".modal-dialog").remove()

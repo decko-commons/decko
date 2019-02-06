@@ -6,9 +6,9 @@ format :html do
 
   def menu
     case voo.edit
-    when :in_place
+    when :content_inline
       edit_in_place_link
-    when :in_modal
+    when :content_modal
       edit_in_modal_link
     else
       standard_edit_link

@@ -27,9 +27,9 @@ format :html do
 
     voo.items[:view] ||= :link
     output [
-             show_rule_set(card.rule_set),
-             _render_core
-           ]
+      show_rule_set(card.rule_set),
+      _render_core
+    ]
   end
 
   def show_rule_set set
