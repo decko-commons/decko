@@ -7,12 +7,16 @@ RSpec.describe Card::Set::Type::Set::HtmlViews do
 
   check_html_views_for_errors
 
-  it "renders setting view for a right set" do
-    r = Card["*read+*right"].format.render_open
-    # warn "r = #{r}"
-    assert_view_select r, 'table[class="set-rules table"]' do
-      assert_select 'a[href~="/*read+*right+*read?view=open_rule"]',
-                    text: "read"
+  it "renders setting table for a right set" do
+    expect_view("open", card: "*read+*right")
+      .to have_tag "div", with: { id:"*read+*right" } do
+      with_tag "form", with: { role: "filter" }
+      with_tag "table" do
+        with_tag "tr", with: { id: "*read+*right+*create" } do
+          with_tag "td", "create"
+          with_tag "td", "Administrator"
+        end
+      end
     end
   end
 end

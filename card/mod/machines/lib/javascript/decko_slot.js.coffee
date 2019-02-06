@@ -123,8 +123,7 @@ jQuery.fn.extend
     return unless $slot[0]
 
     unless url?
-      path = '~' + $slot.data('cardId') + "?view=" + $slot.data("slot")["view"]
-      url = decko.slotPath path, $slot
+      url = $slot.slotUrl()
     $slot.addClass 'slotter'
     $slot.attr 'href', url
     $slot.data "url", url
@@ -132,6 +131,10 @@ jQuery.fn.extend
                        # .attr(href, url) only works for anchors
     $slot.data "remote", true
     $.rails.handleRemote($slot)
+
+  slotUrl: ->
+    mark = if @data('cardID') then "~#{@data('cardID')}" else @data("cardName")
+    decko.slotPath "#{mark}?view=#{@data("slot")["view"]}"
 
   setSlotContent: (val, mode, $slotter) ->
     v = $(val)[0] && $(val) || val

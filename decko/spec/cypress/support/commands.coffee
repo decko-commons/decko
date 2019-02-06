@@ -26,9 +26,17 @@
 
 Cypress.Commands.add "el", prevSubject: "optional", (subject, id) =>
   if subject?
-    subject.find("[data-cy=#{id}]")
+    return subject.find("[data-cy=#{id}]")
   else
     cy.get("[data-cy=#{id}]")
+
+Cypress.Commands.add "elem",  (id) =>
+  cy.get("[data-cy=#{id}]")
+
+
+Cypress.Commands.add "child",prevSubject: "element", (subject, id) =>
+  subject.find("[data-cy=#{id}]")
+
 
 Cypress.Commands.add "tinymce_type", (text) =>
   cy.get(".mce-tinymce + .tinymce-textarea").invoke("attr", "id").then (id) ->

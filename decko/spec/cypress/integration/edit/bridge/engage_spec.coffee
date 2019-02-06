@@ -2,7 +2,7 @@ describe 'engage tab', () ->
   before ->
     cy.login()
     cy.unfollow("A")
-    cy.clear_machine_cache()
+    #cy.clear_machine_cache()
 
   beforeEach ->
     cy.visit_bridge()
@@ -35,6 +35,7 @@ describe 'engage tab', () ->
 
   specify "followers", () ->
     cy.get('.follow-link').click()
+    cy.contains("following")
     cy.el("followers").click()
     cy.bridge()
       .should("contain", "followers")

@@ -11,7 +11,6 @@ format :html do
 
   view :rule_modal_link, tags: :unknown_ok do
      rule_card = find_existing_rule_card
-     nest
      wrap_closed_rule rule_card do
        %i[modal_link set].map do |cell|
          send "closed_rule_#{cell}_cell", rule_card

@@ -25,7 +25,7 @@ class FollowLink
       class: @format.css_classes("follow-link", link_opts[:class],
                                  "slotter btn btn-sm btn-primary")
     )
-    opts["data-update-foreign-slot"] = ".card-slot.RIGHT-Xfollower.content-view"
+    opts["data-update-foreign-slot"] = ".d0-card-body > .card-slot.RIGHT-Xfollower.content-view"
     opts["data-hover-text"] = hover_text if hover_text
     link_to render_link_text, opts
   end
