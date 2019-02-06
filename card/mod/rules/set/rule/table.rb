@@ -23,19 +23,4 @@ format :html do
       end
     end
   end
-
-  # def open_rule_body rule_view
-  #   wrap_with :div, class: "d0-card-body" do
-  #     current_rule_format = subformat current_rule
-  #     current_rule_format.rule_context = card
-  #     current_rule_format.render rule_view
-  #   end
-  # end
-  #
-  #   def open_rule_body_view
-  #     return :show_rule if params[:success] && !params[:type_reload]
-  #
-  #     card_action = card.new_card? ? :create : :update
-  #     card.ok?(card_action) ? :edit_rule : :show_rule
-  #   end
 end

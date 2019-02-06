@@ -114,11 +114,11 @@ class Cardname < String
   def []= index, val
     p = parts
     p[index] = val
-    replace p
+    replace self.class.new(p)
   end
 
   def << val
-    replace(parts << val)
+    replace self.class.new(parts << val)
   end
 
   def key

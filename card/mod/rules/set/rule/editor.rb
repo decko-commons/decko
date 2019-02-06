@@ -99,24 +99,8 @@ format :html do
     end
   end
 
-  view :edit_rule, cache: :never, tags: :unknown_ok do
-    edit_rule_form do
-      [hidden_tags(success: @edit_rule_success),
-       rule_editor,
-       edit_rule_buttons].join
-    end
-  end
-
   def rule_set_description
     card.rule_set.follow_label
-  end
-
-  def rule_editor
-    wrap_with(:div, class: "card-editor") do
-      [rules_type_formgroup,
-       rule_content_formgroup,
-       rule_set_selection].compact
-    end
   end
 
   def rules_type_formgroup
@@ -140,10 +124,6 @@ format :html do
 
   def current_set_key
     card.new_card? ? Card.quick_fetch(:all).name.key : card.rule_set_key
-  end
-
-  view :edit_single_rule, tags: :unknown_ok, cache: :never do
-    frame { render_edit_rule }
   end
 
   private
