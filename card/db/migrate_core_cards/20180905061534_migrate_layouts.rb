@@ -14,12 +14,12 @@ class MigrateLayouts < Card::Migration::Core
     missing "body", card  unless body.present?
 
     puts "updating layout '#{card.name}'"
-    card.update_attributes! content: body.to_s
+    card.update! content: body.to_s
   end
 
   def create_head_rules layout_card
     head = find_head_content layout_card
-    return missing "head", card unless head
+    return missing "head", layout_card unless head
     each_layout_set layout_card do |set_name|
       puts "creating head rule for '#{set_name}'"
       ensure_card [set_name, :head], content: head,

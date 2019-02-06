@@ -47,15 +47,9 @@ class Card
           attribute = ATTRIBUTES[key]
           if (method = INTERPRET_METHOD[attribute])
             send method, key, val
-          else
-            non_standard_attribute attribute
+          elsif attribute != :ignore
+            bad_attribute! key
           end
-        end
-
-        def non_standard_attribute attribute
-          return if attribute == :ignore
-
-          bad_attribute! attribute
         end
 
         def bad_attribute! attribute
