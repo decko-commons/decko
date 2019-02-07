@@ -54,10 +54,14 @@ module Decko
     # (obviously) deprecated
     def send_deprecated_asset
       filename = [params[:mark], params[:format]].compact.join(".")
+      send_file asset_file_path(filename), x_sendfile: true
+    end
+
+    def asset_file_path filename
       path = Decko::Engine.paths["gem-assets"].existent.first
       path = File.join path, filename
       validate_path filename, path
-      send_file File.join(path, filename), x_sendfile: true
+      path
     end
 
     def validate_path filename, path
