@@ -2,7 +2,7 @@ describe 'save change in bridge', () ->
   before ->
     #cy.app_login()
     cy.login()
-    cy.app("scenarios/bridge")
+    cy.app("scenarios/save_changes")
     # cy.clear_machine_cache()
 
   specify "'save and close' updates main slot", () ->
