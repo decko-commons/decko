@@ -26,7 +26,11 @@ class Card
       def with_wrapper
         if voo.layout.present?
           voo.wrap ||= []
-          voo.wrap.push voo.layout.to_name.key
+          layout = voo.layout.to_name.key
+          # don't wrap twice with modals or overlays
+          # this can happen if the view is wrapped with modal
+          # and is requested with layout=modal param
+          voo.wrap.push layout unless voo.wrap.include? layout.to_sym
         end
 
         @rendered = yield

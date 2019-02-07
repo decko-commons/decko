@@ -7,7 +7,7 @@ format :html do
   def show_with_page_layout view, args
     main!
     args = main_render_args view, args
-    if explicit_modal_wrapper? view
+    if explicit_modal_wrapper?(view) && page_layout.to_sym != :modal
       render_outside_of_layout view, args
     else
       render_with_layout view, page_layout, args

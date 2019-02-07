@@ -65,7 +65,7 @@ format :html do
   def modal_link text=nil, opts={}
     opts = modal_link_opts(opts)
     opts[:path][:layout] ||= :modal
-    link_to text, modal_link_opts(opts)
+    link_to text, opts
   end
 
   def modal_link_opts opts
