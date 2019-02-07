@@ -45,14 +45,6 @@ def rule_user_setting_name
   end
 end
 
-def rule_user_name
-  is_preference? ? name.trunk_name.tag : nil
-end
-
-def rule_user
-  is_preference? ? self[-2] : nil
-end
-
 # ~~~~~~~~~~ determine the set options to which a user can apply the rule.
 def set_options
   candidates = set_prototype.set_names

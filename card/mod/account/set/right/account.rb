@@ -125,10 +125,8 @@ end
 def reset_password_success
   token_card.used!
   Auth.signin left_id
-  { id: left.name,
-    view: :related,
-    slot: { items: { nest_name: :account.cardname.prepend_joint,
-                     view: :edit } } }
+  { id: name,
+    view: :edit_content }
 end
 
 def reset_password_try_again
