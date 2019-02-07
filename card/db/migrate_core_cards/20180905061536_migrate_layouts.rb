@@ -14,7 +14,7 @@ class MigrateLayouts < Card::Migration::Core
     missing "body", card  unless body.present?
 
     puts "updating layout '#{card.name}'"
-    card.update_attributes! content: body.to_s
+    card.update! content: body.to_s
   end
 
   def create_head_rules layout_card

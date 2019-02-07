@@ -83,7 +83,7 @@ de:
           fetch:
             exception_fetch_arg_skipvirt: "%{func} called with new arguments and %{sv}"
           name_events:
-            error_name_exists: muss eindeutig sein; '%{name}' exisitiert bereits.
+            error_name_exists: muss eindeutig sein; '%{name}' existiert bereits.
             error_too_long: ist zu lang (%{length} Zeichen; erlaubt sind maximal 255)
             error_blank_name: darf nicht frei bleiben
             error_blank_key: darf nicht frei bleiben
