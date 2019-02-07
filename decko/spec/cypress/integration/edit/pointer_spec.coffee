@@ -1,6 +1,8 @@
 describe 'editing pointers', () ->
   before ->
     cy.login()
+    cy.app("card/ensure", name: "friends+*right+*efault", type: "pointer")
+    cy.app("card/ensure", name: "friends+*right+options", content: type: "search type")
 
   specify.only 'change with filtered list input', () ->
     cy.visit_bridge("joes")
