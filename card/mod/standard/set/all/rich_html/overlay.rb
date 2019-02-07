@@ -1,18 +1,22 @@
 format :html do
-  view :overlay do
-    overlay [_render_open_content, render_comment_box]
-  end
-
-  def overlay content=nil
+  wrapper :overlay do |opts|
     class_up "card-slot", "_overlay d0-card-overlay bg-white", true
     @content_body = true
-    frame do
-      block_given? ? yield : content
+    overlay_frame true, overlay_header(opts[:title]), opts[:slot] do
+      interiour
     end
   end
 
+  view :overlay_header, tags: :unknown_ok do
+    overlay_header
+  end
+
+  view :overlay_title do
+    _render_title
+  end
+
   view :overlay_menu do
-    wrap_with :div, class: "btn-group btn-group-sm" do
+    wrap_with :div, class: "btn-group btn-group-sm align-self-start ml-auto" do
       [slotify_overlay_link, close_overlay_link]
     end
   end
@@ -26,13 +30,36 @@ format :html do
   end
 
   def overlay_menu_link icon, args={}
-    add_class args, "border-light text-dark p-1"
+    add_class args, "border-light text-dark p-1 ml-1"
     button_link fa_icon(icon, class: "fa-lg"), args.merge(btn_type: "outline-secondary")
   end
 
-  view :overlay_header do
+  def overlay_header title=nil
+    title ||= _render_overlay_title
     class_up "d0-card-header", "bg-white text-dark", true
-    class_up "d0-card-header-title", "d-flex justify-content-between", true
-    header_wrap [_render_title, _render_overlay_menu]
+    class_up "d0-card-header-title", "d-flex", true
+    header_wrap [title, _render_overlay_menu]
+  end
+
+  def overlay_frame slot=true, header=render_overlay_header, slot_opts=nil
+    slot_opts ||= {}
+    overlay_framer slot, header, slot_opts do
+      wrap_body { yield }
+    end
+  end
+
+  def haml_overlay_frame slot=true, header=render_overlay_header
+    overlay_framer slot, header, {} do
+      haml_wrap_body { yield }
+    end
+  end
+
+  private
+
+  def overlay_framer slot, header, slot_opts
+    class_up "card-slot", "_overlay"
+    with_frame slot, header, slot_opts do
+      yield
+    end
   end
 end

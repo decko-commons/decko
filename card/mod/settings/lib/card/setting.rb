@@ -13,7 +13,11 @@ class Card
     mattr_accessor :groups, :group_names, :user_specific
     def self.extended host_class
       # accessible in E and O
-      host_class.mattr_accessor :restricted_to_type, :rule_type_editable
+      host_class.mattr_accessor :restricted_to_type, :rule_type_editable, :short_help_text
+    end
+
+    def self.codenames
+      Card::Setting.groups.values.flatten.compact.map(&:codename)
     end
 
     @@group_names = {
@@ -48,6 +52,7 @@ class Card
                   name.match(/::(\w+)$/)[1].underscore.to_sym
       self.rule_type_editable = opts[:rule_type_editable]
       self.restricted_to_type = permitted_type_ids opts[:restricted_to_type]
+      self.short_help_text = opts[:help_text]
       return unless opts[:user_specific]
       @@user_specific << @codename
     end

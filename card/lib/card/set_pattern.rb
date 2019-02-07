@@ -8,10 +8,9 @@ class Card
 
         def card_keys
           @card_keys ||=
-            Card.set_patterns.inject({}) do |hash, set_pattern|
+            Card.set_patterns.each_with_object({}) do |set_pattern, hash|
               card_key = Card.quick_fetch(set_pattern.pattern_code).key
               hash[card_key] = true
-              hash
             end
         end
 
@@ -24,7 +23,8 @@ class Card
       class Abstract
         class << self
           attr_accessor :pattern_code, :pattern_id, :junction_only,
-                        :assigns_type, :anchorless, :anchor_parts_count
+                        :assigns_type, :anchorless
+          attr_writer :anchor_parts_count
 
           def new card
             super if pattern_applies? card
@@ -64,6 +64,7 @@ class Card
           def module_key anchor_codes
             return pattern_code.to_s.camelize if anchorless?
             return unless anchor_codes # is this not an error?
+
             ([pattern_code] + anchor_codes).map { |code| code.to_s.camelize }.join "::"
           end
         end
@@ -116,6 +117,7 @@ class Card
 
         def anchor_parts
           return [@anchor_name] unless anchor_parts_count > 1
+
           parts = @anchor_name.parts
           if parts.size <= anchor_parts_count
             parts
@@ -184,16 +186,18 @@ class Card
 
       def lookup_inherited_key
         return unless @inherit_card
+
         card = @inherit_card
         @inherit_card = nil
         return unless (type_code = default_type_code card)
+
         mod_key = "Type::#{type_code.to_s.camelize}"
         mod_key if mods_exist_for_key? mod_key
       end
 
       def default_type_code card
         default_rule = card.rule_card :default
-        default_rule && default_rule.type_code
+        default_rule&.type_code
       end
 
       def mods_exist_for_key? mod_key

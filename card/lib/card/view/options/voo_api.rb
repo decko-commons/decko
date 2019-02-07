@@ -25,15 +25,13 @@ class Card
 
           def define_getter option_key
             define_method option_key do
-              norm_method = "normalize_#{option_key}"
-              value = live_options[option_key]
-              try(norm_method, value) || value
+              live_options[option_key]
             end
           end
 
           def define_setter option_key
             define_method "#{option_key}=" do |value|
-              live_options[option_key] = value
+              live_options[option_key] = special_option_value(option_key, value) || value
             end
           end
         end
@@ -69,12 +67,28 @@ class Card
         # methods that follow the normalize_#{key} pattern are called by accessors
         # (arguably that should be done during normalization!)
 
+        def normalize_special_options! opts
+          opts.each do |option_key, value|
+            new_value = special_option_value option_key, value
+            opts[option_key] = new_value if new_value
+          end
+        end
+
+        def special_option_value option_key, value
+          try "normalize_#{option_key}", value
+        end
+
         def normalize_editor value
           value&.to_sym
         end
 
         def normalize_cache value
           value&.to_sym
+        end
+
+        def normalize_wrap value
+          value = value.split(",").map(&:strip) if value.is_a? String
+          Array.wrap(value).compact.flatten
         end
 
         protected
@@ -93,6 +107,7 @@ class Card
         # handling for main_views.
         def normalize_options
           @normalized_options = opts = options_to_hash @raw_options.clone
+          normalize_special_options! opts
           @optional = opts.delete(:optional) || false
           add_implicit_options!
           inherit_options_from_parent!
@@ -122,6 +137,7 @@ class Card
         # standard inheritance from parent view object
         def inherit_options_from_parent!
           return unless parent
+
           Options.heir_keys.each do |option_key|
             inherit_from_parent! option_key
           end
@@ -129,18 +145,16 @@ class Card
 
         def inherit_from_parent! option_key
           return unless (parent_value = parent.live_options[option_key])
+
           @normalized_options[option_key] ||= parent_value
         end
 
         def process_live_options
           @live_options = normalized_options.clone
-          if @live_options[:main_view]
-            @live_options.merge! format.main_nest_options
-          end
-          # main_nest_options are not processed in normalize_options so that
-          # they're NOT locked in the stub.
+          process_main_nest_options
           process_before_view
           process_visibility_options
+          process_view_wrappers
           @live_options
         end
 
@@ -150,8 +164,31 @@ class Card
           format.before_view requested_view
         end
 
+        # adds the wrappers that
+        def process_view_wrappers
+          view_wrappers = format.view_setting(:wrap, ok_view)
+          return unless view_wrappers.present?
+
+          @live_options[:wrap] = Array.wrap(@live_options[:wrap])
+          if view_wrappers.is_a? ::Hash
+            view_wrappers.each_pair do |name, opts|
+              @live_options[:wrap] << [name, opts]
+            end
+          else
+            @live_options[:wrap] += Array.wrap(view_wrappers)
+          end
+        end
+
+        # merge the options of the main nest into the @live_options
+        # They are not processed in normalize_options so that
+        # they're NOT locked in the stub.
+        def process_main_nest_options
+          @live_options.merge! format.main_nest_options if @live_options[:main_view]
+        end
+
         def validate_options! opts
           return unless (foreign_opts = foreign_options_in opts)
+
           raise Card::Error, "illegal view options: #{foreign_opts}"
         end
 

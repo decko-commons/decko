@@ -26,7 +26,7 @@ format :html do
 
   view :new_buttons do
     button_formgroup do
-      [standard_submit_button, invite_button].compact
+      [standard_create_button, invite_button].compact
     end
   end
 
@@ -103,6 +103,10 @@ format :html do
     return unless card.ok? :delete
     link_to_card card, "Deny and delete", path: { action: :delete }
   end
+end
+
+def default_account_status
+  "pending"
 end
 
 event :activate_by_token, :validate, on: :update,

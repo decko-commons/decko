@@ -1,6 +1,12 @@
 format :html do
   view :server_error, template: :haml
 
+  view :debug_server_error, wrap: { modal: { size: :full } } do
+    error_page = BetterErrors::ErrorPage.new Card::Error.current,
+                                             "PATH_INFO" => request.env["REQUEST_URI"]
+    haml :debug_server_error, {}, error_page
+  end
+
   view :message, perms: :none, tags: :unknown_ok do
     frame { params[:message] }
   end
@@ -42,11 +48,11 @@ format :html do
 
   view :errors, perms: :none do
     return if card.errors.empty?
+
     voo.title = card.name.blank? ? "Problems" : tr(:problems_name, cardname: card.name)
     voo.hide! :menu
-    class_up "d0-card-frame", "card card-warning card-inverse"
     class_up "alert", "card-error-msg"
-    frame { standard_errors }
+    standard_errors voo.title
   end
 
   view :not_found do
@@ -72,6 +78,7 @@ format :html do
   def commentable? view
     return false unless self.class.tagged(view, :comment) &&
                         show_view?(:comment_box, :hide)
+
     ok? :comment
   end
 
@@ -106,6 +113,21 @@ format :html do
     wrap_with(:span, title: error_message(exception)) { cardname }
   end
 
+  def standard_errors heading=nil
+    alert "warning", true do
+      [
+        (wrap_with(:h4, heading, class: "alert-heading") if heading),
+        error_messages.join("<hr>")
+      ]
+    end
+  end
+
+  def error_messages
+    card.errors.map do |attrib, msg|
+      attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
+    end
+  end
+
   def standard_error_message attribute, message
     "<div><strong>#{h attribute.to_s.upcase}:</strong> #{h message}</div>"
   end
@@ -120,6 +142,7 @@ format :html do
 
   def sign_in_or_up_links to_task
     return if Auth.signed_in?
+
     links = [signin_link, signup_link].compact.join " #{tr :or} "
     wrap_with(:div) do
       [tr(:please), links, to_task].join(" ") + "."
@@ -132,6 +155,7 @@ format :html do
 
   def signup_link
     return unless signup_ok?
+
     link_to tr(:sign_up), path: { action: :new, mark: :signup }
   end
 

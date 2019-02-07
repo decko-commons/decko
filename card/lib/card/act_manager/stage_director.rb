@@ -1,10 +1,10 @@
-
 class Card
   def restore_changes_information
     # restores changes for integration phase
     # (rails cleared them in an after_create/after_update hook which is
     #  executed before the integration phase)
     return unless saved_changes.present?
+
     @mutations_from_database = mutations_before_last_save
   end
 
@@ -98,6 +98,7 @@ class Card
       def catch_up_to_stage next_stage
         if @transact_in_stage
           return if @transact_in_stage != next_stage
+
           next_stage = :integrate_with_delay
         end
         upto_stage(next_stage) do |stage|
@@ -143,6 +144,7 @@ class Card
         unless act_director
           raise Card::Error, "act requested without a main stage director"
         end
+
         @act = act_director.act ||= ActManager.need_act
       end
 
@@ -150,7 +152,7 @@ class Card
         if main?
           self
         else
-          ActManager.act_director || (@parent && @parent.main_director)
+          ActManager.act_director || (@parent&.main_director)
         end
       end
 
@@ -186,6 +188,7 @@ class Card
         new_stage = stage_index(stage)
         @stage ||= -1
         return if @stage >= new_stage
+
         if @stage < new_stage - 1
           raise Card::Error, "stage #{stage_symbol(new_stage - 1)} was " \
                              "skipped for card #{@card}"
@@ -195,10 +198,11 @@ class Card
 
       def run_single_stage stage, &block
         return true unless valid_next_stage? stage
+
         # puts "#{@card.name}: #{stage} stage".red
         prepare_stage_run stage
         execute_stage_run stage, &block
-      rescue => e
+      rescue StandardError => e
         @card.clean_after_stage_fail
         raise e
       end
@@ -256,9 +260,7 @@ class Card
       # and use the ActiveRecord :around_save callback to run the :store and
       # :finalize stages
       def store &save_block
-        if main? && !block_given?
-          raise Card::Error, "need block to store main card"
-        end
+        raise Card::Error, "need block to store main card" if main? && !block_given?
 
         # the block is the ActiveRecord block from the around save callback that
         # saves the card
@@ -284,6 +286,7 @@ class Card
       def store_pre_subcards
         @subdirectors.each do |subdir|
           next unless subdir.prior_store
+
           subdir.catch_up_to_stage :store
         end
       end
@@ -291,6 +294,7 @@ class Card
       def store_post_subcards
         @subdirectors.each do |subdir|
           next if subdir.prior_store
+
           subdir.catch_up_to_stage :store
         end
       end
@@ -311,7 +315,7 @@ class Card
       end
 
       def delete
-        @parent.subdirectors.delete self if @parent
+        @parent&.subdirectors&.delete self
         super
       end
     end

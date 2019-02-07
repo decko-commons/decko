@@ -15,8 +15,9 @@ class Card
       def parse_value rawvalue
         case rawvalue
         when String, Integer then ["=", rawvalue]
+        when Symbol          then ["=", rawvalue.to_s]
         when Array           then parse_array_value rawvalue
-        else raise("Invalid Condition Clause #{rawvalue}.inspect}")
+        else raise Error::BadQuery, "Invalid property value: #{rawvalue.inspect}"
         end
       end
 
@@ -27,8 +28,9 @@ class Card
 
       def canonicalize_operator
         unless (target = OPERATORS[@operator.to_s])
-          raise Card::Error::BadQuery, "Invalid Operator #{@operator}"
+          raise Error::BadQuery, "Invalid operator: #{@operator}"
         end
+
         @operator = target
       end
 

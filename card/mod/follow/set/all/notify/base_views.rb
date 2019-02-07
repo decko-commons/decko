@@ -10,6 +10,7 @@ format do
     wrap_subedits do
       notification_act.actions_affecting(card).map do |action|
         next if action.card_id == card.id
+
         action.card.format(format: @format).render_subedit_notice action_id: action.id
       end
     end
@@ -41,6 +42,7 @@ format do
 
   view :unfollow_url, perms: :none, closed: true, cache: :never do
     return "" unless (rule_name = live_follow_rule_name)
+
     card_url path(mark: "#{active_notice(:follower)}+#{Card[:follow].name}",
                   action: :update,
                   card: { subcards: { rule_name => Card[:never].name } })
@@ -64,22 +66,26 @@ format do
 
   def follow_option_card
     return unless (option_name = active_notice(:follow_option))
+
     Card.fetch option_name
   end
 
   def active_notice key
     @active_notice ||= inherit :active_notice
     return unless @active_notice
+
     @active_notice[key]
   end
 
   def live_follow_rule_name
     return unless (set_card = followed_set_card) && (follower = active_notice(:follower))
+
     set_card.follow_rule_name follower
   end
 
   def edit_info_for field, action
     return nil unless (value = action.value field)
+
     value = action.previous_value if action.action_type == :delete
     wrap_list_item "  #{notification_action_label action} #{field}: #{value}"
   end
@@ -94,6 +100,7 @@ format do
   def wrap_subedits
     subedits = yield.compact.join
     return "" if subedits.blank?
+
     "\nThis update included the following changes:\n#{wrap_list subedits}"
   end
 

@@ -27,7 +27,7 @@ event :set_default_salt, :prepare_to_validate, on: :create do
 end
 
 event :set_default_status, :prepare_to_validate, on: :create do
-  default_status = Auth.needs_setup? ? "active" : "pending"
+  default_status = left&.try(:default_account_status) || "active"
   add_subfield :status, content: default_status
 end
 
@@ -180,16 +180,8 @@ format :html do
       {{+#{:password.cardname}|titled;title:password}})
   end
 
-  view :edit do
-    voo.structure = true
+  before :content_formgroup do
     voo.edit_structure = [[:email, "email"], [:password, "password"]]
-    super()
-  end
-
-  view :edit_in_form do
-    voo.structure = true
-    voo.edit_structure = [[:email, "email"], [:password, "password"]]
-    super()
   end
 end
 

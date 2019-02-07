@@ -15,7 +15,7 @@ format :html do
   # @param context [Symbol] :relative or :absolute
   # @param draft_legend [Symbol] :show or :hide
   def acts_layout acts, context, draft_legend=:hide
-    bs_layout container: true, fluid: true do
+    bs_layout container: false, fluid: false do
       html _render_act_legend(draft_legend => :draft_legend)
       row(12) { act_list acts, context }
       row(12) { act_paging acts, context }
@@ -24,7 +24,8 @@ format :html do
 
   def act_list acts, context
     act_accordion acts, context do |act, seq|
-      act.card.format(:html).act_listing act, seq, context
+      fmt = context == :relative ? self : act.card.format(:html)
+      fmt.act_listing act, seq, context
     end
   end
 
@@ -66,7 +67,7 @@ format :html do
   def clean_acts acts
     # FIXME: if we get rid of bad act data, this will not be necessary
     # The current
-    acts.reject { |a| !a.card }
+    acts.select(&:card)
   end
 
   def current_page_acts acts
@@ -82,7 +83,7 @@ format :html do
   end
 
   def acts_page_from_params
-    @act_page_from_params ||= params["page"].present? ? params["page"].to_i : 1
+    @acts_page_from_params ||= params["page"].present? ? params["page"].to_i : 1
   end
 
   def act_paging acts, context
@@ -100,9 +101,9 @@ format :html do
 
   def action_icon action_type, extra_class=nil
     icon = case action_type
-           when :create then :plus
+           when :create then :add_circle
            when :update then :pencil
-           when :delete then :trash
+           when :delete then :remove_cirlce
            when :draft then :wrench
            end
     icon_tag icon, extra_class
@@ -111,9 +112,12 @@ format :html do
   private
 
   def act_renderer context
-    if context == :absolute
+    case context
+    when :absolute
       Act::ActRenderer::AbsoluteActRenderer
-    else
+    when :bridge
+      Act::ActRenderer::BridgeActRenderer
+    else # relative
       Act::ActRenderer::RelativeActRenderer
     end
   end

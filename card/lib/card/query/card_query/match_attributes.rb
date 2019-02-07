@@ -11,6 +11,7 @@ class Card
         def match val
           val.gsub!(/[^#{Card::Name::OK4KEY_RE}]+/, " ")
           return nil if val.strip.empty?
+
           val.gsub!("*", '\\\\\\\\*')
           val_list = val.split(/\s+/).map do |v|
             name_or_content_match v
@@ -49,9 +50,9 @@ class Card
         end
 
         # TODO: move sql to SqlStatement
-        def key_like pattern, no_junction=false
+        def key_like pattern, junction_ok=true
           conds = ["#{table_alias}.key LIKE #{quote pattern}"]
-          conds << "#{table_alias}.right_id is null" if no_junction
+          conds << "#{table_alias}.right_id is null" unless junction_ok
           # FIXME: -- this should really be more nuanced --
           # it includes all descendants after one plus
           conds.join " AND "

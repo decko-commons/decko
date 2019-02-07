@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_14_152037) do
+ActiveRecord::Schema.define(version: 2019_01_31_223248) do
 
   create_table "card_actions", id: :integer, force: :cascade do |t|
     t.integer "card_id"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2018_05_14_152037) do
   create_table "card_virtuals", id: :integer, force: :cascade do |t|
     t.integer "left_id"
     t.integer "right_id"
+    t.string "left_key"
     t.text "content", limit: 16777215
     t.index ["left_id"], name: "right_id_index"
     t.index ["right_id"], name: "left_id_index"
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(version: 2018_05_14_152037) do
     t.boolean "trash", null: false
     t.integer "type_id", null: false
     t.text "db_content", limit: 16777215
+    t.index ["codename"], name: "cards_codename_index"
     t.index ["created_at"], name: "cards_created_at_index"
     t.index ["key"], name: "cards_key_index", unique: true
     t.index ["left_id"], name: "cards_left_id_index"
@@ -145,5 +147,4 @@ ActiveRecord::Schema.define(version: 2018_05_14_152037) do
     t.integer "card_id", null: false
     t.integer "account_id", null: false
   end
-
 end

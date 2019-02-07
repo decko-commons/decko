@@ -8,6 +8,8 @@ event :validate_codename, :validate, on: :update, changed: :codename do
 end
 
 event :reset_codename_cache, :integrate, changed: :codename do
+  return if @action == :create && codename.nil?
+
   Card::Codename.reset_cache
 end
 

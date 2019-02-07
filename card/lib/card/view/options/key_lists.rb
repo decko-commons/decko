@@ -10,8 +10,8 @@ class Card
 
         # keys whose values can be set by Deckers in card nests
         # @return [Array]
-        def ruler_keys
-          @ruler_keys ||= ::Set.new(keymap[:both]) + keymap[:ruler]
+        def shark_keys
+          @shark_keys ||= ::Set.new(keymap[:both]) + keymap[:shark]
         end
 
         # keys that follow simple standard inheritance pattern from parent views
@@ -25,14 +25,14 @@ class Card
         def accessible_keys
           all_keys - [   # (all but the following)
             :view,       # view is accessed as requested_view or ok_view and cannot be
-                         # directly manipulated
+            # directly manipulated
             :show, :hide # these have a more extensive API (see Card::View::Visibility)
           ]
         end
 
         def reset_key_lists
           @all_keys = nil
-          @ruler_keys = nil
+          @shark_keys = nil
           @heir_keys = nil
         end
       end

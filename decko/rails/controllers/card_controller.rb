@@ -123,11 +123,16 @@ class CardController < ActionController::Base
   end
 
   def handle_exception exception
+    raise exception if debug_exception?(exception)
     @card ||= Card.new
     Card::Error.current = exception
     error = Card::Error.cardify_exception exception, card
     error.report
     show error.class.view, error.class.status_code
+  end
+
+  def debug_exception? e
+    !e.is_a?(Card::Error::UserError) && Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
   end
 
   class << self

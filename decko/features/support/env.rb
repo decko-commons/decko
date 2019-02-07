@@ -77,19 +77,23 @@ Capybara.register_driver :headless_chrome do |app|
     chromeOptions: { args: %w[headless disable-gpu no-sandbox] }
   )
 
-  Capybara::Selenium::Driver.new app, browser: :chrome,
-                                      desired_capabilities: capabilities
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+  )
 end
-
 Capybara.default_driver = :selenium_firefox
-Capybara.javascript_driver = :selenium_firefox
+
+Capybara.javascript_driver =  :selenium_firefox
+# Capybara.server = :webrick
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
-Capybara.default_max_wait_time = 30
+Capybara.default_max_wait_time = 20
 Cardio.config.paging_limit = 10
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how

@@ -9,7 +9,6 @@ class Card
     # A stub must contain all the information necessary to produce the view as intended.
     #
     module Stub
-
       class << self
         def escape stub_json
           stub_json.gsub "(", "_OParEN_"
@@ -36,7 +35,8 @@ class Card
           view_opts: normalized_options,
           format_opts: { nest_mode: format.nest_mode, override: root? } }
         # nest mode handling:
-        # typically modes only override views on nests, but stubs create non-standard nests
+        # typically modes only override views on nests, but stubs create non-standard
+        # nests
         # mode-based view overrides should NOT apply to standard render calls that have
         # been replaced with stubs - only to standard nest calls. therefore modes are not
         # stored in non-standard nest stubs

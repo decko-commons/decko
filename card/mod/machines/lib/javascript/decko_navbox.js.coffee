@@ -18,6 +18,8 @@ $(window).ready ->
     templateSelection: formatNavboxSelectedItem
     multiple: true
     containerCssClass: 'select2-navbox-autocomplete'
+    dropdownCssClass: 'select2-navbox-dropdown'
+    width: "100%!important"
 
   navbox.on "select2:select", (e) ->
     navboxSelect(e)

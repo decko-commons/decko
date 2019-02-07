@@ -63,7 +63,7 @@ format :json do
                   exact.name.valid? &&
                   !exact.virtual? &&
                   exact.ok?(:create)
-    [exact.name, exact.name.url_key]
+    [h(exact.name), exact.name.url_key]
   end
 
   def new_item_of_type exact
@@ -76,7 +76,7 @@ format :json do
     goto_names = complete_or_match_search
     goto_names.unshift exact.name if add_exact_to_goto_names? exact, goto_names
     goto_names.map do |name|
-      [name, name.to_name.url_key, highlight(name, term)]
+      [name, name.to_name.url_key, h(highlight(name, term, sanitize: false))]
     end
   end
 

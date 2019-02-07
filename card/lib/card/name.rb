@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require_dependency "card/env"
 
 require "cardname"
@@ -59,11 +60,11 @@ class Card
     end
 
     def star?
-      simple? && "*" == s[0, 1]
+      simple? && s[0, 1] == "*"
     end
 
     def rstar?
-      right && "*" == right[0, 1]
+      right && right[0, 1] == "*"
     end
 
     def code

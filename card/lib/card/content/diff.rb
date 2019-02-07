@@ -34,10 +34,10 @@ class Card
       # summary: {length: <number> , joint: <string> }
       def initialize old_version, new_version, opts={}
         @result = Result.new opts[:summary]
-        if new_version
-          lcs_opts = lcs_opts_for_format opts[:diff_format]
-          LCS.new(lcs_opts).run(old_version, new_version, @result)
-        end
+        return unless new_version
+
+        lcs_opts = lcs_opts_for_format opts[:diff_format]
+        LCS.new(lcs_opts).run(old_version, new_version, @result)
       end
 
       def red?

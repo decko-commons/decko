@@ -42,6 +42,8 @@ format :json do
 
   def complete_or_match_search limit: AUTOCOMPLETE_LIMIT
     starts_with = complete_search limit: limit
+    return starts_with if Card.config.navbox_match_start_only
+
     remaining_slots = limit - starts_with.size
     return starts_with if remaining_slots.zero?
     starts_with + match_search(not_names: starts_with, limit: remaining_slots)
@@ -65,7 +67,7 @@ format :json do
 
   def match_wql not_names
     wql = { name_match: term_param }
-    wql["not in"] = not_names if not_names.any?
+    wql[:name] = ["not in"] + not_names if not_names.any?
     wql
   end
 

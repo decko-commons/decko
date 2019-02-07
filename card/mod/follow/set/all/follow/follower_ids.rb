@@ -56,6 +56,10 @@ def follower_ids
   end
 end
 
+def followers_count
+  follower_ids.size
+end
+
 def indirect_follower_ids
   result = ::Set.new
   left_card = left
@@ -91,6 +95,7 @@ end
 def direct_follower_ids_for_set set_card, ids
   set_card.all_user_ids_with_rule_for(:follow).each do |user_id|
     next if ids.include?(user_id) || !(option = follow_rule_option user_id)
+
     yield user_id, set_card, option if block_given?
     ids << user_id
   end

@@ -3,14 +3,15 @@ class Card
     # View rendering methods.
     #
     module Render
-      def render! view, args={}
-        voo = View.new self, view, args, @voo
+      # view=open&layout=simple
+      def render! view, view_options={}
+        voo = View.new self, view, view_options, @voo
         with_voo voo do
           voo.process do |final_view|
             final_render final_view
           end
         end
-      rescue => e
+      rescue StandardError => e
         rescue_view e, view
       end
 
@@ -20,6 +21,26 @@ class Card
         yield
       ensure
         @voo = old_voo
+      end
+
+      def with_wrapper
+        if voo.layout.present?
+          voo.wrap ||= []
+          voo.wrap.push voo.layout.to_name.key
+        end
+
+        @rendered = yield
+        wrap_with_wrapper
+      end
+
+      def wrap_with_wrapper
+        return @rendered unless voo.wrap.present?
+
+        voo.wrap.reverse_each do |wrapper, opts|
+          @rendered = try("wrap_with_#{wrapper}", opts) { @rendered } ||
+                      Card::Layout::CardLayout.new(wrapper, self).render
+        end
+        @rendered
       end
 
       def before_view view
@@ -38,14 +59,21 @@ class Card
 
       def final_render view
         current_view(view) do
-          method = view_method view
-          rendered = method.call
-          add_debug_info view, method, rendered
+          with_wrapper do
+            method = view_method view
+            rendered = final_render_call method
+            add_debug_info view, method, rendered
+          end
         end
+      end
+
+      def final_render_call method
+        method.call
       end
 
       def add_debug_info view, method, rendered
         return rendered unless show_debug_info?
+
         <<-HTML
           <view-debug view='#{safe_name}##{view}' src='#{pretty_path method.source_location}' module='#{method.owner}'/>
           #{rendered}
@@ -57,17 +85,24 @@ class Card
       end
 
       def pretty_path source_location
-        source_location.first.gsub(%r{^.+mod\d+-([^/]+)}, '\1: ') + ':' +
+        source_location.first.gsub(%r{^.+mod\d+-([^/]+)}, '\1: ') + ":" +
           source_location.second.to_s
       end
 
       # setting (:alway, :never, :nested) designated in view definition
       def view_cache_setting view
-        method = self.class.view_cache_setting_method view
-        coded_setting = respond_to?(method) ? send(method) : :standard
+        coded_setting = view_setting(:cache, view) || :standard
+        # method = self.class.view_cache_setting_method view
+        # coded_setting = respond_to?(method) ? send(method) : :standard
         return :never if coded_setting == :never
+
         # seems unwise to override a hard-coded "never"
-        (voo && voo.cache) || coded_setting
+        (voo&.cache) || coded_setting
+      end
+
+      def view_setting setting_name, view
+        method = self.class.view_setting_method_name view, setting_name
+        try method
       end
 
       def stub_render cached_content
@@ -86,6 +121,7 @@ class Card
       def prepare_stub_nest stub_hash
         stub_card = Card.fetch_from_cast stub_hash[:cast]
         view_opts = stub_hash[:view_opts]
+        voo.normalize_special_options! view_opts
         if stub_card&.key.present? && stub_card.key == card.key
           view_opts[:nest_name] ||= "_self"
         end
@@ -113,15 +149,12 @@ class Card
         unless supports_view? view
           raise Card::Error::UserError, unsupported_view_error_message(view)
         end
-        method view_method_name(view)
+
+        method Card::Set::Format.view_method_name(view)
       end
 
       def supports_view? view
-        respond_to? view_method_name(view)
-      end
-
-      def view_method_name view
-        "_view_#{view}"
+        respond_to? Card::Set::Format.view_method_name(view)
       end
 
       def current_view view

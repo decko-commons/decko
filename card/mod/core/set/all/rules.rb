@@ -67,6 +67,7 @@ def is_standard_rule?
     l.type_id == Card::SetID
 end
 
+# TODO: abstract so account doesn't have to have User type.
 def is_preference?
   name.parts.length > 2 &&
     (r = right(skip_modules: true)) &&

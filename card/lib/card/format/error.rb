@@ -33,7 +33,7 @@ class Card
         if exception.is_a? Card::Error::UserError
           exception.message
         else
-          tr :error_rendering, scope: [:lib, :card, :format, :error],
+          tr :error_rendering, scope: %i[lib card format error],
                                cardname: error_cardname(exception), view: view
         end
       end

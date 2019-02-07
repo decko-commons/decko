@@ -1,4 +1,3 @@
-
 def acted_at
   last_act.acted_at
 end
@@ -76,6 +75,7 @@ def last_act
       return last_act_on_self unless act_of_last_action
 
       return last_act_on_self if act_of_last_action == last_act_on_self
+
       if last_act_on_self.acted_at > act_of_last_action.acted_at
         last_act_on_self
       else
@@ -86,6 +86,7 @@ end
 
 def previous_action action_id
   return unless action_id
+
   action_index = actions.find_index { |a| a.id == action_id }
   all_actions[action_index - 1] if action_index.to_i.nonzero?
 end
