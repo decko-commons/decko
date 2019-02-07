@@ -12,6 +12,7 @@ format :html do
         [
           _render_edit_name_row,
           _render_edit_type_row,
+          frame_help,
           card_form(:update, edit_form_opts) do
             [
               edit_view_hidden,
