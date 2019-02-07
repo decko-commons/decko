@@ -71,7 +71,7 @@ Decko::RestSpecHelper.describe_api do
     end
 
     it "denies access to other directories" do
-      get :asset, params: { filename: "/../../Gemfile" }
+      get :asset, params: { mark: "/../../Gemfile" }
       expect(response.status).to eq(404)
     end
   end

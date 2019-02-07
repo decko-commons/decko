@@ -149,5 +149,5 @@ class CardController < ActionController::Base
 
   rescue_from_class ActiveRecord::RecordInvalid
   rescue_from_class Card::Error::UserError
-  #rescue_from_class StandardError if rescue_all?
+  rescue_from_class StandardError if rescue_all?
 end
