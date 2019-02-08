@@ -526,6 +526,7 @@ en:
             check_email: Check your email for a link to reset your password
             error_unknown_email: Unrecognized email.
             error_not_active: Sorry, that account is not active.
+            error_blank: can't be blank
             error_wrong_password: Wrong password
             email_missing: email can't be blank
             password_missing: password can't be blank

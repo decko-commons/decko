@@ -4,12 +4,13 @@ Cypress.Commands.add "slot", (cardname, view) =>
   selector += ".#{view}-view" if view?
   cy.get(selector)
 
+Cypress.Commands.add "main_slot", () =>
+  cy.get("#main > .card-slot")
+
 # click the edit icon
 Cypress.Commands.add "click_edit",  { prevSubject: 'element'}, (subject) =>
   subject.find(".card-menu > a").click(force: true)
 
-Cypress.Commands.add "main_slot", () =>
-  cy.get("#main > .card-slot")
 
 Cypress.Commands.add "expect_main_title", (text) =>
   cy.get("#main > .card-slot > .d0-card-frame > .d0-card-header > .d0-card-header-title > .card-title")
@@ -47,3 +48,7 @@ Cypress.Commands.add "unfollow", (card, user="Joe_Admin") =>
   cy.request
     method: "POST",
     url: "/update/#{card}+*self+#{user}+*follow?card%5Bcontent%5D=%5B%5B%2Anever%5D%5D"
+
+Cypress.Commands.add "ensure", (name, args={}) =>
+  args.name = name
+  cy.app("card/ensure", args)

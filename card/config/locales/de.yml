@@ -526,6 +526,7 @@ de:
             error_unknown_email: Unbekannte E-Mail-Adresse.
             error_not_active: Entschuldigung, der Account ist nicht aktiviert.
             error_wrong_password: Falsches Passwort
+            error_blank: fehlt
             email_missing: E-Mail-Addresse fehlt
             password_missing: Passwort fehlt
             error_not_active: nicht aktiviert

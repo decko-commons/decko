@@ -1,10 +1,10 @@
 format :html do
   def standard_submit_button
-    standard_save_button + standard_save_and_close_button
+    output [standard_save_button, standard_save_and_close_button]
   end
 
   def standard_save_button opts={}
-    return if voo.hide?(:save_button)
+    return if voo&.hide?(:save_button)
     add_class opts, "submit-button btn-sm mr-3"
     opts[:text] ||= "Save"
     opts["data-cy"] = "save"

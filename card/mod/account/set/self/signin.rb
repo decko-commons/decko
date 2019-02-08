@@ -31,8 +31,7 @@ end
 # and aborts (does not sign in)
 event :send_reset_password_token, before: :signin, on: :update, trigger: :required do
   email = subfield(:email)&.content
-  account = Auth.find_account_by_email email
-  send_reset_password_email_or_fail account
+  send_reset_password_email_or_fail email
 end
 
 def consider_recaptcha?
@@ -63,9 +62,11 @@ def signin_error_message account
   end
 end
 
-def send_reset_password_email_or_fail account
+def send_reset_password_email_or_fail email
   aborting do
-    if account && account.active?
+    break errors.add :email, i18n_signin(:error_blank) if email.blank?
+
+    if (account = Auth.find_account_by_email(email))&.active?
       account.send_reset_password_token
     elsif account
       errors.add :account, i18n_signin(:error_not_active)
@@ -140,7 +141,7 @@ format :html do
 
   view :edit_buttons do
     text = I18n.t :reset_my_password, scope: "mod.account.set.self.signin"
-    button_tag text, situation: "primary"
+    button_tag text, situation: "primary", class: "_close-modal-on-success"
   end
 
   def hidden_signin_fields
