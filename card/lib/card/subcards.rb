@@ -36,6 +36,7 @@ class Card
 
     def card name
       return unless @keys.include? name.to_name.key
+
       fetch_subcard name
     end
 
@@ -51,12 +52,18 @@ class Card
 
     def rename old_name, new_name
       return unless @keys.include? old_name.to_name.key
+
       @keys.delete old_name.to_name.key
       @keys << new_name.to_name.key
     end
 
+    def respond_to_missing? method_name, _include_private=false
+      @keys.respond_to? method_name
+    end
+
     def method_missing method, *args
-      return unless @keys.respond_to? method
+      return unless respond_to_missing?(method)
+
       @keys.send method, *args
     end
 
@@ -101,6 +108,7 @@ class Card
     def absolutize_subcard_name name
       name = Card::Name[name]
       return name if @context_card.name.parts.first.blank?
+
       name.absolute_name @context_card.name
     end
   end

@@ -2,8 +2,8 @@ class Card
   module Set
     class Event
       module DelayedEvent
-        DELAY_STAGES = ::Set.new([:integrate_with_delay_stage,
-                                  :integrate_with_delay_final_stage]).freeze
+        DELAY_STAGES = ::Set.new(%i[integrate_with_delay_stage
+                                    integrate_with_delay_final_stage]).freeze
 
         private
 
@@ -26,8 +26,9 @@ class Card
           @set_module.class_exec(self) do |event|
             define_method(event.delaying_method_name, proc do
               IntegrateWithDelayJob.set(queue: event.name).perform_later(
-                Card::ActManager.act&.id, self, serialize_for_active_job, Card::Env.serialize,
-                Card::Auth.serialize, event.simple_method_name
+                Card::ActManager.act&.id, self, serialize_for_active_job,
+                Card::Env.serialize, Card::Auth.serialize,
+                event.simple_method_name
               )
             end)
           end
@@ -67,7 +68,7 @@ class Card
     when Time
       { value: value.to_s, type: "time" }
     when Hash
-      { value: serialize_hash_value(value), type: "hash"}
+      { value: serialize_hash_value(value), type: "hash" }
     when ActionController::Parameters
       serialize_value value.to_unsafe_h
     else
@@ -75,7 +76,7 @@ class Card
     end
   end
 
-  def serialize_hash_value
+  def serialize_hash_value value
     value.each_with_object({}) { |(k, v), h| h[k] = serialize_value(v) }
   end
 

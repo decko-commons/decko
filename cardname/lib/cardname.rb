@@ -57,9 +57,14 @@ class Cardname < String
       end
     end
 
+    def nothing_banned?
+      return @nothing_banned unless @nothing_banned.nil?
+
+      @nothing_banned = banned_array.empty?
+    end
+
     def banned_re
-      banned_chars = (banned_array << joint).join
-      /[#{Regexp.escape banned_chars}]/
+      @banned_re ||= /[#{Regexp.escape((banned_array + [joint])).join}]/
     end
 
     # Sometimes the core rule "the key's key must be itself" (called "stable" below) is violated
@@ -77,7 +82,7 @@ class Cardname < String
 
     def dangerous_methods
       bang_methods = String.instance_methods.select { |m| m.to_s.ends_with?("!") }
-      [:replace].concat bang_methods
+      %i[replace concat clear].concat bang_methods
     end
 
     def split_parts str
@@ -110,6 +115,17 @@ class Cardname < String
     end
   end
 
+  # dangerous, too
+  def []= index, val
+    p = parts
+    p[index] = val
+    replace self.class.new(p)
+  end
+
+  def << val
+    replace self.class.new(parts << val)
+  end
+
   def key
     @key ||= part_keys.join(self.class.joint)
   end
@@ -127,6 +143,7 @@ class Cardname < String
   private
 
   def reset
+    self.class.reset_cache s
     instance_variables.each do |var|
       instance_variable_set var, nil
     end

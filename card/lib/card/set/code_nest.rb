@@ -9,9 +9,7 @@ class Card
         end
       end
 
-      def add_nest args
-
-      end
+      def add_nest args; end
     end
   end
 end

@@ -19,9 +19,10 @@ class Card
           :nest_syntax,    # full nest syntax
           :show,           # render these views when optional
           :hide,            # do not render these views when optional
-          :wrap            # wrap the nest with a wrapper
+          :wrap,            # wrap the nest with a wrapper
+          :edit
         ],                 #   show/hide can be view (Symbol), list of views (Array),
-                           #   or comma separated views (String)
+        #   or comma separated views (String)
         # NOTE: although show and hide are in this non-inheriting group, they are
         # actually inherited, just not through the standard mechanism. Because, well,
         # they're weird. (See process_visibility options)
@@ -38,7 +39,8 @@ class Card
           :help,           # cue text when editing
           :structure,      # overrides the content of the card
           :title,          # overrides the name of the card
-          :variant,        # override the canonical version of the name with a different variant
+          :variant,        # override the canonical version of the name with a different
+                           # variant
           :editor,         # inline_nests makes a form within standard content (Symbol)
           :type,           # set the default type of new cards
           :size,           # set an image size
@@ -59,6 +61,7 @@ class Card
 
         def add_option name, type
           raise "invalid option type: #{type}" unless @keymap.key?(type)
+
           @keymap[type] << name
           reset_key_lists
         end

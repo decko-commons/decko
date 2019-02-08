@@ -26,11 +26,39 @@
 
 Cypress.Commands.add "el", prevSubject: "optional", (subject, id) =>
   if subject?
-    subject.find("[data-cy=#{id}]")
+    cy.get(subject.selector).find("[data-cy=#{id}]")
   else
     cy.get("[data-cy=#{id}]")
 
+Cypress.Commands.add "elem",  (id) =>
+  cy.get("[data-cy=#{id}]")
+
+
+Cypress.Commands.add "child",prevSubject: "element", (subject, id) =>
+  subject.find("[data-cy=#{id}]")
+
+
 Cypress.Commands.add "tinymce_type", (text) =>
-  cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->
+  cy.get(".mce-tinymce + .tinymce-textarea").invoke("attr", "id").then (id) ->
     cy.window().then (win) ->
       win.tinyMCE.get(id).setContent(text)
+
+Cypress.Commands.add "app_login", (user="Joe Admin") =>
+  cy.app("login", user)
+
+Cypress.Commands.add "login", (email="joe@admin.com", password="joe_pass") =>
+  # cy.setCookie("user_testdeck_test", "11862")
+  cy.request
+    method: "POST",
+    url: "/update/*signin",
+    body:
+      card:
+        subcards:
+          "+*email": { content: email }
+          "+*password": { content: password }
+
+
+Cypress.Commands.add "logout", () =>
+  cy.request
+    method: "DELETE",
+    url: "/delete/*signin"

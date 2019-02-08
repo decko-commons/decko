@@ -13,7 +13,7 @@ format :html do
     end
   end
 
-  def haml_wrap slot=true, slot_attr={}, tag=:div &block
+  def haml_wrap slot=true, slot_attr={}, tag=:div, &block
     method_wrap :haml_tag, tag, slot, slot_attr, &block
   end
 
@@ -25,10 +25,14 @@ format :html do
   end
 
   def slot_attributes slot, slot_attr
-    { id: card.name.url_key, class: wrap_classes(slot), data: wrap_data }.tap do |hash|
+    { id: slot_id, class: wrap_classes(slot), data: wrap_data }.tap do |hash|
       add_class hash, slot_attr.delete(:class)
       hash.deep_merge! slot_attr
     end
+  end
+
+  def slot_id
+    "#{card.name.safe_key}-#{@current_view}-view"
   end
 
   def wrap_data slot=true

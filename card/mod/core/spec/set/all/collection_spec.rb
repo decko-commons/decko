@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Collection do
+RSpec.describe Card::Set::All::Collection do
   describe "#item_names" do
     subject do
       item_names_args = @context ? { context: @context } : {}
@@ -86,10 +86,14 @@ describe Card::Set::All::Collection do
 
     it "loads only the first tab pane" do
       tabs = render_card :tabs, content: "[[A]]\n[[B]]\n[[C]]", type: "pointer"
-      assert_view_select tabs, "div[role=tabpanel]" do
-        assert_select "div.tab-pane#tempo_rary-a  .card-slot#A"
-        assert_select 'li > a.load[data-toggle=tab][href="#tempo_rary-b"]'
-        assert_select "div.tab-pane#tempo_rary-b", ""
+      expect(tabs).to have_tag :div, with: { role: "tabpanel" } do
+        with_tag "div.tab-pane#tempo_rary-a" do
+          with_tag "div.card-slot#a-content-view"
+        end
+        with_tag :li do
+          with_tag "a.load", with: { "data-toggle": "tab", href: "#tempo_rary-b" }
+        end
+        with_tag "div.tab-pane#tempo_rary-b"
       end
     end
 

@@ -82,7 +82,7 @@ def changing_existing_tag_to_junction?
 end
 
 def name_in_use_as_tag?
-  Auth.as_bot { Card.count_by_wql right_id: id }.positive?
+  !Card.where(right_id: id, trash: false).take.nil?
 end
 
 def changing_name_to_junction?

@@ -12,7 +12,7 @@ format :html do
   end
 
   def bar_side_cols middle=true
-    middle ? [5, 3] : [7, 5]
+    middle ? [5, 4, 3] : [7, 5]
   end
 
   view :expanded_bar do
@@ -30,13 +30,16 @@ format :html do
   def bar_classes
     shared = "align-items-center"
     class_up "bar-left", "p-2 font-weight-bold d-flex grow-2 #{shared}"
-    class_up "bar-middle", "col-4 d-none d-md-flex p-3 border-left #{shared}"
+    class_up "bar-middle", "d-none d-md-flex p-3 border-left text-align-middle #{shared}"
     class_up "bar-right",
              "p-3 border-left d-flex justify-content-end text-align-right #{shared}"
   end
 
-  def class_up_bar_sides left, right
+  def class_up_bar_sides *sizes
+    left = sizes.shift
+    right = sizes.pop
     class_up "bar-left", "col-#{left}", true
+    class_up "bar-middle", "col-#{sizes.first}", true if sizes.any?
     class_up "bar-right", "col-#{right}", true
   end
 

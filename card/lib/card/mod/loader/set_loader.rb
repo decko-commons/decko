@@ -24,7 +24,6 @@ class Card
           Card::Set.clean_empty_modules
         end
 
-
         class Template < ModuleTemplate
           def initialize modules, content_path
             super
@@ -33,6 +32,7 @@ class Card
 
           def to_const
             return Object if simple_load?
+
             pattern_klass = Card::Set.const_get_or_set(@pattern.camelize) { Class.new }
 
             @modules.inject(pattern_klass) do |const, name_part|
@@ -69,9 +69,9 @@ class Card
           end
 
           def preamble
-            <<-RUBY.strip_heredoc
-#{"extend Card::Set" unless helper_module?}
-            def self.source_location; "#{@content_path}"; end
+            <<~RUBY.strip_heredoc
+              #{'extend Card::Set' unless helper_module?}
+                          def self.source_location; "#{@content_path}"; end
             RUBY
           end
 

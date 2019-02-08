@@ -12,15 +12,19 @@ format :html do
         [
           _render_edit_name_row,
           _render_edit_type_row,
-          card_form(:update, edit_form_opts) do
-            [
-              edit_view_hidden,
-              _render_content_formgroup,
-              _render_edit_buttons
-            ]
-          end
+          edit_form
         ]
       end
+    end
+  end
+
+  def edit_form
+    card_form(:update, edit_form_opts) do
+      [
+        edit_view_hidden,
+        _render_content_formgroup,
+        _render_edit_buttons
+      ]
     end
   end
 
@@ -29,23 +33,16 @@ format :html do
                                        title: :render_title } } do
     with_nest_mode :edit do
       voo.show :help
+      voo.hide :save_button
       wrap true do
-        [
-          card_form(:update, edit_form_opts) do
-            [
-              edit_view_hidden,
-              _render_content_formgroup,
-              _render_edit_buttons
-            ]
-          end
-        ]
+        edit_form
       end
     end
   end
 
   def edit_form_opts
     # for override
-    { "data-slot-selector": ".modal-origin", "data-slot-error-selector": ".card-slot" }
+    { "data-slot-selector": "._modal-origin", "data-slot-error-selector": ".card-slot" }
   end
 
   def edit_view_hidden

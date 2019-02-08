@@ -63,8 +63,20 @@ format :html do
 
   # @param size [:small, :medium, :large, :full] size of the modal dialog
   def modal_link text=nil, opts={}
-    link_to text, modal_link_opts(opts)
+    opts = modal_link_opts(opts)
+    opts[:path][:layout] ||= :modal
+    link_to text, opts
   end
+
+  def modal_link_opts opts
+    add_class opts, "slotter"
+    opts.reverse_merge! path: {},
+                        "data-slotter-mode": "modal",
+                        "data-modal-class": modal_dialog_classes(opts),
+                        remote: true
+    opts
+  end
+
 
   def modal_dialog_classes opts
     classes = [classy("modal-dialog")]
@@ -74,18 +86,6 @@ format :html do
     classes << "modal-#{MODAL_SIZE[size]}" if size && size != :medium
     classes << "modal-dialog-centered" if opts.delete(:vertically_centered)
     classes.join " "
-  end
-
-  def modal_link_opts opts
-    add_class opts, "_modal-link"
-    opts.reverse_merge! path: {},
-                        "data-toggle": "modal",
-                        "data-target": "#modal-main-slot",
-                        "data-modal-class": modal_dialog_classes(opts)
-
-    opts[:path][:layout] ||= :modal
-    opts[:path] = "javascript:void()"
-    opts
   end
 
   def close_modal_window

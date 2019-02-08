@@ -97,9 +97,7 @@ class Card
 
       # ensure a leading '+'
       def normalize_subfield_key key
-        if key.is_a?(Symbol) && Card::Codename.exist?(key)
-          key = Card::Codename.name(key)
-        end
+        key = Card::Codename.name(key) if key.is_a?(Symbol) && Card::Codename.exist?(key)
         key.to_name.prepend_joint
       end
 

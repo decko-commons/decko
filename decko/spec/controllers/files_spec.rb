@@ -62,8 +62,7 @@ Decko::RestSpecHelper.describe_api do
     it "serves file" do
       filename = "asset-test.txt"
       # args = { id: filename, format: "txt", explicit_file: true }
-      path =
-        File.join(Decko::Engine.paths["gem-assets"].existent.first, filename)
+      path = File.join(Decko::Engine.paths["gem-assets"].existent.first, filename)
       File.open(path, "w") { |f| f.puts "test" }
       # args = { filename: filename.to_s }
       visit "/assets/#{filename}"
@@ -72,7 +71,7 @@ Decko::RestSpecHelper.describe_api do
     end
 
     it "denies access to other directories" do
-      get :asset, params: { filename: "/../../Gemfile" }
+      get :asset, params: { mark: "/../../Gemfile" }
       expect(response.status).to eq(404)
     end
   end

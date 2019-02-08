@@ -14,16 +14,29 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
             "Sunglasses fan", "u1", "u2", "u3"
         ].sort
 
-        it "finds cards of this type" do
-          expect(run_query(type: "_self", context: "User")).to eq(user_cards)
-        end
-
-        it "finds User cards " do
+        it "finds cards by type" do
           expect(run_query(type: "User")).to eq(user_cards)
         end
 
         it "handles casespace variants" do
           expect(run_query(type: "users")).to eq(user_cards)
+        end
+
+        it "handles relative names" do
+          expect(run_query(type: "_self", context: "User")).to eq(user_cards)
+        end
+
+        it "treats Symbols as codenames" do
+          search_search = run_query type: :search_type, limit: 1
+          expect(Card[search_search.first].type_name).to eq(["Search"])
+        end
+
+        it "treats Integers as ids" do
+          expect(run_query(type: Card::UserID)).to eq(user_cards)
+        end
+
+        it "handles subqueries" do
+          expect(run_query(type: { name: "User" })).to eq(user_cards)
         end
       end
 

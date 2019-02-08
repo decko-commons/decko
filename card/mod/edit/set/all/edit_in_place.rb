@@ -11,7 +11,7 @@ format :html do
     end
   end
 
-  view :edit_row, wrap: { div: { class: "row" }} do
+  view :edit_row, wrap: { div: { class: "row" } } do
     ["<label class='col-sm-1'>#{render_title}</label>",
      "<div class='col-sm-11'>#{render_editable}</div>"]
   end
@@ -19,7 +19,6 @@ format :html do
   view :editable, perms: :update, tags: :unknown_ok, wrap: :slot do
     [render_core, edit_in_place_link]
   end
-
 
   view :edit_name_row do
     edit_row_fixed_width "Name", card.name, :edit_name_form

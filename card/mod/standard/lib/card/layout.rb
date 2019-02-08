@@ -18,7 +18,7 @@ class Card
       end
 
       def card_layout? name
-        Card.fetch_type_id(name) == Card::LayoutTypeID
+        Card.fetch_type_id(name).in? [Card::LayoutTypeID, Card::HtmlID, Card::BasicID]
       rescue ArgumentError, Card::Error::CodenameNotFound => _e
         false
       end
@@ -29,6 +29,7 @@ class Card
 
       def register_layout new_layout
         return if layouts[new_layout]
+
         layouts[new_layout] = block_given? ? yield : {}
       end
 
@@ -56,7 +57,7 @@ class Card
       def main_nest_opts layout_name, format
         opts = layouts[layout_name] ||
                register_layout(layout_name) do
-                  layout_class(layout_name).new(layout_name, format).fetch_main_nest_opts
+                 layout_class(layout_name).new(layout_name, format).fetch_main_nest_opts
                end
         opts.clone
       end

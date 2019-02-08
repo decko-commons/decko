@@ -4,7 +4,9 @@ class Card
     module ViewHelper
       def expect_view view_name, format: :html, card: nil
         if card
-          expect(view(view_name, card: card, format: format))
+          #view()
+          v = view(view_name, card: card, format: format)
+          expect(v)
         else
           expect(format_subject(format).render(view_name))
         end

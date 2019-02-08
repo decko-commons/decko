@@ -11,6 +11,7 @@ class Card
           list = []
           subqueries.each do |s|
             next unless Array.wrap(fasten).include? s.fasten
+
             list << s
             list += s.subqueries_with_fasten s.fasten
           end
@@ -29,6 +30,7 @@ class Card
 
         def next_table_suffix
           return root.next_table_suffix unless root?
+
           @table_suffix = (@table_suffix || -1) + 1
         end
 

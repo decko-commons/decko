@@ -24,6 +24,7 @@ Decko.application.class.configure do
   if defined?(RailsDevTweaks)
     config.dev_tweaks.autoload_rules do
       skip "/files"
+      skip "/favicon.ico"
       skip /view\=status/
     end
   end
@@ -49,7 +50,7 @@ Decko.application.class.configure do
   config.raise_all_rendering_errors = true
 
   # if false, application will raise errors that make it to controller.
-  config.rescue_all_in_controller = true
+  config.rescue_all_in_controller = false
 
   # config.performance_logger = {
   #     methods:   [:event, :search, :fetch, :view],  # choose methods to log

@@ -73,7 +73,7 @@ de:
           available_layouts: "Verfügbare Layouts: %{available_layouts}"
       set:
         all:
-          codename: 
+          codename:
             only_admins_codename: cur Administratoren können Codenamen festlegen
             error_code_in_use: codename %{codename} wird bereits benutzt
           event:
@@ -83,7 +83,7 @@ de:
           fetch:
             exception_fetch_arg_skipvirt: "%{func} called with new arguments and %{sv}"
           name_events:
-            error_name_exists: muss eindeutig sein; '%{name}' exisitiert bereits.
+            error_name_exists: muss eindeutig sein; '%{name}' existiert bereits.
             error_too_long: ist zu lang (%{length} Zeichen; erlaubt sind maximal 255)
             error_blank_name: darf nicht frei bleiben
             error_blank_key: darf nicht frei bleiben
@@ -190,7 +190,7 @@ de:
           json:
             invalid_json: invalid json
     :bootstrap:
-      set: 
+      set:
         type:
             customized_bootswatch_skin:
               not_valid_theme: kein gültiges Thema %{theme_name}
@@ -526,7 +526,9 @@ de:
             error_unknown_email: Unbekannte E-Mail-Adresse.
             error_not_active: Entschuldigung, der Account ist nicht aktiviert.
             error_wrong_password: Falsches Passwort
-            abort_bad_signin_args: ungültige Anmeldedaten
+            error_blank: fehlt
+            email_missing: E-Mail-Addresse fehlt
+            password_missing: Passwort fehlt
             error_not_active: nicht aktiviert
             error_not_recognized: unbekannt
         type:

@@ -27,7 +27,7 @@ event :set_default_salt, :prepare_to_validate, on: :create do
 end
 
 event :set_default_status, :prepare_to_validate, on: :create do
-  default_status = Auth.needs_setup? ? "active" : "pending"
+  default_status = left&.try(:default_account_status) || "active"
   add_subfield :status, content: default_status
 end
 
@@ -125,10 +125,8 @@ end
 def reset_password_success
   token_card.used!
   Auth.signin left_id
-  { id: left.name,
-    view: :related,
-    slot: { items: { nest_name: :account.cardname.prepend_joint,
-                     view: :edit } } }
+  { id: name,
+    view: :edit_content }
 end
 
 def reset_password_try_again
@@ -180,16 +178,8 @@ format :html do
       {{+#{:password.cardname}|edit_row;title:password}})
   end
 
-  view :edit do
-    voo.structure = true
+  before :content_formgroup do
     voo.edit_structure = [[:email, "email"], [:password, "password"]]
-    super()
-  end
-
-  view :edit_in_form do
-    voo.structure = true
-    voo.edit_structure = [[:email, "email"], [:password, "password"]]
-    super()
   end
 end
 

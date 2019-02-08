@@ -85,7 +85,7 @@ describe Card::Set::Abstract::Pointer do
 
     it "handles arrays for subfields" do
       create "super card", subfields: { "a pointer" => { content: ["b1", "[[b2]]"],
-                                                         type_id: Card::PointerID }}
+                                                         type_id: Card::PointerID } }
       expect_card("super card+a pointer").to have_db_content "[[b1]]\n[[b2]]"
     end
   end

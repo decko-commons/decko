@@ -25,18 +25,19 @@ class Card
 
         def integration_phase
           return if @abort
+
           @card.restore_changes_information
           run_single_stage :integrate
           run_single_stage :after_integrate
           run_single_stage :integrate_with_delay
-        rescue => e # don't rollback
+        rescue StandardError => e # don't rollback
           Card::Error.current = e
           unless e.class == Card::Error::Abort
             warn "exception in integrate phase: #{e.message}"
             warn e.backtrace.join "\n"
             @card.notable_exception_raised
           end
-          return false
+          false
         ensure
           @card.clear_changes_information unless @abort
           # ActManager.clear if main? && !@card.only_storage_phase

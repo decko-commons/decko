@@ -1,5 +1,6 @@
 class Card
   class Layout
+    # Layout based on a card's content
     class CardLayout < Layout
       def layout_card
         @layout_card ||= Card.quick_fetch @layout
@@ -10,7 +11,8 @@ class Card
       end
 
       def fetch_main_nest_opts
-        find_main_nest_chunk&.options ||
+        main_nest = find_main_nest_chunk
+        (main_nest && main_nest.options) ||
           raise(Card::Error, "no main nest found in layout \"#{@layout}\"")
       end
 
@@ -18,7 +20,7 @@ class Card
 
       def find_main_nest_chunk card=layout_card, depth=0
         content = Card::Content.new(card.content, @format, chunk_list: :nest_only)
-        return false unless content.each_chunk.count > 0
+        return false unless content.each_chunk.count.positive?
 
         main_chunk(content) || go_deeper(content, depth)
       end

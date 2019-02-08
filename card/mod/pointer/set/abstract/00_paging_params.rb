@@ -13,12 +13,14 @@ format do
 
   def env_search_param param
     return unless focal?
+
     val = Env.params[param]
     val.present? && val.to_i
   end
 
   def voo_search_param param
     return unless voo&.wql
+
     voo.wql[param]
   end
 end
