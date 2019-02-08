@@ -76,7 +76,7 @@ jQuery.fn.extend
     $.rails.handleRemote($slot)
 
   slotUrl: ->
-    mark = if @data('cardID') then "~#{@data('cardID')}" else @data("cardName")
+    mark = if @data('cardId') then "~#{@data('cardId')}" else @data("cardName")
     decko.slotPath "#{mark}?view=#{@data("slot")["view"]}"
 
   setSlotContent: (val, mode, $slotter) ->

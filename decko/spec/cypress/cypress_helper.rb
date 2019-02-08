@@ -23,8 +23,8 @@ factory = CypressDev::SimpleRailsFactory
 factory = FactoryBot if defined?(FactoryBot)
 factory = FactoryGirl if defined?(FactoryGirl)
 
-CypressDev::SmartFactoryWrapper.configure(
-    always_reload: !Rails.configuration.cache_classes,
-    factory: factory,
-    files: %w(spec/factories.rb ./spec/factories/**/*.rb)
-)
+# CypressDev::SmartFactoryWrapper.configure(
+#     always_reload: !Rails.configuration.cache_classes,
+#     factory: factory,
+#     files: %w(spec/factories.rb ./spec/factories/**/*.rb)
+# )

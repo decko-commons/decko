@@ -30,7 +30,7 @@ RSpec.describe Card::Set::Right::Password do
     end
 
     context "blank password" do
-      it "does not change the password", aggregate_failure: true do
+      it "does not change the password", aggregate_failures: true do
         original_pw = account.password
         expect(original_pw.size).to be > 10
         password_card.update! content: ""
