@@ -1,6 +1,7 @@
 format :html do
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
+
     menu
   end
 
@@ -27,9 +28,9 @@ format :html do
   end
 
   def wrap_menu
-     wrap_with :div, class: classy(%w[menu-slot nodblclick]) do
-       yield
-     end
+    wrap_with :div, class: classy(%w[menu-slot nodblclick]) do
+      yield
+    end
    end
 
   def standard_edit_link
@@ -57,7 +58,6 @@ format :html do
   def menu_icon
     fa_icon "edit"
   end
-
 
   def show_menu_item_edit?
     return unless card.real?

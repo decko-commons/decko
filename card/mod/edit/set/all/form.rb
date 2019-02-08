@@ -180,7 +180,7 @@ format :html do
   end
 
   def form_context
-    (form_root? || !form_root) ? self : parent
+    form_root? || !form_root ? self : parent
   end
 
   def form_root?

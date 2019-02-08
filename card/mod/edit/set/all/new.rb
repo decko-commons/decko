@@ -1,4 +1,3 @@
-
 format :html do
   view :new, perms: :create, tags: :unknown_ok, cache: :never do
     with_nest_mode :edit do

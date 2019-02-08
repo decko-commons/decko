@@ -24,8 +24,8 @@ format :html do
                             path: { view: :overlay_rule },
                             "data-cy": "follow-advanced")
     opts[:path].delete :layout
-    link_to_card card.follow_rule_card(Auth.current.name, new: {}), icon_tag("more_horiz"), opts
-
+    link_to_card card.follow_rule_card(Auth.current.name, new: {}),
+                 icon_tag("more_horiz"), opts
   end
 
   def followers_bridge_link

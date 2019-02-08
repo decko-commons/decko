@@ -4,6 +4,7 @@ format :html do
   end
 
   def standard_save_button opts={}
+    return if voo.hide?(:save_button)
     add_class opts, "submit-button btn-sm mr-3"
     opts[:text] ||= "Save"
     opts["data-cy"] = "save"

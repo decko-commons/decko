@@ -15,7 +15,7 @@ format :html do
         %i[modal_link set].map do |cell|
           send "closed_rule_#{cell}_cell", rule_card
         end
-     end
+      end
   end
 
   def wrap_closed_rule rule_card

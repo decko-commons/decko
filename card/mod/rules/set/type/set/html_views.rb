@@ -24,10 +24,11 @@ format :html do
              "data-slot-selector": ".card-slot.rules-table",
              class: classy("nodblclick slotter form-inline slim-select2 m-2") do
       output [
-               label_tag(:view, icon_tag("filter_list"), class: "mr-2"),
-               setting_select,
-               content_tag(:span, "rules that apply to #{_render_set_label}".html_safe, class: "mx-2 small"),
-             ]
+        label_tag(:view, icon_tag("filter_list"), class: "mr-2"),
+        setting_select,
+        content_tag(:span, "rules that apply to #{_render_set_label}".html_safe,
+                    class: "mx-2 small")
+      ]
     end
   end
 

@@ -1,8 +1,8 @@
-
 include_set Type::SearchType
 
 def inheritable?
   return true if junction_only?
+
   name.trunk_name.junction? &&
     name.tag_name.key == Card::Set::Self.pattern.key
 end
@@ -33,6 +33,7 @@ end
 def uncapitalized_label
   label = label.to_s
   return label unless label[0]
+
   label[0] = label[0].downcase
   label
 end
@@ -46,9 +47,7 @@ def setting_codenames_by_group
   Card::Setting.groups.each do |group, settings|
     visible_settings =
       settings.reject { |s| !s || !s.applies_to_cardtype(prototype.type_id) }
-    unless visible_settings.empty?
-      result[group] = visible_settings.map(&:codename)
-    end
+    result[group] = visible_settings.map(&:codename) unless visible_settings.empty?
   end
   result
 end
