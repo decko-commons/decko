@@ -1,20 +1,42 @@
+input = (content) ->
+  cy.ensure "friends+*right+*input", type: "phrase", content: content
+
 describe 'editing pointers', () ->
   before ->
     cy.login()
-    #cy.clear_machine_cache()
-    #cy.app("card/ensure", name: "friends+*right+*efault", type: "pointer")
-    #cy.app("card/ensure", name: "friends+*right+options", content: type: "search type")
 
-  specify 'change with filtered list input', () ->
-    cy.visit_bridge("joes")
-    cy.get("._add-item-link").click()
-    cy.get(".checkbox-side").first().click()
-    cy.get("._add-selected").click()
-    cy.get("._pointer-filtered-list")
-      .should("contain", "Joe Admin")
+  beforeEach ->
+    cy.delete("Joe User+friends")
 
-  specify.only 'create with filtered list input', () ->
-    cy.app("card/ensure", name: "friends+*right+*input", type: "phrase", content: "filtered list")
+  specify "create with select input", ->
+    input "select"
+    cy.visit("/Joe User+friends")
+    cy.select2("pointer_select-joe_user-friend-1", "Joe Camel")
+    cy.contains("Submit").click()
+    cy.main_slot()
+      .should "contain", "Joe Camel"
+
+  specify.only "create a structured card including select input", ->
+    input "select"
+    cy.ensure "User+*type+*structure", "{{+friends}}"
+    cy.visit_bridge("Joe User")
+    cy.contains(".form-group", "+friends").find(".select2-container").click()
+    cy.select2("Joe Camel")
+    cy.contains("Save and Close").click()
+    cy.main_slot()
+      .should "contain", "Joe Camel"
+
+#    specify "create with multiselect input", ->
+#    input "multiselect"
+#    cy.visit("/Joe User+friends")
+#    cy.select2("pointer_select-joe_user-friend-1", "Joe Camel")
+#    cy.contains("Submit").click()
+#    cy.main_slot()
+#      .should "contain", "Joe Camel"
+
+
+  specify 'create with filtered list input', () ->
+    input "filtered list"
     cy.visit("/Joe User+friends")
     cy.get("._add-item-link").click()
     cy.contains("Select Item")
@@ -41,6 +63,14 @@ describe 'editing pointers', () ->
         .should("contain", "Big Brother")
         .should("not.contain", "u1")
 
+
+#  specify 'change with filtered list input', () ->
+#    cy.visit_bridge("joes")
+#    cy.get("._add-item-link").click()
+#    cy.get(".checkbox-side").first().click()
+#    cy.get("._add-selected").click()
+#    cy.get("._pointer-filtered-list")
+#      .should("contain", "Joe Admin")
 
 
 

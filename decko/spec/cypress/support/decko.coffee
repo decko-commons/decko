@@ -35,13 +35,24 @@ Cypress.Commands.add "clear_machine_cache", () =>
     method: "POST",
     url: "/update/*admin?task=clear_machine_cache"
 
-Cypress.Commands.add "select2", prevSubject: "optional", (subject, name, value) =>
+
+Cypress.Commands.add "field", (name) =>
+  cy.get "[name='card[subcards][+#{name}][content]']"
+
+# 'name' is name attribute of the select tag
+Cypress.Commands.add "select2_by_name", prevSubject: "optional", (subject, name, value) =>
   selector = "select[name='#{name}'] + .select2-container"
   if subject
-    subject.find(selector).click()
+    # hack, to make command retry if element hasn't appeared yet
+    # subject.find fails after one try
+    # (see https://stackoverflow.com/questions/54557249)
+    cy.get(subject.selector).find(selector).click()
   else
     cy.get(selector).click()
 
+  cy.get("span.select2-results").contains(value).click()
+
+Cypress.Commands.add "select2", (value) =>
   cy.get("span.select2-results").contains(value).click()
 
 Cypress.Commands.add "unfollow", (card, user="Joe_Admin") =>
@@ -50,5 +61,8 @@ Cypress.Commands.add "unfollow", (card, user="Joe_Admin") =>
     url: "/update/#{card}+*self+#{user}+*follow?card%5Bcontent%5D=%5B%5B%2Anever%5D%5D"
 
 Cypress.Commands.add "ensure", (name, args={}) =>
-  args.name = name
-  cy.app("card/ensure", args)
+  cy.app("card/ensure", name: name, args: args)
+
+Cypress.Commands.add "delete", (name) =>
+  cy.app("card/delete", name)
+

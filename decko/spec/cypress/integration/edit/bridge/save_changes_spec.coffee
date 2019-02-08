@@ -52,7 +52,7 @@ describe 'save change in bridge', () ->
   it "updates origin slot after type change", () ->
     cy.visit_bridge("ice")
     cy.slot("ice", "edit_type_row").el("edit-link").click(force: true)
-    cy.select2("card[type]", "Book")
+    cy.select2_by_name("card[type]", "Book")
     cy.el("close-modal").click()
 
     cy.bridge().should "contain", "ice+author"

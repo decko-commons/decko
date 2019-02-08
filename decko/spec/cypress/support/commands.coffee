@@ -26,7 +26,7 @@
 
 Cypress.Commands.add "el", prevSubject: "optional", (subject, id) =>
   if subject?
-    return subject.find("[data-cy=#{id}]")
+    cy.get(subject.selector).find("[data-cy=#{id}]")
   else
     cy.get("[data-cy=#{id}]")
 
