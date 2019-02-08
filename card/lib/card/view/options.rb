@@ -58,7 +58,7 @@ class Card
         attr_reader :keymap
 
         def add_option name, type
-          raise "invalid option type" unless @keymap.key?(type)
+          raise "invalid option type: #{type}" unless @keymap.key?(type)
           @keymap[type] << name
           reset_key_lists
         end
