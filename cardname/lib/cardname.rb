@@ -1,15 +1,15 @@
 # -*- encoding : utf-8 -*-
 
-require 'active_support/configurable'
-require 'active_support/inflector'
-require 'htmlentities'
+require "active_support/configurable"
+require "active_support/inflector"
+require "htmlentities"
 
 class Cardname < String
-  require_relative 'cardname/parts'
-  require_relative 'cardname/variants'
-  require_relative 'cardname/contextual'
-  require_relative 'cardname/predicates'
-  require_relative 'cardname/manipulate'
+  require_relative "cardname/parts"
+  require_relative "cardname/variants"
+  require_relative "cardname/contextual"
+  require_relative "cardname/predicates"
+  require_relative "cardname/manipulate"
 
   include Parts
   include Variants
@@ -24,7 +24,7 @@ class Cardname < String
   config_accessor :joint, :banned_array, :var_re, :uninflect, :params,
                   :session, :stabilize
 
-  Cardname.joint          = '+'
+  Cardname.joint          = "+"
   Cardname.banned_array   = []
   Cardname.var_re         = /\{([^\}]*\})\}/
   Cardname.uninflect      = :singularize
@@ -37,6 +37,7 @@ class Cardname < String
   class << self
     def new obj
       return obj if obj.is_a? self.class
+
       str = stringify(obj)
       cached_name(str) || super(str)
     end
@@ -77,6 +78,7 @@ class Cardname < String
       key_one = name.send(uninflect)
       key_two = key_one.send(uninflect)
       return key_one unless key_one != key_two
+
       stabilize ? stable_key(key_two) : name
     end
 
@@ -95,14 +97,14 @@ class Cardname < String
   attr_reader :key
 
   def initialize str
-    @@cache[str] = super str.strip.encode('UTF-8')
+    @@cache[str] = super str.strip.encode("UTF-8")
   end
 
   def s
     @s ||= String.new self
   end
-  alias to_s s
-  alias to_str s
+  alias_method :to_s, :s
+  alias_method :to_str, :s
 
   def to_name
     self

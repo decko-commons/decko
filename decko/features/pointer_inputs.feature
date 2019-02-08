@@ -7,23 +7,6 @@ Feature: Pointer Inputs
   Background:
     Given I am signed in as Joe Admin
 
-  Scenario: Creating a card with select input
-    Given I create Phrase card "friends+*right+*input" with content "select"
-    When I go to card "Joe User+friends"
-    And I select "Joe Camel" from "content"
-    And I press "Submit"
-    And I go to card "Joe User+friends"
-    Then I should see "Joe Camel"
-
-  Scenario: Creating a structured card including a select input
-    Given I create Phrase card "User+*type+*structure" with content "{{+friends}}"
-    And I create Phrase card "friends+*right+*input" with content "select"
-    When I edit "Joe User"
-    And I select "Joe Admin" from "+friends"
-    And I press "Save and Close"
-    And I go to card "Joe User"
-    Then I should see "Joe Admin"
-
   Scenario: Creating a card with multiselect input
     Given I create Phrase card "friends+*right+*input" with content "multiselect"
     When I go to card "Joe User+friends"

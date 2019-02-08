@@ -20,22 +20,22 @@ describe "/*signin", () =>
       .should "contain", "email can't be blank"
 
   it "requires password", ->
-    cy.get "[name='card[subcards][+*email][content]']"
+    cy.field "*email"
       .type "joe@admin.com{enter}"
     cy.get ".card-notice"
       .should "contain", "password can't be blank"
 
   it "requires valid email and password", ->
-    cy.get "[name='card[subcards][+*email][content]']"
+    cy.field "*email"
       .type "joe@admin.com"
-    cy.get "[name='card[subcards][+*password][content]']"
+    cy.field "*password"
       .type "invalid{enter}"
     cy.get ".card-notice"
       .should "contain", "Wrong password"
 
   it "navigates to '/' on successful signin", ->
-    cy.get "[name='card[subcards][+*email][content]']"
+    cy.field "*email"
       .type "joe@admin.com"
-    cy.get "[name='card[subcards][+*password][content]']"
+    cy.field "*password"
       .type "joe_pass{enter}"
     cy.hash().should "eq", ""

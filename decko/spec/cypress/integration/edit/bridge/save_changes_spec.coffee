@@ -1,9 +1,7 @@
 describe 'save change in bridge', () ->
   before ->
-    #cy.app_login()
     cy.login()
-    cy.app("scenarios/save_changes")
-    # cy.clear_machine_cache()
+    cy.appScenario("bridge/save_changes")
 
   specify "'save and close' updates main slot", () ->
     cy.visit_bridge("snow")
@@ -35,16 +33,20 @@ describe 'save change in bridge', () ->
 
     cy.slot("menu").find(".card-menu > a").click(force: true)
     cy.tinymce_type("function snug").then ->
+      #cy.debug()
       cy.el("save").click()
-      cy.el("close-modal").click().then ->
-        cy.slot("menu").should("contain", "function snug")
-        cy.slot("home").should("not.contain", "function snug")
+      cy.bridge().should("not.contain", "Submitting")
+      cy.el("close-modal").click()
+      cy.slot("menu").should("contain", "function snug")
+      cy.slot("home").should("not.contain", "function snug")
 
   it "updates origin slot after name change", () ->
     cy.visit_bridge("snow")
     cy.slot("snow", "edit_name_row").el("edit-link").click(force: true)
     cy.get(".name-editor > input[name='card[name]']").clear().type("rain")
     cy.get("button.renamer").click().click()
+    cy.wait(2000)
+    cy.bridge().should("not.contain", "Submitting")
     cy.el("close-modal").click()
 
     cy.expect_main_title("rain")
