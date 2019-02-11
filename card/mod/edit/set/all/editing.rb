@@ -12,6 +12,7 @@ format :html do
         [
           _render_edit_name_row,
           _render_edit_type_row,
+          frame_help,
           edit_form
         ]
       end
