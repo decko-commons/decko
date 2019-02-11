@@ -88,6 +88,7 @@ class DeckoGenerator < Rails::Generators::AppBase
       template "boot.rb"
       template "databases/#{options[:database]}.yml", "database.yml"
       template "cucumber.yml" if options["core-dev"]
+      template "initializers/cypress_dev.rb" if options["core-dev"]
     end
   end
 
