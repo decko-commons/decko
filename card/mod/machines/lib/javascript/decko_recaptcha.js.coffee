@@ -5,6 +5,14 @@ jQuery.fn.extend {
       sitekey: decko.recaptchaKey
 }
 
+loadCaptcha = (form)->
+  if $('.g-recaptcha')[0]
+    # if there is already a recaptcha on the page then we don't have to
+    # load the recaptcha script
+    addCaptcha(this)
+  else
+    initCaptcha(this)
+
 initCaptcha = (form)->
   recapDiv = $("<div class='g-recaptcha' data-sitekey='#{decko.recaptchaKey}'>" +
     "</div>")

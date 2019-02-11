@@ -1,5 +1,5 @@
 RSpec.describe Card::Set::All::Follow::FollowLinkViews do
-  xcontext "when not following" do
+  context "when not following" do
     def format_subject _format=nil
       Card["A"].format(:html)
     end
@@ -11,7 +11,7 @@ RSpec.describe Card::Set::All::Follow::FollowLinkViews do
     end
   end
 
-  xcontext "when already following", with_user: "John" do
+  context "when already following", with_user: "John" do
     def format_subject _format=nil
       Card["John Following"].format(:html)
     end

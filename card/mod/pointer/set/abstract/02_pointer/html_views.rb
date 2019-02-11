@@ -92,18 +92,16 @@ format :html do
   end
 
   def add_item_modal_link
-    link_to "Add Item",
-            path: { view: :filter_items,
-                    item: implicit_item_view,
-                    filter_card: filter_card.name,
-                    slot_selector: filtered_list_slot_class,
-                    item_selector: "_filtered-list-item",
-                    slot: { hide: :modal_footer },
-                    filter: { not_ids: card.item_ids.map(&:to_s).join(",") } },
-            "data-slotter-mode": "modal",
-            "data-modal-class": modal_dialog_classes(size: :large),
-            class: "btn btn-sm btn-primary _add-item-link slotter",
-            remote: true
+    modal_link "Add Item",
+               size: :large,
+               class: "btn btn-sm btn-primary _add-item-link",
+               path: { view: :filter_items_modal,
+                       item: implicit_item_view,
+                       filter_card: filter_card.name,
+                       slot_selector: filtered_list_slot_class,
+                       item_selector: "_filtered-list-item",
+                       slot: { hide: :modal_footer },
+                       filter: { not_ids: card.item_ids.map(&:to_s).join(",") } }
   end
 
   def add_item_overlay_link; end

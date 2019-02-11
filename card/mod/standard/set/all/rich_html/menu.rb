@@ -6,11 +6,45 @@ format :html do
   end
 
   def menu
-    wrap_with :div, class: "card-menu #{menu_link_classes} float-right" do
-      link_to_view "edit", menu_icon,
-                   remote: true, "data-slotter-mode": "modal",
-                   class: "slotter", "data-modal-class": "modal-full"
+    case voo.edit
+    when :content_inline
+      edit_in_place_link
+    when :content_modal
+      edit_in_modal_link
+    else
+      standard_edit_link
     end
+  end
+
+  def edit_link view, opts={}
+    link_to_view view, menu_icon, edit_link_opts(opts)
+  end
+
+  # @param modal [Symbol] modal size
+  def edit_link_opts modal: nil
+    opts = { remote: true, class: "slotter" }
+    opts.merge "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}" if modal
+    opts
+  end
+
+  def wrap_menu
+    wrap_with :div, class: classy(%w[menu-slot nodblclick]) do
+      yield
+    end
+   end
+
+  def standard_edit_link
+    wrap_with :div, class: "card-menu #{menu_link_classes} float-right" do
+      edit_link :edit, modal: :full
+    end
+  end
+
+  def edit_in_modal_link
+    edit_link :edit_content, modal: :large
+  end
+
+  def edit_in_place_link
+    edit_link :edit_in_place
   end
 
   def menu_link_classes
@@ -21,37 +55,8 @@ format :html do
     end
   end
 
-  # this should probably be added in javascript.
-  # the menu link is not a "slotter", because it doesn't replace the whole
-  # slot (it just adds a menu). But it should use the js code that adds slot
-  # information to urls
-  def menu_link_path_opts
-    opts = { slot: { home_view: voo.home_view } }
-    opts[:is_main] = true if main?
-    opts
-  end
-
   def menu_icon
     fa_icon "edit"
-  end
-
-  def menu_item_page opts
-    menu_item "page", "open_in_new", opts.merge(card: card)
-  end
-
-  def menu_item_rules opts
-    menu_item "rules", "build", opts.merge(view: :edit_rules)
-  end
-
-  def menu_item_account opts
-    menu_item "account", "person", opts.merge(
-      view: :related,
-      path: { slot: { items: { nest_name: "+#{:account.cardname.key}", view: :edit } } }
-    )
-  end
-
-  def show_menu_item_page?
-    card.name.present? && !main?
   end
 
   def show_menu_item_edit?

@@ -106,3 +106,5 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       .to have_tag "div#main", "A"
   end
 end
+
+

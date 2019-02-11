@@ -7,12 +7,12 @@ class Card
         # Defines a wrapper method with the name "wrap_with_<wrapper_name>".
         # @param wrapper_name [Symbol, String] the name for the wrap method
         # @param *args
-        # Inside the wrap_block the variable "interiour" is always available
+        # Inside the wrap_block the variable "interior" is always available
         # to refer to the content that is supposed to be wrapped by the wrapper.
         #
         # Example:
         #   wrapper :burger do |opts|
-        #     ["#{opts[:bun]}-bun", interiour, "bun"].join "|"
+        #     ["#{opts[:bun]}-bun", interior, "bun"].join "|"
         #   end
         #
         # It can be used like this:
@@ -55,7 +55,7 @@ class Card
           end
         end
 
-        attr_accessor :interiour
+        attr_accessor :interior
 
         private
 
@@ -64,7 +64,7 @@ class Card
           class_eval do
             define_method method_name do |opts={}|
               add_class opts, default_opts[:class]
-              wrap_with(tag_name, interiour, opts.reverse_merge(default_opts))
+              wrap_with(tag_name, interior, opts.reverse_merge(default_opts))
             end
           end
         end
@@ -72,8 +72,8 @@ class Card
         # defines the wrap_with_... method that you call to use the wrapper
         def define_wrap_with_method wrapper_name, wrapper_method_name
           class_exec(self) do |_format|
-            define_method "wrap_with_#{wrapper_name}" do |*args, &interiour|
-              @interiour, opts = interiour ? [interiour.call, args.first] : args
+            define_method "wrap_with_#{wrapper_name}" do |*args, &interior|
+              @interior, opts = interior ? [interior.call, args.first] : args
 
               if method(wrapper_method_name).arity.zero?
                 send wrapper_method_name

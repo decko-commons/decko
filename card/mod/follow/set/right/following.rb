@@ -27,11 +27,11 @@ format :html do
     ""
   end
 
-  view :rule_editor do
+  view :rule_editor, cache: :never do
     rule_context = Card.fetch preference_name, new: { type_id: PointerID }
     wrap_with :div, class: "edit-rule" do
       follow_context = current_follow_rule_card || rule_context
-      nest follow_context, { view: :edit_rule }, rule_context: rule_context
+      subformat(follow_context).rule_form :open, rule_context, :modal
     end
   end
 

@@ -125,10 +125,8 @@ end
 def reset_password_success
   token_card.used!
   Auth.signin left_id
-  { id: left.name,
-    view: :related,
-    slot: { items: { nest_name: :account.cardname.prepend_joint,
-                     view: :edit } } }
+  { id: name,
+    view: :edit_content }
 end
 
 def reset_password_try_again
@@ -176,8 +174,8 @@ format :html do
     # Problem: when you do that then the fields are missing in the sign up form:
     # output( [field_nest(:email, view: :titled, title: "email"),
     #          field_nest(:password, view: :titled, title: "password")])
-    %({{+#{:email.cardname}|titled;title:email}}
-      {{+#{:password.cardname}|titled;title:password}})
+    %({{+#{:email.cardname}|edit_row;title:email}}
+      {{+#{:password.cardname}|edit_row;title:password}})
   end
 
   before :content_formgroup do

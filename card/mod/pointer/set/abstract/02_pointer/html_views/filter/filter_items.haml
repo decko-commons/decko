@@ -27,9 +27,4 @@
       .form-group
         .selected-item-buttons.pl-3
           = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
-          = link_to "Add Selected", path: { item: params[:item],
-                                            filter_card: params[:filter_card] },
-                                    class: "_add-selected slotter close-modal btn btn-primary disabled",
-                                    data: { "slot-selector": ".#{params[:slot_selector]}",
-                                            "item-selector": ".#{params[:item_selector]}",
-                                            remote: true }
+          = add_selected_link
