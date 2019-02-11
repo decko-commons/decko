@@ -6,7 +6,7 @@ format :html do
   end
 
   view :edit_type_form, cache: :never, perms: :update, wrap: :slot do
-    card_form :update do
+    card_form :update, "data-update-foreign-slot": "._modal-origin, .card-slot.edit_content_form-view" do
       output [hidden_edit_type_fields,
               _render_type_formgroup,
               edit_type_buttons]
@@ -16,7 +16,7 @@ format :html do
   def hidden_edit_type_fields
     # because the content editor can change with a type change
     # we have to reload the whole edit view
-    hidden_field_tag "success[view]", "edit"
+    hidden_field_tag "success[view]", "edit_type_row"
   end
 
   def edit_type_buttons

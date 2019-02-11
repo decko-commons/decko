@@ -115,7 +115,11 @@ jQuery.fn.extend
       $("body").scrollTop slot_top_pos
     if @data("update-foreign-slot")
       $slot = @findSlot @data("update-foreign-slot")
-      $slot.reloadSlot @data("update-foreign-slot-url") if $slot.length > 0
+      reload_url = @data("update-foreign-slot-url")
+      $slot.reloadSlot reload_url
+      #if $slot.length > 0
+      #$.each $slot, (sl) ->
+      #$(sl).reloadSlot reload_url
 
     event.slotSuccessful = true
 

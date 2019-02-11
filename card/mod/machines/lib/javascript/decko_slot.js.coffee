@@ -62,6 +62,11 @@ jQuery.fn.extend
 
   reloadSlot: (url) ->
     $slot = $(this)
+    if $slot.length > 1
+      $slot.each ->
+        $(this).reloadSlot url
+      return
+
     $slot = $slot.slot() unless $slot.isSlot
     return unless $slot[0]
 

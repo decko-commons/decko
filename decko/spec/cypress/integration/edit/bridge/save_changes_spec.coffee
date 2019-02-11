@@ -55,10 +55,9 @@ describe 'save change in bridge', () ->
     cy.visit_bridge("ice")
     cy.slot("ice", "edit_type_row").el("edit-link").click(force: true)
     cy.select2_by_name("card[type]", "Book")
+    # wait for type form to disappear
     cy.get("#ice-edit_type_row-view").then ->
-      cy.wait(1000)
-      cy.el("close-modal").click()
-
       cy.bridge().should "contain", "ice+author"
+      cy.el("close-modal").click()
+      cy.main_slot().should "contain", "+author"
 
-212
