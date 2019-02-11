@@ -61,8 +61,8 @@ Cypress.Commands.add "unfollow", (card, user="Joe_Admin") =>
     url: "/update/#{card}+*self+#{user}+*follow?card%5Bcontent%5D=%5B%5B%2Anever%5D%5D"
 
 Cypress.Commands.add "ensure", (name, args={}) =>
-  cy.app("card/ensure", name: name, args: args)
+  cy.app("cards/ensure", name: name, args: args)
 
 Cypress.Commands.add "delete", (name) =>
-  cy.app("card/delete", name)
+  cy.app("cards/delete", name)
 

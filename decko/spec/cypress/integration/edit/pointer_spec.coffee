@@ -6,7 +6,7 @@ describe 'editing pointers', () ->
     cy.login()
 
   beforeEach ->
-    cy.app("card/delete", "Joe User+friends")
+    cy.app("cards/delete", "Joe User+friends")
 
   specify "create with select input", ->
     input "select"

@@ -51,11 +51,14 @@ describe 'save change in bridge', () ->
 
     cy.expect_main_title("rain")
 
-  it "updates origin slot after type change", () ->
+  it.only "updates origin slot after type change", () ->
     cy.visit_bridge("ice")
     cy.slot("ice", "edit_type_row").el("edit-link").click(force: true)
     cy.select2_by_name("card[type]", "Book")
-    cy.el("close-modal").click()
+    cy.get("#ice-edit_type_row-view").then ->
+      cy.wait(1000)
+      cy.el("close-modal").click()
 
-    cy.bridge().should "contain", "ice+author"
+      cy.bridge().should "contain", "ice+author"
 
+212
