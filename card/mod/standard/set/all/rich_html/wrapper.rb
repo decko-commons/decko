@@ -134,4 +134,8 @@ format :html do
 
   wrapper :div, :div
   wrapper :em, :em
+
+  wrapper :none do
+    interior
+  end
 end
