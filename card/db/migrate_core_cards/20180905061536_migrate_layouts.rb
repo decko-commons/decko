@@ -41,7 +41,7 @@ class MigrateLayouts < Card::Migration::Core
   end
 
   def html_tag card, tag_name
-    Nokogiri::XML(card.content).css(tag_name).first
+    Nokogiri::HTML5(card.content).css(tag_name).first
   end
 
   def missing obj, card
