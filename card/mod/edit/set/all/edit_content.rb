@@ -24,7 +24,10 @@ format :html do
       voo.show :help
       voo.hide :save_button
       wrap true do
-        _render_edit_content_form
+        [
+          frame_help,
+          _render_edit_content_form
+        ]
       end
     end
   end
