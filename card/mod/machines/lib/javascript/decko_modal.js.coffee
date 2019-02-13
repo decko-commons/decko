@@ -1,42 +1,22 @@
-# TODO: use same slotReady approach as below
 $(window).ready ->
-#  $('body').on 'hidden.bs.modal', (event) ->
-#    if $(event.target).attr('id') != 'modal-main-slot'
-#      modal_content = $(event.target).find('.modal-dialog > .modal-content')
-#      modal_content.empty()
+  $('body').on 'hidden.bs.modal', (_event) ->
+    decko.removeModal()
 
-  $('._modal-slot').each ->
-    openModalIfPresent $(this)
-    addModalDialogClasses $(this)
-
-addModalDialogClasses = ($modal_slot, $link) ->
-  dialog = $modal_slot.find(".modal-dialog")
-  classes_from_link =
-    if $link? then $link.data("modal-class") else $modal_slot.data("modal-class")
-  if classes_from_link? and dialog?
-    dialog.addClass classes_from_link
-
-decko.slotReady (slot) ->
   $('body').on "show.bs.modal", "._modal-slot", (event) ->
     link = $(event.relatedTarget)
     addModalDialogClasses $(this), link
     $(this).modal("handleUpdate")
 
-  $('body').on 'hidden.bs.modal', (_event) ->
-    decko.removeModal()
+  $('body').on 'loaded.bs.modal', null, (event) ->
+    unless event.slotSuccessful
+      decko.initModal $(event.target)
+      event.slotSuccessful = true
 
-  # this finds ._modal-slots and moves them toa the end of the body
-  # this allows us to render modal slots inside slots that call them and yet
-  # avoid associated problems (eg nested forms and unintentional styling)
-  # note: it deletes duplicate modal slots
-  # not sure if we still need this -pk
-  slot.find('._modal-slot').each ->
-    mslot = $(this)
-    if $.find("body #" + mslot.attr("id")).length > 1
-      mslot.remove()
-    else
-      $("body").append mslot
+  $('._modal-slot').each ->
+    openModalIfPresent $(this)
+    addModalDialogClasses $(this)
 
+decko.slotReady (slot) ->
   slot.find('.modal.fade').on 'loaded.bs.modal', (_e) ->
     $(this).trigger 'slotReady'
 
@@ -46,11 +26,18 @@ openModalIfPresent = (mslot) ->
     $("#main > .card-slot").addClass("_modal-origin")
     mslot.modal("show")
 
+addModalDialogClasses = ($modal_slot, $link) ->
+  dialog = $modal_slot.find(".modal-dialog")
+  classes_from_link =
+    if $link? then $link.data("modal-class") else $modal_slot.data("modal-class")
+  if classes_from_link? and dialog?
+    dialog.addClass classes_from_link
+
 jQuery.fn.extend {
   showAsModal: ($slotter) ->
     el = @modalify($slotter)
     if $("body > ._modal-slot").is(":visible")
-      decko.pushModal el
+      @addModal el, $slotter
     else
       if $("body > ._modal-slot")[0]
         $("body > ._modal-slot").replaceWith el
@@ -58,9 +45,18 @@ jQuery.fn.extend {
         $("body").append el
 
       $("._modal-origin").removeClass("_modal-origin")
+      $slotter.markOrigin("modal")
+      el.modal("show", $slotter)
 
-    $slotter.markOrigin("modal")
-    el.modal("show", $slotter)
+  addModal: (el, $slotter) ->
+    if $slotter.data("slotter-mode") == "modal-replace"
+      dialog = el.find(".modal-dialog")
+      $("body > ._modal-slot > .modal-dialog").replaceWith(dialog)
+      decko.initModal dialog
+    else
+      decko.pushModal el
+      $slotter.markOrigin("modal")
+      el.modal("show", $slotter)
 
   modalSlot: ->
     slot = $("#modal-container")
@@ -88,20 +84,25 @@ $.extend decko,
     $("body").append(slot)
     slot
 
+  initModal: ($dialog) ->
+    decko.initializeEditors $dialog
+    $dialog.find(".card-slot").trigger("slotReady")
+
   removeModal: ->
-    if $("._modal-fallback")[0]
+    if $("._modal-stack")[0]
       decko.popModal()
     else
-      $(".modal-dialog").remove()
+      $(".modal-dialog").empty()
 
   pushModal: (el) ->
     mslot = $("body > ._modal-slot").detach()
-    mslot.removeClass("_modal-slot").addClass("_modal-fallback")
-    mslot.insertAfter(".modal-backdrop")
-    el.insertBefore(".modal-backdrop")
+    mslot.removeAttr("id")
+    mslot.removeClass("_modal-slot").addClass("_modal-stack").removeClass("modal")
+    mslot.insertAfter ".modal-backdrop"
+    el.insertBefore ".modal-backdrop"
 
   popModal: ->
-    modal = $($("._modal-fallback")[0]).detach()
-    modal.addClass("_modal-slot").removeClass("_modal-fallback")
+    modal = $($("._modal-stack")[0]).detach()
+    modal.addClass("_modal-slot").removeClass("_modal-stack").attr("id", "modal-container").addClass("modal")
     $("body > ._modal-slot").replaceWith(modal)
 

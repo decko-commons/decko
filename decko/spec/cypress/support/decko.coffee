@@ -1,6 +1,6 @@
 # find card slot by card name (and view)
 Cypress.Commands.add "slot", (cardname, view) =>
-  selector = ".card-slot.SELF-#{cardname}"
+  selector = ".card-slot.SELF-#{cardname.replace(/\+/g, "-")}"
   selector += ".#{view}-view" if view?
   cy.get(selector)
 
