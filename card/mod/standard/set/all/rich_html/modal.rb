@@ -29,8 +29,7 @@ format :html do
   end
 
   def show_in_modal_link link_text, body
-    link_to_view :modal, link_text,
-                 "data-modal-body": body, "data-slotter-mode": "modal", class: "slotter"
+    link_to_view :modal, link_text, "data-modal-body": body, "data-slotter-mode": "modal"
   end
 
   def modal_close_button link_text="Close", opts={}

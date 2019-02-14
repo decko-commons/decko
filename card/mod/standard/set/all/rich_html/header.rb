@@ -24,7 +24,7 @@ format :html do
     verb, adjective, direction = toggle_verb_adjective_direction
     link_to_view adjective, icon_tag(direction.to_sym),
                  title: "#{verb} #{card.name}",
-                 class: "#{verb}-icon toggler slotter nodblclick"
+                 class: "#{verb}-icon toggler nodblclick"
   end
 
   def toggle_verb_adjective_direction

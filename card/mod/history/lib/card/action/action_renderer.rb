@@ -59,8 +59,6 @@ class Card
           link_to_view(
             :related, name_changes,
             path: { slot: { items: { view: "history", nest_name: @action.card.name } } },
-            remote: true,
-            class: "slotter"
             # "data-slot-selector" => ".card-slot.history-view"
           )
         end

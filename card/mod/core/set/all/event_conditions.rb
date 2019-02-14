@@ -8,9 +8,24 @@ end
 
 private
 
+def condition_card
+  if updating_type?
+    cc = Card.fetch skip_modules: true, name: name
+    cc.type_id = type_id
+    cc.content = content
+    cc.include_set_modules
+  else
+    self
+  end
+end
+
+def updating_type?
+  @action == :update && attribute_is_changing?("type_id")
+end
+
 def set_condition_applies? set_module
   # events on Card are used for testing
-  set_module == Card || singleton_class.include?(set_module)
+  set_module == Card || condition_card.singleton_class.include?(set_module)
 end
 
 def on_condition_applies? _event, actions

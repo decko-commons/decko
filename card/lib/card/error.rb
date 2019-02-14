@@ -41,7 +41,7 @@ class Card
 
       def self.status_code
         # Errors with status code 900 are displayed as modal instead of inside
-        # the "card-notice" div
+        # the "card-notice" div``
         Card[:debugger]&.content =~ /on/ ? 900 : 500
       end
 
@@ -93,6 +93,10 @@ class Card
     class Abort < StandardError
       attr_reader :status
 
+      def report
+        Rails.logger.debug "aborting: #{message}"
+      end
+
       def initialize status, msg=""
         @status = status
         super msg
@@ -103,6 +107,12 @@ class Card
     class << self
       KEY_MAP = { permission_denied: PermissionDenied,
                   conflict: EditConflict }.freeze
+
+      def report exception, card
+        e = cardify_exception exception, card
+        self.current = e
+        e.report
+      end
 
       def cardify_exception exception, card
         unless exception.is_a? Card::Error

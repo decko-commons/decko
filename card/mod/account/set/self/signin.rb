@@ -160,9 +160,9 @@ format :html do
 
   def reset_password_link
     text = I18n.t :reset_password, scope: "mod.account.set.self.signin"
-    reset_link = link_to_view :edit_content, text
+    link = link_to text, path: { view: :edit_content }, remote: true, rel: "nofollow"
     # FIXME: inline styling
-    raw("<div style='float:right'>#{reset_link}</div>")
+    raw("<div style='float:right'>#{link}</div>")
   end
 
   def edit_view_hidden

@@ -77,7 +77,7 @@ format :html do
   end
 
   def toggle_class
-    "slotter btn btn-sm btn-outline-secondary p-0 border-0 rounded-0"
+    "btn btn-sm btn-outline-secondary p-0 border-0 rounded-0"
   end
 
   view :bar_expand_link do
@@ -89,7 +89,6 @@ format :html do
   end
 
   view :edit_button do
-    link_to_view :edit, "Edit",
-                 class: "btn btn-sm btn-outline-primary slotter mr-2"
+    link_to_view :edit, "Edit", class: "btn btn-sm btn-outline-primary mr-2"
   end
 end

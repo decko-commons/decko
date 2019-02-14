@@ -22,9 +22,7 @@ format :html do
 
   # @param modal [Symbol] modal size
   def edit_link_opts modal: nil
-    opts = { remote: true, class: "slotter" }
-    opts.merge "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}" if modal
-    opts
+    modal ? { "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}"  } : {}
   end
 
   def wrap_menu
