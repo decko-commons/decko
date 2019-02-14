@@ -2,7 +2,6 @@ describe 'engage tab', () ->
   before ->
     cy.login()
     cy.unfollow("A")
-    #cy.clear_machine_cache()
 
   beforeEach ->
     cy.visit_bridge()
@@ -20,18 +19,23 @@ describe 'engage tab', () ->
     cy.get("[data-cy=follow-advanced]")
       .click()
 
-    cy.bridge().get(".title").should("contain", "follow")
+    cy.bridge().get(".title")
+      .should("contain", "follow")
     cy.get(".pointer-radio-list input").first().check()
     cy.get("#card_name_aselfjoe_adminfollow").check()
-    cy.get("[data-cy=submit-overlay]").click().wait(5000)
+    cy.get("[data-cy=submit-overlay]").click().should("not.exist")
 
-    cy.bridge_sidebar().should("contain", "1 follower").and("contain", "following")
+    cy.bridge_sidebar()
+      .should("contain", "1 follower")
+      .and("contain", "following")
       .get('.follow-link').click()
     cy.unfollow("A")
 
   specify "all followed cards", () ->
     cy.el("follow-overview").click()
-    cy.bridge().should("contain", "Follow").and("contain", "Ignore")
+    cy.bridge()
+      .should("contain", "Follow")
+      .and("contain", "Ignore")
 
   specify "followers", () ->
     cy.get('.follow-link').click()
