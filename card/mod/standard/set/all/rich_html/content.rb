@@ -71,16 +71,7 @@ format :html do
     haml :labeled, label: label, content: content
   end
 
-  view :type_info do
-    return unless show_view?(:toolbar, :hide) && card.type_code != :basic
-
-    wrap_with :span, class: "type-info float-right" do
-      link_to_card card.type_name, nil, class: "navbar-link"
-    end
-  end
-
   view :open, tags: :comment do
-    voo.show! :toolbar if toolbar_pinned?
     voo.viz :toggle, (main? ? :hide : :show)
     @content_body = true
     frame do
@@ -95,7 +86,6 @@ format :html do
   view :closed do
     with_nest_mode :closed do
       voo.show :toggle
-      voo.hide! :toolbar
       class_up "d0-card-body", "closed-content"
       @content_body = true
       @toggle_mode = :close

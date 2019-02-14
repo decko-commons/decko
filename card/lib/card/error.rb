@@ -6,6 +6,7 @@ class Card
   class Error < StandardError
     cattr_accessor :current
     class_attribute :status_code, :view
+    attr_writer :backtrace
 
     self.view = :errors
     self.status_code = 422
@@ -23,6 +24,10 @@ class Card
     def message_from_card
       I18n.t :exception_for_card,
              scope: %i[lib card error], cardname: card.name, message: card_message_text
+    end
+
+    def backtrace
+      @backtrace || super
     end
 
     def report
@@ -116,11 +121,12 @@ class Card
 
       def cardify_exception exception, card
         unless exception.is_a? Card::Error
-          exception = card_error_class(exception, card).new exception.message
+          card_exception = card_error_class(exception, card).new exception.message
         end
-        exception.card ||= card
-        add_card_errors card, exception if exception.card.errors.empty?
-        exception
+        card_exception.card ||= card
+        card_exception.backtrace ||= e
+        add_card_errors card, card_exception if card_exception.card.errors.empty?
+        card_exception
       end
 
       def add_card_errors card, exception
