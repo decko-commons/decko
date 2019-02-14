@@ -953,9 +953,10 @@ a.external-link,
 }
 
 // Bridge
-._modal-fallback {
+._modal-stack {
   z-index: 1010;
 }
+
 .modal-header .card-title {
   margin-bottom: 0;
 }
@@ -986,17 +987,16 @@ $bridge-line-color: $gray-300;
 .bridge-main {
   padding-left: 0;
   padding-right: 0;
-  > .edit-view{
+  > .bridge-view {
     padding-top: 10px;
   }
-  > .edit-view, > .overlay-container > .edit-view {
+  > .bridge-view, > .overlay-container > .bridge-view {
     padding-left: 15px;
     padding-right: 15px;
   }
 }
 
 .overlay-container {
-
   .card-slot.overlay_rule-view {
       border-left: 5px solid $primary;
   }
@@ -1008,7 +1008,6 @@ $bridge-line-color: $gray-300;
       height: 100%;
       padding: 0 1.5rem; // px-4
   }
-
 }
 
 
@@ -1040,7 +1039,6 @@ $bridge-line-color: $gray-300;
 .help-text.rule-instruction > div p:last-child {
   margin-bottom: 0;
 }
-
 
 .bridge {
   .perm-editor {

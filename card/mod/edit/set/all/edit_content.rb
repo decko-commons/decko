@@ -15,16 +15,36 @@ format :html do
     end
   end
 
-  view :edit_content, perms: :update, tags: :unknown_ok, cache: :never,
-       wrap: { modal: { footer: "",
-                        title: :render_title } } do
+  view :edit, perms: :update, tags: :unknown_ok, cache: :never,
+              wrap: { modal: { footer: "",
+                               size: :edit_modal_size,
+                               title: :render_title,
+                               menu: :edit_modal_menu } } do
     with_nest_mode :edit do
       voo.show :help
       voo.hide :save_button
       wrap true do
-        _render_edit_content_form
+        [
+          frame_help,
+          _render_edit_content_form
+        ]
       end
     end
+  end
+
+  def edit_modal_size
+    :large
+  end
+
+  def edit_modal_menu
+    wrap_with_modal_menu do
+      [close_modal_window, bridge_link]
+    end
+  end
+
+  def bridge_link
+    link_to_view :bridge, material_icon(:more_horiz),
+                 class: "slotter", "data-slotter-mode": "modal-replace"
   end
 
   def edit_form_opts
