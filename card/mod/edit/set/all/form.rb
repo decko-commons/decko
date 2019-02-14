@@ -164,10 +164,10 @@ format :html do
 
   def form_prefix
     case
-    when explicit_form_prefix                then explicit_form_prefix # configured
-    when simple_form? then "card"               # simple form
-    when parent.card.name == card.name       then parent.form_prefix   # card nests self
-    else                                          edit_in_form_prefix
+    when explicit_form_prefix          then explicit_form_prefix # configured
+    when simple_form?                  then "card"               # simple form
+    when parent.card.name == card.name then parent.form_prefix   # card nests self
+    else                                    edit_in_form_prefix
     end
   end
 
