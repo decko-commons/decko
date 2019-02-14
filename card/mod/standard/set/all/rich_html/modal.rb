@@ -55,7 +55,7 @@ format :html do
 
   wrapper :modal_menu, :div, class: "modal-menu ml-auto"
 
-  view :modal_title do
+  view :modal_title, tags: :unknown_ok do
     ""
   end
 
