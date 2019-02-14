@@ -117,6 +117,7 @@ class Card
         e = cardify_exception exception, card
         self.current = e
         e.report
+        e
       end
 
       def cardify_exception exception, card
