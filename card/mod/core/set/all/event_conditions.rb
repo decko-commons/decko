@@ -10,7 +10,8 @@ private
 
 def condition_card
   if updating_type?
-    cc = Card.fetch skip_modules: true, name: name
+    cc = Card.fetch id, skip_modules: true
+    cc.name = name
     cc.type_id = type_id
     cc.content = content
     cc.include_set_modules
@@ -20,7 +21,7 @@ def condition_card
 end
 
 def updating_type?
-  @action == :update && attribute_is_changing?("type_id")
+  @action == :update && real? && attribute_is_changing?("type_id")
 end
 
 def set_condition_applies? set_module
