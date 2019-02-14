@@ -30,7 +30,6 @@ format :html do
 
   view :template_editor_frame do
     voo.title = card.label
-    voo.hide :set_label
     frame do
       _render_core
     end
