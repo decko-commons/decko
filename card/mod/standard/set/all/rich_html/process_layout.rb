@@ -7,7 +7,7 @@ format :html do
   def show_with_page_layout view, args
     main!
     args = main_render_args view, args
-    if explicit_modal_wrapper? view
+    if explicit_modal_wrapper?(view) && page_layout.to_sym != :modal
       render_outside_of_layout view, args
     else
       render_with_layout view, page_layout, args
@@ -33,10 +33,17 @@ format :html do
   end
 
   def render_outside_of_layout view, args
-    output [
-             render_with_layout(nil, page_layout, {}),
-             render!(view, args)
-           ]
+    body = render_with_layout(nil, page_layout, {})
+    modal = render!(view, args)
+    if body.include?("</body>")
+      # a bit hacky
+      # the problem is that the body tag has to be in the layout
+      # so that you can add layout css classes like <body class="right-sidebar">
+      body.sub!("</body>", "#{modal}</body>")
+    else
+      body += modal
+    end
+    body
   end
 
   def show_layout?
@@ -46,8 +53,15 @@ format :html do
   def explicit_modal_wrapper? view
     return unless view_setting(:wrap, view)
 
-    wrappers = Array.wrap(view_setting(:wrap, view))
-    wrappers.include?(:modal) || wrappers.include?(:bridge)
+    wrapper_names(view_setting(:wrap, view)).any? { |n| n == :modal || n == :bridge }
+  end
+
+  def wrapper_names wrappers
+    case wrappers
+    when Hash  then wrappers.keys
+    when Array then wrappers.map { |w| w.is_a?(Array) ? w.first : w }
+    else            [wrappers]
+    end
   end
 
   def process_haml_layout layout_name

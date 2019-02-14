@@ -18,7 +18,6 @@ end
 
 def item_names _args={}
   return [] unless left
-
   left.follow_set_card.prototype.follower_names
 end
 

@@ -23,8 +23,8 @@ format :html do
   end
 
   def act_list acts, context
-    fmt = context == :relative ? self : act.card.format(:html)
     act_accordion acts, context do |act, seq|
+      fmt = context == :relative ? self : act.card.format(:html)
       fmt.act_listing act, seq, context
     end
   end
@@ -103,7 +103,7 @@ format :html do
     icon = case action_type
            when :create then :add_circle
            when :update then :pencil
-           when :delete then :remove_cirlce
+           when :delete then :remove_circle
            when :draft then :wrench
            end
     icon_tag icon, extra_class

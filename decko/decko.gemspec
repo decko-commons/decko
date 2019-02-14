@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.executables   = ["decko"]
   s.require_paths = ["lib"]
 
-  s.required_ruby_version = ">= 2.3"
+  s.required_ruby_version = ">= 2.4.1"
 
   [
     ["card",   card_version]

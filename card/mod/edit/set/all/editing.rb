@@ -1,7 +1,3 @@
-event :fail_always, :validate do
-  # errors.add :content, "boing"
-end
-
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
   view :edit, perms: :update, tags: :unknown_ok, cache: :never,
@@ -12,57 +8,15 @@ format :html do
         [
           _render_edit_name_row,
           _render_edit_type_row,
-          card_form(:update, edit_form_opts) do
-            [
-              edit_view_hidden,
-              _render_content_formgroup,
-              _render_edit_buttons
-            ]
-          end
+          frame_help,
+          _render_edit_content_form
         ]
       end
     end
-  end
-
-  view :edit_in_place, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
-    with_nest_mode :edit do
-      card_form :update, edit_form_opts do
-        [
-          edit_view_hidden,
-          _render_content_formgroup,
-          _render_edit_buttons
-        ]
-      end
-    end
-  end
-
-  def edit_form_opts
-    # for override
-    { "data-slot-selector": "#main > .card-slot", "data-slot-error-selector": ".card-slot" }
   end
 
   def edit_view_hidden
     # for override
-  end
-
-  view :edit_name_row do
-    edit_row "Name", card.name, :edit_name_form
-  end
-
-  view :edit_type_row do
-    edit_row "Type", link_to_card(card.type), :edit_type_form
-  end
-
-  def edit_row title, content, edit_view
-    class_up "card-slot", "d-flex"
-    link =
-      link_to_view(edit_view, fa_icon(:edit), class: "ml-auto edit-link slotter")
-
-    wrap class: "d-flex" do
-      ["<label class='w-50px'>#{title}</label>",
-       content,
-       link]
-    end
   end
 
   view :edit_buttons do
@@ -71,30 +25,6 @@ format :html do
         [standard_submit_button, edit_cancel_button, delete_button]
       end
     end
-  end
-
-  def standard_submit_button
-    modal_submit_button(class: "submit-button btn-sm mr-3", text: "Save") +
-      submit_button(class: "submit-button btn-sm mr-3 _close-and-success",
-                    text: "Save and Close")
-  end
-
-  def edit_cancel_button
-    modal_close_button "Cancel", situation: "secondary", class: "btn-sm"
-  end
-
-  def standard_cancel_button args={}
-    args.reverse_merge! class: "cancel-button ml-4", href: path
-    cancel_button args
-  end
-
-  def delete_button
-    confirm = "Are you sure you want to delete #{safe_name}?"
-    success = main? ? "REDIRECT: *previous" : { view: :just_deleted }
-    link_to "Delete",
-            path: { action: :delete, success: success },
-            class: "slotter btn btn-outline-danger ml-auto btn-sm", remote: true,
-            'data-confirm': confirm
   end
 
   # TODO: add undo functionality

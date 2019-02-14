@@ -59,6 +59,11 @@ class Card
     class BadQuery < UserError
     end
 
+    class BadAddress < UserError
+      self.status_code = 404
+      self.view = :bad_address
+    end
+
     # card not found
     class NotFound < UserError
       self.status_code = 404

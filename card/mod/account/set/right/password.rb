@@ -38,8 +38,8 @@ view :raw do
 end
 
 format :html do
-  view :core do
-    "<em>#{render_raw}</em"
+  view :core, wrap: :em do
+    render_raw
   end
 
   view :editor do

@@ -39,7 +39,6 @@ format :html do
   end
 
   def frame_help
-    # TODO: address these args
     with_class_up "help-text", "alert alert-info" do
       _render :help
     end

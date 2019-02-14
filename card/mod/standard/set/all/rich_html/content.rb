@@ -45,7 +45,7 @@ format :html do
     @content_body = true
     wrap do
       [
-        _render_menu,
+        # _render_menu,
         _render_header,
         wrap_body { _render_titled_content },
         render_comment_box
@@ -60,9 +60,10 @@ format :html do
 
   view :labeled, tags: :unknown_ok do
     @content_body = true
+    voo.edit = :content_modal
+    menu = wrap_menu { _render_menu }
     wrap(true, class: "row") do
-      [_render_menu,
-       labeled(render_title, wrap_body { render_labeled_content })]
+      labeled(render_title, wrap_body { [menu, render_labeled_content] })
     end
   end
 

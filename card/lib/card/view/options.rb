@@ -19,7 +19,8 @@ class Card
           :nest_syntax,    # full nest syntax
           :show,           # render these views when optional
           :hide,            # do not render these views when optional
-          :wrap            # wrap the nest with a wrapper
+          :wrap,            # wrap the nest with a wrapper
+          :edit
         ],                 #   show/hide can be view (Symbol), list of views (Array),
         #   or comma separated views (String)
         # NOTE: although show and hide are in this non-inheriting group, they are
@@ -59,7 +60,7 @@ class Card
         attr_reader :keymap
 
         def add_option name, type
-          raise "invalid option type" unless @keymap.key?(type)
+          raise "invalid option type: #{type}" unless @keymap.key?(type)
 
           @keymap[type] << name
           reset_key_lists

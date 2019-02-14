@@ -6,6 +6,6 @@ RSpec.describe Card::Set::Right::Following do
       Card.fetch "Joe Admin", :following
     end
 
-    check_views_for_errors :core, :status, :rule_editor
+    check_html_views_for_errors
   end
 end

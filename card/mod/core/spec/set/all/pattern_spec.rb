@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Pattern do
+RSpec.describe Card::Set::All::Pattern do
   describe :set_names do
     it "returns self, type, all for simple cards" do
       Card::Auth.as_bot do
@@ -33,15 +33,22 @@ describe Card::Set::All::Pattern do
       end
     end
 
-    it "returns set names for compound star cards" do
-      Card::Auth.as_bot do
-        expect(Card.new(name: "Iliad+*to").set_names).to eq(
-          [
-            "Book+*to+*type plus right", "*to+*right", "*rstar",
-            "Pointer+*type", "*all plus", "*all"
-          ]
-        )
-      end
+    it "returns set names for compound star cards", as_bot: true do
+      expect(Card.new(name: "Iliad+*to").set_names).to eq(
+        [
+          "Book+*to+*type plus right", "*to+*right", "*rstar",
+          "Pointer+*type", "*all plus", "*all"
+        ]
+      )
+    end
+
+    it "returns set names for rule cards", as_bot: true do
+      expect(Card.new(name: "*all+*create").set_names).to eq(
+        [
+          "*rule", "Set+*create+*type plus right", "*create+*right", "*rstar",
+          "Pointer+*type", "*all plus", "*all"
+        ]
+      )
     end
 
     # right place for this?  really need more prototype tests...

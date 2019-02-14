@@ -18,8 +18,8 @@ class Card
       end
 
       def card_layout? name
-        Card.fetch_type_id(name) == Card::LayoutTypeID
-      rescue Card::Error::CodenameNotFound => _e
+        Card.fetch_type_id(name).in? [Card::LayoutTypeID, Card::HtmlID, Card::BasicID]
+      rescue ArgumentError, Card::Error::CodenameNotFound => _e
         false
       end
 
