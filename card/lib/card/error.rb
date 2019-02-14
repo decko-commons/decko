@@ -124,7 +124,7 @@ class Card
           card_exception = card_error_class(exception, card).new exception.message
         end
         card_exception.card ||= card
-        card_exception.backtrace ||= e
+        card_exception.backtrace ||= exception.backtrace
         add_card_errors card, card_exception if card_exception.card.errors.empty?
         card_exception
       end

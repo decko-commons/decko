@@ -104,7 +104,7 @@ format :html do
     classes << "modal-#{MODAL_SIZE[size]}"
   end
 
-  def normalize_modal_size_class
+  def normalize_modal_size_class size
     size.in?(MODAL_SIZE.keys) ? size : cast_model_option(size)
   end
 

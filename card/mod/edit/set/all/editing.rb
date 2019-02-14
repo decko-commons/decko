@@ -38,7 +38,7 @@ format :html do
 
   view :edit_rules, cache: :never, tags: :unknown_ok do
     voo.show :set_navbar
-    voo.hide :set_label, :rule_navbar, :toolbar
+    voo.hide :set_label, :rule_navbar
 
     render_related items: { nest_name: current_set_card.name, view: :bridge_rules_tab }
   end
@@ -46,7 +46,6 @@ format :html do
   view :edit_structure, cache: :never do
     return unless card.structure
 
-    voo.show :toolbar
     render_related items: { view: :edit, nest_name: card.structure_rule_card.name }
     # FIXME: this stuff:
     #  slot: {
@@ -58,7 +57,6 @@ format :html do
   end
 
   view :edit_nests, cache: :never do
-    voo.show :toolbar
     frame do
       with_nest_mode :edit do
         multi_card_edit
