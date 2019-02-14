@@ -156,14 +156,17 @@ body.mceContentBody {
 
 @include media-breakpoint-up(xs) {
   .card-slot > .d0-card-frame, .card-slot {
-    > .d0-card-header .card-menu._show-on-hover > a {
+    > .d0-card-header, > .labeled-content > d0-card-body {
+      .card-menu._show-on-hover > a {
         display: none;
       }
     }
-
+  }
   .card-slot:hover > .d0-card-frame, .card-slot:hover {
-    > .d0-card-header .card-menu._show-on-hover > a {
-      display: inline-block;
+    > .d0-card-header, > .labeled-content > d0-card-body {
+      .card-menu._show-on-hover > a {
+        display: inline-block;
+      }
     }
   }
 }
