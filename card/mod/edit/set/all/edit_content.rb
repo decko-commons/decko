@@ -16,10 +16,10 @@ format :html do
   end
 
   view :edit, perms: :update, tags: :unknown_ok, cache: :never,
-       wrap: { modal: { footer: "",
-                        size: :edit_modal_size,
-                        title: :render_title,
-                        menu: :edit_modal_menu } } do
+              wrap: { modal: { footer: "",
+                               size: :edit_modal_size,
+                               title: :render_title,
+                               menu: :edit_modal_menu } } do
     with_nest_mode :edit do
       voo.show :help
       voo.hide :save_button

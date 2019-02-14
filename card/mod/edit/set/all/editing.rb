@@ -1,7 +1,7 @@
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
   view :bridge, perms: :update, tags: :unknown_ok, cache: :never,
-              bridge: true, wrap: :bridge do
+                bridge: true, wrap: :bridge do
     with_nest_mode :edit do
       voo.show :help
       wrap true, breadcrumb_data("Editing", "edit") do
@@ -18,7 +18,6 @@ format :html do
       _render_edit_content_form
     ]
   end
-
 
   def edit_view_hidden
     # for override

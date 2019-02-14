@@ -20,12 +20,16 @@ format :html do
   def cast_model_option val
     case val
     when Symbol
-      respond_to?(val) ? send(val) : val
+      cast_model_option_symbol val
     when Proc
       val.call(self)
     else
       val
     end
+  end
+
+  def cast_model_option_symbol val
+    respond_to?(val) ? send(val) : val
   end
 
   view :modal, wrap: :modal do
@@ -99,8 +103,9 @@ format :html do
 
   def add_modal_size_class classes, size
     size = cast_model_option size unless size.in?(MODAL_SIZE.keys)
+    return if size == :medium || size.blank?
 
-    classes << "modal-#{MODAL_SIZE[size]}" if size && size != :medium
+    classes << "modal-#{MODAL_SIZE[size]}"
   end
 
 
