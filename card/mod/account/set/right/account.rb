@@ -126,7 +126,7 @@ def reset_password_success
   token_card.used!
   Auth.signin left_id
   { id: name,
-    view: :edit_content }
+    view: :edit }
 end
 
 def reset_password_try_again

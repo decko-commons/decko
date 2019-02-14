@@ -38,7 +38,7 @@ format :html do
   end
 
   def edit_in_modal_link
-    edit_link :edit_content, modal: :large
+    edit_link :edit, modal: :large
   end
 
   def edit_in_place_link

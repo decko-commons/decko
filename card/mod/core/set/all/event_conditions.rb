@@ -8,16 +8,21 @@ end
 
 private
 
+# if changing type, old card has set modules from old type, so we create
+# a new card to determine whether events apply.
+# (note: cached condition card would ideally be cleared after all
+# conditions are reviewed)
 def condition_card
-  if updating_type?
-    cc = Card.fetch id, skip_modules: true
-    cc.name = name
-    cc.type_id = type_id
-    cc.content = content
-    cc.include_set_modules
-  else
-    self
-  end
+  @condition_card ||=
+    if updating_type?
+      cc = Card.fetch id, skip_modules: true
+      cc.name = name
+      cc.type_id = type_id
+      cc.content = content
+      cc.include_set_modules
+    else
+      self
+    end
 end
 
 def updating_type?
