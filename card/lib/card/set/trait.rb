@@ -17,6 +17,12 @@ class Card
         add_traits args, options.merge(writer: true)
       end
 
+      def require_field *fields
+        fields.each do |field|
+          Card::Set::RequiredField.new(self, field).add
+        end
+      end
+
       private
 
       def add_attributes *args
