@@ -51,6 +51,32 @@ RSpec.describe Card::Set::All::EventConditions do
       end
     end
 
+    context "when changing sets" do
+      def update_name
+        Card["A"].update! name: "AAAA"
+      end
+
+      it "does not run update events from sets that no longer apply after change" do
+        with_test_events do
+          test_event :validate, on: :update, for: "A" do
+            add_to_log "NO to run"
+          end
+          update_name
+          expect(@log).to be_empty
+        end
+      end
+
+      it "does run update events from sets that apply after change" do
+        with_test_events do
+          test_event :validate, on: :update, for: "AAAA" do
+            add_to_log "YES to run"
+          end
+          update_name
+          expect(@log).to contain_exactly("YES to run")
+        end
+      end
+    end
+
     describe "trigger option" do
       specify "trigger for whole act" do
         with_test_events do

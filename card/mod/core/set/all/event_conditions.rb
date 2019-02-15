@@ -8,14 +8,14 @@ end
 
 private
 
-# if changing type, old card has set modules from old type, so we create
+# if changing name/type, the old card has no-longer-applicable set modules, so we create
 # a new card to determine whether events apply.
 # (note: cached condition card would ideally be cleared after all
 # conditions are reviewed)
 def condition_card
   @condition_card ||=
-    if updating_type?
-      cc = Card.fetch id, skip_modules: true
+    if updating_sets?
+      cc = Card.find id
       cc.name = name
       cc.type_id = type_id
       cc.content = content
@@ -25,8 +25,10 @@ def condition_card
     end
 end
 
-def updating_type?
-  @action == :update && real? && attribute_is_changing?("type_id")
+# existing card is being changed in a way that alters its sets
+def updating_sets?
+  @action == :update && real? &&
+    (attribute_is_changing?("type_id") || attribute_is_changing?("name"))
 end
 
 def set_condition_applies? set_module
