@@ -36,7 +36,7 @@ def set_condition_card old_sets
     updating_sets? ? set_condition_card_with_new_set_modules : self
 end
 
-# prevents locking in set_condition_card 
+# prevents locking in set_condition_card
 def no_current_action?
   return false if @current_action
 
