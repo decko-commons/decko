@@ -1,13 +1,13 @@
 include_set Pointer
 
-event :validate_listed_by_name, :validate, on: :save, changed: :name do
+event :validate_listed_by_name, :validate, on: :save, changing: :name do
   if !junction? || !right || right.type_id != CardtypeID
     errors.add :name, "must have a cardtype name as right part"
   end
 end
 
 event :validate_listed_by_content, :validate,
-      on: :save, changed: :content do
+      on: :save, changing: :content do
   item_cards(content: content).each do |item_card|
     next unless item_card.type_id != right.id
     errors.add(
@@ -19,7 +19,7 @@ event :validate_listed_by_content, :validate,
 end
 
 event :update_content_in_list_cards, :prepare_to_validate,
-      on: :save, changed: :content do
+      on: :save, changing: :content do
   return unless db_content.present?
   new_items = item_keys(content: db_content)
   old_items = item_keys(content: old_content)

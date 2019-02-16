@@ -1,5 +1,5 @@
 def event_applies? event
-  return unless set_condition_applies? event.set_module
+  return unless set_condition_applies? event.set_module, event.opts[:changing]
 
   Card::Set::Event::CONDITIONS.all? do |key|
     send "#{key}_condition_applies?", event, event.opts[key]
@@ -12,17 +12,18 @@ private
 # a new card to determine whether events apply.
 # (note: cached condition card would ideally be cleared after all
 # conditions are reviewed)
-def condition_card
+def condition_card old_sets
+  return self if old_sets
   @condition_card ||=
-    if updating_sets?
-      cc = Card.find id
-      cc.name = name
-      cc.type_id = type_id
-      cc.content = content
-      cc.include_set_modules
-    else
-      self
-    end
+    updating_sets? ? condition_card_with_new_set_modules : self
+end
+
+def condition_card_with_new_set_modules
+  cc = Card.find id
+  cc.name = name
+  cc.type_id = type_id
+  cc.content = content
+  cc.include_set_modules
 end
 
 # existing card is being changed in a way that alters its sets
@@ -31,9 +32,18 @@ def updating_sets?
     (attribute_is_changing?("type_id") || attribute_is_changing?("name"))
 end
 
-def set_condition_applies? set_module
+def set_condition_applies? set_module, old_sets
   # events on Card are used for testing
-  set_module == Card || condition_card.singleton_class.include?(set_module)
+  return true if set_module == Card
+
+  condition_card(old_sets).is_a?(set_module)
+  #if self.is_a?(set_module) !=
+  #  puts "we've got a live one"
+  #end
+
+  # condition_card(old_sets) #.is_a?(set_module)
+
+  #self.is_a?(set_module)
 end
 
 def on_condition_applies? _event, actions
@@ -48,6 +58,7 @@ def changed_condition_applies? _event, db_columns
   return true if db_columns.empty?
   db_columns.any? { |col| single_changed_condition_applies? col }
 end
+alias_method :changing_condition_applies?, :changed_condition_applies?
 
 def when_condition_applies? _event, block
   case block

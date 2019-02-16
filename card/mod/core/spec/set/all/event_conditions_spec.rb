@@ -52,27 +52,53 @@ RSpec.describe Card::Set::All::EventConditions do
     end
 
     context "when changing sets" do
-      def update_name
-        Card["A"].update! name: "AAAA"
+      def update_type
+        Card::Auth.as_bot do
+          Card["Sample Pointer"].update! type: "Search"
+        end
       end
 
-      it "does not run update events from sets that no longer apply after change" do
+      it "does NOT run update events from sets that no longer apply after change" do
         with_test_events do
-          test_event :validate, on: :update, for: "A" do
+          test_event :validate, on: :update, set: Card::Set::Type::Pointer do
             add_to_log "NO to run"
           end
-          update_name
+          update_type
           expect(@log).to be_empty
+        end
+      end
+
+      it "does run update events from old sets when `changing` value present" do
+        with_test_events do
+          test_event :validate,
+                     on: :update, set: Card::Set::Type::Pointer, changing: :type do
+            add_to_log "YES to run"
+          end
+          update_type
+          expect(@log).to contain_exactly("YES to run")
         end
       end
 
       it "does run update events from sets that apply after change" do
         with_test_events do
-          test_event :validate, on: :update, for: "AAAA" do
+          test_event :validate, on: :update, set: Card::Set::Type::SearchType do
             add_to_log "YES to run"
           end
-          update_name
+          update_type
           expect(@log).to contain_exactly("YES to run")
+        end
+      end
+
+      # following does not yet work, because old card has both old sets and new sets
+      # when conditions are tested.
+      xit "does NOT run update events from new sets when `changing` value present" do
+        with_test_events do
+          test_event :validate,
+                     on: :update, set: Card::Set::Type::SearchType, changing: :type do
+            add_to_log "NO to run"
+          end
+          update_type
+          expect(@log).to be_empty
         end
       end
     end
