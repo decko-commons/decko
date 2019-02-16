@@ -2,7 +2,6 @@
 # :validate_delete_children
 event :assign_action, :initialize, when: :actionable? do
   act = director.need_act
-  @condition_card = nil
   @current_action = Card::Action.create(
     card_act_id: act.id,
     action_type: @action,

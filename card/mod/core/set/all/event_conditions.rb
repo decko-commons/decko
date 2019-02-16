@@ -1,5 +1,5 @@
 def event_applies? event
-  return unless set_condition_applies? event.set_module, event.opts[:changing]
+  return unless set_condition_applies? event.set_module, event.opts.key?(:changing)
 
   Card::Set::Event::CONDITIONS.all? do |key|
     send "#{key}_condition_applies?", event, event.opts[key]
@@ -8,24 +8,6 @@ end
 
 private
 
-# if changing name/type, the old card has no-longer-applicable set modules, so we create
-# a new card to determine whether events apply.
-# (note: cached condition card would ideally be cleared after all
-# conditions are reviewed)
-def condition_card old_sets
-  return self if old_sets
-  @condition_card ||=
-    updating_sets? ? condition_card_with_new_set_modules : self
-end
-
-def condition_card_with_new_set_modules
-  cc = Card.find id
-  cc.name = name
-  cc.type_id = type_id
-  cc.content = content
-  cc.include_set_modules
-end
-
 # existing card is being changed in a way that alters its sets
 def updating_sets?
   @action == :update && real? &&
@@ -33,23 +15,40 @@ def updating_sets?
 end
 
 def set_condition_applies? set_module, old_sets
-  # events on Card are used for testing
   return true if set_module == Card
-
-  condition_card(old_sets).is_a?(set_module)
-  #if self.is_a?(set_module) !=
-  #  puts "we've got a live one"
-  #end
-
-  # condition_card(old_sets) #.is_a?(set_module)
-
-  #self.is_a?(set_module)
+  set_condition_card(old_sets).singleton_class.include? set_module
 end
 
 def on_condition_applies? _event, actions
   actions = Array(actions).compact
   return true if actions.empty?
   actions.include? @action
+end
+
+# if changing name/type, the old card has no-longer-applicable set modules, so we create
+# a new card to determine whether events apply.
+# (note: cached condition card would ideally be cleared after all
+# conditions are reviewed)
+# @param old_sets [True/False] whether to use the old_sets
+def set_condition_card old_sets
+  return self if old_sets || no_current_action?
+  @set_condition_card ||=
+    updating_sets? ? set_condition_card_with_new_set_modules : self
+end
+
+# prevents locking in set_condition_card 
+def no_current_action?
+  return false if @current_action
+
+  @set_condition_card = nil
+  true
+end
+
+def set_condition_card_with_new_set_modules
+  cc = Card.find id
+  cc.name = name
+  cc.type_id = type_id
+  cc.include_set_modules
 end
 
 def changed_condition_applies? _event, db_columns
