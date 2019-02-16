@@ -10,8 +10,7 @@ private
 
 # existing card is being changed in a way that alters its sets
 def updating_sets?
-  @action == :update && real? &&
-    (attribute_is_changing?("type_id") || attribute_is_changing?("name"))
+  @action == :update && real? && (type_id_is_changing? || name_is_changing?)
 end
 
 def set_condition_applies? set_module, old_sets

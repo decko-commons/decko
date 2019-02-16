@@ -51,7 +51,7 @@ RSpec.describe Card::Set::All::EventConditions do
       end
     end
 
-    context "when changing sets" do
+    context "when changing type" do
       def update_type
         Card::Auth.as_bot do
           Card["Sample Pointer"].update! type: "Search"
@@ -99,6 +99,45 @@ RSpec.describe Card::Set::All::EventConditions do
           end
           update_type
           expect(@log).to be_empty
+        end
+      end
+    end
+
+    context "when changing name" do
+      def update_name
+        Card::Auth.as_bot do
+          Card["Cardtype B+*type+*create"].update! name: "B+*update"
+        end
+      end
+
+      it "does NOT run update events from sets that no longer apply after change" do
+        with_test_events do
+          test_event :validate, on: :update, set: Card::Set::Right::Create do
+            add_to_log "NO to run"
+          end
+          update_name
+          expect(@log).to be_empty
+        end
+      end
+
+      it "does run update events from old sets when `changing` value present" do
+        with_test_events do
+          test_event :validate,
+                     on: :update, set: Card::Set::Right::Create, changing: :name do
+            add_to_log "YES to run"
+          end
+          update_name
+          expect(@log).to contain_exactly("YES to run")
+        end
+      end
+
+      it "does run update events from sets that apply after change" do
+        with_test_events do
+          test_event :validate, on: :update, set: Card::Set::Right::Update do
+            add_to_log "YES to run"
+          end
+          update_name
+          expect(@log).to contain_exactly("YES to run")
         end
       end
     end
