@@ -10,7 +10,7 @@ event :cascade_read_rule, :finalize, after: :update_rule_cache,
 end
 
 def reset_patterns_if_rule saving=false
-  super
+  return unless (set = super)
   add_to_read_rule_update_queue set.item_cards(limit: 0) if saving
 end
 

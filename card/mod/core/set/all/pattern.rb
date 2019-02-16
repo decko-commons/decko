@@ -21,6 +21,7 @@ def reset_patterns_if_rule saving=false
 
   set.reset_patterns
   set.include_set_modules
+  set
 end
 
 def safe_set_keys
