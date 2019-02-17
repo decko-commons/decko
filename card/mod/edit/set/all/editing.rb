@@ -37,16 +37,13 @@ format :html do
   end
 
   view :edit_rules, cache: :never, tags: :unknown_ok do
-    voo.show :set_navbar
-    voo.hide :set_label, :rule_navbar
-
-    render_related items: { nest_name: current_set_card.name, view: :bridge_rules_tab }
+    nest current_set_card, view: :bridge_rules_tab
   end
 
   view :edit_structure, cache: :never do
     return unless card.structure
 
-    render_related items: { view: :edit, nest_name: card.structure_rule_card.name }
+    nest card.structure_rule_card, view: :edit
     # FIXME: this stuff:
     #  slot: {
     #    cancel_slot_selector: ".card-slot.related-view",

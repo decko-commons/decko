@@ -121,12 +121,15 @@ class Card
       end
 
       def cardify_exception exception, card
-        unless exception.is_a? Card::Error
-          card_exception = card_error_class(exception, card).new exception.message
-        end
+        card_exception =
+          if exception.is_a? Card::Error
+            exception
+          else
+            card_error_class(exception, card).new exception.message
+          end
         card_exception.card ||= card
         card_exception.backtrace ||= exception.backtrace
-        add_card_errors card, card_exception if card_exception.card.errors.empty?
+        add_card_errors card, card_exception if card.errors.empty?
         card_exception
       end
 

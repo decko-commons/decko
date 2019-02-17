@@ -32,19 +32,22 @@ format :html do
     end
   end
 
+  view :bridge_link, tags: :unknown_ok do
+    bridge_link
+  end
+
   def edit_modal_size
     :large
   end
 
   def edit_modal_menu
     wrap_with_modal_menu do
-      [close_modal_window, bridge_link]
+      [close_modal_window, render_bridge_link]
     end
   end
 
   def bridge_link
-    link_to_view :bridge, material_icon(:more_horiz),
-                 class: "slotter", "data-slotter-mode": "modal-replace"
+    link_to_view :bridge, material_icon(:more_horiz), "data-slotter-mode": "modal-replace"
   end
 
   def edit_form_opts

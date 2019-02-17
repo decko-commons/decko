@@ -16,17 +16,12 @@ def reset_patterns
   true
 end
 
-def reset_patterns_if_rule saving=false
-  if !new_card? && is_rule?
-    set = left
-    set.reset_patterns
-    set.include_set_modules
+def reset_patterns_if_rule _saving=false
+  return unless real? && is_rule? && (set = left)
 
-    # FIXME: should be in right/read.rb
-    if saving && right.id == Card::ReadID
-      add_to_read_rule_update_queue set.item_cards(limit: 0)
-    end
-  end
+  set.reset_patterns
+  set.include_set_modules
+  set
 end
 
 def safe_set_keys

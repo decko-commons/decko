@@ -1,5 +1,5 @@
 def event_applies? event
-  return unless set_condition_applies? event.set_module
+  return unless set_condition_applies? event.set_module, event.opts.key?(:changing)
 
   Card::Set::Event::CONDITIONS.all? do |key|
     send "#{key}_condition_applies?", event, event.opts[key]
@@ -8,24 +8,14 @@ end
 
 private
 
-def condition_card
-  if updating_type?
-    cc = Card.fetch skip_modules: true, name: name
-    cc.type_id = type_id
-    cc.content = content
-    cc.include_set_modules
-  else
-    self
-  end
+# existing card is being changed in a way that alters its sets
+def updating_sets?
+  @action == :update && real? && (type_id_is_changing? || name_is_changing?)
 end
 
-def updating_type?
-  @action == :update && attribute_is_changing?("type_id")
-end
-
-def set_condition_applies? set_module
-  # events on Card are used for testing
-  set_module == Card || condition_card.singleton_class.include?(set_module)
+def set_condition_applies? set_module, old_sets
+  return true if set_module == Card
+  set_condition_card(old_sets).singleton_class.include? set_module
 end
 
 def on_condition_applies? _event, actions
@@ -34,12 +24,39 @@ def on_condition_applies? _event, actions
   actions.include? @action
 end
 
+# if changing name/type, the old card has no-longer-applicable set modules, so we create
+# a new card to determine whether events apply.
+# (note: cached condition card would ideally be cleared after all
+# conditions are reviewed)
+# @param old_sets [True/False] whether to use the old_sets
+def set_condition_card old_sets
+  return self if old_sets || no_current_action?
+  @set_condition_card ||=
+    updating_sets? ? set_condition_card_with_new_set_modules : self
+end
+
+# prevents locking in set_condition_card
+def no_current_action?
+  return false if @current_action
+
+  @set_condition_card = nil
+  true
+end
+
+def set_condition_card_with_new_set_modules
+  cc = Card.find id
+  cc.name = name
+  cc.type_id = type_id
+  cc.include_set_modules
+end
+
 def changed_condition_applies? _event, db_columns
   return true unless @action == :update
   db_columns = Array(db_columns).compact
   return true if db_columns.empty?
   db_columns.any? { |col| single_changed_condition_applies? col }
 end
+alias_method :changing_condition_applies?, :changed_condition_applies?
 
 def when_condition_applies? _event, block
   case block
