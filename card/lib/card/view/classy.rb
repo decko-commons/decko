@@ -63,9 +63,8 @@ class Card
         klass = klass.first if klass.is_a?(Array)
         klass = klass.to_s
 
-        next_ancestor&.extra_classes(klass, :public)
         [class_list(type)[klass], (class_list(:public)[klass] if type == :private),
-         next_ancestor&.extra_classes(klass, :public)].flatten.compact.join(" ")
+         next_ancestor&.extra_classes(klass, :public)].flatten.compact
       end
 
       private
