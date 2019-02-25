@@ -13,6 +13,7 @@ class Card
     include Options
     include Layout
     include Wrapper
+    include Classy
     extend Cache::ClassMethods
 
     attr_reader :format, :parent, :card
