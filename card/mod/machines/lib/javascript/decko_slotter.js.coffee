@@ -33,7 +33,9 @@
 #          replace (default)
 #             replace the closest slot with new slot
 #          modal
-#             show new slot in modal
+#             show new slot in modal; if there is already a modal then put it on top
+#           modal-replace
+#             replace existing modal
 #          overlay
 #             show new slot in overlay
 #          update-origin
@@ -68,6 +70,7 @@ $(window).ready ->
     $.rails.handleRemote $(this)
 
   $('body').on 'click', '._clickable.slotter', (event)->
+    $(this)[0].href = $(this).attr("href")
     $.rails.handleRemote $(this)
 
   $('body').on 'click', '[data-dismiss="overlay"]', (event) ->

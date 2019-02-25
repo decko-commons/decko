@@ -9,7 +9,7 @@ describe "/*signin", () =>
   it "links to /new/Sign_up", ->
     cy.contains "or sign up!"
       .should "have.attr", "href", "/new/Sign_up"
-§
+
   it "links to reset password", ->
     cy.contains "RESET PASSWORD"
       .should "have.attr", "href", "/*signin?slot%5Bhide%5D=bridge_link&view=edit"
