@@ -1,7 +1,7 @@
 format :html do
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
-    wrap_with :div, class: "card-menu #{menu_link_classes}" do
+    wrap_with :div, class: "card-menu text-muted #{menu_link_classes}" do
       menu
     end
   end

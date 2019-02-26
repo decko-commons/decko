@@ -28,7 +28,7 @@ describe 'save change in bridge', () ->
     cy.slot("menu").should("contain", "fruit pants")
     cy.slot("home").should("not.contain", "fruit pants")
 
-  it "updates origin slot after name change", () ->
+  it.only "updates origin slot after name change", () ->
     cy.visit_bridge("snow")
     cy.slot("snow", "edit_name_row").el("edit-link").click(force: true)
     cy.get(".name-editor > input[name='card[name]']").clear().type("rain")
