@@ -42,7 +42,7 @@ class Card
       def create_field_rename_event
         field_set.class_exec(self) do |required|
           event required.field_event_name(:update), :validate,
-                on: :update, changed: :name do
+                on: :update, changing: :name do
             parent = Card.fetch(name_before_act.to_name.left)
             return if !parent || parent&.singleton_class&.include?(required.parent_set)
 
