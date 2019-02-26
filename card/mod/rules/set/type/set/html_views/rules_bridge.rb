@@ -30,8 +30,7 @@ format :html do
   end
 
   def rules_filter
-    form_tag path(mark: "", view: :rules_list,
-                  slot: { hide: %i[set_label rule_navbar set_navbar content] }),
+    form_tag path(mark: "", view: :rules_list, slot: { hide: :content }),
              remote: true, method: "get", role: "filter",
              "data-slot-selector": ".card-slot.rules_list-view",
              class: classy("nodblclick slotter form-inline slim-select2 m-2") do

@@ -1,7 +1,6 @@
 format :html do
   view :history, cache: :never do
     frame do
-      voo.show :toolbar
       class_up "d0-card-body",  "history-slot"
       acts_layout card.history_acts, :relative, :show
     end
