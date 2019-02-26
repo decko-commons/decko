@@ -73,7 +73,7 @@ format :html do
   # end
 
   view :bar_page_link do
-    class_up "full-page-link", "pl-2"
+    class_up "full-page-link", "pl-2 text-muted"
     full_page_link
   end
 

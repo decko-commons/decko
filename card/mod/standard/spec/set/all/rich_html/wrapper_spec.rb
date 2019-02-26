@@ -1,36 +1,31 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::RichHtml::Wrapper do
+RSpec.describe Card::Set::All::RichHtml::Wrapper do
   context "with full wrapping" do
     let(:ocslot)  { Card["A"].format }
 
     it "has the appropriate attributes on open" do
-      assert_view_select(
-        ocslot.render!(:open),
-        'div[class="card-slot open-view ALL TYPE-basic SELF-a"]'
-      ) do
-        assert_select 'div[class="d0-card-frame card"]' do
-          assert_select 'div[class="d0-card-header card-header"]' do
-            assert_select 'div[class="d0-card-header-title"]'
+      expect_view(:open, card: "A")
+        .to have_tag'div.card-slot.open-view.ALL.TYPE-basic.SELF-a' do
+          with_tag 'div.d0-card-frame.card' do
+            with_tag 'div.d0-card-header.card-header' do
+              with_tag 'div.d0-card-header-title'
+            end
+            with_tag 'div.d0-card-body'
           end
-          assert_select 'div[class~="d0-card-body"]'
         end
-      end
     end
 
     it "has the appropriate attributes on closed" do
-      v = ocslot.render! :closed
-      assert_view_select(
-        v, 'div[class="card-slot closed-view ALL TYPE-basic SELF-a"]'
-      ) do
-        assert_select 'div[class="d0-card-frame card"]' do
-          assert_select 'div[class="d0-card-header card-header"]' do
-            assert_select 'div[class="d0-card-header-title"]'
+      expect_view(:closed, card: "A")
+        .to have_tag 'div.card-slot.closed-view.ALL.TYPE-basic.SELF-a' do
+          with_tag 'div.d0-card-frame.card' do
+            with_tag 'div.d0-card-header.card-header' do
+              with_tag 'div.d0-card-header-title'
+            end
+            without_tag 'div.d0-card-body.d0-card-content'
           end
-          assert_select 'div[class~="d0-card-body d0-card-content"]'
-          assert_select 'div[class~="closed-content"]'
         end
-      end
     end
   end
 end
