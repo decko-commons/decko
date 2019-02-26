@@ -1,5 +1,4 @@
 @javascript
-
 Feature: Signing up
   In order to be able to contribute content and be credited for my contributions
   As a content editor
