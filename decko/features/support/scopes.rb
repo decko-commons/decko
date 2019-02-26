@@ -15,9 +15,6 @@ module ScopeHelpers
     when /main card menu/
       "#main > .card-slot > .menu-slot > .card-menu"
 
-    when /main card toolbar/
-      "#main > .card-slot > .d0-card-frame > nav.toolbar"
-
     when /main card frame/
       "#main > .card-slot > .d0-card-frame"
 

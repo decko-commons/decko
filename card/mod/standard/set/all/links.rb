@@ -34,15 +34,6 @@ format do
     link_to text, opts
   end
 
-  # link to the "related" view (handles many card menu items)
-  # @param field_cardish [Integer, Symbol, String, Card] identify the related field
-  # @param text [String]
-  # @param opts [Hash]
-  def link_to_related field_cardish, text=nil, opts={}
-    opts.bury :path, :slot, :items, :nest_name, "+#{Card::Name[field_cardish]}"
-    link_to_view :related, text, opts
-  end
-
   # a "resource" is essentially a reference to something that
   # decko doesn't recognize to be a card.  Can be a remote url,
   # a local url (that decko hasn't parsed) or a local path.
@@ -54,15 +45,14 @@ format do
     link_to text, opts.merge(path: resource)
   end
 
-  # smart_link_to is wrapper method for #link_to, #link_to_card, #link_to_view,
-  # #link_to_resource, and #link_to_related.  If the opts argument contains
-  # :view, :related, :card, or :resource, it will use the respective method to
-  # render a link.
+  # smart_link_to is wrapper method for #link_to, #link_to_card, #link_to_view, and
+  # #link_to_resource.  If the opts argument contains :view, :related, :card, or
+  # :resource, it will use the respective method to render a link.
   #
   # This is usually most useful when writing views that generate many different
   # kinds of links.
   def smart_link_to text, opts={}
-    if (linktype = %i[view related card resource].find { |key| opts[key] })
+    if (linktype = %i[view card resource].find { |key| opts[key] })
       send "link_to_#{linktype}", opts.delete(linktype), text, opts
     else
       send :link_to, text, opts
@@ -119,6 +109,7 @@ format :html do
   # in HTML, #link_to_view defaults to a remote link with rel="nofollow".
   def link_to_view view, text=nil, opts={}
     opts.reverse_merge! remote: true, rel: "nofollow"
+    add_class opts, "slotter"
     super view, (text || view), opts
   end
 
@@ -128,12 +119,6 @@ format :html do
   def link_to_resource resource, text=nil, opts={}
     add_resource_opts opts, resource_type(resource)
     super
-  end
-
-  # in HTML, #link_to_related defaults to using the field name as text
-  def link_to_related field_cardish, text=nil, opts={}
-    name = Card::Name[field_cardish]
-    super name, (text || name), opts
   end
 
   private

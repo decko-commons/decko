@@ -129,9 +129,7 @@ format :html do
 
   def multi_card_edit fields_only=false
     nested_cards_for_edit(fields_only).map do |name, options|
-      options ||= {}
-      options[:hide] = [options[:hide], :toolbar].flatten.compact
-      nest name, options
+      nest name, options || {}
     end.join "\n"
   end
 

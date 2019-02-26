@@ -39,7 +39,7 @@ format :html do
   end
 
   view :rule_bridge_link, tags: :unknown_ok do
-    opts = bridge_link_opts(class: "edit-rule-link slotter nav-link",
+    opts = bridge_link_opts(class: "edit-rule-link nav-link",
                             "data-toggle": "pill",
                             "data-cy": "#{setting_title.to_name.key}-pill")
     opts[:path].delete(:layout)
@@ -62,7 +62,7 @@ format :html do
 
   def link_to_open_rule
     setting_title = card.name.tag.tr "*", ""
-    link_to_view :open_rule, setting_title, class: "edit-rule-link slotter"
+    link_to_view :open_rule, setting_title, class: "edit-rule-link"
   end
 
   def closed_rule_content rule_card
@@ -84,7 +84,7 @@ format :html do
 
   def link_to_closed_rule
     link_to_view :closed_rule, card.rule_setting_title,
-                 class: "close-rule-link slotter"
+                 class: "close-rule-link"
   end
 
   def reload_rule rule

@@ -212,7 +212,6 @@ class Card
         wrap_with :div, class: "act-link" do
           @format.link_to_view(
             :act, "#{@args[:hide_diff] ? 'Show' : 'Hide'} changes",
-            class: "slotter",
             path: { act_id: @args[:act].id, act_seq: @args[:act_seq],
                     hide_diff: !@args[:hide_diff], action_view: :expanded,
                     act_context: @args[:act_context], look_in_trash: true }

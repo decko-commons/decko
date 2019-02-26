@@ -129,9 +129,7 @@ class CardController < ActionController::Base
   def handle_exception exception
     raise exception if debug_exception?(exception)
     @card ||= Card.new
-    Card::Error.current = exception
-    error = Card::Error.cardify_exception exception, card
-    error.report
+    error = Card::Error.report exception, card
     show error.class.view, error.class.status_code
   end
 

@@ -32,7 +32,7 @@ format :html do
     text ||= icon_tag(direction.to_sym)
     link_to_view adjective, text,
                  title: "#{verb} #{card.name}",
-                 class: "#{verb}-icon toggler slotter nodblclick"
+                 class: "#{verb}-icon toggler nodblclick"
   end
 
   def toggle_view
