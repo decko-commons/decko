@@ -32,15 +32,15 @@ format :html do
     class_up "bar-left", "p-2 font-weight-bold d-flex grow-2 #{shared}"
     class_up "bar-middle", "d-none d-md-flex p-3 border-left text-align-middle #{shared}"
     class_up "bar-right",
-             "p-3 border-left d-flex justify-content-end text-align-right #{shared}"
+             "d-none p-3 border-left d-md-flex justify-content-end text-align-right #{shared}"
   end
 
   def class_up_bar_sides *sizes
     left = sizes.shift
     right = sizes.pop
-    class_up "bar-left", "col-#{left}", true
-    class_up "bar-middle", "col-#{sizes.first}", true if sizes.any?
-    class_up "bar-right", "col-#{right}", true
+    class_up "bar-left", "col-md-#{left}", true
+    class_up "bar-middle", "col-md-#{sizes.first}", true if sizes.any?
+    class_up "bar-right", "col-md-#{right}", true
   end
 
   view :bar_left do
