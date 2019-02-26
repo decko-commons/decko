@@ -1,6 +1,6 @@
 format :html do
   view :header do
-    voo.hide :toggle
+    voo.hide! :toggle
     main_header
   end
 
@@ -9,14 +9,14 @@ format :html do
   end
 
   def header_wrap content=nil
-    #voo&.hide :header_toggle
+    voo&.hide :header_toggle
     res = haml :header_wrap, content: (block_given? ? yield : output(content))
-    return res # unless voo&.show?(:header_toggle)
-    toggle res
+    return res #unless voo&.show?(:header_toggle)
+    #content_toggle res
   end
 
   def header_title_elements
-    [_render_toggle, toggle(_render_title)]
+    [_render_toggle, content_toggle(_render_title)]
   end
 
   def show_draft_link?
@@ -24,10 +24,10 @@ format :html do
   end
 
   view :toggle do
-    toggle
+    content_toggle
   end
 
-  def toggle text=nil
+  def content_toggle text=nil
     verb, adjective, direction = toggle_verb_adjective_direction
     text ||= icon_tag(direction.to_sym)
     link_to_view adjective, text,
