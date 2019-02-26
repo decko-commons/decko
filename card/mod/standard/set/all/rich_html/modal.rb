@@ -37,8 +37,7 @@ format :html do
   end
 
   def show_in_modal_link link_text, body
-    link_to_view :modal, link_text,
-                 "data-modal-body": body, "data-slotter-mode": "modal", class: "slotter"
+    link_to_view :modal, link_text, "data-modal-body": body, "data-slotter-mode": "modal"
   end
 
   def modal_close_button link_text="Close", opts={}
@@ -73,8 +72,6 @@ format :html do
     modal_link _render_title, size: voo.size
   end
 
-
-
   # @param size [:small, :medium, :large, :full] size of the modal dialog
   def modal_link text=nil, opts={}
     opts = modal_link_opts(opts)
@@ -91,7 +88,6 @@ format :html do
     opts
   end
 
-
   def modal_dialog_classes opts
     classes = [classy("modal-dialog")]
     return classes unless opts.present?
@@ -102,12 +98,15 @@ format :html do
   end
 
   def add_modal_size_class classes, size
-    size = cast_model_option size unless size.in?(MODAL_SIZE.keys)
+    size = normalize_modal_size_class size
     return if size == :medium || size.blank?
 
     classes << "modal-#{MODAL_SIZE[size]}"
   end
 
+  def normalize_modal_size_class size
+    size.in?(MODAL_SIZE.keys) ? size : cast_model_option(size)
+  end
 
   def close_modal_window
     link_to icon_tag(:close), path: "",

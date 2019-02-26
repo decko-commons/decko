@@ -5,6 +5,7 @@ class Card
     module SetHelper
       # define dynamically views (or other things) on format objects
       # @return format object
+      #
       # @example add a view to a card's html format
       # format =
       #   Card["A"].format_with(:html) do
@@ -22,11 +23,18 @@ class Card
         #::Card::Set::Self::DynamicSet, :html
       end
 
-      # define dynamically sets on card objects
+      # define dynamically a self set on a card object
       # @return card object
+      #
+      # @example add a method to a card
+      # Card["A"].set_with do
+      #   def special_method; end
+      # end
       def set_with &block
         with_set create_dynamic_set(&block)
       end
+
+      alias_method :self_set_with, :set_with
 
       # load set into card object
       def with_set set

@@ -116,18 +116,20 @@ class CardController < ActionController::Base
   end
 
   def render_page format, view
-    view ||= params[:view]
+    view ||= view_from_params
     card.act do
       format.page self, view, Card::Env.slot_opts
     end
   end
 
+  def view_from_params
+    params[:view] || params[:v]
+  end
+
   def handle_exception exception
     raise exception if debug_exception?(exception)
     @card ||= Card.new
-    Card::Error.current = exception
-    error = Card::Error.cardify_exception exception, card
-    error.report
+    error = Card::Error.report exception, card
     show error.class.view, error.class.status_code
   end
 

@@ -9,11 +9,14 @@ format :html do
   end
 
   def header_wrap content=nil
-    haml :header_wrap, content: (block_given? ? yield : output(content))
+    #voo&.hide :header_toggle
+    res = haml :header_wrap, content: (block_given? ? yield : output(content))
+    return res # unless voo&.show?(:header_toggle)
+    content_toggle res
   end
 
   def header_title_elements
-    [_render_toggle, _render_title, _render_menu]
+    [_render_toggle, content_toggle(_render_title)]
   end
 
   def show_draft_link?
@@ -21,10 +24,19 @@ format :html do
   end
 
   view :toggle do
+    content_toggle
+  end
+
+  def content_toggle text=nil
     verb, adjective, direction = toggle_verb_adjective_direction
-    link_to_view adjective, icon_tag(direction.to_sym),
+    text ||= icon_tag(direction.to_sym)
+    link_to_view adjective, text,
                  title: "#{verb} #{card.name}",
-                 class: "#{verb}-icon toggler slotter nodblclick"
+                 class: "#{verb}-icon toggler nodblclick"
+  end
+
+  def toggle_view
+    @toggle_mode == :close ? :open : :closed
   end
 
   def toggle_verb_adjective_direction
@@ -47,3 +59,5 @@ format :html do
     card.structure && card.template.ok?(:update)
   end
 end
+
+

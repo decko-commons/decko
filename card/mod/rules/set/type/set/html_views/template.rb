@@ -7,8 +7,7 @@ format :html do
   end
 
   def link_to_template_editor
-    link_to_view :template_editor, voo.title, class: "slotter",
-                                              path: { slot: { title: voo.title } }
+    link_to_view :template_editor, voo.title, path: { slot: { title: voo.title } }
   end
 
   # TODO: hamlize
@@ -31,7 +30,6 @@ format :html do
 
   view :template_editor_frame do
     voo.title = card.label
-    voo.hide :set_label
     frame do
       _render_core
     end
@@ -39,7 +37,7 @@ format :html do
 
   view :template_closer do
     wrap_with "div", class: "card-menu template-closer" do
-      link_to_view :template_link, icon_tag("remove"), class: "slotter"
+      link_to_view :template_link, icon_tag("remove")
     end
   end
 end

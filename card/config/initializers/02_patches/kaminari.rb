@@ -12,12 +12,6 @@ module Patches
           p = params_for(page)
           p.delete :controller
           p.delete :action
-          # TODO: make sure paging works with new related handling
-          if p["related"]
-            p["related"]["page"] = p["page"]
-            p["related"]["subslot"] = true
-            p = p["related"]
-          end
           mark = p.delete("mark") || p.delete("name")
           Card.fetch(mark).format.path p
         end

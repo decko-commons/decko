@@ -25,7 +25,7 @@ format :html do
 
   def closed_rule_link_cell _rule_card
     wrap_rule_cell "rule-setting" do
-      opts = bridge_link_opts(class: "edit-rule-link slotter")
+      opts = bridge_link_opts(class: "edit-rule-link")
       opts[:path].delete(:layout)
       link_to_view :overlay_rule, setting_title, opts
     end
@@ -33,7 +33,7 @@ format :html do
 
   def closed_rule_modal_link_cell _rule_card
     wrap_rule_cell "rule-setting" do
-      opts = bridge_link_opts(class: "edit-rule-link slotter")
+      opts = bridge_link_opts(class: "edit-rule-link")
       opts[:path].delete(:layout)
       link_to_view :modal_rule, setting_title, opts
     end

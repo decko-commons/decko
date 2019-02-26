@@ -7,29 +7,20 @@ format :html do
   end
 
   def frame &block
-    send frame_method, &block
-  end
-
-  def frame_method
-    case
-    when parent && parent.voo.ok_view == :related
-      :related_frame
-    else
-      :standard_frame
-    end
+    standard_frame &block
   end
 
   def standard_frame slot=true
     with_frame slot do
-      wrap_body { yield }
+      wrap_body { yield } if block_given?
     end
   end
 
   def with_frame slot=true, header=frame_header, slot_opts={}
-    voo.hide :horizontal_menu, :help
+    voo.hide :help
     wrap slot, slot_opts do
       panel do
-        [header, frame_help, _render(:flash), yield]
+        [header, frame_help, _render(:flash), (yield if block_given?)]
       end
     end
   end

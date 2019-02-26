@@ -9,6 +9,16 @@ event :cascade_read_rule, :finalize, after: :update_rule_cache,
   update_read_ruled_cards rule_set
 end
 
+def reset_patterns_if_rule saving=false
+  return unless (set = super)
+  add_to_read_rule_update_queue set.item_cards(limit: 0) if saving
+end
+
+# TODO: the following really needs a refactor.
+#
+# It was written (long ago) to handle different kinds of changes, but this
+# could be significantly simplified with smarter events.
+
 def update_read_ruled_cards set
   self.class.clear_read_rule_cache
   Card.cache.reset # maybe be more surgical, just Auth.user related

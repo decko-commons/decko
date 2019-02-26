@@ -53,7 +53,7 @@ format :html do
   end
 
   view :bar_middle do
-    ""
+    "" #render :closed_content
   end
 
   view :bar_bottom do
@@ -73,11 +73,12 @@ format :html do
   # end
 
   view :bar_page_link do
-    link_to_card card, icon_tag(:open_in_new), class: "text-muted pl-2"
+    class_up "full-page-link", "pl-2 text-muted"
+    full_page_link
   end
 
   def toggle_class
-    "slotter btn btn-sm btn-outline-secondary p-0 border-0 rounded-0"
+    "btn btn-sm btn-outline-secondary p-0 border-0 rounded-0"
   end
 
   view :bar_expand_link do
@@ -89,7 +90,6 @@ format :html do
   end
 
   view :edit_button do
-    link_to_view :edit, "Edit",
-                 class: "btn btn-sm btn-outline-primary slotter mr-2"
+    link_to_view :edit, "Edit", class: "btn btn-sm btn-outline-primary mr-2"
   end
 end

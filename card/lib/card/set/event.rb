@@ -23,12 +23,13 @@ class Card
       CONDITION_OPTIONS = {
         on: %i[create update delete save read],
         changed: %i[name content db_content type type_id codename key],
+        changing: %i[name content db_content type type_id codename key],
         skip: :allowed,
         trigger: :required  # the event is only executed if triggered explicitly with
         # trigger: [event_name]
       }.freeze
 
-      CONDITIONS = ::Set.new(%i[on changed when skip trigger]).freeze
+      CONDITIONS = ::Set.new(%i[on changed changing when skip trigger]).freeze
 
       include DelayedEvent
       include Options

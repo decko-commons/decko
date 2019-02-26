@@ -1,8 +1,9 @@
 format :html do
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
-
-    menu
+    wrap_with :div, class: "card-menu #{menu_link_classes}" do
+      menu
+    end
   end
 
   def menu
@@ -16,15 +17,26 @@ format :html do
     end
   end
 
-  def edit_link view, opts={}
+  view :edit_link, tags: :unknown_ok, denial: :blank do
+    edit_link
+  end
+
+  view :full_page_link do
+    full_page_link
+  end
+
+  def full_page_link
+    link_to_card card, full_page_icon, class: classy("full-page-link")
+  end
+
+  def edit_link view=:edit, opts={}
     link_to_view view, menu_icon, edit_link_opts(opts)
   end
 
   # @param modal [Symbol] modal size
   def edit_link_opts modal: nil
-    opts = { remote: true, class: "slotter" }
-    opts.merge "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}" if modal
-    opts
+    opts = { remote: true, class: "slotter text-muted" }
+    modal ? { "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}"  } : {}
   end
 
   def wrap_menu
@@ -34,9 +46,7 @@ format :html do
    end
 
   def standard_edit_link
-    wrap_with :div, class: "card-menu #{menu_link_classes} float-right" do
-      edit_link :edit, modal: :full
-    end
+    edit_link :edit, modal: :full
   end
 
   def edit_in_modal_link
@@ -49,7 +59,7 @@ format :html do
 
   def menu_link_classes
     if show_view? :hover_link
-      show_view?(:horizontal_menu, :hide) ? "d-sm-none" : "_show-on-hover"
+      "_show-on-hover"
     else
       ""
     end
@@ -57,6 +67,10 @@ format :html do
 
   def menu_icon
     fa_icon "edit"
+  end
+
+  def full_page_icon
+    icon_tag :open_in_new
   end
 
   def show_menu_item_edit?
