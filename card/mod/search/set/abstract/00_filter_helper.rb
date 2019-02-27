@@ -1,3 +1,6 @@
+# TODO: move sort/filter handling out of card and into base format
+# sorting and filtering is about viewing the data, not altering the data itself.
+
 def sort_hash
   { sort: sort_param }
 end
