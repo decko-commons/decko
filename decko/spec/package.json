@@ -6,5 +6,7 @@
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true
   },
-  "dependencies": {}
+  "dependencies": {
+    "wait-on": "^3.2.0"
+  }
 }

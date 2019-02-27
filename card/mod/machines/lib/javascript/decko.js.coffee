@@ -86,12 +86,6 @@ $(window).ready ->
   # dislike the timeout, but without this forms with multiple TinyMCE editors
   # were failing to load properly
 
-  $('body').on 'loaded.bs.modal', null, (event) ->
-    unless event.slotSuccessful
-      decko.initializeEditors $(event.target)
-      $(event.target).find(".card-slot").trigger("slotReady")
-      event.slotSuccessful = true
-
   $('body').on 'submit', '.card-form', ->
     $(this).setContentFieldsFromMap()
     $(this).find('.d0-card-content').attr('no-autosave','true')

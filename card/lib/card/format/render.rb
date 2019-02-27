@@ -71,7 +71,7 @@ class Card
       end
 
       def voo
-        @voo
+        @voo ||= View.new self, nil, {}
       end
 
       def show_view? view, default_viz=:show

@@ -1,18 +1,22 @@
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
-  view :edit, perms: :update, tags: :unknown_ok, cache: :never,
-              bridge: true, wrap: :bridge do
+  view :bridge, perms: :update, tags: :unknown_ok, cache: :never,
+                bridge: true, wrap: :bridge do
     with_nest_mode :edit do
       voo.show :help
       wrap true, breadcrumb_data("Editing", "edit") do
-        [
-          _render_edit_name_row,
-          _render_edit_type_row,
-          frame_help,
-          _render_edit_content_form
-        ]
+        bridge_parts
       end
     end
+  end
+
+  def bridge_parts
+    [
+      _render_edit_name_row,
+      _render_edit_type_row,
+      frame_help,
+      _render_edit_content_form
+    ]
   end
 
   def edit_view_hidden
@@ -33,17 +37,13 @@ format :html do
   end
 
   view :edit_rules, cache: :never, tags: :unknown_ok do
-    voo.show :set_navbar
-    voo.hide :set_label, :rule_navbar, :toolbar
-
-    render_related items: { nest_name: current_set_card.name, view: :bridge_rules_tab }
+    nest current_set_card, view: :bridge_rules_tab
   end
 
   view :edit_structure, cache: :never do
     return unless card.structure
 
-    voo.show :toolbar
-    render_related items: { view: :edit, nest_name: card.structure_rule_card.name }
+    nest card.structure_rule_card, view: :edit
     # FIXME: this stuff:
     #  slot: {
     #    cancel_slot_selector: ".card-slot.related-view",
@@ -54,7 +54,6 @@ format :html do
   end
 
   view :edit_nests, cache: :never do
-    voo.show :toolbar
     frame do
       with_nest_mode :edit do
         multi_card_edit

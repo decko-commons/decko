@@ -1,6 +1,17 @@
 format :html do
   view :rule_form, cache: :never, tags: :unknown_ok do
-    rule_form :open, card
+    @success_view ||= :open
+    @rule_context ||= card
+    @form_type ||= :overlay
+
+    wrap do
+      edit_rule_form @success_view do
+        [
+          hidden_tags(success: @edit_rule_success),
+          haml(:rule_form)
+        ].join
+      end
+    end
   end
 
   def form_type
@@ -17,14 +28,9 @@ format :html do
 
     @rule_context = rule_context
     @form_type = form_type
-    wrap do
-      edit_rule_form success_view do
-        [
-          hidden_tags(success: @edit_rule_success),
-          haml(:rule_form)
-        ].join
-      end
-    end
+    @success_view = success_view
+
+    render_rule_form
   end
 
   def validate_form_type form_type

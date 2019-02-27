@@ -1,5 +1,5 @@
 Cypress.Commands.add "visit_bridge", (card="A", tab) =>
-  url = "/#{card}?view=edit"
+  url = "/#{card}?view=bridge"
   url += "&bridge_tab[#{tab}]" if tab
   cy.visit(url)
 

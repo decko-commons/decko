@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::Signup do
+RSpec.describe Card::Set::Type::Signup do
   before do
     Card::Auth.current_id = Card::AnonymousID
   end

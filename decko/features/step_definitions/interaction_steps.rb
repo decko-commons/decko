@@ -48,7 +48,7 @@ When /^In (.*) I find button with icon "(.*)" and click it$/ do |section, icon|
 end
 
 Then /I submit$/ do
-  click_button "Submit"
+  click_button "Save and Close"
 end
 
 When /^I open the main card menu$/ do

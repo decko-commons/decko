@@ -6,22 +6,30 @@ format :html do
   wrapper :modal do |opts={}|
     haml :modal_dialog, body: interior,
                         classes: modal_dialog_classes(opts),
-                        title: modal_title(opts[:title]),
-                        menu: opts[:menu] || render_modal_menu,
-                        footer: opts[:footer] || render_modal_footer
+                        title: normalize_modal_option(:title, opts),
+                        menu: normalize_modal_option(:menu, opts),
+                        footer: normalize_modal_option(:footer, opts)
   end
 
-  def modal_title title
-    return "" unless title
+  def normalize_modal_option key, opts
+    val = opts[key]
+    return render("modal_#{key}") unless val
+    cast_model_option val
+  end
 
-    case title
+  def cast_model_option val
+    case val
     when Symbol
-      respond_to?(title) ? send(title) : title
+      cast_model_option_symbol val
     when Proc
-      title.call(self)
+      val.call(self)
     else
-      title
+      val
     end
+  end
+
+  def cast_model_option_symbol val
+    respond_to?(val) ? send(val) : val
   end
 
   view :modal, wrap: :modal do
@@ -29,8 +37,7 @@ format :html do
   end
 
   def show_in_modal_link link_text, body
-    link_to_view :modal, link_text,
-                 "data-modal-body": body, "data-slotter-mode": "modal", class: "slotter"
+    link_to_view :modal, link_text, "data-modal-body": body, "data-slotter-mode": "modal"
   end
 
   def modal_close_button link_text="Close", opts={}
@@ -45,10 +52,14 @@ format :html do
     submit_button opts
   end
 
-  view :modal_menu, tags: :unknown_ok do
-    wrap_with :div, class: "modal-menu ml-auto" do
-      [close_modal_window, pop_out_modal_window]
-    end
+  view :modal_menu, tags: :unknown_ok, wrap: :modal_menu do
+    [close_modal_window, pop_out_modal_window]
+  end
+
+  wrapper :modal_menu, :div, class: "modal-menu ml-auto"
+
+  view :modal_title, tags: :unknown_ok do
+    ""
   end
 
   view :modal_footer, tags: :unknown_ok do
@@ -77,15 +88,24 @@ format :html do
     opts
   end
 
-
   def modal_dialog_classes opts
     classes = [classy("modal-dialog")]
     return classes unless opts.present?
 
-    size = opts.delete :size
-    classes << "modal-#{MODAL_SIZE[size]}" if size && size != :medium
+    add_modal_size_class classes, opts.delete(:size)
     classes << "modal-dialog-centered" if opts.delete(:vertically_centered)
     classes.join " "
+  end
+
+  def add_modal_size_class classes, size
+    size = normalize_modal_size_class size
+    return if size == :medium || size.blank?
+
+    classes << "modal-#{MODAL_SIZE[size]}"
+  end
+
+  def normalize_modal_size_class size
+    size.in?(MODAL_SIZE.keys) ? size : cast_model_option(size)
   end
 
   def close_modal_window

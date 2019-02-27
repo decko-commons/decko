@@ -43,8 +43,7 @@ $d-yellow-1: #ffd;
 .btn.renamer-updater,
 .confirm_update_all-view,
 .follow-updater,
-.admin-error-message,
-.labeled-view .card-menu-link {
+.admin-error-message {
   display: none
 }
 
@@ -83,9 +82,14 @@ $d-yellow-1: #ffd;
 }
 
 /* -- d0-card-frames and menus--*/
+
+.card-slot {
+  position: relative;
+}
+
 .d0-card-frame {
   .d0-card-frame-title {
-    display: inline-block;
+    // display: inline-block;
     overflow: hidden;
     span.header-icon {
       margin: 0px 5px;
@@ -105,22 +109,20 @@ $d-yellow-1: #ffd;
   width: 100%;
 }
 
-.d0-card-frame > .menu-slot > .card-menu {
-  padding: 0.75rem 0;
+.card-menu {
+  position: absolute;
+  right: 8px;
+  top: 5px;
 }
 
-.menu-slot {
-  width: 100%;
-  //position: relative;
-
-  span.menu-item-label {
-    margin-left: 5px;
+.d0-card-content, .titled-view > .d0-card-header {
+  > .card-menu {
+    top: 0px;
   }
+}
 
-  .card-menu {
-    position: absolute;
-    right: 8px;
-  }
+.with-menu {
+  padding-right: 12px;
 }
 
 .d0-card-frame-title {
@@ -129,18 +131,6 @@ $d-yellow-1: #ffd;
 
 .dropdown-menu {
   z-index: 1005;
-}
-
-.navbar.toolbar {
-  margin-bottom: 0;
-  .collapse > .navbar-form.navbar-left {
-    //padding-left: 0px;
-  }
-}
-
-.navbar .btn.btn-toolbar-control {
-  padding: 5px;
-  border: none;
 }
 
 .navbar-divide {
@@ -170,12 +160,10 @@ $d-yellow-1: #ffd;
     position: static;
     width:100%;
     > .d0-card-header{
-      float: left;
+      // float: left;
     }
   }
-  .card-menu.btn-group {
-    display: none;
-  }
+
   .d0-card-frame {
     display: inline-block;
   }
@@ -314,13 +302,6 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
 /*- DYNAMIC ELEMENTS - */
 /*-------------------- */
 
-
-/* related view (used by many menu items, such as "referred to by")  */
-
-.ALL.related-view > .d0-card-frame > .d0-card-body {
-  padding: 0;
-}
-
 /* navboxes */
 
 .navbox-item-label {
@@ -413,8 +394,6 @@ textarea {
   line-height: 2em;
   white-space: nowrap;
 }
-
-
 
 .pointer-list-editor {
   margin: 0px;
@@ -625,7 +604,6 @@ ul.action-list {
   }
 }
 
-
 #credit, /* these are both deprecated */
 .flash-notice {
   color: #333;
@@ -636,7 +614,6 @@ ul.action-list {
   padding: 5px;
   text-align: center;
 }
-
 
 .conflict-view {
   text-align: left;
@@ -699,7 +676,6 @@ ul.action-list {
 /*-------------------------- */
 /*- SETS, SETTINGS, RULES  - */
 /*-------------------------- */
-
 
 .setting-rules,
 .set-rules {
@@ -849,7 +825,7 @@ h2.set-label {
 /*-------------------------- */
 
 .ui-menu-icons .ui-menu-item a {
-	padding-left: 0;
+  padding-left: 0;
 }
 
 .ui-icon {
@@ -953,9 +929,10 @@ a.external-link,
 }
 
 // Bridge
-._modal-fallback {
+._modal-stack {
   z-index: 1010;
 }
+
 .modal-header .card-title {
   margin-bottom: 0;
 }
@@ -986,17 +963,16 @@ $bridge-line-color: $gray-300;
 .bridge-main {
   padding-left: 0;
   padding-right: 0;
-  > .edit-view{
+  > .bridge-view {
     padding-top: 10px;
   }
-  > .edit-view, > .overlay-container > .edit-view {
+  > .bridge-view, > .overlay-container > .bridge-view {
     padding-left: 15px;
     padding-right: 15px;
   }
 }
 
 .overlay-container {
-
   .card-slot.overlay_rule-view {
       border-left: 5px solid $primary;
   }
@@ -1008,7 +984,6 @@ $bridge-line-color: $gray-300;
       height: 100%;
       padding: 0 1.5rem; // px-4
   }
-
 }
 
 
@@ -1040,7 +1015,6 @@ $bridge-line-color: $gray-300;
 .help-text.rule-instruction > div p:last-child {
   margin-bottom: 0;
 }
-
 
 .bridge {
   .perm-editor {
