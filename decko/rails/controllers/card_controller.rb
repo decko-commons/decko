@@ -116,10 +116,14 @@ class CardController < ActionController::Base
   end
 
   def render_page format, view
-    view ||= params[:view]
+    view ||= view_from_params
     card.act do
       format.page self, view, Card::Env.slot_opts
     end
+  end
+
+  def view_from_params
+    params[:view] || params[:v]
   end
 
   def handle_exception exception

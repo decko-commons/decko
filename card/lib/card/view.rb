@@ -2,6 +2,7 @@ require_dependency "card/view/visibility"
 require_dependency "card/view/cache"
 require_dependency "card/view/stub"
 require_dependency "card/view/options"
+require_dependency "card/view/classy"
 
 class Card
   class View
@@ -13,6 +14,7 @@ class Card
     include Options
     include Layout
     include Wrapper
+    include Classy
     extend Cache::ClassMethods
 
     attr_reader :format, :parent, :card

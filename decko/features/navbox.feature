@@ -24,6 +24,6 @@ Feature: Navbox
     Then I should see in search "search: skin"
     Then I press enter to search
     Then I should see "Search results"
-    And I should see "cerulean skin"
+    And I should see "Sample Skin"
     When I click on "2"
     Then I should see "materia skin"

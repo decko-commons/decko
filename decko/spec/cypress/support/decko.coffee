@@ -13,7 +13,7 @@ Cypress.Commands.add "click_edit",  { prevSubject: 'element'}, (subject) =>
 
 
 Cypress.Commands.add "expect_main_title", (text) =>
-  cy.get("#main > .card-slot > .d0-card-frame > .d0-card-header > .d0-card-header-title > .card-title")
+  cy.get("#main > .card-slot > .d0-card-frame > .d0-card-header > .d0-card-header-title .card-title")
     .should("contain", text)
 
 Cypress.Commands.add "expect_main_content", (text) =>

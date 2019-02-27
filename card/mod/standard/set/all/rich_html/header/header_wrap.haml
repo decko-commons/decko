@@ -1,3 +1,4 @@
-%div{ class: classy("d0-card-header") }
+%div{ class: [classy("d0-card-header"), "slotter"], href: path(view: toggle_view) }
+  = _render_menu
   %div{ class: classy("d0-card-header-title") }
     = content
