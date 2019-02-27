@@ -1,7 +1,7 @@
 format :html do
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
-    wrap_with :div, class: "card-menu #{menu_link_classes}" do
+    wrap_with :div, class: "card-menu text-muted #{menu_link_classes}" do
       menu
     end
   end
@@ -36,7 +36,8 @@ format :html do
   # @param modal [Symbol] modal size
   def edit_link_opts modal: nil
     opts = { remote: true, class: "slotter text-muted" }
-    modal ? { "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}"  } : {}
+    opts.merge "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}" if modal
+    opts
   end
 
   def wrap_menu

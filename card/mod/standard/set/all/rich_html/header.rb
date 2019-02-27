@@ -1,6 +1,6 @@
 format :html do
   view :header do
-    voo.hide :toggle
+    voo.hide! :toggle
     main_header
   end
 
@@ -9,10 +9,10 @@ format :html do
   end
 
   def header_wrap content=nil
-    #voo&.hide :header_toggle
+    voo&.hide :header_toggle
     res = haml :header_wrap, content: (block_given? ? yield : output(content))
-    return res # unless voo&.show?(:header_toggle)
-    content_toggle res
+    return res #unless voo&.show?(:header_toggle)
+    #content_toggle res
   end
 
   def header_title_elements
