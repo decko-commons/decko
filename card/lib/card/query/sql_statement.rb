@@ -11,13 +11,6 @@ class Card
     # hierarchy and do little more than run "to_sql" on its parts, and in so doing
     # construct a valid SQL statement.
 
-    def self.safe_sql txt
-      txt = txt.to_s
-      raise "WQL contains disallowed characters: #{txt}" if txt =~ /[^\w\s*().,]/
-
-      Arel.sql txt
-    end
-
     class SqlStatement
       include Joins
       include Where
