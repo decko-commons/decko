@@ -9,6 +9,8 @@ def filter_param field
   filter_hash[field.to_sym]
 end
 
+# FIXME: it is inconsistent that #sort_hash has :sort as the key, but
+# #filter_hash is the _value_ of the hash with :filter as the key.
 def filter_hash
   @filter_hash ||= begin
     filter = Env.params[:filter]
@@ -41,14 +43,12 @@ end
 format do
   delegate :filter_hash, :sort_hash, :filter_param, :sort_param,
            :all_filter_keys, to: :card
-end
 
-format :html do
   def extra_paging_path_args
-    super.merge(filter: filter_hash).merge sort_hash
+    super.merge filter_and_sort_hash
   end
 
-  def filter_active?
-    filter_hash.present?
+  def filter_and_sort_hash
+    sort_hash.merge filter: filter_hash
   end
 end
