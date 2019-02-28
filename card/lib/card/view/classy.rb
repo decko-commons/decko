@@ -74,14 +74,15 @@ class Card
          class_list(:single_use).delete(klass),
          (class_list(:format_private)[klass] if type == :private),
          (class_list(:public)[klass] if type != :public),
-         ancestor_extra_classes(klass)].flatten.compact
+         ancestor_extra_classes(klass, type)].flatten.compact
       end
 
       private
 
-      def ancestor_extra_classes klass
+      def ancestor_extra_classes klass, type
         if parent
-          parent.extra_classes(klass, :format_private)
+          type = :format_private if type == :private
+          parent.extra_classes(klass, type)
         else
           next_format_ancestor&.extra_classes(klass, :public)
         end

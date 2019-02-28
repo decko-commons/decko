@@ -9,8 +9,3 @@ def machine_input
   ""
 end
 
-format :html do
-  def default_item_view
-    :bar
-  end
-end

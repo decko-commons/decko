@@ -2,7 +2,7 @@ include_set Abstract::BsBadge
 
 format :html do
   view :mini_bar do
-    render_bar hide: [:bar_middle, :bar_nav]
+    render_bar hide: [:bar_middle]
   end
 
   view :bar do
@@ -80,7 +80,7 @@ format :html do
   end
 
   view :bar_nav, wrap: { div: { class: "bar-nav d-flex" } } do
-    [render_bar_page_link, render_bar_expand_link]
+    [render(:bar_page_link, optional: :hide), render_bar_expand_link]
   end
 
   view :bar_expanded_nav, wrap: { div: { class: "bar-nav d-flex" } } do

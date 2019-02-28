@@ -6,11 +6,11 @@ format :html do
     labeled_badge card.item_count, "items"
   end
 
-  view :core, template: :haml do
+  def short_content
+    labeled_badge card.item_count, "items"
   end
 
-  view :bar_right do
-    ""
+  view :core, template: :haml do
   end
 
   before :bar do
@@ -21,14 +21,18 @@ format :html do
              true
   end
 
-  view :bar_left do
-    class_up "card-title", "mb-0"
-    render :title
+  view :bar_right do
+    render(:short_content)
   end
 
   view :bar_bottom do
     render_core
   end
+
+  # view :bar_left do
+  #   class_up "card-title", "mb-0"
+  #   render :title
+  # end
 
   def edit_slot
     haml :edit_slot
