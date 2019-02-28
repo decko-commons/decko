@@ -15,7 +15,7 @@ class Card
       txt = txt.to_s
       raise "WQL contains disallowed characters: #{txt}" if txt =~ /[^\w\s*().,]/
 
-      txt
+      Arel.sql txt
     end
 
     class SqlStatement
