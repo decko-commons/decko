@@ -2,16 +2,23 @@ class Card
   class View
     # Classy home for classes and klasses
     module Classy
-      # @param scope [:nested, :global, :parent_nested, :self]
-      def class_up klass, classier, force = true, scope = :nested
+      # @param scope
+      #         :global
+      #         :format
+      #         :subviews
+      #         :nests
+      #         :self
+      #         :single_use
+      def class_up klass, classier, force=true, scope=:subviews
         key = klass.to_s
         return if !force && extra_classes(key).present?
 
         subject =
           case scope
-          when :self, :nested then self
-          when :parent_nested then (next_ancestor || self)
-          when :global        then root
+          when :self, :subviews then self
+          when :format, :nests, :single_use  then root
+          #when :parent_nek          then (next_ancestor || self)
+          when :global          then deep_root
           end
 
         subject.add_extra_classes klass, classier, class_list_type(scope)
@@ -63,18 +70,28 @@ class Card
         klass = klass.first if klass.is_a?(Array)
         klass = klass.to_s
 
-        [class_list(type)[klass], (class_list(:public)[klass] if type == :private),
-         next_ancestor&.extra_classes(klass, :public)].flatten.compact
+        [class_list(type)[klass],
+         class_list(:single_use).delete(klass),
+         (class_list(:format_private)[klass] if type == :private),
+         (class_list(:public)[klass] if type != :public),
+         ancestor_extra_classes(klass)].flatten.compact
       end
 
       private
 
+      def ancestor_extra_classes klass
+        if parent
+          parent.extra_classes(klass, :format_private)
+        else
+          next_format_ancestor&.extra_classes(klass, :public)
+        end
+      end
+
       def class_list type=:private
         case type
-        when :private
-          @private_class_list ||= {}
-        when :public
-          @public_class_list ||= {}
+        when :private, :format_private, :public, :single_use
+          @class_list ||= {}
+          @class_list[type] ||= {}
         else
           raise ArgumentError, "#{type} not a valid class list"
         end
@@ -84,8 +101,12 @@ class Card
         case scope
         when :self
           :private
-        when :nested, :parent_nested, :global
+        when :format, :subviews
+          :format_private
+        when :nests, :global
           :public
+        when :single_use
+          :single_use
         else
           raise ArgumentError, "invalid class_up scope: #{scope}"
         end
