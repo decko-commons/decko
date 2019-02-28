@@ -52,7 +52,7 @@ format :html do
   end
 
   def closed_rule_set_cell rule_card
-    wrap_rule_cell "rule-set" do
+    wrap_rule_cell "rule-set d-none d-sm-table-cell" do
       rule_card ? rule_card.trunk.label : ""
     end
   end

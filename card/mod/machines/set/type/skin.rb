@@ -8,3 +8,9 @@ def machine_input
   # not the skin card itself
   ""
 end
+
+format :html do
+  def default_item_view
+    :bar
+  end
+end

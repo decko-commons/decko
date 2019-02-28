@@ -53,20 +53,20 @@ $d-yellow-1: #ffd;
 }
 
 .guide-line-number {
-    display: inline-block;
-    background: #000;
-    color: $white;
-    border-radius: 100%;
-    width: 20px;
-    height: 20px;
-    font-size: 61%;
-    text-align: center;
-    padding-top: 2px;
-    font-weight: bold;
-    margin-left: -1.7rem; // ~ pl-4
-    position: relative;
-    top: -3px;
-    left: -4.5px;
+  display: inline-block;
+  background: #000;
+  color: $white;
+  border-radius: 100%;
+  width: 21px;
+  height: 21px;
+  font-size: 61%;
+  text-align: center;
+  padding-top: 3px;
+  font-weight: bold;
+  margin-left: -1.7rem;
+  position: relative;
+  top: -5px;
+  left: -4px;
 }
 
 .guide-line {
@@ -75,6 +75,8 @@ $d-yellow-1: #ffd;
 
 .rule-section {
   padding-left: 20px;
+  margin-left: 12px;
+  margin-right: 5px;
   h4 {
     position: relative;
     top: -4px;
@@ -146,6 +148,11 @@ $d-yellow-1: #ffd;
   > .card-title.panel-title {
     font-size: 13px;
   }
+}
+
+.nav-logo {
+  max-width: 75px;
+  max-height: 75px;
 }
 
 /*-- closed and labeled views --*/
