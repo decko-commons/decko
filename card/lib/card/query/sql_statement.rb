@@ -10,6 +10,14 @@ class Card
     # a clean Query hierarchy. The SqlStatement class should be able to traverse that
     # hierarchy and do little more than run "to_sql" on its parts, and in so doing
     # construct a valid SQL statement.
+
+    def self.safe_sql txt
+      txt = txt.to_s
+      raise "WQL contains disallowed characters: #{txt}" if txt =~ /[^\w\s*().,]/
+
+      txt
+    end
+
     class SqlStatement
       include Joins
       include Where
@@ -105,10 +113,7 @@ class Card
       end
 
       def safe_sql txt
-        txt = txt.to_s
-        raise "WQL contains disallowed characters: #{txt}" if txt =~ /[^\w\s*().,]/
-
-        txt
+        Query.safe_sql txt
       end
 
       def cast_type type

@@ -13,12 +13,18 @@ def filter_hash
   @filter_hash ||= begin
     filter = Env.params[:filter]
     filter = filter.to_unsafe_h if filter&.respond_to?(:to_unsafe_h)
-    filter.is_a?(Hash) ? filter : {}
+    filter.is_a?(Hash) ? safe_sql_hash(filter) : {}
+  end
+end
+
+def safe_sql_hash hash
+  hash.each_pair do |k, v|
+    hash[k] = Card::Query.safe_sql v
   end
 end
 
 def sort_param
-  Env.params[:sort] if Env.params[:sort].present?
+  Card::Query.safe_sql(Env.params[:sort]) if Env.params[:sort].present?
 end
 
 def filter_keys_with_values
