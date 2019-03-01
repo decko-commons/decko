@@ -12,7 +12,7 @@ format :html do
   end
 
   def bar_side_cols middle=true
-    middle ? [5, 4, 3] : [10, 2]
+    middle ? [5, 4, 3] : [9, 3]
   end
 
   view :expanded_bar do

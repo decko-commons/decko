@@ -2,6 +2,14 @@ attachment :image, uploader: CarrierWave::ImageCardUploader
 
 include File::SelectedAction
 
+def create_versions? new_file
+  new_file.extension != "svg"
+end
+
+def svg?
+  image&.extension == ".svg"
+end
+
 format do
   include File::Format
 
@@ -63,6 +71,7 @@ format :html do
 
   # core HTML image view.
   view :core do
+    return card.attachment.read if card.svg?
     with_valid_source do |source|
       image_tag source, alt: card.name
     end

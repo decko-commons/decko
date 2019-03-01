@@ -60,7 +60,7 @@ format :html do
     @content_body = true
     voo.edit = :content_modal
     wrap(true, class: "row") do
-      labeled(render_title, wrap_body { [render_menu, render_labeled_content] })
+      labeled(render_title, wrap_body { "#{render_menu}#{render_labeled_content}" } )
     end
   end
 
@@ -100,7 +100,7 @@ format :html do
     content = render_core
     if content.blank?
       "empty"
-    elsif content.size < 5
+    elsif content.size <= 5
       content
     elsif content.count("\n") < 2
       "#{content.size} characters"

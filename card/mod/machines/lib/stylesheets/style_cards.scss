@@ -1056,3 +1056,13 @@ $bridge-line-color: $gray-300;
 .text-muted-link {
   color: $text-muted;
 }
+
+// decko logo
+
+[id^='svg-card-'] use{ // all cards
+  fill: $primary;
+}
+
+[id^='svg-card-']:nth-child(even) use { // even cards
+  fill: $secondary;
+}
