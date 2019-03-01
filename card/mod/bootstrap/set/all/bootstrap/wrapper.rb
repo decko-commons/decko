@@ -1,7 +1,7 @@
 format :html do
   def frame
-    class_up "d0-card-header" , "card-header"
-    class_up "d0-card-body", "card-body card-text", true, :single_use
+    class_up "d0-card-header" , "card-header", :single_use
+    class_up "d0-card-body", "card-body card-text", :single_use
     super
   end
 

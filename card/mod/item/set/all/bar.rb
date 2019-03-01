@@ -38,9 +38,9 @@ format :html do
   def class_up_bar_sides *sizes
     left = sizes.shift
     right = sizes.pop
-    class_up "bar-left", "col-#{left}", true
-    class_up "bar-middle", "col-#{sizes.first}", true if sizes.any?
-    class_up "bar-right", "col-#{right}", true
+    class_up "bar-left", "col-#{left}"
+    class_up "bar-middle", "col-#{sizes.first}" if sizes.any?
+    class_up "bar-right", "col-#{right}"
   end
 
   view :bar_left do

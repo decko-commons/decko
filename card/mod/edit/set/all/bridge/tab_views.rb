@@ -20,7 +20,7 @@ format :html do
   end
 
   view :rules_tab, tag: :unknown_ok do
-    class_up "card-slot", "flex-column", true
+    class_up "card-slot", "flex-column"
     wrap do
       nest current_set_card, view: :bridge_rules_tab
     end

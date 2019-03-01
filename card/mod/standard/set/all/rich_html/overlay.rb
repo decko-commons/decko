@@ -4,8 +4,9 @@ format :html do
                          type: "button" }.freeze
 
   wrapper :overlay do |opts|
-    class_up "card-slot", "_overlay d0-card-overlay bg-white", true
+    class_up "card-slot", "_overlay d0-card-overlay bg-white"
     @content_body = true
+    voo.hide! :menu
     overlay_frame true, overlay_header(opts[:title]), opts[:slot] do
       interior
     end
@@ -52,8 +53,8 @@ format :html do
 
   def overlay_header title=nil
     title ||= _render_overlay_title
-    class_up "d0-card-header", "bg-white text-dark", true
-    class_up "d0-card-header-title", "d-flex", true
+    class_up "d0-card-header", "bg-white text-dark"
+    class_up "d0-card-header-title", "d-flex"
     header_wrap [title, _render_overlay_menu]
   end
 
