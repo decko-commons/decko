@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-require 'image_spec'
 
-describe Card::Set::Type::Image do
+RSpec.describe Card::Set::Type::Image do
   it "has special editor" do
     assert_view_select render_editor("Image"), 'div[class="choose-file"]' do
       assert_select 'input[class~="file-upload slotter"]'
