@@ -1,24 +1,40 @@
 class Card
   class View
-    # Classy home for classes and klasses
+    # API to change css classes in other places
     module Classy
-      # @param scope
-      #         :global
-      #         :format
-      #         :subviews
-      #         :nests
-      #         :self
-      #         :single_use
+      # Add additional css classes to a css class
+      #
+      # Example
+      #   class_up "card-slot", "card-dark text-muted"
+      #
+      #   If a view later adds the css "card-slot" to a html tag with
+      #
+      #     classy("card-slot")
+      #
+      #   then all additional css classes will be added.
+      #
+      # The scope when these additional classes apply can be restricted
+      # @param klass [String, Symbol] the css class to be enriched with additional classes
+      # @param classier [String, Array<String>] additional css classes
+      # @param scope [Symbol]
+      #    :view        only in the same view
+      #    :subviews    the same and all subviews; not in nests or where its nested
+      #    :format      all views, sub and parent views; not in nests or where its nested
+      #    :nests       the same as :format but also in nests
+      #    :single_use  the same as :nests but is removed after the first use
+      #    :global      always everywhere
       def class_up klass, classier, force=true, scope=:subviews
         key = klass.to_s
         return if !force && extra_classes(key).present?
 
+        # When we climb up the voo tree and cross a nest boundary then we can jump only
+        # to the root voo of the parent format. Hence we have to add classes to the root
+        # if we want them to be found by nests.
         subject =
           case scope
-          when :self, :subviews then self
-          when :format, :nests, :single_use  then root
-          #when :parent_nek          then (next_ancestor || self)
-          when :global          then deep_root
+          when :view, :subviews             then self
+          when :format, :nests, :single_use then root
+          when :global                      then deep_root
           end
 
         subject.add_extra_classes klass, classier, class_list_type(scope)
@@ -53,6 +69,7 @@ class Card
         class_list(type)[key] = [class_list(type)[key], classier].compact.join(" ")
       end
 
+      # remove classes everywhere where they are visible for the given scope
       def remove_extra_classes klass, classier, type
         next_ancestor&.remove_extra_classes klass, classier, :public
 
@@ -66,25 +83,43 @@ class Card
         end
       end
 
-      def extra_classes klass, type=:private
+      def extra_classes klass
         klass = klass.first if klass.is_a?(Array)
         klass = klass.to_s
 
-        [class_list(type)[klass],
-         class_list(:single_use).delete(klass),
-         (class_list(:format_private)[klass] if type == :private),
-         (class_list(:public)[klass] if type != :public),
-         ancestor_extra_classes(klass, type)].flatten.compact
+        deep_extra_classes klass, :self
+      end
+
+      # recurse through voos and formats to find all extra classes
+      # @param space [:self, :self_format, :ancestor_format]
+      def deep_extra_classes klass, space
+        [self_extra_classes(klass, space),
+         ancestor_extra_classes(klass, space)].flatten.compact
       end
 
       private
 
-      def ancestor_extra_classes klass, type
+      def self_extra_classes klass, space
+        classes = ok_types(space).map { |ot| class_list(ot)[klass] }
+        return classes unless class_list[:single_use].key? klass
+
+        [classes, class_list[:single_use].delete(klass)]
+      end
+
+      def ancestor_extra_classes klass, space
         if parent
-          type = :format_private if type == :private
-          parent.extra_classes(klass, type)
+          parent_space = space == :self ? :self_format : :ancestor_format
+          parent.deep_extra_classes(klass, parent_space)
         else
-          next_format_ancestor&.extra_classes(klass, :public)
+          next_format_ancestor&.deep_extra_classes(klass, :ancestor_format)
+        end
+      end
+
+      def ok_types space
+        case space
+        when :ancestor_format then [:public]
+        when :self_format     then [:public, :format_private]
+        when :self            then [:public, :format_private, :private]
         end
       end
 
@@ -98,9 +133,14 @@ class Card
         end
       end
 
+      # Translates scopes to the privacy types used to manage the class lists.
+      # A #classy calls looks in the following class_lists:
+      #    private - only in the same voo
+      #    format_private - the same voo and all parent voos in the same format
+      #    public - in all voos in all parent formats
       def class_list_type scope
         case scope
-        when :self
+        when :view
           :private
         when :format, :subviews
           :format_private
