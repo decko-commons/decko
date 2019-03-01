@@ -96,17 +96,17 @@ RSpec.describe Card::Set::Type::Image do
     end
   end
 
-  describe "*logo mod image" do
-    subject { Card[:logo] }
+  describe "mod image" do
+    subject { Card[:cerulean_skin_image] }
 
     it "exists" do
       expect(subject.image.size).to be > 0
     end
     it "has correct url" do
-      expect(subject.image.url).to eq "/files/:logo/standard-original.png"
+      expect(subject.image.url).to eq "/files/:cerulean_skin_image/bootstrap-original.png"
     end
     it "has correct url as content" do
-      expect(subject.content).to eq ":#{subject.codename}/standard.png"
+      expect(subject.content).to eq ":#{subject.codename}/bootstrap.png"
     end
 
     it "becomes a regular file when changed" do
@@ -129,7 +129,7 @@ RSpec.describe Card::Set::Type::Image do
     describe "source view" do
       it "renders url with original version" do
         expect(subject.format.render_source)
-          .to eq "/files/:#{subject.codename}/standard-medium.png"
+          .to eq "/files/:#{subject.codename}/bootstrap-medium.png"
       end
     end
   end
