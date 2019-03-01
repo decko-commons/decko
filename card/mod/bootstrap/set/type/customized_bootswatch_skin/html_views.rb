@@ -8,8 +8,8 @@ format :html do
 
   def short_content
     ""
-    #labeled_badge card.item_count, "items"
-    #"#{card.item_count} items"
+    # labeled_badge card.item_count, "items"
+    # "#{card.item_count} items"
   end
 
   view :core, template: :haml do

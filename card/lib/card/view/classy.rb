@@ -25,7 +25,6 @@ class Card
       #    :global      always everywhere
       def class_up klass, classier, scope=:subviews
         klass = klass.to_s
-        #return if !force && extra_classes(key).present?
 
         storage_voo(scope).add_extra_classes klass, classier, scope
       end
@@ -130,8 +129,8 @@ class Card
       def ok_types space
         case space
         when :ancestor_format then [:public]
-        when :self_format     then [:public, :format_private]
-        when :self            then [:public, :format_private, :private]
+        when :self_format     then %i[public format_private]
+        when :self            then %i[public format_private private]
         end
       end
 

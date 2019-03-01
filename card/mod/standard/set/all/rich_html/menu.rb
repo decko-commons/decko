@@ -36,7 +36,9 @@ format :html do
   # @param modal [Symbol] modal size
   def edit_link_opts modal: nil
     opts = { remote: true, class: "slotter text-muted" }
-    opts.merge! "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}" if modal
+    if modal
+      opts.merge! "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}"
+    end
     opts
   end
 
