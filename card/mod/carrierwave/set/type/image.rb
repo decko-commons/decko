@@ -9,6 +9,10 @@ format do
     _render_core size: :icon
   end
 
+  def short_content
+    render_core size: :icon
+  end
+
   view :source do
     return card.content if card.web?
     image = selected_version
