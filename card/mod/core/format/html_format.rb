@@ -25,7 +25,7 @@ class Card
       end
 
       def default_item_view
-        :closed
+        :mini_bar
       end
 
       def mime_type

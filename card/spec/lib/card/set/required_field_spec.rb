@@ -31,6 +31,12 @@ RSpec.describe Card::Set::RequiredField, as_bot: true do
         .to raise_error ActiveRecord::RecordInvalid, /required field of reader/
     end
 
+    # it "can't be deleted as simple card" do
+    #   card_with_required_field
+    #   expect { Card[:read].delete! }
+    #     .to raise_error ActiveRecord::RecordInvalid, /required field of reader/
+    # end
+
     it "can't change field name" do
       card_with_required_field
       expect { field.update! name: "reader+something else" }

@@ -47,7 +47,7 @@ RSpec.describe Card::View::Classy do
     format =
       Card["A"].format_with do
         view :test do
-          class_up "down", "up", :self
+          class_up "down", "up", :view
           ["test:#{classy "down"}", render_a].join ";"
         end
 

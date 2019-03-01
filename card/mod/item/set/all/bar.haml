@@ -10,8 +10,4 @@
   - if voo.show? :bar_right
     %div{class: classy("bar-right")}
       = render :bar_right
-      - if voo.show? :bar_nav
-        // TODO: move to bar_nav view
-        .bar-nav.d-flex
-          = render :bar_page_link
-          = render :bar_expand_link
+      = render :bar_nav

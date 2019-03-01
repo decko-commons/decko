@@ -1,0 +1,10 @@
+.colorpicker-element
+  .input-group-addon
+    - colors.each do |name, color|
+      %div
+        %span.labeled-badge
+        %i{class: "bg-#{name}"}
+        -#%span.badge{ class: "badge-#{name}" }
+
+        %label.text-muted
+          = name

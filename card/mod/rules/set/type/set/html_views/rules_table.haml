@@ -4,7 +4,7 @@
       %th.rule-heading Trait
       - if voo.show? :content
         %th.rule-heading Content
-      %th.rule-heading Set
+      %th.rule-heading.d-none.d-sm-table-cell Set
   %tbody
     - settings.each do |setting|
       = rule_table_row setting

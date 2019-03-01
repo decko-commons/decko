@@ -13,6 +13,7 @@ format :html do
     ]
   end
 
+  # used in tables shown in set cards' core view
   view :rule_row, cache: :never, tags: :unknown_ok do
     rule_card = find_existing_rule_card
     cols = %i[setting set]

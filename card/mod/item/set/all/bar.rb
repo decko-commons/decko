@@ -2,7 +2,7 @@ include_set Abstract::BsBadge
 
 format :html do
   view :mini_bar do
-    render_bar hide: :bar_middle
+    render_bar hide: [:bar_middle]
   end
 
   view :bar do
@@ -12,7 +12,7 @@ format :html do
   end
 
   def bar_side_cols middle=true
-    middle ? [5, 4, 3] : [7, 5]
+    middle ? [5, 4, 3] : [10, 2]
   end
 
   view :expanded_bar do
@@ -30,9 +30,9 @@ format :html do
   def bar_classes
     shared = "align-items-center"
     class_up "bar-left", "p-2 font-weight-bold d-flex grow-2 #{shared}"
-    class_up "bar-middle", "d-none d-md-flex p-3 border-left text-align-middle #{shared}"
+    class_up "bar-middle", "d-none d-md-flex p-2 border-left text-align-middle #{shared}"
     class_up "bar-right",
-             "p-3 border-left d-flex justify-content-end text-align-right #{shared}"
+             "p-2 border-left d-flex justify-content-end text-align-right #{shared}"
   end
 
   def class_up_bar_sides *sizes
@@ -45,15 +45,30 @@ format :html do
 
   view :bar_left do
     class_up "card-title", "mb-0"
-    render :title
+    if voo.show?(:toggle)
+      link_to_view :expanded_bar, render_title
+    else
+      render_title
+    end
+  end
+
+  view :bar_expanded_left do
+    class_up "card-title", "mb-0"
+    link_to_view :bar, render_title
+  end
+
+  view :bar_expanded_right do
+    class_up "card-title", "mb-0"
+    render :bar_expanded_nav, optional: :show
   end
 
   view :bar_right do
-    render :edit_button, optional: :hide
+    [(render(:short_content) unless voo.show?(:bar_middle)),
+     render(:edit_button, optional: :hide)]
   end
 
   view :bar_middle do
-    "" #render :closed_content
+    render :short_content
   end
 
   view :bar_bottom do
@@ -64,13 +79,13 @@ format :html do
     end
   end
 
-  # def stat_number
-  #   card.content.lines.count
-  # end
-  #
-  # def stat_label
-  #   stat_number == 1 ? "line" : "lines"
-  # end
+  view :bar_nav, wrap: { div: { class: "bar-nav d-flex" } } do
+    [render(:bar_page_link, optional: :hide), render_bar_expand_link]
+  end
+
+  view :bar_expanded_nav, wrap: { div: { class: "bar-nav d-flex" } } do
+    [render_edit_link, render_bar_page_link, render_bar_collapse_link]
+  end
 
   view :bar_page_link do
     class_up "full-page-link", "pl-2 text-muted"

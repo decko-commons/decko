@@ -8,3 +8,4 @@ def machine_input
   # not the skin card itself
   ""
 end
+
