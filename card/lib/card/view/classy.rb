@@ -23,29 +23,19 @@ class Card
       #    :nests       the same as :format but also in nests
       #    :single_use  the same as :nests but is removed after the first use
       #    :global      always everywhere
-      def class_up klass, classier, force=true, scope=:subviews
-        key = klass.to_s
-        return if !force && extra_classes(key).present?
+      def class_up klass, classier, scope=:subviews
+        klass = klass.to_s
+        #return if !force && extra_classes(key).present?
 
-        # When we climb up the voo tree and cross a nest boundary then we can jump only
-        # to the root voo of the parent format. Hence we have to add classes to the root
-        # if we want them to be found by nests.
-        subject =
-          case scope
-          when :view, :subviews             then self
-          when :format, :nests, :single_use then root
-          when :global                      then deep_root
-          end
-
-        subject.add_extra_classes klass, classier, class_list_type(scope)
+        storage_voo(scope).add_extra_classes klass, classier, scope
       end
 
       def class_down klass, classier
         remove_extra_classes klass, classier, :private
       end
 
-      def with_class_up klass, classier, force = false
-        class_up klass, classier, force
+      def with_class_up klass, classier, scope=:subviews
+        class_up klass, classier, scope
         yield
       ensure
         class_down klass, classier
@@ -65,12 +55,21 @@ class Card
         [classes, extra_classes(classes)].flatten.compact.join " "
       end
 
-      def add_extra_classes key, classier, type
-        class_list(type)[key] = [class_list(type)[key], classier].compact.join(" ")
+      def add_extra_classes key, classier, scope
+        type = class_list_type scope
+
+        class_list(type)[key] =
+          [class_list(type)[key], classier].flatten.compact.join(" ")
       end
 
       # remove classes everywhere where they are visible for the given scope
       def remove_extra_classes klass, classier, type
+        # TODO: scope handling
+        # Method is not used and maybe no longer necessary with the scope feature
+        # for class_up.
+
+        # It's no longer sufficient to remove only public classes for ancestors.
+        # Needs an approach similar to extra_classes with the "space" argument
         next_ancestor&.remove_extra_classes klass, classier, :public
 
         cl = class_list type
@@ -99,9 +98,22 @@ class Card
 
       private
 
+      def storage_voo scope
+        # When we climb up the voo tree and cross a nest boundary then we can jump only
+        # to the root voo of the parent format. Hence we have to add classes to the root
+        # if we want them to be found by nests.
+        case scope
+        when :view, :subviews             then self
+        when :format, :nests, :single_use then root
+        when :global                      then deep_root
+        else
+          raise ArgumentError, "invalid class_up scope: #{scope}"
+        end
+      end
+
       def self_extra_classes klass, space
         classes = ok_types(space).map { |ot| class_list(ot)[klass] }
-        return classes unless class_list[:single_use].key? klass
+        return classes unless class_list(:single_use)&.key? klass
 
         [classes, class_list[:single_use].delete(klass)]
       end
