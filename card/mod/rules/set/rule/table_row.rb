@@ -1,5 +1,4 @@
 format :html do
-  # used in tables shown in set cards' core view
   view :rule_link, tags: :unknown_ok do
     rule_card = find_existing_rule_card
     wrap_closed_rule rule_card do

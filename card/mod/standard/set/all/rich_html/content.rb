@@ -34,7 +34,7 @@ format :html do
 
   before :content_panel do
     prepare_content_slot
-    class_up "card-slot", "card", true
+    class_up "card-slot", "card"
   end
 
   view :content_panel do

@@ -70,7 +70,8 @@ $(window).ready ->
     $.rails.handleRemote $(this)
 
   $('body').on 'click', '._clickable.slotter', (event)->
-    $(this)[0].href = $(this).attr("href")
+    $(this)[0].href = $(this).attr("href") # that's where rails.handleRemote
+                                           # expects the url
     $.rails.handleRemote $(this)
 
   $('body').on 'click', '[data-dismiss="overlay"]', (event) ->

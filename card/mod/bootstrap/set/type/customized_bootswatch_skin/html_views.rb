@@ -2,12 +2,14 @@ include_set Abstract::Media
 include_set Abstract::BsBadge
 
 format :html do
-  view :bar_middle do
-    labeled_badge card.item_count, "items"
+  view :menu do
+    ""
   end
 
   def short_content
-    labeled_badge card.item_count, "items"
+    ""
+    #labeled_badge card.item_count, "items"
+    #"#{card.item_count} items"
   end
 
   view :core, template: :haml do
@@ -25,16 +27,11 @@ format :html do
     render(:short_content)
   end
 
-  view :bar_bottom do
-    render_core
+  before :bar_expanded_nav do
+    voo.hide :edit_link
   end
 
-  # view :bar_left do
-  #   class_up "card-title", "mb-0"
-  #   render :title
-  # end
-
-  def edit_slot
-    haml :edit_slot
+  view :bar_bottom do
+    render_core
   end
 end
