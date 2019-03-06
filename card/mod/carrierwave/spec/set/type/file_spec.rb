@@ -469,7 +469,7 @@ RSpec.describe Card::Set::Type::File do
           subject.update! storage_type: :local
         end
         expect(subject.db_content)
-          .to eq "~#{subject.id}/#{subject.last_action_id}.png"
+          .to eq "~#{subject.id}/#{subject.last_action_id}.svg"
       end
     end
 
