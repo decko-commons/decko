@@ -28,6 +28,7 @@ $.extend decko,
     hard_conf = {
       selector: "##{el_id}"
       branding: false
+      extended_valid_elements: "card-nest"
       # CSS could be made optional, but it may involve migrating old legacy
       # *tinyMCE settings to get rid of stale stuff.
       content_css: decko.cssPath
