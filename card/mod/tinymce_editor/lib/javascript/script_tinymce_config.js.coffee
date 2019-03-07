@@ -19,7 +19,7 @@ $.extend decko,
     # verify_html: false -- note: this option needed for empty
     #                             paragraphs to add space.
     conf = {
-      theme: "modern"
+      theme: "silver"
       plugins: 'autoresize'
       autoresize_max_height: 500
       mobile: { theme: 'mobile' }
