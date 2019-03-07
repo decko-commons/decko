@@ -39,7 +39,7 @@ Cypress.Commands.add "child",prevSubject: "element", (subject, id) =>
 
 
 Cypress.Commands.add "tinymce_type", (text) =>
-  cy.get(".mce-tinymce + .tinymce-textarea").invoke("attr", "id").then (id) ->
+  cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->
     cy.window().then (win) ->
       win.tinyMCE.get(id).setContent(text)
 
