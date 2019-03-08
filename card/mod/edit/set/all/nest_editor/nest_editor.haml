@@ -1,0 +1,18 @@
+.card.ml-5
+  %h5 Nest
+  .form
+    .form-row.align-items-center.mb-4
+      .col-auto
+        .input-group
+          .input-group-prepend
+            .input-group-text.text-muted._field-indicator
+              +
+          = text_field_tag "nest_name", "", class: "form-control _nest-name"
+
+      .col-auto
+        = check_box_tag :field, "field", class: "form-check-input _field-toggle", id: "nest-editor-field"
+        %label.form-check-label{for: "nest-editor-field"} field
+
+    = static_tabs({ rules: haml_partial(:rules), options: haml_partial(:options) }, :options, "tabs")
+
+  = text_field_tag "preview", "{{}}", class: "_nest-preview"
