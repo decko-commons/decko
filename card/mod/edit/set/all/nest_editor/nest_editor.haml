@@ -2,17 +2,22 @@
   %h5 Nest
   .form
     .form-row.align-items-center.mb-4
-      .col-auto
+      .col-9
         .input-group
-          .input-group-prepend
-            .input-group-text.text-muted._field-indicator
+          .input-group-prepend._field-indicator
+            .input-group-text.text-muted
               +
-          = text_field_tag "nest_name", "", class: "form-control _nest-name"
+          = text_field_tag "nest_name", "", class: "form-control _nest-name border-left-0"
 
-      .col-auto
-        = check_box_tag :field, "field", class: "form-check-input _field-toggle", id: "nest-editor-field"
+      .col-3
+        = check_box_tag :field, "field", true, class: "_nest-field-toggle", id: "nest-editor-field"
         %label.form-check-label{for: "nest-editor-field"} field
 
     = static_tabs({ rules: haml_partial(:rules), options: haml_partial(:options) }, :options, "tabs")
 
-  = text_field_tag "preview", "{{}}", class: "_nest-preview"
+  .card-footer.p-0
+    .preview.m-1
+      = text_field_tag "preview", "{{+|view: #{default_nest_view}}}", class: "_nest-preview w-100 text-muted", disabled: true
+    %hr.mt-1.mb-1
+    .form-group.d-flex.justify-content-center.mt-2
+      = button_tag "Apply", class: "_nest-apply btn-sm"

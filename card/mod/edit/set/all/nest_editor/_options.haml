@@ -1,8 +1,6 @@
+.options-container.p-2.border-bottom
+  = haml_partial :options_select, template: false, items: false
+.options-container.p-2.border-bottom._configure-items
+  = button_tag "Configure items", situation: "outline-secondary", class: "_configure-items-button btn-sm"
+  = haml_partial :options_select, template: true, items: true
 
-.form-row
-  .col-auto
-    = nest_option_name_select
-  .col-auto
-    = nest_option_value_select
-%hr
-= button_tag "Configure items"

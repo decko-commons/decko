@@ -1053,9 +1053,27 @@ $bridge-line-color: $gray-300;
   }
 }
 
+.input-group-prepend._field-indicator .input-group-text {
+  font-size: 1.3rem;
+  line-height: 1;
+  font-weight: bold;
+  border-right: none;
+  background: $white;
+}
+
+input + .input-group-prepend._field-indicator {
+  border-left: none;
+}
+
 .text-muted-link {
   color: $text-muted;
 }
+
+._template {
+  display: none;
+}
+
+
 
 // decko logo
 

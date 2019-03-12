@@ -1,0 +1,10 @@
+.form-row._nest-option-row{class: [template && "_template"]}
+  .col-6
+    .input-group.input-group-sm.mb-2.card-outline-primary.mr-2._filter-input.d-flex.flex-nowrap
+      .input-group-prepend{class: [new_row && "d-none"]}
+        %button.btn.btn-secondary.input-group-text.p-1._nest-delete-option{:type => "button"}
+          %small.text-muted
+            = fa_icon :times
+      = nest_option_name_select new_row
+  .col-6
+    = nest_option_value_select new_row, items
