@@ -35,7 +35,20 @@ $.extend decko,
       entity_encoding: 'raw'
     }
     $.extend conf, user_conf, hard_conf
+    decko.addNestPlugin(conf)
+
+
     tinyMCE.baseURL = decko.path('assets/tinymce_editor/tinymce')
     tinyMCE.suffix = '.min'
     tinyMCE.remove("##{el_id}")
     tinyMCE.init conf
+
+  addNestPlugin: (conf) ->
+    for key in ["plugins", "toolbar", "menubar"]
+      if conf[key]?
+        conf[key] += " nest"
+      else
+        conf[key] = "nest"
+
+    conf["menu"] = { nest: { title: 'Nest', items: 'nest unnest opennest' } }
+

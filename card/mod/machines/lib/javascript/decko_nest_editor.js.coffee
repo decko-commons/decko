@@ -10,6 +10,9 @@ $(document).ready ->
     new_val = $("._nest-preview").val().replace(/(?<=^\{\{)[^}|]*/, repl)
     decko.nest.updatePreview new_val
 
+  $('body').on 'keyup', 'input._nest-option-value', () ->
+    decko.nest.updatePreview()
+
   $('body').on "select2:select", "._nest-option-name", () ->
     decko.nest.toggleOptionName($(this).closest("._options-select"), $(this).val(), true)
     decko.nest.updatePreview()
@@ -28,14 +31,30 @@ $(document).ready ->
   $('body').on "click", "._configure-items-button", () ->
     decko.nest.addItemsOptions($(this))
 
-  $('body').on 'keyup', 'input._nest-option-value', () ->
-    decko.nest.updatePreview()
-
   $('body').on 'click', 'button._nest-delete-option', () ->
     decko.nest.removeRow $(this).closest("._nest-option-row")
 
+  $('body').on 'click', 'button._nest-apply', () ->
+    decko.nest.apply($(this).data("tinymce-id"), $(this).data("nest-id"))
+
 $.extend decko,
   nest:
+    openEditor: (tinymce_id, nest_id) ->
+      url = "/:update?view=nest_editor&nest_id=#{nest_id}&tinymce_id=#{tinymce_id}"
+      slot = $(".bridge-sidebar > .card-slot")
+      if slot[0]
+        slot.reloadSlot "#{url}&slot[wrap]=overlay"
+      else
+        $.ajax
+          url: "#{url}&slot[wrap]=modal"
+          type: 'GET'
+          success: (html) ->
+            $(html).showAsModal($("##{tinymce_id}"))
+
+    apply: (tinymce_id, nest_id) ->
+      content =  $("._nest-preview").val()
+      tinymce.get(tinymce_id).insertContent content
+
     showTemplate: (elem) ->
       elem.removeClass("_template") #.removeClass("_#{name}-template").addClass("_#{name}")
 

@@ -4,6 +4,19 @@ format :html do
   view :nest_editor, cache: :never, template: :haml, wrap: :slot do
   end
 
+  def nest
+  def edit_nest
+    params[:edit_nest] || {}
+  end
+
+  def nest_id
+    params[:nest_id]
+  end
+
+  def tinymce_id
+    params[:tinymce_id]
+  end
+
   def nest_option_name_select new_row=false
     classes = "form-control form-control-sm _nest-option-name"
     classes += " _new-row" if new_row

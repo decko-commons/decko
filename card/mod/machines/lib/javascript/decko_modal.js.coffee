@@ -35,7 +35,7 @@ addModalDialogClasses = ($modal_slot, $link) ->
 
 jQuery.fn.extend {
   showAsModal: ($slotter) ->
-    el = @modalify($slotter)
+    el = @modalify($slotter) if $slotter?
     if $("body > ._modal-slot").is(":visible")
       @addModal el, $slotter
     else

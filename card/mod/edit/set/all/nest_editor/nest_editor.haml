@@ -1,4 +1,4 @@
-.card.ml-5
+%div
   %h5 Nest
   .form
     .form-row.align-items-center.mb-4
@@ -20,4 +20,7 @@
       = text_field_tag "preview", "{{+|view: #{default_nest_view}}}", class: "_nest-preview w-100 text-muted", disabled: true
     %hr.mt-1.mb-1
     .form-group.d-flex.justify-content-center.mt-2
-      = button_tag "Apply", class: "_nest-apply btn-sm"
+      = button_tag "Apply", class: "_nest-apply btn-sm", "data-nest-id": nest_id,
+                                                         "data-tinymce-id": tinymce_id
+      %a.border-light.text-dark.btn.btn-sm.btn-outline-secondary{"data-dismiss": "overlay", href: "#"}
+        Close
