@@ -20,7 +20,12 @@ def filter_hash
 end
 
 def sort_param
-  Card::Query.safe_sql(Env.params[:sort]) if Env.params[:sort].present?
+  safe_sql_param :sort
+end
+
+def safe_sql_param key
+  param = Env.params[key]
+  param.blank? ? nil : Card::Query.safe_sql(param)
 end
 
 def filter_keys_with_values
