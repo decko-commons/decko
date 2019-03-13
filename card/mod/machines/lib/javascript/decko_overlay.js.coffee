@@ -13,7 +13,8 @@ jQuery.fn.extend
 
     else
       @find(".tinymce-textarea").each ->
-        tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
+        tinymce.remove("##{$(this).attr("id")}")
+        #tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
       @wrapAll('<div class="overlay-container">')
       @addClass("_bottomlay-slot")
       @before overlay
@@ -32,7 +33,9 @@ jQuery.fn.extend
       bottomlay = $(@siblings()[0])
       if bottomlay.hasClass("_bottomlay-slot")
         bottomlay.unwrap().removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
+
         bottomlay.find(".tinymce-textarea").each ->
+          #tinymce.EditorManager.execCommand('mceAddControl',true, editor_id);
           decko.initTinyMCE($(this).attr("id"))
 
     @remove()

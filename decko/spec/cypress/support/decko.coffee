@@ -60,6 +60,11 @@ Cypress.Commands.add "unfollow", (card, user="Joe_Admin") =>
     method: "POST",
     url: "/update/#{card}+*self+#{user}+*follow?card%5Bcontent%5D=%5B%5B%2Anever%5D%5D"
 
+Cypress.Commands.add "follow", (card, user="Joe_Admin") =>
+  cy.request
+    method: "POST",
+    url: "/update/#{card}+*self+#{user}+*follow?card%5Bcontent%5D=%5B%5B%2Aalways%5D%5D"
+
 Cypress.Commands.add "ensure", (name, args={}) =>
   cy.app("cards/ensure", name: name, args: args)
 

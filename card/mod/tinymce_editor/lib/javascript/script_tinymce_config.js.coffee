@@ -40,7 +40,7 @@ $.extend decko,
 
     tinyMCE.baseURL = decko.path('assets/tinymce_editor/tinymce')
     tinyMCE.suffix = '.min'
-    tinyMCE.remove("##{el_id}")
+    tinyMCE.remove("##{el_id}") if tinyMCE.get(el_id)?
     tinyMCE.init conf
 
   addNestPlugin: (conf) ->
