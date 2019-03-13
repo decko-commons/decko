@@ -114,7 +114,7 @@ class Card
         classes = ok_types(space).map { |ot| class_list(ot)[klass] }
         return classes unless class_list(:single_use)&.key? klass
 
-        [classes, class_list[:single_use].delete(klass)]
+        [classes, class_list(:single_use).delete(klass)]
       end
 
       def ancestor_extra_classes klass, space
