@@ -24,6 +24,10 @@ format do
   def current_page
     (offset / limit).to_i
   end
+
+  def extra_paging_path_args
+    {}
+  end
 end
 
 format :html do
@@ -102,10 +106,6 @@ format :html do
     voo&.home_view || voo.slot_options[:view] || :content
   end
 
-  def extra_paging_path_args
-    {}
-  end
-
   def paging_needed?
     return false if limit < 1
     return false if fewer_results_than_limit? # avoid extra count search
@@ -129,7 +129,7 @@ format :json do
       offset: page * limit,
       item: default_item_view, # hack. need standard voo handling
       format: :json
-    }
+    }.merge extra_paging_path_args
   end
 
   def paging_urls

@@ -38,11 +38,13 @@ def collection?
   item_cards != [self]
 end
 
-format :html do
+format do
   view :count do
     card.item_names.size
   end
+end
 
+format :html do
   view :carousel do
     bs_carousel unique_id, 0 do
       nest_item_array.each do |rendered_item|
