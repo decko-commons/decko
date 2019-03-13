@@ -15,7 +15,7 @@ format :html do
   end
 
   def table_rules_filter
-    form_tag path(view: :rules_table, slot: { hide: :content }),
+    form_tag path(view: :rules_table, slot: { show: :content }),
              remote: true, method: "get", role: "filter",
              "data-slot-selector": ".card-slot.rules-table",
              class: classy("nodblclick slotter form-inline slim-select2 m-2") do

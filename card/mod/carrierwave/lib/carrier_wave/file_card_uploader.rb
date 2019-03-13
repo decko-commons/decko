@@ -255,8 +255,8 @@ module CarrierWave
       File.join model.tmp_upload_dir, filename
     end
 
-    def create_versions? _new_file
-      model.create_versions?
+    def create_versions? new_file
+      model.create_versions? new_file
     end
 
     # paperclip compatibility used in type/file.rb#core (base format)

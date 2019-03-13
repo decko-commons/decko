@@ -35,7 +35,7 @@ RSpec.describe Card::View::Classy do
     format =
       Card["A"].format_with do
         view :test do
-          class_up "card-slot", "up", true
+          class_up "card-slot", "up"
           nest("B", view: :closed)
         end
       end
@@ -47,7 +47,7 @@ RSpec.describe Card::View::Classy do
     format =
       Card["A"].format_with do
         view :test do
-          class_up "down", "up", true, :self
+          class_up "down", "up", :view
           ["test:#{classy "down"}", render_a].join ";"
         end
 

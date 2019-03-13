@@ -1,5 +1,4 @@
 format :html do
-  # used in tables shown in set cards' core view
   view :rule_link, tags: :unknown_ok do
     rule_card = find_existing_rule_card
     wrap_closed_rule rule_card do
@@ -52,7 +51,7 @@ format :html do
   end
 
   def closed_rule_set_cell rule_card
-    wrap_rule_cell "rule-set" do
+    wrap_rule_cell "rule-set d-none d-sm-table-cell" do
       rule_card ? rule_card.trunk.label : ""
     end
   end

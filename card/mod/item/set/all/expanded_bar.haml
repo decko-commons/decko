@@ -2,11 +2,9 @@
 .expanded-bar.border.with-fancy-border.nodblclick
   .bar-top.border.d-flex.justify-content-between.p-0{class: bar_classes}
     %div{class: classy("bar-left")}
-      = render :bar_left
+      = render :bar_expanded_left
     %div{class: classy("bar-right")}
-      = render :bar_right
-      .bar-nav.d-flex
-        = render :bar_page_link
-        = render :bar_collapse_link
-  .bar-bottom.col-12.border.border-top-0.mb-3.pl-5.pt-2
+      = render :bar_expanded_right
+      = render :bar_expanded_nav, optional: :hide
+  .bar-bottom.col-12.border.border-top-0.pb-3.pl-5.pt-2
     = render :bar_bottom

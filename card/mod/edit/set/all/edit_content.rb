@@ -47,7 +47,8 @@ format :html do
   end
 
   def bridge_link
-    link_to_view :bridge, material_icon(:more_horiz), "data-slotter-mode": "modal-replace"
+    link_to_view :bridge, material_icon(:more_horiz),
+                 class: "text-muted close", "data-slotter-mode": "modal-replace"
   end
 
   def edit_form_opts

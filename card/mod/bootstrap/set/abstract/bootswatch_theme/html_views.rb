@@ -12,7 +12,7 @@ format :html do
 
   view :bar_left do
     class_up "card-title", "my-0 ml-2"
-    class_up "media-left", "m-0", true
+    class_up "media-left", "m-0"
     text_with_image size: :small, title: "", text: _render_title,
                     media_opts: { class: "align-items-center" }
     # field_nest(:image, view: :core) + wrap_with(:h4, render(:title))
