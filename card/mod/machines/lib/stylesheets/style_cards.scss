@@ -135,6 +135,10 @@ $d-yellow-1: #ffd;
   z-index: 1005;
 }
 
+.ui-front {
+  z-index: 2000!important;
+}
+
 .navbar-divide {
   margin-left: 30px;
   border-left: 1px solid;
