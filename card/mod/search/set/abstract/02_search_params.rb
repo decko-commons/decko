@@ -31,17 +31,17 @@ format do
   def default_limit
     100
   end
-end
-
-format :html do
-  def default_limit
-    Cardio.config.paging_limit || 20
-  end
 
   def extra_paging_path_args
     return {} unless (vars = query_params)
 
     { query: vars }
+  end
+end
+
+format :html do
+  def default_limit
+    Cardio.config.paging_limit || 20
   end
 end
 

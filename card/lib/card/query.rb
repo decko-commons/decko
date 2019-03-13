@@ -95,6 +95,13 @@ class Card
       def class_for type
         const_get "#{type.capitalize}Query"
       end
+
+      def safe_sql txt
+        txt = txt.to_s
+        raise "WQL contains disallowed characters: #{txt}" if txt.match?(/[^\w\s*().,]/)
+
+        txt
+      end
     end
   end
 end
