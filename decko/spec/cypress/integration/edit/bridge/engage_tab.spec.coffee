@@ -29,8 +29,8 @@ describe 'engage tab', () ->
     cy.bridge_sidebar()
       .should("contain", "1 follower")
       .and("contain", "following")
-    #.get('.follow-link').click()
-    #cy.unfollow("A")
+    # .get('.follow-link').click()
+    #    cy.unfollow("A")
 
   specify "all followed cards", () ->
     cy.el("follow-overview").click()
@@ -39,7 +39,7 @@ describe 'engage tab', () ->
       .and("contain", "Ignore")
 
   specify "followers", () ->
-    cy.get('.follow-link').click()
+    cy.follow("A")
     cy.contains("following")
     cy.el("followers").click()
     cy.bridge()
