@@ -28,6 +28,10 @@ format do
     end
   end
 
+  def short_content
+    number_to_human_size card.attachment.size
+  end
+
   def handle_source
     source = _render_source
     return "" if source.blank?

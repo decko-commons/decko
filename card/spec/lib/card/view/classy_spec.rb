@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::View::Classy do
-  it "doesn't change on the same level" do
+  it "doesn't change other views on the same level" do
     format =
       Card["A"].format_with do
         view :test do
@@ -17,7 +17,7 @@ RSpec.describe Card::View::Classy do
     expect(format.render_test).to eq "a:down up;b:down"
   end
 
-  it "changes all nested" do
+  it "changes all subviews" do
     format =
       Card["A"].format_with do
         view :test do
@@ -31,11 +31,23 @@ RSpec.describe Card::View::Classy do
     expect(format.render_test).to eq "a:down up;b:down up"
   end
 
+  it "doesn't change nests" do
+    format =
+      Card["A"].format_with do
+        view :test do
+          class_up "card-slot", "up"
+          nest("B", view: :closed)
+        end
+      end
+    expect(format.render_test)
+      .to have_tag "div.card-slot.SELF-b", without: { class: "up" }
+  end
+
   it "changes only self with self option" do
     format =
       Card["A"].format_with do
         view :test do
-          class_up "down", "up", true, :self
+          class_up "down", "up", :view
           ["test:#{classy "down"}", render_a].join ";"
         end
 

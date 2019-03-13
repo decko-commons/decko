@@ -20,6 +20,10 @@ format :html do
     wrap { [_render_menu, _render_core] }
   end
 
+  view :short_content, wrap: { div: { class: "text-muted" } } do
+    short_content
+  end
+
   before(:content_with_title) { prepare_content_slot }
 
   view :content_with_title do
@@ -30,7 +34,7 @@ format :html do
 
   before :content_panel do
     prepare_content_slot
-    class_up "card-slot", "card", true
+    class_up "card-slot", "card"
   end
 
   view :content_panel do
@@ -56,7 +60,7 @@ format :html do
     @content_body = true
     voo.edit = :content_modal
     wrap(true, class: "row") do
-      labeled(render_title, wrap_body { [render_menu, render_labeled_content] })
+      labeled(render_title, wrap_body { "#{render_menu}#{render_labeled_content}" } )
     end
   end
 
@@ -90,5 +94,18 @@ format :html do
     set_name ||= "#{card.name}+*type" if card.known? && card.type_id == Card::CardtypeID
     set_name ||= "#{card.name}+*self"
     Card.fetch(set_name)
+  end
+
+  def short_content
+    content = render_core
+    if content.blank?
+      "empty"
+    elsif content.size <= 5
+      content
+    elsif content.count("\n") < 2
+      "#{content.size} characters"
+    else
+      "#{content.count("\n") + 1} lines"
+    end
   end
 end

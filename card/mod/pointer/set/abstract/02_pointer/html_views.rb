@@ -19,6 +19,10 @@ format :html do
     stat_number == 1 ? "item" : "items"
   end
 
+  def short_content
+    "#{stat_number} #{stat_label}"
+  end
+
   def standard_pointer_core
     with_paging do |paging_args|
       wrap_with :div, standard_pointer_items(paging_args), class: "pointer-list"

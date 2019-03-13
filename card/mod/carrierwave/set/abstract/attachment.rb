@@ -68,7 +68,7 @@ def attachment_before_act
   send "#{attachment_name}_before_act"
 end
 
-def create_versions?
+def create_versions? _new_file
   true
 end
 

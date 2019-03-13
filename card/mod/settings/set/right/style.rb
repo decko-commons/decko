@@ -13,8 +13,9 @@ end
 format :html do
   HIDDEN_SKINS = %w[bootstrap_default_skin themeless_bootstrap_skin bootstrap_default_skin
                     classic_bootstrap_skin].freeze
+
   def default_item_view
-    :bar
+    :mini_bar
   end
 
   view :editor, template: :haml
