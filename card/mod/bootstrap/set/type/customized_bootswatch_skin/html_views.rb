@@ -19,8 +19,7 @@ format :html do
     super()
     voo.show :edit_button
     class_up "bar-middle",
-             "col-3 d-none d-md-flex p-3 border-left d-flex align-items-center p-0",
-             true
+             "col-3 d-none d-md-flex p-3 border-left d-flex align-items-center p-0"
   end
 
   view :bar_right do

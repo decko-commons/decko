@@ -19,7 +19,7 @@ $.extend decko,
     # verify_html: false -- note: this option needed for empty
     #                             paragraphs to add space.
     conf = {
-      theme: "modern"
+      theme: "silver"
       plugins: 'autoresize'
       autoresize_max_height: 500
       mobile: { theme: 'mobile' }
@@ -28,6 +28,7 @@ $.extend decko,
     hard_conf = {
       selector: "##{el_id}"
       branding: false
+      extended_valid_elements: "card-nest[id]"
       # CSS could be made optional, but it may involve migrating old legacy
       # *tinyMCE settings to get rid of stale stuff.
       content_css: decko.cssPath
@@ -36,5 +37,5 @@ $.extend decko,
     $.extend conf, user_conf, hard_conf
     tinyMCE.baseURL = decko.path('assets/tinymce_editor/tinymce')
     tinyMCE.suffix = '.min'
-    tinyMCE.remove("##{el_id}")
+    tinyMCE.remove("##{el_id}") if tinyMCE.get(el_id)?
     tinyMCE.init conf

@@ -29,13 +29,19 @@ describe 'editing pointers', () ->
     cy.main_slot()
       .should "contain", "Joe Camel"
 
-#    specify "create with multiselect input", ->
-#    input "multiselect"
-#    cy.visit("/Joe User+friends")
-#    cy.select2("pointer_select-joe_user-friend-1", "Joe Camel")
-#    cy.contains("Submit").click()
-#    cy.main_slot()
-#      .should "contain", "Joe Camel"
+  specify "create with multiselect input", ->
+    input "multiselect"
+    cy.wait(1000)
+    cy.visit("/Joe User+friends")
+    cy.contains(".form-group", "content").find(".select2-container").click()
+      .select2("Joe Camel")
+    cy.contains(".form-group", "content").find(".select2-container").click()
+      .select2("Joe Admin")
+    cy.contains("Submit").click()
+    cy.main_slot()
+      .should "contain", "Joe Camel"
+      .should "contain", "Joe Admin"
+
 
 
   specify 'create with filtered list input', () ->

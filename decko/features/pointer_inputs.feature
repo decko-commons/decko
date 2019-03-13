@@ -7,14 +7,6 @@ Feature: Pointer Inputs
   Background:
     Given I am signed in as Joe Admin
 
-  Scenario: Creating a card with multiselect input
-    Given I create Phrase card "friends+*right+*input" with content "multiselect"
-    When I go to card "Joe User+friends"
-    And I select "Joe Camel" from "content"
-    And I press "Submit"
-    And I go to card "Joe User+friends"
-    Then I should see "Joe Camel"
-
   Scenario: Creating a templated card including a multiselect input
     Given I create Phrase card "User+*type+*structure" with content "{{+friends}}"
     And I create Phrase card "friends+*right+*input" with content "multiselect"

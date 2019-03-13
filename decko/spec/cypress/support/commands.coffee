@@ -39,9 +39,10 @@ Cypress.Commands.add "child",prevSubject: "element", (subject, id) =>
 
 
 Cypress.Commands.add "tinymce_type", (text) =>
-  cy.get(".mce-tinymce + .tinymce-textarea").invoke("attr", "id").then (id) ->
+  cy.get("iframe.tox-edit-area__iframe") # wait for tinymce
+  cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->
     cy.window().then (win) ->
-      win.tinyMCE.get(id).setContent(text)
+      win.tinymce.get(id).setContent(text)
 
 Cypress.Commands.add "app_login", (user="Joe Admin") =>
   cy.app("login", user)

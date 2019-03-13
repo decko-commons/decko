@@ -135,6 +135,10 @@ $d-yellow-1: #ffd;
   z-index: 1005;
 }
 
+.ui-front {
+  z-index: 2000!important;
+}
+
 .navbar-divide {
   margin-left: 30px;
   border-left: 1px solid;
@@ -1055,4 +1059,14 @@ $bridge-line-color: $gray-300;
 
 .text-muted-link {
   color: $text-muted;
+}
+
+// decko logo
+
+[id^='svg-card-'] use{ // all cards
+  fill: $primary;
+}
+
+[id^='svg-card-']:nth-child(even) use { // even cards
+  fill: $secondary;
 }

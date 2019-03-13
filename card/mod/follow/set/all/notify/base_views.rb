@@ -7,6 +7,8 @@ format do
   end
 
   view :subedits, perms: :none, cache: :never do
+    return unless notification_act
+
     wrap_subedits do
       notification_act.actions_affecting(card).map do |action|
         next if action.card_id == card.id
@@ -37,6 +39,8 @@ format do
   end
 
   view :last_action_verb, cache: :never do
+    return unless notification_act
+
     "#{notification_act.main_action.action_type}d"
   end
 
