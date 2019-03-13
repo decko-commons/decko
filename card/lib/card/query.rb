@@ -98,7 +98,7 @@ class Card
 
       def safe_sql txt
         txt = txt.to_s
-        raise "WQL contains disallowed characters: #{txt}" if txt =~ /[^\w\s*().,]/
+        raise "WQL contains disallowed characters: #{txt}" if txt.match?(/[^\w\s*().,]/)
 
         txt
       end
