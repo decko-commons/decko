@@ -2,7 +2,7 @@
 # sorting and filtering is about viewing the data, not altering the data itself.
 
 def sort_hash
-  { sort: sort_param }
+  sort_param.present? ? { sort: sort_param } : {}
 end
 
 def filter_param field
