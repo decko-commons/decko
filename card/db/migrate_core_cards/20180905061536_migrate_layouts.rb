@@ -11,7 +11,7 @@ class MigrateLayouts < Card::Migration::Core
   # strip layout content down to body tag
   def update_layout_card card
     body = body_tag card
-    missing "body", card  unless body.present?
+    missing "body", card unless body.present?
 
     puts "updating layout '#{card.name}'"
     card.update! content: body.to_s
@@ -36,8 +36,9 @@ class MigrateLayouts < Card::Migration::Core
   end
 
   def head_tag card
-    head = Nokogiri::HTML5(card.content).css "head"
-    head&.first&.text
+    if (match = card.content.match(/<head>(.*)<\/head>/mi))
+      match[1].strip
+    end
   end
 
   def missing obj, card
@@ -55,7 +56,9 @@ class MigrateLayouts < Card::Migration::Core
   def find_nested_head card
     # we go only one level deep
     Card::Content.new(card.content, card, chunk_list: :nest_only).each_chunk do |chunk|
-      return head_tag chunk.referee_card if chunk.referee_card&.content&.match(/<head>/i)
+      nested = chunk.referee_card
+      return head_tag(nested) if nested&.content&.match?(/<head>/i)
     end
+    nil
   end
 end
