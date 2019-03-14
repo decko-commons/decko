@@ -22,7 +22,7 @@ header {
   }
 }
 
-a > .card-title {
+a .card-title {
   color: $body-color;
 }
 
@@ -32,7 +32,7 @@ a > .card-title {
   }
 }
 
-.card-menu  a {
+.card-menu a {
   color: inherit;
 }
 

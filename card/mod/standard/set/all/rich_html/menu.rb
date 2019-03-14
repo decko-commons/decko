@@ -17,12 +17,6 @@ format :html do
     end
   end
 
-  def menu_wrap
-    wrap do
-      [render_menu, yield]
-    end
-  end
-
   view :edit_link, tags: :unknown_ok, denial: :blank do
     edit_link
   end

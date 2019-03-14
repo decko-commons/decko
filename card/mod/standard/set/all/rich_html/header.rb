@@ -27,9 +27,10 @@ format :html do
     content_toggle
   end
 
-  def content_toggle text=nil
+  def content_toggle text=""
+    return if text.nil?
     verb, adjective, direction = toggle_verb_adjective_direction
-    text ||= icon_tag(direction.to_sym)
+    text = icon_tag(direction.to_sym) if text.blank?
     link_to_view adjective, text,
                  title: "#{verb} #{card.name}",
                  class: "#{verb}-icon toggler nodblclick"
