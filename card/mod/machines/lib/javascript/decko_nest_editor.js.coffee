@@ -144,4 +144,4 @@ $.extend decko,
       new_val = $("._nest-preview").val().replace(/^\{\{\+?/, "{{")
       decko.nest.updatePreview new_val
       $("._field-indicator .input-group-text").addClass("d-none")
-      $("._nest-name").addClass("w-100").removeClass("border-left-0")
+      $("._nest-name").removeClass("border-left-0")

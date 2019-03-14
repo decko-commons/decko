@@ -1,4 +1,9 @@
 ._options-select{class: [template &&'_template']}
-  = haml_partial :options_select_row, template: false, new_row: false, items: items
-  = haml_partial :options_select_row, template: false, new_row: true, items: items
-  = haml_partial :options_select_row, template: true, new_row: true, items: items
+  - if data
+    - data.each do |name, value|
+      = haml_partial :options_select_row, template: false, name: name,
+                                          items: items, value: value
+  = haml_partial :options_select_row, template: false, name: nil, items: items,
+                                      value: nil
+  = haml_partial :options_select_row, template: true, name: nil, items: items,
+                                      value: nil
