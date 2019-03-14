@@ -64,10 +64,10 @@ RSpec.describe Card::Set::All::NestEditor do
       end
     end
 
-    example "with given non-field nest sytnax", params: { edit_nest: "{{+hi|view: open; show: menu, toggle|view: titled}}" } do
+    example "with given non-field nest sytnax", params: { edit_nest: "{{hi|view: open; show: menu, toggle}}" } do
       expect_view(:nest_editor).to have_tag "div.nest_editor-view" do
         with_tag "input#nest_name", with: { value: "hi"}
-        with_field_checked
+        without_field_checked
         with_tag "div.options-container" do
           option_row :view, :open
           option_row :show, :menu
@@ -75,14 +75,8 @@ RSpec.describe Card::Set::All::NestEditor do
           empty_row
         end
         with_tag "div.options-container" do
-          with_tag :h6, /items/
-          without_tag :button, "Configure items"
-          option_row :view, :titled
-          empty_row
-        end
-        with_tag "div.options-container" do
           without_tag :h6, /items/
-          with_tag :button, "Configure subitems"
+          with_tag :button, "Configure items"
         end
       end
     end

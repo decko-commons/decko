@@ -1064,8 +1064,16 @@ $bridge-line-color: $gray-300;
   background: $white;
 }
 
-input + .input-group-prepend._field-indicator {
-  border-left: none;
+.input-group.show-prefix {
+  > input {
+    border-left: none;
+  }
+}
+
+.input-group.hide-prefix {
+  > .input-group-prepend > .input-group-text {
+    display: none;
+  }
 }
 
 .text-muted-link {

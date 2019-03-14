@@ -35,25 +35,71 @@ $(document).ready ->
     decko.nest.removeRow $(this).closest("._nest-option-row")
 
   $('body').on 'click', 'button._nest-apply', () ->
-    decko.nest.apply($(this).data("tinymce-id"), $(this).data("nest-id"))
+    decko.nest.apply($(this).data("tinymce-id"), $(this).data("nest-start"), $(this).data("nest-size"))
 
 $.extend decko,
   nest:
-    openEditor: (tinymce_id, nest_id) ->
-      url = "/:update?view=nest_editor&nest_id=#{nest_id}&tinymce_id=#{tinymce_id}"
-      slot = $(".bridge-sidebar > .card-slot")
-      if slot[0]
-        slot.reloadSlot "#{url}&slot[wrap]=overlay"
-      else
-        $.ajax
-          url: "#{url}&slot[wrap]=modal"
-          type: 'GET'
-          success: (html) ->
-            $(html).showAsModal($("##{tinymce_id}"))
+    openEditor: (tm) ->
+      slot = $(".bridge-sidebar > .card-slot, .bridge-sidebar > .overlay-container > .card-slot")
 
-    apply: (tinymce_id, nest_id) ->
+      if slot[0]
+        view = "nest_editor"
+        mode = "overlay"
+      else
+        # FIXME get a slot
+        view = "modal_nest_editor"
+        mode = "modal"
+
+      url = "/:update?view=#{view}&tinymce_id=#{tm.id}#{decko.nest.editParams(tm)}"
+      slotter = $("##{tm.id}")
+
+      $.ajax
+        url: url
+        type: 'GET'
+        success: (html) ->
+          slot.setSlotContent html, mode, slotter
+
+    editParams: (tm) ->
+      sel = tm.selection.getSel()
+      return "" unless sel.anchorNode?
+
+      text = sel.anchorNode.data
+      offset = sel.anchorOffset
+      before = text.substr(0, offset)
+      after =  text.substr(offset)
+      index = {
+        before: {
+          close: before.lastIndexOf("}}")
+          open: before.lastIndexOf("{{")
+        },
+        after: {
+          close: after.indexOf("}}")
+          open: after.indexOf("{{")
+        }
+      }
+      if index.before.open > index.before.close &&
+         index.after.close != -1 &&
+         (index.after.open == -1 || index.after.close < index.after.open)
+        nest_start = index.before.open
+        nest_size = index.after.close + offset + 2 - nest_start
+        nest = encodeURIComponent text.substr(nest_start, nest_size)
+        "&nest_start=#{nest_start}&edit_nest=#{nest}"
+      else
+        ""
+
+    replaceNest: (tinymce_id, nest_start, nest_size, content) ->
+      node = tinymce.get(tinymce_id).selection.getSel().anchorNode
+      text = node.data
+      text = "#{text.substr(0, nest_start)}#{content}#{text.substr(nest_start + nest_size)}"
+      node.data = text
+
+    apply: (tinymce_id, nest_start, nest_size) ->
       content =  $("._nest-preview").val()
-      tinymce.get(tinymce_id).insertContent content
+      if nest_start
+       decko.nest.replaceNest(tinymce_id, nest_start, nest_size, content)
+       $('button._nest-apply').data("nest-size", content.length)
+      else
+        tinymce.get(tinymce_id).insertContent content
 
     showTemplate: (elem) ->
       elem.removeClass("_template") #.removeClass("_#{name}-template").addClass("_#{name}")
@@ -137,11 +183,9 @@ $.extend decko,
     addPlus: () ->
       new_val = $("._nest-preview").val().replace(/^\{\{\+?/, "{{+")
       decko.nest.updatePreview new_val
-      $("._field-indicator .input-group-text").removeClass("d-none")
-      $("._nest-name").addClass("border-left-0").removeClass("w-100")
+      $(".input-group.hide-prefix").removeClass("hide-prefix").addClass("show-prefix")
 
     removePlus: () ->
       new_val = $("._nest-preview").val().replace(/^\{\{\+?/, "{{")
       decko.nest.updatePreview new_val
-      $("._field-indicator .input-group-text").addClass("d-none")
-      $("._nest-name").removeClass("border-left-0")
+      $(".input-group.hide-prefix").removeClass("show-prefix").addClass("hide-prefix")

@@ -1,12 +1,12 @@
 .options-container.p-2.border-bottom
-  = haml_partial :options_select, template: false, items: false, data: edit_nest.options
+  = haml_partial :options_select, template: false, level: 0, data: edit_nest.options
 - edit_nest.item_options.each_with_index do |options, i|
   .options-container.p-2.border-bottom._configure-items
     %h6
       = "#{'sub' * i} items"
-    = haml_partial :options_select, template: false, items: true, data: options
+    = haml_partial :options_select, template: false, level: i + 1, data: options
 .options-container.p-2.border-bottom._configure-items
   = button_tag "Configure #{'sub' * edit_nest.item_options.size}items", situation: "secondary", class: "_configure-items-button btn-sm"
-  = haml_partial :options_select, template: true, items: true, data: { view: default_item_view }
+  = haml_partial :options_select, template: true, level: edit_nest.item_options.size + 1, data: { view: default_item_view }
 
 
