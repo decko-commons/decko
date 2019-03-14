@@ -22,8 +22,11 @@ header {
   }
 }
 
-a .card-title {
+.d0-card-header a {
   color: $body-color;
+}
+.card-menu {
+  color: $text-muted;
 }
 
 @media print {
@@ -195,7 +198,7 @@ body.mceContentBody {
 }
 
 .titled-view > .d0-card-header {
-  > .d0-card-title {
+  > .d0-card-header-title {
     font-size: 1.3em;
   }
   margin: 3px 0

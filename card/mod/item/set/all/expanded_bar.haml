@@ -4,7 +4,7 @@
     %div{class: classy("bar-left")}
       = render :bar_expanded_left
     %div{class: classy("bar-right")}
-      = render :bar_expanded_right
+      = render :bar_right, hide: :short_content
       = render :bar_expanded_nav, optional: :hide
   .bar-bottom.col-12.border.border-top-0.pb-3.pl-5.pt-2
     = render :bar_bottom
