@@ -47,7 +47,7 @@ class MigrateLayouts < Card::Migration::Core
 
   def each_layout_set layout_card
     Card.search(link_to: layout_card.name) do |rule|
-      rule.name.left
+      yield rule.name.left
     end
   end
 
