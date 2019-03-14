@@ -5,7 +5,7 @@ format :html do
   end
 
   def main_header
-    header_wrap header_title_elements
+    header_wrap _render_header_title
   end
 
   def header_wrap content=nil
@@ -13,6 +13,10 @@ format :html do
     res = haml :header_wrap, content: (block_given? ? yield : output(content))
     return res #unless voo&.show?(:header_toggle)
     #content_toggle res
+  end
+
+  view :header_title do
+    header_title_elements
   end
 
   def header_title_elements

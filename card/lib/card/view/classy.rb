@@ -106,7 +106,7 @@ class Card
         when :format, :nests, :single_use then root
         when :global                      then deep_root
         else
-            raise ArgumentError, "invalid class_up scope: #{scope}"
+          raise ArgumentError, "invalid class_up scope: #{scope}"
         end
       end
 

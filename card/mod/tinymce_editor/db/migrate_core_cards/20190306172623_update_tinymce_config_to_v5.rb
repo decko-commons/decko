@@ -10,10 +10,14 @@ class UpdateTinymceConfigToV5 < Card::Migration::Core
   end
 
   def remove_deprecated_plugins content
-    content.sub(/['"]plugins['"]:\s*['"](.+)["'](,?)$/) do |_match|
-      comma = $2
-      plugins = $1.split(/\s+/) - DEPRECATED_PLUGINS
-      %{"plugins": "#{plugins.join ' '}"#{comma}}
+    content.sub(/['"]plugins['"]:
+                 \s*
+                 ['"](?<plugins>[^"']+)["']
+                 (?<comma>,)?
+                 $/x) do |_match|
+      comma = Regexp.last_match[:comma]
+      plugins = Regexp.last_match[:plugins].split(/\s+/) - DEPRECATED_PLUGINS
+      %("plugins": "#{plugins.join ' '}"#{comma})
     end
   end
 end

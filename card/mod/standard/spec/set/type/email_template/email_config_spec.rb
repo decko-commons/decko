@@ -219,7 +219,8 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       expect(mail.parts[0].mime_type).to eq "text/plain"
       expect(mail.parts[1].mime_type).to eq "text/html"
       expect(mail.parts[1].body.raw_source)
-        .to have_tag(:img, with: { src: "/files/:yeti_skin_image/bootstrap-medium.png" })
+        .to have_tag(:img,
+                     with: { src: "/files/:yeti_skin_image/bootstrap-medium.png" })
     end
 
     it "handles contextual name for attachments" do
