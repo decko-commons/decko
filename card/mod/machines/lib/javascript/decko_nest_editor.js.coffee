@@ -61,7 +61,7 @@ $.extend decko,
 
     editParams: (tm) ->
       sel = tm.selection.getSel()
-      return "" unless sel.anchorNode?
+      return "&nest_start=0" unless sel.anchorNode?
 
       text = sel.anchorNode.data
       offset = sel.anchorOffset
@@ -85,21 +85,28 @@ $.extend decko,
         nest = encodeURIComponent text.substr(nest_start, nest_size)
         "&nest_start=#{nest_start}&edit_nest=#{nest}"
       else
-        ""
+        "&nest_start=#{offset}"
 
-    replaceNest: (tinymce_id, nest_start, nest_size, content) ->
-      node = tinymce.get(tinymce_id).selection.getSel().anchorNode
-      text = node.data
-      text = "#{text.substr(0, nest_start)}#{content}#{text.substr(nest_start + nest_size)}"
-      node.data = text
+    replaceNest: (editor, nest_start, nest_size, content) ->
+      node = editor.selection.getSel().anchorNode
+      if node?
+        text = node.data
+        nest_size = 0 unless nest_size?
+        text = "#{text.substr(0, nest_start)}#{content}#{text.substr(nest_start + nest_size)}"
+        node.data = text
+      else
+        editor.insertContent content
+
 
     apply: (tinymce_id, nest_start, nest_size) ->
       content =  $("._nest-preview").val()
-      if nest_start
-       decko.nest.replaceNest(tinymce_id, nest_start, nest_size, content)
-       $('button._nest-apply').data("nest-size", content.length)
+      editor = tinymce.get(tinymce_id)
+      if nest_start?
+       decko.nest.replaceNest(editor, nest_start, nest_size, content)
+       $('button._nest-apply').attr("data-nest-size", content.length)
       else
-        tinymce.get(tinymce_id).insertContent content
+        editor.insertContent content
+
 
     showTemplate: (elem) ->
       elem.removeClass("_template") #.removeClass("_#{name}-template").addClass("_#{name}")

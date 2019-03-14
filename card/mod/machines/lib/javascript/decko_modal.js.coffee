@@ -95,22 +95,15 @@ $.extend decko,
       $(".modal-dialog").empty()
 
   pushModal: (el) ->
-    mslot = $("body > ._modal-slot").detach()
-    mslot.find(".tinymce-textarea").each ->
-      tinymce.remove("##{$(this).attr("id")}")
+    mslot = $("body > ._modal-slot")
     mslot.removeAttr("id")
-    mslot.removeClass("_modal-slot").addClass("_modal-stack") #removeClass("modal")
-    mslot.insertAfter ".modal-backdrop"
-    mslot.find(".tinymce-textarea").each ->
-      decko.initTinyMCE($(this).attr("id"))
-    el.insertBefore ".modal-backdrop"
+    mslot.removeClass("_modal-slot").addClass("_modal-stack").removeClass("modal").addClass("background-modal")
+    el.insertBefore mslot
+    $(".modal-backdrop").removeClass("show")
+
 
   popModal: ->
-    modal = $($("._modal-stack")[0]).detach()
-    modal.find(".tinymce-textarea").each ->
-      tinymce.remove("##{$(this).attr("id")}")
-    modal.addClass("_modal-slot").removeClass("_modal-stack").attr("id", "modal-container") #.addClass("modal")
-    $("body > ._modal-slot").replaceWith(modal)
-    modal.find(".tinymce-textarea").each ->
-      decko.initTinyMCE($(this).attr("id"))
-
+    $(".modal-backdrop").addClass("show")
+    $("body > ._modal-slot").remove()
+    modal = $($("._modal-stack")[0])
+    modal.addClass("_modal-slot").removeClass("_modal-stack").attr("id", "modal-container").addClass("modal").removeClass("background-modal")

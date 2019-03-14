@@ -44,15 +44,7 @@ $.extend decko,
     tinyMCE.init conf
 
   addNestPlugin: (conf) ->
-    if conf.plugins?
-      conf.plugins += " nest"
-    else
-      conf.plugins = "nest"
-
-    if conf.toolbar1?
-      conf.toolbar1 += " | nest"
-    else
-      conf.toolbar1 = "nest"
-
+    if conf.plugins?  then conf.plugins += " nest"    else conf.plugins = "nest"
+    if conf.toolbar1? then conf.toolbar1 += " | nest" else conf.toolbar1 = "nest"
     conf.menu = { insert: { title: "Insert", items: "nest link | hr"}}
 

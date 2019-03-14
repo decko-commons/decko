@@ -30,13 +30,8 @@ format :html do
     overlay_menu_link "external-link-square", card: card
   end
 
-  def close_overlay_link button=true
-    if button
-      overlay_menu_link :close, path: "#", "data-dismiss": "overlay"
-    else
-      link_to fa_icon(:close), path: "#", "data-dismiss": "overlay",
-                               class: "text-dark p-1 ml-1"
-    end
+  def close_overlay_link
+    overlay_menu_link :close, path: "#", "data-dismiss": "overlay"
   end
 
   def overlay_close_button link_text="Close", opts={}

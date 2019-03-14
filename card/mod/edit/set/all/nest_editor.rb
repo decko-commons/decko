@@ -35,10 +35,10 @@ format :html do
   end
 
   def apply_data
-    data = { "data-tinymce-id": tinymce_id }
-    if params[:nest_start].present?
-      data.merge! "data-nest-start": params[:nest_start],
-                  "data-nest-size": edit_nest.raw.size
+    data = { "data-tinymce-id": tinymce_id,
+             "data-nest-start": params[:nest_start] || 0 }
+    if params[:edit_nest].present?
+      data["data-nest-size".to_sym] = edit_nest.raw.size
     end
     data
   end
