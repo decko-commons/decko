@@ -105,10 +105,7 @@ class Card
       end
 
       def safe_sql txt
-        txt = txt.to_s
-        raise "WQL contains disallowed characters: #{txt}" if txt =~ /[^\w\s*().,]/
-
-        txt
+        Query.safe_sql txt
       end
 
       def cast_type type
