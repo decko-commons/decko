@@ -96,17 +96,21 @@ $.extend decko,
 
   pushModal: (el) ->
     mslot = $("body > ._modal-slot").detach()
-    #mslot.find(".tinymce-textarea").each ->
-    #  tinymce.remove("##{$(this).attr("id")}")
+    mslot.find(".tinymce-textarea").each ->
+      tinymce.remove("##{$(this).attr("id")}")
     mslot.removeAttr("id")
     mslot.removeClass("_modal-slot").addClass("_modal-stack") #removeClass("modal")
     mslot.insertAfter ".modal-backdrop"
+    mslot.find(".tinymce-textarea").each ->
+      decko.initTinyMCE($(this).attr("id"))
     el.insertBefore ".modal-backdrop"
 
   popModal: ->
     modal = $($("._modal-stack")[0]).detach()
+    modal.find(".tinymce-textarea").each ->
+      tinymce.remove("##{$(this).attr("id")}")
     modal.addClass("_modal-slot").removeClass("_modal-stack").attr("id", "modal-container") #.addClass("modal")
     $("body > ._modal-slot").replaceWith(modal)
-    #modal.find(".tinymce-textarea").each ->
-    #  decko.initTinyMCE($(this).attr("id"))
+    modal.find(".tinymce-textarea").each ->
+      decko.initTinyMCE($(this).attr("id"))
 
