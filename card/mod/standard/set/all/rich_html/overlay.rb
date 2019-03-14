@@ -6,6 +6,7 @@ format :html do
   wrapper :overlay do |opts|
     class_up "card-slot", "_overlay d0-card-overlay bg-white"
     @content_body = true
+    voo.hide! :menu
     overlay_frame true, overlay_header(opts[:title]), opts[:slot] do
       interior
     end
