@@ -57,10 +57,10 @@ format :html do
     link_to_view :bar, render_title
   end
 
-  view :bar_expanded_right do
-    class_up "card-title", "mb-0"
-    render :bar_expanded_nav, optional: :show
-  end
+  # view :bar_expanded_right do
+  #   class_up "card-title", "mb-0"
+  #   render :bar_right, optional: :show
+  # end
 
   view :bar_right do
     [(render(:short_content) unless voo.show?(:bar_middle)),
