@@ -21,7 +21,7 @@ class Card
           :show,           # render these views when optional
           :hide            # do not render these views when optional
         ],                 #   show/hide can be view (Symbol), list of views (Array),
-        #   or comma separated views (String)
+        #                      or comma separated views (String)
         # NOTE: although show and hide are in this non-inheriting group, they are
         # actually inherited, just not through the standard mechanism. Because, well,
         # they're weird. (See process_visibility options)
@@ -46,9 +46,9 @@ class Card
           :params,         # parameters for add button.  deprecated!
           :items,          # options for items (Hash)
           :cache,          # change view cache behaviour
-                           #   (Symbol<:always, :standard, :never>)
+          #                    (Symbol<:always, :standard, :never>)
           :edit            # edit mode
-                           #   (Symbol<:content_inline, :content_modal, :standard>)
+          #                    (Symbol<:content_inline, :content_modal, :standard>)
         ],
         none: [
           :skip_perms,     # do not check permissions for this view (Boolean)

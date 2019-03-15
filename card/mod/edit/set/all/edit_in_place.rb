@@ -47,7 +47,7 @@ format :html do
   end
 
   def cancel_in_place_button args={}
-    args.reverse_merge! class: "cancel-button btn-sm", href: path()
+    args.reverse_merge! class: "cancel-button btn-sm", href: path
     cancel_button args
   end
 end
