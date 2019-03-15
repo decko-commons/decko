@@ -24,7 +24,7 @@ class Card
       # for testing setup
       def hide_accounts! mode=true
         Card.cache.delete(SETUP_COMPLETED_KEY) if mode
-        @hidden_accounts = mode && (account_ids - [Wag  nBotID, AnonymousID])
+        @hidden_accounts = mode && (account_ids - [WagnBotID, AnonymousID])
       end
 
       def account_ids
