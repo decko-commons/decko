@@ -2,11 +2,11 @@ format :html do
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
     wrap_with :div, class: "card-menu #{menu_link_classes}" do
-      menu
+      menu_link
     end
   end
 
-  def menu
+  def menu_link
     case voo.edit
     when :content_inline
       edit_in_place_link

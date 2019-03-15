@@ -4,7 +4,7 @@ class Card
     module Options
       # the keymap represents a 2x2 matrix, where the factors are
       # (a) whether an option's value can be set by a shark via nests, and
-      # (b) whether nested views can inherit the option from a parent view.
+      # (b) whether subviews can inherit the option from a parent view.
       #
       #                  for sharks  | not for sharks
       #                 ________________________________
@@ -17,10 +17,9 @@ class Card
           :view,           # view to render
           :nest_name,      # name as used in nest
           :nest_syntax,    # full nest syntax
+          :wrap,           # wrap the nest with a wrapper
           :show,           # render these views when optional
-          :hide,            # do not render these views when optional
-          :wrap,            # wrap the nest with a wrapper
-          :edit
+          :hide            # do not render these views when optional
         ],                 #   show/hide can be view (Symbol), list of views (Array),
         #   or comma separated views (String)
         # NOTE: although show and hide are in this non-inheriting group, they are
@@ -46,8 +45,11 @@ class Card
           :size,           # set an image size
           :params,         # parameters for add button.  deprecated!
           :items,          # options for items (Hash)
-          :cache           # change view cache behaviour
-        ],                 #   (Symbol<:always, :standard, :never>)
+          :cache,          # change view cache behaviour
+                           #   (Symbol<:always, :standard, :never>)
+          :edit            # edit mode
+                           #   (Symbol<:content_inline, :content_modal, :standard>)
+        ],
         none: [
           :skip_perms,     # do not check permissions for this view (Boolean)
           :main_view,      # this is main view of page (Boolean)
