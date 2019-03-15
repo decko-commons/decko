@@ -17,7 +17,7 @@ describe 'presetting', () ->
   specify "presetting content in url", ->
     cy.delete "Book+*type+*autoname"
     cy.visit "/new/book?card[name]=HarryPotter&_author=JKRowling"
-    cy.contains("Submit").click()
-    cy.visit "HarryPotter+author"
-    cy.main_slot().should "contain", "JKRowling"
+    cy.contains("Submit").click().then ->
+      cy.visit "HarryPotter+author"
+      cy.main_slot().should "contain", "JKRowling"
 
