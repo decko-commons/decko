@@ -14,10 +14,6 @@ format :html do
     "Updated by #{updaters}"
   end
 
-  view :shorter_pointer_content, cache: :never do
-    nest card, view: :shorter_search_result, hide: :link
-  end
-
   def humanized_search_result item_cards, item_view: :link, max_count: 3,
                               others_target: card
     return "" unless item_cards.present?
