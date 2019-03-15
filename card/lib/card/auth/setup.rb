@@ -21,6 +21,19 @@ class Card
         @simulating_setup_need = mode
       end
 
+      # for testing
+      def hide_accounts! mode=true
+        @hidden_accounts = mode && (account_ids - [WagnBotID, AnonymousID])
+      end
+
+      def account_ids
+        as_bot do
+          Card.search right_id: AccountID,
+                      not: { left_id: ["in", WagnBotID, AnonymousID] },
+                      return: :id
+        end
+      end
+
       def instant_account_activation
         simulate_setup_need!
         yield
@@ -31,7 +44,9 @@ class Card
       private
 
       def account_count
-        as_bot { Card.count_by_wql right: Card[:account].name }
+        wql = { right_id: AccountID }
+        wql[:not] = { id: ["in"].concat(@hidden_accounts) } if @hidden_accounts
+        as_bot { Card.count_by_wql wql }
       end
     end
   end

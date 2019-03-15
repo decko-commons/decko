@@ -11,10 +11,11 @@ Given /^Jobs are dispatched$/ do
 end
 
 Given /^site simulates setup need$/ do
-  Card::Auth.simulate_setup_need!
+  Card::Auth.hide_accounts!
 end
 
 Given /^site stops simulating setup need$/ do
-  Card::Auth.simulate_setup_need! false
-  step "I am signed out"
+  Card::Auth.hide_accounts! false
+  #Card::Auth.simulate_setup_need! false
+  # step "I am signed out"
 end
