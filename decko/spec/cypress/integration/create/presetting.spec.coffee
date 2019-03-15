@@ -2,6 +2,13 @@ describe 'presetting', () ->
   before ->
     cy.login()
 
+  specify "presetting content in url", ->
+    cy.visit "/new/book?card[name]=HarryPotter&_author=JKRowling"
+    cy.get("iframe.tox-edit-area__iframe")
+    cy.contains("Submit").click()
+    cy.visit "HarryPotter+author"
+    cy.main_slot().should "contain", "JKRowling"
+
   specify "simple cardtype autoname", ->
     cy.ensure "Book+*type+*autoname", "Book_1"
     cy.delete "Book_1"
@@ -14,10 +21,5 @@ describe 'presetting', () ->
     cy.contains("Submit").click()
     cy.expect_main_title "Book_2"
 
-  specify "presetting content in url", ->
     cy.delete "Book+*type+*autoname"
-    cy.visit "/new/book?card[name]=HarryPotter&_author=JKRowling"
-    cy.contains("Submit").click().then ->
-      cy.visit "HarryPotter+author"
-      cy.main_slot().should "contain", "JKRowling"
 
