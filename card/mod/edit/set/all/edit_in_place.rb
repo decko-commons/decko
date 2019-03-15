@@ -43,8 +43,7 @@ format :html do
 
   def edit_in_place_link view=:edit_in_place, align: :left
     align = align == :left ? "ml-2" : "ml-auto"
-    link_to_view view, fa_icon(:edit), class: "#{align} edit-link",
-                                       "data-cy": "edit-link"
+    link_to_view view, menu_icon, class: "#{align} edit-link", "data-cy": "edit-link"
   end
 
   def cancel_in_place_button args={}
