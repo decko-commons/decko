@@ -58,7 +58,7 @@ format :html do
 
   view :labeled, tags: :unknown_ok do
     @content_body = true
-    voo.edit = :content_modal
+    voo.edit ||= :content_modal
     wrap(true, class: "row") do
       labeled(render_title, wrap_body { "#{render_menu}#{render_labeled_content}" } )
     end
