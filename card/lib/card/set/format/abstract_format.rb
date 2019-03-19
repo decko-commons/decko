@@ -30,7 +30,7 @@ class Card
         #     end
         #   end
         def setting name
-          self.class.define_method name do |*args|
+          Card::Set::Format::AbstractFormat.send :define_method, name do |*args|
             define_method name do
               args
             end
