@@ -19,6 +19,24 @@ class Card
           define_method "_before_#{view}", &block
         end
 
+        # Defines a setting method that can be used in all formats
+        # Example:
+        #   format do
+        #     setting :cols
+        #     cols 5, 7
+        #
+        #     view :some_view do
+        #       cols  # => [5, 7]
+        #     end
+        #   end
+        def setting name
+          self.class.define_method name do |*args|
+            define_method name do
+              args
+            end
+          end
+        end
+
         def view view, *args, &block
           # binding.pry
           # view = view.to_viewname.key.to_sym

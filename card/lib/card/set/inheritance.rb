@@ -55,6 +55,10 @@ class Card
           format_mods.each do |format_mod|
             define_on_format format_sym do
               include format_mod
+              if (class_methods = format_mod.const_get_if_defined(:ClassMethods))
+                binding.pry
+                extend class_methods
+              end
             end
           end
         end

@@ -15,11 +15,13 @@ format :html do
   view :core, template: :haml do
   end
 
+  bar_cols 9, 3
+  infobar_cols 6, 3, 3
+
   before :bar do
     super()
-    voo.show :edit_button
-    class_up "bar-middle",
-             "col-3 d-none d-md-flex p-3 border-left d-flex align-items-center p-0"
+    voo.show :edit_button, :bar_middle
+    class_up "bar-middle", "p-3 align-items-center p-0"
   end
 
   view :bar_right do
