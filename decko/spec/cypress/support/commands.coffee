@@ -38,11 +38,39 @@ Cypress.Commands.add "child",prevSubject: "element", (subject, id) =>
   subject.find("[data-cy=#{id}]")
 
 
-Cypress.Commands.add "tinymce_type", (text) =>
+Cypress.Commands.add "tinymce_set_content", (text) =>
+  cy.tinymce (ed) ->
+    ed.setContent(text)
+
+Cypress.Commands.add "tinymce", (fun) =>
   cy.get("iframe.tox-edit-area__iframe") # wait for tinymce
   cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->
     cy.window().then (win) ->
-      win.tinymce.get(id).setContent(text)
+      fun(win.tinymce.get(id), win)
+
+Cypress.Commands.add "tinymce_type", (text) =>
+  cy.tinymce (ed, win) ->
+    ed.focus()
+    t = text.replace("{cursor}", "<span id='mymarker'>\u200b</span>")
+    ed.insertContent(t)
+    marker = win.jQuery(ed.getBody()).find('#mymarker')
+    ed.selection.select(marker.get(0))
+    marker.remove()
+#
+#      e = win.jQuery.Event('keypress')
+#      e.keyCode = 37  #Left arrow keycode
+#      cy.document().then (doc) ->
+#        win.jQuery(doc).trigger(e)
+#        win.jQuery(doc).trigger(e)
+#        win.jQuery(doc).trigger(e)
+
+Cypress.Commands.add "tinymce_content", () =>
+  cy.get("iframe.tox-edit-area__iframe") # wait for tinymce
+  cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->
+    cy.window().then (win) ->
+      win.tinymce.get(id).getContent()
+
+
 
 Cypress.Commands.add "app_login", (user="Joe Admin") =>
   cy.app("login", user)

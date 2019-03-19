@@ -7,6 +7,6 @@
     = haml_partial :options_select, template: false, level: i + 1, data: options
 .options-container.p-2.border-bottom._configure-items
   = button_tag "Configure #{'sub' * edit_nest.item_options.size}items", situation: "secondary", class: "_configure-items-button btn-sm"
-  = haml_partial :options_select, template: true, level: edit_nest.item_options.size + 1, data: { view: default_item_view }
+  = haml_partial :options_select, template: true, level: edit_nest.item_options.size + 1, data: default_nest_editor_item_options
 
 

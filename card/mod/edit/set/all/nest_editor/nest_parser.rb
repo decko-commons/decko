@@ -5,7 +5,7 @@
 class NestParser
   attr_reader :name, :options, :item_options, :raw
 
-  def self.new nest_string, default_view
+  def self.new nest_string, default_view, default_item_view
     return super if nest_string.is_a? String
 
     OpenStruct.new(name: "", field?: true,
@@ -17,8 +17,9 @@ class NestParser
     @field
   end
 
-  def initialize nest_string, _default_view
+  def initialize nest_string, _default_view, default_item_view
     @raw = nest_string
+    @default_item_view = default_item_view
     nest = Card::Content::Chunk::Nest.new nest_string, nil
     init_name nest.name
     extract_item_options nest.options
@@ -53,5 +54,10 @@ class NestParser
       @item_options << extract_options(item_options)
       item_options = next_item_options
     end
+    # @item_options << default_item_options
+  end
+
+  def default_item_options
+    [:view, @default_item_view]
   end
 end

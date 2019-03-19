@@ -18,7 +18,7 @@
                         class: "_nest-field-toggle", id: "nest-editor-field"
         %label.form-check-label{for: "nest-editor-field"} field
 
-    = static_tabs({ rules: haml_partial(:rules), options: haml_partial(:options) }, :options, "tabs")
+    = nest_editor_tabs
 
   .card-footer.p-0
     .preview.m-1
@@ -26,6 +26,5 @@
     %hr.mt-1.mb-1
     .form-group.d-flex.justify-content-center.mt-2
       = button_tag "Apply", apply_data.merge(class: "_nest-apply btn-sm mr-3")
-
       %a.border-light.text-dark.btn.btn-sm.btn-outline-secondary{"data-dismiss": nest_editor_mode, href: "#"}
         Close

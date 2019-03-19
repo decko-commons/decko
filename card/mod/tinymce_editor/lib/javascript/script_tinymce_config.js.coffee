@@ -23,6 +23,7 @@ $.extend decko,
       plugins: 'autoresize'
       autoresize_max_height: 500
       mobile: { theme: 'mobile' }
+      contextmenu: "link nest"
     }
     user_conf = if decko.tinyMCEConfig? then decko.tinyMCEConfig else {}
     hard_conf = {
@@ -45,6 +46,6 @@ $.extend decko,
 
   addNestPlugin: (conf) ->
     if conf.plugins?  then conf.plugins += " nest"    else conf.plugins = "nest"
-    if conf.toolbar1? then conf.toolbar1 += " | nest" else conf.toolbar1 = "nest"
+    # if conf.toolbar1? then conf.toolbar1 += " | nest" else conf.toolbar1 = "nest"
     conf.menu = { insert: { title: "Insert", items: "nest link | hr"}}
 

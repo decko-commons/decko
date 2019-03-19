@@ -3,6 +3,7 @@ format :html do
                  # Card::View::Options.shark_keys - %i[nest_syntax nest_name items cache]
 
   view :nest_editor, cache: :never, template: :haml, wrap: { slot: { class: "_overlay d0-card-overlay card" } } do
+    binding.pry
     @nest_editor_mode = :overlay
   end
 
@@ -10,12 +11,9 @@ format :html do
     modal_nest_editor
   end
 
-  def nest_editor mode=:overlay
-
-  end
-
-  def overlay_nest_editor
-    haml :nest_editor
+  def nest_editor_tabs
+    static_tabs({ rules: haml_partial(:rules), options: haml_partial(:options) },
+                :options, "tabs")
   end
 
   def modal_nest_editor
@@ -25,10 +23,8 @@ format :html do
   end
 
   def edit_nest
-    @edit_nest ||= NestParser.new params[:edit_nest], default_nest_view
+    @edit_nest ||= NestParser.new params[:edit_nest], default_nest_view, default_item_view
   end
-
-
 
   def tinymce_id
     params[:tinymce_id]
@@ -43,6 +39,10 @@ format :html do
     data
   end
 
+  def default_nest_editor_item_options
+    [[:view, default_item_view]]
+  end
+
   def nest_option_name_select selected=nil, level=0
     new_row = !selected
     classes = "form-control form-control-sm _nest-option-name"
@@ -50,7 +50,7 @@ format :html do
     options = new_row ? ["--"] : []
     options += NEST_OPTIONS
     disabled = level == 0 ? edit_nest.options : edit_nest.item_options[level - 1]
-
+    disabled = disabled&.map(&:first)
     select_tag "nest_option_name_#{unique_id}",
                options_for_select(options, disabled: disabled, selected: selected),
                class: classes, id: nil

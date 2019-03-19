@@ -12,8 +12,7 @@ describe 'editing pointers', () ->
     input "select"
     #cy.wait(1000)
     cy.visit("/Joe User+friends")
-    cy.contains(".form-group", "content").find(".select2-container").click()
-      .select2("Joe Camel")
+    cy.contains(".form-group", "content").select2("Joe Camel")
     cy.contains("Submit").click()
     cy.main_slot()
       .should("not.contain", "Submitting")
@@ -23,8 +22,7 @@ describe 'editing pointers', () ->
     input "select"
     cy.ensure "User+*type+*structure", "{{+friends}}"
     cy.visit_bridge("Joe User")
-    cy.contains(".form-group", "+friends").find(".select2-container").click()
-    cy.select2("Joe Camel")
+    cy.contains(".form-group", "+friends").select2("Joe Camel")
     cy.contains("Save and Close").click()
     cy.main_slot()
       .should "contain", "Joe Camel"
@@ -32,10 +30,8 @@ describe 'editing pointers', () ->
   specify "create with multiselect input", ->
     input "multiselect"
     cy.visit("/Joe User+friends")
-    cy.contains(".form-group", "content").find(".select2-container").click()
-      .select2("Joe Camel")
-    cy.contains(".form-group", "content").find(".select2-container").click()
-      .select2("Joe Admin")
+    cy.contains(".form-group", "content").select2("Joe Camel")
+    cy.contains(".form-group", "content").select2("Joe Admin")
     cy.contains("Submit").click()
     cy.main_slot()
       .should "contain", "Joe Camel"
