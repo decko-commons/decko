@@ -9,14 +9,17 @@ describe 'account tab', () ->
     cy.logout()
 
   specify 'change email', () ->
+    labeled_view = ".SELF-sample_user-Xaccount-Xemail.labeled-view"
     cy.bridge_sidebar().get('.nav-tabs a:first').click()
     cy.el("detail-pill").click()
-    cy.get(".SELF-sample_user-Xaccount-Xemail.labeled-view a.edit-link").click()
+    cy.get("#{labeled_view} a.edit-link").click force: true
     cy.get("input.d0-card-content").clear().type("sam@user.com{enter}")
-    cy.get(".SELF-sample_user-Xaccount-Xemail.labeled-view")
-      .should("contain", "sam@user.com")
+    cy.get(labeled_view).should("contain", "sam@user.com")
 
-    # edit back
-    cy.get(".SELF-sample_user-Xaccount-Xemail.labeled-view a.edit-link").click()
-    cy.get("input.d0-card-content").clear().type("sample@user.com{enter}")
+    # cancel
+    cy.get("#{labeled_view} a.edit-link").click()
+    cy.get("cancel-button").click()
+    cy.get(labeled_view).should("contain", "encrypted")
+
+    # cy.get("input.d0-card-content").clear().type("sample@user.com{enter}")
 

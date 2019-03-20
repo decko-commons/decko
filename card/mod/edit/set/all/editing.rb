@@ -12,8 +12,8 @@ format :html do
 
   def bridge_parts
     [
-      _render_edit_name_row,
-      _render_edit_type_row,
+      _render_edit_name_row(home_view: :edit_name_row),
+      _render_edit_type_row(home_view: :edit_type_row),
       frame_help,
       _render_edit_content_form
     ]
