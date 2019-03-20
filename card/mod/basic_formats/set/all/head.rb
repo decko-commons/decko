@@ -136,7 +136,7 @@ format :html do
   end
 
   # TODO: move to rss mod
-  view :rss_links, tags: :unknown_ok do
+  view :rss_links, tags: :unknown_ok, perms: :none do
     render :rss_link_tag if rss_link?
   end
 

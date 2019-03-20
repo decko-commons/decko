@@ -12,9 +12,9 @@ jQuery.fn.extend
         @replaceOverlay(overlay)
 
     else
-      @find(".tinymce-textarea").each ->
-        tinymce.remove("##{$(this).attr("id")}")
-        #tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
+      # uncomment below if tinymce starts making problems after closing overlays -pk
+      #@find(".tinymce-textarea").each ->
+      #  tinymce.remove("##{$(this).attr("id")}")
       @wrapAll('<div class="overlay-container">')
       @addClass("_bottomlay-slot")
       @before overlay

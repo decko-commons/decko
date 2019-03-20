@@ -93,6 +93,14 @@ $(window).ready ->
         input.val(
           (if target == 'REDIRECT' then target + ': ' + input.val() else target)
         )
+    if $(this).data('recaptcha') == 'on'
+      recaptcha = $(this).find("input._recaptcha-token")
+      if recaptcha.hasClass "_token-updated"
+        recaptcha.removeClass "_token-updated"
+      else
+        event.stopPropagation()
+        $(this).updateRecaptchaToken(true) # this submits when the token is redy
+        return false
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     $(this).slotterBeforeSend(opt)
@@ -144,12 +152,11 @@ jQuery.fn.extend
       $(result).showAsModal $(this)
     else
       @notify result, "error"
+
       if status == 409 #edit conflict
         @slot().find('.current_revision_id').val(
           @slot().find('.new-current-revision-id').text()
         )
-      else if status == 449
-        @slot().find('g-recaptcha').reloadCaptcha()
 
   updateOrigin: () ->
     if @overlaySlot()[0]
@@ -186,11 +193,6 @@ jQuery.fn.extend
       opt.url = decko.slotPath opt.url, @slot()
 
     if @is('form')
-      if decko.recaptchaKey and @attr('recaptcha')=='on' and
-          !(@find('.g-recaptcha')[0])
-        loadCaptcha(this)
-        return false
-
       if data = @data 'file-data'
 # NOTE - this entire solution is temporary.
         @uploadWithBlueimp(data, opt)
