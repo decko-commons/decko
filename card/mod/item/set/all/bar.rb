@@ -2,9 +2,9 @@ include_set Abstract::BsBadge
 
 format :html do
   setting :bar_cols
-  setting :infobar_cols
+  setting :info_bar_cols
 
-  view :infobar do
+  view :info_bar do
     render_bar show: :bar_middle
   end
 
@@ -16,7 +16,7 @@ format :html do
   end
 
   bar_cols 9, 3
-  infobar_cols 5, 4, 3
+  info_bar_cols 5, 4, 3
 
   view :expanded_bar do
     class_up_bar_sides(false)
@@ -43,9 +43,9 @@ format :html do
     class_up "bar-right", "col-#{bar_cols[1]}"
     return unless middle
 
-    class_up "bar-left", "col-md-#{infobar_cols[0]}"
-    class_up "bar-middle", "col-md-#{infobar_cols[1]}"
-    class_up "bar-right", "col-#{infobar_cols[1]}"
+    class_up "bar-left", "col-md-#{info_bar_cols[0]}"
+    class_up "bar-middle", "col-md-#{info_bar_cols[1]}"
+    class_up "bar-right", "col-#{info_bar_cols[1]}"
   end
 
   view :bar_left do
