@@ -1,5 +1,5 @@
 event :validate_recaptcha_secret_key, :validate do
-  return if content =~ /^[a-zA-Z0-9-_]+$/
+  return if content.match?(/^[a-zA-Z0-9\-_]+$/)
 
   errors.add :content, "invalid key" # LOCALIZE
 end

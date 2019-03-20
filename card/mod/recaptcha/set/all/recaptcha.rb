@@ -13,6 +13,20 @@ def human?
   add_recaptcha_errors result["error-codes"]
 end
 
+def consider_recaptcha?
+  true
+end
+
+def recaptcha_on?
+  consider_recaptcha?  &&
+    recaptcha_keys?    &&
+    Env[:controller]   &&
+    !Auth.signed_in?   &&
+    !Auth.needs_setup? &&
+    !Auth.always_ok?   &&
+    Card.toggle(rule(:captcha))
+end
+
 def add_recaptcha_errors error_codes
   if error_codes.present?
     error_codes.each do |code|
@@ -31,37 +45,20 @@ end
 
 def recaptcha_response
   ::Recaptcha.get({ secret: Card.config.recaptcha_secret_key,
-                  response: Env.params[:recaptcha_token] }, {})
+                    response: Env.params[:recaptcha_token] }, {})
 end
 
-def recaptcha_on?
-  consider_recaptcha?    &&
-    have_recaptcha_keys? &&
-    Env[:controller]     &&
-    !Auth.signed_in?     &&
-    !Auth.needs_setup?   &&
-    !Auth.always_ok?     &&
-    Card.toggle(rule(:captcha))
+def recaptcha_keys?
+  Card.config.recaptcha_site_key && Card.config.recaptcha_secret_key
 end
 
-def consider_recaptcha?
-  true
+event :recaptcha, :validate, when: :validate_recaptcha? do
+  Env[:recaptcha_used] = true
+  human?
 end
 
-def have_recaptcha_keys?
-  @@have_recaptcha_keys =
-    if defined?(@@have_recaptcha_keys)
-      @@have_recaptcha_keys
-    else
-      !!(Card.config.recaptcha_site_key && Card.config.recaptcha_secret_key)
-    end
-end
-
-event :recaptcha, :validate do
-  if !@supercard && !Env[:recaptcha_used] && recaptcha_on?
-    Env[:recaptcha_used] = true
-    human?
-  end
+def validate_recaptcha?
+  !@supercard && !Env[:recaptcha_used] && recaptcha_on?
 end
 
 format :html do
@@ -87,7 +84,7 @@ format :html do
 
   def card_form_html_opts action, opts={}
     super
-    opts["data-recaptcha"] ||= "on" if recaptcha?
+    opts["data-recaptcha"] ||= "on" if recaptcha?(opts)
     opts
   end
 
