@@ -7,7 +7,7 @@ $(document).ready ->
 
   $('body').on 'keyup', 'input._nest-name', () ->
     repl = decko.nest.evalFieldOption $(this).val()
-    new_val = $("._nest-preview").val().replace(/(?<=^\{\{)[^}|]*/, repl)
+    new_val = $("._nest-preview").val().replace(/^\{\{[^}|]*/, "{{" + repl)
     decko.nest.updatePreview new_val
 
   $('body').on 'keyup', 'input._nest-option-value', () ->

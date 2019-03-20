@@ -3,7 +3,6 @@ format :html do
                  # Card::View::Options.shark_keys - %i[nest_syntax nest_name items cache]
 
   view :nest_editor, cache: :never, template: :haml, wrap: { slot: { class: "_overlay d0-card-overlay card" } } do
-    binding.pry
     @nest_editor_mode = :overlay
   end
 
