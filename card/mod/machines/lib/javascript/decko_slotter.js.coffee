@@ -94,13 +94,7 @@ $(window).ready ->
           (if target == 'REDIRECT' then target + ': ' + input.val() else target)
         )
     if $(this).data('recaptcha') == 'on'
-      recaptcha = $(this).find("input._recaptcha-token")
-      if recaptcha.hasClass "_token-updated"
-        recaptcha.removeClass "_token-updated"
-      else
-        event.stopPropagation()
-        $(this).updateRecaptchaToken(true) # this submits when the token is redy
-        return false
+      return $(this).handleRecaptchaBeforeSubmit(event)
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     $(this).slotterBeforeSend(opt)
@@ -228,3 +222,21 @@ jQuery.fn.extend
     args.skip_before_send = true #avoid looping through this method again
 
     $.ajax( args )
+
+  handleRecaptchaBeforeSubmit: (event) ->
+    recaptcha = @find("input._recaptcha-token")
+
+    if !recaptcha[0]?
+      # monkey error (bad form)
+      recaptcha.val "recaptcha-token-field-missing"
+    else if recaptcha.hasClass "_token-updated"
+      # recaptcha token is fine - continue submitting
+      recaptcha.removeClass "_token-updated"
+    else if !grecaptcha?
+      # shark error (probably recaptcha keys of pre v3 version)
+      recaptcha.val "grecaptcha-undefined"
+    else
+      @updateRecaptchaToken(event)
+      # this stops the submit here
+      # and submits again when the token is ready
+

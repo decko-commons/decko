@@ -53,9 +53,22 @@ def recaptcha_keys?
 end
 
 event :recaptcha, :validate, when: :validate_recaptcha? do
-  Env[:recaptcha_used] = true
-  human?
+  handle_recaptcha_config_errors do
+    Env[:recaptcha_used] = true
+    human?
+  end
 end
+
+def handle_recaptcha_config_errors
+  if Env.params[:recaptcha_token] == "grecaptcha-undefined"
+    errors.add "recaptcha", "needs correct v3 configuration" # LOCALILZE
+  elsif Env.params[:recaptcha_token] == "recaptcha-token-field-missing"
+    raise Card::Error, "recaptcha token field missing" # LOCALILZE
+  else
+    yield
+  end
+end
+
 
 def validate_recaptcha?
   !@supercard && !Env[:recaptcha_used] && recaptcha_on?
