@@ -83,7 +83,7 @@ class Card
       # get session object from Env
       # return [Session]
       def session
-        Card::Env[:session]
+        Card::Env.session
       end
 
       # set current from token or session
