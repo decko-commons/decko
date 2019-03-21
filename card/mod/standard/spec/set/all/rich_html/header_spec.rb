@@ -2,7 +2,7 @@ RSpec.describe Card::Set::All::RichHtml::Header do
   check_html_views_for_errors
 
   describe "closed view" do
-    it "should have title toggle by default" do
+    it "has title toggle by default" do
       expect_view(:closed).to have_tag "div.d0-card-header.card-header" do
         with_tag "a.toggler.slotter", with:  { href: "/A?view=open" } do
           without_tag "a.open-icon.slotter"
@@ -12,8 +12,8 @@ RSpec.describe Card::Set::All::RichHtml::Header do
     end
 
     context "with show: title_link" do
-      it "should have icon toggle and no title toggle" do
-        rendered  = render_card_with_args :closed, { name: "A" }, {}, show: :title_link
+      it "has icon toggle and no title toggle" do
+        rendered = render_card_with_args :closed, { name: "A" }, {}, show: :title_link
         expect(rendered).to have_tag "div.d0-card-header.card-header" do
           with_tag "div.d0-card-header-title" do
             with_tag "a.toggle-open.slotter", with: { href: "/A?view=open" } do
@@ -28,8 +28,8 @@ RSpec.describe Card::Set::All::RichHtml::Header do
     end
 
     context "with show: icon_toggle" do
-      it "should have icon toggle and no title toggle" do
-        rendered  = render_card_with_args :closed, { name: "A" }, {}, show: :icon_toggle
+      it "has icon toggle and no title toggle" do
+        rendered = render_card_with_args :closed, { name: "A" }, {}, show: :icon_toggle
         expect(rendered).to have_tag "div.d0-card-header.card-header" do
           with_tag "div.d0-card-header-title" do
             with_tag "a.toggle-open.slotter", with: { href: "/A?view=open" } do
@@ -45,7 +45,7 @@ RSpec.describe Card::Set::All::RichHtml::Header do
   end
 
   describe "titled view" do
-    it "should not have title toggle" do
+    it "has no title toggle" do
       expect_view(:titled)
         .to have_tag "div.d0-card-header", without: { class: "card-header" } do
         without_tag "a.toggler"
@@ -55,7 +55,7 @@ RSpec.describe Card::Set::All::RichHtml::Header do
   end
 
   describe "open view" do
-    it "should have title toggle by default" do
+    it "has title toggle by default" do
       expect_view(:open).to have_tag "div.d0-card-header.card-header" do
         with_tag "a.toggler.slotter", with:  { href: "/A?view=closed" } do
           with_tag "span.card-title", "A"
@@ -64,8 +64,8 @@ RSpec.describe Card::Set::All::RichHtml::Header do
     end
 
     context "with show: icon_toggle" do
-      it "should have icon toggle and no title toggle" do
-        rendered  = render_card_with_args :open, { name: "A" }, {}, show: :icon_toggle
+      it "has icon toggle and no title toggle" do
+        rendered = render_card_with_args :open, { name: "A" }, {}, show: :icon_toggle
         expect(rendered).to have_tag "div.d0-card-header.card-header" do
           with_tag "div.d0-card-header-title" do
             with_tag "a.toggle-closed.slotter", with: { href: "/A?view=closed" } do

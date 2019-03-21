@@ -1,8 +1,9 @@
 format :html do
-  NEST_OPTIONS = [:view, :title, :show, :hide, :wrap, :help, :variant, :size, :params]
-                 # Card::View::Options.shark_keys - %i[nest_syntax nest_name items cache]
+  NEST_OPTIONS = %i[view title show hide wrap help variant size params].freeze
+  # Card::View::Options.shark_keys - %i[nest_syntax nest_name items cache]
 
-  view :nest_editor, cache: :never, template: :haml, wrap: { slot: { class: "_overlay d0-card-overlay card" } } do
+  view :nest_editor, cache: :never, template: :haml,
+                     wrap: { slot: { class: "_overlay d0-card-overlay card" } } do
     @nest_editor_mode = :overlay
   end
 
@@ -32,9 +33,7 @@ format :html do
   def apply_data
     data = { "data-tinymce-id": tinymce_id,
              "data-nest-start": params[:nest_start] || 0 }
-    if params[:edit_nest].present?
-      data["data-nest-size".to_sym] = edit_nest.raw.size
-    end
+    data["data-nest-size".to_sym] = edit_nest.raw.size if params[:edit_nest].present?
     data
   end
 
@@ -56,10 +55,10 @@ format :html do
                class: classes, id: nil
   end
 
-  def nest_option_value_select value=nil #, items=false
-    #select_tag "nest_option_value_#{unique_id}"
+  def nest_option_value_select value=nil
+    # select_tag "nest_option_value_#{unique_id}"
     text_field_tag "value", value,
                    class: "_nest-option-value form-control form-control-sm",
-                  disabled: !value
+                   disabled: !value
   end
 end
