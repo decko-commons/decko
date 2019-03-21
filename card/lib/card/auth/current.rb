@@ -103,7 +103,7 @@ class Card
           if (card_id = session_user) && Card.exists?(card_id)
             card_id
           else
-            set_session_user nil
+            set_session_user Card::AnonymousID
           end
       end
 
