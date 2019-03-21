@@ -72,12 +72,7 @@ Capybara.register_driver :selenium_headless_chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
-require 'rack/handler/puma'
-Capybara.register_server :my_single_puma do |app, port, host|
-  Rack::Handler::Puma.run(app, Port: port, Host: host, Threads: "0:1")
-end
-
-Capybara.server = :my_single_puma
+Capybara.server = :puma, { Threads: "0:1" }
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
