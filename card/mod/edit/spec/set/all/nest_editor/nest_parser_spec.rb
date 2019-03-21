@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::All::NestEditor::NestParser do
   def parse nest
-    described_class.new nest
+    described_class.new nest, :titled, :bar
   end
 
   context "with field" do
