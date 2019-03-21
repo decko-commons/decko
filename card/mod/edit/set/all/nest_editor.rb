@@ -50,6 +50,7 @@ format :html do
     options += NEST_OPTIONS
     disabled = level == 0 ? edit_nest.options : edit_nest.item_options[level - 1]
     disabled = disabled&.map(&:first)
+    disabled&.delete selected if selected
     select_tag "nest_option_name_#{unique_id}",
                options_for_select(options, disabled: disabled, selected: selected),
                class: classes, id: nil
