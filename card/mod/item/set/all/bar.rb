@@ -1,22 +1,25 @@
 include_set Abstract::BsBadge
 
 format :html do
-  view :mini_bar do
-    render_bar hide: [:bar_middle]
+  setting :bar_cols
+  setting :info_bar_cols
+
+  view :info_bar do
+    render_bar show: :bar_middle
   end
 
   view :bar do
-    class_up_bar_sides(*bar_side_cols(voo.show?(:bar_middle)))
+    voo.hide :bar_middle
+    class_up_bar_sides(voo.show?(:bar_middle))
     # note: above cannot be in `before`, because before blocks run before viz processing
     wrap { haml :bar }
   end
 
-  def bar_side_cols middle=true
-    middle ? [5, 4, 3] : [9, 3]
-  end
+  bar_cols 9, 3
+  info_bar_cols 5, 4, 3
 
   view :expanded_bar do
-    class_up_bar_sides(*bar_side_cols(false))
+    class_up_bar_sides(false)
     wrap { haml :expanded_bar }
   end
 
@@ -29,18 +32,20 @@ format :html do
 
   def bar_classes
     shared = "align-items-center"
-    class_up "bar-left", "p-2 font-weight-bold d-flex grow-2 #{shared}"
+    class_up "bar-left", "d-flex p-2 font-weight-bold grow-2 #{shared}"
     class_up "bar-middle", "d-none d-md-flex p-2 border-left text-align-middle #{shared}"
     class_up "bar-right",
-             "p-2 border-left d-flex justify-content-end text-align-right #{shared}"
+             "d-flex p-2 border-left justify-content-end text-align-right #{shared}"
   end
 
-  def class_up_bar_sides *sizes
-    left = sizes.shift
-    right = sizes.pop
-    class_up "bar-left", "col-#{left}"
-    class_up "bar-middle", "col-#{sizes.first}" if sizes.any?
-    class_up "bar-right", "col-#{right}"
+  def class_up_bar_sides middle
+    class_up "bar-left", "col-#{bar_cols[0]}"
+    class_up "bar-right", "col-#{bar_cols[1]}"
+    return unless middle
+
+    class_up "bar-left", "col-md-#{info_bar_cols[0]}"
+    class_up "bar-middle", "col-md-#{info_bar_cols[1]}"
+    class_up "bar-right", "col-#{info_bar_cols[1]}"
   end
 
   view :bar_left do
