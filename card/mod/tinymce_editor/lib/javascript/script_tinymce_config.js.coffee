@@ -23,6 +23,7 @@ $.extend decko,
       plugins: 'autoresize'
       autoresize_max_height: 500
       mobile: { theme: 'mobile' }
+      contextmenu: "link nest"
     }
     user_conf = if decko.tinyMCEConfig? then decko.tinyMCEConfig else {}
     hard_conf = {
@@ -35,7 +36,16 @@ $.extend decko,
       entity_encoding: 'raw'
     }
     $.extend conf, user_conf, hard_conf
+    decko.addNestPlugin(conf)
+
+
     tinyMCE.baseURL = decko.path('assets/tinymce_editor/tinymce')
     tinyMCE.suffix = '.min'
     tinyMCE.remove("##{el_id}") if tinyMCE.get(el_id)?
     tinyMCE.init conf
+
+  addNestPlugin: (conf) ->
+    if conf.plugins?  then conf.plugins += " nest"    else conf.plugins = "nest"
+    # if conf.toolbar1? then conf.toolbar1 += " | nest" else conf.toolbar1 = "nest"
+    conf.menu = { insert: { title: "Insert", items: "nest link | hr"}}
+
