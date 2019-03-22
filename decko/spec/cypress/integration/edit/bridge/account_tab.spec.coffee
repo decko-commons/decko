@@ -17,7 +17,7 @@ describe 'account tab', () ->
     cy.get(labeled_view).should("contain", "sam@user.com")
 
     # cancel
-    cy.get("#{labeled_view} a.edit-link").click()
+    cy.get("#{labeled_view} a.edit-link").click force: true
     cy.get("cancel-button").click()
     cy.get(labeled_view).should("contain", "encrypted")
 
