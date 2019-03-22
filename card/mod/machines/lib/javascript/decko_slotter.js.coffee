@@ -152,13 +152,21 @@ jQuery.fn.extend
         @slot().find('g-recaptcha').reloadCaptcha()
 
   updateOrigin: () ->
-    if @overlaySlot()[0]
-      $("._overlay-origin").reloadSlot()
-    else if @closest("#modal-container")[0]
-      $("._modal-origin").reloadSlot()
+    type = if @overlaySlot()[0]
+             "overlay"
+           else if @closest("#modal-container")[0]
+             "modal"
 
-  markOrigin: (type) ->
-    @closest(".card-slot").addClass("_#{type}-origin")
+    slot_id = @data("#{type}-origin-slot-id")
+    origin_slot = $("[data-slot-id=#{slot_id}]")
+    if origin_slot[0]?
+      origin_slot.reloadSlot()
+    else
+      console.log "couldn't find origin witn slot id #{slot_id}"
+
+  registerAsOrigin: (type, slot) ->
+    slot.attr("data-#{type}-origin-slot-id", @slot().data("slot-id"))
+    #@closest(".card-slot").addClass("_#{type}-origin")
 
   updateSlot: (data, mode) ->
     notice = @attr('notify-success')

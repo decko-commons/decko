@@ -45,7 +45,7 @@ jQuery.fn.extend {
         $("body").append el
 
       $("._modal-origin").removeClass("_modal-origin")
-      $slotter.markOrigin("modal")
+      $slotter.registerAsOrigin("modal", el)
       el.modal("show", $slotter)
 
   addModal: (el, $slotter) ->
@@ -55,7 +55,7 @@ jQuery.fn.extend {
       decko.initModal dialog
     else
       decko.pushModal el
-      $slotter.markOrigin("modal")
+      $slotter.registerAsOrigin("modal", el)
       el.modal("show", $slotter)
 
   modalSlot: ->

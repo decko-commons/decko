@@ -19,7 +19,7 @@ jQuery.fn.extend
       @addClass("_bottomlay-slot")
       @before overlay
 
-    $slotter.markOrigin("overlay")
+    $slotter.registerAsOrigin("overlay", overlay)
 
   replaceOverlay: (overlay) ->
     @overlaySlot().replaceWith overlay
