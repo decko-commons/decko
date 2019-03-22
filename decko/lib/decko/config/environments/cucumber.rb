@@ -22,7 +22,7 @@ Decko.application.class.configure do
   config.action_controller.perform_caching = true
 
   # Disable request forgery protection in test environment
-  config.action_controller.allow_forgery_protection    = false
+  config.action_controller.allow_forgery_protection = false
 
   config.active_support.deprecation = :log
 
