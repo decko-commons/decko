@@ -174,8 +174,8 @@ format :html do
     # Problem: when you do that then the fields are missing in the sign up form:
     # output( [field_nest(:email, view: :titled, title: "email"),
     #          field_nest(:password, view: :titled, title: "password")])
-    %({{+#{:email.cardname}|labeled;title:email;edit:content_inline}}
-      {{+#{:password.cardname}|labeled;title:password;edit:content_inline}})
+    %({{+#{:email.cardname}|labeled;title:email;edit:inline}}
+      {{+#{:password.cardname}|labeled;title:password;edit:inline}})
   end
 
   before :content_formgroup do

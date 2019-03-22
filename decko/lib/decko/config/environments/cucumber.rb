@@ -19,10 +19,10 @@ Decko.application.class.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local = true
-  config.action_controller.perform_caching             = true
+  config.action_controller.perform_caching = true
 
   # Disable request forgery protection in test environment
-  config.action_controller.allow_forgery_protection    = false
+  config.action_controller.allow_forgery_protection = false
 
   config.active_support.deprecation = :log
 

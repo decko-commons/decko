@@ -87,13 +87,13 @@ RSpec.describe Card::Set::All::Collection do
     it "loads only the first tab pane" do
       tabs = render_card :tabs, content: "[[A]]\n[[B]]\n[[C]]", type: "pointer"
       expect(tabs).to have_tag :div, with: { role: "tabpanel" } do
-        with_tag "div.tab-pane#tempo_rary-a" do
+        with_tag "div.tab-pane#tempo_rary-1-a" do
           with_tag "div.card-slot#a-content-view"
         end
         with_tag :li do
-          with_tag "a.load", with: { "data-toggle": "tab", href: "#tempo_rary-b" }
+          with_tag "a.load", with: { "data-toggle": "tab", href: "#tempo_rary-2-b" }
         end
-        with_tag "div.tab-pane#tempo_rary-b"
+        with_tag "div.tab-pane#tempo_rary-2-b"
       end
     end
 
@@ -104,14 +104,14 @@ RSpec.describe Card::Set::All::Collection do
       end
       tabs = Card.fetch("G").format.render_tabs
       assert_view_select tabs, "div[role=tabpanel]" do
-        assert_select "div.tab-pane#g-g-b .d0-card-content", "GammaBeta"
+        assert_select "div.tab-pane#g-1-g-b .d0-card-content", "GammaBeta"
       end
     end
 
     it "handles item views" do
       tabs = render_content "{{Fruit+*type+*create|tabs|name}}"
       assert_view_select tabs, "div[role=tabpanel]" do
-        assert_select "div.tab-pane#fruit-Xtype-Xcreate-anyone", "Anyone"
+        assert_select "div.tab-pane#fruit-Xtype-Xcreate-1-anyone", "Anyone"
       end
     end
 
@@ -149,18 +149,19 @@ RSpec.describe Card::Set::All::Collection do
       tabs = render_card :tabs, name: "tab_test", type_id: Card::PlainTextID,
                                 content: "{{A|type;title:my tab title}}"
       assert_view_select tabs, "div[role=tabpanel]" do
-        assert_select 'li > a[data-toggle=tab][href="#tab_test-a"]',
+        assert_select 'li > a[data-toggle=tab][href="#tab_test-1-a"]',
                       "my tab title"
-        assert_select "div.tab-pane#tab_test-a", "Basic"
+        assert_select "div.tab-pane#tab_test-1-a", "Basic"
       end
     end
 
     it "works with search cards" do
-      Card.create type: "Search", name: "Asearch", content: '{"type":"User"}'
+      Card.create type: "Search", name: "Asearch",
+                  content: '{"type":"User","sort":"name"}'
       tabs = render_content("{{Asearch|tabs|name}}")
       assert_view_select tabs, "div[role=tabpanel]" do
         assert_select(
-          'li > a[data-toggle=tab][href="#asearch-joe_admin"] span.card-title',
+          'li > a[data-toggle=tab][href="#asearch-2-joe_admin"] span.card-title',
           "Joe Admin"
         )
       end
