@@ -18,7 +18,7 @@ describe 'account tab', () ->
 
     # cancel
     cy.get("#{labeled_view} a.edit-link").click force: true
-    cy.get("cancel-button").click()
+    cy.get(".cancel-button").click()
     cy.get(labeled_view).should("contain", "encrypted")
 
     # cy.get("input.d0-card-content").clear().type("sample@user.com{enter}")
