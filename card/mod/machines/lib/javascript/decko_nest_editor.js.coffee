@@ -40,7 +40,7 @@ $(document).ready ->
 $.extend decko,
   nest:
     openEditor: (tm) ->
-      slot = $(".bridge-sidebar > .card-slot, .bridge-sidebar > .overlay-container > .card-slot")
+      slot = $(".bridge-sidebar > ._overlay-container-placeholder > .card-slot")
 
       if slot[0]
         view = "nest_editor"
