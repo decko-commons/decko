@@ -7,7 +7,7 @@ format :html do
   end
 
   # note: depends on js with selector ".edit_name_form-view .card-form"
-  view :edit_name_form, perms: :update, wrap: :slot do
+  view :edit_name_form, perms: :update, wrap: :slot, cache: :never do
     edit_name_form :edit_name_row
   end
 

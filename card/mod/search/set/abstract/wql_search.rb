@@ -91,8 +91,8 @@ format do
     nil
   end
 
-  def implicit_item_view
-    super query_with_params.statement[:item]
+  def item_view_from_query
+    query_with_params.statement[:item]
   end
 
   def query_with_params
