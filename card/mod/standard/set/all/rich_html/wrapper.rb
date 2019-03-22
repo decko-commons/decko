@@ -8,6 +8,7 @@ format :html do
   end
 
   wrapper :slot do |opts|
+    class_up "card-slot", opts[:class] if opts[:class]
     method_wrap :wrap_with, :div, true, opts do
       interior
     end

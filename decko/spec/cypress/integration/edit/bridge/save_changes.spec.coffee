@@ -6,7 +6,7 @@ describe 'save change in bridge', () ->
   specify "'save and close' updates main slot", () ->
     cy.visit_bridge("snow")
 
-    cy.tinymce_type "white"
+    cy.tinymce_set_content "white"
     cy.el("submit-modal").click()
     cy.expect_main_content "white"
     cy.bridge().should "not.be.visible"
@@ -14,7 +14,7 @@ describe 'save change in bridge', () ->
   specify "'save' updates main slot", () ->
       cy.visit_bridge("snow")
 
-      cy.tinymce_type("black").then ->
+      cy.tinymce_set_content("black").then ->
         cy.el("save").click(force: true)
         cy.expect_main_content "black"
         cy.bridge().should "be.visible"
@@ -23,7 +23,7 @@ describe 'save change in bridge', () ->
     cy.visit("/")
 
     cy.slot("menu").find(".card-menu > a").click(force: true)
-    cy.tinymce_type("fruit pants")
+    cy.tinymce_set_content("fruit pants")
     cy.el("submit-modal").click()
     cy.slot("menu").should("contain", "fruit pants")
     cy.slot("home").should("not.contain", "fruit pants")

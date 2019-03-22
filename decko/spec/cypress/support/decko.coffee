@@ -43,17 +43,22 @@ Cypress.Commands.add "field", (name) =>
 Cypress.Commands.add "select2_by_name", prevSubject: "optional", (subject, name, value) =>
   selector = "select[name='#{name}'] + .select2-container"
   if subject
-    # hack, to make command retry if element hasn't appeared yet
-    # subject.find fails after one try
-    # (see https://stackoverflow.com/questions/54557249)
-    cy.get(subject.selector).find(selector).click()
+    cy.wrap(subject).find(selector).click()
   else
     cy.get(selector).click()
 
-  cy.get("span.select2-results").contains(value).click()
+  cy.root().get("span.select2-results").contains(value).click()
 
-Cypress.Commands.add "select2", (value) =>
-  cy.get("span.select2-results").contains(value).click()
+Cypress.Commands.add "select2", { prevSubject: "element" }, (subject, value) =>
+  # cy.wrap(subject)
+  #tag = cy.wrap(subject).invoke("attr", "'data-select2-id'")
+  #cy.log "tagname"
+  #cy.log tag
+  #if cy.wrap(subject).invoke("prop", "tagName") == "SELECT"
+  cy.wrap(subject).siblings(".select2-container").click()
+  #else
+  #  cy.wrap(subject).find(".select2-container").click()
+  cy.root().get("span.select2-results").contains(value).click()
 
 Cypress.Commands.add "unfollow", (card, user="Joe_Admin") =>
   cy.request

@@ -1058,8 +1058,44 @@ $bridge-line-color: $gray-300;
   }
 }
 
+.input-group-prepend._field-indicator .input-group-text {
+  font-size: 1.3rem;
+  line-height: 1;
+  font-weight: bold;
+  border-right: none;
+  background: $white;
+}
+
+.input-group.show-prefix {
+  > input {
+    border-left: none;
+  }
+}
+
+.input-group.hide-prefix {
+  > .input-group-prepend > .input-group-text {
+    display: none;
+  }
+}
+
 .text-muted-link {
   color: $text-muted;
+}
+
+._template {
+  display: none;
+}
+
+.background-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 900;
+  outline: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 // decko logo

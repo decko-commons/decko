@@ -8,7 +8,7 @@ describe 'rules tab', () ->
   specify 'no set selected', () ->
     cy.bridge_sidebar().find('.nav-tabs a:last').click()
     cy.bridge_sidebar().el("structure-pill").click()
-    cy.tinymce_type "new structure"
+    cy.tinymce_set_content "new structure"
 
     cy.el("submit-overlay").should("have.class", "_rule-submit-button").click()
     cy.get(".card-notice").should("contain", "To what Set does this Rule apply?")

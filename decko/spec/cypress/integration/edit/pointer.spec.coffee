@@ -12,7 +12,7 @@ describe 'editing pointers', () ->
     input "select"
     #cy.wait(1000)
     cy.visit("/Joe User+friends")
-    cy.contains(".form-group", "content").find(".select2-container").click()
+    cy.contains(".form-group", "content").find("select")
       .select2("Joe Camel")
     cy.contains("Submit").click()
     cy.main_slot()
@@ -23,25 +23,23 @@ describe 'editing pointers', () ->
     input "select"
     cy.ensure "User+*type+*structure", "{{+friends}}"
     cy.visit_bridge("Joe User")
-    cy.contains(".form-group", "+friends").find(".select2-container").click()
-    cy.select2("Joe Camel")
+    cy.contains(".form-group", "+friends").find("select")
+      .select2("Joe Camel")
     cy.contains("Save and Close").click()
     cy.main_slot()
       .should "contain", "Joe Camel"
 
   specify "create with multiselect input", ->
     input "multiselect"
-    cy.wait(1000)
     cy.visit("/Joe User+friends")
-    cy.contains(".form-group", "content").find(".select2-container").click()
+    cy.contains(".form-group", "content").find("select")
       .select2("Joe Camel")
-    cy.contains(".form-group", "content").find(".select2-container").click()
+    cy.contains(".form-group", "content").find("select")
       .select2("Joe Admin")
     cy.contains("Submit").click()
     cy.main_slot()
       .should "contain", "Joe Camel"
       .should "contain", "Joe Admin"
-
 
 
   specify 'create with filtered list input', () ->

@@ -22,7 +22,3 @@ jQuery.fn.extend
     bc_item = $(".modal-header ._bridge-breadcrumb li:last-child")
     bc_item.text(this.data("breadcrumb"))
     bc_item.attr("class", "breadcrumb-item active #{this.data('breadcrumb-class')}")
-
-
-
-
