@@ -104,6 +104,8 @@ jQuery.fn.extend
     else if el.hasClass("_modal-slot") or mode == "modal"
       el.showAsModal($slotter)
     else
+      slot_id = @data("slot-id")
+      el.attr("data-slot-id", slot_id) if slot_id
       @replaceWith el
 
     el.triggerSlotReady($slotter)

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Content::Chunk::Nest, "Inclusion" do
+RSpec.describe Card::Content::Chunk::Nest do
   context "syntax parsing" do
     let :instance do
       described_class.new(described_class.full_match(@chunk), nil)
@@ -66,6 +66,14 @@ describe Card::Content::Chunk::Nest, "Inclusion" do
       expect(options[:view]).to eq("link")
       expect(options[:hide]).to eq("me")
       expect(options.key?(:items)).to eq(false)
+    end
+
+    it "handles three pipes" do
+      @chunk = "{{box|open|closed|bar}}"
+      expect(options[:nest_name]).to eq("box")
+      expect(options[:view]).to eq("open")
+      expect(options[:items][:view]).to eq("closed")
+      expect(options[:items][:items][:view]).to eq("bar")
     end
 
     it "handles multiple pipes" do

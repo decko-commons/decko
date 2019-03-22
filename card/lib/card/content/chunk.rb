@@ -114,6 +114,7 @@ class Card
         end
 
         def initialize match, content
+          match = self.class.full_match(match) if match.is_a? String
           @text = match[0]
           @processed = nil
           @content = content
@@ -121,7 +122,7 @@ class Card
           self
         end
 
-        def interpret _match_string, _content, _params
+        def interpret _match_string, _content
           Rails.logger.info "no #interpret method found for chunk class: " \
                             "#{self.class}"
         end

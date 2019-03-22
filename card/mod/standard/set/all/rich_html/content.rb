@@ -69,7 +69,7 @@ format :html do
   end
 
   view :open, tags: :comment do
-    voo.viz :toggle, :hide # (main? ? :hide : :show)
+    toggle_logic
     @toggle_mode = :open
     @content_body = true
     frame do
@@ -79,14 +79,17 @@ format :html do
 
   view :closed do
     with_nest_mode :closed do
-      voo.show :header_toggle
-      voo.hide! :toggle
-      voo.hide! :closed_content
+      toggle_logic
+      voo.hide :closed_content
       class_up "d0-card-body", "closed-content"
       @content_body = false
       @toggle_mode = :close
       frame
     end
+  end
+
+  def toggle_logic
+    show_view?(:title_link, :hide) ? voo.show(:icon_toggle) : voo.show(:title_toggle)
   end
 
   def current_set_card

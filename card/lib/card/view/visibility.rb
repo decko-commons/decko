@@ -81,13 +81,17 @@ class Card
 
       # translated show/hide setting into an array of views
       def viz_view_list val
+        Card::View::Visibility.normalize_view_list(val).map { |view| View.canonicalize view }
+      end
+
+      def self.normalize_view_list val
         case val
         when NilClass then []
         when Array    then val
         when String   then val.split(/[\s,]+/)
         when Symbol   then [val]
         else raise Card::Error, "bad show/hide argument: #{val}"
-        end.map { |view| View.canonicalize view }
+        end
       end
     end
   end

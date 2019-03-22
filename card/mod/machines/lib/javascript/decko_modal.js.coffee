@@ -35,7 +35,7 @@ addModalDialogClasses = ($modal_slot, $link) ->
 
 jQuery.fn.extend {
   showAsModal: ($slotter) ->
-    el = @modalify($slotter)
+    el = @modalify($slotter) if $slotter?
     if $("body > ._modal-slot").is(":visible")
       @addModal el, $slotter
     else
@@ -95,14 +95,15 @@ $.extend decko,
       $(".modal-dialog").empty()
 
   pushModal: (el) ->
-    mslot = $("body > ._modal-slot").detach()
+    mslot = $("body > ._modal-slot")
     mslot.removeAttr("id")
-    mslot.removeClass("_modal-slot").addClass("_modal-stack").removeClass("modal")
-    mslot.insertAfter ".modal-backdrop"
-    el.insertBefore ".modal-backdrop"
+    mslot.removeClass("_modal-slot").addClass("_modal-stack").removeClass("modal").addClass("background-modal")
+    el.insertBefore mslot
+    $(".modal-backdrop").removeClass("show")
+
 
   popModal: ->
-    modal = $($("._modal-stack")[0]).detach()
-    modal.addClass("_modal-slot").removeClass("_modal-stack").attr("id", "modal-container").addClass("modal")
-    $("body > ._modal-slot").replaceWith(modal)
-
+    $(".modal-backdrop").addClass("show")
+    $("body > ._modal-slot").remove()
+    modal = $($("._modal-stack")[0])
+    modal.addClass("_modal-slot").removeClass("_modal-stack").attr("id", "modal-container").addClass("modal").removeClass("background-modal")
