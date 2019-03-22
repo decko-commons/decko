@@ -76,7 +76,7 @@ format :html do
   def standardize_tabs tabs, active_name
     tabs.each do |tab_view_name, tab_details|
       tab_title, url = tab_title_and_url(tab_details, tab_view_name)
-      id = "#{card.name.safe_key}-#{tab_view_name.to_name.safe_key}"
+      id = "#{unique_id}-#{tab_view_name.to_name.safe_key}"
       active_tab = (active_name == tab_view_name)
       yield tab_title, url, id, active_tab
     end

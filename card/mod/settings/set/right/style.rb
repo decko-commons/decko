@@ -15,7 +15,7 @@ format :html do
                     classic_bootstrap_skin].freeze
 
   def default_item_view
-    :mini_bar
+    :bar
   end
 
   view :editor, template: :haml

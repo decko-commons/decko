@@ -2,18 +2,18 @@ format :html do
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
     wrap_with :div, class: "card-menu #{menu_link_classes}" do
-      menu
+      menu_link
     end
   end
 
-  def menu
+  def menu_link
     case voo.edit
-    when :content_inline
+    when :inline
       edit_in_place_link
-    when :content_modal
-      edit_in_modal_link
-    else
-      standard_edit_link
+    when :full
+      edit_in_bridge_link
+    else # :standard
+      edit_link
     end
   end
 
@@ -29,43 +29,25 @@ format :html do
     link_to_card card, full_page_icon, class: classy("full-page-link")
   end
 
+  def edit_in_bridge_link opts={}
+    edit_link :bridge, opts
+  end
+
   def edit_link view=:edit, opts={}
-    link_to_view view, menu_icon, edit_link_opts(opts)
+    link_to_view view, menu_icon, edit_link_opts(opts.reverse_merge(modal: :lg))
   end
 
   # @param modal [Symbol] modal size
   def edit_link_opts modal: nil
-    opts = { class: "text-muted" }
+    opts = { class: classy("edit-link") }
     if modal
       opts.merge! "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}"
     end
     opts
   end
 
-  def wrap_menu
-    wrap_with :div, class: classy(%w[menu-slot nodblclick]) do
-      yield
-    end
-   end
-
-  def standard_edit_link
-    edit_link :edit, modal: :full
-  end
-
-  def edit_in_modal_link
-    edit_link :edit, modal: :large
-  end
-
-  def edit_in_place_link
-    edit_link :edit_in_place
-  end
-
   def menu_link_classes
-    if show_view? :hover_link
-      "_show-on-hover"
-    else
-      ""
-    end
+    "nodblclick" + (show_view?(:hover_link) ? " _show-on-hover" : "")
   end
 
   def menu_icon
