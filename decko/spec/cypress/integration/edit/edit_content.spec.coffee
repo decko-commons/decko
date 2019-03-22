@@ -49,7 +49,7 @@ describe 'edit content', () ->
     cy.contains "Apply"
       .click()
     cy.tinymce_content()
-      .should "eq", "<p>{{+NaNa|view: titled; title: T|view: mini_bar; show: IS}}</p>"
+      .should "eq", "<p>{{+NaNa|view: titled; title: T|view: bar; show: IS}}</p>"
 
     cy.get "#nest_name"
       .clear().type "Na"
@@ -62,7 +62,7 @@ describe 'edit content', () ->
     cy.contains "Apply"
       .click()
     cy.tinymce_content()
-      .should "eq", "<p>{{Na|view: titled; title: T|view: mini_bar}}</p>"
+      .should "eq", "<p>{{Na|view: titled; title: T|view: bar}}</p>"
     cy.contains("[data-dismiss=overlay]", "Close").click()
 
     type_nest("{{handcrafted{cursor}|view: special}}")
@@ -75,4 +75,4 @@ describe 'edit content', () ->
     cy.contains "Apply"
       .click()
     cy.tinymce_content()
-      .should "eq", "<p>{{crafted|hide: H}}{{Na|view: titled; title: T|view: mini_bar}}</p>"
+      .should "eq", "<p>{{crafted|hide: H}}{{Na|view: titled; title: T|view: bar}}</p>"
