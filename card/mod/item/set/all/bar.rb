@@ -39,13 +39,11 @@ format :html do
   end
 
   def class_up_bar_sides middle
-    class_up "bar-left", "col-#{bar_cols[0]}"
-    class_up "bar-right", "col-#{bar_cols[1]}"
-    return unless middle
+    cols = middle ? info_bar_cols : bar_cols
 
-    class_up "bar-left", "col-md-#{info_bar_cols[0]}"
-    class_up "bar-middle", "col-md-#{info_bar_cols[1]}"
-    class_up "bar-right", "col-#{info_bar_cols[1]}"
+    class_up "bar-left", "col-#{cols[0]}"
+    class_up "bar-middle", "col-#{cols[1]}" if middle
+    class_up "bar-right", "col-#{cols[-1]}"
   end
 
   view :bar_left do
