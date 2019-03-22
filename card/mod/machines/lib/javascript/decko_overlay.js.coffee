@@ -34,9 +34,9 @@ jQuery.fn.extend
       if bottomlay.hasClass("_bottomlay-slot")
         bottomlay.unwrap().removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
 
-        bottomlay.find(".tinymce-textarea").each ->
-          #tinymce.EditorManager.execCommand('mceAddControl',true, editor_id);
-          decko.initTinyMCE($(this).attr("id"))
+        #bottomlay.find(".tinymce-textarea").each ->
+        #  tinymce.EditorManager.execCommand('mceAddControl',true, editor_id);
+        #  decko.initTinyMCE($(this).attr("id"))
 
     @remove()
 

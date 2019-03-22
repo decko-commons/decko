@@ -1,6 +1,5 @@
 format :html do
   view :header do
-    voo.hide! :toggle
     main_header
   end
 
@@ -9,10 +8,7 @@ format :html do
   end
 
   def header_wrap content=nil
-    voo&.hide :header_toggle
-    res = haml :header_wrap, content: (block_given? ? yield : output(content))
-    return res #unless voo&.show?(:header_toggle)
-    #content_toggle res
+    haml :header_wrap, content: (block_given? ? yield : output(content))
   end
 
   view :header_title do
@@ -20,36 +16,43 @@ format :html do
   end
 
   def header_title_elements
-    [_render_toggle, content_toggle(_render_title)]
+    voo.hide :title_toggle if show_view?(:icon_toggle, :hide)
+    title_view = show_view?(:title_toggle, :hide) ? :title_toggle : :title
+    [_render_icon_toggle(optional: :hide), _render(title_view)]
   end
 
   def show_draft_link?
     card.drafts.present? && @slot_view == :edit
   end
 
-  view :toggle do
-    content_toggle
+  view :title_toggle do
+    content_toggle(_render_title(hide: :title_link))
   end
+
+  view :icon_toggle do
+    direction = @toggle_mode == :close ? :expand : :collapse_down
+    content_toggle icon_tag(direction)
+  end
+
+  view :toggle, :icon_toggle  # deprecated; use icon_toggle
 
   def content_toggle text=""
     return if text.nil?
-    verb, adjective, direction = toggle_verb_adjective_direction
-    text = icon_tag(direction.to_sym) if text.blank?
-    link_to_view adjective, text,
-                 title: "#{verb} #{card.name}",
-                 class: "#{verb}-icon toggler nodblclick"
+
+    verb, adjective = toggle_verb_adjective
+    link_to_view adjective, text, title: "#{verb} #{card.name}",   # LOCALIZE
+                                  class: "toggle-#{adjective} toggler nodblclick"
   end
 
   def toggle_view
-    @toggle_mode == :close ? :open : :closed
+    toggle_verb_adjective.last
   end
 
-  def toggle_verb_adjective_direction
-    if @toggle_mode == :close
-      %w[open open expand]
-    else
-      %w[close closed collapse_down]
-    end
+  TOGGLE_MAP = { close: %w[open open], open: %w[close closed] }  # LOCALIZE first item
+
+  def toggle_verb_adjective
+    TOGGLE_MAP[@toggle_mode || :open] ||
+      raise(Card::Error, "invalid toggle mode: #{@toggle_mode}")
   end
 
   view :navbar_links do
