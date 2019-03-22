@@ -5,9 +5,7 @@ class WagnToDeckoLogo < Card::Migration::Core
     logo = Card[:logo]
     return unless logo&.pristine?
 
-    logo.update! type_id: Card::ImageID,
-                 storage_type: :coded,
-                 mod: :standard,
-                 image: File.open(File.join(data_path, "decko_logo.svg"))
+    logo.update! content: ":logo/standard.svg",
+                 empty_ok: true
   end
 end
