@@ -23,7 +23,7 @@ decko.slotReady (slot) ->
 openModalIfPresent = (mslot) ->
   modal_content = mslot.find(".modal-content")
   if modal_content.length > 0 && modal_content.html().length > 0
-    $("#main > .card-slot").addClass("_modal-origin")
+    $("#main > .card-slot").registerAsOrigin("modal", mslot)
     mslot.modal("show")
 
 addModalDialogClasses = ($modal_slot, $link) ->
@@ -44,8 +44,7 @@ jQuery.fn.extend {
       else
         $("body").append el
 
-      $("._modal-origin").removeClass("_modal-origin")
-      $slotter.registerAsOrigin("modal", el.find(".modal-body > .card-slot"))
+      $slotter.registerAsOrigin("modal", el)
       el.modal("show", $slotter)
 
   addModal: (el, $slotter) ->

@@ -166,6 +166,8 @@ jQuery.fn.extend
       console.log "couldn't find origin witn slot id #{origin_slot_id}"
 
   registerAsOrigin: (type, slot) ->
+    if slot.hasClass("_modal-slot")
+      slot = slot.find(".modal-body > .card-slot")
     slot.attr("data-#{type}-origin-slot-id", @closest(".card-slot").data("slot-id"))
     #@closest(".card-slot").addClass("_#{type}-origin")
 
