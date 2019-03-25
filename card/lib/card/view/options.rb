@@ -48,7 +48,7 @@ class Card
           :cache,          # change view cache behaviour
           #                    (Symbol<:always, :standard, :never>)
           :edit            # edit mode
-          #                    (Symbol<:content_inline, :content_modal, :standard>)
+          #                    (Symbol<:inline, :standard, :full>)
         ],
         none: [
           :skip_perms,     # do not check permissions for this view (Boolean)

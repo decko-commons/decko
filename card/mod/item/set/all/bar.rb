@@ -39,13 +39,14 @@ format :html do
   end
 
   def class_up_bar_sides middle
-    class_up "bar-left", "col-#{bar_cols[0]}"
-    class_up "bar-right", "col-#{bar_cols[1]}"
-    return unless middle
+    class_up_cols %w[bar-left bar-right], bar_cols
+    class_up_cols %w[bar-left bar-middle bar-right], info_bar_cols, "md" if middle
+  end
 
-    class_up "bar-left", "col-md-#{info_bar_cols[0]}"
-    class_up "bar-middle", "col-md-#{info_bar_cols[1]}"
-    class_up "bar-right", "col-#{info_bar_cols[1]}"
+  def class_up_cols classes, cols, context=nil
+    classes.each_with_index do |cls, i|
+      class_up cls, ["col", context, cols[i]].compact.join("-")
+    end
   end
 
   view :bar_left do

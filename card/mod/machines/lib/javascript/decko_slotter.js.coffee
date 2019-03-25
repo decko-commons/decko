@@ -157,15 +157,16 @@ jQuery.fn.extend
            else if @closest("#modal-container")[0]
              "modal"
 
-    slot_id = @data("#{type}-origin-slot-id")
-    origin_slot = $("[data-slot-id=#{slot_id}]")
+    overlaySlot = @closest("[data-#{type}-origin-slot-id]")
+    origin_slot_id = overlaySlot.data("#{type}-origin-slot-id")
+    origin_slot = $("[data-slot-id=#{origin_slot_id}]")
     if origin_slot[0]?
       origin_slot.reloadSlot()
     else
-      console.log "couldn't find origin witn slot id #{slot_id}"
+      console.log "couldn't find origin witn slot id #{origin_slot_id}"
 
   registerAsOrigin: (type, slot) ->
-    slot.attr("data-#{type}-origin-slot-id", @slot().data("slot-id"))
+    slot.attr("data-#{type}-origin-slot-id", @closest(".card-slot").data("slot-id"))
     #@closest(".card-slot").addClass("_#{type}-origin")
 
   updateSlot: (data, mode) ->

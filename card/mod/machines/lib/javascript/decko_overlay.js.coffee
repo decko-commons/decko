@@ -10,12 +10,14 @@ jQuery.fn.extend
       else
         $("._overlay-origin").removeClass("_overlay-origin")
         @replaceOverlay(overlay)
-
     else
-      @find(".tinymce-textarea").each ->
-        tinymce.remove("##{$(this).attr("id")}")
-        #tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
-      @wrapAll('<div class="overlay-container">')
+      #@find(".tinymce-textarea").each ->
+      #  tinymce.remove("##{$(this).attr("id")}")
+      #  #tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
+      if @parent().hasClass("_overlay-container-placeholder")
+        @parent().addClass("overlay-container")
+      else
+        @wrapAll('<div class="overlay-container">')
       @addClass("_bottomlay-slot")
       @before overlay
 
@@ -32,7 +34,11 @@ jQuery.fn.extend
     if @siblings().length == 1
       bottomlay = $(@siblings()[0])
       if bottomlay.hasClass("_bottomlay-slot")
-        bottomlay.unwrap().removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
+        if bottomlay.parent().hasClass("_overlay-container-placeholder")
+          bottomlay.parent().removeClass("overlay-container")
+        else
+          bottomlay.unwrap()
+        bottomlay.removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
 
         #bottomlay.find(".tinymce-textarea").each ->
         #  tinymce.EditorManager.execCommand('mceAddControl',true, editor_id);
