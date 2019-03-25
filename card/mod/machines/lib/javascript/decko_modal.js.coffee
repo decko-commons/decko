@@ -45,7 +45,7 @@ jQuery.fn.extend {
         $("body").append el
 
       $("._modal-origin").removeClass("_modal-origin")
-      $slotter.registerAsOrigin("modal", el)
+      $slotter.registerAsOrigin("modal", el.find(".modal-body > .card-slot"))
       el.modal("show", $slotter)
 
   addModal: (el, $slotter) ->
