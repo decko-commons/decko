@@ -18,16 +18,20 @@
 #  To 2. The slotter is the standard way to define what happens with request result
 #    data:
 #    slot-selector
-#        a css selector that defines which slot will be replaced
+#        a css selector that defines which slot will be replaced.
+#        You can also use "modal-origin" and "overlay-origin" to refer to the origin slots.
 #    slot-success-selector/slot-error-selector
 #        the same as slot-selector but only used
 #        for success case or error case, respectively
 #    update-foreign-slot
 #        a css selector to specify an additional slot that will be
-#        updated after the request
+#        updated after the request.
 #    update-foreign-slot-url
 #        a url to fetch the new content for the additional slot
 #        if not given the slot is updated with the same card and view that used before
+#    update-origin
+#        if present then the slot from where the current modal or overlay slot was opened
+#        will be updated
 #    slotter-mode
 #        possible values are
 #          replace (default)
@@ -42,7 +46,7 @@
 #             update closest slot of the slotter that opened the modal or overlay
 #             (assumes that the request was triggered from a modal or overlay)
 #             If you need the update origin together with another mode then use
-#             update-foreign-slot=".card-slot._modal-origin".
+#             data-update-origin="true".
 #          silent-success
 #             do nothing
 #
@@ -121,9 +125,8 @@ jQuery.fn.extend
       $slot = @findSlot @data("update-foreign-slot")
       reload_url = @data("update-foreign-slot-url")
       $slot.reloadSlot reload_url
-      #if $slot.length > 0
-      #$.each $slot, (sl) ->
-      #$(sl).reloadSlot reload_url
+    if @data("update-origin")
+      @updateOrigin()
 
     event.slotSuccessful = true
 
@@ -153,17 +156,14 @@ jQuery.fn.extend
 
   updateOrigin: () ->
     type = if @overlaySlot()[0]
-             "overlay"
-           else if @closest("#modal-container")[0]
-             "modal"
+      "overlay"
+    else if @closest("#modal-container")[0]
+      "modal"
 
-    overlaySlot = @closest("[data-#{type}-origin-slot-id]")
-    origin_slot_id = overlaySlot.data("#{type}-origin-slot-id")
-    origin_slot = $("[data-slot-id=#{origin_slot_id}]")
-    if origin_slot[0]?
-      origin_slot.reloadSlot()
-    else
-      console.log "couldn't find origin witn slot id #{origin_slot_id}"
+    origin = @findOriginSlot(type)
+    if origin[0]?
+      origin.reloadSlot()
+
 
   registerAsOrigin: (type, slot) ->
     if slot.hasClass("_modal-slot")

@@ -53,6 +53,6 @@ format :html do
 
   def edit_form_opts
     # for override
-    { "data-slot-selector": "._modal-origin", "data-slot-error-selector": ".card-slot" }
+    { "data-slot-selector": "modal-origin", "data-slot-error-selector": ".card-slot" }
   end
 end
