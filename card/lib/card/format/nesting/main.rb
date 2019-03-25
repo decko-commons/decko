@@ -8,13 +8,11 @@ class Card
         end
 
         def main_nest opts={}
-          wrap_main do
-            with_nest_mode :normal do
-              if block_given?
-                block.call
-              else
-                nest root.card, opts.merge(main_view: true, main: true)
-              end
+          with_nest_mode :normal do
+            if block_given?
+              block.call
+            else
+              nest root.card, opts.merge(main_view: true, main: true)
             end
           end
         end

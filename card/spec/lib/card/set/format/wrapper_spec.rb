@@ -3,11 +3,11 @@ RSpec.describe Card::Set::Format::Wrapper do
     let(:format) do
       Card["A"].format_with do
         wrapper :cream do
-          "cream_#{interiour}_cream"
+          "cream_#{interior}_cream"
         end
 
         wrapper :icon do
-          icon_tag interiour
+          icon_tag interior
         end
       end
     end
@@ -57,7 +57,7 @@ RSpec.describe Card::Set::Format::Wrapper do
     let(:format) do
       Card["A"].format_with do
         wrapper :cream do |opts|
-          "#{opts[:topping]}_cream_#{interiour}_cream"
+          "#{opts[:topping]}_cream_#{interior}_cream"
         end
       end
     end
@@ -76,7 +76,7 @@ RSpec.describe Card::Set::Format::Wrapper do
       Card["A"].format_with do
         wrapper(:cherry, :div, class: "cherry")
         wrapper(:choc, :div, class: "choc")
-        wrapper(:cream) { "cream_#{interiour}_cream" }
+        wrapper(:cream) { "cream_#{interior}_cream" }
 
         view(:cream_cake, wrap: :cream) { "cake" }
         view(:cherry_cake, wrap: [:cherry, [:choc, { class: "white" }]]) { "cake" }
@@ -101,10 +101,31 @@ RSpec.describe Card::Set::Format::Wrapper do
       end
     end
 
+    context "with bad options" do
+      let(:format) do
+        Card["A"].format_with do
+          wrapper(:cream) { "cream_#{interior}_cream" }
+
+          view(:unknown_wrapper, wrap: :unknown) { "cake" }
+          view(:wrong_arguments, wrap: [:unknown, { opts: :x }]) { "cake" }
+        end
+      end
+
+      it "raises error for unknown wrapper" do
+        expect { format.render_unknown_wrapper }
+          .to raise_error(ArgumentError, "unknown wrapper: unknown")
+      end
+
+      it "raises error for bad options" do
+        expect { format.render_wrong_arguments }
+          .to raise_error(ArgumentError, "unknown wrapper: {:opts=>:x}")
+      end
+    end
+
     context "with before hook" do
       let(:format) do
         Card["A"].format_with do
-          wrapper(:cream) { "#{classy("cream")}_#{interiour}_cream" }
+          wrapper(:cream) { "#{classy("cream")}_#{interior}_cream" }
 
           before(:whipped_cream_cake) { class_up "cream", "whipped" }
           view(:whipped_cream_cake, wrap: :cream) { "cake" }

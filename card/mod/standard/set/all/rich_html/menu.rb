@@ -1,57 +1,61 @@
 format :html do
   view :menu, denial: :blank, tags: :unknown_ok do
     return "" if card.unknown?
-
-    menu
-  end
-
-  def menu
-    wrap_with :div, class: "card-menu #{menu_link_classes} float-right" do
-      link_to_view "edit", menu_icon,
-                   remote: true, "data-slotter-mode": "modal",
-                   class: "slotter", "data-modal-class": "modal-full"
+    wrap_with :div, class: "card-menu #{menu_link_classes}" do
+      menu_link
     end
   end
 
-  def menu_link_classes
-    if show_view? :hover_link
-      show_view?(:horizontal_menu, :hide) ? "d-sm-none" : "_show-on-hover"
-    else
-      ""
+  def menu_link
+    case voo.edit
+    when :inline
+      edit_in_place_link
+    when :full
+      edit_in_bridge_link
+    else # :standard
+      edit_link
     end
   end
 
-  # this should probably be added in javascript.
-  # the menu link is not a "slotter", because it doesn't replace the whole
-  # slot (it just adds a menu). But it should use the js code that adds slot
-  # information to urls
-  def menu_link_path_opts
-    opts = { slot: { home_view: voo.home_view } }
-    opts[:is_main] = true if main?
+  view :edit_link, tags: :unknown_ok, denial: :blank do
+    edit_link
+  end
+
+  view :full_page_link do
+    full_page_link
+  end
+
+  def full_page_link
+    link_to_card card, full_page_icon, class: classy("full-page-link")
+  end
+
+  def edit_in_bridge_link opts={}
+    edit_link :bridge, opts
+  end
+
+  def edit_link view=:edit, opts={}
+    link_to_view view, menu_icon, edit_link_opts(opts.reverse_merge(modal: :lg))
+  end
+
+  # @param modal [Symbol] modal size
+  def edit_link_opts modal: nil
+    opts = { class: classy("edit-link") }
+    if modal
+      opts.merge! "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}"
+    end
     opts
   end
 
+  def menu_link_classes
+    "nodblclick" + (show_view?(:hover_link) ? " _show-on-hover" : "")
+  end
+
   def menu_icon
-    fa_icon "edit"
+    material_icon "edit"
   end
 
-  def menu_item_page opts
-    menu_item "page", "open_in_new", opts.merge(card: card)
-  end
-
-  def menu_item_rules opts
-    menu_item "rules", "build", opts.merge(view: :edit_rules)
-  end
-
-  def menu_item_account opts
-    menu_item "account", "person", opts.merge(
-      view: :related,
-      path: { slot: { items: { nest_name: "+#{:account.cardname.key}", view: :edit } } }
-    )
-  end
-
-  def show_menu_item_page?
-    card.name.present? && !main?
+  def full_page_icon
+    icon_tag :open_in_new
   end
 
   def show_menu_item_edit?

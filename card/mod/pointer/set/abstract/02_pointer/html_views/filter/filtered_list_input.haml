@@ -1,5 +1,5 @@
 %div.filtered-list-editor
-  %ul.filtered-list-review._pointer-filtered-list.list-group.vertical.nopadding
+  %ul.pointer-list.filtered-list-review._pointer-filtered-list.list-group.vertical.nopadding
     - card.item_cards(context: :raw).each do |item_card|
       %li._filtered-list-item.clearfix{ data: item_card.format.wrap_data(false) }
         %span._handle.float-left.m-2

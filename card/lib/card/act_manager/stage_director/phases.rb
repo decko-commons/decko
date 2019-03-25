@@ -31,12 +31,7 @@ class Card
           run_single_stage :after_integrate
           run_single_stage :integrate_with_delay
         rescue StandardError => e # don't rollback
-          Card::Error.current = e
-          unless e.class == Card::Error::Abort
-            warn "exception in integrate phase: #{e.message}"
-            warn e.backtrace.join "\n"
-            @card.notable_exception_raised
-          end
+          Card::Error.report e, @card
           false
         ensure
           @card.clear_changes_information unless @abort

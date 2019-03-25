@@ -129,9 +129,7 @@ format :html do
 
   def multi_card_edit fields_only=false
     nested_cards_for_edit(fields_only).map do |name, options|
-      options ||= {}
-      options[:hide] = [options[:hide], :toolbar].flatten.compact
-      nest name, options
+      nest name, options || {}
     end.join "\n"
   end
 
@@ -164,11 +162,15 @@ format :html do
 
   def form_prefix
     case
-    when explicit_form_prefix                then explicit_form_prefix # configured
-    when form_root? || !form_root || !parent then "card"               # simple form
-    when parent.card == card                 then parent.form_prefix   # card nests self
-    else                                          edit_in_form_prefix
+    when explicit_form_prefix          then explicit_form_prefix # configured
+    when simple_form?                  then "card"               # simple form
+    when parent.card.name == card.name then parent.form_prefix   # card nests self
+    else                                    edit_in_form_prefix
     end
+  end
+
+  def simple_form?
+    form_root? || !form_root || !parent
   end
 
   def edit_in_form_prefix

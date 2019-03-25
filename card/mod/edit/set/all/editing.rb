@@ -1,68 +1,32 @@
-event :fail_always, :validate do
-  # errors.add :content, "boing"
-end
-
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
-  view :edit, perms: :update, tags: :unknown_ok, cache: :never,
-              bridge: true, wrap: :bridge do
+  view :bridge, perms: :update, tags: :unknown_ok, cache: :never,
+                bridge: true, wrap: :bridge do
     with_nest_mode :edit do
       voo.show :help
       wrap true, breadcrumb_data("Editing", "edit") do
-        [
-          _render_edit_name_row,
-          _render_edit_type_row,
-          card_form(:update, edit_form_opts) do
-            [
-              edit_view_hidden,
-              _render_content_formgroup,
-              _render_edit_buttons
-            ]
-          end
-        ]
+        bridge_parts
       end
     end
   end
 
-  view :edit_in_place, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
-    with_nest_mode :edit do
-      card_form :update, edit_form_opts do
-        [
-          edit_view_hidden,
-          _render_content_formgroup,
-          _render_edit_buttons
-        ]
-      end
-    end
-  end
-
-  def edit_form_opts
-    # for override
-    { "data-slot-selector": "#main > .card-slot", "data-slot-error-selector": ".card-slot" }
+  def bridge_parts
+    [
+      _render_edit_name_row(home_view: :edit_name_row),
+      _render_edit_type_row(home_view: :edit_type_row),
+      # home_view is necessary for cancel to work correctly.
+      # it seems a little strange to have to think about home_view here,
+      # but the issue is that something currently has to happen prior to the
+      # render to get voo.slot_options to have the write home view in
+      # the slot wrap. I think this would probably best be handled as an
+      # option to #wrap that triggers a new heir voo
+      frame_help,
+      _render_edit_content_form
+    ]
   end
 
   def edit_view_hidden
     # for override
-  end
-
-  view :edit_name_row do
-    edit_row "Name", card.name, :edit_name_form
-  end
-
-  view :edit_type_row do
-    edit_row "Type", link_to_card(card.type), :edit_type_form
-  end
-
-  def edit_row title, content, edit_view
-    class_up "card-slot", "d-flex"
-    link =
-      link_to_view(edit_view, fa_icon(:edit), class: "ml-auto edit-link slotter")
-
-    wrap class: "d-flex" do
-      ["<label class='w-50px'>#{title}</label>",
-       content,
-       link]
-    end
   end
 
   view :edit_buttons do
@@ -73,47 +37,19 @@ format :html do
     end
   end
 
-  def standard_submit_button
-    modal_submit_button(class: "submit-button btn-sm mr-3", text: "Save") +
-      submit_button(class: "submit-button btn-sm mr-3 _close-and-success",
-                    text: "Save and Close")
-  end
-
-  def edit_cancel_button
-    modal_close_button "Cancel", situation: "secondary", class: "btn-sm"
-  end
-
-  def standard_cancel_button args={}
-    args.reverse_merge! class: "cancel-button ml-4", href: path
-    cancel_button args
-  end
-
-  def delete_button
-    confirm = "Are you sure you want to delete #{safe_name}?"
-    success = main? ? "REDIRECT: *previous" : { view: :just_deleted }
-    link_to "Delete",
-            path: { action: :delete, success: success },
-            class: "slotter btn btn-outline-danger ml-auto btn-sm", remote: true,
-            'data-confirm': confirm
-  end
-
   # TODO: add undo functionality
   view :just_deleted, tag: :unknown_ok do
     wrap { "#{render_title} deleted" }
   end
 
   view :edit_rules, cache: :never, tags: :unknown_ok do
-    voo.show :set_navbar
-    voo.hide :set_label, :rule_navbar, :toolbar
-
-    render_related items: { nest_name: current_set_card.name, view: :bridge_rules_tab }
+    nest current_set_card, view: :bridge_rules_tab
   end
 
   view :edit_structure, cache: :never do
     return unless card.structure
 
-    voo.show :toolbar
-    render_related items: { view: :edit, nest_name: card.structure_rule_card.name }
+    nest card.structure_rule_card, view: :edit
     # FIXME: this stuff:
     #  slot: {
     #    cancel_slot_selector: ".card-slot.related-view",
@@ -124,7 +60,6 @@ format :html do
   end
 
   view :edit_nests, cache: :never do
-    voo.show :toolbar
     frame do
       with_nest_mode :edit do
         multi_card_edit

@@ -28,10 +28,10 @@ $.extend decko,
         else
           func.call this, $(this)
 
-jQuery.fn.extend {
-  slot: (status="success", mode="normal") ->
+jQuery.fn.extend
+  slot: (status="success", mode="replace") ->
     if mode == "modal"
-      modalSlot()
+      @modalSlot()
     else
       @selectSlot("slot-#{status}-selector") ||
         @selectSlot("slot-selector") ||
@@ -60,12 +60,18 @@ jQuery.fn.extend {
     else
       target_slot
 
-  updateSlot: (url) ->
+  reloadSlot: (url) ->
     $slot = $(this)
+    if $slot.length > 1
+      $slot.each ->
+        $(this).reloadSlot url
+      return
+
     $slot = $slot.slot() unless $slot.isSlot
+    return unless $slot[0]
+
     unless url?
-      path = '~' + $slot.data('cardId') + "?view=" + $slot.data("slot")["view"]
-      url = decko.slotPath path, $slot
+      url = $slot.slotUrl()
     $slot.addClass 'slotter'
     $slot.attr 'href', url
     $slot.data "url", url
@@ -73,6 +79,10 @@ jQuery.fn.extend {
                        # .attr(href, url) only works for anchors
     $slot.data "remote", true
     $.rails.handleRemote($slot)
+
+  slotUrl: ->
+    mark = if @data('cardId') then "~#{@data('cardId')}" else @data("cardName")
+    decko.slotPath "#{mark}?view=#{@data("slot")["view"]}"
 
   setSlotContent: (val, mode, $slotter) ->
     v = $(val)[0] && $(val) || val
@@ -89,115 +99,17 @@ jQuery.fn.extend {
     v
 
   setSlotContentFromElement: (el, mode, $slotter) ->
-    s = $(this)
-
     if mode == "overlay"
-      s.addOverlay(el)
+      @addOverlay(el, $slotter)
     else if el.hasClass("_modal-slot") or mode == "modal"
       el.showAsModal($slotter)
     else
-      s.replaceWith el
+      slot_id = @data("slot-id")
+      el.attr("data-slot-id", slot_id) if slot_id
+      @replaceWith el
 
     el.triggerSlotReady($slotter)
 
   triggerSlotReady: (slotter) ->
     @trigger "slotReady", slotter
     @find(".card-slot").trigger "slotReady", slotter
-
-  showAsModal: ($slotter) ->
-    el = @modalify($slotter)
-    $("body > ._modal-slot").replaceWith el
-    $('.modal-backdrop').remove();
-    el.modal("show", $slotter)
-
-  addOverlay: (overlay) ->
-    if @parent().hasClass("overlay-container")
-      if $(overlay).hasClass("_stack-overlay")
-        @before overlay
-      else
-        @replaceOverlay(overlay)
-    else
-      @find(".tinymce-textarea").each ->
-        tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
-      @wrapAll('<div class="overlay-container">')
-      @addClass("_bottomlay-slot")
-      @before overlay
-
-
-  replaceOverlay: (overlay) ->
-    @parent().find("._overlay").replaceWith overlay
-    $(".bridge-sidebar .tab-pane:not(.active) .bridge-pills > .nav-item > .nav-link.active").removeClass("active")
-
-  removeOverlay: () ->
-    if @siblings().length == 1
-      bottomlay = $(@siblings()[0])
-      if bottomlay.hasClass("_bottomlay-slot")
-        bottomlay.unwrap().removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
-        bottomlay.find(".tinymce-textarea").each ->
-          decko.initTinyMCE($(this).attr("id"))
-
-    @remove()
-
-  modalify: ($slotter) ->
-    if $slotter.data("modal-body")?
-      @find(".modal-body").append($slotter.data("modal-body"))
-    if @hasClass("_modal-slot")
-      this
-    else
-      modalSlot = $('<div/>', id: "modal-container", class: "modal fade _modal-slot")
-      modalSlot.append(
-        $('<div/>' , class: "modal-dialog").append(
-          $('<div/>', class: "modal-content").append(this)
-        )
-      )
-      modalSlot
-
-  # overlayClosed=true means the bridge update was
-  # triggered by closing an overly
-  updateBridge: (overlayClosed=false, slotter) ->
-    return unless @closest(".bridge").length > 0
-    if @data("breadcrumb")
-      @updateBreadcrumb()
-    else if slotter and $(slotter).data("breadcrumb")
-      $(slotter).updateBreadcrumb()
-
-    if overlayClosed
-      $(".bridge-pills > .nav-item > .nav-link.active").removeClass("active")
-
-  updateBreadcrumb: () ->
-    bc_item = $(".modal-header ._bridge-breadcrumb li:last-child")
-    bc_item.text(this.data("breadcrumb"))
-    bc_item.attr("class", "breadcrumb-item active #{this.data('breadcrumb-class')}")
-
-
-  # mode can be "standard", "overlay" or "modal"
-  slotSuccess: (data, $slotter) ->
-    mode = $slotter.data("slotter-mode")
-    if mode == "silent-success"
-      return
-    else if data.redirect
-      window.location=data.redirect
-    else
-      notice = @attr('notify-success')
-      mode ||= "standard"
-      newslot = @setSlotContent data, mode, $slotter
-
-      if newslot.jquery # sometimes response is plaintext
-        decko.initializeEditors newslot
-        if notice?
-          newslot.notify notice, "success"
-
-  slotError: (status, result, $slotter) ->
-    if status == 403 #permission denied
-      @setSlotContent result
-    else if status == 900
-      $(result).showAsModal $slotter
-    else
-      @notify result, "error"
-      if status == 409 #edit conflict
-        @slot().find('.current_revision_id').val(
-          @slot().find('.new-current-revision-id').text()
-        )
-      else if status == 449
-        @slot().find('g-recaptcha').reloadCaptcha()
-}

@@ -11,7 +11,9 @@ $(window).ready ->
     return if weirdoSelect2FilterBreaker this
     filterAndSort this
 
-  $("body").on "click", "._filter-category-select", ->
+  $("body").on "click", "._filter-category-select", (e) ->
+    e.preventDefault()
+    e.stopPropagation()
     decko.filterCategorySelected($(this))
 
   $("body").on "click", "._delete-filter-input", ->

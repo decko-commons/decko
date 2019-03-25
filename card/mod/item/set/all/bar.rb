@@ -1,22 +1,25 @@
 include_set Abstract::BsBadge
 
 format :html do
-  view :mini_bar do
-    render_bar hide: :bar_middle
+  setting :bar_cols
+  setting :info_bar_cols
+
+  view :info_bar do
+    render_bar show: :bar_middle
   end
 
   view :bar do
-    class_up_bar_sides(*bar_side_cols(voo.show?(:bar_middle)))
+    voo.hide :bar_middle
+    class_up_bar_sides(voo.show?(:bar_middle))
     # note: above cannot be in `before`, because before blocks run before viz processing
     wrap { haml :bar }
   end
 
-  def bar_side_cols middle=true
-    middle ? [5, 4, 3] : [7, 5]
-  end
+  bar_cols 9, 3
+  info_bar_cols 5, 4, 3
 
   view :expanded_bar do
-    class_up_bar_sides(*bar_side_cols(false))
+    class_up_bar_sides(false)
     wrap { haml :expanded_bar }
   end
 
@@ -29,31 +32,49 @@ format :html do
 
   def bar_classes
     shared = "align-items-center"
-    class_up "bar-left", "p-2 font-weight-bold d-flex grow-2 #{shared}"
-    class_up "bar-middle", "d-none d-md-flex p-3 border-left text-align-middle #{shared}"
+    class_up "bar-left", "d-flex p-2 font-weight-bold grow-2 #{shared}"
+    class_up "bar-middle", "d-none d-md-flex p-2 border-left text-align-middle #{shared}"
     class_up "bar-right",
-             "p-3 border-left d-flex justify-content-end text-align-right #{shared}"
+             "d-flex p-2 border-left justify-content-end text-align-right #{shared}"
   end
 
-  def class_up_bar_sides *sizes
-    left = sizes.shift
-    right = sizes.pop
-    class_up "bar-left", "col-#{left}", true
-    class_up "bar-middle", "col-#{sizes.first}", true if sizes.any?
-    class_up "bar-right", "col-#{right}", true
+  def class_up_bar_sides middle
+    class_up_cols %w[bar-left bar-right], bar_cols
+    class_up_cols %w[bar-left bar-middle bar-right], info_bar_cols, "md" if middle
+  end
+
+  def class_up_cols classes, cols, context=nil
+    classes.each_with_index do |cls, i|
+      class_up cls, ["col", context, cols[i]].compact.join("-")
+    end
   end
 
   view :bar_left do
     class_up "card-title", "mb-0"
-    render :title
+    if voo.show?(:toggle)
+      link_to_view :expanded_bar, render_title
+    else
+      render_title
+    end
   end
 
+  view :bar_expanded_left do
+    class_up "card-title", "mb-0"
+    link_to_view :bar, render_title
+  end
+
+  # view :bar_expanded_right do
+  #   class_up "card-title", "mb-0"
+  #   render :bar_right, optional: :show
+  # end
+
   view :bar_right do
-    render :edit_button, optional: :hide
+    [(render(:short_content) unless voo.show?(:bar_middle)),
+     render(:edit_button, optional: :hide)]
   end
 
   view :bar_middle do
-    ""
+    render :short_content
   end
 
   view :bar_bottom do
@@ -64,20 +85,21 @@ format :html do
     end
   end
 
-  # def stat_number
-  #   card.content.lines.count
-  # end
-  #
-  # def stat_label
-  #   stat_number == 1 ? "line" : "lines"
-  # end
+  view :bar_nav, wrap: { div: { class: "bar-nav d-flex" } } do
+    [render(:bar_page_link, optional: :hide), render_bar_expand_link]
+  end
+
+  view :bar_expanded_nav, wrap: { div: { class: "bar-nav d-flex" } } do
+    [render_edit_link, render_bar_page_link, render_bar_collapse_link]
+  end
 
   view :bar_page_link do
-    link_to_card card, icon_tag(:open_in_new), class: "text-muted pl-2"
+    class_up "full-page-link", "pl-2 text-muted"
+    full_page_link
   end
 
   def toggle_class
-    "slotter btn btn-sm btn-outline-secondary p-0 border-0 rounded-0"
+    "btn btn-sm btn-outline-secondary p-0 border-0 rounded-0"
   end
 
   view :bar_expand_link do
@@ -89,7 +111,6 @@ format :html do
   end
 
   view :edit_button do
-    link_to_view :edit, "Edit",
-                 class: "btn btn-sm btn-outline-primary slotter mr-2"
+    link_to_view :edit, "Edit", class: "btn btn-sm btn-outline-primary mr-2"
   end
 end

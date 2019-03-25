@@ -6,6 +6,7 @@ class Card
   class Error < StandardError
     cattr_accessor :current
     class_attribute :status_code, :view
+    attr_writer :backtrace
 
     self.view = :errors
     self.status_code = 422
@@ -25,6 +26,10 @@ class Card
              scope: %i[lib card error], cardname: card.name, message: card_message_text
     end
 
+    def backtrace
+      @backtrace || super
+    end
+
     def report
       Rails.logger.info "exception = #{self.class}: #{message}"
     end
@@ -41,7 +46,7 @@ class Card
 
       def self.status_code
         # Errors with status code 900 are displayed as modal instead of inside
-        # the "card-notice" div
+        # the "card-notice" div``
         Card[:debugger]&.content =~ /on/ ? 900 : 500
       end
 
@@ -57,6 +62,11 @@ class Card
 
     # error in WQL query
     class BadQuery < UserError
+    end
+
+    class BadAddress < UserError
+      self.status_code = 404
+      self.view = :bad_address
     end
 
     # card not found
@@ -88,6 +98,10 @@ class Card
     class Abort < StandardError
       attr_reader :status
 
+      def report
+        Rails.logger.debug "aborting: #{message}"
+      end
+
       def initialize status, msg=""
         @status = status
         super msg
@@ -99,13 +113,24 @@ class Card
       KEY_MAP = { permission_denied: PermissionDenied,
                   conflict: EditConflict }.freeze
 
+      def report exception, card
+        e = cardify_exception exception, card
+        self.current = e
+        e.report
+        e
+      end
+
       def cardify_exception exception, card
-        unless exception.is_a? Card::Error
-          exception = card_error_class(exception, card).new exception.message
-        end
-        exception.card ||= card
-        add_card_errors card, exception if exception.card.errors.empty?
-        exception
+        card_exception =
+          if exception.is_a? Card::Error
+            exception
+          else
+            card_error_class(exception, card).new exception.message
+          end
+        card_exception.card ||= card
+        card_exception.backtrace ||= exception.backtrace
+        add_card_errors card, card_exception if card.errors.empty?
+        card_exception
       end
 
       def add_card_errors card, exception

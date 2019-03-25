@@ -1,9 +1,0 @@
-%table.set-rules.table
-  %tr.rule-group
-    %th.rule-heading Trait
-    - if voo.show? :content
-      %th.rule-heading Content
-    %th.rule-heading Set
-  - settings.each do |setting|
-    = rule_table_row setting
-

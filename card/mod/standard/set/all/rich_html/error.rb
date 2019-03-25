@@ -23,7 +23,7 @@ format :html do
 
   def missing_link text
     path_opts = voo.type ? { card: { type: voo.type } } : {}
-    link_to_view :new, text, path: path_opts, class: "slotter missing-link"
+    link_to_view :new, text, path: path_opts, class: "missing-link"
   end
 
   view :closed_missing, perms: :none do

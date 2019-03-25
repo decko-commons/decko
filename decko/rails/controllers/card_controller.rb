@@ -116,23 +116,27 @@ class CardController < ActionController::Base
   end
 
   def render_page format, view
-    view ||= params[:view]
+    view ||= view_from_params
     card.act do
       format.page self, view, Card::Env.slot_opts
     end
   end
 
+  def view_from_params
+    params[:view] || params[:v]
+  end
+
   def handle_exception exception
     raise exception if debug_exception?(exception)
     @card ||= Card.new
-    Card::Error.current = exception
-    error = Card::Error.cardify_exception exception, card
-    error.report
+    error = Card::Error.report exception, card
     show error.class.view, error.class.status_code
   end
 
   def debug_exception? e
-    !e.is_a?(Card::Error::UserError) && Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
+    !e.is_a?(Card::Error::UserError) &&
+      !e.is_a?(ActiveRecord::RecordInvalid) &&
+      Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
   end
 
   class << self
@@ -146,5 +150,6 @@ class CardController < ActionController::Base
   end
 
   rescue_from_class ActiveRecord::RecordInvalid
-  rescue_from_class(rescue_all? ? StandardError : Card::Error::UserError)
+  rescue_from_class Card::Error::UserError
+  rescue_from_class StandardError if rescue_all?
 end

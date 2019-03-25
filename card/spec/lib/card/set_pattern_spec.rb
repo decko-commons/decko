@@ -8,17 +8,17 @@ def it_generates opts
   end
 end
 
-describe Card::Set::Pattern do
+RSpec.describe Card::Set::Pattern do
   specify ".in_load_order" do
     expect(Card::Set::Pattern.in_load_order)
-      .to eq(%i[abstract all all_plus type star rstar right type_plus_right self])
+      .to eq(%i[abstract all all_plus type star rstar right type_plus_right rule self])
   end
 end
 
 # FIXME: - these should probably be in pattern-specific specs,
 # though that may not leave much to test in the base class :)
 
-describe Card::Set::Right do
+RSpec.describe Card::Set::Right do
   it_generates name: "author+*right", from: Card.new(name: "Iliad+author")
   it_generates name: "author+*right", from: Card.new(name: "+author")
 end

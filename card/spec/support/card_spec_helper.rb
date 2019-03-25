@@ -105,19 +105,28 @@ class Card
 
     module ClassMethods
       def check_views_for_errors *views
-        views.flatten.each do |view|
-          include_context "view without errors", view
-        end
+        include_context_for views.flatten, "view without errors"
       end
 
       def check_format_for_view_errors format_module
-        views = Card::Set::Format::AbstractFormat.views[format_module].keys
-        check_views_for_errors *views
+        check_views_for_errors(*views(format_module))
       end
 
       def check_html_views_for_errors
         html_format_class = described_class.const_get("HtmlFormat")
-        check_format_for_view_errors html_format_class
+        html_views = views html_format_class
+        include_context_for html_views, "view without errors"
+        include_context_for html_views, "view with valid html"
+      end
+
+      def include_context_for views, context
+        views.each do |view|
+          include_context context, view
+        end
+      end
+
+      def views format_module
+        Card::Set::Format::AbstractFormat.views[format_module].keys
       end
     end
   end

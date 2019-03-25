@@ -9,6 +9,10 @@ class Card
         parts[first..last].join "::"
       end
 
+      def underscore
+        shortname.tr(":", "_").underscore
+      end
+
       # move to Set::Pattern?
       def num_set_parts pattern_code
         return 1 if pattern_code == :abstract

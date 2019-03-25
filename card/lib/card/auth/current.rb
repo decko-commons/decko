@@ -54,7 +54,7 @@ class Card
       end
 
       # @param auth_data [Integer|Hash] user id, user name, or a hash
-      # @opts auth_data [Integer] current_id
+      # @opts auth_data [Integer] current_idk
       # @opts auth_data [Integer] as_id
       def with auth_data
         case auth_data
@@ -83,7 +83,7 @@ class Card
       # get session object from Env
       # return [Session]
       def session
-        Card::Env[:session]
+        Card::Env.session
       end
 
       # set current from token or session
@@ -100,14 +100,11 @@ class Card
       # get :user id from session and set Auth.current_id
       def set_current_from_session
         self.current_id =
-          if session
-            if (card_id = session_user) && Card.exists?(card_id)
-              card_id
-            else
-              set_session_user nil
-            end
+          if (card_id = session_user) && Card.exists?(card_id)
+            card_id
+          else
+            set_session_user Card::AnonymousID
           end
-        current_id
       end
 
       # set the current user based on token
@@ -157,11 +154,11 @@ class Card
       end
 
       def session_user
-        session && session[session_user_key]
+        session[session_user_key]
       end
 
       def set_session_user card_id
-        session[session_user_key] = card_id if session
+        session[session_user_key] = card_id
       end
 
       def session_user_key

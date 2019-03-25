@@ -34,6 +34,7 @@ group :test do
   gem 'spork', '>=0.9'
   gem 'rubocop'
   gem 'rubocop-decko'
+  gem 'nokogumbo'
 end
 
 group :test, :development do
@@ -78,6 +79,7 @@ group :assets do
 end
 
 group :test do
+  gem 'capybara-select2', :git=>'https://github.com/brunocavalcante/capybara-select2'
   gem 'fog'
   gem 'fog-aws'
   gem 'rails-controller-testing'
@@ -96,8 +98,8 @@ group :test do
   # CUKES see features dir
   gem 'cucumber-rails', '~> 1.6', :require=>false # feature-driven-development suite
   gem 'capybara', '~> 3.12'
-  gem 'selenium-webdriver', '3.6.0'
-  gem 'chromedriver-helper', '~> 1.1.0'
+  gem 'selenium-webdriver', '3.141.0'
+  gem 'chromedriver-helper', '~> 2.1.0'
   # gem 'capybara-webkit'
   gem 'launchy'                                # lets cucumber launch browser windows
 

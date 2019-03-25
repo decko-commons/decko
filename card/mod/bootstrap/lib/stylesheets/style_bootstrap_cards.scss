@@ -22,13 +22,20 @@ header {
   }
 }
 
+.d0-card-header a {
+  color: $body-color;
+}
+.card-menu {
+  color: $text-muted;
+}
+
 @media print {
   header {
     display: none;
   }
 }
 
-.card-menu  a {
+.card-menu a {
   color: inherit;
 }
 
@@ -155,19 +162,23 @@ body.mceContentBody {
 /*---------- Card menu ------------*/
 
 @include media-breakpoint-up(xs) {
-  .card-slot > .d0-card-frame, .card-slot {
-    > .menu-slot > .vertical-card-menu._show-on-hover {
-      .btn-group.slotter {
-        display: none;
-        &.open {
-          display: inline-block;
-        }
-      }
+  .card-slot > .d0-card-frame > .d0-card-header,
+  .card-slot > .d0-card-header,
+  .card-slot.labeled-view > .labeled-content > .d0-card-body,
+  .card-slot.content-view,
+  .card > .card-body,
+  .card > .card-header {
+    > .card-menu._show-on-hover > a {
+      display: none;
     }
   }
-
-  .card-slot:hover > .d0-card-frame, .card-slot:hover {
-    > .menu-slot > .vertical-card-menu._show-on-hover .btn-group.slotter {
+  .card-slot:hover > .d0-card-frame > .d0-card-header,
+  .card-slot:hover > .d0-card-header,
+  .card-slot.labeled-view:hover > .labeled-content > .d0-card-body,
+  .card-slot.content-view:hover,
+  .card:hover > .card-body,
+  .card:hover > .card-header{
+    > .card-menu._show-on-hover > a {
       display: inline-block;
     }
   }
@@ -187,7 +198,9 @@ body.mceContentBody {
 }
 
 .titled-view > .d0-card-header {
-  font-size: 1.3em;
+  > .d0-card-header-title {
+    font-size: 1.3em;
+  }
   margin: 3px 0
 }
 
@@ -413,7 +426,7 @@ body.mceContentBody {
 .bar {
   border-left: 3px solid $bar_stripe_color !important;
   .bar-nav {
-    min-width: 36px;
+    min-width: 20px;
   }
 }
 

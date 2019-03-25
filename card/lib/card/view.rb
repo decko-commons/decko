@@ -2,6 +2,7 @@ require_dependency "card/view/visibility"
 require_dependency "card/view/cache"
 require_dependency "card/view/stub"
 require_dependency "card/view/options"
+require_dependency "card/view/classy"
 
 class Card
   class View
@@ -13,6 +14,7 @@ class Card
     include Options
     include Layout
     include Wrapper
+    include Classy
     extend Cache::ClassMethods
 
     attr_reader :format, :parent, :card
@@ -70,6 +72,10 @@ class Card
       !parent
     end
 
+    def deep_root
+      format.root.voo
+    end
+
     # neither view nor format has a parent
     # @return [true/false]
     def deep_root?
@@ -78,8 +84,12 @@ class Card
 
     # next voo object found tracing ancestry through parent voos and/or parent formats
     # @return [Card::View]
-    def next_ancestor
-      parent || (format.parent&.voo)
+    def next_ancestor accross_format=true
+      parent || (accross_format && next_format_ancestor) || nil
+    end
+
+    def next_format_ancestor
+      format.parent&.voo
     end
   end
 end

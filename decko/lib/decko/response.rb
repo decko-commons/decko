@@ -53,11 +53,20 @@ module Decko
 
     # (obviously) deprecated
     def send_deprecated_asset
-      filename = [params[:mark], params[:format]].join(".")
-      # for security, block relative paths
-      raise Card::Error::BadAddress if filename.include? "../"
+      filename = [params[:mark], params[:format]].compact.join(".")
+      send_file asset_file_path(filename), x_sendfile: true
+    end
+
+    def asset_file_path filename
       path = Decko::Engine.paths["gem-assets"].existent.first
-      send_file File.join(path, filename), x_sendfile: true
+      path = File.join path, filename
+      validate_path filename, path
+      path
+    end
+
+    def validate_path filename, path
+      # for security, block relative paths
+      raise Card::Error::BadAddress if filename.include?("../") || !::File.exist?(path)
     end
 
     # TODO: everything below should go in a separate file

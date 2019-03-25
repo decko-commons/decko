@@ -33,13 +33,16 @@ format :html do
   # for each rule/option variant, yields with rule_card and option params
   def rules_and_options_by_set_pattern rule_opts_hash
     pattern_hash = a_set_pattern_hash rule_opts_hash
+    empty = true
     Card.set_patterns.reverse.map do |pattern|
       pattern_hash[pattern].each do |rule_card, options|
         options.each do |option|
           yield rule_card, option
+          empty = false
         end
       end
     end
+    yield nil if empty
   end
 
   def a_set_pattern_hash rule_opts_hash

@@ -1,7 +1,8 @@
 # encoding: utf-8
+
 require File.expand_path("../spec_helper", File.dirname(__FILE__))
 
-describe Cardname do
+RSpec.describe Cardname do
   describe "#key" do
     it "lowercases and underscores" do
       expect("This Name".to_name.key).to eq("this_name")
@@ -83,7 +84,8 @@ describe Cardname do
         name_class.stabilize = true
         name_class.reset_cache
       end
-      it "should uninflect until key is stable" do
+
+      it "uninflects until key is stable" do
         expect("matthias".to_name.key).to eq("matthium")
       end
     end
@@ -94,7 +96,8 @@ describe Cardname do
         name_class.stabilize = false
         name_class.reset_cache
       end
-      it "should not uninflect unstable names" do
+
+      it "does not uninflect unstable names" do
         expect("ilias".to_name.key).to eq("ilias")
       end
     end
@@ -114,32 +117,33 @@ describe Cardname do
   describe "#include?" do
     context "A+B+C" do
       let(:name) { "A+B+CD+EF".to_name }
+
       it 'includes "A"' do
-        expect(name.include? ("A")).to be_truthy
+        expect(name).to include("A")
       end
       it '"includes "a"' do
-        expect(name.include? ("a")).to be_truthy
+        expect(name).to include("a")
       end
       it '"includes "B"' do
-        expect(name.include? ("B")).to be_truthy
+        expect(name).to include("B")
       end
       it '"includes "A+B"' do
-        expect(name.include? ("A+B")).to be_truthy
+        expect(name).to include("A+B")
       end
       it '"includes "CD+EF"' do
-        expect(name.include? ("CD+EF")).to be_truthy
+        expect(name).to include("CD+EF")
       end
       it '"includes "A+B+CD+EF"' do
-        expect(name.include? ("A+B+CD+EF")).to be_truthy
+        expect(name).to include("A+B+CD+EF")
       end
       it '"does not include "A+B+C"' do
-        expect(name.include? ("A+B+C")).to be_falsey
+        expect(name).not_to include("A+B+C")
       end
       it '"does not include "F"' do
-        expect(name.include? ("F")).to be_falsey
+        expect(name).not_to include("F")
       end
       it '"does not include "D+EF"' do
-        expect(name.include? ("AD+EF")).to be_falsey
+        expect(name).not_to include("AD+EF")
       end
     end
   end
@@ -168,16 +172,36 @@ describe Cardname do
       end
     end
 
-    example "#replace update key and parts" do
-      name = name_with_cached_props "A"
-      name.replace("B")
-      expect(name).to have_attributes key: "b", parts: ["B"]
+    describe "#replace" do
+      it "updates key and parts" do
+        name = name_with_cached_props "A"
+        name.replace("B")
+        expect(name).to have_attributes key: "b", parts: ["B"]
+      end
+
+      it "invalidates cache" do
+        name = name_with_cached_props "A"
+        name.replace("B")
+        expect(described_class.cached_name("A")).to be_nil
+      end
     end
 
     example "#gsub! update key and parts" do
       name = name_with_cached_props "AxxA"
       name.gsub!("xx", "B")
       expect(name).to have_attributes key: "aba", parts: ["ABA"]
+    end
+
+    example "[]= replaces part" do
+      name = name_with_cached_props "a+b"
+      name[0] = "c+e"
+      expect(name.parts).to eq %w[c e b]
+    end
+
+    example "<< adds part" do
+      name = name_with_cached_props "a+b"
+      name << "c+e"
+      expect(name.parts).to eq %w[a b c e]
     end
 
     example "#next! updates key and parts" do

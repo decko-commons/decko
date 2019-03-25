@@ -1,9 +1,14 @@
 format :html do
+  OVERLAY_CLOSE_OPTS = { class: "_close-overlay btn-sm",
+                         "data-dismiss": "overlay",
+                         type: "button" }.freeze
+
   wrapper :overlay do |opts|
-    class_up "card-slot", "_overlay d0-card-overlay bg-white", true
+    class_up "card-slot", "_overlay d0-card-overlay bg-white"
     @content_body = true
+    voo.hide! :menu
     overlay_frame true, overlay_header(opts[:title]), opts[:slot] do
-      interiour
+      interior
     end
   end
 
@@ -29,6 +34,18 @@ format :html do
     overlay_menu_link :close, path: "#", "data-dismiss": "overlay"
   end
 
+  def overlay_close_button link_text="Close", opts={}
+    classes = opts.delete(:class)
+    button_opts = opts.merge(OVERLAY_CLOSE_OPTS)
+    add_class button_opts, classes if classes
+    button_tag link_text, button_opts
+  end
+
+  def overlay_save_and_close_button
+    submit_button text: "Save and Close", class: "_close-overlay-on-success",
+                  "data-cy": "submit-overlay"
+  end
+
   def overlay_menu_link icon, args={}
     add_class args, "border-light text-dark p-1 ml-1"
     button_link fa_icon(icon, class: "fa-lg"), args.merge(btn_type: "outline-secondary")
@@ -36,8 +53,8 @@ format :html do
 
   def overlay_header title=nil
     title ||= _render_overlay_title
-    class_up "d0-card-header", "bg-white text-dark", true
-    class_up "d0-card-header-title", "d-flex", true
+    class_up "d0-card-header", "bg-white text-dark"
+    class_up "d0-card-header-title", "d-flex"
     header_wrap [title, _render_overlay_menu]
   end
 

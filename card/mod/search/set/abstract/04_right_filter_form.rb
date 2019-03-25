@@ -12,9 +12,8 @@ format :html do
     path mark: card.name.left, view: filter_view
   end
 
-  # FIXME: wikirate-specific reference in selector
   view :core, cache: :never do
-    filter_fields slot_selector: ".RIGHT-all_metric_value.filter_result-view"
+    filter_fields slot_selector: ".filter_result-view"
   end
 
   def filter_view

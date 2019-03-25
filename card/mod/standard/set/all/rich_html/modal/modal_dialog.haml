@@ -7,5 +7,6 @@
         = menu
       .modal-body
         = body
-      .modal-footer
-        = footer
+      - if footer.present?
+        .modal-footer
+          = footer

@@ -26,12 +26,12 @@ format :html do
         <head>
           #{head_content}
         </head>
-        #{interiour}
+        #{interior}
       </html>
     HTML
   end
 
   def head_content
-    nest card.rule_card(:head), view: :core
+    nest card.rule_card(:head), view: :head_content
   end
 end
