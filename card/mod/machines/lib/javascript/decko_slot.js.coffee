@@ -49,9 +49,9 @@ jQuery.fn.extend
 
   findSlot: (selector) ->
     if selector == "modal-origin"
-      findOriginSlot("modal")
+      @findOriginSlot("modal")
     else if selector == "overlay-origin"
-      findOriginSlot("overlay")
+      @findOriginSlot("overlay")
     else
       target_slot = @closest(selector)
       parent_slot = @closest '.card-slot'
