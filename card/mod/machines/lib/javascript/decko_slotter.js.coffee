@@ -155,7 +155,7 @@ jQuery.fn.extend
         @slot().find('g-recaptcha').reloadCaptcha()
 
   updateOrigin: () ->
-    type = if @overlaySlot()[0]
+    type = if @overlaySlot()
       "overlay"
     else if @closest("#modal-container")[0]
       "modal"
