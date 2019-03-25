@@ -16,6 +16,7 @@ test: &test
   database: db/test.sqlite3
 
 cucumber: *test
+cypress: *test
 
 production: 
   adapter: sqlite3
