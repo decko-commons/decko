@@ -7,7 +7,14 @@ class Card
           yield # no wrapping in base format
         end
 
-        def main_nest opts={}
+        def main_nest opts
+          #opts[:wrap] = :em
+          wrap_main do
+            main.rendered || main_nest_render(opts)
+          end
+        end
+
+        def main_nest_render opts={}
           with_nest_mode :normal do
             if block_given?
               block.call
