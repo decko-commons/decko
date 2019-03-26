@@ -160,6 +160,8 @@ jQuery.fn.extend
     else if @closest("#modal-container")[0]
       "modal"
 
+    return unless type?
+
     origin = @findOriginSlot(type)
     if origin[0]?
       origin.reloadSlot()
