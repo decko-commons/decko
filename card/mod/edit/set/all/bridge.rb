@@ -48,8 +48,8 @@ format :html do
   end
 
   def bridge_slot_selector
-    ".bridge-main > .card-slot, "\
-    ".bridge-main > .overlay-container > .card-slot._bottomlay-slot"
+    ".bridge-main > .overlay-container > .card-slot._bottomlay-slot," \
+    ".bridge-main > ._overlay-container-placeholder > .card-slot"
   end
 
   def default_bridge_tab

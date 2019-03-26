@@ -6,7 +6,8 @@ format :html do
   end
 
   view :edit_type_form, cache: :never, perms: :update, wrap: :slot do
-    card_form :update, "data-update-foreign-slot": "._modal-origin, .card-slot.edit_content_form-view" do
+    card_form :update, "data-update-foreign-slot": ".card-slot.edit_content_form-view",
+                              "data-update-origin": "true" do
       output [hidden_edit_type_fields,
               _render_type_formgroup,
               edit_type_buttons]

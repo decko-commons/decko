@@ -1,7 +1,9 @@
 jQuery.fn.extend
   overlaySlot: ->
-    close = @closest(".card-slot._overlay")
-    close[0] && close || $(@closest(".overlay-container").find("._overlay")[0])
+    oslot = @closest(".card-slot._overlay")
+    return oslot if oslot[0]?
+    oslot = @closest(".overlay-container").find("._overlay")
+    oslot[0]? && $(oslot[0])
 
   addOverlay: (overlay, $slotter) ->
     if @parent().hasClass("overlay-container")
@@ -10,16 +12,18 @@ jQuery.fn.extend
       else
         $("._overlay-origin").removeClass("_overlay-origin")
         @replaceOverlay(overlay)
-
     else
-      # uncomment below if tinymce starts making problems after closing overlays -pk
       #@find(".tinymce-textarea").each ->
       #  tinymce.remove("##{$(this).attr("id")}")
-      @wrapAll('<div class="overlay-container">')
+      #  #tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
+      if @parent().hasClass("_overlay-container-placeholder")
+        @parent().addClass("overlay-container")
+      else
+        @wrapAll('<div class="overlay-container">')
       @addClass("_bottomlay-slot")
       @before overlay
 
-    $slotter.markOrigin("overlay")
+    $slotter.registerAsOrigin("overlay", overlay)
 
   replaceOverlay: (overlay) ->
     @overlaySlot().replaceWith overlay
@@ -32,7 +36,11 @@ jQuery.fn.extend
     if @siblings().length == 1
       bottomlay = $(@siblings()[0])
       if bottomlay.hasClass("_bottomlay-slot")
-        bottomlay.unwrap().removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
+        if bottomlay.parent().hasClass("_overlay-container-placeholder")
+          bottomlay.parent().removeClass("overlay-container")
+        else
+          bottomlay.unwrap()
+        bottomlay.removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
 
         #bottomlay.find(".tinymce-textarea").each ->
         #  tinymce.EditorManager.execCommand('mceAddControl',true, editor_id);

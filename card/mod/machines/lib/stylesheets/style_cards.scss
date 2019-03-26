@@ -975,12 +975,13 @@ $bridge-line-color: $gray-300;
 .bridge-main {
   padding-left: 0;
   padding-right: 0;
-  > .bridge-view {
+  > ._overlay-container-placeholder > .bridge-view {
     padding-top: 10px;
-  }
-  > .bridge-view, > .overlay-container > .bridge-view {
     padding-left: 15px;
     padding-right: 15px;
+  }
+  > .overlay-container > .bridge-view {
+    padding-top: 0px;
   }
 }
 

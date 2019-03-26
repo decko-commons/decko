@@ -12,8 +12,14 @@ format :html do
 
   def bridge_parts
     [
-      _render_edit_name_row,
-      _render_edit_type_row,
+      _render_edit_name_row(home_view: :edit_name_row),
+      _render_edit_type_row(home_view: :edit_type_row),
+      # home_view is necessary for cancel to work correctly.
+      # it seems a little strange to have to think about home_view here,
+      # but the issue is that something currently has to happen prior to the
+      # render to get voo.slot_options to have the write home view in
+      # the slot wrap. I think this would probably best be handled as an
+      # option to #wrap that triggers a new heir voo
       frame_help,
       _render_edit_content_form
     ]
@@ -65,7 +71,6 @@ format :html do
   #
   # view :edit_nest_rules, cache: :never do
   #   return ""#
-  #   voo.show :toolbar
   #   view = args[:rule_view] || :field_related_rules
   #   frame do
   #     # with_nest_mode :edit do

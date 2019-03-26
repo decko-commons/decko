@@ -37,7 +37,7 @@ format :html do
   end
 
   view :type_info do
-    return unless show_view?(:toolbar, :hide) && card.type_code != :basic
+    return unless card.type_code != :basic
 
     wrap_with :span, class: "type-info float-right" do
       link_to_card card.type_name, nil, class: "navbar-link"
@@ -45,13 +45,13 @@ format :html do
   end
 
   view :overview do
-    %i[bar box open closed titled labeled content content_panel].map do |v|
+    %i[bar box info_bar open closed titled labeled content content_panel].map do |v|
       wrap_with :p, [content_tag(:h3, v), render(v, show: :menu)]
     end.flatten.join ""
   end
 
   view :viewer do
-    %i[bar box open closed labeled titled content content_panel].map do |v|
+    %i[bar box info_bar open closed labeled titled content content_panel].map do |v|
       wrap_with :p, [content_tag(:h3, v), render(v, show: :menu)]
     end.flatten.join ""
   end

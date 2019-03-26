@@ -82,6 +82,10 @@ class Card
           value&.to_sym
         end
 
+        def normalize_edit value
+          value&.to_sym
+        end
+
         def normalize_cache value
           value&.to_sym
         end

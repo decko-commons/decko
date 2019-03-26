@@ -1,7 +1,7 @@
 format :html do
   view :edit_in_place, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
     with_nest_mode :edit do
-      card_form :update, success: { view: :editable } do
+      card_form :update do
         [
           edit_view_hidden,
           _render_content_formgroup,
@@ -9,15 +9,6 @@ format :html do
         ]
       end
     end
-  end
-
-  view :edit_row, wrap: { div: { class: "row" } } do
-    ["<label class='col-sm-1'>#{render_title}</label>",
-     "<div class='col-sm-11'>#{render_editable}</div>"]
-  end
-
-  view :editable, perms: :update, tags: :unknown_ok, wrap: :slot do
-    [render_core, edit_in_place_link]
   end
 
   view :edit_name_row do
@@ -47,12 +38,11 @@ format :html do
 
   def edit_in_place_link view=:edit_in_place, align: :left
     align = align == :left ? "ml-2" : "ml-auto"
-    link_to_view view, fa_icon(:edit), class: "#{align} edit-link",
-                                       "data-cy": "edit-link"
+    link_to_view view, menu_icon, class: "#{align} edit-link", "data-cy": "edit-link"
   end
 
   def cancel_in_place_button args={}
-    args.reverse_merge! class: "cancel-button btn-sm", href: path(view: :editable)
+    args.reverse_merge! class: "cancel-button btn-sm", href: path
     cancel_button args
   end
 end
