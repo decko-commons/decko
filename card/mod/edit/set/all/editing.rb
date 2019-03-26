@@ -71,7 +71,6 @@ format :html do
   #
   # view :edit_nest_rules, cache: :never do
   #   return ""#
-  #   voo.show :toolbar
   #   view = args[:rule_view] || :field_related_rules
   #   frame do
   #     # with_nest_mode :edit do

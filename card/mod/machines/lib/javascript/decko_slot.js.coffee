@@ -40,7 +40,7 @@ jQuery.fn.extend
   selectSlot: (selectorName) ->
     if selector = @data(selectorName)
       slot = @findSlot selector
-      slot[0] && slot
+      slot && slot[0] && slot
 
   isSlot: ->
     $(this).hasClass "card-slot"
@@ -48,17 +48,32 @@ jQuery.fn.extend
   isMain: -> @slot().parent('#main')[0]
 
   findSlot: (selector) ->
-    target_slot = @closest(selector)
-    parent_slot = @closest '.card-slot'
-
-    # if slot-selector doesn't apply to a child, search in all parent slots and finally in the body
-    while target_slot.length == 0 and parent_slot.length > 0
-      target_slot = $(parent_slot).find(selector)
-      parent_slot = $(parent_slot).parent().closest '.card-slot'
-    if target_slot.length == 0
-      $(selector)
+    if selector == "modal-origin"
+      @findOriginSlot("modal")
+    else if selector == "overlay-origin"
+      @findOriginSlot("overlay")
     else
-      target_slot
+      target_slot = @closest(selector)
+      parent_slot = @closest '.card-slot'
+
+      # if slot-selector doesn't apply to a child, search in all parent slots and finally in the body
+      while target_slot.length == 0 and parent_slot.length > 0
+        target_slot = $(parent_slot).find(selector)
+        parent_slot = $(parent_slot).parent().closest '.card-slot'
+      if target_slot.length == 0
+        $(selector)
+      else
+        target_slot
+
+  # type can be "modal" or "overlay"
+  findOriginSlot: (type) ->
+    overlaySlot = @closest("[data-#{type}-origin-slot-id]")
+    origin_slot_id = overlaySlot.data("#{type}-origin-slot-id")
+    origin_slot = $("[data-slot-id=#{origin_slot_id}]")
+    if origin_slot[0]?
+      origin_slot
+    else
+      console.log "couldn't find origin with slot id #{origin_slot_id}"
 
   reloadSlot: (url) ->
     $slot = $(this)
