@@ -38,6 +38,10 @@ format :html do
     end
   end
 
+  view :quick_edit, tags: :unknown_ok do
+
+  end
+
   view :rule_bridge_link, tags: :unknown_ok do
     opts = bridge_link_opts(class: "edit-rule-link nav-link",
                             "data-toggle": "pill",
