@@ -10,6 +10,8 @@ event :validate_number, :validate, on: :save do
 end
 
 def valid_number? string
+  return true if string.empty?
+
   valid = true
   begin
     Kernel.Float(string)
