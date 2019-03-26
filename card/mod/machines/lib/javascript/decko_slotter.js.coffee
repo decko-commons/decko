@@ -142,7 +142,8 @@ jQuery.fn.extend
 
   showErrorResponse: (status, result) ->
     if status == 403 #permission denied
-      @setSlotContent result
+      $(result).showAsModal $(this)
+      #@setSlotContent result
     else if status == 900
       $(result).showAsModal $(this)
     else
@@ -193,7 +194,7 @@ jQuery.fn.extend
     return if opt.skip_before_send
 
     # avoiding duplication. could be better test?
-    unless opt.url.match /home_view/
+    unless opt.url.match /home_view/ or @data("slotter-mode") == "modal"
       opt.url = decko.slotPath opt.url, @slot()
 
     if @is('form')
