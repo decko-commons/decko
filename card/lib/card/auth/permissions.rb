@@ -3,8 +3,8 @@ class Card
     # singleton permission methods
     module Permissions
       RECAPTCHA_DEFAULTS = {
-        recaptcha_public_key: "6LeoHfESAAAAAN1NdQeYHREq4jTSQhu1foEzv6KC",
-        recaptcha_private_key: "6LeoHfESAAAAAHLZpn7ijrO4_KGLEr2nGL4qjjis"
+        recaptcha_site_key: "6LdoqpgUAAAAAEdhJ4heI1h3XLlpXcDf0YubriCG",
+        recaptcha_secret_key: "6LdoqpgUAAAAAP4Sz1L5PY6VKum_RFxq4-awj4BH"
       }.freeze
 
       # user has "root" permissions

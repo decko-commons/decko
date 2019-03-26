@@ -97,6 +97,8 @@ $(window).ready ->
         input.val(
           (if target == 'REDIRECT' then target + ': ' + input.val() else target)
         )
+    if $(this).data('recaptcha') == 'on'
+      return $(this).handleRecaptchaBeforeSubmit(event)
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     $(this).slotterBeforeSend(opt)
@@ -148,12 +150,11 @@ jQuery.fn.extend
       $(result).showAsModal $(this)
     else
       @notify result, "error"
+
       if status == 409 #edit conflict
         @slot().find('.current_revision_id').val(
           @slot().find('.new-current-revision-id').text()
         )
-      else if status == 449
-        @slot().find('g-recaptcha').reloadCaptcha()
 
   updateOrigin: () ->
     type = if @overlaySlot()
@@ -200,11 +201,6 @@ jQuery.fn.extend
       opt.url = decko.slotPath opt.url, @slot()
 
     if @is('form')
-      if decko.recaptchaKey and @attr('recaptcha')=='on' and
-          !(@find('.g-recaptcha')[0])
-        loadCaptcha(this)
-        return false
-
       if data = @data 'file-data'
 # NOTE - this entire solution is temporary.
         @uploadWithBlueimp(data, opt)
@@ -240,3 +236,21 @@ jQuery.fn.extend
     args.skip_before_send = true #avoid looping through this method again
 
     $.ajax( args )
+
+  handleRecaptchaBeforeSubmit: (event) ->
+    recaptcha = @find("input._recaptcha-token")
+
+    if !recaptcha[0]?
+      # monkey error (bad form)
+      recaptcha.val "recaptcha-token-field-missing"
+    else if recaptcha.hasClass "_token-updated"
+      # recaptcha token is fine - continue submitting
+      recaptcha.removeClass "_token-updated"
+    else if !grecaptcha?
+      # shark error (probably recaptcha keys of pre v3 version)
+      recaptcha.val "grecaptcha-undefined"
+    else
+      @updateRecaptchaToken(event)
+      # this stops the submit here
+      # and submits again when the token is ready
+

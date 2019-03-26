@@ -197,11 +197,16 @@ format :html do
 
   def card_form action, opts={}
     @form_root = true
-    success = opts.delete(:success)
+    hidden = hidden_form_tags action, opts
     form_for card, card_form_opts(action, opts) do |cform|
       @form = cform
-      success_tags(success) + output(yield(cform))
+      hidden + output(yield(cform))
     end
+  end
+
+  def hidden_form_tags _action, opts
+    success = opts.delete :success
+    success_tags success
   end
 
   # @param action [Symbol] :create or :update
@@ -219,8 +224,6 @@ format :html do
     add_class opts, "card-form"
     add_class opts, "slotter" unless opts[:redirect]
     add_class opts, "autosave" if action == :update
-    opts[:recaptcha] ||= "on" if card.recaptcha_on?
-    opts.delete :recaptcha if opts[:recaptcha] == :off
     opts
   end
 
