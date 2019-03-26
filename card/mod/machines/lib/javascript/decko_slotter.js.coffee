@@ -169,7 +169,7 @@ jQuery.fn.extend
 
   registerAsOrigin: (type, slot) ->
     if slot.hasClass("_modal-slot")
-      slot = slot.find(".modal-body > .card-slot")
+      slot = slot.find(".modal-body .card-slot")
     slot.attr("data-#{type}-origin-slot-id", @closest(".card-slot").data("slot-id"))
     #@closest(".card-slot").addClass("_#{type}-origin")
 

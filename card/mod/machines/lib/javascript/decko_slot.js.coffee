@@ -40,7 +40,7 @@ jQuery.fn.extend
   selectSlot: (selectorName) ->
     if selector = @data(selectorName)
       slot = @findSlot selector
-      slot[0] && slot
+      slot && slot[0] && slot
 
   isSlot: ->
     $(this).hasClass "card-slot"
