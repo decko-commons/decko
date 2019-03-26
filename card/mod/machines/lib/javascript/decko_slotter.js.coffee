@@ -109,6 +109,9 @@ jQuery.fn.extend
 
     return if event.slotSuccessful
 
+    if @data("update-origin")
+      @updateOrigin()
+
     mode = @data("slotter-mode")
     @showSuccessResponse data, mode
 
@@ -125,8 +128,6 @@ jQuery.fn.extend
       $slot = @findSlot @data("update-foreign-slot")
       reload_url = @data("update-foreign-slot-url")
       $slot.reloadSlot reload_url
-    if @data("update-origin")
-      @updateOrigin()
 
     event.slotSuccessful = true
 
@@ -163,7 +164,7 @@ jQuery.fn.extend
     return unless type?
 
     origin = @findOriginSlot(type)
-    if origin[0]?
+    if origin && origin[0]?
       origin.reloadSlot()
 
 
