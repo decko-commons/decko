@@ -8,7 +8,8 @@ class Card
         end
 
         def main_nest opts
-          #opts[:wrap] = :em
+          binding.pry
+          # opts[:wrap] = :em
           wrap_main do
             main.rendered || main_nest_render(opts)
           end
