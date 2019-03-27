@@ -28,7 +28,7 @@ describe 'edit content', () ->
     cy.el("submit-modal").click()
     cy.contains "new content"
 
-  specify.only "nest editor", () ->
+  specify "nest editor", () ->
     cy.ensure "nests", ""
     cy.visit_bridge "nests"
     open_nest_editor()

@@ -23,7 +23,7 @@ decko.slotReady (slot) ->
 openModalIfPresent = (mslot) ->
   modal_content = mslot.find(".modal-content")
   if modal_content.length > 0 && modal_content.html().length > 0
-    $("#main > .card-slot").addClass("_modal-origin")
+    $("#main > .card-slot").registerAsOrigin("modal", mslot)
     mslot.modal("show")
 
 addModalDialogClasses = ($modal_slot, $link) ->
@@ -44,19 +44,24 @@ jQuery.fn.extend {
       else
         $("body").append el
 
-      $("._modal-origin").removeClass("_modal-origin")
-      $slotter.markOrigin("modal")
+      $slotter.registerAsOrigin("modal", el)
       el.modal("show", $slotter)
 
   addModal: (el, $slotter) ->
     if $slotter.data("slotter-mode") == "modal-replace"
       dialog = el.find(".modal-dialog")
+      el.adoptModalOrigin()
       $("body > ._modal-slot > .modal-dialog").replaceWith(dialog)
       decko.initModal dialog
     else
       decko.pushModal el
-      $slotter.markOrigin("modal")
+      $slotter.registerAsOrigin("modal", el)
       el.modal("show", $slotter)
+
+  adoptModalOrigin: () ->
+    origin_slot_id = $("body > ._modal-slot .card-slot[data-modal-origin-slot-id]")
+                        .data("modal-origin-slot-id")
+    @find(".modal-body .card-slot").attr("data-modal-origin-slot-id", origin_slot_id)
 
   modalSlot: ->
     slot = $("#modal-container")

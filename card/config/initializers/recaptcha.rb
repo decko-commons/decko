@@ -1,11 +1,14 @@
 # -*- encoding : utf-8 -*-
 
+DEPRECATED = { site_key: :public_key, secret_key: :private_key }
+
 # card config overrides application.rb config overrides default
 def load_recaptcha_config setting
   setting = "recaptcha_#{setting}".to_sym
   Cardio.config.send(
     "#{setting}=", load_recaptcha_card_config(setting) || # card content
-    Cardio.config.send(setting) || # application.rb
+    Cardio.config.send(setting) ||                        # application.rb
+    (DEPRECATED[setting] && Cardio.config.send(DEPRECATED[setting])) ||
     default_setting(setting)
   )
 end
@@ -26,23 +29,19 @@ end
 # use if card with value is present
 def load_recaptcha_card_config setting
   card = Card.find_by_codename setting
-  card && card.db_content.present? && card.db_content
+  card&.db_content.present? && card.db_content
 end
 
 ActiveSupport.on_load :after_card do
   Recaptcha.configure do |config|
     # the seed task runs initializers so we have to check
     # if the cards table is ready before we use it here
-    CONFIG_OPTIONS =
-      {
-        public_key: :site_key,
-        private_key: :secret_key,
-        proxy: :proxy
-      }
+    CONFIG_OPTIONS = %i[site_key secret_key]
     if card_table_ready?
-      CONFIG_OPTIONS.each do |codename, setting|
-        config.send "#{setting}=", load_recaptcha_config(codename)
+      CONFIG_OPTIONS.each do |setting|
+        config.send "#{setting}=", load_recaptcha_config(setting)
       end
     end
+    config.verify_url = "https://www.google.com/recaptcha/api/siteverify"
   end
 end

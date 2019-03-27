@@ -252,36 +252,6 @@ def track_permission_errors
   result
 end
 
-def recaptcha_on?
-  consider_recaptcha?    &&
-    have_recaptcha_keys? &&
-    Env[:controller]     &&
-    !Auth.signed_in?     &&
-    !Auth.needs_setup?   &&
-    !Auth.always_ok?     &&
-    Card.toggle(rule(:captcha))
-end
-
-def consider_recaptcha?
-  true
-end
-
-def have_recaptcha_keys?
-  @@have_recaptcha_keys =
-    if defined?(@@have_recaptcha_keys)
-      @@have_recaptcha_keys
-    else
-      !!(Card.config.recaptcha_public_key && Card.config.recaptcha_private_key)
-    end
-end
-
-event :recaptcha, :validate do
-  if !@supercard && !Env[:recaptcha_used] && recaptcha_on?
-    Env[:recaptcha_used] = true
-    Env[:controller].verify_recaptcha model: self, attribute: :captcha
-  end
-end
-
 module Accounts
   # This is a short-term hack that is used in account-related cards to allow a
   # permissions pattern where permissions are restricted to the owner of the
