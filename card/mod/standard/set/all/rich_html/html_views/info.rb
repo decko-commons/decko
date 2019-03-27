@@ -37,7 +37,7 @@ format :html do
   end
 
   view :type_info do
-    return unless show_view?(:toolbar, :hide) && card.type_code != :basic
+    return unless card.type_code != :basic
 
     wrap_with :span, class: "type-info float-right" do
       link_to_card card.type_name, nil, class: "navbar-link"

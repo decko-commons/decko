@@ -62,7 +62,7 @@ Gem::Specification.new do |s|
 
     # other
     ["diff-lcs",                   "~> 1.3"], # content diffs in histories
-    ["recaptcha",                  "~> 4.3"],
+    ["recaptcha",                  "~> 4.13.1"],
     ["twitter",                    "~> 6.1"], # for event-based integration
     ["delayed_job_active_record",  "~> 4.1"],
     ["minitest",                   "5.11.2"],

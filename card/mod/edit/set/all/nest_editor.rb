@@ -42,17 +42,22 @@ format :html do
   end
 
   def nest_option_name_select selected=nil, level=0
-    new_row = !selected
     classes = "form-control form-control-sm _nest-option-name"
-    classes += " _new-row" if new_row
-    options = new_row ? ["--"] : []
+    classes += " _new-row" if !selected
+    select_tag "nest_option_name_#{unique_id}",
+               nest_option_name_select_options(selected, level),
+               class: classes, id: nil
+    # id: nil ensures that select2 generates its own unique identifier
+    # that ensures that we can clone this tag without breaking select2
+  end
+
+  def nest_option_name_select_options selected, level
+    options = selected ? [] : ["--"]
     options += NEST_OPTIONS
     disabled = level == 0 ? edit_nest.options : edit_nest.item_options[level - 1]
     disabled = disabled&.map(&:first)
     disabled&.delete selected if selected
-    select_tag "nest_option_name_#{unique_id}",
-               options_for_select(options, disabled: disabled, selected: selected),
-               class: classes, id: nil
+    options_for_select(options, disabled: disabled, selected: selected)
   end
 
   def nest_option_value_select value=nil
