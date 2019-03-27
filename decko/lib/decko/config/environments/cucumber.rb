@@ -35,5 +35,6 @@ Decko.application.class.configure do
 
   config.use_transactional_fixtures = false
 
+  config.rescue_all_in_controller = false
   config.raise_all_rendering_errors = true
 end

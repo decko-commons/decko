@@ -14,7 +14,7 @@ format :html do
   def edit_name_form success_view=nil
     card_form({ action: :update, id: card.id },
               # "main-success" => "REDIRECT",
-              "data-update-foreign-slot": "._modal-origin") do
+              "data-update-origin": "true") do
       output [hidden_edit_name_fields(success_view),
               _render_name_formgroup,
               rename_confirmation_alert,

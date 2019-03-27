@@ -18,16 +18,20 @@
 #  To 2. The slotter is the standard way to define what happens with request result
 #    data:
 #    slot-selector
-#        a css selector that defines which slot will be replaced
+#        a css selector that defines which slot will be replaced.
+#        You can also use "modal-origin" and "overlay-origin" to refer to the origin slots.
 #    slot-success-selector/slot-error-selector
 #        the same as slot-selector but only used
 #        for success case or error case, respectively
 #    update-foreign-slot
 #        a css selector to specify an additional slot that will be
-#        updated after the request
+#        updated after the request.
 #    update-foreign-slot-url
 #        a url to fetch the new content for the additional slot
 #        if not given the slot is updated with the same card and view that used before
+#    update-origin
+#        if present then the slot from where the current modal or overlay slot was opened
+#        will be updated
 #    slotter-mode
 #        possible values are
 #          replace (default)
@@ -42,7 +46,7 @@
 #             update closest slot of the slotter that opened the modal or overlay
 #             (assumes that the request was triggered from a modal or overlay)
 #             If you need the update origin together with another mode then use
-#             update-foreign-slot=".card-slot._modal-origin".
+#             data-update-origin="true".
 #          silent-success
 #             do nothing
 #
@@ -93,6 +97,8 @@ $(window).ready ->
         input.val(
           (if target == 'REDIRECT' then target + ': ' + input.val() else target)
         )
+    if $(this).data('recaptcha') == 'on'
+      return $(this).handleRecaptchaBeforeSubmit(event)
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     $(this).slotterBeforeSend(opt)
@@ -104,6 +110,9 @@ jQuery.fn.extend
       return
 
     return if event.slotSuccessful
+
+    if @data("update-origin")
+      @updateOrigin()
 
     mode = @data("slotter-mode")
     @showSuccessResponse data, mode
@@ -121,9 +130,6 @@ jQuery.fn.extend
       $slot = @findSlot @data("update-foreign-slot")
       reload_url = @data("update-foreign-slot-url")
       $slot.reloadSlot reload_url
-      #if $slot.length > 0
-      #$.each $slot, (sl) ->
-      #$(sl).reloadSlot reload_url
 
     event.slotSuccessful = true
 
@@ -144,21 +150,30 @@ jQuery.fn.extend
       $(result).showAsModal $(this)
     else
       @notify result, "error"
+
       if status == 409 #edit conflict
         @slot().find('.current_revision_id').val(
           @slot().find('.new-current-revision-id').text()
         )
-      else if status == 449
-        @slot().find('g-recaptcha').reloadCaptcha()
 
   updateOrigin: () ->
-    if @overlaySlot()[0]
-      $("._overlay-origin").reloadSlot()
+    type = if @overlaySlot()
+      "overlay"
     else if @closest("#modal-container")[0]
-      $("._modal-origin").reloadSlot()
+      "modal"
 
-  markOrigin: (type) ->
-    @closest(".card-slot").addClass("_#{type}-origin")
+    return unless type?
+
+    origin = @findOriginSlot(type)
+    if origin && origin[0]?
+      origin.reloadSlot()
+
+
+  registerAsOrigin: (type, slot) ->
+    if slot.hasClass("_modal-slot")
+      slot = slot.find(".modal-body .card-slot")
+    slot.attr("data-#{type}-origin-slot-id", @closest(".card-slot").data("slot-id"))
+    #@closest(".card-slot").addClass("_#{type}-origin")
 
   updateSlot: (data, mode) ->
     notice = @attr('notify-success')
@@ -186,11 +201,6 @@ jQuery.fn.extend
       opt.url = decko.slotPath opt.url, @slot()
 
     if @is('form')
-      if decko.recaptchaKey and @attr('recaptcha')=='on' and
-          !(@find('.g-recaptcha')[0])
-        loadCaptcha(this)
-        return false
-
       if data = @data 'file-data'
 # NOTE - this entire solution is temporary.
         @uploadWithBlueimp(data, opt)
@@ -226,3 +236,21 @@ jQuery.fn.extend
     args.skip_before_send = true #avoid looping through this method again
 
     $.ajax( args )
+
+  handleRecaptchaBeforeSubmit: (event) ->
+    recaptcha = @find("input._recaptcha-token")
+
+    if !recaptcha[0]?
+      # monkey error (bad form)
+      recaptcha.val "recaptcha-token-field-missing"
+    else if recaptcha.hasClass "_token-updated"
+      # recaptcha token is fine - continue submitting
+      recaptcha.removeClass "_token-updated"
+    else if !grecaptcha?
+      # shark error (probably recaptcha keys of pre v3 version)
+      recaptcha.val "grecaptcha-undefined"
+    else
+      @updateRecaptchaToken(event)
+      # this stops the submit here
+      # and submits again when the token is ready
+
