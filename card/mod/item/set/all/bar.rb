@@ -10,6 +10,7 @@ format :html do
 
   view :bar do
     voo.hide :bar_middle
+    voo.hide :bar_bottom # needed for toggle
     class_up_bar_sides(voo.show?(:bar_middle))
     # note: above cannot be in `before`, because before blocks run before viz processing
     wrap { haml :bar }
@@ -35,7 +36,7 @@ format :html do
     class_up "bar-left", "d-flex p-2 font-weight-bold grow-2 #{shared}"
     class_up "bar-middle", "d-none d-md-flex p-2 border-left text-align-middle #{shared}"
     class_up "bar-right",
-             "d-flex p-2 border-left justify-content-end text-align-right #{shared}"
+             "d-flex p-2 border-left justify-content-between text-align-right #{shared}"
   end
 
   def class_up_bar_sides middle
@@ -51,22 +52,16 @@ format :html do
 
   view :bar_left do
     class_up "card-title", "mb-0"
+    bar_title
+  end
+
+  def bar_title
     if voo.show?(:toggle)
-      link_to_view :expanded_bar, render_title
+      link_to_view (voo.show?(:bar_bottom) ? :bar : :expanded_bar), render_title
     else
       render_title
     end
   end
-
-  view :bar_expanded_left do
-    class_up "card-title", "mb-0"
-    link_to_view :bar, render_title
-  end
-
-  # view :bar_expanded_right do
-  #   class_up "card-title", "mb-0"
-  #   render :bar_right, optional: :show
-  # end
 
   view :bar_right do
     [(render(:short_content) unless voo.show?(:bar_middle)),
@@ -85,16 +80,16 @@ format :html do
     end
   end
 
-  view :bar_nav, wrap: { div: { class: "bar-nav d-flex" } } do
+  view :bar_nav, wrap: { div: { class: "bar-nav" } } do
     [render(:bar_page_link, optional: :hide), render_bar_expand_link]
   end
 
-  view :bar_expanded_nav, wrap: { div: { class: "bar-nav d-flex" } } do
+  view :bar_expanded_nav, wrap: { div: { class: "bar-nav" } } do
     [render_edit_link, render_bar_page_link, render_bar_collapse_link]
   end
 
   view :bar_page_link do
-    class_up "full-page-link", "pl-2 text-muted"
+    class_up "full-page-link", "text-muted"
     full_page_link
   end
 
