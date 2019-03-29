@@ -57,10 +57,14 @@ format :html do
 
   def bar_title
     if voo.show?(:toggle)
-      link_to_view (voo.show?(:bar_bottom) ? :bar : :expanded_bar), render_title
+      link_to_view bar_title_toggle_view, render_title
     else
       render_title
     end
+  end
+
+  def bar_title_toggle_view
+    voo.show?(:bar_bottom) ? :bar : :expanded_bar
   end
 
   view :bar_right do
