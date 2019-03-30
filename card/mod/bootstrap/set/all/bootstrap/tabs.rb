@@ -12,7 +12,7 @@ format :html do
     tabs.each do |tab_name, tab_content|
       active_name ||= tab_name
       active_tab = (tab_name == active_name)
-      id = "#{card.name.safe_key}-#{tab_name.to_name.safe_key}"
+      id = tab_id tab_name
       tab_content, button_attr =
         if tab_content.is_a?(Hash)
           [tab_content[:content], tab_content[:button_attr]]
@@ -24,6 +24,7 @@ format :html do
     end
     tab_panel tab_buttons, tab_panes, tab_type
   end
+
 
   # @param [Hash] tabs keys are the views, values the title unless you pass a
   #   hash as value
@@ -76,9 +77,8 @@ format :html do
   def standardize_tabs tabs, active_name
     tabs.each do |tab_view_name, tab_details|
       tab_title, url = tab_title_and_url(tab_details, tab_view_name)
-      id = "#{unique_id}-#{tab_view_name.to_name.safe_key}"
       active_tab = (active_name == tab_view_name)
-      yield tab_title, url, id, active_tab
+      yield tab_title, url, tab_id(tab_view_name), active_tab
     end
   end
 
@@ -102,6 +102,10 @@ format :html do
         wrap_with(:div, tab_panes, class: "tab-content")
       ]
     end
+  end
+
+  def tab_id tab_name
+    "#{unique_id}-#{tab_name.to_name.safe_key}"
   end
 
   def tab_button target, text, active=false, link_attr={}
