@@ -1,0 +1,10 @@
+.form-group.form-control-feedback
+  %label
+    set
+  %p.text-muted
+    = find_existing_rule_card&.left&.label || "--"
+  - if notify_change
+    %p
+      %span.text-success
+        Applied!
+      = undo_button

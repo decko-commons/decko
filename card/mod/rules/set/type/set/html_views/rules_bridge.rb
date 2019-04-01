@@ -12,10 +12,10 @@ format :html do
     bridge_pills(items.map { |i| rules_list_item i })
   end
 
-  def rules_list_item setting
+  def rules_list_item setting, view=:rule_bridge_link
     return "" unless show_view? setting
 
     rule_card = card.fetch trait: setting, new: {}
-    nest(rule_card, view: :rule_bridge_link).html_safe
+    nest(rule_card, view: view).html_safe
   end
 end

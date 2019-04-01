@@ -38,8 +38,44 @@ format :html do
     end
   end
 
-  view :quick_edit, tags: :unknown_ok do
+  view :quick_edit, tags: :unknown_ok, template: :haml, wrap: :slot do
+    setting_title + short_help_text + quick_editor
+  end
 
+  def quick_form
+    card_form :update,
+              "data-slot-selector": ".set-info.card-slot",
+              success: { view: :quick_edit_success }  do
+      quick_editor
+    end
+  end
+
+  def set_info notify_change=nil
+    wrap true, class: "set-info" do
+      haml :set_info, notify_change: notify_change
+    end
+  end
+
+  def undo_button
+    link_to "undo", method: :post, rel: "nofollow", class: "btn btn-secondary ml-2 btn-sm btn-reduced-padding slotter",
+            remote: true,
+            "data-slot-selector": ".card-slot.quick_edit-view",
+            path: { action: :update,
+                    revert_actions: [card.last_action_id],
+                    revert_to: :previous }
+  end
+
+  view :quick_edit_success do
+    set_info true
+  end
+
+  def quick_editor
+    if card.right.codename == :default
+      @edit_rule_success = {}
+      rules_type_formgroup
+    else
+      rule_content_formgroup
+    end
   end
 
   view :rule_bridge_link, tags: :unknown_ok do

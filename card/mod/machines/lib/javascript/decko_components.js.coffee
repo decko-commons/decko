@@ -16,6 +16,11 @@ $(window).ready ->
   $('body').on "select2:select", "._submit-on-select", (event) ->
     $(event.target).closest('form').submit()
 
+  $('body').on "input", "._submit-after-typing", (event) ->
+    clearTimeout(submitAfterTyping) if submitAfterTyping
+    submitAfterTyping = setTimeout ->
+        $(event.target).closest('form').submit()
+      , 1000
 
 
 

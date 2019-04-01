@@ -5,7 +5,7 @@ format :html do
                      ["Recent", :recent_rules]].freeze
 
   COMMON_SETTINGS = %i[create read update delete structure default].freeze
-  FIELD_SETTINGS = %i[default help structure].freeze
+  FIELD_SETTINGS = %i[default help].freeze
 
   def setting_options
     [["Categories", SETTING_OPTIONS],
@@ -36,7 +36,7 @@ format :html do
   end
 
   def field_related_settings
-    field_settings = %i[default help structure]
+    field_settings = %i[default help]
     if card.type_id == PointerID
       # FIXME: isn't card always of type set???
       # FIXME: should be done with override in pointer set module

@@ -3,17 +3,39 @@ format :html do
   # Card::View::Options.shark_keys - %i[nest_syntax nest_name items cache]
 
   view :nest_editor, cache: :never, template: :haml,
-                     wrap: { slot: { class: "_overlay d0-card-overlay card" } } do
+                     wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
     @nest_editor_mode = :overlay
   end
 
-  view :modal_nest_editor, cache: :never, wrap: :slot do
+  view :modal_nest_editor, cache: :never, wrap: { slot: {class: "nodblclick" } } do
     modal_nest_editor
   end
 
   def nest_editor_tabs
-    static_tabs({ rules: haml_partial(:rules), options: haml_partial(:options) },
+    static_tabs({ rules: nest_rules_tab, options: haml_partial(:options) },
                 :options, "tabs")
+  end
+
+  def nest_rules_tab
+    [
+      empty_nest_name_alert(edit_nest.name.blank?),
+      nest_rules_editor
+    ]
+  end
+
+  def nest_rules_editor
+    if edit_nest.name.blank?
+      content_tag :div, "", class: "card-slot" # placeholder
+    else
+      nest([edit_nest.name, :right], view: :nest_rules)
+    end
+  end
+
+  def empty_nest_name_alert show
+    alert :warning, false, false,
+          class: "mb-0 _empty-nest-name-alert #{'d-none' unless show}" do
+      "nest name required" # LOCALIZE
+    end
   end
 
   def modal_nest_editor
@@ -54,16 +76,29 @@ format :html do
   def nest_option_name_select_options selected, level
     options = selected ? [] : ["--"]
     options += NEST_OPTIONS
-    disabled = level == 0 ? edit_nest.options : edit_nest.item_options[level - 1]
+    options_for_select(
+      options, disabled: nest_option_name_disabled(selected, level),
+               selected: selected
+    )
+  end
+
+  def nest_option_name_disabled selected, level
+    disabled = if level == 0
+                 edit_nest.options
+               else
+                 edit_nest.item_options[level - 1] || default_nest_editor_item_options
+               end
+
     disabled = disabled&.map(&:first)
     disabled&.delete selected if selected
-    options_for_select(options, disabled: disabled, selected: selected)
+    disabled
   end
 
   def nest_option_value_select value=nil
     # select_tag "nest_option_value_#{unique_id}"
     text_field_tag "value", value,
                    class: "_nest-option-value form-control form-control-sm",
-                   disabled: !value
+                   disabled: !value,
+                   id: nil
   end
 end

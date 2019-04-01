@@ -24,19 +24,15 @@ header {
 
 .d0-card-header a {
   color: $body-color;
-}
-.card-menu {
-  color: $text-muted;
+  &.edit-link {
+    color: $text-muted;
+  }
 }
 
 @media print {
   header {
     display: none;
   }
-}
-
-.card-menu a {
-  color: inherit;
 }
 
 label,
@@ -426,12 +422,6 @@ body.mceContentBody {
 
 .badge {
   vertical-align: text-top!important;
-}
-
-/*----------- Tweak tabs -------------*/
-
-.nav-tabs .nav-item {
-  margin-left: -1px; // remove double border on tabs
 }
 
 /*----------- Slim Select2 -------------*/
