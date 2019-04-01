@@ -40,7 +40,7 @@ class Card
       end
 
       def register_built_in_layout new_layout, opts
-        register_layout(new_layout) { opts }
+        register_layout(new_layout) { opts.present? ? opts : nil }
         built_in_layouts_hash[new_layout] = true
       end
 
@@ -62,7 +62,7 @@ class Card
 
       def main_nest_opts layout_name, format
         key = layout_key layout_name
-        opts = layouts[key] || main_new_opts_from_nest(key, format)
+        opts = layouts[key] || main_new_opts_from_nest(layout_name, format)
         opts.clone
       end
 
