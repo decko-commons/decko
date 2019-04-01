@@ -68,7 +68,8 @@ Gem::Specification.new do |s|
     ["minitest",                   "5.11.2"],
     ["rake",                       "<= 12.3.0"],
     # ["bootswatch", "4.1.1"],
-    ["rails", "~> 5.2"]
+    ["rails", "< 5.2.3"] # 5.2.3 has a routing bug that breaks urls that start with
+                         # non-word characters like /:codename or /~id
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end
