@@ -12,7 +12,7 @@ class Card
 
       def fetch_main_nest_opts
         main_nest = find_main_nest_chunk
-        # don't .& me !!
+        # don't .& me !!  <-- why not?
         (main_nest && main_nest.options) ||
           raise(Card::Error, "no main nest found in layout \"#{@layout}\"")
       end
