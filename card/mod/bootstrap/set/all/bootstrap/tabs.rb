@@ -25,7 +25,6 @@ format :html do
     tab_panel tab_buttons, tab_panes, tab_type
   end
 
-
   # @param [Hash] tabs keys are the views, values the title unless you pass a
   #   hash as value
   # @option tabs [String] :title

@@ -53,18 +53,6 @@ class Card
           end
         end
 
-        def load_layouts extension
-          hash = {}
-          Mod.dirs.each(:layout) do |dirname|
-            Dir.foreach(dirname) do |filename|
-              next if filename =~ /^\./ || filename !~ /\.#{extension}$/
-              layout_name = filename.gsub(/\.#{extension}$/, "")
-              hash[layout_name] = File.read File.join(dirname, filename)
-            end
-          end
-          hash
-        end
-
         def module_class_template
           const_get :Template
         end
