@@ -47,5 +47,5 @@ $.extend decko,
   addNestPlugin: (conf) ->
     if conf.plugins?  then conf.plugins += " nest"    else conf.plugins = "nest"
     # if conf.toolbar1? then conf.toolbar1 += " | nest" else conf.toolbar1 = "nest"
-    conf.menu = { insert: { title: "Insert", items: "nest link | hr"}}
+    conf.menu = { insert: { title: "Insert", items: "nest image link | hr"}}
 
