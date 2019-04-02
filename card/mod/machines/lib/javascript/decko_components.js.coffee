@@ -17,6 +17,8 @@ $(window).ready ->
     $(event.target).closest('form').submit()
 
   $('body').on "input", "._submit-after-typing", (event) ->
+    form = $(event.target).closest('form')
+    form.slot().find(".autosubmit-success-notification").remove()
     clearTimeout(submitAfterTyping) if submitAfterTyping
     submitAfterTyping = setTimeout ->
         $(event.target).closest('form').submit()

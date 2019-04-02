@@ -1,6 +1,7 @@
 # find card slot by card name (and view)
 Cypress.Commands.add "slot", (cardname, view) =>
-  selector = ".card-slot.SELF-#{cardname.replace(/\+/g, "-")}"
+  safe_name = cardname.replace(/\+/g, "-").replace(/\*/g, "X")
+  selector = ".card-slot.SELF-#{safe_name}"
   selector += ".#{view}-view" if view?
   cy.get(selector)
 
@@ -30,11 +31,15 @@ Cypress.Commands.add "retype", (name, new_type) =>
     method: "POST",
     url: "/update/#{name}?card[type]=#{new_type}"
 
+Cypress.Commands.add "clear_script_cache", () =>
+  cy.request
+    method: "POST",
+    url: "/update/*admin?task=clear_script_cache"
+
 Cypress.Commands.add "clear_machine_cache", () =>
   cy.request
     method: "POST",
     url: "/update/*admin?task=clear_machine_cache"
-
 
 Cypress.Commands.add "field", (name) =>
   cy.get "[name='card[subcards][+#{name}][content]']"

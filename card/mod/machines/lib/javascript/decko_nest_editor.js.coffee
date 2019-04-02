@@ -37,6 +37,8 @@ $.extend nest,
     return "&nest_start=0" unless sel? and sel.anchorNode?
 
     text = sel.anchorNode.data
+    return "&nest_start=0" unless text
+
     offset = sel.anchorOffset
     before = text.substr(0, offset)
     after =  text.substr(offset)

@@ -15,6 +15,7 @@ $(document).ready ->
     nestNameTimeout = setTimeout nest.updateRulesTab, 1000
 
 
+
 $.extend nest,
   name: () ->
     nest.evalFieldOption $('input._nest-name').val()
