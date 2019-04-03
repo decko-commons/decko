@@ -7,7 +7,6 @@ $(window).ready ->
     addModalDialogClasses $(this), link
     $(this).modal("handleUpdate")
 
-  $('body').on 'loaded.bs.modal', null, (event) ->
     unless event.slotSuccessful
       decko.initModal $(event.target)
       event.slotSuccessful = true
@@ -92,6 +91,7 @@ $.extend decko,
   initModal: ($dialog) ->
     decko.initializeEditors $dialog
     $dialog.find(".card-slot").trigger("slotReady")
+
 
   removeModal: ->
     if $("._modal-stack")[0]
