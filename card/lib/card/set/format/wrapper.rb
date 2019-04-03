@@ -46,8 +46,8 @@ class Card
           define_wrap_with_method wrapper_name, method_name
         end
 
-        def layout layout, &block
-          Card::Layout.register_built_in_layout layout
+        def layout layout, opts={}, &block
+          Card::Layout.register_built_in_layout layout, opts
           method_name = Card::Set::Format.layout_method_name(layout)
           define_method method_name, &block
           wrapper layout do

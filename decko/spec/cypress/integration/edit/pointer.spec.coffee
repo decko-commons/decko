@@ -56,7 +56,7 @@ describe 'editing pointers', () ->
         .should("contain", "Joe Camel")
       cy.contains(/select\s+3\s+following/)
       cy.get("input._select-all").click()
-      cy.contains(/select\s+0\s+following/)
+      # cy.contains(/select\s+0\s+following/)
       cy.get("._add-selected").click().should("not.contain", "input._select-all")
       cy.get("._pointer-filtered-list")
         .should("contain", "Joe Admin")

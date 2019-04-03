@@ -380,9 +380,27 @@ body.mceContentBody {
     // TODO: obviate in ruby with better unknown API
     display: none;
   }
-  // div, span, a {
-  //   overflow: hidden;
-  // }
+}
+.bar {
+  border-left: 3px solid $bar_stripe_color !important;
+  .bar-nav {
+    min-width: 20px;
+  }
+  .media {
+    width: 100%
+  }
+  .media-left {
+    max-width: 25%
+  }
+}
+
+.expanded-bar {
+  margin-bottom: 1em;
+  .bar-bottom {
+    padding: 1em 1em 1em 2em;
+    border: 1px solid $border-color;
+    border-top: 0;
+  }
 }
 
 .item-box {
@@ -415,13 +433,6 @@ body.mceContentBody {
   }
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.bar {
-  border-left: 3px solid $bar_stripe_color !important;
-  .bar-nav {
-    min-width: 20px;
-  }
 }
 
 .badge {

@@ -69,7 +69,7 @@ format :html do
 
   def view_for_unknown view
     case
-    when focal? && ok?(:create) then :new
+    when main? && ok?(:create) then :new
     when commentable?(view)     then view
     else super
     end
