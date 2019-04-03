@@ -58,11 +58,11 @@ format :html do
 
   def undo_button
     link_to "undo", method: :post, rel: "nofollow", class: "btn btn-secondary ml-2 btn-sm btn-reduced-padding slotter",
-            remote: true,
-            "data-slot-selector": ".card-slot.quick_edit-view",
-            path: { action: :update,
-                    revert_actions: [card.last_action_id],
-                    revert_to: :previous }
+                    remote: true,
+                    "data-slot-selector": ".card-slot.quick_edit-view",
+                    path: { action: :update,
+                            revert_actions: [card.last_action_id],
+                            revert_to: :previous }
   end
 
   view :quick_edit_success do

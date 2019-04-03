@@ -1,11 +1,11 @@
 @@options = { junction_only: true }
 
 def label _name
-  'All rule cards'
+  "All rule cards"
 end
 
 def short_label _name
-  'all rule cards'
+  "all rule cards"
 end
 
 def prototype_args _anchor

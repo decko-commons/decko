@@ -1,6 +1,6 @@
 format :html do
   view :nest_rules, cache: :never, tags: :unknown_ok, wrap: :slot do
-    output [ rules_filter(:field_related_rules, :self),
+    output [rules_filter(:field_related_rules, :self),
              quick_edit_rules_list(:field_related)]
   end
 

@@ -73,6 +73,7 @@ module Cardio
         persistent_cache:       true,
         prepopulate_cache:      false,
         machine_refresh:        :cautious, # options: eager, cautious, never
+        compress_javascript:    true,
 
         allow_irreversible_admin_tasks: false,
         raise_all_rendering_errors:     false,
