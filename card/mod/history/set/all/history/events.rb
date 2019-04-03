@@ -38,6 +38,7 @@ event :finalize_action, :finalize, when: :finalize_action? do
     # so the changes for the create changes have to be created before the first change
     store_card_changes_for_create_action if first_change?
     store_card_changes unless first_create?
+    # FIXME: a `@current_action.card` call here breaks specs in solid_cache_spec.rb
   elsif @current_action.card_changes.reload.empty?
     @current_action.delete
     @current_action = nil

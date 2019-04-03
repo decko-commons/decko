@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Abstract::SolidCache do
+RSpec.describe Card::Set::Abstract::SolidCache do
   context "render core view of a card" do
     before do
       @card = Card["A"]
