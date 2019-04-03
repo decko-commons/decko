@@ -12,8 +12,8 @@ class Card
     include Cache
     include Stub
     include Options
-    include Layout
-    include Wrapper
+    # include Layout
+    # include Wrapper
     include Classy
     extend Cache::ClassMethods
 
