@@ -10922,7 +10922,7 @@ return jQuery;
 
 //script: slot
 (function() {
-  var addCategoryOption, addModalDialogClasses, addSelectedButton, addSelectedButtonUrl, arrayFromField, containerClass, deselectAllLink, detectMobileBrowser, doubleClickActive, doubleClickActiveMap, doubleClickApplies, doubleSidebar, filterAndSort, filterBox, formatNavboxItem, formatNavboxSelectedItem, hideFilterInputField, navboxItem, navboxSelect, navboxize, newFilteredListContent, openModalIfPresent, prefilteredData, prefilteredIds, prefilteredNames, removeCategoryOption, selectFilteredItem, selectedBin, selectedData, selectedIds, selectedNames, setFilterInputWidth, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, toggleButton, trackSelectedIds, triggerDoubleClickEditingOn, updateAfterSelection, updateSelectedCount, updateSelectedSectionVisibility, updateUnselectedCount, warn, weirdoSelect2FilterBreaker, wrapDeckoLayout, wrapSidebarToggle;
+  var addCategoryOption, addModalDialogClasses, addSelectedButton, addSelectedButtonUrl, arrayFromField, containerClass, deselectAllLink, detectMobileBrowser, doubleClickActive, doubleClickActiveMap, doubleClickApplies, doubleSidebar, filterAndSort, filterBox, formatNavboxItem, formatNavboxSelectedItem, hideFilterInputField, navboxItem, navboxSelect, navboxize, nestNameTimeout, newFilteredListContent, openModalIfPresent, prefilteredData, prefilteredIds, prefilteredNames, removeCategoryOption, selectFilteredItem, selectedBin, selectedData, selectedIds, selectedNames, setFilterInputWidth, showFilterInputField, sidebarToggle, singleSidebar, snakeCase, submitAfterTyping, toggleButton, trackSelectedIds, triggerDoubleClickEditingOn, updateAfterSelection, updateSelectedCount, updateSelectedSectionVisibility, updateUnselectedCount, warn, weirdoSelect2FilterBreaker, wrapDeckoLayout, wrapSidebarToggle;
 
   window.decko || (window.decko = {});
 
@@ -12456,6 +12456,8 @@ return jQuery;
     }
   });
 
+  nestNameTimeout = null;
+
   $(document).ready(function() {
     $('body').on('click', '._nest-field-toggle', function() {
       if ($(this).is(':checked')) {
@@ -12464,22 +12466,33 @@ return jQuery;
         return nest.removePlus();
       }
     });
-    return $('body').on('keyup', 'input._nest-name', function() {
-      var name, nestNameTimeout, new_val, repl;
-      name = $(this).val();
-      repl = nest.evalFieldOption(name);
-      new_val = $("._nest-preview").val().replace(/^\{\{[^}|]*/, "{{" + repl);
-      nest.updatePreview(new_val);
-      if (nestNameTimeout) {
-        clearTimeout(nestNameTimeout);
+    $('body').on('keyup', 'input._nest-name', function(event) {
+      nest.nameChanged();
+      if (event.which !== 13) {
+        if (nestNameTimeout) {
+          clearTimeout(nestNameTimeout);
+        }
+        return nestNameTimeout = setTimeout(nest.updateRulesTab, 700);
       }
-      return nestNameTimeout = setTimeout(nest.updateRulesTab, 1000);
+    });
+    return $('body').on('keydown', 'input._nest-name', function(event) {
+      if (event.which === 13) {
+        if (nestNameTimeout) {
+          clearTimeout(nestNameTimeout);
+        }
+        return nest.updateRulesTab();
+      }
     });
   });
 
   $.extend(nest, {
     name: function() {
       return nest.evalFieldOption($('input._nest-name').val());
+    },
+    nameChanged: function() {
+      var new_val;
+      new_val = $("._nest-preview").val().replace(/^\{\{[^}|]*/, "{{" + nest.name());
+      return nest.updatePreview(new_val);
     },
     evalFieldOption: function(name) {
       if (nest.isField()) {
@@ -12524,6 +12537,8 @@ return jQuery;
     });
   });
 
+  submitAfterTyping = null;
+
   $(window).ready(function() {
     $('body').on('show.bs.tab', 'a.load[data-toggle="tab"][data-url]', function(e) {
       var tab_id, url;
@@ -12542,8 +12557,8 @@ return jQuery;
     $('body').on("select2:select", "._submit-on-select", function(event) {
       return $(event.target).closest('form').submit();
     });
-    return $('body').on("input", "._submit-after-typing", function(event) {
-      var form, submitAfterTyping;
+    $('body').on("input", "._submit-after-typing", function(event) {
+      var form;
       form = $(event.target).closest('form');
       form.slot().find(".autosubmit-success-notification").remove();
       if (submitAfterTyping) {
@@ -12552,6 +12567,15 @@ return jQuery;
       return submitAfterTyping = setTimeout(function() {
         return $(event.target).closest('form').submit();
       }, 1000);
+    });
+    return $('body').on("keydown", "._submit-after-typing", function(event) {
+      if (event.which === 13) {
+        if (submitAfterTyping) {
+          clearTimeout(submitAfterTyping);
+        }
+        $(event.target).closest('form').submit();
+        return false;
+      }
     });
   });
 

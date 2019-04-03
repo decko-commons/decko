@@ -21,7 +21,7 @@ type_nest = (text) ->
 describe 'nest editor', () ->
   before ->
     cy.login()
-    #cy.clear_script_cache()
+    # cy.clear_script_cache()
 
   specify "nest editor", () ->
     cy.ensure "nests", ""
@@ -72,7 +72,7 @@ describe 'nest editor', () ->
     cy.tinymce_content()
       .should "eq", "<p>{{crafted|hide: H}}{{Na|view: titled; title: T|view: bar}}</p>"
 
-  specify.only "nest lrules editor", () ->
+  specify.only "nest rules editor", () ->
     cy.ensure "nests", ""
     cy.delete "NaNa+*right+*help"
     cy.visit_bridge "nests"
@@ -81,29 +81,30 @@ describe 'nest editor', () ->
     cy.get(".nest_editor-view").within () ->
       cy.contains "rules"
         .click()
-      cy.get "#Xupdate-rule.tab-pane"
+      cy.get ".tab-pane-rule"
         .should "not.contain", "default"
         .contains ".alert", "nest name required"
         .should "be.visible"
       cy.get "#nest_name"
-        .type "NaNa"
-      cy.get "#Xupdate-rule.tab-pane"
+        .type "NaNa{enter}"
+      cy.get ".tab-pane-rule .card-slot.nest_rules-view", timeout: 15000
         .should "contain", "default"
         .contains ".alert", "nest name required"
         .should "not.be.visible"
 
       cy.get ".card-slot.RIGHT-Xhelp input#card_content"
-        .type "help nana"
+        .type "help nana{enter}"
+      cy.contains "undo", timeout: 10000
       cy.get ".card-slot.RIGHT-Xhelp .form-control-feedback"
-        .should "contain", "undo"
         .should "contain", "All \"+NaNa\" cards"
         .should "contain", "Applied!"
 
       cy.get ".card-slot.RIGHT-Xhelp input#card_content"
-        .type "remove this"
+        .type "remove this{enter}"
+      cy.get ".card-slot.RIGHT-Xhelp"
+        .should "not.contain", "undo"
       cy.contains("undo").click()
-
-      cy.get ".card-slot.RIGHT-Xhelp input#card_content"
+      cy.get ".card-slot.RIGHT-Xhelp input#card_content", timeout: 10000
         .should "have.value", "help nana"
       cy.get ".card-slot.RIGHT-Xhelp"
         .should "contain", "All \"+NaNa\" cards"

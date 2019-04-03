@@ -1,6 +1,8 @@
 decko.slotReady (slot) ->
   $('[data-toggle="popover"]').popover(html: true)
 
+submitAfterTyping = null
+
 $(window).ready ->
   $('body').on 'show.bs.tab', 'a.load[data-toggle="tab"][data-url]', (e) ->
     tab_id = $(e.target).attr('href')
@@ -23,6 +25,13 @@ $(window).ready ->
     submitAfterTyping = setTimeout ->
         $(event.target).closest('form').submit()
       , 1000
+
+  $('body').on "keydown", "._submit-after-typing", (event) ->
+    if event.which == 13
+      clearTimeout(submitAfterTyping) if submitAfterTyping
+      $(event.target).closest('form').submit()
+      false
+
 
 
 
