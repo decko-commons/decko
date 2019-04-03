@@ -3,8 +3,7 @@ class Card
     # Layout based on a card's content
     class CardLayout < Layout
       def layout_card
-        # @layout_card ||=
-        Card.quick_fetch @layout
+        @layout_card ||= Card.quick_fetch @layout
       end
 
       def render
