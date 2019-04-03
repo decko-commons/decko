@@ -1,3 +1,5 @@
+nestNameTimeout = null
+
 $(document).ready ->
   $('body').on 'click', '._nest-field-toggle', () ->
     if $(this).is(':checked')
@@ -5,19 +7,25 @@ $(document).ready ->
     else
       nest.removePlus()
 
-  $('body').on 'keyup', 'input._nest-name', () ->
-    name = $(this).val()
-    repl = nest.evalFieldOption name
-    new_val = $("._nest-preview").val().replace(/^\{\{[^}|]*/, "{{" + repl)
-    nest.updatePreview new_val
+  $('body').on 'keyup', 'input._nest-name', (event) ->
+    nest.nameChanged()
 
-    clearTimeout(nestNameTimeout) if nestNameTimeout
-    nestNameTimeout = setTimeout nest.updateRulesTab, 1000
+    unless event.which == 13
+      clearTimeout(nestNameTimeout) if nestNameTimeout
+      nestNameTimeout = setTimeout nest.updateRulesTab, 700
 
+  $('body').on 'keydown', 'input._nest-name', (event) ->
+    if event.which == 13
+      clearTimeout(nestNameTimeout) if nestNameTimeout
+      nest.updateRulesTab()
 
 $.extend nest,
   name: () ->
     nest.evalFieldOption $('input._nest-name').val()
+
+  nameChanged: () ->
+    new_val = $("._nest-preview").val().replace(/^\{\{[^}|]*/, "{{" + nest.name())
+    nest.updatePreview new_val
 
   evalFieldOption: (name) ->
     if nest.isField() then "+#{name}" else name

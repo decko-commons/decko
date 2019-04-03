@@ -45,7 +45,7 @@ RSpec.describe Card::Set::All::Pattern do
     it "returns set names for rule cards", as_bot: true do
       expect(Card.new(name: "*all+*create").set_names).to eq(
         [
-          "*rule", "Set+*create+*type plus right", "*create+*right", "*rstar",
+          "Set+*create+*type plus right", "*create+*right", "*rule", "*rstar",
           "Pointer+*type", "*all plus", "*all"
         ]
       )

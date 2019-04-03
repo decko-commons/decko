@@ -4,7 +4,7 @@
   %p.text-muted
     = find_existing_rule_card&.left&.label || "--"
   - if notify_change
-    %p
+    %p.autosubmit-success-notification
       %span.text-success
         Applied!
       = undo_button

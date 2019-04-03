@@ -68,7 +68,8 @@ Gem::Specification.new do |s|
     ["minitest",                   "5.11.2"],
     ["rake",                       "<= 12.3.0"],
     # ["bootswatch", "4.1.1"],
-    ["rails", "~> 5.2.2.1"] # routing breaks for :, *, and ~ in 5.2.3
+    ["rails", "~> 5.2.2.1"], # routing breaks for :, *, and ~ in 5.2.3
+    ["activerecord-import", "~> 1.0"]
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end

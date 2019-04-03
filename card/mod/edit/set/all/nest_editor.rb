@@ -7,7 +7,7 @@ format :html do
     @nest_editor_mode = :overlay
   end
 
-  view :modal_nest_editor, cache: :never, wrap: { slot: {class: "nodblclick" } } do
+  view :modal_nest_editor, cache: :never, wrap: { slot: { class: "nodblclick" } } do
     modal_nest_editor
   end
 
@@ -65,7 +65,7 @@ format :html do
 
   def nest_option_name_select selected=nil, level=0
     classes = "form-control form-control-sm _nest-option-name"
-    classes += " _new-row" if !selected
+    classes += " _new-row" unless selected
     select_tag "nest_option_name_#{unique_id}",
                nest_option_name_select_options(selected, level),
                class: classes, id: nil
