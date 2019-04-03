@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 
-TMP_LAYOUT = <<-HTML
+TMP_LAYOUT = %{
   <body class="wrong-sidebar">
     {{_main|bar}}
   </body>
-HTML
+}.freeze
 
 describe Card::Set::Type::LayoutType do
   it "includes Html card methods" do
