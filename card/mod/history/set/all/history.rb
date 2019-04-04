@@ -23,7 +23,7 @@ def first_create?
 end
 
 def action_count
-  Card::Action.where(card_id: @current_action.id).count
+  Card::Action.where(card_id: @current_action.card_id).count
 end
 
 # card has account that is responsible for prior acts

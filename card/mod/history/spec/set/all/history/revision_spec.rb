@@ -1,4 +1,4 @@
-describe Card::Set::All::History::Revision do
+RSpec.describe Card::Set::All::History::Revision do
   describe "#revision" do
     example "updated card", as_bot: true do
       update "T", "undo me"
