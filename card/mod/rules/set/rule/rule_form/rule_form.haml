@@ -2,7 +2,7 @@
   %h5
     .guide-line-number 1
     Define rule
-    = popover_link "Help text to explain this section"
+    -# = popover_link "Help text to explain this section"
   .card-editor
     = rules_type_formgroup
     = rule_content_formgroup
@@ -10,7 +10,7 @@
   %h5
     .guide-line-number 2
     Apply to set
-    = popover_link "Help text to explain this section"
+    = popover_link "Each rule applies to a set of cards. Rules for more specific sets override rules for more general ones."
   .card-editor
     = bridge_rule_set_selection
     = edit_rule_buttons

@@ -721,10 +721,7 @@ td.rule-setting {
   color: $gray-600;
   white-space: nowrap;
 }
-.rule-type-field {
-  max-width: 70%;
-  margin-right: 5px;
-}
+
 .closed-rule {
   height: 30px;
   td {
@@ -936,8 +933,8 @@ a.external-link,
   width: 50px;
 }
 
-.edit-link {
-  color: inherit;
+a.edit-link {
+  color: $text-muted;
 }
 
 // Bridge
@@ -961,10 +958,6 @@ a.external-link,
 
 $bridge-line-color: $gray-300;
 
-.bridge-main {
-  border-right: 1px solid $bridge-line-color;
-}
-
 .bridge-sidebar {
   background-color: $gray-100;
   padding-left: 0;
@@ -973,6 +966,7 @@ $bridge-line-color: $gray-300;
 }
 
 .bridge-main {
+  border-right: 1px solid $bridge-line-color;
   padding-left: 0;
   padding-right: 0;
   > ._overlay-container-placeholder > .bridge-view {
@@ -999,22 +993,59 @@ $bridge-line-color: $gray-300;
   }
 }
 
-
 .d0-card-overlay > .d0-card-frame > .d0-card-header {
   border-bottom: 1px solid $bridge-line-color;
   padding-left: -15px!important;
   padding-right: -15px!important;
 }
 
-.bridge-pills > .nav-item > a {
+.bridge-pills {
+  .help-text {
+    font-size: 0.8rem;
+  }
+  > .nav-item > a {
+    background-color: $list-group-bg;
+    border: 1px solid $list-group-border-color;
+    border-left: 3px solid $list-group-border-color;
+    margin-bottom: -1px;
+
+    &:hover, &.active, &:focus {
+      border-left-color: $list-group-active-bg;
+    }
+  }
+}
+
+.rule-item {
+  h5 {
+    font-weight: bold;
+  }
   background-color: $list-group-bg;
   border: 1px solid $list-group-border-color;
-  border-left: 3px solid $list-group-border-color;
+  border-left: 5px solid $list-group-border-color;
   margin-bottom: -1px;
+  padding: 5px;
   &:hover, &.active {
     border-left-color: $list-group-active-bg;
   }
 }
+
+.btn-reduced-padding {
+  padding: 0.1rem 0.2rem;
+}
+
+// reduce bottom margins
+.card-slot.set-info {
+  .form-group {
+    margin-bottom: 0.3rem;
+    label {
+      margin-bottom: 0.2rem;
+    }
+  }
+  p {
+    margin-bottom: 0.5rem;
+  }
+}
+
 
 .nav-pills .nav-link.active .help-text {
   color: lighten($primary, 40%);
@@ -1056,6 +1087,13 @@ $bridge-line-color: $gray-300;
     .d0-card-header-title > .card-title {
       font-size: 1rem;
     }
+
+    .creator-credit {
+      font-size: $font-size-sm;
+    }
+    .nav-link {
+      padding: 0.5rem 0.5rem;
+    }
   }
 }
 
@@ -1064,18 +1102,27 @@ $bridge-line-color: $gray-300;
   line-height: 1;
   font-weight: bold;
   border-right: none;
-  background: $white;
+  border-left: none;
+  background: $input-bg;
 }
 
 .input-group.show-prefix {
+  border-left: 1px solid $input-border-color;
   > input {
     border-left: none;
   }
 }
 
 .input-group.hide-prefix {
-  > .input-group-prepend > .input-group-text {
-    display: none;
+  border-left: 1px solid $input-border-color;
+  > input {
+    border-left: none;
+  }
+  > .input-group-prepend {
+    margin-right: 0;
+    > .input-group-text {
+      display: none;
+    }
   }
 }
 
@@ -1107,4 +1154,8 @@ $bridge-line-color: $gray-300;
 
 [id^='svg-card-']:nth-child(even) use { // even cards
   fill: $secondary;
+}
+
+.act-summary {
+  min-width: 27px;
 }
