@@ -12466,7 +12466,7 @@ return jQuery;
         return nest.removePlus();
       }
     });
-    $('body').on('keyup', 'input._nest-name', function(event) {
+    $('body').on('input', 'input._nest-name', function(event) {
       nest.nameChanged();
       if (event.which !== 13) {
         if (nestNameTimeout) {
@@ -12523,9 +12523,9 @@ return jQuery;
         card = nest.isField() ? name + "+*right" : name + "+*self";
         url = decko.path(card + "?view=nest_rules");
         $("._empty-nest-name-alert:not(.d-none)").addClass("d-none");
-        return $("#Xupdate-rule > .card-slot").reloadSlot(url);
+        return $(".tab-pane-rule > .card-slot").reloadSlot(url);
       } else {
-        $("#Xupdate-rule > .card-slot").empty();
+        $(".tab-pane-rule > .card-slot").empty();
         return $("._empty-nest-name-alert").removeClass("d-none");
       }
     }

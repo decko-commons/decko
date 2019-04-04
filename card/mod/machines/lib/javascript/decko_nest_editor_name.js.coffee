@@ -7,7 +7,7 @@ $(document).ready ->
     else
       nest.removePlus()
 
-  $('body').on 'keyup', 'input._nest-name', (event) ->
+  $('body').on 'input', 'input._nest-name', (event) ->
     nest.nameChanged()
 
     unless event.which == 13
@@ -49,8 +49,8 @@ $.extend nest,
       card = if nest.isField() then "#{name}+*right" else "#{name}+*self"
       url = decko.path "#{card}?view=nest_rules"
       $("._empty-nest-name-alert:not(.d-none)").addClass("d-none")
-      $("#Xupdate-rule > .card-slot").reloadSlot url
+      $(".tab-pane-rule > .card-slot").reloadSlot url
     else
-      $("#Xupdate-rule > .card-slot").empty()
+      $(".tab-pane-rule > .card-slot").empty()
       $("._empty-nest-name-alert").removeClass("d-none")
 
