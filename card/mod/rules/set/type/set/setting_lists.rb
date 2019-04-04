@@ -57,7 +57,7 @@ format :html do
   view :grouped_rules_list do
     with_label_and_navbars :grouped_rules do
       wrap_with :div, class: "panel-group", id: "accordion",
-                role: "tablist", "aria-multiselectable": "true" do
+                      role: "tablist", "aria-multiselectable": "true" do
         Card::Setting.groups.keys.map do |group_key|
           _render group_key
         end

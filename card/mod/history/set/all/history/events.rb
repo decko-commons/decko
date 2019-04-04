@@ -38,6 +38,7 @@ event :finalize_action, :finalize, when: :finalize_action? do
     # so the changes for the create changes have to be created before the first change
     store_card_changes_for_create_action if first_change?
     store_card_changes unless first_create?
+    # FIXME: a `@current_action.card` call here breaks specs in solid_cache_spec.rb
   elsif @current_action.card_changes.reload.empty?
     @current_action.delete
     @current_action = nil
@@ -59,9 +60,10 @@ end
 
 def store_each_history_field action_id, fields=nil
   fields ||= Card::Change::TRACKED_FIELDS
-  if Card::Change.supports_import?
+  if false # Card::Change.supports_import?
+    # attach.feature fails with this
     values = fields.map.with_index { |field, index| [index, yield(field), action_id] }
-    Card::Change.import [:field, :value, :card_action_id], values, validate: false
+    Card::Change.import [:field, :value, :card_action_id], values #, validate: false
   else
     fields.each do |field|
       Card::Change.create field: field,
