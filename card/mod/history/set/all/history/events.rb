@@ -60,9 +60,10 @@ end
 
 def store_each_history_field action_id, fields=nil
   fields ||= Card::Change::TRACKED_FIELDS
-  if Card::Change.supports_import?
+  if false # Card::Change.supports_import?
+    # attach.feature fails with this
     values = fields.map.with_index { |field, index| [index, yield(field), action_id] }
-    Card::Change.import [:field, :value, :card_action_id], values, validate: false
+    Card::Change.import [:field, :value, :card_action_id], values #, validate: false
   else
     fields.each do |field|
       Card::Change.create field: field,
