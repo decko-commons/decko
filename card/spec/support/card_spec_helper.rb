@@ -105,7 +105,7 @@ class Card
 
     def with_params hash
       old_params = Card::Env.params.clone
-      Card::Env.params.merge hash
+      Card::Env.params.merge! hash
       yield
     ensure
       Card::Env.params = old_params
