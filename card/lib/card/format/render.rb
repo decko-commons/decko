@@ -30,7 +30,7 @@ class Card
           # don't wrap twice with modals or overlays
           # this can happen if the view is wrapped with modal
           # and is requested with layout=modal param
-          voo.wrap.push layout unless voo.wrap.include? layout.to_sym
+          voo.wrap.unshift layout unless voo.wrap.include? layout.to_sym
         end
 
         @rendered = yield
