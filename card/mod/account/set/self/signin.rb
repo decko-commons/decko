@@ -91,7 +91,7 @@ format :html do
 
   view :open do
     voo.show :help
-    voo.hide :edit_menu
+    voo.hide :menu
     super()
   end
 

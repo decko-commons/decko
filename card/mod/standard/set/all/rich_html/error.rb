@@ -171,6 +171,7 @@ format :html do
   end
 
   def loud_denial
+    voo.hide :menu
     frame do
       [wrap_with(:h1, tr(:sorry)),
        wrap_with(:div, loud_denial_message)]

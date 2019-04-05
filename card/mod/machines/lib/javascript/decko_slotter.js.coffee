@@ -198,7 +198,7 @@ jQuery.fn.extend
     return if opt.skip_before_send
 
     # avoiding duplication. could be better test?
-    unless opt.url.match /home_view/ or @data("slotter-mode") == "modal"
+    unless (opt.url.match(/home_view/) or @data("slotter-mode") == "modal")
       opt.url = decko.slotPath opt.url, @slot()
 
     if @is('form')
