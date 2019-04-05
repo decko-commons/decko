@@ -5,12 +5,20 @@ $(document).ready ->
 window.nest ||= {}
 
 $.extend nest,
-  openEditor: (tm) ->
-    nest.tmRequest(tm, ":update", "nest_editor", "modal_nest_editor", nest.editParams(tm))
+  openEditor: (tm, params) ->
+    params = nest.editParams(tm) unless params?
+
+    nest.tmRequest(tm, ":update", "nest_editor", "modal_nest_editor", params)
 
   openImageEditor: (tm) ->
-    card_name = $("##{tm.id}").closest(".card-slot").data("card-name")
-    nest.tmRequest tm, "#{card_name}+image", "new", "new", "&type=image"
+    slot = $("##{tm.id}").closest(".card-slot")
+    card_name = slot.data("card-name")
+    nest.sendTmRequest(tm, slot, "modal", card_name, "nest_image")
+
+  insertNest: (tm, nest) ->
+    tm.insertContent(nest)
+    params = nest.paramsStr(nest.offsetAfterInsert(tm, nest), nest)
+    nest.openEditor(tm, params)
 
   tmRequest: (tm, card, overlay_view, modal_view, params) ->
     slot = $(".bridge-sidebar > ._overlay-container-placeholder > .card-slot")
@@ -20,10 +28,15 @@ $.extend nest,
       mode = "overlay"
     else
       # FIXME get a slot
+      slot = $($(".card-slot")[0])
       view = modal_view
       mode = "modal"
 
+    nest.sendTmRequest(tm, slot, mode, card, view, params)
+
+  sendTmRequest: (tm, slot, mode, card, view, params) ->
     slotter = $("##{tm.id}")
+    params = "" unless params?
     url = "/#{card}?view=#{view}&tinymce_id=#{tm.id}#{params}"
 
     $.ajax
@@ -34,10 +47,10 @@ $.extend nest,
 
   editParams: (tm) ->
     sel = tm.selection.getSel()
-    return "&nest_start=0" unless sel? and sel.anchorNode?
+    return nest.paramsStr(0) unless sel? and sel.anchorNode?
 
     text = sel.anchorNode.data
-    return "&nest_start=0" unless text
+    return nest.paramsStr(sel.anchorOffset) unless text
 
     offset = sel.anchorOffset
     before = text.substr(0, offset)
@@ -56,28 +69,45 @@ $.extend nest,
        index.after.close != -1 &&
        (index.after.open == -1 || index.after.close < index.after.open)
       nest_start = index.before.open
-      nest_size = index.after.close + offset + 2 - nest_start
-      nest = encodeURIComponent text.substr(nest_start, nest_size)
-      "&nest_start=#{nest_start}&edit_nest=#{nest}"
+      unless name?
+        nest_size = index.after.close + offset + 2 - nest_start
+        name = text.substr(nest_start, nest_size)
+      nest.paramsStr(nest_start, name)
     else
-      "&nest_start=#{offset}"
+      nest.paramsStr(offset)
+
+  paramsStr: (start, name) ->
+    params = ""
+    if start?
+      params += "&nest_start=#{start}"
+    if name? and name.length > 0
+      params += "&edit_nest=#{encodeURIComponent(name)}"
+
+    params
 
   apply: (tinymce_id, nest_start, nest_size) ->
     content =  $("._nest-preview").val()
     editor = tinymce.get(tinymce_id)
     if nest_start?
      nest.replaceNest(editor, nest_start, nest_size, content)
-     $('button._nest-apply').attr("data-nest-size", content.length)
     else
       editor.insertContent content
+      offset = nest.offsetAfterInsert(editor, content)
+      $('button._nest-apply').attr("data-nest-start", offset)
+
+    $('button._nest-apply').attr("data-nest-size", content.length)
+
+  offsetAfterInsert: (editor, content) ->
+    offset = editor.selection.getSel().anchorOffset
+    offset - content.length
 
   replaceNest: (editor, nest_start, nest_size, content) ->
-    node = editor.selection.getSel().anchorNode
-    if node?
-      text = node.data
+    sel = editor.selection.getSel()
+    if sel? and sel.anchorNode? and sel.anchorNode.data?
+      text = sel.anchorNode.data
       nest_size = 0 unless nest_size?
       text = "#{text.substr(0, nest_start)}#{content}#{text.substr(nest_start + nest_size)}"
-      node.data = text
+      sel.anchorNode.data = text
     else
       editor.insertContent content
 

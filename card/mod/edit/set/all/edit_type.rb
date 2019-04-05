@@ -7,17 +7,17 @@ format :html do
 
   view :edit_type_form, cache: :never, perms: :update, wrap: :slot do
     card_form :update, "data-update-foreign-slot": ".card-slot.edit_content_form-view",
-                              "data-update-origin": "true" do
-      output [hidden_edit_type_fields,
-              _render_type_formgroup,
-              edit_type_buttons]
+                       "data-update-origin": "true",
+                       success: edit_type_success do
+      [_render_type_formgroup,
+       edit_type_buttons]
     end
   end
 
-  def hidden_edit_type_fields
+  def edit_type_success
     # because the content editor can change with a type change
     # we have to reload the whole edit view
-    hidden_field_tag "success[view]", "edit_type_row"
+    { view: :edit_type_row }
   end
 
   def edit_type_buttons

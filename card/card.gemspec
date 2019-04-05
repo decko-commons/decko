@@ -52,7 +52,7 @@ Gem::Specification.new do |s|
 
     # assets (JavaScript, CSS, etc)
     ["coderay",                    "~> 1.1"],
-    ["sass",                       "~> 3.4"],
+    ["sassc",                      "~> 2.0"],
     ["coffee-script",              "~> 2.4"],
     ["uglifier",                   "~> 3.2"],
 
