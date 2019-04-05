@@ -11,7 +11,7 @@ format :html do
     { buttons: new_image_buttons,
       success: { view: :open_nest_editor, format: :js,
                  tinymce_id: Env.params[:tinymce_id] },
-                 "data-slotter-mode": "silent-success" }
+      "data-slotter-mode": "silent-success" }
   end
 
   def new_image_buttons
