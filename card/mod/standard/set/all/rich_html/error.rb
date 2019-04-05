@@ -150,13 +150,14 @@ format :html do
   end
 
   def signin_link
-    link_to_card :signin, tr(:sign_in)
+    link_to_card :signin, tr(:sign_in), remote: true, class: "slotter"
   end
 
   def signup_link
     return unless signup_ok?
 
-    link_to tr(:sign_up), path: { action: :new, mark: :signup }
+    link_to tr(:sign_up), path: { action: :new, mark: :signup },
+                              remote: true, class: "slotter"
   end
 
   def signup_ok?
@@ -170,6 +171,7 @@ format :html do
   end
 
   def loud_denial
+    voo.hide :menu
     frame do
       [wrap_with(:h1, tr(:sorry)),
        wrap_with(:div, loud_denial_message)]
