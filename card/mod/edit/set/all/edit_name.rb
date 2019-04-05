@@ -14,18 +14,23 @@ format :html do
   def edit_name_form success_view=nil
     card_form({ action: :update, id: card.id },
               # "main-success" => "REDIRECT",
-              "data-update-origin": "true") do
-      output [hidden_edit_name_fields(success_view),
+              "data-update-origin": "true",
+              success: edit_name_success(success_view)) do
+      output [hidden_edit_name_fields,
               _render_name_formgroup,
               rename_confirmation_alert,
               edit_name_buttons]
     end
   end
 
-  def hidden_edit_name_fields success_view=nil
+  def edit_name_success view=nil
     success = { id: "_self" }
-    success[:view] = success_view if success_view
-    hidden_tags success: success, old_name: card.name, card: { update_referers: false }
+    success[:view] = view if view
+    success
+  end
+
+  def hidden_edit_name_fields
+    hidden_tags old_name: card.name, card: { update_referers: false }
   end
 
   def edit_name_buttons

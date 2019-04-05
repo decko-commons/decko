@@ -1,6 +1,10 @@
 open_nest_editor = () ->
   cy.get("[title='Insert/edit nest']").click()
 
+open_image_editor = () ->
+  cy.contains("button", "Insert").click()
+  cy.get("[title='Image...']").click()
+
 nest_option = (section, row, name, value) ->
   cy.get("._options-select").eq(section)
     .find("select._nest-option-name").eq(row).select2(name)
@@ -72,7 +76,7 @@ describe 'nest editor', () ->
     cy.tinymce_content()
       .should "eq", "<p>{{crafted|hide: H}}{{Na|view: titled; title: T|view: bar}}</p>"
 
-  specify.only "nest rules editor", () ->
+  specify "nest rules editor", () ->
     cy.ensure "nests", ""
     cy.delete "NaNa+*right+*help"
     cy.visit_bridge "nests"
@@ -113,6 +117,16 @@ describe 'nest editor', () ->
 
     cy.visit "NaNa+*right+*help"
     cy.expect_main_content "help nana"
+
+  specify.only "nest image editor", () ->
+    cy.ensure "nests", ""
+    cy.visit_bridge "nests"
+    open_image_editor()
+    cy.get(".modal")
+      .should "contain", "nests+image01"
+      .should "contain", "Add Image"
+
+    # TODO: figure out how to attach images
 
 
 

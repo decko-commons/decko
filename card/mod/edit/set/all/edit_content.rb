@@ -6,7 +6,10 @@ format :html do
   end
 
   def edit_form
-    card_form(:update, edit_form_opts) do
+    form_opts = edit_form_opts
+    form_opts.reverse_merge! success: edit_view_success
+
+    card_form(:update, form_opts) do
       [
         edit_view_hidden,
         _render_content_formgroup,

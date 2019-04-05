@@ -80,9 +80,8 @@ format :html do
   view :core, cache: :never do
     voo.edit_structure = [signin_field(:email), signin_field(:password)]
     with_nest_mode :edit do
-      card_form :update, recaptcha: :off do
+      card_form :update, recaptcha: :off, success: signin_success do
         [
-          hidden_signin_fields,
           _render_content_formgroup,
           _render_signin_buttons
         ]
@@ -139,8 +138,8 @@ format :html do
     button_tag text, situation: "primary", class: "_close-modal-on-success"
   end
 
-  def hidden_signin_fields
-    hidden_field_tag :success, "REDIRECT: #{Env.interrupted_action || '*previous'}"
+  def signin_success
+    "REDIRECT: #{Env.interrupted_action || '*previous'}"
   end
 
   def signin_button
@@ -161,10 +160,11 @@ format :html do
   end
 
   def edit_view_hidden
-    hidden_tags(
-      card: { trigger: :send_reset_password_token },
-      success: { view: :reset_password_success }
-    )
+    hidden_tags card: { trigger: :send_reset_password_token }
+  end
+
+  def edit_view_success
+    { view: :reset_password_success }
   end
 
   def signin_field name
