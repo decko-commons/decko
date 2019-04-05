@@ -11786,9 +11786,7 @@ return jQuery;
       var link;
       link = $(event.relatedTarget);
       addModalDialogClasses($(this), link);
-      return $(this).modal("handleUpdate");
-    });
-    $('body').on('loaded.bs.modal', null, function(event) {
+      $(this).modal("handleUpdate");
       if (!event.slotSuccessful) {
         decko.initModal($(event.target));
         return event.slotSuccessful = true;
@@ -12239,25 +12237,43 @@ return jQuery;
   window.nest || (window.nest = {});
 
   $.extend(nest, {
-    openEditor: function(tm) {
-      return nest.tmRequest(tm, ":update", "nest_editor", "modal_nest_editor", nest.editParams(tm));
+    openEditor: function(tm, params) {
+      if (params == null) {
+        params = nest.editParams(tm);
+      }
+      return nest.tmRequest(tm, ":update", "nest_editor", "modal_nest_editor", params);
     },
     openImageEditor: function(tm) {
-      var card_name;
-      card_name = $("#" + tm.id).closest(".card-slot").data("card-name");
-      return nest.tmRequest(tm, card_name + "+image", "new", "new", "&type=image");
+      var card_name, slot;
+      slot = $("#" + tm.id).closest(".card-slot");
+      card_name = slot.data("card-name");
+      return nest.sendTmRequest(tm, slot, "modal", card_name, "nest_image");
+    },
+    insertNest: function(tm, nest) {
+      var params;
+      tm.insertContent(nest);
+      params = nest.paramsStr(nest.offsetAfterInsert(tm, nest), nest);
+      return nest.openEditor(tm, params);
     },
     tmRequest: function(tm, card, overlay_view, modal_view, params) {
-      var mode, slot, slotter, url, view;
+      var mode, slot, view;
       slot = $(".bridge-sidebar > ._overlay-container-placeholder > .card-slot");
       if (slot[0]) {
         view = overlay_view;
         mode = "overlay";
       } else {
+        slot = $($(".card-slot")[0]);
         view = modal_view;
         mode = "modal";
       }
+      return nest.sendTmRequest(tm, slot, mode, card, view, params);
+    },
+    sendTmRequest: function(tm, slot, mode, card, view, params) {
+      var slotter, url;
       slotter = $("#" + tm.id);
+      if (params == null) {
+        params = "";
+      }
       url = "/" + card + "?view=" + view + "&tinymce_id=" + tm.id + params;
       return $.ajax({
         url: url,
@@ -12268,14 +12284,14 @@ return jQuery;
       });
     },
     editParams: function(tm) {
-      var after, before, index, nest, nest_size, nest_start, offset, sel, text;
+      var after, before, index, name, nest_size, nest_start, offset, sel, text;
       sel = tm.selection.getSel();
       if (!((sel != null) && (sel.anchorNode != null))) {
-        return "&nest_start=0";
+        return nest.paramsStr(0);
       }
       text = sel.anchorNode.data;
       if (!text) {
-        return "&nest_start=0";
+        return nest.paramsStr(sel.anchorOffset);
       }
       offset = sel.anchorOffset;
       before = text.substr(0, offset);
@@ -12292,34 +12308,54 @@ return jQuery;
       };
       if (index.before.open > index.before.close && index.after.close !== -1 && (index.after.open === -1 || index.after.close < index.after.open)) {
         nest_start = index.before.open;
-        nest_size = index.after.close + offset + 2 - nest_start;
-        nest = encodeURIComponent(text.substr(nest_start, nest_size));
-        return "&nest_start=" + nest_start + "&edit_nest=" + nest;
+        if (typeof name === "undefined" || name === null) {
+          nest_size = index.after.close + offset + 2 - nest_start;
+          name = text.substr(nest_start, nest_size);
+        }
+        return nest.paramsStr(nest_start, name);
       } else {
-        return "&nest_start=" + offset;
+        return nest.paramsStr(offset);
       }
     },
+    paramsStr: function(start, name) {
+      var params;
+      params = "";
+      if (start != null) {
+        params += "&nest_start=" + start;
+      }
+      if ((name != null) && name.length > 0) {
+        params += "&edit_nest=" + (encodeURIComponent(name));
+      }
+      return params;
+    },
     apply: function(tinymce_id, nest_start, nest_size) {
-      var content, editor;
+      var content, editor, offset;
       content = $("._nest-preview").val();
       editor = tinymce.get(tinymce_id);
       if (nest_start != null) {
         nest.replaceNest(editor, nest_start, nest_size, content);
-        return $('button._nest-apply').attr("data-nest-size", content.length);
       } else {
-        return editor.insertContent(content);
+        editor.insertContent(content);
+        offset = nest.offsetAfterInsert(editor, content);
+        $('button._nest-apply').attr("data-nest-start", offset);
       }
+      return $('button._nest-apply').attr("data-nest-size", content.length);
+    },
+    offsetAfterInsert: function(editor, content) {
+      var offset;
+      offset = editor.selection.getSel().anchorOffset;
+      return offset - content.length;
     },
     replaceNest: function(editor, nest_start, nest_size, content) {
-      var node, text;
-      node = editor.selection.getSel().anchorNode;
-      if (node != null) {
-        text = node.data;
+      var sel, text;
+      sel = editor.selection.getSel();
+      if ((sel != null) && (sel.anchorNode != null) && (sel.anchorNode.data != null)) {
+        text = sel.anchorNode.data;
         if (nest_size == null) {
           nest_size = 0;
         }
         text = "" + (text.substr(0, nest_start)) + content + (text.substr(nest_start + nest_size));
-        return node.data = text;
+        return sel.anchorNode.data = text;
       } else {
         return editor.insertContent(content);
       }
@@ -21668,7 +21704,7 @@ decko.slotReady(function(slot) {
       return conf.menu = {
         insert: {
           title: "Insert",
-          items: "nest link | hr"
+          items: "nest image link | hr"
         }
       };
     }

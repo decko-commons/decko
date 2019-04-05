@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::NestEditor do
+RSpec.describe Card::Set::All::NestImages do
   describe "view: nest_image" do
     check_html_views_for_errors
 
     it "finds next new image card", as_bot: true do
-      create "42+image1"
-      rendered = Card["42"].format.render(:nest_image)
-      expect(rendered).to have_tag "span.card-title", with: { title: "42+sdfimage2" }
+      ensure_card "A+image01"
+      rendered = Card["A"].format.render(:nest_image)
+      expect(rendered).to have_tag "span.card-title", with: { title: "A+image02" }
     end
   end
 end
