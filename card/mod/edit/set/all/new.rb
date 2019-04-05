@@ -5,7 +5,7 @@ format :html do
 
   def new_view_frame_and_form form_opts
     buttons = form_opts.delete(:buttons) || _render_new_buttons
-    form_opts = form_opts.reverse_merge(success: new_view_success)
+    form_opts = form_opts.reverse_merge(success: new_success)
 
     with_nest_mode :edit do
       voo.title ||= new_view_title if new_name_prompt?
@@ -35,7 +35,7 @@ format :html do
     )
   end
 
-  def new_view_success
+  def new_success
     card.rule(:thanks) || "_self"
   end
 
