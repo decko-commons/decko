@@ -25,7 +25,7 @@ format :html do
     ]
   end
 
-  def edit_view_success
+  def edit_success
     # for override
   end
 

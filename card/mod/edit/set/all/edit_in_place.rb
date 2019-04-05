@@ -1,7 +1,7 @@
 format :html do
   view :edit_in_place, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
     with_nest_mode :edit do
-      card_form :update, success: edit_view_success do
+      card_form :update, success: edit_success do
         [
           edit_view_hidden,
           _render_content_formgroup,
