@@ -6,9 +6,9 @@ format do
   end
 
   def compile_scss scss, style=:expanded
-    Sass.compile scss, style: style
-  rescue Sass::SyntaxError => e
-    raise Card::Error, "Sass::SyntaxError (#{card.name}:#{e.sass_line}):" \
+    SassC::Engine.new(scss, style: style).render
+  rescue SassC::SyntaxError => e
+    raise Card::Error, "SassC::SyntaxError (#{card.name}:#{e.sass_line}):" \
                        "#{scss.lines[e.sass_line - 1]}\n" \
                        "#{e.message}"
   end

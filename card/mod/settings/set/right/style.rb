@@ -1,4 +1,4 @@
-require "sass"
+require "sassc"
 include_set Abstract::Machine
 
 store_machine_output filetype: "css"

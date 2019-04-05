@@ -1,19 +1,28 @@
 format :html do
   view :new, perms: :create, tags: :unknown_ok, cache: :never do
+    new_view_frame_and_form new_form_opts
+  end
+
+  def new_view_frame_and_form form_opts
+    buttons = form_opts.delete(:buttons) || _render_new_buttons
+    form_opts = form_opts.reverse_merge(success: new_view_success)
+
     with_nest_mode :edit do
       voo.title ||= new_view_title if new_name_prompt?
       voo.show :help
-      frame_and_form :create, new_form_opts do
+      frame_and_form :create, form_opts do
         [
           new_view_hidden,
           new_view_name,
           new_view_type,
           _render_content_formgroup,
-          _render_new_buttons
+          buttons
         ]
       end
     end
   end
+
+  def new_view_hidden; end
 
   def new_form_opts
     { "main-success" => "REDIRECT" }
@@ -26,9 +35,8 @@ format :html do
     )
   end
 
-  def new_view_hidden
-    target = card.rule(:thanks) || "_self"
-    hidden_field_tag "success", target
+  def new_view_success
+    card.rule(:thanks) || "_self"
   end
 
   # NAME HANDLING
