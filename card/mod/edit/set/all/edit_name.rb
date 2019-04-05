@@ -16,10 +16,10 @@ format :html do
               # "main-success" => "REDIRECT",
               "data-update-origin": "true",
               success: edit_name_success(success_view)) do
-      output [hidden_edit_name_fields,
-              _render_name_formgroup,
-              rename_confirmation_alert,
-              edit_name_buttons]
+      [hidden_edit_name_fields,
+       _render_name_formgroup,
+       rename_confirmation_alert,
+       edit_name_buttons]
     end
   end
 

@@ -22,8 +22,7 @@ format :html do
     end
   end
 
-  def new_view_hidden
-  end
+  def new_view_hidden; end
 
   def new_form_opts
     { "main-success" => "REDIRECT" }

@@ -39,7 +39,7 @@ format :html do
     form_opts ||= {}
     frame do
       card_form action, form_opts do
-        output yield
+        yield
       end
     end
   end
