@@ -91,6 +91,7 @@ format :html do
 
   view :open do
     voo.show :help
+    voo.hide :edit_menu
     super()
   end
 
@@ -163,7 +164,7 @@ format :html do
     hidden_tags card: { trigger: :send_reset_password_token }
   end
 
-  def edit_view_success
+  def edit_success
     { view: :reset_password_success }
   end
 
