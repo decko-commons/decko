@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "sass"
+require "sassc"
 require "benchmark"
 
 include_set Abstract::Machine
@@ -13,7 +13,7 @@ machine_input do
 end
 
 def compress_css input
-  compress_css? ? Sass.compile(input, style: :compressed) : input
+  compress_css? ? SassC::Engine.new(input, style: :compressed).render : input
 rescue => e
   raise Card::Error, css_compression_error(e)
 end
