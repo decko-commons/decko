@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::NestImages do
+RSpec.describe Card::Set::All::NestImage do
   describe "view: nest_image" do
     check_html_views_for_errors
 
