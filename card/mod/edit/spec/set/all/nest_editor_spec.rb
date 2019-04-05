@@ -2,9 +2,11 @@
 
 RSpec.describe Card::Set::All::NestEditor do
   describe "view: nest_editor" do
-    def option_row name, value
+    check_html_views_for_errors
+
+    def option_row name, value, state=:selected
       with_tag "div._nest-option-row" do
-        with_tag :option, with: { selected: "selected", value: name }
+        with_tag :option, with: { state => state, value: name }
         with_tag "input._nest-option-value", with: { value: value }
       end
     end
@@ -28,7 +30,8 @@ RSpec.describe Card::Set::All::NestEditor do
     def empty_row
       with_tag "div._nest-option-row" do
         with_tag :option, with: { value: "--" }
-        with_tag "input._nest-option-value", with: { disabled: "disabled" }
+        with_tag :option, with: { value: :view, disabled: :disabled }
+        with_tag "input._nest-option-value", with: { disabled: :disabled }
       end
     end
 
@@ -42,6 +45,7 @@ RSpec.describe Card::Set::All::NestEditor do
         with_tag "div.options-container" do
           without_tag :h6, /items/
           with_tag :button, "Configure items"
+          empty_row
         end
       end
     end
@@ -64,7 +68,7 @@ RSpec.describe Card::Set::All::NestEditor do
       end
     end
 
-    example "with given non-field nest sytnax",
+    example "with given non-field nest syntax",
             params: { edit_nest: "{{hi|view: open; show: menu, toggle}}" } do
       expect_view(:nest_editor).to have_tag "div.nest_editor-view" do
         with_name "hi", false

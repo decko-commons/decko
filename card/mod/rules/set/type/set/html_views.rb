@@ -1,7 +1,4 @@
 format :html do
-  COMMON_RULE_SETTINGS =
-    %i[create read update delete structure default].freeze
-
   before :open do
     voo.hide :template_closer
   end

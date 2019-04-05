@@ -10,7 +10,7 @@ decko.slotReady (slot) ->
 $.extend decko,
   initSelect2: (elem) ->
     if elem.length > 1
-      initSelect2($(single_el)) for single_el in elem
+      decko.initSelect2($(single_el)) for single_el in elem
     else
       opts = { dropdownAutoWidth: "true", containerCssClass: ":all:", width: "auto" }
       if elem.hasClass("tags")
@@ -30,6 +30,7 @@ $.fn.cloneSelect2 = (withDataAndEvents, deepWithDataAndEvents) ->
     decko.initSelect2 $cloned
   else
     decko.initSelect2 $cloned.find('select')
+  $cloned
 
 
 #  slot.find('.pointer-multiselect').each (i) ->

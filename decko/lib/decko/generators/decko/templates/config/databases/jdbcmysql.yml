@@ -26,6 +26,7 @@ test: &test
   host: localhost
 
 cucumber: *test
+cypress: *test
 
 production: 
   adapter: mysql

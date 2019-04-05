@@ -1,7 +1,9 @@
 jQuery.fn.extend
   overlaySlot: ->
-    close = @closest(".card-slot._overlay")
-    close[0] && close || $(@closest(".overlay-container").find("._overlay")[0])
+    oslot = @closest(".card-slot._overlay")
+    return oslot if oslot[0]?
+    oslot = @closest(".overlay-container").find("._overlay")
+    oslot[0]? && $(oslot[0])
 
   addOverlay: (overlay, $slotter) ->
     if @parent().hasClass("overlay-container")

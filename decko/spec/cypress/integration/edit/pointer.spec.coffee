@@ -6,11 +6,10 @@ describe 'editing pointers', () ->
     cy.login()
 
   beforeEach ->
-    cy.app("cards/delete", "Joe User+friends")
+    cy.delete "Joe User+friends"
 
   specify "create with select input", ->
     input "select"
-    #cy.wait(1000)
     cy.visit("/Joe User+friends")
     cy.contains(".form-group", "content").find("select")
       .select2("Joe Camel")
@@ -20,8 +19,8 @@ describe 'editing pointers', () ->
       .should "contain", "Joe Camel"
 
   specify "create a structured card including select input", ->
-    input "select"
     cy.ensure "User+*type+*structure", "{{+friends}}"
+    input "select"
     cy.visit_bridge("Joe User")
     cy.contains(".form-group", "+friends").find("select")
       .select2("Joe Camel")
@@ -44,6 +43,7 @@ describe 'editing pointers', () ->
 
   specify 'create with filtered list input', () ->
     input "filtered list"
+
     cy.visit("/Joe User+friends")
     cy.get("._add-item-link").click()
     cy.contains("Select Item")
@@ -56,7 +56,7 @@ describe 'editing pointers', () ->
         .should("contain", "Joe Camel")
       cy.contains(/select\s+3\s+following/)
       cy.get("input._select-all").click()
-      cy.contains(/select\s+0\s+following/)
+      # cy.contains(/select\s+0\s+following/)
       cy.get("._add-selected").click().should("not.contain", "input._select-all")
       cy.get("._pointer-filtered-list")
         .should("contain", "Joe Admin")
