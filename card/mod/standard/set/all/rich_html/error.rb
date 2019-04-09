@@ -70,7 +70,7 @@ format :html do
   def view_for_unknown view
     case
     when main? && ok?(:create) then :new
-    when commentable?(view)     then view
+    when commentable?(view)    then view
     else super
     end
   end

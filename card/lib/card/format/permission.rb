@@ -64,8 +64,12 @@ class Card
 
       def view_for_unknown _view
         # note: overridden in HTML
-        root.error_status = 404 if focal?
-        focal? ? :not_found : :missing
+        if main?
+          root.error_status = 404
+          :not_found
+        else
+          :missing
+        end
       end
 
       def ok? task
