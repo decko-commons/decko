@@ -18,6 +18,7 @@ format do
   end
 
   def total_pages
+    return 1 if limit.zero?
     ((count_with_params - 1) / limit).to_i
   end
 
