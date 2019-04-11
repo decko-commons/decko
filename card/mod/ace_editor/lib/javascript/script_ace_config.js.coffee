@@ -37,7 +37,6 @@ $.extend decko,
     # prevents double initialization
 
     mode = textarea.attr "data-ace-mode"
-
     unless mode
       textarea.autosize()
       return
