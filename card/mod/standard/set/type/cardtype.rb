@@ -1,7 +1,7 @@
 include_set Abstract::WqlSearch
 
 def wql_hash
-  { type_id: id }
+  { type_id: id, sort: :name }
 end
 
 format :html do
