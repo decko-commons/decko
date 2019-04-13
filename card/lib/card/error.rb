@@ -62,7 +62,7 @@ class Card
       self.user_error_classes = [self,
                                  ActiveRecord::RecordNotFound,
                                  ActionController::MissingFile,
-                                 ActiveRecord::RecordNotFound]
+                                 ActiveRecord::RecordInvalid]
     end
 
     # error in WQL query
