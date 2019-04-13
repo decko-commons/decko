@@ -151,6 +151,6 @@ class CardController < ActionController::Base
     end
   end
 
-  rescue_from_class *Card::Error::UserError.user_error_classes
+  rescue_from_class(*Card::Error::UserError.user_error_classes)
   rescue_from_class StandardError if rescue_all?
 end
