@@ -30,7 +30,7 @@ format do
   # @option opts [Hash] :card
   # @option opts [TrueClass] :no_mark
 
-  CAST_PARAMS = { slot: { hide: :array, show: :array, wrap: :array } }
+  CAST_PARAMS = { slot: { hide: :array, show: :array, wrap: :array } }.freeze
   # TODO: monkey API for this
 
   def path opts={}
@@ -104,13 +104,13 @@ format do
     opts.empty? ? "" : "?#{opts.to_param}"
   end
 
+  # normalizes certain path opts to specified data types
   def cast_path_opts opts, cast_hash=CAST_PARAMS
-    return opts unless opts.is_a? ::Hash
+    return opts unless opts.is_a?(::Hash)
     opts.each do |key, value|
-      next unless cast_to = cast_hash[key]
+      next unless (cast_to = cast_hash[key])
       opts[key] = cast_path_value value, cast_to
     end
-    opts
   end
 
   def cast_path_value value, cast_to

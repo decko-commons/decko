@@ -62,7 +62,7 @@ describe Card::Set::All::Path do
 
     it "casts slot[hide] as array" do
       slot_hide = CGI.escape "slot[hide][]"
-      expect(path(slot: { hide: "myview"} )).to eq("/A?#{slot_hide}=myview")
+      expect(path(slot: { hide: "myview" })).to eq("/A?#{slot_hide}=myview")
     end
   end
 
