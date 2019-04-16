@@ -342,9 +342,9 @@ de:
               sign_up: registrieren
               read_only: Wir sind im Moment im Nur-Lese-Modus. Versuche es später noch einmal.
               sorry: Sorry!
-              need_permission_task: You need permission to %{task} this.
+              need_permission_task: Sie benötigen die Erlaubnis, %{task}.
               to_do_that: das zu tun
-              denied_task: zu %{denied_task} dies
+              denied_task: dies zu %{denied_task}
             form:
               unsupported_action_class: "unsupported card_form action class: %{actionclass}"
               submit: Speichern

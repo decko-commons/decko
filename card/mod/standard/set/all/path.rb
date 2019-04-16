@@ -29,6 +29,10 @@ format do
   # @option opts [Symbol] :format
   # @option opts [Hash] :card
   # @option opts [TrueClass] :no_mark
+
+  CAST_PARAMS = { slot: { hide: :array, show: :array, wrap: :array } }
+  # TODO: monkey API for this
+
   def path opts={}
     return opts unless opts.is_a? Hash
     path = new_cardtype_path(opts) || standard_path(opts)
@@ -96,7 +100,29 @@ format do
   end
 
   def path_query opts
+    opts = cast_path_opts opts
     opts.empty? ? "" : "?#{opts.to_param}"
+  end
+
+  def cast_path_opts opts, cast_hash=CAST_PARAMS
+    return opts unless opts.is_a? ::Hash
+    opts.each do |key, value|
+      next unless cast_to = cast_hash[key]
+      opts[key] = cast_path_value value, cast_to
+    end
+    opts
+  end
+
+  def cast_path_value value, cast_to
+    if cast_to.is_a? Hash
+      cast_path_opts value, cast_to
+    else
+      send "cast_path_value_as_#{cast_to}", value
+    end
+  end
+
+  def cast_path_value_as_array value
+    Array.wrap value
   end
 
   def add_unknown_name_to_opts name, opts
