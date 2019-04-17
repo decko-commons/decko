@@ -41,11 +41,11 @@ format :html do
 
   def rename_and_update_button
     submit_button text: "Rename and Update", disable_with: "Renaming",
-                  class: "renamer-updater btn-sm"
+                  class: "renamer-updater"
   end
 
   def rename_button
-    button_tag "Rename", data: { disable_with: "Renaming" }, class: "renamer btn-sm"
+    button_tag "Rename", data: { disable_with: "Renaming" }, class: "renamer"
   end
 
   def rename_confirmation_alert
