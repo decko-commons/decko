@@ -51,7 +51,6 @@ $(window).ready ->
     if toggleThis
       decko.toggleShade $(this).slot()
 
-
   if firstShade = $('.shade-view h1')[0]
     $(firstShade).trigger 'click'
 

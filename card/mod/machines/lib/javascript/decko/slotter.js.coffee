@@ -169,30 +169,19 @@ jQuery.fn.extend
     if origin && origin[0]?
       origin.reloadSlot()
 
-
   registerAsOrigin: (type, slot) ->
     if slot.hasClass("_modal-slot")
       slot = slot.find(".modal-body .card-slot")
     slot.attr("data-#{type}-origin-slot-id", @closest(".card-slot").data("slot-id"))
-    #@closest(".card-slot").addClass("_#{type}-origin")
 
   updateSlot: (data, mode) ->
-    notice = @attr('notify-success')
     mode ||= "replace"
-    newslot = @setSlotContent data, mode, $(this)
-
-    if newslot.jquery # sometimes response is plaintext
-      decko.initializeEditors newslot
-      if notice?
-        newslot.notify notice, "success"
+    @setSlotContent data, mode, $(this)
 
   # close modal or overlay
   closeOnSuccess: (type) ->
     slotter = @closest('.slotter')
     slotter.addClass "_close-#{type}"
-#    unless trigger.hasClass("_update-origin") or slotter.data("slotter-mode") == "update-origin"
-#      slotter.data("slotter-mode", "replace")
-
 
   slotterBeforeSend: (opt) ->
     return if opt.skip_before_send
@@ -206,7 +195,6 @@ jQuery.fn.extend
 # NOTE - this entire solution is temporary.
         @uploadWithBlueimp(data, opt)
         false
-
 
   uploadWithBlueimp: (data, opt) ->
     input = @find '.file-upload'

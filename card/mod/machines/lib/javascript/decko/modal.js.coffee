@@ -2,22 +2,15 @@ $(window).ready ->
   $('body').on 'hidden.bs.modal', (_event) ->
     decko.removeModal()
 
-  $('body').on "show.bs.modal", "._modal-slot", (event) ->
+  $('body').on "show.bs.modal", "._modal-slot", (event, slot) ->
     link = $(event.relatedTarget)
     addModalDialogClasses $(this), link
     $(this).modal("handleUpdate")
-
-    unless event.slotSuccessful
-      decko.initModal $(event.target)
-      event.slotSuccessful = true
+    decko.contentLoaded $(event.target), link
 
   $('._modal-slot').each ->
     openModalIfPresent $(this)
     addModalDialogClasses $(this)
-
-decko.slotReady (slot) ->
-  slot.find('.modal.fade').on 'loaded.bs.modal', (_e) ->
-    $(this).trigger 'slotReady'
 
 openModalIfPresent = (mslot) ->
   modal_content = mslot.find(".modal-content")
@@ -51,7 +44,7 @@ jQuery.fn.extend {
       dialog = el.find(".modal-dialog")
       el.adoptModalOrigin()
       $("body > ._modal-slot > .modal-dialog").replaceWith(dialog)
-      decko.initModal dialog
+      decko.contentLoaded(dialog, $slotter)
     else
       decko.pushModal el
       $slotter.registerAsOrigin("modal", el)
@@ -92,7 +85,6 @@ $.extend decko,
     decko.initializeEditors $dialog
     $dialog.find(".card-slot").trigger("slotReady")
 
-
   removeModal: ->
     if $("._modal-stack")[0]
       decko.popModal()
@@ -105,7 +97,6 @@ $.extend decko,
     mslot.removeClass("_modal-slot").addClass("_modal-stack").removeClass("modal").addClass("background-modal")
     el.insertBefore mslot
     $(".modal-backdrop").removeClass("show")
-
 
   popModal: ->
     $(".modal-backdrop").addClass("show")

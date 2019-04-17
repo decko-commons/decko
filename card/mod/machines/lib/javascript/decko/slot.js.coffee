@@ -26,6 +26,14 @@ $.extend decko,
       else
         processed[cgiKey] = value
 
+  contentLoaded: (el, slotter)->
+    decko.initializeEditors(el)
+    notice = slotter.attr('notify-success')
+    if notice? # sometimes response is plaintext
+      el.notify notice, "success"
+    el.triggerSlotReady(slotter)
+
+
   slotReady: (func)->
     $('document').ready ->
       $('body').on 'slotReady', '.card-slot', (e, slotter) ->
@@ -129,9 +137,8 @@ jQuery.fn.extend
       slot_id = @data("slot-id")
       el.attr("data-slot-id", slot_id) if slot_id
       @replaceWith el
-
-    el.triggerSlotReady($slotter)
+      decko.contentLoaded(el, $slotter)
 
   triggerSlotReady: (slotter) ->
-    @trigger "slotReady", slotter
+    @trigger "slotReady", slotter if @isSlot()
     @find(".card-slot").trigger "slotReady", slotter

@@ -32,10 +32,6 @@ $.extend decko,
     editor.setOptions conf
 
   initAce: (textarea) ->
-    return if textarea.data('aceInited')
-    textarea.data('aceInited', true)
-    # prevents double initialization
-
     mode = textarea.attr "data-ace-mode"
 
     unless mode
