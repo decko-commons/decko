@@ -39,7 +39,7 @@ doubleClickActive = () ->
   # else alert "illegal configuration: " + decko.doubleClick
 
 doubleClickApplies = (el) ->
-  return false if ['.nodblclick', '.d0-card-header', '.card-editor'].some (klass) ->
+  return false if ['.nodblclick', '.d0-card-header', '.card-editor', '.bridge-sidebar'].some (klass) ->
     el.closest(klass)[0]
     # double click inactive inside header, editor, or tag with "nodblclick" class
   slot = el.slot()
@@ -50,7 +50,9 @@ doubleClickApplies = (el) ->
 triggerDoubleClickEditingOn = (el)->
   slot = el.slot()
   slot.addClass 'slotter'
-  slot[0].href = decko.path('~' + slot.data('cardId') + '?view=edit')
+
+  edit_mode= decko.slotEditMode(slot)
+  slot[0].href = decko.path('~' + slot.data('cardId') + "?view=edit_#{edit_mode}")
   $.rails.handleRemote slot
 
 $(window).ready ->

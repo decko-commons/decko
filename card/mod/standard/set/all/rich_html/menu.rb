@@ -9,7 +9,7 @@ format :html do
   def menu_link
     case voo.edit
     when :inline
-      edit_in_place_link
+      edit_inline_link
     when :full
       edit_in_bridge_link
     else # :standard

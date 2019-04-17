@@ -1,6 +1,10 @@
 $.extend decko,
   # returns full path with slot parameters
   slotPath: (path, slot)->
+    params = decko.slotData(slot)
+    decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
+
+  slotData: (slot) ->
     xtra = {}
     main = $('#main').children('.card-slot').data 'cardName'
     xtra['main'] = main if main?
@@ -8,8 +12,11 @@ $.extend decko,
       xtra['is_main'] = true if slot.isMain()
       slotdata = slot.data 'slot'
       decko.slotParams slotdata, xtra, 'slot' if slotdata?
+    xtra
 
-    decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(xtra) )
+  slotEditView: (slot) ->
+    data = decko.slotData(slot)
+    if data["edit"]? then data["edit"] else "standard"
 
   slotParams: (raw, processed, prefix)->
     $.each raw, (key, value)->
