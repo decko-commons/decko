@@ -24,7 +24,7 @@ format :html do
   end
 
   def standard_cancel_button args={}
-    args.reverse_merge! class: "cancel-button ml-4", href: path, "data-cy": "cancel"
+    args.reverse_merge! class: "cancel-button btn-sm ml-4", href: path, "data-cy": "cancel"
     cancel_button args
   end
 

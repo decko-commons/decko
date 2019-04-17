@@ -342,7 +342,7 @@ de:
               sign_up: registrieren
               read_only: Wir sind im Moment im Nur-Lese-Modus. Versuche es später noch einmal.
               sorry: Sorry!
-              need_permission_task: Sie benötigen die Erlaubnis, %{task}.
+              need_permission_task: Sie habe nicht die Berechtigung, %{task}.
               to_do_that: das zu tun
               denied_task: dies zu %{denied_task}
             form:
