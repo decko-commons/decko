@@ -146,7 +146,6 @@ jQuery.fn.extend
   showErrorResponse: (status, result) ->
     if status == 403 #permission denied
       $(result).showAsModal $(this)
-      #@setSlotContent result
     else if status == 900
       $(result).showAsModal $(this)
     else

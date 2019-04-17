@@ -1053,7 +1053,7 @@ $bridge-line-color: $gray-300;
 
 .overlay-container {
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .help-text.rule-instruction > div p:last-child {

@@ -42,17 +42,6 @@ $(window).ready ->
   $('body').on 'click', '.submitter', ->
     $(this).closest('form').submit()
 
-  $('body').on 'click', '.follow-updater', ->
-    $(this).closest('form').find('#card_update_all_users').val 'true'
-
-  $('body').on 'submit', '.edit-view.SELF-Xfollow_default .card-form', ->
-    confirmer = $(this).find '.confirm_update_all-view'
-    if confirmer.is ':hidden'
-      $(this).find('.follow-updater').show()
-
-      confirmer.show 'blind'
-      false
-
   $('body').on 'click', 'button.redirecter', ->
     window.location = $(this).attr('href')
 

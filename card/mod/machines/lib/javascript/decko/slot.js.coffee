@@ -16,7 +16,10 @@ $.extend decko,
 
   slotEditView: (slot) ->
     data = decko.slotData(slot)
-    if data["edit"]? then data["edit"] else "standard"
+    switch data["slot[edit]"]
+      when "inline" then "edit_inline"
+      when "full"   then "bridge"
+      else "edit"
 
   slotParams: (raw, processed, prefix)->
     $.each raw, (key, value)->
@@ -29,10 +32,9 @@ $.extend decko,
   contentLoaded: (el, slotter)->
     decko.initializeEditors(el)
     notice = slotter.attr('notify-success')
-    if notice? # sometimes response is plaintext
+    if notice?
       el.notify notice, "success"
     el.triggerSlotReady(slotter)
-
 
   slotReady: (func)->
     $('document').ready ->
@@ -105,7 +107,7 @@ jQuery.fn.extend
     $slot.addClass 'slotter'
     $slot.attr 'href', url
     $slot.data "url", url
-    this[0].href = url # that's where handleRemote gets the url from
+    $slot[0].href = url # that's where handleRemote gets the url from
                        # .attr(href, url) only works for anchors
     $slot.data "remote", true
     $.rails.handleRemote($slot)

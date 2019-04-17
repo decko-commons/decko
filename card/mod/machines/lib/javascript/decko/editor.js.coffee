@@ -7,20 +7,19 @@ $.extend decko,
 
   editorContentFunctionMap: {}
 
-  editorInitFunctionMap: {
+  editorInitFunctionMap:
     'textarea': -> $(this).autosize()
     '.file-upload': -> decko.upload_file(this)
     '.etherpad-textarea': ->
       $(this).closest('form')
       .find('.edit-submit-button')
       .attr('class', 'etherpad-submit-button')
-  }
 
   addEditor: (selector, init, get_content) ->
     decko.editorContentFunctionMap[selector] = get_content
     decko.editorInitFunctionMap[selector] = init
 
-jQuery.fn.extend {
+jQuery.fn.extend
   setContentFieldsFromMap: (map) ->
     map = decko.editorContentFunctionMap unless map?
     this_form = $(this)
@@ -36,13 +35,13 @@ jQuery.fn.extend {
     new_val = fn.call this
     field.val new_val
     field.change() if init_val != new_val
-}
 
 $(window).ready ->
   decko.initializeEditors $('body')
   # setTimeout (-> decko.initializeEditors $('body')), 10
   # dislike the timeout, but without this forms with multiple TinyMCE editors
   # were failing to load properly
+  # I couldn't reproduce that problem described above -pk
 
   $('body').on 'submit', '.card-form', ->
     $(this).setContentFieldsFromMap()

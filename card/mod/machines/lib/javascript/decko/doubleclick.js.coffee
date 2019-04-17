@@ -15,11 +15,9 @@ doubleClickApplies = (el) ->
 
 triggerDoubleClickEditingOn = (el)->
   slot = el.slot()
-  slot.addClass 'slotter'
-
-  edit_mode= decko.slotEditMode(slot)
-  slot[0].href = decko.path('~' + slot.data('cardId') + "?view=edit_#{edit_mode}")
-  $.rails.handleRemote slot
+  edit_view = decko.slotEditView(slot)
+  url = decko.path("~#{slot.data('cardId')}?view=#{edit_view}")
+  slot.reloadSlot url
 
 $(window).ready ->
   if doubleClickActive()
