@@ -1,9 +1,5 @@
 
 format do
-  def short_content
-
-  end
-
   view :search_count, cache: :never do
     search_with_params.to_s
   end
