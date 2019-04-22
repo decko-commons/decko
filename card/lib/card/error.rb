@@ -58,6 +58,11 @@ class Card
 
     # error whose message can be shown to any user
     class UserError < Error
+      cattr_accessor :user_error_classes
+      self.user_error_classes = [self,
+                                 ActiveRecord::RecordNotFound,
+                                 ActionController::MissingFile,
+                                 ActiveRecord::RecordInvalid]
     end
 
     # error in WQL query
