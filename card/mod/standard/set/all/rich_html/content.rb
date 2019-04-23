@@ -98,7 +98,24 @@ format :html do
     Card.fetch(set_name)
   end
 
+  # LOCALIZE
   def short_content
+    short_content_items || short_content_fields || short_content_from_core
+  end
+
+  def short_content_items
+    return unless card.respond_to? :count
+    "#{count} #{'item'.pluralize count}"
+  end
+
+  def short_content_fields
+    return unless voo.structure || card.structure
+    fields = nested_fields.size
+    return if fields.zero?
+    "#{fields} #{'field'.pluralize fields}"
+  end
+
+  def short_content_from_core
     content = render_core
     if content.blank?
       "empty"
@@ -109,5 +126,9 @@ format :html do
     else
       "#{content.count("\n") + 1} lines"
     end
+  end
+
+  def count
+    @count ||= card.count
   end
 end
