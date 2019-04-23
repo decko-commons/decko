@@ -12,7 +12,7 @@ describe "/*signin", () =>
 
   it "links to reset password", ->
     cy.contains "RESET PASSWORD"
-      .should "have.attr", "href", "/*signin?slot%5Bhide%5D=bridge_link&view=edit"
+      .should "have.attr", "href", "/*signin?slot%5Bhide%5D%5B%5D=bridge_link&view=edit"
 
   it "requires email", ->
     cy.get("form").contains("Sign in").click()

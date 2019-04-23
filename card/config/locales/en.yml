@@ -352,7 +352,7 @@ en:
               sign_up: sign up
               read_only: We are currently in read-only mode.  Please try again later.
               sorry: Sorry!
-              need_permission_task: You need permission to %{task} this.
+              need_permission_task: You need permission %{task}.
               to_do_that: to do that
               denied_task: to %{denied_task} this
             form:
