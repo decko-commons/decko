@@ -10,7 +10,7 @@ Cypress.Commands.add "main_slot", () =>
 
 # click the edit icon
 Cypress.Commands.add "click_edit",  { prevSubject: 'element'}, (subject) =>
-  subject.find(".card-menu > a").click(force: true)
+  cy.wrap(subject).find(".card-menu > a").click(force: true)
 
 
 Cypress.Commands.add "expect_main_title", (text) =>
