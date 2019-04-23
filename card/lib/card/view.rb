@@ -84,8 +84,8 @@ class Card
 
     # next voo object found tracing ancestry through parent voos and/or parent formats
     # @return [Card::View]
-    def next_ancestor accross_format=true
-      parent || (accross_format && next_format_ancestor) || nil
+    def next_ancestor across_format=true
+      parent || (across_format && next_format_ancestor) || nil
     end
 
     def next_format_ancestor
