@@ -12,7 +12,7 @@ describe 'edit content', () ->
     cy.ensure "editmodes", "{{A+B}} {{B|edit: inline}} {{T|edit: full}}"
 
     cy.visit "editmodes"
-    cy.get(".SELF-a-b.d0-card-content").dblclick().dblclick()
+    cy.get(".SELF-a-b.d0-card-content").click().dblclick()
     cy.get("#a-b-edit-view").contains("Cancel").click()
     cy.main_slot().should("not.contain", "Cancel")
     cy.get(".SELF-t.card-slot").dblclick()
