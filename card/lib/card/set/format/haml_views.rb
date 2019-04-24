@@ -22,17 +22,16 @@ class Card
       #
       #   > render :with_instance_variables  # => "Luke is played by Mark Haml"
       module HamlViews
-        def haml_view_block view, wrap_with_slot, &block
+        def haml_view_block view, &block
           path = haml_template_path view
-          haml_template_proc ::File.read(path), path, wrap_with_slot, &block
+          haml_template_proc ::File.read(path), path, &block
         end
 
-        def haml_template_proc template, path, wrap_with_slot, &block
+        def haml_template_proc template, path, &block
           proc do
             with_template_path path do
               locals = haml_block_locals(&block)
-              html = haml_to_html template, locals, nil, path: path
-              wrap_with_slot ? wrap { html } : html
+              haml_to_html template, locals, nil, path: path
             end
           end
         end

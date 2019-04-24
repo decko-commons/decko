@@ -38,25 +38,39 @@ class Card
         end
 
         def view view, *args, &block
-          # binding.pry
           # view = view.to_viewname.key.to_sym
-          interpret_view_opts view, args[0] if block_given?
+          interpret_view_opts view, args[0] if block_given? || haml_view?(args)
           view_method_block = view_block(view, args, &block)
+          define_view_method view, args, &view_method_block
+        end
+
+        def view_for_override viewname
+          view viewname do
+            "override '#{viewname}' view"
+          end
+        end
+
+        def source_location
+          set_module.source_location
+        end
+
+        # remove the format part of the module name
+        def set_module
+          Card.const_get name.split("::")[0..-2].join("::")
+        end
+
+        private
+
+        def define_view_method view, args, &block
           if async_view? args
             # This case makes only sense for HtmlFormat
             # but I don't see an easy way to override class methods for a specific
             # format. All formats are extended with this general module. So
             # a HtmlFormat.view method would be overridden by AbstractFormat.view
             # We need something like AbstractHtmlFormat for that.
-            define_async_view_method view, &view_method_block
+            define_async_view_method view, &block
           else
-            define_standard_view_method view, &view_method_block
-          end
-        end
-
-        def view_for_override viewname
-          view viewname do
-            "override '#{viewname}' view"
+            define_standard_view_method view, &block
           end
         end
 
@@ -90,17 +104,13 @@ class Card
         end
 
         def view_block view, args, &block
-          return haml_view_block(view, wrap_with_slot?(args), &block) if haml_view?(args)
+          return haml_view_block(view, &block) if haml_view?(args)
 
           block_given? ? block : lookup_alias_block(view, args)
         end
 
         def haml_view? args
           args.first.is_a?(Hash) && args.first[:template] == :haml
-        end
-
-        def wrap_with_slot? args
-          args.first.is_a?(Hash) && args.first[:slot]
         end
 
         def async_view? args
@@ -117,14 +127,7 @@ class Card
           end
         end
 
-        def source_location
-          set_module.source_location
-        end
 
-        # remove the format part of the module name
-        def set_module
-          Card.const_get name.split("::")[0..-2].join("::")
-        end
       end
     end
   end
