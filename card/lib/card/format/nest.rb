@@ -59,13 +59,13 @@ class Card
       # recursion is caught, view recursion is not.
       # TODO: catch view recursion and remove this. (Should be straightforward within voo)
       def nest_recursion_risk?
-        content_view? && format.voo&.structure
+        content_view? # && format.voo&.structure
       end
 
       def content_view?
         # TODO: this should be specified in view definition
         %i[
-          core content titled open closed open_content
+          bar expanded_bar core content titled open closed open_content
         ].member? @view.to_sym
       end
     end
