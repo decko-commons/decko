@@ -8,14 +8,14 @@ describe 'edit content', () ->
     cy.el("submit-modal").click()
     cy.contains "new content"
 
-  specify.only "double click", () ->
+  specify "double click", () ->
     cy.ensure "editmodes", "{{A+B}} {{B|edit: inline}} {{T|edit: full}}"
 
     cy.visit "editmodes"
     cy.get(".SELF-a-b.d0-card-content").click().dblclick()
     cy.get("#a-b-edit-view").contains("Cancel").click()
-    cy.main_slot().should "not.contain", "Cancel"
-    cy.get(".SELF-t.card-slot").dblclick()
+    cy.get("#a-b-edit-view").should "not.exist"
+    cy.get(".SELF-t.card-slot").click().dblclick()
     cy.get(".bridge-main #t-bridge-view").contains("Cancel").click()
     cy.get(".bridge-main").should "not.exist"
     cy.get(".SELF-b.card-slot").dblclick()

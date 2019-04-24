@@ -16,7 +16,7 @@ end
 # place for files of mod file cards
 def coded_dir new_mod=nil
   dir = File.join mod_dir(new_mod), MOD_FILE_DIR, codename.to_s
-  FileUtils.mkdir_p dir
+  FileUtils.mkdir_p(dir) unless File.directory?(dir)
   dir
 end
 
