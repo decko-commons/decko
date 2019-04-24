@@ -24,6 +24,7 @@ jQuery.fn.extend
       @before overlay
 
     $slotter.registerAsOrigin("overlay", overlay)
+    decko.contentLoaded(overlay, $slotter)
 
   replaceOverlay: (overlay) ->
     @overlaySlot().replaceWith overlay
