@@ -1,20 +1,25 @@
 $.extend decko,
+  initializeEditors: (range, map) ->
+    map = decko.editorInitFunctionMap unless map?
+    $.each map, (selector, fn) ->
+      $.each range.find(selector), ->
+        fn.call $(this)
+
   editorContentFunctionMap: {}
 
-  editorInitFunctionMap: {
+  editorInitFunctionMap:
     'textarea': -> $(this).autosize()
     '.file-upload': -> decko.upload_file(this)
     '.etherpad-textarea': ->
       $(this).closest('form')
       .find('.edit-submit-button')
       .attr('class', 'etherpad-submit-button')
-  }
 
   addEditor: (selector, init, get_content) ->
     decko.editorContentFunctionMap[selector] = get_content
     decko.editorInitFunctionMap[selector] = init
 
-jQuery.fn.extend {
+jQuery.fn.extend
   setContentFieldsFromMap: (map) ->
     map = decko.editorContentFunctionMap unless map?
     this_form = $(this)
@@ -30,35 +35,21 @@ jQuery.fn.extend {
     new_val = fn.call this
     field.val new_val
     field.change() if init_val != new_val
-}
-
-doubleClickActiveMap = {off: false, on: true, signed_in: decko.currentUserId}
-
-doubleClickActive = () ->
-  doubleClickActiveMap[decko.doubleClick]
-  # else alert "illegal configuration: " + decko.doubleClick
-
-doubleClickApplies = (el) ->
-  return false if ['.nodblclick', '.d0-card-header', '.card-editor'].some (klass) ->
-    el.closest(klass)[0]
-    # double click inactive inside header, editor, or tag with "nodblclick" class
-  slot = el.slot()
-  return false if slot.find('.card-editor')[0]
-  # false if there is a card-editor open inside slot
-  slot.data 'cardId'
-
-triggerDoubleClickEditingOn = (el)->
-  slot = el.slot()
-  slot.addClass 'slotter'
-  slot[0].href = decko.path('~' + slot.data('cardId') + '?view=edit')
-  $.rails.handleRemote slot
 
 $(window).ready ->
-  if doubleClickActive()
-    $('body').on 'dblclick', 'div', (_event) ->
-      if doubleClickApplies $(this)
-        triggerDoubleClickEditingOn $(this)
-      false # don't propagate up to next slot
+  decko.initializeEditors $('body')
+  # setTimeout (-> decko.initializeEditors $('body')), 10
+  # dislike the timeout, but without this forms with multiple TinyMCE editors
+  # were failing to load properly
+  # I couldn't reproduce that problem described above -pk
+
+  $('body').on 'submit', '.card-form', ->
+    $(this).setContentFieldsFromMap()
+    $(this).find('.d0-card-content').attr('no-autosave','true')
+    true
+
+setInterval (-> $('.card-form').setContentFieldsFromMap()), 20000
+
 
 
 

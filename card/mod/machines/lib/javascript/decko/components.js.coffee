@@ -1,6 +1,8 @@
 decko.slotReady (slot) ->
   $('[data-toggle="popover"]').popover(html: true)
 
+  $('.colorpicker-component').colorpicker()
+
 submitAfterTyping = null
 
 $(window).ready ->
@@ -13,10 +15,7 @@ $(window).ready ->
       type: 'GET'
       success: (html) ->
         $(tab_id).append(html)
-        $(tab_id).triggerSlotReady()
-
-  $('body').on "select2:select", "._submit-on-select", (event) ->
-    $(event.target).closest('form').submit()
+        decko.contentLoaded($(tab_id), $(this))
 
   $('body').on "input", "._submit-after-typing", (event) ->
     form = $(event.target).closest('form')
@@ -31,7 +30,6 @@ $(window).ready ->
       clearTimeout(submitAfterTyping) if submitAfterTyping
       $(event.target).closest('form').submit()
       false
-
 
 
 

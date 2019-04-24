@@ -1,11 +1,11 @@
 format :html do
-  view :edit_in_place, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
+  view :edit_inline, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
     with_nest_mode :edit do
       card_form :update, success: edit_success do
         [
           edit_view_hidden,
           _render_content_formgroup,
-          _render_edit_in_place_buttons
+          _render_edit_inline_buttons
         ]
       end
     end
@@ -19,7 +19,7 @@ format :html do
     edit_row_fixed_width "Type", link_to_card(card.type), :edit_type_form
   end
 
-  view :edit_in_place_buttons do
+  view :edit_inline_buttons do
     button_formgroup do
       wrap_with "div", class: "d-flex" do
         [standard_save_button, cancel_in_place_button, delete_button]
@@ -32,11 +32,11 @@ format :html do
     wrap do
       ["<label class='w-50px'>#{title}</label>",
        content,
-       edit_in_place_link(edit_view, align: :right)]
+       edit_inline_link(edit_view, align: :right)]
     end
   end
 
-  def edit_in_place_link view=:edit_in_place, align: :left
+  def edit_inline_link view=:edit_inline, align: :left
     align = align == :left ? "ml-2" : "ml-auto"
     link_to_view view, menu_icon, class: "#{align} edit-link", "data-cy": "edit-link"
   end

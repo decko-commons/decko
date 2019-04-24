@@ -20,16 +20,6 @@ $(window).ready ->
   $('body').on 'click', '._stop_propagation', (event)->
     event.stopPropagation()
 
-  # following mod
-  $('body').on 'click', '.btn-item', ->
-    $(this).find('i').html('hourglass_full')
-  $('body').on 'mouseenter', '.btn-item-delete', ->
-    $(this).find('i').html('remove')
-    $(this).addClass("btn-danger").removeClass("btn-primary")
-  $('body').on 'mouseleave', '.btn-item-delete', ->
-    $(this).find('i').html('check')
-    $(this).addClass("btn-primary").removeClass("btn-danger")
-
   $('body').on 'mouseenter', 'a[data-hover-text]', ->
     text = $(this).text()
     $(this).data("original-text", text)
@@ -38,12 +28,6 @@ $(window).ready ->
   $('body').on 'mouseleave', 'a[data-hover-text]', ->
     $(this).text($(this).data("original-text"))
 
-#  $('body').on 'click', '.rule-cancel-button', ->
-#    $(this).closest('tr').find('.close-rule-link').click()
-
-  $('body').on 'click', '.submit-modal', ->
-    $(this).closest('.modal-content').find('form').submit()
-
   #decko_org mod (for now)
   $('body').on 'click', '.shade-view h1', ->
     toggleThis = $(this).slot().find('.shade-content').is ':hidden'
@@ -51,15 +35,8 @@ $(window).ready ->
     if toggleThis
       decko.toggleShade $(this).slot()
 
-
   if firstShade = $('.shade-view h1')[0]
     $(firstShade).trigger 'click'
-
-  # following not in use??
-  $('body').on 'change', '.go-to-selected select', ->
-    val = $(this).val()
-    if val != ''
-      window.location = decko.path(escape(val))
 
   # performance log mod
   $('body').on 'click', '.open-slow-items', ->
