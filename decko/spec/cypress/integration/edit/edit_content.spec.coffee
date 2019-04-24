@@ -14,9 +14,10 @@ describe 'edit content', () ->
     cy.visit "editmodes"
     cy.get(".SELF-a-b.d0-card-content").click().dblclick()
     cy.get("#a-b-edit-view").contains("Cancel").click()
-    cy.main_slot().should("not.contain", "Cancel")
+    cy.main_slot().should "not.contain", "Cancel"
     cy.get(".SELF-t.card-slot").dblclick()
     cy.get(".bridge-main #t-bridge-view").contains("Cancel").click()
-    cy.main_slot().should("not.contain", "Cancel")
+    cy.get(".bridge-main").should "not.exist"
     cy.get(".SELF-b.card-slot").dblclick()
     cy.get("#b-edit_inline-view").contains("Cancel").click()
+    cy.get("#b-edit_inline-view").should "not.exist"
