@@ -19,7 +19,7 @@ format :html do
     bridge_pills bridge_pill_items(RELATED_ITEMS, "Related")
   end
 
-  view :rules_tab, tag: :unknown_ok do
+  view :rules_tab, tags: :unknown_ok do
     class_up "card-slot", "flex-column"
     wrap do
       nest current_set_card, view: :bridge_rules_tab

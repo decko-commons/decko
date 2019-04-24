@@ -45,7 +45,7 @@ class Card
   #            or a Proc.
   # * :tags - tag view as needed.
   #
-  # The most commmon tag is "unknown_ok," which indicates that a view can be rendered even
+  # The most common tag is "unknown_ok," which indicates that a view can be rendered even
   # if the card is "unknown" (not real or virtual).
   #
   # ## Rendering views

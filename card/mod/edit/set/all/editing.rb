@@ -42,7 +42,7 @@ format :html do
   end
 
   # TODO: add undo functionality
-  view :just_deleted, tag: :unknown_ok do
+  view :just_deleted, tags: :unknown_ok do
     wrap { "#{render_title} deleted" }
   end
 
