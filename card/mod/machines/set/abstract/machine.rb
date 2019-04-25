@@ -120,7 +120,7 @@ class << self
   def define_machine_events host_class
     event_suffix = host_class.name.tr ":", "_"
     event_name = "reset_machine_output_#{event_suffix}".to_sym
-    host_class.event event_name, after: :expire_related, on: :save do
+    host_class.event event_name, after: :expire_related, changed: :content, on: :save do
       reset_machine_output
     end
   end
