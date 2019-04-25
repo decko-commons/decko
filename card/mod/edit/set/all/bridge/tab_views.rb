@@ -5,7 +5,7 @@ format :html do
                    ["references out", :refers_to],
                    ["references in",  :referred_to_by]].freeze
 
-  view :engage_tab, wrap: { div: { class: "m-3 mt-4 _engage-tab" } } do
+  view :engage_tab, wrap: { div: { class: "m-3 mt-4 _engage-tab" } }, cache: :never do
     [render_follow_section, discussion_section].compact
   end
 
@@ -30,7 +30,7 @@ format :html do
     bridge_pills bridge_pill_items(account_items, "Account")
   end
 
-  view :follow_section, wrap: :slot do
+  view :follow_section, wrap: :slot, cache: :never do
     follow_section
   end
 

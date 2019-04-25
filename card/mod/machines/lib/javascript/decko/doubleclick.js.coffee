@@ -5,7 +5,7 @@ doubleClickActive = () ->
   # else alert "illegal configuration: " + decko.doubleClick
 
 doubleClickApplies = (el) ->
-  return false if ['.nodblclick', '.d0-card-header', '.card-editor', '.bridge-sidebar'].some (klass) ->
+  return false if ['.nodblclick', '.d0-card-header', '.card-editor'].some (klass) ->
     el.closest(klass)[0]
     # double click inactive inside header, editor, or tag with "nodblclick" class
   slot = el.slot()

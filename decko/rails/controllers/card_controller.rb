@@ -140,8 +140,10 @@ class CardController < ActionController::Base
   end
 
   class << self
-    def rescue_from_class klass
-      rescue_from(klass) { |exception| handle_exception exception }
+    def rescue_from_class *klasses
+      klasses.each do |klass|
+        rescue_from(klass) { |exception| handle_exception exception }
+      end
     end
 
     def rescue_all?
@@ -149,7 +151,6 @@ class CardController < ActionController::Base
     end
   end
 
-  rescue_from_class ActiveRecord::RecordInvalid
-  rescue_from_class Card::Error::UserError
+  rescue_from_class(*Card::Error::UserError.user_error_classes)
   rescue_from_class StandardError if rescue_all?
 end

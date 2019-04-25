@@ -106,3 +106,5 @@ $.extend decko,
     $("body > ._modal-slot").remove()
     modal = $($("._modal-stack")[0])
     modal.addClass("_modal-slot").removeClass("_modal-stack").attr("id", "modal-container").addClass("modal").removeClass("background-modal")
+    $(document.body).addClass("modal-open")
+
