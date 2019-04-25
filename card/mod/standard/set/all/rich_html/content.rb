@@ -56,7 +56,7 @@ format :html do
     end
   end
 
-  view :labeled, tags: :unknown_ok do
+  view :labeled, unknown: true do
     @content_body = true
     wrap(true, class: "row") do
       labeled(render_title, wrap_body { "#{render_menu}#{render_labeled_content}" } )

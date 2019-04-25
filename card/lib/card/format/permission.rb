@@ -26,7 +26,7 @@ class Card
 
       def unknown_disqualifies_view? view
         # view can't handle unknown cards (and card is unknown)
-        return false if tagged view, :unknown_ok
+        return false if view_setting(:unknown, view)
 
         card.unknown?
       end

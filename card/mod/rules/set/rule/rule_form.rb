@@ -1,5 +1,5 @@
 format :html do
-  view :rule_form, cache: :never, tags: :unknown_ok do
+  view :rule_form, cache: :never, unknown: true do
     @success_view ||= :open
     @rule_context ||= card
     @form_type ||= :overlay

@@ -1,6 +1,6 @@
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
-  view :bridge, perms: :update, tags: :unknown_ok, cache: :never,
+  view :bridge, perms: :update, unknown: true, cache: :never,
                 bridge: true, wrap: :bridge do
     with_nest_mode :edit do
       voo.show :help
@@ -42,11 +42,11 @@ format :html do
   end
 
   # TODO: add undo functionality
-  view :just_deleted, tags: :unknown_ok do
+  view :just_deleted, unknown: true do
     wrap { "#{render_title} deleted" }
   end
 
-  view :edit_rules, cache: :never, tags: :unknown_ok do
+  view :edit_rules, cache: :never, unknown: true do
     nest current_set_card, view: :bridge_rules_tab
   end
 

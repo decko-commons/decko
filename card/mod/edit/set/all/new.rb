@@ -1,5 +1,5 @@
 format :html do
-  view :new, perms: :create, tags: :unknown_ok, cache: :never do
+  view :new, perms: :create, unknown: true, cache: :never do
     new_view_frame_and_form new_form_opts
   end
 

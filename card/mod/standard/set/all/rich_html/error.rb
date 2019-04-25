@@ -7,7 +7,7 @@ format :html do
     haml :debug_server_error, {}, error_page
   end
 
-  view :message, perms: :none, tags: :unknown_ok do
+  view :message, perms: :none, unknown: true do
     frame { params[:message] }
   end
 

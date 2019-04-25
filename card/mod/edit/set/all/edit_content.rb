@@ -16,7 +16,7 @@ format :html do
     end
   end
 
-  view :edit, perms: :update, tags: :unknown_ok, cache: :never,
+  view :edit, perms: :update, unknown: true, cache: :never,
               wrap: { modal: { footer: "",
                                size: :edit_modal_size,
                                title: :render_title,
@@ -33,7 +33,7 @@ format :html do
     end
   end
 
-  view :bridge_link, tags: :unknown_ok do
+  view :bridge_link, unknown: true do
     bridge_link
   end
 

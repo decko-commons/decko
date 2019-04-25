@@ -108,7 +108,7 @@ format :html do
     tr :delete
   end
 
-  view :preview_editor, tags: :unknown_ok, cache: :never do
+  view :preview_editor, unknown: true, cache: :never do
     haml :preview_editor
   end
 end

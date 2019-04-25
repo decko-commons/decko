@@ -4,7 +4,7 @@ format :html do
     super << :google_analytics_snippet
   end
 
-  view :google_analytics_snippet, tags: :unknown_ok, perms: :none do
+  view :google_analytics_snippet, unknown: true, perms: :none do
     return unless google_analytics_key
     javascript_tag { google_analytics_snippet_javascript }
   end

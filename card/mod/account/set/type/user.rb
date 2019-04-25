@@ -4,7 +4,7 @@ include Basic
 attr_accessor :email
 
 format :html do
-  view :setup, tags: :unknown_ok, perms: ->(_r) { Auth.needs_setup? } do
+  view :setup, unknown: true, perms: ->(_r) { Auth.needs_setup? } do
     with_nest_mode :edit do
       voo.title = "Welcome, Decker!"
       voo.show! :help

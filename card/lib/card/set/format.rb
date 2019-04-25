@@ -23,7 +23,7 @@ class Card
     #  introduce view settings
     #    cache
     #    perms
-    #    tags: :unknown_ok
+    #    unknown: true
     #    bridge
     module Format
       require_dependency "card/set/format/haml_views"

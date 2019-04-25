@@ -97,7 +97,7 @@ format do
     end
   end
 
-  view :labeled_content, tags: :unknown_ok do
+  view :labeled_content, unknown: true do
     valid_labeled_content { render_core }
   end
 
@@ -144,7 +144,7 @@ format do
 
   # none of the below belongs here!!
 
-  view :template_rule, cache: :never, tags: :unknown_ok do
+  view :template_rule, cache: :never, unknown: true do
     return "" unless voo.nest_name
     if voo.nest_name.to_name.field_only?
       set_card = Card.fetch template_link_set_name

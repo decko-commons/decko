@@ -121,7 +121,7 @@ module Decko
     end
 
     def view_does_not_require_name?
-      Card::Format.tagged params[:view], :unknown_ok
+      Card::Set::Format::ViewOpts.unknown_ok[params[:view]]
     end
 
     # alters params

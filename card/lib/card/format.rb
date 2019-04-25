@@ -67,12 +67,8 @@ class Card
 
     extend Registration
 
-    cattr_accessor :registered
-    self.registered = []
-    %i[view_tags aliases].each do |accessor_name|
-      cattr_accessor accessor_name
-      send "#{accessor_name}=", {}
-    end
+    cattr_accessor :registered, :aliases
+    self.aliases = {}
 
     attr_reader :card, :parent, :main_opts, :modal_opts
     attr_accessor :form, :error_status, :rendered

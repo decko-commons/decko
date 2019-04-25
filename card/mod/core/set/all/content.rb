@@ -26,7 +26,7 @@ format do
 end
 
 format :html do
-  view :hidden_content_field, tags: :unknown_ok, cache: :never do
+  view :hidden_content_field, unknown: true, cache: :never do
     hidden_field :content, class: "d0-card-content"
   end
 end
