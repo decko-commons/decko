@@ -82,7 +82,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 # Both views and events are defined in {Card::Mod mods}, short for modules or modifications.
 #
-# {Card::Format More on views}
+# {Card::Set::Format::Views More on views}
 #
 # {Card::Set::Act More on events}
 #

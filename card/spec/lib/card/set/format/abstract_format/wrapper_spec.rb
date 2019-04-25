@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::Format::Wrapper do
+RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
   describe "simple wrapper" do
     let(:format) do
       Card["A"].format_with do

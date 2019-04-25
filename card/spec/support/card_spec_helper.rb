@@ -135,7 +135,7 @@ class Card
       end
 
       def views format_module
-        Card::Set::Format::ViewDefinition.views[format_module].keys
+        Card::Set::Format::AbstractFormat::ViewDefinition.views[format_module].keys
       end
     end
   end

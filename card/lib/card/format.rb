@@ -1,60 +1,15 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-  # _Views_ are the primary way users interact with cards. Card::Format and its subclasses
-  # ({Card::Format::HtmlFormat}, {Card::Format::JsonFormat}, {Card::Format::XmlFormat},
-  # etc) are responsible for defining and rendering _views_.
+  # Card::Format and its subclasses ({Card::Format::HtmlFormat},
+  # {Card::Format::JsonFormat}, {Card::Format::XmlFormat}, etc)
+  # are responsible for defining and rendering _views_.
   #
-  # However, Deck-coders (those who code in the Card/Decko framework) rarely write code
+  # However, monkeys (those who code in the Card/Decko framework) rarely write code
   # directly in these classes. Instead they organize their code using {Card::Mods mods}.
-  # The {Card::Mod} docs explain how to set up a mod. Once you've done that, you're ready
-  # to define a view.  These docs will introduce the basics of view definition and
   #
-  # Here is a very simple view that just defines a label for the card – its name:
-  #
-  #     view :label do
-  #       card.name
-  #     end
-  #
-  # If a format is not specified, the view is defined on the base format class,
-  # Card::Format. The following two definitions are equivalent to the definition above:
-  #
-  #     format do
-  #       view(:label) { card.name }
-  #     end
-  #
-  #     format(:base) { view(:label) { card.name } }
-  #
-  # But suppose you would like this view to appear differently in different output
-  # formats. For example, you'd like this label to have a tag with a class attribute HTML
-  # so that you can style it with CSS.
-  #
-  #     format :html do
-  #       view :label do
-  #         div(class: "my-label") { card.name }
-  #       end
-  #     end
-  #
-  # Note that in place of card.name, you could also use `super`, because this view is
-  # translated into a method on Card::Format::HtmlFormat, which inherits from
-  # Card::Format.
-  #
-  # ## Common arguments for view definitions
-  #
-  # * :perms - restricts view permissions. Value can be :create, :read, :update, :delete,
-  #            or a Proc.
-  # * :tags - tag view as needed.
-  #
-  # The most common tag is "unknown_ok," which indicates that a view can be rendered even
-  # if the card is "unknown" (not real or virtual).
-  #
-  # ## Rendering views
-  #
-  # To render our label view, you can use either of these:
-  #
-  #     render :label
-  #     render_label
-  #
+  # {Card::Mod} explains how to set up a mod.
+  # {Card::Set::Abstract::Format} introduces the view API
   class Format
     include Card::Env::Location
     include Nesting
@@ -128,10 +83,6 @@ class Card
         t.extend c.class._helpers
         t
       end
-    end
-
-    def tagged view, tag
-      self.class.tagged view, tag
     end
 
     def mime_type

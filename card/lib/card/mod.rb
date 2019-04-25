@@ -11,7 +11,7 @@ class Card
   #
   #     decko generate card:mod MOD_NAME
   #
-  # This will create the follow directories:
+  # This will create the following directories:
   #
   #     DECK_NAME/mod/MOD_NAME
   #     DECK_NAME/mod/MOD_NAME/lib

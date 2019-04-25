@@ -1,4 +1,3 @@
-# TODO: work in progress
 class Card
   module Set
     # ActiveCard support: accessing plus cards as attributes
