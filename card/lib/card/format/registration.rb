@@ -39,7 +39,7 @@ class Card
         # extract_class_vars view, opts
         extract_view_tags view, opts.delete(:tags)
       end
-      
+
       def extract_view_tags view, tags
         return unless tags
 
