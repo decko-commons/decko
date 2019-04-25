@@ -68,6 +68,7 @@ class Card
     extend Registration
 
     cattr_accessor :registered, :aliases
+    self.registered = []
     self.aliases = {}
 
     attr_reader :card, :parent, :main_opts, :modal_opts

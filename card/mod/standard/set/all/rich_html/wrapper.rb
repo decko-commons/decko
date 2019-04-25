@@ -72,7 +72,7 @@ format :html do
   end
 
   def debug_slot?
-    params[:debug] == "slot" && !tagged(@current_view, :no_wrap_comments)
+    params[:debug] == "slot"
   end
 
   def debug_slot_wrap

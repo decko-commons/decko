@@ -11,7 +11,8 @@ class Card
 
         # view setting values can be accessed from Format objects (eg within format blocks
         # in set modules) using #view_setting(:setting_name, :view_name)
-        VIEW_SETTINGS = %i[cache bridge wrap perms denial closed unknown].freeze
+        VIEW_SETTINGS =
+          %i[cache bridge wrap perms denial closed unknown commentable].freeze
 
         # view definitions are used in defining views but are not available
         # at any later point
@@ -55,12 +56,8 @@ class Card
         def define_view_setting_method view, setting_name, setting_value
           return unless setting_value
 
-          method_name = view_setting_method_name view, setting_name
+          method_name = Card::Set::Format.view_setting_method_name view, setting_name
           define_method(method_name) { setting_value }
-        end
-
-        def view_setting_method_name view, setting_name
-          "view_#{view}_#{setting_name}_setting"
         end
       end
     end

@@ -124,7 +124,7 @@ class Card
       end
 
       def view_setting setting_name, view
-        try(Card::Set::Format::ViewDefinition.view_setting_method_name view, setting_name)
+        try Card::Set::Format.view_setting_method_name(view, setting_name)
       end
 
       def stub_render cached_content

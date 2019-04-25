@@ -76,7 +76,7 @@ format :html do
   end
 
   def commentable? view
-    return false unless self.class.tagged(view, :comment) &&
+    return false unless view_setting(:commentable, view) &&
                         show_view?(:comment_box, :hide)
 
     ok? :comment

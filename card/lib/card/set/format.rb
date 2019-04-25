@@ -99,6 +99,10 @@ class Card
         def view_method_name view
           "_view_#{view}"
         end
+
+        def view_setting_method_name view, setting_name
+          "_view_#{view}__#{setting_name}"
+        end
       end
     end
   end
