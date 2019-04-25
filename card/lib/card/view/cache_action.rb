@@ -86,7 +86,7 @@ class Card
       # task directly associated with the view in its definition via the
       # "perms" directive
       def permission_task
-        @permission_task ||= Card::Format.perms[requested_view] || :read
+        @permission_task ||= view_setting(:perms, requested_view) || :read
       end
 
       # determine the cache action from the cache setting

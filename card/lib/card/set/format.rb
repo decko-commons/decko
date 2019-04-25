@@ -21,7 +21,6 @@ class Card
     #
     #  TODO:
     #  introduce view settings
-    #    modal: { size: :large},
     #    cache
     #    perms
     #    tags: :unknown_ok

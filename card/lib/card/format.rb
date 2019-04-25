@@ -69,8 +69,7 @@ class Card
 
     cattr_accessor :registered
     self.registered = []
-    VIEW_VARS = %i[perms denial closed].freeze
-    (VIEW_VARS + %i[view_tags aliases]).each do |accessor_name|
+    %i[view_tags aliases].each do |accessor_name|
       cattr_accessor accessor_name
       send "#{accessor_name}=", {}
     end

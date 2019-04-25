@@ -36,18 +36,10 @@ class Card
       end
 
       def interpret_view_opts view, opts
-        extract_class_vars view, opts
+        # extract_class_vars view, opts
         extract_view_tags view, opts.delete(:tags)
       end
-
-      def extract_class_vars view, opts
-        Card::Format::VIEW_VARS.each do |varname|
-          next unless (value = opts.delete varname)
-
-          send(varname)[view] = value
-        end
-      end
-
+      
       def extract_view_tags view, tags
         return unless tags
 

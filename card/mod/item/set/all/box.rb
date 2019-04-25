@@ -14,5 +14,3 @@ view :box_bottom do
   [_render_creator_credit,
    _render_updated_by]
 end
-# view_for_override :box_middle
-#view_for_override :box_bottom
