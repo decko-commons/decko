@@ -3,9 +3,8 @@ class Card
     module Format
       module AbstractFormat
         # Support haml templates in a Rails like way:
-        # If the view option `template: :haml` is set then wagn expects a haml template
+        # If the view option `template: :haml` is set then a haml template is expected
         # in a corresponding template path and renders it.
-
         #
         # @example
         #   # mod/core/set/type/basic.rb
@@ -22,6 +21,8 @@ class Card
         #   > render :with_instance_variables  # => "Luke is played by Mark Haml"
         module HamlViews
           include Card::Set::Format::HamlPaths
+
+          private
 
           def haml_view_block view, &block
             path = haml_template_path view

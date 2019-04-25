@@ -1,7 +1,6 @@
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
-  view :bridge, perms: :update, unknown: true, cache: :never,
-                bridge: true, wrap: :bridge do
+  view :bridge, perms: :update, unknown: true, cache: :never, wrap: :bridge do
     with_nest_mode :edit do
       voo.show :help
       wrap true, breadcrumb_data("Editing", "edit") do

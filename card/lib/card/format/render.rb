@@ -112,15 +112,9 @@ class Card
           source_location.second.to_s
       end
 
-      # setting (:alway, :never, :nested) designated in view definition
+      # :standard, :always, :never
       def view_cache_setting view
-        coded_setting = view_setting(:cache, view) || :standard
-        # method = self.class.view_cache_setting_method view
-        # coded_setting = respond_to?(method) ? send(method) : :standard
-        return :never if coded_setting == :never
-
-        # seems unwise to override a hard-coded "never"
-        (voo&.cache) || coded_setting
+        voo&.cache || view_setting(:cache, view) || :standard
       end
 
       def view_setting setting_name, view

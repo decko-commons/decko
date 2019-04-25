@@ -12,14 +12,13 @@ class Card
           mattr_accessor :unknown_ok
           self.unknown_ok = {}
 
-          # view setting values can be accessed from Format objects (eg within format blocks
-          # in set modules) using #view_setting(:setting_name, :view_name)
-          VIEW_SETTINGS =
-            %i[cache bridge wrap perms denial closed unknown commentable].freeze
+          # view setting values can be accessed from Format objects (eg within format
+          # blocks in set modules) using #view_setting(:setting_name, :view_name)
+          VIEW_SETTINGS = %i[cache commentable closed denial perms unknown wrap].freeze
 
-          # view definitions are used in defining views but are not available
+          # view def opts are used in defining views but are not available
           # at any later point
-          VIEW_DEFINITION_OPTS = %i[alias_to mod template async].freeze
+          VIEW_DEF_OPTS = %i[alias_to mod template async].freeze
 
           private
 
@@ -41,7 +40,7 @@ class Card
             def_opts = {}
             def_opts[:alias_to] = args.shift if args[0].is_a?(Symbol)
             opts = args.shift || {}
-            VIEW_DEFINITION_OPTS.each do |k|
+            VIEW_DEF_OPTS.each do |k|
               def_opts[k] ||= opts.delete k
             end
             [def_opts, opts]

@@ -3,10 +3,21 @@
 class Card
   module Set
     module Format
-      # All Format modules are extended with AbstractFormat in order to support
-      # the basic format API, including `view` definitions.
+      # AbstractFormat manages the basic format API, including API to define a {#view}.
+      # Whenever you create a format block in a set module in a {Card::Mod mod}, you
+      # create a format module that is extended with AbstractFormat.
       module AbstractFormat
-        # _Views_ are the primary way that both sharks interact with cards. These docs will introduce the basics of view definition
+        include Set::Basket
+        include ViewOpts
+        include ViewDefinition
+        include HamlViews
+        include Wrapper
+
+        # _Views_ are the primary way that both sharks and monkeys interact with cards.
+        # Sharks select views to use in _nests_.  Monkeys can define and tweak those
+        # views. These docs will introduce the basics of view definition.
+        #
+        # ## Sample view definitions
         #
         # Here is a very simple view that just defines a label for the card – its name:
         #
@@ -14,61 +25,58 @@ class Card
         #       card.name
         #     end
         #
-        # If a format is not specified, the view is defined on the base format class,
-        # Card::Format. The following two definitions are equivalent to the definition above:
+        # View definitions can take the following forms:
         #
-        #     format do
-        #       view(:label) { card.name }
-        #     end
+        #     view :viewname[, option_hash][, &block]          # standard
+        #     view :viewname, alias_to_viewname[, option_hash] # aliasing
         #
-        #     format(:base) { view(:label) { card.name } }
         #
-        # But suppose you would like this view to appear differently in different output
-        # formats. For example, you'd like this label to have a tag with a class attribute HTML
-        # so that you can style it with CSS.
+        # ## View definition options
         #
-        #     format :html do
-        #       view :label do
-        #         div(class: "my-label") { card.name }
-        #       end
-        #     end
+        # * __:alias_to__ [Symbol] name of view to which this view should be aliased. View
+        #   must already be defined in self or specified mod.
         #
-        # Note that in place of card.name, you could also use `super`, because this view is
-        # translated into a method on Card::Format::HtmlFormat, which inherits from
-        # Card::Format.
+        # * __:async__ render view asynchronously by first rendering a card placeholder
+        #   and then completing a request. Only applies to HtmlFormat
         #
-        # ## Common arguments for view definitions
+        # * __:cache__ directs how to handle caching for this view. Supported values:
+        #     * *:standard* - (default) cache when possible, but avoid double caching
+        #       (caching one view while already caching another)
+        #     * *:always* - cache whenever possible, even if that means double caching
+        #     * *:never* - don't ever cache this view
         #
-        # * :perms - restricts view permissions. Value can be :create, :read, :update, :delete,
-        #            or a Proc.
-        # * :tags - tag view as needed.
+        #   Of these, "never" is most often used explicitly, usually in places
+        #   where the view can be altered by things other than simple related card
+        #   changes (eg. dynamic search results).
         #
-        # The most common tag is "unknown_ok," which indicates that a view can be rendered even
-        # if the card is "unknown" (not real or virtual).
+        # * __:closed__ [True/False]. Is view acceptable for rendering inside `closed`
+        #   view?  Default is false.
         #
-        # ## Rendering views
+        # * __:denial__ view to render if permission is denied. Value can be any viewname.
+        #   Default is `:denial`. `:blank` is a common alternative.
         #
-        # To render our label view, you can use either of these:
+        # * __:perms__ restricts view permissions. Supported values:
+        #     * *:create*, *:read* (default), *:update*, *:delete* - only users with the
+        #       given permission for the card viewed.
+        #     * *:none* - no permission check; anyone can view
+        #     * a *Proc* object.  Eg `perms: ->(_r) { Auth.needs_setup? }`
         #
-        #     render :label
-        #     render_label
+        # * __:template__ [Symbol] view is defined in a template. Currently `:haml` is
+        #   the only supported value.  See {HamlViews}
         #
-
-
-
-
-
-        include Set::Basket
-        include ViewOpts
-        include ViewDefinition
-        include HamlViews
-        include Wrapper
-
-        def view view, *args, &block
-          def_opts = process_view_opts view, args
-          define_view_method view, def_opts, &block
+        # * __:unknown__ [True/False]. view can be rendered even if card name is unknown
+        #
+        # * __:wrap__ wrap view dynamically. Value is Symbol for wrapper. See {Wrapper}
+        #
+        # * DEPRECATED __:commentable__ [True/False].  Render this view for unknown cards
+        #   if comment box is showing and user has comment permission.
+        #
+        def view viewname, *args, &block
+          def_opts = process_view_opts viewname, args
+          define_view_method viewname, def_opts, &block
         end
 
+        # simple placeholder for views designed to be overridden elsewhere
         def view_for_override viewname
           # LOCALIZE
           view viewname do
@@ -76,20 +84,23 @@ class Card
           end
         end
 
+        # define code to be executed before a view is rendered
         def before view, &block
           define_method "_before_#{view}", &block
         end
 
-        # Defines a setting method that can be used in all formats
-        # Example:
-        #   format do
-        #     setting :cols
-        #     cols 5, 7
+        # Defines a setting method that can be used in all formats. Example:
         #
-        #     view :some_view do
-        #       cols  # => [5, 7]
+        #     format do
+        #       setting :cols
+        #       cols 5, 7
+        #
+        #       view :some_view do
+        #         cols  # => [5, 7]
+        #       end
         #     end
-        #   end
+        #
+        # @param name [Symbol] name of setting. should be available method name
         def setting name
           Card::Set::Format::AbstractFormat.send :define_method, name do |*args|
             define_method name do
@@ -98,11 +109,12 @@ class Card
           end
         end
 
+        # file location where set mod is stored
         def source_location
           set_module.source_location
         end
 
-        # remove the format part of the module name
+        # @return constant for set module (without format)
         def set_module
           Card.const_get name.split("::")[0..-2].join("::")
         end

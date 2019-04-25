@@ -4,19 +4,14 @@ class Card
       module HamlPaths
         TEMPLATE_DIR = %w[template set].freeze
 
+        private
+
         def haml_to_html haml, locals={}, a_binding=nil, debug_info={}
           a_binding ||= binding
           ::Haml::Engine.new(haml).render a_binding, locals || {}
         rescue Haml::SyntaxError => e
           raise Card::Error,
                 "haml syntax error #{template_location(debug_info)}: #{e.message}"
-        end
-
-        def template_location debug_info
-          return "" unless debug_info[:path]
-
-          Pathname.new(debug_info[:path])
-            .relative_path_from(Pathname.new(Dir.pwd))
         end
 
         def with_template_path path
@@ -35,6 +30,13 @@ class Card
           msg = "can't find haml template"
           msg += " for #{view}" if view.present?
           raise Card::Error, msg
+        end
+
+        def template_location debug_info
+          return "" unless debug_info[:path]
+
+          Pathname.new(debug_info[:path])
+            .relative_path_from(Pathname.new(Dir.pwd))
         end
 
         def each_template_path source

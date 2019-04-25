@@ -9,7 +9,10 @@ class Card
   # directly in these classes. Instead they organize their code using {Card::Mods mods}.
   #
   # {Card::Mod} explains how to set up a mod.
-  # {Card::Set::Abstract::Format} introduces the view API
+  # {Card::Set::Format} explains how to use this and other format classes within a mod.
+  # {Card::Set::Abstract::Format} introduces the view API, which is organized with these
+  # format classes.
+  #
   class Format
     include Card::Env::Location
     include Nesting
