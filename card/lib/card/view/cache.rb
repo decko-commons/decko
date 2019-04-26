@@ -7,9 +7,10 @@ class Card
     # The basic idea is that when view caching is turned on (via `config.view_cache`),
     # we try to cache a view whenever it's "safe" to do so. We will include everything
     # inside that view (including other views) until we find something that isn't safe.
-    # When something isn't safe, we render a "stub": a placeholder with all the info
-    # we need to come back and replace it with the correct content later. In this way
-    # it is possible to have many levels of cached views within cached views.
+    # When something isn't safe, we render a {Card::View::Stub stub}: a placeholder
+    # with all the info we need to come back and replace it with the correct content
+    # later. In this way it is possible to have many levels of cached views within
+    # cached views.
     #
     # Here are some things that we never consider safe to cache:
     #
@@ -17,17 +18,20 @@ class Card
     # 2. a card with unsaved content changes
     # 3. a view of a card with view-relevant permission restrictions
     # 4. a view other than the requested view (eg a denial view)
-    # 5. a view explicitly configured `never` to be cached
+    # 5. a view explicitly configured _never_ to be cached
     #
     # We also consider it unsafe to cache one card within another, so nests are always
     # handled with a stub.
     #
-    # Cache settings (#5) can be configured in the {AbstractFormat#view view definition}
+    # Cache settings (#5) can be configured in the
+    # {Set::Format::AbstractFormat#view view definition}
     # and (less commonly) as a {Card::View::Options view option}.
     #
-    # By far, the most common explicit caching configuration is `never`. This setting
+    # By far, the most common explicit caching configuration is `:never`. This setting
     # is used to prevent over-caching, which becomes problematic when data changes
     # do not clear the cache.
+    #
+    # ## Common caching problems
     #
     # Generally speaking, a card is smart about clearing its own view caches when
     # anything about the card itself. So when I update the card `Johnny`, all the cached
@@ -39,9 +43,9 @@ class Card
     #
     # For example, consider the following view:
     #
-    #      view :myview do
-    #        Card["random"].content == "1" ? "2" : "3"
-    #      end
+    #     view :myview do
+    #       Card["random"].content
+    #     end
     #
     # If this view is cached, and then the card "random" changes, the caching system does
     # not know to clear this cache, so it may be wise to set `cache: :never` in the
@@ -52,14 +56,14 @@ class Card
     # 1. view manipulates another rendered view. If the other view generates a stub
     #    then the manipulating view will find itself manipulating a stub.
     #
-    #       # obviously safe to cache
-    #       view(:x) { "ABC" }
+    #        # obviously safe to cache
+    #        view(:x) { "ABC" }
     #
-    #       # also safe, because x is not manipulated
-    #       view(:y) { render_x + "DEF" }
+    #        # also safe, because x is not manipulated
+    #        view(:y) { render_x + "DEF" }
     #
-    #       # unsafe, because x is manipulated
-    #       view(:z, cache: :never) { render_z.reverse }
+    #        # unsafe, because x is manipulated
+    #        view(:z, cache: :never) { render_z.reverse }
     #
     # 2. view performs a dynamic search (eg via Card.search) whose results may change
     #
@@ -71,11 +75,93 @@ class Card
     # 5. view is altered by instance variables or environmental variables (eg Env.params)
     #    or instance variables (that may sometimes differ for the same card/view)
     #
+    # 6. view explicitly instantiates its own subformat (not via a nest)
+    #
+    # ## Caching Best Practice
+    #
+    # Here are some good rules of thumb to make good use of view caching:
+    #
+    # 1. *Use nests.* If you can show the content of a different card with a nest rather
+    #    than by manipulating the content directly, the caching system will be much
+    #    happier with you.
+    # 2. Isolate the uncacheables.  Consider the following variants:
+    #
+    #        view :bad_idea, cache: :never do
+    #          if morning_for_user?
+    #            expensive_good_morning
+    #          else
+    #            expensive_good_afternoon
+    #          end
+    #        end
+    #
+    #        view :good_idea, cache: :never do
+    #          morning_for_user? ? render_good_morning : render_good_afternoon
+    #        end
+    #
+    #     In the first example, we have to generate expensive greetings every time we
+    #     render the view.  In the second, only the test is not cached.
+    # 3. If you must manipulate view results, consider moving the original content
+    #    generation to a separate method.
+    #
+    #        # First Attempt
+    #
+    #        view :hash_it_in do
+    #          { cool: false }
+    #        end
+    #
+    #        view :bad_idea, cache: :never do
+    #          render_badhash.merge sucks: true
+    #        end
+    #
+    #
+    #        #Second Attempt
+    #
+    #        view :hash_it_out do
+    #          hash_it_out
+    #        end
+    #
+    #        def hash_it_out
+    #          { cool: true }
+    #        end
+    #
+    #        view :good_idea do
+    #          hash_it_out.merge rocks: true
+    #        end
+    #
+    #     The first attempt will work just fine, but only by turning off caching. The
+    #     The second works with caching on.
+    #
+    #
+    #
+    # ## Optimizing with `:always`
+    #
+    # It is never strictly necessary to use `cache: :always`, but this setting can help
+    # optimize your use of the caching system in some cases.
+    #
+    # Consider the following views:
+    #
+    #        view(:hat) { "hat" } # ...but imagine this is computationally expensive
+    #
+    #        view(:old_hat)  { "old #{render_hat}"  }
+    #        view(:new_hat)  { "new #{render_hat}"  }
+    #        view(:red_hat)  { "red #{render_hat}"  }
+    #        view(:blue_hat) { "blue #{render_hat}" }
+    #
+    # Whether "hat" uses `:standard` or `:always`, the hat varieties (old, new, etc...)
+    # will fully contain the rendered hat view in their cache. However, with `:standard`,
+    # the other views will each re-render hat without attempting to cache it separately
+    # or to find it in the cache.  This could lead to man expensive renderings of the
+    # "hat" view.  By contrast, if the cache setting is `:always`, then hat will be
+    # cached and retrieved even when it's rendered inside another cached view.
+    #
+    #
     module Cache
       include CacheAction
-      #
+
+      private
+
       # render or retrieve view (or stub) with current options
-      # @params &block [Block] render block
+      # @param block [Block] code block to render
       # @return [rendered view or stub]
       def fetch &block
         case cache_action
