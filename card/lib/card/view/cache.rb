@@ -61,11 +61,16 @@ class Card
     #       # unsafe, because x is manipulated
     #       view(:z, cache: :never) { render_z.reverse }
     #
-    # 2. view displays a timestamp
+    # 2. view performs a dynamic search (eg via Card.search) whose results may change
     #
-    # 3. view is altered by environmental variables
+    # 3. view displays a timestamp
     #
-    # 4. view manipulates instance variables that 
+    # 4. view manipulates instance variables or environmental variables that may affect
+    #    nested views and/or cards
+    #
+    # 5. view is altered by instance variables or environmental variables (eg Env.params)
+    #    or instance variables (that may sometimes differ for the same card/view)
+    #
     module Cache
       include CacheAction
       #
