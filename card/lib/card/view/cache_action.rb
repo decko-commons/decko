@@ -86,7 +86,7 @@ class Card
       # task directly associated with the view in its definition via the
       # "perms" directive
       def permission_task
-        @permission_task ||= Card::Format.perms[requested_view] || :read
+        @permission_task ||= format.view_setting(:perms, requested_view) || :read
       end
 
       # determine the cache action from the cache setting
@@ -110,16 +110,9 @@ class Card
       #   view :myview, cache: :standard do ...
       #
       # There are three possible values for those rules.
-      # * *standard* (default) cache when possible, but avoid double caching
-      #   (caching one view while already caching another)
-      # * *always* cache whenever possible, even if that means double caching
-      # * *never* don't ever cache this view
+
       #
-      # Of these, "never" is most often used explicitly, usually in places
-      # where the view can be altered by things other than simple related card changes.
-      # It is important to note that to use "never", a view MUST be stubbable (ie, no
-      # foreign options). Otherwise the rendering may be involved in an active cache,
-      # reach an uncacheable view, attempt to stub it, and fail.
+
       #
       # @return [Symbol] :standard, :always, or :never
       def cache_setting

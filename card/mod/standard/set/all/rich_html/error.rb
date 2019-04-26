@@ -7,7 +7,7 @@ format :html do
     haml :debug_server_error, {}, error_page
   end
 
-  view :message, perms: :none, tags: :unknown_ok do
+  view :message, perms: :none, unknown: true do
     frame { params[:message] }
   end
 
@@ -76,7 +76,7 @@ format :html do
   end
 
   def commentable? view
-    return false unless self.class.tagged(view, :comment) &&
+    return false unless view_setting(:commentable, view) &&
                         show_view?(:comment_box, :hide)
 
     ok? :comment

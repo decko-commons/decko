@@ -12,8 +12,7 @@ format :html do
     # "#{card.item_count} items"
   end
 
-  view :core, template: :haml do
-  end
+  view :core, template: :haml
 
   bar_cols 9, 3
   info_bar_cols 6, 3, 3

@@ -52,17 +52,17 @@ format :html do
     submit_button opts
   end
 
-  view :modal_menu, tags: :unknown_ok, wrap: :modal_menu do
+  view :modal_menu, unknown: true, wrap: :modal_menu do
     [close_modal_window, pop_out_modal_window]
   end
 
   wrapper :modal_menu, :div, class: "modal-menu ml-auto"
 
-  view :modal_title, tags: :unknown_ok do
+  view :modal_title, unknown: true do
     ""
   end
 
-  view :modal_footer, tags: :unknown_ok do
+  view :modal_footer, unknown: true do
     button_tag "Close",
                class: "btn-xs _close-modal float-right",
                "data-dismiss" => "modal"

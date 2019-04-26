@@ -16,7 +16,7 @@ format :html do
     end
   end
 
-  view :edit_in_form, cache: :never, perms: :update, tags: :unknown_ok do
+  view :edit_in_form, cache: :never, perms: :update, unknown: true do
     reset_form
     @in_multi_card_editor = true
     edit_slot

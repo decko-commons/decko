@@ -45,7 +45,7 @@ format :html do
     end
   end
 
-  view :titled, tags: :comment do
+  view :titled, commentable: true do
     @content_body = true
     wrap do
       [
@@ -56,7 +56,7 @@ format :html do
     end
   end
 
-  view :labeled, tags: :unknown_ok do
+  view :labeled, unknown: true do
     @content_body = true
     wrap(true, class: "row") do
       labeled(render_title, wrap_body { "#{render_menu}#{render_labeled_content}" } )
@@ -67,7 +67,7 @@ format :html do
     haml :labeled, label: label, content: content
   end
 
-  view :open, tags: :comment do
+  view :open, commentable: true do
     toggle_logic
     @toggle_mode = :open
     @content_body = true

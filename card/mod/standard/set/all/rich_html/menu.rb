@@ -1,5 +1,5 @@
 format :html do
-  view :menu, denial: :blank, tags: :unknown_ok do
+  view :menu, denial: :blank, unknown: true do
     return "" if card.unknown?
     wrap_with :div, class: "card-menu #{menu_link_classes}" do
       menu_link
@@ -17,7 +17,7 @@ format :html do
     end
   end
 
-  view :edit_link, tags: :unknown_ok, denial: :blank do
+  view :edit_link, unknown: true, denial: :blank do
     edit_link
   end
 

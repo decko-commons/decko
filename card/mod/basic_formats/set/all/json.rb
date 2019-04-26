@@ -27,7 +27,7 @@ format :json do
     JSON.send method, raw
   end
 
-  view :status, tags: :unknown_ok, perms: :none, cache: :never do
+  view :status, unknown: true, perms: :none, cache: :never do
     status = card.state
     hash = { key: card.key,
              url_key: card.name.url_key,
@@ -65,7 +65,7 @@ format :json do
   end
 
   # TODO: add simple values for fields
-  view :atom, cache: :never, tags: :unknown_ok do
+  view :atom, cache: :never, unknown: true do
     h = _render_nucleus
     h[:content] = render_content if card.known? && !card.structure
     h

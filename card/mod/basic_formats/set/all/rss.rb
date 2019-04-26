@@ -69,8 +69,8 @@ format :rss do
   view :comment_box      do "" end
   view :menu             do "" end
 
-  view :open,         view: :titled, mod: All::Base::Format
-  view :content,      view: :core,   mod: All::Base::Format
-  view :open_content, view: :core,   mod: All::Base::Format
-  view :closed,       view: :link,   mod: All::Base::Format
+  view :open,         :titled, mod: All::Base::Format
+  view :content,      :core,   mod: All::Base::Format
+  view :open_content, :core,   mod: All::Base::Format
+  view :closed,       :link,   mod: All::Base::Format
 end
