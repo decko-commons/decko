@@ -2,10 +2,72 @@ require_dependency "card/view/cache_action"
 
 class Card
   class View
-    include CacheAction
-
+    # View::Cache supports smart card view caching.
+    #
+    # The basic idea is that when view caching is turned on (via `config.view_cache`),
+    # we try to cache a view whenever it's "safe" to do so. We will include everything
+    # inside that view (including other views) until we find something that isn't safe.
+    # When something isn't safe, we render a "stub": a placeholder with all the info
+    # we need to come back and replace it with the correct content later. In this way
+    # it is possible to have many levels of cached views within cached views.
+    #
+    # Here are some things that we never consider safe to cache:
+    #
+    # 1. an unknown card
+    # 2. a card with unsaved content changes
+    # 3. a view of a card with view-relevant permission restrictions
+    # 4. a view other than the requested view (eg a denial view)
+    # 5. a view explicitly configured `never` to be cached
+    #
+    # We also consider it unsafe to cache one card within another, so nests are always
+    # handled with a stub.
+    #
+    # Cache settings (#5) can be configured in the {AbstractFormat#view view definition}
+    # and (less commonly) as a {Card::View::Options view option}.
+    #
+    # By far, the most common explicit caching configuration is `never`. This setting
+    # is used to prevent over-caching, which becomes problematic when data changes
+    # do not clear the cache.
+    #
+    # Generally speaking, a card is smart about clearing its own view caches when
+    # anything about the card itself. So when I update the card `Johnny`, all the cached
+    # views of `Johnny` are cleared. Similarly, changes to structure rules and other
+    # basic patterns are typically well managed by the caching system.
+    #
+    # However, a card is generally far less smart about clearing its own cache when
+    # changes happen to other cards that affect a rule via _logic internal to the view_.
+    #
+    # For example, consider the following view:
+    #
+    #      view :myview do
+    #        Card["random"].content == "1" ? "2" : "3"
+    #      end
+    #
+    # If this view is cached, and then the card "random" changes, the caching system does
+    # not know to clear this cache, so it may be wise to set `cache: :never` in the
+    # view definition.
+    #
+    # Some other common situations likely to require `cache: :never`:
+    #
+    # 1. view manipulates another rendered view. If the other view generates a stub
+    #    then the manipulating view will find itself manipulating a stub.
+    #
+    #       # obviously safe to cache
+    #       view(:x) { "ABC" }
+    #
+    #       # also safe, because x is not manipulated
+    #       view(:y) { render_x + "DEF" }
+    #
+    #       # unsafe, because x is manipulated
+    #       view(:z, cache: :never) { render_z.reverse }
+    #
+    # 2. view displays a timestamp
+    #
+    # 3. view is altered by environmental variables
+    #
+    # 4. view manipulates instance variables that 
     module Cache
-      # Support context-aware card view caching.
+      include CacheAction
       #
       # render or retrieve view (or stub) with current options
       # @params &block [Block] render block
