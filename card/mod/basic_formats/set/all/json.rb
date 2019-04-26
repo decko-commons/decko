@@ -48,7 +48,7 @@ format :json do
     req ? req.original_url : path
   end
 
-  view :core do
+  view :core, unknown: true do
     card.known? ? render_content : nil
   end
 

@@ -40,7 +40,7 @@ class Card
             elsif (alias_to = def_opts[:alias_to])
               alias_view_block view, alias_to, def_opts[:mod], &block
             else
-              block_given? ? block : ""
+              block
             end
           end
 

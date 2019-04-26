@@ -3,7 +3,10 @@ class Card
     # determine action to be used in #fetch
     module CacheAction
 
-      private
+
+
+
+
 
       # course of action based on config/status/options
       # @return [Symbol] :yield, :cache_yield, or
