@@ -121,7 +121,8 @@ module Decko
     end
 
     def view_does_not_require_name?
-      Card::Set::Format::AbstractFormat::ViewOpts.unknown_ok[params[:view]]
+      return false unless (view = params[:view]&.to_sym)
+      Card::Set::Format::AbstractFormat::ViewOpts.unknown_ok[view]
     end
 
     # alters params
