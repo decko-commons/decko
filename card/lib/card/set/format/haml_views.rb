@@ -8,7 +8,7 @@ class Card
         #
         # @example
         #   # mod/core/set/type/basic.rb
-        #   view :my_view, template: :haml  # renders mod/core/view/type/basic/my_view.haml
+        #   view :my_view, template: :haml  # uses mod/core/view/type/basic/my_view.haml
         #
         #   view :with_instance_variables, template: :haml do
         #     @actor = "Mark Haml"
@@ -35,13 +35,6 @@ class Card
                 locals = haml_block_locals(&block)
                 haml_to_html template, locals, nil, path: path
               end
-            end
-          end
-
-          def haml_block_locals &block
-            instance_exec(&block) if block_given?
-            instance_variables.each_with_object({}) do |var, h|
-              h[var.to_s.tr("@", "").to_sym] = instance_variable_get var
             end
           end
         end

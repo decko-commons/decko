@@ -123,8 +123,6 @@ class Card
       end
 
       class << self
-        public
-
         # name of method for layout
         # used by wrapper
         def layout_method_name layout

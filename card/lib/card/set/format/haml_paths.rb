@@ -1,10 +1,9 @@
 class Card
   module Set
     module Format
+      # methods for handling paths to HAML templates
       module HamlPaths
         TEMPLATE_DIR = %w[template set].freeze
-
-        private
 
         def haml_to_html haml, locals={}, a_binding=nil, debug_info={}
           a_binding ||= binding
@@ -36,7 +35,7 @@ class Card
           return "" unless debug_info[:path]
 
           Pathname.new(debug_info[:path])
-            .relative_path_from(Pathname.new(Dir.pwd))
+                  .relative_path_from(Pathname.new(Dir.pwd))
         end
 
         def each_template_path source
@@ -53,10 +52,17 @@ class Card
           template_path += ".#{ext}"
           TEMPLATE_DIR.each do |template_dir|
             path = ::File.expand_path(template_path, source_dir)
-                     .sub(%r{(/mod/[^/]+)/set/}, "\\1/#{template_dir}/")
+                         .sub(%r{(/mod/[^/]+)/set/}, "\\1/#{template_dir}/")
             return path if ::File.exist?(path)
           end
           false
+        end
+
+        def haml_block_locals &block
+          instance_exec(&block) if block_given?
+          instance_variables.each_with_object({}) do |var, h|
+            h[var.to_s.tr("@", "").to_sym] = instance_variable_get var
+          end
         end
       end
     end

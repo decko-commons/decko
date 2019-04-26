@@ -19,7 +19,7 @@ class Card
         #
         # ## Sample view definitions
         #
-        # Here is a very simple view that just defines a label for the card – its name:
+        # Here is a very simple view that just defines a label for the card(its name):
         #
         #     view :label do
         #       card.name
