@@ -75,8 +75,6 @@ class Card
     # 5. view is altered by instance variables or environmental variables (eg Env.params)
     #    or instance variables (that may sometimes differ for the same card/view)
     #
-    # 6. view explicitly instantiates its own subformat (not via a nest)
-    #
     # ## Caching Best Practice
     #
     # Here are some good rules of thumb to make good use of view caching:

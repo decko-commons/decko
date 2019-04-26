@@ -2,12 +2,6 @@ class Card
   class View
     # determine action to be used in #fetch
     module CacheAction
-
-
-
-
-
-
       # course of action based on config/status/options
       # @return [Symbol] :yield, :cache_yield, or
       def cache_action
@@ -111,7 +105,6 @@ class Card
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # SHARED METHODS
 
-      #
       # @return [Symbol] :standard, :always, or :never
       def cache_setting
         format.view_cache_setting requested_view

@@ -7,8 +7,7 @@ format :html do
     render_filter_items
   end
 
-  # NOCACHE
-  view :filter_items, unknown: true, cache: :never, wrap: :slot  do
+  view :filter_items, unknown: true, wrap: :slot  do
     haml :filter_items
   end
 
@@ -24,7 +23,7 @@ format :html do
   end
 
   # NOCACHE because params alter view
-  view :add_selected_link, cache: :never do
+  view :add_selected_link, cache: :never, unknown: true do
     link_to "Add Selected",
             path: { item: params[:item], filter_card: params[:filter_card] },
             class: "_add-selected slotter _close-modal btn btn-primary disabled",
