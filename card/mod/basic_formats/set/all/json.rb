@@ -66,12 +66,7 @@ format :json do
   end
 
   view :molecule do
-    atom.merge items: _render_items,
-               links: _render_links,
-               ancestors: _render_ancestors,
-               html_url: path,
-               type: nest(card.type_card, view: :nucleus)
-
+    molecule
   end
 
   # NOCACHE because sometimes item_cards is dynamic.
@@ -140,6 +135,14 @@ format :json do
     h = nucleus
     h[:content] = render_content if card.known? && !card.structure
     h
+  end
+
+  def molecule
+    atom.merge items: _render_items,
+               links: _render_links,
+               ancestors: _render_ancestors,
+               html_url: path,
+               type: nest(card.type_card, view: :nucleus)
   end
 end
 
