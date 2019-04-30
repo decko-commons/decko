@@ -1,8 +1,7 @@
-require_dependency "card/view/visibility"
 require_dependency "card/view/cache"
-require_dependency "card/view/stub"
+# require_dependency "card/view/stub"
 require_dependency "card/view/options"
-require_dependency "card/view/classy"
+# require_dependency "card/view/classy"
 
 class Card
   # Card::View objects manage {Options view options}, {Cache view caching}, and .

@@ -1,4 +1,4 @@
-require_dependency "card/view/cache_action"
+# require_dependency "card/view/cache_action"
 
 class Card
   class View
