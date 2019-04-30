@@ -14,8 +14,7 @@ class Card
         def log_cache_action
           action = yield
           # TODO: make configurable
-          Rails.logger.warn "VIEW CACHE [#{action}] (#{card.name}##{requested_view})"
-          # if false
+          # Rails.logger.warn "VIEW CACHE [#{action}] (#{card.name}##{requested_view})"
           action
         end
 

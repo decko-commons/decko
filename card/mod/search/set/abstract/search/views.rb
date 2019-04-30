@@ -27,8 +27,9 @@ format :json do
     search_with_params
   end
 
-  def molecule
-    super().merge render_paging_urls
+  # NOCACHE because paging_urls is uncacheable hash and thus not safe to merge
+  view :molecule, cache: :never do
+    molecule.merge render_paging_urls
   end
 
   # TODO: design better autocomplete API

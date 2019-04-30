@@ -1,5 +1,3 @@
-# require_dependency "card/view/cache_action"
-
 class Card
   class View
     # View::Cache supports smart card view caching.
