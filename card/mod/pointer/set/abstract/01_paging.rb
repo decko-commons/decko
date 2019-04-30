@@ -133,7 +133,7 @@ format :json do
     }.merge extra_paging_path_args
   end
 
-  def paging_urls
+  view :paging_urls, cache: :never do
     return {} unless total_pages > 1
 
     { paging: paging_urls_hash }

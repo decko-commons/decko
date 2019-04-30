@@ -27,8 +27,8 @@ format :json do
     search_with_params
   end
 
-  view :molecule, cache: :never do
-    super().merge paging_urls
+  def molecule
+    super().merge render_paging_urls
   end
 
   # TODO: design better autocomplete API

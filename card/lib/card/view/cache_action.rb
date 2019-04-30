@@ -1,8 +1,7 @@
 class Card
   class View
+    # determine action to be used in #fetch
     module CacheAction
-      # determine action to be used in #fetch
-
       # course of action based on config/status/options
       # @return [Symbol] :yield, :cache_yield, or
       def cache_action
@@ -99,21 +98,13 @@ class Card
 
       ACTIVE_CACHE_LEVEL = {
         always: :cache_yield, # read/write cache specifically for this view
-        standard: :yield,       # render view; it will only be cached within active view
-        never: :stub         # render a stub
+        standard: :yield,     # render view; it will only be cached within active view
+        never: :stub          # render a stub
       }.freeze
 
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # SHARED METHODS
 
-      # Mod developers can configure cache directives on view definitions.  eg:
-      #   view :myview, cache: :standard do ...
-      #
-      # There are three possible values for those rules.
-
-      #
-
-      #
       # @return [Symbol] :standard, :always, or :never
       def cache_setting
         format.view_cache_setting requested_view
@@ -125,7 +116,7 @@ class Card
         requested_view == ok_view &&
           !card.unknown? &&
           !card.db_content_changed?
-        # FIXME: might consider other changes as disqualifying, though
+        # might consider other changes as disqualifying, though
         # we should make sure not to disallow caching of virtual cards
       end
     end
