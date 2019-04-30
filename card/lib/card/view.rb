@@ -5,16 +5,11 @@ require_dependency "card/view/options"
 require_dependency "card/view/classy"
 
 class Card
+  # Card::View objects manage {Options view options}, {Cache view caching}, and .
   class View
-    # Card::View handles view rendering and caching.
-
-    include Visibility
-    include Cache
-    include Stub
     include Options
-    # include Layout
-    # include Wrapper
     include Classy
+    include Cache
     extend Cache::ClassMethods
 
     attr_reader :format, :parent, :card
@@ -88,6 +83,7 @@ class Card
       parent || (across_format && next_format_ancestor) || nil
     end
 
+    # voo object of parent's format
     def next_format_ancestor
       format.parent&.voo
     end
