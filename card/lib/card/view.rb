@@ -40,17 +40,11 @@ class Card
       def normalize_list val
         case val
         when NilClass then []
-        when Array    then normalize_each val
-        when String   then normalize_each val.split(/[\s,]+/)
+        when Array    then val
+        when String   then val.split(/[\s,]+/)
         when Symbol   then [val]
         else raise Card::Error, "bad show/hide argument: #{val}"
         end
-      end
-
-      private
-
-      def normalize_each view_array
-        view_array.map { |view| normalize view }
       end
     end
 

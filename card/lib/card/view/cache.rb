@@ -230,8 +230,12 @@ class Card
 
       def cache_key
         @cache_key ||= [
-          card.key, format.class, format.nest_mode, options_for_cache_key
+          card_cache_key, format.class, format.nest_mode, options_for_cache_key
         ].map(&:to_s).join "-"
+      end
+
+      def card_cache_key
+        card.real? ? card.id : "#{card.key}-#{card.type_id}"
       end
 
       # Registers the cached view for later clearing in the event of related card changes
