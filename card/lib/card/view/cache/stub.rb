@@ -37,18 +37,9 @@ class Card
 
         # @return [Hash]
         def stub_hash
-          { c: card.cast,
-            v: normalized_options,
-            f: { nest_mode: format.nest_mode, override: root? } }
-          #
-          # LEGEND:
-          #   c: card cast
-          #   v: view opts
-          #   f: format opts
-          #
-          # Normally we don't like single-letter variable names, but these stubs are
-          # rendered and altered and parsed so often that we're extra stingy.
-          #
+          { cast: card.cast,
+            view_opts: normalized_options,
+            format_opts: { nest_mode: format.nest_mode, override: root? } }
           # nest mode handling:
           #
           # Typically modes override views on nests, but stubs create non-standard nests.

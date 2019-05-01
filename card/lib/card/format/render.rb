@@ -124,7 +124,7 @@ class Card
       def stub_render cached_content
         result = expand_stubs cached_content do |stub_hash|
           prepare_stub_nest(stub_hash) do |stub_card, view_opts|
-            nest stub_card, view_opts, stub_hash[:f]
+            nest stub_card, view_opts, stub_hash[:format_opts]
           end
         end
         if result =~ /stub/
@@ -135,8 +135,8 @@ class Card
       end
 
       def prepare_stub_nest stub_hash
-        stub_card = Card.fetch_from_cast stub_hash[:c]
-        view_opts = stub_hash[:v]
+        stub_card = Card.fetch_from_cast stub_hash[:cast]
+        view_opts = stub_hash[:view_opts]
         voo.normalize_special_options! view_opts
         if stub_card&.key.present? && stub_card.key == card.key
           view_opts[:nest_name] ||= "_self"

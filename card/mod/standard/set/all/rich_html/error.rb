@@ -11,7 +11,7 @@ format :html do
     frame { params[:message] }
   end
 
-  view :missing, cache: :never do
+  view :missing do
     createable do
       wrap { missing_link("#{fa_icon 'plus-square'} #{_render_title}") }
     end
