@@ -1,6 +1,8 @@
 format :html do
   NEST_OPTIONS = %i[view title show hide wrap help variant size params].freeze
   # Card::View::Options.shark_keys - %i[nest_syntax nest_name items cache]
+  # TODO: reconnect to Card::View::Options
+  # (that way a mod can add an option that becomes available to nests)
 
   view :nest_editor, cache: :never, template: :haml,
                      wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do

@@ -34,7 +34,7 @@ class Card
         view = view_opts[:view] || format.implicit_nest_view
         # TODO: canonicalize view and modal_nest_view handling should be in Card::View,
         # not here. (Make sure processing only happens on nests/root views)
-        Card::View.canonicalize view
+        Card::View.normalize view
       end
 
       # @return [Format] subformat object

@@ -75,23 +75,7 @@ class Card
         # takes an options_hash and processes it to update viz_hash
         def process_visibility options_hash
           %i[hide show].each do |setting|
-            list = viz_view_list options_hash.delete(setting)
-            viz list, setting, true
-          end
-        end
-
-        # translated show/hide setting into an array of views
-        def viz_view_list val
-          Card::View::Visibility.normalize_view_list(val).map { |view| View.canonicalize view }
-        end
-
-        def self.normalize_view_list val
-          case val
-          when NilClass then []
-          when Array    then val
-          when String   then val.split(/[\s,]+/)
-          when Symbol   then [val]
-          else raise Card::Error, "bad show/hide argument: #{val}"
+            viz View.normalize_list(options_hash.delete(setting)), setting, true
           end
         end
       end

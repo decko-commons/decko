@@ -3,6 +3,8 @@ class Card
     module Cache
       # determine action to be used in #fetch
       module CacheAction
+        private
+
         # course of action based on config/status/options
         # @return [Symbol] :yield, :cache_yield, or
         def cache_action
@@ -21,13 +23,16 @@ class Card
         # @return [Symbol] :off, :active, or :free
         def cache_status
           case
-          when !cache_on?    then :off    # view caching is turned off, format- or system-wide
-          when cache_active? then :active # another view cache is in progress; this view is inside it
-          else                    :free   # no other cache in progress
+          when !cache_on?
+            :off      # view caching is turned off, format- or system-wide
+          when cache_active?
+            :active   # another view cache is in progress; this view is inside it
+          else
+            :free     # no other cache in progress
           end
         end
 
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # CACHE STATUS: OFF
         # view caching is turned off, format- or system-wide
 
@@ -41,7 +46,7 @@ class Card
           :yield
         end
 
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # CACHE STATUS: FREE
         # caching is on; no other cache in progress
 
@@ -55,7 +60,7 @@ class Card
           cache_setting != :never && clean_enough_to_cache?
         end
 
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # CACHE STATUS: ACTIVE
         # another view cache is in progress; this view is inside it
 
@@ -83,11 +88,15 @@ class Card
           end
         end
 
+        public
+
         # task directly associated with the view in its definition via the
         # "perms" directive
         def permission_task
           @permission_task ||= format.view_setting(:perms, requested_view) || :read
         end
+
+        private
 
         # determine the cache action from the cache setting
         # (assuming cache status is "active")
@@ -97,13 +106,10 @@ class Card
           level || raise("unknown cache setting: #{cache_setting}")
         end
 
-        ACTIVE_CACHE_LEVEL = {
-          always: :cache_yield, # read/write cache specifically for this view
-          standard: :yield,     # render view; it will only be cached within active view
-          never: :stub          # render a stub
-        }.freeze
+        ACTIVE_CACHE_LEVEL =
+          { always: :cache_yield, standard: :yield, never: :stub }.freeze
 
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # SHARED METHODS
 
         # @return [Symbol] :standard, :always, or :never
@@ -114,11 +120,11 @@ class Card
         # altered view requests and altered cards are not cacheable
         # @return [True/False]
         def clean_enough_to_cache?
-          requested_view == ok_view &&
-            !card.unknown? &&
-            !card.db_content_changed?
-          # might consider other changes as disqualifying, though
-          # we should make sure not to disallow caching of virtual cards
+          requested_view == ok_view && !card.unknown? && !card.db_content_changed?
+          # unknown views may be safe if we add type_id to the cache key for unknown
+          # (or all new?) cards.
+          #
+          #
         end
       end
     end

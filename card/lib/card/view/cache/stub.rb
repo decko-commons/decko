@@ -17,7 +17,13 @@ class Card
           def unescape stub_json
             stub_json.gsub "_OParEN_", "("
           end
+
+          # FIXME: escaping and unescaping stubs should not be necessary
+          # It's used to avoid problems with altered views, but altering views is
+          # unsafe and should be eliminated.  See {Card::View::Cache}.
         end
+
+        private
 
         # @return [String]
         def stub
@@ -31,9 +37,18 @@ class Card
 
         # @return [Hash]
         def stub_hash
-          { cast: card.cast,
-            view_opts: normalized_options,
-            format_opts: { nest_mode: format.nest_mode, override: root? } }
+          { c: card.cast,
+            v: normalized_options,
+            f: { nest_mode: format.nest_mode, override: root? } }
+          #
+          # LEGEND:
+          #   c: card cast
+          #   v: view opts
+          #   f: format opts
+          #
+          # Normally we don't like single-letter variable names, but these stubs are
+          # rendered and altered and parsed so often that we're extra stingy.
+          #
           # nest mode handling:
           #
           # Typically modes override views on nests, but stubs create non-standard nests.

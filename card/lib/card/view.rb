@@ -3,22 +3,61 @@ require_dependency "card/view/options"
 require_dependency "card/view/classy"
 
 class Card
-  # Card::View objects manage {Options view options}, {Cache view caching}, and .
+  # Card::View manages {Options view options} and {Cache view caching}.
+  #
+  # View objects, which are instantiated whenever a view is rendered, are available as
+  # in views and other format methods.  The view objects can be accessed using `#voo`.
+  # We sometimes feebly pretend VOO is an acronym for "view option object," but really
+  # we just needed a way not to confuse these Card::View options with the countless
+  # references to viewnames that naturally arise when rendering views within views within
+  # views.
+  #
+  # When view A renders view B within the same format object, A's voo is the parent of
+  # B's voo. When card C nests card D, a new (sub)format object is initialized. C is then
+  # the parent _format_ of D, but D has its own root voo.
+  #
+  # So a lineage might look something like this:
+  #
+  # `F1V1 -> F1V2 -> F1V3 -> F2V1 -> F2V2 -> F3V1 ...`
+  #
+  #
   class View
     include Options
-    include Classy
     include Cache
+    include Classy
+
     extend Cache::ClassMethods
 
     attr_reader :format, :parent, :card
 
-    # @return [Symbol]
-    def self.canonicalize view
-      view.present? ? view.to_sym : nil # error for no view?
+    class << self
+      # @return [Symbol] viewname as Symbol
+      def normalize view
+        view.present? ? view.to_sym : nil
+      end
+
+      # @return [Array] list of viewnames as Symbols
+      def normalize_list val
+        case val
+        when NilClass then []
+        when Array    then normalize_each val
+        when String   then normalize_each val.split(/[\s,]+/)
+        when Symbol   then [val]
+        else raise Card::Error, "bad show/hide argument: #{val}"
+        end
+      end
+
+      private
+
+      def normalize_each view_array
+        view_array.map { |view| normalize view }
+      end
     end
 
     # @param format [Card::Format]
-    # @param view [Symbol]
+    # @param view [Symbol] viewname. Note: Card::View is initialized without a view
+    #   when `voo` is called outside of a render,
+    #   eg `subformat(cardname).method_with_voo_reference`.
     # @param raw_options [Hash]
     # @param parent [Card::View] (optional)
     def initialize format, view, raw_options={}, parent=nil
@@ -44,15 +83,14 @@ class Card
     # be overridden, eg for the main view (top view of the main card on a page)
     # @return [Symbol] view name
     def requested_view
-      @requested_view ||= View.canonicalize live_options[:view]
+      @requested_view ||= View.normalize live_options[:view]
     end
 
     # the final view.  can be different from @requested_view when there are
     # issues with permissions, recursions, unknown cards, etc.
     # @return [Symbol] view name
     def ok_view
-      @ok_view ||= format.ok_view requested_view,
-                                  normalized_options[:skip_perms]
+      @ok_view ||= format.ok_view requested_view, normalized_options[:skip_perms]
     end
 
     # @return [Card::View]
@@ -65,6 +103,7 @@ class Card
       !parent
     end
 
+    # the root voo of the root format
     def deep_root
       format.root.voo
     end
@@ -81,7 +120,7 @@ class Card
       parent || (across_format && next_format_ancestor) || nil
     end
 
-    # voo object of parent's format
+    # voo object of format's parent
     def next_format_ancestor
       format.parent&.voo
     end
