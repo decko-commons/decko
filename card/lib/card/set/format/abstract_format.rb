@@ -3,107 +3,116 @@
 class Card
   module Set
     module Format
-      # All Format modules are extended with this module in order to support
-      # the basic format API, including view, layout, and basket definitions
+      # AbstractFormat manages the basic format API, including API to define a {#view}.
+      # Whenever you create a format block in a set module in a {Card::Mod mod}, you
+      # create a format module that is extended with AbstractFormat.
       module AbstractFormat
         include Set::Basket
-        include Set::Format::HamlViews
-        include Set::Format::Wrapper
+        include ViewOpts
+        include ViewDefinition
+        include HamlViews
+        include Wrapper
 
-        VIEW_SETTINGS = %i[cache modal bridge wrap].freeze
-
-        mattr_accessor :views
-        self.views = Hash.new { |h, k| h[k] = {} }
-
-        def before view, &block
-          define_method "_before_#{view}", &block
+        # _Views_ are the primary way that both sharks and monkeys interact with cards.
+        # Sharks select views to use in _nests_.  Monkeys can define and tweak those
+        # views. These docs will introduce the basics of view definition.
+        #
+        # ## Sample view definitions
+        #
+        # Here is a very simple view that just defines a label for the card(its name):
+        #
+        #     view :label do
+        #       card.name
+        #     end
+        #
+        # View definitions can take the following forms:
+        #
+        #     view :viewname[, option_hash][, &block]          # standard
+        #     view :viewname, alias_to_viewname[, option_hash] # aliasing
+        #
+        #
+        # ## View definition options
+        #
+        # * __:alias_to__ [Symbol] name of view to which this view should be aliased. View
+        #   must already be defined in self or specified mod.
+        #
+        # * __:async__ render view asynchronously by first rendering a card placeholder
+        #   and then completing a request. Only applies to HtmlFormat
+        #
+        # * __:cache__ directs how to handle caching for this view. Supported values:
+        #     * *:standard* - (default)
+        #     * *:always* - cache even when rendered within another cached view
+        #     * *:never* - don't ever cache this view. Frequently used to prevent caching
+        #       problems
+        #
+        #   {Card::View::Cache Learn more about caching}
+        #
+        # * __:closed__ [True/False]. Is view acceptable for rendering inside `closed`
+        #   view?  Default is false.
+        #
+        # * __:denial__ view to render if permission is denied. Value can be any viewname.
+        #   Default is `:denial`. `:blank` is a common alternative.
+        #
+        # * __:perms__ restricts view permissions. Supported values:
+        #     * *:create*, *:read* (default), *:update*, *:delete* - only users with the
+        #       given permission for the card viewed.
+        #     * *:none* - no permission check; anyone can view
+        #     * a *Proc* object.  Eg `perms: ->(_r) { Auth.needs_setup? }`
+        #
+        # * __:template__ [Symbol] view is defined in a template. Currently `:haml` is
+        #   the only supported value.  See {HamlViews}
+        #
+        # * __:unknown__ [True/False]. view can be rendered even if card name is unknown
+        #
+        # * __:wrap__ wrap view dynamically. Value is Symbol for wrapper. See {Wrapper}
+        #
+        # * DEPRECATED __:commentable__ [True/False].  Render this view for unknown cards
+        #   if comment box is showing and user has comment permission.
+        #
+        def view viewname, *args, &block
+          def_opts = process_view_opts viewname, args
+          define_view_method viewname, def_opts, &block
         end
 
-        def view view, *args, &block
-          # binding.pry
-          # view = view.to_viewname.key.to_sym
-          interpret_view_opts view, args[0] if block_given?
-          view_method_block = view_block(view, args, &block)
-          if async_view? args
-            # This case makes only sense for HtmlFormat
-            # but I don't see an easy way to override class methods for a specific
-            # format. All formats are extended with this general module. So
-            # a HtmlFormat.view method would be overridden by AbstractFormat.view
-            # We need something like AbstractHtmlFormat for that.
-            define_async_view_method view, &view_method_block
-          else
-            define_standard_view_method view, &view_method_block
-          end
-        end
-
+        # simple placeholder for views designed to be overridden elsewhere
         def view_for_override viewname
+          # LOCALIZE
           view viewname do
             "override '#{viewname}' view"
           end
         end
 
-        def define_standard_view_method view, &block
-          views[self][view] = block
-          define_method Card::Set::Format.view_method_name(view), &block
+        # define code to be executed before a view is rendered
+        def before view, &block
+          define_method "_before_#{view}", &block
         end
 
-        def define_async_view_method view, &block
-          view_content = "#{view}_async_content"
-          define_standard_view_method view_content, &block
-          define_standard_view_method view do
-            %(<card-view-placeholder data-url="#{path view: view_content}" />)
+        # Defines a setting method that can be used in all formats. Example:
+        #
+        #     format do
+        #       setting :cols
+        #       cols 5, 7
+        #
+        #       view :some_view do
+        #         cols  # => [5, 7]
+        #       end
+        #     end
+        #
+        # @param name [Symbol] name of setting. should be available method name
+        def setting name
+          Card::Set::Format::AbstractFormat.send :define_method, name do |*args|
+            define_method name do
+              args
+            end
           end
         end
 
-        def interpret_view_opts view, opts
-          return unless opts.present?
-
-          Card::Format.interpret_view_opts view, opts
-          VIEW_SETTINGS.each do |setting_name|
-            define_view_setting_method view, setting_name, opts.delete(setting_name)
-          end
-        end
-
-        def define_view_setting_method view, setting_name, setting_value
-          return unless setting_value
-
-          method_name = Card::Format.view_setting_method_name view, setting_name
-          define_method(method_name) { setting_value }
-        end
-
-        def view_block view, args, &block
-          return haml_view_block(view, wrap_with_slot?(args), &block) if haml_view?(args)
-
-          block_given? ? block : lookup_alias_block(view, args)
-        end
-
-        def haml_view? args
-          args.first.is_a?(Hash) && args.first[:template] == :haml
-        end
-
-        def wrap_with_slot? args
-          args.first.is_a?(Hash) && args.first[:slot]
-        end
-
-        def async_view? args
-          args.first.is_a?(Hash) && args.first[:async]
-        end
-
-        def lookup_alias_block view, args
-          opts = args[0].is_a?(Hash) ? args.shift : { view: args.shift }
-          opts[:mod] ||= self
-          opts[:view] ||= view
-          views[opts[:mod]][opts[:view]] || begin
-            raise "cannot find #{opts[:view]} view in #{opts[:mod]}; " \
-                  "failed to alias #{view} in #{self}"
-          end
-        end
-
+        # file location where set mod is stored
         def source_location
           set_module.source_location
         end
 
-        # remove the format part of the module name
+        # @return constant for set module (without format)
         def set_module
           Card.const_get name.split("::")[0..-2].join("::")
         end

@@ -1,6 +1,8 @@
 .bridge.container-fluid
   .row
     .col-8.bridge-main
-      = interior
-    .col-4.bridge-sidebar
-      = bridge_tabs
+      ._overlay-container-placeholder
+        = interior
+    .col-4.bridge-sidebar.nodblclick
+      ._overlay-container-placeholder
+        = bridge_tabs

@@ -34,7 +34,7 @@ class Card
         view = view_opts[:view] || format.implicit_nest_view
         # TODO: canonicalize view and modal_nest_view handling should be in Card::View,
         # not here. (Make sure processing only happens on nests/root views)
-        Card::View.canonicalize view
+        Card::View.normalize view
       end
 
       # @return [Format] subformat object
@@ -59,13 +59,13 @@ class Card
       # recursion is caught, view recursion is not.
       # TODO: catch view recursion and remove this. (Should be straightforward within voo)
       def nest_recursion_risk?
-        content_view? && format.voo&.structure
+        content_view? || format.voo&.structure
       end
 
       def content_view?
         # TODO: this should be specified in view definition
         %i[
-          core content titled open closed open_content
+          bar expanded_bar core content titled open closed open_content
         ].member? @view.to_sym
       end
     end

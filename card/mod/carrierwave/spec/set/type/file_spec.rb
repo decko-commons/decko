@@ -33,7 +33,7 @@ RSpec.describe Card::Set::Type::File do
   let(:unprotected_file) do
     create_file_card :local, test_file(2), codename: nil
   end
-  let(:coded_file) { Card[:logo] }
+  let(:coded_file) { Card[:yeti_skin_image] }
   let(:web_file) do
     Card::Auth.as_bot do
       Card.create! name: "file card", type_id: Card::FileID,
@@ -91,9 +91,9 @@ RSpec.describe Card::Set::Type::File do
     context "storage type: coded" do
       subject { source_view coded_file }
 
-      it "renders protected url to be processed by wagn" do
+      it "renders protected url to be processed by decko" do
         is_expected.to(
-          eq "/files/:#{coded_file.codename}/standard-medium.png"
+          eq "/files/:#{coded_file.codename}/bootstrap-medium.png"
         )
       end
     end
@@ -469,7 +469,7 @@ RSpec.describe Card::Set::Type::File do
           subject.update! storage_type: :local
         end
         expect(subject.db_content)
-          .to eq "~#{subject.id}/#{subject.last_action_id}.png"
+          .to eq "~#{subject.id}/#{subject.last_action_id}.svg"
       end
     end
 

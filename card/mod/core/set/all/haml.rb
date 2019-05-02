@@ -1,5 +1,5 @@
 format do
-  include Card::Set::Format::HamlViews
+  include Card::Set::Format::HamlPaths
 
   define_method :the_scope do
     set_scope

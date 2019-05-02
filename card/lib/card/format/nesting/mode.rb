@@ -60,9 +60,9 @@ class Card
         # @param view [Symbol]
         # @return [True/False]
         def hide_view_in_edit_mode? view
-          Card::Format.perms[view] == :none || # view never edited
-            card.structure                  || # not yet nesting structures
-            card.key.blank?                    # eg {{_self|type}} on new cards
+          view_setting(:perms, view) == :none || # view never edited
+            card.structure                    || # not yet nesting structures
+            card.key.blank?                      # eg {{_self|type}} on new cards
         end
 
         # the view that should be used when nested in closed mode
@@ -77,7 +77,7 @@ class Card
         # @param view [Symbol]
         # @return [Symbol] viewname
         def configured_view_in_closed_mode view
-          closed_config = Card::Format.closed[view]
+          closed_config = view_setting(:closed, view)
           return view if closed_config == true
 
           closed_config

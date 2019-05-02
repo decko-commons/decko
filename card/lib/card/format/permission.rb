@@ -26,7 +26,7 @@ class Card
 
       def unknown_disqualifies_view? view
         # view can't handle unknown cards (and card is unknown)
-        return false if tagged view, :unknown_ok
+        return false if view_setting(:unknown, view)
 
         card.unknown?
       end
@@ -37,7 +37,7 @@ class Card
       end
 
       def view_always_permitted? view
-        Card::Format.perms[view] == :none
+        view_setting(:perms, view) == :none
       end
 
       def permitted_view view
@@ -50,11 +50,11 @@ class Card
 
       def deny_view view
         root.error_status = 403 if focal? && voo.root?
-        Card::Format.denial[view] || :denial
+        view_setting(:denial, view) || :denial
       end
 
       def task_denied_for_view view
-        perms_required = Card::Format.perms[view] || :read
+        perms_required = view_setting(:perms, view) || :read
         if perms_required.is_a? Proc
           :read unless perms_required.call(self)  # read isn't quite right
         else
@@ -64,8 +64,12 @@ class Card
 
       def view_for_unknown _view
         # note: overridden in HTML
-        root.error_status = 404 if focal?
-        focal? ? :not_found : :missing
+        if main?
+          root.error_status = 404
+          :not_found
+        else
+          :missing
+        end
       end
 
       def ok? task

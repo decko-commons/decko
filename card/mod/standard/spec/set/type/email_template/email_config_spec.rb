@@ -189,18 +189,20 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
 
     it "handles inline image nests in html message  in core view" do
       Card::Env[:host] = "http://testhost"
-      update_field "*html message", content: "Triggered by {{:logo|core}}"
+      update_field "*html message",
+                   content: "Triggered by {{:yeti_skin_image|core}}"
       mail = email.format.mail context_card
       expect(mail.parts.size).to eq 2
       expect(mail.parts[0].mime_type).to eq "text/plain"
       expect(mail.parts[1].mime_type).to eq "text/html"
       expect(mail.parts[1].body.raw_source)
         .to have_tag(:img,
-                     with: { src: "http://testhost/files/:logo/standard-medium.png" })
+                     with: { src: "http://testhost/files/:yeti_skin_image/bootstrap-medium.png" })
     end
 
     it "handles inline image nests in html message" do
-      update_field "*html message", content: "Triggered by {{:logo|inline}}"
+      update_field "*html message",
+                   content: "Triggered by {{:yeti_skin_image|inline}}"
       mail = email.format.mail context_card
       expect(mail.parts[0].mime_type).to eq "image/png"
       url = mail.parts[0].url
@@ -210,13 +212,15 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     end
 
     it "handles image nests in html message in default view" do
-      update_field "*html message", content: "Triggered by {{:logo|core}}"
+      update_field "*html message",
+                   content: "Triggered by {{:yeti_skin_image|core}}"
       mail = email.format.mail context_card
       expect(mail.parts.size).to eq 2
       expect(mail.parts[0].mime_type).to eq "text/plain"
       expect(mail.parts[1].mime_type).to eq "text/html"
       expect(mail.parts[1].body.raw_source)
-        .to have_tag(:img, with: { src: "/files/:logo/standard-medium.png" })
+        .to have_tag(:img,
+                     with: { src: "/files/:yeti_skin_image/bootstrap-medium.png" })
     end
 
     it "handles contextual name for attachments" do

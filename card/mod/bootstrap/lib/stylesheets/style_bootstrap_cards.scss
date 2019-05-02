@@ -22,14 +22,17 @@ header {
   }
 }
 
+.d0-card-header a {
+  color: $body-color;
+  &.edit-link {
+    color: $text-muted;
+  }
+}
+
 @media print {
   header {
     display: none;
   }
-}
-
-.card-menu  a {
-  color: inherit;
 }
 
 label,
@@ -155,18 +158,24 @@ body.mceContentBody {
 /*---------- Card menu ------------*/
 
 @include media-breakpoint-up(xs) {
-  .card-slot > .d0-card-frame, .card-slot {
-    > .d0-card-header, > .labeled-content > d0-card-body {
-      .card-menu._show-on-hover > a {
-        display: none;
-      }
+  .card-slot > .d0-card-frame > .d0-card-header,
+  .card-slot > .d0-card-header,
+  .card-slot.labeled-view > .labeled-content > .d0-card-body,
+  .card-slot.content-view,
+  .card > .card-body,
+  .card > .card-header {
+    > .card-menu._show-on-hover > a {
+      display: none;
     }
   }
-  .card-slot:hover > .d0-card-frame, .card-slot:hover {
-    > .d0-card-header, > .labeled-content > d0-card-body {
-      .card-menu._show-on-hover > a {
-        display: inline-block;
-      }
+  .card-slot:hover > .d0-card-frame > .d0-card-header,
+  .card-slot:hover > .d0-card-header,
+  .card-slot.labeled-view:hover > .labeled-content > .d0-card-body,
+  .card-slot.content-view:hover,
+  .card:hover > .card-body,
+  .card:hover > .card-header{
+    > .card-menu._show-on-hover > a {
+      display: inline-block;
     }
   }
 }
@@ -185,7 +194,9 @@ body.mceContentBody {
 }
 
 .titled-view > .d0-card-header {
-  font-size: 1.3em;
+  > .d0-card-header-title {
+    font-size: 1.3em;
+  }
   margin: 3px 0
 }
 
@@ -310,12 +321,6 @@ body.mceContentBody {
    margin-bottom: 0;
  }
 
-/*-------- Toolbar --------*/
-.toolbar-close {
-  font-size: 20px !important;
-  font-weight: bolder !important;
-}
-
 /*-------- Icon Helpers --------*/
 .toggler>i.material-icons{
   color: $black;
@@ -371,8 +376,27 @@ body.mceContentBody {
     // TODO: obviate in ruby with better unknown API
     display: none;
   }
-  div, span, a {
-    overflow: hidden;
+}
+.bar {
+  border-left: 3px solid $bar_stripe_color !important;
+  .bar-nav {
+    min-width: 20px;
+    margin-left: auto;
+  }
+  .media {
+    width: 100%
+  }
+  .media-left {
+    max-width: 25%
+  }
+}
+
+.expanded-bar {
+  margin-bottom: 1em;
+  .bar-bottom {
+    padding: 1em 1em 1em 2em;
+    border: 1px solid $border-color;
+    border-top: 0;
   }
 }
 
@@ -408,21 +432,8 @@ body.mceContentBody {
   text-overflow: ellipsis;
 }
 
-.bar {
-  border-left: 3px solid $bar_stripe_color !important;
-  .bar-nav {
-    min-width: 36px;
-  }
-}
-
 .badge {
   vertical-align: text-top!important;
-}
-
-/*----------- Tweak tabs -------------*/
-
-.nav-tabs .nav-item {
-  margin-left: -1px; // remove double border on tabs
 }
 
 /*----------- Slim Select2 -------------*/

@@ -16,13 +16,13 @@ format :html do
     Card.new name: "#{Card[:all].name}+#{card.rule_user_setting_name}"
   end
 
-  view :rule_help, tags: :unknown_ok, perms: :none, cache: :never do
+  view :rule_help, unknown: true, perms: :none, cache: :never do
     wrap_with :div, class: "alert alert-info rule-instruction" do
       rule_based_help
     end
   end
 
-  view :show_rule, cache: :never, tags: :unknown_ok do
+  view :show_rule, cache: :never, unknown: true do
     return "No Current Rule" if card.new_card?
 
     voo.items[:view] ||= :link
@@ -38,7 +38,47 @@ format :html do
     end
   end
 
-  view :rule_bridge_link, tags: :unknown_ok do
+  view :quick_edit, unknown: true, template: :haml, wrap: :slot do
+    setting_title + short_help_text + quick_editor
+  end
+
+  def quick_form
+    card_form :update,
+              "data-slot-selector": ".set-info.card-slot",
+              success: { view: :quick_edit_success }  do
+      quick_editor
+    end
+  end
+
+  def set_info notify_change=nil
+    wrap true, class: "set-info" do
+      haml :set_info, notify_change: notify_change
+    end
+  end
+
+  def undo_button
+    link_to "undo", method: :post, rel: "nofollow", class: "btn btn-secondary ml-2 btn-sm btn-reduced-padding slotter",
+                    remote: true,
+                    "data-slot-selector": ".card-slot.quick_edit-view",
+                    path: { action: :update,
+                            revert_actions: [card.last_action_id],
+                            revert_to: :previous }
+  end
+
+  view :quick_edit_success do
+    set_info true
+  end
+
+  def quick_editor
+    if card.right.codename == :default
+      @edit_rule_success = {}
+      rules_type_formgroup
+    else
+      rule_content_formgroup
+    end
+  end
+
+  view :rule_bridge_link, unknown: true do
     opts = bridge_link_opts(class: "edit-rule-link nav-link",
                             "data-toggle": "pill",
                             "data-cy": "#{setting_title.to_name.key}-pill")

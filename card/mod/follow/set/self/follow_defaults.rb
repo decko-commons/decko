@@ -44,7 +44,7 @@ def follow_option item
 end
 
 format :html do
-  view :edit, perms: :update, tags: :unknown_ok do
+  view :edit, perms: :update, unknown: true do
     frame_and_form :update, hidden: { success: "_self",
                                       card: { update_all_users: false } } do
       [

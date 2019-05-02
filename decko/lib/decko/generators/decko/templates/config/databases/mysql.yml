@@ -28,6 +28,7 @@ test: &test
   database: <%= app_name %>_test
 
 cucumber: *test
+cypress: *test
 
 profile: *development
 

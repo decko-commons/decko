@@ -66,10 +66,15 @@ format do
     e
   end
 
-  def implicit_item_view view_from_query_params=nil
-    view = voo_items_view || view_from_query_params || default_item_view
-    Card::View.canonicalize view
-    end
+  def implicit_item_view
+    view = voo_items_view || item_view_from_query || default_item_view
+    Card::View.normalize view
+  end
+
+  # override if query can specify item view
+  def item_view_from_query
+    nil
+  end
 
   def with_results
     return render_no_search_results if search_with_params.empty?

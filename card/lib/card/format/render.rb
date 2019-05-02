@@ -30,7 +30,7 @@ class Card
           # don't wrap twice with modals or overlays
           # this can happen if the view is wrapped with modal
           # and is requested with layout=modal param
-          voo.wrap.push layout unless voo.wrap.include? layout.to_sym
+          voo.wrap.unshift layout unless voo.wrap.include? layout.to_sym
         end
 
         @rendered = yield
@@ -71,7 +71,7 @@ class Card
       end
 
       def voo
-        @voo
+        @voo ||= View.new self, nil, {}
       end
 
       def show_view? view, default_viz=:show
@@ -112,20 +112,13 @@ class Card
           source_location.second.to_s
       end
 
-      # setting (:alway, :never, :nested) designated in view definition
+      # :standard, :always, :never
       def view_cache_setting view
-        coded_setting = view_setting(:cache, view) || :standard
-        # method = self.class.view_cache_setting_method view
-        # coded_setting = respond_to?(method) ? send(method) : :standard
-        return :never if coded_setting == :never
-
-        # seems unwise to override a hard-coded "never"
-        (voo&.cache) || coded_setting
+        voo&.cache || view_setting(:cache, view) || :standard
       end
 
       def view_setting setting_name, view
-        method = self.class.view_setting_method_name view, setting_name
-        try method
+        try Card::Set::Format.view_setting_method_name(view, setting_name)
       end
 
       def stub_render cached_content

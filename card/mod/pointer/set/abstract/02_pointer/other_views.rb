@@ -38,7 +38,7 @@ end
 # Data views
 
 format :data do
-  view :core, cache: :never do
+  view :core do
     nest_item_array
   end
 end

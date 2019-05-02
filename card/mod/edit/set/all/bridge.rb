@@ -14,7 +14,9 @@ format :html do
   end
 
   def bridge_tabs
-    lazy_loading_tabs visible_bridge_tabs, bridge_tab, _render(bridge_tab)
+    wrap do
+      lazy_loading_tabs visible_bridge_tabs, bridge_tab, _render(bridge_tab)
+    end
   end
 
   def bridge_tab
@@ -46,8 +48,8 @@ format :html do
   end
 
   def bridge_slot_selector
-    ".bridge-main > .card-slot, "\
-    ".bridge-main > .overlay-container > .card-slot._bottomlay-slot"
+    ".bridge-main > .overlay-container > .card-slot._bottomlay-slot," \
+    ".bridge-main > ._overlay-container-placeholder > .card-slot"
   end
 
   def default_bridge_tab

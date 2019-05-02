@@ -8,6 +8,7 @@ format :html do
   end
 
   wrapper :slot do |opts|
+    class_up "card-slot", opts[:class] if opts[:class]
     method_wrap :wrap_with, :div, true, opts do
       interior
     end
@@ -37,7 +38,8 @@ format :html do
 
   def wrap_data slot=true
     with_slot_data slot do
-      { "card-id": card.id, "card-name": h(card.name) }
+      { "card-id": card.id, "card-name": h(card.name),
+        "slot-id": SecureRandom.hex(10) }
     end
   end
 
@@ -70,7 +72,7 @@ format :html do
   end
 
   def debug_slot?
-    params[:debug] == "slot" && !tagged(@current_view, :no_wrap_comments)
+    params[:debug] == "slot"
   end
 
   def debug_slot_wrap
@@ -103,9 +105,13 @@ format :html do
   end
 
   def wrap_main
-    return yield if Env.ajax? || params[:layout] == "none"
+    return yield if no_main_wrap?
 
     wrap_with :div, yield, id: "main"
+  end
+
+  def no_main_wrap?
+    Env.ajax? || params[:layout] == "none"
   end
 
   def wrap_with tag, content_or_args={}, html_args={}

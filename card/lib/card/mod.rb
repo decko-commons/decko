@@ -11,7 +11,7 @@ class Card
   #
   #     decko generate card:mod MOD_NAME
   #
-  # This will create the follow directories:
+  # This will create the following directories:
   #
   #     DECK_NAME/mod/MOD_NAME
   #     DECK_NAME/mod/MOD_NAME/lib
@@ -52,7 +52,8 @@ class Card
   # Learn more:
   #   - {Card} introduces card objects
   #   - {Card::Set} provides an overview of how set modules work
-  #   - {Card::Format} explains the basics of the view API
+  #   - {Card::Set::Format} explains the basics of the format API
+  #   - {Card::Set::Format::AbstractFormat} explains the basics of the view definition API
   #   - {Card::Set::Event} explains the basics of the event API
   #
   # ## Other Directories

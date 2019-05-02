@@ -1,6 +1,5 @@
 format :html do
-  # used in tables shown in set cards' core view
-  view :rule_link, tags: :unknown_ok do
+  view :rule_link, unknown: true do
     rule_card = find_existing_rule_card
     wrap_closed_rule rule_card do
       %i[link set].map do |cell|
@@ -9,7 +8,7 @@ format :html do
     end
   end
 
-  view :rule_modal_link, tags: :unknown_ok do
+  view :rule_modal_link, unknown: true do
     rule_card = find_existing_rule_card
       wrap_closed_rule rule_card do
         %i[modal_link set].map do |cell|
@@ -52,7 +51,7 @@ format :html do
   end
 
   def closed_rule_set_cell rule_card
-    wrap_rule_cell "rule-set" do
+    wrap_rule_cell "rule-set d-none d-sm-table-cell" do
       rule_card ? rule_card.trunk.label : ""
     end
   end

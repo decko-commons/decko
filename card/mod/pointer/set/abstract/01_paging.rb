@@ -18,11 +18,16 @@ format do
   end
 
   def total_pages
+    return 1 if limit.zero?
     ((count_with_params - 1) / limit).to_i
   end
 
   def current_page
     (offset / limit).to_i
+  end
+
+  def extra_paging_path_args
+    {}
   end
 end
 
@@ -102,10 +107,6 @@ format :html do
     voo&.home_view || voo.slot_options[:view] || :content
   end
 
-  def extra_paging_path_args
-    {}
-  end
-
   def paging_needed?
     return false if limit < 1
     return false if fewer_results_than_limit? # avoid extra count search
@@ -129,10 +130,10 @@ format :json do
       offset: page * limit,
       item: default_item_view, # hack. need standard voo handling
       format: :json
-    }
+    }.merge extra_paging_path_args
   end
 
-  def paging_urls
+  view :paging_urls, cache: :never do
     return {} unless total_pages > 1
 
     { paging: paging_urls_hash }

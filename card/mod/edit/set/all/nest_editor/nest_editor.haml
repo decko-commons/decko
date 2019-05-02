@@ -1,0 +1,30 @@
+%div
+  .nest-header.d-flex.ml-2
+    %h5.mt-1 Nest
+    .ml-auto
+      = link_to fa_icon(:close), path: "#", "data-dismiss": nest_editor_mode, class: "text-dark p-1 ml-1"
+
+  .form
+    .form-row.align-items-center.mb-4.ml-1
+      .col-9
+        .input-group{class: [edit_nest.field? ? "show-prefix" : "hide-prefix"]}
+          .input-group-prepend._field-indicator
+            .input-group-text.text-muted
+              +
+          = text_field_tag "nest_name", edit_nest.name, class: "form-control _nest-name"
+
+      .col-3
+        = check_box_tag :field, "field", edit_nest.field?,
+                        class: "_nest-field-toggle", id: "nest-editor-field"
+        %label.form-check-label{for: "nest-editor-field"} field
+
+    = nest_editor_tabs
+
+  .card-footer.p-0
+    .preview.mx-1.my-1.form-control-feedback
+      = text_field_tag "preview", edit_nest.raw, class: "_nest-preview w-100 text-muted", readonly: true
+    %hr.mt-1.mb-1
+    .form-group.d-flex.justify-content-center.py-2
+      = button_tag "Apply", apply_data.merge(class: "_nest-apply btn-sm mr-3")
+      %a.border-light.text-dark.btn.btn-sm.btn-outline-secondary{"data-dismiss": nest_editor_mode, href: "#"}
+        Close

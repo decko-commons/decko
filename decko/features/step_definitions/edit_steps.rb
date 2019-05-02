@@ -67,6 +67,7 @@ end
 When /^(.*) edits? "([^"]*)" setting (.*) to "([^"]*)"$/ do |username, cardname, _field, content|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
+
     set_content "card[content]", content
     submit
   end
@@ -115,7 +116,7 @@ def set_content name, content, _cardtype=nil
   Capybara.ignore_hidden_elements = false
   wait_for_ajax
   set_ace_editor_content(name, content) ||
-    set_pm_editor_content(name, content) ||
+    # set_pm_editor_content(name, content) ||
     set_tinymce_editor_content(name, content) ||
     fill_in(name, with: content)
   Capybara.ignore_hidden_elements = true
@@ -140,6 +141,10 @@ def set_pm_editor_content name, content
 end
 
 def set_tinymce_editor_content name, content
+  5.times do
+    break if all("iframe.tox-edit-area__iframe", wait: false).present?
+    sleep(0.5)
+  end
   find_editor "textarea[name='#{name}']" do |editors|
     editor_id = editors.first[:id]
     return unless page.evaluate_script("typeof tinyMCE != 'undefined' && "\
