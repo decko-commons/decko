@@ -36,20 +36,21 @@ class Card
       end
 
       def path_parts backtrace
-        find_set_path(backtrace).split(File::SEPARATOR)
+        parts = find_set_path(backtrace).split(File::SEPARATOR)
+        parts[-1] = parts.last.split(".").first
+        parts
+
       end
 
       # extract mod and set from real path
       # @example
       #   if the path looks like ~/mydeck/mod/core/set/all/event.rb/
       #   this method returns ["core", "all", "event"]
-      def set_path_parts backtrace
-        parts = path_parts backtrace
-        res = parts[path_mod_index(parts)..-1]
-        res.delete_at 1
-        res[-1] = res.last.split(".").first
-        res
-      end
+      # def set_path_parts backtrace
+      #   parts = path_parts backtrace
+      #   res = parts[path_mod_index(parts)..-1]
+      #   res.delete_at 1
+      # end
 
       # extract mod and set from tmp path
       # @example
