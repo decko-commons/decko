@@ -29,6 +29,7 @@ class Card
       end
 
       def processed_content
+        capture_module_comment if @strategy.clean_comments?
         module_content
       end
 
@@ -40,8 +41,34 @@ class Card
 
       private
 
+      # find all comment lines at the beginning of a mod file, up to the first
+      # non-comment line.  (These will be inserted before the module declaration,
+      # so that Yard will interpret them as a module comment.)
+      def capture_module_comment
+        content_lines = @content.split "\n"
+        comment_lines = []
+
+        content_lines.each do |line|
+          comment?(line) ? comment_lines << content_lines.shift : break
+        end
+
+        @content = content_lines.join "\n"
+        @module_comment = comment_lines.join "\n"
+      end
+
+      def comment? line
+        line.match? /^ *\#/
+      end
+
+      # loader template must implement #preamble_bits
       def preamble
         preamble_bits.join "\n"
+      end
+
+      def module_comment
+        return "" unless @strategy.clean_comments?
+        @module_comment = nil if @module_comment.blank?
+        [auto_comment, @module_comment].compact.join "\n"
       end
 
       def module_content

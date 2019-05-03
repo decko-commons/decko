@@ -40,15 +40,8 @@ class Card
             end
           end
 
-          def pattern_class
-            @pattern_class ||= Card::Set.const_get_or_set(@pattern.camelize) { Class.new }
-          end
-
           def processed_content
-            if @strategy.clean_comments?
-              capture_module_comment
-              add_explicit_format_modules
-            end
+            add_explicit_format_modules if @strategy.clean_comments?
             super
           end
 
@@ -59,22 +52,6 @@ class Card
               "parent.send :register_set_format, #{format_class format_name}, self; "\
               "extend Card::Set::AbstractFormat"
             end
-          end
-
-          def capture_module_comment
-            content_lines = @content.split "\n"
-            comment_lines = []
-
-            content_lines.each do |line|
-              comment?(line) ? comment_lines << content_lines.shift : break
-            end
-
-            @content = content_lines.join "\n"
-            @module_comment = comment_lines.join "\n"
-          end
-
-          def comment? line
-            line.match? /^ *\#/
           end
 
           def module_name format_name
@@ -120,22 +97,30 @@ class Card
              location_method].compact
           end
 
-          def module_comment
-            @module_comment = nil if @module_comment.blank?
-            [set_label, @module_comment].compact.join "\n"
+          def auto_comment
+            "# Set: #{label_body *@modules}\n#"
           end
 
-          def set_label
-            "# Set: " + if @pattern == "Abstract"
-                          "Abstract (#{@modules.join ', '})"
-                        else
-                          generate_set_label
-                        end
+          def label_body *anchors
+            if @pattern == "Abstract"
+              "Abstract (#{@modules.join ', '})"
+            else
+              pattern_label *anchors
+            end
           end
 
-          def generate_set_label
-            max_arg_index = pattern_class.method(:label).arity - 1
-            pattern_class.label(*@modules[0..max_arg_index])
+          def pattern_label *anchors
+            anchor_count = pattern_class.anchor_parts_count
+            anchor = anchor_count.zero? ? "" :
+                       anchors[0..anchor_count].join(Card::Name.joint)
+            label = pattern_class.label(anchor)
+            remainder = anchors[anchor_count..-1]
+            label += " (#{remainder.join ', '})" if remainder.any?
+            label
+          end
+
+          def pattern_class
+            @pattern_class ||= Card::Set.const_get_or_set(@pattern.camelize) { Class.new }
           end
 
           def capture_last_module

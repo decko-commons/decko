@@ -29,12 +29,16 @@ class Card
 
           private
 
+          def auto_comment
+            %{# Set Pattern: #{@pattern.camelize}\n#}
+          end
+
           def module_chain
             "class Card::Set::#{@pattern.camelize} < Card::Set::Pattern::Abstract"
           end
 
           def preamble_bits
-            [module_chain, "cattr_accessor :options", "class << self"]
+            [module_comment, module_chain, "cattr_accessor :options", "class << self"]
           end
 
           def postamble
