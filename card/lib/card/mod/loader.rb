@@ -57,7 +57,7 @@ class Card
           const_get :Template
         end
 
-        private
+        # private
 
         def load_initializers
           Card.config.paths["mod/config/initializers"].existent.sort.each do |initializer|

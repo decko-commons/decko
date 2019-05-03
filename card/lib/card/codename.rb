@@ -14,8 +14,7 @@ class Card
   #
   #     /update/CARDNAME?card[codename]=CODENAME
   #
-  # ...or via the api like
-  #
+  # ...or via the api lik
   #     Card[CARDNAME].update! codename: CODENAME
   #
   # Generally speaking, _codenames_ are represented by Symbols.
@@ -26,7 +25,7 @@ class Card
   class Codename
     class << self
       # returns codename for id and id for codename
-      # @param key [Integer, Symbol, String, Card::Name]
+      # @param codename [Integer, Symbol, String, Card::Name]
       # @return [Symbol]
       def [] codename
         case codename

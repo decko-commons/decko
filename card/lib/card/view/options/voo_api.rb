@@ -162,8 +162,8 @@ class Card
           @live_options
         end
 
-        # This method triggers the "before" blocks which can alter the
-        # @live_options hash both directly and indirectly (via the voo API)
+        # This method triggers the "before" blocks which can alter the @live_options
+        # hash both directly and indirectly (via the voo API)
         def process_before_view
           format.before_view requested_view
         end

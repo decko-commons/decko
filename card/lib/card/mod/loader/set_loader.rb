@@ -25,7 +25,7 @@ class Card
         end
 
         class Template < ModuleTemplate
-          def initialize modules, content_path
+          def initialize modules, content_path, strategy
             super
             @modules.pop if helper_module?
           end
@@ -42,6 +42,49 @@ class Card
             end
           end
 
+          def processed_content
+            if @strategy.clean_comments?
+              capture_module_comment
+              add_explicit_format_modules
+            end
+            super
+          end
+
+          def add_explicit_format_modules
+            @content.gsub!(/^ *format +:?(\w+)? *do *$/) do
+              format_name = $1.blank? ? nil : $1.to_sym
+              "module #{module_name format_name}; " \
+              "parent.send :register_set_format, #{set_format_class format_name}, self; "\
+              "extend Card::Set::AbstractFormat"
+            end
+          end
+
+          def capture_module_comment
+            content_lines = @content.split "\n"
+            comment_lines = []
+
+            content_lines.each do |line|
+              comment?(line) ? comment_lines << content_lines.shift : break
+            end
+
+            @content = content_lines.join "\n"
+            @module_comment = comment_lines.join "\n"
+          end
+
+          def comment? line
+            line.match? /^ *\#/
+          end
+
+          def module_name format_name
+            Card::Format.format_class_name format_name
+          end
+
+          def set_format_class format_name
+            klass = ["Card::Format"]
+            klass << module_name(format_name) if format_name
+            klass.join "::"
+          end
+
           def helper_module?
             if @is_helper_module.nil?
               @is_helper_module = @content =~ /\A#!\s?not? set module/
@@ -52,30 +95,62 @@ class Card
 
           # correct line number for error messages
           def offset
-            # One line for the module chain and one line for the source_location method
-            # The template changes so rarely that doesn't seem worth it to count
-            # it during runtime
-            helper_module? ? -4 : -5
+            -6
           end
 
           private
 
           def submodule_chain
-            @modules.map { |m| "module #{m};" }.join " "
+            @modules.map { |m| "module #{m};" }
           end
 
           def module_chain
-            "class Card; module Set; class #{@pattern.camelize}; #{submodule_chain}"
+            @module_chain ||=
+              ["class Card", "module Set", "class #{@pattern.camelize}"] + submodule_chain
           end
 
-          def preamble
-            <<~RUBY.strip_heredoc
-              #{'extend Card::Set' unless helper_module?}
-                          def self.source_location; "#{@content_path}"; end
-            RUBY
+          def preamble_bits
+            capture_last_module
+            [module_chain.join("; "),
+             module_comment,
+             @last_module,
+             set_extension,
+             location_method].compact
           end
 
-          def end_chain
+          def module_comment
+            @module_comment = nil if @module_comment.blank?
+            [set_label, @module_comment].compact.join "\n"
+          end
+
+          def set_label
+            "# Set: " + if @pattern == "Abstract"
+                        "Abstract (#{@modules.join ', '})"
+                      else
+                        generate_set_label
+                      end
+          end
+
+          def generate_set_label
+            klass = Card::Set.const_get_or_set(@pattern.camelize)
+            max_arg_index = klass.method(:label).arity - 1
+            klass.label(*@modules[0..max_arg_index])
+          end
+
+          def capture_last_module
+            module_chain
+            @last_module = @module_chain.pop
+          end
+
+          def set_extension
+            'extend Card::Set' unless helper_module?
+          end
+
+          def location_method
+            %(def self.source_location; "#{@content_path}"; end)
+          end
+
+          def postamble
             "end;" * (@modules.size + 3)
           end
         end

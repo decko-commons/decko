@@ -39,7 +39,9 @@ class Card
         def stub_hash
           { cast: card.cast,
             view_opts: normalized_options,
-            format_opts: { nest_mode: format.nest_mode, override: root? } }
+            format_opts: { nest_mode: format.nest_mode,
+                           override: root?,
+                           context_names: format.context_} }
           # nest mode handling:
           #
           # Typically modes override views on nests, but stubs create non-standard nests.
