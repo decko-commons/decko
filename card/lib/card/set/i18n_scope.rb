@@ -39,7 +39,6 @@ class Card
         parts = find_set_path(backtrace).split(File::SEPARATOR)
         parts[-1] = parts.last.split(".").first
         parts
-
       end
 
       # extract mod and set from real path
@@ -77,7 +76,7 @@ class Card
       end
 
       def find_set_path backtrace
-        re = tmp_files? ? /tmp(sets)?\/set\// : %r{(?<!card)/set/}
+        re = tmp_files? ? %r{tmp(sets)?/set\/} : %r{(?<!card)/set/}
         path = backtrace.find { |line| line =~ re }
         raise Error, "couldn't find set path in backtrace: #{backtrace}" unless path
 
@@ -90,7 +89,7 @@ class Card
       #          parts.size >= set_index + 2
       #     raise Error, "not a valid set path: #{path}"
       #   end
-#
+      #
       #   set_index + 1
       # end
 

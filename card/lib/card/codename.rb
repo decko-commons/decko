@@ -14,7 +14,8 @@ class Card
   #
   #     /update/CARDNAME?card[codename]=CODENAME
   #
-  # ...or via the api lik
+  # ...or via the api like
+  #
   #     Card[CARDNAME].update! codename: CODENAME
   #
   # Generally speaking, _codenames_ are represented by Symbols.

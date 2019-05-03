@@ -57,7 +57,7 @@ class Card
       end
 
       def comment? line
-        line.match? /^ *\#/
+        line.match?(/^ *\#/)
       end
 
       # loader template must implement #preamble_bits

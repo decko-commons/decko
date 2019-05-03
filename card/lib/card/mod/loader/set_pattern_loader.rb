@@ -30,7 +30,7 @@ class Card
           private
 
           def auto_comment
-            %{# Set Pattern: #{@pattern.camelize}\n#}
+            %(# Set Pattern: #{@pattern.camelize}\n#)
           end
 
           def module_chain
@@ -48,7 +48,6 @@ class Card
             end
             RUBY
           end
-
         end
       end
     end

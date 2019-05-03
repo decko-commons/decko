@@ -4,11 +4,6 @@ class Card
       # methods for handling paths to HAML templates
       module HamlPaths
         TEMPLATE_DIR = %w[template set].freeze
-        TEMPLATE_RE = if false #
-
-                      else
-                        %r{/(mod)(/[^/]+)/set/}
-                      end
 
         def haml_to_html haml, locals={}, a_binding=nil, debug_info={}
           a_binding ||= binding

@@ -41,7 +41,7 @@ class Card
             view_opts: normalized_options,
             format_opts: { nest_mode: format.nest_mode,
                            override: root?,
-                           context_names: format.context_} }
+                           context_names: format.context_names } }
           # nest mode handling:
           #
           # Typically modes override views on nests, but stubs create non-standard nests.

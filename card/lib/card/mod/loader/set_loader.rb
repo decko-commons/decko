@@ -98,25 +98,31 @@ class Card
           end
 
           def auto_comment
-            "# Set: #{label_body *@modules}\n#"
+            "# Set: #{label_body(*@modules)}\n#"
           end
 
           def label_body *anchors
             if @pattern == "Abstract"
               "Abstract (#{@modules.join ', '})"
             else
-              pattern_label *anchors
+              pattern_label(*anchors)
             end
           end
 
           def pattern_label *anchors
             anchor_count = pattern_class.anchor_parts_count
-            anchor = anchor_count.zero? ? "" :
-                       anchors[0..anchor_count].join(Card::Name.joint)
-            label = pattern_class.label(anchor)
+            label = pattern_class.label(pattern_anchor(*anchors, anchor_count))
             remainder = anchors[anchor_count..-1]
             label += " (#{remainder.join ', '})" if remainder.any?
             label
+          end
+
+          def pattern_anchor *anchors, anchor_count
+            if anchor_count.zero?
+              ""
+            else
+              anchors[0..anchor_count].join(Card::Name.joint)
+            end
           end
 
           def pattern_class
@@ -129,7 +135,7 @@ class Card
           end
 
           def set_extension
-            'extend Card::Set' unless helper_module?
+            "extend Card::Set" unless helper_module?
           end
 
           def location_method
