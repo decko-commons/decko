@@ -4,6 +4,11 @@ class Card
       # methods for handling paths to HAML templates
       module HamlPaths
         TEMPLATE_DIR = %w[template set].freeze
+        TEMPLATE_RE = if Cardio.config.load_strategy == :tmp_files
+                        %r{/tmp(sets)?\/set/mod\d{3}-([^/]+)/}
+                      else
+                        %r{/(mod)/([^/]+)/set/}
+                      end
 
         def haml_to_html haml, locals={}, a_binding=nil, debug_info={}
           a_binding ||= binding

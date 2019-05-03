@@ -33,13 +33,15 @@ class Card
           def to_const
             return Object if simple_load?
 
-            pattern_klass = Card::Set.const_get_or_set(@pattern.camelize) { Class.new }
-
-            @modules.inject(pattern_klass) do |const, name_part|
+            @modules.inject(pattern_class) do |const, name_part|
               const.const_get_or_set name_part do
                 Module.new
               end
             end
+          end
+
+          def pattern_class
+            @pattern_class ||= Card::Set.const_get_or_set(@pattern.camelize) { Class.new }
           end
 
           def processed_content
@@ -54,7 +56,7 @@ class Card
             @content.gsub!(/^ *format +:?(\w+)? *do *$/) do
               format_name = $1.blank? ? nil : $1.to_sym
               "module #{module_name format_name}; " \
-              "parent.send :register_set_format, #{set_format_class format_name}, self; "\
+              "parent.send :register_set_format, #{format_class format_name}, self; "\
               "extend Card::Set::AbstractFormat"
             end
           end
@@ -79,7 +81,7 @@ class Card
             Card::Format.format_class_name format_name
           end
 
-          def set_format_class format_name
+          def format_class format_name
             klass = ["Card::Format"]
             klass << module_name(format_name) if format_name
             klass.join "::"
@@ -125,16 +127,15 @@ class Card
 
           def set_label
             "# Set: " + if @pattern == "Abstract"
-                        "Abstract (#{@modules.join ', '})"
-                      else
-                        generate_set_label
-                      end
+                          "Abstract (#{@modules.join ', '})"
+                        else
+                          generate_set_label
+                        end
           end
 
           def generate_set_label
-            klass = Card::Set.const_get_or_set(@pattern.camelize)
-            max_arg_index = klass.method(:label).arity - 1
-            klass.label(*@modules[0..max_arg_index])
+            max_arg_index = pattern_class.method(:label).arity - 1
+            pattern_class.label(*@modules[0..max_arg_index])
           end
 
           def capture_last_module
