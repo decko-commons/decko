@@ -1,4 +1,5 @@
-module SetDSLHandler
+# handles methods that define method with block
+module CardDSLHandler
   def process_set_method method
     process do
       name = statement.parameters.first.jump(:tstring_content, :ident).source
@@ -15,16 +16,18 @@ module SetDSLHandler
   end
 end
 
-class CardViewHandler < YARD::Handlers::Ruby::Base
-  extend SetDSLHandler
-  handles method_call :view
-  namespace_only
-  process_set_method :view
-end
-
+# handler for #event definitions
 class CardEventHandler < YARD::Handlers::Ruby::Base
-  extend SetDSLHandler
+  extend CardDSLHandler
   handles method_call :event
   namespace_only
   process_set_method :event
+end
+
+# handler for #view definitions
+class CardViewHandler < YARD::Handlers::Ruby::Base
+  extend CardDSLHandler
+  handles method_call :view
+  namespace_only
+  process_set_method :view
 end
