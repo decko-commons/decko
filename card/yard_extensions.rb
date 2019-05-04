@@ -6,7 +6,7 @@ class CardViewHandler < YARD::Handlers::Ruby::Base
     name = statement.parameters.first.jump(:tstring_content, :ident).source
     object = YARD::CodeObjects::MethodObject.new(namespace, "view: #{name}")
     register(object)
-    parse_block(statement.last.last, :owner => object)
+    parse_block(statement.last.last, owner: object)
 
     # modify the object
     object.dynamic = true
@@ -24,7 +24,7 @@ class CardEventHandler < YARD::Handlers::Ruby::Base
     name = statement.parameters.first.jump(:tstring_content, :ident).source
     object = YARD::CodeObjects::MethodObject.new(namespace, "event: #{name}")
     register(object)
-    parse_block(statement.last.last, :owner => object)
+    parse_block(statement.last.last, owner: object)
 
     # modify the object
     object.dynamic = true
