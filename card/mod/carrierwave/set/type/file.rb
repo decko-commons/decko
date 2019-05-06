@@ -46,7 +46,7 @@ format do
 end
 
 format :file do
-  # returns send_file args.  not in love with this...
+  # NOCACHE because returns send_file args.  not in love with this...
   view :core, cache: :never do
     # this means we only support known formats.  dislike.
     attachment_format = card.attachment_format(params[:format])

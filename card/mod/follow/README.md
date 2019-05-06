@@ -1,3 +1,5 @@
+# @title README: follow mod
+
 # Follow
 
 Follow sets cards, get notified when any card in the set changes.
@@ -16,8 +18,9 @@ Each rule determines cases in which the _User_ should be notified about changes 
 These cards have special permission handling, granting full permission to the _User_.
 
 Special views include:
-- _follow_item_
-- _follow_status_
+
+- *follow_item*
+- *follow_status*
 
 ### Follow options
 | name | type | content |
@@ -41,8 +44,8 @@ user's preferences in `follow_item` view. Navigate to this card via the
 card submenu (`account > follow`).
 
 Special views include:
-- _follow_tab_
-- _ignore_tab_
+- *follow_tab*
+- *ignore_tab*
 
 ### Follow suggestions
 | name | type | content |

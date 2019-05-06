@@ -1,3 +1,5 @@
+# Patterned field names on a specific type
+
 @@options = {
   junction_only: true,
   assigns_type: true,
