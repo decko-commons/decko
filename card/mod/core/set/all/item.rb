@@ -68,7 +68,7 @@ format do
 
   def implicit_item_view
     view = params[:item] || voo_items_view || default_item_view
-    Card::View.canonicalize view
+    Card::View.normalize view
   end
 
   def voo_items_view
