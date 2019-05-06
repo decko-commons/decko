@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Card::Set::Abstract::Search::Views::JsonFormat
+  
+    &mdash; Documentation by YARD 0.9.9
+  
+</title>
+
+  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "Card::Set::Abstract::Search::Views::JsonFormat";
+  relpath = '../../../../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../../../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../../../../_index.html">Index (J)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../../../Set.html" title="Card::Set (module)">Set</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../../Abstract.html" title="Card::Set::Abstract (class)">Abstract</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Search.html" title="Card::Set::Abstract::Search (module)">Search</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Views.html" title="Card::Set::Abstract::Search::Views (module)">Views</a></span></span>
+     &raquo; 
+    <span class="title">JsonFormat</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../../../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Card::Set::Abstract::Search::Views::JsonFormat
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  <dl>
+      <dt>Extended by:</dt>
+      <dd>Card::Set::AbstractFormat</dd>
+  </dl>
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>tmpsets/set/mod020-search/abstract/search/views.rb</dd>
+  </dl>
+  
+</div>
+
+
+  <h2>Constant Summary</h2>
+  <dl class="constants">
+    
+      <dt id="AUTOCOMPLETE_LIMIT-constant" class="">AUTOCOMPLETE_LIMIT =
+        <div class="docstring">
+  <div class="discussion">
+    
+<p>number of name suggestions for autocomplete text fields</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+      </dt>
+      <dd><pre class="code"><span class='int'>8</span></pre></dd>
+    
+  </dl>
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#complete_or_match_search-instance_method" title="#complete_or_match_search (instance method)">#<strong>complete_or_match_search</strong>(limit: AUTOCOMPLETE_LIMIT)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#complete_search-instance_method" title="#complete_search (instance method)">#<strong>complete_search</strong>(limit: AUTOCOMPLETE_LIMIT)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#complete_wql-instance_method" title="#complete_wql (instance method)">#<strong>complete_wql</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#item_cards-instance_method" title="#item_cards (instance method)">#<strong>item_cards</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_search-instance_method" title="#match_search (instance method)">#<strong>match_search</strong>(limit: AUTOCOMPLETE_LIMIT, not_names: [])  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_wql-instance_method" title="#match_wql (instance method)">#<strong>match_wql</strong>(not_names)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name_wql-instance_method" title="#name_wql (instance method)">#<strong>name_wql</strong>(limit)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#term_param-instance_method" title="#term_param (instance method)">#<strong>term_param</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+molecule-instance_method" title="#view: molecule (instance method)">#<strong>view: molecule</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>NOCACHE because paging_urls is uncacheable hash and thus not safe to merge.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+name_complete-instance_method" title="#view: name_complete (instance method)">#<strong>view: name_complete</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>TODO: design better autocomplete API.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+name_match-instance_method" title="#view: name_match (instance method)">#<strong>view: name_match</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="complete_or_match_search-instance_method">
+  
+    #<strong>complete_or_match_search</strong>(limit: AUTOCOMPLETE_LIMIT)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53
+54
+55
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 51</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_complete_or_match_search'>complete_or_match_search</span> <span class='label'>limit:</span> <span class='const'><span class='object_link'><a href="#AUTOCOMPLETE_LIMIT-constant" title="Card::Set::Abstract::Search::Views::JsonFormat::AUTOCOMPLETE_LIMIT (constant)">AUTOCOMPLETE_LIMIT</a></span></span>
+  <span class='id identifier rubyid_starts_with'>starts_with</span> <span class='op'>=</span> <span class='id identifier rubyid_complete_search'>complete_search</span> <span class='label'>limit:</span> <span class='id identifier rubyid_limit'>limit</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_starts_with'>starts_with</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../../../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_navbox_match_start_only'>navbox_match_start_only</span>
+
+  <span class='id identifier rubyid_remaining_slots'>remaining_slots</span> <span class='op'>=</span> <span class='id identifier rubyid_limit'>limit</span> <span class='op'>-</span> <span class='id identifier rubyid_starts_with'>starts_with</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_starts_with'>starts_with</span> <span class='kw'>if</span> <span class='id identifier rubyid_remaining_slots'>remaining_slots</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
+  <span class='id identifier rubyid_starts_with'>starts_with</span> <span class='op'>+</span> <span class='id identifier rubyid_match_search'>match_search</span><span class='lparen'>(</span><span class='label'>not_names:</span> <span class='id identifier rubyid_starts_with'>starts_with</span><span class='comma'>,</span> <span class='label'>limit:</span> <span class='id identifier rubyid_remaining_slots'>remaining_slots</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="complete_search-instance_method">
+  
+    #<strong>complete_search</strong>(limit: AUTOCOMPLETE_LIMIT)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+60
+61
+62</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 60</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_complete_search'>complete_search</span> <span class='label'>limit:</span> <span class='const'><span class='object_link'><a href="#AUTOCOMPLETE_LIMIT-constant" title="Card::Set::Abstract::Search::Views::JsonFormat::AUTOCOMPLETE_LIMIT (constant)">AUTOCOMPLETE_LIMIT</a></span></span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_search'>search</span> <span class='id identifier rubyid_name_wql'>name_wql</span><span class='lparen'>(</span><span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_complete_wql'>complete_wql</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="complete_wql-instance_method">
+  
+    #<strong>complete_wql</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+72
+73
+74</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 72</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_complete_wql'>complete_wql</span>
+  <span class='lbrace'>{</span> <span class='label'>complete:</span> <span class='id identifier rubyid_term_param'>term_param</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="item_cards-instance_method">
+  
+    #<strong>item_cards</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_item_cards'>item_cards</span>
+  <span class='id identifier rubyid_search_with_params'>search_with_params</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="match_search-instance_method">
+  
+    #<strong>match_search</strong>(limit: AUTOCOMPLETE_LIMIT, not_names: [])  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+64
+65
+66</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 64</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_match_search'>match_search</span> <span class='label'>limit:</span> <span class='const'><span class='object_link'><a href="#AUTOCOMPLETE_LIMIT-constant" title="Card::Set::Abstract::Search::Views::JsonFormat::AUTOCOMPLETE_LIMIT (constant)">AUTOCOMPLETE_LIMIT</a></span></span><span class='comma'>,</span> <span class='label'>not_names:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_search'>search</span> <span class='id identifier rubyid_name_wql'>name_wql</span><span class='lparen'>(</span><span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_match_wql'>match_wql</span><span class='lparen'>(</span><span class='id identifier rubyid_not_names'>not_names</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="match_wql-instance_method">
+  
+    #<strong>match_wql</strong>(not_names)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+76
+77
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 76</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_match_wql'>match_wql</span> <span class='id identifier rubyid_not_names'>not_names</span>
+  <span class='id identifier rubyid_wql'>wql</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>name_match:</span> <span class='id identifier rubyid_term_param'>term_param</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_wql'>wql</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>not in</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='id identifier rubyid_not_names'>not_names</span> <span class='kw'>if</span> <span class='id identifier rubyid_not_names'>not_names</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
+  <span class='id identifier rubyid_wql'>wql</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="name_wql-instance_method">
+  
+    #<strong>name_wql</strong>(limit)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+68
+69
+70</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 68</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_name_wql'>name_wql</span> <span class='id identifier rubyid_limit'>limit</span>
+  <span class='lbrace'>{</span> <span class='label'>limit:</span> <span class='id identifier rubyid_limit'>limit</span><span class='comma'>,</span> <span class='label'>sort:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>return:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="term_param-instance_method">
+  
+    #<strong>term_param</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+82
+83
+84</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 82</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_term_param'>term_param</span>
+  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:term</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: molecule-instance_method">
+  
+    #<strong>view: molecule</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>NOCACHE because paging_urls is uncacheable hash and thus not safe to merge</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 38</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:molecule</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_molecule'>molecule</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='id identifier rubyid_render_paging_urls'>render_paging_urls</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: name_complete-instance_method">
+  
+    #<strong>view: name_complete</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>TODO: design better autocomplete API</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 43</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:name_complete</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_complete_search'>complete_search</span> <span class='label'>limit:</span> <span class='const'><span class='object_link'><a href="#AUTOCOMPLETE_LIMIT-constant" title="Card::Set::Abstract::Search::Views::JsonFormat::AUTOCOMPLETE_LIMIT (constant)">AUTOCOMPLETE_LIMIT</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: name_match-instance_method">
+  
+    #<strong>view: name_match</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 47</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:name_match</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_complete_or_match_search'>complete_or_match_search</span> <span class='label'>limit:</span> <span class='const'><span class='object_link'><a href="#AUTOCOMPLETE_LIMIT-constant" title="Card::Set::Abstract::Search::Views::JsonFormat::AUTOCOMPLETE_LIMIT (constant)">AUTOCOMPLETE_LIMIT</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Fri May  3 22:27:54 2019 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.9 (ruby-2.4.1).
+</div>
+
+    </div>
+  </body>
+</html>
