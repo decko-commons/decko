@@ -54,7 +54,6 @@ def explicit_actions_to_revert
   end.compact
 end
 
-
 def merge_revert_action! action, update_args, reverting_to_previous
   rev = action.card.revision(action, reverting_to_previous)
   if action.card_id == id

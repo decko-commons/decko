@@ -73,7 +73,7 @@ class Card
     # the act's primary card
     # @return [Card]
     def card
-      Card.fetch card_id, look_in_trash: true #, skip_modules: true
+      Card.fetch card_id, look_in_trash: true # , skip_modules: true
 
       # FIXME: if the following is necessary, we need to document why.
       # generally it's a very bad idea to have type-specific code here.
