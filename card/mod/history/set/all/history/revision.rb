@@ -41,10 +41,19 @@ def process_revert_actions revert_actions=nil
 end
 
 def actions_to_revert
+  if (act_id = Env.params["revert_act"])
+    Act.find(act_id).actions
+  else
+    explicit_actions_to_revert
+  end
+end
+
+def explicit_actions_to_revert
   Array.wrap(Env.params["revert_actions"]).map do |a_id|
     Action.fetch(a_id) || nil
   end.compact
 end
+
 
 def merge_revert_action! action, update_args, reverting_to_previous
   rev = action.card.revision(action, reverting_to_previous)

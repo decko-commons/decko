@@ -89,16 +89,11 @@ format :html do
     view_type == :expanded ? :triangle_left : :triangle_right
   end
 
-  def revert_actions_link act, link_text,
-                          revert_to: :this, slot_selector: nil, html_args: {}
+  def revert_actions_link link_text, path_args, html_args: {}
     return unless card.ok? :update
 
-    html_args.merge! remote: true, method: :post, rel: "nofollow",
-                     path: { action: :update, view: :open, look_in_trash: true,
-                             revert_actions: act.actions.map(&:id),
-                             revert_to: revert_to }
-
-    html_args[:path]["data-slot-selector"] = slot_selector if slot_selector
+    path_args.reverse_merge! action: :update, view: :open, look_in_trash: true
+    html_args.reverse_merge! remote: true, method: :post, rel: "nofollow", path: path_args
     add_class html_args, "slotter"
     link_to link_text, html_args
   end
