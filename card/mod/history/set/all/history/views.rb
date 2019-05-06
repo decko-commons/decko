@@ -1,3 +1,5 @@
+# History views
+
 format :html do
   view :history, cache: :never do
     frame do

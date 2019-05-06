@@ -39,7 +39,7 @@ class Card
 
       # all acts with actions on a given list of cards
       # @param card_ids [Array of Integers]
-      # @param with_drafts: [true, false] (only shows drafts of current user)
+      # @param with_drafts [true, false] (only shows drafts of current user)
       # @return [Array of Acts]
       def all_with_actions_on card_ids, with_drafts=false
         sql = "card_actions.card_id IN (:card_ids) AND (draft is not true"

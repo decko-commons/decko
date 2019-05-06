@@ -40,7 +40,7 @@ class Bootstrap
         opts
       end
 
-      # @param *args column widths, column content and html attributes
+      # @param args column widths, column content and html attributes
       # @example
       #   row 6, 6, ["col one", "col two"], class: "count", id: "count"
       # @example

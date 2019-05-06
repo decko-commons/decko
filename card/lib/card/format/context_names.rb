@@ -16,8 +16,7 @@ class Card
         yield.select { |n| part_keys.include? n.key }
       end
 
-      # "slot[name_context]" param is a string;
-      # @context_names is an array
+      # "slot[name_context]" param is a string; @context_names is an array
       def context_names_from_params
         return [] unless (name_list = Card::Env.slot_opts.delete(:name_context))
 

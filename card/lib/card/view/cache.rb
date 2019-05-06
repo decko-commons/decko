@@ -12,11 +12,10 @@ class Card
     #
     # Here are some things that we never consider safe to cache:
     #
-    # 1. an unknown card
-    # 2. a card with unsaved content changes
-    # 3. a view of a card with view-relevant permission restrictions
-    # 4. a view other than the requested view (eg a denial view)
-    # 5. a view explicitly configured _never_ to be cached
+    # 1. a view explicitly configured _never_ to be cached
+    # 2. a view of a card with view-relevant permission restrictions
+    # 3. a view other than the requested view (eg a denial view)
+    # 4. a card with unsaved content changes
     #
     # We also consider it unsafe to cache a view of one card within a view of a different
     # card, so nests are always handled with a stub.
