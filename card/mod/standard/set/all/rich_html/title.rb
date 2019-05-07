@@ -11,16 +11,16 @@ end
 format :html do
   # NOCACHE because alters @context_names
   view :title, cache: :never do
-    title = render_title_link(optional: :hide) || render_title_no_link
+    title = show_view?(:title_link, :hide) ? render_title_link : render_title_no_link
     add_name_context
     title
   end
 
-  view :title_link do
+  view :title_link, closed: true, perms: :none do
     link_to_card card.name, render_title_no_link
   end
 
-  view :title_no_link do
+  view :title_no_link, closed: true, perms: :none do
     wrapped_title standard_title
   end
 
