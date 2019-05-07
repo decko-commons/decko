@@ -38,6 +38,7 @@ class Card
           hash.symbolize_keys!
           hash[:nest_mode] = hash[:nest_mode].to_sym
           hash[:override] = hash[:override] == "true"
+          hash[:context_names].map!(&:to_name)
         end
 
         def process_chunk
