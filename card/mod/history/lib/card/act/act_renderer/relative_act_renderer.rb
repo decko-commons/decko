@@ -48,8 +48,9 @@ class Card
         end
 
         def revert_link
-          revert_link_to "this", revert_actions: actions.map(&:id),
-                                 "data-slot-selector": ".card-slot.history-view"
+          revert_actions_link "revert to this",
+                              { revert_actions: actions.map(&:id), view: :history_tab },
+                              "data-slot-selector": ".history_tab-view"
         end
       end
     end

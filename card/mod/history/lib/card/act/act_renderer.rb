@@ -187,10 +187,6 @@ class Card
         end
       end
 
-      def revert_link_to to, path_args
-        revert_actions_link "revert to #{to}", path_args
-      end
-
       def deletion_act?
         act_type == :delete
       end

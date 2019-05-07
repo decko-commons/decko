@@ -20,8 +20,9 @@ class Card
 
         # FIXME: how do we know we need main here??
         def revert_link
-          revert_link_to "previous", revert_to: :previous, revert_act: @act.id,
-                                     "data-slot-selector": "#main > .card-slot"
+          revert_actions_link "revert to previous",
+                              { revert_to: :previous, revert_act: @act.id },
+                              "data-slot-selector": "#main > .card-slot"
         end
 
         def actions

@@ -89,10 +89,11 @@ format :html do
     view_type == :expanded ? :triangle_left : :triangle_right
   end
 
-  def revert_actions_link link_text, path_args, html_args: {}
+  def revert_actions_link link_text, path_args, html_args={}
     return unless card.ok? :update
 
-    path_args.reverse_merge! action: :update, view: :open, look_in_trash: true
+    path_args.reverse_merge! action: :update, look_in_trash: true,
+                             skip: :validate_renaming
     html_args.reverse_merge! remote: true, method: :post, rel: "nofollow", path: path_args
     add_class html_args, "slotter"
     link_to link_text, html_args
