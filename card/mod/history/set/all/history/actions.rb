@@ -92,8 +92,8 @@ format :html do
   def revert_actions_link link_text, path_args, html_args={}
     return unless card.ok? :update
 
-    path_args.reverse_merge! action: :update, look_in_trash: true,
-                             skip: :validate_renaming, assign: true
+    path_args.reverse_merge! action: :update, look_in_trash: true, assign: true,
+                             card: { skip: :validate_renaming }
     html_args.reverse_merge! remote: true, method: :post, rel: "nofollow", path: path_args
     add_class html_args, "slotter"
     link_to link_text, html_args
