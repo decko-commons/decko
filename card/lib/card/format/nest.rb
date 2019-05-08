@@ -50,7 +50,7 @@ class Card
       # when nesting the same card. this reduces overhead and optimizes
       # caching
       def reuse_format?
-          self_nest? && !nest_recursion_risk?
+        self_nest? && !nest_recursion_risk?
       end
 
       def self_nest?
