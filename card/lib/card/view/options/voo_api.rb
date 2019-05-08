@@ -193,6 +193,8 @@ class Card
         def validate_options! opts
           return unless (foreign_opts = foreign_options_in opts)
 
+          # TODO: this should raise a UserError if the options come directly from params
+          # (eg, mycard?slot[badoption]=true should not be treated as a server error)
           raise Card::Error, "illegal view options: #{foreign_opts}"
         end
 

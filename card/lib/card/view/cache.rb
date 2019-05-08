@@ -67,7 +67,7 @@ class Card
     #        view(:y) { render_x + "DEF" }
     #
     #        # unsafe and thus never cached, because x is altered
-    #        view(:z, cache: :never) { render_z.reverse }
+    #        view(:z, cache: :never) { render_x.reverse }
     #
     # Specifically, the danger is that the inner view will be rendered as a stub,
     # and the out view will end up altering the stub and not the view.

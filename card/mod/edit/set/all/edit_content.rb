@@ -21,6 +21,7 @@ format :html do
                                size: :edit_modal_size,
                                title: :render_title,
                                menu: :edit_modal_menu } } do
+    add_name_context
     with_nest_mode :edit do
       voo.show :help
       voo.hide :save_button

@@ -50,9 +50,17 @@ class Card
       # when nesting the same card. this reduces overhead and optimizes
       # caching
       def reuse_format?
-        view_opts[:nest_name] =~ /^_(self)?$/ &&
-          format.context_card == format.card &&
-          !nest_recursion_risk?
+          self_nest? && !nest_recursion_risk?
+      end
+
+      def self_nest?
+        self_nest = view_opts[:nest_name] =~ /^_(self)?$/ &&
+                    format.context_card == format.card
+
+        # self nest in focal format should add depth (to catch recursions) but
+        # remain focal
+        format_opts[:focal] = true if self_nest && format.focal?
+        self_nest
       end
 
       # don't reuse the format when there is a risk of recursion, because while nest

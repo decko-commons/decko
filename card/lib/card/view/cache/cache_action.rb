@@ -17,7 +17,8 @@ class Card
           action = yield
           # TODO: make configurable
           # ...or better yet, integrate into performance logger...
-          # Rails.logger.warn "VIEW CACHE [#{action}] (#{card.name}##{requested_view})"
+          # Rails.logger.warn "VIEW CACHE #{cache_active? ? '-->' : ''}[#{action}] "\
+          #                   "(#{card.name}##{requested_view})"
           action
         end
 
@@ -27,7 +28,7 @@ class Card
           when !cache_on?
             :off      # view caching is turned off, format- or system-wide
           when cache_active?
-            :active   # another view cache is in progress; this view is inside it
+            :active   # another view cache is in progress (current view is inside it)
           else
             :free     # no other cache in progress
           end

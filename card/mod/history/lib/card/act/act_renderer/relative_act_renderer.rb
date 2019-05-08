@@ -46,6 +46,12 @@ class Card
         def actions
           @actions ||= @act.actions_affecting(@card)
         end
+
+        def revert_link
+          revert_actions_link "revert to this",
+                              { revert_actions: actions.map(&:id), view: :bridge },
+                              "data-slot-selector": ".bridge-view"
+        end
       end
     end
   end
