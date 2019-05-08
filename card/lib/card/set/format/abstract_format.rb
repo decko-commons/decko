@@ -45,7 +45,8 @@ class Card
         #     * *:never* - don't ever cache this view. Frequently used to prevent caching
         #       problems
         #
-        #   {Card::View::Cache Learn more about caching}
+        #   You should certainly {Card::View::Cache learn more about caching} if you want
+        #   to develop mods that are safe in a caching environment.
         #
         # * __:closed__ [True/False]. Is view acceptable for rendering inside `closed`
         #   view?  Default is false.
