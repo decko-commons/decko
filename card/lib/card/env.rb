@@ -114,7 +114,9 @@ class Card
       def shortcut_slot_opts
         opts = {}
         opts[:size] = params[:size].to_sym if params[:size]
-        opts[:items] ||= { view: params[:item].to_sym } if params[:item].present?
+        if params[:item].present? && !params.dig(:items, :view).present?
+          opts[:items] = { view: params[:item].to_sym }
+        end
         opts
       end
     end
