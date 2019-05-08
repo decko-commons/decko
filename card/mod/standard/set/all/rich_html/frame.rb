@@ -18,6 +18,7 @@ format :html do
 
   def with_frame slot=true, header=frame_header, slot_opts={}
     voo.hide :help
+    add_name_context
     wrap slot, slot_opts do
       panel do
         [header, frame_help, _render(:flash), (yield if block_given?)]

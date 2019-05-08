@@ -1,6 +1,12 @@
 class Card
   class Format
     module ContextNames
+      def naming name=nil
+        result = yield
+        add_name_context name
+        result
+      end
+
       def context_names
         @context_names ||= initial_context_names
       end

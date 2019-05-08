@@ -9,11 +9,8 @@ format do
 end
 
 format :html do
-  # NOCACHE because alters @context_names
-  view :title, cache: :never do
-    title = show_view?(:title_link, :hide) ? render_title_link : render_title_no_link
-    add_name_context
-    title
+  view :title do
+    show_view?(:title_link, :hide) ? render_title_link : render_title_no_link
   end
 
   view :title_link, closed: true, perms: :none do
