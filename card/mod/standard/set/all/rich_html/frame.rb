@@ -1,5 +1,5 @@
 format :html do
-  view :flash, cache: :never, unknown: true do
+  view :flash, cache: :never, unknown: true, perms: :none do
     flash_notice = params[:flash] || Env.success.flash
     return "" unless flash_notice.present? && focal?
 
@@ -21,7 +21,7 @@ format :html do
     add_name_context
     wrap slot, slot_opts do
       panel do
-        [header, frame_help, _render(:flash), (yield if block_given?)]
+        [header, frame_help, render_flash, (yield if block_given?)]
       end
     end
   end

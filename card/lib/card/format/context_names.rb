@@ -3,10 +3,6 @@ class Card
     # Contextual names make titles less noisy by not rendering redudant name parts
     #
     # For example, in the context of "Ball", "Ball+size" is rendered as just "+size"
-    #
-    # NOTE: the @context_names variable is currently stored in view stubs. This means that
-    # it can survive caching, but it is dangerous
-    #
     module ContextNames
       def naming name=nil
         result = yield

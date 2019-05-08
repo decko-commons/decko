@@ -50,6 +50,7 @@ format :html do
     wrap do
       [
         naming { render_header },
+        render_flash,
         wrap_body { render_titled_content },
         render_comment_box
       ]
