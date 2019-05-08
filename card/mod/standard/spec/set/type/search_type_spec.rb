@@ -86,7 +86,7 @@ RSpec.describe Card::Set::Type::SearchType do
 
     describe "view :nested_fields" do
       subject do
-        Card::Env.params[:item] = :name_with_fields
+        # Card::Env.params[:item] = :name_with_fields
         render_card_with_args :core, { name: "Book+*type+by name" },
                               { format: :csv },  items: { view: :name_with_fields }
       end

@@ -22,10 +22,10 @@ class Card
         # @param new_mode [Symbol] :normal, :closed, :edit, or :template
         # @return block result
         def with_nest_mode new_mode, &block
-          if new_mode
-            with_altered_nest_mode new_mode, &block
-          else
+          if new_mode == @nest_mode
             yield
+          else
+            with_altered_nest_mode new_mode, &block
           end
         end
 
@@ -39,7 +39,7 @@ class Card
 
         # view to be rendered in current mode
         # @param view [Symbol]
-        # @return [Symbol] viewname
+        # @return [Symbol ] viewname
         def modal_nest_view view
           # Note: the subformat always has the same nest_mode as its parent format
           case nest_mode

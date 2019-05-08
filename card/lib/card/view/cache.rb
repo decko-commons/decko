@@ -43,8 +43,8 @@ class Card
     # If a view contains any of the following cache hazards, it would be wise to consider
     # a `cache: :never` configuration:
     #
-    # - a dynamic search (eg `Card.search`) whose results may change
-    # - a live timestamp (eg `Time.now`)
+    # - dynamic searches (eg `Card.search`) whose results may change
+    # - live timestamps (eg `Time.now`)
     # - environmental variables (eg `Env.params`)
     # - any variables altered in one view and used in another (eg `@myvar`)
     # - other cards' properties (eg `Card["random"].content`)
@@ -143,7 +143,6 @@ class Card
     #
     #     The first attempt will work fine with caching off but is risky with caching on.
     #     The second is safe with caching on.
-    #
     #
     # ## Optimizing with `:always`
     #
