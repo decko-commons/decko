@@ -49,8 +49,9 @@ format :html do
     @content_body = true
     wrap do
       [
-        _render_header,
-        wrap_body { _render_titled_content },
+        naming { render_header },
+        render_flash,
+        wrap_body { render_titled_content },
         render_comment_box
       ]
     end

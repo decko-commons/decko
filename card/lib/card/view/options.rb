@@ -1,6 +1,17 @@
 class Card
   class View
-    # Manages options for card views, including those used in nest syntax
+    # Manages options for rendering card views
+    #
+    # Many options are available to sharks via nests. (See https://decko.org/Nest_Syntax)
+    #
+    #      {{cardname|hide:menu}}
+    #
+    # These options and others are available to monkeys when rendering views via
+    # #render or #nest.
+    #
+    #      nest "cardname", hide: :menu
+    #      render :viewname, hide: :menu
+    #
     module Options
       # the keymap represents a 2x2 matrix, where the factors are
       # (a) whether an option's value can be set by a shark via nests, and
@@ -72,6 +83,7 @@ class Card
 
       extend KeyLists
       include VooApi
+      include Visibility
     end
   end
 end

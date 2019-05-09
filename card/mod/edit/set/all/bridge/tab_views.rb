@@ -9,7 +9,7 @@ format :html do
     [render_follow_section, discussion_section].compact
   end
 
-  view :history_tab do
+  view :history_tab, wrap: :slot do
     class_up "d0-card-body",  "history-slot"
     voo.hide :act_legend
     acts_bridge_layout card.history_acts

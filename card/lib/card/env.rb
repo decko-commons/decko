@@ -44,18 +44,11 @@ class Card
       def slot_opts
         # FIXME:  upgrade to safe parameters
         self[:slot_opts] ||= begin
-          opts = params[:slot] || {}
-          opts.merge shortcut_slot_opts
+          opts = params[:slot]&.clone || {}
           opts = opts.to_unsafe_h if opts.is_a? ActionController::Parameters
+          opts.merge! shortcut_slot_opts
           opts.deep_symbolize_keys
         end
-      end
-
-      def shortcut_slot_opts
-        opts = {}
-        opts[:size] = params[:size].to_sym if params[:size]
-        opts[:items] = { view: params[:item].to_sym } if params[:item].present?
-        opts
       end
 
       def session
@@ -116,6 +109,17 @@ class Card
         when 1 then self[method_id] = args[0]
         else super
         end
+      end
+
+      def shortcut_slot_opts
+        opts = {}
+        opts[:size] = params[:size].to_sym if params[:size]
+        opts[:items] = { view: params[:item].to_sym } if slot_items_shortcut?
+        opts
+      end
+
+      def slot_items_shortcut?
+        params[:item].present? && !params.dig(:slot, :items, :view).present?
       end
     end
   end

@@ -24,32 +24,29 @@ class Card
 
           # correct line number for error messages
           def offset
-            -6
+            -5
           end
 
           private
 
-          def module_chain
-            klass = "Card::Set::#{@pattern.camelize}"
-            "class #{klass} < Card::Set::Pattern::Abstract"
+          def auto_comment
+            %(# Set Pattern: #{@pattern.camelize}\n#)
           end
 
-          def preamble
-            <<-RUBY
-              cattr_accessor :options
-              class << self
-            RUBY
+          def module_chain
+            "class Card::Set::#{@pattern.camelize} < Card::Set::Pattern::Abstract"
+          end
+
+          def preamble_bits
+            [module_comment, module_chain, "cattr_accessor :options", "class << self"]
           end
 
           def postamble
             <<-RUBY
               end
               register "#{@pattern}".underscore.to_sym, (options || {})
+            end
             RUBY
-          end
-
-          def end_chain
-            "end"
           end
         end
       end

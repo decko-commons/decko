@@ -11,7 +11,8 @@ format :html do
     submit_button opts
   end
 
-  # @param close: [:modal, :overlay]
+  # @param opts [Hash]
+  # @option close [:modal, :overlay]
   #
   def standard_save_and_close_button opts={}
     close = opts.delete(:close) || :modal

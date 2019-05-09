@@ -187,19 +187,6 @@ class Card
         end
       end
 
-      def revert_link
-        revert_actions_link "revert to this", revert_to: :this,
-                                              slot_selector: ".card-slot.history-view"
-      end
-
-      def revert_actions_link link_text,
-                              revert_to: :this, slot_selector: nil, html_args: {}
-        @format.revert_actions_link @act, link_text,
-                                    revert_to: revert_to,
-                                    slot_selector: slot_selector,
-                                    html_args: html_args
-      end
-
       def deletion_act?
         act_type == :delete
       end

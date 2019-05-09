@@ -34,7 +34,7 @@ class Card
         view = view_opts[:view] || format.implicit_nest_view
         # TODO: canonicalize view and modal_nest_view handling should be in Card::View,
         # not here. (Make sure processing only happens on nests/root views)
-        Card::View.canonicalize view
+        Card::View.normalize view
       end
 
       # @return [Format] subformat object
@@ -50,9 +50,17 @@ class Card
       # when nesting the same card. this reduces overhead and optimizes
       # caching
       def reuse_format?
-        view_opts[:nest_name] =~ /^_(self)?$/ &&
-          format.context_card == format.card &&
-          !nest_recursion_risk?
+        self_nest? && !nest_recursion_risk?
+      end
+
+      def self_nest?
+        self_nest = view_opts[:nest_name] =~ /^_(self)?$/ &&
+                    format.context_card == format.card
+
+        # self nest in focal format should add depth (to catch recursions) but
+        # remain focal
+        format_opts[:focal] = true if self_nest && format.focal?
+        self_nest
       end
 
       # don't reuse the format when there is a risk of recursion, because while nest
