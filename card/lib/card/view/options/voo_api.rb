@@ -1,8 +1,7 @@
 class Card
   class View
     module Options
-      # The methods of the VooApi module allow developers
-      # to read and write options dynamically.
+      # VooApi methods let developers use view options dynamically.
       module VooApi
         # There are two primary options hashes:
 

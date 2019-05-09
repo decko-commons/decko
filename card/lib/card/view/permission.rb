@@ -20,30 +20,36 @@ class Card
       end
 
       def altered_view
-        case
-        when skip_check?           then nil
-        when unknown_disqualifies? then format.view_for_unknown requested_view
-        when (task = denied_task)  then format.view_for_denial requested_view, task
-        end
+        return if skip_check?
+        alter_unknown || denial
       end
 
       def skip_check?
         normalized_options[:skip_perms] || view_perms == :none
       end
 
-      def setting setting_name
-        format.view_setting setting_name, requested_view
+      def setting setting_name, view=nil
+        view ||= requested_view
+        format.view_setting setting_name, view
       end
 
       # by default views can't handle unknown cards, but this can be overridden in
       # view definitions with the `unknown` directive
-      def unknown_disqualifies?
-        setting(:unknown) ? false : card.unknown?
+      def alter_unknown
+        setting = setting(:unknown)
+        return if setting == true || card.known?
+        setting.is_a?(Symbol) ? setting : format.view_for_unknown(requested_view)
       end
 
       # catch recursion
       def format_too_deep?
         format.depth >= Card.config.max_depth
+      end
+
+      def denial
+        return unless (task = denied_task)
+
+        format.view_for_denial requested_view, task
       end
 
       def denied_task
