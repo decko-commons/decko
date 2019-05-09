@@ -1,6 +1,20 @@
 class Card
   class Format
     module Error
+      def ok? task
+        task = :create if task == :update && card.new_card?
+        @ok ||= {}
+        @ok[task] = card.ok? task if @ok[task].nil?
+        @ok[task]
+      end
+
+      def anyone_can? task
+        return false unless task.is_a? Symbol
+        @anyone_can ||= {}
+        @anyone_can[task] = card.anyone_can? task if @anyone_can[task].nil?
+        @anyone_can[task]
+      end
+
       def rescue_view e, view
         method = loud_error? ? :loud_error : :quiet_error
         send method, e, view
@@ -36,6 +50,22 @@ class Card
           tr :error_rendering, scope: %i[lib card format error],
                                cardname: error_cardname(exception), view: view
         end
+      end
+
+      def view_for_unknown _view
+        if main?
+          root.error_status = 404
+          :not_found
+        else
+          :missing
+        end
+      end
+
+      def view_for_denial view, task
+        @denied_view = view
+        @denied_task = task
+        root.error_status = 403 if focal? && voo.root?
+        view_setting(:denial, view) || :denial
       end
     end
   end

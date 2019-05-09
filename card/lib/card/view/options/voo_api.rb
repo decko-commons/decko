@@ -159,7 +159,7 @@ class Card
           @live_options = normalized_options.clone
           process_main_nest_options
           process_before_view
-          process_visibility_options
+          process_visibility
           return :hide if hide_requested_view? # bail to avoid unnecessary processing
 
           process_view_wrappers

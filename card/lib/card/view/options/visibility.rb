@@ -64,6 +64,14 @@ class Card
           @optional
         end
 
+        # translate raw hide, show options (which can be strings, symbols,
+        # arrays, etc)
+        def process_visibility
+          viz_hash.reverse_merge! parent.viz_hash if parent
+          process_visibility_options live_options
+          viz requested_view, @optional if @optional && !viz_hash[requested_view]
+        end
+
         private
 
         # if true, #process returns nil
@@ -71,16 +79,8 @@ class Card
           optional? && hide?(requested_view)
         end
 
-        # translate raw hide, show options (which can be strings, symbols,
-        # arrays, etc)
-        def process_visibility_options
-          viz_hash.reverse_merge! parent.viz_hash if parent
-          process_visibility live_options
-          viz requested_view, @optional if @optional && !viz_hash[requested_view]
-        end
-
         # takes an options_hash and processes it to update viz_hash
-        def process_visibility options_hash
+        def process_visibility_options options_hash
           %i[hide show].each do |setting|
             views = View.normalize_list(options_hash.delete(setting)).map(&:to_sym)
             viz views, setting, true
