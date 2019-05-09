@@ -15,6 +15,27 @@ class Card
         @anyone_can[task]
       end
 
+      def view_for_unknown _view
+        if main?
+          root.error_status = 404
+          :not_found
+        else
+          :missing
+        end
+      end
+
+      def view_for_denial view, task
+        @denied_view = view
+        @denied_task = task
+        root.error_status = 403 if focal? && voo.root?
+        view_setting(:denial, view) || :denial
+      end
+
+      def monitor_depth
+        raise Card::Error::UserError, tr(:too_deep) if depth >= Card.config.max_depth
+        yield
+      end
+
       def rescue_view e, view
         method = loud_error? ? :loud_error : :quiet_error
         send method, e, view
@@ -52,21 +73,6 @@ class Card
         end
       end
 
-      def view_for_unknown _view
-        if main?
-          root.error_status = 404
-          :not_found
-        else
-          :missing
-        end
-      end
-
-      def view_for_denial view, task
-        @denied_view = view
-        @denied_task = task
-        root.error_status = 403 if focal? && voo.root?
-        view_setting(:denial, view) || :denial
-      end
     end
   end
 end

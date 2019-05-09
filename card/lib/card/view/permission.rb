@@ -10,11 +10,6 @@ class Card
     module Permission
       private
 
-      def approve_view
-        raise Card::Error::UserError, tr(:too_deep) if format_too_deep?
-        altered_view || requested_view
-      end
-
       def view_perms
         @view_perms = setting(:perms) || :read
       end
@@ -39,11 +34,6 @@ class Card
         setting = setting(:unknown)
         return if setting == true || card.known?
         setting.is_a?(Symbol) ? setting : format.view_for_unknown(requested_view)
-      end
-
-      # catch recursion
-      def format_too_deep?
-        format.depth >= Card.config.max_depth
       end
 
       def denial

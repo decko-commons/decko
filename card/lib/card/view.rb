@@ -86,7 +86,7 @@ class Card
     # issues with permissions, recursions, unknown cards, etc.
     # @return [Symbol] view name
     def ok_view
-      @ok_view ||= approve_view
+      @ok_view ||= format.monitor_depth { altered_view || requested_view }
     end
 
     # @return [Card::View]
