@@ -25,7 +25,6 @@ class Card
       end
 
       def view_for_denial view, task
-        @denied_view = view
         @denied_task = task
         root.error_status = 403 if focal? && voo.root?
         view_setting(:denial, view) || :denial
