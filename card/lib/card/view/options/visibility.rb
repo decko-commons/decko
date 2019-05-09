@@ -64,6 +64,13 @@ class Card
           @optional
         end
 
+        private
+
+        # if true, #process returns nil
+        def hide_requested_view?
+          optional? && hide?(requested_view)
+        end
+
         # translate raw hide, show options (which can be strings, symbols,
         # arrays, etc)
         def process_visibility_options

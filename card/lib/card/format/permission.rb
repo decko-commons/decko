@@ -5,15 +5,18 @@ class Card
         raise Card::Error::UserError, tr(:too_deep) if subformats_nested_too_deeply?
 
         approved_view = check_view view, skip_perms
-        handle_view_denial view, approved_view
+        @denied_view = view unless approved_view == view
         approved_view
       end
 
-      def handle_view_denial view, approved_view
-        return if approved_view == view
-
-        @denied_view = view
+      def ok? task
+        task = :create if task == :update && card.new_card?
+        @ok ||= {}
+        @ok[task] = card.ok? task if @ok[task].nil?
+        @ok[task]
       end
+
+      private
 
       def check_view view, skip_perms
         case
@@ -54,11 +57,11 @@ class Card
       end
 
       def task_denied_for_view view
-        perms_required = view_setting(:perms, view) || :read
-        if perms_required.is_a? Proc
-          :read unless perms_required.call(self)  # read isn't quite right
+        perms = view_setting(:perms, view) || :read
+        if perms.is_a? Proc
+          :read unless perms.call(self)  # read isn't quite right
         else
-          [perms_required].flatten.find { |task| !ok? task }
+          Array.wrap(perms).select { |task| !ok? task }
         end
       end
 
@@ -70,13 +73,6 @@ class Card
         else
           :missing
         end
-      end
-
-      def ok? task
-        task = :create if task == :update && card.new_card?
-        @ok ||= {}
-        @ok[task] = card.ok? task if @ok[task].nil?
-        @ok[task]
       end
     end
   end
