@@ -1,9 +1,105 @@
 ---
 :cards:
-- :name: "*header"
+- :name: Home
+  :type: Basic
+  :key: home
+- :name: Home+original
   :type: HTML
-  :key: "*header"
+  :key: home+original
+- :name: Home+original+Shark
+  :type: HTML
+  :key: home+original+shark
+- :name: "*footer"
+  :type: HTML
+  :key: "*footer"
+- :name: "*credit"
+  :type: HTML
+  :codename: :credit
+  :key: "*credit"
+- :name: "*account"
+  :type: Basic
+  :codename: :account
+  :key: "*account"
+- :name: Role+*type+*structure
+  :type: Basic
+  :key: role+*type+*structure
+- :name: Administrator+dashboard
+  :type: Basic
+  :key: administrator+dashboard
+- :name: "*title"
+  :type: Phrase
+  :codename: :title
+  :key: "*title"
+- :name: "*home"
+  :type: Phrase
+  :codename: :home
+  :key: "*home"
+- :name: "*logo"
+  :type: Image
+  :codename: :logo
+  :key: "*logo"
 - :name: "*main menu"
   :type: HTML
   :key: "*main_menu"
+- :name: "*recaptcha settings"
+  :type: Basic
+  :codename: :recaptcha_settings
+  :key: "*recaptcha_setting"
+- :name: Administrator+description
+  :type: Basic
+  :key: administrator+description
+- :name: Shark+dashboard
+  :type: Basic
+  :key: shark+dashboard
+- :name: Shark+description
+  :type: Basic
+  :key: shark+description
+- :name: Help Desk+dashboard
+  :type: Basic
+  :key: help_desk+dashboard
+- :name: Help Desk+description
+  :type: Basic
+  :key: help_desk+description
+- :name: "*all+*layout"
+  :type: Pointer
+  :key: "*all+*layout"
+- :name: Default Layout
+  :type: Layout
+  :key: default_layout
+- :name: Home+*self+*layout
+  :type: Pointer
+  :key: home+*self+*layout
+- :name: Home Layout
+  :type: Layout
+  :key: home_layout
+- :name: "*header"
+  :type: HTML
+  :key: "*header"
+- :name: Right Thin Sidebar Layout
+  :type: Layout
+  :key: right_thin_sidebar_layout
+- :name: "*sidebar"
+  :type: Basic
+  :key: "*sidebar"
+- :name: Left Sidebar Layout
+  :type: Layout
+  :key: left_sidebar_layout
+- :name: Full Width Layout
+  :type: Layout
+  :key: full_width_layout
+- :name: Menu
+  :type: Basic
+  :key: menu
+- :name: Shark Menu
+  :type: Basic
+  :key: shark_menu
+- :name: "*recaptcha settings+*self+*structure"
+  :type: Basic
+  :key: "*recaptcha_setting+*self+*structure"
+- :name: Eagle+dashboard
+  :type: Basic
+  :key: eagle+dashboard
+- :name: Eagle+description
+  :type: Basic
+  :key: eagle+description
 :remotes: {}

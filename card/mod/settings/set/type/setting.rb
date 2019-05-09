@@ -67,7 +67,8 @@ format do
                 - setname = rule.name.trunk_name
                 %tr{class: ('rule-changeover' if changeover)}
                   %td.rule-anchor
-                    = link_to_card setname, setname.trunk_name
+                    = link_to_card rule, setname.trunk_name, path: { view: :modal_rule },
+                                                             slotter: true, "data-modal-class": "modal-lg"
                   - if duplicate
                     %td
                   - else

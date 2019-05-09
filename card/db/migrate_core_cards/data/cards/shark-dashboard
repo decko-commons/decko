@@ -1,0 +1,28 @@
+<h3 style="font-family: -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; color: #444444;">Basics</h3>
+<div>Set your site title, home card, and logo image:</div>
+<blockquote>
+<div>{{*title|bar;type:Phrase}}</div>
+<div>{{*home|bar;type:Phrase}}</div>
+<div>{{*logo|bar;type:Image}}</div>
+<div>{{*main menu|bar}}</div>
+</blockquote>
+<h3>Cardtypes </h3>
+<p> [[/new/cardtype|Add new Type]]</p>
+<p>{{Cardtype+*type+by name|bar; title: all cardtypes}}</p>
+<h3 style="font-family: -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; color: #444444;"> </h3>
+<h3 style="font-family: -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; color: #444444;">Rules</h3>
+<div>Cards are configured by creating <em>rules</em>.  </div>
+<div> </div>
+<h5>Webpage rules</h5>
+<div>
+<blockquote>{{*all|rules_table; filter:webpage}}</blockquote>
+<h5>Permission rules</h5>
+<blockquote>{{*all|rules_table; filter:permission}}</blockquote>
+</div>
+<div><em>[[http://decko.org/rules | More about rules.]]</em></div>
+<div> </div>
+<div>
+<h3 style="font-family: -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; color: #444444;">Views</h3>
+<p>You can try out different views below</p>
+<p>{{Home+original|viewer}}</p>
+</div>

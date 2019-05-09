@@ -98,7 +98,7 @@ format :csv do
 end
 
 format :html do
-  view :card_list do
+  view :card_list, cache: :never do
     with_results do
       search_result_list "search-result-list" do |item_card|
         card_list_item item_card

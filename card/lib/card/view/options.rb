@@ -47,8 +47,9 @@ class Card
           :items,          # options for items (Hash)
           :cache,          # change view cache behaviour
           #                    (Symbol<:always, :standard, :never>)
-          :edit            # edit mode
+          :edit,            # edit mode
           #                    (Symbol<:inline, :standard, :full>)
+          :filter
         ],
         none: [
           :skip_perms,     # do not check permissions for this view (Boolean)

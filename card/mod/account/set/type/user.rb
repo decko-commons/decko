@@ -69,7 +69,10 @@ end
 event :setup_first_user, :prepare_to_store,
       on: :create, when: proc { Card::Env.params[:setup] } do
   add_subcard "signup alert email+*to", content: name
-  add_subfield :roles, content: Card[:administrator].name
+  add_subfield :roles,
+               content: [Card.fetch_name(:administrator),
+                         Card.fetch_name(:shark),
+                         Card.fetch_name(:help_desk)]
 end
 
 event :signin_after_setup, :integrate,

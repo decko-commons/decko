@@ -1,10 +1,15 @@
+include_set Abstract::TemplatedNests
+
 format :rss do
   def raw_feed_items
     [card]
   end
 end
+
 format :html do
-  include AddHelp::HtmlFormat
+  view :closed_content do
+    "#{_render_type} : #{_render_raw}"
+  end
 end
 
 event :update_structurees_references, :integrate,

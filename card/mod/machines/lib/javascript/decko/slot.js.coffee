@@ -21,6 +21,13 @@ $.extend decko,
       when "full"   then "bridge"
       else "edit"
 
+  slotEditLink: (slot) ->
+    edit_links =
+      slot.find(".edit-link").filter (i, el) ->
+        $(el).slot().data('cardId') == slot.data('cardId')
+
+    if edit_links[0] then $(edit_links[0]) else false
+
   slotParams: (raw, processed, prefix)->
     $.each raw, (key, value)->
       cgiKey = prefix + '[' + snakeCase(key) + ']'

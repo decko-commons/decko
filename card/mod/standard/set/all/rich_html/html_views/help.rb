@@ -6,6 +6,11 @@ format :html do
     wrap_with :div, help_text, class: classy("help-text")
   end
 
+  view :lead do
+    class_up "card-slot", "lead"
+    _view_content
+  end
+
   def rule_based_help
     return "" unless (rule_card = card.help_rule_card)
 

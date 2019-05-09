@@ -44,16 +44,39 @@ format :html do
     end
   end
 
-  view :overview do
+  view :view_list do
     %i[bar box info_bar open closed titled labeled content content_panel].map do |v|
       wrap_with :p, [content_tag(:h3, v), render(v, show: :menu)]
     end.flatten.join ""
   end
 
-  view :viewer do
-    %i[bar box info_bar open closed labeled titled content content_panel].map do |v|
-      wrap_with :p, [content_tag(:h3, v), render(v, show: :menu)]
-    end.flatten.join ""
+  view :view_viewer do
+    frame do
+      [
+        view_select,
+        wrap_with(:div, view_demo, class: "demo-slot")
+      ]
+    end
   end
 
+  def demo_view
+    Env.params[:demo_view] || :core
+  end
+
+  def view_demo
+    wrap(true) do
+      render demo_view
+    end
+  end
+
+  def view_select
+    card_form :get, success: { view: :viewer } do
+      select_tag(:demo_view, options_for_select(all_views, demo_view), class: "_submit-on-select")
+    end
+  end
+
+  def all_views
+    Card::Set::Format::AbstractFormat::ViewDefinition.views
+      .slice(*self.class.ancestors).values.map(&:keys).flatten.uniq
+  end
 end
