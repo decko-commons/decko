@@ -70,7 +70,7 @@ class Card
     # handle rendering, including optional visibility, permissions, and caching
     # @return [rendered view or a stub]
     def process
-      return if (process_live_options == :hide)
+      return if process_live_options == :hide
 
       fetch { yield ok_view }
     end

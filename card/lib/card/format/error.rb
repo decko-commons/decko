@@ -71,7 +71,6 @@ class Card
                                cardname: error_cardname(exception), view: view
         end
       end
-
     end
   end
 end
