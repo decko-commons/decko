@@ -25,7 +25,8 @@ class AddSharkAndHelpDeskRole < Card::Migration::Core
           eagle+dashboard eagle+description
           *recaptcha_settings+*self+*structure
           *account_settings+*right+*structure
-          home+original+shark]
+          home+original+shark
+          right_thin_sidebar_layout left_sidebar_layout]
   end
 
   private

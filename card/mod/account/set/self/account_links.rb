@@ -44,7 +44,17 @@ format :html do
   end
 
   view :my_card, link_options { Auth.signed_in? } do
-    link_to_card Auth.current.name, nil, id: "my-card-link", class: nav_link_class("my-card")
+    link = link_to_card Auth.current.name, nil, id: "my-card-link", class: nav_link_class("my-card")
+    split_button link, nil do
+      [
+        link_to_card([Auth.current, :account_settings], "Account"),
+        ["Roles", roles.map(&method(:link_to_card))]
+      ]
+    end
+  end
+
+  def roles
+    [Card[:eagle], Auth.current.fetch(trait: :roles)&.item_names].flatten.compact
   end
 
   def account_link_text purpose
