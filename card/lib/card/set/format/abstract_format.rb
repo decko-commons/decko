@@ -58,7 +58,7 @@ class Card
         #     * *:create*, *:read* (default), *:update*, *:delete* - only users with the
         #       given permission for the card viewed.
         #     * *:none* - no permission check; anyone can view
-        #     * a *Proc* object.  Eg `perms: ->(_r) { Auth.needs_setup? }`
+        #     * a *Proc* object.  Eg `perms: ->(_fmt) { Auth.needs_setup? }`
         #
         # * __:template__ [Symbol] view is defined in a template. Currently `:haml` is
         #   the only supported value.  See {HamlViews}
