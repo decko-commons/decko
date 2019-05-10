@@ -9,7 +9,7 @@ format do
     ""
   end
 
-  view :missing, perms: :none do
+  view :missing, perms: :none, cache: :never do
     ""
   end
 

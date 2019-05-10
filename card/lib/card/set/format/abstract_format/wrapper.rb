@@ -7,7 +7,7 @@ class Card
         module Wrapper
           # Defines a wrapper method with the name "wrap_with_<wrapper_name>".
           # @param wrapper_name [Symbol, String] the name for the wrap method
-          # @param *args
+          #
           # Inside the wrap_block the variable "interior" is always available
           # to refer to the content that is supposed to be wrapped by the wrapper.
           #

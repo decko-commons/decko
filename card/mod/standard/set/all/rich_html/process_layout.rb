@@ -28,6 +28,7 @@ format :html do
   def render_with_layout view, layout, args={}
     view_opts = Layout.main_nest_opts(layout, self)
     view ||= view_opts.delete(:view) || default_nest_view
+    view_opts[:home_view] = view
     view_opts[:layout] = layout
     render! view, view_opts.reverse_merge(args)
   end

@@ -40,14 +40,13 @@ class Card
         #   and then completing a request. Only applies to HtmlFormat
         #
         # * __:cache__ directs how to handle caching for this view. Supported values:
-        #     * *:standard* - (default) cache when possible, but avoid double caching
-        #       (caching one view while already caching another)
-        #     * *:always* - cache whenever possible, even if that means double caching
-        #     * *:never* - don't ever cache this view
+        #     * *:standard* - (default)
+        #     * *:always* - cache even when rendered within another cached view
+        #     * *:never* - don't ever cache this view. Frequently used to prevent caching
+        #       problems
         #
-        #   Of these, "never" is most often used explicitly, usually in places
-        #   where the view can be altered by things other than simple related card
-        #   changes (eg. dynamic search results).
+        #   You should certainly {Card::View::Cache learn more about caching} if you want
+        #   to develop mods that are safe in a caching environment.
         #
         # * __:closed__ [True/False]. Is view acceptable for rendering inside `closed`
         #   view?  Default is false.

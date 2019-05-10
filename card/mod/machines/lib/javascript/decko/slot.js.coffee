@@ -24,7 +24,7 @@ $.extend decko,
   slotEditLink: (slot) ->
     edit_links =
       slot.find(".edit-link").filter (i, el) ->
-        $(el).slot().data('cardId') == slot.data('cardId')
+        $(el).slot().data('slotId') == slot.data('slotId')
 
     if edit_links[0] then $(edit_links[0]) else false
 

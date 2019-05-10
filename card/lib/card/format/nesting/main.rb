@@ -40,27 +40,7 @@ class Card
 
         # view=edit&items=closed
         def main_nest_options
-          opts = inherit(:main_opts) || {}
-          main_nest_size_opt opts
-          main_nest_items_opt opts
-          opts
-        end
-
-        protected
-
-        def main_nest_size_opt opts
-          val = params[:size]
-          return unless val.present?
-
-          opts[:size] = val.to_sym
-        end
-
-        def main_nest_items_opt opts
-          val = params[:item]
-          return unless val.present?
-
-          opts[:items] ||= {}
-          opts[:items][:view] = val.to_sym
+          inherit(:main_opts) || {}
         end
       end
     end

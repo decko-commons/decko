@@ -5,7 +5,7 @@ format :html do
     "#{time_ago_in_words(card.created_at)} ago"
   end
 
-  view :updated_by, wrap: { div: { class: "text-muted m-2" } }, cache: :never do
+  view :updated_by, wrap: { div: { class: "text-muted m-2" } } do
     return "" unless card.id
     updaters = Card.search(updater_of: { id: card.id })
     return "" unless updaters.present?

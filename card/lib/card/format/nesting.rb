@@ -7,7 +7,7 @@ class Card
       include Mode
 
       # @param cardish card mark
-      # @param view_opts [Hash] opts will be passed on to render (and then voo)
+      # @param view_opts [Hash] {Card/View/Options view options}, passed on to render.
       # @param format_opts [Hash] opts will be passed on to subformat
       def nest cardish, view_opts={}, format_opts={}
         return "" if nest_invisible?
@@ -36,7 +36,8 @@ class Card
         path path_opts
       end
 
-      # frequently overridden
+      # view used if unspecified in nest.
+      # frequently overridden in other formats
       def default_nest_view
         :name
       end

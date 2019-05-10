@@ -9,7 +9,7 @@
 - :name: Home+original+Shark
   :type: HTML
   :key: home+original+shark
-  :merged: 2019-05-09 10:14:54 UTC
+  :merged: 2019-05-09 12:46:06 UTC
 - :name: "*footer"
   :type: HTML
   :key: "*footer"
@@ -27,7 +27,7 @@
 - :name: Administrator+dashboard
   :type: Basic
   :key: administrator+dashboard
-  :merged: 2019-05-09 10:14:54 UTC
+  :merged: 2019-05-09 12:46:06 UTC
 - :name: "*title"
   :type: Phrase
   :codename: :title
@@ -53,19 +53,19 @@
 - :name: Shark+dashboard
   :type: Basic
   :key: shark+dashboard
-  :merged: 2019-05-09 10:14:54 UTC
+  :merged: 2019-05-09 12:46:06 UTC
 - :name: Shark+description
   :type: Basic
   :key: shark+description
-  :merged: 2019-05-09 10:14:54 UTC
+  :merged: 2019-05-09 12:46:06 UTC
 - :name: Help Desk+dashboard
   :type: Basic
   :key: help_desk+dashboard
-  :merged: 2019-05-09 10:14:54 UTC
+  :merged: 2019-05-09 12:46:06 UTC
 - :name: Help Desk+description
   :type: Basic
   :key: help_desk+description
-  :merged: 2019-05-09 10:14:54 UTC
+  :merged: 2019-05-09 12:46:06 UTC
 - :name: "*all+*layout"
   :type: Pointer
   :key: "*all+*layout"
@@ -86,14 +86,14 @@
 - :name: Right Thin Sidebar Layout
   :type: Layout
   :key: right_thin_sidebar_layout
-  :merged: 2019-05-09 10:14:54 UTC
+  :merged: 2019-05-09 12:46:06 UTC
 - :name: "*sidebar"
   :type: Basic
   :key: "*sidebar"
 - :name: Left Sidebar Layout
   :type: Layout
   :key: left_sidebar_layout
-  :merged: 2019-05-09 10:14:54 UTC
+  :merged: 2019-05-09 12:46:06 UTC
 - :name: Full Width Layout
   :type: Layout
   :key: full_width_layout
@@ -109,13 +109,16 @@
 - :name: "*account settings+*right+*structure"
   :type: Basic
   :key: "*account_setting+*right+*structure"
-  :merged: 2019-05-09 10:14:54 UTC
+  :merged: 2019-05-09 12:46:06 UTC
 - :name: Eagle+dashboard
   :type: Basic
   :key: eagle+dashboard
-  :merged: 2019-05-09 10:14:54 UTC
+  :merged: 2019-05-09 12:46:06 UTC
 - :name: Eagle+description
   :type: Basic
   :key: eagle+description
-  :merged: 2019-05-09 10:14:54 UTC
+  :merged: 2019-05-09 12:46:06 UTC
+- :name: Cardtype+*type+*structure
+  :type: Basic
+  :key: cardtype+*type+*structure
 :remotes: {}

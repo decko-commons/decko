@@ -40,7 +40,7 @@ class Bootstrap
         opts
       end
 
-      # @param *args column widths, column content and html attributes
+      # @param args column widths, column content and html attributes
       # @example
       #   row 6, 6, ["col one", "col two"], class: "count", id: "count"
       # @example
@@ -58,7 +58,11 @@ class Bootstrap
       # default column width type is for medium devices (col-md-)
       add_div_method :column, nil do |opts, _extra_args|
         @child_args.last.each do |medium, size|
-          prepend_class opts, "col-#{medium}-#{size.shift}"
+          if medium == :xs
+            prepend_class opts, "col-#{size.shift}"
+          else
+            prepend_class opts, "col-#{medium}-#{size.shift}"
+          end
         end
         opts
       end

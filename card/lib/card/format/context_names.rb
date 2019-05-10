@@ -1,6 +1,15 @@
 class Card
   class Format
+    # Contextual names make titles less noisy by not rendering redudant name parts
+    #
+    # For example, in the context of "Ball", "Ball+size" is rendered as just "+size"
     module ContextNames
+      def naming name=nil
+        result = yield
+        add_name_context name
+        result
+      end
+
       def context_names
         @context_names ||= initial_context_names
       end
@@ -16,8 +25,7 @@ class Card
         yield.select { |n| part_keys.include? n.key }
       end
 
-      # "slot[name_context]" param is a string;
-      # @context_names is an array
+      # "slot[name_context]" param is a string; @context_names is an array
       def context_names_from_params
         return [] unless (name_list = Card::Env.slot_opts.delete(:name_context))
 

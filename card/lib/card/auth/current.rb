@@ -54,8 +54,8 @@ class Card
       end
 
       # @param auth_data [Integer|Hash] user id, user name, or a hash
-      # @opts auth_data [Integer] current_id
-      # @opts auth_data [Integer] as_id
+      # @option auth_data [Integer] current_id
+      # @option auth_data [Integer] as_id
       def with auth_data
         case auth_data
         when Integer
