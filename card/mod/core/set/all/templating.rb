@@ -61,14 +61,6 @@ def structure
   template
 end
 
-def virtual?
-  return false unless new_card?
-  if @virtual.nil?
-    name.simple? ? (@virtual = false) : template
-  end
-  @virtual
-end
-
 def structure_rule_card
   card = rule_card :structure, skip_modules: true
   card && card.db_content.strip == "_self" ? nil : card
