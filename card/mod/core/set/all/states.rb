@@ -1,13 +1,12 @@
 module ClassMethods
-  def exists? mark
-    card = quick_fetch mark
-    card.present?
+  def real? mark
+    quick_fetch(mark).present?
   end
-  alias :exist? :exists?
+  alias :exist? :real?
+  alias :exists? :real?
 
   def known? mark
-    card = fetch mark, skip_modules: true
-    card.present?
+    fetch(mark).present?
   end
 end
 
