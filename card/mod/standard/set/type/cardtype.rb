@@ -49,6 +49,25 @@ format :html do
     end
     path path_args.merge(action: :new, mark: card.name)
   end
+
+  # don't cache because it depends on update permission for another card
+  view :configure_link, cache: :never do
+    configure_link
+  end
+
+  view :configure_button, cache: :never do
+    configure_link "btn btn-outline-secondary"
+  end
+
+  def configure_link css_class=nil
+    return "" unless Card.fetch(card, :type, :structure, new: {}).ok? :update
+
+    voo.title ||= tr(:configure_card, cardname: safe_name)
+    title = _render_title
+    link_to_card card, title, path: { view: :bridge, bridge: { tab: :rules_tab },
+                                           set: Card::Name[safe_name, :type] },
+                                   class: css_class
+  end
 end
 
 include Basic

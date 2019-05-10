@@ -580,11 +580,27 @@ ul.action-list {
   }
   li:before {
     font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+
+
     float: left;
     margin-top: 8px;
     margin-left: -2rem;
     font-size: 120%;
     padding-left: 4px;
+    max-height: 30px;
   }
 
   li.update:before {

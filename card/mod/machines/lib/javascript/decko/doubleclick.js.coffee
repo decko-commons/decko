@@ -8,10 +8,8 @@ doubleClickApplies = (el) ->
   return false if ['.nodblclick', '.d0-card-header', '.card-editor'].some (klass) ->
     el.closest(klass)[0]
     # double click inactive inside header, editor, or tag with "nodblclick" class
-  slot = el.slot()
-  return false if slot.find('.card-editor')[0]
-  # false if there is a card-editor open inside slot
-  slot.data 'cardId'
+  !el.slot().find('.card-editor')[0]?
+
 
 triggerDoubleClickEditingOn = (el)->
   slot = el.slot()
@@ -27,7 +25,6 @@ triggerDoubleClickEditingOn = (el)->
 $(window).ready ->
   if doubleClickActive()
     $('body').on 'dblclick', 'div', (_event) ->
-      card_id = doubleClickApplies $(this)
-      if card_id
-        triggerDoubleClickEditingOn $(this), card_id
+      if doubleClickApplies $(this)
+        triggerDoubleClickEditingOn $(this)
       false # don't propagate up to next slot

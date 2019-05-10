@@ -45,6 +45,11 @@ format do
     end
   end
 
+  def rule_link rule, text
+    link_to_card rule, text, path: { view: :modal_rule },
+                 slotter: true, "data-modal-class": "modal-lg"
+  end
+
   view :core do
     haml do
       <<-'HAML'.strip_heredoc
@@ -56,19 +61,16 @@ format do
           - card.set_classes_with_rules.each do |klass, rules|
             %tr.klass-row
               %td{class: ['setting-klass', "anchorless-#{klass.anchorless?}"]}
-                - kpat = klass.pattern
-                = klass.anchorless? ? link_to_card(kpat) : kpat
+                = klass.anchorless? ? rule_link(rules.first, klass.pattern) : klass.pattern
               %td.rule-content-container
                 %span.closed-content.content
                   - if klass.anchorless?
-                    = subformat(rules[0])._render_closed_content
+                    = subformat(rules.first)._render_closed_content
             - if !klass.anchorless?
               - duplicate_check(rules) do |rule, duplicate, changeover|
-                - setname = rule.name.trunk_name
                 %tr{class: ('rule-changeover' if changeover)}
                   %td.rule-anchor
-                    = link_to_card rule, setname.trunk_name, path: { view: :modal_rule },
-                                                             slotter: true, "data-modal-class": "modal-lg"
+                    = rule_link rule, rule.name.trunk_name.trunk_name
                   - if duplicate
                     %td
                   - else

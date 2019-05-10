@@ -419,6 +419,7 @@ en:
           cardtype:
             cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
             add_card: Add %{cardname}
+            configure_card: Configure %{cardname}
             error_cant_alter: can't alter this type; %{name} cards still exist
             error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
           list:
