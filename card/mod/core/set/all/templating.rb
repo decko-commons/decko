@@ -1,10 +1,14 @@
 
 def is_template?
-  name.trait_name? :structure, :default
+  return @is_template unless @is_template.nil?
+
+  @is_template = name.trait_name? :structure, :default
 end
 
 def is_structure?
-  name.trait_name? :structure
+  return @is_structure unless @is_structure.nil?
+
+  @is_structure = name.trait_name? :structure
 end
 
 def template
@@ -49,10 +53,9 @@ def assigns_type?
   # needed because not all *structure templates govern the type of set members
   # for example, X+*type+*structure governs all cards of type X,
   # but the content rule does not (in fact cannot) have the type X.
-  return unless (set_pattern = Card.fetch name.trunk_name.tag_name,
-                                          skip_modules: true)
-  return unless (pattern_code = set_pattern.codename)
-  return unless (set_class = Set::Pattern.find pattern_code)
+  pattern_code = Card.quick_fetch(name.trunk_name.tag_name)&.codename
+  return unless pattern_code && (set_class = Set::Pattern.find pattern_code)
+
   set_class.assigns_type
 end
 
@@ -63,5 +66,5 @@ end
 
 def structure_rule_card
   card = rule_card :structure, skip_modules: true
-  card && card.db_content.strip == "_self" ? nil : card
+  card&.db_content.strip == "_self" ? nil : card
 end

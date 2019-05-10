@@ -39,9 +39,8 @@ def real?
 end
 
 def virtual?
-  return false unless new_card?
   if @virtual.nil?
-    name.simple? ? (@virtual = false) : template
+    @virtual = (real? || name.simple?) ? false : structure.present?
   end
   @virtual
 end
@@ -67,3 +66,4 @@ def pristine?
     "card_acts.actor_id != ?", Card::WagnBotID
   ).exists?
 end
+
