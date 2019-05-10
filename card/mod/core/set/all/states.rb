@@ -3,8 +3,9 @@
 # - *real* cards are stored in the database (but not in the trash) and have a unique id.
 # - *virtual* cards are not real, but they act real based on rules. For example,
 #   Home+*editors does a search for all the users who have edited the "Home" card.
-#   There are other cards that search for references, children, etc. But we don't store
-#   all these cards in the database; we generate them dynamically based on the names.
+#   There are many other similar cards that search for things like references, children,
+#   etc. But we don't store all these cards in the database; we generate them dynamically
+#   based on the names.
 # - *unknown* cards are everything else.
 #
 # These states are frequently grouped as follows:
@@ -38,6 +39,7 @@ def real?
   !unreal?
 end
 
+# virtual cards are structured, compound cards that are not formally stored
 def virtual?
   if @virtual.nil?
     @virtual = (real? || name.simple?) ? false : structure.present?
