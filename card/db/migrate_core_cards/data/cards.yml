@@ -118,4 +118,7 @@
   :type: Basic
   :key: eagle+description
   :merged: 2019-05-09 12:46:06 UTC
+- :name: Cardtype+*type+*structure
+  :type: Basic
+  :key: cardtype+*type+*structure
 :remotes: {}
