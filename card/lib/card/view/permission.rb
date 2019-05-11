@@ -8,11 +8,11 @@ class Card
     #         # only render if user has permission to update card
     #         view :myview, perms: :update do...
     module Permission
-      private
-
       def view_perms
         @view_perms = setting(:perms) || :read
       end
+
+      private
 
       def altered_view
         return if skip_check?
