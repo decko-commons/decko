@@ -1,9 +1,11 @@
 require_dependency "card/view/cache"
 require_dependency "card/view/options"
 require_dependency "card/view/classy"
+require_dependency "card/view/permission"
 
 class Card
-  # Card::View manages {Options view options} and {Cache view caching}.
+  # Card::View manages {Options view options}, {Cache view caching}, and
+  # {Permission view permissions}.
   #
   # View objects, which are instantiated whenever a view is rendered, are available as
   # in views and other format methods.  The view objects can be accessed using `#voo`.
@@ -25,6 +27,7 @@ class Card
     include Options
     include Cache
     include Classy
+    include Permission
 
     extend Cache::ClassMethods
 
@@ -67,8 +70,7 @@ class Card
     # handle rendering, including optional visibility, permissions, and caching
     # @return [rendered view or a stub]
     def process
-      process_live_options
-      return if optional? && hide?(requested_view)
+      return if process_live_options == :hide
 
       fetch { yield ok_view }
     end
@@ -84,7 +86,7 @@ class Card
     # issues with permissions, recursions, unknown cards, etc.
     # @return [Symbol] view name
     def ok_view
-      @ok_view ||= format.ok_view requested_view, normalized_options[:skip_perms]
+      @ok_view ||= format.monitor_depth { altered_view || requested_view }
     end
 
     # @return [Card::View]

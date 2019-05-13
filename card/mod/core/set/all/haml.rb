@@ -11,7 +11,7 @@ format do
 
   # Renders haml templates. The haml template can be passed as string or
   # block or a symbol that refers to a view template.
-  # @param  template_or_locals [Hash, String, Symbol]
+  # @param args [Hash, String, Symbol]
   #   If a symbol is given then a template is expected in the corresponding view
   #   directory.
   # @return [String] rendered haml as HTML

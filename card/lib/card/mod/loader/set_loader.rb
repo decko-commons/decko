@@ -74,7 +74,7 @@ class Card
 
           # correct line number for error messages
           def offset
-            -6
+            -5
           end
 
           private
