@@ -65,21 +65,22 @@ format :html do
 
   def dropdown_list_item item, active_test, active
     return unless item
+
+
     if item.is_a? Array
       [dropdown_header(item.first), dropdown_array_list(item.second)]
     else
       "<li class='dropdown-item#{' active' if active_test == active}'>#{item}</li>"
     end
-
   end
 
   def split_button_toggle
     wrap_with(:a,
               href: "#",
               class: "nav-link pl-0 dropdown-toggle dropdown-toggle-split",
-               "data-toggle" => "dropdown",
-               "aria-haspopup" => "true",
-               "aria-expanded" => "false") do
+              "data-toggle" => "dropdown",
+              "aria-haspopup" => "true",
+              "aria-expanded" => "false") do
       '<span class="sr-only">Toggle Dropdown</span>'
     end
   end

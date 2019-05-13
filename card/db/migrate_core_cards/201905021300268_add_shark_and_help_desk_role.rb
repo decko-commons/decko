@@ -8,6 +8,7 @@ class AddSharkAndHelpDeskRole < Card::Migration::Core
     ensure_role "*account settings", codename: "account_settings"
     delete_code_card "Config"
     delete_code_card :foot
+    delete_code_card :toolbar_pinned
     delete_card "*edit toolbar pinned"
     delete_card "Administrator Menu"
     delete_card "*ProseMirrorz"

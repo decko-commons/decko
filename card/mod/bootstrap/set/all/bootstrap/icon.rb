@@ -24,7 +24,7 @@ format :html do
       collapse_down: :expand_less,
       globe: :public,
       check_circle_o: nil,
-      commenting: :comment,
+      commenting: :comment
     },
     font_awesome: {
       option_horizontal: :ellipsis_h,
@@ -35,7 +35,7 @@ format :html do
       check_circle_o: "check-circle-o",
       check_circe: "check-circle",
       reorder: "align-justify",
-      commenting: :commenting,
+      commenting: :commenting
     },
     glyphicon: {
       option_horizontal: "option-horizontal",
@@ -82,6 +82,7 @@ format :html do
 
   def universal_icon_tag icon, icon_library=default_icon_library, opts={}
     return "" unless icon.present?
+
     opts = { class: opts } unless opts.is_a? Hash
     icon_method = "#{icon_library}_icon_tag"
     send icon_method, icon, opts

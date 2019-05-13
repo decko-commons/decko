@@ -13,7 +13,7 @@ end
 
 format :data do
   view :core do
-    wql = { left:  { type: Card::SetID },
+    wql = { left: { type: Card::SetID },
             right: card.id,
             limit: 0 }
     Card.search(wql).compact.map { |c| nest c }
@@ -22,9 +22,9 @@ end
 
 def set_classes_with_rules
   Card.set_patterns.reverse.map do |set_class|
-    wql = { left:  { type: Card::SetID },
+    wql = { left: { type: Card::SetID },
             right: id,
-            sort:  %w[content name],
+            sort: %w[content name],
             limit: 0 }
     wql[:left][(set_class.anchorless? ? :id : :right_id)] = set_class.pattern_id
 
@@ -47,7 +47,7 @@ format do
 
   def rule_link rule, text
     link_to_card rule, text, path: { view: :modal_rule },
-                 slotter: true, "data-modal-class": "modal-lg"
+                             slotter: true, "data-modal-class": "modal-lg"
   end
 
   view :core do

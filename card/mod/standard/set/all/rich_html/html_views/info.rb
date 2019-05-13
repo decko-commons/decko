@@ -71,12 +71,13 @@ format :html do
 
   def view_select
     card_form :get, success: { view: :viewer } do
-      select_tag(:demo_view, options_for_select(all_views, demo_view), class: "_submit-on-select")
+      select_tag :demo_view, options_for_select(all_views, demo_view),
+                 class: "_submit-on-select"
     end
   end
 
   def all_views
     Card::Set::Format::AbstractFormat::ViewDefinition.views
-      .slice(*self.class.ancestors).values.map(&:keys).flatten.uniq
+                                                     .slice(*self.class.ancestors).values.map(&:keys).flatten.uniq
   end
 end

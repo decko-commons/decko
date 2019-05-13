@@ -11167,17 +11167,12 @@ return jQuery;
   };
 
   doubleClickApplies = function(el) {
-    var slot;
     if (['.nodblclick', '.d0-card-header', '.card-editor'].some(function(klass) {
       return el.closest(klass)[0];
     })) {
       return false;
     }
-    slot = el.slot();
-    if (slot.find('.card-editor')[0]) {
-      return false;
-    }
-    return slot.data('cardId');
+    return el.slot().find('.card-editor')[0] == null;
   };
 
   triggerDoubleClickEditingOn = function(el) {
@@ -11196,10 +11191,8 @@ return jQuery;
   $(window).ready(function() {
     if (doubleClickActive()) {
       return $('body').on('dblclick', 'div', function(_event) {
-        var card_id;
-        card_id = doubleClickApplies($(this));
-        if (card_id) {
-          triggerDoubleClickEditingOn($(this), card_id);
+        if (doubleClickApplies($(this))) {
+          triggerDoubleClickEditingOn($(this));
         }
         return false;
       });
@@ -11748,7 +11741,7 @@ return jQuery;
     slotEditLink: function(slot) {
       var edit_links;
       edit_links = slot.find(".edit-link").filter(function(i, el) {
-        return $(el).slot().data('cardId') === slot.data('cardId');
+        return $(el).slot().data('slotId') === slot.data('slotId');
       });
       if (edit_links[0]) {
         return $(edit_links[0]);

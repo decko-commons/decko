@@ -40,7 +40,7 @@ format :html do
   view :add_path do
     path_args = {}
     if voo.params
-      context = ((@parent && @parent.card) || card).name
+      context = ((@parent&.card) || card).name
       Rack::Utils.parse_nested_query(voo.params).each do |key, value|
         value = value.to_name.absolute(context) if value
         key = key.to_name.absolute(context)
@@ -65,8 +65,8 @@ format :html do
     voo.title ||= tr(:configure_card, cardname: safe_name)
     title = _render_title
     link_to_card card, title, path: { view: :bridge, bridge: { tab: :rules_tab },
-                                           set: Card::Name[safe_name, :type] },
-                                   class: css_class
+                                      set: Card::Name[safe_name, :type] },
+                              class: css_class
   end
 end
 
@@ -81,19 +81,15 @@ def create_ok?
 end
 
 event :check_for_cards_of_type, after: :validate_delete do
-  if cards_of_type_exist?
-    errors.add :cardtype, tr(:cards_exist, cardname: name)
-  end
+  errors.add :cardtype, tr(:cards_exist, cardname: name) if cards_of_type_exist?
 end
 
 event :check_for_cards_of_type_when_type_changed, :validate, changing: :type do
-  if cards_of_type_exist?
-    errors.add :cardtype, tr(:error_cant_alter, name: name)
-  end
+  errors.add :cardtype, tr(:error_cant_alter, name: name) if cards_of_type_exist?
 end
 
 event :validate_cardtype_name, :validate, on: :save, changed: :name do
-  if name =~ %r{[<>/]}
+  if %r{[<>/]}.match?(name)
     errors.add :name, tr(:error_invalid_character_in_cardtype, banned: "<, >, /")
   end
 end
