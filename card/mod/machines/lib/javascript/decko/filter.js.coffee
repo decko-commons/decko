@@ -164,7 +164,8 @@ showFilterInputField = (category, widget) ->
 
   $(widget.find("._add-filter-dropdown")).before($inputField)
   setFilterInputWidth $inputField
-  decko.initAutoCardPlete($inputField.find("input")) # only has effect if there is a data-options-card value
+  decko.initAutoCardPlete($inputField.find("input"))
+  # only has effect if there is a data-options-card value
   $inputField.find("input, select").focus()
 
 setFilterInputWidth = ($inputField) ->
