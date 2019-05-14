@@ -3,7 +3,7 @@ describe 'reference', () ->
     cy.login()
     # cy.clear_machine_cache()
 
-  specify "simple cardtype autoname", ->
+  specify.only "simple cardtype autoname", ->
     cy.ensure "Vignesh", type: "PlainText", content: "Indian"
     cy.ensure "Kawaii Man", type: "PlainText", content: "[[Vignesh]]"
     cy.delete "Srivigneshwar"
@@ -11,6 +11,6 @@ describe 'reference', () ->
     cy.get("#card_name").clear().type "Srivigneshwar"
     cy.get("button.renamer").click()
     cy.contains("Rename and Update").click()
-    cy.visit("Kawaii Man")
+    cy.contains("Renaming").should("not.visible", wait: 20000)
     cy.main_slot().should "contain", "Srivigneshwar"
 

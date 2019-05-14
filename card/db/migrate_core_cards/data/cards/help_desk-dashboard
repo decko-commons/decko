@@ -1,7 +1,7 @@
-<h3 style="font-family: -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; color: #444444;">Accounts</h3>
+<h3>Accounts</h3>
 <p>{{*accounts|content}}</p>
-<h3 style="font-family: -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; color: #444444;">Help Texts</h3>
+<h3>Help Texts</h3>
 <p>{{*help|bar}}{{*add help|bar}}</p>
-<h3 style="font-family: -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; color: #444444;">Emails </h3>
+<h3>Emails </h3>
 <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
 <p>{{Email Templates+*type+by update|content}} </p>

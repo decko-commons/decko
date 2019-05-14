@@ -29,7 +29,8 @@ RSpec.describe Card::Set::All::Account do
         end
 
         it "initially has only auth and self " do
-          expect(@parties).to eq([Card::AnyoneSignedInID, @joe_user_card.id])
+          expect(@parties)
+            .to eq([Card::AnyoneSignedInID, Card::SharkID, @joe_user_card.id])
         end
 
         it "updates when new roles are set" do
@@ -119,11 +120,11 @@ RSpec.describe Card::Set::All::Account do
         expect(@read_rules.member?(Card.fetch("*all+*read").id)).to be_truthy
       end
 
-      it "18 more should apply to Joe Admin" do
+      it "11 more should apply to Joe Admin" do
         # includes lots of account rules...
         Card::Auth.as("joe_admin") do
           ids = Card::Auth.as_card.read_rules
-          expect(ids.length).to eq(@read_rules.size + 18)
+          expect(ids.length).to eq(@read_rules.size + 11)
         end
       end
     end

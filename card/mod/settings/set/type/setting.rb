@@ -33,7 +33,7 @@ def set_classes_with_rules
   end.compact
 end
 
-format do
+format :html do
   def duplicate_check rules
     previous_content = nil
     rules.each do |rule|
