@@ -21,12 +21,23 @@ format :html do
   end
 
   def text_filter field, opts={}
-    name = filter_name field
+    text_filter_with_name_and_value filter_name(field), filter_param(field), opts
+  end
+
+  def text_filter_with_name_and_value name, value, opts
     opts[:class] ||= "simple-text"
     add_class opts, "form-control"
-    # formgroup filter_label(field), class: "filter-input" do
-    text_field_tag name, filter_param(field), opts
-    # end
+    text_field_tag name, value, opts
+  end
+
+  def range_filter field, opts={}
+    "&gt; #{sub_text_filter field, :from, opts}, &lt; #{sub_text_filter field, :to, opts}"
+  end
+
+  def sub_text_filter field, subfield, opts={}
+    name = "filter[#{field}][#{subfield}]"
+    value = filter_hash.dig field, subfield
+    text_filter_with_name_and_value name, value, opts
   end
 
   def select_filter_type_based type_codename, order="asc"
