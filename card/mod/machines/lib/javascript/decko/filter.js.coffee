@@ -13,12 +13,12 @@ $(window).ready ->
     return if weirdoSelect2FilterBreaker this
     filterAndSort this
 
-  keyuptimeout = null
+  keyupTimeout = null
 
   $("body").on "keyup", "._filter-input input.simple-text", ->
-    clearTimeout keyuptimeout
+    clearTimeout keyupTimeout
     text_input = this
-    keyuptimeout = setTimeout ( -> filterAndSort text_input ), 250
+    keyupTimeout = setTimeout ( -> filterAndSort text_input ), 250
 
 
   $("body").on "click", "._filter-category-select", (e) ->

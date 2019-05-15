@@ -31,7 +31,18 @@ format :html do
   end
 
   def range_filter field, opts={}
-    "&gt; #{sub_text_filter field, :from, opts}, &lt; #{sub_text_filter field, :to, opts}"
+    add_class opts, "simple-text range-filter-subfield"
+    output [range_sign(:from),
+            sub_text_filter(field, :from, opts),
+            range_sign(:to),
+            sub_text_filter(field, :to, opts)]
+  end
+
+  def range_sign side
+    dir = side == :from ? "right" : "left"
+    wrap_with :span, class: "input-group-prepend" do
+      fa_icon("chevron-circle-#{dir}", class: "input-group-text")
+    end
   end
 
   def sub_text_filter field, subfield, opts={}
