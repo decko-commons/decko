@@ -2,18 +2,21 @@
 .card.w-100.nodblclick
   .card-body
     ._filter-widget
+      // FILTERING PROTOTYPES
       ._filter-input-field-prototypes.d-none
         - categories.each do |key, category|
           ._filter-input-field{class: key}
-            - unless category[:active]
-              = haml_partial :filter_input, key: key, category: category
+            = haml_partial :filter_input, key: key, category: category
 
+
+      // FORM
       %form._filter-form{form_args, "accept-charset": "UTF-8",
                                     "data-remote": "true",
                                     method: "get"}
         - not_ids = params.dig :filter, :not_ids
         %input{ type: :hidden, name: "filter[not_ids]", class: "_not-ids", value: not_ids }
         .d-flex.flex-row
+          // SORTING
           - if sort_input_field
             .sort-in-filter-form
               %i.material-icons.text-muted.md-24.p-1.float-left sort
@@ -22,23 +25,28 @@
                   %span.input-group-text sort
                 = sort_input_field
 
+          // FILTERING
           .filter-in-filter-form
             %i.material-icons.text-muted.md-24.p-1.float-left search
             ._filter-container.d-flex.flew-row.flex-wrap
-              - categories.each do |key, category|
-                - if category[:active]
-                  = haml_partial :filter_input, key: key, category: category
+              // FILTERS inserted here
 
-              .dropdown._add-filter-dropdown
-                %button.btn.btn-sm.btn-secondary.dropdown-toggle{"aria-expanded": "false",
-                                                          "aria-haspopup": "true",
-                                                          "data-toggle": "dropdown",
-                                                          type: "button" }
-                  Add filter
+              // ADD FILTER DROPDOWN
+              .dropdown._add-filter-dropdown.mr-2
+                %button.btn.btn-sm.btn-primary.dropdown-toggle{"aria-expanded": "false",
+                                                               "aria-haspopup": "true",
+                                                               "data-toggle": "dropdown",
+                                                               type: "button" }
+                  %i.fa.fa-plus
                 .dropdown-menu
                   - categories.each do |key, category|
-                    %a.dropdown-item._filter-category-select{style: ("display: none;" if category[:active]),
-                                                             "data-category" => key,
-                                                             "data-label" => category[:label],
+                    %a.dropdown-item._filter-category-select{"data-category": key,
+                                                             "data-label": category[:label],
+                                                             "data-default": ("true" if category[:active]),
                                                              :href => "#"}
                       = category[:label]
+
+              // RESET BUTTON
+              ._reset-filter
+                %button.btn.btn-sm.btn-secondary{type: "button"}
+                  %i.fa.fa-refresh

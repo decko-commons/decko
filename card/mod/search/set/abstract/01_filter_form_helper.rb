@@ -78,10 +78,10 @@ format :html do
     default = filter_param(field) || default
     options = options_for_select(options, default)
 
-    css_class =
-      html_options[:multiple] ? "pointer-multiselect" : "pointer-select"
-    add_class(html_options,
-              css_class + " filter-input #{field} _filter_input_field form-control")
+    pointer_class = html_options[:multiple] ? "pointer-multiselect" : "pointer-select"
+    other_classes = "filter-input #{field} _filter_input_field _no-select2 form-control"
+    # _no-select2 because select is initiated after filter is opened.
+    add_class html_options, "#{pointer_class} #{other_classes}"
 
     select_tag name, options, html_options
   end

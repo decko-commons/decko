@@ -72,7 +72,8 @@ format :html do
   end
 
   def show_filter_field? field
-    filter_hash.present? ? filter_hash[field] : card.default_filter_option[field]
+    val = filter_hash.present? ? filter_hash[field] : card.default_filter_option[field]
+    val.present?
   end
 
   def filter_label field
