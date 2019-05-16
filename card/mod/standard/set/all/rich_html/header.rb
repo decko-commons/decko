@@ -1,5 +1,5 @@
 format :html do
-  view :header do
+  view :header, perms: :none do
     main_header
   end
 
@@ -11,7 +11,7 @@ format :html do
     haml :header_wrap, content: (block_given? ? yield : output(content))
   end
 
-  view :header_title do
+  view :header_title, perms: :none do
     header_title_elements
   end
 
@@ -25,11 +25,11 @@ format :html do
     card.drafts.present? && @slot_view == :edit
   end
 
-  view :title_toggle do
+  view :title_toggle, perms: :none do
     content_toggle(_render_title(hide: :title_link))
   end
 
-  view :icon_toggle do
+  view :icon_toggle, perms: :none do
     direction = @toggle_mode == :close ? :expand : :collapse_down
     content_toggle icon_tag(direction)
   end
@@ -55,7 +55,7 @@ format :html do
       raise(Card::Error, "invalid toggle mode: #{@toggle_mode}")
   end
 
-  view :navbar_links do
+  view :navbar_links, perms: :none do
     wrap_with :ul, class: "navbar-nav" do
       item_links.map do |link|
         wrap_with(:li, class: "nav-item") { link }

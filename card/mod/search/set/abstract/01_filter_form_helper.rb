@@ -22,6 +22,7 @@ format :html do
 
   def text_filter field, opts={}
     name = filter_name field
+    opts[:class] ||= "simple-text"
     add_class opts, "form-control"
     # formgroup filter_label(field), class: "filter-input" do
     text_field_tag name, filter_param(field), opts

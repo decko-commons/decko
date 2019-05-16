@@ -72,7 +72,6 @@ format :html do
     modal_link _render_title, size: voo.size
   end
 
-  # @param size [:small, :medium, :large, :full] size of the modal dialog
   def modal_link text=nil, opts={}
     opts = modal_link_opts(opts)
     opts[:path][:layout] ||= :modal

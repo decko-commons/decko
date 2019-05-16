@@ -7,8 +7,13 @@ $.extend decko,
     showFilterInputField(category, widget)
 
 $(window).ready ->
-  $("body").on "change", "._filter-input input, ._filter-input select, ._filter-sort", ->
+  onchangers = "._filter-input input:not(.simple-text), " +
+    "._filter-input select, ._filter-sort"
+  $("body").on "change", onchangers, ->
     return if weirdoSelect2FilterBreaker this
+    filterAndSort this
+
+  $("body").on "keyup", "._filter-input input.simple-text", ->
     filterAndSort this
 
   $("body").on "click", "._filter-category-select", (e) ->

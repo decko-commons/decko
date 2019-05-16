@@ -82,23 +82,13 @@ class Card
         # apply any permission checks required by view.
         # (do not cache views with nuanced permissions)
         def active_cache_permissible?
-          case permission_task
-          when :none                  then true
-          when parent.permission_task then true
-          when Symbol                 then card.anyone_can?(permission_task)
-          else                             false
+          case view_perms
+          when :none             then true
+          when parent.view_perms then true
+          when Symbol            then format.anyone_can?(view_perms)
+          else                        false
           end
         end
-
-        public
-
-        # task directly associated with the view in its definition via the
-        # "perms" directive
-        def permission_task
-          @permission_task ||= format.view_setting(:perms, requested_view) || :read
-        end
-
-        private
 
         # determine the cache action from the cache setting
         # (assuming cache status is "active")

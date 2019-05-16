@@ -13,7 +13,6 @@ RSpec.describe Card::Set::Type::NotificationTemplate do
     Card::Auth.as_bot do
       post :update, params: { mark: "A", card: { "content" => "change" } },
                     xhr: true
-
     end
   end
 

@@ -51,19 +51,24 @@ class Card
         # * __:closed__ [True/False]. Is view acceptable for rendering inside `closed`
         #   view?  Default is false.
         #
-        # * __:denial__ view to render if permission is denied. Value can be any viewname.
-        #   Default is `:denial`. `:blank` is a common alternative.
+        # * __:denial__ [Symbol]. View to render if permission is denied. Value can be
+        #   any viewname. Default is `:denial`. `:blank` is a common alternative.
         #
         # * __:perms__ restricts view permissions. Supported values:
         #     * *:create*, *:read* (default), *:update*, *:delete* - only users with the
         #       given permission for the card viewed.
         #     * *:none* - no permission check; anyone can view
-        #     * a *Proc* object.  Eg `perms: ->(_r) { Auth.needs_setup? }`
+        #     * a *Proc* object.  Eg `perms: ->(_fmt) { Auth.needs_setup? }`
         #
         # * __:template__ [Symbol] view is defined in a template. Currently `:haml` is
         #   the only supported value.  See {HamlViews}
         #
-        # * __:unknown__ [True/False]. view can be rendered even if card name is unknown
+        # * __:unknown__ [True/False, Symbol]. Configures handling of "unknown" cards.
+        #   (See {Set::All::States card states}). Supported values:
+        #     * *true* render view even if card is unknown
+        #     * *false* default unknown handling (depends on context, create permissions,
+        #       etc)
+        #     * a *Symbol*: name of view to render
         #
         # * __:wrap__ wrap view dynamically. Value is Symbol for wrapper. See {Wrapper}
         #

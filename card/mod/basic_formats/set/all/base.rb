@@ -106,8 +106,8 @@ format do
     end
   end
 
-  view :titled_content do
-    _render_core
+  view :titled_content, unknown: :blank do
+    render_core
   end
 
   view :blank, closed: true, perms: :none do

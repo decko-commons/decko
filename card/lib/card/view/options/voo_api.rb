@@ -1,8 +1,7 @@
 class Card
   class View
     module Options
-      # The methods of the VooApi module allow developers
-      # to read and write options dynamically.
+      # VooApi methods let developers use view options dynamically.
       module VooApi
         # There are two primary options hashes:
 
@@ -98,7 +97,9 @@ class Card
         protected
 
         # - @live_options are dynamic and can be altered by the "voo" API at any time.
-        # Such alterations are NOT used in stubs
+        # Such alterations are NOT used in the stub of the current voo, but they
+        # ARE inherited by children voos.
+        #
         # @return [Hash]
         def live_options
           @live_options ||= process_live_options
@@ -157,7 +158,9 @@ class Card
           @live_options = normalized_options.clone
           process_main_nest_options
           process_before_view
-          process_visibility_options
+          process_visibility
+          return :hide if hide_requested_view? # bail to avoid unnecessary processing
+
           process_view_wrappers
           @live_options
         end
@@ -168,7 +171,7 @@ class Card
           format.before_view requested_view
         end
 
-        # adds the wrappers that
+        # adds the wrappers assigned to ok_view in view definition
         def process_view_wrappers
           view_wrappers = format.view_setting(:wrap, ok_view)
           return unless view_wrappers.present?
