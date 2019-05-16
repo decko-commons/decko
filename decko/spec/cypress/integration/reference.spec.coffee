@@ -1,9 +1,9 @@
 describe 'reference', () ->
   before ->
     cy.login()
-    cy.clear_machine_cache()
+    # cy.clear_machine_cache()
 
-  specify.only "simple cardtype autoname", ->
+  specify "simple cardtype autoname", ->
     cy.ensure "Vignesh", type: "PlainText", content: "Indian"
     cy.ensure "Kawaii Man", type: "PlainText", content: "[[Vignesh]]"
     cy.delete "Srivigneshwar"

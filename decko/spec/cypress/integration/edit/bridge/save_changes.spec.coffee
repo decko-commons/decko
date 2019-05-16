@@ -19,14 +19,14 @@ describe 'save change in bridge', () ->
         cy.expect_main_content "black"
         cy.bridge().should "be.visible"
 
-  specify "'save and close' updates non-main origin slot", () ->
-    cy.visit("/")
-
-    cy.slot("menu").find(".card-menu > a").click(force: true)
-    cy.tinymce_set_content("fruit pants")
-    cy.el("submit-modal").click()
-    cy.slot("menu").should("contain", "fruit pants")
-    cy.slot("home").should("not.contain", "fruit pants")
+#  specify "'save and close' updates non-main origin slot", () ->
+#    cy.visit("/")
+#
+#    cy.slot("menu").find(".card-menu > a").click(force: true)
+#    cy.tinymce_set_content("fruit pants")
+#    cy.el("submit-modal").click()
+#    cy.slot("menu").should("contain", "fruit pants")
+#    cy.slot("home").should("not.contain", "fruit pants")
 
   it "updates origin slot after name change", () ->
     cy.visit_bridge("snow")
