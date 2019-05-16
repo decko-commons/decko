@@ -28,7 +28,7 @@ class AddSharkAndHelpDeskRole < Card::Migration::Core
                 *account_settings+*right+*structure
                 *getting_started+shark
                 right_thin_sidebar_layout left_sidebar_layout
-                *getting_started]
+                *getting_started home]
   end
 
   private

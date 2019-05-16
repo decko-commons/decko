@@ -23,11 +23,13 @@ $(window).ready ->
     clearTimeout(submitAfterTyping) if submitAfterTyping
     submitAfterTyping = setTimeout ->
         $(event.target).closest('form').submit()
+        submitAfterTyping = null
       , 1000
 
   $('body').on "keydown", "._submit-after-typing", (event) ->
     if event.which == 13
       clearTimeout(submitAfterTyping) if submitAfterTyping
+      submitAfterTyping = null
       $(event.target).closest('form').submit()
       false
 
