@@ -30,8 +30,6 @@ class Card
           end
         end
 
-        # sort: { referred_to_by { right: "*follow" }, return count }
-
         def sort_by_item_join val, item, sort_field
           join_field = sort_by_item_join_field item
           join = join_cards val, to_field: join_field,
@@ -45,6 +43,8 @@ class Card
         end
 
         # EXPERIMENTAL!
+        # sort: { referred_to_by { right: "*follow" }, return count }
+
         def sort_by_count val, item
           method_name = "sort_by_count_#{item}"
           sort_by_count_not_implemented :count, item unless respond_to? method_name
