@@ -1,4 +1,4 @@
-describe Card::Set::Abstract::Filter do
+RSpec.describe Card::Set::Abstract::Filter do
   subject do
     search_card = Card.new type: "Search"
     search_card.format.filter_form a: { input_field: "<input id='a'/>", label: "A" },
@@ -17,22 +17,23 @@ describe Card::Set::Abstract::Filter do
           with_tag "select#b"
         end
         with_tag "div._filter-input-field.c" do
-          without_tag "select"
+          with_tag "select#c"
         end
       end
 
       with_tag "div._filter-container" do
-        with_tag "div.input-group" do
-          with_tag "span._selected-category", text: /C/
-          with_tag "select#c"
-        end
+        # with_tag "div.input-group" do
+        #   with_tag "span._selected-category", text: /C/
+        #   with_tag "select#c"
+        # end
       end
 
       with_tag "div.dropdown._add-filter-dropdown" do
         with_tag "a.dropdown-item", with: { "data-category": "a" }
         with_tag "a.dropdown-item", with: { "data-category": "b" }
         with_tag "a.dropdown-item", with: { "data-category": "c",
-                                            style: "display: none;" }
+                                            "data-default": "true" }
+        #                                     style: "display: none;" }
       end
     end
   end
