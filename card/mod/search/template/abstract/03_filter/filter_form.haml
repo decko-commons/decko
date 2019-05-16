@@ -16,7 +16,7 @@
         - not_ids = params.dig :filter, :not_ids
         %input{ type: :hidden, name: "filter[not_ids]", class: "_not-ids", value: not_ids }
         .d-flex.flex-row
-          - if sort_input_field
+          - if sort_input_field.present?
             // SORTING
             .sort-in-filter-form
               %i.fa.fa-sort.text-muted.p-2.float-left

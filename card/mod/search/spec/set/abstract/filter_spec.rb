@@ -21,19 +21,12 @@ RSpec.describe Card::Set::Abstract::Filter do
         end
       end
 
-      with_tag "div._filter-container" do
-        # with_tag "div.input-group" do
-        #   with_tag "span._selected-category", text: /C/
-        #   with_tag "select#c"
-        # end
-      end
+      with_tag "div._filter-container"
 
       with_tag "div.dropdown._add-filter-dropdown" do
         with_tag "a.dropdown-item", with: { "data-category": "a" }
         with_tag "a.dropdown-item", with: { "data-category": "b" }
-        with_tag "a.dropdown-item", with: { "data-category": "c",
-                                            "data-default": "true" }
-        #                                     style: "display: none;" }
+        with_tag "a.dropdown-item", with: { "data-category": "c", "data-active": "true" }
       end
     end
   end
