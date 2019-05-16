@@ -26,4 +26,4 @@ Feature: Navbox
     Then I should see "Search results"
     And I should see "Sample Skin"
     When I click on "2"
-    Then I should see "materia skin"
+    Then I should see "minty skin"

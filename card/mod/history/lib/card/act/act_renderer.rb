@@ -33,7 +33,7 @@ class Card
       def header
         #::Bootstrap.new(self).render do
         bs_layout do
-          row 10, 2 do
+          row xs: [10, 2] do
             column do
               html title
               tag(:span, "text-muted pl-1 badge") { summary }

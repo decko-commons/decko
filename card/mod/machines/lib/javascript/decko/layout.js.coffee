@@ -29,9 +29,9 @@ sidebarToggle = (side) ->
 singleSidebar = (side) ->
   $article = $('body > article').first()
   $aside   = $('body > aside').first()
-  $article.addClass("col-xs-12 col-sm-9 col-md-9")
+  $article.addClass("col-xs-12 col-sm-9")
   $aside.addClass(
-    "col-xs-6 col-sm-3 col-md-3 sidebar-offcanvas sidebar-offcanvas-#{side}"
+    "col-xs-6 col-sm-3 sidebar-offcanvas sidebar-offcanvas-#{side}"
   )
   if side == 'left'
     $('body').append($aside).append($article)
@@ -69,8 +69,8 @@ $(window).ready ->
   $('[data-toggle="offcanvas-left"]').click ->
     $('.row-offcanvas').removeClass('right-active').toggleClass('left-active')
     $(this).find('i.material-icons')
-      .toggleText('chevron_left chevron_right')
+      .toggleText('chevron_left', 'chevron_right')
   $('[data-toggle="offcanvas-right"]').click ->
     $('.row-offcanvas').removeClass('left-active').toggleClass('right-active')
     $(this).find('i.material-icons')
-      .toggleText('chevron_left chevron_right')
+      .toggleText('chevron_left', 'chevron_right')

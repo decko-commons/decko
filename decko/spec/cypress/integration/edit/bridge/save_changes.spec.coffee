@@ -19,22 +19,21 @@ describe 'save change in bridge', () ->
         cy.expect_main_content "black"
         cy.bridge().should "be.visible"
 
-  specify "'save and close' updates non-main origin slot", () ->
-    cy.visit("/")
-
-    cy.slot("menu").find(".card-menu > a").click(force: true)
-    cy.tinymce_set_content("fruit pants")
-    cy.el("submit-modal").click()
-    cy.slot("menu").should("contain", "fruit pants")
-    cy.slot("home").should("not.contain", "fruit pants")
+#  specify "'save and close' updates non-main origin slot", () ->
+#    cy.visit("/")
+#
+#    cy.slot("menu").find(".card-menu > a").click(force: true)
+#    cy.tinymce_set_content("fruit pants")
+#    cy.el("submit-modal").click()
+#    cy.slot("menu").should("contain", "fruit pants")
+#    cy.slot("home").should("not.contain", "fruit pants")
 
   it "updates origin slot after name change", () ->
     cy.visit_bridge("snow")
     cy.slot("snow", "edit_name_row").el("edit-link").click(force: true)
     cy.get(".name-editor > input[name='card[name]']").clear().type("rain")
     cy.get("button.renamer").click().click()
-    cy.wait(2000)
-    cy.bridge().should("not.contain", "Submitting")
+    cy.bridge().should("not.contain", "Renaming")
     cy.el("close-modal").click()
 
     cy.expect_main_title("rain")

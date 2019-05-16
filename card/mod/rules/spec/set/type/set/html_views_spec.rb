@@ -14,7 +14,7 @@ RSpec.describe Card::Set::Type::Set::HtmlViews do
       with_tag "table" do
         with_tag "tr", with: { id: "Xread-Xright-Xcreate-rule_row-view" } do
           with_tag "td", "create"
-          with_tag "td", "Administrator"
+          with_tag "td", "Shark"
         end
       end
     end

@@ -58,7 +58,11 @@ class Bootstrap
       # default column width type is for medium devices (col-md-)
       add_div_method :column, nil do |opts, _extra_args|
         @child_args.last.each do |medium, size|
-          prepend_class opts, "col-#{medium}-#{size.shift}"
+          if medium == :xs
+            prepend_class opts, "col-#{size.shift}"
+          else
+            prepend_class opts, "col-#{medium}-#{size.shift}"
+          end
         end
         opts
       end

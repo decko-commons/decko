@@ -21,6 +21,13 @@ $.extend decko,
       when "full"   then "bridge"
       else "edit"
 
+  slotEditLink: (slot) ->
+    edit_links =
+      slot.find(".edit-link").filter (i, el) ->
+        $(el).slot().data('slotId') == slot.data('slotId')
+
+    if edit_links[0] then $(edit_links[0]) else false
+
   slotParams: (raw, processed, prefix)->
     $.each raw, (key, value)->
       cgiKey = prefix + '[' + snakeCase(key) + ']'
@@ -44,6 +51,12 @@ $.extend decko,
           func.call this, $(this), $(slotter)
         else
           func.call this, $(this)
+
+  slotDestroy: (func)->
+    $('document').ready ->
+      $('body').on 'slotDestroy', '.card-slot, ._modal-slot', (e) ->
+        e.stopPropagation()
+        func.call this, $(this)
 
 jQuery.fn.extend
   slot: (status="success", mode="replace") ->
