@@ -22,7 +22,7 @@ format :html do
   wrapper :html_page do
     <<-HTML.strip_heredoc
       <!DOCTYPE HTML>
-      <html>
+      <html class="h-100">
         <head>
           #{head_content}
         </head>

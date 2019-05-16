@@ -24,6 +24,10 @@ format :html do
                "data-minimum-results-for-search": "Infinity")
   end
 
+  def selected_set
+    params[:set]
+  end
+
   def set_select_options set_options
     options =
       if set_options == :related || card.type_id != Card::SetID
@@ -31,7 +35,7 @@ format :html do
       else
         [[card.label, card.name.url_key]]
       end
-    options_for_select(options)
+    options_for_select(options, selected_set)
   end
 
   def related_set_options

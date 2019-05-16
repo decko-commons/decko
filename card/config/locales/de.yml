@@ -445,6 +445,7 @@ de:
           cardtype:
             cards_exist: Entschuldigung, diese Karten muss ein Kartentyp bleiben, solange es noch %{cardname}-Karten gibt.
             add_card: Füge %{cardname} hinzu
+            configure_card: Configuriere %{cardname}
             error_cant_alter: kann dieseh Typ nicht ändern; es gibt noch %{name}-Karten
             error_invalid_character_in_cardtype: "die folgenden Zeichen sind nicht erlaubt: %{banned}"
           list:

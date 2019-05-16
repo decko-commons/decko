@@ -26,7 +26,7 @@ format :html do
   end
 
   def setting_group
-    params[:group]&.to_sym || :common
+    voo&.filter&.to_sym || params[:group]&.to_sym || :common
   end
 
   view :set_label do

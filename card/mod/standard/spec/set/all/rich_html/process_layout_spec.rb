@@ -33,7 +33,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     end
 
     it "renders card credit" do
-      expect(open_view).to have_tag 'div[class~="SELF-Xcredit"]' do
+      expect(open_view).to have_tag 'footer' do
         with_tag "svg"
         with_tag "a", text: "Decko v#{Card::Version.release}"
       end

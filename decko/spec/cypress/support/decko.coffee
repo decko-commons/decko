@@ -10,15 +10,15 @@ Cypress.Commands.add "main_slot", () =>
 
 # click the edit icon
 Cypress.Commands.add "click_edit",  { prevSubject: 'element'}, (subject) =>
-  cy.wrap(subject).find(".card-menu > a").click(force: true)
+  cy.wrap(subject).find(".card-menu > a.edit-link").click(force: true)
 
 
 Cypress.Commands.add "expect_main_title", (text) =>
-  cy.get("#main > .card-slot > .d0-card-frame > .d0-card-header > .d0-card-header-title .card-title")
+  cy.get("#main > .card-slot > .d0-card-header > .d0-card-header-title .card-title")
     .should("contain", text)
 
 Cypress.Commands.add "expect_main_content", (text) =>
-  cy.get("#main > .card-slot > .d0-card-frame > .d0-card-body")
+  cy.get("#main > .card-slot > .d0-card-body")
     .should("contain", text)
 
 Cypress.Commands.add "rename", (old_name, new_name) =>

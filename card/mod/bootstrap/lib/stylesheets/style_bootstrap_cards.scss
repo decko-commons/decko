@@ -121,7 +121,7 @@ body.mceContentBody {
 }
 
 /* collapsed sidebar styles */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 576px) {
   .row-offcanvas {
     position: relative;
     -webkit-transition: all 0.25s ease-out;
@@ -161,7 +161,7 @@ body.mceContentBody {
   .card-slot > .d0-card-frame > .d0-card-header,
   .card-slot > .d0-card-header,
   .card-slot.labeled-view > .labeled-content > .d0-card-body,
-  .card-slot.content-view,
+  .card-slot,
   .card > .card-body,
   .card > .card-header {
     > .card-menu._show-on-hover > a {
@@ -171,7 +171,7 @@ body.mceContentBody {
   .card-slot:hover > .d0-card-frame > .d0-card-header,
   .card-slot:hover > .d0-card-header,
   .card-slot.labeled-view:hover > .labeled-content > .d0-card-body,
-  .card-slot.content-view:hover,
+  .card-slot:hover,
   .card:hover > .card-body,
   .card:hover > .card-header{
     > .card-menu._show-on-hover > a {

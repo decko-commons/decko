@@ -6,7 +6,7 @@ attr_accessor :email
 format :html do
   view :setup, unknown: true, perms: ->(_fmt) { Auth.needs_setup? } do
     with_nest_mode :edit do
-      voo.title = "Welcome, Decker!"
+      voo.title = "Welcome, Shark!" # LOCALIZE
       voo.show! :help
       voo.hide! :menu
       Auth.as_bot { setup_form }
@@ -69,7 +69,8 @@ end
 event :setup_first_user, :prepare_to_store,
       on: :create, when: proc { Card::Env.params[:setup] } do
   add_subcard "signup alert email+*to", content: name
-  add_subfield :roles, content: Card[:administrator].name
+  add_subfield :roles,
+               content: %i[help_desk shark administrator].map(&:cardname)
 end
 
 event :signin_after_setup, :integrate,

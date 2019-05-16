@@ -21,9 +21,8 @@ format :html do
   end
 
   def edit_type_buttons
-    cancel_path = path view: :edit
     button_formgroup do
-      [standard_cancel_button(href: cancel_path)]
+      standard_cancel_button
     end
   end
 end
