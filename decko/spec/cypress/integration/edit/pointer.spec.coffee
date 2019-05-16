@@ -47,7 +47,7 @@ describe 'editing pointers', () ->
     cy.visit("/Joe User+friends")
     cy.get("._add-item-link").click()
     cy.contains("Select Item")
-    cy.contains("button", "Add filter").click()
+    cy.contains("button", "More Filters").click()
     cy.contains("a","Keyword").click()
     cy.get("[name='filter[name]']").type("Joe{enter}").then ->
       cy.get("._search-checkbox-list")

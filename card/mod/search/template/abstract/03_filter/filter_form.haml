@@ -16,10 +16,10 @@
         - not_ids = params.dig :filter, :not_ids
         %input{ type: :hidden, name: "filter[not_ids]", class: "_not-ids", value: not_ids }
         .d-flex.flex-row
-          // SORTING
           - if sort_input_field
+            // SORTING
             .sort-in-filter-form
-              %i.material-icons.text-muted.md-24.p-1.float-left sort
+              %i.fa.fa-sort.text-muted.p-2.float-left
               .input-group.input-group-sm.flex-nowrap.sort-input-group.mb-2.card-outline-primary.mr-5
                 .input-group-prepend
                   %span.input-group-text sort
@@ -27,7 +27,7 @@
 
           // FILTERING
           .filter-in-filter-form
-            %i.material-icons.text-muted.md-24.p-1.float-left search
+            %i.fa.fa-filter.text-muted.p-2.float-left
             ._filter-container.d-flex.flew-row.flex-wrap
               // FILTERS inserted here
 
@@ -37,12 +37,13 @@
                                                                "aria-haspopup": "true",
                                                                "data-toggle": "dropdown",
                                                                type: "button" }
-                  %i.fa.fa-plus
+                  More Filters
                 .dropdown-menu
                   - categories.each do |key, category|
                     %a.dropdown-item._filter-category-select{"data-category": key,
                                                              "data-label": category[:label],
-                                                             "data-default": ("true" if category[:active]),
+                                                             "data-active": ("true" if category[:active]),
+                                                             "data-default": ("true" if category[:default]),
                                                              :href => "#"}
                       = category[:label]
 

@@ -11,7 +11,7 @@ $.extend decko,
 decko.slotReady (slot) ->
   slot.find("._filter-widget").each ->
     if slot[0] == $(this).slot()[0]
-      showDefaultFilters($(this))
+      showFiltersWithStatus("active", $(this))
 
 $(window).ready ->
   # Add Filter
@@ -49,16 +49,16 @@ $(window).ready ->
     e.preventDefault()
     e.stopPropagation()
 
-showDefaultFilters = (widget) ->
+showFiltersWithStatus = (status, widget) ->
   $.each (widget.find "._filter-category-select"), ->
     item = $(this)
-    if item.data("default")
+    if item.data status
       activateFilterCategory item.data("category"), widget
 
 resetFilter = (widget) ->
   container = widget.find "._filter-container"
   container.find(".input-group").remove()
-  showDefaultFilters widget
+  showFiltersWithStatus "default", widget
   filterAndSort container
 
 # sometimes this element shows up as changed and breaks the filter.

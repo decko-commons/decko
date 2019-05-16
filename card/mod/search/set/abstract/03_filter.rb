@@ -67,13 +67,21 @@ format :html do
     all_filter_keys.each_with_object({}) do |cat, h|
       h[cat] = { label: filter_label(cat),
                  input_field: _render("filter_#{cat}_formgroup"),
-                 active: show_filter_field?(cat) }
+                 active: active_filter?(cat),
+                 default: default_filter?(cat) }
     end
   end
 
-  def show_filter_field? field
-    val = filter_hash.present? ? filter_hash[field] : card.default_filter_option[field]
-    val.present?
+  def active_filter? field
+    filter_hash.present? ? filter_hash.key?(field) : default_filter?(field)
+  end
+
+  def truestring val
+    val == true ? "true" : "false"
+  end
+
+  def default_filter? field
+    card.default_filter_option.key?(field)
   end
 
   def filter_label field
