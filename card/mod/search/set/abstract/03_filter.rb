@@ -37,13 +37,9 @@ def blocked_id_wql
   not_ids.present? ? { id: ["not in", not_ids.split(",")] } : {}
 end
 
-def advanced_filter_keys
-  []
-end
-
 # all filter keys in the order they were selected
 def all_filter_keys
-  @all_filter_keys ||= filter_keys_from_params | filter_keys | advanced_filter_keys
+  @all_filter_keys ||= filter_keys_from_params | filter_keys
 end
 
 def filter_keys
@@ -74,10 +70,6 @@ format :html do
 
   def active_filter? field
     filter_hash.present? ? filter_hash.key?(field) : default_filter?(field)
-  end
-
-  def truestring val
-    val == true ? "true" : "false"
   end
 
   def default_filter? field
