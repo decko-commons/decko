@@ -6,10 +6,10 @@
 - :name: Home+original
   :type: HTML
   :key: home+original
-- :name: Home+original+Shark
+- :name: "*getting started+Shark"
   :type: HTML
-  :key: home+original+shark
-  :merged: 2019-05-09 12:46:06 UTC
+  :key: "*getting_started+shark"
+  :merged: 2019-05-16 11:27:26 UTC
 - :name: "*footer"
   :type: HTML
   :key: "*footer"
@@ -121,4 +121,9 @@
 - :name: Cardtype+*type+*structure
   :type: Basic
   :key: cardtype+*type+*structure
+- :name: "*getting started"
+  :type: HTML
+  :key: "*getting_started"
+  :codename: getting_started
+  :merged: 2019-05-15 12:09:27 UTC
 :remotes: {}

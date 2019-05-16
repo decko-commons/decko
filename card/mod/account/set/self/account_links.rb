@@ -1,3 +1,6 @@
+def ok_to_read
+  true
+end
 
 format :html do
   view :core, cache: :never do

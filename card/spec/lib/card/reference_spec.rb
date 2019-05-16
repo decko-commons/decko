@@ -73,11 +73,11 @@ RSpec.describe Card::Reference, as_bot: true do
   end
 
   it "updates referers on rename when requested (case 2)" do
-    card = Card["Administrator Menu+*self+*read"]
+    card = Card["*sidebar+*self+*read"]
     old_refs = Card::Reference.where(referee_id: Card::AdministratorID)
 
     card.update_referers = true
-    card.name = "Administrator Menu+*type+*read"
+    card.name = "*sidebar+*type+*read"
     card.save
 
     new_refs = Card::Reference.where(referee_id: Card::AdministratorID)

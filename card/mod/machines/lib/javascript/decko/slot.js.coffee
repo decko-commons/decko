@@ -52,6 +52,12 @@ $.extend decko,
         else
           func.call this, $(this)
 
+  slotDestroy: (func)->
+    $('document').ready ->
+      $('body').on 'slotDestroy', '.card-slot, ._modal-slot', (e) ->
+        e.stopPropagation()
+        func.call this, $(this)
+
 jQuery.fn.extend
   slot: (status="success", mode="replace") ->
     if mode == "modal"

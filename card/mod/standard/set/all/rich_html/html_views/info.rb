@@ -50,7 +50,7 @@ format :html do
     end.flatten.join ""
   end
 
-  view :view_viewer do
+  view :demo do
     frame do
       [
         view_select,
@@ -70,7 +70,7 @@ format :html do
   end
 
   def view_select
-    card_form :get, success: { view: :viewer } do
+    card_form :get, success: { view: :demo } do
       select_tag :demo_view, options_for_select(all_views, demo_view),
                  class: "_submit-on-select"
     end
@@ -78,6 +78,7 @@ format :html do
 
   def all_views
     Card::Set::Format::AbstractFormat::ViewDefinition.views
-                                                     .slice(*self.class.ancestors).values.map(&:keys).flatten.uniq
+                                                     .slice(*self.class.ancestors)
+                                                     .values.map(&:keys).flatten.uniq
   end
 end

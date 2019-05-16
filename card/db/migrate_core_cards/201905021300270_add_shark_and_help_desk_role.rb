@@ -5,18 +5,16 @@ class AddSharkAndHelpDeskRole < Card::Migration::Core
     ensure_role "Eagle", codename: "eagle"
     ensure_role "Shark", codename: "shark"
     ensure_role "Help Desk", codename: "help_desk"
-    ensure_role "*account settings", codename: "account_settings"
-    delete_code_card "Config"
-    delete_code_card :foot
-    delete_code_card :toolbar_pinned
-    delete_card "*edit toolbar pinned"
-    delete_card "Administrator Menu"
-    delete_card "*ProseMirrorz"
+
+    ensure_card "*account settings", codename: "account_settings"
+
     update_card "Decker Menu", name: "Shark Menu", update_referers: true
     update_card :ace, name: "*ace"
     update_card "*google_analytics_key", name: "*google analytics key"
-    ensure_card "*machine output+*right+*read", "_left"
 
+    remove_deprecated_cards
+    delete_right_read_permissions
+    delete_self_read_permissions
     remove_redundant_permissions
     add_shark_permissions
     add_help_desk_permissions
@@ -28,11 +26,34 @@ class AddSharkAndHelpDeskRole < Card::Migration::Core
                 eagle+dashboard eagle+description
                 *recaptcha_settings+*self+*structure
                 *account_settings+*right+*structure
-                home+original+shark
-                right_thin_sidebar_layout left_sidebar_layout]
+                *getting_started+shark
+                right_thin_sidebar_layout left_sidebar_layout
+                *getting_started]
   end
 
   private
+
+  def remove_deprecated_cards
+    delete_code_card "Config"
+    delete_code_card :foot
+    delete_code_card :toolbar_pinned
+    delete_card "*edit toolbar pinned"
+    delete_card "Administrator Menu"
+    delete_card "*ProseMirrorz"
+    delete_card "Home+original"
+  end
+
+  def delete_right_read_permissions
+    %i[machine_output head script style solid_cache].each do |n|
+      delete_card [n, :right, :read]
+    end
+  end
+
+  def delete_self_read_permissions
+      %i[account_links signin version title].each do |n|
+        delete_card [n, :self, :read]
+      end
+    end
 
   def remove_redundant_permissions
     ["*account+*right+*create",

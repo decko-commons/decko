@@ -2,5 +2,5 @@
   <header>{{*header|core}}</header>
   <article class="container flex-shrink-0" role="main">{{_main|titled}}
   </article>
-  <footer class="footer mt-auto py-3">{{*footer|core}}</footer>
+  <footer class="footer mt-auto py-3">{{*footer|content}}</footer>
 </body>
