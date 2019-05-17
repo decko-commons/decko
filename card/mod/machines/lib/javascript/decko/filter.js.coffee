@@ -1,7 +1,3 @@
-#decko.slotReady (slot) ->
-#  slot.find("._filter-widget").each ->
-#    showDefaultFilters $(this)
-
 decko.slotReady (slot) ->
   slot.find("._filter-widget").each ->
     if slot[0] == $(this).slot()[0]
@@ -15,7 +11,7 @@ $(window).ready ->
   # Add Filter
   $("body").on "click", "._filter-category-select", (e) ->
     e.preventDefault()
-    e.stopPropagation()
+    # e.stopPropagation()
     filterFor(this).activate $(this).data("category")
 
   # Update filter results based on filter value changes
@@ -34,12 +30,21 @@ $(window).ready ->
   # remove filter
   $("body").on "click", "._delete-filter-input", ->
     filter = filterFor this
-    filter.removeInput this
+    filter.removeField this
     filter.update()
 
   # reset all filters
-  $('body').on 'click', '._reset-filter', (e) ->
-    filterFor(this).reset()
+  $('body').on 'click', '._reset-filter', () ->
+    f = filterFor(this)
+    f.reset()
+    f.update()
+
+  $('body').on 'click', '.filtering .filterable', (e) ->
+    f = filterFor($("._filter-widget:visible"))
+    if f.widget.length > 0
+      data = $(this).data "filter"
+      f.reset()
+      f.restrict data["key"], data["value"]
     e.preventDefault()
     e.stopPropagation()
 
@@ -64,11 +69,10 @@ decko.filter = (el) ->
   @reset = () ->
     @activeContainer.find(".input-group").remove()
     @showWithStatus "default"
-    @update()
 
   @activate = (category) ->
     @hideOption category
-    @activateInput category
+    @activateField category
 
   @showOption = (category) ->
     @option(category).show()
@@ -82,39 +86,57 @@ decko.filter = (el) ->
   @findPrototype = (category) ->
     @widget.find "._filter-input-field-prototypes ._filter-input-#{category}"
 
-  @activateInput = (category) ->
-    input = @findPrototype(category).clone()
-    @dropdown.before input
-    @initInput input
-    input.find("input, select").first().focus()
+  @activateField = (category) ->
+    field = @findPrototype(category).clone()
+    @dropdown.before field
+    @initField field
+    field.find("input, select").first().focus()
 
-  @removeInput = (input)->
-    input = $(input).closest "._filter-input"
-    @showOption input.data("category")
-    input.remove()
+  @removeField = (input)->
+    field = $(input).closest "._filter-input"
+    @showOption field.data("category")
+    field.remove()
 
-  @initInput = (input) ->
-    @initSelectInput input
-    decko.initAutoCardPlete input.find("input")
+  @initField = (field) ->
+    @initSelectField field
+    decko.initAutoCardPlete field.find("input")
     # only has effect if there is a data-options-card value
 
-  @initSelectInput = (input) ->
-    input.find("select").select2(
+  @initSelectField = (field) ->
+    field.find("select").select2(
       containerCssClass: ":all:"
       width: "auto"
       dropdownAutoWidth: "true"
     )
 
-  @activeInput = (category) ->
+  @activeField = (category) ->
     @activeContainer.find("._filter-input-#{category}")
 
   @isActive = (category) ->
-    @activeInput(category).length > 0
+    @activeField(category).length > 0
 
   @restrict = (category, value) ->
-    @activateInput category unless @isActive category
-    input = @activeInput category
-    input.find("input, select").val value
+    @activateField category unless @isActive category
+    field = @activeField category
+    @setInputVal field, value
+
+  # triggers update
+  @setInputVal = (field, value) ->
+    select = field.find "select"
+    if select.length > 0
+      @setSelect2Val select, value
+    else
+      @setTextInputVal field.find("input"), value
+
+  # this triggers change, which updates form
+  # if we just use simple "val", the display doesn't update correctly
+  @setSelect2Val = (select, value) ->
+    value = [value] if select.attr("multiple") && !Array.isArray(value)
+    select.select2 "val", value
+
+  @setTextInputVal = (input, value) ->
+    input.val value
+    @update()
 
   @update = ()->
     @widget.find("._filter-form").submit()
