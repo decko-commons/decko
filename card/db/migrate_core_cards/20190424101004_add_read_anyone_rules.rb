@@ -6,7 +6,6 @@ class AddReadAnyoneRules < Card::Migration::Core
     cards = %i[title main menu navbox credit credit_image].map { |c| [c, :self] }
     cards << %i[head right]
     cards.each do |codename, set|
-      ensure_code_card codename
       ensure_card [codename, set, :read], type_id: Card::PointerID, content: "Anyone"
     end
   end
