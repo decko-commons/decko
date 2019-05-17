@@ -5,8 +5,7 @@
       // FILTERING PROTOTYPES
       ._filter-input-field-prototypes.d-none
         - categories.each do |key, category|
-          ._filter-input-field{class: key}
-            = haml_partial :filter_input, key: key, category: category
+          = haml_partial :filter_input, key: key, category: category
 
 
       // FORM

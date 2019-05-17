@@ -10,13 +10,13 @@ RSpec.describe Card::Set::Abstract::Filter do
   specify "#filter_form" do
     is_expected.to have_tag "._filter-widget" do
       with_tag "div._filter-input-field-prototypes" do
-        with_tag "div._filter-input-field.a" do
+        with_tag "div._filter-input-a" do
           with_tag "input#a"
         end
-        with_tag "div._filter-input-field.b" do
+        with_tag "div._filter-input-b" do
           with_tag "select#b"
         end
-        with_tag "div._filter-input-field.c" do
+        with_tag "div._filter-input-c" do
           with_tag "select#c"
         end
       end
