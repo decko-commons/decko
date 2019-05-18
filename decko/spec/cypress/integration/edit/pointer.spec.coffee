@@ -49,7 +49,7 @@ describe 'editing pointers', () ->
     cy.contains("Select Item")
     cy.contains("button", "More Filters").click()
     cy.contains("a","Keyword").click()
-    cy.get("[name='filter[name]']").type("Joe{enter}").then ->
+    cy.get("._filter-container [name='filter[name]']").type("Joe{enter}").then ->
       cy.get("._search-checkbox-list")
         .should("contain", "Joe Admin")
         .should("contain", "Joe User")

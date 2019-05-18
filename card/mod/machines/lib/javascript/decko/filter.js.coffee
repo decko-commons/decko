@@ -30,7 +30,7 @@ $(window).ready ->
   # remove filter
   $("body").on "click", "._delete-filter-input", ->
     filter = filterFor this
-    filter.removeField this
+    filter.removeField $(this).closest("._filter-input").data("category")
     filter.update()
 
   # reset all filters
@@ -43,10 +43,17 @@ $(window).ready ->
     f = filterFor($("._filter-widget:visible"))
     if f.widget.length > 0
       data = $(this).data "filter"
-      f.reset()
+      # f.reset()
       f.restrict data["key"], data["value"]
     e.preventDefault()
-    e.stopPropagation()
+    # e.stopPropagation()
+
+  $('body').on 'click', '._record-filter', (e) ->
+    f = filterFor($("._filter-widget:visible"))
+    f.removeField("year")
+    data = $(this).data "filter"
+    # f.reset()
+    f.restrict data["key"], data["value"]
 
 # sometimes this element shows up as changed and breaks the filter.
 weirdoSelect2FilterBreaker = (el) ->
@@ -71,14 +78,19 @@ decko.filter = (el) ->
     @showWithStatus "default"
 
   @activate = (category) ->
-    @hideOption category
     @activateField category
+    @hideOption category
 
   @showOption = (category) ->
+    @dropdown.show()
     @option(category).show()
 
   @hideOption = (category) ->
     @option(category).hide()
+    @dropdown.hide() if @dropdownItems.length <= @activeFields().length
+
+  @activeFields = () ->
+    @activeContainer.find "._filter-input"
 
   @option = (category) ->
     @dropdownItems.filter("[data-category='#{category}']")
@@ -92,10 +104,9 @@ decko.filter = (el) ->
     @initField field
     field.find("input, select").first().focus()
 
-  @removeField = (input)->
-    field = $(input).closest "._filter-input"
-    @showOption field.data("category")
-    field.remove()
+  @removeField = (category)->
+    @activeField(category).remove()
+    @showOption category
 
   @initField = (field) ->
     @initSelectField field
@@ -116,7 +127,7 @@ decko.filter = (el) ->
     @activeField(category).length > 0
 
   @restrict = (category, value) ->
-    @activateField category unless @isActive category
+    @activate category unless @isActive category
     field = @activeField category
     @setInputVal field, value
 
