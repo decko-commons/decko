@@ -69,7 +69,11 @@ format :html do
   end
 
   def active_filter? field
-    filter_hash.present? ? filter_hash.key?(field) : default_filter?(field)
+    if card.filter_keys_from_params.present?
+      filter_hash.key? field
+    else
+      default_filter? field
+    end
   end
 
   def default_filter? field
@@ -77,8 +81,8 @@ format :html do
   end
 
   def filter_label field
-    return "Keyword" if field.to_sym == :name
-
+    # return "Keyword" if field.to_sym == :name
+    #
     filter_label_from_method(field) || filter_label_from_name(field)
   end
 
