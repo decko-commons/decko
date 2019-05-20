@@ -12918,8 +12918,10 @@ return jQuery;
   };
 
   updateAfterSelection = function(el) {
+    var f;
     trackSelectedIds(el);
-    filterAndSort(filterBox(el).find("._filter-form"));
+    f = new decko.filter(filterBox(el).find('._filter-widget'));
+    f.update();
     updateSelectedCount(el);
     return updateUnselectedCount(el);
   };
