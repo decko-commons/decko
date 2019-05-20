@@ -147,6 +147,28 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+lead-instance_method" title="#view: lead (instance method)">#<strong>view: lead</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -172,18 +194,18 @@
       <pre class="lines">
 
 
-16
-17
-18
-19
-20
-21
-22
-23
-24</pre>
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/help.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/help.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rule_based_help'>rule_based_help</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_rule_card'>rule_card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_help_rule_card'>help_rule_card</span><span class='rparen'>)</span>
@@ -219,16 +241,56 @@
 11
 12
 13
-14</pre>
+14
+15
+16
+17
+18</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/help.rb', line 9</span>
 
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:help</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:help</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='symbol'>:slot</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_help_text'>help_text</span> <span class='op'>=</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_help'>help</span> <span class='op'>||</span> <span class='id identifier rubyid_rule_based_help'>rule_based_help</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_help_text'>help_text</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
 
+  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_rule_card'>rule_card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_help_rule_card'>help_rule_card</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_edit_link'>edit_link</span> <span class='op'>=</span> <span class='id identifier rubyid_with_nest_mode'>with_nest_mode</span><span class='lparen'>(</span><span class='symbol'>:normal</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_nest'>nest</span><span class='lparen'>(</span><span class='id identifier rubyid_rule_card'>rule_card</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='symbol'>:edit_link</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_help_text'>help_text</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;span class=&#39;d-none&#39;&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_edit_link'>edit_link</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/span&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_help_text'>help_text</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='id identifier rubyid_help_text'>help_text</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>help-text</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: lead-instance_method">
+  
+    #<strong>view: lead</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/help.rb', line 20</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:lead</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_class_up'>class_up</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-slot</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lead</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid__view_content'>_view_content</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -240,7 +302,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:28:02 2019 by
+  Generated on Mon May 20 08:33:52 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

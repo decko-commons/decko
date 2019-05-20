@@ -1221,7 +1221,7 @@
       <pre class="code"><span class="info file"># File 'lib/card/format/render.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show_view?'>show_view?</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_default_viz'>default_viz</span><span class='op'>=</span><span class='symbol'>:show</span>
-  <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_process_visibility_options'>process_visibility_options</span> <span class='comment'># trigger viz processing
+  <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_process_visibility'>process_visibility</span> <span class='comment'># trigger viz processing
 </span>  <span class='id identifier rubyid_visibility'>visibility</span> <span class='op'>=</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_viz_hash'>viz_hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_view'>view</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_default_viz'>default_viz</span>
   <span class='id identifier rubyid_visibility'>visibility</span> <span class='op'>==</span> <span class='symbol'>:show</span>
 <span class='kw'>end</span></pre>
@@ -1606,7 +1606,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:26 2019 by
+  Generated on Mon May 20 08:33:19 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

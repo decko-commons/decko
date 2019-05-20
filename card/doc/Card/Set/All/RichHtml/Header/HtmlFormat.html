@@ -721,7 +721,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/header.rb', line 9</span>
 
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:header</span> <span class='kw'>do</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:header</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_main_header'>main_header</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -751,7 +751,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/header.rb', line 21</span>
 
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:header_title</span> <span class='kw'>do</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:header_title</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_header_title_elements'>header_title_elements</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -782,7 +782,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/header.rb', line 39</span>
 
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:icon_toggle</span> <span class='kw'>do</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:icon_toggle</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_direction'>direction</span> <span class='op'>=</span> <span class='ivar'>@toggle_mode</span> <span class='op'>==</span> <span class='symbol'>:close</span> <span class='op'>?</span> <span class='symbol'>:expand</span> <span class='op'>:</span> <span class='symbol'>:collapse_down</span>
   <span class='id identifier rubyid_content_toggle'>content_toggle</span> <span class='id identifier rubyid_icon_tag'>icon_tag</span><span class='lparen'>(</span><span class='id identifier rubyid_direction'>direction</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -813,7 +813,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/header.rb', line 35</span>
 
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:title_toggle</span> <span class='kw'>do</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:title_toggle</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_content_toggle'>content_toggle</span><span class='lparen'>(</span><span class='id identifier rubyid__render_title'>_render_title</span><span class='lparen'>(</span><span class='label'>hide:</span> <span class='symbol'>:title_link</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -863,7 +863,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:56 2019 by
+  Generated on Mon May 20 08:33:47 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
