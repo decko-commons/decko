@@ -13,7 +13,6 @@ class UpdatePristineData < Card::Migration::Core
       *header
       cardtype+*type+*structure
       ]
-    names.select { |n| !Card.exists?(n) || Card.fetch(n)&.pristine? }
-    merge_cards names
+    merge_pristine_cards names
   end
 end
