@@ -2,7 +2,7 @@
 # (fancy pointer ui)
 
 $(window).ready ->
-  # add all selected items
+# add all selected items
   $("body").on "click", "._filter-items ._add-selected", ->
     btn = $(this)
     content = newFilteredListContent btn
@@ -34,6 +34,8 @@ $(window).ready ->
   $('body').on 'click', '._filtered-list-item-delete', ->
     $(this).closest('li').remove()
 
+# TODO: make this object oriented!
+
 newFilteredListContent = (el) ->
   $.map(prefilteredIds(el).concat(selectedIds el), (id) -> "~" + id).join "\n"
 
@@ -46,7 +48,8 @@ addSelectedButtonUrl = (btn, content) ->
 
 updateAfterSelection = (el) ->
   trackSelectedIds el
-  filterAndSort filterBox(el).find "._filter-form"
+  f = new decko.filter(filterBox(el).find('._filter-widget'))
+  f.update()
   updateSelectedCount el
   updateUnselectedCount el
 
