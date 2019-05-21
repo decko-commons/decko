@@ -496,12 +496,12 @@
       <pre class="lines">
 
 
-47
-48
-49</pre>
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_filter_option'>default_filter_option</span>
   <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -580,19 +580,15 @@
 40
 41
 42
-43
-44
-45</pre>
+43</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_keys_with_values'>filter_keys_with_values</span>
-  <span class='lparen'>(</span><span class='id identifier rubyid_filter_keys'>filter_keys</span> <span class='op'>+</span> <span class='id identifier rubyid_advanced_filter_keys'>advanced_filter_keys</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
+  <span class='id identifier rubyid_filter_keys'>filter_keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
     <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='id identifier rubyid_filter_param'>filter_param</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-    <span class='kw'>next</span> <span class='kw'>unless</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
-
-    <span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='kw'>next</span>
   <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -645,12 +641,12 @@
       <pre class="lines">
 
 
-51
-52
-53</pre>
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_offset'>offset</span>
   <span class='id identifier rubyid_param_to_i'>param_to_i</span> <span class='symbol'>:offset</span><span class='comma'>,</span> <span class='int'>0</span>
@@ -768,7 +764,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:59 2019 by
+  Generated on Mon May 20 08:33:50 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

@@ -1026,12 +1026,12 @@
       <pre class="lines">
 
 
-250
 251
-252</pre>
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 250</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 251</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action_for_permission_check'>action_for_permission_check</span>
   <span class='id identifier rubyid_commenting?'>commenting?</span> <span class='op'>?</span> <span class='symbol'>:comment</span> <span class='op'>:</span> <span class='ivar'>@action</span>
@@ -1056,12 +1056,12 @@
       <pre class="lines">
 
 
-240
 241
-242</pre>
+242
+243</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 240</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 241</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_to_read_rule_update_queue'>add_to_read_rule_update_queue</span> <span class='id identifier rubyid_updates'>updates</span>
   <span class='ivar'>@read_rule_update_queue</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_wrap'>wrap</span><span class='lparen'>(</span><span class='ivar'>@read_rule_update_queue</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span> <span class='id identifier rubyid_updates'>updates</span>
@@ -1108,12 +1108,12 @@
       <pre class="lines">
 
 
-54
 55
-56</pre>
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_anyone_can?'>anyone_can?</span> <span class='id identifier rubyid_action'>action</span>
   <span class='id identifier rubyid_who_can'>who_can</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>AnyoneID</span>
@@ -1138,16 +1138,16 @@
       <pre class="lines">
 
 
-77
 78
 79
 80
 81
 82
-83</pre>
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_applicable_permission_rule_id'>applicable_permission_rule_id</span> <span class='id identifier rubyid_direct_rule'>direct_rule</span><span class='comma'>,</span> <span class='id identifier rubyid_action'>action</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_junction?'>junction?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_direct_rule'>direct_rule</span><span class='period'>.</span><span class='id identifier rubyid_db_content'>db_content</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\[?\[?_left\]?\]?$</span><span class='regexp_end'>/</span></span>
@@ -1176,13 +1176,13 @@
       <pre class="lines">
 
 
-113
 114
 115
-116</pre>
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 114</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deny_because'>deny_because</span> <span class='id identifier rubyid_why'>why</span>
   <span class='ivar'>@permission_errors</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_why'>why</span> <span class='kw'>if</span> <span class='ivar'>@permission_errors</span>
@@ -1208,14 +1208,14 @@
       <pre class="lines">
 
 
-58
 59
 60
 61
-62</pre>
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_direct_rule_card'>direct_rule_card</span> <span class='id identifier rubyid_action'>action</span>
   <span class='id identifier rubyid_direct_rule_id'>direct_rule_id</span> <span class='op'>=</span> <span class='id identifier rubyid_rule_card_id'>rule_card_id</span> <span class='id identifier rubyid_action'>action</span>
@@ -1242,14 +1242,14 @@
       <pre class="lines">
 
 
-244
 245
 246
 247
-248</pre>
+248
+249</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 244</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 245</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:check_permissions</span><span class='comma'>,</span> <span class='symbol'>:validate</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_track_permission_errors'>track_permission_errors</span> <span class='kw'>do</span>
@@ -1276,7 +1276,6 @@
       <pre class="lines">
 
 
-196
 197
 198
 199
@@ -1287,10 +1286,11 @@
 204
 205
 206
-207</pre>
+207
+208</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 196</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 197</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:set_field_read_rules</span><span class='comma'>,</span>
       <span class='label'>after:</span> <span class='symbol'>:set_read_rule</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='label'>changed:</span> <span class='symbol'>:type_id</span> <span class='kw'>do</span>
@@ -1335,15 +1335,15 @@
       <pre class="lines">
 
 
-189
 190
 191
 192
 193
-194</pre>
+194
+195</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 190</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:set_read_rule</span><span class='comma'>,</span> <span class='symbol'>:store</span><span class='comma'>,</span>
       <span class='label'>on:</span> <span class='symbol'>:save</span><span class='comma'>,</span> <span class='label'>changed:</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>type_id</span><span class='words_sep'> </span><span class='tstring_content'>name</span><span class='words_sep'>]</span> <span class='kw'>do</span>
@@ -1371,7 +1371,6 @@
       <pre class="lines">
 
 
-226
 227
 228
 229
@@ -1383,10 +1382,11 @@
 235
 236
 237
-238</pre>
+238
+239</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 227</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:update_read_rule</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_without_timestamps'>without_timestamps</span> <span class='kw'>do</span>
@@ -1421,16 +1421,16 @@
       <pre class="lines">
 
 
-85
 86
 87
 88
 89
 90
-91</pre>
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_left_permission_rule_id'>left_permission_rule_id</span> <span class='id identifier rubyid_action'>action</span>
   <span class='id identifier rubyid_lcard'>lcard</span> <span class='op'>=</span> <span class='id identifier rubyid_left_or_new'>left_or_new</span><span class='lparen'>(</span><span class='label'>skip_virtual:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -1481,12 +1481,12 @@
       <pre class="lines">
 
 
-46
 47
-48</pre>
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok!'>ok!</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Error/PermissionDenied.html" title="Card::Error::PermissionDenied (class)">PermissionDenied</a></span></span><span class='comma'>,</span> <span class='kw'>self</span> <span class='kw'>unless</span> <span class='id identifier rubyid_ok?'>ok?</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
@@ -1546,13 +1546,15 @@
 33
 34
 35
-36</pre>
+36
+37</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok?'>ok?</span> <span class='id identifier rubyid_action'>action</span>
-  <span class='ivar'>@action_ok</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='comment'># binding.pry if action == :create
+</span>  <span class='ivar'>@action_ok</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_send'>send</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ok_to_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_action'>action</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='ivar'>@action_ok</span>
 <span class='kw'>end</span></pre>
@@ -1576,15 +1578,15 @@
       <pre class="lines">
 
 
-175
 176
 177
 178
 179
-180</pre>
+180
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 175</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_to_comment'>ok_to_comment</span>
   <span class='id identifier rubyid_permit'>permit</span> <span class='symbol'>:comment</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>comment on</span><span class='tstring_end'>&quot;</span></span>
@@ -1612,7 +1614,6 @@
       <pre class="lines">
 
 
-140
 141
 142
 143
@@ -1626,10 +1627,11 @@
 151
 152
 153
-154</pre>
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 141</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_to_create'>ok_to_create</span>
   <span class='id identifier rubyid_permit'>permit</span> <span class='symbol'>:create</span>
@@ -1666,12 +1668,12 @@
       <pre class="lines">
 
 
-171
 172
-173</pre>
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 171</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 172</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_to_delete'>ok_to_delete</span>
   <span class='id identifier rubyid_permit'>permit</span> <span class='symbol'>:delete</span>
@@ -1696,15 +1698,15 @@
       <pre class="lines">
 
 
-156
 157
 158
 159
 160
-161</pre>
+161
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 156</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 157</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_to_read'>ok_to_read</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_always_ok?'><span class='object_link'><a href="../../Auth/Permissions.html#always_ok%3F-instance_method" title="Card::Auth::Permissions#always_ok? (method)">always_ok?</a></span></span>
@@ -1732,16 +1734,16 @@
       <pre class="lines">
 
 
-163
 164
 165
 166
 167
 168
-169</pre>
+169
+170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 163</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 164</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_to_update'>ok_to_update</span>
   <span class='id identifier rubyid_permit'>permit</span> <span class='symbol'>:update</span>
@@ -1792,13 +1794,13 @@
       <pre class="lines">
 
 
-38
 39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_with_fetch?'>ok_with_fetch?</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:trait</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='kw'>self</span> <span class='op'>:</span> <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
@@ -1824,12 +1826,12 @@
       <pre class="lines">
 
 
-93
 94
-95</pre>
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_permission_rule_card'>permission_rule_card</span> <span class='id identifier rubyid_action'>action</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_permission_rule_id'>permission_rule_id</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span>
@@ -1854,13 +1856,13 @@
       <pre class="lines">
 
 
-64
 65
 66
-67</pre>
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_permission_rule_id'>permission_rule_id</span> <span class='id identifier rubyid_action'>action</span>
   <span class='id identifier rubyid_direct_rule'>direct_rule</span> <span class='op'>=</span> <span class='id identifier rubyid_direct_rule_card'>direct_rule_card</span> <span class='id identifier rubyid_action'>action</span>
@@ -1886,16 +1888,16 @@
       <pre class="lines">
 
 
-69
 70
 71
 72
 73
 74
-75</pre>
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_permission_rule_id_and_class'>permission_rule_id_and_class</span> <span class='id identifier rubyid_action'>action</span>
   <span class='id identifier rubyid_direct_rule'>direct_rule</span> <span class='op'>=</span> <span class='id identifier rubyid_direct_rule_card'>direct_rule_card</span> <span class='id identifier rubyid_action'>action</span>
@@ -1924,17 +1926,17 @@
       <pre class="lines">
 
 
-131
 132
 133
 134
 135
 136
 137
-138</pre>
+138
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_permit'>permit</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_verb'>verb</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='comment'># not called by ok_to_read
@@ -1986,7 +1988,6 @@
       <pre class="lines">
 
 
-118
 119
 120
 121
@@ -1997,10 +1998,11 @@
 126
 127
 128
-129</pre>
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_permitted?'>permitted?</span> <span class='id identifier rubyid_action'>action</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_read_only'>read_only</span>
@@ -2088,16 +2090,16 @@
       <pre class="lines">
 
 
-97
 98
 99
 100
 101
 102
-103</pre>
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_require_permission_rule!'>require_permission_rule!</span> <span class='id identifier rubyid_rule_id'>rule_id</span><span class='comma'>,</span> <span class='id identifier rubyid_action'>action</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_rule_id'>rule_id</span>
@@ -2126,12 +2128,12 @@
       <pre class="lines">
 
 
-105
 106
-107</pre>
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 106</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rule_class_name'>rule_class_name</span>
   <span class='id identifier rubyid_trunk'>trunk</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SetID</span> <span class='op'>?</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_trunk_name'>trunk_name</span><span class='period'>.</span><span class='id identifier rubyid_tag'>tag</span> <span class='op'>:</span> <span class='kw'>nil</span>
@@ -2156,16 +2158,16 @@
       <pre class="lines">
 
 
-254
 255
 256
 257
 258
 259
-260</pre>
+260
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 254</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 255</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_track_permission_errors'>track_permission_errors</span>
   <span class='ivar'>@permission_errors</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -2205,16 +2207,16 @@
       <pre class="lines">
 
 
-211
 212
 213
 214
 215
 216
-217</pre>
+217
+218</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 211</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 212</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_field_read_rules'>update_field_read_rules</span>
   <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_as_bot'><span class='object_link'><a href="../../Auth/Proxy.html#as_bot-instance_method" title="Card::Auth::Proxy#as_bot (method)">as_bot</a></span></span> <span class='kw'>do</span>
@@ -2243,12 +2245,12 @@
       <pre class="lines">
 
 
-50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_who_can'>who_can</span> <span class='id identifier rubyid_action'>action</span>
   <span class='id identifier rubyid_permission_rule_card'>permission_rule_card</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_item_cards'>item_cards</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:id</span><span class='rparen'>)</span>
@@ -2273,15 +2275,15 @@
       <pre class="lines">
 
 
-219
 220
 221
 222
 223
-224</pre>
+224
+225</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 219</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 220</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_without_timestamps'>without_timestamps</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_record_timestamps'>record_timestamps</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -2309,12 +2311,12 @@
       <pre class="lines">
 
 
-109
 110
-111</pre>
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/permissions.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_you_cant'>you_cant</span> <span class='id identifier rubyid_what'>what</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You don&#39;t have permission to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_what'>what</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -2329,7 +2331,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:42 2019 by
+  Generated on Mon May 20 08:33:33 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

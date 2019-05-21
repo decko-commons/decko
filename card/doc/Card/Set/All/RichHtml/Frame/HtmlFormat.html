@@ -334,17 +334,17 @@
       <pre class="lines">
 
 
-45
 46
 47
 48
 49
 50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/frame.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/frame.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_frame_and_form'>frame_and_form</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_form_opts'>form_opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_form_opts'>form_opts</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -374,12 +374,12 @@
       <pre class="lines">
 
 
-35
 36
-37</pre>
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/frame.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/frame.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_frame_header'>frame_header</span>
   <span class='id identifier rubyid__render_header'>_render_header</span>
@@ -404,14 +404,14 @@
       <pre class="lines">
 
 
-39
 40
 41
 42
-43</pre>
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/frame.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/frame.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_frame_help'>frame_help</span>
   <span class='id identifier rubyid_with_class_up'>with_class_up</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>help-text</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>alert alert-info</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -438,14 +438,14 @@
       <pre class="lines">
 
 
-54
 55
 56
 57
-58</pre>
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/frame.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/frame.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_panel'>panel</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>d0-card-frame</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -516,7 +516,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/frame.rb', line 9</span>
 
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:flash</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:flash</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_flash_notice'>flash_notice</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:flash</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="../../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_success'><span class='object_link'><a href="../../../../Env.html#success-class_method" title="Card::Env.success (method)">success</a></span></span><span class='period'>.</span><span class='id identifier rubyid_flash'>flash</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_flash_notice'>flash_notice</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_focal?'>focal?</span>
 
@@ -549,16 +549,18 @@
 30
 31
 32
-33</pre>
+33
+34</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/frame.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_frame'>with_frame</span> <span class='id identifier rubyid_slot'>slot</span><span class='op'>=</span><span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='op'>=</span><span class='id identifier rubyid_frame_header'>frame_header</span><span class='comma'>,</span> <span class='id identifier rubyid_slot_opts'>slot_opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_hide'>hide</span> <span class='symbol'>:help</span>
+  <span class='id identifier rubyid_add_name_context'>add_name_context</span>
   <span class='id identifier rubyid_wrap'>wrap</span> <span class='id identifier rubyid_slot'>slot</span><span class='comma'>,</span> <span class='id identifier rubyid_slot_opts'>slot_opts</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_panel'>panel</span> <span class='kw'>do</span>
-      <span class='lbracket'>[</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_frame_help'>frame_help</span><span class='comma'>,</span> <span class='id identifier rubyid__render'>_render</span><span class='lparen'>(</span><span class='symbol'>:flash</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='kw'>yield</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+      <span class='lbracket'>[</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_frame_help'>frame_help</span><span class='comma'>,</span> <span class='id identifier rubyid_render_flash'>render_flash</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='kw'>yield</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span><span class='rparen'>)</span><span class='rbracket'>]</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -572,7 +574,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:55 2019 by
+  Generated on Mon May 20 08:33:46 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

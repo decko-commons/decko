@@ -541,7 +541,8 @@
 77
 78
 79
-80</pre>
+80
+81</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod025-account/type/user.rb', line 76</span>
@@ -549,7 +550,8 @@
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:setup_first_user</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_store</span><span class='comma'>,</span>
       <span class='label'>on:</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='id identifier rubyid_proc'>proc</span> <span class='lbrace'>{</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:setup</span><span class='rbracket'>]</span> <span class='rbrace'>}</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_add_subcard'>add_subcard</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>signup alert email+*to</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>content:</span> <span class='id identifier rubyid_name'>name</span>
-  <span class='id identifier rubyid_add_subfield'>add_subfield</span> <span class='symbol'>:roles</span><span class='comma'>,</span> <span class='label'>content:</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='symbol'>:administrator</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='id identifier rubyid_add_subfield'>add_subfield</span> <span class='symbol'>:roles</span><span class='comma'>,</span>
+               <span class='label'>content:</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>help_desk</span><span class='words_sep'> </span><span class='tstring_content'>shark</span><span class='words_sep'> </span><span class='tstring_content'>administrator</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:cardname</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -571,13 +573,13 @@
       <pre class="lines">
 
 
-82
 83
 84
-85</pre>
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod025-account/type/user.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod025-account/type/user.rb', line 83</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:signin_after_setup</span><span class='comma'>,</span> <span class='symbol'>:integrate</span><span class='comma'>,</span>
       <span class='label'>on:</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='id identifier rubyid_proc'>proc</span> <span class='lbrace'>{</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:setup</span><span class='rbracket'>]</span> <span class='rbrace'>}</span> <span class='kw'>do</span>
@@ -631,7 +633,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:36 2019 by
+  Generated on Mon May 20 08:33:28 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

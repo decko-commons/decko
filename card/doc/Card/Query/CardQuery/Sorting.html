@@ -278,7 +278,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>EXPERIMENTAL!.</p>
+<p>EXPERIMENTAL! sort: { referred_to_by { right: “<em>follow“ }, return count }.</em></p>
 </div></span>
   
 </li>
@@ -323,9 +323,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>sort: { referred_to_by { right: “<em>follow“ }, return count }.</em></p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -621,7 +619,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>EXPERIMENTAL!</p>
+<p>EXPERIMENTAL! sort: { referred_to_by { right: “<em>follow“ }, return count }</em></p>
 
 
   </div>
@@ -707,33 +705,22 @@
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>sort: { referred_to_by { right: “<em>follow“ }, return count }</em></p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+33
+34
 35
 36
 37
 38
-39
-40
-41</pre>
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/query/card_query/sorting.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/card/query/card_query/sorting.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort_by_item_join'>sort_by_item_join</span> <span class='id identifier rubyid_val'>val</span><span class='comma'>,</span> <span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='id identifier rubyid_sort_field'>sort_field</span>
   <span class='id identifier rubyid_join_field'>join_field</span> <span class='op'>=</span> <span class='id identifier rubyid_sort_by_item_join_field'>sort_by_item_join_field</span> <span class='id identifier rubyid_item'>item</span>
@@ -762,12 +749,12 @@
       <pre class="lines">
 
 
-43
-44
-45</pre>
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/query/card_query/sorting.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/card/query/card_query/sorting.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort_by_item_join_field'>sort_by_item_join_field</span> <span class='id identifier rubyid_item'>item</span>
   <span class='const'><span class='object_link'><a href="#SORT_BY_ITEM_JOIN_MAP-constant" title="Card::Query::CardQuery::Sorting::SORT_BY_ITEM_JOIN_MAP (constant)">SORT_BY_ITEM_JOIN_MAP</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_sort_method_not_implemented'>sort_method_not_implemented</span><span class='lparen'>(</span><span class='symbol'>:join</span><span class='comma'>,</span> <span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
@@ -834,7 +821,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:29 2019 by
+  Generated on Mon May 20 08:33:21 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

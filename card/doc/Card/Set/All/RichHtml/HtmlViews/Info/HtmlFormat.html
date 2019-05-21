@@ -106,6 +106,50 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#all_views-instance_method" title="#all_views (instance method)">#<strong>all_views</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#demo_view-instance_method" title="#demo_view (instance method)">#<strong>demo_view</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#view:+change-instance_method" title="#view: change (instance method)">#<strong>view: change</strong>  &#x21d2; Object </a>
     
 
@@ -128,7 +172,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#view:+last_action-instance_method" title="#view: last_action (instance method)">#<strong>view: last_action</strong>  &#x21d2; Object </a>
+      <a href="#view:+demo-instance_method" title="#view: demo (instance method)">#<strong>view: demo</strong>  &#x21d2; Object </a>
     
 
     
@@ -150,7 +194,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#view:+overview-instance_method" title="#view: overview (instance method)">#<strong>view: overview</strong>  &#x21d2; Object </a>
+      <a href="#view:+last_action-instance_method" title="#view: last_action (instance method)">#<strong>view: last_action</strong>  &#x21d2; Object </a>
     
 
     
@@ -216,7 +260,51 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#view:+viewer-instance_method" title="#view: viewer (instance method)">#<strong>view: viewer</strong>  &#x21d2; Object </a>
+      <a href="#view:+view_list-instance_method" title="#view: view_list (instance method)">#<strong>view: view_list</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view_demo-instance_method" title="#view_demo (instance method)">#<strong>view_demo</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view_select-instance_method" title="#view_select (instance method)">#<strong>view_select</strong>  &#x21d2; Object </a>
     
 
     
@@ -246,7 +334,71 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="view: change-instance_method">
+  <h3 class="signature first" id="all_views-instance_method">
+  
+    #<strong>all_views</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88
+89
+90</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/info.rb', line 86</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_all_views'>all_views</span>
+  <span class='const'><span class='object_link'><a href="../../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Format.html" title="Card::Set::Format (module)">Format</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Format/AbstractFormat.html" title="Card::Set::Format::AbstractFormat (module)">AbstractFormat</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Format/AbstractFormat/ViewDefinition.html" title="Card::Set::Format::AbstractFormat::ViewDefinition (module)">ViewDefinition</a></span></span><span class='period'>.</span><span class='id identifier rubyid_views'>views</span>
+                                                   <span class='period'>.</span><span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='op'>*</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_ancestors'>ancestors</span><span class='rparen'>)</span>
+                                                   <span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:keys</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="demo_view-instance_method">
+  
+    #<strong>demo_view</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+69
+70
+71</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/info.rb', line 69</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_demo_view'>demo_view</span>
+  <span class='const'><span class='object_link'><a href="../../../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:demo_view</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='symbol'>:core</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: change-instance_method">
   
     #<strong>view: change</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -280,6 +432,46 @@
     <span class='lbracket'>[</span><span class='id identifier rubyid__render_title'>_render_title</span><span class='comma'>,</span>
      <span class='id identifier rubyid__render_menu'>_render_menu</span><span class='comma'>,</span>
      <span class='id identifier rubyid__render_last_action'>_render_last_action</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: demo-instance_method">
+  
+    #<strong>view: demo</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+60
+61
+62
+63
+64
+65
+66
+67</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/info.rb', line 60</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:demo</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_frame'>frame</span> <span class='kw'>do</span>
+    <span class='lbracket'>[</span>
+      <span class='id identifier rubyid_view_select'>view_select</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span><span class='symbol'>:div</span><span class='comma'>,</span> <span class='id identifier rubyid_view_demo'>view_demo</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>demo-slot</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='rbracket'>]</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -356,40 +548,6 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="view: overview-instance_method">
-  
-    #<strong>view: overview</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-54
-55
-56
-57
-58</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/info.rb', line 54</span>
-
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:overview</span> <span class='kw'>do</span>
-  <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>bar</span><span class='words_sep'> </span><span class='tstring_content'>box</span><span class='words_sep'> </span><span class='tstring_content'>info_bar</span><span class='words_sep'> </span><span class='tstring_content'>open</span><span class='words_sep'> </span><span class='tstring_content'>closed</span><span class='words_sep'> </span><span class='tstring_content'>titled</span><span class='words_sep'> </span><span class='tstring_content'>labeled</span><span class='words_sep'> </span><span class='tstring_content'>content</span><span class='words_sep'> </span><span class='tstring_content'>content_panel</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
-    <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:p</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span><span class='symbol'>:h3</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_render'>render</span><span class='lparen'>(</span><span class='id identifier rubyid_v'>v</span><span class='comma'>,</span> <span class='label'>show:</span> <span class='symbol'>:menu</span><span class='rparen'>)</span><span class='rbracket'>]</span>
-  <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="view: type-instance_method">
   
     #<strong>view: type</strong>  &#x21d2; <tt>Object</tt> 
@@ -458,9 +616,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="view: viewer-instance_method">
+  <h3 class="signature " id="view: view_list-instance_method">
   
-    #<strong>view: viewer</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>view: view_list</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -472,19 +630,89 @@
       <pre class="lines">
 
 
-60
-61
-62
-63
-64</pre>
+54
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/info.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/info.rb', line 54</span>
 
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:viewer</span> <span class='kw'>do</span>
-  <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>bar</span><span class='words_sep'> </span><span class='tstring_content'>box</span><span class='words_sep'> </span><span class='tstring_content'>info_bar</span><span class='words_sep'> </span><span class='tstring_content'>open</span><span class='words_sep'> </span><span class='tstring_content'>closed</span><span class='words_sep'> </span><span class='tstring_content'>labeled</span><span class='words_sep'> </span><span class='tstring_content'>titled</span><span class='words_sep'> </span><span class='tstring_content'>content</span><span class='words_sep'> </span><span class='tstring_content'>content_panel</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:view_list</span> <span class='kw'>do</span>
+  <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>bar</span><span class='words_sep'> </span><span class='tstring_content'>box</span><span class='words_sep'> </span><span class='tstring_content'>info_bar</span><span class='words_sep'> </span><span class='tstring_content'>open</span><span class='words_sep'> </span><span class='tstring_content'>closed</span><span class='words_sep'> </span><span class='tstring_content'>titled</span><span class='words_sep'> </span><span class='tstring_content'>labeled</span><span class='words_sep'> </span><span class='tstring_content'>content</span><span class='words_sep'> </span><span class='tstring_content'>content_panel</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
     <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:p</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span><span class='symbol'>:h3</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_render'>render</span><span class='lparen'>(</span><span class='id identifier rubyid_v'>v</span><span class='comma'>,</span> <span class='label'>show:</span> <span class='symbol'>:menu</span><span class='rparen'>)</span><span class='rbracket'>]</span>
   <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view_demo-instance_method">
+  
+    #<strong>view_demo</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+73
+74
+75
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/info.rb', line 73</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_view_demo'>view_demo</span>
+  <span class='id identifier rubyid_wrap'>wrap</span><span class='lparen'>(</span><span class='kw'>true</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_render'>render</span> <span class='id identifier rubyid_demo_view'>demo_view</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view_select-instance_method">
+  
+    #<strong>view_select</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+79
+80
+81
+82
+83
+84</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/rich_html/html_views/info.rb', line 79</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_view_select'>view_select</span>
+  <span class='id identifier rubyid_card_form'>card_form</span> <span class='symbol'>:get</span><span class='comma'>,</span> <span class='label'>success:</span> <span class='lbrace'>{</span> <span class='label'>view:</span> <span class='symbol'>:demo</span> <span class='rbrace'>}</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_select_tag'>select_tag</span> <span class='symbol'>:demo_view</span><span class='comma'>,</span> <span class='id identifier rubyid_options_for_select'>options_for_select</span><span class='lparen'>(</span><span class='id identifier rubyid_all_views'>all_views</span><span class='comma'>,</span> <span class='id identifier rubyid_demo_view'>demo_view</span><span class='rparen'>)</span><span class='comma'>,</span>
+               <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_submit-on-select</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -496,7 +724,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:28:02 2019 by
+  Generated on Mon May 20 08:33:52 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
