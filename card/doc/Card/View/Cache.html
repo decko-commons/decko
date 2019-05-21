@@ -131,9 +131,9 @@
 <p>If a view contains any of the following cache hazards, it would be wise to consider a <code>cache: :never</code> configuration:</p>
 
 <ul>
-<li>a dynamic search (eg <code>Card.search</code>) whose results may change</li>
+<li>dynamic searches (eg <code>Card.search</code>) whose results may change</li>
 
-<li>a live timestamp (eg <code>Time.now</code>)</li>
+<li>live timestamps (eg <code>Time.now</code>)</li>
 
 <li>environmental variables (eg <code>Env.params</code>)</li>
 
@@ -155,7 +155,7 @@
 </span>   <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:y</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_render_x'>render_x</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEF</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
 
    <span class='comment'># unsafe and thus never cached, because x is altered
-</span>   <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:z</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_render_z'>render_z</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span> <span class='rbrace'>}</span></code></pre>
+</span>   <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:z</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_render_x'>render_x</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span> <span class='rbrace'>}</span></code></pre>
 
 <p>Specifically, the danger is that the inner view will be rendered as a stub, and the out view will end up altering the stub and not the view.</p>
 
@@ -284,16 +284,11 @@
   
   
   
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="Cache/CacheAction.html" title="Card::View::Cache::CacheAction (module)">CacheAction</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Cache/CacheAction.html#permission_task-instance_method" title="Card::View::Cache::CacheAction#permission_task (method)">#permission_task</a></span></p>
-
 
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:25 2019 by
+  Generated on Mon May 20 08:33:18 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

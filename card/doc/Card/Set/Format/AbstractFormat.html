@@ -373,12 +373,12 @@
       <pre class="lines">
 
 
-86
-87
-88</pre>
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_before'>before</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_before_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view'>view</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
@@ -432,12 +432,12 @@
       <pre class="lines">
 
 
-116
-117
-118</pre>
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_module'>set_module</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>::</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='op'>-</span><span class='int'>2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>::</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -502,16 +502,16 @@
       <pre class="lines">
 
 
-102
-103
-104
-105
-106
-107
-108</pre>
+108
+109
+110
+111
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setting'>setting</span> <span class='id identifier rubyid_name'>name</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Format.html" title="Card::Set::Format (module)">Format</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Set::Format::AbstractFormat (module)">AbstractFormat</a></span></span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span> <span class='symbol'>:define_method</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='kw'>do</span> <span class='op'>|</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='op'>|</span>
@@ -551,12 +551,12 @@
       <pre class="lines">
 
 
-111
-112
-113</pre>
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_source_location'>source_location</span>
   <span class='id identifier rubyid_set_module'>set_module</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span>
@@ -615,7 +615,7 @@ view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
 <li><em>:never</em> - don’t ever cache this view. Frequently used to prevent caching problems</li>
 </ul>
 
-<p><span class='object_link'><a href="../../View/Cache.html" title="Card::View::Cache (module)">Learn more about caching</a></span></p>
+<p>You should certainly <span class='object_link'><a href="../../View/Cache.html" title="Card::View::Cache (module)">learn more about caching</a></span> if you want to develop mods that are safe in a caching environment.</p>
 </li>
 
 <li>
@@ -623,7 +623,7 @@ view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
 </li>
 
 <li>
-<p><strong>:denial</strong> view to render if permission is denied. Value can be any viewname. Default is <code>:denial</code>. <code>:blank</code> is a common alternative.</p>
+<p><strong>:denial</strong> [Symbol]. View to render if permission is denied. Value can be any viewname. Default is <code>:denial</code>. <code>:blank</code> is a common alternative.</p>
 </li>
 
 <li>
@@ -634,7 +634,7 @@ view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
 
 <li><em>:none</em> - no permission check; anyone can view</li>
 
-<li>a <em>Proc</em> object. Eg <code>perms: -&gt;(_r) { Auth.needs_setup? }</code></li>
+<li>a <em>Proc</em> object. Eg <code>perms: -&gt;(_fmt) { Auth.needs_setup? }</code></li>
 </ul>
 </li>
 
@@ -643,7 +643,7 @@ view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
 </li>
 
 <li>
-<p><strong>:unknown</strong> [True/False]. view can be rendered even if card name is unknown</p>
+<p><strong>:unknown</strong> [True/False, Symbol]. Configures handling of “unknown” cards. (See <span class='object_link'><a href="../All/States.html" title="Card::Set::All::States (module)">card states</a></span>). Supported values: * <em>true</em> render view even if card is unknown * <em>false</em> default unknown handling (depends on context, create permissions, etc) * a <em>Symbol</em>: name of view to render</p>
 </li>
 
 <li>
@@ -667,13 +667,13 @@ view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
       <pre class="lines">
 
 
-72
-73
-74
-75</pre>
+78
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view'>view</span> <span class='id identifier rubyid_viewname'>viewname</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_def_opts'>def_opts</span> <span class='op'>=</span> <span class='id identifier rubyid_process_view_opts'>process_view_opts</span> <span class='id identifier rubyid_viewname'>viewname</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
@@ -710,15 +710,15 @@ view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
       <pre class="lines">
 
 
-78
-79
-80
-81
-82
-83</pre>
+84
+85
+86
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view_for_override'>view_for_override</span> <span class='id identifier rubyid_viewname'>viewname</span>
   <span class='comment'># LOCALIZE
@@ -736,7 +736,7 @@ view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:29 2019 by
+  Generated on Mon May 20 08:33:22 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

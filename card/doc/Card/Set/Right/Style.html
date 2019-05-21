@@ -221,6 +221,28 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ok_to_read-instance_method" title="#ok_to_read (instance method)">#<strong>ok_to_read</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -404,12 +426,12 @@
       <pre class="lines">
 
 
-57
-58
-59</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/style.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/style.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_customize_theme?'>customize_theme?</span>
   <span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:customize</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='ivar'>@theme</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:theme</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -434,14 +456,14 @@
       <pre class="lines">
 
 
-42
-43
-44
-45
-46</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/style.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/style.rb', line 46</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:customize_theme</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='symbol'>:customize_theme?</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_skin_name'>skin_name</span> <span class='op'>=</span> <span class='id identifier rubyid_free_skin_name'>free_skin_name</span>
@@ -468,17 +490,17 @@
       <pre class="lines">
 
 
-48
-49
-50
-51
 52
 53
 54
-55</pre>
+55
+56
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/style.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/style.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_free_skin_name'>free_skin_name</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@theme</span><span class='embexpr_end'>}</span><span class='tstring_content'> skin customized</span><span class='tstring_end'>&quot;</span></span>
@@ -493,12 +515,42 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="ok_to_read-instance_method">
+  
+    #<strong>ok_to_read</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/style.rb', line 13</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ok_to_read'>ok_to_read</span>
+  <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:42 2019 by
+  Generated on Mon May 20 08:33:34 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

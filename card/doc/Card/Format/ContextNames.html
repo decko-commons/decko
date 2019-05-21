@@ -88,7 +88,20 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Contextual names make titles less noisy by not rendering redundant name parts</p>
 
+<p>For example, in the context of “Ball”, “Ball+size” is rendered as just “+size”</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -142,7 +155,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>TODO: stop this lazy loading the combo of lazy loading + format ancestry navigation + caching is dangerous Long term, it would probably be smarter to handle this in the voo.</p>
+</div></span>
   
 </li>
 
@@ -197,6 +212,28 @@
   <span class="summary_signature">
     
       <a href="#initial_context_names-instance_method" title="#initial_context_names (instance method)">#<strong>initial_context_names</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#naming-instance_method" title="#naming (instance method)">#<strong>naming</strong>(name = nil)  &#x21d2; Object </a>
     
 
     
@@ -283,13 +320,13 @@
       <pre class="lines">
 
 
-32
-33
-34
-35</pre>
+44
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_name_context'>add_name_context</span> <span class='id identifier rubyid_name'>name</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>||=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
@@ -309,18 +346,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>the combo of lazy loading + format ancestry navigation + caching is dangerous Long term, it would probably be smarter to handle this in the voo.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-4
-5
-6</pre>
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_context_names'>context_names</span>
   <span class='ivar'>@context_names</span> <span class='op'>||=</span> <span class='id identifier rubyid_initial_context_names'>initial_context_names</span>
@@ -356,14 +404,14 @@
       <pre class="lines">
 
 
-20
-21
-22
-23
-24</pre>
+32
+33
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_context_names_from_params'>context_names_from_params</span>
   <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_name_list'>name_list</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_slot_opts'><span class='object_link'><a href="../Env.html#slot_opts-class_method" title="Card::Env.slot_opts (method)">slot_opts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:name_context</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -390,14 +438,14 @@
       <pre class="lines">
 
 
-26
-27
-28
-29
-30</pre>
+38
+39
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_context_names_to_params'>context_names_to_params</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_context_names'>context_names</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -424,19 +472,53 @@
       <pre class="lines">
 
 
-8
-9
-10
-11
-12</pre>
+20
+21
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initial_context_names'>initial_context_names</span>
   <span class='ivar'>@initial_context_names</span> <span class='op'>||=</span> <span class='id identifier rubyid_relevant_context_names'>relevant_context_names</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_parent'>parent</span> <span class='op'>?</span> <span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_context_names'>context_names</span> <span class='op'>:</span> <span class='id identifier rubyid_context_names_from_params'>context_names_from_params</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="naming-instance_method">
+  
+    #<strong>naming</strong>(name = nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+7
+8
+9
+10
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 7</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_naming'>naming</span> <span class='id identifier rubyid_name'>name</span><span class='op'>=</span><span class='kw'>nil</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='kw'>yield</span>
+  <span class='id identifier rubyid_add_name_context'>add_name_context</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='id identifier rubyid_result'>result</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -458,13 +540,13 @@
       <pre class="lines">
 
 
-14
-15
-16
-17</pre>
+26
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_relevant_context_names'>relevant_context_names</span>
   <span class='id identifier rubyid_part_keys'>part_keys</span> <span class='op'>=</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_part_names'>part_names</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:key</span><span class='rparen'>)</span>
@@ -490,15 +572,15 @@
       <pre class="lines">
 
 
-37
-38
-39
-40
-41
-42</pre>
+49
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_title_in_context'>title_in_context</span> <span class='id identifier rubyid_title'>title</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_keep_safe'>keep_safe</span> <span class='op'>=</span> <span class='id identifier rubyid_title'>title</span><span class='op'>&amp;.</span><span class='id identifier rubyid_html_safe?'>html_safe?</span>
@@ -516,7 +598,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:28 2019 by
+  Generated on Mon May 20 08:33:20 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
