@@ -158,28 +158,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#advanced_filter_keys-instance_method" title="#advanced_filter_keys (instance method)">#<strong>advanced_filter_keys</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#all_filter_keys-instance_method" title="#all_filter_keys (instance method)">#<strong>all_filter_keys</strong>  &#x21d2; Object </a>
     
 
@@ -592,37 +570,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="advanced_filter_keys-instance_method">
-  
-    #<strong>advanced_filter_keys</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-47
-48
-49</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 47</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_advanced_filter_keys'>advanced_filter_keys</span>
-  <span class='lbracket'>[</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="all_filter_keys-instance_method">
+  <h3 class="signature first" id="all_filter_keys-instance_method">
   
     #<strong>all_filter_keys</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -647,15 +595,15 @@
       <pre class="lines">
 
 
-52
-53
-54</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_filter_keys'>all_filter_keys</span>
-  <span class='ivar'>@all_filter_keys</span> <span class='op'>||=</span> <span class='id identifier rubyid_filter_keys_from_params'>filter_keys_from_params</span> <span class='op'>|</span> <span class='id identifier rubyid_filter_keys'>filter_keys</span> <span class='op'>|</span> <span class='id identifier rubyid_advanced_filter_keys'>advanced_filter_keys</span>
+  <span class='ivar'>@all_filter_keys</span> <span class='op'>||=</span> <span class='id identifier rubyid_filter_keys_from_params'>filter_keys_from_params</span> <span class='op'>|</span> <span class='id identifier rubyid_filter_keys'>filter_keys</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -739,12 +687,12 @@
       <pre class="lines">
 
 
-131
-132
-133</pre>
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 136</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_sort_option'>default_sort_option</span>
   <span class='id identifier rubyid_wql_from_content'>wql_from_content</span><span class='lbracket'>[</span><span class='symbol'>:sort</span><span class='rbracket'>]</span>
@@ -829,12 +777,12 @@
       <pre class="lines">
 
 
-56
-57
-58</pre>
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_keys'>filter_keys</span>
   <span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
@@ -859,12 +807,12 @@
       <pre class="lines">
 
 
-60
-61
-62</pre>
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_keys_from_params'>filter_keys_from_params</span>
   <span class='id identifier rubyid_filter_hash'>filter_hash</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_sym</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='lbracket'>[</span><span class='symbol'>:not_ids</span><span class='rbracket'>]</span>
@@ -1036,7 +984,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:50 2019 by
+  Generated on Mon May 20 08:33:41 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

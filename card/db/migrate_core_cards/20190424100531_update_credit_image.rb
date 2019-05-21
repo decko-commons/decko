@@ -66,7 +66,7 @@ class UpdateCreditImage < Card::Migration::Core
   end
 
   def up
-    credit = Card[:credit_image]
+    credit = ensure_card "*credit_image", codename: :credit_image
 
     return unless credit&.pristine?
     credit.update type_id: Card::HtmlID,

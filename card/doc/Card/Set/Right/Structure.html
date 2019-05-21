@@ -470,14 +470,14 @@
       <pre class="lines">
 
 
-30
-31
-32
-33
-34</pre>
+35
+36
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 35</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:reset_cache_to_use_new_structure</span><span class='comma'>,</span>
       <span class='label'>before:</span> <span class='symbol'>:update_structurees_references</span> <span class='kw'>do</span>
@@ -504,17 +504,17 @@
       <pre class="lines">
 
 
-17
-18
-19
-20
-21
 22
 23
-24</pre>
+24
+25
+26
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 22</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:update_structurees_references</span><span class='comma'>,</span> <span class='symbol'>:integrate</span><span class='comma'>,</span>
       <span class='label'>when:</span> <span class='symbol'>:update_structurees_references?</span> <span class='kw'>do</span>
@@ -544,13 +544,13 @@
       <pre class="lines">
 
 
-36
-37
-38
-39</pre>
+41
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 41</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:update_structurees_type</span><span class='comma'>,</span> <span class='symbol'>:finalize</span><span class='comma'>,</span>
       <span class='label'>changed:</span> <span class='symbol'>:type_id</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='id identifier rubyid_proc'>proc</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_assigns_type?'>assigns_type?</span> <span class='rbrace'>}</span> <span class='kw'>do</span>
@@ -576,16 +576,16 @@
       <pre class="lines">
 
 
-41
-42
-43
-44
-45
 46
-47</pre>
+47
+48
+49
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_structuree_names'>structuree_names</span>
   <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='id identifier rubyid_structuree_query'>structuree_query</span><span class='lparen'>(</span><span class='label'>return:</span> <span class='symbol'>:name</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -614,15 +614,15 @@
       <pre class="lines">
 
 
-63
-64
-65
-66
-67
-68</pre>
+68
+69
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_structuree_query'>structuree_query</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_set_card'>set_card</span> <span class='op'>=</span> <span class='id identifier rubyid_trunk'>trunk</span>
@@ -650,11 +650,6 @@
       <pre class="lines">
 
 
-49
-50
-51
-52
-53
 54
 55
 56
@@ -662,10 +657,15 @@
 58
 59
 60
-61</pre>
+61
+62
+63
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_structurees'>update_structurees</span> <span class='id identifier rubyid_args'>args</span>
   <span class='comment'># note that this is not smart about overriding templating rules
@@ -722,12 +722,12 @@
       <pre class="lines">
 
 
-26
-27
-28</pre>
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod015-settings/right/structure.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_structurees_references?'>update_structurees_references?</span>
   <span class='id identifier rubyid_db_content_changed?'>db_content_changed?</span> <span class='op'>||</span> <span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:delete</span>
@@ -742,7 +742,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:49 2019 by
+  Generated on Mon May 20 08:33:40 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

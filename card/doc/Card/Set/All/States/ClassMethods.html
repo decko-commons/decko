@@ -83,7 +83,26 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>based on the names. - <em>unknown</em> cards are everything else.</p>
 
+<p>These states are frequently grouped as follows:</p>
+
+<ul>
+<li><em>known</em> cards are either <em>real</em> or <em>virtual</em></li>
+
+<li><em>new</em> (or <em>unreal</em>) cards are either <em>unknown</em> or <em>virtual</em></li>
+</ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -101,11 +120,9 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#exists%3F-instance_method" title="#exists? (instance method)">#<strong>exists?</strong>(mark)  &#x21d2; Boolean </a>
+      <a href="#known%3F-instance_method" title="#known? (instance method)">#<strong>known?</strong>(mark)  &#x21d2; Boolean </a>
     
 
-    
-      (also: #exist?)
     
   </span>
   
@@ -125,9 +142,11 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#known%3F-instance_method" title="#known? (instance method)">#<strong>known?</strong>(mark)  &#x21d2; Boolean </a>
+      <a href="#real%3F-instance_method" title="#real? (instance method)">#<strong>real?</strong>(mark)  &#x21d2; Boolean </a>
     
 
+    
+      (also: #exist?, #exists?)
     
   </span>
   
@@ -154,65 +173,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="exists?-instance_method">
-  
-    #<strong>exists?</strong>(mark)  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-    <span class="aliases">Also known as:
-    <span class="names"><span id='exist?-instance_method'>exist?</span></span>
-    </span>
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-9
-10
-11
-12</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/states.rb', line 9</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_exists?'>exists?</span> <span class='id identifier rubyid_mark'>mark</span>
-  <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span> <span class='id identifier rubyid_mark'>mark</span>
-  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="known?-instance_method">
+  <h3 class="signature first" id="known?-instance_method">
   
     #<strong>known?</strong>(mark)  &#x21d2; <tt>Boolean</tt> 
   
@@ -248,17 +209,71 @@
       <pre class="lines">
 
 
-15
-16
-17
-18</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/states.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/states.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_known?'>known?</span> <span class='id identifier rubyid_mark'>mark</span>
-  <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+  <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="real?-instance_method">
+  
+    #<strong>real?</strong>(mark)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='exist?-instance_method'>exist?</span>, <span id='exists?-instance_method'>exists?</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/states.rb', line 24</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_real?'>real?</span> <span class='id identifier rubyid_mark'>mark</span>
+  <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -270,7 +285,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:35 2019 by
+  Generated on Mon May 20 08:33:27 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

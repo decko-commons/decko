@@ -471,6 +471,10 @@ textarea {
   }
 }
 
+.filtering .filterable {
+  cursor: pointer;
+}
+
 .search-checkbox-item .checkbox-side {
   width: 32px;
 }

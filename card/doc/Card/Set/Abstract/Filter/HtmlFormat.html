@@ -106,6 +106,50 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#active_filter%3F-instance_method" title="#active_filter? (instance method)">#<strong>active_filter?</strong>(field)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#default_filter%3F-instance_method" title="#default_filter? (instance method)">#<strong>default_filter?</strong>(field)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#filter_action_path-instance_method" title="#filter_action_path (instance method)">#<strong>filter_action_path</strong>  &#x21d2; Object </a>
     
 
@@ -260,28 +304,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#show_filter_field%3F-instance_method" title="#show_filter_field? (instance method)">#<strong>show_filter_field?</strong>(field)  &#x21d2; Boolean </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#sort_options-instance_method" title="#sort_options (instance method)">#<strong>sort_options</strong>  &#x21d2; Object </a>
     
 
@@ -356,7 +378,119 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="filter_action_path-instance_method">
+  <h3 class="signature first" id="active_filter?-instance_method">
+  
+    #<strong>active_filter?</strong>(field)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80
+81
+82
+83
+84</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_active_filter?'>active_filter?</span> <span class='id identifier rubyid_field'>field</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_filter_keys_from_params'>filter_keys_from_params</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+    <span class='id identifier rubyid_filter_hash'>filter_hash</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span> <span class='id identifier rubyid_field'>field</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_default_filter?'>default_filter?</span> <span class='id identifier rubyid_field'>field</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="default_filter?-instance_method">
+  
+    #<strong>default_filter?</strong>(field)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 86</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_default_filter?'>default_filter?</span> <span class='id identifier rubyid_field'>field</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_default_filter_option'>default_filter_option</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="filter_action_path-instance_method">
   
     #<strong>filter_action_path</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -370,12 +504,12 @@
       <pre class="lines">
 
 
-99
-100
-101</pre>
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_action_path'>filter_action_path</span>
   <span class='id identifier rubyid_path'>path</span>
@@ -400,14 +534,14 @@
       <pre class="lines">
 
 
-67
-68
-69
-70
-71</pre>
+63
+64
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_fields'>filter_fields</span> <span class='label'>slot_selector:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>sort_field:</span> <span class='kw'>nil</span>
   <span class='id identifier rubyid_form_args'>form_args</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>action:</span> <span class='id identifier rubyid_filter_action_path'>filter_action_path</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>slotter</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
@@ -465,14 +599,14 @@
       <pre class="lines">
 
 
-110
-111
-112
-113
-114</pre>
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_form'>filter_form</span> <span class='id identifier rubyid_data'>data</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_sort_input_field'>sort_input_field</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_form_args'>form_args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:filter_form</span><span class='comma'>,</span> <span class='label'>categories:</span> <span class='id identifier rubyid_data'>data</span><span class='comma'>,</span>
@@ -499,22 +633,24 @@
       <pre class="lines">
 
 
+69
+70
+71
+72
 73
 74
 75
-76
-77
-78
-79</pre>
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_form_data'>filter_form_data</span>
   <span class='id identifier rubyid_all_filter_keys'>all_filter_keys</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_cat'>cat</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='op'>|</span>
     <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_cat'>cat</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>label:</span> <span class='id identifier rubyid_filter_label'>filter_label</span><span class='lparen'>(</span><span class='id identifier rubyid_cat'>cat</span><span class='rparen'>)</span><span class='comma'>,</span>
                <span class='label'>input_field:</span> <span class='id identifier rubyid__render'>_render</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>filter_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_cat'>cat</span><span class='embexpr_end'>}</span><span class='tstring_content'>_formgroup</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
-               <span class='label'>active:</span> <span class='id identifier rubyid_show_filter_field?'>show_filter_field?</span><span class='lparen'>(</span><span class='id identifier rubyid_cat'>cat</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+               <span class='label'>active:</span> <span class='id identifier rubyid_active_filter?'>active_filter?</span><span class='lparen'>(</span><span class='id identifier rubyid_cat'>cat</span><span class='rparen'>)</span><span class='comma'>,</span>
+               <span class='label'>default:</span> <span class='id identifier rubyid_default_filter?'>default_filter?</span><span class='lparen'>(</span><span class='id identifier rubyid_cat'>cat</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -537,19 +673,19 @@
       <pre class="lines">
 
 
-85
-86
-87
-88
-89</pre>
+90
+91
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_label'>filter_label</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Keyword</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>==</span> <span class='symbol'>:name</span>
-
-  <span class='id identifier rubyid_filter_label_from_method'>filter_label_from_method</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_filter_label_from_name'>filter_label_from_name</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
+  <span class='comment'># return &quot;Keyword&quot; if field.to_sym == :name
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_filter_label_from_method'>filter_label_from_method</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_filter_label_from_name'>filter_label_from_name</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -571,12 +707,12 @@
       <pre class="lines">
 
 
-91
-92
-93</pre>
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_label_from_method'>filter_label_from_method</span> <span class='id identifier rubyid_field'>field</span>
   <span class='id identifier rubyid_try'>try</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='embexpr_end'>}</span><span class='tstring_content'>_filter_label</span><span class='tstring_end'>&quot;</span></span>
@@ -601,67 +737,15 @@
       <pre class="lines">
 
 
-95
-96
-97</pre>
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_label_from_name'>filter_label_from_name</span> <span class='id identifier rubyid_field'>field</span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_name'>fetch_name</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_capitalize'>capitalize</span> <span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="show_filter_field?-instance_method">
-  
-    #<strong>show_filter_field?</strong>(field)  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-81
-82
-83</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 81</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_show_filter_field?'>show_filter_field?</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='id identifier rubyid_filter_hash'>filter_hash</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='id identifier rubyid_filter_hash'>filter_hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_field'>field</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_default_filter_option'>default_filter_option</span><span class='lbracket'>[</span><span class='id identifier rubyid_field'>field</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -683,15 +767,15 @@
       <pre class="lines">
 
 
-116
-117
-118
-119
-120
-121</pre>
+121
+122
+123
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort_options'>sort_options</span>
   <span class='lbrace'>{</span>
@@ -719,13 +803,13 @@
       <pre class="lines">
 
 
-103
-104
-105
-106</pre>
+108
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 108</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:filter_form</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_filter_fields'>filter_fields</span> <span class='label'>slot_selector:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>._filter-result-slot</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -751,15 +835,15 @@
       <pre class="lines">
 
 
-123
-124
-125
-126
-127
-128</pre>
+128
+129
+130
+131
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/03_filter.rb', line 128</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:sort_formgroup</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_select_tag'>select_tag</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sort</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -777,7 +861,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:50 2019 by
+  Generated on Mon May 20 08:33:41 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

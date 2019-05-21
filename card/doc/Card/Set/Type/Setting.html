@@ -103,7 +103,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Setting/DataFormat.html" title="Card::Set::Type::Setting::DataFormat (module)">DataFormat</a></span>, <span class='object_link'><a href="Setting/Format.html" title="Card::Set::Type::Setting::Format (module)">Format</a></span>, <span class='object_link'><a href="Setting/JsonFormat.html" title="Card::Set::Type::Setting::JsonFormat (module)">JsonFormat</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Setting/DataFormat.html" title="Card::Set::Type::Setting::DataFormat (module)">DataFormat</a></span>, <span class='object_link'><a href="Setting/HtmlFormat.html" title="Card::Set::Type::Setting::HtmlFormat (module)">HtmlFormat</a></span>, <span class='object_link'><a href="Setting/JsonFormat.html" title="Card::Set::Type::Setting::JsonFormat (module)">JsonFormat</a></span>
     
   
     
@@ -422,9 +422,9 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_classes_with_rules'>set_classes_with_rules</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_set_patterns'>set_patterns</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_set_class'>set_class</span><span class='op'>|</span>
-    <span class='id identifier rubyid_wql'>wql</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>left:</span>  <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SetID</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='id identifier rubyid_wql'>wql</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>left:</span> <span class='lbrace'>{</span> <span class='label'>type:</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SetID</span> <span class='rbrace'>}</span><span class='comma'>,</span>
             <span class='label'>right:</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
-            <span class='label'>sort:</span>  <span class='qwords_beg'>%w[</span><span class='tstring_content'>content</span><span class='words_sep'> </span><span class='tstring_content'>name</span><span class='words_sep'>]</span><span class='comma'>,</span>
+            <span class='label'>sort:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>content</span><span class='words_sep'> </span><span class='tstring_content'>name</span><span class='words_sep'>]</span><span class='comma'>,</span>
             <span class='label'>limit:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
     <span class='id identifier rubyid_wql'>wql</span><span class='lbracket'>[</span><span class='symbol'>:left</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_set_class'>set_class</span><span class='period'>.</span><span class='id identifier rubyid_anchorless?'>anchorless?</span> <span class='op'>?</span> <span class='symbol'>:id</span> <span class='op'>:</span> <span class='symbol'>:right_id</span><span class='rparen'>)</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_set_class'>set_class</span><span class='period'>.</span><span class='id identifier rubyid_pattern_id'>pattern_id</span>
 
@@ -442,7 +442,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:44 2019 by
+  Generated on Mon May 20 08:33:36 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

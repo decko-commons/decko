@@ -291,13 +291,15 @@ and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
 111
 112
 113
-114</pre>
+114
+115</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_cardish'>cardish</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_cardish'>cardish</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_slotterify'>slotterify</span> <span class='id identifier rubyid_opts'>opts</span> <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:slotter</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_add_known_or_wanted_class'>add_known_or_wanted_class</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span>
   <span class='kw'>super</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span> <span class='op'>||</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
 <span class='kw'>end</span></pre>
@@ -375,18 +377,16 @@ and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
       <pre class="lines">
 
 
-117
 118
 119
 120
 121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_view'>link_to_view</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_reverse_merge!'>reverse_merge!</span> <span class='label'>remote:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>rel:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nofollow</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>slotter</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_slotterify'>slotterify</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='kw'>super</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span> <span class='op'>||</span> <span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -399,7 +399,7 @@ and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:38 2019 by
+  Generated on Mon May 20 08:33:30 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
