@@ -71,11 +71,5 @@ class Card
       return unless name.present?
       @filter_wql[:name] = ["match", name]
     end
-
-    # FIXME: move to wikirate
-    def project_wql project
-      return unless project.present?
-      @filter_wql[:referred_to_by] << { left: { name: project } }
-    end
   end
 end
