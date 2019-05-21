@@ -21,12 +21,34 @@ format :html do
   end
 
   def text_filter field, opts={}
-    name = filter_name field
+    text_filter_with_name_and_value filter_name(field), filter_param(field), opts
+  end
+
+  def text_filter_with_name_and_value name, value, opts
     opts[:class] ||= "simple-text"
     add_class opts, "form-control"
-    # formgroup filter_label(field), class: "filter-input" do
-    text_field_tag name, filter_param(field), opts
-    # end
+    text_field_tag name, value, opts
+  end
+
+  def range_filter field, opts={}
+    add_class opts, "simple-text range-filter-subfield"
+    output [range_sign(:from),
+            sub_text_filter(field, :from, opts),
+            range_sign(:to),
+            sub_text_filter(field, :to, opts)]
+  end
+
+  def range_sign side
+    dir = side == :from ? "right" : "left"
+    wrap_with :span, class: "input-group-prepend" do
+      fa_icon("chevron-circle-#{dir}", class: "input-group-text")
+    end
+  end
+
+  def sub_text_filter field, subfield, opts={}
+    name = "filter[#{field}][#{subfield}]"
+    value = filter_hash.dig field, subfield
+    text_filter_with_name_and_value name, value, opts
   end
 
   def select_filter_type_based type_codename, order="asc"
@@ -56,10 +78,10 @@ format :html do
     default = filter_param(field) || default
     options = options_for_select(options, default)
 
-    css_class =
-      html_options[:multiple] ? "pointer-multiselect" : "pointer-select"
-    add_class(html_options,
-              css_class + " filter-input #{field} _filter_input_field form-control")
+    pointer_class = html_options[:multiple] ? "pointer-multiselect" : "pointer-select"
+    other_classes = "filter-input #{field} _filter_input_field _no-select2 form-control"
+    # _no-select2 because select is initiated after filter is opened.
+    add_class html_options, "#{pointer_class} #{other_classes}"
 
     select_tag name, options, html_options
   end
