@@ -57,10 +57,4 @@ format :html do
   def full_page_icon
     icon_tag :open_in_new
   end
-
-  def show_menu_item_edit?
-    return unless card.real?
-
-    card.ok?(:update) || structure_editable?
-  end
 end
