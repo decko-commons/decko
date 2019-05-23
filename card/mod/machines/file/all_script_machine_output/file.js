@@ -11054,7 +11054,7 @@ return jQuery;
   });
 
   $(window).ready(function() {
-    decko.initializeEditors($('body > not(.modal)'));
+    decko.initializeEditors($('body > :not(.modal)'));
     return $('body').on('submit', '.card-form', function() {
       $(this).setContentFieldsFromMap();
       $(this).find('.d0-card-content').attr('no-autosave', 'true');

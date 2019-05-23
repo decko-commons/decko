@@ -37,7 +37,7 @@ jQuery.fn.extend
     field.change() if init_val != new_val
 
 $(window).ready ->
-  decko.initializeEditors $('body > not(.modal)')
+  decko.initializeEditors $('body > :not(.modal)')
   # setTimeout (-> decko.initializeEditors $('body')), 10
   # dislike the timeout, but without this forms with multiple TinyMCE editors
   # were failing to load properly
