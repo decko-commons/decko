@@ -64,14 +64,14 @@ format :html do
     end
   end
 
-  def labeled label=:name, content
+  def labeled label, content
     haml :labeled, label: label, content: content
   end
 
   def labeled_field field, item_view=:name, opts={}
     opts[:title] ||= Card.fetch_name field
     field_nest field, opts.merge(view: :labeled,
-                                 items: (opts[:items] ||{}).merge(view: item_view))
+                                 items: (opts[:items] || {}).merge(view: item_view))
   end
 
   view :open, commentable: true do
