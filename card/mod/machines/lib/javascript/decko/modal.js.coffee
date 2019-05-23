@@ -84,14 +84,11 @@ $.extend decko,
     $("body").append(slot)
     slot
 
-  initModal: ($dialog) ->
-    decko.initializeEditors $dialog
-    $dialog.find(".card-slot").trigger("slotReady")
-
   removeModal: ->
     if $("._modal-stack")[0]
       decko.popModal()
     else
+      $("._modal-slot").trigger "slotDestroy"
       $(".modal-dialog").empty()
 
   pushModal: (el) ->
@@ -103,6 +100,9 @@ $.extend decko,
 
   popModal: ->
     $(".modal-backdrop").addClass("show")
+    $("body > ._modal-slot").trigger "slotDestroy"
     $("body > ._modal-slot").remove()
     modal = $($("._modal-stack")[0])
     modal.addClass("_modal-slot").removeClass("_modal-stack").attr("id", "modal-container").addClass("modal").removeClass("background-modal")
+    $(document.body).addClass("modal-open")
+

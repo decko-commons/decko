@@ -351,7 +351,7 @@ es:
               sign_up: Regístrate
               read_only: Actualmente estamos en modo de solo lectura. Por favor, inténtelo de nuevo más tarde.
               sorry: Lo siento!
-              need_permission_task: Necesitas permiso para %{task} esto.
+              need_permission_task: Necesitas permiso %{task}.
               to_do_that: para hacer eso
               denied_task: a %{denied_task} esto
             form:

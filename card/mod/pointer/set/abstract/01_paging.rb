@@ -26,6 +26,7 @@ format do
     (offset / limit).to_i
   end
 
+  # for override
   def extra_paging_path_args
     {}
   end
@@ -89,22 +90,13 @@ format :html do
 
   def paging_path_args local_args={}
     @paging_path_args ||= {}
-    @paging_path_args.reverse_merge!(
-      limit: limit,
-      offset: offset,
-      view: paging_view,
-      slot: voo.slot_options
-    )
+    @paging_path_args.reverse_merge!(limit: limit, offset: offset)
     @paging_path_args.merge! extra_paging_path_args
     @paging_path_args.merge local_args
   end
 
   def page_link_path_args page
     paging_path_args.merge offset: page * limit
-  end
-
-  def paging_view
-    voo&.home_view || voo.slot_options[:view] || :content
   end
 
   def paging_needed?
@@ -133,7 +125,7 @@ format :json do
     }.merge extra_paging_path_args
   end
 
-  def paging_urls
+  view :paging_urls, cache: :never do
     return {} unless total_pages > 1
 
     { paging: paging_urls_hash }

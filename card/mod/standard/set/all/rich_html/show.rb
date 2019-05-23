@@ -11,7 +11,7 @@ format :html do
   def show_without_page_layout view, args
     @main = true if params[:is_main] || args[:main]
     args.delete(:layout)
-    view ||= args[:home_view] || :open
+    view ||= args[:home_view] || :open # default_nest_view
     render! view, args
   end
 
@@ -22,7 +22,7 @@ format :html do
   wrapper :html_page do
     <<-HTML.strip_heredoc
       <!DOCTYPE HTML>
-      <html>
+      <html class="h-100">
         <head>
           #{head_content}
         </head>

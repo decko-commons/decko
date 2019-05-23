@@ -1,4 +1,3 @@
-
 # The Sign In card manages logging in and out of the site.
 #
 # /:signin (core view) gives the login ui
@@ -32,6 +31,10 @@ end
 event :send_reset_password_token, before: :signin, on: :update, trigger: :required do
   email = subfield(:email)&.content
   send_reset_password_email_or_fail email
+end
+
+def ok_to_read
+  true
 end
 
 def consider_recaptcha?

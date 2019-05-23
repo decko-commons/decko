@@ -78,7 +78,7 @@ class Card
       # the card didn't.
       #
       # My guess is that the need for the following had something to do with errors
-      # associated with changed types. If so, the solution probably needs to handling
+      # associated with changed types. If so, the solution probably needs to handle
       # including the set modules associated with the type at the time of the action
       # rather than including no set modules at all.
       #

@@ -1,5 +1,5 @@
 format :html do
-  view :rule_link, tags: :unknown_ok do
+  view :rule_link, unknown: true do
     rule_card = find_existing_rule_card
     wrap_closed_rule rule_card do
       %i[link set].map do |cell|
@@ -8,7 +8,7 @@ format :html do
     end
   end
 
-  view :rule_modal_link, tags: :unknown_ok do
+  view :rule_modal_link, unknown: true do
     rule_card = find_existing_rule_card
       wrap_closed_rule rule_card do
         %i[modal_link set].map do |cell|
@@ -34,6 +34,7 @@ format :html do
     wrap_rule_cell "rule-setting" do
       opts = bridge_link_opts(class: "edit-rule-link")
       opts[:path].delete(:layout)
+      opts["data-modal-class"] = "modal-lg"
       link_to_view :modal_rule, setting_title, opts
     end
   end

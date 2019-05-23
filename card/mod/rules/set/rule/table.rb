@@ -1,5 +1,5 @@
 format :html do
-  view :open_rule, cache: :never, tags: :unknown_ok,
+  view :open_rule, cache: :never, unknown: true,
                    wrap: { modal: { size: :large,
                                     title: :edit_rule_title,
                                     footer: "" } } do
@@ -14,7 +14,7 @@ format :html do
   end
 
   # used in tables shown in set cards' core view
-  view :rule_row, cache: :never, tags: :unknown_ok do
+  view :rule_row, cache: :never, unknown: true do
     rule_card = find_existing_rule_card
     cols = %i[setting set]
     cols.insert(1, :content) if voo.show? :content

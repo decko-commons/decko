@@ -21,6 +21,10 @@ class Card
         @loader = loader
       end
 
+      def clean_comments?
+        false
+      end
+
       private
 
       def module_type

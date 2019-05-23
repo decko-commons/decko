@@ -27,6 +27,7 @@ jQuery.fn.extend
     decko.contentLoaded(overlay, $slotter)
 
   replaceOverlay: (overlay) ->
+    @overlaySlot().trigger "slotDestroy"
     @overlaySlot().replaceWith overlay
     $(".bridge-sidebar .tab-pane:not(.active) .bridge-pills > .nav-item > .nav-link.active").removeClass("active")
 
@@ -34,6 +35,7 @@ jQuery.fn.extend
       @overlaySlot().removeOverlaySlot()
 
   removeOverlaySlot: () ->
+    @trigger "slotDestroy"
     if @siblings().length == 1
       bottomlay = $(@siblings()[0])
       if bottomlay.hasClass("_bottomlay-slot")

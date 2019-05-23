@@ -3,7 +3,7 @@ format :html do
     nest card.autoname(card.name.field("image01")), view: :new_image, type: :image
   end
 
-  view :new_image, perms: :create, tags: :unknown_ok, cache: :never do
+  view :new_image, perms: :create, unknown: true, cache: :never do
     new_view_frame_and_form new_image_form_opts
   end
 

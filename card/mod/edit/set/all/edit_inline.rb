@@ -1,5 +1,5 @@
 format :html do
-  view :edit_inline, perms: :update, tags: :unknown_ok, cache: :never, wrap: :slot do
+  view :edit_inline, perms: :update, unknown: true, cache: :never, wrap: :slot do
     with_nest_mode :edit do
       card_form :update, success: edit_success do
         [

@@ -2,34 +2,66 @@
 
 class Card
   module Set
-    #  Whenever a Format object is instantiated for a card, it
-    #  includes all views associated with BOTH (a) sets of which the card is a
-    #  member and (b) the current format or its ancestors.  More on defining
-    #  views below.
+    # This document explains how to use format blocks within {Card::Mod mods}. To make
+    # use of it, you will need to understand both {Card::Mod mods} and {Card::Set sets}.
     #
-    # View definitions
+    # Within a card mod, you can define format blocks like the following:
     #
-    #   When you declare:
-    #     view :view_name do
-    #       #...your code here
+    #     format :html do
+    #       def beethoven
+    #         :rocks
+    #       end
     #     end
     #
-    #   Methods are defined on the format
+    # The magic that happens here is that the method #beethoven is now applicable (and
+    # available) _only_ to the cards in the set specified by the mod, and only when
+    # the card is rendering a view in the HTML format.
     #
-    #   The external api with checks:
-    #     render(:viewname, args)
+    # If you care, you can certainly learn about how all this works. How the set module
+    # creates a module that looks something like `Card::Set::Type::MyType::HtmlFormat`.
+    # How the format object for a given card in the set includes this module dynamically
+    # when it's initialized. And so on...
     #
-    #  TODO:
-    #  introduce view settings
-    #    modal: { size: :large},
-    #    cache
-    #    perms
-    #    tags: :unknown_ok
-    #    bridge
+    # But as monkeys, we don't usually think about all that much, because we work in
+    # the set module space, which lets us focus on the card patterns.
+    #
+    # Speaking of which, there are a few key patterns to be aware of:
+    #
+    # 1. Just as in {Card::Set sets}, format methods for narrower sets will override
+    #    format methods for more general sets.  So if a #beethoven method is defined
+    #    for all cards and again for a specific card type, then the type method will
+    #    override the all method when both apply.
+    # 2. Similarly, specific formats inherit from more general formats, and all formats
+    #    inherit from the base format. If a format is not specified, the format block
+    #    will define methods on the base format class.
+    #
+    #         format do
+    #           def haydn
+    #             :sucks
+    #           end
+    #         end
+    #
+    # 3. It is possible to use super to refer to overridden methods.  For example
+    #
+    #         format :html do
+    #           def haydn
+    #             "<em>#{super}</em>"
+    #           end
+    #         end
+    #
+    #     Note: Set precedence has a higher priority than Format precedence.
+    #
+    # 4. {#view} and {#before} can both be called outside of a format block. They will
+    #   be defined on the base format.
+    #
+    # 5. Some very powerful API calls (including {AbstractFormat#view view} and
+    # {AbstractFormat#before before}) are defined in {AbstractFormat}. These methods are
+    # always available in format blocks.
     module Format
-      require_dependency "card/set/format/haml_views"
+      require_dependency "card/set/format/haml_paths"
       require_dependency "card/set/format/abstract_format"
 
+      # define format behavior within a set module
       def format *format_names, &block
         format_names.compact!
         if format_names.empty?
@@ -43,17 +75,19 @@ class Card
         end
       end
 
+      # shortcut for {AbstractFormat#view} for when #view is called outside of a format
+      # block
       def view *args, &block
         format { view(*args, &block) }
       end
 
-      def view_for_override *args, &block
-        format { view_for_override(*args, &block) }
-      end
-
+      # shortcut for {AbstractFormat#before} for when #before is called outside of a
+      # format block
       def before view, &block
         format { before view, &block }
       end
+
+      private
 
       def define_on_format format_name=:base, &block
         # format class name, eg. HtmlFormat
@@ -89,16 +123,28 @@ class Card
       end
 
       class << self
+        # name of method for layout
+        # used by wrapper
         def layout_method_name layout
           "_layout_#{layout.to_name.key}"
         end
 
+        # name of method for wrapper
+        # used by wrapped views
         def wrapper_method_name wrapper
           "_wrapper_#{wrapper}"
         end
 
+        # name of method for view
+        # used by #render
         def view_method_name view
           "_view_#{view}"
+        end
+
+        # name of method for setting for a given view.
+        # used by #view_setting
+        def view_setting_method_name view, setting_name
+          "_view_#{view}__#{setting_name}"
         end
       end
     end

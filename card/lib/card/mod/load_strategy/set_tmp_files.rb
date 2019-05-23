@@ -14,6 +14,7 @@ class Card
               rel_path = abs_path.sub "#{mod_dir}/", ""
               tmp_filename = File.join mod_tmp_dir, rel_path
               const_parts = parts_from_path rel_path
+              # puts "write_tmp_file #{abs_path}, #{tmp_filename}, #{const_parts}"
               write_tmp_file abs_path, tmp_filename, const_parts
             end
           end

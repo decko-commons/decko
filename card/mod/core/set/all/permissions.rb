@@ -23,6 +23,7 @@ end
 # options.
 
 def ok? action
+  # binding.pry if action == :create
   @action_ok = true
   send "ok_to_#{action}"
   @action_ok

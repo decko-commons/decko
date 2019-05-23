@@ -22,7 +22,7 @@ class Card
       def update_card name, content_or_args
         args = standardize_update_args name, content_or_args
         resolve_name_conflict args
-        Card[name].update! args
+        Card[name]&.update! args
       end
 
       def create_or_update_card name_or_args, content_or_args=nil

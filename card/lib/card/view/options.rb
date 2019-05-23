@@ -1,6 +1,17 @@
 class Card
   class View
-    # Manages options for card views, including those used in nest syntax
+    # Manages options for rendering card views
+    #
+    # Many options are available to sharks via nests. (See https://decko.org/Nest_Syntax)
+    #
+    #      {{cardname|hide:menu}}
+    #
+    # These options and others are available to monkeys when rendering views via
+    # #render or #nest.
+    #
+    #      nest "cardname", hide: :menu
+    #      render :viewname, hide: :menu
+    #
     module Options
       # the keymap represents a 2x2 matrix, where the factors are
       # (a) whether an option's value can be set by a shark via nests, and
@@ -24,7 +35,7 @@ class Card
         #                      or comma separated views (String)
         # NOTE: although show and hide are in this non-inheriting group, they are
         # actually inherited, just not through the standard mechanism. Because, well,
-        # they're weird. (See process_visibility options)
+        # they're weird. (See process_visibility)
         heir: [
           :main,           # format object is page's "main" object (Boolean)
           :home_view,      # view for slot to return to when no view specified
@@ -47,8 +58,9 @@ class Card
           :items,          # options for items (Hash)
           :cache,          # change view cache behaviour
           #                    (Symbol<:always, :standard, :never>)
-          :edit            # edit mode
+          :edit,            # edit mode
           #                    (Symbol<:inline, :standard, :full>)
+          :filter
         ],
         none: [
           :skip_perms,     # do not check permissions for this view (Boolean)
@@ -71,6 +83,7 @@ class Card
 
       extend KeyLists
       include VooApi
+      include Visibility
     end
   end
 end

@@ -1,182 +1,155 @@
-$.extend decko,
-  filterCategorySelected: ($selected_item) ->
-    addFilterDropdown = $selected_item.closest("._add-filter-dropdown")
-    category = $selected_item.data("category")
-    widget = addFilterDropdown.closest("._filter-widget")
-    removeCategoryOption(addFilterDropdown, category)
-    showFilterInputField(category, widget)
+decko.slotReady (slot) ->
+  slot.find("._filter-widget").each ->
+    if slot[0] == $(this).slot()[0]
+      filter = new decko.filter this
+      filter.showWithStatus "active"
 
 $(window).ready ->
-  $("body").on "change", "._filter-input input, ._filter-input select, ._filter-sort", ->
-    return if weirdoSelect2FilterBreaker this
-    filterAndSort this
+  filterFor = (el) ->
+    new decko.filter el
 
+  # Add Filter
   $("body").on "click", "._filter-category-select", (e) ->
     e.preventDefault()
-    e.stopPropagation()
-    decko.filterCategorySelected($(this))
+    # e.stopPropagation()
+    filterFor(this).activate $(this).data("category")
 
+  # Update filter results based on filter value changes
+  onchangers = "._filter-input input:not(.simple-text), " +
+    "._filter-input select, ._filter-sort"
+  $("body").on "change", onchangers, ->
+    return if weirdoSelect2FilterBreaker this
+    filterFor(this).update()
+
+  keyupTimeout = null
+  $("body").on "keyup", "._filter-input input.simple-text", ->
+    clearTimeout keyupTimeout
+    filter = filterFor this
+    keyupTimeout = setTimeout ( -> filter.update() ), 333
+
+  # remove filter
   $("body").on "click", "._delete-filter-input", ->
-    form = $(this).closest("._filter-form")
-    input = $(this).closest("._filter-input")
-    category = input.data("category")
+    filter = filterFor this
+    filter.removeField $(this).closest("._filter-input").data("category")
+    filter.update()
 
-    addCategoryOption(form, category)
-    hideFilterInputField(input)
-    form.submit()
+  # reset all filters
+  $('body').on 'click', '._reset-filter', () ->
+    f = filterFor(this)
+    f.reset()
+    f.update()
 
-  $("body").on "click", "._filter-items ._unselected ._search-checkbox-item input", ->
-    selectFilteredItem $(this)
-    updateAfterSelection $(this)
+  $('body').on 'click', '.filtering .filterable', (e) ->
+    f = filterFor($("._filter-widget:visible"))
+    if f.widget.length > 0
+      data = $(this).data "filter"
+      # f.reset()
+      f.restrict data["key"], data["value"]
+    e.preventDefault()
+    # e.stopPropagation()
 
-  $("body").on "click", "._filter-items ._selected ._search-checkbox-item input", ->
-    bin = selectedBin $(this)
-    $(this).slot().remove()
-    updateAfterSelection bin
-
-  $("body").on "click", "._filter-items ._add-selected", ->
-    btn = $(this)
-    content = newFilteredListContent btn
-    btn.attr "href", addSelectedButtonUrl(btn, content)
-
-  $("body").on "click", "._select-all", ->
-    filterBox($(this)).find("._unselected ._search-checkbox-item input").each ->
-      selectFilteredItem $(this)
-    $(this).prop "checked", false
-    updateAfterSelection $(this)
-
-  $("body").on "click", "._deselect-all", ->
-    filterBox($(this)).find("._selected ._search-checkbox-item input").each ->
-      $(this).slot().remove()
-    $(this).prop "checked", true
-    updateAfterSelection $(this)
-
-  $('body').on 'click', '._filtered-list-item-delete', ->
-    $(this).closest('li').remove()
+  $('body').on 'click', '._record-filter', (e) ->
+    f = filterFor($("._filter-widget:visible"))
+    f.removeField("year")
+    data = $(this).data "filter"
+    # f.reset()
+    f.restrict data["key"], data["value"]
 
 # sometimes this element shows up as changed and breaks the filter.
 weirdoSelect2FilterBreaker = (el) ->
   $(el).hasClass "select2-search__field"
 
-newFilteredListContent = (el) ->
-  $.map(prefilteredIds(el).concat(selectedIds el), (id) -> "~" + id).join "\n"
+# el can be any element inside widget
+decko.filter = (el) ->
+  @widget = $(el).closest "._filter-widget"
+  @activeContainer = @widget.find "._filter-container"
+  @dropdown = @widget.find "._add-filter-dropdown"
+  @dropdownItems = @widget.find "._filter-category-select"
 
-addSelectedButtonUrl = (btn, content) ->
-  view = btn.slot().data("slot")["view"]
-  card_args = { content: content, type: "Pointer" }
-  query = { assign: true, view: view, card: card_args }
-  path_base = btn.attr("href") + "&" + $.param(query)
-  decko.slotPath path_base, btn.slot()
+  @showWithStatus = (status) ->
+    f = this
+    $.each (@dropdownItems), ->
+      item = $(this)
+      if item.data status
+        f.activate item.data("category")
 
-updateAfterSelection = (el) ->
-  trackSelectedIds el
-  filterAndSort filterBox(el).find "._filter-form"
-  updateSelectedCount el
-  updateUnselectedCount el
+  @reset = () ->
+    @activeContainer.find(".input-group").remove()
+    @showWithStatus "default"
 
-updateSelectedCount = (el) ->
-  count = selectedBin(el).children().length
-  filterBox(el).find("._selected-items").html count
-  deselectAllLink(el).attr "disabled", count == 0
-  if count > 0
-    addSelectedButton(el).removeClass("disabled")
-  else
-    addSelectedButton(el).addClass("disabled")
+  @activate = (category) ->
+    @activateField category
+    @hideOption category
 
-  updateSelectedSectionVisibility el, count > 0
+  @showOption = (category) ->
+    @dropdown.show()
+    @option(category).show()
 
-updateSelectedSectionVisibility = (el, items_present) ->
-  box = filterBox el
-  selected_items = box.find "._selected-item-list"
-  help_text = box.find "._filter-help"
-  if items_present
-    selected_items.show()
-    help_text.hide()
-  else
-    selected_items.hide()
-    help_text.show()
+  @hideOption = (category) ->
+    @option(category).hide()
+    @dropdown.hide() if @dropdownItems.length <= @activeFields().length
 
-updateUnselectedCount = (el) ->
-  box = filterBox(el)
-  count = box.find("._search-checkbox-list").children().length
-  box.find("._unselected-items").html count
-  box.find("._select-all").attr "disabled", count > 0
+  @activeFields = () ->
+    @activeContainer.find "._filter-input"
 
-selectFilteredItem = (checkbox) ->
-  checkbox.prop "checked", true
-  selectedBin(checkbox).append checkbox.slot()
+  @option = (category) ->
+    @dropdownItems.filter("[data-category='#{category}']")
 
-selectedBin = (el) ->
-  filterBox(el).find "._selected-bin"
+  @findPrototype = (category) ->
+    @widget.find "._filter-input-field-prototypes ._filter-input-#{category}"
 
-filterBox = (el) ->
-  el.closest "._filter-items"
+  @activateField = (category) ->
+    field = @findPrototype(category).clone()
+    @dropdown.before field
+    @initField field
+    field.find("input, select").first().focus()
 
-prefilteredIds = (el) ->
-  prefilteredData el, "cardId"
+  @removeField = (category)->
+    @activeField(category).remove()
+    @showOption category
 
-prefilteredNames = (el) ->
-  prefilteredData el, "cardName"
+  @initField = (field) ->
+    @initSelectField field
+    decko.initAutoCardPlete field.find("input")
+    # only has effect if there is a data-options-card value
 
-prefilteredData = (el, field) ->
-  btn = addSelectedButton el
-  selector = btn.data "itemSelector"
-  arrayFromField btn.slot().find(selector), field
+  @initSelectField = (field) ->
+    field.find("select").select2(
+      containerCssClass: ":all:"
+      width: "auto"
+      dropdownAutoWidth: "true"
+    )
 
-# this button contains the data about the form that opened the filter-items interface.
-# the itemSelector
-addSelectedButton = (el) ->
-  filterBox(el).find("._add-selected")
+  @activeField = (category) ->
+    @activeContainer.find("._filter-input-#{category}")
 
-deselectAllLink = (el) ->
-  filterBox(el).find("._deselect-all")
+  @isActive = (category) ->
+    @activeField(category).length > 0
 
-selectedIds = (el) ->
-  selectedData el, "cardId"
+  @restrict = (category, value) ->
+    @activate category unless @isActive category
+    field = @activeField category
+    @setInputVal field, value
 
-selectedNames = (el) ->
-  selectedData el, "cardName"
+  # triggers update
+  @setInputVal = (field, value) ->
+    select = field.find "select"
+    if select.length > 0
+      @setSelect2Val select, value
+    else
+      @setTextInputVal field.find("input"), value
 
-selectedData = (el, field) ->
-  arrayFromField selectedBin(el).children(), field
+  # this triggers change, which updates form
+  # if we just use simple "val", the display doesn't update correctly
+  @setSelect2Val = (select, value) ->
+    value = [value] if select.attr("multiple") && !Array.isArray(value)
+    select.select2 "val", value
 
-arrayFromField = (rows, field) ->
-  rows.map( -> $(this).data field ).toArray()
+  @setTextInputVal = (input, value) ->
+    input.val value
+    @update()
 
-trackSelectedIds = (el) ->
-  ids = prefilteredIds(el).concat selectedIds(el)
-  box = filterBox el
-  box.find("._not-ids").val ids.toString()
+  @update = ()->
+    @widget.find("._filter-form").submit()
 
-showFilterInputField = (category, widget) ->
-  selector = "._filter-input-field-prototypes > ._filter-input-field.#{category} > .input-group"
-  $inputField = $(widget.find(selector)[0])
-
-  $(widget.find("._add-filter-dropdown")).before($inputField)
-  setFilterInputWidth $inputField
-  decko.initAutoCardPlete($inputField.find("input")) # only has effect if there is a data-options-card value
-  $inputField.find("input, select").focus()
-
-setFilterInputWidth = ($inputField) ->
-  $inputField.find("select").select2(
-    containerCssClass: ":all:"
-    width: "auto"
-    dropdownAutoWidth: "true"
-  )
-
-hideFilterInputField = (input) ->
-  widget = input.closest("._filter-widget")
-  category = input.data("category")
-  $hiddenInputSlot = $(widget.find("._filter-input-field-prototypes > ._filter-input-field.#{category}")[0])
-  $hiddenInputSlot.append input
-
-addCategoryOption = (form, option) ->
-  form.find("._filter-category-select[data-category='#{option}']").show()
-
-removeCategoryOption = (el, option) ->
-  el.find("._filter-category-select[data-category='#{option}']").hide()
-
-filterAndSort = (el)->
-  form = $(el).closest("._filter-form")
-  form.submit()
-
+  this

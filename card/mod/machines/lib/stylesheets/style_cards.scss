@@ -211,6 +211,29 @@ $d-yellow-1: #ffd;
   }
 }
 
+.titled-view > .d0-card-header {
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 0.1em;
+  margin-bottom: 1em;
+
+  > .d0-card-header-title > .card-title {
+    font-size: $h1-font-size;
+    color: $headings-color;
+  }
+}
+
+.d0-card-content {
+  .d0-card-header > .d0-card-header-title > .card-title {
+    font-size: $h2-font-size;
+    color: $headings-color;
+  }
+  .bar-bottom .d0-card-header > .d0-card-header-title > .card-title {
+    font-size: $h3-font-size;
+    color: $headings-color;
+  }
+}
+
+
 /* -- file upload -- */
 .fileupload-buttonbar .btn, .fileupload-buttonbar .toggle {
   margin-bottom: 5px;
@@ -448,16 +471,13 @@ textarea {
   }
 }
 
-// .search-checkbox-item {
-//   .checkbox-side {
-//     width: 32px;
-//     padding: 10px;
-//   }
-//
-//   .item-view-side {
-//     max-width: 550px;
-//   }
-// }
+.filtering .filterable {
+  cursor: pointer;
+}
+
+.search-checkbox-item .checkbox-side {
+  width: 32px;
+}
 
 .new-account-link {
   text-align: center;
@@ -564,11 +584,27 @@ ul.action-list {
   }
   li:before {
     font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+
+
     float: left;
     margin-top: 8px;
     margin-left: -2rem;
     font-size: 120%;
     padding-left: 4px;
+    max-height: 30px;
   }
 
   li.update:before {
@@ -1158,4 +1194,41 @@ $bridge-line-color: $gray-300;
 
 .act-summary {
   min-width: 27px;
+}
+
+footer .separator {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+body.right-sidebar, body.left-sidebar, body.two-sidebar {
+  article, #primary {
+    margin: 0 1% 3em 1%;
+    float: left;
+    width: 67%;
+  }
+
+  aside, #secondary {
+    margin: 0 1% 3em 1%;
+    float: right;
+    width: 28%;
+  }
+
+  footer {
+    clear:both;
+    text-align: center;
+    padding: 1em;
+  }
+}
+
+@media print {
+  article, #primary {
+    width: 100%;
+    float: none;
+    margin: 0;
+  }
+
+  aside, #secondary, footer {
+    display: none;
+  }
 }

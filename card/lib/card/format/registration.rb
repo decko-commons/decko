@@ -35,44 +35,12 @@ class Card
         match ? match[:format].underscore.to_sym : :base
       end
 
-      def interpret_view_opts view, opts
-        extract_class_vars view, opts
-        extract_view_tags view, opts.delete(:tags)
-      end
-
-      def extract_class_vars view, opts
-        Card::Format::VIEW_VARS.each do |varname|
-          next unless (value = opts.delete varname)
-
-          send(varname)[view] = value
-        end
-      end
-
-      def extract_view_tags view, tags
-        return unless tags
-
-        Array.wrap(tags).each do |tag|
-          view_tags[view] ||= {}
-          view_tags[view][tag] = true
-        end
-      end
-
-      def view_setting_method_name view, setting_name
-        "view_#{view}_#{setting_name}_setting"
-      end
-
       def class_from_name formatname
         if formatname == "Format"
           Card::Format
         else
           Card::Format.const_get formatname
         end
-      end
-
-      def tagged view, tag
-        return unless view && tag && (viewhash = view_tags[view.to_sym])
-
-        viewhash[tag.to_sym]
       end
 
       def format_ancestry

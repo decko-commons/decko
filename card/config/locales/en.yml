@@ -352,7 +352,7 @@ en:
               sign_up: sign up
               read_only: We are currently in read-only mode.  Please try again later.
               sorry: Sorry!
-              need_permission_task: You need permission to %{task} this.
+              need_permission_task: You need permission %{task}.
               to_do_that: to do that
               denied_task: to %{denied_task} this
             form:
@@ -419,6 +419,7 @@ en:
           cardtype:
             cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
             add_card: Add %{cardname}
+            configure_card: Configure %{cardname}
             error_cant_alter: can't alter this type; %{name} cards still exist
             error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
           list:

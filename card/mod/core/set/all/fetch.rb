@@ -36,7 +36,7 @@ module ClassMethods
 
   # fetch only real (no virtual) cards
   #
-  # @params *mark - see #fetch
+  # @param mark - see #fetch
   # @return [Card]
   def [] *mark
     fetch(*mark, skip_virtual: true)
@@ -46,7 +46,7 @@ module ClassMethods
   # @example
   #   quick_fetch "A", :self, :structure
   #
-  # @params *mark - see #fetch
+  # @param mark - see #fetch
   # @return [Card]
   def quick_fetch *mark
     fetch mark, skip_virtual: true, skip_modules: true
@@ -54,7 +54,7 @@ module ClassMethods
 
   # fetch only from the soft cache
   #
-  # @params *args - see #fetch
+  # @param args - see #fetch
   # @return [Card]
   def fetch_soft *args
     mark, opts = normalize_fetch_args args
@@ -80,7 +80,7 @@ module ClassMethods
     end
   end
 
-  # @params *mark - see #fetch
+  # @param mark - see #fetch
   # @return [Integer]
   def fetch_id *mark
     mark, _opts = normalize_fetch_args mark
@@ -89,7 +89,7 @@ module ClassMethods
     card && card.id
   end
 
-  # @params *mark - see #fetch
+  # @param mark - see #fetch
   # @return [Card::Name]
   def fetch_name *mark
     if (card = quick_fetch(mark))
@@ -103,7 +103,7 @@ module ClassMethods
     block_given? ? yield.to_name : raise(e)
   end
 
-  # @params *mark - see #fetch
+  # @param mark - see #fetch
   # @return [Integer]
   def fetch_type_id *mark
     (card = quick_fetch(mark)) && card.type_id

@@ -342,9 +342,9 @@ de:
               sign_up: registrieren
               read_only: Wir sind im Moment im Nur-Lese-Modus. Versuche es später noch einmal.
               sorry: Sorry!
-              need_permission_task: You need permission to %{task} this.
+              need_permission_task: Sie habe nicht die Berechtigung, %{task}.
               to_do_that: das zu tun
-              denied_task: zu %{denied_task} dies
+              denied_task: dies zu %{denied_task}
             form:
               unsupported_action_class: "unsupported card_form action class: %{actionclass}"
               submit: Speichern
@@ -445,6 +445,7 @@ de:
           cardtype:
             cards_exist: Entschuldigung, diese Karten muss ein Kartentyp bleiben, solange es noch %{cardname}-Karten gibt.
             add_card: Füge %{cardname} hinzu
+            configure_card: Configuriere %{cardname}
             error_cant_alter: kann dieseh Typ nicht ändern; es gibt noch %{name}-Karten
             error_invalid_character_in_cardtype: "die folgenden Zeichen sind nicht erlaubt: %{banned}"
           list:

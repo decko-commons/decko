@@ -3,7 +3,7 @@ require "decko/rest_spec_helper"
 
 Decko::RestSpecHelper.describe_api do
   describe "#create" do
-    before { login_as "joe_user" }
+    before { login_as "joe_camel" }
 
     # FIXME: several of these tests go all the way to DB,
     #  which means they're closer to integration than unit tests.

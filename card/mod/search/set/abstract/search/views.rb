@@ -27,8 +27,9 @@ format :json do
     search_with_params
   end
 
+  # NOCACHE because paging_urls is uncacheable hash and thus not safe to merge
   view :molecule, cache: :never do
-    super().merge paging_urls
+    molecule.merge render_paging_urls
   end
 
   # TODO: design better autocomplete API
@@ -85,7 +86,7 @@ format :data do
 end
 
 format :csv do
-  view :core, mod: All::AllCsv::CsvFormat
+  view :core, :core, mod: All::AllCsv::CsvFormat
 
   view :card_list do
     items = super()
@@ -98,7 +99,7 @@ format :csv do
 end
 
 format :html do
-  view :card_list do
+  view :card_list, cache: :never do
     with_results do
       search_result_list "search-result-list" do |item_card|
         card_list_item item_card
