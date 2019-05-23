@@ -11054,7 +11054,7 @@ return jQuery;
   });
 
   $(window).ready(function() {
-    decko.initializeEditors($('body'));
+    decko.initializeEditors($('body > :not(.modal)'));
     return $('body').on('submit', '.card-form', function() {
       $(this).setContentFieldsFromMap();
       $(this).find('.d0-card-content').attr('no-autosave', 'true');
@@ -11813,10 +11813,6 @@ return jQuery;
       });
       $("body").append(slot);
       return slot;
-    },
-    initModal: function($dialog) {
-      decko.initializeEditors($dialog);
-      return $dialog.find(".card-slot").trigger("slotReady");
     },
     removeModal: function() {
       if ($("._modal-stack")[0]) {
