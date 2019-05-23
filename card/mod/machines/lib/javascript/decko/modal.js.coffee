@@ -84,10 +84,6 @@ $.extend decko,
     $("body").append(slot)
     slot
 
-  initModal: ($dialog) ->
-    decko.initializeEditors $dialog
-    $dialog.find(".card-slot").trigger("slotReady")
-
   removeModal: ->
     if $("._modal-stack")[0]
       decko.popModal()
