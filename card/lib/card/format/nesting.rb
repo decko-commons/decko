@@ -25,8 +25,9 @@ class Card
       #   home.nest :self         # => nest for '*self'
       #   home.field_nest :self   # => nest for 'Home+*self'
       def field_nest field, opts={}
-        field = card.name.field(field) unless field.is_a? Card
-        nest field, opts
+        fullname = card.name.field(field) unless field.is_a? Card
+        opts[:title] ||= Card.fetch_name(field).vary("capitalized")
+        nest fullname, opts
       end
 
       # create a path for a nest with respect to the nest options

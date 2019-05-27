@@ -1,6 +1,7 @@
 format :html do
-  def filterable key, value, opts={}
+  def filterable key, value=nil, opts={}
     add_class opts, "filterable"
+    value ||= card.name
     opts[:data] ||= {}
     opts[:data].merge! filter_data(key, value)
     wrap_with :div, yield, opts
