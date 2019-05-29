@@ -27,7 +27,7 @@ format :html do
     render(:short_content)
   end
 
-  before :bar_expanded_nav do
+  before :bar_nav do
     voo.hide :edit_link
   end
 
