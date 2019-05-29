@@ -38,7 +38,7 @@ end
 # Data views
 
 format :data do
-  view :core, cache: :never do
+  view :core do
     nest_item_array
   end
 end
@@ -87,7 +87,6 @@ format :css do
   end
 
   view :core do
-    voo.items[:view] = params[:item] if params[:item]
     nest_item_array.join "\n\n"
   end
 

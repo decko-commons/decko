@@ -16,7 +16,7 @@ format :html do
     end
   end
 
-  view :edit_in_form, cache: :never, perms: :update, tags: :unknown_ok do
+  view :edit_in_form, cache: :never, perms: :update, unknown: true do
     reset_form
     @in_multi_card_editor = true
     edit_slot
@@ -222,7 +222,7 @@ format :html do
 
   def card_form_html_opts action, opts={}
     add_class opts, "card-form"
-    add_class opts, "slotter" unless opts[:redirect]
+    add_class opts, "slotter" unless opts[:redirect] || opts[:no_slotter]
     add_class opts, "autosave" if action == :update
     opts
   end

@@ -28,7 +28,7 @@ RSpec.describe Card::Set::All::RichHtml::Menu do
 
     example "when voo.edit = :inline" do
       expect(edit_menu(:inline))
-        .to have_tag("a.edit-link", with: { href: "/A?view=edit_in_place" })
+        .to have_tag("a.edit-link", with: { href: "/A?view=edit_inline" })
     end
   end
 end

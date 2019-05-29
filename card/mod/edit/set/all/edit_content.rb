@@ -6,7 +6,8 @@ format :html do
   end
 
   def edit_form
-    card_form(:update, edit_form_opts) do
+    form_opts = edit_form_opts.reverse_merge success: edit_success
+    card_form(:update, form_opts) do
       [
         edit_view_hidden,
         _render_content_formgroup,
@@ -15,11 +16,12 @@ format :html do
     end
   end
 
-  view :edit, perms: :update, tags: :unknown_ok, cache: :never,
+  view :edit, perms: :update, unknown: true, cache: :never,
               wrap: { modal: { footer: "",
                                size: :edit_modal_size,
                                title: :render_title,
                                menu: :edit_modal_menu } } do
+    add_name_context
     with_nest_mode :edit do
       voo.show :help
       voo.hide :save_button
@@ -32,7 +34,7 @@ format :html do
     end
   end
 
-  view :bridge_link, tags: :unknown_ok do
+  view :bridge_link, unknown: true do
     bridge_link
   end
 
@@ -46,9 +48,13 @@ format :html do
     end
   end
 
-  def bridge_link
-    link_to_view :bridge, material_icon(:more_horiz),
-                 class: "text-muted close", "data-slotter-mode": "modal-replace"
+  def bridge_link in_modal=true
+    opts = { class: "text-muted" }
+    if in_modal
+      add_class opts, "close"
+      opts["data-slotter-mode"] = "modal-replace"
+    end
+    link_to_view :bridge, material_icon(:more_horiz), opts
   end
 
   def edit_form_opts

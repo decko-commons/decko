@@ -37,8 +37,8 @@ describe Bootstrap::Component::Layout, "layout dsl" do
       end
     end
     expect(layout).to have_tag("div.row.six-times-six") do
-      with_tag "div.col-md-8.col-xs-6", text: /c1/
-      with_tag "div.col-md-4.col-xs-6.extra-class", text: /c2/
+      with_tag "div.col-md-8.col-6", text: /c1/
+      with_tag "div.col-md-4.col-6.extra-class", text: /c2/
     end
   end
 

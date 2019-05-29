@@ -68,7 +68,7 @@ format do
 
   def implicit_item_view
     view = voo_items_view || item_view_from_query || default_item_view
-    Card::View.canonicalize view
+    Card::View.normalize view
   end
 
   # override if query can specify item view

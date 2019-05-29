@@ -1,5 +1,5 @@
 format do
-  view :page_title, tags: :unknown_ok, perms: :none do
+  view :page_title, unknown: true, perms: :none do
     [(safe_name if card.name.present?), Card.global_setting(:title)].compact.join " - "
   end
 end
@@ -10,7 +10,7 @@ format :html do
   #  - the name of a javascript method that handles the config
   basket :mod_js_config
 
-  view :head, tags: :unknown_ok, perms: :none do
+  view :head, unknown: true, perms: :none do
     views_in_head.map { |viewname| render viewname }.flatten.compact.join "\n"
   end
 
@@ -22,23 +22,23 @@ format :html do
   end
 
   # FIXME: tags not working with `template: :haml`
-  view :meta_tags, tags: :unknown_ok, perms: :none do
+  view :meta_tags, unknown: true, perms: :none do
     haml :meta_tags
   end
 
-  view :html5shiv_tag, tags: :unknown_ok, perms: :none do
+  view :html5shiv_tag, unknown: true, perms: :none do
     nest :script_html5shiv_printshiv, view: :script_tag
   end
 
-  view :page_title_tag, tags: :unknown_ok, perms: :none do
+  view :page_title_tag, unknown: true, perms: :none do
     content_tag(:title) { render :page_title }
   end
 
-  view :favicon_tag, tags: :unknown_ok, perms: :none do
+  view :favicon_tag, unknown: true, perms: :none do
     nest :favicon, view: :link_tag
   end
 
-  view :universal_edit_button, tags: :unknown_ok, denial: :blank, perms: :update do
+  view :universal_edit_button, unknown: true, denial: :blank, perms: :update do
     return if card.new?
     tag "link", rel: "alternate", type: "application/x-wiki",
                 title: "Edit this page!", href: path(view: :edit)
@@ -47,18 +47,18 @@ format :html do
   # these should render a view of the rule card
   # it would then be safe to cache if combined with param handling
   # (but note that machine clearing would need to reset card cache...)
-  view :head_stylesheet, tags: :unknown_ok, cache: :never, perms: :none do
+  view :head_stylesheet, unknown: true, cache: :never, perms: :none do
     return unless (href = head_stylesheet_path)
     tag "link", href: href, media: "all", rel: "stylesheet", type: "text/css"
   end
 
-  view :head_javascript, tags: :unknown_ok, cache: :never, perms: :none do
+  view :head_javascript, unknown: true, cache: :never, perms: :none do
     Array.wrap(head_javascript_paths).map do |path|
       javascript_include_tag path
     end
   end
 
-  view :decko_script_variables, tags: :unknown_ok, cache: :never, perms: :none do
+  view :decko_script_variables, unknown: true, cache: :never, perms: :none do
     string = ""
     decko_script_variables.each do |k, v|
       string += "#{k}=#{script_variable_to_js v};\n"
@@ -118,7 +118,7 @@ format :html do
     end
   end
 
-  view :script_config_and_initiation, tags: :unknown_ok, perms: :none do
+  view :script_config_and_initiation, unknown: true, perms: :none do
     javascript_tag do
       (mod_js_configs << trigger_slot_ready).join "\n\n"
     end
@@ -136,7 +136,7 @@ format :html do
   end
 
   # TODO: move to rss mod
-  view :rss_links, tags: :unknown_ok, perms: :none do
+  view :rss_links, unknown: true, perms: :none do
     render :rss_link_tag if rss_link?
   end
 

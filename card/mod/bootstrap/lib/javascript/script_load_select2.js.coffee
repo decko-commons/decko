@@ -4,13 +4,10 @@ decko.slotReady (slot) ->
   slot.find('select:not(._no-select2)').each (_i) ->
     decko.initSelect2($(this))
 
-  # TODO: move to better place
-  $('.colorpicker-component').colorpicker()
-
 $.extend decko,
   initSelect2: (elem) ->
     if elem.length > 1
-      initSelect2($(single_el)) for single_el in elem
+      decko.initSelect2($(single_el)) for single_el in elem
     else
       opts = { dropdownAutoWidth: "true", containerCssClass: ":all:", width: "auto" }
       if elem.hasClass("tags")
@@ -19,6 +16,14 @@ $.extend decko,
         opts.minimumResultsForSearch = elem.data("minimum-results-for-search")
       elem.select2(opts)
 
+$(window).ready ->
+  $('body').on 'select2:select', '._go-to-selected', ->
+    val = $(this).val()
+    if val != ''
+      window.location = decko.path(escape(val))
+
+  $('body').on "select2:select", "._submit-on-select", (event) ->
+      $(event.target).closest('form').submit()
 
 $.fn.cloneSelect2 = (withDataAndEvents, deepWithDataAndEvents) ->
   $old = if this.is('select') then this else this.find('select')
@@ -30,6 +35,7 @@ $.fn.cloneSelect2 = (withDataAndEvents, deepWithDataAndEvents) ->
     decko.initSelect2 $cloned
   else
     decko.initSelect2 $cloned.find('select')
+  $cloned
 
 
 #  slot.find('.pointer-multiselect').each (i) ->

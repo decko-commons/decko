@@ -1,0 +1,3 @@
+<p>{{+description|content}}</p>
+<p>{{_|add_link}}  <span style="font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 0.9375rem;">{{_|configure_link}}</span></p>
+<p>{{+*type+by name|content}}</p>

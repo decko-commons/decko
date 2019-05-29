@@ -37,8 +37,8 @@ class NestParser
     Card::Set::All::NestEditor::NEST_OPTIONS.each_with_object([]) do |key, res|
       next unless options[key]
 
-      if key == :show || key == :hide
-        values = Card::View::Visibility.normalize_view_list(options[key])
+      if key.in? %i[show hide]
+        values = Card::View.normalize_list(options[key])
         res.concat(values.map { |val| [key, val] })
       else
         res << [key, options[key]]

@@ -8,9 +8,9 @@ describe 'reference', () ->
     cy.ensure "Kawaii Man", type: "PlainText", content: "[[Vignesh]]"
     cy.delete "Srivigneshwar"
     cy.visit "/Vignesh?view=edit_name"
-    cy.get("#card_name").clear().type "Srivigneshwar"
+    cy.get("#card_name").clear().type "Srivigneshwar", delay: 0
     cy.get("button.renamer").click()
     cy.contains("Rename and Update").click()
-    cy.visit("Kawaii Man")
+    cy.contains("Renaming").should("not.visible", wait: 20000)
     cy.main_slot().should "contain", "Srivigneshwar"
 

@@ -52,17 +52,17 @@ format :html do
     submit_button opts
   end
 
-  view :modal_menu, tags: :unknown_ok, wrap: :modal_menu do
+  view :modal_menu, unknown: true, wrap: :modal_menu do
     [close_modal_window, pop_out_modal_window]
   end
 
   wrapper :modal_menu, :div, class: "modal-menu ml-auto"
 
-  view :modal_title, tags: :unknown_ok do
+  view :modal_title, unknown: true do
     ""
   end
 
-  view :modal_footer, tags: :unknown_ok do
+  view :modal_footer, unknown: true do
     button_tag "Close",
                class: "btn-xs _close-modal float-right",
                "data-dismiss" => "modal"
@@ -72,7 +72,6 @@ format :html do
     modal_link _render_title, size: voo.size
   end
 
-  # @param size [:small, :medium, :large, :full] size of the modal dialog
   def modal_link text=nil, opts={}
     opts = modal_link_opts(opts)
     opts[:path][:layout] ||= :modal
@@ -115,11 +114,6 @@ format :html do
   end
 
   def pop_out_modal_window
-    # we probably want to pass on a lot more params than just view,
-    # but not all of them
-    # (eg we don't want layout, id, controller...)
-    popout_params = params[:view] ? { view: params[:view] } : {}
-    link_to icon_tag(:new_window), path: popout_params,
-                                   class: "pop-out-modal close"
+    link_to icon_tag(:new_window), path: {}, class: "pop-out-modal close"
   end
 end

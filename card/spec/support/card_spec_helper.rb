@@ -18,6 +18,7 @@ class Card
     def login_as user
       Card::Auth.current_id = (uc = Card[user.to_s]) && uc.id
       return unless @request
+      Card::Env.session[Card::Auth.session_user_key] = Card::Auth.current_id
       @request.session[Card::Auth.session_user_key] = Card::Auth.current_id
       # warn "(ath)login_as #{user.inspect}, #{Card::Auth.current_id}, "\
       #      "#{@request.session[:user]}"
@@ -103,6 +104,14 @@ class Card
       Card.config.rss_enabled = false
     end
 
+    def with_params hash
+      old_params = Card::Env.params.clone
+      Card::Env.params.merge! hash
+      yield
+    ensure
+      Card::Env.params = old_params
+    end
+
     module ClassMethods
       def check_views_for_errors *views
         include_context_for views.flatten, "view without errors"
@@ -126,7 +135,7 @@ class Card
       end
 
       def views format_module
-        Card::Set::Format::AbstractFormat.views[format_module].keys
+        Card::Set::Format::AbstractFormat::ViewDefinition.views[format_module].keys
       end
     end
   end

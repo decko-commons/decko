@@ -22,9 +22,6 @@ format do
   view(:linkname, closed: true, perms: :none) { card.name.url_key }
   view(:url,      closed: true, perms: :none) { card_url _render_linkname }
 
-  view :title, closed: true, perms: :none do
-    name_variant(title_in_context(voo.title))
-  end
 
   view :url_link, closed: true, perms: :none do
     link_to_resource card_url(_render_linkname)
@@ -97,7 +94,7 @@ format do
     end
   end
 
-  view :labeled_content, tags: :unknown_ok do
+  view :labeled_content, unknown: true do
     valid_labeled_content { render_core }
   end
 
@@ -109,8 +106,8 @@ format do
     end
   end
 
-  view :titled_content do
-    _render_core
+  view :titled_content, unknown: :blank do
+    render_core
   end
 
   view :blank, closed: true, perms: :none do
@@ -144,7 +141,7 @@ format do
 
   # none of the below belongs here!!
 
-  view :template_rule, cache: :never, tags: :unknown_ok do
+  view :template_rule, cache: :never, unknown: true do
     return "" unless voo.nest_name
     if voo.nest_name.to_name.field_only?
       set_card = Card.fetch template_link_set_name

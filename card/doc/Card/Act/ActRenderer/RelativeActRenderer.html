@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Card::Act::ActRenderer::RelativeActRenderer
+  
+    &mdash; Documentation by YARD 0.9.9
+  
+</title>
+
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "Card::Act::ActRenderer::RelativeActRenderer";
+  relpath = '../../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../../_index.html">Index (R)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Act.html" title="Card::Act (class)">Act</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../ActRenderer.html" title="Card::Act::ActRenderer (class)">ActRenderer</a></span></span>
+     &raquo; 
+    <span class="title">RelativeActRenderer</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Card::Act::ActRenderer::RelativeActRenderer
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="../ActRenderer.html" title="Card::Act::ActRenderer (class)">Card::Act::ActRenderer</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="../ActRenderer.html" title="Card::Act::ActRenderer (class)">Card::Act::ActRenderer</a></span></li>
+          
+            <li class="next">Card::Act::ActRenderer::RelativeActRenderer</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>mod/history/lib/card/act/act_renderer/relative_act_renderer.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Use for the history for one specific card It shows only the actions of an act that are relevant for the card of the format that renders the act.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><span class='object_link'><a href="BridgeActRenderer.html" title="Card::Act::ActRenderer::BridgeActRenderer (class)">BridgeActRenderer</a></span></p>
+</div>
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#act_links-instance_method" title="#act_links (instance method)">#<strong>act_links</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#actions-instance_method" title="#actions (instance method)">#<strong>actions</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#current_act%3F-instance_method" title="#current_act? (instance method)">#<strong>current_act?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#revert_link-instance_method" title="#revert_link (instance method)">#<strong>revert_link</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rollback_or_edit_link-instance_method" title="#rollback_or_edit_link (instance method)">#<strong>rollback_or_edit_link</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#show_rollback_link%3F-instance_method" title="#show_rollback_link? (instance method)">#<strong>show_rollback_link?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subtitle-instance_method" title="#subtitle (instance method)">#<strong>subtitle</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#title-instance_method" title="#title (instance method)">#<strong>title</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../ActRenderer.html" title="Card::Act::ActRenderer (class)">Card::Act::ActRenderer</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../ActRenderer.html#absolute_title-instance_method" title="Card::Act::ActRenderer#absolute_title (method)">#absolute_title</a></span>, <span class='object_link'><a href="../ActRenderer.html#accordion_expand_link-instance_method" title="Card::Act::ActRenderer#accordion_expand_link (method)">#accordion_expand_link</a></span>, <span class='object_link'><a href="../ActRenderer.html#accordion_expand_options-instance_method" title="Card::Act::ActRenderer#accordion_expand_options (method)">#accordion_expand_options</a></span>, <span class='object_link'><a href="../ActRenderer.html#act_accordion-instance_method" title="Card::Act::ActRenderer#act_accordion (method)">#act_accordion</a></span>, <span class='object_link'><a href="../ActRenderer.html#act_accordion_body-instance_method" title="Card::Act::ActRenderer#act_accordion_body (method)">#act_accordion_body</a></span>, <span class='object_link'><a href="../ActRenderer.html#act_accordion_heading-instance_method" title="Card::Act::ActRenderer#act_accordion_heading (method)">#act_accordion_heading</a></span>, <span class='object_link'><a href="../ActRenderer.html#act_accordion_panel-instance_method" title="Card::Act::ActRenderer#act_accordion_panel (method)">#act_accordion_panel</a></span>, <span class='object_link'><a href="../ActRenderer.html#act_panel_options-instance_method" title="Card::Act::ActRenderer#act_panel_options (method)">#act_panel_options</a></span>, <span class='object_link'><a href="../ActRenderer.html#act_type-instance_method" title="Card::Act::ActRenderer#act_type (method)">#act_type</a></span>, <span class='object_link'><a href="../ActRenderer.html#action_header%3F-instance_method" title="Card::Act::ActRenderer#action_header? (method)">#action_header?</a></span>, <span class='object_link'><a href="../ActRenderer.html#approved_actions-instance_method" title="Card::Act::ActRenderer#approved_actions (method)">#approved_actions</a></span>, <span class='object_link'><a href="../ActRenderer.html#autosaved_draft_link-instance_method" title="Card::Act::ActRenderer#autosaved_draft_link (method)">#autosaved_draft_link</a></span>, <span class='object_link'><a href="../ActRenderer.html#collapse_id-instance_method" title="Card::Act::ActRenderer#collapse_id (method)">#collapse_id</a></span>, <span class='object_link'><a href="../ActRenderer.html#count_types-instance_method" title="Card::Act::ActRenderer#count_types (method)">#count_types</a></span>, <span class='object_link'><a href="../ActRenderer.html#deletion_act%3F-instance_method" title="Card::Act::ActRenderer#deletion_act? (method)">#deletion_act?</a></span>, <span class='object_link'><a href="../ActRenderer.html#details-instance_method" title="Card::Act::ActRenderer#details (method)">#details</a></span>, <span class='object_link'><a href="../ActRenderer.html#edited_ago-instance_method" title="Card::Act::ActRenderer#edited_ago (method)">#edited_ago</a></span>, <span class='object_link'><a href="../ActRenderer.html#header-instance_method" title="Card::Act::ActRenderer#header (method)">#header</a></span>, <span class='object_link'><a href="../ActRenderer.html#initialize-instance_method" title="Card::Act::ActRenderer#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="../ActRenderer.html#link_to_act_card-instance_method" title="Card::Act::ActRenderer#link_to_act_card (method)">#link_to_act_card</a></span>, <span class='object_link'><a href="../ActRenderer.html#link_to_history-instance_method" title="Card::Act::ActRenderer#link_to_history (method)">#link_to_history</a></span>, <span class='object_link'><a href="../ActRenderer.html#method_missing-instance_method" title="Card::Act::ActRenderer#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../ActRenderer.html#render-instance_method" title="Card::Act::ActRenderer#render (method)">#render</a></span>, <span class='object_link'><a href="../ActRenderer.html#respond_to_missing%3F-instance_method" title="Card::Act::ActRenderer#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../ActRenderer.html#rollback_link-instance_method" title="Card::Act::ActRenderer#rollback_link (method)">#rollback_link</a></span>, <span class='object_link'><a href="../ActRenderer.html#show_or_hide_changes_link-instance_method" title="Card::Act::ActRenderer#show_or_hide_changes_link (method)">#show_or_hide_changes_link</a></span>, <span class='object_link'><a href="../ActRenderer.html#summary-instance_method" title="Card::Act::ActRenderer#summary (method)">#summary</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../../Bootstrapper.html" title="Bootstrapper (module)">Bootstrapper</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../../Bootstrapper.html#bootstrap-instance_method" title="Bootstrapper#bootstrap (method)">#bootstrap</a></span>, <span class='object_link'><a href="../../../Bootstrapper.html#bs-instance_method" title="Bootstrapper#bs (method)">#bs</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../../Bootstrap/ComponentLoader.html" title="Bootstrap::ComponentLoader (module)">Bootstrap::ComponentLoader</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../../Bootstrap/ComponentLoader.html#components-instance_method" title="Bootstrap::ComponentLoader#components (method)">#components</a></span>, <span class='object_link'><a href="../../../Bootstrap/ComponentLoader.html#include_component-instance_method" title="Bootstrap::ComponentLoader#include_component (method)">#include_component</a></span>, <span class='object_link'><a href="../../../Bootstrap/ComponentLoader.html#load_components-instance_method" title="Bootstrap::ComponentLoader#load_components (method)">#load_components</a></span>, <span class='object_link'><a href="../../../Bootstrap/ComponentLoader.html#to_const-instance_method" title="Bootstrap::ComponentLoader#to_const (method)">#to_const</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <p class="notice">This class inherits a constructor from <span class='object_link'><a href="../ActRenderer.html#initialize-instance_method" title="Card::Act::ActRenderer#initialize (method)">Card::Act::ActRenderer</a></span></p>
+  
+</div>
+<div id="method_missing_details" class="method_details_list">
+  <h2>Dynamic Method Handling</h2>
+  <p class="notice super">
+    This class handles dynamic methods through the <tt>method_missing</tt> method
+    
+      in the class <span class='object_link'><a href="../ActRenderer.html#method_missing-instance_method" title="Card::Act::ActRenderer#method_missing (method)">Card::Act::ActRenderer</a></span>
+    
+  </p>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="act_links-instance_method">
+  
+    #<strong>act_links</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act/act_renderer/relative_act_renderer.rb', line 21</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_act_links'>act_links</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='id identifier rubyid_rollback_or_edit_link'>rollback_or_edit_link</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:small</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="actions-instance_method">
+  
+    #<strong>actions</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act/act_renderer/relative_act_renderer.rb', line 46</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_actions'>actions</span>
+  <span class='ivar'>@actions</span> <span class='op'>||=</span> <span class='ivar'>@act</span><span class='period'>.</span><span class='id identifier rubyid_actions_affecting'>actions_affecting</span><span class='lparen'>(</span><span class='ivar'>@card</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="current_act?-instance_method">
+  
+    #<strong>current_act?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act/act_renderer/relative_act_renderer.rb', line 40</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_current_act?'>current_act?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_last_act'>last_act</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@act</span>
+
+  <span class='ivar'>@act</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>==</span> <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_last_act'>last_act</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="revert_link-instance_method">
+  
+    #<strong>revert_link</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act/act_renderer/relative_act_renderer.rb', line 50</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_revert_link'>revert_link</span>
+  <span class='id identifier rubyid_revert_actions_link'>revert_actions_link</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>revert to this</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                      <span class='lbrace'>{</span> <span class='label'>revert_actions:</span> <span class='id identifier rubyid_actions'>actions</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:id</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='symbol'>:bridge</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+                      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-slot-selector</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.bridge-view</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="rollback_or_edit_link-instance_method">
+  
+    #<strong>rollback_or_edit_link</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29
+30
+31
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act/act_renderer/relative_act_renderer.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_rollback_or_edit_link'>rollback_or_edit_link</span>
+  <span class='kw'>if</span> <span class='ivar'>@act</span><span class='period'>.</span><span class='id identifier rubyid_draft?'>draft?</span>
+    <span class='id identifier rubyid_autosaved_draft_link'>autosaved_draft_link</span> <span class='label'>text:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>continue editing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                         <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>collapse </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_show_rollback_link?'>show_rollback_link?</span>
+    <span class='id identifier rubyid_rollback_link'>rollback_link</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="show_rollback_link?-instance_method">
+  
+    #<strong>show_rollback_link?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act/act_renderer/relative_act_renderer.rb', line 36</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_show_rollback_link?'>show_rollback_link?</span>
+  <span class='op'>!</span><span class='id identifier rubyid_current_act?'>current_act?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="subtitle-instance_method">
+  
+    #<strong>subtitle</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17
+18
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act/act_renderer/relative_act_renderer.rb', line 15</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_subtitle'>subtitle</span>
+  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@act</span><span class='period'>.</span><span class='id identifier rubyid_card_id'>card_id</span> <span class='op'>!=</span> <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:small</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>act on </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_absolute_title'>absolute_title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="title-instance_method">
+  
+    #<strong>title</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+8
+9
+10
+11
+12
+13</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act/act_renderer/relative_act_renderer.rb', line 8</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_title'>title</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;span class=\&quot;nr\&quot;&gt;#</span><span class='embexpr_beg'>#{</span><span class='ivar'>@args</span><span class='lbracket'>[</span><span class='symbol'>:act_seq</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/span&gt;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='id identifier rubyid_accordion_expand_link'>accordion_expand_link</span><span class='lparen'>(</span><span class='ivar'>@act</span><span class='period'>.</span><span class='id identifier rubyid_actor'>actor</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span><span class='symbol'>:small</span><span class='comma'>,</span> <span class='id identifier rubyid_edited_ago'>edited_ago</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Mon May 20 08:34:05 2019 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.9 (ruby-2.4.1).
+</div>
+
+    </div>
+  </body>
+</html>

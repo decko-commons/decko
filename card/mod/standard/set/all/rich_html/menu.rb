@@ -1,15 +1,15 @@
 format :html do
-  view :menu, denial: :blank, tags: :unknown_ok do
+  view :menu, denial: :blank, unknown: true do
     return "" if card.unknown?
     wrap_with :div, class: "card-menu #{menu_link_classes}" do
-      menu_link
+      [bridge_link(false), menu_link]
     end
   end
 
   def menu_link
     case voo.edit
     when :inline
-      edit_in_place_link
+      edit_inline_link
     when :full
       edit_in_bridge_link
     else # :standard
@@ -17,7 +17,7 @@ format :html do
     end
   end
 
-  view :edit_link, tags: :unknown_ok, denial: :blank do
+  view :edit_link, unknown: true, denial: :blank do
     edit_link
   end
 
@@ -56,11 +56,5 @@ format :html do
 
   def full_page_icon
     icon_tag :open_in_new
-  end
-
-  def show_menu_item_edit?
-    return unless card.real?
-
-    card.ok?(:update) || structure_editable?
   end
 end

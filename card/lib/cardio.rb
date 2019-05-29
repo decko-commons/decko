@@ -73,11 +73,13 @@ module Cardio
         persistent_cache:       true,
         prepopulate_cache:      false,
         machine_refresh:        :cautious, # options: eager, cautious, never
+        compress_javascript:    true,
 
         allow_irreversible_admin_tasks: false,
         raise_all_rendering_errors:     false,
         rescue_all_in_controller:       true,
-        navbox_match_start_only:        true
+        navbox_match_start_only:        :true,
+        load_strategy:                  :eval
       }
     end
 

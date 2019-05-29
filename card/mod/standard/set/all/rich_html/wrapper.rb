@@ -72,7 +72,7 @@ format :html do
   end
 
   def debug_slot?
-    params[:debug] == "slot" && !tagged(@current_view, :no_wrap_comments)
+    params[:debug] == "slot"
   end
 
   def debug_slot_wrap
@@ -105,9 +105,13 @@ format :html do
   end
 
   def wrap_main
-    return yield if Env.ajax? || params[:layout] == "none"
+    return yield if no_main_wrap?
 
     wrap_with :div, yield, id: "main"
+  end
+
+  def no_main_wrap?
+    Env.ajax? || params[:layout] == "none"
   end
 
   def wrap_with tag, content_or_args={}, html_args={}

@@ -30,16 +30,25 @@ def rollback_request?
   history? && actions_to_revert.any?
 end
 
-def process_revert_actions
+def process_revert_actions revert_actions=nil
+  revert_actions ||= actions_to_revert
   update_args = { subcards: {} }
   reverting_to_previous = Env.params["revert_to"] == "previous"
-  actions_to_revert.each do |action|
+  revert_actions.each do |action|
     merge_revert_action! action, update_args, reverting_to_previous
   end
   update_args
 end
 
 def actions_to_revert
+  if (act_id = Env.params["revert_act"])
+    Act.find(act_id).actions
+  else
+    explicit_actions_to_revert
+  end
+end
+
+def explicit_actions_to_revert
   Array.wrap(Env.params["revert_actions"]).map do |a_id|
     Action.fetch(a_id) || nil
   end.compact

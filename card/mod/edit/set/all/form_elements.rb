@@ -1,6 +1,6 @@
 format :html do
   def success_tags opts
-    return "" unless opts
+    return "" unless opts.present?
 
     hidden_tags success: opts
   end

@@ -7,7 +7,7 @@ class Card
       include Mode
 
       # @param cardish card mark
-      # @param view_opts [Hash] opts will be passed on to render (and then voo)
+      # @param view_opts [Hash] {Card/View/Options view options}, passed on to render.
       # @param format_opts [Hash] opts will be passed on to subformat
       def nest cardish, view_opts={}, format_opts={}
         return "" if nest_invisible?
@@ -25,8 +25,9 @@ class Card
       #   home.nest :self         # => nest for '*self'
       #   home.field_nest :self   # => nest for 'Home+*self'
       def field_nest field, opts={}
-        field = card.name.field(field) unless field.is_a? Card
-        nest field, opts
+        fullname = card.name.field(field) unless field.is_a? Card
+        opts[:title] ||= Card.fetch_name(field).vary("capitalized")
+        nest fullname, opts
       end
 
       # create a path for a nest with respect to the nest options
@@ -36,7 +37,8 @@ class Card
         path path_opts
       end
 
-      # frequently overridden
+      # view used if unspecified in nest.
+      # frequently overridden in other formats
       def default_nest_view
         :name
       end

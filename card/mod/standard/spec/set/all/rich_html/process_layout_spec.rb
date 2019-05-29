@@ -33,7 +33,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     end
 
     it "renders card credit" do
-      expect(open_view).to have_tag 'div[class~="SELF-Xcredit"]' do
+      expect(open_view).to have_tag 'footer' do
         with_tag "svg"
         with_tag "a", text: "Decko v#{Card::Version.release}"
       end
@@ -57,7 +57,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       end
     end
 
-    it "respect custom view in main nest" do
+    it "respects custom view in main nest" do
       with_layout "<pre>Hey {{_main|type}}</pre>"
       expect(format_subject.show(nil, {})).to have_tag :pre do
         with_text(/Hey/)

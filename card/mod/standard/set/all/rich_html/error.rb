@@ -7,7 +7,7 @@ format :html do
     haml :debug_server_error, {}, error_page
   end
 
-  view :message, perms: :none, tags: :unknown_ok do
+  view :message, perms: :none, unknown: true do
     frame { params[:message] }
   end
 
@@ -69,14 +69,14 @@ format :html do
 
   def view_for_unknown view
     case
-    when focal? && ok?(:create) then :new
-    when commentable?(view)     then view
+    when main? && ok?(:create) then :new
+    when commentable?(view)    then view
     else super
     end
   end
 
   def commentable? view
-    return false unless self.class.tagged(view, :comment) &&
+    return false unless view_setting(:commentable, view) &&
                         show_view?(:comment_box, :hide)
 
     ok? :comment
@@ -150,13 +150,14 @@ format :html do
   end
 
   def signin_link
-    link_to_card :signin, tr(:sign_in)
+    link_to_card :signin, tr(:sign_in), remote: true, class: "slotter"
   end
 
   def signup_link
     return unless signup_ok?
 
-    link_to tr(:sign_up), path: { action: :new, mark: :signup }
+    link_to tr(:sign_up), path: { action: :new, mark: :signup },
+                              remote: true, class: "slotter"
   end
 
   def signup_ok?
@@ -170,6 +171,7 @@ format :html do
   end
 
   def loud_denial
+    voo.hide :menu
     frame do
       [wrap_with(:h1, tr(:sorry)),
        wrap_with(:div, loud_denial_message)]

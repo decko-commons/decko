@@ -102,6 +102,13 @@ class Card
       Card::Migration::Import.new(data_path).merge only: names_or_keys
     end
 
+    def merge_pristine_cards names_or_keys
+      names_or_keys = Array(names_or_keys)
+
+      pristine = names_or_keys.select { |n| !Card.exists?(n) || Card.fetch(n)&.pristine? }
+      merge_cards pristine
+    end
+
     def read_json filename
       raw_json = File.read data_path(filename)
       json = JSON.parse raw_json

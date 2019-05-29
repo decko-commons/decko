@@ -1,5 +1,5 @@
 format :html do
-  view :flash, cache: :never, tags: :unknown_ok do
+  view :flash, cache: :never, unknown: true, perms: :none do
     flash_notice = params[:flash] || Env.success.flash
     return "" unless flash_notice.present? && focal?
 
@@ -18,9 +18,10 @@ format :html do
 
   def with_frame slot=true, header=frame_header, slot_opts={}
     voo.hide :help
+    add_name_context
     wrap slot, slot_opts do
       panel do
-        [header, frame_help, _render(:flash), (yield if block_given?)]
+        [header, frame_help, render_flash, (yield if block_given?)]
       end
     end
   end
@@ -39,7 +40,7 @@ format :html do
     form_opts ||= {}
     frame do
       card_form action, form_opts do
-        output yield
+        yield
       end
     end
   end

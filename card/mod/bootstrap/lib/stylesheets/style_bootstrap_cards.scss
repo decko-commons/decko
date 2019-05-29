@@ -24,19 +24,15 @@ header {
 
 .d0-card-header a {
   color: $body-color;
-}
-.card-menu {
-  color: $text-muted;
+  &.edit-link {
+    color: $text-muted;
+  }
 }
 
 @media print {
   header {
     display: none;
   }
-}
-
-.card-menu a {
-  color: inherit;
 }
 
 label,
@@ -125,7 +121,7 @@ body.mceContentBody {
 }
 
 /* collapsed sidebar styles */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 576px) {
   .row-offcanvas {
     position: relative;
     -webkit-transition: all 0.25s ease-out;
@@ -165,7 +161,7 @@ body.mceContentBody {
   .card-slot > .d0-card-frame > .d0-card-header,
   .card-slot > .d0-card-header,
   .card-slot.labeled-view > .labeled-content > .d0-card-body,
-  .card-slot.content-view,
+  .card-slot,
   .card > .card-body,
   .card > .card-header {
     > .card-menu._show-on-hover > a {
@@ -175,7 +171,7 @@ body.mceContentBody {
   .card-slot:hover > .d0-card-frame > .d0-card-header,
   .card-slot:hover > .d0-card-header,
   .card-slot.labeled-view:hover > .labeled-content > .d0-card-body,
-  .card-slot.content-view:hover,
+  .card-slot:hover,
   .card:hover > .card-body,
   .card:hover > .card-header{
     > .card-menu._show-on-hover > a {
@@ -380,8 +376,27 @@ body.mceContentBody {
     // TODO: obviate in ruby with better unknown API
     display: none;
   }
-  div, span, a {
-    overflow: hidden;
+}
+.bar {
+  border-left: 3px solid $bar_stripe_color !important;
+  .bar-nav {
+    min-width: 20px;
+    margin-left: auto;
+  }
+  .media {
+    width: 100%
+  }
+  .media-left {
+    max-width: 25%
+  }
+}
+
+.expanded-bar {
+  margin-bottom: 1em;
+  .bar-bottom {
+    padding: 1em 1em 1em 2em;
+    border: 1px solid $border-color;
+    border-top: 0;
   }
 }
 
@@ -417,21 +432,8 @@ body.mceContentBody {
   text-overflow: ellipsis;
 }
 
-.bar {
-  border-left: 3px solid $bar_stripe_color !important;
-  .bar-nav {
-    min-width: 20px;
-  }
-}
-
 .badge {
   vertical-align: text-top!important;
-}
-
-/*----------- Tweak tabs -------------*/
-
-.nav-tabs .nav-item {
-  margin-left: -1px; // remove double border on tabs
 }
 
 /*----------- Slim Select2 -------------*/

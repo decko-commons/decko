@@ -29,11 +29,9 @@ def safe_sql_param key
 end
 
 def filter_keys_with_values
-  (filter_keys + advanced_filter_keys).map do |key|
+  filter_keys.map do |key|
     values = filter_param(key)
-    next unless values.present?
-
-    [key, values]
+    values.present? ? [key, values] : next
   end.compact
 end
 

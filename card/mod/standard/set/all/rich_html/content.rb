@@ -45,20 +45,20 @@ format :html do
     end
   end
 
-  view :titled, tags: :comment do
+  view :titled, commentable: true do
     @content_body = true
     wrap do
       [
-        _render_header,
-        wrap_body { _render_titled_content },
+        naming { render_header },
+        render_flash,
+        wrap_body { render_titled_content },
         render_comment_box
       ]
     end
   end
 
-  view :labeled, tags: :unknown_ok do
+  view :labeled, unknown: true do
     @content_body = true
-    voo.edit ||= :content_modal
     wrap(true, class: "row") do
       labeled(render_title, wrap_body { "#{render_menu}#{render_labeled_content}" } )
     end
@@ -68,7 +68,13 @@ format :html do
     haml :labeled, label: label, content: content
   end
 
-  view :open, tags: :comment do
+  def labeled_field field, item_view=:name, opts={}
+    opts[:title] ||= Card.fetch_name field
+    field_nest field, opts.merge(view: :labeled,
+                                 items: (opts[:items] || {}).merge(view: item_view))
+  end
+
+  view :open, commentable: true do
     toggle_logic
     @toggle_mode = :open
     @content_body = true
@@ -99,7 +105,24 @@ format :html do
     Card.fetch(set_name)
   end
 
+  # LOCALIZE
   def short_content
+    short_content_items || short_content_fields || short_content_from_core
+  end
+
+  def short_content_items
+    return unless card.respond_to? :count
+    "#{count} #{'item'.pluralize count}"
+  end
+
+  def short_content_fields
+    return unless voo.structure || card.structure
+    fields = nested_fields.size
+    return if fields.zero?
+    "#{fields} #{'field'.pluralize fields}"
+  end
+
+  def short_content_from_core
     content = render_core
     if content.blank?
       "empty"
@@ -110,5 +133,9 @@ format :html do
     else
       "#{content.count("\n") + 1} lines"
     end
+  end
+
+  def count
+    @count ||= card.count
   end
 end

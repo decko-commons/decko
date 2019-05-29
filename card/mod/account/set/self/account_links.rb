@@ -29,7 +29,7 @@ format :html do
                  path: { action: :new, mark: :signup }
   end
 
-  view( :sign_in, link_options { !Auth.signed_in? }) do
+  view(:sign_in, link_options { !Auth.signed_in? }) do
     link_to_card :signin, account_link_text(:sign_in),
                  class: nav_link_class("signin-link")
   end

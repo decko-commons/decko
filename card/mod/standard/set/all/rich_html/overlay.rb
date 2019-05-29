@@ -12,7 +12,7 @@ format :html do
     end
   end
 
-  view :overlay_header, tags: :unknown_ok do
+  view :overlay_header, unknown: true do
     overlay_header
   end
 

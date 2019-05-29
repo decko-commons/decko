@@ -1,6 +1,7 @@
 # find card slot by card name (and view)
 Cypress.Commands.add "slot", (cardname, view) =>
-  selector = ".card-slot.SELF-#{cardname.replace(/\+/g, "-")}"
+  safe_name = cardname.replace(/\+/g, "-").replace(/\*/g, "X")
+  selector = ".card-slot.SELF-#{safe_name}"
   selector += ".#{view}-view" if view?
   cy.get(selector)
 
@@ -9,15 +10,15 @@ Cypress.Commands.add "main_slot", () =>
 
 # click the edit icon
 Cypress.Commands.add "click_edit",  { prevSubject: 'element'}, (subject) =>
-  subject.find(".card-menu > a").click(force: true)
+  cy.wrap(subject).find(".card-menu > a.edit-link").click(force: true)
 
 
 Cypress.Commands.add "expect_main_title", (text) =>
-  cy.get("#main > .card-slot > .d0-card-frame > .d0-card-header > .d0-card-header-title .card-title")
+  cy.get("#main > .card-slot > .d0-card-header > .d0-card-header-title .card-title")
     .should("contain", text)
 
 Cypress.Commands.add "expect_main_content", (text) =>
-  cy.get("#main > .card-slot > .d0-card-frame > .d0-card-body")
+  cy.get("#main > .card-slot > .d0-card-body")
     .should("contain", text)
 
 Cypress.Commands.add "rename", (old_name, new_name) =>
@@ -30,11 +31,15 @@ Cypress.Commands.add "retype", (name, new_type) =>
     method: "POST",
     url: "/update/#{name}?card[type]=#{new_type}"
 
+Cypress.Commands.add "clear_script_cache", () =>
+  cy.request
+    method: "POST",
+    url: "/update/*admin?task=clear_script_cache"
+
 Cypress.Commands.add "clear_machine_cache", () =>
   cy.request
     method: "POST",
     url: "/update/*admin?task=clear_machine_cache"
-
 
 Cypress.Commands.add "field", (name) =>
   cy.get "[name='card[subcards][+#{name}][content]']"

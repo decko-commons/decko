@@ -5,11 +5,11 @@ format :html do
                    ["references out", :refers_to],
                    ["references in",  :referred_to_by]].freeze
 
-  view :engage_tab, wrap: { div: { class: "m-3 mt-4 _engage-tab" } } do
+  view :engage_tab, wrap: { div: { class: "m-3 mt-4 _engage-tab" } }, cache: :never do
     [render_follow_section, discussion_section].compact
   end
 
-  view :history_tab do
+  view :history_tab, wrap: :slot do
     class_up "d0-card-body",  "history-slot"
     voo.hide :act_legend
     acts_bridge_layout card.history_acts
@@ -19,7 +19,7 @@ format :html do
     bridge_pills bridge_pill_items(RELATED_ITEMS, "Related")
   end
 
-  view :rules_tab, tag: :unknown_ok do
+  view :rules_tab, unknown: true do
     class_up "card-slot", "flex-column"
     wrap do
       nest current_set_card, view: :bridge_rules_tab
@@ -30,7 +30,7 @@ format :html do
     bridge_pills bridge_pill_items(account_items, "Account")
   end
 
-  view :follow_section, wrap: :slot do
+  view :follow_section, wrap: :slot, cache: :never do
     follow_section
   end
 

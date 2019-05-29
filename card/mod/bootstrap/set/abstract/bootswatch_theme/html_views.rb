@@ -17,7 +17,6 @@ format :html do
                     media_opts: { class: "align-items-center" }
     # field_nest(:image, view: :core) + wrap_with(:h4, render(:title))
   end
-  view :bar_expanded_left, :bar_left
 
   view :bar_right do
     customize_button text: "Customize"

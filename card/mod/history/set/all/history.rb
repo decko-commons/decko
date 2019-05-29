@@ -8,11 +8,22 @@ def history_card_ids
   includee_ids << id
 end
 
-# FIXME: optimize (no need to instantiate all actions and changes!)
+# ~~FIXME~~: optimize (no need to instantiate all actions and changes!)
+# Nothing is instantiated here. ActiveRecord is much smarter than you think.
+# Methods like #empty? and #size make sql queries if their receivers are not already
+# loaded -pk
 def first_change?
   # = update or delete
-  @current_action.action_type != :create && @current_action.card.actions.size == 2 &&
+  @current_action.action_type != :create && action_count == 2 &&
     create_action.card_changes.empty?
+end
+
+def first_create?
+  @current_action.action_type == :create && action_count == 1
+end
+
+def action_count
+  Card::Action.where(card_id: @current_action.card_id).count
 end
 
 # card has account that is responsible for prior acts

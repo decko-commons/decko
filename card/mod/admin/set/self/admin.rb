@@ -21,6 +21,7 @@ event :admin_tasks, :initialize, on: :update do
   when :repair_permissions   then Card.repair_all_permissions
   when :clear_solid_cache    then Card.clear_solid_cache
   when :clear_machine_cache  then Card.reset_all_machines
+  when :clear_script_cache   then Card.reset_script_machine
   when :clear_history
     not_allowed "clear history" unless irreversibles_tasks_allowed?
     Card::Action.delete_old

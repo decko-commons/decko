@@ -39,7 +39,7 @@ class Card
         # is format's card the format of the requested card?
         # (can be different from main in certain formats, see override in HtmlFormat)
         def focal?
-          depth.zero?
+          @focal ||= depth.zero?
         end
 
         def field_subformat field

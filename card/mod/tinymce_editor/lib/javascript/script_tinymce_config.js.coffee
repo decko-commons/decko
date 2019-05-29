@@ -6,6 +6,10 @@ decko.addEditor(
     tinyMCE.get(@[0].id).getContent()
 )
 
+decko.slotDestroy (slot) ->
+  slot.find("textarea.tinymce-textarea").each ->
+    tinyMCE.get($(this).attr("id")).remove()
+
 $.extend decko,
   setTinyMCEConfig: (string) ->
     setter = ->
@@ -41,11 +45,12 @@ $.extend decko,
 
     tinyMCE.baseURL = decko.path('assets/tinymce_editor/tinymce')
     tinyMCE.suffix = '.min'
-    tinyMCE.remove("##{el_id}") if tinyMCE.get(el_id)?
+    # "##{el_id}"
+    # tinyMCE.get(el_id).remove() if $("##{el_id}")[0]? and tinyMCE.get(el_id)?
     tinyMCE.init conf
 
   addNestPlugin: (conf) ->
     if conf.plugins?  then conf.plugins += " nest"    else conf.plugins = "nest"
     # if conf.toolbar1? then conf.toolbar1 += " | nest" else conf.toolbar1 = "nest"
-    conf.menu = { insert: { title: "Insert", items: "nest link | hr"}}
+    conf.menu = { insert: { title: "Insert", items: "nest image link | hr"}}
 

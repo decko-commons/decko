@@ -17,7 +17,8 @@ class Card
     # The mods are given by a Mod::Dirs object.
     # SetLoader can use three different strategies to load the set modules.
     class Loader
-      def initialize load_strategy=:eval, mod_dirs=nil
+      def initialize load_strategy=nil, mod_dirs=nil
+        load_strategy ||= Cardio.config.load_strategy
         mod_dirs ||= Mod.dirs
         klass = load_strategy_class load_strategy
         @load_strategy = klass.new mod_dirs, self
@@ -53,23 +54,11 @@ class Card
           end
         end
 
-        def load_layouts extension
-          hash = {}
-          Mod.dirs.each(:layout) do |dirname|
-            Dir.foreach(dirname) do |filename|
-              next if filename =~ /^\./ || filename !~ /\.#{extension}$/
-              layout_name = filename.gsub(/\.#{extension}$/, "")
-              hash[layout_name] = File.read File.join(dirname, filename)
-            end
-          end
-          hash
-        end
-
         def module_class_template
           const_get :Template
         end
 
-        private
+        # private
 
         def load_initializers
           Card.config.paths["mod/config/initializers"].existent.sort.each do |initializer|

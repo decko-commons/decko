@@ -1,7 +1,11 @@
-require "sass"
+require "sassc"
 include_set Abstract::Machine
 
 store_machine_output filetype: "css"
+
+def ok_to_read
+  true
+end
 
 format do
   # turn off autodetection of uri's
