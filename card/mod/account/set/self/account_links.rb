@@ -1,3 +1,6 @@
+def ok_to_read
+  true
+end
 
 format :html do
   view :core, cache: :never do
@@ -26,12 +29,12 @@ format :html do
                  path: { action: :new, mark: :signup }
   end
 
-  view :sign_in, link_options { !Auth.signed_in? } do
+  view( :sign_in, link_options { !Auth.signed_in? }) do
     link_to_card :signin, account_link_text(:sign_in),
                  class: nav_link_class("signin-link")
   end
 
-  view :sign_out, link_options { Auth.signed_in? } do
+  view(:sign_out, link_options { Auth.signed_in? }) do
     link_to_card :signin, account_link_text(:sign_out),
                  class: nav_link_class("signout-link"),
                  path: { action: :delete }
@@ -43,8 +46,21 @@ format :html do
                  path: { action: :new, mark: :signup }
   end
 
-  view :my_card, link_options { Auth.signed_in? } do
-    link_to_card Auth.current.name, nil, id: "my-card-link", class: nav_link_class("my-card")
+  view(:my_card, link_options { Auth.signed_in? }) do
+    link = link_to_card Auth.current.name, nil,
+                        id: "my-card-link",
+                        class: nav_link_class("my-card")
+    role_view = roles.size > 1 ? :link_with_checkbox : :link
+    split_button link, nil do
+      [
+        link_to_card([Auth.current, :account_settings], "Account"),
+        ["Roles", (roles.map { |r| nest r, view: role_view })]
+      ]
+    end
+  end
+
+  def roles
+    @roles ||= [Card[:eagle], Auth.current.fetch(trait: :roles)&.item_names].flatten.compact
   end
 
   def account_link_text purpose

@@ -44,12 +44,28 @@ def read_rules
   end
 end
 
+def all_active_roles
+  @all_active_roles ||= (id == Card::AnonymousID ? [] : fetch_active_roles)
+end
+
 def all_roles
   @all_roles ||= (id == Card::AnonymousID ? [] : fetch_roles)
 end
 
+def fetch_active_roles
+  disabled = disabled_role_ids
+  disabled.present? ? (fetch_roles - disabled) : fetch_roles
+end
+
 def fetch_roles
   [Card::AnyoneSignedInID] + role_ids_from_roles_trait
+end
+
+def disabled_role_ids
+  Auth.as_bot do
+    role_trait = fetch(trait: :disabled_roles)
+    role_trait ? role_trait.item_ids : []
+  end
 end
 
 def role_ids_from_roles_trait
