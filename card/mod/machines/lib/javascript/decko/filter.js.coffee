@@ -65,6 +65,7 @@ decko.filter = (el) ->
   @activeContainer = @widget.find "._filter-container"
   @dropdown = @widget.find "._add-filter-dropdown"
   @dropdownItems = @widget.find "._filter-category-select"
+  @form = @widget.find "._filter-form"
 
   @showWithStatus = (status) ->
     f = this
@@ -150,6 +151,7 @@ decko.filter = (el) ->
     @update()
 
   @update = ()->
-    @widget.find("._filter-form").submit()
+    @form.submit()
+    window.history.pushState "filter", "filter", '?' + @form.serialize()
 
   this
