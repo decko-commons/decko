@@ -14,10 +14,7 @@ end
 
 format :html do
   def sort_options
-    {
-      "Alphabetical": :name,
-      "Recently Added": :create
-    }
+    { "Alphabetical": :name, "Recently Added": :create }
   end
 
   def default_item_view

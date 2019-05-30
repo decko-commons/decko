@@ -396,13 +396,13 @@ body.mceContentBody {
     display: flex;
     padding: 0.5rem;
     flex-wrap: wrap;
+    align-items: center;
   }
   .bar-left {
     font-weight: bold;
+    align-items: flex-start;
   }
   .bar-middle {
-    // border: 1px solid $border-color;
-    // border-width: 0 1px;
     justify-content: center;
   }
   .bar-right {
@@ -474,6 +474,12 @@ body.mceContentBody {
   }
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.box-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .badge {
