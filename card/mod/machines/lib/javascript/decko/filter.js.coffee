@@ -42,18 +42,18 @@ $(window).ready ->
   $('body').on 'click', '.filtering .filterable', (e) ->
     f = filterFor($("._filter-widget:visible"))
     if f.widget.length > 0
-      data = $(this).data "filter"
+      data = $(this).data("filter") || $(this).find(".filterable").data("filter")
       # f.reset()
       f.restrict data["key"], data["value"]
     e.preventDefault()
-    # e.stopPropagation()
+    e.stopPropagation()
 
-  $('body').on 'click', '._record-filter', (e) ->
-    f = filterFor($("._filter-widget:visible"))
-    f.removeField("year")
-    data = $(this).data "filter"
-    # f.reset()
-    f.restrict data["key"], data["value"]
+  # $('body').on 'click', '._record-filter', (e) ->
+  #   f = filterFor($("._filter-widget:visible"))
+  #   f.removeField("year")
+  #   data = $(this).data "filter"
+  #   # f.reset()
+  #   f.restrict data["key"], data["value"]
 
 # sometimes this element shows up as changed and breaks the filter.
 weirdoSelect2FilterBreaker = (el) ->

@@ -56,6 +56,10 @@ format :html do
     css_classes classy("bar"), card.safe_set_keys
   end
 
+  def bar_data
+    {}
+  end
+
   def bar_title
     if voo.show?(:toggle)
       link_to_view bar_title_toggle_view, render_title
