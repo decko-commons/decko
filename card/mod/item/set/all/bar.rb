@@ -97,6 +97,6 @@ format :html do
   end
 
   view :edit_button do
-    link_to_view :edit, "Edit"
+    link_to_view :edit, "Edit", class: "btn btn-sm btn-outline-primary mr-2"
   end
 end
