@@ -9,6 +9,7 @@ format :html do
   end
 
   before :bar do
+    class_up "bar", card.safe_set_keys
     voo.hide! :bar_collapse_link
     voo.hide :edit_link, :full_page_link
   end
@@ -25,6 +26,7 @@ format :html do
   info_bar_cols 5, 4, 3
 
   before :expanded_bar do
+    class_up "bar", card.safe_set_keys
     voo.hide! :bar_expand_link
   end
 
@@ -50,14 +52,6 @@ format :html do
 
   view :bar_left do
     bar_title
-  end
-
-  def bar_classes
-    css_classes classy("bar"), card.safe_set_keys
-  end
-
-  def bar_data
-    {}
   end
 
   def bar_title
@@ -93,11 +87,11 @@ format :html do
   end
 
   view :bar_expand_link do
-    link_to_view :expanded_bar, icon_tag(:keyboard_arrow_right)
+    link_to_view :expanded_bar, icon_tag(:keyboard_arrow_down)
   end
 
   view :bar_collapse_link do
-    link_to_view :bar, icon_tag(:keyboard_arrow_down)
+    link_to_view :bar, icon_tag(:keyboard_arrow_up)
   end
 
   view :edit_button do

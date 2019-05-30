@@ -395,13 +395,18 @@ body.mceContentBody {
   .bar-left, .bar-right, .bar-middle {
     display: flex;
     padding: 0.5rem;
+    flex-wrap: wrap;
   }
   .bar-left {
     font-weight: bold;
   }
+  .bar-middle {
+    // border: 1px solid $border-color;
+    // border-width: 0 1px;
+    justify-content: center;
+  }
   .bar-right {
-    text-align: right;
-    border-left: 1px solid $border-color;
+    justify-content: flex-end;
   }
 }
 
@@ -427,9 +432,9 @@ body.mceContentBody {
 }
 
 .expanded-bar {
-  margin-bottom: 1em;
+  margin: 0.5em 0;
   display: flex;
-  .bar-top {
+  .bar {
     border-bottom: 1px solid $border-color;
     display: flex;
   }
