@@ -416,13 +416,20 @@ body.mceContentBody {
 }
 
 .bar-nav {
-  display: flex;
+  display: none;
   flex-direction: column;
+  padding-left: 5px;
   a {
     color: $text-muted;
     &:hover {
       color: $primary;
     }
+  }
+}
+
+.bar, .expanded-bar {
+  &:hover .bar-nav {
+    display: flex
   }
 }
 

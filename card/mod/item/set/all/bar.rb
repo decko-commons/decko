@@ -35,10 +35,6 @@ format :html do
     wrap { haml :expanded_bar }
   end
 
-  # view :expanded_edit_bar, perms: :none do
-  #   _render_expanded_bar!
-  # end
-
   def class_up_bar_sides middle
     class_up_cols %w[bar-left bar-right], bar_cols
     class_up_cols %w[bar-left bar-middle bar-right], info_bar_cols, "md" if middle
