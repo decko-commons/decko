@@ -8,6 +8,18 @@ $(window).ready ->
   filterFor = (el) ->
     new decko.filter el
 
+  # sometimes this element shows up as changed and breaks the filter.
+  weirdoSelect2FilterBreaker = (el) ->
+    $(el).hasClass "select2-search__field"
+
+  filterableData = (filterable) ->
+    f = $(filterable)
+    f.data("filter") || f.find("._filterable").data("filter")
+
+  targetFilter = (filterable) ->
+    selector = $(filterable).closest("._filtering").data("filter-selector")
+    filterFor selector
+
   # Add Filter
   $("body").on "click", "._filter-category-select", (e) ->
     e.preventDefault()
@@ -39,14 +51,14 @@ $(window).ready ->
     f.reset()
     f.update()
 
-  $('body').on 'click', '.filtering .filterable', (e) ->
-    f = filterFor($("._filter-widget:visible"))
+  $('body').on 'click', '._filtering ._filterable', (e) ->
+    f = targetFilter this
     if f.widget.length > 0
-      data = $(this).data("filter") || $(this).find(".filterable").data("filter")
-      # f.reset()
+      data = filterableData this
       f.restrict data["key"], data["value"]
     e.preventDefault()
     e.stopPropagation()
+
 
   # $('body').on 'click', '._record-filter', (e) ->
   #   f = filterFor($("._filter-widget:visible"))
@@ -55,9 +67,6 @@ $(window).ready ->
   #   # f.reset()
   #   f.restrict data["key"], data["value"]
 
-# sometimes this element shows up as changed and breaks the filter.
-weirdoSelect2FilterBreaker = (el) ->
-  $(el).hasClass "select2-search__field"
 
 # el can be any element inside widget
 decko.filter = (el) ->
@@ -150,8 +159,12 @@ decko.filter = (el) ->
     input.val value
     @update()
 
+  @updateUrlBar = () ->
+    return if @widget.closest('.filtering')[0] # TODO: better_configuration
+    window.history.pushState "filter", "filter", '?' + @form.serialize()
+
   @update = ()->
     @form.submit()
-    window.history.pushState "filter", "filter", '?' + @form.serialize()
+    @updateUrlBar()
 
   this
