@@ -86,6 +86,13 @@ class Card
             viz views, setting, true
           end
         end
+
+        def normalized_visibility_options
+          viz_hash.each_with_object({}) do |(key, val), hash|
+            hash[val] ||= []
+            hash[val] << key
+          end
+        end
       end
     end
   end

@@ -17,9 +17,5 @@ format :html do
     { "Alphabetical": :name, "Recently Added": :create }
   end
 
-  def default_item_view
-    :info_bar
-  end
-
   view :filtered_content, template: :haml, wrap: :slot
 end
