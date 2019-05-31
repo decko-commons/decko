@@ -4,7 +4,7 @@ def all_filter_keys
 end
 
 def filter_and_sort_wql
-  sort? ? filter_wql.merge(sort_wql) : filter_wql
+  filter_wql.merge(sort_wql)
 end
 
 def filter_wql
@@ -19,11 +19,7 @@ def filter_wql_from_params
 end
 
 def sort_wql
-  sort? ? sort_hash : {}
-end
-
-def sort?
-  true
+  sort_hash
 end
 
 def blocked_id_wql

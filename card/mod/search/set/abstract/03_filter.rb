@@ -18,7 +18,7 @@ format :html do
   end
 
   def default_item_view
-    :bar
+    :info_bar
   end
 
   view :filtered_content, template: :haml, wrap: :slot
