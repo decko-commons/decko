@@ -150,13 +150,15 @@ format :html do
   end
 
   def signin_link
-    link_to_card :signin, tr(:sign_in), slotter: true, path: { view: :open }
+    link_to_card :signin, tr(:sign_in),
+                 class: "signin-link", slotter: true, path: { view: :open }
   end
 
   def signup_link
     return unless signup_ok?
 
-    link_to_card :signup, tr(:sign_up), slotter: true, path: { action: :new }
+    link_to_card :signup, tr(:sign_up),
+                 class: "signup-link", slotter: true, path: { action: :new }
   end
 
   def signup_ok?

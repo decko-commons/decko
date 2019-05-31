@@ -1,5 +1,6 @@
 format :html do
-  view :creator_credit, wrap: { div: { class: "text-muted creator-credit" } }, cache: :never do
+  view :creator_credit,
+       wrap: { div: { class: "text-muted creator-credit" } }, cache: :never do
     return "" unless card.real?
     "Created by #{nest card.creator, view: :link} "\
     "#{time_ago_in_words(card.created_at)} ago"
