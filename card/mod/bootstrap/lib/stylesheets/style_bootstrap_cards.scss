@@ -403,10 +403,17 @@ body.mceContentBody {
     align-items: flex-start;
   }
   .bar-middle {
+    display: none;
     justify-content: center;
   }
   .bar-right {
     justify-content: flex-end;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .bar .bar-middle {
+    display: flex;
   }
 }
 
@@ -416,7 +423,7 @@ body.mceContentBody {
 }
 
 .bar-nav {
-  display: none;
+  display: flex;
   flex-direction: column;
   padding-left: 3px;
   a {
@@ -427,9 +434,14 @@ body.mceContentBody {
   }
 }
 
-.bar, .expanded-bar {
-  &:hover .bar-nav {
-    display: flex
+@include media-breakpoint-up(xs) {
+  .bar-nav {
+    display: none;
+  }
+  .bar, .expanded-bar {
+    &:hover .bar-nav {
+      display: flex
+    }
   }
 }
 
