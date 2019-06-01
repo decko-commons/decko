@@ -434,7 +434,7 @@ body.mceContentBody {
   }
 }
 
-@include media-breakpoint-up(xs) {
+@include media-breakpoint-up(sm) {
   .bar-nav {
     display: none;
   }
