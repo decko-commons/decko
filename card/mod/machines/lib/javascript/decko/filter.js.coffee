@@ -3,6 +3,7 @@ decko.slotReady (slot) ->
     if slot[0] == $(this).slot()[0]
       filter = new decko.filter this
       filter.showWithStatus "active"
+      filter.updateLastVals()
 
 $(window).ready ->
   filterFor = (el) ->
@@ -37,7 +38,7 @@ $(window).ready ->
   $("body").on "keyup", "._filter-input input.simple-text", ->
     clearTimeout keyupTimeout
     filter = filterFor this
-    keyupTimeout = setTimeout ( -> filter.update() ), 333
+    keyupTimeout = setTimeout ( -> filter.updateIfChanged() ), 333
 
   # remove filter
   $("body").on "click", "._delete-filter-input", ->
@@ -159,12 +160,26 @@ decko.filter = (el) ->
     input.val value
     @update()
 
+  @updateLastVals = ()->
+    @activeFields().find("input, select").each ()->
+      $(this).data "lastVal", $(this).val()
+
   @updateUrlBar = () ->
     return if @widget.closest('.filtering')[0] # TODO: better_configuration
     window.history.pushState "filter", "filter", '?' + @form.serialize()
 
   @update = ()->
+    @updateLastVals()
     @form.submit()
     @updateUrlBar()
+
+  @updateIfChanged = ()->
+    @update() if @changedSinceLastVal()
+
+  @changedSinceLastVal = () ->
+    changed = false
+    @activeFields().find("input, select").each ()->
+      changed = true if $(this).val() != $(this).data("lastVal")
+    changed
 
   this
