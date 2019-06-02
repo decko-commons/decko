@@ -14,7 +14,6 @@ format :html do
 
   view :core, template: :haml
 
-  bar_cols 9, 3
   info_bar_cols 6, 3, 3
 
   before :bar do
