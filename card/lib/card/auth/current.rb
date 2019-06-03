@@ -49,6 +49,11 @@ class Card
           end
       end
 
+      def current_roles
+        @roles ||= [Card.fetch_name(:anyone_signed_in),
+                    current.fetch(trait: :roles)&.item_names].flatten.compact
+      end
+
       def serialize
         { as_id: as_id, current_id: current_id }
       end

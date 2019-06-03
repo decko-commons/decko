@@ -20,7 +20,7 @@ format :html do
       [
         main_button,
         split_button_toggle,
-        dropdown_list(yield, nil, active_item)
+        dropdown_list(yield, "dropdown-menu-right", active_item)
       ]
     end
   end
