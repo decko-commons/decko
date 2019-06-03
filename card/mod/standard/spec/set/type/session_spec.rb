@@ -21,7 +21,7 @@ RSpec.describe Card::Set::Type::Session do
     expect(card.content).to eq "new content"
   end
 
-  example "delete content", as_bot: true do
+  example "delete content", as_bot: true, aggregate_failures: true do
     create_session "sesh", "some content"
     card = Card.fetch("sesh", new: { type_id: Card::SessionID })
 

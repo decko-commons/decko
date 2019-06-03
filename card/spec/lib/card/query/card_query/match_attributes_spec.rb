@@ -43,9 +43,7 @@ RSpec.describe Card::Query::CardQuery::MatchAttributes do
   describe "name_match" do
     it "matches names with or without plusses" do
       expect(run_query(name_match: "Any", sort: :name))
-        .to eq(["Anyone", "Anyone+description",
-                "Anyone Signed In", "Anyone Signed In+description",
-                "Anyone With Role"])
+        .to eq(["Anyone", "Anyone+description", "Anyone Signed In", "Anyone Signed In+dashboard", "Anyone Signed In+description", "Anyone With Role"])
     end
   end
 end
