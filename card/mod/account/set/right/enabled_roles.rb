@@ -42,6 +42,10 @@ format :html do
     { reload: true }
   end
 
+  def hidden_form_tags _action, opts
+    "#{super} #{hidden_tags(card: { type_id: SessionID } )}"
+  end
+
   view :role_selection, cache: :never, unknown: true do
     card.ensure_roles
     wrap_with :div, class: "pointer-checkbox-list" do
