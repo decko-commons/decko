@@ -38,7 +38,8 @@ def fetch_read_rules
   return [] if id == Card::WagnBotID # always_ok, so not needed
 
   ([Card::AnyoneID] + parties).each_with_object([]) do |party_id, rule_ids|
-    rule_ids.concat self.class.read_rule_cache[party_id] if self.class.read_rule_cache[party_id]
+    next unless self.class.read_rule_cache[party_id]
+    rule_ids.concat self.class.read_rule_cache[party_id]
   end
 end
 

@@ -68,7 +68,6 @@ format :html do
       haml :role_checkbox, id: "pointer-checkbox-#{option_name.to_name.key}",
                            checked: card.item_names.include?(option_name),
                            option_name: option_name
-
     end
   end
 end

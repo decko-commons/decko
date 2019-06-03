@@ -54,7 +54,7 @@ format :html do
 
   def interactive_roles_dropdown
     nest(enabled_roles_card,
-         view: :edit_inline, hide: [:edit_inline_buttons, :name_formgroup])
+         view: :edit_inline, hide: %i[edit_inline_buttons name_formgroup])
   end
 
   def simple_roles_dropdown
@@ -66,7 +66,7 @@ format :html do
   end
 
   def role_list
-      Auth.current_roles.map(&method(:link_to_card))
+    Auth.current_roles.map(&method(:link_to_card))
   end
 
   def can_disable_roles?

@@ -9,13 +9,11 @@ format :html do
 
   def role_checkbox
     name = card.disabled? ? "add_item" : "drop_item"
-    subformat(Auth.current.field(:disabled_roles, new:{})).card_form :update do
+    subformat(Auth.current.field(:disabled_roles, new: {})).card_form :update do
       [check_box_tag(name, card.id, !card.disabled?, class: "_edit-item"),
        render_link]
     end
   end
 
-  def submit_checkbox text, url
-
-  end
+  def submit_checkbox text, url; end
 end
