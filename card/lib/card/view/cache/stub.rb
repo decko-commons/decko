@@ -38,7 +38,7 @@ class Card
         # @return [Hash]
         def stub_hash
           { cast: card.cast,
-            view_opts: normalized_options,
+            view_opts: normalized_options.merge(normalized_visibility_options),
             format_opts: { nest_mode: format.nest_mode,
                            override: root?,
                            context_names: format.context_names } }

@@ -1,10 +1,10 @@
-- bar_classes = css_classes classy("bar"), card.safe_set_keys
-.expanded-bar.border.with-fancy-border
-  .bar-top.border.d-flex.justify-content-between.p-0.nodblclick{class: bar_classes}
-    %div{class: classy("bar-left")}
-      = naming { render :bar_left }
-    %div{class: classy("bar-right")}
-      = render :bar_right, hide: :short_content
-      = render :bar_expanded_nav
-  .bar-bottom
-    = render :bar_bottom
+.expanded-bar
+  %div{ class: classy("bar-body") }
+    .nodblclick{ class: classy("bar") }
+      %div{ class: classy("bar-left") }
+        = naming { render :bar_left }
+      %div{ class: classy("bar-right") }
+        = render :bar_right, hide: :short_content
+    .bar-bottom
+      = render :bar_bottom
+  = render :bar_nav
