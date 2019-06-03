@@ -136,7 +136,6 @@ format :html do
     voo.hide :help
   end
 
-
   view :edit_buttons do
     text = I18n.t :reset_my_password, scope: "mod.account.set.self.signin"
     button_tag text, situation: "primary", class: "_close-modal-on-success"

@@ -5,10 +5,6 @@ format :html do
     text_filter :name
   end
 
-  def sort_options
-    {}
-  end
-
   def select_filter field, default=nil, options=nil
     options ||= filter_options field
     options.unshift(["--", ""]) unless default

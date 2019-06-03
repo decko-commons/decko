@@ -17,9 +17,12 @@ describe Card::Set::All::Bar do
     expect_view(:bar_bottom).to match(/Alpha/)
   end
 
-  specify "view bar_page_link" do
-    expect_view(:bar_page_link).to have_tag("a.text-muted") do
-      with_tag "i"
+  specify "view bar_nav" do
+    expect_view(:bar_nav).to have_tag("div.bar-nav") do
+      with_tag "a", href: /view=expanded_bar/
+      with_tag "a", href: /view=collapsed_bar/
+      with_tag "a.full-page-link"
+      with_tag "a.edit-link"
     end
   end
 

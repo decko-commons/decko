@@ -3,10 +3,23 @@ decko.slotReady (slot) ->
     if slot[0] == $(this).slot()[0]
       filter = new decko.filter this
       filter.showWithStatus "active"
+      filter.updateLastVals()
 
 $(window).ready ->
   filterFor = (el) ->
     new decko.filter el
+
+  # sometimes this element shows up as changed and breaks the filter.
+  weirdoSelect2FilterBreaker = (el) ->
+    $(el).hasClass "select2-search__field"
+
+  filterableData = (filterable) ->
+    f = $(filterable)
+    f.data("filter") || f.find("._filterable").data("filter")
+
+  targetFilter = (filterable) ->
+    selector = $(filterable).closest("._filtering").data("filter-selector")
+    filterFor selector
 
   # Add Filter
   $("body").on "click", "._filter-category-select", (e) ->
@@ -25,7 +38,7 @@ $(window).ready ->
   $("body").on "keyup", "._filter-input input.simple-text", ->
     clearTimeout keyupTimeout
     filter = filterFor this
-    keyupTimeout = setTimeout ( -> filter.update() ), 333
+    keyupTimeout = setTimeout ( -> filter.updateIfChanged() ), 333
 
   # remove filter
   $("body").on "click", "._delete-filter-input", ->
@@ -39,25 +52,22 @@ $(window).ready ->
     f.reset()
     f.update()
 
-  $('body').on 'click', '.filtering .filterable', (e) ->
-    f = filterFor($("._filter-widget:visible"))
+  $('body').on 'click', '._filtering ._filterable', (e) ->
+    f = targetFilter this
     if f.widget.length > 0
-      data = $(this).data "filter"
-      # f.reset()
+      data = filterableData this
       f.restrict data["key"], data["value"]
     e.preventDefault()
-    # e.stopPropagation()
+    e.stopPropagation()
 
-  $('body').on 'click', '._record-filter', (e) ->
-    f = filterFor($("._filter-widget:visible"))
-    f.removeField("year")
-    data = $(this).data "filter"
-    # f.reset()
-    f.restrict data["key"], data["value"]
 
-# sometimes this element shows up as changed and breaks the filter.
-weirdoSelect2FilterBreaker = (el) ->
-  $(el).hasClass "select2-search__field"
+  # $('body').on 'click', '._record-filter', (e) ->
+  #   f = filterFor($("._filter-widget:visible"))
+  #   f.removeField("year")
+  #   data = $(this).data "filter"
+  #   # f.reset()
+  #   f.restrict data["key"], data["value"]
+
 
 # el can be any element inside widget
 decko.filter = (el) ->
@@ -65,6 +75,7 @@ decko.filter = (el) ->
   @activeContainer = @widget.find "._filter-container"
   @dropdown = @widget.find "._add-filter-dropdown"
   @dropdownItems = @widget.find "._filter-category-select"
+  @form = @widget.find "._filter-form"
 
   @showWithStatus = (status) ->
     f = this
@@ -149,7 +160,26 @@ decko.filter = (el) ->
     input.val value
     @update()
 
+  @updateLastVals = ()->
+    @activeFields().find("input, select").each ()->
+      $(this).data "lastVal", $(this).val()
+
+  @updateUrlBar = () ->
+    return if @widget.closest('.filtering')[0] # TODO: better_configuration
+    window.history.pushState "filter", "filter", '?' + @form.serialize()
+
   @update = ()->
-    @widget.find("._filter-form").submit()
+    @updateLastVals()
+    @form.submit()
+    @updateUrlBar()
+
+  @updateIfChanged = ()->
+    @update() if @changedSinceLastVal()
+
+  @changedSinceLastVal = () ->
+    changed = false
+    @activeFields().find("input, select").each ()->
+      changed = true if $(this).val() != $(this).data("lastVal")
+    changed
 
   this
