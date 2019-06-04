@@ -29,12 +29,12 @@ event :clear_roles_cache, :prepare_to_store, before: :store_in_session do
 end
 
 format :html do
-  # permission change
+  # permission change compared to super
   view :edit_inline, perms: :none, unknown: true, cache: :never, wrap: :slot do
     super()
   end
 
-  def default_editor
+  def editor
     :checkbox
   end
 
@@ -46,25 +46,11 @@ format :html do
     "#{super} #{hidden_tags card: { type_id: SessionID }}"
   end
 
-  view :role_selection, cache: :never, unknown: true do
-    card.ensure_roles
-    wrap_with :div, class: "pointer-checkbox-list" do
-      roles_dropdown roles_list
-    end
-  end
-
   def checkbox_input
     card.ensure_roles
     wrap_with :div, class: "pointer-checkbox-list" do
       roles_dropdown roles_list
     end
-  end
-
-  def list_input args={}
-    items = items_for_input args[:item_list]
-    extra_class = "pointer-list-ul"
-    ul_classes = classy "pointer-list-editor", extra_class
-    haml :list_input, items: items, ul_classes: ul_classes
   end
 
   def roles_list

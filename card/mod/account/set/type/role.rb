@@ -14,6 +14,4 @@ format :html do
        render_link]
     end
   end
-
-  def submit_checkbox text, url; end
 end
