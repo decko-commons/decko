@@ -18,7 +18,7 @@ format :html do
   end
 
   view :navbar do
-    # FIXME - not bootstrap class here.
+    # FIXME: not bootstrap class here.
     class_up "navbox-form", "form-inline"
     _render_core
   end
