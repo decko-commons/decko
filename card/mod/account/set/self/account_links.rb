@@ -1,3 +1,5 @@
+include_set Abstract::RolesDropdown
+
 def ok_to_read
   true
 end
@@ -47,19 +49,28 @@ format :html do
   end
 
   view(:my_card, link_options { Auth.signed_in? }) do
-    link = link_to_card Auth.current.name, nil,
-                        id: "my-card-link",
-                        class: nav_link_class("my-card")
-    split_button link, nil do
-      [
-        link_to_card([Auth.current, :account_settings], "Account"),
-        ["Roles", roles.map(&method(:link_to_card))]
-      ]
-    end
+    can_disable_roles? ? interactive_roles_dropdown : simple_roles_dropdown
   end
 
-  def roles
-    [Card[:eagle], Auth.current.fetch(trait: :roles)&.item_names].flatten.compact
+  def interactive_roles_dropdown
+    nest(enabled_roles_card,
+         view: :edit_inline, hide: %i[edit_inline_buttons name_formgroup])
+  end
+
+  def simple_roles_dropdown
+    roles_dropdown Auth.current_roles.map(&method(:link_to_card))
+  end
+
+  def enabled_roles_card
+    Auth.current.fetch trait: :enabled_roles, new: { type_id: SessionID }
+  end
+
+  def role_list
+    Auth.current_roles.map(&method(:link_to_card))
+  end
+
+  def can_disable_roles?
+    Auth.current_roles.size > 1
   end
 
   def account_link_text purpose

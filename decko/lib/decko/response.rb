@@ -39,6 +39,10 @@ module Decko
       show
     end
 
+    def reload
+      render json: { reload: true }
+    end
+
     def soft_redirect_params
       new_params = params.clone
       new_params.delete :card
