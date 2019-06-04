@@ -34,7 +34,7 @@ format :html do
     super()
   end
 
-  def default_editor
+  def editor
     :checkbox
   end
 
