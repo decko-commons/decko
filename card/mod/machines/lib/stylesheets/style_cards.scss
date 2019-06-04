@@ -1232,3 +1232,13 @@ body.right-sidebar, body.left-sidebar, body.two-sidebar {
     display: none;
   }
 }
+
+.RIGHT-Xenabled_role.edit_inline-view .pointer-checkbox-list {
+  #pointer-checkbox-anyone_signed_in, #pointer-checkbox-eagle {
+    display: none;
+  }
+}
+
+.edit_inline-view.RIGHT-Xenabled_role .card-editor {
+  padding-bottom: 0;
+}

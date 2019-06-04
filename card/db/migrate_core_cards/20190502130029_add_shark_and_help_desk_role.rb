@@ -2,7 +2,8 @@
 
 class AddSharkAndHelpDeskRole < Card::Migration::Core
   def up
-    ensure_role "Eagle", codename: "eagle"
+    # delete_code_card :eagle
+    # update :anyone_signed_in, name: "Eagle", update_referers: true
     ensure_role "Shark", codename: "shark"
     ensure_role "Help Desk", codename: "help_desk"
 
@@ -23,7 +24,7 @@ class AddSharkAndHelpDeskRole < Card::Migration::Core
                 administrator+dashboard administrator+description
                 shark+dashboard shark+description
                 help_desk+dashboard help_desk+description
-                eagle+dashboard eagle+description
+                anyone_signed_in+dashboard eagle+description
                 *recaptcha_settings+*self+*structure
                 *account_settings+*right+*structure
                 *getting_started+shark
