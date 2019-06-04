@@ -43,7 +43,7 @@ format :html do
   end
 
   def hidden_form_tags _action, opts
-    "#{super} #{hidden_tags card: { type_id: SessionID } }"
+    "#{super} #{hidden_tags card: { type_id: SessionID }}"
   end
 
   def checkbox_input

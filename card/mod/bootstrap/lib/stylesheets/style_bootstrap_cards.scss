@@ -108,10 +108,12 @@ body.mceContentBody {
   max-height: none !important;
 }
 
-.navbox-form .select2-container {
-  width: 100%
+.navbox-form {
+  width: 50%;
+  .select2-container {
+    width: 100%
+  }
 }
-
 /*----------- Sidebar -------------*/
 
 .row.row-offcanvas {

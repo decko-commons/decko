@@ -46,21 +46,21 @@ class Card
       # (These are referred to as "properties" in WQL documentation. Need to
       # reconcile #EFM)
       basic:           %i[id name key type_id content left_id right_id
-                creator_id updater_id codename read_rule_id],
+                          creator_id updater_id codename read_rule_id],
       # "Relational" values can involve tying multiple queries together
       relational:      %i[type
-                     part left right
-                     editor_of edited_by last_editor_of last_edited_by
-                     creator_of created_by
-                     updater_of updated_by
-                     link_to linked_to_by
-                     include included_by
+                          part left right
+                          editor_of edited_by last_editor_of last_edited_by
+                          creator_of created_by
+                          updater_of updated_by
+                          link_to linked_to_by
+                          include included_by
 
-                     refer_to referred_to_by
-                     member_of member
+                          refer_to referred_to_by
+                          member_of member
 
-                     found_by not sort match name_match complete
-                     extension_type],
+                          found_by not sort match name_match complete
+                          extension_type],
 
       plus_relational: %i[plus left_plus right_plus],
       conjunction:     %i[and or all any],
