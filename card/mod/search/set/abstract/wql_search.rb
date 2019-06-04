@@ -43,12 +43,12 @@ def standardized_query_args args
   args
 end
 
-# override this to define search
 def wql_hash
   @wql_hash = nil unless cache_query?
   @wql_hash ||= wql_from_content.merge filter_and_sort_wql
 end
 
+# override this to define search
 def wql_from_content
   @wql_from_content = nil unless cache_query?
   @wql_from_content ||= begin
