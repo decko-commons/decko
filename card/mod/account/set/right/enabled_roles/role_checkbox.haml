@@ -1,0 +1,4 @@
+.pointer-checkbox
+  = check_box_tag "pointer_checkbox-#{unique_id}", option_name, checked,
+                  id: id, class: "pointer-checkbox-button _submit-on-change"
+  = link_to_card option_name
