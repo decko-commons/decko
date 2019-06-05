@@ -165,7 +165,7 @@ decko.filter = (el) ->
       $(this).data "lastVal", $(this).val()
 
   @updateUrlBar = () ->
-    return if @widget.closest('._filtering')[0] # TODO: better_configuration
+    return if @widget.closest('._noFilterUrlUpdates')[0]
     window.history.pushState "filter", "filter", '?' + @form.serialize()
 
   @update = ()->

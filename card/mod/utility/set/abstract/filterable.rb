@@ -1,6 +1,6 @@
 format :html do
   def filterable key, value=nil, opts={}
-    add_class opts, "_filterable"
+    add_class opts, "_filterable _noFilterUrlUpdates"
     value ||= card.name
     opts[:data] ||= {}
     opts[:data].merge! filter_data(key, value)
