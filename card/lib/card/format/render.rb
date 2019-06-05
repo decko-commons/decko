@@ -122,12 +122,14 @@ class Card
       end
 
       def stub_render cached_content
-        result = expand_stubs cached_content do |stub_hash|
-          prepare_stub_nest(stub_hash) do |stub_card, view_opts|
-            nest stub_card, view_opts, stub_hash[:format_opts]
-          end
+        stub_debugging do
+          expand_stubs cached_content
         end
-        if result =~ /stub/
+      end
+
+      def stub_debugging
+        result = yield
+        if Rails.env.development? && result =~ /stub/
           Rails.logger.info "STUB IN RENDERED VIEW: #{card.name}: " \
                             "#{voo.ok_view}\n#{result}"
         end
@@ -148,9 +150,7 @@ class Card
         return cached_content unless cached_content.is_a? String
 
         conto = Card::Content.new cached_content, self, chunk_list: :stub
-        conto.process_each_chunk do |stub_hash|
-          yield(stub_hash)
-        end
+        conto.process_chunks
 
         if conto.pieces.size == 1
           # for stubs in json format this converts a single stub back
@@ -179,6 +179,14 @@ class Card
         yield
       ensure
         @current_view = old_view
+      end
+
+      private
+
+      def stub_nest stub_hash
+        prepare_stub_nest(stub_hash) do |stub_card, view_opts|
+          nest stub_card, view_opts, stub_hash[:format_opts]
+        end
       end
     end
   end

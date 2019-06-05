@@ -274,7 +274,7 @@ describe Card::Content do
       it "renders all nests" do
         @example = :nests
         expect(cobj.as_json.to_s).to match(/not rendered/)
-        cobj.process_each_chunk(&@render_block)
+        cobj.process_chunks
         rdr = cobj.as_json.to_json
         expect(rdr).not_to match(/not rendered/)
         expect(rdr).to eq(rendered.to_json)
@@ -282,7 +282,7 @@ describe Card::Content do
 
       it "renders links and nests" do
         @example = :links_and_nests
-        cobj.process_each_chunk(&@render_block)
+        cobj.process_chunks
         rdr = cobj.as_json.to_json
         expect(rdr).not_to match(/not rendered/)
         expect(rdr).to eq(rendered.to_json)
@@ -293,13 +293,13 @@ describe Card::Content do
         card2 = Card[@card.id]
         format = card2.format format: :text
         cobj = Card::Content.new content, format
-        cobj.process_each_chunk(&@render_block)
+        cobj.process_chunks
         expect(cobj.as_json.to_json).to eq(text_rendered.to_json)
       end
 
       it "does not need rendering if no nests" do
         @example = :uris_and_links
-        cobj.process_each_chunk(&@render_block)
+        cobj.process_chunks
         expect(cobj.as_json.to_json).to eq(rendered.to_json)
       end
 
@@ -308,7 +308,7 @@ describe Card::Content do
         rdr1 = cobj.as_json.to_json
         expect(rdr1).to match(/not rendered/)
         # links are rendered too, but not with a block
-        cobj.process_each_chunk(&@render_block)
+        cobj.process_chunks
         rdr2 = cobj.as_json.to_json
         expect(rdr2).not_to match(/not rendered/)
         expect(rdr2).to eq(rendered.to_json)
