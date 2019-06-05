@@ -6,7 +6,7 @@ class EnabledRoles < Card::Migration::Core
                  default: { type_id: Card::SessionID }
 
     Card.search type_id: Card::SessionID do |card|
-      card.update_column :trash, true
+      card.update_column :trash, true unless card.codename.present?
     end
   end
 end
