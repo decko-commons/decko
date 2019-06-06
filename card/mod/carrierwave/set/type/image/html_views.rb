@@ -39,7 +39,7 @@ format :html do
   def preview
     return if card.new_card? && !card.preliminary_upload?
     wrap_with :div, class: "attachment-preview",
-              id: "#{card.attachment.filename}-preview" do
+                    id: "#{card.attachment.filename}-preview" do
       _render_core size: :medium
     end
   end
@@ -82,7 +82,7 @@ format :html do
   def image_box
     voo.size ||= :medium
     wrap_with :div, title: image_box_title, class: "image-box #{voo.size}" do
-      yield
+      yield image_box_size
     end
   end
 
