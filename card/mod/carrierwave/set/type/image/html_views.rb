@@ -99,6 +99,6 @@ format :html do
   end
 
   def image_box_title
-    voo.title || image_box_card_name
+    image_box_card_name
   end
 end
