@@ -1,14 +1,9 @@
 format :html do
-  def filterable key, value=nil, opts={}
-    add_class opts, "_filterable _noFilterUrlUpdates"
-    value ||= card.name
-    opts[:data] ||= {}
-    opts[:data].merge! filter_data(key, value)
-    wrap_with :div, yield, opts
-  end
-
-  def filter_data key, value
-    { filter: { key: key, value: value } }
+  def filterable filter_hash={}, html_opts={}
+    add_class html_opts, "_filterable _noFilterUrlUpdates"
+    html_opts[:data] ||= {}
+    html_opts[:data][:filter] = filter_hash
+    wrap_with :div, yield, html_opts
   end
 
   def filtering selector=nil
