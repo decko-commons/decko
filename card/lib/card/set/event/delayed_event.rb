@@ -36,7 +36,7 @@ class Card
 
         class IntegrateWithDelayJob < ApplicationJob
           def perform act_id, card, card_attribs, env, auth, method_name
-            Card::Cache.renew_persistent
+            Card::Cache.renew
             card.deserialize_for_active_job! card_attribs
             ActManager.contextualize_delayed_event act_id, card, env, auth do
               card.send method_name
