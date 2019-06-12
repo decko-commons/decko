@@ -26,6 +26,8 @@ class Card
     cattr_reader :cache_by_class
 
     class << self
+      attr_accessor :no_renewal
+
       # create a new cache for the ruby class provided
       # @param klass [Class]
       # @return [{Card::Cache}]
@@ -50,6 +52,7 @@ class Card
       # clear the temporary caches and ensure we're using the latest stamp
       # on the persistent caches.
       def renew
+        return if no_renewal
         renew_persistent
         cache_by_class.each_value do |cache|
           cache.soft.reset
