@@ -128,6 +128,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#configure_link-instance_method" title="#configure_link (instance method)">#<strong>configure_link</strong>(css_class = nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#view:+add_button-instance_method" title="#view: add_button (instance method)">#<strong>view: add_button</strong>  &#x21d2; Object </a>
     
 
@@ -216,6 +238,52 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#view:+configure_button-instance_method" title="#view: configure_button (instance method)">#<strong>view: configure_button</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+configure_link-instance_method" title="#view: configure_link (instance method)">#<strong>view: configure_link</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>don’t cache because it depends on update permission for another card.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#view:+type-instance_method" title="#view: type (instance method)">#<strong>view: type</strong>  &#x21d2; Object </a>
     
 
@@ -295,6 +363,48 @@
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span> <span class='op'>||=</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:add_card</span><span class='comma'>,</span> <span class='label'>cardname:</span> <span class='id identifier rubyid_safe_name'>safe_name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_title'>title</span> <span class='op'>=</span> <span class='id identifier rubyid__render_title'>_render_title</span>
   <span class='id identifier rubyid_link_to'>link_to</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='label'>path:</span> <span class='id identifier rubyid__render_add_path'>_render_add_path</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_css_class'>css_class</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="configure_link-instance_method">
+  
+    #<strong>configure_link</strong>(css_class = nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+69
+70
+71
+72
+73
+74
+75
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/type/cardtype.rb', line 69</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_configure_link'>configure_link</span> <span class='id identifier rubyid_css_class'>css_class</span><span class='op'>=</span><span class='kw'>nil</span>
+  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='symbol'>:type</span><span class='comma'>,</span> <span class='symbol'>:structure</span><span class='comma'>,</span> <span class='label'>new:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ok?'>ok?</span> <span class='symbol'>:update</span>
+
+  <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span> <span class='op'>||=</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:configure_card</span><span class='comma'>,</span> <span class='label'>cardname:</span> <span class='id identifier rubyid_safe_name'>safe_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_title'>title</span> <span class='op'>=</span> <span class='id identifier rubyid__render_title'>_render_title</span>
+  <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='label'>path:</span> <span class='lbrace'>{</span> <span class='label'>view:</span> <span class='symbol'>:bridge</span><span class='comma'>,</span> <span class='label'>bridge:</span> <span class='lbrace'>{</span> <span class='label'>tab:</span> <span class='symbol'>:rules_tab</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+                                    <span class='label'>set:</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_safe_name'>safe_name</span><span class='comma'>,</span> <span class='symbol'>:type</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+                            <span class='label'>class:</span> <span class='id identifier rubyid_css_class'>css_class</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -395,7 +505,7 @@
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:add_path</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_path_args'>path_args</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_params'>params</span>
-    <span class='id identifier rubyid_context'>context</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='ivar'>@parent</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@parent</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_card'>card</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+    <span class='id identifier rubyid_context'>context</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='ivar'>@parent</span><span class='op'>&amp;.</span><span class='id identifier rubyid_card'>card</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_card'>card</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
     <span class='const'>Rack</span><span class='op'>::</span><span class='const'>Utils</span><span class='period'>.</span><span class='id identifier rubyid_parse_nested_query'>parse_nested_query</span><span class='lparen'>(</span><span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
       <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_absolute'>absolute</span><span class='lparen'>(</span><span class='id identifier rubyid_context'>context</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span>
       <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_absolute'>absolute</span><span class='lparen'>(</span><span class='id identifier rubyid_context'>context</span><span class='rparen'>)</span>
@@ -433,6 +543,77 @@
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:add_url</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_card_url'>card_url</span> <span class='id identifier rubyid__render_add_path'>_render_add_path</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: configure_button-instance_method">
+  
+    #<strong>view: configure_button</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+65
+66
+67</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/type/cardtype.rb', line 65</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:configure_button</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_configure_link'>configure_link</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>btn btn-outline-secondary</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: configure_link-instance_method">
+  
+    #<strong>view: configure_link</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>don’t cache because it depends on update permission for another card</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/type/cardtype.rb', line 61</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:configure_link</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_configure_link'>configure_link</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -516,7 +697,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:47 2019 by
+  Generated on Mon May 20 08:33:38 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

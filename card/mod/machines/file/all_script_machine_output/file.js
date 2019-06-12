@@ -11054,7 +11054,9 @@ return jQuery;
   });
 
   $(window).ready(function() {
-    decko.initializeEditors($('body'));
+    setTimeout((function() {
+      return decko.initializeEditors($('body > :not(.modal)'));
+    }), 10);
     return $('body').on('submit', '.card-form', function() {
       $(this).setContentFieldsFromMap();
       $(this).find('.d0-card-content').attr('no-autosave', 'true');
@@ -11747,6 +11749,7 @@ return jQuery;
         return this.addModal(el, $slotter);
       } else {
         if ($("body > ._modal-slot")[0]) {
+          $("._modal-slot").trigger("slotDestroy");
           $("body > ._modal-slot").replaceWith(el);
         } else {
           $("body").append(el);
@@ -11760,6 +11763,7 @@ return jQuery;
       if ($slotter.data("slotter-mode") === "modal-replace") {
         dialog = el.find(".modal-dialog");
         el.adoptModalOrigin();
+        $("._modal-slot").trigger("slotDestroy");
         $("body > ._modal-slot > .modal-dialog").replaceWith(dialog);
         return decko.contentLoaded(dialog, $slotter);
       } else {
@@ -11813,10 +11817,6 @@ return jQuery;
       });
       $("body").append(slot);
       return slot;
-    },
-    initModal: function($dialog) {
-      decko.initializeEditors($dialog);
-      return $dialog.find(".card-slot").trigger("slotReady");
     },
     removeModal: function() {
       if ($("._modal-stack")[0]) {
@@ -11984,6 +11984,9 @@ return jQuery;
       if (event.slotSuccessful) {
         return;
       }
+      if (this.data("reload")) {
+        window.locacation.reload(true);
+      }
       if (this.data("update-origin")) {
         this.updateOrigin();
       }
@@ -12013,6 +12016,8 @@ return jQuery;
         return this.updateOrigin();
       } else if (data.redirect) {
         return window.location = data.redirect;
+      } else if (data.reload) {
+        return window.location.reload(true);
       } else {
         return this.updateSlot(data, mode);
       }
@@ -12516,7 +12521,7 @@ return jQuery;
         return submitAfterTyping = null;
       }, 1000);
     });
-    return $('body').on("keydown", "._submit-after-typing", function(event) {
+    $('body').on("keydown", "._submit-after-typing", function(event) {
       if (event.which === 13) {
         if (submitAfterTyping) {
           clearTimeout(submitAfterTyping);
@@ -12525,6 +12530,21 @@ return jQuery;
         $(event.target).closest('form').submit();
         return false;
       }
+    });
+    $('body').on("change", "._submit-on-change", function(event) {
+      $(event.target).closest('form').submit();
+      return false;
+    });
+    return $('body').on("change", "._edit-item", function(event) {
+      var cb;
+      cb = $(event.target);
+      if (cb.is(":checked")) {
+        cb.attr("name", "add_item");
+      } else {
+        cb.attr("name", "drop_item");
+      }
+      $(event.target).closest('form').submit();
+      return false;
     });
   });
 

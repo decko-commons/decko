@@ -14,7 +14,6 @@ format :html do
 
   view :core, template: :haml
 
-  bar_cols 9, 3
   info_bar_cols 6, 3, 3
 
   before :bar do
@@ -27,7 +26,7 @@ format :html do
     render(:short_content)
   end
 
-  before :bar_expanded_nav do
+  before :bar_nav do
     voo.hide :edit_link
   end
 

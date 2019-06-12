@@ -100,7 +100,9 @@ class CardController < ActionController::Base
   # successful create, update, or delete action
   def render_success
     success = Card::Env.success.in_context card.name
-    if Card::Env.ajax? && !success.hard_redirect?
+    if success.reload?
+      reload
+    elsif Card::Env.ajax? && !success.hard_redirect?
       soft_redirect success
     else
       hard_redirect success.to_url

@@ -5,10 +5,6 @@ format :html do
     text_filter :name
   end
 
-  def sort_options
-    {}
-  end
-
   def select_filter field, default=nil, options=nil
     options ||= filter_options field
     options.unshift(["--", ""]) unless default
@@ -75,15 +71,18 @@ format :html do
 
   def select_filter_tag field, default, options, html_options={}
     name = filter_name field, html_options[:multiple]
-    default = filter_param(field) || default
-    options = options_for_select(options, default)
-
-    pointer_class = html_options[:multiple] ? "pointer-multiselect" : "pointer-select"
-    other_classes = "filter-input #{field} _filter_input_field _no-select2 form-control"
-    # _no-select2 because select is initiated after filter is opened.
-    add_class html_options, "#{pointer_class} #{other_classes}"
-
+    options = options_for_select options, (filter_param(field) || default)
+    normalize_select_filter_tag_html_options field, html_options
     select_tag name, options, html_options
+  end
+
+  # alters html_options hash
+  def normalize_select_filter_tag_html_options field, html_options
+    pointer_suffix = html_options[:multiple] ? "multiselect" : "select"
+    add_class html_options, "pointer-#{pointer_suffix} filter-input #{field} " \
+                            "_filter_input_field _no-select2 form-control"
+    # _no-select2 because select is initiated after filter is opened.
+    html_options[:id] = "filter-input-#{unique_id}"
   end
 
   def filter_name field, multi=false

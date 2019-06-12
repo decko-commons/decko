@@ -4,7 +4,7 @@ class Card
     class Success
       include Card::Env::Location
 
-      attr_accessor :redirect, :name, :name_context
+      attr_accessor :redirect, :name, :name_context, :reload
       attr_writer :params, :card
       attr_reader :id
 
@@ -47,6 +47,10 @@ class Card
       # reset card object and override params with success params
       def soft_redirect?
         @redirect == :soft
+      end
+
+      def reload?
+        @reload == true || @reload == "true"
       end
 
       # TODO: refactor to use cardish

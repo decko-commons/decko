@@ -35,6 +35,7 @@ jQuery.fn.extend {
       @addModal el, $slotter
     else
       if $("body > ._modal-slot")[0]
+        $("._modal-slot").trigger "slotDestroy"
         $("body > ._modal-slot").replaceWith el
       else
         $("body").append el
@@ -46,6 +47,7 @@ jQuery.fn.extend {
     if $slotter.data("slotter-mode") == "modal-replace"
       dialog = el.find(".modal-dialog")
       el.adoptModalOrigin()
+      $("._modal-slot").trigger "slotDestroy"
       $("body > ._modal-slot > .modal-dialog").replaceWith(dialog)
       decko.contentLoaded(dialog, $slotter)
     else
@@ -83,10 +85,6 @@ $.extend decko,
     slot = $('<div/>', id: "modal-container", class: "modal fade _modal-slot")
     $("body").append(slot)
     slot
-
-  initModal: ($dialog) ->
-    decko.initializeEditors $dialog
-    $dialog.find(".card-slot").trigger("slotReady")
 
   removeModal: ->
     if $("._modal-stack")[0]

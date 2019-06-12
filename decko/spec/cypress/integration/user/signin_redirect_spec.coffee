@@ -10,7 +10,7 @@ describe "redirect to signin page", () =>
     cy.main_slot().click_edit()
     cy.get(".modal-content")
       .should "contain", "Sorry!"
-    cy.get(".modal-content #42-denial-view a[href='/*signin']")
+    cy.get(".modal-content a.signin-link")
       .click(force: true)
     cy.get(".modal")
     cy.field "*email"

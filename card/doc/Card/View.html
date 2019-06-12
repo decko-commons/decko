@@ -94,7 +94,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd><span class='object_link'><a href="View/Cache.html" title="Card::View::Cache (module)">Cache</a></span>, <span class='object_link'><a href="View/Classy.html" title="Card::View::Classy (module)">Classy</a></span>, <span class='object_link'><a href="View/Options.html" title="Card::View::Options (module)">Options</a></span></dd>
+      <dd><span class='object_link'><a href="View/Cache.html" title="Card::View::Cache (module)">Cache</a></span>, <span class='object_link'><a href="View/Classy.html" title="Card::View::Classy (module)">Classy</a></span>, <span class='object_link'><a href="View/Options.html" title="Card::View::Options (module)">Options</a></span>, <span class='object_link'><a href="View/Permission.html" title="Card::View::Permission (module)">Permission</a></span></dd>
   </dl>
   
   
@@ -105,7 +105,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/card/view.rb<span class="defines">,<br />
-  lib/card/view/cache.rb,<br /> lib/card/view/classy.rb,<br /> lib/card/view/options.rb,<br /> lib/card/view/cache/stub.rb,<br /> lib/card/view/options/voo_api.rb,<br /> lib/card/view/options/key_lists.rb,<br /> lib/card/view/cache/cache_action.rb,<br /> lib/card/view/options/visibility.rb</span>
+  lib/card/view/cache.rb,<br /> lib/card/view/classy.rb,<br /> lib/card/view/options.rb,<br /> lib/card/view/cache/stub.rb,<br /> lib/card/view/permission.rb,<br /> lib/card/view/options/voo_api.rb,<br /> lib/card/view/options/key_lists.rb,<br /> lib/card/view/cache/cache_action.rb,<br /> lib/card/view/options/visibility.rb</span>
 </dd>
   </dl>
   
@@ -114,7 +114,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Card::View manages <span class='object_link'><a href="View/Options.html" title="Card::View::Options (module)">view options</a></span> and <span class='object_link'><a href="View/Cache.html" title="Card::View::Cache (module)">view caching</a></span>.</p>
+<p>Card::View manages <span class='object_link'><a href="View/Options.html" title="Card::View::Options (module)">view options</a></span>, <span class='object_link'><a href="View/Cache.html" title="Card::View::Cache (module)">view caching</a></span>, and <span class='object_link'><a href="View/Permission.html" title="Card::View::Permission (module)">view permissions</a></span>.</p>
 
 <p>View objects, which are instantiated whenever a view is rendered, are available as in views and other format methods. The view objects can be accessed using <code>#voo</code>. We sometimes feebly pretend VOO is an acronym for “view option object,” but really we just needed a way not to confuse these Card::View options with the countless references to viewnames that naturally arise when rendering views within views within views.</p>
 
@@ -134,7 +134,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="View/Cache.html" title="Card::View::Cache (module)">Cache</a></span>, <span class='object_link'><a href="View/Classy.html" title="Card::View::Classy (module)">Classy</a></span>, <span class='object_link'><a href="View/Options.html" title="Card::View::Options (module)">Options</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="View/Cache.html" title="Card::View::Cache (module)">Cache</a></span>, <span class='object_link'><a href="View/Classy.html" title="Card::View::Classy (module)">Classy</a></span>, <span class='object_link'><a href="View/Options.html" title="Card::View::Options (module)">Options</a></span>, <span class='object_link'><a href="View/Permission.html" title="Card::View::Permission (module)">Permission</a></span>
     
   
     
@@ -576,6 +576,17 @@
   
   
   
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="View/Permission.html" title="Card::View::Permission (module)">Permission</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="View/Permission.html#view_perms-instance_method" title="Card::View::Permission#view_perms (method)">#view_perms</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="View/Classy.html" title="Card::View::Classy (module)">Classy</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="View/Classy.html#add_extra_classes-instance_method" title="Card::View::Classy#add_extra_classes (method)">#add_extra_classes</a></span>, <span class='object_link'><a href="View/Classy.html#class_down-instance_method" title="Card::View::Classy#class_down (method)">#class_down</a></span>, <span class='object_link'><a href="View/Classy.html#class_up-instance_method" title="Card::View::Classy#class_up (method)">#class_up</a></span>, <span class='object_link'><a href="View/Classy.html#classy-instance_method" title="Card::View::Classy#classy (method)">#classy</a></span>, <span class='object_link'><a href="View/Classy.html#deep_extra_classes-instance_method" title="Card::View::Classy#deep_extra_classes (method)">#deep_extra_classes</a></span>, <span class='object_link'><a href="View/Classy.html#extra_classes-instance_method" title="Card::View::Classy#extra_classes (method)">#extra_classes</a></span>, <span class='object_link'><a href="View/Classy.html#remove_extra_classes-instance_method" title="Card::View::Classy#remove_extra_classes (method)">#remove_extra_classes</a></span>, <span class='object_link'><a href="View/Classy.html#with_class_up-instance_method" title="Card::View::Classy#with_class_up (method)">#with_class_up</a></span>, <span class='object_link'><a href="View/Classy.html#without_upped_class-instance_method" title="Card::View::Classy#without_upped_class (method)">#without_upped_class</a></span></p>
 
@@ -602,11 +613,6 @@
   
   
   
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="View/Cache/CacheAction.html" title="Card::View::Cache::CacheAction (module)">Cache::CacheAction</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="View/Cache/CacheAction.html#permission_task-instance_method" title="Card::View::Cache::CacheAction#permission_task (method)">#permission_task</a></span></p>
-
   
   
   
@@ -638,7 +644,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="View/Options/Visibility.html" title="Card::View::Options::Visibility (module)">Options::Visibility</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="View/Options/Visibility.html#hide-instance_method" title="Card::View::Options::Visibility#hide (method)">#hide</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#hide!-instance_method" title="Card::View::Options::Visibility#hide! (method)">#hide!</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#hide%3F-instance_method" title="Card::View::Options::Visibility#hide? (method)">#hide?</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#optional%3F-instance_method" title="Card::View::Options::Visibility#optional? (method)">#optional?</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#process_visibility-instance_method" title="Card::View::Options::Visibility#process_visibility (method)">#process_visibility</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#process_visibility_options-instance_method" title="Card::View::Options::Visibility#process_visibility_options (method)">#process_visibility_options</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#show-instance_method" title="Card::View::Options::Visibility#show (method)">#show</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#show!-instance_method" title="Card::View::Options::Visibility#show! (method)">#show!</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#show%3F-instance_method" title="Card::View::Options::Visibility#show? (method)">#show?</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#visible%3F-instance_method" title="Card::View::Options::Visibility#visible? (method)">#visible?</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#viz-instance_method" title="Card::View::Options::Visibility#viz (method)">#viz</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#viz_hash-instance_method" title="Card::View::Options::Visibility#viz_hash (method)">#viz_hash</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="View/Options/Visibility.html#hide-instance_method" title="Card::View::Options::Visibility#hide (method)">#hide</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#hide!-instance_method" title="Card::View::Options::Visibility#hide! (method)">#hide!</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#hide%3F-instance_method" title="Card::View::Options::Visibility#hide? (method)">#hide?</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#optional%3F-instance_method" title="Card::View::Options::Visibility#optional? (method)">#optional?</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#process_visibility-instance_method" title="Card::View::Options::Visibility#process_visibility (method)">#process_visibility</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#show-instance_method" title="Card::View::Options::Visibility#show (method)">#show</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#show!-instance_method" title="Card::View::Options::Visibility#show! (method)">#show!</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#show%3F-instance_method" title="Card::View::Options::Visibility#show? (method)">#show?</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#visible%3F-instance_method" title="Card::View::Options::Visibility#visible? (method)">#visible?</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#viz-instance_method" title="Card::View::Options::Visibility#viz (method)">#viz</a></span>, <span class='object_link'><a href="View/Options/Visibility.html#viz_hash-instance_method" title="Card::View::Options::Visibility#viz_hash (method)">#viz_hash</a></span></p>
 
   
   
@@ -741,18 +747,18 @@
       <pre class="lines">
 
 
-57
-58
-59
 60
 61
 62
 63
 64
-65</pre>
+65
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_format'>format</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_raw_options'>raw_options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_parent'>parent</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_format'>format</span>
@@ -801,12 +807,12 @@
       <pre class="lines">
 
 
-31
-32
-33</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span>
   <span class='ivar'>@card</span>
@@ -844,12 +850,12 @@
       <pre class="lines">
 
 
-31
-32
-33</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format'>format</span>
   <span class='ivar'>@format</span>
@@ -887,12 +893,12 @@
       <pre class="lines">
 
 
-31
-32
-33</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parent'>parent</span>
   <span class='ivar'>@parent</span>
@@ -953,12 +959,12 @@
       <pre class="lines">
 
 
-35
-36
-37</pre>
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize'>normalize</span> <span class='id identifier rubyid_view'>view</span>
   <span class='id identifier rubyid_view'>view</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='id identifier rubyid_view'>view</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>:</span> <span class='kw'>nil</span>
@@ -1012,18 +1018,18 @@
       <pre class="lines">
 
 
-40
-41
-42
 43
 44
 45
 46
 47
-48</pre>
+48
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize_list'>normalize_list</span> <span class='id identifier rubyid_val'>val</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_val'>val</span>
@@ -1071,12 +1077,12 @@
       <pre class="lines">
 
 
-101
-102
-103</pre>
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deep_root'>deep_root</span>
   <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_voo'>voo</span>
@@ -1125,12 +1131,12 @@
       <pre class="lines">
 
 
-107
-108
-109</pre>
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deep_root?'>deep_root?</span>
   <span class='op'>!</span><span class='id identifier rubyid_parent'>parent</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span>
@@ -1179,12 +1185,12 @@
       <pre class="lines">
 
 
-113
-114
-115</pre>
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_next_ancestor'>next_ancestor</span> <span class='id identifier rubyid_across_format'>across_format</span><span class='op'>=</span><span class='kw'>true</span>
   <span class='id identifier rubyid_parent'>parent</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='id identifier rubyid_across_format'>across_format</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_next_format_ancestor'>next_format_ancestor</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='kw'>nil</span>
@@ -1220,12 +1226,12 @@
       <pre class="lines">
 
 
-118
-119
-120</pre>
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_next_format_ancestor'>next_format_ancestor</span>
   <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span><span class='op'>&amp;.</span><span class='id identifier rubyid_voo'>voo</span>
@@ -1279,15 +1285,15 @@
       <pre class="lines">
 
 
-86
-87
-88</pre>
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_view'>ok_view</span>
-  <span class='ivar'>@ok_view</span> <span class='op'>||=</span> <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_ok_view'>ok_view</span> <span class='id identifier rubyid_requested_view'>requested_view</span><span class='comma'>,</span> <span class='id identifier rubyid_normalized_options'>normalized_options</span><span class='lbracket'>[</span><span class='symbol'>:skip_perms</span><span class='rbracket'>]</span>
+  <span class='ivar'>@ok_view</span> <span class='op'>||=</span> <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_monitor_depth'>monitor_depth</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_altered_view'>altered_view</span> <span class='op'>||</span> <span class='id identifier rubyid_requested_view'>requested_view</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1333,19 +1339,17 @@
       <pre class="lines">
 
 
-69
-70
-71
 72
 73
-74</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process'>process</span>
-  <span class='id identifier rubyid_process_live_options'>process_live_options</span>
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_optional?'>optional?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_hide?'>hide?</span><span class='lparen'>(</span><span class='id identifier rubyid_requested_view'>requested_view</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_process_live_options'>process_live_options</span> <span class='op'>==</span> <span class='symbol'>:hide</span>
 
   <span class='id identifier rubyid_fetch'>fetch</span> <span class='lbrace'>{</span> <span class='kw'>yield</span> <span class='id identifier rubyid_ok_view'>ok_view</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
@@ -1398,12 +1402,12 @@
       <pre class="lines">
 
 
-79
-80
-81</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_requested_view'>requested_view</span>
   <span class='ivar'>@requested_view</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="" title="Card::View (class)">View</a></span></span><span class='period'>.</span><span class='id identifier rubyid_normalize'><span class='object_link'><a href="#normalize-class_method" title="Card::View.normalize (method)">normalize</a></span></span> <span class='id identifier rubyid_live_options'>live_options</span><span class='lbracket'>[</span><span class='symbol'>:view</span><span class='rbracket'>]</span>
@@ -1450,12 +1454,12 @@
       <pre class="lines">
 
 
-91
-92
-93</pre>
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_root'><span class='object_link'><a href="../top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span>
   <span class='ivar'>@root</span> <span class='op'>=</span> <span class='id identifier rubyid_parent'>parent</span> <span class='op'>?</span> <span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_root'>root</span> <span class='op'>:</span> <span class='kw'>self</span>
@@ -1502,12 +1506,12 @@
       <pre class="lines">
 
 
-96
-97
-98</pre>
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_root?'>root?</span>
   <span class='op'>!</span><span class='id identifier rubyid_parent'>parent</span>
@@ -1522,7 +1526,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:28:04 2019 by
+  Generated on Mon May 20 08:33:55 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

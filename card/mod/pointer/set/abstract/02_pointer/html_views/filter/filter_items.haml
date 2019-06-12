@@ -1,7 +1,7 @@
-._filter-items.container-fluid.nodblclick
+._filter-items.container-fluid.nodblclick._noFilterUrlUpdates
   .row
     = nest filter_card, view: :filter_form
-    ._unselected.col-6.border.mt-2.pl-0.pr-0
+    ._unselected.col-6.border.mt-2.px-0
       = nest filter_card, view: :select_item,
                           items: { view: implicit_item_view },
                           wql: { limit: 10 }
@@ -11,20 +11,18 @@
           %h5
             Selected
             .badge.badge-secondary
-              %span._selected-items
-                0
+              %span._selected-items 0
         ._selected-item-list{ style: "display:none" }
-          .p-3.deselector
+          .deselector.p-2
             %input#deselect-all._deselect-all{ type: "checkbox", checked: true, disabled: true }
             %label{ for: "deselect-all" }
               deselect
-              %span._selected-items
-                0
+              %span._selected-items 0
               following
-          ._selected-bin.pr-2
+          ._selected-bin.p-2
       ._filter-help.alert.alert-secondary
         Filter and select items to add them here.
       .form-group
-        .selected-item-buttons.pl-3
+        .selected-item-buttons.p-2
           = button_tag "Cancel", class: "cancel-modal", data: { dismiss: :modal }
           = render :add_selected_link

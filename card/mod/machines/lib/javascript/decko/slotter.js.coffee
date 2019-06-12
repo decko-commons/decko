@@ -111,6 +111,9 @@ jQuery.fn.extend
 
     return if event.slotSuccessful
 
+    if @data("reload")
+      window.locacation.reload(true)
+
     if @data("update-origin")
       @updateOrigin()
 
@@ -140,6 +143,8 @@ jQuery.fn.extend
       @updateOrigin()
     else if data.redirect
       window.location = data.redirect
+    else if data.reload
+      window.location.reload(true)
     else
       @updateSlot data, mode
 

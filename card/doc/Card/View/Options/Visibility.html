@@ -231,31 +231,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#process_visibility-instance_method" title="#process_visibility (instance method)">#<strong>process_visibility</strong>(options_hash)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>takes an options_hash and processes it to update viz_hash.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#process_visibility_options-instance_method" title="#process_visibility_options (instance method)">#<strong>process_visibility_options</strong>  &#x21d2; Object </a>
+      <a href="#process_visibility-instance_method" title="#process_visibility (instance method)">#<strong>process_visibility</strong>  &#x21d2; Object </a>
     
 
     
@@ -594,54 +570,7 @@
       <div class="method_details ">
   <h3 class="signature " id="process_visibility-instance_method">
   
-    #<strong>process_visibility</strong>(options_hash)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>takes an options_hash and processes it to update viz_hash</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-76
-77
-78
-79
-80
-81</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view/options/visibility.rb', line 76</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_process_visibility'>process_visibility</span> <span class='id identifier rubyid_options_hash'>options_hash</span>
-  <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>hide</span><span class='words_sep'> </span><span class='tstring_content'>show</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_setting'>setting</span><span class='op'>|</span>
-    <span class='id identifier rubyid_views'>views</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../View.html" title="Card::View (class)">View</a></span></span><span class='period'>.</span><span class='id identifier rubyid_normalize_list'><span class='object_link'><a href="../../View.html#normalize_list-class_method" title="Card::View.normalize_list (method)">normalize_list</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_options_hash'>options_hash</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_setting'>setting</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_sym</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_viz'>viz</span> <span class='id identifier rubyid_views'>views</span><span class='comma'>,</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='kw'>true</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="process_visibility_options-instance_method">
-  
-    #<strong>process_visibility_options</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>process_visibility</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -673,9 +602,9 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/card/view/options/visibility.rb', line 69</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_process_visibility_options'>process_visibility_options</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_process_visibility'>process_visibility</span>
   <span class='id identifier rubyid_viz_hash'>viz_hash</span><span class='period'>.</span><span class='id identifier rubyid_reverse_merge!'>reverse_merge!</span> <span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_viz_hash'>viz_hash</span> <span class='kw'>if</span> <span class='id identifier rubyid_parent'>parent</span>
-  <span class='id identifier rubyid_process_visibility'>process_visibility</span> <span class='id identifier rubyid_live_options'>live_options</span>
+  <span class='id identifier rubyid_process_visibility_options'>process_visibility_options</span> <span class='id identifier rubyid_live_options'>live_options</span>
   <span class='id identifier rubyid_viz'>viz</span> <span class='id identifier rubyid_requested_view'>requested_view</span><span class='comma'>,</span> <span class='ivar'>@optional</span> <span class='kw'>if</span> <span class='ivar'>@optional</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_viz_hash'>viz_hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_requested_view'>requested_view</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -957,7 +886,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  3 22:27:28 2019 by
+  Generated on Mon May 20 08:33:21 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

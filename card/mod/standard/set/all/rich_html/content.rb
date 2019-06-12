@@ -68,6 +68,12 @@ format :html do
     haml :labeled, label: label, content: content
   end
 
+  def labeled_field field, item_view=:name, opts={}
+    opts[:title] ||= Card.fetch_name field
+    field_nest field, opts.merge(view: :labeled,
+                                 items: (opts[:items] || {}).merge(view: item_view))
+  end
+
   view :open, commentable: true do
     toggle_logic
     @toggle_mode = :open

@@ -6,10 +6,11 @@
 - :name: Home+original
   :type: HTML
   :key: home+original
+  :merged: 2019-05-31 13:18:11 UTC
 - :name: "*getting started+Shark"
   :type: HTML
   :key: "*getting_started+shark"
-  :merged: 2019-05-16 11:27:26 UTC
+  :merged: 2019-05-31 13:18:10 UTC
 - :name: "*footer"
   :type: HTML
   :key: "*footer"
@@ -110,10 +111,10 @@
   :type: Basic
   :key: "*account_setting+*right+*structure"
   :merged: 2019-05-09 12:46:06 UTC
-- :name: Eagle+dashboard
+- :name: Anyone Signed In+dashboard
   :type: Basic
-  :key: eagle+dashboard
-  :merged: 2019-05-09 12:46:06 UTC
+  :key: anyone_signed_in+dashboard
+  :merged: 2019-06-03 12:04:21 UTC
 - :name: Eagle+description
   :type: Basic
   :key: eagle+description
