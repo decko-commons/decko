@@ -26,7 +26,7 @@ describe Card::Set::All::Type do
     end
   end
 
-  describe "card with structured type" do
+  xdescribe "card with structured type" do
     before do
       Card::Auth.as_bot do
         Card.create! name: "Topic", type: "Cardtype"
