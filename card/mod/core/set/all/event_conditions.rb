@@ -8,7 +8,6 @@ end
 
 private
 
-
 def set_condition_applies? set_module, old_sets
   return true if set_module == Card
 

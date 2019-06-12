@@ -156,9 +156,7 @@ class Card
     # read and (if not there yet) write
     # @param key [String]
     def fetch key, &block
-      @soft.fetch(key) do
-        @hard ? @hard.fetch(key, &block) : yield
-      end
+      @soft.fetch(key) { @hard ? @hard.fetch(key, &block) : yield }
     end
 
     # delete specific cache entries by key
