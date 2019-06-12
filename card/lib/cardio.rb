@@ -29,9 +29,12 @@ module Cardio
         # if you disable inline styles tinymce's formatting options stop working
         allow_inline_styles:    true,
 
-        recaptcha_public_key:   nil,
-        recaptcha_private_key:  nil,
+        recaptcha_public_key:   nil, # deprecated; uese recaptcha_site_key instead
+        recaptcha_private_key:  nil, # deprecated; use secret_site_key instead
         recaptcha_proxy:        nil,
+        recaptcha_site_key:     nil,
+        recaptcha_secret_key:   nil,
+        recaptcha_minimum_score: 0.5,
 
         override_host:          nil,
         override_protocol:      nil,
@@ -70,11 +73,13 @@ module Cardio
         persistent_cache:       true,
         prepopulate_cache:      false,
         machine_refresh:        :cautious, # options: eager, cautious, never
+        compress_javascript:    true,
 
         allow_irreversible_admin_tasks: false,
         raise_all_rendering_errors:     false,
         rescue_all_in_controller:       true,
-        navbox_match_start_only:        true
+        navbox_match_start_only:        :true,
+        load_strategy:                  :eval
       }
     end
 

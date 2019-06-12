@@ -116,10 +116,14 @@ class CardController < ActionController::Base
   end
 
   def render_page format, view
-    view ||= params[:view]
+    view ||= view_from_params
     card.act do
       format.page self, view, Card::Env.slot_opts
     end
+  end
+
+  def view_from_params
+    params[:view] || params[:v]
   end
 
   def handle_exception exception
@@ -136,8 +140,10 @@ class CardController < ActionController::Base
   end
 
   class << self
-    def rescue_from_class klass
-      rescue_from(klass) { |exception| handle_exception exception }
+    def rescue_from_class *klasses
+      klasses.each do |klass|
+        rescue_from(klass) { |exception| handle_exception exception }
+      end
     end
 
     def rescue_all?
@@ -145,7 +151,6 @@ class CardController < ActionController::Base
     end
   end
 
-  rescue_from_class ActiveRecord::RecordInvalid
-  rescue_from_class Card::Error::UserError
+  rescue_from_class(*Card::Error::UserError.user_error_classes)
   rescue_from_class StandardError if rescue_all?
 end

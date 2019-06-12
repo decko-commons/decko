@@ -6,7 +6,11 @@ class Card
       class TmpFiles < LoadStrategy
         def load_modules
           generate_tmp_files if rewrite_tmp_files?
-          load_temp_files
+          load_tmp_files
+        end
+
+        def clean_comments?
+          true
         end
 
         private
@@ -30,7 +34,7 @@ class Card
 
         def write_tmp_file from_file, to_file, const_parts
           FileUtils.mkdir_p File.dirname(to_file)
-          mt = module_template.new const_parts, from_file
+          mt = module_template.new const_parts, from_file, self
           File.write to_file, mt.to_s
         end
       end

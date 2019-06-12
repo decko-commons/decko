@@ -33,7 +33,7 @@ class Card
       def header
         #::Bootstrap.new(self).render do
         bs_layout do
-          row 10, 2 do
+          row xs: [10, 2] do
             column do
               html title
               tag(:span, "text-muted pl-1 badge") { summary }
@@ -187,19 +187,6 @@ class Card
         end
       end
 
-      def revert_link
-        revert_actions_link "revert to this", revert_to: :this,
-                                              slot_selector: ".card-slot.history-view"
-      end
-
-      def revert_actions_link link_text,
-                              revert_to: :this, slot_selector: nil, html_args: {}
-        @format.revert_actions_link @act, link_text,
-                                    revert_to: revert_to,
-                                    slot_selector: slot_selector,
-                                    html_args: html_args
-      end
-
       def deletion_act?
         act_type == :delete
       end
@@ -217,6 +204,13 @@ class Card
                     act_context: @args[:act_context], look_in_trash: true }
           )
         end
+      end
+
+      def autosaved_draft_link opts={}
+        text = opts.delete(:text) || "autosaved draft"
+        opts[:path] = { edit_draft: true }
+        add_class opts, "navbar-link"
+        link_to_view :edit, text, opts
       end
     end
   end

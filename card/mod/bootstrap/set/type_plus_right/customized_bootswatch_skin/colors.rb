@@ -74,6 +74,10 @@ format :html do
     voo.show :edit_button
   end
 
+  view :core, template: :haml do
+    @colors = card.theme_colors.reject { |k, _v| k.in? %i[body-bg body-color] }
+  end
+
   view :bar_middle do
     <<-HTML
       <div class="colorpicker-element">

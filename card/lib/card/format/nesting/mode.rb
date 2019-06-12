@@ -22,10 +22,10 @@ class Card
         # @param new_mode [Symbol] :normal, :closed, :edit, or :template
         # @return block result
         def with_nest_mode new_mode, &block
-          if new_mode
-            with_altered_nest_mode new_mode, &block
-          else
+          if new_mode == @nest_mode
             yield
+          else
+            with_altered_nest_mode new_mode, &block
           end
         end
 
@@ -39,7 +39,7 @@ class Card
 
         # view to be rendered in current mode
         # @param view [Symbol]
-        # @return [Symbol] viewname
+        # @return [Symbol ] viewname
         def modal_nest_view view
           # Note: the subformat always has the same nest_mode as its parent format
           case nest_mode
@@ -60,9 +60,9 @@ class Card
         # @param view [Symbol]
         # @return [True/False]
         def hide_view_in_edit_mode? view
-          Card::Format.perms[view] == :none || # view never edited
-            card.structure                  || # not yet nesting structures
-            card.key.blank?                    # eg {{_self|type}} on new cards
+          view_setting(:perms, view) == :none || # view never edited
+            card.structure                    || # not yet nesting structures
+            card.key.blank?                      # eg {{_self|type}} on new cards
         end
 
         # the view that should be used when nested in closed mode
@@ -77,7 +77,7 @@ class Card
         # @param view [Symbol]
         # @return [Symbol] viewname
         def configured_view_in_closed_mode view
-          closed_config = Card::Format.closed[view]
+          closed_config = view_setting(:closed, view)
           return view if closed_config == true
 
           closed_config

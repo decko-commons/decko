@@ -23,6 +23,7 @@ end
 # options.
 
 def ok? action
+  # binding.pry if action == :create
   @action_ok = true
   send "ok_to_#{action}"
   @action_ok
@@ -250,36 +251,6 @@ def track_permission_errors
   @permission_errors.each { |msg| errors.add :permission_denied, msg }
   @permission_errors = nil
   result
-end
-
-def recaptcha_on?
-  consider_recaptcha?    &&
-    have_recaptcha_keys? &&
-    Env[:controller]     &&
-    !Auth.signed_in?     &&
-    !Auth.needs_setup?   &&
-    !Auth.always_ok?     &&
-    Card.toggle(rule(:captcha))
-end
-
-def consider_recaptcha?
-  true
-end
-
-def have_recaptcha_keys?
-  @@have_recaptcha_keys =
-    if defined?(@@have_recaptcha_keys)
-      @@have_recaptcha_keys
-    else
-      !!(Card.config.recaptcha_public_key && Card.config.recaptcha_private_key)
-    end
-end
-
-event :recaptcha, :validate do
-  if !@supercard && !Env[:recaptcha_used] && recaptcha_on?
-    Env[:recaptcha_used] = true
-    Env[:controller].verify_recaptcha model: self, attribute: :captcha
-  end
 end
 
 module Accounts

@@ -7,25 +7,30 @@ format :html do
   end
 
   # note: depends on js with selector ".edit_name_form-view .card-form"
-  view :edit_name_form, perms: :update, wrap: :slot do
+  view :edit_name_form, perms: :update, wrap: :slot, cache: :never do
     edit_name_form :edit_name_row
   end
 
   def edit_name_form success_view=nil
     card_form({ action: :update, id: card.id },
               # "main-success" => "REDIRECT",
-              "data-update-foreign-slot": "._modal-origin") do
-      output [hidden_edit_name_fields(success_view),
-              _render_name_formgroup,
-              rename_confirmation_alert,
-              edit_name_buttons]
+              "data-update-origin": "true",
+              success: edit_name_success(success_view)) do
+      [hidden_edit_name_fields,
+       _render_name_formgroup,
+       rename_confirmation_alert,
+       edit_name_buttons]
     end
   end
 
-  def hidden_edit_name_fields success_view=nil
+  def edit_name_success view=nil
     success = { id: "_self" }
-    success[:view] = success_view if success_view
-    hidden_tags success: success, old_name: card.name, card: { update_referers: false }
+    success[:view] = view if view
+    success
+  end
+
+  def hidden_edit_name_fields
+    hidden_tags old_name: card.name, card: { update_referers: false }
   end
 
   def edit_name_buttons

@@ -4,10 +4,7 @@ class Card
       #    attr_accessor :clause
 
       def safe_sql text
-        txt = text.to_s
-        raise "WQL contains disallowed characters: #{txt}" if txt =~ /[^\w\s*().,]/
-
-        txt
+        Query.safe_sql text
       end
 
       def quote v

@@ -9,7 +9,7 @@ class Card
   # Content objects support the parsing of content strings into arrays that
   # contain semantically meaningful "chunks" like nests, links, urls, etc.
   #
-  # Each chunk has an object whose class inherits from {Card::Chunk::Abstract}
+  # Each chunk has an object whose class inherits from {Card::Content::Chunk::Abstract}
   #
   class Content < SimpleDelegator
     extend Card::Content::Clean

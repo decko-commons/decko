@@ -44,6 +44,9 @@ Decko::Engine.routes.draw do
   match "(card)/update(/:mark(.:format))" => "card#update", via: %i[post put patch]
   match "(card)/delete(/:mark(.:format))" => "card#delete", via: :delete
 
+  # for super-lazy under-achievers
+  get ":mark/:view(.:format)" => "card#read"
+
   # Wildcard for bad addresses
   get "*mark" => "card#read", view: "bad_address"
 end

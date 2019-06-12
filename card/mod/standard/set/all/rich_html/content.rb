@@ -20,6 +20,10 @@ format :html do
     wrap { [_render_menu, _render_core] }
   end
 
+  view :short_content, wrap: { div: { class: "text-muted" } } do
+    short_content
+  end
+
   before(:content_with_title) { prepare_content_slot }
 
   view :content_with_title do
@@ -30,7 +34,7 @@ format :html do
 
   before :content_panel do
     prepare_content_slot
-    class_up "card-slot", "card", true
+    class_up "card-slot", "card"
   end
 
   view :content_panel do
@@ -41,29 +45,22 @@ format :html do
     end
   end
 
-  view :titled, tags: :comment do
+  view :titled, commentable: true do
     @content_body = true
     wrap do
       [
-        # _render_menu,
-        _render_header,
-        wrap_body { _render_titled_content },
+        naming { render_header },
+        render_flash,
+        wrap_body { render_titled_content },
         render_comment_box
       ]
     end
   end
 
-  # view :property do
-  #   voo.title ||= card.name.right
-  #   render_labeled
-  # end
-
-  view :labeled, tags: :unknown_ok do
+  view :labeled, unknown: true do
     @content_body = true
-    voo.edit = :content_modal
-    menu = wrap_menu { _render_menu }
     wrap(true, class: "row") do
-      labeled(render_title, wrap_body { [menu, render_labeled_content] })
+      labeled(render_title, wrap_body { "#{render_menu}#{render_labeled_content}" } )
     end
   end
 
@@ -71,36 +68,28 @@ format :html do
     haml :labeled, label: label, content: content
   end
 
-  view :open, tags: :comment do
-    voo.viz :toggle, (main? ? :hide : :show)
+  view :open, commentable: true do
+    toggle_logic
+    @toggle_mode = :open
     @content_body = true
     frame do
       [_render_open_content, render_comment_box]
     end
   end
 
-  view :type do
-    link_to_card card.type_card, nil, class: "cardtype"
-  end
-
   view :closed do
     with_nest_mode :closed do
-      voo.show :toggle
+      toggle_logic
+      voo.hide :closed_content
       class_up "d0-card-body", "closed-content"
-      @content_body = true
+      @content_body = false
       @toggle_mode = :close
-      frame { _render :closed_content }
+      frame
     end
   end
 
-  view :change do
-    voo.show :title_link
-    voo.hide :menu
-    wrap do
-      [_render_title,
-       _render_menu,
-       _render_last_action]
-    end
+  def toggle_logic
+    show_view?(:title_link, :hide) ? voo.show(:icon_toggle) : voo.show(:title_toggle)
   end
 
   def current_set_card
@@ -110,43 +99,37 @@ format :html do
     Card.fetch(set_name)
   end
 
-  view :help, tags: :unknown_ok, cache: :never do
-    help_text = voo.help || rule_based_help
-    return "" unless help_text.present?
-
-    wrap_with :div, help_text, class: classy("help-text")
+  # LOCALIZE
+  def short_content
+    short_content_items || short_content_fields || short_content_from_core
   end
 
-  def rule_based_help
-    return "" unless (rule_card = card.help_rule_card)
+  def short_content_items
+    return unless card.respond_to? :count
+    "#{count} #{'item'.pluralize count}"
+  end
 
-    with_nest_mode :normal do
-      process_content rule_card.content, chunk_list: :references
-      # render help card with current card's format
-      # so current card's context is used in help card nests
+  def short_content_fields
+    return unless voo.structure || card.structure
+    fields = nested_fields.size
+    return if fields.zero?
+    "#{fields} #{'field'.pluralize fields}"
+  end
+
+  def short_content_from_core
+    content = render_core
+    if content.blank?
+      "empty"
+    elsif content.size <= 5
+      content
+    elsif content.count("\n") < 2
+      "#{content.size} characters"
+    else
+      "#{content.count("\n") + 1} lines"
     end
   end
 
-  view :last_action do
-    act = card.last_act
-    return unless act
-
-    action = act.action_on card.id
-    return unless action
-
-    action_verb =
-      case action.action_type
-      when :create then "added"
-      when :delete then "deleted"
-      else
-        link_to "edited", path: { view: :history }, class: "last-edited", rel: "nofollow"
-      end
-
-    %(
-      <span class="last-update">
-        #{action_verb} #{_render_acted_at} ago by
-        #{subformat(card.last_actor)._render_link}
-      </span>
-    )
+  def count
+    @count ||= card.count
   end
 end

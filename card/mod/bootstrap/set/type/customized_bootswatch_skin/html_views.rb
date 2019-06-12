@@ -2,35 +2,36 @@ include_set Abstract::Media
 include_set Abstract::BsBadge
 
 format :html do
-  view :bar_middle do
-    labeled_badge card.item_count, "items"
-  end
-
-  view :core, template: :haml do
-  end
-
-  view :bar_right do
+  view :menu do
     ""
   end
 
-  before :bar do
-    super()
-    voo.show :edit_button
-    class_up "bar-middle",
-             "col-3 d-none d-md-flex p-3 border-left d-flex align-items-center p-0",
-             true
+  def short_content
+    ""
+    # labeled_badge card.item_count, "items"
+    # "#{card.item_count} items"
   end
 
-  view :bar_left do
-    class_up "card-title", "mb-0"
-    render :title
+  view :core, template: :haml
+
+  bar_cols 9, 3
+  info_bar_cols 6, 3, 3
+
+  before :bar do
+    super()
+    voo.show :edit_button, :bar_middle
+    class_up "bar-middle", "p-3 align-items-center p-0"
+  end
+
+  view :bar_right do
+    render(:short_content)
+  end
+
+  before :bar_expanded_nav do
+    voo.hide :edit_link
   end
 
   view :bar_bottom do
     render_core
-  end
-
-  def edit_slot
-    haml :edit_slot
   end
 end

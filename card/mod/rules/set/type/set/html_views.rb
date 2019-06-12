@@ -1,7 +1,4 @@
 format :html do
-  COMMON_RULE_SETTINGS =
-    %i[create read update delete structure default].freeze
-
   before :open do
     voo.hide :template_closer
   end
@@ -15,7 +12,7 @@ format :html do
   end
 
   def table_rules_filter
-    form_tag path(view: :rules_table, slot: { hide: :content }),
+    form_tag path(view: :rules_table, slot: { show: :content }),
              remote: true, method: "get", role: "filter",
              "data-slot-selector": ".card-slot.rules-table",
              class: classy("nodblclick slotter form-inline slim-select2 m-2") do
@@ -29,7 +26,7 @@ format :html do
   end
 
   def setting_group
-    params[:group]&.to_sym || :common
+    voo&.filter&.to_sym || params[:group]&.to_sym || :common
   end
 
   view :set_label do

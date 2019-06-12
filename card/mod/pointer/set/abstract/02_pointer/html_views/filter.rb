@@ -1,20 +1,20 @@
 format :html do
-  view :filtered_list, tags: :unknown_ok do
+  view :filtered_list, unknown: true do
     filtered_list_input
   end
 
-  view :filter_items_modal, tags: :unknown_ok, cache: :never, wrap: :modal do
+  view :filter_items_modal, unknown: true, wrap: :modal do
     render_filter_items
   end
 
-  view :filter_items, tags: :unknown_ok, cache: :never, wrap: :slot  do
+  view :filter_items, unknown: true, wrap: :slot  do
     haml :filter_items
   end
 
   def filtered_list_input
     with_nest_mode :normal do
-      class_up "card-slot", filtered_list_slot_class, true
-      with_class_up "card-slot", filtered_list_slot_class, true do
+      class_up "card-slot", filtered_list_slot_class
+      with_class_up "card-slot", filtered_list_slot_class do
         wrap do
           haml :filtered_list_input
         end
@@ -22,9 +22,10 @@ format :html do
     end
   end
 
-  def add_selected_link
+  # NOCACHE because params alter view
+  view :add_selected_link, cache: :never, unknown: true do
     link_to "Add Selected",
-            path: { item: params[:item], filter_card: params[:filter_card] },
+            path: { filter_card: params[:filter_card] },
             class: "_add-selected slotter _close-modal btn btn-primary disabled",
             data: { "slot-selector": ".#{params[:slot_selector]}",
                     "item-selector": ".#{params[:item_selector]}",

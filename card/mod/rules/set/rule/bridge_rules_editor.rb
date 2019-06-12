@@ -1,11 +1,12 @@
 format :html do
-  view :overlay_rule, cache: :never, tags: :unknown_ok do
+  view :overlay_rule, cache: :never, unknown: true do
     wrap_with_overlay slot: breadcrumb_data("Rule editing", "rules") do
       current_rule_form
     end
   end
 
-  view :modal_rule, cache: :never, tags: :unknown_ok, wrap: :modal do
+  view :modal_rule, cache: :never, unknown: true,
+                    wrap: { modal: { title: ->(format) { format.render_title } } } do
     current_rule_form
   end
 
@@ -13,7 +14,7 @@ format :html do
     edit_rule_title
   end
 
-  view :overlay_rule_help, tags: :unknown_ok, perms: :none, cache: :never do
+  view :overlay_rule_help, unknown: true, perms: :none, cache: :never do
     # wrap_with :div, class: "help-text rule-instruction d-flex justify-content-between"
     # do
 

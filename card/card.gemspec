@@ -52,7 +52,7 @@ Gem::Specification.new do |s|
 
     # assets (JavaScript, CSS, etc)
     ["coderay",                    "~> 1.1"],
-    ["sass",                       "~> 3.4"],
+    ["sassc",                      "~> 2.0"],
     ["coffee-script",              "~> 2.4"],
     ["uglifier",                   "~> 3.2"],
 
@@ -62,13 +62,14 @@ Gem::Specification.new do |s|
 
     # other
     ["diff-lcs",                   "~> 1.3"], # content diffs in histories
-    ["recaptcha",                  "~> 4.3"],
+    ["recaptcha",                  "~> 4.13.1"],
     ["twitter",                    "~> 6.1"], # for event-based integration
     ["delayed_job_active_record",  "~> 4.1"],
     ["minitest",                   "5.11.2"],
     ["rake",                       "<= 12.3.0"],
     # ["bootswatch", "4.1.1"],
-    ["rails", "~> 5.2"]
+    ["rails", "~> 5.2.2.1"], # routing breaks for :, *, and ~ in 5.2.3
+    ["activerecord-import", "~> 1.0"]
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end

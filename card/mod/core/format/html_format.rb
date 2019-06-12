@@ -16,7 +16,7 @@ class Card
 
       # is the current card the requested card?
       def focal?
-        show_layout? ? main? : depth.zero?
+        @focal ||= show_layout? ? main? : depth.zero?
       end
 
       def default_nest_view
@@ -25,7 +25,7 @@ class Card
       end
 
       def default_item_view
-        :closed
+        :bar
       end
 
       def mime_type

@@ -9,7 +9,7 @@ format do
     ""
   end
 
-  view :missing, perms: :none do
+  view :missing, perms: :none, cache: :never do
     ""
   end
 
@@ -65,8 +65,7 @@ format :json do
   end
 
   def format_error error
-    { error_status: error_status,
-      errors: error }
+    { error_status: error_status, errors: error }
   end
 
   def error_list

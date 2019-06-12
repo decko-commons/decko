@@ -10,7 +10,7 @@ RSpec.describe Card::Query::CardQuery::MatchAttributes do
     end
 
     it "gets only content when content is explicit" do
-      expect(run_query(content: [:match, "two"])).to eq(["Joe User"])
+      expect(run_query(content: [:match, "two"])).to eq(["42", "Joe User"])
     end
 
     it "gets only name when name is explicit" do

@@ -43,8 +43,7 @@ $d-yellow-1: #ffd;
 .btn.renamer-updater,
 .confirm_update_all-view,
 .follow-updater,
-.admin-error-message,
-.labeled-view .card-menu-link {
+.admin-error-message {
   display: none
 }
 
@@ -54,20 +53,20 @@ $d-yellow-1: #ffd;
 }
 
 .guide-line-number {
-    display: inline-block;
-    background: #000;
-    color: $white;
-    border-radius: 100%;
-    width: 20px;
-    height: 20px;
-    font-size: 61%;
-    text-align: center;
-    padding-top: 2px;
-    font-weight: bold;
-    margin-left: -1.7rem; // ~ pl-4
-    position: relative;
-    top: -3px;
-    left: -4.5px;
+  display: inline-block;
+  background: #000;
+  color: $white;
+  border-radius: 100%;
+  width: 21px;
+  height: 21px;
+  font-size: 61%;
+  text-align: center;
+  padding-top: 3px;
+  font-weight: bold;
+  margin-left: -1.7rem;
+  position: relative;
+  top: -5px;
+  left: -4px;
 }
 
 .guide-line {
@@ -76,6 +75,8 @@ $d-yellow-1: #ffd;
 
 .rule-section {
   padding-left: 20px;
+  margin-left: 12px;
+  margin-right: 5px;
   h4 {
     position: relative;
     top: -4px;
@@ -83,9 +84,14 @@ $d-yellow-1: #ffd;
 }
 
 /* -- d0-card-frames and menus--*/
+
+.card-slot {
+  position: relative;
+}
+
 .d0-card-frame {
   .d0-card-frame-title {
-    display: inline-block;
+    // display: inline-block;
     overflow: hidden;
     span.header-icon {
       margin: 0px 5px;
@@ -105,22 +111,20 @@ $d-yellow-1: #ffd;
   width: 100%;
 }
 
-.d0-card-frame > .menu-slot > .card-menu {
-  padding: 0.75rem 0;
+.card-menu {
+  position: absolute;
+  right: 8px;
+  top: 5px;
 }
 
-.menu-slot {
-  width: 100%;
-  //position: relative;
-
-  span.menu-item-label {
-    margin-left: 5px;
+.d0-card-content, .titled-view > .d0-card-header {
+  > .card-menu {
+    top: 0px;
   }
+}
 
-  .card-menu {
-    position: absolute;
-    right: 8px;
-  }
+.with-menu {
+  padding-right: 12px;
 }
 
 .d0-card-frame-title {
@@ -131,16 +135,8 @@ $d-yellow-1: #ffd;
   z-index: 1005;
 }
 
-.navbar.toolbar {
-  margin-bottom: 0;
-  .collapse > .navbar-form.navbar-left {
-    //padding-left: 0px;
-  }
-}
-
-.navbar .btn.btn-toolbar-control {
-  padding: 5px;
-  border: none;
+.ui-front {
+  z-index: 2000!important;
 }
 
 .navbar-divide {
@@ -158,6 +154,11 @@ $d-yellow-1: #ffd;
   }
 }
 
+.nav-logo {
+  max-width: 75px;
+  max-height: 75px;
+}
+
 /*-- closed and labeled views --*/
 
 .closed-view {
@@ -170,12 +171,10 @@ $d-yellow-1: #ffd;
     position: static;
     width:100%;
     > .d0-card-header{
-      float: left;
+      // float: left;
     }
   }
-  .card-menu.btn-group {
-    display: none;
-  }
+
   .d0-card-frame {
     display: inline-block;
   }
@@ -211,6 +210,29 @@ $d-yellow-1: #ffd;
     }
   }
 }
+
+.titled-view > .d0-card-header {
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 0.1em;
+  margin-bottom: 1em;
+
+  > .d0-card-header-title > .card-title {
+    font-size: $h1-font-size;
+    color: $headings-color;
+  }
+}
+
+.d0-card-content {
+  .d0-card-header > .d0-card-header-title > .card-title {
+    font-size: $h2-font-size;
+    color: $headings-color;
+  }
+  .bar-bottom .d0-card-header > .d0-card-header-title > .card-title {
+    font-size: $h3-font-size;
+    color: $headings-color;
+  }
+}
+
 
 /* -- file upload -- */
 .fileupload-buttonbar .btn, .fileupload-buttonbar .toggle {
@@ -314,13 +336,6 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
 /*- DYNAMIC ELEMENTS - */
 /*-------------------- */
 
-
-/* related view (used by many menu items, such as "referred to by")  */
-
-.ALL.related-view > .d0-card-frame > .d0-card-body {
-  padding: 0;
-}
-
 /* navboxes */
 
 .navbox-item-label {
@@ -364,6 +379,7 @@ in your skin.  Choosing (b) will mean your CSS will not be affected by automated
 
 .labeled-view {
   padding: 5px 0;
+  max-width: 100%;
   .labeled-content {
     font-weight: bold;
     .pointer-list,
@@ -414,8 +430,6 @@ textarea {
   white-space: nowrap;
 }
 
-
-
 .pointer-list-editor {
   margin: 0px;
   padding: 0px;
@@ -457,15 +471,12 @@ textarea {
   }
 }
 
-.search-checkbox-item {
-  .checkbox-side {
-    width: 32px;
-    padding: 10px;
-  }
+.filtering .filterable {
+  cursor: pointer;
+}
 
-  .item-view-side {
-    max-width: 550px;
-  }
+.search-checkbox-item .checkbox-side {
+  width: 32px;
 }
 
 .new-account-link {
@@ -573,11 +584,27 @@ ul.action-list {
   }
   li:before {
     font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+
+
     float: left;
     margin-top: 8px;
     margin-left: -2rem;
     font-size: 120%;
     padding-left: 4px;
+    max-height: 30px;
   }
 
   li.update:before {
@@ -625,7 +652,6 @@ ul.action-list {
   }
 }
 
-
 #credit, /* these are both deprecated */
 .flash-notice {
   color: #333;
@@ -636,7 +662,6 @@ ul.action-list {
   padding: 5px;
   text-align: center;
 }
-
 
 .conflict-view {
   text-align: left;
@@ -700,7 +725,6 @@ ul.action-list {
 /*- SETS, SETTINGS, RULES  - */
 /*-------------------------- */
 
-
 .setting-rules,
 .set-rules {
   width: 100%;
@@ -733,10 +757,7 @@ td.rule-setting {
   color: $gray-600;
   white-space: nowrap;
 }
-.rule-type-field {
-  max-width: 70%;
-  margin-right: 5px;
-}
+
 .closed-rule {
   height: 30px;
   td {
@@ -849,7 +870,7 @@ h2.set-label {
 /*-------------------------- */
 
 .ui-menu-icons .ui-menu-item a {
-	padding-left: 0;
+  padding-left: 0;
 }
 
 .ui-icon {
@@ -948,8 +969,8 @@ a.external-link,
   width: 50px;
 }
 
-.edit-link {
-  color: inherit;
+a.edit-link {
+  color: $text-muted;
 }
 
 // Bridge
@@ -973,10 +994,6 @@ a.external-link,
 
 $bridge-line-color: $gray-300;
 
-.bridge-main {
-  border-right: 1px solid $bridge-line-color;
-}
-
 .bridge-sidebar {
   background-color: $gray-100;
   padding-left: 0;
@@ -985,14 +1002,16 @@ $bridge-line-color: $gray-300;
 }
 
 .bridge-main {
+  border-right: 1px solid $bridge-line-color;
   padding-left: 0;
   padding-right: 0;
-  > .bridge-view {
+  > ._overlay-container-placeholder > .bridge-view {
     padding-top: 10px;
-  }
-  > .bridge-view, > .overlay-container > .bridge-view {
     padding-left: 15px;
     padding-right: 15px;
+  }
+  > .overlay-container > .bridge-view {
+    padding-top: 0px;
   }
 }
 
@@ -1010,22 +1029,59 @@ $bridge-line-color: $gray-300;
   }
 }
 
-
 .d0-card-overlay > .d0-card-frame > .d0-card-header {
   border-bottom: 1px solid $bridge-line-color;
   padding-left: -15px!important;
   padding-right: -15px!important;
 }
 
-.bridge-pills > .nav-item > a {
+.bridge-pills {
+  .help-text {
+    font-size: 0.8rem;
+  }
+  > .nav-item > a {
+    background-color: $list-group-bg;
+    border: 1px solid $list-group-border-color;
+    border-left: 3px solid $list-group-border-color;
+    margin-bottom: -1px;
+
+    &:hover, &.active, &:focus {
+      border-left-color: $list-group-active-bg;
+    }
+  }
+}
+
+.rule-item {
+  h5 {
+    font-weight: bold;
+  }
   background-color: $list-group-bg;
   border: 1px solid $list-group-border-color;
-  border-left: 3px solid $list-group-border-color;
+  border-left: 5px solid $list-group-border-color;
   margin-bottom: -1px;
+  padding: 5px;
   &:hover, &.active {
     border-left-color: $list-group-active-bg;
   }
 }
+
+.btn-reduced-padding {
+  padding: 0.1rem 0.2rem;
+}
+
+// reduce bottom margins
+.card-slot.set-info {
+  .form-group {
+    margin-bottom: 0.3rem;
+    label {
+      margin-bottom: 0.2rem;
+    }
+  }
+  p {
+    margin-bottom: 0.5rem;
+  }
+}
+
 
 .nav-pills .nav-link.active .help-text {
   color: lighten($primary, 40%);
@@ -1033,7 +1089,7 @@ $bridge-line-color: $gray-300;
 
 .overlay-container {
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .help-text.rule-instruction > div p:last-child {
@@ -1067,9 +1123,112 @@ $bridge-line-color: $gray-300;
     .d0-card-header-title > .card-title {
       font-size: 1rem;
     }
+
+    .creator-credit {
+      font-size: $font-size-sm;
+    }
+    .nav-link {
+      padding: 0.5rem 0.5rem;
+    }
+  }
+}
+
+.input-group-prepend._field-indicator .input-group-text {
+  font-size: 1.3rem;
+  line-height: 1;
+  font-weight: bold;
+  border-right: none;
+  border-left: none;
+  background: $input-bg;
+}
+
+.input-group.show-prefix {
+  border-left: 1px solid $input-border-color;
+  > input {
+    border-left: none;
+  }
+}
+
+.input-group.hide-prefix {
+  border-left: 1px solid $input-border-color;
+  > input {
+    border-left: none;
+  }
+  > .input-group-prepend {
+    margin-right: 0;
+    > .input-group-text {
+      display: none;
+    }
   }
 }
 
 .text-muted-link {
   color: $text-muted;
+}
+
+._template {
+  display: none;
+}
+
+.background-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 900;
+  outline: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+// decko logo
+
+[id^='svg-card-'] use{ // all cards
+  fill: $primary;
+}
+
+[id^='svg-card-']:nth-child(even) use { // even cards
+  fill: $secondary;
+}
+
+.act-summary {
+  min-width: 27px;
+}
+
+footer .separator {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+body.right-sidebar, body.left-sidebar, body.two-sidebar {
+  article, #primary {
+    margin: 0 1% 3em 1%;
+    float: left;
+    width: 67%;
+  }
+
+  aside, #secondary {
+    margin: 0 1% 3em 1%;
+    float: right;
+    width: 28%;
+  }
+
+  footer {
+    clear:both;
+    text-align: center;
+    padding: 1em;
+  }
+}
+
+@media print {
+  article, #primary {
+    width: 100%;
+    float: none;
+    margin: 0;
+  }
+
+  aside, #secondary, footer {
+    display: none;
+  }
 }

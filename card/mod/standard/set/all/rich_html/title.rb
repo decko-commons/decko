@@ -1,13 +1,24 @@
-format :html do
-  view :title do
-    title = wrapped_title super()
-    title = link_to_card card.name, title if show_view? :title_link, :hide
-    add_name_context
-    title
+format do
+  view :title, closed: true, perms: :none do
+    standard_title
   end
 
-  view :title_link do
-    render_title show: :title_link
+  def standard_title
+    name_variant title_in_context(voo.title)
+  end
+end
+
+format :html do
+  view :title do
+    show_view?(:title_link, :hide) ? render_title_link : render_title_no_link
+  end
+
+  view :title_link, closed: true, perms: :none do
+    link_to_card card.name, render_title_no_link
+  end
+
+  view :title_no_link, closed: true, perms: :none do
+    wrapped_title standard_title
   end
 
   def title_with_link link_text

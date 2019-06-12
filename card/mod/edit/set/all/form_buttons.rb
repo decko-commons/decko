@@ -11,12 +11,15 @@ format :html do
     submit_button opts
   end
 
-  # @param close: [:modal, :overlay]
+  # @param opts [Hash]
+  # @option close [:modal, :overlay]
   #
   def standard_save_and_close_button opts={}
     close = opts.delete(:close) || :modal
-    add_class opts, "submit-button btn-sm mr-3 _close-#{close}-on-success _update-origin"
-    opts.reverse_merge! text: "Save and Close", "data-cy": "submit-#{close}"
+    text = opts[:text] || "Save and Close"
+    add_class opts, "submit-button btn-sm mr-3 _close-#{close}-on-success"
+    add_class opts, "_update-origin" unless opts[:no_origin_update]
+    opts.reverse_merge! text: text, "data-cy": "submit-#{close}"
 
     submit_button opts
   end

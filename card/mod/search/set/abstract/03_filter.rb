@@ -21,9 +21,7 @@ def filter_wql_from_params
 end
 
 def sort_wql
-  return {} if !sort? || sort_param.blank?
-
-  sort_hash
+  sort? ? sort_hash : {}
 end
 
 def sort?
@@ -39,13 +37,9 @@ def blocked_id_wql
   not_ids.present? ? { id: ["not in", not_ids.split(",")] } : {}
 end
 
-def advanced_filter_keys
-  []
-end
-
 # all filter keys in the order they were selected
 def all_filter_keys
-  @all_filter_keys ||= filter_keys_from_params | filter_keys | advanced_filter_keys
+  @all_filter_keys ||= filter_keys_from_params | filter_keys
 end
 
 def filter_keys
@@ -69,17 +63,26 @@ format :html do
     all_filter_keys.each_with_object({}) do |cat, h|
       h[cat] = { label: filter_label(cat),
                  input_field: _render("filter_#{cat}_formgroup"),
-                 active: show_filter_field?(cat) }
+                 active: active_filter?(cat),
+                 default: default_filter?(cat) }
     end
   end
 
-  def show_filter_field? field
-    filter_hash.present? ? filter_hash[field] : card.default_filter_option[field]
+  def active_filter? field
+    if card.filter_keys_from_params.present?
+      filter_hash.key? field
+    else
+      default_filter? field
+    end
+  end
+
+  def default_filter? field
+    card.default_filter_option.key?(field)
   end
 
   def filter_label field
-    return "Keyword" if field.to_sym == :name
-
+    # return "Keyword" if field.to_sym == :name
+    #
     filter_label_from_method(field) || filter_label_from_name(field)
   end
 

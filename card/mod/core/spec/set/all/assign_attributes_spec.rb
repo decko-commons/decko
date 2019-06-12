@@ -24,7 +24,7 @@ RSpec.describe Card::Set::All::AssignAttributes do
     expect(Card["A"].type_code).to eq(:cardtype)
   end
 
-  example "create cardtype with codename" do
+  example "create cardtype with codename", as_bot: true do
     card = Card.create! name: "Foo Type", codename: "foo",
                         type: "Cardtype"
     expect(card).to have_type(:cardtype).and have_codename :foo

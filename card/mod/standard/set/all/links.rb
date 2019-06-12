@@ -102,14 +102,14 @@ format :html do
   # TODO: upgrade from (known/wanted)-card to (real/virtual/unknown)-card
   def link_to_card cardish, text=nil, opts={}
     name = Card::Name[cardish]
+    slotterify opts if opts[:slotter]
     add_known_or_wanted_class opts, name
     super name, (text || name), opts
   end
 
   # in HTML, #link_to_view defaults to a remote link with rel="nofollow".
   def link_to_view view, text=nil, opts={}
-    opts.reverse_merge! remote: true, rel: "nofollow"
-    add_class opts, "slotter"
+    slotterify opts
     super view, (text || view), opts
   end
 
@@ -122,6 +122,12 @@ format :html do
   end
 
   private
+
+  def slotterify opts
+    opts.delete(:slotter)
+    opts.reverse_merge! remote: true, rel: "nofollow"
+    add_class opts, "slotter"
+  end
 
   def add_known_or_wanted_class opts, name
     known = opts.delete :known

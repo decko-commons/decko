@@ -10,7 +10,6 @@ Gemfile.lock
 .yardoc
 *.iml
 coverage
-doc
 log/*
 pkg
 wagn*gem

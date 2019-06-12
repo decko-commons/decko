@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.9
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-Decko-3A+you+hold+the+cards">Decko: you hold the cards</h1>
+
+<p><a href="https://semaphoreci.com/ethan/decko"><img
+src="https://semaphoreci.com/api/v1/projects/0d61c1f9-5ef0-4c5c-89c6-7664e247e4be/294670/shields_badge.svg"
+/></a> <a href="https://badge.fury.io/rb/decko"><img
+src="https://badge.fury.io/rb/decko.svg" alt="Gem Version" /></a> <a
+href="https://codeclimate.com/repos/56548cb6fafb98574e013c39/feed"><img
+src="https://codeclimate.com/repos/56548cb6fafb98574e013c39/badges/be88db3f72d0fd06ace3/gpa.svg"
+/></a></p>
+
+<h2 id="label-Basics">Basics</h2>
+
+<p>Decko (formerly known as “Wagn”) makes serious web development fun.</p>
+
+<p>“Deckers” have used Decko to create open community sites, private knowledge
+management sites, public proposal submission sites with private back-ends
+for review, project management systems, wikis, blogs, journals, forums, and
+more.</p>
+
+<p>Install Decko, open a webpage, and get started. With Decko&#39;s
+wiki-inspired building blocks, you can collaborate from day one on content,
+design, and structure create elegant web systems on the fly.  And ruby
+developers can take these creations even further with Decko&#39;s
+development framework. Decko&#39;s innovative Mods API supports boundless
+creativity while integrating seamlessly with structures created on the
+site.</p>
+
+<p>Try it out!</p>
+
+<h2 id="label-System+Requirements">System Requirements</h2>
+
+<h2 id="label-Installation">Installation</h2>
+
+<h3 id="label-1.+install+dependencies">1. install dependencies</h3>
+<dl class="rdoc-list note-list"><dt><a href="http://www.ruby-lang.org/en/">Ruby</a>
+<dd>
+<p>version 2.3.1 or higher</p>
+</dd><dt><a href="http://gembundler.com/">Bundler</a>
+<dd>
+<p>version 1.0 or higher</p>
+</dd><dt><a href="http://www.imagemagick.org/">ImageMagick</a>
+<dt>A database engine
+<dd>
+<p>Either <a href="http://www.mysql.com/">MySQL</a> or <a
+href="http://www.postgresql.org/">PostgreSQL</a></p>
+</dd><dt>A JavaScript runtime
+<dd>
+<p><a href="https://nodejs.org/">Node.js</a> or <a
+href="https://github.com/sstephenson/execjs">other</a></p>
+</dd></dl>
+
+<h3 id="label-2.+install+the+gem">2. install the gem</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_decko'>decko</span>
+</code></pre>
+
+<p>Watch carefully for errors!</p>
+
+<h3 id="label-3.+create+a+new+deck">3. create a new deck</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_decko'>decko</span> <span class='id identifier rubyid_new'>new</span> <span class='const'>MY_DECK</span>
+</code></pre>
+
+<p>Options:</p>
+
+<pre class="code ruby"><code class="ruby">-f, [--force]                            # Overwrite files that already exist
+-p, [--pretend], [--no-pretend]          # Run but do not make any changes
+-q, [--quiet], [--no-quiet]              # Suppress status output
+-s, [--skip], [--no-skip]                # Skip files that already exist
+-m, [--mod-dev], [--no-mod-dev]          # Prepare deck for mod development
+-c, [--core-dev], [--no-core-dev]        # Prepare deck for core development
+-g, [--gem-path=GEM-PATH]                # Path to local decko repository (Default, use env DECKO_GEM_PATH)
+-i, [--interactive], [--no-interactive]  # Prompt with dynamic installation options</code></pre>
+
+<h3 id="label-4.+create+-2F+seed+database">4. create / seed database</h3>
+
+<p>Edit the config/database.yml file as necessary. More about database
+configuration at <a
+href="https://www.decko.org/database_configuration">www.decko.org/database_configuration</a>.</p>
+
+<p>Then run</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_cd'>cd</span> <span class='const'>MY_DECK</span>
+<span class='id identifier rubyid_decko'>decko</span> <span class='id identifier rubyid_seed'>seed</span>
+</code></pre>
+
+<p>..to create and seed the database</p>
+
+<p>Options:</p>
+
+<pre class="code ruby"><code class="ruby">-p, --production                 decko:seed production database (default)
+-t, --test                       decko:seed test database
+-d, --development                decko:seed development database
+-a, --all                        decko:seed production, test, and development database</code></pre>
+
+<h3 id="label-4.+start+your+server">4. start your server</h3>
+
+<p>To fire up the default, built-in WEBrick server, just run:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_decko'>decko</span> <span class='id identifier rubyid_server'>server</span>
+</code></pre>
+
+<p>…and point your browser to <a
+href="http://localhost:3000">localhost:3000</a> (unless otherwise
+configured).</p>
+
+<p>Options:</p>
+
+<pre class="code ruby"><code class="ruby">-p, [--port=port]                        # Runs Decko on the specified port - defaults to 3000.
+-b, [--binding=IP]                       # Binds Decko to the specified IP - defaults to &#39;localhost&#39; in development and &#39;0.0.0.0&#39; in other environments&#39;.
+-c, [--config=file]                      # Uses a custom rackup configuration. (default: config.ru)
+-d, [--daemon], [--no-daemon]            # Runs server as a Daemon.
+-e, [--environment=name]                 # Specifies the environment to run this server under (development/test/production).
+-P, [--pid=PID]                          # Specifies the PID file. (efault: tmp/pids/server.pid)
+    [--early-hints], [--no-early-hints]  # Enables HTTP/2 early hints.</code></pre>
+
+<p>For more information, see <a
+href="https://decko.org/get_started">decko.org/get_started</a>.</p>
+
+<h2 id="label-Upgrading">Upgrading</h2>
+
+<h3 id="label-Standard+Upgrade">Standard Upgrade</h3>
+
+<h4 id="label-1.+Backups">1. Backups</h4>
+
+<p>Always back up your database and uploaded files.</p>
+
+<h4 id="label-2.+Update+Libraries">2. Update Libraries</h4>
+
+<p>From your decko root directory run:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_update'>update</span>
+</code></pre>
+
+<h4 id="label-3.+Update+Database">3. Update Database</h4>
+
+<p>Run the following:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_decko'>decko</span> <span class='id identifier rubyid_update'>update</span>
+</code></pre>
+
+<h4 id="label-4.+Restart+your+server.">4. Restart your server.</h4>
+
+<h3 id="label-Upgrade+to+Decko+from+Wagn">Upgrade to Decko from Wagn</h3>
+
+<h4 id="label-1.+update+references+to+-22wagn-22+in+file+content">1. update references to “wagn” in file content</h4>
+
+<p>In your decko&#39;s root directory, edit Gemfile, config/application.rb,
+and config/routes.rb, and script/wagn, replacing “wagn” with “decko”. (Keep
+the same capitalization pattern.)</p>
+
+<h4 id="label-2.+update+references+to+-22wagn-22+in+file+names.">2. update references to “wagn” in file names.</h4>
+
+<p>From your decko root directory run:</p>
+
+<pre class="code ruby"><code class="ruby">mv script/wagn script/decko</code></pre>
+
+<h4 id="label-3.+continue+as+with+Standard+Upgrade">3. continue as with Standard Upgrade</h4>
+
+<p>See above.</p>
+
+<h3 id="label-Upgrade+pre-gem+Wagn+site">Upgrade pre-gem Wagn site</h3>
+
+<p>First check the Wagn/Decko version of your existing site.</p>
+
+<h4 id="label-Version+1.10+or+newer">Version 1.10 or newer</h4>
+<ol><li>
+<p>Create a new deck using steps 1 and 2 from the installation section above.</p>
+</li><li>
+<p>Copy config/database.yml from the old site to the new one.</p>
+</li><li>
+<p>Copy the old local/files contents to the new “files” directory.</p>
+</li><li>
+<p>If you have edited wagn.yml in your old site, make the corresponding
+changes to the new config/application.rb file.</p>
+</li><li>
+<p>Follow the standard upgrade procedure above.</p>
+</li></ol>
+
+<h4 id="label-Older+than+Version+1.10">Older than Version 1.10</h4>
+
+<p>First update your Wagn to version 1.10 via the old update mechanisms, and
+then follow the directions above.</p>
+
+<h2 id="label-More+Resources">More Resources</h2>
+
+<p>If you&#39;re new to Decko, you&#39;ll find lots more info at <a
+href="https://decko.org">decko.org</a></p>
+
+<p>Installation problems? Installation: <a
+href="https://decko.org/installation">decko.org/installation</a></p>
+
+<p>If you&#39;re looking to go deep into the code, start with <a
+href="http://www.rubydoc.info/gems/card">www.rubydoc.info/gems/card</a></p>
+
+<p>Thinking about contributing to Decko? <a href="CONTRIBUTING.rdoc">here</a></p>
+</div></div>
+
+      <div id="footer">
+  Generated on Fri May  3 22:42:35 2019 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.9 (ruby-2.4.1).
+</div>
+
+    </div>
+  </body>
+</html>

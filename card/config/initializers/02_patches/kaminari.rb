@@ -12,7 +12,6 @@ module Patches
           p = params_for(page)
           p.delete :controller
           p.delete :action
-          # TODO: make sure paging works with new related handling
           mark = p.delete("mark") || p.delete("name")
           Card.fetch(mark).format.path p
         end

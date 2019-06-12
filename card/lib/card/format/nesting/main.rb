@@ -7,7 +7,13 @@ class Card
           yield # no wrapping in base format
         end
 
-        def main_nest opts={}
+        def main_nest opts
+          wrap_main do
+            main.rendered || main_nest_render(opts)
+          end
+        end
+
+        def main_nest_render opts={}
           with_nest_mode :normal do
             if block_given?
               block.call
@@ -34,27 +40,7 @@ class Card
 
         # view=edit&items=closed
         def main_nest_options
-          opts = inherit(:main_opts) || {}
-          main_nest_size_opt opts
-          main_nest_items_opt opts
-          opts
-        end
-
-        protected
-
-        def main_nest_size_opt opts
-          val = params[:size]
-          return unless val.present?
-
-          opts[:size] = val.to_sym
-        end
-
-        def main_nest_items_opt opts
-          val = params[:item]
-          return unless val.present?
-
-          opts[:items] ||= {}
-          opts[:items][:view] = val.to_sym
+          inherit(:main_opts) || {}
         end
       end
     end

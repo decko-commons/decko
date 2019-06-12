@@ -32,6 +32,7 @@ test: &test
   database: <%= app_name %>_test
 
 cucumber: *test
+cypress: *test
 
 production:
   database: <%= app_name %>_production

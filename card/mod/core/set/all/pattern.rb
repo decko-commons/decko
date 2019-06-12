@@ -16,7 +16,7 @@ def reset_patterns
   true
 end
 
-def reset_patterns_if_rule saving=false
+def reset_patterns_if_rule _saving=false
   return unless real? && is_rule? && (set = left)
 
   set.reset_patterns

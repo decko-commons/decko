@@ -10,6 +10,10 @@ def subfield field_name
   subcards.field field_name
 end
 
+def field? tag
+  field(tag) || subfield(tag)
+end
+
 def subcards
   @subcards ||= Card::Subcards.new self
 end
