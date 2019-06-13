@@ -47,7 +47,7 @@ class Card
           opts = params[:slot]&.clone || {}
           opts = opts.to_unsafe_h if opts.is_a? ActionController::Parameters
           opts.merge! shortcut_slot_opts
-          opts.deep_symbolize_keys
+          opts.deep_symbolize_keys.slice(*Card::View::Options.shark_keys)
         end
       end
 
@@ -119,7 +119,7 @@ class Card
       end
 
       def slot_items_shortcut?
-        params[:item].present? && !params.dig(:slot, :items, :view).present?
+        params[:item].present? && !slot_opts.dig(:items, :view).present?
       end
     end
   end
