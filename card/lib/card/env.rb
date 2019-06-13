@@ -119,7 +119,7 @@ class Card
       end
 
       def slot_items_shortcut?
-        params[:item].present? && !slot_opts.dig(:items, :view).present?
+        params[:item].present? && !params.dig(:slot, :items, :view).present?
       end
     end
   end
