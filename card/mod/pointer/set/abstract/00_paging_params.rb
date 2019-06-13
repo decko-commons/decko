@@ -16,15 +16,13 @@ format do
   def env_search_param param
     return unless focal? && Env.params[param].present?
 
-    legal_search_param param, Env.params[param].to_i
+    legal_search_param! Env.params[param].to_i
   end
 
-  def legal_search_param param, val
-    if Card::Auth.signed_in? || val <= MAX_ANONYMOUS_SEARCH_PARAM
-      val
-    else
-      raise Card::Error::PermissionDenied, "#{param} parameter exceeds maximum"
-    end
+  def legal_search_param! param, val
+    return val if Card::Auth.signed_in? || val <= MAX_ANONYMOUS_SEARCH_PARAM
+
+    raise Card::Error::PermissionDenied, "#{param} parameter exceeds maximum"
   end
 
   def voo_search_param param
