@@ -16,7 +16,7 @@ format do
   def env_search_param param
     return unless focal? && Env.params[param].present?
 
-    legal_search_param! Env.params[param].to_i
+    legal_search_param! param, Env.params[param].to_i
   end
 
   def legal_search_param! param, val
