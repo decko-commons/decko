@@ -140,7 +140,19 @@ class Card
         end
 
         def result
-          @process_chunk || @processed || @text
+          burn_read || @process_chunk || @processed || @text
+        end
+
+        def burn_read
+          return unless @burn_read
+
+          tmp = @burn_read
+          @burn_read = nil
+          tmp
+        end
+
+        def burn_after_reading text
+          @burn_read = text
         end
 
         def inspect
