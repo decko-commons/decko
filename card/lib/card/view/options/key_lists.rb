@@ -31,7 +31,7 @@ class Card
         end
 
         def slot_keys
-          @slot_keys ||= @all_keys - [:skip_perms]
+          @slot_keys ||= all_keys - [:skip_perms]
         end
 
         def reset_key_lists
