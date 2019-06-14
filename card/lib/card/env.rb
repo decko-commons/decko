@@ -47,7 +47,7 @@ class Card
           opts = params[:slot]&.clone || {}
           opts = opts.to_unsafe_h if opts.is_a? ActionController::Parameters
           opts.merge! shortcut_slot_opts
-          opts.deep_symbolize_keys
+          opts.deep_symbolize_keys.slice(*Card::View::Options.slot_keys)
         end
       end
 

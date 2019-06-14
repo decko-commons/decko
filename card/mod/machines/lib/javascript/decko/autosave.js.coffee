@@ -10,6 +10,8 @@ jQuery.fn.extend
       id = slot.data 'cardId'
       reportee = ''
 
+    return unless id
+
     # might be better to put this href base in the html
     submit_url = decko.path 'update/~' + id
     form_data = $('#edit_card_'+id).serializeArray().reduce( ((obj, item) ->

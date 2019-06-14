@@ -1,5 +1,5 @@
 def event_applies? event
-  return unless set_condition_applies? event.set_module, event.opts.key?(:changing)
+  return unless set_condition_applies? event.set_module, event.opts[:changing]
 
   Card::Set::Event::CONDITIONS.all? do |key|
     send "#{key}_condition_applies?", event, event.opts[key]
@@ -8,13 +8,9 @@ end
 
 private
 
-# existing card is being changed in a way that alters its sets
-def updating_sets?
-  @action == :update && real? && (type_id_is_changing? || name_is_changing?)
-end
-
 def set_condition_applies? set_module, old_sets
   return true if set_module == Card
+
   set_condition_card(old_sets).singleton_class.include? set_module
 end
 
@@ -33,6 +29,11 @@ def set_condition_card old_sets
   return self if old_sets || no_current_action?
   @set_condition_card ||=
     updating_sets? ? set_condition_card_with_new_set_modules : self
+end
+
+# existing card is being changed in a way that alters its sets
+def updating_sets?
+  @action == :update && real? && (type_id_is_changing? || name_is_changing?)
 end
 
 # prevents locking in set_condition_card
