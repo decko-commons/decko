@@ -100,7 +100,6 @@ class Card
       end
 
       result = yield to_s
-      binding.pry
       Chunk::Nest.gsub result do |nest_content|
         nests[nest_content.to_i]
       end
