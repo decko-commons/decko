@@ -57,11 +57,50 @@ format :html do
 
   view :navbar_links, perms: :none do
     wrap_with :ul, class: "navbar-nav" do
-      item_links.map do |link|
-        wrap_with(:li, class: "nav-item") { link }
-      end.join "\n"
+      navbar_items.join "\n"
     end
   end
+
+  def navbar_items
+    content_items = card.content.split(/\n/)
+    content_items.map do |item|
+      process_content item
+    end
+  end
+
+  view :dropdown do
+    ""
+  end
+
+  view :nav_link do
+    wrap_with(:li, class: "nav-item") { link_view class: "nav-link" }
+  end
+
+  view :nav_dropdown do
+    wrap_with(:li, class: "nav-item dropdown") do
+      [
+        link_to(render_title, href: "#", class: "nav-link dropdown-toggle", "data-toggle": "dropdown"),
+        wrap_with(:div, nav_dropdown_list, class: "dropdown-menu")
+      ]
+    end
+  end
+
+  def sasf
+    content = Card::Content.new card.content, chunk_list: :references
+    content.each_chunk do |chunk|
+
+    end
+  end
+
+
+  def nav_dropdown_list
+    card.item_cards.map { |c| nest c, view: :nav_dropdown_link, title: voo.title  }
+  end
+
+  view :nav_dropdown_link do
+    link_to_card card, render_title, class: "dropdown-item"
+  end
+
 
   def structure_editable?
     card.structure && card.template.ok?(:update)

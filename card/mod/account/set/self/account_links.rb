@@ -12,11 +12,16 @@ format :html do
     end
   end
 
-  def item_links _args=nil
+  def navbar_items
     # removed invite for now
-    %i[my_card sign_out sign_up sign_in].map do |link_view|
-      render link_view
-    end.compact
+    links =
+      %i[my_card sign_out sign_up sign_in].map do |link_view|
+        render(link_view)
+      end.compact
+
+    links.map do |link|
+      wrap_with(:li, link , class: "nav-item")
+    end
   end
 
   def self.link_options opts={}
