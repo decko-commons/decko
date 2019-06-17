@@ -136,6 +136,17 @@ RSpec.describe Card::Set::All::Notify do
   end
 
   describe "#notify_followers" do
+    # Normally, delayed events renew the cache, which entails clearing the local cache.
+    # That breaks these tests, because if the local cache is cleared, then the +*account
+    # card that receives the :send_change_notice method is a _different_ object than
+    # the one expecting it.
+    #
+    # An alternative approach would be to insert _only_ the account object into the
+    # cache when the delayed job is started.  This would more reliably test that the
+    # delayed job can get everything it needs with a clean cache.
+    before { Card::Cache.no_renewal = true }
+    after { Card::Cache.no_renewal = false }
+
     def expect_user user_name
       expect(Card.fetch(user_name).account)
     end

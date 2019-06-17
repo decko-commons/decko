@@ -64,10 +64,14 @@ $(window).ready ->
 #    msg.dialog()
     event.preventDefault()
 
-  $('card-view-placeholder').each ->
-    $this = $(this)
-    $.get $this.data("url"), (data, status) ->
-      $this.replaceWith data
+decko.slotReady (slot) ->
+  slot.find('card-view-placeholder').each ->
+    $place = $(this)
+    return if $place.data("loading")
+
+    $place.data "loading", true
+    $.get $place.data("url"), (data, _status) ->
+      $place.replaceWith data
 
 # important: this prevents jquery-mobile from taking over everything
 # $( document ).on "mobileinit", ->

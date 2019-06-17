@@ -1,10 +1,8 @@
 .media{media_opts}
   .media-left
-    .image-box{ class: "mr-1 #{size}" }
-      %img.media-object{class: size, src: src.html_safe, alt: alt}
-    = media_left_extras
+    = nest image_card, view: :boxed, size: size
   .media-body{ class: "media-body-#{size}" }
-    - if title != ""
+    - if title.present?
       %h5{ class: classy("media-heading") }
         = title
     .media-text

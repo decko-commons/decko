@@ -49,9 +49,7 @@ class Card
         # because they can get changed after.  current solution is a compromise.
         # @return [Hash]
         def slot_options
-          normalized_options.merge(view: requested_view).select do |k, _v|
-            Options.all_keys.include? k
-          end
+          normalized_options.merge(view: requested_view).slice(*Options.slot_keys)
         end
 
         # def inherit key
