@@ -37,7 +37,7 @@ format :html do
   end
 
   def default_filter? field
-    card.default_filter_option.key?(field)
+    card.default_filter_hash.key?(field)
   end
 
   def filter_label field
