@@ -22,6 +22,7 @@ event :signin_success, after: :signin do
 end
 
 event :signout, :validate, on: :delete do
+  Env[:controller]&.reset_session
   Auth.signin AnonymousID
   abort :success
 end

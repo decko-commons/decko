@@ -17,5 +17,12 @@ format :html do
     { "Alphabetical": :name, "Recently Added": :create }
   end
 
+  before :filtered_content do
+    return if Env.params[:filter].present?
+    # this sets the default filter search options to match the default filter UI,
+    # which is managed by the filter_card
+    @filter_hash = card.filter_card.default_filter_option
+  end
+
   view :filtered_content, template: :haml, wrap: :slot
 end
