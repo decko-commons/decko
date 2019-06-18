@@ -86,6 +86,7 @@ decko.filter = (el) ->
 
   @reset = () ->
     @clear()
+    @dropdownItems().show()
     @showWithStatus "default"
 
   @clear = () ->
