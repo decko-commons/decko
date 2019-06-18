@@ -32,7 +32,6 @@ format :html do
     link_to_card card, render_title, class: "dropdown-item"
   end
 
-
   def nav_dropdown
     wrap_with(:li, class: "nav-item dropdown") do
       [
@@ -44,7 +43,7 @@ format :html do
 
   def dropdown_toggle_link
     link_to(render_title, href: "#", class: "nav-link dropdown-toggle",
-                                  "data-toggle": "dropdown")
+                          "data-toggle": "dropdown")
   end
 
   def dropdown_menu

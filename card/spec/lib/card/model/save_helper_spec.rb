@@ -15,13 +15,13 @@ RSpec.describe Card::Model::SaveHelper, as_bot: true do
     end
 
     example "content string argument" do
-      ensure_card "*home", "new content"
-      expect_card("*home").to have_content "new content"
+      ensure_card "A", "new content"
+      expect_card("A").to have_content "new content"
     end
 
     example "single hash argument" do
-      ensure_card name: "*home", content: "new content"
-      expect_card("*home").to have_content "new content"
+      ensure_card name: "A", content: "new content"
+      expect_card("A").to have_content "new content"
     end
 
     it "doesn't change name variant"  do

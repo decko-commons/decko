@@ -3,4 +3,3 @@ format :html do
     nav_dropdown
   end
 end
-

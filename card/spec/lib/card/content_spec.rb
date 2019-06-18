@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require "card/content"
 
-describe Card::Content do
+RSpec.describe Card::Content do
   EXAMPLES = {
     nests: {
       content: "Some Literals: \\[{I'm not| a link]}, and " \

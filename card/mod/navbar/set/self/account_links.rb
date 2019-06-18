@@ -20,7 +20,7 @@ format :html do
       end.compact
 
     links.map do |link|
-      wrap_with(:li, link , class: "nav-item")
+      wrap_with_nav_item link
     end
   end
 
