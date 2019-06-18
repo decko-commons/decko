@@ -13,7 +13,7 @@ end
 # #filter_hash is the _value_ of the hash with :filter as the key.
 def filter_hash
   @filter_hash ||= begin
-    filter = Env.params[:filter] || default_filter_hash
+    filter = (Env.params[:filter] || default_filter_hash).clone
     filter = filter.to_unsafe_h if filter&.respond_to?(:to_unsafe_h)
     filter.is_a?(Hash) ? filter : {}
   end
