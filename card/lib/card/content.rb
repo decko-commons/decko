@@ -46,12 +46,17 @@ class Card
     end
 
     # sends &block to #process_chunk on each Chunk object
-    def process_chunks
-      each_chunk do |chunk|
-        chunk.process_chunk
-      end
+    def process_chunks &block
+      return custom_process_chunks(&block) if block_given?
+
+      each_chunk(&:process_chunk)
     end
 
+    def custom_process_chunks
+      each_chunk do |chunk|
+        chunk.burn_after_reading yield(chunk)
+      end
+    end
 
     def pieces
       Array.wrap(__getobj__)

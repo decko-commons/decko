@@ -1,10 +1,10 @@
 class Card
   class Format
     module Content
-      def process_content override_content=nil, content_opts=nil
+      def process_content override_content=nil, content_opts=nil, &block
         content = override_content || render_raw || ""
         content_object = get_content_object content, content_opts
-        content_object.process_chunks
+        content_object.process_chunks(&block)
         content_object.to_s
       end
 

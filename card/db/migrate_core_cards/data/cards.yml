@@ -42,7 +42,7 @@
   :codename: :logo
   :key: "*logo"
 - :name: "*main menu"
-  :type: HTML
+  :type: Pointer
   :key: "*main_menu"
 - :name: "*recaptcha settings"
   :type: Basic
@@ -127,4 +127,7 @@
   :key: "*getting_started"
   :codename: getting_started
   :merged: 2019-05-15 12:09:27 UTC
+- :name: "*getting started+links"
+  :type: Pointer
+  :key: "*getting_started+link"
 :remotes: {}
