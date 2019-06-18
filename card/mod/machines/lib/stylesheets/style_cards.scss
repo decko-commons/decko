@@ -473,6 +473,9 @@ textarea {
 
 ._filtering ._filterable {
   cursor: pointer;
+  &:hover {
+    background-color: #fafafa;
+  }
 }
 
 .search-checkbox-item .checkbox-side {
