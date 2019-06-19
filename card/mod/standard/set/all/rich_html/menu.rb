@@ -26,7 +26,11 @@ format :html do
   end
 
   def full_page_link
-    link_to_card card, full_page_icon, class: classy("full-page-link")
+    link_to_card full_page_card, full_page_icon, class: classy("full-page-link")
+  end
+
+  def full_page_card
+    card
   end
 
   def edit_in_bridge_link opts={}
