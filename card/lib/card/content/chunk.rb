@@ -160,7 +160,7 @@ class Card
         end
 
         def as_json _options={}
-          @process_chunk || @processed ||
+          burn_read || @process_chunk || @processed ||
             "not rendered #{self.class}, #{card&.name}"
         end
       end

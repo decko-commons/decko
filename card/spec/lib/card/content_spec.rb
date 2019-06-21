@@ -191,11 +191,15 @@ RSpec.describe Card::Content do
       @card = card
 
       # non-nil valued opts only ...
-      @render_block = proc do |opts|
-        options = opts.inject({}) do |i, v|
-          i if !v[1].nil? && (i[v[0]] = v[1])
+      @render_block = proc do |chunk|
+        if chunk.is_a?(described_class::Chunk::Nest)
+          options = chunk.options.inject({}) do |i, v|
+            i if !v[1].nil? && (i[v[0]] = v[1])
+          end
+          { options: options }
+        else
+          chunk.process_chunk
         end
-        { options: options }
       end
     end
 
@@ -274,7 +278,7 @@ RSpec.describe Card::Content do
       it "renders all nests" do
         @example = :nests
         expect(cobj.as_json.to_s).to match(/not rendered/)
-        cobj.process_chunks
+        cobj.process_chunks(&@render_block)
         rdr = cobj.as_json.to_json
         expect(rdr).not_to match(/not rendered/)
         expect(rdr).to eq(rendered.to_json)
@@ -282,7 +286,8 @@ RSpec.describe Card::Content do
 
       it "renders links and nests" do
         @example = :links_and_nests
-        cobj.process_chunks
+        expect(cobj.as_json.to_s).to match(/not rendered/)
+        cobj.process_chunks(&@render_block)
         rdr = cobj.as_json.to_json
         expect(rdr).not_to match(/not rendered/)
         expect(rdr).to eq(rendered.to_json)

@@ -12,7 +12,7 @@ class Card
         content = override_content || render_raw || ""
         content_object = get_content_object content, chunk_list: :nest_only
 
-        result = content_object.without_nests &block
+        result = content_object.without_nests(&block)
         process_content result, content_opts
       end
 

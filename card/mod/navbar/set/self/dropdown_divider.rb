@@ -4,6 +4,6 @@ format :html do
   end
 
   view :nav_link_in_dropdown do
-     wrap_with :div, "", class: "dropdown-divider"
+    wrap_with :div, "", class: "dropdown-divider"
   end
 end

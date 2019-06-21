@@ -11,9 +11,9 @@ RSpec.describe Card::Set::All::NavbarLinks do
             with_tag "a.dropdown-item", "horizontal"
           end
         end
-          with_tag "li.nav-item" do
-            with_tag "a.nav-link", "Recent"
-          end
+        with_tag "li.nav-item" do
+          with_tag "a.nav-link", "Recent"
+        end
       end
     end
 
@@ -28,28 +28,28 @@ RSpec.describe Card::Set::All::NavbarLinks do
             with_tag "a.dropdown-item", "horizontal"
           end
         end
-          with_tag "li.nav-item" do
-            with_tag "a.nav-link", "link to A"
-          end
+        with_tag "li.nav-item" do
+          with_tag "a.nav-link", "link to A"
+        end
       end
     end
 
     example "divider and explicit link" do
       content = "[[Stacks|stacky]]\n[[*dropdown divider]]\n[[http://google.com|Google]]"
-            expect_view(:navbar_links, card: { name: "B", type: :pointer, content: content })
-              .to have_tag :ul do
-              with_tag "li.nav-item.dropdown" do
-                with_tag "a.nav-link.dropdown-toggle", "stacky"
-                with_tag "div.dropdown-menu" do
-                  with_tag "a.dropdown-item", "vertical"
-                  with_tag "a.dropdown-item", "horizontal"
-                end
-              end
-                with_tag "div.dropdown-divider"
-                with_tag "li.nav-item" do
-                  with_tag "a.nav-link", "Google"
-                end
-            end
+      expect_view(:navbar_links, card: { name: "B", type: :pointer, content: content })
+        .to have_tag :ul do
+        with_tag "li.nav-item.dropdown" do
+          with_tag "a.nav-link.dropdown-toggle", "stacky"
+          with_tag "div.dropdown-menu" do
+            with_tag "a.dropdown-item", "vertical"
+            with_tag "a.dropdown-item", "horizontal"
+          end
+        end
+        with_tag "div.dropdown-divider"
+        with_tag "li.nav-item" do
+          with_tag "a.nav-link", "Google"
+        end
+      end
     end
   end
 end
