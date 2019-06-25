@@ -8,6 +8,9 @@ class Card
         content_object.to_s
       end
 
+      # Preserves the syntax in all nests. The content is yielded with placeholders
+      # for all nests. After executing the given block the original nests are put back in.
+      # Placeholders are numbers in double curly brackets like {{2}}.
       def safe_process_content override_content=nil, content_opts=nil, &block
         content = override_content || render_raw || ""
         content_object = get_content_object content, chunk_list: :nest_only

@@ -40,21 +40,21 @@ class Card
           elsif card_args.is_a?(Symbol) || card_args.is_a?(String)
             Card.fetch card_args
           elsif card_args[:name]
-            if Card.real? card_args[:name]
-              card = Card.fetch card_args.delete(:name)
-              card_args.each do |k, v|
-                card.send "#{k}=", v
-              end
-              card
-            else
-              Card.fetch card_args[:name], new: card_args
-            end
-
-
+            fetch_with_attributes card_args.delete(:name), card_args
           else
             Card.new card_args.merge(name: "Tempo Rary")
           end
         card.format(format_args)._render(view, view_args)
+      end
+
+      def fetch_with_attributes name, card_args
+        if Card.real? name
+          card_args.each_with_object Card.fetch(name) do |(k, v), card|
+            card.send "#{k}=", v
+          end
+        else
+          Card.fetch name, new: card_args
+        end
       end
     end
   end
