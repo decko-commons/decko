@@ -3,7 +3,7 @@
 
 include_set Abstract::Pointer
 def virtual?
-  !real?
+  new?
 end
 
 # def content
