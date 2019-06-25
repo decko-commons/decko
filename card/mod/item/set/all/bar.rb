@@ -11,7 +11,7 @@ format :html do
   before :bar do
     class_up "bar", card.safe_set_keys
     voo.hide! :bar_collapse_link
-    voo.hide :edit_link, :full_page_link
+    voo.hide :edit_link, :full_page_link, :bridge_link
   end
 
   view :bar do
@@ -79,7 +79,8 @@ format :html do
     [render_bar_expand_link,
      render_bar_collapse_link,
      render_full_page_link,
-     render_edit_link]
+     render_edit_link,
+     render_bridge_link]
   end
 
   view :bar_expand_link do
