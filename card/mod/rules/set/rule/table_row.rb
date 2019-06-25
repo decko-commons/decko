@@ -18,7 +18,7 @@ format :html do
   end
 
   def wrap_closed_rule rule_card
-    klass = rule_card&.real? ? "known-rule" : "missing-rule"
+    klass = rule_card&.real? ? "known-rule" : "table-active"
     wrap(true, { class: "closed-rule #{klass}" }, :tr) { yield }
   end
 

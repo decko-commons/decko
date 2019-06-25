@@ -54,29 +54,31 @@ format :html do
     haml do
       <<-'HAML'.strip_heredoc
         = _render_rule_help
-        %table.table.table-borderless.setting-rules
-          %tr
+        %table.table.setting-rules
+          %thead.thead-dark
             %th Set
             %th Rule
           - card.set_classes_with_rules.each do |klass, rules|
-            %tr.klass-row
-              %td{class: ['setting-klass', "anchorless-#{klass.anchorless?}"]}
-                = klass.anchorless? ? rule_link(rules.first, klass.pattern) : klass.pattern
-              %td.rule-content-container
-                %span.closed-content.content
-                  - if klass.anchorless?
-                    = subformat(rules.first)._render_closed_content
+            %thead.thead-light
+              %tr.klass-row
+                %th{class: ['setting-klass', "anchorless-#{klass.anchorless?}"]}
+                  = klass.anchorless? ? rule_link(rules.first, klass.pattern) : klass.pattern
+                %th.rule-content-container
+                  %span.closed-content.content
+                    - if klass.anchorless?
+                      = subformat(rules.first)._render_closed_content
             - if !klass.anchorless?
-              - duplicate_check(rules) do |rule, duplicate, changeover|
-                %tr{class: ('rule-changeover' if changeover)}
-                  %td.rule-anchor
-                    = rule_link rule, rule.name.trunk_name.trunk_name
-                  - if duplicate
-                    %td
-                  - else
-                    %td.rule-content-container
-                      %span.closed-content.content
-                        = subformat(rule)._render_closed_content
+              %tbody
+                - duplicate_check(rules) do |rule, duplicate, changeover|
+                  %tr{class: ('rule-changeover' if changeover)}
+                    %td.rule-anchor
+                      = rule_link rule, rule.name.trunk_name.trunk_name
+                    - if duplicate
+                      %td
+                    - else
+                      %td.rule-content-container
+                        %span.closed-content.content
+                          = subformat(rule)._render_closed_content
       HAML
     end
   end
