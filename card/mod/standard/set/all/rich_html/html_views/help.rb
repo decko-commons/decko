@@ -15,11 +15,15 @@ format :html do
     _view_content
   end
 
+  def raw_help_text
+    card.help_rule_card&.content
+  end
+
   def rule_based_help
-    return "" unless (rule_card = card.help_rule_card)
+    return "" unless (help_text = raw_help_text)
 
     with_nest_mode :normal do
-      process_content rule_card.content, chunk_list: :references
+      process_content help_text, chunk_list: :references
       # render help card with current card's format
       # so current card's context is used in help card nests
     end
