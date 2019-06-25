@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 def virtual?
-  true
+  new?
 end
 
 def history?

@@ -22,5 +22,5 @@ def item_names _args={}
 end
 
 def virtual?
-  !real?
+  new?
 end
