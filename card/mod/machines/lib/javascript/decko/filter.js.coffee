@@ -92,8 +92,8 @@ decko.filter = (el) ->
   @clear = () ->
     @activeContainer.find(".input-group").remove()
 
-  @activate = (category) ->
-    @activateField category
+  @activate = (category, value) ->
+    @activateField category, value
     @hideOption category
 
   @showOption = (category) ->
@@ -118,7 +118,7 @@ decko.filter = (el) ->
     @fieldValue field, value
     @dropdown.before field
     @initField field
-    field.find("input, select").first().focus
+    field.find("input, select").first().focus()
 
   @fieldValue = (field, value) ->
     if typeof(value) == "object"
@@ -165,7 +165,7 @@ decko.filter = (el) ->
 
   @addRestriction = (category, value) ->
     @removeField category
-    @activateField category, value
+    @activate category, value
     @update()
 
   # triggers update
