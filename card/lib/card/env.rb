@@ -55,6 +55,14 @@ class Card
         self[:session] ||= {}
       end
 
+      def reset_session
+        if session.is_a? Hash
+          self[:session] = {}
+        else
+          self[:controller]&.reset_session
+        end
+      end
+
       def success cardname=nil
         self[:success] ||= Env::Success.new(cardname, params[:success])
       end
