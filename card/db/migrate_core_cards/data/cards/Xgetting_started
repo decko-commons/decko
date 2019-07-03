@@ -15,13 +15,14 @@
           <a href="/new/cardtype" class="btn btn-primary ml-2">Add new Type</a>
         </p>
       </div>
-    <div class="pl-5">
-      <p class="lead">
-        Styling cards
-      </p>
-      <p>
-        <a href="/*all+*style" class="btn btn-primary ml-2">Configure Skin</a>
-      </p>
+      <div class="pl-5">
+        <p class="lead">
+          Styling cards
+        </p>
+        <p>
+          <a href="/*all+*style" class="btn btn-primary ml-2">Configure Skin</a>
+        </p>
+      </div>
     </div>
   </div>
   <p class="lead mt-5">

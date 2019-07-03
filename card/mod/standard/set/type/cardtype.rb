@@ -1,6 +1,6 @@
 include_set Abstract::WqlSearch
 
-def wql_hash
+def wql_content
   { type_id: id, sort: :name }
 end
 

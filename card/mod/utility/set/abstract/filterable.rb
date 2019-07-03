@@ -1,16 +1,13 @@
 format :html do
-  def filterable key, value, opts={}
-    add_class opts, "filterable"
-    opts[:data] ||= {}
-    opts[:data].merge! filter_data(key, value)
-    wrap_with :div, yield, opts
+  def filterable filter_hash={}, html_opts={}
+    add_class html_opts, "_filterable _noFilterUrlUpdates"
+    html_opts[:data] ||= {}
+    html_opts[:data][:filter] = filter_hash
+    wrap_with :div, yield, html_opts
   end
 
-  def filter_data key, value
-    { filter: { key: key, value: value } }
-  end
-
-  def filtering
-    wrap_with :div, yield, class: "filtering"
+  def filtering selector=nil
+    selector ||= "._filter-widget:visible"
+    wrap_with :div, yield, class: "_filtering", "data-filter-selector": selector
   end
 end

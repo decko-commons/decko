@@ -3,12 +3,13 @@
     Select Item
     .badge.badge-secondary
       = card.count
-.filter-selector.p-3
+.filter-selector.p-2
   - if card.count > 0
-    %input#select-all._select-all{name: "", type: "checkbox", value: ""}
-    %label{for: "select-all"}
-      select
-      %span._unselected-items
-        = search_with_params.size
-      following
+    .filter-bulk-selector.pb-3
+      %input#select-all._select-all{name: "", type: "checkbox", value: ""}
+      %label{for: "select-all"}
+        select
+        %span._unselected-items
+          = search_with_params.size
+        following
   = render :checkbox_list

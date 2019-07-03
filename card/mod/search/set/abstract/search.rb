@@ -63,6 +63,7 @@ format do
   def search_with_rescue query_args
     card.cached_search query_args
   rescue Error::BadQuery => e
+    Rails.logger.info "BadQuery: #{query_args}"
     e
   end
 

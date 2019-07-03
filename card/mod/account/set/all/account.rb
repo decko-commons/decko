@@ -13,13 +13,13 @@ def accountable?
 end
 
 def parties
-  @parties ||= (all_roles << id).flatten.reject(&:blank?)
+  @parties ||= (all_enabled_roles << id).flatten.reject(&:blank?)
 end
 
 def among? ok_ids
   ok_ids.any? do |ok_id|
     ok_id == Card::AnyoneID ||
-      (ok_id == Card::AnyoneWithRoleID && all_roles.size > 1) ||
+      (ok_id == Card::AnyoneWithRoleID && all_enabled_roles.size > 1) ||
       parties.member?(ok_id)
   end
 end
@@ -31,21 +31,35 @@ def own_account?
 end
 
 def read_rules
-  @read_rules ||= begin
-    rule_ids = []
-    unless id == Card::WagnBotID # always_ok, so not needed
-      ([Card::AnyoneID] + parties).each do |party_id|
-        if (rule_ids_for_party = self.class.read_rule_cache[party_id])
-          rule_ids += rule_ids_for_party
-        end
-      end
-    end
-    rule_ids
+  @read_rules ||= fetch_read_rules
+end
+
+def fetch_read_rules
+  return [] if id == Card::WagnBotID # always_ok, so not needed
+
+  ([Card::AnyoneID] + parties).each_with_object([]) do |party_id, rule_ids|
+    next unless self.class.read_rule_cache[party_id]
+    rule_ids.concat self.class.read_rule_cache[party_id]
   end
+end
+
+def clear_roles
+  @parties = @all_roles = @all_active_roles = @read_rules = nil
+end
+
+def all_enabled_roles
+  @all_active_roles ||= (id == Card::AnonymousID ? [] : enabled_role_ids)
 end
 
 def all_roles
   @all_roles ||= (id == Card::AnonymousID ? [] : fetch_roles)
+end
+
+def enabled_role_ids
+  Auth.as_bot do
+    role_trait = fetch(trait: :enabled_roles, new: { type_id: SessionID })
+    role_trait.virtual? ? role_trait.item_ids : fetch_roles
+  end
 end
 
 def fetch_roles

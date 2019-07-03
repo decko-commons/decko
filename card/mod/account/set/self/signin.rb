@@ -22,6 +22,7 @@ event :signin_success, after: :signin do
 end
 
 event :signout, :validate, on: :delete do
+  Env[:controller]&.reset_session
   Auth.signin AnonymousID
   abort :success
 end
@@ -135,7 +136,6 @@ format :html do
     voo.edit_structure = [signin_field(:email)]
     voo.hide :help
   end
-
 
   view :edit_buttons do
     text = I18n.t :reset_my_password, scope: "mod.account.set.self.signin"

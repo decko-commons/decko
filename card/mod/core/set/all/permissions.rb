@@ -23,7 +23,6 @@ end
 # options.
 
 def ok? action
-  # binding.pry if action == :create
   @action_ok = true
   send "ok_to_#{action}"
   @action_ok
@@ -112,7 +111,6 @@ end
 def permitted? action
   return if Card.config.read_only
   return true if action != :comment && Auth.always_ok?
-
   permitted_ids = who_can action
   if action == :comment && Auth.always_ok?
     # admin can comment if anyone can

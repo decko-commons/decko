@@ -37,9 +37,12 @@ group :test do
   gem 'nokogumbo'
 end
 
+group :test, :cypress do
+  gem 'cypress-on-rails', '~> 1.2'
+end
+
 group :test, :development do
   gem 'colorize'
-  gem 'cypress-on-rails', '~> 1.2'
   gem 'delayed_job_active_record', '~> 4.1'
   gem 'html2haml'
   gem 'rails-dev-tweaks'

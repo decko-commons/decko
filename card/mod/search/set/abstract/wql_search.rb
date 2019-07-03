@@ -43,15 +43,15 @@ def standardized_query_args args
   args
 end
 
-# override this to define search
 def wql_hash
   @wql_hash = nil unless cache_query?
-  @wql_hash ||= wql_from_content.merge filter_and_sort_wql
+  @wql_hash ||= wql_content.merge filter_and_sort_wql
 end
 
-def wql_from_content
-  @wql_from_content = nil unless cache_query?
-  @wql_from_content ||= begin
+# override this to define search
+def wql_content
+  @wql_content = nil unless cache_query?
+  @wql_content ||= begin
     query = content
     query = query.is_a?(Hash) ? query : parse_json_query(query)
     query.symbolize_keys

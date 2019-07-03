@@ -13,7 +13,7 @@ format :html do
   end
 
   def process_badge_opts count, opts
-    if count.zero? && !opts[:zero_ok]
+    if count.try(:zero?) && !opts[:zero_ok]
       opts[:klass] = [opts[:klass], "disabled-o"].compact.join " "
     end
     opts[:color] ||= "secondary"

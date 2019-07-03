@@ -35,11 +35,5 @@ RSpec.describe Card::Set::Abstract::Media do
           with_tag "img[src*='small']"
         end
     end
-
-    it "doesn't escape a stubbed src argument" do
-      stub = "(stub)#{Card::View::Stub.escape '{"mode":"normal"}'}(/stub)"
-      allow(html_format).to receive(:nest).and_return stub
-      expect(text_with_image).to include %{src='(stub){"mode":"normal"}(/stub)'}
-    end
   end
 end

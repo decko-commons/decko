@@ -33,5 +33,19 @@ $(window).ready ->
       $(event.target).closest('form').submit()
       false
 
+  $('body').on "change", "._submit-on-change", (event) ->
+    $(event.target).closest('form').submit()
+    false
+
+  $('body').on "change", "._edit-item", (event) ->
+    cb = $(event.target)
+    if cb.is(":checked")
+      cb.attr("name", "add_item")
+    else
+      cb.attr("name", "drop_item")
+
+    $(event.target).closest('form').submit()
+    false
+
 
 

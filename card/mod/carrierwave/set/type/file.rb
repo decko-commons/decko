@@ -36,7 +36,8 @@ format do
     source = _render_source
     return "" if source.blank?
     block_given? ? yield(source) : source
-  rescue
+  rescue => e
+    Rails.logger.info "Error with file source: #{e.message}"
     tr :file_error
   end
 

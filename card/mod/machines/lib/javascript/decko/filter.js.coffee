@@ -3,10 +3,23 @@ decko.slotReady (slot) ->
     if slot[0] == $(this).slot()[0]
       filter = new decko.filter this
       filter.showWithStatus "active"
+      filter.updateLastVals()
 
 $(window).ready ->
   filterFor = (el) ->
     new decko.filter el
+
+  # sometimes this element shows up as changed and breaks the filter.
+  weirdoSelect2FilterBreaker = (el) ->
+    $(el).hasClass "select2-search__field"
+
+  filterableData = (filterable) ->
+    f = $(filterable)
+    f.data("filter") || f.find("._filterable").data("filter")
+
+  targetFilter = (filterable) ->
+    selector = $(filterable).closest("._filtering").data("filter-selector")
+    filterFor selector
 
   # Add Filter
   $("body").on "click", "._filter-category-select", (e) ->
@@ -21,11 +34,12 @@ $(window).ready ->
     return if weirdoSelect2FilterBreaker this
     filterFor(this).update()
 
+  # update filter result after typing in text box
   keyupTimeout = null
   $("body").on "keyup", "._filter-input input.simple-text", ->
     clearTimeout keyupTimeout
     filter = filterFor this
-    keyupTimeout = setTimeout ( -> filter.update() ), 333
+    keyupTimeout = setTimeout ( -> filter.updateIfChanged() ), 333
 
   # remove filter
   $("body").on "click", "._delete-filter-input", ->
@@ -39,25 +53,21 @@ $(window).ready ->
     f.reset()
     f.update()
 
-  $('body').on 'click', '.filtering .filterable', (e) ->
-    f = filterFor($("._filter-widget:visible"))
-    if f.widget.length > 0
-      data = $(this).data "filter"
-      # f.reset()
-      f.restrict data["key"], data["value"]
+  $('body').on 'click', '._filtering ._filterable', (e) ->
+    f = targetFilter this
+    if f.widget.exists()
+      f.restrict filterableData(this)
     e.preventDefault()
-    # e.stopPropagation()
+    e.stopPropagation()
 
-  $('body').on 'click', '._record-filter', (e) ->
-    f = filterFor($("._filter-widget:visible"))
-    f.removeField("year")
-    data = $(this).data "filter"
-    # f.reset()
-    f.restrict data["key"], data["value"]
 
-# sometimes this element shows up as changed and breaks the filter.
-weirdoSelect2FilterBreaker = (el) ->
-  $(el).hasClass "select2-search__field"
+  # $('body').on 'click', '._record-filter', (e) ->
+  #   f = filterFor($("._filter-widget:visible"))
+  #   f.removeField("year")
+  #   data = $(this).data "filter"
+  #   # f.reset()
+  #   f.restrict data["key"], data["value"]
+
 
 # el can be any element inside widget
 decko.filter = (el) ->
@@ -65,6 +75,7 @@ decko.filter = (el) ->
   @activeContainer = @widget.find "._filter-container"
   @dropdown = @widget.find "._add-filter-dropdown"
   @dropdownItems = @widget.find "._filter-category-select"
+  @form = @widget.find "._filter-form"
 
   @showWithStatus = (status) ->
     f = this
@@ -74,8 +85,12 @@ decko.filter = (el) ->
         f.activate item.data("category")
 
   @reset = () ->
-    @activeContainer.find(".input-group").remove()
+    @clear()
+    @dropdownItems.show()
     @showWithStatus "default"
+
+  @clear = () ->
+    @activeContainer.find(".input-group").remove()
 
   @activate = (category) ->
     @activateField category
@@ -98,11 +113,13 @@ decko.filter = (el) ->
   @findPrototype = (category) ->
     @widget.find "._filter-input-field-prototypes ._filter-input-#{category}"
 
-  @activateField = (category) ->
+  @activateField = (category, value) ->
     field = @findPrototype(category).clone()
+    input = field.find("input, select")
+    input.val value if value
     @dropdown.before field
     @initField field
-    field.find("input, select").first().focus()
+    input.first().focus()
 
   @removeField = (category)->
     @activeField(category).remove()
@@ -124,17 +141,18 @@ decko.filter = (el) ->
     @activeContainer.find("._filter-input-#{category}")
 
   @isActive = (category) ->
-    @activeField(category).length > 0
+    @activeField(category).exists()
 
-  @restrict = (category, value) ->
-    @activate category unless @isActive category
-    field = @activeField category
-    @setInputVal field, value
+  @restrict = (data) ->
+    @clear()
+    for key of data
+      @activateField key, data[key]
+    @update()
 
   # triggers update
   @setInputVal = (field, value) ->
     select = field.find "select"
-    if select.length > 0
+    if select.exists()
       @setSelect2Val select, value
     else
       @setTextInputVal field.find("input"), value
@@ -149,7 +167,26 @@ decko.filter = (el) ->
     input.val value
     @update()
 
+  @updateLastVals = ()->
+    @activeFields().find("input, select").each ()->
+      $(this).data "lastVal", $(this).val()
+
+  @updateUrlBar = () ->
+    return if @widget.closest('._noFilterUrlUpdates')[0]
+    window.history.pushState "filter", "filter", '?' + @form.serialize()
+
   @update = ()->
-    @widget.find("._filter-form").submit()
+    @updateLastVals()
+    @form.submit()
+    @updateUrlBar()
+
+  @updateIfChanged = ()->
+    @update() if @changedSinceLastVal()
+
+  @changedSinceLastVal = () ->
+    changed = false
+    @activeFields().find("input, select").each ()->
+      changed = true if $(this).val() != $(this).data("lastVal")
+    changed
 
   this
