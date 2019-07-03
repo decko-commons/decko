@@ -30,7 +30,7 @@ module Card::Content::Chunk
 
     Card::Content::Chunk.register_class(
       self, prefix_re: "(?:(?!#{REJECTED_PREFIX_RE})(?:#{SCHEMES * '|'})\\:)",
-            full_re: /^#{::URI.regexp(SCHEMES)}/,
+            full_re: /\A#{::URI.regexp(SCHEMES)}/,
             idx_char: ":"
     )
 
@@ -93,7 +93,7 @@ module Card::Content::Chunk
 
     Card::Content::Chunk.register_class(
       self, prefix_re: "(?:(?!#{REJECTED_PREFIX_RE})#{EMAIL})\\b",
-            full_re: /^#{::URI.regexp(SCHEMES)}/,
+            full_re: /\A#{::URI.regexp(SCHEMES)}/,
             prepend_str: PREPEND_STR,
             idx_char: "@"
     )
@@ -133,7 +133,7 @@ module Card::Content::Chunk
 
     Card::Content::Chunk.register_class(
       self, prefix_re: "(?:(?!#{REJECTED_PREFIX_RE})#{HOST})\\b",
-            full_re: /^#{::URI.regexp(SCHEMES)}/,
+            full_re: /\A#{::URI.regexp(SCHEMES)}/,
             prepend_str: PREPEND_STR
     )
 
