@@ -18,6 +18,6 @@ describe 'edit content', () ->
     cy.get(".SELF-t.card-slot").click().dblclick()
     cy.get(".bridge-main #t-bridge-view").contains("Cancel").click()
     cy.get(".bridge-main").should "not.exist"
-    cy.get(".SELF-b.card-slot").dblclick()
+    cy.get(".SELF-b.card-slot").click().dblclick()
     cy.get("#b-edit_inline-view").contains("Cancel").click()
     cy.get("#b-edit_inline-view").should "not.exist"
