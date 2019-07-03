@@ -6,7 +6,6 @@ format :html do
     "If you want to turn catchas off then change all [[*captcha|captcha rules]] to 'no'."
   end
 
-
   # def instructions title, steps
   #   steps = list_tag steps, ordered: true
   #   "#{title}#{steps}"
