@@ -37,6 +37,7 @@ RSpec.describe Card::Set::All::Account do
           roles_card = @joe_user_card.fetch trait: :roles, new: {}
           r1 = Card["r1"]
 
+          Card["Joe User"].parties
           Card::Auth.as_bot { roles_card.items = [r1.id] }
           expect(Card["Joe User"].parties).to eq(@parties)
           # local cache still has old parties

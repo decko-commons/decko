@@ -18,10 +18,11 @@ end
 def with_old_role_permissions
   new_roles = item_cards
   new_content = content
-  left.clear_roles
   Auth.update_always_cache Card::Auth.as_id, nil
-  self.content = db_content_before_act
-  yield new_roles
+  left.with_clear_roles do
+    self.content = db_content_before_act
+    yield new_roles
+  end
 ensure
   self.content = new_content
 end

@@ -47,6 +47,13 @@ def clear_roles
   @parties = @all_roles = @all_active_roles = @read_rules = nil
 end
 
+def with_clear_roles
+  a, b, c, d = @parties, @all_roles, @all_active_roles, @read_rules
+  yield
+ensure
+  @parties, @all_roles, @all_active_roles, @read_rules = a, b, c, d
+end
+
 def all_enabled_roles
   @all_active_roles ||= (id == Card::AnonymousID ? [] : enabled_role_ids)
 end
