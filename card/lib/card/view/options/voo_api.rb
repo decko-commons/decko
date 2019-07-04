@@ -52,13 +52,13 @@ class Card
           normalized_options.merge(view: requested_view).slice(*Options.slot_keys)
         end
 
-        # def inherit key
-        #   if live_options.key? key
-        #     live_options[key]
-        #   elsif (ancestor = next_ancestor)
-        #     ancestor.inherit key
-        #   end
-        # end
+        def heritage_options key
+          if live_options.key? key
+            live_options[key]
+          elsif (ancestor = next_ancestor)
+            ancestor.heritage_options key
+          end
+        end
 
         # ACCESSOR_HELPERS
         # methods that follow the normalize_#{key} pattern are called by accessors
