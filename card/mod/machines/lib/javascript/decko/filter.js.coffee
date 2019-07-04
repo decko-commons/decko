@@ -92,8 +92,8 @@ decko.filter = (el) ->
   @clear = () ->
     @activeContainer.find(".input-group").remove()
 
-  @activate = (category) ->
-    @activateField category
+  @activate = (category, value) ->
+    @activateField category, value
     @hideOption category
 
   @showOption = (category) ->
@@ -115,11 +115,25 @@ decko.filter = (el) ->
 
   @activateField = (category, value) ->
     field = @findPrototype(category).clone()
-    input = field.find("input, select")
-    input.val value if value
+    @fieldValue field, value
     @dropdown.before field
     @initField field
-    input.first().focus()
+    field.find("input, select").first().focus()
+
+  @fieldValue = (field, value) ->
+    if typeof(value) == "object"
+      @compoundFieldValue field, value
+    else
+      @simpleFieldValue field, value
+
+  @simpleFieldValue = (field, value) ->
+    input = field.find("input, select")
+    input.val value if value
+
+  @compoundFieldValue = (field, vals) ->
+    for key of vals
+      input = field.find "#filter_value_" + key
+      input.val vals[key]
 
   @removeField = (category)->
     @activeField(category).remove()
@@ -147,6 +161,11 @@ decko.filter = (el) ->
     @clear()
     for key of data
       @activateField key, data[key]
+    @update()
+
+  @addRestriction = (category, value) ->
+    @removeField category
+    @activate category, value
     @update()
 
   # triggers update
