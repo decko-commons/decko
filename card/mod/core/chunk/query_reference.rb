@@ -32,7 +32,7 @@ module Card::Content::Chunk
             # we have to use a lookbehind, otherwise
             # if the colon matches it would be
             # identified mistakenly as an URI chunk
-            full_re:   /"([^"]+)"/,
+            full_re:   /\A\s*"([^"]+)"/,
             idx_char:  '"'
     )
 
