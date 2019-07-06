@@ -6,13 +6,13 @@ format :html do
   end
 
   view :quick_filters do
-    return "" unless quick_filter_hash.present?
+    return "" unless quick_filter_list.present?
 
     haml :quick_filters
   end
 
-  def quick_filter_hash
-    {}
+  def quick_filter_list
+    []
   end
 
   # @param data [Hash] the filter categories. The hash needs for every category

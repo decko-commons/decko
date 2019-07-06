@@ -1,12 +1,14 @@
 .quick-filter._quick-filter
-  %i.fa.fa-bolt.text-muted.p-2
-  - quick_filter_hash.each do |filter_key, value|
-    - link_hash = JSON(filter_key => value)
-    - active = filter_hash[filter_key] == value ? "" : "active"
-    %a{ "data-filter": link_hash,
-        href: "#",
-        class: "quick-filter-by-#{filter_key} #{active}",
-        title: "Quick Filter" }
-      = mapped_icon_tag filter_key
-      // FIXME: mapped_icon_tag is WikiRate concept
-      = value
+  %i.fa.fa-bolt.text-muted.p-2.float-left
+  .quick-filter-links.d-flex.flex-wrap
+    - quick_filter_list.each do |hash|
+      - link_hash = JSON(hash)
+      - filter_key = hash.keys.first
+      - value = hash.values.first
+      %a{ "data-filter": link_hash,
+          href: "#",
+          class: "quick-filter-by-#{filter_key}",
+          title: "Quick Filter" }
+        = mapped_icon_tag filter_key
+        // FIXME: mapped_icon_tag is WikiRate concept
+        = value
