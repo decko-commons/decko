@@ -5,6 +5,16 @@ format :html do
                   sort_field: _render(:sort_formgroup)
   end
 
+  view :quick_filters do
+    return "" unless quick_filter_hash.present?
+
+    haml :quick_filters
+  end
+
+  def quick_filter_hash
+    {}
+  end
+
   # @param data [Hash] the filter categories. The hash needs for every category
   #   a hash with a label and a input_field entry.
   def filter_form data={}, sort_input_field=nil, form_args={}
