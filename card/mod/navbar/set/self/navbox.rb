@@ -1,4 +1,3 @@
-
 format :html do
   view :raw do
     wrap_with :div, class: "form-group w-100" do

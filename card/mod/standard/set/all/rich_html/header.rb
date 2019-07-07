@@ -55,14 +55,6 @@ format :html do
       raise(Card::Error, "invalid toggle mode: #{@toggle_mode}")
   end
 
-  view :navbar_links, perms: :none do
-    wrap_with :ul, class: "navbar-nav" do
-      item_links.map do |link|
-        wrap_with(:li, class: "nav-item") { link }
-      end.join "\n"
-    end
-  end
-
   def structure_editable?
     card.structure && card.template.ok?(:update)
   end
