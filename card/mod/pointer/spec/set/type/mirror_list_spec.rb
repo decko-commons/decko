@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Type::ListedBy do
+RSpec.describe Card::Set::Type::MirrorList do
   let(:listed_by) { Card.fetch("Darles Chickens+books").item_names.sort }
 
   before do

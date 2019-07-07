@@ -171,7 +171,7 @@ class Card
       end
 
       def extract_cardtype_from_method_name method
-        return unless method =~ /^(?<method_name>create|ensure)_(?<type>.+)(?:_card)?$/
+        return unless method =~ /^(?<method_name>create|ensure)_(?<type>.+?)(?:_card)?$/
 
         cardtype_card = Card[Regexp.last_match[:type]] ||
                         Card[Regexp.last_match[:type].to_sym]

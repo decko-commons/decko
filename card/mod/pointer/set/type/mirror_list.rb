@@ -1,4 +1,4 @@
-include_set Pointer
+include_set Abstract::Pointer
 
 event :validate_listed_by_name, :validate, on: :save, changing: :name do
   if !junction? || !right || right.type_id != CardtypeID
@@ -53,7 +53,7 @@ def add_items items
 end
 
 def content_cache
-  Card::Cache[Card::Set::Type::ListedBy]
+  Card::Cache[Card::Set::Type::MirrorList]
 end
 
 def content
@@ -77,9 +77,9 @@ end
 
 def update_cached_list
   if trunk
-    Card::Cache[Card::Set::Type::ListedBy].write key, generate_content
+    Card::Cache[Card::Set::Type::MirrorList].write key, generate_content
   else
-    Card::Cache[Card::Set::Type::ListedBy].delete key
+    Card::Cache[Card::Set::Type::MirrorList].delete key
   end
 end
 

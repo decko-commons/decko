@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Type::List do
+RSpec.describe Card::Set::Type::MirroredList do
   subject { Card.fetch("Parry Hotter+authors").item_names.sort }
 
   before do
