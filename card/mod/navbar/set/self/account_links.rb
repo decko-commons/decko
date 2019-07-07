@@ -8,15 +8,20 @@ format :html do
   view :core, cache: :never do
     status_class = Auth.signed_in? ? "logged-in" : "logged-out"
     wrap_with :div, id: "logging", class: status_class do
-      item_links.join " "
+      navbar_items.join "\n"
     end
   end
 
-  def item_links _args=nil
+  def navbar_items
     # removed invite for now
-    %i[my_card sign_out sign_up sign_in].map do |link_view|
-      render link_view
-    end.compact
+    links =
+      %i[my_card sign_out sign_up sign_in].map do |link_view|
+        render(link_view)
+      end.compact
+
+    links.map do |link|
+      wrap_with_nav_item link
+    end
   end
 
   def self.link_options opts={}

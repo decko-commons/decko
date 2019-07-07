@@ -51,11 +51,15 @@ format :html do
   end
 
   # don't cache because it depends on update permission for another card
-  view :configure_link, cache: :never do
+  view :configure_link, cache: :never, perms:  ->(fmt) { fmt.can_configure? } do
     configure_link
   end
 
-  view :configure_button, cache: :never do
+  def can_configure?
+    Card.fetch(card, :type, :structure, new: {}).ok? :update
+  end
+
+  view :configure_button, cache: :never, perms:  ->(fmt) { fmt.can_configure? } do
     configure_link "btn btn-outline-secondary"
   end
 

@@ -551,8 +551,9 @@ en:
           admin_info:
             email_off: Email delivery is turned off. Change settings in %{path} to send sign up notifications.
             admin_warn: ADMINISTRATOR WARNING
-            captcha_temp: Your captcha is currently working with temporary settings. This is fine for a local installation, but you will need new recaptcha keys if you want to make this site public.
-            captcha_keys: You are configured to use [[*captcha]], but for that to work you need new recaptcha keys.
+            captcha_temp: Your captcha is currently working with temporary settings. This is fine for a local installation, but you will need new %{recaptcha_link} if you want to make this site public.
+            captcha_keys: You are configured to use %{captcha_link}, but for that to work you need new %{recaptcha_link}.
+            recaptcha_keys: recaptcha keys
             instructions: Instructions
             howto_add_keys: "How to add new recaptcha keys:"
             howto_register: Register your domain at %{recaptcha_link}
@@ -560,6 +561,7 @@ en:
             howto_turn_off: 'How to turn captcha off:'
             howto_go: Go to %{captcha_card}
             howto_update: Update all *captcha rules to "no".
+
     :edit:
       set:
         all:

@@ -737,8 +737,6 @@ ul.action-list {
 }
 .setting-rules th,
 .set-rules th {
-  background: #aaa;
-  color: $gray-300;
   padding: 5px 0;
 }
 .setting-rules th,
@@ -748,10 +746,7 @@ ul.action-list {
   text-align: left;
   padding: 2px 5px;
 }
-.set-rules th,
-.set-rules td.rule-cell {
-  border-bottom: 1px solid $gray-300;
-}
+
 .setting-klass,
 .rule-setting {
   font-weight: bold;
@@ -760,7 +755,6 @@ td.rule-setting {
   width: 30%;
 }
 .rule-set {
-  color: $gray-600;
   white-space: nowrap;
 }
 
@@ -832,12 +826,8 @@ tr.missing-rule > td {
 .show-rule .rule-set {
   margin-bottom: 10px;
 }
-.klass-row {
-  background: $gray-300;
-  border-top: 1px solid $gray-400;
-}
+
 tr.rule-changeover td {
-  border-top: 1px solid $gray-300;
   padding-top: 5px;
 }
 td.rule-anchor {
@@ -975,7 +965,7 @@ a.external-link,
   width: 50px;
 }
 
-a.edit-link {
+a.bridge-link, a.edit-link {
   color: $text-muted;
 }
 
@@ -998,13 +988,17 @@ a.edit-link {
   }
 }
 
-$bridge-line-color: $gray-300;
+$bridge-line-color: $border-color;
 
 .bridge-sidebar {
-  background-color: $gray-100;
+  background-color: darken($body-bg, 15%);
   padding-left: 0;
   padding-right: 0;
   min-height: calc(100vh - 90px);
+}
+
+.bg-body {
+  background-color: $body-bg !important;
 }
 
 .bridge-main {

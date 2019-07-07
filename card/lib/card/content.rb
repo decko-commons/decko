@@ -46,8 +46,16 @@ class Card
     end
 
     # sends &block to #process_chunk on each Chunk object
-    def process_each_chunk &block
-      each_chunk { |chunk| chunk.process_chunk(&block) }
+    def process_chunks &block
+      return custom_process_chunks(&block) if block_given?
+
+      each_chunk(&:process_chunk)
+    end
+
+    def custom_process_chunks
+      each_chunk do |chunk|
+        chunk.burn_after_reading yield(chunk)
+      end
     end
 
     def pieces
@@ -87,6 +95,19 @@ class Card
 
     def inspect
       "<#{__getobj__.class}:#{card}:#{self}>"
+    end
+
+    def without_nests
+      nests = []
+      find_chunks(Card::Content::Chunk::Nest).each_with_index do |chunk, i|
+        nests << chunk.text
+        chunk.burn_after_reading "{{#{i}}}"
+      end
+
+      result = yield to_s
+      Chunk::Nest.gsub result do |nest_content|
+        nests[nest_content.to_i]
+      end
     end
 
     private

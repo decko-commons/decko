@@ -1,10 +1,18 @@
-<div>Set your site title, home card, and logo image:</div>
-<blockquote>
-<div>{{*title|bar;type:Phrase}}</div>
-<div>{{*home|bar;type:Phrase}}</div>
-<div>{{*logo|bar;type:Image}}</div>
-<div>{{*main menu|bar;type:Image}}</div>
-<div>{{*header|bar;type:Image}}</div>
-<div>{{*footer|bar;type:Image}}</div>
-</blockquote>
-<p>Editor configuration {{*tiny mce|bar}} {{*ace|bar}} {{*datepicker|bar}} <br>{{*recaptcha settings|bar}} {{*google analytics key|bar}} {{*debugger|bar}}</p>
+{{*admin info|content}}
+
+##Basic configuration
+{{*title|bar}}
+{{*home|bar}}
+{{*logo|bar}}
+{{*main menu|bar}}
+{{*header|bar}}
+{{*footer|bar}}
+
+##Integrations
+{{*recaptcha settings|bar}}
+{{*google analytics key|bar}}
+
+##Editor configuration
+{{*tiny mce|bar}}
+{{*ace|bar}}
+{{*datepicker|bar}}

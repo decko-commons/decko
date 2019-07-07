@@ -65,6 +65,7 @@ RSpec.describe Card::Content::Chunk::Nest do
       expect(options[:nest_name]).to eq("toy")
       expect(options[:view]).to eq("link")
       expect(options[:hide]).to eq("me")
+      expect(instance.text).to eq "{{toy|view:link;hide:me}}"
       expect(options.key?(:items)).to eq(false)
     end
 
