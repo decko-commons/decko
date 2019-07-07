@@ -2,7 +2,13 @@
 
 # el can be any element inside widget
 decko.filter = (el) ->
-  @widget = $(el).closest "._filter-widget"
+  closest_widget = $(el).closest "._filter-widget"
+  @widget =
+    if closest_widget.exists()
+      closest_widget
+    else
+      $(el).closest("._filtered-content").find "._filter-widget"
+
   @activeContainer = @widget.find "._filter-container"
   @dropdown = @widget.find "._add-filter-dropdown"
   @dropdownItems = @widget.find "._filter-category-select"
