@@ -181,8 +181,6 @@ class Card
         @current_view = old_view
       end
 
-      private
-
       def stub_nest stub_hash
         prepare_stub_nest(stub_hash) do |stub_card, view_opts|
           nest stub_card, view_opts, stub_hash[:format_opts]
