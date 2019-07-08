@@ -18,7 +18,7 @@ format :html do
   end
 
   def standard_pointer_items paging_args
-    pointer_items paging_args.extract!(:limit, :offset)
+    pointer_items(paging_args.extract!(:limit, :offset)).join(voo.separator || "\n")
   end
 
   view :closed_content do
