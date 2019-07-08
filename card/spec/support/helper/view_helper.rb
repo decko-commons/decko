@@ -40,7 +40,17 @@ class Card
           elsif card_args.is_a?(Symbol) || card_args.is_a?(String)
             Card.fetch card_args
           elsif card_args[:name]
-            Card.fetch card_args[:name], new: card_args
+            if Card.real? card_args[:name]
+              card = Card.fetch card_args.delete(:name)
+              card_args.each do |k, v|
+                card.send "#{k}=", v
+              end
+              card
+            else
+              Card.fetch card_args[:name], new: card_args
+            end
+
+
           else
             Card.new card_args.merge(name: "Tempo Rary")
           end

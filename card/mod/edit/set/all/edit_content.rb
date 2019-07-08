@@ -34,10 +34,6 @@ format :html do
     end
   end
 
-  view :bridge_link, unknown: true do
-    bridge_link
-  end
-
   def edit_modal_size
     :large
   end
@@ -46,15 +42,6 @@ format :html do
     wrap_with_modal_menu do
       [close_modal_window, render_bridge_link]
     end
-  end
-
-  def bridge_link in_modal=true
-    opts = { class: "text-muted" }
-    if in_modal
-      add_class opts, "close"
-      opts["data-slotter-mode"] = "modal-replace"
-    end
-    link_to_view :bridge, material_icon(:more_horiz), opts
   end
 
   def edit_form_opts

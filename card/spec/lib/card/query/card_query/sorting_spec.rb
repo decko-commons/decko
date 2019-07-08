@@ -24,7 +24,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
                      not: { match: "Prose" },
                      type: "Basic",
                      sort: "content"))
-      .to eq(%w(A B Z A+B+Y+Z))
+      .to eq(%w(horizontal A B Z A+B+Y+Z))
   end
 
   it "sorts by plus card content" do

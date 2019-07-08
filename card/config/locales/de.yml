@@ -579,8 +579,9 @@ de:
           admin_info:
             email_off: E-Mail-Versand ist ausgeschaltet. Ändere die Einstellungen in %{path}, damit Benachrichtigungen verschickt werden, wenn sich neue Nutzer registrieren.
             admin_warn: ADMINISTRATOR WARNUNG
-            captcha_temp: Dein Deck arbeitet mit provisorischen Captcha-Einstellungen. Das ist kein Problem für eine lokale Installation, aber falls du diese Seite online stellst, benötigst Du neue Recaptcha-Schlüssel.
-            captcha_keys: Dein Deck ist so konfiguriert, dass es [[*captcha]] nutzt, aber damit das funktioniert, benötigst Du neue Recaptcha-Schlüssel.
+            captcha_temp: Dein Deck arbeitet mit provisorischen Captcha-Einstellungen. Das ist kein Problem für eine lokale Installation, aber falls du diese Seite online stellst, benötigst Du neue %{recaptcha_link}.
+            captcha_keys: Dein Deck ist so konfiguriert, dass es %{captcha_link} nutzt, aber damit das funktioniert, benötigst Du neue %{recaptcha_link}.
+            recaptcha_keys: Recaptcha-Schlüssel
             instructions: Anleitungen
             howto_add_keys: "Neue Recaptcha-Schlüssel hinzufügen:"
             howto_register: Registriere deine Domain bei %{recaptcha_link}

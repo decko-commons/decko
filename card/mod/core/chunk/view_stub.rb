@@ -42,7 +42,7 @@ class Card
         end
 
         def process_chunk
-          @processed = yield @stub_hash
+          @processed = format.stub_nest @stub_hash
         end
 
         def result

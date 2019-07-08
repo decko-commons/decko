@@ -24,7 +24,7 @@ header {
 
 .d0-card-header a {
   color: $body-color;
-  &.edit-link {
+  &.edit-link, &.bridge-link {
     color: $text-muted;
   }
 }
@@ -109,7 +109,7 @@ body.mceContentBody {
 }
 
 .navbox-form {
-  width: 50%;
+  min-width: 50%;
   .select2-container {
     width: 100%
   }
@@ -455,14 +455,17 @@ body.mceContentBody {
 .expanded-bar {
   margin: 0.5em 0;
   display: flex;
-  .bar {
-    border-bottom: 1px solid $border-color;
-    display: flex;
+  > .bar-body {
+    > .bar {
+      border-bottom: 1px solid $border-color;
+      display: flex;
+    }
+    > .bar-bottom {
+      padding: 1em 1em 1em 2em;
+      border-top: 0;
+    }
   }
-  .bar-bottom {
-    padding: 1em 1em 1em 2em;
-    border-top: 0;
-  }
+
 }
 
 .item-box {
