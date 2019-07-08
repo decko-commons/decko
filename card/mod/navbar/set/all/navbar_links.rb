@@ -5,6 +5,8 @@ format :html do
     end
   end
 
+  # Iterates over all nests and links and renders them as bootstrap navbar items.
+  # Items that are pointer cards become dropdowns
   def navbar_items view: :nav_item, link_class: "nav-link"
     process_content nil, chunk_list: :references do |chunk|
       case chunk
