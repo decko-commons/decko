@@ -116,7 +116,7 @@ class Card
     begin
       yield
     rescue StandardError => e # don't rollback
-      # Card::Error.report e, self
+      Card::Error.report e, self
       true
     end
   end
