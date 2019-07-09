@@ -95,12 +95,26 @@ class Card
         with_delay?(@opts) ? :delayed : :standard
       end
 
+      def integration?
+        @opts[:in].to_s.match?(/integration/)
+      end
+
+      def rescuing_integration
+        yield
+      rescue StandardError => e # don't rollback
+        raise e unless integration?
+        Card::Error.report e, self
+        false
+      end
+
       def define_standard_event_method method_name=simple_method_name
         @set_module.class_exec(@event) do |event_name|
           define_method event_name do
-            log_event_call event_name
-            run_callbacks event_name do
-              send method_name
+            rescuing_integration do
+              log_event_call event_name
+              run_callbacks event_name do
+                send method_name
+              end
             end
           end
         end
