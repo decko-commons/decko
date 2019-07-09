@@ -60,7 +60,7 @@ class Card
           #                    (Symbol<:always, :standard, :never>)
           :edit,           # edit mode
           #                    (Symbol<:inline, :standard, :full>)
-          :separator,      #
+          :separator,      # item separator in certain lists
           :filter
         ],
         none: [
