@@ -5,15 +5,14 @@ end
 format :html do
   view :core do
     warnings = []
-    if Card.config.action_mailer.perform_deliveries == false
-      warnings << email_warning
-    end
+    warnings << email_warning if Card.config.action_mailer.perform_deliveries == false
     if Card.config.recaptcha_public_key ==
        Card::Auth::Permissions::RECAPTCHA_DEFAULTS[:recaptcha_public_key] &&
        card.rule(:captcha) == "1"
       warnings << recaptcha_warning
     end
     return "" if warnings.empty?
+
     alert :warning, true do
       warning_list warnings
     end
@@ -46,7 +45,7 @@ format :html do
         #   This is fine for a local installation, but you will need new
         #   recaptcha keys if you want to make this site public.)
         I18n.t(:captcha_temp, scope: "mod.admin.set.self.admin_info",
-                               recaptcha_link: add_recaptcha_keys_link)
+                              recaptcha_link: add_recaptcha_keys_link)
       else
         # %(You are configured to use [[*captcha]], but for that to work
         #   you need new recaptcha keys.)
@@ -62,6 +61,6 @@ format :html do
   def add_recaptcha_keys_link
     nest :recaptcha_settings,
          view: :edit_link, title: I18n.t(:recaptcha_keys,
-                                        scope: "mod.admin.set.self.admin_info")
+                                         scope: "mod.admin.set.self.admin_info")
   end
 end

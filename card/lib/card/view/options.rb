@@ -58,8 +58,9 @@ class Card
           :items,          # options for items (Hash)
           :cache,          # change view cache behaviour
           #                    (Symbol<:always, :standard, :never>)
-          :edit,            # edit mode
+          :edit,           # edit mode
           #                    (Symbol<:inline, :standard, :full>)
+          :separator,      # item separator in certain lists
           :filter
         ],
         none: [

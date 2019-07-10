@@ -67,8 +67,8 @@ class Card
         def process_stage_opts opts
           if opts[:after] || opts[:before]
             # ignore :in options
-          elsif (in_opt = opts.delete :in)
-            opts[:after] = callback_name in_opt, opts.delete(:after_subcards)
+          elsif (@stage = opts.delete :in)
+            opts[:after] = callback_name @stage, opts.delete(:after_subcards)
           end
         end
 

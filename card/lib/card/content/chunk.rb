@@ -151,6 +151,9 @@ class Card
           tmp
         end
 
+        # Temporarily overrides the processed nest content for single-use
+        # After using the nest's result
+        # (for example via `to_s`) the original result is restored
         def burn_after_reading text
           @burn_read = text
         end

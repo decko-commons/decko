@@ -11,7 +11,7 @@ class Card
         DEFAULT_OPTION = :view # a value without a key is interpreted as view
 
         Chunk.register_class(self, prefix_re: '\\{\\{',
-                                   full_re:    /^\{\{([^\}]*)\}\}/,
+                                   full_re:    /\A\{\{([^\}]*)\}\}/,
                                    idx_char:  "{")
 
         def interpret match, _content
