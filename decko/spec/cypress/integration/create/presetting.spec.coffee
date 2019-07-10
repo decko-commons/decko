@@ -15,9 +15,11 @@ describe 'presetting', () ->
     cy.delete "Book_2"
 
     cy.visit "/new/book"
+    cy.get("iframe.tox-edit-area__iframe")
     cy.contains("Submit").click()
     cy.expect_main_title "Book_1"
     cy.visit "/new/book"
+    cy.get("iframe.tox-edit-area__iframe")
     cy.contains("Submit").click()
     cy.expect_main_title "Book_2"
 

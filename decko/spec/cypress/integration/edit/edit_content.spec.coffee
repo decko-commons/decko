@@ -13,11 +13,14 @@ describe 'edit content', () ->
 
     cy.visit "editmodes"
     cy.get(".SELF-a-b.d0-card-content").click().dblclick()
+    cy.get("iframe.tox-edit-area__iframe")
     cy.get("#a-b-edit-view").contains("Cancel").click()
     cy.get("#a-b-edit-view").should "not.exist"
     cy.get(".SELF-t.card-slot").click().dblclick()
+    cy.get("iframe.tox-edit-area__iframe")
     cy.get(".bridge-main #t-bridge-view").contains("Cancel").click()
     cy.get(".bridge-main").should "not.exist"
-    cy.get(".SELF-b.card-slot").dblclick()
+    cy.get(".SELF-b.card-slot").click().dblclick()
+    cy.get("iframe.tox-edit-area__iframe")
     cy.get("#b-edit_inline-view").contains("Cancel").click()
     cy.get("#b-edit_inline-view").should "not.exist"
