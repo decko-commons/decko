@@ -43,7 +43,7 @@ describe Card::Set::All::Templating do
 
     it "has type and content overridden by (new) type_plus_right set" do
       Card::Auth.as_bot do
-        Card.create! name: "Basic+birthday+*type plus right+*structure",
+        Card.create! name: "Text+birthday+*type plus right+*structure",
                      type: "PlainText",
                      content: "Yesterday"
       end
@@ -83,7 +83,7 @@ describe Card::Set::All::Templating do
     before do
       Card::Auth.as_bot do
         @dt = Card.create! name: "Date+*type+*structure",
-                           type: "Basic",
+                           type: "Text",
                            content: "Tomorrow"
       end
     end

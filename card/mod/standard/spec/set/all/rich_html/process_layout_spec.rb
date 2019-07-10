@@ -53,7 +53,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       with_layout "<pre>Hey {{_main}}</pre>"
       expect(format_subject.show(:type, {})).to have_tag :pre do
         with_text(/Hey/)
-        with_tag "div#main", "Basic"
+        with_tag "div#main", "Text"
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       with_layout "<pre>Hey {{_main|type}}</pre>"
       expect(format_subject.show(nil, {})).to have_tag :pre do
         with_text(/Hey/)
-        with_tag "div#main", "Basic"
+        with_tag "div#main", "Text"
       end
     end
   end

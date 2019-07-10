@@ -41,7 +41,7 @@ class Card
     # { id: :basic, name: :basic, key: :basic ...}
     # This is used for rapid attribute type lookups in the interpretation phase.
     ATTRIBUTES = {
-      # Each of the "basic" fields corresponds directly to a database field.
+      # Each of the "Text" fields corresponds directly to a database field.
       # their values are translated fairly directly into SQL-safe values.
       # (These are referred to as "properties" in WQL documentation. Need to
       # reconcile #EFM)

@@ -19,7 +19,7 @@ describe Card do
   context "when there is a general toc rule of 2" do
     before do
       Card::Auth.as_bot do
-        described_class.create! name: "Basic+*type+*table of contents", content: "2"
+        described_class.create! name: "Text+*type+*table of contents", content: "2"
       end
     end
 

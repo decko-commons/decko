@@ -22,7 +22,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   it "plays nice with match" do
     expect(run_query(match: "Z",
                      not: { match: "Prose" },
-                     type: "Basic",
+                     type: "Text",
                      sort: "content"))
       .to eq(%w(horizontal A B Z A+B+Y+Z))
   end

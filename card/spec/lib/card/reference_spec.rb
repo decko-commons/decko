@@ -175,7 +175,7 @@ RSpec.describe Card::Reference, as_bot: true do
   end
 
   it "handles contextual names in Basic cards" do
-    Card.create type: "Basic", name: "basic w refs", content: "{{_+A}}"
+    Card.create type: "Text", name: "basic w refs", content: "{{_+A}}"
     Card["A"].update! name: "AAA", update_referers: true
     expect(Card["basic w refs"].content).to eq "{{_+AAA}}"
   end

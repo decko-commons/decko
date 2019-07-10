@@ -14,7 +14,7 @@ RSpec.describe Card::Set::All::Json do
 
   describe "molecule view" do
     def basic_nucleus
-      Card["Basic"].format(:json).render :nucleus
+      Card["Text"].format(:json).render :nucleus
     end
 
     context "with internal link" do

@@ -307,7 +307,7 @@ RSpec.describe Card::Set::All::Fetch do
     end
 
     example "id" do
-      expect(Card.fetch_name(Card::BasicID)).to eq "Basic"
+      expect(Card.fetch_name(Card::BasicID)).to eq "Text"
     end
 
     example "invalid id" do
