@@ -2,10 +2,10 @@
 
 RSpec.describe Card::Set::Right::Roles do
   it "shark can't assign Administrator role", with_user: "Joe User" do
-     card = Card.fetch "u1+*roles"
-     card.update content: "Administrator"
-     expect(card.errors[:permission_denied])
-       .to include(/You don't have permission to assign the role Administrator/)
+    card = Card.fetch "u1+*roles"
+    card.update content: "Administrator"
+    expect(card.errors[:permission_denied])
+      .to include(/You don't have permission to assign the role Administrator/)
   end
 
   it "shark can't assign Administrator to himself", with_user: "Joe User" do

@@ -1,6 +1,7 @@
 format :html do
   view :menu, denial: :blank, unknown: true do
     return "" if card.unknown?
+
     wrap_with :div, class: "card-menu #{menu_link_classes}" do
       [bridge_link(false), menu_link]
     end
@@ -39,7 +40,11 @@ format :html do
   end
 
   def full_page_link
-    link_to_card card, full_page_icon, class: classy("full-page-link")
+    link_to_card full_page_card, full_page_icon, class: classy("full-page-link")
+  end
+
+  def full_page_card
+    card
   end
 
   def edit_in_bridge_link opts={}
@@ -47,14 +52,16 @@ format :html do
   end
 
   def edit_link view=:edit, opts={}
-    link_to_view view, opts.delete(:link_text) || menu_icon, edit_link_opts(opts.reverse_merge(modal: :lg))
+    link_to_view view, opts.delete(:link_text) || menu_icon,
+                 edit_link_opts(opts.reverse_merge(modal: :lg))
   end
 
   # @param modal [Symbol] modal size
   def edit_link_opts modal: nil
     opts = { class: classy("edit-link") }
     if modal
-      opts.merge! "data-slotter-mode": "modal", "data-modal-class": "modal-#{modal}"
+      opts[:"data-slotter-mode"] = "modal"
+      opts[:"data-modal-class"] = "modal-#{modal}"
     end
     opts
   end

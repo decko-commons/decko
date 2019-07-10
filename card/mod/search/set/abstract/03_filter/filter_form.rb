@@ -37,7 +37,7 @@ format :html do
   end
 
   def default_filter? field
-    card.default_filter_option.key?(field)
+    card.default_filter_hash.key?(field)
   end
 
   def filter_label field
@@ -51,7 +51,7 @@ format :html do
   end
 
   def filter_label_from_name field
-    Card.fetch_name(field) { field.to_s.capitalize }
+    Card.fetch_name(field) { field.to_s.titleize }
   end
 
   def filter_action_path

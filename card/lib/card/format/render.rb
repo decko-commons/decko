@@ -130,7 +130,7 @@ class Card
       def stub_debugging
         result = yield
         if Rails.env.development? && result =~ /stub/
-          Rails.logger.info "STUB IN RENDERED VIEW: #{card.name}: " \
+          Rails.logger.debug "STUB IN RENDERED VIEW: #{card.name}: " \
                             "#{voo.ok_view}\n#{result}"
         end
         result

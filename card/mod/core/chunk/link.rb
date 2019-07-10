@@ -8,8 +8,8 @@ module Card::Content::Chunk
     attr_reader :link_text
     # Groups: $1, [$2]: [[$1]] or [[$1|$2]] or $3, $4: [$3][$4]
     Card::Content::Chunk.register_class self,
-                                        prefix_re: '\\[',
-                                        full_re:   /^\[\[([^\]]+)\]\]/,
+                                        prefix_re: '\\[\\[',
+                                        full_re:   /\A\[\[([^\]]+)\]\]/,
                                         idx_char:  "["
     def reference_code
       CODE

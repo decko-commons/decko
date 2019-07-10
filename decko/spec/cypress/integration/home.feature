@@ -5,4 +5,4 @@ Feature: homepage
   @focus
   Scenario: Opening the homepage
     Given I open homepage
-    Then I see "Home"
+    Then I see "Welcome, Card Shark"

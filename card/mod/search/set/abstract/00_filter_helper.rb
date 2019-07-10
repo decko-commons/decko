@@ -13,9 +13,8 @@ end
 # #filter_hash is the _value_ of the hash with :filter as the key.
 def filter_hash
   @filter_hash ||= begin
-    filter = Env.params[:filter]
-    filter = filter.to_unsafe_h if filter&.respond_to?(:to_unsafe_h)
-    filter.is_a?(Hash) ? filter : {}
+    filter = Env.params[:filter] || default_filter_hash
+    filter.try(:to_unsafe_h) || filter.clone
   end
 end
 
@@ -35,7 +34,8 @@ def filter_keys_with_values
   end.compact
 end
 
-def default_filter_option
+# initial values for filtered search
+def default_filter_hash
   {}
 end
 

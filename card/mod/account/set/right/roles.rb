@@ -25,5 +25,3 @@ def with_old_role_permissions
 ensure
   self.content = new_content
 end
-
-

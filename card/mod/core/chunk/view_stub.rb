@@ -5,7 +5,7 @@ class Card
         Chunk.register_class(
           self,
           prefix_re: Regexp.escape("(stub)"),
-          full_re: /\(stub\)([^\(]*)\(\/stub\)/,
+          full_re: /\A\(stub\)([^\(]*)\(\/stub\)/,
           idx_char: "("
         )
 

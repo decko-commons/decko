@@ -32,5 +32,5 @@ def current_sort
 end
 
 def default_sort_option
-  wql_from_content[:sort]
+  wql_content[:sort]
 end
