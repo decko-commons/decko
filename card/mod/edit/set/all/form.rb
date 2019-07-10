@@ -42,9 +42,31 @@ format :html do
   def type_field args={}
     typelist = Auth.createable_types
     current_type = type_field_current_value args, typelist
-    options = options_from_collection_for_select typelist, :to_s, :to_s,
-                                                 current_type
+    options = grouped_options_for_select grouped_types, current_type
     template.select_tag "card[type]", options, args
+  end
+
+  GROUP = {
+    "Content" => %w[Text PlainText Phrase Date Number Toggle Markdown File Image URI],
+    "Custom" => [],
+    "Organize" => ["Cardtype", "Search", "List", "Link list", "Pointer",
+                   "Mirror list", "Mirrored list"],
+    "Admin" => ["Layout", "Skin", "User", "Role",
+                "Notification template", "Email template", "Twitter template" ],
+    "Code" => ["HTML", "Json", "CSS", "SCSS", "JavaScript", "CoffeeScript"]
+  }.freeze
+
+  GROUP_MAP = GROUP.each_with_object({}) do |(cat, types), h|
+                types.each { |t| h[t] = cat }
+              end
+
+  def grouped_types
+    groups = GROUP.clone
+    Auth.createable_types.each do |type|
+      groups["Custom"] << type unless GROUP_MAP[type]
+    end
+    groups.delete("Custom") if groups["Custom"].empty?
+    groups
   end
 
   def type_field_current_value args, typelist

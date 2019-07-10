@@ -2,17 +2,14 @@ class Card
   class Format
     module Content
       def process_content override_content=nil, content_opts=nil, &block
-        content = override_content || render_raw || ""
-        content_object = get_content_object content, content_opts
-        content_object.process_chunks(&block)
-        content_object.to_s
+        content_obj = content_object override_content , content_opts
+        content_obj.process_chunks(&block)
+        content_obj.to_s
       end
 
       def safe_process_content override_content=nil, content_opts=nil, &block
-        content = override_content || render_raw || ""
-        content_object = get_content_object content, chunk_list: :nest_only
-
-        result = content_object.without_nests(&block)
+        content_obj = content_object override_content, chunk_list: :nest_only
+        result = content_obj.without_nests(&block)
         process_content result, content_opts
       end
 
@@ -75,13 +72,14 @@ class Card
 
       private
 
-      def get_content_object content, content_opts
-        if content.is_a? Card::Content
-          content
-        else
-          Card::Content.new content, self, (content_opts || voo&.content_opts)
-        end
+      def content_object content=nil, content_opts=voo&.content_opts
+        return content if content.is_a? Card::Content
+
+        content ||= render_raw || ""
+        Card::Content.new content, self, content_opts
       end
+
+
     end
   end
 end

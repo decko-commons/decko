@@ -2,9 +2,9 @@
 
 class PointerOverhaul < Card::Migration::Core
   def up
-    update "List", name: "Mirrored List", codename: "mirrored_list"
-    update "Listed by", name: "Mirror List", codename: "mirror_list"
-    update "Pointer", name: "List", codename: "list"
+    update "List", name: "Mirrored List", codename: "mirrored_list" unless Card::Codename[:mirrored_list]
+    update "Listed by", name: "Mirror List", codename: "mirror_list" unless Card::Codename[:mirror_list]
+    update "Pointer", name: "List", codename: "list" unless Card::Codename[:list]
     ensure_code_card "Pointer", type_id: Card::CardtypeID
     ensure_code_card "Link list", type_id: Card::CardtypeID
     Card::Cache.reset_all

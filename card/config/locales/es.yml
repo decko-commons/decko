@@ -456,13 +456,6 @@ es:
             add_card: Agregar %{cardname}
             error_cant_alter: no puede alterar este tipo; %{name} las tarjetas todavía existen
             error_invalid_character_in_cardtype: "no puede contener ninguno de los siguientes caracteres: %{banned}"
-          list:
-            type_right: debe tener un nombre de cardtype como parte derecha
-            conflict_item_type: el nombre entra en conflicto con elementos de la lista' tipo; eliminar contenido primero
-            only_type_allowed: "%{cardname} tiene un tipo de tarjeta incorrecto; solo cartas de tipo %{cardtype} están permitidos"
-          listed_by:
-            cardtype_right: debe tener un nombre de tipo de tarjeta como parte derecha
-            only_type: "%{cardname} tiene un cardtype incorrecto; solo cartas de tipo %{cardtype} están permitidos"
           number:
             not_numeric: "'%{content}' no es numerico"
           search_type:
@@ -593,5 +586,14 @@ es:
             howto_turn_off: 'Cómo desactivar el captcha:'
             howto_go: Ir a %{captcha_card}
             howto_update: Actualice todas las reglas *captcha a "no".
+    :pointer:
+      set:
+        mirror_list:
+          cardtype_right: debe tener un nombre de cardtype como parte derecha
+          conflict_item_type: el nombre entra en conflicto con elementos de la lista' tipo; eliminar contenido primero
+          only_type_allowed: "%{cardname} tiene un tipo de tarjeta incorrecto; solo cartas de tipo %{cardtype} están permitidos"
+        mirrored_list:
+          cardtype_right: debe tener un nombre de tipo de tarjeta como parte derecha
+          only_type: "%{cardname} tiene un cardtype incorrecto; solo cartas de tipo %{cardtype} están permitidos"
 
 

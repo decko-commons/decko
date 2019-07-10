@@ -2,7 +2,7 @@ include_set Abstract::Pointer
 
 event :validate_listed_by_name, :validate, on: :save, changing: :name do
   if !junction? || !right || right.type_id != CardtypeID
-    errors.add :name, "must have a cardtype name as right part"
+    errors.add :name, tr(:cardtype_right)
   end
 end
 

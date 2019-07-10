@@ -448,13 +448,6 @@ de:
             configure_card: Configuriere %{cardname}
             error_cant_alter: kann dieseh Typ nicht ändern; es gibt noch %{name}-Karten
             error_invalid_character_in_cardtype: "die folgenden Zeichen sind nicht erlaubt: %{banned}"
-          list:
-            type_right: benötigt einen Kartentypnamen als rechten Teil
-            conflict_item_type: name conflicts with list items' type; delete content first
-            only_type_allowed: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
-          listed_by:
-            cardtype_right: benötigt einen Kartentypnamen als rechten Teil
-            only_type: "%{cardname} hat falschen Kartentyp; nur Karten mit Typ %{cardtype} sind erlaubt"
           number:
             not_numeric: "'%{content}' ist nicht numerisch"
           search_type:
@@ -589,4 +582,13 @@ de:
             howto_turn_off: 'Captcha ausschalten:'
             howto_go: Gehe zu %{captcha_card}
             howto_update: Ändere alle *captcha-Regeln zu "no".
-
+    :pointer:
+      set:
+        type:
+          mirror_list:
+            cardtype_right: benötigt einen Kartentypnamen als rechten Teil
+            conflict_item_type: name conflicts with list items' type; delete content first
+            only_type_allowed: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
+          mirrored_listed:
+            cardtype_right: benötigt einen Kartentypnamen als rechten Teil
+            only_type: "%{cardname} hat falschen Kartentyp; nur Karten mit Typ %{cardtype} sind erlaubt"
