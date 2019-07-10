@@ -30,9 +30,6 @@ class Card
           run_single_stage :integrate
           run_single_stage :after_integrate
           run_single_stage :integrate_with_delay
-        rescue StandardError => e # don't rollback
-          Card::Error.report e, @card
-          false
         ensure
           @card.clear_changes_information unless @abort
           # ActManager.clear if main? && !@card.only_storage_phase
