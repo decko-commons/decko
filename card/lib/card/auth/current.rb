@@ -54,6 +54,10 @@ class Card
                             current.fetch(trait: :roles)&.item_names].flatten.compact
       end
 
+      def clear_current_roles
+        @current_roles = nil
+      end
+
       def serialize
         { as_id: as_id, current_id: current_id }
       end
