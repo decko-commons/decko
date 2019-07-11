@@ -5,8 +5,8 @@ RSpec.describe Card::Set::Type::MirroredList do
 
   before do
     Card::Auth.as_bot do
-      create_mirrored_list "Stam Broker+books"
-      create_mirror_list "Parry Hotter+authors", "[[Darles Chickens]]\n[[Stam Broker]]"
+      create_mirror_list "Stam Broker+books"
+      create_mirrored_list "Parry Hotter+authors", "[[Darles Chickens]]\n[[Stam Broker]]"
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe Card::Set::Type::MirroredList do
 
     context "when 'Parry Hotter' is dropped from Stam Brokers's books" do
       specify "Stam Broker is no longer an author of Parry Hotter", as_bot: true do
-        update "Stam Brokers+books", content: "[[50 grades of shy]]"
+        Card["Stam Brokers+books"].update! content: "[[50 grades of shy]]"
         expect(authors).to contain_exactly "Darles Chickens"
       end
     end
@@ -102,7 +102,7 @@ RSpec.describe Card::Set::Type::MirroredList do
       it "raises error because content is invalid" do
         expect do
           Card["Parry Hotter+authors"].update!(
-            name: "Parry Hotter+ric_text"
+            name: "Parry Hotter+rich_text"
           )
         end.to raise_error(ActiveRecord::RecordInvalid,
                            /Name name conflicts with list items/)
@@ -110,7 +110,7 @@ RSpec.describe Card::Set::Type::MirroredList do
     end
   end
 
-  describe "'mirrored list' entry added that doesn't have a list" do
+  describe "'mirror list' entry added that doesn't have a list" do
     context "when '50 grades of shy is added to Stam Broker's books" do
       before do
         Card["Stam Broker+books"].add_item! "50 grades of shy"

@@ -557,11 +557,11 @@ en:
     :pointer:
       set:
         type:
-          mirror_list:
+          mirrored_list:
             cardtype_right: must have a cardtype name as right part
             conflict_item_type: name conflicts with list items' type; delete content first
             only_type_allowed: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
-          mirrored_list:
+          mirror_list:
             cardtype_right: must have a cardtype name as right part
             only_type: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
     :edit:

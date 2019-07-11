@@ -82,7 +82,7 @@ es:
           built_in: "Diseños incorporados: %{built_in_layouts}"
       set:
         all:
-          codename: 
+          codename:
             only_admins_codename: solo los administradores pueden establecer el nombre clave
             error_code_in_use: nombre clave %{codename} ya esta en uso
           event:
@@ -199,7 +199,7 @@ es:
           json:
             invalid_json: invalid json
     :bootstrap:
-      set: 
+      set:
         type:
             customized_bootswatch_skin:
               not_valid_theme: no es un tema valido %{theme_name}
@@ -232,7 +232,7 @@ es:
         abstract:
           permission:
             search_roles_by_name: Roles por Nombre
-            use_lefts_rule: Usar la regla %{tag} 
+            use_lefts_rule: Usar la regla %{tag}
             groups: Grupos
             individuals: Individuos
             inherit_links: Heredar ( %{links} )
@@ -588,11 +588,11 @@ es:
             howto_update: Actualice todas las reglas *captcha a "no".
     :pointer:
       set:
-        mirror_list:
+        mirrored_list:
           cardtype_right: debe tener un nombre de cardtype como parte derecha
           conflict_item_type: el nombre entra en conflicto con elementos de la lista' tipo; eliminar contenido primero
           only_type_allowed: "%{cardname} tiene un tipo de tarjeta incorrecto; solo cartas de tipo %{cardtype} están permitidos"
-        mirrored_list:
+        mirror_list:
           cardtype_right: debe tener un nombre de tipo de tarjeta como parte derecha
           only_type: "%{cardname} tiene un cardtype incorrecto; solo cartas de tipo %{cardtype} están permitidos"
 

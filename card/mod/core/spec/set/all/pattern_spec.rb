@@ -71,10 +71,10 @@ RSpec.describe Card::Set::All::Pattern do
     it "returns css names for simple star cards" do
       Card::Auth.as_bot do
         card = Card.new(name: "*AnewCard")
-        expect(card.safe_set_keys).to eq("ALL TYPE-basic STAR")
+        expect(card.safe_set_keys).to eq("ALL TYPE-rich_text STAR")
         card.save!
         card = Card.fetch("*AnewCard")
-        expect(card.safe_set_keys).to eq("ALL TYPE-basic STAR SELF-Xanew_card")
+        expect(card.safe_set_keys).to eq("ALL TYPE-rich_text STAR SELF-Xanew_card")
       end
     end
 

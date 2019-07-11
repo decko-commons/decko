@@ -4,7 +4,7 @@
 # I think we should move the rendering tests into basic and trim this to about
 # a quarter of its current length
 
-describe Card do
+RSpec.describe Card do
   RSpec::Matchers.define :have_toc do
     match do |card|
       values_match?(/Table of Contents/, card.format.render_open_content)

@@ -42,12 +42,12 @@ format :html do
   def type_field args={}
     typelist = Auth.createable_types
     current_type = type_field_current_value args, typelist
-    options = grouped_options_for_select grouped_types, current_type
+    options = grouped_options_for_select grouped_types(current_type), current_type
     template.select_tag "card[type]", options, args
   end
 
   GROUP = {
-    "Content" => %w[Text PlainText Phrase Date Number Toggle Markdown File Image URI],
+    "Content" => %w[RichText PlainText Phrase Date Number Toggle Markdown File Image URI],
     "Custom" => [],
     "Organize" => ["Cardtype", "Search", "List", "Link list", "Pointer",
                    "Mirror list", "Mirrored list"],
@@ -56,16 +56,24 @@ format :html do
     "Code" => ["HTML", "Json", "CSS", "SCSS", "JavaScript", "CoffeeScript"]
   }.freeze
 
+  # group for each cardtype: { "RichText => "Content", "Layout" => "Admin", ... }
   GROUP_MAP = GROUP.each_with_object({}) do |(cat, types), h|
                 types.each { |t| h[t] = cat }
               end
 
-  def grouped_types
-    groups = GROUP.clone
+  def grouped_types current_type
+    groups = Hash.new { |h, k| h[k] = [] }
+    allowed = ::Set.new Auth.createable_types
+    allowed << current_type if current_type
+
+    GROUP.each_pair do |name, items|
+      items.each do |i|
+        groups[name] << i if allowed.include?(i)
+      end
+    end
     Auth.createable_types.each do |type|
       groups["Custom"] << type unless GROUP_MAP[type]
     end
-    groups.delete("Custom") if groups["Custom"].empty?
     groups
   end
 
