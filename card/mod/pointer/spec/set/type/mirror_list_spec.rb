@@ -8,12 +8,12 @@ RSpec.describe Card::Set::Type::MirrorList do
       Card.create!(
         name: "Parry Hotter+authors",
         content: "[[Darles Chickens]]",
-        type: "list"
+        type: "mirror list"
       )
       Card.create!(
         name: "50 grades of shy+authors",
         content: "[[Darles Chickens]]\n[[Stam Broker]]",
-        type: "list"
+        type: "mirror list"
       )
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe Card::Set::Type::MirrorList do
               name: "Adventures of Buckleharry Finn",
               type: "book",
               subcards: {
-                "+authors" => { content: "[[Darles Chickens]]", type: "list" }
+                "+authors" => { content: "[[Darles Chickens]]", type: "mirror list" }
               }
             )
           end
@@ -81,7 +81,7 @@ RSpec.describe Card::Set::Type::MirrorList do
               name: "Adventures of Buckleharry Finn",
               type: "book",
               subcards: {
-                "+authors" => { content: "[[Stam Broker]]", type: "list" }
+                "+authors" => { content: "[[Stam Broker]]", type: "mirror list" }
               }
             )
             Card.fetch("Adventures of Buckleharry Finn+authors")

@@ -5,11 +5,11 @@ RSpec.describe Card::Set::Type::MirroredList do
 
   before do
     Card::Auth.as_bot do
-      Card.create! name: "Stam Broker+books", type: "listed by"
+      Card.create! name: "Stam Broker+books", type: "mirrored list"
       Card.create!(
         name: "Parry Hotter+authors",
         content: "[[Darles Chickens]]\n[[Stam Broker]]",
-        type: "list"
+        type: "mirror list"
       )
     end
   end
@@ -23,7 +23,7 @@ RSpec.describe Card::Set::Type::MirroredList do
       before do
         Card.create! name: "Joe-Ann Rolwing", type: "author"
         Card.create!(
-          name: "Joe-Ann Rolwing+books", type: "listed by",
+          name: "Joe-Ann Rolwing+books", type: "mirrored list",
           content: "[[Parry Hotter]]"
         )
       end
@@ -117,7 +117,7 @@ RSpec.describe Card::Set::Type::MirroredList do
     end
   end
 
-  describe "'listed by' entry added that doesn't have a list" do
+  describe "'mirrored list' entry added that doesn't have a list" do
     context "when '50 grades of shy is added to Stam Broker's books" do
       before do
         Card["Stam Broker+books"].add_item! "50 grades of shy"
