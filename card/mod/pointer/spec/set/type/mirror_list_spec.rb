@@ -5,16 +5,8 @@ RSpec.describe Card::Set::Type::MirrorList do
 
   before do
     Card::Auth.as_bot do
-      Card.create!(
-        name: "Parry Hotter+authors",
-        content: "[[Darles Chickens]]",
-        type: "mirror list"
-      )
-      Card.create!(
-        name: "50 grades of shy+authors",
-        content: "[[Darles Chickens]]\n[[Stam Broker]]",
-        type: "mirror list"
-      )
+      create_mirrored_list "Parry Hotter+authors", "[[Darles Chickens]]",
+      create_mirrored_list "50 grades of shy+authors", "[[Darles Chickens]]\n[[Stam Broker]]"
     end
   end
   it "doesn't allow non-cardtype as right part" do
@@ -62,7 +54,7 @@ RSpec.describe Card::Set::Type::MirrorList do
               name: "Adventures of Buckleharry Finn",
               type: "book",
               subcards: {
-                "+authors" => { content: "[[Darles Chickens]]", type: "mirror list" }
+                "+authors" => { content: "[[Darles Chickens]]", type: "mirrored list" }
               }
             )
           end
@@ -81,7 +73,7 @@ RSpec.describe Card::Set::Type::MirrorList do
               name: "Adventures of Buckleharry Finn",
               type: "book",
               subcards: {
-                "+authors" => { content: "[[Stam Broker]]", type: "mirror list" }
+                "+authors" => { content: "[[Stam Broker]]", type: "mirrored list" }
               }
             )
             Card.fetch("Adventures of Buckleharry Finn+authors")

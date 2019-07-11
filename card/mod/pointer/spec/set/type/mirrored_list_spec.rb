@@ -5,12 +5,8 @@ RSpec.describe Card::Set::Type::MirroredList do
 
   before do
     Card::Auth.as_bot do
-      Card.create! name: "Stam Broker+books", type: "mirrored list"
-      Card.create!(
-        name: "Parry Hotter+authors",
-        content: "[[Darles Chickens]]\n[[Stam Broker]]",
-        type: "mirror list"
-      )
+      create_mirrored_list "Stam Broker+books"
+      create_mirror_list "Parry Hotter+authors", "[[Darles Chickens]]\n[[Stam Broker]]"
     end
   end
 
@@ -21,11 +17,8 @@ RSpec.describe Card::Set::Type::MirroredList do
   describe "Parry Hotter+authors" do
     context "when 'Parry Hotter' is added to Joe-Ann Rolwings's books" do
       before do
-        Card.create! name: "Joe-Ann Rolwing", type: "author"
-        Card.create!(
-          name: "Joe-Ann Rolwing+books", type: "mirrored list",
-          content: "[[Parry Hotter]]"
-        )
+        create_author "Joe-Ann Rolwing"
+        create_mirror_list "Joe-Ann Rolwing+books", "[[Parry Hotter]]"
       end
       it do
         is_expected.to eq(
@@ -105,11 +98,11 @@ RSpec.describe Card::Set::Type::MirroredList do
       end
       it { is_expected.to eq ["Darles Chickens", "Stam Broker"] }
     end
-    context "when Parry Hotter+authors to Parry Hotter+basics" do
+    context "when Parry Hotter+authors to Parry Hotter+rich_text" do
       it "raises error because content is invalid" do
         expect do
           Card["Parry Hotter+authors"].update!(
-            name: "Parry Hotter+basics"
+            name: "Parry Hotter+ric_text"
           )
         end.to raise_error(ActiveRecord::RecordInvalid,
                            /Name name conflicts with list items/)

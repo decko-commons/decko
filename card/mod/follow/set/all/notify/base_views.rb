@@ -89,7 +89,6 @@ format do
 
   def edit_info_for field, action
     return nil unless (value = action.value field)
-
     value = action.previous_value if action.action_type == :delete
     wrap_list_item "  #{notification_action_label action} #{field}: #{value}"
   end

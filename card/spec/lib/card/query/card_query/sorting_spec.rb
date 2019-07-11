@@ -22,7 +22,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   it "plays nice with match" do
     expect(run_query(match: "Z",
                      not: { match: "Prose" },
-                     type: "Text",
+                     type: "RichText",
                      sort: "content"))
       .to eq(%w(horizontal A B Z A+B+Y+Z))
   end
@@ -30,11 +30,11 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   it "sorts by plus card content" do
     Card::Auth.as_bot do
       Card["Setting+*self+*table of contents"].update! content: 10
-      Card.create! name: "Basic+*type+*table of contents", content: "3"
+      Card.create! name: "RichText+*type+*table of contents", content: "3"
       expect(run_query(right_plus: "*table of contents",
                        sort: { right: "*table_of_contents" },
                        sort_as: "integer"))
-        .to eq(%w(*all Basic+*type Setting+*self))
+        .to eq(%w(*all RichText+*type Setting+*self))
     end
   end
 

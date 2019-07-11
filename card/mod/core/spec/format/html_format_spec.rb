@@ -6,7 +6,7 @@ RSpec.describe Card::Format::HtmlFormat do
       expect(view(:content, card: "A+B"))
         .to have_tag(
           'div[class="card-slot content-view ALL ALL_PLUS TYPE-text '\
-    'RIGHT-b TYPE_PLUS_RIGHT-text-b SELF-a-b d0-card-content"]'
+    'RIGHT-b TYPE_PLUS_RIGHT-rich_text-b SELF-a-b d0-card-content"]'
         )
     end
 

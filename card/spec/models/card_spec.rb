@@ -100,7 +100,7 @@ describe "basic card tests" do
     Card.create name: "peel"
     Card::Auth.current_id = Card::AnonymousID
     expect(Card["Banana"]).not_to be
-    expect(Card["Text"].ok?(:create)).to be_falsey, "anon can't creat"
+    expect(Card[:basic].ok?(:create)).to be_falsey, "anon can't creat"
 
     Card.create! type: "Fruit", name: "Banana", subcards: { "+peel" => { content: "yellow" } }
     expect(Card["Banana"]).to be

@@ -1,6 +1,6 @@
 "card with fields" was just created by Joe User.
 
-   cardtype: Basic
+   cardtype: RichText
    content: main content {{+field 1}}  {{+field 2}}
 
 
@@ -8,11 +8,11 @@
 This update included the following changes:
 
 card with fields+field 1 created
-   cardtype: Basic
+   cardtype: RichText
    content: content of field 1
 
 card with fields+field 2 created
-   cardtype: Basic
+   cardtype: RichText
    content: content of field 2
 
 
