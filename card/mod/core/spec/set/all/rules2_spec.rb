@@ -19,7 +19,7 @@ RSpec.describe Card do
   context "when there is a general toc rule of 2" do
     before do
       Card::Auth.as_bot do
-        described_class.create! name: "Text+*type+*table of contents", content: "2"
+        create [:basic, :type, :table_of_contents], "2"
       end
     end
 

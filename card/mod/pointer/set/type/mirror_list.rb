@@ -70,8 +70,9 @@ end
 
 def listed_by
   Card.search(
-    { type: "list", right: trunk.type_name,
-      left: { type: name.tag }, refer_to: name.trunk, return: :name }, "listed_by" # better wql comment would be...better
+    { type_id: Card::MirroredListID, right: trunk.type_name,
+      left: { type: name.tag }, refer_to: name.trunk, return: :name },
+    "all cards listed by #{name}"
   )
 end
 
