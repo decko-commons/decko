@@ -149,10 +149,10 @@ Decko::RestSpecHelper.describe_api do
     before { login_as "joe_user" }
 
     it "works" do
-      patch :update, xhr: true, params: { mark: "Sample Basic",
+      patch :update, xhr: true, params: { mark: "Sample RichHtml",
                                           card: { content: "brand new content" } }
       assert_response :success, "edited card"
-      assert_equal "brand new content", Card["Sample Basic"].content,
+      assert_equal "brand new content", Card["Sample RichHtml"].content,
                    "content was updated"
     end
 

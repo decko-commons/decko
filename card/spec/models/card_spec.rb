@@ -3,7 +3,7 @@
 RSpec.describe Card do
   describe "test data" do
     it "is findable by name" do
-      expect(Card["Wagn Bot"]).to be_a Card
+      expect(Card["Decko Bot"]).to be_a Card
     end
   end
 
@@ -96,7 +96,7 @@ describe "basic card tests" do
     expect(Card["joe_user"].id).to eq(peel.creator_id)
   end
 
-  it "update_should_create_subcards_as_wagn_bot_if_missing_subcard_permissions" do
+  it "update_should_create_subcards_as_decko_bot_if_missing_subcard_permissions" do
     Card.create name: "peel"
     Card::Auth.current_id = Card::AnonymousID
     expect(Card["Banana"]).not_to be
