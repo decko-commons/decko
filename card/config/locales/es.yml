@@ -583,8 +583,9 @@ es:
           admin_info:
             email_off: La entrega del correo electrónico está desactivada. Cambie la configuración en %{path} para enviar notificaciones de registro.
             admin_warn: ADVERTENCIA DEL ADMINISTRADOR
-            captcha_temp: Su captcha actualmente está trabajando con configuraciones temporales. Esto está bien para una instalación local, pero necesitará nuevas claves recaptcha si desea que este sitio sea público.
-            captcha_keys: Está configurado para usar [[*captcha]], pero para que funcione necesita nuevas claves recaptcha.
+            captcha_temp: Su captcha actualmente está trabajando con configuraciones temporales. Esto está bien para una instalación local, pero necesitará nuevas %{recaptcha_link} si desea que este sitio sea público.
+            captcha_keys: Está configurado para usar %{captcha_link}, pero para que funcione necesita nuevas %{recaptcha_link}.
+            recaptcha_keys: claves recaptcha
             instructions: Instrucciones
             howto_add_keys: "Cómo agregar nuevas claves recaptcha:"
             howto_register: Registre su dominio en %{recaptcha_link}

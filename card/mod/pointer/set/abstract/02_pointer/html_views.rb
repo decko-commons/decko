@@ -18,7 +18,7 @@ format :html do
   end
 
   def standard_pointer_items paging_args
-    pointer_items paging_args.extract!(:limit, :offset)
+    pointer_items(paging_args.extract!(:limit, :offset)).join(voo.separator || "\n")
   end
 
   view :closed_content do
@@ -45,6 +45,10 @@ format :html do
   view :list, cache: :never do
     list_input
   end
+
+  # view :nav_item do
+  #   nav_dropdown
+  # end
 
   def list_input args={}
     items = items_for_input args[:item_list]

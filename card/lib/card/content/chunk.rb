@@ -140,7 +140,22 @@ class Card
         end
 
         def result
-          @process_chunk || @processed || @text
+          burn_read || @process_chunk || @processed || @text
+        end
+
+        def burn_read
+          return unless @burn_read
+
+          tmp = @burn_read
+          @burn_read = nil
+          tmp
+        end
+
+        # Temporarily overrides the processed nest content for single-use
+        # After using the nest's result
+        # (for example via `to_s`) the original result is restored
+        def burn_after_reading text
+          @burn_read = text
         end
 
         def inspect
@@ -148,7 +163,7 @@ class Card
         end
 
         def as_json _options={}
-          @process_chunk || @processed ||
+          burn_read || @process_chunk || @processed ||
             "not rendered #{self.class}, #{card&.name}"
         end
       end

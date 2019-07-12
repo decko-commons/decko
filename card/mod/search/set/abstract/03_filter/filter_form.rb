@@ -5,6 +5,16 @@ format :html do
                   sort_field: _render(:sort_formgroup)
   end
 
+  view :quick_filters do
+    return "" unless quick_filter_list.present?
+
+    haml :quick_filters
+  end
+
+  def quick_filter_list
+    []
+  end
+
   # @param data [Hash] the filter categories. The hash needs for every category
   #   a hash with a label and a input_field entry.
   def filter_form data={}, sort_input_field=nil, form_args={}
@@ -51,7 +61,7 @@ format :html do
   end
 
   def filter_label_from_name field
-    Card.fetch_name(field) { field.to_s.capitalize }
+    Card.fetch_name(field) { field.to_s.titleize }
   end
 
   def filter_action_path

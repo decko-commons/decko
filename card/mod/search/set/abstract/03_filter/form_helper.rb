@@ -96,7 +96,7 @@ format :html do
 
   def option_hash_to_array hash
     hash.each_with_object([]) do |(key, value), array|
-      array << [key, value.to_s.downcase]
+      array << [key, value.to_s]
       array
     end
   end
