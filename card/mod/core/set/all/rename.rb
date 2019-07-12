@@ -24,7 +24,7 @@ event :cascade_name_changes, :finalize, on: :update, changed: :name,
   @descendants = nil # reset
 
   children.each do |child|
-    Rails.logger.info "cascading name: #{child.name}"
+    Rails.logger.debug "cascading name: #{child.name}"
     newname = child.name.swap name_before_last_save, name
     # not sure if this is still needed since we attach the children as subcards
     # (it used to be resolved right here without adding subcards)

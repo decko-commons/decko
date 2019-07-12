@@ -177,8 +177,7 @@ end
 # eg.  A links to X+Y.  if X+Y is renamed and we're not updating the link in A,
 # then we need to be sure that A has a partial reference
 event :update_referer_references_out, :finalize,
-      on: :update, after: :name_change_finalized,
-      when: :not_update_referers do
+      on: :update, after: :name_change_finalized, when: :not_update_referers do
   referers.map(&:update_references_out)
 end
 
