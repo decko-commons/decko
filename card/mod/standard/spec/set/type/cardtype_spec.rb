@@ -4,7 +4,7 @@ RSpec.describe Card::Set::Type::Cardtype do
   describe "view: add_button" do
     it "creates link with correct path" do
       expect(render_content("{{RichText|add_button}}"))
-        .to have_tag('a[href="/new/RichText"]', text: "Add Text")
+        .to have_tag('a[href="/new/RichText"]', text: "Add RichText")
     end
     it "handles title argument" do
       expect(render_content("{{RichText|add_button;title: custom link text}}"))
