@@ -12719,7 +12719,7 @@ return jQuery;
   decko.filter = function(el) {
     var closest_widget;
     closest_widget = $(el).closest("._filter-widget");
-    this.widget = closest_widget.exists() ? closest_widget : $(el).closest("._filtered-content").find("._filter-widget");
+    this.widget = closest_widget[0] != null ? closest_widget : $(el).closest("._filtered-content").find("._filter-widget");
     this.activeContainer = this.widget.find("._filter-container");
     this.dropdown = this.widget.find("._add-filter-dropdown");
     this.dropdownItems = this.widget.find("._filter-category-select");
