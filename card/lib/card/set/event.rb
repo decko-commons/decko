@@ -115,8 +115,9 @@ class Card
     return yield unless stage.to_s.match?(/integrate/)
     begin
       yield
-    rescue StandardError => e # don't rollback
+    rescue StandardError => e # one failed integration event should not harm others.
       Card::Error.report e, self
+    ensure
       true
     end
   end
