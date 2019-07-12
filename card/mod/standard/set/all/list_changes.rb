@@ -1,20 +1,20 @@
 # -*- encoding : utf-8 -*-
 
 def list_fields
-  Card.search({ left: name, type_id: Card::ListID }, "list fields")
+  Card.search({ left: name, type_id: Card::MirroredListID }, "list fields")
 end
 
 def listed_by_fields
-  Card.search({ left: name, type_id: Card::ListedByID }, "listed by fields")
+  Card.search({ left: name, type_id: Card::MirrorListID }, "listed by fields")
 end
 
 def linker_lists
-  Card.search({ type_id: Card::ListID, link_to: name },
+  Card.search({ type_id: Card::MirroredListID, link_to: name },
               "lists that link to #{name}")
 end
 
 def codename_list_exist?
-  Card::Codename.exists? :list
+  Card::Codename.exists? :mirrored_list
 end
 
 event :trunk_cardtype_of_a_list_relation_changed, :finalize,

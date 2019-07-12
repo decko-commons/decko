@@ -151,7 +151,7 @@ RSpec.describe Card::Set::All::Collection do
       assert_view_select tabs, "div[role=tabpanel]" do
         assert_select 'li > a[data-toggle=tab][href="#tab_test-1-a"]',
                       "my tab title"
-        assert_select "div.tab-pane#tab_test-1-a", "Basic"
+        assert_select "div.tab-pane#tab_test-1-a", "RichText"
       end
     end
 

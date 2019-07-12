@@ -39,7 +39,7 @@ describe Card::Set::All::Type do
     it "clears cache of structured nested card after saving" do
       pending "need new mechanism to replace #reset_type_specific_fields"
       Card::Auth.as_bot do
-        expect(Card.fetch("t1+results", new: {}).type_name).to eq("Basic")
+        expect(Card.fetch("t1+results", new: {}).type_name).to eq("RichText")
 
         topic1 = Card.new type: "Topic", name: "t1"
         topic1.format._render_new

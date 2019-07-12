@@ -5,7 +5,7 @@ describe Card::Set::Right::Structure do
     template = Card.new name: "A+*right+*structure",
                         content: "[[link]] {{nest}}"
     expect(template.format._render(:closed_content)).to eq(
-      '<a class="cardtype known-card" href="/Basic">Basic</a>' \
+      '<a class="cardtype known-card" href="/RichText">RichText</a>' \
       " : [[link]] {{nest}}"
     )
   end

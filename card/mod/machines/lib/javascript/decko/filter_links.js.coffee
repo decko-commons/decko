@@ -56,7 +56,7 @@ $(window).ready ->
 
   $('body').on 'click', '._filtering ._filterable', (e) ->
     f = targetFilter this
-    if f.widget.exists()
+    if f.widget.length
       f.restrict filterableData(this)
     e.preventDefault()
     e.stopPropagation()

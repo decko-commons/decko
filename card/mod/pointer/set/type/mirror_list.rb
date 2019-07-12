@@ -1,8 +1,8 @@
-include_set Pointer
+include_set Abstract::Pointer
 
 event :validate_listed_by_name, :validate, on: :save, changing: :name do
   if !junction? || !right || right.type_id != CardtypeID
-    errors.add :name, "must have a cardtype name as right part"
+    errors.add :name, tr(:cardtype_right)
   end
 end
 
@@ -53,7 +53,7 @@ def add_items items
 end
 
 def content_cache
-  Card::Cache[Card::Set::Type::ListedBy]
+  Card::Cache[Card::Set::Type::MirrorList]
 end
 
 def content
@@ -70,16 +70,17 @@ end
 
 def listed_by
   Card.search(
-    { type: "list", right: trunk.type_name,
-      left: { type: name.tag }, refer_to: name.trunk, return: :name }, "listed_by" # better wql comment would be...better
+    { type_id: Card::MirroredListID, right: trunk.type_name,
+      left: { type: name.tag }, refer_to: name.trunk, return: :name },
+    "all cards listed by #{name}"
   )
 end
 
 def update_cached_list
   if trunk
-    Card::Cache[Card::Set::Type::ListedBy].write key, generate_content
+    Card::Cache[Card::Set::Type::MirrorList].write key, generate_content
   else
-    Card::Cache[Card::Set::Type::ListedBy].delete key
+    Card::Cache[Card::Set::Type::MirrorList].delete key
   end
 end
 

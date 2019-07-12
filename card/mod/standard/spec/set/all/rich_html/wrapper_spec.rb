@@ -6,7 +6,7 @@ RSpec.describe Card::Set::All::RichHtml::Wrapper do
 
     it "has the appropriate attributes on open" do
       expect_view(:open, card: "A")
-        .to have_tag'div.card-slot.open-view.ALL.TYPE-basic.SELF-a' do
+        .to have_tag'div.card-slot.open-view.ALL.TYPE-rich_text.SELF-a' do
           with_tag 'div.d0-card-frame.card' do
             with_tag 'div.d0-card-header.card-header' do
               with_tag 'div.d0-card-header-title'
@@ -18,7 +18,7 @@ RSpec.describe Card::Set::All::RichHtml::Wrapper do
 
     it "has the appropriate attributes on closed" do
       expect_view(:closed, card: "A")
-        .to have_tag 'div.card-slot.closed-view.ALL.TYPE-basic.SELF-a' do
+        .to have_tag 'div.card-slot.closed-view.ALL.TYPE-rich_text.SELF-a' do
           with_tag 'div.d0-card-frame.card' do
             with_tag 'div.d0-card-header.card-header' do
               with_tag 'div.d0-card-header-title'

@@ -13,7 +13,7 @@ shared_examples_for "notifications" do
 
     example "for a new card" do
       expect(list_of_changes(created))
-        .to include("content: new content", "cardtype: Basic")
+        .to include("content: new content", "cardtype: RichText")
     end
 
     example "for a updated card" do

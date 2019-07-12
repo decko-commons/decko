@@ -63,13 +63,13 @@ Decko::RestSpecHelper.describe_api do
 
   describe "#read" do
     it "works for basic request" do
-      get :read, params: { mark: "Sample_Basic" }
+      get :read, params: { mark: "Sample_RichText" }
       expect(response.body).to match(/\<body[^>]*\>/im)
       # have_selector broke in commit 8d3bf2380eb8197410e962304c5e640fced684b9,
       # presumably because of a gem (like capybara?)
       # response.should have_selector('body')
       assert_response :success
-      expect("Sample Basic").to eq(assigns["card"].name)
+      expect("Sample RichText").to eq(assigns["card"].name)
     end
 
     it "handles nonexistent card with create permission" do
@@ -149,10 +149,10 @@ Decko::RestSpecHelper.describe_api do
     before { login_as "joe_user" }
 
     it "works" do
-      patch :update, xhr: true, params: { mark: "Sample Basic",
+      patch :update, xhr: true, params: { mark: "Sample RichHtml",
                                           card: { content: "brand new content" } }
       assert_response :success, "edited card"
-      assert_equal "brand new content", Card["Sample Basic"].content,
+      assert_equal "brand new content", Card["Sample RichHtml"].content,
                    "content was updated"
     end
 

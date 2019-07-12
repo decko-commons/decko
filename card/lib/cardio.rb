@@ -52,8 +52,7 @@ module Cardio
         closed_search_limit:    10,
         paging_limit:           20,
 
-        non_createable_types:   [%w[signup setting set session
-                                   bootswatch_skin customized_bootswatch_skin]], # FIXME
+        non_createable_types:   [%w[signup setting set session bootswatch_skin customized_bootswatch_skin]], # FIXME
         view_cache:             false,
         rss_enabled:            false,
         double_click:           :signed_in,

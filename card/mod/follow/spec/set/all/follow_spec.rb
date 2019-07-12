@@ -120,7 +120,7 @@ RSpec.describe Card::Set::All::Follow do
 
     context "when not following cardtype card" do
       it "renders 'follow all' link" do
-        assert_follow_view "Basic", add_set: "Basic+*type", text: "follow"
+        assert_follow_view "RichText", add_set: "RichText+*type", text: "follow"
       end
     end
 

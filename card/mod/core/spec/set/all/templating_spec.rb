@@ -43,9 +43,7 @@ describe Card::Set::All::Templating do
 
     it "has type and content overridden by (new) type_plus_right set" do
       Card::Auth.as_bot do
-        Card.create! name: "Basic+birthday+*type plus right+*structure",
-                     type: "PlainText",
-                     content: "Yesterday"
+        create_plain_text "RichText+birthday+*type plus right+*structure", "Yesterday"
       end
       jb = @jb.refresh true
       expect(jb.content).to eq("Yesterday")
@@ -82,9 +80,7 @@ describe Card::Set::All::Templating do
   describe "with type structure" do
     before do
       Card::Auth.as_bot do
-        @dt = Card.create! name: "Date+*type+*structure",
-                           type: "Basic",
-                           content: "Tomorrow"
+        @dt = create_basic "Date+*type+*structure", "Tomorrow"
       end
     end
 

@@ -25,7 +25,7 @@ describe Card::Set::All::Rules do
       # defaults should work when other Sets are present
       assert Card.create(name: "*all+*add help", content: "lobotomize")
       # Card.default_rule(:add_help, fallback: :help).should == 'lobotomize'
-      add_help_rule = Card.new(type: "Basic").rule(:add_help, fallback: :help)
+      add_help_rule = Card.new(type_id: Card::BasicID).rule(:add_help, fallback: :help)
       expect(add_help_rule).to eq("lobotomize")
     end
 

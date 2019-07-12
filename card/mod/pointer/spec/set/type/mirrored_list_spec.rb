@@ -1,16 +1,12 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Type::List do
+RSpec.describe Card::Set::Type::MirroredList do
   subject { Card.fetch("Parry Hotter+authors").item_names.sort }
 
   before do
     Card::Auth.as_bot do
-      Card.create! name: "Stam Broker+books", type: "listed by"
-      Card.create!(
-        name: "Parry Hotter+authors",
-        content: "[[Darles Chickens]]\n[[Stam Broker]]",
-        type: "list"
-      )
+      create_mirror_list "Stam Broker+books"
+      create_mirrored_list "Parry Hotter+authors", "[[Darles Chickens]]\n[[Stam Broker]]"
     end
   end
 
@@ -21,11 +17,8 @@ RSpec.describe Card::Set::Type::List do
   describe "Parry Hotter+authors" do
     context "when 'Parry Hotter' is added to Joe-Ann Rolwings's books" do
       before do
-        Card.create! name: "Joe-Ann Rolwing", type: "author"
-        Card.create!(
-          name: "Joe-Ann Rolwing+books", type: "listed by",
-          content: "[[Parry Hotter]]"
-        )
+        create_author "Joe-Ann Rolwing"
+        create_mirror_list "Joe-Ann Rolwing+books", "[[Parry Hotter]]"
       end
       it do
         is_expected.to eq(
@@ -36,7 +29,7 @@ RSpec.describe Card::Set::Type::List do
 
     context "when 'Parry Hotter' is dropped from Stam Brokers's books" do
       specify "Stam Broker is no longer an author of Parry Hotter", as_bot: true do
-        update "Stam Brokers+books", content: "[[50 grades of shy]]"
+        Card["Stam Brokers+books"].update! content: "[[50 grades of shy]]"
         expect(authors).to contain_exactly "Darles Chickens"
       end
     end
@@ -105,11 +98,11 @@ RSpec.describe Card::Set::Type::List do
       end
       it { is_expected.to eq ["Darles Chickens", "Stam Broker"] }
     end
-    context "when Parry Hotter+authors to Parry Hotter+basics" do
+    context "when Parry Hotter+authors to Parry Hotter+rich_text" do
       it "raises error because content is invalid" do
         expect do
           Card["Parry Hotter+authors"].update!(
-            name: "Parry Hotter+basics"
+            name: "Parry Hotter+rich_text"
           )
         end.to raise_error(ActiveRecord::RecordInvalid,
                            /Name name conflicts with list items/)
@@ -117,7 +110,7 @@ RSpec.describe Card::Set::Type::List do
     end
   end
 
-  describe "'listed by' entry added that doesn't have a list" do
+  describe "'mirror list' entry added that doesn't have a list" do
     context "when '50 grades of shy is added to Stam Broker's books" do
       before do
         Card["Stam Broker+books"].add_item! "50 grades of shy"
