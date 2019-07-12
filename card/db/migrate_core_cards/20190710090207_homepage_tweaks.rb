@@ -7,5 +7,6 @@ class HomepageTweaks < Card::Migration::Core
     delete_code_card :customized_skin
     delete_code_card :bootswatch_theme
     update_card :basic, name: "RichText", update_referers: true
+    update_card :json, name: "JSON", update_referers: true
   end
 end
