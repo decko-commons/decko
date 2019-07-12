@@ -69,7 +69,7 @@ Decko::RestSpecHelper.describe_api do
       # presumably because of a gem (like capybara?)
       # response.should have_selector('body')
       assert_response :success
-      expect("Sample Basic").to eq(assigns["card"].name)
+      expect("Sample RichText").to eq(assigns["card"].name)
     end
 
     it "handles nonexistent card with create permission" do
