@@ -4,7 +4,7 @@
 decko.filter = (el) ->
   closest_widget = $(el).closest "._filter-widget"
   @widget =
-    if closest_widget.exists()
+    if closest_widget.length
       closest_widget
     else
       $(el).closest("._filtered-content").find "._filter-widget"
@@ -93,7 +93,7 @@ decko.filter = (el) ->
     @activeContainer.find("._filter-input-#{category}")
 
   @isActive = (category) ->
-    @activeField(category).exists()
+    @activeField(category).length
 
   @restrict = (data) ->
     @clear()
@@ -110,7 +110,7 @@ decko.filter = (el) ->
   # triggers update
   @setInputVal = (field, value) ->
     select = field.find "select"
-    if select.exists()
+    if select.length
       @setSelect2Val select, value
     else
       @setTextInputVal field.find("input"), value

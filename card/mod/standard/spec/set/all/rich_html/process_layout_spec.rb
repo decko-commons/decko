@@ -9,7 +9,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     it "renders top menu" do
       expect(open_view).to have_tag "header" do
         with_tag 'a.nav-link.dropdown-toggle', text: "Getting started"
-        with_tag 'a.nav-link.known-card[href="/*recent"]', text: "Recent"
+        with_tag 'a.nav-link.known-card[href="/*recent"]', text: "Recent Changes"
         with_tag 'form.navbox-form[action="/*search"]' do
           with_tag 'select[name="query[keyword]"]'
         end
@@ -27,7 +27,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     it "renders card content" do
       expect(open_view).to have_tag "div.d0-card-body.d0-card-content" \
                                     ".ALL.ALL_PLUS" \
-                                    ".TYPE-basic.RIGHT-b.TYPE_PLUS_RIGHT-basic-b" \
+                                    ".TYPE-rich_text.RIGHT-b.TYPE_PLUS_RIGHT-rich_text-b" \
                                     ".SELF-a-b.card-body.card-text",
                                     text:  /AlphaBeta/
     end
@@ -53,7 +53,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       with_layout "<pre>Hey {{_main}}</pre>"
       expect(format_subject.show(:type, {})).to have_tag :pre do
         with_text(/Hey/)
-        with_tag "div#main", "Basic"
+        with_tag "div#main", "RichText"
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
       with_layout "<pre>Hey {{_main|type}}</pre>"
       expect(format_subject.show(nil, {})).to have_tag :pre do
         with_text(/Hey/)
-        with_tag "div#main", "Basic"
+        with_tag "div#main", "RichText"
       end
     end
   end
@@ -83,7 +83,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
 
   def with_layout content
     Card::Layout.clear_cache
-    create_layout "tmp layout", content: "<body>#{content}</body>"
+    create_layout_type "tmp layout", content: "<body>#{content}</body>"
     Card["*all+*layout"].content = "[[tmp layout]]"
     Card["tmp layout"].refresh
   end

@@ -114,6 +114,6 @@ describe Card, "Joe User" do
     expect(@type_names.member?("Cardtype F")).to be_falsey
   end
   it "finds Basic on its list of createable cardtypes" do
-    expect(@type_names.member?("Basic")).to be_truthy
+    expect(@type_names.member?("RichText")).to be_truthy
   end
 end

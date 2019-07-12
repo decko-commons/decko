@@ -180,7 +180,7 @@ RSpec.describe Card::Set::All::Fetch do
         expect(card).to be_virtual.and have_content "Right Content"
 
         #        warn 'creating template'
-        tpr = Card.create! name: "Basic+y+*type plus right+*structure",
+        tpr = Card.create! name: "RichText+y+*type plus right+*structure",
                            content: "Type Plus Right Content"
         card = Card.fetch("a+y")
         expect(card).to be_virtual.and have_content "Type Plus Right Content"
@@ -307,7 +307,7 @@ RSpec.describe Card::Set::All::Fetch do
     end
 
     example "id" do
-      expect(Card.fetch_name(Card::BasicID)).to eq "Basic"
+      expect(Card.fetch_name(Card::BasicID)).to eq "RichText"
     end
 
     example "invalid id" do

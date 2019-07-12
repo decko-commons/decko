@@ -37,7 +37,7 @@ format :html do
 
   def field_related_settings
     field_settings = %i[default help]
-    if card.type_id == PointerID
+    if card.collection?
       # FIXME: isn't card always of type set???
       # FIXME: should be done with override in pointer set module
       field_settings += %i[input options options_label]

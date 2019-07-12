@@ -41,7 +41,7 @@ RSpec.describe Card::Set::Type::Set do
       Card::Auth.as_bot do
         Card.create! name: "test_another_card+*right+*structure",
                      type_id: Card::SearchTypeID,
-                     content: ' {"type":"basic","left":"_1"}'
+                     content: ' {"type":"RichText","left":"_1"}'
       end
     end
 

@@ -175,19 +175,19 @@ RSpec.describe Card::Reference, as_bot: true do
   end
 
   it "handles contextual names in Basic cards" do
-    Card.create type: "Basic", name: "basic w refs", content: "{{_+A}}"
+    create_basic "basic w refs", "{{_+A}}"
     Card["A"].update! name: "AAA", update_referers: true
     expect(Card["basic w refs"].content).to eq "{{_+AAA}}"
   end
 
   it "handles contextual names in Search cards" do
-    Card.create type: "Search", name: "search w refs", content: '{"name":"_+A"}'
+    create_search_type "search w refs", '{"name":"_+A"}'
     Card["A"].update! name: "AAA", update_referers: true
     expect(Card["search w refs"].content).to eq '{"name":"_+AAA"}'
   end
 
   it "handles commented nest" do
-    c = Card.create name: "nest comment test", content: "{{## hi mom }}"
+    c = create "nest comment test", "{{## hi mom }}"
     expect(c.errors.any?).to be_falsey
   end
 

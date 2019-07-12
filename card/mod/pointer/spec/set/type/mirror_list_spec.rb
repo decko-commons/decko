@@ -1,27 +1,19 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Type::ListedBy do
+RSpec.describe Card::Set::Type::MirrorList do
   let(:listed_by) { Card.fetch("Darles Chickens+books").item_names.sort }
 
   before do
     Card::Auth.as_bot do
-      Card.create!(
-        name: "Parry Hotter+authors",
-        content: "[[Darles Chickens]]",
-        type: "list"
-      )
-      Card.create!(
-        name: "50 grades of shy+authors",
-        content: "[[Darles Chickens]]\n[[Stam Broker]]",
-        type: "list"
-      )
+      #create_mirrored_list "Parry Hotter+authors", "[[Darles Chickens]]"
+      Card.create! name: "Parry Hotter+authors", content: "[[Darles Chickens]]", type_id: Card::MirroredListID
+      Card.create! name: "50 grades of shy+authors", content: "[[Darles Chickens]]\n[[Stam Broker]]", type_id: Card::MirroredListID
+      #create_mirrored_list "50 grades of shy+authors", "[[Darles Chickens]]\n[[Stam Broker]]"
     end
   end
   it "doesn't allow non-cardtype as right part" do
     expect do
-      Card["Parry Hotter+authors"].update!(
-        name: "Parry Hotter+hidden"
-      )
+      Card["Parry Hotter+authors"].update!(name: "Parry Hotter+hidden")
     end.to raise_error(ActiveRecord::RecordInvalid,
                        /Name must have a cardtype name as right part/)
   end
@@ -62,7 +54,7 @@ RSpec.describe Card::Set::Type::ListedBy do
               name: "Adventures of Buckleharry Finn",
               type: "book",
               subcards: {
-                "+authors" => { content: "[[Darles Chickens]]", type: "list" }
+                "+authors" => { content: "[[Darles Chickens]]", type: "mirrored list" }
               }
             )
           end
@@ -81,7 +73,7 @@ RSpec.describe Card::Set::Type::ListedBy do
               name: "Adventures of Buckleharry Finn",
               type: "book",
               subcards: {
-                "+authors" => { content: "[[Stam Broker]]", type: "list" }
+                "+authors" => { content: "[[Stam Broker]]", type: "mirrored list" }
               }
             )
             Card.fetch("Adventures of Buckleharry Finn+authors")

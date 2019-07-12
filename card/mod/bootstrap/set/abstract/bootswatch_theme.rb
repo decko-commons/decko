@@ -20,7 +20,7 @@
 # is taken from files.
 # The bootswatch theme content is taken directly from the files in the bootswatch
 # submodule. For the rest we use code file cards.
-# Cards of type "customized skin" have the same structure but make the variables
+# Cards of type "customized bootswatch skin" have the same structure but make the variables
 # and stylesheets part editable.
 #
 # Bootswatch theme cards are machine cards for the following reason.

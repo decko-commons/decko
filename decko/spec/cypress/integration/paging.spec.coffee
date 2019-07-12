@@ -1,7 +1,7 @@
 describe 'paging', () ->
   before ->
     cy.login()
-    cy.ensure "basic card search", content: '{"type":"Basic"}', type: "search"
+    cy.ensure "basic card search", content: '{"type":"RichText"}', type: "search"
 
   it "keeps item structure when jumping to pages", ->
     cy.ensure "basic item structure", "{{_|name}}"

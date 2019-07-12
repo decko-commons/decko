@@ -59,7 +59,7 @@ RSpec.describe Card::Set::Type::SearchType do
         search_card = Card.create type: "Search", name: "Asearch",
                                   content: %({"id":"1"})
         rss = search_card.format(:rss).render_feed
-        expect(rss).to have_tag("title", text: "Wagn Bot")
+        expect(rss).to have_tag("title", text: "Decko Bot")
       end
     end
   end

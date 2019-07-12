@@ -216,8 +216,7 @@ class Card
       when :type_id
         value&.to_i
       when :cardtype
-        type_card = value && Card.quick_fetch(value.to_i)
-        type_card&.name&.capitalize
+        Card.fetch_name(value&.to_i)
       else value
       end
     end

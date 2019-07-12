@@ -113,11 +113,11 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
             .to include("JoeLater", "JoeNow")
         end
 
-        it "finds card edited by Wagn Bot" do
+        it "finds card edited by Decko Bot" do
           # this is a weak test, since it gives the name, but different sorting
           # mechanisms in other db setups
           # was having it return *account in some cases and 'A' in others
-          expect(run_query(edited_by: "Wagn Bot", name: "A")).to eq(%w(A))
+          expect(run_query(edited_by: "Decko Bot", name: "A")).to eq(%w(A))
         end
 
         it "fails gracefully if user isn't there" do
@@ -165,7 +165,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "does not give duplicate results for multiple updates" do
-          expect(run_query(updater_of: "First")).to eq(["Wagn Bot"])
+          expect(run_query(updater_of: "First")).to eq(["Decko Bot"])
         end
 
         it "does not give results if not updated" do
@@ -178,7 +178,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "'or' doesn't mess up updater_of SQL" do
-          expect(run_query(or: { updater_of: "First" })).to eq(["Wagn Bot"])
+          expect(run_query(or: { updater_of: "First" })).to eq(["Decko Bot"])
         end
       end
     end

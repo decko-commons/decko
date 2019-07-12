@@ -422,13 +422,6 @@ en:
             configure_card: Configure %{cardname}
             error_cant_alter: can't alter this type; %{name} cards still exist
             error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
-          list:
-            type_right: must have a cardtype name as right part
-            conflict_item_type: name conflicts with list items' type; delete content first
-            only_type_allowed: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
-          listed_by:
-            cardtype_right: must have a cardtype name as right part
-            only_type: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
           number:
             not_numeric: "'%{content}' is not numeric"
           search_type:
@@ -561,7 +554,16 @@ en:
             howto_turn_off: 'How to turn captcha off:'
             howto_go: Go to %{captcha_card}
             howto_update: Update all *captcha rules to "no".
-
+    :pointer:
+      set:
+        type:
+          mirrored_list:
+            cardtype_right: must have a cardtype name as right part
+            conflict_item_type: name conflicts with list items' type; delete content first
+            only_type_allowed: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
+          mirror_list:
+            cardtype_right: must have a cardtype name as right part
+            only_type: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
     :edit:
       set:
         all:

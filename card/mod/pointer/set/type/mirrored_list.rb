@@ -1,7 +1,7 @@
-include_set Pointer
+include_set Abstract::Pointer
 
 event :validate_list_name, :validate, on: :save, changed: :name do
-  errors.add :name, tr(:type_right) if !junction? || !right || right.type_id != CardtypeID
+  errors.add :name, tr(:cardtype_right) if !junction? || !right || right.type_id != CardtypeID
 end
 
 event :validate_list_item_type_change, :validate,
@@ -30,7 +30,7 @@ event :create_listed_by_cards, :prepare_to_validate,
     listed_by_name = "#{item_name}+#{left.type_name}"
     next if director.main_director.card.key == listed_by_name.to_name.key
     if !Card[listed_by_name]
-      add_subcard listed_by_name, type_id: ListedByID
+      add_subcard listed_by_name, type_id: MirrorListID
     else
       Card[listed_by_name].update_references_out
     end
@@ -85,12 +85,12 @@ def update_listed_by_cache_for item_keys, args={}
 
   item_keys.each do |item_key|
     key = "#{item_key}+#{type_key}"
-    next unless Card::Cache[Card::Set::Type::ListedBy].exist? key
+    next unless Card::Cache[Card::Set::Type::MirrorList].exist? key
     if (card = Card.fetch(key)) && card.left
       card.update_cached_list
       card.update_references_out
     else
-      Card::Cache[Card::Set::Type::ListedBy].delete key
+      Card::Cache[Card::Set::Type::MirrorList].delete key
     end
   end
 end

@@ -4,7 +4,7 @@
 # I think we should move the rendering tests into basic and trim this to about
 # a quarter of its current length
 
-describe Card do
+RSpec.describe Card do
   RSpec::Matchers.define :have_toc do
     match do |card|
       values_match?(/Table of Contents/, card.format.render_open_content)
@@ -19,7 +19,7 @@ describe Card do
   context "when there is a general toc rule of 2" do
     before do
       Card::Auth.as_bot do
-        described_class.create! name: "Basic+*type+*table of contents", content: "2"
+        create [:basic, :type, :table_of_contents], "2"
       end
     end
 
@@ -58,18 +58,18 @@ describe Card do
       end
       # it "shows type plus right sets when they exist" do
       #   Card::Auth.as_bot do
-      #     Card.create name: 'Basic+A+*type plus right', content: ''
+      #     Card.create name: 'RichText+A+*type plus right', content: ''
       #   end
       #   sets = Card['A'].related_sets
-      #   sets.should == ['A+*self', 'A+*right', 'Basic+A+*type plus right']
+      #   sets.should == ['A+*self', 'A+*right', 'RichText+A+*type plus right']
       # end
       # it "shows type plus right sets when they exist, and type" do
       #   Card::Auth.as_bot do
-      #     Card.create name: 'Basic+Cardtype A+*type plus right', content: ''
+      #     Card.create name: 'RichText+Cardtype A+*type plus right', content: ''
       #   end
       #   sets = Card['Cardtype A'].related_sets
       #   sets.should == ['Cardtype A+*self', 'Cardtype A+*type',
-      #     'Cardtype A+*right', 'Basic+Cardtype A+*type plus right']
+      #     'Cardtype A+*right', 'RichText+Cardtype A+*type plus right']
       # end
       it "is empty for a non-simple card" do
         sets = described_class["A+B"].related_sets.map { |s| s[0] }
@@ -170,7 +170,7 @@ describe Card do
   context "when I create a new rule" do
     before do
       Card::Auth.as_bot do
-        described_class.create! name: "Basic+*type+*table of contents", content: "2"
+        described_class.create! name: "RichText+*type+*table of contents", content: "2"
         @c1 = described_class.create! name: "toc1", type: "CardtypeE",
                                       content: described_class["Onne Heading"].content
         @c2 = described_class.create! name: "toc2", content: described_class["Twwo Heading"].content

@@ -1,18 +1,18 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::Cardtype do
+RSpec.describe Card::Set::Type::Cardtype do
   describe "view: add_button" do
     it "creates link with correct path" do
-      expect(render_content("{{Basic|add_button}}"))
-        .to have_tag('a[href="/new/Basic"]', text: "Add Basic")
+      expect(render_content("{{RichText|add_button}}"))
+        .to have_tag('a[href="/new/RichText"]', text: "Add RichText")
     end
     it "handles title argument" do
-      expect(render_content("{{Basic|add_button;title: custom link text}}"))
-        .to have_tag('a[href="/new/Basic"]', text: "custom link text")
+      expect(render_content("{{RichText|add_button;title: custom link text}}"))
+        .to have_tag('a[href="/new/RichText"]', text: "custom link text")
     end
     it "handles params" do
-      expect(render_content("{{Basic|add_button;params:_project=_self}}"))
-        .to have_tag('a[href="/new/Basic?_project=Tempo+Rary+2"]')
+      expect(render_content("{{RichText|add_button;params:_project=_self}}"))
+        .to have_tag('a[href="/new/RichText?_project=Tempo+Rary+2"]')
     end
   end
 
@@ -55,7 +55,7 @@ describe Card::Set::Type::Cardtype do
     end
 
     it "its create permissions should be based on Basic" do
-      expect(ct.who_can(:create)).to eq(Card["Basic"].who_can(:create))
+      expect(ct.who_can(:create)).to eq(Card[:basic].who_can(:create))
     end
   end
 end
