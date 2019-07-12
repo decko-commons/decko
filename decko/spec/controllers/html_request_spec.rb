@@ -63,7 +63,7 @@ Decko::RestSpecHelper.describe_api do
 
   describe "#read" do
     it "works for basic request" do
-      get :read, params: { mark: "Sample_Basic" }
+      get :read, params: { mark: "Sample_RichText" }
       expect(response.body).to match(/\<body[^>]*\>/im)
       # have_selector broke in commit 8d3bf2380eb8197410e962304c5e640fced684b9,
       # presumably because of a gem (like capybara?)
