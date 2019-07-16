@@ -151,7 +151,7 @@ RSpec.describe Card::Subcards do
   describe "handle_subcard_errors" do
     it "deals with renaming, even when children have content changing" do
       Card.create! name: "A+alias", content: "[[A]]"
-      expect { Card["A"].update! name: "AABAA", update_referers: true }.to raise_error
+      expect { Card["A"].update! name: "AABAA", update_referers: true }.not_to raise_error
     end
   end
 end
