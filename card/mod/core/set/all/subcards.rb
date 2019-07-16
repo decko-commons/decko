@@ -80,6 +80,7 @@ end
 
 event :handle_subcard_errors do
   subcards.each do |subcard|
+
     subcard.errors.each do |field, err|
       subcard_error subcard, field, err
     end
