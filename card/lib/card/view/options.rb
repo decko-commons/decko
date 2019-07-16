@@ -79,6 +79,8 @@ class Card
 
           @keymap[type] << name
           reset_key_lists
+          VooApi.define_getter name
+          VooApi.define_setter name
         end
       end
 
