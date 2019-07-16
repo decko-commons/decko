@@ -166,7 +166,7 @@ event :update_referer_content, :finalize,
       on: :update, after: :name_change_finalized, when: :update_referers do
   referers.each do |card|
     next if card.structure
-    card.skip_event_in_action = %i[validate_renaming check_permissions!]
+    card.skip_in_action = %i[validate_renaming check_permissions!]
     attach_subcard card.name,
                    content: card.replace_reference_syntax(name_before_last_save, name)
   end
