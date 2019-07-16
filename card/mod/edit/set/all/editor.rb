@@ -20,7 +20,7 @@ format :html do
     nest editor_card, view: :core
   end
 
-  view :editor do
+  view :editor, unknown: true do
     try(editor_method(editor)) ||
       editor_defined_by_card ||
       send(editor_method(default_editor))
