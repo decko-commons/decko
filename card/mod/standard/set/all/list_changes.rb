@@ -14,7 +14,7 @@ def linker_lists
 end
 
 def codename_list_exist?
-  Card::Codename.exists? :mirrored_list
+  Card::Codename.exists?(:mirrored_list) && Card::Codename.exists?(:mirror_list)
 end
 
 event :trunk_cardtype_of_a_list_relation_changed, :finalize,
@@ -30,7 +30,7 @@ event :trunk_cardtype_of_a_list_relation_changed, :finalize,
 end
 
 event :trunk_name_of_a_list_relation_changed, :finalize,
-      changed: :name,  on: :update,
+      changed: :name, on: :update,
       when: :codename_list_exist? do
   list_fields.each do |card|
     card.update_listed_by_cache_for card.item_keys

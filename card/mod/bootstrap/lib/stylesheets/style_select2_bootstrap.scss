@@ -468,7 +468,7 @@ $s2bs-form-control-transition: $input-transition !default;
     .select2-selection__arrow {
       position: absolute;
       bottom: 0;
-      right: $s2bs-padding-base-horizontal;
+      right: $s2bs-padding-base-horizontal / 2;
       top: 0;
       width: $s2bs-caret-width-base;
 
