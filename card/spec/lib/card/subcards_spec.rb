@@ -163,7 +163,7 @@ RSpec.describe Card::Subcards do
         end
 
         expect { Card["T"].update! name: "Tea", update_referers: true }
-          .to raise_error(ActiveRecord::Rollback)
+          .to raise_error(Card::Error::ServerError)
       end
     end
   end
