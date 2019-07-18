@@ -6,7 +6,8 @@ class Card
           run_single_stage :initialize
           run_single_stage :prepare_to_validate
           run_single_stage :validate
-          @card.expire_pieces if @card.errors.any?
+        ensure
+          # @card.expire_pieces if @card.errors.any?
           @card.errors.empty?
         end
 
@@ -14,13 +15,14 @@ class Card
           catch_up_to_stage :prepare_to_store
           run_single_stage :store, &block
           run_single_stage :finalize
-          if @card.errors.any?
-            @card.expire_pieces
-            raise ActiveRecord::Rollback,
-                  "errors added in storage phase: #{@card.errors.full_messages * ','}"
-          end
+          @card.abort :failure if @card.errors.any?
+            # @card.expire_pieces
+          #  raise ActiveRecord::Rollback,
+          #        "errors added in storage phase: #{@card.errors.full_messages * ','}"
+          #end
         ensure
           @from_trash = nil
+          @card.errors.empty?
         end
 
         def integration_phase

@@ -76,9 +76,9 @@ class Card
   #    everything will rollback. If the integration phase fails the db changes
   #    of the other two phases will remain persistent.
   class ActManager
-    cattr_accessor :act, :act_card
-
     class << self
+      attr_accessor :act, :act_card
+
       def act_director
         return unless act_card
 
@@ -107,7 +107,17 @@ class Card
         directors.each_pair do |card, _dir|
           card.director = nil
         end
+        expire
         @directors = nil
+      end
+
+      def expire
+        expirees.each { |expiree| Card.expire expiree }
+        @expirees = []
+      end
+
+      def expirees
+        @expirees ||= []
       end
 
       # FIXME: use "parent" instead of opts (it's the only option)
@@ -166,7 +176,7 @@ class Card
       end
 
       def running_act?
-        (dir = act_director) && dir.running?
+        act_director&.running?
       end
 
       # If active jobs (and hence the integrate_with_delay events) don't run

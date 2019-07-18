@@ -153,5 +153,18 @@ RSpec.describe Card::Subcards do
       Card.create! name: "A+alias", content: "[[A]]"
       expect { Card["A"].update! name: "AABAA", update_referers: true }.not_to raise_error
     end
+
+    it "handles errors on rename" do
+      with_test_events do
+        test_event :finalize, on: :update do
+          if name == "X" # X refers to T
+            errors.add :content, "referrer error!"
+          end
+        end
+
+        expect { Card["T"].update! name: "Tea", update_referers: true }
+          .to raise_error(ActiveRecord::Rollback)
+      end
+    end
   end
 end
