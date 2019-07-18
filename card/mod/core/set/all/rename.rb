@@ -32,7 +32,7 @@ event :cascade_name_changes, :finalize, on: :update, changed: :name,
 
     # superleft has to be the first argument. Otherwise the call of `name=` in
     # `assign_attributes` can cause problems because `left` doesn't find the new left.
-    attach_subcard newname, superleft: self, name: newname,
-                            update_referers: update_referers
+    attach_subcard child.name, superleft: self, name: newname,
+                               update_referers: update_referers
   end
 end
