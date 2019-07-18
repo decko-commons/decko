@@ -47,6 +47,8 @@ format :html do
   end
 
   def checkbox_input
+    return "" if no_special_roles?
+
     card.ensure_roles
     wrap_with :div, class: "pointer-checkbox-list" do
       roles_dropdown roles_list
@@ -59,5 +61,10 @@ format :html do
                            checked: card.item_names.include?(option_name),
                            option_name: option_name
     end
+  end
+
+  def no_special_roles?
+    Auth.current_roles.size? == 1 &&
+      Auth.current_roles.first == Card.fetch_name(:anyone_signed_in)
   end
 end
