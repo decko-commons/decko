@@ -8,8 +8,5 @@ end
 
 event :expire_related, :finalize do
   ActManager.expirees << key
-  # reset_patterns
-  if is_structure?
-    structuree_names.each { |name| ActManager.expirees << name }
-  end
+  structuree_names.each { |name| ActManager.expirees << name } if is_structure?
 end
