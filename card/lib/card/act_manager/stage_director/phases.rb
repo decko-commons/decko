@@ -23,7 +23,7 @@ class Card
           end
         ensure
           @from_trash = nil
-          @card.errors.empty
+          @card.errors.empty?
         end
 
         def integration_phase
