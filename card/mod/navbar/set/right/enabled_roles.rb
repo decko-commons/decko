@@ -1,4 +1,4 @@
-include_set Abstract::RolesDropdown
+include_set Abstract::AccountDropdown
 
 def ok_to_read
   true
@@ -47,24 +47,15 @@ format :html do
   end
 
   def checkbox_input
-    return "" if no_special_roles?
-
     card.ensure_roles
     wrap_with :div, class: "pointer-checkbox-list" do
-      roles_dropdown roles_list
+      account_dropdown &method(:role_item_checkbox)
     end
   end
 
-  def roles_list
-    Auth.current_roles.map do |option_name|
-      haml :role_checkbox, id: "pointer-checkbox-#{option_name.to_name.key}",
-                           checked: card.item_names.include?(option_name),
-                           option_name: option_name
-    end
-  end
-
-  def no_special_roles?
-    Auth.current_roles.size? == 1 &&
-      Auth.current_roles.first == Card.fetch_name(:anyone_signed_in)
+  def role_item_checkbox role_name
+    haml :role_checkbox, id: "pointer-checkbox-#{role_name.to_name.key}",
+                           checked: card.item_names.include?(role_name),
+                           option_name: role_name
   end
 end

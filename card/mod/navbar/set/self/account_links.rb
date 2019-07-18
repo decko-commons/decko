@@ -1,4 +1,4 @@
-include_set Abstract::RolesDropdown
+include_set Abstract::AccountDropdown
 
 def ok_to_read
   true
@@ -63,7 +63,7 @@ format :html do
   end
 
   def simple_roles_dropdown
-    roles_dropdown Auth.current_roles.map(&method(:link_to_card))
+    account_dropdown(&method(:link_to_card))
   end
 
   def enabled_roles_card

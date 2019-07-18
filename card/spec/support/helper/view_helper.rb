@@ -37,7 +37,8 @@ class Card
         card =
           if card_args.is_a?(Card)
             card_args
-          elsif card_args.is_a?(Symbol) || card_args.is_a?(String)
+          elsif card_args.is_a?(Symbol) || card_args.is_a?(String) ||
+                card_args.is_a?(Array)
             Card.fetch card_args
           elsif card_args[:name]
             fetch_with_attributes card_args.delete(:name), card_args
