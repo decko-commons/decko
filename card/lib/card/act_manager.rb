@@ -107,6 +107,7 @@ class Card
         self.act_card = nil
         self.act = nil
         directors.each_pair do |card, _dir|
+          card.expire
           card.director = nil
         end
         expire
