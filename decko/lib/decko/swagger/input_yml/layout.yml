@@ -87,8 +87,6 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/200'
-        404:
-          $ref: '#/components/responses/404'
 
 externalDocs:
   description: Find out more about Decko
