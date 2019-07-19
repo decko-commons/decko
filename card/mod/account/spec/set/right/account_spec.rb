@@ -149,7 +149,6 @@ RSpec.describe Card::Set::Right::Account do
       trigger_reset
       expect(Card::Auth.current_id).to eq(@account.left_id)
       @account = @account.refresh true
-      # expect(@account.fetch(trait: :token)).to be_nil
     end
 
     it "does not work if token is expired" do
@@ -169,7 +168,7 @@ RSpec.describe Card::Set::Right::Account do
     it "does not work if token is wrong" do
       Card::Env.params[:token] = @token + "xxx"
       trigger_reset
-      expect(@account.errors[:incorrect_token].first).to match(/mismatch/)
+      expect(Card::Env.success[:message]).to match(/mismatch/)
     end
   end
 end
