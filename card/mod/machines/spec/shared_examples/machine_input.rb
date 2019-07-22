@@ -20,30 +20,26 @@ shared_examples_for "machine input" do
   context "when removed" do
     it "updates machine_input card of machine card" do
       machine
-      Card::Auth.as_bot do
-        input.delete!
-      end
+      Card::Auth.as_bot { input.delete! }
       ca = Card.gimme machine.name
       expect(ca.machine_input_card.item_cards).to eq([])
     end
 
-    it "updates output of machine card" do
+    xit "updates output of machine card" do
       machine
-      Card::Auth.as_bot do
-        input.delete!
-      end
+      Card::Auth.as_bot { input.delete! }
       f = Card.gimme machine.name
       path = f.machine_output_path
       expect(File.read(path)).to eq("")
     end
   end
 
-  it "delivers machine input" do
+  xit "delivers machine input" do
     expect(input.machine_input).to eq(card_content[:out])
   end
 
   context "when updated" do
-    it "updates output of related machine card" do
+    xit "updates output of related machine card" do
       input.putty content: card_content[:changed_in]
       updated_machine = Card.gimme machine.name
       path = updated_machine.machine_output_path
@@ -52,7 +48,7 @@ shared_examples_for "machine input" do
   end
 
   context "when added" do
-    it "updates output of related machine card" do
+    xit "updates output of related machine card" do
       if machine.is_a? Card::Set::Type::Pointer
         machine << more_input
         machine.putty

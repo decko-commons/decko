@@ -12,20 +12,18 @@ RSpec.describe Card::ActManager::StageDirector do
 
     context "when error added" do
       it "stops act in validation phase" do
-        in_stage :validate,
-                 on: :save,
-                 trigger: -> { create_card } do
+        in_stage :validate, on: :save, trigger: -> { create_card } do
           errors.add :stop, "don't do this"
         end
         is_expected.to be_falsey
       end
 
       it "stops act in storage phase" do
-        in_stage :store, on: :save,
-                         trigger: -> { create_card } do
-          errors.add :stop, "don't do this"
-        end
-        is_expected.to be_falsey
+        expect do
+          in_stage :store, on: :save, trigger: -> { create_card } do
+            errors.add :stop, "don't do this"
+          end
+        end.to raise_error(Card::Error::ServerError)
       end
     end
 
