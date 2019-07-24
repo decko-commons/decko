@@ -50,8 +50,8 @@ end
 
 # STAGE: store
 
-event :set_name, :store, changed: :name do
-  expire
+event :expire_old_name, :store, changed: :name, on: :update do
+  ActManager.expirees << name_before_act
 end
 
 event :set_left_and_right, :store,

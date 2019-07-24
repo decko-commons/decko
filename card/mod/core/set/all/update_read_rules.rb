@@ -7,5 +7,6 @@ event :update_rule_cache, :finalize, when: :is_rule? do
 end
 
 event :expire_related, :finalize do
+  reset_patterns
   structuree_names.each { |name| ActManager.expirees << name } if is_structure?
 end

@@ -1,4 +1,4 @@
-event :rename_in_trash, after: :set_name, on: :update do
+event :rename_in_trash, after: :expire_old_name, on: :update do
   existing_card = Card.find_by_key_and_trash name.key, true
   return if !existing_card || existing_card == self
   existing_card.name = existing_card.name + "*trash"

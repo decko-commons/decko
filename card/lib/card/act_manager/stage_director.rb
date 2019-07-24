@@ -10,8 +10,8 @@ class Card
 
   def clean_after_stage_fail
     @action = nil
-    expire_pieces
-    subcards.each(&:expire_pieces)
+    # expire_pieces
+    # subcards.each(&:expire_pieces)
   end
 
   class ActManager

@@ -154,16 +154,32 @@ RSpec.describe Card::Subcards do
       expect { Card["A"].update! name: "AABAA", update_referers: true }.not_to raise_error
     end
 
-    it "handles errors on rename" do
+    let(:referee) { Card["T"] }
+
+    def with_subcard_validation_error_in_rename
       with_test_events do
         test_event :finalize, on: :update do
-          if name == "X" # X refers to T
-            errors.add :content, "referrer error!"
-          end
+          errors.add :content, "referer error!" if name == "X" # X refers to T
         end
 
-        expect { Card["T"].update! name: "Tea", update_referers: true }
-          .to raise_error(Card::Error::ServerError)
+        yield
+      end
+    end
+
+    it "works on rename (update)" do
+      with_subcard_validation_error_in_rename do
+        t = referee
+        expect(t.update name: "Tea", update_referers: true).to eq(false)
+        expect(t.errors[:X].first).to match(/referer error/)
+      end
+    end
+
+    it "works on rename (update!)" do
+      with_subcard_validation_error_in_rename do
+        t = referee
+        expect{ t.update! name: "Tea", update_referers: true }
+          .to raise_error(ActiveRecord::RecordInvalid)
+        expect(t.errors[:X].first).to match(/referer error/)
       end
     end
   end

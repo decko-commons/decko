@@ -38,8 +38,8 @@ shared_examples_for "machine input" do
     expect(input.machine_input).to eq(card_content[:out])
   end
 
-  context "when updated" do
-    xit "updates output of related machine card" do
+  xcontext "when updated" do
+    it "updates output of related machine card" do
       input.putty content: card_content[:changed_in]
       updated_machine = Card.gimme machine.name
       path = updated_machine.machine_output_path
@@ -47,8 +47,8 @@ shared_examples_for "machine input" do
     end
   end
 
-  context "when added" do
-    xit "updates output of related machine card" do
+  xcontext "when added" do
+    it "updates output of related machine card" do
       if machine.is_a? Card::Set::Type::Pointer
         machine << more_input
         machine.putty
