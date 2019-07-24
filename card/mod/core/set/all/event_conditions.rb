@@ -113,7 +113,8 @@ def force_skip_event? event
 end
 
 def forced_skip_events
-  @forced_skip_events ||= ::Set.new(skip_events.find_all { |e| e.last == "!" })
+  @forced_skip_events ||=
+    ::Set.new(skip_events.map { |e| e.last == "!" ? e.chomp("!") : nil }.compact)
 end
 
 def skip_events

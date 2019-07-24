@@ -168,18 +168,16 @@ RSpec.describe Card::Subcards do
 
     it "works on rename (update)" do
       with_subcard_validation_error_in_rename do
-        t = referee
-        expect(t.update name: "Tea", update_referers: true).to eq(false)
-        expect(t.errors[:X].first).to match(/referer error/)
+        expect(referee.update name: "Tea", update_referers: true).to eq(false)
+        expect(referee.errors[:X].first).to match(/referer error/)
       end
     end
 
     it "works on rename (update!)" do
       with_subcard_validation_error_in_rename do
-        t = referee
-        expect{ t.update! name: "Tea", update_referers: true }
+        expect{ referee.update! name: "Tea", update_referers: true }
           .to raise_error(ActiveRecord::RecordInvalid)
-        expect(t.errors[:X].first).to match(/referer error/)
+        expect(referee.errors[:X].first).to match(/referer error/)
       end
     end
   end
