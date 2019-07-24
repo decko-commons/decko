@@ -45,7 +45,7 @@ $(window).ready ->
   $('body').on 'click', 'button.redirecter', ->
     window.location = $(this).attr('href')
 
-  $('body').on 'change', '.live-type-field', ->
+  $('body').on  "select2:select", '.live-type-field', ->
     $(this).data 'params', $(this).closest('form').serialize()
     $(this).data 'url', $(this).attr 'href'
 

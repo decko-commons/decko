@@ -87,10 +87,14 @@ $(window).ready ->
   $('body').on 'click', '._close-modal-on-success', (event) ->
     $(this).closeOnSuccess("modal")
 
+  $('body').on 'click', '._close-on-success', (event) ->
+    $(this).closeOnSuccess()
+
   $('body').on 'click', '._update-origin', (event) ->
     $(this).closest('.slotter').data("slotter-mode", "update-origin")
 
   $('body').on 'submit', 'form.slotter', (event)->
+    debugger
     if (target = $(this).attr 'main-success') and $(this).isMain()
       input = $(this).find '[name=success]'
       if input and input.val() and !(input.val().match /^REDIRECT/)
@@ -185,6 +189,8 @@ jQuery.fn.extend
   # close modal or overlay
   closeOnSuccess: (type) ->
     slotter = @closest('.slotter')
+    if !type?
+      type = if @isInOverlay() then "overlay" else "modal"
     slotter.addClass "_close-#{type}"
 
   slotterBeforeSend: (opt) ->

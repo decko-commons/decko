@@ -42,7 +42,7 @@ format :html do
   end
 
   def overlay_save_and_close_button
-    submit_button text: "Save and Close", class: "_close-overlay-on-success",
+    submit_button text: "Save and Close", class: "_close-on-success",
                   "data-cy": "submit-overlay"
   end
 

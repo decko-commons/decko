@@ -995,6 +995,11 @@ $bridge-line-color: $border-color;
   padding-left: 0;
   padding-right: 0;
   min-height: calc(100vh - 90px);
+
+  .guide-text {
+    padding: 15px;
+    background-color: $body-bg;
+  }
 }
 
 .bg-body {

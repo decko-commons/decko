@@ -149,7 +149,7 @@ format :html do
     success = @edit_rule_success
     wrap_type_formgroup do
       type_field(
-        href: path(mark: success[:id], view: success[:view], type_reload: true),
+        href: path(mark: success[:id], view: :rule_form, type_reload: true), # view: success[:view]
         class: "type-field rule-type-field live-type-field",
         "data-remote" => true
       )

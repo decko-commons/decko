@@ -3,6 +3,46 @@ format :html do
     new_view_frame_and_form new_form_opts
   end
 
+  view :new_content_form, wrap: :slot, unknown: true, cache: :never do
+    with_nest_mode :edit do
+      create_form
+    end
+  end
+
+  view :new_in_modal, perms: :create, unknown: true, cache: :never,
+       wrap: { modal: { footer: "", size: :edit_modal_size,
+                        title: :render_title,
+                        menu: :new_modal_menu } } do
+    _render_new_content_form
+  end
+
+  def create_form
+    buttons = new_form_opts.delete(:buttons) || _render_new_buttons
+    form_opts = new_form_opts.reverse_merge(success: new_success)
+
+    voo.title ||= new_view_title if new_name_prompt?
+    voo.show :help
+    card_form(:create, form_opts) do
+      [
+        new_view_hidden,
+        new_view_name,
+        new_view_type,
+        _render_content_formgroup,
+        buttons
+      ]
+    end
+  end
+
+  def new_modal_size
+    :large
+  end
+
+  def new_modal_menu
+    wrap_with_modal_menu do
+      [close_modal_window, render_bridge_link]
+    end
+  end
+
   def new_view_frame_and_form form_opts
     buttons = form_opts.delete(:buttons) || _render_new_buttons
     form_opts = form_opts.reverse_merge(success: new_success)
@@ -11,16 +51,25 @@ format :html do
       voo.title ||= new_view_title if new_name_prompt?
       voo.show :help
       frame_and_form :create, form_opts do
-        [
-          new_view_hidden,
-          new_view_name,
-          new_view_type,
-          _render_content_formgroup,
-          buttons
-        ]
+        bs_layout do
+          row xs: [8, 4] do
+            column do
+              output [
+                new_view_hidden,
+                new_view_name,
+                new_view_type,
+                _render_content_formgroup,
+                buttons
+              ]
+            end
+            column alert_guide
+          end
+        end
       end
     end
   end
+
+
 
   def new_view_hidden; end
 

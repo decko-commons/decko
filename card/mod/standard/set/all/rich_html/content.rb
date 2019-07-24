@@ -2,12 +2,6 @@ def show_comment_box_in_related?
   false
 end
 
-def help_rule_card
-  setting = new_card? ? [:add_help, { fallback: :help }] : :help
-  help_card = rule_card(*setting)
-  help_card if help_card&.ok?(:read)
-end
-
 format :html do
   def prepare_content_slot
     class_up "card-slot", "d0-card-content"

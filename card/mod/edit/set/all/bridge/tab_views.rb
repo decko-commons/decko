@@ -34,6 +34,10 @@ format :html do
     follow_section
   end
 
+  view :guide_tab, unknown: true do
+    render_guide
+  end
+
   def discussion_section
     return unless show_discussion?
 

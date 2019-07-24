@@ -1,2 +1,0 @@
-<h3>Your contributions</h3>
-<p>{{_user+*created|bar; title: created cards}} {{_user+*edited|bar; title: edited cards}}</p>
