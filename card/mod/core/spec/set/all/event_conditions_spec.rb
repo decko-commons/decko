@@ -167,8 +167,13 @@ RSpec.describe Card::Set::All::EventConditions do
           event_args[:for] = for_name if for_name
           test_event(:validate, event_args) { add_to_log "#{name} executed" }
 
-          skip_value = :"test_event_0#{ force ? '!' : ''}"
-          Card["A"].update! changes.merge(skip_key => skip_value) # update with skip
+          skip_card = Card["A"]
+          if force
+            skip_card.skip_event! :test_event_0
+            skip_card.update! changes
+          else
+            skip_card.update! changes.merge(skip_key => :test_event_0)
+          end                                                     # update with skip
           aggregate_failures do
             expect(@log).to eq(log1)                              # logging with skip
             Card["A"].update! changes                             # update without skip

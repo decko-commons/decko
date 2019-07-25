@@ -19,11 +19,10 @@ RSpec.describe Card::ActManager::StageDirector do
       end
 
       it "stops act in storage phase" do
-        expect do
-          in_stage :store, on: :save, trigger: -> { create_card } do
-            errors.add :stop, "don't do this"
-          end
-        end.to raise_error(Card::Error::ServerError)
+        in_stage :store, on: :save, trigger: -> { create_card } do
+          errors.add :stop, "don't do this"
+        end
+        is_expected.to be_falsey
       end
     end
 

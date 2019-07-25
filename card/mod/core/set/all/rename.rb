@@ -28,7 +28,8 @@ event :cascade_name_changes, :finalize, on: :update, changed: :name,
     newname = child.name.swap name_before_last_save, name
     # not sure if this is still needed since we attach the children as subcards
     # (it used to be resolved right here without adding subcards)
-    Card.expire child.name
+    ActManager.expirees << child.name
+    child.skip! :check_permissions
 
     # superleft has to be the first argument. Otherwise the call of `name=` in
     # `assign_attributes` can cause problems because `left` doesn't find the new left.
