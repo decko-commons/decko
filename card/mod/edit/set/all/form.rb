@@ -16,12 +16,6 @@ format :html do
     edit_slot
   end
 
-  def wrap_type_formgroup
-    formgroup "type", editor: "type", class: "type-formgroup", help: false do
-      output [yield, hidden_field_tag(:assign, true)]
-    end
-  end
-
   def button_formgroup
     wrap_with :div, class: classy("form-group") do
       wrap_with :div, yield
@@ -88,7 +82,7 @@ format :html do
   def single_card_edit_field
     if voo.show?(:type_formgroup) || voo.show?(:name_formgroup)
       # display content field in formgroup for consistency with other fields
-      formgroup("content", editor: :content, help: false) { content_field }
+      formgroup("Content", editor: :content, help: false) { content_field }
     else
       editor_wrap(:content) { content_field }
     end

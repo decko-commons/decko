@@ -5,13 +5,13 @@ format :html do
     "Organize" => ["Cardtype", "Search", "List", "Link list", "Pointer",
                    "Mirror list", "Mirrored list"],
     "Admin" => ["Layout", "Skin", "User", "Role",
-                "Notification template", "Email template", "Twitter template" ],
-    "Code" => ["HTML", "Json", "CSS", "SCSS", "JavaScript", "CoffeeScript"]
+                "Notification template", "Email template", "Twitter template"],
+    "Code" => %w[HTML Json CSS SCSS JavaScript CoffeeScript]
   }.freeze
 
   # group for each cardtype: { "RichText => "Content", "Layout" => "Admin", ... }
   GROUP_MAP = GROUP.each_with_object({}) do |(cat, types), h|
-                types.each { |t| h[t] = cat }
+    types.each { |t| h[t] = cat }
   end
 
   view :edit_type, cache: :never, perms: :update do
@@ -31,17 +31,20 @@ format :html do
   end
 
   view :edit_type_row do
-    if voo.visible?(:type_form) { false }
-      return _render_bridge_type_formgroup
-    end
+    return _render_bridge_type_formgroup if voo.visible?(:type_form) { false }
+
     edit_row_fixed_width "Type", link_to_card(card.type), :bridge_type_formgroup
   end
 
-  view :bridge_type_formgroup, wrap: :slot do
+  view :bridge_type_formgroup, unknown: true, wrap: :slot do
     type_formgroup href: path(mark: card.id, view: :edit_content_form, type_reload: true, slot: { show: :type_form }),
                    class: "live-type-field slotter",
                    'data-remote': true,
-                   'data-slot-selector': '.card-slot.edit_content_form-view'
+                   'data-slot-selector': ".card-slot.edit_content_form-view"
+  end
+
+  view :type_formgroup do
+    type_formgroup
   end
 
   def type_formgroup args={}
@@ -51,8 +54,10 @@ format :html do
     end
   end
 
-  view :type_formgroup do
-    type_formgroup
+  def wrap_type_formgroup
+    formgroup "Type", editor: "type", class: "type-formgroup", help: false do
+      output [yield, hidden_field_tag(:assign, true)]
+    end
   end
 
   def type_field args={}

@@ -116,7 +116,7 @@ format :html do
   def standard_errors heading=nil
     alert "warning", true do
       [
-        (wrap_with(:h4, heading, class: "alert-heading") if heading),
+        (wrap_with(:h4, heading, class: "alert-heading error") if heading),
         error_messages.join("<hr>")
       ]
     end
@@ -129,7 +129,7 @@ format :html do
   end
 
   def standard_error_message attribute, message
-    "<div><strong>#{h attribute.to_s.upcase}:</strong> #{h message}</div>"
+    "<p><strong>#{h attribute.to_s.upcase}:</strong> #{h message}</p>"
   end
 
   def not_found_errors

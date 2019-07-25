@@ -1248,7 +1248,12 @@ body.right-sidebar, body.left-sidebar, body.two-sidebar {
   padding-bottom: 0;
 }
 
-.alert.guide {
-  margin-left: 20px;
-  width: 40%;
+.alert {
+  &.guide {
+    margin-left: 20px;
+    width: 40%;
+  }
+}
+.alert-heading.error {
+  margin-bottom: 30px;
 }

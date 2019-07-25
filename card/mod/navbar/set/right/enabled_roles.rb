@@ -55,7 +55,7 @@ format :html do
 
   def role_item_checkbox role_name
     haml :role_checkbox, id: "pointer-checkbox-#{role_name.to_name.key}",
-                           checked: card.item_names.include?(role_name),
-                           option_name: role_name
+                         checked: card.item_names.include?(role_name),
+                         option_name: role_name
   end
 end

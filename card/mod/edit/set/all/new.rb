@@ -10,9 +10,9 @@ format :html do
   end
 
   view :new_in_modal, perms: :create, unknown: true, cache: :never,
-       wrap: { modal: { footer: "", size: :edit_modal_size,
-                        title: :render_title,
-                        menu: :new_modal_menu } } do
+                      wrap: { modal: { footer: "", size: :edit_modal_size,
+                                       title: :render_title,
+                                       menu: :new_modal_menu } } do
     _render_new_content_form
   end
 
@@ -54,20 +54,18 @@ format :html do
         wrap_with :div, class: "d-flex justify-content-between" do
           [(wrap_with(:div, class: "w-100") do
             [
-                new_view_hidden,
-                new_view_name,
-                new_view_type,
-                _render_content_formgroup,
-                buttons
-              ]
+              new_view_hidden,
+              new_view_name,
+              new_view_type,
+              _render_content_formgroup,
+              buttons
+            ]
           end),
-          alert_guide]
+           alert_guide]
         end
       end
     end
   end
-
-
 
   def new_view_hidden; end
 

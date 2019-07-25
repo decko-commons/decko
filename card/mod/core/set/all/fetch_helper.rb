@@ -31,7 +31,7 @@ module ClassMethods
                             look_in_trash: args[:look_in_trash],
                             new: card_opts
     card.assign_attributes card_opts if args[:assign] && card&.real?
-    card.include_set_modules
+    card&.include_set_modules
     card
   end
 
