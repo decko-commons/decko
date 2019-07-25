@@ -4,7 +4,7 @@ format :html do
                      ["Field", :field_related_rules],
                      ["Recent", :recent_rules]].freeze
 
-  COMMON_SETTINGS = %i[create read update delete structure default].freeze
+  COMMON_SETTINGS = %i[create read update delete structure default guide].freeze
   FIELD_SETTINGS = %i[default help].freeze
 
   def setting_options

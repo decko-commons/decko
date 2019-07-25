@@ -26,7 +26,7 @@ format :html do
     guide_text = guide
     return "" unless guide_text.present?
 
-    alert(:secondary, true) { guide_text }
+    alert(:secondary, true, false, class: "guide") { guide_text }
   end
 
   def raw_guide_text

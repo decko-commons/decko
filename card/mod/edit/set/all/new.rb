@@ -51,19 +51,17 @@ format :html do
       voo.title ||= new_view_title if new_name_prompt?
       voo.show :help
       frame_and_form :create, form_opts do
-        bs_layout do
-          row xs: [8, 4] do
-            column do
-              output [
+        wrap_with :div, class: "d-flex justify-content-between" do
+          [(wrap_with(:div, class: "w-100") do
+            [
                 new_view_hidden,
                 new_view_name,
                 new_view_type,
                 _render_content_formgroup,
                 buttons
               ]
-            end
-            column alert_guide
-          end
+          end),
+          alert_guide]
         end
       end
     end
