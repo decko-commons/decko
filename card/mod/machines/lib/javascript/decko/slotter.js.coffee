@@ -121,6 +121,9 @@ jQuery.fn.extend
     if @data("update-origin")
       @updateOrigin()
 
+    if @data('original-slotter-mode')
+      @attr 'data-slotter-mode', @data('original-slotter-mode')
+
     mode = @data("slotter-mode")
     @showSuccessResponse data, mode
 

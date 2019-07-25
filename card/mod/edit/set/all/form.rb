@@ -24,7 +24,7 @@ format :html do
 
   def wrap_type_formgroup
     formgroup "type", editor: "type", class: "type-formgroup", help: false do
-      yield
+      output [yield, hidden_field_tag(:assign, true)]
     end
   end
 
