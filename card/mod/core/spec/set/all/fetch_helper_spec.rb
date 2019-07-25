@@ -8,12 +8,6 @@ RSpec.describe Card::Set::All::FetchHelper do
     Card.send :retrieve_existing, "A".to_name, opts
   end
 
-  describe "#controller_fetch" do
-    it "raises an error if attempting a force skip" do
-      expect(Card.controller_fetch )
-    end
-  end
-
   describe "retrieve_existing" do
     it "looks for non-cached card in database" do
       expect_db_retrieval_with(:key, "a", nil) { retrieve }

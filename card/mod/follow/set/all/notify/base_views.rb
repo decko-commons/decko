@@ -39,9 +39,7 @@ format do
   end
 
   view :last_action_verb, cache: :never do
-    return unless notification_act
-
-    "#{notification_act.main_action.action_type}d"
+    "#{notification_act&.main_action&.action_type || 'edite'}d"
   end
 
   view :unfollow_url, perms: :none, closed: true, cache: :never do
