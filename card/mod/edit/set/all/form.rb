@@ -10,12 +10,6 @@ format :html do
     end
   end
 
-  view :type_formgroup do
-    wrap_type_formgroup do
-      type_field class: "type-field edit-type-field"
-    end
-  end
-
   view :edit_in_form, cache: :never, perms: :update, unknown: true do
     reset_form
     @in_multi_card_editor = true
@@ -37,55 +31,6 @@ format :html do
   def name_field
     # value needed because otherwise gets wrong value if there are updates
     text_field :name, value: card.name, autocomplete: "off"
-  end
-
-  def type_field args={}
-    typelist = Auth.createable_types
-    current_type = type_field_current_value args, typelist
-    options = grouped_options_for_select grouped_types(current_type), current_type
-    template.select_tag "card[type]", options, args
-  end
-
-  GROUP = {
-    "Content" => %w[RichText PlainText Phrase Date Number Toggle Markdown File Image URI],
-    "Custom" => [],
-    "Organize" => ["Cardtype", "Search", "List", "Link list", "Pointer",
-                   "Mirror list", "Mirrored list"],
-    "Admin" => ["Layout", "Skin", "User", "Role",
-                "Notification template", "Email template", "Twitter template" ],
-    "Code" => ["HTML", "Json", "CSS", "SCSS", "JavaScript", "CoffeeScript"]
-  }.freeze
-
-  # group for each cardtype: { "RichText => "Content", "Layout" => "Admin", ... }
-  GROUP_MAP = GROUP.each_with_object({}) do |(cat, types), h|
-                types.each { |t| h[t] = cat }
-              end
-
-  def grouped_types current_type
-    groups = Hash.new { |h, k| h[k] = [] }
-    allowed = ::Set.new Auth.createable_types
-    allowed << current_type if current_type
-
-    GROUP.each_pair do |name, items|
-      items.each do |i|
-        groups[name] << i if allowed.include?(i)
-      end
-    end
-    Auth.createable_types.each do |type|
-      groups["Custom"] << type unless GROUP_MAP[type]
-    end
-    groups
-  end
-
-  def type_field_current_value args, typelist
-    return if args.delete :no_current_type
-
-    if !card.new_card? && !typelist.include?(card.type_name)
-      # current type should be an option on existing cards,
-      # regardless of create perms
-      typelist.push(card.type_name).sort!
-    end
-    card.type_name_or_default
   end
 
   def content_field skip_rev_id=false

@@ -94,7 +94,6 @@ $(window).ready ->
     $(this).closest('.slotter').data("slotter-mode", "update-origin")
 
   $('body').on 'submit', 'form.slotter', (event)->
-    debugger
     if (target = $(this).attr 'main-success') and $(this).isMain()
       input = $(this).find '[name=success]'
       if input and input.val() and !(input.val().match /^REDIRECT/)

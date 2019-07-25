@@ -10,6 +10,13 @@ format :html do
     card_form(:update, form_opts) do
       [
         edit_view_hidden,
+        _render_edit_type_row(home_view: :edit_type_row),
+        # home_view is necessary for cancel to work correctly.
+        # it seems a little strange to have to think about home_view here,
+        # but the issue is that something currently has to happen prior to the
+        # render to get voo.slot_options to have the write home view in
+        # the slot wrap. Id think this would probably best be handled as an
+        # option to #wrap that triggers a new heir voo
         _render_content_formgroup,
         _render_edit_buttons
       ]
