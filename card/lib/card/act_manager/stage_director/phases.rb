@@ -15,7 +15,9 @@ class Card
           catch_up_to_stage :prepare_to_store
           run_single_stage :store, &block
           run_single_stage :finalize
-          raise ActiveRecord::RecordInvalid if @card.errors.any?
+          if @card.errors.any?
+            raise ActiveRecord::RecordInvalid, @card.errors.full_messages
+          end
         ensure
           @from_trash = nil
         end
