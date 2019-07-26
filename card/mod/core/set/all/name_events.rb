@@ -14,6 +14,7 @@ end
 event :validate_name, :validate, on: :save, changed: :name do
   validate_legality_of_name
   return if errors.any?
+  Card.write_to_soft_cache self
   validate_uniqueness_of_name
 end
 
