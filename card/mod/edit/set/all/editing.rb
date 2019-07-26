@@ -10,6 +10,7 @@ format :html do
   end
 
   def bridge_parts
+    voo.show! :edit_type_row
     [
       frame_help,
       _render_edit_name_row(home_view: :edit_name_row),
