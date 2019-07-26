@@ -28,6 +28,7 @@ def name= newname
   cardname = superize_name newname.to_name
   newkey = cardname.key
   self.key = newkey if key != newkey
+  Card.write_to_soft_cache self if key.present?
   update_subcard_names cardname
   write_attribute :name, cardname.s
   name
