@@ -163,17 +163,9 @@ RSpec.describe Card::Set::All::EventConditions do
       def expect_skipping changes, log1, log2,
                           for_name: nil, skip_key: :skip, allowed: :allowed, force: false
         with_test_events do
-          event_args = { on: :update, skip: allowed }
-          event_args[:for] = for_name if for_name
-          test_event(:validate, event_args) { add_to_log "#{name} executed" }
+          add_logging_test_event allowed, for_name
+          update_with_skip force, changes, skip_key
 
-          skip_card = Card["A"]
-          if force
-            skip_card.skip_event! :test_event_0
-            skip_card.update! changes
-          else
-            skip_card.update! changes.merge(skip_key => :test_event_0)
-          end                                                     # update with skip
           aggregate_failures do
             expect(@log).to eq(log1)                              # logging with skip
             Card["A"].update! changes                             # update without skip
@@ -182,8 +174,24 @@ RSpec.describe Card::Set::All::EventConditions do
         end
       end
 
+      def add_logging_test_event allowed, for_name
+        event_args = { on: :update, skip: allowed }
+        event_args[:for] = for_name if for_name
+        test_event(:validate, event_args) { add_to_log "#{name} executed" }
+      end
+
+      def update_with_skip force, changes, skip_key
+        skip_card = Card["A"]
+        if force
+          skip_card.skip_event! :test_event_0
+          skip_card.update! changes
+        else
+          skip_card.update! changes.merge(skip_key => :test_event_0)
+        end
+      end
+
       specify "skip_event condition" do
-        expect_skipping({ content: "changed"}, [], "A executed", for_name: "A")
+        expect_skipping({ content: "changed" }, [], "A executed", for_name: "A")
       end
 
       specify "skip_event condition in subcard" do
@@ -199,10 +207,9 @@ RSpec.describe Card::Set::All::EventConditions do
       end
 
       specify "force skip" do
-        expect_skipping({ content: "changed"}, [], "A executed",
+        expect_skipping({ content: "changed" }, [], "A executed",
                         force: true, for_name: "A")
       end
-
     end
   end
 end

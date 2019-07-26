@@ -77,7 +77,7 @@ class Card
   #    of the other two phases will remain persistent.
   class ActManager
     extend EventDelay
-    
+
     class << self
       attr_accessor :act, :act_card
 
