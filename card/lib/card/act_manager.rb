@@ -184,7 +184,6 @@ class Card
 
       def to_s
         act_director.to_s
-        # directors.values.map(&:to_s).join "\n"
       end
     end
   end
