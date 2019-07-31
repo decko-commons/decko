@@ -7,7 +7,7 @@ Feature: Signing up
   Background:
     Given I am signed in as "Joe Admin"
     And I edit "Sign up+*type+*captcha"
-    And I uncheck "content"
+    And I uncheck "Content"
     And I press "Save and Close"
     And I wait for ajax response
     # By default decks are configured to require approval

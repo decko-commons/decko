@@ -37,7 +37,7 @@ header {
 
 label,
 .navbox-item-label {
-  color: $label_color;
+  // color: $label_color;
 }
 table {
   border-collapse: collapse;
@@ -62,11 +62,6 @@ a:focus {
 form {
   margin: 0px;
   padding: 0px;
-}
-
-.form-group > label {
-  color: $dark;
-  font-weight: bold;
 }
 
 .link-muted {

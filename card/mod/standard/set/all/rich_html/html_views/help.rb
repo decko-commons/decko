@@ -1,3 +1,9 @@
+def help_rule_card
+  setting = new_card? ? [:add_help, { fallback: :help }] : :help
+  help_card = rule_card(*setting)
+  help_card if help_card&.ok?(:read)
+end
+
 format :html do
   view :help, unknown: true, cache: :never, wrap: :slot do
     help_text = voo.help || rule_based_help
