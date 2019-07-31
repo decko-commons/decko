@@ -31,6 +31,10 @@ format :html do
     true
   end
 
+  def show_guide_tab?
+    guide.present?
+  end
+
   def show_discussion?
     d_card = discussion_card
     return unless d_card

@@ -96,7 +96,7 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    it "reader setting" do
+    it "reader setting", aggregate_failures: true do
       Card.where(trash: false).each do |ca|
         rule_id, rule_class = ca.permission_rule_id_and_class :read
         expect(ca.read_rule_class).to eq(rule_class),

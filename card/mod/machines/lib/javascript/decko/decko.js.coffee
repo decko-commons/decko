@@ -45,9 +45,12 @@ $(window).ready ->
   $('body').on 'click', 'button.redirecter', ->
     window.location = $(this).attr('href')
 
-  $('body').on 'change', '.live-type-field', ->
-    $(this).data 'params', $(this).closest('form').serialize()
-    $(this).data 'url', $(this).attr 'href'
+  $('body').on  "change", '.live-type-field', ->
+    $this = $(this)
+
+    setSlotMode($this)
+    $this.data 'params', $(this).closest('form').serialize()
+    $this.data 'url', $(this).attr 'href'
 
   $('body').on 'change', '.edit-type-field', ->
     $(this).closest('form').submit()
@@ -79,6 +82,12 @@ decko.slotReady (slot) ->
 #     #autoInitializePage: false
 #     #ajaxEnabled: false
 #   }
+
+setSlotMode = ($el, mode=null) ->
+  $slotter =  $el.closest(".slotter")
+  if $slotter.length && $slotter.attr('data-slotter-mode')
+    $slotter.attr 'data-original-slotter-mode', $slotter.attr('slotter-mode')
+    $slotter.attr 'data-slotter-mode', mode
 
 snakeCase = (str)->
   str.replace /([a-z])([A-Z])/g, (match) -> match[0] + '_' +

@@ -11,7 +11,7 @@ format :html do
     link_to_card card.type_card, nil, link_args
   end
 
-  view :type_formgroup do
+  def type_formgroup
     if card.cards_of_type_exist?
       wrap_with :div, tr(:cards_exist, cardname: safe_name)
     else
