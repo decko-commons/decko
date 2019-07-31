@@ -14,7 +14,7 @@ format :html do
     types.each { |t| h[t] = cat }
   end
 
-  view :edit_type, cache: :never, perms: :update do
+    view :edit_type, cache: :never, perms: :update do
     frame do
       _render_edit_type_form
     end
@@ -73,12 +73,15 @@ format :html do
     allowed << current_type if current_type
 
     GROUP.each_pair do |name, items|
-      items.each do |i|
-        groups[name] << i if allowed.include?(i)
+      if name == "Custom"
+        Auth.createable_types.each do |type|
+          groups["Custom"] << type unless GROUP_MAP[type]
+        end
+      else
+        items.each do |i|
+          groups[name] << i if allowed.include?(i)
+        end
       end
-    end
-    Auth.createable_types.each do |type|
-      groups["Custom"] << type unless GROUP_MAP[type]
     end
     groups
   end

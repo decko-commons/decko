@@ -19,13 +19,11 @@ describe 'edit content', () ->
     cy.get("#a-b-edit-view").should "not.exist"
     cy.get(".SELF-t.card-slot").click().dblclick()
     cy.get("iframe.tox-edit-area__iframe")
-    cy.wait(1000)
     cy.get(".bridge-main #t-bridge-view").contains("Cancel").click()
     cy.wait(1000)
     cy.get(".bridge-main").should "not.exist"
     cy.get(".SELF-z.card-slot").dblclick()
     cy.get("iframe.tox-edit-area__iframe")
-    cy.wait(1000)
     cy.get("#z-edit_inline-view").contains("Cancel").click()
     cy.wait(1000)
     cy.get("#z-edit_inline-view").should "not.exist"

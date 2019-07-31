@@ -1,5 +1,6 @@
 format :html do
   view :edit_content_form, wrap: :slot do
+    voo.show :edit_type_row
     with_nest_mode :edit do
       edit_form
     end
