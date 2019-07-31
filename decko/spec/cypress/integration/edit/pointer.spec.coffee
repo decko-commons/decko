@@ -11,7 +11,7 @@ describe 'editing pointers', () ->
   specify "create with select input", ->
     input "select"
     cy.visit("/Joe User+friends")
-    cy.contains(".form-group", "content").find("select")
+    cy.contains(".form-group", "Content").find("select")
       .select2("Joe Camel")
     cy.contains("Submit").click()
     cy.main_slot()
@@ -31,9 +31,9 @@ describe 'editing pointers', () ->
   specify "create with multiselect input", ->
     input "multiselect"
     cy.visit("/Joe User+friends")
-    cy.contains(".form-group", "content").find("select")
+    cy.contains(".form-group", "Content").find("select")
       .select2("Joe Camel")
-    cy.contains(".form-group", "content").find("select")
+    cy.contains(".form-group", "Content").find("select")
       .select2("Joe Admin")
     cy.contains("Submit").click()
     cy.main_slot()
