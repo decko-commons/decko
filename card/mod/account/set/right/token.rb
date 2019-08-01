@@ -20,6 +20,7 @@ def validate! token
     when content != token then [:incorrect_token, tr(:error_incorrect_token)]
     end
   errors.add *error if error
+  error.nil?
 end
 
 def expired?

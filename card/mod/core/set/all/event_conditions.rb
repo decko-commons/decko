@@ -6,6 +6,10 @@ def event_applies? event
   end
 end
 
+def skip_event! *events
+  forced_skip_events.merge events
+end
+
 private
 
 def set_condition_applies? set_module, old_sets
@@ -68,9 +72,9 @@ def when_condition_applies? _event, block
 end
 
 def skip_condition_applies? event, allowed
-  return true if skip_events.empty?
-  event = event.name.to_s
-  !(standard_skip_event?(event, allowed) || force_skip_event?(event))
+  return true if never_skip?
+
+  !(standard_skip_event?(event.name, allowed) || force_skip_event?(event.name))
 end
 
 def trigger_condition_applies? event, required
@@ -103,17 +107,24 @@ def wrong_action action
   "on: #{action} method #{method} called on #{@action}"
 end
 
+def never_skip?
+  return @never_skip unless @never_skip.nil?
+
+  @never_skip = skip_events.empty? && forced_skip_events.empty?
+end
+
 def standard_skip_event? event, allowed
   return false unless allowed == :allowed
-  skip_events.include? event
+  skip_events.include? event.to_s
 end
 
 def force_skip_event? event
   forced_skip_events.include? event
 end
 
+# holder for skip_event! (with bang) events
 def forced_skip_events
-  @forced_skip_events ||= ::Set.new(skip_events.find_all { |e| e.last == "!" })
+  @forced_skip_events ||= ::Set.new([])
 end
 
 def skip_events

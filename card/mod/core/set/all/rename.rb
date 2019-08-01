@@ -1,4 +1,4 @@
-event :rename_in_trash, after: :set_name, on: :update do
+event :rename_in_trash, after: :expire_old_name, on: :update do
   existing_card = Card.find_by_key_and_trash name.key, true
   return if !existing_card || existing_card == self
   existing_card.name = existing_card.name + "*trash"
@@ -28,7 +28,8 @@ event :cascade_name_changes, :finalize, on: :update, changed: :name,
     newname = child.name.swap name_before_last_save, name
     # not sure if this is still needed since we attach the children as subcards
     # (it used to be resolved right here without adding subcards)
-    Card.expire child.name
+    ActManager.expirees << child.name
+    child.skip_event! :check_permissions
 
     # superleft has to be the first argument. Otherwise the call of `name=` in
     # `assign_attributes` can cause problems because `left` doesn't find the new left.

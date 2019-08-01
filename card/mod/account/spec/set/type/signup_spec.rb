@@ -103,7 +103,8 @@ RSpec.describe Card::Set::Type::Signup do
       # token gets updated
       expect(@account.token).not_to eq(@token)
       # user notified of expired token
-      expect(Card::Env.success.message).to match(/expired/)
+      expect(Card::Env.success.message)
+        .to match(/Please check your email for a new password reset link\./)
     end
   end
 

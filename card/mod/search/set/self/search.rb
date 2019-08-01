@@ -33,6 +33,8 @@ format :html do
 
   def search_keyword
     (vars = search_vars) && vars[:keyword]
+  rescue Card::Error::PermissionDenied
+    nil
   end
 
   def search_vars

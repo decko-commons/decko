@@ -6,13 +6,13 @@ RSpec.describe Card::Set::Type::Css do
   let(:changed_css)            { "#box { display: inline }" }
   let(:compressed_changed_css) { "#box{display:inline}\n" }
 
-  it "highlights code" do
-    Card::Auth.as_bot do
-      css_card = Card.create! name: "tmp css", type_code: "css",
-                              content: "p { border: 1px solid black; }"
-      assert_view_select css_card.format.render_core, "div[class=CodeRay]"
-    end
-  end
+  # it "highlights code" do
+  #   Card::Auth.as_bot do
+  #     css_card = Card.create! name: "tmp css", type_code: "css",
+  #                             content: "p { border: 1px solid black; }"
+  #     assert_view_select css_card.format.render_core, "div[class=CodeRay]"
+  #   end
+  # end
 
   it_behaves_like "machine input"  do
     let(:create_machine_input_card) do
@@ -30,11 +30,11 @@ RSpec.describe Card::Set::Type::Css do
     end
   end
 
-  it_behaves_like "content machine", that_produces: :css do
-    let(:machine_card) { Card.gimme! "test css", type: :css, content: css }
-    let(:card_content) do
-      { in:         css,         out:         compressed_css,
-        changed_in: changed_css, changed_out: compressed_changed_css }
-    end
-  end
+  # it_behaves_like "content machine", that_produces: :css do
+  #   let(:machine_card) { Card.gimme! "test css", type: :css, content: css }
+  #   let(:card_content) do
+  #     { in:         css,         out:         compressed_css,
+  #       changed_in: changed_css, changed_out: compressed_changed_css }
+  #   end
+  # end
 end

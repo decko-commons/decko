@@ -53,7 +53,7 @@ event :process_read_rule_update_queue, :finalize do
 end
 
 def update_read_rules_of_set_members set
-  return ::Set.new if trash || !(class_id = id_of_set_class(set))
+  return ::Set.new if trash || !(class_id = set&.tag&.id)
 
   rule_class_ids = set_patterns.map(&:pattern_id)
   Auth.as_bot do

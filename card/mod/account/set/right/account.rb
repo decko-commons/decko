@@ -64,9 +64,7 @@ event :send_welcome_email do
 end
 
 event :send_reset_password_token do
-  Auth.as_bot do
-    token_card.update! content: generate_token
-  end
+  reset_token
   Card[:password_reset_email].deliver self, to: email
 end
 
@@ -87,10 +85,7 @@ def pending?
 end
 
 def validate_token! test_token
-  tcard = token_card
-  tcard.validate! test_token
-  copy_errors tcard
-  errors.empty?
+  token_card.validate! test_token
 end
 
 def reset_password_with_token token
@@ -98,7 +93,10 @@ def reset_password_with_token token
     if !token
       errors.add :token, "is required"
     elsif !validate_token!(token)
-      # FIXME: isn't this an error??
+      # FIXME: This should be an error.
+      # However, an error abort will trigger a rollback, so the
+      # token reset won't work.  That may be an argument for
+      # handling the token update in a separate request?
       success << reset_password_try_again
     else
       success << reset_password_success
@@ -123,17 +121,15 @@ def ok_to_read
 end
 
 def reset_password_success
-  token_card.used!
+  # token_card.used!
   Auth.signin left_id
-  { id: name,
-    view: :edit }
+  { id: name, view: :edit }
 end
 
 def reset_password_try_again
+  message = tr :sorry_email_reset, error_msg: token_card.errors.first.last
   send_reset_password_token
-  { id: "_self",
-    view: "message",
-    message: tr(:sorry_email_reset, error_msg: errors.first.last) }
+  { id: "_self", view: "message", message: message }
 end
 
 # FIXME: explain or remove.
