@@ -16,10 +16,6 @@ format :html do
     edit_row_fixed_width "Name", card.name, :edit_name_form
   end
 
-  view :edit_type_row do
-    edit_row_fixed_width "Type", link_to_card(card.type), :edit_type_form
-  end
-
   view :edit_inline_buttons do
     button_formgroup do
       wrap_with "div", class: "d-flex" do

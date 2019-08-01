@@ -31,6 +31,9 @@ jQuery.fn.extend
     @overlaySlot().replaceWith overlay
     $(".bridge-sidebar .tab-pane:not(.active) .bridge-pills > .nav-item > .nav-link.active").removeClass("active")
 
+  isInOverlay: ->
+    return @closest(".card-slot._overlay").length
+
   removeOverlay: () ->
       @overlaySlot().removeOverlaySlot()
 

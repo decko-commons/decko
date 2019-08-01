@@ -23,7 +23,7 @@ format :html do
 
   def missing_link text
     path_opts = voo.type ? { card: { type: voo.type } } : {}
-    link_to_view :new, text, path: path_opts, class: classy("missing-link")
+    link_to_view :new_in_modal, text, path: path_opts, class: classy("missing-link")
   end
 
   view :closed_missing, perms: :none do
@@ -116,7 +116,7 @@ format :html do
   def standard_errors heading=nil
     alert "warning", true do
       [
-        (wrap_with(:h4, heading, class: "alert-heading") if heading),
+        (wrap_with(:h4, heading, class: "alert-heading error") if heading),
         error_messages.join("<hr>")
       ]
     end
@@ -129,7 +129,7 @@ format :html do
   end
 
   def standard_error_message attribute, message
-    "<div><strong>#{h attribute.to_s.upcase}:</strong> #{h message}</div>"
+    "<p><strong>#{h attribute.to_s.upcase}:</strong> #{h message}</p>"
   end
 
   def not_found_errors
