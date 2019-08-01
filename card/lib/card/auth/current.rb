@@ -54,6 +54,11 @@ class Card
                             current.fetch(trait: :roles)&.item_names].flatten.compact
       end
 
+      def no_special_roles?
+        Auth.current_roles.size == 1 # &&
+          # Auth.current_roles.first == Card.fetch_name(:anyone_signed_in)
+      end
+
       def clear_current_roles
         @current_roles = nil
       end

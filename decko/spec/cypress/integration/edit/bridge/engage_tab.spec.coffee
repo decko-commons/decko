@@ -6,6 +6,7 @@ describe 'engage tab', () ->
 
   beforeEach ->
     cy.visit_bridge()
+    cy.bridge_sidebar().find('.nav-tabs a').eq(1).click()
 
   specify 'follow button', () ->
     cy.contains("follow")

@@ -87,6 +87,9 @@ $(window).ready ->
   $('body').on 'click', '._close-modal-on-success', (event) ->
     $(this).closeOnSuccess("modal")
 
+  $('body').on 'click', '._close-on-success', (event) ->
+    $(this).closeOnSuccess()
+
   $('body').on 'click', '._update-origin', (event) ->
     $(this).closest('.slotter').data("slotter-mode", "update-origin")
 
@@ -116,6 +119,9 @@ jQuery.fn.extend
 
     if @data("update-origin")
       @updateOrigin()
+
+    if @data('original-slotter-mode')
+      @attr 'data-slotter-mode', @data('original-slotter-mode')
 
     mode = @data("slotter-mode")
     @showSuccessResponse data, mode
@@ -185,6 +191,8 @@ jQuery.fn.extend
   # close modal or overlay
   closeOnSuccess: (type) ->
     slotter = @closest('.slotter')
+    if !type?
+      type = if @isInOverlay() then "overlay" else "modal"
     slotter.addClass "_close-#{type}"
 
   slotterBeforeSend: (opt) ->
