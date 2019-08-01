@@ -41,6 +41,8 @@ class Card
             ActManager.contextualize_delayed_event act_id, card, env, auth do
               card.send method_name
             end
+          ensure
+            ActManager.expire
           end
         end
       end

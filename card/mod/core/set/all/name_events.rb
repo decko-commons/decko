@@ -14,6 +14,7 @@ end
 event :validate_name, :validate, on: :save, changed: :name do
   validate_legality_of_name
   return if errors.any?
+  Card.write_to_soft_cache self
   validate_uniqueness_of_name
 end
 
@@ -50,8 +51,8 @@ end
 
 # STAGE: store
 
-event :set_name, :store, changed: :name do
-  expire
+event :expire_old_name, :store, changed: :name, on: :update do
+  ActManager.expirees << name_before_act
 end
 
 event :set_left_and_right, :store,

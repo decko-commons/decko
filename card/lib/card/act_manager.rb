@@ -76,9 +76,11 @@ class Card
   #    everything will rollback. If the integration phase fails the db changes
   #    of the other two phases will remain persistent.
   class ActManager
-    cattr_accessor :act, :act_card
+    extend EventDelay
 
     class << self
+      attr_accessor :act, :act_card
+
       def act_director
         return unless act_card
 
@@ -105,9 +107,20 @@ class Card
         self.act_card = nil
         self.act = nil
         directors.each_pair do |card, _dir|
+          card.expire
           card.director = nil
         end
+        expire
         @directors = nil
+      end
+
+      def expire
+        expirees.each { |expiree| Card.expire expiree }
+        @expirees = []
+      end
+
+      def expirees
+        @expirees ||= []
       end
 
       # FIXME: use "parent" instead of opts (it's the only option)
@@ -166,54 +179,11 @@ class Card
       end
 
       def running_act?
-        (dir = act_director) && dir.running?
-      end
-
-      # If active jobs (and hence the integrate_with_delay events) don't run
-      # in a background process then Card::Env.deserialize! decouples the
-      # controller's params hash and the Card::Env's params hash with the
-      # effect that params changes in the CardController get lost
-      # (a crucial example are success params that are processed in
-      # CardController#soft_redirect)
-      def contextualize_delayed_event act_id, card, env, auth
-        if delaying?
-          contextualize_for_delay(act_id, card, env, auth) { yield }
-        else
-          yield
-        end
-      end
-
-      def delaying?
-        const_defined?("Delayed") &&
-          Delayed::Worker.delay_jobs &&
-          Card.config.active_job.queue_adapter == :delayed_job
-      end
-
-      # The whole ActManager setup is gone once we reach a integrate with delay
-      # event processed by ActiveJob.
-      # This is the improvised resetup to get subcards working.
-      def contextualize_for_delay act_id, card, env, auth, &block
-        self.act = Act.find act_id if act_id
-        with_env_and_auth env, auth do
-          return yield unless act
-
-          run_act(act.card || card) do
-            act_card.director.run_delayed_event act, &block
-          end
-        end
-      end
-
-      def with_env_and_auth env, auth
-        Card::Auth.with auth do
-          Card::Env.with env do
-            yield
-          end
-        end
+        act_director&.running?
       end
 
       def to_s
         act_director.to_s
-        # directors.values.map(&:to_s).join "\n"
       end
     end
   end
