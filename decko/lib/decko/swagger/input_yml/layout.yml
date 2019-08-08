@@ -55,8 +55,8 @@ paths:
       - $ref: '#/components/parameters/card'
       - $ref: '#/components/parameters/success'
       responses:
-        200:
-          $ref: '#/components/responses/200'
+        302:
+          $ref: '#/components/responses/302'
         404:
           $ref: '#/components/responses/404'
     # TODO: add patch
@@ -68,8 +68,8 @@ paths:
       - $ref: '#/components/parameters/cardmark'
       - $ref: '#/components/parameters/success'
       responses:
-        200:
-          $ref: '#/components/responses/200'
+        302:
+          $ref: '#/components/responses/302'
         404:
           $ref: '#/components/responses/404'
   /:
@@ -85,8 +85,8 @@ paths:
       - $ref: '#/components/parameters/card'
       - $ref: '#/components/parameters/success'
       responses:
-        200:
-          $ref: '#/components/responses/200'
+        302:
+          $ref: '#/components/responses/302'
 
 externalDocs:
   description: Find out more about Decko
@@ -246,7 +246,8 @@ components:
 
   responses:
     200:
-      description: "card data"
+      description: |-
+        Card data. Defaults to molecule view.
       content:
         application/json:
           schema:
@@ -257,3 +258,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/errors%20view'
+    302:
+      description: |-
+        Successful non-idempotent requests redirect to idempotent GET
+        requests.
