@@ -60,8 +60,9 @@ class Card
     class UserError < Error
       cattr_accessor :user_error_classes
       self.user_error_classes = [self,
-                                 ActiveRecord::RecordNotFound,
+                                 ActionController::BadRequest,
                                  ActionController::MissingFile,
+                                 ActiveRecord::RecordNotFound,
                                  ActiveRecord::RecordInvalid]
     end
 
