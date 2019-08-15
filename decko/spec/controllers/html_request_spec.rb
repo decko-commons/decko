@@ -12,7 +12,7 @@ Decko::RestSpecHelper.describe_api do
 
     it "redirects standard card creation" do
       post :create, params: { mark: "NewCardFoo" }
-      assert_response 302
+      assert_response 303
     end
 
     it "doesn't redirect cards created in AJAX" do
@@ -29,7 +29,7 @@ Decko::RestSpecHelper.describe_api do
       # Fruits (from shared_data) are anon creatable but not readable
       # login_as :anonymous
       post :create, params: { card: { type: "Fruit", name: "papayan" } }
-      assert_response 302
+      assert_response 303
     end
 
     it "returns an error response if create fails (because it already exists)" do
@@ -179,7 +179,7 @@ Decko::RestSpecHelper.describe_api do
 
     it "redirects standard cards deletion" do
       delete :delete, params: { mark: "A" }
-      assert_response 302
+      assert_response 303
       expect(Card["A"]).to eq(nil)
       assert_redirected_to "/"
     end

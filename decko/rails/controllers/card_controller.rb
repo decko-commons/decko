@@ -93,19 +93,19 @@ class CardController < ActionController::Base
   def handle
     card.act do
       Card::Env.success card.name
-      yield ? render_success : raise(Card::Error::UserError)
+      yield ? cud_success : raise(Card::Error::UserError)
     end
   end
 
   # successful create, update, or delete action
-  def render_success
+  def cud_success
     success = Card::Env.success.in_context card.name
     if success.reload?
       reload
     elsif Card::Env.ajax? && !success.hard_redirect?
       soft_redirect success
     else
-      hard_redirect success.to_url
+      hard_redirect success.to_url, 303
     end
   end
 
