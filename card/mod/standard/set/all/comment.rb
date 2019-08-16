@@ -7,6 +7,7 @@ event :add_comment, :prepare_to_store, on: :save, when: :comment do
   return unless comment.present?
   self.content =
     [content, format.comment_with_signature].compact.join "\n<hr\>\n"
+  self.comment = nil
 end
 
 attr_writer :comment_author

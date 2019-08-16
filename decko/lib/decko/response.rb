@@ -17,7 +17,7 @@ module Decko
     end
 
     # return a redirect response
-    def hard_redirect url
+    def hard_redirect url, status=302
       url = card_url url # make sure we have absolute url
       if Card::Env.ajax?
         # lets client reset window location
@@ -25,7 +25,7 @@ module Decko
         # formerly used 303 response, but that gave IE the fits
         render json: { redirect: url }
       else
-        redirect_to url
+        redirect_to url, status: status
       end
     end
 

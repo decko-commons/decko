@@ -1,7 +1,6 @@
 attr_writer :bucket, :storage_type
 
-event :storage_type_change, :store,
-      on: :update, when: :storage_type_changed? do
+event :storage_type_change, :store, on: :update, when: :storage_type_changed? do
   # carrierwave stores file if @cache_id is not nil
   attachment.cache_stored_file!
   # attachment.retrieve_from_cache!(attachment.cache_name)

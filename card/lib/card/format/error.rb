@@ -59,7 +59,8 @@ class Card
 
       def quiet_error e, view
         # TODO: unify with Card::Error#report
-        Rails.logger.info "#{e.message}\n" + (e.backtrace * "\n")
+        Rails.logger.info e.message
+        Rails.logger.debug e.backtrace.join("\n")
         rendering_error e, view
       end
 

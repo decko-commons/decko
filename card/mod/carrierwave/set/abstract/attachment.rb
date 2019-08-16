@@ -12,8 +12,7 @@ end
 
 # we need a card id for the path so we have to update db_content when we have
 # an id
-event :correct_identifier, :finalize,
-      on: :create, when: proc { |c| !c.web? } do
+event :correct_identifier, :finalize, on: :create, when: proc { |c| !c.web? } do
   update_column(:db_content, attachment.db_content)
   expire
 end

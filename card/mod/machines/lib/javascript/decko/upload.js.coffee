@@ -1,7 +1,7 @@
 $.extend decko,
   upload_file: (fileupload) ->
 # for file as a subcard in a form,
-# excess parameters are inlcuded in the request which cause errors.
+# excess parameters are included in the request which cause errors.
 # only the file, type_id and attachment_card_name are needed
 # attachment_card_name is the original card name,
 # ex: card[subcards][+logo][image], card[file]
