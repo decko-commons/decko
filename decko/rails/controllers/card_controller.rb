@@ -97,7 +97,7 @@ class CardController < ActionController::Base
     end
   end
 
-  # successful create, update, or delete action
+  # successful create, update, or delete act
   def cud_success
     success = Card::Env.success.in_context card.name
     if success.reload?
