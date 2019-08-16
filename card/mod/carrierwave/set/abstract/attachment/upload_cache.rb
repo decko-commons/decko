@@ -1,6 +1,3 @@
-
-
-
 # action id of the cached upload
 attr_accessor :action_id_of_cached_upload
 
