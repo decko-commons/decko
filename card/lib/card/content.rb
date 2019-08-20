@@ -18,8 +18,7 @@ class Card
     attr_reader :revision, :format, :chunks, :opts
 
     # initialization parses String, detects chunks
-    # @param content [String]
-    # @param format_or_card [Card::Format or Card]
+    # @param content [Strins [Card::Format or Card]
     # @param opts [Hash]
     # @option opts [Symbol] :chunk_list - name of registered list of chunk
     # classes to be used in parsing
@@ -98,15 +97,36 @@ class Card
     end
 
     def without_nests
-      nests = []
-      find_chunks(Card::Content::Chunk::Nest).each_with_index do |chunk, i|
-        nests << chunk.text
-        chunk.burn_after_reading "{{#{i}}}"
+      without_chunks Card::Content::Chunk::Nest do |content|
+        yield content
+      end
+    end
+
+    def without_references
+      without_chunks Card::Content::Chunk::Nest, Card::Content::Chunk::Link do |content|
+        yield content
+      end
+    end
+
+    def without_chunks *chunk_classes
+      chunk_classes = Array.wrap(chunk_classes)
+      chunks = []
+      i = 0
+      each_chunk do |chunk|
+        chunk_classes.each do |chunk_class|
+          if chunk.is_a? chunk_class
+            chunks << chunk.text
+            chunk.burn_after_reading "{{#{i}}}"
+            i += 1
+            break
+          end
+        end
       end
 
       result = yield to_s
+
       Chunk::Nest.gsub result do |nest_content|
-        nests[nest_content.to_i]
+        chunks[nest_content.to_i]
       end
     end
 
