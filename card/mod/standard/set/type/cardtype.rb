@@ -24,13 +24,13 @@ format :html do
   end
 
   view :add_button do
-    add_link "btn btn-outline-secondary"
+    add_link "btn btn-secondary"
   end
 
   def add_link css_class=nil
     voo.title ||= tr(:add_card, cardname: safe_name)
     title = _render_title
-    link_to title, path: _render_add_path, class: css_class
+    link_to title, modal_link_opts(class: css_class, path: _render_add_path )
   end
 
   view :add_url do
@@ -47,7 +47,7 @@ format :html do
         path_args[key] = value
       end
     end
-    path path_args.merge(action: :new, mark: card.name)
+    path path_args.merge(action: :type, mark: card.name, view: :new_in_modal)
   end
 
   # don't cache because it depends on update permission for another card
@@ -60,13 +60,13 @@ format :html do
   end
 
   view :configure_button, cache: :never, perms:  ->(fmt) { fmt.can_configure? } do
-    configure_link "btn btn-outline-secondary"
+    configure_link "btn btn-secondary"
   end
 
   def configure_link css_class=nil
     return "" unless Card.fetch(card, :type, :structure, new: {}).ok? :update
 
-    voo.title ||= tr(:configure_card, cardname: safe_name)
+    voo.title ||= tr(:configure_card, cardname: safe_name.pluralize)
     title = _render_title
     link_to_card card, title, path: { view: :bridge, bridge: { tab: :rules_tab },
                                       set: Card::Name[safe_name, :type] },
