@@ -6,6 +6,10 @@ def short_label _name
   'all "*" cards'
 end
 
+def generic_label
+  "cards of a given type"
+end
+
 def prototype_args _anchor
   { name: "*dummy" }
 end

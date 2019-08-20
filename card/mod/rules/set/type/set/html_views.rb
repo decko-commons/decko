@@ -56,7 +56,8 @@ format :html do
     row_view, optional_content =
       voo.hide?(:content) ? %i[rule_link hide] : %i[rule_row show]
 
-    nest(rule_card, view: row_view, optional_content => :content).html_safe
+    nest rule_card, view: :bar
+    #nest(rule_card, view: row_view, optional_content => :content).html_safe
   end
 
   view :editor do
