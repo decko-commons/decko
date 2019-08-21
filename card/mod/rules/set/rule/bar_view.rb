@@ -7,11 +7,15 @@ format :html do
     super()
   end
 
-  view :bar_left do
-    "#{find_existing_rule_card.trunk.label}: #{super()}"
+  view :bar_left, unknown: true do
+    "#{find_existing_rule_card&.trunk&.label}: #{super()}"
   end
 
-  view :short_content do
+  view :bar_middle, unknown: true do
+    super()
+  end
+
+  view :short_content, unknown: true do
     closed_rule_content find_existing_rule_card
   end
 end
