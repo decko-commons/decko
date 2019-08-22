@@ -21,6 +21,8 @@ format :html do
   end
 
   view :one_line_content, wrap: { div: { class: "text-muted" } } do
+    return createable { missing_link(fa_icon("plus-square")) } unless card.known?
+
     one_line_content
   end
 

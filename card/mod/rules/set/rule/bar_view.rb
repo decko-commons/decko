@@ -15,6 +15,12 @@ format :html do
     super()
   end
 
+  view :one_line_content, wrap: { div: { class: "text-muted" } }, unknown: true do
+    return createable { missing_link(fa_icon("plus-square")) } unless existing_rule_card
+
+    one_line_content
+  end
+
   view :bar_bottom, unknown: true do
     if nest_mode == :edit
       current_rule_form
@@ -28,8 +34,6 @@ format :html do
   end
 
   view :bar_right, unknown: true do
-    return missing_link("#{fa_icon 'plus-square'} #{card.name}") unless existing_rule_card
-
     voo.show?(:bar_bottom) ? rule_info : rule_short_content
   end
 

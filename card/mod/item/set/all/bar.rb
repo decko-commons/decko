@@ -36,7 +36,7 @@ format :html do
   end
 
   def class_up_bar_sides middle
-    class_up_cols %w[bar-left bar-middle], bar_cols
+    class_up_cols %w[bar-left bar-right], bar_cols
     class_up_cols %w[bar-left bar-middle bar-right], info_bar_cols, "md" if middle
   end
 

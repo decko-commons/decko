@@ -27,4 +27,12 @@ format :html do
   def toggle_label
     label :content, card.name.tag
   end
+
+  def one_line_content
+    short_content
+  end
+
+  def short_content
+    render_core
+  end
 end
