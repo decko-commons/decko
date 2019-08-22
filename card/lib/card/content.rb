@@ -109,7 +109,7 @@ class Card
     end
 
     def without_chunks *chunk_classes
-      chunk_classes = Array.wrap(chunk_classes)
+      chunk_classes = ::Set.new Array.wrap(chunk_classes)
       stash = stash_chunks chunk_classes
       processed = yield to_s
       unstash_chunks processed, stash
@@ -120,16 +120,12 @@ class Card
     def stash_chunks chunk_classes
       chunks = []
       each_chunk do |chunk|
-        chunk_classes.each do |chunk_class|
-          if chunk.is_a? chunk_class
-            chunk.burn_after_reading "{{#{chunks.size}}}"
-            chunks << chunk.text
-            break
-          end
-        end
-      end
+        next unless chunk_classes.include? chunk.class
 
-      return chunks
+        chunk.burn_after_reading "{{#{chunks.size}}}"
+        chunks << chunk.text
+      end
+      chunks
     end
 
     def unstash_chunks content, stashed_chunks
