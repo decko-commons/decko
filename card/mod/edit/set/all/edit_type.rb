@@ -3,10 +3,10 @@ format :html do
     "Content" => %w[RichText PlainText Phrase Date Number Toggle Markdown File Image URI],
     "Custom" => [],
     "Organize" => ["Cardtype", "Search", "List", "Link list", "Pointer",
-                   "Mirror list", "Mirrored list"],
+                   "Mirror List", "Mirrored List"],
     "Admin" => ["Layout", "Skin", "User", "Role",
                 "Notification template", "Email template", "Twitter template"],
-    "Code" => %w[HTML Json CSS SCSS JavaScript CoffeeScript]
+    "Code" => %w[HTML JSON CSS SCSS JavaScript CoffeeScript]
   }.freeze
 
   # group for each cardtype: { "RichText => "Content", "Layout" => "Admin", ... }

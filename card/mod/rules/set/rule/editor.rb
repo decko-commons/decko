@@ -1,6 +1,24 @@
 format :html do
   attr_accessor :rule_context
 
+  view :open_rule, cache: :never, unknown: true,
+                   wrap: { modal: { size: :large,
+                                    title: :edit_rule_title,
+                                    footer: "" } } do
+    current_rule_form form_type: :modal
+  end
+
+  def edit_link_view
+    :open_rule
+  end
+
+  def edit_rule_title
+    output [
+      wrap_with(:h5, setting_title, class: "title font-weight-bold"),
+      render_overlay_rule_help
+    ]
+  end
+
   def current_rule force_reload=true
     @current_rule = nil if force_reload
     @current_rule ||= begin
@@ -108,7 +126,7 @@ format :html do
   def closed_rule_content rule_card
     return "" unless rule_card
 
-    nest rule_card, { view: :closed_content }, set_context: card.name.trunk_name
+    nest rule_card, { view: :short_content }, set_context: card.name.trunk_name
   end
 
   def open_rule_setting_links
@@ -157,7 +175,7 @@ format :html do
   end
 
   def rule_content_formgroup
-    formgroup "content", editor: "content", help: false do
+    formgroup "Content", editor: "content", help: false do
       content_field true
     end
   end

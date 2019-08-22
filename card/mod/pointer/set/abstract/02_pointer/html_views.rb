@@ -67,11 +67,11 @@ format :html do
   end
 
   def checkbox_input
-    haml :checkbox_input
+    haml :checkbox_input, submit_on_change: @submit_on_change
   end
 
   def radio_input
-    haml :radio_input
+    haml :radio_input, submit_on_change: @submit_on_change
   end
 
   def select_input
@@ -101,6 +101,14 @@ format :html do
   end
 
   def add_item_overlay_link; end
+
+  def one_line_content
+    if count == 1
+      card.item_names.first
+    else
+      short_content
+    end
+  end
 
   private
 

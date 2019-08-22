@@ -9,6 +9,6 @@
       - id = "pointer-radio-#{option_name.to_name.key}"
       %li.pointer-radio.radio
         = radio_button_tag input_name, option_name, checked,
-                           id: id, class: "pointer-radio-button"
+                           id: id, class: "pointer-radio-button #{'_submit-on-change' if submit_on_change}"
         = option_label option_label, id
         = option_description "radio", option_name

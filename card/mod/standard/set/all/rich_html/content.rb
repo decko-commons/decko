@@ -3,6 +3,8 @@ def show_comment_box_in_related?
 end
 
 format :html do
+  ONE_LINE_CHARACTER_LIMIT = 60
+
   def prepare_content_slot
     class_up "card-slot", "d0-card-content"
     voo.hide :menu
@@ -16,6 +18,10 @@ format :html do
 
   view :short_content, wrap: { div: { class: "text-muted" } } do
     short_content
+  end
+
+  view :one_line_content, wrap: { div: { class: "text-muted" } } do
+    one_line_content
   end
 
   before(:content_with_title) { prepare_content_slot }
@@ -97,6 +103,16 @@ format :html do
     set_name ||= "#{card.name}+*type" if card.known? && card.type_id == Card::CardtypeID
     set_name ||= "#{card.name}+*self"
     Card.fetch(set_name)
+  end
+
+
+  def one_line_content
+    cleaned = Card::Content.clean! card.content, {}
+    if cleaned.size <= ONE_LINE_CHARACTER_LIMIT
+      cleaned
+    else
+      cleaned[0..(ONE_LINE_CHARACTER_LIMIT - 3)] + "..."
+    end
   end
 
   # LOCALIZE

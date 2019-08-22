@@ -43,14 +43,13 @@ format :html do
     haml do
       <<-'HAML'.strip_heredoc
         = _render_rule_help
-        %h3 All #{card.name} rules that apply to
+        %h3 All #{card.name.tr "*", ""} rules that apply to
         - card.set_classes_with_rules.each do |klass, rules|
           %p
             %h5
               = klass.generic_label.downcase
             - if klass.anchorless?
-              = nest rules.first, view: :bar
-              -# rule_link(rules.first, klass.pattern)
+              = nest rules.first, view: :bar, show: :full_name
             - else
               - rules.each do |rule|
                 = nest rule, view: :bar

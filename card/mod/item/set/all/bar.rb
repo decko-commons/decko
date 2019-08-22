@@ -36,7 +36,7 @@ format :html do
   end
 
   def class_up_bar_sides middle
-    class_up_cols %w[bar-left bar-right], bar_cols
+    class_up_cols %w[bar-left bar-middle], bar_cols
     class_up_cols %w[bar-left bar-middle bar-right], info_bar_cols, "md" if middle
   end
 
@@ -46,7 +46,7 @@ format :html do
     end
   end
 
-  view :bar_left do
+  view :bar_left, unknown: true do
     bar_title
   end
 
@@ -62,12 +62,12 @@ format :html do
     voo.show?(:bar_bottom) ? :bar : :expanded_bar
   end
 
-  view :bar_right do
+  view :bar_right, unknown: true do
     [(render(:short_content) unless voo.show?(:bar_middle)),
      render(:edit_button, optional: :hide)]
   end
 
-  view :bar_middle do
+  view :bar_middle, unknown: true do
     render :short_content
   end
 
@@ -75,7 +75,7 @@ format :html do
     render(nest_mode == :edit ? :edit : :core)
   end
 
-  view :bar_nav, wrap: { div: { class: "bar-nav" } } do
+  view :bar_nav, unknown: true, wrap: { div: { class: "bar-nav" } } do
     [render_bar_expand_link,
      render_bar_collapse_link,
      render_full_page_link,
@@ -83,11 +83,11 @@ format :html do
      render_bridge_link]
   end
 
-  view :bar_expand_link do
+  view :bar_expand_link, unknown: true do
     link_to_view :expanded_bar, icon_tag(:keyboard_arrow_down)
   end
 
-  view :bar_collapse_link do
+  view :bar_collapse_link, unknown: true do
     link_to_view :bar, icon_tag(:keyboard_arrow_up)
   end
 
