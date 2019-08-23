@@ -28,7 +28,7 @@ def current_user?
 end
 
 format :html do
-  view :closed_content do
+  view :one_line_content do
     ""
   end
 

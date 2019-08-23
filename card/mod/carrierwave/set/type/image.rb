@@ -13,7 +13,7 @@ end
 format do
   include File::Format
 
-  view :closed_content do
+  view :one_line_content do
     _render_core size: :icon
   end
 

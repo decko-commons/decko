@@ -3,8 +3,6 @@ def show_comment_box_in_related?
 end
 
 format :html do
-  ONE_LINE_CHARACTER_LIMIT = 60
-
   def prepare_content_slot
     class_up "card-slot", "d0-card-content"
     voo.hide :menu
@@ -19,6 +17,13 @@ format :html do
   view :short_content, wrap: { div: { class: "text-muted" } } do
     short_content
   end
+
+  view :raw_one_line_content, wrap: { div: { class: "text-muted" } } do
+    return createable { missing_link(fa_icon("plus-square")) } unless card.known?
+
+    raw_one_line_content
+  end
+
 
   view :one_line_content, wrap: { div: { class: "text-muted" } } do
     return createable { missing_link(fa_icon("plus-square")) } unless card.known?
@@ -86,9 +91,8 @@ format :html do
   end
 
   view :closed do
-    with_nest_mode :closed do
+    with_nest_mode :compact do
       toggle_logic
-      voo.hide :closed_content
       class_up "d0-card-body", "closed-content"
       @content_body = false
       @toggle_mode = :close
@@ -107,14 +111,16 @@ format :html do
     Card.fetch(set_name)
   end
 
+  def raw_one_line_content
+    cleaned = Card::Content.clean! render_raw, {}
+    cut_with_ellipsis cleaned
+  end
 
   def one_line_content
-    cleaned = Card::Content.clean! card.content, {}
-    if cleaned.size <= ONE_LINE_CHARACTER_LIMIT
-      cleaned
-    else
-      cleaned[0..(ONE_LINE_CHARACTER_LIMIT - 3)] + "..."
-    end
+    # TODO: use a version of Card::Content.smart_truncate
+    #   that counts characters instead of clean!
+    cleaned = Card::Content.clean! render_core
+    cut_with_ellipsis cleaned
   end
 
   # LOCALIZE

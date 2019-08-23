@@ -6,7 +6,7 @@ format :html do
     voo.show! :customize_button, :box_middle
   end
 
-  view :closed_content do
+  view :one_line_content do
     ""
   end
 

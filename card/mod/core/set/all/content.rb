@@ -20,8 +20,41 @@ def structured_content
 end
 
 format do
+  ONE_LINE_CHARACTER_LIMIT = 60
+
   def chunk_list # override to customize by set
     :default
+  end
+
+  view :one_line_content do
+    one_line_content
+  end
+
+  # DEPRECATED
+  view :closed_content, :one_line_content
+
+  view :raw_one_line_content do
+    raw_one_line_content
+  end
+
+  def raw_one_line_content
+    cut_with_ellipsis render_raw
+  end
+
+  def one_line_content
+    cut_with_ellipsis render_core
+  end
+
+  def cut_with_ellipsis text, limit=one_line_character_limit
+    if text.size <= limit
+      text
+    else
+      text[0..(limit - 3)] + "..."
+    end
+  end
+
+  def one_line_character_limit
+    voo.size || ONE_LINE_CHARACTER_LIMIT
   end
 end
 

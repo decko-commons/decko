@@ -7,7 +7,7 @@ describe Card::Set::Type::Toggle do
 
   it "has yes/no as processed content" do
     expect(render_view(:core, type: "Toggle", content: "0")).to eq("no")
-    expect(render_view(:closed_content, type: "Toggle", content: "1"))
+    expect(render_view(:one_line_content, type: "Toggle", content: "1"))
       .to eq("yes")
   end
 

@@ -8,7 +8,7 @@ describe Card::Set::Abstract::Pointer do
       pointer
     end
 
-    check_views_for_errors :core, :closed_content, :editor,
+    check_views_for_errors :core, :one_line_content, :editor,
                            :list, :autocomplete, :checkbox,
                            :radio, :select, :multiselect
   end

@@ -20,6 +20,10 @@ format :data do
   end
 end
 
+def count
+  Card.search left: { type: Card::SetID }, right: id, limit: 0, return: :count
+end
+
 def set_classes_with_rules
   Card.set_patterns.reverse.map do |set_class|
     wql = { left: { type: Card::SetID },
@@ -63,7 +67,7 @@ format :html do
     nest [:all, card.name], view: :rule_help
   end
 
-  view :closed_content do
+  view :one_line_content do
     render_rule_help
   end
 end

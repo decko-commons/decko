@@ -23,7 +23,7 @@ format :html do
     end
   end
 
-  view :closed_content do
+  view :one_line_content do
     ""
   end
 

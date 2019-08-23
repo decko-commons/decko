@@ -10,7 +10,7 @@ describe Card::Set::Type::Html do
   end
 
   it "does not render any content in closed view" do
-    rendered = render_card :closed_content,
+    rendered = render_card :one_line_content,
                            type: "Html",
                            content: "<strong>Lions and Tigers</strong>"
     expect(rendered).to eq("")

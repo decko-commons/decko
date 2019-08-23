@@ -10,9 +10,16 @@ class MoveHelpTextToCode < Card::Migration::Core
 
 
     remove_setting_help_rules
+    remove_search_help_rules
     remove_self_help_rules :favicon, :tiny_mce, :favicon, :datepicker, "*debugger",
                            :prose_mirror, :sidebar
+  end
 
+  def remove_search_help_rules
+    %i[created edited children includes refers_to links_to included_by linked_to_by
+       referred_to_by mates editors follow].each do |trait|
+      delete_card [trait, :right, :help]
+    end
   end
 
   def remove_setting_help_rules

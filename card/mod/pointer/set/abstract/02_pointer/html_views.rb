@@ -21,7 +21,7 @@ format :html do
     pointer_items(paging_args.extract!(:limit, :offset)).join(voo.separator || "\n")
   end
 
-  view :closed_content do
+  view :one_line_content do
     item_view = implicit_item_view
     item_view = item_view == "name" ? "name" : "link"
     wrap_with :div, class: "pointer-list" do
@@ -54,7 +54,8 @@ format :html do
     items = items_for_input args[:item_list]
     extra_class = "pointer-list-ul"
     ul_classes = classy "pointer-list-editor", extra_class
-    haml :list_input, items: items, ul_classes: ul_classes
+    haml :list_input, items: items, ul_classes: ul_classes,
+                      options_card: options_card_name
   end
 
   %i[autocomplete checkbox radio select multiselect].each do |editor_view|

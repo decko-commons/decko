@@ -1,5 +1,5 @@
 format :html do
-  bar_cols 7, 5
+  bar_cols 6, 6
   info_bar_cols 5, 4, 3
 
   def existing_rule_card
@@ -15,7 +15,7 @@ format :html do
     super()
   end
 
-  view :one_line_content, wrap: { div: { class: "text-muted" } }, unknown: true do
+  view :one_line_content, wrap: { div: { class: "text-muted one-line" } }, unknown: true do
     return createable { missing_link(fa_icon("plus-square")) } unless existing_rule_card
 
     one_line_content

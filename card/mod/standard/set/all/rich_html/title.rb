@@ -1,5 +1,5 @@
 format do
-  view :title, closed: true, perms: :none do
+  view :title, compact: true, perms: :none do
     standard_title
   end
 
@@ -13,11 +13,11 @@ format :html do
     show_view?(:title_link, :hide) ? render_title_link : render_title_no_link
   end
 
-  view :title_link, closed: true, perms: :none do
+  view :title_link, compact: true, perms: :none do
     link_to_card card.name, render_title_no_link
   end
 
-  view :title_no_link, closed: true, perms: :none do
+  view :title_no_link, compact: true, perms: :none do
     wrapped_title standard_title
   end
 

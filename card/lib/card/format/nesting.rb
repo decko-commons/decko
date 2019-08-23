@@ -50,12 +50,12 @@ class Card
       private
 
       def nest_invisible?
-        nest_mode == :closed && @char_count && (@char_count > max_char_count)
+        nest_mode == :compact && @char_count && (@char_count > max_char_count)
       end
 
       def count_chars
         result = yield
-        return result unless nest_mode == :closed && result
+        return result unless nest_mode == :compact && result
 
         @char_count ||= 0
         @char_count += result.length

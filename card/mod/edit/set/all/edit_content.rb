@@ -1,12 +1,14 @@
 format :html do
   view :edit_content_form, wrap: :slot do
-    voo.show :edit_type_row
+    voo.show :edit_type_row unless card.structure_rule_card
     with_nest_mode :edit do
       edit_form
     end
   end
 
   def edit_form
+    return structure_link if card.structure_rule_card
+
     voo.hide :edit_type_row
     form_opts = edit_form_opts.reverse_merge success: edit_success
     card_form(:update, form_opts) do
@@ -23,6 +25,10 @@ format :html do
         _render_edit_buttons
       ]
     end
+  end
+
+  def structure_link
+    "card is #{link_to_card card.structure_rule_card, "structured"}"
   end
 
   view :edit, perms: :update, unknown: true, cache: :never,
