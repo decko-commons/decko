@@ -18,7 +18,8 @@ class Card
     attr_reader :revision, :format, :chunks, :opts
 
     # initialization parses String, detects chunks
-    # @param content [Strins [Card::Format or Card]
+    # @param content [String]
+    # @param format_or_card [Card::Format or Card]
     # @param opts [Hash]
     # @option opts [Symbol] :chunk_list - name of registered list of chunk
     # classes to be used in parsing
