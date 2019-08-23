@@ -11,25 +11,19 @@ format :html do
 
   view :new_in_modal, perms: :create, unknown: true, cache: :never,
                       wrap: { modal: { footer: "", size: :edit_modal_size,
-                                       title: :render_title,
+                                       title: :new_in_modal_title,
                                        menu: :new_modal_menu } } do
     _render_new_content_form
   end
 
   def create_form
-    buttons = new_form_opts.delete(:buttons) || _render_new_buttons
-    form_opts = new_form_opts.reverse_merge(success: new_success)
+    form_opts = new_in_modal_form_opts.reverse_merge(success: new_in_modal_success)
+    buttons = form_opts.delete(:buttons) || _render_new_buttons
 
     voo.title ||= new_view_title if new_name_prompt?
     voo.show :help
     card_form(:create, form_opts) do
-      [
-        new_view_hidden,
-        new_view_name,
-        new_view_type,
-        _render_content_formgroup,
-        buttons
-      ]
+      create_form_with_alert_guide buttons
     end
   end
 
@@ -51,23 +45,32 @@ format :html do
       voo.title ||= new_view_title if new_name_prompt?
       voo.show :help
       frame_and_form :create, form_opts do
-        wrap_with :div, class: "d-flex justify-content-between" do
-          [(wrap_with(:div, class: "w-100") do
-            [
-              new_view_hidden,
-              new_view_name,
-              new_view_type,
-              _render_content_formgroup,
-              buttons
-            ]
-          end),
-           alert_guide]
-        end
+        create_form_with_alert_guide buttons
       end
     end
   end
 
+  def create_form_with_alert_guide buttons
+    wrap_with :div, class: "d-flex justify-content-between" do
+      [(wrap_with(:div, class: "w-100") do
+        [
+          new_view_hidden,
+          new_view_name,
+          new_view_type,
+          _render_content_formgroup,
+          buttons
+        ]
+      end),
+       alert_guide]
+    end
+  end
+
   def new_view_hidden; end
+
+  def new_in_modal_form_opts
+    { "data-slot-selector": "modal-origin", "data-slot-error-selector": ".card-slot",
+      buttons: _render_new_in_modal_buttons }
+  end
 
   def new_form_opts
     { "main-success" => "REDIRECT" }
@@ -80,9 +83,15 @@ format :html do
     )
   end
 
+  def new_in_modal_title
+    new_name_prompt? ? new_view_title : render_title
+  end
+
   def new_success
     card.rule(:thanks) || "_self"
   end
+
+  def new_in_modal_success; end
 
   # NAME HANDLING
 
@@ -152,6 +161,14 @@ format :html do
   view :new_buttons do
     button_formgroup do
       [standard_create_button, standard_cancel_button(cancel_button_new_args)]
+    end
+  end
+
+  view :new_in_modal_buttons do
+    button_formgroup do
+      wrap_with "div", class: "d-flex" do
+        [standard_save_and_close_button(text: "Submit"), modal_cancel_button]
+      end
     end
   end
 

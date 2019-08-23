@@ -49,13 +49,13 @@ format do
 
   def new_cardtype_path opts
     return unless valid_opts_for_new_cardtype_path? opts
-    "new/#{path_mark opts}#{path_query opts}"
+    "#{opts.delete :action}/#{path_mark opts}#{path_query opts}"
   end
 
   def valid_opts_for_new_cardtype_path? opts
-    return unless opts[:action] == :new
-    opts.delete :action
-    # "new" is not really an action and is only
+    return unless opts[:action].in? %i[new type]
+
+    # "new" and "type" are not really an action and are only
     # a valid value here for this path
     opts[:mark].present?
   end
