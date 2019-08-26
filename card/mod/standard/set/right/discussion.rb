@@ -1,3 +1,7 @@
-def show_comment_box_in_related?
-  true
+view :titled, unknown: true do
+  super()
+end
+
+view :open, unknown: true do
+  super()
 end

@@ -291,7 +291,7 @@ pre,
   white-space: -o-pre-wrap;    /* Opera 7 */
   word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
-.missing-view a {
+.unknown-view a {
   display: inline;
 }
 
@@ -782,10 +782,6 @@ td.rule-setting {
   .closed-content .search-list {
     margin: 0;
   }
-}
-tr.missing-rule > td {
-  background-color: $gray-300;
-  border-bottom: 1px solid $white;
 }
 .rule-setting {
   padding-top: 4px;

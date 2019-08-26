@@ -1,6 +1,6 @@
 
 format :email_text do
-  view :missing do
+  view :unknown do
     ""
   end
 

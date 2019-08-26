@@ -11,7 +11,7 @@ format :html do
     frame { params[:message] }
   end
 
-  view :missing do
+  view :unknown do
     createable do
       wrap { missing_link("#{fa_icon 'plus-square'} #{_render_title}") }
     end
@@ -68,18 +68,7 @@ format :html do
   end
 
   def view_for_unknown view
-    case
-    when main? && ok?(:create) then :new
-    when commentable?(view)    then view
-    else super
-    end
-  end
-
-  def commentable? view
-    return false unless view_setting(:commentable, view) &&
-                        show_view?(:comment_box, :hide)
-
-    ok? :comment
+    (main? && ok?(:create)) ? :new : super
   end
 
   def show_all_errors?

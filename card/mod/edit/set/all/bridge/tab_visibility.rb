@@ -39,7 +39,7 @@ format :html do
     d_card = discussion_card
     return unless d_card
 
-    permission_task = d_card.new_card? ? :comment : :read
+    permission_task = d_card.new_card? ? :update : :read
     d_card.ok? permission_task
   end
 

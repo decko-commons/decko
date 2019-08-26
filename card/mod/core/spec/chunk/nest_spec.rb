@@ -166,11 +166,11 @@ RSpec.describe Card::Content::Chunk::Nest do
       expect { adm.format.render_core }.to raise_error(Card::Error::UserError, /too deep/)
     end
 
-    it "handles missing cards" do
+    it "handles unknown cards" do
       @a = create! "boo", "hey {{+there}}"
       r = @a.format.render_core
       assert_view_select(
-        r, 'div[data-card-name="boo+there"][class~="missing-view"]'
+        r, 'div[data-card-name="boo+there"][class~="unknown-view"]'
       )
     end
 

@@ -134,7 +134,9 @@
 - :name: Cardtype+*type+*guide
   :type: Markdown
   :key: cardtype+*type+*guide
+  :merged: 2019-08-26 19:16:27 UTC
 - :name: "*structure+*right+*guide"
   :type: Markdown
   :key: "*structure+*right+*guide"
+  :merged: 2019-08-26 19:16:27 UTC
 :remotes: {}

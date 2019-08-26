@@ -177,7 +177,7 @@ format :html do
     href = case
            when main?          then path_to_previous
            when voo&.home_view then path(view: voo.home_view)
-           else                     path(view: :missing)
+           else                     path(view: :unknown)
            end
     { href: href }
   end

@@ -39,7 +39,7 @@ format :html do
     end
   end
 
-  view :titled, commentable: true do
+  view :titled do
     @content_body = true
     wrap do
       [
@@ -68,7 +68,7 @@ format :html do
                                  items: (opts[:items] || {}).merge(view: item_view))
   end
 
-  view :open, commentable: true do
+  view :open do
     toggle_logic
     @toggle_mode = :open
     @content_body = true
