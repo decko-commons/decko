@@ -5,7 +5,7 @@ format :html do
   end
 
   view :name_formgroup do
-    formgroup "name", editor: "name", help: false do
+    formgroup "Name", editor: "name", help: false do
       raw name_field
     end
   end

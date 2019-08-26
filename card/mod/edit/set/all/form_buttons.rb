@@ -29,8 +29,16 @@ format :html do
     cancel_button args
   end
 
-  def edit_cancel_button
+  def modal_cancel_button
     modal_close_button "Cancel", situation: "secondary", class: "btn-sm"
+  end
+
+  def edit_cancel_button
+    modal_cancel_button
+  end
+
+  def new_cancel_button
+    modal_cancel_button
   end
 
   def delete_button opts={}

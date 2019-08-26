@@ -20,6 +20,7 @@ Decko::Engine.routes.draw do
 
   # Alternate GET requests
   get "new/:type" => "card#read", view: "new" # common case for card without mark
+  get "type/:type" => "card#read"
   get ":mark/view/:view(.:format)" => "card#read" # simplifies API documentation
   get "card/:view(/:mark(.:format))" => "card#read", view: /new|edit/ # legacy
 
