@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Rule::Table do
+RSpec.describe Card::Set::Rule::BarView do
   def card_subject
     Card.fetch("*read+*right+*input", new: {})
   end

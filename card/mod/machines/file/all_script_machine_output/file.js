@@ -12161,6 +12161,12 @@ return jQuery;
     }
   });
 
+  $(window).ready(function() {
+    return $('body').on("select2:select", "._close-rule-overlay-on-select", function(event) {
+      return $(".overlay-container > ._overlay.card-slot.overlay_rule-view.RULE").removeOverlay();
+    });
+  });
+
   $(document).ready(function() {
     return $('body').on('click', 'button._nest-apply', function() {
       return nest.apply($(this).data("tinymce-id"), $(this).data("nest-start"), $(this).data("nest-size"));
