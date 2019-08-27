@@ -1,9 +1,5 @@
 include_set Abstract::Pointer
 
-def valid_list_name?
-
-end
-
 event :validate_list_name, :validate, on: :save, changed: :name do
   errors.add :name, tr(:cardtype_right) unless right&.type_id == CardtypeID
 end

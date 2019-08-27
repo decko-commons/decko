@@ -68,7 +68,7 @@ format :html do
   end
 
   def view_for_unknown view
-    (main? && ok?(:create)) ? :new : super
+    main? && ok?(:create) ? :new : super
   end
 
   def show_all_errors?
