@@ -1,5 +1,5 @@
 format :html do
-    view :edit_type, cache: :never, perms: :update do
+  view :edit_type, cache: :never, perms: :update do
     frame do
       _render_edit_type_form
     end

@@ -13,3 +13,9 @@ end
 def list_direct_followers?
   true
 end
+
+format :html do
+  def related_by_type_items
+    super.unshift ["#{card.name} cards", [card, :type, :by_name], mark: :absolute]
+  end
+end

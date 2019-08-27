@@ -8,7 +8,7 @@ end
 
 format do
   view :one_line_content do
-    ""
+    raw_one_line_content
   end
 
   def chunk_list
@@ -21,7 +21,7 @@ format :html do
     :ace_editor
   end
 
-  view :one_line_content, wrap: {} do
-    ""
+  view :one_line_content do
+    raw_one_line_content
   end
 end
