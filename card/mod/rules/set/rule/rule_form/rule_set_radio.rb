@@ -18,7 +18,7 @@ class RuleSetRadio
 
     rule_radio do
       radio_text = "#{@set_name}+#{@tag}"
-      radio_button :name, radio_text, checked: checked?, warning: warning
+      radio_button :name, radio_text, warning: warning
     end
   end
 
@@ -53,10 +53,6 @@ class RuleSetRadio
     when :overwritten, :exists
       link_to_card "#{@set_name}+#{@card.rule_user_setting_name}", "(#{@state})"
     end
-  end
-
-  def checked?
-    [@set_name, true].include? @format.selected_rule_set
   end
 
   def warning

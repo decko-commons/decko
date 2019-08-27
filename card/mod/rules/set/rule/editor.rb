@@ -1,19 +1,14 @@
 format :html do
   attr_accessor :rule_context
 
-  def current_rule force_reload=true
-    @current_rule = nil if force_reload
-    @current_rule ||= begin
-      rule = determine_current_rule
-      reload_rule rule
+  def current_rule
+    if params[:assign]
+      card
+    elsif (existing = find_existing_rule_card)
+      existing
+    else
+      card
     end
-  end
-
-  def determine_current_rule
-    existing = find_existing_rule_card
-    return existing if existing
-
-    Card.new name: "#{Card[:all].name}+#{card.rule_user_setting_name}"
   end
 
   view :rule_help, unknown: true, perms: :none, cache: :never do
@@ -127,18 +122,6 @@ format :html do
                  class: "close-rule-link"
   end
 
-  def reload_rule rule
-    return rule unless (card_args = params[:card])
-
-    if card_args[:name] && card_args[:name].to_name.key != rule.key
-      Card.new card_args
-    else
-      rule = rule.refresh
-      rule.assign_attributes card_args
-      rule.include_set_modules
-    end
-  end
-
   def rule_set_description
     card.rule_set.follow_label
   end
@@ -149,7 +132,7 @@ format :html do
     success = @edit_rule_success
     wrap_type_formgroup do
       type_field(
-        href: path(mark: success[:id], view: :rule_form, type_reload: true), # view: success[:view]
+        href: path(mark: success[:id], view: :rule_form, assign: true), # view: success[:view]
         class: "type-field rule-type-field live-type-field",
         "data-remote" => true
       )

@@ -36,11 +36,4 @@ format :html do
   def rule_set_options
     @rule_set_options ||= @rule_context.set_options
   end
-
-  def selected_rule_set
-    if @rule_set_options.length == 1 then true
-    elsif params[:type_reload]       then card.rule_set_name
-    else                                  false
-    end
-  end
 end
