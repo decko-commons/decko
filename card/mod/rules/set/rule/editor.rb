@@ -3,7 +3,10 @@ format :html do
 
   def current_rule force_reload=true
     @current_rule = nil if force_reload
-    @current_rule ||= determine_current_rule
+    @current_rule ||= begin
+      rule = determine_current_rule
+      reload_rule rule
+    end
   end
 
   def determine_current_rule
@@ -124,17 +127,17 @@ format :html do
                  class: "close-rule-link"
   end
 
-  # def reload_rule rule
-  #   return rule unless (card_args = params[:card])
-#
-  #   if card_args[:name] && card_args[:name].to_name.key != rule.key
-  #     Card.new card_args
-  #   else
-  #     rule = rule.refresh
-  #     rule.assign_attributes card_args
-  #     rule.include_set_modules
-  #   end
-  # end
+  def reload_rule rule
+    return rule unless (card_args = params[:card])
+
+    if card_args[:name] && card_args[:name].to_name.key != rule.key
+      Card.new card_args
+    else
+      rule = rule.refresh
+      rule.assign_attributes card_args
+      rule.include_set_modules
+    end
+  end
 
   def rule_set_description
     card.rule_set.follow_label
