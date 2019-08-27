@@ -1040,15 +1040,19 @@ $bridge-line-color: $border-color;
   .help-text {
     font-size: 0.8rem;
   }
-  > .nav-item > a {
-    background-color: $list-group-bg;
-    border: 1px solid $list-group-border-color;
-    border-left: 3px solid $list-group-border-color;
-    margin-bottom: -1px;
-
-    &:hover, &.active, &:focus {
-      border-left-color: $list-group-active-bg;
+  > .nav-item {
+    padding: 0;
+    > a {
+      color: inherit
     }
+    // background-color: $list-group-bg;
+    // border: 1px solid $list-group-border-color;
+    // border-left: 3px solid $list-group-border-color;
+    // margin-bottom: -1px;
+
+    // &:hover, &.active, &:focus {
+    //   border-left-color: $list-group-active-bg;
+    // }
   }
 }
 
@@ -1121,12 +1125,11 @@ $bridge-line-color: $border-color;
   }
 
   .bridge-sidebar {
+    .history_tab-view > div {
+      margin: 0.5rem;
+    }
     .d0-card-header-title > .card-title {
       font-size: 1rem;
-    }
-
-    .creator-credit {
-      font-size: $font-size-sm;
     }
     .nav-link {
       padding: 0.5rem 0.5rem;
