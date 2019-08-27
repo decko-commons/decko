@@ -1,5 +1,5 @@
 format :html do
-  view :quick_edit_rule_list, wrap: { slot: { class: "rule-list" }} do
+  view :quick_edit_rule_list, wrap: { slot: { class: "rule-list" } } do
     quick_edit_rule_list setting_list_from_params(:field_related)
   end
 
@@ -30,13 +30,13 @@ format :html do
   end
 
   def rule_list_item setting, view, opts={}
-      return "" unless show_view? setting
+    return "" unless show_view? setting
 
       rule_card = card.fetch trait: setting, new: {}
       nest(rule_card, opts.merge(view: view)).html_safe
     end
 
   def setting_list_from_params default=:common
-      setting_list setting_group(default)
+    setting_list setting_group(default)
     end
 end

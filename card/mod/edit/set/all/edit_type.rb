@@ -49,7 +49,7 @@ format :html do
     typelist = Auth.createable_types
     current_type = type_field_current_value args, typelist
     options = grouped_options_for_select grouped_types(current_type), current_type
-    template.select_tag "card[type]", options, args
+    template.select_tag "card[type]", options, args.merge("data-select2-id": "#{unique_id}-#{Time.now.to_i}")
   end
 
   def grouped_types current_type

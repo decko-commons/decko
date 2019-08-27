@@ -11,7 +11,7 @@ format :html do
     filtered_rule_list :quick_edit_rule_list, :field_related_rules, :self, mark: ""
   end
 
-  view :modal_nest_rules, cache: :never, unknown: true, wrap: { modal: { title: "Rules for nest"} } do
+  view :modal_nest_rules, cache: :never, unknown: true, wrap: { modal: { title: "Rules for nest" } } do
     filtered_rule_list :quick_edit_rule_list, :field_related_rules, :self
   end
 

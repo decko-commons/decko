@@ -3,7 +3,7 @@ GROUP = {
   "Custom" => [],
   "Organize" => ["Cardtype", "Search", "List", "Link list", "Pointer",
                  "Mirror List", "Mirrored List"],
-  "Template" => [ "Notification template", "Email template", "Twitter template"],
+  "Template" => ["Notification template", "Email template", "Twitter template"],
   "Admin" => ["User", "Role", "Sign up", "Session", "Set", "Setting"],
   "Styling" => ["Layout", "Skin", "Bootswatch skin", "Customized bootswatch skin", "CSS", "SCSS"],
   "Code" => %w[HTML JSON JavaScript CoffeeScript]
@@ -11,7 +11,7 @@ GROUP = {
 
 # group for each cardtype: { "RichText => "Content", "Layout" => "Admin", ... }
 GROUP_MAP = GROUP.each_with_object({}) do |(cat, types), h|
-  types.each { |  t| h[t] = cat }
+  types.each { |t| h[t] = cat }
 end
 
 format :html do

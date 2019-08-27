@@ -21,7 +21,7 @@ format :html do
 
   def setting_select selected=nil
     select_tag(:group, grouped_options_for_select(setting_options, selected),
-               class: "_submit-on-select form-control")
+              class: "_submit-on-select form-control", "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
   end
 
   def filter_text
@@ -33,7 +33,8 @@ format :html do
   def set_select_tag set_options=:related
     select_tag(:mark, set_select_options(set_options),
                class: "_submit-on-select form-control _close-rule-overlay-on-select",
-               "data-minimum-results-for-search": "Infinity")
+               "data-minimum-results-for-search": "Infinity",
+               "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
   end
 
   def selected_set

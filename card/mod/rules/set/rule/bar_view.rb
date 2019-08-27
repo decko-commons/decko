@@ -3,7 +3,7 @@ format :html do
   info_bar_cols 5, 4, 3
 
   def existing_rule_card
-      @existing_rule_card ||= find_existing_rule_card
+    @existing_rule_card ||= find_existing_rule_card
   end
 
   view :bar, unknown: true do

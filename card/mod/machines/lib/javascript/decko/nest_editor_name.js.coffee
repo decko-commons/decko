@@ -51,6 +51,7 @@ $.extend nest,
       $("._empty-nest-name-alert:not(.d-none)").addClass("d-none")
       $(".tab-pane-rule > .card-slot").reloadSlot url
     else
+      $(".tab-pane-rule > .card-slot").triggerSlotDestroy()
       $(".tab-pane-rule > .card-slot").empty()
       $("._empty-nest-name-alert").removeClass("d-none")
 
