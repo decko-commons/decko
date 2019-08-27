@@ -20,4 +20,8 @@ format :html do
   def editor
     :ace_editor
   end
+
+  view :one_line_content, wrap: {} do
+    ""
+  end
 end

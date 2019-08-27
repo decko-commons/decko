@@ -44,7 +44,7 @@ format :html do
     "Cannot currently edit Sets" # LOCALIZE
   end
 
-  view :one_line_content do
+  view :one_line_content, wrap: {} do
     ""
   end
 end

@@ -1,21 +1,24 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Right::Structure do
+RSpec.describe Card::Set::Right::Structure do
   it "one_line_content is rendered as type + raw" do
     template = Card.new name: "A+*right+*structure",
                         content: "[[link]] {{nest}}"
-    expect(template.format._render(:one_line_content)).to eq(
-      '<a class="cardtype known-card" href="/RichText">RichText</a>' \
-      " : [[link]] {{nest}}"
-    )
+    expect(template.format._render(:one_line_content))
+      .to have_tag "div.text-muted.one-line" do
+        with_tag "a.cardtype.known-card", with: { href: "/RichText" }, text: "RichText"
+        with_text(/ \: \[\[link\]\] \{\{nest\}\}/)
+      end
   end
 
   it "one_line_content is rendered as type + raw" do
     template = Card.new name: "A+*right+*structure", type: "Html",
                         content: "[[link]] {{nest}}"
-    expect(template.format._render(:one_line_content)).to eq(
-      '<a class="cardtype known-card" href="/HTML">HTML</a> : [[link]] {{nest}}'
-    )
+    expect(template.format._render(:one_line_content))
+      .to have_tag "div.text-muted.one-line" do
+      with_tag "a.cardtype.known-card", with: { href: "/HTML" }, text: "HTML"
+      with_text(/ \: \[\[link\]\] \{\{nest\}\}/)
+    end
   end
 
   # it 'renders core as raw' do

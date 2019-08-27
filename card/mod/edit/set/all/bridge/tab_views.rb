@@ -85,7 +85,7 @@ format :html do
     end
   end
 
-  def ridge_pill_items data, breadcrumb
+  def bridge_pill_items data, breadcrumb
     data.map do |text, field, extra_opts|
       opts = bridge_link_opts.merge("data-toggle": "pill")
       opts.merge! breadcrumb_data(breadcrumb)

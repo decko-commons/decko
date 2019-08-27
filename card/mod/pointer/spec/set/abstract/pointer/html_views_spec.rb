@@ -37,25 +37,27 @@ describe Card::Set::Abstract::Pointer do
     end
 
     it "includes nonexisting card in radio options" do
-      common_html = 'input[class="pointer-radio-button"]' \
-                    '[checked="checked"]' \
-                    '[type="radio"]' \
-                    '[value="nonexistingcardmustnotexistthisistherule"]' \
-                    '[id="pointer-radio-nonexistingcardmustnotexistthisistherule"]'
-      option_html = common_html + '[name="pointer_radio_button-tp"]'
-      assert_view_select pointer.format.render_radio, option_html
-      option_html = common_html + '[name="pointer_radio_button-ip"]'
-      assert_view_select inherit_pointer.format.render_radio, option_html
+      common_with = { type: "radio",
+                      value: "nonexistingcardmustnotexistthisistherule",
+                      id: "pointer-radio-nonexistingcardmustnotexistthisistherule",
+                      checked: "checked" }
+      expect(pointer.format.render_radio)
+        .to have_tag "input.pointer-radio-button",
+                     with: common_with.merge(name: "pointer_radio_button-tp")
+      expect(inherit_pointer.format.render_radio)
+        .to have_tag "input.pointer-radio-button",
+                     with: common_with.merge(name: "pointer_radio_button-ip")
     end
 
     it "includes nonexisting card in checkbox options" do
-      option_html = 'input[class="pointer-checkbox-button"]' \
-                    '[checked="checked"]' \
-                    '[type="checkbox"]' \
-                    '[value="nonexistingcardmustnotexistthisistherule"]' \
-                    '[id="pointer-checkbox-nonexistingcardmustnotexistthisistherule"]'
-      # debug_assert_view_select @pointer.format.render_checkbox, option_html
-      assert_view_select inherit_pointer.format.render_checkbox, option_html
+      expect(inherit_pointer.format.render_checkbox)
+        .to have_tag "input.pointer-checkbox-button",
+                     with: {
+                       type: "checkbox",
+                       value: "nonexistingcardmustnotexistthisistherule",
+                       id: "pointer-checkbox-nonexistingcardmustnotexistthisistherule",
+                       checked: "checked"
+                     }
     end
 
     it "includes nonexisting card in select options" do
