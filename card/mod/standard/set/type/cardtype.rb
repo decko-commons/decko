@@ -30,7 +30,7 @@ format :html do
   def add_link css_class=nil
     voo.title ||= tr(:add_card, cardname: safe_name)
     title = _render_title
-    link_to title, modal_link_opts(class: css_class, path: _render_add_path )
+    link_to title, modal_link_opts(class: css_class, path: _render_add_path)
   end
 
   view :add_url do

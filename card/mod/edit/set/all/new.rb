@@ -69,7 +69,7 @@ format :html do
 
   def new_in_modal_form_opts
     { "data-slot-selector": "modal-origin", "data-slot-error-selector": ".card-slot",
-     buttons: _render_new_in_modal_buttons }
+      buttons: _render_new_in_modal_buttons }
   end
 
   def new_form_opts
@@ -91,8 +91,7 @@ format :html do
     card.rule(:thanks) || "_self"
   end
 
-  def new_in_modal_success
-  end
+  def new_in_modal_success; end
 
   # NAME HANDLING
 
