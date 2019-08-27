@@ -18,7 +18,7 @@ class RuleSetRadio
 
     rule_radio do
       radio_text = "#{@set_name}+#{@tag}"
-      radio_button :name, radio_text, warning: warning
+      radio_button :name, radio_text, checked: false, warning: warning
     end
   end
 
