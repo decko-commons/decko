@@ -1016,6 +1016,7 @@ $bridge-line-color: $border-color;
     font-size: 0.8rem;
   }
   > .nav-item > a {
+    color: $list-group-action-color; // maybe this helps to tweak bridge on decko.org
     background-color: $list-group-bg;
     border: 1px solid $list-group-border-color;
     border-left: 3px solid $list-group-border-color;

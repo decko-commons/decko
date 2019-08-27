@@ -22,3 +22,7 @@ jQuery.fn.extend
     bc_item = $(".modal-header ._bridge-breadcrumb li:last-child")
     bc_item.text(this.data("breadcrumb"))
     bc_item.attr("class", "breadcrumb-item active #{this.data('breadcrumb-class')}")
+
+$(window).ready ->
+  $('body').on "select2:select", "._close-rule-overlay-on-select", (event) ->
+    $(".overlay-container > ._overlay.card-slot.overlay_rule-view.RULE").removeOverlay()

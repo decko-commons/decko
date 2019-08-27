@@ -97,9 +97,16 @@ format :html do
   end
 
   def multi_card_edit fields_only=false
-    nested_cards_for_edit(fields_only).map do |name, options|
+    nested_cards = nested_cards_for_edit(fields_only)
+    return structure_link if nested_cards.empty?
+    nested_cards.map do |name, options|
       nest name, options || {}
     end.join "\n"
+  end
+
+  def structure_link # LOCALIZE
+    "<label>Content</label><p>"\
+      "card is #{link_to_card card.structure_rule_card, "structured"} without nests</p>"
   end
 
   # @param [Hash|Array] fields either an array with field names and/or field

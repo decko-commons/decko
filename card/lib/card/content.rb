@@ -44,6 +44,10 @@ class Card
       each_chunk.select { |chunk| chunk.is_a?(chunk_type) }
     end
 
+    def has_chunk? chunk_type
+      each_chunk.any { |chunk| chunk.is_a?(chunk_type)}
+    end
+
     # sends &block to #process_chunk on each Chunk object
     def process_chunks &block
       return custom_process_chunks(&block) if block_given?

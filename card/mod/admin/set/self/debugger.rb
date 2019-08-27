@@ -1,3 +1,3 @@
 def raw_help_text
-  "show more usefull error pages"
+  "show more useful error pages"
 end

@@ -32,7 +32,7 @@ format :html do
 
   def set_select_tag set_options=:related
     select_tag(:mark, set_select_options(set_options),
-               class: "_submit-on-select form-control",
+               class: "_submit-on-select form-control _close-rule-overlay-on-select",
                "data-minimum-results-for-search": "Infinity")
   end
 

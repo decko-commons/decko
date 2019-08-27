@@ -11,11 +11,11 @@ format :html do
     link_to_card card.type_card, nil, link_args
   end
 
-  def type_formgroup
+  def type_formgroup args={}
     if card.cards_of_type_exist?
       wrap_with :div, tr(:cards_exist, cardname: safe_name)
     else
-      super()
+      super
     end
   end
 
@@ -76,20 +76,24 @@ end
 
 include Basic
 
-def cards_of_type_exist?
-  !new_card? && Card.where(trash: false, type_id: id).exists?
+def cards_of_type_exist? type_id=id
+  !new_card? && Card.where(trash: false, type_id: type_id).exists?
 end
 
 def create_ok?
   Card.new(type_id: id).ok? :create
 end
 
+def was_cardtype?
+  type_id_before_act == CardtypeID
+end
+
 event :check_for_cards_of_type, after: :validate_delete do
   errors.add :cardtype, tr(:cards_exist, cardname: name) if cards_of_type_exist?
 end
 
-event :check_for_cards_of_type_when_type_changed, :validate, changing: :type do
-  errors.add :cardtype, tr(:error_cant_alter, name: name) if cards_of_type_exist?
+event :check_for_cards_of_type_when_type_changed, :validate, changing: :type, when: :was_cardtype? do
+  errors.add :cardtype, tr(:error_cant_alter, name: name_before_act) if cards_of_type_exist?(type_id_before_act)
 end
 
 event :validate_cardtype_name, :validate, on: :save, changed: :name do

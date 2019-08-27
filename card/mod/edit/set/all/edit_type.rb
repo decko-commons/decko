@@ -1,19 +1,4 @@
 format :html do
-  GROUP = {
-    "Content" => %w[RichText PlainText Phrase Date Number Toggle Markdown File Image URI],
-    "Custom" => [],
-    "Organize" => ["Cardtype", "Search", "List", "Link list", "Pointer",
-                   "Mirror List", "Mirrored List"],
-    "Admin" => ["Layout", "Skin", "User", "Role",
-                "Notification template", "Email template", "Twitter template"],
-    "Code" => %w[HTML JSON CSS SCSS JavaScript CoffeeScript]
-  }.freeze
-
-  # group for each cardtype: { "RichText => "Content", "Layout" => "Admin", ... }
-  GROUP_MAP = GROUP.each_with_object({}) do |(cat, types), h|
-    types.each { |t| h[t] = cat }
-  end
-
     view :edit_type, cache: :never, perms: :update do
     frame do
       _render_edit_type_form
@@ -72,10 +57,10 @@ format :html do
     allowed = ::Set.new Auth.createable_types
     allowed << current_type if current_type
 
-    GROUP.each_pair do |name, items|
+    Self::Cardtype::GROUP.each_pair do |name, items|
       if name == "Custom"
         Auth.createable_types.each do |type|
-          groups["Custom"] << type unless GROUP_MAP[type]
+          groups["Custom"] << type unless Self::Cardtype::GROUP_MAP[type]
         end
       else
         items.each do |i|

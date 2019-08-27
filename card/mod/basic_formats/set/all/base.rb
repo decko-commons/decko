@@ -139,40 +139,6 @@ format do
     end.inspect
   end
 
-  # none of the below belongs here!!
-
-  view :template_rule, cache: :never, unknown: true do
-    return "" unless voo.nest_name
-
-    if voo.nest_name.to_name.field_only?
-      set_card = Card.fetch template_link_set_name
-      subformat(set_card).render_template_link
-    else
-      "{{#{voo.nest_syntax}}}"
-    end
-  end
-
-  def template_link_set_name
-    name = voo.nest_name.to_name
-    if name.absolute?
-      name.trait_name :self
-    elsif (type = on_type_set)
-      [type, name].to_name.trait_name :type_plus_right
-    else
-      name.stripped.gsub(/^\+/, "").to_name.trait_name :right
-    end
-  end
-
-  def on_type_set
-    return unless
-      (tmpl_set_name = parent.card.name.trunk_name) &&
-      (tmpl_set_class_name = tmpl_set_name.tag_name) &&
-      (tmpl_set_class_card = Card[tmpl_set_class_name]) &&
-      (tmpl_set_class_card.codename == :type)
-
-    tmpl_set_name.left_name
-  end
-
   # DEPRECATED
   view :naked do
     Rails.logger.info "DEPRECATED: naked view (used with #{card.name} card)"

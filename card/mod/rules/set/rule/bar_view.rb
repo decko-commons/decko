@@ -18,7 +18,15 @@ format :html do
   view :one_line_content, wrap: { div: { class: "text-muted one-line" } }, unknown: true do
     return createable { missing_link(fa_icon("plus-square")) } unless existing_rule_card
 
-    one_line_content
+    with_nest_mode :compact do
+      one_line_content
+    end
+  end
+
+  view :raw_one_line_content, wrap: { div: { class: "text-muted one-line" } }, unknown: true do
+    return createable { missing_link(fa_icon("plus-square")) } unless existing_rule_card
+
+    raw_one_line_content
   end
 
   view :bar_bottom, unknown: true do
@@ -40,7 +48,8 @@ format :html do
   def rule_short_content
     return "" unless existing_rule_card
 
-    nest existing_rule_card, { view: :one_line_content }, set_context: card.name.trunk_name
+    nest existing_rule_card, { view: :one_line_content },
+         set_context: card.name.trunk_name
   end
 
   def bar_title
@@ -53,7 +62,7 @@ format :html do
     end
   end
 
-  def rule_info
+  def rule_info # LOCALIZE
     return wrap_with(:em, "no existing #{setting_link} rule") unless existing_rule_card
 
     "<span>#{rule_setting_link} rule that applies to #{rule_set_link existing_rule_card}</span>"

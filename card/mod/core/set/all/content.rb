@@ -27,7 +27,9 @@ format do
   end
 
   view :one_line_content do
-    one_line_content
+    with_nest_mode :compact do
+      one_line_content
+    end
   end
 
   # DEPRECATED
@@ -42,7 +44,7 @@ format do
   end
 
   def one_line_content
-    cut_with_ellipsis render_core
+    Card::Content.smart_truncate render_core
   end
 
   def cut_with_ellipsis text, limit=one_line_character_limit

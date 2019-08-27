@@ -44,7 +44,7 @@ class Card
           # Note: the subformat always has the same nest_mode as its parent format
           case nest_mode
           when :edit     then view_in_edit_mode(view)
-          when :template then :template_rule
+          when :template then :template_nest
           when :compact   then view_in_compact_mode(view)
           else view
           end
