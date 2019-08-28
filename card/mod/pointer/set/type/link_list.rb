@@ -1,6 +1,6 @@
 include_set Abstract::Pointer
 
-def item_names
+def item_names _args={}
   reference_chunks.map(&:referee_name)
 end
 

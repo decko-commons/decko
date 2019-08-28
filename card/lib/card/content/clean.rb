@@ -1,3 +1,5 @@
+require 'english'
+
 class Card
   class Content
     # tools for cleaning content, especially for restricing unwanted HTML
@@ -35,7 +37,8 @@ class Card
       ## Method that cleans the String of HTML tags
       ## and attributes outside of the allowed list.
       def clean! string, tags=ALLOWED_TAGS
-        string.gsub(%r{<(/*)(\w+)([^>]*)>}) do |raw|
+        # $LAST_MATCH_INFO is nil if string is a SafeBuffer
+        string.to_str.gsub(%r{<(/*)(\w+)([^>]*)>}) do |raw|
           raw = $LAST_MATCH_INFO
           tag = raw[2].downcase
           if (attrs = tags[tag])
