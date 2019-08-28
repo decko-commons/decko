@@ -16,6 +16,8 @@ Lint/ScriptPermission:
   Enabled: false
 Naming/UncommunicativeMethodParamName:
   Enabled: false
+Naming/AccessorMethodName:
+  Enabled: false
 Decko/ViewLength:
   Description: Avoid views longer than 15 lines of code.
   Enabled: true

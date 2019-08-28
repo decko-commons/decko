@@ -32,11 +32,11 @@ format :html do
   def rule_list_item setting, view, opts={}
     return "" unless show_view? setting
 
-      rule_card = card.fetch trait: setting, new: {}
-      nest(rule_card, opts.merge(view: view)).html_safe
-    end
+    rule_card = card.fetch trait: setting, new: {}
+    nest(rule_card, opts.merge(view: view)).html_safe
+  end
 
   def setting_list_from_params default=:common
     setting_list setting_group(default)
-    end
+  end
 end

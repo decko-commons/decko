@@ -21,7 +21,8 @@ format :html do
 
   def setting_select selected=nil
     select_tag(:group, grouped_options_for_select(setting_options, selected),
-              class: "_submit-on-select form-control", "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
+               class: "_submit-on-select form-control",
+               "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
   end
 
   def filter_text

@@ -1,19 +1,18 @@
 format :html do
   RELATED_ITEMS =
     {
-      "by name" => [["children",       :children],
-                     ["mates",        :mates]],
-                    # FIXME: optimize,
+      "by name" => [["children", :children],
+                    ["mates", :mates]],
+      # FIXME: optimize,
       "by content" => [["links out", :links_to],
-                      ["links in", :linked_to_by],
-                      ["nests", :nests],
-                      ["nested by", :nested_by],
-                      ["references out", :refers_to],
-                      ["references in",  :referred_to_by]]
+                       ["links in", :linked_to_by],
+                       ["nests", :nests],
+                       ["nested by", :nested_by],
+                       ["references out", :refers_to],
+                       ["references in",  :referred_to_by]]
       # ["by edit", [["creator", :creator],
       #              ["editors", :editors],
-      #              ["last edited", :last_edited]]
-      # ]
+      #              ["last edited", :last_edited]]]
     }.freeze
 
   view :engage_tab, wrap: { div: { class: "m-3 mt-4 _engage-tab" } }, cache: :never do
@@ -32,7 +31,7 @@ format :html do
 
   def related_by_name_items
     pills = []
-    pills += card.name.ancestors.map { |a| [a, a, :absolute]} if card.name.junction?
+    pills += card.name.ancestors.map { |a| [a, a, :absolute] } if card.name.junction?
     pills += RELATED_ITEMS["by name"]
     pills
   end
@@ -95,19 +94,23 @@ format :html do
 
   def bridge_pill_items data, breadcrumb
     data.map do |text, field, extra_opts|
+      opts = bridge_pill_item_opts breadcrumb, extra_opts, text
+      mark = opts.delete(:mark) == :absolute ? field : [card, field]
+      link_to_card mark, text, opts
+    end
+
+    def bridge_pill_item_opts breadcrumb, extra_opts, text
       opts = bridge_link_opts.merge("data-toggle": "pill")
       opts.merge! breadcrumb_data(breadcrumb)
-      mark = [card, field]
+
       if extra_opts
-        mark = field if extra_opts.delete(:mark) == :absolute
         classes = extra_opts.delete :class
         add_class opts, classes if classes
         opts.deep_merge! extra_opts
       end
       opts["data-cy"] = "#{text.to_name.key}-pill"
       add_class opts, "nav-link"
-
-      link_to_card mark, text,  opts
+      opts
     end
   end
 end

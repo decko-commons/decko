@@ -18,8 +18,6 @@ RSpec.describe Card::Set::Type::PlainText do
 
   specify "view one_line_content" do
     rendered = format_subject.render :one_line_content
-                           #type: "Plain Text",
-                           #content: "<strong>Lions and Tigers</strong>"
     expect(rendered).to have_tag "div.text-muted", /Alpha/
   end
 end

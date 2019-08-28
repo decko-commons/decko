@@ -21,7 +21,7 @@ format :html do
     :ace_editor
   end
 
-  view :one_line_content do
+  view :one_line_content, wrap: {} do
     raw_one_line_content
   end
 end

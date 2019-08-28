@@ -18,7 +18,7 @@ format do
     else
       template_link_set_name_for_relative_name name
     end
-end
+  end
 
   def template_link_set_name_for_relative_name name
     name = name.stripped.gsub(/^\+/, "")
@@ -33,9 +33,9 @@ end
   def on_type_set
     return unless
       (tmpl_set_name = parent.card.name.trunk_name) &&
-        (tmpl_set_class_name = tmpl_set_name.tag_name) &&
-        (tmpl_set_class_card = Card[tmpl_set_class_name]) &&
-        (tmpl_set_class_card.codename == :type)
+      (tmpl_set_class_name = tmpl_set_name.tag_name) &&
+      (tmpl_set_class_card = Card[tmpl_set_class_name]) &&
+      (tmpl_set_class_card.codename == :type)
 
     tmpl_set_name.left_name
   end

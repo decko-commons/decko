@@ -15,7 +15,8 @@ format :html do
     super()
   end
 
-  view :one_line_content, wrap: { div: { class: "text-muted one-line" } }, unknown: true do
+  view :one_line_content,
+       wrap: { div: { class: "text-muted one-line" } }, unknown: true do
     return createable { missing_link(fa_icon("plus-square")) } unless existing_rule_card
 
     with_nest_mode :compact do
@@ -23,7 +24,8 @@ format :html do
     end
   end
 
-  view :raw_one_line_content, wrap: { div: { class: "text-muted one-line" } }, unknown: true do
+  view :raw_one_line_content,
+       wrap: { div: { class: "text-muted one-line" } }, unknown: true do
     return createable { missing_link(fa_icon("plus-square")) } unless existing_rule_card
 
     raw_one_line_content
@@ -62,10 +64,12 @@ format :html do
     end
   end
 
-  def rule_info # LOCALIZE
+  # LOCALIZE
+  def rule_info
     return wrap_with(:em, "no existing #{setting_link} rule") unless existing_rule_card
 
-    "<span>#{rule_setting_link} rule that applies to #{rule_set_link existing_rule_card}</span>"
+    wrap_with :span,
+              "#{rule_setting_link} rule that applies to #{rule_set_link existing_rule_card}"
   end
 
   def rule_setting_link
