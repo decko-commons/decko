@@ -36,7 +36,7 @@ class Card
       ## and attributes outside of the allowed list.
       def clean! string, tags=ALLOWED_TAGS
         string.gsub(%r{<(/*)(\w+)([^>]*)>}) do |raw|
-          #raw = $LAST_MATCH_INFO
+          raw = $LAST_MATCH_INFO
           tag = raw[2].downcase
           if (attrs = tags[tag])
             html_attribs =
