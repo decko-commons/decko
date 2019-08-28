@@ -98,19 +98,19 @@ format :html do
       mark = opts.delete(:mark) == :absolute ? field : [card, field]
       link_to_card mark, text, opts
     end
+  end
 
-    def bridge_pill_item_opts breadcrumb, extra_opts, text
-      opts = bridge_link_opts.merge("data-toggle": "pill")
-      opts.merge! breadcrumb_data(breadcrumb)
+  def bridge_pill_item_opts breadcrumb, extra_opts, text
+    opts = bridge_link_opts.merge("data-toggle": "pill")
+    opts.merge! breadcrumb_data(breadcrumb)
 
-      if extra_opts
-        classes = extra_opts.delete :class
-        add_class opts, classes if classes
-        opts.deep_merge! extra_opts
-      end
-      opts["data-cy"] = "#{text.to_name.key}-pill"
-      add_class opts, "nav-link"
-      opts
+    if extra_opts
+      classes = extra_opts.delete :class
+      add_class opts, classes if classes
+      opts.deep_merge! extra_opts
     end
+    opts["data-cy"] = "#{text.to_name.key}-pill"
+    add_class opts, "nav-link"
+    opts
   end
 end
