@@ -14,7 +14,7 @@ format :html do
     voo.hide :edit_link, :full_page_link, :bridge_link
   end
 
-  view :bar do
+  view :bar, unknown: :unknown_bar do
     voo.hide :bar_middle
     voo.hide :bar_bottom # needed for toggle
     class_up_bar_sides(voo.show?(:bar_middle))
@@ -24,6 +24,12 @@ format :html do
 
   bar_cols 9, 3
   info_bar_cols 5, 4, 3
+
+  view :unknown_bar, unknown: true do
+    voo.hide! :bar_middle, :bar_bottom, :bar_nav
+    wrap { haml :bar }
+    #render_bar_left
+  end
 
   before :expanded_bar do
     class_up "bar", card.safe_set_keys
@@ -46,11 +52,13 @@ format :html do
     end
   end
 
-  view :bar_left, unknown: true do
+  view :bar_left, unknown: :missing do
     bar_title
   end
 
   def bar_title
+    return render_missing if card.unknown?
+
     if voo.show?(:toggle)
       link_to_view bar_title_toggle_view, render_title
     else
@@ -62,12 +70,12 @@ format :html do
     voo.show?(:bar_bottom) ? :bar : :expanded_bar
   end
 
-  view :bar_right, unknown: true do
+  view :bar_right, unknown: :blank do
     [(render(:short_content) unless voo.show?(:bar_middle)),
      render(:edit_button, optional: :hide)]
   end
 
-  view :bar_middle, unknown: true do
+  view :bar_middle, unknown: :blank do
     render :short_content
   end
 

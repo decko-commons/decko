@@ -51,6 +51,7 @@ $.extend decko,
         v = $(this).find('input._reference').val()
         title = $(this).find('input._title').val()
         v += "|#{title}" if title.length > 0
+        v
       )
       list = $.map $.makeArray(vals), (v) -> if v then '[[' + v + ']]'
       $.makeArray(list).join "\n"

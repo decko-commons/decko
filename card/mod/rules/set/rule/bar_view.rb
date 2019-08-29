@@ -43,6 +43,10 @@ format :html do
     rule_info
   end
 
+  view :bar_left, unknown: true do
+    super()
+  end
+
   view :bar_right, unknown: true do
     voo.show?(:bar_bottom) ? rule_info : rule_short_content
   end
