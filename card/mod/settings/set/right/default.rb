@@ -11,6 +11,12 @@ format :html do
       type_field class: "type-field rule-type-field _submit-on-select"
     end
   end
+
+  def visible_cardtype_groups
+    hash = Self::Cardtype::GROUP.slice("Text",  "Data", "Upload")
+    hash["Organize"] = ["List", "Pointer", "Link list"]
+    hash
+  end
 end
 
 def empty_ok?
