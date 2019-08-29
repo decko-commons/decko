@@ -12500,7 +12500,7 @@ return jQuery;
       return $(".input-group.show-prefix").removeClass("show-prefix").addClass("hide-prefix");
     },
     rulesTabSlot: function() {
-      return $(".card-slot.nest_editor-view .tab-pane-rule > .card-slot");
+      return $("._nest-editor .tab-pane-rule > .card-slot");
     },
     emptyNameAlert: function(show) {
       if (show) {
