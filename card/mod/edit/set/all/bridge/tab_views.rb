@@ -32,7 +32,7 @@ format :html do
   def related_by_name_items
     pills = []
     if card.name.junction?
-      pills += card.name.ancestors.map { |a| [a, a, { mark: :absolute}] }
+      pills += card.name.ancestors.map { |a| [a, a, { mark: :absolute }] }
     end
     pills += RELATED_ITEMS["by name"]
     pills

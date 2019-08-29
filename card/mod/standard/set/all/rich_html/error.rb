@@ -17,15 +17,14 @@ format :html do
 
   # icon only, no wrap
   view :mini_unknown, unknown: true, cache: :never do
-    createable { unknown_link }
+    createable { unknown_link unknown_icon }
   end
 
   def createable
-    card.ok? :create ? yield : ""
+    card.ok?(:create) ? yield : ""
   end
 
   def unknown_link text
-    text ||= unknown_icon
     path_opts = voo.type ? { card: { type: voo.type } } : {}
     link_to_view :new_in_modal, text, path: path_opts, class: classy("unknown-link")
   end
