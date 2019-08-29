@@ -22,7 +22,7 @@ format :html do
   end
 
   def raw_help_text
-    card.help_rule_card&.content
+    card.try(:raw_help_text) || card.help_rule_card&.content
   end
 
   def rule_based_help

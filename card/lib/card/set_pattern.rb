@@ -67,6 +67,11 @@ class Card
 
             ([pattern_code] + anchor_codes).map { |code| code.to_s.camelize }.join "::"
           end
+
+          # label for set pattern if no anchor is given
+          def generic_label
+            label nil
+          end
         end
 
         # Instance methods

@@ -1,6 +1,38 @@
 format :html do
   attr_accessor :rule_context
 
+  view :rule_edit, cache: :never, unknown: true,
+                   wrap: { modal: { size: :large,
+                                    title: :edit_rule_title,
+                                    footer: "" } } do
+    current_rule_form form_type: :modal
+  end
+
+  view :rule_help, unknown: true, perms: :none, cache: :never do
+    wrap_with :div, class: "alert alert-info rule-instruction" do
+      rule_based_help
+    end
+  end
+
+  view :rule_bridge_link, unknown: true do
+    opts = bridge_link_opts(class: "edit-rule-link nav-link",
+                            "data-toggle": "pill",
+                            "data-cy": "#{setting_title.to_name.key}-pill")
+    opts[:path].delete(:layout)
+    link_to_view(:overlay_rule, (setting_title + short_help_text), opts)
+  end
+
+  def edit_link_view
+    :rule_edit
+  end
+
+  def edit_rule_title
+    output [
+      wrap_with(:h5, setting_title, class: "title font-weight-bold"),
+      render_overlay_rule_help
+    ]
+  end
+
   def current_rule force_reload=true
     @current_rule = nil if force_reload
     @current_rule ||= begin
@@ -16,59 +48,6 @@ format :html do
     Card.new name: "#{Card[:all].name}+#{card.rule_user_setting_name}"
   end
 
-  view :rule_help, unknown: true, perms: :none, cache: :never do
-    wrap_with :div, class: "alert alert-info rule-instruction" do
-      rule_based_help
-    end
-  end
-
-  view :show_rule, cache: :never, unknown: true do
-    return "No Current Rule" if card.new_card?
-
-    voo.items[:view] ||= :link
-    output [
-      show_rule_set(card.rule_set),
-      _render_core
-    ]
-  end
-
-  def show_rule_set set
-    wrap_with :div, class: "rule-set" do
-      %(<label>Applies to</label> #{link_to_card set.name, set.label}:)
-    end
-  end
-
-  view :quick_edit, unknown: true, template: :haml, wrap: :slot do
-    setting_title + short_help_text + quick_editor
-  end
-
-  def quick_form
-    card_form :update,
-              "data-slot-selector": ".set-info.card-slot",
-              success: { view: :quick_edit_success }  do
-      quick_editor
-    end
-  end
-
-  def set_info notify_change=nil
-    wrap true, class: "set-info" do
-      haml :set_info, notify_change: notify_change
-    end
-  end
-
-  def undo_button
-    link_to "undo", method: :post, rel: "nofollow", class: "btn btn-secondary ml-2 btn-sm btn-reduced-padding slotter",
-                    remote: true,
-                    "data-slot-selector": ".card-slot.quick_edit-view",
-                    path: { action: :update,
-                            revert_actions: [card.last_action_id],
-                            revert_to: :previous }
-  end
-
-  view :quick_edit_success do
-    set_info true
-  end
-
   def quick_editor
     if card.right.codename == :default
       @edit_rule_success = {}
@@ -78,53 +57,12 @@ format :html do
     end
   end
 
-  view :rule_bridge_link, unknown: true do
-    opts = bridge_link_opts(class: "edit-rule-link nav-link",
-                            "data-toggle": "pill",
-                            "data-cy": "#{setting_title.to_name.key}-pill")
-    opts[:path].delete(:layout)
-    link_to_view(:overlay_rule, (setting_title + short_help_text), opts)
-  end
-
   def setting_title
     card.name.tag.tr "*", ""
   end
 
   def short_help_text
     "<div class=\"help-text\">#{card.short_help_text}</div>"
-  end
-
-  def rule_content_container
-    wrap_with :div, class: "rule-content-container" do
-      wrap_with(:span, class: "closed-content content") { yield }
-    end
-  end
-
-  def link_to_open_rule
-    setting_title = card.name.tag.tr "*", ""
-    link_to_view :open_rule, setting_title, class: "edit-rule-link"
-  end
-
-  def closed_rule_content rule_card
-    return "" unless rule_card
-
-    nest rule_card, { view: :closed_content }, set_context: card.name.trunk_name
-  end
-
-  def open_rule_setting_links
-    wrap_with :div, class: "rule-setting" do
-      [link_to_closed_rule, link_to_all_rules]
-    end
-  end
-
-  def link_to_all_rules
-    link_to_card card.rule_setting_name, "all #{card.rule_setting_title} rules",
-                 class: "setting-link", target: "wagn_setting"
-  end
-
-  def link_to_closed_rule
-    link_to_view :closed_rule, card.rule_setting_title,
-                 class: "close-rule-link"
   end
 
   def reload_rule rule
@@ -157,7 +95,7 @@ format :html do
   end
 
   def rule_content_formgroup
-    formgroup "content", editor: "content", help: false do
+    formgroup "Content", editor: "content", help: false do
       content_field true
     end
   end

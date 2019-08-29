@@ -51,7 +51,7 @@ format :html do
   end
 
   view :all_rules_list do
-    rules_list :all, card.visible_setting_codenames.sort
+    pill_rule_list :all, card.visible_setting_codenames.sort
   end
 
   view :grouped_rules_list do
@@ -68,16 +68,15 @@ format :html do
   view :recent_rules_list do
     recent_settings = Card[:recent_settings].item_cards.map(&:codename)
     settings = recent_settings.map(&:to_sym) & card.visible_setting_codenames
-    rules_list :all, settings
+    pill_rule_list :all, settings
   end
 
   view :common_rules_list do
-    settings = card.visible_setting_codenames & COMMON_SETTINGS
-    # "&" = set intersection
-    rules_list :common, settings
+    settings = card.visible_setting_codenames & COMMON_SETTINGS # "&" = set intersection
+    pill_rule_list :common, settings
   end
 
   view :field_related_rules_list do
-    rules_list :field_related, field_related_settings
+    pill_rule_list :field_related, field_related_settings
   end
 end

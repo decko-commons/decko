@@ -48,7 +48,7 @@ class Card
         #   You should certainly {Card::View::Cache learn more about caching} if you want
         #   to develop mods that are safe in a caching environment.
         #
-        # * __:closed__ [True/False]. Is view acceptable for rendering inside `closed`
+        # * __:compact__ [True/False]. Is view acceptable for rendering inside `compact`
         #   view?  Default is false.
         #
         # * __:denial__ [Symbol]. View to render if permission is denied. Value can be
@@ -70,7 +70,8 @@ class Card
         #       etc)
         #     * a *Symbol*: name of view to render
         #
-        # * __:wrap__ wrap view dynamically. Value is Symbol for wrapper. See {Wrapper}
+        # * __:wrap__ wrap view dynamically. Value is Symbol for wrapper or Hash with
+        #   wrappers and wrapper options. See {Wrapper}
         #
         # * DEPRECATED __:commentable__ [True/False].  Render this view for unknown cards
         #   if comment box is showing and user has comment permission.

@@ -7,8 +7,8 @@ def diff_args
 end
 
 format do
-  view :closed_content do
-    ""
+  view :one_line_content do
+    raw_one_line_content
   end
 
   def chunk_list
@@ -19,5 +19,9 @@ end
 format :html do
   def editor
     :ace_editor
+  end
+
+  view :one_line_content, wrap: {} do
+    raw_one_line_content
   end
 end

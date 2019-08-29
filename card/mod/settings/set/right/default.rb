@@ -1,7 +1,7 @@
 include_set Abstract::TemplatedNests
 
 format :html do
-  view :closed_content do
+  view :one_line_content do
     raw = _render_raw
     "#{card.type_name} : #{raw.present? ? raw : '<em>empty</em>'}"
   end

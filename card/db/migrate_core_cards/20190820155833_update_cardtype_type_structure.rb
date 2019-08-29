@@ -2,6 +2,7 @@
 
 class UpdateCardtypeTypeStructure < Card::Migration::Core
   def up
-    merge_cards "cardtype+*type+*structure"
+    merge_cards "cardtype+*type+*structure", "Administrator+dashboard",
+                "Shark+dashboard"
   end
 end

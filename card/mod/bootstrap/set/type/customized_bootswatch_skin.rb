@@ -115,7 +115,7 @@ format :html do
      [:stylesheets, { title: "Styles" }]]
   end
 
-  view :closed_content do
+  view :one_line_content do
     ""
   end
 end

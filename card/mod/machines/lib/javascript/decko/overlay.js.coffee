@@ -53,4 +53,3 @@ jQuery.fn.extend
         #  decko.initTinyMCE($(this).attr("id"))
 
     @remove()
-

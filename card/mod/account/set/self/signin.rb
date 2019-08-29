@@ -110,7 +110,7 @@ format :html do
     _render_core
   end
 
-  view :closed_content do
+  view :one_line_content do
     ""
   end
 

@@ -66,7 +66,9 @@ module Card::Content::Chunk
         @explicit_link = render_obj @explicit_link
         format.link_to_resource @explicit_link, @link_text, explicit_link_opts
       elsif @name
-        format.nest referee_name, options.merge(view: view)
+        format.with_nest_mode :normal do
+          format.nest referee_name, options.merge(view: view)
+        end
       end
     end
 

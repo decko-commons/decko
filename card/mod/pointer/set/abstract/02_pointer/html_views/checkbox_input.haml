@@ -4,6 +4,6 @@
     - checked = card.item_names.include? option_name
     .pointer-checkbox
       = check_box_tag "pointer_checkbox-#{unique_id}", option_name, checked,
-                      id: id, class: "pointer-checkbox-button"
+                      id: id, class: "pointer-checkbox-button #{'_submit-on-change' if submit_on_change}"
       = option_label option_label, id
       = option_description "checkbox", option_name

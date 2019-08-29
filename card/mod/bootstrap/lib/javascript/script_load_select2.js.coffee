@@ -4,6 +4,10 @@ decko.slotReady (slot) ->
   slot.find('select:not(._no-select2)').each (_i) ->
     decko.initSelect2($(this))
 
+decko.slotDestroy (slot) ->
+  slot.find('select:not(._no-select2)').each (_i) ->
+    $(this).select2("destroy")
+
 $.extend decko,
   initSelect2: (elem) ->
     if elem.length > 1

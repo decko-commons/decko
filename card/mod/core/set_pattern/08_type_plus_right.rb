@@ -16,6 +16,10 @@ def short_label name
   %(all "+#{name.tag}" on "#{name.left}s")
 end
 
+def generic_label
+  "given field cards on a given type"
+end
+
 def prototype_args anchor
   {
     name: "+#{anchor.tag}",

@@ -1,14 +1,13 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::Toggle do
+RSpec.describe Card::Set::Type::Toggle do
   it "has special editor" do
     assert_view_select render_editor("Toggle"), 'input[type="checkbox"]'
   end
 
   it "has yes/no as processed content" do
     expect(render_view(:core, type: "Toggle", content: "0")).to eq("no")
-    expect(render_view(:closed_content, type: "Toggle", content: "1"))
-      .to eq("yes")
+    expect(render_view(:core, type: "Toggle", content: "1")).to eq("yes")
   end
 
   describe "view :labeled_editor" do
