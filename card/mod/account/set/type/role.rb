@@ -14,4 +14,8 @@ format :html do
        render_link]
     end
   end
+
+  def related_by_content_items
+    super.unshift ["members", :members]
+  end
 end

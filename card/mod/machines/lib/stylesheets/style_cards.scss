@@ -731,38 +731,19 @@ ul.action-list {
 /*- SETS, SETTINGS, RULES  - */
 /*-------------------------- */
 
-.setting-rules,
-.set-rules {
-  width: 100%;
-}
-.setting-rules th,
-.set-rules th {
-  padding: 5px 0;
-}
-.setting-rules th,
-.setting-rules td,
-.set-rules th,
-.set-rules td.rule-cell {
-  text-align: left;
-  padding: 2px 5px;
-}
+
 
 .setting-klass,
 .rule-setting {
   font-weight: bold;
 }
-td.rule-setting {
-  width: 30%;
-}
+
 .rule-set {
   white-space: nowrap;
 }
 
 .closed-rule {
   height: 30px;
-  td {
-    vertical-align: middle;
-  }
   .rule-content {
     width: 350px;
   }
@@ -816,19 +797,12 @@ td.rule-setting {
 .attention {
   border: 3px solid red;
 }
+
 .rule-delete-section {
   float: right;
 }
-.show-rule .rule-set {
-  margin-bottom: 10px;
-}
 
-tr.rule-changeover td {
-  padding-top: 5px;
-}
-td.rule-anchor {
-  padding-left: 30px;
-}
+
 a.setting-link {
   font-style: italic;
   margin-left: 2%;
@@ -1045,6 +1019,7 @@ $bridge-line-color: $border-color;
     > a {
       color: inherit
     }
+    // color: $list-group-action-color; // maybe this helps to tweak bridge on decko.org
     // background-color: $list-group-bg;
     // border: 1px solid $list-group-border-color;
     // border-left: 3px solid $list-group-border-color;
@@ -1255,4 +1230,10 @@ body.right-sidebar, body.left-sidebar, body.two-sidebar {
 }
 .alert-heading.error {
   margin-bottom: 30px;
+}
+
+.one-line {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
 }

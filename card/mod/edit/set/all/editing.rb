@@ -10,6 +10,8 @@ format :html do
     end
   end
 
+  view :cardboard, :bridge
+
   def bridge_parts
     voo.show! :edit_type_row
 

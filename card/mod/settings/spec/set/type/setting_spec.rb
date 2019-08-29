@@ -1,13 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::Setting do
-  context "core view" do
-    it "has a table" do
-      core = render_card :core, name: :help
-      assert_view_select core, "table"
-    end
-  end
-
+RSpec.describe Card::Set::Type::Setting do
   describe "rule_help view" do
     subject { Card[:read].format.render :rule_help }
 

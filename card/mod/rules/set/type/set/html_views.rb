@@ -4,29 +4,25 @@ format :html do
   end
 
   view :core, cache: :never do
-    table_rules_filter + _render_rules_table
+    filtered_rule_list :bar_rule_list
   end
 
-  view :rules_table, cache: :never do
-    rules_table setting_list(setting_group)
+  view :nest_rules, cache: :never, unknown: true, wrap: :slot do
+    filtered_rule_list :quick_edit_rule_list, :field_related_rules, :self, mark: ""
   end
 
-  def table_rules_filter
-    form_tag path(view: :rules_table, slot: { show: :content }),
-             remote: true, method: "get", role: "filter",
-             "data-slot-selector": ".card-slot.rules-table",
-             class: classy("nodblclick slotter form-inline slim-select2 m-2") do
-      output [
-        label_tag(:view, icon_tag("filter_list"), class: "mr-2"),
-        setting_select,
-        content_tag(:span, "rules that apply to #{_render_set_label}".html_safe,
-                    class: "mx-2 small")
-      ]
-    end
+  view :modal_nest_rules, cache: :never, unknown: true,
+                          wrap: { modal: { title: "Rules for nest" } } do
+    filtered_rule_list :quick_edit_rule_list, :field_related_rules, :self
   end
 
-  def setting_group
-    voo&.filter&.to_sym || params[:group]&.to_sym || :common
+  view :bridge_rules_tab, cache: :never do
+    filtered_rule_list :pill_rule_list, :common, :related, mark: ""
+  end
+
+  def filtered_rule_list view, *filter_args
+    [rules_filter(view, *filter_args),
+     render(view)]
   end
 
   view :set_label do
@@ -41,29 +37,15 @@ format :html do
     end
   end
 
-  def rules_table settings
-    class_up "card-slot", "rules-table"
-    wrap do
-      haml :rules_table, settings: settings,
-                         item_view: voo.show?(:content) ? :closed_rule : :rule_link
-    end
-  end
-
-  def rule_table_row setting
-    return "" unless show_view? setting
-
-    rule_card = card.fetch trait: setting, new: {}
-    row_view, optional_content =
-      voo.hide?(:content) ? %i[rule_link hide] : %i[rule_row show]
-
-    nest(rule_card, view: row_view, optional_content => :content).html_safe
+  def setting_group default=:common
+    voo&.filter&.to_sym || params[:group]&.to_sym || default
   end
 
   view :editor do
     "Cannot currently edit Sets" # LOCALIZE
   end
 
-  view :closed_content do
+  view :one_line_content, wrap: {} do
     ""
   end
 end

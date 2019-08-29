@@ -26,7 +26,7 @@ format :html do
     link_to_view :new_in_modal, text, path: path_opts, class: classy("missing-link")
   end
 
-  view :closed_missing, perms: :none do
+  view :compact_missing, perms: :none do
     wrap_with :span, h(title_in_context), class: "faint"
   end
 

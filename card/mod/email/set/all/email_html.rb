@@ -3,7 +3,7 @@ format :email_html do
     ""
   end
 
-  view :closed_missing do
+  view :compact_missing do
     ""
   end
 end

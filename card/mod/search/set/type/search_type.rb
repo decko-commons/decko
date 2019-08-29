@@ -52,12 +52,12 @@ format :html do
     _render search_result_view
   end
 
-  view :closed do
-    voo.hide :closed_content
+  view :bar do
+    voo.hide :one_line_content
     super()
   end
 
-  view :closed_content, cache: :never do
+  view :one_line_content, cache: :never do
     if depth > max_depth
       "..."
     else

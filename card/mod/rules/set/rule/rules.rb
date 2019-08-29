@@ -25,6 +25,10 @@ def rule_set
   end
 end
 
+def rule_setting
+  right
+end
+
 def rule_setting_name
   name.tag
 end

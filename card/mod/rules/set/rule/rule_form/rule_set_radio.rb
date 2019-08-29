@@ -51,7 +51,8 @@ class RuleSetRadio
     when :current
       "(current)"
     when :overwritten, :exists
-      link_to_card "#{@set_name}+#{@card.rule_user_setting_name}", "(#{@state})"
+      link_to_card "#{@set_name}+#{@card.rule_user_setting_name}", "(#{@state})",
+                   target: "_blank"
     end
   end
 

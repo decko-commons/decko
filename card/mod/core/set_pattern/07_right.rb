@@ -11,6 +11,10 @@ def short_label name
   %(all "+#{name}s")
 end
 
+def generic_label
+  "given field cards"
+end
+
 def prototype_args anchor
   { name: "*dummy+#{anchor}" }
 end

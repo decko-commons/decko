@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::Html do
+RSpec.describe Card::Set::Type::Html do
   before do
     Card::Auth.current_id = Card::WagnBotID
   end
@@ -9,11 +9,11 @@ describe Card::Set::Type::Html do
     assert_view_select render_editor("Html"), 'textarea[rows="5"]'
   end
 
-  it "does not render any content in closed view" do
-    rendered = render_card :closed_content,
-                           type: "Html",
+  it "renders no html tags in one_line_content view" do
+    rendered = render_view :one_line_content,
+                           type: "HTML",
                            content: "<strong>Lions and Tigers</strong>"
-    expect(rendered).to eq("")
+    expect(rendered.strip).to eq "Tempo Rary"
   end
 
   it "renders nests" do

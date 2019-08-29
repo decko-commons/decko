@@ -11,3 +11,9 @@ view :javascript_include_tag do
     <script src="#{card.machine_output_url}" type="text/javascript"></script>
   )
 end
+
+format :html do
+  def raw_help_text
+    "JavaScript (or CoffeeScript) for card's page."
+  end
+end

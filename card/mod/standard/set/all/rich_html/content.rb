@@ -14,6 +14,19 @@ format :html do
     short_content
   end
 
+  view :raw_one_line_content, wrap: { div: { class: "text-muted" } } do
+    return createable { missing_link(fa_icon("plus-square")) } unless card.known?
+
+    raw_one_line_content
+  end
+
+
+  view :one_line_content, wrap: { div: { class: "text-muted" } } do
+    return createable { missing_link(fa_icon("plus-square")) } unless card.known?
+
+    one_line_content
+  end
+
   before(:content_with_title) { prepare_content_slot }
 
   view :content_with_title do
@@ -74,9 +87,8 @@ format :html do
   end
 
   view :closed do
-    with_nest_mode :closed do
+    with_nest_mode :compact do
       toggle_logic
-      voo.hide :closed_content
       class_up "d0-card-body", "closed-content"
       @content_body = false
       @toggle_mode = :close
@@ -93,6 +105,18 @@ format :html do
     set_name ||= "#{card.name}+*type" if card.known? && card.type_id == Card::CardtypeID
     set_name ||= "#{card.name}+*self"
     Card.fetch(set_name)
+  end
+
+  def raw_one_line_content
+    cleaned = Card::Content.clean! render_raw, {}
+    cut_with_ellipsis cleaned
+  end
+
+  def one_line_content
+    # TODO: use a version of Card::Content.smart_truncate
+    #   that counts characters instead of clean!
+    cleaned = Card::Content.clean! render_core
+    cut_with_ellipsis cleaned
   end
 
   # LOCALIZE

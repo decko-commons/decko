@@ -13,7 +13,12 @@ class Card
     mattr_accessor :groups, :group_names, :user_specific
     def self.extended host_class
       # accessible in E and O
-      host_class.mattr_accessor :restricted_to_type, :rule_type_editable, :short_help_text
+      host_class.mattr_accessor :restricted_to_type, :rule_type_editable, :short_help_text,
+                                :raw_help_text, :right_set
+      setting_class_name = host_class.to_s.split("::").last
+      host_class.ensure_set { "Card::Set::Right::#{setting_class_name}" }
+      host_class.right_set = Card::Set::Right.const_get(setting_class_name)
+      host_class.right_set.mattr_accessor :raw_help_text
     end
 
     def self.codenames
@@ -52,7 +57,8 @@ class Card
                   name.match(/::(\w+)$/)[1].underscore.to_sym
       self.rule_type_editable = opts[:rule_type_editable]
       self.restricted_to_type = permitted_type_ids opts[:restricted_to_type]
-      self.short_help_text = opts[:help_text]
+      self.short_help_text = opts[:short_help_text]
+      right_set.raw_help_text = self.raw_help_text = opts[:help_text]
       return unless opts[:user_specific]
       @@user_specific << @codename
     end

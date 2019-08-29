@@ -25,9 +25,9 @@ format :html do
 
   def setting_link
     wrap_with :div, class: "ml-auto" do
-      # FIXME: hardcoded count
-      link_to_card card.rule_setting_name, " (37 #{card.rule_setting_title} rules)",
-                   class: "text-muted", target: "wagn_setting"
+      link_to_card card.rule_setting_name,
+                  " (#{card.rule_setting.count} #{card.rule_setting_title} rules)",
+                   class: "text-muted"
     end
   end
 end
