@@ -39,10 +39,11 @@ format :html do
     wrap_with :span, content, options
   end
 
-  def popover_link text, title=nil
-    opts = { class: "pl-1 text-muted-link", path: "#", "data-toggle": "popover",
-             "data-trigger": :focus, "data-content": text }
+  def popover_link text, title=nil, link_text=fa_icon("question-circle"), opts={}
+    add_class opts, "pl-1 text-muted-link"
+    opts.merge! path: "#", "data-toggle": "popover",
+                "data-trigger": :focus, "data-content": text
     opts["data-title"] = title if title
-    link_to fa_icon("question-circle"), opts
+    link_to link_text, opts
   end
 end

@@ -4,7 +4,7 @@ describe 'rules', () ->
 
   specify "default setting and plus card override", ->
     cy.app "cards/ensure", name: "*all+*help", content: "say something spicy"
-    cy.app "cards/ensure", name: "color+*right+*add help", content: "colorblind"
+    cy.app "cards/ensure", name: "color+*right+*help", content: "colorblind"
     cy.visit "/Test"
     cy.main_slot().should "contain", "spicy"
     cy.visit "/Test+color"
@@ -12,7 +12,7 @@ describe 'rules', () ->
 
   specify '*right Set', () ->
     cy.app("cards/ensure",
-           name: "cereal+*right+*add help",
+           name: "cereal+*right+*help",
            content: "I go poopoo for poco puffs").then ->
       cy.wait(1000)
       cy.visit("/Test+cereal")

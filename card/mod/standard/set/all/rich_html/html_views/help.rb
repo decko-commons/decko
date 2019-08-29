@@ -1,24 +1,31 @@
 def help_rule_card
-  setting = new_card? ? [:add_help, { fallback: :help }] : :help
-  help_card = rule_card(*setting)
+  help_card = rule_card(:help)
   help_card if help_card&.ok?(:read)
 end
 
 format :html do
   view :help, unknown: true, cache: :never, wrap: :slot do
-    help_text = voo.help || rule_based_help
-    return "" unless help_text.present?
+    wrap_with :div, render_help_text, class: classy("help-text")
+  end
+
+  view :help_text, unknown: true, cache: :never do
+    help = help_text
+    return "" unless help.present?
 
     if (rule_card = card.help_rule_card)
       edit_link = with_nest_mode(:normal) { nest(rule_card, view: :edit_link) }
-      help_text = "<span class='d-none'>#{edit_link}</span>#{help_text}"
+      help = "<span class='d-none'>#{edit_link}</span>#{help}"
     end
-    wrap_with :div, help_text, class: classy("help-text")
+    help
   end
 
   view :lead do
     class_up "card-slot", "lead"
     _view_content
+  end
+
+  def help_text
+    voo.help || rule_based_help
   end
 
   def raw_help_text

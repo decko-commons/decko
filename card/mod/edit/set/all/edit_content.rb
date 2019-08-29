@@ -57,4 +57,8 @@ format :html do
     # for override
     { "data-slot-selector": "modal-origin", "data-slot-error-selector": ".card-slot" }
   end
+
+  def wrap_content_formgroup
+    formgroup("Content", editor: :content, help: false) { yield }
+  end
 end

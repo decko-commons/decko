@@ -24,7 +24,7 @@ header {
 
 .d0-card-header a {
   color: $body-color;
-  &.edit-link, &.bridge-link {
+  &.edit-link, &.bridge-link, &.help-link {
     color: $text-muted;
   }
 }

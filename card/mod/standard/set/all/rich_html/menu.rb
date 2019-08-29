@@ -3,7 +3,7 @@ format :html do
     return "" if card.unknown?
 
     wrap_with :div, class: "card-menu #{menu_link_classes}" do
-      [bridge_link(false), menu_link]
+      [help_link, menu_link, bridge_link(false)]
     end
   end
 
@@ -41,6 +41,43 @@ format :html do
       opts["data-slotter-mode"] = "modal-replace"
     end
     link_to_view :bridge, material_icon(:more_horiz), opts
+  end
+
+  def help_link
+    help_link_popover # ? help_link_slotter : help_link_popover
+  end
+
+  def help_slot?
+    false
+  end
+
+  def help_icon
+    material_icon("help")
+  end
+
+  def help_text
+    ""
+  end
+
+  def help_title
+    "#{name_parts_links} #{full_page_link unless card.simple?} (#{render_type})"
+  end
+
+  def name_parts_links
+    card.name.parts.map do |part|
+      link_to_card part
+    end.join Card::Name.joint
+  end
+
+  def help_link_popover
+    popover_link render_help_text, help_title, help_icon, "data-placement": :left,
+                 class: "help-link"
+  end
+
+  def help_link_slotter
+    link_to_view :help, help_icon,
+                 path: { slot: { show: :help_text } }, class: "help-link",
+                 "data-slot-selector" => ".card-slot.help_text_view"
   end
 
   def full_page_link
