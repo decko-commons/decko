@@ -42,7 +42,7 @@ format do
     end
   end
 
-  view :comment_box, denial: :blank, unknown: true, perms: :comment do
+  view :comment_box, denial: :blank, unknown: true, perms: :update do
     wrap_with :div, class: "comment-box nodblclick" do
       action = card.new_card? ? :create : :update
       card_form action do

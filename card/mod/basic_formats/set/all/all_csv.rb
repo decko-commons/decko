@@ -26,7 +26,7 @@ format :csv  do
     # strip is because search already joins with newlines
   end
 
-  view :missing do
+  view :unknown do
     ""
   end
 

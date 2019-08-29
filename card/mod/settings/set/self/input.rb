@@ -1,6 +1,8 @@
 extend Card::Setting
-setting_opts group: :editing, position: 3,
-             rule_type_editable: false, short_help_text: "edit interface for sdsdlist cards"
+setting_opts group: :editing,
+             position: 3,
+             rule_type_editable: false,
+             short_help_text: "edit interface for pointer/list cards"
 
 format :html do
   def raw_help_text
