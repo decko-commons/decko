@@ -9,6 +9,7 @@ format :html do
       voo.title = "Welcome, Shark!" # LOCALIZE
       voo.show! :help
       voo.hide! :menu
+      voo.help = haml :setup_help
       Auth.as_bot { setup_form }
     end
   end
@@ -17,7 +18,7 @@ format :html do
     frame_and_form :create do
       [
         setup_hidden_fields,
-        _render_name_formgroup(help: "usually first and last name"),
+        _render_name_formgroup,
         account_formgroup,
         setup_form_buttons
       ]
@@ -44,21 +45,13 @@ format :html do
       "card[type_id]" => Card.default_accounted_type_id
     )
   end
-
-  def help_text
-    text = "<h3>To get started, set up an account.</h3>"
-    if Card.config.action_mailer.perform_deliveries == false
-      text += <<-HTML
-        <br>WARNING: Email delivery is turned off.
-        Change settings in config/application.rb to send sign up notifications.
-      HTML
-    end
-    text
-  end
 end
 
-event :setup_as_bot, before: :check_permissions, on: :create,
-                     when: proc { Card::Env.params[:setup] } do
+def setup?
+  Card::Env.params[:setup]
+end
+
+event :setup_as_bot, before: :check_permissions, on: :create, when: :setup? do
   abort :failure unless Auth.needs_setup?
   Auth.as_bot
   # we need bot authority to set the initial administrator roles
@@ -66,14 +59,15 @@ event :setup_as_bot, before: :check_permissions, on: :create,
   # flexibility and security when configuring initial setups
 end
 
-event :setup_first_user, :prepare_to_store,
-      on: :create, when: proc { Card::Env.params[:setup] } do
+event :setup_first_user, :prepare_to_store, on: :create, when: :setup? do
   add_subcard "signup alert email+*to", content: name
-  add_subfield :roles,
-               content: %i[help_desk shark administrator].map(&:cardname)
+  add_subfield :roles, content: roles_for_first_user
 end
 
-event :signin_after_setup, :integrate,
-      on: :create, when: proc { Card::Env.params[:setup] } do
+def roles_for_first_user
+  %i[help_desk shark administrator].map &:cardname
+end
+
+event :signin_after_setup, :integrate, on: :create, when: :setup? do
   Auth.signin id
 end
