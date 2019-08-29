@@ -18,6 +18,18 @@ end
 
 format :html do
   def editor
-    :ace_editor
+    :link_list
+  end
+
+  view :link_list_input, cache: :never do
+    link_list_input
+  end
+
+  def link_list_input args={}
+    items = items_for_input args[:item_list]
+    extra_class = "pointer-link-list-ul"
+    ul_classes = classy "pointer-link-list-editor", extra_class
+    haml :link_list_input, items: items, ul_classes: ul_classes,
+                           options_card: options_card_name
   end
 end

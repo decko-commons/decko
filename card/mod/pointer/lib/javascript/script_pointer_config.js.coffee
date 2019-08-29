@@ -7,6 +7,8 @@ $.extend decko.editorContentFunctionMap,
       pointerContent @find('input:checked').val()
     '.pointer-list-ul': ->
       pointerContent @find('input').map( -> $(this).val() )
+    '.pointer-link-list-ul': ->
+      decko.linkListContent @find('.input-group')
     '.pointer-checkbox-list': ->
       pointerContent @find('input:checked').map( -> $(this).val() )
     '.pointer-select-list': ->
@@ -43,6 +45,16 @@ $.extend decko,
   pointerContent: (vals) ->
     list = $.map $.makeArray(vals), (v) -> if v then '[[' + v + ']]'
     $.makeArray(list).join "\n"
+
+  linkListContent: (input_groups) ->
+      vals = input_groups.map( ->
+        v = $(this).find('input._reference').val()
+        title = $(this).find('input._title').val()
+        v += "|#{title}" if title.length > 0
+      )
+      list = $.map $.makeArray(vals), (v) -> if v then '[[' + v + ']]'
+      $.makeArray(list).join "\n"
+
 
 pointerContent = (vals) ->
   decko.pointerContent vals
