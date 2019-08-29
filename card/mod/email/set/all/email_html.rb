@@ -1,5 +1,5 @@
 format :email_html do
-  view :missing do
+  view :unknown do
     ""
   end
 

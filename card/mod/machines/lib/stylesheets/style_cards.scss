@@ -291,7 +291,7 @@ pre,
   white-space: -o-pre-wrap;    /* Opera 7 */
   word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
-.missing-view a {
+.unknown-view a {
   display: inline;
 }
 
@@ -764,7 +764,6 @@ ul.action-list {
     margin: 0;
   }
 }
-
 .rule-setting {
   padding-top: 4px;
 }
@@ -1015,16 +1014,20 @@ $bridge-line-color: $border-color;
   .help-text {
     font-size: 0.8rem;
   }
-  > .nav-item > a {
-    color: $list-group-action-color; // maybe this helps to tweak bridge on decko.org
-    background-color: $list-group-bg;
-    border: 1px solid $list-group-border-color;
-    border-left: 3px solid $list-group-border-color;
-    margin-bottom: -1px;
-
-    &:hover, &.active, &:focus {
-      border-left-color: $list-group-active-bg;
+  > .nav-item {
+    padding: 0;
+    > a {
+      color: inherit
     }
+    // color: $list-group-action-color; // maybe this helps to tweak bridge on decko.org
+    // background-color: $list-group-bg;
+    // border: 1px solid $list-group-border-color;
+    // border-left: 3px solid $list-group-border-color;
+    // margin-bottom: -1px;
+
+    // &:hover, &.active, &:focus {
+    //   border-left-color: $list-group-active-bg;
+    // }
   }
 }
 
@@ -1097,12 +1100,11 @@ $bridge-line-color: $border-color;
   }
 
   .bridge-sidebar {
+    .history_tab-view > div {
+      margin: 0.5rem;
+    }
     .d0-card-header-title > .card-title {
       font-size: 1rem;
-    }
-
-    .creator-credit {
-      font-size: $font-size-sm;
     }
     .nav-link {
       padding: 0.5rem 0.5rem;

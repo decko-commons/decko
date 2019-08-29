@@ -86,8 +86,9 @@ format :html do
   end
 
   def bridge_pills items
-    list_tag class: "nav nav-pills _auto-single-select bridge-pills flex-column",
-             items: { class: "nav-item" } do
+    list_tag class: "nav nav-pills _auto-single-select bridge-pills " \
+                    "flex-column list-group",
+             items: { class: "nav-item list-group-item" } do
       items
     end
   end

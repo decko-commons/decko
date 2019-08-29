@@ -1,7 +1,3 @@
-def show_comment_box_in_related?
-  false
-end
-
 format :html do
   def prepare_content_slot
     class_up "card-slot", "d0-card-content"
@@ -52,14 +48,14 @@ format :html do
     end
   end
 
-  view :titled, commentable: true do
+  view :titled do
     @content_body = true
     wrap do
       [
         naming { render_header },
         render_flash,
         wrap_body { render_titled_content },
-        render_comment_box
+        render_comment_box(optional: :hide)
       ]
     end
   end
@@ -81,12 +77,12 @@ format :html do
                                  items: (opts[:items] || {}).merge(view: item_view))
   end
 
-  view :open, commentable: true do
+  view :open do
     toggle_logic
     @toggle_mode = :open
     @content_body = true
     frame do
-      [_render_open_content, render_comment_box]
+      [_render_open_content, render_comment_box(optional: :hide)]
     end
   end
 
