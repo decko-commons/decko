@@ -1,13 +1,18 @@
 GROUP = {
-  "Content" => %w[RichText PlainText Phrase Date Number Toggle Markdown File Image URI],
+  "Text" => %w[RichText PlainText Markdown HTML],
+  "Data" => %w[Number Toggle Date URI],
+  "Upload" => %w[File Image],
   "Custom" => [],
-  "Organize" => ["Cardtype", "Search", "List", "Link list", "Pointer",
+  "Organize" => ["List", "Pointer", "Search", "Link list",
                  "Mirror List", "Mirrored List"],
   "Template" => ["Notification template", "Email template", "Twitter template"],
-  "Admin" => ["User", "Role", "Sign up", "Session", "Set", "Setting"],
+  "Admin" => ["Cardtype", "User", "Role", "Sign up", "Session", "Set", "Setting"],
   "Styling" => ["Layout", "Skin", "Bootswatch skin", "Customized bootswatch skin", "CSS", "SCSS"],
-  "Code" => %w[HTML JSON JavaScript CoffeeScript]
+  "Scripting" => %w[JSON JavaScript CoffeeScript]
 }.freeze
+
+#DEFAULT_RULE_GROUPS = ["Text", "Data", "Upload", "Organize - Search"]
+#STRUCTURE_RULE_GROUPS = ["Text", "Organize > Search"]
 
 # group for each cardtype: { "RichText => "Content", "Layout" => "Admin", ... }
 GROUP_MAP = GROUP.each_with_object({}) do |(cat, types), h|

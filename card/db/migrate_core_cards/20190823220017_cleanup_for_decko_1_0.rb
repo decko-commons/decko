@@ -12,8 +12,10 @@ class CleanupForDecko10 < Card::Migration::Core
     delete_card "tags"
     delete_card "*tagged"
     merge_cards "*account"
-    update_card "*included by", name: "*nested by", codename: "nested_by"
-    update_card "*includes", name: "*nests", codename: "nests"
+    update_card "*included by",
+                name: "*nested by", codename: "nested_by", update_referers: true
+    update_card "*includes",
+                name: "*nests", codename: "nests", update_referers: true
     ensure_card "*members", codename: "members"
   end
 end
