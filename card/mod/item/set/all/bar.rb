@@ -28,7 +28,6 @@ format :html do
   view :unknown_bar, unknown: true do
     voo.hide! :bar_middle, :bar_bottom, :bar_nav
     wrap { haml :bar }
-    #render_bar_left
   end
 
   before :expanded_bar do
