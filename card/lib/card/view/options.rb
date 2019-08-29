@@ -6,8 +6,8 @@ class Card
     #
     #      {{cardname|hide:menu}}
     #
-    # These options and others are available to monkeys when rendering views via
-    # #render or #nest.
+    # These options and others are available to monkeys when rendering views
+    # via #render or #nest.
     #
     #      nest "cardname", hide: :menu
     #      render :viewname, hide: :menu

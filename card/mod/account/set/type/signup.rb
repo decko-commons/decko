@@ -11,9 +11,9 @@ format :html do
     super()
   end
 
-  before :name_formgroup do
-    voo.help = tr :first_last_help
-  end
+  # before :name_formgroup do
+  #   voo.help = tr :first_last_help
+  # end
 
   view :content_formgroup do
     [account_formgroups, (card.structure ? edit_slot : "")].join

@@ -86,16 +86,6 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    it "is granted to admin if to anybody" do
-      Card::Auth.as_bot do
-        c1 = Card["c1"]
-        Card.create! name: "c1+*self+*comment", type: "Pointer",
-                     content: "[[r1]]"
-        expect(c1.who_can(:comment)).to eq([Card["r1"].id])
-        expect(c1.ok?(:comment)).to be_truthy
-      end
-    end
-
     it "reader setting", aggregate_failures: true do
       Card.where(trash: false).each do |ca|
         rule_id, rule_class = ca.permission_rule_id_and_class :read

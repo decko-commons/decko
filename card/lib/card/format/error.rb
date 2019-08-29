@@ -20,7 +20,7 @@ class Card
           root.error_status = 404
           :not_found
         else
-          :missing
+          :unknown
         end
       end
 
