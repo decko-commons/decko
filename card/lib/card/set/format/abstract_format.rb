@@ -73,9 +73,6 @@ class Card
         # * __:wrap__ wrap view dynamically. Value is Symbol for wrapper or Hash with
         #   wrappers and wrapper options. See {Wrapper}
         #
-        # * DEPRECATED __:commentable__ [True/False].  Render this view for unknown cards
-        #   if comment box is showing and user has comment permission.
-        #
         def view viewname, *args, &block
           def_opts = process_view_opts viewname, args
           define_view_method viewname, def_opts, &block

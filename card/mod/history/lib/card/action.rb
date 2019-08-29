@@ -157,7 +157,8 @@ class Card
 
     def all_changes
       self.class.cache.fetch("#{id}-changes") do
-        card_changes.find_all.to_a
+        # using card_changes causes caching problem
+        Card::Change.where(card_action_id: id).to_a
       end
     end
 

@@ -109,15 +109,10 @@ def deny_because why
 end
 
 def permitted? action
-  return if Card.config.read_only
-  return true if action != :comment && Auth.always_ok?
-  permitted_ids = who_can action
-  if action == :comment && Auth.always_ok?
-    # admin can comment if anyone can
-    !permitted_ids.empty?
-  else
-    Auth.as_card.among? permitted_ids
-  end
+  return false if Card.config.read_only # :read does not call #permit
+  return true if Auth.always_ok?
+
+  Auth.as_card.among? who_can(action)
 end
 
 def permit action, verb=nil
@@ -162,13 +157,6 @@ end
 
 def ok_to_delete
   permit :delete
-end
-
-def ok_to_comment
-  permit :comment, "comment on"
-  return unless @action_ok
-  deny_because "No comments allowed on templates" if is_template?
-  deny_because "No comments allowed on structured content" if structure
 end
 
 # don't know why we introduced this
@@ -240,7 +228,7 @@ event :check_permissions, :validate do
 end
 
 def action_for_permission_check
-  commenting? ? :comment : @action
+  commenting? ? :update : @action
 end
 
 def track_permission_errors
@@ -260,7 +248,6 @@ module Accounts
 
   def permit action, verb=nil
     case action
-    when :comment then @action_ok = false
     when :create  then @superleft ? true : super(action, verb)
     # restricts account creation to subcard handling on permitted card
     # (unless explicitly permitted)
