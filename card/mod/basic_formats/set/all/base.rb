@@ -94,8 +94,8 @@ format do
     end
   end
 
-  view :labeled_content, unknown: true do
-    card.known? ? render_core : unknown_icon_link
+  view :labeled_content, unknown: :mini_unknown do
+    render_core
   end
 
   view :titled_content, unknown: :blank do
