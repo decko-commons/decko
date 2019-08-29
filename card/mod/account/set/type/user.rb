@@ -6,7 +6,7 @@ attr_accessor :email
 format :html do
   view :setup, unknown: true, perms: ->(_fmt) { Auth.needs_setup? } do
     with_nest_mode :edit do
-      voo.title = "Welcome, Shark!" # LOCALIZE
+      voo.title = "Your deck is ready to go!" # LOCALIZE
       voo.show! :help
       voo.hide! :menu
       voo.help = haml :setup_help
@@ -65,7 +65,7 @@ event :setup_first_user, :prepare_to_store, on: :create, when: :setup? do
 end
 
 def roles_for_first_user
-  %i[help_desk shark administrator].map &:cardname
+  %i[help_desk shark administrator].map(&:cardname)
 end
 
 event :signin_after_setup, :integrate, on: :create, when: :setup? do

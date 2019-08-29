@@ -95,15 +95,7 @@ format do
   end
 
   view :labeled_content, unknown: true do
-    valid_labeled_content { render_core }
-  end
-
-  def valid_labeled_content
-    if card.known?
-      yield
-    else
-      createable { missing_link(fa_icon("plus-square")) }
-    end
+    card.known? ? render_core : unknown_icon_link
   end
 
   view :titled_content, unknown: :blank do

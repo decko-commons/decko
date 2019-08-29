@@ -17,7 +17,7 @@ format :html do
 
   view :one_line_content,
        wrap: { div: { class: "text-muted one-line" } }, unknown: true do
-    return createable { missing_link(fa_icon("plus-square")) } unless existing_rule_card
+    return render_mini_unknown unless existing_rule_card
 
     with_nest_mode :compact do
       one_line_content
@@ -26,7 +26,7 @@ format :html do
 
   view :raw_one_line_content,
        wrap: { div: { class: "text-muted one-line" } }, unknown: true do
-    return createable { missing_link(fa_icon("plus-square")) } unless existing_rule_card
+    return render_mini_unknown unless existing_rule_card
 
     raw_one_line_content
   end
