@@ -15,8 +15,11 @@ format :html do
       #              ["last edited", :last_edited]]]
     }.freeze
 
-  BRIDGE_PILL_CLASSES =
-    "nav nav-pills _auto-single-select bridge-pills flex-column".freeze
+  BRIDGE_PILL_UL_CLASSES =
+    "nav nav-pills _auto-single-select bridge-pills flex-column list-group".freeze
+
+  BRIDGE_PILL_LI_CLASSES =
+      "nav-item list-group-item".freeze
 
   view :engage_tab, wrap: { div: { class: "m-3 mt-4 _engage-tab" } }, cache: :never do
     [render_follow_section, discussion_section].compact
@@ -29,7 +32,7 @@ format :html do
   end
 
   view :related_tab do
-    wrap_with :ul, class: BRIDGE_PILL_CLASSES do
+    wrap_with :ul, class: BRIDGE_PILL_UL_CLASSES do
       %w[name content type].map { |n| related_section(n) }
     end
   end
@@ -73,7 +76,7 @@ format :html do
   def related_section category
     items = send("related_by_#{category}_items")
     wrap_with(:h6, "by #{category}", class: "ml-1 mt-3") +
-      wrap_each_with(:li, class: "nav-item") do
+      wrap_each_with(:li, class: BRIDGE_PILL_LI_CLASSES) do
         bridge_pill_items(items, "Related")
       end.html_safe
   end
@@ -96,7 +99,7 @@ format :html do
   end
 
   def bridge_pills items
-    list_tag class: BRIDGE_PILL_CLASSES, items: { class: "nav-item" } do
+    list_tag class: BRIDGE_PILL_UL_CLASSES, items: { class: BRIDGE_PILL_LI_CLASSES } do
       items
     end
   end

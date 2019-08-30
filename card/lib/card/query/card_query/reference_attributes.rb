@@ -14,7 +14,8 @@ class Card
         {
           refer_to: %w[L I],
           link_to: "L",
-          include: "I"
+          include: "I",
+          nest: "I"
         }.each do |methodname, reftype|
           define_reference_method methodname, reftype, :referee, :referer_id
         end
@@ -22,7 +23,8 @@ class Card
         {
           referred_to_by: %w[L I],
           linked_to_by: "L",
-          included_by: "I"
+          included_by: "I",
+          nested_by: "I"
         }.each do |methodname, reftype|
           define_reference_method methodname, reftype, :referer, :referee_id
         end
