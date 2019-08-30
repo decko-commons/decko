@@ -44,8 +44,14 @@ format :html do
   end
 
   def help_link
-    popover_link render_help_text, help_title, help_icon, "data-placement": :left,
-                 class: "help-link _card-menu-popover"
+    opts = help_popover_opts
+    add_class opts, "_card-menu-popover"
+    link_to help_icon, opts
+  end
+
+  def help_popover_opts
+    opts = { "data-placement": :left, class: "help-link" }
+    popover_opts render_help_text, help_title, opts
   end
 
   def help_icon
@@ -53,7 +59,7 @@ format :html do
   end
 
   def help_title
-    "#{full_page_link unless card.simple?} #{name_parts_links} (#{render_type}) "
+    "#{name_parts_links} (#{render_type}) #{full_page_link unless card.simple?}"
   end
 
   def name_parts_links

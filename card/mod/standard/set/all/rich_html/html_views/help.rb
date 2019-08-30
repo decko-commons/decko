@@ -5,16 +5,21 @@ end
 
 format :html do
   view :help, unknown: true, cache: :never, wrap: :slot do
-    wrap_with :div, render_help_text, class: classy("help-text")
-  end
-
-  view :help_text, unknown: true, cache: :never do
     help = help_text
     return "" unless help.present?
 
+    wrap_with :div, wrap_help_text(help), class: classy("help-text")
+  end
+
+  view :help_text, unknown: true, cache: :never do
+    wrap_help_text help_text
+  end
+
+  def wrap_help_text text
+    help = text
     if (rule_card = card.help_rule_card)
       edit_link = with_nest_mode(:normal) { nest(rule_card, view: :edit_link) }
-      help = "<span class='d-none'>#{edit_link}</span>#{help}"
+      help = "<span class='d-none'>#{edit_link}</span>#{text}"
     end
     help
   end

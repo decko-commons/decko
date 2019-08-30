@@ -40,10 +40,14 @@ format :html do
   end
 
   def popover_link text, title=nil, link_text=fa_icon("question-circle"), opts={}
+    link_to link_text, popover_opts(text, title, opts)
+  end
+
+  def popover_opts text, title, opts
     add_class opts, "pl-1 text-muted-link"
     opts.merge! path: "#", "data-toggle": "popover",
                 "data-trigger": :focus, "data-content": text
     opts["data-title"] = title if title
-    link_to link_text, opts
+    opts
   end
 end
