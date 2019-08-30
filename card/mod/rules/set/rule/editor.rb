@@ -44,13 +44,7 @@ format :html do
   end
 
   def quick_editor
-    if card.right.codename == :default
-      binding.pry
-      @edit_rule_success = {}
-      rules_type_formgroup
-    else
-      rule_content_formgroup
-    end
+    rule_content_formgroup
   end
 
   def setting_title
