@@ -7,11 +7,11 @@ class Card
 
       # app is not totally set up yet
       # @return [true/false]
-      def needs_setup
-        # FIXME - should not require a cache lookup with every request!!
+      def needs_setup?
+        # FIXME: - should not require a cache lookup with every request!!
         @simulating_setup_need || (
           !Card.cache.read(SETUP_COMPLETED_KEY) &&
-          !Card.cache.write(SETUP_COMPLETED_KEY, account_count > 0)
+          !Card.cache.write(SETUP_COMPLETED_KEY, user_account_count.positive?)
         )
         # every deck starts with two accounts: WagnBot and Anonymous
       end
@@ -38,14 +38,14 @@ class Card
       private
 
       def user_account_ids
-        as_bot { Card.search user_account_wql.merge(return: :id)}
+        as_bot { Card.search user_account_wql.merge(return: :id) }
       end
 
       def user_account_wql
         { right_id: AccountID, creator_id: ["ne", WagnBotID] }
       end
 
-      def account_count
+      def user_account_count
         wql = user_account_wql
         wql[:not] = { id: ["in"].concat(@hidden_accounts) } if @hidden_accounts
         as_bot { Card.count_by_wql wql }
