@@ -19,7 +19,7 @@ format :html do
         # render to get voo.slot_options to have the write home view in
         # the slot wrap. Id think this would probably best be handled as an
         # option to #wrap that triggers a new heir voo
-        _render_content_formgroup,
+        _render_content_formgroups,
         _render_edit_buttons
       ]
     end

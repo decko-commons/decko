@@ -45,6 +45,7 @@ format :html do
 
   def quick_editor
     if card.right.codename == :default
+      binding.pry
       @edit_rule_success = {}
       rules_type_formgroup
     else
@@ -78,9 +79,7 @@ format :html do
   end
 
   def rule_content_formgroup
-    formgroup "Content", editor: "content", help: false do
-      content_field true
-    end
+    _render_content_formgroup hide: :conflict_tracker
   end
 
   def current_set_key

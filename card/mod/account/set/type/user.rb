@@ -31,7 +31,7 @@ format :html do
 
   def account_formgroup
     account = card.fetch trait: :account, new: {}
-    subformat(account)._render :content_formgroup, structure: true
+    subformat(account)._render :content_formgroups, structure: true
   end
 
   def setup_button

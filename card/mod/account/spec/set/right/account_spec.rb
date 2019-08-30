@@ -31,14 +31,13 @@ RSpec.describe Card::Set::Right::Account do
         .to match(/You don\'t have permission to create/)
     end
 
-    it "works for any accountable card -- not just User type" do
+    it "works for any card with +*account permissions -- not just User type" do
       Card::Auth.as_bot do
-        rule_name = Card::Name[%i[basic account type_plus_right create]]
-        Card.create! name: rule_name, content: "Anyone Signed In"
+        Card.create! name: Card::Name[%i[basic account type_plus_right create]],
+                     content: "Anyone Signed In"
       end
 
-      accountable = Card.create(dummy_account_args)
-      expect(accountable.errors).to be_empty
+      expect(Card.create(dummy_account_args).errors).to be_empty
     end
 
     it "requires email" do

@@ -5,7 +5,7 @@ format :html do
       card_form :update, success: edit_success do
         [
           edit_view_hidden,
-          _render_content_formgroup,
+          _render_content_formgroups,
           _render_edit_inline_buttons
         ]
       end

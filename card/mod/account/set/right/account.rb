@@ -110,6 +110,13 @@ def ok_to_read
   own_account? ? true : super
 end
 
+# allow account owner to update account field content
+def ok_to_update
+  return true if own_account? && !name_changed? && !type_id_changed?
+
+  super
+end
+
 def reset_password_success
   # token_card.used!
   Auth.signin left_id
@@ -161,7 +168,7 @@ format :html do
     field_nest field, title: title, view: :labeled, edit: :inline
   end
 
-  before :content_formgroup do
+  before :content_formgroups do
     voo.edit_structure = [[:email, "email"], [:password, "password"]]
   end
 end
