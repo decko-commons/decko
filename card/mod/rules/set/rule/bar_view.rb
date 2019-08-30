@@ -43,6 +43,10 @@ format :html do
     rule_info
   end
 
+  view :bar_left, unknown: true do
+    super()
+  end
+
   view :bar_right, unknown: true do
     voo.show?(:bar_bottom) ? rule_info : rule_short_content
   end
@@ -69,7 +73,8 @@ format :html do
     return wrap_with(:em, "no existing #{setting_link} rule") unless existing_rule_card
 
     wrap_with :span,
-              "#{rule_setting_link} rule that applies to #{rule_set_link existing_rule_card}"
+              "#{rule_setting_link} rule that applies to "\
+              "#{rule_set_link existing_rule_card}"
   end
 
   def rule_setting_link
@@ -78,6 +83,6 @@ format :html do
 
   def rule_set_link existing_rule
     count = link_to_card [card.rule_set, :by_name], card.rule_set.count
-    "#{link_to_card card.rule_set, existing_rule.trunk&.label.downcase} (#{count})"
+    "#{link_to_card card.rule_set, existing_rule.trunk&.label&.downcase} (#{count})"
   end
 end

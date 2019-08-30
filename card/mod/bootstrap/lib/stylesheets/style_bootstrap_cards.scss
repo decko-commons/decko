@@ -217,6 +217,21 @@ body.mceContentBody {
   }
 }
 
+/*---------- ( Link list )-------------*/
+
+.group-text-middle {
+  border-left: none;
+  border-right: none;
+}
+
+.group-text-left {
+  border-right: none;
+}
+
+.group-text-right {
+  border-left: none;
+}
+
 
 /* CARDTYPE_SPECIFIC ------------------------------*/
 
@@ -368,7 +383,7 @@ body.mceContentBody {
 
 /*----------- Bars and Boxes -------------*/
 
-.expanded-bar, .bar, .box {
+.expanded-bar, .box {
   .unknown-view {
     // TODO: obviate in ruby with better unknown API
     display: none;
