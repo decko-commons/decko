@@ -13,7 +13,7 @@ format :html do
   end
 
   view :edit_name_row do
-    edit_row_fixed_width "Name", card.name, :edit_name_form
+    edit_row_fixed_width "Name", card.name, :name_form
   end
 
   view :edit_inline_buttons do
