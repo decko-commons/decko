@@ -239,19 +239,19 @@ def track_permission_errors
   result
 end
 
-module Accounts
-  # This is a short-term hack that is used in account-related cards to allow a
-  # permissions pattern where permissions are restricted to the owner of the
-  # account (and, by default, Admin)
-  # That pattern should be permitted by our card representation
-  # (without creating separate rules for each account holder) but is not yet.
+module AccountField
+  # allow account owner to update account field content
+  def ok_to_update
+    return true if own_account? && !name_changed? && !type_id_changed?
 
-  def permit action, verb=nil
-    case action
-    when :create  then @superleft ? true : super(action, verb)
-    # restricts account creation to subcard handling on permitted card
-    # (unless explicitly permitted)
-    else own_account? ? true : super(action, verb)
-    end
+    super
+  end
+
+  # force inherit permission on create
+  # (cannot be done with rule, because sets are not addressable)
+  def applicable_permission_rule_id _direct_rule, action
+    return left_permission_rule_id action if action == :create
+
+    super
   end
 end

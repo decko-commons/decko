@@ -1,4 +1,4 @@
-include All::Permissions::Accounts
+include All::Permissions::AccountField
 
 def ok_to_update
   if own_account? && !Auth.always_ok?

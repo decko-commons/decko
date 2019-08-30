@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-include All::Permissions::Accounts
-
 card_accessor :email
 card_accessor :password
 card_accessor :salt
