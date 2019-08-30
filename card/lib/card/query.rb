@@ -55,6 +55,7 @@ class Card
                           updater_of updated_by
                           link_to linked_to_by
                           include included_by
+                          nest nested_by
 
                           refer_to referred_to_by
                           member_of member

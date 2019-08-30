@@ -22,7 +22,10 @@ format :html do
   end
 
   view :bridge_type_formgroup, unknown: true, wrap: :slot do
-    type_formgroup href: path(mark: card.id, view: :edit_content_form, type_reload: true, slot: { show: :type_form }),
+    type_formgroup href: path(mark: card.id,
+                              view: :edit_content_form,
+                              assign: true,
+                              slot: { show: :type_form }),
                    class: "live-type-field slotter",
                    'data-remote': true,
                    'data-slot-selector': ".card-slot.edit_content_form-view"

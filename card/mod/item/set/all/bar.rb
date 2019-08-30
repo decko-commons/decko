@@ -52,7 +52,7 @@ format :html do
     end
   end
 
-  view :bar_left, unknown: :missing do
+  view :bar_left do
     bar_title
   end
 

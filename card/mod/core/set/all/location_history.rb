@@ -12,7 +12,7 @@ end
 def configure_successful_deletion
   if Env.ajax?
     success.card = self
-    success.view = :missing unless success.view
+    success.view = :unknown unless success.view
   else
     success.target = :previous
   end
