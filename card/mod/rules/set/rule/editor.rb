@@ -28,8 +28,8 @@ format :html do
 
   def edit_rule_title
     output [
-      wrap_with(:h5, setting_title, class: "title font-weight-bold"),
-      render_overlay_rule_help
+      wrap_with(:h5, setting_title, class: "title font-weight-bold")
+      # render_overlay_rule_help
     ]
   end
 

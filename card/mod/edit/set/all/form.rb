@@ -14,9 +14,7 @@ format :html do
 
   # single card content formgroup, labeled with "Content"
   view :content_formgroup, unknown: true, cache: :never do
-    formgroup "Content", editor: :content, help: false do
-      content_field
-    end
+    wrap_content_formgroup { content_field }
   end
 
   view :edit_in_form, cache: :never, perms: :update, unknown: true do
@@ -30,6 +28,10 @@ format :html do
 
     card.last_action_id_before_edit = card.last_action_id
     hidden_field :last_action_id_before_edit, class: "current_revision_id"
+  end
+
+  def wrap_content_formgroup
+    formgroup("Content", editor: :content, help: false) { yield }
   end
 
   def button_formgroup

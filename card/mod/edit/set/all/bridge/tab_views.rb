@@ -15,6 +15,11 @@ format :html do
       #              ["last edited", :last_edited]]]
     }.freeze
 
+  BRIDGE_PILL_UL_CLASSES =
+    "nav nav-pills _auto-single-select bridge-pills flex-column".freeze
+
+  BRIDGE_PILL_LI_CLASSES = "nav-item".freeze
+
   view :engage_tab, wrap: { div: { class: "m-3 mt-4 _engage-tab" } }, cache: :never do
     [render_follow_section, discussion_section].compact
   end
@@ -26,29 +31,9 @@ format :html do
   end
 
   view :related_tab do
-    %w[name content type].map { |n| related_section(n) }.join "\n"
-  end
-
-  def related_by_name_items
-    pills = []
-    if card.name.junction?
-      pills += card.name.ancestors.map { |a| [a, a, { mark: :absolute }] }
+    wrap_with :ul, class: BRIDGE_PILL_UL_CLASSES do
+      %w[name content type].map { |n| related_section(n) }
     end
-    pills += RELATED_ITEMS["by name"]
-    pills
-  end
-
-  def related_by_content_items
-    RELATED_ITEMS["by content"]
-  end
-
-  def related_by_type_items
-    [["#{card.type} cards", [card.type, :type, :by_name], mark: :absolute]]
-  end
-
-  def related_section category
-    pills = bridge_pill_items(send("related_by_#{category}_items"), "Related")
-    wrap_with(:h6, "by #{category}", class: "ml-1 mt-3") + bridge_pills(pills)
   end
 
   view :rules_tab, unknown: true do
@@ -70,6 +55,31 @@ format :html do
     render_guide
   end
 
+  def related_by_name_items
+    pills = []
+    if card.name.junction?
+      pills += card.name.ancestors.map { |a| [a, a, { mark: :absolute }] }
+    end
+    pills += RELATED_ITEMS["by name"]
+    pills
+  end
+
+  def related_by_content_items
+    RELATED_ITEMS["by content"]
+  end
+
+  def related_by_type_items
+    [["#{card.type} cards", [card.type, :type, :by_name], mark: :absolute]]
+  end
+
+  def related_section category
+    items = send("related_by_#{category}_items")
+    wrap_with(:h6, "by #{category}", class: "ml-1 mt-3") +
+      wrap_each_with(:li, class: BRIDGE_PILL_LI_CLASSES) do
+        bridge_pill_items(items, "Related")
+      end.html_safe
+  end
+
   def discussion_section
     return unless show_discussion?
 
@@ -88,9 +98,7 @@ format :html do
   end
 
   def bridge_pills items
-    list_tag class: "nav nav-pills _auto-single-select bridge-pills " \
-                    "flex-column list-group",
-             items: { class: "nav-item list-group-item" } do
+    list_tag class: BRIDGE_PILL_UL_CLASSES, items: { class: BRIDGE_PILL_LI_CLASSES } do
       items
     end
   end

@@ -5,7 +5,7 @@ def wql_content
 end
 
 format :html do
-  view :type do
+  view :type, unknown: true do
     link_args = { class: "cardtype" }
     add_class link_args, "no-edit" if card.cards_of_type_exist?
     link_to_card card.type_card, nil, link_args

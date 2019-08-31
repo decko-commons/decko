@@ -19,7 +19,9 @@ format :html do
 
     delete_opts = {
       confirm: delete_confirm(args[:fallback_set]),
-      success: @edit_rule_success,
+      # success: @edit_rule_success,
+      no_success: true,
+      "data-slotter-mode": "silent-success",
       class: "_close-#{form_type}-on-success"
     }
     delete_opts["data-slot-selector"] = slot_selector if args[:slot_selector]

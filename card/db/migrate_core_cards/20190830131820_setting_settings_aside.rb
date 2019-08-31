@@ -11,10 +11,7 @@ class SettingSettingsAside < Card::Migration::Core
       delete_card [field, :right, :create]
     end
 
-    %i[accountable comment].each do |settingcode|
-      next unless (setting = Card[settingcode])
-      setting.codename = ""
-      setting.delete!
-    end
+    delete_code_card :accountable
+    delete_code_card :comment
   end
 end

@@ -10,6 +10,12 @@ format :html do
   view :one_line_content do
     "#{_render_type} : #{_render_raw}"
   end
+
+  def visible_cardtype_groups
+    hash = Self::Cardtype::GROUP.slice("Text")
+    hash["Organize"] = ["Search"]
+    hash
+  end
 end
 
 event :update_structurees_references, :integrate,

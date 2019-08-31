@@ -14,13 +14,8 @@ format :html do
     edit_rule_title
   end
 
-  view :overlay_rule_help, unknown: true, perms: :none, cache: :never do
-    # wrap_with :div, class: "help-text rule-instruction d-flex justify-content-between"
-    # do
-
-    # output [wrap_with(:div, rule_based_help), setting_link]
-    # end
-    popover_link([rule_based_help, setting_link].join(" "))
+  view :help_text, unknown: true, cache: :never do
+    wrap_help_text [rule_based_help, setting_link].join(" ")
   end
 
   def setting_link
