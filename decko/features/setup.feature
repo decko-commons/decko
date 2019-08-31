@@ -10,7 +10,7 @@ Feature: Setting up
 #done here bc cache gets cleared otherwise
 
     When I go to the homepage
-    Then I should see "Welcome"
+    Then I should see "Your deck is ready"
 
     When I fill in "card_name" with "The Newber"
     And I enter "newb@decko.org" into "*email"
