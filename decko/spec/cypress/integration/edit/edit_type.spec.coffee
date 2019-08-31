@@ -20,7 +20,7 @@ describe 'edit type', () ->
     cy.delete "newcard"
     cy.visit "newcard"
     cy.select2_by_name("card[type]", "PlainText")
-    cy.get("input[name='card[content]'][type='text']").type "snug"
+    cy.get("textarea[name='card[content]']").type "snug"
     cy.contains("Submit").click()
     cy.main_slot().should "contain", "snug"
 
