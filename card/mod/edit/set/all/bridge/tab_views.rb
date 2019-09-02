@@ -16,10 +16,9 @@ format :html do
     }.freeze
 
   BRIDGE_PILL_UL_CLASSES =
-    "nav nav-pills _auto-single-select bridge-pills flex-column list-group".freeze
+    "nav nav-pills _auto-single-select bridge-pills flex-column".freeze
 
-  BRIDGE_PILL_LI_CLASSES =
-      "nav-item list-group-item".freeze
+  BRIDGE_PILL_LI_CLASSES = "nav-item".freeze
 
   view :engage_tab, wrap: { div: { class: "m-3 mt-4 _engage-tab" } }, cache: :never do
     [render_follow_section, discussion_section].compact

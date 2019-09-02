@@ -1,4 +1,4 @@
-include All::Permissions::Accounts
+include All::Permissions::AccountField
 
 DURATIONS = "second|minute|hour|day|week|month|year".freeze
 

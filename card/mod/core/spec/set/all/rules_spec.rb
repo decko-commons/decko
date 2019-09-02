@@ -14,19 +14,9 @@ describe Card::Set::All::Rules do
 
   describe "#rule" do
     it "retrieves Set based value" do
-      Card.create name: "Book+*type+*add help", content: "authorize"
-      add_help_rule = Card.new(type: "Book").rule(:add_help, fallback: :help)
-      expect(add_help_rule).to eq("authorize")
-    end
-
-    it "retrieves default values" do
-      # Card.create name: 'all Basic cards', type: 'Set',
-      #            content: "{\"type\": \"Basic\'}'
-      # defaults should work when other Sets are present
-      assert Card.create(name: "*all+*add help", content: "lobotomize")
-      # Card.default_rule(:add_help, fallback: :help).should == 'lobotomize'
-      add_help_rule = Card.new(type_id: Card::BasicID).rule(:add_help, fallback: :help)
-      expect(add_help_rule).to eq("lobotomize")
+      Card.create name: "Book+*type+*help", content: "authorize"
+      help_rule = Card.new(type: "Book").rule(:help)
+      expect(help_rule).to eq("authorize")
     end
 
     it "retrieves single values" do
@@ -38,19 +28,19 @@ describe Card::Set::All::Rules do
       before do
         Card.create name: "*all+*help", content: "edit any kind of card"
       end
-      subject { Card.new(type: "Book").rule(:add_help, fallback: :help) }
+      subject { Card.new(type: "Book").rule(:csv_structure, fallback: :help) }
 
       it "retrieves default setting" do
         expect(subject).to eq("edit any kind of card")
       end
 
       it "retrieves primary setting" do
-        Card.create name: "*all+*add help", content: "add any kind of card"
+        Card.create name: "*all+*csv_structure", content: "add any kind of card"
         expect(subject).to eq("add any kind of card")
       end
 
       it "retrieves more specific default setting" do
-        Card.create name: "*all+*add help", content: "add any kind of card"
+        Card.create name: "*all+*csv_structure", content: "add any kind of card"
         Card.create name: "*Book+*type+*help", content: "edit a Book"
         expect(subject).to eq("add any kind of card")
       end

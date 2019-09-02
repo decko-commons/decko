@@ -491,7 +491,7 @@ textarea {
 
 /* links to create missing cards */
 
-a.missing-link {
+a.unknown-link {
   color: $text-muted;
   font-variant: small-caps;
   &:hover {
@@ -1019,15 +1019,14 @@ $bridge-line-color: $border-color;
     > a {
       color: inherit
     }
-    // color: $list-group-action-color; // maybe this helps to tweak bridge on decko.org
-    // background-color: $list-group-bg;
-    // border: 1px solid $list-group-border-color;
-    // border-left: 3px solid $list-group-border-color;
-    // margin-bottom: -1px;
+    background-color: $body-bg;
+    border: 1px solid $nav-tabs-border-color;
+    border-left: 3px solid $nav-tabs-border-color;
+    margin-bottom: -1px;
 
-    // &:hover, &.active, &:focus {
-    //   border-left-color: $list-group-active-bg;
-    // }
+    &:hover, &.active, &:focus {
+       border-left-color: $nav-pills-link-active-bg;
+    }
   }
 }
 

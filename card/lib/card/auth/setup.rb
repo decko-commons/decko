@@ -8,9 +8,10 @@ class Card
       # app is not totally set up yet
       # @return [true/false]
       def needs_setup?
+        # FIXME: - should not require a cache lookup with every request!!
         @simulating_setup_need || (
           !Card.cache.read(SETUP_COMPLETED_KEY) &&
-          !Card.cache.write(SETUP_COMPLETED_KEY, account_count > 2)
+          !Card.cache.write(SETUP_COMPLETED_KEY, user_account_count.positive?)
         )
         # every deck starts with two accounts: WagnBot and Anonymous
       end
@@ -24,15 +25,7 @@ class Card
       # for testing setup
       def hide_accounts! mode=true
         Card.cache.delete(SETUP_COMPLETED_KEY) if mode
-        @hidden_accounts = mode && (account_ids - [WagnBotID, AnonymousID])
-      end
-
-      def account_ids
-        as_bot do
-          Card.search right_id: AccountID,
-                      not: { left_id: ["in", WagnBotID, AnonymousID] },
-                      return: :id
-        end
+        @hidden_accounts = mode && user_account_ids
       end
 
       def instant_account_activation
@@ -44,8 +37,16 @@ class Card
 
       private
 
-      def account_count
-        wql = { right_id: AccountID }
+      def user_account_ids
+        as_bot { Card.search user_account_wql.merge(return: :id) }
+      end
+
+      def user_account_wql
+        { right_id: AccountID, creator_id: ["ne", WagnBotID] }
+      end
+
+      def user_account_count
+        wql = user_account_wql
         wql[:not] = { id: ["in"].concat(@hidden_accounts) } if @hidden_accounts
         as_bot { Card.count_by_wql wql }
       end

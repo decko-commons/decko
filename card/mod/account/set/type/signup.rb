@@ -15,7 +15,7 @@ format :html do
   #   voo.help = tr :first_last_help
   # end
 
-  view :content_formgroup do
+  view :content_formgroups do
     [account_formgroups, (card.structure ? edit_slot : "")].join
   end
 
@@ -38,7 +38,7 @@ format :html do
   def account_formgroups
     account = card.fetch trait: :account, new: {}
     Auth.as_bot do
-      subformat(account)._render :content_formgroup, structure: true
+      subformat(account)._render :content_formgroups, structure: true
     end
   end
 

@@ -1,5 +1,5 @@
 format :html do
-  view :type do
+  view :type, unknown: true do
     link_to_card card.type_card, nil, class: "cardtype"
   end
 

@@ -11074,7 +11074,7 @@ return jQuery;
     $('body').on('click', '.renamer-updater', function() {
       return $(this).closest('form').find('#card_update_referers').val('true');
     });
-    $('body').on('submit', '.edit_name-view .card-form, .edit_name_form-view .card-form', function() {
+    $('body').on('submit', '.edit_name-view .card-form, .name_form-view .card-form', function() {
       var confirmer;
       confirmer = $(this).find('.alert');
       if (confirmer.is(':hidden')) {
@@ -12753,6 +12753,15 @@ return jQuery;
     if (decko.isTouchDevice()) {
       return slot.find('._show-on-hover').removeClass('_show-on-hover');
     }
+  });
+
+  $(window).ready(function() {
+    $('body').on('show.bs.popover', '._card-menu-popover', function() {
+      return $(this).closest(".card-menu._show-on-hover").removeClass("_show-on-hover").addClass("_show-on-hover-disabled");
+    });
+    return $('body').on('hide.bs.popover', '._card-menu-popover', function() {
+      return $(this).closest(".card-menu._show-on-hover-disabled").removeClass("_show-on-hover-disabled").addClass("_show-on-hover");
+    });
   });
 
   decko.slotReady(function(slot) {
