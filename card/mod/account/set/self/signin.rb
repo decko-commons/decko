@@ -86,7 +86,7 @@ format :html do
     with_nest_mode :edit do
       card_form :update, recaptcha: :off, success: signin_success do
         [
-          _render_content_formgroup,
+          _render_content_formgroups,
           _render_signin_buttons
         ]
       end

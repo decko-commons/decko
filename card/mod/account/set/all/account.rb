@@ -8,10 +8,6 @@ def account
   fetch trait: :account
 end
 
-def accountable?
-  Card.toggle(rule(:accountable))
-end
-
 def parties
   @parties ||= (all_enabled_roles << id).flatten.reject(&:blank?)
 end

@@ -1,17 +1,15 @@
 format :html do
   # note: depends on js with selector ".edit_name-view .card-form"
   view :edit_name, perms: :update do
-    frame do
-      edit_name_form
-    end
+    frame { name_form }
   end
 
-  # note: depends on js with selector ".edit_name_form-view .card-form"
-  view :edit_name_form, perms: :update, wrap: :slot, cache: :never do
-    edit_name_form :edit_name_row
+  # note: depends on js with selector ".name_form-view .card-form"
+  view :name_form, perms: :update, wrap: :slot, cache: :never do
+    name_form :edit_name_row
   end
 
-  def edit_name_form success_view=nil
+  def name_form success_view=nil
     card_form({ action: :update, id: card.id },
               # "main-success" => "REDIRECT",
               "data-update-origin": "true",

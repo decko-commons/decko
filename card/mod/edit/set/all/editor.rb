@@ -42,6 +42,6 @@ format :html do
   end
 
   def text_field_input
-    text_field :content, class: "d0-card-content"
+    text_field :content, class: classy("d0-card-content")
   end
 end

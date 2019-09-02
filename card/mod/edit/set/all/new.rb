@@ -57,7 +57,7 @@ format :html do
           new_view_hidden,
           new_view_name,
           new_view_type,
-          _render_content_formgroup,
+          _render_content_formgroups,
           buttons
         ]
       end),

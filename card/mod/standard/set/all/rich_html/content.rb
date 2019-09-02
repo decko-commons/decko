@@ -14,16 +14,14 @@ format :html do
     short_content
   end
 
-  view :raw_one_line_content, wrap: { div: { class: "text-muted" } } do
-    return createable { missing_link(fa_icon("plus-square")) } unless card.known?
-
+  view :raw_one_line_content, unknown: :mini_unknown,
+                              wrap: { div: { class: "text-muted" } } do
     raw_one_line_content
   end
 
 
-  view :one_line_content, wrap: { div: { class: "text-muted" } } do
-    return createable { missing_link(fa_icon("plus-square")) } unless card.known?
-
+  view :one_line_content, unknown: :mini_unknown,
+                          wrap: { div: { class: "text-muted" } } do
     one_line_content
   end
 

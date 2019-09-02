@@ -28,8 +28,8 @@ format :html do
 
   def edit_rule_title
     output [
-      wrap_with(:h5, setting_title, class: "title font-weight-bold"),
-      render_overlay_rule_help
+      wrap_with(:h5, setting_title, class: "title font-weight-bold")
+      # render_overlay_rule_help
     ]
   end
 
@@ -44,12 +44,7 @@ format :html do
   end
 
   def quick_editor
-    if card.right.codename == :default
-      @edit_rule_success = {}
-      rules_type_formgroup
-    else
-      rule_content_formgroup
-    end
+    rule_content_formgroup
   end
 
   def setting_title
@@ -78,9 +73,7 @@ format :html do
   end
 
   def rule_content_formgroup
-    formgroup "Content", editor: "content", help: false do
-      content_field true
-    end
+    _render_content_formgroup hide: :conflict_tracker
   end
 
   def current_set_key

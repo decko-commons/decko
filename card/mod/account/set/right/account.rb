@@ -1,24 +1,14 @@
 # -*- encoding : utf-8 -*-
 
-include All::Permissions::Accounts
-
 card_accessor :email
 card_accessor :password
 card_accessor :salt
 card_accessor :status
 card_accessor :token
 
+require_field :email
+
 #### ON CREATE
-
-# legal to add +*account card
-event :validate_accountability, :prepare_to_validate, on: :create do
-  errors.add :content, tr(:error_not_allowed) unless left&.accountable?
-end
-
-event :require_email, :prepare_to_validate,
-      after: :validate_accountability, on: :create do
-  errors.add :email, "required" unless subfield(:email)
-end
 
 event :set_default_salt, :prepare_to_validate, on: :create do
   salt = Digest::SHA1.hexdigest "--#{Time.zone.now}--"
@@ -120,6 +110,13 @@ def ok_to_read
   own_account? ? true : super
 end
 
+# allow account owner to update account field content
+def ok_to_update
+  return true if own_account? && !name_changed? && !type_id_changed?
+
+  super
+end
+
 def reset_password_success
   # token_card.used!
   Auth.signin left_id
@@ -131,9 +128,6 @@ def reset_password_try_again
   send_reset_password_token
   { id: "_self", view: "message", message: message }
 end
-
-# FIXME: explain or remove.
-def edit_password_success_args; end
 
 def changes_visible? act
   act.actions_affecting(act.card).each do |action|
@@ -165,16 +159,16 @@ format do
 end
 
 format :html do
-  view :raw do
-    # FIXME: use field_nest instead of parsing content
-    # Problem: when you do that then the fields are missing in the sign up form:
-    # output( [field_nest(:email, view: :titled, title: "email"),
-    #          field_nest(:password, view: :titled, title: "password")])
-    %({{+#{:email.cardname}|labeled;title:email;edit:inline}}
-      {{+#{:password.cardname}|labeled;title:password;edit:inline}})
+  view :core do
+    [account_field_nest(:email, "email"),
+     account_field_nest(:password, "password")]
   end
 
-  before :content_formgroup do
+  def account_field_nest field, title
+    field_nest field, title: title, view: :labeled, edit: :inline
+  end
+
+  before :content_formgroups do
     voo.edit_structure = [[:email, "email"], [:password, "password"]]
   end
 end
