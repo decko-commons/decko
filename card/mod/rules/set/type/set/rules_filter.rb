@@ -20,7 +20,6 @@ format :html do
   end
 
   def setting_select selected=nil
-    binding.pry
     select_tag(:group, grouped_options_for_select(setting_options, selected),
                class: "_submit-on-select form-control",
                "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
