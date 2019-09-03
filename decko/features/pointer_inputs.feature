@@ -9,7 +9,7 @@ Feature: Pointer Inputs
 
   Scenario: Creating a templated card including a multiselect input
     Given I create Phrase card "User+*type+*structure" with content "{{+friends}}"
-    And I create Phrase card "friends+*right+*input" with content "multiselect"
+    And I create Phrase card "friends+*right+*input type" with content "multiselect"
     When I edit "Joe User"
     And I select "Joe Admin" from "friends"
     And I press "Save and Close"
@@ -17,7 +17,7 @@ Feature: Pointer Inputs
     And I should see "Joe Admin"
 
   Scenario: Creating a card with radio input
-    Given I create Phrase card "friends+*right+*input" with content "radio"
+    Given I create Phrase card "friends+*right+*input type" with content "radio"
     When I go to card "Joe User+friends"
     And I choose "Joe Camel"
     And I press "Submit"
@@ -25,7 +25,7 @@ Feature: Pointer Inputs
     Then I should see "Joe Camel"
 
   Scenario: Creating a card with checkbox input
-    Given I create Phrase card "friends+*right+*input" with content "checkbox"
+    Given I create Phrase card "friends+*right+*input type" with content "checkbox"
     And I create a Phrase card "Joe Admin+description" with content "boom yow yow"
     When I go to card "Joe User+friends"
     Then I should see "boom yow yow"
