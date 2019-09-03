@@ -70,7 +70,7 @@ format :html do
   # test: render nests within a normal rendering of the card's content?
   # (as opposed to a standardized form)
   def inline_nests_editor?
-    voo.editor == :inline_nests
+    voo.input_type == :inline_nests
   end
 
   # test: are we opening a new multi-card form?
@@ -101,7 +101,7 @@ format :html do
   def editor_in_multi_card
     add_junction_class
     formgroup render_title,
-              editor: "content", help: true, class: classy("card-editor") do
+              input: "content", help: true, class: classy("card-editor") do
       [content_field, (form.hidden_field(:type_id) if card.new_card?)]
     end
   end
