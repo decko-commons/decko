@@ -27,7 +27,7 @@ format :html do
 
   def items_for_input items=nil
     items ||= card.item_names context: :raw
-    items.empty? ? [[""], [""]] : items.zip(card.item_titles(false))
+    items.empty? ? [["", ""]] : items.zip(card.item_titles(false))
   end
 
   def link_list_input args={}
