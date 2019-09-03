@@ -34,7 +34,7 @@ format :html do
     super()
   end
 
-  def editor
+  def input_type
     :checkbox
   end
 

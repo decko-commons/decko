@@ -8,7 +8,7 @@ describe Card::Set::Abstract::Pointer do
       pointer
     end
 
-    check_views_for_errors :core, :one_line_content, :editor,
+    check_views_for_errors :core, :one_line_content, :input,
                            :list, :autocomplete, :checkbox,
                            :radio, :select, :multiselect
   end
@@ -79,7 +79,7 @@ describe Card::Set::Abstract::Pointer do
   describe "list_input" do
     subject do
       pointer = Card.new name: "tp", type: "pointer", content: pointer_content
-      pointer.format._render :editor
+      pointer.format._render :input
     end
 
     let(:pointer_content) { "[[Jane]]\n[[John]]" }

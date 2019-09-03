@@ -2,7 +2,7 @@
 
 describe Card::Set::Type::Uri do
   it "has special editor" do
-    assert_view_select render_editor("Uri"),
+    assert_view_select render_input("Uri"),
                        'input[type="text"][class~="d0-card-content"]'
   end
 

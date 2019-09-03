@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::Type::Image do
   it "has special editor" do
-    assert_view_select render_editor("Image"), 'div[class="choose-file"]' do
+    assert_view_select render_input("Image"), 'div[class="choose-file"]' do
       assert_select 'input[class~="file-upload slotter"]'
     end
   end

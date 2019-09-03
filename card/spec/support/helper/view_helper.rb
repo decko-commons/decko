@@ -16,7 +16,7 @@ class Card
         render_card_with_args view_name, card, format: format
       end
 
-      def render_editor type
+      def render_input type
         card = Card.create(name: "my favority #{type} + #{rand(4)}", type: type)
         card.format.render!(:edit)
       end

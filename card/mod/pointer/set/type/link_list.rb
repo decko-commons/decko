@@ -17,7 +17,7 @@ format do
 end
 
 format :html do
-  def editor
+  def input_type
     :link_list
   end
 

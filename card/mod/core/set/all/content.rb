@@ -66,6 +66,10 @@ format :html do
   end
 end
 
+view :label do
+  label
+end
+
 def label
   name
 end

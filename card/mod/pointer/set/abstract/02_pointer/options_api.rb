@@ -29,7 +29,7 @@ def option_cards
 end
 
 def options_rule_card
-  rule_card :options
+  rule_card :content_options
 end
 
 def standard_option_names
@@ -65,20 +65,13 @@ format :html do
     %(<label for="#{id}">#{option_label_text option_name}</label>)
   end
 
+  def option_view
+    @option_view ||= rule(:content_option_view) || :label
+  end
+
   def option_label_text option_name
-    Card.fetch(option_name)&.label || option_name
-  end
+    return option_name unless (option_card = Card.fetch option_name)
 
-  # @param option_type [String] "checkbox" or "radio"
-  def option_description option_type, option_name
-    return "" unless (description = option_description_core(option_name))
-    %(<div class="#{option_type}-option-description">#{description}</div>)
-  end
-
-  def option_description_core option
-    # DISCUSS: "options label" is an obscure rule. still support?
-    desc_name = card.rule(:options_label) || "description"
-    return unless (desc_card = Card[option, desc_name])
-    nest desc_card, { view: :core }, nest_mode: :normal
+    nest option_card, option_view
   end
 end

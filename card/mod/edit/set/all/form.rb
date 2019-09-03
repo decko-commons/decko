@@ -7,7 +7,7 @@ format :html do
   end
 
   view :name_formgroup do
-    formgroup "Name", editor: "name", help: false do
+    formgroup "Name", input: "name", help: false do
       raw name_field
     end
   end
@@ -31,7 +31,7 @@ format :html do
   end
 
   def wrap_content_formgroup
-    formgroup("Content", editor: :content, help: false) { yield }
+    formgroup("Content", input: :content, help: false) { yield }
   end
 
   def button_formgroup
@@ -49,12 +49,12 @@ format :html do
     with_nest_mode :normal do
       # by changing nest mode to normal, we ensure that editors (eg image
       # previews) can render core views.
-      output [_render_conflict_tracker, _render_editor]
+      output [_render_conflict_tracker, _render_input]
     end
   end
 
   # SAMPLE editor view for override
-  # view :editor do
+  # view :input do
   #   text_area :content, rows: 5, class: "d0-card-content"
   # end
 

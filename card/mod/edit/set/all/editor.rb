@@ -6,34 +6,33 @@ Self::InputOptions.add_to_basket :options, "text area"
 Self::InputOptions.add_to_basket :options, "text field"
 
 format :html do
-  def editor
-    (c = card.rule(:input)) && c.gsub(/[\[\]]/, "").tr(" ", "_")
+  def input_type
+    (c = card.rule(:input_type)) && c.gsub(/[\[\]]/, "").tr(" ", "_")
   end
 
-  def editor_method editor_type
-    "#{editor_type}_input"
+  def input_method input_type
+    "#{input_type}_input"
   end
 
-  def editor_defined_by_card
-    return unless (editor_card = Card[editor])
+  def input_defined_by_card
+    return unless (input_card = Card[input_type])
 
-    nest editor_card, view: :core
+    nest input_card, view: :core
   end
 
-  view :editor, unknown: true do
-    try(editor_method(editor)) ||
-      editor_defined_by_card ||
-      send(editor_method(default_editor))
+  view :input, unknown: true do
+    try(input_method(input_type)) ||
+      input_defined_by_card ||
+      send(input_method(default_input_type))
   end
 
-  def default_editor
+  def default_input_type
     :rich_text
   end
 
   # overridden by mods that provide rich text editors
   def rich_text_input
-    default_editor = Cardio.config.rich_text_editor || :tinymce
-    send "#{default_editor}_editor_input"
+    send "#{Cardio.config.rich_text_editor || :tinymce}_editor_input"
   end
 
   def text_area_input

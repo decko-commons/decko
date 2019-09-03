@@ -86,7 +86,7 @@ format :html do
     "#{action} #{humanized_attachment_name}..."
   end
 
-  view :editor do
+  view :input do
     if card.web? || card.no_upload?
       return text_field(:content, class: "d0-card-content")
     end
