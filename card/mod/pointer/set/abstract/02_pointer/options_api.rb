@@ -72,6 +72,6 @@ format :html do
   def option_label_text option_name
     return option_name unless (option_card = Card.fetch option_name)
 
-    nest option_card, option_view
+    nest option_card, view: option_view
   end
 end
