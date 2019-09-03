@@ -26,9 +26,7 @@ Feature: Pointer Inputs
 
   Scenario: Creating a card with checkbox input
     Given I create Phrase card "friends+*right+*input type" with content "checkbox"
-    And I create a Phrase card "Joe Admin+description" with content "boom yow yow"
     When I go to card "Joe User+friends"
-    Then I should see "boom yow yow"
     And I check "Joe Camel"
     And I press "Submit"
     And I go to card "Joe User+friends"

@@ -7,13 +7,18 @@ Self::InputOptions.add_to_basket :options, "text field"
 
 format :html do
   def input_type
-    (c = card.rule(:input_type)) && c.gsub(/[\[\]]/, "").tr(" ", "_")
+    voo.input_type.present? ? voo.input_type : input_type_from_rule
+  end
+
+  def input_type_from_rule
+    card.rule(:input_type)&.gsub(/[\[\]]/, "")&.tr(" ", "_")
   end
 
   def input_method input_type
     "#{input_type}_input"
   end
 
+  # core view of card is input
   def input_defined_by_card
     return unless (input_card = Card[input_type])
 
