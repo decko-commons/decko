@@ -15,7 +15,7 @@ RSpec.describe Card::View::Options do
     subject { described_class.accessible_keys }
     specify "accessible keys" do
       is_expected.to include *%i[nest_name nest_syntax main home_view edit_structure wql
-                                 help structure title variant editor type size params
+                                 help structure title variant input_type type size params
                                  items cache skip_perms main_view]
     end
 
