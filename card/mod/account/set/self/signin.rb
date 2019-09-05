@@ -71,7 +71,7 @@ def send_reset_password_email_or_fail email
     break errors.add :email, i18n_signin(:error_blank) if email.blank?
 
     if (account = Auth.find_account_by_email(email))&.active?
-      account.send_reset_password_token
+      account.send_password_reset_email
     elsif account
       errors.add :account, i18n_signin(:error_not_active)
     else

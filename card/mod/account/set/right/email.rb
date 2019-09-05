@@ -1,4 +1,4 @@
-include All::Permissions::AccountField
+include_set Abstract::AccountField
 
 event :validate_email, :validate, on: :save do
   if content? && content !~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
@@ -25,7 +25,7 @@ event :downcase_email, :prepare_to_validate, on: :save do
 end
 
 def email_required?
-  !built_in?
+  !left.system?
 end
 
 def ok_to_read

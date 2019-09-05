@@ -61,7 +61,7 @@ class CardController < ActionController::Base
   end
 
   def authenticate
-    Card::Auth.set_current params[:token], params[:current]
+    Card::Auth.set_current token: params[:token], api_key: params[:api_key]
   end
 
   def load_mark

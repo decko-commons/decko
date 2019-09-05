@@ -10,6 +10,10 @@ def skip_event! *events
   forced_skip_events.merge events
 end
 
+def trigger_event! *events
+  forced_trigger_events.merge events
+end
+
 private
 
 def set_condition_applies? set_module, old_sets
@@ -79,7 +83,8 @@ end
 
 def trigger_condition_applies? event, required
   return true unless required == :required
-  trigger_event? event
+
+  trigger_event?(event.name) || force_trigger_event?(event.name)
 end
 
 def single_changed_condition_applies? db_column
@@ -115,6 +120,7 @@ end
 
 def standard_skip_event? event, allowed
   return false unless allowed == :allowed
+
   skip_events.include? event.to_s
 end
 
@@ -134,12 +140,24 @@ def skip_events
   end
 end
 
+# holder for trigger_event! (with bang) events
+def forced_trigger_events
+  @forced_trigger_events ||= ::Set.new([])
+end
+
 def trigger_event? event
   @names_of_triggered_events ||= triggered_events
-  @names_of_triggered_events.include? event.name
+  @names_of_triggered_events.include? event
 end
 
 def triggered_events
   events = Array.wrap(trigger_event_in_action) + Array.wrap(act_card.trigger_event)
   ::Set.new events.map(&:to_sym)
+end
+
+def force_trigger_event? event
+  if event == :send_verification_email
+    true
+  end
+  forced_trigger_events.include? event
 end

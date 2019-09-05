@@ -1,5 +1,5 @@
-
 include Basic
+include Abstract::Accounted
 
 attr_accessor :email
 
@@ -27,11 +27,6 @@ format :html do
 
   def setup_form_buttons
     button_formgroup { setup_button }
-  end
-
-  def account_formgroup
-    account = card.fetch trait: :account, new: {}
-    subformat(account)._render :content_formgroups, structure: true
   end
 
   def setup_button
