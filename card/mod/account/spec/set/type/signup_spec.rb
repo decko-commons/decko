@@ -121,7 +121,9 @@ RSpec.describe Card::Set::Type::Signup do
         Card::Auth.as "joe_admin"
         @signup.update! trigger: :approve_with_verification
 
-        expect(@signup.account.token).to be_present
+        expect(@signup.account.status).to eq("unverified")
+
+        # test that verification email goes out?
       end
     end
 

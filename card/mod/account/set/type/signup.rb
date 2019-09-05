@@ -21,7 +21,6 @@ event :auto_approve_with_verification, :validate, on: :create, when: :can_approv
 end
 
 event :approve_with_verification, :validate, on: :update, trigger: :required do
-  # TODO: if validated here, add trigger and send email in integrate phase
   approvable do
     account_subfield.add_subfield :status, content: "unverified"
     request_verification

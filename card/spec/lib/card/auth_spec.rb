@@ -41,12 +41,12 @@ describe Card::Auth do
       @joeadmin = Card["Joe Admin"]
       @api_key = "abcd"
       Card::Auth.as_bot do
-        @joeadmin.account.token_card.update! content: @api_key
+        @joeadmin.account.api_key_card.update! content: @api_key
       end
     end
 
     it "sets current from token" do
-      Card::Auth.set_current_from_token @token
+      Card::Auth.set_current_from_api_key @api_key
       expect(Card::Auth.current_id).to eq(@joeadmin.id)
     end
 
