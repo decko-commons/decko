@@ -1,4 +1,4 @@
-describe Card::Auth::Token do
+RSpec.describe Card::Auth::Token do
   let :joe_user_id do
     Card.fetch_id "joe user"
   end
