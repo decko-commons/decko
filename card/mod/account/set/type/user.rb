@@ -1,5 +1,5 @@
 include Basic
-include Abstract::Accounted
+include_set Abstract::Accounted
 
 attr_accessor :email
 
@@ -19,7 +19,7 @@ format :html do
       [
         setup_hidden_fields,
         _render_name_formgroup,
-        account_formgroup,
+        account_formgroups,
         setup_form_buttons
       ]
     end

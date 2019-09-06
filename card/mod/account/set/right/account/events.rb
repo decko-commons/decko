@@ -87,12 +87,12 @@ def verify_and_activate_failure error_message
 end
 
 def reset_password_success
-  # token_card.used!
   Auth.signin accounted_id
-  # success << { id: name, view: :edit }
+  success << { id: name, view: :edit }
+  abort :success
 end
 
 def reset_password_failure error_message
-  send_password_reset_email
+  Auth.as_bot { send_password_reset_email }
   errors.add tr(:sorry_email_reset, error_msg: error_message)
 end

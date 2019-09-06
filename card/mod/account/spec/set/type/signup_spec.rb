@@ -80,7 +80,7 @@ RSpec.describe Card::Set::Type::Signup do
       # puts @signup.errors.full_messages * "\n"
       expect(account.errors).to be_empty
       expect(account.status).to eq("active")
-      expect(account.active?).to be_truthy
+      expect(account).to be_active
       expect(@signup.refresh(true).type_id).to eq(Card::UserID)
     end
   end
@@ -132,10 +132,8 @@ RSpec.describe Card::Set::Type::Signup do
       it "immediately converts signup to active user" do
         Card::Auth.as "joe_admin"
         @signup.update! trigger: :approve_without_verification
-#        @signup = Card[@signup.name]
-
         expect(@signup.type_id).to eq(Card::UserID)
-        expect(@signup.account.status).to eq("active")
+        expect(@signup.account).to be_active
       end
     end
   end

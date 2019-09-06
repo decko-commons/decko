@@ -53,5 +53,5 @@ def method_missing method, *args
 end
 
 def respond_to_missing? method, _include_private=false
-  method =~ /\?/ ? true : super
+  method.match?(/\?/) ? true : super
 end

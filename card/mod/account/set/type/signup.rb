@@ -19,10 +19,7 @@ event :auto_approve_with_verification, :validate, on: :create, when: :can_approv
 end
 
 event :approve_with_verification, :validate, on: :update, trigger: :required do
-  approvable do
-    account_subfield.add_subfield :status, content: "unverified"
-    request_verification
-  end
+  approvable { request_verification }
 end
 
 event :approve_without_verification, :validate, on: :update, trigger: :required do
@@ -42,7 +39,9 @@ def account_subfield
 end
 
 def request_verification
-  account_subfield.trigger_event! :send_verification_email
+  acct = account_subfield
+  acct.add_subfield :status, content: "unverified"
+  acct.trigger_event! :send_verification_email
 end
 
 def approvable

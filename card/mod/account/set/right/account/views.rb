@@ -1,9 +1,13 @@
 format do
   view :verify_url, cache: :never do
+    raise Error::PermissionDenied unless card.ok? :create || card.action
+
     token_url :verify_and_activate, anonymous: true
   end
 
   view :reset_password_url do
+    raise Error::PermissionDenied unless card.password_card.ok? :update
+
     token_url :reset_password
   end
 
