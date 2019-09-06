@@ -79,7 +79,7 @@ Decko::RestSpecHelper.describe_api do
     end
 
     it "handles nonexistent card without create permissions" do
-      get :read, params: { mark: "Sample_Fako" }
+      get :read, params: { mark: "Sample_Fako", view: "open" }
       assert_response 404
     end
 

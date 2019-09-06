@@ -12,18 +12,25 @@ format :html do
   end
 
   view :unknown do
-    createable do
-      wrap { missing_link("#{fa_icon 'plus-square'} #{_render_title}") }
-    end
+    createable { wrap { unknown_link "#{unknown_icon} #{render_title}" } }
+  end
+
+  # icon only, no wrap
+  view :mini_unknown, unknown: true, cache: :never do
+    createable { unknown_link unknown_icon }
   end
 
   def createable
     card.ok?(:create) ? yield : ""
   end
 
-  def missing_link text
+  def unknown_link text
     path_opts = voo.type ? { card: { type: voo.type } } : {}
-    link_to_view :new_in_modal, text, path: path_opts, class: classy("missing-link")
+    link_to_view :new_in_modal, text, path: path_opts, class: classy("unknown-link")
+  end
+
+  def unknown_icon
+    fa_icon "plus-square"
   end
 
   view :compact_missing, perms: :none do
@@ -33,7 +40,7 @@ format :html do
   view :conflict, cache: :never do
     actor_link = link_to_card card.last_action.act.actor.name
     class_up "card-slot", "error-view"
-    wrap do # ENGLISH below
+    wrap do # LOCALIZE
       alert "warning" do
         %(
           <strong>Conflict!</strong>

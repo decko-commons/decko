@@ -1,6 +1,8 @@
 format :html do
   # FIELDSET VIEWS
-  view :content_formgroup, cache: :never do
+
+  # sometimes multiple card formgroups, sometimes just one
+  view :content_formgroups, cache: :never do
     wrap_with :fieldset, edit_slot, class: classy("card-editor", "editor")
   end
 
@@ -10,10 +12,26 @@ format :html do
     end
   end
 
+  # single card content formgroup, labeled with "Content"
+  view :content_formgroup, unknown: true, cache: :never do
+    wrap_content_formgroup { content_field }
+  end
+
   view :edit_in_form, cache: :never, perms: :update, unknown: true do
     reset_form
     @in_multi_card_editor = true
     edit_slot
+  end
+
+  view :conflict_tracker, cache: :never, unknown: true do
+    return unless card&.real?
+
+    card.last_action_id_before_edit = card.last_action_id
+    hidden_field :last_action_id_before_edit, class: "current_revision_id"
+  end
+
+  def wrap_content_formgroup
+    formgroup("Content", editor: :content, help: false) { yield }
   end
 
   def button_formgroup
@@ -27,11 +45,11 @@ format :html do
     text_field :name, value: card.name, autocomplete: "off"
   end
 
-  def content_field skip_rev_id=false
+  def content_field
     with_nest_mode :normal do
       # by changing nest mode to normal, we ensure that editors (eg image
       # previews) can render core views.
-      output [content_field_revision_tracking(skip_rev_id), _render_editor]
+      output [_render_conflict_tracker, _render_editor]
     end
   end
 
@@ -39,13 +57,6 @@ format :html do
   # view :editor do
   #   text_area :content, rows: 5, class: "d0-card-content"
   # end
-
-  def content_field_revision_tracking skip_rev_id
-    card.last_action_id_before_edit = card.last_action_id
-    return if !card || card.new_card? || skip_rev_id
-
-    hidden_field :last_action_id_before_edit, class: "current_revision_id"
-  end
 
   def edit_slot
     case
@@ -81,8 +92,7 @@ format :html do
 
   def single_card_edit_field
     if voo.show?(:type_formgroup) || voo.show?(:name_formgroup)
-      # display content field in formgroup for consistency with other fields
-      wrap_content_formgroup { content_field }
+      _render_content_formgroup # use formgroup for consistency
     else
       editor_wrap(:content) { content_field }
     end
@@ -105,8 +115,9 @@ format :html do
   end
 
   def structure_link # LOCALIZE
-    "<label>Content</label><p>"\
-      "card is #{link_to_card card.structure_rule_card, "structured"} without nests</p>"
+    structured = link_to_card card.structure_rule_card, "structured"
+    "<label>Content</label>"\
+    "<p><em>Uneditable; content is #{structured} without nests</em></p>"
   end
 
   # @param [Hash|Array] fields either an array with field names and/or field

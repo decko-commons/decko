@@ -1,4 +1,4 @@
-include All::Permissions::Accounts
+include All::Permissions::AccountField
 
 event :validate_email, :validate, on: :save do
   if content? && content !~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
