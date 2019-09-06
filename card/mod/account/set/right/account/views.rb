@@ -11,6 +11,14 @@ format do
     "(#{token_expiry_sentence}"
   end
 
+  view :token_days do
+    Card.config.token_expiry / 1.day
+  end
+
+  # DEPRECATED
+  view :verify_days, :token_days
+  view :reset_password_days, :token_days
+
   def token_url trigger, extra_payload={}
     card_url path(action: :update,
                   card: { trigger: trigger },
@@ -18,11 +26,11 @@ format do
   end
 
   def token_expiry_sentence
-    "Link will expire in #{Card.config.token_expiry / 1.day} days"
+    "Link will expire in #{render_token_days} days"
   end
 
   def new_token extra_payload
-    Auth::Token.encode accounted_id, extra_payload
+    Auth::Token.encode card.accounted_id, extra_payload
   end
 end
 

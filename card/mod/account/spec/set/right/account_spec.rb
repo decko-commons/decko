@@ -71,7 +71,8 @@ RSpec.describe Card::Set::Right::Account do
     it "contains link to verify account" do
       raw_source = @mail.parts[0].body.raw_source
       ["/update/#{@account.left.name.url_key}",
-       "token=#{@account.token}"].each do |url_part|
+       "card[trigger]=verify_and_activate",
+       /token=\w+/].each do |url_part|
         expect(raw_source).to include(url_part)
       end
     end
@@ -82,12 +83,12 @@ RSpec.describe Card::Set::Right::Account do
     end
   end
 
-  describe "#send_reset_password_email" do
+  describe "#send_password_reset_email" do
     before do
       @email = "joe@user.com"
       @account = Card::Auth.find_account_by_email(@email)
       Mail::TestMailer.deliveries = []
-      @account.send_reset_password_email
+      @account.send_password_reset_email
       @mail = Mail::TestMailer.deliveries.last
     end
 
@@ -135,7 +136,7 @@ RSpec.describe Card::Set::Right::Account do
     before do
       @email = "joe@user.com"
       @account = Card::Auth.find_account_by_email(@email)
-      @account.send_reset_password_token
+      @account.send_password_reset_email
       @token = @account.token
       Card::Env.params[:token] = @token
       Card::Auth.current_id = Card::AnonymousID
