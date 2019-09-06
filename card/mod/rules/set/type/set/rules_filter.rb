@@ -44,7 +44,7 @@ format :html do
 
   def set_select_options set_options
     options =
-      if set_options == :related || card.type_id != Card::SetID
+      if set_options == :related
         related_set_options
       else
         [[card.label, card.name.url_key]]

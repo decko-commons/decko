@@ -4,6 +4,14 @@ def wql_content
   { type_id: id, sort: :name }
 end
 
+def related_sets with_self=false
+  sets = []
+  if known?
+    sets << ["#{name}+*type", Card::Set::Type.label(name)]
+  end
+  sets + super
+end
+
 format :html do
   view :type do
     link_args = { class: "cardtype" }

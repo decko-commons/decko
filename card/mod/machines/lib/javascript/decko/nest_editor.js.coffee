@@ -8,7 +8,10 @@ $.extend nest,
   openEditor: (tm, params) ->
     params = nest.editParams(tm) unless params?
 
-    nest.tmRequest(tm, ":update", "nest_editor", "modal_nest_editor", params)
+    slot = $("##{tm.id}").closest(".card-slot")
+    debugger
+    card = if slot[0] then  $(slot[0]).attr('data-card-name') else ":update"
+    nest.tmRequest(tm, card, "nest_editor", "modal_nest_editor", params)
 
   openImageEditor: (tm) ->
     slot = $("##{tm.id}").closest(".card-slot")
@@ -21,6 +24,7 @@ $.extend nest,
     nest.openEditor(tm, params)
 
   tmRequest: (tm, card, overlay_view, modal_view, params) ->
+    debugger
     slot = $(".bridge-sidebar > ._overlay-container-placeholder > .card-slot")
 
     if slot[0]

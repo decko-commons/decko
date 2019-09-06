@@ -113,12 +113,7 @@ def related_sets with_self=false
   # refers to sets that users may configure from the current card -
   # NOT to sets to which the current card belongs
 
-  # FIXME: change to use codenames!!
-
   sets = []
-  if known? && type_id == Card::CardtypeID # FIXME: belongs in type/cardtype
-    sets << ["#{name}+*type", Card::Set::Type.label(name)]
-  end
   sets << ["#{name}+*self", Card::Set::Self.label(name)] if with_self
   if known? && name.simple?
     sets << ["#{name}+*right", Card::Set::Right.label(name)]
