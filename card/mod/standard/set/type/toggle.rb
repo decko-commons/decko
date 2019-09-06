@@ -12,7 +12,7 @@ view :core do
 end
 
 format :html do
-  view :editor do
+  view :input do
     toggle
   end
 

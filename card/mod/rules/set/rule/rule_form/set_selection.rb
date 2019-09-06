@@ -18,7 +18,7 @@ format :html do
 
   def bridge_option_list title
     index = -1
-    formgroup title, editor: "set", class: "col-xs-6", help: false do
+    formgroup title, input: "set", class: "col-xs-6", help: false do
       yield.inject("") do |res, radio|
         index += 1
         # TODO

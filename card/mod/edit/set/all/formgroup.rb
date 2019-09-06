@@ -1,5 +1,5 @@
 format :html do
-  # a formgroup has a label, an editor and help text
+  # a formgroup has a label, an input and help text
   def formgroup title, opts={}, &block
     wrap_with :div, formgroup_div_args(opts[:class]) do
       formgroup_body title, opts, &block
@@ -7,16 +7,16 @@ format :html do
   end
 
   def formgroup_body title, opts, &block
-    label = formgroup_label opts[:editor], title
-    editor_body = editor_wrap opts[:editor], &block
+    label = formgroup_label opts[:input], title
+    editor_body = editor_wrap opts[:input], &block
     help_text = formgroup_help_text opts[:help]
     "#{label}<div>#{help_text} #{editor_body}</div>"
   end
 
-  def formgroup_label editor_type, title
+  def formgroup_label input, title
     return if voo&.hide?(:title) || title.blank?
 
-    label_type = editor_type || :content
+    label_type = input || :content
     form.label label_type, title
   end
 

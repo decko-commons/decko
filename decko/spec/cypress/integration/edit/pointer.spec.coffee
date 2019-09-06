@@ -1,5 +1,5 @@
 input = (content) ->
-  cy.ensure "friends+*right+*input", type: "phrase", content: content
+  cy.ensure "friends+*right+*input_type", type: "phrase", content: content
 
 describe 'editing pointers', () ->
   before ->

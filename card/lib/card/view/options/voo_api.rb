@@ -75,7 +75,7 @@ class Card
           try "normalize_#{option_key}", value
         end
 
-        def normalize_editor value
+        def normalize_input_type value
           value&.to_sym
         end
 
