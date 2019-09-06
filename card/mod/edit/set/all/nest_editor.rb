@@ -4,12 +4,13 @@ format :html do
   # TODO: connect to Card::View::Options
   # (that way a mod can add an option that becomes available to nests)
 
-  view :nest_editor, cache: :never, template: :haml,
+  view :nest_editor, cache: :never, unknown: true, template: :haml,
                      wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
     @nest_editor_mode = :overlay
   end
 
-  view :modal_nest_editor, cache: :never, wrap: { slot: { class: "nodblclick" } } do
+  view :modal_nest_editor, cache: :never, unknown: true,
+                           wrap: { slot: { class: "nodblclick" } } do
     modal_nest_editor
   end
 
@@ -27,7 +28,6 @@ format :html do
   end
 
   def nest_rules_editor
-    binding.pry
     if edit_nest.name.blank?
       content_tag :div, "", class: "card-slot" # placeholder
     else
