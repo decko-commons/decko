@@ -16,7 +16,7 @@ event :reset_password, :prepare_to_validate, on: :update, trigger: :required do
   verifying_token :reset_password_success, :reset_password_failure
 end
 
-event :verify_and_activate, :validate, on: :update, trigger: :required do
+event :verify_and_activate, :prepare_to_validate, on: :update, trigger: :required do
   activatable do
     verifying_token :verify_and_activate_success, :verify_and_activate_failure
     add_subcard(accounted)&.try :activate_accounted
@@ -75,9 +75,9 @@ def password_redirect?
 end
 
 def verify_and_activate_success
-  activate!
   Auth.signin accounted_id
   Auth.as_bot # use admin permissions for rest of action
+  activate!
   success << ""
 end
 

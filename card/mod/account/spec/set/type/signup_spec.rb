@@ -80,7 +80,7 @@ RSpec.describe Card::Set::Type::Signup do
       # puts @signup.errors.full_messages * "\n"
       expect(account.errors).to be_empty
       expect(account.status).to eq("active")
-      expect(account).to be_active
+      expect(account.refresh(true)).to be_active
       expect(@signup.refresh(true).type_id).to eq(Card::UserID)
     end
   end

@@ -482,13 +482,14 @@ es:
       set:
         type:
           signup:
-            sign_up: Regístrate
-            invite: Invitación
+            views:
+              sign_up: Regístrate
+              invite: Invitación
+              missing_account: "ERROR: tarjeta de registro cuenta faltante"
             send_invite: Enviar invitacion
             first_last_help: usualmente nombre y apellido
             signed_up_on: "%{name} se registró en %{date}"
             was_signed_up_on: "%{name} se registró en %{date}"
-            missing_account: "ERROR: tarjeta de registro cuenta faltante"
             send: Enviar
             resend: Reenviar
             verification: Se envió un correo electrónico de verificación

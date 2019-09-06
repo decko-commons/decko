@@ -526,13 +526,14 @@ de:
             error_not_recognized: unbekannt
         type:
           signup:
-            sign_up: Registrieren
-            invite: Einladen
+            views:
+              sign_up: Registrieren
+              invite: Einladen
+              missing_account: "ERROR: Signup-Karte ohne Account"
             send_invite: Sende Einladung
             first_last_help: üblicherweise Vor- und Nachname
             signed_up_on: "%{name} hat sich registriert am %{date}"
             was_signed_up_on: "%{name} wurde registriert am %{date}"
-            missing_account: "ERROR: Signup-Karte ohne Account"
             send: Senden
             resend: Wieder senden
             verification: Eine E-Mail zur Verifikation wurde verschickt.

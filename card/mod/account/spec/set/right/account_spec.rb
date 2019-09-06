@@ -83,6 +83,23 @@ RSpec.describe Card::Set::Right::Account do
     end
   end
 
+  describe "#verify_and_activate" do
+    it "should activate account" do
+      user = Card.create!(
+        name: "TmpUser",
+        type_id: Card::UserID,
+        "+*account" => { "+*password" => "tmp_pass",
+                         "+*email" => "tmp@decko.org",
+                         "+*status" => "unverified" }
+      )
+
+      Card::Env.params[:token] = Card::Auth::Token.encode user.id, anonymous: true
+      user.account.update! trigger: :verify_and_activate
+
+      expect(user.account).to be_active
+    end
+  end
+
   describe "#send_password_reset_email" do
     before do
       @email = "joe@user.com"

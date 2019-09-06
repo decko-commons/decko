@@ -1,6 +1,6 @@
 format do
   view :verify_url, cache: :never do
-    raise Error::PermissionDenied unless card.ok? :create || card.action
+    raise Error::PermissionDenied unless card.ok?(:create) || card.action
 
     token_url :verify_and_activate, anonymous: true
   end

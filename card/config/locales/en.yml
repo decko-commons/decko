@@ -448,13 +448,14 @@ en:
       set:
         type:
           signup:
-            sign_up: Sign up
-            invite: Invite
+            views:
+              sign_up: Sign up
+              invite: Invite
+              missing_account: "ERROR: signup card missing account"
             send_invite: Send Invitation
             first_last_help: usually first and last name
             signed_up_on: "%{name} signed up on %{date}"
             was_signed_up_on: "%{name} was signed up on %{date}"
-            missing_account: "ERROR: signup card missing account"
             send: Send
             resend: Resend
             verification: A verification email has been sent
