@@ -122,11 +122,11 @@ class Card
       # set the current user based on api_key
       def set_current_from_api_key api_key
         account = find_account_by_api_key
-        if account&.validate_api_key! api_key
-          self.current = account.left_id
-        else
+        unless account&.validate_api_key! api_key
           raise Card::Error::PermissionDenied, "API key authentication failed"
         end
+
+        self.current = account.left_id
       end
 
       # get :user id from session and set Auth.current_id

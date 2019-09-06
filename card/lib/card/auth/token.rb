@@ -1,10 +1,10 @@
-require 'jwt'
+require "jwt"
 
 class Card
   module Auth
     # methods for setting current account
     module Token
-      SECRET_KEY = Rails.application.secrets.secret_key_base. to_s
+      SECRET_KEY = Rails.application.secrets.secret_key_base.to_s
 
       class << self
         def encode user_id, extra_payload={}
@@ -25,7 +25,7 @@ class Card
         def decode token
           decoded = JWT.decode(token, SECRET_KEY)[0]
           HashWithIndifferentAccess.new decoded
-        rescue => error
+        rescue JWT::DecodeError => error
           error.message
         end
 

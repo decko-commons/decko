@@ -116,7 +116,7 @@ RSpec.describe Card::Set::Type::Signup do
       expect(Mail::TestMailer.deliveries[-2]).to be_nil
     end
 
-    context "approval with verification" do
+    context "when approving with verification" do
       it "sets status to 'unverified'" do
         Card::Auth.as "joe_admin"
         @signup.update! trigger: :approve_with_verification
@@ -127,7 +127,7 @@ RSpec.describe Card::Set::Type::Signup do
       end
     end
 
-    context "approval without verification" do
+    context "when approving without verification" do
       it "immediately converts signup to active user" do
         Card::Auth.as "joe_admin"
 

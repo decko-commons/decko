@@ -156,8 +156,5 @@ def triggered_events
 end
 
 def force_trigger_event? event
-  if event == :send_verification_email
-    true
-  end
   forced_trigger_events.include? event
 end

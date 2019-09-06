@@ -17,7 +17,7 @@ def validate! api_key
     # when expired?           then [:token_expired, tr(:error_token_expired)]
     when content != api_key then [:incorrect_token, tr(:error_incorrect_token)]
     end
-  errors.add *error if error
+  errors.add(*error) if error
   error.nil?
 end
 

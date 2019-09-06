@@ -12,7 +12,7 @@ def activate!
 end
 
 def can_approve?
-  return @can_approve if !@can_approve.nil?
+  return @can_approve unless @can_approve.nil?
   @can_approve = Card.new(type_id: Card.default_accounted_type_id).ok? :create
 end
 

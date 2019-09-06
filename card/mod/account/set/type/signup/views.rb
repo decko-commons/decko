@@ -29,10 +29,9 @@ format :html do
   end
 
   def signup_line
-    [ "<strong>#{safe_name}</strong>",
-      ("was" if invited?),
-      "signed up on #{format_date card.created_at}"
-    ].compact.join " "
+    ["<strong>#{safe_name}</strong>",
+     ("was" if invited?),
+     "signed up on #{format_date card.created_at}"].compact.join " "
   end
 
   def invited?
@@ -52,7 +51,7 @@ format :html do
   end
 
   def verification_lines
-    [ verification_sent_line, verification_link_line].compact
+    [verification_sent_line, verification_link_line].compact
   end
 
   def verification_sent_line

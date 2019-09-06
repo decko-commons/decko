@@ -47,7 +47,11 @@ def validate_api_key! api_key
 end
 
 def method_missing method, *args
-  super unless args.empty? && (matches = method.match /^(?<status>)\?$/)
+  super unless args.empty? && (matches = method.match(/^(?<status>)\?$/))
 
   status == matches[:status]
+end
+
+def respond_to_missing? method, _include_private=false
+  method =~ /\?/ ? true : super
 end
