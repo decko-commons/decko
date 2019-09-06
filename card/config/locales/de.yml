@@ -475,9 +475,8 @@ de:
       set:
         right:
           account:
-            error_not_allowed: nicht erlaubt für diese Karte
-            sorry_email_reset: Entschuldigung, %{error_msg}. Please check your email for a new password reset link.
-            required: erforderlich
+            events:
+              sorry_email_reset: Entschuldigung, %{error_msg}. Please check your email for a new password reset link.
           email:
             error_invalid_address: ungültige Adresse
             search_email_duplicate: E-Mail-Duplikat? (%{content})

@@ -6,14 +6,12 @@ def default_account_status
   can_approve? ? "unverified" : "unapproved"
 end
 
-# callback from +*account card
-def activate!
-  self.type_id = Card.default_accounted_type_id
+def can_approve?
+  Card.new(type_id: Card.default_accounted_type_id).ok? :create
 end
 
-def can_approve?
-  return @can_approve unless @can_approve.nil?
-  @can_approve = Card.new(type_id: Card.default_accounted_type_id).ok? :create
+def activate_accounted
+  self.type_id = Card.default_accounted_type_id
 end
 
 event :auto_approve_with_verification, :validate, on: :create, when: :can_approve? do
@@ -29,7 +27,10 @@ end
 
 event :approve_without_verification, :validate, on: :update, trigger: :required do
   # TODO: if validated here, add trigger and activate in storage phase
-  approvable { account_subfield.activate! }
+  approvable do
+    activate_accounted
+    account_subfield.activate!
+  end
 end
 
 event :act_as_current_for_integrate_stage, :integrate, on: :create do

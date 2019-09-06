@@ -122,6 +122,7 @@ RSpec.describe Card::Set::Type::Signup do
         @signup.update! trigger: :approve_with_verification
 
         expect(@signup.account.status).to eq("unverified")
+        expect(@signup.type_id).to eq(Card::SignupID)
 
         # test that verification email goes out?
       end
@@ -130,8 +131,8 @@ RSpec.describe Card::Set::Type::Signup do
     context "when approving without verification" do
       it "immediately converts signup to active user" do
         Card::Auth.as "joe_admin"
-
         @signup.update! trigger: :approve_without_verification
+#        @signup = Card[@signup.name]
 
         expect(@signup.type_id).to eq(Card::UserID)
         expect(@signup.account.status).to eq("active")
@@ -158,6 +159,7 @@ RSpec.describe Card::Set::Type::Signup do
 
     it "sends welcome email when account is activated" do
       # @signup.run_phase :approve do
+      Card::Auth.as "joe admin"
       @signup.update! trigger: :approve_without_verification
       # end
       @mail = ActionMailer::Base.deliveries.find { |a| a.subject == "welcome" }

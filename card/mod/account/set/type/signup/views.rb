@@ -71,10 +71,8 @@ format :html do
   end
 
   def approve_with_token_link
-    # TODO: track whether link has been sent
-    # token_action = card.account.token.present? ? "Resend" : "Send"
-    token_action = card.account.status == "unverified" ? "Resend" : "Send"
-    approval_link "#{token_action} verification email", :with
+    action = card.account.status == "unverified" ? "Resend" : "Send"
+    approval_link "#{action} verification email", :with
   end
 
   def approve_without_token_link

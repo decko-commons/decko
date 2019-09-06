@@ -32,7 +32,7 @@ class Card
       def create_field_delete_event
         field_set.class_exec(self) do |required|
           event required.field_event_name(:delete), :validate, on: :delete do
-            return if left&.singleton_class&.include?(required.parent_set)
+            return if left&.trash || left&.singleton_class&.include?(required.parent_set)
 
             errors.add required.field, "can't be deleted; required field of #{left.name}" # LOCALIZE
           end

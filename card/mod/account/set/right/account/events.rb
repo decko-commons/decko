@@ -19,6 +19,7 @@ end
 event :verify_and_activate, :validate, on: :update, trigger: :required do
   activatable do
     verifying_token :verify_and_activate_success, :verify_and_activate_failure
+    add_subcard(accounted)&.try :activate_accounted
   end
 end
 
@@ -48,25 +49,22 @@ end
 def activate!
   add_subfield :status, content: "active"
   trigger_event! :send_welcome_email
-  add_subcard(accounted)&.try :activate!
 end
 
 def verifying_token success, failure
-  aborting do
-    requiring_token do |token|
-      result = Auth::Token.decode token
-      if result.is_a?(String)
-        send failure, result
-      else
-        send success
-      end
+  requiring_token do |token|
+    result = Auth::Token.decode token
+    if result.is_a?(String)
+      aborting { send failure, result }
+    else
+      send success
     end
   end
 end
 
 def requiring_token
   if !(token = Env.params[:token])
-    errors.add :token, "is required"
+    aborting { errors.add :token, "is required" }
   else
     yield token
   end
