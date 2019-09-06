@@ -11,7 +11,8 @@
           .input-group-prepend._field-indicator
             .input-group-text.text-muted
               +
-          = text_field_tag "nest_name", edit_nest.name, class: "form-control _nest-name"
+          = text_field_tag "nest_name", edit_nest.name, class: "form-control _nest-name",
+                           "data-left-type" => left_type
 
       .col-3
         = check_box_tag :field, "field", edit_nest.field?,

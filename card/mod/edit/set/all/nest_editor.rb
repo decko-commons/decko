@@ -27,10 +27,11 @@ format :html do
   end
 
   def nest_rules_editor
+    binding.pry
     if edit_nest.name.blank?
       content_tag :div, "", class: "card-slot" # placeholder
     else
-      nest([edit_nest.name, :right], view: :nest_rules)
+      nest(set_name_for_nest_rules, view: :nest_rules)
     end
   end
 
@@ -49,6 +50,30 @@ format :html do
 
   def edit_nest
     @edit_nest ||= NestParser.new params[:edit_nest], default_nest_view, default_item_view
+  end
+
+  def left_type
+    if card.type_id == SetID
+      if Card.fetch_id(card.name.tag).in?([StructureID, DefaultID])
+        set_pattern_id = Card.fetch_id card.name.left.tag
+        if set_pattern_id == TypeID
+          card.name
+        elsif set_pattern_id == SelfID
+          card.type_name
+        else
+          nil
+        end
+      else
+        nil
+      end
+    else
+      card.type_name
+    end
+  end
+
+  def set_name_for_nest_rules
+    nest_name = edit_nest.name
+    left_type ? [left_type, nest_name, :type_plus_right] : [nest_name, :right]
   end
 
   def tinymce_id
