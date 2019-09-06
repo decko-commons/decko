@@ -6,9 +6,7 @@ end
 
 def related_sets with_self=false
   sets = []
-  if known?
-    sets << ["#{name}+*type", Card::Set::Type.label(name)]
-  end
+  sets << ["#{name}+*type", Card::Set::Type.label(name)] if known?
   sets + super
 end
 
@@ -100,8 +98,11 @@ event :check_for_cards_of_type, after: :validate_delete do
   errors.add :cardtype, tr(:cards_exist, cardname: name) if cards_of_type_exist?
 end
 
-event :check_for_cards_of_type_when_type_changed, :validate, changing: :type, when: :was_cardtype? do
-  errors.add :cardtype, tr(:error_cant_alter, name: name_before_act) if cards_of_type_exist?
+event :check_for_cards_of_type_when_type_changed,
+      :validate, changing: :type, when: :was_cardtype? do
+  if cards_of_type_exist?
+    errors.add :cardtype, tr(:error_cant_alter, name: name_before_act)
+  end
 end
 
 event :validate_cardtype_name, :validate, on: :save, changed: :name do

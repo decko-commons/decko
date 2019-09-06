@@ -16,7 +16,7 @@ format :html do
 
   def nest_editor_tabs
     static_tabs({ rules: nest_rules_tab, options: haml_partial(:options),
-                       help: haml_partial(:help)},
+                  help: haml_partial(:help) },
                 :options, "tabs")
   end
 
@@ -60,11 +60,7 @@ format :html do
           card.name
         elsif set_pattern_id == SelfID
           card.type_name
-        else
-          nil
         end
-      else
-        nil
       end
     else
       card.type_name
