@@ -9,7 +9,7 @@ class CleanupForDecko10 < Card::Migration::Core
       delete_card [perm, :right, :options]
     end
     delete_card "*missing link"
-    delete_card "tags"
+    # delete_card "tags"
     delete_card "*tagged"
     merge_cards "*account"
     update_card "*included by",
