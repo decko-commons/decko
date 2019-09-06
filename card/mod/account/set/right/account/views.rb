@@ -1,10 +1,10 @@
 format do
   view :verify_url, cache: :never do
-    token_link :verify_and_activate, anonymous: true
+    token_url :verify_and_activate, anonymous: true
   end
 
   view :reset_password_url do
-    token_link :reset_password
+    token_url :reset_password
   end
 
   view :token_expiry do

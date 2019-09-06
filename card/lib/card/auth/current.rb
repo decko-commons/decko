@@ -121,7 +121,7 @@ class Card
 
       # set the current user based on api_key
       def set_current_from_api_key api_key
-        account = find_account_by_api_key
+        account = find_account_by_api_key api_key
         unless account&.validate_api_key! api_key
           raise Card::Error::PermissionDenied, "API key authentication failed"
         end

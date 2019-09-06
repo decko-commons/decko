@@ -50,12 +50,12 @@ RSpec.describe Card::Set::Right::Account do
     end
   end
 
-  describe "#send_account_verification_email" do
+  describe "#send_verification_email" do
     before do
       @email = "joe@user.com"
       @account = Card::Auth.find_account_by_email(@email)
       Mail::TestMailer.deliveries.clear
-      @account.send_account_verification_email
+      @account.send_verification_email
       @mail = Mail::TestMailer.deliveries.last
     end
 
@@ -82,12 +82,12 @@ RSpec.describe Card::Set::Right::Account do
     end
   end
 
-  describe "#send_reset_password_token" do
+  describe "#send_reset_password_email" do
     before do
       @email = "joe@user.com"
       @account = Card::Auth.find_account_by_email(@email)
       Mail::TestMailer.deliveries = []
-      @account.send_reset_password_token
+      @account.send_reset_password_email
       @mail = Mail::TestMailer.deliveries.last
     end
 

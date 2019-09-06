@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Auth do
+RSpec.describe Card::Auth do
   before do
     Card::Auth.current_id = Card::AnonymousID
     @joeuserid = Card["Joe User"].id
@@ -48,11 +48,6 @@ describe Card::Auth do
     it "sets current from token" do
       Card::Auth.set_current_from_api_key @api_key
       expect(Card::Auth.current_id).to eq(@joeadmin.id)
-    end
-
-    it "sets arbitrary current from token on authorized account" do
-      Card::Auth.set_current_from_token @token, @joeuserid
-      expect(Card::Auth.current_id).to eq(@joeuserid)
     end
   end
 end
