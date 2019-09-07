@@ -84,7 +84,7 @@ RSpec.describe Card::Set::Right::Account do
   end
 
   describe "#verify_and_activate" do
-    it "should activate account" do
+    it "activates account" do
       user = Card.create!(
         name: "TmpUser",
         type_id: Card::UserID,
