@@ -482,13 +482,14 @@ es:
       set:
         type:
           signup:
-            sign_up: Regístrate
-            invite: Invitación
+            views:
+              sign_up: Regístrate
+              invite: Invitación
+              missing_account: "ERROR: tarjeta de registro cuenta faltante"
             send_invite: Enviar invitacion
             first_last_help: usualmente nombre y apellido
             signed_up_on: "%{name} se registró en %{date}"
             was_signed_up_on: "%{name} se registró en %{date}"
-            missing_account: "ERROR: tarjeta de registro cuenta faltante"
             send: Enviar
             resend: Reenviar
             verification: Se envió un correo electrónico de verificación
@@ -510,9 +511,8 @@ es:
             setting_up: Ponte
         right:
           account:
-            error_not_allowed: no permitido en esta tarjeta
-            sorry_email_reset: Lo siento, %{error_msg}. Por favor revise su correo electrónico para un nuevo enlace de restablecimiento de contraseña.
-            required: requerido
+            events:
+              sorry_email_reset: Lo siento, %{error_msg}. Por favor revise su correo electrónico para un nuevo enlace de restablecimiento de contraseña.
           email:
             error_invalid_address: debe ser una dirección válida
             search_email_duplicate: correo electrónico duplicado? (%{content})

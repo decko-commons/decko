@@ -1,4 +1,8 @@
-include All::Permissions::AccountField
+include_set Abstract::AccountField
+
+def generate
+  self.content = Digest::SHA1.hexdigest "--#{Time.zone.now}--"
+end
 
 def history?
   false

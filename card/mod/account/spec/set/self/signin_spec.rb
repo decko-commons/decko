@@ -53,8 +53,8 @@ RSpec.describe Card::Set::Self::Signin do
   context "#reset password" do
     it "is triggered by an update" do
       # Card['joe admin'].account.token.should be_nil FIXME:  this should be t
-      @card.update! "+*email" => "joe@admin.com"
-      expect(Card["joe admin"].account.token).not_to be_nil
+      @card.update! "+*email" => "joe@admin.com", trigger: :send_reset_password_token
+      expect(Mail::TestMailer.deliveries.last.to.first).to eq("joe@admin.com")
     end
 
     it "returns an error if email is not found" do

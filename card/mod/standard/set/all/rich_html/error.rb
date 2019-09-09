@@ -7,10 +7,6 @@ format :html do
     haml :debug_server_error, {}, error_page
   end
 
-  view :message, perms: :none, unknown: true do
-    frame { params[:message] }
-  end
-
   view :unknown do
     createable { wrap { unknown_link "#{unknown_icon} #{render_title}" } }
   end

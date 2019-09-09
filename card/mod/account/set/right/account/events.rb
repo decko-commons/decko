@@ -1,0 +1,98 @@
+#### ON CREATE
+
+event :set_default_salt, :prepare_to_validate, on: :create do
+  add_subfield(:salt).generate
+end
+
+event :set_default_status, :prepare_to_validate, on: :create do
+  add_subfield :status, content: (accounted&.try(:default_account_status) || "active")
+end
+
+# ON UPDATE
+
+# reset password emails contain a link to update the +*account card
+# and trigger this event
+event :reset_password, :prepare_to_validate, on: :update, trigger: :required do
+  verifying_token :reset_password_success, :reset_password_failure
+end
+
+event :verify_and_activate, :prepare_to_validate, on: :update, trigger: :required do
+  activatable do
+    verifying_token :verify_and_activate_success, :verify_and_activate_failure
+    add_subcard(accounted)&.try :activate_accounted
+  end
+end
+
+event :password_redirect, :finalize, on: :update, when: :password_redirect? do
+  success << { id: name, view: "edit" }
+end
+
+# INTEGRATION
+
+%i[password_reset_email verification_email welcome_email].each do |email|
+  event "send_#{email}".to_sym, :integrate, trigger: :required do
+    send_account_email email
+  end
+end
+
+## EVENT HELPERS
+
+def activatable
+  abort :failure, "no field manipulation mid-activation" if subcards.present?
+  # above is necessary because activation uses super user (Decko Bot),
+  # so allowing subcards would be unsafe
+  yield
+end
+
+# note: this only works in the context of an action.
+# if run independently, it will not activate an account
+def activate!
+  add_subfield :status, content: "active"
+  trigger_event! :send_welcome_email
+end
+
+def verifying_token success, failure
+  requiring_token do |token|
+    result = Auth::Token.decode token
+    if result.is_a?(String)
+      aborting { send failure, result }
+    else
+      send success
+    end
+  end
+end
+
+def requiring_token
+  if !(token = Env.params[:token])
+    aborting { errors.add :token, "is required" }
+  else
+    yield token
+  end
+end
+
+def password_redirect?
+  Auth.current_id == accounted_id && password.blank?
+end
+
+def verify_and_activate_success
+  Auth.signin accounted_id
+  Auth.as_bot # use admin permissions for rest of action
+  activate!
+  success << ""
+end
+
+def verify_and_activate_failure error_message
+  send_verification_email
+  errors.add "Sorry, #{error_message}. Please check your email for a new activation link."
+end
+
+def reset_password_success
+  Auth.signin accounted_id
+  success << { id: name, view: :edit }
+  abort :success
+end
+
+def reset_password_failure error_message
+  Auth.as_bot { send_password_reset_email }
+  errors.add tr(:sorry_email_reset, error_msg: error_message)
+end
