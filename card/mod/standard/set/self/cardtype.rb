@@ -1,5 +1,5 @@
 GROUP = {
-  "Text" => %w[RichText PlainText Markdown HTML],
+  "Text" => %w[RichText PlainText Markdown Phrase HTML],
   "Data" => %w[Number Toggle Date URI],
   "Upload" => %w[File Image],
   "Custom" => [],

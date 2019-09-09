@@ -115,7 +115,7 @@ describe 'nest editor', () ->
         .should "not.contain", "undo"
 
 
-    cy.visit "NaNa+*right+*help"
+    cy.visit "RichText+NaNa+*type plus right+*help"
     cy.expect_main_content "help nana"
 
   specify "nest image editor", () ->
