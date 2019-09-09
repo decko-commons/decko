@@ -53,7 +53,7 @@ class Card
 
       def create_parent_event
         parent_set.class_exec(self) do |required|
-          event required.parent_event_name, :validate, on: :save do
+          event required.parent_event_name, :validate, on: :create do
             return if field?(required.field) || left&.type_id == CardtypeID
 
             # Without the Cardtype exemption, we can get errors on type plus right sets

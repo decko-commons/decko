@@ -3,14 +3,14 @@
 RSpec.describe Bootstrap::Component::Form do
   describe "input" do
     it "has form-group css class" do
-      assert_view_select render_editor("Phrase"),
+      assert_view_select render_input("Phrase"),
                          'input[type="text"][class~="form-control"]'
     end
   end
 
   describe "textarea" do
     it "has form-group css class" do
-      assert_view_select render_editor("Plain Text"),
+      assert_view_select render_input("Plain Text"),
                          'textarea[class~="form-control"]'
     end
   end

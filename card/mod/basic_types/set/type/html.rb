@@ -17,7 +17,7 @@ format do
 end
 
 format :html do
-  def editor
+  def input_type
     :ace_editor
   end
 

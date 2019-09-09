@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::Type::PlainText do
   it "has special editor" do
-    assert_view_select render_editor("Plain Text"), 'textarea[rows="5"]'
+    assert_view_select render_input("Plain Text"), 'textarea[rows="5"]'
   end
 
   it "has special content that escapes HTML" do
