@@ -33,7 +33,7 @@ format :html do
   end
 
   def option_list title
-    formgroup title, editor: "set", class: "col-xs-6", help: false do
+    formgroup title, input: "set", class: "col-xs-6", help: false do
       wrap_with :ul do
         wrap_each_with(:li, class: "radio") { yield }
       end

@@ -4,11 +4,7 @@ class Card
     module Truncate
       ELLIPSES_HTML = '<span class="closed-content-ellipses">...</span>'.freeze
 
-      def smart_truncate input, characters=25
-        return if input.nil? || characters < 3
-      end
-
-      def smart_word_truncate input, words=25
+      def smart_truncate input, words=25
         return if input.nil?
 
         truncated, wordstring = truncate input, words

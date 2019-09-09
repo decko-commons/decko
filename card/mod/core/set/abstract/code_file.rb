@@ -55,7 +55,7 @@ def content
 end
 
 format :html do
-  view :editor do
+  view :input do
     "Content is stored in file and can't be edited."
   end
 

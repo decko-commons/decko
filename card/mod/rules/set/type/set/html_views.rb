@@ -41,7 +41,7 @@ format :html do
     voo&.filter&.to_sym || params[:group]&.to_sym || default
   end
 
-  view :editor do
+  view :input do
     "Cannot currently edit Sets" # LOCALIZE
   end
 

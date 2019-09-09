@@ -1,5 +1,5 @@
 format :html do
-  view :quick_edit_rule_list, wrap: { slot: { class: "rule-list" } } do
+  view :quick_edit_rule_list, cache: :never, wrap: { slot: { class: "rule-list" } } do
     quick_edit_rule_list setting_list_from_params(:field_related)
   end
 
@@ -7,7 +7,7 @@ format :html do
     bar_rule_list setting_list_from_params
   end
 
-  view :pill_rule_list, wrap: { slot: { class: "rule-list" } } do
+  view :pill_rule_list, cache: :never, wrap: { slot: { class: "rule-list" } } do
     pill_rule_list setting_list_from_params
   end
 

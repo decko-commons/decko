@@ -1,4 +1,4 @@
-include All::Permissions::AccountField
+include_set Abstract::AccountField
 
 def history?
   false
@@ -13,8 +13,6 @@ event :encrypt_password, :store,
       when: proc { !Card::Env[:no_password_encryptions] } do
   # no_password_encryptions = hack for import - fix with api for ignoring events
   salt = left&.salt
-  # HACK: fix with better ORM handling
-  salt = Card::Env[:salt] unless salt.present?
   self.content = Auth.encrypt content, salt
 
   # errors.add :password, 'need a valid salt'
@@ -22,11 +20,10 @@ event :encrypt_password, :store,
   # not sure when that broke??
 end
 
-event :validate_password, :validate,
-      on: :save do
-  unless content.length > 3
-    errors.add :password, tr(:password_length)
-  end
+event :validate_password, :validate, on: :save do
+  return if content.length > 3
+
+  errors.add :password, tr(:password_length)
 end
 
 event :validate_password_present, :prepare_to_validate, on: :update do
@@ -42,7 +39,7 @@ format :html do
     render_raw
   end
 
-  view :editor do
+  view :input do
     card.content = ""
     password_field :content, class: "d0-card-content", autocomplete: autocomplete?
   end

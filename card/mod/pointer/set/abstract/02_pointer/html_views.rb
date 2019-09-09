@@ -34,11 +34,11 @@ format :html do
     %(<div class="pointer-item item-#{item_view}">#{rendered}</div>)
   end
 
-  view :editor do
+  view :input do
     _render_hidden_content_field + super()
   end
 
-  def default_editor
+  def default_input_type
     :list
   end
 

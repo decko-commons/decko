@@ -24,7 +24,7 @@ format :html do
     render_core items: { view: :link }
   end
 
-  view :editor do
+  view :input do
     item_names = inheriting? ? [] : card.item_names
     %(
       #{_render_hidden_content_field}

@@ -57,7 +57,7 @@ def variable_group_with_values group
 end
 
 format :html do
-  view :editor, template: :haml do
+  view :input, template: :haml do
     @colors = card.colors
     @theme_colors = card.theme_colors
   end

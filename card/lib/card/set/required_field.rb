@@ -32,7 +32,7 @@ class Card
       def create_field_delete_event
         field_set.class_exec(self) do |required|
           event required.field_event_name(:delete), :validate, on: :delete do
-            return if left&.singleton_class&.include?(required.parent_set)
+            return if left&.trash || left&.singleton_class&.include?(required.parent_set)
 
             errors.add required.field, "can't be deleted; required field of #{left.name}" # LOCALIZE
           end
@@ -53,7 +53,7 @@ class Card
 
       def create_parent_event
         parent_set.class_exec(self) do |required|
-          event required.parent_event_name, :validate, on: :save do
+          event required.parent_event_name, :validate, on: :create do
             return if field?(required.field) || left&.type_id == CardtypeID
 
             # Without the Cardtype exemption, we can get errors on type plus right sets
