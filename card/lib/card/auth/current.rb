@@ -103,14 +103,30 @@ class Card
       end
 
       # set current from token or session
-      def set_current token, current
-        if token
-          unless set_current_from_token(token, current)
-            raise Card::Error::PermissionDenied, "token authentication failed"
-          end
+      def set_current opts={}
+        if opts[:token]
+          set_current_from_token opts[:token]
+        elsif opts[:api_key]
+          set_current_from_api_key opts[:api_key]
         else
           set_current_from_session
         end
+      end
+
+      # set the current user based on token
+      def set_current_from_token token
+        payload = Token.validate! token
+        self.current_id = payload[:anonymous] ? Card::AnonymousID : payload[:user_id]
+      end
+
+      # set the current user based on api_key
+      def set_current_from_api_key api_key
+        account = find_account_by_api_key api_key
+        unless account&.validate_api_key! api_key
+          raise Card::Error::PermissionDenied, "API key authentication failed"
+        end
+
+        self.current = account.left_id
       end
 
       # get :user id from session and set Auth.current_id
@@ -123,29 +139,11 @@ class Card
           end
       end
 
-      # set the current user based on token
-      def set_current_from_token token, current=nil
-        account = find_account_by_token token
-        if account&.validate_token!(token)
-          unless current && always_ok_usr_id?(account.left_id)
-            # can override current only if admin
-            current = account.left_id
-          end
-          self.current = current
-        elsif Env.params[:live_token]
-          true
-          # Used for activations and resets.
-          # Continue as anonymous and address problem later
-        else
-          false
-        end
-      end
-
-      # find +\*account card by +\*token card
+      # find +\*account card by +\*api card
       # @param token [String]
       # @return [+*account card, nil]
-      def find_account_by_token token
-        find_account_by "token", Card::TokenID, token.strip
+      def find_account_by_api_key api_key
+        find_account_by "api_key", Card::ApiKeyID, api_key.strip
       end
 
       # find +\*account card by +\*email card
@@ -165,7 +163,7 @@ class Card
           Card.search({ right_id: Card::AccountID,
                         right_plus: [{ id: field_id },
                                      { content: value }] },
-                      "find +*account for #{fieldname} (#{value})").first
+                      "find +:account for #{fieldname} (#{value})").first
         end
       end
 

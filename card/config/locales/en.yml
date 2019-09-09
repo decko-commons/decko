@@ -448,13 +448,14 @@ en:
       set:
         type:
           signup:
-            sign_up: Sign up
-            invite: Invite
+            views:
+              sign_up: Sign up
+              invite: Invite
+              missing_account: "ERROR: signup card missing account"
             send_invite: Send Invitation
             first_last_help: usually first and last name
             signed_up_on: "%{name} signed up on %{date}"
             was_signed_up_on: "%{name} was signed up on %{date}"
-            missing_account: "ERROR: signup card missing account"
             send: Send
             resend: Resend
             verification: A verification email has been sent
@@ -476,9 +477,8 @@ en:
             setting_up: Lege an
         right:
           account:
-            error_not_allowed: not allowed on this card
-            sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
-            required: required
+            events:
+              sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
           email:
             error_invalid_address: must be valid address
             search_email_duplicate: email duplicate? (%{content})
