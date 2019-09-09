@@ -6,7 +6,7 @@ RSpec.describe Card::Set::Type::Html do
   end
 
   it "has special editor" do
-    assert_view_select render_editor("Html"), 'textarea[rows="5"]'
+    assert_view_select render_input("Html"), 'textarea[rows="5"]'
   end
 
   it "renders no html tags in one_line_content view" do

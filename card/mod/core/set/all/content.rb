@@ -39,6 +39,10 @@ format do
     raw_one_line_content
   end
 
+  view :label do
+    card.label
+  end
+
   def raw_one_line_content
     cut_with_ellipsis render_raw
   end
@@ -66,6 +70,9 @@ format :html do
   end
 end
 
+# seems like this should be moved to format so we can fall back on title
+# rather than name. (In fact, name, title, AND label is a bit much.
+# Trim to 2?)
 def label
   name
 end

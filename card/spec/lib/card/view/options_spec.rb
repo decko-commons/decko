@@ -15,7 +15,7 @@ RSpec.describe Card::View::Options do
     subject { described_class.accessible_keys }
     specify "accessible keys" do
       is_expected.to include *%i[nest_name nest_syntax main home_view edit_structure wql
-                                 help structure title variant editor type size params
+                                 help structure title variant input_type type size params
                                  items cache skip_perms main_view]
     end
 
@@ -29,10 +29,10 @@ RSpec.describe Card::View::Options do
       sample_voo.normalize_special_options! options
     end
 
-    let(:options) { { editor: "list", wrap: "simple, default", cache: "never" } }
+    let(:options) { { input_type: "list", wrap: "simple, default", cache: "never" } }
 
     it "normalizes editor option to symbol" do
-      expect(options[:editor]).to eq(:list)
+      expect(options[:input_type]).to eq(:list)
     end
 
     it "normalizes cache option to symbol" do

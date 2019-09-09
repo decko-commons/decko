@@ -12,7 +12,7 @@ format :html do
     end
   end
 
-  view :editor do
+  view :input do
     "Content is can't be edited."
   end
 

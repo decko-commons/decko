@@ -26,10 +26,11 @@ format :json do
     card.item_cards
   end
 
-  # avoid running the search from +*options (huge results) and +*structure (errors)
+  # avoid running the search from +:content_options (huge results)
+  # and +:structure (errors)
   # TODO: make this configurable in set mods
   def unexportable_tag? tag_key
-    %i[options structure].map { |code| code.cardname.key }.include? tag_key
+    %i[content_options structure].map { |code| code.cardname.key }.include? tag_key
   end
 end
 

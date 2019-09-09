@@ -21,7 +21,7 @@ format :html do
     process_content ::CodeRay.scan(_render_raw, :json).div
   end
 
-  def editor
+  def input_type
     :ace_editor
   end
 

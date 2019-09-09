@@ -22,10 +22,10 @@ format :html do
     :bar
   end
 
-  view :editor, template: :haml
+  view :input, template: :haml
 
   def themes
-    card.rule_card(:options).item_cards
+    card.rule_card(:content_options).item_cards
   end
 
   def selectable_themes

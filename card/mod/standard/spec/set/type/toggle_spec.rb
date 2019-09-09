@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::Type::Toggle do
   it "has special editor" do
-    assert_view_select render_editor("Toggle"), 'input[type="checkbox"]'
+    assert_view_select render_input("Toggle"), 'input[type="checkbox"]'
   end
 
   it "has yes/no as processed content" do
