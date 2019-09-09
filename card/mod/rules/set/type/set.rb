@@ -80,3 +80,14 @@ def related_sets with_self=false
     left(new: {}).related_sets with_self
   end
 end
+
+def left_type_for_nest_editor_set_selection
+  if Card.fetch_id(card.name.tag).in?([StructureID, DefaultID])
+    set_pattern_id = Card.fetch_id card.name.left.tag
+    if set_pattern_id == TypeID
+      card.name
+    elsif set_pattern_id == SelfID
+      card.type_name
+    end
+  end
+end

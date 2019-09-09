@@ -52,24 +52,17 @@ format :html do
     @edit_nest ||= NestParser.new params[:edit_nest], default_nest_view, default_item_view
   end
 
-  def left_type
-    if card.type_id == SetID
-      if Card.fetch_id(card.name.tag).in?([StructureID, DefaultID])
-        set_pattern_id = Card.fetch_id card.name.left.tag
-        if set_pattern_id == TypeID
-          card.name
-        elsif set_pattern_id == SelfID
-          card.type_name
-        end
-      end
-    else
-      card.type_name
-    end
+  def left_type_for_nest_editor_set_selection
+    card.type_name
   end
 
   def set_name_for_nest_rules
     nest_name = edit_nest.name
-    left_type ? [left_type, nest_name, :type_plus_right] : [nest_name, :right]
+    if left_type_for_nest_editor_set_selection
+      [left_type_for_nest_editor_set_selection, nest_name, :type_plus_right]
+    else
+      [nest_name, :right]
+    end
   end
 
   def tinymce_id
