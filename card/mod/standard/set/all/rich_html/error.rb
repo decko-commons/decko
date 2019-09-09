@@ -7,33 +7,36 @@ format :html do
     haml :debug_server_error, {}, error_page
   end
 
-  view :message, perms: :none, unknown: true do
-    frame { params[:message] }
+  view :unknown do
+    createable { wrap { unknown_link "#{unknown_icon} #{render_title}" } }
   end
 
-  view :missing do
-    createable do
-      wrap { missing_link("#{fa_icon 'plus-square'} #{_render_title}") }
-    end
+  # icon only, no wrap
+  view :mini_unknown, unknown: true, cache: :never do
+    createable { unknown_link unknown_icon }
   end
 
   def createable
     card.ok?(:create) ? yield : ""
   end
 
-  def missing_link text
+  def unknown_link text
     path_opts = voo.type ? { card: { type: voo.type } } : {}
-    link_to_view :new_in_modal, text, path: path_opts, class: classy("missing-link")
+    link_to_view :new_in_modal, text, path: path_opts, class: classy("unknown-link")
   end
 
-  view :closed_missing, perms: :none do
+  def unknown_icon
+    fa_icon "plus-square"
+  end
+
+  view :compact_missing, perms: :none do
     wrap_with :span, h(title_in_context), class: "faint"
   end
 
   view :conflict, cache: :never do
     actor_link = link_to_card card.last_action.act.actor.name
     class_up "card-slot", "error-view"
-    wrap do # ENGLISH below
+    wrap do # LOCALIZE
       alert "warning" do
         %(
           <strong>Conflict!</strong>
@@ -68,18 +71,7 @@ format :html do
   end
 
   def view_for_unknown view
-    case
-    when main? && ok?(:create) then :new
-    when commentable?(view)    then view
-    else super
-    end
-  end
-
-  def commentable? view
-    return false unless view_setting(:commentable, view) &&
-                        show_view?(:comment_box, :hide)
-
-    ok? :comment
+    main? && ok?(:create) ? :new : super
   end
 
   def show_all_errors?

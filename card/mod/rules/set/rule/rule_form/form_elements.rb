@@ -10,7 +10,7 @@ format :html do
   def rule_set_formgroup
     tag = @rule_context.rule_user_setting_name
     narrower = []
-    option_list "set" do
+    option_list "Set" do
       rule_set_options.map do |set_name, state|
         rule_set_radio_button set_name, tag, state, narrower
       end
@@ -33,7 +33,7 @@ format :html do
   end
 
   def option_list title
-    formgroup title, editor: "set", class: "col-xs-6", help: false do
+    formgroup title, input: "set", class: "col-xs-6", help: false do
       wrap_with :ul do
         wrap_each_with(:li, class: "radio") { yield }
       end

@@ -1,0 +1,10 @@
+%h3 First, set up an account.
+.pb-2
+  As the first account holder for this deck, you will automatically have several
+  permissioned roles. You can configure these roles at any time.
+
+
+- if Card.config.action_mailer.perform_deliveries == false
+  .bg-warning.p-3
+    WARNING: Email delivery is turned off.
+    Change settings in config/application.rb to send sign up notifications.

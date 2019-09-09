@@ -2,6 +2,7 @@ format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
   view :bridge, perms: :update, unknown: true, cache: :never, wrap: :bridge do
     with_nest_mode :edit do
+      add_name_context
       voo.show :help
       wrap true, breadcrumb_data("Editing", "edit") do
         bridge_parts
@@ -9,8 +10,11 @@ format :html do
     end
   end
 
+  view :cardboard, :bridge
+
   def bridge_parts
     voo.show! :edit_type_row
+
     [
       frame_help,
       _render_edit_name_row(home_view: :edit_name_row),
@@ -20,7 +24,7 @@ format :html do
       # render to get voo.slot_options to have the write home view in
       # the slot wrap. I think this would probably best be handled as an
       # option to #wrap that triggers a new heir voo
-      _render_edit_content_form
+      _render_edit_form
     ]
   end
 

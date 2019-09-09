@@ -1,20 +1,5 @@
 format :html do
-  GROUP = {
-    "Content" => %w[RichText PlainText Phrase Date Number Toggle Markdown File Image URI],
-    "Custom" => [],
-    "Organize" => ["Cardtype", "Search", "List", "Link list", "Pointer",
-                   "Mirror list", "Mirrored list"],
-    "Admin" => ["Layout", "Skin", "User", "Role",
-                "Notification template", "Email template", "Twitter template"],
-    "Code" => %w[HTML Json CSS SCSS JavaScript CoffeeScript]
-  }.freeze
-
-  # group for each cardtype: { "RichText => "Content", "Layout" => "Admin", ... }
-  GROUP_MAP = GROUP.each_with_object({}) do |(cat, types), h|
-    types.each { |t| h[t] = cat }
-  end
-
-    view :edit_type, cache: :never, perms: :update do
+  view :edit_type, cache: :never, perms: :update do
     frame do
       _render_edit_type_form
     end
@@ -37,10 +22,13 @@ format :html do
   end
 
   view :bridge_type_formgroup, unknown: true, wrap: :slot do
-    type_formgroup href: path(mark: card.id, view: :edit_content_form, type_reload: true, slot: { show: :type_form }),
+    type_formgroup href: path(mark: card.id,
+                              view: :edit_form,
+                              assign: true,
+                              slot: { show: :type_form }),
                    class: "live-type-field slotter",
                    'data-remote': true,
-                   'data-slot-selector': ".card-slot.edit_content_form-view"
+                   'data-slot-selector': ".card-slot.edit_form-view"
   end
 
   view :type_formgroup do
@@ -55,7 +43,7 @@ format :html do
   end
 
   def wrap_type_formgroup
-    formgroup "Type", editor: "type", class: "type-formgroup", help: false do
+    formgroup "Type", input: "type", class: "type-formgroup", help: false do
       output [yield, hidden_field_tag(:assign, true)]
     end
   end
@@ -64,7 +52,7 @@ format :html do
     typelist = Auth.createable_types
     current_type = type_field_current_value args, typelist
     options = grouped_options_for_select grouped_types(current_type), current_type
-    template.select_tag "card[type]", options, args
+    template.select_tag "card[type]", options, args.merge("data-select2-id": "#{unique_id}-#{Time.now.to_i}")
   end
 
   def grouped_types current_type
@@ -72,10 +60,10 @@ format :html do
     allowed = ::Set.new Auth.createable_types
     allowed << current_type if current_type
 
-    GROUP.each_pair do |name, items|
+    visible_cardtype_groups.each_pair do |name, items|
       if name == "Custom"
         Auth.createable_types.each do |type|
-          groups["Custom"] << type unless GROUP_MAP[type]
+          groups["Custom"] << type unless Self::Cardtype::GROUP_MAP[type]
         end
       else
         items.each do |i|
@@ -84,6 +72,10 @@ format :html do
       end
     end
     groups
+  end
+
+  def visible_cardtype_groups
+    Self::Cardtype::GROUP
   end
 
   def type_field_current_value args, typelist

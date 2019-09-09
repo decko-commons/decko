@@ -49,13 +49,13 @@ format do
 
   def new_cardtype_path opts
     return unless valid_opts_for_new_cardtype_path? opts
-    "new/#{path_mark opts}#{path_query opts}"
+    "#{opts.delete :action}/#{path_mark opts}#{path_query opts}"
   end
 
   def valid_opts_for_new_cardtype_path? opts
-    return unless opts[:action] == :new
-    opts.delete :action
-    # "new" is not really an action and is only
+    return unless opts[:action].in? %i[new type]
+
+    # "new" and "type" are not really an action and are only
     # a valid value here for this path
     opts[:mark].present?
   end
@@ -126,7 +126,7 @@ format do
   end
 
   def add_unknown_name_to_opts name, opts
-    return if name_specified?(opts) || name_simple?(name) || Card.known?(name)
+    return if name_specified?(opts) || name_standardish?(name) || Card.known?(name)
     opts[:card] ||= {}
     opts[:card][:name] = name
   end
@@ -135,8 +135,8 @@ format do
     opts[:card] && opts[:card][:name]
   end
 
-  # name is same as url_key, so the url_key won't lose any info
-  def name_simple? name
+  # no name info will be lost by using url_key
+  def name_standardish? name
     name.s == Card::Name.url_key_to_standard(name.url_key)
   end
 end

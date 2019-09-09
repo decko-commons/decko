@@ -12,7 +12,7 @@ format :html do
   end
 
   def table_of_contents content
-    return if nest_mode == :closed || !content.present?
+    return if nest_mode == :compact || !content.present?
 
     min = card.rule(:table_of_contents).to_i
     return unless min && min > 0

@@ -19,8 +19,8 @@ describe 'edit type', () ->
   specify "edit type for new card", () ->
     cy.delete "newcard"
     cy.visit "newcard"
-    cy.select2_by_name("card[type]", "Phrase")
-    cy.get("input[name='card[content]'][type='text']").type "snug"
+    cy.select2_by_name("card[type]", "PlainText")
+    cy.get("textarea[name='card[content]'][rows=5]").type "snug"
     cy.contains("Submit").click()
     cy.main_slot().should "contain", "snug"
 
@@ -28,5 +28,5 @@ describe 'edit type', () ->
     cy.visit_bridge()
     cy.bridge_sidebar().find('.nav-tabs a:last').click()
     cy.bridge_sidebar().el("default-pill").click()
-    cy.select2_by_name("card[type]", "Phrase")
+    cy.select2_by_name("card[type]", "PlainText")
     cy.get("input[name='card[content]']")

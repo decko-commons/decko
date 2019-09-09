@@ -12,7 +12,7 @@ view :core do
 end
 
 format :html do
-  view :editor do
+  view :input do
     toggle
   end
 
@@ -26,5 +26,13 @@ format :html do
 
   def toggle_label
     label :content, card.name.tag
+  end
+
+  def one_line_content
+    short_content
+  end
+
+  def short_content
+    render_core
   end
 end

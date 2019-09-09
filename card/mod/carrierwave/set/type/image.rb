@@ -13,7 +13,7 @@ end
 format do
   include File::Format
 
-  view :closed_content do
+  view :one_line_content do
     _render_core size: :icon
   end
 
@@ -57,7 +57,7 @@ format do
     voo.size =
       case
       when nest_mode == :closed then closed_size
-      when voo.size             then voo.size.to_sym
+      when voo.size.present?    then voo.size.to_sym
       when main?                then main_size
       else                           default_size
       end

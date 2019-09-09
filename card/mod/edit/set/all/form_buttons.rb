@@ -29,8 +29,16 @@ format :html do
     cancel_button args
   end
 
-  def edit_cancel_button
+  def modal_cancel_button
     modal_close_button "Cancel", situation: "secondary", class: "btn-sm"
+  end
+
+  def edit_cancel_button
+    modal_cancel_button
+  end
+
+  def new_cancel_button
+    modal_cancel_button
   end
 
   def delete_button opts={}
@@ -40,7 +48,8 @@ format :html do
   def delete_button_opts opts={}
     add_class opts,  "slotter btn btn-outline-danger ml-auto btn-sm"
     opts["data-confirm"] = delete_confirm opts
-    opts[:path] = { action: :delete, success: delete_success(opts) }
+    opts[:path] = { action: :delete }
+    opts[:path][:success] = delete_success(opts) unless opts.delete(:no_success)
     opts[:remote] = true
     opts
   end

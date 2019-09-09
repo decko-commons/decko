@@ -22,8 +22,12 @@ format :html do
 
   view :overlay_menu do
     wrap_with :div, class: "btn-group btn-group-sm align-self-start ml-auto" do
-      [slotify_overlay_link, close_overlay_link]
+      [help_overlay_link, slotify_overlay_link, close_overlay_link]
     end
+  end
+
+  def help_overlay_link
+    overlay_menu_link "question-circle", help_popover_opts
   end
 
   def slotify_overlay_link
@@ -39,6 +43,11 @@ format :html do
     button_opts = opts.merge(OVERLAY_CLOSE_OPTS)
     add_class button_opts, classes if classes
     button_tag link_text, button_opts
+  end
+
+  def overlay_delete_button
+    opts = { no_success: true }.merge OVERLAY_CLOSE_OPTS
+    delete_button opts
   end
 
   def overlay_save_and_close_button

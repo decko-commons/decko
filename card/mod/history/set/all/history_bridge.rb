@@ -32,7 +32,6 @@ format :html do
   def acts_bridge_layout acts, context=:bridge
     output [
       _render_creator_credit,
-      _render_updated_by,
       act_link_list(acts, context),
       act_paging(acts, context)
     ]

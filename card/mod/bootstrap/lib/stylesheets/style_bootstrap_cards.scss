@@ -24,7 +24,7 @@ header {
 
 .d0-card-header a {
   color: $body-color;
-  &.edit-link, &.bridge-link {
+  &.edit-link, &.bridge-link, &.help-link {
     color: $text-muted;
   }
 }
@@ -217,6 +217,21 @@ body.mceContentBody {
   }
 }
 
+/*---------- ( Link list )-------------*/
+
+.group-text-middle {
+  border-left: none;
+  border-right: none;
+}
+
+.group-text-left {
+  border-right: none;
+}
+
+.group-text-right {
+  border-left: none;
+}
+
 
 /* CARDTYPE_SPECIFIC ------------------------------*/
 
@@ -368,8 +383,8 @@ body.mceContentBody {
 
 /*----------- Bars and Boxes -------------*/
 
-.expanded-bar, .bar, .box {
-  .missing-view {
+.expanded-bar, .box {
+  .unknown-view {
     // TODO: obviate in ruby with better unknown API
     display: none;
   }

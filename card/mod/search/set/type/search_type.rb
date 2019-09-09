@@ -26,10 +26,11 @@ format :json do
     card.item_cards
   end
 
-  # avoid running the search from +*options (huge results) and +*structure (errors)
+  # avoid running the search from +:content_options (huge results)
+  # and +:structure (errors)
   # TODO: make this configurable in set mods
   def unexportable_tag? tag_key
-    %i[options structure].map { |code| code.cardname.key }.include? tag_key
+    %i[content_options structure].map { |code| code.cardname.key }.include? tag_key
   end
 end
 
@@ -52,12 +53,12 @@ format :html do
     _render search_result_view
   end
 
-  view :closed do
-    voo.hide :closed_content
+  view :bar do
+    voo.hide :one_line_content
     super()
   end
 
-  view :closed_content, cache: :never do
+  view :one_line_content, cache: :never do
     if depth > max_depth
       "..."
     else

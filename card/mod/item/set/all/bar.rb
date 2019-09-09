@@ -14,7 +14,7 @@ format :html do
     voo.hide :edit_link, :full_page_link, :bridge_link
   end
 
-  view :bar do
+  view :bar, unknown: :unknown_bar do
     voo.hide :bar_middle
     voo.hide :bar_bottom # needed for toggle
     class_up_bar_sides(voo.show?(:bar_middle))
@@ -24,6 +24,11 @@ format :html do
 
   bar_cols 9, 3
   info_bar_cols 5, 4, 3
+
+  view :unknown_bar, unknown: true do
+    voo.hide! :bar_middle, :bar_bottom, :bar_nav
+    wrap { haml :bar }
+  end
 
   before :expanded_bar do
     class_up "bar", card.safe_set_keys
@@ -51,6 +56,8 @@ format :html do
   end
 
   def bar_title
+    return render_missing if card.unknown?
+
     if voo.show?(:toggle)
       link_to_view bar_title_toggle_view, render_title
     else
@@ -62,12 +69,12 @@ format :html do
     voo.show?(:bar_bottom) ? :bar : :expanded_bar
   end
 
-  view :bar_right do
+  view :bar_right, unknown: :blank do
     [(render(:short_content) unless voo.show?(:bar_middle)),
      render(:edit_button, optional: :hide)]
   end
 
-  view :bar_middle do
+  view :bar_middle, unknown: :blank do
     render :short_content
   end
 
@@ -75,7 +82,7 @@ format :html do
     render(nest_mode == :edit ? :edit : :core)
   end
 
-  view :bar_nav, wrap: { div: { class: "bar-nav" } } do
+  view :bar_nav, unknown: true, wrap: { div: { class: "bar-nav" } } do
     [render_bar_expand_link,
      render_bar_collapse_link,
      render_full_page_link,
@@ -83,11 +90,11 @@ format :html do
      render_bridge_link]
   end
 
-  view :bar_expand_link do
+  view :bar_expand_link, unknown: true do
     link_to_view :expanded_bar, icon_tag(:keyboard_arrow_down)
   end
 
-  view :bar_collapse_link do
+  view :bar_collapse_link, unknown: true do
     link_to_view :bar, icon_tag(:keyboard_arrow_up)
   end
 

@@ -58,7 +58,7 @@ class Card
     end
 
     def includes_card_key
-      @includes_card_key ||= :includes.cardname.key
+      @includes_card_key ||= :nests.cardname.key
     end
 
     def nestee_set card

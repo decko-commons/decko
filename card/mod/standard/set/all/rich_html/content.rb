@@ -1,7 +1,3 @@
-def show_comment_box_in_related?
-  false
-end
-
 format :html do
   def prepare_content_slot
     class_up "card-slot", "d0-card-content"
@@ -16,6 +12,17 @@ format :html do
 
   view :short_content, wrap: { div: { class: "text-muted" } } do
     short_content
+  end
+
+  view :raw_one_line_content, unknown: :mini_unknown,
+                              wrap: { div: { class: "text-muted" } } do
+    raw_one_line_content
+  end
+
+
+  view :one_line_content, unknown: :mini_unknown,
+                          wrap: { div: { class: "text-muted" } } do
+    one_line_content
   end
 
   before(:content_with_title) { prepare_content_slot }
@@ -39,14 +46,14 @@ format :html do
     end
   end
 
-  view :titled, commentable: true do
+  view :titled do
     @content_body = true
     wrap do
       [
         naming { render_header },
         render_flash,
         wrap_body { render_titled_content },
-        render_comment_box
+        render_comment_box(optional: :hide)
       ]
     end
   end
@@ -68,19 +75,18 @@ format :html do
                                  items: (opts[:items] || {}).merge(view: item_view))
   end
 
-  view :open, commentable: true do
+  view :open do
     toggle_logic
     @toggle_mode = :open
     @content_body = true
     frame do
-      [_render_open_content, render_comment_box]
+      [_render_open_content, render_comment_box(optional: :hide)]
     end
   end
 
   view :closed do
-    with_nest_mode :closed do
+    with_nest_mode :compact do
       toggle_logic
-      voo.hide :closed_content
       class_up "d0-card-body", "closed-content"
       @content_body = false
       @toggle_mode = :close
@@ -97,6 +103,18 @@ format :html do
     set_name ||= "#{card.name}+*type" if card.known? && card.type_id == Card::CardtypeID
     set_name ||= "#{card.name}+*self"
     Card.fetch(set_name)
+  end
+
+  def raw_one_line_content
+    cleaned = Card::Content.clean! render_raw, {}
+    cut_with_ellipsis cleaned
+  end
+
+  def one_line_content
+    # TODO: use a version of Card::Content.smart_truncate
+    #   that counts characters instead of clean!
+    cleaned = Card::Content.clean! render_core
+    cut_with_ellipsis cleaned
   end
 
   # LOCALIZE

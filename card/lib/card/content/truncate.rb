@@ -16,6 +16,8 @@ class Card
         polish wordstring
       end
 
+      private
+
       def truncate input, words
         wordlist = input.to_s.split
         l = words.to_i - 1

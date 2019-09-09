@@ -3,6 +3,7 @@
 require_dependency "card/auth/permissions"
 require_dependency "card/auth/proxy"
 require_dependency "card/auth/setup"
+require_dependency "card/auth/token"
 
 class Card
   # Singleton methods for account authentication and contextualization.

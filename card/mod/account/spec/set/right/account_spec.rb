@@ -27,18 +27,17 @@ RSpec.describe Card::Set::Right::Account do
     end
 
     it "checks accountability of 'accounted' card" do
-      unaccountable = Card.create(dummy_account_args)
-      expect(unaccountable.errors["+*account"].first).to eq("not allowed on this card")
+      expect(Card.create(dummy_account_args).errors["+*account"].first)
+        .to match(/You don\'t have permission to create/)
     end
 
-    it "works for any accountable card -- not just User type" do
+    it "works for any card with +*account permissions -- not just User type" do
       Card::Auth.as_bot do
-        rule_name = Card::Name[%i[basic type accountable]]
-        Card.create! name: rule_name, content: "1"
+        Card.create! name: Card::Name[%i[basic account type_plus_right create]],
+                     content: "Anyone Signed In"
       end
 
-      accountable = Card.create(dummy_account_args)
-      expect(accountable.errors).to be_empty
+      expect(Card.create(dummy_account_args).errors).to be_empty
     end
 
     it "requires email" do
@@ -51,12 +50,12 @@ RSpec.describe Card::Set::Right::Account do
     end
   end
 
-  describe "#send_account_verification_email" do
+  describe "#send_verification_email" do
     before do
       @email = "joe@user.com"
       @account = Card::Auth.find_account_by_email(@email)
       Mail::TestMailer.deliveries.clear
-      @account.send_account_verification_email
+      @account.send_verification_email
       @mail = Mail::TestMailer.deliveries.last
     end
 
@@ -71,8 +70,9 @@ RSpec.describe Card::Set::Right::Account do
 
     it "contains link to verify account" do
       raw_source = @mail.parts[0].body.raw_source
-      ["/update/#{@account.left.name.url_key}",
-       "token=#{@account.token}"].each do |url_part|
+      ["/update/#{@account.name.url_key}",
+       "card%5Btrigger%5D=verify_and_activate",
+       "token="].each do |url_part|
         expect(raw_source).to include(url_part)
       end
     end
@@ -83,12 +83,29 @@ RSpec.describe Card::Set::Right::Account do
     end
   end
 
-  describe "#send_reset_password_token" do
+  describe "#verify_and_activate" do
+    it "activates account" do
+      user = Card.create!(
+        name: "TmpUser",
+        type_id: Card::UserID,
+        "+*account" => { "+*password" => "tmp_pass",
+                         "+*email" => "tmp@decko.org",
+                         "+*status" => "unverified" }
+      )
+
+      Card::Env.params[:token] = Card::Auth::Token.encode user.id, anonymous: true
+      user.account.update! trigger: :verify_and_activate
+
+      expect(user.account).to be_active
+    end
+  end
+
+  describe "#send_password_reset_email" do
     before do
       @email = "joe@user.com"
       @account = Card::Auth.find_account_by_email(@email)
       Mail::TestMailer.deliveries = []
-      @account.send_reset_password_token
+      @account.send_password_reset_email
       @mail = Mail::TestMailer.deliveries.last
     end
 
@@ -99,10 +116,8 @@ RSpec.describe Card::Set::Right::Account do
 
     it "contains password reset link" do
       raw_source = @mail.parts[0].body.raw_source
-      token = @account.token_card.refresh(true).content
       ["/update/#{@account.left.name.url_key}",
-       "token=#{token}",
-       "live_token=true",
+       "token=",
        "card%5Btrigger%5D=reset_password"].each do |url_part|
         expect(raw_source).to include(url_part)
       end
@@ -136,39 +151,31 @@ RSpec.describe Card::Set::Right::Account do
     before do
       @email = "joe@user.com"
       @account = Card::Auth.find_account_by_email(@email)
-      @account.send_reset_password_token
-      @token = @account.token
-      Card::Env.params[:token] = @token
       Card::Auth.current_id = Card::AnonymousID
     end
 
     let(:trigger_reset) { @account.update! trigger: :reset_password }
 
+    def auth_token extra_payload={}
+      Card::Env.params[:token] = Card::Auth::Token.encode @account.left_id, extra_payload
+    end
+
     it "authenticates with correct token" do
+      auth_token
       expect(Card::Auth.current_id).to eq(Card::AnonymousID)
       trigger_reset
       expect(Card::Auth.current_id).to eq(@account.left_id)
-      @account = @account.refresh true
     end
 
     it "does not work if token is expired" do
-      @account.token_card.update_column :updated_at,
-                                        3.days.ago.strftime("%F %T")
-      @account.token_card.expire
-
-      trigger_reset
-
-      expect(@account.token).not_to eq(@token)
-      # token gets updated
-
-      expect(@account.success.message).to match(/expired/)
+      auth_token exp: 1.days.ago.to_i
+      expect { trigger_reset }.to raise_error(/Signature has expired/)
       # user notified of expired token
     end
 
     it "does not work if token is wrong" do
-      Card::Env.params[:token] = @token + "xxx"
-      trigger_reset
-      expect(Card::Env.success[:message]).to match(/mismatch/)
+      Card::Env.params[:token] = auth_token + "xxx"
+      expect { trigger_reset }.to raise_error(/Signature verification raised/)
     end
   end
 end

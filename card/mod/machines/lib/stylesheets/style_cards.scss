@@ -291,7 +291,7 @@ pre,
   white-space: -o-pre-wrap;    /* Opera 7 */
   word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
-.missing-view a {
+.unknown-view a {
   display: inline;
 }
 
@@ -491,7 +491,7 @@ textarea {
 
 /* links to create missing cards */
 
-a.missing-link {
+a.unknown-link {
   color: $text-muted;
   font-variant: small-caps;
   &:hover {
@@ -531,10 +531,6 @@ div.search-result-list .search-result-item {
 .pointer-item.item-name {
   text-indent: -15px;
   padding-left: 15px;
-}
-.radio-option-description,
-.checkbox-option-description {
-  margin-left: 40px;
 }
 
 ul.pointer {
@@ -731,38 +727,19 @@ ul.action-list {
 /*- SETS, SETTINGS, RULES  - */
 /*-------------------------- */
 
-.setting-rules,
-.set-rules {
-  width: 100%;
-}
-.setting-rules th,
-.set-rules th {
-  padding: 5px 0;
-}
-.setting-rules th,
-.setting-rules td,
-.set-rules th,
-.set-rules td.rule-cell {
-  text-align: left;
-  padding: 2px 5px;
-}
+
 
 .setting-klass,
 .rule-setting {
   font-weight: bold;
 }
-td.rule-setting {
-  width: 30%;
-}
+
 .rule-set {
   white-space: nowrap;
 }
 
 .closed-rule {
   height: 30px;
-  td {
-    vertical-align: middle;
-  }
   .rule-content {
     width: 350px;
   }
@@ -782,10 +759,6 @@ td.rule-setting {
   .closed-content .search-list {
     margin: 0;
   }
-}
-tr.missing-rule > td {
-  background-color: $gray-300;
-  border-bottom: 1px solid $white;
 }
 .rule-setting {
   padding-top: 4px;
@@ -820,19 +793,12 @@ tr.missing-rule > td {
 .attention {
   border: 3px solid red;
 }
+
 .rule-delete-section {
   float: right;
 }
-.show-rule .rule-set {
-  margin-bottom: 10px;
-}
 
-tr.rule-changeover td {
-  padding-top: 5px;
-}
-td.rule-anchor {
-  padding-left: 30px;
-}
+
 a.setting-link {
   font-style: italic;
   margin-left: 2%;
@@ -1044,14 +1010,18 @@ $bridge-line-color: $border-color;
   .help-text {
     font-size: 0.8rem;
   }
-  > .nav-item > a {
-    background-color: $list-group-bg;
-    border: 1px solid $list-group-border-color;
-    border-left: 3px solid $list-group-border-color;
+  > .nav-item {
+    padding: 0;
+    > a {
+      color: inherit
+    }
+    background-color: $body-bg;
+    border: 1px solid $nav-tabs-border-color;
+    border-left: 3px solid $nav-tabs-border-color;
     margin-bottom: -1px;
 
     &:hover, &.active, &:focus {
-      border-left-color: $list-group-active-bg;
+       border-left-color: $nav-pills-link-active-bg;
     }
   }
 }
@@ -1125,12 +1095,11 @@ $bridge-line-color: $border-color;
   }
 
   .bridge-sidebar {
+    .history_tab-view > div {
+      margin: 0.5rem;
+    }
     .d0-card-header-title > .card-title {
       font-size: 1rem;
-    }
-
-    .creator-credit {
-      font-size: $font-size-sm;
     }
     .nav-link {
       padding: 0.5rem 0.5rem;
@@ -1256,4 +1225,10 @@ body.right-sidebar, body.left-sidebar, body.two-sidebar {
 }
 .alert-heading.error {
   margin-bottom: 30px;
+}
+
+.one-line {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
 }

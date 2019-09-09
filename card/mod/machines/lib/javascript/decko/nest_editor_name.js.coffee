@@ -43,14 +43,25 @@ $.extend nest,
     nest.updatePreview new_val
     $(".input-group.show-prefix").removeClass("show-prefix").addClass("hide-prefix")
 
+  rulesTabSlot: () ->
+    $("._nest-editor .tab-pane-rule > .card-slot")
+
+  emptyNameAlert: (show) ->
+    if show
+      $("._empty-nest-name-alert").removeClass("d-none")
+    else
+      $("._empty-nest-name-alert:not(.d-none)").addClass("d-none")
+
   updateRulesTab: () ->
     name = $("input._nest-name").val()
+    $rulesTab = nest.rulesTabSlot()
+
     if name? && name.length > 0
       card = if nest.isField() then "#{name}+*right" else "#{name}+*self"
       url = decko.path "#{card}?view=nest_rules"
-      $("._empty-nest-name-alert:not(.d-none)").addClass("d-none")
-      $(".tab-pane-rule > .card-slot").reloadSlot url
+      nest.emptyNameAlert(false)
+      $rulesTab.reloadSlot url
     else
-      $(".tab-pane-rule > .card-slot").empty()
-      $("._empty-nest-name-alert").removeClass("d-none")
+      $rulesTab.clearSlot()
+      nest.emptyNameAlert(true)
 

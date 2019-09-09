@@ -1,19 +1,37 @@
 format :html do
   # FIELDSET VIEWS
-  view :content_formgroup, cache: :never do
+
+  # sometimes multiple card formgroups, sometimes just one
+  view :content_formgroups, cache: :never do
     wrap_with :fieldset, edit_slot, class: classy("card-editor", "editor")
   end
 
   view :name_formgroup do
-    formgroup "name", editor: "name", help: false do
+    formgroup "Name", input: "name", help: false do
       raw name_field
     end
+  end
+
+  # single card content formgroup, labeled with "Content"
+  view :content_formgroup, unknown: true, cache: :never do
+    wrap_content_formgroup { content_field }
   end
 
   view :edit_in_form, cache: :never, perms: :update, unknown: true do
     reset_form
     @in_multi_card_editor = true
     edit_slot
+  end
+
+  view :conflict_tracker, cache: :never, unknown: true do
+    return unless card&.real?
+
+    card.last_action_id_before_edit = card.last_action_id
+    hidden_field :last_action_id_before_edit, class: "current_revision_id"
+  end
+
+  def wrap_content_formgroup
+    formgroup("Content", input: :content, help: false) { yield }
   end
 
   def button_formgroup
@@ -27,25 +45,18 @@ format :html do
     text_field :name, value: card.name, autocomplete: "off"
   end
 
-  def content_field skip_rev_id=false
+  def content_field
     with_nest_mode :normal do
       # by changing nest mode to normal, we ensure that editors (eg image
       # previews) can render core views.
-      output [content_field_revision_tracking(skip_rev_id), _render_editor]
+      output [_render_conflict_tracker, _render_input]
     end
   end
 
   # SAMPLE editor view for override
-  # view :editor do
+  # view :input do
   #   text_area :content, rows: 5, class: "d0-card-content"
   # end
-
-  def content_field_revision_tracking skip_rev_id
-    card.last_action_id_before_edit = card.last_action_id
-    return if !card || card.new_card? || skip_rev_id
-
-    hidden_field :last_action_id_before_edit, class: "current_revision_id"
-  end
 
   def edit_slot
     case
@@ -59,7 +70,7 @@ format :html do
   # test: render nests within a normal rendering of the card's content?
   # (as opposed to a standardized form)
   def inline_nests_editor?
-    voo.editor == :inline_nests
+    voo.input_type == :inline_nests
   end
 
   # test: are we opening a new multi-card form?
@@ -81,8 +92,7 @@ format :html do
 
   def single_card_edit_field
     if voo.show?(:type_formgroup) || voo.show?(:name_formgroup)
-      # display content field in formgroup for consistency with other fields
-      formgroup("Content", editor: :content, help: false) { content_field }
+      _render_content_formgroup # use formgroup for consistency
     else
       editor_wrap(:content) { content_field }
     end
@@ -91,15 +101,23 @@ format :html do
   def editor_in_multi_card
     add_junction_class
     formgroup render_title,
-              editor: "content", help: true, class: classy("card-editor") do
+              input: "content", help: true, class: classy("card-editor") do
       [content_field, (form.hidden_field(:type_id) if card.new_card?)]
     end
   end
 
   def multi_card_edit fields_only=false
-    nested_cards_for_edit(fields_only).map do |name, options|
+    nested_cards = nested_cards_for_edit(fields_only)
+    return structure_link if nested_cards.empty?
+    nested_cards.map do |name, options|
       nest name, options || {}
     end.join "\n"
+  end
+
+  def structure_link # LOCALIZE
+    structured = link_to_card card.structure_rule_card, "structured"
+    "<label>Content</label>"\
+    "<p><em>Uneditable; content is #{structured} without nests</em></p>"
   end
 
   # @param [Hash|Array] fields either an array with field names and/or field

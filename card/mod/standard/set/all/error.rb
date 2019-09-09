@@ -5,11 +5,11 @@ def copy_errors card
 end
 
 format do
-  view :closed_missing, perms: :none, closed: true do
+  view :compact_missing, perms: :none, compact: true do
     ""
   end
 
-  view :missing, perms: :none, cache: :never do
+  view :unknown, perms: :none, cache: :never do
     ""
   end
 

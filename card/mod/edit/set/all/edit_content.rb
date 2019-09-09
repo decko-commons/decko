@@ -1,5 +1,5 @@
 format :html do
-  view :edit_content_form, wrap: :slot do
+  view :edit_form, wrap: :slot do
     voo.show :edit_type_row
     with_nest_mode :edit do
       edit_form
@@ -19,7 +19,7 @@ format :html do
         # render to get voo.slot_options to have the write home view in
         # the slot wrap. Id think this would probably best be handled as an
         # option to #wrap that triggers a new heir voo
-        _render_content_formgroup,
+        _render_content_formgroups,
         _render_edit_buttons
       ]
     end
@@ -37,7 +37,7 @@ format :html do
       wrap true do
         [
           frame_help,
-          _render_edit_content_form
+          _render_edit_form
         ]
       end
     end

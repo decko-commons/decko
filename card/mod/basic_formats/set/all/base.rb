@@ -6,7 +6,7 @@ format do
 
   # NAME VIEWS
 
-  view :name, closed: true, perms: :none do
+  view :name, compact: true, perms: :none do
     name_variant safe_name
   end
 
@@ -18,20 +18,20 @@ format do
     voo.variant ? name.to_name.vary(voo.variant) : name
   end
 
-  view(:key,      closed: true, perms: :none) { card.key }
-  view(:linkname, closed: true, perms: :none) { card.name.url_key }
-  view(:url,      closed: true, perms: :none) { card_url _render_linkname }
+  view(:key,      compact: true, perms: :none) { card.key }
+  view(:linkname, compact: true, perms: :none) { card.name.url_key }
+  view(:url,      compact: true, perms: :none) { card_url _render_linkname }
 
 
-  view :url_link, closed: true, perms: :none do
+  view :url_link, compact: true, perms: :none do
     link_to_resource card_url(_render_linkname)
   end
 
-  view :link, closed: true, perms: :none do
+  view :link, compact: true, perms: :none do
     link_view
   end
 
-  view :nav_link, closed: true, perms: :none do
+  view :nav_link, compact: true, perms: :none do
     link_view class: "nav-link"
   end
 
@@ -47,15 +47,15 @@ format do
   end
 
 
-  view(:codename, closed: true) { card.codename.to_s }
-  view(:id,       closed: true) { card.id            }
-  view(:type,     closed: true) { card.type_name     }
+  view(:codename, compact: true) { card.codename.to_s }
+  view(:id,       compact: true) { card.id            }
+  view(:type,     compact: true) { card.type_name     }
 
   # DATE VIEWS
 
-  view(:created_at, closed: true) { date_view card.created_at }
-  view(:updated_at, closed: true) { date_view card.updated_at }
-  view(:acted_at,   closed: true) { date_view card.acted_at   }
+  view(:created_at, compact: true) { date_view card.created_at }
+  view(:updated_at, compact: true) { date_view card.updated_at }
+  view(:acted_at,   compact: true) { date_view card.acted_at   }
 
   def date_view date
     if voo.variant
@@ -76,7 +76,7 @@ format do
     voo.structure ? Card[voo.structure] : card
   end
 
-  view :core, closed: true do
+  view :core, compact: true do
     process_content _render_raw
   end
 
@@ -88,29 +88,21 @@ format do
     _render_core
   end
 
-  view :closed_content, closed: true do
-    with_nest_mode :closed do
+  view :one_line_content, compact: true do
+    with_nest_mode :compact do
       Card::Content.smart_truncate _render_core
     end
   end
 
-  view :labeled_content, unknown: true do
-    valid_labeled_content { render_core }
-  end
-
-  def valid_labeled_content
-    if card.known?
-      yield
-    else
-      createable { missing_link(fa_icon("plus-square")) }
-    end
+  view :labeled_content, unknown: :mini_unknown do
+    render_core
   end
 
   view :titled_content, unknown: :blank do
     render_core
   end
 
-  view :blank, closed: true, perms: :none do
+  view :blank, compact: true, perms: :none do
     ""
   end
 
@@ -137,39 +129,6 @@ format do
     card.item_cards(limit: 0).map do |item_card|
       subformat(item_card)._render_core
     end.inspect
-  end
-
-  # none of the below belongs here!!
-
-  view :template_rule, cache: :never, unknown: true do
-    return "" unless voo.nest_name
-    if voo.nest_name.to_name.field_only?
-      set_card = Card.fetch template_link_set_name
-      subformat(set_card).render_template_link
-    else
-      "{{#{voo.nest_syntax}}}"
-    end
-  end
-
-  def template_link_set_name
-    name = voo.nest_name.to_name
-    if name.absolute?
-      name.trait_name :self
-    elsif (type = on_type_set)
-      [type, name].to_name.trait_name :type_plus_right
-    else
-      name.stripped.gsub(/^\+/, "").to_name.trait_name :right
-    end
-  end
-
-  def on_type_set
-    return unless
-      (tmpl_set_name = parent.card.name.trunk_name) &&
-      (tmpl_set_class_name = tmpl_set_name.tag_name) &&
-      (tmpl_set_class_card = Card[tmpl_set_class_name]) &&
-      (tmpl_set_class_card.codename == :type)
-
-    tmpl_set_name.left_name
   end
 
   # DEPRECATED

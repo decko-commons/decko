@@ -71,7 +71,7 @@ def send_reset_password_email_or_fail email
     break errors.add :email, i18n_signin(:error_blank) if email.blank?
 
     if (account = Auth.find_account_by_email(email))&.active?
-      account.send_reset_password_token
+      Auth.as_bot { account.send_password_reset_email }
     elsif account
       errors.add :account, i18n_signin(:error_not_active)
     else
@@ -86,7 +86,7 @@ format :html do
     with_nest_mode :edit do
       card_form :update, recaptcha: :off, success: signin_success do
         [
-          _render_content_formgroup,
+          _render_content_formgroups,
           _render_signin_buttons
         ]
       end
@@ -110,7 +110,7 @@ format :html do
     _render_core
   end
 
-  view :closed_content do
+  view :one_line_content do
     ""
   end
 

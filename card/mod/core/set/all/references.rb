@@ -136,6 +136,11 @@ def each_reference_out
   end
 end
 
+def has_nests?
+  content_obj = Card::Content.new content, self
+  content_obj.has_chunk?(Card::Content::Chunk::Nest)
+end
+
 protected
 
 # test for updating referer content & preload referer list

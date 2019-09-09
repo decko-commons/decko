@@ -6,6 +6,10 @@ def short_label name
   name
 end
 
+def generic_label
+  "a single card"
+end
+
 def prototype_args anchor
   { name: anchor }
 end

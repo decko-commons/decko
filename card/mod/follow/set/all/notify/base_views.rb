@@ -26,7 +26,7 @@ format do
     end
   end
 
-  view :followed, perms: :none, closed: true do
+  view :followed, perms: :none, compact: true do
     if (set_card = followed_set_card) && (option_card = follow_option_card)
       option_card.description set_card
     else
@@ -34,7 +34,7 @@ format do
     end
   end
 
-  view :follower, perms: :none, closed: true do
+  view :follower, perms: :none, compact: true do
     active_notice(:follower) || "follower"
   end
 
@@ -42,7 +42,7 @@ format do
     "#{notification_act&.main_action&.action_type || 'edite'}d"
   end
 
-  view :unfollow_url, perms: :none, closed: true, cache: :never do
+  view :unfollow_url, perms: :none, compact: true, cache: :never do
     return "" unless (rule_name = live_follow_rule_name)
 
     card_url path(mark: "#{active_notice(:follower)}+#{Card[:follow].name}",

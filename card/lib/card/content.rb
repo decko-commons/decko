@@ -45,6 +45,10 @@ class Card
       each_chunk.select { |chunk| chunk.is_a?(chunk_type) }
     end
 
+    def has_chunk? chunk_type
+      each_chunk.any { |chunk| chunk.is_a?(chunk_type)}
+    end
+
     # sends &block to #process_chunk on each Chunk object
     def process_chunks &block
       return custom_process_chunks(&block) if block_given?
@@ -98,19 +102,42 @@ class Card
     end
 
     def without_nests
-      nests = []
-      find_chunks(Card::Content::Chunk::Nest).each_with_index do |chunk, i|
-        nests << chunk.text
-        chunk.burn_after_reading "{{#{i}}}"
-      end
-
-      result = yield to_s
-      Chunk::Nest.gsub result do |nest_content|
-        nests[nest_content.to_i]
+      without_chunks Card::Content::Chunk::Nest do |content|
+        yield content
       end
     end
 
+    def without_references
+      without_chunks Card::Content::Chunk::Nest, Card::Content::Chunk::Link do |content|
+        yield content
+      end
+    end
+
+    def without_chunks *chunk_classes
+      chunk_classes = ::Set.new Array.wrap(chunk_classes)
+      stash = stash_chunks chunk_classes
+      processed = yield to_s
+      unstash_chunks processed, stash
+    end
+
     private
+
+    def stash_chunks chunk_classes
+      chunks = []
+      each_chunk do |chunk|
+        next unless chunk_classes.include? chunk.class
+
+        chunk.burn_after_reading "{{#{chunks.size}}}"
+        chunks << chunk.text
+      end
+      chunks
+    end
+
+    def unstash_chunks content, stashed_chunks
+      Chunk::Nest.gsub content do |nest_content|
+        stashed_chunks[nest_content.to_i]
+      end
+    end
 
     def resolve_format format_or_card
       if format_or_card.is_a?(Card)
