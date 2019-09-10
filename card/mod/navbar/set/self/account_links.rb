@@ -96,3 +96,4 @@ format :html do
       Card.new(type_id: Card.default_accounted_type_id).ok?(:create)
   end
 end
+R

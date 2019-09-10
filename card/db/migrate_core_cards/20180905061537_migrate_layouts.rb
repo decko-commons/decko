@@ -15,10 +15,21 @@ class MigrateLayouts < Card::Migration::Core
 
     puts "updating layout '#{card.name}'"
     card.update! content: body.to_s
+  rescue Card::Error => e
+    card.update! type_id: Card::HtmlID, content: body.to_s
+    puts "failed to complete layout upgrade for '#{card.name}': #{e.message}.\n" \
+         "To fix, go to /#{card.name.url_key}?view=edit and change type to Layout. \n" \
+         "You will need to make sure the layout content includes a main nest ({{_main}})."
   end
 
   def body_tag card
-    card.content[/<body[^>]+>.*<\/body>/mi]
+    card.content[/<body[^>]*>.*<\/body>/mi] || add_body_tag(card)
+  end
+
+  def add_body_tag card
+    content = card.content.gsub('<!DOCTYPE HTML>', '')
+                          .gsub(/\{\{\*head[^}]*\}\}/i, '').strip
+    "<body>\n  #{content}\n</body>"
   end
 
   def create_head_rules layout_card
