@@ -75,7 +75,8 @@ format :html do
   end
 
   def can_disable_roles?
-    Auth.current_roles.size > 1
+    Auth.current_roles.size > 1 &&
+      Card::Codename.exists?(:enabled_roles) # workaround for broken migrations
   end
 
   def account_link_text purpose
