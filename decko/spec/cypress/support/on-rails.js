@@ -1,4 +1,4 @@
-// CypressDev: dont remove these command
+// CypressOnRails: dont remove these command
 Cypress.Commands.add('appCommands', function (body) {
   cy.log("APP: " + JSON.stringify(body))
   cy.request({
@@ -14,8 +14,8 @@ Cypress.Commands.add('app', function (name, command_options) {
   cy.appCommands({name: name, options: command_options})
 });
 
-Cypress.Commands.add('appScenario', function (name) {
-  cy.app('scenarios/' + name)
+Cypress.Commands.add('appScenario', function (name, options = {}) {
+  cy.app('scenarios/' + name, options)
 });
 
 Cypress.Commands.add('appEval', function (code) {
@@ -29,7 +29,7 @@ Cypress.Commands.add('appFactories', function (options) {
 Cypress.Commands.add('appFixtures', function (options) {
   cy.app('activerecord_fixtures', options)
 });
-// CypressDev: end
+// CypressOnRails: end
 
 // The next is optional
 // beforeEach(() => {

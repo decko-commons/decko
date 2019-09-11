@@ -35,7 +35,9 @@ jQuery.fn.extend
     return @closest(".card-slot._overlay").length
 
   removeOverlay: () ->
-      @overlaySlot().removeOverlaySlot()
+      slot = @overlaySlot()
+      if slot
+        slot.removeOverlaySlot()
 
   removeOverlaySlot: () ->
     @trigger "slotDestroy"

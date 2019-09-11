@@ -4,17 +4,19 @@ format :html do
   # TODO: connect to Card::View::Options
   # (that way a mod can add an option that becomes available to nests)
 
-  view :nest_editor, cache: :never, template: :haml,
+  view :nest_editor, cache: :never, unknown: true, template: :haml,
                      wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
     @nest_editor_mode = :overlay
   end
 
-  view :modal_nest_editor, cache: :never, wrap: { slot: { class: "nodblclick" } } do
+  view :modal_nest_editor, cache: :never, unknown: true,
+                           wrap: { slot: { class: "nodblclick" } } do
     modal_nest_editor
   end
 
   def nest_editor_tabs
-    static_tabs({ rules: nest_rules_tab, options: haml_partial(:options) },
+    static_tabs({ rules: nest_rules_tab, options: haml_partial(:options),
+                  help: haml_partial(:help) },
                 :options, "tabs")
   end
 
@@ -29,7 +31,7 @@ format :html do
     if edit_nest.name.blank?
       content_tag :div, "", class: "card-slot" # placeholder
     else
-      nest([edit_nest.name, :right], view: :nest_rules)
+      nest(set_name_for_nest_rules, view: :nest_rules)
     end
   end
 
@@ -48,6 +50,19 @@ format :html do
 
   def edit_nest
     @edit_nest ||= NestParser.new params[:edit_nest], default_nest_view, default_item_view
+  end
+
+  def left_type_for_nest_editor_set_selection
+    card.type_name
+  end
+
+  def set_name_for_nest_rules
+    nest_name = edit_nest.name
+    if left_type_for_nest_editor_set_selection
+      [left_type_for_nest_editor_set_selection, nest_name, :type_plus_right]
+    else
+      [nest_name, :right]
+    end
   end
 
   def tinymce_id

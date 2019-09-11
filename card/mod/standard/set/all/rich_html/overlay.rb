@@ -27,7 +27,20 @@ format :html do
   end
 
   def help_overlay_link
-    overlay_menu_link "question-circle", help_popover_opts
+    opts = help_popover_opts
+    add_open_guide_opts opts
+    overlay_menu_link "question-circle", opts
+  end
+
+  def add_open_guide_opts opts
+    return unless card.guide_card
+
+    slot_selector = ".bridge-sidebar > ._overlay-container-placeholder > .card-slot"
+    opts.merge! remote: true,
+                href: path(mark: card, view: :overlay_guide),
+                "data-slot-selector": slot_selector,
+                "data-slotter-mode": "overlay"
+    add_class opts, "slotter"
   end
 
   def slotify_overlay_link
