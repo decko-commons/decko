@@ -1,7 +1,7 @@
 include_set Type::SearchType
 
 def anchor_name
-  name.junction? && name.trunk_name
+  name.left_name
 end
 
 def pattern_name
@@ -13,7 +13,7 @@ def pattern
 end
 
 def inheritable?
-  junction_only? || (anchor_name.junction? && self_set?)
+  junction_only? || (anchor_name&.junction? && self_set?)
 end
 
 def self_set?
