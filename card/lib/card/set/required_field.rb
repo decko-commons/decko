@@ -43,6 +43,8 @@ class Card
         field_set.class_exec(self) do |required|
           event required.field_event_name(:update), :validate,
                 on: :update, changing: :name do
+            return if superleft&.attribute_is_changing? :name
+
             parent = Card.fetch(name_before_act.to_name.left)
             return if !parent || parent&.singleton_class&.include?(required.parent_set)
 
