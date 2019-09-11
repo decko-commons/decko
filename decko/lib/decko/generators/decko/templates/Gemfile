@@ -38,7 +38,7 @@ group :test do
 end
 
 group :test, :cypress do
-  gem 'cypress-on-rails', '~> 1.2'
+  gem 'cypress-on-rails', '~> 1.4'
 end
 
 group :test, :development do
