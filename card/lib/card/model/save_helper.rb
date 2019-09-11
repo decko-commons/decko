@@ -290,6 +290,8 @@ class Card
             false
           elsif key.to_sym == :name
             card.name.to_s != value
+          elsif value.is_a? ::File
+            # NOOP
           else
             card.send(key) != value
           end
