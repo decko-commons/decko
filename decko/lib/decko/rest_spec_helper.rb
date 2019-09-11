@@ -4,7 +4,7 @@ module Decko
   # for use in REST API specs
   module RestSpecMethods
     def with_api_key_for usermark
-      key_card = Card.fetch [usermark, :account, :api_key], new:{}
+      key_card = Card.fetch [usermark, :account, :api_key], new: {}
       key_card.content = "asdkfjh1023498203jdfs"
       Card::Auth.as_bot { key_card.save! }
       yield key_card.content
