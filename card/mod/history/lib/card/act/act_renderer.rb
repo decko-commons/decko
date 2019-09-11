@@ -82,7 +82,7 @@ class Card
       end
 
       def approved_actions
-        @approved_actions ||= actions # .select { |a| a.card && a.card.ok?(:read) }
+        @approved_actions ||= actions.select { |a| a.card && a.card.ok?(:read) }
         # FIXME: should not need to test for presence of card here.
       end
 
