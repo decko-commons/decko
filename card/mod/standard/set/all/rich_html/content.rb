@@ -112,8 +112,8 @@ format :html do
 
   def one_line_content
     # TODO: use a version of Card::Content.smart_truncate
-    #   that counts characters instead of clean!
-    cleaned = Card::Content.clean! render_core
+    #       that counts characters instead of clean!
+    cleaned = Card::Content.clean! render_core, {}
     cut_with_ellipsis cleaned
   end
 

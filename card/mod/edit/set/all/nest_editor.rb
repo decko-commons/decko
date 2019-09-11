@@ -4,17 +4,19 @@ format :html do
   # TODO: connect to Card::View::Options
   # (that way a mod can add an option that becomes available to nests)
 
-  view :nest_editor, cache: :never, template: :haml,
+  view :nest_editor, cache: :never, unknown: true, template: :haml,
                      wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
     @nest_editor_mode = :overlay
   end
 
-  view :modal_nest_editor, cache: :never, wrap: { slot: { class: "nodblclick" } } do
+  view :modal_nest_editor, cache: :never, unknown: true,
+                           wrap: { slot: { class: "nodblclick" } } do
     modal_nest_editor
   end
 
   def nest_editor_tabs
-    static_tabs({ rules: nest_rules_tab, options: haml_partial(:options) },
+    static_tabs({ rules: nest_rules_tab, options: haml_partial(:options),
+                       help: haml_partial(:help)},
                 :options, "tabs")
   end
 
@@ -29,7 +31,7 @@ format :html do
     if edit_nest.name.blank?
       content_tag :div, "", class: "card-slot" # placeholder
     else
-      nest([edit_nest.name, :right], view: :nest_rules)
+      nest(set_name_for_nest_rules, view: :nest_rules)
     end
   end
 
@@ -48,6 +50,30 @@ format :html do
 
   def edit_nest
     @edit_nest ||= NestParser.new params[:edit_nest], default_nest_view, default_item_view
+  end
+
+  def left_type
+    if card.type_id == SetID
+      if Card.fetch_id(card.name.tag).in?([StructureID, DefaultID])
+        set_pattern_id = Card.fetch_id card.name.left.tag
+        if set_pattern_id == TypeID
+          card.name
+        elsif set_pattern_id == SelfID
+          card.type_name
+        else
+          nil
+        end
+      else
+        nil
+      end
+    else
+      card.type_name
+    end
+  end
+
+  def set_name_for_nest_rules
+    nest_name = edit_nest.name
+    left_type ? [left_type, nest_name, :type_plus_right] : [nest_name, :right]
   end
 
   def tinymce_id

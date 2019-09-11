@@ -57,11 +57,23 @@ $.extend nest,
     $rulesTab = nest.rulesTabSlot()
 
     if name? && name.length > 0
-      card = if nest.isField() then "#{name}+*right" else "#{name}+*self"
-      url = decko.path "#{card}?view=nest_rules"
+      url = decko.path "#{nest.setNameForRules()}?view=nest_rules"
       nest.emptyNameAlert(false)
       $rulesTab.reloadSlot url
     else
       $rulesTab.clearSlot()
       nest.emptyNameAlert(true)
+
+  #  set in the sense of card set
+  setNameForRules: () ->
+    input = $('input._nest-name')
+    nest_name = input.val()
+    if nest.isField()
+      if input.attr("data-left-type")
+        "#{input.attr("data-left-type")}+#{nest_name}+*type plus right"
+      else
+        "#{nest_name}+*right"
+    else
+      return  "#{nest_name}+*self"
+
 
