@@ -3,7 +3,7 @@ module Decko
   module Response
     private
     def respond format, result, status
-      if status == 302
+      if status.in? [302, 303]
         hard_redirect result
       elsif format.is_a?(Card::Format::FileFormat) && status == 200
         send_file(*result)
@@ -14,6 +14,16 @@ module Decko
 
     def render_response body, status, content_type
       render body: body, status: status, content_type: content_type
+    end
+
+    def redirect_cud_success success
+      redirect_type = success.redirect || (Card::Env.ajax? ? "soft" : "hard")
+      if redirect_type.to_s == "soft"
+        success.target ||= self
+        soft_redirect success
+      else
+        hard_redirect success.to_url, 303
+      end
     end
 
     # return a redirect response
@@ -32,6 +42,7 @@ module Decko
     # return a standard GET response directly.
     # Used in AJAX situations where PRG pattern is unwieldy
     def soft_redirect success
+      # Card::Cache.renew
       @card = success.target
       require_card_for_soft_redirect!
       self.params = Card::Env[:params] = soft_redirect_params
@@ -87,7 +98,10 @@ module Decko
     end
 
     def format_name_from_params
-      explicit_file_format? ? :file : request.format.to_sym
+      if explicit_file_format?       then :file
+      elsif params[:format].present? then params[:format].to_sym
+      else                                request.format.to_sym
+      end
     end
 
     def explicit_file_format?
