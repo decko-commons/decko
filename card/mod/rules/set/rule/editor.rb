@@ -80,6 +80,17 @@ format :html do
     card.new_card? ? Card.quick_fetch(:all).name.key : card.rule_set_key
   end
 
+  def left_type_for_nest_editor_set_selection
+    return unless is_template?
+
+    case Card.fetch_id(card.rule_set_pattern_name) # set_pattern_id
+    when TypeID
+      card.name
+    when SelfID
+      card.type_name
+    end
+  end
+
   private
 
   def find_existing_rule_card

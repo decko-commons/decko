@@ -18,6 +18,10 @@ def rule_set_name
   end
 end
 
+def rule_set_pattern_name
+  rule_set_name.tag_name
+end
+
 def rule_set
   if is_preference?
     self[0..-3]
