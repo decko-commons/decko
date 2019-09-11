@@ -17,13 +17,17 @@ module Decko
     end
 
     def redirect_cud_success success
-      redirect_type = success.redirect || (Card::Env.ajax? ? "soft" : "hard")
+      redirect_type = success.redirect || default_cud_success_redirect_type
       if redirect_type.to_s == "soft"
         success.target ||= self
         soft_redirect success
       else
         hard_redirect success.to_url, 303
       end
+    end
+
+    def default_cud_success_redirect_type
+      Card::Env.ajax? ? "soft" : "hard"
     end
 
     # return a redirect response
