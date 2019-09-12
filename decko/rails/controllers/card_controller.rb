@@ -101,11 +101,9 @@ class CardController < ActionController::Base
   def cud_success
     success = Card::Env.success.in_context card.name
     if success.reload?
-      reload
-    elsif Card::Env.ajax? && !success.hard_redirect?
-      soft_redirect success
+      reload # instruct JSON to reload
     else
-      hard_redirect success.to_url, 303
+      redirect_cud_success success
     end
   end
 

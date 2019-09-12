@@ -89,17 +89,15 @@ RSpec.describe Card::Env::Success do
     end
   end
 
-  describe "#soft_redirect?" do
-    it "returns true if soft_redirect parameter is true" do
-      success_params soft_redirect: true
-      expect(@success.soft_redirect?).to be_truthy
+  describe "#redirect" do
+    it "returns soft if redirect parameter is set to soft" do
+      success_params redirect: "soft"
+      expect(@success.redirect).to eq("soft")
     end
-  end
 
-  describe "#hard_redirect?" do
     it 'true for "REDIRECT: anywhere"' do
       success_params "REDIRECT: anywhere"
-      expect(@success.hard_redirect?).to be_truthy
+      expect(@success.redirect).to be_truthy
     end
   end
 

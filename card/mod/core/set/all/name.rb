@@ -97,7 +97,7 @@ end
 def left *args
   case
   when simple?    then nil
-  when @superleft then @superleft
+  when superleft then superleft
   when attribute_is_changing?(:name) && name.to_name.trunk_name.key == name_before_act.to_name.key
     nil # prevent recursion when, eg, renaming A+B to A+B+C
   else
