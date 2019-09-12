@@ -532,7 +532,7 @@ es:
             db_card: Inspección de tarjeta de base de datos
           status:
             deny_not_change_own_account: cambiar el estado de su propia cuenta
-          token:
+          api_key:
             private_data: Datos privados
             error_token_not_found: token no encontrado
             error_token_expired: token caducado
