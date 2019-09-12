@@ -1,4 +1,5 @@
 require File.expand_path("../command", __FILE__)
+require 'pry'
 
 module Decko
   module Commands
@@ -17,7 +18,10 @@ module Decko
       def run
         command.each do |cmd|
           puts cmd
-          puts `#{cmd}`
+          result = `#{cmd}`
+          process = $?
+          puts result
+          exit process.exitstatus unless process.success?
         end
       end
 
