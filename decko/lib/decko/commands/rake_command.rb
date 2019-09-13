@@ -16,9 +16,14 @@ module Decko
       end
 
       def run
-        commands.each do |cmd|
+        command.each do |cmd|
           puts cmd
-          exit_with_child_status cmd
+          # exit_with_child_status cmd
+
+          result = `#{cmd}`
+          process = $?
+          puts result
+          exit process.exitstatus unless process.success?
         end
       end
 
