@@ -1,5 +1,5 @@
 require File.expand_path("../command", __FILE__)
-require 'pry'
+require "pry"
 
 module Decko
   module Commands
@@ -16,16 +16,13 @@ module Decko
       end
 
       def run
-        command.each do |cmd|
+        commands.each do |cmd|
           puts cmd
-          result = `#{cmd}`
-          process = $?
-          puts result
-          exit process.exitstatus unless process.success?
+          exit_with_child_status cmd
         end
       end
 
-      def command
+      def commands
         task_cmd = "bundle exec rake #{@task}"
         return [task_cmd] if !@envs || @envs.empty?
         @envs.map do |env|
