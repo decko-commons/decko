@@ -1,5 +1,5 @@
 require File.expand_path("../command", __FILE__)
-require "pry"
+# require "pry"
 
 module Decko
   module Commands
