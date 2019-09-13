@@ -9,7 +9,7 @@ module Decko
       end
 
       def exit_with_child_status command
-        command += " 2>&1"
+        command += " --trace 2>&1"
         exit $CHILD_STATUS.exitstatus unless system command
       end
 
