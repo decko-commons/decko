@@ -1,4 +1,4 @@
-require "English" # needed for CHILD_STATUS, but not sure this is the best place for this.
+# require "English" # needed for CHILD_STATUS, but not sure this is the best place for this.
 
 module Decko
   module Commands
@@ -9,7 +9,7 @@ module Decko
       end
 
       def exit_with_child_status command
-        command += " --trace 2>&1"
+        command += " 2>&1"
         exit $CHILD_STATUS.exitstatus unless system command
       end
 
