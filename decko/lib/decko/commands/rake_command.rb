@@ -16,7 +16,7 @@ module Decko
       end
 
       def run
-        command.each do |cmd|
+        commands.each do |cmd|
           puts cmd
           # exit_with_child_status cmd
 
