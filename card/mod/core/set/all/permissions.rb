@@ -130,7 +130,7 @@ def ok_to_create
 
   %i[left right].each do |side|
     # left is supercard; create permissions will get checked there.
-    next if side == :left && @superleft
+    next if side == :left && superleft
     part_card = send side, new: {}
     # if no card, there must be other errors
     next unless part_card && part_card.new_card?

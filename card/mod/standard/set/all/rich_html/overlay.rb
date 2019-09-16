@@ -35,10 +35,11 @@ format :html do
   def add_open_guide_opts opts
     return unless card.guide_card
 
-    opts.merge! remote: true, href: path(mark: card, view: :overlay_guide),
-              "data-slot-selector": ".bridge-sidebar > ._overlay-container-placeholder "\
-                                    "> .card-slot",
-              "data-slotter-mode": "overlay"
+    slot_selector = ".bridge-sidebar > ._overlay-container-placeholder > .card-slot"
+    opts.merge! remote: true,
+                href: path(mark: card, view: :overlay_guide),
+                "data-slot-selector": slot_selector,
+                "data-slotter-mode": "overlay"
     add_class opts, "slotter"
   end
 

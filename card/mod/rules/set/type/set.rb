@@ -1,33 +1,37 @@
 include_set Type::SearchType
 
-def inheritable?
-  return true if junction_only?
+def anchor_name
+  name.left_name
+end
 
-  name.trunk_name.junction? &&
-    name.tag_name.key == Card::Set::Self.pattern.key
+def pattern_name
+  name.tag_name
+end
+
+def pattern
+  tag
+end
+
+def inheritable?
+  junction_only? || (anchor_name&.junction? && self_set?)
+end
+
+def self_set?
+  pattern_name == Card::Set::Self.pattern.key
 end
 
 def subclass_for_set
-  current_set_pattern_code = tag.codename
-  Card.set_patterns.find do |set|
-    current_set_pattern_code == set.pattern_code
-  end
+  current_set_pattern_code = pattern.codename
+  Card.set_patterns.find { |set| set.pattern_code == current_set_pattern_code }
 end
 
 def junction_only?
-  if @junction_only.nil?
-    @junction_only = subclass_for_set.junction_only
-  else
-    @junction_only
-  end
+  @junction_only.nil? ? (@junction_only = subclass_for_set.junction_only) : @junction_only
 end
 
 def label
-  if (klass = subclass_for_set)
-    klass.label name.left
-  else
-    ""
-  end
+  klass = subclass_for_set
+  klass ? klass.label(anchor_name) : ""
 end
 
 def uncapitalized_label
@@ -70,7 +74,7 @@ def broader_sets
 end
 
 def prototype
-  opts = subclass_for_set.prototype_args name.trunk_name
+  opts = subclass_for_set.prototype_args anchor_name
   Card.fetch opts[:name], new: opts
 end
 
@@ -83,16 +87,5 @@ def related_sets with_self=false
     prototype.related_sets with_self
   else
     left(new: {}).related_sets with_self
-  end
-end
-
-def left_type_for_nest_editor_set_selection
-  return unless  Card.fetch_id(card.name.tag).in?([StructureID, DefaultID])
-
-  set_pattern_id = Card.fetch_id card.name.left.tag
-  if set_pattern_id == TypeID
-    card.name
-  elsif set_pattern_id == SelfID
-    card.type_name
   end
 end
