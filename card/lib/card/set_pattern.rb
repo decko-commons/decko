@@ -2,6 +2,11 @@ class Card
   module Set
     class Pattern
       class << self
+        def reset
+          Card.set_patterns = []
+          @card_keys = @in_load_order = nil
+        end
+
         def find pattern_code
           Card.set_patterns.find { |sub| sub.pattern_code == pattern_code }
         end

@@ -6,11 +6,11 @@
 - :name: Home+original
   :type: HTML
   :key: home+original
-  :merged: 2019-05-31 13:18:11 UTC
+  :merged: 2019-09-17 20:44:42 UTC
 - :name: "*getting started+Shark"
   :type: HTML
   :key: "*getting_started+shark"
-  :merged: 2019-05-31 13:18:10 UTC
+  :merged: 2019-09-17 20:44:41 UTC
 - :name: "*footer"
   :type: HTML
   :key: "*footer"
@@ -28,7 +28,7 @@
 - :name: Administrator+dashboard
   :type: Markdown
   :key: administrator+dashboard
-  :merged: 2019-05-09 12:46:06 UTC
+  :merged: 2019-09-17 20:44:41 UTC
 - :name: "*title"
   :type: Phrase
   :codename: :title
@@ -54,19 +54,19 @@
 - :name: Shark+dashboard
   :type: Basic
   :key: shark+dashboard
-  :merged: 2019-05-09 12:46:06 UTC
+  :merged: 2019-09-17 20:44:41 UTC
 - :name: Shark+description
   :type: Basic
   :key: shark+description
-  :merged: 2019-05-09 12:46:06 UTC
+  :merged: 2019-09-17 20:44:41 UTC
 - :name: Help Desk+dashboard
   :type: Basic
   :key: help_desk+dashboard
-  :merged: 2019-05-09 12:46:06 UTC
+  :merged: 2019-09-17 20:44:41 UTC
 - :name: Help Desk+description
   :type: Basic
   :key: help_desk+description
-  :merged: 2019-05-09 12:46:06 UTC
+  :merged: 2019-09-17 20:44:41 UTC
 - :name: "*all+*layout"
   :type: Pointer
   :key: "*all+*layout"
@@ -76,25 +76,25 @@
 - :name: Home+*self+*layout
   :type: Pointer
   :key: home+*self+*layout
-  :merged: 2019-05-09 10:14:43 UTC
+  :merged: 2019-09-17 20:44:42 UTC
 - :name: Home Layout
   :type: Layout
   :key: home_layout
-  :merged: 2019-05-09 10:14:43 UTC
+  :merged: 2019-09-17 20:44:42 UTC
 - :name: "*header"
   :type: HTML
   :key: "*header"
 - :name: Right Thin Sidebar Layout
   :type: Layout
   :key: right_thin_sidebar_layout
-  :merged: 2019-05-09 12:46:06 UTC
+  :merged: 2019-09-17 20:44:41 UTC
 - :name: "*sidebar"
   :type: Basic
   :key: "*sidebar"
 - :name: Left Sidebar Layout
   :type: Layout
   :key: left_sidebar_layout
-  :merged: 2019-05-09 12:46:06 UTC
+  :merged: 2019-09-17 20:44:41 UTC
 - :name: Full Width Layout
   :type: Layout
   :key: full_width_layout
@@ -110,15 +110,15 @@
 - :name: "*account settings+*right+*structure"
   :type: Basic
   :key: "*account_setting+*right+*structure"
-  :merged: 2019-05-09 12:46:06 UTC
+  :merged: 2019-09-17 20:44:41 UTC
 - :name: Anyone Signed In+dashboard
   :type: Basic
   :key: anyone_signed_in+dashboard
-  :merged: 2019-06-03 12:04:21 UTC
+  :merged: 2019-09-17 20:44:41 UTC
 - :name: Eagle+description
   :type: Basic
   :key: eagle+description
-  :merged: 2019-05-09 12:46:06 UTC
+  :merged: 2019-09-17 20:44:41 UTC
 - :name: Cardtype+*type+*structure
   :type: Basic
   :key: cardtype+*type+*structure
@@ -130,13 +130,13 @@
 - :name: "*getting started links"
   :type: Pointer
   :key: "*getting_started_link"
-  :merged: 2019-09-10 20:04:06 UTC
+  :merged: 2019-09-17 20:44:43 UTC
 - :name: Cardtype+*type+*guide
   :type: Markdown
   :key: cardtype+*type+*guide
-  :merged: 2019-09-02 16:32:48 UTC
+  :merged: 2019-09-17 20:44:49 UTC
 - :name: "*structure+*right+*guide"
   :type: Markdown
   :key: "*structure+*right+*guide"
-  :merged: 2019-09-02 16:32:48 UTC
+  :merged: 2019-09-17 20:44:49 UTC
 :remotes: {}
