@@ -66,7 +66,7 @@ format :html do
   end
 
   def option_view
-    @option_view ||= card.rule(:content_option_view) || :label
+    @option_view ||= card.rule(:content_option_view) || :smart_label
   end
 
   def option_label_text option_name

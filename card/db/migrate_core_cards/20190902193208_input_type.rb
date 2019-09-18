@@ -14,7 +14,7 @@ class InputType < Card::Migration::Core
 
     Card::Cache.reset_all
 
-    ensure_card %i[all content_option_view], content: "label"
+    ensure_card %i[all content_option_view], content: "smart_label"
     Card.search right: :content_option_view, left: { not: :all } do |cov_rule|
       cov_rule.delete!
     end
