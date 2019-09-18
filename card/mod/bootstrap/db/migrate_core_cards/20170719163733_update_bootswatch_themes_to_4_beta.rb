@@ -22,9 +22,9 @@ class UpdateBootswatchThemesTo4Beta < Card::Migration::Core
       delete_code_card "style: bootstrap #{n}"
     end
     if Card::Codename.exist? :bootstrap_cards
-      update_card :bootstrap_cards,
-                  name: "style: bootstrap cards",
-                  codename: "style_bootstrap_cards"
+      update_card! :bootstrap_cards,
+                   name: "style: bootstrap cards",
+                   codename: "style_bootstrap_cards"
     end
   end
 

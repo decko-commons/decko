@@ -48,10 +48,10 @@ class AddRecaptchaKeyAndAdminInfoCards < Card::Migration::Core
   end
 
   def admin_only args
-    create_or_update args.reverse_merge(type_id: Card::PhraseID)
+    create_or_update! args.reverse_merge(type_id: Card::PhraseID)
     %w(*read *update *delete).each do |perm|
-      create_or_update name: "#{args[:name]}+*self+#{perm}",
-                       content: "[[Administrator]]"
+      create_or_update! name: "#{args[:name]}+*self+#{perm}",
+                        content: "[[Administrator]]"
     end
   end
 end

@@ -2,7 +2,7 @@
 
 class HeadRule < Card::Migration::Core
   def up
-    update_card :head, type_id: Card::SettingID
+    update_card! :head, type_id: Card::SettingID
     ensure_card [:all, :head],
                 type_id: Card::HTMLID,
                 content: "{{*head|core}}"

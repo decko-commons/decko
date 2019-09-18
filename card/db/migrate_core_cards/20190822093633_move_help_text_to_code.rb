@@ -2,7 +2,7 @@
 
 class MoveHelpTextToCode < Card::Migration::Core
   def up
-    update_card "*sidebar", codename: "sidebar"
+    update_card! "*sidebar", codename: "sidebar"
     Card::Cache.reset_all
 
     # avoid that "list" as input option gets the description of the cardtype "list"
