@@ -130,15 +130,17 @@ end
 # invokes the given block for each reference in content with
 # the reference name and reference type
 def each_reference_out
-  content_obj = Card::Content.new content, self
-  content_obj.find_chunks(Card::Content::Chunk::Reference).each do |chunk|
+  content_object.find_chunks(Card::Content::Chunk::Reference).each do |chunk|
     yield(chunk.referee_name, chunk.reference_code)
   end
 end
 
 def has_nests?
-  content_obj = Card::Content.new content, self
-  content_obj.has_chunk?(Card::Content::Chunk::Nest)
+  content_object.has_chunk? Card::Content::Chunk::Nest
+end
+
+def content_object
+  Card::Content.new content, self
 end
 
 protected

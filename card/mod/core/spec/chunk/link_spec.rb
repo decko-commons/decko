@@ -62,6 +62,12 @@ RSpec.describe Card::Content::Chunk::Link do
                                 text: "/*recent"
   end
 
+  it "handles names with slashes" do
+    assert_link "[[he/she]]", class: "wanted-card",
+                              href: "/he_she?#{CGI.escape 'card[name]=he/she'}",
+                              text: "he/she"
+  end
+
   it "handles absolute urls" do
     assert_link "[[http://google.com]]",
                 class: "external-link", target: "_blank",
