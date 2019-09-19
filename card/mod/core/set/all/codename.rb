@@ -16,7 +16,8 @@ end
 private
 
 def validate_codename_permission
-  return if Auth.always_ok?
+  return if Auth.always_ok? || Auth.as_id == creator_id
+
   errors.add :codename, tr(:only_admins_codename)
 end
 

@@ -18,6 +18,12 @@ module Cardio
   mattr_reader :paths, :config
 
   class << self
+    def load_card?
+      ActiveRecord::Base.connection && !defined?(Card)
+    rescue
+      false
+    end
+
     def cache
       @cache ||= ::Rails.cache
     end

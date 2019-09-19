@@ -498,7 +498,7 @@ en:
             db_card: Database Card Inspect
           status:
             deny_not_change_own_account: change the status of your own account
-          token:
+          api_key:
             private_data: Private data
             error_token_not_found: no token found
             error_token_expired: expired token

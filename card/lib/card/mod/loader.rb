@@ -48,6 +48,11 @@ class Card
           # raise Card::Error, "unrescued error loading mods"
         end
 
+        def reload_mods
+          Card::Set::Pattern.reset
+          load_mods
+        end
+
         def load_chunks
           Mod.dirs.each(:chunk) do |dir|
             load_dir dir
