@@ -22,7 +22,6 @@ format :html do
   end
 
   def quick_edit
-    #binding.pry
     card.left.prototype_default_card.try(:show_input_type?) ? super : ""
   end
 end
@@ -32,6 +31,5 @@ def option_names
 end
 
 def supports_content_option_view?
-  binding.pry
   item_name.in? ["checkbox", "radio", "filtered list"]
 end
