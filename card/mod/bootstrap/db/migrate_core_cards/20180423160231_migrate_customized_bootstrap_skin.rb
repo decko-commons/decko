@@ -76,7 +76,7 @@ class MigrateCustomizedBootstrapSkin < Card::Migration::Core
     custom_style =
       Card.fetch(OLD_SKIN, "custom theme", "style")&.content || ""
     ensure_card "customized bootstrap style", type_id: Card::ScssID, content: custom_style
-    update_card [NEW_SKIN, :stylesheets],
-                content: "[[customized bootstrap style]]"
+    update_card! [NEW_SKIN, :stylesheets],
+                 content: "[[customized bootstrap style]]"
   end
 end
