@@ -57,7 +57,7 @@ def setting_codenames_by_group
 end
 
 def visible_setting_codenames
-  @visible_setting_codenames ||= visible_settings
+  @visible_setting_codenames ||= visible_settings.map(&:codename)
 end
 
 def visible_settings group=nil, cardtype_id=nil
@@ -79,8 +79,13 @@ def prototype
 end
 
 def prototype_default_type_id
-  prototype.rule_card(:default).type_id
+  prototype_default_card.type_id
 end
+
+def prototype_default_card
+  prototype.rule_card(:default)
+end
+
 
 def related_sets with_self=false
   if subclass_for_set.anchorless?

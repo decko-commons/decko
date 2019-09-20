@@ -13,6 +13,10 @@ format :html do
      ["Single rules", card.visible_setting_codenames]]
   end
 
+  def field_settings
+    %i[default help input_type content_options content_option_view]
+  end
+
   # @param val setting category, setting group or single setting
   def setting_list val
     category_setting_list(val) || group_setting_list(val) || [val]
@@ -38,21 +42,11 @@ format :html do
   end
 
   def nest_editor_field_related_settings
-    field_settings & card.visible_settings(nil, card.prototype_default_type_id).map(&:codename)
-  end
-
-  def field_settings
-    %i[default help input_type content_options content_option_view]
+    field_settings #  & card.visible_settings(nil, card.prototype_default_type_id).map(&:codename)
   end
 
   def field_related_settings
-    field_settings =
-    if card.collection?
-      # FIXME: isn't card always of type set???
-      # FIXME: should be done with override in pointer set module
-      field_settings += %i[input options options_label]
-    end
-    card.visible_setting_codenames & field_settings
+    field_settings # card.visible_setting_codenames &
   end
 
   def recent_settings

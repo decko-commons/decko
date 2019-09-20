@@ -130,7 +130,7 @@
 - :name: "*getting started links"
   :type: Pointer
   :key: "*getting_started_link"
-  :merged: 2019-09-10 20:04:06 UTC
+  :merged: 2019-09-16 17:09:41 UTC
 - :name: Cardtype+*type+*guide
   :type: Markdown
   :key: cardtype+*type+*guide

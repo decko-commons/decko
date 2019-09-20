@@ -4,6 +4,11 @@ format :html do
     super
   end
 
+  def quick_form_opts
+    super.merge "data-update-foreign-slot":
+                ".card-slot.quick_edit-view.RIGHT-Xcontent_option_view"
+  end
+
   def default_input_type
     :radio
   end
@@ -15,8 +20,18 @@ format :html do
   def option_label_text option_name
     super.downcase
   end
+
+  def quick_edit
+    #binding.pry
+    card.left.prototype_default_card.try(:show_input_type?) ? super : ""
+  end
 end
 
-def supports_content_options?
-  content.in? ["checkbox", "radio", "filtered list"]
+def option_names
+  left.prototype_default_card&.try(:input_type_content_options) || super
+end
+
+def supports_content_option_view?
+  binding.pry
+  item_name.in? ["checkbox", "radio", "filtered list"]
 end

@@ -44,6 +44,7 @@ $(window).ready ->
   # I couldn't reproduce that problem described above -pk
 
   $('body').on 'submit', '.card-form', ->
+    debugger
     $(this).setContentFieldsFromMap()
     $(this).find('.d0-card-content').attr('no-autosave','true')
     true

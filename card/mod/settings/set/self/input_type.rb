@@ -2,7 +2,7 @@ extend Card::Setting
 setting_opts group: :editing,
              position: 3,
              rule_type_editable: false,
-             short_help_text: "edit interface for pointer/list cards"
+             short_help_text: "edit interface"
 
 format :html do
   def raw_help_text
