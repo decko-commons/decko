@@ -67,11 +67,14 @@ Gem::Specification.new do |s|
     ["twitter",                    "~> 6.1"], # for event-based integration
     ["delayed_job_active_record",  "~> 4.1"],
     ["minitest",                   "5.11.2"],
+    ["activerecord-import",        "~> 1.0"],
+    ["card-mod-markdown",          "~> 0.3"],
+    ["msgpack",                    "~> 1.3"],
+
     ["rake",                       "<= 12.3.0"],
-    # ["bootswatch", "4.1.1"],
-    ["rails", "~> 5.2.2.1"], # routing breaks for :, *, and ~ in 5.2.3
-    ["activerecord-import", "~> 1.0"],
-    ["card-mod-markdown", "~> 0.3"]
+    ["rails",                      "~> 5.2.2.1"]
+    # routing breaks for :, *, and ~ in rails 5.2.3
+
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end
