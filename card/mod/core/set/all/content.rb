@@ -43,6 +43,23 @@ format do
     card.label
   end
 
+  view :smart_label, cache: :never, unknown: true do
+    label_with_description render_label, label_description
+  end
+
+  def label_with_description label, description
+    return label unless description
+
+    "#{label} #{popover_link description}"
+  end
+
+  # TODO: move this into a nest once popovers are stub safe
+  def label_description
+    return unless (desc = card.field :description)
+
+    desc.format.render_core
+  end
+
   def raw_one_line_content
     cut_with_ellipsis render_raw
   end
