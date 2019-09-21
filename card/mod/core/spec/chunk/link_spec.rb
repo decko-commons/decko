@@ -64,7 +64,7 @@ RSpec.describe Card::Content::Chunk::Link do
 
   it "handles names with slashes" do
     assert_link "[[he/she]]", class: "wanted-card",
-                              href: "/he_she?#{CGI.escape 'card[name]=he/she'}",
+                              href: "/he_she?card%5Bname%5D=he%2Fshe",
                               text: "he/she"
   end
 
