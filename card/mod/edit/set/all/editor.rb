@@ -23,6 +23,8 @@ format :html do
     return unless (input_card = Card[input_type])
 
     nest input_card, view: :core
+  rescue Card::Error::CodenameNotFound
+    nil
   end
 
   view :input, unknown: true do

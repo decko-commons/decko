@@ -1,6 +1,6 @@
 $(window).ready ->
   # add pointer item when clicking on "add another" button
-  $('body').on 'click', '.pointer-item-add', (event)->
+  $('body').on 'click', '._pointer-item-add', (event)->
     decko.addPointerItem this
     event.preventDefault() # Prevent link from following its href
 
@@ -44,6 +44,6 @@ $.extend decko,
     $(el).closest('.content-editor').find '.pointer-li:last'
 
   updateAddItemButton: (el)->
-    button = $(el).closest('.content-editor').find '.pointer-item-add'
+    button = $(el).closest('.content-editor').find '._pointer-item-add'
     disabled = decko.lastPointerItem(el).find('input').val() == ''
     button.prop 'disabled', disabled
