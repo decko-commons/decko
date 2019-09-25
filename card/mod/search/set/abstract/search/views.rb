@@ -41,9 +41,9 @@ format :json do
     complete_or_match_search limit: AUTOCOMPLETE_LIMIT
   end
 
-  def complete_or_match_search limit: AUTOCOMPLETE_LIMIT
+  def complete_or_match_search limit: AUTOCOMPLETE_LIMIT, start_only: false
     starts_with = complete_search limit: limit
-    return starts_with if Card.config.navbox_match_start_only
+    return starts_with if start_only
 
     remaining_slots = limit - starts_with.size
     return starts_with if remaining_slots.zero?

@@ -73,7 +73,6 @@ format :html do
 
   def select_filter_tag field, default, options, html_options={}
     name = filter_name field, html_options[:multiple]
-    binding.pry
     options = options_for_select options, (filter_param(field) || default)
     normalize_select_filter_tag_html_options field, html_options
     select_tag name, options, html_options

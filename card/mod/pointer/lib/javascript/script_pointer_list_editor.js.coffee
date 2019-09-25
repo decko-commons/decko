@@ -27,8 +27,12 @@ decko.slotReady (slot) ->
 
 $.extend decko,
   addPointerItem: (el) ->
+    slot = $(el).slot()
+    slot.trigger "slotDestroy"
     newInput = decko.nextPointerInput decko.lastPointerItem(el)
     newInput.val ''
+
+    slot.trigger "slotReady"
     newInput.focus()
     decko.updateAddItemButton el
     decko.initPointerList newInput
