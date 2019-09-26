@@ -16,7 +16,7 @@ class Card
         end
 
         def interpret match, _content
-          @stub_hash = MessagePack.unpack(match[1]).symbolize_keys
+          @stub_hash = JSON.parse(match[1]).symbolize_keys
           interpret_hash_values
         end
 
