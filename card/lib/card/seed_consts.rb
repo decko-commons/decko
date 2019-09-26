@@ -15,5 +15,5 @@ unless defined? CARD_TEST_SEED_PATH
 end
 
 unless defined? CARD_TEST_SEED_SCRIPT_PATH
-  CARD_TEST_SEED_SCRIPT_PATH = File.join(Cardio.gem_root, "db", "seed", "test", "seed.rb")
+  CARD_TEST_SEED_SCRIPT_PATH = File.join(Cardio.gem_root, "db", "test_seed.rb")
 end

@@ -1,17 +1,25 @@
 format :html do
-  view :quick_edit, unknown: true, template: :haml, wrap: :slot do
+  view :quick_edit, unknown: true, wrap: :slot do
+    quick_edit
   end
 
   view :quick_edit_success do
     set_info true
   end
 
+  def quick_edit
+    haml :quick_edit
+  end
+
   def quick_form
-    card_form :update,
-              "data-slot-selector": ".set-info.card-slot",
-              success: { view: :quick_edit_success }  do
+    card_form :update, quick_form_opts do
       quick_editor
     end
+  end
+
+  def quick_form_opts
+    { "data-slot-selector": ".set-info.card-slot",
+      success: { view: :quick_edit_success } }
   end
 
   def set_info notify_change=nil
