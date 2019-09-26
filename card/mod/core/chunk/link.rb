@@ -26,7 +26,7 @@ module Card::Content::Chunk
         end
 
       @link_text = objectify @link_text
-      if target =~ %r{/|mailto:}
+      if target.match? %r{^(/|https?:|mailto:)}
         @explicit_link = objectify target
       else
         @name = target

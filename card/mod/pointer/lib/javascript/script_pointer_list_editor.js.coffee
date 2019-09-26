@@ -10,6 +10,7 @@ $(window).ready ->
       decko.addPointerItem this
       event.preventDefault() # was triggering extra item in unrelated pointer
 
+  # enable/disable add
   $('body').on 'keyup', '.pointer-item-text', (_event)->
     decko.updateAddItemButton this
 
