@@ -20,14 +20,16 @@ format :html do
 
   # core view of card is input
   def input_defined_by_card
-    with_codenamed_card input_type do |input_card|
+    with_card input_type do |input_card|
       nest input_card, view: :core
     end
   end
 
   # move somewhere more accessible?
-  def with_codenamed_card codename
-    yield Card[codename]
+  def with_card mark
+    return nil unless (card = Card[mark])
+
+    yield card
   rescue Card::Error::CodenameNotFound
     nil
   end
