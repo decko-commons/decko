@@ -45,7 +45,7 @@ format :html do
 
   def sub_text_filter field, subfield, default={}, opts={}
     name = "filter[#{field}][#{subfield}]"
-    value = filter_hash.dig(field, subfield ) || default[subfield]
+    value = filter_hash.dig(field, subfield) || default[subfield]
     text_filter_with_name_and_value name, value, opts
   end
 
