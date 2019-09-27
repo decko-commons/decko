@@ -26,7 +26,7 @@ event :approve_without_verification, :validate, on: :update, trigger: :required 
   # TODO: if validated here, add trigger and activate in storage phase
   approvable do
     activate_accounted
-    account_subfield.activate!
+    account_subfield.activate_account
   end
 end
 

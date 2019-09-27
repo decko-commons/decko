@@ -21,7 +21,7 @@ module Decko
     end
 
     initializer :load_card, after: :load_config_initializers, group: :all do
-       Card
+      Card if Cardio.load_card?
     end
 
     class << self

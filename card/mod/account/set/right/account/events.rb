@@ -46,7 +46,7 @@ end
 
 # note: this only works in the context of an action.
 # if run independently, it will not activate an account
-def activate!
+event :activate_account do
   add_subfield :status, content: "active"
   trigger_event! :send_welcome_email
 end
@@ -77,7 +77,7 @@ end
 def verify_and_activate_success
   Auth.signin accounted_id
   Auth.as_bot # use admin permissions for rest of action
-  activate!
+  activate_account
   success << ""
 end
 

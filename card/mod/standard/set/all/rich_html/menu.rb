@@ -3,7 +3,7 @@ format :html do
     return "" if card.unknown?
 
     wrap_with :div, class: "card-menu #{menu_link_classes}" do
-      [help_link, menu_link, bridge_link(false)]
+      [render_help_link, menu_link, bridge_link(false)]
     end
   end
 
@@ -41,6 +41,12 @@ format :html do
       opts["data-slotter-mode"] = "modal-replace"
     end
     link_to_view :bridge, material_icon(:more_horiz), opts
+  end
+
+  # no caching because help_text view doesn't cache, and we can't have a
+  # stub in the data-content attribute or it will get html escaped.
+  view :help_link, cache: :never, unknown: true do
+    help_link
   end
 
   def help_link

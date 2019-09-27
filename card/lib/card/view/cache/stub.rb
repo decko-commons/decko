@@ -1,3 +1,5 @@
+require "msgpack"
+
 class Card
   class View
     module Cache
@@ -9,30 +11,11 @@ class Card
       #
       # A stub must contain all the information necessary to produce the view as intended.
       module Stub
-        class << self
-          def escape stub_json
-            stub_json.gsub "(", "_OParEN_"
-          end
-
-          def unescape stub_json
-            stub_json.gsub "_OParEN_", "("
-          end
-
-          # FIXME: escaping and unescaping stubs should not be necessary
-          # It's used to avoid problems with altered views, but altering views is
-          # unsafe and should be eliminated.  See {Card::View::Cache}.
-        end
-
         private
 
         # @return [String]
         def stub
-          "(stub)#{Stub.escape stub_json}(/stub)".html_safe
-        end
-
-        # @return [String] the stub_hash as JSON
-        def stub_json
-          JSON.generate stub_hash
+          "(StUb#{stub_hash.to_json}sTuB)".html_safe
         end
 
         # @return [Hash]

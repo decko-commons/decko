@@ -22,11 +22,11 @@ format :html do
 
   view :overlay_menu do
     wrap_with :div, class: "btn-group btn-group-sm align-self-start ml-auto" do
-      [help_overlay_link, slotify_overlay_link, close_overlay_link]
+      [render_overlay_help_link, slotify_overlay_link, close_overlay_link]
     end
   end
 
-  def help_overlay_link
+  view :overlay_help_link, cache: :never, unknown: true do
     opts = help_popover_opts
     add_open_guide_opts opts
     overlay_menu_link "question-circle", opts
@@ -35,10 +35,11 @@ format :html do
   def add_open_guide_opts opts
     return unless card.guide_card
 
-    opts.merge! remote: true, href: path(mark: card, view: :overlay_guide),
-              "data-slot-selector": ".bridge-sidebar > ._overlay-container-placeholder "\
-                                    "> .card-slot",
-              "data-slotter-mode": "overlay"
+    slot_selector = ".bridge-sidebar > ._overlay-container-placeholder > .card-slot"
+    opts.merge! remote: true,
+                href: path(mark: card, view: :overlay_guide),
+                "data-slot-selector": slot_selector,
+                "data-slotter-mode": "overlay"
     add_class opts, "slotter"
   end
 

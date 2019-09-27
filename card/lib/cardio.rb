@@ -18,6 +18,12 @@ module Cardio
   mattr_reader :paths, :config
 
   class << self
+    def load_card?
+      ActiveRecord::Base.connection && !defined?(Card)
+    rescue
+      false
+    end
+
     def cache
       @cache ||= ::Rails.cache
     end
@@ -77,7 +83,7 @@ module Cardio
         allow_irreversible_admin_tasks: false,
         raise_all_rendering_errors:     false,
         rescue_all_in_controller:       true,
-        navbox_match_start_only:        :true,
+        navbox_match_start_only:        true,
         load_strategy:                  :eval
       }
     end

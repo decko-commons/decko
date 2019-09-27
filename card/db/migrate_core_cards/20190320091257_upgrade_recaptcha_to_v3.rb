@@ -2,8 +2,8 @@
 
 class UpgradeRecaptchaToV3 < Card::Migration::Core
   def up
-    update_card [:recaptcha_settings, :self, :structure],
-                content: <<-STRING
+    update_card! [:recaptcha_settings, :self, :structure],
+                 content: <<-STRING
 {{+site key}}
 {{+secret key}}
 {{+minimum score}}
@@ -14,10 +14,9 @@ class UpgradeRecaptchaToV3 < Card::Migration::Core
       codename = "recaptcha_#{old_name}_key".to_sym
       next unless Card::Codename[codename]
 
-      update_card codename,
-                  name: "#{Card[:recaptcha_settings].name}+#{new_name} key",
-                  codename: "recaptcha_#{new_name}_key"
-
+      update_card! codename,
+                   name: "#{Card[:recaptcha_settings].name}+#{new_name} key",
+                   codename: "recaptcha_#{new_name}_key"
     end
 
     ensure_card [Card[:recaptcha_settings].name, "minimum score"],
