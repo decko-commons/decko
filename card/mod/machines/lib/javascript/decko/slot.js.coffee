@@ -112,7 +112,7 @@ jQuery.fn.extend
         $(this).reloadSlot url
       return
 
-    $slot = $slot.slot() unless $slot.isSlot()
+    $slot = $slot.slot() unless $slot.isSlot
     return unless $slot[0]
 
     unless url?
