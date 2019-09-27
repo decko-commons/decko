@@ -16,8 +16,9 @@ format :html do
     multiselect_filter_tag field, default, options
   end
 
-  def text_filter field, opts={}
-    text_filter_with_name_and_value filter_name(field), filter_param(field), opts
+  def text_filter field, default=nil, opts={}
+    value = filter_param(field) || default
+    text_filter_with_name_and_value filter_name(field), value, opts
   end
 
   def text_filter_with_name_and_value name, value, opts
@@ -26,12 +27,13 @@ format :html do
     text_field_tag name, value, opts
   end
 
-  def range_filter field, opts={}
+  def range_filter field, default={}, opts={}
     add_class opts, "simple-text range-filter-subfield"
+    default ||= {}
     output [range_sign(:from),
-            sub_text_filter(field, :from, opts),
+            sub_text_filter(field, :from, default, opts),
             range_sign(:to),
-            sub_text_filter(field, :to, opts)]
+            sub_text_filter(field, :to, default, opts)]
   end
 
   def range_sign side
@@ -41,9 +43,9 @@ format :html do
     end
   end
 
-  def sub_text_filter field, subfield, opts={}
+  def sub_text_filter field, subfield, default={}, opts={}
     name = "filter[#{field}][#{subfield}]"
-    value = filter_hash.dig field, subfield
+    value = filter_hash.dig(field, subfield) || default[subfield]
     text_filter_with_name_and_value name, value, opts
   end
 
