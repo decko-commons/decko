@@ -3,7 +3,9 @@ format :html do
     return "" if card.unknown?
 
     wrap_with :div, class: "card-menu #{menu_link_classes}" do
-      [render_help_link, menu_link, bridge_link(false)]
+      [render_help_link,
+       menu_link,
+       (voo.show?(:bridge_link) ? bridge_link(false) : nil)]
     end
   end
 
@@ -13,6 +15,17 @@ format :html do
       edit_inline_link
     when :full
       edit_in_bridge_link
+    else # :standard
+      edit_link
+    end
+  end
+
+  def edit_view
+    case voo.edit
+    when :inline
+      :edit_inline
+    when :full
+      :edit
     else # :standard
       edit_link
     end

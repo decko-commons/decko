@@ -31,7 +31,8 @@ format :html do
   end
 
   def wrap_content_formgroup
-    formgroup("Content", input: :content, help: false) { yield }
+    formgroup("Content", input: :content, help: false,
+                         class: classy("card-editor")) { yield }
   end
 
   def button_formgroup
@@ -109,12 +110,14 @@ format :html do
   def multi_card_edit fields_only=false
     nested_cards = nested_cards_for_edit(fields_only)
     return structure_link if nested_cards.empty?
+
     nested_cards.map do |name, options|
       nest name, options || {}
     end.join "\n"
   end
 
-  def structure_link # LOCALIZE
+  def structure_link
+    # LOCALIZE
     structured = link_to_card card.structure_rule_card, "structured"
     "<label>Content</label>"\
     "<p><em>Uneditable; content is #{structured} without nests</em></p>"

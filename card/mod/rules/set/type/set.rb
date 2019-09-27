@@ -60,11 +60,12 @@ def visible_setting_codenames
   @visible_setting_codenames ||= visible_settings.map(&:codename)
 end
 
-def visible_settings group=nil
+def visible_settings group=nil, cardtype_id=nil
+  cardtype_id ||= prototype.type_id
   settings =
     (group && Card::Setting.groups[group]) || Card::Setting.groups.values.flatten.compact
   settings.reject do |setting|
-    !setting || !setting.applies_to_cardtype(prototype.type_id)
+    !setting || !setting.applies_to_cardtype(cardtype_id)
   end
 end
 
@@ -75,6 +76,14 @@ end
 def prototype
   opts = subclass_for_set.prototype_args anchor_name
   Card.fetch opts[:name], new: opts
+end
+
+def prototype_default_type_id
+  prototype_default_card.type_id
+end
+
+def prototype_default_card
+  prototype.rule_card(:default)
 end
 
 def related_sets with_self=false

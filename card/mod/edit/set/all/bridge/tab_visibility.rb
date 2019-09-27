@@ -10,7 +10,7 @@ format :html do
   def show_account_tab?
     return unless card.real?
 
-    card.account && card.ok?(:update)
+    card.account&.ok?(:update)
   end
 
   def show_engage_tab?
