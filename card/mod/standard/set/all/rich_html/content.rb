@@ -15,7 +15,6 @@ format :html do
 
   before(:content_with_edit_button) do
     prepare_content_slot
-    voo.hide :edit_button
   end
 
   view :content_with_edit_button do

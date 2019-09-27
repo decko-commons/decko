@@ -2,10 +2,9 @@ format :html do
   def account_details_items
     [
       ["Email and Password", :account,
-       { path:  { view: :edit_inline } }],
+       { path: { slot: { hide: [:help_link, :bridge_link] } } }],
       ["Roles", :roles,
-       { path:  { view: :content_with_edit_button }}],
-       # view: :content, slot: { show: :edit_button }}  }],
+       { path:  { view: :content_with_edit_button } }],
       ["Notifications", :follow]
     ]
   end
