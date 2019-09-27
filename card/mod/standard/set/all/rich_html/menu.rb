@@ -20,6 +20,17 @@ format :html do
     end
   end
 
+  def edit_view
+    case voo.edit
+    when :inline
+      :edit_inline
+    when :full
+      :edit
+    else # :standard
+      edit_link
+    end
+  end
+
   view :edit_link, unknown: true, denial: :blank do
     edit_link edit_link_view, link_text: voo.title
   end

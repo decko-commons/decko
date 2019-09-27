@@ -7,7 +7,21 @@ format :html do
   before(:content) { prepare_content_slot }
 
   view :content do
-    wrap { [_render_menu, _render_core] }
+    voo.hide :edit_button
+    wrap do
+      [_render_menu, _render_core, _render_edit_button(edit: :inline)]
+    end
+  end
+
+  before(:content_with_edit_button) do
+    prepare_content_slot
+    voo.hide :edit_button
+  end
+
+  view :content_with_edit_button do
+    wrap do
+      [_render_menu, _render_core, _render_edit_button(edit: :inline)]
+    end
   end
 
   view :short_content, wrap: { div: { class: "text-muted" } } do
@@ -18,7 +32,6 @@ format :html do
                               wrap: { div: { class: "text-muted" } } do
     raw_one_line_content
   end
-
 
   view :one_line_content, unknown: :mini_unknown,
                           wrap: { div: { class: "text-muted" } } do
