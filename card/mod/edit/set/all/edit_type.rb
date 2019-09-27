@@ -73,7 +73,7 @@ format :html do
     visible_cardtype_groups.each_pair do |name, items|
       if name == "Custom"
         Auth.createable_types.each do |type|
-          groups["Custom"] << type unless Self::Cardtype::GROUP_MAP[type]
+          groups["Custom"] << type unless ::Card::Set::Self::Cardtype::GROUP_MAP[type]
         end
       else
         items.each do |i|
@@ -85,7 +85,7 @@ format :html do
   end
 
   def visible_cardtype_groups
-    Self::Cardtype::GROUP
+    ::Card::Set::Self::Cardtype::GROUP
   end
 
   def type_field_current_value args, typelist
