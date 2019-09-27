@@ -24,10 +24,21 @@ format :html do
     end
   end
 
-  def edit_row_fixed_width title, content, edit_view
+  # TODO: better styling for this so that is reusable
+  #  At the moment it is used for the name and type field in the bridge
+  #  (with fixed 50px width for the title column) and
+  #  for password and email for accounts (with fixed 75px width for the title column)
+  #  The view is very similar to labeled but with fixed edit link on the right
+  #  and a fixed width for the labels so that the content column is aligned
+  #  There is also the problem that label and content are not vertically aligned
+  view :edit_row do
+    edit_row_fixed_width render_title, render_core, :edit_inline, 75
+  end
+
+  def edit_row_fixed_width title, content, edit_view, width=50
     class_up "card-slot", "d-flex"
     wrap do
-      ["<label class='w-50px'>#{title}</label>",
+      ["<label class='w-#{width}px'>#{title}</label>",
        content,
        edit_inline_link(edit_view, align: :right)]
     end

@@ -1,5 +1,5 @@
 def input_type_content_options
-  ["multiselect", "checkbox", "autocompleted list"]
+  ["multiselect", "checkbox", "autocompleted list", "filtered list"]
 end
 
 def show_content_options?

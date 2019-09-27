@@ -51,8 +51,18 @@ format :html do
   def type_field args={}
     typelist = Auth.createable_types
     current_type = type_field_current_value args, typelist
-    options = grouped_options_for_select grouped_types(current_type), current_type
-    template.select_tag "card[type]", options, args.merge("data-select2-id": "#{unique_id}-#{Time.now.to_i}")
+    template.select_tag "card[type]", type_field_options(current_type),
+                        args.merge("data-select2-id": "#{unique_id}-#{Time.now.to_i}")
+  end
+
+  def type_field_options current_type
+    types = grouped_types(current_type)
+
+    if types.size == 1
+      options_for_select types.flatten[1], current_type
+    else
+      grouped_options_for_select types, current_type
+    end
   end
 
   def grouped_types current_type
@@ -63,7 +73,7 @@ format :html do
     visible_cardtype_groups.each_pair do |name, items|
       if name == "Custom"
         Auth.createable_types.each do |type|
-          groups["Custom"] << type unless Self::Cardtype::GROUP_MAP[type]
+          groups["Custom"] << type unless ::Card::Set::Self::Cardtype::GROUP_MAP[type]
         end
       else
         items.each do |i|
@@ -75,7 +85,7 @@ format :html do
   end
 
   def visible_cardtype_groups
-    Self::Cardtype::GROUP
+    ::Card::Set::Self::Cardtype::GROUP
   end
 
   def type_field_current_value args, typelist

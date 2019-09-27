@@ -12,7 +12,7 @@ format :html do
   end
 
   def visible_cardtype_groups
-    hash = Self::Cardtype::GROUP.slice("Text")
+    hash = ::Card::Set::Self::Cardtype::GROUP.slice("Text")
     hash["Organize"] = ["Search"]
     hash
   end

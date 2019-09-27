@@ -112,7 +112,7 @@ jQuery.fn.extend
         $(this).reloadSlot url
       return
 
-    $slot = $slot.slot() unless $slot.isSlot
+    $slot = $slot.slot() unless $slot.isSlot()
     return unless $slot[0]
 
     unless url?
@@ -130,8 +130,10 @@ jQuery.fn.extend
     @empty()
 
   slotUrl: ->
-    mark = if @data('cardId') then "~#{@data('cardId')}" else @data("cardName")
-    decko.slotPath "#{mark}?view=#{@data("slot")["view"]}"
+    decko.slotPath "#{this.slotMark()}?view=#{@data("slot")["view"]}"
+
+  slotMark: ->
+    if @data('cardId') then "~#{@data('cardId')}" else @data("cardName")
 
   setSlotContent: (val, mode, $slotter) ->
     v = $(val)[0] && $(val) || val

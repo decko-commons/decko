@@ -32,6 +32,7 @@ class Card
 
     def report
       Rails.logger.info "exception = #{self.class}: #{message}"
+      Rails.logger.debug backtrace.join("\n")
     end
 
     def card_message_text

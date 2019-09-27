@@ -7,7 +7,7 @@ class Card
         Chunk.register_class(
           self,
           prefix_re: Regexp.escape("(StUb"),
-          full_re: /\A\(StUb(.*?)sTuB\)/,
+          full_re: /\A\(StUb(.*?)sTuB\)/m,
           idx_char: "("
         )
 
@@ -16,7 +16,7 @@ class Card
         end
 
         def interpret match, _content
-          @stub_hash = MessagePack.unpack(match[1]).symbolize_keys
+          @stub_hash = JSON.parse(match[1]).symbolize_keys
           interpret_hash_values
         end
 
