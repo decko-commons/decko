@@ -14,7 +14,7 @@ class Card
     def self.extended host_class
       # accessible in E and O
       host_class.mattr_accessor :restricted_to_type, :rule_type_editable, :short_help_text,
-                                :raw_help_text, :right_set
+                                :raw_help_text, :right_set, :applies
       setting_class_name = host_class.to_s.split("::").last
       host_class.ensure_set { "Card::Set::Right::#{setting_class_name}" }
       host_class.right_set = Card::Set::Right.const_get(setting_class_name)
@@ -58,6 +58,7 @@ class Card
       self.rule_type_editable = opts[:rule_type_editable]
       self.restricted_to_type = permitted_type_ids opts[:restricted_to_type]
       self.short_help_text = opts[:short_help_text]
+      self.applies = opts[:applies]
       right_set.raw_help_text = self.raw_help_text = opts[:help_text]
       return unless opts[:user_specific]
       @@user_specific << @codename
@@ -75,8 +76,14 @@ class Card
       end
     end
 
-    def applies_to_cardtype type_id
-      !restricted_to_type || restricted_to_type.include?(type_id)
+    def applies_to_cardtype type_id, prototype=nil
+      (!restricted_to_type || restricted_to_type.include?(type_id)) &&
+        (!prototype || applies_to_prototype?(prototype))
+    end
+
+    def applies_to_prototype? prototype
+      return true unless applies
+      applies.call(prototype)
     end
 
     private

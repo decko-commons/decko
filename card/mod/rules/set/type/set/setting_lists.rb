@@ -13,6 +13,10 @@ format :html do
      ["Single rules", card.visible_setting_codenames]]
   end
 
+  def field_settings
+    %i[default help input_type content_options content_option_view]
+  end
+
   # @param val setting category, setting group or single setting
   def setting_list val
     category_setting_list(val) || group_setting_list(val) || [val]
@@ -32,17 +36,17 @@ format :html do
       card.visible_setting_codenames & COMMON_SETTINGS
     when :field_related, :field_related_rules
       field_related_settings
+    when :nest_editor_field_related
+      nest_editor_field_related_settings
     end
   end
 
+  def nest_editor_field_related_settings
+    field_settings #  & card.visible_settings(nil, card.prototype_default_type_id).map(&:codename)
+  end
+
   def field_related_settings
-    field_settings = %i[default help]
-    if card.collection?
-      # FIXME: isn't card always of type set???
-      # FIXME: should be done with override in pointer set module
-      field_settings += %i[input options options_label]
-    end
-    card.visible_setting_codenames & field_settings
+    field_settings # card.visible_setting_codenames &
   end
 
   def recent_settings
@@ -51,7 +55,7 @@ format :html do
   end
 
   view :all_rules_list do
-    pill_rule_list :all, card.visible_setting_codenames.sort
+    pill_rule_list card.visible_setting_codenames.sort
   end
 
   view :grouped_rules_list do
@@ -68,15 +72,15 @@ format :html do
   view :recent_rules_list do
     recent_settings = Card[:recent_settings].item_cards.map(&:codename)
     settings = recent_settings.map(&:to_sym) & card.visible_setting_codenames
-    pill_rule_list :all, settings
+    pill_rule_list settings
   end
 
   view :common_rules_list do
     settings = card.visible_setting_codenames & COMMON_SETTINGS # "&" = set intersection
-    pill_rule_list :common, settings
+    pill_rule_list settings
   end
 
   view :field_related_rules_list do
-    pill_rule_list :field_related, field_related_settings
+    pill_rule_list  field_related_settings
   end
 end

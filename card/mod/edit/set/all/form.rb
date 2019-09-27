@@ -31,7 +31,8 @@ format :html do
   end
 
   def wrap_content_formgroup
-    formgroup("Content", input: :content, help: false) { yield }
+    formgroup("Content", input: :content, help: false,
+                              class: classy("card-editor")) { yield }
   end
 
   def button_formgroup

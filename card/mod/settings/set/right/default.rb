@@ -6,6 +6,13 @@ format :html do
     "#{card.type_name} : #{raw.present? ? raw : '<em>empty</em>'}"
   end
 
+  def quick_form_opts
+    super.merge "data-update-foreign-slot":
+                ".card-slot.quick_edit-view.RIGHT-Xinput_type,"\
+                ".card-slot.quick_edit-view.RIGHT-Xcontent_option"\
+                ".card-slot.quick_edit-view.RIGHT-Xcontent_option_view"
+  end
+
   def quick_editor
     wrap_type_formgroup do
       type_field class: "type-field rule-type-field _submit-on-select"
