@@ -42,7 +42,8 @@ format :html do
   end
 
   def nest_editor_field_related_settings
-    field_settings #  & card.visible_settings(nil, card.prototype_default_type_id).map(&:codename)
+    field_settings
+    #  & card.visible_settings(nil, card.prototype_default_type_id).map(&:codename)
   end
 
   def field_related_settings
@@ -81,6 +82,6 @@ format :html do
   end
 
   view :field_related_rules_list do
-    pill_rule_list  field_related_settings
+    pill_rule_list field_related_settings
   end
 end
