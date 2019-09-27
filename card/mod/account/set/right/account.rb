@@ -39,6 +39,7 @@ def send_account_email email_template
   unless ecard&.type_id == EmailTemplateID
     raise Card::Error, "invalid email template: #{email_template}"
   end
+
   ecard.deliver self, to: email
 end
 
