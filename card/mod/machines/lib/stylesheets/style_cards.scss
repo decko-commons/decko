@@ -935,6 +935,10 @@ a.external-link,
   width: 50px;
 }
 
+.w-75px {
+  width: 75px;
+}
+
 a.bridge-link, a.edit-link {
   color: $text-muted;
 }
@@ -1000,7 +1004,7 @@ $bridge-line-color: $border-color;
   > .d0-card-content {
       overflow-y: scroll;
       height: 100%;
-      padding: 0 1.5rem; // px-4
+      padding: 1rem 1.5rem; // px-4
   }
 }
 
@@ -1235,4 +1239,11 @@ body.right-sidebar, body.left-sidebar, body.two-sidebar {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow-x: hidden;
+}
+
+.filter-section-icon {
+  width: 25px;
+  color: #6c757d;
+  float: left;
+  padding: 0.5rem;
 }

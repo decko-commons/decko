@@ -86,7 +86,6 @@ def prototype_default_card
   prototype.rule_card(:default)
 end
 
-
 def related_sets with_self=false
   if subclass_for_set.anchorless?
     prototype.related_sets with_self

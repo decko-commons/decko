@@ -4,7 +4,7 @@ setting_opts group: :editing, position: 6,
              rule_type_editable: false,
              help_text: "Label view for radio button and checkbox items.  "\
                         "[[http://decko.org/Pointer|more]]",
-             applies: -> (prototype) {
-               prototype.supports_content_options? &&
-               prototype.rule_card(:input_type)&.supports_content_option_view? }
-
+             applies: lambda  { |prototype|
+                        prototype.supports_content_options? &&
+                          prototype.rule_card(:input_type)&.supports_content_option_view?
+                      }

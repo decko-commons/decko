@@ -42,7 +42,8 @@ format :html do
   end
 
   def nest_editor_field_related_settings
-    field_settings #  & card.visible_settings(nil, card.prototype_default_type_id).map(&:codename)
+    field_settings
+    #  & card.visible_settings(nil, card.prototype_default_type_id).map(&:codename)
   end
 
   def field_related_settings
@@ -58,17 +59,6 @@ format :html do
     pill_rule_list card.visible_setting_codenames.sort
   end
 
-  view :grouped_rules_list do
-    with_label_and_navbars :grouped_rules do
-      wrap_with :div, class: "panel-group", id: "accordion",
-                      role: "tablist", "aria-multiselectable": "true" do
-        Card::Setting.groups.keys.map do |group_key|
-          _render group_key
-        end
-      end
-    end
-  end
-
   view :recent_rules_list do
     recent_settings = Card[:recent_settings].item_cards.map(&:codename)
     settings = recent_settings.map(&:to_sym) & card.visible_setting_codenames
@@ -81,6 +71,6 @@ format :html do
   end
 
   view :field_related_rules_list do
-    pill_rule_list  field_related_settings
+    pill_rule_list field_related_settings
   end
 end
