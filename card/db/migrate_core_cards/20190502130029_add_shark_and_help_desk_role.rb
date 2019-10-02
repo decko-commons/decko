@@ -3,7 +3,6 @@
 class AddSharkAndHelpDeskRole < Card::Migration::Core
   def up
     # delete_code_card :eagle
-    # update :anyone_signed_in, name: "Eagle", update_referers: true
     ensure_role "Shark", codename: "shark"
     ensure_role "Help Desk", codename: "help_desk"
 

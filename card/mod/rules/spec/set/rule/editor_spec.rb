@@ -18,6 +18,6 @@ RSpec.describe Card::Set::Rule::Editor do
 
     it "finds anchor type for self structure rules" do
       expect(type_for_set_structure("Sign up+*self")).to eq("Cardtype")
-   end
+    end
   end
 end

@@ -7,6 +7,6 @@ which every City has a Country field.  For example, the City card "Moscow" woul
 named "Moscow+Country" with the content "Russia". and the card "Berlin+Country" could contain "Germany.
 
 Nests are easy to create and manage using the nest editor, which can be opened using the curly bracket
-icon (\\{{}}). This tool will help you create and configure nested fields, both through nest syntax 
+icon (\{{}}). This tool will help you create and configure nested fields, both through nest syntax
 options (which only apply to the fields when presented within the structure) and through rules 
 (which apply in any context).
