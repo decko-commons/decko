@@ -115,10 +115,6 @@
   :type: Basic
   :key: anyone_signed_in+dashboard
   :merged: 2019-06-03 12:04:21 UTC
-- :name: Eagle+description
-  :type: Basic
-  :key: eagle+description
-  :merged: 2019-05-09 12:46:06 UTC
 - :name: Cardtype+*type+*structure
   :type: Basic
   :key: cardtype+*type+*structure

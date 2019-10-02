@@ -40,7 +40,7 @@ format :html do
         # render guide text with current card's format
         # so current card's context is used in guide card nests
       end
-    elsif  card.guide_card
+    elsif card.guide_card
       with_nest_mode :normal do
         nest card.guide_card, view: :core
       end
