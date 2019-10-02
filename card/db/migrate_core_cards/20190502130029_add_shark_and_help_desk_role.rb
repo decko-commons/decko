@@ -24,7 +24,7 @@ class AddSharkAndHelpDeskRole < Card::Migration::Core
                 administrator+dashboard administrator+description
                 shark+dashboard shark+description
                 help_desk+dashboard help_desk+description
-                anyone_signed_in+dashboard eagle+description
+                anyone_signed_in+dashboard
                 *recaptcha_settings+*self+*structure
                 *account_settings+*right+*structure
                 *getting_started+shark

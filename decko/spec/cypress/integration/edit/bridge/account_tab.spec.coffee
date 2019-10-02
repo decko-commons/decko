@@ -9,7 +9,7 @@ describe 'account tab', () ->
     cy.logout()
 
   specify 'change email', () ->
-    labeled_view = ".SELF-sample_user-Xaccount-Xemail.edit_row-view"
+    labeled_view = ".SELF-sample_user-Xaccount-Xemail.labeled-view"
 
     cy.bridge_sidebar().get('.nav-tabs a:first').click()
     cy.el("email_and_password-pill").click()
