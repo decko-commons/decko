@@ -15,7 +15,8 @@ format :html do
   end
 
   def nest_editor_tabs
-    static_tabs({ rules: nest_rules_tab, options: haml_partial(:options),
+    static_tabs({ options: haml_partial(:options),
+                  rules: nest_rules_tab,
                   help: haml_partial(:help) },
                 :options, "tabs")
   end
