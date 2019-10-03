@@ -3,7 +3,8 @@ decko.addEditor(
   ->
     decko.initTinyMCE @[0].id
   ->
-    tinyMCE.get(@[0].id).getContent()
+    ed = tinyMCE.get(@[0].id)
+    ed && ed.getContent()
 )
 
 decko.slotDestroy (slot) ->
