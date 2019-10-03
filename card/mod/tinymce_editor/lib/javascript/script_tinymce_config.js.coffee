@@ -9,7 +9,8 @@ decko.addEditor(
 
 decko.slotDestroy (slot) ->
   slot.find("textarea.tinymce-textarea").each ->
-    tinyMCE.get($(this).attr("id")).remove()
+    ed = tinyMCE.get(@[0].id)
+    ed && ed.remove()
 
 $.extend decko,
   setTinyMCEConfig: (string) ->
