@@ -82,7 +82,7 @@ class Card
       @template ||= begin
         c = controller
         lookup_context = ActionView::LookupContext.new c.class.view_paths
-        t = ActionView::Base.with_empty_template_cache.new(
+        t = ActionView::Base.new(
           lookup_context, { _routes: c._routes }, c
         )
         t.extend c.class._helpers

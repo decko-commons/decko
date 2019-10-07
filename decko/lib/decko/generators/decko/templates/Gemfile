@@ -30,7 +30,7 @@ gem 'thin'
 group :test do
   gem 'capybara-puma'
   gem 'rspec'
-  gem 'rspec-rails', '~>3.6.1'         # behavior-driven-development suite
+  gem 'rspec-rails', '~>4.0.0.beta2'         # behavior-driven-development suite
   gem 'spork', '>=0.9'
   gem 'rubocop'
   gem 'rubocop-decko'
@@ -99,7 +99,7 @@ group :test do
   end
 
   # CUKES see features dir
-  gem 'cucumber-rails', '~> 1.6', :require=>false # feature-driven-development suite
+  gem 'cucumber-rails', '~> 1.8.0', :require=>false # feature-driven-development suite
   gem 'capybara', '~> 3.12'
   gem 'selenium-webdriver', '3.141.0'
   gem 'chromedriver-helper', '~> 2.1.0'
@@ -112,7 +112,7 @@ group :test do
   gem 'email_spec'                             #
   gem 'database_cleaner', '~> 1.5 '             # used by cucumber for db transactions
 
-  gem 'turn', :require => false      # Pretty printed test output.  (version constraint is to avoid minitest requirement)
+  # gem 'turn', :require => false      # Pretty printed test output.  (version constraint is to avoid minitest requirement)
   gem 'minitest'
 
   gem 'i18n-tasks', '~> 0.9.5'       # See if I18n keys are missing or unused

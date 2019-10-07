@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::History::Views do
+RSpec.describe Card::Set::All::History::Views do
   specify "view act" do
     expect_view(:act).to have_tag("div.card") do
       with_tag "div.card-header"
