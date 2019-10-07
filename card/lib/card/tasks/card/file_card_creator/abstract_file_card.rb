@@ -1,3 +1,8 @@
+require_relative "./output_helper"
+require_relative "./abstract_file_card/source_file"
+require_relative "./abstract_file_card/ruby_file"
+require_relative "./abstract_file_card/migration_file"
+
 class Card
   class FileCardCreator
     # A template class for generating cards that are linked to source files.

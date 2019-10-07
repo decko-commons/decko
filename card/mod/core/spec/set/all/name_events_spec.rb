@@ -1,4 +1,4 @@
-describe Card::Set::All::NameEvents do
+RSpec.describe Card::Set::All::NameEvents do
   describe "event: set_name" do
     it "handles case variants" do
       c = Card.create! name: "chump"

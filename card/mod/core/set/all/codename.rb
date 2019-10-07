@@ -7,7 +7,7 @@ event :validate_codename, :validate, on: :update, changed: :codename do
   validate_codename_uniqueness
 end
 
-event :reset_codename_cache, :integrate, changed: :codename do
+event :reset_codename_cache, :integrate do #, changed: :codename do
   return if @action == :create && codename.nil?
 
   Card::Codename.reset_cache

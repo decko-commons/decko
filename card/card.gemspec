@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
 
   s.require_paths = ["lib"]
 
-  s.required_ruby_version = ">= 2.4.1"
+  s.required_ruby_version = ">= 2.5"
 
   [
     ["cardname",                   version],
@@ -66,13 +66,13 @@ Gem::Specification.new do |s|
     ["recaptcha",                  "~> 4.13.1"],
     ["twitter",                    "~> 6.1"], # for event-based integration
     ["delayed_job_active_record",  "~> 4.1"],
-    ["minitest",                   "5.11.2"],
+    #["minitest",                   "5.11.2"],
     ["activerecord-import",        "~> 1.0"],
     ["card-mod-markdown",          "~> 0.3"],
     ["msgpack",                    "~> 1.3"],
 
     ["rake",                       "<= 12.3.0"],
-    ["rails",                      "~> 5.2.2.1"]
+    ["rails",                      "~> 6"] #"~> 5.2.2.1"]
     # routing breaks for :, *, and ~ in rails 5.2.3
 
   ].each do |dep|
