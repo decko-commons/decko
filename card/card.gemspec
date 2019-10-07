@@ -46,7 +46,6 @@ Gem::Specification.new do |s|
 
 
     # files and images
-    #    ["carrierwave",                "~> 1.1"],
     ["carrierwave",                 "1.2.2"],
     ["fog",                           "2.1"], # can be removed after carrierwave upgrade
     ["mini_magick",                "~> 4.2"],
@@ -66,15 +65,12 @@ Gem::Specification.new do |s|
     ["recaptcha",                  "~> 4.13.1"],
     ["twitter",                    "~> 6.1"], # for event-based integration
     ["delayed_job_active_record",  "~> 4.1"],
-    #["minitest",                   "5.11.2"],
     ["activerecord-import",        "~> 1.0"],
     ["card-mod-markdown",          "~> 0.4"],
     ["msgpack",                    "~> 1.3"],
 
     ["rake",                       "<= 12.3.0"],
-    ["rails",                      "~> 6"] #"~> 5.2.2.1"]
-    # routing breaks for :, *, and ~ in rails 5.2.3
-
+    ["rails",                      "~> 6"]
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end

@@ -33,7 +33,8 @@ module Cardio
 
     def migration_context type
       with_suffix type do
-        yield ActiveRecord::MigrationContext.new(Cardio.migration_paths(type), ActiveRecord::SchemaMigration)
+        yield ActiveRecord::MigrationContext.new(Cardio.migration_paths(type),
+                                                 ActiveRecord::SchemaMigration)
       end
     end
 
