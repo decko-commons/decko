@@ -81,13 +81,15 @@ format :html do
   end
 
   def left_type_for_nest_editor_set_selection
-    return unless is_template?
+    return super unless card.is_template?
 
     case Card.fetch_id(card.rule_set_pattern_name) # set_pattern_id
     when TypeID
-      card.name
+      card.rule_set.anchor_name
     when SelfID
-      card.type_name
+      card.rule_set.anchor.type_name
+    else
+      super
     end
   end
 

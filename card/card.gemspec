@@ -68,7 +68,7 @@ Gem::Specification.new do |s|
     ["delayed_job_active_record",  "~> 4.1"],
     #["minitest",                   "5.11.2"],
     ["activerecord-import",        "~> 1.0"],
-    ["card-mod-markdown",          "~> 0.3"],
+    ["card-mod-markdown",          "~> 0.4"],
     ["msgpack",                    "~> 1.3"],
 
     ["rake",                       "<= 12.3.0"],

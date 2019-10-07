@@ -5,7 +5,7 @@ class CardtypeGrouping < Card::Migration::Core
     <<-EOT
       {{+description|content}}
       
-      {{_|add_button}}{{_|configure_button}}
+      {{_|add_button}} {{_|configure_button}}
       
       {{_|grouped_list}}
     EOT

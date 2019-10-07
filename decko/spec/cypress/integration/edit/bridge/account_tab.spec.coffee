@@ -9,7 +9,7 @@ describe 'account tab', () ->
     cy.logout()
 
   specify 'change email', () ->
-    labeled_view = ".SELF-sample_user-Xaccount-Xemail.edit_row-view"
+    labeled_view = ".SELF-sample_user-Xaccount-Xemail.labeled-view"
 
     cy.bridge_sidebar().get('.nav-tabs a:first').click()
     cy.el("email_and_password-pill").click()
@@ -19,7 +19,7 @@ describe 'account tab', () ->
 
     # cancel
     cy.get("#{labeled_view} a.edit-link").click force: true
-    cy.get(".RIGHT-Xemail input.d0-card-content").clear()
+    cy.get(".RIGHT-Xemail input.d0-card-content").clear force: true
     cy.get(".cancel-button").click()
     cy.get(labeled_view).should("contain", "sam@user.com")
 

@@ -45,7 +45,7 @@ format :html do
   end
 
   def account_field_nest field, title
-    field_nest field, title: title, view: :edit_row
+    field_nest field, title: title, view: :labeled
     # edit: :inline, hide: [:help_link, :bridge_link]
   end
 

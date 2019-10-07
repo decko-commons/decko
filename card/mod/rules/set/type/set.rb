@@ -4,6 +4,10 @@ def anchor_name
   name.left_name
 end
 
+def anchor
+  Card[anchor_name]
+end
+
 def pattern_name
   name.tag_name
 end
