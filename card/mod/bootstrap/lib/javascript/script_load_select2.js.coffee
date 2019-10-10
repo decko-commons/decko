@@ -51,3 +51,4 @@ $.fn.extend
   deInitSelect2: ->
     this.select2 "destroy"
     this.removeAttr "data-select2-id"
+    this.find("option").removeAttr "data-select2-id"

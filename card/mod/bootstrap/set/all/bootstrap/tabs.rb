@@ -110,7 +110,7 @@ format :html do
   def tab_button target, text, active=false, link_attr={}
     add_class link_attr, "active" if active
     link = tab_button_link target, text, link_attr
-    li_args = { role: :presentation, class: "nav-item" }
+    li_args = { role: :presentation, class: "nav-item tab-li-#{text.to_name.key}" }
     wrap_with :li, link, li_args
   end
 
