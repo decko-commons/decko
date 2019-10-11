@@ -94,11 +94,9 @@ Decko.application.class.configure do
 
   # Use Pry instead of IRB
   silence_warnings do
-    begin
-      require "pry"
-      config.console = Pry
-    rescue LoadError
-    end
+    require "pry"
+    config.console = Pry
+  rescue LoadError
   end
   #config.session_store :cookie_store
 end
