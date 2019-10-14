@@ -289,8 +289,6 @@ module CarrierWave
     def storage
       case @model.storage_type
       when :cloud
-        require "carrierwave/storage/fog"
-        require "fog"
         ::CarrierWave::Storage::Fog.new(self)
       else ::CarrierWave::Storage::File.new(self)
       end

@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
   [
     ["cardname",                   version],
     ["haml",                       "~> 5.0"], # markup language used in view API
+    ["jwt",                        "~> 2.2"], # used in token.rb
     ["uuid",                       "~> 2.3"], # universally unique identifier.
                                               # used in temporary names
     ["colorize",                   "~> 0.8"], # livelier cli outputs
@@ -46,8 +47,8 @@ Gem::Specification.new do |s|
 
 
     # files and images
-    ["carrierwave",                 "1.2.2"],
-    ["fog",                           "2.1"], # can be removed after carrierwave upgrade
+    ["carrierwave",                 "2.0.2"],
+    #["fog",                           "2.1"], # can be removed after carrierwave upgrade
     ["mini_magick",                "~> 4.2"],
 
     # assets (JavaScript, CSS, etc)
