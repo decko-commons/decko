@@ -42,7 +42,7 @@ module Cardio
                           new_suffix.present?
 
       original_name = ActiveRecord::Base.schema_migrations_table_name
-      with_migration_table  "#{original_name}#{new_suffix}", original_name do
+      with_migration_table "#{original_name}#{new_suffix}", original_name do
         yield
       end
     end
