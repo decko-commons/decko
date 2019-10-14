@@ -30,7 +30,7 @@ format :html do
   end
 
   def modal_cancel_button
-    modal_close_button "Cancel", situation: "secondary", class: "btn-sm"
+    modal_close_button "Cancel", situation: "secondary", class: "btn-sm cancel-button"
   end
 
   def edit_cancel_button
