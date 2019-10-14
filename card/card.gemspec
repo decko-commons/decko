@@ -55,6 +55,7 @@ Gem::Specification.new do |s|
     ["sassc",                      "~> 2.0"],
     ["coffee-script",              "~> 2.4"],
     ["uglifier",                   "~> 3.2"],
+    ["sprockets",                  "~> 3.7"], # sprockets 4 requires new configuration
 
     # pagination
     ["kaminari",                   "~> 1.0"],

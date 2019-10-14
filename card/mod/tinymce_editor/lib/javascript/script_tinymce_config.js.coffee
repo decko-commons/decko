@@ -3,12 +3,14 @@ decko.addEditor(
   ->
     decko.initTinyMCE @[0].id
   ->
-    tinyMCE.get(@[0].id).getContent()
+    ed = tinyMCE.get(@[0].id)
+    ed && ed.getContent()
 )
 
 decko.slotDestroy (slot) ->
   slot.find("textarea.tinymce-textarea").each ->
-    tinyMCE.get($(this).attr("id")).remove()
+    ed = tinyMCE.get($(this)[0].id)
+    ed && ed.remove()
 
 $.extend decko,
   setTinyMCEConfig: (string) ->

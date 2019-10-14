@@ -63,11 +63,9 @@ class Card
       Card::Cache.reset_all
       Cardio.schema_mode "" do
         Card::Auth.as_bot do
-          begin
-            yield
-          ensure
-            ::Card::Cache.reset_all
-          end
+          yield
+        ensure
+          ::Card::Cache.reset_all
         end
       end
     end
