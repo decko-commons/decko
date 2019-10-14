@@ -100,7 +100,7 @@ module Cardio
     end
 
     def add_lib_dirs_to_autoload_paths config
-      config.autoload_paths += Dir["#{gem_root}/lib/**"]
+      config.autoload_paths += Dir["#{gem_root}/lib/**/"]
       config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
       config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
       gem_mod_paths.each do |_mod_name, mod_path|
