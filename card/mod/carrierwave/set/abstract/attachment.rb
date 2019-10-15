@@ -97,7 +97,7 @@ def revision action, before_action=false
 end
 
 def attachment_format ext
-  if ext.present? && attachment && (original_ext = attachment.extension)
+  if ext.present? && attachment && (original_ext = attachment.extension.sub(/^\./, ""))
     if ["file", original_ext].member? ext
       original_ext
     elsif (exts = MIME::Types[attachment.content_type])
