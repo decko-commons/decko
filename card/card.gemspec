@@ -48,7 +48,7 @@ Gem::Specification.new do |s|
 
     # files and images
     ["carrierwave",                 "2.0.2"],
-    #["fog",                           "2.1"], # can be removed after carrierwave upgrade
+    # ["fog",                           "2.1"], # can be removed after carrierwave upgrade
     ["mini_magick",                "~> 4.2"],
 
     # assets (JavaScript, CSS, etc)
