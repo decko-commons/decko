@@ -68,10 +68,8 @@ Decko.application.class.configure do
   config.rescue_all_in_controller = false
   # Use Pry instead of IRB
   silence_warnings do
-    begin
-      require "pry"
-      config.console = Pry
-    rescue LoadError
-    end
+    require "pry"
+    config.console = Pry
+  rescue LoadError
   end
 end

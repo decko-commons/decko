@@ -1,6 +1,11 @@
+require_relative "./file_card_creator/script_card"
+require_relative "./file_card_creator/style_card"
+require_relative "./file_card_creator/haml_card"
+require_relative "./file_card_creator/abstract_file_card"
+
 class Card
   # A Factory class
-  # It choses the class to create the file card accoring to the given type.
+  # It chooses the class to create the file card according to the given type.
   class FileCardCreator
     CARD_CLASSES = [StyleCard, ScriptCard, HamlCard].freeze
 

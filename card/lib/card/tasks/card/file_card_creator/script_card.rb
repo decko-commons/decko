@@ -1,3 +1,5 @@
+require_relative "./abstract_file_card"
+
 class Card
   class FileCardCreator
     # Move javascript or coffeescript from the card database to a file.

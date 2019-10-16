@@ -34,7 +34,7 @@ class Card
       end
 
       def non_outfield
-        add_condition "#{fld :present} = 0"
+        add_condition "#{fld :is_present} = 0"
       end
 
       def outfield_id outfield, id

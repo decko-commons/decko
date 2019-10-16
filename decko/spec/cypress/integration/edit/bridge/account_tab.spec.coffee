@@ -15,12 +15,13 @@ describe 'account tab', () ->
     cy.el("email_and_password-pill").click()
     cy.get("#{labeled_view} a.edit-link").click force: true
     cy.get(".RIGHT-Xemail input.d0-card-content").clear().type("sam@user.com{enter}")
+    cy.get(".submit-button:visible").click()
     cy.get(labeled_view).should("contain", "sam@user.com")
 
     # cancel
     cy.get("#{labeled_view} a.edit-link").click force: true
-    cy.get(".RIGHT-Xemail input.d0-card-content").clear force: true
-    cy.get(".cancel-button").click()
+    cy.get(".RIGHT-Xemail input.d0-card-content:visible").clear()
+    cy.get(".cancel-button:visible").click()
     cy.get(labeled_view).should("contain", "sam@user.com")
 
     # cy.get("input.d0-card-content").clear().type("sample@user.com{enter}")

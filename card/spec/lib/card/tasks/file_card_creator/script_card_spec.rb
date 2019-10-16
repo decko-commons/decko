@@ -1,4 +1,4 @@
-
+require_relative "../../../../../../card/lib/card/tasks/card/file_card_creator"
 RSpec.describe Card::FileCardCreator::ScriptCard do
   it "accepts type js" do
     expect(described_class.valid_type? :js).to be_truthy

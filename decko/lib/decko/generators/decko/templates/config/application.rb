@@ -45,19 +45,19 @@ module <%= app_const_base %>
     # File storage options (see http://decko.org/file_storage_options)
     # options include: local, cloud, web, coded
     # defaults to local
-    # For cloud storage use the following config options and add the gems
-    # "fog" and "fog-aws" to your Gemfile.
+    # For cloud storage use the following config options and add the corresponding fog gem
+    # for your cloud service. For example for AWS add "fog-aws" to your Gemfile.
     # config.file_default_bucket = :my_bucket
     # config.file_buckets = {
     #   my_bucket: {
-    #     provider: "fog/aws",
     #     directory: "bucket-name",
     #     subdirectory: "files",
     #     credentials: {
     #        provider: 'AWS',                         # required
     #        aws_access_key_id: 'key',                # required
     #        aws_secret_access_key: 'secret-key',     # required
-    #        region: 'eu-central-1',                  # optional, defaults to 'us-east-1'
+    #        use_iam_profile: true,             # optional, defaults to false
+    #        region: 'eu-central-1',                   # optional, defaults to 'us-east-1'
     #        host: 's3.example.com',                  # optional, defaults to nil
     #        endpoint: 'https://s3.example.com:8080'  # optional, defaults to nil
     #     },
