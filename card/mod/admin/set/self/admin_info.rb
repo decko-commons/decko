@@ -6,8 +6,8 @@ format :html do
   view :core do
     warnings = []
     warnings << email_warning if Card.config.action_mailer.perform_deliveries == false
-    if Card.config.recaptcha_public_key ==
-       Card::Auth::Permissions::RECAPTCHA_DEFAULTS[:recaptcha_public_key] &&
+    if Card.config.recaptcha_site_key ==
+       Card::Auth::Permissions::RECAPTCHA_DEFAULTS[:recaptcha_site_key] &&
        card.rule(:captcha) == "1"
       warnings << recaptcha_warning
     end
