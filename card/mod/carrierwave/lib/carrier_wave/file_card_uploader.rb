@@ -180,13 +180,13 @@ module CarrierWave
       end.downcase
     end
 
-    def content_type
-      # the original file's content_type method doesn't seem to be very reliable
-      # It uses mime_magic_content_type which returns invalid/invalid for css files
-      # that start with a comment
-      @content_type ||=
-        file.send(:existing_content_type) || file.send(:mini_mime_content_type)
-    end
+    # def content_type
+    #   # the original file's content_type method doesn't seem to be very reliable
+    #   # It uses mime_magic_content_type which returns invalid/invalid for css files
+    #   # that start with a comment
+    #   @content_type ||=
+    #     file.send(:existing_content_type) || file.send(:mini_mime_content_type)
+    # end
 
     # generate identifier that gets stored in the card's db_content field
     # @param opts [Hash] generate an identifier using the given storage options
