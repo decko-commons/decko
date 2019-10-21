@@ -1,21 +1,34 @@
 $(document).ready ->
   $('body').on 'click', 'button._nest-apply', () ->
-    nest.apply($(this).data("tinymce-id"), $(this).data("nest-start"), $(this).data("nest-size"))
+    nest.applyNest($(this).data("tinymce-id"), $(this).data("nest-start"), $(this).data("nest-size"))
+
+  $('body').on 'click', 'button._link-apply', () ->
+      nest.applyLink($(this).data("tinymce-id"), $(this).data("nest-start"), $(this).data("nest-size"))
 
 window.nest ||= {}
 
 $.extend nest,
-  openEditor: (tm, params) ->
+  # called by TinyMCE
+  openNestEditor: (tm, params) ->
     params = nest.editParams(tm) unless params?
 
     slot = $("##{tm.id}").closest(".card-slot")
     card = if slot[0] then  $(slot[0]).attr('data-card-name') else ":update"
     nest.tmRequest(tm, card, "nest_editor", "modal_nest_editor", params)
 
+  # called by TinyMCE
   openImageEditor: (tm) ->
     slot = $("##{tm.id}").closest(".card-slot")
     card_name = slot.data("card-name")
     nest.sendTmRequest(tm, slot, "modal", card_name, "nest_image")
+
+  # called by TinyMCE
+  openLinkEditor: (tm) ->
+    params = nest.editParams(tm) unless params?
+
+    slot = $("##{tm.id}").closest(".card-slot")
+    card = if slot[0] then  $(slot[0]).attr('data-card-name') else ":update"
+    nest.tmRequest(tm, card, "link_editor", "modal_link_editor", params)
 
   insertNest: (tm, nest) ->
     tm.insertContent(nest)
@@ -87,11 +100,17 @@ $.extend nest,
 
     params
 
-  apply: (tinymce_id, nest_start, nest_size) ->
-    content =  $("._nest-preview").val()
+  applyNest: (tinymce_id, nest_start, nest_size) ->
+    nest.applySnippet("nest", content, tinymce_id, nest_start, nest_size)
+
+  applyLink: (tinymce_id, link_start, link_size) ->
+    nest.applySnippet("link", content, tinymce_id, link_start, link_size)
+
+  applySnippet: (snippet_type, content, tinymce_id, start, size) ->
+    content = $("._#{snippet_type}-preview").val()
     editor = tinymce.get(tinymce_id)
-    if nest_start?
-     nest.replaceNest(editor, nest_start, nest_size, content)
+    if start?
+      nest.replaceSnippet(editor, start, size, content)
     else
       editor.insertContent content
       offset = nest.offsetAfterInsert(editor, content)
@@ -103,12 +122,12 @@ $.extend nest,
     offset = editor.selection.getSel().anchorOffset
     offset - content.length
 
-  replaceNest: (editor, nest_start, nest_size, content) ->
+  replaceSnippet: (editor, start, size, content) ->
     sel = editor.selection.getSel()
     if sel? and sel.anchorNode? and sel.anchorNode.data?
       text = sel.anchorNode.data
-      nest_size = 0 unless nest_size?
-      text = "#{text.substr(0, nest_start)}#{content}#{text.substr(nest_start + nest_size)}"
+      size = 0 unless size?
+      text = "#{text.substr(0, start)}#{content}#{text.substr(start + size)}"
       sel.anchorNode.data = text
     else
       editor.insertContent content

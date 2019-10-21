@@ -1,0 +1,33 @@
+%div._nest-editor
+  .nest-header.d-flex.ml-2
+    %h5.mt-1 Link
+    .ml-auto
+      = link_to fa_icon(:close), path: "#", "data-dismiss": link_editor_mode, class: "text-dark p-1 ml-1"
+
+  .form
+    .form-row.align-items-center.mb-4.ml-1
+      .col-9
+        .input-group{class: [edit_link.field? ? "show-prefix" : "hide-prefix"]}
+          .input-group-prepend._field-indicator
+            .input-group-text.text-muted
+              +
+          = text_field_tag "link_name", edit_link.name, class: "form-control _link-name",
+
+
+      .col-3
+        = check_box_tag :field, "field", edit_link.field?,
+                        class: "_nest-field-toggle", id: "nest-editor-field"
+        %label.form-check-label{for: "nest-editor-field"} field
+
+    .form-row.align-items-center.mb-4.ml-1
+      .col-12
+        = text_field_tag "link_title", edit_link.title, class: "form-control _link-title"
+
+  .card-footer.p-0
+    .preview.mx-1.my-1.form-control-feedback
+      = text_field_tag "preview", edit_link.raw, class: "_link-preview w-100 text-muted", readonly: true
+    %hr.mt-1.mb-1
+    .form-group.d-flex.justify-content-center.py-2
+      = button_tag "Apply", apply_data.merge(class: "_link-apply btn-sm mr-3")
+      %a.border-light.text-dark.btn.btn-sm.btn-outline-secondary{"data-dismiss": link_editor_mode, href: "#"}
+        Close
