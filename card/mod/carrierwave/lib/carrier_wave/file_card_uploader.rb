@@ -181,23 +181,18 @@ module CarrierWave
     end
 
     def content_type
-       # the original file's content_type method doesn't seem to be very reliable
-       # It uses mime_magic_content_type which returns invalid/invalid for css files
-       # that start with a comment
-       @content_type ||= detect_content_type
+      # the original file's content_type method doesn't seem to be very reliable
+      # It uses mime_magic_content_type  - which returns invalid/invalid for css files
+      # that start with a comment - as the second option.  (we switch the order and
+      # use it as the third option)
+      @content_type ||= detect_content_type
     end
 
     def detect_content_type
-      %i[existing mime_magic mini_mime].each do |prefix|
-        type = try_type_finder prefix
-        return type if type.present?
+      %i[existing mini_mime mime_magic].each do |prefix|
+        type = file&.send "#{prefix}_content_type"
+        return type if type.present? && type != "invalid/invalid"
       end
-    end
-
-    def try_type_finder prefix
-      type = file.send "#{prefix}_content_type"
-      type == "invalid/invalid" ? nil : type
-      # magic mime is sometimes returning invalid/invalid for perfectly valid files
     end
 
     # generate identifier that gets stored in the card's db_content field
