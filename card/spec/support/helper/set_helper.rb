@@ -77,11 +77,11 @@ class Card
       private
 
       def create_dynamic_set &block
-        ::Card::Set::Self.const_remove_if_defined :DynamicSet
-        ::Card::Set::Self.const_set :DynamicSet, Module.new
-        ::Card::Set::Self::DynamicSet.extend Card::Set
-        ::Card::Set::Self::DynamicSet.module_eval &block
-        ::Card::Set::Self::DynamicSet
+        ::Card::Set::Type.const_remove_if_defined :DynamicSet
+        ::Card::Set::Type.const_set :DynamicSet, Module.new
+        ::Card::Set::Type::DynamicSet.extend Card::Set
+        ::Card::Set::Type::DynamicSet.module_eval &block
+        ::Card::Set::Type::DynamicSet
       end
     end
   end

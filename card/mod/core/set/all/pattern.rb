@@ -53,3 +53,7 @@ end
 def rule_set_keys
   @rule_set_keys ||= patterns.map(&:rule_set_key).compact
 end
+
+def include_module? set
+  singleton_class&.include? set
+end
