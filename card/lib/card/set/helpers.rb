@@ -1,7 +1,7 @@
 class Card
   module Set
     module Helpers
-      SET_PATTERN_TEST_REGEXP = %r{^(?<pattern>\w+)_set\?$}.freeze
+      SET_PATTERN_TEST_REGEXP = /^(?<pattern>\w+)_set\?$/
 
       def shortname
         first = 2 # shortname eliminates Card::Set
