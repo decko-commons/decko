@@ -37,19 +37,13 @@ class Card
       end
 
       def create_field_delete_event
-        require_on_field do |required|
+        field_set.class_exec(self) do |required|
           event required.field_event_name(:delete), :validate, on: :delete do
             return if left&.trash || left&.include_module?(required.parent_set)
 
             errors.add required.field, "can't be deleted; required field of #{left.name}"
             # LOCALIZE
           end
-        end
-      end
-
-      def require_on_field
-        field_set.class_exec(self) do |required|
-          yield required
         end
       end
 
@@ -82,7 +76,7 @@ class Card
       end
 
       def ensure_field_set parent_set, field
-        field_set = parent_set.ensure_set { field_set_name parent_set, field}
+        field_set = parent_set.ensure_set { field_set_name parent_set, field }
         Card::Set.register_set field_set
         field_set
       end

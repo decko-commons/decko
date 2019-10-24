@@ -1,6 +1,8 @@
 class Card
   module Set
     module Helpers
+      SET_PATTERN_TEST_REGEXP = %r{^(?<pattern>\w+)_set\?$}.freeze
+
       def shortname
         first = 2 # shortname eliminates Card::Set
         last = first + num_set_parts(pattern_code)
@@ -27,11 +29,15 @@ class Card
 
       # handles all_set?, abstract_set?, type_set?, etc.
       def method_missing method_name, *args
-        if (matches = method_name.match(/^(?<pattern>\w+)_set\?$/))
+        if (matches = method_name.match SET_PATTERN_TEST_REGEXP)
           pattern_code == matches[:pattern].to_sym
         else
           super
         end
+      end
+
+      def respond_to_missing? method_name, _include_private=false
+        method_name.match? SET_PATTERN_TEST_REGEXP
       end
     end
   end
