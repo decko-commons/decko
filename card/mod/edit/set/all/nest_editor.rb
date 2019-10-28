@@ -15,21 +15,21 @@ format :html do
   end
 
   def nest_editor_tabs
-    static_tabs({ rules: nest_rules_tab,
-                  options: haml_partial(:options),
+    static_tabs({ options: haml_partial(:options),
+                  rules: nest_rules_tab,
                   help: haml_partial(:help) },
                 :options, "tabs")
   end
 
   def nest_rules_tab
     [
-      empty_nest_name_alert(edit_nest.name.blank?),
+      empty_nest_name_alert(nest_snippet.name.blank?),
       nest_rules_editor
     ]
   end
 
   def nest_rules_editor
-    if edit_nest.name.blank?
+    if nest_snippet.name.blank?
       content_tag :div, "", class: "card-slot" # placeholder
     else
       nest(set_name_for_nest_rules, view: :nest_rules)
@@ -49,8 +49,8 @@ format :html do
     end
   end
 
-  def edit_nest
-    @edit_nest ||= NestParser.new params[:edit_nest], default_nest_view, default_item_view
+  def nest_snippet
+    @nest_snippet ||= NestParser.new params[:tm_snippet_raw], default_nest_view, default_item_view
   end
 
   def left_type_for_nest_editor_set_selection
@@ -58,23 +58,12 @@ format :html do
   end
 
   def set_name_for_nest_rules
-    nest_name = edit_nest.name
+    nest_name = nest_snippet.name
     if left_type_for_nest_editor_set_selection
       [left_type_for_nest_editor_set_selection, nest_name, :type_plus_right]
     else
       [nest_name, :right]
     end
-  end
-
-  def tinymce_id
-    params[:tinymce_id]
-  end
-
-  def apply_data
-    data = { "data-tinymce-id": tinymce_id }
-    data["data-nest-start".to_sym] = params[:nest_start] if params[:nest_start].present?
-    data["data-nest-size".to_sym] = edit_nest.raw.size if params[:edit_nest].present?
-    data
   end
 
   def default_nest_editor_item_options
@@ -102,14 +91,18 @@ format :html do
 
   def nest_option_name_disabled selected, level
     disabled = if level == 0
-                 edit_nest.options
+                 nest_snippet.options
                else
-                 edit_nest.item_options[level - 1] || default_nest_editor_item_options
+                 nest_snippet.item_options[level - 1] || default_nest_editor_item_options
                end
 
     disabled = disabled&.map(&:first)
     disabled&.delete selected if selected
     disabled
+  end
+
+  def nest_apply_opts
+    apply_tm_snippet_data nest_snippet
   end
 
   def nest_option_value_select value=nil

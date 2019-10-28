@@ -6,6 +6,8 @@ class Card
     @type = :deck_cards
 
     class << self
+
+
       # Rake tasks use class methods, migrations use instance methods.
       # To avoid repetition a lot of instance methods here just call class
       # methods.
@@ -68,6 +70,10 @@ class Card
           ::Card::Cache.reset_all
         end
       end
+    end
+
+    def disable_ddl_transaction #:nodoc:
+      true
     end
 
     def import_json filename, merge_opts={}

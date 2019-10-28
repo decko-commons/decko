@@ -3,12 +3,12 @@
 # Extracts all information needed to generate the link editor form
 # from a link syntax string
 class LinkParser
-  attr_reader :name, :options
+  attr_reader :name, :options, :field, :raw
 
   def self.new link_string
-    return super if nest_string.is_a? String
+    return super if link_string.is_a? String
 
-    OpenStruct.new(name: "", options: {}, raw: "")
+    OpenStruct.new(name: "", options: {}, raw: "[[ ]]")
   end
 
   def initialize link_string
@@ -22,9 +22,14 @@ class LinkParser
     @options && @options[:title]
   end
 
+  def field?
+    @field
+  end
+
   private
 
   def init_name name
-    @name = name
+    @field = name.to_name.simple_relative?
+    @name = @field ? name.to_s[1..-1] : name
   end
 end

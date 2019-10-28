@@ -186,6 +186,8 @@ class Card
 
       def valid_next_stage? stage
         new_stage = stage_index(stage)
+        #require 'pry'
+        #binding.pry if @stage.nil?
         @stage ||= -1
         return if @stage >= new_stage
 

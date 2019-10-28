@@ -1,7 +1,7 @@
 format :html do
   view :link_editor, cache: :never, unknown: true, template: :haml,
                      wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
-    @link_editor_mode = :overlay
+    @tm_snippet_editor_mode = :overlay
   end
 
   view :modal_link_editor, cache: :never, unknown: true,
@@ -9,30 +9,23 @@ format :html do
     modal_link_editor
   end
 
-
-  def nest_rules_editor
-    if edit_link.name.blank?
-      content_tag :div, "", class: "card-slot" # placeholder
-    else
-      nest(set_name_for_nest_rules, view: :nest_rules)
-    end
+  def modal_tm_snippet_editor?
+    @tm_snippet_editor_mode != :overlay
   end
-
 
   def modal_link_editor
     wrap_with :modal do
-      haml :link_editor, link_editor_mode: "modal"
+      haml :link_editor, tm_snippet_editor_mode: "modal"
     end
   end
 
-  def edit_nest
-    @link_nest ||= LinkParser.new params[:edit_nest]
+  def link_snippet
+    @link_snippet ||= LinkParser.new params[:tm_snippet_raw]
   end
 
-  def apply_link_data
-    data = { "data-tinymce-id": tinymce_id }
-    data["data-nest-start".to_sym] = params[:nest_start] if params[:nest_start].present?
-    data["data-nest-size".to_sym] = edit_nest.raw.size if params[:edit_nest].present?
-    data
+  def link_apply_opts
+    opts = apply_tm_snippet_data link_snippet
+    #opts["data-dismiss"] = "modal" if modal_link_editor?
+    #opts
   end
 end
