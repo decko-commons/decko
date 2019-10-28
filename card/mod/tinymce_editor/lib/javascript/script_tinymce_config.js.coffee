@@ -56,3 +56,4 @@ $.extend decko,
     # if conf.toolbar1? then conf.toolbar1 += " | nest" else conf.toolbar1 = "nest"
     conf.menu = { insert: { title: "Insert", items: "deckolink nest image | hr"}}
 
+

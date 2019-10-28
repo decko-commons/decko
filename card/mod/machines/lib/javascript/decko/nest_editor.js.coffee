@@ -1,6 +1,5 @@
 $(document).ready ->
   $('body').on 'click', 'button._nest-apply', () ->
-    debugger
     nest.applyNest($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"))
 
 window.nest ||= {}

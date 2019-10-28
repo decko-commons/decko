@@ -9,6 +9,11 @@ format :html do
     data = { "data-tinymce-id": tinymce_id }
     data["data-tm-snippet-start".to_sym] = params[:tm_snippet_start] if params[:tm_snippet_start].present?
     data["data-tm-snippet-size".to_sym] = snippet.raw.size if params[:tm_snippet_raw].present?
+    data["data-dismiss"] = "modal" if modal_tm_snippet_editor?
     data
+  end
+
+  def modal_tm_snippet_editor?
+    @tm_snippet_editor_mode != :overlay
   end
 end

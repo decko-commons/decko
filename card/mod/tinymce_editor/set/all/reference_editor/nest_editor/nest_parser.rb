@@ -34,7 +34,7 @@ class NestParser
   end
 
   def extract_options options
-    Card::Set::All::NestEditor::NEST_OPTIONS.each_with_object([]) do |key, res|
+    Card::Set::All::ReferenceEditor::NestEditor::NEST_OPTIONS.each_with_object([]) do |key, res|
       next unless options[key]
 
       if key.in? %i[show hide]

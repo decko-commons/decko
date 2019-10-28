@@ -36,7 +36,7 @@ $.extend link,
     $('input._link-title').val()
 
   titleChanged: () ->
-    new_val = $("._link-preview").val().replace(/^\[\[[^\]]*/, "[[" + link.target() + " | " + link.title())
+    new_val = $("._link-preview").val().replace(/^\[\[[^\]]*/, "[[" + link.target() + "|" + link.title())
     link.updatePreview new_val
 
   targetChanged: () ->

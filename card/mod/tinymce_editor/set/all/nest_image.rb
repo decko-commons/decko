@@ -23,7 +23,7 @@ format :html do
 end
 
 format :js do
-  view :open_nest_editor do
+  view :open_nest_editor, unknown: true do
     tm_id = if Env.params[:tinymce_id].present?
               "\"#{Env.params[:tinymce_id]}\""
             else

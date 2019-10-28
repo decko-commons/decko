@@ -4,9 +4,9 @@ format :html do
   # TODO: connect to Card::View::Options
   # (that way a mod can add an option that becomes available to nests)
 
-  view :nest_editor, cache: :never, unknown: true, template: :haml,
+  view :nest_editor, cache: :never, unknown: true,
                      wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
-    @nest_editor_mode = :overlay
+    nest_editor :overlay
   end
 
   view :modal_nest_editor, cache: :never, unknown: true,
@@ -14,10 +14,16 @@ format :html do
     modal_nest_editor
   end
 
+  def nest_editor editor_mode
+    @tm_snippet_editor_mode = editor_mode
+    haml :reference_editor, ref_type: :nest, editor_mode: @tm_snippet_editor_mode,
+                            apply_opts: nest_apply_opts, preview: nest_snippet.raw
+  end
+
   def nest_editor_tabs
-    static_tabs({ options: haml_partial(:options),
+    static_tabs({ options: haml(:_options),
                   rules: nest_rules_tab,
-                  help: haml_partial(:help) },
+                  help: haml(:_help) },
                 :options, "tabs")
   end
 
@@ -45,7 +51,7 @@ format :html do
 
   def modal_nest_editor
     wrap_with :modal do
-      haml :nest_editor, nest_editor_mode: "modal"
+      nest_editor :modal
     end
   end
 

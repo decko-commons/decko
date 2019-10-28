@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::NestEditor do
+RSpec.describe Card::Set::All::ReferenceEditor::NestEditor do
   describe "view: nest_editor" do
     check_html_views_for_errors
 

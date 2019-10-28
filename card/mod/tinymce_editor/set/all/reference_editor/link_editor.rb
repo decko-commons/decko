@@ -1,7 +1,7 @@
 format :html do
-  view :link_editor, cache: :never, unknown: true, template: :haml,
+  view :link_editor, cache: :never, unknown: true,
                      wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
-    @tm_snippet_editor_mode = :overlay
+    link_editor :overlay
   end
 
   view :modal_link_editor, cache: :never, unknown: true,
@@ -9,13 +9,15 @@ format :html do
     modal_link_editor
   end
 
-  def modal_tm_snippet_editor?
-    @tm_snippet_editor_mode != :overlay
+  def link_editor editor_mode
+    @tm_snippet_editor_mode = editor_mode
+    haml :reference_editor, ref_type: :link, editor_mode: @tm_snippet_editor_mode,
+                            apply_opts: link_apply_opts, preview: link_snippet.raw
   end
 
   def modal_link_editor
     wrap_with :modal do
-      haml :link_editor, tm_snippet_editor_mode: "modal"
+      link_editor :modal
     end
   end
 
@@ -24,8 +26,6 @@ format :html do
   end
 
   def link_apply_opts
-    opts = apply_tm_snippet_data link_snippet
-    #opts["data-dismiss"] = "modal" if modal_link_editor?
-    #opts
+    apply_tm_snippet_data link_snippet
   end
 end
