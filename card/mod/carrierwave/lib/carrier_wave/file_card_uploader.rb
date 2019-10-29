@@ -4,6 +4,20 @@ module CarrierWave
       @tmp_path ||= Card.paths["tmp"].existent.first
     end
   end
+
+  class SanitizedFile
+    def content_type
+      # the original content_type method doesn't seem to be very reliable
+      # It uses mime_magic_content_type  - which returns invalid/invalid for css files
+      # that start with a comment - as the second option.  (we switch the order and
+      # use it as the third option)
+      @content_type ||=
+        existing_content_type ||
+        mini_mime_content_type ||
+        mime_magic_content_type
+    end
+  end
+
   module Uploader
     # Implements a different name pattern for versions than CarrierWave's
     # default: we expect the version name at the end of the filename separated
@@ -178,21 +192,6 @@ module CarrierWave
       when orig = original_filename     then File.extname(orig)
       else                              ""
       end.downcase
-    end
-
-    def content_type
-      # the original file's content_type method doesn't seem to be very reliable
-      # It uses mime_magic_content_type  - which returns invalid/invalid for css files
-      # that start with a comment - as the second option.  (we switch the order and
-      # use it as the third option)
-      @content_type ||= detect_content_type
-    end
-
-    def detect_content_type
-      %i[existing mini_mime mime_magic].each do |prefix|
-        type = file&.send "#{prefix}_content_type"
-        return type if type.present? && type != "invalid/invalid"
-      end
     end
 
     # generate identifier that gets stored in the card's db_content field
