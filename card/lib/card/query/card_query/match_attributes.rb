@@ -46,7 +46,25 @@ class Card
         end
 
         def field_match field, val, cxn
-          %(#{field} #{cxn.match quote("[[:<:]]#{val}[[:>:]]")})
+          %(#{field} #{cxn.match quote(wrap_with_word_boundary_check(val, cxn))})
+        end
+
+        def wrap_with_word_boundary_check val, cxn
+          if mysql_8_0_4?(cxn)
+            "\\b#{val}\\b"
+          else
+            "[[:<:]]#{val}[[:>:]]"
+          end
+        end
+
+        # Since version 8.0.4 mysql uses a different syntax for word boundaries in
+        # regular expresions
+        def mysql_8_0_4? cxn
+          return false unless cxn.class.name.include? "Mysql2"
+
+          mysql_version =
+            cxn.select_rows("SHOW VARIABLES WHERE Variable_name = 'version'")[0][1]
+          Gem::Version.new(mysql_version) >= Gem::Version.new("8.0.4")
         end
 
         # TODO: move sql to SqlStatement

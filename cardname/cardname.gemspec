@@ -31,10 +31,10 @@ Gem::Specification.new do |s|
     ["--main", "README.rdoc", "--inline-source", "--line-numbers"]
 
 
-  s.add_dependency "activesupport", "~> 5.1"
+  s.add_dependency "activesupport", "~> 6"
   s.add_dependency "htmlentities",  "~> 4.3"
 
-  s.required_ruby_version = ">= 2.3"
+  s.required_ruby_version = ">= 2.5"
 
   #s.add_development_dependency "rspec"
   #s.add_development_dependency "rdoc"

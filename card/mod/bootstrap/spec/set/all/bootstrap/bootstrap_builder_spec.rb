@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Bootstrap, "bootstrap builder" do
-  class BuilderTest < Card::Format::HtmlFormat::Bootstrap::Component
+  class BuilderTest < ::Bootstrap::Component
     def_tag_method :test_tag, "test-class" do |html, opts, _extra_args|
 
       before { tag :before, "prepend-class" }

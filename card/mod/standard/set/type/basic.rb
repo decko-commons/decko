@@ -32,7 +32,7 @@ format :html do
     content.gsub!(/<(h\d)>(.*?)<\/h\d>/i) do |match|
       if $LAST_MATCH_INFO
         tag, value = $LAST_MATCH_INFO[1, 2]
-        value = ActionView::Base.new.strip_tags(value).strip
+        value = strip_tags(value).strip
         next if value.empty?
         item = { value: value, uri: URI.escape(value) }
         case tag.downcase

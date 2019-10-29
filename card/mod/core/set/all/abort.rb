@@ -55,6 +55,7 @@ def with_transaction_returning_status
   status = nil
   self.class.transaction do
     add_to_transaction
+    remember_transaction_record_state
     status = abortable { yield }
     raise ActiveRecord::Rollback unless status
   end

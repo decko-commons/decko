@@ -21,12 +21,10 @@ module Decko
       end
 
       rake_tasks do |_app|
-        begin
-          # for some reason this needs the 'wagn/',
-          # can't get lib/tasks change right by this time?
-          load "decko/tasks/decko.rake"
-          load "card/tasks/card.rake"
-        end
+        # for some reason this needs the 'wagn/',
+        # can't get lib/tasks change right by this time?
+        load "decko/tasks/decko.rake"
+        load "card/tasks/card.rake"
       end
     end
   end

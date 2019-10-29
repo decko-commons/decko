@@ -44,7 +44,7 @@ Cypress upgrades can be installed in that same directory via npm.
 
 ####While I started a decko server with the local decko path, it showed the error of `NoMethodError (undefined method 'notable_exception_raised' for #<Card:0x007f8d44fed250>):`.
 
-After cloning the decko code from github, there are serval submodules that need to be initialized. You may run the command `git submodule update --init --recursive` in your local decko root directory. Then redo the seeding `bundle exec decko seed`.
+After cloning the decko code from github, there are several submodules that need to be initialized. You may run the command `git submodule update --init --recursive` in your local decko root directory. Then redo the seeding `bundle exec decko seed`.
 
 ####I have a problem to upload image to my site. The image uploaded is shown as zero bytes with a broken image in the preview but uploading a non-image is fine.
 

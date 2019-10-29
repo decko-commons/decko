@@ -34,7 +34,8 @@ class Card
     if not_in_callback?
       attribute_changed? attr
     else
-      saved_change_to_attribute?(attr) || will_save_change_to_attribute?(attr)
+      saved_change_to_attribute?(attr) ||
+        will_save_change_to_attribute?(attr)
     end
   end
 end

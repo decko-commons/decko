@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_223248) do
     t.string "referee_key", default: "", null: false
     t.integer "referee_id"
     t.string "ref_type", limit: 1, default: "", null: false
-    t.integer "present"
+    t.integer "is_present"
     t.index ["ref_type"], name: "card_references_ref_type_index"
     t.index ["referee_id"], name: "card_references_referee_id_index"
     t.index ["referee_key"], name: "card_references_referee_key_index"
