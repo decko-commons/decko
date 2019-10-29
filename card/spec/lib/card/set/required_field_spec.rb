@@ -23,7 +23,11 @@ RSpec.describe Card::Set::RequiredField, as_bot: true do
       card.set_with { require_field :read }
       card
     end
-    let(:field) { Card["reader", :read] }
+    let(:field) do
+      card = Card["reader", :read]
+      card.singleton_class.send :include, Card::Set::TypePlusRight::DynamicSet::Read
+      card
+    end
 
     it "can't be deleted" do
       card_with_required_field
