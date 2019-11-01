@@ -32,7 +32,7 @@ RSpec.describe Card::Set::RequiredField, as_bot: true do
     it "can't be deleted" do
       card_with_required_field
       expect { field.delete! }
-        .to raise_error ActiveRecord::RecordInvalid, /required field of reader/
+        .to raise_error ActiveRecord::RecordInvalid, /required field/
     end
 
     # it "can't be deleted as simple card" do
@@ -44,19 +44,19 @@ RSpec.describe Card::Set::RequiredField, as_bot: true do
     it "can't change field name" do
       card_with_required_field
       expect { field.update! name: "reader+something else" }
-        .to raise_error ActiveRecord::RecordInvalid, /can't be renamed; required field of reader/
+        .to raise_error ActiveRecord::RecordInvalid, /can't be renamed; required field/
     end
 
     it "can't change parent name" do
       card_with_required_field
       expect { field.update! name: "writer+something" }
-        .to raise_error ActiveRecord::RecordInvalid, /can't be renamed; required field of reader/
+        .to raise_error ActiveRecord::RecordInvalid, /can't be renamed; required field/
     end
 
     it "can't change name to simple name" do
       card_with_required_field
       expect { field.update! name: "something else" }
-        .to raise_error ActiveRecord::RecordInvalid, /can't be renamed; required field of reader/
+        .to raise_error ActiveRecord::RecordInvalid, /can't be renamed; required field/
     end
 
     it "can be deleted with parent" do
