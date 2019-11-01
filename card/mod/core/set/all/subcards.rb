@@ -109,6 +109,7 @@ end
 # check when renaming field that it is not actually the same field
 # (eg on a renamed trunk)
 def same_field?
+
   l = superleft || Card[left_id]
   lkey = name.left_name&.key
   return false unless lkey.present? && l&.name&.key == lkey

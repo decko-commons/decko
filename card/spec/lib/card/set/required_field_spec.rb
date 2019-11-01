@@ -23,6 +23,7 @@ RSpec.describe Card::Set::RequiredField, as_bot: true do
       card.set_with { require_field :read }
       card
     end
+
     let(:field) do
       card = Card["reader", :read]
       card.singleton_class.send :include, Card::Set::TypePlusRight::DynamicSet::Read

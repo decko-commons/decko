@@ -18,7 +18,7 @@ class Card
       end
 
       def require_field *fields
-        options = fields.last.is_a?(Hash?) ? fields.pop : {}
+        options = fields.last.is_a?(Hash) ? fields.pop : {}
         fields.each do |field|
           Card::Set::RequiredField.new(self, field, options).add
         end

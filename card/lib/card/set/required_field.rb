@@ -12,7 +12,7 @@ class Card
       def add
         create_parent_event
         if field_events?
-          define_field_tests
+          define_field_test
           create_field_events
         end
       end
@@ -70,7 +70,7 @@ class Card
 
       def create_field_event action, action_verb, allow_test, extra_options={}
         event_name = field_event_name action
-        event_options = field_event_option action, extra_options
+        event_options = field_event_options action, extra_options
         field_set.class_exec(self) do |required|
           event event_name, :validate, event_options  do
             return if send allow_test
@@ -82,7 +82,8 @@ class Card
 
       def create_parent_event
         parent_set.class_exec(self) do |required|
-          event required.parent_event_name, :validate, on: :create, required.options do
+          event required.parent_event_name, :validate,
+                required.options.merge(on: :create) do
             return if field?(required.field) || left&.type_id == CardtypeID
 
             # Without the Cardtype exemption, we can get errors on type plus right sets
@@ -109,6 +110,3 @@ class Card
     end
   end
 end
-
-
-
