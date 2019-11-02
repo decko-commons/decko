@@ -11,10 +11,10 @@ class Card
 
       def add
         create_parent_event
-        if field_events?
-          define_field_test
-          create_field_events
-        end
+        return unless field_events?
+
+        define_field_test
+        create_field_events
       end
 
       def parent_event_name
