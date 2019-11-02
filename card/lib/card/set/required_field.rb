@@ -29,8 +29,9 @@ class Card
 
       def define_field_test
         return unless (test = event_test)
+        method_name = field_test_name
         field_set.class_exec do
-          define_method field_test_name(test) do
+          define_method method_name do
             left.send test
           end
         end
