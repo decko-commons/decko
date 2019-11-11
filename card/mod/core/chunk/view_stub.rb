@@ -21,8 +21,12 @@ class Card
         end
 
         def initial_stub_hash string
-          # JSON.parse(string).symbolize_keys
-          MessagePack.unpack(string.force_encoding(Encoding::BINARY)).symbolize_keys
+          JSON.parse(string).symbolize_keys
+          # MessagePack.unpack(hex_to_bin(string)).symbolize_keys
+        end
+
+        def hex_to_bin string
+          string.scan(/../).map { |x| x.hex.chr }.join
         end
 
         def interpret_hash_values
