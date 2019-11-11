@@ -17,12 +17,13 @@ $.extend nest,
   openImageEditor: (tm) ->
     slot = $("##{tm.id}").closest(".card-slot")
     card_name = slot.data("card-name")
-    nest.sendTmRequest(tm, slot, "modal", card_name, "nest_image")
+    nest.tmRequest(tm, card_name, "nest_image", "modal_nest_image")
 
-  insertNest: (tm, nest) ->
-    tm.insertContent(nest)
-    params = nest.paramsStr(nest.offsetAfterInsert(tm, nest), nest)
-    nest.openEditor(tm, params)
+  insertNest: (tm, nest_string) ->
+    tm.insertContent(nest_string)
+    # insertIndex = nest.offsetAfterInsert(tm, nest_string)
+    # params = nest.paramsStr(insertIndex, nest_string)
+    # nest.openNestEditor(etm, params)
 
   tmRequest: (tm, card, overlay_view, modal_view, params) ->
     slot = $(".bridge-sidebar > ._overlay-container-placeholder > .card-slot")
@@ -89,6 +90,10 @@ $.extend nest,
 
     params
 
+  offsetAfterInsert: (editor, content) ->
+    offset = editor.selection.getSel().anchorOffset
+    offset - content.length
+
   applyNest: (tinymce_id, nest_start, nest_size) ->
     nest.applySnippet("nest", tinymce_id, nest_start, nest_size)
 
@@ -103,10 +108,6 @@ $.extend nest,
       $("button._#{snippet_type}-apply").attr("data-tm-snippet-start", offset)
 
     $("button._#{snippet_type}-apply").attr("data-tm-snippet-size", content.length)
-
-  offsetAfterInsert: (editor, content) ->
-    offset = editor.selection.getSel().anchorOffset
-    offset - content.length
 
   replaceSnippet: (editor, start, size, content) ->
     sel = editor.selection.getSel()

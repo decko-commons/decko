@@ -16,15 +16,36 @@ format :html do
 
   def nest_editor editor_mode
     @tm_snippet_editor_mode = editor_mode
+    voo.hide! :content_tab unless show_content_tab?
     haml :reference_editor, ref_type: :nest, editor_mode: @tm_snippet_editor_mode,
-                            apply_opts: nest_apply_opts, preview: nest_snippet.raw
+                            apply_opts: nest_apply_opts,
+                            snippet: nest_snippet
   end
 
   def nest_editor_tabs
-    static_tabs({ options: haml(:_options),
+    tabs = {}
+    tabs[:content] = nest_content_tab if voo.show? :content_tab
+    static_tabs(tabs.merge(
+                  options: haml(:_options, snippet: nest_snippet),
                   rules: nest_rules_tab,
-                  help: haml(:_help) },
-                :options, "tabs")
+                  help: haml(:_help)
+                ),
+                default_active_tab, "tabs")
+  end
+
+  def show_content_tab?
+    !card.is_structure?
+  end
+
+  def default_active_tab
+    voo.show?(:content_tab) ? :content : :options
+  end
+
+  def nest_content_tab
+    [
+      empty_nest_name_alert(nest_snippet.name.blank?),
+      nest(card.autoname(card.name.field("image01")), view: :new_image, type: :image, hide: :guide)
+    ]
   end
 
   def nest_rules_tab

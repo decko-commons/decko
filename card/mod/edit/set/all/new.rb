@@ -61,7 +61,7 @@ format :html do
           buttons
         ]
       end),
-       alert_guide]
+       (alert_guide if voo.show?(:guide))]
     end
   end
 

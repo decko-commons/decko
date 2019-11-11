@@ -6,11 +6,11 @@
       = link_to fa_icon(:close), path: "#", "data-dismiss": editor_mode, class: "text-dark p-1 ml-1"
 
   .form
-    = haml_partial "#{ref_type}_editor"
+    = haml_partial "#{ref_type}_editor", snippet: snippet
 
   .card-footer.p-0
     .preview.mx-1.my-1.form-control-feedback
-      = text_field_tag "preview", preview, class: "_#{ref_type}-preview w-100 text-muted", readonly: true
+      = text_field_tag "preview", snippet.raw, class: "_#{ref_type}-preview w-100 text-muted", readonly: true
     %hr.mt-1.mb-1
     .form-group-inline.d-flex.justify-content-center.py-2
       = button_tag (modal_tm_snippet_editor? ? "Apply and Close" : "Apply"), apply_opts.merge(class: "_#{ref_type}-apply btn-sm mr-3")
