@@ -23,6 +23,8 @@ class Card
                                             class_name: "Card::Action"
     class << self
       # remove all acts that have no card. (janitorial)
+      #
+      # CAREFUL - could still have actions even if act card is gone...
       def delete_cardless
         left_join = "LEFT JOIN cards ON card_acts.card_id = cards.id"
         joins(left_join).where("cards.id IS NULL").delete_all
