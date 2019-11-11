@@ -20,7 +20,9 @@ format :html do
 
   def nest_image_editor editor_mode
     @tm_snippet_editor_mode = editor_mode
-    @nest_snippet = NestEditor::NestParser.new_image card.autoname(card.name.field("image01").to_name.right)
+    image_name = card.autoname(card.name.field("image01")).to_name.right
+    @nest_snippet = NestEditor::NestParser.new_image image_name
+
     voo.show! :content_tab
     haml :reference_editor, ref_type: :nest, editor_mode: @tm_snippet_editor_mode,
          apply_opts: nest_apply_opts,
@@ -28,21 +30,33 @@ format :html do
   end
 
   def new_image_form_opts
-    { buttons: new_image_buttons,
-      success: { view: :open_nest_editor, format: :js,
-                 tinymce_id: Env.params[:tinymce_id] },
-      "data-slotter-mode": "silent-success" }
+    { buttons: new_image_buttons
+      #success: { view: :change_create_to_update, format: :js,
+      #           tinymce_id: Env.params[:tinymce_id] },
+      #"data-slotter-mode": "silent-success"
+    }
   end
 
   def new_image_buttons
     button_formgroup do
-      [standard_save_button(no_origin_update: true)]
+      [standard_save_button(no_origin_update: true, class: "_change-create-to-update")]
         #modal_close_button("Cancel", class: "btn-sm")]
     end
   end
 end
 
 format :js do
+  view :change_create_to_update, unknown: true do
+    tm_id = if Env.params[:tinymce_id].present?
+              "\"#{Env.params[:tinymce_id]}\""
+            else
+              '$(".tinymce-textarea").attr("id")'
+            end
+    <<-JAVASCRIPT.strip_heredoc
+      nest.changeCreateToUpdate(#{tm_id});
+    JAVASCRIPT
+  end
+
   view :open_nest_editor, unknown: true do
     tm_id = if Env.params[:tinymce_id].present?
               "\"#{Env.params[:tinymce_id]}\""

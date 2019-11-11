@@ -2,6 +2,10 @@ $(document).ready ->
   $('body').on 'click', 'button._nest-apply', () ->
     nest.applyNest($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"))
 
+  $('body').on 'click', 'button._change-create-to-update', () ->
+    tm_id = $(this).closest("form").find("#success_tinymce_id").val()
+    nest.changeCreateToUpdate(tm_id)
+
 window.nest ||= {}
 
 $.extend nest,
@@ -15,9 +19,16 @@ $.extend nest,
 
   # called by TinyMCE
   openImageEditor: (tm) ->
+    params = nest.editParams(tm, "{{", "}}", false) unless params?
+
     slot = $("##{tm.id}").closest(".card-slot")
     card_name = slot.data("card-name")
-    nest.tmRequest(tm, card_name, "nest_image", "modal_nest_image")
+    nest.tmRequest(tm, card_name, "nest_image", "modal_nest_image", params)
+
+  changeCreateToUpdate: (tm_id) ->
+    form = $("##{tm_id}").closest("form")
+    new_action = form.attr("action").replace("card/create", "card/update")
+    form.attr("action", new_action)
 
   insertNest: (tm, nest_string) ->
     tm.insertContent(nest_string)
@@ -50,7 +61,7 @@ $.extend nest,
       success: (html) ->
         slot.setSlotContent html, mode, slotter
 
-  editParams: (tm, prefix="{{", postfix="}}") ->
+  editParams: (tm, prefix="{{", postfix="}}", edit=true) ->
     sel = tm.selection.getSel()
     return nest.paramsStr(0) unless sel? and sel.anchorNode?
 
@@ -77,7 +88,10 @@ $.extend nest,
       unless name?
         nest_size = index.after.close + offset + 2 - nest_start
         name = text.substr(nest_start, nest_size)
-      nest.paramsStr(nest_start, name)
+      if edit
+        nest.paramsStr(nest_start, name)
+      else
+        nest.paramsStr(nest_start + nest_size)
     else
       nest.paramsStr(offset)
 
