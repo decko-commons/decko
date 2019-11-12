@@ -118,5 +118,6 @@ namespace :card do
         Card[*name_parts].update_machine_output
       end
     end
+    Card::Cache.reset_all # should not be necessary but breaking without...
   end
 end
