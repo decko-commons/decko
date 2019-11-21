@@ -16,8 +16,17 @@ class Card
         end
 
         def interpret match, _content
-          @stub_hash = JSON.parse(match[1]).symbolize_keys
+          @stub_hash = initial_stub_hash match[1]
           interpret_hash_values
+        end
+
+        def initial_stub_hash string
+          JSON.parse(string).symbolize_keys
+          # MessagePack.unpack(hex_to_bin(string)).symbolize_keys
+        end
+
+        def hex_to_bin string
+          string.scan(/../).map { |x| x.hex.chr }.join
         end
 
         def interpret_hash_values

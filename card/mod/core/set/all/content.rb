@@ -40,7 +40,7 @@ format do
   end
 
   view :label do
-    card.label
+    card.label.to_s
   end
 
   view :smart_label, cache: :never, unknown: true do

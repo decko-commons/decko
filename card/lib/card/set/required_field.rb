@@ -1,64 +1,97 @@
 class Card
   module Set
     class RequiredField
-      attr_reader :parent_set, :field_set, :field
+      attr_reader :parent_set, :field, :options
 
-      def initialize parent_set, field
+      def initialize parent_set, field, options={}
         @parent_set = parent_set
-        @field_set = ensure_field_set parent_set, field
         @field = field
+        @options = options
       end
 
       def add
         create_parent_event
+        return unless field_events?
+
+        define_field_test
         create_field_events
       end
 
       def parent_event_name
-        [parent_set.underscore, "requires_field", field_set.underscore].join("__").to_sym
+        [parent_set.underscore, "requires_field", field].join("__").to_sym
       end
 
       def field_event_name action
-        [field_set.underscore, "required_by", parent_set.underscore, "on", action].join("__").to_sym
+        [field, "required_by", parent_set.underscore, "on", action].join("__").to_sym
       end
 
       private
 
-      def create_field_events
-        create_field_delete_event
-        create_field_rename_event
-      end
-
-      def create_field_delete_event
-        field_set.class_exec(self) do |required|
-          event required.field_event_name(:delete), :validate, on: :delete do
-            return if left&.trash || left&.singleton_class&.include?(required.parent_set)
-
-            errors.add required.field, "can't be deleted; required field of #{left.name}" # LOCALIZE
+      def define_field_test
+        return unless (test = event_test)
+        method_name = field_test_name
+        field_set.class_exec do
+          define_method method_name do
+            left.send test
           end
         end
       end
 
-      def create_field_rename_event
+      def field_test_name
+        return unless event_test
+        "_when_left_#{event_test}".to_sym
+      end
+
+      def event_test
+        return @event_test unless @event_test.nil?
+        test = options[:when]
+        @event_test = test&.is_a?(Symbol) ? test : false
+      end
+
+      def field_set
+        @field_set ||= ensure_field_set parent_set, field
+      end
+
+      # for now, we only support field events on type sets. That's because only type sets
+      # have fields that are set-addressable (via type plus right sets)
+      def field_events?
+        parent_set.type_set?
+      end
+
+      def create_field_events
+        create_field_event :delete, "deleted", :trashed_left?
+        create_field_event :update, "renamed", :same_field?, changing: :name
+      end
+
+      def field_event_options action, extra_options
+        options = { on: action }.merge extra_options
+        options[:when] = field_test_name if event_test
+        options
+      end
+
+      def create_field_event action, action_verb, allow_test, extra_options={}
+        event_name = field_event_name action
+        event_options = field_event_options action, extra_options
         field_set.class_exec(self) do |required|
-          event required.field_event_name(:update), :validate,
-                on: :update, changing: :name do
-            return if superleft&.attribute_is_changing? :name
+          event event_name, :validate, event_options  do
+            return if send allow_test
 
-            parent = Card.fetch(name_before_act.to_name.left)
-            return if !parent || parent&.singleton_class&.include?(required.parent_set)
-
-            errors.add :name, "can't be renamed; required field of #{parent.name}" # LOCALIZE
+            errors.add required.field, "can't be #{action_verb}; required field"
           end
         end
       end
 
       def create_parent_event
         parent_set.class_exec(self) do |required|
-          event required.parent_event_name, :validate, on: :create do
+          event required.parent_event_name, :validate,
+                required.options.merge(on: :create) do
             return if field?(required.field) || left&.type_id == CardtypeID
 
             # Without the Cardtype exemption, we can get errors on type plus right sets
+            # eg, if right/account has require_field :email, then when we're trying
+            # to create User+*account+*type_plus right rules, it fails, because
+            # User+*account doesn't have an +email field.
+            #
             # Need a better solution so we can require fields on cardtype+X cards, too.
 
             errors.add required.field, "required" # LOCALIZE
@@ -66,14 +99,15 @@ class Card
         end
       end
 
-      def ensure_field_set some_set, field
-        field_set = some_set.ensure_set { "Right::#{field.to_s.capitalize}" }
+      def ensure_field_set parent_set, field
+        field_set = parent_set.ensure_set { field_set_name parent_set, field }
         Card::Set.register_set field_set
         field_set
+      end
+
+      def field_set_name parent_set, field
+        "TypePlusRight::#{parent_set.set_name_parts.last}::#{field.to_s.capitalize}"
       end
     end
   end
 end
-
-
-
