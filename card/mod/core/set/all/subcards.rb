@@ -70,8 +70,18 @@ def clear_subcards
   subcards.clear
 end
 
+# ensures subfield is present
+# does NOT override subfield content if already present
+def ensure_subfield field_name, args={}
+  if subfield_present? field_name
+    subfield field_name
+  else
+    add_subfield field_name, args
+  end
+end
+
 def subfield_present? field_name
-  (field_card = subfield(field_name)) && field_card.content.present?
+  subfield(field_name)&.content&.present?
 end
 
 def deep_clear_subcards
