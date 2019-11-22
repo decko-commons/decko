@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-require_dependency "card/cache"
-require_dependency "card/name"
+# require_dependency "card/cache"
+# require_dependency "card/name"
 
 class Card
   # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned
@@ -112,7 +112,7 @@ class Card
 
       # generate Hash for @codehash and put it in the cache
       def load_codehash
-        Card.cache.fetch("CODEHASH") do
+        ::Card.cache.fetch("CODEHASH") do
           generate_codehash
         end
       end

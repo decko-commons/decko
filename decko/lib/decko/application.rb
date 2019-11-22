@@ -21,6 +21,7 @@ module Decko
     end
 
     initializer :load_card, after: :load_config_initializers, group: :all do
+      #Card.connection
       Card if Cardio.load_card?
     end
 
@@ -69,6 +70,8 @@ module Decko
         config.assets.version = "1.0"
 
         config.filter_parameters += [:password]
+
+        Rails.autoloaders.log!
         config
       end
     end

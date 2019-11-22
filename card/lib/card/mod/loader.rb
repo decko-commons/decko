@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 
-require_dependency "card/set"
-require_dependency "card/set_pattern"
-require_dependency "card/mod/loader/set_loader"
-require_dependency "card/mod/loader/set_pattern_loader"
+# require_dependency "card/set"
+# require_dependency "card/set_pattern"
+# require_dependency "card/mod/loader/set_loader"
+# require_dependency "card/mod/loader/set_pattern_loader"
 
 class Card
   module Mod
@@ -40,9 +40,9 @@ class Card
         attr_reader :module_type
 
         def load_mods
-          SetPatternLoader.new.load
+          Card::Mod::Loader::SetPatternLoader.new.load
           load_formats
-          SetLoader.new.load
+          Card::Mod::Loader::SetLoader.new.load
           load_initializers
           # rescue
           # raise Card::Error, "unrescued error loading mods"
@@ -84,7 +84,7 @@ class Card
         def load_dir dir
           Dir["#{dir}/*.rb"].sort.each do |file|
             # puts Benchmark.measure("from #load_dir: rd: #{file}") {
-            require_dependency file
+            # require_dependency file
             # }.format('%n: %t %r')
           end
         end

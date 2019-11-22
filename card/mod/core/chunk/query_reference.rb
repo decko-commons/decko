@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency File.expand_path("../reference", __FILE__)
+# # require_dependency File.expand_path("../reference", __FILE__)
 Card::Content::Chunk::Reference
 
 class Card

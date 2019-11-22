@@ -100,12 +100,21 @@ module Cardio
     end
 
     def add_lib_dirs_to_autoload_paths config
-      config.autoload_paths += Dir["#{gem_root}/lib/**/"]
-      config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
-      config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
+      config.autoload_paths += Dir["#{gem_root}/lib"]
+      config.autoload_paths += Dir["#{gem_root}/mod/*/lib"]
+      config.autoload_paths += Dir["#{root}/mod/*/lib"]
       gem_mod_paths.each do |_mod_name, mod_path|
-        config.autoload_paths += Dir["#{mod_path}/lib/**/"]
+        config.autoload_paths += Dir["#{mod_path}/lib"]
       end
+
+      # TODO move this to the right place in decko
+      config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
+      #config.autoload_paths += Dir["#{gem_root}/lib/**/"]
+      #config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
+      #config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
+      #gem_mod_paths.each do |_mod_name, mod_path|
+      #  config.autoload_paths += Dir["#{mod_path}/lib/**/"]
+      #end
     end
 
     # @return Hash with key mod names (without card-mod prefix) and values the
