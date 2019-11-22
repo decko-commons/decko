@@ -95,26 +95,45 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # {Card::Auth More on accounts}
 #
 class Card < ApplicationRecord
-  require_dependency "card/mark"
+  #require_dependency "card/mark"
   extend Mark
 
-  require_dependency "card/name"
-  require_dependency "card/codename"
-  require_dependency "card/query"
-  require_dependency "card/format"
-  require_dependency "card/error"
-  require_dependency "card/auth"
-  require_dependency "card/mod"
-  require_dependency "card/content"
-  require_dependency "card/action"
-  require_dependency "card/act"
-  require_dependency "card/change"
-  require_dependency "card/reference"
-  require_dependency "card/subcards"
-  require_dependency "card/view"
-  require_dependency "card/act_manager"
-  require_dependency "card/dirty"
-  require_dependency "card/layout"
+  Card::Name
+  Card::Codename
+  ::Card::Query
+  binding.pry
+  Card::Query::MODIFIERS
+  Card::Format
+  Card::Error
+  Card::Auth
+  Card::Mod
+  Card::Content
+  Card::Action
+  Card::Act
+  Card::Change
+  Card::Reference
+  Card::Subcards
+  Card::View
+  Card::Act_manager
+  Card::Dirty
+  Card::Layout
+  #require_dependency "card/name"
+  # require_dependency "card/codename"
+  # require_dependency "card/query"
+  # require_dependency "card/format"
+  # require_dependency "card/error"
+  # require_dependency "card/auth"
+  # require_dependency "card/mod"
+  # require_dependency "card/content"
+  # require_dependency "card/action"
+  # require_dependency "card/act"
+  # require_dependency "card/change"
+  # require_dependency "card/reference"
+  # require_dependency "card/subcards"
+  # require_dependency "card/view"
+  # require_dependency "card/act_manager"
+  # require_dependency "card/dirty"
+  # require_dependency "card/layout"
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id

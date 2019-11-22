@@ -1,6 +1,6 @@
 class ModInflector < Zeitwerk::Inflector
   def camelize(basename, abspath)
-    binding.pry if abspath.include? "card/mod/"
+    #binding.pry if abspath.include? "card/mod/"
     return ActiveSupport::Dependencies::ZeitwerkIntegration::Inflector.camelize(basename, abspath)
     if basename =~ /\Ahtml_(.*)/
       ActiveSupport::Dependencies::ZeitwerkIntegration::Inflector.camelize(basename, abspath)

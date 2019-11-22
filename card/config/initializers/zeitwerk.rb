@@ -1,4 +1,5 @@
 Rails.autoloaders.each do |autoloader|
-  binding.pry
-  autoloader.inflector = ModInflector.new
+  #autoloader.inflector = ModInflector.new
 end
+
+Rails.autoloaders.log!

@@ -14,6 +14,8 @@ class Card
   # format classes.
   #
   class Format
+    extend Registration
+
     include Card::Env::Location
     include Nesting
     include Render
@@ -22,7 +24,7 @@ class Card
     include Error
     include MethodDelegation
 
-    extend Registration
+
 
     cattr_accessor :registered, :aliases
     self.registered = []
