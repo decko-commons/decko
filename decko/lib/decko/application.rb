@@ -59,6 +59,8 @@ module Decko
         # overridable decko-specific settings don't have a place yet
         # but should probably follow the cardio pattern.
 
+        config.load_defaults "6.0"
+
         config.i18n.enforce_available_locales = true
         # config.active_record.raise_in_transactional_callbacks = true
 
