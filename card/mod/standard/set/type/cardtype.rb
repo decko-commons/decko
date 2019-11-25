@@ -57,7 +57,7 @@ format :html do
   end
 
   # don't cache because it depends on update permission for another card
-  view :configure_link, cache: :never, perms:  ->(fmt) { fmt.can_configure? } do
+  view :configure_link, cache: :never, perms: ->(fmt) { fmt.can_configure? } do
     configure_link
   end
 
