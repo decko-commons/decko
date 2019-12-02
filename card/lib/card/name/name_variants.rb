@@ -12,6 +12,21 @@ class Card
           @@variant_methods.include?(variant) ? name.send(variant) : name
         end
       end
+
+      # @return [Card::Name] standardized based on card names
+      def standard
+        self.class.compose(parts.map { |part| Card.fetch_name(part) || part })
+      end
+
+      # @return [Integer] id of card with name
+      def card_id
+        Card.fetch_id self
+      end
+
+      # @return [Symbol] codename of card with name
+      def codename
+        Codename[card_id]
+      end
     end
   end
 end
