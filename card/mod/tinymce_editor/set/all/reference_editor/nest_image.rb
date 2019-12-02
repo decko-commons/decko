@@ -20,19 +20,22 @@ format :html do
 
   def nest_image_editor editor_mode
     @tm_snippet_editor_mode = editor_mode
-    image_name = card.autoname(card.name.field("image01")).to_name.right
+    nest_name = card.autoname(card.name.field("image01"))
+    image_name = nest_name.to_name.right
     @nest_snippet = NestEditor::NestParser.new_image image_name
 
     voo.show! :content_tab
+    @nest_content_tab = nest(nest_name, view: :new_image, type: :image, hide: :guide)
     haml :reference_editor, ref_type: :nest, editor_mode: @tm_snippet_editor_mode,
          apply_opts: nest_apply_opts,
          snippet: nest_snippet
   end
 
   def new_image_form_opts
-    { buttons: new_image_buttons
-      #success: { view: :change_create_to_update, format: :js,
-      #           tinymce_id: Env.params[:tinymce_id] },
+    { buttons: new_image_buttons,
+      success: { tinymce_id: Env.params[:tinymce_id],
+                 view: :open }
+
       #"data-slotter-mode": "silent-success"
     }
   end

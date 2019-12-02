@@ -14,6 +14,25 @@ format :html do
     modal_nest_editor
   end
 
+  view :nest_content, perms: :create, cache: :never, unknown: true, wrap: :slot do
+    if card.known?
+      voo.hide! :cancel_button
+      add_name_context
+      with_nest_mode :edit do
+        frame do
+          [
+            render_edit_inline
+          ]
+        end
+      end
+    else
+      voo.hide! :guide
+      voo.show! :new_type_formgroup
+      new_view_frame_and_form buttons: new_image_buttons,
+                              success: { tinymce_id: Env.params[:tinymce_id] }
+    end
+  end
+
   def nest_editor editor_mode
     @tm_snippet_editor_mode = editor_mode
     voo.hide! :content_tab unless show_content_tab?
@@ -42,25 +61,26 @@ format :html do
   end
 
   def nest_content_tab
-    [
-      empty_nest_name_alert(nest_snippet.name.blank?),
-      nest(card.autoname(card.name.field("image01")), view: :new_image, type: :image, hide: :guide)
-    ]
+    name_dependent_slot do
+      @nest_content_tab || nest(card.name.field(nest_snippet.name), view: :nest_content, hide: :guide)
+    end
   end
 
   def nest_rules_tab
-    [
-      empty_nest_name_alert(nest_snippet.name.blank?),
-      nest_rules_editor
-    ]
-  end
-
-  def nest_rules_editor
-    if nest_snippet.name.blank?
-      content_tag :div, "", class: "card-slot" # placeholder
-    else
+    name_dependent_slot do
       nest(set_name_for_nest_rules, view: :nest_rules)
     end
+  end
+
+  def name_dependent_slot
+    result = [empty_nest_name_alert(nest_snippet.name.blank?)]
+    result <<
+      if nest_snippet.name.blank?
+        content_tag :div, "", class: "card-slot" # placeholder
+      else
+        yield
+      end
+    result
   end
 
   def empty_nest_name_alert show

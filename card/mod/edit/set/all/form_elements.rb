@@ -51,6 +51,7 @@ format :html do
 
   # redirect to *previous if no :href is given
   def cancel_button args={}
+    return unless voo.visible?(:cancel_button) { true }
     text = args.delete(:text) || "Cancel"
     add_class args, "btn btn-#{args.delete(:situation) || 'secondary'}"
     add_class args, cancel_strategy(args[:redirect], args[:href])
