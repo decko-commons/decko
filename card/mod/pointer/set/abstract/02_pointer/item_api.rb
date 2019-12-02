@@ -161,6 +161,8 @@ def raw_item_strings content
 end
 
 def filtered_items items, limit: 0, offset: 0
+  limit = limit.to_i
+  offset = offset.to_i
   return items unless limit.positive? || offset.positive?
 
   items[offset, (limit.zero? ? items.size : limit)] || []
