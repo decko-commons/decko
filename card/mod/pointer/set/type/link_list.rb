@@ -1,6 +1,6 @@
 include_set Abstract::Pointer
 
-def all_raw_item_strings content=nil
+def raw_item_strings content
   reference_chunks(content).map(&:referee_name)
 end
 

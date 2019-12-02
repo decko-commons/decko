@@ -21,7 +21,7 @@ def item_count args={}
 end
 
 def include_item? item
-  key = item.is_a?(Card) ? item.name.key : item.to_name.key
+  key = Card::Name[item].key
   item_names.map { |name| name.to_name.key }.member? key
 end
 

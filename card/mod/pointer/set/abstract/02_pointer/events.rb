@@ -22,9 +22,7 @@ end
 # it' still pointer content.  The "when" clause helps with that (but is a hack)
 event :standardize_items, :prepare_to_validate,
       on: :save, changed: :content, when: :still_pointer? do
-  self.content = item_names(context: :raw).map do |name|
-    "[[#{name}]]"
-  end.join "\n"
+  items_to_content item_names(context: :raw)
 end
 
 def still_pointer?
