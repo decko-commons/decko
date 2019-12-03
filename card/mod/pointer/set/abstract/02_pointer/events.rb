@@ -56,13 +56,13 @@ end
 stage_method :dropped_item_cards do
   return [] unless db_content_before_act
 
-  item_cards content: dropped_item_names
+  all_item_cards item_names: dropped_item_names
 end
 
 stage_method :added_item_cards do
   return item_cards unless db_content_before_act
 
-  item_cards content: added_item_names
+  all_item_cards item_names: added_item_names
 end
 
 # TODO: refactor. many of the above could be written more elegantly with improved
