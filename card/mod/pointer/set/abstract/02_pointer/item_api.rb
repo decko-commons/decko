@@ -130,9 +130,12 @@ def known_item_cards args={}
 end
 
 def all_item_cards args={}
-  item_names(args).map do |name|
-    Card.fetch name, new: new_unknown_item_args(args)
-  end
+  names = args[:item_names] || item_names(args)
+  names.map { |name| fetch_item_card name, args }
+end
+
+def fetch_item_card name, args={}
+  Card.fetch name, new: new_unknown_item_args(args)
 end
 
 def new_unknown_item_args args
