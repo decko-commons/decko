@@ -157,7 +157,7 @@ def item_strings args={}
 end
 
 def raw_item_strings content
-  content.to_s.split(/\n+/)
+  content.to_s.split(/\n+/).map { |i| strip_item i }
 end
 
 def filtered_items items, limit: 0, offset: 0
@@ -171,7 +171,7 @@ end
 private
 
 def clean_item_name item, context
-  item = strip_item(item).to_name
+  item = item.to_name
   # FIXME: stripping should not be necessary here. should be handled in validation
   return item if context == :raw
   context ||= context_card.name

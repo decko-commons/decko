@@ -153,6 +153,7 @@ class Card
         return unless File.exist? modfile_path
 
         eval File.read(modfile_path), binding
+        true
       end
 
       def load_from_dir
