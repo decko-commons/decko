@@ -22,7 +22,7 @@ end
 # it' still pointer content.  The "when" clause helps with that (but is a hack)
 event :standardize_items, :prepare_to_validate,
       on: :save, changed: :content, when: :still_pointer? do
-  items_to_content item_names(context: :raw)
+  items_to_content item_strings
 end
 
 def still_pointer?
