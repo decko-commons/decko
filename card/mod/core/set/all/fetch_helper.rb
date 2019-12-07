@@ -120,9 +120,9 @@ module ClassMethods
 
   def new_card_fetch_results card, mark, opts
     case
-      when opts[:new].present? then return card.renew(opts)
-      when opts[:new] # noop for empty hash
-      when opts[:skip_virtual] then return nil
+    when opts[:new].present? then card.renew(opts)
+    when opts[:new] # noop for empty hash
+    when opts[:skip_virtual] then return nil
     end
     card.assign_name_from_fetched_mark! mark, opts
     finalize_fetch_results card, opts

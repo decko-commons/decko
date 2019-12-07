@@ -15,5 +15,5 @@ def item_ids args={}
 end
 
 def item_names args={}
-  item_ids(args).map(&:cardname)
+  item_ids(args).map(&:cardname).compact
 end
