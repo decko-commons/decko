@@ -127,13 +127,18 @@ end
 def renew args={}
   opts = args[:new].clone
   handle_default_content opts
-  assign_attributes opts
+  opts[:name] ||= name
+  opts[:skip_modules] = args[:skip_modules]
+  Card.new opts
 end
 
 def handle_default_content opts
-  return unless (default_content = opts.delete(:default_content)) && db_content.blank?
-
-  opts[:content] ||= default_content
+  if (default_content = opts.delete(:default_content)) && db_content.blank?
+    opts[:content] ||= default_content
+  elsif db_content.present? && !opts[:content]
+    # don't overwrite existing content
+    opts[:content] = db_content
+  end
 end
 
 def refresh force=false
@@ -143,3 +148,4 @@ def refresh force=false
   fresh_card.include_set_modules
   fresh_card
 end
+
