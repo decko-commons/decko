@@ -86,8 +86,8 @@ end
 # remove item from list
 # @param name [String, Card::Name] item name
 def drop_item cardish
-  key = Card::Name[cardish].key
-  items_to_content item_names.reject { |n| n.to_name.key == key }
+  drop_item_name = Card::Name[cardish]
+  items_to_content(item_names.reject { |item_name| item_name == drop_item_name })
 end
 
 # remove item from list and save card
