@@ -1,6 +1,8 @@
 format :html do
   view :link_editor, cache: :never, unknown: true,
-                     wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
+                     wrap: {
+                       slot: { class: "_overlay d0-card-overlay card nodblclick" }
+                     } do
     link_editor :overlay
   end
 

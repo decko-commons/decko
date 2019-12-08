@@ -5,7 +5,9 @@ format :html do
   # (that way a mod can add an option that becomes available to nests)
 
   view :nest_editor, cache: :never, unknown: true,
-                     wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
+                     wrap: {
+                       slot: { class: "_overlay d0-card-overlay card nodblclick" }
+                     } do
     nest_editor :overlay
   end
 
@@ -62,7 +64,8 @@ format :html do
 
   def nest_content_tab
     name_dependent_slot do
-      @nest_content_tab || nest(card.name.field(nest_snippet.name), view: :nest_content, hide: :guide)
+      @nest_content_tab || nest(card.name.field(nest_snippet.name),
+                                view: :nest_content, hide: :guide)
     end
   end
 
@@ -97,7 +100,8 @@ format :html do
   end
 
   def nest_snippet
-    @nest_snippet ||= NestParser.new params[:tm_snippet_raw], default_nest_view, default_item_view
+    @nest_snippet ||= NestParser.new params[:tm_snippet_raw],
+                                     default_nest_view, default_item_view
   end
 
   def left_type_for_nest_editor_set_selection

@@ -50,7 +50,10 @@ RSpec.describe Card::Set::All::ReferenceEditor::NestEditor do
       end
     end
 
-    example "with given field nest syntax", params: { tm_snippet_raw: "{{+hi|view: open; show: menu, toggle|view: titled}}" } do
+    example "with given field nest syntax",
+            params: {
+              tm_snippet_raw: "{{+hi|view: open; show: menu, toggle|view: titled}}"
+            } do
       expect_view(:nest_editor).to have_tag "div.nest_editor-view" do
         with_name "hi", true
         with_tag "div.options-container" do
