@@ -12,7 +12,7 @@ format :html do
   end
 
   view :modal_nest_image, unknown: true, cache: :never,
-                          wrap: { slot: { class: "nodblclick" } }do
+                          wrap: { slot: { class: "nodblclick" } } do
     nest_image_editor :modal
   end
 
@@ -29,23 +29,22 @@ format :html do
     voo.show! :content_tab
     @nest_content_tab = nest(nest_name, view: :new_image, type: :image, hide: :guide)
     haml :reference_editor, ref_type: :nest, editor_mode: @tm_snippet_editor_mode,
-         apply_opts: nest_apply_opts,
-         snippet: nest_snippet
+                            apply_opts: nest_apply_opts,
+                            snippet: nest_snippet
   end
 
   def new_image_form_opts
     { buttons: new_image_buttons,
       success: { tinymce_id: Env.params[:tinymce_id],
-                 view: :open }
+                 view: :open } }
 
-      #"data-slotter-mode": "silent-success"
-    }
+    # "data-slotter-mode": "silent-success"
   end
 
   def new_image_buttons
     button_formgroup do
       [standard_save_button(no_origin_update: true, class: "_change-create-to-update")]
-        #modal_close_button("Cancel", class: "btn-sm")]
+      # modal_close_button("Cancel", class: "btn-sm")]
     end
   end
 end
