@@ -36,15 +36,35 @@ stage_method :changed_item_names do
 end
 
 stage_method :dropped_item_names do
-  old_items = item_names content: db_content_before_act
+  return [] unless (old_content = db_content_before_act)
+
+  old_items = item_names content: old_content
   old_items - item_names
 end
 
 stage_method :added_item_names do
-  old_items = item_names content: db_content_before_act
+  return item_names unless (old_content = db_content_before_act)
+
+  old_items = item_names content: old_content
   item_names - old_items
 end
 
 stage_method :changed_item_cards do
-  item_cards content: changed_item_names
+  dropped_item_cards + added_item_cards
 end
+
+stage_method :dropped_item_cards do
+  return [] unless db_content_before_act
+
+  all_item_cards item_names: dropped_item_names
+end
+
+stage_method :added_item_cards do
+  return item_cards unless db_content_before_act
+
+  all_item_cards item_names: added_item_names
+end
+
+# TODO: refactor. many of the above could be written more elegantly with improved
+# handling of :content in item_names. If content is nil here, we would expect an
+# empty set of cards, but in fact we get items based on self.content.
