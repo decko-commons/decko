@@ -175,7 +175,6 @@ private
 
 def clean_item_name item, context
   item = item.to_name
-  # FIXME: stripping should not be necessary here. should be handled in validation
   return item if context == :raw
   context ||= context_card.name
   item.absolute_name context
