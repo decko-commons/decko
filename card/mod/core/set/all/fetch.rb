@@ -125,14 +125,19 @@ def fetch opts={}
 end
 
 def renew args={}
+  klone = self.clone
   opts = args[:new].clone
   handle_default_content opts
+  klone.newish opts
+  klone
+end
+
+def newish opts
   Card.with_normalized_new_args opts do |norm_opts|
     handle_type norm_opts do
       assign_attributes norm_opts
     end
   end
-  self
 end
 
 def handle_default_content opts
