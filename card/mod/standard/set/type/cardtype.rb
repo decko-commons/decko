@@ -77,7 +77,7 @@ format :html do
     title = _render_title
     link_to_card card, title, path: { view: :bridge, bridge: { tab: :rules_tab },
                                       set: Card::Name[safe_name, :type] },
-                              class: css_class
+                              class: css_classes("configure-type-link ml-3", css_class)
   end
 end
 
