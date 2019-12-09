@@ -127,8 +127,10 @@ end
 def renew args={}
   opts = args[:new].clone
   handle_default_content opts
-  Card.with_normalized_new_args opts do |normalized_opts|
-    assign_attributes normalized_opts
+  Card.with_normalized_new_args opts do |norm_opts|
+    handle_type norm_opts do
+      assign_attributes norm_opts
+    end
   end
   self
 end
