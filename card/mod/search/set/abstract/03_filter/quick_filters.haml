@@ -1,14 +1,10 @@
 .quick-filter._quick-filter
   %i.fa.fa-bolt.filter-section-icon
   .quick-filter-links.d-flex.flex-wrap
-    - quick_filter_list.each do |hash|
-      - link_hash = JSON(hash)
-      - filter_key = hash.keys.first
-      - value = hash.values.first
-      %a{ "data-filter": link_hash,
+    - filter_list.each do |f|
+      %a{ "data-filter": f[:filter],
           href: "#",
-          class: "quick-filter-by-#{filter_key}",
+          class: f[:class],
           title: "Quick Filter" }
-        = mapped_icon_tag filter_key
-        // FIXME: mapped_icon_tag is WikiRate concept
-        = value
+        = f[:icon]
+        = f[:text]

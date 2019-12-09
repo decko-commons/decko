@@ -31,6 +31,7 @@ class Card
       when Integer then mark
       when Symbol  then Card::Codename.id! mark
       when String  then id_from_string mark
+      when Card    then mark.id
       end
     end
 

@@ -13,8 +13,9 @@
 # @option args [String, Integer] :limit max number of cards to return
 # @option args [String, Integer] :offset begin after the offset-th item
 def item_names args={}
-  raw_item_strings(args[:content], args[:limit], args[:offset]).map do |item|
-    clean_item_name item, args[:context]
+  context = args[:context]
+  item_strings(args).map do |item|
+    clean_item_name item, context
   end.compact
 end
 
@@ -44,26 +45,36 @@ end
 
 # ~~~~~~~~~~~~ ALTERING ITEMS ~~~~~~~~~~~~
 
+def items_to_content array
+  items = array.map { |i| standardize_item i }.reject(&:blank?)
+  self.content = items.to_pointer_content
+end
+
+def standardize_item item
+  Card::Name[item]
+end
+
 # set card content based on array and save card
 # @param array [Array] list of strings/names (Cardish)
 def items= array
-  self.content = ""
-  array.each { |i| self << i }
+  items_to_content array
   save!
 end
 
 # append item to list (does not save)
 # @param item [Cardish]
-def << item
-  add_item Card::Name[item]
+def << cardish
+  add_item cardish
 end
 
 # append item to list (does not save)
-# @param name [String, Card::Name] item name
+# @param cardish [String, Card::Name] item name
 # @param allow_duplicates [True/False] permit duplicate items (default is False)
-def add_item name, allow_duplicates=false
-  return if !allow_duplicates && include_item?(name)
-  self.content = "[[#{(item_names << name).reject(&:blank?) * "]]\n[["}]]"
+def add_item cardish, allow_duplicates=false
+  return if !allow_duplicates && include_item?(cardish)
+
+  items = item_strings << cardish
+  items_to_content items
 end
 
 # append item to list and save card
@@ -74,11 +85,9 @@ end
 
 # remove item from list
 # @param name [String, Card::Name] item name
-def drop_item name
-  return unless include_item? name
-  key = name.to_name.key
-  new_names = item_names.reject { |n| n.to_name.key == key }
-  self.content = new_names.empty? ? "" : "[[#{new_names * "]]\n[["}]]"
+def drop_item cardish
+  drop_item_name = Card::Name[cardish]
+  items_to_content(item_names.reject { |item_name| item_name == drop_item_name })
 end
 
 # remove item from list and save card
@@ -95,7 +104,7 @@ def insert_item index, name
   new_names = item_names
   new_names.delete name
   new_names.insert index, name
-  self.content = new_names.map { |new_name| "[[#{new_name}]]" }.join "\n"
+  items_to_content new_names
 end
 
 # insert item into list at specified location and save
@@ -143,24 +152,30 @@ def item_type
   opt.item_type
 end
 
-# #item_names helpers
+def item_strings args={}
+  items = raw_item_strings(args[:content] || content)
+  return items unless args.present?
 
-def raw_item_strings content, limit, offset
-  items = all_raw_item_strings content
+  filtered_items items, args.slice(:limit, :offset)
+end
+
+def raw_item_strings content
+  content.to_s.split(/\n+/).map { |i| strip_item i }
+end
+
+def filtered_items items, limit: 0, offset: 0
   limit = limit.to_i
   offset = offset.to_i
   return items unless limit.positive? || offset.positive?
-  items[offset, (limit.zero? ? items.size : limit)] || []
-end
 
-def all_raw_item_strings content=nil
-  (content || self.content).to_s.split(/\n+/)
+  items[offset, (limit.zero? ? items.size : limit)] || []
 end
 
 private
 
 def clean_item_name item, context
-  item = strip_item(item).to_name
+  item = item.to_name
+  # FIXME: stripping should not be necessary here. should be handled in validation
   return item if context == :raw
   context ||= context_card.name
   item.absolute_name context

@@ -9,7 +9,7 @@ module CoreExtensions
 
     # interpret symbol/integer as codename/id
     def cardname
-      Card.quick_fetch(self).name
+      Card.quick_fetch(self)&.name
     end
 
     # don't interpret symbol/integer as codename/id
