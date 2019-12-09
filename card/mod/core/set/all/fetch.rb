@@ -106,7 +106,7 @@ module ClassMethods
   # @param mark - see #fetch
   # @return [Integer]
   def fetch_type_id *mark
-    (card = quick_fetch(mark)) && card.type_id
+    quick_fetch(mark)&.type_id
   end
 end
 
@@ -127,18 +127,16 @@ end
 def renew args={}
   opts = args[:new].clone
   handle_default_content opts
-  opts[:name] ||= name
-  opts[:skip_modules] = args[:skip_modules]
-  Card.new opts
+  Card.with_normalized_new_args opts do |normalized_opts|
+    card.assign_attributes normalized_opts
+  end
+  card
 end
 
 def handle_default_content opts
-  if (default_content = opts.delete(:default_content)) && db_content.blank?
-    opts[:content] ||= default_content
-  elsif db_content.present? && !opts[:content]
-    # don't overwrite existing content
-    opts[:content] = db_content
-  end
+  return unless (default_content = opts.delete(:default_content)) && db_content.blank?
+
+  opts[:content] ||= default_content
 end
 
 def refresh force=false
