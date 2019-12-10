@@ -34,6 +34,7 @@ stage_method :changed_item_names do
 end
 
 stage_method :dropped_item_names do
+  return item_names if trash
   return [] unless (old_content = db_content_before_act)
 
   old_items = item_names content: old_content
@@ -41,6 +42,7 @@ stage_method :dropped_item_names do
 end
 
 stage_method :added_item_names do
+  return [] if trash
   return item_names unless (old_content = db_content_before_act)
 
   old_items = item_names content: old_content
