@@ -42,8 +42,7 @@ def handle_type args
 end
 
 def initial_name name
-  return name if name.is_a? String
-  Card::Name[name].to_s
+  name.is_a?(String) ? name : Card::Name[name].to_s
 end
 
 def include_set_modules

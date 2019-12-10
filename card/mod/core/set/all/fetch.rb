@@ -125,11 +125,11 @@ def fetch opts={}
 end
 
 def renew args={}
-  klone = self.clone
+  copy = self.dup
   opts = args[:new].clone
   handle_default_content opts
-  klone.newish opts
-  klone
+  copy.newish opts
+  copy
 end
 
 def newish opts
