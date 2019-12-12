@@ -59,18 +59,18 @@ format :html do
   # no caching because help_text view doesn't cache, and we can't have a
   # stub in the data-content attribute or it will get html escaped.
   view :help_link, cache: :never, unknown: true do
-    help_link
+    help_link render_help_text, help_title
   end
 
-  def help_link
-    opts = help_popover_opts
+  def help_link text, title=nil
+    opts = help_popover_opts text, title
     add_class opts, "_card-menu-popover"
     link_to help_icon, opts
   end
 
-  def help_popover_opts
+  def help_popover_opts text, title=nil
     opts = { "data-placement": :left, class: "help-link" }
-    popover_opts render_help_text, help_title, opts
+    popover_opts text, title, opts
   end
 
   def help_icon
