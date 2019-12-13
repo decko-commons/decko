@@ -62,13 +62,14 @@ format :html do
     help_link render_help_text, help_title
   end
 
-  def help_link text, title=nil
+  def help_link text=nil, title=nil
     opts = help_popover_opts text, title
     add_class opts, "_card-menu-popover"
     link_to help_icon, opts
   end
 
-  def help_popover_opts text, title=nil
+  def help_popover_opts text=nil, title=nil
+    text ||= render_help_text
     opts = { "data-placement": :left, class: "help-link" }
     popover_opts text, title, opts
   end
