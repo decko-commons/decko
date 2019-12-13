@@ -18,26 +18,15 @@ format :html do
 
   view :nest_content, perms: :create, cache: :never, unknown: true, wrap: :slot do
     if card.known?
-      voo.hide! :cancel_button
-      add_name_context
-      with_nest_mode :edit do
-        frame do
-          [
-            render_edit_inline
-          ]
-        end
-      end
+      known_nest_content
     else
-      voo.hide! :guide
-      voo.show! :new_type_formgroup
-      new_view_frame_and_form buttons: new_image_buttons,
-                              success: { tinymce_id: Env.params[:tinymce_id] }
+      unknown_nest_content
     end
   end
 
   def nest_editor editor_mode
     @tm_snippet_editor_mode = editor_mode
-    voo.hide! :content_tab unless show_content_tab?
+    voo.hide :content_tab unless show_content_tab?
     haml :reference_editor, ref_type: :nest, editor_mode: @tm_snippet_editor_mode,
                             apply_opts: nest_apply_opts,
                             snippet: nest_snippet
@@ -162,5 +151,24 @@ format :html do
                    class: "_nest-option-value form-control form-control-sm",
                    disabled: !value,
                    id: nil
+  end
+
+  def known_nest_content
+    voo.hide! :cancel_button
+    add_name_context
+    with_nest_mode :edit do
+      frame do
+        [
+          render_edit_inline
+        ]
+      end
+    end
+  end
+
+  def unknown_nest_content
+    voo.hide! :guide
+    voo.show! :new_type_formgroup
+    new_view_frame_and_form buttons: new_image_buttons,
+                            success: { tinymce_id: Env.params[:tinymce_id] }
   end
 end

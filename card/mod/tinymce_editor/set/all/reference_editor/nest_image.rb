@@ -1,9 +1,4 @@
 format :html do
-  # view :nest_image, wrap: { modal: { footer: "" } }, unknown: true do
-  #   @nest_snippet = NestParser.new_image card.name.field("image01")
-  #   nest card.autoname(card.name.field("image01")), view: :new_image, type: :image
-  # end
-  #
   view :nest_image, unknown: true, cache: :never,
                     wrap: {
                       slot: { class: "_overlay d0-card-overlay card nodblclick" }
@@ -21,30 +16,30 @@ format :html do
   end
 
   def nest_image_editor editor_mode
-    @tm_snippet_editor_mode = editor_mode
-    nest_name = card.autoname(card.name.field("image01"))
-    image_name = nest_name.to_name.right
-    @nest_snippet = NestEditor::NestParser.new_image image_name
+    adapt_reference_editor_for_images
+    nest_editor editor_mode
+  end
 
+
+  def adapt_reference_editor_for_images
+    nest_name = card.autoname(card.name.field("image01"))
     voo.show! :content_tab
     @nest_content_tab = nest(nest_name, view: :new_image, type: :image, hide: :guide)
-    haml :reference_editor, ref_type: :nest, editor_mode: @tm_snippet_editor_mode,
-                            apply_opts: nest_apply_opts,
-                            snippet: nest_snippet
+
+    image_name = nest_name.to_name.right
+    @nest_snippet = NestEditor::NestParser.new_image image_name
   end
+
 
   def new_image_form_opts
     { buttons: new_image_buttons,
       success: { tinymce_id: Env.params[:tinymce_id],
                  view: :open } }
-
-    # "data-slotter-mode": "silent-success"
   end
 
   def new_image_buttons
     button_formgroup do
       [standard_save_button(no_origin_update: true, class: "_change-create-to-update")]
-      # modal_close_button("Cancel", class: "btn-sm")]
     end
   end
 end

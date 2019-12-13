@@ -70,9 +70,9 @@ class Card
       end
     end
 
-    def disable_ddl_transaction #:nodoc:
-      true
-    end
+    # def disable_ddl_transaction #:nodoc:
+    #   true
+    # end
 
     def import_json filename, merge_opts={}
       Card::Mailer.perform_deliveries = false
