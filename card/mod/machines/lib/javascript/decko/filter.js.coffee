@@ -152,6 +152,7 @@ decko.filter = (el) ->
   @deactivateQuickLink = (link, key, value) ->
     sel = "._filter-input-#{key}"
     $.map [@form.find("#{sel} input, #{sel} select").val()], (arr) ->
+      arr = [arr].flat()
       link.removeClass "active" if $.inArray(value, arr) > -1
 
   @updateIfChanged = ()->

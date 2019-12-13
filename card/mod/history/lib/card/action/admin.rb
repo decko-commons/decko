@@ -8,17 +8,6 @@ class Card
         joins(left_join).where("cards.id IS NULL").delete_all
       end
 
-      # permanently delete all {Action actions} not associated with a
-      # {Change change}
-      def delete_changeless
-        joins(
-          "LEFT JOIN card_changes "\
-          "ON card_changes.card_action_id = card_actions.id"
-        ).where(
-          "card_changes.id IS NULL"
-        ).delete_all
-      end
-
       # permanently delete all {Action actions} associate with non-current
       # {Change changes}
       def delete_old

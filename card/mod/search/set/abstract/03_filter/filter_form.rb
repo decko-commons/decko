@@ -8,7 +8,21 @@ format :html do
   view :quick_filters do
     return "" unless quick_filter_list.present?
 
-    haml :quick_filters
+    haml :quick_filters, filter_list: normalized_quick_filter_list
+  end
+
+  def normalized_quick_filter_list
+    quick_filter_list.map do |hash|
+      hash = hash.clone
+      filter_key = hash.keys.first
+      {
+        text: (hash.delete(:text) || hash[filter_key]),
+        icon: (hash.delete(:icon) || mapped_icon_tag(filter_key)),
+        # FIXME: mapped_icon_tag is a wikirate concept
+        class:  css_classes(hash.delete(:class), "quick-filter-by-#{filter_key}"),
+        filter: JSON(hash[:filter] || hash)
+      }
+    end
   end
 
   def quick_filter_list
