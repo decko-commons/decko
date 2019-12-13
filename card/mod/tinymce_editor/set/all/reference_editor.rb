@@ -7,19 +7,17 @@ format :html do
 
   def apply_tm_snippet_data snippet
     data = { "data-tinymce-id": tinymce_id }
-    apply_tm_snippet_param :start, :start, data, params[:tm_snippet_data]
-    apply_tm_snippet_param :raw, :size, data, snippet.raw.size
+    data[:"data-tm-snippet-start"] = tm_param(:start) if tm_param(:start).present?
+    data[:"data-tm-snippet-size"] = snippet.raw.size if tm_param(:raw).present?
     data["data-dismiss"] = "modal" if modal_tm_snippet_editor?
     data
   end
 
-  def modal_tm_snippet_editor?
-    @tm_snippet_editor_mode != :overlay
+  def tm_param key
+    params[:"tm_snippet_#{key}"]
   end
 
-  def apply_tm_snippet_param param_suffix, key_suffix, data, value
-    if params[:"tm_snippet_#{param_suffix}"].present?
-      data[:"data-tm-snippet-#{key_suffix}"] = value
-    end
+  def modal_tm_snippet_editor?
+    @tm_snippet_editor_mode != :overlay
   end
 end
