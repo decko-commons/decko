@@ -127,7 +127,7 @@ end
 def renew args={}
   return unless args[:new].present?
   opts = args[:new].clone
-  copy = self.dup
+  copy = dup
   handle_default_content opts
   copy.newish opts
   copy
