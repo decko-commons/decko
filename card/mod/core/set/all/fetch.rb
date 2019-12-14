@@ -124,9 +124,9 @@ def fetch opts={}
   end
 end
 
-def renew args={}
-  return unless args[:new].present?
-  opts = args[:new].clone
+def renew new_opts
+  return self if new_opts.blank?
+  opts = new_opts.clone
   copy = dup
   handle_default_content opts
   copy.newish opts
