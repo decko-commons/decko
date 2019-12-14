@@ -13,6 +13,11 @@ class NestParser
                    raw: "{{+|view: #{default_view}}}")
   end
 
+  def self.new_image name
+    OpenStruct.new(name: name, field?: true, options: [%i[size medium]], item_options: [],
+                   raw: "{{+#{name}|size: medium}}")
+  end
+
   def field?
     @field
   end
@@ -34,7 +39,8 @@ class NestParser
   end
 
   def extract_options options
-    Card::Set::All::NestEditor::NEST_OPTIONS.each_with_object([]) do |key, res|
+    Card::Set::All::ReferenceEditor::NestEditor::NEST_OPTIONS
+      .each_with_object([]) do |key, res|
       next unless options[key]
 
       if key.in? %i[show hide]

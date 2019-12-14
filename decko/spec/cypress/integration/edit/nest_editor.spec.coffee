@@ -31,7 +31,8 @@ describe 'nest editor', () ->
     cy.ensure "nests", ""
     cy.visit_bridge "nests"
     open_nest_editor()
-
+    cy.contains "options"
+      .click()
     cy.get "#nest_name"
       .type "NaNa"
     cy.contains "button", "Configure items"
@@ -66,6 +67,8 @@ describe 'nest editor', () ->
 
     type_nest("{{handcrafted{cursor}|view: special}}")
     open_nest_editor()
+    cy.contains("options")
+      .click()
     cy.get("input#nest_name").should "have.value", "handcrafted"
       .clear().type("crafted")
     cy.get("input._nest-option-value").should "have.value", "special"

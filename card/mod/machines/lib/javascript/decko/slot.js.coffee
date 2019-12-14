@@ -8,10 +8,13 @@ $.extend decko,
     xtra = {}
     main = $('#main').children('.card-slot').data 'cardName'
     xtra['main'] = main if main?
+
     if slot
       xtra['is_main'] = true if slot.isMain()
       slotdata = slot.data 'slot'
-      decko.slotParams slotdata, xtra, 'slot' if slotdata?
+      if slotdata?
+        decko.slotParams slotdata, xtra, 'slot'
+        xtra['type'] = slotdata['type'] if slotdata['type']
     xtra
 
   slotEditView: (slot) ->
