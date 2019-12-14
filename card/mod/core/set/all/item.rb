@@ -20,28 +20,39 @@ def item_count args={}
   item_names(args).size
 end
 
+def items_to_content array
+  items = array.map { |i| standardize_item i }.reject(&:blank?)
+  self.content = items.to_pointer_content
+end
+
+def standardize_item item
+  Card::Name[item]
+end
+
 def include_item? item
   item_names.include? Card::Name[item]
 end
 
 def add_item item
   return if include_item? item
-  self.content = "#{content}\n#{item}"
+  items_to_content(items_strings << item)
 end
 
 def drop_item item
+  item = Card::Name[item]
   return unless include_item? item
-  new_names = item_names.reject { |i| i == item }
-  self.content = new_names.empty? ? "" : new_names.join("\n")
+  items_to_content(item_names.reject { |i| i == item })
 end
 
 def insert_item index, name
   new_names = item_names
   new_names.delete name
   new_names.insert index, name
-  self.content = new_names.join "\n"
+  items_to_content new_names
 end
 
+# I think the following should work as add_item...
+#
 def add_id id
   add_item "~#{id}"
 end
