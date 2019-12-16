@@ -55,7 +55,7 @@ end
 def update_subcard_names new_name, name_to_replace=nil
   return unless @subcards
   subcards.each do |subcard|
-    update_subcard_name subcard, new_name, name_to_replace unless  subcard.real?
+    update_subcard_name subcard, new_name, name_to_replace if subcard.new?
   end
 end
 
