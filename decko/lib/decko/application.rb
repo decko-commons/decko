@@ -21,7 +21,6 @@ module Decko
     end
 
     initializer :load_card, after: :load_config_initializers, group: :all do
-      #Card.connection
       Card if Cardio.load_card?
     end
 

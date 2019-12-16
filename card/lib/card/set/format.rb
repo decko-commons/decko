@@ -98,7 +98,7 @@ class Card
           # yielding set format module, eg Card::Set::Type::Pointer::HtmlFormat
           m = Module.new
           register_set_format Card::Format.class_from_name(klass), m
-          m.extend Card::Set::AbstractFormat
+          m.extend Card::Set::Format::AbstractFormat
           m
         end
         mod.class_eval(&block)

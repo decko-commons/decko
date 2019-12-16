@@ -12,6 +12,10 @@ class Card
   # Each chunk has an object whose class inherits from {Card::Content::Chunk::Abstract}
   #
   class Content < SimpleDelegator
+    # ActiveSupport::Dependencies::ModuleConstMissing.include_into(self)
+    require_dependency 'card/content/clean'
+    require_dependency 'card/content/truncate'
+
     extend ::Card::Content::Clean
     extend ::Card::Content::Truncate
 

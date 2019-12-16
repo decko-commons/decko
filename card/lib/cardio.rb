@@ -19,7 +19,7 @@ module Cardio
 
   class << self
     def load_card?
-      ActiveRecord::Base.connection && !defined?(Card)
+      ActiveRecord::Base.connection && !const_defined?("Card")
     rescue
       false
     end

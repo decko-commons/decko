@@ -84,7 +84,7 @@ class Card
         def load_dir dir
           Dir["#{dir}/*.rb"].sort.each do |file|
             # puts Benchmark.measure("from #load_dir: rd: #{file}") {
-            # require_dependency file
+            require_dependency file
             # }.format('%n: %t %r')
           end
         end

@@ -25,11 +25,11 @@ class Card
   #
   class View
     include Options
-    include Cache
+    include ::Card::View::Cache
     include Classy
     include Permission
 
-    extend Cache::ClassMethods
+    extend ::Card::View::Cache::ClassMethods
 
     attr_reader :format, :parent, :card
 

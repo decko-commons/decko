@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-Object.const_remove_if_defined :Card
+#Object.const_remove_if_defined :Card
 ActiveSupport.run_load_hooks(:before_card, self)
 # ActiveSupport::Dependencies.loaded.clear
 
@@ -95,10 +95,10 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # {Card::Auth More on accounts}
 #
 class Card < ApplicationRecord
-  Card::Mark
+  # Card::Mark
   Card::Env
   ## require_dependency "card/mark"
-  extend Mark
+  extend ::Card::Mark
 
   Card::Name
   Card::Codename
@@ -114,7 +114,7 @@ class Card < ApplicationRecord
   Card::Reference
   Card::Subcards
   Card::View
-  Card::Act_manager
+  Card::ActManager
   Card::Dirty
   Card::Layout
   ## require_dependency "card/name"

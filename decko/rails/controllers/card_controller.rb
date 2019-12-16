@@ -22,7 +22,6 @@ class CardController < ApplicationController
   end
 
   def read
-    binding.pry
     show
   end
 
@@ -148,7 +147,6 @@ class CardController < ApplicationController
     end
 
     def rescue_all?
-      #binding.pry
       Cardio.config.rescue_all_in_controller
     end
   end
