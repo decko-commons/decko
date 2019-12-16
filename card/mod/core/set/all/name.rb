@@ -54,11 +54,15 @@ end
 
 def update_subcard_names new_name, name_to_replace=nil
   return unless @subcards
-  subcards.select(&:new?).each do |subcard|
-    name_to_replace ||= name_to_replace_for_subcard subcard, new_name
-    subcard.name = subcard.name.swap name_to_replace, new_name.s
-    subcard.update_subcard_names new_name, name # needed?  shouldn't #name= trigger this?
+  subcards.each do |subcard|
+    update_subcard_name subcard, new_name, name_to_replace unless  subcard.real?
   end
+end
+
+def update_subcard_name subcard, new_name, name_to_replace
+  name_to_replace ||= name_to_replace_for_subcard subcard, new_name
+  subcard.name = subcard.name.swap name_to_replace, new_name.s
+  subcard.update_subcard_names new_name, name # needed?  shouldn't #name= trigger this?
 end
 
 def name_to_replace_for_subcard subcard, new_name
