@@ -54,21 +54,19 @@ end
 
 def update_subcard_names new_name, name_to_replace=nil
   return unless @subcards
-  replaceable_part = new_name.parts.first.present?
-  subcards.each do |subcard|
-    next if subcard.real?
-    name_to_replace ||= name_to_replace_for_subcard subcard, replaceable_part
+  subcards.select(&:new?).each do |subcard|
+    name_to_replace ||= name_to_replace_for_subcard subcard, new_name
     subcard.name = subcard.name.swap name_to_replace, new_name.s
-    subcard.update_subcard_names new_name, name
+    subcard.update_subcard_names new_name, name # needed?  shouldn't #name= trigger this?
   end
 end
 
-def name_to_replace_for_subcard subcard, replaceable_part
+def name_to_replace_for_subcard subcard, new_name
   # if subcard has a relative name like +C
   # and self is a subcard as well that changed from +B to A+B then
   # +C should change to A+B+C. #replace doesn't work in this case
   # because the old name +B is not a part of +C
-  if replaceable_part && subcard.name.junction? && subcard.name.parts.first.empty?
+  if subcard.name.starts_with_joint? && new_name.parts.first.present?
     "".to_name
   else
     name
