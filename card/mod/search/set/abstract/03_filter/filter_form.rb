@@ -5,7 +5,7 @@ format :html do
                   sort_field: _render(:sort_formgroup)
   end
 
-  view :quick_filters do
+  view :quick_filters, cache: :never do
     return "" unless quick_filter_list.present?
 
     haml :quick_filters, filter_list: normalized_quick_filter_list
@@ -27,6 +27,11 @@ format :html do
 
   def quick_filter_list
     []
+  end
+
+  # for override
+  def custom_quick_filters
+    ""
   end
 
   # @param data [Hash] the filter categories. The hash needs for every category

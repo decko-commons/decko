@@ -45,15 +45,6 @@ end
 
 # ~~~~~~~~~~~~ ALTERING ITEMS ~~~~~~~~~~~~
 
-def items_to_content array
-  items = array.map { |i| standardize_item i }.reject(&:blank?)
-  self.content = items.to_pointer_content
-end
-
-def standardize_item item
-  Card::Name[item]
-end
-
 # set card content based on array and save card
 # @param array [Array] list of strings/names (Cardish)
 def items= array
@@ -175,7 +166,6 @@ private
 
 def clean_item_name item, context
   item = item.to_name
-  # FIXME: stripping should not be necessary here. should be handled in validation
   return item if context == :raw
   context ||= context_card.name
   item.absolute_name context
