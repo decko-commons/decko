@@ -126,8 +126,8 @@ module ClassMethods
     end
     card.assign_name_from_fetched_mark! mark, opts
     finalize_fetch_results card, opts
-    # must include_set_modules before checking `card.known?`, in case card
-    # is made virtual in code
+    # must include_set_modules before checking `card.known?`,
+    # in case, eg, set modules override #virtual?
     card if new_opts || card.known?
   end
 
