@@ -11,7 +11,7 @@ format :html do
 end
 
 def content
-  item_names.to_pointer_content
+  left ? item_names.to_pointer_content : ""
 end
 
 def item_names _args={}
