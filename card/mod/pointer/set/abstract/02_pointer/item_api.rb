@@ -45,15 +45,6 @@ end
 
 # ~~~~~~~~~~~~ ALTERING ITEMS ~~~~~~~~~~~~
 
-def items_to_content array
-  items = array.map { |i| standardize_item i }.reject(&:blank?)
-  self.content = items.to_pointer_content
-end
-
-def standardize_item item
-  Card::Name[item]
-end
-
 # set card content based on array and save card
 # @param array [Array] list of strings/names (Cardish)
 def items= array
