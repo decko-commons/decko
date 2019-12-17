@@ -107,6 +107,11 @@ decko.filter = (el) ->
       @activate category, hash[category]
     @update()
 
+  @removeRestrictions = (hash) ->
+    for category of hash
+      @removeField category
+    @update()
+
   # triggers update
   @setInputVal = (field, value) ->
     select = field.find "select"
