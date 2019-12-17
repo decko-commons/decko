@@ -61,7 +61,7 @@ $(window).ready ->
     e.preventDefault()
     e.stopPropagation()
 
-  $('body').on 'click', '._quick-filter a, ._filter-link', (e) ->
+  $('body').on 'click', '._filter-link', (e) ->
     f = filterFor this
     f.addRestrictions $(this).data("filter")
     e.preventDefault()
