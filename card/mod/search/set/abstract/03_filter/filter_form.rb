@@ -33,7 +33,7 @@ format :html do
 
   # for override
   def custom_quick_filters
-    "" 
+    ""
   end
 
   # @param data [Hash] the filter categories. The hash needs for every category
