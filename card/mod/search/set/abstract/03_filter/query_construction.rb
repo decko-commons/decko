@@ -24,7 +24,15 @@ end
 
 def blocked_id_wql
   not_ids = filter_param :not_ids
-  not_ids.present? ? { id: ["not in", not_ids.split(",")] } : {}
+  not_ids.present? ? { id: ["not in", not_id_array(not_ids)] } : {}
+end
+
+def not_id_array value
+  if value == "item_ids"
+    card.item_ids
+  else
+    not_ids.split("-")
+  end
 end
 
 def current_sort
