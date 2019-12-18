@@ -33,7 +33,7 @@ $(window).ready ->
 
   $('body').on 'click', '._filtered-list-item-delete', ->
     $(this).closest('li').remove()
-_
+
 # TODO: make this object oriented!
 
 newFilteredListContent = (el) ->
