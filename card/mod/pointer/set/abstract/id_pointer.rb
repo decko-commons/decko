@@ -5,7 +5,8 @@ def standardize_item cardish
     "~#{id}"
   else
     Rails.logger.info "no id for '#{cardish}' added to id pointer"
-  end
+    nil
+  end.compact
 end
 
 def item_ids args={}
