@@ -81,6 +81,17 @@ format :html do
                                       set: Card::Name[safe_name, :type] },
                               class: css_classes("configure-type-link ml-3", css_class)
   end
+
+  private
+
+  def process_voo_params path_args
+    context = ((@parent&.card) || card).name
+    Rack::Utils.parse_nested_query(voo.params).each do |key, value|
+      value = value.to_name.absolute(context) if value
+      key = key.to_name.absolute(context)
+      path_args[key] = value
+    end
+  end
 end
 
 include Basic
@@ -113,15 +124,3 @@ event :validate_cardtype_name, :validate, on: :save, changed: :name do
     errors.add :name, tr(:error_invalid_character_in_cardtype, banned: "<, >, /")
   end
 end
-
-private
-
-def process_voo_params path_args
-  context = ((@parent&.card) || card).name
-  Rack::Utils.parse_nested_query(voo.params).each do |key, value|
-    value = value.to_name.absolute(context) if value
-    key = key.to_name.absolute(context)
-    path_args[key] = value
-  end
-end
-
