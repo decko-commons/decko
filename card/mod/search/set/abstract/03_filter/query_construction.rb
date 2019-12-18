@@ -29,9 +29,9 @@ end
 
 def not_id_array value
   if value == "item_ids"
-    card.item_ids
+    item_ids
   else
-    not_ids.split("-")
+    value.split("-")
   end
 end
 
