@@ -33,7 +33,7 @@ $(window).ready ->
 
   $('body').on 'click', '._filtered-list-item-delete', ->
     $(this).closest('li').remove()
-
+_
 # TODO: make this object oriented!
 
 newFilteredListContent = (el) ->
@@ -123,6 +123,6 @@ arrayFromField = (rows, field) ->
   rows.map( -> $(this).data field ).toArray()
 
 trackSelectedIds = (el) ->
-  ids = prefilteredIds(el).concat selectedIds(el)
-  box = filterBox el
-  box.find("._not-ids").val ids.toString()
+  notIds = filterBox(el).find "._not-ids"
+  unless notIds.val().match(/item_ids:/)
+    nodIds.val(prefilteredIds(el).concat(selectedIds(el)).toString())

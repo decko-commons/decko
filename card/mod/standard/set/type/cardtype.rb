@@ -30,30 +30,32 @@ format :html do
   end
 
   view :add_button do
-    add_link "btn btn-secondary"
+    add_link class: "btn btn-secondary"
   end
 
-  def add_link css_class=nil
+  def add_link opts={}
     voo.title ||= tr(:add_card, cardname: safe_name)
     title = _render_title
-    link_to title, modal_link_opts(class: css_class, path: _render_add_path)
+    modal = opts.delete :modal
+    modal = true if modal.nil?
+    opts[:path] = add_path(modal ? :new_in_modal : :new)
+    opts = modal_link_opts(opts) if modal
+    link_to title, opts
   end
 
   view :add_url do
     card_url _render_add_path
   end
 
-  view :add_path do
-    path_args = {}
-    if voo.params
-      context = ((@parent&.card) || card).name
-      Rack::Utils.parse_nested_query(voo.params).each do |key, value|
-        value = value.to_name.absolute(context) if value
-        key = key.to_name.absolute(context)
-        path_args[key] = value
-      end
+  def add_path view
+    path_args = { mark: card.name }
+    process_voo_params(path_args) if voo.params
+    if view == :new
+      path_args[:action] = :new
+    else
+      path_args.merge! action: :type, view: view
     end
-    path path_args.merge(action: :type, mark: card.name, view: :new_in_modal)
+    path path_args
   end
 
   # don't cache because it depends on update permission for another card
@@ -111,3 +113,15 @@ event :validate_cardtype_name, :validate, on: :save, changed: :name do
     errors.add :name, tr(:error_invalid_character_in_cardtype, banned: "<, >, /")
   end
 end
+
+private
+
+def process_voo_params path_args
+  context = ((@parent&.card) || card).name
+  Rack::Utils.parse_nested_query(voo.params).each do |key, value|
+    value = value.to_name.absolute(context) if value
+    key = key.to_name.absolute(context)
+    path_args[key] = value
+  end
+end
+
