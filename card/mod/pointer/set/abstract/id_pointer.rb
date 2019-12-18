@@ -6,14 +6,14 @@ def standardize_item cardish
   else
     Rails.logger.info "no id for '#{cardish}' added to id pointer"
     nil
-  end.compact
+  end
 end
 
 def item_ids args={}
   item_strings(args).map do |item|
     item = standardize_item item unless item.match?(/^~/)
     item.tr("~", "").to_i
-  end
+  end.compact
 end
 
 def item_names args={}
