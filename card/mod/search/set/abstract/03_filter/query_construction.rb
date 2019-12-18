@@ -28,8 +28,8 @@ def blocked_id_wql
 end
 
 def not_id_array value
-  if value == "item_ids"
-    item_ids
+  if (match = value.match(/item_ids:(.+)$/))
+    Card[match[1]]&.item_ids
   else
     value.split("-")
   end
