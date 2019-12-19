@@ -12,7 +12,7 @@ end
 def item_ids args={}
   item_strings(args).map do |item|
     item = standardize_item item unless item.match?(/^~/)
-    item.tr("~", "").to_i
+    item.to_s.tr("~", "").to_i
   end.compact
 end
 
