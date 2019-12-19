@@ -19,7 +19,6 @@ end
 def initialize args={}
   args["name"] = initial_name args["name"]
   args["db_content"] = args.delete "content" if args["content"]
-  @supercard = args.delete "supercard" # must come before name=
 
   handle_set_modules args do
     handle_type args do
@@ -37,6 +36,8 @@ end
 
 def handle_type args
   skip_type_lookup = args["skip_type_lookup"]
+  @supercard = args.delete "supercard"
+
   yield
   self.type_id = get_type_id_from_structure if !type_id && !skip_type_lookup
 end
