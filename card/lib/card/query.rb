@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+
 class Card
   # Card::Query is for finding implicit lists (or counts of lists) of cards.
   #

@@ -136,6 +136,7 @@ class CardController < ApplicationController
   def debug_exception? e
     !e.is_a?(Card::Error::UserError) &&
       !e.is_a?(ActiveRecord::RecordInvalid) &&
+      Card::Codename[:debugger] &&
       Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
   end
 

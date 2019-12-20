@@ -42,13 +42,17 @@ class Card
     # error attributable to code (as opposed to card configuration)
     class ServerError < Error
       def self.view
-        Card[:debugger]&.content =~ /on/ ? :debug_server_error : :server_error
+        debugger_on? ? :debug_server_error : :server_error
       end
 
       def self.status_code
         # Errors with status code 900 are displayed as modal instead of inside
         # the "card-notice" div``
-        Card[:debugger]&.content =~ /on/ ? 900 : 500
+        debugger_on? ? 900 : 500
+      end
+
+      def self.debugger_on?
+        Card::Codename[:debugger] && Card[:debugger]&.content =~ /on/
       end
 
       def report

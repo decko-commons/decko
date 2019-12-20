@@ -1,9 +1,14 @@
 # -*- encoding : utf-8 -*-
 
-require_dependency File.expand_path("../reference", __FILE__)
+#require_dependency File.expand_path("../reference", __FILE__)
+load File.expand_path("../reference.rb", __FILE__)
+
 class Card
   class Content
     module Chunk
+      # extend ActiveSupport::Autoload
+      # autoload :Reference, "reference"
+
       class Link < Card::Content::Chunk::Reference
         CODE = "L".freeze # L for "Link"
         attr_reader :link_text

@@ -42,7 +42,7 @@ class Card
       end
 
       def user_account_wql
-        { right_id: AccountID, creator_id: ["ne", WagnBotID] }
+        { right_id: Card::AccountID, creator_id: ["ne", Card::WagnBotID] }
       end
 
       def user_account_count

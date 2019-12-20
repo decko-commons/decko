@@ -102,10 +102,16 @@ module Cardio
     def add_lib_dirs_to_autoload_paths config
       config.autoload_paths += Dir["#{gem_root}/lib"]
       config.autoload_paths += Dir["#{gem_root}/mod/*/lib"]
+      config.watchable_dirs["#{gem_root}/mod/*/set"] = [:rb]
+
       config.autoload_paths += Dir["#{root}/mod/*/lib"]
+      config.watchable_dirs["#{root}/mod/*/set"] = [:rb]
       gem_mod_paths.each do |_mod_name, mod_path|
         config.autoload_paths += Dir["#{mod_path}/lib"]
+        config.watchable_dirs["#{mod_path}/set"] = [:rb]
       end
+      # the watachable_dirs are processes in
+      # set_clear_dependencies_hook hook in the railties gem in finisher.rb
 
       # TODO move this to the right place in decko
       config.autoload_paths += Dir["#{Decko.gem_root}/lib"]

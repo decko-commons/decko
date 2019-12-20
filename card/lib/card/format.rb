@@ -14,7 +14,13 @@ class Card
   # format classes.
   #
   class Format
+    extend ActiveSupport::Autoload
     extend Registration
+
+    #eager_autoload do
+    # autoload :Content, "card/format/content"
+    #  autoload :Error, "card/format/error"
+    #end
 
     include Card::Env::Location
     include Nesting

@@ -61,6 +61,7 @@ module Decko
 
         # config.load_defaults "6.0"
         config.autoloader = :zeitwerk
+        config.load_default = "6.0"
         config.i18n.enforce_available_locales = true
         # config.active_record.raise_in_transactional_callbacks = true
 

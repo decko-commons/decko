@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+
 #Object.const_remove_if_defined :Card
 ActiveSupport.run_load_hooks(:before_card, self)
 # ActiveSupport::Dependencies.loaded.clear
@@ -95,10 +96,12 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # {Card::Auth More on accounts}
 #
 class Card < ApplicationRecord
-  # Card::Mark
   Card::Env
-  ## require_dependency "card/mark"
   extend ::Card::Mark
+  require_dependency "card/dirty"
+  extend ::Card::Dirty::MethodFactory
+  include ::Card::Dirty
+
 
   Card::Name
   Card::Codename
@@ -115,25 +118,24 @@ class Card < ApplicationRecord
   Card::Subcards
   Card::View
   Card::ActManager
-  Card::Dirty
   Card::Layout
-  ## require_dependency "card/name"
-  # # require_dependency "card/codename"
-  # # require_dependency "card/query"
-  # # require_dependency "card/format"
-  # # require_dependency "card/error"
-  # # require_dependency "card/auth"
-  # # require_dependency "card/mod"
-  # # require_dependency "card/content"
-  # # require_dependency "card/action"
-  # # require_dependency "card/act"
-  # # require_dependency "card/change"
-  # # require_dependency "card/reference"
-  # # require_dependency "card/subcards"
-  # # require_dependency "card/view"
-  # # require_dependency "card/act_manager"
-  # # require_dependency "card/dirty"
-  # # require_dependency "card/layout"
+  #require_dependency "card/name"
+  #require_dependency "card/codename"
+  #require_dependency "card/query"
+  #require_dependency "card/format"
+  #require_dependency "card/error"
+  #require_dependency "card/auth"
+  #require_dependency "card/mod"
+  #require_dependency "card/content"
+  #require_dependency "card/action"
+  #require_dependency "card/act"
+  #require_dependency "card/change"
+  #require_dependency "card/reference"
+  #require_dependency "card/subcards"
+  #require_dependency "card/view"
+  #require_dependency "card/act_manager"
+  ##require_dependency "card/dirty"
+  #require_dependency "card/layout"
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id
@@ -203,7 +205,6 @@ class Card < ApplicationRecord
   around_save :storage_phase
   after_commit :integration_phase, unless: -> { only_storage_phase? }
 #  after_rollback :clean_up, unless: -> { only_storage_phase? }
-
   ActiveSupport.run_load_hooks(:card, self)
 end
 
