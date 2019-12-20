@@ -1,4 +1,5 @@
-format :html do
+
+  format :html do
   def input_type
     :text_area
   end

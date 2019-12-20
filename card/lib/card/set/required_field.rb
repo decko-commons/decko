@@ -85,7 +85,7 @@ class Card
         parent_set.class_exec(self) do |required|
           event required.parent_event_name, :validate,
                 required.options.merge(on: :create) do
-            return if field?(required.field) || left&.type_id == CardtypeID
+            return if field?(required.field) || left&.type_id == Card::CardtypeID
 
             # Without the Cardtype exemption, we can get errors on type plus right sets
             # eg, if right/account has require_field :email, then when we're trying

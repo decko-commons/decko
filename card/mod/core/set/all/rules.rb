@@ -106,7 +106,7 @@ end
 def preference_card_id_lookups setting_code, options={}
   user_id = options[:user_id] || options[:user]&.id || Auth.current_id
   return unless user_id
-  ["#{setting_code}+#{AllID}", "#{setting_code}+#{user_id}"]
+  ["#{setting_code}+#{Card::AllID}", "#{setting_code}+#{user_id}"]
 end
 
 def related_sets with_self=false

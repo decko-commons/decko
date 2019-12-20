@@ -70,13 +70,13 @@ event :copy_theme, :prepare_to_store, on: :create do
 end
 
 def initialize_theme style_item_names=nil
-  add_subfield :colors, type_id: ScssID
+  add_subfield :colors, type_id: Card::ScssID
   add_variables_subfield
   add_stylesheets_subfield style_item_names
 end
 
 def add_stylesheets_subfield style_items=nil
-  opts = { type_id: SkinID }
+  opts = { type_id: Card::SkinID }
   if theme_name
     theme_style = add_bootswatch_subfield
     opts[:content] = "[[#{theme_style.name}]]"
