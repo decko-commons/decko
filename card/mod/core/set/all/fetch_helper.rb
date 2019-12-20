@@ -120,7 +120,7 @@ module ClassMethods
 
   def new_card_fetch_results card, mark, opts
     if (new_opts = opts[:new])
-      card = card.renew new_opts
+      card = card.renew mark, new_opts
     elsif opts[:skip_virtual]
       return nil
     end

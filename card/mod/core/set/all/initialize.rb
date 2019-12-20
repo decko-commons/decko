@@ -1,24 +1,38 @@
 JUNK_INIT_ARGS = %w[missing skip_virtual id].freeze
 
 module ClassMethods
-  def with_normalized_new_args args={}
-    args = (args || {}).stringify_keys
-    JUNK_INIT_ARGS.each { |a| args.delete(a) }
-    %w[type type_code].each { |k| args.delete(k) if args[k].blank? }
-    args.delete("content") if args["attach"] # should not be handled here!
-    yield args
-  end
-
   def new args={}, _options={}
     with_normalized_new_args args do |normalized_args|
       super normalized_args
     end
   end
+
+  def with_normalized_new_args args={}
+    args = (args || {}).stringify_keys
+    delete_junk_args args
+    normalize_type_args args
+    normalize_content_args args
+    yield args
+  end
+
+  private
+
+  def delete_junk_args args
+    JUNK_INIT_ARGS.each { |a| args.delete(a) }
+  end
+
+  def normalize_type_args args
+    %w[type type_code].each { |k| args.delete(k) if args[k].blank? }
+  end
+
+  def normalize_content_args args
+    args.delete("content") if args["attach"] # should not be handled here!
+    args["db_content"] = args.delete "content" if args["content"]
+  end
 end
 
 def initialize args={}
   args["name"] = initial_name args["name"]
-  args["db_content"] = args.delete "content" if args["content"]
 
   handle_set_modules args do
     handle_type args do
