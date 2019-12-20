@@ -35,12 +35,15 @@ format :html do
 
   def add_link opts={}
     voo.title ||= tr(:add_card, cardname: safe_name)
-    title = _render_title
+    render_title
+    link_to title, add_link_opts(opts)
+  end
+
+  def add_link_opts opts
     modal = opts.delete :modal
     modal = true if modal.nil?
     opts[:path] = add_path(modal ? :new_in_modal : :new)
-    opts = modal_link_opts(opts) if modal
-    link_to title, opts
+    modal ? modal_link_opts(opts) : opts
   end
 
   view :add_url do
@@ -53,7 +56,8 @@ format :html do
     if view == :new
       path_args[:action] = :new
     else
-      path_args.merge! action: :type, view: view
+      path_args[:action] = :type
+      path_args[:view] = view
     end
     path path_args
   end
