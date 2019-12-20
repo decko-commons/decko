@@ -124,9 +124,9 @@ def fetch opts={}
   end
 end
 
-def renew new_opts
+def renew mark, new_opts
   return self if new_opts.blank?
-  opts = new_opts.clone
+  opts = new_opts.clone.merge name: mark
   copy = dup
   handle_default_content opts
   copy.newish opts
@@ -137,6 +137,7 @@ def newish opts
   Card.with_normalized_new_args opts do |norm_opts|
     handle_type norm_opts do
       assign_attributes norm_opts
+      self.name = name # trigger superize
     end
   end
 end
