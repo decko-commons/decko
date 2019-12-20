@@ -107,6 +107,11 @@ decko.filter = (el) ->
       @activate category, hash[category]
     @update()
 
+  @removeRestrictions = (hash) ->
+    for category of hash
+      @removeField category
+    @update()
+
   # triggers update
   @setInputVal = (field, value) ->
     select = field.find "select"
@@ -141,7 +146,7 @@ decko.filter = (el) ->
 
   @updateQuickLinks = ()->
     widget = this
-    links = @quickFilter.find "a"
+    links = @quickFilter.find "._filter-link"
     links.addClass "active"
     links.each ->
       link = $(this)
@@ -152,6 +157,7 @@ decko.filter = (el) ->
   @deactivateQuickLink = (link, key, value) ->
     sel = "._filter-input-#{key}"
     $.map [@form.find("#{sel} input, #{sel} select").val()], (arr) ->
+      arr = [arr].flat()
       link.removeClass "active" if $.inArray(value, arr) > -1
 
   @updateIfChanged = ()->

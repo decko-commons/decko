@@ -96,10 +96,10 @@ class Card
       end
 
       def define_standard_event_method method_name=simple_method_name
-        stage = @stage
+        is_integration = @stage.to_s.match?(/integrate/)
         @set_module.class_exec(@event) do |event_name|
           define_method event_name do
-            rescuing_integration stage do
+            rescuing_if_integration is_integration do
               log_event_call event_name
               run_callbacks event_name do
                 send method_name
@@ -111,15 +111,17 @@ class Card
     end
   end
 
-  def rescuing_integration stage
-    return yield unless stage.to_s.match?(/integrate/)
-    begin
-      yield
-    rescue StandardError => e # one failed integration event should not harm others.
-      Card::Error.report e, self
-    ensure
-      true
-    end
+  def rescuing_if_integration is_integration
+    is_integration ? rescuing_integration { yield } : yield
+  end
+
+  # one failed integration event should not harm others.
+  def rescuing_integration
+    yield
+  rescue StandardError => e
+    Card::Error.report e, self
+  ensure
+    true
   end
 
   def log_event_call event

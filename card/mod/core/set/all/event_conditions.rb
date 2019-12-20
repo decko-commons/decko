@@ -24,8 +24,7 @@ end
 
 def on_condition_applies? _event, actions
   actions = Array(actions).compact
-  return true if actions.empty?
-  actions.include? @action
+  actions.empty? ? true : actions.include?(@action)
 end
 
 # if changing name/type, the old card has no-longer-applicable set modules, so we create

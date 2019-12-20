@@ -5,7 +5,9 @@ format :html do
   # (that way a mod can add an option that becomes available to nests)
 
   view :nest_editor, cache: :never, unknown: true,
-                     wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
+                     wrap: {
+                       slot: { class: "_overlay d0-card-overlay card nodblclick" }
+                     } do
     nest_editor :overlay
   end
 
@@ -14,9 +16,17 @@ format :html do
     modal_nest_editor
   end
 
+  view :nest_content, perms: :create, cache: :never, unknown: true, wrap: :slot do
+    if card.known?
+      known_nest_content
+    else
+      unknown_nest_content
+    end
+  end
+
   def nest_editor editor_mode
     @tm_snippet_editor_mode = editor_mode
-    voo.hide! :content_tab unless show_content_tab?
+    voo.hide :content_tab unless show_content_tab?
     haml :reference_editor, ref_type: :nest, editor_mode: @tm_snippet_editor_mode,
                             apply_opts: nest_apply_opts,
                             snippet: nest_snippet
@@ -42,25 +52,27 @@ format :html do
   end
 
   def nest_content_tab
-    [
-      empty_nest_name_alert(nest_snippet.name.blank?),
-      nest(card.autoname(card.name.field("image01")), view: :new_image, type: :image, hide: :guide)
-    ]
+    name_dependent_slot do
+      @nest_content_tab || nest(card.name.field(nest_snippet.name),
+                                view: :nest_content, hide: :guide)
+    end
   end
 
   def nest_rules_tab
-    [
-      empty_nest_name_alert(nest_snippet.name.blank?),
-      nest_rules_editor
-    ]
-  end
-
-  def nest_rules_editor
-    if nest_snippet.name.blank?
-      content_tag :div, "", class: "card-slot" # placeholder
-    else
+    name_dependent_slot do
       nest(set_name_for_nest_rules, view: :nest_rules)
     end
+  end
+
+  def name_dependent_slot
+    result = [empty_nest_name_alert(nest_snippet.name.blank?)]
+    result <<
+      if nest_snippet.name.blank?
+        content_tag :div, "", class: "card-slot" # placeholder
+      else
+        yield
+      end
+    result
   end
 
   def empty_nest_name_alert show
@@ -77,7 +89,8 @@ format :html do
   end
 
   def nest_snippet
-    @nest_snippet ||= NestParser.new params[:tm_snippet_raw], default_nest_view, default_item_view
+    @nest_snippet ||= NestParser.new params[:tm_snippet_raw],
+                                     default_nest_view, default_item_view
   end
 
   def left_type_for_nest_editor_set_selection
@@ -138,5 +151,24 @@ format :html do
                    class: "_nest-option-value form-control form-control-sm",
                    disabled: !value,
                    id: nil
+  end
+
+  def known_nest_content
+    voo.hide! :cancel_button
+    add_name_context
+    with_nest_mode :edit do
+      frame do
+        [
+          render_edit_inline
+        ]
+      end
+    end
+  end
+
+  def unknown_nest_content
+    voo.hide! :guide
+    voo.show! :new_type_formgroup
+    new_view_frame_and_form buttons: new_image_buttons,
+                            success: { tinymce_id: Env.params[:tinymce_id] }
   end
 end

@@ -20,6 +20,9 @@ $(window).ready ->
   $('body').on 'click', '._stop_propagation', (event)->
     event.stopPropagation()
 
+  $('body').on 'click', '._prevent_default', (event)->
+    event.preventDefault()
+
   $('body').on 'mouseenter', 'a[data-hover-text]', ->
     text = $(this).text()
     $(this).data("original-text", text)

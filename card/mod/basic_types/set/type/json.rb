@@ -16,6 +16,10 @@ def item_names _args={}
   parse_content.keys
 end
 
+def item_values
+  parse_content.values
+end
+
 format :html do
   view :core do
     process_content ::CodeRay.scan(_render_raw, :json).div

@@ -98,7 +98,20 @@ format :html do
                        slot_selector: filtered_list_slot_class,
                        item_selector: "_filtered-list-item",
                        slot: { hide: [:modal_footer] },
-                       filter: { not_ids: card.item_ids.map(&:to_s).join(",") } }
+                       filter: { not_ids: not_ids_value } }
+  end
+
+  # note: when list is short, we send over the complete list of ids. This means the list
+  # is precise, even when the list is locally changed.
+  # however, once the list gets long, we switch to sending the card name over
+  # (to prevent problems with long urls)
+  def not_ids_value
+    item_ids = card.item_ids
+    if item_ids.size > 100
+      "item_ids:#{card.name}"
+    else
+      item_ids.map(&:to_s).join "-"
+    end
   end
 
   def add_item_overlay_link; end

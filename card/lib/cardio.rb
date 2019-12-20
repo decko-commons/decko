@@ -35,8 +35,8 @@ module Cardio
         # if you disable inline styles tinymce's formatting options stop working
         allow_inline_styles:    true,
 
-        recaptcha_public_key:   nil, # deprecated; uese recaptcha_site_key instead
-        recaptcha_private_key:  nil, # deprecated; use secret_site_key instead
+        recaptcha_public_key:   nil, # deprecated; use recaptcha_site_key instead
+        recaptcha_private_key:  nil, # deprecated; use recaptcha_secret_key instead
         recaptcha_proxy:        nil,
         recaptcha_site_key:     nil,
         recaptcha_secret_key:   nil,

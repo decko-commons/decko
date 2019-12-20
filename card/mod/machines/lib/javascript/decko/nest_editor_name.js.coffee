@@ -62,8 +62,8 @@ $.extend nest,
   updateContentTab: () ->
     $contentTab = nest.contentTabSlot()
     if $contentTab.length > 0
-      $contentTab.data("cardName", nest.fullName())
-      nest.updateNameDependentSlot($contentTab)
+      url = decko.path "#{nest.fullName()}?view=nest_content"
+      nest.updateNameDependentSlot($contentTab, url)
 
   updateRulesTab: () ->
     $rulesTab = nest.rulesTabSlot()

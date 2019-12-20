@@ -33,6 +33,6 @@ format :html do
   end
 
   def image_box_title
-    image_box_card_name
+    voo.title || image_box_card_name
   end
 end
