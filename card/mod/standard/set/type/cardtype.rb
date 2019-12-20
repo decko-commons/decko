@@ -35,8 +35,7 @@ format :html do
 
   def add_link opts={}
     voo.title ||= tr(:add_card, cardname: safe_name)
-    render_title
-    link_to title, add_link_opts(opts)
+    link_to render_title, add_link_opts(opts)
   end
 
   def add_link_opts opts
