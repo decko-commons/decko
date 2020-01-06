@@ -3,7 +3,7 @@
 def self.member_names
   @@member_names ||= begin
     Card.search(
-      { type_id: SettingID, return: "key" },
+      { type_id: Card::SettingID, return: "key" },
       "all setting cards"
     ).each_with_object({}) do |card_key, hash|
       hash[card_key] = true

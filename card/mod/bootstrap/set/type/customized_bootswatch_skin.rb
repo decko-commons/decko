@@ -92,12 +92,12 @@ def add_variables_subfield
   theme_content = content_from_theme(:variables)
   default_content = Type::CustomizedBootswatchSkin.read_bootstrap_variables
   add_subfield :variables,
-               type_id: ScssID,
+               type_id: Card::ScssID,
                content: "#{theme_content}\n\n\n#{default_content}"
 end
 
 def add_bootswatch_subfield
-  add_subfield :bootswatch, type_id: ScssID, content: content_from_theme(:bootswatch)
+  add_subfield :bootswatch, type_id: Card::ScssID, content: content_from_theme(:bootswatch)
 end
 
 def theme_card

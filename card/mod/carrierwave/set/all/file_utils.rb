@@ -1,6 +1,6 @@
 module ClassMethods
   def update_all_storage_locations
-    Card.search(type_id: ["in", FileID, ImageID])
+    Card.search(type_id: ["in", Card::FileID, Card::ImageID])
         .each(&:update_storage_location!)
   end
 

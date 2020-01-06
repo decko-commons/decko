@@ -190,8 +190,8 @@ module ClassMethods
         "#{set_class_code}+#{setting_code}"
       end
     user_ids = user_ids_cache[key] || []
-    if user_ids.include? AllID  # rule for all -> return all user ids
-      Card.where(type_id: UserID).pluck(:id)
+    if user_ids.include? Card::AllID  # rule for all -> return all user ids
+      Card.where(type_id: Card::UserID).pluck(:id)
     else
       user_ids
     end
@@ -201,7 +201,7 @@ module ClassMethods
     Card.search(
       { right: { codename: setting_code },
         left: {
-          left: { type_id: SetID }, right: user_name
+          left: { type_id: Card::SetID }, right: user_name
         },
         return: :name }, "preference cards for user: #{user_name}"
     )

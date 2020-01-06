@@ -5,7 +5,7 @@ module ClassMethods
       if card
         card.update_columns trash: true
         card.expire
-        Card::Virtual.where(right_id: MachineCacheID).delete_all
+        Card::Virtual.where(right_id: Card::MachineCacheID).delete_all
       end
     end
   end
@@ -16,7 +16,7 @@ module ClassMethods
         card.update_columns trash: true
         card.expire
       end
-      Card::Virtual.where(right_id: MachineCacheID).delete_all
+      Card::Virtual.where(right_id: Card::MachineCacheID).delete_all
     end
   end
 end
