@@ -13,13 +13,8 @@ def human?
   add_recaptcha_errors result["error-codes"]
 end
 
-def consider_recaptcha?
-  true
-end
-
 def recaptcha_on?
-  consider_recaptcha?  &&
-    recaptcha_keys?    &&
+  recaptcha_keys?    &&
     Env[:controller]   &&
     !Auth.signed_in?   &&
     !Auth.needs_setup? &&

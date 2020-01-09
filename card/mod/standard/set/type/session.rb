@@ -12,6 +12,10 @@ def followable?
   false
 end
 
+def recaptcha_on?
+  false
+end
+
 def session_key
   "_card_#{key}"
 end
@@ -36,6 +40,10 @@ end
 event :delete_in_session, :prepare_to_store, on: :delete do
   self.session_content = nil
   abort :success
+end
+
+def ok_to_update
+  true
 end
 
 def add_to_trash args

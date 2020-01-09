@@ -54,9 +54,7 @@ format :html do
   end
 
   def default_bridge_tab
-    (show_account_tab? && :account_tab) ||
-      (show_guide_tab? && :guide_tab) ||
-      :engage_tab
+    show_guide_tab? ? :guide_tab : :engage_tab
   end
 
   def breadcrumb_data title, html_class=nil

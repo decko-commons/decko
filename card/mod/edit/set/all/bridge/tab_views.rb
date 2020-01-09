@@ -24,13 +24,6 @@ format :html do
     end
   end
 
-  view :account_tab do
-    bridge_pill_sections "Account" do
-      [["Settings", account_details_items],
-       ["Content", account_content_items]]
-    end
-  end
-
   view :follow_section, wrap: :slot, cache: :never do
     follow_section
   end

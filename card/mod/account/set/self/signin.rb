@@ -38,7 +38,7 @@ def ok_to_read
   true
 end
 
-def consider_recaptcha?
+def recaptcha_on?
   false
 end
 
