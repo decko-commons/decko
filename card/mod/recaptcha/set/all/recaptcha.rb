@@ -14,11 +14,11 @@ def human?
 end
 
 def recaptcha_on?
-  recaptcha_keys?    &&
-    Env[:controller]   &&
-    !Auth.signed_in?   &&
+  recaptcha_keys? &&
+    Env[:controller] &&
+    !Auth.signed_in? &&
+    !Auth.always_ok? &&
     !Auth.needs_setup? &&
-    !Auth.always_ok?   &&
     Card.toggle(rule(:captcha))
 end
 
