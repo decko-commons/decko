@@ -96,11 +96,11 @@ class SharedData
       Card.create! type_id: Card::CardtypeID, name: "UserForm"
       create "UserForm+*type+*structure", "{{+name}} {{+age}} {{+description}}"
 
-      Card::Auth.current_id = Card["joe_user"].id
+      Card::Auth.signin "joe_user"
       create "JoeLater", "test"
       create "JoeNow", "test"
 
-      Card::Auth.current_id = Card::WagnBotID
+      Card::Auth.signin Card::WagnBotID
 
       create_cardtype "Book"
       create "Book+*type+*structure", "by {{+author}}, design by {{+illustrator}}"
@@ -244,14 +244,14 @@ class SharedData
         create "John Following+her"
         magnifier = create "Magnifier+lens"
 
-        Card::Auth.current_id = Card["Narcissist"].id
+        Card::Auth.signin "Narcissist"
         magnifier.update! content: "zoom in"
         create_optic "Sunglasses", "{{+tint}}{{+lens}}"
 
-        Card::Auth.current_id = Card["Optic fan"].id
+        Card::Auth.signin "Optic fan"
         create_optic "Google glass", "{{+price}}"
 
-        Card::Auth.current_id = Card::WagnBotID
+        Card::Auth.signin Card::WagnBotID
         create "Google glass+*self+*follow_fields", ""
         create "Sunglasses+*self+*follow_fields", "[[#{Card[:nests].name}]]\n[[_self+price]]\n[[_self+producer]]"
         create "Sunglasses+tint"

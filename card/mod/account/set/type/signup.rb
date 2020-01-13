@@ -31,7 +31,7 @@ event :approve_without_verification, :validate, on: :update, trigger: :required 
 end
 
 event :act_as_current_for_integrate_stage, :integrate, on: :create do
-  Auth.current_id = id
+  Auth.signin id
 end
 
 def account_subfield

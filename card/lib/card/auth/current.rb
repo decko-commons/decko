@@ -3,7 +3,8 @@ class Card
     # methods for setting current account
     module Current
       # set current user in process and session
-      def signin signin_id
+      def signin cardish
+        signin_id = Card.id cardish
         self.current_id = signin_id
         set_session_user signin_id
       end

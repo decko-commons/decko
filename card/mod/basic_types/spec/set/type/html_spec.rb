@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::Type::Html do
   before do
-    Card::Auth.current_id = Card::WagnBotID
+    Card::Auth.signin Card::WagnBotID
   end
 
   it "has special editor" do

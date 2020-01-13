@@ -151,7 +151,7 @@ RSpec.describe Card::Set::Right::Account do
     before do
       @email = "joe@user.com"
       @account = Card::Auth.find_account_by_email(@email)
-      Card::Auth.current_id = Card::AnonymousID
+      Card::Auth.signin Card::AnonymousID
     end
 
     let(:trigger_reset) { @account.update! trigger: :reset_password }

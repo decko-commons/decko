@@ -29,7 +29,7 @@ RSpec.describe Card::Set::All::Account do
         # simulate new request
         # clears local cache, where, eg, @parties would still be cached on card
 
-        Card::Auth.current_id = Card::Auth.current_id
+        Card::Auth.signin Card::Auth.current_id
         # simulate new request
         # current_id assignment clears several class variables
 
@@ -53,7 +53,7 @@ RSpec.describe Card::Set::All::Account do
   describe "+*email" do
     it "creates a card and account card" do
       jadmin = Card["joe admin"]
-      Card::Auth.current_id = jadmin.id
+      Card::Auth.signin jadmin.id
       # simulate login to get correct from address
 
       Card::Env[:params] = { email: { subject: "Hey Joe!",

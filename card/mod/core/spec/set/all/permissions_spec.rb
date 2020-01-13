@@ -252,7 +252,7 @@ RSpec.describe Card::Set::All::Permissions do
         )
       end
       # for Card::Auth.as to be effective, you can't have a logged in user
-      Card::Auth.current_id = nil
+      Card::Auth.signin nil
       Card::Auth.as(@u2) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
           eq(%w[c2 c3])

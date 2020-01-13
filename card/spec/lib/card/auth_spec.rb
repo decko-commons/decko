@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Auth do
   before do
-    Card::Auth.current_id = Card::AnonymousID
+    Card::Auth.signin Card::AnonymousID
     @joeuserid = Card["Joe User"].id
   end
 
