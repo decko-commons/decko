@@ -44,7 +44,7 @@ class Card
       # @option auth_data [Integer] current_id
       # @option auth_data [Integer] as_id
       def with auth_data
-        if auth_data.is_a? Integer || auth_data.is_a? String
+        if auth_data.is_a?(Integer) || auth_data.is_a?(String)
           auth_data = { current_id: Card.id(auth_data) }
         end
 
