@@ -21,7 +21,7 @@ RSpec.describe Card::Set::All::Account do
       end
 
       it "updates when new roles are set" do
-        roles_card = @joe_user_card.fetch trait: :roles, new: {}
+        roles_card = @joe_user_card.fetch :roles, new: {}
         r1 = Card["r1"]
 
         Card::Auth.as_bot { roles_card.items = [r1.id] }

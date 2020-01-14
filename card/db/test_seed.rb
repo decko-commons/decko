@@ -169,10 +169,10 @@ class SharedData
       end
 
       # noinspection RubyResolve
-      Card["Joe Admin"].fetch(trait: :roles, new: { type_code: "pointer" })
+      Card["Joe Admin"].fetch(:roles, new: { type_code: "pointer" })
         .items = [Card::AdministratorID, Card::SharkID, Card::HelpDeskID]
 
-      Card["Joe User"].fetch(trait: :roles, new: { type_code: "pointer" })
+      Card["Joe User"].fetch(:roles, new: { type_code: "pointer" })
               .items = [Card::SharkID]
 
       create_user "u1", email: "u1@user.com", password: "u1_pass"
@@ -184,9 +184,9 @@ class SharedData
       r3 = create_role "r3"
       r4 = create_role "r4"
 
-      Card["u1"].fetch(trait: :roles, new: { type_code: "pointer" }).items = [r1, r2, r3]
-      Card["u2"].fetch(trait: :roles, new: {}).items = [r1, r2, r4]
-      Card["u3"].fetch(trait: :roles, new: {}).items = [r1, r4, Card::AdministratorID]
+      Card["u1"].fetch(:roles, new: { type_code: "pointer" }).items = [r1, r2, r3]
+      Card["u2"].fetch(:roles, new: {}).items = [r1, r2, r4]
+      Card["u3"].fetch(:roles, new: {}).items = [r1, r4, Card::AdministratorID]
     end
 
 

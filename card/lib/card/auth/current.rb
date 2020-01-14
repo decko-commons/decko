@@ -33,7 +33,7 @@ class Card
 
       def current_roles
         @current_roles ||= [Card.fetch_name(:anyone_signed_in),
-                            current.fetch(trait: :roles)&.item_names].flatten.compact
+                            current.fetch(:roles)&.item_names].flatten.compact
       end
 
       def serialize
