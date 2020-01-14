@@ -125,10 +125,9 @@ class Card
       # @return [+*account card, nil]
       def find_account_by fieldcode, value
         Auth.as_bot do
-          Card.search({ right_id: Card::Codename.id(fieldcode),
-                        right_plus: [{ id: field_id },
-                                     { content: value }] },
-                      "find +:account for #{fieldcode} (#{value})").first
+          Card.search({ right_id: Card::AccountID,
+                        right_plus: [Card::Codename.id(fieldcode), { content: value }] },
+                      "find +:account with +#{fieldcode} (#{value})").first
         end
       end
 
