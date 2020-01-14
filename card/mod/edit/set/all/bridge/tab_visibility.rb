@@ -48,6 +48,6 @@ format :html do
   def discussion_card
     return if card.new_card? || discussion_card?
 
-    card.fetch trait: :discussion, skip_modules: true, new: {}
+    card.fetch :discussion, skip_modules: true, new: {}
   end
 end

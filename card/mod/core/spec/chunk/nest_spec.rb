@@ -178,8 +178,8 @@ RSpec.describe Card::Content::Chunk::Nest do
       create!("age")
       Card["*template"]
       specialtype = Card.create type_code: :cardtype, name: "SpecialType"
-      specialtype_template = specialtype.fetch(trait: :type, new: {})
-                                        .fetch(trait: :structure, new: {})
+      specialtype_template = specialtype.fetch(:type, new: {})
+                                        .fetch(:structure, new: {})
       specialtype_template.content = "{{#{Card::Name.joint}age}}"
       Card::Auth.as_bot { specialtype_template.save! }
       assert_equal "{{#{Card::Name.joint}age}}",

@@ -32,7 +32,7 @@ format :html do
   def rule_list_item setting, view, opts={}
     return "" unless show_view? setting
 
-    rule_card = card.fetch trait: setting, new: {}
+    rule_card = card.fetch setting, new: {}
     nest(rule_card, opts.merge(view: view)).html_safe
   end
 

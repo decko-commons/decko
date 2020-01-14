@@ -114,10 +114,7 @@ end
 # INSTANCE METHODS
 # fetching from the context of a card
 
-def fetch opts={}
-  traits = opts.delete(:trait)
-  return unless traits
-  # should this fail as an incorrect api call?
+def fetch traits, opts={}
   traits = Array.wrap traits
   traits.inject(self) do |card, trait|
     Card.fetch card.name.trait(trait), opts

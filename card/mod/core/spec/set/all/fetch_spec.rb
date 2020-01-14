@@ -152,7 +152,7 @@ RSpec.describe Card::Set::All::Fetch do
 
     describe "preferences" do
       before do
-        Card::Auth.current_id = Card::WagnBotID
+        Card::Auth.signin Card::WagnBotID
       end
 
       it "prefers db cards to pattern virtual cards" do

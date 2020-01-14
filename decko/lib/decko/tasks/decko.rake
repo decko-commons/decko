@@ -171,7 +171,7 @@ decko_namespace = namespace :decko do
       follower_hash.each do |user, items|
         next unless (card = Card.fetch(user)) && card.account
         Card::Auth.as(user) do
-          following = card.fetch trait: "following", new: {}
+          following = card.fetch "following", new: {}
           following.items = items
         end
       end

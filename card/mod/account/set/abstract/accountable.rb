@@ -1,5 +1,5 @@
 def account
-  fetch trait: :account, new: {}
+  fetch :account, new: {}
 end
 
 def default_account_status

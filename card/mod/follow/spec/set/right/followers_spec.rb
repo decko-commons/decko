@@ -82,7 +82,7 @@ RSpec.describe Card::Set::Right::Followers do
 
     context "when following content I created" do
       it "contains creator" do
-        Card::Auth.current_id = Card["Big Brother"].id
+        Card::Auth.signin "Big Brother"
         card = Card.create! name: "created by Follower"
         expect(followers_of(card)).to include("Big Brother")
       end
@@ -95,7 +95,7 @@ RSpec.describe Card::Set::Right::Followers do
         end
 
         card = Card.create! name: "edited by Sara"
-        Card::Auth.current_id = Card["Sara"].id
+        Card::Auth.signin "Sara"
         card.update! content: "some content"
         expect(followers_of(card)).to include("Sara")
       end
