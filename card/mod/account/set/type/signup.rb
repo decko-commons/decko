@@ -1,4 +1,4 @@
-include_set Abstract::Accounted
+include_set Abstract::Accountable
 
 require_field :account
 

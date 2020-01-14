@@ -7,16 +7,14 @@ format :html do
 
   private
 
-  def show_account_tab?
-    return unless card.real?
-
-    card.account&.ok?(:update)
-  end
-
   def show_engage_tab?
     return unless card.real?
 
     show_follow? || show_discussion?
+  end
+
+  def show_account_tab?
+    false
   end
 
   def show_history_tab?

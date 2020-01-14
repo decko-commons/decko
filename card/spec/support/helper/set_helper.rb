@@ -49,7 +49,9 @@ class Card
         format = format format_type
         with_set set do |extended_set|
           format_class = set_format_class(extended_set, format_type)
-          format.singleton_class.send :include, format_class
+          unless format.is_a? format_class
+            format.singleton_class.send :include, format_class
+          end
         end
         block_given? ? yield(format) : format
       end
