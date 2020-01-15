@@ -129,15 +129,6 @@ def all_item_cards args={}
   names.map { |name| fetch_item_card name, args }
 end
 
-def fetch_item_card name, args={}
-  Card.fetch name, new: new_unknown_item_args(args)
-end
-
-def new_unknown_item_args args
-  itype = args[:type] || item_type
-  itype ? { type: itype } : {}
-end
-
 # TODO: support type_code and type_id. (currently type)
 # uses name, because its most common use is from WQL
 def item_type
@@ -158,6 +149,8 @@ def raw_item_strings content
   content.to_s.split(/\n+/).map { |i| strip_item i }
 end
 
+private
+
 def filtered_items items, limit: 0, offset: 0
   limit = limit.to_i
   offset = offset.to_i
@@ -166,7 +159,14 @@ def filtered_items items, limit: 0, offset: 0
   items[offset, (limit.zero? ? items.size : limit)] || []
 end
 
-private
+def fetch_item_card name, args={}
+  Card.fetch name, new: new_unknown_item_args(args)
+end
+
+def new_unknown_item_args args
+  itype = args[:type] || item_type
+  itype ? { type: itype } : {}
+end
 
 def clean_item_name item, context
   item = item.to_name
