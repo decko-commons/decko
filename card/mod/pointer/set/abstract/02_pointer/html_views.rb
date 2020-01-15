@@ -118,7 +118,7 @@ format :html do
 
   def one_line_content
     if count == 1
-      card.item_names.first
+      card.first_name
     else
       short_content
     end

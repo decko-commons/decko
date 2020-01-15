@@ -19,6 +19,10 @@ def item_names args={}
   end.compact
 end
 
+def first_name args={}
+  item_names(args).first
+end
+
 # @return [Array] list of integers (card ids of items)
 # @param args [Hash] see #item_names
 def item_ids args={}
