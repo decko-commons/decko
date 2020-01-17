@@ -48,7 +48,7 @@ format :html do
     fcard = card.options_rule_card || Card[:all]
     return fcard if fcard.respond_to? :wql_hash
 
-    fcard.fetch trait: :referred_to_by, new: {}
+    fcard.fetch :referred_to_by, new: {}
   end
 
   def filter_card_from_params

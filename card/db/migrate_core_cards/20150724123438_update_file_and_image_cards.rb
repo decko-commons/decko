@@ -3,7 +3,7 @@
 class UpdateFileAndImageCards < Card::Migration::Core
   def up
     # use codenames for the filecards not for the left parts
-    if (credit = Card[:credit]) && (card = credit.fetch(trait: :image))
+    if (credit = Card[:credit]) && (card = credit.fetch(:image))
       card.update_column :codename, "credit_image"
     end
     add_skin_thumbnails

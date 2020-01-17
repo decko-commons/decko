@@ -13,17 +13,17 @@ class BootstrapThemes < Card::Migration::Core
       credit_card.save!
     end
 
-    style_right = Card[:style].fetch trait: :right, new: {}
+    style_right = Card[:style].fetch :right, new: {}
 
-    style_right_options = style_right.fetch trait: :options, new: {}
+    style_right_options = style_right.fetch :options, new: {}
     style_right_options.content = %({"type":"Skin","sort":"name"})
     style_right_options.save!
 
-    style_right_input = style_right.fetch trait: :input, new: {}
+    style_right_input = style_right.fetch :input, new: {}
     style_right_input.content = "radio"
     style_right_input.save!
 
-    style_right_option_label = style_right.fetch trait: :options_label, new: {}
+    style_right_option_label = style_right.fetch :options_label, new: {}
     style_right_option_label.content = "Image"
     style_right_option_label.save!
 

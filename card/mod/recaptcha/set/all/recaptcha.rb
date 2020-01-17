@@ -13,17 +13,12 @@ def human?
   add_recaptcha_errors result["error-codes"]
 end
 
-def consider_recaptcha?
-  true
-end
-
 def recaptcha_on?
-  consider_recaptcha?  &&
-    recaptcha_keys?    &&
-    Env[:controller]   &&
-    !Auth.signed_in?   &&
+  recaptcha_keys? &&
+    Env[:controller] &&
+    !Auth.signed_in? &&
+    !Auth.always_ok? &&
     !Auth.needs_setup? &&
-    !Auth.always_ok?   &&
     Card.toggle(rule(:captcha))
 end
 

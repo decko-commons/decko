@@ -21,7 +21,7 @@ def email_config context, fields={}, opts={}
 end
 
 def email_field_from_card field, auth, format_opts
-  return unless (field_card = fetch(trait: field))
+  return unless (field_card = fetch(field))
   auth ||= field_card.updater
   special_email_field_method(field, field_card, auth, format_opts) ||
     standard_email_field(field, field_card, auth, format_opts)

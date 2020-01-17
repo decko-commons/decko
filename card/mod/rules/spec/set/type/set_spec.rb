@@ -54,7 +54,7 @@ RSpec.describe Card::Set::Type::Set do
     end
 
     it "produces template editor with close link within large brackets" do
-      set_card = nested_card.fetch trait: :right
+      set_card = nested_card.fetch :right
       expect(set_card.format.render(:template_link)).to have_tag("div.card-slot") do
         with_text(/^\{\{.+\}\}$/)
         with_tag "a", "modal_nest_rules"

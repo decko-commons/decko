@@ -2,7 +2,7 @@
 
 describe Card::Set::All::Rules do
   before do
-    Card::Auth.current_id = Card::WagnBotID
+    Card::Auth.signin Card::WagnBotID
   end
 
   describe "setting data setup" do
@@ -68,7 +68,7 @@ describe Card::Set::All::Rules do
 
   describe "user specific rules" do
     before do
-      Card::Auth.current_id = Card.fetch("Joe User").id
+      Card::Auth.signin "Joe User"
     end
 
     it "user rule is recognized as rule" do
@@ -107,7 +107,7 @@ describe Card::Set::All::Rules do
       it "returns all user with values for the given Set and rule" do
         Card::Auth.as_bot do
           Card.create(name: "Book+*type+Joe User+*follow", content: "[[Home]]")
-          Card::Auth.current_id = Card.fetch("Joe Admin").id
+          Card::Auth.signin "Joe Admin"
           Card.create(name: "Book+*type+Joe Admin+*follow", content: "[[Home]]")
           user_ids = Card.all_user_ids_with_rule_for(
             Card.fetch("Book+*type"), :follow

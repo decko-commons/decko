@@ -29,8 +29,9 @@ def ok? action
 end
 
 def ok_with_fetch? action, opts={}
-  card = opts[:trait].nil? ? self : fetch(opts)
-  card && card.ok_without_fetch?(action)
+  trait = opts.delete :trait
+  card = trait.nil? ? self : fetch(trait, opts)
+  card&.ok_without_fetch? action
 end
 
 # note: method is chained so that we can return the instance variable @action_ok

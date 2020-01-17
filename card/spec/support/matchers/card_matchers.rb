@@ -64,7 +64,7 @@ RSpec::Matchers.define :have_a_field do |field_key|
 
   match do |card|
     return unless card.is_a?(Card)
-    return unless (@field = card.fetch(trait: field_key))
+    return unless (@field = card.fetch(field_key))
     if @content
       values_match?(@content, @field.content)
     elsif @pointing_to

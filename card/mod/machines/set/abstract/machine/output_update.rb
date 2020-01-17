@@ -19,7 +19,7 @@ def update_machine_output
 end
 
 def ensure_machine_output
-  output = fetch trait: :machine_output
+  output = fetch :machine_output
   return if output&.selected_content_action_id
   update_machine_output
 end
