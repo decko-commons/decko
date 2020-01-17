@@ -1,7 +1,7 @@
 include_set Pointer
 
 def virtual?
-  session_content.present?
+  new?
 end
 
 def history?
