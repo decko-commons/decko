@@ -123,6 +123,6 @@ arrayFromField = (rows, field) ->
   rows.map( -> $(this).data field ).toArray()
 
 trackSelectedIds = (el) ->
-  notIds = filterBox(el).find "._not-ids"
-  unless notIds.val().match(/item_ids:/)
-    nodIds.val(prefilteredIds(el).concat(selectedIds(el)).toString())
+  ids = prefilteredIds(el).concat selectedIds(el)
+  box = filterBox el
+  box.find("._not-ids").val ids.toString()
