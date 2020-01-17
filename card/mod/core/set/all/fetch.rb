@@ -115,8 +115,8 @@ end
 # fetching from the context of a card
 
 def fetch traits, opts={}
-  traits = Array.wrap traits
-  traits.inject(self) do |card, trait|
+  opts[:new][:supercard] = self if opts[:new]
+  Array.wrap(traits).inject(self) do |card, trait|
     Card.fetch card.name.trait(trait), opts
   end
 end
@@ -134,7 +134,7 @@ def newish opts
   Card.with_normalized_new_args opts do |norm_opts|
     handle_type norm_opts do
       assign_attributes norm_opts
-      self.name = name # trigger superize
+      self.name = name # trigger superize_name
     end
   end
 end
@@ -152,4 +152,3 @@ def refresh force=false
   fresh_card.include_set_modules
   fresh_card
 end
-
