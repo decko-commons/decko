@@ -102,7 +102,6 @@ class Card < ApplicationRecord
   extend ::Card::Dirty::MethodFactory
   include ::Card::Dirty
 
-
   Card::Name
   Card::Codename
   Card::Query
@@ -134,7 +133,7 @@ class Card < ApplicationRecord
   #require_dependency "card/subcards"
   #require_dependency "card/view"
   #require_dependency "card/act_manager"
-  ##require_dependency "card/dirty"
+  #require_dependency "card/dirty"
   #require_dependency "card/layout"
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id

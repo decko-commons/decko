@@ -23,9 +23,8 @@ class Card
       end
 
       def lookup_inherited_key
-        return unless @inherit_card
+        return unless (card = @inherit_card)
 
-        card = @inherit_card
         @inherit_card = nil
         return unless (type_code = default_type_code card)
 
@@ -34,8 +33,7 @@ class Card
       end
 
       def default_type_code card
-        default_rule = card.rule_card :default
-        default_rule&.type_code
+        card.rule_card(:default)&.type_code
       end
 
       def mods_exist_for_key? mod_key

@@ -440,6 +440,26 @@ RSpec.describe Card::ActManager::StageDirector do
         end
       end
     end
+
+    it "executes integrate phase when act card didn't change" do
+        @called_events = []
+
+        def event_called ev
+          @called_events << ev
+        end
+
+        with_test_events do
+          test_event :validate, on: :update, for: "A" do
+            event_called "v"
+            abort :success
+          end
+          test_event :integrate, on: :update do
+            event_called "i"
+          end
+          Card["A"].update! subcards: { "+B" => "new content" }
+          expect(@called_events).to eq ["i"]
+        end
+    end
   end
 
   describe "creating and updating cards in stages" do

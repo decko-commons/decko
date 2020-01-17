@@ -34,15 +34,17 @@ RSpec.describe Card::Set::Type do
     binding.pry
     @mylist_card = Card.create name: "ip", type_id: @mylist.id
   end
+
   # similar tests for an inherited type of Pointer
-  it "has inherited set module" do
+it "has inherited set module" do
+    expect(@mylist_card.set_modules).to include(Card::Set::Type::Pointer)
     expect(@mylist_card.set_format_modules(Card::Format::HtmlFormat))
       .to include(Card::Set::Type::Pointer::HtmlFormat)
     expect(@mylist_card.set_format_modules(Card::Format::CssFormat))
       .to include(Card::Set::Type::Pointer::CssFormat)
     expect(@mylist_card.set_format_modules(Card::Format::JsFormat))
       .to include(Card::Set::Type::Pointer::JsFormat)
-    expect(@mylist_card.set_modules).to include(Card::Set::Type::Pointer)
+
   end
 end
 
