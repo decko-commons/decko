@@ -36,7 +36,6 @@ class Card
           @processed = nil
           @content = content
           interpret match, content
-          self
         end
 
         def interpret _match_string, _content
