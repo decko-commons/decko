@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# # require_dependency File.expand_path("../reference", __FILE__)
-Card::Content::Chunk::Reference
+# require_dependency File.expand_path("../reference", __FILE__)
 
 class Card
   class Content
@@ -18,7 +17,7 @@ class Card
       # after the match, which of course means that we don't find references with
       # query keywords as name
 
-
+      Card::Content::Chunk::Reference
       ::Card::Query
       class QueryReference < Reference
         QUERY_KEYWORDS = ::Set.new(
@@ -28,17 +27,17 @@ class Card
             ::Card::Query::ATTRIBUTES.keys +
             ::Card::Query::CONJUNCTIONS.keys +
             %w[desc asc count]
-          ).map(&:to_s)
+        ).map(&:to_s)
         )
 
         Card::Content::Chunk.register_class(
           self, prefix_re: '(?<=[:,\\[])\\s*"',
-          # we check for colon, comma or square bracket before a quote
-          # we have to use a lookbehind, otherwise
-          # if the colon matches it would be
-          # identified mistakenly as an URI chunk
-          full_re:   /\A\s*"([^"]+)"/,
-          idx_char:  '"'
+                # we check for colon, comma or square bracket before a quote
+                # we have to use a lookbehind, otherwise
+                # if the colon matches it would be
+                # identified mistakenly as an URI chunk
+                full_re: /\A\s*"([^"]+)"/,
+                idx_char: '"'
         )
 
         # OPTIMIZE: instead of comma or square bracket check for operator followed
@@ -62,11 +61,13 @@ class Card
             # FIXME: would not match cardnames that are keywords
             match, offset = super(content, prefix)
             return if !match || keyword?(match[1])
+
             [match, offset]
           end
 
           def keyword? str
             return unless str
+
             QUERY_KEYWORDS.include?(str.tr(" ", "_").downcase)
           end
         end

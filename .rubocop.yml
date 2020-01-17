@@ -14,7 +14,7 @@ Style/Documentation:
   Enabled: false
 Lint/ScriptPermission:
   Enabled: false
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
