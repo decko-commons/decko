@@ -31,7 +31,6 @@ RSpec.describe Card::Set::Type do
       @mylist = Card.create! name: "MyList", type_id: Card::CardtypeID
       Card.create name: "MyList+*type+*default", type_id: Card::PointerID
     end
-    binding.pry
     @mylist_card = Card.create name: "ip", type_id: @mylist.id
   end
 
