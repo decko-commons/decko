@@ -23,7 +23,7 @@ RSpec.describe Card::Set::Right do
   it_generates name: "author+*right", from: Card.new(name: "+author")
 end
 
-describe Card::Set::Type do
+RSpec.describe Card::Set::Type do
   it_generates name: "Book+*type", from: Card.new(type: "Book")
 
   before :each do
@@ -31,6 +31,7 @@ describe Card::Set::Type do
       @mylist = Card.create! name: "MyList", type_id: Card::CardtypeID
       Card.create name: "MyList+*type+*default", type_id: Card::PointerID
     end
+    binding.pry
     @mylist_card = Card.create name: "ip", type_id: @mylist.id
   end
   # similar tests for an inherited type of Pointer
@@ -45,15 +46,15 @@ describe Card::Set::Type do
   end
 end
 
-describe Card::Set::AllPlus do
+RSpec.describe Card::Set::AllPlus do
   it_generates name: "*all plus", from: Card.new(name: "Book+author")
 end
 
-describe Card::Set::All do
+RSpec.describe Card::Set::All do
   it_generates name: "*all", from: Card.new(type: "Book")
 end
 
-describe Card::Set::TypePlusRight do
+RSpec.describe Card::Set::TypePlusRight do
   author_card = Card.new(name: "Iliad+author")
   it_generates name: "Book+author+*type plus right", from: author_card
 end

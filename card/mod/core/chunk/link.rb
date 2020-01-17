@@ -7,7 +7,7 @@ class Card
   class Content
     module Chunk
       # extend ActiveSupport::Autoload
-      # autoload :Reference, "reference"
+      # autoload :Reference , "reference"
 
       class Link < Card::Content::Chunk::Reference
         CODE = "L".freeze # L for "Link"

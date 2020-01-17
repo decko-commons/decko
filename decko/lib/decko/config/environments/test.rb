@@ -2,7 +2,7 @@
 Decko.application.class.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  config.eager_load = false
+  config.eager_load = true # false
 
   config.machine_refresh = :never
 
