@@ -1,7 +1,8 @@
 class Card
   module Set
     class Pattern
-      ::Card::Set::Type
+      require_dependency "card/set/type"
+      # ::Card::Set::Type
 
       class << self
         def reset
