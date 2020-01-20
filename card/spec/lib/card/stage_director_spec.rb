@@ -441,7 +441,7 @@ RSpec.describe Card::ActManager::StageDirector do
       end
     end
 
-    it "executes integrate phase when act card didn't change" do
+    xit "executes integrate phase when act card didn't change" do
         @called_events = []
 
         def event_called ev

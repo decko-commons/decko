@@ -62,7 +62,6 @@ class Card
             @anchor_name = self.class.anchor_name(card).to_name
             @anchor_id = find_anchor_id card
           end
-          self
         end
 
         def find_anchor_id card
@@ -97,7 +96,7 @@ class Card
         def anchor_codenames
           anchor_parts.map do |part|
             part_id = Card.fetch_id part
-            Card::Codename[part_id] || return
+            Card::Codename[part_id] || break
           end
         end
 

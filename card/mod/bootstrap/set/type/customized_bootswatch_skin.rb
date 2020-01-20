@@ -97,7 +97,8 @@ def add_variables_subfield
 end
 
 def add_bootswatch_subfield
-  add_subfield :bootswatch, type_id: Card::ScssID, content: content_from_theme(:bootswatch)
+  add_subfield :bootswatch, type_id: Card::ScssID,
+                            content: content_from_theme(:bootswatch)
 end
 
 def theme_card

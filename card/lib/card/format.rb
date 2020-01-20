@@ -17,10 +17,10 @@ class Card
     extend ActiveSupport::Autoload
     extend Registration
 
-    #eager_autoload do
+    # eager_autoload do
     # autoload :Content, "card/format/content"
     #  autoload :Error, "card/format/error"
-    #end
+    # end
 
     include Card::Env::Location
     include Nesting
@@ -29,8 +29,6 @@ class Card
     include Content
     include Error
     include MethodDelegation
-
-
 
     cattr_accessor :registered, :aliases
     self.registered = []
@@ -48,7 +46,6 @@ class Card
       require_card_to_initialize!
       opts.each { |key, value| instance_variable_set "@#{key}", value }
       include_set_format_modules
-      self
     end
 
     def require_card_to_initialize!

@@ -34,4 +34,8 @@ module ClassMethods
         "AND card_actions.draft = true"
     )
   end
+
+  def count_cards_with_attachment
+    Card.search type_id: ["in", Card::FileID, Card::ImageID], return: :count
+  end
 end

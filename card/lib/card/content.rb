@@ -13,8 +13,8 @@ class Card
   #
   class Content < SimpleDelegator
     # ActiveSupport::Dependencies::ModuleConstMissing.include_into(self)
-    require_dependency 'card/content/clean'
-    require_dependency 'card/content/truncate'
+    require_dependency "card/content/clean"
+    require_dependency "card/content/truncate"
 
     extend ::Card::Content::Clean
     extend ::Card::Content::Truncate
@@ -50,7 +50,7 @@ class Card
     end
 
     def has_chunk? chunk_type
-      each_chunk.any { |chunk| chunk.is_a?(chunk_type)}
+      each_chunk.any { |chunk| chunk.is_a?(chunk_type) }
     end
 
     # sends &block to #process_chunk on each Chunk object
