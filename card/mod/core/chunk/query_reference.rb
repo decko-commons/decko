@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-
-
 class Card
   class Content
     module Chunk
@@ -17,19 +15,17 @@ class Card
       # after the match, which of course means that we don't find references with
       # query keywords as name
 
-      require_dependency File.expand_path("../reference", __FILE__)
-      # Card::Content::Chunk::Reference
+      require_dependency File.expand_path("reference", __dir__)
       require_dependency "card/query"
-      # ::Card::Query
       class QueryReference < Reference
         QUERY_KEYWORDS = ::Set.new(
           (
-          ::Card::Query::MODIFIERS.keys +
+            ::Card::Query::MODIFIERS.keys +
             ::Card::Query::OPERATORS.keys +
             ::Card::Query::ATTRIBUTES.keys +
             ::Card::Query::CONJUNCTIONS.keys +
             %w[desc asc count]
-        ).map(&:to_s)
+          ).map(&:to_s)
         )
 
         Card::Content::Chunk.register_class(

@@ -96,28 +96,12 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 class Card < ApplicationRecord
   require_dependency "card/env"
-  # Card::Env
   extend ::Card::Mark
+
   require_dependency "card/dirty"
   extend ::Card::Dirty::MethodFactory
   include ::Card::Dirty
 
-  # Card::Name
-  # Card::Codename
-  # Card::Query
-  # Card::Format
-  # Card::Error
-  # Card::Auth
-  # Card::Mod
-  # Card::Content
-  # Card::Action
-  # Card::Act
-  # Card::Change
-  # Card::Reference
-  # Card::Subcards
-  # Card::View
-  # Card::ActManager
-  # Card::Layout
   require_dependency "card/name"
   require_dependency "card/codename"
   require_dependency "card/query"
