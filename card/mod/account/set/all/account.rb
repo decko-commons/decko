@@ -5,7 +5,7 @@ module ClassMethods
 end
 
 def account
-  fetch trait: :account
+  fetch :account
 end
 
 def parties
@@ -63,7 +63,7 @@ def enabled_role_ids
     # workaround for broken migrations
     return fetch_roles unless Card::Codename.exists? :enabled_roles
 
-    role_trait = fetch(trait: :enabled_roles, new: { type_id: SessionID })
+    role_trait = fetch(:enabled_roles, new: { type_id: Card::SessionID })
     role_trait.virtual? ? role_trait.item_ids : fetch_roles
   end
 end
@@ -74,7 +74,7 @@ end
 
 def role_ids_from_roles_trait
   Auth.as_bot do
-    role_trait = fetch trait: :roles
+    role_trait = fetch :roles
     role_trait ? role_trait.item_ids : []
   end
 end

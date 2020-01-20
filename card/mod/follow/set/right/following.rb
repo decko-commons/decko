@@ -28,7 +28,7 @@ format :html do
   end
 
   view :rule_editor, cache: :never do
-    rule_context = Card.fetch preference_name, new: { type_id: PointerID }
+    rule_context = Card.fetch preference_name, new: { type_id: Card::PointerID }
     wrap_with :div, class: "edit-rule" do
       follow_context = current_follow_rule_card || rule_context
       subformat(follow_context).rule_form :open, rule_context, :modal

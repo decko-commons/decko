@@ -16,7 +16,7 @@ class Card
         "blockquote" => ["cite"]
       )
 
-      if Card.config.allow_inline_styles
+      if Cardio.config.allow_inline_styles
         allowed_tags["table"] += %w[cellpadding align border cellspacing data-mce-style]
         allowed_tags["td"] += %w[scope data-mce-style]
         allowed_tags["th"] += %w[scope data-mce-style]
@@ -24,7 +24,7 @@ class Card
 
       allowed_tags.each_key do |k|
         allowed_tags[k] << "class"
-        allowed_tags[k] << "style" if Card.config.allow_inline_styles
+        allowed_tags[k] << "style" if Cardio.config.allow_inline_styles
         allowed_tags[k]
       end
 
@@ -52,7 +52,7 @@ class Card
         end.gsub(/<\!--.*?-->/, "")
       end
 
-      if Card.config.space_last_in_multispace
+      if Cardio.config.space_last_in_multispace
         def clean_with_space_last! string, tags=ALLOWED_TAGS
           cwo = clean_without_space_last!(string, tags)
           cwo.gsub(/(?:^|\b) ((?:&nbsp;)+)/, '\1 ')

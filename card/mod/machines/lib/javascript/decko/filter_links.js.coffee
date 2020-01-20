@@ -61,7 +61,18 @@ $(window).ready ->
     e.preventDefault()
     e.stopPropagation()
 
-  $('body').on 'click', '._quick-filter a, ._filter-link', (e) ->
+  $('body').on 'click', '._filter-link', (e) ->
     f = filterFor this
-    f.addRestrictions $(this).data("filter")
+    link = $(this)
+    filter_data = link.data "filter"
+    if inactiveQuickfilter link
+      f.removeRestrictions filter_data
+    else
+      f.addRestrictions filter_data
+
     e.preventDefault()
+    e.stopPropagation()
+
+  inactiveQuickfilter = (link) ->
+    !link.hasClass("active") && link.closest(".quick-filter").length > 0
+

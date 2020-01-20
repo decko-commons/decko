@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Auth do
   before do
-    Card::Auth.current_id = Card::AnonymousID
+    Card::Auth.signin Card::AnonymousID
     @joeuserid = Card["Joe User"].id
   end
 
@@ -21,18 +21,8 @@ RSpec.describe Card::Auth do
     expect(authenticated.left_id).to eq(@joeuserid)
   end
 
-  it "sets current directly from email" do
-    Card::Auth.current= "joe@user.com"
-    expect(Card::Auth.current_id).to eq(@joeuserid)
-  end
-
   it "sets current directly from id when mark is id" do
-    Card::Auth.current= @joeuserid
-    expect(Card::Auth.current_id).to eq(@joeuserid)
-  end
-
-  it "sets current directly from id when mark is id" do
-    Card::Auth.current= @joeuserid
+    Card::Auth.signin @joeuserid
     expect(Card::Auth.current_id).to eq(@joeuserid)
   end
 
@@ -45,8 +35,8 @@ RSpec.describe Card::Auth do
       end
     end
 
-    it "sets current from token" do
-      Card::Auth.set_current_from_api_key @api_key
+    it "sets current from api key" do
+      Card::Auth.signin_with_api_key @api_key
       expect(Card::Auth.current_id).to eq(@joeadmin.id)
     end
   end

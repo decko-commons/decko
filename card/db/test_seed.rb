@@ -96,11 +96,11 @@ class SharedData
       Card.create! type_id: Card::CardtypeID, name: "UserForm"
       create "UserForm+*type+*structure", "{{+name}} {{+age}} {{+description}}"
 
-      Card::Auth.current_id = Card["joe_user"].id
+      Card::Auth.signin "joe_user"
       create "JoeLater", "test"
       create "JoeNow", "test"
 
-      Card::Auth.current_id = Card::WagnBotID
+      Card::Auth.signin Card::WagnBotID
 
       create_cardtype "Book"
       create "Book+*type+*structure", "by {{+author}}, design by {{+illustrator}}"
@@ -169,10 +169,10 @@ class SharedData
       end
 
       # noinspection RubyResolve
-      Card["Joe Admin"].fetch(trait: :roles, new: { type_code: "pointer" })
+      Card["Joe Admin"].fetch(:roles, new: { type_code: "pointer" })
         .items = [Card::AdministratorID, Card::SharkID, Card::HelpDeskID]
 
-      Card["Joe User"].fetch(trait: :roles, new: { type_code: "pointer" })
+      Card["Joe User"].fetch(:roles, new: { type_code: "pointer" })
               .items = [Card::SharkID]
 
       create_user "u1", email: "u1@user.com", password: "u1_pass"
@@ -184,9 +184,9 @@ class SharedData
       r3 = create_role "r3"
       r4 = create_role "r4"
 
-      Card["u1"].fetch(trait: :roles, new: { type_code: "pointer" }).items = [r1, r2, r3]
-      Card["u2"].fetch(trait: :roles, new: {}).items = [r1, r2, r4]
-      Card["u3"].fetch(trait: :roles, new: {}).items = [r1, r4, Card::AdministratorID]
+      Card["u1"].fetch(:roles, new: { type_code: "pointer" }).items = [r1, r2, r3]
+      Card["u2"].fetch(:roles, new: {}).items = [r1, r2, r4]
+      Card["u3"].fetch(:roles, new: {}).items = [r1, r4, Card::AdministratorID]
     end
 
 
@@ -244,14 +244,14 @@ class SharedData
         create "John Following+her"
         magnifier = create "Magnifier+lens"
 
-        Card::Auth.current_id = Card["Narcissist"].id
+        Card::Auth.signin "Narcissist"
         magnifier.update! content: "zoom in"
         create_optic "Sunglasses", "{{+tint}}{{+lens}}"
 
-        Card::Auth.current_id = Card["Optic fan"].id
+        Card::Auth.signin "Optic fan"
         create_optic "Google glass", "{{+price}}"
 
-        Card::Auth.current_id = Card::WagnBotID
+        Card::Auth.signin Card::WagnBotID
         create "Google glass+*self+*follow_fields", ""
         create "Sunglasses+*self+*follow_fields", "[[#{Card[:nests].name}]]\n[[_self+price]]\n[[_self+producer]]"
         create "Sunglasses+tint"

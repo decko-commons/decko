@@ -30,30 +30,35 @@ format :html do
   end
 
   view :add_button do
-    add_link "btn btn-secondary"
+    add_link class: "btn btn-secondary"
   end
 
-  def add_link css_class=nil
+  def add_link opts={}
     voo.title ||= tr(:add_card, cardname: safe_name)
-    title = _render_title
-    link_to title, modal_link_opts(class: css_class, path: _render_add_path)
+    link_to render_title, add_link_opts(opts)
+  end
+
+  def add_link_opts opts
+    modal = opts.delete :modal
+    modal = true if modal.nil?
+    opts[:path] = add_path(modal ? :new_in_modal : :new)
+    modal ? modal_link_opts(opts) : opts
   end
 
   view :add_url do
     card_url _render_add_path
   end
 
-  view :add_path do
-    path_args = {}
-    if voo.params
-      context = ((@parent&.card) || card).name
-      Rack::Utils.parse_nested_query(voo.params).each do |key, value|
-        value = value.to_name.absolute(context) if value
-        key = key.to_name.absolute(context)
-        path_args[key] = value
-      end
+  def add_path view
+    path_args = { mark: card.name }
+    process_voo_params(path_args) if voo.params
+    if view == :new
+      path_args[:action] = :new
+    else
+      path_args[:action] = :type
+      path_args[:view] = view
     end
-    path path_args.merge(action: :type, mark: card.name, view: :new_in_modal)
+    path path_args
   end
 
   # don't cache because it depends on update permission for another card
@@ -77,7 +82,18 @@ format :html do
     title = _render_title
     link_to_card card, title, path: { view: :bridge, bridge: { tab: :rules_tab },
                                       set: Card::Name[safe_name, :type] },
-                              class: css_class
+                              class: css_classes("configure-type-link ml-3", css_class)
+  end
+
+  private
+
+  def process_voo_params path_args
+    context = ((@parent&.card) || card).name
+    Rack::Utils.parse_nested_query(voo.params).each do |key, value|
+      value = value.to_name.absolute(context) if value
+      key = key.to_name.absolute(context)
+      path_args[key] = value
+    end
   end
 end
 
@@ -92,7 +108,7 @@ def create_ok?
 end
 
 def was_cardtype?
-  type_id_before_act == CardtypeID
+  type_id_before_act == Card::CardtypeID
 end
 
 event :check_for_cards_of_type, after: :validate_delete do

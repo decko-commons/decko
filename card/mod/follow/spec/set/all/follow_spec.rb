@@ -65,7 +65,7 @@ RSpec.describe Card::Set::All::Follow do
   # didn't check if it can be adjusted to knew follow ui
   xdescribe "view: follow_link" do
     before do
-      Card::Auth.current_id = Card["Big Brother"].id
+      Card::Auth.signin "Big Brother"
     end
 
     def assert_following_view name, args
@@ -131,7 +131,7 @@ RSpec.describe Card::Set::All::Follow do
     end
 
     context "when following content I created" do
-      before { Card::Auth.current_id = Card["Narcissist"].id }
+      before { Card::Auth.signin "Narcissist" }
 
       it "renders following link" do
         assert_following_view "Sunglasses", add_set: "Sunglasses+*self",
@@ -140,7 +140,7 @@ RSpec.describe Card::Set::All::Follow do
     end
 
     context "when following content I edited" do
-      before { Card::Auth.current_id = Card["Narcissist"].id }
+      before { Card::Auth.signin "Narcissist" }
 
       it "renders following link" do
         assert_following_view "Magnifier+lens",

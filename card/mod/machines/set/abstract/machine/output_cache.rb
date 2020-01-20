@@ -1,5 +1,5 @@
 def fetch_cache_card input_card, new=nil
-  new &&= { type_id: PlainTextID }
+  new &&= { type_id: Card::PlainTextID }
   Card.fetch input_card.name, name, :machine_cache, new: new
 end
 

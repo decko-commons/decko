@@ -32,7 +32,7 @@ format :html do
   def custom_types
     custom_types = []
 
-    Card.search(type_id: CardtypeID, return: "name").each do |name|
+    Card.search(type_id: Card::CardtypeID, return: "name").each do |name|
       next if ::Card::Set::Self::Cardtype::GROUP_MAP[name]
 
       custom_types << name

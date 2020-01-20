@@ -19,6 +19,10 @@ def item_names args={}
   end.compact
 end
 
+def first_name args={}
+  item_names(args).first
+end
+
 # @return [Array] list of integers (card ids of items)
 # @param args [Hash] see #item_names
 def item_ids args={}
@@ -44,15 +48,6 @@ end
 end
 
 # ~~~~~~~~~~~~ ALTERING ITEMS ~~~~~~~~~~~~
-
-def items_to_content array
-  items = array.map { |i| standardize_item i }.reject(&:blank?)
-  self.content = items.to_pointer_content
-end
-
-def standardize_item item
-  Card::Name[item]
-end
 
 # set card content based on array and save card
 # @param array [Array] list of strings/names (Cardish)
@@ -134,15 +129,6 @@ def all_item_cards args={}
   names.map { |name| fetch_item_card name, args }
 end
 
-def fetch_item_card name, args={}
-  Card.fetch name, new: new_unknown_item_args(args)
-end
-
-def new_unknown_item_args args
-  itype = args[:type] || item_type
-  itype ? { type: itype } : {}
-end
-
 # TODO: support type_code and type_id. (currently type)
 # uses name, because its most common use is from WQL
 def item_type
@@ -163,6 +149,8 @@ def raw_item_strings content
   content.to_s.split(/\n+/).map { |i| strip_item i }
 end
 
+private
+
 def filtered_items items, limit: 0, offset: 0
   limit = limit.to_i
   offset = offset.to_i
@@ -171,11 +159,17 @@ def filtered_items items, limit: 0, offset: 0
   items[offset, (limit.zero? ? items.size : limit)] || []
 end
 
-private
+def fetch_item_card name, args={}
+  Card.fetch name, new: new_unknown_item_args(args)
+end
+
+def new_unknown_item_args args
+  itype = args[:type] || item_type
+  itype ? { type: itype } : {}
+end
 
 def clean_item_name item, context
   item = item.to_name
-  # FIXME: stripping should not be necessary here. should be handled in validation
   return item if context == :raw
   context ||= context_card.name
   item.absolute_name context

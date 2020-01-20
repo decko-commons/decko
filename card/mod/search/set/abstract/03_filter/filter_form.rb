@@ -5,7 +5,7 @@ format :html do
                   sort_field: _render(:sort_formgroup)
   end
 
-  view :quick_filters do
+  view :quick_filters, cache: :never do
     return "" unless quick_filter_list.present?
 
     haml :quick_filters, filter_list: normalized_quick_filter_list
@@ -19,14 +19,21 @@ format :html do
         text: (hash.delete(:text) || hash[filter_key]),
         icon: (hash.delete(:icon) || mapped_icon_tag(filter_key)),
         # FIXME: mapped_icon_tag is a wikirate concept
-        class:  css_classes(hash.delete(:class), "quick-filter-by-#{filter_key}"),
+        class:  css_classes(hash.delete(:class),
+                            "_filter-link quick-filter-by-#{filter_key}"),
         filter: JSON(hash[:filter] || hash)
       }
     end
   end
 
+  # for override
   def quick_filter_list
     []
+  end
+
+  # for override
+  def custom_quick_filters
+    ""
   end
 
   # @param data [Hash] the filter categories. The hash needs for every category

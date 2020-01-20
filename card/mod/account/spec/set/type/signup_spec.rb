@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::Type::Signup do
   before do
-    Card::Auth.current_id = Card::AnonymousID
+    Card::Auth.signin Card::AnonymousID
   end
 
   let :big_bad_signup do
@@ -30,7 +30,7 @@ RSpec.describe Card::Set::Type::Signup do
       Card::Auth.as_bot do
         Card.create! name: "User+*type+*create", content: "[[Anyone]]"
       end
-      Card::Auth.current_id = Card::AnonymousID
+      Card::Auth.signin Card::AnonymousID
 
       @signup = big_bad_signup
       @account = @signup.account
@@ -89,7 +89,7 @@ RSpec.describe Card::Set::Type::Signup do
     before do
       # NOTE: by default Anonymous does not have permission
       # to create User cards and thus requires approval
-      Card::Auth.current_id = Card::AnonymousID
+      Card::Auth.signin Card::AnonymousID
       @signup = big_bad_signup
       @account = @signup.account
     end
@@ -172,7 +172,7 @@ RSpec.describe Card::Set::Type::Signup do
     before do
       # NOTE:
       # by default Anonymous does not have permission to create User cards.
-      Card::Auth.current_id = Card::WagnBotID
+      Card::Auth.signin Card::WagnBotID
       @signup = big_bad_signup
       @account = @signup.account
     end

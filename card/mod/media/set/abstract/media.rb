@@ -1,6 +1,6 @@
 format :html do
   def image_card
-    @image_card ||= card.fetch(trait: :image, new: {})
+    @image_card ||= card.fetch(:image, new: {})
   end
 
   def text_with_image opts={}

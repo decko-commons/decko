@@ -66,7 +66,7 @@ module CarrierWave
   # ## Storage types
   # You can choose between four different storage options
   #  - coded: These files are in the codebase, like the default logo.
-  #      Every view is a wagn request.
+  #      Every view is a decko request.
   #  - local: Uploaded files which are stored in a local upload directory
   #      (upload path is configurable via config.paths["files"]).
   #      If read permissions are set such that "Anyone" can read, then there is
@@ -287,9 +287,17 @@ module CarrierWave
       model.selected_content_action_id || action_id_stand_in
     end
 
-    # delegate carrierwave's fog config methods to cardio's config methods
+    # delegate carrierwave's fog config methods to bucket configuration
     ::CarrierWave::FileCardUploader::CONFIG_OPTIONS.each do |name|
-      define_method("fog_#{name}") { @model.bucket_config[name] }
+      define_method("fog_#{name}") { bucket_config name }
+    end
+
+    def bucket_config option
+      @model.bucket_config[option]
+    end
+
+    def asset_host
+      bucket_config(:asset_host) || super
     end
 
     private
@@ -304,7 +312,8 @@ module CarrierWave
       case @model.storage_type
       when :cloud
         ::CarrierWave::Storage::Fog.new(self)
-      else ::CarrierWave::Storage::File.new(self)
+      else
+        ::CarrierWave::Storage::File.new(self)
       end
     end
   end

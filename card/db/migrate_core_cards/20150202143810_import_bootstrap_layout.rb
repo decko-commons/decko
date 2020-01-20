@@ -11,8 +11,8 @@ class ImportBootstrapLayout < Card::Migration::Core
 
     import_json "bootstrap_layout.json" # , pristine: true, output_file: nil
     if layout && layout.pristine? && (all = Card[:all])
-      layout_rule_card = all.fetch trait: :layout
-      style_rule_card  = all.fetch trait: :style
+      layout_rule_card = all.fetch :layout
+      style_rule_card  = all.fetch :style
       if layout_rule_card.pristine? && style_rule_card.pristine?
         layout_rule_card.update! content: "[[Default Layout]]"
         if style_rule_card.item_name == "customized classic skin"
