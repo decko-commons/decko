@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency File.expand_path("../reference", __FILE__)
+
 
 class Card
   class Content
@@ -17,8 +17,10 @@ class Card
       # after the match, which of course means that we don't find references with
       # query keywords as name
 
-      Card::Content::Chunk::Reference
-      ::Card::Query
+      require_dependency File.expand_path("../reference", __FILE__)
+      # Card::Content::Chunk::Reference
+      require_dependency "card/query"
+      # ::Card::Query
       class QueryReference < Reference
         QUERY_KEYWORDS = ::Set.new(
           (
