@@ -1,30 +1,6 @@
 class Card
   module Set
     class Pattern
-      class << self
-        def reset
-          Card.set_patterns = []
-          @card_keys = @in_load_order = nil
-        end
-
-        def find pattern_code
-          Card.set_patterns.find { |sub| sub.pattern_code == pattern_code }
-        end
-
-        def card_keys
-          @card_keys ||=
-            Card.set_patterns.each_with_object({}) do |set_pattern, hash|
-              card_key = Card.quick_fetch(set_pattern.pattern_code).key
-              hash[card_key] = true
-            end
-        end
-
-        def in_load_order
-          @in_load_order ||=
-            Card.set_patterns.reverse.map(&:pattern_code).unshift :abstract
-        end
-      end
-
       class Abstract
         class << self
           attr_accessor :pattern_code, :pattern_id, :junction_only,
@@ -86,7 +62,6 @@ class Card
             @anchor_name = self.class.anchor_name(card).to_name
             @anchor_id = find_anchor_id card
           end
-          self
         end
 
         def find_anchor_id card
@@ -121,7 +96,7 @@ class Card
         def anchor_codenames
           anchor_parts.map do |part|
             part_id = Card.fetch_id part
-            Card::Codename[part_id] || return
+            Card::Codename[part_id] || break
           end
         end
 
@@ -171,50 +146,6 @@ class Card
         end
       end
     end
-
-    class Type < Pattern::Abstract
-      def initialize card
-        super
-        # support type inheritance
-        @inherit_card = card unless module_key
-      end
-
-      def lookup_module_list modules_hash
-        lookup_key = module_key || inherited_key
-        modules_hash[lookup_key] if lookup_key
-      end
-
-      private
-
-      def inherited_key
-        if defined?(@inherited_key)
-          @inherited_key
-        else
-          @inherited_key = lookup_inherited_key
-        end
-      end
-
-      def lookup_inherited_key
-        return unless @inherit_card
-
-        card = @inherit_card
-        @inherit_card = nil
-        return unless (type_code = default_type_code card)
-
-        mod_key = "Type::#{type_code.to_s.camelize}"
-        mod_key if mods_exist_for_key? mod_key
-      end
-
-      def default_type_code card
-        default_rule = card.rule_card :default
-        default_rule&.type_code
-      end
-
-      def mods_exist_for_key? mod_key
-        list_of_hashes = Card::Set.modules[:nonbase_format].values
-        list_of_hashes << Card::Set.modules[:nonbase]
-        list_of_hashes.any? { |h| h[mod_key] }
-      end
-    end
   end
 end
+

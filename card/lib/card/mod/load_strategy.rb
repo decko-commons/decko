@@ -1,10 +1,10 @@
 class Card
   module Mod
-    require_dependency "card/mod/load_strategy/eval"
-    require_dependency "card/mod/load_strategy/pattern_tmp_files"
-    require_dependency "card/mod/load_strategy/set_binding_magic"
-    require_dependency "card/mod/load_strategy/set_tmp_files"
-    require_dependency "card/mod/load_strategy/tmp_files"
+    # require_dependency "card/mod/load_strategy/eval"
+    # require_dependency "card/mod/load_strategy/pattern_tmp_files"
+    # require_dependency "card/mod/load_strategy/set_binding_magic"
+    # require_dependency "card/mod/load_strategy/set_tmp_files"
+    # require_dependency "card/mod/load_strategy/tmp_files"
 
     # Shared code for the three different load strategies: Eval, TmpFiles and BindingMagic
     class LoadStrategy

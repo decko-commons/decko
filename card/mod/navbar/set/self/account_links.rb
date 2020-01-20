@@ -67,7 +67,7 @@ format :html do
   end
 
   def enabled_roles_card
-    Auth.current.fetch :enabled_roles, new: { type_id: SessionID }
+    Auth.current.fetch :enabled_roles, new: { type_id: Card::SessionID }
   end
 
   def role_list

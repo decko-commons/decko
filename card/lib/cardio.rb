@@ -13,13 +13,13 @@ end
 module Cardio
   extend Schema
   extend Utils
-  CARD_GEM_ROOT = File.expand_path("../..", __FILE__)
+  CARD_GEM_ROOT = File.expand_path("..", __dir__)
 
   mattr_reader :paths, :config
 
   class << self
     def load_card?
-      ActiveRecord::Base.connection && !defined?(Card)
+      ActiveRecord::Base.connection && !const_defined?("Card")
     rescue
       false
     end
@@ -30,67 +30,67 @@ module Cardio
 
     def default_configs
       {
-        read_only:              read_only?,
+        read_only: read_only?,
 
         # if you disable inline styles tinymce's formatting options stop working
-        allow_inline_styles:    true,
+        allow_inline_styles: true,
 
-        recaptcha_public_key:   nil, # deprecated; use recaptcha_site_key instead
-        recaptcha_private_key:  nil, # deprecated; use recaptcha_secret_key instead
-        recaptcha_proxy:        nil,
-        recaptcha_site_key:     nil,
-        recaptcha_secret_key:   nil,
+        recaptcha_public_key: nil, # deprecated; use recaptcha_site_key instead
+        recaptcha_private_key: nil, # deprecated; use recaptcha_secret_key instead
+        recaptcha_proxy: nil,
+        recaptcha_site_key: nil,
+        recaptcha_secret_key: nil,
         recaptcha_minimum_score: 0.5,
 
-        override_host:          nil,
-        override_protocol:      nil,
+        override_host: nil,
+        override_protocol: nil,
 
-        no_authentication:      false,
-        files_web_path:         "files",
+        no_authentication: false,
+        files_web_path: "files",
 
-        max_char_count:         200,
-        max_depth:              20,
-        email_defaults:         nil,
+        max_char_count: 200,
+        max_depth: 20,
+        email_defaults: nil,
 
-        token_expiry:           2.days,
-        acts_per_page:          10,
+        token_expiry: 2.days,
+        acts_per_page: 10,
         space_last_in_multispace: true,
-        closed_search_limit:    10,
-        paging_limit:           20,
+        closed_search_limit: 10,
+        paging_limit: 20,
 
-        non_createable_types:   [%w[signup setting set session bootswatch_skin customized_bootswatch_skin]], # FIXME
-        view_cache:             false,
-        rss_enabled:            false,
-        double_click:           :signed_in,
+        non_createable_types: [%w[signup setting set session bootswatch_skin customized_bootswatch_skin]], # FIXME
+        view_cache: false,
+        rss_enabled: false,
+        double_click: :signed_in,
 
-        encoding:                "utf-8",
-        request_logger:         false,
-        performance_logger:     false,
-        sql_comments:           true,
+        encoding: "utf-8",
+        request_logger: false,
+        performance_logger: false,
+        sql_comments: true,
 
-        file_storage:           :local,
-        file_buckets:           {},
-        file_default_bucket:    nil,
-        protocol_and_host:      nil,
+        file_storage: :local,
+        file_buckets: {},
+        file_default_bucket: nil,
+        protocol_and_host: nil,
 
-        rich_text_editor:       :tinymce,
+        rich_text_editor: :tinymce,
 
-        persistent_cache:       true,
-        prepopulate_cache:      false,
-        machine_refresh:        :cautious, # options: eager, cautious, never
-        compress_javascript:    true,
+        persistent_cache: true,
+        prepopulate_cache: false,
+        machine_refresh: :cautious, # options: eager, cautious, never
+        compress_javascript: true,
 
         allow_irreversible_admin_tasks: false,
-        raise_all_rendering_errors:     false,
-        rescue_all_in_controller:       true,
-        navbox_match_start_only:        true,
-        load_strategy:                  :eval
+        raise_all_rendering_errors: false,
+        rescue_all_in_controller: true,
+        navbox_match_start_only: true,
+        load_strategy: :eval
       }
     end
 
     def set_config config
       @@config = config
-      config.active_job.queue_adapter = :delayed_job #better place for this?
+      config.active_job.queue_adapter = :delayed_job # better place for this?
 
       add_lib_dirs_to_autoload_paths config
 
@@ -100,12 +100,27 @@ module Cardio
     end
 
     def add_lib_dirs_to_autoload_paths config
-      config.autoload_paths += Dir["#{gem_root}/lib/**/"]
-      config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
-      config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
+      config.autoload_paths += Dir["#{gem_root}/lib"]
+      config.autoload_paths += Dir["#{gem_root}/mod/*/lib"]
+      config.watchable_dirs["#{gem_root}/mod/*/set"] = [:rb]
+
+      config.autoload_paths += Dir["#{root}/mod/*/lib"]
+      config.watchable_dirs["#{root}/mod/*/set"] = [:rb]
       gem_mod_paths.each do |_mod_name, mod_path|
-        config.autoload_paths += Dir["#{mod_path}/lib/**/"]
+        config.autoload_paths += Dir["#{mod_path}/lib"]
+        config.watchable_dirs["#{mod_path}/set"] = [:rb]
       end
+      # the watachable_dirs are processes in
+      # set_clear_dependencies_hook hook in the railties gem in finisher.rb
+
+      # TODO: move this to the right place in decko
+      config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
+      # config.autoload_paths += Dir["#{gem_root}/lib/**/"]
+      # config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
+      # config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
+      # gem_mod_paths.each do |_mod_name, mod_path|
+      #  config.autoload_paths += Dir["#{mod_path}/lib/**/"]
+      # end
     end
 
     # @return Hash with key mod names (without card-mod prefix) and values the
@@ -115,6 +130,7 @@ module Cardio
         Bundler.definition.specs.each_with_object({}) do |gem_spec, h|
           mod_name = mod_name_from_gem_spec gem_spec
           next unless mod_name
+
           h[mod_name] = gem_spec.full_gem_path
         end
     end

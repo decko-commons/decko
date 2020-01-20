@@ -133,7 +133,7 @@ describe Card, "recreate trashed card via new" do
   #  end
 end
 
-describe Card, "junction revival" do
+RSpec.describe Card, "junction revival" do
   before do
     Card::Auth.as_bot do
       @c = Card.create! name: "basicname+woot", content: "basiccontent"
@@ -159,13 +159,13 @@ describe Card, "junction revival" do
   end
 end
 
-describe "remove tests" do
+RSpec.describe "remove tests" do
   # I believe this is here to test a bug where cards with certain kinds of references
   # would fail to delete.  probably less of an issue now that delete is done through
   # trash.
   it "test_remove" do
     assert Card["A"].delete!, "card should be deleteable"
-    assert_nil Card["A"]
+    expect(Card["A"]).to be_nil
   end
 
   example "recreate plus card name variant" do

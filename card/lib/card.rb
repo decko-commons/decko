@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-Object.const_remove_if_defined :Card
+# Object.const_remove_if_defined :Card
 ActiveSupport.run_load_hooks(:before_card, self)
 # ActiveSupport::Dependencies.loaded.clear
 
@@ -95,8 +95,12 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # {Card::Auth More on accounts}
 #
 class Card < ApplicationRecord
-  require_dependency "card/mark"
-  extend Mark
+  require_dependency "card/env"
+  extend ::Card::Mark
+
+  require_dependency "card/dirty"
+  extend ::Card::Dirty::MethodFactory
+  include ::Card::Dirty
 
   require_dependency "card/name"
   require_dependency "card/codename"
@@ -113,7 +117,6 @@ class Card < ApplicationRecord
   require_dependency "card/subcards"
   require_dependency "card/view"
   require_dependency "card/act_manager"
-  require_dependency "card/dirty"
   require_dependency "card/layout"
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
@@ -161,16 +164,13 @@ class Card < ApplicationRecord
 
   define_callbacks(
     :select_action, :show_page, :act,
-
     # VALIDATION PHASE
     :initialize_stage, :prepare_to_validate_stage, :validate_stage,
     :initialize_final_stage, :prepare_to_validate_final_stage,
     :validate_final_stage,
-
     # STORAGE PHASE
     :prepare_to_store_stage, :store_stage, :finalize_stage,
     :prepare_to_store_final_stage, :store_final_stage, :finalize_final_stage,
-
     # INTEGRATION PHASE
     :integrate_stage, :integrate_with_delay_stage,
     :integrate_final_stage,
@@ -183,7 +183,7 @@ class Card < ApplicationRecord
   before_validation :validation_phase, unless: -> { only_storage_phase? }
   around_save :storage_phase
   after_commit :integration_phase, unless: -> { only_storage_phase? }
-#  after_rollback :clean_up, unless: -> { only_storage_phase? }
+  #  after_rollback :clean_up, unless: -> { only_storage_phase? }
 
   ActiveSupport.run_load_hooks(:card, self)
 end

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-require_dependency "card/cache"
-require_dependency "card/name"
+# require_dependency "card/cache"
+# require_dependency "card/name"
 
 class Card
   # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned
@@ -24,6 +24,9 @@ class Card
   # Every process maintains a complete cache that is not frequently reset
   #
   class Codename
+    require_dependency "card/cache"
+    # require_dependency "card/name"
+    #
     class << self
       # returns codename for id and id for codename
       # @param codename [Integer, Symbol, String, Card::Name]
@@ -46,7 +49,9 @@ class Card
         end
       end
 
-      def name codename
+      def name codename=nil
+        return super() if codename.nil?
+
         name! codename
       rescue Error::CodenameNotFound => _e
         yield if block_given?
@@ -75,7 +80,7 @@ class Card
       # clear cache both locally and in cache
       def reset_cache
         @codehash = nil
-        Card.cache.delete "CODEHASH"
+        ::Card.cache.delete "CODEHASH"
       end
 
       # @param codename [Symbol, String]
@@ -112,7 +117,7 @@ class Card
 
       # generate Hash for @codehash and put it in the cache
       def load_codehash
-        Card.cache.fetch("CODEHASH") do
+        ::Card.cache.fetch("CODEHASH") do
           generate_codehash
         end
       end

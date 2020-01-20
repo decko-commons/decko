@@ -45,7 +45,6 @@ group :test, :development do
   gem 'colorize'
   gem 'delayed_job_active_record', '~> 4.1'
   gem 'html2haml'
-  gem 'rails-dev-tweaks'
   # gem 'jasmine'
   # gem 'jasmine-rails'
   # gem 'jasmine-jquery-rails'

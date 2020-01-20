@@ -16,7 +16,7 @@ Feature: Navbox
     When I enter '{"type":"User"}' in the navbox
     Then I press enter to search
     Then I should see "Search results"
-    And I should see "Big Brother"
+    And I should see "Sample User"
 
   Scenario: paging
     Given I go to the homepage

@@ -1,15 +1,15 @@
 # -*- encoding : utf-8 -*-
 
-require_dependency "card"
-require_dependency "decko/response"
-require_dependency "card/mailer"  # otherwise Net::SMTPError rescues can cause
+# require_dependency "card"
+# require_dependency "decko/response"
+# require_dependency "card/mailer"  # otherwise Net::SMTPError rescues can cause
 # problems when error raised comes before Card::Mailer is mentioned
 
 # Decko's only controller.
 class CardController < ApplicationController
-  include Card::Env::Location
-  include Recaptcha::Verify
-  include Decko::Response
+  include ::Card::Env::Location
+  include ::Recaptcha::Verify
+  include ::Decko::Response
 
   layout nil
   attr_reader :card
@@ -136,6 +136,7 @@ class CardController < ApplicationController
   def debug_exception? e
     !e.is_a?(Card::Error::UserError) &&
       !e.is_a?(ActiveRecord::RecordInvalid) &&
+      Card::Codename[:debugger] &&
       Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
   end
 
@@ -147,7 +148,7 @@ class CardController < ApplicationController
     end
 
     def rescue_all?
-      Card.config.rescue_all_in_controller
+      Cardio.config.rescue_all_in_controller
     end
   end
 

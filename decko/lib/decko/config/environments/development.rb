@@ -20,7 +20,7 @@ Decko.application.class.configure do
   # every request.  This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
-  config.reload_classes_only_on_change = false
+  config.reload_classes_only_on_change = true
 
   if defined?(RailsDevTweaks)
     config.dev_tweaks.autoload_rules do
