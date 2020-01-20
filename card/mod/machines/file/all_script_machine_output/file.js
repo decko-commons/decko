@@ -12185,8 +12185,11 @@ return jQuery;
   });
 
   $(window).ready(function() {
-    return $('body').on("select2:select", "._close-rule-overlay-on-select", function(event) {
+    $('body').on("select2:select", "._close-rule-overlay-on-select", function(event) {
       return $(".overlay-container > ._overlay.card-slot.overlay_rule-view.RULE").removeOverlay();
+    });
+    return $('body').on("click", "._update-history-pills", function(event) {
+      return $(this).closest(".slotter").data("update-foreign-slot", ".card-slot.history_tab-view");
     });
   });
 

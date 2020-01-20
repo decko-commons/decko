@@ -8,6 +8,18 @@ def history_card_ids
   includee_ids << id
 end
 
+# all cards who are considered updated if this card's was updated
+def history_parent_ids
+  includer_ids << id
+end
+
+def history_ancestor_ids recursion_level=0
+  return [] if recursion_level > 5
+
+  ids = history_parent_ids.map { |id| Card[id].history_ancestor_ids(recursion_level + 1) }
+  ids.flatten
+end
+
 # ~~FIXME~~: optimize (no need to instantiate all actions and changes!)
 # Nothing is instantiated here. ActiveRecord is much smarter than you think.
 # Methods like #empty? and #size make sql queries if their receivers are not already
@@ -42,6 +54,13 @@ def includee_ids
     ).pluck("referee_id").compact.uniq
 end
 
+def includer_ids
+  @includer_ids ||=
+    Card::Reference.select(:referer_id).where(
+      ref_type: "I", referee_id: id
+    ).pluck("referer_id").compact.uniq
+end
+
 def diff_args
   { diff_format: :text }
 end
@@ -73,4 +92,12 @@ def save_content_draft content
     act.ar_actions.build(draft: true, card_id: id, action_type: :update)
        .card_changes.build(field: :db_content, value: content)
   end
+end
+
+event :update_timestamps, :finalize do
+
+  history_ancestor_ids.each do |id|
+    Card[id].touch
+  end
+  Card.where(id: history_ancestor_ids).update_all(updater_id: Auth.current_id)
 end
