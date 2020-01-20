@@ -58,8 +58,8 @@ class Card
     # {AbstractFormat#before before}) are defined in {AbstractFormat}. These methods are
     # always available in format blocks.
     module Format
-      require_dependency "card/set/format/haml_paths"
-      require_dependency "card/set/format/abstract_format"
+      # require_dependency "card/set/format/haml_paths"
+      # require_dependency "card/set/format/abstract_format"
 
       # define format behavior within a set module
       def format *format_names, &block
@@ -98,7 +98,7 @@ class Card
           # yielding set format module, eg Card::Set::Type::Pointer::HtmlFormat
           m = Module.new
           register_set_format Card::Format.class_from_name(klass), m
-          m.extend Card::Set::AbstractFormat
+          m.extend Card::Set::Format::AbstractFormat
           m
         end
         mod.class_eval(&block)

@@ -199,7 +199,7 @@ class Card
 
       def validate_setting setting
         unless Card::Codename.exist?(setting) &&
-               Card.fetch_type_id(setting) == SettingID
+               Card.fetch_type_id(setting) == Card::SettingID
           raise ArgumentError, "not a valid setting: #{setting}"
         end
       end
@@ -207,7 +207,7 @@ class Card
       def normalize_trait_rule_args setting, value
         return value if value.is_a? Hash
 
-        if Card.fetch_type_id([setting, :right, :default]) == PointerID
+        if Card.fetch_type_id([setting, :right, :default]) == Card::PointerID
           value = Array(value).to_pointer_content
         end
         { content: value }

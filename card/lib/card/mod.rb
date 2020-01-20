@@ -1,5 +1,5 @@
-require_dependency "card/mod/loader"
-require_dependency "card/mod/dirs"
+# require_dependency "card/mod/loader"
+# require_dependency "card/mod/dirs"
 
 class Card
   # A Card Mod (short for "module" or "modification") is a discrete piece of Decko
@@ -70,7 +70,7 @@ class Card
         return if ENV["CARD_MODS"] == "none"
 
         if Card.take
-          Loader.load_mods
+          Card::Mod::Loader.load_mods
         else
           Rails.logger.warn "empty database"
         end
@@ -78,7 +78,7 @@ class Card
 
       # @return an array of Rails::Path objects
       def dirs
-        @dirs ||= Dirs.new(Card.paths["mod"].existent)
+        @dirs ||= Mod::Dirs.new(Card.paths["mod"].existent)
       end
     end
   end

@@ -80,7 +80,7 @@ class Card
       # FIXME: if the following is necessary, we need to document why.
       # generally it's a very bad idea to have type-specific code here.
 
-      # return res unless res&.type_id&.in?([FileID, ImageID])
+      # return res unless res&.type_id&.in?([Card::FileID, Card::ImageID])
       # res.include_set_modules
     end
 

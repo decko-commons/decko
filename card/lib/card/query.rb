@@ -35,7 +35,7 @@ class Card
   #    [ field_string_or_sym, Card::Value::Query object ]
   module Query
     require_dependency "card/query/card_query"
-
+    # Card::Query::CardQuery
     # After conversion, ATTRIBUTES is a Hash where the key is the attribute
     # and the value is the attribute type:
     # { id: :basic, name: :basic, key: :basic ...}

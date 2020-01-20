@@ -86,7 +86,7 @@ class Card
       # specific types in here!
 
       # , skip_modules: true
-      # return res unless res && res.type_id.in?([FileID, ImageID])
+      # return res unless res && res.type_id.in?([Card::FileID, Card::ImageID])
       # res.include_set_modules
     end
 

@@ -68,7 +68,7 @@ end
 
 # reject cards that don't contribute directly to the content like skin or pointer cards
 def engine_input
-  extended_input_cards.select { |ca| ca.type_id.in? [ScssID, CssID] }
+  extended_input_cards.select { |ca| ca.type_id.in? [Card::ScssID, Card::CssID] }
 end
 
 # Don't create "+*machine output" file card

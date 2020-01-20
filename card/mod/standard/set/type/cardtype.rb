@@ -108,7 +108,7 @@ def create_ok?
 end
 
 def was_cardtype?
-  type_id_before_act == CardtypeID
+  type_id_before_act == Card::CardtypeID
 end
 
 event :check_for_cards_of_type, after: :validate_delete do

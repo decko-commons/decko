@@ -244,15 +244,15 @@ $d-yellow-1: #ffd;
   display: inline-block;
 }
 .fileinput-button input {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    opacity: 0;
-    -ms-filter: 'alpha(opacity=0)';
-    font-size: 200px;
-    direction: ltr;
-    cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
 }
 
 
@@ -481,8 +481,16 @@ textarea {
   cursor: pointer;
 }
 
-.search-checkbox-item .checkbox-side {
-  width: 32px;
+.search-checkbox-item {
+  > .checkbox-side {
+    width: 32px;
+    min-width: 32px;
+  }
+  > .item-view-side {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
 }
 
 .new-account-link {
@@ -508,7 +516,7 @@ a.unknown-link {
 /*-------------------- */
 
 .pointer-radio-list, .filtered-list-review {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 /*-------------------- */
@@ -996,15 +1004,15 @@ $bridge-line-color: $border-color;
 
 .overlay-container {
   .card-slot.overlay_rule-view {
-      border-left: 5px solid $primary;
+    border-left: 5px solid $primary;
   }
 
   .d0-card-overlay
   > .d0-card-frame
   > .d0-card-content {
-      overflow-y: scroll;
-      height: 100%;
-      padding: 1rem 1.5rem; // px-4
+    overflow-y: scroll;
+    height: 100%;
+    padding: 1rem 1.5rem; // px-4
   }
 }
 
@@ -1029,7 +1037,7 @@ $bridge-line-color: $border-color;
     margin-bottom: -1px;
 
     &:hover, &.active, &:focus {
-       border-left-color: $nav-pills-link-active-bg;
+      border-left-color: $nav-pills-link-active-bg;
     }
   }
 }
@@ -1071,8 +1079,8 @@ $bridge-line-color: $border-color;
 }
 
 .overlay-container {
-    height: 100%;
-    overflow: auto;
+  height: 100%;
+  overflow: auto;
 }
 
 .help-text.rule-instruction > div p:last-child {

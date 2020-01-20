@@ -70,13 +70,13 @@ event :copy_theme, :prepare_to_store, on: :create do
 end
 
 def initialize_theme style_item_names=nil
-  add_subfield :colors, type_id: ScssID
+  add_subfield :colors, type_id: Card::ScssID
   add_variables_subfield
   add_stylesheets_subfield style_item_names
 end
 
 def add_stylesheets_subfield style_items=nil
-  opts = { type_id: SkinID }
+  opts = { type_id: Card::SkinID }
   if theme_name
     theme_style = add_bootswatch_subfield
     opts[:content] = "[[#{theme_style.name}]]"
@@ -92,12 +92,13 @@ def add_variables_subfield
   theme_content = content_from_theme(:variables)
   default_content = Type::CustomizedBootswatchSkin.read_bootstrap_variables
   add_subfield :variables,
-               type_id: ScssID,
+               type_id: Card::ScssID,
                content: "#{theme_content}\n\n\n#{default_content}"
 end
 
 def add_bootswatch_subfield
-  add_subfield :bootswatch, type_id: ScssID, content: content_from_theme(:bootswatch)
+  add_subfield :bootswatch, type_id: Card::ScssID,
+                            content: content_from_theme(:bootswatch)
 end
 
 def theme_card
