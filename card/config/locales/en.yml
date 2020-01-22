@@ -302,7 +302,7 @@ en:
           error:
             unsupported_view: view (%{view}) not supported for %{cardname}
             not_found_named: Could not find %{cardname}.
-            not_found_no_name: Could not find the card requested
+            not_found_no_name: the card requested
             server_error: "\nWagn Hitch!  Server Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
             se_hitch: 'Wagn Hitch :('
             se_sorry: Server Error. Yuck, sorry about that.
