@@ -58,6 +58,8 @@ class Card
     extend I18nScope
     extend Loader
 
+    Format #trigger autoload
+
     mattr_accessor :modules, :traits
     self.modules = { base: [], base_format: {}, nonbase: {}, nonbase_format: {},
                      abstract: {}, abstract_format: {} }

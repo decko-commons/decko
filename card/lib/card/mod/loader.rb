@@ -1,10 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card/set"
-# require_dependency "card/set_pattern"
-# require_dependency "card/mod/loader/set_loader"
-# require_dependency "card/mod/loader/set_pattern_loader"
-
 class Card
   module Mod
     # Card::Mod::Loader is used to load all part of a mod,

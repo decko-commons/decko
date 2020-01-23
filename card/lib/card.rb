@@ -119,6 +119,8 @@ class Card < ApplicationRecord
   require_dependency "card/act_manager"
   require_dependency "card/layout"
 
+  Card::Set
+
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id
   has_many :acts, -> { order :id }
