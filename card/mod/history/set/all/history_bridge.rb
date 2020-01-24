@@ -22,7 +22,7 @@ format :html do
     total = item_cards.size
     fetch_count = total > max_count ? max_count - 1 : max_count
 
-    reduced = item_cards.first(fetch_count).map { |c| nest c, view: item_view }
+    reduced = first_card(fetch_count).map { |c| nest c, view: item_view }
     if total > max_count
       reduced << link_to_card(others_target,  "#{total - fetch_count} others")
     end

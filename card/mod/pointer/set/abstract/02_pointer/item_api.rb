@@ -23,6 +23,14 @@ def first_name args={}
   item_names(args).first
 end
 
+def first_card args={}
+  fetch_item_card first_name, args
+end
+
+def first_code
+  first_card&.codename
+end
+
 # @return [Array] list of integers (card ids of items)
 # @param args [Hash] see #item_names
 def item_ids args={}
