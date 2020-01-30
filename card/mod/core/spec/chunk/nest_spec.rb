@@ -128,7 +128,7 @@ RSpec.describe Card::Content::Chunk::Nest do
 
     it "handles triple curlies" do
       card = Card.new content: "{{{A|name}}}"
-      expect(card.format.render_core).to eq("{A}")
+      expect(card.format._render_core).to eq("{A}")
     end
 
     it "handles complex relative names" do
