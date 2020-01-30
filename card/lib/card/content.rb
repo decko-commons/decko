@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card/content/chunk"
-# require_dependency "card/content/parser"
-# require_dependency "card/content/clean"
-# require_dependency "card/content/truncate"
+# require "card/content/chunk"
+# require "card/content/parser"
+# require "card/content/clean"
+# require "card/content/truncate"
 
 class Card
   # Content objects support the parsing of content strings into arrays that
@@ -13,8 +13,8 @@ class Card
   #
   class Content < SimpleDelegator
     # ActiveSupport::Dependencies::ModuleConstMissing.include_into(self)
-    require_dependency "card/content/clean"
-    require_dependency "card/content/truncate"
+    require "card/content/clean"
+    require "card/content/truncate"
 
     extend ::Card::Content::Clean
     extend ::Card::Content::Truncate

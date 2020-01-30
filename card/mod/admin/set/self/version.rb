@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card/version"
+# require "card/version"
 
 def ok_to_read
   true

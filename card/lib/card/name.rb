@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card/env"
+# require "card/env"
 
 require "cardname"
 

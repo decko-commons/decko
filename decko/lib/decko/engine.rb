@@ -48,7 +48,7 @@ module Decko
         ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
       end
       ActiveSupport.on_load(:after_initialize) do
-        # require_dependency "card" if Cardio.load_card?
+        # require "card" if Cardio.load_card?
         Card if Cardio.load_card?
       rescue ActiveRecord::StatementInvalid => e
         ::Rails.logger.warn "database not available[#{::Rails.env}] #{e}"

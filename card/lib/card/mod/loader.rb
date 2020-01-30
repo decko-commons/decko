@@ -79,7 +79,7 @@ class Card
         def load_dir dir
           Dir["#{dir}/*.rb"].sort.each do |file|
             # puts Benchmark.measure("from #load_dir: rd: #{file}") {
-            # require_dependency file
+            # require file
             # "require" breaks the reloading in development env
             load file
             # }.format('%n: %t %r')

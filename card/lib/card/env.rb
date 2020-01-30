@@ -1,5 +1,5 @@
-# require_dependency "card/env/location"
-# require_dependency "card/env/location_history"
+# require "card/env/location"
+# require "card/env/location_history"
 
 class Card
   # Card::Env is a module for containing the variable details of the environment
