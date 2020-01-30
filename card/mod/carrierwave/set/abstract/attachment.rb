@@ -1,4 +1,4 @@
-require "carrier_wave/cardmount"
+require "carrier_wave/card_mount"
 
 attr_writer :empty_ok
 

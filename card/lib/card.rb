@@ -102,24 +102,22 @@ class Card < ApplicationRecord
   extend ::Card::Dirty::MethodFactory
   include ::Card::Dirty
 
-  require_dependency "card/name"
-  require_dependency "card/codename"
-  require_dependency "card/query"
-  require_dependency "card/format"
-  require_dependency "card/error"
-  require_dependency "card/auth"
-  require_dependency "card/mod"
-  require_dependency "card/content"
-  require_dependency "card/action"
-  require_dependency "card/act"
-  require_dependency "card/change"
-  require_dependency "card/reference"
-  require_dependency "card/subcards"
-  require_dependency "card/view"
-  require_dependency "card/act_manager"
-  require_dependency "card/layout"
-
-  Card::Set
+  require "card/name"
+  require "card/codename"
+  require "card/query"
+  require "card/format"
+  require "card/error"
+  require "card/auth"
+  require "card/mod"
+  require "card/content"
+  require "card/action"
+  require "card/act"
+  require "card/change"
+  require "card/reference"
+  require "card/subcards"
+  require "card/view"
+  require "card/act_manager"
+  require "card/layout"
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id
@@ -189,5 +187,3 @@ class Card < ApplicationRecord
 
   ActiveSupport.run_load_hooks(:card, self)
 end
-
-ActiveSupport.run_load_hooks(:after_card, self)
