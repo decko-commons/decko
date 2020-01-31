@@ -26,7 +26,7 @@ Decko.application.class.configure do
   #     skip "/favicon.ico"
   #     skip /view\=status/
   #   end
-  end
+  # end
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true

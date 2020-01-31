@@ -10,8 +10,8 @@ class Card
   #
   # {Card::Mod} explains how to set up a mod.
   # {Card::Set::Format} explains how to use this and other format classes within a mod.
-  # {Card::Set::Format::AbstractFormat} introduces the view API, which is organized with these
-  # format classes.
+  # {Card::Set::Format::AbstractFormat} introduces the view API, which is organized with
+  # these format classes.
   #
   class Format
     require "card/format/registration"
