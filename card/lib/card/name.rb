@@ -10,6 +10,9 @@ class Card
   #
   # Card::Name adds support for deeper card integration
   class Name < Cardname
+    require "card/name/fields_and_traits"
+    require "card/name/name_variants"
+
     include FieldsAndTraits
     include ::Card::Name::NameVariants
 

@@ -94,9 +94,10 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 # {Card::Auth More on accounts}
 
-require "active_record"
+require "application_record"
 class Card < ApplicationRecord
   require "card/env"
+  require "card/mark"
   extend ::Card::Mark
 
   require "card/dirty"
