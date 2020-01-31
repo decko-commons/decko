@@ -118,6 +118,7 @@ class Card < ApplicationRecord
   require "card/view"
   require "card/act_manager"
   require "card/layout"
+  require "card/set"
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id
