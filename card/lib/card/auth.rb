@@ -1,16 +1,16 @@
 # -*- encoding : utf-8 -*-
 
-# require "card/auth/permissions"
-# require "card/auth/proxy"
-# require "card/auth/setup"
-# require "card/auth/token"
-
 class Card
   # Singleton methods for account authentication and contextualization.
   #
   # Manages current user,
   # "as" user, and password verification.
   module Auth
+    require "card/auth/permissions"
+    require "card/auth/proxy"
+    require "card/auth/setup"
+    require "card/auth/current"
+
     extend Permissions
     extend Proxy
     extend Setup

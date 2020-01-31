@@ -166,6 +166,9 @@ class Card
     # cached and retrieved even when it's rendered inside another cached view.
     #
     module Cache
+      require "card/view/cache/cache_action"
+      require "card/view/cache/stub"
+
       include CacheAction
       include Stub
 

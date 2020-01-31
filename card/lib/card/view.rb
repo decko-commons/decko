@@ -1,7 +1,7 @@
-# require "card/view/cache"
-# require "card/view/options"
-# require "card/view/classy"
-# require "card/view/permission"
+require "card/view/cache"
+require "card/view/options"
+require "card/view/classy"
+require "card/view/permission"
 
 class Card
   # Card::View manages {Options view options}, {Cache view caching}, and

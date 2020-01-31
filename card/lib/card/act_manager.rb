@@ -1,4 +1,5 @@
-# require "card/act_manager/stage_director"
+require "card/act_manager/stage_director"
+require "card/act_manager/event_delay"
 
 class Card
   # Manages the whole process of creating an {act Card::Act} ie. changing

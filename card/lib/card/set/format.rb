@@ -58,8 +58,8 @@ class Card
     # {AbstractFormat#before before}) are defined in {AbstractFormat}. These methods are
     # always available in format blocks.
     module Format
-      HamlPaths
-      AbstractFormat
+      require "card/set/format/haml_paths"
+      require "card/set/format/abstract_format"
 
       # define format behavior within a set module
       def format *format_names, &block

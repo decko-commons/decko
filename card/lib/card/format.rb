@@ -14,13 +14,16 @@ class Card
   # format classes.
   #
   class Format
+    require "card/format/registration"
+    require "card/format/nesting"
+    require "card/format/render"
+    require "card/format/context_names"
+    require "card/format/content"
+    require "card/format/error"
+    require "card/format/method_delegation"
+
     extend ActiveSupport::Autoload
     extend Registration
-
-    # eager_autoload do
-    # autoload :Content, "card/format/content"
-    #  autoload :Error, "card/format/error"
-    # end
 
     include Card::Env::Location
     include Nesting

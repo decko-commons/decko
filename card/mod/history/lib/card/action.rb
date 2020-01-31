@@ -21,8 +21,11 @@ class Card
   # * a _comment_ (where applicable)
   #
   class Action < ApplicationRecord
-    include Card::Action::Differ
-    extend Card::Action::Admin
+    require "card/action/differ"
+    require "card/action/admin"
+
+    include Differ
+    extend Admin
 
     belongs_to :act, foreign_key: :card_act_id, inverse_of: :ar_actions
     belongs_to :ar_card, foreign_key: :card_id, inverse_of: :actions, class_name: "Card"
