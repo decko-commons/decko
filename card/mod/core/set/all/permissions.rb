@@ -187,9 +187,9 @@ event :set_field_read_rules,
   end
 end
 
-# currently doing a brute force search for every card that may be impacted.
-# may want to optimize(?)
+
 def update_field_read_rules
+  return unless type_id_changed? || read_rule_id_changed?
   Auth.as_bot do
     fields.each do |field|
       field.update_read_rule if field.rule(:read) == "_left"
