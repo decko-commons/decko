@@ -1,10 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require "card"
-# require "decko/response"
-# require "card/mailer"  # otherwise Net::SMTPError rescues can cause
-# problems when error raised comes before Card::Mailer is mentioned
-
 # Decko's only controller.
 class CardController < ApplicationController
   include ::Card::Env::Location

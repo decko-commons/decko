@@ -61,7 +61,7 @@ class Card
     include Basket
     include Inheritance
 
-    include Set::Format
+    include Format
     include AdvancedApi
     include Helpers
 
