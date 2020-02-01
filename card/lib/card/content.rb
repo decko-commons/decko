@@ -1,9 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require "card/content/chunk"
-# require "card/content/parser"
-# require "card/content/clean"
-# require "card/content/truncate"
 
 class Card
   # Content objects support the parsing of content strings into arrays that
@@ -15,6 +11,8 @@ class Card
     # ActiveSupport::Dependencies::ModuleConstMissing.include_into(self)
     require "card/content/clean"
     require "card/content/truncate"
+    require "card/content/chunk"
+    require "card/content/parser"
 
     extend ::Card::Content::Clean
     extend ::Card::Content::Truncate

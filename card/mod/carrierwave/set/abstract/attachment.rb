@@ -1,5 +1,3 @@
-require "carrier_wave/card_mount"
-
 attr_writer :empty_ok
 
 def self.included host_class

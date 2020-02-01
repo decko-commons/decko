@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require "card/cache"
-# require "card/name"
-
 class Card
   # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned
   # in code, lest a name change break the application.
@@ -25,8 +22,6 @@ class Card
   #
   class Codename
     require "card/cache"
-    # require "card/name"
-    #
     class << self
       # returns codename for id and id for codename
       # @param codename [Integer, Symbol, String, Card::Name]

@@ -36,6 +36,7 @@ class Card
   module Query
     require "card/query/clause"
     require "card/query/card_query"
+    require "card/query/sql_statement"
     # Card::Query::CardQuery
     # After conversion, ATTRIBUTES is a Hash where the key is the attribute
     # and the value is the attribute type:
