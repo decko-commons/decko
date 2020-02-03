@@ -22,6 +22,8 @@ Decko.application.class.configure do
   config.cache_classes = false
   config.reload_classes_only_on_change = true
 
+  config.reload_set_modules = false
+
   # if defined?(RailsDevTweaks)
   #   config.dev_tweaks.autoload_rules do
   #     skip "/files"

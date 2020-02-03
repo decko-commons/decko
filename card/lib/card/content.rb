@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-
 class Card
   # Content objects support the parsing of content strings into arrays that
   # contain semantically meaningful "chunks" like nests, links, urls, etc.

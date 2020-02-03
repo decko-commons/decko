@@ -73,11 +73,8 @@ class Card
         end
 
         def module_key
-          if defined? @module_key
-            @module_key
-          else
-            @module_key = self.class.module_key(anchor_codenames)
-          end
+          return @module_key if defined? @module_key
+          @module_key = self.class.module_key anchor_codenames
         end
 
         def lookup_module_list modules_hash
