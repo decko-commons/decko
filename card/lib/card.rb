@@ -1,9 +1,8 @@
 # -*- encoding : utf-8 -*-
+
 require "application_record"
 
-# Object.const_remove_if_defined :Card
 ActiveSupport.run_load_hooks(:before_card, self)
-# ActiveSupport::Dependencies.loaded.clear
 
 # Cards are wiki-inspired building blocks.
 #
