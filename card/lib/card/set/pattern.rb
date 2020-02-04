@@ -6,6 +6,9 @@ class Card
 
       class << self
         def reset
+          (Card.set_patterns << Card::Set::Abstract).each do |set_pattern|
+            Card::Set.const_remove_if_defined set_pattern.to_s.split("::").last
+          end
           Card.set_patterns = []
           @card_keys = @in_load_order = nil
         end

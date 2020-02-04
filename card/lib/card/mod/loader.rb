@@ -35,17 +35,20 @@ class Card
         attr_reader :module_type
 
         def load_mods
-          Card::Mod::Loader::SetPatternLoader.new.load
           load_formats
-          Card::Mod::Loader::SetLoader.new.load
+          load_sets
+          Card::Set.process_base_modules
           load_initializers
-          # rescue
-          # raise Card::Error, "unrescued error loading mods"
         end
 
-        def reload_mods
+        def load_sets
+          Card::Mod::Loader::SetPatternLoader.new.load
+          Card::Mod::Loader::SetLoader.new.load
+        end
+
+        def reload_sets
           Card::Set::Pattern.reset
-          load_mods
+          load_sets
         end
 
         def load_chunks
