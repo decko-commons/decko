@@ -1,8 +1,19 @@
 class Card
   module Query
     # interpret CQL queries, transform them into SQL, and run them.
-    require_dependency "card/query/abstract_query"
+    require "card/query/abstract_query"
+
     class CardQuery < AbstractQuery
+      require "card/query/card_query/run"
+      require "card/query/card_query/match_attributes"
+      require "card/query/card_query/relational_attributes"
+      require "card/query/card_query/reference_attributes"
+      require "card/query/card_query/found_by"
+      require "card/query/card_query/interpretation"
+      require "card/query/card_query/normalization"
+      require "card/query/card_query/sorting"
+      require "card/query/card_query/conjunctions"
+
       include Clause
       include Run
       include MatchAttributes

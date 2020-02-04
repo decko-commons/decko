@@ -40,7 +40,7 @@ class Card
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # Organization Phase
 
-      # 'base modules' are modules that are permanently included on the Card or
+      # 'base modules' are modules that are always included on the Card or
       # Format class
       # 'nonbase modules' are included dynamically on singleton_classes
       def process_base_modules

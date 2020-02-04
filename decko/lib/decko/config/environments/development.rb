@@ -22,13 +22,15 @@ Decko.application.class.configure do
   config.cache_classes = false
   config.reload_classes_only_on_change = true
 
-  if defined?(RailsDevTweaks)
-    config.dev_tweaks.autoload_rules do
-      skip "/files"
-      skip "/favicon.ico"
-      skip /view\=status/
-    end
-  end
+  #   config.reload_set_modules = true
+
+  # if defined?(RailsDevTweaks)
+  #   config.dev_tweaks.autoload_rules do
+  #     skip "/files"
+  #     skip "/favicon.ico"
+  #     skip /view\=status/
+  #   end
+  # end
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true

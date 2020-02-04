@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency File.expand_path("../reference", __FILE__)
+# require File.expand_path("../reference", __FILE__)
 
 class Card
   class Content
@@ -11,7 +11,7 @@ class Card
         DEFAULT_OPTION = :view # a value without a key is interpreted as view
 
         Chunk.register_class(self, prefix_re: '\\{\\{',
-                                   full_re:    /\A\{\{([^\}]*)\}\}/,
+                                   full_re:    /\A\{\{([^\{\}]*)\}\}/,
                                    idx_char:  "{")
 
         def interpret match, _content

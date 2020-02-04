@@ -14,6 +14,10 @@ class Card
     # Events can be defined on each of these stages
     #
     class Event
+      require "card/set/event/delayed_event"
+      require "card/set/event/options"
+      require "card/set/event/callbacks"
+
       module Api
         def event event, stage_or_opts={}, opts={}, &final
           Event.new(event, stage_or_opts, opts, self, &final).register

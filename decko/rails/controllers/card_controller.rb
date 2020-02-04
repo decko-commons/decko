@@ -1,10 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card"
-# require_dependency "decko/response"
-# require_dependency "card/mailer"  # otherwise Net::SMTPError rescues can cause
-# problems when error raised comes before Card::Mailer is mentioned
-
 # Decko's only controller.
 class CardController < ApplicationController
   include ::Card::Env::Location
@@ -55,6 +50,7 @@ class CardController < ApplicationController
   before_action :refresh_card, only: [:create, :update, :delete]
 
   def setup
+    # Card::Mod::Loader::SetLoader.new.load if Card.config.reload_set_modules
     Card::Machine.refresh_script_and_style unless params[:explicit_file]
     Card::Cache.renew
     Card::Env.reset controller: self

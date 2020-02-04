@@ -1,4 +1,4 @@
-# require_dependency "card/content/chunk"
+# require "card/content/chunk"
 
 class Card
   class Content

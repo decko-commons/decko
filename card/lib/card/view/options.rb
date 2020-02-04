@@ -13,6 +13,10 @@ class Card
     #      render :viewname, hide: :menu
     #
     module Options
+      require "card/view/options/key_lists"
+      require "card/view/options/voo_api"
+      require "card/view/options/visibility"
+
       # the keymap represents a 2x2 matrix, where the factors are
       # (a) whether an option's value can be set by a shark via nests, and
       # (b) whether subviews can inherit the option from a parent view.

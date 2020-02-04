@@ -126,6 +126,11 @@ RSpec.describe Card::Content::Chunk::Nest do
                          "Woot"
     end
 
+    it "handles triple curlies" do
+      card = Card.new content: "{{{A|name}}}"
+      expect(card.format._render_core).to eq("{A}")
+    end
+
     it "handles complex relative names" do
       bob_city = create! "bob+city", "Sparta"
       Card::Auth.as_bot do
