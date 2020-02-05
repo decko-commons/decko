@@ -14,6 +14,7 @@ RSpec.describe Card::Mod::Loader::SetLoader do
   it "load mods" do
     described_class.new(:eval, mod_dirs).load
     expect(Card::Set.const_defined?("All::TestSet")).to be_truthy
+    Card::Set.process_base_modules
     expect(Card.take.test_method).to eq "method works"
   end
 end
