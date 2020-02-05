@@ -28,6 +28,11 @@ module Cardio
       false
     end
 
+    def load_card!
+      require "card"
+      ActiveSupport.run_load_hooks :after_card
+    end
+
     def cache
       @cache ||= ::Rails.cache
     end
