@@ -48,6 +48,7 @@ class Card
 
         def reload_sets
           Card::Set::Pattern.reset
+          Card::Set.reset_modules
           load_sets
         end
 

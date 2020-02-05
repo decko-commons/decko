@@ -21,7 +21,7 @@ class Card
         def load
           super
           # Card::Set.process_base_modules
-          #Card::Set.clean_empty_modules
+          Card::Set.clean_empty_modules
         end
 
         class Template < ModuleTemplate

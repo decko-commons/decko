@@ -18,8 +18,12 @@ module Cardio
   mattr_reader :paths, :config
 
   class << self
+    def card_defined?
+      const_defined? "Card"
+    end
+
     def load_card?
-      ActiveRecord::Base.connection && !const_defined?("Card")
+      ActiveRecord::Base.connection && !card_defined?
     rescue
       false
     end
