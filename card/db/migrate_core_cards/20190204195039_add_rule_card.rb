@@ -6,6 +6,5 @@ class AddRuleCard < Card::Migration::Core
 
     # the following re-registers set patterns, now including the rule pattern
     Card::Mod::Loader.reload_sets
-    Card::Set.process_base_modules
   end
 end

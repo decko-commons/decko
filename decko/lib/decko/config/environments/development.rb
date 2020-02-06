@@ -22,7 +22,7 @@ Decko.application.class.configure do
   config.cache_classes = false
   config.reload_classes_only_on_change = true
 
-  config.reload_sets = true
+  # config.reload_sets = true
 
   # if defined?(RailsDevTweaks)
   #   config.dev_tweaks.autoload_rules do
