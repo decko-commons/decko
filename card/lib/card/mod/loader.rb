@@ -46,7 +46,9 @@ class Card
           Card::Set::Pattern.reset
           Card::Set.reset_modules
           Card::Mod::Loader::SetPatternLoader.new.load
-          Card::Mod::Loader::SetLoader.new(Card::Set::Pattern.nonbase_loadable_codes).load
+          Card::Mod::Loader::SetLoader.new(
+            patterns: Card::Set::Pattern.nonbase_loadable_codes
+          ).load
         end
 
         def load_chunks

@@ -21,6 +21,7 @@ describe Card::Set::Event do
 
   it "runs events after reloading sets" do
     Card::Mod::Loader.reload_sets
-    expect { Card.create! name: "event tester" }.to be_a(Card)
+    expect(Card.create! name: "event tester").to be_a(Card)
+    # if events don't load, the above will fail to stamp a creator_id and won't validate
   end
 end

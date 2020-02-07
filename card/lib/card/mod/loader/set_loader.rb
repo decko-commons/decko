@@ -8,9 +8,9 @@ class Card
         @module_type = :set
         attr_accessor :patterns
 
-        def initialize patterns=nil, *args
-          @patterns = patterns || Card::Set::Pattern.loadable_codes
-          super *args
+        def initialize args={}
+          @patterns = args.delete(:patterns) || Card::Set::Pattern.loadable_codes
+          super
         end
 
         def load_strategy_class load_strategy
