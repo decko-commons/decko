@@ -12,7 +12,7 @@ class Card
     # The mods are given by a Mod::Dirs object.
     # SetLoader can use three different strategies to load the set modules.
     class Loader
-      def initialize load_strategy=nil, mod_dirs=nil
+      def initialize load_strategy: nil, mod_dirs: nil
         load_strategy ||= Cardio.config.load_strategy
         mod_dirs ||= Mod.dirs
         klass = load_strategy_class load_strategy
@@ -36,20 +36,17 @@ class Card
 
         def load_mods
           load_formats
-          load_sets
-          Card::Set.process_base_modules
-          load_initializers
-        end
-
-        def load_sets
           Card::Mod::Loader::SetPatternLoader.new.load
           Card::Mod::Loader::SetLoader.new.load
+          Card::Set.process_base_modules
+          load_initializers
         end
 
         def reload_sets
           Card::Set::Pattern.reset
           Card::Set.reset_modules
-          load_sets
+          Card::Mod::Loader::SetPatternLoader.new.load
+          Card::Mod::Loader::SetLoader.new(Card::Set::Pattern.nonbase_loadable_codes).load
         end
 
         def load_chunks
