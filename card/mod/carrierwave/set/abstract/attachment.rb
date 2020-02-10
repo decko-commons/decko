@@ -106,7 +106,7 @@ def attachment_format ext
       end
     end
   end
- rescue => e
-   Rails.logger.info "attachment_format issue: #{e.message}"
-   nil
+rescue => e
+  Rails.logger.info "attachment_format issue: #{e.message}"
+  nil
 end
