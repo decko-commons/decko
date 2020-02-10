@@ -45,10 +45,9 @@ class Card
         def reload_sets
           Card::Set::Pattern.reset
           Card::Set.reset_modules
-          load "card/set/abstract.rb"
           Card::Mod::Loader::SetPatternLoader.new.load
           Card::Mod::Loader::SetLoader.new(
-          #            patterns: Card::Set::Pattern.nonbase_loadable_codes
+            patterns: Card::Set::Pattern.nonbase_loadable_codes
           ).load
         end
 

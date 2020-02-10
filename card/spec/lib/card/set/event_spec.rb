@@ -1,4 +1,4 @@
-describe Card::Set::Event do
+RSpec.describe Card::Set::Event do
   it "params are deserialized in integrate_with_delay events" do
     @called = false
     def event_called
