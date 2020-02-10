@@ -238,10 +238,11 @@ RSpec.describe Card::Set::All::History do
   end
 
   describe "timestamping" do
-    example "includers get a new timestamp", with_user: "Sample User" do
+    example "includers get a new timestamp",
+            with_user: "Sample User", aggregate_failures: true do
       time = Time.now - 1.second
       expect(Card["B"].updated_at).to be < time
-      expect(Card["B"].updater_id).to_not eq Card.fetch_id("Sample User")
+      expect(Card["B"].updater_id).not_to eq Card.fetch_id("Sample User")
 
       Card["Z"].update! content: "new content"
 

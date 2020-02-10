@@ -18,7 +18,7 @@ class Card
         end
 
         def interpret match, _content
-          @process_chunk = match[0].sub(/^\\(.)/, '\\\\\\\\\1');
+          @process_chunk = match[0].sub(/^\\(.)/, '\\\\\\\\\1')
         end
       end
     end
