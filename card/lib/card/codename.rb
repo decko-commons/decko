@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card/cache"
-# require_dependency "card/name"
-
 class Card
   # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned
   # in code, lest a name change break the application.
@@ -24,9 +21,7 @@ class Card
   # Every process maintains a complete cache that is not frequently reset
   #
   class Codename
-    require_dependency "card/cache"
-    # require_dependency "card/name"
-    #
+    require "card/cache"
     class << self
       # returns codename for id and id for codename
       # @param codename [Integer, Symbol, String, Card::Name]

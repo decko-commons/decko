@@ -11,6 +11,10 @@ class Card
     # hierarchy and do little more than run "to_sql" on its parts, and in so doing
     # construct a valid SQL statement.
     class SqlStatement
+      require "card/query/sql_statement/joins"
+      require "card/query/sql_statement/where"
+      require "card/query/sql_statement/order"
+
       include Joins
       include Where
       include Order

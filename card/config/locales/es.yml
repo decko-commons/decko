@@ -301,7 +301,7 @@ es:
           error:
             unsupported_view: vista (%{view}) no soportado para %{cardname}
             not_found_named: No pudo encontrar %{cardname}.
-            not_found_no_name: No se pudo encontrar la tarjeta requested
+            not_found_no_name: la tarjeta solicitada
             server_error: "\nWagn Hitch!  Error del Servidor. Yuck, perdon por eso.\nPara decirnos más y seguir la solución,\nagregue un ticket de soporte en %{ticket_link}\n"
             se_hitch: 'Wagn Hitch :('
             se_sorry: Error del Servidor. Yuck, perdón por eso.

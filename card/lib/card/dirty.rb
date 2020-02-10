@@ -1,5 +1,6 @@
 class Card
   module Dirty
+    require "card/dirty/method_factory"
     extend ::Card::Dirty::MethodFactory
 
     %i[name db_content trash type_id].each do |field|

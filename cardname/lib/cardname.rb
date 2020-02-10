@@ -97,7 +97,7 @@ class Cardname < String
   attr_reader :key
 
   def initialize str
-    @@cache[str] = super str.strip.encode("UTF-8")
+    @@cache[str] = super str.strip # .encode("UTF-8")
   end
 
   def s

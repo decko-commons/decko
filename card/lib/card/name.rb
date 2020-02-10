@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card/env"
+# require "card/env"
 
 require "cardname"
 
@@ -10,6 +10,9 @@ class Card
   #
   # Card::Name adds support for deeper card integration
   class Name < Cardname
+    require "card/name/fields_and_traits"
+    require "card/name/name_variants"
+
     include FieldsAndTraits
     include ::Card::Name::NameVariants
 

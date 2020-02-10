@@ -14,6 +14,9 @@ class Card
     #
     # See AbstractQuery::Tie for more on how tables can be connected.
     class AbstractQuery
+      require "card/query/abstract_query/query_helper"
+      require "card/query/abstract_query/tie"
+
       include QueryHelper
       include Tie
 

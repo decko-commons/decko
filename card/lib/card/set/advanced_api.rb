@@ -1,4 +1,4 @@
-require_dependency 'card/dirty'
+require 'card/dirty'
 
 class Card
   module Set

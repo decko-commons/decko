@@ -7,6 +7,11 @@ class Card
       # Whenever you create a format block in a set module in a {Card::Mod mod}, you
       # create a format module that is extended with AbstractFormat.
       module AbstractFormat
+        require "card/set/format/abstract_format/view_opts"
+        require "card/set/format/abstract_format/view_definition"
+        require "card/set/format/abstract_format/haml_views"
+        require "card/set/format/abstract_format/wrapper"
+
         include Set::Basket
         include ViewOpts
         include ViewDefinition

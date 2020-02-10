@@ -1,10 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card/set"
-# require_dependency "card/set_pattern"
-# require_dependency "card/mod/loader/set_loader"
-# require_dependency "card/mod/loader/set_pattern_loader"
-
 class Card
   module Mod
     # Card::Mod::Loader is used to load all part of a mod,
@@ -84,7 +79,7 @@ class Card
         def load_dir dir
           Dir["#{dir}/*.rb"].sort.each do |file|
             # puts Benchmark.measure("from #load_dir: rd: #{file}") {
-            # require_dependency file
+            # require file
             # "require" breaks the reloading in development env
             load file
             # }.format('%n: %t %r')

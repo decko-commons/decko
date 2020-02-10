@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# # require_dependency "card/content/diff"
+# # require "card/content/diff"
 
 class Card
   class Format

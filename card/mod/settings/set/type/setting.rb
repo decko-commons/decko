@@ -1,4 +1,4 @@
-# require_dependency "json"
+# require "json"
 
 def self.member_names
   @@member_names ||= begin

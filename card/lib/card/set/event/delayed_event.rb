@@ -1,3 +1,5 @@
+require "application_job"
+
 class Card
   module Set
     class Event

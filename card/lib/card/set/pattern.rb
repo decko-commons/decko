@@ -1,7 +1,7 @@
 class Card
   module Set
     class Pattern
-      require_dependency "card/set/type"
+      require "card/set/type"
       # ::Card::Set::Type
 
       class << self

@@ -2,6 +2,8 @@ class Card
   class Format
     # processing nests
     class Nest
+      require "card/format/nest/fetch"
+
       include Fetch
 
       attr_accessor :format, :card, :view, :view_opts, :format_opts

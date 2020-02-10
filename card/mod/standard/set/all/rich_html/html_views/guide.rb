@@ -2,7 +2,7 @@ def guide_card
   guide_card = rule_card(:guide)
   return unless guide_card
 
-  guide_card = guide_card.item_cards.first if guide_card.type_id == Card::PointerID
+  guide_card = guide_card.first_card if guide_card.type_id == Card::PointerID
   guide_card if guide_card.ok?(:read)
 end
 
