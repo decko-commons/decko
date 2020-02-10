@@ -28,6 +28,10 @@ class Card
         :bar
       end
 
+      def escape_literal literal
+        "<span>#{literal}</span>"
+      end
+
       def mime_type
         "text/html"
       end

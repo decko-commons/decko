@@ -19,7 +19,7 @@ class Card
         end
 
         def interpret match, _content
-          @process_chunk = match[0].sub(/^\\(.)/, '<span>\\1</span>')
+          @process_chunk = match[0].sub(/^\\(.)/, format.escape_literal('\\1'));
         end
       end
     end
