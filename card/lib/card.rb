@@ -177,7 +177,7 @@ class Card < ApplicationRecord
     :integrate_final_stage,
     :after_integrate_stage,
     :after_integrate_final_stage, :integrate_with_delay_final_stage
-  ]
+  ].freeze
   define_callbacks(*STAGE_CALLBACKS)
 
   # Validation and integration phase are only called for the act card

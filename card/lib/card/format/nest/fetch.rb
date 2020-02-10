@@ -1,7 +1,6 @@
 class Card
   class Format
     class Nest
-      require "card/format/nest/fetch"
       # Fetch card for a nest
       module Fetch
         private

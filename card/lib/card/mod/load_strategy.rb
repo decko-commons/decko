@@ -37,7 +37,7 @@ class Card
 
       def each_file &block
         if module_type == :set
-          each_set_file &block
+          each_set_file(&block)
         else
           each_mod_dir module_type do |base_dir|
             each_file_in_dir base_dir, &block
