@@ -11,7 +11,7 @@ class Card
       # for all nests. After executing the given block the original nests are put back in.
       # Placeholders are numbers in double curly brackets like {{2}}.
       def safe_process_content override_content=nil, content_opts=nil, &block
-        content_obj = content_object override_content, chunk_list: :references
+        content_obj = content_object override_content, chunk_list: :references_keep_escaping
         result = content_obj.without_references(&block)
         process_content result, content_opts
       end
