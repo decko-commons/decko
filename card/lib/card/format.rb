@@ -14,14 +14,6 @@ class Card
   # these format classes.
   #
   class Format
-    require "card/format/registration"
-    require "card/format/nesting"
-    require "card/format/render"
-    require "card/format/context_names"
-    require "card/format/content"
-    require "card/format/error"
-    require "card/format/method_delegation"
-
     extend ActiveSupport::Autoload
     extend Registration
 

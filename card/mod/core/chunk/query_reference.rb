@@ -16,7 +16,6 @@ class Card
       # query keywords as name
 
       require File.expand_path("reference", __dir__)
-      require "card/query"
       class QueryReference < Reference
         QUERY_KEYWORDS = ::Set.new(
           (

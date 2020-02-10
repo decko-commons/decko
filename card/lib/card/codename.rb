@@ -21,7 +21,6 @@ class Card
   # Every process maintains a complete cache that is not frequently reset
   #
   class Codename
-    require "card/cache"
     class << self
       # returns codename for id and id for codename
       # @param codename [Integer, Symbol, String, Card::Name]

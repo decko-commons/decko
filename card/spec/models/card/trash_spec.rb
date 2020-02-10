@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-require "card/action"
-
 RSpec.describe Card, "deleting card" do
   it "requires permission" do
     a = Card["a"]

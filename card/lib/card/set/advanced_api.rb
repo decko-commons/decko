@@ -1,5 +1,3 @@
-require 'card/dirty'
-
 class Card
   module Set
     # advanced set module API

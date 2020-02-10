@@ -36,9 +36,8 @@ ActiveSupport.on_load :after_card do
   Recaptcha.configure do |config|
     # the seed task runs initializers so we have to check
     # if the cards table is ready before we use it here
-    CONFIG_OPTIONS = %i[site_key secret_key]
     if card_table_ready?
-      CONFIG_OPTIONS.each do |setting|
+      %i[site_key secret_key].each do |setting|
         config.send "#{setting}=", load_recaptcha_config(setting)
       end
     end

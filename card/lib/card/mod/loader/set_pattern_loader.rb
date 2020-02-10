@@ -18,7 +18,7 @@ class Card
             return Object if simple_load?
 
             Card::Set.const_get_or_set(@pattern.camelize) do
-              Class.new(Card::Set::Pattern::Abstract)
+              Class.new(Card::Set::Abstract)
             end
           end
 
@@ -34,7 +34,7 @@ class Card
           end
 
           def module_chain
-            "class Card::Set::#{@pattern.camelize} < Card::Set::Pattern::Abstract"
+            "class Card::Set::#{@pattern.camelize} < Card::Set::Abstract"
           end
 
           def preamble_bits

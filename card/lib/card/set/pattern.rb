@@ -1,12 +1,10 @@
 class Card
   module Set
     class Pattern
-      require "card/set/type"
-      # ::Card::Set::Type
-
       class << self
         def reset
-          nonbase_loadables.each do |set_pattern|
+          #nonbase_
+          loadables.each do |set_pattern|
             Card::Set.const_remove_if_defined set_pattern.to_s.split("::").last
           end
           Card.set_patterns = []
