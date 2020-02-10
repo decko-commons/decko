@@ -163,7 +163,7 @@ class Card < ApplicationRecord
 
   attr_accessor :follower_stash
 
-  define_callbacks(
+  STAGE_CALLBACKS = [
     :select_action, :show_page, :act,
     # VALIDATION PHASE
     :initialize_stage, :prepare_to_validate_stage, :validate_stage,
@@ -177,7 +177,8 @@ class Card < ApplicationRecord
     :integrate_final_stage,
     :after_integrate_stage,
     :after_integrate_final_stage, :integrate_with_delay_final_stage
-  )
+  ].freeze
+  define_callbacks(*STAGE_CALLBACKS)
 
   # Validation and integration phase are only called for the act card
   # The act card starts those phases for all its subcards

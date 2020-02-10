@@ -18,6 +18,10 @@ class Card
         self.class.compose(parts.map { |part| Card.fetch_name(part) || part })
       end
 
+      def card
+        Card.fetch self
+      end
+
       # @return [Integer] id of card with name
       def card_id
         Card.fetch_id self

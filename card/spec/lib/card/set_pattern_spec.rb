@@ -10,7 +10,7 @@ end
 
 RSpec.describe Card::Set::Pattern do
   specify ".in_load_order" do
-    expect(Card::Set::Pattern.in_load_order)
+    expect(Card::Set::Pattern.loadable_codes)
       .to eq(%i[abstract all all_plus type star rstar rule right type_plus_right self])
   end
 end

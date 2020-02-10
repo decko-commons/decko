@@ -1,5 +1,5 @@
 describe Card::Set::Event do
-  it "params are deserialized in intergrate_with_delay events" do
+  it "params are deserialized in integrate_with_delay events" do
     @called = false
     def event_called
       @called = true
@@ -17,5 +17,11 @@ describe Card::Set::Event do
 
       expect(@called).to eq true
     end
+  end
+
+  it "runs events after reloading sets" do
+    Card::Mod::Loader.reload_sets
+    expect(Card.create! name: "event tester").to be_a(Card)
+    # if events don't load, the above will fail to stamp a creator_id and won't validate
   end
 end

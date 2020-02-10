@@ -69,8 +69,13 @@ class Card
     extend Loader
 
     mattr_accessor :modules, :traits
-    self.modules = { base: [], base_format: {}, nonbase: {}, nonbase_format: {},
-                     abstract: {}, abstract_format: {} }
+
+    def self.reset_modules
+      self.modules = { base: [], base_format: {}, nonbase: {}, nonbase_format: {},
+                       abstract: {}, abstract_format: {} }
+    end
+
+    reset_modules
 
     # SET MODULE API
     #
