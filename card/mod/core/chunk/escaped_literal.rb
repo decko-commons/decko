@@ -19,8 +19,7 @@ class Card
         end
 
         def interpret match, _content
-          binding.pry
-          @process_chunk = match[0].sub(/^\\(.)/, format.escape_literal('\1'));
+          @process_chunk = match[0].sub(/^\\(.)/, format.escape_literal('\1'))
         end
       end
     end
