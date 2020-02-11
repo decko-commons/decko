@@ -4,6 +4,3 @@ class Card
     end
   end
 end
-
-
-
