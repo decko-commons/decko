@@ -1,6 +1,4 @@
-ActiveSupport.on_load :before_card do
-  require "carrierwave"
-end
+require "carrierwave"
 
 ActiveSupport.on_load :card do
   Card.extend CarrierWave::Mount

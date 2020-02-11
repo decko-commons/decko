@@ -10,11 +10,8 @@ class Card
   #
   # Card::Name adds support for deeper card integration
   class Name < Cardname
-    require "card/name/fields_and_traits"
-    require "card/name/name_variants"
-
     include FieldsAndTraits
-    include ::Card::Name::NameVariants
+    include NameVariants
 
     self.params  = Card::Env # yuck!
     self.session = proc { Card::Auth.current.name } # also_yuck

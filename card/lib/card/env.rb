@@ -1,6 +1,3 @@
-require "card/env/location"
-require "card/env/location_history"
-
 class Card
   # Card::Env is a module for containing the variable details of the environment
   # in which Card operates.

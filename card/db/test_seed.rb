@@ -4,7 +4,6 @@ require "timecop"
 
 # noinspection RubyResolve
 class SharedData
-  require_relative "../lib/card/model/save_helper"
   extend Card::Model::SaveHelper
 
   USERS = [

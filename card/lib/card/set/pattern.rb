@@ -1,9 +1,6 @@
 class Card
   module Set
     class Pattern
-      require "card/set/type"
-      # ::Card::Set::Type
-
       class << self
         def reset
           nonbase_loadables.each do |set_pattern|
