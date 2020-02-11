@@ -10,6 +10,10 @@ def content
 end
 
 format :html do
+  view :input do
+    "Content is managed by code and cannot be edited"
+  end
+
   def haml_locals
     {}
   end
