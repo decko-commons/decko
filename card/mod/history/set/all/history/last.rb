@@ -14,7 +14,7 @@ def last_change_on field, opts={}
   if no_last_change? action_id, opts[:before]
     nil
   elsif create_action_last_change? action_id
-    create_action.change field
+    create_action&.change field
   else
     last_change_from_action_id action_id, field, opts
   end
@@ -25,7 +25,7 @@ def no_last_change? action_id, before
 end
 
 def create_action_last_change? action_id
-  action_id == create_action.id || (!action_id && create_action.sole?)
+  action_id == create_action&.id || (!action_id && create_action&.sole?)
 end
 
 def last_change_from_action_id action_id, field, opts
