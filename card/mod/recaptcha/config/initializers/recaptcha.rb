@@ -35,6 +35,7 @@ module RecaptchaCardInitializer
     end
 
     def card_value setting
+      return unless Card::Codename.exist? setting # prevents breakage in migrations
       value = Card[setting]&.content
       value if value.present?
     end
