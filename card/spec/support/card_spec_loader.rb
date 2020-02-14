@@ -52,7 +52,7 @@ class CardSpecLoader
         # :mocha, :flexmock, :rr
 
         config.use_transactional_fixtures = true
-        config.use_instantiated_fixtures  = false
+        config.use_instantiated_fixtures = false
 
         config.before(:each) do |example|
           Delayed::Worker.delay_jobs = false

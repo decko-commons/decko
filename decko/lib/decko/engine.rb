@@ -47,12 +47,12 @@ module Decko
       ActiveSupport.on_load(:active_record) do
         ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
       end
-      ActiveSupport.on_load(:after_initialize) do
-        # require "card" if Cardio.load_card?
-        Card if Cardio.load_card?
-      rescue ActiveRecord::StatementInvalid => e
-        ::Rails.logger.warn "database not available[#{::Rails.env}] #{e}"
-      end
+      # ActiveSupport.on_load(:after_initialize) do
+      #   # require "card" if Cardio.load_card?
+      #   Card if Cardio.load_card?
+      # rescue ActiveRecord::StatementInvalid => e
+      #  ::Rails.logger.warn "database not available[#{::Rails.env}] #{e}"
+      # end
     end
   end
 end

@@ -31,7 +31,8 @@ event :approve_without_verification, :validate, on: :update, trigger: :required 
 end
 
 event :act_as_current_for_integrate_stage, :integrate, on: :create do
-  Auth.signin id
+  # needs justification!
+  Auth.current_id = id
 end
 
 def account_subfield

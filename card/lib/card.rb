@@ -96,7 +96,7 @@ class Card < ApplicationRecord
   extend ::Card::Dirty::MethodFactory
   include ::Card::Dirty
 
-  Card::Cache
+  Card::Cache # trigger autoload
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id

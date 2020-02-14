@@ -22,7 +22,6 @@ format do
   view(:linkname, compact: true, perms: :none) { card.name.url_key }
   view(:url,      compact: true, perms: :none) { card_url _render_linkname }
 
-
   view :url_link, compact: true, perms: :none do
     link_to_resource card_url(_render_linkname)
   end

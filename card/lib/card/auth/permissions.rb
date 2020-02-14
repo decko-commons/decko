@@ -2,11 +2,6 @@ class Card
   module Auth
     # singleton permission methods
     module Permissions
-      RECAPTCHA_DEFAULTS = {
-        recaptcha_site_key: "6LdoqpgUAAAAAEdhJ4heI1h3XLlpXcDf0YubriCG",
-        recaptcha_secret_key: "6LdoqpgUAAAAAP4Sz1L5PY6VKum_RFxq4-awj4BH"
-      }.freeze
-
       # user has "root" permissions
       # @return [true/false]
       def always_ok?
