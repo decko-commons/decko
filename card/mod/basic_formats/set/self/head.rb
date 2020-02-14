@@ -13,7 +13,7 @@ format :html do
   end
 
   view :input do
-    "Content is can't be edited."
+    "Content can't be edited."
   end
 
   def escape_in_main

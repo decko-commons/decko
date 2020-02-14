@@ -50,7 +50,6 @@ class CardController < ApplicationController
   before_action :refresh_card, only: [:create, :update, :delete]
 
   def setup
-    Card::Mod::Loader.reload_sets if Cardio.config.reload_sets
     Card::Machine.refresh_script_and_style unless params[:explicit_file]
     Card::Cache.renew
     Card::Env.reset controller: self
