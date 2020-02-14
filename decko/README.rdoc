@@ -148,4 +148,4 @@ Installation problems? Installation: https://decko.org/installation
 
 If you're looking to go deep into the code, start with http://www.rubydoc.info/gems/card
 
-Thinking about contributing to Decko? here[link:CONTRIBUTING.rdoc]
+Thinking about contributing to Decko? here[link:CONTRIBUTING.md]
