@@ -2,11 +2,11 @@
 
 module RecaptchaCardInitializer
   class << self
-    @deprecated = {
+    @@deprecated = {
       recaptcha_site_key: :recaptcha_public_key,
       recaptcha_secret_key: :recaptcha_private_key
     }
-    @defaults = {
+    @@defaults = {
       recaptcha_site_key: "6LdoqpgUAAAAAEdhJ4heI1h3XLlpXcDf0YubriCG",
       recaptcha_secret_key: "6LdoqpgUAAAAAP4Sz1L5PY6VKrum_RFxq4-awj4BH"
     }
@@ -19,23 +19,19 @@ module RecaptchaCardInitializer
     end
 
     def using_defaults?
-      Cardio.config.recaptcha_site_key == @defaults[:recaptcha_site_key]
+      Cardio.config.recaptcha_site_key == @@defaults[:recaptcha_site_key]
     end
 
     # card config overrides application.rb config overrides default
     def recaptcha_setting_value setting
       card_value(setting) ||                 # card content
         config_value(setting) ||             # application.rb (current setting)
-        config_value(@deprecated[setting]) || # application.rb (deprecated setting)
-        default_value(setting)
+        config_value(@@deprecated[setting]) || # application.rb (deprecated setting)
+        @@defaults[setting]
     end
 
     def config_value setting
       Cardio.config.send setting
-    end
-
-    def default_value setting
-      @defaults[setting]
     end
 
     def card_value setting
