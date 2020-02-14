@@ -1,7 +1,7 @@
 add_to_basket :warnings, :recaptcha_config_issues
 
 def recaptcha_config_issues?
-  Recaptcha.using_defaults?
+  RecaptchaCard.using_defaults?
 end
 
 format :html do
