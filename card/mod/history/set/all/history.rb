@@ -10,7 +10,7 @@ end
 
 # all cards who are considered updated if this card's was updated
 def history_parent_ids
-  includer_ids << id
+  includer_ids
 end
 
 def history_ancestor_ids recursion_level=0

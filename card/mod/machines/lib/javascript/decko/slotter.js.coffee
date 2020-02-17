@@ -117,6 +117,9 @@ jQuery.fn.extend
     if @data("reload")
       window.locacation.reload(true)
 
+    if @data("update-modal-origin")
+      @updateModalOrigin()
+
     if @data("update-origin")
       @updateOrigin()
 
@@ -145,6 +148,8 @@ jQuery.fn.extend
   showSuccessResponse: (data, mode) ->
     if mode == "silent-success"
       return
+    else if mode == "update-modal-origin"
+      @updateModalOrigin()
     else if mode == "update-origin"
       @updateOrigin()
     else if data.redirect
@@ -166,6 +171,14 @@ jQuery.fn.extend
         @slot().find('.current_revision_id').val(
           @slot().find('.new-current-revision-id').text()
         )
+
+  updateModalOrigin: () ->
+    debugger
+    if @overlaySlot()
+      overlayOrigin = @findOriginSlot("overlay")
+      overlayOrigin.updateOrigin()
+    else if @closest("#modal-container")[0]
+      @updateOrigin()
 
   updateOrigin: () ->
     type = if @overlaySlot()
