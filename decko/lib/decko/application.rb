@@ -20,15 +20,6 @@ module Decko
       end
     end
 
-    initializer :load_card, after: :load_config_initializers, group: :all do
-      require "card" if Cardio.load_card?
-    end
-
-    def initialize!
-      super
-      ActiveSupport.run_load_hooks :after_card, self
-    end
-
     class << self
       def inherited base
         super

@@ -6,6 +6,12 @@ class Card
       # SetLoader can use three different strategies to load the set modules.
       class SetLoader < Loader
         @module_type = :set
+        attr_accessor :patterns
+
+        def initialize args={}
+          @patterns = args.delete(:patterns) || Card::Set::Pattern.loadable_codes
+          super
+        end
 
         def load_strategy_class load_strategy
           case load_strategy
@@ -20,7 +26,7 @@ class Card
 
         def load
           super
-          Card::Set.process_base_modules
+          # Card::Set.process_base_modules
           Card::Set.clean_empty_modules
         end
 

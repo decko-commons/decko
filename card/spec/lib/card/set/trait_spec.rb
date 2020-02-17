@@ -1,34 +1,36 @@
 # -*- encoding : utf-8 -*-
 
 
-describe Card::Set::Trait do
-  class Card
-    module Set
-      class Type
-        module Phrase
-          extend Card::Set
-          card_accessor :write, type: :phrase
-          card_accessor :read, type_id: Card::PhraseID
-        end
-      end
-
-      class TypePlusRight
-        module Phrase
-          module Write
+RSpec.describe Card::Set::Trait do
+  add_set_modules = Proc.new do
+    class Card
+      module Set
+        class Type
+          module Phrase
             extend Card::Set
-            def type_plus_right_module_loaded
-              true
+            card_accessor :write, type: :phrase
+            card_accessor :read, type_id: Card::PhraseID
+          end
+        end
+
+        class TypePlusRight
+          module Phrase
+            module Write
+              extend Card::Set
+              def type_plus_right_module_loaded
+                true
+              end
             end
           end
         end
-      end
 
-      class TypePlusRight
-        module Phrase
-          module Read
-            extend Card::Set
-            def type_plus_right_module_loaded
-              true
+        class TypePlusRight
+          module Phrase
+            module Read
+              extend Card::Set
+              def type_plus_right_module_loaded
+                true
+              end
             end
           end
         end
@@ -37,6 +39,7 @@ describe Card::Set::Trait do
   end
 
   subject do
+    add_set_modules.call # this prevents problems when called after #reload_sets
     Card::Auth.as_bot do
       Card.create! name: "joke",
                    type_id: Card::PhraseID,

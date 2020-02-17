@@ -20,7 +20,6 @@ class Card
   # directly, because caching is automatically handled by Card#fetch
   #
   class Cache
-    require "card/cache/prepopulate"
     extend Card::Cache::Prepopulate
 
     @@cache_by_class = {}

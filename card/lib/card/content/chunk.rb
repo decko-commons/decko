@@ -11,8 +11,6 @@ class Card
     # match by its pattern.
     #
     module Chunk
-      require "card/content/chunk/abstract"
-
       mattr_accessor :raw_list, :prefix_regexp_by_list,
                      :prefix_map_by_list, :prefix_map_by_chunkname
       @@raw_list = {}

@@ -7,14 +7,10 @@ class Card
   # Each chunk has an object whose class inherits from {Card::Content::Chunk::Abstract}
   #
   class Content < SimpleDelegator
-    # ActiveSupport::Dependencies::ModuleConstMissing.include_into(self)
-    require "card/content/clean"
-    require "card/content/truncate"
-    require "card/content/chunk"
-    require "card/content/parser"
+    extend Clean
+    extend Truncate
 
-    extend ::Card::Content::Clean
-    extend ::Card::Content::Truncate
+    Chunk # trigger autoload
 
     attr_reader :revision, :format, :chunks, :opts
 
@@ -103,13 +99,13 @@ class Card
     end
 
     def without_nests
-      without_chunks Card::Content::Chunk::Nest do |content|
+      without_chunks Chunk::Nest do |content|
         yield content
       end
     end
 
     def without_references
-      without_chunks Card::Content::Chunk::Nest, Card::Content::Chunk::Link do |content|
+      without_chunks Chunk::Nest, Chunk::Link do |content|
         yield content
       end
     end

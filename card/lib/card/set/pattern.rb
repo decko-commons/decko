@@ -1,13 +1,23 @@
 class Card
   module Set
     class Pattern
-      require "card/set/type"
-      # ::Card::Set::Type
-
       class << self
         def reset
+          nonbase_loadables.each do |set_pattern|
+            Card::Set.const_remove_if_defined set_pattern.to_s.split("::").last
+          end
           Card.set_patterns = []
-          @card_keys = @in_load_order = nil
+          @card_keys = nil
+        end
+
+        def loadables
+          Card.set_patterns.push(Card::Set::Abstract).reverse
+        end
+
+        def nonbase_loadables
+          l = loadables
+          l.delete Card::Set::All
+          l
         end
 
         def find pattern_code
@@ -22,9 +32,14 @@ class Card
             end
         end
 
-        def in_load_order
-          @in_load_order ||=
-            Card.set_patterns.reverse.map(&:pattern_code).unshift :abstract
+        def nonbase_loadable_codes
+          l = loadable_codes
+          l.delete :all
+          l
+        end
+
+        def loadable_codes
+          Card.set_patterns.map(&:pattern_code).push(:abstract).reverse
         end
       end
     end

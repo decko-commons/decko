@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-require "application_record"
-
 ActiveSupport.run_load_hooks(:before_card, self)
 
 # Cards are wiki-inspired building blocks.
@@ -94,31 +92,11 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 # {Card::Auth More on accounts}
 class Card < ApplicationRecord
-  require "card/env"
-  require "card/mark"
   extend ::Card::Mark
-
-  require "card/dirty"
   extend ::Card::Dirty::MethodFactory
   include ::Card::Dirty
 
-  require "card/name"
-  require "card/codename"
-  require "card/query"
-  require "card/format"
-  require "card/error"
-  require "card/auth"
-  require "card/mod"
-  require "card/content"
-  require "card/action"
-  require "card/act"
-  require "card/change"
-  require "card/reference"
-  require "card/subcards"
-  require "card/view"
-  require "card/act_manager"
-  require "card/layout"
-  require "card/set"
+  Card::Cache # trigger autoload
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id
@@ -163,7 +141,7 @@ class Card < ApplicationRecord
 
   attr_accessor :follower_stash
 
-  define_callbacks(
+  STAGE_CALLBACKS = [
     :select_action, :show_page, :act,
     # VALIDATION PHASE
     :initialize_stage, :prepare_to_validate_stage, :validate_stage,
@@ -177,7 +155,8 @@ class Card < ApplicationRecord
     :integrate_final_stage,
     :after_integrate_stage,
     :after_integrate_final_stage, :integrate_with_delay_final_stage
-  )
+  ].freeze
+  define_callbacks(*STAGE_CALLBACKS)
 
   # Validation and integration phase are only called for the act card
   # The act card starts those phases for all its subcards
@@ -188,3 +167,4 @@ class Card < ApplicationRecord
 
   ActiveSupport.run_load_hooks(:card, self)
 end
+ActiveSupport.run_load_hooks :after_card, self

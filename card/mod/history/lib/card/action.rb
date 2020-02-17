@@ -21,9 +21,6 @@ class Card
   # * a _comment_ (where applicable)
   #
   class Action < ApplicationRecord
-    require "card/action/differ"
-    require "card/action/admin"
-
     include Differ
     extend Admin
 

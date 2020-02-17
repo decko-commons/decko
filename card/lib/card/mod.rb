@@ -1,6 +1,3 @@
-# require "card/mod/loader"
-# require "card/mod/dirs"
-
 class Card
   # A Card Mod (short for "module" or "modification") is a discrete piece of Decko
   # functionality. Mods are how the Decko community develops and shares code.
