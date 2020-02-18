@@ -1,6 +1,7 @@
 def reset_machine_output
   Auth.as_bot do
-    (moc = machine_output_card) && moc.real? && moc.delete!
+    moc = machine_output_card
+    moc.delete! if moc.real?
     update_input_card
   end
 end
