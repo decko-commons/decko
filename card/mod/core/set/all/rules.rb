@@ -16,7 +16,7 @@ RULE_SQL = %(
     AND    rules.trash is false
     AND     sets.trash is false
     AND settings.trash is false;
-).freeze
+)
 
 # FIXME: "follow" hardcoded above
 
@@ -31,7 +31,7 @@ READ_RULE_SQL = %(
     AND       sets.type_id  = #{SetID}
     AND read_rules.trash is false
     AND       sets.trash is false;
-).freeze
+)
 
 PREFERENCE_SQL = %(
   SELECT
@@ -54,7 +54,7 @@ PREFERENCE_SQL = %(
     AND users.trash       is false
     AND user_sets.trash   is false
     AND preferences.trash is false;
-).freeze
+)
 
 def is_rule?
   is_standard_rule? || is_preference?
