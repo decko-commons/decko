@@ -16,7 +16,6 @@ class AddTypeBootswatchSkin < Card::Migration::Core
                                    codename: "bootswatch_skin"
     update_card! %i[style right options], content: STYLE_INPUT_SEARCH
     Card::Cache.reset_all
-    Card::Codename.generate_id_constants
     change_type_of_skins
   end
 

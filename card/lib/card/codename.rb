@@ -147,7 +147,7 @@ class Card
         Card.const_get_or_set(codename.to_s.camelize + "ID") { id }
       end
     end
-    
+
     generate_id_constants
   end
 end
