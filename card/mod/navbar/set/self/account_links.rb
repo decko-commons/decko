@@ -67,7 +67,7 @@ format :html do
   end
 
   def enabled_roles_card
-    Auth.current.fetch :enabled_roles, new: { type_id: Card::SessionID }
+    Auth.current.fetch :enabled_roles, new: { type_id: SessionID }
   end
 
   def role_list
@@ -89,7 +89,7 @@ format :html do
   end
 
   def show_signup_link?
-    !Auth.signed_in? && Card.new(type_id: Card::SignupID).ok?(:create)
+    !Auth.signed_in? && Card.new(type_id: SignupID).ok?(:create)
   end
 
   def show_invite_link?

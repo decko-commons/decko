@@ -69,7 +69,7 @@ format :json do
   end
 
   def new_item_of_type exact
-    return unless (exact.type_id == Card::CardtypeID) &&
+    return unless (exact.type_id == CardtypeID) &&
                   Card.new(type_id: exact.id).ok?(:create)
     [exact.name, "new/#{exact.name.url_key}"]
   end
