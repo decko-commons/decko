@@ -134,17 +134,20 @@ class Card
     end
   end
 
-  # If a card has the codename _example_, then Card::ExampleID should
-  # return the id for that card. This method makes that help.
-  #
-  # @param const [Const]
-  # @return [Integer]
-  # @raise error if codename is missing
-  def self.const_missing const
-    return super unless const.to_s =~ /^([A-Z]\S*)ID$/
+  class << self
+    # If a card has the codename _example_, then Card::ExampleID should
+    # return the id for that card. This method makes that help.
+    #
+    # @param const [Const]
+    # @return [Integer]
+    # @raise error if codename is missing
+    def const_missing const
+      codename_id_constant(const) || super
+    end
 
-    code = Regexp.last_match(1).underscore
-    code_id = Card::Codename.id!(code)
-    const_set const, code_id
+    def codename_id_constant const
+      return unless (match = const.match(/^([A-Z]\S*)ID$/))
+      const_set const, Card::Codename.id!(match[1].underscore)
+    end
   end
 end

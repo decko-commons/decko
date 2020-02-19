@@ -75,6 +75,10 @@ class Card
                        abstract: {}, abstract_format: {} }
     end
 
+    def const_missing const
+      Card.codename_id_constant(const) || super
+    end
+
     reset_modules
 
     # SET MODULE API
