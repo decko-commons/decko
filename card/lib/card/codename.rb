@@ -131,13 +131,24 @@ class Card
                                                     scope: "lib.card.codename",
                                                     codename: mark)
       end
+
+      def id_constant codename, id=nil
+        id ||= id! codename
+        Card.const_get_or_set(codename.to_s.camelize + "ID") { id }
+      end
+
+      def generate_id_constants
+        # If a card has the codename _example_, then Card::ExampleID will
+        # return the id for that card.
+        codehash.each do |codename, id|
+          next unless codename.is_a?(Symbol) && !codename.to_s.match?(/\W/)
+
+          id_constant codename, id
+        end
+      end
     end
 
-    # If a card has the codename _example_, then Card::ExampleID will
-    # return the id for that card.
-    codehash.each do |codename, id|
-      next unless codename.is_a?(Symbol) && !codename.to_s.match?(/\W/)
-      Card.const_get_or_set(codename.to_s.camelize + "ID") { id }
-    end
+    generate_id_constants
+
   end
 end
