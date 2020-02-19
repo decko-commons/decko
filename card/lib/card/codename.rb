@@ -132,22 +132,12 @@ class Card
                                                     codename: mark)
       end
     end
-  end
 
-  class << self
-    # If a card has the codename _example_, then Card::ExampleID should
-    # return the id for that card. This method makes that help.
-    #
-    # @param const [Const]
-    # @return [Integer]
-    # @raise error if codename is missing
-    def const_missing const
-      codename_id_constant(const) || super
-    end
-
-    def codename_id_constant const
-      return unless (match = const.match(/^([A-Z]\S*)ID$/))
-      const_set const, Card::Codename.id!(match[1].underscore)
+    # If a card has the codename _example_, then Card::ExampleID will
+    # return the id for that card.
+    codehash.each do |codename, id|
+      next unless codename.is_a?(Symbol) && !codename.to_s.match?(/\W/)
+      Card.const_get_or_set(codename.to_s.camelize + "ID") { id }
     end
   end
 end
