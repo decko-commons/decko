@@ -65,3 +65,8 @@ def Object.const_missing const
   return super unless name.match? /^Card\b/
   Card.codename_id_constant(const) || super
 end
+
+def const_missing const
+  return super unless self.class.name.match? /^Card\b/
+  Card.codename_id_constant(const) || super
+end
