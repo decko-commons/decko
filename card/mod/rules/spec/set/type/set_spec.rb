@@ -32,7 +32,7 @@ RSpec.describe Card::Set::Type::Set do
     let :structure_rule do
       Card::Auth.as_bot do
         Card.create! name: "test_card+*right+*structure",
-                     type_id: Card::HTMLID,
+                     type_id: Card::HtmlID,
                      content: "{{#{nest_syntax}}}"
       end
     end

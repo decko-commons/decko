@@ -68,7 +68,7 @@ def email_from_field_value conf_name, conf_email, actual_email
   elsif actual_email.present?
     actual_email
   else
-    Card[Card::WagnBotID].account.email
+    Card[WagnBotID].account.email
   end
 end
 

@@ -84,9 +84,9 @@ format :html do
     return super unless card.is_template?
 
     case Card.fetch_id(card.rule_set_pattern_name) # set_pattern_id
-    when Card::TypeID
+    when TypeID
       card.rule_set.anchor_name
-    when Card::SelfID
+    when SelfID
       card.rule_set.anchor.type_name
     else
       super

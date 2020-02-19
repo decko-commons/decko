@@ -46,7 +46,7 @@ def who_can action
 end
 
 def anyone_can? action
-  who_can(action).include? Card::AnyoneID
+  who_can(action).include? AnyoneID
 end
 
 def direct_rule_card action
@@ -97,7 +97,7 @@ def require_permission_rule! rule_id, action
 end
 
 def rule_class_name
-  trunk.type_id == Card::SetID ? name.trunk_name.tag : nil
+  trunk.type_id == SetID ? name.trunk_name.tag : nil
 end
 
 def you_cant what

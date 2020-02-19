@@ -36,7 +36,7 @@ end
 
 def send_account_email email_template
   ecard = Card[email_template]
-  unless ecard&.type_id == Card::EmailTemplateID
+  unless ecard&.type_id == EmailTemplateID
     raise Card::Error, "invalid email template: #{email_template}"
   end
 
