@@ -21,9 +21,11 @@ RSpec.describe Card::Codename, "Codename" do
     end
   end
 
-  it "raises error for missing codename" do
-    expect { Card::NotACodenameID }
-      .to raise_error(Card::Error::CodenameNotFound, /unknown codename: not_a_codename/)
+  describe "#id!" do
+    it "raises error for missing codename" do
+      expect { Card::Codename.id! :not_a_codename }
+        .to raise_error(Card::Error::CodenameNotFound, /unknown codename: not_a_codename/)
+    end
   end
 
   describe "#id" do

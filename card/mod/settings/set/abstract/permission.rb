@@ -64,7 +64,7 @@ format :html do
 
   def group_options
     Auth.as_bot do
-      Card.search({ type_id: Card::RoleID, sort: "name" }, "roles by name")
+      Card.search({ type_id: RoleID, sort: "name" }, "roles by name")
     end
   end
 
@@ -73,7 +73,7 @@ format :html do
       begin
         set_name = card.name.trunk_name
         set_card = Card.fetch(set_name)
-        not_set = set_card && set_card.type_id != Card::SetID
+        not_set = set_card && set_card.type_id != SetID
         not_set ? false : set_card.inheritable?
       end
   end

@@ -89,6 +89,16 @@ class Card
         Card::Name[codename.to_sym]
       end
 
+      def generate_id_constants
+        # If a card has the codename _example_, then Card::ExampleID will
+        # return the id for that card.
+        codehash.each do |codename, id|
+          next unless codename.is_a?(Symbol) && !codename.to_s.match?(/\W/)
+
+          id_constant codename, id
+        end
+      end
+
       private
 
       # iterate through every card with a codename
@@ -131,20 +141,13 @@ class Card
                                                     scope: "lib.card.codename",
                                                     codename: mark)
       end
+
+      def id_constant codename, id=nil
+        id ||= id! codename
+        Card.const_get_or_set(codename.to_s.camelize + "ID") { id }
+      end
     end
-  end
 
-  # If a card has the codename _example_, then Card::ExampleID should
-  # return the id for that card. This method makes that help.
-  #
-  # @param const [Const]
-  # @return [Integer]
-  # @raise error if codename is missing
-  def self.const_missing const
-    return super unless const.to_s =~ /^([A-Z]\S*)ID$/
-
-    code = Regexp.last_match(1).underscore
-    code_id = Card::Codename.id!(code)
-    const_set const, code_id
+    generate_id_constants
   end
 end

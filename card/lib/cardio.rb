@@ -94,7 +94,6 @@ module Cardio
         rescue_all_in_controller: true,
         navbox_match_start_only: true,
 
-        reload_sets: false,
         load_strategy: :eval
       }
     end

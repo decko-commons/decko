@@ -41,10 +41,8 @@ RSpec.describe Card::Set::Trait do
   subject do
     add_set_modules.call # this prevents problems when called after #reload_sets
     Card::Auth.as_bot do
-      Card.create! name: "joke",
-                   type_id: Card::PhraseID,
-                   "+*write" => "some content",
-                   "+*read" => "some content"
+      Card.create! name: "joke", type_id: Card::PhraseID, "+*write" => "some content",
+                                                          "+*read" => "some content"
     end
   end
 
@@ -53,10 +51,8 @@ RSpec.describe Card::Set::Trait do
   # CI again
   context "if accessor type is defined by a symbol" do
     it "trait card is created correctly" do
-      in_stage :prepare_to_validate, on: :create,
-                                     trigger: -> { subject } do
-        # test API doesn't support sets for event
-        # so we check the name
+      in_stage :prepare_to_validate, on: :create, trigger: -> { subject } do
+        # test API doesn't support sets for event so we check the name
         return unless name == "joke"
         aggregate_failures do
           expect(write_card.type_id).to eq(Card::PhraseID)
@@ -69,8 +65,7 @@ RSpec.describe Card::Set::Trait do
 
   context "if accessor type is defined by an id" do
     it "trait card is created correctly" do
-      in_stage :prepare_to_validate, on: :create,
-                                     trigger: -> { subject } do
+      in_stage :prepare_to_validate, on: :create, trigger: -> { subject } do
         return unless name == "joke"
         aggregate_failures do
           # expect(read_card.type_id).to eq(Card::PhraseID)

@@ -10,13 +10,13 @@ RULE_SQL = %(
   FROM cards rules
   JOIN cards sets     ON rules.left_id  = sets.id
   JOIN cards settings ON rules.right_id = settings.id
-  WHERE     sets.type_id = #{Card::SetID}
-    AND settings.type_id = #{Card::SettingID}
+  WHERE     sets.type_id = #{SetID}
+    AND settings.type_id = #{SettingID}
     AND (settings.codename != 'follow' OR rules.db_content != '')
     AND    rules.trash is false
     AND     sets.trash is false
     AND settings.trash is false;
-).freeze
+)
 
 # FIXME: "follow" hardcoded above
 
@@ -27,11 +27,11 @@ READ_RULE_SQL = %(
   FROM cards read_rules
   JOIN card_references refs ON refs.referer_id    = read_rules.id
   JOIN cards sets           ON read_rules.left_id = sets.id
-  WHERE read_rules.right_id = #{Card::ReadID}
-    AND       sets.type_id  = #{Card::SetID}
+  WHERE read_rules.right_id = #{ReadID}
+    AND       sets.type_id  = #{SetID}
     AND read_rules.trash is false
     AND       sets.trash is false;
-).freeze
+)
 
 PREFERENCE_SQL = %(
   SELECT
@@ -46,15 +46,15 @@ PREFERENCE_SQL = %(
   JOIN cards settings  ON preferences.right_id = settings.id
   JOIN cards users     ON user_sets.right_id   = users.id
   JOIN cards sets      ON user_sets.left_id    = sets.id
-  WHERE sets.type_id     = #{Card::SetID}
-    AND settings.type_id = #{Card::SettingID}
+  WHERE sets.type_id     = #{SetID}
+    AND settings.type_id = #{SettingID}
     AND (%s or users.codename = 'all')
     AND sets.trash        is false
     AND settings.trash    is false
     AND users.trash       is false
     AND user_sets.trash   is false
     AND preferences.trash is false;
-).freeze
+)
 
 def is_rule?
   is_standard_rule? || is_preference?
@@ -62,20 +62,20 @@ end
 
 def is_standard_rule?
   (r = right(skip_modules: true)) &&
-    r.type_id == Card::SettingID &&
+    r.type_id == SettingID &&
     (l = left(skip_modules: true)) &&
-    l.type_id == Card::SetID
+    l.type_id == SetID
 end
 
 # TODO: abstract so account doesn't have to have User type.
 def is_preference?
   name.parts.length > 2 &&
     (r = right(skip_modules: true)) &&
-    r.type_id == Card::SettingID &&
+    r.type_id == SettingID &&
     (set = self[0..-3, skip_modules: true]) &&
-    set.type_id == Card::SetID &&
+    set.type_id == SetID &&
     (user = self[-2, skip_modules: true]) &&
-    (user.type_id == Card::UserID || user.codename == :all)
+    (user.type_id == UserID || user.codename == :all)
 end
 
 def rule setting_code, options={}
@@ -106,7 +106,7 @@ end
 def preference_card_id_lookups setting_code, options={}
   user_id = options[:user_id] || options[:user]&.id || Auth.current_id
   return unless user_id
-  ["#{setting_code}+#{Card::AllID}", "#{setting_code}+#{user_id}"]
+  ["#{setting_code}+#{AllID}", "#{setting_code}+#{user_id}"]
 end
 
 def related_sets with_self=false
@@ -129,7 +129,7 @@ module ClassMethods
       if user_id
         "users.id = #{user_id}"
       else
-        "users.type_id = #{Card::UserID}"
+        "users.type_id = #{UserID}"
       end
     PREFERENCE_SQL % user_restriction
   end
@@ -190,8 +190,8 @@ module ClassMethods
         "#{set_class_code}+#{setting_code}"
       end
     user_ids = user_ids_cache[key] || []
-    if user_ids.include? Card::AllID  # rule for all -> return all user ids
-      Card.where(type_id: Card::UserID).pluck(:id)
+    if user_ids.include? AllID  # rule for all -> return all user ids
+      Card.where(type_id: UserID).pluck(:id)
     else
       user_ids
     end
@@ -201,7 +201,7 @@ module ClassMethods
     Card.search(
       { right: { codename: setting_code },
         left: {
-          left: { type_id: Card::SetID }, right: user_name
+          left: { type_id: SetID }, right: user_name
         },
         return: :name }, "preference cards for user: #{user_name}"
     )
