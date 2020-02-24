@@ -16,7 +16,8 @@ end
 def history_ancestor_ids recursion_level=0
   return [] if recursion_level > 5
 
-  ids = history_parent_ids.map { |id| Card[id].history_ancestor_ids(recursion_level + 1) }
+  ids = history_parent_ids +
+    history_parent_ids.map { |id| Card[id].history_ancestor_ids(recursion_level + 1) }
   ids.flatten
 end
 
