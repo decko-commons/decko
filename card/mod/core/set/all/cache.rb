@@ -51,7 +51,6 @@ def expire_pieces
 end
 
 def expire cache_type=nil
-  binding.pry
   return unless (cache_class = cache_class_from_type cache_type)
   expire_views
   expire_names cache_class
