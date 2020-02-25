@@ -26,3 +26,6 @@ jQuery.fn.extend
 $(window).ready ->
   $('body').on "select2:select", "._close-rule-overlay-on-select", (event) ->
     $(".overlay-container > ._overlay.card-slot.overlay_rule-view.RULE").removeOverlay()
+
+  $('body').on "click", "._update-history-pills", (event) ->
+    $(this).closest(".slotter").data("update-foreign-slot", ".card-slot.history_tab-view")

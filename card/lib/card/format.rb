@@ -94,6 +94,10 @@ class Card
       "text/plain"
     end
 
+    def escape_literal literal
+      literal
+    end
+
     def to_sym
       Card::Format.format_sym self
     end
