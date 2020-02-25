@@ -51,6 +51,7 @@ def expire_pieces
 end
 
 def expire cache_type=nil
+  binding.pry
   return unless (cache_class = cache_class_from_type cache_type)
   expire_views
   expire_names cache_class
@@ -61,23 +62,19 @@ def cache_class_from_type cache_type
   cache_type ? Card.cache.send(cache_type) : Card.cache
 end
 
-def register_view_cache_key cache_key
-  view_cache_keys cache_key
+def view_cache_keys
+  @view_cache_keys ||= hard_read_view_cache_keys || []
+end
+
+def ensure_view_cache_key cache_key
+  return if view_cache_keys.include? cache_key
+
+  @view_cache_keys += cache_key
   hard_write_view_cache_keys
 end
 
-def view_cache_keys new_key=nil
-  @view_cache_keys ||= []
-  @view_cache_keys << new_key if new_key
-  append_missing_view_cache_keys
-  @view_cache_keys.uniq!
-  @view_cache_keys
-end
-
-def append_missing_view_cache_keys
-  return unless Card.cache.hard
-  @view_cache_keys +=
-      (Card.cache.hard.read_attribute(key, :view_cache_keys) || [])
+def hard_read_view_cache_keys
+  Card.cache.hard.read_attribute key, :view_cache_keys
 end
 
 def hard_write_view_cache_keys
