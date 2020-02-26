@@ -62,7 +62,7 @@ def cache_class_from_type cache_type
 end
 
 def view_cache_keys
-  @view_cache_keys ||= hard_read_view_cache_keys || []
+  @view_cache_keys ||= hard_read_view_cache_keys
 end
 
 def ensure_view_cache_key cache_key
@@ -73,6 +73,7 @@ def ensure_view_cache_key cache_key
 end
 
 def hard_read_view_cache_keys
+  return [] unless Card.cache.hard
   Card.cache.hard.read_attribute key, :view_cache_keys
 end
 
