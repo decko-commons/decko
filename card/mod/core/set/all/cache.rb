@@ -73,12 +73,12 @@ def ensure_view_cache_key cache_key
 end
 
 def hard_read_view_cache_keys
-  Card.cache.hard.&read_attribute key, :view_cache_keys
+  Card.cache.hard&.read_attribute key, :view_cache_keys
 end
 
 def hard_write_view_cache_keys
   # puts "WRITE VIEW CACHE KEYS (#{name}): #{view_cache_keys}"
-  Card.cache.hard.&write_attribute key, :view_cache_keys, view_cache_keys
+  Card.cache.hard&.write_attribute key, :view_cache_keys, view_cache_keys
 end
 
 def expire_views
