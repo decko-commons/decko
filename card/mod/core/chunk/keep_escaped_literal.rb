@@ -4,10 +4,9 @@ class Card
   class Content
     module Chunk
       # These are basic chunks that have a pattern and can be protected.
-      # They are used by rendering process to prevent wiki rendering
-      # occuring within literal areas such as <code> and <pre> blocks
-      # and within HTML tags.
-      class EscapedLiteral < Abstract
+      # This chunk is used for markdown processing to ensure that
+      # the escaping survives the markdown rendering.
+      class KeepEscapedLiteral < Abstract
         FULL_RE = { "[" => /\A\\\[\[[^\]]*\]\]/,
                     "{" => /\A\\\{\{[^\}]*\}\}/ }.freeze
         Card::Content::Chunk.register_class self,
@@ -19,7 +18,7 @@ class Card
         end
 
         def interpret match, _content
-          @process_chunk = match[0].sub(/^\\(.)/, '<span>\\1</span>')
+          @process_chunk = match[0].sub(/^\\(.)/, '\\\\\\\\\1')
         end
       end
     end
