@@ -214,8 +214,8 @@ class Card
       # Uses the primary cache API.
       def cache_fetch
         caching do
+          ensure_cache_key
           self.class.cache.fetch cache_key do
-            register_cache_key
             yield
           end
         end
@@ -240,8 +240,8 @@ class Card
       end
 
       # Registers the cached view for later clearing in the event of related card changes
-      def register_cache_key
-        card.register_view_cache_key cache_key
+      def ensure_cache_key
+        card.ensure_view_cache_key cache_key
       end
 
       def options_for_cache_key
