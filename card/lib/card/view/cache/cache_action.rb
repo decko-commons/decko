@@ -17,8 +17,8 @@ class Card
           action = yield
           # TODO: make configurable
           # ...or better yet, integrate into performance logger...
-          # Rails.logger.warn "VIEW CACHE #{cache_active? ? '-->' : ''}[#{action}] "\
-          #                   "(#{card.name}##{requested_view})"
+          Rails.logger.warn "VIEW CACHE #{cache_active? ? '-->' : ''}[#{action}] "\
+                            "(#{card.name}##{requested_view})"
           action
         end
 
@@ -112,7 +112,8 @@ class Card
         # altered view requests and altered cards are not cacheable
         # @return [True/False]
         def clean_enough_to_cache?
-          requested_view == ok_view && !card.unknown? && !card.db_content_changed?
+          # requested_view == ok_view && !card.unknown? && !card.db_content_changed?
+          requested_view == ok_view && !card.db_content_changed?
           # unknown views may be safe if we add type_id to the cache key for unknown
           # (or all new?) cards.
           #
