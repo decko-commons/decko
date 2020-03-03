@@ -95,7 +95,7 @@ def save_content_draft content
   end
 end
 
-event :update_ancestor_timestamps, :finalize do
+event :update_ancestor_timestamps, :integrate do
   history_ancestor_ids.each do |id|
     Card[id].touch
   end
