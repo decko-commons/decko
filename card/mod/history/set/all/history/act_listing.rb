@@ -87,7 +87,7 @@ format :html do
   end
 
   def act_paging acts, context
-    wrap_with :span, class: "slotter" do
+    wrap_with :div, class: "slotter btn-sm" do
       acts = current_page_acts acts
       opts = { remote: true, theme: "twitter-bootstrap-4" }
       opts[:total_pages] = 10 if limited_paging? context
