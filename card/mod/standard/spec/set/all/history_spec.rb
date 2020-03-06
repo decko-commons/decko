@@ -238,6 +238,7 @@ RSpec.describe Card::Set::All::History do
   end
 
   describe "timestamping" do
+    # note: B includes Z, so updates to Z stamp B
     example "includers get a new timestamp",
             with_user: "Sample User", aggregate_failures: true do
       time = Time.now - 1.second

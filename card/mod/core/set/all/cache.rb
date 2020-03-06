@@ -87,7 +87,8 @@ def expire_views
   Array.wrap(view_cache_keys).each do |view_cache_key|
     Card::View.cache.delete view_cache_key
   end
-  @view_cache_keys = nil
+  @view_cache_keys = []
+  hard_write_view_cache_keys
 end
 
 def expire_names cache
