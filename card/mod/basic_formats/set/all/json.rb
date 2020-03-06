@@ -1,7 +1,7 @@
 format :json do
   # because card.item_cards returns "[[#{self}]]"
   def item_cards
-    uniq_nested_cards
+    nested_cards
   end
 
   def default_nest_view

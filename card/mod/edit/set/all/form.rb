@@ -108,10 +108,10 @@ format :html do
   end
 
   def multi_card_edit fields_only=false
-    nested_cards = nested_cards_for_edit(fields_only)
-    return structure_link if nested_cards.empty?
+    field_configs = edit_field_configs fields_only
+    return structure_link if field_configs.empty?
 
-    nested_cards.map do |name, options|
+    field_configs.map do |name, options|
       nest name, options || {}
     end.join "\n"
   end

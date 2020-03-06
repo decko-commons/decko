@@ -56,7 +56,7 @@ format do
   # @return [Array] of Arrays.  each is [nest_name, nest_options_hash]
   def edit_field_configs fields_only=false
     if edit_fields.present?
-      explicit_edit_fields_configs # explicitly configured in voo or code
+      explicit_edit_fields_config # explicitly configured in voo or code
     else
       implicit_edit_fields_config fields_only # inferred from nests
     end
@@ -64,7 +64,7 @@ format do
 
   def implicit_edit_fields_config fields_only
     result = []
-    each_nested_field_chunk do |chunk|
+    each_nested_chunk(fields: fields_only) do |chunk|
       result << [chunk.options[:nest_name], chunk.options]
     end
     result
