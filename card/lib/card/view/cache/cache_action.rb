@@ -112,7 +112,8 @@ class Card
         # altered view requests and altered cards are not cacheable
         # @return [True/False]
         def clean_enough_to_cache?
-          requested_view == ok_view && !card.unknown? && !card.db_content_changed?
+          #  requested_view == ok_view && !card.unknown? && !card.db_content_changed?
+          requested_view == ok_view && !card.db_content_changed?
           # unknown views may be safe if we add type_id to the cache key for unknown
           # (or all new?) cards.
           #

@@ -177,7 +177,9 @@ RSpec.describe Card::Set::All::EventConditions do
       def add_logging_test_event allowed, for_name
         event_args = { on: :update, skip: allowed }
         event_args[:for] = for_name if for_name
-        test_event(:validate, event_args) { add_to_log "#{name} executed" }
+        test_event(:validate, event_args) do
+          add_to_log "#{name} executed"
+        end
       end
 
       def update_with_skip force, changes, skip_key

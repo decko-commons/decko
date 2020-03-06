@@ -95,9 +95,9 @@ def save_content_draft content
   end
 end
 
-event :update_timestamps, :finalize do
-  history_ancestor_ids.each do |id|
-    Card[id].touch
-  end
-  Card.where(id: history_ancestor_ids).update_all(updater_id: Auth.current_id)
+event :update_ancestor_timestamps, :integrate do
+  ids = history_ancestor_ids
+  return unless ids.present?
+  Card.where(id: ids).update_all(updater_id: Auth.current_id, updated_at: Time.now)
+  ids.map { |anc_id| Card.expire anc_id.cardname }
 end

@@ -62,8 +62,8 @@ class Card
                           refer_to referred_to_by
                           member_of member
 
-                          found_by not sort match name_match complete
-                          extension_type],
+                          found_by
+                          not sort match name_match complete],
 
       plus_relational: %i[plus left_plus right_plus],
       conjunction:     %i[and or all any],

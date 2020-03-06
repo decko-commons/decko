@@ -28,18 +28,21 @@ def each_item_name_with_options content=nil
 end
 
 format do
-  def nested_fields content=nil
+  def nest_chunks content=nil
+    content ||= _render_raw
+    card.nest_chunks content
+  end
+
+  def edit_fields
+    voo.edit_structure || []
+  end
+
+  def nested_fields
     result = []
-    each_nested_card(content, true) do |chunk|
+    each_nested_card(nil, true) do |chunk|
       result << [chunk.referee_name, chunk.options]
     end
     result
-  end
-
-  def nested_field_cards content=nil
-    nested_fields(content).map do |name, _options|
-      Card.fetch name
-    end
   end
 
   def nested_cards_for_edit fields_only=false
@@ -49,10 +52,6 @@ format do
       result << [chunk.options[:nest_name], chunk.options]
     end
     result
-  end
-
-  def edit_fields
-    voo.edit_structure || []
   end
 
   def normalized_edit_fields
@@ -79,8 +78,8 @@ format do
     yield chunk if block_given?
   end
 
-  def each_nested_field content=nil, &block
-    each_nested_card content, true, &block
+  def each_nested_field &block
+    each_nested_card nil, true, &block
   end
 
   def each_nested_card content=nil, fields_only=false, &block
@@ -97,11 +96,6 @@ format do
         chunk.referee_card if unique_chunk? chunk
       end
     end
-  end
-
-  def nest_chunks content=nil
-    content ||= _render_raw
-    card.nest_chunks content
   end
 
   def process_tally
