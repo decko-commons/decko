@@ -39,7 +39,7 @@ format do
 
   def nested_fields
     result = []
-    each_nested_card(content, true) do |chunk|
+    each_nested_card(nil, true) do |chunk|
       result << [chunk.referee_name, chunk.options]
     end
     result
