@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Content::Chunk::KeepEscapedLiteral do
-  context "syntax parsing" do
+  context "when parsing syntax" do
     def apply_chunk content
       Card::Content.new(content, Card.new, chunk_list: :references_keep_escaping).to_s
     end
