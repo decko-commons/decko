@@ -98,7 +98,7 @@ end
 include Basic
 
 def cards_of_type_exist?
-  new_card? && Card.where(trash: false, type_id: id).exists?
+  !new_card? && Card.where(trash: false, type_id: id).exists?
 end
 
 def create_ok?
