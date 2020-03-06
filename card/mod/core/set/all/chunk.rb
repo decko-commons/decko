@@ -76,25 +76,8 @@ format do
 
   def each_nested_chunk content: nil, fields: false, uniq: true, virtual: true, &block
     return unless block_given?
-    chunks = nest_chunks content
-    chunks = field_chunks chunks if fields
-    chunks = uniq_chunks chunks if uniq
-    process_chunks chunks, virtual, &block
-  end
-
-  def process_chunks chunks, virtual, &block
-    chunks.each do |chunk|
-      if chunk.referee_card&.virtual?
-        next unless virtual
-        process_virtual_chunk chunk, &block
-      else
-        yield chunk
-      end
-    end
-  end
-
-  def process_virtual_chunk chunk
-    subformat(chunk.referee_card).each_nested_field_chunk { |sub_chunk| yield sub_chunk }
+    chunks = prepare_nested_chunks content, fields, uniq
+    process_nested_chunks chunks, virtual, &block
   end
 
   def uniq_chunks chunks
@@ -113,6 +96,31 @@ format do
 
   private
 
+  def prepare_nested_chunks content, fields, uniq
+    chunks = nest_chunks content
+    chunks = field_chunks chunks if fields
+    chunks = uniq_chunks chunks if uniq
+    chunks
+  end
+
+  def process_nested_chunks chunks, virtual, &block
+    chunks.each do |chunk|
+      process_nested_chunk chunk, virtual, &block
+    end
+  end
+
+  def process_nested_chunk chunk, virtual, &block
+    if chunk.referee_card&.virtual?
+      process_nested_virtual_chunk chunk, &block unless virtual
+    else
+      yield chunk
+    end
+  end
+
+  def process_virtual_chunk chunk
+    subformat(chunk.referee_card).each_nested_field_chunk { |sub_chunk| yield sub_chunk }
+  end
+
   def explicit_edit_fields_config
     edit_fields.map do |cardish, options|
       field_mark = normalized_edit_field_mark cardish, options
@@ -128,7 +136,7 @@ format do
 
   def normalized_edit_field_mark cardish, options
     return cardish if cardish.is_a?(Card) ||
-      (options.is_a?(Hash) && options.delete(:absolute))
+                      (options.is_a?(Hash) && options.delete(:absolute))
     card.name.field cardish
   end
 end
