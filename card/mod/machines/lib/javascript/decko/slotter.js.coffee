@@ -28,7 +28,7 @@
 #        updated after the request.
 #    update-foreign-slot-url
 #        a url to fetch the new content for the additional slot
-#        if not given the slot is updated with the same card and view that used before
+#        if not given the slot is updated with the same card and view that was used before
 #    update-origin
 #        if present then the slot from where the current modal or overlay slot was opened
 #        will be updated
@@ -45,7 +45,7 @@
 #          update-origin
 #             update closest slot of the slotter that opened the modal or overlay
 #             (assumes that the request was triggered from a modal or overlay)
-#             If you need the update origin together with another mode then use
+#             If you need the update-origin mode together with another mode then use
 #             data-update-origin="true".
 #          silent-success
 #             do nothing
@@ -117,6 +117,9 @@ jQuery.fn.extend
     if @data("reload")
       window.locacation.reload(true)
 
+    if @data("update-modal-origin")
+      @updateModalOrigin()
+
     if @data("update-origin")
       @updateOrigin()
 
@@ -145,6 +148,8 @@ jQuery.fn.extend
   showSuccessResponse: (data, mode) ->
     if mode == "silent-success"
       return
+    else if mode == "update-modal-origin"
+      @updateModalOrigin()
     else if mode == "update-origin"
       @updateOrigin()
     else if data.redirect
@@ -166,6 +171,14 @@ jQuery.fn.extend
         @slot().find('.current_revision_id').val(
           @slot().find('.new-current-revision-id').text()
         )
+
+  updateModalOrigin: () ->
+    debugger
+    if @overlaySlot()
+      overlayOrigin = @findOriginSlot("overlay")
+      overlayOrigin.updateOrigin()
+    else if @closest("#modal-container")[0]
+      @updateOrigin()
 
   updateOrigin: () ->
     type = if @overlaySlot()
