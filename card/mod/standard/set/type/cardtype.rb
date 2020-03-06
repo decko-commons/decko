@@ -13,6 +13,7 @@ end
 format :html do
   view :type, unknown: true do
     link_to_card card.type_card, nil, class: "cardtype"
+  end
 
   def type_formgroup args={}
     if card.cards_of_type_exist?
