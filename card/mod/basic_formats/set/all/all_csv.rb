@@ -53,8 +53,7 @@ format :csv  do
   end
 
   def columns
-    # csv_structure_card.format.
-    nested_field_names.map(&:tag)
+    csv_structure_card.format.nested_field_names.map(&:tag)
   end
 
   def csv_structure_card
