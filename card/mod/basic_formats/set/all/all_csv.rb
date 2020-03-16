@@ -35,7 +35,7 @@ format :csv  do
   end
 
   def name_with_fields_row
-    nested_fields.each_with_object([card.name]) do |(field_name, _options), row|
+    nested_field_names.each_with_object([card.name]) do |field_name, row|
       row << nest(field_name)
     end
   end
@@ -53,11 +53,7 @@ format :csv  do
   end
 
   def columns
-    columns = []
-    csv_structure_card.format.each_nested_field do |chunk|
-      columns << chunk.referee_name.tag
-    end
-    columns
+    csv_structure_card.format.nested_field_names.map(&:tag)
   end
 
   def csv_structure_card

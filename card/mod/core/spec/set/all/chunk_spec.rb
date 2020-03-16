@@ -31,6 +31,7 @@ RSpec.describe Card::Set::All::Chunk do
 
     example "absolute option", as_bot: true do
       format = format_with_edit_fields [[:self, { absolute: true }]]
+
       expect(format.render_edit).to have_tag ".card-editor", with: { card_name: "*self" }
     end
 
