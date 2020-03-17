@@ -717,8 +717,8 @@ acorn-walk@^6.1.1:
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-6.2.0.tgz#123cb8f3b84c2171f1f7fb252615b1c78a6b1a8c"
 
 acorn@^6.1.1:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.2.0.tgz#67f0da2fc339d6cfb5d6fb244fd449f33cd8bbe3"
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.4.1.tgz#531e58ba3f51b9dacb9a6646ca4debf5b14ca474"
 
 ajv@^6.5.5:
   version "6.10.2"
@@ -3542,8 +3542,9 @@ request@^2.88.0:
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
-"request@github:cypress-io/request#b5af0d1fa47eec97ba980cde90a13e69a2afcd16":
+request@cypress-io/request#b5af0d1fa47eec97ba980cde90a13e69a2afcd16:
   version "2.88.1"
+  uid b5af0d1fa47eec97ba980cde90a13e69a2afcd16
   resolved "https://codeload.github.com/cypress-io/request/tar.gz/b5af0d1fa47eec97ba980cde90a13e69a2afcd16"
   dependencies:
     aws-sign2 "~0.7.0"
