@@ -9,20 +9,27 @@ format :html do
   def static_tabs tabs, active_name=nil, tab_type="tabs", args={}
     tab_buttons = ""
     tab_panes = ""
+    active_name ||= tabs.keys.first
+    standardize_static_tabs(tabs) do |name, label, content, button_attr|
+      tab_id = tab_id name
+      active_tab = (name == active_name)
+      tab_buttons += tab_button(tab_id, label, active_tab, button_attr)
+      tab_panes += tab_pane(tab_id, content, active_tab, args[:pane])
+    end
+    tab_panel tab_buttons, tab_panes, tab_type
+  end
+
+  def standardize_static_tabs tabs
     tabs.each do |tab_name, tab_content|
-      active_name ||= tab_name
-      active_tab = (tab_name == active_name)
-      id = tab_id tab_name
+      tab_label = tab_content.is_a?(Hash) ? tab_content[:title] : tab_name
       tab_content, button_attr =
         if tab_content.is_a?(Hash)
-          [tab_content[:content], tab_content[:button_attr]]
+          [tab_content[:content], (tab_content[:button_attr] || {})]
         else
           [tab_content, {}]
         end
-      tab_buttons += tab_button(id, tab_name, active_tab, button_attr)
-      tab_panes += tab_pane(id, tab_name, tab_content, active_tab, args[:pane])
+      yield tab_name, tab_label, tab_content, button_attr
     end
-    tab_panel tab_buttons, tab_panes, tab_type
   end
 
   # @param [Hash] tabs keys are the views, values the title unless you pass a
@@ -45,35 +52,37 @@ format :html do
   def lazy_loading_tabs tabs, active_name, active_content="", args={}, &block
     tab_buttons = ""
     tab_panes = ""
-    standardize_tabs(tabs, active_name) do |tab_name, url, id, active_tab|
-      tab_buttons += lazy_tab_button tab_name, id, url, active_tab
-      tab_panes += lazy_tab_pane id, tab_name, active_tab, active_content,
-                                 args[:pane_args], &block
+    standardize_lazy_tabs(tabs, active_name) do |tab_label, url, id, active_tab|
+      tab_buttons += lazy_tab_button tab_label, id, url, active_tab
+      tab_panes += lazy_tab_pane id, active_tab, active_content, args[:pane_args], &block
     end
     tab_type = args.delete(:type) || "tabs"
     tab_panel tab_buttons, tab_panes, tab_type, args[:panel_args]
   end
 
-  def lazy_tab_button tab_name, id, url, active_tab
-    return wrap_with(:li, tab_name, role: "presentation") unless url
-    tab_button(
-      id, tab_name, active_tab,
-      "data-url" => url.html_safe,
-      class: (active_tab ? nil : "load")
-    )
+  def lazy_tab_button tab_label, id, url, active_tab
+    if url
+      tab_button(
+        id, tab_label, active_tab,
+        "data-url" => url.html_safe,
+        class: (active_tab ? nil : "load")
+      )
+    else
+      wrap_with(:li, tab_label, role: "presentation")
+    end
   end
 
-  def lazy_tab_pane id, tab_name, active_tab, active_content, args
+  def lazy_tab_pane id, active_tab, active_content, args
     tab_content =
       if active_tab
         block_given? ? yield : active_content
       else
         ""
       end
-    tab_pane(id, tab_name, tab_content, active_tab, args)
+    tab_pane id, tab_content, active_tab, args
   end
 
-  def standardize_tabs tabs, active_name
+  def standardize_lazy_tabs tabs, active_name
     tabs.each do |tab_view_name, tab_details|
       tab_title, url = tab_title_and_url(tab_details, tab_view_name)
       active_tab = (active_name == tab_view_name)
@@ -96,8 +105,7 @@ format :html do
     args.reverse_merge! role: "tabpanel"
     wrap_with :div, args do
       [
-        wrap_with(:ul, tab_buttons, class: "nav nav-#{tab_type}",
-                                    role: "tablist"),
+        wrap_with(:ul, tab_buttons, class: "nav nav-#{tab_type}", role: "tablist"),
         wrap_with(:div, tab_panes, class: "tab-content")
       ]
     end
@@ -121,10 +129,10 @@ format :html do
     )
   end
 
-  def tab_pane id, tab_name, content, active=false, args=nil
+  def tab_pane id, content, active=false, args=nil
     pane_args = { role: :tabpanel, id: id }
     pane_args.merge! args if args.present?
-    add_class pane_args, "tab-pane tab-pane-#{tab_name.to_name.safe_key}"
+    add_class pane_args, "tab-pane"
     add_class pane_args, "active" if active
     wrap_with :div, content, pane_args
   end
