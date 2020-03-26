@@ -21,3 +21,7 @@ CardSpecLoader.each_run do
 end
 
 CardSpecLoader.helper
+
+module Decko::ModsSpecHelper
+
+end
