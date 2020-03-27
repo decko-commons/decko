@@ -1,4 +1,6 @@
 
+# TODO: this should really be much more object oriented.  We need a Tab class.
+
 
 format :html do
   # @param tab_type [String] 'tabs' or 'pills'
