@@ -1,6 +1,12 @@
 
 # TODO: this should really be much more object oriented.  We need a Tab class.
+class Tab
+  attr_reader :name
 
+  def initialize name, options={}
+
+  end
+end
 
 format :html do
   # @param tab_type [String] 'tabs' or 'pills'
