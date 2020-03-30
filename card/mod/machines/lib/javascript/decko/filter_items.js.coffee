@@ -10,23 +10,23 @@ $(window).ready ->
 
   # select all visible filtered items
   $("body").on "click", "._select-all", ->
-    filterBox($(this)).find("._unselected ._search-checkbox-item input").each ->
+    filterBox($(this)).find("._unselected input._checkbox-list-checkbox").each ->
       selectFilteredItem $(this)
     $(this).prop "checked", false
     updateAfterSelection $(this)
 
   # deselect all selected items
   $("body").on "click", "._deselect-all", ->
-    filterBox($(this)).find("._selected ._search-checkbox-item input").each ->
+    filterBox($(this)).find("._selected input._checkbox-list-checkbox").each ->
       $(this).slot().remove()
     $(this).prop "checked", true
     updateAfterSelection $(this)
 
-  $("body").on "click", "._filter-items ._unselected ._search-checkbox-item input", ->
+  $("body").on "click", "._filter-items ._unselected input._checkbox-list-checkbox", ->
     selectFilteredItem $(this)
     updateAfterSelection $(this)
-
-  $("body").on "click", "._filter-items ._selected ._search-checkbox-item input", ->
+_
+  $("body").on "click", "._filter-items ._selected input._checkbox-list-checkbox", ->
     bin = selectedBin $(this)
     $(this).slot().remove()
     updateAfterSelection bin
