@@ -25,7 +25,7 @@ $(window).ready ->
   $("body").on "click", "._filter-items ._unselected input._checkbox-list-checkbox", ->
     selectFilteredItem $(this)
     updateAfterSelection $(this)
-_
+
   $("body").on "click", "._filter-items ._selected input._checkbox-list-checkbox", ->
     bin = selectedBin $(this)
     $(this).slot().remove()
