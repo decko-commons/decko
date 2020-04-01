@@ -123,7 +123,7 @@ end
 
 def renew mark, new_opts
   return self if new_opts.blank?
-  opts = new_opts.clone.reverse_merge name: mark
+  opts = new_opts.clone.merge name: mark
   copy = dup
   handle_default_content opts
   copy.newish opts
