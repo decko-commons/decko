@@ -105,8 +105,5 @@ def nesting_ids return_field, where_field
 end
 
 def requiring_id
-  return [] unless id
-
-  yield
+  id ? yield : (return [])
 end
-
