@@ -1,6 +1,5 @@
-
-.search-checkbox-item._search-checkbox-item.w-100.d-flex
+.checkbox-list-item.w-100.d-flex
   .checkbox-side
-    = check_box_tag item_card.name, item_card.key
+    = check_box_tag item_card.name, item_card.key, false, class: "_checkbox-list-checkbox"
   .item-view-side{ style: "background: #fff" }
     = nest_item item_card

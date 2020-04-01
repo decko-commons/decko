@@ -8,6 +8,12 @@ RSpec.describe Card::Set::All::FetchHelper do
     Card.send :retrieve_existing, "A".to_name, opts
   end
 
+  describe "#controller fetch" do
+    it "removes underscores from new card names" do
+      expect(Card.controller_fetch(mark: "no_un_der_score").name).to eq("no un der score")
+    end
+  end
+
   describe "retrieve_existing" do
     it "looks for non-cached card in database" do
       expect_db_retrieval_with(:key, "a", nil) { retrieve }
