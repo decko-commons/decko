@@ -1,3 +1,10 @@
+event :update_ancestor_timestamps, :integrate do
+  ids = history_ancestor_ids
+  return unless ids.present?
+  Card.where(id: ids).update_all(updater_id: Auth.current_id, updated_at: Time.now)
+  ids.map { |anc_id| Card.expire anc_id.cardname }
+end
+
 # track history (acts, actions, changes) on this card
 def history?
   true
@@ -5,12 +12,12 @@ end
 
 # all cards whose acts are considered part of this card's history
 def history_card_ids
-  includee_ids << id
+  nestee_ids << id
 end
 
 # all cards who are considered updated if this card's was updated
 def history_parent_ids
-  includer_ids
+  nester_ids
 end
 
 def history_ancestor_ids recursion_level=0
@@ -48,18 +55,12 @@ def changed_fields
   Card::Change::TRACKED_FIELDS & (changed_attribute_names_to_save | saved_changes.keys)
 end
 
-def includee_ids
-  @includee_ids ||=
-    Card::Reference.select(:referee_id).where(
-      ref_type: "I", referer_id: id
-    ).pluck("referee_id").compact.uniq
+def nestee_ids
+  requiring_id { @nestee_ids ||= nesting_ids(:referee_id, :referer_id) }
 end
 
-def includer_ids
-  @includer_ids ||=
-    Card::Reference.select(:referer_id).where(
-      ref_type: "I", referee_id: id
-    ).pluck("referer_id").compact.uniq
+def nester_ids
+  requiring_id { @nester_ids ||= nesting_ids(:referer_id, :referee_id) }
 end
 
 def diff_args
@@ -95,9 +96,14 @@ def save_content_draft content
   end
 end
 
-event :update_ancestor_timestamps, :integrate do
-  ids = history_ancestor_ids
-  return unless ids.present?
-  Card.where(id: ids).update_all(updater_id: Auth.current_id, updated_at: Time.now)
-  ids.map { |anc_id| Card.expire anc_id.cardname }
+private
+
+def nesting_ids return_field, where_field
+  Card::Reference.select(return_field).distinct.where(
+    ref_type: "I", where_field => id
+  ).pluck(return_field).compact
+end
+
+def requiring_id
+  id ? yield : (return [])
 end
