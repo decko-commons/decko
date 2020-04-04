@@ -22,13 +22,6 @@ def update_machine_output
   end
 end
 
-def solve_expire_bug
-  return unless (output_updated = output_updated_at)
-  changed = input_cards_with_changed_source(output_updated)
-  return if changed.empty?
-  changed.each(&:expire_machine_cache)
-end
-
 def ensure_machine_output
   output = fetch :machine_output
   return if output&.selected_content_action_id
