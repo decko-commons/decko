@@ -123,7 +123,7 @@ class Card
     def actions_affecting card
       actions.select do |action|
         (card.id == action.card_id) ||
-          card.includee_ids.include?(action.card_id)
+          card.nestee_ids.include?(action.card_id)
       end
     end
 

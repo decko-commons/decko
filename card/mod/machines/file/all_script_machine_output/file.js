@@ -12019,6 +12019,9 @@ return jQuery;
       if (this.data("reload")) {
         window.locacation.reload(true);
       }
+      if (this.data("update-modal-origin")) {
+        this.updateModalOrigin();
+      }
       if (this.data("update-origin")) {
         this.updateOrigin();
       }
@@ -12047,6 +12050,8 @@ return jQuery;
     showSuccessResponse: function(data, mode) {
       if (mode === "silent-success") {
 
+      } else if (mode === "update-modal-origin") {
+        return this.updateModalOrigin();
       } else if (mode === "update-origin") {
         return this.updateOrigin();
       } else if (data.redirect) {
@@ -12067,6 +12072,16 @@ return jQuery;
         if (status === 409) {
           return this.slot().find('.current_revision_id').val(this.slot().find('.new-current-revision-id').text());
         }
+      }
+    },
+    updateModalOrigin: function() {
+      debugger;
+      var overlayOrigin;
+      if (this.overlaySlot()) {
+        overlayOrigin = this.findOriginSlot("overlay");
+        return overlayOrigin.updateOrigin();
+      } else if (this.closest("#modal-container")[0]) {
+        return this.updateOrigin();
       }
     },
     updateOrigin: function() {
@@ -13255,24 +13270,24 @@ return jQuery;
       return btn.attr("href", addSelectedButtonUrl(btn, content));
     });
     $("body").on("click", "._select-all", function() {
-      filterBox($(this)).find("._unselected ._search-checkbox-item input").each(function() {
+      filterBox($(this)).find("._unselected input._checkbox-list-checkbox").each(function() {
         return selectFilteredItem($(this));
       });
       $(this).prop("checked", false);
       return updateAfterSelection($(this));
     });
     $("body").on("click", "._deselect-all", function() {
-      filterBox($(this)).find("._selected ._search-checkbox-item input").each(function() {
+      filterBox($(this)).find("._selected input._checkbox-list-checkbox").each(function() {
         return $(this).slot().remove();
       });
       $(this).prop("checked", true);
       return updateAfterSelection($(this));
     });
-    $("body").on("click", "._filter-items ._unselected ._search-checkbox-item input", function() {
+    $("body").on("click", "._filter-items ._unselected input._checkbox-list-checkbox", function() {
       selectFilteredItem($(this));
       return updateAfterSelection($(this));
     });
-    $("body").on("click", "._filter-items ._selected ._search-checkbox-item input", function() {
+    $("body").on("click", "._filter-items ._selected input._checkbox-list-checkbox", function() {
       var bin;
       bin = selectedBin($(this));
       $(this).slot().remove();

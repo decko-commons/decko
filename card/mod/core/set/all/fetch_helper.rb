@@ -39,7 +39,7 @@ module ClassMethods
     opts = safe_param args[:card]
     opts[:type] ||= args[:type] if args[:type]
     # for /new/:type shortcut.  we should handle in routing and deprecate this
-    opts[:name] ||= Card::Name.url_key_to_standard(args[:mark])
+    opts[:name] ||= Card::Name.url_key_to_standard args[:mark]
     opts
   end
 
@@ -123,8 +123,10 @@ module ClassMethods
       card = card.renew mark, new_opts
     elsif opts[:skip_virtual]
       return nil
+    else
+      card.assign_name_from_fetched_mark! mark, opts
     end
-    card.assign_name_from_fetched_mark! mark, opts
+    #
     finalize_fetch_results card, opts
     # must include_set_modules before checking `card.known?`,
     # in case, eg, set modules override #virtual?
