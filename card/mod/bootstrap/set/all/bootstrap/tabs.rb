@@ -34,6 +34,7 @@ format :html do
       [tab_content, {}]
     end
   end
+
   # @param [Hash] tabs keys are the views, values the title unless you pass a
   #   hash as value
   # @option tabs [String] :title
