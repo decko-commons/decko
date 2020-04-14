@@ -50,7 +50,7 @@ class Card
       def hash hashish
         case hashish
         when Hash then hashish.clone
-        when ActionController::Parameters then hash.to_unsafe_h
+        when ActionController::Parameters then hashish.to_unsafe_h
         else {}
         end
       end
