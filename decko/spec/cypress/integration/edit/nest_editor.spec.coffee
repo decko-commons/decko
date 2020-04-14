@@ -88,13 +88,13 @@ describe 'nest editor', () ->
     cy.get(".nest_editor-view").within () ->
       cy.contains "rules"
         .click()
-      cy.get ".tab-pane-rules_tab"
+      cy.get ".tab-pane-rules"
         .should "not.contain", "default"
         .contains ".alert", "nest name required"
         .should "be.visible"
       cy.get "#nest_name"
         .type "NaNa{enter}"
-      cy.get ".tab-pane-rules_tab .card-slot.nest_rules-view", timeout: 15000
+      cy.get ".tab-pane-rules .card-slot.nest_rules-view", timeout: 15000
         .should "contain", "default"
         .contains ".alert", "nest name required"
         .should "not.be.visible"

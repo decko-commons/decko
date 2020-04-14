@@ -44,10 +44,10 @@ $.extend nest,
     $(".input-group.show-prefix").removeClass("show-prefix").addClass("hide-prefix")
 
   rulesTabSlot: () ->
-    $("._nest-editor .tab-pane-rules_tab > .card-slot")
+    $("._nest-editor .tab-pane-rules > .card-slot")
 
   contentTabSlot: () ->
-    $("._nest-editor .tab-pane-content_tab > .card-slot")
+    $("._nest-editor .tab-pane-content > .card-slot")
 
   emptyNameAlert: (show) ->
     if show
