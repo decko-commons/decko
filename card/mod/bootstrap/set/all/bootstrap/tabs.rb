@@ -1,12 +1,4 @@
-
 # TODO: this should really be much more object oriented.  We need a Tab class.
-class Tab
-  attr_reader :name
-
-  def initialize name, options={}
-
-  end
-end
 
 format :html do
   # @param tab_type [String] 'tabs' or 'pills'
@@ -30,16 +22,18 @@ format :html do
   def standardize_static_tabs tabs
     tabs.each do |tab_name, tab_content|
       tab_label = tab_content.is_a?(Hash) ? tab_content[:title] : tab_name
-      tab_content, button_attr =
-        if tab_content.is_a?(Hash)
-          [tab_content[:content], (tab_content[:button_attr] || {})]
-        else
-          [tab_content, {}]
-        end
+      tab_content, button_attr = tab_content_and_button tab_content
       yield tab_name, tab_label, tab_content, button_attr
     end
   end
 
+  def tab_content_and_button tab_content
+    if tab_content.is_a?(Hash)
+      [tab_content[:content], (tab_content[:button_attr] || {})]
+    else
+      [tab_content, {}]
+    end
+  end
   # @param [Hash] tabs keys are the views, values the title unless you pass a
   #   hash as value
   # @option tabs [String] :title
