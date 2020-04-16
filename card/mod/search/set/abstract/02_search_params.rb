@@ -25,7 +25,7 @@ format do
   def query_params
     return nil unless (vars = params[:query])
 
-    Card.safe_param vars
+    Env.hash vars
   end
 
   def default_limit

@@ -12,10 +12,8 @@ end
 # FIXME: it is inconsistent that #sort_hash has :sort as the key, but
 # #filter_hash is the _value_ of the hash with :filter as the key.
 def filter_hash
-  @filter_hash ||= begin
-    filter = Env.params[:filter] || default_filter_hash
-    filter.try(:to_unsafe_h) || filter.clone
-  end
+  @filter_hash ||=
+    Env.params[:filter].present? ? Env.hash(Env.params[:filter]) : default_filter_hash
 end
 
 def sort_param
