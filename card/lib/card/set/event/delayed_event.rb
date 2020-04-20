@@ -27,8 +27,14 @@ class Card
         def define_event_delaying_method
           @set_module.class_exec(self) do |event|
             define_method(event.delaying_method_name, proc do
-              IntegrateWithDelayJob.set(queue: event.name).perform_later(
-                Card::ActManager.act&.id, self, serialize_for_active_job,
+              act = Card::ActManager.act
+
+              # FIXME: HACK!!!
+              priority = 10
+              priority = 0 if (event.name == :add_source_file) && act&.card&.import_file?
+
+              IntegrateWithDelayJob.set(queue: event.name, priority: priority).perform_later(
+                act&.id, self, serialize_for_active_job,
                 Card::Env.serialize, Card::Auth.serialize,
                 event.simple_method_name
               )
