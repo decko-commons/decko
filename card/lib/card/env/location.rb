@@ -32,6 +32,8 @@ class Card
       private
 
       def cardname_from_url_regexp
+        return unless Env[:host]
+
         %r{#{Regexp.escape Env[:host]}/(?<mark>[^\?]+)}
       end
 
