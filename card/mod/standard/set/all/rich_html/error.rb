@@ -30,7 +30,7 @@ format :html do
   end
 
   view :compact_missing, perms: :none do
-    wrap_with :span, h(title_in_context), class: "faint"
+    wrap_with :span, h(title_in_context), class: "text-muted"
   end
 
   view :conflict, cache: :never do
