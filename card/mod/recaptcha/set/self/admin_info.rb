@@ -26,8 +26,7 @@ format :html do
   end
 
   def add_recaptcha_keys_link
-    nest :recaptcha_settings,
-         view: :edit_link, title: I18n.t(:recaptcha_keys,
-                                         scope: "mod.admin.set.self.admin_info")
+    link_text = I18n.t :recaptcha_keys, scope: "mod.admin.set.self.admin_info"
+    Card[:recaptcha_settings]&.format&.edit_link link_text: link_text
   end
 end

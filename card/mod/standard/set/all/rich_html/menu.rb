@@ -32,7 +32,7 @@ format :html do
   end
 
   view :edit_link, unknown: true, denial: :blank do
-    edit_link edit_link_view, link_text: voo.title
+    edit_link edit_link_view
   end
 
   def edit_link_view
