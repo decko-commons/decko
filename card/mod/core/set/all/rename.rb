@@ -17,13 +17,15 @@ end
 event :validate_renaming, :validate, on: :update, changed: :name, skip: :allowed do
   return if name_before_act&.to_name == name # just changing to new variant
   errors.add :content, tr(:cannot_change_content) if db_content_is_changing?
-  errors.add :type, tr(:cannot_change_type) if type_id_is_changing?
+  if type_id_is_changing?
+    errors.add :type, tr(:cannot_change_type)
+  end
 end
 
 event :cascade_name_changes, :finalize, on: :update, changed: :name,
                                         before: :name_change_finalized do
   @descendants = nil # reset
-  skip_rename_events!
+  skip_rename_events! if act_card?
 
   children.each do |child|
     Rails.logger.debug "cascading name: #{child.name}"
@@ -38,10 +40,7 @@ end
 private
 
 def skip_rename_events!
-  return unless self == ActManager.act_card
-
-  events = [skip_event] + %i[check_permissions validate_name]
-  events << :set_read_rule if name.simple?
-
-  self.skip_event = events
+  # these are skipped for children, because they've already been called in the act card
+  skip_event! :validate_uniqueness_of_name, :validate_renaming, :check_permissions
+  skip_event! :set_read_rule if name.simple?
 end

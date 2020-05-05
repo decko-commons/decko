@@ -7,11 +7,24 @@ def event_applies? event
 end
 
 def skip_event! *events
-  forced_skip_events.merge events
+  @skip_hash = nil
+  events.each do |event|
+    act_skip_hash[event.to_s] = :force
+  end
+end
+
+def skip_event_in_action! *events
+  events.each do |event|
+    skip_hash[event.to_s] = :force
+  end
 end
 
 def trigger_event! *events
   forced_trigger_events.merge events
+end
+
+def act_skip_hash
+  @act_skip_hash ||= hash_with_value skip, true
 end
 
 private
@@ -74,10 +87,12 @@ def when_condition_applies? _event, block
   end
 end
 
+# "applies always means event can run
+# so if skip_condition_applies?, we do NOT skip
 def skip_condition_applies? event, allowed
-  return true if never_skip?
+  return true unless (val = skip_hash[event.name.to_s])
 
-  !(standard_skip_event?(event.name, allowed) || force_skip_event?(event.name))
+  allowed ? val.blank? : (val != :force)
 end
 
 def trigger_condition_applies? event, required
@@ -111,33 +126,24 @@ def wrong_action action
   "on: #{action} method #{method} called on #{@action}"
 end
 
-def never_skip?
-  return @never_skip unless @never_skip.nil?
-
-  @never_skip = skip_events.empty? && forced_skip_events.empty?
-end
-
-def standard_skip_event? event, allowed
-  return false unless allowed == :allowed
-
-  skip_events.include? event.to_s
-end
-
 def force_skip_event? event
-  forced_skip_events.include? event
+  skip_hash[event.to_s] == :forced
 end
 
-# holder for skip_event! (with bang) events
-def forced_skip_events
-  @forced_skip_events ||= ::Set.new([])
+def skip_hash
+  @skip_hash ||= (ActManager.act_card || self).act_skip_hash.merge action_skip_hash
 end
 
-def skip_events
-  @skip_events ||= begin
-    events = Array.wrap(skip_event_in_action) + Array.wrap(act_card.skip_event)
-    ::Set.new events.compact.map(&:to_s)
+def hash_with_value array, value
+  Array.wrap(array).each_with_object({}) do |event, hash|
+    hash[event.to_s] = value
   end
 end
+
+def action_skip_hash
+  hash_with_value skip_in_action, true
+end
+
 
 # holder for trigger_event! (with bang) events
 def forced_trigger_events
@@ -150,7 +156,7 @@ def trigger_event? event
 end
 
 def triggered_events
-  events = Array.wrap(trigger_event_in_action) + Array.wrap(act_card.trigger_event)
+  events = Array.wrap(trigger_event_in_action) + Array.wrap(ActManager.act_card&.trigger_event)
   ::Set.new events.map(&:to_sym)
 end
 

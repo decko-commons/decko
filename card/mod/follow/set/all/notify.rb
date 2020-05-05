@@ -78,7 +78,3 @@ def current_act_card?
   # in the store phase when it's tested).  The nil test was needed
   # to make this work.
 end
-
-def act_card
-  @supercard || self
-end

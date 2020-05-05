@@ -192,16 +192,16 @@ RSpec.describe Card::Set::All::EventConditions do
         end
       end
 
-      specify "skip_event condition" do
+      specify "skip condition" do
         expect_skipping({ content: "changed" }, [], "A executed", for_name: "A")
       end
 
-      specify "skip_event condition in subcard" do
+      specify "skip condition in subcard" do
         expect_skipping({ content: "changed", subcards: { "+B" => "changed +B" } },
                         [], "A+B executed", for_name: "A+B")
       end
 
-      specify "skip_event_in_action condition" do
+      specify "skip_in_action condition" do
         expect_skipping({ content: "changed", subcards: { "+B" => "changed +B" } },
                         ["A+B executed"],
                         ["A executed", "A+B executed", "A+B executed"],
