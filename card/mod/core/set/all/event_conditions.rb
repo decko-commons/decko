@@ -135,7 +135,7 @@ end
 def skip_events
   @skip_events ||= begin
     events = Array.wrap(skip_event_in_action) + Array.wrap(act_card.skip_event)
-    ::Set.new events.map(&:to_s)
+    ::Set.new events.compact.map(&:to_s)
   end
 end
 
