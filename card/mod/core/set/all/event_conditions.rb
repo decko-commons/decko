@@ -20,11 +20,24 @@ def skip_event_in_action! *events
 end
 
 def trigger_event! *events
-  forced_trigger_events.merge events
+  @trigger_hash = nil
+  events.each do |event|
+    act_trigger_hash[event.to_s] = :force
+  end
+end
+
+def trigger_event_in_action! *events
+  events.each do |event|
+    trigger_hash[event.to_s] = :force
+  end
 end
 
 def act_skip_hash
-  @act_skip_hash ||= hash_with_value skip, true
+  (ActManager.act_card || self).skip_event_hash
+end
+
+def act_trigger_hash
+  (ActManager.act_card || self).trigger_event_hash
 end
 
 private
@@ -96,9 +109,9 @@ def skip_condition_applies? event, allowed
 end
 
 def trigger_condition_applies? event, required
-  return true unless required == :required
+  return true unless required
 
-  trigger_event?(event.name) || force_trigger_event?(event.name)
+  trigger_hash[event.name.to_s].present?
 end
 
 def single_changed_condition_applies? db_column
@@ -126,12 +139,28 @@ def wrong_action action
   "on: #{action} method #{method} called on #{@action}"
 end
 
-def force_skip_event? event
-  skip_hash[event.to_s] == :forced
+def skip_hash
+  @skip_hash ||= act_skip_hash.merge skip_in_action_hash
 end
 
-def skip_hash
-  @skip_hash ||= (ActManager.act_card || self).act_skip_hash.merge action_skip_hash
+def skip_event_hash
+  @skip_event_hash ||= hash_with_value skip, true
+end
+
+def skip_in_action_hash
+  hash_with_value skip_in_action, true
+end
+
+def trigger_hash
+  @trigger_hash ||= act_trigger_hash.merge trigger_in_action_hash
+end
+
+def trigger_event_hash
+  @trigger_event_hash ||= hash_with_value skip, true
+end
+
+def trigger_in_action_hash
+  hash_with_value trigger_in_action, true
 end
 
 def hash_with_value array, value
@@ -140,26 +169,3 @@ def hash_with_value array, value
   end
 end
 
-def action_skip_hash
-  hash_with_value skip_in_action, true
-end
-
-
-# holder for trigger_event! (with bang) events
-def forced_trigger_events
-  @forced_trigger_events ||= ::Set.new([])
-end
-
-def trigger_event? event
-  @names_of_triggered_events ||= triggered_events
-  @names_of_triggered_events.include? event
-end
-
-def triggered_events
-  events = Array.wrap(trigger_event_in_action) + Array.wrap(ActManager.act_card&.trigger_event)
-  ::Set.new events.map(&:to_sym)
-end
-
-def force_trigger_event? event
-  forced_trigger_events.include? event
-end
