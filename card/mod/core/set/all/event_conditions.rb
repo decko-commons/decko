@@ -1,3 +1,6 @@
+Card.action_specific_attributes +=
+  %i[skip_hash full_skip_hash trigger_hash full_trigger_hash]
+
 def event_applies? event
   return unless set_condition_applies? event.set_module, event.opts[:changing]
 
@@ -6,38 +9,43 @@ def event_applies? event
   end
 end
 
+# force skipping this event for all cards in act
 def skip_event! *events
-  @skip_hash = nil
+  @full_skip_hash = nil
   events.each do |event|
     act_skip_hash[event.to_s] = :force
   end
 end
 
+# force skipping this event for this card only
 def skip_event_in_action! *events
   events.each do |event|
-    skip_hash[event.to_s] = :force
+    full_skip_hash[event.to_s] = :force
   end
 end
 
+# force triggering this event (when it comes up) for all cards in act
 def trigger_event! *events
-  @trigger_hash = nil
+  @full_trigger_hash = nil
   events.each do |event|
     act_trigger_hash[event.to_s] = :force
   end
 end
 
+# force triggering this event (when it comes up) for this card only
 def trigger_event_in_action! *events
   events.each do |event|
-    trigger_hash[event.to_s] = :force
+    full_trigger_hash[event.to_s] = :force
   end
 end
 
-def skip_event_hash
-  @skip_event_hash ||= hash_with_value skip, true
+# hash form of raw skip setting, eg { "my_event" => true }
+def skip_hash
+  @skip_hash ||= hash_with_value skip, true
 end
 
-def trigger_event_hash
-  @trigger_event_hash ||= hash_with_value trigger, true
+def trigger_hash
+  @trigger_hash ||= hash_with_value trigger, true
 end
 
 private
@@ -103,7 +111,7 @@ end
 # "applies always means event can run
 # so if skip_condition_applies?, we do NOT skip
 def skip_condition_applies? event, allowed
-  return true unless (val = skip_hash[event.name.to_s])
+  return true unless (val = full_skip_hash[event.name.to_s])
 
   allowed ? val.blank? : (val != :force)
 end
@@ -111,7 +119,7 @@ end
 def trigger_condition_applies? event, required
   return true unless required
 
-  trigger_hash[event.name.to_s].present?
+  full_trigger_hash[event.name.to_s].present?
 end
 
 def single_changed_condition_applies? db_column
@@ -139,28 +147,28 @@ def wrong_action action
   "on: #{action} method #{method} called on #{@action}"
 end
 
-def skip_hash
-  @skip_hash ||= act_skip_hash.merge skip_in_action_hash
+def full_skip_hash
+  @full_skip_hash ||= act_skip_hash.merge skip_in_action_hash
+end
+
+def act_skip_hash
+  (act_card || self).skip_hash
 end
 
 def skip_in_action_hash
   hash_with_value skip_in_action, true
 end
 
-def trigger_hash
-  @trigger_hash ||= act_trigger_hash.merge trigger_in_action_hash
+def full_trigger_hash
+  @full_trigger_hash ||= act_trigger_hash.merge trigger_in_action_hash
 end
 
 def trigger_in_action_hash
   hash_with_value trigger_in_action, true
 end
 
-def act_skip_hash
-  (act_card || self).skip_event_hash
-end
-
 def act_trigger_hash
-  (act_card || self).trigger_event_hash
+  (act_card || self).trigger_hash
 end
 
 def hash_with_value array, value

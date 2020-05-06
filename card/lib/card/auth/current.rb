@@ -147,8 +147,6 @@ class Card
         Rails.configuration.database_configuration.dig Rails.env, "database"
       end
 
-      private
-
       # set the id of the current user.
       def current_id= card_id
         @current = @as_id = @as_card = @current_roles = nil
