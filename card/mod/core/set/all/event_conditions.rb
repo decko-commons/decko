@@ -156,11 +156,11 @@ def trigger_in_action_hash
 end
 
 def act_skip_hash
-  (ActManager.act_card || self).skip_event_hash
+  (act_card || self).skip_event_hash
 end
 
 def act_trigger_hash
-  (ActManager.act_card || self).trigger_event_hash
+  (act_card || self).trigger_event_hash
 end
 
 def hash_with_value array, value
@@ -168,4 +168,3 @@ def hash_with_value array, value
     hash[event.to_s] = value
   end
 end
-
