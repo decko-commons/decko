@@ -32,12 +32,12 @@ def trigger_event_in_action! *events
   end
 end
 
-def act_skip_hash
-  (ActManager.act_card || self).skip_event_hash
+def skip_event_hash
+  @skip_event_hash ||= hash_with_value skip, true
 end
 
-def act_trigger_hash
-  (ActManager.act_card || self).trigger_event_hash
+def trigger_event_hash
+  @trigger_event_hash ||= hash_with_value trigger, true
 end
 
 private
@@ -143,10 +143,6 @@ def skip_hash
   @skip_hash ||= act_skip_hash.merge skip_in_action_hash
 end
 
-def skip_event_hash
-  @skip_event_hash ||= hash_with_value skip, true
-end
-
 def skip_in_action_hash
   hash_with_value skip_in_action, true
 end
@@ -155,12 +151,16 @@ def trigger_hash
   @trigger_hash ||= act_trigger_hash.merge trigger_in_action_hash
 end
 
-def trigger_event_hash
-  @trigger_event_hash ||= hash_with_value skip, true
-end
-
 def trigger_in_action_hash
   hash_with_value trigger_in_action, true
+end
+
+def act_skip_hash
+  (ActManager.act_card || self).skip_event_hash
+end
+
+def act_trigger_hash
+  (ActManager.act_card || self).trigger_event_hash
 end
 
 def hash_with_value array, value
