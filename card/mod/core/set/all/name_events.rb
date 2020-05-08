@@ -18,7 +18,7 @@ event :validate_name, :validate, on: :save, changed: :name do
   validate_uniqueness_of_name
 end
 
-event :validate_uniqueness_of_name do
+event :validate_uniqueness_of_name, skip: :allowed do
   # validate uniqueness of name
   rel = Card.where key: name.key, trash: false
   rel = rel.where "id <> ?", id if id

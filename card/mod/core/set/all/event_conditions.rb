@@ -1,3 +1,6 @@
+Card.action_specific_attributes +=
+  %i[skip_hash full_skip_hash trigger_hash full_trigger_hash]
+
 def event_applies? event
   return unless set_condition_applies? event.set_module, event.opts[:changing]
 
@@ -6,12 +9,43 @@ def event_applies? event
   end
 end
 
+# force skipping this event for all cards in act
 def skip_event! *events
-  forced_skip_events.merge events
+  @full_skip_hash = nil
+  events.each do |event|
+    act_skip_hash[event.to_s] = :force
+  end
 end
 
+# force skipping this event for this card only
+def skip_event_in_action! *events
+  events.each do |event|
+    full_skip_hash[event.to_s] = :force
+  end
+end
+
+# force triggering this event (when it comes up) for all cards in act
 def trigger_event! *events
-  forced_trigger_events.merge events
+  @full_trigger_hash = nil
+  events.each do |event|
+    act_trigger_hash[event.to_s] = :force
+  end
+end
+
+# force triggering this event (when it comes up) for this card only
+def trigger_event_in_action! *events
+  events.each do |event|
+    full_trigger_hash[event.to_s] = :force
+  end
+end
+
+# hash form of raw skip setting, eg { "my_event" => true }
+def skip_hash
+  @skip_hash ||= hash_with_value skip, true
+end
+
+def trigger_hash
+  @trigger_hash ||= hash_with_value trigger, true
 end
 
 private
@@ -74,16 +108,18 @@ def when_condition_applies? _event, block
   end
 end
 
+# "applies always means event can run
+# so if skip_condition_applies?, we do NOT skip
 def skip_condition_applies? event, allowed
-  return true if never_skip?
+  return true unless (val = full_skip_hash[event.name.to_s])
 
-  !(standard_skip_event?(event.name, allowed) || force_skip_event?(event.name))
+  allowed ? val.blank? : (val != :force)
 end
 
 def trigger_condition_applies? event, required
-  return true unless required == :required
+  return true unless required
 
-  trigger_event?(event.name) || force_trigger_event?(event.name)
+  full_trigger_hash[event.name.to_s].present?
 end
 
 def single_changed_condition_applies? db_column
@@ -111,49 +147,32 @@ def wrong_action action
   "on: #{action} method #{method} called on #{@action}"
 end
 
-def never_skip?
-  return @never_skip unless @never_skip.nil?
-
-  @never_skip = skip_events.empty? && forced_skip_events.empty?
+def full_skip_hash
+  @full_skip_hash ||= act_skip_hash.merge skip_in_action_hash
 end
 
-def standard_skip_event? event, allowed
-  return false unless allowed == :allowed
-
-  skip_events.include? event.to_s
+def act_skip_hash
+  (act_card || self).skip_hash
 end
 
-def force_skip_event? event
-  forced_skip_events.include? event
+def skip_in_action_hash
+  hash_with_value skip_in_action, true
 end
 
-# holder for skip_event! (with bang) events
-def forced_skip_events
-  @forced_skip_events ||= ::Set.new([])
+def full_trigger_hash
+  @full_trigger_hash ||= act_trigger_hash.merge trigger_in_action_hash
 end
 
-def skip_events
-  @skip_events ||= begin
-    events = Array.wrap(skip_event_in_action) + Array.wrap(act_card.skip_event)
-    ::Set.new events.map(&:to_s)
+def trigger_in_action_hash
+  hash_with_value trigger_in_action, true
+end
+
+def act_trigger_hash
+  (act_card || self).trigger_hash
+end
+
+def hash_with_value array, value
+  Array.wrap(array).each_with_object({}) do |event, hash|
+    hash[event.to_s] = value
   end
-end
-
-# holder for trigger_event! (with bang) events
-def forced_trigger_events
-  @forced_trigger_events ||= ::Set.new([])
-end
-
-def trigger_event? event
-  @names_of_triggered_events ||= triggered_events
-  @names_of_triggered_events.include? event
-end
-
-def triggered_events
-  events = Array.wrap(trigger_event_in_action) + Array.wrap(act_card.trigger_event)
-  ::Set.new events.map(&:to_sym)
-end
-
-def force_trigger_event? event
-  forced_trigger_events.include? event
 end

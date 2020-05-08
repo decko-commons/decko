@@ -63,16 +63,19 @@ class Card
       @keys.send method, *args
     end
 
-    def each_card
-      # fetch all cards first to avoid side effects
-      # e.g. deleting a user adds follow rules and +*account to subcards
-      # for deleting but deleting follow rules can remove +*account from the
-      # cache if it belongs to the rule cards
-      cards = @keys.map do |key|
+    # fetch all cards first to avoid side effects
+    # e.g. deleting a user adds follow rules and +*account to subcards
+    # for deleting but deleting follow rules can remove +*account from the
+    # cache if it belongs to the rule cards
+    def cards
+      @keys.map do |key|
         fetch_subcard key
-      end
+      end.compact
+    end
+
+    def each_card
       cards.each do |card|
-        yield(card) if card
+        yield card
       end
     end
 

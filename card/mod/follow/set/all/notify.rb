@@ -71,14 +71,10 @@ def silent_change
 end
 
 def current_act_card?
-  return false unless (act_card = Card::ActManager.act_card)
+  return false unless act_card
 
   act_card.id.nil? || act_card.id == id
   # FIXME: currently card_id is nil for deleted acts (at least
   # in the store phase when it's tested).  The nil test was needed
   # to make this work.
-end
-
-def act_card
-  @supercard || self
 end
