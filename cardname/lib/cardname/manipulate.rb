@@ -75,17 +75,4 @@ class Cardname
       raise StandardError, "'#{part}' has to be simple. #{msg}"
     end
   end
-
-  # ~~~~~~~~~~~~~~~~~~~~ MISC ~~~~~~~~~~~~~~~~~~~~
-
-  # HACK. This doesn't belong here.
-  # shouldn't it use inclusions???
-  def self.substitute! str, hash
-    hash.keys.each do |var|
-      str.gsub! var_re do |x|
-        hash[var.to_sym]
-      end
-    end
-    str
-  end
 end
