@@ -143,7 +143,9 @@ class Card
 
         def quick_type name
           if name.present?
-            Card.fetch(name, skip_modules: true, new: {})&.type_name
+            card = Card.fetch name, skip_modules: true, new: {}
+            card.include_set_modules if card.new? && name.to_name.junction?
+            card&.type_name
           else
             "RichText"
           end
