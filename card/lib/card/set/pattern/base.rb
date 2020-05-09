@@ -133,6 +133,20 @@ class Card
             "#{@anchor_id}+#{self.class.pattern_code}"
           end
         end
+
+        private
+
+        def left_type card
+          card.superleft&.type_name || quick_type(card.name.left_name)
+        end
+
+        def quick_type name
+          if name.present?
+            Card.fetch(name, skip_modules: true, new: {})&.type_name
+          else
+            "RichText"
+          end
+        end
       end
     end
   end
