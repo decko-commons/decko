@@ -133,7 +133,8 @@ class Card
             "#{@anchor_id}+#{self.class.pattern_code}"
           end
         end
-
+      end
+      module Helper
         private
 
         def left_type card
