@@ -65,7 +65,7 @@ RSpec.describe Card::Set::Right::Account do
 
     it "contains deck title" do
       body = @mail.parts[0].body.raw_source
-      expect(body).to match(Card.global_setting(:title))
+      expect(body).to match(Card::Rule.global_setting(:title))
     end
 
     it "contains link to verify account" do
@@ -111,7 +111,7 @@ RSpec.describe Card::Set::Right::Account do
 
     it "contains deck title" do
       body = @mail.parts[0].body.raw_source
-      expect(body).to match(Card.global_setting(:title))
+      expect(body).to match(Card::Rule.global_setting(:title))
     end
 
     it "contains password reset link" do

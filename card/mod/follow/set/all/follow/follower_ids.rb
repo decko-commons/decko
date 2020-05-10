@@ -17,14 +17,14 @@ def expire_preferences?
 end
 
 event :expire_preferences_cache, :finalize, when: :expire_preferences? do
-  Card.clear_preference_cache
+  Card::Rule.clear_preference_cache
 end
 
 # follow cache methods on Card class
 module ClassMethods
   def follow_caches_expired
     Card.clear_follower_ids_cache
-    Card.clear_preference_cache
+    Card::Rule.clear_preference_cache
   end
 
   def follower_ids_cache

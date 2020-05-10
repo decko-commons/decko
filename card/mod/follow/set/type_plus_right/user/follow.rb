@@ -13,7 +13,7 @@ end
 # overrides pointer default
 def item_names _args={}
   if (user = left)
-    Card.preference_names user.name, "follow"
+    Card::Rule.preference_names user.name, "follow"
   else
     []
   end

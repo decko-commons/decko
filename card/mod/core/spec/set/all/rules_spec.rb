@@ -109,7 +109,7 @@ describe Card::Set::All::Rules do
           Card.create(name: "Book+*type+Joe User+*follow", content: "[[Home]]")
           Card::Auth.signin "Joe Admin"
           Card.create(name: "Book+*type+Joe Admin+*follow", content: "[[Home]]")
-          user_ids = Card.all_user_ids_with_rule_for(
+          user_ids = Card::Rule.all_user_ids_with_rule_for(
             Card.fetch("Book+*type"), :follow
           )
           expect(user_ids.sort).to eq(

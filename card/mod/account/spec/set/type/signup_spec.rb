@@ -64,7 +64,7 @@ RSpec.describe Card::Set::Type::Signup do
     it "sends email with an appropriate link" do
       @mail = ActionMailer::Base.deliveries.last
       body = @mail.parts[0].body.raw_source
-      expect(body).to match(Card.global_setting(:title))
+      expect(body).to match(Card::Rule.global_setting(:title))
     end
 
     it "notifies someone" do

@@ -1,6 +1,6 @@
 format do
   view :page_title, unknown: true, perms: :none do
-    [(safe_name if card.name.present?), Card.global_setting(:title)].compact.join " - "
+    [(safe_name if card.name.present?), Card::Rule.global_setting(:title)].compact.join " - "
   end
 end
 
@@ -126,7 +126,7 @@ format :html do
 
   def mod_js_configs
     mod_js_config.map do |codename, js_decko_function|
-      config_json = escape_javascript Card.global_setting(codename)
+      config_json = escape_javascript Card::Rule.global_setting(codename)
       "decko.#{js_decko_function}('#{config_json}')"
     end
   end

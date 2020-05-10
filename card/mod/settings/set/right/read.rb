@@ -20,7 +20,7 @@ end
 # could be significantly simplified with smarter events.
 
 def update_read_ruled_cards set
-  self.class.clear_read_rule_cache
+  Card::Rule.clear_read_rule_cache
   Card.cache.reset # maybe be more surgical, just Auth.user related
   expire # probably shouldn't be necessary,
   # but was sometimes getting cached version when card should be in the
