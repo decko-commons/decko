@@ -1,7 +1,6 @@
 class Card
+  # Optimized handling of card "rules" (Set+Setting) and preferences.
   module Rule
-    # frozen_string_literal: true
-
     RULE_SQL = %(
       SELECT
         rules.id      AS rule_id,
@@ -132,10 +131,10 @@ class Card
       end
 
       def populate_read_rule_cache
-        hash = rows(READ_RULE_SQL).each_with_object({}) do |row, hash|
+        hash = rows(READ_RULE_SQL).each_with_object({}) do |row, h|
           party_id = row["party_id"].to_i
-          hash[party_id] ||= []
-          hash[party_id] << row["read_rule_id"].to_i
+          h[party_id] ||= []
+          h[party_id] << row["read_rule_id"].to_i
         end
         Card.cache.write "READRULES", hash
       end
@@ -194,7 +193,7 @@ class Card
         if (l = set_card.left) && (r = set_card.right)
           "#{l.id}+#{Card::Codename[r.id]}"
         else
-          "#{Card::Codename[set_card.id]}"
+          Card::Codename[set_card.id].to_s
         end
       end
 

@@ -64,4 +64,3 @@ def related_sets with_self=false
   end
   sets
 end
-
