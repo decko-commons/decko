@@ -19,7 +19,7 @@ def recaptcha_on?
     !Auth.signed_in? &&
     !Auth.always_ok? &&
     !Auth.needs_setup? &&
-    Card.toggle(rule(:captcha))
+    Card::Rule.toggle(rule(:captcha))
 end
 
 def add_recaptcha_errors error_codes
