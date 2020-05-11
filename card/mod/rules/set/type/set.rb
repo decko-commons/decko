@@ -47,7 +47,7 @@ def uncapitalized_label
 end
 
 def all_user_ids_with_rule_for setting_code
-  Card.all_user_ids_with_rule_for self, setting_code
+  Card::Rule.all_user_ids_with_rule_for self, setting_code
 end
 
 def setting_codenames_by_group
