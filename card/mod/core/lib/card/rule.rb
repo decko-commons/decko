@@ -2,24 +2,6 @@ class Card
   module Rule
     # frozen_string_literal: true
 
-    RULE_SQL = %(
-      SELECT
-        rules.id      AS rule_id,
-        settings.id   AS setting_id,
-        sets.id       AS set_id,
-        sets.left_id  AS anchor_id,
-        sets.right_id AS set_tag_id
-      FROM cards rules
-      JOIN cards sets     ON rules.left_id  = sets.id
-      JOIN cards settings ON rules.right_id = settings.id
-      WHERE     sets.type_id = #{SetID}
-        AND settings.type_id = #{SettingID}
-        AND (settings.codename != 'follow' OR rules.db_content != '')
-        AND    rules.trash is false
-        AND     sets.trash is false
-        AND settings.trash is false;
-    ).freeze
-
     # FIXME: "follow" hardcoded above
 
     READ_RULE_SQL = %(
@@ -35,29 +17,6 @@ class Card
         AND       sets.trash is false;
     ).freeze
 
-    PREFERENCE_SQL = %(
-      SELECT
-        preferences.id AS rule_id,
-        settings.id    AS setting_id,
-        sets.id        AS set_id,
-        sets.left_id   AS anchor_id,
-        sets.right_id  AS set_tag_id,
-        users.id       AS user_id
-      FROM cards preferences
-      JOIN cards user_sets ON preferences.left_id  = user_sets.id
-      JOIN cards settings  ON preferences.right_id = settings.id
-      JOIN cards users     ON user_sets.right_id   = users.id
-      JOIN cards sets      ON user_sets.left_id    = sets.id
-      WHERE sets.type_id     = #{SetID}
-        AND settings.type_id = #{SettingID}
-        AND (%s or users.codename = 'all')
-        AND sets.trash        is false
-        AND settings.trash    is false
-        AND users.trash       is false
-        AND user_sets.trash   is false
-        AND preferences.trash is false;
-    ).freeze
-
     class << self
       def global_setting name
         Auth.as_bot do
@@ -67,10 +26,6 @@ class Card
 
       def toggle val
         val.to_s.strip == "1"
-      end
-
-      def rule_cache
-        Card.cache.read("RULES") || populate_rule_caches
       end
 
       def read_rule_cache
@@ -140,30 +95,6 @@ class Card
         Card.cache.write "READRULES", hash
       end
 
-      def rule_cache_key row
-        return false unless (setting_code = Card::Codename[row["setting_id"].to_i])
-
-        anchor_id = row["anchor_id"]
-        set_class_id = anchor_id.nil? ? row["set_id"] : row["set_tag_id"]
-        return false unless (set_class_code = Card::Codename[set_class_id.to_i])
-
-        [anchor_id, set_class_code, setting_code].compact.map(&:to_s) * "+"
-      end
-
-      def interpret_simple_rules
-        rows(RULE_SQL).each do |row|
-          next unless (key = rule_cache_key row)
-          @rule_hash[key] = row["rule_id"].to_i
-        end
-      end
-
-      def interpret_preferences
-        rows(preference_sql).each do |row|
-          next unless (key = rule_cache_key row) && (user_id = row["user_id"])
-          add_preference_hash_values key, row["rule_id"].to_i, user_id.to_i
-        end
-      end
-
       # User-specific rule use the pattern
       # user+set+setting
       def preference_sql user_id=nil
@@ -178,17 +109,6 @@ class Card
         end
       end
 
-      def rows sql
-        Card.connection.select_all sql
-      end
-
-      def add_preference_hash_values key, rule_id, user_id
-        @rule_hash[preference_key(key, user_id)] = rule_id
-        @user_ids_hash[key] ||= []
-        @user_ids_hash[key] << user_id
-        @rule_keys_hash[user_id] ||= []
-        @rule_keys_hash[user_id] << key
-      end
 
       def user_cache_key_base set_card
         if (l = set_card.left) && (r = set_card.right)
@@ -210,10 +130,6 @@ class Card
 
       def all_user_ids
         Card.where(type_id: UserID).pluck :id
-      end
-
-      def write_rule_cache hash
-        Card.cache.write "RULES", hash
       end
 
       def write_user_ids_cache hash
