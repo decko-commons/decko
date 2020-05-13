@@ -105,7 +105,7 @@ class Card
       def multi_add args
         args.each_pair do |key, val|
           case val
-          when String then new_by_attributes key, content: val
+          when String, Array then new_by_attributes key, content: val
           when Card
             val.name = absolutize_subcard_name key
             new_by_card val
