@@ -67,6 +67,7 @@ end
 public
 
 event :notable_exception_raised do
+  binding.pry
   error = Card::Error.current
   Rails.logger.debug "#{error.message}\n#{error.backtrace * "\n  "}"
 end

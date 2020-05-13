@@ -158,11 +158,12 @@ class Card < ApplicationRecord
   ].freeze
   define_callbacks(*STAGE_CALLBACKS)
 
+  $stop = 0
   # Validation and integration phase are only called for the act card
   # The act card starts those phases for all its subcards
   before_validation :validation_phase, unless: -> { only_storage_phase? }
   around_save :storage_phase
-  after_commit :integration_phase, unless: -> { only_storage_phase? }
+  after_commit :integration_phase #, unless: -> { only_storage_phase? }
   #  after_rollback :clean_up, unless: -> { only_storage_phase? }
 
   ActiveSupport.run_load_hooks(:card, self)

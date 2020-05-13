@@ -21,6 +21,10 @@ class Card
         end
 
         def integration_phase
+          binding.pry if $stop < 10
+          $stop += 1
+          return if card.only_storage_phase?
+          binding.pry
           return if @abort
 
           @card.restore_changes_information

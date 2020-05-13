@@ -1,6 +1,7 @@
 # FILTERED LIST / ITEMS INTERFACE
 # (fancy pointer ui)
 
+
 $(window).ready ->
 # add all selected items
   $("body").on "click", "._filter-items ._add-selected", ->

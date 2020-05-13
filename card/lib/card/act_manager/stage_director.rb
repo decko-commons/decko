@@ -57,6 +57,7 @@ class Card
 
       def initialize card, opts={}, main=true
         @card = card
+        binding.pry if !main && card.id == 48256
         @card.director = self
         # for read actions there is no validation phase
         # so we have to set the action here

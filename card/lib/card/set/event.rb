@@ -125,8 +125,8 @@ class Card
   end
 
   def log_event_call event
-    Rails.logger.debug "#{name}: #{event}"
-    # puts "#{name}: #{event}"
-    # puts "#{Card::ActManager.to_s}".green
+    Rails.logger.info "#{name}: #{event}"
+      #puts "#{name}: #{event}"
+      #puts "#{Card::ActManager.to_s}".green
   end
 end

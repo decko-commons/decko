@@ -44,7 +44,7 @@ Decko.application.class.configure do
   config.active_support.deprecation = :log
 
   # See everything in the log (default is :info)
-  config.log_level = :debug
+  config.log_level = :info
 
   # if false, most rendering errors will be rescued and made visible only
   # in the nest where the error occurred
