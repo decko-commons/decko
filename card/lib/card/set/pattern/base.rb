@@ -134,6 +134,7 @@ class Card
           end
         end
       end
+
       module Helper
         private
 
