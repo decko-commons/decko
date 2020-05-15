@@ -21,10 +21,23 @@ class Card
       end
 
       def protocol_and_host
-        Card.config.protocol_and_host || "#{Card::Env[:protocol]}#{Card::Env[:host]}"
+        Card.config.protocol_and_host || "#{Env[:protocol]}#{Env[:host]}"
       end
 
-      extend Location # ??
+      def cardname_from_url url
+        m = url.match cardname_from_url_regexp
+        m ? Card::Name[m[:mark]] : nil
+      end
+
+      private
+
+      def cardname_from_url_regexp
+        return unless Env[:host]
+
+        %r{#{Regexp.escape Env[:host]}/(?<mark>[^\?]+)}
+      end
+
+      extend Location # allows calls on Location constant, eg Location.card_url
     end
   end
 end

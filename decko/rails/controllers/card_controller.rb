@@ -128,6 +128,7 @@ class CardController < ApplicationController
     show error.class.view, error.class.status_code
   end
 
+  # TODO: move to exception object
   def debug_exception? e
     !e.is_a?(Card::Error::UserError) &&
       !e.is_a?(ActiveRecord::RecordInvalid) &&

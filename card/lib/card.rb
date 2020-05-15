@@ -104,41 +104,31 @@ class Card < ApplicationRecord
   has_many :actions, -> { where(draft: [nil, false]).order :id }
   has_many :drafts, -> { where(draft: true).order :id }, class_name: :Action
 
-  cattr_accessor :set_patterns, :serializable_attributes, :set_specific_attributes
+  cattr_accessor :set_patterns, :action_specific_attributes, :set_specific_attributes
+
   self.set_patterns = []
-
-  # attributes that ActiveJob can handle
-  def self.serializable_attr_accessor *args
-    self.serializable_attributes = args
-    attr_accessor(*args)
-  end
-
-  serializable_attr_accessor(
+  self.action_specific_attributes = [
     :action, :supercard, :superleft,
     :current_action,
-    :comment,                     # obviated soon
-    :update_referers,             # wrong mechanism for this
-    :update_all_users,            # if the above is wrong then this one too
-    :silent_change,               # and this probably too
-    # :remove_rule_stash,
+
     :last_action_id_before_edit,
     :only_storage_phase,          # used to save subcards
     :changed_attributes,
+
     :skip,                        # skip event(s) for all cards in act
     :skip_in_action,              # skip event for just this card
     :trigger,                     # trigger event(s) for all cards in act
-    :trigger_in_action            # trigger event for just this card
-  )
+    :trigger_in_action,           # trigger event for just this card
 
-  alias_method :skip_event, :skip
-  alias_method :skip_event_in_action, :skip_in_action
-  alias_method :trigger_event, :trigger
-  alias_method :trigger_event_in_action, :trigger_in_action
+    :comment,                     # obviated soon
 
-  def serializable_attributes
-    self.class.serializable_attributes + set_specific.keys
-  end
+    # TODO: refactor following to use skip/trigger
+    :update_referers,             # wrong mechanism for this
+    :update_all_users,            # if the above is wrong then this one too
+    :silent_change                # and this probably too
+  ]
 
+  attr_accessor(*action_specific_attributes)
   attr_accessor :follower_stash
 
   STAGE_CALLBACKS = [

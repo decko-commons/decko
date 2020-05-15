@@ -54,7 +54,7 @@ end
 
 # at some point uploaded files of canceled file card creation
 # should be deleted. We do this when ever an new file is created.
-event :clear_draft_files, :integrate_with_delay, on: :create do
+event :clear_draft_files, :integrate_with_delay, priority: 100, on: :create do
   Card.delete_tmp_files_of_cached_uploads
 end
 

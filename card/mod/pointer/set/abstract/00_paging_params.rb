@@ -26,8 +26,6 @@ format do
   end
 
   def voo_search_param param
-    return unless voo&.wql
-
-    voo.wql[param]
+    voo&.wql&.dig param
   end
 end

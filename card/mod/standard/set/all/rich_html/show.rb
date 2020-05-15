@@ -2,6 +2,14 @@ format :html do
   def show view, args
     content = send show_method, view, args
     show_full_page? ? wrap_with_html_page(content) : content
+
+  # TODO: remove the following after tracking down wikirate encoding bug
+  rescue Card::Error::ServerError => e
+    if e.message.match?(/invalid byte sequence/)
+      Card::Name.reset_cache
+      Rails.logger.info "reset name cache to prevent encoding freakiness"
+    end
+    raise e
   end
 
   def show_method

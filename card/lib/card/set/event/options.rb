@@ -48,6 +48,7 @@ class Card
           opts = normalize_opts stage_or_opts, opts
           process_stage_opts opts
           process_action_opts opts
+          process_delayed_job_opts opts
           opts
         end
 
