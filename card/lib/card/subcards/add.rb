@@ -112,8 +112,8 @@ class Card
             new_by_card val
           when nil
             next
-            else
-              new_by_attributes key, val
+          else
+            new_by_attributes key, val
           end
         end
       end
