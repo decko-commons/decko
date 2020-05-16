@@ -55,8 +55,7 @@ event :expire_old_name, :store, changed: :name, on: :update do
   ActManager.expirees << name_before_act
 end
 
-event :set_left_and_right, :store,
-      changed: :name, on: :save do
+event :set_left_and_right, :store, changed: :name, on: :save do
   if name.junction?
     %i[left right].each do |side|
       assign_side_id side
