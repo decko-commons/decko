@@ -18,7 +18,7 @@ class Card
           # TODO: make configurable
           # ...or better yet, integrate into performance logger...
           # Rails.logger.warn "VIEW CACHE #{cache_active? ? '-->' : ''}[#{action}] "\
-          #                  "(#{card.name}##{requested_view})"
+          #                   "(#{card.name}##{requested_view})"
           action
         end
 
