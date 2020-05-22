@@ -66,7 +66,6 @@ format :html do
   def dropdown_list_item item, active_test, active
     return unless item
 
-
     if item.is_a? Array
       [dropdown_header(item.first), dropdown_array_list(item.second)]
     else
