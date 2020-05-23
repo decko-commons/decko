@@ -61,6 +61,10 @@ def cache_class_from_type cache_type
   cache_type ? Card.cache.send(cache_type) : Card.cache
 end
 
+def view_cache_clean?
+  !db_content_changed?
+end
+
 def view_cache_keys
   @view_cache_keys ||= hard_read_view_cache_keys || []
 end

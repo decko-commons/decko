@@ -61,12 +61,12 @@ def initial_name name
 end
 
 def include_set_modules
-  unless @set_mods_loaded
-    set_modules.each do |m|
-      singleton_class.send :include, m
-    end
-    assign_set_specific_attributes
-    @set_mods_loaded = true
+  return self if @set_mods_loaded
+
+  set_modules.each do |m|
+    singleton_class.send :include, m
   end
+  assign_set_specific_attributes
+  @set_mods_loaded = true
   self
 end

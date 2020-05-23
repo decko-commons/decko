@@ -97,6 +97,15 @@ class Card
 
       private
 
+      def ancestor_extra_classes klass, space
+        if parent
+          parent_space = space == :self ? :self_format : :ancestor_format
+          parent.deep_extra_classes(klass, parent_space)
+        else
+          next_format_ancestor&.deep_extra_classes(klass, :ancestor_format)
+        end
+      end
+
       def storage_voo scope
         # When we climb up the voo tree and cross a nest boundary then we can jump only
         # to the root voo of the parent format. Hence we have to add classes to the root
@@ -115,15 +124,6 @@ class Card
         return classes unless class_list(:single_use)&.key? klass
 
         [classes, class_list(:single_use).delete(klass)]
-      end
-
-      def ancestor_extra_classes klass, space
-        if parent
-          parent_space = space == :self ? :self_format : :ancestor_format
-          parent.deep_extra_classes(klass, parent_space)
-        else
-          next_format_ancestor&.deep_extra_classes(klass, :ancestor_format)
-        end
       end
 
       def ok_types space
