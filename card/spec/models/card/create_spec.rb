@@ -105,7 +105,7 @@ describe Card, "Joe User" do
   end
 
   it "does not have r3 permissions" do
-    expect(@ucard.fetch(new: {}, trait: :roles).item_names.member?(@r3.name)).to be_falsey
+    expect(@ucard.fetch(:roles, new: {}).item_names.member?(@r3.name)).to be_falsey
   end
   it "ponders creating a card of Cardtype F, but find that he lacks create permissions" do
     expect(Card.new(type: "Cardtype F").ok?(:create)).to be_falsey

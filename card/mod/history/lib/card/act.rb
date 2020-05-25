@@ -23,6 +23,8 @@ class Card
                                             class_name: "Card::Action"
     class << self
       # remove all acts that have no card. (janitorial)
+      #
+      # CAREFUL - could still have actions even if act card is gone...
       def delete_cardless
         left_join = "LEFT JOIN cards ON card_acts.card_id = cards.id"
         joins(left_join).where("cards.id IS NULL").delete_all
@@ -78,7 +80,7 @@ class Card
       # FIXME: if the following is necessary, we need to document why.
       # generally it's a very bad idea to have type-specific code here.
 
-      # return res unless res&.type_id&.in?([FileID, ImageID])
+      # return res unless res&.type_id&.in?([Card::FileID, Card::ImageID])
       # res.include_set_modules
     end
 

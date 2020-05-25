@@ -17,9 +17,9 @@ format :html do
     "edit interface for list cards"
   end
 
-  def option_label_text option_name
-    super.downcase
-  end
+  # def option_label_text option_name
+  #   super.downcase
+  # end
 
   def quick_edit
     card.left.prototype_default_card.try(:show_input_type?) ? super : ""

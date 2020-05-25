@@ -98,7 +98,7 @@ describe "basic card tests" do
 
   it "update_should_create_subcards_as_decko_bot_if_missing_subcard_permissions" do
     Card.create name: "peel"
-    Card::Auth.current_id = Card::AnonymousID
+    Card::Auth.signin Card::AnonymousID
     expect(Card["Banana"]).not_to be
     expect(Card[:basic].ok?(:create)).to be_falsey, "anon can't creat"
 

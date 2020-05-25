@@ -37,7 +37,7 @@ end
 RSpec::Matchers.define :have_file_trait do |trait|
   match do |card|
     trait ||= :file
-    (@file = card.fetch(trait: trait)) && file_size_matches
+    (@file = card.fetch(trait)) && file_size_matches
   end
 
   description do

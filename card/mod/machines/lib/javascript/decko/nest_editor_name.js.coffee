@@ -12,12 +12,12 @@ $(document).ready ->
 
     unless event.which == 13
       clearTimeout(nestNameTimeout) if nestNameTimeout
-      nestNameTimeout = setTimeout nest.updateRulesTab, 700
+      nestNameTimeout = setTimeout (-> nest.updateNameRelatedTabs()), 700
 
   $('body').on 'keydown', 'input._nest-name', (event) ->
     if event.which == 13
       clearTimeout(nestNameTimeout) if nestNameTimeout
-      nest.updateRulesTab()
+      nest.updateNameRelatedTabs()
 
 $.extend nest,
   name: () ->
@@ -46,25 +46,48 @@ $.extend nest,
   rulesTabSlot: () ->
     $("._nest-editor .tab-pane-rule > .card-slot")
 
+  contentTabSlot: () ->
+    $("._nest-editor .tab-pane-content > .card-slot")
+
   emptyNameAlert: (show) ->
     if show
       $("._empty-nest-name-alert").removeClass("d-none")
     else
       $("._empty-nest-name-alert:not(.d-none)").addClass("d-none")
 
-  updateRulesTab: () ->
-    name = $("input._nest-name").val()
-    $rulesTab = nest.rulesTabSlot()
+  updateNameRelatedTabs: () ->
+    nest.updateRulesTab()
+    nest.updateContentTab()
 
+  updateContentTab: () ->
+    $contentTab = nest.contentTabSlot()
+    if $contentTab.length > 0
+      url = decko.path "#{nest.fullName()}?view=nest_content"
+      nest.updateNameDependentSlot($contentTab, url)
+
+  updateRulesTab: () ->
+    $rulesTab = nest.rulesTabSlot()
+    url = decko.path "#{nest.setNameForRules()}?view=nest_rules"
+    nest.updateNameDependentSlot($rulesTab, url)
+
+  updateNameDependentSlot: ($slot, url) ->
+    name = $("input._nest-name").val()
     if name? && name.length > 0
-      url = decko.path "#{nest.setNameForRules()}?view=nest_rules"
       nest.emptyNameAlert(false)
-      $rulesTab.reloadSlot url
+      $slot.reloadSlot url
     else
-      $rulesTab.clearSlot()
+      $slot.clearSlot()
       nest.emptyNameAlert(true)
 
-  #  set in the sense of card set
+  fullName: () ->
+    input = $('input._nest-name')
+    nest_name = input.val()
+    if nest.isField() and input.attr("data-left-name")
+      "#{input.attr("data-left-name")}+#{nest_name}"
+    else
+      nest_name
+
+#  set in the sense of card set
   setNameForRules: () ->
     input = $('input._nest-name')
     nest_name = input.val()

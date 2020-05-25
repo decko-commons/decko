@@ -98,14 +98,18 @@ format :html do
                        slot_selector: filtered_list_slot_class,
                        item_selector: "_filtered-list-item",
                        slot: { hide: [:modal_footer] },
-                       filter: { not_ids: card.item_ids.map(&:to_s).join(",") } }
+                       filter: { not_ids: not_ids_value } }
+  end
+
+  def not_ids_value
+    card.item_ids.map(&:to_s).join(",")
   end
 
   def add_item_overlay_link; end
 
   def one_line_content
     if count == 1
-      card.item_names.first
+      card.first_name
     else
       short_content
     end

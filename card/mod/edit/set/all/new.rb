@@ -37,7 +37,7 @@ format :html do
     end
   end
 
-  def new_view_frame_and_form form_opts
+  def new_view_frame_and_form form_opts={}
     buttons = form_opts.delete(:buttons) || _render_new_buttons
     form_opts = form_opts.reverse_merge(success: new_success)
 
@@ -61,7 +61,7 @@ format :html do
           buttons
         ]
       end),
-       alert_guide]
+       (alert_guide if voo.show?(:guide))]
     end
   end
 
@@ -152,8 +152,8 @@ format :html do
 
   view :new_type_formgroup do
     wrap_type_formgroup do
-      type_field class: "type-field live-type-field",
-                 href: path(view: :new),
+      type_field class: "type-field live-type-field slotter",
+                 href: path,
                  "data-remote" => true
     end
   end

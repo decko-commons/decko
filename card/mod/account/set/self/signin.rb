@@ -23,7 +23,7 @@ end
 
 event :signout, :validate, on: :delete do
   Env.reset_session
-  Auth.signin AnonymousID
+  Auth.signin Card::AnonymousID
   abort :success
 end
 
@@ -38,7 +38,7 @@ def ok_to_read
   true
 end
 
-def consider_recaptcha?
+def recaptcha_on?
   false
 end
 

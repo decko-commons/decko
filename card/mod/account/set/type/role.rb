@@ -1,5 +1,5 @@
 def disabled?
-  Auth.current&.fetch(trait: :disabled_roles)&.item_ids&.include? id
+  Auth.current&.fetch(:disabled_roles)&.item_ids&.include? id
 end
 
 format :html do

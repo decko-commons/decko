@@ -189,7 +189,7 @@ RSpec.describe Card::Set::All::Notify do
     end
 
     it "does not send notification to author of change" do
-      Card::Auth.current_id = Card["Big Brother"].id
+      Card::Auth.signin "Big Brother"
       expect_user("Big Brother").not_to be_notified
       update "Google glass"
     end

@@ -38,7 +38,7 @@ format :html do
   end
 
   def new_cancel_button
-    modal_cancel_button
+    voo.show?(:cancel_button) && modal_cancel_button
   end
 
   def delete_button opts={}

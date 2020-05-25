@@ -1,26 +1,40 @@
 $(document).ready ->
   $('body').on 'click', 'button._nest-apply', () ->
-    nest.apply($(this).data("tinymce-id"), $(this).data("nest-start"), $(this).data("nest-size"))
+    nest.applyNest($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"))
+
+  $('body').on 'click', 'button._change-create-to-update', () ->
+    tm_id = $(this).closest("form").find("#success_tinymce_id").val()
+    nest.changeCreateToUpdate(tm_id)
 
 window.nest ||= {}
 
 $.extend nest,
-  openEditor: (tm, params) ->
+  # called by TinyMCE
+  openNestEditor: (tm, params) ->
     params = nest.editParams(tm) unless params?
 
     slot = $("##{tm.id}").closest(".card-slot")
-    card = if slot[0] then  $(slot[0]).attr('data-card-name') else ":update"
+    card = if slot[0] then $(slot[0]).attr('data-card-name') else ":update"
     nest.tmRequest(tm, card, "nest_editor", "modal_nest_editor", params)
 
+  # called by TinyMCE
   openImageEditor: (tm) ->
+    params = nest.editParams(tm, "{{", "}}", false) unless params?
+
     slot = $("##{tm.id}").closest(".card-slot")
     card_name = slot.data("card-name")
-    nest.sendTmRequest(tm, slot, "modal", card_name, "nest_image")
+    nest.tmRequest(tm, card_name, "nest_image", "modal_nest_image", params)
 
-  insertNest: (tm, nest) ->
-    tm.insertContent(nest)
-    params = nest.paramsStr(nest.offsetAfterInsert(tm, nest), nest)
-    nest.openEditor(tm, params)
+  changeCreateToUpdate: (tm_id) ->
+    form = $("##{tm_id}").closest("form")
+    new_action = form.attr("action").replace("card/create", "card/update")
+    form.attr("action", new_action)
+
+  insertNest: (tm, nest_string) ->
+    tm.insertContent(nest_string)
+    # insertIndex = nest.offsetAfterInsert(tm, nest_string)
+    # params = nest.paramsStr(insertIndex, nest_string)
+    # nest.openNestEditor(etm, params)
 
   tmRequest: (tm, card, overlay_view, modal_view, params) ->
     slot = $(".bridge-sidebar > ._overlay-container-placeholder > .card-slot")
@@ -47,7 +61,7 @@ $.extend nest,
       success: (html) ->
         slot.setSlotContent html, mode, slotter
 
-  editParams: (tm) ->
+  editParams: (tm, prefix="{{", postfix="}}", edit=true) ->
     sel = tm.selection.getSel()
     return nest.paramsStr(0) unless sel? and sel.anchorNode?
 
@@ -59,12 +73,12 @@ $.extend nest,
     after =  text.substr(offset)
     index = {
       before: {
-        close: before.lastIndexOf("}}")
-        open: before.lastIndexOf("{{")
+        close: before.lastIndexOf(postfix)
+        open: before.lastIndexOf(prefix)
       },
       after: {
-        close: after.indexOf("}}")
-        open: after.indexOf("{{")
+        close: after.indexOf(postfix)
+        open: after.indexOf(prefix)
       }
     }
     if index.before.open > index.before.close &&
@@ -74,41 +88,47 @@ $.extend nest,
       unless name?
         nest_size = index.after.close + offset + 2 - nest_start
         name = text.substr(nest_start, nest_size)
-      nest.paramsStr(nest_start, name)
+      if edit
+        nest.paramsStr(nest_start, name)
+      else
+        nest.paramsStr(nest_start + nest_size)
     else
       nest.paramsStr(offset)
 
   paramsStr: (start, name) ->
     params = ""
     if start?
-      params += "&nest_start=#{start}"
+      params += "&tm_snippet_start=#{start}"
     if name? and name.length > 0
-      params += "&edit_nest=#{encodeURIComponent(name)}"
+      params += "&tm_snippet_raw=#{encodeURIComponent(name)}"
 
     params
-
-  apply: (tinymce_id, nest_start, nest_size) ->
-    content =  $("._nest-preview").val()
-    editor = tinymce.get(tinymce_id)
-    if nest_start?
-     nest.replaceNest(editor, nest_start, nest_size, content)
-    else
-      editor.insertContent content
-      offset = nest.offsetAfterInsert(editor, content)
-      $('button._nest-apply').attr("data-nest-start", offset)
-
-    $('button._nest-apply').attr("data-nest-size", content.length)
 
   offsetAfterInsert: (editor, content) ->
     offset = editor.selection.getSel().anchorOffset
     offset - content.length
 
-  replaceNest: (editor, nest_start, nest_size, content) ->
+  applyNest: (tinymce_id, nest_start, nest_size) ->
+    nest.applySnippet("nest", tinymce_id, nest_start, nest_size)
+
+  applySnippet: (snippet_type, tinymce_id, start, size) ->
+    content = $("._#{snippet_type}-preview").val()
+    editor = tinymce.get(tinymce_id)
+    if start?
+      nest.replaceSnippet(editor, start, size, content)
+    else
+      editor.insertContent content
+      offset = nest.offsetAfterInsert(editor, content)
+      $("button._#{snippet_type}-apply").attr("data-tm-snippet-start", offset)
+
+    $("button._#{snippet_type}-apply").attr("data-tm-snippet-size", content.length)
+
+  replaceSnippet: (editor, start, size, content) ->
     sel = editor.selection.getSel()
     if sel? and sel.anchorNode? and sel.anchorNode.data?
       text = sel.anchorNode.data
-      nest_size = 0 unless nest_size?
-      text = "#{text.substr(0, nest_start)}#{content}#{text.substr(nest_start + nest_size)}"
+      size = 0 unless size?
+      text = "#{text.substr(0, start)}#{content}#{text.substr(start + size)}"
       sel.anchorNode.data = text
     else
       editor.insertContent content

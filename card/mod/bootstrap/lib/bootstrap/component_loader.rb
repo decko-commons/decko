@@ -2,7 +2,7 @@ class Bootstrap
   module ComponentLoader
     def load_components
       components.each do |component|
-        require "component/#{component}"
+        require_relative "component/#{component}"
         include_component component
       end
     end

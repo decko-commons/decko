@@ -1,31 +1,43 @@
 class Card
   module Set
     module Helpers
+      SET_PATTERN_TEST_REGEXP = /^(?<pattern>\w+)_set\?$/
+
       def shortname
-        parts = name.split "::"
         first = 2 # shortname eliminates Card::Set
-        pattern_code = parts[first].underscore.to_sym
         last = first + num_set_parts(pattern_code)
-        parts[first..last].join "::"
+        set_name_parts[first..last].join "::"
       end
 
       def underscore
         shortname.tr(":", "_").underscore
       end
 
-      # move to Set::Pattern?
       def num_set_parts pattern_code
         return 1 if pattern_code == :abstract
 
         Pattern.find(pattern_code).anchor_parts_count
       end
 
-      def abstract_set?
-        name =~ /^Card::Set::Abstract::/
+      def set_name_parts
+        @set_name_parts ||= name.split "::"
       end
 
-      def all_set?
-        name =~ /^Card::Set::All::/
+      def pattern_code
+        @pattern_code ||= set_name_parts[2].underscore.to_sym
+      end
+
+      # handles all_set?, abstract_set?, type_set?, etc.
+      def method_missing method_name, *args
+        if (matches = method_name.match SET_PATTERN_TEST_REGEXP)
+          pattern_code == matches[:pattern].to_sym
+        else
+          super
+        end
+      end
+
+      def respond_to_missing? method_name, _include_private=false
+        method_name.match? SET_PATTERN_TEST_REGEXP
       end
     end
   end

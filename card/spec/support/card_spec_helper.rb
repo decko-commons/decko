@@ -16,7 +16,7 @@ class Card
     include Rails::Dom::Testing::Assertions::SelectorAssertions
 
     def login_as user
-      Card::Auth.current_id = (uc = Card[user.to_s]) && uc.id
+      Card::Auth.signin user
       return unless @request
       Card::Env.session[Card::Auth.session_user_key] = Card::Auth.current_id
       @request.session[Card::Auth.session_user_key] = Card::Auth.current_id

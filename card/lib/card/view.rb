@@ -1,7 +1,7 @@
-require_dependency "card/view/cache"
-require_dependency "card/view/options"
-require_dependency "card/view/classy"
-require_dependency "card/view/permission"
+# require_dependency "card/view/cache"
+# require_dependency "card/view/options"
+# require_dependency "card/view/classy"
+# require_dependency "card/view/permission"
 
 class Card
   # Card::View manages {Options view options}, {Cache view caching}, and
@@ -25,11 +25,11 @@ class Card
   #
   class View
     include Options
-    include Cache
+    include ::Card::View::Cache
     include Classy
     include Permission
 
-    extend Cache::ClassMethods
+    extend ::Card::View::Cache::ClassMethods
 
     attr_reader :format, :parent, :card
 

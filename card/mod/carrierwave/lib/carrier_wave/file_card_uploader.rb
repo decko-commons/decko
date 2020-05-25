@@ -4,6 +4,20 @@ module CarrierWave
       @tmp_path ||= Card.paths["tmp"].existent.first
     end
   end
+
+  class SanitizedFile
+    def content_type
+      # the original content_type method doesn't seem to be very reliable
+      # It uses mime_magic_content_type  - which returns invalid/invalid for css files
+      # that start with a comment - as the second option.  (we switch the order and
+      # use it as the third option)
+      @content_type ||=
+        existing_content_type ||
+        mini_mime_content_type ||
+        mime_magic_content_type
+    end
+  end
+
   module Uploader
     # Implements a different name pattern for versions than CarrierWave's
     # default: we expect the version name at the end of the filename separated
@@ -52,7 +66,7 @@ module CarrierWave
   # ## Storage types
   # You can choose between four different storage options
   #  - coded: These files are in the codebase, like the default logo.
-  #      Every view is a wagn request.
+  #      Every view is a decko request.
   #  - local: Uploaded files which are stored in a local upload directory
   #      (upload path is configurable via config.paths["files"]).
   #      If read permissions are set such that "Anyone" can read, then there is
@@ -180,14 +194,6 @@ module CarrierWave
       end.downcase
     end
 
-    def content_type
-      # the original file's content_type method doesn't seem to be very reliable
-      # It uses mime_magic_content_type which returns invalid/invalid for css files
-      # that start with a comment
-      @content_type ||=
-        file.send(:existing_content_type) || file.send(:mini_mime_content_type)
-    end
-
     # generate identifier that gets stored in the card's db_content field
     # @param opts [Hash] generate an identifier using the given storage options
     #   instead of the storage options derived from the model and
@@ -281,9 +287,17 @@ module CarrierWave
       model.selected_content_action_id || action_id_stand_in
     end
 
-    # delegate carrierwave's fog config methods to cardio's config methods
+    # delegate carrierwave's fog config methods to bucket configuration
     ::CarrierWave::FileCardUploader::CONFIG_OPTIONS.each do |name|
-      define_method("fog_#{name}") { @model.bucket_config[name] }
+      define_method("fog_#{name}") { bucket_config name }
+    end
+
+    def bucket_config option
+      @model.bucket_config[option]
+    end
+
+    def asset_host
+      bucket_config(:asset_host) || super
     end
 
     private
@@ -298,7 +312,8 @@ module CarrierWave
       case @model.storage_type
       when :cloud
         ::CarrierWave::Storage::Fog.new(self)
-      else ::CarrierWave::Storage::File.new(self)
+      else
+        ::CarrierWave::Storage::File.new(self)
       end
     end
   end

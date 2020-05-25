@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 
-require_dependency "card/content/chunk"
-require_dependency "card/content/parser"
-require_dependency "card/content/clean"
-require_dependency "card/content/truncate"
+# require_dependency "card/content/chunk"
+# require_dependency "card/content/parser"
+# require_dependency "card/content/clean"
+# require_dependency "card/content/truncate"
 
 class Card
   # Content objects support the parsing of content strings into arrays that
@@ -12,8 +12,12 @@ class Card
   # Each chunk has an object whose class inherits from {Card::Content::Chunk::Abstract}
   #
   class Content < SimpleDelegator
-    extend Card::Content::Clean
-    extend Card::Content::Truncate
+    # ActiveSupport::Dependencies::ModuleConstMissing.include_into(self)
+    require_dependency "card/content/clean"
+    require_dependency "card/content/truncate"
+
+    extend ::Card::Content::Clean
+    extend ::Card::Content::Truncate
 
     attr_reader :revision, :format, :chunks, :opts
 
@@ -46,7 +50,7 @@ class Card
     end
 
     def has_chunk? chunk_type
-      each_chunk.any { |chunk| chunk.is_a?(chunk_type)}
+      each_chunk.any { |chunk| chunk.is_a?(chunk_type) }
     end
 
     # sends &block to #process_chunk on each Chunk object

@@ -66,3 +66,10 @@ module ActiveSupport #:nodoc: all
     end
   end
 end
+
+
+module Zeitwerk #:nodoc: all
+  class Loader
+    prepend Patches::Zeitwerk
+  end
+end

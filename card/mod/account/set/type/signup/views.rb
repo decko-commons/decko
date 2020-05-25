@@ -39,7 +39,7 @@ format :html do
   end
 
   def self_signup?
-    card.creator_id == AnonymousID
+    card.creator_id == Card::AnonymousID
   end
 
   def account_lines

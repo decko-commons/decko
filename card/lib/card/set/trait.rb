@@ -18,8 +18,9 @@ class Card
       end
 
       def require_field *fields
+        options = fields.last.is_a?(Hash) ? fields.pop : {}
         fields.each do |field|
-          Card::Set::RequiredField.new(self, field).add
+          Card::Set::RequiredField.new(self, field, options).add
         end
       end
 
@@ -55,7 +56,7 @@ class Card
       def define_trait_card trait, opts
         define_method "#{trait}_card" do
           trait_var "@#{trait}_card" do
-            fetch trait: trait.to_sym, new: opts.clone
+            fetch trait.to_sym, new: opts.clone
           end
         end
       end

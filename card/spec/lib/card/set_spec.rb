@@ -11,7 +11,7 @@
 #
 # describe Card do
 #   before do
-#     @account_card = Card['sara'].fetch trait: :account
+#     @account_card = Card['sara'].fetch :account
 #   end
 #
 #   describe "Read and write card attribute" do
@@ -35,9 +35,9 @@
 # #      @account_card.status.should == 'pending'
 #       Card::Auth.as_bot { @account_card.save }
 # #      Card.cache.reset
-#       expect(tcard = Card['sara'].fetch(trait: :account)).to be
+#       expect(tcard = Card['sara'].fetch(:account)).to be
 #       expect(tcard.status).to eq('pending')
-#       expect(tcard.fetch(trait: :write).content).to eq('test_value')
+#       expect(tcard.fetch(:write).content).to eq('test_value')
 #     end
 #
 #   end

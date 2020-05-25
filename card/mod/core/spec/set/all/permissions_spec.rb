@@ -98,9 +98,9 @@ RSpec.describe Card::Set::All::Permissions do
 
     it "write user permissions" do
       Card::Auth.as_bot do
-        @u1.fetch(trait: :roles, new: {}).items = [@r1, @r2]
-        @u2.fetch(trait: :roles, new: {}).items = [@r1, @r3]
-        @u3.fetch(trait: :roles, new: {}).items = [@r1, @r2, @r3]
+        @u1.fetch(:roles, new: {}).items = [@r1, @r2]
+        @u2.fetch(:roles, new: {}).items = [@r1, @r3]
+        @u3.fetch(:roles, new: {}).items = [@r1, @r2, @r3]
 
         (1..3).map do |num|
           Card.create name: "c#{num}+*self+*update", type: "Pointer",
@@ -121,8 +121,8 @@ RSpec.describe Card::Set::All::Permissions do
 
     it "read group permissions" do
       Card::Auth.as_bot do
-        @u1.fetch(trait: :roles).items = [@r1, @r2]
-        @u2.fetch(trait: :roles).items = [@r1, @r3]
+        @u1.fetch(:roles).items = [@r1, @r2]
+        @u2.fetch(:roles).items = [@r1, @r3]
 
         (1..3).each do |num|
           Card.create name: "c#{num}+*self+*read", type: "Pointer",
@@ -146,7 +146,7 @@ RSpec.describe Card::Set::All::Permissions do
                       content: "[[r#{num}]]"
         end
 
-        @u3.fetch(trait: :roles, new: {}).items = [@r1]
+        @u3.fetch(:roles, new: {}).items = [@r1]
       end
 
       #          u1 u2 u3
@@ -166,9 +166,9 @@ RSpec.describe Card::Set::All::Permissions do
 
     it "read user permissions" do
       Card::Auth.as_bot do
-        @u1.fetch(trait: :roles, new: {}).items = [@r1, @r2]
-        @u2.fetch(trait: :roles, new: {}).items = [@r1, @r3]
-        @u3.fetch(trait: :roles, new: {}).items = [@r1, @r2, @r3]
+        @u1.fetch(:roles, new: {}).items = [@r1, @r2]
+        @u2.fetch(:roles, new: {}).items = [@r1, @r3]
+        @u3.fetch(:roles, new: {}).items = [@r1, @r2, @r3]
 
         (1..3).each do |num|
           Card.create name: "c#{num}+*self+*read", type: "Pointer",
@@ -235,8 +235,7 @@ RSpec.describe Card::Set::All::Permissions do
     end
 
     it "role wql" do
-      # warn "u1 roles #{Card[ @u1.id ].fetch(trait:
-      # :roles).item_names.inspect}"
+      # warn "u1 roles #{Card[ @u1.id ].fetch(roles).item_names.inspect}"
 
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
@@ -252,7 +251,7 @@ RSpec.describe Card::Set::All::Permissions do
         )
       end
       # for Card::Auth.as to be effective, you can't have a logged in user
-      Card::Auth.current_id = nil
+      Card::Auth.signin nil
       Card::Auth.as(@u2) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
           eq(%w[c2 c3])

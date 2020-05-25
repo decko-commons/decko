@@ -68,7 +68,7 @@ class CardSpecLoader
               else
                 @@joe_user_id
               end
-            Card::Auth.current_id = user_id
+            Card::Auth.signin user_id
           end
 
           if example.metadata[:output_length]
@@ -81,7 +81,7 @@ class CardSpecLoader
         end
 
         config.around(:example, :as_bot) do |example|
-          Card::Auth.current_id = @@joe_user_id
+          Card::Auth.signin @@joe_user_id
           Card::Auth.as_bot do
             example.run
           end

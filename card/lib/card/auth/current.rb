@@ -3,7 +3,8 @@ class Card
     # methods for setting current account
     module Current
       # set current user in process and session
-      def signin signin_id
+      def signin cardish
+        signin_id = Card.id(cardish) || Card::AnonymousID
         self.current_id = signin_id
         set_session_user signin_id
       end
@@ -30,37 +31,9 @@ class Card
         end
       end
 
-      # set the id of the current user.
-      def current_id= card_id
-        @current = @as_id = @as_card = @current_roles = nil
-        card_id = card_id.to_i if card_id.present?
-        @current_id = card_id
-      end
-
-      # set current user from email or id
-      # @return [Integer]
-      def current= mark
-        self.current_id =
-          if mark.to_s =~ /@/
-            account = Auth.find_account_by_email mark
-            account && account.active? ? account.left_id : Card::AnonymousID
-          else
-            mark
-          end
-      end
-
       def current_roles
         @current_roles ||= [Card.fetch_name(:anyone_signed_in),
-                            current.fetch(trait: :roles)&.item_names].flatten.compact
-      end
-
-      def no_special_roles?
-        Auth.current_roles.size == 1 # &&
-          # Auth.current_roles.first == Card.fetch_name(:anyone_signed_in)
-      end
-
-      def clear_current_roles
-        @current_roles = nil
+                            current.fetch(:roles)&.item_names].flatten.compact
       end
 
       def serialize
@@ -71,11 +44,8 @@ class Card
       # @option auth_data [Integer] current_id
       # @option auth_data [Integer] as_id
       def with auth_data
-        case auth_data
-        when Integer
-          auth_data = { current_id: auth_data }
-        when String
-          auth_data = { current_id: Card.fetch_id(auth_data) }
+        if auth_data.is_a?(Integer) || auth_data.is_a?(String)
+          auth_data = { current_id: Card.id(auth_data) }
         end
 
         tmp_current_id = current_id
@@ -102,68 +72,62 @@ class Card
         Card::Env.session
       end
 
-      # set current from token or session
-      def set_current opts={}
+      # set current from token, api_key, or session
+      def signin_with opts={}
         if opts[:token]
-          set_current_from_token opts[:token]
+          signin_with_token opts[:token]
         elsif opts[:api_key]
-          set_current_from_api_key opts[:api_key]
+          signin_with_api_key opts[:api_key]
         else
-          set_current_from_session
+          signin_with_session
         end
       end
 
       # set the current user based on token
-      def set_current_from_token token
+      def signin_with_token token
         payload = Token.validate! token
-        self.current_id = payload[:anonymous] ? Card::AnonymousID : payload[:user_id]
+        signin payload[:anonymous] ? Card::AnonymousID : payload[:user_id]
       end
 
       # set the current user based on api_key
-      def set_current_from_api_key api_key
+      def signin_with_api_key api_key
         account = find_account_by_api_key api_key
         unless account&.validate_api_key! api_key
           raise Card::Error::PermissionDenied, "API key authentication failed"
         end
 
-        self.current = account.left_id
+        signin account.left_id
       end
 
       # get :user id from session and set Auth.current_id
-      def set_current_from_session
-        self.current_id =
-          if (card_id = session_user) && Card.exists?(card_id)
-            card_id
-          else
-            set_session_user Card::AnonymousID
-          end
+      def signin_with_session
+        card_id = session_user
+        signin(card_id && Card.exists?(card_id) ? card_id : nil)
       end
 
       # find +\*account card by +\*api card
       # @param token [String]
       # @return [+*account card, nil]
       def find_account_by_api_key api_key
-        find_account_by "api_key", Card::ApiKeyID, api_key.strip
+        find_account_by :api_key, api_key.strip
       end
 
       # find +\*account card by +\*email card
       # @param email [String]
       # @return [+*account card, nil]
       def find_account_by_email email
-        find_account_by "email", Card::EmailID, email.strip.downcase
+        find_account_by :email, email.strip.downcase
       end
 
       # general pattern for finding +\*account card based on field cards
-      # @param fieldname [String] right name of field card (for WQL comment)
-      # @param field_id [Integer] card id of field's simple card
+      # @param fieldcode [Symbol] code of account field
       # @param value [String] content of field
       # @return [+*account card, nil]
-      def find_account_by fieldname, field_id, value
+      def find_account_by fieldcode, value
         Auth.as_bot do
           Card.search({ right_id: Card::AccountID,
-                        right_plus: [{ id: field_id },
-                                     { content: value }] },
-                      "find +:account for #{fieldname} (#{value})").first
+                        right_plus: [Card::Codename.id(fieldcode), { content: value }] },
+                      "find +:account with +#{fieldcode} (#{value})").first
         end
       end
 
@@ -181,6 +145,15 @@ class Card
 
       def database
         Rails.configuration.database_configuration.dig Rails.env, "database"
+      end
+
+      private
+
+      # set the id of the current user.
+      def current_id= card_id
+        @current = @as_id = @as_card = @current_roles = nil
+        card_id = card_id.to_i if card_id.present?
+        @current_id = card_id
       end
     end
   end

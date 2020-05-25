@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::NestEditor::NestParser do
+RSpec.describe Card::Set::All::ReferenceEditor::NestEditor::NestParser do
   def parse nest
     described_class.new nest, :titled, :bar
   end

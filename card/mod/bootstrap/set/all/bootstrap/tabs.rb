@@ -19,7 +19,7 @@ format :html do
         else
           [tab_content, {}]
         end
-      tab_buttons += tab_button("##{id}", tab_name, active_tab, button_attr)
+      tab_buttons += tab_button(id, tab_name, active_tab, button_attr)
       tab_panes += tab_pane(id, tab_name, tab_content, active_tab, args[:pane])
     end
     tab_panel tab_buttons, tab_panes, tab_type
@@ -57,7 +57,7 @@ format :html do
   def lazy_tab_button tab_name, id, url, active_tab
     return wrap_with(:li, tab_name, role: "presentation") unless url
     tab_button(
-      "##{id}", tab_name, active_tab,
+      id, tab_name, active_tab,
       "data-url" => url.html_safe,
       class: (active_tab ? nil : "load")
     )
@@ -109,8 +109,8 @@ format :html do
 
   def tab_button target, text, active=false, link_attr={}
     add_class link_attr, "active" if active
-    link = tab_button_link target, text, link_attr
-    li_args = { role: :presentation, class: "nav-item tab-li-#{text.to_name.key}" }
+    link = tab_button_link "##{target}", text, link_attr
+    li_args = { role: :presentation, class: "nav-item tab-li-#{target}" }
     wrap_with :li, link, li_args
   end
 

@@ -26,7 +26,7 @@ module ClassMethods
   private
 
   def standard_controller_fetch args, card_opts
-    mark = args[:mark] || card_opts[:name]
+    mark = card_opts[:name] || args[:mark]
     card = Card.fetch mark, skip_modules: true,
                             look_in_trash: args[:look_in_trash],
                             new: card_opts
@@ -119,14 +119,16 @@ module ClassMethods
   end
 
   def new_card_fetch_results card, mark, opts
-    case
-      when opts[:new].present? then return card.renew(opts)
-      when opts[:new] # noop for empty hash
-      when opts[:skip_virtual] then return nil
+    if (new_opts = opts[:new])
+      card = card.renew mark, new_opts
+    elsif opts[:skip_virtual]
+      return nil
     end
     card.assign_name_from_fetched_mark! mark, opts
     finalize_fetch_results card, opts
-    card if opts[:new] || card.known?
+    # must include_set_modules before checking `card.known?`,
+    # in case, eg, set modules override #virtual?
+    card if new_opts || card.known?
   end
 
   def finalize_fetch_results card, opts

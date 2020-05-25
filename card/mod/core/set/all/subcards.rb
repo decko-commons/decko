@@ -70,8 +70,18 @@ def clear_subcards
   subcards.clear
 end
 
+# ensures subfield is present
+# does NOT override subfield content if already present
+def ensure_subfield field_name, args={}
+  if subfield_present? field_name
+    subfield field_name
+  else
+    add_subfield field_name, args
+  end
+end
+
 def subfield_present? field_name
-  (field_card = subfield(field_name)) && field_card.content.present?
+  subfield(field_name)&.content&.present?
 end
 
 def deep_clear_subcards
@@ -98,4 +108,29 @@ event :reject_empty_subcards, :prepare_to_validate do
     remove_subcard(key)
     director.subdirectors.delete(subcard)
   end
+end
+
+# check when deleting field that left has not also been deleted
+def trashed_left?
+  l = left
+  !l || l.trash
+end
+
+# check when renaming field that it is not actually the same field
+# (eg on a renamed trunk)
+def same_field?
+  same_field_trunk? && same_field_tag?
+end
+
+private
+
+# left is same card (even if renamed)
+def same_field_trunk?
+  l = superleft || Card[left_id]
+  lkey = name.left_name&.key
+  lkey.present? && l&.name&.key == lkey
+end
+
+def same_field_tag?
+  name.right_name.key == name_before_act.to_name.right_name.key
 end
