@@ -47,6 +47,7 @@ end
 
 # changes for the create action are stored after the first update
 def store_card_changes_for_create_action
+  Card::Action.cache.delete "#{create_action.id}-changes"
   store_each_history_field create_action.id do |field|
     attribute_before_act field
   end

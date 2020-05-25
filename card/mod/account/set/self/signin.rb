@@ -23,7 +23,7 @@ end
 
 event :signout, :validate, on: :delete do
   Env.reset_session
-  Auth.signin Card::AnonymousID
+  Auth.signin AnonymousID
   abort :success
 end
 

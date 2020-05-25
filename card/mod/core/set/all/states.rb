@@ -80,5 +80,5 @@ def pristine?
 end
 
 def user_changes?
-  actions.joins(:act).where("card_acts.actor_id != ?", Card::WagnBotID).exists?
+  actions.joins(:act).where("card_acts.actor_id != ?", WagnBotID).exists?
 end

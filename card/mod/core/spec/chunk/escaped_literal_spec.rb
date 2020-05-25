@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Content::Chunk::EscapedLiteral, "literal chunk tests" do
+describe Card::Content::Chunk::EscapedLiteral do
   it "handles escaped link" do
     expect(render_content('write this: \[[text]]'))
       .to eq("write this: <span>[</span>[text]]")

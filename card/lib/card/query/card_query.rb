@@ -1,7 +1,6 @@
 class Card
   module Query
     # interpret CQL queries, transform them into SQL, and run them.
-    require_dependency "card/query/abstract_query"
     class CardQuery < AbstractQuery
       include Clause
       include Run

@@ -26,7 +26,7 @@ event :standardize_items, :prepare_to_validate,
 end
 
 def still_pointer?
-  type_id == Card::PointerID
+  type_id == PointerID
 end
 
 def changed_item_names

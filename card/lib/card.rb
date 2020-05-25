@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# Object.const_remove_if_defined :Card
 ActiveSupport.run_load_hooks(:before_card, self)
-# ActiveSupport::Dependencies.loaded.clear
 
 # Cards are wiki-inspired building blocks.
 #
@@ -93,31 +91,12 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # You can see the current user with `Card::Auth.current`. The permissions of a proxy user can be temporarily assumed using `Card::Auth#as`.
 #
 # {Card::Auth More on accounts}
-#
 class Card < ApplicationRecord
-  require_dependency "card/env"
   extend ::Card::Mark
-
-  require_dependency "card/dirty"
   extend ::Card::Dirty::MethodFactory
   include ::Card::Dirty
 
-  require_dependency "card/name"
-  require_dependency "card/codename"
-  require_dependency "card/query"
-  require_dependency "card/format"
-  require_dependency "card/error"
-  require_dependency "card/auth"
-  require_dependency "card/mod"
-  require_dependency "card/content"
-  require_dependency "card/action"
-  require_dependency "card/act"
-  require_dependency "card/change"
-  require_dependency "card/reference"
-  require_dependency "card/subcards"
-  require_dependency "card/view"
-  require_dependency "card/act_manager"
-  require_dependency "card/layout"
+  Card::Cache # trigger autoload
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id
@@ -162,7 +141,7 @@ class Card < ApplicationRecord
 
   attr_accessor :follower_stash
 
-  define_callbacks(
+  STAGE_CALLBACKS = [
     :select_action, :show_page, :act,
     # VALIDATION PHASE
     :initialize_stage, :prepare_to_validate_stage, :validate_stage,
@@ -176,7 +155,8 @@ class Card < ApplicationRecord
     :integrate_final_stage,
     :after_integrate_stage,
     :after_integrate_final_stage, :integrate_with_delay_final_stage
-  )
+  ].freeze
+  define_callbacks(*STAGE_CALLBACKS)
 
   # Validation and integration phase are only called for the act card
   # The act card starts those phases for all its subcards
@@ -187,5 +167,4 @@ class Card < ApplicationRecord
 
   ActiveSupport.run_load_hooks(:card, self)
 end
-
-ActiveSupport.run_load_hooks(:after_card, self)
+ActiveSupport.run_load_hooks :after_card, self

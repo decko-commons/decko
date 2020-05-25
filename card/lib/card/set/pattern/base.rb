@@ -1,7 +1,8 @@
 class Card
   module Set
     class Pattern
-      class Abstract
+      # class from which set patterns inherit
+      class Base
         class << self
           attr_accessor :pattern_code, :pattern_id, :junction_only,
                         :assigns_type, :anchorless
@@ -27,7 +28,7 @@ class Card
           end
 
           def anchorless?
-            !!anchorless
+            anchorless
           end
 
           def pattern
@@ -58,26 +59,18 @@ class Card
         # Instance methods
 
         def initialize card
-          unless self.class.anchorless?
-            @anchor_name = self.class.anchor_name(card).to_name
-            @anchor_id = find_anchor_id card
-          end
+          return if self.class.anchorless?
+          @anchor_name = self.class.anchor_name(card).to_name
+          @anchor_id = find_anchor_id card
         end
 
         def find_anchor_id card
-          if self.class.respond_to? :anchor_id
-            self.class.anchor_id card
-          else
-            Card.fetch_id @anchor_name
-          end
+          self.class.try(:anchor_id, card) || Card.fetch_id(@anchor_name)
         end
 
         def module_key
-          if defined? @module_key
-            @module_key
-          else
-            @module_key = self.class.module_key(anchor_codenames)
-          end
+          return @module_key if defined? @module_key
+          @module_key = self.class.module_key anchor_codenames
         end
 
         def lookup_module_list modules_hash
@@ -130,11 +123,7 @@ class Card
 
         def safe_key
           caps_part = self.class.pattern_code.to_s.tr(" ", "_").upcase
-          if self.class.anchorless?
-            caps_part
-          else
-            "#{caps_part}-#{@anchor_name.safe_key}"
-          end
+          self.class.anchorless? ? caps_part : "#{caps_part}-#{@anchor_name.safe_key}"
         end
 
         def rule_set_key
@@ -148,4 +137,3 @@ class Card
     end
   end
 end
-

@@ -15,8 +15,7 @@ class Card
       # after the match, which of course means that we don't find references with
       # query keywords as name
 
-      require_dependency File.expand_path("reference", __dir__)
-      require_dependency "card/query"
+      require File.expand_path("reference", __dir__)
       class QueryReference < Reference
         QUERY_KEYWORDS = ::Set.new(
           (

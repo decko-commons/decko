@@ -27,8 +27,7 @@ def followed_field? field_card
 end
 
 def nested_card? card
-  @nested_ids ||= includee_ids
-  @nested_ids.include? card.id
+  nestee_ids.include? card.id
 end
 
 ## the following methods all handle _explicit_ (direct) follow rules (not fields)

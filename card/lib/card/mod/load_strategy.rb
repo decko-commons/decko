@@ -1,10 +1,10 @@
 class Card
   module Mod
-    # require_dependency "card/mod/load_strategy/eval"
-    # require_dependency "card/mod/load_strategy/pattern_tmp_files"
-    # require_dependency "card/mod/load_strategy/set_binding_magic"
-    # require_dependency "card/mod/load_strategy/set_tmp_files"
-    # require_dependency "card/mod/load_strategy/tmp_files"
+    # require "card/mod/load_strategy/eval"
+    # require "card/mod/load_strategy/pattern_tmp_files"
+    # require "card/mod/load_strategy/set_binding_magic"
+    # require "card/mod/load_strategy/set_tmp_files"
+    # require "card/mod/load_strategy/tmp_files"
 
     # Shared code for the three different load strategies: Eval, TmpFiles and BindingMagic
     class LoadStrategy
@@ -36,15 +36,26 @@ class Card
       end
 
       def each_file &block
-        @mod_dirs.each module_type do |base_dir|
-          if module_type == :set
-            # I'm not sure if we really need this ordering by pattern for sets -pk
-            Card::Set::Pattern.in_load_order.each do |pattern|
-              each_file_in_dir base_dir, pattern.to_s, &block
-            end
-          else
+        if module_type == :set
+          each_set_file(&block)
+        else
+          each_mod_dir module_type do |base_dir|
             each_file_in_dir base_dir, &block
           end
+        end
+      end
+
+      def each_set_file &block
+        each_mod_dir :set do |base_dir|
+          @loader.patterns.each do |pattern|
+            each_file_in_dir base_dir, pattern.to_s, &block
+          end
+        end
+      end
+
+      def each_mod_dir module_type
+        @mod_dirs.each module_type do |base_dir|
+          yield base_dir
         end
       end
 

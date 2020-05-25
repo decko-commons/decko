@@ -1,6 +1,10 @@
 module Decko
   # methods for managing decko responses
   module Response
+    def response_format
+      @response_format ||= format_name_from_params
+    end
+
     private
     def respond format, result, status
       if status.in? [302, 303]
@@ -94,7 +98,7 @@ module Decko
 
     def load_format
       request.format = :html if implicit_html?
-      card.format format_name_from_params
+      card.format response_format
     end
 
     def implicit_html?

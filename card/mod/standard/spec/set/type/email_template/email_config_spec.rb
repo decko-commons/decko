@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-require "card/mailer"
 require "card/seed_consts"
 
 describe Card::Set::Type::EmailTemplate::EmailConfig do

@@ -1,8 +1,3 @@
-# require_dependency "card/view/cache"
-# require_dependency "card/view/options"
-# require_dependency "card/view/classy"
-# require_dependency "card/view/permission"
-
 class Card
   # Card::View manages {Options view options}, {Cache view caching}, and
   # {Permission view permissions}.

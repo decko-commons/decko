@@ -1,10 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card"
-# require_dependency "decko/response"
-# require_dependency "card/mailer"  # otherwise Net::SMTPError rescues can cause
-# problems when error raised comes before Card::Mailer is mentioned
-
 # Decko's only controller.
 class CardController < ApplicationController
   include ::Card::Env::Location
@@ -133,6 +128,7 @@ class CardController < ApplicationController
     show error.class.view, error.class.status_code
   end
 
+  # TODO: move to exception object
   def debug_exception? e
     !e.is_a?(Card::Error::UserError) &&
       !e.is_a?(ActiveRecord::RecordInvalid) &&

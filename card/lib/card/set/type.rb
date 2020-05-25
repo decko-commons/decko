@@ -1,6 +1,6 @@
 class Card
   module Set
-    class Type < Pattern::Abstract
+    class Type < Pattern::Base
       def initialize card
         super
         # support type inheritance

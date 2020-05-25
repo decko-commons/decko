@@ -292,7 +292,7 @@ de:
           error:
             unsupported_view: Ansicht (%{view}) nicht unterstützt für %{cardname}
             not_found_named: Konnte %{cardname} nicht finden.
-            not_found_no_name: Konnte die geforderte Karte nicht finden
+            not_found_no_name: die geforderte Karte
             server_error: "\nWagn Störung!  Server Error. Ups, entschuldige bitte.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
             se_hitch: 'Wagn Störung :('
             se_sorry: Server Error. Yuck, sorry about that.

@@ -1,3 +1,5 @@
+require "application_job"
+
 class Card
   module Set
     class Event
@@ -5,7 +7,15 @@ class Card
         DELAY_STAGES = ::Set.new(%i[integrate_with_delay_stage
                                     integrate_with_delay_final_stage]).freeze
 
+        def priority
+          @priority || 10
+        end
+
         private
+
+        def process_delayed_job_opts opts
+          @priority = opts.delete :priority
+        end
 
         def with_delay? opts
           DELAY_STAGES.include?(opts[:after]) || DELAY_STAGES.include?(opts[:before])
@@ -25,24 +35,36 @@ class Card
         def define_event_delaying_method
           @set_module.class_exec(self) do |event|
             define_method(event.delaying_method_name, proc do
-              IntegrateWithDelayJob.set(queue: event.name).perform_later(
-                Card::ActManager.act&.id, self, serialize_for_active_job,
-                Card::Env.serialize, Card::Auth.serialize,
-                event.simple_method_name
-              )
+              IntegrateWithDelayJob
+                .set(set_delayed_job_args(event))
+                .perform_later(*perform_delayed_job_args(event))
             end)
           end
         end
 
         class IntegrateWithDelayJob < ApplicationJob
           def perform act_id, card, card_attribs, env, auth, method_name
-            Card::Cache.renew
-            card.deserialize_for_active_job! card_attribs
-            ActManager.contextualize_delayed_event act_id, card, env, auth do
-              card.send method_name
+            handle_perform do
+              load_card card, card_attribs
+              ActManager.contextualize_delayed_event act_id, card, env, auth do
+                card.send method_name
+              end
             end
+          end
+
+          def handle_perform
+            yield
+          rescue StandardError => error
+            Card::Error.report error, @card
+            raise error
           ensure
             ActManager.expire
+          end
+
+          def load_card card, card_attribs
+            @card = card
+            Card::Cache.renew
+            card.deserialize_for_active_job! card_attribs
           end
         end
       end
@@ -54,6 +76,21 @@ class Card
       instance_variable_set("@#{attname}", val)
     end
     include_set_modules
+  end
+
+  private
+
+  def set_delayed_job_args event
+    { queue: event.name, priority: event.priority }
+  end
+
+  def perform_delayed_job_args event
+    [Card::ActManager.act&.id,
+     self,
+     serialize_for_active_job,
+     Card::Env.serialize,
+     Card::Auth.serialize,
+     event.simple_method_name]
   end
 
   def serialize_for_active_job

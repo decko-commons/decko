@@ -1,3 +1,5 @@
+load "card/set/type.rb" # "load" not "require" so pattern reloads properly
+
 def label name
   %(All "#{name}" cards)
 end

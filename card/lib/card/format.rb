@@ -10,17 +10,12 @@ class Card
   #
   # {Card::Mod} explains how to set up a mod.
   # {Card::Set::Format} explains how to use this and other format classes within a mod.
-  # {Card::Set::Abstract::Format} introduces the view API, which is organized with these
-  # format classes.
+  # {Card::Set::Format::AbstractFormat} introduces the view API, which is organized with
+  # these format classes.
   #
   class Format
     extend ActiveSupport::Autoload
     extend Registration
-
-    # eager_autoload do
-    # autoload :Content, "card/format/content"
-    #  autoload :Error, "card/format/error"
-    # end
 
     include Card::Env::Location
     include Nesting
@@ -97,6 +92,10 @@ class Card
 
     def mime_type
       "text/plain"
+    end
+
+    def escape_literal literal
+      literal
     end
 
     def to_sym

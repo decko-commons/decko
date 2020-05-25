@@ -28,34 +28,100 @@ def each_item_name_with_options content=nil
 end
 
 format do
-  def nested_fields content=nil
-    result = []
-    each_nested_card(content, true) do |chunk|
-      result << [chunk.referee_name, chunk.options]
-    end
-    result
+  def nest_chunks content=nil
+    content ||= _render_raw
+    card.nest_chunks content
   end
 
-  def nested_field_cards content=nil
-    nested_fields(content).map do |name, _options|
-      Card.fetch name
-    end
-  end
-
-  def nested_cards_for_edit fields_only=false
-    return normalized_edit_fields if edit_fields.present?
-    result = []
-    each_nested_card nil, fields_only do |chunk|
-      result << [chunk.options[:nest_name], chunk.options]
-    end
-    result
+  def nested_cards content=nil
+    nest_chunks(content).map(&:referee_card).uniq
   end
 
   def edit_fields
     voo.edit_structure || []
   end
 
-  def normalized_edit_fields
+  def nested_field_names content=nil
+    nest_chunks(content).map(&:referee_name).select { |n| field_name? n }
+  end
+
+  def nested_field_cards content=nil
+    nested_cards(content).select { |c| field_name? c.name }
+  end
+
+  def field_name? name
+    name.field_of? card.name
+  end
+
+  # @return [Array] of Arrays.  each is [nest_name, nest_options_hash]
+  def edit_field_configs fields_only=false
+    if edit_fields.present?
+      explicit_edit_fields_config # explicitly configured in voo or code
+    else
+      implicit_edit_fields_config fields_only # inferred from nests
+    end
+  end
+
+  def implicit_edit_fields_config fields_only
+    result = []
+    each_nested_chunk(fields: fields_only) do |chunk|
+      result << [chunk.options[:nest_name], chunk.options]
+    end
+    result
+  end
+
+  def each_nested_field_chunk &block
+    each_nested_chunk fields: true, &block
+  end
+
+  def each_nested_chunk content: nil, fields: false, uniq: true, virtual: true, &block
+    return unless block_given?
+    chunks = prepare_nested_chunks content, fields, uniq
+    process_nested_chunks chunks, virtual, &block
+  end
+
+  def uniq_chunks chunks
+    processed = ::Set.new [card.key]
+    chunks.select do |chunk|
+      key = chunk.referee_name.key
+      ok = !processed.include?(key)
+      processed << key
+      ok
+    end
+  end
+
+  def field_chunks chunks
+    chunks.select { |chunk| field_name?(chunk.referee_name) }
+  end
+
+  private
+
+  def prepare_nested_chunks content, fields, uniq
+    chunks = nest_chunks content
+    chunks = field_chunks chunks if fields
+    chunks = uniq_chunks chunks if uniq
+    chunks
+  end
+
+  def process_nested_chunks chunks, virtual, &block
+    chunks.each do |chunk|
+      process_nested_chunk chunk, virtual, &block
+    end
+  end
+
+  def process_nested_chunk chunk, virtual, &block
+    if chunk.referee_card&.virtual?
+      process_nested_virtual_chunk chunk, &block unless virtual
+    else
+      yield chunk
+    end
+  end
+
+  def process_virtual_chunk chunk
+    subformat(chunk.referee_card).each_nested_field_chunk { |sub_chunk| yield sub_chunk }
+  end
+
+  def explicit_edit_fields_config
     edit_fields.map do |cardish, options|
       field_mark = normalized_edit_field_mark cardish, options
       options = normalized_edit_field_options options, Card::Name[field_mark]
@@ -72,76 +138,5 @@ format do
     return cardish if cardish.is_a?(Card) ||
                       (options.is_a?(Hash) && options.delete(:absolute))
     card.name.field cardish
-  end
-
-  def process_field chunk, processed
-    return unless process_unique_field? chunk, processed
-    yield chunk if block_given?
-  end
-
-  def each_nested_field content=nil, &block
-    each_nested_card content, true, &block
-  end
-
-  def each_nested_card content=nil, fields_only=false, &block
-    processed = process_tally
-    nest_chunks(content).each do |chunk|
-      next if fields_only && !field_chunk?(chunk)
-      process_nested_chunk chunk, processed, &block
-    end
-  end
-
-  def uniq_nested_cards content: nil
-    with_unique_chunks do
-      nest_chunks(content).map do |chunk|
-        chunk.referee_card if unique_chunk? chunk
-      end
-    end
-  end
-
-  def nest_chunks content=nil
-    content ||= _render_raw
-    card.nest_chunks content
-  end
-
-  def process_tally
-    ::Set.new [card.key]
-  end
-
-  def field_chunk? chunk
-    chunk.referee_name.to_name.field_of? card.name
-  end
-
-  def unique_chunk? chunk
-    key = chunk.referee_name.key
-    return false if @processed.include? key
-    @processed << key
-    true
-  end
-
-  def with_unique_chunks
-    @processed = ::Set.new [card.key]
-    yield
-  end
-
-  def process_nested_chunk chunk, processed, &block
-    virtual = chunk.referee_card&.virtual?
-    # TODO: handle structures that are non-virtual
-    method = virtual ? :process_virtual_field : :process_field
-    send method, chunk, processed, &block
-  end
-
-  def process_virtual_field chunk, processed, &block
-    return unless process_unique_field? chunk, processed
-    subformat(chunk.referee_card).each_nested_field do |sub_chunk|
-      process_field sub_chunk, processed, &block
-    end
-  end
-
-  def process_unique_field? chunk, processed
-    key = chunk.referee_name.key
-    return false if processed.include? key
-    processed << key
-    true
   end
 end

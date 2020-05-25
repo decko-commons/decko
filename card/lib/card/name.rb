@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card/env"
+# require "card/env"
 
 require "cardname"
 
@@ -11,7 +11,7 @@ class Card
   # Card::Name adds support for deeper card integration
   class Name < Cardname
     include FieldsAndTraits
-    include ::Card::Name::NameVariants
+    include NameVariants
 
     self.params  = Card::Env # yuck!
     self.session = proc { Card::Auth.current.name } # also_yuck

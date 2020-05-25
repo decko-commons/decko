@@ -89,7 +89,7 @@ def direct_follower_ids &block
 end
 
 def setcard_from_name set_name
-  Card.fetch set_name, new: { type_id: Card::SetID }
+  Card.fetch set_name, new: { type_id: SetID }
 end
 
 def direct_follower_ids_for_set set_card, ids

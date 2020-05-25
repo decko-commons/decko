@@ -9,17 +9,17 @@ end
 # @return [Array<String>, String] the name of file(s) to be loaded
 def source_files
   case type_id
-  when Card::CoffeeScriptID then "#{codename}.js.coffee"
-  when Card::JavaScriptID   then "#{codename}.js"
-  when Card::CssID          then "#{codename}.css"
-  when Card::ScssID         then "#{codename}.scss"
+  when CoffeeScriptID then "#{codename}.js.coffee"
+  when JavaScriptID   then "#{codename}.js"
+  when CssID          then "#{codename}.css"
+  when ScssID         then "#{codename}.scss"
   end
 end
 
 def source_dir
   case type_id
-  when Card::CoffeeScriptID, Card::JavaScriptID then "lib/javascript"
-  when Card::CssID, Card::ScssID then "lib/stylesheets"
+  when CoffeeScriptID, JavaScriptID then "lib/javascript"
+  when CssID, ScssID then "lib/stylesheets"
   else
     "lib"
   end

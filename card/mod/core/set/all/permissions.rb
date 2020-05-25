@@ -46,7 +46,7 @@ def who_can action
 end
 
 def anyone_can? action
-  who_can(action).include? Card::AnyoneID
+  who_can(action).include? AnyoneID
 end
 
 def direct_rule_card action
@@ -97,7 +97,7 @@ def require_permission_rule! rule_id, action
 end
 
 def rule_class_name
-  trunk.type_id == Card::SetID ? name.trunk_name.tag : nil
+  trunk.type_id == SetID ? name.trunk_name.tag : nil
 end
 
 def you_cant what
@@ -180,20 +180,21 @@ event :set_field_read_rules,
   # (because of *type plus right)
   # skip if name is updated because will already be resaved
 
-  Auth.as_bot do
-    fields.each do |field|
-      field.refresh.update_read_rule
-    end
+  each_field_as_bot do |field|
+    field.refresh.update_read_rule
   end
 end
 
-# currently doing a brute force search for every card that may be impacted.
-# may want to optimize(?)
 def update_field_read_rules
+  return unless type_id_changed? || read_rule_id_changed?
+  each_field_as_bot do |field|
+    field.update_read_rule if field.rule(:read) == "_left"
+  end
+end
+
+def each_field_as_bot
   Auth.as_bot do
-    fields.each do |field|
-      field.update_read_rule if field.rule(:read) == "_left"
-    end
+    fields.each { |field| yield field }
   end
 end
 

@@ -27,7 +27,7 @@ event :notify_followers_after_delete, :integrate, on: :delete, when: :notable_ch
 end
 
 def notify_followers
-  return unless (act = ActManager.act)
+  return unless (act = Card::ActManager.act)
 
   act.reload
   notify_followers_of act
@@ -35,7 +35,7 @@ end
 
 def notable_change?
   !silent_change? && current_act_card? &&
-    (Card::Auth.current_id != Card::WagnBotID) && followable?
+    (Card::Auth.current_id != WagnBotID) && followable?
 end
 
 def silent_change?
@@ -71,7 +71,7 @@ def silent_change
 end
 
 def current_act_card?
-  return false unless (act_card = ActManager.act_card)
+  return false unless (act_card = Card::ActManager.act_card)
 
   act_card.id.nil? || act_card.id == id
   # FIXME: currently card_id is nil for deleted acts (at least

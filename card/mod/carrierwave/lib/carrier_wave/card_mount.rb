@@ -1,6 +1,7 @@
 require "carrierwave"
 
 module CarrierWave
+  # adapt carrierwave mount to cards
   module CardMount
     include CarrierWave::Mount
 
@@ -74,7 +75,6 @@ module CarrierWave
           assign_file(url) { super }
         end
 
-
         def assign_file file
           db_column = _mounter(:#{column}).serialization_column
           send(:"\#{db_column}_will_change!") # unless attribute_is_changing? db_column
@@ -103,7 +103,7 @@ module CarrierWave
           @#{column}_changed = true
           @#{column}_is_changing = true
         end
-        
+
         def #{column}_is_changing?
           @#{column}_is_changing
         end

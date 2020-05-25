@@ -49,8 +49,9 @@ class Card
 
         def revert_link
           revert_actions_link "revert to this",
-                              { revert_actions: actions.map(&:id), view: :bridge },
-                              "data-slot-selector": ".bridge-view"
+                              { revert_actions: actions.map(&:id) },
+                              class: "_close-modal",
+                              "data-slotter-mode": "update-modal-origin"
         end
       end
     end

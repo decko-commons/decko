@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-require "card/content"
 
 RSpec.describe Card::Content do
   EXAMPLES = {

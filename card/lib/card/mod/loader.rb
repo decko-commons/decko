@@ -1,10 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card/set"
-# require_dependency "card/set_pattern"
-# require_dependency "card/mod/loader/set_loader"
-# require_dependency "card/mod/loader/set_pattern_loader"
-
 class Card
   module Mod
     # Card::Mod::Loader is used to load all part of a mod,
@@ -17,7 +12,7 @@ class Card
     # The mods are given by a Mod::Dirs object.
     # SetLoader can use three different strategies to load the set modules.
     class Loader
-      def initialize load_strategy=nil, mod_dirs=nil
+      def initialize load_strategy: nil, mod_dirs: nil
         load_strategy ||= Cardio.config.load_strategy
         mod_dirs ||= Mod.dirs
         klass = load_strategy_class load_strategy
@@ -40,17 +35,20 @@ class Card
         attr_reader :module_type
 
         def load_mods
-          Card::Mod::Loader::SetPatternLoader.new.load
           load_formats
+          Card::Mod::Loader::SetPatternLoader.new.load
           Card::Mod::Loader::SetLoader.new.load
+          Card::Set.process_base_modules
           load_initializers
-          # rescue
-          # raise Card::Error, "unrescued error loading mods"
         end
 
-        def reload_mods
+        def reload_sets
           Card::Set::Pattern.reset
-          load_mods
+          Card::Set.reset_modules
+          Card::Mod::Loader::SetPatternLoader.new.load
+          Card::Mod::Loader::SetLoader.new(
+            patterns: Card::Set::Pattern.nonbase_loadable_codes
+          ).load
         end
 
         def load_chunks
@@ -84,7 +82,7 @@ class Card
         def load_dir dir
           Dir["#{dir}/*.rb"].sort.each do |file|
             # puts Benchmark.measure("from #load_dir: rd: #{file}") {
-            # require_dependency file
+            # require file
             # "require" breaks the reloading in development env
             load file
             # }.format('%n: %t %r')

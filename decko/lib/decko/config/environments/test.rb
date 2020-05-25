@@ -10,7 +10,7 @@ Decko.application.class.configure do
   # test suite.  You never need to work with it otherwise.  Remember that
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs.  Don't rely on the data there!
-  config.cache_classes = true
+  config.cache_classes = false
 
   config.assets.enabled = true if Object.const_defined?(:JasmineRails)
 

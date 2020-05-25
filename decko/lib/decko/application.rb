@@ -20,10 +20,6 @@ module Decko
       end
     end
 
-    initializer :load_card, after: :load_config_initializers, group: :all do
-      Card if Cardio.load_card?
-    end
-
     class << self
       def inherited base
         super

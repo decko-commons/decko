@@ -49,21 +49,10 @@ format :html do
     text_filter_with_name_and_value name, value, opts
   end
 
-  def select_filter_type_based type_codename, order="asc"
-    # take the card name as default label
-    options = type_options type_codename, order, 80
-    select_filter type_codename, nil, options
-  end
-
   def autocomplete_filter type_code, options_card=nil
     options_card ||= Card::Name[type_code, :type, :by_name]
     text_filter type_code, "", class: "#{type_code}_autocomplete",
                                "data-options-card": options_card
-  end
-
-  def multiselect_filter_type_based type_codename
-    options = type_options type_codename
-    multiselect_filter type_codename, nil, options
   end
 
   def multiselect_filter_tag field, default, options, html_options={}
@@ -104,11 +93,10 @@ format :html do
   end
 
   def type_options type_codename, order="asc", max_length=nil
-    type_card = Card[type_codename]
-    res = Card.search type_id: type_card.id, return: :name, sort: "name", dir: order
-    return res unless max_length
-
-    res.map { |i| [trim_option(i, max_length), i] }
+    Card.cache.fetch "#{type_codename}-#{order}-#{max_length}-TYPE-OPTIONS" do
+      res = Card.search type: type_codename, return: :name, sort: "name", dir: order
+      max_length ? (res.map { |i| [trim_option(i, max_length), i] }) : res
+    end
   end
 
   def trim_option option, max_length

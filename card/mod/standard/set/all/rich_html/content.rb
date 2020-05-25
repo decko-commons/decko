@@ -141,7 +141,7 @@ format :html do
 
   def short_content_fields
     return unless voo.structure || card.structure
-    fields = nested_fields.size
+    fields = nested_field_names.size
     return if fields.zero?
     "#{fields} #{'field'.pluralize fields}"
   end

@@ -66,7 +66,7 @@ end
 
 def structuree_query args={}
   set_card = trunk
-  return unless set_card.type_id == Card::SetID
+  return unless set_card.type_id == SetID
 
   set_card.fetch_query args
 end

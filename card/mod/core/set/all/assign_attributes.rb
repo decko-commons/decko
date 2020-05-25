@@ -77,10 +77,10 @@ def assign_with_subcards args
 end
 
 def refresh_set_modules
-  reload_set_modules = @set_mods_loaded
+  reinclude_set_modules = @set_mods_loaded
   yield
   reset_patterns
-  include_set_modules if reload_set_modules
+  include_set_modules if reinclude_set_modules
 end
 
 def stash_set_specific_attributes args

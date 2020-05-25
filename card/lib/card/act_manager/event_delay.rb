@@ -26,13 +26,18 @@ class Card
       # event processed by ActiveJob.
       # This is the improvised resetup to get subcards working.
       def contextualize_for_delay act_id, card, env, auth, &block
-        self.act = Act.find act_id if act_id
         with_env_and_auth env, auth do
-          return yield unless act
-
-          run_act(act.card || card) do
-            act_card.director.run_delayed_event act, &block
+          if act_id && (self.act = Act.find act_id)
+            run_job_with_act act, card, &block
+          else
+            yield
           end
+        end
+      end
+
+      def run_job_with_act act, card, &block
+        run_act(act.card || card) do
+          act_card.director.run_delayed_event act, &block
         end
       end
 

@@ -19,7 +19,7 @@ class Card
 
       attr_reader :statement, :mods, :conditions, :vars,
                   :subqueries, :superquery, :comment, :negate
-      attr_accessor :joins, :conditions_on_join, :table_seq
+      attr_accessor :joins, :conditions_on_join
 
       def initialize statement, _comment=nil
         @subqueries = []

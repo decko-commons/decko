@@ -16,6 +16,7 @@ class MigrateLayouts < Card::Migration::Core
     puts "updating layout '#{card.name}'"
     card.update! content: body.to_s
   rescue Card::Error => e
+    card = Card.fetch card.id, skip_modules: true
     card.update! type_id: Card::HtmlID, content: body.to_s
     puts "failed to complete layout upgrade for '#{card.name}': #{e.message}.\n" \
          "To fix, go to /#{card.name.url_key}?view=edit and change type to Layout. \n" \

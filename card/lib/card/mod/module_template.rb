@@ -21,11 +21,7 @@ class Card
 
       # @return [String] the ruby code to build the modal
       def to_s
-        if simple_load?
-          @content
-        else
-          processed_content
-        end
+        simple_load? ? @content : processed_content
       end
 
       def processed_content

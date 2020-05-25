@@ -1,10 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require_dependency "card/content/chunk"
-# require_dependency "card/content/parser"
-# require_dependency "card/content/clean"
-# require_dependency "card/content/truncate"
-
 class Card
   # Content objects support the parsing of content strings into arrays that
   # contain semantically meaningful "chunks" like nests, links, urls, etc.
@@ -12,12 +7,10 @@ class Card
   # Each chunk has an object whose class inherits from {Card::Content::Chunk::Abstract}
   #
   class Content < SimpleDelegator
-    # ActiveSupport::Dependencies::ModuleConstMissing.include_into(self)
-    require_dependency "card/content/clean"
-    require_dependency "card/content/truncate"
+    extend Clean
+    extend Truncate
 
-    extend ::Card::Content::Clean
-    extend ::Card::Content::Truncate
+    Chunk # trigger autoload
 
     attr_reader :revision, :format, :chunks, :opts
 
@@ -106,13 +99,13 @@ class Card
     end
 
     def without_nests
-      without_chunks Card::Content::Chunk::Nest do |content|
+      without_chunks Chunk::Nest do |content|
         yield content
       end
     end
 
     def without_references
-      without_chunks Card::Content::Chunk::Nest, Card::Content::Chunk::Link do |content|
+      without_chunks Chunk::Nest, Chunk::Link do |content|
         yield content
       end
     end
@@ -139,7 +132,7 @@ class Card
 
     def unstash_chunks content, stashed_chunks
       Chunk::Nest.gsub content do |nest_content|
-        stashed_chunks[nest_content.to_i]
+        number?(nest_content) ? stashed_chunks[nest_content.to_i] : "{{#{nest_content}}}"
       end
     end
 
@@ -149,6 +142,12 @@ class Card
       else
         format_or_card
       end
+    end
+
+    def number? str
+      true if Float(str)
+    rescue StandardError
+      false
     end
   end
 end

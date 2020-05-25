@@ -11,10 +11,6 @@ class Card
   # Together with "my address" you want to create the subcards
   # "my address+name", "my address+street", etc.
   class Subcards
-    # require_dependency "card/subcards/add"
-    # require_dependency "card/subcards/remove"
-    # require_dependency "card/subcards/relate"
-
     include Add
     include Remove
     include Relate

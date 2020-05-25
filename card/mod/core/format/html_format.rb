@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# # require_dependency "card/content/diff"
+# # require "card/content/diff"
 
 class Card
   class Format
@@ -26,6 +26,10 @@ class Card
 
       def default_item_view
         :bar
+      end
+
+      def escape_literal literal
+        "<span>#{literal}</span>"
       end
 
       def mime_type

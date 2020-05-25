@@ -19,6 +19,7 @@ describe 'account tab', () ->
     cy.get(labeled_view).should("contain", "sam@user.com")
 
     # cancel
+    cy.wait(250) # let modal close.
     cy.get("#{labeled_view} a.edit-link").click force: true
     cy.get(".RIGHT-Xemail input.d0-card-content:visible").clear()
     cy.get(".cancel-button:visible").click()

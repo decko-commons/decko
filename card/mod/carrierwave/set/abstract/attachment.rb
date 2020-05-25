@@ -1,5 +1,3 @@
-require "carrier_wave/cardmount"
-
 attr_writer :empty_ok
 
 def self.included host_class
@@ -22,7 +20,7 @@ event :save_original_filename, :prepare_to_store, on: :save, when: :file_ready_t
   @current_action.update! comment: original_filename
 end
 
-event :validate_file_exist, :validate, on: :save do
+event :validate_file_exist, :validate, on: :create do
   return if empty_ok?
   if will_be_stored_as == :web
     errors.add "url is missing" if content.blank?

@@ -46,12 +46,22 @@ class Card
   #        b) Card::Set to provide API for the most common set methods.
   #
   module Set
+    require "card/set/event"
+    require "card/set/trait"
+    require "card/set/basket"
+    require "card/set/inheritance"
+    require "card/set/format"
+    require "card/set/advanced_api"
+    require "card/set/helpers"
+    require "card/set/i18n_scope"
+    require "card/set/loader"
+
     include Event::Api
     include Trait
     include Basket
     include Inheritance
 
-    include Set::Format
+    include Format
     include AdvancedApi
     include Helpers
 
@@ -59,8 +69,13 @@ class Card
     extend Loader
 
     mattr_accessor :modules, :traits
-    self.modules = { base: [], base_format: {}, nonbase: {}, nonbase_format: {},
-                     abstract: {}, abstract_format: {} }
+
+    def self.reset_modules
+      self.modules = { base: [], base_format: {}, nonbase: {}, nonbase_format: {},
+                       abstract: {}, abstract_format: {} }
+    end
+
+    reset_modules
 
     # SET MODULE API
     #

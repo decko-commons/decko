@@ -46,7 +46,6 @@ class Card
     # then the subcard's store stage is executed before the supercard's store
     # stage
     class StageDirector
-      require_dependency "card/act_manager/stage_director/phases"
       include Stage
       include Phases
 

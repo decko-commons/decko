@@ -1,9 +1,9 @@
-# require_dependency "json"
+# require "json"
 
 def self.member_names
   @@member_names ||= begin
     Card.search(
-      { type_id: Card::SettingID, return: "key" },
+      { type_id: SettingID, return: "key" },
       "all setting cards"
     ).each_with_object({}) do |card_key, hash|
       hash[card_key] = true
@@ -13,7 +13,7 @@ end
 
 format :data do
   view :core do
-    wql = { left: { type: Card::SetID },
+    wql = { left: { type: SetID },
             right: card.id,
             limit: 0 }
     Card.search(wql).compact.map { |c| nest c }
@@ -21,12 +21,12 @@ format :data do
 end
 
 def count
-  Card.search left: { type: Card::SetID }, right: id, limit: 0, return: :count
+  Card.search left: { type: SetID }, right: id, limit: 0, return: :count
 end
 
 def set_classes_with_rules
   Card.set_patterns.reverse.map do |set_class|
-    wql = { left: { type: Card::SetID },
+    wql = { left: { type: SetID },
             right: id,
             sort: %w[content name],
             limit: 0 }
@@ -74,6 +74,6 @@ end
 
 format :json do
   def items_for_export
-    Card.search left: { type: Card::SetID }, right: card.id, limit: 0
+    Card.search left: { type: SetID }, right: card.id, limit: 0
   end
 end

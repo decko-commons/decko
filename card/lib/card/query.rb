@@ -34,7 +34,9 @@ class Card
   # Each condition is either a SQL-ready string (boo) or an Array in this form:
   #    [ field_string_or_sym, Card::Value::Query object ]
   module Query
-    require_dependency "card/query/card_query"
+    require "card/query/clause"
+    require "card/query/card_query"
+    require "card/query/sql_statement"
     # Card::Query::CardQuery
     # After conversion, ATTRIBUTES is a Hash where the key is the attribute
     # and the value is the attribute type:
@@ -60,8 +62,8 @@ class Card
                           refer_to referred_to_by
                           member_of member
 
-                          found_by not sort match name_match complete
-                          extension_type],
+                          found_by
+                          not sort match name_match complete],
 
       plus_relational: %i[plus left_plus right_plus],
       conjunction:     %i[and or all any],
