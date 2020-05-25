@@ -12,13 +12,15 @@ blocks:
         - name: APP_ENV
           value: prod
       jobs:
-      - name: Docker build
-        commands:
-          - checkout
-          - ls -1
-          - echo $APP_ENV
-          - echo "Docker build..."
-          - echo "done"
+      - name: Setup
+        command:
+          - git submodule sync
+          - git submodule update --init --recursive
+            cd /home/runner
+
+            bundle update
+            # --path /home/runner/wagn/.semaphore-cache
+            cp /home/runner/bucket_credentials.yml /home/runner/decko/card/spec/support/bucket_credentials.yml
 
   - name: "Smoke tests"
     task:
