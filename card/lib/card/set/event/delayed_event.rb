@@ -1,6 +1,11 @@
 require "application_job"
 
 class Card
+  # attributes that ActiveJob can handle
+  def serializable_attributes
+    self.class.action_specific_attributes + set_specific.keys
+  end
+
   module Set
     class Event
       module DelayedEvent

@@ -143,7 +143,7 @@ module Decko
     end
 
     def home_mark
-      Card.global_setting(:home) || "Home"
+      Card::Rule.global_setting(:home) || "Home"
     end
 
     def view_does_not_require_name?

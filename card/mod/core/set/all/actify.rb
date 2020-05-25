@@ -1,6 +1,6 @@
 def act &block
   @action ||= identify_action
-  if ActManager.act_card
+  if act_card
     add_to_act &block
   else
     start_new_act &block
@@ -16,11 +16,25 @@ end
 
 def add_to_act
   # if only_storage_phase is true then the card is already part of the act
-  return yield if ActManager.act_card == self || only_storage_phase
+  return yield if act_card? || only_storage_phase
   director.reset_stage
   director.update_card self
   self.only_storage_phase = true
   yield
+end
+
+def act_card
+  ActManager.act_card
+end
+
+def act_card?
+  self == act_card
+end
+
+def clear_action_specific_attributes
+  self.class.action_specific_attributes.each do |attr|
+    instance_variable_set "@#{attr}", nil
+  end
 end
 
 module ClassMethods

@@ -23,18 +23,22 @@ end
 event :cascade_name_changes, :finalize, on: :update, changed: :name,
                                         before: :name_change_finalized do
   @descendants = nil # reset
+  skip_rename_events! if act_card?
 
   children.each do |child|
     Rails.logger.debug "cascading name: #{child.name}"
     newname = child.name.swap name_before_last_save, name
-    # not sure if this is still needed since we attach the children as subcards
-    # (it used to be resolved right here without adding subcards)
-    ActManager.expirees << child.name
-    child.skip_event! :check_permissions
-
     # superleft has to be the first argument. Otherwise the call of `name=` in
     # `assign_attributes` can cause problems because `left` doesn't find the new left.
     attach_subcard child.name, superleft: self, name: newname,
                                update_referers: update_referers
   end
+end
+
+private
+
+def skip_rename_events!
+  # these are skipped for children, because they've already been called in the act card
+  skip_event! :validate_uniqueness_of_name, :validate_renaming, :check_permissions
+  skip_event! :set_read_rule if name.simple?
 end

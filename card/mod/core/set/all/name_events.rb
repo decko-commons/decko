@@ -18,7 +18,7 @@ event :validate_name, :validate, on: :save, changed: :name do
   validate_uniqueness_of_name
 end
 
-event :validate_uniqueness_of_name do
+event :validate_uniqueness_of_name, skip: :allowed do
   # validate uniqueness of name
   rel = Card.where key: name.key, trash: false
   rel = rel.where "id <> ?", id if id
@@ -55,8 +55,7 @@ event :expire_old_name, :store, changed: :name, on: :update do
   ActManager.expirees << name_before_act
 end
 
-event :set_left_and_right, :store,
-      changed: :name, on: :save do
+event :set_left_and_right, :store, changed: :name, on: :save do
   if name.junction?
     %i[left right].each do |side|
       assign_side_id side

@@ -134,6 +134,24 @@ class Card
           end
         end
       end
+
+      module Helper
+        private
+
+        def left_type card
+          card.superleft&.type_name || quick_type(card.name.left_name)
+        end
+
+        def quick_type name
+          if name.present?
+            card = Card.fetch name, skip_modules: true, new: {}
+            card.include_set_modules if card.new? && name.to_name.junction?
+            card&.type_name
+          else
+            "RichText"
+          end
+        end
+      end
     end
   end
 end

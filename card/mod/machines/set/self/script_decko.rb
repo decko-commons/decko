@@ -6,7 +6,7 @@ def source_files
      nest_editor nest_editor_rules nest_editor_options nest_editor_name
      link_editor
      components decko follow card_menu slot_ready
-     filter filter_links filter_items].map do |n|
+     filter filter_links filter_items selectable_filtered_content].map do |n|
     "decko/#{n}.js.coffee"
   end
 end
