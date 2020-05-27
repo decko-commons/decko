@@ -1,36 +1,39 @@
 format :html do
-  # @param tab_type [String] 'tabs' or 'pills'
-  # @param tab_hash [Hash] keys are the labels, values the content for the tabs
+  # @param tab_hash [Hash] keys are the tab names
+  #   Each value can be either a String or a Hash.
+  #   If a Hash can contain the following keys:
+  #     :title - the label to appear in the clickable tab nav
+  #     :content - body of tab pane
+  #     :button_attr - attributes for button link in tab nav.
+  #
+  #   If using lazy loading (see :load below), the following options also apply
+  #     :path - explicit path to use for tab pane
+  #     :view - card view from which to auto-construct path (if missing, uses key)
+  #
+  #   If the value is a String, it is treated as the tab content for static tabs and
+  #     the title for lazy tabs
+  #
   # @param active_name [String] label of the tab that should be active at the
+  #
   # @param [Hash] args options
   # @option args [String] :tab_type ('tabs') use pills or tabs
-  # @option args [Hash] :panel_args html args used for the panel div
-  # @option args [Hash] :pane_args html args used for the pane div
+  # @option args [Hash] :panel_attr html args used for the panel div
+  # @option args [Hash] :pane_attr html args used for the pane div
   # @option args [Hash] :load. `:lazy` for lazy-loading tabs
+  #
   # @param [Block] block content of the active tab (for lazy-loading)
   # beginning (default is the first)
+  #
   # @return [HTML] bootstrap tabs element with all content preloaded
   def tabs tab_hash, active_name=nil, args={}, &block
     klass = args[:load] == :lazy ? Card::LazyTab : Card::Tab
-    tab_panel tab_objects(klass, tab_hash, active_name), args, &block
-  end
-
-  private
-
-  def tab_objects klass, tab_hash, active_name
-    active_name ||= tab_hash.keys.first
-    tab_hash.map do |name, config|
-      klass.new self, name, active_name, config
-    end
-  end
-
-  def tab_panel tab_objects, args={}, &block
-    haml :tab_panel, args.reverse_merge(
-      panel_args: {},
-      pane_args: {},
+    args.reverse_merge!(
+      panel_attr: {},
+      pane_attr: {},
       tab_type: "tabs",
       block: block,
-      tab_objects: tab_objects
+      tab_objects: Card::Tab.tab_objects(self, tab_hash, active_name, klass)
     )
+    haml :tab_panel, args
   end
 end

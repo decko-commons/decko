@@ -2,6 +2,16 @@ class Card
   class Tab
     attr_reader :format, :name, :label, :content, :button_attrib
 
+    class << self
+      def tab_objects format, tab_hash, active_name, klass=nil
+        klass ||= Card::Tab
+        active_name ||= tab_hash.keys.first
+        tab_hash.map do |name, config|
+          klass.new format, name, active_name, config
+        end
+      end
+    end
+
     delegate :add_class, :wrap_with, :unique_id, :link_to, to: :format
 
     def initialize format, name, active_name, config
@@ -19,11 +29,11 @@ class Card
     end
 
     def tab_pane args=nil
-      pane_args = { role: :tabpanel, id: tab_id }
-      pane_args.merge! args if args.present?
-      add_class pane_args, "tab-pane tab-pane-#{name}"
-      add_class pane_args, "active" if active?
-      wrap_with :div, content, pane_args
+      pane_attr = { role: :tabpanel, id: tab_id }
+      pane_attr.merge! args if args.present?
+      add_class pane_attr, "tab-pane tab-pane-#{name}"
+      add_class pane_attr, "active" if active?
+      wrap_with :div, content, pane_attr
     end
 
     private

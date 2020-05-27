@@ -1,7 +1,7 @@
-.tabbable{ panel_args.merge(role: "tabpanel") }
+.tabbable{ panel_attr.merge(role: "tabpanel") }
   %ul{ class: "nav nav-#{tab_type}", role: "tablist" }
-    - tab_objects.each do |obj|
-      = obj.tab_button
+    - tab_objects.each do |tab|
+      = tab.tab_button
   .tab-content
-    - tab_objects.each do |obj|
-      = obj.send :tab_pane, pane_args, &block
+    - tab_objects.each do |tab|
+      = tab.send :tab_pane, pane_attr, &block
