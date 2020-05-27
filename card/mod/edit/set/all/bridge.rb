@@ -16,7 +16,7 @@ format :html do
 
   def bridge_tabs
     wrap do
-      lazy_loading_tabs visible_bridge_tabs, bridge_tab, _render(bridge_tab)
+      lazy_loading_tabs(visible_bridge_tabs, bridge_tab) { _render_bridge_tab }
     end
   end
 

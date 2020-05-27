@@ -9,8 +9,9 @@ format :html do
     card.each_item_name_with_options(_render_raw) do |name, options|
       construct_tab tabs, name, options
     end
-    lazy_loading_tabs tabs[:paths], tabs[:active][:name],
-                      tabs[:active][:content], type: tab_type
+    lazy_loading_tabs tabs[:paths], tabs[:active][:name], tab_type: tab_type do
+      tabs[:active][:content]
+    end
   end
 
   def construct_tab tabs, name, explicit_options
@@ -45,6 +46,6 @@ format :html do
     card.item_cards.each do |item|
       tabs[item.name] = nest item, item_view_options(args)
     end
-    static_tabs tabs, tab_type
+    static_tabs tabs, nil, tab_type: tab_type
   end
 end

@@ -4,36 +4,16 @@ format :html do
   # @param tab_type [String] 'tabs' or 'pills'
   # @param tabs [Hash] keys are the labels, values the content for the tabs
   # @param active_name [String] label of the tab that should be active at the
+  # @param [Hash] args options
+  # @option args [String] :tab_type ('tabs') use pills or tabs
+  # @option args [Hash] :panel_args html args used for the panel div
+  # @option args [Hash] :pane_args html args used for the pane div
   # beginning (default is the first)
   # @return [HTML] bootstrap tabs element with all content preloaded
-  def static_tabs tabs, active_name=nil, tab_type="tabs", args={}
-    tab_buttons = ""
-    tab_panes = ""
-    active_name ||= tabs.keys.first
-    standardize_static_tabs(tabs) do |name, label, content, button_attr|
-      tab_id = tab_id name
-      active_tab = (name == active_name)
-      tab_buttons += tab_button(tab_id, label, active_tab, button_attr)
-      tab_panes += tab_pane(tab_id, name, content, active_tab, args[:pane])
-    end
-    tab_panel tab_buttons, tab_panes, tab_type
+  def static_tabs tabs, active_name=nil, args={}
+    tab_panel tab_objects(Card::Tab, tabs, active_name), args
   end
 
-  def standardize_static_tabs tabs
-    tabs.each do |tab_name, tab_content|
-      tab_label = tab_content.is_a?(Hash) ? tab_content[:title] : tab_name
-      tab_content, button_attr = tab_content_and_button tab_content
-      yield tab_name, tab_label, tab_content, button_attr
-    end
-  end
-
-  def tab_content_and_button tab_content
-    if tab_content.is_a?(Hash)
-      [tab_content[:content], (tab_content[:button_attr] || {})]
-    else
-      [tab_content, {}]
-    end
-  end
 
   # @param [Hash] tabs keys are the views, values the title unless you pass a
   #   hash as value
@@ -42,102 +22,33 @@ format :html do
   # @option tabs [Symbol] :view
   # @option tabs [HTML] :html if present use value as inner html for li tag and
   #   ignore the other tab options
-  # @param [String] active_name label of the tab that should be active at the
+  # @param [String] active_name key of the tab that should be active at the
   # beginning
-  # @param [String] active_content content of the active tab
-  #   can also be passed via a block
   # @param [Hash] args options
-  # @option args [String] :type ('tabs') use pills or tabs
+  # @option args [String] :tab_type ('tabs') use pills or tabs
   # @option args [Hash] :panel_args html args used for the panel div
   # @option args [Hash] :pane_args html args used for the pane div
+  # @param [Block] block content of the active tab
   # @return [HTML] bootstrap tabs element with content only for the active
   # tab; other tabs get loaded via ajax when selected
-  def lazy_loading_tabs tabs, active_name, active_content="", args={}, &block
-    tab_buttons = ""
-    tab_panes = ""
-    pane_args = args[:pane_args]
-    standardize_lazy_tabs(tabs, active_name) do |tab_label, view, url, id, active_tab|
-      tab_buttons += lazy_tab_button tab_label, id, url, active_tab
-      tab_panes += lazy_tab_pane id, view, active_tab, active_content, pane_args, &block
-    end
-    tab_type = args.delete(:type) || "tabs"
-    tab_panel tab_buttons, tab_panes, tab_type, args[:panel_args]
+  def lazy_loading_tabs tabs, active_name, args={}, &block
+    tab_panel tab_objects(Card::LazyTab, tabs, active_name), args, &block
   end
 
-  def lazy_tab_button tab_label, id, url, active_tab
-    if url
-      tab_button(
-        id, tab_label, active_tab,
-        "data-url" => url.html_safe,
-        class: (active_tab ? nil : "load")
-      )
-    else
-      wrap_with(:li, tab_label, role: "presentation")
+  def tab_objects klass, tab_hash, active_name
+    active_name ||= tab_hash.keys.first
+    tab_hash.map do |name, config|
+      klass.new self, name, active_name, config
     end
   end
 
-  def lazy_tab_pane id, view, active_tab, active_content, args
-    tab_content =
-      if active_tab
-        block_given? ? yield : active_content
-      else
-        ""
-      end
-    tab_pane id, view, tab_content, active_tab, args
-  end
-
-  def standardize_lazy_tabs tabs, active_name
-    tabs.each do |tab_view_name, tab_details|
-      tab_title, url = tab_title_and_url(tab_details, tab_view_name)
-      active_tab = (active_name == tab_view_name)
-      yield tab_title, tab_view_name, url, tab_id(tab_view_name), active_tab
-    end
-  end
-
-  def tab_title_and_url tab_details, tab_view_name
-    if tab_details.is_a? Hash
-      tab_details[:html] ||
-        [tab_details[:title], tab_details[:path] || path(tab_details[:view])]
-    else
-      [tab_details, path(view: tab_view_name)]
-    end
-  end
-
-  def tab_panel tab_buttons, tab_panes, tab_type="tabs", args=nil
-    args ||= {}
-    add_class args, "tabbable"
-    args.reverse_merge! role: "tabpanel"
-    wrap_with :div, args do
-      [
-        wrap_with(:ul, tab_buttons, class: "nav nav-#{tab_type}", role: "tablist"),
-        wrap_with(:div, tab_panes, class: "tab-content")
-      ]
-    end
-  end
-
-  def tab_id tab_name
-    "#{unique_id}-#{tab_name.to_name.safe_key}"
-  end
-
-  def tab_button target, text, active=false, link_attr={}
-    add_class link_attr, "active" if active
-    link = tab_button_link "##{target}", text, link_attr
-    li_args = { role: :presentation, class: "nav-item tab-li-#{target}" }
-    wrap_with :li, link, li_args
-  end
-
-  def tab_button_link target, text, link_attr={}
-    add_class link_attr, "nav-link"
-    link_to text, link_attr.merge(
-      path: target, role: "tab", "data-toggle" => "tab"
+  def tab_panel tab_objects, args={}, &block
+    haml :tab_panel, args.reverse_merge(
+      panel_args: {},
+      pane_args: {},
+      tab_type: "tabs",
+      block: block,
+      tab_objects: tab_objects
     )
-  end
-
-  def tab_pane id, name, content, active=false, args=nil
-    pane_args = { role: :tabpanel, id: id }
-    pane_args.merge! args if args.present?
-    add_class pane_args, "tab-pane tab-pane-#{name}"
-    add_class pane_args, "active" if active
-    wrap_with :div, content, pane_args
   end
 end

@@ -40,7 +40,7 @@ format :html do
                   rules: nest_rules_tab,
                   help: haml(:_help)
                 ),
-                default_active_tab, "tabs")
+                default_active_tab)
   end
 
   def show_content_tab?
