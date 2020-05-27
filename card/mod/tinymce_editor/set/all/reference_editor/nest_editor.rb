@@ -38,7 +38,7 @@ format :html do
     tab_hash.merge! options: haml(:_options, snippet: nest_snippet),
                     rules: nest_rules_tab,
                     help: haml(:_help)
-    tabs tab_hash, default_active_tab)
+    tabs tab_hash, default_active_tab
   end
 
   def show_content_tab?

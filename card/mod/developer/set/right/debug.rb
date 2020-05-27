@@ -6,7 +6,7 @@ format :html do
   view :core do
     subject = card.left
 
-    output [
+    output([
       ["Sets",
        tabs("set modules" => set_modules_accordion(subject),
             "all modules" => singleton_modules_list(subject),
@@ -19,7 +19,7 @@ format :html do
             update: "<pre>#{subject.events(:update)}</pre>",
             delete: "<pre>#{subject.events(:delete)}</pre>")],
       ["Cache/DB Comparison", cache_comparison_table(subject)]
-    ].map { |item| section(*item) }
+    ]).map { |item| section(*item) }
   end
 
   # rubocop:disable AccessorMethodName

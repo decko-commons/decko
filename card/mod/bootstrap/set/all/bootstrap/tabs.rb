@@ -17,7 +17,7 @@ format :html do
 
   private
 
-   def tab_objects klass, tab_hash, active_name
+  def tab_objects klass, tab_hash, active_name
     active_name ||= tab_hash.keys.first
     tab_hash.map do |name, config|
       klass.new self, name, active_name, config
