@@ -33,14 +33,12 @@ format :html do
   end
 
   def nest_editor_tabs
-    tabs = {}
-    tabs[:content] = nest_content_tab if voo.show? :content_tab
-    static_tabs(tabs.merge(
-                  options: haml(:_options, snippet: nest_snippet),
-                  rules: nest_rules_tab,
-                  help: haml(:_help)
-                ),
-                default_active_tab)
+    tab_hash = {}
+    tab_hash[:content] = nest_content_tab if voo.show? :content_tab
+    tab_hash.merge! options: haml(:_options, snippet: nest_snippet),
+                    rules: nest_rules_tab,
+                    help: haml(:_help)
+    tabs tab_hash, default_active_tab)
   end
 
   def show_content_tab?

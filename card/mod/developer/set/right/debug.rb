@@ -8,16 +8,16 @@ format :html do
 
     output [
       ["Sets",
-       static_tabs("set modules" => set_modules_accordion(subject),
-                   "all modules" => singleton_modules_list(subject),
-                   "patterns" => set_patterns_breadcrumb(subject))],
+       tabs("set modules" => set_modules_accordion(subject),
+            "all modules" => singleton_modules_list(subject),
+            "patterns"    => set_patterns_breadcrumb(subject))],
       ["Views",
-       static_tabs("by format" => subformat(subject)._render_views_by_format,
-                   "by name" => subformat(subject)._render_views_by_name)],
+       tabs("by format" => subformat(subject)._render_views_by_format,
+            "by name" => subformat(subject)._render_views_by_name)],
       ["Events",
-       static_tabs(create: "<pre>#{subject.events(:create)}</pre>",
-                   update: "<pre>#{subject.events(:update)}</pre>",
-                   delete: "<pre>#{subject.events(:delete)}</pre>")],
+       tabs(create: "<pre>#{subject.events(:create)}</pre>",
+            update: "<pre>#{subject.events(:update)}</pre>",
+            delete: "<pre>#{subject.events(:delete)}</pre>")],
       ["Cache/DB Comparison", cache_comparison_table(subject)]
     ].map { |item| section(*item) }
   end
