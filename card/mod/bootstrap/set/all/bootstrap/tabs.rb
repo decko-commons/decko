@@ -2,7 +2,8 @@ format :html do
   # @param tab_hash [Hash] keys are the tab names
   #   Each value can be either a String or a Hash.
   #   If a Hash can contain the following keys:
-  #     :title - the label to appear in the clickable tab nav
+  #     :title - the label to appear in the clickable tab nav.
+  #        if title is not specified, the key is used
   #     :content - body of tab pane
   #     :button_attr - attributes for button link in tab nav.
   #
@@ -11,7 +12,7 @@ format :html do
   #     :view - card view from which to auto-construct path (if missing, uses key)
   #
   #   If the value is a String, it is treated as the tab content for static tabs and
-  #     the title for lazy tabs
+  #     the view for lazy tabs
   #
   # @param active_name [String] label of the tab that should be active at the
   #
