@@ -1,10 +1,10 @@
 format :html do
-  BRIDGE_TABS = { account_tab: "Account",
-                  guide_tab: "Guide",
-                  engage_tab: "Engage",
-                  history_tab: "History",
-                  related_tab: "Related",
-                  rules_tab: "Rules" }.freeze
+  BRIDGE_TABS = { "Account" => :account_tab,
+                  "Guide"   => :guide_tab,
+                  "Engage"  => :engage_tab,
+                  "History" => :history_tab,
+                  "Related" => :related_tab,
+                  "Rules"   => :rules_tab }.freeze
 
   wrapper :bridge do
     class_up "modal-dialog", "no-gaps"
