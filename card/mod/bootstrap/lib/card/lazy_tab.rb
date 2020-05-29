@@ -1,15 +1,11 @@
 class Card
   class LazyTab < Tab
-    def label
-      @label ||= config_hash? ? @config[:title] : @config
-    end
-
     def url
       @url ||= (config_hash? && @config[:path]) || format.path(view: view)
     end
 
     def view
-      @view ||= (config_hash? && @config[:view]) || name
+      @view ||= (config_hash? && @config[:view]) || @config
     end
 
     def tab_button

@@ -33,9 +33,9 @@ end
 protected
 
 module ClassMethods
-  def assign_or_initialize_by name, attributes, fetch_opts={}
+  def assign_or_newish name, attributes, fetch_opts={}
     if (known_card = Card.fetch(name, fetch_opts))
-      known_card.refresh.assign_attributes attributes
+      known_card.refresh.newish attributes
       known_card
     else
       Card.new attributes.merge(name: name)

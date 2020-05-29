@@ -43,7 +43,7 @@ class Card
     end
 
     def label
-      @label ||= config_hash? ? @config[:title] : name
+      @label ||= (config_hash? && @config[:title]) || name
     end
 
     def content
@@ -58,7 +58,10 @@ class Card
       add_class button_attrib, "nav-link"
 
       link_to label, button_attrib.merge(
-        path: "##{tab_id}", role: "tab", "data-toggle" => "tab"
+        path: "##{tab_id}",
+        role: "tab",
+        "data-toggle" => "tab",
+        "data-tab-name" => name
       )
     end
 

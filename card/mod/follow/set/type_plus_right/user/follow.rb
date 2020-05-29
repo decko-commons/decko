@@ -1,4 +1,4 @@
-FOLLOW_TABS = { "follow_tab" => "Follow", "ignore_tab" => "Ignore" }.freeze
+FOLLOW_TABS = { "Follow" => "follow_tab", "Ignore" => "ignore_tab" }.freeze
 
 # a virtual pointer to the sets that a user is following.
 # (data is stored in preferences: `[Set]+[User]+:follow`)
