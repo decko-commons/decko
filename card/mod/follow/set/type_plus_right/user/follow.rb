@@ -1,3 +1,5 @@
+FOLLOW_TABS = { "Follow" => "follow_tab", "Ignore" => "ignore_tab" }.freeze
+
 # a virtual pointer to the sets that a user is following.
 # (data is stored in preferences: `[Set]+[User]+:follow`)
 
@@ -5,10 +7,6 @@ include_set Abstract::Pointer
 def virtual?
   new?
 end
-
-# def content
-#   item_names.map { |name| "[[#{name}]]" }
-# end
 
 # overrides pointer default
 def item_names _args={}
@@ -38,8 +36,7 @@ format :html do
 
   # renders follow tab and ignore tab
   view :core do
-    lazy_loading_tabs({ "follow_tab" => "Follow", "ignore_tab" => "Ignore" },
-                      "follow_tab") do
+    tabs FOLLOW_TABS, "follow_tab", load: :lazy do
       render_follow_tab
     end
   end

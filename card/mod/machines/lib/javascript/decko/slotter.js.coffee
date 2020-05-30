@@ -115,7 +115,7 @@ jQuery.fn.extend
     return if event.slotSuccessful
 
     if @data("reload")
-      window.locacation.reload(true)
+      window.location.reload(true)
 
     if @data("update-modal-origin")
       @updateModalOrigin()
