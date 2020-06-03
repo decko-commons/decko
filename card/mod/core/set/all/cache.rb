@@ -17,7 +17,7 @@ module ClassMethods
     if local_only
       write_to_soft_cache card
     elsif cache
-      card.prep_for_cache
+      # card.prep_for_cache
       cache.write card.key, card
       cache.write "~#{card.id}", card.key if card.id.to_i.nonzero?
     end
@@ -114,8 +114,6 @@ def expire_id cache
   cache.delete "~#{id}"
 end
 
-private
-
 # Because Card works by including set-specific ruby modules on singleton classes and
 # singleton classes generally can't be cached, we can never cache the cards in a
 # completely ready-to-roll form.
@@ -124,5 +122,5 @@ private
 # where they won't be changing (eg production) or at least the list of matching set
 # patterns in e
 def prep_for_cache
-  Cardio.cache_set_module_list ? set_modules : patterns
+  Cardio.config.cache_set_module_list ? set_modules : patterns
 end
