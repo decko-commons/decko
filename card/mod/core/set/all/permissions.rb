@@ -23,19 +23,20 @@ end
 # options.
 
 def ok? action
-  @action_ok = true
-  send "ok_to_#{action}"
-  @action_ok
+  @ok ||= {}
+  return @ok[action] unless @ok[action].nil?
+
+  @ok[action] = send "ok_to_#{action}"
 end
 
-def ok_with_fetch? action, opts={}
-  trait = opts.delete :trait
-  card = trait.nil? ? self : fetch(trait, opts)
-  card&.ok_without_fetch? action
-end
+# def ok_with_fetch? action, opts={}
+#   trait = opts.delete :trait
+#   card = trait.nil? ? self : fetch(trait, opts)
+#   card&.ok_without_fetch? action
+# end
 
 # note: method is chained so that we can return the instance variable @action_ok
-alias_method_chain :ok?, :fetch
+# alias_method_chain :ok?, :fetch
 
 def ok! action, opts={}
   raise Card::Error::PermissionDenied, self unless ok? action, opts
@@ -106,7 +107,7 @@ end
 
 def deny_because why
   @permission_errors << why if @permission_errors
-  @action_ok = false
+  false
 end
 
 def permitted? action
@@ -126,8 +127,8 @@ def permit action, verb=nil
 end
 
 def ok_to_create
-  permit :create
-  return if !@action_ok || !junction?
+  simple_ok = permit :create
+  return if !simple_ok || !junction?
 
   %i[left right].each do |side|
     # left is supercard; create permissions will get checked there.
@@ -149,11 +150,11 @@ def ok_to_read
 end
 
 def ok_to_update
-  permit :update
-  if @action_ok && type_id_changed? && !permitted?(:create)
+  ok_so_far = permit :update
+  if ok_so_far && type_id_changed? && !permitted?(:create)
     deny_because you_cant("change to this type (need create permission)")
   end
-  ok_to_read if @action_ok
+  ok_to_read if ok_so_far
 end
 
 def ok_to_delete
