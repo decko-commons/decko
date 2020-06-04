@@ -1,7 +1,9 @@
 class Card
+  # retrieve card from cache or database, or (where needed) instantiate new card
   class Fetch
     attr_reader :card, :mark, :opts
 
+    # see arg options in all/fetch
     def initialize *args
       normalize_args args
       absolutize_mark
@@ -76,16 +78,18 @@ class Card
       @mark_value ||= mark.is_a?(Integer) ? mark : mark.key
     end
 
-    # @return [Card, nil] Card object
-
-
+    # instantiate a card as a cache placeholder
     def new_for_cache
-      return if mark.is_a? Integer
-      return if mark.blank? && !opts[:new]
-      return if card && (card.type_known? || skip_type_lookup?)
+      return unless new_for_cache?
       @needs_caching = true
       @card = Card.new name: mark, skip_modules: true,
                        skip_type_lookup: skip_type_lookup?
+    end
+
+    def new_for_cache?
+      return false if mark.is_a?(Integer) || (mark.blank? && !opts[:new])
+      return false if card && (card.type_known? || skip_type_lookup?)
+      true
     end
 
     def skip_type_lookup?
@@ -125,6 +129,17 @@ class Card
       return if opts[:local_only]
       return unless mark&.to_s != card.name
       card.name = mark.to_s
+    end
+
+    # Because Card works by including set-specific ruby modules on singleton classes and
+    # singleton classes generally can't be cached, we can never cache the cards in a
+    # completely ready-to-roll form.
+    #
+    # However, we can optimize considerably by saving the list of ruby modules in environments
+    # where they won't be changing (eg production) or at least the list of matching set
+    # patterns in e
+    def prep_for_cache
+      Cardio.config.cache_set_module_list ? set_modules : patterns
     end
   end
 end

@@ -42,7 +42,7 @@ module ClassMethods
   # @param mark - see #fetch
   # @return [Card]
   def quick_fetch *mark
-    fetch *mark, skip_virtual: true, skip_modules: true
+    fetch(*mark, skip_virtual: true, skip_modules: true)
   end
 
   # @return [Card]

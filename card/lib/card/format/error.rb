@@ -4,9 +4,6 @@ class Card
       def ok? task
         task = :create if task == :update && card.new_card?
         card.ok? task
-        # @ok ||= {}
-        # return @ok[task] unless @ok[task].nil?
-        #@ok[task] =
       end
 
       def anyone_can? task

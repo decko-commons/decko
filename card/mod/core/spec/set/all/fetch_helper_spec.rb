@@ -56,7 +56,7 @@ RSpec.describe Card::Set::All::FetchHelper do
       expect(fetch_object).not_to have_received(:retrieve_from_db)
     end
 
-    def expect_db_retrieval # *args
+    def expect_db_retrieval
       allow(fetch_object).to receive(:retrieve_from_db)
       yield
       expect(fetch_object).to have_received(:retrieve_from_db) # .with(*args)
