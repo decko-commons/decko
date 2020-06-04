@@ -41,8 +41,8 @@ end
 # note: method is chained so that we can return the instance variable @action_ok
 # alias_method_chain :ok?, :fetch
 
-def ok! action, opts={}
-  raise Card::Error::PermissionDenied, self unless ok? action, opts
+def ok! action
+  raise Card::Error::PermissionDenied, self unless ok? action
 end
 
 def who_can action

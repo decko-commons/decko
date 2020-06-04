@@ -22,16 +22,13 @@ module ClassMethods
   #      new: { opts for Card#new }  Return a new card when not found
   # @return [Card]
   def fetch *args
-    mark, opts = normalize_fetch_args args
-    validate_fetch_opts! opts
-
-    card, needs_caching = retrieve_or_new mark, opts
-
-    return if card.nil?
-    write_to_cache card, opts[:local_only] if needs_caching
-    standard_fetch_results card, mark, opts
+    f = Card::Fetch.new *args
+    f.retrieve_or_new
+    return if f.card.nil?
+    write_to_cache f.card, f.local_only? if f.needs_caching?
+    standard_fetch_results f.card, f.mark, f.opts
   rescue ActiveModel::RangeError => _e
-    return Card.new name: "card id out of range: #{mark}"
+    return Card.new name: "card id out of range: #{f.mark}"
   end
 
   # fetch only real (no virtual) cards
@@ -49,16 +46,7 @@ module ClassMethods
   # @param mark - see #fetch
   # @return [Card]
   def quick_fetch *mark
-    fetch mark, skip_virtual: true, skip_modules: true
-  end
-
-  # fetch only from the soft cache
-  #
-  # @param args - see #fetch
-  # @return [Card]
-  def fetch_soft *args
-    mark, opts = normalize_fetch_args args
-    fetch mark, opts.merge(local_only: true)
+    fetch *mark, skip_virtual: true, skip_modules: true
   end
 
   # @return [Card]
@@ -80,19 +68,17 @@ module ClassMethods
     end
   end
 
-  # @param mark - see #fetch
+  # @param args - see #fetch
   # @return [Integer]
-  def fetch_id *mark
-    mark, _opts = normalize_fetch_args mark
-    return mark if mark.is_a? Integer
-    card = quick_fetch mark.to_s
-    card && card.id
+  def fetch_id *mark_parts
+    mark = Card::Fetch.new(*mark_parts)&.mark
+    mark.is_a?(Integer) ? mark : quick_fetch(mark.to_s)&.id
   end
 
   # @param mark - see #fetch
   # @return [Card::Name]
   def fetch_name *mark
-    if (card = quick_fetch(mark))
+    if (card = quick_fetch(*mark))
       card.name
     elsif block_given?
       yield.to_name
@@ -105,7 +91,7 @@ module ClassMethods
 
   # @param mark - see #fetch
   # @return [Integer]
-  def fetch_type_id *mark
+  def fetch_type_id mark
     quick_fetch(mark)&.type_id
   end
 end

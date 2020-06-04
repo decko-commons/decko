@@ -35,14 +35,7 @@ module ClassMethods
     card.expire
   end
 
-  def new_for_cache card, name, opts
-    return if name.is_a? Integer
-    return if name.blank? && !opts[:new]
-    return if card && (card.type_known? || skip_type_lookup?(opts))
-    new name: name,
-        skip_modules: true,
-        skip_type_lookup: skip_type_lookup?(opts)
-  end
+
 end
 
 def expire_pieces
