@@ -22,11 +22,7 @@ module ClassMethods
   #      new: { opts for Card#new }  Return a new card when not found
   # @return [Card]
   def fetch *args
-    f = Card::Fetch.new *args
-    f.retrieve_or_new
-    return if f.card.nil?
-    write_to_cache f.card, f.local_only? if f.needs_caching?
-    standard_fetch_results f.card, f.mark, f.opts
+    Card::Fetch.new(*args)&.retrieve_or_new
   rescue ActiveModel::RangeError => _e
     return Card.new name: "card id out of range: #{f.mark}"
   end
