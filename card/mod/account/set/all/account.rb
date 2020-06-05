@@ -30,6 +30,10 @@ def read_rules
   @read_rules ||= fetch_read_rules
 end
 
+def read_rules_hash
+  @read_rules_hash ||= read_rules.each_with_object({}) { |id, h| h[id] = true }
+end
+
 def fetch_read_rules
   return [] if id == WagnBotID # always_ok, so not needed
 

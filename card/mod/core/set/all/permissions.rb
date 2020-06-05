@@ -155,7 +155,7 @@ def ok_to_read
   @read_rule_id ||= permission_rule_id(:read)
 
   # TODO: optimize with hash lookup
-  return true if Auth.as_card.read_rules.member? @read_rule_id
+  return true if Auth.as_card.read_rules_hash[@read_rule_id]
   deny_because you_cant "read this"
 end
 

@@ -26,7 +26,7 @@ class Card
 
       def needs_prep?
         return unless card.present?
-        
+
         !(skip_modules? || card.patterns?)
       end
 
