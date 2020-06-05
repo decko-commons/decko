@@ -1,3 +1,6 @@
+def patterns?
+  defined? @patterns
+end
 
 def patterns
   @patterns ||= set_patterns.map { |sub| sub.new self }.compact

@@ -3,6 +3,7 @@ class Card
   class Fetch
     include Retrieve
     include Results
+    include Store
 
     attr_reader :card, :mark, :opts
 
@@ -11,21 +12,20 @@ class Card
       normalize_args args
       absolutize_mark
       validate_opts!
-      @needs_caching = false
     end
 
     def retrieve_or_new
       retrieve_existing
-      new_for_cache
+      update_cache
       results
-    end
-
-    def needs_caching?
-      @needs_caching
     end
 
     def local_only?
       opts[:local_only]
+    end
+
+    def skip_modules?
+      opts[:skip_modules]
     end
 
     def normalize_args args

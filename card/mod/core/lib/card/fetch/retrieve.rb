@@ -2,8 +2,7 @@ class Card
   class Fetch
     # retrieval and instantiation methods for Card::Fetch
     module Retrieve
-      # look in cache.  if that doesn't work, look in database
-      # @return [{Card}, {True/False}] Card object and "needs_caching" ruling
+      # look for card in cache.  if that doesn't work, look in database
       def retrieve_existing
         return unless mark.present?
         retrieve_from_cache || retrieve_from_db
@@ -22,7 +21,7 @@ class Card
         query = { mark_type => mark_value }
         query[:trash] = false unless look_in_trash?
         @card = Card.where(query).take
-        @needs_caching = true if card.present? && !card.trash
+        @cache_ready = true if card.present? && !card.trash
         card
       end
 
@@ -34,26 +33,6 @@ class Card
 
       def mark_value
         @mark_value ||= mark.is_a?(Integer) ? mark : mark.key
-      end
-
-      # instantiate a card as a cache placeholder
-      def new_for_cache
-        return unless new_for_cache?
-        @needs_caching = true
-        @card = Card.new name: mark, skip_modules: true,
-                         skip_type_lookup: skip_type_lookup?
-      end
-
-      def new_for_cache?
-        reusable? && new_card_needed?
-      end
-
-      def new_card_needed?
-        !(card.present? && (card.type_id.present? || skip_type_lookup?))
-      end
-
-      def reusable?
-        !(mark.is_a?(Integer) || (mark.blank? && !opts[:new]))
       end
     end
   end
