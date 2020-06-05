@@ -3,9 +3,7 @@ class Card
     module Error
       def ok? task
         task = :create if task == :update && card.new_card?
-        @ok ||= {}
-        @ok[task] = card.ok? task if @ok[task].nil?
-        @ok[task]
+        card.ok? task
       end
 
       def anyone_can? task

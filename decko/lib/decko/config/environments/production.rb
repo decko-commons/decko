@@ -64,4 +64,7 @@ Decko.application.class.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  # cache the list of set module objects on card objects
+  config.cache_set_module_list = true
 end
