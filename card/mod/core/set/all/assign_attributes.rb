@@ -62,7 +62,7 @@ def prepare_assignment_args args
 end
 
 def assign_with_set_modules args
-  set_changed = (args["name"] != name) || (args["type_id"] != type_id)
+  set_changed = args["name"] || args["type_id"]
   return yield unless set_changed
 
   refresh_set_modules { yield }

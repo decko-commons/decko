@@ -48,11 +48,8 @@ class Card
     end
 
     def skip_type_lookup?
-      # if opts[:new] is not empty then we are initializing a variant that is
-      # different from the cached variant
-      # and can postpone type lookup for the cached variant
       # if skipping virtual no need to look for actual type
-      opts[:skip_virtual] || opts[:new].present? || opts[:skip_type_lookup]
+      opts[:skip_virtual] || opts[:skip_type_lookup]
     end
   end
 end

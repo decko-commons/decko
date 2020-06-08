@@ -104,6 +104,7 @@ def fetch traits, opts={}
 end
 
 def newish opts
+  reset_patterns
   Card.with_normalized_new_args opts do |norm_opts|
     handle_type norm_opts do
       assign_attributes norm_opts

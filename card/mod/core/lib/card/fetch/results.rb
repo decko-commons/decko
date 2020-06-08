@@ -14,7 +14,7 @@ class Card
 
       def new_result_card
         if new_opts
-          quick_renew || newish
+          quick_renew || renew
         elsif opts[:skip_virtual]
           return nil
         else
@@ -26,21 +26,15 @@ class Card
         card if new_opts || card.known?
       end
 
-      def renew_card
-        @card = card.renew mark, new_opts
-        @card
-      end
-
-      def newish
-        binding.pry
-        Rails.logger.info "renewing: #{mark}, #{new_opts}"
+      def renew
+        # Rails.logger.info "renewing: #{mark}, #{new_opts}"
         @card = card.dup
         @card.newish newish_opts
       end
 
       def newish_opts
         hash = new_opts.clone.reverse_merge name: mark
-        if (default_content = opts.delete(:default_content)) && @card.db_content.blank?
+        if (default_content = hash.delete(:default_content)) && @card.db_content.blank?
           hash[:content] ||= default_content
         end
         hash
@@ -56,22 +50,18 @@ class Card
       end
 
       def name_change?
+        return true unless @card.name.present?
         (new_opts[:name] && (new_opts[:name].to_name != @card.name)) ||
           @card.name.relative?
       end
 
       def type_change?
+        return true unless @card.type_id
         new_opts[:type_id] && (new_opts[:type_id] != @card.type_id)
       end
 
       def new_opts
         @new_opts ||= opts[:new]
-      end
-
-      def handling_supercard
-        supercard = new_opts.delete :supercard
-        kard = yield
-        kard&.supercard = supercard
       end
 
       def assign_name_from_mark
