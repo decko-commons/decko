@@ -3,16 +3,25 @@ def patterns?
 end
 
 def patterns
-  @patterns ||= set_patterns.map { |sub| sub.new self }.compact
+  @patterns ||= begin
+
+    Rails.logger.info "loading patterns: #{name}"
+    set_patterns.map { |sub| sub.new self }.compact
+  end
 end
 
+# new cards do not
 def patterns_with_new
-  new_card? ? patterns_without_new[1..-1] : patterns_without_new
+  @patterns_without_new ||=
+    (new_card? ? patterns_without_new[1..-1] : patterns_without_new)
 end
 alias_method_chain :patterns, :new
 
 def reset_patterns
-  @patterns = nil
+  Rails.logger.info "resetting patterns: #{name}"
+  # binding.pry
+
+  @patterns = @patterns_without_new = nil
   @template = @virtual = nil
   @set_mods_loaded = @set_modules = @set_names = @rule_set_keys = nil
   @junction_only = nil # only applies to set cards
@@ -21,7 +30,6 @@ end
 
 def reset_patterns_if_rule _saving=false
   return unless real? && is_rule? && (set = left)
-
   set.reset_patterns
   set.include_set_modules
   set

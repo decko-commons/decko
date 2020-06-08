@@ -56,7 +56,7 @@ end
 def direct_rule_card action
   direct_rule_id = rule_card_id action
   require_permission_rule! direct_rule_id, action
-  Card.fetch direct_rule_id, skip_modules: true
+  Card.quick_fetch direct_rule_id
 end
 
 def permission_rule_id action

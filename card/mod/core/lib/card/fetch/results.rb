@@ -14,7 +14,11 @@ class Card
 
       def new_result_card
         if (new_opts = opts[:new])
-          @card = card.renew mark, new_opts
+          if new_opts.present?
+            Rails.logger.info "renewing: #{mark}, #{new_opts}"
+
+            @card = card.renew mark, new_opts
+          end
         elsif opts[:skip_virtual]
           return nil
         else
