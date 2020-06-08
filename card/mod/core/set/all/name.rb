@@ -42,6 +42,7 @@ def superize_name cardname
 end
 
 def key= newkey
+  return if newkey == key
   was_in_cache = Card.cache.soft.delete key
   write_attribute :key, newkey
   # keep the soft cache up-to-date

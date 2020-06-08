@@ -19,8 +19,6 @@ alias_method_chain :patterns, :new
 
 def reset_patterns
   Rails.logger.info "resetting patterns: #{name}"
-  # binding.pry
-
   @patterns = @patterns_without_new = nil
   @template = @virtual = nil
   @set_mods_loaded = @set_modules = @set_names = @rule_set_keys = nil

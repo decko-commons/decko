@@ -4,7 +4,7 @@
 # won't this conflict with a real set (and fail to provide controlled test?)
 #   extend Card::Set
 #
-#   card_accessor :role,   default: "request", type: :phrase
+#   card_accessor :role,   default: "request", type_id: PhraseID
 #   card_writer   :write,  default: "request", type: :phrase
 #   card_reader   :read,   default: "request", type: :phrase
 # end

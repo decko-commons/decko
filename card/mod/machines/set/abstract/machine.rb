@@ -54,8 +54,8 @@ module MachineClassMethods
   end
 end
 
-card_accessor :machine_output, type: :file
-card_accessor :machine_input, type: :pointer
+card_accessor :machine_output, type_id: FileID
+card_accessor :machine_input, type_id: PointerID
 
 def before_engine
 end

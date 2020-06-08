@@ -13,12 +13,8 @@ class Card
       end
 
       def new_result_card
-        if (new_opts = opts[:new])
-          if new_opts.present?
-            Rails.logger.info "renewing: #{mark}, #{new_opts}"
-
-            @card = card.renew mark, new_opts
-          end
+        if new_opts
+          quick_renew || newish
         elsif opts[:skip_virtual]
           return nil
         else
@@ -28,6 +24,54 @@ class Card
         # must include_set_modules before checking `card.known?`,
         # in case, eg, set modules override #virtual?
         card if new_opts || card.known?
+      end
+
+      def renew_card
+        @card = card.renew mark, new_opts
+        @card
+      end
+
+      def newish
+        binding.pry
+        Rails.logger.info "renewing: #{mark}, #{new_opts}"
+        @card = card.dup
+        @card.newish newish_opts
+      end
+
+      def newish_opts
+        hash = new_opts.clone.reverse_merge name: mark
+        if (default_content = opts.delete(:default_content)) && @card.db_content.blank?
+          hash[:content] ||= default_content
+        end
+        hash
+      end
+
+      def quick_renew
+        test_opts = new_opts.slice :supercard, :name, :type_id
+        return false if new_opts.keys.size > test_opts.keys.size
+        return false if name_change? || type_change?
+        @card.supercard = new_opts[:supercard]
+        assign_name_from_mark
+        true
+      end
+
+      def name_change?
+        (new_opts[:name] && (new_opts[:name].to_name != @card.name)) ||
+          @card.name.relative?
+      end
+
+      def type_change?
+        new_opts[:type_id] && (new_opts[:type_id] != @card.type_id)
+      end
+
+      def new_opts
+        @new_opts ||= opts[:new]
+      end
+
+      def handling_supercard
+        supercard = new_opts.delete :supercard
+        kard = yield
+        kard&.supercard = supercard
       end
 
       def assign_name_from_mark
