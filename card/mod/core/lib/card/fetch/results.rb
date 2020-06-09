@@ -35,7 +35,7 @@ class Card
 
       def renew
         # Rails.logger.info "renewing: #{mark}, #{new_opts}"
-        @card = card.dup if @card.type_id
+        @card = card.dup
         @card.newish newish_opts
       end
 

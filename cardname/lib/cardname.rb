@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "active_support/configurable"
+#require "active_support/configurable"
 require "active_support/inflector"
 require "htmlentities"
 
