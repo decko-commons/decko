@@ -26,9 +26,7 @@ end
 
 def name= newname
   cardname = superize_name newname.to_name
-  newkey = cardname.key
-  self.key = newkey if key != newkey
-  #self.key = cardname.key
+  self.key = cardname.key
   update_subcard_names cardname
   write_attribute :name, cardname.s
   name
@@ -47,7 +45,7 @@ def update_superleft cardname
 end
 
 def key= newkey
-  # return if newkey == key
+  return if newkey == key
   was_in_cache = Card.cache.soft.delete key
   write_attribute :key, newkey
   # keep the soft cache up-to-date
