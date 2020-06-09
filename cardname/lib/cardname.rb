@@ -18,17 +18,15 @@ class Cardname < String
   include Manipulate
 
   OK4KEY_RE = '\p{Word}\*'
+  
+  cattr_accessor :joint, :banned_array, :var_re, :uninflect, :params,
+                 :session, :stabilize
 
-  include ActiveSupport::Configurable
-
-  config_accessor :joint, :banned_array, :var_re, :uninflect, :params,
-                  :session, :stabilize
-
-  Cardname.joint          = "+"
-  Cardname.banned_array   = []
-  Cardname.var_re         = /\{([^\}]*\})\}/
-  Cardname.uninflect      = :singularize
-  Cardname.stabilize      = false
+  self.joint          = "+"
+  self.banned_array   = []
+  self.var_re         = /\{([^\}]*\})\}/
+  self.uninflect      = :singularize
+  self.stabilize      = false
 
   JOINT_RE = Regexp.escape joint
 

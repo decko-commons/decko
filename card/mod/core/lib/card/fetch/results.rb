@@ -55,7 +55,7 @@ class Card
 
       def quick_renew?
         return false if type_change? || name_change?
-        
+
         test_opts = new_opts.slice :supercard, :name, :type_id
         new_opts.keys.size <= test_opts.keys.size
       end
