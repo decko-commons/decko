@@ -48,14 +48,21 @@ class Card
 
       def quick_renew
         return false unless quick_renew?
-        @card.supercard = new_opts[:supercard] if new_opts[:supercard]
+        Rails.logger.info "QUICK renewing: #{mark}, #{new_opts}"
+
+        update_supercard
         assign_name_from_mark
         true
       end
 
+      def update_supercard
+        return unless (sc = new_opts[:supercard])
+        @card.supercard = sc
+        @card.update_superleft
+      end
+
       def quick_renew?
         return false if type_change? || name_change?
-
         test_opts = new_opts.slice :supercard, :name, :type_id
         new_opts.keys.size <= test_opts.keys.size
       end

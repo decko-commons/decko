@@ -26,8 +26,7 @@ end
 
 def name= newname
   cardname = superize_name newname.to_name
-  newkey = cardname.key
-  self.key = newkey if key != newkey
+  self.key = cardname.key
   update_subcard_names cardname
   write_attribute :name, cardname.s
   name
@@ -37,8 +36,13 @@ def superize_name cardname
   return cardname unless @supercard
   @raw_name = cardname.s
   @supercard.subcards.rename key, cardname.key
-  @superleft = @supercard if cardname.field_of? @supercard.name
+
   cardname.absolute_name @supercard.name
+end
+
+def update_superleft cardname=nil
+  cardname ||= name
+  @superleft = @supercard if cardname.field_of? @supercard.name
 end
 
 def key= newkey
