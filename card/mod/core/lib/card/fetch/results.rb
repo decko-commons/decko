@@ -47,12 +47,17 @@ class Card
       end
 
       def quick_renew
-        test_opts = new_opts.slice :supercard, :name, :type_id
-        return false if new_opts.keys.size > test_opts.keys.size
-        return false if name_change? || type_change?
+        return false unless quick_renew?
         @card.supercard = new_opts[:supercard] if new_opts[:supercard]
         assign_name_from_mark
         true
+      end
+
+      def quick_renew?
+        return false if type_change? || name_change?
+        
+        test_opts = new_opts.slice :supercard, :name, :type_id
+        new_opts.keys.size <= test_opts.keys.size
       end
 
       def name_change?
