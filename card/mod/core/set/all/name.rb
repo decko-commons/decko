@@ -36,7 +36,7 @@ def superize_name cardname
   return cardname unless @supercard
   @raw_name = cardname.s
   @supercard.subcards.rename key, cardname.key
-
+  update_superleft cardname
   cardname.absolute_name @supercard.name
 end
 
