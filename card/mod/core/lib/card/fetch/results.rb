@@ -13,6 +13,15 @@ class Card
       end
 
       def new_result_card
+        with_new_card do
+          finalize_result_card
+          # must include_set_modules before checking `card.known?`,
+          # in case, eg, set modules override #virtual?
+          card if new_opts || card.known?
+        end
+      end
+
+      def with_new_card
         if new_opts
           quick_renew || renew
         elsif opts[:skip_virtual]
@@ -20,14 +29,11 @@ class Card
         else
           assign_name_from_mark
         end
-        finalize_result_card
-        # must include_set_modules before checking `card.known?`,
-        # in case, eg, set modules override #virtual?
-        card if new_opts || card.known?
+        yield
       end
 
       def renew
-        # Rails.logger.info "renewing: #{mark}, #{new_opts}"
+        Rails.logger.info "renewing: #{mark}, #{new_opts}"
         @card = card.dup
         @card.newish newish_opts
       end
@@ -44,7 +50,7 @@ class Card
         test_opts = new_opts.slice :supercard, :name, :type_id
         return false if new_opts.keys.size > test_opts.keys.size
         return false if name_change? || type_change?
-        @card.supercard = new_opts[:supercard]
+        @card.supercard = new_opts[:supercard] if new_opts[:supercard]
         assign_name_from_mark
         true
       end

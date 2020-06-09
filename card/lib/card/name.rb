@@ -13,9 +13,6 @@ class Card
     include FieldsAndTraits
     include NameVariants
 
-    self.params  = Card::Env # yuck!
-    self.session = proc { Card::Auth.current.name } # also_yuck
-
     class << self
       def [] *cardish
         cardish = cardish.first if cardish.size <= 1
@@ -27,6 +24,14 @@ class Card
         else
           raise ArgumentError, "#{cardish.class} not supported as name identifier"
         end
+      end
+
+      def session
+        Card::Auth.current.name # also_yuck
+      end
+
+      def params
+        Env.params
       end
 
       def new str, validated_parts=nil
