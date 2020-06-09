@@ -31,7 +31,7 @@ class Card
       end
 
       def params
-        Env.params
+        Card::Env.params
       end
 
       def new str, validated_parts=nil

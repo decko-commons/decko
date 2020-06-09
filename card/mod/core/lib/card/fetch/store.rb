@@ -46,6 +46,7 @@ class Card
       # environments where they won't be changing (eg production) or at least the list of
       # matching set patterns
       def prep_for_cache
+        return # DELETE ME
         return if skip_modules?
 
         Cardio.config.cache_set_module_list ? card.set_modules : card.patterns

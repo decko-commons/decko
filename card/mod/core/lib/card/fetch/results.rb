@@ -13,6 +13,7 @@ class Card
       end
 
       def new_result_card
+        # binding.pry if mark&.to_name&.right == "File".to_name
         with_new_card do
           finalize_result_card
           # must include_set_modules before checking `card.known?`,
@@ -34,7 +35,7 @@ class Card
 
       def renew
         # Rails.logger.info "renewing: #{mark}, #{new_opts}"
-        @card = card.dup
+        @card = card.dup if @card.type_id
         @card.newish newish_opts
       end
 
@@ -47,6 +48,7 @@ class Card
       end
 
       def quick_renew
+        return true if new_opts.blank?
         return false unless quick_renew?
         # Rails.logger.info "QUICK renewing: #{mark}, #{new_opts}"
 
@@ -74,9 +76,19 @@ class Card
 
       def type_change?
         return true unless @card.type_id
+        if supercard_might_change_type?
+          @card.type_id = nil
+          return true
+        end
         type_id = new_opts[:type_id] || new_opts[:type]
         type_id = Codename.id(type_id) if type_id.is_a? Symbol
         type_id && (type_id != @card.type_id)
+      end
+
+      def supercard_might_change_type?
+        # ...via type_plus_right rule
+        sc = new_opts[:supercard]
+        sc&.new? && (sc.type_id != sc.default_type_id)
       end
 
       def new_opts

@@ -48,8 +48,7 @@ class Card
     end
 
     def skip_type_lookup?
-      # if skipping virtual no need to look for actual type
-      opts[:skip_virtual] || opts[:skip_type_lookup]
+      opts[:skip_virtual] || opts[:skip_type_lookup] # || opts[:new]
     end
   end
 end
