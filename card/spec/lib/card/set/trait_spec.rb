@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-
 RSpec.describe Card::Set::Trait do
   add_set_modules = Proc.new do
     class Card

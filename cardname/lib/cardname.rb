@@ -18,7 +18,7 @@ class Cardname < String
   include Manipulate
 
   OK4KEY_RE = '\p{Word}\*'
-  
+
   cattr_accessor :joint, :banned_array, :var_re, :uninflect, :params,
                  :session, :stabilize
 
