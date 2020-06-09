@@ -33,7 +33,9 @@ class Card
       end
 
       def renew
-        Rails.logger.info "renewing: #{mark}, #{new_opts}"
+        return if new_opts.blank?
+        # Rails.logger.info
+        puts "renewing: #{mark}, #{new_opts}"
         @card = card.dup
         @card.newish newish_opts
       end
@@ -47,7 +49,7 @@ class Card
       end
 
       def quick_renew
-        return false unless quick_renew?
+        return false # unless quick_renew?
         Rails.logger.info "QUICK renewing: #{mark}, #{new_opts}"
 
         update_supercard
@@ -58,7 +60,7 @@ class Card
       def update_supercard
         return unless (sc = new_opts[:supercard])
         @card.supercard = sc
-        @card.update_superleft
+        @card.update_superleft @card.name
       end
 
       def quick_renew?
