@@ -7,8 +7,8 @@ RSpec.describe Card::Set::Trait do
         class Type
           module Phrase
             extend Card::Set
-            card_accessor :write, type_id: PhraseID
-            card_accessor :read, type_id: Card::PhraseID
+            card_accessor :write, type: :phrase
+            card_accessor :read, type: PhraseID
           end
         end
 
