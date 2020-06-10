@@ -93,11 +93,7 @@ class Card
       end
 
       def type_change?
-        return true unless @card.type_id
-        if supercard_might_change_type?
-          @card.type_id = nil
-          return true
-        end
+        return true if @card.type_id.nil? || supercard_might_change_type?
         type_id = new_opts[:type_id] || new_opts[:type] || new_opts[:type_code]
         type_id = Codename.id(type_id) if type_id.is_a? Symbol
         type_id && (type_id != @card.type_id)
