@@ -5,6 +5,7 @@ end
 def patterns
   @patterns ||= begin
     Rails.logger.info "loading patterns: #{name}"
+    binding.pry if name.to_name.key == 'script_decko'
     set_patterns.map { |sub| sub.new self }.compact
   end
 end
@@ -17,7 +18,7 @@ end
 alias_method_chain :patterns, :new
 
 def reset_patterns
-  # Rails.logger.info "resetting patterns: #{name}"
+  Rails.logger.info "resetting patterns: #{name}"
   @patterns = @patterns_without_new = nil
   @template = @virtual = nil
   @set_mods_loaded = @set_modules = @set_names = @rule_set_keys = nil
@@ -28,6 +29,7 @@ end
 def reset_patterns_if_rule _saving=false
   return unless real? && is_rule? && (set = left)
   set.reset_patterns
+  Rails.logger.info " - reset_patterns in #reset_patterns_if_rule"
   set.include_set_modules
   set
 end

@@ -217,6 +217,7 @@ end
 event :update_read_rule do
   without_timestamps do
     reset_patterns # why is this needed?
+    Rails.logger.info " - reset_patterns in #update_read_rule"
     rcard_id, rclass = permission_rule_id_and_class :read
     # these two are just to make sure vals are correct on current object
     self.read_rule_id = rcard_id

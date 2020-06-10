@@ -42,8 +42,8 @@ class Card
 
       def newish_opts
         hash = new_opts.clone.reverse_merge name: mark
-        if (default_content = hash.delete(:default_content)) && @card.db_content.blank?
-          hash[:content] ||= default_content
+        if (content = assignable_content(hash.delete(:default_content)))
+          hash[:content] = content
         end
         hash
       end
@@ -66,13 +66,31 @@ class Card
       def quick_renew?
         return true if new_opts.blank?
         return false if type_change? || name_change?
-        test_opts = new_opts.slice :supercard, :name, :type_id, :type
-        new_opts.keys.size <= test_opts.keys.size
+        return false if fancy_renew?
+        quick_content
+        true
+      end
+
+      # contains subcards, etc, that quick_renew can't handle
+      def fancy_renew?
+        test_opts = new_opts.slice :supercard, :name, :type_id, :type, :type_code,
+                                   :content, :default_content
+        new_opts.keys.size > test_opts.keys.size
+      end
+
+      def assignable_content default_content
+        new_opts[:content] || (@card.db_content.blank? && default_content)
+      end
+
+      def quick_content
+        return unless (content = assignable_content(new_opts[:default_content]))
+        @card.content = content
       end
 
       def name_change?
-        new_name = new_opts[:name]&.to_name
-        (new_name && (new_name != @card.name)) #  || @card.name.relative?
+        return false unless (new_name = new_opts[:name]&.to_name)
+        return false if new_name.relative? && mark.name? && mark.absolute?
+        new_name != @card.name
       end
 
       def type_change?
@@ -81,7 +99,7 @@ class Card
           @card.type_id = nil
           return true
         end
-        type_id = new_opts[:type_id] || new_opts[:type]
+        type_id = new_opts[:type_id] || new_opts[:type] || new_opts[:type_code]
         type_id = Codename.id(type_id) if type_id.is_a? Symbol
         type_id && (type_id != @card.type_id)
       end

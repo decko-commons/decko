@@ -16,12 +16,11 @@ class Card
       # instantiate a card as a cache placeholder
       def new_for_cache
         return unless new_for_cache?
-        opts = { name: mark, skip_modules: true, skip_type_lookup: skip_type_lookup? }
-        #if mark.name? && mark.absolute? && new_opts.present?
-          #opts.merge! new_opts.slice(:type, :type_id, :type_code)
-          #end
-
-        @card = Card.new opts
+        args = { name: mark, skip_modules: true, skip_type_lookup: skip_type_lookup? }
+        if opts[:eager_cache] && mark.name? && mark.absolute? && new_opts.present?
+          args.merge! new_opts.slice(:type, :type_id, :type_code)
+        end
+        @card = Card.new args
       end
 
       def new_for_cache?

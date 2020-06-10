@@ -34,6 +34,7 @@ def update_read_ruled_cards set
 
   Card.search(read_rule_id: id) do |card|
     card.reset_patterns
+    Rails.logger.info " - reset_patterns in #update_read_ruled_cards"
     card.include_set_modules
     card.update_read_rule unless updated.include?(card.key)
   end

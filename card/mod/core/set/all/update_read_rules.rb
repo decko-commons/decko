@@ -8,5 +8,6 @@ end
 
 event :expire_related, :finalize do
   reset_patterns
+  Rails.logger.info " - reset_patterns in #expire_related"
   structuree_names.each { |name| ActManager.expirees << name } if is_structure?
 end

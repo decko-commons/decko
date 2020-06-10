@@ -35,6 +35,7 @@ end
 def get_type_id_from_structure
   return unless name && (t = template)
   reset_patterns # still necessary even with new template handling?
+  Rails.logger.info " - reset_patterns in #get_type_id_from_structure"
   t.type_id
 end
 

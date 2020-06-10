@@ -105,6 +105,7 @@ end
 
 def newish opts
   reset_patterns
+  Rails.logger.info " - reset_patterns in #newish"
   Card.with_normalized_new_args opts do |norm_opts|
     handle_type norm_opts do
       assign_attributes norm_opts
