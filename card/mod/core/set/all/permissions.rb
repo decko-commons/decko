@@ -23,22 +23,26 @@ end
 # options.
 
 def ok? action
-  @action_ok = true
-  send "ok_to_#{action}"
-  @action_ok
+  @ok ||= {}
+  aok = @ok[Auth.as_id] ||= {}
+  if (cached = aok[action])
+    cached
+  else
+    aok[action] = send "ok_to_#{action}"
+  end
 end
 
-def ok_with_fetch? action, opts={}
-  trait = opts.delete :trait
-  card = trait.nil? ? self : fetch(trait, opts)
-  card&.ok_without_fetch? action
-end
+# def ok_with_fetch? action, opts={}
+#   trait = opts.delete :trait
+#   card = trait.nil? ? self : fetch(trait, opts)
+#   card&.ok_without_fetch? action
+# end
 
 # note: method is chained so that we can return the instance variable @action_ok
-alias_method_chain :ok?, :fetch
+# alias_method_chain :ok?, :fetch
 
-def ok! action, opts={}
-  raise Card::Error::PermissionDenied, self unless ok? action, opts
+def ok! action
+  raise Card::Error::PermissionDenied, self unless ok? action
 end
 
 def who_can action
@@ -106,7 +110,7 @@ end
 
 def deny_because why
   @permission_errors << why if @permission_errors
-  @action_ok = false
+  false
 end
 
 def permitted? action
@@ -118,16 +122,19 @@ end
 
 def permit action, verb=nil
   # not called by ok_to_read
-  deny_because "Currently in read-only mode" if Card.config.read_only
+  if Card.config.read_only
+    deny_because "Currently in read-only mode"
+    return false
+  end
 
-  return if permitted? action
+  return true if permitted? action
   verb ||= action.to_s
   deny_because you_cant("#{verb} #{name.present? ? name : 'this'}")
 end
 
 def ok_to_create
-  permit :create
-  return if !@action_ok || !junction?
+  return false unless permit :create
+  return true if simple?
 
   %i[left right].each do |side|
     # left is supercard; create permissions will get checked there.
@@ -137,23 +144,23 @@ def ok_to_create
     next unless part_card && part_card.new_card?
     unless part_card.ok? :create
       deny_because you_cant("create #{part_card.name}")
+      return false
     end
   end
+  true
 end
 
 def ok_to_read
-  return if Auth.always_ok?
+  return true if Auth.always_ok?
   @read_rule_id ||= permission_rule_id(:read)
-  return if Auth.as_card.read_rules.member? @read_rule_id
+  return true if Auth.as_card.read_rules.member? @read_rule_id
   deny_because you_cant "read this"
 end
 
 def ok_to_update
-  permit :update
-  if @action_ok && type_id_changed? && !permitted?(:create)
-    deny_because you_cant("change to this type (need create permission)")
-  end
-  ok_to_read if @action_ok
+  return false unless permit(:update)
+  return true unless type_id_changed? && !permitted?(:create)
+  deny_because you_cant("change to this type (need create permission)")
 end
 
 def ok_to_delete

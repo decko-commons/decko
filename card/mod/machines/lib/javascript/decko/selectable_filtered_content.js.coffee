@@ -8,3 +8,5 @@ $(window).ready ->
     input = $(container.data("input-selector"))
     input.val name
     item.closest('.modal').modal('hide')
+    e.preventDefault()
+    e.stopPropagation()
