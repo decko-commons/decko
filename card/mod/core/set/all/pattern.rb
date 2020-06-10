@@ -4,7 +4,7 @@ end
 
 def patterns
   @patterns ||= begin
-                  # Rails.logger.info "loading patterns: #{name}"
+    Rails.logger.info "loading patterns: #{name}"
     set_patterns.map { |sub| sub.new self }.compact
   end
 end

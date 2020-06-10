@@ -30,9 +30,11 @@ class Cardname < String
 
   JOINT_RE = Regexp.escape joint
 
-  @@cache = {}
-
   class << self
+    def cache
+      @cache ||= {}
+    end
+
     def new obj
       return obj if obj.is_a? self.class
 
@@ -41,11 +43,11 @@ class Cardname < String
     end
 
     def cached_name str
-      @@cache[str]
+      cache[str]
     end
 
     def reset_cache str=nil
-      str ? @@cache.delete(str) : @@cache = {}
+      str ? cache.delete(str) : cache = {}
     end
 
     def stringify obj
@@ -95,7 +97,7 @@ class Cardname < String
   attr_reader :key
 
   def initialize str
-    @@cache[str] = super str.strip.encode("UTF-8")
+    self.class.cache[str] = super str.strip.encode("UTF-8")
   end
 
   def s
