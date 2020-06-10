@@ -34,7 +34,8 @@ class Card
       end
 
       def renew
-        # Rails.logger.info "renewing: #{mark}, #{new_opts}"
+        return if new_opts.blank?
+        Rails.logger.info "renewing: #{mark}, #{new_opts}"
         @card = card.dup
         @card.newish newish_opts
       end
@@ -48,10 +49,9 @@ class Card
       end
 
       def quick_renew
-        return true if new_opts.blank?
         return false unless quick_renew?
-        # Rails.logger.info "QUICK renewing: #{mark}, #{new_opts}"
 
+        # Rails.logger.info "QUICK renewing: #{mark}, #{new_opts}"
         update_supercard
         assign_name_from_mark
         true
@@ -64,6 +64,7 @@ class Card
       end
 
       def quick_renew?
+        return true if new_opts.blank?
         return false if type_change? || name_change?
         test_opts = new_opts.slice :supercard, :name, :type_id, :type
         new_opts.keys.size <= test_opts.keys.size

@@ -7,8 +7,8 @@ class Card
         prep_for_cache
 
         Card.write_to_cache card, local_only?
-      rescue
-        binding.pry
+        # rescue
+        # binding.pry
       end
 
       def cache_ready?
@@ -18,8 +18,12 @@ class Card
       # instantiate a card as a cache placeholder
       def new_for_cache
         return unless new_for_cache?
-        @card = Card.new name: mark, skip_modules: true,
-                         skip_type_lookup: skip_type_lookup?
+        opts = { name: mark, skip_modules: true, skip_type_lookup: skip_type_lookup? }
+        #if mark.name? && mark.absolute? && new_opts.present?
+          #opts.merge! new_opts.slice(:type, :type_id, :type_code)
+          #end
+
+        @card = Card.new opts
       end
 
       def new_for_cache?
@@ -48,7 +52,7 @@ class Card
       # environments where they won't be changing (eg production) or at least the list of
       # matching set patterns
       def prep_for_cache
-        # return # DELETE ME
+        return # DELETE ME
         return if skip_modules?
 
         Cardio.config.cache_set_module_list ? card.set_modules : card.patterns
