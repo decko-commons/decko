@@ -13,7 +13,6 @@ class Card
       end
 
       def new_result_card
-        # binding.pry if mark&.to_name&.right == "File".to_name
         with_new_card do
           finalize_result_card
           # must include_set_modules before checking `card.known?`,
