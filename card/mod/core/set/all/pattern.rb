@@ -5,7 +5,6 @@ end
 def patterns
   @patterns ||= begin
     Rails.logger.info "loading patterns: #{name}"
-    binding.pry if name.to_name.key == 'script_decko'
     set_patterns.map { |sub| sub.new self }.compact
   end
 end
