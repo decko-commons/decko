@@ -34,7 +34,7 @@ class Card
 
       def renew
         return if new_opts.blank?
-        Rails.logger.info "renewing: #{mark}, #{new_opts}"
+        # Rails.logger.info "renewing: #{mark}, #{new_opts}"
         @card = card.dup
         @card.newish newish_opts
       end
@@ -94,9 +94,13 @@ class Card
 
       def type_change?
         return true if @card.type_id.nil? || supercard_might_change_type?
-        type_id = new_opts[:type_id] || new_opts[:type] || new_opts[:type_code]
-        type_id = Codename.id(type_id) if type_id.is_a? Symbol
+        type_id = type_id_from_new_opts
         type_id && (type_id != @card.type_id)
+      end
+      
+      def type_id_from_new_opts
+        type_id = new_opts[:type_id] || new_opts[:type] || new_opts[:type_code]
+        type_id.is_a?(Symbol) ? Codename.id(type_id) : type_id
       end
 
       def supercard_might_change_type?

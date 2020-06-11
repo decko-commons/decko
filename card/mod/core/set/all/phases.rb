@@ -1,6 +1,5 @@
 def prepare_for_phases
   reset_patterns
-  Rails.logger.info " - reset_patterns in #prepare_for_phases"
   include_set_modules
 end
 

@@ -68,10 +68,7 @@ def permission_rule_id action
 end
 
 def permission_rule_id_and_class action
-  [
-    permission_rule_id(action),
-    direct_rule_card(action).rule_class_name
-  ]
+  [permission_rule_id(action), direct_rule_card(action).rule_class_name]
 end
 
 def left_permission_rule_id action
@@ -146,10 +143,10 @@ end
 
 def ok_to_read
   return true if Auth.always_ok?
-  self.read_rule_id ||= permission_rule_id(:read)
+  @read_rule_id ||= permission_rule_id(:read)
 
   # TODO: optimize with hash lookup
-  return true if Auth.as_card.read_rules_hash[read_rule_id]
+  return true if Auth.as_card.read_rules_hash[@read_rule_id]
   deny_because you_cant "read this"
 end
 
@@ -211,7 +208,6 @@ end
 event :update_read_rule do
   without_timestamps do
     reset_patterns # why is this needed?
-    Rails.logger.info " - reset_patterns in #update_read_rule"
     rcard_id, rclass = permission_rule_id_and_class :read
     # these two are just to make sure vals are correct on current object
     self.read_rule_id = rcard_id

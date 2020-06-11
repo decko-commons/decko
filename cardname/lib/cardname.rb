@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-#require "active_support/configurable"
 require "active_support/inflector"
 require "htmlentities"
 
@@ -47,7 +46,7 @@ class Cardname < String
     end
 
     def reset_cache str=nil
-      str ? cache.delete(str) : cache = {}
+      str ? cache.delete(str) : @cache = {}
     end
 
     def stringify obj

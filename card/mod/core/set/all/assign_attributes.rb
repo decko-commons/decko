@@ -80,7 +80,6 @@ def refresh_set_modules
   reinclude_set_modules = @set_mods_loaded
   yield
   reset_patterns
-  Rails.logger.info " - reset_patterns in #refresh_set_modules"
   include_set_modules if reinclude_set_modules
 end
 

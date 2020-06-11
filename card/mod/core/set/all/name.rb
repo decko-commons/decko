@@ -45,7 +45,6 @@ def update_superleft cardname
 end
 
 def key= newkey
-  old_key = key
   return if newkey == key
   was_in_cache = Card.cache.soft.delete key
   write_attribute :key, newkey
@@ -54,7 +53,6 @@ def key= newkey
   # reset the old name - should be handled in tracked_attributes!!
   reset_patterns_if_rule
   reset_patterns
-  Rails.logger.info " - reset_patterns in #key #(#{self}, #{key})"
   newkey
 end
 

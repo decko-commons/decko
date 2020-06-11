@@ -23,7 +23,8 @@ end
 
 def rule setting_code, options={}
   options[:skip_modules] = true
-  rule_card(setting_code, options)&.db_content
+  card = rule_card setting_code, options
+  card && card.db_content
 end
 
 def rule_card setting_code, options={}
