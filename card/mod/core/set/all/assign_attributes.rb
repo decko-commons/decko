@@ -47,9 +47,7 @@ def prepare_assignment_params args
   args = args.to_unsafe_h if args.respond_to?(:to_unsafe_h)
   params = ActionController::Parameters.new(args)
   params.permit!
-  if params[:db_content].is_a? Array
-    params[:db_content] = params[:db_content].join("\n")
-  end
+  params[:db_content] = standardize_content(params[:db_content]) if params[:db_content]
   params
 end
 
@@ -107,7 +105,7 @@ def extract_type_id! args={}
 end
 
 def type_id_from_codename type_code
-  type_id_or_error(type_code) { Codename.id type_code }
+  type_id_or_error(type_code) { Card::Codename.id type_code }
 end
 
 def type_id_from_cardname type_name
