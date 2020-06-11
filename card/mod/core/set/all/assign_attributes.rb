@@ -89,7 +89,7 @@ def stash_set_specific_attributes args
 end
 
 def normalize_type_attributes args
-  new_type_id = extract_type_id! args unless (args.delete("type_lookup") == :skip)
+  new_type_id = extract_type_id! args unless args.delete("type_lookup") == :skip
   args["type_id"] = new_type_id if new_type_id
 end
 
