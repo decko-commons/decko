@@ -62,7 +62,7 @@ def permission_rule_id action
   if junction? && rule(action).match?(/^\[?\[?_left\]?\]?$/)
     left_permission_rule_id action
   else
-    ((action == :read) && read_rule_id) || rule_card_id(action)
+    rule_card_id(action)
   end
 end
 
@@ -142,10 +142,10 @@ end
 
 def ok_to_read
   return true if Auth.always_ok?
-  @read_rule_id ||= permission_rule_id(:read)
+  self.read_rule_id ||= permission_rule_id(:read)
 
   # TODO: optimize with hash lookup
-  return true if Auth.as_card.read_rules_hash[@read_rule_id]
+  return true if Auth.as_card.read_rules_hash[read_rule_id]
   deny_because you_cant "read this"
 end
 
