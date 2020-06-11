@@ -44,6 +44,7 @@ class Card
         if (content = assignable_content(hash.delete(:default_content)))
           hash[:content] = content
         end
+        hash[:type_lookup] = :force if @force_type_lookup
         hash
       end
 
@@ -97,7 +98,7 @@ class Card
         type_id = type_id_from_new_opts
         type_id && (type_id != @card.type_id)
       end
-      
+
       def type_id_from_new_opts
         type_id = new_opts[:type_id] || new_opts[:type] || new_opts[:type_code]
         type_id.is_a?(Symbol) ? Codename.id(type_id) : type_id
@@ -106,7 +107,7 @@ class Card
       def supercard_might_change_type?
         # ...via type_plus_right rule
         sc = new_opts[:supercard]
-        sc&.new? && (sc.type_id != sc.default_type_id)
+        @force_type_lookup = sc&.new? && (sc.type_id != sc.default_type_id)
       end
 
       def new_opts
