@@ -142,10 +142,10 @@ end
 
 def ok_to_read
   return true if Auth.always_ok?
-  self.read_rule_id ||= permission_rule_id(:read)
 
-  # TODO: optimize with hash lookup
+  self.read_rule_id ||= permission_rule_id :read
   return true if Auth.as_card.read_rules_hash[read_rule_id]
+
   deny_because you_cant "read this"
 end
 
