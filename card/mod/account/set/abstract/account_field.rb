@@ -9,7 +9,9 @@ end
 # force inherit permission on create
 # (cannot be done with rule, because sets are not addressable)
 def permission_rule_id action
-  return left_permission_rule_id action if action == :create
-
-  super
+  if action == :create
+    left_permission_rule_id action
+  else
+    super
+  end
 end

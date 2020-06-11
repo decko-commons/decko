@@ -31,7 +31,6 @@ def ok? action
     aok[action] = send "ok_to_#{action}"
   end
 end
-
 # def ok_with_fetch? action, opts={}
 #   trait = opts.delete :trait
 #   card = trait.nil? ? self : fetch(trait, opts)
@@ -63,7 +62,7 @@ def permission_rule_id action
   if junction? && rule(action).match?(/^\[?\[?_left\]?\]?$/)
     left_permission_rule_id action
   else
-    ((@action == :read) && read_rule_id) || rule_card_id(action)
+    ((action == :read) && read_rule_id) || rule_card_id(action)
   end
 end
 
