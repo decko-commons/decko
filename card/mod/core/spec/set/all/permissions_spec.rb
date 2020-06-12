@@ -132,6 +132,10 @@ RSpec.describe Card::Set::All::Permissions do
         end
       end
 
+      @c1 = @c1.refresh(true)
+      @c2 = @c2.refresh(true)
+      @c3 = @c3.refresh(true)
+
       assert_not_hidden_from(@u1, @c1)
       assert_not_hidden_from(@u1, @c2)
       assert_hidden_from(@u1, @c3)
@@ -178,6 +182,8 @@ RSpec.describe Card::Set::All::Permissions do
         end
       end
 
+      @c1 = @c1.refresh(true)
+      @c2 = @c2.refresh(true)
       # NOTE: retrieving private cards is known not to work now.
       # assert_not_hidden_from(@u1, @c1)
       # assert_not_hidden_from(@u2, @c2)

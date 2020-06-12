@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-require "active_support/configurable"
 require "active_support/inflector"
 require "htmlentities"
 
@@ -19,22 +18,22 @@ class Cardname < String
 
   OK4KEY_RE = '\p{Word}\*'
 
-  include ActiveSupport::Configurable
+  cattr_accessor :joint, :banned_array, :var_re, :uninflect, :params,
+                 :session, :stabilize
 
-  config_accessor :joint, :banned_array, :var_re, :uninflect, :params,
-                  :session, :stabilize
-
-  Cardname.joint          = "+"
-  Cardname.banned_array   = []
-  Cardname.var_re         = /\{([^\}]*\})\}/
-  Cardname.uninflect      = :singularize
-  Cardname.stabilize      = false
+  self.joint          = "+"
+  self.banned_array   = []
+  self.var_re         = /\{([^\}]*\})\}/
+  self.uninflect      = :singularize
+  self.stabilize      = false
 
   JOINT_RE = Regexp.escape joint
 
-  @@cache = {}
-
   class << self
+    def cache
+      @cache ||= {}
+    end
+
     def new obj
       return obj if obj.is_a? self.class
 
@@ -43,11 +42,11 @@ class Cardname < String
     end
 
     def cached_name str
-      @@cache[str]
+      cache[str]
     end
 
     def reset_cache str=nil
-      str ? @@cache.delete(str) : @@cache = {}
+      str ? cache.delete(str) : @cache = {}
     end
 
     def stringify obj
@@ -97,7 +96,7 @@ class Cardname < String
   attr_reader :key
 
   def initialize str
-    @@cache[str] = super str.strip.encode("UTF-8")
+    self.class.cache[str] = super str.strip.encode("UTF-8")
   end
 
   def s

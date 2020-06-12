@@ -49,11 +49,11 @@ def handle_set_modules args
 end
 
 def handle_type args
-  skip_type_lookup = args["skip_type_lookup"]
+  type_lookup = args["type_lookup"]
   @supercard = args.delete "supercard"
 
   yield
-  self.type_id = get_type_id_from_structure if !type_id && !skip_type_lookup
+  type_id_from_template if type_lookup == :force || (!type_id && type_lookup != :skip)
 end
 
 def initial_name name

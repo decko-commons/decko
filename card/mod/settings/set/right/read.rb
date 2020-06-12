@@ -33,8 +33,6 @@ def update_read_ruled_cards set
   return if new_card?
 
   Card.search(read_rule_id: id) do |card|
-    card.reset_patterns
-    card.include_set_modules
     card.update_read_rule unless updated.include?(card.key)
   end
 end

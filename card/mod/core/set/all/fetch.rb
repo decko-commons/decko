@@ -103,15 +103,6 @@ def fetch traits, opts={}
   end
 end
 
-def renew mark, new_opts
-  return self if new_opts.blank?
-  opts = new_opts.clone.reverse_merge name: mark
-  copy = dup
-  handle_default_content opts
-  copy.newish opts
-  copy
-end
-
 def newish opts
   reset_patterns
   Card.with_normalized_new_args opts do |norm_opts|
@@ -120,12 +111,6 @@ def newish opts
       self.name = name # trigger superize_name
     end
   end
-end
-
-def handle_default_content opts
-  return unless (default_content = opts.delete(:default_content)) && db_content.blank?
-
-  opts[:content] ||= default_content
 end
 
 def refresh force=false

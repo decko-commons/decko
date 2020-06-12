@@ -64,7 +64,7 @@ class Cardname
       end
     end
 
-    def absolute context, args={}
+    def absolute context
       context = (context || "").to_name
       new_parts = absolutize_contextual_parts context
       return "" if new_parts.empty?
@@ -100,8 +100,7 @@ class Cardname
     end
 
     def user_part part
-      name_proc = self.class.session
-      name_proc ? name_proc.call : part
+      self.class.session || part
     end
 
     def ordinal_part pos, context

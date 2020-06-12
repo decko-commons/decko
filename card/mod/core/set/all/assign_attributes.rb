@@ -47,9 +47,7 @@ def prepare_assignment_params args
   args = args.to_unsafe_h if args.respond_to?(:to_unsafe_h)
   params = ActionController::Parameters.new(args)
   params.permit!
-  if params[:db_content].is_a? Array
-    params[:db_content] = params[:db_content].join("\n")
-  end
+  params[:db_content] = standardize_content(params[:db_content]) if params[:db_content]
   params
 end
 
@@ -91,29 +89,35 @@ def stash_set_specific_attributes args
 end
 
 def normalize_type_attributes args
-  new_type_id = extract_type_id! args unless args.delete("skip_type_lookup")
+  new_type_id = extract_type_id! args unless args.delete("type_lookup") == :skip
   args["type_id"] = new_type_id if new_type_id
 end
 
 def extract_type_id! args={}
-  type_id =
-    case
-    when args["type_id"]
-      id = args.delete("type_id").to_i
-      # type_id can come in as 0,'' or nil
-      id.zero? ? nil : id
-    when args["type_code"]
-      Card.fetch_id args.delete("type_code").to_sym
-    when args["type"]
-      Card.fetch_id args.delete("type")
-    else
-      return nil
-    end
-
-  unless type_id
-    errors.add :type, "#{args[:type] || args[:type_code]} is not a known type."
+  case
+  when (type_id = args.delete("type_id")&.to_i)
+    type_id.zero? ? nil : type_id
+  when (type_code = args.delete("type_code")&.to_sym)
+    type_id_from_codename type_code
+  when (type_name = args.delete "type")
+    type_id_from_cardname type_name
   end
-  type_id
+end
+
+def type_id_from_codename type_code
+  type_id_or_error(type_code) { Card::Codename.id type_code }
+end
+
+def type_id_from_cardname type_name
+  type_id_or_error(type_name) { Card.fetch_id type_name }
+end
+
+def type_id_or_error val
+  type_id = yield
+  return type_id if type_id
+
+  errors.add :type, "#{val} is not a known type."
+  nil
 end
 
 # 'set' refers to the noun not the verb

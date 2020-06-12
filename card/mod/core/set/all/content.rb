@@ -1,5 +1,5 @@
 def content= value
-  self.db_content = value
+  self.db_content = standardize_content(value)
 end
 
 def content
@@ -13,6 +13,10 @@ end
 
 def standard_content
   db_content || (new_card? && template.db_content)
+end
+
+def standardize_content value
+  value.is_a?(Array) ? value.join("\n") : value
 end
 
 def structured_content

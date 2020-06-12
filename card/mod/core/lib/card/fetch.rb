@@ -3,6 +3,7 @@ class Card
   class Fetch
     include Retrieve
     include Results
+    include Store
 
     attr_reader :card, :mark, :opts
 
@@ -11,21 +12,20 @@ class Card
       normalize_args args
       absolutize_mark
       validate_opts!
-      @needs_caching = false
     end
 
     def retrieve_or_new
       retrieve_existing
-      new_for_cache
+      update_cache
       results
-    end
-
-    def needs_caching?
-      @needs_caching
     end
 
     def local_only?
       opts[:local_only]
+    end
+
+    def skip_modules?
+      opts[:skip_modules]
     end
 
     def normalize_args args
@@ -48,11 +48,7 @@ class Card
     end
 
     def skip_type_lookup?
-      # if opts[:new] is not empty then we are initializing a variant that is
-      # different from the cached variant
-      # and can postpone type lookup for the cached variant
-      # if skipping virtual no need to look for actual type
-      opts[:skip_virtual] || opts[:new].present? || opts[:skip_type_lookup]
+      opts[:skip_virtual] || opts[:skip_type_lookup] # || opts[:new]
     end
   end
 end
