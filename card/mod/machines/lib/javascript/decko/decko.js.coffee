@@ -50,7 +50,7 @@ $(window).ready ->
 
     setSlotMode($this)
     $this.data 'params', $(this).closest('form').serialize()
-    $this.data 'url', $(this).attr 'href'
+    $this.data 'url', $(this).slot().slotUrl() #$(this).attr 'href'
 
   $('body').on 'change', '.edit-type-field', ->
     $(this).closest('form').submit()

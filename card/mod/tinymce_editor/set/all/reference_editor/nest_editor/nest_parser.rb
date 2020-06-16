@@ -14,8 +14,10 @@ class NestParser
   end
 
   def self.new_image name
-    OpenStruct.new(name: name, field?: true, options: [%i[size medium]], item_options: [],
-                   raw: "{{+#{name}|size: medium}}")
+    OpenStruct.new(name: name, field?: true,
+                   options: [%i[view content], %i[size medium]],
+                   item_options: [],
+                   raw: "{{+#{name}|view: content; size: medium}}")
   end
 
   def field?

@@ -16,7 +16,7 @@ module ClassMethods
   private
 
   def standard_controller_fetch args, card_opts
-    mark = args[:mark] || card_opts[:name]
+    mark = card_opts[:name] || args[:mark]
     card = Card.fetch mark, skip_modules: true,
                             look_in_trash: args[:look_in_trash],
                             new: card_opts
