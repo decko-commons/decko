@@ -91,8 +91,8 @@ format :html do
     classes = [classy("modal-dialog")]
     return classes unless opts.present?
 
-    add_modal_size_class classes, opts.delete(:size)
-    classes << "modal-dialog-centered" if opts.delete(:vertically_centered)
+    add_modal_size_class classes, opts[:size]
+    classes << "modal-dialog-centered" if opts[:vertically_centered]
     classes.join " "
   end
 

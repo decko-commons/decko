@@ -64,7 +64,7 @@ format :js do
             end
     <<-JAVASCRIPT.strip_heredoc
       tm = tinymce.get(#{tm_id});
-      nest.insertNest(tm, "{{+#{card.name.tag}|size: medium}}");
+      nest.insertNest(tm, "{{+#{card.name.tag}|view: content; size: medium}}");
     JAVASCRIPT
   end
 end
