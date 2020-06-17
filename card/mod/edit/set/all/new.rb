@@ -152,8 +152,8 @@ format :html do
 
   view :new_type_formgroup do
     wrap_type_formgroup do
-      type_field class: "type-field live-type-field slotter",
-                 href: path,
+      type_field class: "type-field live-type-field",
+                 href: path(view: :new),
                  "data-remote" => true
     end
   end
