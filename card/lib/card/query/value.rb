@@ -2,7 +2,7 @@ class Card
   module Query
     class Value
       include Clause
-      SQL_FIELD = { name: "key", content: "db_content" }.freeze
+      SQL_FIELD = { name: "name", content: "db_content" }.freeze
 
       attr_reader :query, :operator, :value
 
@@ -40,22 +40,21 @@ class Card
 
       def sqlize v
         case v
-        when Query then  v.to_sql
-        when Array then  "(" + v.flatten.map { |x| sqlize(x) }.join(",") + ")"
+        when Query then v.to_sql
+        when Array then "(" + v.flatten.map { |x| sqlize(x) }.join(",") + ")"
         else quote(v.to_s)
         end
       end
 
       def to_sql field
-        value = value_sql field, @value
-        "#{field_sql field} #{operational_sql value}"
+        "#{field_sql field} #{operational_sql}"
       end
 
-      def operational_sql value
+      def operational_sql
         if @operator == "~"
-          connection.match value
+          connection.match match_value
         else
-          "#{@operator} #{value}"
+          "#{@operator} #{sqlize @value}"
         end
       end
 
@@ -64,9 +63,18 @@ class Card
         "#{@query.table_alias}.#{db_field}"
       end
 
-      def value_sql field, value
-        value = [value].flatten.map(&:to_name).map(&:key) if field.to_sym == :name
-        sqlize value
+      def match_value
+        val = @value.is_a?(Array) ? @value.flatten.join(" ") : @value
+        escape_regexp_characters val unless regexp_syntax? val
+        quote val
+      end
+
+      def regexp_syntax? val
+        val.gsub!(/^\~\~\w+/, "")
+      end
+
+      def escape_regexp_characters val
+        val.gsub!(/(\W)/, '\\\\\1')
       end
     end
   end
