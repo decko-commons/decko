@@ -16,7 +16,6 @@ module QuerySpecHelper
   def run_query statement={}
     statement.reverse_merge! return: :name, sort: :name
     statement[:fasten] = fasten if try(:fasten)
-    puts Card::Query.new(statement).sql
     Card::Query.run statement
   end
 

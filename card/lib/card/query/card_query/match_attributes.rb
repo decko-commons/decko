@@ -9,6 +9,7 @@ class Card
       module MatchAttributes
         # match term anywhere in name or content
         def match val
+          return unless val.present?
           subconds = %i[name content].map do |field|
             Value.new([:match, val], self).to_sql field
           end

@@ -2,7 +2,7 @@ class Card
   module Query
     class Value
       include Clause
-      SQL_FIELD = { name: "name", content: "db_content" }.freeze
+      SQL_FIELD = { name: "key", content: "db_content" }.freeze
 
       attr_reader :query, :operator, :value
 
@@ -61,8 +61,12 @@ class Card
       end
 
       def field_sql field
-        db_field = SQL_FIELD[field.to_sym] || safe_sql(field.to_s)
-        "#{@query.table_alias}.#{db_field}"
+        "#{@query.table_alias}.#{standardize_field field}"
+      end
+
+      def standardize_field field
+        return "name" if field.to_sym == :name && @operator == "~"
+        SQL_FIELD[field.to_sym] || safe_sql(field.to_s)
       end
 
       def match_value
