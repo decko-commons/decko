@@ -1,8 +1,7 @@
 format :html do
   view :navbox, cache: :never do
-    select_tag "query[keyword]", initial_options,
-               class: "_navbox navbox form-control w-100",
-               placeholder: navbar_placeholder
+    select_tag "query[keyword]", "", class: "_navbox navbox form-control w-100",
+                                     placeholder: navbar_placeholder
   end
 
   view :navbar do
@@ -20,10 +19,10 @@ format :html do
     end
   end
 
-  def initial_options
-    return "" unless (keyword = params.dig :query, :keyword)
-    options_for_select [keyword]
-  end
+  # def initial_options
+  #   return "" unless (keyword = params.dig :query, :keyword)
+  #   options_for_select [keyword]
+  # end
 
   # TODO: the more natural placeholder would be the content of the navbox card, no?
   # Also, the forced division of "raw" and "core" should probably be replaced
