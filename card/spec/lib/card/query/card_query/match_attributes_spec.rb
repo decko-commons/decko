@@ -2,8 +2,6 @@ require_relative "../query_spec_helper"
 RSpec.describe Card::Query::CardQuery::MatchAttributes do
   include QuerySpecHelper
 
-  # TODO: add specs for: #complete
-
   describe "match" do
     it "reaches content and name via shortcut" do
       expect(run_query(match: "two")).to eq(cards_matching_two)
@@ -19,11 +17,16 @@ RSpec.describe Card::Query::CardQuery::MatchAttributes do
 
     context "with keyword" do
       it "escapes nonword characters" do
-        expect(run_query(match: "two :(!")).to eq(cards_matching_two)
+        expect(run_query(match: "*all")).to include("*all")
       end
 
-      it "it can handle *" do
-        expect(run_query(match: "*all")).to include("*all")
+      it "works like a regexp when prefixed by '~~'" do
+        expect(run_query(match: "~~(two|three)").sort)
+          .to eq((cards_matching_two + %w[Three ThreeHeading]).sort)
+      end
+
+      it "ignores initial (single) '~'" do
+        expect(run_query(match: "~two")).to eq(cards_matching_two)
       end
     end
   end

@@ -12,6 +12,12 @@ class Card
         canonicalize_operator
       end
 
+      def to_sql field
+        "#{field_sql field} #{operational_sql}"
+      end
+
+      private
+
       def parse_value rawvalue
         case rawvalue
         when String, Integer then ["=", rawvalue]
@@ -46,10 +52,6 @@ class Card
         end
       end
 
-      def to_sql field
-        "#{field_sql field} #{operational_sql}"
-      end
-
       def operational_sql
         if @operator == "~"
           connection.match match_value
@@ -64,17 +66,29 @@ class Card
       end
 
       def match_value
-        val = @value.is_a?(Array) ? @value.flatten.join(" ") : @value
-        escape_regexp_characters val unless regexp_syntax? val
-        quote val
+        term = Array.wrap(@value).join(" ")
+        quote process_match_term(term)
       end
 
+      def process_match_term term
+        return term if regexp_syntax? term
+        escape_regexp_characters term
+      end
+
+      # if search val is prefixed with "~~", it is a MYSQL regexp
+      # (and will be passed through)
+      #
+      # Otherwise, all non-alphanumeric characters are escaped.
+      #
+      # A "~" prefix is ignored.
       def regexp_syntax? val
-        val.gsub!(/^\~\~\w+/, "")
+        return true if val.gsub!(/^\~\~\s*/, "")
+        val.gsub!(/^\~/, "")
+        false
       end
 
       def escape_regexp_characters val
-        val.gsub!(/(\W)/, '\\\\\1')
+        val.gsub(/(\W)/, '\\\\\1')
       end
     end
   end
