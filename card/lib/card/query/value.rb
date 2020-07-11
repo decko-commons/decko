@@ -25,8 +25,11 @@ class Card
       private
 
       def standard_sql field
+        @value = Array.wrap(@value).map { |v| v.to_name.key } if field.to_sym == :name
         "#{field_sql field} #{@operator} #{sqlize @value}"
       end
+
+
 
       def parse_value rawvalue
         case rawvalue

@@ -24,7 +24,8 @@ class Card
         end
 
         def match_field field
-          field.to_sym == :name ? "name" : standardize_field(field)
+          fld = field.to_sym == :name ? "name" : standardize_field(field)
+          "#{@query.table_alias}.#{fld}"
         end
 
         def match_value
