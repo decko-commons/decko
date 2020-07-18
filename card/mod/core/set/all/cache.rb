@@ -5,8 +5,8 @@ module ClassMethods
   end
 
   def retrieve_from_cache_by_id id, local_only=false
-    name = retrieve_from_cache "~#{id}", local_only
-    retrieve_from_cache name, local_only if name
+    key = Card::Name.key id
+    retrieve_from_cache key, local_only if key
   end
 
   def retrieve_from_cache_by_key key, local_only=false
