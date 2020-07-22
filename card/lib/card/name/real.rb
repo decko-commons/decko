@@ -8,29 +8,36 @@ class Card
       RIGHT_IDX = 3
 
       def key id
-        id_hash[id]
+        id_to_key[id]
       end
 
       def id name
-        key_hash[name.to_name.key]
+        key_to_id[name.to_name.key]
       end
 
-      def id_hash
-        @id_hash ||= generate_id_hash
+      def id_to_key
+        @id_to_key ||= generate_id_hash
       end
 
-      def key_hash
-        @key_hash ||= id_hash.invert
+      def key_to_id
+        @key_to_id ||= id_to_key.invert
+      end
+
+      def reset_hashes
+        @id_to_key = nil
+        @key_to_id = nil
+        @holder = nil
+        @holder_count = nil
       end
 
       private
 
       def generate_id_hash
-        @id_hash = {}
+        @id_to_key = {}
         @holder = {}
         capture_simple_cards
         capture_compound_cards
-        @id_hash
+        @id_to_key
       end
 
       def raw_rows
@@ -41,7 +48,7 @@ class Card
         raw_rows.each do |r|
           # if r[KEY_IDX].present?
           if !r[LEFT_IDX]
-            @id_hash[r[ID_IDX]] = r[KEY_IDX]
+            @id_to_key[r[ID_IDX]] = r[KEY_IDX]
           else
             @holder[r[ID_IDX]] = [r[LEFT_IDX], r[RIGHT_IDX]]
           end
@@ -52,21 +59,21 @@ class Card
         while still_finding_compounds? do
           @holder.each do |id, side_ids|
             next unless (key = compound_key side_ids)
-            @id_hash[id] = key
+            @id_to_key[id] = key
           end
         end
       end
 
       def compound_key side_ids
         side_ids.map do |side_id|
-          key = @id_hash[side_id]
+          key = @id_to_key[side_id]
           return false unless key
           key
         end.join joint
       end
 
       def still_finding_compounds?
-        count = @holder.keys.count
+        count = @holder.size
         return false if count.zero?
         if @holder_count.nil? || (@holder_count > count)
           @holder_count = count
