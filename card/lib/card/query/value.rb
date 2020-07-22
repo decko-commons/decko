@@ -1,5 +1,6 @@
 class Card
   module Query
+    # handling for CQL value clauses, eg [operator, value]
     class Value
       include Clause
       include MatchValue
@@ -28,8 +29,6 @@ class Card
         @value = Array.wrap(@value).map { |v| v.to_name.key } if field.to_sym == :name
         "#{field_sql field} #{@operator} #{sqlize @value}"
       end
-
-
 
       def parse_value rawvalue
         case rawvalue

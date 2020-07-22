@@ -8,10 +8,11 @@ class Card
 
         def match_term_and_prefix_re
           @match_term_and_prefix_re ||=
-            %r{^(?<prefix>[#{Regexp.escape match_prefices.join}]*)\s*(?<term>.*)$}
+            /^(?<prefix>[#{Regexp.escape match_prefices.join}]*)\s*(?<term>.*)$/
         end
       end
 
+      # handling for match operator
       module MatchValue
         def match_sql field
           exact_name_match(field) ||
@@ -29,7 +30,7 @@ class Card
         end
 
         def match_value
-          escape_regexp_characters unless match_prefix == '~~'
+          escape_regexp_characters unless match_prefix == "~~"
           quote match_term
         end
 
