@@ -24,7 +24,7 @@ def add_to_act
 end
 
 def act_card
-  ActManager.act_card
+  Card::ActManager.act_card
 end
 
 def act_card?
