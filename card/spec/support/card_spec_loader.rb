@@ -56,8 +56,7 @@ class CardSpecLoader
 
         config.before(:each) do |example|
           Delayed::Worker.delay_jobs = false
-          # puts "resetting name hashes"
-          # Card::Name.reset_hashes
+          Card::Name.reset_hashes
           unless example.metadata[:as_bot]
             user_id =
               case example.metadata[:with_user]
