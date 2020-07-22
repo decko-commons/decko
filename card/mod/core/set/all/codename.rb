@@ -14,10 +14,6 @@ event :reset_codename_cache, :integrate, changed: :codename do
   Card::Codename.generate_id_constants
 end
 
-event :temporary_name_hash_hack, :integrate do
-  Card::Name.reset_hashes
-end
-
 private
 
 def validate_codename_permission

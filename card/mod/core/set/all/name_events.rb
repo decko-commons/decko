@@ -55,6 +55,11 @@ event :expire_old_name, :store, changed: :name, on: :update do
   ActManager.expirees << name_before_act
 end
 
+event :temporary_name_hack, :finalize do
+  Card::Name.reset_hashes # FIXME: temporary hack!
+  Card::Name.generate_id_hash
+end
+
 event :set_left_and_right, :store, changed: :name, on: :save do
   if name.junction?
     %i[left right].each do |side|

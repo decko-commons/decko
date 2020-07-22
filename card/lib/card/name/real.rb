@@ -30,8 +30,6 @@ class Card
         @holder_count = nil
       end
 
-      private
-
       def generate_id_hash
         @id_to_key = {}
         @holder = {}
