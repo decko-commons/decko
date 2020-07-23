@@ -49,8 +49,7 @@ def update_superleft cardname
 end
 
 def key= newkey
-  @key = newkey
-  return if @key == key
+  return if newkey == key
   was_in_cache = Card.cache.soft.delete key
   write_attribute :key, newkey if name.simple?
   # keep the soft cache up-to-date
@@ -58,7 +57,7 @@ def key= newkey
   # reset the old name - should be handled in tracked_attributes!!
   reset_patterns_if_rule
   reset_patterns
-  newkey
+  @key = newkey
 end
 
 def update_subcard_names new_name, name_to_replace=nil
