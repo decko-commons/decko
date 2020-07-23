@@ -1,7 +1,8 @@
 class Card
   class Name
+    # maintain hashes of real cards
     module Real
-      SQL = "SELECT id, cards.key, left_id, right_id from cards"
+      SQL = "SELECT id, cards.key, left_id, right_id from cards".freeze
       ID_IDX = 0
       KEY_IDX = 1
       LEFT_IDX = 2
@@ -42,6 +43,7 @@ class Card
         Card.connection.select_all(SQL).rows
       end
 
+      # record mapping of cards with simple names
       def capture_simple_cards
         raw_rows.each do |r|
           # if r[KEY_IDX].present?
@@ -54,12 +56,16 @@ class Card
       end
 
       def capture_compound_cards
-        while still_finding_compounds? do
+        while still_finding_compounds?
           @holder.each do |id, side_ids|
-            next unless (key = compound_key side_ids)
-            @id_to_key[id] = key
+            capture_compound_card id, side_ids
           end
         end
+      end
+
+      def capture_compound_card id, side_ids
+        return unless (key = compound_key side_ids)
+        @id_to_key[id] = key
       end
 
       def compound_key side_ids

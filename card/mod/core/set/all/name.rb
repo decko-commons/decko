@@ -21,15 +21,19 @@ module ClassMethods
 end
 
 def name
-  super.to_name
+  @name ||= left_id ? Card::Name[left_id, right_id] : super.to_name
+end
+
+def key
+  @key ||= left_id ? Card::Name.compound_key([left_id, right_id]) : super
 end
 
 def name= newname
-  cardname = superize_name newname.to_name
-  self.key = cardname.key
-  update_subcard_names cardname
-  write_attribute :name, cardname.s
-  name
+  @name = superize_name newname.to_name
+  self.key = @name.key
+  update_subcard_names @name
+  write_attribute :name, @name.s if @name.simple?
+  @name
 end
 
 def superize_name cardname
@@ -45,9 +49,10 @@ def update_superleft cardname
 end
 
 def key= newkey
-  return if newkey == key
+  @key = newkey
+  return if @key == key
   was_in_cache = Card.cache.soft.delete key
-  write_attribute :key, newkey
+  write_attribute :key, newkey if name.simple?
   # keep the soft cache up-to-date
   Card.write_to_soft_cache self if was_in_cache
   # reset the old name - should be handled in tracked_attributes!!

@@ -25,11 +25,14 @@ class Card
       end
 
       def retrieval_from_db_query
-        id = mark_type == :id ? mark_value : Name.id(mark_value)
-        return false unless id
+        return false unless (id = id_from_mark)
         query = { id: id }
         query[:trash] = false unless look_in_trash?
         query
+      end
+
+      def id_from_mark
+        mark_type == :id ? mark_value : Name.id(mark_value)
       end
 
       # In both the cache and the db, ids and keys are used to retrieve card data.
