@@ -100,14 +100,27 @@ def assign_side_id side
   sidecard = Card[sidename] || ActManager.card(sidename)
 
   # eg, renaming A to A+B
-  old_name_in_way = (sidecard&.id && sidecard&.id == id)
-  suspend_name(sidename) if old_name_in_way
-  send "#{side}_id=", side_id_or_card(old_name_in_way, sidecard, sidename)
+  if old_name_in_way? sidecard
+    clear_name sidename
+    sidecard = nil
+  end
+  send "#{side}_id=", side_id_or_card(sidecard, sidename)
 end
 
-def side_id_or_card old_name_in_way, sidecard, sidename
-  if !sidecard || old_name_in_way
-    add_subcard(sidename.s)
+def old_name_in_way? sidecard
+  real? && sidecard&.simple? && id == sidecard&.id
+end
+
+def clear_name name
+  # move the current card out of the way, in case the new name will require
+  # re-creating a card with the current name, ie.  A -> A+B
+  Card.expire name
+  Card.where(id: id).update_all(name: nil, key: nil)
+end
+
+def side_id_or_card sidecard, sidename
+  if !sidecard
+    add_subcard sidename.s 
   else
     # if sidecard doesn't have an id, it's already part of this act
     sidecard.id || sidecard

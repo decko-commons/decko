@@ -66,6 +66,7 @@ class Card
 
       def capture_compound_card id, side_ids
         return unless (key = compound_key side_ids)
+        @holder.delete id
         @id_to_key[id] = key
       end
 

@@ -6,14 +6,6 @@ event :rename_in_trash, after: :expire_old_name, on: :update do
   existing_card.save!
 end
 
-def suspend_name name
-  # move the current card out of the way, in case the new name will require
-  # re-creating a card with the current name, ie.  A -> A+B
-  Card.expire name
-  tmp_name = "tmp:" + UUID.new.generate
-  Card.where(id: id).update_all(name: tmp_name, key: tmp_name)
-end
-
 event :validate_renaming, :validate, on: :update, changed: :name, skip: :allowed do
   return if name_before_act&.to_name == name # just changing to new variant
   errors.add :content, tr(:cannot_change_content) if db_content_is_changing?
