@@ -32,9 +32,18 @@ class Card
 
       ATTR_VALUE_RE = [/(?<=^')[^']+(?=')/, /(?<=^")[^"]+(?=")/, /\S+/].freeze
 
+      def clean! string, tags=ALLOWED_TAGS
+        cleaned = clean_tags string, tags
+        cleaned = clean_spaces cleaned if Cardio.config.space_last_in_multispace
+        cleaned
+      end
+
+
+      private
+
       ## Method that cleans the String of HTML tags
       ## and attributes outside of the allowed list.
-      def clean! string, tags=ALLOWED_TAGS
+      def clean_tags string, tags
         # $LAST_MATCH_INFO is nil if string is a SafeBuffer
         string.to_str.gsub(%r{<(/*)(\w+)([^>]*)>}) do |raw|
           raw = $LAST_MATCH_INFO
@@ -52,12 +61,8 @@ class Card
         end.gsub(/<\!--.*?-->/, "")
       end
 
-      if Cardio.config.space_last_in_multispace
-        def clean_with_space_last! string, tags=ALLOWED_TAGS
-          cwo = clean_without_space_last!(string, tags)
-          cwo.gsub(/(?:^|\b) ((?:&nbsp;)+)/, '\1 ')
-        end
-        alias_method_chain :clean!, :space_last
+      def clean_spaces string
+        string.gsub(/(?:^|\b) ((?:&nbsp;)+)/, '\1 ')
       end
 
       def process_attribute attrib, all_attributes

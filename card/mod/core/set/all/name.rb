@@ -33,7 +33,23 @@ def name= newname
   self.key = @name.key
   update_subcard_names @name
   write_attribute :name, (@name.simple? ? @name.s : nil)
+  assign_side_ids
   @name
+end
+
+def assign_side_ids
+  if name.simple?
+    self.left_id = self.right_id = nil
+  else
+    assign_side_id :left
+    assign_side_id :right
+  end
+end
+
+# assigns left_id and right_id based on names.
+# if side card is new, id is temporarily stored as -1
+def assign_side_id side
+  send "#{side}_id=", (Card::Name.id(name.send("#{side}_key")) || -1)
 end
 
 def superize_name cardname
@@ -110,7 +126,7 @@ def left *args
   case
   when simple?    then nil
   when superleft then superleft
-  when attribute_is_changing?(:name) && name.to_name.trunk_name.key == name_before_act.to_name.key
+  when name_is_changing? && name.to_name.trunk_name.key == name_before_act.to_name.key
     nil # prevent recursion when, eg, renaming A+B to A+B+C
   else
     Card.fetch name.left, *args
@@ -160,10 +176,10 @@ def children
 end
 
 def child_ids side=nil
+  return [] unless id
   # eg, A+B is a child of A and B
   side ||= name.simple? ? :part : :left
-  Card.search({ side => id, return: :id },
-              "(#{side}) children of #{name}")
+  Card.search({ side => id, return: :id }, "(#{side}) children of #{name}")
 end
 
 # ids of children and children's children

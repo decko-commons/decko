@@ -77,7 +77,7 @@ class Card
 
         def run_sql
           # puts "\nSQL = #{sql}"
-          ActiveRecord::Base.connection.select_all(sql)
+          ActiveRecord::Base.connection.select_all sql
         end
 
         def process_name name, pattern

@@ -362,7 +362,7 @@ RSpec.describe Card::ActManager::StageDirector do
   describe "subcards" do
     def create_subcards
       Card.create! name: "", subcards: {
-        "+sub1" => "some content",
+        # "+sub1" => "some content",
         "+sub2" => { "+sub3" => "content" }
       }
     end
@@ -379,7 +379,7 @@ RSpec.describe Card::ActManager::StageDirector do
                  trigger: :create_subcards do
           self.name = "main" if name.empty? && !changed
         end
-        expect(Card["main+sub1"].class).to eq(Card)
+        # expect(Card["main+sub1"].class).to eq(Card)
         expect(Card["main+sub2+sub3"].class).to eq(Card)
       end
     end

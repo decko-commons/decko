@@ -31,14 +31,6 @@ def ok? action
     aok[action] = send "ok_to_#{action}"
   end
 end
-# def ok_with_fetch? action, opts={}
-#   trait = opts.delete :trait
-#   card = trait.nil? ? self : fetch(trait, opts)
-#   card&.ok_without_fetch? action
-# end
-
-# note: method is chained so that we can return the instance variable @action_ok
-# alias_method_chain :ok?, :fetch
 
 def ok! action
   raise Card::Error::PermissionDenied, self unless ok? action

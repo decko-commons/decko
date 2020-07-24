@@ -2,8 +2,16 @@ class Card
   module Dirty
     extend ::Card::Dirty::MethodFactory
 
-    %i[name db_content trash type_id].each do |field|
+    %i[name db_content trash type_id left_id right_id codename].each do |field|
       define_dirty_methods field
+    end
+
+    { simple_name: :name, type: :type_id, content: :db_content }.each do |k, v|
+      alias_method "#{k}_is_changing?", "#{v}_is_changing?"
+    end
+
+    def name_is_changing?
+      simple_name_is_changing? || left_id_is_changing? || right_id_is_changing?
     end
 
     def attribute_before_act attr

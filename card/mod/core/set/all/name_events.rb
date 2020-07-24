@@ -21,10 +21,10 @@ end
 event :validate_uniqueness_of_name, skip: :allowed do
   # validate uniqueness of name
 
-  return unless (existing_id = Card::Name.id key) &&
-                (existing_card = Card.quick_fetch existing_id) &&
-                existing_id != id
+  return unless (existing_id = Card::Name.id key) && existing_id != id
 
+  # TODO: perform the following as a remote-only fetch (not yet supported)
+  return unless (existing_card = Card.where(id: existing_id, trash: false).take)
   errors.add :name, tr(:error_name_exists, name: existing_card.name)
 end
 
@@ -61,14 +61,20 @@ event :temporary_name_hack, :finalize do
   Card::Name.generate_id_hash
 end
 
-event :set_left_and_right, :store, changed: :name, on: :save do
-  if name.junction?
-    %i[left right].each do |side|
-      assign_side_id side
-    end
-  else
-    self.left_id = self.right_id = nil
-  end
+event :prepare_left_and_right, :store, changed: :name, on: :save do
+  return if name.simple?
+  handle_new_side :left
+  handle_new_side :right
+  # TODO: restore/improve handling for renaming where old name is part of new name
+  # (eg A -> A+B)
+end
+
+def handle_new_side side
+  side_id = send "#{side}_id"
+  return unless side_id == -1 || !Card[side_id]&.real?
+  sidename = name.send "#{side}_name"
+  sidecard = ActManager.card(sidename) || add_subcard(sidename)
+  send "#{side}_id=", sidecard
 end
 
 # STAGE: finalize
@@ -95,18 +101,6 @@ def changing_name_to_junction?
   name.junction? && simple?
 end
 
-def assign_side_id side
-  sidename = name.send "#{side}_name"
-  sidecard = Card[sidename] || ActManager.card(sidename)
-
-  # eg, renaming A to A+B
-  if old_name_in_way? sidecard
-    clear_name sidename
-    sidecard = nil
-  end
-  send "#{side}_id=", side_id_or_card(sidecard, sidename)
-end
-
 def old_name_in_way? sidecard
   real? && sidecard&.simple? && id == sidecard&.id
 end
@@ -116,13 +110,4 @@ def clear_name name
   # re-creating a card with the current name, ie.  A -> A+B
   Card.expire name
   Card.where(id: id).update_all(name: nil, key: nil)
-end
-
-def side_id_or_card sidecard, sidename
-  if !sidecard
-    add_subcard sidename.s 
-  else
-    # if sidecard doesn't have an id, it's already part of this act
-    sidecard.id || sidecard
-  end
 end
