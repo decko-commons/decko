@@ -22,8 +22,8 @@ event :validate_uniqueness_of_name, skip: :allowed do
   # validate uniqueness of name
 
   return unless (existing_id = Card::Name.id key) &&
-    (existing_card = Card.quick_fetch existing_id) &&
-    existing_card != self
+                (existing_card = Card.quick_fetch existing_id) &&
+                existing_id != id
 
   errors.add :name, tr(:error_name_exists, name: existing_card.name)
 end
