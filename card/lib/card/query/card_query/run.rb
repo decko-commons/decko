@@ -54,7 +54,7 @@ class Card
         end
 
         def name_result record, pattern
-          process_name record["name"], pattern
+          process_name Card::Name[record["id"]], pattern
         end
 
         def card_result record, _field

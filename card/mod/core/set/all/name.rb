@@ -32,7 +32,7 @@ def name= newname
   @name = superize_name newname.to_name
   self.key = @name.key
   update_subcard_names @name
-  write_attribute :name, @name.s if @name.simple?
+  write_attribute :name, (@name.simple? ? @name.s : nil)
   @name
 end
 
@@ -51,7 +51,7 @@ end
 def key= newkey
   return if newkey == key
   was_in_cache = Card.cache.soft.delete key
-  write_attribute :key, newkey if name.simple?
+  write_attribute :key, (name.simple? ? newkey : nil)
   # keep the soft cache up-to-date
   Card.write_to_soft_cache self if was_in_cache
   # reset the old name - should be handled in tracked_attributes!!
@@ -144,23 +144,26 @@ def left_or_new args={}
 end
 
 def fields
-  field_names.map { |name| Card[name] }
+  field_ids.map { |id| Card[id] }
 end
 
-def field_names parent_name=nil
-  child_names parent_name, :left
+def field_names
+  field_ids.map { |id| Card::Name[id] }
+end
+
+def field_ids
+  child_ids :left
 end
 
 def children
-  child_names.map { |name| Card[name] }
+  child_ids.map { |id| Card[id] }
 end
 
-def child_names parent_name=nil, side=nil
+def child_ids side=nil
   # eg, A+B is a child of A and B
-  parent_name ||= name
-  side ||= parent_name.to_name.simple? ? :part : :left
-  Card.search({ side => parent_name, return: :name },
-              "(#{side}) children of #{parent_name}")
+  side ||= name.simple? ? :part : :left
+  Card.search({ side => id, return: :id },
+              "(#{side}) children of #{name}")
 end
 
 # ids of children and children's children

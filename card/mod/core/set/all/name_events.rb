@@ -20,11 +20,12 @@ end
 
 event :validate_uniqueness_of_name, skip: :allowed do
   # validate uniqueness of name
-  rel = Card.where key: name.key, trash: false
-  rel = rel.where "id <> ?", id if id
-  if (existing = rel.take)
-    errors.add :name, tr(:error_name_exists, name: existing.name)
-  end
+
+  return unless (existing_id = Card::Name.id key) &&
+    (existing_card = Card.quick_fetch existing_id) &&
+    existing_card != self
+
+  errors.add :name, tr(:error_name_exists, name: existing_card.name)
 end
 
 event :validate_legality_of_name do

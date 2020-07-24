@@ -3,6 +3,7 @@ class Card
     # maintain hashes of real cards
     module Real
       SQL = "SELECT id, cards.key, left_id, right_id from cards".freeze
+
       ID_IDX = 0
       KEY_IDX = 1
       LEFT_IDX = 2
@@ -70,9 +71,7 @@ class Card
 
       def compound_key side_ids
         side_ids.map do |side_id|
-          key = @id_to_key[side_id]
-          return false unless key
-          key
+          key side_id or return false
         end.join joint
       end
 

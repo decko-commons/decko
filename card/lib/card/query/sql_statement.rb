@@ -72,6 +72,7 @@ class Card
         when :raw      then "#{table}.*"
         when :card     then "#{table}.*"
         when :content  then "#{table}.db_content"
+        when :name     then "#{table}.name, #{table}.id"
         when :count
           "coalesce(count( distinct #{table}.id),0) as count"
         else
