@@ -77,7 +77,7 @@ RSpec.describe Card::Set::All::Rename do
 
     expect(card_list.map(&:name)).to eq old_names
     update "One", name: "Uno"
-    expect(card_list.map(&:reload).map(&:name)).to eq new_names
+    expect(card_list.map(&:id).map(&:cardname)).to eq new_names
   end
 
   it "fails if name is invalid" do
