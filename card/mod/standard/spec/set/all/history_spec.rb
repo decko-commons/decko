@@ -35,7 +35,9 @@ RSpec.describe Card::Set::All::History do
       name: "single card",
       type_id: Card::BasicID.to_s,
       db_content: "Nobody expects the Spanish inquisition",
-      trash: "f"
+      trash: "f",
+      left_id: nil,
+      right_id: nil
     }
     context "for single card" do
       before do
@@ -58,7 +60,6 @@ RSpec.describe Card::Set::All::History do
         end
         it "fetches card changes from cards table" do
           expect(action.changed_values).to eq(INITIAL_VALUES)
-
         end
       end
 
