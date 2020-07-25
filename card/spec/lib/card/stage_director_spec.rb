@@ -362,7 +362,7 @@ RSpec.describe Card::ActManager::StageDirector do
   describe "subcards" do
     def create_subcards
       Card.create! name: "", subcards: {
-        # "+sub1" => "some content",
+        "+sub1" => "some content",
         "+sub2" => { "+sub3" => "content" }
       }
     end
@@ -371,7 +371,7 @@ RSpec.describe Card::ActManager::StageDirector do
       Card.create! name: "single card"
     end
 
-    it "has correct name if supercard's name get changed" do
+    it "has correct name if supercard name get changed" do
       Card::Auth.as_bot do
         changed = false
         in_stage :prepare_to_validate,
@@ -379,10 +379,11 @@ RSpec.describe Card::ActManager::StageDirector do
                  trigger: :create_subcards do
           self.name = "main" if name.empty? && !changed
         end
-        # expect(Card["main+sub1"].class).to eq(Card)
+        expect(Card["main+sub1"].class).to eq(Card)
         expect(Card["main+sub2+sub3"].class).to eq(Card)
       end
     end
+
     it "has correct name if supercard's name get changed to a junction card" do
       Card::Auth.as_bot do
         changed = false
