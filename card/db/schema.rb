@@ -2,17 +2,16 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_31_223248) do
-
-  create_table "card_actions", id: :integer, force: :cascade do |t|
+ActiveRecord::Schema.define(version: 2020_07_18_051236) do
+  create_table "card_actions", id: :integer do |t|
     t.integer "card_id"
     t.integer "card_act_id"
     t.integer "super_action_id"
@@ -23,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_223248) do
     t.index ["card_id"], name: "card_actions_card_id_index"
   end
 
-  create_table "card_acts", id: :integer, force: :cascade do |t|
+  create_table "card_acts", id: :integer do |t|
     t.integer "card_id"
     t.integer "actor_id"
     t.datetime "acted_at"
@@ -33,14 +32,14 @@ ActiveRecord::Schema.define(version: 2019_01_31_223248) do
     t.index ["card_id"], name: "card_acts_card_id_index"
   end
 
-  create_table "card_changes", id: :integer, force: :cascade do |t|
+  create_table "card_changes", id: :integer do |t|
     t.integer "card_action_id"
     t.integer "field"
-    t.text "value", limit: 16777215
+    t.text "value", size: :medium
     t.index ["card_action_id"], name: "card_changes_card_action_id_index"
   end
 
-  create_table "card_references", id: :integer, force: :cascade do |t|
+  create_table "card_references", id: :integer do |t|
     t.integer "referer_id", default: 0, null: false
     t.string "referee_key", default: "", null: false
     t.integer "referee_id"
@@ -52,7 +51,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_223248) do
     t.index ["referer_id"], name: "card_references_referer_id_index"
   end
 
-  create_table "card_revisions", id: :integer, force: :cascade do |t|
+  create_table "card_revisions", id: :integer do |t|
     t.datetime "created_at", null: false
     t.integer "card_id", null: false
     t.integer "creator_id", null: false
@@ -61,18 +60,18 @@ ActiveRecord::Schema.define(version: 2019_01_31_223248) do
     t.index ["creator_id"], name: "revisions_created_by_index"
   end
 
-  create_table "card_virtuals", id: :integer, force: :cascade do |t|
+  create_table "card_virtuals", id: :integer do |t|
     t.integer "left_id"
     t.integer "right_id"
     t.string "left_key"
-    t.text "content", limit: 16777215
+    t.text "content", size: :medium
     t.index ["left_id"], name: "right_id_index"
     t.index ["right_id"], name: "left_id_index"
   end
 
-  create_table "cards", id: :integer, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "key", null: false
+  create_table "cards", id: :integer do |t|
+    t.string "name"
+    t.string "key"
     t.string "codename"
     t.integer "left_id"
     t.integer "right_id"
@@ -86,7 +85,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_223248) do
     t.integer "references_expired"
     t.boolean "trash", null: false
     t.integer "type_id", null: false
-    t.text "db_content", limit: 16777215
+    t.text "db_content", size: :medium
     t.index ["codename"], name: "cards_codename_index"
     t.index ["created_at"], name: "cards_created_at_index"
     t.index ["key"], name: "cards_key_index", unique: true
@@ -98,10 +97,10 @@ ActiveRecord::Schema.define(version: 2019_01_31_223248) do
     t.index ["updated_at"], name: "cards_updated_at_index"
   end
 
-  create_table "delayed_jobs", force: :cascade do |t|
+  create_table "delayed_jobs" do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
-    t.text "handler", limit: 16777215, null: false
+    t.text "handler", size: :medium, null: false
     t.text "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
@@ -113,27 +112,27 @@ ActiveRecord::Schema.define(version: 2019_01_31_223248) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "schema_migrations_core_cards", id: false, force: :cascade do |t|
+  create_table "schema_migrations_core_cards", id: false do |t|
     t.string "version", null: false
     t.index ["version"], name: "unique_schema_migrations_cards", unique: true
   end
 
-  create_table "schema_migrations_deck", primary_key: "version", id: :string, force: :cascade do |t|
+  create_table "schema_migrations_deck", primary_key: "version", id: :string do |t|
   end
 
-  create_table "schema_migrations_deck_cards", id: false, force: :cascade do |t|
+  create_table "schema_migrations_deck_cards", id: false do |t|
     t.string "version", null: false
     t.index ["version"], name: "unique_schema_migrations_deck_cards", unique: true
   end
 
-  create_table "sessions", id: :integer, force: :cascade do |t|
+  create_table "sessions", id: :integer do |t|
     t.string "session_id"
     t.text "data"
     t.datetime "updated_at"
     t.index ["session_id"], name: "sessions_session_id_index"
   end
 
-  create_table "users", id: :integer, force: :cascade do |t|
+  create_table "users", id: :integer do |t|
     t.string "login", limit: 40
     t.string "email", limit: 100
     t.string "crypted_password", limit: 40
