@@ -33,6 +33,7 @@ class Card
           when respond_to?(:"#{retrn}_result") then :"#{retrn}_result"
           when (retrn =~ /id$/)                then :id_result
           when (retrn =~ /_\w+/)               then :name_result
+          when (retrn == "key")                then :key_result
           else                                      :default_result
           end
         end
@@ -51,6 +52,10 @@ class Card
 
         def raw_result record, _field
           record
+        end
+
+        def key_result record, pattern
+          name_result(record, pattern).to_name.key
         end
 
         def name_result record, pattern

@@ -6,8 +6,8 @@ RSpec.describe Card::Set::All::History::Revision do
     type_id: "3",
     left_id: nil,
     right_id: nil
-  }
-  
+  }.freeze
+
   describe "#revision" do
     example "updated card", as_bot: true do
       update "T", "undo me"

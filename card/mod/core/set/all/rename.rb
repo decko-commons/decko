@@ -14,5 +14,5 @@ end
 
 event :cascade_name_changes, :finalize, on: :update, changed: :name,
                                         before: :name_change_finalized do
-
+  # TODO: restore reference updates
 end

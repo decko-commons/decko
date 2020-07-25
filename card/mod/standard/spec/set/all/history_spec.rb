@@ -38,7 +38,8 @@ RSpec.describe Card::Set::All::History do
       trash: "f",
       left_id: nil,
       right_id: nil
-    }
+    }.freeze
+
     context "for single card" do
       before do
         @card = Card::Auth.as_bot do
