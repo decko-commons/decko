@@ -13,7 +13,7 @@ end
 
 def reset_patterns
   # Rails.logger.info "resetting patterns: #{name}"
-  @patterns = @all_patterns= nil
+  @patterns = @all_patterns = nil
   @template = @virtual = nil
   @set_mods_loaded = @set_modules = @set_names = @rule_set_keys = nil
   @junction_only = nil # only applies to set cards
