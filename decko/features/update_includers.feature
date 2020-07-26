@@ -32,11 +32,11 @@ Feature: Updates for Children of watched cards
 
   Scenario: Templated cards should only send one email when added or updated
     When I create Book card "Bros Krmzv" with plusses:
-      |author|illustrator|
+      |Author|illustrator|
       |Dostoyevsky|Manet|
     Then Joe Admin should be notified that "Joe User created \"Bros Krmzv\""
     When I edit "Bros Krmzv" with plusses:
-      |author|illustrator|
+      |Author|illustrator|
       |Rumi|Monet|
     Then Joe Admin should be notified that "Joe User updated \"Bros Krmzv\""
 
@@ -46,24 +46,24 @@ Feature: Updates for Children of watched cards
     And I create card "Froot+*type+*structure" with content "{{+color}} {{+flavor}}"
     And I am signed in as Joe User
     And I create Froot card "Banana" with plusses:
-      |color|flavor|
+      |colors|flavor|
       |yellow|sweet|
     And Joe Camel is watching "Banana+color+*self"
     When I edit "Banana" with plusses:
-      |color|flavor|
+      |colors|flavor|
       |spotted|mushy|
     And I wait 1 second
     Then Joe Camel should be notified that "Joe User updated \"Banana\""
     When Joe Camel is watching "Banana+*self"
     And I wait a sec
     And I edit "Banana" with plusses:
-      |color|flavor|
+      |colors|flavor|
       |green|mushy|
     And I wait 1 second
     Then Joe Camel should be notified that "Joe User updated \"Banana\""
     Given a clear email queue
     And I edit "Banana" with plusses:
-      |color|flavor|
+      |colors|flavor|
       |green|mushy|
     Then No notification should be sent
 
