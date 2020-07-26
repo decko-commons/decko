@@ -30,7 +30,11 @@ RSpec.describe Card::Set::All::Rename do
   include RenameMethods
   include CardExpectations
 
-  it "renaming plus card to its own child" do
+  it "renames simple card to its own child" do
+    assert_rename "A", "A+M"
+  end
+
+  it "renames plus card to its own child" do
     assert_rename "A+B", "A+B+T"
   end
 
