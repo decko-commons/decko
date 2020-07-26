@@ -63,18 +63,29 @@ end
 
 event :prepare_left_and_right, :store, changed: :name, on: :save do
   return if name.simple?
-  handle_new_side :left
-  handle_new_side :right
-  # TODO: restore/improve handling for renaming where old name is part of new name
-  # (eg A -> A+B)
+  prepare_side :left
+  prepare_side :right
 end
 
-def handle_new_side side
+def prepare_side side
   side_id = send "#{side}_id"
-  return unless side_id == -1 || !Card[side_id]&.real?
   sidename = name.send "#{side}_name"
+  prepare_obstructed_side(side, side_id, sidename) ||
+    prepare_new_side(side, side_id, sidename)
+end
+
+def prepare_new_side side, side_id, sidename
+  return unless side_id == -1 || !Card[side_id]&.real?
+
   sidecard = ActManager.card(sidename) || add_subcard(sidename)
   send "#{side}_id=", sidecard
+end
+
+def prepare_obstructed_side side, side_id, sidename
+  return unless side_id && side_id == id
+  clear_name sidename
+  send "#{side}_id=", add_subcard(sidename)
+  true
 end
 
 # STAGE: finalize
@@ -108,6 +119,7 @@ end
 def clear_name name
   # move the current card out of the way, in case the new name will require
   # re-creating a card with the current name, ie.  A -> A+B
+  Card.where(id: id).update_all(name: nil, key: nil, left_id: nil, right_id: nil)
   Card.expire name
-  Card.where(id: id).update_all(name: nil, key: nil)
+  Card::Name.reset_hashes
 end
