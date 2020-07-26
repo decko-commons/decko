@@ -13,13 +13,13 @@ Feature: Updates for Children of watched cards
     And Joe Admin is watching "Book+*type"
 
   Scenario: Watcher should be notified of updates to included plus card
-    When I create card "Ulysses+author" with content "James Joyce"
+    When I create card "Ulysses+Author" with content "James Joyce"
     And I wait for ajax response
-    #And He should see "added Ulysses+author" in the email  -- FIXME need multiline matching
-    Then Joe Admin should be notified that "Joe User created \"Ulysses\+author\""
-    And Joe Camel should be notified that "Joe User created \"Ulysses\+author\""
-    When Joe Admin edits "Ulysses+author" setting content to "Jim"
-    Then Joe Camel should be notified that "Joe Admin updated \"Ulysses\+author\""
+    #And He should see "added Ulysses+Author" in the email  -- FIXME need multiline matching
+    Then Joe Admin should be notified that "Joe User created \"Ulysses\+Author\""
+    And Joe Camel should be notified that "Joe User created \"Ulysses\+Author\""
+    When Joe Admin edits "Ulysses+Author" setting content to "Jim"
+    Then Joe Camel should be notified that "Joe Admin updated \"Ulysses\+Author\""
     #And Joe Admin should be notified that "Joe User updated \"Ulysses\""
 
   Scenario: Should not notify of included but not plussed card
@@ -68,8 +68,8 @@ Feature: Updates for Children of watched cards
     Then No notification should be sent
 
   Scenario: Watching a plus card & including card on regular edit
-    When I create card "Ulysses+author" with content "Joyce"
-    Then Joe Camel should be notified that "Joe User created \"Ulysses\+author\""
-    When Joe Camel is watching "Ulysses+author+*self"
-    And I edit "Ulysses+author" setting content to "Jim"
-    Then Joe Camel should be notified that "Joe User updated \"Ulysses\+author\""
+    When I create card "Ulysses+Author" with content "Joyce"
+    Then Joe Camel should be notified that "Joe User created \"Ulysses\+Author\""
+    When Joe Camel is watching "Ulysses+Author+*self"
+    And I edit "Ulysses+Author" setting content to "Jim"
+    Then Joe Camel should be notified that "Joe User updated \"Ulysses\+Author\""
