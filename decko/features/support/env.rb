@@ -51,6 +51,7 @@ Before("@javascript") do
 end
 
 Before do
+  Card::Name.reset_hashes # TODO: obviate this
   # Capybara.page.current_window.resize_to 1440, 1280
 end
 
