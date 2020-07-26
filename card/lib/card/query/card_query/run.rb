@@ -71,7 +71,7 @@ class Card
         end
 
         def fetch_or_instantiate record
-          card = Card.retrieve_from_cache record["key"]
+          card = Card.retrieve_from_cache_by_id record["id"]
           unless card
             card = Card.instantiate record
             Card.write_to_cache card

@@ -9,9 +9,9 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
 
       describe "type" do
         user_cards = [
-            "Big Brother", "Joe Admin", "Joe Camel", "Joe User", "John",
-            "Narcissist", "No Count", "Optic fan", "Sample User", "Sara",
-            "Sunglasses fan", "u1", "u2", "u3"
+          "Big Brother", "Joe Admin", "Joe Camel", "Joe User", "John",
+          "Narcissist", "No Count", "Optic fan", "Sample User", "Sara",
+          "Sunglasses fan", "u1", "u2", "u3"
         ].sort
 
         it "finds cards by type" do
