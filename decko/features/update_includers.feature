@@ -32,7 +32,7 @@ Feature: Updates for Children of watched cards
 
   Scenario: Templated cards should only send one email when added or updated
     When I create Book card "Bros Krmzv" with plusses:
-      |Author|illustrator|
+      |author|illustrator|
       |Dostoyevsky|Manet|
     Then Joe Admin should be notified that "Joe User created \"Bros Krmzv\""
     When I edit "Bros Krmzv" with plusses:
