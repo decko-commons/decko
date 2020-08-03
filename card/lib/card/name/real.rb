@@ -2,13 +2,6 @@ class Card
   class Name
     # maintain hashes of real cards
     module Real
-      SQL = "SELECT id, cards.key, left_id, right_id from cards".freeze
-
-      ID_IDX = 0
-      KEY_IDX = 1
-      LEFT_IDX = 2
-      RIGHT_IDX = 3
-
       def key id
         id_to_key[id]
       end
@@ -41,17 +34,16 @@ class Card
       end
 
       def raw_rows
-        Card.connection.select_all(SQL).rows
+        Card.pluck :id, :key, :left_id, :right_id
       end
 
       # record mapping of cards with simple names
       def capture_simple_cards
-        raw_rows.each do |r|
-          # if r[KEY_IDX].present?
-          if !r[LEFT_IDX]
-            @id_to_key[r[ID_IDX]] = r[KEY_IDX]
+        raw_rows.each do |id, key, left_id, right_id|
+          if !left_id
+            @id_to_key[id] = key
           else
-            @holder[r[ID_IDX]] = [r[LEFT_IDX], r[RIGHT_IDX]]
+            @holder[id] = [left_id, right_id]
           end
         end
       end

@@ -41,15 +41,16 @@ def assign_side_ids
   if name.simple?
     self.left_id = self.right_id = nil
   else
-    assign_side_id :left
-    assign_side_id :right
+    assign_side_id :left_id=, :left_key
+    assign_side_id :right_id=, :right_key
   end
 end
 
 # assigns left_id and right_id based on names.
 # if side card is new, id is temporarily stored as -1
-def assign_side_id side
-  send "#{side}_id=", (Card::Name.id(name.send("#{side}_key")) || -1)
+def assign_side_id side_id_equals, side_key
+  side_id = Card::Name.id(name.send(side_key)) || -1
+  send side_id_equals, side_id
 end
 
 def superize_name cardname
