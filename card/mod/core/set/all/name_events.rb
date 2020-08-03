@@ -88,15 +88,6 @@ def prepare_obstructed_side side, side_id, sidename
   true
 end
 
-# STAGE: finalize
-
-event :name_change_finalized, :finalize, changed: :name, on: :save do
-  # The events to update references has to happen after :cascade_name_changes,
-  # but :cascade_name_changes is defined after the reference events and
-  # and additionaly it is defined on :update but some of the reference
-  # events are on :save. Hence we need this additional hook to organize these events.
-end
-
 private
 
 def changing_existing_tag_to_junction?

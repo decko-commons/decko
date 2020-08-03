@@ -12,7 +12,12 @@ event :validate_renaming, :validate, on: :update, changed: :name, skip: :allowed
   errors.add :type, tr(:cannot_change_type) if type_is_changing?
 end
 
-event :cascade_name_changes, :finalize, on: :update, changed: :name,
-                                        before: :name_change_finalized do
-  # TODO: restore reference updates
+event :cascade_name_changes, :finalize, on: :update, changed: :name do
+  descendants.each do |descendant|
+    descendant.update_referers = update_referers
+    descendant.action = :update
+    descendant.refresh_references_in
+    descendant.refresh_references_out
+    descendant.update_referer_references_out if !update_referers
+  end
 end
