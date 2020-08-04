@@ -191,7 +191,3 @@ end
 def not_update_referers
   !update_referers
 end
-
-def name_before_last_save
-  super || Card::Name[left_id_before_last_save, right_id_before_last_save]
-end

@@ -14,6 +14,14 @@ class Card
       simple_name_is_changing? || left_id_is_changing? || right_id_is_changing?
     end
 
+    def name_before_last_save
+      super || Card::Name[left_id_before_last_save, right_id_before_last_save]
+    end
+
+    def name_before_act
+      super || Card::Name[left_id_before_act, right_id_before_act]
+    end
+
     def attribute_before_act attr
       if saved_change_to_attribute? attr
         attribute_before_last_save attr
