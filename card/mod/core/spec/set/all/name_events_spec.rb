@@ -27,7 +27,7 @@ RSpec.describe Card::Set::All::NameEvents do
     end
   end
 
-  describe "event: set_left_and_right" do
+  describe "event: prepare_left_and_right" do
     context "when creating junctions" do
       before do
         Card.create! name: "Peach+Pear", content: "juicy"
