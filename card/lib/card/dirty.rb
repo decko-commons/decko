@@ -10,18 +10,6 @@ class Card
       alias_method "#{k}_is_changing?", "#{v}_is_changing?"
     end
 
-    def name_is_changing?
-      simple_name_is_changing? || left_id_is_changing? || right_id_is_changing?
-    end
-
-    def name_before_last_save
-      super || Card::Name[left_id_before_last_save, right_id_before_last_save]
-    end
-
-    def name_before_act
-      super || Card::Name[left_id_before_act, right_id_before_act]
-    end
-
     def attribute_before_act attr
       if saved_change_to_attribute? attr
         attribute_before_last_save attr
@@ -47,5 +35,20 @@ class Card
           will_save_change_to_attribute?(attr)
       end
     end
+
+    module DirtyNames
+      def name_is_changing?
+        super || left_id_is_changing? || right_id_is_changing?
+      end
+
+      def name_before_last_save
+        super || Card::Name[left_id_before_last_save, right_id_before_last_save]
+      end
+
+      def name_before_act
+        super || Card::Name[left_id_before_act, right_id_before_act]
+      end
+    end
+    include DirtyNames
   end
 end
