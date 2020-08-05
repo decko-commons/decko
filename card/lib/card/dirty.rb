@@ -1,4 +1,5 @@
 class Card
+  # Special "dirty" handling for significant card fields.
   module Dirty
     extend ::Card::Dirty::MethodFactory
 
@@ -6,7 +7,7 @@ class Card
       define_dirty_methods field
     end
 
-    { simple_name: :name, type: :type_id, content: :db_content }.each do |k, v|
+    { type: :type_id, content: :db_content }.each do |k, v|
       alias_method "#{k}_is_changing?", "#{v}_is_changing?"
     end
 
@@ -35,20 +36,28 @@ class Card
           will_save_change_to_attribute?(attr)
       end
     end
+  end
 
-    module DirtyNames
-      def name_is_changing?
-        super || left_id_is_changing? || right_id_is_changing?
-      end
-
-      def name_before_last_save
-        super || Card::Name[left_id_before_last_save, right_id_before_last_save]
-      end
-
-      def name_before_act
-        super || Card::Name[left_id_before_act, right_id_before_act]
-      end
+  # Even special-er handling for dirty cardnames
+  module DirtyNames
+    def name_is_changing?
+      super || left_id_is_changing? || right_id_is_changing?
     end
-    include DirtyNames
+
+    def name_before_last_save
+      return if new?
+      super || dirty_name(left_id_before_last_save, right_id_before_last_save)
+    end
+
+    def name_before_act
+      return if new?
+      super || dirty_name(left_id_before_act, right_id_before_act)
+    end
+
+    def dirty_name left, right
+      return unless left.present? && right.present?
+
+      Card::Name[left, right]
+    end
   end
 end

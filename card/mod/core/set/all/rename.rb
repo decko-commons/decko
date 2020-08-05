@@ -18,11 +18,7 @@ event :cascade_name_changes, :finalize, on: :update, changed: :name do
     descendant.action = :update
     descendant.refresh_references_in
     descendant.refresh_references_out
-    if update_referers
-      descendant.update_referer_content
-    else
-      descendant.update_referer_references_out
-    end
+    descendant.update_referer_references_out unless update_referers
     descendant.expire
   end
 end

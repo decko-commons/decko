@@ -28,7 +28,7 @@ RSpec.describe Card::Query::CardQuery::ReferenceAttributes do
         end
 
         it "handles referred_to_by" do
-          expect(run_query(referred_to_by: "X")).to eq(%w(A+B A T))
+          expect(run_query(referred_to_by: "X").sort).to eq(%w(A A+B T))
         end
       end
 
