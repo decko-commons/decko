@@ -45,12 +45,10 @@ class Card
     end
 
     def name_before_last_save
-      return if new?
       super || dirty_name(left_id_before_last_save, right_id_before_last_save)
     end
 
     def name_before_act
-      return if new?
       super || dirty_name(left_id_before_act, right_id_before_act)
     end
 
