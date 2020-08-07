@@ -59,11 +59,11 @@ class Card
         rewrite
       end
 
-      def delete id, key
-        @id_to_key.delete id
-        @key_to_id.delete key
-        rewrite
-      end
+      # def delete id, key
+      #   @id_to_key.delete id
+      #   @key_to_id.delete key
+      #   rewrite
+      # end
 
       def update id, key, descendant_ids
         @id_to_key[id] = key
@@ -85,6 +85,7 @@ class Card
 
       def cascade_update descendant_ids
         @holder = {}
+        @holder_count = nil
         desc = Card.where(id: descendant_ids).pluck(:id, :left_id, :right_id)
         desc.each do |id, left_id, right_id|
           @holder[id] = [left_id, right_id]

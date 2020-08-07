@@ -15,11 +15,10 @@ class Card
       end
 
       def prepopulate
-        return unless prepopulate? # && @prepopulated.nil?
+        return unless prepopulate?
 
         prepopulate_rule_caches
-        # prepopulate_lexicon_caches
-        # prepopulate_card_cache
+        prepopulate_lexicon_caches
       end
 
       def prepopulate_cache variable

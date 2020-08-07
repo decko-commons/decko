@@ -61,8 +61,7 @@ event :update_lexicon_on_create, :finalize, changed: :name, on: :create do
 end
 
 event :update_lexicon_on_rename, :finalize, changed: :name, on: :update do
-  Card::Lexicon.reset # FIXME: temporary hack!
-  Card::Lexicon.generate_id_hash
+  Card::Lexicon.update id, key, descendant_ids
 end
 
 event :prepare_left_and_right, :store, changed: :name, on: :save do
@@ -116,6 +115,6 @@ def clear_name name
   # re-creating a card with the current name, ie.  A -> A+B
   Card.where(id: id).update_all(name: nil, key: nil, left_id: nil, right_id: nil)
   Card.expire name
-  Card::Lexicon.reset
+  Card::Lexicon.reset # probably overkill, but this for an edge case...
   # Card::Lexicon.delete id, key
 end
