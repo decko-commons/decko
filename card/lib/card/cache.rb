@@ -58,7 +58,7 @@ class Card
           cache.soft.reset
           cache.hard&.renew
         end
-        Card::Lexicon.renew_hashes
+        Card::Lexicon.renew
       end
 
       def renew_persistent
@@ -107,7 +107,7 @@ class Card
       # (the non-standard caches)
       def reset_other
         Card::Codename.reset_cache
-        Card::Lexicon.reset_cache
+        Card::Lexicon.reset
         Cardio.delete_tmp_files!
       end
 

@@ -56,11 +56,13 @@ event :expire_old_name, :store, changed: :name, on: :update do
   ActManager.expirees << name_before_act
 end
 
-event :update_name_hashes, :finalize, changed: :name, on: :save do
-  # if new?
+event :update_lexicon_on_create, :finalize, changed: :name, on: :create do
+  Card::Lexicon.add id, key
+end
 
-  Card::Lexicon.reset_hashes # FIXME: temporary hack!
-  Card::Name.generate_id_hash
+event :update_lexicon_on_rename, :finalize, changed: :name, on: :update do
+  Card::Lexicon.reset # FIXME: temporary hack!
+  Card::Lexicon.generate_id_hash
 end
 
 event :prepare_left_and_right, :store, changed: :name, on: :save do
@@ -114,5 +116,5 @@ def clear_name name
   # re-creating a card with the current name, ie.  A -> A+B
   Card.where(id: id).update_all(name: nil, key: nil, left_id: nil, right_id: nil)
   Card.expire name
-  Card::Lexicon.reset_hashes
+  Card::Lexicon.reset
 end

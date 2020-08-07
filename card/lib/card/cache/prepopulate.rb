@@ -4,7 +4,7 @@ class Card
     module Prepopulate
       def restore
         reset_soft
-        Card::Lexicon.renew_hashes
+        Card::Lexicon.renew
         prepopulate
       end
 
@@ -18,19 +18,19 @@ class Card
         return unless prepopulate? # && @prepopulated.nil?
 
         prepopulate_rule_caches
-        prepopulate_name_caches
+        # prepopulate_lexicon_caches
         # prepopulate_card_cache
       end
 
       def prepopulate_cache variable
         @prepopulated ||= {}
         value = @prepopulated[variable] ||= yield
-        Card.cache.soft.write variable, value
+        Card.cache.soft.write variable, value.clone
       end
 
-      def prepopulate_name_caches
-        prepopulate_cache("ID-TO-KEY") { Card::Lexicon.id_to_key.clone }
-        prepopulate_cache("KEY-TO-ID") { Card::Lexicon.key_to_id.clone }
+      def prepopulate_lexicon_caches
+        prepopulate_cache("ID-TO-KEY") { Card::Lexicon.id_to_key }
+        prepopulate_cache("KEY-TO-ID") { Card::Lexicon.key_to_id }
       end
 
       def prepopulate_rule_caches

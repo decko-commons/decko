@@ -20,13 +20,13 @@ class Card
         # @key_to_id ||= id_to_key.invert
       end
 
-      def reset_hashes
+      def reset
         Card.cache.delete "ID-TO-KEY"
         Card.cache.delete "KEY-TO-ID"
-        renew_hashes
+        renew
       end
 
-      def renew_hashes
+      def renew
         @id_to_key = nil
         @key_to_id = nil
         @holder = nil
@@ -47,7 +47,18 @@ class Card
         end.join Card::Name.joint
       end
 
+      def add id, key
+        @id_to_key[id] = key
+        @key_to_id[key] = id
+        rewrite
+      end
+
       private
+
+      def rewrite
+        Card.cache.write "ID-TO-KEY", @id_to_key
+        Card.cache.write "KEY-TO-ID", @key_to_id
+      end
 
       def raw_rows
         Card.pluck :id, :key, :left_id, :right_id
