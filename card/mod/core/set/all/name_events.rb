@@ -21,7 +21,7 @@ end
 event :validate_uniqueness_of_name, skip: :allowed do
   # validate uniqueness of name
 
-  return unless (existing_id = Card::Name.id key) && existing_id != id
+  return unless (existing_id = Card::Lexicon.id key) && existing_id != id
 
   # TODO: perform the following as a remote-only fetch (not yet supported)
   return unless (existing_card = Card.where(id: existing_id, trash: false).take)
@@ -56,8 +56,10 @@ event :expire_old_name, :store, changed: :name, on: :update do
   ActManager.expirees << name_before_act
 end
 
-event :temporary_name_hack, :finalize do
-  Card::Name.reset_hashes # FIXME: temporary hack!
+event :update_name_hashes, :finalize, changed: :name, on: :save do
+  # if new?
+
+  Card::Lexicon.reset_hashes # FIXME: temporary hack!
   Card::Name.generate_id_hash
 end
 
@@ -112,5 +114,5 @@ def clear_name name
   # re-creating a card with the current name, ie.  A -> A+B
   Card.where(id: id).update_all(name: nil, key: nil, left_id: nil, right_id: nil)
   Card.expire name
-  Card::Name.reset_hashes
+  Card::Lexicon.reset_hashes
 end

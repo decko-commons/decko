@@ -37,7 +37,7 @@ describe Card::Set::All::Trash do
     expect(Card["slowly"]).to be_a Card
     expect(Card["without regrets"]).to be_a Card
 
-    trashed_dependant = Card.find Card::Name.id("born to die+slowly+without regrets")
+    trashed_dependant = Card.find Card::Lexicon.id("born to die+slowly+without regrets")
     expect(trashed_dependant.trash).to be_truthy
   end
 

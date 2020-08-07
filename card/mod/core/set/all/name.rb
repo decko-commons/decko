@@ -25,7 +25,7 @@ def name
 end
 
 def key
-  @key ||= left_id ? Card::Name.compound_key([left_id, right_id]) : super
+  @key ||= left_id ? Card::Lexicon.compound_key([left_id, right_id]) : super
 end
 
 def name= newname
@@ -49,7 +49,7 @@ end
 # assigns left_id and right_id based on names.
 # if side card is new, id is temporarily stored as -1
 def assign_side_id side_id_equals, side_key
-  side_id = Card::Name.id(name.send(side_key)) || -1
+  side_id = Card::Lexicon.id(name.send(side_key)) || -1
   send side_id_equals, side_id
 end
 

@@ -4,7 +4,7 @@ class Card
     module Prepopulate
       def restore
         reset_soft
-        Card::Name.renew_hashes
+        Card::Lexicon.renew_hashes
         prepopulate
       end
 
@@ -29,8 +29,8 @@ class Card
       end
 
       def prepopulate_name_caches
-        prepopulate_cache("ID-TO-KEY") { Card::Name.id_to_key.clone }
-        prepopulate_cache("KEY-TO-ID") { Card::Name.key_to_id.clone }
+        prepopulate_cache("ID-TO-KEY") { Card::Lexicon.id_to_key.clone }
+        prepopulate_cache("KEY-TO-ID") { Card::Lexicon.key_to_id.clone }
       end
 
       def prepopulate_rule_caches

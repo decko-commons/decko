@@ -72,7 +72,7 @@ event :manage_trash, :prepare_to_store, on: :create do
 end
 
 def pull_from_trash!
-  return unless (self.id = Card::Name.id key)
+  return unless (self.id = Card::Lexicon.id key)
 
   # following is needed so that #id_in_database returns existing card id
   # (and record is updated correctly)

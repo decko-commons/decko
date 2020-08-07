@@ -95,7 +95,7 @@ def interpret_reference ref_hash, referee_name, ref_type
   referee_key = referee_name.key
   return if referee_key == key # don't create self reference
 
-  referee_id = Card::Name.id referee_name
+  referee_id = Card::Lexicon.id referee_name
   ref_hash[referee_key] ||= [referee_id]
   ref_hash[referee_key] << ref_type
 

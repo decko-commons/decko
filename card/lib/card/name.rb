@@ -12,7 +12,6 @@ class Card
   class Name < Cardname
     include FieldsAndTraits
     include NameVariants
-    extend Real
 
     class << self
       def [] *cardish

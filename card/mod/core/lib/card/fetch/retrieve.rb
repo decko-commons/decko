@@ -32,7 +32,7 @@ class Card
       end
 
       def id_from_mark
-        mark_type == :id ? mark_value : Name.id(mark_value)
+        mark_type == :id ? mark_value : Lexicon.id(mark_value)
       end
 
       # In both the cache and the db, ids and keys are used to retrieve card data.
