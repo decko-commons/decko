@@ -58,7 +58,7 @@ class Card
           cache.soft.reset
           cache.hard&.renew
         end
-        Card::Name.reset_hashes
+        Card::Name.renew_hashes
       end
 
       def renew_persistent

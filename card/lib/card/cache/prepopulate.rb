@@ -29,8 +29,8 @@ class Card
       end
 
       def prepopulate_name_caches
-        prepopulate_cache("ID-TO-KEY") { Card::Name.id_to_key }
-        prepopulate_cache("KEY-TO-ID") { Card::Name.key_to_id }
+        prepopulate_cache("ID-TO-KEY") { Card::Name.id_to_key.clone }
+        prepopulate_cache("KEY-TO-ID") { Card::Name.key_to_id.clone }
       end
 
       def prepopulate_rule_caches
