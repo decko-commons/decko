@@ -11,14 +11,22 @@ class Card
       end
 
       def id_to_key
-        @id_to_key ||= generate_id_hash
+        @id_to_key ||= Card.cache.fetch("ID-TO-KEY") { generate_id_hash }
+        # @id_to_key ||= generate_id_hash
       end
 
       def key_to_id
-        @key_to_id ||= id_to_key.invert
+        @key_to_id ||= Card.cache.fetch("KEY-TO-ID") { id_to_key.invert }
+        # @key_to_id ||= id_to_key.invert
       end
 
       def reset_hashes
+        Card.cache.delete "ID-TO-KEY"
+        Card.cache.delete "KEY-TO-ID"
+        renew_hashes
+      end
+
+      def renew_hashes
         @id_to_key = nil
         @key_to_id = nil
         @holder = nil
