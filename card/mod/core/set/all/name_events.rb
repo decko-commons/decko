@@ -116,5 +116,6 @@ def clear_name name
   # re-creating a card with the current name, ie.  A -> A+B
   Card.where(id: id).update_all(name: nil, key: nil, left_id: nil, right_id: nil)
   Card.expire name
-  Card::Lexicon.delete id, key
+  Card::Lexicon.reset
+  # Card::Lexicon.delete id, key
 end
