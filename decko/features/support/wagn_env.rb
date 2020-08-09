@@ -7,6 +7,6 @@ Capybara.configure do |config|
 end
 
 Before do
-  Card::Lexicon.renew # TODO: obviate this
+  Card::Lexicon.reset # TODO: obviate this
   Card::Cache.reset
 end
