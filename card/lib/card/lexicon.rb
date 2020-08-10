@@ -1,7 +1,9 @@
 class Card
   module Lexicon
-    # Translates keys to ids and vice versa.
+    # Translates keys to ids and vice versa via an intermediate "lex" representation
     # Note: the lexicon does NOT distinguish between trashed and untrashed cards.
+    #
+    # The lex representation
     class << self
       # param id [Integer]
       # @return [String]
@@ -17,14 +19,9 @@ class Card
       # param name [String]
       # @return [Integer]
       def id name
-        lex_to_id[name_to_lex(name)]
-      end
+        return unless (lex = name_to_lex name)
 
-      def name_to_lex name
-        name = name.to_name
-        return name.key unless name.compound?
-
-        name.part_names.map { |p| id p }.join Card::Name.joint
+        lex_to_id[lex]
       end
 
       # @return [Hash] { cardid1 => cardkey1, ...}
@@ -63,12 +60,12 @@ class Card
         @id_to_lex
       end
 
-      def add id, key
-        lex = name_to_lex key
-        @id_to_lex[id] = key
-        @lex_to_id[lex] = id
-        rewrite
-      end
+      # def add id, key
+      #   lex = name_to_lex key, look_in_act: true
+      #   @id_to_lex[id] = lex
+      #   @lex_to_id[lex] = id
+      #   rewrite
+      # end
 
       # def delete id, key
       #   @id_to_lex.delete id
@@ -77,11 +74,21 @@ class Card
       # end
 
       def update id, key
-        @id_to_lex[id] = name_to_lex key
+        @id_to_lex[id] = name_to_lex key, look_in_act: true
         # cascade_update descendant_ids
         @lex_to_id = @id_to_lex.invert
         rewrite
       end
+
+      def name_to_lex name, look_in_act: false
+        name = name.to_name
+        return name.key unless name.compound?
+
+        name.part_names.map do |p|
+          (look_in_act && ActManager.card(p)&.id) || id(p) or return nil
+        end.join Card::Name.joint
+      end
+
 
       def compound_key side_ids
         side_ids.map do |side_id|

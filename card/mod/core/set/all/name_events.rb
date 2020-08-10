@@ -57,7 +57,7 @@ event :expire_old_name, :store, changed: :name, on: :update do
 end
 
 event :update_lexicon_on_create, :finalize, changed: :name, on: :create do
-  Card::Lexicon.add id, key
+  Card::Lexicon.update id, key
 end
 
 event :update_lexicon_on_rename, :finalize, changed: :name, on: :update do

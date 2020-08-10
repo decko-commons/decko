@@ -18,4 +18,15 @@ RSpec.describe Card::Lexicon do
       expect(Card::Lexicon.id("A+B+C+ZZZZ")).not_to be_an(Integer)
     end
   end
+
+  describe "#id_to_lex" do
+    it "stores keys of simple cards" do
+      expect(Card::Lexicon.id_to_lex[Card.id "A"]).to eq("a")
+    end
+
+    it "stores joined ids of compound cards" do
+      expect(Card::Lexicon.id_to_lex[Card.id "A+B"])
+        .to eq("#{Card.id "A"}+#{Card.id "B"}")
+    end
+  end
 end
