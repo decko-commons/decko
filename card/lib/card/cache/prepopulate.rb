@@ -28,8 +28,8 @@ class Card
       end
 
       def prepopulate_lexicon_caches
-        prepopulate_cache("ID-TO-KEY") { Card::Lexicon.id_to_key }
-        prepopulate_cache("KEY-TO-ID") { Card::Lexicon.key_to_id }
+        prepopulate_cache("ID-TO-LEX") { Card::Lexicon.id_to_lex }
+        prepopulate_cache("LEX-TO-ID") { Card::Lexicon.lex_to_id }
       end
 
       def prepopulate_rule_caches

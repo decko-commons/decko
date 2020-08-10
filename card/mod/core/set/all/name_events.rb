@@ -61,7 +61,7 @@ event :update_lexicon_on_create, :finalize, changed: :name, on: :create do
 end
 
 event :update_lexicon_on_rename, :finalize, changed: :name, on: :update do
-  Card::Lexicon.update id, key, descendant_ids
+  Card::Lexicon.update id, key
 end
 
 event :prepare_left_and_right, :store, changed: :name, on: :save do
