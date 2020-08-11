@@ -57,11 +57,15 @@ event :expire_old_name, :store, changed: :name, on: :update do
 end
 
 event :update_lexicon_on_create, :finalize, changed: :name, on: :create do
-  Card::Lexicon.update id, key
+  Card::Lexicon.add self
 end
 
 event :update_lexicon_on_rename, :finalize, changed: :name, on: :update do
-  Card::Lexicon.update id, key
+  Card::Lexicon.update self
+end
+
+def lex
+  simple? ? key : [left_id, right_id]
 end
 
 event :prepare_left_and_right, :store, changed: :name, on: :save do

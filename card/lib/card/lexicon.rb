@@ -8,12 +8,12 @@ class Card
       # param id [Integer]
       # @return [String]
       def key id
-        lex_to_key id_to_lex[id]&.to_name
+        lex_to_key id_to_lex[id]
       end
 
       def lex_to_key lex
-        return lex unless lex&.compound?
-        lex.parts.map { |p| key p.to_i }.join Card::Name.joint
+        return lex unless lex&.is_a? Array
+        lex.map { |side_id| key side_id }.join Card::Name.joint
       end
 
       # param name [String]
@@ -22,6 +22,13 @@ class Card
         return unless (lex = name_to_lex name)
 
         lex_to_id[lex]
+      end
+
+      def name_to_lex name
+        name = name.to_name
+        return name.key if name.simple?
+        return unless (left_id = id name.left_name) && (right_id = id name.right_name)
+        [left_id, right_id]
       end
 
       # @return [Hash] { cardid1 => cardkey1, ...}
@@ -60,45 +67,23 @@ class Card
         @id_to_lex
       end
 
-      # def add id, key
-      #   lex = name_to_lex key, look_in_act: true
-      #   @id_to_lex[id] = lex
-      #   @lex_to_id[lex] = id
-      #   rewrite
-      # end
+      def add card
+        lex = card.lex
+        @id_to_lex[card.id] = lex
+        @lex_to_id[lex] = card.id
+        rewrite # TODO: rewrite only once per act
+      end
 
-      # def delete id, key
-      #   @id_to_lex.delete id
-      #   @lex_to_id.delete key
-      #   rewrite
-      # end
-
-      def update id, key
-        @id_to_lex[id] = name_to_lex key, look_in_act: true
-        # cascade_update descendant_ids
+      def update card
+        @id_to_lex[card.id] = card.lex
+        # cascade_update descendant_idsans
         @lex_to_id = @id_to_lex.invert
         rewrite
       end
 
-      def name_to_lex name, look_in_act: false
-        name = name.to_name
-        return name.key unless name.compound?
-
-        name.part_names.map do |p|
-          (look_in_act && ActManager.card(p)&.id) || id(p) or return nil
-        end.join Card::Name.joint
-      end
-
-
       def compound_key side_ids
         side_ids.map do |side_id|
           key side_id or return false
-        end.join Card::Name.joint
-      end
-
-      def lex_key side_ids
-        side_ids.map do |side_id|
-          (@simple[side_id] ? side_id.to_s : @compound[side_id]) or return false
         end.join Card::Name.joint
       end
 
@@ -112,16 +97,6 @@ class Card
       def raw_rows
         Card.pluck :id, :key, :left_id, :right_id
       end
-
-      # def cascade_update descendant_ids
-      #   @holder = {}
-      #   @holder_count = nil
-      #   desc = Card.where(id: descendant_ids).pluck(:id, :left_id, :right_id)
-      #   desc.each do |id, left_id, right_id|
-      #     @holder[id] = [left_id, right_id]
-      #   end
-      #   capture_compound_cards
-      # end
 
       # record mapping of cards with simple names
       def capture_simple_cards
@@ -143,9 +118,8 @@ class Card
       end
 
       def capture_compound_card id, side_ids
-        return unless (key = lex_key side_ids)
+        @compound[id] = side_ids
         @holder.delete id
-        @compound[id] = key
       end
 
       def still_finding_compounds?

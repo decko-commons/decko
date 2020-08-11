@@ -25,8 +25,8 @@ RSpec.describe Card::Lexicon do
     end
 
     it "stores joined ids of compound cards" do
-      expect(Card::Lexicon.id_to_lex[Card.id "A+B"])
-        .to eq("#{Card.id "A"}+#{Card.id "B"}")
+      expect(Card::Lexicon.id_to_lex[Card.id "*account+*right"])
+        .to eq([Card::Codename.id(:account), Card::Codename.id(:right)])
     end
   end
 end
