@@ -8,5 +8,4 @@ end
 
 Before do
   Card::Cache.reset
-  Card::Lexicon.reset # TODO: obviate this
 end

@@ -68,6 +68,14 @@ def lex
   simple? ? key : [left_id, right_id]
 end
 
+def old_lex
+  if left_id_before_last_save
+    [left_id_before_last_save, right_id_before_last_save]
+  else
+    name_before_last_save.to_name.key
+  end
+end
+
 event :prepare_left_and_right, :store, changed: :name, on: :save do
   return if name.simple?
   prepare_side :left
@@ -119,6 +127,6 @@ def clear_name name
   # re-creating a card with the current name, ie.  A -> A+B
   Card.where(id: id).update_all(name: nil, key: nil, left_id: nil, right_id: nil)
   Card.expire name
-  Card::Lexicon.reset # probably overkill, but this for an edge case...
+  Card::Lexicon.cache.reset # probably overkill, but this for an edge case...
   # Card::Lexicon.delete id, key
 end

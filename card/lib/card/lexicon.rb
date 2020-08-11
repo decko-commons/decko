@@ -67,7 +67,8 @@ class Card
       end
 
       def update card
-        add_card
+        add card
+        cache.delete card.old_lex
       end
     end
   end

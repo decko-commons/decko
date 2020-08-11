@@ -4,7 +4,6 @@ class Card
     module Prepopulate
       def restore
         reset_soft
-        Card::Lexicon.renew
         prepopulate
       end
 
