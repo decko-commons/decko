@@ -86,7 +86,7 @@ end
 
 # interpretation phase helps to prevent duplicate references
 # results in hash like:
-# { referee1_key: [referee1_id, referee1_type1, referee1_type2],
+# { referee1_key: [referee1_id, referee1_type2],
 #   referee2_key...
 # }
 def interpret_reference ref_hash, referee_name, ref_type

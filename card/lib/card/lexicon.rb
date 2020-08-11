@@ -49,7 +49,7 @@ class Card
       def lex_to_id lex
         cache.fetch cache_key(lex) do
           Card.where(lex_query(lex)).pluck(:id).first
-        end
+        end&.to_i
       end
 
       def lex_query lex
@@ -57,7 +57,7 @@ class Card
       end
 
       def cache_key lex
-        Array.wrap(lex).join("-")
+        lex.is_a?(Array) ? lex.join('-') : lex
       end
 
       def add card
