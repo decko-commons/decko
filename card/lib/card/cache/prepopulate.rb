@@ -18,7 +18,7 @@ class Card
         return unless prepopulate?
 
         prepopulate_rule_caches
-        prepopulate_lexicon_caches
+        # prepopulate_lexicon_caches
       end
 
       def prepopulate_cache variable

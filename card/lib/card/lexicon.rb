@@ -8,12 +8,9 @@ class Card
       # param id [Integer]
       # @return [String]
       def key id
-        lex_to_key id_to_lex[id]
-      end
+        return unless (lex = id_to_lex id)
 
-      def lex_to_key lex
-        return lex unless lex&.is_a? Array
-        lex.map { |side_id| key side_id }.join Card::Name.joint
+        lex_to_key lex
       end
 
       # param name [String]
@@ -21,7 +18,25 @@ class Card
       def id name
         return unless (lex = name_to_lex name)
 
-        lex_to_id[lex]
+        lex_to_id lex
+      end
+
+      def cache
+        Card::Cache[Lexicon]
+      end
+
+      def lex_to_key lex
+        return lex unless lex&.is_a? Array
+        lex.map do |side_id|
+          key side_id or return false
+        end.join Card::Name.joint
+      end
+
+      def id_to_lex id
+        cache.fetch id.to_s do
+          return unless result = Card.where(id: id).pluck(:key, :left_id, :right_id).first
+          result[0] || [result[1], result[2]]
+        end
       end
 
       def name_to_lex name
@@ -31,106 +46,28 @@ class Card
         [left_id, right_id]
       end
 
-      # @return [Hash] { cardid1 => cardkey1, ...}
-      def id_to_lex
-        @id_to_lex ||= Card.cache.fetch("ID-TO-LEX") { generate_id_hash }
-        # @id_to_lex ||= generate_id_hash
+      def lex_to_id lex
+        cache.fetch cache_key(lex) do
+          Card.where(lex_query(lex)).pluck(:id).first
+        end
       end
 
-      # @return [Hash] { cardkey1 => cardid1, ...}
-      def lex_to_id
-        @lex_to_id ||= Card.cache.fetch("LEX-TO-ID") { id_to_lex.invert }
-        # @lex_to_id ||= id_to_lex.invert
+      def lex_query lex
+        lex.is_a?(Array) ? { left_id: lex[0], right_id: lex[1] } : { key: lex }
       end
 
-      def reset
-        Card.cache.delete "ID-TO-LEX"
-        Card.cache.delete "LEX-TO-ID"
-        renew
-      end
-
-      def renew
-        @id_to_lex = nil
-        @lex_to_id = nil
-      end
-
-      def generate_id_hash
-        @holder = {}
-        @holder_count = nil
-        @simple = {}
-        @compound = {}
-        capture_simple_cards
-        capture_compound_cards
-        @id_to_lex = @simple.merge @compound
-        @simple = nil
-        @compound = nil
-        @id_to_lex
+      def cache_key lex
+        Array.wrap(lex).join("-")
       end
 
       def add card
         lex = card.lex
-        @id_to_lex[card.id] = lex
-        @lex_to_id[lex] = card.id
-        rewrite # TODO: rewrite only once per act
+        cache.write card.id.to_s, lex
+        cache.write cache_key(lex), card.id
       end
 
       def update card
-        @id_to_lex[card.id] = card.lex
-        # cascade_update descendant_idsans
-        @lex_to_id = @id_to_lex.invert
-        rewrite
-      end
-
-      def compound_key side_ids
-        side_ids.map do |side_id|
-          key side_id or return false
-        end.join Card::Name.joint
-      end
-
-      private
-
-      def rewrite
-        Card.cache.write "ID-TO-LEX", @id_to_lex
-        Card.cache.write "LEX-TO-ID", @lex_to_id
-      end
-
-      def raw_rows
-        Card.pluck :id, :key, :left_id, :right_id
-      end
-
-      # record mapping of cards with simple names
-      def capture_simple_cards
-        raw_rows.each do |id, key, left_id, right_id|
-          if !left_id
-            @simple[id] = key
-          else
-            @holder[id] = [left_id, right_id]
-          end
-        end
-      end
-
-      def capture_compound_cards
-        while still_finding_compounds?
-          @holder.each do |id, side_ids|
-            capture_compound_card id, side_ids
-          end
-        end
-      end
-
-      def capture_compound_card id, side_ids
-        @compound[id] = side_ids
-        @holder.delete id
-      end
-
-      def still_finding_compounds?
-        count = @holder.size
-        return false if count.zero?
-        if @holder_count.nil? || (@holder_count > count)
-          @holder_count = count
-        else
-          Rails.logger.info "could not interpret cards: #{@holder}"
-          false
-        end
+        add_card
       end
     end
   end

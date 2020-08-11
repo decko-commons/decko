@@ -25,7 +25,7 @@ def name
 end
 
 def key
-  @key ||= left_id ? Card::Lexicon.compound_key([left_id, right_id]) : super
+  @key ||= left_id ? Card::Lexicon.lex_to_key([left_id, right_id]) : super
 end
 
 def name= newname
