@@ -67,11 +67,11 @@ end
 
 def key= newkey
   return if newkey == key
-  handle_cache key do
+  update_cache_key key do
     write_attribute :key, (name.simple? ? newkey : nil)
     @key = newkey
   end
-  maintain_patterns
+  clean_patterns
   @key
 end
 
