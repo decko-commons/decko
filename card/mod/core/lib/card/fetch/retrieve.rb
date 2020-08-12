@@ -25,10 +25,17 @@ class Card
       end
 
       def retrieval_from_db_query
-        return false unless (id = id_from_mark)
-        query = { id: id }
+        return unless (query = retrieval_from_db_query_base)
         query[:trash] = false unless look_in_trash?
         query
+      end
+
+      def retrieval_from_db_query_base
+        if mark_type == :key && mark.simple?
+          { key: mark_value }
+        elsif (id = id_from_mark)
+          { id: id }
+        end
       end
 
       def id_from_mark

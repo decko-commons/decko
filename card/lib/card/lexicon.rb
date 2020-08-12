@@ -35,7 +35,7 @@ class Card
       def lex_to_key lex
         return lex unless lex&.is_a? Array
         lex.map do |side_id|
-          return unless key side_id
+          key side_id or return
         end.join Card::Name.joint
       end
 
