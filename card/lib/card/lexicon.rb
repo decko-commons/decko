@@ -8,58 +8,17 @@ class Card
       # param id [Integer]
       # @return [String]
       def key id
-        return unless (lex = id_to_lex id)
-
-        lex_to_key lex
+        (lex = id_to_lex id) && lex_to_key(lex)
       end
 
       # param name [String]
       # @return [Integer]
       def id name
-        return unless (lex = name_to_lex name)
-
-        lex_to_id lex
+        (lex = name_to_lex name.to_name) && lex_to_id(lex)
       end
 
       def cache
         Card::Cache[Lexicon]
-      end
-
-      def lex_to_key lex
-        return lex unless lex&.is_a? Array
-        lex.map do |side_id|
-          key side_id or return false
-        end.join Card::Name.joint
-      end
-
-      def id_to_lex id
-        cache.fetch id do
-          return unless result = Card.where(id: id).pluck(:key, :left_id, :right_id).first
-          result[0] || [result[1], result[2]]
-        end
-      end
-
-      def name_to_lex name
-        name = name.to_name
-        return name.key if name.simple?
-        return unless (left_id = id name.left_name) && (right_id = id name.right_name)
-        [left_id, right_id]
-      end
-
-      def lex_to_id lex
-        result =
-          cache.fetch cache_key(lex) do
-            Card.where(lex_query(lex)).pluck(:id).first
-          end
-        result ? result.to_i : nil
-      end
-
-      def lex_query lex
-        lex.is_a?(Array) ? { left_id: lex[0], right_id: lex[1] } : { key: lex }
-      end
-
-      def cache_key lex
-        lex.is_a?(Array) ? lex.join('-') : lex
       end
 
       def add card
@@ -71,6 +30,44 @@ class Card
       def update card
         add card
         cache.delete card.old_lex
+      end
+
+      def lex_to_key lex
+        return lex unless lex&.is_a? Array
+        lex.map do |side_id|
+          return unless key side_id
+        end.join Card::Name.joint
+      end
+
+      def id_to_lex id
+        cache.fetch id do
+          return unless result = Card.where(id: id).pluck(:key, :left_id, :right_id).first
+          result[0] || [result[1], result[2]]
+        end
+      end
+
+      private
+
+      def name_to_lex name
+        if name.simple?
+          name.key
+        elsif (left_id = id name.left_name) && (right_id = id name.right_name)
+          [left_id, right_id]
+        end
+      end
+
+      def lex_to_id lex
+        cache.fetch cache_key(lex) do
+          Card.where(lex_query(lex)).pluck(:id).first
+        end
+      end
+
+      def lex_query lex
+        lex.is_a?(Array) ? { left_id: lex[0], right_id: lex[1] } : { key: lex }
+      end
+
+      def cache_key lex
+        lex.is_a?(Array) ? lex.join('-') : lex
       end
     end
   end

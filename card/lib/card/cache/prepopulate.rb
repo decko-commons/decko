@@ -26,10 +26,8 @@ class Card
         Card.cache.soft.write variable, value.clone
       end
 
-      def prepopulate_lexicon_caches
-        prepopulate_cache("ID-TO-LEX") { Card::Lexicon.id_to_lex }
-        prepopulate_cache("LEX-TO-ID") { Card::Lexicon.lex_to_id }
-      end
+      # def prepopulate_lexicon_caches
+      # end
 
       def prepopulate_rule_caches
         prepopulate_cache("RULES") { Card::Rule.rule_cache }
