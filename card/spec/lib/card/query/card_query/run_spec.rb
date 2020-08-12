@@ -42,11 +42,12 @@ RSpec.describe Card::Query::CardQuery::Run do
 
   describe "process_name (relative return value)" do
     def returning field
-      Card::Query.run right: "C", return: field, sort: :name
+      # before results are altered, this returns `A+B+C` and `A+C`
+      Card::Query.run right: "C", return: field, sort: :id
     end
 
     it "handles _left" do
-      expect(returning("_left")).to eq %w(A+B A)
+      expect(returning("_left")).to eq %w(A A+B)
     end
 
     it "handles _right" do
@@ -54,7 +55,7 @@ RSpec.describe Card::Query::CardQuery::Run do
     end
 
     it "handles _LL" do
-      expect(returning("_LL")).to eq ["A", "A+C"]
+      expect(returning("_LL")).to eq %w(A+C A)
     end
   end
 end

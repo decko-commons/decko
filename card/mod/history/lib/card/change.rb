@@ -21,7 +21,7 @@ class Card
                         inverse_of: :card_changes
 
     # lists the database fields for which changes are recorded
-    TRACKED_FIELDS = %w[name type_id db_content trash].freeze
+    TRACKED_FIELDS = %w[name type_id db_content trash left_id right_id].freeze
 
     class << self
       # delete all {Change changes} not associated with an {Action action}

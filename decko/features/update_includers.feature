@@ -13,13 +13,13 @@ Feature: Updates for Children of watched cards
     And Joe Admin is watching "Book+*type"
 
   Scenario: Watcher should be notified of updates to included plus card
-    When I create card "Ulysses+author" with content "James Joyce"
+    When I create card "Ulysses+Author" with content "James Joyce"
     And I wait for ajax response
-    #And He should see "added Ulysses+author" in the email  -- FIXME need multiline matching
-    Then Joe Admin should be notified that "Joe User created \"Ulysses\+author\""
-    And Joe Camel should be notified that "Joe User created \"Ulysses\+author\""
-    When Joe Admin edits "Ulysses+author" setting content to "Jim"
-    Then Joe Camel should be notified that "Joe Admin updated \"Ulysses\+author\""
+    #And He should see "added Ulysses+Author" in the email  -- FIXME need multiline matching
+    Then Joe Admin should be notified that "Joe User created \"Ulysses\+Author\""
+    And Joe Camel should be notified that "Joe User created \"Ulysses\+Author\""
+    When Joe Admin edits "Ulysses+Author" setting content to "Jim"
+    Then Joe Camel should be notified that "Joe Admin updated \"Ulysses\+Author\""
     #And Joe Admin should be notified that "Joe User updated \"Ulysses\""
 
   Scenario: Should not notify of included but not plussed card
@@ -36,40 +36,40 @@ Feature: Updates for Children of watched cards
       |Dostoyevsky|Manet|
     Then Joe Admin should be notified that "Joe User created \"Bros Krmzv\""
     When I edit "Bros Krmzv" with plusses:
-      |author|illustrator|
+      |Author|illustrator|
       |Rumi|Monet|
     Then Joe Admin should be notified that "Joe User updated \"Bros Krmzv\""
 
   Scenario: Watching a plus card on multiedit; and watching both plus card and including card on multiedit
     Given I am signed in as Joe Admin
     And I create Cardtype card "Froot"
-    And I create card "Froot+*type+*structure" with content "{{+color}} {{+flavor}}"
+    And I create card "Froot+*type+*structure" with content "{{+colors}} {{+flavor}}"
     And I am signed in as Joe User
     And I create Froot card "Banana" with plusses:
-      |color|flavor|
+      |colors|flavor|
       |yellow|sweet|
     And Joe Camel is watching "Banana+color+*self"
     When I edit "Banana" with plusses:
-      |color|flavor|
+      |colors|flavor|
       |spotted|mushy|
     And I wait 1 second
     Then Joe Camel should be notified that "Joe User updated \"Banana\""
     When Joe Camel is watching "Banana+*self"
     And I wait a sec
     And I edit "Banana" with plusses:
-      |color|flavor|
+      |colors|flavor|
       |green|mushy|
     And I wait 1 second
     Then Joe Camel should be notified that "Joe User updated \"Banana\""
     Given a clear email queue
     And I edit "Banana" with plusses:
-      |color|flavor|
+      |colors|flavor|
       |green|mushy|
     Then No notification should be sent
 
   Scenario: Watching a plus card & including card on regular edit
-    When I create card "Ulysses+author" with content "Joyce"
-    Then Joe Camel should be notified that "Joe User created \"Ulysses\+author\""
-    When Joe Camel is watching "Ulysses+author+*self"
-    And I edit "Ulysses+author" setting content to "Jim"
-    Then Joe Camel should be notified that "Joe User updated \"Ulysses\+author\""
+    When I create card "Ulysses+Author" with content "Joyce"
+    Then Joe Camel should be notified that "Joe User created \"Ulysses\+Author\""
+    When Joe Camel is watching "Ulysses+Author+*self"
+    And I edit "Ulysses+Author" setting content to "Jim"
+    Then Joe Camel should be notified that "Joe User updated \"Ulysses\+Author\""

@@ -18,11 +18,28 @@ class Card
       end
 
       def retrieve_from_db
-        query = { mark_type => mark_value }
-        query[:trash] = false unless look_in_trash?
-        @card = Card.where(query).take
+        query = retrieval_from_db_query
+        @card = query ? Card.where(query).take : nil
         @cache_ready = true if card.present? && !card.trash
         card
+      end
+
+      def retrieval_from_db_query
+        return unless (query = retrieval_from_db_query_base)
+        query[:trash] = false unless look_in_trash?
+        query
+      end
+
+      def retrieval_from_db_query_base
+        if mark_type == :key && mark.simple?
+          { key: mark_value }
+        elsif (id = id_from_mark)
+          { id: id }
+        end
+      end
+
+      def id_from_mark
+        mark_type == :id ? mark_value : Lexicon.id(mark_value)
       end
 
       # In both the cache and the db, ids and keys are used to retrieve card data.

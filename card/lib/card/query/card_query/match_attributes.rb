@@ -18,10 +18,13 @@ class Card
 
         # match names beginning with term
         def complete val
-          add_condition "#{table_alias}.key LIKE '#{val.to_name.key}%'"
-          add_condition "#{table_alias}.right_id is null" unless val.match?(/\+/)
-          # FIXME: -- this should really be more nuanced --
-          # it includes all descendants after one plus
+          val = val.to_name
+          if val.junction?
+            interpret left: val.left
+            interpret right: { complete: val.right } if val.right.present?
+          else
+            add_condition "#{table_alias}.key LIKE '#{val.to_name.key}%'"
+          end
         end
 
         # match term anywhere in name

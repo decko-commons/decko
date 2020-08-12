@@ -33,6 +33,7 @@ class Card
           when respond_to?(:"#{retrn}_result") then :"#{retrn}_result"
           when (retrn =~ /id$/)                then :id_result
           when (retrn =~ /_\w+/)               then :name_result
+          when (retrn == "key")                then :key_result
           else                                      :default_result
           end
         end
@@ -53,8 +54,12 @@ class Card
           record
         end
 
+        def key_result record, pattern
+          name_result(record, pattern).to_name.key
+        end
+
         def name_result record, pattern
-          process_name record["name"], pattern
+          process_name Card::Name[record["id"]], pattern
         end
 
         def card_result record, _field
@@ -66,7 +71,7 @@ class Card
         end
 
         def fetch_or_instantiate record
-          card = Card.retrieve_from_cache record["key"]
+          card = Card.retrieve_from_cache_by_id record["id"]
           unless card
             card = Card.instantiate record
             Card.write_to_cache card
@@ -77,7 +82,7 @@ class Card
 
         def run_sql
           # puts "\nSQL = #{sql}"
-          ActiveRecord::Base.connection.select_all(sql)
+          ActiveRecord::Base.connection.select_all sql
         end
 
         def process_name name, pattern

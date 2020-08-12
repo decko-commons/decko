@@ -12,7 +12,7 @@ RSpec.describe Card::Query::CardQuery::Conjunctions do
     end
 
     it 'works within "or"' do
-      expect(run_query(or: { name: "Z", and: { left: "A", right: "C" } }))
+      expect(run_query(or: { name: "Z", and: { left: "A", right: "C" } }).sort)
         .to eq(["A+C", "Z"])
     end
   end

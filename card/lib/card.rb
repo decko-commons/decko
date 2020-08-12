@@ -95,6 +95,7 @@ class Card < ApplicationRecord
   extend ::Card::Mark
   extend ::Card::Dirty::MethodFactory
   include ::Card::Dirty
+  include ::Card::DirtyNames
 
   Card::Cache # trigger autoload
 

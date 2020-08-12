@@ -30,7 +30,11 @@ RSpec.describe Card::Set::All::Rename do
   include RenameMethods
   include CardExpectations
 
-  it "renaming plus card to its own child" do
+  it "renames simple card to its own child" do
+    assert_rename "A", "A+M"
+  end
+
+  it "renames plus card to its own child" do
     assert_rename "A+B", "A+B+T"
   end
 
@@ -77,7 +81,7 @@ RSpec.describe Card::Set::All::Rename do
 
     expect(card_list.map(&:name)).to eq old_names
     update "One", name: "Uno"
-    expect(card_list.map(&:reload).map(&:name)).to eq new_names
+    expect(card_list.map(&:id).map(&:cardname)).to eq new_names
   end
 
   it "fails if name is invalid" do
