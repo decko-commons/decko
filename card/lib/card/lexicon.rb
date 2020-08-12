@@ -33,7 +33,7 @@ class Card
       end
 
       def id_to_lex id
-        cache.fetch id.to_s do
+        cache.fetch id do
           return unless result = Card.where(id: id).pluck(:key, :left_id, :right_id).first
           result[0] || [result[1], result[2]]
         end
@@ -47,9 +47,11 @@ class Card
       end
 
       def lex_to_id lex
-        cache.fetch cache_key(lex) do
-          Card.where(lex_query(lex)).pluck(:id).first
-        end&.to_i
+        result =
+          cache.fetch cache_key(lex) do
+            Card.where(lex_query(lex)).pluck(:id).first
+          end
+        result ? result.to_i : nil
       end
 
       def lex_query lex
@@ -62,7 +64,7 @@ class Card
 
       def add card
         lex = card.lex
-        cache.write card.id.to_s, lex
+        cache.write card.id, lex
         cache.write cache_key(lex), card.id
       end
 
