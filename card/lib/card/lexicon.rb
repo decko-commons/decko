@@ -31,8 +31,13 @@ class Card
 
       def update card
         add card
-        cache.delete card.old_lex
+        cache.delete cache_key(card.old_lex)
       end
+
+      # def delete card
+      #   cache.delete card.id.to_s
+      #   cache.delete cache_key(card.old_lex)
+      # end
 
       def lex_to_key lex
         return lex unless lex&.is_a? Array
