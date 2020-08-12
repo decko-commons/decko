@@ -21,10 +21,9 @@ end
 event :validate_uniqueness_of_name, skip: :allowed do
   # validate uniqueness of name
 
+  puts "validating uniqueness of key #{key}: #{Card::Lexicon.id key}, #{id}"
   return unless (existing_id = Card::Lexicon.id key) && existing_id != id
-
-  # TODO: perform the following as a remote-only fetch (not yet supported)
-  return unless (existing_card = Card.where(id: existing_id, trash: false).take)
+  
   errors.add :name, tr(:error_name_exists, name: existing_card.name)
 end
 
