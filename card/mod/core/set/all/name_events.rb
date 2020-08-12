@@ -25,10 +25,10 @@ event :validate_uniqueness_of_name, skip: :allowed do
   return unless (existing_id = Card::Lexicon.id key) && existing_id != id
   # The above is a fast check but cannot detect if card is in trash
 
-  puts "passed first check.  now looking up id: #{existing_id}"
+  puts "failed first check.  now looking up id: #{existing_id}"
   # TODO: perform the following as a remote-only fetch (not yet supported)
   return unless (existing_card = Card.where(id: existing_id, trash: false).take)
-  puts "passed second check.  now looking up id: #{existing_id}"
+  puts "failed second check. existing card = #{existing_card.name}"
 
   errors.add :name, tr(:error_name_exists, name: existing_card.name)
 end

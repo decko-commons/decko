@@ -3,10 +3,14 @@ class Card
     # lazy cache updates based on results
     module Store
       def update_cache
-        return unless cache_ready? || new_for_cache || needs_prep?
-        prep_for_cache
+        return unless update_cache?
 
+        prep_for_cache
         Card.write_to_cache card, local_only?
+      end
+
+      def update_cache?
+        cache_ready? || new_for_cache || needs_prep?
       end
 
       def cache_ready?

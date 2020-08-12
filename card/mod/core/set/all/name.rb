@@ -67,15 +67,24 @@ end
 
 def key= newkey
   return if newkey == key
-  was_in_cache = Card.cache.soft.delete key
-  write_attribute :key, (name.simple? ? newkey : nil)
-  @key = newkey
-  # keep the soft cache up-to-date
-  Card.write_to_soft_cache self if was_in_cache
-  # reset the old name - should be handled in tracked_attributes!!
-  reset_patterns_if_rule
-  reset_patterns
+  handle_cache key do
+    write_attribute :key, (name.simple? ? newkey : nil)
+    @key = newkey
+  end
+  maintain_patterns
   @key
+end
+
+def clean_patterns
+  return unless patterns?
+  reset_patterns
+  patterns
+end
+
+def update_cache_key oldkey
+  yield
+  was_in_cache = Card.cache.soft.delete oldkey
+  Card.write_to_soft_cache self if was_in_cache
 end
 
 def update_subcard_names new_name, name_to_replace=nil

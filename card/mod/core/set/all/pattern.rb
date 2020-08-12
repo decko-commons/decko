@@ -20,13 +20,6 @@ def reset_patterns
   true
 end
 
-def reset_patterns_if_rule _saving=false
-  return unless real? && is_rule? && (set = left)
-  set.reset_patterns
-  set.include_set_modules
-  set
-end
-
 def safe_set_keys
   patterns.map(&:safe_key).reverse * " "
 end
