@@ -371,7 +371,7 @@ RSpec.describe Card::ActManager::StageDirector do
       Card.create! name: "single card"
     end
 
-    it "has correct name if supercard's name get changed" do
+    it "has correct name if supercard name get changed" do
       Card::Auth.as_bot do
         changed = false
         in_stage :prepare_to_validate,
@@ -383,6 +383,7 @@ RSpec.describe Card::ActManager::StageDirector do
         expect(Card["main+sub2+sub3"].class).to eq(Card)
       end
     end
+
     it "has correct name if supercard's name get changed to a junction card" do
       Card::Auth.as_bot do
         changed = false

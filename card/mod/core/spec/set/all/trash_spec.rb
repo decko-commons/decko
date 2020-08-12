@@ -7,9 +7,11 @@ describe Card, "deleted card" do
       @c.delete!
     end
   end
+
   it "is in the trash" do
     expect(@c.trash).to be_truthy
   end
+
   it "comes out of the trash when a plus card is created" do
     Card::Auth.as_bot do
       Card.create(name: "A+*acct")
@@ -35,7 +37,7 @@ describe Card::Set::All::Trash do
     expect(Card["slowly"]).to be_a Card
     expect(Card["without regrets"]).to be_a Card
 
-    trashed_dependant = Card.find_by_name "born to die+slowly+without regrets"
+    trashed_dependant = Card.find Card::Lexicon.id("born to die+slowly+without regrets")
     expect(trashed_dependant.trash).to be_truthy
   end
 

@@ -12,7 +12,7 @@ RSpec.describe Card::Query::CardQuery::MatchAttributes do
     end
 
     it "gets only name when name is explicit" do
-      expect(run_query(name: [:match, "two"])).to eq(["One+Two", "One+Two+Three", "Two"])
+      expect(run_query(name: [:match, "two"])).to eq(["Two"])
     end
 
     context "with keyword" do
@@ -44,11 +44,9 @@ RSpec.describe Card::Query::CardQuery::MatchAttributes do
   end
 
   describe "name_match" do
-    it "matches names with or without plusses" do
+    it "same as name: [:match, val]" do
       expect(run_query(name_match: "Any", sort: :name))
-        .to eq(["Anyone", "Anyone+description", "Anyone Signed In",
-                "Anyone Signed In+dashboard", "Anyone Signed In+description",
-                "Anyone With Role"])
+        .to eq(["Anyone", "Anyone Signed In", "Anyone With Role"])
     end
   end
 end

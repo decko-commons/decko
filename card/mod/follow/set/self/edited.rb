@@ -4,7 +4,7 @@ restrictive_follow_opts position: 2
 
 follower_candidate_ids do |card|
   # FIXME? - could optimize by not using cards table...
-  Card.search editor_of: card.name, return: :id
+  card.id ? Card.search(editor_of: card.id, return: :id) : []
 end
 
 def title

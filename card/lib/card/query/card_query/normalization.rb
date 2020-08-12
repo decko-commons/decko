@@ -18,8 +18,8 @@ class Card
         def clause_to_hash clause
           case clause
           when Hash              then clause
-          when String            then { key: clause.to_name.key }
           when Integer           then { id: clause }
+          when String            then { id: (Card::Lexicon.id(clause) || -2) }
           when Symbol            then { id: Card::Codename.id(clause) }
           else raise Error::BadQuery, "Invalid clause: #{clause.inspect}"
           end

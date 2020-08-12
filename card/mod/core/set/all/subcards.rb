@@ -119,18 +119,5 @@ end
 # check when renaming field that it is not actually the same field
 # (eg on a renamed trunk)
 def same_field?
-  same_field_trunk? && same_field_tag?
-end
-
-private
-
-# left is same card (even if renamed)
-def same_field_trunk?
-  l = superleft || Card[left_id]
-  lkey = name.left_name&.key
-  lkey.present? && l&.name&.key == lkey
-end
-
-def same_field_tag?
-  name.right_name.key == name_before_act.to_name.right_name.key
+  (left_id == left_id_before_act) && (right_id == right_id_before_act)
 end

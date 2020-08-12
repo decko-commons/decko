@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Abstract::Pointer do
+RSpec.describe Card::Set::Abstract::Pointer do
   context "with simple Pointer" do
     def card_subject
       pointer = Card["Sample Pointer"]
@@ -8,9 +8,8 @@ describe Card::Set::Abstract::Pointer do
       pointer
     end
 
-    check_views_for_errors :core, :one_line_content, :input,
-                           :list, :autocomplete, :checkbox,
-                           :radio, :select, :multiselect
+    check_views_for_errors :core, :one_line_content, :input, :list, :autocomplete,
+                           :checkbox, :radio, :select, :multiselect
   end
 
   describe "editors" do

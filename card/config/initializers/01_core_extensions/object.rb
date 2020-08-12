@@ -45,10 +45,6 @@ module CoreExtensions
       self.is_a? Cardname
     end
 
-    def to_viewname
-      Card::Name::ViewName.new self
-    end
-
     def deep_clone_instance_variables
       instance_variables.each do |v|
         instance_variable_set v, instance_variable_get(v).deep_clone
