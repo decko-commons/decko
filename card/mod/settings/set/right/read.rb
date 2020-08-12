@@ -43,7 +43,7 @@ def update_read_rules_not_overridden_by_narrower_rules cur_index,
 end
 
 event :process_read_rule_update_queue, :finalize do
-  left.each(&:update_read_rule)
+  left&.update_read_rule
 end
 
 def update_read_rules_of_set_members set
