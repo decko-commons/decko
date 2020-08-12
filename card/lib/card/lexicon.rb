@@ -6,12 +6,16 @@ class Card
       # param id [Integer]
       # @return [String]
       def key id
+        return unless id.present?
+
         (lex = id_to_lex id) && lex_to_key(lex)
       end
 
       # param name [String]
       # @return [Integer]
       def id name
+        return unless name.present?
+
         (lex = name_to_lex name.to_name) && lex_to_id(lex)
       end
 
@@ -67,7 +71,7 @@ class Card
       end
 
       def cache_key lex
-        lex.is_a?(Array) ? lex.join("-") : lex
+        "L-" + (lex.is_a?(Array) ? lex.join("-") : lex)
       end
     end
   end
