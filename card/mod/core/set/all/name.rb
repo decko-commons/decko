@@ -246,10 +246,6 @@ def left_id= card_or_id
   write_card_or_id :left_id, card_or_id
 end
 
-def type_id= card_or_id
-  write_card_or_id :type_id, card_or_id
-end
-
 def write_card_or_id attribute, card_or_id
   if card_or_id.is_a? Card
     write_attribute_to_card attribute, card_or_id
