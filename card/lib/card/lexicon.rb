@@ -21,7 +21,7 @@ class Card
 
       def add card
         lex = card.lex
-        cache.write card.id, lex
+        cache.write card.id.to_s, lex
         cache.write cache_key(lex), card.id
       end
 
@@ -38,7 +38,7 @@ class Card
       end
 
       def id_to_lex id
-        cache.fetch id do
+        cache.fetch id.to_s do
           result = Card.where(id: id).pluck(:key, :left_id, :right_id).first
           return unless result
 
