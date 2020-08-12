@@ -1,9 +1,7 @@
 class Card
+  # Translates keys to ids and vice versa via an intermediate "lex" representation
+  # Note: the lexicon does NOT distinguish between trashed and untrashed cards.
   module Lexicon
-    # Translates keys to ids and vice versa via an intermediate "lex" representation
-    # Note: the lexicon does NOT distinguish between trashed and untrashed cards.
-    #
-    # The lex representation
     class << self
       # param id [Integer]
       # @return [String]
@@ -41,7 +39,9 @@ class Card
 
       def id_to_lex id
         cache.fetch id do
-          return unless result = Card.where(id: id).pluck(:key, :left_id, :right_id).first
+          result = Card.where(id: id).pluck(:key, :left_id, :right_id).first
+          return unless result
+
           result[0] || [result[1], result[2]]
         end
       end
@@ -67,7 +67,7 @@ class Card
       end
 
       def cache_key lex
-        lex.is_a?(Array) ? lex.join('-') : lex
+        lex.is_a?(Array) ? lex.join("-") : lex
       end
     end
   end
