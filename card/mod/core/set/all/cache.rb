@@ -5,7 +5,9 @@ module ClassMethods
   end
 
   def retrieve_from_cache_by_id id, local_only=false
-    key = Card::Lexicon.key id
+    key = Card::Lexicon.name(id)&.key
+    return unless key.present?
+
     retrieve_from_cache key, local_only if key
   end
 

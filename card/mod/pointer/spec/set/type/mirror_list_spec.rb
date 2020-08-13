@@ -6,9 +6,12 @@ RSpec.describe Card::Set::Type::MirrorList do
   before do
     Card::Auth.as_bot do
       #create_mirrored_list "Parry Hotter+authors", "[[Darles Chickens]]"
-      Card.create! name: "Parry Hotter+authors", content: "[[Darles Chickens]]", type_id: Card::MirroredListID
-      Card.create! name: "50 grades of shy+authors", content: "[[Darles Chickens]]\n[[Stam Broker]]", type_id: Card::MirroredListID
-      #create_mirrored_list "50 grades of shy+authors", "[[Darles Chickens]]\n[[Stam Broker]]"
+      Card.create! name: "Parry Hotter+authors",
+                   content: "[[Darles Chickens]]",
+                   type_id: Card::MirroredListID
+      Card.create! name: "50 grades of shy+authors",
+                   content: "[[Darles Chickens]]\n[[Stam Broker]]",
+                   type_id: Card::MirroredListID
     end
   end
   it "doesn't allow non-cardtype as right part" do

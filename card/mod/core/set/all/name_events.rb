@@ -67,14 +67,14 @@ event :update_lexicon_on_rename, :finalize, changed: :name, on: :update do
 end
 
 def lex
-  simple? ? key : [left_id, right_id]
+  simple? ? name : [left_id, right_id]
 end
 
 def old_lex
   if left_id_before_last_save
     [left_id_before_last_save, right_id_before_last_save]
   else
-    name_before_last_save.to_name.key
+    name_before_last_save
   end
 end
 

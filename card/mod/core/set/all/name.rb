@@ -21,11 +21,11 @@ module ClassMethods
 end
 
 def name
-  @name ||= left_id ? Card::Name[left_id, right_id] : super.to_name
+  @name ||= left_id ? Card::Lexicon.lex_to_name([left_id, right_id]) : super.to_name
 end
 
 def key
-  @key ||= left_id ? Card::Lexicon.lex_to_key([left_id, right_id]) : super
+  @key ||= left_id ? name.key : super
 end
 
 def name= newname
@@ -41,15 +41,15 @@ def assign_side_ids
   if name.simple?
     self.left_id = self.right_id = nil
   else
-    assign_side_id :left_id=, :left_key
-    assign_side_id :right_id=, :right_key
+    assign_side_id :left_id=, :left_name
+    assign_side_id :right_id=, :right_name
   end
 end
 
 # assigns left_id and right_id based on names.
 # if side card is new, id is temporarily stored as -1
-def assign_side_id side_id_equals, side_key
-  side_id = Card::Lexicon.id(name.send(side_key)) || -1
+def assign_side_id side_id_equals, side_name
+  side_id = Card::Lexicon.id(name.send(side_name)) || -1
   send side_id_equals, side_id
 end
 
@@ -209,33 +209,6 @@ end
 # -- should only be used for name manipulations
 def descendants
   @descendants ||= descendant_ids.map { |id| Card.quick_fetch id }
-end
-
-def repair_key
-  Auth.as_bot do
-    correct_key = name.key
-    current_key = key
-    return self if current_key == correct_key
-
-    if (key_blocker = Card.find_by_key_and_trash(correct_key, true))
-      key_blocker.name = key_blocker.name + "*trash#{rand(4)}"
-      key_blocker.save
-    end
-
-    saved =   (self.key = correct_key) && save!
-    saved ||= (self.name = current_key) && save!
-
-    if saved
-      descendants.each(&:repair_key)
-    else
-      Rails.logger.debug "FAILED TO REPAIR BROKEN KEY: #{key}"
-      self.name = "BROKEN KEY: #{name}"
-    end
-    self
-  end
-rescue StandardError
-  Rails.logger.info "BROKE ATTEMPTING TO REPAIR BROKEN KEY: #{key}"
-  self
 end
 
 def right_id= card_or_id
