@@ -17,7 +17,6 @@ def update_read_ruled_cards
 
   processed = update_read_rules_of_set_members
   update_cards_with_read_rule_id processed unless new?
-
 end
 
 def update_read_rules_of_set_members
