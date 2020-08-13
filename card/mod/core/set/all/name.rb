@@ -21,35 +21,70 @@ module ClassMethods
 end
 
 def name
-  super.to_name
+  @name ||= left_id ? Card::Name[left_id, right_id] : super.to_name
+end
+
+def key
+  @key ||= left_id ? Card::Lexicon.lex_to_key([left_id, right_id]) : super
 end
 
 def name= newname
-  cardname = superize_name newname.to_name
-  newkey = cardname.key
-  self.key = newkey if key != newkey
-  update_subcard_names cardname
-  write_attribute :name, cardname.s
-  name
+  @name = superize_name newname.to_name
+  self.key = @name.key
+  update_subcard_names @name
+  write_attribute :name, (@name.simple? ? @name.s : nil)
+  assign_side_ids
+  @name
+end
+
+def assign_side_ids
+  if name.simple?
+    self.left_id = self.right_id = nil
+  else
+    assign_side_id :left_id=, :left_key
+    assign_side_id :right_id=, :right_key
+  end
+end
+
+# assigns left_id and right_id based on names.
+# if side card is new, id is temporarily stored as -1
+def assign_side_id side_id_equals, side_key
+  side_id = Card::Lexicon.id(name.send(side_key)) || -1
+  send side_id_equals, side_id
 end
 
 def superize_name cardname
   return cardname unless @supercard
   @raw_name = cardname.s
   @supercard.subcards.rename key, cardname.key
-  @superleft = @supercard if cardname.field_of? @supercard.name
+  update_superleft cardname
   cardname.absolute_name @supercard.name
 end
 
+def update_superleft cardname
+  @superleft = @supercard if cardname.field_of? @supercard.name
+end
+
 def key= newkey
-  was_in_cache = Card.cache.soft.delete key
-  write_attribute :key, newkey
-  # keep the soft cache up-to-date
-  Card.write_to_soft_cache self if was_in_cache
-  # reset the old name - should be handled in tracked_attributes!!
-  reset_patterns_if_rule
+  return if newkey == key
+  update_cache_key key do
+    write_attribute :key, (name.simple? ? newkey : nil)
+    @key = newkey
+  end
+  clean_patterns
+  @key
+end
+
+def clean_patterns
+  return unless patterns?
   reset_patterns
-  newkey
+  patterns
+end
+
+def update_cache_key oldkey
+  yield
+  was_in_cache = Card.cache.soft.delete oldkey
+  Card.write_to_soft_cache self if was_in_cache
 end
 
 def update_subcard_names new_name, name_to_replace=nil
@@ -102,7 +137,7 @@ def left *args
   case
   when simple?    then nil
   when superleft then superleft
-  when attribute_is_changing?(:name) && name.to_name.trunk_name.key == name_before_act.to_name.key
+  when name_is_changing? && name.to_name.trunk_name.key == name_before_act.to_name.key
     nil # prevent recursion when, eg, renaming A+B to A+B+C
   else
     Card.fetch name.left, *args
@@ -136,23 +171,26 @@ def left_or_new args={}
 end
 
 def fields
-  field_names.map { |name| Card[name] }
+  field_ids.map { |id| Card[id] }
 end
 
-def field_names parent_name=nil
-  child_names parent_name, :left
+def field_names
+  field_ids.map { |id| Card::Name[id] }
+end
+
+def field_ids
+  child_ids :left
 end
 
 def children
-  child_names.map { |name| Card[name] }
+  child_ids.map { |id| Card[id] }
 end
 
-def child_names parent_name=nil, side=nil
+def child_ids side=nil
+  return [] unless id
   # eg, A+B is a child of A and B
-  parent_name ||= name
-  side ||= parent_name.to_name.simple? ? :part : :left
-  Card.search({ side => parent_name, return: :name },
-              "(#{side}) children of #{parent_name}")
+  side ||= name.simple? ? :part : :left
+  Card.search({ side => id, return: :id }, "(#{side}) children of #{name}")
 end
 
 # ids of children and children's children

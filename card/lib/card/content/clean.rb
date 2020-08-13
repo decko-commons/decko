@@ -32,32 +32,38 @@ class Card
 
       ATTR_VALUE_RE = [/(?<=^')[^']+(?=')/, /(?<=^")[^"]+(?=")/, /\S+/].freeze
 
+      def clean! string, tags=ALLOWED_TAGS
+        cleaned = clean_tags string, tags
+        cleaned = clean_spaces cleaned if Cardio.config.space_last_in_multispace
+        cleaned
+      end
+
+      private
+
       ## Method that cleans the String of HTML tags
       ## and attributes outside of the allowed list.
-      def clean! string, tags=ALLOWED_TAGS
+      def clean_tags string, ok_tags
         # $LAST_MATCH_INFO is nil if string is a SafeBuffer
-        string.to_str.gsub(%r{<(/*)(\w+)([^>]*)>}) do |raw|
-          raw = $LAST_MATCH_INFO
-          tag = raw[2].downcase
-          if (attrs = tags[tag])
-            html_attribs =
-              attrs.each_with_object([tag]) do |attr, pcs|
-                q, rest_value = process_attribute attr, raw[3]
-                pcs << "#{attr}=#{q}#{rest_value}#{q}" unless rest_value.blank?
-              end * " "
-            "<#{raw[1]}#{html_attribs}>"
-          else
-            " "
-          end
+        string.to_str.gsub(%r{<(/*)(\w+)([^>]*)>}) do |_raw|
+          clean_tag $LAST_MATCH_INFO, ok_tags
         end.gsub(/<\!--.*?-->/, "")
       end
 
-      if Cardio.config.space_last_in_multispace
-        def clean_with_space_last! string, tags=ALLOWED_TAGS
-          cwo = clean_without_space_last!(string, tags)
-          cwo.gsub(/(?:^|\b) ((?:&nbsp;)+)/, '\1 ')
-        end
-        alias_method_chain :clean!, :space_last
+      def clean_spaces string
+        string.gsub(/(?:^|\b) ((?:&nbsp;)+)/, '\1 ')
+      end
+
+      def clean_tag match, ok_tags
+        tag = match[2].downcase
+        return " " unless (ok_attrs = ok_tags[tag])
+        "<#{match[1]}#{html_attribs tag, match[3], ok_attrs}>"
+      end
+
+      def html_attribs tag, raw_attr, ok_attrs
+        ok_attrs.each_with_object([tag]) do |ok_attr, pcs|
+          q, rest_value = process_attribute ok_attr, raw_attr
+          pcs << "#{ok_attr}=#{q}#{rest_value}#{q}" unless rest_value.blank?
+        end * " "
       end
 
       def process_attribute attrib, all_attributes

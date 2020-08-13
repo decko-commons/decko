@@ -93,7 +93,7 @@ format :html do
   end
 
   def type_options type_codename, order="asc", max_length=nil
-    Card.cache.fetch "#{type_codename}-#{order}-#{max_length}-TYPE-OPTIONS" do
+    Card.cache.fetch "#{type_codename}-TYPE-OPTIONS" do
       res = Card.search type: type_codename, return: :name, sort: "name", dir: order
       max_length ? (res.map { |i| [trim_option(i, max_length), i] }) : res
     end

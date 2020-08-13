@@ -17,7 +17,7 @@ def filter_hash
 end
 
 def sort_param
-  safe_sql_param :sort
+  @sort_param ||= safe_sql_param :sort
 end
 
 def safe_sql_param key

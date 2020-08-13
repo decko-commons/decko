@@ -124,13 +124,7 @@ end
 
 def single_changed_condition_applies? db_column
   return true unless db_column
-  db_column =
-    case db_column.to_sym
-    when :content then "db_content"
-    when :type    then "type_id"
-    else db_column.to_s
-    end
-  attribute_is_changing?(db_column)
+  send "#{db_column}_is_changing?"
 end
 
 def wrong_stage opts

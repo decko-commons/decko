@@ -27,6 +27,7 @@ end
 
 def still_pointer?
   type_id == PointerID
+  # Card.new(type_id: type_id).is_a? Abstract::Pointer
 end
 
 def changed_item_names

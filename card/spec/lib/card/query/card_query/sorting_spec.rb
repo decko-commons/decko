@@ -7,7 +7,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
     # classic skin head is created more recently than classic skin,
     # which is in the seed data
     expect(run_query(sort: "create", name: [:match, "classic bootstrap skin"]))
-      .to eq(["classic bootstrap skin", "classic bootstrap skin+*colors", "classic bootstrap skin+*stylesheets", "classic bootstrap skin+*variables", "classic bootstrap skin head"])
+      .to eq(["classic bootstrap skin", "classic bootstrap skin head"])
   end
 
   it "sorts by name" do
@@ -20,11 +20,8 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   end
 
   it "plays nice with match" do
-    expect(run_query(match: "Z",
-                     not: { match: "Prose" },
-                     type: "RichText",
-                     sort: "content"))
-      .to eq(%w(horizontal A B Z A+B+Y+Z))
+    expect(run_query(match: "two", not: { match: "42" }))
+      .to eq(cards_matching_two - ["42"])
   end
 
   it "sorts by plus card content" do

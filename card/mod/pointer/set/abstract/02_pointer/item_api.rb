@@ -24,7 +24,8 @@ def first_name args={}
 end
 
 def first_card args={}
-  fetch_item_card first_name, args
+  return unless (name = first_name)
+  fetch_item_card name, args
 end
 
 def first_code

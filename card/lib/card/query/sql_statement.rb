@@ -69,17 +69,20 @@ class Card
 
       def full_field table, field
         case field
-        when :raw      then "#{table}.*"
-        when :card     then "#{table}.*"
-        when :content  then "#{table}.db_content"
-        when :count
-          "coalesce(count( distinct #{table}.id),0) as count"
+        when :card, :raw then "#{table}.*"
+        when :content    then "#{table}.db_content"
+        when :name, :key then "#{table}.#{field}, #{table}.id"
+        when :count      then "coalesce(count( distinct #{table}.id),0) as count"
         else
-          if ATTRIBUTES[field.to_sym] == :basic
-            "#{table}.#{field}"
-          else
-            safe_sql field
-          end
+          standard_full_field table, field
+        end
+      end
+
+      def standard_full_field table, field
+        if ATTRIBUTES[field.to_sym] == :basic
+          "#{table}.#{field}"
+        else
+          safe_sql field
         end
       end
 

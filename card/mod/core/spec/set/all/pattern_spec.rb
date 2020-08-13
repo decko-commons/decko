@@ -55,7 +55,7 @@ RSpec.describe Card::Set::All::Pattern do
     it "handles type plus right prototypes properly" do
       Card::Auth.as_bot do
         sets = Card.fetch("Fruit+flavor+*type plus right").prototype.set_names
-        expect(sets.include?("Fruit+flavor+*type plus right")).to be_truthy
+        expect(sets).to include("Fruit+flavor+*type plus right")
       end
     end
   end

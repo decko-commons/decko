@@ -56,6 +56,7 @@ end
 
 def merge_revert_action! action, update_args, reverting_to_previous
   rev = action.card.revision(action, reverting_to_previous)
+  rev.delete :name unless rev[:name] # handles null name field in compound cards
   if action.card_id == id
     update_args.merge! rev
   else

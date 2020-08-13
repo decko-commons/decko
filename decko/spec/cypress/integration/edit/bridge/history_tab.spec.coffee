@@ -1,4 +1,4 @@
-describe 'history tab', () ->
+ describe 'history tab', () ->
   before ->
     cy.login()
     cy.ensure "no history", type: 'basic'

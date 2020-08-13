@@ -30,6 +30,10 @@ def read_rules
   @read_rules ||= fetch_read_rules
 end
 
+def read_rules_hash
+  @read_rules_hash ||= read_rules.each_with_object({}) { |id, h| h[id] = true }
+end
+
 def fetch_read_rules
   return [] if id == WagnBotID # always_ok, so not needed
 
@@ -63,7 +67,7 @@ def enabled_role_ids
     # workaround for broken migrations
     return fetch_roles unless Card::Codename.exists? :enabled_roles
 
-    role_trait = fetch(:enabled_roles, new: { type_id: SessionID })
+    role_trait = fetch(:enabled_roles, eager_cache: true, new: { type_id: SessionID })
     role_trait.virtual? ? role_trait.item_ids : fetch_roles
   end
 end

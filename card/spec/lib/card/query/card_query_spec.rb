@@ -18,11 +18,11 @@ RSpec.describe Card::Query::CardQuery do
 
   describe "in" do
     example "content option" do
-      expect(run_query(in: %w(AlphaBeta Theta))).to eq(%w(A+B T))
+      expect(run_query(in: %w(AlphaBeta Theta)).sort).to eq(%w(A+B T))
     end
 
     it "finds the same thing in full syntax" do
-      expect(run_query(content: [:in, "Theta", "AlphaBeta"])).to eq(%w(A+B T))
+      expect(run_query(content: [:in, "Theta", "AlphaBeta"]).sort).to eq(%w(A+B T))
     end
 
     it "is the default conjunction for arrays" do

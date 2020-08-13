@@ -32,14 +32,10 @@ def type= type_name
   self.type_id = Card.fetch_id type_name
 end
 
-def type_known?
-  type_id.present?
-end
-
-def get_type_id_from_structure
+def type_id_from_template
   return unless name && (t = template)
   reset_patterns # still necessary even with new template handling?
-  t.type_id
+  self.type_id = t.type_id
 end
 
 event :validate_type_change, :validate, on: :update, changed: :type_id do

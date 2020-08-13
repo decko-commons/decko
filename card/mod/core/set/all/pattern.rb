@@ -1,27 +1,23 @@
+def patterns?
+  defined? @patterns
+end
 
+def all_patterns
+  @all_patterns ||= set_patterns.map { |sub| sub.new self }.compact
+end
+
+# new cards do not
 def patterns
-  @patterns ||= set_patterns.map { |sub| sub.new self }.compact
+  @patterns ||= (new_card? ? all_patterns[1..-1] : all_patterns)
 end
-
-def patterns_with_new
-  new_card? ? patterns_without_new[1..-1] : patterns_without_new
-end
-alias_method_chain :patterns, :new
 
 def reset_patterns
-  @patterns = nil
+  # Rails.logger.info "resetting patterns: #{name}"
+  @patterns = @all_patterns = nil
   @template = @virtual = nil
   @set_mods_loaded = @set_modules = @set_names = @rule_set_keys = nil
   @junction_only = nil # only applies to set cards
   true
-end
-
-def reset_patterns_if_rule _saving=false
-  return unless real? && is_rule? && (set = left)
-
-  set.reset_patterns
-  set.include_set_modules
-  set
 end
 
 def safe_set_keys
@@ -29,14 +25,13 @@ def safe_set_keys
 end
 
 def set_modules
-  @set_modules ||=
-    patterns_without_new[0..-2].reverse.map(&:module_list).flatten.compact
+  @set_modules ||= all_patterns[0..-2].reverse.map(&:module_list).flatten.compact
 end
 
 def set_format_modules klass
   @set_format_modules ||= {}
   @set_format_modules[klass] =
-    patterns_without_new[0..-2].reverse.map do |pattern|
+    all_patterns[0..-2].reverse.map do |pattern|
       pattern.format_module_list klass
     end.flatten.compact
 end

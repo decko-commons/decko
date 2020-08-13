@@ -3,9 +3,7 @@ class Card
     module Error
       def ok? task
         task = :create if task == :update && card.new_card?
-        @ok ||= {}
-        @ok[task] = card.ok? task if @ok[task].nil?
-        @ok[task]
+        card.ok? task
       end
 
       def anyone_can? task
@@ -53,15 +51,20 @@ class Card
       end
 
       def loud_error e, view
+        log_error e if focal? && voo.root?
         card.errors.add "#{view} view", rendering_error(e, view) if card.errors.empty?
         raise e
       end
 
       def quiet_error e, view
         # TODO: unify with Card::Error#report
+        log_error e
+        rendering_error e, view
+      end
+
+      def log_error e
         Rails.logger.info e.message
         Rails.logger.debug e.backtrace.join("\n")
-        rendering_error e, view
       end
 
       def rendering_error exception, view

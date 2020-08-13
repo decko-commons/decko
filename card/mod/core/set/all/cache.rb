@@ -5,8 +5,8 @@ module ClassMethods
   end
 
   def retrieve_from_cache_by_id id, local_only=false
-    name = retrieve_from_cache "~#{id}", local_only
-    retrieve_from_cache name, local_only if name
+    key = Card::Lexicon.key id
+    retrieve_from_cache key, local_only if key
   end
 
   def retrieve_from_cache_by_key key, local_only=false
@@ -32,15 +32,6 @@ module ClassMethods
     key = name.to_name.key
     return unless (card = Card.cache.read key)
     card.expire
-  end
-
-  def new_for_cache card, name, opts
-    return if name.is_a? Integer
-    return if name.blank? && !opts[:new]
-    return if card && (card.type_known? || skip_type_lookup?(opts))
-    new name: name,
-        skip_modules: true,
-        skip_type_lookup: skip_type_lookup?(opts)
   end
 end
 

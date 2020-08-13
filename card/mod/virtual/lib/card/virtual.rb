@@ -65,7 +65,7 @@ class Card
 
       def left_id card
         if card.junction?
-          card.left_id || ((l = card.left) && l.id)
+          card.left_id&.positive? ? card.left_id : card.left&.id
         else
           card.id
         end
@@ -73,9 +73,9 @@ class Card
 
       def right_id card
         if card.junction?
-          card.right_id || ((r = card.right) && r.id)
+          card.right_id&.positive? ? card.right_id : card.right&.id
         else
-          -1
+          -2
         end
       end
 

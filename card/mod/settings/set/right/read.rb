@@ -9,11 +9,6 @@ event :cascade_read_rule, :finalize, after: :update_rule_cache,
   update_read_ruled_cards rule_set
 end
 
-def reset_patterns_if_rule saving=false
-  return unless (set = super)
-  add_to_read_rule_update_queue set.item_cards(limit: 0) if saving
-end
-
 # TODO: the following really needs a refactor.
 #
 # It was written (long ago) to handle different kinds of changes, but this
@@ -48,8 +43,7 @@ def update_read_rules_not_overridden_by_narrower_rules cur_index,
 end
 
 event :process_read_rule_update_queue, :finalize do
-  Array.wrap(@read_rule_update_queue).each(&:update_read_rule)
-  @read_rule_update_queue = []
+  left&.update_read_rule
 end
 
 def update_read_rules_of_set_members set

@@ -73,7 +73,7 @@ class Card
       end
 
       def initialize_by_attributes name, attributes
-        Card.assign_or_initialize_by name, attributes, local_only: true
+        Card.assign_or_newish name, attributes, local_only: true
       end
 
       # TODO: this method already exists as card instance method in
