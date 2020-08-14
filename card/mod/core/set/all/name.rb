@@ -137,7 +137,7 @@ def left *args
   case
   when simple?    then nil
   when superleft then superleft
-  when name_is_changing? && name.to_name.trunk_name.key == name_before_act.to_name.key
+  when name_is_changing? && name.to_name.trunk_name == name_before_act.to_name
     nil # prevent recursion when, eg, renaming A+B to A+B+C
   else
     Card.fetch name.left, *args
@@ -186,36 +186,24 @@ def field_ids
   child_ids :left
 end
 
-def children
-  child_ids.map { |id| Card[id] }
-end
-
-def child_ids side=nil, ids=nil
-  return [] unless id
-  # eg, A+B is a child of A and B
-  side ||= name.simple? ? :part : :left_id
-  ids ||= id
-  Card.search(side => ids, return: :id, limit: 0) # }, "(#{side}) children of #{name}")
-end
-
-# ids of children, children's children, etc
-def descendant_ids
-  Auth.as_bot do
-    all_ids = []
-    next_gen_ids = child_ids
-    while next_gen_ids.present?
-      all_ids += next_gen_ids
-      next_gen_ids = child_ids :left_id, next_gen_ids
-    end
-    all_ids
+def each_child
+  child_ids.each do |id|
+    yield Card[id]
   end
 end
 
-# children and children's children
-# NOTE - set modules are not loaded
-# -- should only be used for name manipulations
-def descendants
-  @descendants ||= descendant_ids.map { |id| Card.quick_fetch id }
+# eg, A+B is a child of A and B
+def child_ids side=nil
+  return [] unless id
+  side ||= name.simple? ? :part : :left_id
+  Card.search(side => id, return: :id, limit: 0) # }, "(#{side}) children of #{name}")
+end
+
+def each_descendant &block
+  each_child do |child|
+    block.call child
+    child.each_child &block
+  end
 end
 
 def right_id= card_or_id

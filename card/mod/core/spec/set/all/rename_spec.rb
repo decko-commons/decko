@@ -2,13 +2,15 @@
 
 module RenameMethods
   def name_invariant_attributes card
+    descendant_ids = []
+    card.each_descendant { |d| descendant_ids << d.id }
     {
       content: card.db_content,
       # updater_id:  card.updater_id,
       # revisions:   card.actions.count,
       referers: card.referers.map(&:name).sort,
       referees: card.referees.map(&:name).sort,
-      descendants: card.descendants.map(&:id).sort
+      descendants: descendant_ids.sort
     }
   end
 
@@ -31,7 +33,11 @@ RSpec.describe Card::Set::All::Rename do
   include CardExpectations
 
   it "renames simple card to its own child" do
-    assert_rename "A", "A+M"
+    assert_rename "F", "F+M"
+  end
+
+  it "disallows renaming simple to compound when simple is used as tag" do
+    expect { Card["A"].update! name: "A+M" }.to raise_error(/illegal name change/)
   end
 
   it "renames plus card to its own child" do

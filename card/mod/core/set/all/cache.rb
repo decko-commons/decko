@@ -89,7 +89,7 @@ def expire_views
 end
 
 def expire_names cache
-  [name, name_before_act].each do |name_version|
+  [name, name_before_act].uniq.each do |name_version|
     expire_name name_version, cache
   end
 end

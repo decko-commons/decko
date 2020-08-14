@@ -105,7 +105,7 @@ end
 
 event :validate_delete_children, after: :validate_delete, on: :delete do
   return if errors.any?
-  children.each do |child|
+  each_child do |child|
     next unless child
     # prevents errors in cases where a child is deleted prior to this point
     # and thus is not returned by the fetch in #children

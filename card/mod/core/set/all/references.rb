@@ -41,12 +41,6 @@ def name_referers
   Card.joins(:references_out).where card_references: { referee_key: key }
 end
 
-# cards that refer to self or any descendant
-def family_referers
-  @family_referers ||= ([self] + descendants).map(&:referers).flatten.uniq
-  # TODO: make this more efficient using partial references!
-end
-
 # replace references in card content
 def replace_reference_syntax old_name, new_name
   obj_content = Card::Content.new content, self
@@ -146,27 +140,9 @@ end
 
 protected
 
-# test for updating referer content & preload referer list
+# test for updating referer content
 event :prepare_referer_update, :validate, on: :update, changed: :name do
   self.update_referers = ![nil, false, "false"].member?(update_referers)
-  family_referers
-end
-
-# when name changes, update references to card
-event :refresh_references_in, :finalize, on: :save do
-  Card::Reference.unmap_referees id if @action == :update && !update_referers
-  Card::Reference.map_referees key, id
-end
-
-# when content changes, update references to other cards
-event :refresh_references_out, :finalize, on: :save, changed: :content do
-  update_references_out
-end
-
-# clean up reference table when card is deleted
-event :clear_references, :finalize, on: :delete do
-  delete_references_out
-  Card::Reference.unmap_referees id
 end
 
 # on rename, update names in cards that refer to self by name (as directed)
@@ -186,6 +162,23 @@ end
 event :update_referer_references_out, :finalize,
       on: :update, when: :not_update_referers do
   referers.map(&:update_references_out)
+end
+
+# when name changes, update references to card
+event :refresh_references_in, :finalize, on: :save do
+  Card::Reference.unmap_referees id if @action == :update && !update_referers
+  Card::Reference.map_referees key, id
+end
+
+# when content changes, update references to other cards
+event :refresh_references_out, :finalize, on: :save, changed: :content do
+  update_references_out
+end
+
+# clean up reference table when card is deleted
+event :clear_references, :finalize, on: :delete do
+  delete_references_out
+  Card::Reference.unmap_referees id
 end
 
 def not_update_referers
