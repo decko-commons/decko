@@ -188,7 +188,8 @@ end
 
 def each_child
   child_ids.each do |id|
-    yield Card[id]
+    (child = Card[id]) && yield(child)
+    # check should not be needed (remove after fixing data problems)
   end
 end
 

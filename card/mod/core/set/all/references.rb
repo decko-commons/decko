@@ -150,7 +150,7 @@ event :update_referer_content, :finalize, on: :update, when: :update_referers do
   referers.each do |card|
     next if card.structure
     card.skip_event! :validate_renaming, :check_permissions
-    card.content = card.replace_reference_syntax name_before_last_save, name
+    card.content = card.replace_reference_syntax name_before_act, name
     attach_subcard card
   end
 end

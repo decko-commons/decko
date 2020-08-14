@@ -71,10 +71,10 @@ def lex
 end
 
 def old_lex
-  if (old_left_id = left_id_before_last_save)
-    [old_left_id, right_id_before_last_save]
+  if (old_left_id = left_id_before_act)
+    [old_left_id, right_id_before_act]
   else
-    name_before_last_save
+    name_before_act
   end
 end
 
