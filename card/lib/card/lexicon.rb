@@ -13,7 +13,7 @@ class Card
         return unless id.present?
 
         name = (lex = id_to_lex id) && lex_to_name(lex)
-        (name || '').to_name
+        (name || "").to_name
       end
 
       # param name [String]

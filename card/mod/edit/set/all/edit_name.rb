@@ -70,7 +70,7 @@ format :html do
   end
 
   def rename_descendant_effect
-    descendants = card.descendants
+    descendants = card.descendant_ids
     return unless descendants.any? # FIXME: count, don't instantiate
 
     "automatically alter #{descendants.size} related name(s)."
