@@ -193,9 +193,9 @@ end
 def child_ids side=nil, ids=nil
   return [] unless id
   # eg, A+B is a child of A and B
-  side ||= name.simple? ? :part : :left
+  side ||= name.simple? ? :part : :left_id
   ids ||= id
-  Card.search( side => ids, return: :id) # }, "(#{side}) children of #{name}")
+  Card.search(side => ids, return: :id, limit: 0) # }, "(#{side}) children of #{name}")
 end
 
 # ids of children, children's children, etc
@@ -205,7 +205,7 @@ def descendant_ids
     next_gen_ids = child_ids
     while next_gen_ids.present?
       all_ids += next_gen_ids
-      next_gen_ids = child_ids :left, next_gen_ids
+      next_gen_ids = child_ids :left_id, next_gen_ids
     end
     all_ids
   end
