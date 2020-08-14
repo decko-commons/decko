@@ -29,6 +29,5 @@ end
 
 def detect_illegal_compound_names
   return unless changed_from_simple_to_compound? && child_ids(:right).present?
-  errors.add :name, "illegal name change; there are existing names ending in +" +
-    name_before_act
+  errors.add :name, "illegal name change; existing names end in +#{name_before_act}"
 end

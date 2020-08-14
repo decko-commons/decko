@@ -201,8 +201,8 @@ end
 
 def each_descendant &block
   each_child do |child|
-    block.call child
-    child.each_child &block
+    yield child
+    child.each_descendant(&block)
   end
 end
 
