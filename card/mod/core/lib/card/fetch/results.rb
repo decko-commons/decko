@@ -90,7 +90,7 @@ class Card
       def name_change?
         return false unless (new_name = new_opts[:name]&.to_name)
         return false if new_name.relative? && mark.name? && mark.absolute?
-        new_name != @card.name
+        new_name.to_s != @card.name.to_s
       end
 
       def type_change?
