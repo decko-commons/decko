@@ -51,7 +51,7 @@ format :html do
     msg = "<h5>Are you sure you want to rename <em>#{safe_name}</em>?</h5>"
     msg << %(<h6>This may change names referred to by other cards</h6>)
     msg << %(<p>You may choose to <em>update or ignore</em> the referers.</p>)
-    msg << hidden_field_tag(:referers)
+    msg << hidden_field_tag(:referers, 1)
     alert("warning", false, false, class: "hidden-alert") { msg }
   end
 end
