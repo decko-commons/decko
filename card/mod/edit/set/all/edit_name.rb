@@ -37,7 +37,7 @@ format :html do
     end
   end
 
-  #LOCALIZE
+  # LOCALIZE
   def rename_and_update_button
     submit_button text: "Rename and Update", disable_with: "Renaming",
                   class: "renamer-updater"
