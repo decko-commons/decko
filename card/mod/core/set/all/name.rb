@@ -21,11 +21,11 @@ module ClassMethods
 end
 
 def name
-  @name ||= left_id ? Card::Name[left_id, right_id] : super.to_name
+  @name ||= left_id ? Card::Lexicon.lex_to_name([left_id, right_id]) : super.to_name
 end
 
 def key
-  @key ||= left_id ? Card::Lexicon.lex_to_key([left_id, right_id]) : super
+  @key ||= left_id ? name.key : super
 end
 
 def name= newname
@@ -41,15 +41,15 @@ def assign_side_ids
   if name.simple?
     self.left_id = self.right_id = nil
   else
-    assign_side_id :left_id=, :left_key
-    assign_side_id :right_id=, :right_key
+    assign_side_id :left_id=, :left_name
+    assign_side_id :right_id=, :right_name
   end
 end
 
 # assigns left_id and right_id based on names.
 # if side card is new, id is temporarily stored as -1
-def assign_side_id side_id_equals, side_key
-  side_id = Card::Lexicon.id(name.send(side_key)) || -1
+def assign_side_id side_id_equals, side_name
+  side_id = Card::Lexicon.id(name.send(side_name)) || -1
   send side_id_equals, side_id
 end
 
@@ -137,7 +137,7 @@ def left *args
   case
   when simple?    then nil
   when superleft then superleft
-  when name_is_changing? && name.to_name.trunk_name.key == name_before_act.to_name.key
+  when name_is_changing? && name.to_name.trunk_name == name_before_act.to_name
     nil # prevent recursion when, eg, renaming A+B to A+B+C
   else
     Card.fetch name.left, *args
@@ -170,6 +170,10 @@ def left_or_new args={}
   left(args) || Card.new(args.merge(name: name.left))
 end
 
+# TODO: for all these helpers, we should make it more obvious when
+# you're getting all fields/children/descendants vs only those you have permission
+# to read.
+
 def fields
   field_ids.map { |id| Card[id] }
 end
@@ -182,60 +186,25 @@ def field_ids
   child_ids :left
 end
 
-def children
-  child_ids.map { |id| Card[id] }
+def each_child
+  child_ids.each do |id|
+    (child = Card[id]) && yield(child)
+    # check should not be needed (remove after fixing data problems)
+  end
 end
 
+# eg, A+B is a child of A and B
 def child_ids side=nil
   return [] unless id
-  # eg, A+B is a child of A and B
-  side ||= name.simple? ? :part : :left
-  Card.search({ side => id, return: :id }, "(#{side}) children of #{name}")
+  side ||= name.simple? ? :part : :left_id
+  Card.search(side => id, return: :id, limit: 0) # }, "(#{side}) children of #{name}")
 end
 
-# ids of children and children's children
-def descendant_ids parent_id=nil
-  return [] if new_card?
-  parent_id ||= id
-  Auth.as_bot do
-    child_ids = Card.search part: parent_id, return: :id
-    child_descendant_ids = child_ids.map { |cid| descendant_ids cid }
-    (child_ids + child_descendant_ids).flatten.uniq
+def each_descendant &block
+  each_child do |child|
+    yield child
+    child.each_descendant(&block)
   end
-end
-
-# children and children's children
-# NOTE - set modules are not loaded
-# -- should only be used for name manipulations
-def descendants
-  @descendants ||= descendant_ids.map { |id| Card.quick_fetch id }
-end
-
-def repair_key
-  Auth.as_bot do
-    correct_key = name.key
-    current_key = key
-    return self if current_key == correct_key
-
-    if (key_blocker = Card.find_by_key_and_trash(correct_key, true))
-      key_blocker.name = key_blocker.name + "*trash#{rand(4)}"
-      key_blocker.save
-    end
-
-    saved =   (self.key = correct_key) && save!
-    saved ||= (self.name = current_key) && save!
-
-    if saved
-      descendants.each(&:repair_key)
-    else
-      Rails.logger.debug "FAILED TO REPAIR BROKEN KEY: #{key}"
-      self.name = "BROKEN KEY: #{name}"
-    end
-    self
-  end
-rescue StandardError
-  Rails.logger.info "BROKE ATTEMPTING TO REPAIR BROKEN KEY: #{key}"
-  self
 end
 
 def right_id= card_or_id
@@ -244,10 +213,6 @@ end
 
 def left_id= card_or_id
   write_card_or_id :left_id, card_or_id
-end
-
-def type_id= card_or_id
-  write_card_or_id :type_id, card_or_id
 end
 
 def write_card_or_id attribute, card_or_id

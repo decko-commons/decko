@@ -46,45 +46,12 @@ format :html do
     button_tag "Rename", data: { disable_with: "Renaming" }, class: "renamer"
   end
 
+  # LOCALIZE
   def rename_confirmation_alert
     msg = "<h5>Are you sure you want to rename <em>#{safe_name}</em>?</h5>"
-    msg << rename_effects_and_options
+    msg << %(<h6>This may change names referred to by other cards</h6>)
+    msg << %(<p>You may choose to <em>update or ignore</em> the referers.</p>)
+    msg << hidden_field_tag(:referers, 1)
     alert("warning", false, false, class: "hidden-alert") { msg }
-  end
-
-  def rename_effects_and_options
-    descendant_effect = rename_descendant_effect
-    referer_effect, referer_option = rename_referer_effect_and_option
-    effects = [descendant_effect, referer_effect].compact
-    return "" if effects.empty?
-
-    format_rename_effects_and_options effects, referer_option
-  end
-
-  def format_rename_effects_and_options effects, referer_option
-    effects = effects.map { |effect| "<li>#{effect}</li>" }.join
-    info = %(<h6>This change will...</h6>)
-    info += %(<ul>#{effects}</ul>)
-    info += %(<p>#{referer_option}</p>) if referer_option
-    info
-  end
-
-  def rename_descendant_effect
-    descendants = card.descendants
-    return unless descendants.any? # FIXME: count, don't instantiate
-
-    "automatically alter #{descendants.size} related name(s)."
-  end
-
-  def rename_referer_effect_and_option
-    referers = card.family_referers
-    return unless referers.any? # FIXME: count, don't instantiate
-
-    count = referers.size
-    refs = count == 1 ? "reference" : "references"
-    effect = "affect at least #{count} #{refs} to \"#{card.name}\""
-    effect += hidden_field_tag(:referers, count)
-    option = "You may choose to <em>update or ignore</em> the referers."
-    [effect, option]
   end
 end

@@ -44,9 +44,9 @@ class Card
       super || left_id_is_changing? || right_id_is_changing?
     end
 
-    def name_before_last_save
-      super || dirty_name(left_id_before_last_save, right_id_before_last_save)
-    end
+    # def name_before_last_save
+    #   super || dirty_name(left_id_before_last_save, right_id_before_last_save)
+    # end
 
     def name_before_act
       super || dirty_name(left_id_before_act, right_id_before_act)

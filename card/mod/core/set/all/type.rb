@@ -32,6 +32,10 @@ def type= type_name
   self.type_id = Card.fetch_id type_name
 end
 
+def type_id= card_or_id
+  write_card_or_id :type_id, card_or_id
+end
+
 def type_id_from_template
   return unless name && (t = template)
   reset_patterns # still necessary even with new template handling?

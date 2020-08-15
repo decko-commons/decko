@@ -10,7 +10,7 @@ class Card
       end
 
       def update_cache?
-        cache_ready? || new_for_cache || needs_prep?
+        (cache_ready? || new_for_cache || needs_prep?) && !card&.uncacheable?
       end
 
       def cache_ready?
