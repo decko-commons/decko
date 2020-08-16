@@ -63,8 +63,7 @@ class Card
     def build_nested_hash key, values
       return { key => values[0] } if values.one?
       val = values.pop
-      { key => val,
-        and: build_nested_hash(key, values) }
+      { key => val, and: build_nested_hash(key, values) }
     end
 
     def name_wql name
