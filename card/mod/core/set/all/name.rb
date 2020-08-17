@@ -170,9 +170,8 @@ def left_or_new args={}
   left(args) || Card.new(args.merge(name: name.left))
 end
 
-# TODO: for all these helpers, we should make it more obvious when
-# you're getting all fields/children/descendants vs only those you have permission
-# to read.
+# NOTE: for all these helpers, method returns *all* fields/children/descendants.
+# (Not just those current user has permission to read.)
 
 def fields
   field_ids.map { |id| Card[id] }
@@ -197,7 +196,9 @@ end
 def child_ids side=nil
   return [] unless id
   side ||= name.simple? ? :part : :left_id
-  Card.search(side => id, return: :id, limit: 0) # }, "(#{side}) children of #{name}")
+  Auth.as_bot do
+    Card.search({ side => id, return: :id, limit: 0 }, "children of #{name}")
+  end
 end
 
 def each_descendant &block
