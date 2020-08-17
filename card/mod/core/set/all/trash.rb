@@ -14,7 +14,7 @@ Self::Admin.add_to_basket(
 module ClassMethods
   def empty_trash
     Card.delete_trashed_files
-    Card.where(trash: true).delete_all
+    Card.where(trash: true).delete_all  # in_batches ?
     Card::Action.delete_cardless
     Card::Change.delete_actionless
     Card::Act.delete_actionless
