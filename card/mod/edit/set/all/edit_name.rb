@@ -37,6 +37,7 @@ format :html do
     end
   end
 
+  # LOCALIZE
   def rename_and_update_button
     submit_button text: "Rename and Update", disable_with: "Renaming",
                   class: "renamer-updater"
@@ -49,7 +50,7 @@ format :html do
   # LOCALIZE
   def rename_confirmation_alert
     msg = "<h5>Are you sure you want to rename <em>#{safe_name}</em>?</h5>"
-    msg << %(<h6>This may change names referred to by other cards</h6>)
+    msg << %(<h6>This may change names referred to by other cards.</h6>)
     msg << %(<p>You may choose to <em>update or ignore</em> the referers.</p>)
     msg << hidden_field_tag(:referers, 1)
     alert("warning", false, false, class: "hidden-alert") { msg }

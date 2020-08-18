@@ -7,9 +7,7 @@ format :html do
     render_filter_items
   end
 
-  view :filter_items, unknown: true, wrap: :slot  do
-    haml :filter_items
-  end
+  view :filter_items, unknown: true, wrap: :slot, template: :haml
 
   def filtered_list_input
     with_nest_mode :normal do

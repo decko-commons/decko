@@ -34,7 +34,7 @@ class Card
         case rawvalue
         when String, Integer then ["=", rawvalue]
         when Symbol          then ["=", rawvalue.to_s]
-        when Array           then parse_array_value rawvalue
+        when Array           then parse_array_value rawvalue.clone
         else raise Error::BadQuery, "Invalid property value: #{rawvalue.inspect}"
         end
       end
