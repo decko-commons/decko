@@ -40,7 +40,7 @@ class Card
 
       def parse_array_value array
         operator = operator?(array.first) ? array.shift : :in
-        [operator, array.map { |i| parse_simple_value i }]
+        [operator, array.flatten.map { |i| parse_simple_value i }]
       end
 
       def parse_simple_value value
@@ -78,7 +78,7 @@ class Card
         if array.size == 1
           sqlize array.first
         else
-          "(#{v.flatten.map { |x| sqlize(x) }.join(',')})"
+          "(#{array.map { |x| sqlize(x) }.join(',')})"
         end
       end
 
