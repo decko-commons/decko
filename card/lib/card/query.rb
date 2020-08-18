@@ -78,7 +78,7 @@ class Card
                 .each_with_object({}) { |v, h| h[v] = nil }
 
     OPERATORS =
-      %w[!= = =~ < > in ~].each_with_object({}) { |v, h| h[v] = v }.merge(
+      %w[!= = =~ < > in ~ is].each_with_object({}) { |v, h| h[v] = v }.merge(
         {
           eq: "=", gt: ">", lt: "<", match: "~", ne: "!=", "not in": "not in"
         }.stringify_keys

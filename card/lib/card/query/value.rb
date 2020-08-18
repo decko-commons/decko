@@ -35,6 +35,7 @@ class Card
         when String, Integer then ["=", rawvalue]
         when Symbol          then ["=", rawvalue.to_s]
         when Array           then parse_array_value rawvalue.clone
+        when nil             then ["is", nil]
         else raise Error::BadQuery, "Invalid property value: #{rawvalue.inspect}"
         end
       end
@@ -60,6 +61,7 @@ class Card
         case v
         when Query then v.to_sql
         when Array then "(" + v.flatten.map { |x| sqlize(x) }.join(",") + ")"
+        when nil   then "NULL"
         else quote(v.to_s)
         end
       end
