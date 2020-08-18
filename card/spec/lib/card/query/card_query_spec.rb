@@ -19,6 +19,11 @@ RSpec.describe Card::Query::CardQuery do
       expect(run_query(name:"*account", codename: nil)).to eq([])
       expect(run_query(name:"A", codename: nil)).to eq(["A"])
     end
+
+    it "handles not nil" do
+      expect(run_query(name:"*account", codename: ["!", nil])).to eq(["*account"])
+      expect(run_query(name:"A", codename: ["is not", nil])).to eq([])
+    end
   end
 
   describe "in" do

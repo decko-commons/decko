@@ -79,9 +79,8 @@ class Card
 
     OPERATORS =
       %w[!= = =~ < > in ~ is].each_with_object({}) { |v, h| h[v] = v }.merge(
-        {
-          eq: "=", gt: ">", lt: "<", match: "~", ne: "!=", "not in": "not in"
-        }.stringify_keys
+        { eq: "=", gt: ">", lt: "<", match: "~", ne: "!=",
+          "not in": "not in", "is not": "is not", "!": "is not" }.stringify_keys
       )
 
     DEFAULT_ORDER_DIRS = { update: "desc", relevance: "desc" }.freeze
