@@ -96,8 +96,8 @@ describe Card::Set::All::Trash do
       end
 
       context "without edits" do
-        Card::Auth.as "joe_admin" do
-          it "is removable" do
+        it "is removable" do
+          Card::Auth.as "joe_admin" do
             expect { Card["Sample User"].delete! }
               .not_to raise_error
           end
