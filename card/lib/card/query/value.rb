@@ -30,18 +30,26 @@ class Card
         "#{field_sql field} #{@operator} #{sqlize @value}"
       end
 
-      def parse_value rawvalue
-        case rawvalue
-        when String, Integer then ["=", rawvalue]
-        when Symbol          then ["=", rawvalue.to_s]
-        when Array           then parse_array_value rawvalue.clone
-        else raise Error::BadQuery, "Invalid property value: #{rawvalue.inspect}"
+      def parse_value value
+        case value
+        when Array           then parse_array_value value.clone
+        when nil             then ["is", nil]
+        else                      ["=", parse_simple_value(value)]
         end
       end
 
       def parse_array_value array
         operator = operator?(array.first) ? array.shift : :in
-        [operator, array]
+        [operator, array.flatten.map { |i| parse_simple_value i }]
+      end
+
+      def parse_simple_value value
+        case value
+        when String, Integer then value
+        when Symbol          then value.to_s
+        when nil             then nil
+        else raise Error::BadQuery, "Invalid property value: #{value.inspect}"
+        end
       end
 
       def canonicalize_operator
@@ -59,8 +67,18 @@ class Card
       def sqlize v
         case v
         when Query then v.to_sql
-        when Array then "(" + v.flatten.map { |x| sqlize(x) }.join(",") + ")"
+        when Array then sqlize_array v
+        when nil   then "NULL"
         else quote(v.to_s)
+        end
+      end
+
+      def sqlize_array array
+        array.flatten!
+        if array.size == 1
+          sqlize array.first
+        else
+          "(#{array.map { |x| sqlize(x) }.join(',')})"
         end
       end
 
