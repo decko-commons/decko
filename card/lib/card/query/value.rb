@@ -75,7 +75,7 @@ class Card
 
       def sqlize_array array
         array.flatten!
-        if array.size == 1
+        if array.size == 1 && !@operator.in?(["in", "not in"])
           sqlize array.first
         else
           "(#{array.map { |x| sqlize(x) }.join(',')})"
