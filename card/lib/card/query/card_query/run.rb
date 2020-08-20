@@ -83,7 +83,7 @@ class Card
         end
 
         def run_sql
-          puts "\nSQL = #{sql}"
+          # puts "\nSQL = #{sql}"
           ActiveRecord::Base.connection.select_all sql
         end
 
