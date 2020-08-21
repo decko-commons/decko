@@ -19,14 +19,17 @@ RSpec.describe Card::Lexicon do
     end
   end
 
-  describe "#id_to_lex" do
-    it "stores keys of simple cards" do
-      expect(Card::Lexicon.id_to_lex(Card.id "A")).to eq("a")
+  describe "#name" do
+    it "handles simple cards" do
+      id_of_simple_card = Card::Codename.id(:account)
+      expect(Card::Lexicon.name(id_of_simple_card)).to eq("*account")
     end
 
-    it "stores joined ids of compound cards" do
-      expect(Card::Lexicon.id_to_lex(Card.id "*account+*right"))
-        .to eq([Card::Codename.id(:account), Card::Codename.id(:right)])
+    it "handles compound cards" do
+      id_of_compound_card =
+        Card.where(left_id: Card::Codename.id(:account),
+                   right_id: Card::Codename.id(:right)).pluck(:id).first
+      expect(Card::Lexicon.name(id_of_compound_card)).to eq("*account+*right")
     end
   end
 end

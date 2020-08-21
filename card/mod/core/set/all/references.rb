@@ -41,12 +41,6 @@ def name_referers
   Card.joins(:references_out).where card_references: { referee_key: key }
 end
 
-# cards that refer to self or any descendant
-def family_referers
-  @family_referers ||= ([self] + descendants).map(&:referers).flatten.uniq
-  # TODO: make this more efficient using partial references!
-end
-
 # replace references in card content
 def replace_reference_syntax old_name, new_name
   obj_content = Card::Content.new content, self
@@ -146,10 +140,28 @@ end
 
 protected
 
-# test for updating referer content & preload referer list
+# test for updating referer content
 event :prepare_referer_update, :validate, on: :update, changed: :name do
   self.update_referers = ![nil, false, "false"].member?(update_referers)
-  family_referers
+end
+
+# on rename, update names in cards that refer to self by name (as directed)
+event :update_referer_content, :finalize, on: :update, when: :update_referers do
+  referers.each do |card|
+    next if card.structure
+    card.skip_event! :validate_renaming, :check_permissions
+    card.content = card.replace_reference_syntax name_before_act, name
+    attach_subcard card
+  end
+end
+
+# on rename, when NOT updating referer content, update references to ensure
+# that partial references are correctly tracked
+# eg.  A links to X+Y.  if X+Y is renamed and we're not updating the link in A,
+# then we need to be sure that A has a partial reference
+event :update_referer_references_out, :finalize,
+      on: :update, when: :not_update_referers do
+  referers.map(&:update_references_out)
 end
 
 # when name changes, update references to card
@@ -167,25 +179,6 @@ end
 event :clear_references, :finalize, on: :delete do
   delete_references_out
   Card::Reference.unmap_referees id
-end
-
-# on rename, update names in cards that refer to self by name (as directed)
-event :update_referer_content, :finalize, on: :update, when: :update_referers do
-  referers.each do |card|
-    next if card.structure
-    card.skip_event! :validate_renaming, :check_permissions
-    card.content = card.replace_reference_syntax name_before_last_save, name
-    attach_subcard card
-  end
-end
-
-# on rename, when NOT updating referer content, update references to ensure
-# that partial references are correctly tracked
-# eg.  A links to X+Y.  if X+Y is renamed and we're not updating the link in A,
-# then we need to be sure that A has a partial reference
-event :update_referer_references_out, :finalize,
-      on: :update, when: :not_update_referers do
-  referers.map(&:update_references_out)
 end
 
 def not_update_referers

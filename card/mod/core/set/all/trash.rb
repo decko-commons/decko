@@ -14,9 +14,11 @@ Self::Admin.add_to_basket(
 module ClassMethods
   def empty_trash
     Card.delete_trashed_files
-    Card.where(trash: true).delete_all
+    Card.where(trash: true).in_batches.update_all(left_id: nil, right_id: nil)
+    Card.where(trash: true).in_batches.delete_all
     Card::Action.delete_cardless
     Card::Change.delete_actionless
+    Card::Act.delete_actionless
     Card::Reference.unmap_if_referee_missing
     Card::Reference.delete_if_referer_missing
   end
@@ -105,7 +107,7 @@ end
 
 event :validate_delete_children, after: :validate_delete, on: :delete do
   return if errors.any?
-  children.each do |child|
+  each_child do |child|
     next unless child
     # prevents errors in cases where a child is deleted prior to this point
     # and thus is not returned by the fetch in #children

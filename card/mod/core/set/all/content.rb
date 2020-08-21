@@ -122,7 +122,6 @@ event :set_content, :store, on: :save do
   self.db_content = prepare_db_content
   @selected_action_id = @selected_content = nil
   clear_drafts
-  reset_patterns_if_rule true
 end
 
 event :save_draft, :store, on: :update, when: :draft? do

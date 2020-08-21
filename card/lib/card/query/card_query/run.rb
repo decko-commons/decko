@@ -59,7 +59,9 @@ class Card
         end
 
         def name_result record, pattern
-          process_name Card::Name[record["id"]], pattern
+          name = record["name"]&.to_name
+          name ||= Card::Lexicon.lex_to_name [record["left_id"], record["right_id"]]
+          process_name name, pattern
         end
 
         def card_result record, _field
