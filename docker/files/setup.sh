@@ -1,8 +1,8 @@
 
-su - app sh -c 'cd /home/app/; tar -xzvf /tmp/build/wagnapp.tgz'
+su - app sh -c 'cd /home/app/; tar -xzvf /tmp/build/deckoapp.tgz'
 
 cd /work
-cp /home/app/wagnapp/Gemfile .
+cp /home/app/deckoapp/Gemfile .
 ls -l
 pwd
 bundle install

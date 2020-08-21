@@ -9,7 +9,7 @@
 #### How to run
 1. just like the way to create a deck to test core or mod-dev
 2. configure the `spec/javascripts/support/jasmine.yml` if neccessary
-3. `bundle exec wagn jm`
+3. `bundle exec decko jm`
 
 
 

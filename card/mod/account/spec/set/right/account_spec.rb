@@ -6,7 +6,7 @@ RSpec.describe Card::Set::Right::Account do
       {
         name: "TmpUser",
         "+*account" => {
-          "+*email" => "tmpuser@wagn.org",
+          "+*email" => "tmpuser@decko.org",
           "+*password" => "tmp_pass"
         }
       }

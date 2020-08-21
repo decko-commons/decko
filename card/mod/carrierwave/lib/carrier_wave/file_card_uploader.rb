@@ -70,7 +70,7 @@ module CarrierWave
   #  - local: Uploaded files which are stored in a local upload directory
   #      (upload path is configurable via config.paths["files"]).
   #      If read permissions are set such that "Anyone" can read, then there is
-  #      a symlink from the public directory.  Otherwise every view is a wagn
+  #      a symlink from the public directory.  Otherwise every view is a decko
   #      request.
   #  - cloud: You can configure buckets that refer to an external storage
   #      service. Link is rendered as absolute url
@@ -106,7 +106,7 @@ module CarrierWave
   #      }
   #   }
   #
-  #   # wagn console or rake task:
+  #   # decko console or rake task:
   #   card.update storage_type: :cloud, bucket: :aws_bucket
   #
   # @example Creating a file card with fixed external link
