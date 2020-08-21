@@ -47,7 +47,7 @@ class Card
 
         def sort_by_count val, item
           method_name = "sort_by_count_#{item}"
-          sort_by_count_not_implemented :count, item unless respond_to? method_name
+          sort_method_not_implemented :count, item unless respond_to? method_name
           send method_name, val
         end
 
