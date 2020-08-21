@@ -7,9 +7,12 @@ format do
   end
 
   view :subedits, perms: :none, cache: :never do
+    return unless notification_act
+
     wrap_subedits do
       notification_act.actions_affecting(card).map do |action|
         next if action.card_id == card.id
+
         action.card.format(format: @format).render_subedit_notice action_id: action.id
       end
     end
@@ -23,7 +26,7 @@ format do
     end
   end
 
-  view :followed, perms: :none, closed: true do
+  view :followed, perms: :none, compact: true do
     if (set_card = followed_set_card) && (option_card = follow_option_card)
       option_card.description set_card
     else
@@ -31,17 +34,18 @@ format do
     end
   end
 
-  view :follower, perms: :none, closed: true do
+  view :follower, perms: :none, compact: true do
     active_notice(:follower) || "follower"
   end
 
   view :last_action_verb, cache: :never do
-    "#{notification_act.main_action.action_type}d"
+    "#{notification_act&.main_action&.action_type || 'edite'}d"
   end
 
-  view :unfollow_url, perms: :none, closed: true, cache: :never do
+  view :unfollow_url, perms: :none, compact: true, cache: :never do
     return "" unless (rule_name = live_follow_rule_name)
-    card_url path(mark: "#{active_notice(:follower)}+#{Card[:follow].name}",
+
+    card_url path(mark: "#{active_notice(:follower)}+#{:follow.cardname}",
                   action: :update,
                   card: { subcards: { rule_name => Card[:never].name } })
   end
@@ -64,17 +68,20 @@ format do
 
   def follow_option_card
     return unless (option_name = active_notice(:follow_option))
+
     Card.fetch option_name
   end
 
   def active_notice key
     @active_notice ||= inherit :active_notice
     return unless @active_notice
+
     @active_notice[key]
   end
 
   def live_follow_rule_name
     return unless (set_card = followed_set_card) && (follower = active_notice(:follower))
+
     set_card.follow_rule_name follower
   end
 
@@ -94,6 +101,7 @@ format do
   def wrap_subedits
     subedits = yield.compact.join
     return "" if subedits.blank?
+
     "\nThis update included the following changes:\n#{wrap_list subedits}"
   end
 

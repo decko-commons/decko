@@ -4,13 +4,13 @@ format :html do
     super << :google_analytics_snippet
   end
 
-  view :google_analytics_snippet, tags: :unknown_ok do
+  view :google_analytics_snippet, unknown: true, perms: :none do
     return unless google_analytics_key
     javascript_tag { google_analytics_snippet_javascript }
   end
 
   def google_analytics_key
-    @google_analytics_key ||= Card.global_setting :google_analytics_key
+    @google_analytics_key ||= Card::Rule.global_setting :google_analytics_key
   end
 
   def google_analytics_snippet_vars

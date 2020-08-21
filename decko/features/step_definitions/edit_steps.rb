@@ -60,18 +60,22 @@ When /^(.*) edits? "([^"]*)" entering "([^"]*)" into wysiwyg$/ do |username, car
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
     page.execute_script "$('#main .d0-card-content').val('#{content}')"
-    click_button "Submit"
-    wait_for_ajax
+    submit
   end
 end
 
 When /^(.*) edits? "([^"]*)" setting (.*) to "([^"]*)"$/ do |username, cardname, _field, content|
   signed_in_as(username) do
     visit "/card/edit/#{cardname.to_name.url_key}"
+
     set_content "card[content]", content
-    click_button "Submit"
-    wait_for_ajax
+    submit
   end
+end
+
+def submit
+  click_button "Save and Close"
+  wait_for_ajax
 end
 
 When /^(.*) edits? "([^"]*)" filling in "([^"]*)"$/ do |_username, cardname, content|
@@ -85,8 +89,7 @@ When /^(.*) edits? "([^"]*)" with plusses:/ do |username, cardname, plusses|
     plusses.hashes.first.each do |name, content|
       set_content "card[subcards][+#{name}][content]", content
     end
-    click_button "Submit"
-    wait_for_ajax
+    submit
   end
 end
 
@@ -113,7 +116,7 @@ def set_content name, content, _cardtype=nil
   Capybara.ignore_hidden_elements = false
   wait_for_ajax
   set_ace_editor_content(name, content) ||
-    set_pm_editor_content(name, content) ||
+    # set_pm_editor_content(name, content) ||
     set_tinymce_editor_content(name, content) ||
     fill_in(name, with: content)
   Capybara.ignore_hidden_elements = true
@@ -138,6 +141,10 @@ def set_pm_editor_content name, content
 end
 
 def set_tinymce_editor_content name, content
+  5.times do
+    break if all("iframe.tox-edit-area__iframe", wait: false).present?
+    sleep(0.5)
+  end
   find_editor "textarea[name='#{name}']" do |editors|
     editor_id = editors.first[:id]
     return unless page.evaluate_script("typeof tinyMCE != 'undefined' && "\
@@ -153,7 +160,7 @@ def escape_quotes content
 end
 
 def find_editor selector
-  editors = all(selector)
+  editors = all(selector, wait: false)
   return unless editors.present?
   yield editors
   true

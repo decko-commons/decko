@@ -1,7 +1,7 @@
 
 def self.included host_class
   host_class.mattr_accessor :template_path
-  host_class.extend Card::Set::Format::HamlViews
+  host_class.extend Card::Set::Format::HamlPaths
   host_class.template_path = host_class.haml_template_path
 end
 
@@ -10,6 +10,10 @@ def content
 end
 
 format :html do
+  view :input do
+    "Content is managed by code and cannot be edited"
+  end
+
   def haml_locals
     {}
   end

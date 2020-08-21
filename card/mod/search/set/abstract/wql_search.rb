@@ -43,15 +43,15 @@ def standardized_query_args args
   args
 end
 
-# override this to define search
 def wql_hash
   @wql_hash = nil unless cache_query?
-  @wql_hash ||= wql_from_content.merge filter_and_sort_wql
+  @wql_hash ||= wql_content.merge filter_and_sort_wql
 end
 
-def wql_from_content
-  @wql_from_content = nil unless cache_query?
-  @wql_from_content ||= begin
+# override this to define search
+def wql_content
+  @wql_content = nil unless cache_query?
+  @wql_content ||= begin
     query = content
     query = query.is_a?(Hash) ? query : parse_json_query(query)
     query.symbolize_keys
@@ -91,8 +91,8 @@ format do
     nil
   end
 
-  def implicit_item_view
-    super query_with_params.statement[:item]
+  def item_view_from_query
+    query_with_params.statement[:item]
   end
 
   def query_with_params
@@ -101,5 +101,11 @@ format do
 
   def limit
     query_with_params.limit
+  end
+end
+
+format :html do
+  def default_limit
+    card_content_limit || super
   end
 end

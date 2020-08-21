@@ -8,7 +8,7 @@ class Card
           case load_strategy
           when :tmp_files
             LoadStrategy::PatternTmpFiles
-          else :eval
+          else # :eval
             LoadStrategy::Eval
           end
         end
@@ -16,42 +16,43 @@ class Card
         class Template < ModuleTemplate
           def to_const
             return Object if simple_load?
+
             Card::Set.const_get_or_set(@pattern.camelize) do
-              Class.new(Card::Set::Pattern::Abstract)
+              Class.new(Card::Set::Pattern::Base)
             end
           end
 
           # correct line number for error messages
           def offset
-            -6
+            -5
           end
 
           private
 
-          def module_chain
-            klass = "Card::Set::#{@pattern.camelize}"
-            "class #{klass} < Card::Set::Pattern::Abstract"
+          def auto_comment
+            %(# Set Pattern: #{@pattern.camelize}\n#)
           end
 
-          def preamble
-            <<-RUBY
-              cattr_accessor :options
-              class << self
-            RUBY
+          def module_chain
+            "class Card::Set::#{@pattern.camelize} < Card::Set::Pattern::Base"
+          end
+
+          def preamble_bits
+            [module_comment,
+             module_chain,
+             "extend Card::Set::Pattern::Helper",
+             "cattr_accessor :options",
+             "class << self"]
           end
 
           def postamble
             <<-RUBY
               end
               register "#{@pattern}".underscore.to_sym, (options || {})
+            end
             RUBY
           end
-
-          def end_chain
-            "end"
-          end
         end
-
       end
     end
   end

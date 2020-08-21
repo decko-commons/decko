@@ -22,21 +22,14 @@ module ClassMethods
   #      new: { opts for Card#new }  Return a new card when not found
   # @return [Card]
   def fetch *args
-    mark, opts = normalize_fetch_args args
-    validate_fetch_opts! opts
-
-    card, needs_caching = retrieve_or_new mark, opts
-
-    return if card.nil?
-    write_to_cache card, opts[:local_only] if needs_caching
-    standard_fetch_results card, mark, opts
+    Card::Fetch.new(*args)&.retrieve_or_new
   rescue ActiveModel::RangeError => _e
-    return Card.new name: "card id out of range: #{mark}"
+    return Card.new name: "card id out of range: #{f.mark}"
   end
 
   # fetch only real (no virtual) cards
   #
-  # @params *mark - see #fetch
+  # @param mark - see #fetch
   # @return [Card]
   def [] *mark
     fetch(*mark, skip_virtual: true)
@@ -46,19 +39,10 @@ module ClassMethods
   # @example
   #   quick_fetch "A", :self, :structure
   #
-  # @params *mark - see #fetch
+  # @param mark - see #fetch
   # @return [Card]
   def quick_fetch *mark
-    fetch mark, skip_virtual: true, skip_modules: true
-  end
-
-  # fetch only from the soft cache
-  #
-  # @params *args - see #fetch
-  # @return [Card]
-  def fetch_soft *args
-    mark, opts = normalize_fetch_args args
-    fetch mark, opts.merge(local_only: true)
+    fetch(*mark, skip_virtual: true, skip_modules: true)
   end
 
   # @return [Card]
@@ -80,19 +64,17 @@ module ClassMethods
     end
   end
 
-  # @params *mark - see #fetch
+  # @param args - see #fetch
   # @return [Integer]
-  def fetch_id *mark
-    mark, _opts = normalize_fetch_args mark
-    return mark if mark.is_a? Integer
-    card = quick_fetch mark.to_s
-    card && card.id
+  def fetch_id *mark_parts
+    mark = Card::Fetch.new(*mark_parts)&.mark
+    mark.is_a?(Integer) ? mark : quick_fetch(mark.to_s)&.id
   end
 
-  # @params *mark - see #fetch
+  # @param mark - see #fetch
   # @return [Card::Name]
   def fetch_name *mark
-    if (card = quick_fetch(mark))
+    if (card = quick_fetch(*mark))
       card.name
     elsif block_given?
       yield.to_name
@@ -103,10 +85,10 @@ module ClassMethods
     block_given? ? yield.to_name : raise(e)
   end
 
-  # @params *mark - see #fetch
+  # @param mark - see #fetch
   # @return [Integer]
-  def fetch_type_id *mark
-    (card = quick_fetch(mark)) && card.type_id
+  def fetch_type_id mark
+    quick_fetch(mark)&.type_id
   end
 end
 
@@ -114,30 +96,20 @@ end
 # INSTANCE METHODS
 # fetching from the context of a card
 
-def fetch opts={}
-  traits = opts.delete(:trait)
-  return unless traits
-  # should this fail as an incorrect api call?
-  traits = Array.wrap traits
-  traits.inject(self) do |card, trait|
+def fetch traits, opts={}
+  opts[:new][:supercard] = self if opts[:new]
+  Array.wrap(traits).inject(self) do |card, trait|
     Card.fetch card.name.trait(trait), opts
   end
 end
 
-def renew args={}
-  opts = args[:new].clone
-  handle_default_content opts
-  opts[:name] ||= name
-  opts[:skip_modules] = args[:skip_modules]
-  Card.new opts
-end
-
-def handle_default_content opts
-  if (default_content = opts.delete(:default_content)) && db_content.blank?
-    opts[:content] ||= default_content
-  elsif db_content.present? && !opts[:content]
-    # don't overwrite existing content
-    opts[:content] = db_content
+def newish opts
+  reset_patterns
+  Card.with_normalized_new_args opts do |norm_opts|
+    handle_type norm_opts do
+      assign_attributes norm_opts
+      self.name = name # trigger superize_name
+    end
   end
 end
 
@@ -148,4 +120,3 @@ def refresh force=false
   fresh_card.include_set_modules
   fresh_card
 end
-

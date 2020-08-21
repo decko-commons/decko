@@ -43,7 +43,7 @@ describe Card::Migration::Import do
       cards = meta_data[:cards]
       expect(cards).to be_instance_of(Array)
       expect(cards.first[:name]).to eq "A"
-      expect(cards.first[:type]).to eq "Basic"
+      expect(cards.first[:type]).to eq "RichText"
     end
 
     it "saves card content" do

@@ -16,8 +16,9 @@ class Card
     include Rails::Dom::Testing::Assertions::SelectorAssertions
 
     def login_as user
-      Card::Auth.current_id = (uc = Card[user.to_s]) && uc.id
+      Card::Auth.signin user
       return unless @request
+      Card::Env.session[Card::Auth.session_user_key] = Card::Auth.current_id
       @request.session[Card::Auth.session_user_key] = Card::Auth.current_id
       # warn "(ath)login_as #{user.inspect}, #{Card::Auth.current_id}, "\
       #      "#{@request.session[:user]}"
@@ -33,6 +34,10 @@ class Card
 
     def expect_content
       expect(card_subject.content)
+    end
+
+    def sample_voo
+      Card::View.new Card["A"].format, :core
     end
 
     def sample_pointer
@@ -99,11 +104,38 @@ class Card
       Card.config.rss_enabled = false
     end
 
+    def with_params hash
+      old_params = Card::Env.params.clone
+      Card::Env.params.merge! hash
+      yield
+    ensure
+      Card::Env.params = old_params
+    end
+
     module ClassMethods
       def check_views_for_errors *views
-        views.flatten.each do |view|
-          it_behaves_like "view without errors", view
+        include_context_for views.flatten, "view without errors"
+      end
+
+      def check_format_for_view_errors format_module
+        check_views_for_errors(*views(format_module))
+      end
+
+      def check_html_views_for_errors
+        html_format_class = described_class.const_get("HtmlFormat")
+        html_views = views html_format_class
+        include_context_for html_views, "view without errors"
+        include_context_for html_views, "view with valid html"
+      end
+
+      def include_context_for views, context
+        views.each do |view|
+          include_context context, view
         end
+      end
+
+      def views format_module
+        Card::Set::Format::AbstractFormat::ViewDefinition.views[format_module].keys
       end
     end
   end

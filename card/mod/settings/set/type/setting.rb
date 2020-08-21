@@ -1,4 +1,4 @@
-require_dependency "json"
+# require "json"
 
 def self.member_names
   @@member_names ||= begin
@@ -13,18 +13,22 @@ end
 
 format :data do
   view :core do
-    wql = { left:  { type: Card::SetID },
+    wql = { left: { type: SetID },
             right: card.id,
             limit: 0 }
     Card.search(wql).compact.map { |c| nest c }
   end
 end
 
+def count
+  Card.search left: { type: SetID }, right: id, limit: 0, return: :count
+end
+
 def set_classes_with_rules
   Card.set_patterns.reverse.map do |set_class|
-    wql = { left:  { type: Card::SetID },
+    wql = { left: { type: SetID },
             right: id,
-            sort:  %w[content name],
+            sort: %w[content name],
             limit: 0 }
     wql[:left][(set_class.anchorless? ? :id : :right_id)] = set_class.pattern_id
 
@@ -33,47 +37,26 @@ def set_classes_with_rules
   end.compact
 end
 
-format do
-  def duplicate_check rules
-    previous_content = nil
-    rules.each do |rule|
-      current_content = rule.db_content.strip
-      duplicate = previous_content == current_content
-      changeover = previous_content && !duplicate
-      previous_content = current_content
-      yield rule, duplicate, changeover
-    end
+format :html do
+  def rule_link rule, text
+    link_to_card rule, text, path: { view: :modal_rule },
+                             slotter: true, "data-modal-class": "modal-lg"
   end
 
   view :core do
     haml do
       <<-'HAML'.strip_heredoc
         = _render_rule_help
-        %table.setting-rules
-          %tr
-            %th Set
-            %th Rule
-          - card.set_classes_with_rules.each do |klass, rules|
-            %tr.klass-row
-              %td{class: ['setting-klass', "anchorless-#{klass.anchorless?}"]}
-                - kpat = klass.pattern
-                = klass.anchorless? ? link_to_card(kpat) : kpat
-              %td.rule-content-container
-                %span.closed-content.content
-                  - if klass.anchorless?
-                    = subformat(rules[0])._render_closed_content
-            - if !klass.anchorless?
-              - duplicate_check(rules) do |rule, duplicate, changeover|
-                - setname = rule.name.trunk_name
-                %tr{class: ('rule-changeover' if changeover)}
-                  %td.rule-anchor
-                    = link_to_card setname, setname.trunk_name
-                  - if duplicate
-                    %td
-                  - else
-                    %td.rule-content-container
-                      %span.closed-content.content
-                        = subformat(rule)._render_closed_content
+        %h3 All #{card.name.tr "*", ""} rules that apply to
+        - card.set_classes_with_rules.each do |klass, rules|
+          %p
+            %h5
+              = klass.generic_label.downcase
+            - if klass.anchorless?
+              = nest rules.first, view: :bar, show: :full_name
+            - else
+              - rules.each do |rule|
+                = nest rule, view: :bar
       HAML
     end
   end
@@ -84,13 +67,13 @@ format do
     nest [:all, card.name], view: :rule_help
   end
 
-  view :closed_content do
+  view :one_line_content do
     render_rule_help
   end
 end
 
 format :json do
   def items_for_export
-    Card.search left: { type: Card::SetID }, right: card.id, limit: 0
+    Card.search left: { type: SetID }, right: card.id, limit: 0
   end
 end

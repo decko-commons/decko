@@ -28,11 +28,16 @@ format do
     end
   end
 
+  def short_content
+    number_to_human_size card.attachment.size
+  end
+
   def handle_source
     source = _render_source
     return "" if source.blank?
     block_given? ? yield(source) : source
-  rescue
+  rescue => e
+    Rails.logger.info "Error with file source: #{e.message}"
     tr :file_error
   end
 
@@ -42,7 +47,7 @@ format do
 end
 
 format :file do
-  # returns send_file args.  not in love with this...
+  # NOCACHE because returns send_file args.  not in love with this...
   view :core, cache: :never do
     # this means we only support known formats.  dislike.
     attachment_format = card.attachment_format(params[:format])
@@ -81,7 +86,7 @@ format :html do
     "#{action} #{humanized_attachment_name}..."
   end
 
-  view :editor do
+  view :input do
     if card.web? || card.no_upload?
       return text_field(:content, class: "d0-card-content")
     end
@@ -104,7 +109,7 @@ format :html do
     tr :delete
   end
 
-  view :preview_editor, tags: :unknown_ok, cache: :never do
+  view :preview_editor, unknown: true, cache: :never do
     haml :preview_editor
   end
 end

@@ -9,21 +9,34 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
 
       describe "type" do
         user_cards = [
-            "Big Brother", "Joe Admin", "Joe Camel", "Joe User", "John",
-            "Narcissist", "No Count", "Optic fan", "Sample User", "Sara",
-            "Sunglasses fan", "u1", "u2", "u3"
+          "Big Brother", "Joe Admin", "Joe Camel", "Joe User", "John",
+          "Narcissist", "No Count", "Optic fan", "Sample User", "Sara",
+          "Sunglasses fan", "u1", "u2", "u3"
         ].sort
 
-        it "finds cards of this type" do
-          expect(run_query(type: "_self", context: "User")).to eq(user_cards)
-        end
-
-        it "finds User cards " do
+        it "finds cards by type" do
           expect(run_query(type: "User")).to eq(user_cards)
         end
 
         it "handles casespace variants" do
           expect(run_query(type: "users")).to eq(user_cards)
+        end
+
+        it "handles relative names" do
+          expect(run_query(type: "_self", context: "User")).to eq(user_cards)
+        end
+
+        it "treats Symbols as codenames" do
+          search_search = run_query type: :search_type, limit: 1
+          expect(Card[search_search.first].type_name).to eq(["Search"])
+        end
+
+        it "treats Integers as ids" do
+          expect(run_query(type: Card::UserID)).to eq(user_cards)
+        end
+
+        it "handles subqueries" do
+          expect(run_query(type: { name: "User" })).to eq(user_cards)
         end
       end
 
@@ -45,7 +58,8 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "finds right connection cards based on content" do
-          expect(run_query(right: { content: "Alpha [[Z]]" })).to eq(%w(C+A D+A F+A))
+          expect(run_query(right: { content: "Alpha [[Z]]" }, sort: :id))
+            .to eq(%w(C+A D+A F+A))
         end
       end
 
@@ -100,11 +114,11 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
             .to include("JoeLater", "JoeNow")
         end
 
-        it "finds card edited by Wagn Bot" do
+        it "finds card edited by Decko Bot" do
           # this is a weak test, since it gives the name, but different sorting
           # mechanisms in other db setups
           # was having it return *account in some cases and 'A' in others
-          expect(run_query(edited_by: "Wagn Bot", name: "A")).to eq(%w(A))
+          expect(run_query(edited_by: "Decko Bot", name: "A")).to eq(%w(A))
         end
 
         it "fails gracefully if user isn't there" do
@@ -152,7 +166,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "does not give duplicate results for multiple updates" do
-          expect(run_query(updater_of: "First")).to eq(["Wagn Bot"])
+          expect(run_query(updater_of: "First")).to eq(["Decko Bot"])
         end
 
         it "does not give results if not updated" do
@@ -165,7 +179,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "'or' doesn't mess up updater_of SQL" do
-          expect(run_query(or: { updater_of: "First" })).to eq(["Wagn Bot"])
+          expect(run_query(or: { updater_of: "First" })).to eq(["Decko Bot"])
         end
       end
     end

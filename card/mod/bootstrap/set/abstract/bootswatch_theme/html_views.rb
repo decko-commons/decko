@@ -6,14 +6,14 @@ format :html do
     voo.show! :customize_button, :box_middle
   end
 
-  view :closed_content do
+  view :one_line_content do
     ""
   end
 
   view :bar_left do
     class_up "card-title", "my-0 ml-2"
-    class_up "media-left", "m-0", true
-    text_with_image size: :small, title: "", text: _render_title,
+    class_up "media-left", "m-0"
+    text_with_image size: :medium, title: "", text: _render_title,
                     media_opts: { class: "align-items-center" }
     # field_nest(:image, view: :core) + wrap_with(:h4, render(:title))
   end

@@ -28,11 +28,13 @@ format :html do
   end
 
   def keyword_search_title keyword
-    %(Search results for: <span class="search-keyword">#{keyword}</span>)
+    %(Search results for: <span class="search-keyword">#{h keyword}</span>)
   end
 
   def search_keyword
     (vars = search_vars) && vars[:keyword]
+  rescue Card::Error::PermissionDenied
+    nil
   end
 
   def search_vars
@@ -63,20 +65,20 @@ format :json do
                   exact.name.valid? &&
                   !exact.virtual? &&
                   exact.ok?(:create)
-    [exact.name, exact.name.url_key]
+    [h(exact.name), exact.name.url_key]
   end
 
   def new_item_of_type exact
-    return unless (exact.type_id == Card::CardtypeID) &&
+    return unless (exact.type_id == CardtypeID) &&
                   Card.new(type_id: exact.id).ok?(:create)
     [exact.name, "new/#{exact.name.url_key}"]
   end
 
   def goto_items term, exact
-    goto_names = complete_or_match_search
+    goto_names = complete_or_match_search start_only: Card.config.navbox_match_start_only
     goto_names.unshift exact.name if add_exact_to_goto_names? exact, goto_names
     goto_names.map do |name|
-      [name, name.to_name.url_key, highlight(name, term)]
+      [name, name.to_name.url_key, h(highlight(name, term, sanitize: false))]
     end
   end
 

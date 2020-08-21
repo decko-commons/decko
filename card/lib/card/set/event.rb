@@ -1,12 +1,17 @@
 class Card
   module Set
-    # Events are the building blocks of the three transformative card actions: _create_, _update_, and _delete_. (The fourth kind of action, _read_, does not transform cards, and is associated with {Card::Format views}, not events).
+    # Events are the building blocks of the three transformative card actions: _create_,
+    # _update_, and _delete_.
+    #
+    # (The fourth kind of action, _read_, does not transform cards, and is associated
+    # with {Card::Format views}, not events).
     #
     # Whenever you create, update, or delete a card, the card goes through three phases:
-    #   * __validation__ makes sure all the data is in order
-    #   * __storage__ puts the data in the database
-    #   * __integration__ deals with any ramifications of those changes
+    #   * __validate__ makes sure all the data is in order
+    #   * __store__ puts the data in the database
+    #   * __integrate__ deals with any ramifications of those changes
     #
+    # Events can be defined on each of these stages
     #
     class Event
       module Api
@@ -18,12 +23,13 @@ class Card
       CONDITION_OPTIONS = {
         on: %i[create update delete save read],
         changed: %i[name content db_content type type_id codename key],
+        changing: %i[name content db_content type type_id codename key],
         skip: :allowed,
-        trigger: :required,  # the event is only executed if triggered explicitly with
-                             # trigger: [event_name]
+        trigger: :required  # the event is only executed if triggered explicitly with
+        # trigger: [event_name]
       }.freeze
 
-      CONDITIONS = ::Set.new(%i[on changed when skip trigger]).freeze
+      CONDITIONS = ::Set.new(%i[on changed changing when skip trigger]).freeze
 
       include DelayedEvent
       include Options
@@ -90,16 +96,32 @@ class Card
       end
 
       def define_standard_event_method method_name=simple_method_name
+        is_integration = @stage.to_s.match?(/integrate/)
         @set_module.class_exec(@event) do |event_name|
           define_method event_name do
-            log_event_call event_name
-            run_callbacks event_name do
-              send method_name
+            rescuing_if_integration is_integration do
+              log_event_call event_name
+              run_callbacks event_name do
+                send method_name
+              end
             end
           end
         end
       end
     end
+  end
+
+  def rescuing_if_integration is_integration
+    is_integration ? rescuing_integration { yield } : yield
+  end
+
+  # one failed integration event should not harm others.
+  def rescuing_integration
+    yield
+  rescue StandardError => e
+    Card::Error.report e, self
+  ensure
+    true
   end
 
   def log_event_call event

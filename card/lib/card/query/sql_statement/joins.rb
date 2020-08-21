@@ -32,6 +32,7 @@ class Card
 
         def subjoins join
           return unless join.to.is_a? AbstractQuery
+
           joins join.to
         end
 
@@ -46,6 +47,7 @@ class Card
           on_conditions.unshift ["#{join.from_alias}.#{join.from_field}",
                                  "#{join.to_alias}.#{join.to_field}"].join(" = ")
           on_conditions += on_card_conditions(join) if join.to.is_a? CardQuery
+          on_conditions.reject!(&:blank?)
           "ON #{basic_conditions(on_conditions) * ' AND '}"
         end
 

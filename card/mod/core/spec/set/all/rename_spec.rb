@@ -2,13 +2,15 @@
 
 module RenameMethods
   def name_invariant_attributes card
+    descendant_ids = []
+    card.each_descendant { |d| descendant_ids << d.id }
     {
       content: card.db_content,
       # updater_id:  card.updater_id,
       # revisions:   card.actions.count,
       referers: card.referers.map(&:name).sort,
       referees: card.referees.map(&:name).sort,
-      descendants: card.descendants.map(&:id).sort
+      descendants: descendant_ids.sort
     }
   end
 
@@ -18,7 +20,7 @@ module RenameMethods
     end
     attrs_before = name_invariant_attributes(card)
     actions_count_before = card.actions.count
-    update card.name, name: new_name, update_referers: true
+    update! card.name, name: new_name, update_referers: true
     expect(card.actions.count).to eq(actions_count_before + 1)
     assert_equal attrs_before, name_invariant_attributes(card)
     assert_equal new_name, card.name
@@ -30,7 +32,15 @@ RSpec.describe Card::Set::All::Rename do
   include RenameMethods
   include CardExpectations
 
-  it "renaming plus card to its own child" do
+  it "renames simple card to its own child" do
+    assert_rename "F", "F+M"
+  end
+
+  it "disallows renaming simple to compound when simple is used as tag" do
+    expect { Card["A"].update! name: "A+M" }.to raise_error(/illegal name change/)
+  end
+
+  it "renames plus card to its own child" do
     assert_rename "A+B", "A+B+T"
   end
 
@@ -77,7 +87,7 @@ RSpec.describe Card::Set::All::Rename do
 
     expect(card_list.map(&:name)).to eq old_names
     update "One", name: "Uno"
-    expect(card_list.map(&:reload).map(&:name)).to eq new_names
+    expect(card_list.map(&:id).map(&:cardname)).to eq new_names
   end
 
   it "fails if name is invalid" do
@@ -107,7 +117,7 @@ RSpec.describe Card::Set::All::Rename do
     end
 
     c = Card["Joe Card"]
-    c.update_attributes! name: "Card of Joe", update_referers: true
+    c.update! name: "Card of Joe", update_referers: true
     assert_equal "[[Card of Joe]]", Card["Admin Card"].content
   end
 
@@ -118,7 +128,7 @@ RSpec.describe Card::Set::All::Rename do
       Card.create! name: "Fruit+*type+*structure", content: "this [[Pit]]"
 
       assert_equal "this [[Pit]]", Card["Orange"].content
-      c.update_attributes! name: "Seed", update_referers: true
+      c.update! name: "Seed", update_referers: true
       assert_equal "this [[Seed]]", Card["Orange"].content
     end
   end

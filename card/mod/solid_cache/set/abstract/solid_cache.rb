@@ -8,7 +8,7 @@
 # The cache expiration can be controlled with the cache_update_trigger and
 # cache_expire_trigger methods.
 
-card_accessor :solid_cache, type: :html
+card_accessor :solid_cache, type: HtmlID
 
 def self.included host_class
   host_class.format(host_class.try(:cached_format) || :base) do
@@ -68,8 +68,8 @@ module ClassMethods
   end
 
   def event_name set, args
-    changed_card_set = set.shortname.tr(":", "_").underscore
-    solid_cache_set = shortname.tr(":", "_").underscore + "__solid_cache"
+    changed_card_set = set.underscore
+    solid_cache_set = underscore + "__solid_cache"
     actions = Array.wrap(args[:on]).join("_")
     ["update", solid_cache_set,
      "changed_by", changed_card_set,

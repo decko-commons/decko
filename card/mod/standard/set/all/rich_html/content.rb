@@ -1,50 +1,56 @@
-def show_comment_box_in_related?
-  false
-end
-
-def help_rule_card
-  setting = new_card? ? [:add_help, { fallback: :help }] : :help
-  help_card = rule_card(*setting)
-  help_card if help_card && help_card.ok?(:read)
-end
-
 format :html do
-  def show view, args
-    send "show_#{show_layout? ? :with : :without}_layout", view, args
-  end
-
-  def show_layout?
-    !Env.ajax? || params[:layout]
-  end
-
-  def show_with_layout view, args
-    args[:view] = view if view
-    @main = false
-    @main_opts = args
-    render! :layout, layout: params[:layout]
-    # FIXME: using title because it's a standard view option.  hack!
-  end
-
-  def show_without_layout view, args
-    @main = true if params[:is_main] || args[:main]
-    view ||= args[:home_view] || :open
-    render! view, args
-  end
-
-  view :layout, perms: :none, cache: :never do
-    layout = process_content get_layout_content(voo.layout), chunk_list: :references
-    output [layout, modal_slot]
-  end
-
-  view :content do
+  def prepare_content_slot
     class_up "card-slot", "d0-card-content"
     voo.hide :menu
-    wrap { [_render_menu, _render_core] }
+  end
+
+  before(:content) { prepare_content_slot }
+
+  view :content do
+    voo.hide :edit_button
+    wrap do
+      [_render_menu, _render_core, _render_edit_button(edit: :inline)]
+    end
+  end
+
+  before(:content_with_edit_button) do
+    prepare_content_slot
+  end
+
+  view :content_with_edit_button do
+    wrap do
+      [_render_menu, _render_core, _render_edit_button(edit: :inline)]
+    end
+  end
+
+  view :short_content, wrap: { div: { class: "text-muted" } } do
+    short_content
+  end
+
+  view :raw_one_line_content, unknown: :mini_unknown,
+                              wrap: { div: { class: "text-muted" } } do
+    raw_one_line_content
+  end
+
+  view :one_line_content, unknown: :mini_unknown,
+                          wrap: { div: { class: "text-muted" } } do
+    one_line_content
+  end
+
+  before(:content_with_title) { prepare_content_slot }
+
+  view :content_with_title do
+    wrap true, title: card.format(:text).render_core do
+      [_render_menu, _render_core]
+    end
+  end
+
+  before :content_panel do
+    prepare_content_slot
+    class_up "card-slot", "card"
   end
 
   view :content_panel do
-    class_up "card-slot", "d0-card-content card"
-    voo.hide :menu
     wrap do
       wrap_with :div, class: "card-body" do
         [_render_menu, _render_core]
@@ -52,125 +58,108 @@ format :html do
     end
   end
 
-  view :titled, tags: :comment do
+  view :titled do
     @content_body = true
     wrap do
       [
-        _render_menu,
-        _render_header,
-        wrap_body { _render_titled_content },
-        render_comment_box
+        naming { render_header },
+        render_flash,
+        wrap_body { render_titled_content },
+        render_comment_box(optional: :hide)
       ]
     end
   end
 
-  view :labeled do
-    class_up "d0-card-body", "labeled-content"
+  view :labeled, unknown: true do
     @content_body = true
-    wrap do
-      [
-        _render_menu,
-        labeled_row
-      ]
+    wrap(true, class: "row") do
+      labeled(render_title, wrap_body { "#{render_menu}#{render_labeled_content}" } )
     end
   end
 
-  def labeled_row
-    haml do
-      <<-HAML.strip_heredoc
-        .row
-          .col-4.text-right
-            .label
-              = _render_title
-          .col
-            = wrap_body { _render_labeled_content }
-      HAML
-    end
+  def labeled label, content
+    haml :labeled, label: label, content: content
   end
 
-  view :type_info do
-    return unless show_view?(:toolbar, :hide) && card.type_code != :basic
-    wrap_with :span, class: "type-info float-right" do
-      link_to_card card.type_name, nil, class: "navbar-link"
-    end
+  def labeled_field field, item_view=:name, opts={}
+    opts[:title] ||= Card.fetch_name field
+    field_nest field, opts.merge(view: :labeled,
+                                 items: (opts[:items] || {}).merge(view: item_view))
   end
 
-  view :open, tags: :comment do
-    voo.show! :toolbar if toolbar_pinned?
-    voo.viz :toggle, (main? ? :hide : :show)
+  view :open do
+    toggle_logic
+    @toggle_mode = :open
     @content_body = true
     frame do
-      [_render_open_content, render_comment_box]
+      [_render_open_content, render_comment_box(optional: :hide)]
     end
-  end
-
-  view :type do
-    link_to_card card.type_card, nil, class: "cardtype"
   end
 
   view :closed do
-    with_nest_mode :closed do
-      voo.show :toggle
-      voo.hide! :toolbar
+    with_nest_mode :compact do
+      toggle_logic
       class_up "d0-card-body", "closed-content"
-      @content_body = true
+      @content_body = false
       @toggle_mode = :close
-      frame { _render :closed_content }
+      frame
     end
   end
 
-  view :change do
-    voo.show :title_link
-    voo.hide :menu
-    wrap do
-      [_render_title,
-       _render_menu,
-       _render_last_action]
-    end
+  def toggle_logic
+    show_view?(:title_link, :hide) ? voo.show(:icon_toggle) : voo.show(:title_toggle)
   end
 
   def current_set_card
     set_name = params[:current_set]
-    if card.known? && card.type_id == Card::CardtypeID
-      set_name ||= "#{card.name}+*type"
-    end
+    set_name ||= "#{card.name}+*type" if card.known? && card.type_id == Card::CardtypeID
     set_name ||= "#{card.name}+*self"
     Card.fetch(set_name)
   end
 
-  view :help, tags: :unknown_ok, cache: :never do
-    help_text = voo.help || rule_based_help
-    return "" unless help_text.present?
-    wrap_with :div, help_text, class: classy("help-text")
+  def raw_one_line_content
+    cleaned = Card::Content.clean! render_raw, {}
+    cut_with_ellipsis cleaned
   end
 
-  def rule_based_help
-    return "" unless (rule_card = card.help_rule_card)
-    with_nest_mode :normal do
-      process_content rule_card.content, chunk_list: :references
-      # render help card with current card's format
-      # so current card's context is used in help card nests
+  def one_line_content
+    # TODO: use a version of Card::Content.smart_truncate
+    #       that counts characters instead of clean!
+    cleaned = Card::Content.clean! render_core, {}
+    cut_with_ellipsis cleaned
+  end
+
+  # LOCALIZE
+  def short_content
+    short_content_items || short_content_fields || short_content_from_core
+  end
+
+  def short_content_items
+    return unless card.respond_to? :count
+    "#{count} #{'item'.pluralize count}"
+  end
+
+  def short_content_fields
+    return unless voo.structure || card.structure
+    fields = nested_field_names.size
+    return if fields.zero?
+    "#{fields} #{'field'.pluralize fields}"
+  end
+
+  def short_content_from_core
+    content = render_core
+    if content.blank?
+      "empty"
+    elsif content.size <= 5
+      content
+    elsif content.count("\n") < 2
+      "#{content.size} characters"
+    else
+      "#{content.count("\n") + 1} lines"
     end
   end
 
-  view :last_action do
-    act = card.last_act
-    return unless act
-    action = act.action_on card.id
-    return unless action
-    action_verb =
-      case action.action_type
-      when :create then "added"
-      when :delete then "deleted"
-      else
-        link_to_view :history, "edited", class: "last-edited", rel: "nofollow"
-      end
-
-    %(
-      <span class="last-update">
-        #{action_verb} #{_render_acted_at} ago by
-        #{subformat(card.last_actor)._render_link}
-      </span>
-    )
+  def count
+    @count ||= card.count
   end
 end

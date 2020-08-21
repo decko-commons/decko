@@ -13,7 +13,7 @@ shared_examples_for "notifications" do
 
     example "for a new card" do
       expect(list_of_changes(created))
-        .to include("content: new content", "cardtype: Basic")
+        .to include("content: new content", "cardtype: RichText")
     end
 
     example "for a updated card" do
@@ -59,6 +59,7 @@ end
 RSpec.describe Card::Set::All::Notify do
   # typically notifications are not sent on non-web-requests
   before { described_class.force_notifications = true }
+
   after { described_class.force_notifications = false }
 
   def notification_email_for card_name, followed_set: "#{card_name}+*self"
@@ -67,7 +68,7 @@ RSpec.describe Card::Set::All::Notify do
     Card[:follower_notification_email].format.mail(
       context, { to: follower.email }, auth: follower,
                                        active_notice: { follower: follower.name,
-                                                        followed_set:  followed_set,
+                                                        followed_set: followed_set,
                                                         follow_option: "*always" }
     ).text_part.body.raw_source
   end
@@ -128,12 +129,24 @@ RSpec.describe Card::Set::All::Notify do
     end
 
     it "creates well formatted text message" do
-      path = File.expand_path "../notify_email.txt", __FILE__
-      expect(notification_email_for("card with fields")).to eq(File.read(path))
+      path = File.expand_path "notify_email.txt", __dir__
+      email = notification_email_for("card with fields").delete "\r"
+      expect(email).to eq(File.read(path))
     end
   end
 
   describe "#notify_followers" do
+    # Normally, delayed events renew the cache, which entails clearing the local cache.
+    # That breaks these tests, because if the local cache is cleared, then the +*account
+    # card that receives the :send_change_notice method is a _different_ object than
+    # the one expecting it.
+    #
+    # An alternative approach would be to insert _only_ the account object into the
+    # cache when the delayed job is started.  This would more reliably test that the
+    # delayed job can get everything it needs with a clean cache.
+    before { Card::Cache.no_renewal = true }
+    after { Card::Cache.no_renewal = false }
+
     def expect_user user_name
       expect(Card.fetch(user_name).account)
     end
@@ -148,11 +161,11 @@ RSpec.describe Card::Set::All::Notify do
     end
 
     def update card_name, new_content="updated content"
-      Card[card_name].update_attributes! content: new_content
+      Card[card_name].update! content: new_content
     end
 
     def update_name card_name, new_name="updated content"
-      Card[card_name].update_attributes! name: new_name, update_referers: true
+      Card[card_name].update! name: new_name, update_referers: true
     end
 
     def self.notify_on_create user, trigger, create_name
@@ -176,7 +189,7 @@ RSpec.describe Card::Set::All::Notify do
     end
 
     it "does not send notification to author of change" do
-      Card::Auth.current_id = Card["Big Brother"].id
+      Card::Auth.signin "Big Brother"
       expect_user("Big Brother").not_to be_notified
       update "Google glass"
     end
@@ -231,11 +244,11 @@ RSpec.describe Card::Set::All::Notify do
         notify_on_create "Sunglasses fan", "Sunglasses+*self", "Sunglasses+producer"
         notify_on_update "Sunglasses fan", "Sunglasses+*self", "Sunglasses+price"
 
-        context "when follow fields rule contains *include" do
+        context "when follow fields rule contains *nests" do
           notify_on_create "Sunglasses fan", "Sunglasses+*self", "Sunglasses+lens"
           notify_on_update "Sunglasses fan", "Sunglasses+*self", "Sunglasses+tint"
 
-          it "doesn't send notification of not included card" do
+          it "doesn't send notification of non-nested card" do
             expect_user("Sunglasses fan").not_to be_notified
             Card.create! name: "Sunglasses+frame"
           end

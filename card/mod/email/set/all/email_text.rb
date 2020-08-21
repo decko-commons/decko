@@ -1,10 +1,10 @@
 
 format :email_text do
-  view :missing do
+  view :unknown do
     ""
   end
 
-  view :closed_missing do
+  view :compact_missing do
     ""
   end
 

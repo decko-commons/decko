@@ -1,8 +1,7 @@
 class Card
   class View
     module Options
-      # The methods of the VooApi module allow developers
-      # to read and write options dynamically.
+      # VooApi methods let developers use view options dynamically.
       module VooApi
         # There are two primary options hashes:
 
@@ -25,15 +24,13 @@ class Card
 
           def define_getter option_key
             define_method option_key do
-              norm_method = "normalize_#{option_key}"
-              value = live_options[option_key]
-              try(norm_method, value) || value
+              live_options[option_key]
             end
           end
 
           def define_setter option_key
             define_method "#{option_key}=" do |value|
-              live_options[option_key] = value
+              live_options[option_key] = special_option_value(option_key, value) || value
             end
           end
         end
@@ -52,24 +49,29 @@ class Card
         # because they can get changed after.  current solution is a compromise.
         # @return [Hash]
         def slot_options
-          normalized_options.merge(view: requested_view).select do |k, _v|
-            Options.all_keys.include? k
-          end
+          normalized_options.merge(view: requested_view).slice(*Options.slot_keys)
         end
-
-        # def inherit key
-        #   if live_options.key? key
-        #     live_options[key]
-        #   elsif (ancestor = next_ancestor)
-        #     ancestor.inherit key
-        #   end
-        # end
 
         # ACCESSOR_HELPERS
         # methods that follow the normalize_#{key} pattern are called by accessors
         # (arguably that should be done during normalization!)
 
-        def normalize_editor value
+        def normalize_special_options! opts
+          opts.each do |option_key, value|
+            new_value = special_option_value option_key, value
+            opts[option_key] = new_value if new_value
+          end
+        end
+
+        def special_option_value option_key, value
+          try "normalize_#{option_key}", value
+        end
+
+        def normalize_input_type value
+          value&.to_sym
+        end
+
+        def normalize_edit value
           value&.to_sym
         end
 
@@ -77,10 +79,17 @@ class Card
           value&.to_sym
         end
 
+        def normalize_wrap value
+          value = value.split(",").map(&:strip) if value.is_a? String
+          Array.wrap(value).compact.flatten
+        end
+
         protected
 
         # - @live_options are dynamic and can be altered by the "voo" API at any time.
-        # Such alterations are NOT used in stubs
+        # Such alterations are NOT used in the stub of the current voo, but they
+        # ARE inherited by children voos.
+        #
         # @return [Hash]
         def live_options
           @live_options ||= process_live_options
@@ -93,6 +102,7 @@ class Card
         # handling for main_views.
         def normalize_options
           @normalized_options = opts = options_to_hash @raw_options.clone
+          normalize_special_options! opts
           @optional = opts.delete(:optional) || false
           add_implicit_options!
           inherit_options_from_parent!
@@ -122,6 +132,7 @@ class Card
         # standard inheritance from parent view object
         def inherit_options_from_parent!
           return unless parent
+
           Options.heir_keys.each do |option_key|
             inherit_from_parent! option_key
           end
@@ -129,29 +140,54 @@ class Card
 
         def inherit_from_parent! option_key
           return unless (parent_value = parent.live_options[option_key])
+
           @normalized_options[option_key] ||= parent_value
         end
 
         def process_live_options
           @live_options = normalized_options.clone
-          if @live_options[:main_view]
-            @live_options.merge! format.main_nest_options
-          end
-          # main_nest_options are not processed in normalize_options so that
-          # they're NOT locked in the stub.
+          process_main_nest_options
           process_before_view
-          process_visibility_options
+          process_visibility
+          return :hide if hide_requested_view? # bail to avoid unnecessary processing
+
+          process_view_wrappers
           @live_options
         end
 
-        # This method triggers the "before" blocks which can alter the
-        # @live_options hash both directly and indirectly (via the voo API)
+        # This method triggers the "before" blocks which can alter the @live_options
+        # hash both directly and indirectly (via the voo API)
         def process_before_view
           format.before_view requested_view
         end
 
+        # adds the wrappers assigned to ok_view in view definition
+        def process_view_wrappers
+          view_wrappers = format.view_setting(:wrap, ok_view)
+          return unless view_wrappers.present?
+
+          @live_options[:wrap] = Array.wrap(@live_options[:wrap])
+          if view_wrappers.is_a? ::Hash
+            view_wrappers.each_pair do |name, opts|
+              @live_options[:wrap] << [name, opts]
+            end
+          else
+            @live_options[:wrap] += Array.wrap(view_wrappers)
+          end
+        end
+
+        # merge the options of the main nest into the @live_options
+        # They are not processed in normalize_options so that
+        # they're NOT locked in the stub.
+        def process_main_nest_options
+          @live_options.merge! format.main_nest_options if @live_options[:main_view]
+        end
+
         def validate_options! opts
           return unless (foreign_opts = foreign_options_in opts)
+
+          # TODO: this should raise a UserError if the options come directly from params
+          # (eg, mycard?slot[badoption]=true should not be treated as a server error)
           raise Card::Error, "illegal view options: #{foreign_opts}"
         end
 

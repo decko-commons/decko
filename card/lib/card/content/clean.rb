@@ -3,10 +3,10 @@ class Card
     # tools for cleaning content, especially for restricing unwanted HTML
     module Clean
       allowed_tags = {}
-      %w(
+      %w[
         br i b pre cite caption strong em ins sup sub del ol hr ul li p
         div h1 h2 h3 h4 h5 h6 span table tr td th tbody thead tfoot
-      ).each { |tag| allowed_tags[tag] = [] }
+      ].each { |tag| allowed_tags[tag] = [] }
 
       # allowed attributes
       allowed_tags.merge!(
@@ -16,7 +16,7 @@ class Card
         "blockquote" => ["cite"]
       )
 
-      if Card.config.allow_inline_styles
+      if Cardio.config.allow_inline_styles
         allowed_tags["table"] += %w[cellpadding align border cellspacing data-mce-style]
         allowed_tags["td"] += %w[scope data-mce-style]
         allowed_tags["th"] += %w[scope data-mce-style]
@@ -24,7 +24,7 @@ class Card
 
       allowed_tags.each_key do |k|
         allowed_tags[k] << "class"
-        allowed_tags[k] << "style" if Card.config.allow_inline_styles
+        allowed_tags[k] << "style" if Cardio.config.allow_inline_styles
         allowed_tags[k]
       end
 
@@ -32,35 +32,43 @@ class Card
 
       ATTR_VALUE_RE = [/(?<=^')[^']+(?=')/, /(?<=^")[^"]+(?=")/, /\S+/].freeze
 
+      def clean! string, tags=ALLOWED_TAGS
+        cleaned = clean_tags string, tags
+        cleaned = clean_spaces cleaned if Cardio.config.space_last_in_multispace
+        cleaned
+      end
+
+      private
+
       ## Method that cleans the String of HTML tags
       ## and attributes outside of the allowed list.
-      def clean! string, tags=ALLOWED_TAGS
-        string.gsub(%r{<(/*)(\w+)([^>]*)>}) do
-          raw = $LAST_MATCH_INFO
-          tag = raw[2].downcase
-          if (attrs = tags[tag])
-            html_attribs =
-              attrs.each_with_object([tag]) do |attr, pcs|
-                q, rest_value = process_attribute attr, raw[3]
-                pcs << "#{attr}=#{q}#{rest_value}#{q}" unless rest_value.blank?
-              end * " "
-            "<#{raw[1]}#{html_attribs}>"
-          else
-            " "
-          end
+      def clean_tags string, ok_tags
+        # $LAST_MATCH_INFO is nil if string is a SafeBuffer
+        string.to_str.gsub(%r{<(/*)(\w+)([^>]*)>}) do |_raw|
+          clean_tag $LAST_MATCH_INFO, ok_tags
         end.gsub(/<\!--.*?-->/, "")
       end
 
-      if Card.config.space_last_in_multispace
-        def clean_with_space_last! string, tags=ALLOWED_TAGS
-          cwo = clean_without_space_last!(string, tags)
-          cwo.gsub(/(?:^|\b) ((?:&nbsp;)+)/, '\1 ')
-        end
-        alias_method_chain :clean!, :space_last
+      def clean_spaces string
+        string.gsub(/(?:^|\b) ((?:&nbsp;)+)/, '\1 ')
+      end
+
+      def clean_tag match, ok_tags
+        tag = match[2].downcase
+        return " " unless (ok_attrs = ok_tags[tag])
+        "<#{match[1]}#{html_attribs tag, match[3], ok_attrs}>"
+      end
+
+      def html_attribs tag, raw_attr, ok_attrs
+        ok_attrs.each_with_object([tag]) do |ok_attr, pcs|
+          q, rest_value = process_attribute ok_attr, raw_attr
+          pcs << "#{ok_attr}=#{q}#{rest_value}#{q}" unless rest_value.blank?
+        end * " "
       end
 
       def process_attribute attrib, all_attributes
         return ['"', nil] unless all_attributes =~ /\b#{attrib}\s*=\s*(?=(.))/i
+
         q = '"'
         rest_value = $'
         if (idx = %w[' "].index Regexp.last_match(1))
@@ -74,6 +82,7 @@ class Card
       # NOTE allows classes beginning with "w-" (deprecated)
       def process_attribute_match rest_value, reg_exp, attrib
         return rest_value unless (match = rest_value.match reg_exp)
+
         rest_value = match[0]
         if attrib == "class"
           rest_value.split(/\s+/).select { |s| s =~ /^w-/i }.join(" ")

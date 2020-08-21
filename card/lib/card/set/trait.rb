@@ -17,6 +17,13 @@ class Card
         add_traits args, options.merge(writer: true)
       end
 
+      def require_field *fields
+        options = fields.last.is_a?(Hash) ? fields.pop : {}
+        fields.each do |field|
+          Card::Set::RequiredField.new(self, field, options).add
+        end
+      end
+
       private
 
       def add_attributes *args
@@ -49,7 +56,7 @@ class Card
       def define_trait_card trait, opts
         define_method "#{trait}_card" do
           trait_var "@#{trait}_card" do
-            fetch trait: trait.to_sym, new: opts.clone
+            fetch trait.to_sym, new: opts.clone, eager_cache: true
           end
         end
       end

@@ -30,7 +30,7 @@ class AddTinymceCards < Card::Migration
       name: "*TinyMCE+*self+*help",
       content: "Configure [[http://tinymce.com|TinyMCE]], Wagn's default "\
                "[[http://en.wikipedia.org/wiki/Wysiwyg|wysiwyg]] editor. "\
-               "[[http://wagn.org/TinyMCE|more]]"
+               "[[https://decko.org/TinyMCE|more]]"
     )
     ensure_card name: "script: tinymce",
                 type_id: Card::JavaScriptID,

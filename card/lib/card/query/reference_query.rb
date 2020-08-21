@@ -34,7 +34,7 @@ class Card
       end
 
       def non_outfield
-        add_condition "#{fld :present} = 0"
+        add_condition "#{fld :is_present} = 0"
       end
 
       def outfield_id outfield, id
@@ -43,6 +43,7 @@ class Card
 
       def add_reftype_condition reftype
         return unless reftype.present?
+
         reftype = Array.wrap reftype
         operator = (reftype.size == 1 ? "=" : "IN")
         quoted_letters = reftype.map { |letter| "'#{letter}'" } * ", "

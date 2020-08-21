@@ -5,8 +5,7 @@ format :html do
     super()
   end
 
-  view :box_bottom, template: :haml do
-  end
+  view :box_bottom, template: :haml
 
   view :customize_button, cache: :never do
     customize_button

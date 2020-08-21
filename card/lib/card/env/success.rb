@@ -4,7 +4,9 @@ class Card
     class Success
       include Card::Env::Location
 
-      attr_accessor :params, :redirect, :id, :name, :card, :name_context
+      attr_accessor :redirect, :name, :name_context, :reload
+      attr_writer :params, :card
+      attr_reader :id
 
       def initialize name_context=nil, success_args=nil
         @name_context = name_context
@@ -38,13 +40,8 @@ class Card
         end
       end
 
-      def hard_redirect?
-        @redirect == true || @redirect == "true"
-      end
-
-      # reset card object and override params with success params
-      def soft_redirect?
-        @redirect == :soft
+      def reload?
+        @reload.to_s == "true"
       end
 
       # TODO: refactor to use cardish
@@ -119,8 +116,6 @@ class Card
       def []= key, value
         if respond_to? "#{key}="
           send "#{key}=", value
-        elsif key.to_sym == :soft_redirect
-          @redirect = :soft
         else
           @params.send "#{key}=", value
         end
@@ -129,8 +124,6 @@ class Card
       def [] key
         if respond_to? key.to_sym
           send key.to_sym
-        elsif key.to_sym == :soft_redirect
-          @redirect == :soft
         else
           @params.send key.to_sym
         end

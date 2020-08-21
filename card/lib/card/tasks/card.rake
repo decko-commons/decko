@@ -47,6 +47,7 @@ namespace :card do
     _task, name, url = ARGV
     raise "no name given" unless name.present?
     raise "no url given" unless url.present?
+
     importer.add_remote name, url
     exit
   end
@@ -54,6 +55,7 @@ namespace :card do
   def pull_card opts={}
     _task, card = ARGV
     raise "no card given" unless card.present?
+
     importer.pull card, opts.merge(remote: ENV["from"])
     exit # without exit the card argument is treated as second rake task
   end
@@ -116,5 +118,6 @@ namespace :card do
         Card[*name_parts].update_machine_output
       end
     end
+    Card::Cache.reset_all # should not be necessary but breaking without...
   end
 end

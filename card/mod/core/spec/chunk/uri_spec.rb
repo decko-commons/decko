@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Content::Chunk::URI, "URI chunk tests" do
+RSpec.describe Card::Content::Chunk::URI, "URI chunk tests" do
   it "test_non_matches" do
     no_match_uri "There is no URI here"
     no_match_uri "One gemstone is the garnet:reddish in colour, like ruby"
@@ -115,10 +115,10 @@ describe Card::Content::Chunk::URI, "URI chunk tests" do
               path: "", query: nil
   end
   it "handles mailto:" do
-    match_uri "mailto:jdoe123@example.com",
+    match_uri "mailto:j.d.oe123@example.com",
               scheme: "mailto", host: nil, port: nil,
               path: nil, query: nil,
-              to: "jdoe123@example.com"
+              to: "j.d.oe123@example.com"
   end
 
   it "runs more basic cases" do
@@ -148,10 +148,10 @@ describe Card::Content::Chunk::URI, "URI chunk tests" do
   end
 
   it "test_email_uri" do
-    match_uri "mail@example.com",
-              to: "mail@example.com", host: nil,
-              text: "mail@example.com",
-              link_text: "mailto:mail@example.com"
+    match_uri "e.mail4@example.com",
+              to: "e.mail4@example.com", host: nil,
+              text: "e.mail4@example.com",
+              link_text: "mailto:e.mail4@example.com"
   end
 
   it "test_non_email" do

@@ -20,14 +20,14 @@ class WatchersToFollowing < Card::Migration::Core
 
       follower_hash.each do |user, items|
         next unless (card = Card.fetch(user)) && card.account
-        following = card.fetch trait: "following",  new: { type_code: :pointer }
+        following = card.fetch "following",  new: { type_code: :pointer }
         items.each { |item| following.add_item item }
         following.save!
       end
     end
 
     if watchers = Card[:watchers]
-      watchers.update_attributes codename: nil
+      watchers.update codename: nil
       watchers.delete!
     end
   end

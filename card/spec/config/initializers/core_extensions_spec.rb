@@ -36,7 +36,7 @@ describe CoreExtensions do
       subject { :wagn_bot.cardname }
       it "converts into a name" do
         is_expected.to be_instance_of Card::Name
-        expect(subject.s).to eq "Wagn Bot"
+        expect(subject.s).to eq "Decko Bot"
       end
     end
 

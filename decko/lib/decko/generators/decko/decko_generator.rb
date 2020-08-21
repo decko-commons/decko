@@ -88,6 +88,7 @@ class DeckoGenerator < Rails::Generators::AppBase
       template "boot.rb"
       template "databases/#{options[:database]}.yml", "database.yml"
       template "cucumber.yml" if options["core-dev"]
+      template "initializers/cypress_on_rails.rb" if options["core-dev"]
     end
   end
 
@@ -187,6 +188,9 @@ class DeckoGenerator < Rails::Generators::AppBase
     @cardio_gem_root = File.join @gem_path, "card"
     @decko_gem_root = File.join @gem_path, "decko"
     empty_directory "spec"
+    inside "config" do
+      template "puma.rb"
+    end
     template "rspec", ".rspec"
     template "simplecov", ".simplecov"
     empty_directory "bin"

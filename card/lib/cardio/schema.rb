@@ -2,9 +2,8 @@ module Cardio
   module Schema
     def assume_migrated_upto_version type
       Cardio.schema_mode(type) do
-        ActiveRecord::Schema.assume_migrated_upto_version(
-          Cardio.schema(type), Cardio.migration_paths(type)
-        )
+        ActiveRecord::Schema.assume_migrated_upto_version(Cardio.schema(type),
+                                                          Cardio.migration_paths(type))
       end
     end
 
@@ -33,25 +32,30 @@ module Cardio
 
     def migration_context type
       with_suffix type do
-        yield ActiveRecord::MigrationContext.new(Cardio.migration_paths(type))
+        yield ActiveRecord::MigrationContext.new(Cardio.migration_paths(type),
+                                                 ActiveRecord::SchemaMigration)
       end
     end
 
     def with_suffix type
       return yield unless (new_suffix = Cardio.schema_suffix type) &&
                           new_suffix.present?
+
       original_name = ActiveRecord::Base.schema_migrations_table_name
-      ActiveRecord::Base.schema_migrations_table_name =
-        "#{original_name}#{new_suffix}"
-      ActiveRecord::SchemaMigration.table_name = "#{original_name}#{new_suffix}"
-      # ActiveRecord::Base.table_name_suffix = new_suffix
-      # ActiveRecord::SchemaMigration.reset_table_name
-      # original_suffix = ActiveRecord::Base.table_name_suffix
+      with_migration_table "#{original_name}#{new_suffix}", original_name do
+        yield
+      end
+    end
+
+    def with_migration_table new_table_name, old_table_name
+      ActiveRecord::Base.schema_migrations_table_name = new_table_name
+      ActiveRecord::SchemaMigration.table_name = new_table_name
+      ActiveRecord::SchemaMigration.reset_column_information
       yield
-      ActiveRecord::Base.schema_migrations_table_name = original_name
-      ActiveRecord::SchemaMigration.table_name = original_name
-      # ActiveRecord::Base.table_name_suffix = original_suffix
-      # ActiveRecord::SchemaMigration.reset_table_name
+    ensure
+      ActiveRecord::Base.schema_migrations_table_name = old_table_name
+      ActiveRecord::SchemaMigration.table_name = old_table_name
+      ActiveRecord::SchemaMigration.reset_column_information
     end
 
     def schema type=nil

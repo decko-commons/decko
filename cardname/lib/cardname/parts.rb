@@ -16,6 +16,12 @@ class Cardname
     end
     alias simple? simple
 
+    # @return true if name has more than one part
+    def compound?
+      !simple?
+    end
+    alias junction? compound?
+
     def part_keys
       @part_keys ||= simple ? [simple_key] : parts.map { |p| p.to_name.simple_key }
     end

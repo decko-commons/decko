@@ -47,7 +47,12 @@ class Card
 
       def add_to_basket name, content=nil, &block
         content ||= block
-        send("#{name}_content").send("<<", content)
+        send("#{name}_content").send "<<", content
+      end
+
+      def unshift_basket name, content=nil, &block
+        content ||= block
+        send("#{name}_content").unshift content
       end
     end
   end

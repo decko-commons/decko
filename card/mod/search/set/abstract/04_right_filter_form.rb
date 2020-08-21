@@ -4,7 +4,7 @@
 include_set Set::Abstract::Filter
 
 def virtual?
-  true
+  new?
 end
 
 format :html do
@@ -12,12 +12,15 @@ format :html do
     path mark: card.name.left, view: filter_view
   end
 
-  # FIXME: wikirate-specific reference in selector
   view :core, cache: :never do
-    filter_fields slot_selector: ".RIGHT-all_metric_value.filter_result-view"
+    filter_fields slot_selector: filter_selector
   end
 
   def filter_view
     :filter_result
+  end
+
+  def filter_selector
+    ".#{filter_view}-view"
   end
 end

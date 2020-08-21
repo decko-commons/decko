@@ -1,0 +1,65 @@
+version: v1.0
+name: First pipeline example
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+blocks:
+  - name: "Build"
+    task:
+      env_vars:
+        - name: APP_ENV
+          value: prod
+      jobs:
+      - name: Setup
+        command:
+          - git submodule sync
+          - git submodule update --init --recursive
+            cd /home/runner
+
+            bundle update
+            # --path /home/runner/wagn/.semaphore-cache
+            cp /home/runner/bucket_credentials.yml /home/runner/decko/card/spec/support/bucket_credentials.yml
+
+  - name: "Smoke tests"
+    task:
+      jobs:
+      - name: Smoke
+        commands:
+          - checkout
+          - echo "make smoke"
+
+  - name: "Unit tests"
+    task:
+      jobs:
+      - name: RSpec
+        commands:
+          - checkout
+          - echo "make rspec"
+
+      - name: Lint code
+        commands:
+          - checkout
+          - echo "make lint"
+
+      - name: Check security
+        commands:
+          - checkout
+          - echo "make security"
+
+  - name: "Integration tests"
+    task:
+      jobs:
+      - name: Cucumber
+        commands:
+          - checkout
+          - echo "make cucumber"
+
+  - name: "Push Image"
+    task:
+      jobs:
+      - name: Push
+        commands:
+          - checkout
+          - echo "make docker.push"

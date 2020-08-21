@@ -17,7 +17,7 @@ class Card
 
       def initialize query=nil
         @query = query
-        @mods = query && query.mods
+        @mods = query&.mods
       end
 
       def build
@@ -51,6 +51,7 @@ class Card
 
       def comment
         return nil unless Card.config.sql_comments && @query.comment
+
         "/* #{@query.comment} */\n"
       end
 
@@ -68,17 +69,20 @@ class Card
 
       def full_field table, field
         case field
-        when :raw      then "#{table}.*"
-        when :card     then "#{table}.*"
-        when :content  then "#{table}.db_content"
-        when :count
-          "coalesce(count( distinct #{table}.id),0) as count"
+        when :card, :raw then "#{table}.*"
+        when :content    then "#{table}.db_content"
+        when :name, :key then "#{table}.name, #{table}.left_id, #{table}.right_id"
+        when :count      then "coalesce(count( distinct #{table}.id),0) as count"
         else
-          if ATTRIBUTES[field.to_sym] == :basic
-            "#{table}.#{field}"
-          else
-            safe_sql field
-          end
+          standard_full_field table, field
+        end
+      end
+
+      def standard_full_field table, field
+        if ATTRIBUTES[field.to_sym] == :basic
+          "#{table}.#{field}"
+        else
+          safe_sql field
         end
       end
 
@@ -91,7 +95,7 @@ class Card
         full_syntax do
           limit = @mods[:limit]
           offset = @mods[:offset]
-          if limit.to_i > 0
+          if limit.to_i.positive?
             string =  "LIMIT  #{limit.to_i} "
             string += "OFFSET #{offset.to_i} " if offset.present?
             string
@@ -104,12 +108,7 @@ class Card
       end
 
       def safe_sql txt
-        txt = txt.to_s
-        if txt =~ /[^\w\*\(\)\s\.\,]/
-          raise "WQL contains disallowed characters: #{txt}"
-        else
-          txt
-        end
+        Query.safe_sql txt
       end
 
       def cast_type type

@@ -102,18 +102,21 @@ class Card
 
           def truncate_overlap
             return unless @remaining_chars < 0
+
             process_ellipsis
 
             index = @chunks.size - 1
             while @remaining_chars < @joint.size && index >= 0
               overlap_size = @remaining_chars + @chunks[index][:text].size
               break if process_overlap overlap_size, index
+
               index -= 1
             end
           end
 
           def process_ellipsis
             return unless @chunks.last[:action] == :ellipsis
+
             @chunks.pop
             @content_omitted = true
             @remaining_chars += @joint.size

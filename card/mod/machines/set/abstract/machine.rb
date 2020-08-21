@@ -54,8 +54,8 @@ module MachineClassMethods
   end
 end
 
-card_accessor :machine_output, type: :file
-card_accessor :machine_input, type: :pointer
+card_accessor :machine_output, type: FileID
+card_accessor :machine_input, type: PointerID
 
 def before_engine
 end
@@ -120,7 +120,7 @@ class << self
   def define_machine_events host_class
     event_suffix = host_class.name.tr ":", "_"
     event_name = "reset_machine_output_#{event_suffix}".to_sym
-    host_class.event event_name, after: :expire_related, on: :save do
+    host_class.event event_name, after: :expire_related, changed: :content, on: :save do
       reset_machine_output
     end
   end
@@ -138,7 +138,7 @@ def run_machine joint="\n"
 end
 
 def direct_machine_input? input_card
-  !input_card.is_a?(Card::Set::Type::Pointer) ||
+  !input_card.collection? ||
     input_card.respond_to?(:machine_input)
 end
 
@@ -164,8 +164,10 @@ end
 def make_machine_output_coded mod=:machines
   update_machine_output
   Card::Auth.as_bot do
-    machine_output_card.update_attributes! storage_type: :coded, mod: mod,
-                                           codename: machine_output_codename
+    ENV["STORE_CODED_FILES"] = "true"
+    machine_output_card.update! storage_type: :coded, mod: mod,
+                                codename: machine_output_codename
+    ENV["STORE_CODED_FILES"] = nil
   end
 end
 

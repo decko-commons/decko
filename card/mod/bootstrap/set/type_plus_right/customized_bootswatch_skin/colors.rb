@@ -57,7 +57,7 @@ def variable_group_with_values group
 end
 
 format :html do
-  view :editor, template: :haml do
+  view :input, template: :haml do
     @colors = card.colors
     @theme_colors = card.theme_colors
   end
@@ -72,6 +72,10 @@ format :html do
 
   before :bar_right do
     voo.show :edit_button
+  end
+
+  view :core, template: :haml do
+    @colors = card.theme_colors.reject { |k, _v| k.in? %i[body-bg body-color] }
   end
 
   view :bar_middle do

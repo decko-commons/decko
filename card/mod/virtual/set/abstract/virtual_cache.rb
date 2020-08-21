@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 def virtual?
-  true
+  new?
 end
 
 def history?
@@ -23,7 +23,7 @@ def generate_virtual_content
 end
 
 event :save_virtual_content, :prepare_to_store, on: :save, changed: :content do
-  Card::Virtual.fetch(self) { attributes["db_content"] }
+  Card::Virtual.create_or_update(self, attributes["db_content"])
   abort :success
 end
 
@@ -34,10 +34,10 @@ end
 
 def delete
   # delete although it's new
-  update_attributes trash: true
+  update trash: true
 end
 
 def delete!
   # delete although it's new
-  update_attributes! trash: true
+  update! trash: true
 end

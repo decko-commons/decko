@@ -34,7 +34,8 @@ class Card
         end
 
         def new_card_args
-          args = { name: view_opts[:nest_name], type: view_opts[:type] }
+          args = { name: view_opts[:nest_name] }
+          args[:type] = view_opts[:type] if view_opts[:type]
           args.merge(new_supercard_args)
               .merge(new_main_args)
               .merge(new_content_args)

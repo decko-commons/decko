@@ -41,6 +41,13 @@ class Cardname
       self =~ /^#{Regexp.escape joint}/ ? self : (joint + self)
     end
 
+    def sub_in str, with:
+      %i[capitalize downcase].product(%i[pluralize singularize])
+                             .inject(str) do |s, (m1, m2)|
+        s.gsub(/\b#{send(m1).send(m2)}\b/, with.send(m1).send(m2))
+      end
+    end
+
     alias_method :to_field, :prepend_joint
 
     private
@@ -67,18 +74,5 @@ class Cardname
       return if part.to_name.simple?
       raise StandardError, "'#{part}' has to be simple. #{msg}"
     end
-  end
-
-  # ~~~~~~~~~~~~~~~~~~~~ MISC ~~~~~~~~~~~~~~~~~~~~
-
-  # HACK. This doesn't belong here.
-  # shouldn't it use inclusions???
-  def self.substitute! str, hash
-    hash.keys.each do |var|
-      str.gsub! var_re do |x|
-        hash[var.to_sym]
-      end
-    end
-    str
   end
 end

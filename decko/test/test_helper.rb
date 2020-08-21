@@ -84,7 +84,7 @@ unless defined? TEST_ROOT
         @url = url
 
         args[:users] ||= { anonymous: 200 }
-        args[:cardtypes] ||= ["Basic"]
+        args[:cardtypes] ||= ["RichText"]
         if args[:cardtypes] == :all
           # FIXME: need a better data source for this?
           # args[:cardtypes] = YAML.load_file('db/bootstrap/card_codenames.yml').

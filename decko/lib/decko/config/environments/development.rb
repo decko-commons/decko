@@ -14,19 +14,21 @@ Decko.application.class.configure do
   config.eager_load = false
 
   config.machine_refresh = :eager
+  config.compress_javascript = false
 
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
-  config.reload_classes_only_on_change = false
+  config.reload_classes_only_on_change = true
 
-  if defined?(RailsDevTweaks)
-    config.dev_tweaks.autoload_rules do
-      skip "/files"
-      skip /view\=status/
-    end
-  end
+  # if defined?(RailsDevTweaks)
+  #   config.dev_tweaks.autoload_rules do
+  #     skip "/files"
+  #     skip "/favicon.ico"
+  #     skip /view\=status/
+  #   end
+  # end
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
@@ -44,6 +46,12 @@ Decko.application.class.configure do
   # See everything in the log (default is :info)
   config.log_level = :debug
 
+  # if false, most rendering errors will be rescued and made visible only
+  # in the nest where the error occurred
+  config.raise_all_rendering_errors = true
+
+  # if false, application will raise errors that make it to controller.
+  config.rescue_all_in_controller = false
 
   # config.performance_logger = {
   #     methods:   [:event, :search, :fetch, :view],  # choose methods to log
@@ -86,12 +94,11 @@ Decko.application.class.configure do
 
   # Use Pry instead of IRB
   silence_warnings do
-    begin
-      require "pry"
-      config.console = Pry
-    rescue LoadError
-    end
+    require "pry"
+    config.console = Pry
+  rescue LoadError
   end
+  #config.session_store :cookie_store
 end
 
 # Paperclip.options[:command_path] = "/opt/local/bin"

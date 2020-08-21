@@ -7,7 +7,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
     # classic skin head is created more recently than classic skin,
     # which is in the seed data
     expect(run_query(sort: "create", name: [:match, "classic bootstrap skin"]))
-      .to eq(["classic bootstrap skin", "classic bootstrap skin+*colors", "classic bootstrap skin+*stylesheets", "classic bootstrap skin+*variables", "classic bootstrap skin head"])
+      .to eq(["classic bootstrap skin", "classic bootstrap skin head"])
   end
 
   it "sorts by name" do
@@ -20,21 +20,18 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   end
 
   it "plays nice with match" do
-    expect(run_query(match: "Z",
-                     not: { match: "Prose" },
-                     type: "Basic",
-                     sort: "content"))
-      .to eq(%w(A B Z A+B+Y+Z))
+    expect(run_query(match: "two", not: { match: "42" }))
+      .to eq(cards_matching_two - ["42"])
   end
 
   it "sorts by plus card content" do
     Card::Auth.as_bot do
-      Card["Setting+*self+*table of contents"].update_attributes! content: 10
-      Card.create! name: "Basic+*type+*table of contents", content: "3"
+      Card["Setting+*self+*table of contents"].update! content: 10
+      Card.create! name: "RichText+*type+*table of contents", content: "3"
       expect(run_query(right_plus: "*table of contents",
                        sort: { right: "*table_of_contents" },
                        sort_as: "integer"))
-        .to eq(%w(*all Basic+*type Setting+*self))
+        .to eq(%w(*all RichText+*type Setting+*self))
     end
   end
 
@@ -50,7 +47,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   #    Card::Query.run(
   #    match: 'two', sort: 'update', dir: 'desc'
   #    ).map(&:name).should == ['One+Two+Three', 'One+Two','Two','Joe User']
-  #    Card['Two'].update_attributes! content: 'new bar'
+  #    Card['Two'].update! content: 'new bar'
   #    Card::Query.run(
   #    match: 'two', sort: 'update', dir: 'desc'
   #    ).map(&:name).should == ['Two','One+Two+Three', 'One+Two','Joe User']

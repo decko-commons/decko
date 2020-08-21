@@ -8,22 +8,22 @@ def it_generates opts
   end
 end
 
-describe Card::Set::Pattern do
+RSpec.describe Card::Set::Pattern do
   specify ".in_load_order" do
-    expect(Card::Set::Pattern.in_load_order)
-      .to eq(%i[abstract all all_plus type star rstar right type_plus_right self])
+    expect(Card::Set::Pattern.loadable_codes)
+      .to eq(%i[abstract all all_plus type star rstar rule right type_plus_right self])
   end
 end
 
 # FIXME: - these should probably be in pattern-specific specs,
 # though that may not leave much to test in the base class :)
 
-describe Card::Set::Right do
+RSpec.describe Card::Set::Right do
   it_generates name: "author+*right", from: Card.new(name: "Iliad+author")
   it_generates name: "author+*right", from: Card.new(name: "+author")
 end
 
-describe Card::Set::Type do
+RSpec.describe Card::Set::Type do
   it_generates name: "Book+*type", from: Card.new(type: "Book")
 
   before :each do
@@ -33,27 +33,29 @@ describe Card::Set::Type do
     end
     @mylist_card = Card.create name: "ip", type_id: @mylist.id
   end
+
   # similar tests for an inherited type of Pointer
-  it "has inherited set module" do
+it "has inherited set module" do
+    expect(@mylist_card.set_modules).to include(Card::Set::Type::Pointer)
     expect(@mylist_card.set_format_modules(Card::Format::HtmlFormat))
       .to include(Card::Set::Type::Pointer::HtmlFormat)
     expect(@mylist_card.set_format_modules(Card::Format::CssFormat))
       .to include(Card::Set::Type::Pointer::CssFormat)
     expect(@mylist_card.set_format_modules(Card::Format::JsFormat))
       .to include(Card::Set::Type::Pointer::JsFormat)
-    expect(@mylist_card.set_modules).to include(Card::Set::Type::Pointer)
+
   end
 end
 
-describe Card::Set::AllPlus do
+RSpec.describe Card::Set::AllPlus do
   it_generates name: "*all plus", from: Card.new(name: "Book+author")
 end
 
-describe Card::Set::All do
+RSpec.describe Card::Set::All do
   it_generates name: "*all", from: Card.new(type: "Book")
 end
 
-describe Card::Set::TypePlusRight do
+RSpec.describe Card::Set::TypePlusRight do
   author_card = Card.new(name: "Iliad+author")
   it_generates name: "Book+author+*type plus right", from: author_card
 end

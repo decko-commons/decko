@@ -33,6 +33,7 @@ $.extend decko,
 
   initAce: (textarea) ->
     mode = textarea.attr "data-ace-mode"
+
     unless mode
       textarea.autosize()
       return

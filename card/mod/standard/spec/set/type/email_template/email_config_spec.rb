@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "card/mailer"
+require "card/seed_consts"
 
 describe Card::Set::Type::EmailTemplate::EmailConfig do
   let(:email_name) { "a mail template" }
@@ -11,7 +11,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
   end
 
   def update_field name, args={}
-    Card["#{email_name}+#{name}"].update_attributes! args
+    Card["#{email_name}+#{name}"].update! args
   end
 
   def create_field name, args={}
@@ -19,8 +19,8 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
   end
 
   before do
-    Card::Auth.current_id = Card::WagnBotID
-    chunk_test = "Url(wagn.org) Link([[http://wagn.org|Wagn]])"\
+    Card::Auth.signin Card::WagnBotID
+    chunk_test = "Url(decko.org) Link([[https://decko.org|Decko]])"\
                  " Inclusion({{B|name}}) Card link([[A]])"
     Card.create! name: email_name, type: :email_template, subcards: {
       "+*to" => "joe@user.com",
@@ -70,7 +70,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     #      we can't decided whether a email address like [[_left]] is valid;
     #      depends on the context
     #   Card.fetch("a mail template+*to").
-    #     update_attributes(content: "invalid mail address")
+    #     update(content: "invalid mail address")
     # end
   end
 
@@ -81,10 +81,10 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       is_expected.to include "*subject"
     end
     it "does not render url" do
-      is_expected.to include "Url(wagn.org)"
+      is_expected.to include "Url(decko.org)"
     end
     it "does not render link" do
-      is_expected.to include "Link(Wagn[http://wagn.org])"
+      is_expected.to include "Link(Decko[https://decko.org])"
     end
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
@@ -98,10 +98,10 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       is_expected.to include "*text message"
     end
     it "does not render url" do
-      is_expected.to include "Url(wagn.org)"
+      is_expected.to include "Url(decko.org)"
     end
     it "renders link" do
-      is_expected.to include "Link(Wagn[http://wagn.org])"
+      is_expected.to include "Link(Decko[https://decko.org])"
     end
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
@@ -118,11 +118,11 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     end
     it "renders url" do
       is_expected.to include 'Url(<a target="_blank" class="external-link" '\
-                               'href="http://wagn.org">wagn.org</a>)'
+                               'href="http://decko.org">decko.org</a>)'
     end
     it "renders link" do
       is_expected.to include 'Link(<a target="_blank" class="external-link" '\
-                               'href="http://wagn.org">Wagn</a>)'
+                               'href="https://decko.org">Decko</a>)'
     end
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
@@ -131,8 +131,8 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       Card::Env[:protocol] = "http://"
       Card::Env[:host] = "www.fake.com"
       is_expected.to include 'Card link(<a class="known-card" '\
-                               'href="http://www.fake.com/A">' \
-                               '<span class="card-title">A</span></a>)'
+                             'href="http://www.fake.com/A">' \
+                             '<span class="card-title" title="A">A</span></a>)'
     end
   end
 
@@ -188,18 +188,20 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
 
     it "handles inline image nests in html message  in core view" do
       Card::Env[:host] = "http://testhost"
-      update_field "*html message", content: "Triggered by {{:logo|core}}"
+      update_field "*html message",
+                   content: "Triggered by {{:yeti_skin_image|core}}"
       mail = email.format.mail context_card
       expect(mail.parts.size).to eq 2
       expect(mail.parts[0].mime_type).to eq "text/plain"
       expect(mail.parts[1].mime_type).to eq "text/html"
       expect(mail.parts[1].body.raw_source)
         .to have_tag(:img,
-                     with: { src: "http://testhost/files/:logo/standard-medium.png" })
+                     with: { src: "http://testhost/files/:yeti_skin_image/bootstrap-medium.png" })
     end
 
     it "handles inline image nests in html message" do
-      update_field "*html message", content: "Triggered by {{:logo|inline}}"
+      update_field "*html message",
+                   content: "Triggered by {{:yeti_skin_image|inline}}"
       mail = email.format.mail context_card
       expect(mail.parts[0].mime_type).to eq "image/png"
       url = mail.parts[0].url
@@ -209,13 +211,15 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     end
 
     it "handles image nests in html message in default view" do
-      update_field "*html message", content: "Triggered by {{:logo|core}}"
+      update_field "*html message",
+                   content: "Triggered by {{:yeti_skin_image|core}}"
       mail = email.format.mail context_card
       expect(mail.parts.size).to eq 2
       expect(mail.parts[0].mime_type).to eq "text/plain"
       expect(mail.parts[1].mime_type).to eq "text/html"
       expect(mail.parts[1].body.raw_source)
-        .to have_tag(:img, with: { src: "/files/:logo/standard-medium.png" })
+        .to have_tag(:img,
+                     with: { src: "/files/:yeti_skin_image/bootstrap-medium.png" })
     end
 
     it "handles contextual name for attachments" do

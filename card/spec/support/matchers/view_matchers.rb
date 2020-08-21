@@ -1,6 +1,6 @@
 RSpec::Matchers.define :lack_errors do
   match do |view|
-    view !~ /(error|not supported)/i
+    view !~ /(?<![-\w])(error|not supported)(?![-\w])/i
   end
 
   failure_message do |view|

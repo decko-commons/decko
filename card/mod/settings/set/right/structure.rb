@@ -1,15 +1,27 @@
+include_set Abstract::TemplatedNests
+
 format :rss do
   def raw_feed_items
     [card]
   end
 end
+
 format :html do
-  include AddHelp::HtmlFormat
+  view :one_line_content do
+    "#{_render_type} : #{_render_raw}"
+  end
+
+  def visible_cardtype_groups
+    hash = ::Card::Set::Self::Cardtype::GROUP.slice("Text")
+    hash["Organize"] = ["Search"]
+    hash
+  end
 end
 
 event :update_structurees_references, :integrate,
       when: :update_structurees_references? do
   return unless (query = structuree_query)
+
   Auth.as_bot do
     query.run.each(&:update_references_out)
   end
@@ -32,6 +44,7 @@ end
 
 def structuree_names
   return [] unless (query = structuree_query(return: :name))
+
   Auth.as_bot do
     query.run
   end
@@ -54,5 +67,6 @@ end
 def structuree_query args={}
   set_card = trunk
   return unless set_card.type_id == SetID
+
   set_card.fetch_query args
 end

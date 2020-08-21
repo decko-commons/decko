@@ -12,7 +12,7 @@ class Card
   def putty args={}
     Card::Auth.as_bot do
       if args.present?
-        update_attributes! args
+        update! args
       else
         save!
       end

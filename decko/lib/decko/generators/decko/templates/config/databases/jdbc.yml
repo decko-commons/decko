@@ -55,6 +55,7 @@ test: &test
   url: jdbc:db://localhost/<%= app_name %>_test
 
 cucumber: *test
+cypress: *test
 
 production: 
   adapter: jdbc

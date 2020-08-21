@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Pattern do
+RSpec.describe Card::Set::All::Pattern do
   describe :set_names do
     it "returns self, type, all for simple cards" do
       Card::Auth.as_bot do
         card = Card.new(name: "AnewCard")
-        expect(card.set_names).to eq(["Basic+*type", "*all"])
+        expect(card.set_names).to eq(["RichText+*type", "*all"])
         card.save!
         card = Card.fetch("AnewCard")
-        expect(card.set_names).to eq(["AnewCard+*self", "Basic+*type", "*all"])
+        expect(card.set_names).to eq(["AnewCard+*self", "RichText+*type", "*all"])
       end
     end
 
@@ -26,29 +26,36 @@ describe Card::Set::All::Pattern do
       Card::Auth.as_bot do
         expect(Card.new(name: "Iliad+author").set_names).to eq(
           [
-            "Book+author+*type plus right", "author+*right", "Basic+*type",
+            "Book+author+*type plus right", "author+*right", "RichText+*type",
             "*all plus", "*all"
           ]
         )
       end
     end
 
-    it "returns set names for compound star cards" do
-      Card::Auth.as_bot do
-        expect(Card.new(name: "Iliad+*to").set_names).to eq(
-          [
-            "Book+*to+*type plus right", "*to+*right", "*rstar",
-            "Pointer+*type", "*all plus", "*all"
-          ]
-        )
-      end
+    it "returns set names for compound star cards", as_bot: true do
+      expect(Card.new(name: "Iliad+*to").set_names).to eq(
+        [
+          "Book+*to+*type plus right", "*to+*right", "*rstar",
+          "List+*type", "*all plus", "*all"
+        ]
+      )
+    end
+
+    it "returns set names for rule cards", as_bot: true do
+      expect(Card.new(name: "*all+*create").set_names).to eq(
+        [
+          "Set+*create+*type plus right", "*create+*right", "*rule", "*rstar",
+          "List+*type", "*all plus", "*all"
+        ]
+      )
     end
 
     # right place for this?  really need more prototype tests...
     it "handles type plus right prototypes properly" do
       Card::Auth.as_bot do
         sets = Card.fetch("Fruit+flavor+*type plus right").prototype.set_names
-        expect(sets.include?("Fruit+flavor+*type plus right")).to be_truthy
+        expect(sets).to include("Fruit+flavor+*type plus right")
       end
     end
   end
@@ -64,22 +71,22 @@ describe Card::Set::All::Pattern do
     it "returns css names for simple star cards" do
       Card::Auth.as_bot do
         card = Card.new(name: "*AnewCard")
-        expect(card.safe_set_keys).to eq("ALL TYPE-basic STAR")
+        expect(card.safe_set_keys).to eq("ALL TYPE-rich_text STAR")
         card.save!
         card = Card.fetch("*AnewCard")
-        expect(card.safe_set_keys).to eq("ALL TYPE-basic STAR SELF-Xanew_card")
+        expect(card.safe_set_keys).to eq("ALL TYPE-rich_text STAR SELF-Xanew_card")
       end
     end
 
     it "returns set names for junction cards" do
       card = Card.new(name: "Iliad+author")
       expect(card.safe_set_keys).to eq(
-        "ALL ALL_PLUS TYPE-basic RIGHT-author TYPE_PLUS_RIGHT-book-author"
+        "ALL ALL_PLUS TYPE-rich_text RIGHT-author TYPE_PLUS_RIGHT-book-author"
       )
       card.save!
       card = Card.fetch("Iliad+author")
       expect(card.safe_set_keys).to eq(
-        "ALL ALL_PLUS TYPE-basic RIGHT-author TYPE_PLUS_RIGHT-book-author "\
+        "ALL ALL_PLUS TYPE-rich_text RIGHT-author TYPE_PLUS_RIGHT-book-author "\
         "SELF-iliad-author"
       )
     end

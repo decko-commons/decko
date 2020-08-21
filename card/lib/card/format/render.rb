@@ -3,14 +3,15 @@ class Card
     # View rendering methods.
     #
     module Render
-      def render! view, args={}
-        voo = View.new self, view, args, @voo
+      # view=open&layout=simple
+      def render! view, view_options={}
+        voo = View.new self, view, view_options, @voo
         with_voo voo do
           voo.process do |final_view|
             final_render final_view
           end
         end
-      rescue => e
+      rescue StandardError => e
         rescue_view e, view
       end
 
@@ -22,30 +23,80 @@ class Card
         @voo = old_voo
       end
 
+      def with_wrapper
+        if voo.layout.present?
+          voo.wrap ||= []
+          layout = voo.layout.to_name.key
+          # don't wrap twice with modals or overlays
+          # this can happen if the view is wrapped with modal
+          # and is requested with layout=modal param
+          voo.wrap.unshift layout unless voo.wrap.include? layout.to_sym
+        end
+
+        @rendered = yield
+        wrap_with_wrapper
+      end
+
+      def wrap_with_wrapper
+        return @rendered unless voo.wrap.present?
+
+        voo.wrap.reverse.each do |wrapper, opts|
+          @rendered = render_with_wrapper(wrapper, opts) ||
+                      render_with_card_layout(wrapper) ||
+                      raise_wrap_error(wrapper)
+        end
+        @rendered
+      end
+
+      def render_with_wrapper wrapper, opts
+        try("wrap_with_#{wrapper}", opts) { @rendered }
+      end
+
+      def render_with_card_layout mark
+        return unless Card::Layout.card_layout? mark
+
+        Card::Layout::CardLayout.new(mark, self).render
+      end
+
+      def raise_wrap_error wrapper
+        if wrapper.is_a? String
+          raise Card::Error::UserError, "unknown layout card: #{wrapper}"
+        else
+          raise ArgumentError, "unknown wrapper: #{wrapper}"
+        end
+      end
+
       def before_view view
         try "_before_#{view}"
       end
 
       def voo
-        @voo
+        @voo ||= View.new self, nil, {}
       end
 
       def show_view? view, default_viz=:show
-        voo.process_visibility_options # trigger viz processing
+        voo.process_visibility # trigger viz processing
         visibility = voo.viz_hash[view] || default_viz
         visibility == :show
       end
 
       def final_render view
         current_view(view) do
-          method = view_method view
-          rendered = method.call
-          add_debug_info view, method, rendered
+          with_wrapper do
+            method = view_method view
+            rendered = final_render_call method
+            add_debug_info view, method, rendered
+          end
         end
+      end
+
+      def final_render_call method
+        method.call
       end
 
       def add_debug_info view, method, rendered
         return rendered unless show_debug_info?
+
         <<-HTML
           <view-debug view='#{safe_name}##{view}' src='#{pretty_path method.source_location}' module='#{method.owner}'/>
           #{rendered}
@@ -57,27 +108,29 @@ class Card
       end
 
       def pretty_path source_location
-        source_location.first.gsub(%r{^.+mod\d+-([^/]+)}, '\1: ') + ':' +
+        source_location.first.gsub(%r{^.+mod\d+-([^/]+)}, '\1: ') + ":" +
           source_location.second.to_s
       end
 
-      # setting (:alway, :never, :nested) designated in view definition
+      # :standard, :always, :never
       def view_cache_setting view
-        method = self.class.view_cache_setting_method view
-        coded_setting = respond_to?(method) ? send(method) : :standard
-        return :never if coded_setting == :never
-        # seems unwise to override a hard-coded "never"
-        (voo && voo.cache) || coded_setting
+        voo&.cache || view_setting(:cache, view) || :standard
+      end
+
+      def view_setting setting_name, view
+        try Card::Set::Format.view_setting_method_name(view, setting_name)
       end
 
       def stub_render cached_content
-        result = expand_stubs cached_content do |stub_hash|
-          prepare_stub_nest(stub_hash) do |stub_card, view_opts|
-            nest stub_card, view_opts, stub_hash[:format_opts]
-          end
+        stub_debugging do
+          expand_stubs cached_content
         end
-        if result =~ /stub/
-          Rails.logger.info "STUB IN RENDERED VIEW: #{card.name}: " \
+      end
+
+      def stub_debugging
+        result = yield
+        if Rails.env.development? && result =~ /stub/
+          Rails.logger.debug "STUB IN RENDERED VIEW: #{card.name}: " \
                             "#{voo.ok_view}\n#{result}"
         end
         result
@@ -86,6 +139,7 @@ class Card
       def prepare_stub_nest stub_hash
         stub_card = Card.fetch_from_cast stub_hash[:cast]
         view_opts = stub_hash[:view_opts]
+        voo.normalize_special_options! view_opts
         if stub_card&.key.present? && stub_card.key == card.key
           view_opts[:nest_name] ||= "_self"
         end
@@ -96,9 +150,7 @@ class Card
         return cached_content unless cached_content.is_a? String
 
         conto = Card::Content.new cached_content, self, chunk_list: :stub
-        conto.process_each_chunk do |stub_hash|
-          yield(stub_hash)
-        end
+        conto.process_chunks
 
         if conto.pieces.size == 1
           # for stubs in json format this converts a single stub back
@@ -113,15 +165,12 @@ class Card
         unless supports_view? view
           raise Card::Error::UserError, unsupported_view_error_message(view)
         end
-        method view_method_name(view)
+
+        method Card::Set::Format.view_method_name(view)
       end
 
       def supports_view? view
-        respond_to? view_method_name(view)
-      end
-
-      def view_method_name view
-        "_view_#{view}"
+        respond_to? Card::Set::Format.view_method_name(view)
       end
 
       def current_view view
@@ -130,6 +179,12 @@ class Card
         yield
       ensure
         @current_view = old_view
+      end
+
+      def stub_nest stub_hash
+        prepare_stub_nest(stub_hash) do |stub_card, view_opts|
+          nest stub_card, view_opts, stub_hash[:format_opts]
+        end
       end
     end
   end

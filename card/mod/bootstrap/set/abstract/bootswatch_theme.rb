@@ -20,7 +20,7 @@
 # is taken from files.
 # The bootswatch theme content is taken directly from the files in the bootswatch
 # submodule. For the rest we use code file cards.
-# Cards of type "customized skin" have the same structure but make the variables
+# Cards of type "customized bootswatch skin" have the same structure but make the variables
 # and stylesheets part editable.
 #
 # Bootswatch theme cards are machine cards for the following reason.
@@ -45,7 +45,6 @@ CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets].freeze
 
 PRE_VARIABLES_CARD_NAMES = %i[
   style_jquery_ui_smoothness
-  style_right_sidebar
   bootstrap_functions
 ].freeze
 
@@ -69,13 +68,13 @@ end
 
 # reject cards that don't contribute directly to the content like skin or pointer cards
 def engine_input
-  extended_input_cards.select { |ca| ca.type_id.in? [ScssID, CssID] }
+  extended_input_cards.select { |ca| ca.type_id.in? [Card::ScssID, Card::CssID] }
 end
 
 # Don't create "+*machine output" file card
 # instead save the the output as the card's content is
 def after_engine output
-  Card::Auth.as_bot { update_attributes! db_content: output }
+  Card::Auth.as_bot { update! db_content: output }
 end
 
 # needed to make the refresh_script_and_style method work with these cards

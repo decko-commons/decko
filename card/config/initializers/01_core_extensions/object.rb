@@ -2,9 +2,7 @@ module CoreExtensions
   module Object
     def deep_clone
       case self
-      when Fixnum, Bignum, Float, NilClass, FalseClass, TrueClass, Symbol
-        # FIXME: Fixnum and Bignum are deprecated in Ruby 2.4 but need to be supported here
-        # so long as decko supports older ruby versions
+      when Integer, Float, NilClass, FalseClass, TrueClass, Symbol
         klone = self
       when Hash
         klone = clone
@@ -14,7 +12,13 @@ module CoreExtensions
         klone.clear
         each { |v| klone << v.deep_clone }
       else
-        klone = clone
+        klone =
+          if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("2.4") &&
+             (self.is_a?(Fixnum) || self.is_a?(Bignum))
+            self
+          else
+            clone
+          end
       end
       klone.deep_clone_instance_variables
       klone
@@ -39,10 +43,6 @@ module CoreExtensions
       # Hence the name objects in the cache are objects of a different instance of the
       # Card::Name class and is_a?(Card::Name) will return false
       self.is_a? Cardname
-    end
-
-    def to_viewname
-      Card::Name::ViewName.new self
     end
 
     def deep_clone_instance_variables

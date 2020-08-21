@@ -1,5 +1,4 @@
 @javascript
-
 Feature: Signing up
   In order to be able to contribute content and be credited for my contributions
   As a content editor
@@ -9,7 +8,7 @@ Feature: Signing up
     Given I am signed in as "Joe Admin"
     And I edit "Sign up+*type+*captcha"
     And I uncheck "Content"
-    And I press "Submit"
+    And I press "Save and Close"
     And I wait for ajax response
     # By default decks are configured to require approval
     Given Joe Admin creates Pointer card "User+*type+*create" with content "[[Anyone]]"

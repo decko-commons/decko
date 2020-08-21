@@ -1,19 +1,16 @@
 # -*- encoding : utf-8 -*-
 
-require_dependency "card/content/chunk"
-require_dependency "card/content/parser"
-require_dependency "card/content/clean"
-require_dependency "card/content/truncate"
-
 class Card
   # Content objects support the parsing of content strings into arrays that
   # contain semantically meaningful "chunks" like nests, links, urls, etc.
   #
-  # Each chunk has an object whose class inherits from {Card::Chunk::Abstract}
+  # Each chunk has an object whose class inherits from {Card::Content::Chunk::Abstract}
   #
   class Content < SimpleDelegator
-    extend Card::Content::Clean
-    extend Card::Content::Truncate
+    extend Clean
+    extend Truncate
+
+    Chunk # trigger autoload
 
     attr_reader :revision, :format, :chunks, :opts
 
@@ -45,9 +42,21 @@ class Card
       each_chunk.select { |chunk| chunk.is_a?(chunk_type) }
     end
 
+    def has_chunk? chunk_type
+      each_chunk.any { |chunk| chunk.is_a?(chunk_type) }
+    end
+
     # sends &block to #process_chunk on each Chunk object
-    def process_each_chunk &block
-      each_chunk { |chunk| chunk.process_chunk(&block) }
+    def process_chunks &block
+      return custom_process_chunks(&block) if block_given?
+
+      each_chunk(&:process_chunk)
+    end
+
+    def custom_process_chunks
+      each_chunk do |chunk|
+        chunk.burn_after_reading yield(chunk)
+      end
     end
 
     def pieces
@@ -89,7 +98,43 @@ class Card
       "<#{__getobj__.class}:#{card}:#{self}>"
     end
 
+    def without_nests
+      without_chunks Chunk::Nest do |content|
+        yield content
+      end
+    end
+
+    def without_references
+      without_chunks Chunk::Nest, Chunk::Link do |content|
+        yield content
+      end
+    end
+
+    def without_chunks *chunk_classes
+      chunk_classes = ::Set.new Array.wrap(chunk_classes)
+      stash = stash_chunks chunk_classes
+      processed = yield to_s
+      unstash_chunks processed, stash
+    end
+
     private
+
+    def stash_chunks chunk_classes
+      chunks = []
+      each_chunk do |chunk|
+        next unless chunk_classes.include? chunk.class
+
+        chunk.burn_after_reading "{{#{chunks.size}}}"
+        chunks << chunk.text
+      end
+      chunks
+    end
+
+    def unstash_chunks content, stashed_chunks
+      Chunk::Nest.gsub content do |nest_content|
+        number?(nest_content) ? stashed_chunks[nest_content.to_i] : "{{#{nest_content}}}"
+      end
+    end
 
     def resolve_format format_or_card
       if format_or_card.is_a?(Card)
@@ -97,6 +142,12 @@ class Card
       else
         format_or_card
       end
+    end
+
+    def number? str
+      true if Float(str)
+    rescue StandardError
+      false
     end
   end
 end

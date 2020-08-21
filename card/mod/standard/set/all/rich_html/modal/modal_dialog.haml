@@ -1,0 +1,12 @@
+#modal-container.modal.fade._modal-slot{role: "dialog", "data-backdrop": "static"}
+  -# .modal-dialog
+  %div{class: classes}
+    .modal-content
+      .modal-header.clearfix
+        = title
+        = menu
+      .modal-body
+        = body
+      - if footer.present?
+        .modal-footer
+          = footer

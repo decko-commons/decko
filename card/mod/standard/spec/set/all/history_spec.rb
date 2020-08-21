@@ -35,8 +35,11 @@ RSpec.describe Card::Set::All::History do
       name: "single card",
       type_id: Card::BasicID.to_s,
       db_content: "Nobody expects the Spanish inquisition",
-      trash: "f"
-    }
+      trash: "f",
+      left_id: nil,
+      right_id: nil
+    }.freeze
+
     context "for single card" do
       before do
         @card = Card::Auth.as_bot do
@@ -58,22 +61,21 @@ RSpec.describe Card::Set::All::History do
         end
         it "fetches card changes from cards table" do
           expect(action.changed_values).to eq(INITIAL_VALUES)
-
         end
       end
 
       context "when updated" do
         it "adds no act if nothing changed" do
           pending "act handling upgrade"
-          @card.update_attributes name: "single card", content: content
+          @card.update name: "single card", content: content
           expect(Card::Act.count).to eq(act_start_cnt + 1)
         end
         it "adds new act" do
-          @card.update_attributes content: "new content"
+          @card.update content: "new content"
           expect(Card::Act.count).to eq(act_start_cnt + 2)
         end
         it "adds changes to create action" do
-          @card.update_attributes content: "new content"
+          @card.update content: "new content"
           expect(@card.actions.first.changed_values).to eq INITIAL_VALUES
         end
       end
@@ -174,7 +176,7 @@ RSpec.describe Card::Set::All::History do
 
       context "when updated" do
         it "adds act for left card" do
-          @card.update_attributes subcards: {
+          @card.update subcards: {
             "+right" => {
               content: "New content", db_content: "New Content"
             }
@@ -183,7 +185,7 @@ RSpec.describe Card::Set::All::History do
           expect(act.card).to eq(@card)
         end
         it "adds action for subcard" do
-          @card.update_attributes subcards: {
+          @card.update subcards: {
             "+right" => { content: "New Content" }
           }
           act = @card.acts.last
@@ -234,6 +236,21 @@ RSpec.describe Card::Set::All::History do
           expect(@plus_action.value(:db_content)).to eq(content)
         end
       end
+    end
+  end
+
+  describe "timestamping" do
+    # note: B includes Z, so updates to Z stamp B
+    example "includers get a new timestamp",
+            with_user: "Sample User", aggregate_failures: true do
+      time = Time.now - 1.second
+      expect(Card["B"].updated_at).to be < time
+      expect(Card["B"].updater_id).not_to eq Card.fetch_id("Sample User")
+
+      Card["Z"].update! content: "new content"
+
+      expect(Card["B"].updated_at).to be > time
+      expect(Card["B"].updater_id).to eq Card.fetch_id("Sample User")
     end
   end
 end

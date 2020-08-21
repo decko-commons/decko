@@ -1,12 +1,11 @@
 # -*- encoding : utf-8 -*-
-require_dependency "card/cache"
-require_dependency "card/name"
 
 class Card
-  # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned in code, lest a name change break the application.
+  # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned
+  # in code, lest a name change break the application.
   #
-  # Instead, a {Card} that needs specific code manipulations should be given a {Codename}, which will not change even if the card's name
-  # does.
+  # Instead, a {Card} that needs specific code manipulations should be given a {Codename},
+  # which will not change even if the card's name does.
   #
   # An administrator might add to the Company card via the RESTful web API with a url like
   #
@@ -14,16 +13,17 @@ class Card
   #
   # ...or via the api like
   #
-  #     Card[CARDNAME].update_attributes! codename: CODENAME
+  #     Card[CARDNAME].update! codename: CODENAME
   #
   # Generally speaking, _codenames_ are represented by Symbols.
   #
-  # The {Codename} class provides a fast cache for this slow-changing data. Every process maintains a complete cache that is not frequently reset
+  # The {Codename} class provides a fast cache for this slow-changing data.
+  # Every process maintains a complete cache that is not frequently reset
   #
   class Codename
     class << self
       # returns codename for id and id for codename
-      # @param key [Integer, Symbol, String, Card::Name]
+      # @param codename [Integer, Symbol, String, Card::Name]
       # @return [Symbol]
       def [] codename
         case codename
@@ -43,7 +43,9 @@ class Card
         end
       end
 
-      def name codename
+      def name codename=nil
+        return super() if codename.nil?
+
         name! codename
       rescue Error::CodenameNotFound => _e
         yield if block_given?
@@ -72,7 +74,7 @@ class Card
       # clear cache both locally and in cache
       def reset_cache
         @codehash = nil
-        Card.cache.delete "CODEHASH"
+        ::Card.cache.delete "CODEHASH"
       end
 
       # @param codename [Symbol, String]
@@ -85,6 +87,16 @@ class Card
       # @return [Card::Name]
       def name! codename
         Card::Name[codename.to_sym]
+      end
+
+      def generate_id_constants
+        # If a card has the codename _example_, then Card::ExampleID will
+        # return the id for that card.
+        codehash.each do |codename, id|
+          next unless codename.is_a?(Symbol) && !codename.to_s.match?(/\W/)
+
+          id_constant codename, id
+        end
       end
 
       private
@@ -102,13 +114,14 @@ class Card
       # @todo remove duplicate checks here; should be caught upon creation
       def check_duplicates codehash, codename, card_id
         return unless codehash.key?(codename) || codehash.key?(card_id)
+
         Rails.logger.debug "dup codename: #{codename}, "\
                            "ID:#{card_id} (#{codehash[codename]})"
       end
 
       # generate Hash for @codehash and put it in the cache
       def load_codehash
-        Card.cache.fetch("CODEHASH") do
+        ::Card.cache.fetch("CODEHASH") do
           generate_codehash
         end
       end
@@ -125,22 +138,16 @@ class Card
 
       def unknown_codename! mark
         raise Card::Error::CodenameNotFound, I18n.t(:exception_unknown_codename,
-                                            scope: "lib.card.codename",
-                                            codename: mark)
+                                                    scope: "lib.card.codename",
+                                                    codename: mark)
+      end
+
+      def id_constant codename, id=nil
+        id ||= id! codename
+        Card.const_get_or_set(codename.to_s.camelize + "ID") { id }
       end
     end
-  end
 
-  # If a card has the codename _example_, then Card::ExampleID should
-  # return the id for that card. This method makes that help.
-  #
-  # @param const [Const]
-  # @return [Integer]
-  # @raise error if codename is missing
-  def self.const_missing const
-    return super unless const.to_s =~ /^([A-Z]\S*)ID$/
-    code = Regexp.last_match(1).underscore
-    code_id = Card::Codename.id!(code)
-    const_set const, code_id
+    generate_id_constants
   end
 end

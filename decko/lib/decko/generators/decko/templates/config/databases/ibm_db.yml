@@ -69,6 +69,7 @@ test: &test
   #parameterized: false
 
 cucumber: *test
+cypress: *test
 
 production: 
   adapter: ibm_db

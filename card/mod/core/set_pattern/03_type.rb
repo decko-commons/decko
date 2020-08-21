@@ -1,9 +1,15 @@
+load "card/set/type.rb" # "load" not "require" so pattern reloads properly
+
 def label name
   %(All "#{name}" cards)
 end
 
 def short_label name
   %(all "#{name}s")
+end
+
+def generic_label
+  "cards of a given type"
 end
 
 def prototype_args anchor

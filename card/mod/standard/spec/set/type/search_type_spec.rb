@@ -6,7 +6,7 @@ RSpec.describe Card::Set::Type::SearchType do
     c = render_content("{{Asearch|core|name}}")
     expect(c).to match("search-result-item item-name")
     expect(render_content("{{Asearch|core}}")
-             .scan("search-result-item item-closed").size).to eq(14)
+             .scan("search-result-item item-bar").size).to eq(14)
     expect(render_content("{{Asearch|core|open}}")
              .scan("search-result-item item-open").size).to eq(14)
     expect(render_content("{{Asearch|core|titled}}")
@@ -35,8 +35,7 @@ RSpec.describe Card::Set::Type::SearchType do
 
   it "handles type update from pointer" do
     pointer_card = create_pointer "PointerToSearches"
-    pointer_card.update_attributes! type_id: Card::SearchTypeID,
-                                    content: %({"type":"User"})
+    pointer_card.update! type_id: Card::SearchTypeID, content: %({"type":"User"})
     expect(pointer_card.content).to eq(%({"type":"User"}))
   end
 
@@ -49,7 +48,7 @@ RSpec.describe Card::Set::Type::SearchType do
     end
 
     it "updates query if referee changed" do
-      Card["Y"].update_attributes! name: "YYY", update_referers: true
+      Card["Y"].update! name: "YYY", update_referers: true
       expect(subject.content).to eq '{"name":"YYY"}'
     end
   end
@@ -60,7 +59,7 @@ RSpec.describe Card::Set::Type::SearchType do
         search_card = Card.create type: "Search", name: "Asearch",
                                   content: %({"id":"1"})
         rss = search_card.format(:rss).render_feed
-        expect(rss).to have_tag("title", text: "Wagn Bot")
+        expect(rss).to have_tag("title", text: "Decko Bot")
       end
     end
   end
@@ -87,7 +86,7 @@ RSpec.describe Card::Set::Type::SearchType do
 
     describe "view :nested_fields" do
       subject do
-        Card::Env.params[:item] = :name_with_fields
+        # Card::Env.params[:item] = :name_with_fields
         render_card_with_args :core, { name: "Book+*type+by name" },
                               { format: :csv },  items: { view: :name_with_fields }
       end

@@ -21,8 +21,8 @@ class Card
   # * a _comment_ (where applicable)
   #
   class Action < ApplicationRecord
-    include Card::Action::Differ
-    extend Card::Action::Admin
+    include Differ
+    extend Admin
 
     belongs_to :act, foreign_key: :card_act_id, inverse_of: :ar_actions
     belongs_to :ar_card, foreign_key: :card_id, inverse_of: :actions, class_name: "Card"
@@ -70,9 +70,24 @@ class Card
     # each action is associated with on and only one card
     # @return [Card]
     def card
-      res = Card.fetch card_id, look_in_trash: true, skip_modules: true
-      return res unless res && res.type_id.in?([FileID, ImageID])
-      res.include_set_modules
+      Card.fetch card_id, look_in_trash: true
+
+      # I'm not sure what the rationale for the following was/is, but it was causing
+      # problems in cases where slot attributes are overridden (eg see #wrap_data in
+      # sources on wikirate).  The problem is the format object had the set modules but
+      # the card didn't.
+      #
+      # My guess is that the need for the following had something to do with errors
+      # associated with changed types. If so, the solution probably needs to handle
+      # including the set modules associated with the type at the time of the action
+      # rather than including no set modules at all.
+      #
+      # What's more, we _definitely_ don't want to hard code special behavior for
+      # specific types in here!
+
+      # , skip_modules: true
+      # return res unless res && res.type_id.in?([Card::FileID, Card::ImageID])
+      # res.include_set_modules
     end
 
     # remove action from action cache
@@ -91,6 +106,7 @@ class Card
     # @return [Symbol]
     def action_type
       return :draft if draft
+
       TYPE_OPTIONS[read_attribute(:action_type)]
     end
 
@@ -103,6 +119,7 @@ class Card
     # @see #interpret_value #interpret_value for return values
     def value field
       return unless (change = change field)
+
       interpret_value field, change.value
     end
 
@@ -112,6 +129,7 @@ class Card
     def previous_value field
       return if action_type == :create
       return unless (previous_change = previous_change field)
+
       interpret_value field, previous_change.value
     end
 
@@ -127,8 +145,9 @@ class Card
     # @return [Change]
     def previous_change field
       return nil if action_type == :create
+
       field = interpret_field field
-      if @previous_changes && @previous_changes.key?(field)
+      if @previous_changes&.key?(field)
         @previous_changes[field]
       else
         @previous_changes ||= {}
@@ -138,7 +157,8 @@ class Card
 
     def all_changes
       self.class.cache.fetch("#{id}-changes") do
-        card_changes.find_all.to_a
+        # using card_changes causes caching problem
+        Card::Change.where(card_action_id: id).to_a
       end
     end
 
@@ -157,7 +177,7 @@ class Card
 
     # all changed values in hash form. { field1: new_value }
     def changed_values
-      @changed_values ||= changes.each_with_object({}) do |(key,change), h|
+      @changed_values ||= changes.each_with_object({}) do |(key, change), h|
         h[key] = change.value
       end
     end
@@ -165,6 +185,7 @@ class Card
     # @return [Hash]
     def current_changes
       return {} unless card
+
       @current_changes ||=
         Card::Change::TRACKED_FIELDS.each_with_object({}) do |field, hash|
           hash[field.to_sym] = Card::Change.new field: field,
@@ -194,10 +215,9 @@ class Card
     def interpret_value field, value
       case field.to_sym
       when :type_id
-        value && value.to_i
+        value&.to_i
       when :cardtype
-        type_card = value && Card.quick_fetch(value.to_i)
-        type_card && type_card.name.capitalize
+        Card.fetch_name(value&.to_i)
       else value
       end
     end

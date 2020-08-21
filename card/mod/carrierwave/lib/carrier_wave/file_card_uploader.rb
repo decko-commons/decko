@@ -4,6 +4,20 @@ module CarrierWave
       @tmp_path ||= Card.paths["tmp"].existent.first
     end
   end
+
+  class SanitizedFile
+    def content_type
+      # the original content_type method doesn't seem to be very reliable
+      # It uses mime_magic_content_type  - which returns invalid/invalid for css files
+      # that start with a comment - as the second option.  (we switch the order and
+      # use it as the third option)
+      @content_type ||=
+        existing_content_type ||
+        mini_mime_content_type ||
+        mime_magic_content_type
+    end
+  end
+
   module Uploader
     # Implements a different name pattern for versions than CarrierWave's
     # default: we expect the version name at the end of the filename separated
@@ -47,12 +61,12 @@ module CarrierWave
   #               remote_file_url: "http://a.file.in/the.web"
   #
   # @example Updating a image card using a remote url
-  #   card.update_attributes remote_image_url: "http://a.image/somewhere.png"
+  #   card.update remote_image_url: "http://a.image/somewhere.png"
   #
   # ## Storage types
   # You can choose between four different storage options
   #  - coded: These files are in the codebase, like the default logo.
-  #      Every view is a wagn request.
+  #      Every view is a decko request.
   #  - local: Uploaded files which are stored in a local upload directory
   #      (upload path is configurable via config.paths["files"]).
   #      If read permissions are set such that "Anyone" can read, then there is
@@ -93,7 +107,7 @@ module CarrierWave
   #   }
   #
   #   # wagn console or rake task:
-  #   card.update_attributes storage_type: :cloud, bucket: :aws_bucket
+  #   card.update storage_type: :cloud, bucket: :aws_bucket
   #
   # @example Creating a file card with fixed external link
   #   Card.create name: "file card", type_id: Card::FileID,
@@ -173,10 +187,10 @@ module CarrierWave
 
     def extension
       case
-      when file && file.extension.present? then ".#{file.extension}"
-      when card_content = model.content    then File.extname(card_content)
-      when orig = original_filename        then File.extname(orig)
-      else                                   ""
+      when file&.extension.present?     then ".#{file.extension}"
+      when card_content = model.content then File.extname(card_content)
+      when orig = original_filename     then File.extname(orig)
+      else                              ""
       end.downcase
     end
 
@@ -205,9 +219,10 @@ module CarrierWave
       end
     end
 
+    # @option opts [Symbol] :absolute - return absolute url
     def url opts={}
       if model.cloud?
-        file.url
+        file&.url
       elsif model.web?
         model.content
       else
@@ -216,8 +231,12 @@ module CarrierWave
     end
 
     def local_url opts={}
-      "%s/%s/%s" % [card_path(Card.config.files_web_path), file_dir,
-                    full_filename(url_filename(opts))]
+      "%s/%s/%s" % [local_url_base(opts), file_dir, full_filename(url_filename(opts))]
+    end
+
+    def local_url_base opts={}
+      web_path = Card.config.files_web_path
+      opts.delete(:absolute) ? card_url(web_path) : card_path(web_path)
     end
 
     def public_path
@@ -250,8 +269,8 @@ module CarrierWave
       File.join model.tmp_upload_dir, filename
     end
 
-    def create_versions? _new_file
-      model.create_versions?
+    def create_versions? new_file
+      model.create_versions? new_file
     end
 
     # paperclip compatibility used in type/file.rb#core (base format)
@@ -268,9 +287,17 @@ module CarrierWave
       model.selected_content_action_id || action_id_stand_in
     end
 
-    # delegate carrierwave's fog config methods to cardio's config methods
+    # delegate carrierwave's fog config methods to bucket configuration
     ::CarrierWave::FileCardUploader::CONFIG_OPTIONS.each do |name|
-      define_method("fog_#{name}") { @model.bucket_config[name] }
+      define_method("fog_#{name}") { bucket_config name }
+    end
+
+    def bucket_config option
+      @model.bucket_config[option]
+    end
+
+    def asset_host
+      bucket_config(:asset_host) || super
     end
 
     private
@@ -284,10 +311,9 @@ module CarrierWave
     def storage
       case @model.storage_type
       when :cloud
-        require "carrierwave/storage/fog"
-        require "fog"
         ::CarrierWave::Storage::Fog.new(self)
-      else ::CarrierWave::Storage::File.new(self)
+      else
+        ::CarrierWave::Storage::File.new(self)
       end
     end
   end

@@ -1,7 +1,7 @@
 
 module ClassMethods
   def default_type_id
-    @@default_type_id ||= Card[:all].fetch(trait: :default, skip_modules: true).type_id
+    @@default_type_id ||= Card[:all].fetch(:default, skip_modules: true).type_id
   end
 end
 
@@ -32,14 +32,14 @@ def type= type_name
   self.type_id = Card.fetch_id type_name
 end
 
-def type_known?
-  type_id.present?
+def type_id= card_or_id
+  write_card_or_id :type_id, card_or_id
 end
 
-def get_type_id_from_structure
+def type_id_from_template
   return unless name && (t = template)
   reset_patterns # still necessary even with new template handling?
-  t.type_id
+  self.type_id = t.type_id
 end
 
 event :validate_type_change, :validate, on: :update, changed: :type_id do

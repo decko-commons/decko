@@ -39,7 +39,7 @@ def compression_error_message e
 end
 
 def compress_js?
-  !Rails.env.development?
+  Cardio.config.compress_javascript
 end
 
 def clean_html?
@@ -57,7 +57,7 @@ format do
 end
 
 format :html do
-  def editor
+  def input_type
     :ace_editor
   end
 

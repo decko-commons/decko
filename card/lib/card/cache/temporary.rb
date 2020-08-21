@@ -20,6 +20,7 @@ class Card
       # @param key [String]
       def read key
         return unless @store.key? key
+
         @store[key]
       end
 

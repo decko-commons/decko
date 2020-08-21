@@ -12,20 +12,17 @@ RSpec.describe Card::ActManager::StageDirector do
 
     context "when error added" do
       it "stops act in validation phase" do
-        in_stage :validate,
-                 on: :save,
-                 trigger: -> { create_card } do
-          errors.add :stop, tr(:dont_do_this)
+        in_stage :validate, on: :save, trigger: -> { create_card } do
+          errors.add :stop, "don't do this"
         end
         is_expected.to be_falsey
       end
 
-      it "does not stop act in storage phase" do
-        in_stage :store, on: :save,
-                         trigger: -> { create_card } do
-          errors.add :stop, tr(:dont_do_this)
+      it "stops act in storage phase" do
+        in_stage :store, on: :save, trigger: -> { create_card } do
+          errors.add :stop, "don't do this"
         end
-        is_expected.to be_truthy
+        is_expected.to be_falsey
       end
     end
 
@@ -374,7 +371,7 @@ RSpec.describe Card::ActManager::StageDirector do
       Card.create! name: "single card"
     end
 
-    it "has correct name if supercard's name get changed" do
+    it "has correct name if supercard name get changed" do
       Card::Auth.as_bot do
         changed = false
         in_stage :prepare_to_validate,
@@ -386,6 +383,7 @@ RSpec.describe Card::ActManager::StageDirector do
         expect(Card["main+sub2+sub3"].class).to eq(Card)
       end
     end
+
     it "has correct name if supercard's name get changed to a junction card" do
       Card::Auth.as_bot do
         changed = false
@@ -443,15 +441,35 @@ RSpec.describe Card::ActManager::StageDirector do
         end
       end
     end
+
+    xit "executes integrate phase when act card didn't change" do
+        @called_events = []
+
+        def event_called ev
+          @called_events << ev
+        end
+
+        with_test_events do
+          test_event :validate, on: :update, for: "A" do
+            event_called "v"
+            abort :success
+          end
+          test_event :integrate, on: :update do
+            event_called "i"
+          end
+          Card["A"].update! subcards: { "+B" => "new content" }
+          expect(@called_events).to eq ["i"]
+        end
+    end
   end
 
   describe "creating and updating cards in stages" do
-    it "update_attributes works in integrate stage" do
+    it "update works in integrate stage" do
       act_cnt = Card["A"].acts.size
       in_stage :integrate,
                on: :create,
                trigger: -> { Card.create! name: "act card" } do
-        Card["A"].update_attributes content: "changed content"
+        Card["A"].update content: "changed content"
       end
       expect(Card["A"].content).to eq "changed content"
       expect(Card["A"].acts.size).to eq(act_cnt), "no act added to A"
@@ -459,13 +477,13 @@ RSpec.describe Card::ActManager::StageDirector do
       expect(Card["A"].actions.last.act).to eq Card["act card"].acts.last
     end
 
-    it "update_attributes works integrate_with_delay stage" do
+    it "update works integrate_with_delay stage" do
       act_cnt = Card["A"].acts.size
       with_delayed_jobs 1 do
         in_stage :integrate_with_delay,
                  on: :create, for: "act card",
                  trigger: -> { Card.create! name: "act card" } do
-          Card["A"].update_attributes content: "changed content"
+          Card["A"].update content: "changed content"
         end
       end
       expect(Card["A"].content).to eq "changed content"

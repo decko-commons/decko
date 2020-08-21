@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Auth do
+RSpec.describe Card::Auth do
   before do
-    Card::Auth.current_id = Card::AnonymousID
+    Card::Auth.signin Card::AnonymousID
     @joeuserid = Card["Joe User"].id
   end
 
@@ -21,38 +21,23 @@ describe Card::Auth do
     expect(authenticated.left_id).to eq(@joeuserid)
   end
 
-  it "sets current directly from email" do
-    Card::Auth.current= "joe@user.com"
-    expect(Card::Auth.current_id).to eq(@joeuserid)
-  end
-
   it "sets current directly from id when mark is id" do
-    Card::Auth.current= @joeuserid
+    Card::Auth.signin @joeuserid
     expect(Card::Auth.current_id).to eq(@joeuserid)
   end
 
-  it "sets current directly from id when mark is id" do
-    Card::Auth.current= @joeuserid
-    expect(Card::Auth.current_id).to eq(@joeuserid)
-  end
-
-  context "with token" do
+  context "with api key" do
     before do
       @joeadmin = Card["Joe Admin"]
-      @token = "abcd"
+      @api_key = "abcd"
       Card::Auth.as_bot do
-        @joeadmin.account.token_card.update_attributes! content: @token
+        @joeadmin.account.api_key_card.update! content: @api_key
       end
     end
 
-    it "sets current from token" do
-      Card::Auth.set_current_from_token @token
+    it "sets current from api key" do
+      Card::Auth.signin_with_api_key @api_key
       expect(Card::Auth.current_id).to eq(@joeadmin.id)
-    end
-
-    it "sets arbitrary current from token on authorized account" do
-      Card::Auth.set_current_from_token @token, @joeuserid
-      expect(Card::Auth.current_id).to eq(@joeuserid)
     end
   end
 end

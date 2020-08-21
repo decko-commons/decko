@@ -115,6 +115,7 @@ class Card
       # @param attribute [String, Symbol]
       def write_attribute key, attribute, value
         return value unless @store
+
         if (object = deep_read key)
           object.instance_variable_set "@#{attribute}", value
           write key, object
@@ -124,7 +125,7 @@ class Card
 
       def deep_read key
         local_cache = @store.send :local_cache
-        local_cache.clear if local_cache
+        local_cache&.clear
         read key
       end
 

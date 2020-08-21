@@ -14,7 +14,9 @@ link_task CARD_TASKS, from: :decko, to: :card
 decko_namespace = namespace :decko do
   desc "create a decko database from scratch, load initial data"
   task :seed do
-    seed
+    failing_loudly "decko seed" do
+      seed
+    end
   end
 
   desc "create a decko database from scratch, load initial data, don't reset the cache"
@@ -87,11 +89,13 @@ decko_namespace = namespace :decko do
 
   desc "update decko gems and database"
   task :update do
-    ENV["NO_RAILS_CACHE"] = "true"
-    decko_namespace["migrate"].invoke
-    decko_namespace["reset_tmp"].invoke
-    Card::Cache.reset_all
-    decko_namespace["update_assets_symlink"].invoke
+    failing_loudly "decko update" do
+      ENV["NO_RAILS_CACHE"] = "true"
+      decko_namespace["migrate"].invoke
+      decko_namespace["reset_tmp"].invoke
+      Card::Cache.reset_all
+      decko_namespace["update_assets_symlink"].invoke
+    end
   end
 
   desc "set symlink for assets"
@@ -160,19 +164,28 @@ decko_namespace = namespace :decko do
 
       Card.search(right: { codename: "following" }).each do |following|
         Card::Auth.as_bot do
-          following.update_attributes! content: ""
+          following.update! content: ""
         end
       end
 
       follower_hash.each do |user, items|
         next unless (card = Card.fetch(user)) && card.account
         Card::Auth.as(user) do
-          following = card.fetch trait: "following", new: {}
+          following = card.fetch "following", new: {}
           following.items = items
         end
       end
     end
   end
+end
+
+def failing_loudly task
+  yield
+rescue
+  # TODO: fix this so that message appears *after* the errors.
+  # Solution should ensure that rake still exits with error code 1!
+  raise "\n>>>>>> FAILURE! #{task} did not complete successfully." \
+        "\n>>>>>> Please address errors and re-run:\n\n\n"
 end
 
 def version

@@ -7,7 +7,7 @@ format :html do
     super()
   end
 
-  view :editor, cache: :never do
+  view :input, cache: :never do
     super()
   end
 end

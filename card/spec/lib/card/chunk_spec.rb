@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-require "card/content/chunk"
 
 describe Card::Content::Chunk, "Chunk" do
   context "Class" do

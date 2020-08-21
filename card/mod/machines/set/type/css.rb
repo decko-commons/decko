@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-require "sass"
+require "sassc"
+require "benchmark"
+
 include_set Abstract::Machine
 include_set Abstract::MachineInput
 
@@ -11,7 +13,7 @@ machine_input do
 end
 
 def compress_css input
-  Sass.compile input, style: :compressed
+  compress_css? ? SassC::Engine.new(input, style: :compressed).render : input
 rescue => e
   raise Card::Error, css_compression_error(e)
 end
@@ -32,6 +34,11 @@ def clean_html?
   false
 end
 
+def compress_css?
+  return true
+  !Rails.env.development?
+end
+
 format do
   # def default_nest_view
   #   :raw
@@ -43,7 +50,7 @@ format do
 end
 
 format :html do
-  def editor
+  def input_type
     :ace_editor
   end
 

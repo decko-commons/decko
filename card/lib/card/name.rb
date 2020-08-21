@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-require_dependency "card/env"
+
+# require "card/env"
 
 require "cardname"
 
@@ -10,10 +11,7 @@ class Card
   # Card::Name adds support for deeper card integration
   class Name < Cardname
     include FieldsAndTraits
-    include ::Card::Name::NameVariants
-
-    self.params  = Card::Env # yuck!
-    self.session = proc { Card::Auth.current.name } # also_yuck
+    include NameVariants
 
     class << self
       def [] *cardish
@@ -26,6 +24,14 @@ class Card
         else
           raise ArgumentError, "#{cardish.class} not supported as name identifier"
         end
+      end
+
+      def session
+        Card::Auth.current.name # also_yuck
+      end
+
+      def params
+        Card::Env.params
       end
 
       def new str, validated_parts=nil
@@ -59,11 +65,11 @@ class Card
     end
 
     def star?
-      simple? && "*" == s[0, 1]
+      simple? && s[0, 1] == "*"
     end
 
     def rstar?
-      right && "*" == right[0, 1]
+      right && right[0, 1] == "*"
     end
 
     def code

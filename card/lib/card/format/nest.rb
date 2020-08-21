@@ -27,19 +27,20 @@ class Card
         view_opts[:nest_name] ||= card.name
         @view ||= prepare_view
         # TODO: handle in closed / edit view definitions
-        view_opts[:home_view] ||= [:closed, :edit].member?(view) ? :open : view
+        view_opts[:home_view] ||= %i[closed edit].member?(view) ? :open : view
       end
 
       def prepare_view
         view = view_opts[:view] || format.implicit_nest_view
         # TODO: canonicalize view and modal_nest_view handling should be in Card::View,
         # not here. (Make sure processing only happens on nests/root views)
-        Card::View.canonicalize view
+        Card::View.normalize view
       end
 
       # @return [Format] subformat object
       def prepare_subformat
         return format if reuse_format?
+
         sub = format.subformat card, format_opts
         sub.main! if view_opts[:main]
         sub
@@ -49,22 +50,30 @@ class Card
       # when nesting the same card. this reduces overhead and optimizes
       # caching
       def reuse_format?
-        view_opts[:nest_name] =~ /^_(self)?$/ &&
-          format.context_card == format.card &&
-          !nest_recursion_risk?
+        self_nest? && !nest_recursion_risk?
+      end
+
+      def self_nest?
+        self_nest = view_opts[:nest_name] =~ /^_(self)?$/ &&
+                    format.context_card == format.card
+
+        # self nest in focal format should add depth (to catch recursions) but
+        # remain focal
+        format_opts[:focal] = true if self_nest && format.focal?
+        self_nest
       end
 
       # don't reuse the format when there is a risk of recursion, because while nest
       # recursion is caught, view recursion is not.
       # TODO: catch view recursion and remove this. (Should be straightforward within voo)
       def nest_recursion_risk?
-        content_view? && format.voo&.structure
+        content_view? || format.voo&.structure
       end
 
       def content_view?
         # TODO: this should be specified in view definition
-        [
-          :core, :content, :titled, :open, :closed, :open_content
+        %i[
+          bar expanded_bar core content titled open closed open_content one_line_content
         ].member? @view.to_sym
       end
     end

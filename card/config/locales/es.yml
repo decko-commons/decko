@@ -74,11 +74,6 @@ es:
       set:
         format:
           exception_alias_fail: no puede encontrar %{optview} vista en %{optmod}; no se pudo el alias %{view} en %{self}
-  spec:
-    lib:
-      card:
-       stage_director_spec:
-        dont_do_this: no hagas esto 
   mod:
     :core:
       format:
@@ -87,7 +82,7 @@ es:
           built_in: "Diseños incorporados: %{built_in_layouts}"
       set:
         all:
-          codename: 
+          codename:
             only_admins_codename: solo los administradores pueden establecer el nombre clave
             error_code_in_use: nombre clave %{codename} ya esta en uso
           event:
@@ -204,7 +199,7 @@ es:
           json:
             invalid_json: invalid json
     :bootstrap:
-      set: 
+      set:
         type:
             customized_bootswatch_skin:
               not_valid_theme: no es un tema valido %{theme_name}
@@ -237,7 +232,7 @@ es:
         abstract:
           permission:
             search_roles_by_name: Roles por Nombre
-            use_lefts_rule: Usar la regla %{tag} 
+            use_lefts_rule: Usar la regla %{tag}
             groups: Grupos
             individuals: Individuos
             inherit_links: Heredar ( %{links} )
@@ -306,7 +301,7 @@ es:
           error:
             unsupported_view: vista (%{view}) no soportado para %{cardname}
             not_found_named: No pudo encontrar %{cardname}.
-            not_found_no_name: No se pudo encontrar la tarjeta requested
+            not_found_no_name: la tarjeta solicitada
             server_error: "\nWagn Hitch!  Error del Servidor. Yuck, perdon por eso.\nPara decirnos más y seguir la solución,\nagregue un ticket de soporte en %{ticket_link}\n"
             se_hitch: 'Wagn Hitch :('
             se_sorry: Error del Servidor. Yuck, perdón por eso.
@@ -356,7 +351,7 @@ es:
               sign_up: Regístrate
               read_only: Actualmente estamos en modo de solo lectura. Por favor, inténtelo de nuevo más tarde.
               sorry: Lo siento!
-              need_permission_task: Necesitas permiso para %{task} esto.
+              need_permission_task: Necesitas permiso %{task}.
               to_do_that: para hacer eso
               denied_task: a %{denied_task} esto
             form:
@@ -461,13 +456,6 @@ es:
             add_card: Agregar %{cardname}
             error_cant_alter: no puede alterar este tipo; %{name} las tarjetas todavía existen
             error_invalid_character_in_cardtype: "no puede contener ninguno de los siguientes caracteres: %{banned}"
-          list:
-            type_right: debe tener un nombre de cardtype como parte derecha
-            conflict_item_type: el nombre entra en conflicto con elementos de la lista' tipo; eliminar contenido primero
-            only_type_allowed: "%{cardname} tiene un tipo de tarjeta incorrecto; solo cartas de tipo %{cardtype} están permitidos"
-          listed_by:
-            cardtype_right: debe tener un nombre de tipo de tarjeta como parte derecha
-            only_type: "%{cardname} tiene un cardtype incorrecto; solo cartas de tipo %{cardtype} están permitidos"
           number:
             not_numeric: "'%{content}' no es numerico"
           search_type:
@@ -494,13 +482,14 @@ es:
       set:
         type:
           signup:
-            sign_up: Regístrate
-            invite: Invitación
+            views:
+              sign_up: Regístrate
+              invite: Invitación
+              missing_account: "ERROR: tarjeta de registro cuenta faltante"
             send_invite: Enviar invitacion
             first_last_help: usualmente nombre y apellido
             signed_up_on: "%{name} se registró en %{date}"
             was_signed_up_on: "%{name} se registró en %{date}"
-            missing_account: "ERROR: tarjeta de registro cuenta faltante"
             send: Enviar
             resend: Reenviar
             verification: Se envió un correo electrónico de verificación
@@ -522,9 +511,8 @@ es:
             setting_up: Ponte
         right:
           account:
-            error_not_allowed: no permitido en esta tarjeta
-            sorry_email_reset: Lo siento, %{error_msg}. Por favor revise su correo electrónico para un nuevo enlace de restablecimiento de contraseña.
-            required: requerido
+            events:
+              sorry_email_reset: Lo siento, %{error_msg}. Por favor revise su correo electrónico para un nuevo enlace de restablecimiento de contraseña.
           email:
             error_invalid_address: debe ser una dirección válida
             search_email_duplicate: correo electrónico duplicado? (%{content})
@@ -544,7 +532,7 @@ es:
             db_card: Inspección de tarjeta de base de datos
           status:
             deny_not_change_own_account: cambiar el estado de su propia cuenta
-          token:
+          api_key:
             private_data: Datos privados
             error_token_not_found: token no encontrado
             error_token_expired: token caducado
@@ -588,8 +576,9 @@ es:
           admin_info:
             email_off: La entrega del correo electrónico está desactivada. Cambie la configuración en %{path} para enviar notificaciones de registro.
             admin_warn: ADVERTENCIA DEL ADMINISTRADOR
-            captcha_temp: Su captcha actualmente está trabajando con configuraciones temporales. Esto está bien para una instalación local, pero necesitará nuevas claves recaptcha si desea que este sitio sea público.
-            captcha_keys: Está configurado para usar [[*captcha]], pero para que funcione necesita nuevas claves recaptcha.
+            captcha_temp: Su captcha actualmente está trabajando con configuraciones temporales. Esto está bien para una instalación local, pero necesitará nuevas %{recaptcha_link} si desea que este sitio sea público.
+            captcha_keys: Está configurado para usar %{captcha_link}, pero para que funcione necesita nuevas %{recaptcha_link}.
+            recaptcha_keys: claves recaptcha
             instructions: Instrucciones
             howto_add_keys: "Cómo agregar nuevas claves recaptcha:"
             howto_register: Registre su dominio en %{recaptcha_link}
@@ -597,5 +586,14 @@ es:
             howto_turn_off: 'Cómo desactivar el captcha:'
             howto_go: Ir a %{captcha_card}
             howto_update: Actualice todas las reglas *captcha a "no".
+    :pointer:
+      set:
+        mirrored_list:
+          cardtype_right: debe tener un nombre de cardtype como parte derecha
+          conflict_item_type: el nombre entra en conflicto con elementos de la lista' tipo; eliminar contenido primero
+          only_type_allowed: "%{cardname} tiene un tipo de tarjeta incorrecto; solo cartas de tipo %{cardtype} están permitidos"
+        mirror_list:
+          cardtype_right: debe tener un nombre de tipo de tarjeta como parte derecha
+          only_type: "%{cardname} tiene un cardtype incorrecto; solo cartas de tipo %{cardtype} están permitidos"
 
 

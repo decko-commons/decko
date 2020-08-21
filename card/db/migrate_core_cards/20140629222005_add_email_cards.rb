@@ -11,16 +11,16 @@ class AddEmailCards < Card::Migration::Core
 
     # change email address list fields to pointers
     [:to, :from, :cc, :bcc].each do |field|
-      set = Card[field].fetch(trait: :right, new: {})
-      default_rule = set.fetch(trait: :default, new: {})
+      set = Card[field].fetch(:right, new: {})
+      default_rule = set.fetch(:default, new: {})
       default_rule.type_id = Card::PointerID
       default_rule.save!
 
       Card.search(right: { codename: field.to_s }).each do |field_card|
-        field_card.update_attributes! type_id: Card::PointerID
+        field_card.update! type_id: Card::PointerID
       end
 
-      options_rule = set.fetch(trait: :options, new: { type_code: :search_type })
+      options_rule = set.fetch(:options, new: { type_code: :search_type })
       options_rule.type_id = Card::SearchTypeID
       options_rule.content = %( { "right_plus":{"codename":"account"} } )
       options_rule.save!
@@ -68,7 +68,7 @@ class AddEmailCards < Card::Migration::Core
     )
     if request_card = Card[:request]
       [:to, :from].each do |field|
-        if old_card = request_card.fetch(trait: field) && !old_card.db_content.blank?
+        if old_card = request_card.fetch(field) && !old_card.db_content.blank?
           Card.create! name: "signup alert email+#{Card[field].name}", content: old_card.db_content
         end
       end
@@ -78,14 +78,14 @@ class AddEmailCards < Card::Migration::Core
 
     # update *from settings
 
-    signup_alert_from = Card["signup alert email"].fetch(trait: :from, new: {})
+    signup_alert_from = Card["signup alert email"].fetch(:from, new: {})
     if signup_alert_from.db_content.blank?
       signup_alert_from.content = "_user"
       signup_alert_from.save!
     end
 
     wagn_bot = Card[:wagn_bot].account.email.present? ? Card[:wagn_bot].name : nil
-    token_emails_from = Card.global_setting("*invite+*from") || wagn_bot || "_user"
+    token_emails_from = Card::Rule.global_setting("*invite+*from") || wagn_bot || "_user"
     ["verification email", "password reset email"].each do |token_email_template_name|
       Card.create! name: "#{token_email_template_name}+#{Card[:from].name}", content: token_emails_from
     end
@@ -118,7 +118,7 @@ class AddEmailCards < Card::Migration::Core
 
     send = Card[:send]
     return unless send
-    send.update_attributes codename: nil
+    send.update codename: nil
     send.delete!
   end
 end

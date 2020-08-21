@@ -1,7 +1,11 @@
-require "sass"
+require "sassc"
 include_set Abstract::Machine
 
 store_machine_output filetype: "css"
+
+def ok_to_read
+  true
+end
 
 format do
   # turn off autodetection of uri's
@@ -13,14 +17,15 @@ end
 format :html do
   HIDDEN_SKINS = %w[bootstrap_default_skin themeless_bootstrap_skin bootstrap_default_skin
                     classic_bootstrap_skin].freeze
+
   def default_item_view
     :bar
   end
 
-  view :editor, template: :haml
+  view :input, template: :haml
 
   def themes
-    card.rule_card(:options).item_cards
+    card.rule_card(:content_options).item_cards
   end
 
   def selectable_themes

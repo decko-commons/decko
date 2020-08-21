@@ -1,6 +1,3 @@
-require_dependency "card/mod/loader"
-require_dependency "card/mod/dirs"
-
 class Card
   # A Card Mod (short for "module" or "modification") is a discrete piece of Decko
   # functionality. Mods are how the Decko community develops and shares code.
@@ -11,7 +8,7 @@ class Card
   #
   #     decko generate card:mod MOD_NAME
   #
-  # This will create the follow directories:
+  # This will create the following directories:
   #
   #     DECK_NAME/mod/MOD_NAME
   #     DECK_NAME/mod/MOD_NAME/lib
@@ -52,29 +49,33 @@ class Card
   # Learn more:
   #   - {Card} introduces card objects
   #   - {Card::Set} provides an overview of how set modules work
-  #   - {Card::Format} explains the basics of the view API
+  #   - {Card::Set::Format} explains the basics of the format API
+  #   - {Card::Set::Format::AbstractFormat} explains the basics of the view definition API
   #   - {Card::Set::Event} explains the basics of the event API
   #
   # ## Other Directories
   #
   # Other ways your mod can extend Decko functionality include:
   #   - **format** for creating new formats (think file extensions)
-  #   - **set_pattern** for additional {Card::Set::Pattern set patterns}, or types of sets.
+  #   - **set_pattern** for additional {Card::Set::Pattern set patterns},
+  #     or types of sets.
   #   - **chunk** provides tools for finding new patterns in card content
   #   - **file** for fixed initial card content
   module Mod
     class << self
       def load
         return if ENV["CARD_MODS"] == "none"
+
         if Card.take
-          Loader.load_mods
+          Card::Mod::Loader.load_mods
         else
           Rails.logger.warn "empty database"
         end
       end
+
       # @return an array of Rails::Path objects
       def dirs
-        @dirs ||= Dirs.new(Card.paths["mod"].existent)
+        @dirs ||= Mod::Dirs.new(Card.paths["mod"].existent)
       end
     end
   end

@@ -73,7 +73,7 @@ class Card
       end
 
       def initialize_by_attributes name, attributes
-        Card.assign_or_initialize_by name, attributes, local_only: true
+        Card.assign_or_newish name, attributes, local_only: true
       end
 
       # TODO: this method already exists as card instance method in
@@ -97,9 +97,7 @@ class Card
 
       # ensure a leading '+'
       def normalize_subfield_key key
-        if key.is_a?(Symbol) && Card::Codename.exist?(key)
-          key = Card::Codename.name(key)
-        end
+        key = Card::Codename.name(key) if key.is_a?(Symbol) && Card::Codename.exist?(key)
         key.to_name.prepend_joint
       end
 
@@ -107,12 +105,15 @@ class Card
       def multi_add args
         args.each_pair do |key, val|
           case val
-          when String then new_by_attributes key, content: val
+          when String, Array, Integer
+            new_by_attributes key, content: val
           when Card
             val.name = absolutize_subcard_name key
             new_by_card val
-          when nil then next
-          else new_by_attributes key, val
+          when nil
+            next
+          else
+            new_by_attributes key, val
           end
         end
       end

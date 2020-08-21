@@ -63,19 +63,12 @@ class Card
     def build_nested_hash key, values
       return { key => values[0] } if values.one?
       val = values.pop
-      { key => val,
-        and: build_nested_hash(key, values) }
+      { key => val, and: build_nested_hash(key, values) }
     end
 
     def name_wql name
       return unless name.present?
       @filter_wql[:name] = ["match", name]
-    end
-
-    # FIXME: move to wikirate
-    def project_wql project
-      return unless project.present?
-      @filter_wql[:referred_to_by] << { left: { name: project } }
     end
   end
 end

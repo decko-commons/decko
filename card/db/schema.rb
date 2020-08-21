@@ -2,16 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_14_152037) do
-
+ActiveRecord::Schema.define(version: 2020_07_18_051236) do
   create_table "card_actions", id: :integer, force: :cascade do |t|
     t.integer "card_id"
     t.integer "card_act_id"
@@ -36,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_05_14_152037) do
   create_table "card_changes", id: :integer, force: :cascade do |t|
     t.integer "card_action_id"
     t.integer "field"
-    t.text "value", limit: 16777215
+    t.text "value", size: :medium
     t.index ["card_action_id"], name: "card_changes_card_action_id_index"
   end
 
@@ -45,7 +44,7 @@ ActiveRecord::Schema.define(version: 2018_05_14_152037) do
     t.string "referee_key", default: "", null: false
     t.integer "referee_id"
     t.string "ref_type", limit: 1, default: "", null: false
-    t.integer "present"
+    t.integer "is_present"
     t.index ["ref_type"], name: "card_references_ref_type_index"
     t.index ["referee_id"], name: "card_references_referee_id_index"
     t.index ["referee_key"], name: "card_references_referee_key_index"
@@ -64,14 +63,15 @@ ActiveRecord::Schema.define(version: 2018_05_14_152037) do
   create_table "card_virtuals", id: :integer, force: :cascade do |t|
     t.integer "left_id"
     t.integer "right_id"
-    t.text "content", limit: 16777215
+    t.string "left_key"
+    t.text "content", size: :medium
     t.index ["left_id"], name: "right_id_index"
     t.index ["right_id"], name: "left_id_index"
   end
 
   create_table "cards", id: :integer, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "key", null: false
+    t.string "name"
+    t.string "key"
     t.string "codename"
     t.integer "left_id"
     t.integer "right_id"
@@ -85,7 +85,8 @@ ActiveRecord::Schema.define(version: 2018_05_14_152037) do
     t.integer "references_expired"
     t.boolean "trash", null: false
     t.integer "type_id", null: false
-    t.text "db_content", limit: 16777215
+    t.text "db_content", size: :medium
+    t.index ["codename"], name: "cards_codename_index"
     t.index ["created_at"], name: "cards_created_at_index"
     t.index ["key"], name: "cards_key_index", unique: true
     t.index ["left_id"], name: "cards_left_id_index"
@@ -99,7 +100,7 @@ ActiveRecord::Schema.define(version: 2018_05_14_152037) do
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
-    t.text "handler", limit: 16777215, null: false
+    t.text "handler", size: :medium, null: false
     t.text "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
@@ -145,5 +146,4 @@ ActiveRecord::Schema.define(version: 2018_05_14_152037) do
     t.integer "card_id", null: false
     t.integer "account_id", null: false
   end
-
 end

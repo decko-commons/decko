@@ -2,32 +2,40 @@ class Card
   module Auth
     # singleton permission methods
     module Permissions
-      RECAPTCHA_DEFAULTS = {
-        recaptcha_public_key: "6LeoHfESAAAAAN1NdQeYHREq4jTSQhu1foEzv6KC",
-        recaptcha_private_key: "6LeoHfESAAAAAHLZpn7ijrO4_KGLEr2nGL4qjjis"
-      }.freeze
-
       # user has "root" permissions
       # @return [true/false]
       def always_ok?
         usr_id = as_id
-        return false unless usr_id
-        always_ok_usr_id? usr_id
+        case usr_id
+        when Card::WagnBotID then true # cannot disable
+        when nil             then false
+        else
+          always_ok_usr_id? usr_id
+        end
       end
 
       # specified user has root permission
       # @param usr_id [Integer]
       # @return [true/false]
-      def always_ok_usr_id? usr_id
-        return true if usr_id == Card::WagnBotID # cannot disable
-
-        always = Card.cache.read("ALWAYS") || {}
-        if always[usr_id].nil?
-          always = always.dup if always.frozen?
-          always[usr_id] = admin? usr_id
-          Card.cache.write "ALWAYS", always
+      def always_ok_usr_id? usr_id, force_cache_update=false
+        always = always_cache
+        if always[usr_id].nil? || force_cache_update
+          update_always_cache usr_id, admin?(usr_id)
+        else
+          always[usr_id]
         end
-        always[usr_id]
+      end
+
+      def update_always_cache usr_id, value
+        always = always_cache
+        always = always.dup if always.frozen?
+        always[usr_id] = value
+        Card.cache.write "ALWAYS", always
+        value
+      end
+
+      def always_cache
+        Card.cache.read("ALWAYS") || {}
       end
 
       # list of names of cardtype cards that current user has perms to create
@@ -55,7 +63,7 @@ class Card
       end
 
       def has_role? user_id, role_id
-        Card[user_id].all_roles.include? role_id
+        Card[user_id].all_enabled_roles.include? role_id
       end
     end
   end

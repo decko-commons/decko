@@ -15,6 +15,7 @@ test: &test
   database: db/test.sqlite3
 
 cucumber: *test
+cypress: *test
 
 production:
   database: db/production.sqlite3

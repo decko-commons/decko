@@ -2,6 +2,6 @@
 
 class AddTrashCard < Card::Migration::Core
   def up
-    create_or_update name: "*trash", codename: "trash"
+    create_or_update! name: "*trash", codename: "trash"
   end
 end

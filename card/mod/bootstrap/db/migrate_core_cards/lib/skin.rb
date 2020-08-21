@@ -52,7 +52,7 @@ class Skin
   end
 
   def update_scss file_name:, field_name: file_name
-    update_card "#{@skin_name}+#{field_name}", style_args(file_name)
+    update_card! "#{@skin_name}+#{field_name}", style_args(file_name)
   end
 
   def update_css file_name:, field_name: file_name
@@ -60,7 +60,7 @@ class Skin
   end
 
   def update_thumbnail
-    update_card "#{@skin_name}+Image", thumbnail_args
+    ensure_card "#{@skin_name}+Image", thumbnail_args
   end
 
   private

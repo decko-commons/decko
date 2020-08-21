@@ -162,7 +162,7 @@ end
 #       # make card a mod file card
 #       mod_name =
 #         card.left&.type_id == Card::SkinID ? "bootstrap" : "standard"
-#       card.update_attributes! storage_type: :coded,
+#       card.update! storage_type: :coded,
 #                               mod: mod_name,
 #                               empty_ok: true
 #     end

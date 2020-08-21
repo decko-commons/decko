@@ -32,6 +32,7 @@ module ClassMethods
     # puts "merging #{name}"
     card = fetch name, new: {}
     return unless mergeable? card, opts[:pristine]
+
     resolve_file_attributes! attribs
     card.safe_update! attribs
   end
@@ -41,24 +42,43 @@ module ClassMethods
   def resolve_file_attributes! attribs
     %i[image file].each do |attach|
       next unless attribs[attach] && attribs[attach].is_a?(String)
+
       attribs[attach] = ::File.open(attribs[attach])
     end
   end
 
   def mergeable? card, pristine_only
     return true unless pristine_only
+
     !card.pristine?
   end
 end
 
-# sepaarte name and other attributes
+# separate name and other attributes
 def safe_update! attribs
   separate_name_update! attribs.delete("name") unless new?
-  update_attributes! attribs if attribs.present?
+  update! attribs if attribs.present?
 end
 
 def separate_name_update! new_name
   return if new_name.to_s == name.to_s
 
-  update_attributes! name: new_name
+  update! name: new_name
+end
+
+# rubocop:disable Style/GlobalVars
+def measure desc
+  $times ||= {}
+  res = nil
+  t = Benchmark.measure do
+    res = yield
+  end
+  $times[desc] = $times.key?(desc) ? t + $times[desc] : t
+  puts "#{desc}: #{t}".red
+  res
+end
+# rubocop:enable Style/GlobalVars
+
+format do
+  delegate :measure, to: :card
 end

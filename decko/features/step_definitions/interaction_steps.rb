@@ -6,6 +6,11 @@ When /^(?:|I )enter "([^"]*)" into "([^"]*)"$/ do |value, field|
   find(selector).set value
 end
 
+When /^(?:|I )enter "([^"]*)" into "([^"]*)" in modal$/ do |value, field|
+  selector = ".modal .RIGHT-#{field.to_name.safe_key} input.d0-card-content"
+  find(selector).set value
+end
+
 When /^In (.*) I follow "([^"]*)"$/ do |section, link|
   within scope_of(section) do
     click_link link
@@ -43,7 +48,7 @@ When /^In (.*) I find button with icon "(.*)" and click it$/ do |section, icon|
 end
 
 Then /I submit$/ do
-  click_button "Submit"
+  click_button "Save and Close"
 end
 
 When /^I open the main card menu$/ do
@@ -53,7 +58,7 @@ When /^I open the main card menu$/ do
 end
 
 When /^I close the modal window$/ do
-  page.find(".modal-menu .close-modal").click
+  page.find(".modal-menu ._close-modal").click
 end
 
 When /^I fill in "([^"]*)" with$/ do |field, value|
@@ -114,7 +119,7 @@ module Capybara
         # descendant-or-self::text doesn't find it
         first :xpath,
               "//label[descendant-or-self::text()='#{label}']/..//#{type}",
-              options.merge(wait: 5)
+              options.merge(wait: 5, minimum: 0)
       end
     end
   end

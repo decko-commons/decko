@@ -49,9 +49,9 @@ describe Card::Set::Type::Skin do
       skin.putty
 
       Card::Auth.as_bot do
-        Card["skin_item"].update_attributes content: changed_css
+        Card["skin_item"].update content: changed_css
         machine.machine_output_url
-        Card["skin_item"].update_attributes content: new_css
+        Card["skin_item"].update content: new_css
       end
       updated_machine = Card.gimme machine.name
       path = updated_machine.machine_output_path

@@ -8,7 +8,7 @@ class Card
   #
   # Query "statements" (objects, really) are made in WQL (Wagn Query
   # Language). Because WQL is used by Deckers, the primary language
-  # documentation is on wagn.org. (http://wagn.org/WQL_Syntax). Note that the
+  # documentation is on wagn.org. (https://decko.org/WQL_Syntax). Note that the
   # examples there are in JSON, like Search card content, but statements in
   # Card::Query are in ruby form.
   #
@@ -34,45 +34,53 @@ class Card
   # Each condition is either a SQL-ready string (boo) or an Array in this form:
   #    [ field_string_or_sym, Card::Value::Query object ]
   module Query
-    require_dependency "card/query/card_query"
-
+    require "card/query/clause"
+    require "card/query/card_query"
+    require "card/query/sql_statement"
+    # Card::Query::CardQuery
+    # After conversion, ATTRIBUTES is a Hash where the key is the attribute
+    # and the value is the attribute type:
+    # { id: :basic, name: :basic, key: :basic ...}
+    # This is used for rapid attribute type lookups in the interpretation phase.
     ATTRIBUTES = {
       # Each of the "basic" fields corresponds directly to a database field.
-      # their values are translated fairly directly into SQL-safe values
-      basic:           %w[id name key type_id content left_id right_id
+      # their values are translated fairly directly into SQL-safe values.
+      # (These are referred to as "properties" in WQL documentation. Need to
+      # reconcile #EFM)
+      basic:           %i[id name key type_id content left_id right_id
                           creator_id updater_id codename read_rule_id],
       # "Relational" values can involve tying multiple queries together
-      relational:      %w[type
+      relational:      %i[type
                           part left right
                           editor_of edited_by last_editor_of last_edited_by
                           creator_of created_by
                           updater_of updated_by
                           link_to linked_to_by
                           include included_by
+                          nest nested_by
 
                           refer_to referred_to_by
                           member_of member
 
-                          found_by not sort match name_match complete
-                          extension_type],
+                          found_by
+                          not sort match name_match complete],
 
-      plus_relational: %w[plus left_plus right_plus],
-      conjunction:     %w[and or all any],
-      ignore:          %w[prepend append view params vars size]
+      plus_relational: %i[plus left_plus right_plus],
+      conjunction:     %i[and or all any],
+      ignore:          %i[prepend append view params vars size]
     }.each_with_object({}) do |pair, h|
-      pair[1].each { |v| h[v.to_sym] = pair[0] }
+      pair[1].each { |v| h[v] = pair[0] }
     end
 
     CONJUNCTIONS = { any: :or, in: :or, or: :or, all: :and, and: :and }.freeze
 
-    MODIFIERS = %w(conj return sort sort_as group dir limit offset)
-                .each_with_object({}) { |v, h| h[v.to_sym] = nil }
+    MODIFIERS = %i[conj return sort sort_as group dir limit offset]
+                .each_with_object({}) { |v, h| h[v] = nil }
 
     OPERATORS =
-      %w(!= = =~ < > in ~).each_with_object({}) { |v, h| h[v] = v }.merge(
-        {
-          eq: "=", gt: ">", lt: "<", match: "~", ne: "!=", "not in": "not in"
-        }.stringify_keys
+      %w[!= = =~ < > in ~ is].each_with_object({}) { |v, h| h[v] = v }.merge(
+        { eq: "=", gt: ">", lt: "<", match: "~", ne: "!=",
+          "not in": "not in", "is not": "is not", "!": "is not" }.stringify_keys
       )
 
     DEFAULT_ORDER_DIRS = { update: "desc", relevance: "desc" }.freeze
@@ -88,6 +96,13 @@ class Card
 
       def class_for type
         const_get "#{type.capitalize}Query"
+      end
+
+      def safe_sql txt
+        txt = txt.to_s
+        raise "WQL contains disallowed characters: #{txt}" if txt.match?(/[^\w\s*().,]/)
+
+        txt
       end
     end
   end

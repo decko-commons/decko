@@ -1,15 +1,14 @@
 # -*- encoding : utf-8 -*-
 
-require 'active_support/configurable'
-require 'active_support/inflector'
-require 'htmlentities'
+require "active_support/inflector"
+require "htmlentities"
 
 class Cardname < String
-  require_relative 'cardname/parts'
-  require_relative 'cardname/variants'
-  require_relative 'cardname/contextual'
-  require_relative 'cardname/predicates'
-  require_relative 'cardname/manipulate'
+  require_relative "cardname/parts"
+  require_relative "cardname/variants"
+  require_relative "cardname/contextual"
+  require_relative "cardname/predicates"
+  require_relative "cardname/manipulate"
 
   include Parts
   include Variants
@@ -19,34 +18,35 @@ class Cardname < String
 
   OK4KEY_RE = '\p{Word}\*'
 
-  include ActiveSupport::Configurable
+  cattr_accessor :joint, :banned_array, :var_re, :uninflect, :params,
+                 :session, :stabilize
 
-  config_accessor :joint, :banned_array, :var_re, :uninflect, :params,
-                  :session, :stabilize
-
-  Cardname.joint          = '+'
-  Cardname.banned_array   = []
-  Cardname.var_re         = /\{([^\}]*\})\}/
-  Cardname.uninflect      = :singularize
-  Cardname.stabilize      = false
+  self.joint          = "+"
+  self.banned_array   = []
+  self.var_re         = /\{([^\}]*\})\}/
+  self.uninflect      = :singularize
+  self.stabilize      = false
 
   JOINT_RE = Regexp.escape joint
 
-  @@cache = {}
-
   class << self
+    def cache
+      @cache ||= {}
+    end
+
     def new obj
       return obj if obj.is_a? self.class
+
       str = stringify(obj)
       cached_name(str) || super(str)
     end
 
     def cached_name str
-      @@cache[str]
+      cache[str]
     end
 
     def reset_cache str=nil
-      str ? @@cache.delete(str) : @@cache = {}
+      str ? cache.delete(str) : @cache = {}
     end
 
     def stringify obj
@@ -57,9 +57,14 @@ class Cardname < String
       end
     end
 
+    def nothing_banned?
+      return @nothing_banned unless @nothing_banned.nil?
+
+      @nothing_banned = banned_array.empty?
+    end
+
     def banned_re
-      banned_chars = (banned_array << joint).join
-      /[#{Regexp.escape banned_chars}]/
+      @banned_re ||= /[#{Regexp.escape((banned_array + [joint])).join}]/
     end
 
     # Sometimes the core rule "the key's key must be itself" (called "stable" below) is violated
@@ -72,12 +77,13 @@ class Cardname < String
       key_one = name.send(uninflect)
       key_two = key_one.send(uninflect)
       return key_one unless key_one != key_two
+
       stabilize ? stable_key(key_two) : name
     end
 
     def dangerous_methods
       bang_methods = String.instance_methods.select { |m| m.to_s.ends_with?("!") }
-      [:replace].concat bang_methods
+      %i[replace concat clear].concat bang_methods
     end
 
     def split_parts str
@@ -90,14 +96,14 @@ class Cardname < String
   attr_reader :key
 
   def initialize str
-    @@cache[str] = super str.strip.encode('UTF-8')
+    self.class.cache[str] = super str.strip.encode("UTF-8")
   end
 
   def s
     @s ||= String.new self
   end
-  alias to_s s
-  alias to_str s
+  alias_method :to_s, :s
+  alias_method :to_str, :s
 
   def to_name
     self
@@ -108,6 +114,17 @@ class Cardname < String
       reset
       super(*args, &block)
     end
+  end
+
+  # dangerous, too
+  def []= index, val
+    p = parts
+    p[index] = val
+    replace self.class.new(p)
+  end
+
+  def << val
+    replace self.class.new(parts << val)
   end
 
   def key
@@ -127,6 +144,7 @@ class Cardname < String
   private
 
   def reset
+    self.class.reset_cache s
     instance_variables.each do |var|
       instance_variable_set var, nil
     end

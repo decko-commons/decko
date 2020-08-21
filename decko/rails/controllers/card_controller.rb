@@ -1,15 +1,10 @@
 # -*- encoding : utf-8 -*-
 
-require_dependency "card"
-require_dependency "decko/response"
-require_dependency "card/mailer"  # otherwise Net::SMTPError rescues can cause
-# problems when error raised comes before Card::Mailer is mentioned
-
 # Decko's only controller.
-class CardController < ActionController::Base
-  include Card::Env::Location
-  include Recaptcha::Verify
-  include Decko::Response
+class CardController < ApplicationController
+  include ::Card::Env::Location
+  include ::Recaptcha::Verify
+  include ::Decko::Response
 
   layout nil
   attr_reader :card
@@ -26,7 +21,7 @@ class CardController < ActionController::Base
   end
 
   def update
-    card.new_card? ? create : handle { card.update_attributes! params[:card] }
+    card.new_card? ? create : handle { card.update! params[:card] }
   end
 
   def delete
@@ -61,7 +56,7 @@ class CardController < ActionController::Base
   end
 
   def authenticate
-    Card::Auth.set_current params[:token], params[:current]
+    Card::Auth.signin_with token: params[:token], api_key: params[:api_key]
   end
 
   def load_mark
@@ -91,18 +86,19 @@ class CardController < ActionController::Base
   # ----------( HELPER METHODS ) -------------
 
   def handle
-    card.act(success: true) do
-      yield ? render_success : raise(Card::Error::UserError)
+    card.act do
+      Card::Env.success card.name
+      yield ? cud_success : raise(Card::Error::UserError)
     end
   end
 
-  # successful create, update, or delete action
-  def render_success
+  # successful create, update, or delete act
+  def cud_success
     success = Card::Env.success.in_context card.name
-    if Card::Env.ajax? && !success.hard_redirect?
-      soft_redirect success
+    if success.reload?
+      reload # instruct JSON to reload
     else
-      hard_redirect success.to_url
+      redirect_cud_success success
     end
   end
 
@@ -115,17 +111,43 @@ class CardController < ActionController::Base
   end
 
   def render_page format, view
-    view ||= params[:view]
+    view ||= view_from_params
     card.act do
       format.page self, view, Card::Env.slot_opts
     end
   end
 
-  rescue_from StandardError do |exception|
+  def view_from_params
+    params[:view] || params[:v]
+  end
+
+  def handle_exception exception
+    raise exception if debug_exception?(exception)
     @card ||= Card.new
-    Card::Error.current = exception
-    error = Card::Error.cardify_exception exception, card
-    error.report
+    error = Card::Error.report exception, card
     show error.class.view, error.class.status_code
   end
+
+  # TODO: move to exception object
+  def debug_exception? e
+    !e.is_a?(Card::Error::UserError) &&
+      !e.is_a?(ActiveRecord::RecordInvalid) &&
+      Card::Codename[:debugger] &&
+      Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
+  end
+
+  class << self
+    def rescue_from_class *klasses
+      klasses.each do |klass|
+        rescue_from(klass) { |exception| handle_exception exception }
+      end
+    end
+
+    def rescue_all?
+      Cardio.config.rescue_all_in_controller
+    end
+  end
+
+  rescue_from_class(*Card::Error::UserError.user_error_classes)
+  rescue_from_class StandardError if rescue_all?
 end

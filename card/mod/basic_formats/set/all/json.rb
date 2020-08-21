@@ -1,7 +1,7 @@
 format :json do
   # because card.item_cards returns "[[#{self}]]"
   def item_cards
-    uniq_nested_cards
+    nested_cards
   end
 
   def default_nest_view
@@ -27,7 +27,7 @@ format :json do
     JSON.send method, raw
   end
 
-  view :status, tags: :unknown_ok, perms: :none, cache: :never do
+  view :status, unknown: true, perms: :none do
     status = card.state
     hash = { key: card.key,
              url_key: card.name.url_key,
@@ -36,40 +36,46 @@ format :json do
     hash
   end
 
+  # NOCACHE because of timestamp
   view :page, cache: :never do
     { url: request_url,
       timestamp: Time.now.to_s,
       card: _render_atom }
   end
 
-  view :core do
+  def request_url
+    req = controller.request
+    req ? req.original_url : path
+  end
+
+  view :core, unknown: true do
     card.known? ? render_content : nil
   end
+
   view :content do
     card.content
   end
 
-  view :nucleus, cache: :never do
-    h = { id: card.id,
-          name: card.name,
-          type: card.type_name,
-          url: path(format: :json) }
-    h[:codename] = card.codename if card.codename
-    h
+  view :nucleus do
+    nucleus
   end
 
   # TODO: add simple values for fields
-  view :atom, cache: :never, tags: :unknown_ok do
-    h = _render_nucleus
-    h[:content] = render_content if card.known? && !card.structure
-    h
+  view :atom, unknown: true do
+    atom
   end
 
+  view :molecule do
+    molecule
+  end
+
+  # NOCACHE because sometimes item_cards is dynamic.
+  # could be safely cached for non-dynamic lists
   view :items, cache: :never do
     listing item_cards, view: :atom
   end
 
-  view :links, cache: :never do
+  view :links do
     card.link_chunks.map do |chunk|
       if chunk.referee_name
         path mark: chunk.referee_name, format: :json
@@ -79,26 +85,18 @@ format :json do
     end
   end
 
-  view :ancestors, cache: :never do
+  view :ancestors do
     card.name.ancestors.map do |name|
       nest name, view: :nucleus
     end
   end
 
-  view :molecule, cache: :never do
-    _render_atom.merge items: _render_items,
-                       links: _render_links,
-                       ancestors: _render_ancestors,
-                       html_url: path,
-                       type: nest(card.type_card, view: :nucleus)
-
-  end
-
   # minimum needed to re-fetch card
-  view :cast, cache: :never do
+  view :cast do
     card.cast
   end
 
+  ## DEPRECATED
   view :marks do
     {
       id: card.id,
@@ -121,9 +119,30 @@ format :json do
     { content: card.db_content }
   end
 
-  def request_url
-    req = controller.request
-    req ? req.original_url : path
+  # NOTE: moving these to methods prevents potential caching problems, because other
+  # views manipulate their hashes.
+  #
+  def nucleus
+    h = { id: card.id,
+          name: card.name,
+          type: card.type_name,
+          url: path(format: :json) }
+    h[:codename] = card.codename if card.codename
+    h
+  end
+
+  def atom
+    h = nucleus
+    h[:content] = render_content if card.known? && !card.structure
+    h
+  end
+
+  def molecule
+    atom.merge items: _render_items,
+               links: _render_links,
+               ancestors: _render_ancestors,
+               html_url: path,
+               type: nest(card.type_card, view: :nucleus)
   end
 end
 

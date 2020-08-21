@@ -14,7 +14,7 @@ describe Card::Set::Self::Admin do
     def run_admin_task task
       Card::Auth.as_bot do
         Card::Env.params[:task] = task
-        admin.update_attributes({})
+        admin.update({})
       end
     end
 
@@ -46,8 +46,8 @@ describe Card::Set::Self::Admin do
       it "triggers deleting old revisions (with right params)" do
         Card::Auth.as_bot do
           a = Card["A"]
-          a.update_attributes! content: "a new day"
-          a.update_attributes! content: "another day"
+          a.update! content: "a new day"
+          a.update! content: "another day"
           expect(a.actions.count).to eq(3)
           run_admin_task :clear_history
           expect(a.actions.count).to eq(1)
@@ -61,7 +61,7 @@ describe Card::Set::Self::Admin do
     #     puts a.references_out.count
     #     Card::Env.params[:task] = :repair_references
     #     puts a.references_out.count
-    #     @all.update_attributes({})
+    #     @all.update({})
     #     puts a.references_out.count
     #
     #   end

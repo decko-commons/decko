@@ -16,60 +16,99 @@ module ClassMethods
   end
 
   def rename! oldname, newname
-    Card[oldname].update_attributes! name: newname, update_referers: true
+    Card[oldname].update! name: newname, update_referers: true
   end
 end
 
 def name
-  super.to_name
+  @name ||= left_id ? Card::Lexicon.lex_to_name([left_id, right_id]) : super.to_name
+end
+
+def key
+  @key ||= left_id ? name.key : super
 end
 
 def name= newname
-  cardname = superize_name newname.to_name
-  newkey = cardname.key
-  self.key = newkey if key != newkey
-  update_subcard_names cardname
-  write_attribute :name, cardname.s
-  name
+  @name = superize_name newname.to_name
+  self.key = @name.key
+  update_subcard_names @name
+  write_attribute :name, (@name.simple? ? @name.s : nil)
+  assign_side_ids
+  @name
+end
+
+def assign_side_ids
+  if name.simple?
+    self.left_id = self.right_id = nil
+  else
+    assign_side_id :left_id=, :left_name
+    assign_side_id :right_id=, :right_name
+  end
+end
+
+# assigns left_id and right_id based on names.
+# if side card is new, id is temporarily stored as -1
+def assign_side_id side_id_equals, side_name
+  side_id = Card::Lexicon.id(name.send(side_name)) || -1
+  send side_id_equals, side_id
 end
 
 def superize_name cardname
   return cardname unless @supercard
   @raw_name = cardname.s
   @supercard.subcards.rename key, cardname.key
-  @superleft = @supercard if cardname.field_of? @supercard.name
+  update_superleft cardname
   cardname.absolute_name @supercard.name
 end
 
+def update_superleft cardname
+  @superleft = @supercard if cardname.field_of? @supercard.name
+end
+
 def key= newkey
-  was_in_cache = Card.cache.soft.delete key
-  write_attribute :key, newkey
-  # keep the soft cache up-to-date
-  Card.write_to_soft_cache self if was_in_cache
-  # reset the old name - should be handled in tracked_attributes!!
-  reset_patterns_if_rule
+  return if newkey == key
+  update_cache_key key do
+    write_attribute :key, (name.simple? ? newkey : nil)
+    @key = newkey
+  end
+  clean_patterns
+  @key
+end
+
+def clean_patterns
+  return unless patterns?
   reset_patterns
-  newkey
+  patterns
+end
+
+def update_cache_key oldkey
+  yield
+  was_in_cache = Card.cache.soft.delete oldkey
+  Card.write_to_soft_cache self if was_in_cache
 end
 
 def update_subcard_names new_name, name_to_replace=nil
   return unless @subcards
   subcards.each do |subcard|
-    # if subcard has a relative name like +C
-    # and self is a subcard as well that changed from +B to A+B then
-    # +C should change to A+B+C. #replace doesn't work in this case
-    # because the old name +B is not a part of +C
-    name_to_replace ||=
-      if subcard.name.junction? &&
-         subcard.name.parts.first.empty? &&
-         new_name.parts.first.present?
-        # replace the empty part
-        "".to_name
-      else
-        name
-      end
-    subcard.name = subcard.name.swap name_to_replace, new_name.s
-    subcard.update_subcard_names new_name, name
+    update_subcard_name subcard, new_name, name_to_replace if subcard.new?
+  end
+end
+
+def update_subcard_name subcard, new_name, name_to_replace
+  name_to_replace ||= name_to_replace_for_subcard subcard, new_name
+  subcard.name = subcard.name.swap name_to_replace, new_name.s
+  subcard.update_subcard_names new_name, name # needed?  shouldn't #name= trigger this?
+end
+
+def name_to_replace_for_subcard subcard, new_name
+  # if subcard has a relative name like +C
+  # and self is a subcard as well that changed from +B to A+B then
+  # +C should change to A+B+C. #replace doesn't work in this case
+  # because the old name +B is not a part of +C
+  if subcard.name.starts_with_joint? && new_name.parts.first.present?
+    "".to_name
+  else
+    name
   end
 end
 
@@ -97,8 +136,8 @@ end
 def left *args
   case
   when simple?    then nil
-  when @superleft then @superleft
-  when attribute_is_changing?(:name) && name.to_name.trunk_name.key == name_before_act.to_name.key
+  when superleft then superleft
+  when name_is_changing? && name.to_name.trunk_name == name_before_act.to_name
     nil # prevent recursion when, eg, renaming A+B to A+B+C
   else
     Card.fetch name.left, *args
@@ -131,69 +170,42 @@ def left_or_new args={}
   left(args) || Card.new(args.merge(name: name.left))
 end
 
+# NOTE: for all these helpers, method returns *all* fields/children/descendants.
+# (Not just those current user has permission to read.)
+
 def fields
-  field_names.map { |name| Card[name] }
+  field_ids.map { |id| Card[id] }
 end
 
-def field_names parent_name=nil
-  child_names parent_name, :left
+def field_names
+  field_ids.map { |id| Card::Name[id] }
 end
 
-def children
-  child_names.map { |name| Card[name] }
+def field_ids
+  child_ids :left
 end
 
-def child_names parent_name=nil, side=nil
-  # eg, A+B is a child of A and B
-  parent_name ||= name
-  side ||= parent_name.to_name.simple? ? :part : :left
-  Card.search({ side => parent_name, return: :name },
-              "(#{side}) children of #{parent_name}")
-end
-
-# ids of children and children's children
-def descendant_ids parent_id=nil
-  return [] if new_card?
-  parent_id ||= id
-  Auth.as_bot do
-    child_ids = Card.search part: parent_id, return: :id
-    child_descendant_ids = child_ids.map { |cid| descendant_ids cid }
-    (child_ids + child_descendant_ids).flatten.uniq
+def each_child
+  child_ids.each do |id|
+    (child = Card[id]) && yield(child)
+    # check should not be needed (remove after fixing data problems)
   end
 end
 
-# children and children's children
-# NOTE - set modules are not loaded
-# -- should only be used for name manipulations
-def descendants
-  @descendants ||= descendant_ids.map { |id| Card.quick_fetch id }
+# eg, A+B is a child of A and B
+def child_ids side=nil
+  return [] unless id
+  side ||= name.simple? ? :part : :left_id
+  Auth.as_bot do
+    Card.search({ side => id, return: :id, limit: 0 }, "children of #{name}")
+  end
 end
 
-def repair_key
-  Auth.as_bot do
-    correct_key = name.key
-    current_key = key
-    return self if current_key == correct_key
-
-    if (key_blocker = Card.find_by_key_and_trash(correct_key, true))
-      key_blocker.name = key_blocker.name + "*trash#{rand(4)}"
-      key_blocker.save
-    end
-
-    saved =   (self.key = correct_key) && save!
-    saved ||= (self.name = current_key) && save!
-
-    if saved
-      descendants.each(&:repair_key)
-    else
-      Rails.logger.debug "FAILED TO REPAIR BROKEN KEY: #{key}"
-      self.name = "BROKEN KEY: #{name}"
-    end
-    self
+def each_descendant &block
+  each_child do |child|
+    yield child
+    child.each_descendant(&block)
   end
-rescue StandardError
-  Rails.logger.info "BROKE ATTEMPTING TO REPAIR BROKEN KEY: #{key}"
-  self
 end
 
 def right_id= card_or_id
@@ -202,10 +214,6 @@ end
 
 def left_id= card_or_id
   write_card_or_id :left_id, card_or_id
-end
-
-def type_id= card_or_id
-  write_card_or_id :type_id, card_or_id
 end
 
 def write_card_or_id attribute, card_or_id

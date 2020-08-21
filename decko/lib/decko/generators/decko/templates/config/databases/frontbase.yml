@@ -24,6 +24,7 @@ test: &test
   password: ''
 
 cucumber: *test
+cypress: *test
 
 production: 
   adapter: frontbase

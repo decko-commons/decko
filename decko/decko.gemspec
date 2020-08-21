@@ -13,8 +13,7 @@ card_version = [1, vminor, vbits[2]].compact.map(&:to_s).join "."
 Gem::Specification.new do |s|
   s.name          = "decko"
   s.version       = version
-  s.authors       = ["Ethan McCutchen", "Lewis Hoffman",
-                     "Gerry Gleason", "Philipp Kühl"]
+  s.authors       = ["Ethan McCutchen", "Philipp Kühl", "Lewis Hoffman", "Gerry Gleason"]
   s.email         = ["info@decko.org"]
 
   #  s.date          = '2013-12-20'
@@ -31,7 +30,7 @@ Gem::Specification.new do |s|
   s.executables   = ["decko"]
   s.require_paths = ["lib"]
 
-  s.required_ruby_version = ">= 2.3"
+  s.required_ruby_version = ">= 2.5"
 
   [
     ["card",   card_version]

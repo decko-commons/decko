@@ -21,11 +21,15 @@ def select_from_select2 value, attrs
   list.find("li", text: value).click
 end
 
-def enter_select2 value, css
+def open_select2 css
   select2_container = find(:css, css)
   sleep 0.1
   @container = select2_container.find(".select2-selection, .select2-choices", visible: false)
   @container.click
+end
+
+def enter_select2 value, css
+  open_select2 css
   find(:xpath, "//body").find(".select2-search input.select2-search__field").set(value)
 end
 

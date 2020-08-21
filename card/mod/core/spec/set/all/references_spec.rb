@@ -43,4 +43,20 @@ RSpec.describe Card::Set::All::References do
       expect(Card["X"].nestees.map(&:name)).to eq([])
     end
   end
+
+  describe "event :update_referer_content" do
+    it "handles self references" do
+      Card["A"].update! name: "AAA", update_referers: true
+      expect(Card["X"].content).to eq("[[AAA]] [[AAA+B]] [[T]]")
+    end
+
+    # FIXME: following should pass!
+    xit "handles reference loops" do
+      Card["A"].update! content: "[[A+B]] refers to me"
+      Card["A+B"].update! content: "[[A]] refers to me, too"
+      Card["A"].update! name: "AAA", update_referers: true
+      expect(Card["AAA+B"].content).to eq("[[AAA]] refers to me, too")
+      expect(Card["AAA"].content).to eq("[[AAA+B]] refers to me")
+    end
+  end
 end

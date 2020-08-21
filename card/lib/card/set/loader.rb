@@ -40,11 +40,12 @@ class Card
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # Organization Phase
 
-      # 'base modules' are modules that are permanently included on the Card or
+      # 'base modules' are modules that are always included on the Card or
       # Format class
       # 'nonbase modules' are included dynamically on singleton_classes
       def process_base_modules
         return unless modules[:base].present?
+
         Card.add_set_modules modules[:base]
         modules[:base_format].each do |format_class, modules_list|
           format_class.add_set_modules modules_list

@@ -9,6 +9,7 @@ class Card
           puts "creating migration file...".yellow
           migration_out = `#{migrate_command}`
           return if migration_out.include?("conflict")
+
           migration_file_name = migration_out[/db.*/]
           write_at migration_file_name, 5, indented_migration_content # 5 is line no.
         end

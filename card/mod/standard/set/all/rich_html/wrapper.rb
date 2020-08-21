@@ -3,31 +3,43 @@ format :html do
   # (1) gives CSS classes for styling and
   # (2) adds card data for javascript - including the "card-slot" class,
   #     which in principle is not supposed to be in styles
-  def wrap slot=true, slot_attr={}, &block
-    method_wrap :wrap_with, slot, slot_attr, &block
+  def wrap slot=true, slot_attr={}, tag=:div, &block
+    method_wrap :wrap_with, tag, slot, slot_attr, &block
   end
 
-  def haml_wrap slot=true, slot_attr={}, &block
-    method_wrap :haml_tag, slot, slot_attr, &block
+  wrapper :slot do |opts|
+    class_up "card-slot", opts[:class] if opts[:class]
+    method_wrap :wrap_with, :div, true, opts do
+      interior
+    end
   end
 
-  def method_wrap method, slot, slot_attr, &block
+  def haml_wrap slot=true, slot_attr={}, tag=:div, &block
+    method_wrap :haml_tag, tag, slot, slot_attr, &block
+  end
+
+  def method_wrap method, tag, slot, slot_attr, &block
     @slot_view = @current_view
     debug_slot do
-      send method, :div, slot_attributes(slot, slot_attr), &block
+      send method, tag, slot_attributes(slot, slot_attr), &block
     end
   end
 
   def slot_attributes slot, slot_attr
-    { id: card.name.url_key, class: wrap_classes(slot), data: wrap_data }.tap do |hash|
+    { id: slot_id, class: wrap_classes(slot), data: wrap_data }.tap do |hash|
       add_class hash, slot_attr.delete(:class)
       hash.deep_merge! slot_attr
     end
   end
 
+  def slot_id
+    "#{card.name.safe_key}-#{@current_view}-view"
+  end
+
   def wrap_data slot=true
     with_slot_data slot do
-      { "card-id": card.id, "card-name": h(card.name) }
+      { "card-id": card.id, "card-name": h(card.name),
+        "slot-id": SecureRandom.hex(10) }
     end
   end
 
@@ -51,6 +63,7 @@ format :html do
 
   def name_context_slot_option opts
     return unless initial_context_names.present?
+
     opts[:name_context] = initial_context_names.map(&:key) * ","
   end
 
@@ -59,7 +72,7 @@ format :html do
   end
 
   def debug_slot?
-    params[:debug] == "slot" && !tagged(@current_view, :no_wrap_comments)
+    params[:debug] == "slot"
   end
 
   def debug_slot_wrap
@@ -76,16 +89,29 @@ format :html do
   end
 
   def wrap_body
-    css_classes = ["d0-card-body"]
-    css_classes += ["d0-card-content", card.safe_set_keys] if @content_body
-    wrap_with :div, class: classy(*css_classes) do
-      yield
+    wrap_with(:div, class: body_css_classes) { yield }
+  end
+
+  def haml_wrap_body
+    wrap_body do
+      capture_haml { yield }
     end
   end
 
+  def body_css_classes
+    css_classes = ["d0-card-body"]
+    css_classes += ["d0-card-content", card.safe_set_keys] if @content_body
+    classy(*css_classes)
+  end
+
   def wrap_main
-    return yield if Env.ajax? || params[:layout] == "none"
+    return yield if no_main_wrap?
+
     wrap_with :div, yield, id: "main"
+  end
+
+  def no_main_wrap?
+    Env.ajax? || params[:layout] == "none"
   end
 
   def wrap_with tag, content_or_args={}, html_args={}
@@ -100,5 +126,22 @@ format :html do
     content.compact.map do |item|
       wrap_with(tag, args) { item }
     end.join "\n"
+  end
+
+  private
+
+  def html_escape_except_quotes string
+    # to be used inside single quotes (makes for readable json attributes)
+    string.to_s.gsub(/&/,  "&amp;")
+          .gsub(/\'/, "&apos;")
+          .gsub(/>/,  "&gt;")
+          .gsub(/</,  "&lt;")
+  end
+
+  wrapper :div, :div
+  wrapper :em, :em
+
+  wrapper :none do
+    interior
   end
 end

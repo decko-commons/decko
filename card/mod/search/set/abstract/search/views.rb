@@ -27,8 +27,9 @@ format :json do
     search_with_params
   end
 
+  # NOCACHE because paging_urls is uncacheable hash and thus not safe to merge
   view :molecule, cache: :never do
-    super().merge paging_urls
+    molecule.merge render_paging_urls
   end
 
   # TODO: design better autocomplete API
@@ -40,8 +41,10 @@ format :json do
     complete_or_match_search limit: AUTOCOMPLETE_LIMIT
   end
 
-  def complete_or_match_search limit: AUTOCOMPLETE_LIMIT
+  def complete_or_match_search limit: AUTOCOMPLETE_LIMIT, start_only: false
     starts_with = complete_search limit: limit
+    return starts_with if start_only
+
     remaining_slots = limit - starts_with.size
     return starts_with if remaining_slots.zero?
     starts_with + match_search(not_names: starts_with, limit: remaining_slots)
@@ -65,7 +68,7 @@ format :json do
 
   def match_wql not_names
     wql = { name_match: term_param }
-    wql["not in"] = not_names if not_names.any?
+    wql[:name] = ["not in"] + not_names if not_names.any?
     wql
   end
 
@@ -83,7 +86,7 @@ format :data do
 end
 
 format :csv do
-  view :core, mod: All::AllCsv::CsvFormat
+  view :core, :core, mod: All::AllCsv::CsvFormat
 
   view :card_list do
     items = super()
@@ -96,7 +99,7 @@ format :csv do
 end
 
 format :html do
-  view :card_list do
+  view :card_list, cache: :never do
     with_results do
       search_result_list "search-result-list" do |item_card|
         card_list_item item_card

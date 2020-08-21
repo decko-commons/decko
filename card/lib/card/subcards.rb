@@ -11,10 +11,6 @@ class Card
   # Together with "my address" you want to create the subcards
   # "my address+name", "my address+street", etc.
   class Subcards
-    require_dependency "card/subcards/add"
-    require_dependency "card/subcards/remove"
-    require_dependency "card/subcards/relate"
-
     include Add
     include Remove
     include Relate
@@ -36,6 +32,7 @@ class Card
 
     def card name
       return unless @keys.include? name.to_name.key
+
       fetch_subcard name
     end
 
@@ -51,25 +48,34 @@ class Card
 
     def rename old_name, new_name
       return unless @keys.include? old_name.to_name.key
+
       @keys.delete old_name.to_name.key
       @keys << new_name.to_name.key
     end
 
+    def respond_to_missing? method_name, _include_private=false
+      @keys.respond_to? method_name
+    end
+
     def method_missing method, *args
-      return unless @keys.respond_to? method
+      return unless respond_to_missing?(method)
+
       @keys.send method, *args
     end
 
-    def each_card
-      # fetch all cards first to avoid side effects
-      # e.g. deleting a user adds follow rules and +*account to subcards
-      # for deleting but deleting follow rules can remove +*account from the
-      # cache if it belongs to the rule cards
-      cards = @keys.map do |key|
+    # fetch all cards first to avoid side effects
+    # e.g. deleting a user adds follow rules and +*account to subcards
+    # for deleting but deleting follow rules can remove +*account from the
+    # cache if it belongs to the rule cards
+    def cards
+      @keys.map do |key|
         fetch_subcard key
-      end
+      end.compact
+    end
+
+    def each_card
       cards.each do |card|
-        yield(card) if card
+        yield card
       end
     end
 
@@ -101,6 +107,7 @@ class Card
     def absolutize_subcard_name name
       name = Card::Name[name]
       return name if @context_card.name.parts.first.blank?
+
       name.absolute_name @context_card.name
     end
   end

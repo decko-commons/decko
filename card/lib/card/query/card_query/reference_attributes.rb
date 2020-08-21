@@ -13,16 +13,18 @@ class Card
 
         {
           refer_to: %w[L I],
-          link_to:  "L",
-          include:  "I"
+          link_to: "L",
+          include: "I",
+          nest: "I"
         }.each do |methodname, reftype|
           define_reference_method methodname, reftype, :referee, :referer_id
         end
 
         {
           referred_to_by: %w[L I],
-          linked_to_by:   "L",
-          included_by:    "I"
+          linked_to_by: "L",
+          included_by: "I",
+          nested_by: "I"
         }.each do |methodname, reftype|
           define_reference_method methodname, reftype, :referer, :referee_id
         end
@@ -31,11 +33,11 @@ class Card
         # DEPRECATE?
 
         def member_of val
-          interpret right_plus: [RolesID, refer_to: val]
+          interpret right_plus: [Card::RolesID, refer_to: val]
         end
 
         def member val
-          interpret referred_to_by: { left: val, right: RolesID }
+          interpret referred_to_by: { left: val, right: Card::RolesID }
         end
       end
     end

@@ -5,7 +5,7 @@ require_relative "config/initializers/sedate_parser"
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(assets: %w(development test))
+  Bundler.require *Rails.groups(assets: %w[development test cypress])
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -18,10 +18,6 @@ module Decko
       paths["lib/decko/config/environments"].existent.each do |environment|
         require environment
       end
-    end
-
-    initializer :load_card, after: :load_config_initializers, group: :all do
-       Card
     end
 
     class << self
@@ -53,12 +49,15 @@ module Decko
         # therefore, in general, they should be restricted to settings that
         # (1) are specific to the web environment, and
         # (2) should not be overridden
-        # ...and we should address (c) above!
+        # ..and we should address (c) above!
 
         # general card settings (overridable and not) should be in cardio.rb
         # overridable decko-specific settings don't have a place yet
         # but should probably follow the cardio pattern.
 
+        # config.load_defaults "6.0"
+        config.autoloader = :zeitwerk
+        config.load_default = "6.0"
         config.i18n.enforce_available_locales = true
         # config.active_record.raise_in_transactional_callbacks = true
 
@@ -67,6 +66,9 @@ module Decko
         config.assets.version = "1.0"
 
         config.filter_parameters += [:password]
+
+        # Rails.autoloaders.log!
+        Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
         config
       end
     end

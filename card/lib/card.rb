@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-Object.const_remove_if_defined :Card
 ActiveSupport.run_load_hooks(:before_card, self)
-# ActiveSupport::Dependencies.loaded.clear
 
 # Cards are wiki-inspired building blocks.
 #
@@ -82,9 +80,9 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 # Both views and events are defined in {Card::Mod mods}, short for modules or modifications.
 #
-# {Card::Format More on views}
+# {Card::Set::Format::AbstractFormat More on views}
 #
-# {Card::Set::Act More on events}
+# {Card::Set::Event More on events}
 #
 # ## Accounts and Permissions
 #
@@ -93,27 +91,13 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # You can see the current user with `Card::Auth.current`. The permissions of a proxy user can be temporarily assumed using `Card::Auth#as`.
 #
 # {Card::Auth More on accounts}
-#
 class Card < ApplicationRecord
-  require_dependency "card/mark"
-  extend Mark
+  extend ::Card::Mark
+  extend ::Card::Dirty::MethodFactory
+  include ::Card::Dirty
+  include ::Card::DirtyNames
 
-  require_dependency "card/name"
-  require_dependency "card/codename"
-  require_dependency "card/query"
-  require_dependency "card/format"
-  require_dependency "card/error"
-  require_dependency "card/auth"
-  require_dependency "card/mod"
-  require_dependency "card/content"
-  require_dependency "card/action"
-  require_dependency "card/act"
-  require_dependency "card/change"
-  require_dependency "card/reference"
-  require_dependency "card/subcards"
-  require_dependency "card/view"
-  require_dependency "card/act_manager"
-  require_dependency "card/dirty"
+  Card::Cache # trigger autoload
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id
@@ -121,70 +105,57 @@ class Card < ApplicationRecord
   has_many :actions, -> { where(draft: [nil, false]).order :id }
   has_many :drafts, -> { where(draft: true).order :id }, class_name: :Action
 
-  cattr_accessor :set_patterns, :serializable_attributes, :set_specific_attributes
+  cattr_accessor :set_patterns, :action_specific_attributes, :set_specific_attributes
+
   self.set_patterns = []
-
-  # attributes that ActiveJob can handle
-  def self.serializable_attr_accessor *args
-    self.serializable_attributes = args
-    attr_accessor(*args)
-  end
-
-  serializable_attr_accessor(
+  self.action_specific_attributes = [
     :action, :supercard, :superleft,
     :current_action,
-    :comment,                     # obviated soon
-    :update_referers,             # wrong mechanism for this
-    :update_all_users,            # if the above is wrong then this one too
-    :silent_change,               # and this probably too
-    # :remove_rule_stash,
+
     :last_action_id_before_edit,
     :only_storage_phase,          # used to save subcards
     :changed_attributes,
+
     :skip,                        # skip event(s) for all cards in act
     :skip_in_action,              # skip event for just this card
     :trigger,                     # trigger event(s) for all cards in act
-    :trigger_in_action            # trigger event for just this card
-  )
+    :trigger_in_action,           # trigger event for just this card
 
-  alias_method :skip_event, :skip
-  alias_method :skip_event_in_action, :skip_in_action
-  alias_method :trigger_event, :trigger
-  alias_method :trigger_event_in_action, :trigger_in_action
+    :comment,                     # obviated soon
 
-  def serializable_attributes
-    self.class.serializable_attributes + set_specific.keys
-  end
+    # TODO: refactor following to use skip/trigger
+    :update_referers,             # wrong mechanism for this
+    :update_all_users,            # if the above is wrong then this one too
+    :silent_change                # and this probably too
+  ]
 
+  attr_accessor(*action_specific_attributes)
   attr_accessor :follower_stash
 
-  define_callbacks(
+  STAGE_CALLBACKS = [
     :select_action, :show_page, :act,
-
     # VALIDATION PHASE
     :initialize_stage, :prepare_to_validate_stage, :validate_stage,
     :initialize_final_stage, :prepare_to_validate_final_stage,
     :validate_final_stage,
-
     # STORAGE PHASE
     :prepare_to_store_stage, :store_stage, :finalize_stage,
     :prepare_to_store_final_stage, :store_final_stage, :finalize_final_stage,
-
     # INTEGRATION PHASE
     :integrate_stage, :integrate_with_delay_stage,
     :integrate_final_stage,
     :after_integrate_stage,
     :after_integrate_final_stage, :integrate_with_delay_final_stage
-  )
+  ].freeze
+  define_callbacks(*STAGE_CALLBACKS)
 
   # Validation and integration phase are only called for the act card
   # The act card starts those phases for all its subcards
   before_validation :validation_phase, unless: -> { only_storage_phase? }
   around_save :storage_phase
   after_commit :integration_phase, unless: -> { only_storage_phase? }
-#  after_rollback :clean_up, unless: -> { only_storage_phase? }
+  #  after_rollback :clean_up, unless: -> { only_storage_phase? }
 
   ActiveSupport.run_load_hooks(:card, self)
 end
-
-ActiveSupport.run_load_hooks(:after_card, self)
+ActiveSupport.run_load_hooks :after_card, self

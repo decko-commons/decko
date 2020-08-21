@@ -11,6 +11,6 @@ def cache_output_part input_card, output
     input_card.save! if input_card.new_card?
 
     cache_card = fetch_cache_card(input_card, true)
-    cache_card.update_attributes! content: output
+    cache_card.update! content: output
   end
 end

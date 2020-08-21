@@ -5,7 +5,7 @@ describe Card::Set::Abstract::Pointer do
   end
 
   def pointer_update content
-    -> { Card["tp"].update_attributes! content: content }
+    -> { Card["tp"].update! content: content }
   end
 
   describe "#added_item_names" do
@@ -72,7 +72,7 @@ describe Card::Set::Abstract::Pointer do
 
   describe "#standardize_item" do
     it "handles unlinked items" do
-      pointer.update_attributes! content: "bracketme"
+      pointer.update! content: "bracketme"
       expect(pointer.content).to eq("[[bracketme]]")
     end
 
@@ -81,6 +81,12 @@ describe Card::Set::Abstract::Pointer do
                               type: "Pointer",
                               content: ["b1", "[[b2]]"]
       expect(pointer1.content).to eq("[[b1]]\n[[b2]]")
+    end
+
+    it "handles arrays for subfields" do
+      create "super card", subfields: { "a pointer" => { content: ["b1", "[[b2]]"],
+                                                         type_id: Card::PointerID } }
+      expect_card("super card+a pointer").to have_db_content "[[b1]]\n[[b2]]"
     end
   end
 end

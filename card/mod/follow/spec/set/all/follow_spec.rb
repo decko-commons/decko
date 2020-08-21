@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Follow do
+RSpec.describe Card::Set::All::Follow do
   def follow_view card_name
     render_card :follow_link, name: card_name
   end
@@ -16,31 +16,31 @@ describe Card::Set::All::Follow do
       end
     end
 
-    subject { Card[cardname].follower_names.sort }
+    subject(:followers) { Card[cardname].follower_names.sort }
 
     context "when not followed" do
       let(:cardname) { "No One Sees Me" }
 
-      it { is_expected.to eq([]) }
+      it { expect(followers).to eq([]) }
     end
 
     context "when only field is followed" do
       let(:cardname) { "Magnifier" }
 
-      it { is_expected.to eq([]) }
+      it { expect(followers).to eq([]) }
     end
 
     context "when followed as a field" do
       let(:cardname) { "Magnifier+lens" }
 
-      it { is_expected.to eq ["Big Brother", "Narcissist"] }
+      it { expect(followers).to eq ["Big Brother", "Narcissist"] }
     end
 
     context "with many followers" do
       let(:cardname) { "Sunglasses" }
 
       it do
-        is_expected.to eq ["Big Brother", "Narcissist", "Optic fan", "Sara",
+        expect(followers).to eq ["Big Brother", "Narcissist", "Optic fan", "Sara",
                            "Sunglasses fan"]
       end
     end
@@ -49,7 +49,7 @@ describe Card::Set::All::Follow do
       let(:cardname) { "Sunglasses+tint" }
 
       it do
-        is_expected.to eq ["Big Brother", "Narcissist", "Optic fan", "Sara",
+        expect(followers).to eq ["Big Brother", "Narcissist", "Optic fan", "Sara",
                            "Sunglasses fan"]
       end
     end
@@ -57,13 +57,15 @@ describe Card::Set::All::Follow do
     context "when Google glass" do
       let(:cardname) { "Google glass" }
 
-      it { is_expected.to eq ["Big Brother", "Optic fan", "Sara"] }
+      it { expect(followers).to eq ["Big Brother", "Optic fan", "Sara"] }
     end
   end
 
-  describe "view: follow_link" do
+  # doesn't exist anymore
+  # didn't check if it can be adjusted to knew follow ui
+  xdescribe "view: follow_link" do
     before do
-      Card::Auth.current_id = Card["Big Brother"].id
+      Card::Auth.signin "Big Brother"
     end
 
     def assert_following_view name, args
@@ -118,7 +120,7 @@ describe Card::Set::All::Follow do
 
     context "when not following cardtype card" do
       it "renders 'follow all' link" do
-        assert_follow_view "Basic", add_set: "Basic+*type", text: "follow"
+        assert_follow_view "RichText", add_set: "RichText+*type", text: "follow"
       end
     end
 
@@ -129,7 +131,8 @@ describe Card::Set::All::Follow do
     end
 
     context "when following content I created" do
-      before { Card::Auth.current_id = Card["Narcissist"].id }
+      before { Card::Auth.signin "Narcissist" }
+
       it "renders following link" do
         assert_following_view "Sunglasses", add_set: "Sunglasses+*self",
                                             user: "Narcissist"
@@ -137,7 +140,8 @@ describe Card::Set::All::Follow do
     end
 
     context "when following content I edited" do
-      before { Card::Auth.current_id = Card["Narcissist"].id }
+      before { Card::Auth.signin "Narcissist" }
+
       it "renders following link" do
         assert_following_view "Magnifier+lens",
                               add_set: "Magnifier+lens+*self",

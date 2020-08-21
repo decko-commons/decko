@@ -58,6 +58,7 @@ namespace :card do
     def with_params *keys
       optional_params = keys.last.is_a?(Hash) ? keys.pop : {}
       return unless params_present?(*keys)
+
       values = keys.map { |k| ENV[k.to_s] }
       optional_params.each_pair do |k, v|
         values << (ENV[k.to_s] || v)
@@ -66,7 +67,7 @@ namespace :card do
     end
 
     def params_present? *env_keys
-      missing = env_keys.select { |k| !ENV[k.to_s] }
+      missing = env_keys.reject { |k| ENV[k.to_s] }
       missing.each do |key|
         color_puts "missing parameter:", :red, key
       end

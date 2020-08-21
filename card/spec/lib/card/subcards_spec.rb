@@ -86,7 +86,7 @@ RSpec.describe Card::Subcards do
 
     it "works together with type change" do
       card = create "card with subs", "+sub1" => "first"
-      card.update_attributes! type_id: Card::PhraseID, "+sub1" => "second"
+      card.update! type_id: Card::PhraseID, "+sub1" => "second"
       expect(Card["card with subs+sub1"].content).to eq "second"
     end
 
@@ -145,6 +145,40 @@ RSpec.describe Card::Subcards do
         subfield(:children).add_subfield :title, content: "yeah"
       end
       expect_card("test+*child+*title").to have_db_content "yeah"
+    end
+  end
+
+  describe "handle_subcard_errors" do
+    it "deals with renaming, even when children have content changing" do
+      Card.create! name: "A+alias", content: "[[A]]"
+      expect { Card["A"].update! name: "AABAA", update_referers: true }.not_to raise_error
+    end
+
+    let(:referee) { Card["T"] }
+
+    def with_subcard_validation_error_in_rename
+      with_test_events do
+        test_event :finalize, on: :update do
+          errors.add :content, "referer error!" if name == "X" # X refers to T
+        end
+
+        yield
+      end
+    end
+
+    it "works on rename (update)" do
+      with_subcard_validation_error_in_rename do
+        expect(referee.update name: "Tea", update_referers: true).to eq(false)
+        expect(referee.errors[:X].first).to match(/referer error/)
+      end
+    end
+
+    it "works on rename (update!)" do
+      with_subcard_validation_error_in_rename do
+        expect{ referee.update! name: "Tea", update_referers: true }
+          .to raise_error(ActiveRecord::RecordInvalid)
+        expect(referee.errors[:X].first).to match(/referer error/)
+      end
     end
   end
 end

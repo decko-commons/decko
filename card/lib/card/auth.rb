@@ -1,7 +1,4 @@
 # -*- encoding : utf-8 -*-
-require_dependency "card/auth/permissions"
-require_dependency "card/auth/proxy"
-require_dependency "card/auth/setup"
 
 class Card
   # Singleton methods for account authentication and contextualization.

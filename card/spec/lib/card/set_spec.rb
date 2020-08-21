@@ -4,14 +4,14 @@
 # won't this conflict with a real set (and fail to provide controlled test?)
 #   extend Card::Set
 #
-#   card_accessor :role,   default: "request", type: :phrase
+#   card_accessor :role,   default: "request", type: PhraseID
 #   card_writer   :write,  default: "request", type: :phrase
 #   card_reader   :read,   default: "request", type: :phrase
 # end
 #
 # describe Card do
 #   before do
-#     @account_card = Card['sara'].fetch trait: :account
+#     @account_card = Card['sara'].fetch :account
 #   end
 #
 #   describe "Read and write card attribute" do
@@ -35,9 +35,9 @@
 # #      @account_card.status.should == 'pending'
 #       Card::Auth.as_bot { @account_card.save }
 # #      Card.cache.reset
-#       expect(tcard = Card['sara'].fetch(trait: :account)).to be
+#       expect(tcard = Card['sara'].fetch(:account)).to be
 #       expect(tcard.status).to eq('pending')
-#       expect(tcard.fetch(trait: :write).content).to eq('test_value')
+#       expect(tcard.fetch(:write).content).to eq('test_value')
 #     end
 #
 #   end

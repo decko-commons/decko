@@ -33,7 +33,7 @@ RSpec.describe Card::Set::Type::BootswatchSkin do
 
   context "when stylesheets item content changed" do
     it "updates output of related machine card", as_bot: true do
-      customized_skin.field(:bootswatch).update_attributes! content: CUSTOM_CSS
+      customized_skin.field(:bootswatch).update! content: CUSTOM_CSS
       expect(generated_css).to include CUSTOM_CSS
     end
   end

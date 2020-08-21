@@ -8,6 +8,16 @@ Style/MutableConstant:
   AutoCorrect: false
 Style/MixinUsage:
   Enabled: false
+Style/ClassVars:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Lint/ScriptPermission:
+  Enabled: false
+Naming/MethodParameterName:
+  Enabled: false
+Naming/AccessorMethodName:
+  Enabled: false
 Decko/ViewLength:
   Description: Avoid views longer than 15 lines of code.
   Enabled: true
@@ -19,4 +29,4 @@ Decko/EventLength:
   CountComments: false
   Max: 10
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.5

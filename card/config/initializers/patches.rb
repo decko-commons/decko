@@ -9,7 +9,7 @@ end
 if defined? BetterErrors
   module BetterErrors #:nodoc: all
     class StackFrame
-      suppress_warnings { include Patches::BetterErrors::StackFrame::TmpPath }
+      # suppress_warnings { include Patches::BetterErrors::StackFrame::TmpPath }
     end
   end
 end
@@ -64,5 +64,12 @@ module ActiveSupport #:nodoc: all
     class Callback
       prepend Patches::ActiveSupport::Callbacks::Callback
     end
+  end
+end
+
+
+module Zeitwerk #:nodoc: all
+  class Loader
+    prepend Patches::Zeitwerk
   end
 end

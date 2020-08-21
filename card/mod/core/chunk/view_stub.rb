@@ -1,11 +1,13 @@
+require "msgpack"
+
 class Card
   class Content
     module Chunk
       class ViewStub < Abstract
         Chunk.register_class(
           self,
-          prefix_re: Regexp.escape("(stub)"),
-          full_re: /\(stub\)([^\(]*)\(\/stub\)/,
+          prefix_re: Regexp.escape("(StUb"),
+          full_re: /\A\(StUb(.*?)sTuB\)/m,
           idx_char: "("
         )
 
@@ -14,9 +16,17 @@ class Card
         end
 
         def interpret match, _content
-          @options_json = match[1]
-          @stub_hash = JSON.parse(Card::View::Stub.unescape @options_json).symbolize_keys
+          @stub_hash = initial_stub_hash match[1]
           interpret_hash_values
+        end
+
+        def initial_stub_hash string
+          JSON.parse(string).symbolize_keys
+          # MessagePack.unpack(hex_to_bin(string)).symbolize_keys
+        end
+
+        def hex_to_bin string
+          string.scan(/../).map { |x| x.hex.chr }.join
         end
 
         def interpret_hash_values
@@ -38,10 +48,11 @@ class Card
           hash.symbolize_keys!
           hash[:nest_mode] = hash[:nest_mode].to_sym
           hash[:override] = hash[:override] == "true"
+          hash[:context_names].map!(&:to_name)
         end
 
         def process_chunk
-          @processed = yield @stub_hash
+          @processed = format.stub_nest @stub_hash
         end
 
         def result

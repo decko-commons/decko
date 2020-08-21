@@ -9,13 +9,12 @@ class AddNotificationEventCard < Card::Migration::Core
     ensure_trait "*contextual class", "contextual_class",
                  default: { type_id: Card::PointerID },
                  input: "radio",
-                 options: %w(success info warning danger)
+                 options: { type_id: Card::PointerID,
+                            content: %w(success info warning danger) }
 
     [:create, :update, :delete].each do |action|
       update ["on_#{action}".to_sym, :right, :help],
              content: "Configure events to be executed when card id #{action}d"
     end
-
-
   end
 end

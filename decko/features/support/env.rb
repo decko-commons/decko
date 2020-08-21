@@ -6,6 +6,7 @@ require File.join Decko.card_gem_root, "spec/support/simplecov_helper.rb"
 require "simplecov"
 require "minitest/autorun"
 require "rspec"
+require "selenium/webdriver"
 
 World(RSpec::Matchers)
 require "rspec-html-matchers"
@@ -57,17 +58,44 @@ require "cucumber/rails"
 Cucumber::Rails::Database.autorun_database_cleaner = false
 # require "test_after_commit"
 
-Capybara.register_driver :selenium do |app|
+Capybara.register_driver :selenium_firefox do |app|
   Capybara::Selenium::Driver.new(app, browser: :firefox)
 end
-Capybara.default_driver = :selenium
+
+Capybara.register_driver :selenium_headless_chrome do |app|
+  Capybara::Selenium::Driver.load_selenium
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.args << "--headless"
+  browser_options.args << "--disable-gpu"
+  # Sandbox cannot be used inside unprivileged Docker container
+  browser_options.args << "--no-sandbox"
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+end
+
+Capybara.server = :puma, { Threads: "0:1" }
+
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w[headless disable-gpu no-sandbox] }
+  )
+
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+  )
+end
+Capybara.default_driver = :selenium_firefox
+
+Capybara.javascript_driver =  :selenium_firefox
+# Capybara.server = :webrick
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
-Capybara.default_max_wait_time = 30
+Capybara.default_max_wait_time = 20
 Cardio.config.paging_limit = 10
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how

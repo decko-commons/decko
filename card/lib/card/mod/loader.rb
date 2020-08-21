@@ -1,23 +1,19 @@
 # -*- encoding : utf-8 -*-
 
-require_dependency "card/set"
-require_dependency "card/set_pattern"
-require_dependency "card/mod/loader/set_loader"
-require_dependency "card/mod/loader/set_pattern_loader"
-
 class Card
   module Mod
     # Card::Mod::Loader is used to load all part of a mod,
     # i.e. initializers, patterns, formats, chunks, layouts and sets
+    # cards are not accessible at this point
 
     # A Loader object provides tools for generating and loading sets and set patterns,
     # each of which are typically written using a Decko DSL.
 
     # The mods are given by a Mod::Dirs object.
     # SetLoader can use three different strategies to load the set modules.
-
     class Loader
-      def initialize(load_strategy=:eval, mod_dirs=nil)
+      def initialize load_strategy: nil, mod_dirs: nil
+        load_strategy ||= Cardio.config.load_strategy
         mod_dirs ||= Mod.dirs
         klass = load_strategy_class load_strategy
         @load_strategy = klass.new mod_dirs, self
@@ -25,9 +21,9 @@ class Card
 
       def load_strategy_class load_strategy
         case load_strategy
-          when :tmp_files     then LoadStrategy::TmpFiles
-          when :binding_magic then LoadStrategy::BindingMagic
-          else                     LoadStrategy::Eval
+        when :tmp_files     then LoadStrategy::TmpFiles
+        when :binding_magic then LoadStrategy::BindingMagic
+        else                     LoadStrategy::Eval
         end
       end
 
@@ -35,17 +31,24 @@ class Card
         @load_strategy.load_modules
       end
 
-
       class << self
         attr_reader :module_type
 
         def load_mods
-          SetPatternLoader.new.load
           load_formats
-          SetLoader.new.load
+          Card::Mod::Loader::SetPatternLoader.new.load
+          Card::Mod::Loader::SetLoader.new.load
+          Card::Set.process_base_modules
           load_initializers
-          # rescue
-          # raise Card::Error, "unrescued error loading mods"
+        end
+
+        def reload_sets
+          Card::Set::Pattern.reset
+          Card::Set.reset_modules
+          Card::Mod::Loader::SetPatternLoader.new.load
+          Card::Mod::Loader::SetLoader.new(
+            patterns: Card::Set::Pattern.nonbase_loadable_codes
+          ).load
         end
 
         def load_chunks
@@ -54,23 +57,11 @@ class Card
           end
         end
 
-        def load_layouts
-          hash = {}
-          Mod.dirs.each(:layout) do |dirname|
-            Dir.foreach(dirname) do |filename|
-              next if filename =~ /^\./
-              layout_name = filename.gsub(/\.html$/, "")
-              hash[layout_name] = File.read File.join(dirname, filename)
-            end
-          end
-          hash
-        end
-
         def module_class_template
           const_get :Template
         end
 
-        private
+        # private
 
         def load_initializers
           Card.config.paths["mod/config/initializers"].existent.sort.each do |initializer|
@@ -91,7 +82,9 @@ class Card
         def load_dir dir
           Dir["#{dir}/*.rb"].sort.each do |file|
             # puts Benchmark.measure("from #load_dir: rd: #{file}") {
-            require_dependency file
+            # require file
+            # "require" breaks the reloading in development env
+            load file
             # }.format('%n: %t %r')
           end
         end

@@ -20,6 +20,7 @@ Decko::Engine.routes.draw do
 
   # Alternate GET requests
   get "new/:type" => "card#read", view: "new" # common case for card without mark
+  get "type/:type" => "card#read"
   get ":mark/view/:view(.:format)" => "card#read" # simplifies API documentation
   get "card/:view(/:mark(.:format))" => "card#read", view: /new|edit/ # legacy
 
@@ -43,6 +44,9 @@ Decko::Engine.routes.draw do
   match "(card)/create(/:mark(.:format))" => "card#create", via: %i[post patch]
   match "(card)/update(/:mark(.:format))" => "card#update", via: %i[post put patch]
   match "(card)/delete(/:mark(.:format))" => "card#delete", via: :delete
+
+  # for super-lazy under-achievers
+  get ":mark/:view(.:format)" => "card#read"
 
   # Wildcard for bad addresses
   get "*mark" => "card#read", view: "bad_address"

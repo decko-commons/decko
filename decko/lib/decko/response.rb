@@ -1,9 +1,13 @@
 module Decko
   # methods for managing decko responses
   module Response
+    def response_format
+      @response_format ||= format_name_from_params
+    end
+
     private
     def respond format, result, status
-      if status == 302
+      if status.in? [302, 303]
         hard_redirect result
       elsif format.is_a?(Card::Format::FileFormat) && status == 200
         send_file(*result)
@@ -16,8 +20,22 @@ module Decko
       render body: body, status: status, content_type: content_type
     end
 
+    def redirect_cud_success success
+      redirect_type = success.redirect || default_cud_success_redirect_type
+      if redirect_type.to_s == "soft"
+        success.target ||= self
+        soft_redirect success
+      else
+        hard_redirect success.to_url, 303
+      end
+    end
+
+    def default_cud_success_redirect_type
+      Card::Env.ajax? ? "soft" : "hard"
+    end
+
     # return a redirect response
-    def hard_redirect url
+    def hard_redirect url, status=302
       url = card_url url # make sure we have absolute url
       if Card::Env.ajax?
         # lets client reset window location
@@ -25,18 +43,23 @@ module Decko
         # formerly used 303 response, but that gave IE the fits
         render json: { redirect: url }
       else
-        redirect_to url
+        redirect_to url, status: status
       end
     end
 
     # return a standard GET response directly.
     # Used in AJAX situations where PRG pattern is unwieldy
     def soft_redirect success
+      # Card::Cache.renew
       @card = success.target
       require_card_for_soft_redirect!
       self.params = Card::Env[:params] = soft_redirect_params
       load_action
       show
+    end
+
+    def reload
+      render json: { reload: true }
     end
 
     def soft_redirect_params
@@ -53,11 +76,20 @@ module Decko
 
     # (obviously) deprecated
     def send_deprecated_asset
-      filename = [params[:mark], params[:format]].join(".")
-      # for security, block relative paths
-      raise Card::Error::BadAddress if filename.include? "../"
+      filename = [params[:mark], params[:format]].compact.join(".")
+      send_file asset_file_path(filename), x_sendfile: true
+    end
+
+    def asset_file_path filename
       path = Decko::Engine.paths["gem-assets"].existent.first
-      send_file File.join(path, filename), x_sendfile: true
+      path = File.join path, filename
+      validate_path filename, path
+      path
+    end
+
+    def validate_path filename, path
+      # for security, block relative paths
+      raise Card::Error::BadAddress if filename.include?("../") || !::File.exist?(path)
     end
 
     # TODO: everything below should go in a separate file
@@ -65,12 +97,19 @@ module Decko
     # Both this file and that would make sense as submodules of CardController
 
     def load_format
-      request.format = :html if Card::Env.ajax? && !params[:format]
-      card.format format_name_from_params
+      request.format = :html if implicit_html?
+      card.format response_format
+    end
+
+    def implicit_html?
+      (Card::Env.ajax? && !params[:format]) || request.format.to_s == "*/*"
     end
 
     def format_name_from_params
-      explicit_file_format? ? :file : request.format.to_sym
+      if explicit_file_format?       then :file
+      elsif params[:format].present? then params[:format].to_sym
+      else                                request.format.to_sym
+      end
     end
 
     def explicit_file_format?
@@ -104,11 +143,12 @@ module Decko
     end
 
     def home_mark
-      Card.global_setting(:home) || "Home"
+      Card::Rule.global_setting(:home) || "Home"
     end
 
     def view_does_not_require_name?
-      Card::Format.tagged params[:view], :unknown_ok
+      return false unless (view = params[:view]&.to_sym)
+      Card::Set::Format::AbstractFormat::ViewOpts.unknown_ok[view]
     end
 
     # alters params

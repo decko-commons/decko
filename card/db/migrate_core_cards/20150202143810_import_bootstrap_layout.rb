@@ -11,18 +11,18 @@ class ImportBootstrapLayout < Card::Migration::Core
 
     import_json "bootstrap_layout.json" # , pristine: true, output_file: nil
     if layout && layout.pristine? && (all = Card[:all])
-      layout_rule_card = all.fetch trait: :layout
-      style_rule_card  = all.fetch trait: :style
+      layout_rule_card = all.fetch :layout
+      style_rule_card  = all.fetch :style
       if layout_rule_card.pristine? && style_rule_card.pristine?
-        layout_rule_card.update_attributes! content: "[[Default Layout]]"
+        layout_rule_card.update! content: "[[Default Layout]]"
         if style_rule_card.item_name == "customized classic skin"
           Card.create! name: "customized bootstrap skin", type: "Skin",
                        content: "[[classic bootstrap skin]]\n[[*css]]"
-          style_rule_card.update_attributes!(
+          style_rule_card.update!(
             content: "[[customized bootstrap skin]]"
           )
         else
-          style_rule_card.update_attributes!(
+          style_rule_card.update!(
             content: "[[classic bootstrap skin]]"
           )
         end
@@ -70,7 +70,7 @@ class ImportBootstrapLayout < Card::Migration::Core
         nest.explicit_view =
           nest.options[:nest_name] == "_main" ? "open" : "core"
       end
-      lcard.update_attributes! content: lcontent.to_s
+      lcard.update! content: lcontent.to_s
     end
 
     Card::Cache.reset_all

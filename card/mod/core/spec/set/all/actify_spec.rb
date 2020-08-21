@@ -10,6 +10,49 @@ RSpec.describe "act API" do
                 }
   end
 
+  describe "#act" do
+    let(:card) { Card["A"] }
+
+    before do
+      allow(card).to receive(:act).and_return nil
+    end
+
+    it "is called by valid?" do
+      card.valid?
+      expect(card).to have_received :act
+    end
+
+    it "is called by #save!" do
+      card.save!
+      expect(card).to have_received :act
+    end
+
+    it "is called by #save" do
+      card.save
+      expect(card).to have_received :act
+    end
+
+    it "is called by #update" do
+      card.update content: "A"
+      expect(card).to have_received :act
+    end
+
+    it "is called by #update!" do
+      card.update! content: "A"
+      expect(card).to have_received :act
+    end
+
+    it "is called by #update_attributes" do
+      card.update_attributes content: "A"
+      expect(card).to have_received :act
+    end
+
+    it "is called by #update_attributes!" do
+      card.update_attributes! content: "A"
+      expect(card).to have_received :act
+    end
+  end
+
   describe "add subcards" do
     def save_transaction
       @trans = ActiveRecord::Base.connection.current_transaction
@@ -149,7 +192,7 @@ RSpec.describe "act API" do
           expect(name_before_act).to eq("A")
           expect(db_content_before_act).to eq("Alpha [[Z]]")
         end
-        Card["A"].update_attributes! name: "new name"
+        Card["A"].update! name: "new name"
         Delayed::Worker.new.work_off
       end
     end
@@ -173,7 +216,7 @@ RSpec.describe "act API" do
         test_event :integrate_with_delay, changed: :content do
           event_called :iwd_content
         end
-        Card["A"].update_attributes! name: "new name"
+        Card["A"].update! name: "new name"
         Delayed::Worker.new.work_off
         expect(@called_events).to eq(%i[i_name iwd_name])
       end

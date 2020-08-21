@@ -64,20 +64,16 @@ de:
       set:
         format:
           exception_alias_fail: cannot find %{optview} view in %{optmod}; failed to alias %{view} in %{self}
-  spec:
-    lib:
-      card:
-       stage_director_spec:
-        dont_do_this: tu das nicht  
   mod:
     :core:
       format:
         html_format:
           unknown_layout: "Unbekanntes Layout: %{name}"
           built_in: "Built-in Layouts: %{built_in_layouts}"
+          available_layouts: "Verfügbare Layouts: %{available_layouts}"
       set:
         all:
-          codename: 
+          codename:
             only_admins_codename: cur Administratoren können Codenamen festlegen
             error_code_in_use: codename %{codename} wird bereits benutzt
           event:
@@ -87,7 +83,7 @@ de:
           fetch:
             exception_fetch_arg_skipvirt: "%{func} called with new arguments and %{sv}"
           name_events:
-            error_name_exists: muss eindeutig sein; '%{name}' exisitiert bereits.
+            error_name_exists: muss eindeutig sein; '%{name}' existiert bereits.
             error_too_long: ist zu lang (%{length} Zeichen; erlaubt sind maximal 255)
             error_blank_name: darf nicht frei bleiben
             error_blank_key: darf nicht frei bleiben
@@ -194,7 +190,7 @@ de:
           json:
             invalid_json: invalid json
     :bootstrap:
-      set: 
+      set:
         type:
             customized_bootswatch_skin:
               not_valid_theme: kein gültiges Thema %{theme_name}
@@ -296,7 +292,7 @@ de:
           error:
             unsupported_view: Ansicht (%{view}) nicht unterstützt für %{cardname}
             not_found_named: Konnte %{cardname} nicht finden.
-            not_found_no_name: Konnte die geforderte Karte nicht finden
+            not_found_no_name: die geforderte Karte
             server_error: "\nWagn Störung!  Server Error. Ups, entschuldige bitte.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
             se_hitch: 'Wagn Störung :('
             se_sorry: Server Error. Yuck, sorry about that.
@@ -346,9 +342,9 @@ de:
               sign_up: registrieren
               read_only: Wir sind im Moment im Nur-Lese-Modus. Versuche es später noch einmal.
               sorry: Sorry!
-              need_permission_task: You need permission to %{task} this.
+              need_permission_task: Sie habe nicht die Berechtigung, %{task}.
               to_do_that: das zu tun
-              denied_task: zu %{denied_task} dies
+              denied_task: dies zu %{denied_task}
             form:
               unsupported_action_class: "unsupported card_form action class: %{actionclass}"
               submit: Speichern
@@ -449,15 +445,9 @@ de:
           cardtype:
             cards_exist: Entschuldigung, diese Karten muss ein Kartentyp bleiben, solange es noch %{cardname}-Karten gibt.
             add_card: Füge %{cardname} hinzu
+            configure_card: Configuriere %{cardname}
             error_cant_alter: kann dieseh Typ nicht ändern; es gibt noch %{name}-Karten
             error_invalid_character_in_cardtype: "die folgenden Zeichen sind nicht erlaubt: %{banned}"
-          list:
-            type_right: benötigt einen Kartentypnamen als rechten Teil
-            conflict_item_type: name conflicts with list items' type; delete content first
-            only_type_allowed: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
-          listed_by:
-            cardtype_right: benötigt einen Kartentypnamen als rechten Teil
-            only_type: "%{cardname} hat falschen Kartentyp; nur Karten mit Typ %{cardtype} sind erlaubt"
           number:
             not_numeric: "'%{content}' ist nicht numerisch"
           search_type:
@@ -485,9 +475,8 @@ de:
       set:
         right:
           account:
-            error_not_allowed: nicht erlaubt für diese Karte
-            sorry_email_reset: Entschuldigung, %{error_msg}. Please check your email for a new password reset link.
-            required: erforderlich
+            events:
+              sorry_email_reset: Entschuldigung, %{error_msg}. Please check your email for a new password reset link.
           email:
             error_invalid_address: ungültige Adresse
             search_email_duplicate: E-Mail-Duplikat? (%{content})
@@ -507,7 +496,7 @@ de:
             db_card: Database Card Inspect
           status:
             deny_not_change_own_account: Du bist nicht berechtigt den Status deines eigenen Accounts zu ändern.
-          token:
+          api_key:
             private_data: Private data
             error_token_not_found: kein Token gefunden
             error_token_expired: Token abgelaufen
@@ -530,18 +519,21 @@ de:
             error_unknown_email: Unbekannte E-Mail-Adresse.
             error_not_active: Entschuldigung, der Account ist nicht aktiviert.
             error_wrong_password: Falsches Passwort
-            abort_bad_signin_args: ungültige Anmeldedaten
+            error_blank: fehlt
+            email_missing: E-Mail-Addresse fehlt
+            password_missing: Passwort fehlt
             error_not_active: nicht aktiviert
             error_not_recognized: unbekannt
         type:
           signup:
-            sign_up: Registrieren
-            invite: Einladen
+            views:
+              sign_up: Registrieren
+              invite: Einladen
+              missing_account: "ERROR: Signup-Karte ohne Account"
             send_invite: Sende Einladung
             first_last_help: üblicherweise Vor- und Nachname
             signed_up_on: "%{name} hat sich registriert am %{date}"
             was_signed_up_on: "%{name} wurde registriert am %{date}"
-            missing_account: "ERROR: Signup-Karte ohne Account"
             send: Senden
             resend: Wieder senden
             verification: Eine E-Mail zur Verifikation wurde verschickt.
@@ -580,8 +572,9 @@ de:
           admin_info:
             email_off: E-Mail-Versand ist ausgeschaltet. Ändere die Einstellungen in %{path}, damit Benachrichtigungen verschickt werden, wenn sich neue Nutzer registrieren.
             admin_warn: ADMINISTRATOR WARNUNG
-            captcha_temp: Dein Deck arbeitet mit provisorischen Captcha-Einstellungen. Das ist kein Problem für eine lokale Installation, aber falls du diese Seite online stellst, benötigst Du neue Recaptcha-Schlüssel.
-            captcha_keys: Dein Deck ist so konfiguriert, dass es [[*captcha]] nutzt, aber damit das funktioniert, benötigst Du neue Recaptcha-Schlüssel.
+            captcha_temp: Dein Deck arbeitet mit provisorischen Captcha-Einstellungen. Das ist kein Problem für eine lokale Installation, aber falls du diese Seite online stellst, benötigst Du neue %{recaptcha_link}.
+            captcha_keys: Dein Deck ist so konfiguriert, dass es %{captcha_link} nutzt, aber damit das funktioniert, benötigst Du neue %{recaptcha_link}.
+            recaptcha_keys: Recaptcha-Schlüssel
             instructions: Anleitungen
             howto_add_keys: "Neue Recaptcha-Schlüssel hinzufügen:"
             howto_register: Registriere deine Domain bei %{recaptcha_link}
@@ -589,4 +582,13 @@ de:
             howto_turn_off: 'Captcha ausschalten:'
             howto_go: Gehe zu %{captcha_card}
             howto_update: Ändere alle *captcha-Regeln zu "no".
-
+    :pointer:
+      set:
+        type:
+          mirrored_list:
+            cardtype_right: benötigt einen Kartentypnamen als rechten Teil
+            conflict_item_type: name conflicts with list items' type; delete content first
+            only_type_allowed: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
+          mirror_listed:
+            cardtype_right: benötigt einen Kartentypnamen als rechten Teil
+            only_type: "%{cardname} hat falschen Kartentyp; nur Karten mit Typ %{cardtype} sind erlaubt"

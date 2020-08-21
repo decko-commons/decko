@@ -63,12 +63,18 @@ format do
   def search_with_rescue query_args
     card.cached_search query_args
   rescue Error::BadQuery => e
+    Rails.logger.info "BadQuery: #{query_args}"
     e
   end
 
-  def implicit_item_view view_from_query_params=nil
-    view = voo_items_view || view_from_query_params || default_item_view
-    Card::View.canonicalize view
+  def implicit_item_view
+    view = voo_items_view || item_view_from_query || default_item_view
+    Card::View.normalize view
+  end
+
+  # override if query can specify item view
+  def item_view_from_query
+    nil
   end
 
   def with_results

@@ -18,7 +18,7 @@ Feature: Conflict
     And I wait a sec
     And I am signed in as Joe Admin
     And I close window
-    And I submit
+    And I press "Save and Close"
     Then I should see "Conflict!"
     And I should see "Joe User has also been making changes."
     And I should see "Oliver " in color green
@@ -32,7 +32,7 @@ Feature: Conflict
     And I wait a sec
     And I am signed in as Joe Admin
     And I close window
-    And I submit
+    And I press "Save and Close"
     Then I should see "Conflict!"
     #And I should see "No difference between your changes and Joe User's version."
 

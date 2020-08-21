@@ -86,17 +86,7 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    it "is granted to admin if to anybody" do
-      Card::Auth.as_bot do
-        c1 = Card["c1"]
-        Card.create! name: "c1+*self+*comment", type: "Pointer",
-                     content: "[[r1]]"
-        expect(c1.who_can(:comment)).to eq([Card["r1"].id])
-        expect(c1.ok?(:comment)).to be_truthy
-      end
-    end
-
-    it "reader setting" do
+    it "reader setting", aggregate_failures: true do
       Card.where(trash: false).each do |ca|
         rule_id, rule_class = ca.permission_rule_id_and_class :read
         expect(ca.read_rule_class).to eq(rule_class),
@@ -108,22 +98,24 @@ RSpec.describe Card::Set::All::Permissions do
 
     it "write user permissions" do
       Card::Auth.as_bot do
-        @u1.fetch(trait: :roles, new: {}).items = [@r1, @r2]
-        @u2.fetch(trait: :roles, new: {}).items = [@r1, @r3]
-        @u3.fetch(trait: :roles, new: {}).items = [@r1, @r2, @r3]
-
         (1..3).map do |num|
           Card.create name: "c#{num}+*self+*update", type: "Pointer",
                       content: "[[u#{num}]]"
         end
+
+        Card::Cache.renew
+
+        @u1.fetch(:roles, new: {}).items = [@r1, @r2]
+        @u2.fetch(:roles, new: {}).items = [@r1, @r3]
+        @u3.fetch(:roles, new: {}).items = [@r1, @r2, @r3]
       end
 
-      @c1 = Card["c1"]
+      @c1 = Card["c1"].refresh(true)
       assert_not_locked_from(@u1, @c1)
       assert_locked_from(@u2, @c1)
       assert_locked_from(@u3, @c1)
 
-      @c2 = Card["c2"]
+      @c2 = Card["c2"].refresh(true)
       assert_locked_from(@u1, @c2)
       assert_not_locked_from(@u2, @c2)
       assert_locked_from(@u3, @c2)
@@ -131,14 +123,18 @@ RSpec.describe Card::Set::All::Permissions do
 
     it "read group permissions" do
       Card::Auth.as_bot do
-        @u1.fetch(trait: :roles).items = [@r1, @r2]
-        @u2.fetch(trait: :roles).items = [@r1, @r3]
+        @u1.fetch(:roles).items = [@r1, @r2]
+        @u2.fetch(:roles).items = [@r1, @r3]
 
         (1..3).each do |num|
           Card.create name: "c#{num}+*self+*read", type: "Pointer",
                       content: "[[r#{num}]]"
         end
       end
+
+      @c1 = @c1.refresh(true)
+      @c2 = @c2.refresh(true)
+      @c3 = @c3.refresh(true)
 
       assert_not_hidden_from(@u1, @c1)
       assert_not_hidden_from(@u1, @c2)
@@ -156,7 +152,7 @@ RSpec.describe Card::Set::All::Permissions do
                       content: "[[r#{num}]]"
         end
 
-        @u3.fetch(trait: :roles, new: {}).items = [@r1]
+        @u3.fetch(:roles, new: {}).items = [@r1]
       end
 
       #          u1 u2 u3
@@ -176,9 +172,9 @@ RSpec.describe Card::Set::All::Permissions do
 
     it "read user permissions" do
       Card::Auth.as_bot do
-        @u1.fetch(trait: :roles, new: {}).items = [@r1, @r2]
-        @u2.fetch(trait: :roles, new: {}).items = [@r1, @r3]
-        @u3.fetch(trait: :roles, new: {}).items = [@r1, @r2, @r3]
+        @u1.fetch(:roles, new: {}).items = [@r1, @r2]
+        @u2.fetch(:roles, new: {}).items = [@r1, @r3]
+        @u3.fetch(:roles, new: {}).items = [@r1, @r2, @r3]
 
         (1..3).each do |num|
           Card.create name: "c#{num}+*self+*read", type: "Pointer",
@@ -186,6 +182,8 @@ RSpec.describe Card::Set::All::Permissions do
         end
       end
 
+      @c1 = @c1.refresh(true)
+      @c2 = @c2.refresh(true)
       # NOTE: retrieving private cards is known not to work now.
       # assert_not_hidden_from(@u1, @c1)
       # assert_not_hidden_from(@u2, @c2)
@@ -227,7 +225,7 @@ RSpec.describe Card::Set::All::Permissions do
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
         [@c1, @c2, @c3].each do |c|
-          c.update_attributes content: "WeirdWord"
+          c.update content: "WeirdWord"
         end
         Card.create(name: "c1+*self+*read", type: "Pointer", content: "[[u1]]")
       end
@@ -245,13 +243,12 @@ RSpec.describe Card::Set::All::Permissions do
     end
 
     it "role wql" do
-      # warn "u1 roles #{Card[ @u1.id ].fetch(trait:
-      # :roles).item_names.inspect}"
+      # warn "u1 roles #{Card[ @u1.id ].fetch(roles).item_names.inspect}"
 
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
         [@c1, @c2, @c3].each do |c|
-          c.update_attributes content: "WeirdWord"
+          c.update content: "WeirdWord"
         end
         Card.create(name: "c1+*self+*read", type: "Pointer", content: "[[r3]]")
       end
@@ -262,7 +259,7 @@ RSpec.describe Card::Set::All::Permissions do
         )
       end
       # for Card::Auth.as to be effective, you can't have a logged in user
-      Card::Auth.current_id = nil
+      Card::Auth.signin nil
       Card::Auth.as(@u2) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
           eq(%w[c2 c3])
@@ -374,7 +371,7 @@ RSpec.describe Card::Set::All::Permissions do
     example "changing cardtype needs new cardtype's create permission", with_user: "u2" do
       # u3 can update but not create cardtype b
       c = Card["basicname"]
-      c.update_attributes type: "cardtype_b"
+      c.update type: "cardtype_b"
 
       expect(c.errors[:permission_denied])
         .to include(/You don't have permission to change to this type/)

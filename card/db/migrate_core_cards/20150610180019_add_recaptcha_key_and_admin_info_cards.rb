@@ -29,7 +29,7 @@ class AddRecaptchaKeyAndAdminInfoCards < Card::Migration::Core
   def add_admin_info_to_home_card
     return unless (home = Card[Card[:home].db_content])
     new_content = home.db_content.prepend "{{*admin info|content}}\n"
-    home.update_attributes! content: new_content
+    home.update! content: new_content
   end
 
   def create_recaptcha_settings
@@ -48,10 +48,10 @@ class AddRecaptchaKeyAndAdminInfoCards < Card::Migration::Core
   end
 
   def admin_only args
-    create_or_update args.reverse_merge(type_id: Card::PhraseID)
+    create_or_update! args.reverse_merge(type_id: Card::PhraseID)
     %w(*read *update *delete).each do |perm|
-      create_or_update name: "#{args[:name]}+*self+#{perm}",
-                       content: "[[Administrator]]"
+      create_or_update! name: "#{args[:name]}+*self+#{perm}",
+                        content: "[[Administrator]]"
     end
   end
 end

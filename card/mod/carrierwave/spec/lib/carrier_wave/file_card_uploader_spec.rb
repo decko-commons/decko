@@ -25,13 +25,13 @@ describe CarrierWave::FileCardUploader do
 
       it "returns correct identifier" do
         expect(subject.attachment.db_content)
-          .to eq ":logo/standard.png"
+          .to eq ":logo/standard.svg"
       end
 
       it "handles storage options" do
         subject.last_action_id
         expect(subject.attachment.db_content(storage_type: :local))
-          .to eq "~#{subject.id}/#{subject.last_action_id}.png"
+          .to eq "~#{subject.id}/#{subject.last_action_id}.svg"
       end
     end
 

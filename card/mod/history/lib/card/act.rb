@@ -23,6 +23,8 @@ class Card
                                             class_name: "Card::Action"
     class << self
       # remove all acts that have no card. (janitorial)
+      #
+      # CAREFUL - could still have actions even if act card is gone...
       def delete_cardless
         left_join = "LEFT JOIN cards ON card_acts.card_id = cards.id"
         joins(left_join).where("cards.id IS NULL").delete_all
@@ -39,7 +41,7 @@ class Card
 
       # all acts with actions on a given list of cards
       # @param card_ids [Array of Integers]
-      # @param with_drafts: [true, false] (only shows drafts of current user)
+      # @param with_drafts [true, false] (only shows drafts of current user)
       # @return [Array of Acts]
       def all_with_actions_on card_ids, with_drafts=false
         sql = "card_actions.card_id IN (:card_ids) AND (draft is not true"
@@ -58,6 +60,12 @@ class Card
       def cache
         Card::Cache[Card::Act]
       end
+
+      # used by rails time_ago
+      # timestamp is set by rails on create
+      def timestamp_attributes_for_create
+        super << "acted_at"
+      end
     end
 
     def actor
@@ -67,15 +75,20 @@ class Card
     # the act's primary card
     # @return [Card]
     def card
-      res = Card.fetch card_id, look_in_trash: true, skip_modules: true
-      return res unless res && res.type_id.in?([FileID, ImageID])
-      res.include_set_modules
+      Card.fetch card_id, look_in_trash: true # , skip_modules: true
+
+      # FIXME: if the following is necessary, we need to document why.
+      # generally it's a very bad idea to have type-specific code here.
+
+      # return res unless res&.type_id&.in?([Card::FileID, Card::ImageID])
+      # res.include_set_modules
     end
 
     # list of all actions that are part of the act
     # @return [Array]
     def actions cached=true
       return ar_actions unless cached
+
       self.class.cache.fetch("#{id}-actions") { ar_actions.find_all.to_a }
     end
 
@@ -110,7 +123,7 @@ class Card
     def actions_affecting card
       actions.select do |action|
         (card.id == action.card_id) ||
-          card.includee_ids.include?(action.card_id)
+          card.nestee_ids.include?(action.card_id)
       end
     end
 
@@ -119,12 +132,6 @@ class Card
     # used by before filter
     def assign_actor
       self.actor_id ||= Auth.current_id
-    end
-
-    # used by rails time_ago
-    # timestamp is set by rails on create
-    def self.timestamp_attributes_for_create
-      super << "acted_at"
     end
   end
 end

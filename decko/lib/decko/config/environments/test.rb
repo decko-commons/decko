@@ -10,7 +10,7 @@ Decko.application.class.configure do
   # test suite.  You never need to work with it otherwise.  Remember that
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs.  Don't rely on the data there!
-  config.cache_classes = true
+  config.cache_classes = false
 
   config.assets.enabled = true if Object.const_defined?(:JasmineRails)
 
@@ -65,12 +65,11 @@ Decko.application.class.configure do
   # true in your test
   Delayed::Worker.delay_jobs = false
 
+  config.rescue_all_in_controller = false
   # Use Pry instead of IRB
   silence_warnings do
-    begin
-      require "pry"
-      config.console = Pry
-    rescue LoadError
-    end
+    require "pry"
+    config.console = Pry
+  rescue LoadError
   end
 end

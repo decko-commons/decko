@@ -1,7 +1,10 @@
 
 def standardize_items
-  # noop to override default behavior, which wouldn't let '_left' through and
-  # would therefore break
+  super unless content == "_left"
+end
+
+def options_rule_card
+  Card[:cards_with_account]
 end
 
 format :html do
@@ -17,11 +20,11 @@ format :html do
     end
   end
 
-  view :closed_content, cache: :never do
+  view :one_line_content, cache: :never do
     render_core items: { view: :link }
   end
 
-  view :editor do
+  view :input do
     item_names = inheriting? ? [] : card.item_names
     %(
       #{_render_hidden_content_field}

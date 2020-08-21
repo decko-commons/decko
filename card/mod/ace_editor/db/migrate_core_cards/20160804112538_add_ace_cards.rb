@@ -19,7 +19,7 @@ class AddAceCards < Card::Migration
     create_or_update(
       name: "*Ace+*self+*help",
       content: "Configure [[https://ace.c9.io|ace]], "\
-               "Wagn's default code editor. [[http://wagn.org/ace|more]]"
+               "Wagn's default code editor. [[https://decko.org/ace|more]]"
     )
     ensure_card name: "script: ace", type_id: Card::JavaScriptID,
                 codename: "script_ace"

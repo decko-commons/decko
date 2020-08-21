@@ -54,7 +54,7 @@ RSpec.describe Card::Reference, as_bot: true do
   it "pickup new links on rename" do
     @l = create!("L", "[[Ethan]]")  # no Ethan card yet...
     @e = create!("Earthman")
-    @e.update_attributes! name: "Ethan" # NOW there is an Ethan card
+    @e.update! name: "Ethan" # NOW there is an Ethan card
     #  do we need the links to be caught before reloading the card?
     expect(Card["Ethan"].referers.map(&:name).include?("L")).not_to eq(nil)
   end
@@ -73,11 +73,11 @@ RSpec.describe Card::Reference, as_bot: true do
   end
 
   it "updates referers on rename when requested (case 2)" do
-    card = Card["Administrator Menu+*self+*read"]
+    card = Card["*sidebar+*self+*read"]
     old_refs = Card::Reference.where(referee_id: Card::AdministratorID)
 
     card.update_referers = true
-    card.name = "Administrator Menu+*type+*read"
+    card.name = "*sidebar+*type+*read"
     card.save
 
     new_refs = Card::Reference.where(referee_id: Card::AdministratorID)
@@ -102,7 +102,7 @@ RSpec.describe Card::Reference, as_bot: true do
     expect(lew.reload.content).to eq(correct_content)
 
     ref_types = lew.references_out.order(:id).map(&:ref_type)
-    expect(ref_types).to eq(%w(L L P)), "need partial references!"
+    expect(ref_types).to eq(%w(L L P)) #, "need partial references!"
     actual_referee_ids = lew.references_out.order(:id).map(&:referee_id)
     assert_equal actual_referee_ids, [nil, nil, Card.fetch_id("seed")],
                  'only partial reference to "seeds" should have referee_id'
@@ -110,14 +110,14 @@ RSpec.describe Card::Reference, as_bot: true do
 
   it "update referencing content on rename junction card" do
     @ab = Card["A+B"] # linked to from X, included by Y
-    @ab.update_attributes! name: "Peanut+Butter", update_referers: true
+    @ab.update! name: "Peanut+Butter", update_referers: true
     @x = Card["X"]
     expect(@x.content).to eq("[[A]] [[Peanut+Butter]] [[T]]")
   end
 
   it "update referencing content on rename junction card" do
     @ab = Card["A+B"] # linked to from X, included by Y
-    @ab.update_attributes! name: "Peanut+Butter", update_referers: false
+    @ab.update! name: "Peanut+Butter", update_referers: false
     @x = Card["X"]
     expect(@x.content).to eq("[[A]] [[A+B]] [[T]]")
   end
@@ -175,19 +175,19 @@ RSpec.describe Card::Reference, as_bot: true do
   end
 
   it "handles contextual names in Basic cards" do
-    Card.create type: "Basic", name: "basic w refs", content: "{{_+A}}"
-    Card["A"].update_attributes! name: "AAA", update_referers: true
+    create_basic "basic w refs", "{{_+A}}"
+    Card["A"].update! name: "AAA", update_referers: true
     expect(Card["basic w refs"].content).to eq "{{_+AAA}}"
   end
 
   it "handles contextual names in Search cards" do
-    Card.create type: "Search", name: "search w refs", content: '{"name":"_+A"}'
-    Card["A"].update_attributes! name: "AAA", update_referers: true
+    create_search_type "search w refs", '{"name":"_+A"}'
+    Card["A"].update! name: "AAA", update_referers: true
     expect(Card["search w refs"].content).to eq '{"name":"_+AAA"}'
   end
 
   it "handles commented nest" do
-    c = Card.create name: "nest comment test", content: "{{## hi mom }}"
+    c = create "nest comment test", "{{## hi mom }}"
     expect(c.errors.any?).to be_falsey
   end
 

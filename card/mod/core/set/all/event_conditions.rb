@@ -1,22 +1,95 @@
+Card.action_specific_attributes +=
+  %i[skip_hash full_skip_hash trigger_hash full_trigger_hash]
+
 def event_applies? event
-  return unless set_condition_applies? event.set_module
+  return unless set_condition_applies? event.set_module, event.opts[:changing]
 
   Card::Set::Event::CONDITIONS.all? do |key|
     send "#{key}_condition_applies?", event, event.opts[key]
   end
 end
 
+# force skipping this event for all cards in act
+def skip_event! *events
+  @full_skip_hash = nil
+  events.each do |event|
+    act_skip_hash[event.to_s] = :force
+  end
+end
+
+# force skipping this event for this card only
+def skip_event_in_action! *events
+  events.each do |event|
+    full_skip_hash[event.to_s] = :force
+  end
+end
+
+# force triggering this event (when it comes up) for all cards in act
+def trigger_event! *events
+  @full_trigger_hash = nil
+  events.each do |event|
+    act_trigger_hash[event.to_s] = :force
+  end
+end
+
+# force triggering this event (when it comes up) for this card only
+def trigger_event_in_action! *events
+  events.each do |event|
+    full_trigger_hash[event.to_s] = :force
+  end
+end
+
+# hash form of raw skip setting, eg { "my_event" => true }
+def skip_hash
+  @skip_hash ||= hash_with_value skip, true
+end
+
+def trigger_hash
+  @trigger_hash ||= hash_with_value trigger, true
+end
+
 private
 
-def set_condition_applies? set_module
-  # events on Card are used for testing
-  set_module == Card || singleton_class.include?(set_module)
+def set_condition_applies? set_module, old_sets
+  return true if set_module == Card
+
+  set_condition_card(old_sets).singleton_class.include? set_module
 end
 
 def on_condition_applies? _event, actions
   actions = Array(actions).compact
-  return true if actions.empty?
-  actions.include? @action
+  actions.empty? ? true : actions.include?(@action)
+end
+
+# if changing name/type, the old card has no-longer-applicable set modules, so we create
+# a new card to determine whether events apply.
+# (note: cached condition card would ideally be cleared after all
+# conditions are reviewed)
+# @param old_sets [True/False] whether to use the old_sets
+def set_condition_card old_sets
+  return self if old_sets || no_current_action?
+  @set_condition_card ||=
+    updating_sets? ? set_condition_card_with_new_set_modules : self
+end
+
+# existing card is being changed in a way that alters its sets
+def updating_sets?
+  @action == :update && real? && (type_id_is_changing? || name_is_changing?)
+end
+
+# prevents locking in set_condition_card
+def no_current_action?
+  return false if @current_action
+
+  @set_condition_card = nil
+  true
+end
+
+def set_condition_card_with_new_set_modules
+  cc = Card.find id
+  cc.name = name
+  cc.type_id = type_id
+  cc.include_set_modules
 end
 
 def changed_condition_applies? _event, db_columns
@@ -25,6 +98,7 @@ def changed_condition_applies? _event, db_columns
   return true if db_columns.empty?
   db_columns.any? { |col| single_changed_condition_applies? col }
 end
+alias_method :changing_condition_applies?, :changed_condition_applies?
 
 def when_condition_applies? _event, block
   case block
@@ -34,25 +108,23 @@ def when_condition_applies? _event, block
   end
 end
 
+# "applies always means event can run
+# so if skip_condition_applies?, we do NOT skip
 def skip_condition_applies? event, allowed
-  return true unless allowed == :allowed
-  !skip_event? event
+  return true unless (val = full_skip_hash[event.name.to_s])
+
+  allowed ? val.blank? : (val != :force)
 end
 
 def trigger_condition_applies? event, required
-  return true unless required == :required
-  trigger_event? event
+  return true unless required
+
+  full_trigger_hash[event.name.to_s].present?
 end
 
 def single_changed_condition_applies? db_column
   return true unless db_column
-  db_column =
-    case db_column.to_sym
-    when :content then "db_content"
-    when :type    then "type_id"
-    else db_column.to_s
-    end
-  attribute_is_changing?(db_column)
+  send "#{db_column}_is_changing?"
 end
 
 def wrong_stage opts
@@ -69,22 +141,32 @@ def wrong_action action
   "on: #{action} method #{method} called on #{@action}"
 end
 
-def skip_event? event
-  @names_of_skipped_events ||= skipped_events
-  @names_of_skipped_events.include? event.name
+def full_skip_hash
+  @full_skip_hash ||= act_skip_hash.merge skip_in_action_hash
 end
 
-def skipped_events
-  events = Array.wrap(skip_event_in_action) + Array.wrap(act_card.skip_event)
-  ::Set.new events.map(&:to_sym)
+def act_skip_hash
+  (act_card || self).skip_hash
 end
 
-def trigger_event? event
-  @names_of_triggered_events ||= triggered_events
-  @names_of_triggered_events.include? event.name
+def skip_in_action_hash
+  hash_with_value skip_in_action, true
 end
 
-def triggered_events
-  events = Array.wrap(trigger_event_in_action) + Array.wrap(act_card.trigger_event)
-  ::Set.new events.map(&:to_sym)
+def full_trigger_hash
+  @full_trigger_hash ||= act_trigger_hash.merge trigger_in_action_hash
+end
+
+def trigger_in_action_hash
+  hash_with_value trigger_in_action, true
+end
+
+def act_trigger_hash
+  (act_card || self).trigger_hash
+end
+
+def hash_with_value array, value
+  Array.wrap(array).each_with_object({}) do |event, hash|
+    hash[event.to_s] = value
+  end
 end

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::View do
+RSpec.describe Card::View do
   it "cache gets cleared by Card::Cache.reset_all" do
     Card::View.cache.write "testkey", 1
     expect(Card::View.cache.exist? "testkey").to be_truthy

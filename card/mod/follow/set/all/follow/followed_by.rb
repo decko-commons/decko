@@ -17,17 +17,17 @@ end
 # follow changes of field_card
 def followed_field? field_card
   return unless (follow_field_rule = rule_card(:follow_fields))
+
   follow_field_rule.item_names(context: self).find do |item|
     case item.to_name.key
     when field_card.key         then true
-    when :includes.cardname.key then nested_card?(field_card)
+    when :nests.cardname.key then nested_card?(field_card)
     end
   end
 end
 
 def nested_card? card
-  @nested_ids ||= includee_ids
-  @nested_ids.include? card.id
+  nestee_ids.include? card.id
 end
 
 ## the following methods all handle _explicit_ (direct) follow rules (not fields)
@@ -45,6 +45,7 @@ end
 def all_follow_rule_options follower_id
   follow_rule = rule :follow, user_id: follower_id
   return [] unless follow_rule.present?
+
   follow_rule.split("\n")
 end
 
@@ -64,5 +65,6 @@ end
 
 def follower_candidate_ids_for_option option_code
   return [] unless (block = FollowOption.follower_candidate_ids[option_code])
+
   block.call self
 end

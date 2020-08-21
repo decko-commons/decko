@@ -1,6 +1,3 @@
-require_dependency "card/act_manager/stage_director"
-
-
 class Card
   # Manages the whole process of creating an {act Card::Act} ie. changing
   # a card and attached subcards.
@@ -67,7 +64,7 @@ class Card
   #    the card invalid to save
   # 2) 'secure' means you are sure that the change doesn't affect the validation
   # 3) In all stages except IGwD:
-  #    If you call 'create', 'update_attributes' or 'save' the card will become
+  #    If you call 'create', 'update' or 'save' the card will become
   #    part of the same act and all stage of the validation and storage phase
   #    will be executed immediately for that card. The integration phase will be
   #    executed together with the act card and its subcards.
@@ -77,11 +74,14 @@ class Card
   #    everything will rollback. If the integration phase fails the db changes
   #    of the other two phases will remain persistent.
   class ActManager
-    cattr_accessor :act, :act_card
+    extend EventDelay
 
     class << self
+      attr_accessor :act, :act_card
+
       def act_director
         return unless act_card
+
         act_card.director
       end
 
@@ -91,6 +91,7 @@ class Card
 
       def run_act card
         self.act_card = card
+        # add new_director(card)
         yield
       ensure
         clear
@@ -104,17 +105,31 @@ class Card
         self.act_card = nil
         self.act = nil
         directors.each_pair do |card, _dir|
+          card.expire
           card.director = nil
+          card.clear_action_specific_attributes
         end
+        expire
         @directors = nil
       end
 
+      def expire
+        expirees.each { |expiree| Card.expire expiree }
+        @expirees = []
+      end
+
+      def expirees
+        @expirees ||= []
+      end
+
+      # FIXME: use "parent" instead of opts (it's the only option)
       def fetch card, opts={}
         return directors[card] if directors[card]
+
         directors.each_key do |dir_card|
           return dir_card.director if dir_card.name == card.name && dir_card.director
         end
-        directors[card] = new_director card, opts
+        add new_director(card, opts)
       end
 
       def include? name
@@ -144,11 +159,13 @@ class Card
 
       def card_changed old_card
         return unless (director = @directors.delete old_card)
+
         add director
       end
 
       def delete director
         return unless @directors
+
         @directors.delete director.card
         director.delete
       end
@@ -161,53 +178,11 @@ class Card
       end
 
       def running_act?
-        (dir = act_director) && dir.running?
-      end
-
-      # If active jobs (and hence the integrate_with_delay events) don't run
-      # in a background process then Card::Env.deserialize! decouples the
-      # controller's params hash and the Card::Env's params hash with the
-      # effect that params changes in the CardController get lost
-      # (a crucial example are success params that are processed in
-      # CardController#soft_redirect)
-      def contextualize_delayed_event act_id, card, env, auth
-        if delaying?
-          contextualize_for_delay(act_id, card, env, auth) { yield }
-        else
-          yield
-        end
-      end
-
-      def delaying?
-        const_defined?("Delayed") &&
-          Delayed::Worker.delay_jobs &&
-          Card.config.active_job.queue_adapter == :delayed_job
-      end
-
-      # The whole ActManager setup is gone once we reach a integrate with delay
-      # event processed by ActiveJob.
-      # This is the improvised resetup to get subcards working.
-      def contextualize_for_delay act_id, card, env, auth, &block
-        self.act = Act.find act_id if act_id
-        with_env_and_auth env, auth do
-          return yield unless act
-          run_act(act.card || card) do
-            act_card.director.run_delayed_event act, &block
-          end
-        end
-      end
-
-      def with_env_and_auth env, auth
-        Card::Auth.with auth do
-          Card::Env.with env do
-            yield
-          end
-        end
+        act_director&.running?
       end
 
       def to_s
         act_director.to_s
-        #directors.values.map(&:to_s).join "\n"
       end
     end
   end

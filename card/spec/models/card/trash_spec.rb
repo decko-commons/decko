@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-require "card/action"
-
 RSpec.describe Card, "deleting card" do
   it "requires permission" do
     a = Card["a"]
@@ -41,7 +39,7 @@ end
 #  before do
 #     Card::Auth.as(Card::WagnBotID)
 #     # this ugly setup makes it so A+Admin is the actual user with edits..
-#     Card["Wagn Bot"].update_attributes! name: "A+Wagn Bot"
+#     Card["Wagn Bot"].update! name: "A+Wagn Bot"
 #  end
 #  it "does not be removable" do
 #    @a = Card['A']
@@ -55,7 +53,7 @@ describe Card, "rename to trashed name" do
       @a = Card["A"]
       @b = Card["B"]
       @a.delete!  # trash
-      @b.update_attributes! name: "A", update_referers: true
+      @b.update! name: "A", update_referers: true
     end
   end
 
@@ -133,7 +131,7 @@ describe Card, "recreate trashed card via new" do
   #  end
 end
 
-describe Card, "junction revival" do
+RSpec.describe Card, "junction revival" do
   before do
     Card::Auth.as_bot do
       @c = Card.create! name: "basicname+woot", content: "basiccontent"
@@ -159,18 +157,18 @@ describe Card, "junction revival" do
   end
 end
 
-describe "remove tests" do
+RSpec.describe "remove tests" do
   # I believe this is here to test a bug where cards with certain kinds of references
   # would fail to delete.  probably less of an issue now that delete is done through
   # trash.
   it "test_remove" do
     assert Card["A"].delete!, "card should be deleteable"
-    assert_nil Card["A"]
+    expect(Card["A"]).to be_nil
   end
 
   example "recreate plus card name variant" do
     Card.create(name: "rta+rtb").delete
-    Card["rta"].update_attributes name: "rta!"
+    Card["rta"].update name: "rta!"
     Card.create! name: "rta!+rtb"
     expect(Card["rta!+rtb"]).to be_a Card
     expect(Card["rta!+rtb"].trash).to be_falsey

@@ -17,7 +17,7 @@ gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.versio
 gem 'thin'
 # gem 'unicorn'
 
-# To set up a production webserver, see http://wagn.org/wagn_in_production
+# To set up a production webserver, see https://decko.org/wagn_in_production
 
 
 # BACKGROUNDING
@@ -28,23 +28,31 @@ gem 'thin'
 
 <% if options['mod-dev'] || options['core-dev'] -%>
 group :test do
+  gem 'capybara-puma'
   gem 'rspec'
-  gem 'rspec-rails', '~>3.6.1'         # behavior-driven-development suite
+  gem 'rspec-rails', '~>4.0.0.beta2'         # behavior-driven-development suite
   gem 'spork', '>=0.9'
-  gem 'rubocop'
+  gem 'rubocop', '0.88' # 0.89 introduced bugs. may get resolved in rubocop-decko update?
   gem 'rubocop-decko'
+  gem 'nokogumbo'
+end
+
+group :test, :cypress do
+  gem 'cypress-on-rails', '~> 1.4'
 end
 
 group :test, :development do
+  gem 'colorize'
+  gem 'delayed_job_active_record', '~> 4.1'
   gem 'html2haml'
-  gem 'rails-dev-tweaks'
   # gem 'jasmine'
   # gem 'jasmine-rails'
   # gem 'jasmine-jquery-rails'
   gem 'sprockets' # just so above works
   gem 'phantomjs', '1.9.7.1' #locked because 1.9.8.0 is breaking
-  gem 'colorize'
-  gem 'delayed_job_active_record', '~> 4.1'
+
+  gem 'better_errors'
+  gem 'binding_of_caller'
 
   <%- if spring_install? %>
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -73,7 +81,7 @@ group :assets do
 end
 
 group :test do
-  gem 'fog'
+  gem 'capybara-select2', :git=>'https://github.com/brunocavalcante/capybara-select2'
   gem 'fog-aws'
   gem 'rails-controller-testing'
   gem 'rspec-html-matchers', '0.9.1'
@@ -89,10 +97,10 @@ group :test do
   end
 
   # CUKES see features dir
-  gem 'cucumber-rails', '~> 1.5', :require=>false # feature-driven-development suite
-  gem 'capybara', '~> 2.14'
-  gem 'selenium-webdriver', '3.6.0'
-  gem 'chromedriver-helper', '~> 1.1.0'
+  gem 'cucumber-rails', '~> 1.8.0', :require=>false # feature-driven-development suite
+  gem 'capybara', '~> 3.12'
+  gem 'selenium-webdriver', '3.141.0'
+  gem 'chromedriver-helper', '~> 2.1.0'
   # gem 'capybara-webkit'
   gem 'launchy'                                # lets cucumber launch browser windows
 
@@ -102,18 +110,13 @@ group :test do
   gem 'email_spec'                             #
   gem 'database_cleaner', '~> 1.5 '             # used by cucumber for db transactions
 
-  gem 'turn', :require => false      # Pretty printed test output.  (version constraint is to avoid minitest requirement)
+  # gem 'turn', :require => false      # Pretty printed test output.  (version constraint is to avoid minitest requirement)
   gem 'minitest'
 
   gem 'i18n-tasks', '~> 0.9.5'       # See if I18n keys are missing or unused
 end
 
 gem 'ruby-prof', :group=>:profile  # profiling
-
-group :debug do
-  gem 'better_errors'
-  gem 'binding_of_caller'
-end
 <% end %>
 
 # load gems needed in Gemfiles

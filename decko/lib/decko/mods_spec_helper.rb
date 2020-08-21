@@ -21,3 +21,5 @@ CardSpecLoader.each_run do
 end
 
 CardSpecLoader.helper
+
+Decko::ModsSpecHelper = :needs_a_value_so_spring_loader_is_happy

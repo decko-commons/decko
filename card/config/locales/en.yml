@@ -74,20 +74,16 @@ en:
       set:
         format:
           exception_alias_fail: cannot find %{optview} view in %{optmod}; failed to alias %{view} in %{self}
-  spec:
-    lib:
-      card:
-       stage_director_spec:
-        dont_do_this: don't do this  
   mod:
     :core:
       format:
         html_format:
           unknown_layout: "Unknown layout: %{name}"
           built_in: "Built-in Layouts: %{built_in_layouts}"
+          available_layouts: "Available Layouts: %{available_layouts}"
       set:
         all:
-          codename: 
+          codename:
             only_admins_codename: only admins can set codename
             error_code_in_use: codename %{codename} already in use
           event:
@@ -204,7 +200,7 @@ en:
           json:
             invalid_json: invalid json
     :bootstrap:
-      set: 
+      set:
         type:
             customized_bootswatch_skin:
               not_valid_theme: not a valid theme %{theme_name}
@@ -306,7 +302,7 @@ en:
           error:
             unsupported_view: view (%{view}) not supported for %{cardname}
             not_found_named: Could not find %{cardname}.
-            not_found_no_name: Could not find the card requested
+            not_found_no_name: the card requested
             server_error: "\nWagn Hitch!  Server Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
             se_hitch: 'Wagn Hitch :('
             se_sorry: Server Error. Yuck, sorry about that.
@@ -356,7 +352,7 @@ en:
               sign_up: sign up
               read_only: We are currently in read-only mode.  Please try again later.
               sorry: Sorry!
-              need_permission_task: You need permission to %{task} this.
+              need_permission_task: You need permission %{task}.
               to_do_that: to do that
               denied_task: to %{denied_task} this
             form:
@@ -372,42 +368,6 @@ en:
               account: account
             modal:
               close: Close
-            toolbar:
-              account: account
-              activity: activity
-              all: all
-              autosaved_draft: autosaved draft
-              by_group: by group
-              by_name: by name
-              cancel: cancel
-              card_delete_confirm: Are you sure you want to delete %{cardname}?
-              card_deleted: "%{cardname} deleted"
-              children: children
-              common: common
-              content: content
-              created: created
-              delete: delete
-              details: details
-              discuss: discuss
-              edit: edit
-              edited: edited
-              editors: editors
-              engage: engage
-              follow: follow
-              history: history
-              mates: mates
-              name: name
-              nests: nests
-              pin_pin: pin
-              pin_unpin: unpin
-              recent: recent
-              references_out: references out
-              references_in: references in
-              refresh: refresh
-              roles: roles
-              rules: rules
-              structure: structure
-              type: type
             wrapper:
               close: Close
         rstar:
@@ -459,15 +419,9 @@ en:
           cardtype:
             cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
             add_card: Add %{cardname}
+            configure_card: Configure %{cardname}
             error_cant_alter: can't alter this type; %{name} cards still exist
             error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
-          list:
-            type_right: must have a cardtype name as right part
-            conflict_item_type: name conflicts with list items' type; delete content first
-            only_type_allowed: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
-          listed_by:
-            cardtype_right: must have a cardtype name as right part
-            only_type: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
           number:
             not_numeric: "'%{content}' is not numeric"
           search_type:
@@ -494,13 +448,14 @@ en:
       set:
         type:
           signup:
-            sign_up: Sign up
-            invite: Invite
+            views:
+              sign_up: Sign up
+              invite: Invite
+              missing_account: "ERROR: signup card missing account"
             send_invite: Send Invitation
             first_last_help: usually first and last name
             signed_up_on: "%{name} signed up on %{date}"
             was_signed_up_on: "%{name} was signed up on %{date}"
-            missing_account: "ERROR: signup card missing account"
             send: Send
             resend: Resend
             verification: A verification email has been sent
@@ -522,9 +477,8 @@ en:
             setting_up: Lege an
         right:
           account:
-            error_not_allowed: not allowed on this card
-            sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
-            required: required
+            events:
+              sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
           email:
             error_invalid_address: must be valid address
             search_email_duplicate: email duplicate? (%{content})
@@ -544,7 +498,7 @@ en:
             db_card: Database Card Inspect
           status:
             deny_not_change_own_account: change the status of your own account
-          token:
+          api_key:
             private_data: Private data
             error_token_not_found: no token found
             error_token_expired: expired token
@@ -566,8 +520,10 @@ en:
             check_email: Check your email for a link to reset your password
             error_unknown_email: Unrecognized email.
             error_not_active: Sorry, that account is not active.
+            error_blank: can't be blank
             error_wrong_password: Wrong password
-            abort_bad_signin_args: bad sign in arguments
+            email_missing: email can't be blank
+            password_missing: password can't be blank
             error_not_active: not active
             error_not_recognized: not recognized
     :carrierwave:
@@ -588,8 +544,9 @@ en:
           admin_info:
             email_off: Email delivery is turned off. Change settings in %{path} to send sign up notifications.
             admin_warn: ADMINISTRATOR WARNING
-            captcha_temp: Your captcha is currently working with temporary settings. This is fine for a local installation, but you will need new recaptcha keys if you want to make this site public.
-            captcha_keys: You are configured to use [[*captcha]], but for that to work you need new recaptcha keys.
+            captcha_temp: Your captcha is currently working with temporary settings. This is fine for a local installation, but you will need new %{recaptcha_link} if you want to make this site public.
+            captcha_keys: You are configured to use %{captcha_link}, but for that to work you need new %{recaptcha_link}.
+            recaptcha_keys: recaptcha keys
             instructions: Instructions
             howto_add_keys: "How to add new recaptcha keys:"
             howto_register: Register your domain at %{recaptcha_link}
@@ -597,5 +554,55 @@ en:
             howto_turn_off: 'How to turn captcha off:'
             howto_go: Go to %{captcha_card}
             howto_update: Update all *captcha rules to "no".
+    :pointer:
+      set:
+        type:
+          mirrored_list:
+            cardtype_right: must have a cardtype name as right part
+            conflict_item_type: name conflicts with list items' type; delete content first
+            only_type_allowed: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
+          mirror_list:
+            cardtype_right: must have a cardtype name as right part
+            only_type: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
+    :edit:
+      set:
+        all:
+          bridge:
+            tab_views:
+               account: account
+               activity: activity
+               all: all
+               autosaved_draft: autosaved draft
+               by_group: by group
+               by_name: by name
+               cancel: cancel
+               card_delete_confirm: Are you sure you want to delete %{cardname}?
+               card_deleted: "%{cardname} deleted"
+               children: children
+               common: common
+               content: content
+               created: created
+               delete: delete
+               details: details
+               discuss: discuss
+               edit: edit
+               edited: edited
+               editors: editors
+               engage: engage
+               follow: follow
+               history: history
+               mates: mates
+               name: name
+               nests: nests
+               pin_pin: pin
+               pin_unpin: unpin
+               recent: recent
+               references_out: references out
+               references_in: references in
+               refresh: refresh
+               roles: roles
+               rules: rules
+               structure: structure
+               type: type
 
 

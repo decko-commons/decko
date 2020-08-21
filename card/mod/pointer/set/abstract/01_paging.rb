@@ -18,11 +18,17 @@ format do
   end
 
   def total_pages
+    return 1 if limit.zero?
     ((count_with_params - 1) / limit).to_i
   end
 
   def current_page
     (offset / limit).to_i
+  end
+
+  # for override
+  def extra_paging_path_args
+    {}
   end
 end
 
@@ -66,6 +72,7 @@ format :html do
 
   def page_link text, page, options
     return content_tag(:div, text.html_safe, class: "page-link") unless page
+
     options.merge! class: "card-paging-link slotter page-link",
                    remote: true,
                    path: page_link_path_args(page)
@@ -82,12 +89,7 @@ format :html do
 
   def paging_path_args local_args={}
     @paging_path_args ||= {}
-    @paging_path_args.reverse_merge!(
-      limit: limit,
-      offset: offset,
-      view: paging_view,
-      slot: voo.slot_options
-    )
+    @paging_path_args.reverse_merge!(limit: limit, offset: offset)
     @paging_path_args.merge! extra_paging_path_args
     @paging_path_args.merge local_args
   end
@@ -96,17 +98,10 @@ format :html do
     paging_path_args.merge offset: page * limit
   end
 
-  def paging_view
-    (voo && voo.home_view) || voo.slot_options[:view] || :content
-  end
-
-  def extra_paging_path_args
-    {}
-  end
-
   def paging_needed?
     return false if limit < 1
     return false if fewer_results_than_limit? # avoid extra count search
+
     # count search result instead
     limit < count_with_params
   end
@@ -114,6 +109,7 @@ format :html do
   # clear we don't need paging even before running count query
   def fewer_results_than_limit?
     return false unless offset.zero?
+
     limit > offset + search_with_params.length
   end
 end
@@ -125,11 +121,12 @@ format :json do
       offset: page * limit,
       item: default_item_view, # hack. need standard voo handling
       format: :json
-    }
+    }.merge extra_paging_path_args
   end
 
-  def paging_urls
+  view :paging_urls, cache: :never do
     return {} unless total_pages > 1
+
     { paging: paging_urls_hash }
   end
 
@@ -144,6 +141,7 @@ format :json do
 
   def add_paging_url hash, page, status
     return unless page && status.in?(%i[next previous])
+
     hash[status] = path page_link_path_args(page)
   end
 end

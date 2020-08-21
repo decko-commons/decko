@@ -1,5 +1,5 @@
 format do
-  include Card::Set::Format::HamlViews
+  include Card::Set::Format::HamlPaths
 
   define_method :the_scope do
     set_scope
@@ -11,7 +11,7 @@ format do
 
   # Renders haml templates. The haml template can be passed as string or
   # block or a symbol that refers to a view template.
-  # @param  template_or_locals [Hash, String, Symbol]
+  # @param args [Hash, String, Symbol]
   #   If a symbol is given then a template is expected in the corresponding view
   #   directory.
   # @return [String] rendered haml as HTML
@@ -58,10 +58,11 @@ format do
     haml_to_html(*args)
   end
 
-  def process_haml_template template_name, locals={}
+  def process_haml_template template_name, *args
+    locals = args.first || {}
     path = identify_template_path template_name, locals
     with_template_path path do
-      haml_to_html ::File.read(path), locals
+      haml_to_html ::File.read(path), *args
     end
     # rescue => e
     #   raise Card::Error, "HAML error #{template_name}: #{e.message}\n#{e.backtrace}"

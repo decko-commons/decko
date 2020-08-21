@@ -9,6 +9,7 @@ class Card
       # array takes form [ [referer_id, referee_id, referee_key, ref_type], ...]
       def mass_insert array
         return if array.empty?
+
         value_statements = array.map { |values| "\n(#{values.join ', '})" }
         sql = "INSERT into card_references "\
               "(referer_id, referee_id, referee_key, ref_type) "\

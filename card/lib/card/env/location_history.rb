@@ -11,6 +11,7 @@ class Card
 
       def save_location card
         return unless save_location?(card)
+
         discard_locations_for card
         session[:previous_location] =
           Env::Location.card_path card.name.url_key
@@ -23,6 +24,7 @@ class Card
 
       def previous_location
         return unless location_history
+
         session[:previous_location] ||= location_history.last
       end
 
@@ -45,7 +47,7 @@ class Card
       end
 
       def url_key_for_location location
-        (%r{/([^/]*$)} =~ location) ? Regexp.last_match[1] : nil
+        %r{/([^/]*$)} =~ location ? Regexp.last_match[1] : nil
       end
     end
   end

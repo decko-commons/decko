@@ -1,19 +1,17 @@
+FOLLOW_TABS = { "Follow" => "follow_tab", "Ignore" => "ignore_tab" }.freeze
+
 # a virtual pointer to the sets that a user is following.
 # (data is stored in preferences: `[Set]+[User]+:follow`)
 
 include_set Abstract::Pointer
 def virtual?
-  !real?
+  new?
 end
-
-# def content
-#   item_names.map { |name| "[[#{name}]]" }
-# end
 
 # overrides pointer default
 def item_names _args={}
   if (user = left)
-    Card.preference_names user.name, "follow"
+    Card::Rule.preference_names user.name, "follow"
   else
     []
   end
@@ -28,7 +26,7 @@ def current_user?
 end
 
 format :html do
-  view :closed_content do
+  view :one_line_content do
     ""
   end
 
@@ -38,8 +36,7 @@ format :html do
 
   # renders follow tab and ignore tab
   view :core do
-    lazy_loading_tabs({ "follow_tab" => "Follow", "ignore_tab" => "Ignore" },
-                      "follow_tab") do
+    tabs FOLLOW_TABS, "follow_tab", load: :lazy do
       render_follow_tab
     end
   end
@@ -52,6 +49,10 @@ format :html do
     haml :follow_editor, items_method: :ignoring_rules_and_options
   end
 
+  def show_button?
+    card.current_user? || Auth.always_ok?
+  end
+
   def pointer_items args
     voo.items[:view] ||= :link
     super(args)
@@ -61,6 +62,7 @@ format :html do
   # this does not look specific to following!
   view :errors, perms: :none do
     return unless card.errors.any?
+
     if card.errors.find { |attrib, _msg| attrib == :permission_denied }
       Env.save_interrupted_action(request.env["REQUEST_URI"])
       voo.title = "Problems with #{card.name}"

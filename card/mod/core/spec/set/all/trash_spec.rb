@@ -7,9 +7,11 @@ describe Card, "deleted card" do
       @c.delete!
     end
   end
+
   it "is in the trash" do
     expect(@c.trash).to be_truthy
   end
+
   it "comes out of the trash when a plus card is created" do
     Card::Auth.as_bot do
       Card.create(name: "A+*acct")
@@ -35,7 +37,7 @@ describe Card::Set::All::Trash do
     expect(Card["slowly"]).to be_a Card
     expect(Card["without regrets"]).to be_a Card
 
-    trashed_dependant = Card.find_by_name "born to die+slowly+without regrets"
+    trashed_dependant = Card.find Card::Lexicon.id("born to die+slowly+without regrets")
     expect(trashed_dependant.trash).to be_truthy
   end
 
@@ -66,7 +68,7 @@ describe Card::Set::All::Trash do
     # @signup =
     #   create_signup "born to die",
     #                 "+*account" => { "+*email" => "wolf@wagn.org", "+*password" => "wolf" }
-    # @signup.update_attributes!({})
+    # @signup.update!({})
     # Card::Cache.reset_all
     #
     # Card::Auth.as_bot do
@@ -95,8 +97,10 @@ describe Card::Set::All::Trash do
 
       context "without edits" do
         it "is removable" do
-          expect { Card["Sample User"].delete! }
-            .not_to raise_error
+          Card::Auth.as "joe_admin" do
+            expect { Card["Sample User"].delete! }
+              .not_to raise_error
+          end
         end
       end
     end

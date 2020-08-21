@@ -21,9 +21,10 @@ end
 
 Given /^I am signed out$/ do
   visit "/"
-  step 'I follow "Sign out"' if page.has_content? "Sign out"
+  click_link("Sign out") if page.has_content? "Sign out"
 end
 
 Then /^"([^"]*)" should be signed in$/ do |user| # "
   has_css?(".my-card-link", text: user)
 end
+

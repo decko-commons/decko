@@ -1,7 +1,6 @@
 attr_writer :bucket, :storage_type
 
-event :storage_type_change, :store,
-      on: :update, when: :storage_type_changed? do
+event :storage_type_change, :store, on: :update, when: :storage_type_changed? do
   # carrierwave stores file if @cache_id is not nil
   attachment.cache_stored_file!
   # attachment.retrieve_from_cache!(attachment.cache_name)
@@ -31,8 +30,8 @@ event :validate_storage_type_update, :validate, on: :update do
   # FIXME: make it possible to retrieve the file from cloud storage
   #   to store it somewhere else. Currently, it only works to change the
   #   storage type if a new file is provided
-  #   i.e. `update_attributes storage_type: :local` fails but
-  #        `update_attributes storage_type: :local, file: [file handle]` is ok
+  #   i.e. `update storage_type: :local` fails but
+  #        `update storage_type: :local, file: [file handle]` is ok
   if cloud? && storage_type_changed? && !attachment_is_changing?
     errors.add :storage_type, tr(:moving_files_is_not_supported)
   end

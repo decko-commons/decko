@@ -14,7 +14,7 @@ class UpdateFileHistory < Card::Migration::Core
           else
             "~#{card.id}/#{action_id}#{::File.extname(original_filename)}"
           end
-        content_change.update_attributes! value: value
+        content_change.update! value: value
       end
     end
     Card.search(right: { codename: "machine_output" }).each(&:delete!)

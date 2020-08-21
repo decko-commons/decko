@@ -2,6 +2,7 @@
 
 RSpec.describe Card::Set::Type::File do
   DIRECTORY = "deckodev-test"
+  ENV["STORE_CODED_FILES"] = "true"
 
   def test_file no=1
     File.new(File.join(CARD_TEST_SEED_PATH, "file#{no}.txt"))
@@ -32,7 +33,7 @@ RSpec.describe Card::Set::Type::File do
   let(:unprotected_file) do
     create_file_card :local, test_file(2), codename: nil
   end
-  let(:coded_file) { Card[:logo] }
+  let(:coded_file) { Card[:yeti_skin_image] }
   let(:web_file) do
     Card::Auth.as_bot do
       Card.create! name: "file card", type_id: Card::FileID,
@@ -90,9 +91,9 @@ RSpec.describe Card::Set::Type::File do
     context "storage type: coded" do
       subject { source_view coded_file }
 
-      it "renders protected url to be processed by wagn" do
+      it "renders protected url to be processed by decko" do
         is_expected.to(
-          eq "/files/:#{coded_file.codename}/standard-medium.png"
+          eq "/files/:#{coded_file.codename}/bootstrap-medium.png"
         )
       end
     end
@@ -225,8 +226,7 @@ RSpec.describe Card::Set::Type::File do
           Card::Mod.dirs.mods.delete "test_mod"
         end
         subject do
-          create_file_card :coded, test_file,
-                           codename: "mod_file", mod: "test_mod"
+          create_file_card :coded, test_file, codename: "mod_file", mod: "test_mod"
         end
 
         let(:file_path) { File.join mod_path, "file", "mod_file", "file.txt" }
@@ -328,7 +328,7 @@ RSpec.describe Card::Set::Type::File do
   context "updating" do
     subject do
       card = protected_file
-      card.update_attributes! file: test_file(2)
+      card.update! file: test_file(2)
       card
     end
 
@@ -356,20 +356,19 @@ RSpec.describe Card::Set::Type::File do
       end
 
       subject do
-        create_file_card :coded, test_file,
-                         codename: "mod_file", mod: "test_mod"
+        create_file_card :coded, test_file, codename: "mod_file", mod: "test_mod"
       end
 
       it "changes storage type to default" do
         storage_config :local
-        subject.update_attributes! file: test_file(2)
+        subject.update! file: test_file(2)
         expect(subject.storage_type).to eq :local
         expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
       end
       it "keeps storage type coded if explicitly set" do
         storage_config :local
-        subject.update_attributes! file: test_file(2), storage_type: :coded
+        subject.update! file: test_file(2), storage_type: :coded
         expect(subject.storage_type).to eq :coded
         expect(subject.db_content)
           .to eq ":#{subject.codename}/test_mod.txt"
@@ -431,7 +430,7 @@ RSpec.describe Card::Set::Type::File do
       after { Cardio.config.file_storage = :local }
       it "copies file to local file system" do
         # not yet supported
-        expect { Card[subject.name].update_attributes!(storage_type: :local) }
+        expect { Card[subject.name].update!(storage_type: :local) }
           .to raise_error(ActiveRecord::RecordInvalid)
         # expect(subject.content)
         #   .to eq "~#{subject.id}/#{subject.last_action_id - 1}.txt"
@@ -453,8 +452,7 @@ RSpec.describe Card::Set::Type::File do
         expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
         Card::Auth.as_bot do
-          subject.update_attributes! storage_type: :coded, mod: "test_mod",
-                                     codename: "mod_file"
+          subject.update! storage_type: :coded, mod: "test_mod", codename: "mod_file"
         end
         expect(subject.db_content)
           .to eq ":#{subject.codename}/test_mod.txt"
@@ -468,10 +466,10 @@ RSpec.describe Card::Set::Type::File do
       it "copies file to mod" do
         @storage_type = :local
         Card::Auth.as_bot do
-          subject.update_attributes! storage_type: :local
+          subject.update! storage_type: :local
         end
         expect(subject.db_content)
-          .to eq "~#{subject.id}/#{subject.last_action_id}.png"
+          .to eq "~#{subject.id}/#{subject.last_action_id}.svg"
       end
     end
 
@@ -480,7 +478,7 @@ RSpec.describe Card::Set::Type::File do
         @storage_type = :local
         expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
-        subject.update_attributes! storage_type: :cloud
+        subject.update! storage_type: :cloud
 
         expect(subject.db_content).to eq(
           "(test_bucket)/#{subject.id}/#{subject.last_action_id}.txt"

@@ -2,16 +2,16 @@
 
 describe Card::Set::Type::Uri do
   it "has special editor" do
-    assert_view_select render_editor("Uri"),
+    assert_view_select render_input("Uri"),
                        'input[type="text"][class~="d0-card-content"]'
   end
 
   it "renders core view links" do
     card = Card.create(type: "URI", name: "A URI card",
-                       content: "http://wagn.org/Home")
+                       content: "https://decko.org/Home")
     assert_view_select(
       card.format.render!("core"),
-      'a[class="external-link"][href="http://wagn.org/Home"]'
+      'a[class="external-link"][href="https://decko.org/Home"]'
     ) do
       assert_select 'span[class="card-title"]', text: "A URI card"
     end
@@ -19,11 +19,11 @@ describe Card::Set::Type::Uri do
 
   it "renders core view links with title arg" do
     card = Card.create(type: "URI", name: "A URI card",
-                       content: "http://wagn.org/Home")
+                       content: "https://decko.org/Home")
 
     assert_view_select(
       card.format.render!("core", title: "My Title"),
-      'a[class="external-link"][href="http://wagn.org/Home"]'
+      'a[class="external-link"][href="https://decko.org/Home"]'
     ) do
       assert_select 'span[class="card-title"]', text: "My Title"
     end
@@ -46,10 +46,10 @@ describe Card::Set::Type::Uri do
 
   it "renders a url_link view" do
     card = Card.create(type: "URI", name: "A URI card",
-                       content: "http://wagn.org/Home")
+                       content: "https://decko.org/Home")
     assert_view_select card.format.render!("url_link"),
                        'a[class="external-link"]',
-                       text: "http://wagn.org/Home"
-    expect(card.format(:text).render!("url_link")).to eq "http://wagn.org/Home"
+                       text: "https://decko.org/Home"
+    expect(card.format(:text).render!("url_link")).to eq "https://decko.org/Home"
   end
 end

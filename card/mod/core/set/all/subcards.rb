@@ -10,6 +10,10 @@ def subfield field_name
   subcards.field field_name
 end
 
+def field? tag
+  field(tag) || subfield(tag)
+end
+
 def subcards
   @subcards ||= Card::Subcards.new self
 end
@@ -20,6 +24,11 @@ end
 
 def expire_subcards
   subcards.clear
+end
+
+def save_as_subcard!
+  self.only_storage_phase = true
+  save! validate: false
 end
 
 # phase_method :attach_subcard, before: :store do |name_or_card, args=nil|
@@ -61,8 +70,18 @@ def clear_subcards
   subcards.clear
 end
 
+# ensures subfield is present
+# does NOT override subfield content if already present
+def ensure_subfield field_name, args={}
+  if subfield_present? field_name
+    subfield field_name
+  else
+    add_subfield field_name, args
+  end
+end
+
 def subfield_present? field_name
-  (field_card = subfield(field_name)) && field_card.content.present?
+  subfield(field_name)&.content&.present?
 end
 
 def deep_clear_subcards
@@ -89,4 +108,16 @@ event :reject_empty_subcards, :prepare_to_validate do
     remove_subcard(key)
     director.subdirectors.delete(subcard)
   end
+end
+
+# check when deleting field that left has not also been deleted
+def trashed_left?
+  l = left
+  !l || l.trash
+end
+
+# check when renaming field that it is not actually the same field
+# (eg on a renamed trunk)
+def same_field?
+  (left_id == left_id_before_act) && (right_id == right_id_before_act)
 end

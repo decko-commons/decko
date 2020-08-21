@@ -5,5 +5,5 @@ def diff_args
 end
 
 def count
-  all_raw_item_strings.size
+  item_strings.size
 end

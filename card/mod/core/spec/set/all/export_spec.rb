@@ -19,8 +19,8 @@ RSpec.describe Card::Set::All::Export do
         expect(export_pointer(%w[T A+B])).to include(
           a_hash_including(name: "pointer export card", type: "Pointer",
                            content: "[[T]]\n[[A+B]]"),
-          a_hash_including(name: "T", type: "Basic", content: "Theta"),
-          a_hash_including(name: "A+B", type: "Basic", content: "AlphaBeta")
+          a_hash_including(name: "T", type: "RichText", content: "Theta"),
+          a_hash_including(name: "A+B", type: "RichText", content: "AlphaBeta")
         )
       end
       it "handles multi levels pointer cards" do
@@ -30,8 +30,8 @@ RSpec.describe Card::Set::All::Export do
                            content: "[[inner pointer]]\n[[A+B]]"),
           a_hash_including(name: "inner pointer", type: "Pointer",
                            content: "[[T]]"),
-          a_hash_including(name: "T", type: "Basic", content: "Theta"),
-          a_hash_including(name: "A+B", type: "Basic", content: "AlphaBeta")
+          a_hash_including(name: "T", type: "RichText", content: "Theta"),
+          a_hash_including(name: "A+B", type: "RichText", content: "AlphaBeta")
         )
       end
 
@@ -51,7 +51,7 @@ RSpec.describe Card::Set::All::Export do
         expect(export).to include(
           a_hash_including(name: "skin export card", type: "Skin",
                            content: "[[T]]"),
-          a_hash_including(name: "T", type: "Basic", content: "Theta")
+          a_hash_including(name: "T", type: "RichText", content: "Theta")
         )
       end
     end
@@ -61,8 +61,8 @@ RSpec.describe Card::Set::All::Export do
         expect(export_pointer('{"left":"A"}', :search_type)).to include(
           a_hash_including(name: "search_type export card", type: "Search",
                            content: '{"left":"A"}'),
-          a_hash_including(name: "A+B", content: "AlphaBeta", type: "Basic"),
-          a_hash_including(name: "A+C", type: "Basic")
+          a_hash_including(name: "A+B", content: "AlphaBeta", type: "RichText"),
+          a_hash_including(name: "A+C", type: "RichText")
         )
       end
     end

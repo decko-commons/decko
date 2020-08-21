@@ -1,7 +1,7 @@
 ACTS_PER_PAGE = 25
 
 view :title do
-  voo.title = "Recent Changes"
+  voo.title ||= "Recent Changes"
   super()
 end
 

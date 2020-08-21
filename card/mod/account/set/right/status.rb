@@ -1,4 +1,13 @@
-include All::Permissions::Accounts
+include_set Abstract::AccountField
+include_set Abstract::Pointer
+
+def input_type
+  :radio
+end
+
+def option_names
+  %w[unapproved unverified active blocked system]
+end
 
 def ok_to_update
   if own_account? && !Auth.always_ok?

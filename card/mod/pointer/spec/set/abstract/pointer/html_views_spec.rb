@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Abstract::Pointer do
+RSpec.describe Card::Set::Abstract::Pointer do
   context "with simple Pointer" do
     def card_subject
       pointer = Card["Sample Pointer"]
@@ -8,9 +8,8 @@ describe Card::Set::Abstract::Pointer do
       pointer
     end
 
-    check_views_for_errors :core, :closed_content, :editor,
-                           :list, :autocomplete, :checkbox,
-                           :radio, :select, :multiselect
+    check_views_for_errors :core, :one_line_content, :input, :list, :autocomplete,
+                           :checkbox, :radio, :select, :multiselect
   end
 
   describe "editors" do
@@ -37,25 +36,27 @@ describe Card::Set::Abstract::Pointer do
     end
 
     it "includes nonexisting card in radio options" do
-      common_html = 'input[class="pointer-radio-button"]' \
-                    '[checked="checked"]' \
-                    '[type="radio"]' \
-                    '[value="nonexistingcardmustnotexistthisistherule"]' \
-                    '[id="pointer-radio-nonexistingcardmustnotexistthisistherule"]'
-      option_html = common_html + '[name="pointer_radio_button-tp"]'
-      assert_view_select pointer.format.render_radio, option_html
-      option_html = common_html + '[name="pointer_radio_button-ip"]'
-      assert_view_select inherit_pointer.format.render_radio, option_html
+      common_with = { type: "radio",
+                      value: "nonexistingcardmustnotexistthisistherule",
+                      id: "pointer-radio-nonexistingcardmustnotexistthisistherule",
+                      checked: "checked" }
+      expect(pointer.format.render_radio)
+        .to have_tag "input.pointer-radio-button",
+                     with: common_with.merge(name: "pointer_radio_button-tp")
+      expect(inherit_pointer.format.render_radio)
+        .to have_tag "input.pointer-radio-button",
+                     with: common_with.merge(name: "pointer_radio_button-ip")
     end
 
     it "includes nonexisting card in checkbox options" do
-      option_html = 'input[class="pointer-checkbox-button"]' \
-                    '[checked="checked"]' \
-                    '[type="checkbox"]' \
-                    '[value="nonexistingcardmustnotexistthisistherule"]' \
-                    '[id="pointer-checkbox-nonexistingcardmustnotexistthisistherule"]'
-      # debug_assert_view_select @pointer.format.render_checkbox, option_html
-      assert_view_select inherit_pointer.format.render_checkbox, option_html
+      expect(inherit_pointer.format.render_checkbox)
+        .to have_tag "input.pointer-checkbox-button",
+                     with: {
+                       type: "checkbox",
+                       value: "nonexistingcardmustnotexistthisistherule",
+                       id: "pointer-checkbox-nonexistingcardmustnotexistthisistherule",
+                       checked: "checked"
+                     }
     end
 
     it "includes nonexisting card in select options" do
@@ -77,7 +78,7 @@ describe Card::Set::Abstract::Pointer do
   describe "list_input" do
     subject do
       pointer = Card.new name: "tp", type: "pointer", content: pointer_content
-      pointer.format._render :editor
+      pointer.format._render :input
     end
 
     let(:pointer_content) { "[[Jane]]\n[[John]]" }

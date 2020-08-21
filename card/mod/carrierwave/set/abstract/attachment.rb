@@ -1,5 +1,3 @@
-require "carrier_wave/cardmount"
-
 attr_writer :empty_ok
 
 def self.included host_class
@@ -12,18 +10,17 @@ end
 
 # we need a card id for the path so we have to update db_content when we have
 # an id
-event :correct_identifier, :finalize,
-      on: :create, when: proc { |c| !c.web? } do
+event :correct_identifier, :finalize, on: :create, when: proc { |c| !c.web? } do
   update_column(:db_content, attachment.db_content)
   expire
 end
 
-event :save_original_filename, :prepare_to_store, when: :file_ready_to_save? do
+event :save_original_filename, :prepare_to_store, on: :save, when: :file_ready_to_save? do
   return unless @current_action
-  @current_action.update_attributes! comment: original_filename
+  @current_action.update! comment: original_filename
 end
 
-event :validate_file_exist, :validate, on: :save do
+event :validate_file_exist, :validate, on: :create do
   return if empty_ok?
   if will_be_stored_as == :web
     errors.add "url is missing" if content.blank?
@@ -68,7 +65,7 @@ def attachment_before_act
   send "#{attachment_name}_before_act"
 end
 
-def create_versions?
+def create_versions? _new_file
   true
 end
 
@@ -98,7 +95,7 @@ def revision action, before_action=false
 end
 
 def attachment_format ext
-  if ext.present? && attachment && (original_ext = attachment.extension)
+  if ext.present? && attachment && (original_ext = attachment.extension.sub(/^\./, ""))
     if ["file", original_ext].member? ext
       original_ext
     elsif (exts = MIME::Types[attachment.content_type])

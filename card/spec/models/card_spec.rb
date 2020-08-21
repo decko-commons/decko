@@ -3,7 +3,7 @@
 RSpec.describe Card do
   describe "test data" do
     it "is findable by name" do
-      expect(Card["Wagn Bot"]).to be_a Card
+      expect(Card["Decko Bot"]).to be_a Card
     end
   end
 
@@ -35,7 +35,7 @@ RSpec.describe Card do
     before do
       Card::Auth.as_bot do
         @c = Card["basicname"]
-        @c.update_attributes! content: "foo"
+        @c.update! content: "foo"
       end
     end
 
@@ -89,18 +89,18 @@ describe "basic card tests" do
 
   it "update_should_create_subcards" do
     Card.create! name: "Banana"
-    Card["banana"].update_attributes! subcards: { "+peel" => { content: "yellow" } }
+    Card["banana"].update! subcards: { "+peel" => { content: "yellow" } }
 
     peel = Card["Banana+peel"]
     expect(peel.content).       to eq("yellow")
     expect(Card["joe_user"].id).to eq(peel.creator_id)
   end
 
-  it "update_should_create_subcards_as_wagn_bot_if_missing_subcard_permissions" do
+  it "update_should_create_subcards_as_decko_bot_if_missing_subcard_permissions" do
     Card.create name: "peel"
-    Card::Auth.current_id = Card::AnonymousID
+    Card::Auth.signin Card::AnonymousID
     expect(Card["Banana"]).not_to be
-    expect(Card["Basic"].ok?(:create)).to be_falsey, "anon can't creat"
+    expect(Card[:basic].ok?(:create)).to be_falsey, "anon can't creat"
 
     Card.create! type: "Fruit", name: "Banana", subcards: { "+peel" => { content: "yellow" } }
     expect(Card["Banana"]).to be
@@ -114,7 +114,7 @@ describe "basic card tests" do
     it "update doesn't create subcards" do
       b = create! "Banana"
       Card::Auth.as Card::AnonymousID do
-        b.update_attributes subcards: { "+peel" => { content: "yellow" } }
+        b.update subcards: { "+peel" => { content: "yellow" } }
         expect(b.errors[:permission_denied]).not_to be_empty
 
         c = Card.update(b.id, subcards: { "+peel" => { content: "yellow" } })

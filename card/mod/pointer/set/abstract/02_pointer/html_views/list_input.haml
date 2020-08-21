@@ -1,5 +1,4 @@
 %ul{class: ul_classes}
-  - options_card = options_card_name
   - items.each do |item|
     %li.pointer-li.mb-1
       %span.input-group
@@ -12,6 +11,6 @@
           %button.pointer-item-delete.btn.btn-secondary{ type: "button"}
             = icon_tag :remove
 %span.input-group
-  %button.pointer-item-add.btn.btn-secondary{ type: "submit" }
+  %button._pointer-item-add.btn.btn-secondary{ type: "submit" }
     = icon_tag "add"
     add another

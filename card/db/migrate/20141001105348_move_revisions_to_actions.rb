@@ -27,7 +27,7 @@ class MoveRevisionsToActions < ActiveRecord::Migration[4.2]
     TmpRevision.delete_cardless
 
     conn = TmpRevision.connection
-    created = Set.new
+    created = ::Set.new
 
     TmpRevision.find_each do |rev|
       TmpAct.create({ id: rev.id, card_id: rev.card_id, actor_id: rev.creator_id, acted_at: rev.created_at }, without_protection: true)

@@ -1,5 +1,7 @@
 Gemfile
 Gemfile.lock
+.tags
+.tags_swap
 .idea/*
 .idea-old/*
 .jhw-cache
@@ -8,7 +10,6 @@ Gemfile.lock
 .yardoc
 *.iml
 coverage
-doc
 log/*
 pkg
 wagn*gem
@@ -19,5 +20,9 @@ decko*gem
 *.DS_Store
 *.swp
 test_work/*
+*.iml
 *.orig
 **/bucket_credentials.yml
+decko/spec/node_modules
+decko/spec/cypress/screenshots
+decko/spec/cypress/videos

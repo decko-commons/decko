@@ -55,11 +55,15 @@ def content
 end
 
 format :html do
-  view :editor do
+  view :input do
     "Content is stored in file and can't be edited."
   end
 
-  view :bar_middle do
+  view :file_size do
+    "#{card.name}: #{number_to_human_size card.content.bytesize}"
+  end
+
+  def short_content
     fa_icon("exclamation-circle", class: "text-muted pr-2") +
       wrap_with(:span, "file", class: "text-muted")
   end

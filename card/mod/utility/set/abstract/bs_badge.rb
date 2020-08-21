@@ -9,11 +9,12 @@ format :html do
 
   def badge_haml_opts count, label, opts
     process_badge_opts count, opts
-    { count: count, label: label, klass: opts[:klass], color: opts[:color] }
+    { count: count, label: label, klass: opts[:klass], color: opts[:color],
+      title: opts[:title] }
   end
 
   def process_badge_opts count, opts
-    if count.zero? && !opts[:zero_ok]
+    if count.try(:zero?) && !opts[:zero_ok]
       opts[:klass] = [opts[:klass], "disabled-o"].compact.join " "
     end
     opts[:color] ||= "secondary"

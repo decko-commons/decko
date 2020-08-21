@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-require "card/mailer"
 
 describe Card::Mailer do
   # include ActionMailer::Quoting

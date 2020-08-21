@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 class RailsInflectionUpdates < Card::Migration::Core
   def word ar
     [/(?<=\W|_|^)#{ar[0]}(?=\W|_|$)/i, /(?<=\W|_|^)#{ar[1]}(?=\W|_|$)/i, ar[2]]
@@ -18,7 +19,11 @@ class RailsInflectionUpdates < Card::Migration::Core
         twin.destroy
         yield
       elsif !card.trash
-        raise Card::Error::Oops.new("Your deck has two different cards with names '#{card.name}' and '#{twin.name}'. After this update it's no longer possible to differentiate between those two names. Please rename or delete one of the two cards and run the update again.")
+        raise Card::Error::Oops,
+              "Your deck has two different cards with names '#{card.name}' and "\
+              "'#{twin.name}'. After this update it's no longer possible to "\
+              "differentiate between those two names. Please rename or delete one of "\
+              "the two cards and run the update again."
       end
     else
       yield
@@ -36,7 +41,8 @@ class RailsInflectionUpdates < Card::Migration::Core
       word(keep_the_s("analysi")),
       word(keep_the_s("axi"))
     ]
-    %w(statu crisi alia bu octopu viru analysi basi diagnosi parenthesi prognosi synopsi thesi).each do |word|
+    %w[statu crisi alia bu octopu viru analysi basi diagnosi parenthesi
+       prognosi synopsi thesi].each do |word|
       corrections << word_end(keep_the_s(word))
     end
 
@@ -57,7 +63,7 @@ class RailsInflectionUpdates < Card::Migration::Core
           elsif Card.find_by_key new_key
             puts "Could not update #{name}. Key '#{new_key}' already exists."
           else
-            card.update_attributes! key: new_key
+            card.update! key: new_key
           end
         end
       end
@@ -75,7 +81,7 @@ class RailsInflectionUpdates < Card::Migration::Core
           new_content = new_content.gsub(wrong_sing, correct_sing)
         end
       end
-      card.update_attributes! content: new_content if content_changed
+      card.update! content: new_content if content_changed
     end
   end
 end

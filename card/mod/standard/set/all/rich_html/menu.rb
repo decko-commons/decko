@@ -1,186 +1,129 @@
 format :html do
-  mattr_accessor :menu_items
-  self.menu_items = %i[edit discuss follow page rules account more]
-
-  view :menu, denial: :blank, tags: :unknown_ok do
+  view :menu, denial: :blank, unknown: true do
     return "" if card.unknown?
-    wrap_menu do
-      [
-        _render(:horizontal_menu, optional: :hide),
-        _render_menu_link,
-        modal_slot(card.name.safe_key)
-      ]
-    end
-  end
 
-  def wrap_menu
-    wrap_with :div, class: classy(%w[menu-slot nodblclick]) do
-      yield
+    wrap_with :div, class: "card-menu #{menu_link_classes}" do
+      [render_help_link,
+       menu_link,
+       (voo.show?(:bridge_link) ? bridge_link(false) : nil)]
     end
-  end
-
-  view :menu_link do
-    menu_link
   end
 
   def menu_link
-    wrap_with :div, class: "vertical-card-menu card-menu #{menu_link_classes}" do
-      wrap_with :div, class: "btn-group slotter card-slot float-right" do
-        link_to_view :vertical_menu, menu_icon, path: menu_link_path_opts
-      end
+    case voo.edit
+    when :inline
+      edit_inline_link
+    when :full
+      edit_in_bridge_link
+    else # :standard
+      edit_link
     end
   end
 
-  def menu_link_classes
-    if show_view? :hover_link
-      show_view?(:horizontal_menu, :hide) ? "d-sm-none" : "_show-on-hover"
-    else
-      ""
+  def edit_view
+    case voo.edit
+    when :inline
+      :edit_inline
+    when :full
+      :edit
+    else # :standard
+      edit_link
     end
   end
 
-  # this should probably be added in javascript.
-  # the menu link is not a "slotter", because it doesn't replace the whole
-  # slot (it just adds a menu). But it should use the js code that adds slot
-  # information to urls
-  def menu_link_path_opts
-    opts = { slot: { home_view: voo.home_view } }
-    opts[:is_main] = true if main?
+  view :edit_link, unknown: true, denial: :blank do
+    edit_link edit_link_view
+  end
+
+  def edit_link_view
+    :edit
+  end
+
+  view :full_page_link do
+    full_page_link
+  end
+
+  view :bridge_link, unknown: true do
+    bridge_link
+  end
+
+  def bridge_link in_modal=true
+    opts = { class: "bridge-link" }
+    if in_modal
+      # add_class opts, "close"
+      opts["data-slotter-mode"] = "modal-replace"
+    end
+    link_to_view :bridge, material_icon(:more_horiz), opts
+  end
+
+  # no caching because help_text view doesn't cache, and we can't have a
+  # stub in the data-content attribute or it will get html escaped.
+  view :help_link, cache: :never, unknown: true do
+    help_link render_help_text, help_title
+  end
+
+  def help_link text=nil, title=nil
+    opts = help_popover_opts text, title
+    add_class opts, "_card-menu-popover"
+    link_to help_icon, opts
+  end
+
+  def help_popover_opts text=nil, title=nil
+    text ||= render_help_text
+    opts = { "data-placement": :left, class: "help-link" }
+    popover_opts text, title, opts
+  end
+
+  def help_icon
+    material_icon("help")
+  end
+
+  def help_title
+    "#{name_parts_links} (#{render_type}) #{full_page_link unless card.simple?}"
+  end
+
+  def name_parts_links
+    card.name.parts.map do |part|
+      link_to_card part
+    end.join Card::Name.joint
+  end
+
+  def full_page_link
+    link_to_card full_page_card, full_page_icon, class: classy("full-page-link")
+  end
+
+  def full_page_card
+    card
+  end
+
+  def edit_in_bridge_link opts={}
+    edit_link :bridge, opts
+  end
+
+  def edit_link view=:edit, opts={}
+    link_to_view view, opts.delete(:link_text) || menu_icon,
+                 edit_link_opts(opts.reverse_merge(modal: :lg))
+  end
+
+  # @param modal [Symbol] modal size
+  def edit_link_opts modal: nil
+    opts = { class: classy("edit-link") }
+    if modal
+      opts[:"data-slotter-mode"] = "modal"
+      opts[:"data-modal-class"] = "modal-#{modal}"
+    end
     opts
   end
 
+  def menu_link_classes
+    "nodblclick" + (show_view?(:hover_link) ? " _show-on-hover" : "")
+  end
+
   def menu_icon
-    material_icon "settings"
+    material_icon "edit"
   end
 
-  view :vertical_menu, cache: :never, tags: :unknown_ok do
-    wrap_with :ul, class: "btn-group float-right slotter" do
-      [vertical_menu_toggle, vertical_menu_item_list]
-    end
-  end
-
-  def vertical_menu_toggle
-    wrap_with :span, "<a href='#'>#{menu_icon}</a>",
-              class: "open-menu dropdown-toggle",
-              "data-toggle" => "dropdown",
-              "aria-expanded" => "false"
-  end
-
-  def vertical_menu_item_list
-    wrap_with :ul, class: "dropdown-menu dropdown-menu-right", role: "menu" do
-      menu_item_list.map do |item|
-        %(<li>#{item}</li>)
-      end.join("\n").html_safe
-    end
-  end
-
-  view :horizontal_menu, cache: :never do
-    wrap_with :div, class: "btn-group btn-group-sm slotter float-right card-menu "\
-                             "horizontal-card-menu d-none d-sm-inline-flex" do
-      menu_item_list(class: "btn btn-outline-secondary").join("\n").html_safe
-    end
-  end
-
-  def menu_item_list link_opts={}
-    menu_items.map do |item|
-      next unless show_menu_item?(item)
-      send "menu_item_#{item}", link_opts
-    end.compact
-  end
-
-  menu_items.each do |item|
-    view "menu_item_#{item}" do
-      send "menu_item_#{item}", {}
-    end
-  end
-
-  def menu_item_edit opts
-    menu_item "edit", "edit", opts.merge(view: :edit)
-  end
-
-  def menu_item_discuss opts
-    menu_item "discuss", "comment",
-              opts.merge(related: :discussion.cardname.key)
-  end
-
-  def menu_item_follow opts
-    add_class opts, "dropdown-item"
-    follow_link opts, true
-  end
-
-  def menu_item_page opts
-    menu_item "page", "open_in_new", opts.merge(card: card)
-  end
-
-  def menu_item_rules opts
-    menu_item "rules", "build", opts.merge(view: :edit_rules)
-  end
-
-  def menu_item_account opts
-    menu_item "account", "person", opts.merge(
-      view: :related,
-      path: { slot: { items: { nest_name: "+#{:account.cardname.key}", view: :edit } } }
-    )
-  end
-
-  def menu_item_more opts
-    view = voo.home_view || :open
-    menu_item "", :option_horizontal, opts.merge(
-      view: view, path: { slot: { show: :toolbar } }
-    )
-  end
-
-  def menu_item text, icon, opts={}
-    link_text = "#{material_icon(icon)}<span class='menu-item-label'>#{text}</span>"
-    add_class opts, "dropdown-item"
-    smart_link_to link_text.html_safe, opts
-  end
-
-  def show_menu_item? item
-    voo&.show?("menu_item_#{item}") && send("show_menu_item_#{item}?")
-  end
-
-  def show_menu_item_discuss?
-    discussion_card = menu_discussion_card
-    return unless discussion_card
-    permission_task = discussion_card.new_card? ? :comment : :read
-    discussion_card.ok? permission_task
-  end
-
-  def show_menu_item_page?
-    card.name.present? && !main?
-  end
-
-  def show_menu_item_rules?
-    card.virtual?
-  end
-
-  def show_menu_item_edit?
-    return unless card.real?
-    card.ok?(:update) || structure_editable?
-  end
-
-  def show_menu_item_account?
-    return unless card.real?
-    card.account && card.ok?(:update)
-  end
-
-  def show_menu_item_follow?
-    return unless card.real?
-    show_follow?
-  end
-
-  def show_menu_item_more?
-    card.real?
-  end
-
-  def menu_discussion_card
-    return if card.new_card?
-    return if discussion_card?
-    card.fetch trait: :discussion, skip_modules: true, new: {}
-  end
-
-  def discussion_card?
-    card.junction? && card.name.tag_name.key == :discussion.cardname.key
+  def full_page_icon
+    icon_tag :open_in_new
   end
 end

@@ -1,4 +1,3 @@
-
 # The Sign In card manages logging in and out of the site.
 #
 # /:signin (core view) gives the login ui
@@ -23,7 +22,8 @@ event :signin_success, after: :signin do
 end
 
 event :signout, :validate, on: :delete do
-  Auth.signin nil
+  Env.reset_session
+  Auth.signin AnonymousID
   abort :success
 end
 
@@ -31,11 +31,14 @@ end
 # and aborts (does not sign in)
 event :send_reset_password_token, before: :signin, on: :update, trigger: :required do
   email = subfield(:email)&.content
-  account = Auth.find_account_by_email email
-  send_reset_password_email_or_fail account
+  send_reset_password_email_or_fail email
 end
 
-def consider_recaptcha?
+def ok_to_read
+  true
+end
+
+def recaptcha_on?
   false
 end
 
@@ -44,7 +47,8 @@ def i18n_signin key
 end
 
 def authenticate_or_abort email, pword
-  abort :failure, i18n_signin(:abort_bad_signin_args) unless email && pword
+  abort :failure, i18n_signin(:email_missing) unless email
+  abort :failure, i18n_signin(:password_missing) unless pword
   if (account = Auth.authenticate(email, pword))
     Auth.signin account.left_id
   else
@@ -62,10 +66,12 @@ def signin_error_message account
   end
 end
 
-def send_reset_password_email_or_fail account
+def send_reset_password_email_or_fail email
   aborting do
-    if account && account.active?
-      account.send_reset_password_token
+    break errors.add :email, i18n_signin(:error_blank) if email.blank?
+
+    if (account = Auth.find_account_by_email(email))&.active?
+      Auth.as_bot { account.send_password_reset_email }
     elsif account
       errors.add :account, i18n_signin(:error_not_active)
     else
@@ -78,10 +84,9 @@ format :html do
   view :core, cache: :never do
     voo.edit_structure = [signin_field(:email), signin_field(:password)]
     with_nest_mode :edit do
-      card_form :update, recaptcha: :off do
+      card_form :update, recaptcha: :off, success: signin_success do
         [
-          hidden_signin_fields,
-          _render_content_formgroup,
+          _render_content_formgroups,
           _render_signin_buttons
         ]
       end
@@ -90,6 +95,7 @@ format :html do
 
   view :open do
     voo.show :help
+    voo.hide :menu
     super()
   end
 
@@ -104,7 +110,7 @@ format :html do
     _render_core
   end
 
-  view :closed_content do
+  view :one_line_content do
     ""
   end
 
@@ -121,19 +127,23 @@ format :html do
 
   # FORGOT PASSWORD
   view :edit do
+    reset_password_voo
+    Auth.as_bot { super() }
+  end
+
+  def reset_password_voo
     voo.title ||= card.i18n_signin(:forgot_password)
     voo.edit_structure = [signin_field(:email)]
     voo.hide :help
-    Auth.as_bot { super() }
   end
 
   view :edit_buttons do
     text = I18n.t :reset_my_password, scope: "mod.account.set.self.signin"
-    button_tag text, situation: "primary"
+    button_tag text, situation: "primary", class: "_close-modal-on-success"
   end
 
-  def hidden_signin_fields
-    hidden_field_tag :success, "REDIRECT: #{Env.interrupted_action || '*previous'}"
+  def signin_success
+    "REDIRECT: #{Env.interrupted_action || '*previous'}"
   end
 
   def signin_button
@@ -148,16 +158,17 @@ format :html do
 
   def reset_password_link
     text = I18n.t :reset_password, scope: "mod.account.set.self.signin"
-    reset_link = link_to_view :edit, text, path: { slot: { hide: :toolbar } }
+    link = link_to_view :edit, text, path: { slot: { hide: :bridge_link } }
     # FIXME: inline styling
-    raw("<div style='float:right'>#{reset_link}</div>")
+    raw("<div style='float:right'>#{link}</div>")
   end
 
   def edit_view_hidden
-    hidden_tags(
-      card: { trigger: :send_reset_password_token },
-      success: { view: :reset_password_success }
-    )
+    hidden_tags card: { trigger: :send_reset_password_token }
+  end
+
+  def edit_success
+    { view: :reset_password_success }
   end
 
   def signin_field name
