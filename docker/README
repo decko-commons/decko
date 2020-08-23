@@ -13,7 +13,7 @@ docker run --name decko_db --env POSTGRES_PASSWORD=decko28_devPw --env POSTGRES_
 
 # MySQL is db configured by default in decko now
 docker pull mysql
-docker run --name decko_db # PASSWORD=decko28_devPw USER=decko
+docker run --name decko_db --env MYSQL_ROOT_PASSWORD=decko28_devPw -d mysql
 
 
 docker pull gerry/decko:latest

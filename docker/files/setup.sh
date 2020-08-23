@@ -8,5 +8,6 @@ pwd
 bundle install
 
 mv /tmp/build/env.conf /etc/nginx/main.d/env.conf
+rm /etc/nginx/sites-enabled/default
 mv /tmp/build/webapp.conf /etc/nginx/sites-enabled/webapp.conf
 rm /etc/service/nginx/down
