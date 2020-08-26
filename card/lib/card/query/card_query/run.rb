@@ -66,7 +66,7 @@ class Card
 
         def card_result record, _field
           if alter_results?
-            Card.fetch alter_result(name_result(record)), new: {}
+            Card.fetch name_result(record), new: {}
           else
             fetch_or_instantiate record
           end
