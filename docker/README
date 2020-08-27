@@ -8,19 +8,19 @@ Dockerized decko application, for now this is a development setup, production la
 These commands should result in two locally running development containers:
 
 # you can use a database run from the standard postgres container like this:
-docker pull postges
-docker run --name decko_db --env POSTGRES_PASSWORD=decko28_devPw --env POSTGRES_USER=decko -d postgres
+#docker pull postges
+#docker run --name decko_db --env POSTGRES_PASSWORD=decko28_devPw --env POSTGRES_USER=decko -d postgres
 
 # MySQL is db configured by default in decko now
 docker pull mysql
-docker run --name decko_db --env MYSQL_ROOT_PASSWORD=decko28_devPw -d mysql
+docker run --name decko_db --env MYSQL_HOST= --env MYSQL_ROOT_PASSWORD=decko28_devPw -d mysql
 
 
 docker pull gerry/decko:latest
 # then run decko:
-docker run -p 80 -p 443 -d --link=decko_db:db --name=deckoapp gerry/decko /sbin/my_init
-# and seed it:
-docker exec -ti deckoapp su - app sh -c 'cd deckoapp; decko seed -d'
+docker run -p IP:80:80 -p IP:443:443 -d --link=decko_db:db --name=deckoapp gerry/decko /sbin/my_init
+# and seed it: (why won't it run as development?)
+docker exec -ti deckoapp su - app sh -c 'cd deckoapp; decko seed -p; decko console < setup.con'
 
 The database password above is in the image, to use a different one, replace the password when running the
 database container and run this to configure rails (before doing the seed):
