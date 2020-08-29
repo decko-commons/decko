@@ -37,6 +37,14 @@ class Card
         self[:params] ||= {}
       end
 
+      def with_params hash
+        old_params = params.clone
+        params.merge! hash
+        yield
+      ensure
+        self.params = old_params
+      end
+
       def hash hashish
         case hashish
         when Hash then hashish.clone

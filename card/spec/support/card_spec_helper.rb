@@ -104,14 +104,6 @@ class Card
       Card.config.rss_enabled = false
     end
 
-    def with_params hash
-      old_params = Card::Env.params.clone
-      Card::Env.params.merge! hash
-      yield
-    ensure
-      Card::Env.params = old_params
-    end
-
     module ClassMethods
       def check_views_for_errors *views
         include_context_for views.flatten, "view without errors"
