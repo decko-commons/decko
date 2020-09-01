@@ -74,11 +74,8 @@ event :manage_trash, :prepare_to_store, on: :create do
 end
 
 def pull_from_trash!
-  return unless (self.id = Card::Lexicon.id key)
-
-  # following is needed so that #id_in_database returns existing card id
-  # (and record is updated correctly)
-  db_attributes["id"] = Card.find(id).db_attributes["id"]
+  return unless (self.id = Card::Lexicon.id key) # name is already known
+  return unless Card.find(id)&.trash # confirm name is actually in trash
 
   @from_trash = true
   @new_record = false
