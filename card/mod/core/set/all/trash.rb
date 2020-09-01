@@ -75,7 +75,7 @@ end
 
 def pull_from_trash!
   return unless (self.id = Card::Lexicon.id key) # name is already known
-  return unless Card.find(id)&.trash # confirm name is actually in trash
+  return unless Card.where(id: id).take&.trash # confirm name is actually in trash
 
   @from_trash = true
   @new_record = false
