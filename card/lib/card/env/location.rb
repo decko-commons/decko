@@ -25,7 +25,8 @@ class Card
       end
 
       def cardname_from_url url
-        m = url.match cardname_from_url_regexp
+        return unless (cardname = cardname_from_url_regexp)
+        m = url.match cardname
         m ? Card::Name[m[:mark]] : nil
       end
 
