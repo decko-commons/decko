@@ -230,6 +230,9 @@ def when_id_exists cardish, &block
   end
 end
 
+# subcards are usually saved after super cards;
+# after_store forces it to save the subcard first
+# and callback afterwards
 def with_id_after_store subcard
   add_subcard subcard
   subcard.director.after_store { |card| yield card.id }
