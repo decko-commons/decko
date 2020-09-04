@@ -1,15 +1,16 @@
 class Card
   class ActManager
-    STAGES = %i[initialize prepare_to_validate validate prepare_to_store
-                store finalize integrate after_integrate integrate_with_delay].freeze
-    stage_index = {}
-    STAGES.each_with_index do |stage, i|
-      stage_index[stage] = i
-    end
-    STAGE_INDEX = stage_index.freeze
-
     class StageDirector
+      # Methods for intepreting stages of an action
       module Stages
+        STAGES = %i[initialize prepare_to_validate validate prepare_to_store
+                store finalize integrate after_integrate integrate_with_delay].freeze
+        stage_index = {}
+        STAGES.each_with_index do |stage, i|
+          stage_index[stage] = i
+        end
+        STAGE_INDEX = stage_index.freeze
+
         def stage_symbol index
           case index
           when Symbol
@@ -32,20 +33,9 @@ class Card
         end
 
         def stage_ok? opts
-          stage && (in?(opts[:during]) || before?(opts[:before]) || after?(opts[:after])) || true
-        end
-
-        def before? allowed_phase
-          allowed_phase && STAGE_INDEX[allowed_phase] > STAGE_INDEX[stage]
-        end
-
-        def after? allowed_phase
-          allowed_phase && STAGE_INDEX[allowed_phase] < STAGE_INDEX[stage]
-        end
-
-        def in? allowed_phase
-          allowed_stage && (allowed_phase == stage ||
-                            (allowed_phase.is_a?(Array) && allowed_phase.include?(stage)))
+          return false unless stage
+          test = %i[during before after].find { |t| opts[t] }
+          test ? send("#{test}?", opts[t]) : true
         end
 
         def finished_stage? stage
@@ -54,6 +44,22 @@ class Card
 
         def reset_stage
           @stage = -1
+        end
+
+        private
+
+        def before? allowed_phase
+          STAGE_INDEX[allowed_phase] > STAGE_INDEX[stage]
+        end
+
+        def after? allowed_phase
+          STAGE_INDEX[allowed_phase] < STAGE_INDEX[stage]
+        end
+
+        def during? allowed_phase
+          return true if allowed_phase == stage
+
+          allowed_phase.is_a?(Array) && allowed_phase.include?(stage)
         end
       end
     end

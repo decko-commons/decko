@@ -48,7 +48,8 @@ class Card
     class StageDirector
       include Stages
       include Phases
-      include Execution
+      include Run
+      include Store
 
       attr_accessor :prior_store, :act, :card, :stage, :parent,
                     :subdirectors, :transact_in_stage
@@ -97,7 +98,8 @@ class Card
         card.action = @card.action
         card.director = self
         @card = card
-        rerun_up_to_current_stage
+        reset_stage
+        catch_up_to_stage @stage if @stage
       end
 
       def abort
