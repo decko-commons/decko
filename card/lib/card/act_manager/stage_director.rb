@@ -51,12 +51,11 @@ class Card
       include Run
       include Store
 
-      attr_accessor :prior_store, :act, :card, :stage, :parent,
-                    :subdirectors, :transact_in_stage
+      attr_accessor :prioritize, :act, :card, :stage, :parent, :subdirectors
       attr_reader :running
       alias_method :running?, :running
 
-      def initialize card, opts={}
+      def initialize card, parent
         @card = card
         @card.director = self
         # for read actions there is no validation phase
@@ -66,9 +65,7 @@ class Card
         @stage = nil
         @running = false
         @prepared = false
-        @parent = opts[:parent]
-        # has card to be stored before the supercard?
-        @prior_store = opts[:priority]
+        @parent = parent
         @call_after_store = []
         @subdirectors = SubdirectorArray.initialize_with_subcards(self)
         register

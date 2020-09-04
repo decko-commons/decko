@@ -4,8 +4,6 @@ class Card
       # methods for running stages
       module Run
         def catch_up_to_stage next_stage
-          return if @transact_in_stage && @transact_in_stage != next_stage
-
           upto_stage(next_stage) do |stage|
             run_stage stage
           end

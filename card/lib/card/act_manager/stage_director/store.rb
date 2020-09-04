@@ -35,11 +35,11 @@ class Card
 
         # store subcards whose ids we need for this card
         def store_pre_subcards
-          run_subdirector_stages :store, &:prior_store
+          run_subdirector_stages :store, &:prioritize
         end
 
         def store_post_subcards
-          run_subdirector_stages(:store) { |subdir| !subdir.prior_store }
+          run_subdirector_stages(:store) { |subdir| !subdir.prioritize }
         end
 
         # trigger the storage_phase, skip the other phases

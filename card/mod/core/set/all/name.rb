@@ -229,7 +229,7 @@ def write_attribute_to_card attribute, card
     write_attribute attribute, card.id
   else
     add_subcard card
-    card.director.prior_store = true
+    card.director.prioritize = true
     with_id_when_exists(card) do |id|
       write_attribute attribute, id
     end
