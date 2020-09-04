@@ -51,7 +51,7 @@ class Card
       include Run
       include Store
 
-      attr_accessor :prioritize, :act, :card, :stage, :parent, :subdirectors
+      attr_accessor :act, :card, :stage, :parent, :subdirectors
       attr_reader :running
       alias_method :running?, :running
 
@@ -66,7 +66,6 @@ class Card
         @running = false
         @prepared = false
         @parent = parent
-        @call_after_store = []
         @subdirectors = SubdirectorArray.initialize_with_subcards(self)
         register
       end
@@ -103,8 +102,13 @@ class Card
         @abort = true
       end
 
-      def call_after_store &block
-        @call_after_store << block
+      def after_store &block
+        @after_store ||= []
+        @after_store << block
+      end
+
+      def after_store?
+        @after_store.present?
       end
 
       def need_act

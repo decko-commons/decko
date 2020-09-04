@@ -105,6 +105,12 @@ RSpec.describe "act API" do
 
         it "processes subcards in separate transaction" do
           with_test_events do
+
+            test_event :validate, on: :create, for: "main card" do
+              sc = add_subcard("sub card")
+              sc.director.delay!
+            end
+
             test_event :finalize, on: :create, for: "main card" do
               expect(__record_names).to eq ["main card"]
               expect(subcard("sub card").director.stage).to eq nil

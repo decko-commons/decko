@@ -4,6 +4,8 @@ class Card
       # methods for running stages
       module Run
         def catch_up_to_stage next_stage
+          return if @delay && next_stage != :integrate_with_delay
+
           upto_stage(next_stage) do |stage|
             run_stage stage
           end
@@ -15,6 +17,10 @@ class Card
           @stage = stage_index(:integrate_with_delay)
           yield
           run_subdirector_stages :integrate_with_delay
+        end
+
+        def delay!
+          @delay = true
         end
 
         private

@@ -24,22 +24,27 @@ class Card
         end
 
         def store_with_subcards
-          store_pre_subcards
+          store_pre_subcards # the exception!  usually does nothing
           yield
-          @call_after_store.each { |handle_id| handle_id.call(@card.id) }
-          store_post_subcards
-          true.tap { @virtual = false } # TODO: find a better place for this
+          run_after_store_callbacks if after_store?
+          store_post_subcards # the typical case
+          true
         ensure
           @card.handle_subcard_errors
         end
 
-        # store subcards whose ids we need for this card
+        def run_after_store_callbacks
+          @after_store.each { |block| block.call @card }
+        end
+
+        # If the subcard has an after-store callback, it means the subcard
+        # must run before the supercard and then call back
         def store_pre_subcards
-          run_subdirector_stages :store, &:prioritize
+          run_subdirector_stages :store, &:after_store?
         end
 
         def store_post_subcards
-          run_subdirector_stages(:store) { |subdir| !subdir.prioritize }
+          run_subdirector_stages(:store) { |subdir| !subdir.after_store? }
         end
 
         # trigger the storage_phase, skip the other phases
