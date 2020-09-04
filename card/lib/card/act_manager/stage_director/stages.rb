@@ -32,25 +32,20 @@ class Card
         end
 
         def stage_ok? opts
-          stage && (
-          (opts[:during] && in?(opts[:during])) ||
-            (opts[:before] && before?(opts[:before])) ||
-            (opts[:after] && after?(opts[:after])) ||
-            true # no phase restriction in opts
-          )
+          stage && (in?(opts[:during]) || before?(opts[:before]) || after?(opts[:after])) || true
         end
 
         def before? allowed_phase
-          STAGE_INDEX[allowed_phase] > STAGE_INDEX[stage]
+          allowed_phase && STAGE_INDEX[allowed_phase] > STAGE_INDEX[stage]
         end
 
         def after? allowed_phase
-          STAGE_INDEX[allowed_phase] < STAGE_INDEX[stage]
+          allowed_phase && STAGE_INDEX[allowed_phase] < STAGE_INDEX[stage]
         end
 
         def in? allowed_phase
-          (allowed_phase.is_a?(Array) && allowed_phase.include?(stage)) ||
-            allowed_phase == stage
+          allowed_stage && (allowed_phase == stage ||
+                            (allowed_phase.is_a?(Array) && allowed_phase.include?(stage)))
         end
 
         def finished_stage? stage

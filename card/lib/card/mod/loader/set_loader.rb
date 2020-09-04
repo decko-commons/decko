@@ -100,7 +100,7 @@ class Card
              module_comment,
              @last_module,
              set_extension,
-              location_method].compact
+             location_method].compact
           end
 
           def auto_comment
