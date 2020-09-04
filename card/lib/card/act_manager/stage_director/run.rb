@@ -4,10 +4,10 @@ class Card
       # methods for running stages
       module Run
         def catch_up_to_stage next_stage
-          handling_transact_in_stage next_stage do next_stage
-            upto_stage(next_stage) do |stage|
-              run_stage stage
-            end
+          return if @transact_in_stage && @transact_in_stage != next_stage
+
+          upto_stage(next_stage) do |stage|
+            run_stage stage
           end
         end
 
@@ -20,14 +20,6 @@ class Card
         end
 
         private
-
-        def handling_transact_in_stage next_stage
-          case @transact_in_stage
-          when nil        then yield next_stage
-          when next_stage then yield :integrate_with_delay
-          # ELSE NOOP
-          end
-        end
 
         def upto_stage stage
           @stage ||= -1
@@ -43,6 +35,11 @@ class Card
 
           invalid_next_stage! new_stage if @stage < new_stage - 1
           @card.errors.empty? || new_stage > stage_index(:validate)
+        end
+
+        def invalid_next_stage! stage
+          raise Card::Error, "stage #{stage_symbol(stage - 1)} was " \
+                             "skipped for card #{@card}"
         end
 
         def run_stage stage, &block
@@ -67,16 +64,11 @@ class Card
         def execute_stage_run stage, &block
           # in the store stage it can be necessary that
           # other subcards must be saved before we save this card
-          return store &block if stage == :store
+          return store(&block) if stage == :store
 
           run_stage_callbacks stage
           run_subdirector_stages stage
           run_final_stage_callbacks stage
-        end
-
-        def invalid_next_stage! stage
-          raise Card::Error, "stage #{stage_symbol(stage - 1)} was " \
-                             "skipped for card #{@card}"
         end
 
         def run_stage_callbacks stage, callback_postfix=""
@@ -91,17 +83,17 @@ class Card
           end
         end
 
-        def run_final_stage_callbacks stage
-          run_stage_callbacks stage, "_final"
-        end
-
         def run_subdirector_stages stage
           @subdirectors.each do |subdir|
-            cond = block_given? ? yield(subdir) : true
-            subdir.catch_up_to_stage stage if cond
+            condition = block_given? ? yield(subdir) : true
+            subdir.catch_up_to_stage stage if condition
           end
         ensure
           @card.handle_subcard_errors
+        end
+
+        def run_final_stage_callbacks stage
+          run_stage_callbacks stage, "_final"
         end
       end
     end

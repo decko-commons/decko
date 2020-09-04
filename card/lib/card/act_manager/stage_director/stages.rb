@@ -4,12 +4,10 @@ class Card
       # Methods for intepreting stages of an action
       module Stages
         STAGES = %i[initialize prepare_to_validate validate prepare_to_store
-                store finalize integrate after_integrate integrate_with_delay].freeze
-        stage_index = {}
-        STAGES.each_with_index do |stage, i|
-          stage_index[stage] = i
-        end
-        STAGE_INDEX = stage_index.freeze
+                    store finalize integrate after_integrate integrate_with_delay].freeze
+        STAGE_INDEX = STAGES.each_with_index.with_object({}) do |(stage, index), hash|
+          hash[stage] = index
+        end.freeze
 
         def stage_symbol index
           case index
