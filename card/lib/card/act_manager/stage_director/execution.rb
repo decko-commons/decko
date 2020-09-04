@@ -88,12 +88,12 @@ class Card
         def run_stage_callbacks stage, callback_postfix=""
           Rails.logger.debug "#{stage}: #{@card.name}"
           # we use abort :success in the :store stage for :save_draft
+
+          callbacks = :"#{stage}#{callback_postfix}_stage"
           if stage_index(stage) <= stage_index(:store) && !main?
-            @card.abortable do
-              @card.run_callbacks :"#{stage}#{callback_postfix}_stage"
-            end
+            @card.abortable { @card.run_callbacks callbacks }
           else
-            @card.run_callbacks :"#{stage}#{callback_postfix}_stage"
+            @card.run_callbacks callbacks
           end
         end
 
@@ -103,7 +103,8 @@ class Card
 
         def run_subdirector_stages stage
           @subdirectors.each do |subdir|
-            subdir.catch_up_to_stage stage
+            cond = block_given? ? yield(subdir) : true
+            subdir.catch_up_to_stage stage if cond
           end
         ensure
           @card.handle_subcard_errors
@@ -142,19 +143,11 @@ class Card
 
         # store subcards whose ids we need for this card
         def store_pre_subcards
-          @subdirectors.each do |subdir|
-            next unless subdir.prior_store
-
-            subdir.catch_up_to_stage :store
-          end
+          run_subdirector_stages :store, &:prior_store
         end
 
         def store_post_subcards
-          @subdirectors.each do |subdir|
-            next if subdir.prior_store
-
-            subdir.catch_up_to_stage :store
-          end
+          run_subdirector_stages(:store) { |subdir| !subdir.prior_store }
         end
 
         # trigger the storage_phase, skip the other phases
