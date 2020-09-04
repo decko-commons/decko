@@ -137,12 +137,10 @@ class Card
       end
 
       def new_director card, opts={}
-        if opts[:parent]
-          StageSubdirector.new card, opts
-        elsif act_card && act_card != card && running_act?
+        if !opts[:parent] && act_card && act_card != card && running_act?
           act_card.director.subdirectors.add card
         else
-          StageDirector.new card
+          StageDirector.new card, opts
         end
       end
 

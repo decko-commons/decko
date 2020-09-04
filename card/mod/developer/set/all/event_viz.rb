@@ -14,7 +14,7 @@
 def events action
   @action = action
   events =
-    ActManager::Stage::STAGES.map { |stage| events_tree("#{stage}_stage") }
+    ActManager::STAGES.map { |stage| events_tree("#{stage}_stage") }
   @action = nil
   puts_events events
 end
