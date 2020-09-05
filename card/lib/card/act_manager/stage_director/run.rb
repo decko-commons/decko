@@ -88,7 +88,8 @@ class Card
         end
 
         def run_subdirector_stages stage
-          @subdirectors.each do |subdir|
+          subdirectors.each do |subdir|
+            next if subdir.head?
             condition = block_given? ? yield(subdir) : true
             subdir.catch_up_to_stage stage if condition
           end

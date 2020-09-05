@@ -276,7 +276,7 @@ def storage_type_changed?
 end
 
 def bucket= value
-  if @action == :update
+  if action == :update
     @new_bucket = value
   else
     @bucket = value
@@ -285,7 +285,7 @@ end
 
 def storage_type= value
   known_storage_type? value
-  if @action == :update #&& storage_type != value
+  if action == :update #&& storage_type != value
     # we cant update the storage type directly here
     # if we do then the uploader doesn't find the file we want to update
     @new_storage_type = value
@@ -295,7 +295,7 @@ def storage_type= value
 end
 
 def mod= value
-  if @action == :update && mod != value
+  if action == :update && mod != value
     @new_mod = value.to_s
   else
     @mod = value.to_s

@@ -129,7 +129,8 @@ class Card < ApplicationRecord
     :silent_change                # and this probably too
   ]
 
-  attr_accessor(*action_specific_attributes)
+  attr_accessor(*(action_specific_attributes - [:action]))
+  attr_writer :action
   attr_accessor :follower_stash
 
   STAGE_CALLBACKS = [

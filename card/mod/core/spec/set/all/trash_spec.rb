@@ -22,7 +22,7 @@ describe Card, "deleted card" do
 end
 
 describe Card::Set::All::Trash do
-  it "dependent removal" do
+  it "descendant removal" do
     create! "born to die"
     create! "born to die+slowly"
     create! "slowly+born to die"

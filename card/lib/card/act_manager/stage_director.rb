@@ -60,8 +60,6 @@ class Card
         @card.director = self
         # for read actions there is no validation phase
         # so we have to set the action here
-        @card.identify_action
-
         @stage = nil
         @running = false
         @prepared = false
@@ -72,6 +70,10 @@ class Card
 
       def main?
         parent.nil?
+      end
+
+      def head?
+        @head
       end
 
       def register
@@ -88,6 +90,12 @@ class Card
         @subdirectors.clear
         @stage = nil
         @action = nil
+      end
+
+      def appoint card
+        reset_stage
+        update_card card
+        @head = true
       end
 
       def replace_card card

@@ -2,6 +2,10 @@ class Card
   class ActManager
     class StageDirector
       module Phases
+        def only_storage_phase?
+          !(head? || main?)
+        end
+
         def prepare_for_phases
           @card.prepare_for_phases unless @prepared
           @prepared = true
