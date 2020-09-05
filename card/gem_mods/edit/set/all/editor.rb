@@ -1,6 +1,4 @@
-include_set Abstract::ProsemirrorEditor
-include_set Abstract::TinymceEditor
-include_set Abstract::AceEditor
+include_abstract_set :editors
 
 Self::InputOptions.add_to_basket :options, "text area"
 Self::InputOptions.add_to_basket :options, "text field"

@@ -2,6 +2,11 @@ class Card
   module Set
     # API to inherit other sets and their formats
     module Inheritance
+      mattr_reader :registered_set_mods
+
+      # support registering abstract modules for generic inclusion
+      @registered_set_mods = { editors: [] }
+
       # include a set module and all its format modules
       # @param [Module] set
       # @param [Hash] opts choose the formats you want to include. You can also
@@ -38,6 +43,21 @@ class Card
         set_type = set.abstract_set? ? :abstract : :nonbase
         add_set_modules Card::Set.modules[set_type][set.shortname]
         include_set_formats set, opts
+      end
+
+      def register_abstract_set symbol, mod
+        mods = registered_set_mods[symbol]
+raise "no abstract set symbol #{symbol} M:#{mod}" if mods.nil?
+        return if mods.nil?
+        mods.append!(mod)
+      end
+
+      def include_abstract_set symbol, opts={}
+        mods = registered_set_mods[symbol]
+        return unless mods
+        mods.each do |mod|
+          include_set mod, opts
+        end
       end
 
       # include format modules of a set
