@@ -22,7 +22,7 @@ class Card
 
         def load_tmp_files
           @mod_dirs.each_tmp(:set) do |set_tmp_dir|
-            Card::Set::Pattern.in_load_order.each do |pattern|
+            Card::Set::Pattern.loadable_codes.each do |pattern|
               pattern_dir = "#{set_tmp_dir}/#{pattern}"
               Loader.load_dir "#{pattern_dir}/**" if Dir.exist? pattern_dir
             end
