@@ -2,26 +2,20 @@ RSpec.describe Card::Set::All::Subcards do
   let(:create_card) { Card.create!(name: "main card") }
   let(:create_card_with_subcards) do
     Card.create name: "main card",
-                subcards: {
-                  "11" => { subcards: { "111" => "A" } },
-                  "12" => { subcards: { "121" => "A" } }
-                }
+                subcards: { "11" => { subcards: { "111" => "A" } },
+                            "12" => { subcards: { "121" => "A" } } }
   end
 
   describe "add subcards" do
-    def save_transaction
-      @trans = ActiveRecord::Base.connection.current_transaction
-    end
-
-    let(:record_names) { @trans.records.map(&:name) }
-    after { @trans = nil }
+    let(:transact) { ActiveRecord::Base.connection.current_transaction }
+    let(:record_names) { transact.records.map(&:name) }
 
     context "when in integrate stage" do
       context "with default subcard handling" do
         it "processes all cards in one transaction" do
           with_test_events do
             test_event :validate, on: :create, for: "main card" do
-              save_transaction
+              transact
               add_subcard("sub card")
             end
 
@@ -91,7 +85,7 @@ RSpec.describe Card::Set::All::Subcards do
             end
 
             test_event :finalize, on: :create, for: "main card" do
-              save_transaction
+              transact
             end
 
             main_card = create_card
