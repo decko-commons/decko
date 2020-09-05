@@ -13,16 +13,11 @@ RSpec.describe Card::Set::All::Subcards do
       @trans = ActiveRecord::Base.connection.current_transaction
     end
 
-    def record_names
-      @trans.records.map(&:name)
-    end
+    let(:record_names) { @trans.records.map(&:name) }
+    after { @trans = nil }
 
-    after do
-      @trans = nil
-    end
-
-    context "in integrate stage" do
-      context "default subcard handling" do
+    context "when in integrate stage" do
+      context "with default subcard handling" do
         it "processes all cards in one transaction" do
           with_test_events do
             test_event :validate, on: :create, for: "main card" do
@@ -43,7 +38,7 @@ RSpec.describe Card::Set::All::Subcards do
         before { Delayed::Worker.delay_jobs = true }
         after { Delayed::Worker.delay_jobs = false }
 
-        context "serial subcard handling" do
+        context "with serial subcard handling" do
           class Card
             def __current_trans
               ActiveRecord::Base.connection.current_transaction
@@ -103,8 +98,8 @@ RSpec.describe Card::Set::All::Subcards do
             Delayed::Worker.new.work_off
 
             expect(record_names).to eq ["main card"]
-            expect("sub card").to exist
-            expect("sub create card").to exist
+            expect(Card["sub card"]).to exist
+            expect(Card["sub create card"]).to exist
 
             act_of_main = main_card.acts.last
             expect(act_of_main).to eq Card["sub create card"].actions.last.act
