@@ -366,6 +366,7 @@ RSpec.describe Card::Set::Type::File do
         expect(subject.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
       end
+
       it "keeps storage type coded if explicitly set" do
         storage_config :local
         subject.update! file: test_file(2), storage_type: :coded
