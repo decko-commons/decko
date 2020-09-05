@@ -5,8 +5,8 @@ def director
   @director ||= Card::ActManager.fetch self
 end
 
-def action
-  @action ||=
+def identify_action
+  @action =
     if trash && trash_changed?
       :delete
     elsif new_card?

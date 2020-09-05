@@ -1,6 +1,7 @@
 def prepare_for_phases
   reset_patterns
   include_set_modules
+  identify_action
 end
 
 delegate :validation_phase, to: :director

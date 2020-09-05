@@ -7,8 +7,8 @@ class Card
         end
 
         def prepare_for_phases
-          @card.prepare_for_phases unless @prepared
-          @prepared = true
+          @card.prepare_for_phases unless running?
+          @running = true
           @subdirectors.each(&:prepare_for_phases)
         end
 

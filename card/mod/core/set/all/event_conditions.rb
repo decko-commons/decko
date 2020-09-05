@@ -136,9 +136,9 @@ def wrong_stage opts
   end
 end
 
-def wrong_action action
-  return false if on_condition_applies?(nil, action)
-  "on: #{action} method #{method} called on #{action}"
+def wrong_action actn
+  return false if on_condition_applies?(nil, actn)
+  "on: #{actn} method #{method} called on #{action}"
 end
 
 def full_skip_hash

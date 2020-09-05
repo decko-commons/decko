@@ -59,10 +59,7 @@ class Card
 
         def prepare_stage_run stage
           @stage = stage_index stage
-          return unless stage == :initialize
-
-          @running ||= true
-          prepare_for_phases
+          prepare_for_phases if stage == :initialize
         end
 
         def execute_stage_run stage, &block

@@ -50,7 +50,7 @@ module ClassMethods
   end
 end
 
-def delete
+def delete args={}
   add_to_trash args do |delete_args|
     update delete_args
   end
