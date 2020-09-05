@@ -33,7 +33,7 @@ group :test do
   gem 'rspec-rails', '~>4.0.0.beta2'         # behavior-driven-development suite
   gem 'spork', '>=0.9'
   gem 'rubocop', '0.88' # 0.89 introduced bugs. may get resolved in rubocop-decko update?
-  gem 'rubocop-decko'
+  # gem 'rubocop-decko'
   gem 'nokogumbo'
 end
 

@@ -122,27 +122,24 @@ class Card
         @expirees ||= []
       end
 
-      # FIXME: use "parent" instead of opts (it's the only option)
-      def fetch card, opts={}
+      def fetch card, parent=nil
         return directors[card] if directors[card]
 
         directors.each_key do |dir_card|
           return dir_card.director if dir_card.name == card.name && dir_card.director
         end
-        add new_director(card, opts)
+        add new_director(card, parent)
       end
 
       def include? name
         directors.keys.any? { |card| card.key == name.to_name.key }
       end
 
-      def new_director card, opts={}
-        if opts[:parent]
-          StageSubdirector.new card, opts
-        elsif act_card && act_card != card && running_act?
+      def new_director card, parent
+        if !parent && act_card && act_card != card && running_act?
           act_card.director.subdirectors.add card
         else
-          StageDirector.new card
+          StageDirector.new card, parent
         end
       end
 

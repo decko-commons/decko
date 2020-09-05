@@ -28,13 +28,14 @@ end
 
 task :cp_tmpsets do
   system %(
-    cd ../decko-tmpsets
+    cd card/tmpsets
+    git pull
     rm -rf set*
-    cp -r ../sites/core-dev/tmp/set* .
-    git commit -a -m 'updated from core-dev'
-    git push; git push decko
-    cd ../gem
-    git submodule update --remote
+    cp -r ../../../sites/core-dev/tmp/set* .
+    git add -A
+    git commit -a -m 'regenerated and copied from core-dev'
+    git push;
+    cd ../../
   )
 end
 

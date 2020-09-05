@@ -55,7 +55,8 @@ class Card
             @content.gsub!(/^ *format +:?(\w+)? *do *$/) do
               format_name = $1.blank? ? nil : $1.to_sym
               "module #{module_name format_name}; " \
-              "parent.send :register_set_format, #{format_class format_name}, self; "\
+              "module_parent.send :register_set_format, "\
+              "#{format_class format_name}, self; "\
               "extend Card::Set::AbstractFormat"
             end
           end
