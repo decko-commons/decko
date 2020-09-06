@@ -44,6 +44,7 @@ format :html do
 
   # overridden by mods that provide rich text editors
   def rich_text_input
+    #FIXME: should select default differently, don't depend on an editor
     send "#{Cardio.config.rich_text_editor || :tinymce}_editor_input"
   end
 
