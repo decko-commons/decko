@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
 
     # card modules in decko core gems:
     ["card-mod-date",              "~>0.1"],
+    ["card-mod-edit",              "~>0.1"],
     ["card-mod-ace_editor",        "~>0.1"],
     ["card-mod-prosemirror_editor", "~>0.1"],
     ["card-mod-tinymce_editor",    "~>0.1"],
