@@ -81,16 +81,16 @@ format :html do
     end
   end
 
-  def file_chooser_action_text
-    action = card.new_card? ? "Add" : "Replace"
-    "#{action} #{humanized_attachment_name}..."
-  end
-
   view :input do
     if card.web? || card.no_upload?
       return text_field(:content, class: "d0-card-content")
     end
     haml :file_chooser, action_text: file_chooser_action_text
+  end
+
+  def file_chooser_action_text
+    action = card.new_card? ? "Add" : "Replace"
+    "#{action} #{humanized_attachment_name}..."
   end
 
   def humanized_attachment_name

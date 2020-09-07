@@ -369,6 +369,7 @@ RSpec.describe Card::Set::Type::File do
 
       it "keeps storage type coded if explicitly set" do
         storage_config :local
+        subject
         subject.update! file: test_file(2), storage_type: :coded
         expect(subject.storage_type).to eq :coded
         expect(subject.db_content)
