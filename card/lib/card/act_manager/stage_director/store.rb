@@ -40,11 +40,11 @@ class Card
         # If the subcard has an after-store callback, it means the subcard
         # must run before the supercard and then call back
         def store_pre_subcards
-          run_subdirector_stages :store, &:after_store?
+          run_subcard_stages :store, &:after_store?
         end
 
         def store_post_subcards
-          run_subdirector_stages(:store) { |subdir| !subdir.after_store? }
+          run_subcard_stages(:store) { |subdir| !subdir.after_store? }
         end
 
         # trigger the storage_phase, skip the other phases

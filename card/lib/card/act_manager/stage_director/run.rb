@@ -16,7 +16,7 @@ class Card
           @act = act
           @stage = stage_index(:integrate_with_delay)
           yield
-          run_subdirector_stages :integrate_with_delay
+          run_subcard_stages :integrate_with_delay
         end
 
         def delay!
@@ -68,7 +68,7 @@ class Card
           return store(&block) if stage == :store
 
           run_stage_callbacks stage
-          run_subdirector_stages stage
+          run_subcard_stages stage
           run_final_stage_callbacks stage
         end
 
@@ -84,11 +84,16 @@ class Card
           end
         end
 
-        def run_subdirector_stages stage
-          subdirectors.each do |subdir|
-            next if subdir.head?
+        def run_subcard_stages stage
+          each_subcard_director do |subdir|
             condition = block_given? ? yield(subdir) : true
             subdir.catch_up_to_stage stage if condition
+          end
+        end
+
+        def each_subcard_director
+          subdirectors.each do |subdir|
+            yield subdir unless subdir.head?
           end
         ensure
           @card.handle_subcard_errors
