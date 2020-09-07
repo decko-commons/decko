@@ -1,20 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe CarrierWave::FileCardUploader do
-  def test_file
-    File.new(File.join(CARD_TEST_SEED_PATH, "file1.txt"))
-  end
-
-  def create_file_card storage_type, file=test_file, opts={}
-    Card::Auth.as_bot do
-      Card.create! opts.reverse_merge(name: "file card",
-                                      type_id: Card::FileID,
-                                      file: file,
-                                      storage_type: storage_type,
-                                      codename: "file_card_codename")
-    end
-  end
-
+RSpec.describe CarrierWave::FileCardUploader do
   let(:local_file) { create_file_card :local }
   let(:coded_file) { Card[:logo] }
   let(:web_file) { create_file_card :web, "http://web.de/test.txt" }

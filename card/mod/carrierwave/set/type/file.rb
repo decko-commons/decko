@@ -82,10 +82,15 @@ format :html do
   end
 
   view :input do
-    if card.web? || card.no_upload?
-      return text_field(:content, class: "d0-card-content")
+    if card.no_upload?
+      text_field :content, class: "d0-card-content"
+    else
+      haml :file_chooser, action_text: file_chooser_action_text
     end
-    haml :file_chooser, action_text: file_chooser_action_text
+  end
+
+  view :preview_editor, unknown: true, cache: :never do
+    haml :preview_editor
   end
 
   def file_chooser_action_text
@@ -107,9 +112,5 @@ format :html do
 
   def preview_editor_delete_text
     tr :delete
-  end
-
-  view :preview_editor, unknown: true, cache: :never do
-    haml :preview_editor
   end
 end
