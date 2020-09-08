@@ -36,7 +36,7 @@ def load_bucket_config
   return {} unless bucket
   bucket_config = Cardio.config.file_buckets&.dig(bucket.to_sym) || {}
   bucket_config.symbolize_keys!
-  bucket_config[:credentials].symbolize_keys! if bucket_config[:credentials]
+  bucket_config[:credentials]&.symbolize_keys!
   # we don't want :attributes hash symbolized, so we can't use
   # deep_symbolize_keys
   ensure_bucket_config do
@@ -46,9 +46,17 @@ end
 
 def ensure_bucket_config
   yield.tap do |config|
-    cant_find_in_bucket! "configuration" unless config.present?
-    cant_find_in_bucket! "credentials" unless config[:credentials]
+    require_configuration! config
+    require_credentials! config
   end
+end
+
+def require_configuration!(config)
+  cant_find_in_bucket! "configuration" unless config.present?
+end
+
+def require_credentials!(config)
+  cant_find_in_bucket! "credentials" unless config[:credentials]
 end
 
 def cant_find_in_bucket! need

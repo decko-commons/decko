@@ -10,6 +10,8 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
     end
   end
 
+  let(:cloud_url) { "http://#{DIRECTORY}.s3.amazonaws.com/files/#{file_path}" }
+
   def ensure_test_bucket
     Decko.config.file_buckets = {
       test_bucket: {
@@ -23,8 +25,6 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
       }
     }
   end
-
-  let(:cloud_url) { "http://#{DIRECTORY}.s3.amazonaws.com/files/#{file_path}" }
 
   def file_path
     "#{file_card.id}/#{file_card.last_action_id}.txt"
