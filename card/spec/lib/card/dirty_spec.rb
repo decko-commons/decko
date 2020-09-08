@@ -7,7 +7,6 @@ RSpec.describe Card::Dirty do
       with_test_events do
         test_event :validate do
           self.content = "new content"
-          changed_attributes
         end
         test_event :integrate, for: "new name" do
           expect(name_is_changing?).to be_truthy

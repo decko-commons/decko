@@ -73,7 +73,7 @@ class Card
       end
 
       def head?
-        @head
+        @head || main?
       end
 
       def register

@@ -86,10 +86,8 @@ class CardController < ApplicationController
   # ----------( HELPER METHODS ) -------------
 
   def handle
-    card.act do
-      Card::Env.success card.name
-      yield ? cud_success : raise(Card::Error::UserError)
-    end
+    Card::Env.success card.name
+    yield ? cud_success : raise(Card::Error::UserError)
   end
 
   # successful create, update, or delete act

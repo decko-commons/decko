@@ -2,8 +2,12 @@ class Card
   class ActManager
     class StageDirector
       module Phases
-        def only_storage_phase?
-          card.only_storage_phase || !(head? || main?)
+        def validation_phase_callback?
+          head? && !@only_storage_phase
+        end
+
+        def integration_phase_callback?
+          head? && !@only_storage_phase
         end
 
         def prepare_for_phases
@@ -41,7 +45,6 @@ class Card
           run_stage :integrate_with_delay
         ensure
           @card.clear_changes_information unless @abort
-          # ActManager.clear if main? && !@card.only_storage_phase
         end
       end
     end

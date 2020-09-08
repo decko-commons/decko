@@ -7,4 +7,5 @@ end
 delegate :validation_phase, to: :director
 delegate :storage_phase, to: :director
 delegate :integration_phase, to: :director
-delegate :only_storage_phase?, to: :director
+delegate :validation_phase_callback?, to: :director
+delegate :integration_phase_callback?, to: :director
