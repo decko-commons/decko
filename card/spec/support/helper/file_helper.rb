@@ -16,7 +16,9 @@ class Card
 
     def with_storage_config type
       Cardio.config.file_storage = type
-      yield.tap { Cardio.config.file_storage = :local }
+      yield.tap do
+        Cardio.config.file_storage = :local
+      end
     end
 
     def bucket_credentials key
@@ -25,14 +27,14 @@ class Card
     end
 
     def bucket_credentials_from_yml_file
-      file_path = File.expand_path("../bucket_credentials.yml", __FILE__)
+      file_path = File.expand_path("../../bucket_credentials.yml", __FILE__)
       yml_file = ENV["BUCKET_CREDENTIALS_PATH"] || file_path
-      need_bucket_credentials! unless  File.exist? yml_file
+      need_bucket_credentials! file_path unless File.exist? yml_file
 
       YAML.load_file(yml_file).deep_symbolize_keys
     end
 
-    def need_bucket_credentials!
+    def need_bucket_credentials! file_path
       raise Card::Error,
             "Bucket Credentials required. " \
             "Specify yml file with environmental variable (BUCKET_CREDENTIALS_PATH) " \

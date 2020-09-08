@@ -56,10 +56,11 @@ RSpec.describe Card::Set::Type::File do
 
     it "handles urls as source" do
       url = "https://decko.org/files/bruce_logo-large-122798.png"
-      storage_config :local
-      Card.create! name: "url test", type_id: Card::FileID, remote_file_url: url
-      expect(Card["url test"].file.size).to be > 0
-      expect(Card["url test"].file.url).to match(/\.png$/)
+      with_storage_config :local do
+        file = (create_file_card :local, nil, remote_file_url: url)&.file
+        expect(file.size).to be > 0
+        expect(file.url).to match(/\.png$/)
+      end
     end
 
     context "storage type:" do
@@ -173,16 +174,6 @@ RSpec.describe Card::Set::Type::File do
         unprotected_file.delete!
       end
       expect(Dir.exist?(File.dirname(pp))).to be_falsey
-    end
-  end
-
-  context "when changing storage type" do
-    subject do
-      Card::Auth.as_bot do
-        Card.create! name: "file card", type_code: "file",
-                     file: File.new(File.join(CARD_TEST_SEED_PATH, "file1.txt")),
-                     storage_type: @storage_type
-      end
     end
   end
 

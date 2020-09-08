@@ -14,16 +14,17 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
     FileUtils.mkdir_p mod_path
     Card::Mod.dirs.mod "test_mod"
   end
+
   after do
     FileUtils.rm_rf mod_path
     Card::Mod.dirs.mods.delete "test_mod"
   end
-  
+
   specify "view: source" do
     expect(file_card.format.render_source)
       .to eq("/files/:#{codename}/bootstrap-medium.png")
   end
-  
+
   describe "creating" do
     let :file_card do
       create_file_card :coded, test_file, codename: "mod_file", mod: "test_mod"
@@ -54,7 +55,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
     end
   end
 
-  context "updating" do
+  describe "updating" do
     let :file_card do
       create_file_card :coded, test_file, codename: "mod_file", mod: "test_mod"
     end
@@ -82,7 +83,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
       end
     end
 
-    context "from local to coded" do
+    context "when changing from local to coded" do
       let(:file_path) { File.join mod_path, "file", "mod_file", "file.txt" }
       let(:file_card) { create_file_card :local }
 
@@ -96,7 +97,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
       end
     end
 
-    context "from coded to local" do
+    context "when changing from coded to local" do
       let(:file_card) { Card[:logo] }
 
       it "copies file to local file" do

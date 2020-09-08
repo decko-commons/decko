@@ -117,7 +117,7 @@ end
 
 def bucket_from_config
   cnf = Cardio.config
-  cnv.file_default_bucket || cnf.file_buckets&.keys&.first
+  cnf.file_default_bucket || cnf.file_buckets&.keys&.first
 end
 
 def change_bucket_if_read_only?

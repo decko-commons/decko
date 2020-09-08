@@ -53,7 +53,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
   end
 
   context "when changing storage type to cloud" do
-    file_card { create_file_card :local }
+    let(:file_card) { create_file_card :local }
 
     it "works" do
       # local
