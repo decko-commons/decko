@@ -23,6 +23,11 @@ class Card
           @delay = true
         end
 
+        def restart
+          @running = false
+          @stage = nil
+        end
+
         private
 
         def upto_stage stage

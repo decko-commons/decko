@@ -36,7 +36,7 @@ class Card
   #    validate                     yes  yes  yes! |      no       |    no
   # 1) insecure change              yes  yes! no   |      no!      |    no!
   # 2) secure change                     yes       | yes! no!  no! |    no!
-  #    abort                             yes!      |      yes      |    yes?
+  #    abort                             yes!      |      yes      |    yes
   #    add errors                        yes!      |      no!      |    no!
   # 3) create other cards                yes       |      yes      |    yes
   #    has id                            no        | no   no?  yes |    yes

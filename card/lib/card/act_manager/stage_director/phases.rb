@@ -3,7 +3,7 @@ class Card
     class StageDirector
       module Phases
         def only_storage_phase?
-          !(head? || main?)
+          card.only_storage_phase || !(head? || main?)
         end
 
         def prepare_for_phases
