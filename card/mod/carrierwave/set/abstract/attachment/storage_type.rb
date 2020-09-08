@@ -79,16 +79,16 @@ def mod_from_deprecated_content
 end
 
 def storage_type_from_config
-  validate_storage_type ENV["FILE_STORAGE"] || Cardio.config.file_storage
+  valid_storage_type ENV["FILE_STORAGE"] || Cardio.config.file_storage
 end
 
-def validate_storage_type storage_type
+def valid_storage_type storage_type
   storage_type.to_sym.tap do |type|
-    invalid_storage_type! type unless type.in? valid_storage_types
+    invalid_storage_type! type unless type.in? valid_storage_type_list
   end
 end
 
-def valid_storage_types
+def valid_storage_type_list
   CarrierWave::FileCardUploader::STORAGE_TYPES
 end
 

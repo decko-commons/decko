@@ -19,12 +19,6 @@ class Card
       yield.tap { Cardio.config.file_storage = :local }
     end
 
-    def storage_config type=:local
-      Cardio.config.file_storage = type
-      # config.file_default_bucket
-
-    end
-
     def bucket_credentials key
       @buckets ||= bucket_credentials_from_yml_file || {}
       @buckets[key]

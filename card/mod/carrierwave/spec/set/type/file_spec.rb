@@ -31,20 +31,8 @@ RSpec.describe Card::Set::Type::File do
       subject { source_view unprotected_file }
 
       it "renders relative url" do
-        is_expected.to(
-          eq "/files/~#{unprotected_file.id}/"\
-             "#{unprotected_file.last_action_id}.txt"
-        )
-      end
-    end
-
-    context "storage type: coded" do
-      subject { source_view coded_file }
-
-      it "renders protected url to be processed by decko" do
-        is_expected.to(
-          eq
-        )
+        is_expected
+          .to eq("/files/~#{unprotected_file.id}/#{unprotected_file.last_action_id}.txt")
       end
     end
   end
@@ -55,14 +43,12 @@ RSpec.describe Card::Set::Type::File do
         Card::Auth.as_bot do
           Card.create! name: "hide and seek", type_id: Card::FileID
         end
-      end.to raise_error ActiveRecord::RecordInvalid,
-                         "Validation failed: File is missing"
+      end.to raise_error ActiveRecord::RecordInvalid, "Validation failed: File is missing"
     end
 
     it "allows no file if 'empty_ok' is true" do
       Card::Auth.as_bot do
-        card = Card.create! name: "hide and seek", type_id: Card::FileID,
-                            empty_ok: true
+        card = Card.create! name: "hide and seek", type_id: Card::FileID, empty_ok: true
         expect(card).to be_instance_of(Card)
         expect(card.content).to eq ""
       end
@@ -124,13 +110,9 @@ RSpec.describe Card::Set::Type::File do
       it "handles file subcards" do
         file = File.open(File.join(CARD_TEST_SEED_PATH, "file1.txt"))
         Card.create! name: "new card with file",
-                     subcards: {
-                       "+my file" => {
-                         content: "ignore content",
-                         type_id: Card::FileID,
-                         file: file
-                       }
-                     }
+                     subcards: { "+my file" => { content: "ignore content",
+                                                 type_id: Card::FileID,
+                                                 file: file } }
         expect(Card["new card with file+my file"].file.file.read.strip)
           .to eq "file1"
       end
@@ -155,40 +137,6 @@ RSpec.describe Card::Set::Type::File do
     it "updates url" do
       expect(subject.file.url)
         .to eq "/files/~#{subject.id}/#{subject.last_action_id}.txt"
-    end
-
-    context "if storage type is coded" do
-      before do
-        FileUtils.mkdir_p mod_path
-        Card::Mod.dirs.mod "test_mod"
-      end
-      after do
-        FileUtils.rm_rf mod_path
-        Card::Mod.dirs.mods.delete "test_mod"
-      end
-
-      subject do
-        create_file_card :coded, test_file, codename: "mod_file", mod: "test_mod"
-      end
-
-      it "changes storage type to default" do
-        storage_config :local
-        subject.update! file: test_file(2)
-        expect(subject.storage_type).to eq :local
-        expect(subject.db_content)
-          .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
-      end
-
-      it "keeps storage type coded if explicitly set" do
-        storage_config :local
-        subject.update! file: test_file(2), storage_type: :coded
-        expect(subject.storage_type).to eq :coded
-        expect(subject.db_content)
-          .to eq ":#{subject.codename}/test_mod.txt"
-        expect(subject.attachment.path)
-          .to match(%r{test_mod/file/mod_file/file.txt$})
-        expect(File.read(subject.attachment.path).strip).to eq "file2"
-      end
     end
 
     context "when read rules are restricted" do
@@ -234,41 +182,6 @@ RSpec.describe Card::Set::Type::File do
         Card.create! name: "file card", type_code: "file",
                      file: File.new(File.join(CARD_TEST_SEED_PATH, "file1.txt")),
                      storage_type: @storage_type
-      end
-    end
-
-    context "from local to coded" do
-      before do
-        FileUtils.mkdir_p mod_path
-      end
-      after do
-        FileUtils.rm_rf mod_path
-      end
-      let(:file_path) { File.join mod_path, "file", "mod_file", "file.txt" }
-
-      it "copies file to mod" do
-        @storage_type = :local
-        expect(subject.db_content)
-          .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
-        Card::Auth.as_bot do
-          subject.update! storage_type: :coded, mod: "test_mod", codename: "mod_file"
-        end
-        expect(subject.db_content)
-          .to eq ":#{subject.codename}/test_mod.txt"
-        expect(File.exist?(file_path)).to be_truthy
-      end
-    end
-
-    context "from coded to local" do
-      subject { Card[:logo] }
-
-      it "copies file to mod" do
-        @storage_type = :local
-        Card::Auth.as_bot do
-          subject.update! storage_type: :local
-        end
-        expect(subject.db_content)
-          .to eq "~#{subject.id}/#{subject.last_action_id}.svg"
       end
     end
   end

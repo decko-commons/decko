@@ -51,11 +51,11 @@ def ensure_bucket_config
   end
 end
 
-def require_configuration!(config)
+def require_configuration! config
   cant_find_in_bucket! "configuration" unless config.present?
 end
 
-def require_credentials!(config)
+def require_credentials! config
   cant_find_in_bucket! "credentials" unless config[:credentials]
 end
 
