@@ -87,8 +87,6 @@ class Card
       SharedData::USERS.sort
     end
 
-
-
     def with_rss_enabled
       Card.config.rss_enabled = true
       yield

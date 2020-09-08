@@ -78,18 +78,22 @@ def mod_from_deprecated_content
   lines.last
 end
 
-
 def storage_type_from_config
-  type = ENV["FILE_STORAGE"] || Cardio.config.file_storage
-  return unless type
-  type = type.to_sym
-  unless type.in? CarrierWave::FileCardUploader::STORAGE_TYPES
-    raise Card::Error,
-          I18n.t(:error_invalid_storage_type,
-                 scope: "mod.carrierwave.set.abstract.attachment",
-                 type: type)
+  return unless (type = ENV["FILE_STORAGE"] || Cardio.config.file_storage)
+  type.to_sym.tap do |type|
+    invalid_storage_type! type unless type.in? valid_storage_types
   end
-  type
+end
+
+def valid_storage_types
+  CarrierWave::FileCardUploader::STORAGE_TYPES
+end
+
+def invalid_storage_type! type
+  raise Card::Error,
+        I18n.t(:error_invalid_storage_type,
+        scope: "mod.carrierwave.set.abstract.attachment",
+        type: type)
 end
 
 def storage_type_from_content

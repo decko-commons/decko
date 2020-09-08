@@ -9,14 +9,13 @@ event :validate_storage_type_update, :validate, on: :update, when: :cloud? do
   #   storage type if a new file is provided
   #   i.e. `update storage_type: :local` fails but
   #        `update storage_type: :local, file: [file handle]` is ok
-  if cloud? && storage_type_changed? && !attachment_is_changing?
-    errors.add :storage_type, tr(:moving_files_is_not_supported)
-  end
+  return unless storage_type_changed? && !attachment_is_changing?
+
+  errors.add :storage_type, tr(:moving_files_is_not_supported)
 end
 
 def bucket
-  @bucket ||= cloud? &&
-    (new_card_bucket || bucket_from_content || bucket_from_config)
+  @bucket ||= cloud? && (new_card_bucket || bucket_from_content || bucket_from_config)
 end
 
 def new_card_bucket
@@ -35,55 +34,71 @@ end
 
 def load_bucket_config
   return {} unless bucket
-  bucket_config = Cardio.config.file_buckets &&
-    Cardio.config.file_buckets[bucket.to_sym]
-  bucket_config &&= bucket_config.symbolize_keys
-  bucket_config ||= {}
+  bucket_config = Cardio.config.file_buckets&.dig(bucket.to_sym) || {}
+  bucket_config.symbolize_keys!
+  bucket_config[:credentials].symbolize_keys! if bucket_config[:credentials]
   # we don't want :attributes hash symbolized, so we can't use
   # deep_symbolize_keys
-  bucket_config[:credentials] &&= bucket_config[:credentials].symbolize_keys
   ensure_bucket_config do
     load_bucket_config_from_env bucket_config
   end
 end
 
 def ensure_bucket_config
-  config = yield
-  unless config.present?
-    raise Card::Error, "couldn't find configuration for bucket #{bucket}"
+  yield.tap do |config|
+    cant_find_in_bucket! "configuration" unless config.present?
+    cant_find_in_bucket! "credentials" unless config[:credentials]
   end
-  unless config[:credentials]
-    raise Card::Error, "couldn't find credentials for bucket #{bucket}"
-  end
-  config
+end
+
+def cant_find_in_bucket! need
+  raise Card::Error, "couldn't find #{need} for bucket #{bucket}"
 end
 
 def load_bucket_config_from_env config
   config ||= {}
-  CarrierWave::FileCardUploader::CONFIG_OPTIONS.each do |key|
-    next if key.in? %i[attributes credentials]
+  each_config_option_from_env do |key|
     replace_with_env_variable config, key
   end
+  credential_config config do |cred_hash|
+    load_bucket_credentials_from_env cred_hash
+  end
+end
+
+def credential_config config
   config[:credentials] ||= {}
-  load_bucket_credentials_from_env config[:credentials]
-  config.delete :credentials unless config[:credentials].present?
+  yield config[:credentials]
+  config.delete :credentials if config[:credentials].blank?
   config
 end
 
-def load_bucket_credentials_from_env cred_config
-  cred_opt_pattern =
-    Regexp.new(/^(?:#{bucket.to_s.upcase}_)?CREDENTIALS_(?<option>.+)$/)
-  ENV.keys.each do |env_key|
-    next unless (m = cred_opt_pattern.match(env_key))
-    replace_with_env_variable cred_config, m[:option].downcase.to_sym,
-                              "credentials"
+def each_config_option_from_env
+  CarrierWave::FileCardUploader::CONFIG_OPTIONS.each do |key|
+    yield key unless key.in? %i[attributes credentials]
   end
+end
+
+def load_bucket_credentials_from_env cred_config
+  each_credential_from_env do |option|
+    replace_with_env_variable cred_config, option, "credentials"
+  end
+end
+
+def each_credential_from_env
+  regexp = credential_from_env_regexp
+  ENV.each_key do |env_key|
+    next unless (m = regexp.match env_key)
+    yield m[:option].downcase.to_sym
+  end
+end
+
+def credential_from_env_regexp
+  Regexp.new "^(?:#{bucket.to_s.upcase}_)?CREDENTIALS_(?<option>.+)$"
 end
 
 def replace_with_env_variable config, option, prefix=nil
   env_key = [prefix, option].compact.join("_").upcase
-  new_value = ENV["#{bucket.to_s.upcase}_#{env_key}"] ||
-    ENV[env_key]
+  new_value = ENV["#{bucket.to_s.upcase}_#{env_key}"] || ENV[env_key]
   config[option] = new_value if new_value
 end
 
@@ -93,8 +108,8 @@ def bucket_from_content
 end
 
 def bucket_from_config
-  Cardio.config.file_default_bucket ||
-    (Cardio.config.file_buckets&.keys&.first)
+  cnf = Cardio.config
+  cnv.file_default_bucket || cnf.file_buckets&.keys&.first
 end
 
 def change_bucket_if_read_only?

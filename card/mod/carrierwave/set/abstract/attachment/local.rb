@@ -27,7 +27,7 @@ def create_public_links
 end
 
 def create_versions_public_links
-  attachment.versions.each do |_name, version|
+  attachment.versions.each_value do |version|
     next if File.symlink? version.public_path
     File.symlink version.path, version.public_path
   end

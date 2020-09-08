@@ -8,10 +8,10 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
 
   let(:codename) { :yeti_skin_image }
 
-  subject { Card[codename] }
+  let(:file_card) { Card[codename] }
 
   specify "view: source" do
-    expect(subject.format.render_source)
+    expect(file_card.format.render_source)
       .to eq("/files/:#{codename}/bootstrap-medium.png")
   end
 
@@ -30,34 +30,32 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
       Card::Mod.dirs.mods.delete "test_mod"
     end
 
-    subject do
+    let :file_card do
       create_file_card :coded, test_file, codename: "mod_file", mod: "test_mod"
     end
 
     let(:file_path) { File.join mod_path, "file", "mod_file", "file.txt" }
 
     it "stores correct identifier (:<codename>/<mod_name>.<ext>)" do
-      expect(subject.db_content)
-        .to eq ":#{subject.codename}/test_mod.txt"
+      expect(file_card.db_content)
+        .to eq ":#{file_card.codename}/test_mod.txt"
     end
 
     it "has correct store path" do
-      expect(subject.file.path).to eq file_path
+      expect(file_card.file.path).to eq file_path
     end
 
     it "has correct original filename" do
-      expect(subject.original_filename).to eq "file1.txt"
+      expect(file_card.original_filename).to eq "file1.txt"
     end
 
     it "stores file in mod directory" do
-      subject
+      file_card
       expect(File.read(file_path).strip).to eq "file1"
     end
 
     it "has correct url" do
-      expect(subject.file.url).to(
-        eq "/files/:#{subject.codename}/test_mod.txt"
-      )
+      expect(file_card.file.url).to eq("/files/:#{file_card.codename}/test_mod.txt")
     end
   end
 end

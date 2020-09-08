@@ -1,4 +1,3 @@
-
 event :lose_coded_status_on_update, :initialize, on: :update, when: :coded? do
   # unless explicit
   return if @new_mod
@@ -21,4 +20,3 @@ def mod= value
     @mod = value.to_s
   end
 end
-
