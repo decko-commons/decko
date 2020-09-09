@@ -56,9 +56,6 @@ class Card
           # puts "#{@card.name}: #{stage} stage".red
           prepare_stage_run stage
           execute_stage_run stage, &block
-        rescue StandardError => e
-          @card.clean_after_stage_fail
-          raise e
         end
 
         def prepare_stage_run stage

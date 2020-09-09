@@ -96,7 +96,7 @@ class Card < ApplicationRecord
   extend Dirty::MethodFactory
   include Dirty
   include DirtyNames
-  include Direction
+  include Director::CardMethods
 
   Card::Cache # trigger autoload
 

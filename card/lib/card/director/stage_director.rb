@@ -1,18 +1,5 @@
 class Card
-  def restore_changes_information
-    # restores changes for integration phase
-    # (rails cleared them in an after_create/after_update hook which is
-    #  executed before the integration phase)
-    return unless saved_changes.present?
 
-    @mutations_from_database = mutations_before_last_save
-  end
-
-  def clean_after_stage_fail
-    @action = nil
-    # expire_pieces
-    # subcards.each(&:expire_pieces)
-  end
 
   class Director
     # A 'StageDirector' executes the stages of a card when the card gets
