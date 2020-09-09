@@ -36,7 +36,7 @@ class Card
       end
 
       def run_job_with_act act, card, &block
-        run_act(act.card || card) do
+        run_act card do
           act_card.director.run_delayed_event act, &block
         end
       end
