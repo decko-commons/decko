@@ -3,11 +3,12 @@ class Card
     class StageDirector
       module Phases
         def validation_phase_callback?
-          head? && !@only_storage_phase
+          !@only_storage_phase && head?
         end
 
         def integration_phase_callback?
-          main?
+          !@only_storage_phase && head?
+          #(main? || (head? && main_director.in_or_after?(:integrate)))
         end
 
         def prepare_for_phases

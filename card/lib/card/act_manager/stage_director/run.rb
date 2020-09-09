@@ -14,7 +14,7 @@ class Card
         def run_delayed_event act
           @running = true
           @act = act
-          @stage = stage_index(:integrate_with_delay)
+          @stage = stage_index :integrate_with_delay
           yield
           run_subcard_stages :integrate_with_delay
         end
@@ -37,17 +37,16 @@ class Card
           end
         end
 
-        def valid_next_stage? stage
-          new_stage = stage_index(stage)
+        def valid_next_stage? next_stage
           @stage ||= -1
-          return if @stage >= new_stage
+          return false if in_or_after? next_stage
 
-          invalid_next_stage! new_stage if @stage < new_stage - 1
-          @card.errors.empty? || new_stage > stage_index(:validate)
+          skipped_stage! next_stage if before?(previous_stage_index(next_stage))
+          @card.errors.empty? || after?(:validate, next_stage)
         end
 
-        def invalid_next_stage! stage
-          raise Card::Error, "stage #{stage_symbol(stage - 1)} was " \
+        def skipped_stage! stage
+          raise Card::Error, "stage #{previous_stage_symbol stage} was " \
                              "skipped for card #{@card}"
         end
 
@@ -82,7 +81,7 @@ class Card
           # we use abort :success in the :store stage for :save_draft
 
           callbacks = :"#{stage}#{callback_postfix}_stage"
-          if before?(stage, :store) && !main?
+          if in_or_before?(:store, stage) && !main?
             @card.abortable { @card.run_callbacks callbacks }
           else
             @card.run_callbacks callbacks
@@ -98,14 +97,10 @@ class Card
 
         def each_subcard_director stage
           subdirectors.each do |subdir|
-            yield subdir unless subdir.head? && before?(stage, :integrate)
+            yield subdir unless subdir.head? # && before?(:integrate, stage)
           end
         ensure
           @card.handle_subcard_errors
-        end
-
-        def before? test_stage, reference_stage
-          stage_index(test_stage) <= stage_index(reference_stage)
         end
 
         def run_final_stage_callbacks stage

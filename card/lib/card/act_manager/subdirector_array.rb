@@ -42,6 +42,7 @@ class Card
       def fetch_new card
         ActManager.fetch(card, @parent).tap do |dir|
           unless dir.main?
+            dir.replace_card card if dir.card != card
             dir.parent = @parent
             self << dir
           end

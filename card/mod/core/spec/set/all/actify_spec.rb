@@ -49,8 +49,9 @@ RSpec.describe Card::Set::All::Actify do
       with_test_events do
         test_event :finalize do
           expect { Card.create! name: "A" }.to raise_error(/unique/)
+          raise Card::Error, "woot"
         end
-        Card["B"].update!(content: "what")
+        expect { Card["B"].update! content: "what" }.to raise_error(/woot/)
       end
     end
   end

@@ -4,8 +4,5 @@ def prepare_for_phases
   include_set_modules
 end
 
-delegate :validation_phase, to: :director
-delegate :storage_phase, to: :director
-delegate :integration_phase, to: :director
-delegate :validation_phase_callback?, to: :director
-delegate :integration_phase_callback?, to: :director
+delegate :validation_phase, :storage_phase, :integration_phase,
+         :validation_phase_callback?, :integration_phase_callback?, to: :director

@@ -84,7 +84,7 @@ def deep_clear_subcards
   subcards.deep_clear
 end
 
-event :handle_subcard_errors do
+def handle_subcard_errors
   subcards.each do |subcard|
     subcard.errors.each do |field, err|
       subcard_error subcard, field, err

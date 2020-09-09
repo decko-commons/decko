@@ -135,6 +135,14 @@ class Card
         str
       end
 
+      def replace_card card
+        card.action = @card.action
+        card.director = self
+        @card = card
+        reset_stage
+        catch_up_to_stage @stage if @stage
+      end
+
       def update_card card
         old_card = @card
         @card = card

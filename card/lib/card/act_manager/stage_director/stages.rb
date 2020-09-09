@@ -46,18 +46,38 @@ class Card
 
         private
 
-        def before? allowed_phase
-          STAGE_INDEX[allowed_phase] > STAGE_INDEX[stage]
+        def previous_stage_index from_stage=nil
+          from_stage ||= @stage
+          stage_index(from_stage) - 1
         end
 
-        def after? allowed_phase
-          STAGE_INDEX[allowed_phase] < STAGE_INDEX[stage]
+        def previous_stage_symbol from_stage=nil
+          stage_symbol previous_stage_index(from_stage)
         end
 
-        def during? allowed_phase
-          return true if allowed_phase == stage
+        def before? *args
+          stage_test(*args) { |r, t| r > t}
+        end
 
-          allowed_phase.is_a?(Array) && allowed_phase.include?(stage)
+        def in_or_before? *args
+          stage_test(*args) { |r, t| r >= t}
+        end
+
+        def after? *args
+          stage_test(*args) { |r, t| r < t}
+        end
+
+        def in_or_after? *args
+          stage_test(*args) { |r, t| r <= t}
+        end
+
+        def stage_test reference_stage, test_stage=nil
+          test_stage ||= @stage
+          yield stage_index(reference_stage), stage_index(test_stage)
+        end
+
+        def during? *args
+          stage_test(*args) { |r, t| r == t }
         end
       end
     end
