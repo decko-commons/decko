@@ -1,5 +1,5 @@
 class Card
-  class ActManager
+  class Director
     class SubdirectorArray < Array
       def self.initialize_with_subcards parent
         dir_array = new(parent)
@@ -36,7 +36,7 @@ class Card
       end
 
       def fetch_new card
-        ActManager.fetch(card, @parent).tap do |dir|
+        Director.fetch(card, @parent).tap do |dir|
           update dir, card unless dir.main?
         end
       end

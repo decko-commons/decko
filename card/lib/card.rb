@@ -92,10 +92,11 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 # {Card::Auth More on accounts}
 class Card < ApplicationRecord
-  extend ::Card::Mark
-  extend ::Card::Dirty::MethodFactory
-  include ::Card::Dirty
-  include ::Card::DirtyNames
+  extend Mark
+  extend Dirty::MethodFactory
+  include Dirty
+  include DirtyNames
+  include Direction
 
   Card::Cache # trigger autoload
 

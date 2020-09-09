@@ -1,5 +1,5 @@
 class Card
-  class ActManager
+  class Director
     class StageDirector
       # Methods for intepreting stages of an action
       module Stages

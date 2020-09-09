@@ -1,5 +1,5 @@
 class Card
-  class ActManager
+  class Director
     class StageDirector
       # methods for running stages
       module Run

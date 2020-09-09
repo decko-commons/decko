@@ -1,5 +1,5 @@
 class Card
-  class ActManager
+  class Director
     class StageDirector
       module Phases
         def validation_phase_callback?

@@ -7,7 +7,7 @@ def act &block
 end
 
 def act_card
-  Card::ActManager.act_card
+  Card::Director.act_card
 end
 
 def act_card?
@@ -61,7 +61,7 @@ private
 
 def start_new_act
   self.director = nil
-  ActManager.run_act(self) do
+  Director.run_act(self) do
     run_callbacks(:act) { yield }
   end
 end

@@ -1,5 +1,5 @@
 class Card
-  class ActManager
+  class Director
     # methods for handling delayed events
     module EventDelay
       # If active jobs (and hence the integrate_with_delay events) don't run
@@ -22,7 +22,7 @@ class Card
           Card.config.active_job.queue_adapter == :delayed_job
       end
 
-      # The whole ActManager setup is gone once we reach a integrate with delay
+      # The whole Director setup is gone once we reach a integrate with delay
       # event processed by ActiveJob.
       # This is the improvised resetup to get subcards working.
       def contextualize_for_delay act_id, card, env, auth, &block

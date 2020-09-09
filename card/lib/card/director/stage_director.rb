@@ -14,7 +14,7 @@ class Card
     # subcards.each(&:expire_pieces)
   end
 
-  class ActManager
+  class Director
     # A 'StageDirector' executes the stages of a card when the card gets
     # created, updated or deleted.
     # For subcards, i.e. other cards that are changed in the same act, a
@@ -77,11 +77,11 @@ class Card
       end
 
       def register
-        ActManager.add self
+        Director.add self
       end
 
       def unregister
-        ActManager.delete self
+        Director.delete self
       end
 
       def delete
@@ -117,13 +117,13 @@ class Card
           raise Card::Error, "act requested without a main stage director"
         end
 
-        @act = act_director.act ||= ActManager.need_act
+        @act = act_director.act ||= Director.need_act
       end
 
       def main_director
         return self if main?
 
-        ActManager.act_director || (@parent&.main_director)
+        Director.act_director || (@parent&.main_director)
       end
 
       def to_s level=1
@@ -146,7 +146,7 @@ class Card
       def update_card card
         old_card = @card
         @card = card
-        ActManager.card_changed old_card
+        Director.card_changed old_card
       end
     end
   end

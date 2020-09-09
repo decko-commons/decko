@@ -1,5 +1,5 @@
 class Card
-  class ActManager
+  class Director
     class StageDirector
       # Special handling specific to the :store stage
       module Store

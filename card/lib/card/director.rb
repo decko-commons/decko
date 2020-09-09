@@ -2,7 +2,7 @@ class Card
   # Manages the whole process of creating an {act Card::Act} ie. changing
   # a card and attached subcards.
   #
-  # For every card that is part of the act the ActManager creates a
+  # For every card that is part of the act the Director creates a
   # {StageDirector} that leads the card through all the stages.
   # Because cards sometimes get expired and reloaded during an act we need
   # this global object to ensure that the stage information doesn't get lost
@@ -73,7 +73,7 @@ class Card
   # 4) This means if an exception is raised in the validation or storage phase
   #    everything will rollback. If the integration phase fails the db changes
   #    of the other two phases will remain persistent.
-  class ActManager
+  class Director
     extend EventDelay
 
     class << self
