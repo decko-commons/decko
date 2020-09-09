@@ -82,7 +82,7 @@ class Card
           # we use abort :success in the :store stage for :save_draft
 
           callbacks = :"#{stage}#{callback_postfix}_stage"
-          if stage_index(stage) <= stage_index(:store) && !main?
+          if before?(stage, :store) && !main?
             @card.abortable { @card.run_callbacks callbacks }
           else
             @card.run_callbacks callbacks
@@ -90,18 +90,22 @@ class Card
         end
 
         def run_subcard_stages stage
-          each_subcard_director do |subdir|
+          each_subcard_director stage do |subdir|
             condition = block_given? ? yield(subdir) : true
             subdir.catch_up_to_stage stage if condition
           end
         end
 
-        def each_subcard_director
+        def each_subcard_director stage
           subdirectors.each do |subdir|
-            yield subdir unless subdir.head?
+            yield subdir unless subdir.head? && before?(stage, :integrate)
           end
         ensure
           @card.handle_subcard_errors
+        end
+
+        def before? test_stage, reference_stage
+          stage_index(test_stage) <= stage_index(reference_stage)
         end
 
         def run_final_stage_callbacks stage

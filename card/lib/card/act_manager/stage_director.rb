@@ -98,14 +98,6 @@ class Card
         @head = true
       end
 
-      def replace_card card
-        card.action = @card.action
-        card.director = self
-        @card = card
-        reset_stage
-        catch_up_to_stage @stage if @stage
-      end
-
       def abort
         @abort = true
       end

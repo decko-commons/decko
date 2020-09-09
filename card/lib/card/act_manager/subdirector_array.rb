@@ -16,14 +16,7 @@ class Card
 
       def add card
         card = card.card if card.is_a? StageDirector
-        each { |dir| return dir if dir.card == card }
-        dir = ActManager.fetch card, @parent
-        return dir if dir.main?
-
-        dir.replace_card card if dir.card != card
-        dir.parent = @parent
-        self << dir
-        dir
+        existing(card) || fetch_new(card)
       end
 
       alias_method :delete_director, :delete
@@ -38,6 +31,21 @@ class Card
 
       def add_director dir
         add dir.card
+      end
+
+      private
+
+      def existing card
+        find { |dir| dir.card == card }
+      end
+
+      def fetch_new card
+        ActManager.fetch(card, @parent).tap do |dir|
+          unless dir.main?
+            dir.parent = @parent
+            self << dir
+          end
+        end
       end
     end
   end
