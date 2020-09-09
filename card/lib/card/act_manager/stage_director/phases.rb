@@ -7,8 +7,7 @@ class Card
         end
 
         def integration_phase_callback?
-          !@only_storage_phase && head?
-          #(main? || (head? && main_director.in_or_after?(:integrate)))
+          !@only_storage_phase && main?
         end
 
         def prepare_for_phases

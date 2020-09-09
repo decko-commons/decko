@@ -29,10 +29,6 @@ class Card
         end
       end
 
-      def add_director dir
-        add dir.card
-      end
-
       private
 
       def existing card
@@ -41,12 +37,14 @@ class Card
 
       def fetch_new card
         ActManager.fetch(card, @parent).tap do |dir|
-          unless dir.main?
-            dir.replace_card card if dir.card != card
-            dir.parent = @parent
-            self << dir
-          end
+          update dir, card unless dir.main?
         end
+      end
+
+      def update dir, card
+        dir.replace_card card if dir.card != card
+        dir.parent = @parent
+        self << dir
       end
     end
   end

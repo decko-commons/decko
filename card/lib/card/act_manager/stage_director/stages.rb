@@ -56,19 +56,19 @@ class Card
         end
 
         def before? *args
-          stage_test(*args) { |r, t| r > t}
+          stage_test(*args) { |r, t| r > t }
         end
 
         def in_or_before? *args
-          stage_test(*args) { |r, t| r >= t}
+          stage_test(*args) { |r, t| r >= t }
         end
 
         def after? *args
-          stage_test(*args) { |r, t| r < t}
+          stage_test(*args) { |r, t| r < t }
         end
 
         def in_or_after? *args
-          stage_test(*args) { |r, t| r <= t}
+          stage_test(*args) { |r, t| r <= t }
         end
 
         def stage_test reference_stage, test_stage=nil

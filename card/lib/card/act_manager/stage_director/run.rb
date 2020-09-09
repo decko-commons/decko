@@ -97,7 +97,7 @@ class Card
 
         def each_subcard_director stage
           subdirectors.each do |subdir|
-            yield subdir unless subdir.head? # && before?(:integrate, stage)
+            yield subdir unless subdir.head? && before?(:integrate, stage)
           end
         ensure
           @card.handle_subcard_errors
