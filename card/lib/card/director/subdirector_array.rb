@@ -15,14 +15,14 @@ class Card
       end
 
       def add card
-        card = card.card if card.is_a? StageDirector
+        card = card.card if card.is_a? Director
         existing(card) || fetch_new(card)
       end
 
       alias_method :delete_director, :delete
 
       def delete card
-        if card.is_a? StageDirector
+        if card.is_a? Director
           delete_director card
         else
           delete_if { |dir| dir.card == card }

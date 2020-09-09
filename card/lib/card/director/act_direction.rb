@@ -64,7 +64,7 @@ class Card
         if !parent && act_card && act_card != card && running_act?
           act_card.director.subdirectors.add card
         else
-          StageDirector.new card, parent
+          Director.new card, parent
         end
       end
 

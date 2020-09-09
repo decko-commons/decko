@@ -110,7 +110,8 @@ class Card < ApplicationRecord
 
   self.set_patterns = []
   self.action_specific_attributes = [
-    :supercard, :superleft,
+    :supercard,
+    :superleft,
     :action,
     :current_action,
     :last_action_id_before_edit,
