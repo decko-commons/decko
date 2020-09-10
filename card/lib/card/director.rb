@@ -1,8 +1,11 @@
 class Card
-  # Directs the symphony of a {card act Card::Act}.
+  # Directs the symphony of a card {act Card::Act}.
   #
-  # Each act is divided into actions: one for each card.
+  # Each act is divided into {actions Card::Action}: one for each card. There are three
+  # action types: create, update, and delete.
+  #
   # Each action is divided into three phases: validation, storage, and integration.
+  #
   # Each phase is divided into three stages, as follows
   #
   # validation:
@@ -20,18 +23,6 @@ class Card
   #   * (I-A) after_integrate
   #   * (I-D) integrate_with_delay stage (IGwD)
   #
-  #
-  # Every card that is part of an act the Director creates a
-  # {Director} that leads the card through all its stages.
-  # Because cards sometimes get expired and reloaded during an act we need
-  # this global object to ensure that the stage information doesn't get lost
-  # until the act is finished.
-  #
-  # The process of creating an act/writing a card change to the database
-  # is divided into 8 stages that are grouped in 3 phases.
-  #
-  #
-  #
   # The table below gives you an overview what you can do in which stage:
   #
   #                                  validation    |    storage    |  integration
@@ -45,10 +36,10 @@ class Card
   # 2) secure change                     yes       | yes! no!  no! |      no!
   #    abort                             yes!      |      yes      |      yes
   #    add errors                        yes!      |      no!      |      no!
-  # 3) create other cards                yes       |      yes      |      yes
+  #    create/update other cards         yes       |      yes      |      yes!
   #    has id (new card)                 no        | no   no?  yes |      yes
   #    within web request                yes       |      yes      | yes  yes  no
-  # 4) within transaction                yes       |      yes      |      no
+  # 3) within transaction                yes       |      yes      |      no
 
   # VALUES:
   #    dirty attributes                  yes       |      yes      |      yes
@@ -60,60 +51,72 @@ class Card
   # Explanation:
   #  yes!  the recommended stage to do that
   #  yes   ok to do it here
-  #  no    not recommended; chance to mess things up
-  #        but if something forces you to do it here you can try
+  #  no    not recommended; risky but not guaranteed to fail
   #  no!   never do it here. it won't work or will break things
   #
   # if there is only a single entry in a phase column it counts for all stages
   # of that phase
   #
-  # 1) 'insecure' means a change of a card attribute that can possibly make
-  #    the card invalid to save
-  # 2) 'secure' means you are sure that the change doesn't affect the validation
-  # 3) In all stages except IGwD:
-  #    If you call 'create', 'update' or 'save' the card will become
-  #    part of the same act and all stage of the validation and storage phase
-  #    will be executed immediately for that card. The integration phase will be
-  #    executed together with the act card and its subcards.
+  # 1) 'insecure' means a change that might make the card invalid to save
+  # 2) 'secure' means you're sure that the change won't invalidate the card
+  # 3) If an exception is raised in the validation or storage phase
+  #    everything will rollback. If an integration event fails, db changes
+  #    of the other two phases will remain persistent, and other integration
+  #    events will continue to run.
   #
-  #    In IGwD all these methods create a new act.
-  # 4) This means if an exception is raised in the validation or storage phase
-  #    everything will rollback. If the integration phase fails the db changes
-  #    of the other two phases will remain persistent.
+  #   .--.      .--.      .--.      .--.      .--.      .--.      .--.      .--.
+  # :::::.\::::::::.\::::::::.\::::::::.\::::::::.\::::::::.\::::::::.\::::::::.\
+  # '      `--'      `--'      `--'      `--'      `--'      `--'      `--'      `
   #
+  # Only one act can be performed at a time in any given Card process. Information about
+  # that act is managed by Director class methods. Every act is associated with a
+  # single "main" card.
   #
-
-  # A 'Director' executes the stages of a card when the card gets
-  # created, updated or deleted.
-  # For subcards, i.e. other cards that are changed in the same act, a
-  # Director has StageSubdirectors that take care of the stages for
-  # those cards
+  # The act, however, may involve many cards/actions. Each action has its own
+  # Director instance that leads the card through all its stages. When a card action (A1)
+  # initiates a new action on a different card (A2), a new Director object is initialized.
+  # The new A2 subdirector's @parent is the director of the A1 card. Conversely, the
+  # A1 card stores a SubdirectorArray in @subdirectors to give it access to A2's
+  # Director and any little Director babies to which it gave birth.
   #
-  # In general a stage is executed for all involved cards before the
-  # Director proceeds with the next stage.
-  # Only exception is the finalize stage.
-  # The finalize stage of a subcard is executed immediately after its store
-  # stage. When all subcards are finalized the supercard's finalize stage is
-  # executed.
+  # Subdirectors follow one of two distinct patterns:
   #
-  # If a subcard is added in a stage then it catches up at the end of the
-  # stage to the current stage.
-  # For example if you add a subcard in a card's :prepare_to_store stage then
-  # after that stage the stages :initialize, :prepare_to_validate,
-  # :validate and :prepare_to_store are executed for the subcard.
+  # 1. {Subcards Card::Subcards}. When a card is altered using the subcards API, the
+  #    director follows a "breadth-first" pattern. For each stage a card runs its
+  #    stage events and then triggers its subcards to run that stage before proceeding
+  #    to the next stage. If a subcard is added in a stage then by the end of that
+  #    stage the director will catch it up to the current stage.
+  # 2. Subsaves. When a card is altered by a direct save (Card.create(!), card.update(!),
+  #    card.delete(!), card.save(!)...), then the validation and storage phases are
+  #    executed immediately (depth-first), returning the saved card. The integration
+  #    phase, however, is executed following the same pattern as with subcards.
   #
-  # Stages are executed with pre-order depth-first search.
-  # That means if A has subcards AA and AB; AAA is subcard of AA and ABA
-  # subcard of AB then the order of execution is
-  # A -> AA -> AAA -> AB -> ABA
+  # Let's consider a subcard example. Suppose you define the following event on
+  # self/bar.rb
   #
-  # A special case can happen in the store phase.
-  # If the id of a subcard is needed for a supercard
-  # (for example as left_id or as type_id) and the subcard doesn't
-  # have an id yet (because it gets created in the same act)
-  # then the subcard's store stage is executed before the supercard's store
-  # stage
-
+  # event :met_a_foo_at_the_bar, :prepare_to_store, on: :update do
+  #   add_subcard "foo"
+  # end
+  #
+  # And then you run Card[:bar].update!({})
+  #
+  # When bar reaches the event in its prepare_to_store stage, the foo subcard will be
+  # added. After that stage ends, the stages :initialize, :prepare_to_validate,
+  # :validate and :prepare_to_store are executed for foo so that it is now caught
+  # up with Bar at the prepare_to_store stage.
+  #
+  # If you have subcards within subcards, stages are executed preorder depth-first.
+  #
+  # Eg, assuming:
+  # - A has subcards AA and AB
+  # - AA has subcard AAA
+  # - AB has subcard ABA
+  # ...then the order of execution is A -> AA -> AAA -> AB -> ABA.
+  #
+  # A special case can happen in the store stage when a supercard needs a subcard's id
+  # (for example as left_id or as type_id) and the subcard doesn't have an id yet
+  # (because it gets created in the same act). In this case the subcard's store stage
+  # is executed BEFORE the supercard's store stage.
   class Director
     extend EventDelay
     extend ActDirection
@@ -176,9 +179,7 @@ class Card
 
     def need_act
       act_director = main_director
-      unless act_director
-        raise Card::Error, "act requested without a main stage director"
-      end
+      raise Card::Error, "act requested without a main director" unless act_director
 
       @act = act_director.act ||= Director.need_act
     end

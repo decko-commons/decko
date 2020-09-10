@@ -9,10 +9,10 @@ class Card
       # (a crucial example are success params that are processed in
       # CardController#soft_redirect)
       def contextualize_delayed_event act_id, card, env, auth
-        if delaying?
-          contextualize_for_delay(act_id, card, env, auth) { yield }
-        else
-          yield
+        return yield unless delaying?
+
+        with_env_and_auth env, auth do
+          with_delay_act(act_id, card) { yield }
         end
       end
 
@@ -22,17 +22,10 @@ class Card
           Card.config.active_job.queue_adapter == :delayed_job
       end
 
-      # The whole Director setup is gone once we reach a integrate with delay
-      # event processed by ActiveJob.
-      # This is the improvised resetup to get subcards working.
-      def contextualize_for_delay act_id, card, env, auth, &block
-        with_env_and_auth env, auth do
-          if act_id && (self.act = Act.find act_id)
-            run_job_with_act act, card, &block
-          else
-            yield
-          end
-        end
+      def with_delay_act act_id, card, &block
+        return yield unless act_id && (self.act = Act.find act_id)
+
+        run_job_with_act act, card, &block
       end
 
       def run_job_with_act act, card, &block
