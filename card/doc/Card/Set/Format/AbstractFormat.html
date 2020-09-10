@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Format::AbstractFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Format::AbstractFormat";
   relpath = '../../../';
 </script>
@@ -92,8 +92,9 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>AbstractFormat manages the basic format API, including API to define a . Whenever you create a format block in a set module in a <span class='object_link'><a href="../../Mod.html" title="Card::Mod (module)">mod</a></span>, you create a format module that is extended with AbstractFormat.</p>
+    <p>AbstractFormat manages the basic format API, including API to define a <span class='object_link'><a href="#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">#view</a></span>.
+Whenever you create a format block in a set module in a <span class='object_link'><a href="../../Mod.html" title="Card::Mod (module)">mod</a></span>, you
+create a format module that is extended with AbstractFormat.</p>
 
 
   </div>
@@ -160,8 +161,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>define code to be executed before a view is rendered.</p>
+    <span class="summary_desc"><div class='inline'><p>define code to be executed before a view is rendered.</p>
 </div></span>
   
 </li>
@@ -184,8 +184,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Constant for set module (without format).</p>
+    <span class="summary_desc"><div class='inline'><p>Constant for set module (without format).</p>
 </div></span>
   
 </li>
@@ -208,8 +207,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Defines a setting method that can be used in all formats.</p>
+    <span class="summary_desc"><div class='inline'><p>Defines a setting method that can be used in all formats.</p>
 </div></span>
   
 </li>
@@ -232,8 +230,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>file location where set mod is stored.</p>
+    <span class="summary_desc"><div class='inline'><p>file location where set mod is stored.</p>
 </div></span>
   
 </li>
@@ -256,8 +253,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p><em>Views</em> are the primary way that both sharks and monkeys interact with cards.</p>
+    <span class="summary_desc"><div class='inline'><p><em>Views</em> are the primary way that both sharks and monkeys interact with cards.</p>
 </div></span>
   
 </li>
@@ -280,8 +276,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>simple placeholder for views designed to be overridden elsewhere.</p>
+    <span class="summary_desc"><div class='inline'><p>simple placeholder for views designed to be overridden elsewhere.</p>
 </div></span>
   
 </li>
@@ -358,8 +353,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>define code to be executed before a view is rendered</p>
+    <p>define code to be executed before a view is rendered</p>
 
 
   </div>
@@ -373,12 +367,12 @@
       <pre class="lines">
 
 
-92
-93
-94</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_before'>before</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_before_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view'>view</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
@@ -399,8 +393,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns constant for set module (without format)</p>
+    <p>Returns constant for set module (without format).</p>
 
 
   </div>
@@ -418,8 +411,7 @@
       
       
         
-        <div class='inline'>
-<p>constant for set module (without format)</p>
+        <div class='inline'><p>constant for set module (without format)</p>
 </div>
       
     </li>
@@ -432,12 +424,12 @@
       <pre class="lines">
 
 
-122
-123
-124</pre>
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_module'>set_module</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>::</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='op'>-</span><span class='int'>2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>::</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -458,8 +450,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Defines a setting method that can be used in all formats. Example:</p>
+    <p>Defines a setting method that can be used in all formats. Example:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_format'>format</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_setting'>setting</span> <span class='symbol'>:cols</span>
@@ -468,7 +459,8 @@
   <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:some_view</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_cols'>cols</span>  <span class='comment'># =&gt; [5, 7]
 </span>  <span class='kw'>end</span>
-<span class='kw'>end</span></code></pre>
+<span class='kw'>end</span>
+</code></pre>
 
 
   </div>
@@ -487,8 +479,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>name of setting. should be available method name</p>
+        <div class='inline'><p>name of setting. should be available method name</p>
 </div>
       
     </li>
@@ -502,16 +493,16 @@
       <pre class="lines">
 
 
+106
+107
 108
 109
 110
 111
-112
-113
-114</pre>
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 106</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setting'>setting</span> <span class='id identifier rubyid_name'>name</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Format.html" title="Card::Set::Format (module)">Format</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Set::Format::AbstractFormat (module)">AbstractFormat</a></span></span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span> <span class='symbol'>:define_method</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='kw'>do</span> <span class='op'>|</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='op'>|</span>
@@ -536,8 +527,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>file location where set mod is stored</p>
+    <p>file location where set mod is stored</p>
 
 
   </div>
@@ -551,12 +541,12 @@
       <pre class="lines">
 
 
-117
-118
-119</pre>
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_source_location'>source_location</span>
   <span class='id identifier rubyid_set_module'>set_module</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span>
@@ -577,82 +567,78 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p><em>Views</em> are the primary way that both sharks and monkeys interact with cards. Sharks select views to use in <em>nests</em>. Monkeys can define and tweak those views. These docs will introduce the basics of view definition.</p>
+    <p><em>Views</em> are the primary way that both sharks and monkeys interact with cards.
+Sharks select views to use in <em>nests</em>.  Monkeys can define and tweak those
+views. These docs will introduce the basics of view definition.</p>
 
-<h2 id="sample_view_definitions">Sample view definitions</h2>
+<h2 id="sample-view-definitions">Sample view definitions</h2>
 
 <p>Here is a very simple view that just defines a label for the card(its name):</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_view'>view</span> <span class='symbol'>:label</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
-<span class='kw'>end</span></code></pre>
+<span class='kw'>end</span>
+</code></pre>
 
 <p>View definitions can take the following forms:</p>
 
 <pre class="code ruby"><code class="ruby">view :viewname[, option_hash][, &amp;block]          # standard
-view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
+view :viewname, alias_to_viewname[, option_hash] # aliasing
+</code></pre>
 
-<h2 id="view_definition_options">View definition options</h2>
-
-<ul>
-<li>
-<p><strong>:alias_to</strong> [Symbol] name of view to which this view should be aliased. View must already be defined in self or specified mod.</p>
-</li>
-
-<li>
-<p><strong>:async</strong> render view asynchronously by first rendering a card placeholder and then completing a request. Only applies to HtmlFormat</p>
-</li>
-
-<li>
-<p><strong>:cache</strong> directs how to handle caching for this view. Supported values:</p>
+<h2 id="view-definition-options">View definition options</h2>
 
 <ul>
-<li><em>:standard</em> - (default)</li>
+  <li>
+    <p><strong>:alias_to</strong> [Symbol] name of view to which this view should be aliased. View
+must already be defined in self or specified mod.</p>
+  </li>
+  <li>
+    <p><strong>:async</strong> render view asynchronously by first rendering a card placeholder
+and then completing a request. Only applies to HtmlFormat</p>
+  </li>
+  <li><strong>:cache</strong> directs how to handle caching for this view. Supported values:
+    <ul>
+      <li><em>:standard</em> - (default)</li>
+      <li><em>:always</em> - cache even when rendered within another cached view</li>
+      <li><em>:never</em> - don’t ever cache this view. Frequently used to prevent caching
+problems</li>
+    </ul>
 
-<li><em>:always</em> - cache even when rendered within another cached view</li>
-
-<li><em>:never</em> - don’t ever cache this view. Frequently used to prevent caching problems</li>
-</ul>
-
-<p>You should certainly <span class='object_link'><a href="../../View/Cache.html" title="Card::View::Cache (module)">learn more about caching</a></span> if you want to develop mods that are safe in a caching environment.</p>
-</li>
-
-<li>
-<p><strong>:closed</strong> [True/False]. Is view acceptable for rendering inside <code>closed</code> view? Default is false.</p>
-</li>
-
-<li>
-<p><strong>:denial</strong> [Symbol]. View to render if permission is denied. Value can be any viewname. Default is <code>:denial</code>. <code>:blank</code> is a common alternative.</p>
-</li>
-
-<li>
-<p><strong>:perms</strong> restricts view permissions. Supported values:</p>
-
-<ul>
-<li><em>:create</em>, <em>:read</em> (default), <em>:update</em>, <em>:delete</em> - only users with the given permission for the card viewed.</li>
-
-<li><em>:none</em> - no permission check; anyone can view</li>
-
-<li>a <em>Proc</em> object. Eg <code>perms: -&gt;(_fmt) { Auth.needs_setup? }</code></li>
-</ul>
-</li>
-
-<li>
-<p><strong>:template</strong> [Symbol] view is defined in a template. Currently <code>:haml</code> is the only supported value. See <span class='object_link'><a href="AbstractFormat/HamlViews.html" title="Card::Set::Format::AbstractFormat::HamlViews (module)">HamlViews</a></span></p>
-</li>
-
-<li>
-<p><strong>:unknown</strong> [True/False, Symbol]. Configures handling of “unknown” cards. (See <span class='object_link'><a href="../All/States.html" title="Card::Set::All::States (module)">card states</a></span>). Supported values: * <em>true</em> render view even if card is unknown * <em>false</em> default unknown handling (depends on context, create permissions, etc) * a <em>Symbol</em>: name of view to render</p>
-</li>
-
-<li>
-<p><strong>:wrap</strong> wrap view dynamically. Value is Symbol for wrapper. See <span class='object_link'><a href="AbstractFormat/Wrapper.html" title="Card::Set::Format::AbstractFormat::Wrapper (module)">Wrapper</a></span></p>
-</li>
-
-<li>
-<p>DEPRECATED <strong>:commentable</strong> [True/False]. Render this view for unknown cards if comment box is showing and user has comment permission.</p>
-</li>
+    <p>You should certainly <span class='object_link'><a href="../../View/Cache.html" title="Card::View::Cache (module)">learn more about caching</a></span> if you want
+to develop mods that are safe in a caching environment.</p>
+  </li>
+  <li>
+    <p><strong>:compact</strong> [True/False]. Is view acceptable for rendering inside <code>compact</code>
+view?  Default is false.</p>
+  </li>
+  <li>
+    <p><strong>:denial</strong> [Symbol]. View to render if permission is denied. Value can be
+any viewname. Default is <code>:denial</code>. <code>:blank</code> is a common alternative.</p>
+  </li>
+  <li><strong>:perms</strong> restricts view permissions. Supported values:
+    <ul>
+      <li><em>:create</em>, <em>:read</em> (default), <em>:update</em>, <em>:delete</em> - only users with the
+given permission for the card viewed.</li>
+      <li><em>:none</em> - no permission check; anyone can view</li>
+      <li>a <em>Proc</em> object.  Eg <code>perms: -&gt;(_fmt) { Auth.needs_setup? }</code></li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>:template</strong> [Symbol] view is defined in a template. Currently <code>:haml</code> is
+the only supported value.  See <span class='object_link'><a href="AbstractFormat/HamlViews.html" title="Card::Set::Format::AbstractFormat::HamlViews (module)">HamlViews</a></span></p>
+  </li>
+  <li><strong>:unknown</strong> [True/False, Symbol]. Configures handling of “unknown” cards.
+(See <span class='object_link'><a href="../All/States.html" title="Card::Set::All::States (module)">card states</a></span>). Supported values:
+    <ul>
+      <li><em>true</em> render view even if card is unknown</li>
+      <li><em>false</em> default unknown handling (depends on context, create permissions,
+etc)</li>
+      <li>a <em>Symbol</em>: name of view to render</li>
+    </ul>
+  </li>
+  <li><strong>:wrap</strong> wrap view dynamically. Value is Symbol for wrapper or Hash with
+wrappers and wrapper options. See <span class='object_link'><a href="AbstractFormat/Wrapper.html" title="Card::Set::Format::AbstractFormat::Wrapper (module)">Wrapper</a></span></li>
 </ul>
 
 
@@ -667,13 +653,13 @@ view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
       <pre class="lines">
 
 
+76
+77
 78
-79
-80
-81</pre>
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view'>view</span> <span class='id identifier rubyid_viewname'>viewname</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_def_opts'>def_opts</span> <span class='op'>=</span> <span class='id identifier rubyid_process_view_opts'>process_view_opts</span> <span class='id identifier rubyid_viewname'>viewname</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
@@ -695,8 +681,7 @@ view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>simple placeholder for views designed to be overridden elsewhere</p>
+    <p>simple placeholder for views designed to be overridden elsewhere</p>
 
 
   </div>
@@ -710,15 +695,15 @@ view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
       <pre class="lines">
 
 
+82
+83
 84
 85
 86
-87
-88
-89</pre>
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/format/abstract_format.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view_for_override'>view_for_override</span> <span class='id identifier rubyid_viewname'>viewname</span>
   <span class='comment'># LOCALIZE
@@ -736,9 +721,9 @@ view :viewname, alias_to_viewname[, option_hash] # aliasing</code></pre>
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:22 2019 by
+  Generated on Thu Sep 10 15:02:27 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

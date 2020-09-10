@@ -6,15 +6,15 @@
 <title>
   Module: Card::View::Cache::Stub
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::View::Cache::Stub";
   relpath = '../../../';
 </script>
@@ -90,10 +90,11 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>A “stub” is a placeholder for a card view.</p>
+    <p>A “stub” is a placeholder for a card view.</p>
 
-<p>Cached views use stubs so that <em>nesting</em> content can remained cached even while <em>nested</em> content changes. The nested content’s place is held by a stub.</p>
+<p>Cached views use stubs so that <em>nesting</em> content can remained cached
+even while <em>nested</em> content changes. The nested content’s place is held
+by a stub.</p>
 
 <p>A stub must contain all the information necessary to produce the view as intended.</p>
 
@@ -110,135 +111,14 @@
 
 
 
-  
-    <h2>
-      Class Method Summary
-      <small><a href="#" class="summary_toggle">collapse</a></small>
-    </h2>
 
-    <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#escape-class_method" title="escape (class method)">.<strong>escape</strong>(stub_json)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#unescape-class_method" title="unescape (class method)">.<strong>unescape</strong>(stub_json)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-    </ul>
-  
-
-
-
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="escape-class_method">
-  
-    .<strong>escape</strong>(stub_json)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-13
-14
-15</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view/cache/stub.rb', line 13</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_escape'>escape</span> <span class='id identifier rubyid_stub_json'>stub_json</span>
-  <span class='id identifier rubyid_stub_json'>stub_json</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_OParEN_</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="unescape-class_method">
-  
-    .<strong>unescape</strong>(stub_json)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-17
-18
-19</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view/cache/stub.rb', line 17</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_unescape'>unescape</span> <span class='id identifier rubyid_stub_json'>stub_json</span>
-  <span class='id identifier rubyid_stub_json'>stub_json</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_OParEN_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:19 2019 by
+  Generated on Thu Sep 10 15:02:25 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -6,15 +6,15 @@
 <title>
   Class: Card
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card";
   relpath = '';
 </script>
@@ -91,10 +91,15 @@
   
   <dl>
       <dt>Extended by:</dt>
-      <dd><span class='object_link'><a href="Card/Mark.html" title="Card::Mark (module)">Mark</a></span></dd>
+      <dd><span class='object_link'><a href="Card/Dirty/MethodFactory.html" title="Card::Dirty::MethodFactory (module)">Dirty::MethodFactory</a></span>, <span class='object_link'><a href="Card/Mark.html" title="Card::Mark (module)">Mark</a></span></dd>
   </dl>
   
   
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Card/Director/CardMethods.html" title="Card::Director::CardMethods (module)">Director::CardMethods</a></span>, <span class='object_link'><a href="Card/Dirty.html" title="Card::Dirty (module)">Dirty</a></span>, <span class='object_link'><a href="Card/DirtyNames.html" title="Card::DirtyNames (module)">DirtyNames</a></span></dd>
+  </dl>
   
   
 
@@ -104,7 +109,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/card.rb<span class="defines">,<br />
-  lib/card/env.rb,<br /> lib/card/mod.rb,<br /> lib/card/set.rb,<br /> lib/card/auth.rb,<br /> lib/card/mark.rb,<br /> lib/card/name.rb,<br /> lib/card/view.rb,<br /> lib/card/cache.rb,<br /> lib/card/dirty.rb,<br /> lib/card/error.rb,<br /> lib/card/query.rb,<br /> lib/card/format.rb,<br /> lib/card/mailer.rb,<br /> lib/card/content.rb,<br /> lib/card/version.rb,<br /> lib/card/codename.rb,<br /> lib/card/mod/dirs.rb,<br /> lib/card/subcards.rb,<br /> lib/card/migration.rb,<br /> lib/card/reference.rb,<br /> lib/card/set/event.rb,<br /> lib/card/set/trait.rb,<br /> lib/card/auth/proxy.rb,<br /> lib/card/auth/setup.rb,<br /> lib/card/mod/loader.rb,<br /> lib/card/query/join.rb,<br /> lib/card/set/basket.rb,<br /> lib/card/set/format.rb,<br /> lib/card/set/loader.rb,<br /> lib/card/view/cache.rb,<br /> lib/generators/card.rb,<br /> lib/card/act_manager.rb,<br /> lib/card/env/success.rb,<br /> lib/card/format/nest.rb,<br /> lib/card/query/value.rb,<br /> lib/card/set/helpers.rb,<br /> lib/card/set_pattern.rb,<br /> lib/card/view/classy.rb,<br /> lib/card/auth/current.rb,<br /> lib/card/content/diff.rb,<br /> lib/card/env/location.rb,<br /> lib/card/format/error.rb,<br /> lib/card/query/clause.rb,<br /> lib/card/subcards/add.rb,<br /> lib/card/view/options.rb,<br /> lib/card/content/chunk.rb,<br /> lib/card/content/clean.rb,<br /> lib/card/format/render.rb,<br /> lib/card/set/code_nest.rb,<br /> lib/card/content/parser.rb,<br /> lib/card/format/content.rb,<br /> lib/card/format/nesting.rb,<br /> lib/card/migration/core.rb,<br /> lib/card/set/i18n_scope.rb,<br /> lib/card/cache/temporary.rb,<br /> lib/card/query/act_query.rb,<br /> lib/card/set/inheritance.rb,<br /> lib/card/subcards/relate.rb,<br /> lib/card/subcards/remove.rb,<br /> lib/card/view/cache/stub.rb,<br /> lib/card/view/permission.rb,<br /> lib/card/auth/permissions.rb,<br /> lib/card/cache/persistent.rb,<br /> lib/card/content/diff/lcs.rb,<br /> lib/card/content/truncate.rb,<br /> lib/card/migration/import.rb,<br /> lib/card/query/card_query.rb,<br /> lib/card/set/advanced_api.rb,<br /> lib/card/set/i18n_scanner.rb,<br /> lib/card/act_manager/stage.rb,<br /> lib/card/cache/prepopulate.rb,<br /> lib/card/format/nest/fetch.rb,<br /> lib/card/mod/load_strategy.rb,<br /> lib/card/model/save_helper.rb,<br /> lib/card/set/event/options.rb,<br /> lib/card/name/name_variants.rb,<br /> lib/card/query/action_query.rb,<br /> lib/card/set/required_field.rb,<br /> lib/card/content/diff/result.rb,<br /> lib/card/format/nesting/main.rb,<br /> lib/card/format/nesting/mode.rb,<br /> lib/card/format/registration.rb,<br /> lib/card/mod/module_template.rb,<br /> lib/card/query/sql_statement.rb,<br /> lib/card/set/event/callbacks.rb,<br /> lib/card/env/location_history.rb,<br /> lib/card/format/context_names.rb,<br /> lib/card/query/abstract_query.rb,<br /> lib/card/query/card_query/run.rb,<br /> lib/card/view/options/voo_api.rb,<br /> lib/card/mod/loader/set_loader.rb,<br /> lib/card/query/reference_query.rb,<br /> lib/card/set/format/haml_paths.rb,<br /> lib/card/content/diff/processor.rb,<br /> lib/card/mod/load_strategy/eval.rb,<br /> lib/card/name/fields_and_traits.rb,<br /> lib/card/view/options/key_lists.rb,<br /> lib/card/migration/import/merger.rb,<br /> lib/card/set/event/delayed_event.rb,<br /> lib/card/view/cache/cache_action.rb,<br /> lib/card/view/options/visibility.rb,<br /> lib/card/format/method_delegation.rb,<br /> lib/card/format/nesting/subformat.rb,<br /> lib/card/migration/deck_structure.rb,<br /> lib/card/query/abstract_query/tie.rb,<br /> lib/card/query/card_query/sorting.rb,<br /> lib/card/query/card_query/found_by.rb,<br /> lib/card/query/sql_statement/joins.rb,<br /> lib/card/query/sql_statement/order.rb,<br /> lib/card/query/sql_statement/where.rb,<br /> lib/card/act_manager/stage_director.rb,<br /> lib/card/set/format/abstract_format.rb,<br /> lib/card/mod/load_strategy/tmp_files.rb,<br /> lib/card/migration/import/import_data.rb,<br /> lib/card/tasks/card/file_card_creator.rb,<br /> lib/generators/card/mod/mod_generator.rb,<br /> lib/generators/card/set/set_generator.rb,<br /> lib/card/act_manager/subdirector_array.rb,<br /> lib/card/mod/loader/set_pattern_loader.rb,<br /> lib/card/query/card_query/conjunctions.rb,<br /> lib/card/query/card_query/normalization.rb,<br /> lib/card/mod/load_strategy/set_tmp_files.rb,<br /> lib/card/query/card_query/interpretation.rb,<br /> lib/card/act_manager/stage_director/phases.rb,<br /> lib/card/query/abstract_query/query_helper.rb,<br /> lib/card/query/card_query/match_attributes.rb,<br /> lib/card/set/format/abstract_format/wrapper.rb,<br /> lib/generators/card/format/format_generator.rb,<br /> lib/card/mod/load_strategy/pattern_tmp_files.rb,<br /> lib/card/mod/load_strategy/set_binding_magic.rb,<br /> lib/card/set/format/abstract_format/view_opts.rb,<br /> lib/card/query/card_query/reference_attributes.rb,<br /> lib/card/set/format/abstract_format/haml_views.rb,<br /> lib/card/query/card_query/relational_attributes.rb,<br /> lib/card/tasks/card/file_card_creator/haml_card.rb,<br /> lib/generators/card/template/template_generator.rb,<br /> lib/card/tasks/card/file_card_creator/style_card.rb,<br /> lib/card/tasks/card/file_card_creator/script_card.rb,<br /> lib/generators/card/migration/migration_generator.rb,<br /> lib/card/migration/import/import_data/card_content.rb,<br /> lib/card/set/format/abstract_format/view_definition.rb,<br /> lib/card/tasks/card/file_card_creator/output_helper.rb,<br /> lib/card/migration/import/import_data/card_attributes.rb,<br /> lib/card/tasks/card/file_card_creator/abstract_file_card.rb,<br /> lib/card/tasks/card/file_card_creator/abstract_file_card/ruby_file.rb,<br /> lib/card/tasks/card/file_card_creator/abstract_file_card/source_file.rb,<br /> lib/card/tasks/card/file_card_creator/abstract_file_card/migration_file.rb,<br /> mod/core/format/data_format.rb,<br /> mod/core/format/html_format.rb,<br /> mod/core/format/text_format.rb,<br /> mod/basic_formats/format/js_format.rb,<br /> mod/email/format/email_html_format.rb,<br /> mod/email/format/email_text_format.rb,<br /> mod/basic_formats/format/css_format.rb,<br /> mod/basic_formats/format/csv_format.rb,<br /> mod/basic_formats/format/rss_format.rb,<br /> mod/basic_formats/format/xml_format.rb,<br /> mod/basic_formats/format/file_format.rb,<br /> mod/basic_formats/format/json_format.rb,<br /> mod/core/chunk/nest.rb,<br /> mod/core/chunk/literal.rb,<br /> mod/core/chunk/reference.rb,<br /> mod/core/chunk/view_stub.rb,<br /> mod/history/lib/card/act.rb,<br /> mod/history/lib/card/action.rb,<br /> mod/history/lib/card/change.rb,<br /> mod/standard/lib/card/layout.rb,<br /> mod/virtual/lib/card/virtual.rb,<br /> mod/machines/lib/card/machine.rb,<br /> mod/settings/lib/card/setting.rb,<br /> mod/search/lib/card/filter_query.rb,<br /> mod/follow/lib/card/follow_option.rb,<br /> mod/history/lib/card/action/admin.rb,<br /> mod/follow/lib/card/follower_stash.rb,<br /> mod/history/lib/card/action/differ.rb,<br /> mod/history/lib/card/act/act_renderer.rb,<br /> mod/standard/lib/card/layout/card_layout.rb,<br /> mod/standard/lib/card/layout/code_layout.rb,<br /> mod/standard/lib/card/layout/proc_layout.rb,<br /> mod/history/lib/card/action/action_renderer.rb,<br /> mod/standard/lib/card/layout/unknown_layout.rb,<br /> mod/history/lib/card/act/act_renderer/bridge_act_renderer.rb,<br /> mod/history/lib/card/act/act_renderer/absolute_act_renderer.rb,<br /> mod/history/lib/card/act/act_renderer/relative_act_renderer.rb,<br /> tmpsets/set/mod003-core/all/erb.rb,<br /> tmpsets/set/mod007-item/all/bar.rb,<br /> tmpsets/set/mod007-item/all/box.rb,<br /> tmpsets/set/mod023-edit/all/new.rb,<br /> tmpsets/set/mod003-core/all/haml.rb,<br /> tmpsets/set/mod003-core/all/i18n.rb,<br /> tmpsets/set/mod003-core/all/item.rb,<br /> tmpsets/set/mod003-core/all/name.rb,<br /> tmpsets/set/mod003-core/all/tabs.rb,<br /> tmpsets/set/mod003-core/all/type.rb,<br /> tmpsets/set/mod023-edit/all/form.rb,<br /> tmpsets/set/mod003-core/all/abort.rb,<br /> tmpsets/set/mod003-core/all/cache.rb,<br /> tmpsets/set/mod003-core/all/chunk.rb,<br /> tmpsets/set/mod003-core/all/debug.rb,<br /> tmpsets/set/mod003-core/all/fetch.rb,<br /> tmpsets/set/mod003-core/all/rules.rb,<br /> tmpsets/set/mod003-core/all/trash.rb,<br /> tmpsets/set/mod003-core/all/utils.rb,<br /> tmpsets/set/mod016-email/right/cc.rb,<br /> tmpsets/set/mod016-email/right/to.rb,<br /> tmpsets/set/mod022-rules/type/set.rb,<br /> tmpsets/set/mod024-date/type/date.rb,<br /> tmpsets/set/mod003-core/all/actify.rb,<br /> tmpsets/set/mod003-core/all/export.rb,<br /> tmpsets/set/mod003-core/all/phases.rb,<br /> tmpsets/set/mod003-core/all/rename.rb,<br /> tmpsets/set/mod003-core/all/stages.rb,<br /> tmpsets/set/mod003-core/all/states.rb,<br /> tmpsets/set/mod016-email/right/bcc.rb,<br /> tmpsets/set/mod017-follow/type/set.rb,<br /> tmpsets/set/mod023-edit/all/bridge.rb,<br /> tmpsets/set/mod023-edit/all/editor.rb,<br /> tmpsets/set/mod002-admin/self/admin.rb,<br /> tmpsets/set/mod002-admin/self/trash.rb,<br /> tmpsets/set/mod003-core/all/content.rb,<br /> tmpsets/set/mod003-core/all/layouts.rb,<br /> tmpsets/set/mod003-core/all/pattern.rb,<br /> tmpsets/set/mod016-email/right/from.rb,<br /> tmpsets/set/mod017-follow/type/user.rb,<br /> tmpsets/set/mod022-rules/rule/rules.rb,<br /> tmpsets/set/mod022-rules/rule/table.rb,<br /> tmpsets/set/mod023-edit/all/editing.rb,<br /> tmpsets/set/mod003-core/all/codename.rb,<br /> tmpsets/set/mod003-core/all/extended.rb,<br /> tmpsets/set/mod003-core/all/observer.rb,<br /> tmpsets/set/mod003-core/all/subcards.rb,<br /> tmpsets/set/mod014-machines/type/css.rb,<br /> tmpsets/set/mod017-follow/all/follow.rb,<br /> tmpsets/set/mod017-follow/all/notify.rb,<br /> tmpsets/set/mod017-follow/self/never.rb,<br /> tmpsets/set/mod021-standard/all/path.rb,<br /> tmpsets/set/mod021-standard/self/now.rb,<br /> tmpsets/set/mod021-standard/type/uri.rb,<br /> tmpsets/set/mod022-rules/rule/editor.rb,<br /> tmpsets/set/mod024-date/all/calendar.rb,<br /> tmpsets/set/mod025-account/type/user.rb,<br /> tmpsets/set/mod002-admin/self/version.rb,<br /> tmpsets/set/mod003-core/abstract/lock.rb,<br /> tmpsets/set/mod014-machines/type/scss.rb,<br /> tmpsets/set/mod014-machines/type/skin.rb,<br /> tmpsets/set/mod015-settings/self/head.rb,<br /> tmpsets/set/mod015-settings/self/help.rb,<br /> tmpsets/set/mod015-settings/self/read.rb,<br /> tmpsets/set/mod017-follow/self/always.rb,<br /> tmpsets/set/mod017-follow/self/edited.rb,<br /> tmpsets/set/mod017-follow/self/follow.rb,<br /> tmpsets/set/mod020-search/self/navbox.rb,<br /> tmpsets/set/mod020-search/self/recent.rb,<br /> tmpsets/set/mod020-search/self/search.rb,<br /> tmpsets/set/mod021-standard/all/error.rb,<br /> tmpsets/set/mod021-standard/all/links.rb,<br /> tmpsets/set/mod021-standard/self/foot.rb,<br /> tmpsets/set/mod021-standard/self/home.rb,<br /> tmpsets/set/mod021-standard/type/list.rb,<br /> tmpsets/set/mod023-edit/all/edit_name.rb,<br /> tmpsets/set/mod023-edit/all/edit_type.rb,<br /> tmpsets/set/mod023-edit/all/formgroup.rb,<br /> tmpsets/set/mod025-account/right/salt.rb,<br /> tmpsets/set/mod003-core/all/collection.rb,<br /> tmpsets/set/mod003-core/all/initialize.rb,<br /> tmpsets/set/mod003-core/all/references.rb,<br /> tmpsets/set/mod003-core/all/templating.rb,<br /> tmpsets/set/mod005-history/all/history.rb,<br /> tmpsets/set/mod015-settings/right/help.rb,<br /> tmpsets/set/mod015-settings/right/read.rb,<br /> tmpsets/set/mod015-settings/self/input.rb,<br /> tmpsets/set/mod015-settings/self/style.rb,<br /> tmpsets/set/mod016-email/right/subject.rb,<br /> tmpsets/set/mod017-follow/right/follow.rb,<br /> tmpsets/set/mod017-follow/self/created.rb,<br /> tmpsets/set/mod021-standard/right/head.rb,<br /> tmpsets/set/mod021-standard/type/basic.rb,<br /> tmpsets/set/mod023-edit/all/nest_image.rb,<br /> tmpsets/set/mod025-account/all/account.rb,<br /> tmpsets/set/mod025-account/right/email.rb,<br /> tmpsets/set/mod025-account/right/token.rb,<br /> tmpsets/set/mod025-account/self/signin.rb,<br /> tmpsets/set/mod025-account/type/signup.rb,<br /> tmpsets/set/mod003-core/all/active_card.rb,<br /> tmpsets/set/mod003-core/all/name_events.rb,<br /> tmpsets/set/mod003-core/all/permissions.rb,<br /> tmpsets/set/mod008-pointer/type/pointer.rb,<br /> tmpsets/set/mod015-settings/right/style.rb,<br /> tmpsets/set/mod015-settings/self/create.rb,<br /> tmpsets/set/mod015-settings/self/delete.rb,<br /> tmpsets/set/mod015-settings/self/layout.rb,<br /> tmpsets/set/mod015-settings/self/script.rb,<br /> tmpsets/set/mod015-settings/self/thanks.rb,<br /> tmpsets/set/mod015-settings/self/update.rb,<br /> tmpsets/set/mod016-email/all/email_html.rb,<br /> tmpsets/set/mod016-email/all/email_text.rb,<br /> tmpsets/set/mod017-follow/right/account.rb,<br /> tmpsets/set/mod017-follow/type/cardtype.rb,<br /> tmpsets/set/mod021-standard/all/comment.rb,<br /> tmpsets/set/mod021-standard/self/alerts.rb,<br /> tmpsets/set/mod021-standard/type/number.rb,<br /> tmpsets/set/mod021-standard/type/phrase.rb,<br /> tmpsets/set/mod021-standard/type/toggle.rb,<br /> tmpsets/set/mod022-rules/rule/rule_form.rb,<br /> tmpsets/set/mod022-rules/rule/table_row.rb,<br /> tmpsets/set/mod023-edit/all/edit_inline.rb,<br /> tmpsets/set/mod023-edit/all/nest_editor.rb,<br /> tmpsets/set/mod025-account/right/status.rb,<br /> tmpsets/set/mod002-admin/self/admin_info.rb,<br /> tmpsets/set/mod003-core/all/fetch_helper.rb,<br /> tmpsets/set/mod006-basic_formats/all/rss.rb,<br /> tmpsets/set/mod008-pointer/right/options.rb,<br /> tmpsets/set/mod013-basic_types/type/html.rb,<br /> tmpsets/set/mod013-basic_types/type/json.rb,<br /> tmpsets/set/mod015-settings/right/create.rb,<br /> tmpsets/set/mod015-settings/right/delete.rb,<br /> tmpsets/set/mod015-settings/right/script.rb,<br /> tmpsets/set/mod015-settings/right/update.rb,<br /> tmpsets/set/mod015-settings/self/captcha.rb,<br /> tmpsets/set/mod015-settings/self/default.rb,<br /> tmpsets/set/mod015-settings/self/options.rb,<br /> tmpsets/set/mod015-settings/type/setting.rb,<br /> tmpsets/set/mod018-developer/right/debug.rb,<br /> tmpsets/set/mod019-carrierwave/type/file.rb,<br /> tmpsets/set/mod021-standard/type/session.rb,<br /> tmpsets/set/mod022-rules/rstar/rule_user.rb,<br /> tmpsets/set/mod023-edit/all/edit_content.rb,<br /> tmpsets/set/mod023-edit/all/form_buttons.rb,<br /> tmpsets/set/mod025-account/right/account.rb,<br /> tmpsets/set/mod001-utility/abstract/media.rb,<br /> tmpsets/set/mod006-basic_formats/all/base.rb,<br /> tmpsets/set/mod006-basic_formats/all/file.rb,<br /> tmpsets/set/mod006-basic_formats/all/head.rb,<br /> tmpsets/set/mod006-basic_formats/all/json.rb,<br /> tmpsets/set/mod006-basic_formats/all/text.rb,<br /> tmpsets/set/mod015-settings/right/comment.rb,<br /> tmpsets/set/mod015-settings/right/default.rb,<br /> tmpsets/set/mod015-settings/self/add_help.rb,<br /> tmpsets/set/mod015-settings/self/autoname.rb,<br /> tmpsets/set/mod017-follow/right/followers.rb,<br /> tmpsets/set/mod017-follow/right/following.rb,<br /> tmpsets/set/mod018-developer/all/view_viz.rb,<br /> tmpsets/set/mod019-carrierwave/self/admin.rb,<br /> tmpsets/set/mod019-carrierwave/type/image.rb,<br /> tmpsets/set/mod020-search/abstract/search.rb,<br /> tmpsets/set/mod021-standard/all/rich_html.rb,<br /> tmpsets/set/mod021-standard/type/cardtype.rb,<br /> tmpsets/set/mod023-edit/all/form_elements.rb,<br /> tmpsets/set/mod025-account/right/password.rb,<br /> tmpsets/set/mod003-core/abstract/code_file.rb,<br /> tmpsets/set/mod003-core/abstract/haml_file.rb,<br /> tmpsets/set/mod006-basic_formats/self/head.rb,<br /> tmpsets/set/mod008-pointer/self/style_mods.rb,<br /> tmpsets/set/mod015-settings/right/add_help.rb,<br /> tmpsets/set/mod015-settings/right/autoname.rb,<br /> tmpsets/set/mod015-settings/self/on_create.rb,<br /> tmpsets/set/mod015-settings/self/on_delete.rb,<br /> tmpsets/set/mod015-settings/self/on_update.rb,<br /> tmpsets/set/mod015-settings/self/structure.rb,<br /> tmpsets/set/mod018-developer/all/event_viz.rb,<br /> tmpsets/set/mod020-search/type/search_type.rb,<br /> tmpsets/set/mod021-standard/self/codenames.rb,<br /> tmpsets/set/mod021-standard/type/listed_by.rb,<br /> tmpsets/set/mod022-rules/self/script_rules.rb,<br /> tmpsets/set/mod028-recaptcha/all/recaptcha.rb,<br /> tmpsets/set/mod001-utility/abstract/utility.rb,<br /> tmpsets/set/mod005-history/all/history/acts.rb,<br /> tmpsets/set/mod005-history/all/history/last.rb,<br /> tmpsets/set/mod006-basic_formats/all/all_js.rb,<br /> tmpsets/set/mod008-pointer/self/script_mods.rb,<br /> tmpsets/set/mod014-machines/abstract/script.rb,<br /> tmpsets/set/mod015-settings/right/structure.rb,<br /> tmpsets/set/mod016-email/right/html_message.rb,<br /> tmpsets/set/mod016-email/right/text_message.rb,<br /> tmpsets/set/mod019-carrierwave/self/favicon.rb,<br /> tmpsets/set/mod001-utility/abstract/bs_badge.rb,<br /> tmpsets/set/mod003-core/all/event_conditions.rb,<br /> tmpsets/set/mod003-core/all/location_history.rb,<br /> tmpsets/set/mod005-history/all/history/views.rb,<br /> tmpsets/set/mod006-basic_formats/all/all_css.rb,<br /> tmpsets/set/mod006-basic_formats/all/all_csv.rb,<br /> tmpsets/set/mod014-machines/abstract/machine.rb,<br /> tmpsets/set/mod014-machines/self/style_cards.rb,<br /> tmpsets/set/mod014-machines/type/java_script.rb,<br /> tmpsets/set/mod015-settings/self/accountable.rb,<br /> tmpsets/set/mod016-email/type/email_template.rb,<br /> tmpsets/set/mod019-carrierwave/self/new_file.rb,<br /> tmpsets/set/mod020-search/abstract/03_filter.rb,<br /> tmpsets/set/mod021-standard/all/list_changes.rb,<br /> tmpsets/set/mod021-standard/right/discussion.rb,<br /> tmpsets/set/mod021-standard/type/layout_type.rb,<br /> tmpsets/set/mod022-rules/type/set/html_views.rb,<br /> tmpsets/set/mod023-edit/all/bridge/tab_views.rb,<br /> tmpsets/set/mod002-admin/self/recaptcha_proxy.rb,<br /> tmpsets/set/mod003-core/all/assign_attributes.rb,<br /> tmpsets/set/mod003-core/all/update_read_rules.rb,<br /> tmpsets/set/mod005-history/all/history/events.rb,<br /> tmpsets/set/mod005-history/all/history_bridge.rb,<br /> tmpsets/set/mod008-pointer/abstract/01_paging.rb,<br /> tmpsets/set/mod008-pointer/self/input_options.rb,<br /> tmpsets/set/mod009-ace_editor/self/script_ace.rb,<br /> tmpsets/set/mod014-machines/abstract/skin_box.rb,<br /> tmpsets/set/mod014-machines/self/script_decko.rb,<br /> tmpsets/set/mod016-email/abstract/email_field.rb,<br /> tmpsets/set/mod017-follow/right/follow_fields.rb,<br /> tmpsets/set/mod019-carrierwave/all/file_utils.rb,<br /> tmpsets/set/mod019-carrierwave/self/new_image.rb,<br /> tmpsets/set/mod020-search/abstract/wql_search.rb,<br /> tmpsets/set/mod024-date/self/style_datepicker.rb,<br /> tmpsets/set/mod025-account/self/account_links.rb,<br /> tmpsets/set/mod001-utility/abstract/filterable.rb,<br /> tmpsets/set/mod003-core/all/contextual_content.rb,<br /> tmpsets/set/mod005-history/all/history/actions.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer.rb,<br /> tmpsets/set/mod008-pointer/self/script_editors.rb,<br /> tmpsets/set/mod012-solid_cache/all/solid_cache.rb,<br /> tmpsets/set/mod013-basic_types/type/plain_text.rb,<br /> tmpsets/set/mod014-machines/all/reset_machines.rb,<br /> tmpsets/set/mod014-machines/self/script_jquery.rb,<br /> tmpsets/set/mod014-machines/type/coffee_script.rb,<br /> tmpsets/set/mod015-settings/self/csv_structure.rb,<br /> tmpsets/set/mod015-settings/self/follow_fields.rb,<br /> tmpsets/set/mod015-settings/self/options_label.rb,<br /> tmpsets/set/mod016-email/abstract/test_context.rb,<br /> tmpsets/set/mod017-follow/self/follow_defaults.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/menu.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/show.rb,<br /> tmpsets/set/mod021-standard/right/when_created.rb,<br /> tmpsets/set/mod022-rules/type/set/rules_filter.rb,<br /> tmpsets/set/mod024-date/self/script_datepicker.rb,<br /> tmpsets/set/mod026-bootstrap/self/font_awesome.rb,<br /> tmpsets/set/mod026-bootstrap/self/smartmenu_js.rb,<br /> tmpsets/set/mod005-history/all/history/revision.rb,<br /> tmpsets/set/mod005-history/all/history/selected.rb,<br /> tmpsets/set/mod008-pointer/self/style_libraries.rb,<br /> tmpsets/set/mod014-machines/right/machine_cache.rb,<br /> tmpsets/set/mod014-machines/right/machine_input.rb,<br /> tmpsets/set/mod015-settings/abstract/permission.rb,<br /> tmpsets/set/mod017-follow/all/notify/base_views.rb,<br /> tmpsets/set/mod017-follow/all/notify/html_views.rb,<br /> tmpsets/set/mod020-search/abstract/search/views.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/alert.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/error.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/frame.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/modal.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/title.rb,<br /> tmpsets/set/mod022-rules/rule/rule_form/buttons.rb,<br /> tmpsets/set/mod022-rules/type/set/setting_lists.rb,<br /> tmpsets/set/mod026-bootstrap/all/bootstrap/form.rb,<br /> tmpsets/set/mod026-bootstrap/all/bootstrap/icon.rb,<br /> tmpsets/set/mod026-bootstrap/all/bootstrap/tabs.rb,<br /> tmpsets/set/mod026-bootstrap/all/rich_bootstrap.rb,<br /> tmpsets/set/mod026-bootstrap/self/smartmenu_css.rb,<br /> tmpsets/set/mod026-bootstrap/self/style_select2.rb,<br /> tmpsets/set/mod002-admin/self/recaptcha_site_key.rb,<br /> tmpsets/set/mod008-pointer/abstract/code_pointer.rb,<br /> tmpsets/set/mod008-pointer/self/script_libraries.rb,<br /> tmpsets/set/mod012-solid_cache/right/solid_cache.rb,<br /> tmpsets/set/mod014-machines/right/machine_output.rb,<br /> tmpsets/set/mod015-settings/self/recent_settings.rb,<br /> tmpsets/set/mod017-follow/abstract/follow_option.rb,<br /> tmpsets/set/mod017-follow/all/follow/follow_link.rb,<br /> tmpsets/set/mod017-follow/all/follow/followed_by.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/header.rb,<br /> tmpsets/set/mod026-bootstrap/all/bootstrap/table.rb,<br /> tmpsets/set/mod026-bootstrap/self/bootstrap_core.rb,<br /> tmpsets/set/mod026-bootstrap/self/material_icons.rb,<br /> tmpsets/set/mod026-bootstrap/self/script_select2.rb,<br /> tmpsets/set/mod003-core/abstract/vendor_code_file.rb,<br /> tmpsets/set/mod004-virtual/abstract/virtual_cache.rb,<br /> tmpsets/set/mod009-ace_editor/abstract/ace_editor.rb,<br /> tmpsets/set/mod017-follow/all/follow/follower_ids.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/content.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/overlay.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/wrapper.rb,<br /> tmpsets/set/mod022-rules/rule/bridge_rules_editor.rb,<br /> tmpsets/set/mod023-edit/all/bridge/follow_section.rb,<br /> tmpsets/set/mod023-edit/all/bridge/tab_visibility.rb,<br /> tmpsets/set/mod026-bootstrap/all/bootstrap/helper.rb,<br /> tmpsets/set/mod026-bootstrap/all/bootstrap/navbar.rb,<br /> tmpsets/set/mod026-bootstrap/type/bootswatch_skin.rb,<br /> tmpsets/set/mod002-admin/self/recaptcha_secret_key.rb,<br /> tmpsets/set/mod005-history/all/history/act_listing.rb,<br /> tmpsets/set/mod014-machines/abstract/machine_input.rb,<br /> tmpsets/set/mod015-settings/self/default_html_view.rb,<br /> tmpsets/set/mod015-settings/self/table_of_contents.rb,<br /> tmpsets/set/mod019-carrierwave/abstract/attachment.rb,<br /> tmpsets/set/mod021-standard/right/when_last_edited.rb,<br /> tmpsets/set/mod026-bootstrap/all/bootstrap/wrapper.rb,<br /> tmpsets/set/mod026-bootstrap/self/script_bootstrap.rb,<br /> tmpsets/set/mod012-solid_cache/abstract/solid_cache.rb,<br /> tmpsets/set/mod020-search/abstract/00_filter_helper.rb,<br /> tmpsets/set/mod020-search/abstract/02_search_params.rb,<br /> tmpsets/set/mod023-edit/all/nest_editor/nest_parser.rb,<br /> tmpsets/set/mod026-bootstrap/all/bootstrap/dropdown.rb,<br /> tmpsets/set/mod008-pointer/abstract/00_paging_params.rb,<br /> tmpsets/set/mod009-ace_editor/self/script_ace_config.rb,<br /> tmpsets/set/mod015-settings/abstract/templated_nests.rb,<br /> tmpsets/set/mod026-bootstrap/all/bootstrap/accordion.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/events.rb,<br /> tmpsets/set/mod008-pointer/self/script_pointer_config.rb,<br /> tmpsets/set/mod011-tinymce_editor/self/script_tinymce.rb,<br /> tmpsets/set/mod014-machines/self/script_jquery_helper.rb,<br /> tmpsets/set/mod017-follow/all/follow/stop_follow_link.rb,<br /> tmpsets/set/mod017-follow/type_plus_right/user/follow.rb,<br /> tmpsets/set/mod022-rules/rule/rule_form/form_elements.rb,<br /> tmpsets/set/mod022-rules/rule/rule_form/set_selection.rb,<br /> tmpsets/set/mod022-rules/type/set/html_views/template.rb,<br /> tmpsets/set/mod024-date/self/script_datepicker_config.rb,<br /> tmpsets/set/mod025-account/type_plus_right/user/email.rb,<br /> tmpsets/set/mod026-bootstrap/self/bootstrap_functions.rb,<br /> tmpsets/set/mod026-bootstrap/self/script_load_select2.rb,<br /> tmpsets/set/mod017-follow/all/follow/follow_link_views.rb,<br /> tmpsets/set/mod017-follow/all/follow/start_follow_link.rb,<br /> tmpsets/set/mod021-standard/type/notification_template.rb,<br /> tmpsets/set/mod022-rules/rule/rule_form/rule_set_radio.rb,<br /> tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/item_api.rb,<br /> tmpsets/set/mod020-search/abstract/04_right_filter_form.rb,<br /> tmpsets/set/mod022-rules/type/set/html_views/nest_rules.rb,<br /> tmpsets/set/mod026-bootstrap/self/style_bootstrap_cards.rb,<br /> tmpsets/set/mod019-carrierwave/abstract/attachment/paths.rb,<br /> tmpsets/set/mod020-search/abstract/01_filter_form_helper.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/process_layout.rb,<br /> tmpsets/set/mod027-google_analytics/all/google_analytics.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/html_views.rb,<br /> tmpsets/set/mod011-tinymce_editor/abstract/tinymce_editor.rb,<br /> tmpsets/set/mod014-machines/abstract/machine/output_cache.rb,<br /> tmpsets/set/mod016-email/type/email_template/email_config.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/html_views/help.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/html_views/info.rb,<br /> tmpsets/set/mod021-standard/all/rich_html/html_views/size.rb,<br /> tmpsets/set/mod022-rules/type/set/html_views/rules_bridge.rb,<br /> tmpsets/set/mod026-bootstrap/abstract/bootstrap_code_file.rb,<br /> tmpsets/set/mod026-bootstrap/self/style_select2_bootstrap.rb,<br /> tmpsets/set/mod008-pointer/abstract/01_paging/paging_links.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/options_api.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/other_views.rb,<br /> tmpsets/set/mod014-machines/abstract/machine/output_update.rb,<br /> tmpsets/set/mod014-machines/self/script_html5shiv_printshiv.rb,<br /> tmpsets/set/mod014-machines/self/style_bootstrap_compatible.rb,<br /> tmpsets/set/mod014-machines/self/style_jquery_ui_smoothness.rb,<br /> tmpsets/set/mod010-prosemirror_editor/self/style_prosemirror.rb,<br /> tmpsets/set/mod011-tinymce_editor/self/script_tinymce_config.rb,<br /> tmpsets/set/mod026-bootstrap/type/customized_bootswatch_skin.rb,<br /> tmpsets/set/mod010-prosemirror_editor/self/script_prosemirror.rb,<br /> tmpsets/set/mod026-bootstrap/self/style_bootstrap_colorpicker.rb,<br /> tmpsets/set/mod019-carrierwave/abstract/attachment/storage_type.rb,<br /> tmpsets/set/mod019-carrierwave/abstract/attachment/upload_cache.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/html_views/filter.rb,<br /> tmpsets/set/mod010-prosemirror_editor/abstract/prosemirror_editor.rb,<br /> tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme/html_views.rb,<br /> tmpsets/set/mod010-prosemirror_editor/self/script_prosemirror_config.rb,<br /> tmpsets/set/mod026-bootstrap/type/customized_bootswatch_skin/html_views.rb,<br /> tmpsets/set/mod017-follow/type_plus_right/user/follow/follow_editor_helper.rb,<br /> tmpsets/set/mod026-bootstrap/type_plus_right/customized_bootswatch_skin/colors.rb</span>
+  lib/card/env.rb,<br /> lib/card/mod.rb,<br /> lib/card/set.rb,<br /> lib/card/auth.rb,<br /> lib/card/mark.rb,<br /> lib/card/name.rb,<br /> lib/card/view.rb,<br /> lib/card/cache.rb,<br /> lib/card/dirty.rb,<br /> lib/card/error.rb,<br /> lib/card/query.rb,<br /> lib/card/format.rb,<br /> lib/card/mailer.rb,<br /> lib/card/content.rb,<br /> lib/card/lexicon.rb,<br /> lib/card/version.rb,<br /> lib/card/codename.rb,<br /> lib/card/director.rb,<br /> lib/card/mod/dirs.rb,<br /> lib/card/set/type.rb,<br /> lib/card/subcards.rb,<br /> lib/card/migration.rb,<br /> lib/card/reference.rb,<br /> lib/card/set/event.rb,<br /> lib/card/set/trait.rb,<br /> lib/card/auth/proxy.rb,<br /> lib/card/auth/setup.rb,<br /> lib/card/auth/token.rb,<br /> lib/card/mod/loader.rb,<br /> lib/card/query/join.rb,<br /> lib/card/set/basket.rb,<br /> lib/card/set/format.rb,<br /> lib/card/set/loader.rb,<br /> lib/card/view/cache.rb,<br /> lib/generators/card.rb,<br /> lib/card/env/success.rb,<br /> lib/card/format/nest.rb,<br /> lib/card/query/value.rb,<br /> lib/card/set/helpers.rb,<br /> lib/card/set/pattern.rb,<br /> lib/card/view/classy.rb,<br /> lib/card/auth/current.rb,<br /> lib/card/content/diff.rb,<br /> lib/card/director/run.rb,<br /> lib/card/env/location.rb,<br /> lib/card/format/error.rb,<br /> lib/card/query/clause.rb,<br /> lib/card/set/abstract.rb,<br /> lib/card/subcards/add.rb,<br /> lib/card/view/options.rb,<br /> lib/card/content/chunk.rb,<br /> lib/card/content/clean.rb,<br /> lib/card/format/render.rb,<br /> lib/card/set/code_nest.rb,<br /> lib/card/content/parser.rb,<br /> lib/card/director/store.rb,<br /> lib/card/format/content.rb,<br /> lib/card/format/nesting.rb,<br /> lib/card/migration/core.rb,<br /> lib/card/set/i18n_scope.rb,<br /> lib/card/cache/temporary.rb,<br /> lib/card/director/phases.rb,<br /> lib/card/director/stages.rb,<br /> lib/card/query/act_query.rb,<br /> lib/card/set/inheritance.rb,<br /> lib/card/subcards/relate.rb,<br /> lib/card/subcards/remove.rb,<br /> lib/card/view/cache/stub.rb,<br /> lib/card/view/permission.rb,<br /> lib/card/auth/permissions.rb,<br /> lib/card/cache/persistent.rb,<br /> lib/card/content/truncate.rb,<br /> lib/card/env/slot_options.rb,<br /> lib/card/migration/import.rb,<br /> lib/card/query/card_query.rb,<br /> lib/card/set/advanced_api.rb,<br /> lib/card/set/i18n_scanner.rb,<br /> lib/card/set/pattern/base.rb,<br /> lib/card/cache/prepopulate.rb,<br /> lib/card/env/serialization.rb,<br /> lib/card/format/nest/fetch.rb,<br /> lib/card/mod/load_strategy.rb,<br /> lib/card/model/save_helper.rb,<br /> lib/card/set/event/options.rb,<br /> lib/card/content/diff/l_c_s.rb,<br /> lib/card/name/name_variants.rb,<br /> lib/card/query/action_query.rb,<br /> lib/card/set/required_field.rb,<br /> lib/card/content/diff/result.rb,<br /> lib/card/format/nesting/main.rb,<br /> lib/card/format/nesting/mode.rb,<br /> lib/card/format/registration.rb,<br /> lib/card/mod/module_template.rb,<br /> lib/card/query/sql_statement.rb,<br /> lib/card/set/event/callbacks.rb,<br /> lib/card/director/event_delay.rb,<br /> lib/card/dirty/method_factory.rb,<br /> lib/card/env/location_history.rb,<br /> lib/card/format/context_names.rb,<br /> lib/card/query/abstract_query.rb,<br /> lib/card/query/card_query/run.rb,<br /> lib/card/view/options/voo_api.rb,<br /> lib/card/director/card_methods.rb,<br /> lib/card/mod/loader/set_loader.rb,<br /> lib/card/query/reference_query.rb,<br /> lib/card/set/format/haml_paths.rb,<br /> lib/card/content/chunk/abstract.rb,<br /> lib/card/director/act_direction.rb,<br /> lib/card/mod/load_strategy/eval.rb,<br /> lib/card/name/fields_and_traits.rb,<br /> lib/card/view/options/key_lists.rb,<br /> lib/card/env/request_assignments.rb,<br /> lib/card/migration/import/merger.rb,<br /> lib/card/query/value/match_value.rb,<br /> lib/card/set/event/delayed_event.rb,<br /> lib/card/view/cache/cache_action.rb,<br /> lib/card/view/options/visibility.rb,<br /> lib/card/format/method_delegation.rb,<br /> lib/card/format/nesting/subformat.rb,<br /> lib/card/migration/deck_structure.rb,<br /> lib/card/query/abstract_query/tie.rb,<br /> lib/card/query/card_query/sorting.rb,<br /> lib/card/query/card_query/found_by.rb,<br /> lib/card/query/sql_statement/joins.rb,<br /> lib/card/query/sql_statement/order.rb,<br /> lib/card/query/sql_statement/where.rb,<br /> lib/card/director/subdirector_array.rb,<br /> lib/card/set/format/abstract_format.rb,<br /> lib/card/mod/load_strategy/tmp_files.rb,<br /> lib/card/content/diff/l_c_s/processor.rb,<br /> lib/card/migration/import/import_data.rb,<br /> lib/card/tasks/card/file_card_creator.rb,<br /> lib/generators/card/mod/mod_generator.rb,<br /> lib/generators/card/set/set_generator.rb,<br /> lib/card/mod/loader/set_pattern_loader.rb,<br /> lib/card/query/card_query/conjunctions.rb,<br /> lib/card/query/card_query/normalization.rb,<br /> lib/card/mod/load_strategy/set_tmp_files.rb,<br /> lib/card/query/card_query/interpretation.rb,<br /> lib/card/query/abstract_query/query_helper.rb,<br /> lib/card/query/card_query/match_attributes.rb,<br /> lib/card/set/format/abstract_format/wrapper.rb,<br /> lib/generators/card/format/format_generator.rb,<br /> lib/card/mod/load_strategy/pattern_tmp_files.rb,<br /> lib/card/mod/load_strategy/set_binding_magic.rb,<br /> lib/card/set/format/abstract_format/view_opts.rb,<br /> lib/card/query/card_query/reference_attributes.rb,<br /> lib/card/set/format/abstract_format/haml_views.rb,<br /> lib/card/query/card_query/relational_attributes.rb,<br /> lib/card/tasks/card/file_card_creator/haml_card.rb,<br /> lib/generators/card/template/template_generator.rb,<br /> lib/card/tasks/card/file_card_creator/style_card.rb,<br /> lib/card/tasks/card/file_card_creator/script_card.rb,<br /> lib/generators/card/migration/migration_generator.rb,<br /> lib/card/migration/import/import_data/card_content.rb,<br /> lib/card/set/format/abstract_format/view_definition.rb,<br /> lib/card/tasks/card/file_card_creator/output_helper.rb,<br /> lib/card/migration/import/import_data/card_attributes.rb,<br /> lib/card/tasks/card/file_card_creator/abstract_file_card.rb,<br /> lib/card/tasks/card/file_card_creator/abstract_file_card/ruby_file.rb,<br /> lib/card/tasks/card/file_card_creator/abstract_file_card/source_file.rb,<br /> lib/card/tasks/card/file_card_creator/abstract_file_card/migration_file.rb,<br /> mod/core/format/data_format.rb,<br /> mod/core/format/html_format.rb,<br /> mod/core/format/text_format.rb,<br /> mod/basic_formats/format/js_format.rb,<br /> mod/email/format/email_html_format.rb,<br /> mod/email/format/email_text_format.rb,<br /> mod/basic_formats/format/css_format.rb,<br /> mod/basic_formats/format/csv_format.rb,<br /> mod/basic_formats/format/rss_format.rb,<br /> mod/basic_formats/format/xml_format.rb,<br /> mod/basic_formats/format/file_format.rb,<br /> mod/basic_formats/format/json_format.rb,<br /> mod/core/chunk/link.rb,<br /> mod/core/chunk/nest.rb,<br /> mod/core/chunk/reference.rb,<br /> mod/core/chunk/view_stub.rb,<br /> mod/core/chunk/escaped_literal.rb,<br /> mod/core/chunk/query_reference.rb,<br /> mod/core/chunk/keep_escaped_literal.rb,<br /> mod/core/lib/card/rule.rb,<br /> mod/core/lib/card/fetch.rb,<br /> mod/history/lib/card/act.rb,<br /> mod/bootstrap/lib/card/tab.rb,<br /> mod/history/lib/card/action.rb,<br /> mod/history/lib/card/change.rb,<br /> mod/standard/lib/card/layout.rb,<br /> mod/virtual/lib/card/virtual.rb,<br /> mod/core/lib/card/fetch/store.rb,<br /> mod/machines/lib/card/machine.rb,<br /> mod/settings/lib/card/setting.rb,<br /> mod/bootstrap/lib/card/lazy_tab.rb,<br /> mod/core/lib/card/fetch/results.rb,<br /> mod/core/lib/card/fetch/retrieve.rb,<br /> mod/search/lib/card/filter_query.rb,<br /> mod/follow/lib/card/follow_option.rb,<br /> mod/history/lib/card/action/admin.rb,<br /> mod/follow/lib/card/follower_stash.rb,<br /> mod/history/lib/card/action/differ.rb,<br /> mod/history/lib/card/act/act_renderer.rb,<br /> mod/standard/lib/card/layout/card_layout.rb,<br /> mod/standard/lib/card/layout/code_layout.rb,<br /> mod/standard/lib/card/layout/proc_layout.rb,<br /> mod/history/lib/card/action/action_renderer.rb,<br /> mod/standard/lib/card/layout/unknown_layout.rb,<br /> mod/history/lib/card/act/act_renderer/bridge_act_renderer.rb,<br /> mod/history/lib/card/act/act_renderer/absolute_act_renderer.rb,<br /> mod/history/lib/card/act/act_renderer/relative_act_renderer.rb,<br /> tmpsets/set/mod003-core/all/erb.rb,<br /> tmpsets/set/mod007-item/all/bar.rb,<br /> tmpsets/set/mod007-item/all/box.rb,<br /> tmpsets/set/mod024-edit/all/new.rb,<br /> tmpsets/set/mod003-core/all/haml.rb,<br /> tmpsets/set/mod003-core/all/i18n.rb,<br /> tmpsets/set/mod003-core/all/item.rb,<br /> tmpsets/set/mod003-core/all/name.rb,<br /> tmpsets/set/mod003-core/all/tabs.rb,<br /> tmpsets/set/mod003-core/all/type.rb,<br /> tmpsets/set/mod024-edit/all/form.rb,<br /> tmpsets/set/mod003-core/all/abort.rb,<br /> tmpsets/set/mod003-core/all/cache.rb,<br /> tmpsets/set/mod003-core/all/chunk.rb,<br /> tmpsets/set/mod003-core/all/debug.rb,<br /> tmpsets/set/mod003-core/all/fetch.rb,<br /> tmpsets/set/mod003-core/all/rules.rb,<br /> tmpsets/set/mod003-core/all/trash.rb,<br /> tmpsets/set/mod003-core/all/utils.rb,<br /> tmpsets/set/mod016-email/right/cc.rb,<br /> tmpsets/set/mod016-email/right/to.rb,<br /> tmpsets/set/mod023-rules/type/set.rb,<br /> tmpsets/set/mod024-edit/type/list.rb,<br /> tmpsets/set/mod025-date/type/date.rb,<br /> tmpsets/set/mod003-core/all/actify.rb,<br /> tmpsets/set/mod003-core/all/export.rb,<br /> tmpsets/set/mod003-core/all/phases.rb,<br /> tmpsets/set/mod003-core/all/rename.rb,<br /> tmpsets/set/mod003-core/all/stages.rb,<br /> tmpsets/set/mod003-core/all/states.rb,<br /> tmpsets/set/mod016-email/right/bcc.rb,<br /> tmpsets/set/mod017-follow/type/set.rb,<br /> tmpsets/set/mod024-edit/all/bridge.rb,<br /> tmpsets/set/mod024-edit/all/editor.rb,<br /> tmpsets/set/mod002-admin/self/admin.rb,<br /> tmpsets/set/mod002-admin/self/trash.rb,<br /> tmpsets/set/mod003-core/all/content.rb,<br /> tmpsets/set/mod003-core/all/layouts.rb,<br /> tmpsets/set/mod003-core/all/pattern.rb,<br /> tmpsets/set/mod016-email/right/from.rb,<br /> tmpsets/set/mod017-follow/type/user.rb,<br /> tmpsets/set/mod020-media/type/image.rb,<br /> tmpsets/set/mod023-rules/right/self.rb,<br /> tmpsets/set/mod023-rules/rule/rules.rb,<br /> tmpsets/set/mod024-edit/all/editing.rb,<br /> tmpsets/set/mod027-navbar/type/html.rb,<br /> tmpsets/set/mod003-core/all/codename.rb,<br /> tmpsets/set/mod003-core/all/extended.rb,<br /> tmpsets/set/mod003-core/all/observer.rb,<br /> tmpsets/set/mod003-core/all/subcards.rb,<br /> tmpsets/set/mod008-pointer/type/list.rb,<br /> tmpsets/set/mod014-machines/type/css.rb,<br /> tmpsets/set/mod017-follow/all/follow.rb,<br /> tmpsets/set/mod017-follow/all/notify.rb,<br /> tmpsets/set/mod017-follow/self/never.rb,<br /> tmpsets/set/mod022-standard/all/path.rb,<br /> tmpsets/set/mod022-standard/self/now.rb,<br /> tmpsets/set/mod022-standard/type/uri.rb,<br /> tmpsets/set/mod023-rules/rule/editor.rb,<br /> tmpsets/set/mod024-edit/type/pointer.rb,<br /> tmpsets/set/mod025-date/all/calendar.rb,<br /> tmpsets/set/mod026-account/type/role.rb,<br /> tmpsets/set/mod026-account/type/user.rb,<br /> tmpsets/set/mod002-admin/self/version.rb,<br /> tmpsets/set/mod003-core/abstract/lock.rb,<br /> tmpsets/set/mod014-machines/type/scss.rb,<br /> tmpsets/set/mod014-machines/type/skin.rb,<br /> tmpsets/set/mod015-settings/self/head.rb,<br /> tmpsets/set/mod015-settings/self/help.rb,<br /> tmpsets/set/mod015-settings/self/read.rb,<br /> tmpsets/set/mod017-follow/self/always.rb,<br /> tmpsets/set/mod017-follow/self/edited.rb,<br /> tmpsets/set/mod017-follow/self/follow.rb,<br /> tmpsets/set/mod021-search/right/mates.rb,<br /> tmpsets/set/mod021-search/right/nests.rb,<br /> tmpsets/set/mod021-search/self/recent.rb,<br /> tmpsets/set/mod021-search/self/search.rb,<br /> tmpsets/set/mod022-standard/all/error.rb,<br /> tmpsets/set/mod022-standard/all/links.rb,<br /> tmpsets/set/mod022-standard/self/foot.rb,<br /> tmpsets/set/mod022-standard/self/home.rb,<br /> tmpsets/set/mod024-edit/all/edit_name.rb,<br /> tmpsets/set/mod024-edit/all/edit_type.rb,<br /> tmpsets/set/mod024-edit/all/formgroup.rb,<br /> tmpsets/set/mod026-account/right/salt.rb,<br /> tmpsets/set/mod027-navbar/self/navbox.rb,<br /> tmpsets/set/mod002-admin/self/debugger.rb,<br /> tmpsets/set/mod003-core/all/collection.rb,<br /> tmpsets/set/mod003-core/all/initialize.rb,<br /> tmpsets/set/mod003-core/all/references.rb,<br /> tmpsets/set/mod003-core/all/templating.rb,<br /> tmpsets/set/mod005-history/all/history.rb,<br /> tmpsets/set/mod009-ace_editor/self/ace.rb,<br /> tmpsets/set/mod015-settings/right/help.rb,<br /> tmpsets/set/mod015-settings/right/read.rb,<br /> tmpsets/set/mod015-settings/self/guide.rb,<br /> tmpsets/set/mod015-settings/self/style.rb,<br /> tmpsets/set/mod016-email/right/subject.rb,<br /> tmpsets/set/mod017-follow/right/follow.rb,<br /> tmpsets/set/mod017-follow/self/created.rb,<br /> tmpsets/set/mod021-search/right/edited.rb,<br /> tmpsets/set/mod021-search/right/follow.rb,<br /> tmpsets/set/mod022-standard/right/head.rb,<br /> tmpsets/set/mod022-standard/type/basic.rb,<br /> tmpsets/set/mod023-rules/rule/bar_view.rb,<br /> tmpsets/set/mod026-account/all/account.rb,<br /> tmpsets/set/mod026-account/right/email.rb,<br /> tmpsets/set/mod026-account/right/roles.rb,<br /> tmpsets/set/mod026-account/self/signin.rb,<br /> tmpsets/set/mod026-account/type/signup.rb,<br /> tmpsets/set/mod003-core/all/active_card.rb,<br /> tmpsets/set/mod003-core/all/name_events.rb,<br /> tmpsets/set/mod003-core/all/permissions.rb,<br /> tmpsets/set/mod008-pointer/type/pointer.rb,<br /> tmpsets/set/mod015-settings/right/guide.rb,<br /> tmpsets/set/mod015-settings/right/style.rb,<br /> tmpsets/set/mod015-settings/self/create.rb,<br /> tmpsets/set/mod015-settings/self/delete.rb,<br /> tmpsets/set/mod015-settings/self/layout.rb,<br /> tmpsets/set/mod015-settings/self/script.rb,<br /> tmpsets/set/mod015-settings/self/thanks.rb,<br /> tmpsets/set/mod015-settings/self/update.rb,<br /> tmpsets/set/mod016-email/all/email_html.rb,<br /> tmpsets/set/mod016-email/all/email_text.rb,<br /> tmpsets/set/mod017-follow/right/account.rb,<br /> tmpsets/set/mod017-follow/type/cardtype.rb,<br /> tmpsets/set/mod020-media/abstract/media.rb,<br /> tmpsets/set/mod021-search/right/created.rb,<br /> tmpsets/set/mod021-search/right/editors.rb,<br /> tmpsets/set/mod022-standard/all/comment.rb,<br /> tmpsets/set/mod022-standard/self/alerts.rb,<br /> tmpsets/set/mod022-standard/type/number.rb,<br /> tmpsets/set/mod022-standard/type/phrase.rb,<br /> tmpsets/set/mod022-standard/type/toggle.rb,<br /> tmpsets/set/mod023-rules/rule/rule_form.rb,<br /> tmpsets/set/mod024-edit/all/edit_inline.rb,<br /> tmpsets/set/mod024-edit/type/plain_text.rb,<br /> tmpsets/set/mod025-date/self/datepicker.rb,<br /> tmpsets/set/mod026-account/right/status.rb,<br /> tmpsets/set/mod002-admin/self/admin_info.rb,<br /> tmpsets/set/mod003-core/all/fetch_helper.rb,<br /> tmpsets/set/mod006-basic_formats/all/rss.rb,<br /> tmpsets/set/mod013-basic_types/type/html.rb,<br /> tmpsets/set/mod013-basic_types/type/json.rb,<br /> tmpsets/set/mod015-settings/right/create.rb,<br /> tmpsets/set/mod015-settings/right/delete.rb,<br /> tmpsets/set/mod015-settings/right/script.rb,<br /> tmpsets/set/mod015-settings/right/update.rb,<br /> tmpsets/set/mod015-settings/self/captcha.rb,<br /> tmpsets/set/mod015-settings/self/default.rb,<br /> tmpsets/set/mod015-settings/type/setting.rb,<br /> tmpsets/set/mod018-developer/right/debug.rb,<br /> tmpsets/set/mod019-carrierwave/type/file.rb,<br /> tmpsets/set/mod021-search/right/children.rb,<br /> tmpsets/set/mod021-search/right/links_to.rb,<br /> tmpsets/set/mod022-standard/self/sidebar.rb,<br /> tmpsets/set/mod022-standard/type/session.rb,<br /> tmpsets/set/mod023-rules/rstar/rule_user.rb,<br /> tmpsets/set/mod023-rules/rule/html_views.rb,<br /> tmpsets/set/mod024-edit/all/edit_content.rb,<br /> tmpsets/set/mod024-edit/all/form_buttons.rb,<br /> tmpsets/set/mod026-account/right/account.rb,<br /> tmpsets/set/mod026-account/right/api_key.rb,<br /> tmpsets/set/mod006-basic_formats/all/base.rb,<br /> tmpsets/set/mod006-basic_formats/all/file.rb,<br /> tmpsets/set/mod006-basic_formats/all/head.rb,<br /> tmpsets/set/mod006-basic_formats/all/json.rb,<br /> tmpsets/set/mod006-basic_formats/all/text.rb,<br /> tmpsets/set/mod008-pointer/type/link_list.rb,<br /> tmpsets/set/mod008-pointer/type/nest_list.rb,<br /> tmpsets/set/mod015-settings/right/comment.rb,<br /> tmpsets/set/mod015-settings/right/default.rb,<br /> tmpsets/set/mod015-settings/self/autoname.rb,<br /> tmpsets/set/mod017-follow/right/followers.rb,<br /> tmpsets/set/mod017-follow/right/following.rb,<br /> tmpsets/set/mod018-developer/all/view_viz.rb,<br /> tmpsets/set/mod019-carrierwave/self/admin.rb,<br /> tmpsets/set/mod019-carrierwave/type/image.rb,<br /> tmpsets/set/mod020-media/self/style_media.rb,<br /> tmpsets/set/mod021-search/abstract/search.rb,<br /> tmpsets/set/mod021-search/right/nested_by.rb,<br /> tmpsets/set/mod021-search/right/refers_to.rb,<br /> tmpsets/set/mod022-standard/all/rich_html.rb,<br /> tmpsets/set/mod022-standard/self/cardtype.rb,<br /> tmpsets/set/mod022-standard/type/cardtype.rb,<br /> tmpsets/set/mod024-edit/all/form_elements.rb,<br /> tmpsets/set/mod024-edit/all/overlay_guide.rb,<br /> tmpsets/set/mod024-edit/all/template_nest.rb,<br /> tmpsets/set/mod026-account/right/password.rb,<br /> tmpsets/set/mod031-markdown/type/markdown.rb,<br /> tmpsets/set/mod003-core/abstract/code_file.rb,<br /> tmpsets/set/mod003-core/abstract/haml_file.rb,<br /> tmpsets/set/mod006-basic_formats/self/head.rb,<br /> tmpsets/set/mod008-pointer/self/style_mods.rb,<br /> tmpsets/set/mod015-settings/right/autoname.rb,<br /> tmpsets/set/mod015-settings/self/on_create.rb,<br /> tmpsets/set/mod015-settings/self/on_delete.rb,<br /> tmpsets/set/mod015-settings/self/on_update.rb,<br /> tmpsets/set/mod015-settings/self/structure.rb,<br /> tmpsets/set/mod018-developer/all/event_viz.rb,<br /> tmpsets/set/mod021-search/type/search_type.rb,<br /> tmpsets/set/mod022-standard/self/codenames.rb,<br /> tmpsets/set/mod023-rules/rule/quick_editor.rb,<br /> tmpsets/set/mod023-rules/self/script_rules.rb,<br /> tmpsets/set/mod027-navbar/all/navbar_links.rb,<br /> tmpsets/set/mod030-recaptcha/all/recaptcha.rb,<br /> tmpsets/set/mod001-utility/abstract/utility.rb,<br /> tmpsets/set/mod005-history/all/history/acts.rb,<br /> tmpsets/set/mod005-history/all/history/last.rb,<br /> tmpsets/set/mod006-basic_formats/all/all_js.rb,<br /> tmpsets/set/mod008-pointer/self/script_mods.rb,<br /> tmpsets/set/mod008-pointer/type/mirror_list.rb,<br /> tmpsets/set/mod014-machines/abstract/script.rb,<br /> tmpsets/set/mod015-settings/right/structure.rb,<br /> tmpsets/set/mod015-settings/self/input_type.rb,<br /> tmpsets/set/mod016-email/right/html_message.rb,<br /> tmpsets/set/mod016-email/right/text_message.rb,<br /> tmpsets/set/mod019-carrierwave/self/favicon.rb,<br /> tmpsets/set/mod001-utility/abstract/bs_badge.rb,<br /> tmpsets/set/mod003-core/all/event_conditions.rb,<br /> tmpsets/set/mod003-core/all/location_history.rb,<br /> tmpsets/set/mod005-history/all/history/views.rb,<br /> tmpsets/set/mod006-basic_formats/all/all_css.rb,<br /> tmpsets/set/mod006-basic_formats/all/all_csv.rb,<br /> tmpsets/set/mod014-machines/abstract/machine.rb,<br /> tmpsets/set/mod014-machines/self/style_cards.rb,<br /> tmpsets/set/mod014-machines/type/java_script.rb,<br /> tmpsets/set/mod015-settings/right/input_type.rb,<br /> tmpsets/set/mod016-email/type/email_template.rb,<br /> tmpsets/set/mod019-carrierwave/self/new_file.rb,<br /> tmpsets/set/mod021-search/abstract/03_filter.rb,<br /> tmpsets/set/mod021-search/right/linked_to_by.rb,<br /> tmpsets/set/mod022-standard/all/list_changes.rb,<br /> tmpsets/set/mod022-standard/right/discussion.rb,<br /> tmpsets/set/mod022-standard/type/layout_type.rb,<br /> tmpsets/set/mod023-rules/type/set/html_views.rb,<br /> tmpsets/set/mod024-edit/all/bridge/tab_views.rb,<br /> tmpsets/set/mod026-account/type/signup/views.rb,<br /> tmpsets/set/mod027-navbar/self/account_links.rb,<br /> tmpsets/set/mod030-recaptcha/self/admin_info.rb,<br /> tmpsets/set/mod003-core/all/assign_attributes.rb,<br /> tmpsets/set/mod003-core/all/update_read_rules.rb,<br /> tmpsets/set/mod005-history/all/history/events.rb,<br /> tmpsets/set/mod005-history/all/history_bridge.rb,<br /> tmpsets/set/mod008-pointer/abstract/01_paging.rb,<br /> tmpsets/set/mod008-pointer/self/input_options.rb,<br /> tmpsets/set/mod008-pointer/type/mirrored_list.rb,<br /> tmpsets/set/mod009-ace_editor/self/script_ace.rb,<br /> tmpsets/set/mod014-machines/abstract/skin_box.rb,<br /> tmpsets/set/mod014-machines/self/script_decko.rb,<br /> tmpsets/set/mod016-email/abstract/email_field.rb,<br /> tmpsets/set/mod017-follow/right/follow_fields.rb,<br /> tmpsets/set/mod019-carrierwave/all/file_utils.rb,<br /> tmpsets/set/mod019-carrierwave/self/new_image.rb,<br /> tmpsets/set/mod021-search/abstract/wql_search.rb,<br /> tmpsets/set/mod025-date/self/style_datepicker.rb,<br /> tmpsets/set/mod027-navbar/right/enabled_roles.rb,<br /> tmpsets/set/mod001-utility/abstract/filterable.rb,<br /> tmpsets/set/mod003-core/all/contextual_content.rb,<br /> tmpsets/set/mod005-history/all/history/actions.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer.rb,<br /> tmpsets/set/mod008-pointer/abstract/id_pointer.rb,<br /> tmpsets/set/mod008-pointer/self/script_editors.rb,<br /> tmpsets/set/mod012-solid_cache/all/solid_cache.rb,<br /> tmpsets/set/mod013-basic_types/type/plain_text.rb,<br /> tmpsets/set/mod014-machines/all/reset_machines.rb,<br /> tmpsets/set/mod014-machines/self/script_jquery.rb,<br /> tmpsets/set/mod014-machines/type/coffee_script.rb,<br /> tmpsets/set/mod015-settings/self/csv_structure.rb,<br /> tmpsets/set/mod015-settings/self/follow_fields.rb,<br /> tmpsets/set/mod016-email/abstract/test_context.rb,<br /> tmpsets/set/mod017-follow/self/follow_defaults.rb,<br /> tmpsets/set/mod021-search/right/referred_to_by.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/menu.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/show.rb,<br /> tmpsets/set/mod022-standard/right/when_created.rb,<br /> tmpsets/set/mod023-rules/type/set/rules_filter.rb,<br /> tmpsets/set/mod025-date/self/script_datepicker.rb,<br /> tmpsets/set/mod026-account/right/account/views.rb,<br /> tmpsets/set/mod028-bootstrap/self/font_awesome.rb,<br /> tmpsets/set/mod028-bootstrap/self/smartmenu_js.rb,<br /> tmpsets/set/mod005-history/all/history/revision.rb,<br /> tmpsets/set/mod005-history/all/history/selected.rb,<br /> tmpsets/set/mod008-pointer/self/style_libraries.rb,<br /> tmpsets/set/mod011-tinymce_editor/self/tiny_mce.rb,<br /> tmpsets/set/mod014-machines/right/machine_cache.rb,<br /> tmpsets/set/mod014-machines/right/machine_input.rb,<br /> tmpsets/set/mod015-settings/abstract/permission.rb,<br /> tmpsets/set/mod017-follow/all/notify/base_views.rb,<br /> tmpsets/set/mod017-follow/all/notify/html_views.rb,<br /> tmpsets/set/mod021-search/abstract/search/views.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/alert.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/error.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/frame.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/modal.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/title.rb,<br /> tmpsets/set/mod023-rules/rule/rule_form/buttons.rb,<br /> tmpsets/set/mod023-rules/type/set/setting_lists.rb,<br /> tmpsets/set/mod024-edit/all/bridge/bridge_pills.rb,<br /> tmpsets/set/mod026-account/abstract/accountable.rb,<br /> tmpsets/set/mod026-account/right/account/events.rb,<br /> tmpsets/set/mod027-navbar/self/dropdown_divider.rb,<br /> tmpsets/set/mod028-bootstrap/all/bootstrap/form.rb,<br /> tmpsets/set/mod028-bootstrap/all/bootstrap/icon.rb,<br /> tmpsets/set/mod028-bootstrap/all/bootstrap/tabs.rb,<br /> tmpsets/set/mod028-bootstrap/all/rich_bootstrap.rb,<br /> tmpsets/set/mod028-bootstrap/self/smartmenu_css.rb,<br /> tmpsets/set/mod028-bootstrap/self/style_select2.rb,<br /> tmpsets/set/mod008-pointer/abstract/code_pointer.rb,<br /> tmpsets/set/mod008-pointer/right/content_options.rb,<br /> tmpsets/set/mod008-pointer/self/script_libraries.rb,<br /> tmpsets/set/mod012-solid_cache/right/solid_cache.rb,<br /> tmpsets/set/mod014-machines/right/machine_output.rb,<br /> tmpsets/set/mod015-settings/self/content_options.rb,<br /> tmpsets/set/mod015-settings/self/recent_settings.rb,<br /> tmpsets/set/mod017-follow/abstract/follow_option.rb,<br /> tmpsets/set/mod017-follow/all/follow/follow_link.rb,<br /> tmpsets/set/mod017-follow/all/follow/followed_by.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/header.rb,<br /> tmpsets/set/mod028-bootstrap/all/bootstrap/table.rb,<br /> tmpsets/set/mod028-bootstrap/self/bootstrap_core.rb,<br /> tmpsets/set/mod028-bootstrap/self/material_icons.rb,<br /> tmpsets/set/mod028-bootstrap/self/script_select2.rb,<br /> tmpsets/set/mod003-core/abstract/vendor_code_file.rb,<br /> tmpsets/set/mod004-virtual/abstract/virtual_cache.rb,<br /> tmpsets/set/mod009-ace_editor/abstract/ace_editor.rb,<br /> tmpsets/set/mod015-settings/right/content_options.rb,<br /> tmpsets/set/mod017-follow/all/follow/follower_ids.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/content.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/overlay.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/wrapper.rb,<br /> tmpsets/set/mod022-standard/right/type_plus_right.rb,<br /> tmpsets/set/mod023-rules/rule/bridge_rules_editor.rb,<br /> tmpsets/set/mod024-edit/all/bridge/follow_section.rb,<br /> tmpsets/set/mod024-edit/all/bridge/tab_visibility.rb,<br /> tmpsets/set/mod026-account/abstract/account_field.rb,<br /> tmpsets/set/mod028-bootstrap/all/bootstrap/helper.rb,<br /> tmpsets/set/mod028-bootstrap/all/bootstrap/navbar.rb,<br /> tmpsets/set/mod028-bootstrap/type/bootswatch_skin.rb,<br /> tmpsets/set/mod030-recaptcha/self/recaptcha_proxy.rb,<br /> tmpsets/set/mod001-utility/abstract/filterable_bar.rb,<br /> tmpsets/set/mod005-history/all/history/act_listing.rb,<br /> tmpsets/set/mod014-machines/abstract/machine_input.rb,<br /> tmpsets/set/mod015-settings/self/default_html_view.rb,<br /> tmpsets/set/mod015-settings/self/table_of_contents.rb,<br /> tmpsets/set/mod019-carrierwave/abstract/attachment.rb,<br /> tmpsets/set/mod022-standard/right/when_last_edited.rb,<br /> tmpsets/set/mod024-edit/all/bridge/related_section.rb,<br /> tmpsets/set/mod028-bootstrap/all/bootstrap/wrapper.rb,<br /> tmpsets/set/mod028-bootstrap/self/script_bootstrap.rb,<br /> tmpsets/set/mod012-solid_cache/abstract/solid_cache.rb,<br /> tmpsets/set/mod021-search/abstract/00_filter_helper.rb,<br /> tmpsets/set/mod021-search/abstract/02_search_params.rb,<br /> tmpsets/set/mod027-navbar/abstract/account_dropdown.rb,<br /> tmpsets/set/mod028-bootstrap/all/bootstrap/dropdown.rb,<br /> tmpsets/set/mod008-pointer/abstract/00_paging_params.rb,<br /> tmpsets/set/mod009-ace_editor/self/script_ace_config.rb,<br /> tmpsets/set/mod015-settings/abstract/templated_nests.rb,<br /> tmpsets/set/mod015-settings/self/content_option_view.rb,<br /> tmpsets/set/mod019-carrierwave/type/image/html_views.rb,<br /> tmpsets/set/mod028-bootstrap/all/bootstrap/accordion.rb,<br /> tmpsets/set/mod030-recaptcha/self/recaptcha_settings.rb,<br /> tmpsets/set/mod030-recaptcha/self/recaptcha_site_key.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/events.rb,<br /> tmpsets/set/mod008-pointer/self/script_pointer_config.rb,<br /> tmpsets/set/mod011-tinymce_editor/self/script_tinymce.rb,<br /> tmpsets/set/mod014-machines/self/script_jquery_helper.rb,<br /> tmpsets/set/mod015-settings/right/content_option_view.rb,<br /> tmpsets/set/mod017-follow/all/follow/stop_follow_link.rb,<br /> tmpsets/set/mod017-follow/type_plus_right/user/follow.rb,<br /> tmpsets/set/mod023-rules/rule/rule_form/form_elements.rb,<br /> tmpsets/set/mod023-rules/rule/rule_form/set_selection.rb,<br /> tmpsets/set/mod023-rules/type/set/html_views/template.rb,<br /> tmpsets/set/mod025-date/self/script_datepicker_config.rb,<br /> tmpsets/set/mod026-account/type_plus_right/user/email.rb,<br /> tmpsets/set/mod027-navbar/abstract/pointer/html_views.rb,<br /> tmpsets/set/mod028-bootstrap/self/bootstrap_functions.rb,<br /> tmpsets/set/mod028-bootstrap/self/script_load_select2.rb,<br /> tmpsets/set/mod011-tinymce_editor/all/reference_editor.rb,<br /> tmpsets/set/mod017-follow/all/follow/follow_link_views.rb,<br /> tmpsets/set/mod017-follow/all/follow/start_follow_link.rb,<br /> tmpsets/set/mod022-standard/type/notification_template.rb,<br /> tmpsets/set/mod023-rules/rule/rule_form/rule_set_radio.rb,<br /> tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb,<br /> tmpsets/set/mod030-recaptcha/self/recaptcha_secret_key.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/item_api.rb,<br /> tmpsets/set/mod021-search/abstract/04_right_filter_form.rb,<br /> tmpsets/set/mod023-rules/type/set/html_views/rule_lists.rb,<br /> tmpsets/set/mod028-bootstrap/self/style_bootstrap_cards.rb,<br /> tmpsets/set/mod015-settings/all/supports_content_options.rb,<br /> tmpsets/set/mod019-carrierwave/abstract/attachment/paths.rb,<br /> tmpsets/set/mod021-search/abstract/03_filter/filter_form.rb,<br /> tmpsets/set/mod021-search/abstract/03_filter/form_helper.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/process_layout.rb,<br /> tmpsets/set/mod029-google_analytics/all/google_analytics.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/html_views.rb,<br /> tmpsets/set/mod011-tinymce_editor/abstract/tinymce_editor.rb,<br /> tmpsets/set/mod014-machines/abstract/machine/output_cache.rb,<br /> tmpsets/set/mod016-email/type/email_template/email_config.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/html_views/help.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/html_views/info.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/html_views/size.rb,<br /> tmpsets/set/mod028-bootstrap/abstract/bootstrap_code_file.rb,<br /> tmpsets/set/mod028-bootstrap/self/style_select2_bootstrap.rb,<br /> tmpsets/set/mod008-pointer/abstract/01_paging/paging_links.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/options_api.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/other_views.rb,<br /> tmpsets/set/mod014-machines/abstract/machine/output_update.rb,<br /> tmpsets/set/mod022-standard/all/rich_html/html_views/guide.rb,<br /> tmpsets/set/mod014-machines/self/script_html5shiv_printshiv.rb,<br /> tmpsets/set/mod014-machines/self/style_bootstrap_compatible.rb,<br /> tmpsets/set/mod014-machines/self/style_jquery_ui_smoothness.rb,<br /> tmpsets/set/mod010-prosemirror_editor/self/style_prosemirror.rb,<br /> tmpsets/set/mod011-tinymce_editor/self/script_tinymce_config.rb,<br /> tmpsets/set/mod028-bootstrap/type/customized_bootswatch_skin.rb,<br /> tmpsets/set/mod010-prosemirror_editor/self/script_prosemirror.rb,<br /> tmpsets/set/mod028-bootstrap/self/style_bootstrap_colorpicker.rb,<br /> tmpsets/set/mod019-carrierwave/abstract/attachment/storage_type.rb,<br /> tmpsets/set/mod019-carrierwave/abstract/attachment/upload_cache.rb,<br /> tmpsets/set/mod021-search/abstract/03_filter/query_construction.rb,<br /> tmpsets/set/mod008-pointer/abstract/02_pointer/html_views/filter.rb,<br /> tmpsets/set/mod010-prosemirror_editor/abstract/prosemirror_editor.rb,<br /> tmpsets/set/mod011-tinymce_editor/all/reference_editor/nest_image.rb,<br /> tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme/html_views.rb,<br /> tmpsets/set/mod011-tinymce_editor/all/reference_editor/link_editor.rb,<br /> tmpsets/set/mod011-tinymce_editor/all/reference_editor/nest_editor.rb,<br /> tmpsets/set/mod010-prosemirror_editor/self/script_prosemirror_config.rb,<br /> tmpsets/set/mod028-bootstrap/type/customized_bootswatch_skin/html_views.rb,<br /> tmpsets/set/mod017-follow/type_plus_right/user/follow/follow_editor_helper.rb,<br /> tmpsets/set/mod011-tinymce_editor/all/reference_editor/link_editor/link_parser.rb,<br /> tmpsets/set/mod011-tinymce_editor/all/reference_editor/nest_editor/nest_parser.rb,<br /> tmpsets/set/mod028-bootstrap/type_plus_right/customized_bootswatch_skin/colors.rb</span>
 </dd>
   </dl>
   
@@ -112,8 +117,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>TODO: work in progress</p>
+    <p>require File.expand_path(“../reference”, <strong>FILE</strong>)</p>
 
 
   </div>
@@ -125,11 +129,11 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Card/Auth.html" title="Card::Auth (module)">Auth</a></span>, <span class='object_link'><a href="Card/Env.html" title="Card::Env (module)">Env</a></span>, <span class='object_link'><a href="Card/FollowOption.html" title="Card::FollowOption (module)">FollowOption</a></span>, <span class='object_link'><a href="Card/Generators.html" title="Card::Generators (module)">Generators</a></span>, <span class='object_link'><a href="Card/Machine.html" title="Card::Machine (module)">Machine</a></span>, <span class='object_link'><a href="Card/Mark.html" title="Card::Mark (module)">Mark</a></span>, <span class='object_link'><a href="Card/Mod.html" title="Card::Mod (module)">Mod</a></span>, <span class='object_link'><a href="Card/Model.html" title="Card::Model (module)">Model</a></span>, <span class='object_link'><a href="Card/Query.html" title="Card::Query (module)">Query</a></span>, <span class='object_link'><a href="Card/Set.html" title="Card::Set (module)">Set</a></span>, <span class='object_link'><a href="Card/Setting.html" title="Card::Setting (module)">Setting</a></span>, <span class='object_link'><a href="Card/Version.html" title="Card::Version (module)">Version</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Card/Auth.html" title="Card::Auth (module)">Auth</a></span>, <span class='object_link'><a href="Card/Dirty.html" title="Card::Dirty (module)">Dirty</a></span>, <span class='object_link'><a href="Card/DirtyNames.html" title="Card::DirtyNames (module)">DirtyNames</a></span>, <span class='object_link'><a href="Card/Env.html" title="Card::Env (module)">Env</a></span>, <span class='object_link'><a href="Card/FollowOption.html" title="Card::FollowOption (module)">FollowOption</a></span>, <span class='object_link'><a href="Card/Generators.html" title="Card::Generators (module)">Generators</a></span>, <span class='object_link'><a href="Card/Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span>, <span class='object_link'><a href="Card/Machine.html" title="Card::Machine (module)">Machine</a></span>, <span class='object_link'><a href="Card/Mark.html" title="Card::Mark (module)">Mark</a></span>, <span class='object_link'><a href="Card/Mod.html" title="Card::Mod (module)">Mod</a></span>, <span class='object_link'><a href="Card/Model.html" title="Card::Model (module)">Model</a></span>, <span class='object_link'><a href="Card/Query.html" title="Card::Query (module)">Query</a></span>, <span class='object_link'><a href="Card/Rule.html" title="Card::Rule (module)">Rule</a></span>, <span class='object_link'><a href="Card/Set.html" title="Card::Set (module)">Set</a></span>, <span class='object_link'><a href="Card/Setting.html" title="Card::Setting (module)">Setting</a></span>, <span class='object_link'><a href="Card/Version.html" title="Card::Version (module)">Version</a></span>
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Card/Act.html" title="Card::Act (class)">Act</a></span>, <span class='object_link'><a href="Card/ActManager.html" title="Card::ActManager (class)">ActManager</a></span>, <span class='object_link'><a href="Card/Action.html" title="Card::Action (class)">Action</a></span>, <span class='object_link'><a href="Card/Cache.html" title="Card::Cache (class)">Cache</a></span>, <span class='object_link'><a href="Card/Change.html" title="Card::Change (class)">Change</a></span>, <span class='object_link'><a href="Card/Codename.html" title="Card::Codename (class)">Codename</a></span>, <span class='object_link'><a href="Card/Content.html" title="Card::Content (class)">Content</a></span>, <span class='object_link'><a href="Card/Error.html" title="Card::Error (class)">Error</a></span>, <span class='object_link'><a href="Card/FileCardCreator.html" title="Card::FileCardCreator (class)">FileCardCreator</a></span>, <span class='object_link'><a href="Card/FilterQuery.html" title="Card::FilterQuery (class)">FilterQuery</a></span>, <span class='object_link'><a href="Card/FollowerStash.html" title="Card::FollowerStash (class)">FollowerStash</a></span>, <span class='object_link'><a href="Card/Format.html" title="Card::Format (class)">Format</a></span>, <span class='object_link'><a href="Card/Layout.html" title="Card::Layout (class)">Layout</a></span>, <span class='object_link'><a href="Card/Mailer.html" title="Card::Mailer (class)">Mailer</a></span>, <span class='object_link'><a href="Card/Migration.html" title="Card::Migration (class)">Migration</a></span>, <span class='object_link'><a href="Card/Name.html" title="Card::Name (class)">Name</a></span>, <span class='object_link'><a href="Card/Reference.html" title="Card::Reference (class)">Reference</a></span>, <span class='object_link'><a href="Card/Subcards.html" title="Card::Subcards (class)">Subcards</a></span>, <span class='object_link'><a href="Card/View.html" title="Card::View (class)">View</a></span>, <span class='object_link'><a href="Card/Virtual.html" title="Card::Virtual (class)">Virtual</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Card/Act.html" title="Card::Act (class)">Act</a></span>, <span class='object_link'><a href="Card/Action.html" title="Card::Action (class)">Action</a></span>, <span class='object_link'><a href="Card/Cache.html" title="Card::Cache (class)">Cache</a></span>, <span class='object_link'><a href="Card/Change.html" title="Card::Change (class)">Change</a></span>, <span class='object_link'><a href="Card/Codename.html" title="Card::Codename (class)">Codename</a></span>, <span class='object_link'><a href="Card/Content.html" title="Card::Content (class)">Content</a></span>, <span class='object_link'><a href="Card/Director.html" title="Card::Director (class)">Director</a></span>, <span class='object_link'><a href="Card/Error.html" title="Card::Error (class)">Error</a></span>, <span class='object_link'><a href="Card/Fetch.html" title="Card::Fetch (class)">Fetch</a></span>, <span class='object_link'><a href="Card/FileCardCreator.html" title="Card::FileCardCreator (class)">FileCardCreator</a></span>, <span class='object_link'><a href="Card/FilterQuery.html" title="Card::FilterQuery (class)">FilterQuery</a></span>, <span class='object_link'><a href="Card/FollowerStash.html" title="Card::FollowerStash (class)">FollowerStash</a></span>, <span class='object_link'><a href="Card/Format.html" title="Card::Format (class)">Format</a></span>, <span class='object_link'><a href="Card/Layout.html" title="Card::Layout (class)">Layout</a></span>, <span class='object_link'><a href="Card/LazyTab.html" title="Card::LazyTab (class)">LazyTab</a></span>, <span class='object_link'><a href="Card/Mailer.html" title="Card::Mailer (class)">Mailer</a></span>, <span class='object_link'><a href="Card/Migration.html" title="Card::Migration (class)">Migration</a></span>, <span class='object_link'><a href="Card/Name.html" title="Card::Name (class)">Name</a></span>, <span class='object_link'><a href="Card/Reference.html" title="Card::Reference (class)">Reference</a></span>, <span class='object_link'><a href="Card/Subcards.html" title="Card::Subcards (class)">Subcards</a></span>, <span class='object_link'><a href="Card/Tab.html" title="Card::Tab (class)">Tab</a></span>, <span class='object_link'><a href="Card/View.html" title="Card::View (class)">View</a></span>, <span class='object_link'><a href="Card/Virtual.html" title="Card::Virtual (class)">Virtual</a></span>
     
   
 </p>
@@ -143,39 +147,12 @@
   <p class="inherited"><span class='object_link'><a href="Card/Mark.html#CODENAME_MARK_RE-constant" title="Card::Mark::CODENAME_MARK_RE (constant)">Mark::CODENAME_MARK_RE</a></span>, <span class='object_link'><a href="Card/Mark.html#ID_MARK_RE-constant" title="Card::Mark::ID_MARK_RE (constant)">Mark::ID_MARK_RE</a></span></p>
 
 
-  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
-  <ul class="summary">
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#follower_stash-instance_method" title="#follower_stash (instance method)">#<strong>follower_stash</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute follower_stash.</p>
-</div></span>
-  
-</li>
-
-    
-  </ul>
 
 
+  <h2>Instance Attribute Summary</h2>
+  
+  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Card/Director/CardMethods.html" title="Card::Director::CardMethods (module)">Director::CardMethods</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Card/Director/CardMethods.html#director-instance_method" title="Card::Director::CardMethods#director (method)">#director</a></span></p>
 
 
   
@@ -203,7 +180,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -225,53 +203,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#const_missing-class_method" title="const_missing (class method)">.<strong>const_missing</strong>(const)  &#x21d2; Integer </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
     <span class="summary_desc"><div class='inline'>
-<p>If a card has the codename <em>example</em>, then Card::ExampleID should return the id for that card.</p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#define_dirty_methods-class_method" title="define_dirty_methods (class method)">.<strong>define_dirty_methods</strong>(field)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -293,30 +226,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#serializable_attr_accessor-class_method" title="serializable_attr_accessor (class method)">.<strong>serializable_attr_accessor</strong>(*args)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
     <span class="summary_desc"><div class='inline'>
-<p>attributes that ActiveJob can handle.</p>
 </div></span>
   
 </li>
@@ -330,72 +240,6 @@
     </h2>
 
     <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#attribute_before_act-instance_method" title="#attribute_before_act (instance method)">#<strong>attribute_before_act</strong>(attr)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#attribute_is_changing%3F-instance_method" title="#attribute_is_changing? (instance method)">#<strong>attribute_is_changing?</strong>(attr)  &#x21d2; Boolean </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#clean_after_stage_fail-instance_method" title="#clean_after_stage_fail (instance method)">#<strong>clean_after_stage_fail</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
       
         <li class="public ">
   <span class="summary_signature">
@@ -414,51 +258,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#deserialize_hash_value-instance_method" title="#deserialize_hash_value (instance method)">#<strong>deserialize_hash_value</strong>(value)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#deserialize_value-instance_method" title="#deserialize_value (instance method)">#<strong>deserialize_value</strong>(val, type)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -480,7 +281,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -488,7 +290,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#not_in_callback%3F-instance_method" title="#not_in_callback? (instance method)">#<strong>not_in_callback?</strong>  &#x21d2; Boolean </a>
+      <a href="#rescuing_if_integration-instance_method" title="#rescuing_if_integration (instance method)">#<strong>rescuing_if_integration</strong>(is_integration)  &#x21d2; Object </a>
     
 
     
@@ -502,7 +304,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -510,7 +313,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#restore_changes_information-instance_method" title="#restore_changes_information (instance method)">#<strong>restore_changes_information</strong>  &#x21d2; Object </a>
+      <a href="#rescuing_integration-instance_method" title="#rescuing_integration (instance method)">#<strong>rescuing_integration</strong>  &#x21d2; Object </a>
     
 
     
@@ -524,7 +327,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>one failed integration event should not harm others.</p>
+</div></span>
   
 </li>
 
@@ -546,73 +350,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#serialize_for_active_job-instance_method" title="#serialize_for_active_job (instance method)">#<strong>serialize_for_active_job</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#serialize_hash_value-instance_method" title="#serialize_hash_value (instance method)">#<strong>serialize_hash_value</strong>(value)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#serialize_value-instance_method" title="#serialize_value (instance method)">#<strong>serialize_value</strong>(value)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>attributes that ActiveJob can handle.</p>
+</div></span>
   
 </li>
 
@@ -620,6 +359,17 @@
     </ul>
   
 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Card/Dirty/MethodFactory.html" title="Card::Dirty::MethodFactory (module)">Dirty::MethodFactory</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Card/Dirty/MethodFactory.html#define_dirty_methods-instance_method" title="Card::Dirty::MethodFactory#define_dirty_methods (method)">define_dirty_methods</a></span></p>
 
   
   
@@ -639,54 +389,39 @@
   
   
   
-  <div id="instance_attr_details" class="attr_details">
-    <h2>Instance Attribute Details</h2>
-    
-      
-      <span id="follower_stash=-instance_method"></span>
-      <div class="method_details first">
-  <h3 class="signature first" id="follower_stash-instance_method">
   
-    #<strong>follower_stash</strong>  &#x21d2; <tt>Object</tt> 
-  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Card/Director/CardMethods.html" title="Card::Director::CardMethods (module)">Director::CardMethods</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Card/Director/CardMethods.html#clear_action_specific_attributes-instance_method" title="Card::Director::CardMethods#clear_action_specific_attributes (method)">#clear_action_specific_attributes</a></span>, <span class='object_link'><a href="Card/Director/CardMethods.html#identify_action-instance_method" title="Card::Director::CardMethods#identify_action (method)">#identify_action</a></span>, <span class='object_link'><a href="Card/Director/CardMethods.html#prepare_for_phases-instance_method" title="Card::Director::CardMethods#prepare_for_phases (method)">#prepare_for_phases</a></span>, <span class='object_link'><a href="Card/Director/CardMethods.html#restore_changes_information-instance_method" title="Card::Director::CardMethods#restore_changes_information (method)">#restore_changes_information</a></span></p>
 
   
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Card/DirtyNames.html" title="Card::DirtyNames (module)">DirtyNames</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Card/DirtyNames.html#dirty_name-instance_method" title="Card::DirtyNames#dirty_name (method)">#dirty_name</a></span>, <span class='object_link'><a href="Card/DirtyNames.html#name_before_act-instance_method" title="Card::DirtyNames#name_before_act (method)">#name_before_act</a></span>, <span class='object_link'><a href="Card/DirtyNames.html#name_is_changing%3F-instance_method" title="Card::DirtyNames#name_is_changing? (method)">#name_is_changing?</a></span></p>
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns the value of attribute follower_stash</p>
-
-
-  </div>
-</div>
-<div class="tags">
   
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Card/Dirty.html" title="Card::Dirty (module)">Dirty</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Card/Dirty.html#attribute_before_act-instance_method" title="Card::Dirty#attribute_before_act (method)">#attribute_before_act</a></span>, <span class='object_link'><a href="Card/Dirty.html#attribute_is_changing%3F-instance_method" title="Card::Dirty#attribute_is_changing? (method)">#attribute_is_changing?</a></span>, <span class='object_link'><a href="Card/Dirty.html#dirty_aliases-class_method" title="Card::Dirty.dirty_aliases (method)">dirty_aliases</a></span>, <span class='object_link'><a href="Card/Dirty.html#dirty_fields-class_method" title="Card::Dirty.dirty_fields (method)">dirty_fields</a></span>, <span class='object_link'><a href="Card/Dirty.html#dirty_options-class_method" title="Card::Dirty.dirty_options (method)">dirty_options</a></span>, <span class='object_link'><a href="Card/Dirty.html#not_in_callback%3F-instance_method" title="Card::Dirty#not_in_callback? (method)">#not_in_callback?</a></span></p>
 
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-160
-161
-162</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card.rb', line 160</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_follower_stash'>follower_stash</span>
-  <span class='ivar'>@follower_stash</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
-
+  
+  
+  
+  
+  
+  
+  
 
   <div id="class_method_details" class="method_details_list">
     <h2>Class Method Details</h2>
@@ -753,143 +488,6 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="const_missing-class_method">
-  
-    .<strong>const_missing</strong>(const)  &#x21d2; <tt>Integer</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>If a card has the codename <em>example</em>, then Card::ExampleID should return the id for that card. This method makes that help.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>const</span>
-      
-      
-        <span class='type'>(<tt>Const</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'>
-<p>error if codename is missing</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-144
-145
-146
-147
-148
-149
-150</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 144</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_const_missing'>const_missing</span> <span class='id identifier rubyid_const'>const</span>
-  <span class='kw'>return</span> <span class='kw'>super</span> <span class='kw'>unless</span> <span class='id identifier rubyid_const'>const</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^([A-Z]\S*)ID$</span><span class='regexp_end'>/</span></span>
-
-  <span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_last_match'>last_match</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_underscore'>underscore</span>
-  <span class='id identifier rubyid_code_id'>code_id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Card/Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id!'><span class='object_link'><a href="Card/Codename.html#id!-class_method" title="Card::Codename.id! (method)">id!</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_const_set'>const_set</span> <span class='id identifier rubyid_const'>const</span><span class='comma'>,</span> <span class='id identifier rubyid_code_id'>code_id</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="define_dirty_methods-class_method">
-  
-    .<strong>define_dirty_methods</strong>(field)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-2
-3
-4
-5
-6
-7
-8
-9
-10</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/dirty.rb', line 2</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_define_dirty_methods'>define_dirty_methods</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='embexpr_end'>}</span><span class='tstring_content'>_before_act</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_attribute_before_act'>attribute_before_act</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='embexpr_end'>}</span><span class='tstring_content'>_is_changing?</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_attribute_is_changing?'>attribute_is_changing?</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="paths-class_method">
   
     .<strong>paths</strong>  &#x21d2; <tt>Object</tt> 
@@ -919,49 +517,6 @@
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="serializable_attr_accessor-class_method">
-  
-    .<strong>serializable_attr_accessor</strong>(*args)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>attributes that ActiveJob can handle</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-129
-130
-131
-132</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card.rb', line 129</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_serializable_attr_accessor'>serializable_attr_accessor</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_serializable_attributes'>serializable_attributes</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span>
-  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
   <div id="instance_method_details" class="method_details_list">
@@ -969,147 +524,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="attribute_before_act-instance_method">
-  
-    #<strong>attribute_before_act</strong>(attr)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/dirty.rb', line 16</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_attribute_before_act'>attribute_before_act</span> <span class='id identifier rubyid_attr'>attr</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_saved_change_to_attribute?'>saved_change_to_attribute?</span> <span class='id identifier rubyid_attr'>attr</span>
-    <span class='id identifier rubyid_attribute_before_last_save'>attribute_before_last_save</span> <span class='id identifier rubyid_attr'>attr</span>
-  <span class='kw'>elsif</span> <span class='id identifier rubyid_will_save_change_to_attribute?'>will_save_change_to_attribute?</span> <span class='id identifier rubyid_attr'>attr</span>
-    <span class='id identifier rubyid_mutations_from_database'>mutations_from_database</span><span class='period'>.</span><span class='id identifier rubyid_changed_values'>changed_values</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span>
-  <span class='kw'>elsif</span> <span class='id identifier rubyid_not_in_callback?'>not_in_callback?</span>
-    <span class='id identifier rubyid_attribute_was'>attribute_was</span> <span class='id identifier rubyid_attr'>attr</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid__read_attribute'>_read_attribute</span> <span class='id identifier rubyid_attr'>attr</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="attribute_is_changing?-instance_method">
-  
-    #<strong>attribute_is_changing?</strong>(attr)  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-33
-34
-35
-36
-37
-38
-39</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/dirty.rb', line 33</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_attribute_is_changing?'>attribute_is_changing?</span> <span class='id identifier rubyid_attr'>attr</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_not_in_callback?'>not_in_callback?</span>
-    <span class='id identifier rubyid_attribute_changed?'>attribute_changed?</span> <span class='id identifier rubyid_attr'>attr</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_saved_change_to_attribute?'>saved_change_to_attribute?</span><span class='lparen'>(</span><span class='id identifier rubyid_attr'>attr</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_will_save_change_to_attribute?'>will_save_change_to_attribute?</span><span class='lparen'>(</span><span class='id identifier rubyid_attr'>attr</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="clean_after_stage_fail-instance_method">
-  
-    #<strong>clean_after_stage_fail</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-11
-12
-13
-14
-15</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/act_manager/stage_director.rb', line 11</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_clean_after_stage_fail'>clean_after_stage_fail</span>
-  <span class='ivar'>@action</span> <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='id identifier rubyid_expire_pieces'>expire_pieces</span>
-  <span class='id identifier rubyid_subcards'>subcards</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:expire_pieces</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="deserialize_for_active_job!-instance_method">
+  <h3 class="signature first" id="deserialize_for_active_job!-instance_method">
   
     #<strong>deserialize_for_active_job!</strong>(attr)  &#x21d2; <tt>Object</tt> 
   
@@ -1123,103 +538,21 @@
       <pre class="lines">
 
 
-50
-51
-52
-53
-54
-55</pre>
+79
+80
+81
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/event/delayed_event.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/event/delayed_event.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deserialize_for_active_job!'>deserialize_for_active_job!</span> <span class='id identifier rubyid_attr'>attr</span>
   <span class='id identifier rubyid_attr'>attr</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attname'>attname</span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span><span class='op'>|</span>
     <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_attname'>attname</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_include_set_modules'>include_set_modules</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="deserialize_hash_value-instance_method">
-  
-    #<strong>deserialize_hash_value</strong>(value)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-96
-97
-98
-99
-100</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/event/delayed_event.rb', line 96</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_deserialize_hash_value'>deserialize_hash_value</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='op'>|</span>
-    <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_deserialize_value'>deserialize_value</span> <span class='id identifier rubyid_v'>v</span><span class='lbracket'>[</span><span class='symbol'>:value</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='lbracket'>[</span><span class='symbol'>:type</span><span class='rbracket'>]</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="deserialize_value-instance_method">
-  
-    #<strong>deserialize_value</strong>(val, type)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/event/delayed_event.rb', line 83</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_deserialize_value'>deserialize_value</span> <span class='id identifier rubyid_val'>val</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_type'>type</span>
-  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_val'>val</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
-  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>time</span><span class='tstring_end'>&quot;</span></span>
-    <span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hash</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_deserialize_hash_value'>deserialize_hash_value</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_val'>val</span>
-  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1241,19 +574,19 @@
       <pre class="lines">
 
 
-111
-112
-113
-114
-115</pre>
+172
+173
+174
+175
+176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/event.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/event.rb', line 172</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_log_event_call'>log_event_call</span> <span class='id identifier rubyid_event'>event</span>
   <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event'>event</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='comment'># puts &quot;#{name}: #{event}&quot;
-</span>  <span class='comment'># puts &quot;#{Card::ActManager.to_s}&quot;.green
+</span>  <span class='comment'># puts &quot;#{Card::Director.to_s}&quot;.green
 </span><span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1261,63 +594,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="not_in_callback?-instance_method">
+  <h3 class="signature " id="rescuing_if_integration-instance_method">
   
-    #<strong>not_in_callback?</strong>  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-28
-29
-30
-31</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/dirty.rb', line 28</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_not_in_callback?'>not_in_callback?</span>
-  <span class='comment'># or in integrate_with_delay stage
-</span>  <span class='id identifier rubyid_mutations_before_last_save'>mutations_before_last_save</span><span class='period'>.</span><span class='id identifier rubyid_equal?'>equal?</span><span class='lparen'>(</span><span class='id identifier rubyid_mutations_from_database'>mutations_from_database</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="restore_changes_information-instance_method">
-  
-    #<strong>restore_changes_information</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>rescuing_if_integration</strong>(is_integration)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1329,25 +608,63 @@
       <pre class="lines">
 
 
-2
-3
-4
-5
-6
-7
-8
-9</pre>
+159
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/act_manager/stage_director.rb', line 2</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/event.rb', line 159</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_restore_changes_information'>restore_changes_information</span>
-  <span class='comment'># restores changes for integration phase
-</span>  <span class='comment'># (rails cleared them in an after_create/after_update hook which is
-</span>  <span class='comment'>#  executed before the integration phase)
-</span>  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_saved_changes'>saved_changes</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_rescuing_if_integration'>rescuing_if_integration</span> <span class='id identifier rubyid_is_integration'>is_integration</span>
+  <span class='id identifier rubyid_is_integration'>is_integration</span> <span class='op'>?</span> <span class='id identifier rubyid_rescuing_integration'>rescuing_integration</span> <span class='lbrace'>{</span> <span class='kw'>yield</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='kw'>yield</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="rescuing_integration-instance_method">
+  
+    #<strong>rescuing_integration</strong>  &#x21d2; <tt>Object</tt> 
+  
 
-  <span class='ivar'>@mutations_from_database</span> <span class='op'>=</span> <span class='id identifier rubyid_mutations_before_last_save'>mutations_before_last_save</span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>one failed integration event should not harm others.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+164
+165
+166
+167
+168
+169
+170</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/set/event.rb', line 164</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_rescuing_integration'>rescuing_integration</span>
+  <span class='kw'>yield</span>
+<span class='kw'>rescue</span> <span class='const'>StandardError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='const'><span class='object_link'><a href="" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Card/Error.html" title="Card::Error (class)">Error</a></span></span><span class='period'>.</span><span class='id identifier rubyid_report'><span class='object_link'><a href="Card/Error.html#report-class_method" title="Card::Error.report (method)">report</a></span></span> <span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='kw'>self</span>
+<span class='kw'>ensure</span>
+  <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1363,139 +680,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>attributes that ActiveJob can handle</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-156
-157
-158</pre>
+5
+6
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card.rb', line 156</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/event/delayed_event.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_serializable_attributes'>serializable_attributes</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_serializable_attributes'>serializable_attributes</span> <span class='op'>+</span> <span class='id identifier rubyid_set_specific'>set_specific</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="serialize_for_active_job-instance_method">
-  
-    #<strong>serialize_for_active_job</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-57
-58
-59
-60
-61</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/event/delayed_event.rb', line 57</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_serialize_for_active_job'>serialize_for_active_job</span>
-  <span class='id identifier rubyid_serializable_attributes'>serializable_attributes</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_hash'>hash</span><span class='op'>|</span>
-    <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_instance_variable_get'>instance_variable_get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="serialize_hash_value-instance_method">
-  
-    #<strong>serialize_hash_value</strong>(value)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-79
-80
-81</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/event/delayed_event.rb', line 79</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_serialize_hash_value'>serialize_hash_value</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_serialize_value'>serialize_value</span><span class='lparen'>(</span><span class='id identifier rubyid_v'>v</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="serialize_value-instance_method">
-  
-    #<strong>serialize_value</strong>(value)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/event/delayed_event.rb', line 63</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_serialize_value'>serialize_value</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='comment'># ActiveJob doesn&#39;t accept symbols and Time as arguments
-</span>  <span class='kw'>case</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='kw'>when</span> <span class='const'>Symbol</span>
-    <span class='lbrace'>{</span> <span class='label'>value:</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>symbol</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
-  <span class='kw'>when</span> <span class='const'>Time</span>
-    <span class='lbrace'>{</span> <span class='label'>value:</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>time</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
-  <span class='kw'>when</span> <span class='const'>Hash</span>
-    <span class='lbrace'>{</span> <span class='label'>value:</span> <span class='id identifier rubyid_serialize_hash_value'>serialize_hash_value</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hash</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
-  <span class='kw'>when</span> <span class='const'>ActionController</span><span class='op'>::</span><span class='const'>Parameters</span>
-    <span class='id identifier rubyid_serialize_value'>serialize_value</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_unsafe_h'>to_unsafe_h</span>
-  <span class='kw'>else</span>
-    <span class='lbrace'>{</span> <span class='label'>value:</span> <span class='id identifier rubyid_value'>value</span> <span class='rbrace'>}</span>
-  <span class='kw'>end</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_action_specific_attributes'>action_specific_attributes</span> <span class='op'>+</span> <span class='id identifier rubyid_set_specific'>set_specific</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1507,9 +716,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:55 2019 by
+  Generated on Thu Sep 10 15:02:46 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

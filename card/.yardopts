@@ -10,3 +10,4 @@ GPL
 LICENSE
 VERSION
 --markup markdown
+--load .yard_extensions/yard_extensions.rb

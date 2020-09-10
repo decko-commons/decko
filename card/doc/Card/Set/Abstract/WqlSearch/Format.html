@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::WqlSearch::Format
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::WqlSearch::Format";
   relpath = '../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod020-search/abstract/wql_search.rb</dd>
+    <dd>tmpsets/set/mod021-search/abstract/wql_search.rb</dd>
   </dl>
   
 </div>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +166,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -186,7 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -208,7 +212,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -245,7 +250,7 @@
 99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/wql_search.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/wql_search.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_content_limit'>card_content_limit</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_wql_hash'>wql_hash</span><span class='lbracket'>[</span><span class='symbol'>:limit</span><span class='rbracket'>]</span>
@@ -277,7 +282,7 @@
 93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/wql_search.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/wql_search.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_limit'>default_limit</span>
   <span class='id identifier rubyid_card_content_limit'>card_content_limit</span> <span class='op'>||</span> <span class='kw'>super</span>
@@ -307,7 +312,7 @@
 103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/wql_search.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/wql_search.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_item_view_from_query'>item_view_from_query</span>
   <span class='id identifier rubyid_query_with_params'>query_with_params</span><span class='period'>.</span><span class='id identifier rubyid_statement'>statement</span><span class='lbracket'>[</span><span class='symbol'>:item</span><span class='rbracket'>]</span>
@@ -337,7 +342,7 @@
 111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/wql_search.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/wql_search.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_limit'>limit</span>
   <span class='id identifier rubyid_query_with_params'>query_with_params</span><span class='period'>.</span><span class='id identifier rubyid_limit'>limit</span>
@@ -367,7 +372,7 @@
 107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/wql_search.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/wql_search.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query_with_params'>query_with_params</span>
   <span class='ivar'>@query_with_params</span> <span class='op'>||=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_fetch_query'>fetch_query</span> <span class='id identifier rubyid_search_params'>search_params</span>
@@ -382,9 +387,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:43 2019 by
+  Generated on Thu Sep 10 15:02:38 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

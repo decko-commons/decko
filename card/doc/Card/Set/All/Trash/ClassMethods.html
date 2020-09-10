@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Trash::ClassMethods
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Trash::ClassMethods";
   relpath = '../../../../';
 </script>
@@ -115,7 +115,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -137,7 +138,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -159,8 +161,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>deletes any file not associated with a real card.</p>
+    <span class="summary_desc"><div class='inline'><p>deletes any file not associated with a real card.</p>
 </div></span>
   
 </li>
@@ -183,7 +184,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -212,13 +214,13 @@
       <pre class="lines">
 
 
-46
-47
 48
-49</pre>
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/trash.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/trash.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_file_ids'>all_file_ids</span>
   <span class='id identifier rubyid_dir'>dir</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_paths'><span class='object_link'><a href="../../../../Card.html#paths-class_method" title="Card.paths (method)">paths</a></span></span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>files</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_existent'>existent</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
@@ -244,14 +246,14 @@
       <pre class="lines">
 
 
-51
-52
 53
 54
-55</pre>
+55
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/trash.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/trash.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_trashed_card_ids'>all_trashed_card_ids</span>
   <span class='id identifier rubyid_trashed_card_sql'>trashed_card_sql</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'> select id from cards where trash is true </span><span class='tstring_end'>)</span></span>
@@ -274,8 +276,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>deletes any file not associated with a real card.</p>
+    <p>deletes any file not associated with a real card.</p>
 
 
   </div>
@@ -289,8 +290,6 @@
       <pre class="lines">
 
 
-32
-33
 34
 35
 36
@@ -301,10 +300,12 @@
 41
 42
 43
-44</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/trash.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/trash.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_trashed_files'>delete_trashed_files</span>
   <span class='id identifier rubyid_dir'>dir</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>files</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_existent'>existent</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
@@ -346,16 +347,20 @@
 26
 27
 28
-29</pre>
+29
+30
+31</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/trash.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_empty_trash'>empty_trash</span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete_trashed_files'>delete_trashed_files</span>
-  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>trash:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
+  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>trash:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_in_batches'>in_batches</span><span class='period'>.</span><span class='id identifier rubyid_update_all'>update_all</span><span class='lparen'>(</span><span class='label'>left_id:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>right_id:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>trash:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_in_batches'>in_batches</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Action.html" title="Card::Action (class)">Action</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete_cardless'><span class='object_link'><a href="../../../Action/Admin.html#delete_cardless-instance_method" title="Card::Action::Admin#delete_cardless (method)">delete_cardless</a></span></span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Change.html" title="Card::Change (class)">Change</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete_actionless'><span class='object_link'><a href="../../../Change.html#delete_actionless-class_method" title="Card::Change.delete_actionless (method)">delete_actionless</a></span></span>
+  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Act.html" title="Card::Act (class)">Act</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete_actionless'><span class='object_link'><a href="../../../Act.html#delete_actionless-class_method" title="Card::Act.delete_actionless (method)">delete_actionless</a></span></span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Reference.html" title="Card::Reference (class)">Reference</a></span></span><span class='period'>.</span><span class='id identifier rubyid_unmap_if_referee_missing'><span class='object_link'><a href="../../../Reference.html#unmap_if_referee_missing-class_method" title="Card::Reference.unmap_if_referee_missing (method)">unmap_if_referee_missing</a></span></span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Reference.html" title="Card::Reference (class)">Reference</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete_if_referer_missing'><span class='object_link'><a href="../../../Reference.html#delete_if_referer_missing-class_method" title="Card::Reference.delete_if_referer_missing (method)">delete_if_referer_missing</a></span></span>
 <span class='kw'>end</span></pre>
@@ -369,9 +374,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:26 2019 by
+  Generated on Thu Sep 10 15:02:29 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Rule::BridgeRulesEditor::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Rule::BridgeRulesEditor::HtmlFormat";
   relpath = '../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod022-rules/rule/bridge_rules_editor.rb</dd>
+    <dd>tmpsets/set/mod023-rules/rule/bridge_rules_editor.rb</dd>
   </dl>
   
 </div>
@@ -120,7 +120,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+help_text-instance_method" title="#view: help_text (instance method)">#<strong>view: help_text</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +166,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,29 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#view:+overlay_rule_help-instance_method" title="#view: overlay_rule_help (instance method)">#<strong>view: overlay_rule_help</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -208,7 +212,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -238,23 +243,53 @@
       <pre class="lines">
 
 
+28
+29
+30
+31
+32
 33
-34
-35
-36
-37
-38
-39</pre>
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/rule/bridge_rules_editor.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/rule/bridge_rules_editor.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setting_link'>setting_link</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ml-auto</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
-    <span class='comment'># FIXME: hardcoded count
-</span>    <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_setting_name'>rule_setting_name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> (37 </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_setting_title'>rule_setting_title</span><span class='embexpr_end'>}</span><span class='tstring_content'> rules)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-                 <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>text-muted</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>target:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wagn_setting</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_setting_name'>rule_setting_name</span><span class='comma'>,</span>
+                <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_setting'>rule_setting</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_setting_title'>rule_setting_title</span><span class='embexpr_end'>}</span><span class='tstring_content'> rules)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                 <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>text-muted</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: help_text-instance_method">
+  
+    #<strong>view: help_text</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/rule/bridge_rules_editor.rb', line 24</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:help_text</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_wrap_help_text'>wrap_help_text</span> <span class='lbracket'>[</span><span class='id identifier rubyid_rule_based_help'>rule_based_help</span><span class='comma'>,</span> <span class='id identifier rubyid_setting_link'>setting_link</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -282,7 +317,7 @@
 18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/rule/bridge_rules_editor.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/rule/bridge_rules_editor.rb', line 15</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:modal_rule</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span>
                   <span class='label'>wrap:</span> <span class='lbrace'>{</span> <span class='label'>modal:</span> <span class='lbrace'>{</span> <span class='label'>title:</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_render_title'>render_title</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span> <span class='kw'>do</span>
@@ -315,52 +350,12 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/rule/bridge_rules_editor.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/rule/bridge_rules_editor.rb', line 9</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:overlay_rule</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_wrap_with_overlay'>wrap_with_overlay</span> <span class='label'>slot:</span> <span class='id identifier rubyid_breadcrumb_data'>breadcrumb_data</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Rule editing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rules</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_current_rule_form'>current_rule_form</span>
   <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="view: overlay_rule_help-instance_method">
-  
-    #<strong>view: overlay_rule_help</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-24
-25
-26
-27
-28
-29
-30
-31</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/rule/bridge_rules_editor.rb', line 24</span>
-
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:overlay_rule_help</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
-  <span class='comment'># wrap_with :div, class: &quot;help-text rule-instruction d-flex justify-content-between&quot;
-</span>  <span class='comment'># do
-</span>
-  <span class='comment'># output [wrap_with(:div, rule_based_help), setting_link]
-</span>  <span class='comment'># end
-</span>  <span class='id identifier rubyid_popover_link'>popover_link</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_rule_based_help'>rule_based_help</span><span class='comma'>,</span> <span class='id identifier rubyid_setting_link'>setting_link</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -387,7 +382,7 @@
 22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/rule/bridge_rules_editor.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/rule/bridge_rules_editor.rb', line 20</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:overlay_title</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_edit_rule_title'>edit_rule_title</span>
@@ -402,9 +397,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:48 2019 by
+  Generated on Thu Sep 10 15:02:42 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

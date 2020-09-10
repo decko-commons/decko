@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Type::Image::Format
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Type::Image::Format";
   relpath = '../../../../';
 </script>
@@ -127,7 +127,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -149,7 +150,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -171,7 +173,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -193,7 +196,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -215,7 +219,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -237,7 +242,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -259,29 +265,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#view:+closed_content-instance_method" title="#view: closed_content (instance method)">#<strong>view: closed_content</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -303,7 +288,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+one_line_content-instance_method" title="#view: one_line_content (instance method)">#<strong>view: one_line_content</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -325,7 +334,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -446,7 +456,7 @@
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>=</span>
     <span class='kw'>case</span>
     <span class='kw'>when</span> <span class='id identifier rubyid_nest_mode'>nest_mode</span> <span class='op'>==</span> <span class='symbol'>:closed</span> <span class='kw'>then</span> <span class='id identifier rubyid_closed_size'>closed_size</span>
-    <span class='kw'>when</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>             <span class='kw'>then</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+    <span class='kw'>when</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>    <span class='kw'>then</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
     <span class='kw'>when</span> <span class='id identifier rubyid_main?'>main?</span>                <span class='kw'>then</span> <span class='id identifier rubyid_main_size'>main_size</span>
     <span class='kw'>else</span>                           <span class='id identifier rubyid_default_size'>default_size</span>
     <span class='kw'>end</span>
@@ -589,9 +599,39 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="view: closed_content-instance_method">
+  <h3 class="signature " id="view: inline-instance_method">
   
-    #<strong>view: closed_content</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>view: inline</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+77
+78
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image.rb', line 77</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:inline</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid__render_core'>_render_core</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: one_line_content-instance_method">
+  
+    #<strong>view: one_line_content</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -610,38 +650,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image.rb', line 23</span>
 
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:closed_content</span> <span class='kw'>do</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:one_line_content</span> <span class='kw'>do</span>
   <span class='id identifier rubyid__render_core'>_render_core</span> <span class='label'>size:</span> <span class='symbol'>:icon</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="view: inline-instance_method">
-  
-    #<strong>view: inline</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-147
-148
-149</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image.rb', line 147</span>
-
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:inline</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid__render_core'>_render_core</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -689,9 +699,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:38 2019 by
+  Generated on Thu Sep 10 15:02:35 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -6,15 +6,15 @@
 <title>
   Module: Card::View::Cache
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::View::Cache";
   relpath = '../../';
 </script>
@@ -97,56 +97,69 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>View::Cache supports smart card view caching.</p>
+    <p>View::Cache supports smart card view caching.</p>
 
-<p>The basic idea is that when view caching is turned on (via <code>config.view_cache</code>), we try to cache a view whenever it’s “safe” to do so. We will include everything inside that view (including other views) until we find something that isn’t safe. When something isn’t safe, we render a <span class='object_link'><a href="Cache/Stub.html" title="Card::View::Cache::Stub (module)">stub</a></span>: a placeholder with all the info we need to come back and replace it with the correct content later. In this way it is possible to have many levels of cached views within cached views.</p>
+<p>The basic idea is that when view caching is turned on (via <code>config.view_cache</code>),
+we try to cache a view whenever it’s “safe” to do so. We will include everything
+inside that view (including other views) until we find something that isn’t safe.
+When something isn’t safe, we render a <span class='object_link'><a href="Cache/Stub.html" title="Card::View::Cache::Stub (module)">stub</a></span>: a placeholder
+with all the info we need to come back and replace it with the correct content
+later. In this way it is possible to have many levels of cached views within
+cached views.</p>
 
 <p>Here are some things that we never consider safe to cache:</p>
 
 <ol>
-<li>a view explicitly configured <em>never</em> to be cached</li>
-
-<li>a view of a card with view-relevant permission restrictions</li>
-
-<li>a view other than the requested view (eg a denial view)</li>
-
-<li>a card with unsaved content changes</li>
+  <li>a view explicitly configured <em>never</em> to be cached</li>
+  <li>a view of a card with view-relevant permission restrictions</li>
+  <li>a view other than the requested view (eg a denial view)</li>
+  <li>a card with unsaved content changes</li>
 </ol>
 
-<p>We also consider it unsafe to cache a view of one card within a view of a different card, so nests are always handled with a stub.</p>
+<p>We also consider it unsafe to cache a view of one card within a view of a different
+card, so nests are always handled with a stub.</p>
 
-<h2 id="cache_configuration">Cache configuration</h2>
+<h2 id="cache-configuration">Cache configuration</h2>
 
-<p>Cache settings (#5) can be configured in the <span class='object_link'><a href="../Set/Format/AbstractFormat.html#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">view definition</a></span> and (less commonly) as a <span class='object_link'><a href="Options.html" title="Card::View::Options (module)">view option</a></span>.</p>
+<p>Cache settings (#5) can be configured in the
+<span class='object_link'><a href="../Set/Format/AbstractFormat.html#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">view definition</a></span>
+and (less commonly) as a <span class='object_link'><a href="Options.html" title="Card::View::Options (module)">view option</a></span>.</p>
 
-<p>By far, the most common explicit caching configuration is <code>:never</code>. This setting is used to prevent over-caching, which becomes problematic when data changes do not clear the cache.</p>
+<p>By far, the most common explicit caching configuration is <code>:never</code>. This setting
+is used to prevent over-caching, which becomes problematic when data changes
+do not clear the cache.</p>
 
-<p>Generally speaking, a card is smart about clearing its own view caches when anything about the card itself. So when I update the card “Johnny”, all the cached views of “Johnny” are cleared. Similarly, changes to structure rules and other basic patterns are typically well managed by the caching system.</p>
+<p>Generally speaking, a card is smart about clearing its own view caches when
+anything about the card itself. So when I update the card “Johnny”, all the cached
+views of “Johnny” are cleared. Similarly, changes to structure rules and other
+basic patterns are typically well managed by the caching system.</p>
 
-<p>However, there are many other potential changes that views cannot detect. Views that are susceptible to these “cache hazards” should be configured with <code>cache: :never</code>.</p>
+<p>However, there are many other potential changes that views cannot detect. Views that
+are susceptible to these “cache hazards” should be configured with <code>cache: :never</code>.</p>
 
-<h2 id="cache_hazards">Cache hazards</h2>
+<h2 id="cache-hazards">Cache hazards</h2>
 
-<p>If a view contains any of the following cache hazards, it would be wise to consider a <code>cache: :never</code> configuration:</p>
+<p>If a view contains any of the following cache hazards, it would be wise to consider
+a <code>cache: :never</code> configuration:</p>
 
 <ul>
-<li>dynamic searches (eg <code>Card.search</code>) whose results may change</li>
-
-<li>live timestamps (eg <code>Time.now</code>)</li>
-
-<li>environmental variables (eg <code>Env.params</code>)</li>
-
-<li>any variables altered in one view and used in another (eg <code>@myvar</code>)</li>
-
-<li>other cards’ properties (eg <code>Card[&quot;random&quot;].content</code>)</li>
+  <li>dynamic searches (eg <code>Card.search</code>) whose results may change</li>
+  <li>live timestamps (eg <code>Time.now</code>)</li>
+  <li>environmental variables (eg <code>Env.params</code>)</li>
+  <li>any variables altered in one view and used in another (eg <code>@myvar</code>)</li>
+  <li>other cards’ properties (eg <code>Card["random"].content</code>)</li>
 </ul>
 
-<p>What all of the above have in common is that they involve changes about which the view caching system is unaware. This means that whether the cache hazard is rendered directly in a view or just used in its logic, it can change in a way that <em>should</em> change the view but <em>won’t</em> change the view if it’s cached.</p>
+<p>What all of the above have in common is that they involve changes about which the
+view caching system is unaware. This means that whether the cache hazard is
+rendered directly in a view or just used in its logic, it can change in a way
+that <em>should</em> change the view but <em>won’t</em> change the view if it’s cached.</p>
 
-<h2 id="altering_cached_views">Altering cached views</h2>
+<h2 id="altering-cached-views">Altering cached views</h2>
 
-<p>Whereas ignoring cache hazards may cause over-caching, altering cached views may cause outright errors. If a view directly alters a rendered view, it may be dangerous to cache.</p>
+<p>Whereas ignoring cache hazards may cause over-caching, altering cached views
+may cause outright errors. If a view directly alters a rendered view,
+it may be dangerous to cache.</p>
 
 <pre class="code ruby"><code class="ruby">   <span class='comment'># obviously safe to cache
 </span>   <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:x</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ABC</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
@@ -155,51 +168,63 @@
 </span>   <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:y</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_render_x'>render_x</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEF</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
 
    <span class='comment'># unsafe and thus never cached, because x is altered
-</span>   <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:z</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_render_x'>render_x</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span> <span class='rbrace'>}</span></code></pre>
+</span>   <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:z</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_render_x'>render_x</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span> <span class='rbrace'>}</span>
+</code></pre>
 
-<p>Specifically, the danger is that the inner view will be rendered as a stub, and the out view will end up altering the stub and not the view.</p>
+<p>Specifically, the danger is that the inner view will be rendered as a stub,
+and the out view will end up altering the stub and not the view.</p>
 
-<p>Although alterations should be considered dangerous, they are actually only problematic in situations where the inner view might sometimes render a stub. If the outer view is rendering a view of the <em>same card</em> with all the <em>same view settings</em> (perms, unknown, etc), there will be no stub and thus no error. Remember, however, that a view on a narrow set may inherit view settings from a general set. To be confident that a view alteration is safe, all inherited settings must be taken into account.</p>
+<p>Although alterations should be considered dangerous, they are actually only
+problematic in situations where the inner view might sometimes render a stub.
+If the outer view is rendering a view of the <em>same card</em> with all the <em>same view
+settings</em> (perms, unknown, etc), there will be no stub and thus no error.
+Remember, however, that a view on a narrow set may inherit view settings
+from a general set. To be confident that a view alteration is safe, all inherited
+settings must be taken into account.</p>
 
-<h2 id="caching_best_practices">Caching Best Practices</h2>
+<h2 id="caching-best-practices">Caching Best Practices</h2>
 
 <p>Here are some good rules of thumb to make good use of view caching:</p>
 
 <ol>
-<li>
-<p><em>Use nests.</em> If you can show the content of a different card with a nest rather than by showing the content directly, the caching system will be much happier with you.</p>
+  <li>
+    <p><em>Use nests.</em> If you can show the content of a different card with a nest rather
+than by showing the content directly, the caching system will be much
+happier with you.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_view'>view</span> <span class='symbol'>:bad_idea</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
+    <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_view'>view</span> <span class='symbol'>:bad_idea</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>random</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span>
 <span class='kw'>end</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:good_idea</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_nest'>nest</span> <span class='symbol'>:random</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='symbol'>:core</span>
-<span class='kw'>end</span></code></pre>
-</li>
+<span class='kw'>end</span>
+</code></pre>
+  </li>
+  <li>
+    <p><em>Isolate the cache hazards.</em>  Consider the following variants:</p>
 
-<li>
-<p><em>Isolate the cache hazards.</em> Consider the following variants:</p>
-
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_view'>view</span> <span class='symbol'>:bad_idea</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
+    <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_view'>view</span> <span class='symbol'>:bad_idea</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_morning_for_user?'>morning_for_user?</span>
-<span class='id identifier rubyid_expensive_good_morning'>expensive_good_morning</span>
+    <span class='id identifier rubyid_expensive_good_morning'>expensive_good_morning</span>
   <span class='kw'>else</span>
-<span class='id identifier rubyid_expensive_good_afternoon'>expensive_good_afternoon</span>
+    <span class='id identifier rubyid_expensive_good_afternoon'>expensive_good_afternoon</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:good_idea</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_morning_for_user?'>morning_for_user?</span> <span class='op'>?</span> <span class='id identifier rubyid_render_good_morning'>render_good_morning</span> <span class='op'>:</span> <span class='id identifier rubyid_render_good_afternoon'>render_good_afternoon</span>
-<span class='kw'>end</span></code></pre>
+<span class='kw'>end</span>
+</code></pre>
 
-<p>In the first example, we have to generate expensive greetings every time we render the view. In the second, only the test is not cached.</p>
-</li>
+    <p>In the first example, we have to generate expensive greetings every time we
+ render the view.  In the second, only the test is not cached.</p>
+  </li>
+  <li>
+    <p>If you must alter view results, consider <em>generating the view content
+in a separate method.</em></p>
 
-<li>
-<p>If you must alter view results, consider <em>generating the view content in a separate method.</em></p>
-
-<pre class="code ruby"><code class="ruby"><span class='comment'># First Attempt
+    <pre class="code ruby"><code class="ruby"><span class='comment'># First Attempt
 </span>
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:hash_it_in</span> <span class='kw'>do</span>
   <span class='lbrace'>{</span> <span class='label'>cool:</span> <span class='kw'>false</span> <span class='rbrace'>}</span>
@@ -222,15 +247,18 @@
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:good_idea</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_hash_it_out'>hash_it_out</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='label'>rocks:</span> <span class='kw'>true</span>
-<span class='kw'>end</span></code></pre>
+<span class='kw'>end</span>
+</code></pre>
 
-<p>The first attempt will work fine with caching off but is risky with caching on. The second is safe with caching on.</p>
-</li>
+    <p>The first attempt will work fine with caching off but is risky with caching on.
+ The second is safe with caching on.</p>
+  </li>
 </ol>
 
-<h2 id="optimizing_with_">Optimizing with <code>:always</code></h2>
+<h2 id="optimizing-with-always">Optimizing with <code>:always</code></h2>
 
-<p>It is never strictly necessary to use <code>cache: :always</code>, but this setting can help optimize your use of the caching system in some cases.</p>
+<p>It is never strictly necessary to use <code>cache: :always</code>, but this setting can help
+optimize your use of the caching system in some cases.</p>
 
 <p>Consider the following views:</p>
 
@@ -239,9 +267,15 @@
    <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:old_hat</span><span class='rparen'>)</span>  <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>old </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_render_hat'>render_hat</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>  <span class='rbrace'>}</span>
    <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:new_hat</span><span class='rparen'>)</span>  <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_render_hat'>render_hat</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>  <span class='rbrace'>}</span>
    <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:red_hat</span><span class='rparen'>)</span>  <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>red </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_render_hat'>render_hat</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>  <span class='rbrace'>}</span>
-   <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:blue_hat</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>blue </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_render_hat'>render_hat</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span></code></pre>
+   <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:blue_hat</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>blue </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_render_hat'>render_hat</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+</code></pre>
 
-<p>Whether “hat” uses <code>:standard</code> or <code>:always</code>, the hat varieties (old, new, etc…) will fully contain the rendered hat view in their cache. However, with <code>:standard</code>, the other views will each re-render hat without attempting to cache it separately or to find it in the cache. This could lead to man expensive renderings of the “hat” view. By contrast, if the cache setting is <code>:always</code>, then hat will be cached and retrieved even when it’s rendered inside another cached view.</p>
+<p>Whether “hat” uses <code>:standard</code> or <code>:always</code>, the hat varieties (old, new, etc…)
+will fully contain the rendered hat view in their cache. However, with <code>:standard</code>,
+the other views will each re-render hat without attempting to cache it separately
+or to find it in the cache.  This could lead to man expensive renderings of the
+“hat” view.  By contrast, if the cache setting is <code>:always</code>, then hat will be
+cached and retrieved even when it’s rendered inside another cached view.</p>
 
 
   </div>
@@ -273,11 +307,6 @@
   
   
   
-  <h2>Method Summary</h2>
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="Cache/Stub.html" title="Card::View::Cache::Stub (module)">Stub</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Cache/Stub.html#escape-class_method" title="Card::View::Cache::Stub.escape (method)">escape</a></span>, <span class='object_link'><a href="Cache/Stub.html#unescape-class_method" title="Card::View::Cache::Stub.unescape (method)">unescape</a></span></p>
-
   
   
   
@@ -288,9 +317,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:18 2019 by
+  Generated on Thu Sep 10 15:02:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

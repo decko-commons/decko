@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Right::Debug::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Right::Debug::HtmlFormat";
   relpath = '../../../../';
 </script>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#core_section_config-instance_method" title="#core_section_config (instance method)">#<strong>core_section_config</strong>(subject)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -186,7 +212,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -208,8 +235,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>rubocop:disable AccessorMethodName.</p>
+    <span class="summary_desc"><div class='inline'><p>rubocop:disable AccessorMethodName.</p>
 </div></span>
   
 </li>
@@ -232,7 +258,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -254,8 +281,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>rubocop:enable AccessorMethodName.</p>
+    <span class="summary_desc"><div class='inline'><p>rubocop:enable AccessorMethodName.</p>
 </div></span>
   
 </li>
@@ -278,7 +304,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -308,6 +335,7 @@
       <pre class="lines">
 
 
+53
 54
 55
 56
@@ -319,18 +347,17 @@
 62
 63
 64
-65
-66</pre>
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cache_comparison_table'>cache_comparison_table</span> <span class='id identifier rubyid_subject'>subject</span>
   <span class='id identifier rubyid_cache_card'>cache_card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_db_card'>db_card</span>    <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find_by_key'>find_by_key</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_cache_card'>cache_card</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_db_card'>db_card</span>
   <span class='id identifier rubyid_table'>table</span><span class='lparen'>(</span>
-    <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>name</span><span class='words_sep'> </span><span class='tstring_content'>updated_at</span><span class='words_sep'> </span><span class='tstring_content'>updater_id</span><span class='words_sep'> </span><span class='tstring_content'>content</span><span class='words_sep'> </span><span class='tstring_content'>inspect</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
+    <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>name</span><span class='words_sep'> </span><span class='tstring_content'>updated_at</span><span class='words_sep'> </span><span class='tstring_content'>updater_id</span><span class='words_sep'> </span><span class='tstring_content'>content</span><span class='words_sep'> </span><span class='tstring_content'>inspect</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
       <span class='lbracket'>[</span><span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span>
        <span class='id identifier rubyid_h'>h</span><span class='lparen'>(</span><span class='id identifier rubyid_cache_card'>cache_card</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span>
        <span class='id identifier rubyid_h'>h</span><span class='lparen'>(</span><span class='id identifier rubyid_db_card'>db_card</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rbracket'>]</span>
@@ -358,6 +385,7 @@
       <pre class="lines">
 
 
+74
 75
 76
 77
@@ -368,11 +396,10 @@
 82
 83
 84
-85
-86</pre>
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_class_locations'>class_locations</span> <span class='id identifier rubyid_klass'>klass</span>
   <span class='id identifier rubyid_methods'>methods</span> <span class='op'>=</span> <span class='id identifier rubyid_defined_methods'>defined_methods</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span>
@@ -385,6 +412,52 @@
   <span class='kw'>end</span>
   <span class='id identifier rubyid_file_counts'>file_counts</span><span class='period'>.</span><span class='id identifier rubyid_sort_by!'>sort_by!</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_fc'>fc</span><span class='op'>|</span> <span class='id identifier rubyid_fc'>fc</span><span class='lbracket'>[</span><span class='symbol'>:count</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
   <span class='id identifier rubyid_file_counts'>file_counts</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_fc'>fc</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_fc'>fc</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_fc'>fc</span><span class='lbracket'>[</span><span class='symbol'>:line</span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="core_section_config-instance_method">
+  
+    #<strong>core_section_config</strong>(subject)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 19</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_core_section_config'>core_section_config</span> <span class='id identifier rubyid_subject'>subject</span>
+  <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Sets</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>set modules</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_set_modules_accordion'>set_modules_accordion</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='comma'>,</span>
+                 <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>all modules</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_singleton_modules_list'>singleton_modules_list</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='comma'>,</span>
+                 <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>patterns</span><span class='tstring_end'>&quot;</span></span>    <span class='op'>=&gt;</span> <span class='id identifier rubyid_set_patterns_breadcrumb'>set_patterns_breadcrumb</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='comma'>,</span>
+   <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Views</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>by format</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_subformat'>subformat</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid__render_views_by_format'>_render_views_by_format</span><span class='comma'>,</span>
+                  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>by name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_subformat'>subformat</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid__render_views_by_name'>_render_views_by_name</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='comma'>,</span>
+   <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Events</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='lparen'>(</span><span class='label'>create:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;pre&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_events'>events</span><span class='lparen'>(</span><span class='symbol'>:create</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/pre&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                   <span class='label'>update:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;pre&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_events'>events</span><span class='lparen'>(</span><span class='symbol'>:update</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/pre&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                   <span class='label'>delete:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;pre&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_events'>events</span><span class='lparen'>(</span><span class='symbol'>:delete</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/pre&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='comma'>,</span>
+   <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cache/DB Comparison</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_cache_comparison_table'>cache_comparison_table</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -406,17 +479,17 @@
       <pre class="lines">
 
 
+87
 88
 89
 90
 91
 92
 93
-94
-95</pre>
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_defined_methods'>defined_methods</span> <span class='id identifier rubyid_klass'>klass</span>
   <span class='id identifier rubyid_methods'>methods</span> <span class='op'>=</span>
@@ -446,15 +519,15 @@
       <pre class="lines">
 
 
+67
 68
 69
 70
 71
-72
-73</pre>
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_section'>section</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span>
   <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>
@@ -478,8 +551,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>rubocop:disable AccessorMethodName</p>
+    <p>rubocop:disable AccessorMethodName</p>
 
 
   </div>
@@ -493,17 +565,17 @@
       <pre class="lines">
 
 
+32
 33
 34
 35
 36
 37
 38
-39
-40</pre>
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_modules_accordion'>set_modules_accordion</span> <span class='id identifier rubyid_subject'>subject</span>
   <span class='id identifier rubyid_sets'>sets</span> <span class='op'>=</span> <span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_set_modules'>set_modules</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_sm'>sm</span><span class='comma'>,</span> <span class='id identifier rubyid_hash'>hash</span><span class='op'>|</span>
@@ -533,13 +605,13 @@
       <pre class="lines">
 
 
+41
 42
 43
-44
-45</pre>
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_patterns_breadcrumb'>set_patterns_breadcrumb</span> <span class='id identifier rubyid_subject'>subject</span>
   <span class='id identifier rubyid_links'>links</span> <span class='op'>=</span> <span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_patterns'>patterns</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span> <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbrace'>}</span>
@@ -561,8 +633,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>rubocop:enable AccessorMethodName</p>
+    <p>rubocop:enable AccessorMethodName</p>
 
 
   </div>
@@ -576,14 +647,14 @@
       <pre class="lines">
 
 
+47
 48
 49
 50
-51
-52</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_singleton_modules_list'>singleton_modules_list</span> <span class='id identifier rubyid_subject'>subject</span>
   <span class='id identifier rubyid_all_mods'>all_mods</span> <span class='op'>=</span> <span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_singleton_class'>singleton_class</span><span class='period'>.</span><span class='id identifier rubyid_ancestors'>ancestors</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span>
@@ -614,41 +685,15 @@
 14
 15
 16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30</pre>
+17</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod018-developer/right/debug.rb', line 13</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_subject'>subject</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_left'>left</span>
-
-  <span class='id identifier rubyid_output'>output</span> <span class='lbracket'>[</span>
-    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Sets</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-     <span class='id identifier rubyid_static_tabs'>static_tabs</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>set modules</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_set_modules_accordion'>set_modules_accordion</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='comma'>,</span>
-                 <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>all modules</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_singleton_modules_list'>singleton_modules_list</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='comma'>,</span>
-                 <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>patterns</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_set_patterns_breadcrumb'>set_patterns_breadcrumb</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='comma'>,</span>
-    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Views</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-     <span class='id identifier rubyid_static_tabs'>static_tabs</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>by format</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_subformat'>subformat</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid__render_views_by_format'>_render_views_by_format</span><span class='comma'>,</span>
-                 <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>by name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_subformat'>subformat</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid__render_views_by_name'>_render_views_by_name</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='comma'>,</span>
-    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Events</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-     <span class='id identifier rubyid_static_tabs'>static_tabs</span><span class='lparen'>(</span><span class='label'>create:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;pre&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_events'>events</span><span class='lparen'>(</span><span class='symbol'>:create</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/pre&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-                 <span class='label'>update:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;pre&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_events'>events</span><span class='lparen'>(</span><span class='symbol'>:update</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/pre&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-                 <span class='label'>delete:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;pre&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_events'>events</span><span class='lparen'>(</span><span class='symbol'>:delete</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/pre&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='comma'>,</span>
-    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cache/DB Comparison</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_cache_comparison_table'>cache_comparison_table</span><span class='lparen'>(</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='rbracket'>]</span>
-  <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span> <span class='id identifier rubyid_section'>section</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_core_section_config'>core_section_config</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_left'>left</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
+    <span class='id identifier rubyid_section'>section</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -660,9 +705,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:36 2019 by
+  Generated on Thu Sep 10 15:02:34 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

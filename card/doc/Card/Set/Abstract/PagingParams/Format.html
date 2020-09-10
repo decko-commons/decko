@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::PagingParams::Format
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::PagingParams::Format";
   relpath = '../../../../';
 </script>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#legal_search_param!-instance_method" title="#legal_search_param! (instance method)">#<strong>legal_search_param!</strong>(param, val)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -186,7 +212,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -208,7 +235,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -238,12 +266,12 @@
       <pre class="lines">
 
 
-17
-18
-19</pre>
+19
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/00_paging_params.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/00_paging_params.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_contextual_param'>contextual_param</span> <span class='id identifier rubyid_param'>param</span>
   <span class='id identifier rubyid_env_search_param'>env_search_param</span><span class='lparen'>(</span><span class='id identifier rubyid_param'>param</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_voo_search_param'>voo_search_param</span><span class='lparen'>(</span><span class='id identifier rubyid_param'>param</span><span class='rparen'>)</span>
@@ -268,21 +296,76 @@
       <pre class="lines">
 
 
-21
-22
 23
 24
 25
-26</pre>
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/00_paging_params.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/00_paging_params.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_env_search_param'>env_search_param</span> <span class='id identifier rubyid_param'>param</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_focal?'>focal?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_focal?'>focal?</span> <span class='op'>&amp;&amp;</span> <span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_param'>param</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
 
-  <span class='id identifier rubyid_val'>val</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_param'>param</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_val'>val</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_val'>val</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+  <span class='id identifier rubyid_legal_search_param!'>legal_search_param!</span> <span class='id identifier rubyid_param'>param</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_param'>param</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="legal_search_param!-instance_method">
+  
+    #<strong>legal_search_param!</strong>(param, val)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../../Error/PermissionDenied.html" title="Card::Error::PermissionDenied (class)">Card::Error::PermissionDenied</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/00_paging_params.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_legal_search_param!'>legal_search_param!</span> <span class='id identifier rubyid_param'>param</span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_val'>val</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_signed_in?'><span class='object_link'><a href="../../../Auth/Current.html#signed_in%3F-instance_method" title="Card::Auth::Current#signed_in? (method)">signed_in?</a></span></span> <span class='op'>||</span> <span class='id identifier rubyid_val'>val</span> <span class='op'>&lt;=</span> <span class='const'><span class='object_link'><a href="../PagingParams.html#MAX_ANONYMOUS_SEARCH_PARAM-constant" title="Card::Set::Abstract::PagingParams::MAX_ANONYMOUS_SEARCH_PARAM (constant)">MAX_ANONYMOUS_SEARCH_PARAM</a></span></span>
+
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Error/PermissionDenied.html" title="Card::Error::PermissionDenied (class)">PermissionDenied</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_param'>param</span><span class='embexpr_end'>}</span><span class='tstring_content'> parameter exceeds maximum</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -304,12 +387,12 @@
       <pre class="lines">
 
 
-9
-10
-11</pre>
+11
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/00_paging_params.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/00_paging_params.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_limit_param'>limit_param</span>
   <span class='ivar'>@limit</span> <span class='op'>||=</span> <span class='id identifier rubyid_contextual_param'>contextual_param</span><span class='lparen'>(</span><span class='symbol'>:limit</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_default_limit'>default_limit</span>
@@ -334,12 +417,12 @@
       <pre class="lines">
 
 
-13
-14
-15</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/00_paging_params.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/00_paging_params.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_offset_param'>offset_param</span>
   <span class='ivar'>@offset</span> <span class='op'>||=</span> <span class='id identifier rubyid_contextual_param'>contextual_param</span><span class='lparen'>(</span><span class='symbol'>:offset</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='int'>0</span>
@@ -364,19 +447,15 @@
       <pre class="lines">
 
 
-28
-29
-30
-31
-32</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/00_paging_params.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/00_paging_params.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_voo_search_param'>voo_search_param</span> <span class='id identifier rubyid_param'>param</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_voo'>voo</span><span class='op'>&amp;.</span><span class='id identifier rubyid_wql'>wql</span>
-
-  <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_wql'>wql</span><span class='lbracket'>[</span><span class='id identifier rubyid_param'>param</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_voo'>voo</span><span class='op'>&amp;.</span><span class='id identifier rubyid_wql'>wql</span><span class='op'>&amp;.</span><span class='id identifier rubyid_dig'>dig</span> <span class='id identifier rubyid_param'>param</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -388,9 +467,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:50 2019 by
+  Generated on Thu Sep 10 15:02:43 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

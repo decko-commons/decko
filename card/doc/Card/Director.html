@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Card::Director
+  
+    &mdash; Documentation by YARD 0.9.25
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Card::Director";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (D)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span>
+     &raquo; 
+    <span class="title">Director</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Card::Director
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Card::Director</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  <dl>
+      <dt>Extended by:</dt>
+      <dd><span class='object_link'><a href="Director/ActDirection.html" title="Card::Director::ActDirection (module)">ActDirection</a></span>, <span class='object_link'><a href="Director/EventDelay.html" title="Card::Director::EventDelay (module)">EventDelay</a></span></dd>
+  </dl>
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Director/Phases.html" title="Card::Director::Phases (module)">Phases</a></span>, <span class='object_link'><a href="Director/Run.html" title="Card::Director::Run (module)">Run</a></span>, <span class='object_link'><a href="Director/Stages.html" title="Card::Director::Stages (module)">Stages</a></span>, <span class='object_link'><a href="Director/Store.html" title="Card::Director::Store (module)">Store</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/card/director.rb<span class="defines">,<br />
+  lib/card/director/run.rb,<br /> lib/card/director/store.rb,<br /> lib/card/director/phases.rb,<br /> lib/card/director/stages.rb,<br /> lib/card/director/event_delay.rb,<br /> lib/card/director/card_methods.rb,<br /> lib/card/director/act_direction.rb,<br /> lib/card/director/subdirector_array.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Directs the symphony of a card <span class='object_link'><a href="Act.html" title="Card::Act (class)"><strong>act</strong></a></span>.</p>
+
+<p>Each act is divided into <span class='object_link'><a href="Action.html" title="Card::Action (class)"><strong>actions</strong></a></span>: one action for each card.
+There are three action types: <em>create</em>, <em>update</em>, and <em>delete</em>.</p>
+
+<p>Each action is divided into three <strong>phases</strong>: <em>validation</em>, <em>storage</em>, and
+<em>integration</em>.</p>
+
+<p>Each phase is divided into three <strong>stages</strong>, as follows:</p>
+
+<h4 id="validation-stages">Validation Stages</h4>
+
+<ul>
+  <li><strong>VI</strong>: initialize</li>
+  <li><strong>VP</strong>: prepare_to_validate</li>
+  <li><strong>VV</strong>: validate</li>
+</ul>
+
+<h4 id="storage-stages">Storage Stages</h4>
+
+<ul>
+  <li><strong>SP</strong>: prepare_to_store</li>
+  <li><strong>SS</strong>: store</li>
+  <li><strong>SF</strong>: finalize</li>
+</ul>
+
+<h4 id="integration-stages">Integration Stages</h4>
+
+<ul>
+  <li><strong>II</strong>: integrate</li>
+  <li><strong>IA</strong>: after_integrate</li>
+  <li><strong>ID</strong>: integrate_with_delay</li>
+</ul>
+
+<p>And each stage can have many <span class='object_link'><a href="Set/Event/Api.html" title="Card::Set::Event::Api (module)"><strong>events</strong></a></span>, each of which is
+defined using the <span class='object_link'><a href="Set/Event/Api.html" title="Card::Set::Event::Api (module)">Event API</a></span>.</p>
+
+<p>The table below gives you an overview events can/should do in each stage:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Phase:</th>
+      <th style="text-align: center">validation</th>
+      <th style="text-align: center">storage</th>
+      <th style="text-align: center">integration</th>
+    </tr>
+    <tr>
+      <th>Stage:</th>
+      <th style="text-align: center">VI - VP - VV</th>
+      <th style="text-align: center">SP - SS - SF</th>
+      <th style="text-align: center">II - IA  - ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>tasks</strong></td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td>attach subcard</td>
+      <td style="text-align: center">yes!  yes!  yes</td>
+      <td style="text-align: center">yes   yes   yes</td>
+      <td style="text-align: center">yes   yes   no</td>
+    </tr>
+    <tr>
+      <td>detach subcard</td>
+      <td style="text-align: center">yes!  yes!  yes</td>
+      <td style="text-align: center">yes   no    no!</td>
+      <td style="text-align: center">no!</td>
+    </tr>
+    <tr>
+      <td>validate</td>
+      <td style="text-align: center">yes   yes   yes!</td>
+      <td style="text-align: center">no</td>
+      <td style="text-align: center">no</td>
+    </tr>
+    <tr>
+      <td>insecure change <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup></td>
+      <td style="text-align: center">yes   yes!  no</td>
+      <td style="text-align: center">no!</td>
+      <td style="text-align: center">no!</td>
+    </tr>
+    <tr>
+      <td>secure change <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote">2</a></sup></td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes!  no!   no!</td>
+      <td style="text-align: center">no!</td>
+    </tr>
+    <tr>
+      <td>abort</td>
+      <td style="text-align: center">yes!</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+    </tr>
+    <tr>
+      <td>add errors</td>
+      <td style="text-align: center">yes!</td>
+      <td style="text-align: center">no!</td>
+      <td style="text-align: center">no!</td>
+    </tr>
+    <tr>
+      <td>subsave</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes!</td>
+    </tr>
+    <tr>
+      <td>has id (new card)</td>
+      <td style="text-align: center">no</td>
+      <td style="text-align: center">no    no?   yes</td>
+      <td style="text-align: center">yes</td>
+    </tr>
+    <tr>
+      <td>within web request</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes   yes   no</td>
+    </tr>
+    <tr>
+      <td>within transaction <sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote">3</a></sup></td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">no</td>
+    </tr>
+    <tr>
+      <td><strong>values</strong></td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td>dirty attributes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+    </tr>
+    <tr>
+      <td>params</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+    </tr>
+    <tr>
+      <td>success</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+    </tr>
+    <tr>
+      <td>session</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes   yes   no</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="understanding-the-table">Understanding the Table</h4>
+
+<ul>
+  <li><strong>yes!</strong>  the recommended stage to do that</li>
+  <li><strong>yes</strong>   ok to do it here</li>
+  <li><strong>no</strong>    not recommended; risky but not guaranteed to fail</li>
+  <li><strong>no!</strong>   never do it here. it won’t work or will break things</li>
+</ul>
+
+<p>If there is only a single entry in a phase column it counts for all stages
+of that phase</p>
+
+<h2 id="director-directors-and-subdirectors">Director, Directors, and Subdirectors</h2>
+
+<p>Only one act can be performed at a time in any given Card process. Information about
+that act is managed by <em>Director class methods</em>. Every act is associated with a
+single “main” card.</p>
+
+<p>The act, however, may involve many cards/actions. Each action has its own <em>Director
+instance</em> that leads the card through all its stages. When a card action (A1)
+initiates a new action on a different card (A2), a new Director object is initialized.
+The new A2 subdirector’s @parent is the director of the A1 card. Conversely, the
+A1 card stores a SubdirectorArray in @subdirectors to give it access to A2’s
+Director and any little Director babies to which it gave birth.</p>
+
+<p>Subdirectors follow one of two distinct patterns:</p>
+
+<ol>
+  <li><span class='object_link'><a href="Subcards.html" title="Card::Subcards (class)"><strong>Subcards</strong></a></span>. When a card is altered using the subcards API, the
+director follows a “breadth-first” pattern. For each stage a card runs its
+stage events and then triggers its subcards to run that stage before proceeding
+to the next stage. If a subcard is added in a stage then by the end of that
+stage the director will catch it up to the current stage.</li>
+  <li><strong>Subsaves</strong>. When a card is altered by a direct save (<code>Card.create(!)</code>,
+<code>card.update(!)</code>, <code>card.delete(!)</code>, <code>card.save(!)</code>…), then the validation and
+storage phases are executed immediately (depth-first), returning the saved card.
+The integration phase, however, is executed following the same pattern as with
+subcards.</li>
+</ol>
+
+<p>Let’s consider a subcard example. Suppose you define the following event on
+self/bar.rb</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_event'>event</span> <span class='symbol'>:met_a_foo_at_the_bar</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_store</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:update</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_add_subcard'>add_subcard</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>And then you run <code>Card[:bar].update!({})</code>.</p>
+
+<p>When bar reaches the event in its <code>prepare_to_store</code> stage, the “foo” subcard will be
+added. After that stage ends, the stages <code>initialize</code>, <code>prepare_to_validate</code>,
+<code>validate</code>, and <code>prepare_to_store</code> are executed for foo so that it is now caught
+up with Bar at the <code>prepare_to_store</code> stage.</p>
+
+<p>If you have subcards within subcards, stages are executed preorder depth-first.</p>
+
+<p>Eg, assuming:</p>
+
+<ul>
+  <li>A has subcards AA and AB</li>
+  <li>AA has subcard AAA</li>
+  <li>AB has subcard ABA</li>
+</ul>
+
+<p>…then the order of execution is:</p>
+
+<ol>
+  <li>A</li>
+  <li>AA</li>
+  <li>AAA</li>
+  <li>AB</li>
+  <li>ABA</li>
+</ol>
+
+<p>A special case can happen in the store stage when a supercard needs a subcard’s id
+(for example as left_id or as type_id) and the subcard doesn’t have an id yet
+(because it gets created in the same act). In this case the subcard’s store stage
+is executed BEFORE the supercard’s store stage.</p>
+
+<hr />
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>‘insecure’ means a change that might make the card invalid to save <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>‘secure’ means you’re sure that the change won’t invalidate the card <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>If an exception is raised in the validation or storage phase
+  everything will rollback. If an integration event fails, db changes
+  of the other two phases will remain persistent, and other integration
+  events will continue to run. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Director/ActDirection.html" title="Card::Director::ActDirection (module)">ActDirection</a></span>, <span class='object_link'><a href="Director/CardMethods.html" title="Card::Director::CardMethods (module)">CardMethods</a></span>, <span class='object_link'><a href="Director/EventDelay.html" title="Card::Director::EventDelay (module)">EventDelay</a></span>, <span class='object_link'><a href="Director/Phases.html" title="Card::Director::Phases (module)">Phases</a></span>, <span class='object_link'><a href="Director/Run.html" title="Card::Director::Run (module)">Run</a></span>, <span class='object_link'><a href="Director/Stages.html" title="Card::Director::Stages (module)">Stages</a></span>, <span class='object_link'><a href="Director/Store.html" title="Card::Director::Store (module)">Store</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Director/SubdirectorArray.html" title="Card::Director::SubdirectorArray (class)">SubdirectorArray</a></span>
+    
+  
+</p>
+
+
+
+  <h2>Constant Summary</h2>
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="Director/Stages.html" title="Card::Director::Stages (module)">Stages</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Director/Stages.html#STAGES-constant" title="Card::Director::Stages::STAGES (constant)">Stages::STAGES</a></span>, <span class='object_link'><a href="Director/Stages.html#STAGE_INDEX-constant" title="Card::Director::Stages::STAGE_INDEX (constant)">Stages::STAGE_INDEX</a></span></p>
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#act-instance_method" title="#act (instance method)">#<strong>act</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute act.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#card-instance_method" title="#card (instance method)">#<strong>card</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute card.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parent-instance_method" title="#parent (instance method)">#<strong>parent</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute parent.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#running-instance_method" title="#running (instance method)">#<strong>running</strong>  &#x21d2; Object </a>
+    
+
+    
+      (also: #running?)
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute running.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#stage-instance_method" title="#stage (instance method)">#<strong>stage</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute stage.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subdirectors-instance_method" title="#subdirectors (instance method)">#<strong>subdirectors</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute subdirectors.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+  
+  
+  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Director/ActDirection.html" title="Card::Director::ActDirection (module)">ActDirection</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Director/ActDirection.html#act_card-instance_method" title="Card::Director::ActDirection#act_card (method)">#act_card</a></span></p>
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#abort-instance_method" title="#abort (instance method)">#<strong>abort</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#appoint-instance_method" title="#appoint (instance method)">#<strong>appoint</strong>(card)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete-instance_method" title="#delete (instance method)">#<strong>delete</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#head%3F-instance_method" title="#head? (instance method)">#<strong>head?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(card, parent)  &#x21d2; Director </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>A new instance of Director.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#main%3F-instance_method" title="#main? (instance method)">#<strong>main?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#main_director-instance_method" title="#main_director (instance method)">#<strong>main_director</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#need_act-instance_method" title="#need_act (instance method)">#<strong>need_act</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#register-instance_method" title="#register (instance method)">#<strong>register</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#replace_card-instance_method" title="#replace_card (instance method)">#<strong>replace_card</strong>(card)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_s-instance_method" title="#to_s (instance method)">#<strong>to_s</strong>(level = 1)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unregister-instance_method" title="#unregister (instance method)">#<strong>unregister</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_card-instance_method" title="#update_card (instance method)">#<strong>update_card</strong>(card)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Director/ActDirection.html" title="Card::Director::ActDirection (module)">ActDirection</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Director/ActDirection.html#act_director-instance_method" title="Card::Director::ActDirection#act_director (method)">act_director</a></span>, <span class='object_link'><a href="Director/ActDirection.html#add-instance_method" title="Card::Director::ActDirection#add (method)">add</a></span>, <span class='object_link'><a href="Director/ActDirection.html#card_changed-instance_method" title="Card::Director::ActDirection#card_changed (method)">card_changed</a></span>, <span class='object_link'><a href="Director/ActDirection.html#clear-instance_method" title="Card::Director::ActDirection#clear (method)">clear</a></span>, <span class='object_link'><a href="Director/ActDirection.html#deep_delete-instance_method" title="Card::Director::ActDirection#deep_delete (method)">deep_delete</a></span>, <span class='object_link'><a href="Director/ActDirection.html#directors-instance_method" title="Card::Director::ActDirection#directors (method)">directors</a></span>, <span class='object_link'><a href="Director/ActDirection.html#expire-instance_method" title="Card::Director::ActDirection#expire (method)">expire</a></span>, <span class='object_link'><a href="Director/ActDirection.html#expirees-instance_method" title="Card::Director::ActDirection#expirees (method)">expirees</a></span>, <span class='object_link'><a href="Director/ActDirection.html#fetch-instance_method" title="Card::Director::ActDirection#fetch (method)">fetch</a></span>, <span class='object_link'><a href="Director/ActDirection.html#include%3F-instance_method" title="Card::Director::ActDirection#include? (method)">include?</a></span>, <span class='object_link'><a href="Director/ActDirection.html#new_director-instance_method" title="Card::Director::ActDirection#new_director (method)">new_director</a></span>, <span class='object_link'><a href="Director/ActDirection.html#run_act-instance_method" title="Card::Director::ActDirection#run_act (method)">run_act</a></span>, <span class='object_link'><a href="Director/ActDirection.html#running_act%3F-instance_method" title="Card::Director::ActDirection#running_act? (method)">running_act?</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Director/EventDelay.html" title="Card::Director::EventDelay (module)">EventDelay</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Director/EventDelay.html#contextualize_delayed_event-instance_method" title="Card::Director::EventDelay#contextualize_delayed_event (method)">contextualize_delayed_event</a></span>, <span class='object_link'><a href="Director/EventDelay.html#delaying%3F-instance_method" title="Card::Director::EventDelay#delaying? (method)">delaying?</a></span>, <span class='object_link'><a href="Director/EventDelay.html#run_job_with_act-instance_method" title="Card::Director::EventDelay#run_job_with_act (method)">run_job_with_act</a></span>, <span class='object_link'><a href="Director/EventDelay.html#with_delay_act-instance_method" title="Card::Director::EventDelay#with_delay_act (method)">with_delay_act</a></span>, <span class='object_link'><a href="Director/EventDelay.html#with_env_and_auth-instance_method" title="Card::Director::EventDelay#with_env_and_auth (method)">with_env_and_auth</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Director/Store.html" title="Card::Director::Store (module)">Store</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Director/Store.html#after_store-instance_method" title="Card::Director::Store#after_store (method)">#after_store</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Director/Run.html" title="Card::Director::Run (module)">Run</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Director/Run.html#catch_up_to_stage-instance_method" title="Card::Director::Run#catch_up_to_stage (method)">#catch_up_to_stage</a></span>, <span class='object_link'><a href="Director/Run.html#delay!-instance_method" title="Card::Director::Run#delay! (method)">#delay!</a></span>, <span class='object_link'><a href="Director/Run.html#restart-instance_method" title="Card::Director::Run#restart (method)">#restart</a></span>, <span class='object_link'><a href="Director/Run.html#run_delayed_event-instance_method" title="Card::Director::Run#run_delayed_event (method)">#run_delayed_event</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Director/Phases.html" title="Card::Director::Phases (module)">Phases</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Director/Phases.html#integration_phase-instance_method" title="Card::Director::Phases#integration_phase (method)">#integration_phase</a></span>, <span class='object_link'><a href="Director/Phases.html#integration_phase_callback%3F-instance_method" title="Card::Director::Phases#integration_phase_callback? (method)">#integration_phase_callback?</a></span>, <span class='object_link'><a href="Director/Phases.html#prepare_for_phases-instance_method" title="Card::Director::Phases#prepare_for_phases (method)">#prepare_for_phases</a></span>, <span class='object_link'><a href="Director/Phases.html#storage_phase-instance_method" title="Card::Director::Phases#storage_phase (method)">#storage_phase</a></span>, <span class='object_link'><a href="Director/Phases.html#validation_phase-instance_method" title="Card::Director::Phases#validation_phase (method)">#validation_phase</a></span>, <span class='object_link'><a href="Director/Phases.html#validation_phase_callback%3F-instance_method" title="Card::Director::Phases#validation_phase_callback? (method)">#validation_phase_callback?</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Director/Stages.html" title="Card::Director::Stages (module)">Stages</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Director/Stages.html#finished_stage%3F-instance_method" title="Card::Director::Stages#finished_stage? (method)">#finished_stage?</a></span>, <span class='object_link'><a href="Director/Stages.html#reset_stage-instance_method" title="Card::Director::Stages#reset_stage (method)">#reset_stage</a></span>, <span class='object_link'><a href="Director/Stages.html#stage_index-instance_method" title="Card::Director::Stages#stage_index (method)">#stage_index</a></span>, <span class='object_link'><a href="Director/Stages.html#stage_ok%3F-instance_method" title="Card::Director::Stages#stage_ok? (method)">#stage_ok?</a></span>, <span class='object_link'><a href="Director/Stages.html#stage_symbol-instance_method" title="Card::Director::Stages#stage_symbol (method)">#stage_symbol</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(card, parent)  &#x21d2; <tt><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a new instance of Director.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 148</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_parent'>parent</span>
+  <span class='ivar'>@card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span>
+  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span> <span class='op'>=</span> <span class='kw'>self</span>
+  <span class='comment'># for read actions there is no validation phase
+</span>  <span class='comment'># so we have to set the action here
+</span>  <span class='ivar'>@stage</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@running</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='ivar'>@prepared</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='ivar'>@parent</span> <span class='op'>=</span> <span class='id identifier rubyid_parent'>parent</span>
+  <span class='ivar'>@subdirectors</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Director/SubdirectorArray.html" title="Card::Director::SubdirectorArray (class)">SubdirectorArray</a></span></span><span class='period'>.</span><span class='id identifier rubyid_initialize_with_subcards'><span class='object_link'><a href="Director/SubdirectorArray.html#initialize_with_subcards-class_method" title="Card::Director::SubdirectorArray.initialize_with_subcards (method)">initialize_with_subcards</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_register'>register</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="act=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="act-instance_method">
+  
+    #<strong>act</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute act.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 144</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_act'>act</span>
+  <span class='ivar'>@act</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="card=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="card-instance_method">
+  
+    #<strong>card</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute card.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 144</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span>
+  <span class='ivar'>@card</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="parent=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="parent-instance_method">
+  
+    #<strong>parent</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute parent.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 144</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_parent'>parent</span>
+  <span class='ivar'>@parent</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="running-instance_method">
+  
+    #<strong>running</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='running?-instance_method'>running?</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute running.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+145
+146
+147</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 145</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_running'>running</span>
+  <span class='ivar'>@running</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="stage=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="stage-instance_method">
+  
+    #<strong>stage</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute stage.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 144</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_stage'>stage</span>
+  <span class='ivar'>@stage</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="subdirectors=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="subdirectors-instance_method">
+  
+    #<strong>subdirectors</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute subdirectors.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 144</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_subdirectors'>subdirectors</span>
+  <span class='ivar'>@subdirectors</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="abort-instance_method">
+  
+    #<strong>abort</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+191
+192
+193</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 191</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_abort'>abort</span>
+  <span class='ivar'>@abort</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="appoint-instance_method">
+  
+    #<strong>appoint</strong>(card)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+185
+186
+187
+188
+189</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 185</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_appoint'>appoint</span> <span class='id identifier rubyid_card'>card</span>
+  <span class='id identifier rubyid_reset_stage'>reset_stage</span>
+  <span class='id identifier rubyid_update_card'>update_card</span> <span class='id identifier rubyid_card'>card</span>
+  <span class='ivar'>@head</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete-instance_method">
+  
+    #<strong>delete</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+177
+178
+179
+180
+181
+182
+183</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 177</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span>
+  <span class='ivar'>@parent</span><span class='op'>&amp;.</span><span class='id identifier rubyid_subdirectors'>subdirectors</span><span class='op'>&amp;.</span><span class='id identifier rubyid_delete'>delete</span> <span class='kw'>self</span>
+  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@subdirectors</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+  <span class='ivar'>@stage</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@action</span> <span class='op'>=</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="head?-instance_method">
+  
+    #<strong>head?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+165
+166
+167</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 165</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_head?'>head?</span>
+  <span class='ivar'>@head</span> <span class='op'>||</span> <span class='id identifier rubyid_main?'>main?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="main?-instance_method">
+  
+    #<strong>main?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+161
+162
+163</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 161</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_main?'>main?</span>
+  <span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="main_director-instance_method">
+  
+    #<strong>main_director</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+202
+203
+204
+205
+206</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 202</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_main_director'>main_director</span>
+  <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='id identifier rubyid_main?'>main?</span>
+
+  <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_act_director'><span class='object_link'><a href="Director/ActDirection.html#act_director-instance_method" title="Card::Director::ActDirection#act_director (method)">act_director</a></span></span> <span class='op'>||</span> <span class='lparen'>(</span><span class='ivar'>@parent</span><span class='op'>&amp;.</span><span class='id identifier rubyid_main_director'>main_director</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="need_act-instance_method">
+  
+    #<strong>need_act</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Error.html" title="Card::Error (class)">Card::Error</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+195
+196
+197
+198
+199
+200</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 195</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_need_act'>need_act</span>
+  <span class='id identifier rubyid_act_director'>act_director</span> <span class='op'>=</span> <span class='id identifier rubyid_main_director'>main_director</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Error.html" title="Card::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>act requested without a main director</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_act_director'>act_director</span>
+
+  <span class='ivar'>@act</span> <span class='op'>=</span> <span class='id identifier rubyid_act_director'>act_director</span><span class='period'>.</span><span class='id identifier rubyid_act'>act</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_need_act'>need_act</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="register-instance_method">
+  
+    #<strong>register</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+169
+170
+171</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 169</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_register'>register</span>
+  <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_add'><span class='object_link'><a href="Director/ActDirection.html#add-instance_method" title="Card::Director::ActDirection#add (method)">add</a></span></span> <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="replace_card-instance_method">
+  
+    #<strong>replace_card</strong>(card)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+217
+218
+219
+220
+221
+222
+223</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 217</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_replace_card'>replace_card</span> <span class='id identifier rubyid_card'>card</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>=</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span> <span class='op'>=</span> <span class='kw'>self</span>
+  <span class='ivar'>@card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span>
+  <span class='id identifier rubyid_reset_stage'>reset_stage</span>
+  <span class='id identifier rubyid_catch_up_to_stage'>catch_up_to_stage</span> <span class='ivar'>@stage</span> <span class='kw'>if</span> <span class='ivar'>@stage</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_s-instance_method">
+  
+    #<strong>to_s</strong>(level = 1)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+208
+209
+210
+211
+212
+213
+214
+215</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 208</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span> <span class='id identifier rubyid_level'>level</span><span class='op'>=</span><span class='int'>1</span>
+  <span class='id identifier rubyid_str'>str</span> <span class='op'>=</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span>
+  <span class='kw'>if</span> <span class='ivar'>@subdirectors</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+    <span class='id identifier rubyid_subs'>subs</span> <span class='op'>=</span> <span class='id identifier rubyid_subdirectors'>subdirectors</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_d'>d</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>  </span><span class='tstring_end'>&quot;</span></span> <span class='op'>*</span> <span class='id identifier rubyid_level'>level</span> <span class='op'>+</span> <span class='id identifier rubyid_d'>d</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='lparen'>(</span><span class='id identifier rubyid_level'>level</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_str'>str</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_subs'>subs</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_str'>str</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="unregister-instance_method">
+  
+    #<strong>unregister</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+173
+174
+175</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 173</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_unregister'>unregister</span>
+  <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete'><span class='object_link'><a href="#delete-instance_method" title="Card::Director#delete (method)">delete</a></span></span> <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_card-instance_method">
+  
+    #<strong>update_card</strong>(card)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+225
+226
+227
+228
+229</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/director.rb', line 225</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_card'>update_card</span> <span class='id identifier rubyid_card'>card</span>
+  <span class='id identifier rubyid_old_card'>old_card</span> <span class='op'>=</span> <span class='ivar'>@card</span>
+  <span class='ivar'>@card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span>
+  <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_card_changed'><span class='object_link'><a href="Director/ActDirection.html#card_changed-instance_method" title="Card::Director::ActDirection#card_changed (method)">card_changed</a></span></span> <span class='id identifier rubyid_old_card'>old_card</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Sep 10 15:02:47 2020 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.25 (ruby-2.6.3).
+</div>
+
+    </div>
+  </body>
+</html>

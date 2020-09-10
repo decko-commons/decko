@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Event::Api
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Event::Api";
   relpath = '../../../';
 </script>
@@ -88,6 +88,72 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Events are the building blocks of the three transformative card actions: <em>create</em>,
+<em>update</em>, and <em>delete</em>.</p>
+
+<p>(The fourth kind of action, <em>read</em>, does not transform cards, and is associated
+with <span class='object_link'><a href="../../Format.html" title="Card::Format (class)">views</a></span>, not events).</p>
+
+<p>As described in detail in <span class='object_link'><a href="../../Director.html" title="Card::Director (class)">Director</a></span>, each act can have many actions, each
+action has three phases, each phase has three stages, and each stage has many
+events.</p>
+
+<p>Events are defined in set modules in <span class='object_link'><a href="../../Mod.html" title="Card::Mod (module)"><strong>mods</strong></a></span>. Learn more about
+<span class='object_link'><a href="../../Mod.html" title="Card::Mod (module)">set modules</a></span>.</p>
+
+<p>A simple event definition looks something like this:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_event'>event</span> <span class='symbol'>:append_you_know</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:create</span> <span class='kw'>do</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='id identifier rubyid_content'>content</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>, you know?</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Note:</p>
+
+<ul>
+  <li><code>:append_you_know</code> is a unique event name.</li>
+  <li><code>:prepare_to_validate</code> is a <span class='object_link'><a href="../../Director.html" title="Card::Director (class)">stage</a></span>.</li>
+  <li><code>on: :create</code> specifies the action to which the event applies</li>
+  <li><code>self</code>, within the event card, is a card object.</li>
+</ul>
+
+<p>Any card within the <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">set</a></span> on which this event is defined will
+run this event during the <code>prepare_to_validate</code> stage when it is created.</p>
+
+<p>Events are not format-specific and should not be defined within
+format blocks.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="OPTIONS-constant" class="">OPTIONS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span>
+  <span class='label'>on:</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>create</span><span class='words_sep'> </span><span class='tstring_content'>update</span><span class='words_sep'> </span><span class='tstring_content'>delete</span><span class='words_sep'> </span><span class='tstring_content'>save</span><span class='words_sep'> </span><span class='tstring_content'>read</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
+  <span class='label'>changed:</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Dirty.html" title="Card::Dirty (module)">Dirty</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dirty_options'><span class='object_link'><a href="../../Dirty.html#dirty_options-class_method" title="Card::Dirty.dirty_options (method)">dirty_options</a></span></span><span class='comma'>,</span>
+  <span class='label'>changing:</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Dirty.html" title="Card::Dirty (module)">Dirty</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dirty_options'><span class='object_link'><a href="../../Dirty.html#dirty_options-class_method" title="Card::Dirty.dirty_options (method)">dirty_options</a></span></span><span class='comma'>,</span>
+  <span class='label'>skip:</span> <span class='lbracket'>[</span><span class='symbol'>:allowed</span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>trigger:</span> <span class='lbracket'>[</span><span class='symbol'>:required</span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>when:</span> <span class='kw'>nil</span>
+<span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -120,7 +186,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Define an event for a set of cards.</p>
+</div></span>
   
 </li>
 
@@ -143,18 +210,227 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Define an event for a set of cards.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>event</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>unique event name</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>stage_or_opts</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>, <tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>if a Symbol, defines event’s
+<span class='object_link'><a href="../../Director.html" title="Card::Director (class)">stage</a></span>. If a Hash, it’s treated as the opts param.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>event options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>opts</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:on</span>
+          <span class="type">(<tt>Symbol</tt>, <tt>Array</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>one or more actions in which the event
+should be executed. :save is shorthand for [:create, :update]. If no value
+is specified, event will fire on create, update, and delete.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:changed</span>
+          <span class="type">(<tt>Symbol</tt>, <tt>Array</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>fire event only if field has changed.
+valid values: name, content, db_content, type, type_id, left_id, right_id,
+codename, trash.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:changing</span>
+          <span class="type">(<tt>Symbol</tt>, <tt>Array</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>alias for :changed</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:skip</span>
+          <span class="type">(<tt>Symbol</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>allow actions to skip this event.
+(eg. <code>skip: :allowed</code>)</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:trigger</span>
+          <span class="type">(<tt>Symbol</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>allow actions to trigger this event
+explicitly. If <code>trigger: :required</code>, then event will not run unless explicitly
+triggered.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:when</span>
+          <span class="type">(<tt>Symbol</tt>, <tt>Proc</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>method (Symbol) or code (Proc) to execute
+to determine whether to fire event. Proc is given card as argument.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:before</span>
+          <span class="type">(<tt>Symbol</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>fire this event before the event specified.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:after</span>
+          <span class="type">(<tt>Symbol</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>fire this event after the event specified.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:around</span>
+          <span class="type">(<tt>Symbol</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>fire this event before the event specified. This
+event will receive a block and will need to call it for the specified
+event to fire.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:in</span>
+          <span class="type">(<tt>Symbol</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>alternate representation for specifying stage</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+    
+    
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-18
-19
-20</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/set/event.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/card/set/event.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_event'>event</span> <span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='id identifier rubyid_stage_or_opts'>stage_or_opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_final'>final</span>
   <span class='const'><span class='object_link'><a href="../Event.html" title="Card::Set::Event (class)">Event</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Event.html#initialize-instance_method" title="Card::Set::Event#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='id identifier rubyid_stage_or_opts'>stage_or_opts</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_final'>final</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_register'><span class='object_link'><a href="../Event.html#register-instance_method" title="Card::Set::Event#register (method)">register</a></span></span>
@@ -169,9 +445,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:18 2019 by
+  Generated on Thu Sep 10 15:02:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

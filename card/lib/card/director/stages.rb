@@ -2,9 +2,11 @@ class Card
   class Director
     # Methods for intepreting stages of an action
     module Stages
-      STAGES = %i[initialize prepare_to_validate validate prepare_to_store
-                  store finalize integrate after_integrate integrate_with_delay].freeze
+      STAGES = %i[initialize prepare_to_validate validate
+                  prepare_to_store store finalize integrate
+                  after_integrate integrate_with_delay].freeze
       STAGE_INDEX = STAGES.each_with_index.with_object({}) do |(stage, index), hash|
+        Card.define_callbacks "#{stage}_stage", "#{stage}_final_stage"
         hash[stage] = index
       end.freeze
 

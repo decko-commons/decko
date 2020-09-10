@@ -6,15 +6,15 @@
 <title>
   Module: Card::Query
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Query";
   relpath = '../';
 </script>
@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/card/query.rb<span class="defines">,<br />
-  lib/card/query/join.rb,<br /> lib/card/query/value.rb,<br /> lib/card/query/clause.rb,<br /> lib/card/query/act_query.rb,<br /> lib/card/query/card_query.rb,<br /> lib/card/query/action_query.rb,<br /> lib/card/query/sql_statement.rb,<br /> lib/card/query/abstract_query.rb,<br /> lib/card/query/card_query/run.rb,<br /> lib/card/query/reference_query.rb,<br /> lib/card/query/abstract_query/tie.rb,<br /> lib/card/query/card_query/sorting.rb,<br /> lib/card/query/card_query/found_by.rb,<br /> lib/card/query/sql_statement/joins.rb,<br /> lib/card/query/sql_statement/order.rb,<br /> lib/card/query/sql_statement/where.rb,<br /> lib/card/query/card_query/conjunctions.rb,<br /> lib/card/query/card_query/normalization.rb,<br /> lib/card/query/card_query/interpretation.rb,<br /> lib/card/query/abstract_query/query_helper.rb,<br /> lib/card/query/card_query/match_attributes.rb,<br /> lib/card/query/card_query/reference_attributes.rb,<br /> lib/card/query/card_query/relational_attributes.rb</span>
+  lib/card/query/join.rb,<br /> lib/card/query/value.rb,<br /> lib/card/query/clause.rb,<br /> lib/card/query/act_query.rb,<br /> lib/card/query/card_query.rb,<br /> lib/card/query/action_query.rb,<br /> lib/card/query/sql_statement.rb,<br /> lib/card/query/abstract_query.rb,<br /> lib/card/query/card_query/run.rb,<br /> lib/card/query/reference_query.rb,<br /> lib/card/query/value/match_value.rb,<br /> lib/card/query/abstract_query/tie.rb,<br /> lib/card/query/card_query/sorting.rb,<br /> lib/card/query/card_query/found_by.rb,<br /> lib/card/query/sql_statement/joins.rb,<br /> lib/card/query/sql_statement/order.rb,<br /> lib/card/query/sql_statement/where.rb,<br /> lib/card/query/card_query/conjunctions.rb,<br /> lib/card/query/card_query/normalization.rb,<br /> lib/card/query/card_query/interpretation.rb,<br /> lib/card/query/abstract_query/query_helper.rb,<br /> lib/card/query/card_query/match_attributes.rb,<br /> lib/card/query/card_query/reference_attributes.rb,<br /> lib/card/query/card_query/relational_attributes.rb</span>
 </dd>
   </dl>
   
@@ -87,32 +87,40 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Card::Query is for finding implicit lists (or counts of lists) of cards.</p>
+    <p>Card::Query is for finding implicit lists (or counts of lists) of cards.</p>
 
-<p>Search and Set cards use Card::Query to query the database, and it’s also frequently used directly in code.</p>
+<p>Search and Set cards use Card::Query to query the database, and it’s also
+frequently used directly in code.</p>
 
-<p>Query “statements” (objects, really) are made in WQL (Wagn Query Language). Because WQL is used by Deckers, the primary language documentation is on wagn.org. (https://decko.org/WQL_Syntax). Note that the examples there are in JSON, like Search card content, but statements in Card::Query are in ruby form.</p>
+<p>Query “statements” (objects, really) are made in WQL (Wagn Query
+Language). Because WQL is used by Deckers, the primary language
+documentation is on wagn.org. (https://decko.org/WQL_Syntax). Note that the
+examples there are in JSON, like Search card content, but statements in
+Card::Query are in ruby form.</p>
 
-<p>In Decko’s current form, Card::Query generates and executes SQL statements. However, the SQL generation is largely (not yet fully) separated from the WQL statement interpretation.</p>
+<p>In Decko’s current form, Card::Query generates and executes SQL statements.
+However, the SQL generation is largely (not yet fully) separated from the
+WQL statement interpretation.</p>
 
-<p>The most common way to use Card::Query is as follows: list_of_cards = Card::Query.run(statement)</p>
+<p>The most common way to use Card::Query is as follows:
+    list_of_cards = Card::Query.run(statement)</p>
 
-<p>This is equivalent to: query = Card::Query.new(statement) list_of_cards = query.run</p>
+<p>This is equivalent to:
+    query = Card::Query.new(statement)
+    list_of_cards = query.run</p>
 
-<p>Upon initiation, the query is interpreted, and the following key objects are populated:</p>
+<p>Upon initiation, the query is interpreted, and the following key objects
+are populated:</p>
 
 <ul>
-<li>@join - an Array of Card::Query::Join objects</li>
-
-<li>@conditions - an Array of conditions</li>
-
-<li>@mod - a Hash of other query-altering keys</li>
-
-<li>@subqueries - a list of other queries nested within this one</li>
+  <li>@join - an Array of Card::Query::Join objects</li>
+  <li>@conditions - an Array of conditions</li>
+  <li>@mod - a Hash of other query-altering keys</li>
+  <li>@subqueries - a list of other queries nested within this one</li>
 </ul>
 
-<p>Each condition is either a SQL-ready string (boo) or an Array in this form: [field_string_or_sym, Card::Value::Query object]</p>
+<p>Each condition is either a SQL-ready string (boo) or an Array in this form:
+   [ field_string_or_sym, Card::Value::Query object ]</p>
 
 
   </div>
@@ -133,14 +141,22 @@
   
 </p>
 
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="ATTRIBUTES-constant" class="">ATTRIBUTES =
-        <div class="docstring">
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="ATTRIBUTES-constant" class="">ATTRIBUTES =
+          <div class="docstring">
   <div class="discussion">
-    
-<p>After conversion, ATTRIBUTES is a Hash where the key is the attribute and the value is the attribute type: { id: :basic, name: :basic, key: :basic …} This is used for rapid attribute type lookups in the interpretation phase.</p>
+    <p>Card::Query::CardQuery
+After conversion, ATTRIBUTES is a Hash where the key is the attribute
+and the value is the attribute type:
+{ id: :basic, name: :basic, key: :basic …}
+This is used for rapid attribute type lookups in the interpretation phase.</p>
 
 
   </div>
@@ -149,62 +165,63 @@
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='lbrace'>{</span>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span>
   <span class='comment'># Each of the &quot;basic&quot; fields corresponds directly to a database field.
 </span>  <span class='comment'># their values are translated fairly directly into SQL-safe values.
 </span>  <span class='comment'># (These are referred to as &quot;properties&quot; in WQL documentation. Need to
 </span>  <span class='comment'># reconcile #EFM)
 </span>  <span class='label'>basic:</span>           <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>id</span><span class='words_sep'> </span><span class='tstring_content'>name</span><span class='words_sep'> </span><span class='tstring_content'>key</span><span class='words_sep'> </span><span class='tstring_content'>type_id</span><span class='words_sep'> </span><span class='tstring_content'>content</span><span class='words_sep'> </span><span class='tstring_content'>left_id</span><span class='words_sep'> </span><span class='tstring_content'>right_id</span><span class='words_sep'>
-</span><span class='tstring_content'>            creator_id</span><span class='words_sep'> </span><span class='tstring_content'>updater_id</span><span class='words_sep'> </span><span class='tstring_content'>codename</span><span class='words_sep'> </span><span class='tstring_content'>read_rule_id</span><span class='words_sep'>]</span><span class='comma'>,</span>
+                      </span><span class='tstring_content'>creator_id</span><span class='words_sep'> </span><span class='tstring_content'>updater_id</span><span class='words_sep'> </span><span class='tstring_content'>codename</span><span class='words_sep'> </span><span class='tstring_content'>read_rule_id</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
   <span class='comment'># &quot;Relational&quot; values can involve tying multiple queries together
 </span>  <span class='label'>relational:</span>      <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>type</span><span class='words_sep'>
-</span><span class='tstring_content'>                 part</span><span class='words_sep'> </span><span class='tstring_content'>left</span><span class='words_sep'> </span><span class='tstring_content'>right</span><span class='words_sep'>
-</span><span class='tstring_content'>                 editor_of</span><span class='words_sep'> </span><span class='tstring_content'>edited_by</span><span class='words_sep'> </span><span class='tstring_content'>last_editor_of</span><span class='words_sep'> </span><span class='tstring_content'>last_edited_by</span><span class='words_sep'>
-</span><span class='tstring_content'>                 creator_of</span><span class='words_sep'> </span><span class='tstring_content'>created_by</span><span class='words_sep'>
-</span><span class='tstring_content'>                 updater_of</span><span class='words_sep'> </span><span class='tstring_content'>updated_by</span><span class='words_sep'>
-</span><span class='tstring_content'>                 link_to</span><span class='words_sep'> </span><span class='tstring_content'>linked_to_by</span><span class='words_sep'>
-</span><span class='tstring_content'>                 include</span><span class='words_sep'> </span><span class='tstring_content'>included_by</span><span class='words_sep'>
+                      </span><span class='tstring_content'>part</span><span class='words_sep'> </span><span class='tstring_content'>left</span><span class='words_sep'> </span><span class='tstring_content'>right</span><span class='words_sep'>
+                      </span><span class='tstring_content'>editor_of</span><span class='words_sep'> </span><span class='tstring_content'>edited_by</span><span class='words_sep'> </span><span class='tstring_content'>last_editor_of</span><span class='words_sep'> </span><span class='tstring_content'>last_edited_by</span><span class='words_sep'>
+                      </span><span class='tstring_content'>creator_of</span><span class='words_sep'> </span><span class='tstring_content'>created_by</span><span class='words_sep'>
+                      </span><span class='tstring_content'>updater_of</span><span class='words_sep'> </span><span class='tstring_content'>updated_by</span><span class='words_sep'>
+                      </span><span class='tstring_content'>link_to</span><span class='words_sep'> </span><span class='tstring_content'>linked_to_by</span><span class='words_sep'>
+                      </span><span class='tstring_content'>include</span><span class='words_sep'> </span><span class='tstring_content'>included_by</span><span class='words_sep'>
+                      </span><span class='tstring_content'>nest</span><span class='words_sep'> </span><span class='tstring_content'>nested_by</span><span class='words_sep'>
 
-</span><span class='tstring_content'>                 refer_to</span><span class='words_sep'> </span><span class='tstring_content'>referred_to_by</span><span class='words_sep'>
-</span><span class='tstring_content'>                 member_of</span><span class='words_sep'> </span><span class='tstring_content'>member</span><span class='words_sep'>
+                      </span><span class='tstring_content'>refer_to</span><span class='words_sep'> </span><span class='tstring_content'>referred_to_by</span><span class='words_sep'>
+                      </span><span class='tstring_content'>member_of</span><span class='words_sep'> </span><span class='tstring_content'>member</span><span class='words_sep'>
 
-</span><span class='tstring_content'>                 found_by</span><span class='words_sep'> </span><span class='tstring_content'>not</span><span class='words_sep'> </span><span class='tstring_content'>sort</span><span class='words_sep'> </span><span class='tstring_content'>match</span><span class='words_sep'> </span><span class='tstring_content'>name_match</span><span class='words_sep'> </span><span class='tstring_content'>complete</span><span class='words_sep'>
-</span><span class='tstring_content'>                 extension_type</span><span class='words_sep'>]</span><span class='comma'>,</span>
+                      </span><span class='tstring_content'>found_by</span><span class='words_sep'>
+                      </span><span class='tstring_content'>not</span><span class='words_sep'> </span><span class='tstring_content'>sort</span><span class='words_sep'> </span><span class='tstring_content'>match</span><span class='words_sep'> </span><span class='tstring_content'>name_match</span><span class='words_sep'> </span><span class='tstring_content'>complete</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
 
-  <span class='label'>plus_relational:</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>plus</span><span class='words_sep'> </span><span class='tstring_content'>left_plus</span><span class='words_sep'> </span><span class='tstring_content'>right_plus</span><span class='words_sep'>]</span><span class='comma'>,</span>
-  <span class='label'>conjunction:</span>     <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>and</span><span class='words_sep'> </span><span class='tstring_content'>or</span><span class='words_sep'> </span><span class='tstring_content'>all</span><span class='words_sep'> </span><span class='tstring_content'>any</span><span class='words_sep'>]</span><span class='comma'>,</span>
-  <span class='label'>ignore:</span>          <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>prepend</span><span class='words_sep'> </span><span class='tstring_content'>append</span><span class='words_sep'> </span><span class='tstring_content'>view</span><span class='words_sep'> </span><span class='tstring_content'>params</span><span class='words_sep'> </span><span class='tstring_content'>vars</span><span class='words_sep'> </span><span class='tstring_content'>size</span><span class='words_sep'>]</span>
+  <span class='label'>plus_relational:</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>plus</span><span class='words_sep'> </span><span class='tstring_content'>left_plus</span><span class='words_sep'> </span><span class='tstring_content'>right_plus</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
+  <span class='label'>conjunction:</span>     <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>and</span><span class='words_sep'> </span><span class='tstring_content'>or</span><span class='words_sep'> </span><span class='tstring_content'>all</span><span class='words_sep'> </span><span class='tstring_content'>any</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
+  <span class='label'>ignore:</span>          <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>prepend</span><span class='words_sep'> </span><span class='tstring_content'>append</span><span class='words_sep'> </span><span class='tstring_content'>view</span><span class='words_sep'> </span><span class='tstring_content'>params</span><span class='words_sep'> </span><span class='tstring_content'>vars</span><span class='words_sep'> </span><span class='tstring_content'>size</span><span class='tstring_end'>]</span></span>
 <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_pair'>pair</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='op'>|</span>
   <span class='id identifier rubyid_pair'>pair</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_v'>v</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_pair'>pair</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre></dd>
-    
-      <dt id="CONJUNCTIONS-constant" class="">CONJUNCTIONS =
-        
-      </dt>
-      <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>any:</span> <span class='symbol'>:or</span><span class='comma'>,</span> <span class='label'>in:</span> <span class='symbol'>:or</span><span class='comma'>,</span> <span class='label'>or:</span> <span class='symbol'>:or</span><span class='comma'>,</span> <span class='label'>all:</span> <span class='symbol'>:and</span><span class='comma'>,</span> <span class='label'>and:</span> <span class='symbol'>:and</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="MODIFIERS-constant" class="">MODIFIERS =
-        
-      </dt>
-      <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>conj</span><span class='words_sep'> </span><span class='tstring_content'>return</span><span class='words_sep'> </span><span class='tstring_content'>sort</span><span class='words_sep'> </span><span class='tstring_content'>sort_as</span><span class='words_sep'> </span><span class='tstring_content'>group</span><span class='words_sep'> </span><span class='tstring_content'>dir</span><span class='words_sep'> </span><span class='tstring_content'>limit</span><span class='words_sep'> </span><span class='tstring_content'>offset</span><span class='words_sep'>]</span>
+      
+        <dt id="CONJUNCTIONS-constant" class="">CONJUNCTIONS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>any:</span> <span class='symbol'>:or</span><span class='comma'>,</span> <span class='label'>in:</span> <span class='symbol'>:or</span><span class='comma'>,</span> <span class='label'>or:</span> <span class='symbol'>:or</span><span class='comma'>,</span> <span class='label'>all:</span> <span class='symbol'>:and</span><span class='comma'>,</span> <span class='label'>and:</span> <span class='symbol'>:and</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="MODIFIERS-constant" class="">MODIFIERS =
+          
+        </dt>
+        <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>conj</span><span class='words_sep'> </span><span class='tstring_content'>return</span><span class='words_sep'> </span><span class='tstring_content'>sort</span><span class='words_sep'> </span><span class='tstring_content'>sort_as</span><span class='words_sep'> </span><span class='tstring_content'>group</span><span class='words_sep'> </span><span class='tstring_content'>dir</span><span class='words_sep'> </span><span class='tstring_content'>limit</span><span class='words_sep'> </span><span class='tstring_content'>offset</span><span class='tstring_end'>]</span></span>
 <span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_v'>v</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='rbrace'>}</span></pre></dd>
-    
-      <dt id="OPERATORS-constant" class="">OPERATORS =
-        
-      </dt>
-      <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>!=</span><span class='words_sep'> </span><span class='tstring_content'>=</span><span class='words_sep'> </span><span class='tstring_content'>=~</span><span class='words_sep'> </span><span class='tstring_content'>&lt;</span><span class='words_sep'> </span><span class='tstring_content'>&gt;</span><span class='words_sep'> </span><span class='tstring_content'>in</span><span class='words_sep'> </span><span class='tstring_content'>~</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_v'>v</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span>
-  <span class='lbrace'>{</span>
-    <span class='label'>eq:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>gt:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>lt:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>match:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ne:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>!=</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>not in</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>not in</span><span class='tstring_end'>&quot;</span></span>
-  <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_stringify_keys'>stringify_keys</span>
+      
+        <dt id="OPERATORS-constant" class="">OPERATORS =
+          
+        </dt>
+        <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>!=</span><span class='words_sep'> </span><span class='tstring_content'>=</span><span class='words_sep'> </span><span class='tstring_content'>=~</span><span class='words_sep'> </span><span class='tstring_content'>&lt;</span><span class='words_sep'> </span><span class='tstring_content'>&gt;</span><span class='words_sep'> </span><span class='tstring_content'>in</span><span class='words_sep'> </span><span class='tstring_content'>~</span><span class='words_sep'> </span><span class='tstring_content'>is</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_v'>v</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span>
+  <span class='lbrace'>{</span> <span class='label'>eq:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>gt:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>lt:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>match:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>ne:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>!=</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>not in</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>not in</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>is not</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>is not</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>!</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>is not</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_stringify_keys'>stringify_keys</span>
 <span class='rparen'>)</span></pre></dd>
-    
-      <dt id="DEFAULT_ORDER_DIRS-constant" class="">DEFAULT_ORDER_DIRS =
-        
-      </dt>
-      <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>update:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>desc</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>relevance:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>desc</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
+      
+        <dt id="DEFAULT_ORDER_DIRS-constant" class="">DEFAULT_ORDER_DIRS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>update:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>desc</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>relevance:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>desc</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -237,7 +254,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -259,7 +277,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -281,7 +300,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -303,7 +323,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -332,12 +353,12 @@
       <pre class="lines">
 
 
-95
-96
-97</pre>
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/query.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/card/query.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_class_for'>class_for</span> <span class='id identifier rubyid_type'>type</span>
   <span class='id identifier rubyid_const_get'>const_get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_capitalize'>capitalize</span><span class='embexpr_end'>}</span><span class='tstring_content'>Query</span><span class='tstring_end'>&quot;</span></span>
@@ -362,12 +383,12 @@
       <pre class="lines">
 
 
-87
-88
-89</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/query.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/card/query.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_statement'>statement</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='const'><span class='object_link'><a href="" title="Card::Query (module)">Query</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Query/CardQuery.html" title="Card::Query::CardQuery (class)">CardQuery</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_statement'>statement</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span>
@@ -392,12 +413,12 @@
       <pre class="lines">
 
 
-91
-92
-93</pre>
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/query.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/card/query.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span> <span class='id identifier rubyid_statement'>statement</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_statement'>statement</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span>
@@ -422,15 +443,15 @@
       <pre class="lines">
 
 
-99
-100
 101
 102
 103
-104</pre>
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/query.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'lib/card/query.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_safe_sql'>safe_sql</span> <span class='id identifier rubyid_txt'>txt</span>
   <span class='id identifier rubyid_txt'>txt</span> <span class='op'>=</span> <span class='id identifier rubyid_txt'>txt</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -448,9 +469,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:17 2019 by
+  Generated on Thu Sep 10 15:02:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

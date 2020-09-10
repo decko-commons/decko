@@ -3,7 +3,7 @@ class Card
     # methods for running stages
     module Run
       def catch_up_to_stage next_stage
-        return if @delay && next_stage != :integrate_with_delay
+        return if @delay && before?(:integrate_with_delay, next_stage)
 
         upto_stage(next_stage) do |stage|
           run_stage stage
