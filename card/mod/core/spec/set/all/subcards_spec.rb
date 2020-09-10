@@ -44,7 +44,7 @@ RSpec.describe Card::Set::All::Subcards do
             end
           end
 
-          it "processes subcards in separate transaction" do
+          it "director.delay! processes subcards in separate transaction" do
             with_test_events do
               test_event :validate, on: :create, for: "main card" do
                 sc = add_subcard("sub card")

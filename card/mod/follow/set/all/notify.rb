@@ -27,7 +27,7 @@ event :notify_followers_after_delete, :integrate, on: :delete, when: :notable_ch
 end
 
 def notify_followers
-  return unless (act = Card::ActManager.act)
+  return unless (act = Card::Director.act)
 
   act.reload
   notify_followers_of act

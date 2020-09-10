@@ -1,5 +1,5 @@
 class Card
-  class ActManager
+  class Director
     class SubdirectorArray < Array
       def self.initialize_with_subcards parent
         dir_array = new(parent)
@@ -15,29 +15,36 @@ class Card
       end
 
       def add card
-        card = card.card if card.is_a? StageDirector
-        each { |dir| return dir if dir.card == card }
-        dir = ActManager.fetch card, @parent
-        return dir if dir.main?
-
-        dir.replace_card card if dir.card != card
-        dir.parent = @parent
-        self << dir
-        dir
+        card = card.card if card.is_a? Director
+        existing(card) || fetch_new(card)
       end
 
       alias_method :delete_director, :delete
 
       def delete card
-        if card.is_a? StageDirector
+        if card.is_a? Director
           delete_director card
         else
           delete_if { |dir| dir.card == card }
         end
       end
 
-      def add_director dir
-        add dir.card
+      private
+
+      def existing card
+        find { |dir| dir.card == card }
+      end
+
+      def fetch_new card
+        Director.fetch(card, @parent).tap do |dir|
+          update dir, card unless dir.main?
+        end
+      end
+
+      def update dir, card
+        dir.replace_card card if dir.card != card
+        dir.parent = @parent
+        self << dir
       end
     end
   end
