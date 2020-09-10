@@ -6,15 +6,15 @@
 <title>
   Class: Card::Content::Diff::LCS::ExcludeeIterator
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Content::Diff::LCS::ExcludeeIterator";
   relpath = '../../../../';
 </script>
@@ -94,15 +94,14 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/card/content/diff/processor.rb</dd>
+    <dd>lib/card/content/diff/l_c_s/processor.rb</dd>
   </dl>
   
 </div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>support class for LCS::Processor</p>
+    <p>support class for LCS::Processor</p>
 
 
   </div>
@@ -142,7 +141,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -175,8 +175,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of ExcludeeIterator.</p>
+    <span class="summary_desc"><div class='inline'><p>A new instance of ExcludeeIterator.</p>
 </div></span>
   
 </li>
@@ -199,7 +198,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -221,7 +221,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -243,7 +244,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -265,8 +267,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a new instance of ExcludeeIterator</p>
+    <p>Returns a new instance of ExcludeeIterator.</p>
 
 
   </div>
@@ -287,7 +288,7 @@
 134</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content/diff/processor.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content/diff/l_c_s/processor.rb', line 130</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_list'>list</span>
   <span class='ivar'>@list</span> <span class='op'>=</span> <span class='id identifier rubyid_list'>list</span>
@@ -329,7 +330,7 @@
 128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content/diff/processor.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content/diff/l_c_s/processor.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_old_and_new'>old_and_new</span> <span class='id identifier rubyid_old_excludees'>old_excludees</span><span class='comma'>,</span> <span class='id identifier rubyid_new_excludees'>new_excludees</span>
   <span class='lbrace'>{</span>
@@ -374,7 +375,7 @@
 148</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content/diff/processor.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content/diff/l_c_s/processor.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='kw'>next</span>
   <span class='kw'>if</span> <span class='ivar'>@index</span> <span class='op'>&lt;</span> <span class='ivar'>@list</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&amp;&amp;</span>
@@ -416,7 +417,7 @@
 158</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content/diff/processor.rb', line 150</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content/diff/l_c_s/processor.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_scan_and_record'>scan_and_record</span> <span class='id identifier rubyid_record_array'>record_array</span>
   <span class='kw'>while</span> <span class='lparen'>(</span><span class='id identifier rubyid_ex'>ex</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_next'>next</span><span class='rparen'>)</span>
@@ -452,7 +453,7 @@
 138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content/diff/processor.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content/diff/l_c_s/processor.rb', line 136</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_word_step'>word_step</span>
   <span class='ivar'>@chunk_index</span> <span class='op'>+=</span> <span class='int'>1</span>
@@ -467,9 +468,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:34:00 2019 by
+  Generated on Thu Sep 10 15:02:48 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

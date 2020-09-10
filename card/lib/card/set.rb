@@ -80,6 +80,6 @@ class Card
     # SET MODULE API
     #
     # The most important parts of the set module API are views (see
-    # Card::Set::Format) and events (see Card::Set::Event)
+    # Card::Set::Format) and events (see Card::Set::Event:Api)
   end
 end

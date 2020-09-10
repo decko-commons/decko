@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::Search::Format
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::Search::Format";
   relpath = '../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod020-search/abstract/search.rb</dd>
+    <dd>tmpsets/set/mod021-search/abstract/search.rb</dd>
   </dl>
   
 </div>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,8 +166,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>override if query can specify item view.</p>
+    <span class="summary_desc"><div class='inline'><p>override if query can specify item view.</p>
 </div></span>
   
 </li>
@@ -188,7 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -210,7 +212,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -232,7 +235,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -267,7 +271,7 @@
 68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_count_with_params'>count_with_params</span>
   <span class='id identifier rubyid_search_with_rescue'>search_with_rescue</span> <span class='id identifier rubyid_search_params'>search_params</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>return:</span> <span class='symbol'>:count</span><span class='rparen'>)</span>
@@ -292,13 +296,13 @@
       <pre class="lines">
 
 
-76
 77
 78
-79</pre>
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_implicit_item_view'>implicit_item_view</span>
   <span class='id identifier rubyid_view'>view</span> <span class='op'>=</span> <span class='id identifier rubyid_voo_items_view'>voo_items_view</span> <span class='op'>||</span> <span class='id identifier rubyid_item_view_from_query'>item_view_from_query</span> <span class='op'>||</span> <span class='id identifier rubyid_default_item_view'>default_item_view</span>
@@ -320,8 +324,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>override if query can specify item view</p>
+    <p>override if query can specify item view</p>
 
 
   </div>
@@ -335,12 +338,12 @@
       <pre class="lines">
 
 
-82
 83
-84</pre>
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_item_view_from_query'>item_view_from_query</span>
   <span class='kw'>nil</span>
@@ -370,7 +373,7 @@
 64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_search_with_params'>search_with_params</span>
   <span class='id identifier rubyid_search_with_rescue'>search_with_rescue</span> <span class='id identifier rubyid_search_params'>search_params</span>
@@ -399,14 +402,16 @@
 71
 72
 73
-74</pre>
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_search_with_rescue'>search_with_rescue</span> <span class='id identifier rubyid_query_args'>query_args</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_cached_search'>cached_search</span> <span class='id identifier rubyid_query_args'>query_args</span>
 <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../../../Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Error/BadQuery.html" title="Card::Error::BadQuery (class)">BadQuery</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BadQuery: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_query_args'>query_args</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_e'>e</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -429,13 +434,13 @@
       <pre class="lines">
 
 
-86
 87
 88
-89</pre>
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_results'>with_results</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_render_no_search_results'>render_no_search_results</span> <span class='kw'>if</span> <span class='id identifier rubyid_search_with_params'>search_with_params</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -451,9 +456,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:38 2019 by
+  Generated on Thu Sep 10 15:02:35 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

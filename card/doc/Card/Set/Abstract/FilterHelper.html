@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::FilterHelper
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::FilterHelper";
   relpath = '../../../';
 </script>
@@ -83,14 +83,15 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod020-search/abstract/00_filter_helper.rb</dd>
+    <dd>tmpsets/set/mod021-search/abstract/00_filter_helper.rb</dd>
   </dl>
   
 </div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
+    <p>Set: Abstract (FilterHelper)</p>
+
 <p>TODO: move sort/filter handling out of card and into base format</p>
 
 
@@ -111,6 +112,18 @@
 </p>
 
 
+
+  <h2>Constant Summary</h2>
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#SET_PATTERN_TEST_REGEXP-constant" title="Card::Set::Helpers::SET_PATTERN_TEST_REGEXP (constant)">Helpers::SET_PATTERN_TEST_REGEXP</a></span></p>
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Event/Api.html" title="Card::Set::Event::Api (module)">Event::Api</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Event/Api.html#OPTIONS-constant" title="Card::Set::Event::Api::OPTIONS (constant)">Event::Api::OPTIONS</a></span></p>
 
 
 
@@ -141,7 +154,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -158,7 +172,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#default_filter_option-instance_method" title="#default_filter_option (instance method)">#<strong>default_filter_option</strong>  &#x21d2; Object </a>
+      <a href="#default_filter_hash-instance_method" title="#default_filter_hash (instance method)">#<strong>default_filter_hash</strong>  &#x21d2; Object </a>
     
 
     
@@ -172,7 +186,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>initial values for filtered search.</p>
+</div></span>
   
 </li>
 
@@ -194,8 +209,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>FIXME: it is inconsistent that #sort_hash has :sort as the key, but #filter_hash is the <em>value</em> of the hash with :filter as the key.</p>
+    <span class="summary_desc"><div class='inline'><p>FIXME: it is inconsistent that #sort_hash has :sort as the key, but #filter_hash is the <em>value</em> of the hash with :filter as the key.</p>
 </div></span>
   
 </li>
@@ -218,7 +232,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -240,7 +255,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -262,7 +278,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -284,7 +301,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -306,8 +324,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>sorting and filtering is about viewing the data, not altering the data itself.</p>
+    <span class="summary_desc"><div class='inline'><p>sorting and filtering is about viewing the data, not altering the data itself.</p>
 </div></span>
   
 </li>
@@ -330,7 +347,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -345,6 +363,11 @@
   
   
   
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+
   
   
   
@@ -376,7 +399,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Helpers.html#abstract_set%3F-instance_method" title="Card::Set::Helpers#abstract_set? (method)">#abstract_set?</a></span>, <span class='object_link'><a href="../Helpers.html#all_set%3F-instance_method" title="Card::Set::Helpers#all_set? (method)">#all_set?</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
 
   
   
@@ -467,7 +490,7 @@
 8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/00_filter_helper.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/search/set/abstract/00_filter_helper.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
@@ -482,28 +505,38 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="default_filter_option-instance_method">
+  <h3 class="signature first" id="default_filter_hash-instance_method">
   
-    #<strong>default_filter_option</strong>  &#x21d2; <tt>Object</tt> 
-  
-
+    #<strong>default_filter_hash</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>initial values for filtered search</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-45
-46
-47</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/00_filter_helper.rb', line 43</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_default_filter_option'>default_filter_option</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_default_filter_hash'>default_filter_hash</span>
   <span class='lbrace'>{</span><span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -522,8 +555,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<h1 id="filter_hash_is_the_value_of_the_hash_with_filter_as_the_key">filter_hash is the <em>value</em> of the hash with :filter as the key.</h1>
+    <p>FIXME: it is inconsistent that #sort_hash has :sort as the key, but
+#filter_hash is the <em>value</em> of the hash with :filter as the key.</p>
 
 
   </div>
@@ -540,20 +573,14 @@
 21
 22
 23
-24
-25
-26
-27</pre>
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/00_filter_helper.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_hash'>filter_hash</span>
-  <span class='ivar'>@filter_hash</span> <span class='op'>||=</span> <span class='kw'>begin</span>
-    <span class='id identifier rubyid_filter'>filter</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:filter</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_filter'>filter</span> <span class='op'>=</span> <span class='id identifier rubyid_filter'>filter</span><span class='period'>.</span><span class='id identifier rubyid_to_unsafe_h'>to_unsafe_h</span> <span class='kw'>if</span> <span class='id identifier rubyid_filter'>filter</span><span class='op'>&amp;.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:to_unsafe_h</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_filter'>filter</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_filter'>filter</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='kw'>end</span>
+  <span class='ivar'>@filter_hash</span> <span class='op'>||=</span>
+    <span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:filter</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hash'><span class='object_link'><a href="../../Env.html#hash-class_method" title="Card::Env.hash (method)">hash</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:filter</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_default_filter_hash'>default_filter_hash</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -575,15 +602,15 @@
       <pre class="lines">
 
 
+35
+36
+37
 38
 39
-40
-41
-42
-43</pre>
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/00_filter_helper.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_keys_with_values'>filter_keys_with_values</span>
   <span class='id identifier rubyid_filter_keys'>filter_keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
@@ -616,7 +643,7 @@
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/00_filter_helper.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_param'>filter_param</span> <span class='id identifier rubyid_field'>field</span>
   <span class='id identifier rubyid_filter_hash'>filter_hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span>
@@ -641,12 +668,12 @@
       <pre class="lines">
 
 
-49
-50
-51</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/00_filter_helper.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_offset'>offset</span>
   <span class='id identifier rubyid_param_to_i'>param_to_i</span> <span class='symbol'>:offset</span><span class='comma'>,</span> <span class='int'>0</span>
@@ -671,13 +698,13 @@
       <pre class="lines">
 
 
-33
-34
-35
-36</pre>
+30
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/00_filter_helper.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_safe_sql_param'>safe_sql_param</span> <span class='id identifier rubyid_key'>key</span>
   <span class='id identifier rubyid_param'>param</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span>
@@ -699,8 +726,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>sorting and filtering is about viewing the data, not altering the data itself.</p>
+    <p>sorting and filtering is about viewing the data, not altering the data itself.</p>
 
 
   </div>
@@ -719,7 +745,7 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/00_filter_helper.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort_hash'>sort_hash</span>
   <span class='id identifier rubyid_sort_param'>sort_param</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='lbrace'>{</span> <span class='label'>sort:</span> <span class='id identifier rubyid_sort_param'>sort_param</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -744,15 +770,15 @@
       <pre class="lines">
 
 
-29
-30
-31</pre>
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/00_filter_helper.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/00_filter_helper.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort_param'>sort_param</span>
-  <span class='id identifier rubyid_safe_sql_param'>safe_sql_param</span> <span class='symbol'>:sort</span>
+  <span class='ivar'>@sort_param</span> <span class='op'>||=</span> <span class='id identifier rubyid_safe_sql_param'>safe_sql_param</span> <span class='symbol'>:sort</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -764,9 +790,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:50 2019 by
+  Generated on Thu Sep 10 15:02:42 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

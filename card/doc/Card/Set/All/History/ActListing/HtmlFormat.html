@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::History::ActListing::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::History::ActListing::HtmlFormat";
   relpath = '../../../../../';
 </script>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +166,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -186,7 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -208,7 +212,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -230,8 +235,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>TODO: consider putting all these under one top-level param, eg: act: { seq: X, diff: [show/hide], action_view: Y }.</p>
+    <span class="summary_desc"><div class='inline'><p>TODO: consider putting all these under one top-level param, eg: act: { seq: X, diff: [show/hide], action_view: Y }.</p>
 </div></span>
   
 </li>
@@ -254,7 +258,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -276,7 +281,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -298,7 +304,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -320,8 +327,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>used (by history and recent)for rendering act lists with legend and paging.</p>
+    <span class="summary_desc"><div class='inline'><p>used (by history and recent)for rendering act lists with legend and paging.</p>
 </div></span>
   
 </li>
@@ -344,7 +350,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -366,7 +373,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -388,7 +396,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -410,7 +419,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -432,7 +442,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -454,7 +465,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -476,7 +488,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -672,8 +685,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>act: { seq: X, diff: [show/hide], action_view: Y }</p>
+    <p>TODO: consider putting all these under one top-level param, eg:
+act: { seq: X, diff: [show/hide], action_view: Y }</p>
 
 
   </div>
@@ -734,7 +747,7 @@
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod005-history/all/history/act_listing.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_act_paging'>act_paging</span> <span class='id identifier rubyid_acts'>acts</span><span class='comma'>,</span> <span class='id identifier rubyid_context'>context</span>
-  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:span</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>slotter</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>slotter btn-sm</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
     <span class='id identifier rubyid_acts'>acts</span> <span class='op'>=</span> <span class='id identifier rubyid_current_page_acts'>current_page_acts</span> <span class='id identifier rubyid_acts'>acts</span>
     <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>remote:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>theme:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>twitter-bootstrap-4</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
     <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:total_pages</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>10</span> <span class='kw'>if</span> <span class='id identifier rubyid_limited_paging?'>limited_paging?</span> <span class='id identifier rubyid_context'>context</span>
@@ -837,8 +850,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>used (by history and recent)for rendering act lists with legend and paging</p>
+    <p>used (by history and recent)for rendering act lists with legend and paging</p>
 
 
   </div>
@@ -857,8 +869,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>relation that will return acts objects</p>
+        <div class='inline'><p>relation that will return acts objects</p>
 </div>
       
     </li>
@@ -873,8 +884,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>:relative or :absolute</p>
+        <div class='inline'><p>:relative or :absolute</p>
 </div>
       
     </li>
@@ -891,8 +901,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>:show or :hide</p>
+        <div class='inline'><p>:show or :hide</p>
 </div>
       
     </li>
@@ -1096,6 +1105,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -1148,6 +1158,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -1192,9 +1203,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:49 2019 by
+  Generated on Thu Sep 10 15:02:42 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

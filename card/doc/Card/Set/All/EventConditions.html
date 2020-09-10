@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::EventConditions
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::EventConditions";
   relpath = '../../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Set: All cards (EventConditions)</p>
+    <p>Set: All cards (EventConditions)</p>
 
 
   </div>
@@ -101,6 +100,18 @@
 
 </div>
 
+
+  <h2>Constant Summary</h2>
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#SET_PATTERN_TEST_REGEXP-constant" title="Card::Set::Helpers::SET_PATTERN_TEST_REGEXP (constant)">Helpers::SET_PATTERN_TEST_REGEXP</a></span></p>
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Event/Api.html" title="Card::Set::Event::Api (module)">Event::Api</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Event/Api.html#OPTIONS-constant" title="Card::Set::Event::Api::OPTIONS (constant)">Event::Api::OPTIONS</a></span></p>
 
 
 
@@ -131,7 +142,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -162,7 +174,146 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#skip_event!-instance_method" title="#skip_event! (instance method)">#<strong>skip_event!</strong>(*events)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>force skipping this event for all cards in act.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#skip_event_in_action!-instance_method" title="#skip_event_in_action! (instance method)">#<strong>skip_event_in_action!</strong>(*events)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>force skipping this event for this card only.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#skip_hash-instance_method" title="#skip_hash (instance method)">#<strong>skip_hash</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>hash form of raw skip setting, eg { “my_event” =&gt; true }.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trigger_event!-instance_method" title="#trigger_event! (instance method)">#<strong>trigger_event!</strong>(*events)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>force triggering this event (when it comes up) for all cards in act.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trigger_event_in_action!-instance_method" title="#trigger_event_in_action! (instance method)">#<strong>trigger_event_in_action!</strong>(*events)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>force triggering this event (when it comes up) for this card only.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trigger_hash-instance_method" title="#trigger_hash (instance method)">#<strong>trigger_hash</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -177,6 +328,11 @@
   
   
   
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+
   
   
   
@@ -208,7 +364,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Helpers.html#abstract_set%3F-instance_method" title="Card::Set::Helpers#abstract_set? (method)">#abstract_set?</a></span>, <span class='object_link'><a href="../Helpers.html#all_set%3F-instance_method" title="Card::Set::Helpers#all_set? (method)">#all_set?</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
 
   
   
@@ -326,6 +482,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -350,23 +507,273 @@
       <pre class="lines">
 
 
-8
-9
-10
 11
 12
 13
-14</pre>
+14
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/event_conditions.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/event_conditions.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_event_applies?'>event_applies?</span> <span class='id identifier rubyid_event'>event</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_set_condition_applies?'>set_condition_applies?</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_set_module'>set_module</span><span class='comma'>,</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='symbol'>:changing</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_set_condition_applies?'>set_condition_applies?</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_set_module'>set_module</span><span class='comma'>,</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:changing</span><span class='rbracket'>]</span>
 
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Event.html" title="Card::Set::Event (class)">Event</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Event.html#CONDITIONS-constant" title="Card::Set::Event::CONDITIONS (constant)">CONDITIONS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
     <span class='id identifier rubyid_send'>send</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_content'>_condition_applies?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="skip_event!-instance_method">
+  
+    #<strong>skip_event!</strong>(*events)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>force skipping this event for all cards in act</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/event_conditions.rb', line 20</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_skip_event!'>skip_event!</span> <span class='op'>*</span><span class='id identifier rubyid_events'>events</span>
+  <span class='ivar'>@full_skip_hash</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_events'>events</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+    <span class='id identifier rubyid_act_skip_hash'>act_skip_hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='symbol'>:force</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="skip_event_in_action!-instance_method">
+  
+    #<strong>skip_event_in_action!</strong>(*events)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>force skipping this event for this card only</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/event_conditions.rb', line 28</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_skip_event_in_action!'>skip_event_in_action!</span> <span class='op'>*</span><span class='id identifier rubyid_events'>events</span>
+  <span class='id identifier rubyid_events'>events</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+    <span class='id identifier rubyid_full_skip_hash'>full_skip_hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='symbol'>:force</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="skip_hash-instance_method">
+  
+    #<strong>skip_hash</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>hash form of raw skip setting, eg { “my_event” =&gt; true }</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/event_conditions.rb', line 50</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_skip_hash'>skip_hash</span>
+  <span class='ivar'>@skip_hash</span> <span class='op'>||=</span> <span class='id identifier rubyid_hash_with_value'>hash_with_value</span> <span class='id identifier rubyid_skip'>skip</span><span class='comma'>,</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="trigger_event!-instance_method">
+  
+    #<strong>trigger_event!</strong>(*events)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>force triggering this event (when it comes up) for all cards in act</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/event_conditions.rb', line 35</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_trigger_event!'>trigger_event!</span> <span class='op'>*</span><span class='id identifier rubyid_events'>events</span>
+  <span class='ivar'>@full_trigger_hash</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_events'>events</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+    <span class='id identifier rubyid_act_trigger_hash'>act_trigger_hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='symbol'>:force</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="trigger_event_in_action!-instance_method">
+  
+    #<strong>trigger_event_in_action!</strong>(*events)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>force triggering this event (when it comes up) for this card only</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/event_conditions.rb', line 43</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_trigger_event_in_action!'>trigger_event_in_action!</span> <span class='op'>*</span><span class='id identifier rubyid_events'>events</span>
+  <span class='id identifier rubyid_events'>events</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+    <span class='id identifier rubyid_full_trigger_hash'>full_trigger_hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='symbol'>:force</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="trigger_hash-instance_method">
+  
+    #<strong>trigger_hash</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/event_conditions.rb', line 54</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_trigger_hash'>trigger_hash</span>
+  <span class='ivar'>@trigger_hash</span> <span class='op'>||=</span> <span class='id identifier rubyid_hash_with_value'>hash_with_value</span> <span class='id identifier rubyid_trigger'>trigger</span><span class='comma'>,</span> <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -378,9 +785,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:40 2019 by
+  Generated on Thu Sep 10 15:02:37 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

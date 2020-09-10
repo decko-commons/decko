@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Format::AbstractFormat::Wrapper
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Format::AbstractFormat::Wrapper";
   relpath = '../../../../';
 </script>
@@ -90,8 +90,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>The Wrapper module provides an API to define wrap methods. It is available in all formats.</p>
+    <p>The Wrapper module provides an API to define wrap methods.
+It is available in all formats.</p>
 
 
   </div>
@@ -126,8 +126,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute interior.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute interior.</p>
 </div></span>
   
 </li>
@@ -163,7 +162,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -185,9 +185,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Defines a wrapper method with the name “wrap_with_<pre style="border: solid 3px red; background-color: pink" class="markdown-html-error">Maruku could not parse this XML/HTML: 
-&lt;wrapper_name&gt;&quot;.</pre></p>
+    <span class="summary_desc"><div class='inline'><p>Defines a wrapper method with the name “wrap_with_<wrapper_name>".</wrapper_name></p>
 </div></span>
   
 </li>
@@ -213,8 +211,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute interior</p>
+    <p>Returns the value of attribute interior.</p>
 
 
   </div>
@@ -301,25 +298,36 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Defines a wrapper method with the name “wrap_with_<pre style="border: solid 3px red; background-color: pink" class="markdown-html-error">Maruku could not parse this XML/HTML: 
-&lt;wrapper_name&gt;&quot;.
-Inside the wrap_block the variable &quot;interior&quot; is always available
-to refer to the content that is supposed to be wrapped by the wrapper.</pre></p>
+    <p>Defines a wrapper method with the name “wrap_with_<wrapper_name>".
+Inside the wrap_block the variable "interior" is always available
+to refer to the content that is supposed to be wrapped by the wrapper.</wrapper_name></p>
 
-<p>Example: wrapper :burger do |opts| [#opts:bun-bun, interior, bun].join “|” end</p>
+<p>Example:
+  wrapper :burger do |opts|
+    [”#opts[:bun]-bun”, interior, “bun”].join “|”
+  end</p>
 
-<p>It can be used like this: wrap_with_burger bun: “sesame” do “meat” end # =&gt; “sesame-bun|meat|bun”</p>
+<p>It can be used like this:
+  wrap_with_burger bun: “sesame” do
+    “meat”
+  end  # =&gt; “sesame-bun|meat|bun”</p>
 
-<p>It’s also possible to wrap a whole view with a wrapper view :whopper, wrap: :burger do “meat” end</p>
+<p>It’s also possible to wrap a whole view with a wrapper
+  view :whopper, wrap: :burger do
+    “meat”
+  end</p>
 
-<p>Options for view wrappers can be provided using a hash or, if not all wrappers need options, an array of symbols and hashes. Example view :big_mac, wrap: { burger: { bun: “sesame” }, paper: { color: :red } } view :cheese_burger, wrap: [:burger, paper: { color: :yellow }]</p>
+<p>Options for view wrappers can be provided using a hash or, if not all wrappers
+need options, an array of symbols and hashes.
+Example
+  view :big_mac, wrap: { burger: { bun: “sesame” }, paper: { color: :red } }
+  view :cheese_burger, wrap: [:burger, paper: { color: :yellow }]</p>
 
-<p>If you want to define a wrapper that wraps only with a single html tag then use the following syntax: wrapper :burger, :div, class: “medium”</p>
+<p>If you want to define a wrapper that wraps only with a single html tag
+then use the following syntax:
+  wrapper :burger, :div, class: “medium”</p>
 
-<p>wrap_with_burger “meat” # =&gt; “</p>
-<div class='medium'>meat</div>
-<p>”</p>
+<p>wrap_with_burger “meat”  # =&gt; “&lt;div class='medium'&gt;meat&lt;/div&gt;”</p>
 
 
   </div>
@@ -338,8 +346,7 @@ to refer to the content that is supposed to be wrapped by the wrapper.</pre></p>
       
       
         &mdash;
-        <div class='inline'>
-<p>the name for the wrap method</p>
+        <div class='inline'><p>the name for the wrap method</p>
 </div>
       
     </li>
@@ -385,9 +392,9 @@ to refer to the content that is supposed to be wrapped by the wrapper.</pre></p>
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:22 2019 by
+  Generated on Thu Sep 10 15:02:27 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

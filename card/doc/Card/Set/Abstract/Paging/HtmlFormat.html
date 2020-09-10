@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::Paging::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::Paging::HtmlFormat";
   relpath = '../../../../';
 </script>
@@ -89,15 +89,21 @@
 </div>
 
 
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="PAGE_LI_CLASS-constant" class="">PAGE_LI_CLASS =
-        
-      </dt>
-      <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>ellipses:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>disabled</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>current:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>active</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="PAGE_LI_CLASS-constant" class="">PAGE_LI_CLASS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span> <span class='label'>ellipses:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>disabled</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>current:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>active</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -130,8 +136,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>clear we don’t need paging even before running count query.</p>
+    <span class="summary_desc"><div class='inline'><p>clear we don’t need paging even before running count query.</p>
 </div></span>
   
 </li>
@@ -154,7 +159,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -176,8 +182,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>First page is 0 (not 1).</p>
+    <span class="summary_desc"><div class='inline'><p>First page is 0 (not 1).</p>
 </div></span>
   
 </li>
@@ -200,7 +205,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -222,7 +228,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -244,7 +251,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -266,7 +274,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -288,7 +297,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -310,7 +320,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -332,7 +343,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -354,7 +366,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -380,8 +393,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>clear we don’t need paging even before running count query</p>
+    <p>clear we don’t need paging even before running count query</p>
 
 
   </div>
@@ -408,14 +420,14 @@
       <pre class="lines">
 
 
+117
 118
 119
 120
-121
-122</pre>
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fewer_results_than_limit?'>fewer_results_than_limit?</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_offset'>offset</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
@@ -442,17 +454,17 @@
       <pre class="lines">
 
 
+80
 81
 82
 83
 84
 85
 86
-87
-88</pre>
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_page_link'>page_link</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span><span class='symbol'>:div</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>page-link</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_page'>page</span>
@@ -478,8 +490,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>First page is 0 (not 1)</p>
+    <p>First page is 0 (not 1)</p>
 
 
   </div>
@@ -493,14 +504,14 @@
       <pre class="lines">
 
 
+70
 71
 72
 73
-74
-75</pre>
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_page_link_li'>page_link_li</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:li</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_page_link_li_class'>page_link_li_class</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -527,12 +538,12 @@
       <pre class="lines">
 
 
+76
 77
-78
-79</pre>
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_page_link_li_class'>page_link_li_class</span> <span class='id identifier rubyid_status'>status</span>
   <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>page-item</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#PAGE_LI_CLASS-constant" title="Card::Set::Abstract::Paging::HtmlFormat::PAGE_LI_CLASS (constant)">PAGE_LI_CLASS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_status'>status</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span>
@@ -557,12 +568,12 @@
       <pre class="lines">
 
 
+104
 105
-106
-107</pre>
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_page_link_path_args'>page_link_path_args</span> <span class='id identifier rubyid_page'>page</span>
   <span class='id identifier rubyid_paging_path_args'>paging_path_args</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='label'>offset:</span> <span class='id identifier rubyid_page'>page</span> <span class='op'>*</span> <span class='id identifier rubyid_limit'>limit</span>
@@ -587,15 +598,15 @@
       <pre class="lines">
 
 
+62
 63
 64
 65
 66
-67
-68</pre>
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_paging_links'>paging_links</span>
   <span class='const'><span class='object_link'><a href="PagingLinks.html" title="Card::Set::Abstract::Paging::PagingLinks (class)">PagingLinks</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="PagingLinks.html#initialize-instance_method" title="Card::Set::Abstract::Paging::PagingLinks#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_total_pages'>total_pages</span><span class='comma'>,</span> <span class='id identifier rubyid_current_page'>current_page</span><span class='rparen'>)</span>
@@ -621,6 +632,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -645,16 +657,16 @@
       <pre class="lines">
 
 
+108
 109
 110
 111
 112
 113
-114
-115</pre>
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_paging_needed?'>paging_needed?</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_limit'>limit</span> <span class='op'>&lt;</span> <span class='int'>1</span>
@@ -683,15 +695,15 @@
       <pre class="lines">
 
 
+97
 98
 99
 100
 101
-102
-103</pre>
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_paging_path_args'>paging_path_args</span> <span class='id identifier rubyid_local_args'>local_args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='ivar'>@paging_path_args</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -728,15 +740,13 @@
 57
 58
 59
-60
-61</pre>
+60</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 51</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:paging</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_paging_needed?'>paging_needed?</span>
-
   <span class='heredoc_beg'>&lt;&lt;-HTML</span>
 <span class='tstring_content'>    &lt;nav&gt;
       &lt;ul class=&quot;pagination paging&quot;&gt;
@@ -799,16 +809,16 @@
       <pre class="lines">
 
 
+89
 90
 91
 92
 93
 94
-95
-96</pre>
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_paging_path_args'>with_paging_path_args</span> <span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_tmp'>tmp</span> <span class='op'>=</span> <span class='ivar'>@paging_path_args</span>
@@ -827,9 +837,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:42 2019 by
+  Generated on Thu Sep 10 15:02:38 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

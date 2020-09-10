@@ -6,15 +6,15 @@
 <title>
   Class: Card::Change
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Change";
   relpath = '../';
 </script>
@@ -105,19 +105,20 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>A <em>change</em> is an alteration to a card’s name, type, content, or trash state. Together, <span class='object_link'><a href="Act.html" title="Card::Act (class)">acts</a></span>, <span class='object_link'><a href="Action.html" title="Card::Action (class)">actions</a></span>, and <span class='object_link'><a href="" title="Card::Change (class)">changes</a></span> comprise a comprehensive <span class='object_link'><a href="../Card.html" title="Card (class)">card</a></span> history tracking system.</p>
+    <p>A <em>change</em> is an alteration to a card’s name, type, content, or trash state.
+Together, <span class='object_link'><a href="Act.html" title="Card::Act (class)">acts</a></span>, <span class='object_link'><a href="Action.html" title="Card::Action (class)">actions</a></span>, and <span class='object_link'><a href="" title="Card::Change (class)">changes</a></span> comprise a
+comprehensive <span class='object_link'><a href="../Card.html" title="Card (class)">card</a></span> history tracking system.</p>
 
-<p>For example, if a given web submission changes both the name and type of card, that would be recorded as one <span class='object_link'><a href="Action.html" title="Card::Action (class)">action</a></span> with two <span class='object_link'><a href="" title="Card::Change (class)">changes</a></span>.</p>
+<p>For example, if a given web submission changes both the name and type of
+card, that would be recorded as one <span class='object_link'><a href="Action.html" title="Card::Action (class)">action</a></span> with two
+<span class='object_link'><a href="" title="Card::Change (class)">changes</a></span>.</p>
 
 <p>A <span class='object_link'><a href="" title="Card::Change (class)">Change</a></span> records:</p>
 
 <ul>
-<li>the <em>field</em> changed</li>
-
-<li>the new <em>value</em> of that field</li>
-
-<li>the <span class='object_link'><a href="Action.html" title="Card::Action (class)">action</a></span> of which the change is part</li>
+  <li>the <em>field</em> changed</li>
+  <li>the new <em>value</em> of that field</li>
+  <li>the <span class='object_link'><a href="Action.html" title="Card::Action (class)">action</a></span> of which the change is part</li>
 </ul>
 
 
@@ -127,14 +128,18 @@
   
 
 </div>
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="TRACKED_FIELDS-constant" class="">TRACKED_FIELDS =
-        <div class="docstring">
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="TRACKED_FIELDS-constant" class="">TRACKED_FIELDS =
+          <div class="docstring">
   <div class="discussion">
-    
-<p>lists the database fields for which changes are recorded</p>
+    <p>lists the database fields for which changes are recorded</p>
 
 
   </div>
@@ -143,10 +148,11 @@
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>name</span><span class='words_sep'> </span><span class='tstring_content'>type_id</span><span class='words_sep'> </span><span class='tstring_content'>db_content</span><span class='words_sep'> </span><span class='tstring_content'>trash</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
+        </dt>
+        <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>name</span><span class='words_sep'> </span><span class='tstring_content'>type_id</span><span class='words_sep'> </span><span class='tstring_content'>db_content</span><span class='words_sep'> </span><span class='tstring_content'>trash</span><span class='words_sep'> </span><span class='tstring_content'>left_id</span><span class='words_sep'> </span><span class='tstring_content'>right_id</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -179,8 +185,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>delete all <span class='object_link'><a href="" title="Card::Change (class)">changes</a></span> not associated with an <span class='object_link'><a href="Action.html" title="Card::Action (class)">action</a></span> (janitorial).</p>
+    <span class="summary_desc"><div class='inline'><p>delete all <span class='object_link'><a href="" title="Card::Change (class)">changes</a></span> not associated with an <span class='object_link'><a href="Action.html" title="Card::Action (class)">action</a></span> (janitorial).</p>
 </div></span>
   
 </li>
@@ -203,8 +208,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Change fields are recorded as integers.</p>
+    <span class="summary_desc"><div class='inline'><p>Change fields are recorded as integers.</p>
 </div></span>
   
 </li>
@@ -227,8 +231,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>look up changes based on field name.</p>
+    <span class="summary_desc"><div class='inline'><p>look up changes based on field name.</p>
 </div></span>
   
 </li>
@@ -260,8 +263,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>retrieve field name.</p>
+    <span class="summary_desc"><div class='inline'><p>retrieve field name.</p>
 </div></span>
   
 </li>
@@ -284,8 +286,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>set field value (integer).</p>
+    <span class="summary_desc"><div class='inline'><p>set field value (integer).</p>
 </div></span>
   
 </li>
@@ -318,8 +319,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>delete all <span class='object_link'><a href="" title="Card::Change (class)">changes</a></span> not associated with an <span class='object_link'><a href="Action.html" title="Card::Action (class)">action</a></span> (janitorial)</p>
+    <p>delete all <span class='object_link'><a href="" title="Card::Change (class)">changes</a></span> not associated with an <span class='object_link'><a href="Action.html" title="Card::Action (class)">action</a></span>
+(janitorial)</p>
 
 
   </div>
@@ -377,8 +378,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Change fields are recorded as integers. #field_index looks up the integer associated with a given field name.</p>
+    <p>Change fields are recorded as integers. #field_index looks up the
+integer associated with a given field name.</p>
 
 
   </div>
@@ -446,8 +447,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>look up changes based on field name</p>
+    <p>look up changes based on field name</p>
 
 
   </div>
@@ -521,8 +521,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>retrieve field name</p>
+    <p>retrieve field name</p>
 
 
   </div>
@@ -575,8 +574,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>set field value (integer)</p>
+    <p>set field value (integer)</p>
 
 
   </div>
@@ -625,9 +623,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:34:03 2019 by
+  Generated on Thu Sep 10 15:02:50 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

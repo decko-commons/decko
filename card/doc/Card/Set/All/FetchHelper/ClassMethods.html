@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::FetchHelper::ClassMethods
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::FetchHelper::ClassMethods";
   relpath = '../../../../';
 </script>
@@ -115,31 +115,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>a fetch method to support the needs of the card controller.</p>
+    <span class="summary_desc"><div class='inline'><p>a fetch method to support the needs of the card controller.</p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#safe_param-instance_method" title="#safe_param (instance method)">#<strong>safe_param</strong>(param)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -164,8 +141,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>a fetch method to support the needs of the card controller. should be in Decko?</p>
+    <p>a fetch method to support the needs of the card controller.
+should be in Decko?</p>
 
 
   </div>
@@ -210,56 +187,14 @@
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="safe_param-instance_method">
-  
-    #<strong>safe_param</strong>(param)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-23
-24
-25
-26
-27
-28
-29
-30
-31</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch_helper.rb', line 23</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_safe_param'>safe_param</span> <span class='id identifier rubyid_param'>param</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_param'>param</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span> <span class='symbol'>:to_unsafe_h</span>
-    <span class='comment'># clone doesn&#39;t work for Parameters
-</span>    <span class='id identifier rubyid_param'>param</span><span class='period'>.</span><span class='id identifier rubyid_to_unsafe_h'>to_unsafe_h</span>
-  <span class='kw'>else</span>
-    <span class='comment'># clone so that original params remain unaltered.  need deeper clone?
-</span>    <span class='lparen'>(</span><span class='id identifier rubyid_param'>param</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:35 2019 by
+  Generated on Thu Sep 10 15:02:34 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

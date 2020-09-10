@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Rules
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Rules";
   relpath = '../../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>frozen_string_literal: true</p>
+    <p>Set: All cards (Rules)</p>
 
 
   </div>
@@ -99,97 +98,20 @@
 <div class="tags">
   
 
-</div><h2>Defined Under Namespace</h2>
-<p class="children">
-  
-    
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Rules/ClassMethods.html" title="Card::Set::All::Rules::ClassMethods (module)">ClassMethods</a></span>
-    
-  
-    
-  
-</p>
+</div>
+
 
   <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="RULE_SQL-constant" class="">RULE_SQL =
-        
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>
-  SELECT
-    rules.id      AS rule_id,
-    settings.id   AS setting_id,
-    sets.id       AS set_id,
-    sets.left_id  AS anchor_id,
-    sets.right_id AS set_tag_id
-  FROM cards rules
-  JOIN cards sets     ON rules.left_id  = sets.id
-  JOIN cards settings ON rules.right_id = settings.id
-  WHERE     sets.type_id = </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SetID</span><span class='embexpr_end'>}</span><span class='tstring_content'>
-    AND settings.type_id = </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SettingID</span><span class='embexpr_end'>}</span><span class='tstring_content'>
-    AND (settings.codename != &#39;follow&#39; OR rules.db_content != &#39;&#39;)
-    AND    rules.trash is false
-    AND     sets.trash is false
-    AND settings.trash is false;
-</span><span class='tstring_end'>)</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="READ_RULE_SQL-constant" class="">READ_RULE_SQL =
-        <div class="docstring">
-  <div class="discussion">
-    
-<p>FIXME: “follow” hardcoded above</p>
-
-
-  </div>
-</div>
-<div class="tags">
   
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#SET_PATTERN_TEST_REGEXP-constant" title="Card::Set::Helpers::SET_PATTERN_TEST_REGEXP (constant)">Helpers::SET_PATTERN_TEST_REGEXP</a></span></p>
 
-</div>
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>
-  SELECT
-    refs.referee_id AS party_id,
-    read_rules.id   AS read_rule_id
-  FROM cards read_rules
-  JOIN card_references refs ON refs.referer_id    = read_rules.id
-  JOIN cards sets           ON read_rules.left_id = sets.id
-  WHERE read_rules.right_id = </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>ReadID</span><span class='embexpr_end'>}</span><span class='tstring_content'>
-    AND       sets.type_id  = </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SetID</span><span class='embexpr_end'>}</span><span class='tstring_content'>
-    AND read_rules.trash is false
-    AND       sets.trash is false;
-</span><span class='tstring_end'>)</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="PREFERENCE_SQL-constant" class="">PREFERENCE_SQL =
-        
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>
-  SELECT
-    preferences.id AS rule_id,
-    settings.id    AS setting_id,
-    sets.id        AS set_id,
-    sets.left_id   AS anchor_id,
-    sets.right_id  AS set_tag_id,
-    users.id       AS user_id
-  FROM cards preferences
-  JOIN cards user_sets ON preferences.left_id  = user_sets.id
-  JOIN cards settings  ON preferences.right_id = settings.id
-  JOIN cards users     ON user_sets.right_id   = users.id
-  JOIN cards sets      ON user_sets.left_id    = sets.id
-  WHERE sets.type_id     = </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SetID</span><span class='embexpr_end'>}</span><span class='tstring_content'>
-    AND settings.type_id = </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SettingID</span><span class='embexpr_end'>}</span><span class='tstring_content'>
-    AND (%s or users.codename = &#39;all&#39;)
-    AND sets.trash        is false
-    AND settings.trash    is false
-    AND users.trash       is false
-    AND user_sets.trash   is false
-    AND preferences.trash is false;
-</span><span class='tstring_end'>)</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
-
-
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Event/Api.html" title="Card::Set::Event::Api (module)">Event::Api</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Event/Api.html#OPTIONS-constant" title="Card::Set::Event::Api::OPTIONS (constant)">Event::Api::OPTIONS</a></span></p>
 
 
 
@@ -220,7 +142,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -251,8 +174,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>TODO: abstract so account doesn’t have to have User type.</p>
+    <span class="summary_desc"><div class='inline'><p>TODO: abstract so account doesn’t have to have User type.</p>
 </div></span>
   
 </li>
@@ -275,7 +197,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -297,7 +220,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -319,7 +243,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -341,7 +266,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -363,7 +289,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -385,7 +312,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -407,7 +335,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -422,6 +351,11 @@
   
   
   
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+
   
   
   
@@ -453,7 +387,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Helpers.html#abstract_set%3F-instance_method" title="Card::Set::Helpers#abstract_set? (method)">#abstract_set?</a></span>, <span class='object_link'><a href="../Helpers.html#all_set%3F-instance_method" title="Card::Set::Helpers#all_set? (method)">#all_set?</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
 
   
   
@@ -541,10 +475,10 @@
       <pre class="lines">
 
 
-8</pre>
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/core/set/all/rules.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
@@ -569,8 +503,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>TODO: abstract so account doesn’t have to have User type.</p>
+    <p>TODO: abstract so account doesn’t have to have User type.</p>
 
 
   </div>
@@ -597,27 +530,27 @@
       <pre class="lines">
 
 
-78
-79
-80
-81
-82
-83
-84
-85
-86</pre>
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_preference?'>is_preference?</span>
   <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>2</span> <span class='op'>&amp;&amp;</span>
     <span class='lparen'>(</span><span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_right'>right</span><span class='lparen'>(</span><span class='label'>skip_modules:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
-    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SettingID</span> <span class='op'>&amp;&amp;</span>
+    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'>SettingID</span> <span class='op'>&amp;&amp;</span>
     <span class='lparen'>(</span><span class='id identifier rubyid_set'>set</span> <span class='op'>=</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='op'>-</span><span class='int'>3</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
-    <span class='id identifier rubyid_set'>set</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SetID</span> <span class='op'>&amp;&amp;</span>
+    <span class='id identifier rubyid_set'>set</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'>SetID</span> <span class='op'>&amp;&amp;</span>
     <span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>2</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
-    <span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>UserID</span> <span class='op'>||</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_codename'>codename</span> <span class='op'>==</span> <span class='symbol'>:all</span><span class='rparen'>)</span>
+    <span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'>UserID</span> <span class='op'>||</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_codename'>codename</span> <span class='op'>==</span> <span class='symbol'>:all</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -637,6 +570,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -661,12 +595,12 @@
       <pre class="lines">
 
 
-66
-67
-68</pre>
+9
+10
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_rule?'>is_rule?</span>
   <span class='id identifier rubyid_is_standard_rule?'>is_standard_rule?</span> <span class='op'>||</span> <span class='id identifier rubyid_is_preference?'>is_preference?</span>
@@ -689,6 +623,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -713,21 +648,21 @@
       <pre class="lines">
 
 
-70
-71
-72
-73
-74
-75</pre>
+13
+14
+15
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_standard_rule?'>is_standard_rule?</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_right'>right</span><span class='lparen'>(</span><span class='label'>skip_modules:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
-    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SettingID</span> <span class='op'>&amp;&amp;</span>
+    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'>SettingID</span> <span class='op'>&amp;&amp;</span>
     <span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='id identifier rubyid_left'>left</span><span class='lparen'>(</span><span class='label'>skip_modules:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
-    <span class='id identifier rubyid_l'>l</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SetID</span>
+    <span class='id identifier rubyid_l'>l</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'>SetID</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -749,14 +684,14 @@
       <pre class="lines">
 
 
-113
-114
-115
-116
-117</pre>
+57
+58
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_preference_card_id_lookups'>preference_card_id_lookups</span> <span class='id identifier rubyid_setting_code'>setting_code</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_user_id'>user_id</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:user_id</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:user</span><span class='rbracket'>]</span><span class='op'>&amp;.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_id'><span class='object_link'><a href="../../Auth/Current.html#current_id-instance_method" title="Card::Auth::Current#current_id (method)">current_id</a></span></span>
@@ -783,36 +718,26 @@
       <pre class="lines">
 
 
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134</pre>
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 119</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_related_sets'>related_sets</span> <span class='id identifier rubyid_with_self'>with_self</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='comment'># refers to sets that users may configure from the current card -
 </span>  <span class='comment'># NOT to sets to which the current card belongs
 </span>
-  <span class='comment'># FIXME: change to use codenames!!
-</span>
   <span class='id identifier rubyid_sets'>sets</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_known?'>known?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>CardtypeID</span> <span class='comment'># FIXME: belongs in type/cardtype
-</span>    <span class='id identifier rubyid_sets'>sets</span> <span class='op'>&lt;&lt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>+*type</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Type.html" title="Card::Set::Type (class)">Type</a></span></span><span class='period'>.</span><span class='id identifier rubyid_label'><span class='object_link'><a href="../Type.html#label-class_method" title="Card::Set::Type.label (method)">label</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='rbracket'>]</span>
-  <span class='kw'>end</span>
   <span class='id identifier rubyid_sets'>sets</span> <span class='op'>&lt;&lt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>+*self</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Self.html" title="Card::Set::Self (class)">Self</a></span></span><span class='period'>.</span><span class='id identifier rubyid_label'><span class='object_link'><a href="../Self.html#label-class_method" title="Card::Set::Self.label (method)">label</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_with_self'>with_self</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_known?'>known?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_simple?'>simple?</span>
     <span class='id identifier rubyid_sets'>sets</span> <span class='op'>&lt;&lt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>+*right</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Right.html" title="Card::Set::Right (class)">Right</a></span></span><span class='period'>.</span><span class='id identifier rubyid_label'><span class='object_link'><a href="../Right.html#label-class_method" title="Card::Set::Right.label (method)">label</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='rbracket'>]</span>
@@ -839,14 +764,14 @@
       <pre class="lines">
 
 
-88
-89
-90
-91
-92</pre>
+31
+32
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rule'>rule</span> <span class='id identifier rubyid_setting_code'>setting_code</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:skip_modules</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
@@ -873,12 +798,12 @@
       <pre class="lines">
 
 
-94
-95
-96</pre>
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rule_card'>rule_card</span> <span class='id identifier rubyid_setting_code'>setting_code</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_rule_card_id'>rule_card_id</span><span class='lparen'>(</span><span class='id identifier rubyid_setting_code'>setting_code</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -903,23 +828,24 @@
       <pre class="lines">
 
 
-98
-99
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111</pre>
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/rules.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rule_card_id'>rule_card_id</span> <span class='id identifier rubyid_setting_code'>setting_code</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_fallback'>fallback</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:fallback</span>
@@ -929,8 +855,9 @@
   <span class='kw'>end</span>
 
   <span class='id identifier rubyid_rule_set_keys'>rule_set_keys</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_rule_set_key'>rule_set_key</span><span class='op'>|</span>
-    <span class='id identifier rubyid_rule_id'>rule_id</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_rule_cache'>rule_cache</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rule_set_key'>rule_set_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>+</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_setting_code'>setting_code</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_rule_id'>rule_id</span> <span class='op'>||=</span> <span class='id identifier rubyid_fallback'>fallback</span> <span class='op'>&amp;&amp;</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_rule_cache'>rule_cache</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rule_set_key'>rule_set_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>+</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_fallback'>fallback</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_rule_cache'>rule_cache</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Rule.html" title="Card::Rule (module)">Rule</a></span></span><span class='period'>.</span><span class='id identifier rubyid_rule_cache'><span class='object_link'><a href="../../Rule.html#rule_cache-class_method" title="Card::Rule.rule_cache (method)">rule_cache</a></span></span>
+    <span class='id identifier rubyid_rule_id'>rule_id</span> <span class='op'>=</span> <span class='id identifier rubyid_rule_cache'>rule_cache</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rule_set_key'>rule_set_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>+</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_setting_code'>setting_code</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_rule_id'>rule_id</span> <span class='op'>||=</span> <span class='id identifier rubyid_fallback'>fallback</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_rule_cache'>rule_cache</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rule_set_key'>rule_set_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>+</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_fallback'>fallback</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
     <span class='kw'>return</span> <span class='id identifier rubyid_rule_id'>rule_id</span> <span class='kw'>if</span> <span class='id identifier rubyid_rule_id'>rule_id</span>
   <span class='kw'>end</span>
   <span class='kw'>nil</span>
@@ -945,9 +872,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:25 2019 by
+  Generated on Thu Sep 10 15:02:29 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

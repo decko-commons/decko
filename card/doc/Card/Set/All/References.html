@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::References
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::References";
   relpath = '../../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Cards can refer to other cards in their content, eg via links and nests.</p>
+    <p>Cards can refer to other cards in their content, eg via links and nests.</p>
 
 
   </div>
@@ -100,14 +99,20 @@
   
 
 </div>
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="PARTIAL_REF_CODE-constant" class="">PARTIAL_REF_CODE =
-        <div class="docstring">
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="PARTIAL_REF_CODE-constant" class="">PARTIAL_REF_CODE =
+          <div class="docstring">
   <div class="discussion">
-    
-<p>The card that refers is the “referer”, the card that is referred to is the “referee”. The reference itself has its own class (Card::Reference), which handles id-based reference tracking.</p>
+    <p>The card that refers is the “referer”, the card that is referred to is
+the “referee”. The reference itself has its own class (Card::Reference),
+which handles id-based reference tracking.</p>
 
 
   </div>
@@ -116,12 +121,25 @@
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>P</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>P</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
 
 
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#SET_PATTERN_TEST_REGEXP-constant" title="Card::Set::Helpers::SET_PATTERN_TEST_REGEXP (constant)">Helpers::SET_PATTERN_TEST_REGEXP</a></span></p>
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Event/Api.html" title="Card::Set::Event::Api (module)">Event::Api</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Event/Api.html#OPTIONS-constant" title="Card::Set::Event::Api::OPTIONS (constant)">Event::Api::OPTIONS</a></span></p>
 
 
 
@@ -152,7 +170,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -165,6 +184,29 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#content_object-instance_method" title="#content_object (instance method)">#<strong>content_object</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -183,8 +225,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>interpret references from this card’s content and insert entries in reference table.</p>
+    <span class="summary_desc"><div class='inline'><p>interpret references from this card’s content and insert entries in reference table.</p>
 </div></span>
   
 </li>
@@ -207,8 +248,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>delete references from this card.</p>
+    <span class="summary_desc"><div class='inline'><p>delete references from this card.</p>
 </div></span>
   
 </li>
@@ -231,8 +271,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>invokes the given block for each reference in content with the reference name and reference type.</p>
+    <span class="summary_desc"><div class='inline'><p>invokes the given block for each reference in content with the reference name and reference type.</p>
 </div></span>
   
 </li>
@@ -241,7 +280,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#family_referers-instance_method" title="#family_referers (instance method)">#<strong>family_referers</strong>  &#x21d2; Object </a>
+      <a href="#has_nests%3F-instance_method" title="#has_nests? (instance method)">#<strong>has_nests?</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -256,7 +295,6 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>cards that refer to self or any descendant.</p>
 </div></span>
   
 </li>
@@ -279,8 +317,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Partial references are needed to track references to virtual cards.</p>
+    <span class="summary_desc"><div class='inline'><p>Partial references are needed to track references to virtual cards.</p>
 </div></span>
   
 </li>
@@ -303,8 +340,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>interpretation phase helps to prevent duplicate references results in hash like: { referee1_key: [referee1_id, referee1_type1, referee1_type2], referee2_key… }.</p>
+    <span class="summary_desc"><div class='inline'><p>interpretation phase helps to prevent duplicate references results in hash like: { referee1_key: [referee1_id, referee1_type2],   referee2_key… }.</p>
 </div></span>
   
 </li>
@@ -327,8 +363,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>cards that refer to self by name (finds cards not yet linked by id).</p>
+    <span class="summary_desc"><div class='inline'><p>cards that refer to self by name (finds cards not yet linked by id).</p>
 </div></span>
   
 </li>
@@ -351,8 +386,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>cards that self includes.</p>
+    <span class="summary_desc"><div class='inline'><p>cards that self includes.</p>
 </div></span>
   
 </li>
@@ -375,8 +409,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>cards that include self.</p>
+    <span class="summary_desc"><div class='inline'><p>cards that include self.</p>
 </div></span>
   
 </li>
@@ -399,8 +432,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>cards that self refers to.</p>
+    <span class="summary_desc"><div class='inline'><p>cards that self refers to.</p>
 </div></span>
   
 </li>
@@ -423,7 +455,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -445,8 +478,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>translate interpreted reference hash into values array, removing duplicate and unnecessary ref_types.</p>
+    <span class="summary_desc"><div class='inline'><p>translate interpreted reference hash into values array, removing duplicate and unnecessary ref_types.</p>
 </div></span>
   
 </li>
@@ -469,7 +501,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -491,8 +524,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>cards that refer to self.</p>
+    <span class="summary_desc"><div class='inline'><p>cards that refer to self.</p>
 </div></span>
   
 </li>
@@ -515,8 +547,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>replace references in card content.</p>
+    <span class="summary_desc"><div class='inline'><p>replace references in card content.</p>
 </div></span>
   
 </li>
@@ -539,8 +570,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>delete old references from this card’s content, create new ones.</p>
+    <span class="summary_desc"><div class='inline'><p>delete old references from this card’s content, create new ones.</p>
 </div></span>
   
 </li>
@@ -556,6 +586,11 @@
   
   
   
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+
   
   
   
@@ -587,7 +622,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Helpers.html#abstract_set%3F-instance_method" title="Card::Set::Helpers#abstract_set? (method)">#abstract_set?</a></span>, <span class='object_link'><a href="../Helpers.html#all_set%3F-instance_method" title="Card::Set::Helpers#all_set? (method)">#all_set?</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
 
   
   
@@ -693,7 +728,37 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="create_references_out-instance_method">
+  <h3 class="signature first" id="content_object-instance_method">
+  
+    #<strong>content_object</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 144</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_content_object'>content_object</span>
+  <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../../Content.html#initialize-instance_method" title="Card::Content#initialize (method)">new</a></span></span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_references_out-instance_method">
   
     #<strong>create_references_out</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -703,8 +768,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>interpret references from this card’s content and insert entries in reference table</p>
+    <p>interpret references from this card’s content and
+insert entries in reference table</p>
 
 
   </div>
@@ -718,17 +783,17 @@
       <pre class="lines">
 
 
+73
+74
+75
+76
+77
+78
 79
-80
-81
-82
-83
-84
-85
-86</pre>
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_references_out'>create_references_out</span>
   <span class='id identifier rubyid_ref_hash'>ref_hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -754,8 +819,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>delete references from this card</p>
+    <p>delete references from this card</p>
 
 
   </div>
@@ -769,13 +833,13 @@
       <pre class="lines">
 
 
-89
-90
-91
-92</pre>
+83
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_references_out'>delete_references_out</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id required to delete references</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -797,8 +861,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>invokes the given block for each reference in content with the reference name and reference type</p>
+    <p>invokes the given block for each reference in content with
+the reference name and reference type</p>
 
 
   </div>
@@ -812,20 +876,18 @@
       <pre class="lines">
 
 
-139
-140
-141
-142
-143
-144</pre>
+134
+135
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 139</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_reference_out'>each_reference_out</span>
-  <span class='id identifier rubyid_content_obj'>content_obj</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../../Content.html#initialize-instance_method" title="Card::Content#initialize (method)">new</a></span></span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='kw'>self</span>
-  <span class='id identifier rubyid_content_obj'>content_obj</span><span class='period'>.</span><span class='id identifier rubyid_find_chunks'>find_chunks</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content/Chunk/Reference.html" title="Card::Content::Chunk::Reference (class)">Reference</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_chunk'>chunk</span><span class='op'>|</span>
-    <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_referee_name'>referee_name</span><span class='comma'>,</span> <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_reference_code'>reference_code</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_content_object'>content_object</span><span class='period'>.</span><span class='id identifier rubyid_find_chunks'>find_chunks</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content/Chunk/Reference.html" title="Card::Content::Chunk::Reference (class)">Reference</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_chunk'>chunk</span><span class='op'>|</span>
+    <span class='kw'>yield</span> <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_referee_name'>referee_name</span><span class='comma'>,</span> <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_reference_code'>reference_code</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -834,9 +896,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="family_referers-instance_method">
+  <h3 class="signature " id="has_nests?-instance_method">
   
-    #<strong>family_referers</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>has_nests?</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -845,13 +907,25 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>cards that refer to self or any descendant</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -859,18 +933,16 @@
       <pre class="lines">
 
 
-52
-53
-54
-55</pre>
+140
+141
+142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 140</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_family_referers'>family_referers</span>
-  <span class='ivar'>@family_referers</span> <span class='op'>||=</span> <span class='lparen'>(</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='id identifier rubyid_descendants'>descendants</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:referers</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span>
-  <span class='comment'># TODO: make this more efficient using partial references!
-</span><span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_has_nests?'>has_nests?</span>
+  <span class='id identifier rubyid_content_object'>content_object</span><span class='period'>.</span><span class='id identifier rubyid_has_chunk?'>has_chunk?</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content/Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -887,8 +959,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Partial references are needed to track references to virtual cards. For example a link to virual card [[A+<em>self]] won’t have a referee_id, but when A’s name is changed we have to find and update that link.</em></p>
+    <p>Partial references are needed to track references to virtual cards.
+For example a link to virual card [[A+*self]] won’t have a referee_id,
+but when A’s name is changed we have to find and update that link.</p>
 
 
   </div>
@@ -902,16 +975,18 @@
       <pre class="lines">
 
 
-115
-116
-117
-118
-119</pre>
+109
+110
+111
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interpret_partial_references'>interpret_partial_references</span> <span class='id identifier rubyid_ref_hash'>ref_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_referee_name'>referee_name</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_referee_name'>referee_name</span><span class='period'>.</span><span class='id identifier rubyid_simple?'>simple?</span>
   <span class='lbracket'>[</span><span class='id identifier rubyid_referee_name'>referee_name</span><span class='period'>.</span><span class='id identifier rubyid_left'>left</span><span class='comma'>,</span> <span class='id identifier rubyid_referee_name'>referee_name</span><span class='period'>.</span><span class='id identifier rubyid_right'>right</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_sidename'>sidename</span><span class='op'>|</span>
     <span class='id identifier rubyid_interpret_reference'>interpret_reference</span> <span class='id identifier rubyid_ref_hash'>ref_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_sidename'>sidename</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#PARTIAL_REF_CODE-constant" title="Card::Set::All::References::PARTIAL_REF_CODE (constant)">PARTIAL_REF_CODE</a></span></span>
   <span class='kw'>end</span>
@@ -932,8 +1007,11 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>interpretation phase helps to prevent duplicate references results in hash like: { referee1_key: [referee1_id, referee1_type1, referee1_type2], referee2_key… }</p>
+    <p>interpretation phase helps to prevent duplicate references
+results in hash like:
+{ referee1_key: [referee1_id, referee1_type2],
+  referee2_key…
+}</p>
 
 
   </div>
@@ -947,21 +1025,21 @@
       <pre class="lines">
 
 
+93
+94
+95
+96
+97
+98
 99
 100
 101
 102
 103
-104
-105
-106
-107
-108
-109
-110</pre>
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interpret_reference'>interpret_reference</span> <span class='id identifier rubyid_ref_hash'>ref_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_referee_name'>referee_name</span><span class='comma'>,</span> <span class='id identifier rubyid_ref_type'>ref_type</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_referee_name'>referee_name</span> <span class='comment'># eg commented nest has no referee_name
@@ -969,7 +1047,7 @@
   <span class='id identifier rubyid_referee_key'>referee_key</span> <span class='op'>=</span> <span class='id identifier rubyid_referee_name'>referee_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_referee_key'>referee_key</span> <span class='op'>==</span> <span class='id identifier rubyid_key'>key</span> <span class='comment'># don&#39;t create self reference
 </span>
-  <span class='id identifier rubyid_referee_id'>referee_id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_id'>fetch_id</span><span class='lparen'>(</span><span class='id identifier rubyid_referee_name'>referee_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_referee_id'>referee_id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../../Lexicon.html#id-class_method" title="Card::Lexicon.id (method)">id</a></span></span> <span class='id identifier rubyid_referee_name'>referee_name</span>
   <span class='id identifier rubyid_ref_hash'>ref_hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_referee_key'>referee_key</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_referee_id'>referee_id</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_ref_hash'>ref_hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_referee_key'>referee_key</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_ref_type'>ref_type</span>
 
@@ -991,8 +1069,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>cards that refer to self by name (finds cards not yet linked by id)</p>
+    <p>cards that refer to self by name
+(finds cards not yet linked by id)</p>
 
 
   </div>
@@ -1032,8 +1110,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>cards that self includes</p>
+    <p>cards that self includes</p>
 
 
   </div>
@@ -1073,8 +1150,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>cards that include self</p>
+    <p>cards that include self</p>
 
 
   </div>
@@ -1114,8 +1190,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>cards that self refers to</p>
+    <p>cards that self refers to</p>
 
 
   </div>
@@ -1185,8 +1260,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>translate interpreted reference hash into values array, removing duplicate and unnecessary ref_types</p>
+    <p>translate interpreted reference hash into values array,
+removing duplicate and unnecessary ref_types</p>
 
 
   </div>
@@ -1200,6 +1275,11 @@
       <pre class="lines">
 
 
+118
+119
+120
+121
+122
 123
 124
 125
@@ -1207,15 +1287,10 @@
 127
 128
 129
-130
-131
-132
-133
-134
-135</pre>
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reference_values_array'>reference_values_array</span> <span class='id identifier rubyid_ref_hash'>ref_hash</span>
   <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1276,8 +1351,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>cards that refer to self</p>
+    <p>cards that refer to self</p>
 
 
   </div>
@@ -1317,8 +1391,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>replace references in card content</p>
+    <p>replace references in card content</p>
 
 
   </div>
@@ -1332,21 +1405,21 @@
       <pre class="lines">
 
 
+52
+53
+54
+55
+56
+57
 58
 59
 60
 61
 62
-63
-64
-65
-66
-67
-68
-69</pre>
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_replace_reference_syntax'>replace_reference_syntax</span> <span class='id identifier rubyid_old_name'>old_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_name'>new_name</span>
   <span class='id identifier rubyid_obj_content'>obj_content</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../../Content.html#initialize-instance_method" title="Card::Content#initialize (method)">new</a></span></span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='kw'>self</span>
@@ -1376,8 +1449,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>delete old references from this card’s content, create new ones</p>
+    <p>delete old references from this card’s content, create new ones</p>
 
 
   </div>
@@ -1391,13 +1463,13 @@
       <pre class="lines">
 
 
-72
-73
-74
-75</pre>
+66
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/references.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_references_out'>update_references_out</span>
   <span class='id identifier rubyid_delete_references_out'>delete_references_out</span>
@@ -1413,9 +1485,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:31 2019 by
+  Generated on Thu Sep 10 15:02:32 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

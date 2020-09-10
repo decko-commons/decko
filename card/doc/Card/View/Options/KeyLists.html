@@ -6,15 +6,15 @@
 <title>
   Module: Card::View::Options::KeyLists
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::View::Options::KeyLists";
   relpath = '../../../';
 </script>
@@ -120,8 +120,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Keys that can be read or written via accessors.</p>
+    <span class="summary_desc"><div class='inline'><p>Keys that can be read or written via accessors.</p>
 </div></span>
   
 </li>
@@ -144,8 +143,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>all standard option keys.</p>
+    <span class="summary_desc"><div class='inline'><p>all standard option keys.</p>
 </div></span>
   
 </li>
@@ -168,8 +166,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>keys that follow simple standard inheritance pattern from parent views.</p>
+    <span class="summary_desc"><div class='inline'><p>keys that follow simple standard inheritance pattern from parent views.</p>
 </div></span>
   
 </li>
@@ -192,7 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -214,8 +212,30 @@
   
 
   
+    <span class="summary_desc"><div class='inline'><p>keys whose values can be set by Deckers in card nests.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#slot_keys-instance_method" title="#slot_keys (instance method)">#<strong>slot_keys</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
     <span class="summary_desc"><div class='inline'>
-<p>keys whose values can be set by Deckers in card nests.</p>
 </div></span>
   
 </li>
@@ -241,8 +261,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Keys that can be read or written via accessors</p>
+    <p>Keys that can be read or written via accessors</p>
 
 
   </div>
@@ -303,8 +322,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>all standard option keys</p>
+    <p>all standard option keys</p>
 
 
   </div>
@@ -357,8 +375,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>keys that follow simple standard inheritance pattern from parent views</p>
+    <p>keys that follow simple standard inheritance pattern from parent views</p>
 
 
   </div>
@@ -415,14 +432,14 @@
       <pre class="lines">
 
 
-33
-34
-35
-36
-37</pre>
+37
+38
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view/options/key_lists.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view/options/key_lists.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_key_lists'>reset_key_lists</span>
   <span class='ivar'>@all_keys</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -445,8 +462,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>keys whose values can be set by Deckers in card nests</p>
+    <p>keys whose values can be set by Deckers in card nests</p>
 
 
   </div>
@@ -488,14 +504,44 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="slot_keys-instance_method">
+  
+    #<strong>slot_keys</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/view/options/key_lists.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_slot_keys'>slot_keys</span>
+  <span class='ivar'>@slot_keys</span> <span class='op'>||=</span> <span class='id identifier rubyid_all_keys'>all_keys</span> <span class='op'>-</span> <span class='lbracket'>[</span><span class='symbol'>:skip_perms</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:21 2019 by
+  Generated on Thu Sep 10 15:02:26 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Fetch
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Fetch";
   relpath = '../../../';
 </script>
@@ -90,7 +90,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
+    <p>Set: All cards (Fetch)</p>
+
 <p>= Card#fetch</p>
 
 
@@ -111,6 +112,18 @@
 </p>
 
 
+
+  <h2>Constant Summary</h2>
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#SET_PATTERN_TEST_REGEXP-constant" title="Card::Set::Helpers::SET_PATTERN_TEST_REGEXP (constant)">Helpers::SET_PATTERN_TEST_REGEXP</a></span></p>
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Event/Api.html" title="Card::Set::Event::Api (module)">Event::Api</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Event/Api.html#OPTIONS-constant" title="Card::Set::Event::Api::OPTIONS (constant)">Event::Api::OPTIONS</a></span></p>
 
 
 
@@ -141,7 +154,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -158,7 +172,30 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#fetch-instance_method" title="#fetch (instance method)">#<strong>fetch</strong>(opts = {})  &#x21d2; Object </a>
+      <a href="#fetch-instance_method" title="#fetch (instance method)">#<strong>fetch</strong>(traits, opts = {})  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>———————————————————————- INSTANCE METHODS fetching from the context of a card.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#newish-instance_method" title="#newish (instance method)">#<strong>newish</strong>(opts)  &#x21d2; Object </a>
     
 
     
@@ -173,30 +210,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>———————————————————————- INSTANCE METHODS fetching from the context of a card.</p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#handle_default_content-instance_method" title="#handle_default_content (instance method)">#<strong>handle_default_content</strong>(opts)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -218,29 +232,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#renew-instance_method" title="#renew (instance method)">#<strong>renew</strong>(args = {})  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -255,6 +248,11 @@
   
   
   
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+
   
   
   
@@ -286,7 +284,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Helpers.html#abstract_set%3F-instance_method" title="Card::Set::Helpers#abstract_set? (method)">#abstract_set?</a></span>, <span class='object_link'><a href="../Helpers.html#all_set%3F-instance_method" title="Card::Set::Helpers#all_set? (method)">#all_set?</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
 
   
   
@@ -394,7 +392,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="fetch-instance_method">
   
-    #<strong>fetch</strong>(opts = {})  &#x21d2; <tt>Object</tt> 
+    #<strong>fetch</strong>(traits, opts = {})  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -403,7 +401,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     <hr />
-<p>INSTANCE METHODS fetching from the context of a card</p>
+<p>INSTANCE METHODS
+fetching from the context of a card</p>
 
 
   </div>
@@ -417,25 +416,19 @@
       <pre class="lines">
 
 
-124
-125
-126
-127
-128
-129
-130
-131
-132</pre>
+106
+107
+108
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 106</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_traits'>traits</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:trait</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_traits'>traits</span>
-  <span class='comment'># should this fail as an incorrect api call?
-</span>  <span class='id identifier rubyid_traits'>traits</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_wrap'>wrap</span> <span class='id identifier rubyid_traits'>traits</span>
-  <span class='id identifier rubyid_traits'>traits</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_trait'>trait</span><span class='op'>|</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_traits'>traits</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:new</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:supercard</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:new</span><span class='rbracket'>]</span>
+  <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_wrap'>wrap</span><span class='lparen'>(</span><span class='id identifier rubyid_traits'>traits</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_trait'>trait</span><span class='op'>|</span>
     <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_trait'>trait</span><span class='lparen'>(</span><span class='id identifier rubyid_trait'>trait</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -445,9 +438,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="handle_default_content-instance_method">
+  <h3 class="signature " id="newish-instance_method">
   
-    #<strong>handle_default_content</strong>(opts)  &#x21d2; <tt>Object</tt> 
+    #<strong>newish</strong>(opts)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -459,24 +452,26 @@
       <pre class="lines">
 
 
-142
-143
-144
-145
-146
-147
-148
-149</pre>
+113
+114
+115
+116
+117
+118
+119
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 142</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 113</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_handle_default_content'>handle_default_content</span> <span class='id identifier rubyid_opts'>opts</span>
-  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_default_content'>default_content</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:default_content</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_db_content'>db_content</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
-    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:content</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_default_content'>default_content</span>
-  <span class='kw'>elsif</span> <span class='id identifier rubyid_db_content'>db_content</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:content</span><span class='rbracket'>]</span>
-    <span class='comment'># don&#39;t overwrite existing content
-</span>    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:content</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_db_content'>db_content</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_newish'>newish</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_reset_patterns'>reset_patterns</span>
+  <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_with_normalized_new_args'>with_normalized_new_args</span> <span class='id identifier rubyid_opts'>opts</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_norm_opts'>norm_opts</span><span class='op'>|</span>
+    <span class='id identifier rubyid_handle_type'>handle_type</span> <span class='id identifier rubyid_norm_opts'>norm_opts</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_assign_attributes'>assign_attributes</span> <span class='id identifier rubyid_norm_opts'>norm_opts</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span> <span class='comment'># trigger superize_name
+</span>    <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -499,16 +494,16 @@
       <pre class="lines">
 
 
-151
-152
-153
-154
-155
-156
-157</pre>
+123
+124
+125
+126
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_refresh'>refresh</span> <span class='id identifier rubyid_force'>force</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>unless</span> <span class='id identifier rubyid_force'>force</span> <span class='op'>||</span> <span class='id identifier rubyid_frozen?'>frozen?</span> <span class='op'>||</span> <span class='id identifier rubyid_readonly?'>readonly?</span>
@@ -522,52 +517,14 @@
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="renew-instance_method">
-  
-    #<strong>renew</strong>(args = {})  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-134
-135
-136
-137
-138
-139
-140</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 134</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_renew'>renew</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:new</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span>
-  <span class='id identifier rubyid_handle_default_content'>handle_default_content</span> <span class='id identifier rubyid_opts'>opts</span>
-  <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_name'>name</span>
-  <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:skip_modules</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:skip_modules</span><span class='rbracket'>]</span>
-  <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_opts'>opts</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:25 2019 by
+  Generated on Thu Sep 10 15:02:29 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

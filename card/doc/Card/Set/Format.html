@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Format
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Format";
   relpath = '../../';
 </script>
@@ -92,8 +92,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>This document explains how to use format blocks within <span class='object_link'><a href="../Mod.html" title="Card::Mod (module)">mods</a></span>. To make use of it, you will need to understand both <span class='object_link'><a href="../Mod.html" title="Card::Mod (module)">mods</a></span> and <span class='object_link'><a href="../Set.html" title="Card::Set (module)">sets</a></span>.</p>
+    <p>This document explains how to use format blocks within <span class='object_link'><a href="../Mod.html" title="Card::Mod (module)">mods</a></span>. To make
+use of it, you will need to understand both <span class='object_link'><a href="../Mod.html" title="Card::Mod (module)">mods</a></span> and <span class='object_link'><a href="../Set.html" title="Card::Set (module)">sets</a></span>.</p>
 
 <p>Within a card mod, you can define format blocks like the following:</p>
 
@@ -101,50 +101,59 @@
   <span class='kw'>def</span> <span class='id identifier rubyid_beethoven'>beethoven</span>
     <span class='symbol'>:rocks</span>
   <span class='kw'>end</span>
-<span class='kw'>end</span></code></pre>
+<span class='kw'>end</span>
+</code></pre>
 
-<p>The magic that happens here is that the method #beethoven is now applicable (and available) <em>only</em> to the cards in the set specified by the mod, and only when the card is rendering a view in the HTML format.</p>
+<p>The magic that happens here is that the method #beethoven is now applicable (and
+available) <em>only</em> to the cards in the set specified by the mod, and only when
+the card is rendering a view in the HTML format.</p>
 
-<p>If you care, you can certainly learn about how all this works. How the set module creates a module that looks something like <code>Card::Set::Type::MyType::HtmlFormat</code>. How the format object for a given card in the set includes this module dynamically when it’s initialized. And so on…</p>
+<p>If you care, you can certainly learn about how all this works. How the set module
+creates a module that looks something like <code>Card::Set::Type::MyType::HtmlFormat</code>.
+How the format object for a given card in the set includes this module dynamically
+when it’s initialized. And so on…</p>
 
-<p>But as monkeys, we don’t usually think about all that much, because we work in the set module space, which lets us focus on the card patterns.</p>
+<p>But as monkeys, we don’t usually think about all that much, because we work in
+the set module space, which lets us focus on the card patterns.</p>
 
 <p>Speaking of which, there are a few key patterns to be aware of:</p>
 
 <ol>
-<li>
-<p>Just as in <span class='object_link'><a href="../Set.html" title="Card::Set (module)">sets</a></span>, format methods for narrower sets will override format methods for more general sets. So if a #beethoven method is defined for all cards and again for a specific card type, then the type method will override the all method when both apply.</p>
-</li>
+  <li>Just as in <span class='object_link'><a href="../Set.html" title="Card::Set (module)">sets</a></span>, format methods for narrower sets will override
+format methods for more general sets.  So if a #beethoven method is defined
+for all cards and again for a specific card type, then the type method will
+override the all method when both apply.</li>
+  <li>
+    <p>Similarly, specific formats inherit from more general formats, and all formats
+inherit from the base format. If a format is not specified, the format block
+will define methods on the base format class.</p>
 
-<li>
-<p>Similarly, specific formats inherit from more general formats, and all formats inherit from the base format. If a format is not specified, the format block will define methods on the base format class.</p>
+    <pre class="code ruby"><code class="ruby"> <span class='id identifier rubyid_format'>format</span> <span class='kw'>do</span>
+   <span class='kw'>def</span> <span class='id identifier rubyid_haydn'>haydn</span>
+     <span class='symbol'>:sucks</span>
+   <span class='kw'>end</span>
+ <span class='kw'>end</span>
+</code></pre>
+  </li>
+  <li>
+    <p>It is possible to use super to refer to overridden methods.  For example</p>
 
-<pre class="code ruby"><code class="ruby"> <span class='id identifier rubyid_format'>format</span> <span class='kw'>do</span>
-<span class='kw'>def</span> <span class='id identifier rubyid_haydn'>haydn</span>
-<span class='symbol'>:sucks</span>
-<span class='kw'>end</span>
- <span class='kw'>end</span></code></pre>
-</li>
+    <pre class="code ruby"><code class="ruby"> <span class='id identifier rubyid_format'>format</span> <span class='symbol'>:html</span> <span class='kw'>do</span>
+   <span class='kw'>def</span> <span class='id identifier rubyid_haydn'>haydn</span>
+     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;em&gt;</span><span class='embexpr_beg'>#{</span><span class='kw'>super</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/em&gt;</span><span class='tstring_end'>&quot;</span></span>
+   <span class='kw'>end</span>
+ <span class='kw'>end</span>
+</code></pre>
 
-<li>
-<p>It is possible to use super to refer to overridden methods. For example</p>
-
-<pre class="code ruby"><code class="ruby"> <span class='id identifier rubyid_format'>format</span> <span class='symbol'>:html</span> <span class='kw'>do</span>
-<span class='kw'>def</span> <span class='id identifier rubyid_haydn'>haydn</span>
-<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;em&gt;</span><span class='embexpr_beg'>#{</span><span class='kw'>super</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/em&gt;</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span>
- <span class='kw'>end</span></code></pre>
-
-<p>Note: Set precedence has a higher priority than Format precedence.</p>
-</li>
-
-<li id="view">
-<p>and  can both be called outside of a format block. They will be defined on the base format.</p>
-</li>
-
-<li>
-<p>Some very powerful API calls (including <span class='object_link'><a href="Format/AbstractFormat.html#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">view</a></span> and <span class='object_link'><a href="Format/AbstractFormat.html#before-instance_method" title="Card::Set::Format::AbstractFormat#before (method)">before</a></span>) are defined in <span class='object_link'><a href="Format/AbstractFormat.html" title="Card::Set::Format::AbstractFormat (module)">AbstractFormat</a></span>. These methods are always available in format blocks.</p>
-</li>
+    <p>Note: Set precedence has a higher priority than Format precedence.</p>
+  </li>
+  <li>
+    <p><span class='object_link'><a href="#view-instance_method" title="Card::Set::Format#view (method)">#view</a></span> and <span class='object_link'><a href="#before-instance_method" title="Card::Set::Format#before (method)">#before</a></span> can both be called outside of a format block. They will
+  be defined on the base format.</p>
+  </li>
+  <li>Some very powerful API calls (including <span class='object_link'><a href="Format/AbstractFormat.html#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">view</a></span> and
+<span class='object_link'><a href="Format/AbstractFormat.html#before-instance_method" title="Card::Set::Format::AbstractFormat#before (method)">before</a></span>) are defined in <span class='object_link'><a href="Format/AbstractFormat.html" title="Card::Set::Format::AbstractFormat (module)">AbstractFormat</a></span>. These methods are
+always available in format blocks.</li>
 </ol>
 
 
@@ -195,8 +204,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>name of method for layout used by wrapper.</p>
+    <span class="summary_desc"><div class='inline'><p>name of method for layout used by wrapper.</p>
 </div></span>
   
 </li>
@@ -219,8 +227,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>name of method for view used by #render.</p>
+    <span class="summary_desc"><div class='inline'><p>name of method for view used by #render.</p>
 </div></span>
   
 </li>
@@ -243,8 +250,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>name of method for setting for a given view.</p>
+    <span class="summary_desc"><div class='inline'><p>name of method for setting for a given view.</p>
 </div></span>
   
 </li>
@@ -267,8 +273,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>name of method for wrapper used by wrapped views.</p>
+    <span class="summary_desc"><div class='inline'><p>name of method for wrapper used by wrapped views.</p>
 </div></span>
   
 </li>
@@ -300,8 +305,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>shortcut for <span class='object_link'><a href="Format/AbstractFormat.html#before-instance_method" title="Card::Set::Format::AbstractFormat#before (method)">AbstractFormat#before</a></span> for when #before is called outside of a format block.</p>
+    <span class="summary_desc"><div class='inline'><p>shortcut for <span class='object_link'><a href="Format/AbstractFormat.html#before-instance_method" title="Card::Set::Format::AbstractFormat#before (method)">AbstractFormat#before</a></span> for when #before is called outside of a format block.</p>
 </div></span>
   
 </li>
@@ -324,8 +328,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>define format behavior within a set module.</p>
+    <span class="summary_desc"><div class='inline'><p>define format behavior within a set module.</p>
 </div></span>
   
 </li>
@@ -348,8 +351,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>shortcut for <span class='object_link'><a href="Format/AbstractFormat.html#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">AbstractFormat#view</a></span> for when #view is called outside of a format block.</p>
+    <span class="summary_desc"><div class='inline'><p>shortcut for <span class='object_link'><a href="Format/AbstractFormat.html#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">AbstractFormat#view</a></span> for when #view is called outside of a format block.</p>
 </div></span>
   
 </li>
@@ -375,8 +377,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>name of method for layout used by wrapper</p>
+    <p>name of method for layout
+used by wrapper</p>
 
 
   </div>
@@ -416,8 +418,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>name of method for view used by #render</p>
+    <p>name of method for view
+used by #render</p>
 
 
   </div>
@@ -457,8 +459,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>name of method for setting for a given view. used by #view_setting</p>
+    <p>name of method for setting for a given view.
+used by #view_setting</p>
 
 
   </div>
@@ -498,8 +500,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>name of method for wrapper used by wrapped views</p>
+    <p>name of method for wrapper
+used by wrapped views</p>
 
 
   </div>
@@ -545,8 +547,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>shortcut for <span class='object_link'><a href="Format/AbstractFormat.html#before-instance_method" title="Card::Set::Format::AbstractFormat#before (method)">Card::Set::Format::AbstractFormat#before</a></span> for when #before is called outside of a format block</p>
+    <p>shortcut for <span class='object_link'><a href="Format/AbstractFormat.html#before-instance_method" title="Card::Set::Format::AbstractFormat#before (method)">Card::Set::Format::AbstractFormat#before</a></span> for when #before is called outside of a
+format block</p>
 
 
   </div>
@@ -586,8 +588,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>define format behavior within a set module</p>
+    <p>define format behavior within a set module</p>
 
 
   </div>
@@ -645,8 +646,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>shortcut for <span class='object_link'><a href="Format/AbstractFormat.html#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">Card::Set::Format::AbstractFormat#view</a></span> for when #view is called outside of a format block</p>
+    <p>shortcut for <span class='object_link'><a href="Format/AbstractFormat.html#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">Card::Set::Format::AbstractFormat#view</a></span> for when #view is called outside of a format
+block</p>
 
 
   </div>
@@ -680,9 +681,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:18 2019 by
+  Generated on Thu Sep 10 15:02:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -6,15 +6,15 @@
 <title>
   Class: CarrierWave::ImageCardUploader
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "CarrierWave::ImageCardUploader";
   relpath = '../';
 </script>
@@ -110,8 +110,11 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Adds image specific version handling to <span class='object_link'><a href="FileCardUploader.html" title="CarrierWave::FileCardUploader (class)">FileCardUploader</a></span>. The ImageCardUploader creates five versions of different sizes when it uploads an imagae file: icon (16x16), small (75x75), medium (200X200), large (500x500) and the original size.</p>
+    <p>Adds image specific version handling to <span class='object_link'><a href="FileCardUploader.html" title="CarrierWave::FileCardUploader (class)">FileCardUploader</a></span>.
+The ImageCardUploader creates five versions of different sizes when it
+uploads an imagae file:
+icon (16x16), small (75x75), medium (200X200), large (500x500) and
+the original size.</p>
 
 
   </div>
@@ -162,8 +165,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>add ‘original’ if no version is given.</p>
+    <span class="summary_desc"><div class='inline'><p>add ‘original’ if no version is given.</p>
 </div></span>
   
 </li>
@@ -186,8 +188,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>version :small_square, if: :create_versions?, from_version: :medium_square do process resize_to_fill: [75, 75] end version :medium_square, if: :create_versions? do process resize_to_fill: [200, 200] end.</p>
+    <span class="summary_desc"><div class='inline'><p>version :small_square, if: :create_versions?,                        from_version: :medium_square do   process resize_to_fill: [75, 75] end version :medium_square, if: :create_versions? do   process resize_to_fill: [200, 200] end.</p>
 </div></span>
   
 </li>
@@ -210,7 +211,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -229,7 +231,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="FileCardUploader.html" title="CarrierWave::FileCardUploader (class)">FileCardUploader</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="FileCardUploader.html#action_id-instance_method" title="CarrierWave::FileCardUploader#action_id (method)">#action_id</a></span>, <span class='object_link'><a href="FileCardUploader.html#cache_dir-instance_method" title="CarrierWave::FileCardUploader#cache_dir (method)">#cache_dir</a></span>, <span class='object_link'><a href="FileCardUploader.html#create_versions%3F-instance_method" title="CarrierWave::FileCardUploader#create_versions? (method)">#create_versions?</a></span>, <span class='object_link'><a href="FileCardUploader.html#db_content-instance_method" title="CarrierWave::FileCardUploader#db_content (method)">#db_content</a></span>, <span class='object_link'><a href="FileCardUploader.html#extension-instance_method" title="CarrierWave::FileCardUploader#extension (method)">#extension</a></span>, <span class='object_link'><a href="FileCardUploader.html#filename-instance_method" title="CarrierWave::FileCardUploader#filename (method)">#filename</a></span>, <span class='object_link'><a href="FileCardUploader.html#local_url-instance_method" title="CarrierWave::FileCardUploader#local_url (method)">#local_url</a></span>, <span class='object_link'><a href="FileCardUploader.html#local_url_base-instance_method" title="CarrierWave::FileCardUploader#local_url_base (method)">#local_url_base</a></span>, <span class='object_link'><a href="FileCardUploader.html#original_filename-instance_method" title="CarrierWave::FileCardUploader#original_filename (method)">#original_filename</a></span>, <span class='object_link'><a href="FileCardUploader.html#public_path-instance_method" title="CarrierWave::FileCardUploader#public_path (method)">#public_path</a></span>, <span class='object_link'><a href="FileCardUploader.html#retrieve_path-instance_method" title="CarrierWave::FileCardUploader#retrieve_path (method)">#retrieve_path</a></span>, <span class='object_link'><a href="FileCardUploader.html#store_path-instance_method" title="CarrierWave::FileCardUploader#store_path (method)">#store_path</a></span>, <span class='object_link'><a href="FileCardUploader.html#tmp_path-instance_method" title="CarrierWave::FileCardUploader#tmp_path (method)">#tmp_path</a></span>, <span class='object_link'><a href="FileCardUploader.html#url-instance_method" title="CarrierWave::FileCardUploader#url (method)">#url</a></span>, <span class='object_link'><a href="FileCardUploader.html#url_filename-instance_method" title="CarrierWave::FileCardUploader#url_filename (method)">#url_filename</a></span>, <span class='object_link'><a href="FileCardUploader.html#valid%3F-instance_method" title="CarrierWave::FileCardUploader#valid? (method)">#valid?</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="FileCardUploader.html#action_id-instance_method" title="CarrierWave::FileCardUploader#action_id (method)">#action_id</a></span>, <span class='object_link'><a href="FileCardUploader.html#asset_host-instance_method" title="CarrierWave::FileCardUploader#asset_host (method)">#asset_host</a></span>, <span class='object_link'><a href="FileCardUploader.html#bucket_config-instance_method" title="CarrierWave::FileCardUploader#bucket_config (method)">#bucket_config</a></span>, <span class='object_link'><a href="FileCardUploader.html#cache_dir-instance_method" title="CarrierWave::FileCardUploader#cache_dir (method)">#cache_dir</a></span>, <span class='object_link'><a href="FileCardUploader.html#create_versions%3F-instance_method" title="CarrierWave::FileCardUploader#create_versions? (method)">#create_versions?</a></span>, <span class='object_link'><a href="FileCardUploader.html#db_content-instance_method" title="CarrierWave::FileCardUploader#db_content (method)">#db_content</a></span>, <span class='object_link'><a href="FileCardUploader.html#extension-instance_method" title="CarrierWave::FileCardUploader#extension (method)">#extension</a></span>, <span class='object_link'><a href="FileCardUploader.html#filename-instance_method" title="CarrierWave::FileCardUploader#filename (method)">#filename</a></span>, <span class='object_link'><a href="FileCardUploader.html#local_url-instance_method" title="CarrierWave::FileCardUploader#local_url (method)">#local_url</a></span>, <span class='object_link'><a href="FileCardUploader.html#local_url_base-instance_method" title="CarrierWave::FileCardUploader#local_url_base (method)">#local_url_base</a></span>, <span class='object_link'><a href="FileCardUploader.html#original_filename-instance_method" title="CarrierWave::FileCardUploader#original_filename (method)">#original_filename</a></span>, <span class='object_link'><a href="FileCardUploader.html#public_path-instance_method" title="CarrierWave::FileCardUploader#public_path (method)">#public_path</a></span>, <span class='object_link'><a href="FileCardUploader.html#retrieve_path-instance_method" title="CarrierWave::FileCardUploader#retrieve_path (method)">#retrieve_path</a></span>, <span class='object_link'><a href="FileCardUploader.html#store_path-instance_method" title="CarrierWave::FileCardUploader#store_path (method)">#store_path</a></span>, <span class='object_link'><a href="FileCardUploader.html#tmp_path-instance_method" title="CarrierWave::FileCardUploader#tmp_path (method)">#tmp_path</a></span>, <span class='object_link'><a href="FileCardUploader.html#url-instance_method" title="CarrierWave::FileCardUploader#url (method)">#url</a></span>, <span class='object_link'><a href="FileCardUploader.html#url_filename-instance_method" title="CarrierWave::FileCardUploader#url_filename (method)">#url_filename</a></span>, <span class='object_link'><a href="FileCardUploader.html#valid%3F-instance_method" title="CarrierWave::FileCardUploader#valid? (method)">#valid?</a></span></p>
 
   
   
@@ -240,7 +242,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Card/Env/Location.html" title="Card::Env::Location (module)">Card::Env::Location</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Card/Env/Location.html#card_path-instance_method" title="Card::Env::Location#card_path (method)">#card_path</a></span>, <span class='object_link'><a href="../Card/Env/Location.html#card_url-instance_method" title="Card::Env::Location#card_url (method)">#card_url</a></span>, <span class='object_link'><a href="../Card/Env/Location.html#protocol_and_host-instance_method" title="Card::Env::Location#protocol_and_host (method)">#protocol_and_host</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Card/Env/Location.html#card_path-instance_method" title="Card::Env::Location#card_path (method)">#card_path</a></span>, <span class='object_link'><a href="../Card/Env/Location.html#card_url-instance_method" title="Card::Env::Location#card_url (method)">#card_url</a></span>, <span class='object_link'><a href="../Card/Env/Location.html#cardname_from_url-instance_method" title="Card::Env::Location#cardname_from_url (method)">#cardname_from_url</a></span>, <span class='object_link'><a href="../Card/Env/Location.html#protocol_and_host-instance_method" title="Card::Env::Location#protocol_and_host (method)">#protocol_and_host</a></span></p>
 
   
 
@@ -259,8 +261,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>add ‘original’ if no version is given</p>
+    <p>add ‘original’ if no version is given</p>
 
 
   </div>
@@ -312,10 +313,20 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>version :small_square, if: :create_versions?, from_version: :medium_square do process resize_to_fill: [75, 75] end version :medium_square, if: :create_versions? do process resize_to_fill: [200, 200] end</p>
+    <p>version :small_square, if: :create_versions?,
+                       from_version: :medium_square do
+  process resize_to_fill: [75, 75]
+end
+version :medium_square, if: :create_versions? do
+  process resize_to_fill: [200, 200]
+end</p>
 
-<p>In case we decide to support the squared versions we have to update all existing images with the following snippet: Card.search(type_id: Card::ImageID) do |card| card.image.cache_stored_file! card.image.recreate_versions! end</p>
+<p>In case we decide to support the squared versions
+we have to update all existing images with the following snippet:
+Card.search(type_id: Card::ImageID) do |card|
+  card.image.cache_stored_file!
+  card.image.recreate_versions!
+end</p>
 
 
   </div>
@@ -379,9 +390,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:34:04 2019 by
+  Generated on Thu Sep 10 15:02:51 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

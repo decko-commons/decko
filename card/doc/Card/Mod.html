@@ -6,15 +6,15 @@
 <title>
   Module: Card::Mod
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Mod";
   relpath = '../';
 </script>
@@ -87,51 +87,74 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>A Card Mod (short for “module” or “modification”) is a discrete piece of Decko functionality. Mods are how the Decko community develops and shares code. If you want to customize a deck in a way that can’t be done on the site itself, try a mod.</p>
+    <p>A Card Mod (short for “module” or “modification”) is a discrete piece of Decko
+functionality. Mods are how the Decko community develops and shares code.
+If you want to customize a deck in a way that can’t be done on the site itself,
+try a mod.</p>
 
 <p>The simplest way to add a mod is to run this command in your deck:</p>
 
-<pre class="code ruby"><code class="ruby">decko generate card:mod MOD_NAME</code></pre>
+<pre class="code ruby"><code class="ruby">decko generate card:mod MOD_NAME
+</code></pre>
 
 <p>This will create the following directories:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='const'>DECK_NAME</span><span class='op'>/</span><span class='id identifier rubyid_mod'>mod</span><span class='op'>/</span><span class='const'>MOD_NAME</span>
 <span class='const'>DECK_NAME</span><span class='op'>/</span><span class='id identifier rubyid_mod'>mod</span><span class='op'>/</span><span class='const'>MOD_NAME</span><span class='op'>/</span><span class='id identifier rubyid_lib'>lib</span>
 <span class='const'>DECK_NAME</span><span class='op'>/</span><span class='id identifier rubyid_mod'>mod</span><span class='op'>/</span><span class='const'>MOD_NAME</span><span class='op'>/</span><span class='id identifier rubyid_public'>public</span>
-<span class='const'>DECK_NAME</span><span class='op'>/</span><span class='id identifier rubyid_mod'>mod</span><span class='op'>/</span><span class='const'>MOD_NAME</span><span class='op'>/</span><span class='id identifier rubyid_set'>set</span></code></pre>
+<span class='const'>DECK_NAME</span><span class='op'>/</span><span class='id identifier rubyid_mod'>mod</span><span class='op'>/</span><span class='const'>MOD_NAME</span><span class='op'>/</span><span class='id identifier rubyid_set'>set</span>
+</code></pre>
 
-<p>The lib directory contains libraries, of course. And files in the public directory are public and served directly.</p>
+<p>The lib directory contains libraries, of course. And files in the public directory
+are public and served directly.</p>
 
 <p>But in most mods, the focal point is the <em>set</em> directory.</p>
 
-<h2 id="set_modules">Set Modules</h2>
+<h2 id="set-modules">Set Modules</h2>
 
-<p>Set modules define methods for a given set of cards and their format objects. They are defined in a mod’s <em>set</em> directory. For example, suppose you’ve created a mod that called <em>biz</em>, your deck has Company cards, and you want to extend the behavior of those cards.</p>
+<p>Set modules define methods for a given set of cards and their format objects.
+They are defined in a mod’s <em>set</em> directory. For example, suppose you’ve created a
+mod that called <em>biz</em>, your deck has Company cards, and you want to extend the
+behavior of those cards.</p>
 
 <p>You can add a set module like so:</p>
 
-<pre class="code ruby"><code class="ruby">  <span class='id identifier rubyid_decko'>decko</span> <span class='id identifier rubyid_generate'>generate</span> <span class='id identifier rubyid_set'>set</span> <span class='id identifier rubyid_biz'>biz</span> <span class='id identifier rubyid_type'>type</span> <span class='id identifier rubyid_company'>company</span></code></pre>
+<pre class="code ruby"><code class="ruby">  <span class='id identifier rubyid_decko'>decko</span> <span class='id identifier rubyid_generate'>generate</span> <span class='id identifier rubyid_set'>set</span> <span class='id identifier rubyid_biz'>biz</span> <span class='id identifier rubyid_type'>type</span> <span class='id identifier rubyid_company'>company</span>
+</code></pre>
 
 <p>This will create the following two files:</p>
 
 <pre class="code ruby"><code class="ruby">  <span class='id identifier rubyid_mod'>mod</span><span class='op'>/</span><span class='id identifier rubyid_biz'>biz</span><span class='op'>/</span><span class='id identifier rubyid_set'>set</span><span class='op'>/</span><span class='id identifier rubyid_type'>type</span><span class='op'>/</span><span class='id identifier rubyid_company'>company</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
-  <span class='id identifier rubyid_mod'>mod</span><span class='op'>/</span><span class='id identifier rubyid_biz'>biz</span><span class='op'>/</span><span class='id identifier rubyid_spec'>spec</span><span class='op'>/</span><span class='id identifier rubyid_set'>set</span><span class='op'>/</span><span class='id identifier rubyid_type'>type</span><span class='op'>/</span><span class='id identifier rubyid_company'>company</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span></code></pre>
+  <span class='id identifier rubyid_mod'>mod</span><span class='op'>/</span><span class='id identifier rubyid_biz'>biz</span><span class='op'>/</span><span class='id identifier rubyid_spec'>spec</span><span class='op'>/</span><span class='id identifier rubyid_set'>set</span><span class='op'>/</span><span class='id identifier rubyid_type'>type</span><span class='op'>/</span><span class='id identifier rubyid_company'>company</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
+</code></pre>
 
-<p>If you would like to break this code into smaller files, you can extend this pattern into another directory, eg:</p>
+<p>If you would like to break this code into smaller files, you can extend this
+pattern into another directory, eg:</p>
 
 <pre class="code ruby"><code class="ruby">  <span class='id identifier rubyid_mod'>mod</span><span class='op'>/</span><span class='id identifier rubyid_biz'>biz</span><span class='op'>/</span><span class='id identifier rubyid_set'>set</span><span class='op'>/</span><span class='id identifier rubyid_type'>type</span><span class='op'>/</span><span class='id identifier rubyid_company'>company</span><span class='op'>/</span><span class='id identifier rubyid_foo'>foo</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
-  <span class='id identifier rubyid_mod'>mod</span><span class='op'>/</span><span class='id identifier rubyid_biz'>biz</span><span class='op'>/</span><span class='id identifier rubyid_set'>set</span><span class='op'>/</span><span class='id identifier rubyid_type'>type</span><span class='op'>/</span><span class='id identifier rubyid_company'>company</span><span class='op'>/</span><span class='id identifier rubyid_bar'>bar</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span></code></pre>
+  <span class='id identifier rubyid_mod'>mod</span><span class='op'>/</span><span class='id identifier rubyid_biz'>biz</span><span class='op'>/</span><span class='id identifier rubyid_set'>set</span><span class='op'>/</span><span class='id identifier rubyid_type'>type</span><span class='op'>/</span><span class='id identifier rubyid_company'>company</span><span class='op'>/</span><span class='id identifier rubyid_bar'>bar</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
+</code></pre>
 
 <p>The general pattern can be expressed as follows:</p>
 
-<pre class="code ruby"><code class="ruby">  DECKNAME/mod/MODNAME/set/SET_PATTERN/ANCHOR[/FREENAME].rb</code></pre>
+<pre class="code ruby"><code class="ruby">  DECKNAME/mod/MODNAME/set/SET_PATTERN/ANCHOR[/FREENAME].rb
+</code></pre>
 
-<p>Learn more: - <span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span> introduces card objects - <span class='object_link'><a href="Set.html" title="Card::Set (module)">Set</a></span> provides an overview of how set modules work - <span class='object_link'><a href="Set/Format.html" title="Card::Set::Format (module)">Set::Format</a></span> explains the basics of the format API - <span class='object_link'><a href="Set/Format/AbstractFormat.html" title="Card::Set::Format::AbstractFormat (module)">Set::Format::AbstractFormat</a></span> explains the basics of the view definition API - <span class='object_link'><a href="Set/Event.html" title="Card::Set::Event (class)">Set::Event</a></span> explains the basics of the event API</p>
+<p>Learn more:
+  - <span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span> introduces card objects
+  - <span class='object_link'><a href="Set.html" title="Card::Set (module)">Set</a></span> provides an overview of how set modules work
+  - <span class='object_link'><a href="Set/Format.html" title="Card::Set::Format (module)">Set::Format</a></span> explains the basics of the format API
+  - <span class='object_link'><a href="Set/Format/AbstractFormat.html" title="Card::Set::Format::AbstractFormat (module)">Set::Format::AbstractFormat</a></span> explains the basics of the view definition API
+  - Set::Event:Api explains the basics of the event API</p>
 
-<h2 id="other_directories">Other Directories</h2>
+<h2 id="other-directories">Other Directories</h2>
 
-<p>Other ways your mod can extend Decko functionality include: - <strong>format</strong> for creating new formats (think file extensions) - <strong>set_pattern</strong> for additional <span class='object_link'><a href="Set/Pattern.html" title="Card::Set::Pattern (class)">set patterns</a></span>, or types of sets. - <strong>chunk</strong> provides tools for finding new patterns in card content - <strong>file</strong> for fixed initial card content</p>
+<p>Other ways your mod can extend Decko functionality include:
+  - <strong>format</strong> for creating new formats (think file extensions)
+  - <strong>set_pattern</strong> for additional <span class='object_link'><a href="Set/Pattern.html" title="Card::Set::Pattern (class)">set patterns</a></span>,
+    or types of sets.
+  - <strong>chunk</strong> provides tools for finding new patterns in card content
+  - <strong>file</strong> for fixed initial card content</p>
 
 
   </div>
@@ -181,8 +204,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>An array of Rails::Path objects.</p>
+    <span class="summary_desc"><div class='inline'><p>An array of Rails::Path objects.</p>
 </div></span>
   
 </li>
@@ -205,7 +227,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -230,8 +253,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns an array of Rails::Path objects</p>
+    <p>Returns an array of Rails::Path objects.</p>
 
 
   </div>
@@ -249,8 +271,7 @@
       
       
         
-        <div class='inline'>
-<p>an array of Rails::Path objects</p>
+        <div class='inline'><p>an array of Rails::Path objects</p>
 </div>
       
     </li>
@@ -263,15 +284,15 @@
       <pre class="lines">
 
 
-80
-81
-82</pre>
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dirs'>dirs</span>
-  <span class='ivar'>@dirs</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="Mod/Dirs.html" title="Card::Mod::Dirs (class)">Dirs</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Mod/Dirs.html#initialize-instance_method" title="Card::Mod::Dirs#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_paths'><span class='object_link'><a href="../Card.html#paths-class_method" title="Card.paths (method)">paths</a></span></span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_existent'>existent</span><span class='rparen'>)</span>
+  <span class='ivar'>@dirs</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="" title="Card::Mod (module)">Mod</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Mod/Dirs.html" title="Card::Mod::Dirs (class)">Dirs</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Mod/Dirs.html#initialize-instance_method" title="Card::Mod::Dirs#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_paths'><span class='object_link'><a href="../Card.html#paths-class_method" title="Card.paths (method)">paths</a></span></span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_existent'>existent</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -293,24 +314,24 @@
       <pre class="lines">
 
 
+66
+67
+68
 69
 70
 71
 72
 73
-74
-75
-76
-77</pre>
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load'>load</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>CARD_MODS</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>none</span><span class='tstring_end'>&quot;</span></span>
 
   <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_take'>take</span>
-    <span class='const'><span class='object_link'><a href="Mod/Loader.html" title="Card::Mod::Loader (class)">Loader</a></span></span><span class='period'>.</span><span class='id identifier rubyid_load_mods'><span class='object_link'><a href="Mod/Loader.html#load_mods-class_method" title="Card::Mod::Loader.load_mods (method)">load_mods</a></span></span>
+    <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Mod (module)">Mod</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Mod/Loader.html" title="Card::Mod::Loader (class)">Loader</a></span></span><span class='period'>.</span><span class='id identifier rubyid_load_mods'><span class='object_link'><a href="Mod/Loader.html#load_mods-class_method" title="Card::Mod::Loader.load_mods (method)">load_mods</a></span></span>
   <span class='kw'>else</span>
     <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>empty database</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
@@ -325,9 +346,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:17 2019 by
+  Generated on Thu Sep 10 15:02:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

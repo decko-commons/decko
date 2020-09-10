@@ -82,7 +82,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 # {Card::Set::Format::AbstractFormat More on views}
 #
-# {Card::Set::Event More on events}
+# {Card::Set::Event::Api More on events}
 #
 # ## Accounts and Permissions
 #

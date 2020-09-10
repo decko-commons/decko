@@ -3,13 +3,22 @@ class Card
   module Dirty
     extend ::Card::Dirty::MethodFactory
 
-    %i[name db_content trash type_id left_id right_id codename].each do |field|
-      define_dirty_methods field
+    class << self
+      def dirty_fields
+        %i[name db_content trash type_id left_id right_id codename]
+      end
+
+      def dirty_aliases
+        { type: :type_id, content: :db_content }
+      end
+
+      def dirty_options
+        dirty_fields + dirty_aliases.keys
+      end
     end
 
-    { type: :type_id, content: :db_content }.each do |k, v|
-      alias_method "#{k}_is_changing?", "#{v}_is_changing?"
-    end
+    dirty_fields.each { |field| define_dirty_methods field }
+    dirty_aliases.each { |k, v| alias_method "#{k}_is_changing?", "#{v}_is_changing?" }
 
     def attribute_before_act attr
       if saved_change_to_attribute? attr

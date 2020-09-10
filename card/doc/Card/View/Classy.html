@@ -6,15 +6,15 @@
 <title>
   Module: Card::View::Classy
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::View::Classy";
   relpath = '../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>API to change css classes in other places</p>
+    <p>API to change css classes in other places</p>
 
 
   </div>
@@ -131,7 +130,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -153,7 +153,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -175,8 +176,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Add additional css classes to a css class.</p>
+    <span class="summary_desc"><div class='inline'><p>Add additional css classes to a css class.</p>
 </div></span>
   
 </li>
@@ -199,7 +199,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -221,8 +222,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>recurse through voos and formats to find all extra classes.</p>
+    <span class="summary_desc"><div class='inline'><p>recurse through voos and formats to find all extra classes.</p>
 </div></span>
   
 </li>
@@ -245,7 +245,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -267,8 +268,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>remove classes everywhere where they are visible for the given scope.</p>
+    <span class="summary_desc"><div class='inline'><p>remove classes everywhere where they are visible for the given scope.</p>
 </div></span>
   
 </li>
@@ -291,7 +291,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -313,8 +314,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>don’t use in the given block the additional class that was added to <code>klass</code>.</p>
+    <span class="summary_desc"><div class='inline'><p>don’t use in the given block the additional class that was added to <code>klass</code>.</p>
 </div></span>
   
 </li>
@@ -406,14 +406,15 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Add additional css classes to a css class</p>
+    <p>Add additional css classes to a css class</p>
 
-<p>Example class_up “card-slot”, “card-dark text-muted”</p>
+<p>Example
+  class_up “card-slot”, “card-dark text-muted”</p>
 
 <p>If a view later adds the css “card-slot” to a html tag with</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-slot</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-slot</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</code></pre>
 
 <p>then all additional css classes will be added.</p>
 
@@ -436,8 +437,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>the css class to be enriched with additional classes</p>
+        <div class='inline'><p>the css class to be enriched with additional classes</p>
 </div>
       
     </li>
@@ -452,8 +452,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>additional css classes</p>
+        <div class='inline'><p>additional css classes</p>
 </div>
       
     </li>
@@ -470,8 +469,12 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>:view only in the same view :subviews the same and all subviews; not in nests or where its nested :format all views, sub and parent views; not in nests or where its nested :nests the same as :format but also in nests :single_use the same as :nests but is removed after the first use :global always everywhere</p>
+        <div class='inline'><p>:view        only in the same view
+:subviews    the same and all subviews; not in nests or where its nested
+:format      all views, sub and parent views; not in nests or where its nested
+:nests       the same as :format but also in nests
+:single_use  the same as :nests but is removed after the first use
+:global      always everywhere</p>
 </div>
       
     </li>
@@ -547,8 +550,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>recurse through voos and formats to find all extra classes</p>
+    <p>recurse through voos and formats to find all extra classes</p>
 
 
   </div>
@@ -641,8 +643,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>remove classes everywhere where they are visible for the given scope</p>
+    <p>remove classes everywhere where they are visible for the given scope</p>
 
 
   </div>
@@ -748,8 +749,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>don’t use in the given block the additional class that was added to <code>klass</code></p>
+    <p>don’t use in the given block the additional class that
+was added to <code>klass</code></p>
 
 
   </div>
@@ -789,9 +790,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:18 2019 by
+  Generated on Thu Sep 10 15:02:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

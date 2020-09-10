@@ -6,15 +6,15 @@
 <title>
   Module: Card::Content::Chunk
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Content::Chunk";
   relpath = '../../';
 </script>
@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/card/content/chunk.rb<span class="defines">,<br />
-  mod/core/chunk/uri.rb,<br /> mod/core/chunk/link.rb,<br /> mod/core/chunk/nest.rb,<br /> mod/core/chunk/literal.rb,<br /> mod/core/chunk/reference.rb,<br /> mod/core/chunk/view_stub.rb,<br /> mod/core/chunk/query_reference.rb</span>
+  lib/card/content/chunk/abstract.rb,<br /> mod/core/chunk/uri.rb,<br /> mod/core/chunk/link.rb,<br /> mod/core/chunk/nest.rb,<br /> mod/core/chunk/reference.rb,<br /> mod/core/chunk/view_stub.rb,<br /> mod/core/chunk/escaped_literal.rb,<br /> mod/core/chunk/query_reference.rb,<br /> mod/core/chunk/keep_escaped_literal.rb</span>
 </dd>
   </dl>
   
@@ -87,12 +87,23 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>This wiki chunk matches arbitrary URIs, using patterns from the Ruby URI modules. It parses out a variety of fields that could be used by formats to format the links in various ways (shortening domain names, hiding email addresses) It matches email addresses and host.com.au domains without schemes (http://) but adds these on as required.</p>
+    <p>This wiki chunk matches arbitrary URIs, using patterns from the Ruby URI
+modules.
+It parses out a variety of fields that could be used by formats to format
+the links in various ways (shortening domain names, hiding email addresses)
+It matches email addresses and host.com.au domains without schemes (http://)
+but adds these on as required.</p>
 
-<p>The heuristic used to match a URI is designed to err on the side of caution. That is, it is more likely to not autolink a URI than it is to accidently autolink something that is not a URI. The reason behind this is it is easier to force a URI link by prefixing ‘http://’ to it than it is to escape and incorrectly marked up non-URI.</p>
+<p>The heuristic used to match a URI is designed to err on the side of caution.
+That is, it is more likely to not autolink a URI than it is to accidently
+autolink something that is not a URI. The reason behind this is it is easier
+to force a URI link by prefixing ‘http://’ to it than it is to escape and
+incorrectly marked up non-URI.</p>
 
-<p>I’m using a part of the <a href="http://geotags.com/iso3166/">ISO 3166-1 Standard</a> for country name suffixes. The generic names are from www.bnoack.com/data/countrycode2.html)</p>
+<p>I’m using a part of the [ISO 3166-1 Standard][iso3166] for country name
+suffixes.
+The generic names are from www.bnoack.com/data/countrycode2.html)
+  [iso3166]: http://geotags.com/iso3166/</p>
 
 
   </div>
@@ -106,35 +117,41 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Chunk/Abstract.html" title="Card::Content::Chunk::Abstract (class)">Abstract</a></span>, <span class='object_link'><a href="Chunk/EmailURI.html" title="Card::Content::Chunk::EmailURI (class)">EmailURI</a></span>, <span class='object_link'><a href="Chunk/EscapedLiteral.html" title="Card::Content::Chunk::EscapedLiteral (class)">EscapedLiteral</a></span>, <span class='object_link'><a href="Chunk/HostURI.html" title="Card::Content::Chunk::HostURI (class)">HostURI</a></span>, <span class='object_link'><a href="Chunk/Link.html" title="Card::Content::Chunk::Link (class)">Link</a></span>, <span class='object_link'><a href="Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span>, <span class='object_link'><a href="Chunk/QueryReference.html" title="Card::Content::Chunk::QueryReference (class)">QueryReference</a></span>, <span class='object_link'><a href="Chunk/Reference.html" title="Card::Content::Chunk::Reference (class)">Reference</a></span>, <span class='object_link'><a href="Chunk/URI.html" title="Card::Content::Chunk::URI (class)">URI</a></span>, <span class='object_link'><a href="Chunk/ViewStub.html" title="Card::Content::Chunk::ViewStub (class)">ViewStub</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Chunk/Abstract.html" title="Card::Content::Chunk::Abstract (class)">Abstract</a></span>, <span class='object_link'><a href="Chunk/EmailURI.html" title="Card::Content::Chunk::EmailURI (class)">EmailURI</a></span>, <span class='object_link'><a href="Chunk/EscapedLiteral.html" title="Card::Content::Chunk::EscapedLiteral (class)">EscapedLiteral</a></span>, <span class='object_link'><a href="Chunk/HostURI.html" title="Card::Content::Chunk::HostURI (class)">HostURI</a></span>, <span class='object_link'><a href="Chunk/KeepEscapedLiteral.html" title="Card::Content::Chunk::KeepEscapedLiteral (class)">KeepEscapedLiteral</a></span>, <span class='object_link'><a href="Chunk/Link.html" title="Card::Content::Chunk::Link (class)">Link</a></span>, <span class='object_link'><a href="Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span>, <span class='object_link'><a href="Chunk/QueryReference.html" title="Card::Content::Chunk::QueryReference (class)">QueryReference</a></span>, <span class='object_link'><a href="Chunk/Reference.html" title="Card::Content::Chunk::Reference (class)">Reference</a></span>, <span class='object_link'><a href="Chunk/URI.html" title="Card::Content::Chunk::URI (class)">URI</a></span>, <span class='object_link'><a href="Chunk/ViewStub.html" title="Card::Content::Chunk::ViewStub (class)">ViewStub</a></span>
     
   
 </p>
 
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="raw_list-classvariable" class="">@@raw_list =
-        
-      </dt>
-      <dd><pre class="code"><span class='lbrace'>{</span><span class='rbrace'>}</span></pre></dd>
-    
-      <dt id="prefix_regexp_by_list-classvariable" class="">@@prefix_regexp_by_list =
-        
-      </dt>
-      <dd><pre class="code"><span class='lbrace'>{</span><span class='rbrace'>}</span></pre></dd>
-    
-      <dt id="prefix_map_by_chunkname-classvariable" class="">@@prefix_map_by_chunkname =
-        
-      </dt>
-      <dd><pre class="code"><span class='lbrace'>{</span><span class='rbrace'>}</span></pre></dd>
-    
-      <dt id="prefix_map_by_list-classvariable" class="">@@prefix_map_by_list =
-        
-      </dt>
-      <dd><pre class="code"><span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='id identifier rubyid_k'>k</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='rbrace'>}</span></pre></dd>
-    
-  </dl>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="raw_list-classvariable" class="">@@raw_list =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span><span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="prefix_regexp_by_list-classvariable" class="">@@prefix_regexp_by_list =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span><span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="prefix_map_by_chunkname-classvariable" class="">@@prefix_map_by_chunkname =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span><span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="prefix_map_by_list-classvariable" class="">@@prefix_map_by_list =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='id identifier rubyid_k'>k</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='rbrace'>}</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -167,7 +184,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -189,7 +207,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -211,7 +230,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -233,7 +253,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -255,7 +276,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -277,7 +299,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -546,9 +569,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:19 2019 by
+  Generated on Thu Sep 10 15:02:25 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Fetch::ClassMethods
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Fetch::ClassMethods";
   relpath = '../../../../';
 </script>
@@ -85,8 +85,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>A multipurpose retrieval operator that integrates caching, database lookups, and “virtual” card construction</p>
+    <p>A multipurpose retrieval operator that integrates caching, database lookups,
+and “virtual” card construction</p>
 
 
   </div>
@@ -126,8 +126,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>fetch only real (no virtual) cards.</p>
+    <span class="summary_desc"><div class='inline'><p>fetch only real (no virtual) cards.</p>
 </div></span>
   
 </li>
@@ -150,8 +149,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Look for cards in * cache * database * virtual cards.</p>
+    <span class="summary_desc"><div class='inline'><p>Look for cards in * cache * database * virtual cards.</p>
 </div></span>
   
 </li>
@@ -174,7 +172,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -182,7 +181,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#fetch_id-instance_method" title="#fetch_id (instance method)">#<strong>fetch_id</strong>(*mark)  &#x21d2; Integer </a>
+      <a href="#fetch_id-instance_method" title="#fetch_id (instance method)">#<strong>fetch_id</strong>(*mark_parts)  &#x21d2; Integer </a>
     
 
     
@@ -196,7 +195,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -218,7 +218,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -226,7 +227,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#fetch_soft-instance_method" title="#fetch_soft (instance method)">#<strong>fetch_soft</strong>(*args)  &#x21d2; Card </a>
+      <a href="#fetch_type_id-instance_method" title="#fetch_type_id (instance method)">#<strong>fetch_type_id</strong>(mark)  &#x21d2; Integer </a>
     
 
     
@@ -241,30 +242,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>fetch only from the soft cache.</p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#fetch_type_id-instance_method" title="#fetch_type_id (instance method)">#<strong>fetch_type_id</strong>(*mark)  &#x21d2; Integer </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -286,8 +264,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>———————————————————————- ATTRIBUTE FETCHING The following methods optimize fetching of specific attributes.</p>
+    <span class="summary_desc"><div class='inline'><p>———————————————————————- ATTRIBUTE FETCHING The following methods optimize fetching of specific attributes.</p>
 </div></span>
   
 </li>
@@ -310,8 +287,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>fetch real cards without set modules loaded.</p>
+    <span class="summary_desc"><div class='inline'><p>fetch real cards without set modules loaded.</p>
 </div></span>
   
 </li>
@@ -337,8 +313,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>fetch only real (no virtual) cards</p>
+    <p>fetch only real (no virtual) cards</p>
 
 
   </div>
@@ -357,9 +332,8 @@
       
       
         &mdash;
-        <div class='inline'>
-<ul>
-<li>see #fetch</li>
+        <div class='inline'><ul>
+  <li>see #fetch</li>
 </ul>
 </div>
       
@@ -387,12 +361,12 @@
       <pre class="lines">
 
 
-48
-49
-50</pre>
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
   <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_virtual:</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -413,8 +387,10 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Look for cards in * cache * database * virtual cards</p>
+    <p>Look for cards in
+* cache
+* database
+* virtual cards</p>
 
 
   </div>
@@ -433,8 +409,17 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>one or more of the three unique identifiers 1. a numeric id (Integer) 2. a name/key (String or Card::Name) 3. a codename (Symbol) If you pass more then one mark or an array of marks they get joined with a ‘+’. The final argument can be a hash to set the following options :skip_virtual Real cards only :skip_modules Don’t load Set modules :look_in_trash Return trashed card objects :local_only Use only local cache for lookup and storing new: { opts for Card#new } Return a new card when not found</p>
+        <div class='inline'><p>one or more of the three unique identifiers
+  1. a numeric id (Integer)
+  2. a name/key (String or Card::Name)
+  3. a codename (Symbol)
+If you pass more then one mark or an array of marks they get joined with a ‘+’.
+The final argument can be a hash to set the following options
+  :skip_virtual               Real cards only
+  :skip_modules               Don’t load Set modules
+  :look_in_trash              Return trashed card objects
+  :local_only                 Use only local cache for lookup and storing
+  new: { opts for Card#new }  Return a new card when not found</p>
 </div>
       
     </li>
@@ -465,29 +450,15 @@
 32
 33
 34
-35
-36
-37
-38
-39
-40
-41
-42</pre>
+35</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
-  <span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_fetch_args'>normalize_fetch_args</span> <span class='id identifier rubyid_args'>args</span>
-  <span class='id identifier rubyid_validate_fetch_opts!'>validate_fetch_opts!</span> <span class='id identifier rubyid_opts'>opts</span>
-
-  <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_needs_caching'>needs_caching</span> <span class='op'>=</span> <span class='id identifier rubyid_retrieve_or_new'>retrieve_or_new</span> <span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
-
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-  <span class='id identifier rubyid_write_to_cache'>write_to_cache</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:local_only</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_needs_caching'>needs_caching</span>
-  <span class='id identifier rubyid_standard_fetch_results'>standard_fetch_results</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Fetch.html" title="Card::Fetch (class)">Fetch</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../../../Fetch.html#initialize-instance_method" title="Card::Fetch#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_retrieve_or_new'><span class='object_link'><a href="../../../Fetch.html#retrieve_or_new-instance_method" title="Card::Fetch#retrieve_or_new (method)">retrieve_or_new</a></span></span>
 <span class='kw'>rescue</span> <span class='const'>ActiveModel</span><span class='op'>::</span><span class='const'>RangeError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid__e'>_e</span>
-  <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card id out of range: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mark'>mark</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card id out of range: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_mark'>mark</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -506,6 +477,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -531,13 +503,13 @@
       <pre class="lines">
 
 
-72
-73
-74
-75</pre>
+56
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_from_cast'>fetch_from_cast</span> <span class='id identifier rubyid_cast'>cast</span>
   <span class='id identifier rubyid_fetch_args'>fetch_args</span> <span class='op'>=</span> <span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>new:</span> <span class='id identifier rubyid_cast'>cast</span> <span class='rbrace'>}</span><span class='rbracket'>]</span>
@@ -551,7 +523,7 @@
       <div class="method_details ">
   <h3 class="signature " id="fetch_id-instance_method">
   
-    #<strong>fetch_id</strong>(*mark)  &#x21d2; <tt>Integer</tt> 
+    #<strong>fetch_id</strong>(*mark_parts)  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -561,6 +533,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -569,7 +542,7 @@
   
     <li>
       
-        <span class='name'>mark</span>
+        <span class='name'>args</span>
       
       
         <span class='type'></span>
@@ -577,9 +550,8 @@
       
       
         &mdash;
-        <div class='inline'>
-<ul>
-<li>see #fetch</li>
+        <div class='inline'><ul>
+  <li>see #fetch</li>
 </ul>
 </div>
       
@@ -607,21 +579,17 @@
       <pre class="lines">
 
 
-92
-93
-94
-95
-96
-97</pre>
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 76</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_fetch_id'>fetch_id</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
-  <span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='id identifier rubyid__opts'>_opts</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_fetch_args'>normalize_fetch_args</span> <span class='id identifier rubyid_mark'>mark</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_mark'>mark</span> <span class='kw'>if</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Integer</span>
-  <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='id identifier rubyid_card'>card</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch_id'>fetch_id</span> <span class='op'>*</span><span class='id identifier rubyid_mark_parts'>mark_parts</span>
+  <span class='id identifier rubyid_mark'>mark</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Fetch.html" title="Card::Fetch (class)">Fetch</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../../../Fetch.html#initialize-instance_method" title="Card::Fetch#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark_parts'>mark_parts</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_mark'><span class='object_link'><a href="../../../Fetch.html#mark-instance_method" title="Card::Fetch#mark (method)">mark</a></span></span>
+  <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_mark'>mark</span> <span class='op'>:</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_id'>id</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -641,6 +609,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -657,9 +626,8 @@
       
       
         &mdash;
-        <div class='inline'>
-<ul>
-<li>see #fetch</li>
+        <div class='inline'><ul>
+  <li>see #fetch</li>
 </ul>
 </div>
       
@@ -687,23 +655,23 @@
       <pre class="lines">
 
 
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111</pre>
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_name'>fetch_name</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
-  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
   <span class='kw'>elsif</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
     <span class='kw'>yield</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span>
@@ -719,87 +687,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="fetch_soft-instance_method">
-  
-    #<strong>fetch_soft</strong>(*args)  &#x21d2; <tt><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>fetch only from the soft cache</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>args</span>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<ul>
-<li>see #fetch</li>
-</ul>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-66
-67
-68
-69</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 66</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_fetch_soft'>fetch_soft</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
-  <span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_fetch_args'>normalize_fetch_args</span> <span class='id identifier rubyid_args'>args</span>
-  <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>local_only:</span> <span class='kw'>true</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="fetch_type_id-instance_method">
   
-    #<strong>fetch_type_id</strong>(*mark)  &#x21d2; <tt>Integer</tt> 
+    #<strong>fetch_type_id</strong>(mark)  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -808,6 +698,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -825,9 +716,8 @@
       
       
         &mdash;
-        <div class='inline'>
-<ul>
-<li>see #fetch</li>
+        <div class='inline'><ul>
+  <li>see #fetch</li>
 </ul>
 </div>
       
@@ -855,15 +745,15 @@
       <pre class="lines">
 
 
-115
-116
-117</pre>
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 97</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_fetch_type_id'>fetch_type_id</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
-  <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch_type_id'>fetch_type_id</span> <span class='id identifier rubyid_mark'>mark</span>
+  <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_type_id'>type_id</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -882,7 +772,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     <hr />
-<p>ATTRIBUTE FETCHING The following methods optimize fetching of specific attributes</p>
+<p>ATTRIBUTE FETCHING
+The following methods optimize fetching of specific attributes</p>
 
 
   </div>
@@ -896,17 +787,17 @@
       <pre class="lines">
 
 
-81
-82
-83
-84
-85
-86
-87
-88</pre>
+65
+66
+67
+68
+69
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span> <span class='id identifier rubyid_cardish'>cardish</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_cardish'>cardish</span>
@@ -932,8 +823,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>fetch real cards without set modules loaded. Should only be used for simple attributes</p>
+    <p>fetch real cards without set modules loaded. Should only be used for simple attributes</p>
 
 
   </div>
@@ -960,9 +850,8 @@
       
       
         &mdash;
-        <div class='inline'>
-<ul>
-<li>see #fetch</li>
+        <div class='inline'><ul>
+  <li>see #fetch</li>
 </ul>
 </div>
       
@@ -990,15 +879,15 @@
       <pre class="lines">
 
 
-58
-59
-60</pre>
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/fetch.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
-  <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_virtual:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_virtual:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1010,9 +899,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:25 2019 by
+  Generated on Thu Sep 10 15:02:29 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>
