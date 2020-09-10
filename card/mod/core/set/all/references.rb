@@ -166,7 +166,7 @@ end
 
 # when name changes, update references to card
 event :refresh_references_in, :finalize, on: :save do
-  Card::Reference.unmap_referees id if @action == :update && !update_referers
+  Card::Reference.unmap_referees id if action == :update && !update_referers
   Card::Reference.map_referees key, id
 end
 

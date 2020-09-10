@@ -14,10 +14,6 @@ event :storage_type_change, :store, on: :update, when: :storage_type_changed? do
 end
 
 event :validate_storage_type, :validate, on: :save do
-  if will_become_coded?
-    errors.add :storage_type, tr(:mod_argument_needed_to_save) unless mod || @new_mod
-    errors.add :storage_type, tr(:codename_needed_for_storage) if codename.blank?
-  end
   unless known_storage_type? will_be_stored_as
     errors.add :storage_type, tr(
       :unknown_storage_type,
@@ -26,72 +22,8 @@ event :validate_storage_type, :validate, on: :save do
   end
 end
 
-event :validate_storage_type_update, :validate, on: :update do
-  # FIXME: make it possible to retrieve the file from cloud storage
-  #   to store it somewhere else. Currently, it only works to change the
-  #   storage type if a new file is provided
-  #   i.e. `update storage_type: :local` fails but
-  #        `update storage_type: :local, file: [file handle]` is ok
-  if cloud? && storage_type_changed? && !attachment_is_changing?
-    errors.add :storage_type, tr(:moving_files_is_not_supported)
-  end
-end
-
-event :lose_coded_status_on_update, :initialize, on: :update, when: :coded? do
-  # unless explicit
-  return if @new_mod
-  @new_storage_type ||= storage_type_from_config
-end
-
-event :change_bucket_if_read_only, :initialize,
-      on: :update, when: :change_bucket_if_read_only? do
-  @new_storage_type = storage_type_from_config
-end
-
-event :update_public_link_on_create, :integrate, on: :create, when: :local? do
-  update_public_link
-end
-
-event :remove_public_link_on_delete, :integrate, on: :delete, when: :local? do
-  remove_public_links
-end
-
-event :update_public_link, after: :update_read_rule, when: :local? do
-  return if content.blank?
-  if who_can(:read).include? Card::AnyoneID
-    create_public_links
-  else
-    remove_public_links
-  end
-end
-
-def create_public_links
-  path = attachment.public_path
-  return if File.exist? path
-  FileUtils.mkdir_p File.dirname(path)
-  File.symlink attachment.path, path unless File.symlink? path
-  create_versions_public_links
-end
-
-def create_versions_public_links
-  attachment.versions.each do |_name, version|
-    next if File.symlink? version.public_path
-    File.symlink version.path, version.public_path
-  end
-end
-
-def remove_public_links
-  symlink_dir = File.dirname attachment.public_path
-  return unless Dir.exist? symlink_dir
-  FileUtils.rm_rf symlink_dir
-end
-
 def will_be_stored_as
   @new_storage_type || storage_type
-end
-
-def change_bucket_if_read_only?
-  cloud? && bucket_config[:read_only] && attachment_is_changing?
 end
 
 def read_only?
@@ -114,8 +46,13 @@ def coded?
   storage_type == :coded
 end
 
-def will_become_coded?
-  will_be_stored_as == :coded
+def remote_storage?
+  cloud? || web?
+end
+
+def storage_type
+  @storage_type ||=
+    new_card? ? storage_type_from_config : storage_type_from_content
 end
 
 def deprecated_mod_file?
@@ -141,113 +78,24 @@ def mod_from_deprecated_content
   lines.last
 end
 
-def remote_storage?
-  cloud? || web?
-end
-
-def no_upload?
-  storage_type_from_config == :web
-end
-
-def bucket
-  @bucket ||= cloud? &&
-              (new_card_bucket || bucket_from_content || bucket_from_config)
-end
-
-def new_card_bucket
-  return unless new_card?
-  # If the file is assigned before the bucket option we have to
-  # check if there is a bucket options in set_specific.
-  # That happens for exmaple when the file appears before the bucket in the
-  # options hash:
-  #   Card.create file: file_handle, bucket: "my_bucket"
-  set_specific[:bucket] || set_specific["bucket"] || bucket_from_config
-end
-
-def bucket_config
-  @bucket_config ||= load_bucket_config
-end
-
-def load_bucket_config
-  return {} unless bucket
-  bucket_config = Cardio.config.file_buckets &&
-                  Cardio.config.file_buckets[bucket.to_sym]
-  bucket_config &&= bucket_config.symbolize_keys
-  bucket_config ||= {}
-  # we don't want :attributes hash symbolized, so we can't use
-  # deep_symbolize_keys
-  bucket_config[:credentials] &&= bucket_config[:credentials].symbolize_keys
-  ensure_bucket_config do
-    load_bucket_config_from_env bucket_config
-  end
-end
-
-def ensure_bucket_config
-  config = yield
-  unless config.present?
-    raise Card::Error, "couldn't find configuration for bucket #{bucket}"
-  end
-  unless config[:credentials]
-    raise Card::Error, "couldn't find credentials for bucket #{bucket}"
-  end
-  config
-end
-
-def load_bucket_config_from_env config
-  config ||= {}
-  CarrierWave::FileCardUploader::CONFIG_OPTIONS.each do |key|
-    next if key.in? %i[attributes credentials]
-    replace_with_env_variable config, key
-  end
-  config[:credentials] ||= {}
-  load_bucket_credentials_from_env config[:credentials]
-  config.delete :credentials unless config[:credentials].present?
-  config
-end
-
-def load_bucket_credentials_from_env cred_config
-  cred_opt_pattern =
-    Regexp.new(/^(?:#{bucket.to_s.upcase}_)?CREDENTIALS_(?<option>.+)$/)
-  ENV.keys.each do |env_key|
-    next unless (m = cred_opt_pattern.match(env_key))
-    replace_with_env_variable cred_config, m[:option].downcase.to_sym,
-                              "credentials"
-  end
-end
-
-def replace_with_env_variable config, option, prefix=nil
-  env_key = [prefix, option].compact.join("_").upcase
-  new_value = ENV["#{bucket.to_s.upcase}_#{env_key}"] ||
-              ENV[env_key]
-  config[option] = new_value if new_value
-end
-
-def bucket_from_content
-  return unless content
-  content.match(/^\((?<bucket>[^)]+)\)/) { |m| m[:bucket] }
-end
-
-def bucket_from_config
-  Cardio.config.file_default_bucket ||
-    (Cardio.config.file_buckets&.keys&.first)
-end
-
-def storage_type
-  @storage_type ||=
-    new_card? ? storage_type_from_config : storage_type_from_content
-end
-
 def storage_type_from_config
-  type = ENV["FILE_STORAGE"] || Cardio.config.file_storage
-  return unless type
-  type = type.to_sym
-  unless type.in? CarrierWave::FileCardUploader::STORAGE_TYPES
-    raise Card::Error,
-          I18n.t(:error_invalid_storage_type,
-                 scope: "mod.carrierwave.set.abstract.attachment",
-                 type: type)
+  valid_storage_type ENV["FILE_STORAGE"] || Cardio.config.file_storage
+end
+
+def valid_storage_type storage_type
+  storage_type.to_sym.tap do |type|
+    invalid_storage_type! type unless type.in? valid_storage_type_list
   end
-  type
+end
+
+def valid_storage_type_list
+  CarrierWave::FileCardUploader::STORAGE_TYPES
+end
+
+def invalid_storage_type! type
+  raise Card::Error, I18n.t(:error_invalid_storage_type,
+                            scope: "mod.carrierwave.set.abstract.attachment",
+                            type: type)
 end
 
 def storage_type_from_content
@@ -275,14 +123,6 @@ def storage_type_changed?
   @new_bucket || (@new_storage_type && @new_storage_type != storage_type) || @new_mod
 end
 
-def bucket= value
-  if @action == :update
-    @new_bucket = value
-  else
-    @bucket = value
-  end
-end
-
 def storage_type= value
   known_storage_type? value
   if @action == :update #&& storage_type != value
@@ -291,14 +131,6 @@ def storage_type= value
     @new_storage_type = value
   else
     @storage_type = value
-  end
-end
-
-def mod= value
-  if @action == :update && mod != value
-    @new_mod = value.to_s
-  else
-    @mod = value.to_s
   end
 end
 

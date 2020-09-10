@@ -64,9 +64,7 @@ format do
     voo.size = :original if voo.size == :full
     voo.size
   end
-end
 
-format do
   view :inline do
     _render_core
   end

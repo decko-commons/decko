@@ -92,10 +92,11 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 # {Card::Auth More on accounts}
 class Card < ApplicationRecord
-  extend ::Card::Mark
-  extend ::Card::Dirty::MethodFactory
-  include ::Card::Dirty
-  include ::Card::DirtyNames
+  extend Mark
+  extend Dirty::MethodFactory
+  include Dirty
+  include DirtyNames
+  include Director::CardMethods
 
   Card::Cache # trigger autoload
 
@@ -109,12 +110,11 @@ class Card < ApplicationRecord
 
   self.set_patterns = []
   self.action_specific_attributes = [
-    :action, :supercard, :superleft,
+    :supercard,
+    :superleft,
+    :action,
     :current_action,
-
     :last_action_id_before_edit,
-    :only_storage_phase,          # used to save subcards
-    :changed_attributes,
 
     :skip,                        # skip event(s) for all cards in act
     :skip_in_action,              # skip event for just this card
@@ -151,11 +151,10 @@ class Card < ApplicationRecord
 
   # Validation and integration phase are only called for the act card
   # The act card starts those phases for all its subcards
-  before_validation :validation_phase, unless: -> { only_storage_phase? }
+  before_validation :validation_phase, if: -> { validation_phase_callback? }
   around_save :storage_phase
-  after_commit :integration_phase, unless: -> { only_storage_phase? }
-  #  after_rollback :clean_up, unless: -> { only_storage_phase? }
+  after_commit :integration_phase, if: -> { integration_phase_callback? }
 
-  ActiveSupport.run_load_hooks(:card, self)
+  ActiveSupport.run_load_hooks :card, self
 end
 ActiveSupport.run_load_hooks :after_card, self

@@ -51,7 +51,7 @@ class Card
           def perform act_id, card, card_attribs, env, auth, method_name
             handle_perform do
               load_card card, card_attribs
-              ActManager.contextualize_delayed_event act_id, card, env, auth do
+              Director.contextualize_delayed_event act_id, card, env, auth do
                 card.send method_name
               end
             end
@@ -63,7 +63,7 @@ class Card
             Card::Error.report error, @card
             raise error
           ensure
-            ActManager.expire
+            Director.expire
           end
 
           def load_card card, card_attribs
@@ -90,7 +90,7 @@ class Card
   end
 
   def perform_delayed_job_args event
-    [Card::ActManager.act&.id,
+    [Card::Director.act&.id,
      self,
      serialize_for_active_job,
      Card::Env.serialize,
