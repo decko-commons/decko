@@ -1,5 +1,5 @@
 def commenting?
-  comment && @action != :delete
+  comment && action != :delete
 end
 
 event :add_comment, :prepare_to_store, on: :save, when: :comment do

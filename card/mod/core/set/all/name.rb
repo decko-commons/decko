@@ -113,7 +113,7 @@ def name_to_replace_for_subcard subcard, new_name
 end
 
 def autoname name
-  if Card.exists?(name) || ActManager.include?(name)
+  if Card.exists?(name) || Director.include?(name)
     autoname name.next
   else
     name

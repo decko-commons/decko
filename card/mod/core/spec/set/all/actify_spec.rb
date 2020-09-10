@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe "act API" do
+RSpec.describe Card::Set::All::Actify do
   describe "#act" do
     let(:card) { Card["A"] }
 
@@ -41,6 +41,18 @@ RSpec.describe "act API" do
     it "is called by #update_attributes!" do
       card.update_attributes! content: "A"
       expect(card).to have_received :act
+    end
+  end
+
+  describe "Card.create!" do
+    it "does not prevent validations when run as subcard" do
+      with_test_events do
+        test_event :finalize do
+          expect { Card.create! name: "A" }.to raise_error(/unique/)
+          raise Card::Error, "woot"
+        end
+        expect { Card["B"].update! content: "what" }.to raise_error(/woot/)
+      end
     end
   end
 end

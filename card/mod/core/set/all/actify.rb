@@ -1,5 +1,4 @@
 def act &block
-  @action ||= identify_action
   if act_card
     add_to_act &block
   else
@@ -7,24 +6,8 @@ def act &block
   end
 end
 
-def start_new_act
-  self.director = nil
-  ActManager.run_act(self) do
-    run_callbacks(:act) { yield }
-  end
-end
-
-def add_to_act
-  # if only_storage_phase is true then the card is already part of the act
-  return yield if act_card? || only_storage_phase
-  director.reset_stage
-  director.update_card self
-  self.only_storage_phase = true
-  yield
-end
-
 def act_card
-  Card::ActManager.act_card
+  Card::Director.act_card
 end
 
 def act_card?
@@ -40,17 +23,13 @@ end
 module ClassMethods
   def create! opts
     card = Card.new opts
-    card.act do
-      card.save!
-    end
+    card.save!
     card
   end
 
   def create opts
     card = Card.new opts
-    card.act do
-      card.save
-    end
+    card.save
     card
   end
 end
@@ -77,3 +56,17 @@ end
 
 alias_method :update_attributes, :update
 alias_method :update_attributes!, :update!
+
+private
+
+def start_new_act
+  self.director = nil
+  Director.run_act(self) do
+    run_callbacks(:act) { yield }
+  end
+end
+
+def add_to_act
+  director.appoint self unless @director
+  yield
+end

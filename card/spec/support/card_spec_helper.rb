@@ -11,6 +11,7 @@ class Card
     include EventHelper
     include SaveHelper
     include JsonHelper
+    include FileHelper
 
     # ~~~~~~~~~  HELPER METHODS ~~~~~~~~~~~~~~~#
     include Rails::Dom::Testing::Assertions::SelectorAssertions
@@ -84,17 +85,6 @@ class Card
 
     def users
       SharedData::USERS.sort
-    end
-
-    def bucket_credentials key
-      @buckets ||= bucket_credentials_from_yml_file || {}
-      @buckets[key]
-    end
-
-    def bucket_credentials_from_yml_file
-      yml_file = ENV["BUCKET_CREDENTIALS_PATH"] ||
-                 File.expand_path("../bucket_credentials.yml", __FILE__)
-      File.exist?(yml_file) && YAML.load_file(yml_file).deep_symbolize_keys
     end
 
     def with_rss_enabled

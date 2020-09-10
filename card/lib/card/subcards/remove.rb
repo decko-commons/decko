@@ -23,7 +23,7 @@ class Card
 
       def clear_key key
         if (subcard = fetch_subcard key)
-          ActManager.deep_delete subcard.director
+          Director.deep_delete subcard.director
           subcard.current_action&.delete
         end
         Card.cache.soft.delete key
