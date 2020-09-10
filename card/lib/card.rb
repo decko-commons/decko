@@ -130,30 +130,8 @@ class Card < ApplicationRecord
   ]
 
   attr_accessor(*action_specific_attributes)
-  attr_accessor :follower_stash
 
-  STAGE_CALLBACKS = [
-    :select_action, :show_page, :act,
-    # VALIDATION PHASE
-    :initialize_stage, :prepare_to_validate_stage, :validate_stage,
-    :initialize_final_stage, :prepare_to_validate_final_stage,
-    :validate_final_stage,
-    # STORAGE PHASE
-    :prepare_to_store_stage, :store_stage, :finalize_stage,
-    :prepare_to_store_final_stage, :store_final_stage, :finalize_final_stage,
-    # INTEGRATION PHASE
-    :integrate_stage, :integrate_with_delay_stage,
-    :integrate_final_stage,
-    :after_integrate_stage,
-    :after_integrate_final_stage, :integrate_with_delay_final_stage
-  ].freeze
-  define_callbacks(*STAGE_CALLBACKS)
-
-  # Validation and integration phase are only called for the act card
-  # The act card starts those phases for all its subcards
-  before_validation :validation_phase, if: -> { validation_phase_callback? }
-  around_save :storage_phase
-  after_commit :integration_phase, if: -> { integration_phase_callback? }
+  define_callbacks :select_action, :show_page, :act
 
   ActiveSupport.run_load_hooks :card, self
 end

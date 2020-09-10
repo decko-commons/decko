@@ -1,5 +1,11 @@
 class Card
+  # ActiveRecord callbacks
+  before_validation :validation_phase, if: -> { validation_phase_callback? }
+  around_save :storage_phase
+  after_commit :integration_phase, if: -> { integration_phase_callback? }
+
   class Director
+    # Validation, Storage, and Integration phase handling
     module Phases
       def validation_phase_callback?
         !@only_storage_phase && head?

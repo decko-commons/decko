@@ -1,3 +1,4 @@
+attr_accessor :follower_stash
 mattr_accessor :force_notifications
 
 event :silence_notifications, :initialize, when: :silence_notifications? do
