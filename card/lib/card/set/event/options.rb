@@ -40,10 +40,6 @@ class Card
                 "must be a symbol or a proc"
         end
 
-        def valid_values condition
-
-        end
-
         def event_opts stage_or_opts, opts
           opts = normalize_opts stage_or_opts, opts
           process_stage_opts opts

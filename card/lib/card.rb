@@ -4,7 +4,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 
 # Cards are wiki-inspired building blocks.
 #
-# This documentation is intended for developers who want to understand:
+# This documentation is for developers who want to understand:
 #
 #   1. how ruby Card objects work, and
 #   2. how to extend them.

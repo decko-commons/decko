@@ -1,5 +1,4 @@
 class Card
-  # ActiveRecord callbacks
   before_validation :validation_phase, if: -> { validation_phase_callback? }
   around_save :storage_phase
   after_commit :integration_phase, if: -> { integration_phase_callback? }
