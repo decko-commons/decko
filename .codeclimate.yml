@@ -34,5 +34,6 @@ exclude_paths:
 - card/db/**/*
 - card/doc/**
 - decko/doc/**
+- decko/spec/**/*.js
 - card/mod/**/file/**/*
 - card/mod/**/public/**/*
