@@ -31,8 +31,7 @@ class Card
       # Any card within the {Card::Set set} on which this event is defined will
       # run this event during the `prepare_to_validate` stage when it is created.
       #
-      # Events are not format-specific and should not be defined within
-      # format blocks.
+      # Events should not be defined within format blocks.
       module Api
         OPTIONS = {
           on: %i[create update delete save read],
