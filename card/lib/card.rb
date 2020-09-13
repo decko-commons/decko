@@ -76,7 +76,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 # ## Views and Events
 #
-# Views and events are a _Decker's_ primary tools for manipulating cards. Views customize card presentation, while events customize card transactions. Or, if you like, views and events respectively alter cards in _space_ and _time_.
+# Views and events are a _Shark's_ primary tools for manipulating cards. Views customize card presentation, while events customize card transactions. Or, if you like, views and events respectively alter cards in _space_ and _time_.
 #
 # Both views and events are defined in {Card::Mod mods}, short for modules or modifications.
 #

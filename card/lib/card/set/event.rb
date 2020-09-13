@@ -68,7 +68,8 @@ class Card
         # @option opts [Symbol] :around fire this event before the event specified. This
         #   event will receive a block and will need to call it for the specified
         #   event to fire.
-        # @option opts [Symbol] :in alternate representation for specifying stage
+        # @option opts [Symbol] :stage alternate representation for specifying stage
+        # @option opts [True/False] :after_subcards
         def event event, stage_or_opts={}, opts={}, &final
           Event.new(event, stage_or_opts, opts, self, &final).register
         end

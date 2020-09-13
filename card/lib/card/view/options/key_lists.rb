@@ -8,7 +8,7 @@ class Card
           @all_keys ||= keymap.each_with_object([]) { |(_k, v), a| a.push(*v) }
         end
 
-        # keys whose values can be set by Deckers in card nests
+        # keys whose values can be set by Sharks in card nests
         # @return [Array]
         def shark_keys
           @shark_keys ||= ::Set.new(keymap[:both]) + keymap[:shark]
