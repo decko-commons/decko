@@ -68,7 +68,7 @@ class Card
         #   event will receive a block and will need to call it for the specified
         #   event to fire.
         # @option opts [Symbol] :stage alternate representation for specifying stage
-        # @option opts [True/False] :after_subcards
+        # @option opts [True/False] :after_subcards run event after running subcard events
         def event event, stage_or_opts={}, opts={}, &final
           Event.new(event, stage_or_opts, opts, self, &final).register
         end

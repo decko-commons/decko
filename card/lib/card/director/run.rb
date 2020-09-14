@@ -38,7 +38,7 @@ class Card
 
       def valid_next_stage? next_stage
         @stage ||= -1
-        return false if in_or_after? next_stage
+        return false if in_or_after?(next_stage) || ahead_of_parent?(next_stage)
 
         skipped_stage! next_stage if before?(previous_stage_index(next_stage))
         @card.errors.empty? || after?(:validate, next_stage)
@@ -49,10 +49,16 @@ class Card
                            "skipped for card #{@card}"
       end
 
+      def ahead_of_parent? next_stage
+        return false if head?
+
+        after? parent.stage, next_stage
+      end
+
       def run_stage stage, &block
         return true unless valid_next_stage? stage
 
-        # puts "#{@card.name}: #{stage} stage".red
+        # puts "#{@card.name}: #{stage} stage".yellow
         prepare_stage_run stage
         execute_stage_run stage, &block
       end
