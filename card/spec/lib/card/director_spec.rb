@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-#
+
 RSpec.describe Card::Director do
   describe "abortion" do
     let(:create_card) { Card.create name: "a card" }
