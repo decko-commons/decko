@@ -29,7 +29,7 @@ module ClassMethods
 end
 
 def save!(*args)
-  as_subcard = args.delete :as_subcard
+  as_subcard = args.first&.delete :as_subcard
   act(as_subcard: as_subcard) { super }
 end
 
