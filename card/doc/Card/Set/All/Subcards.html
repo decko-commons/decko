@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Subcards
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Subcards";
   relpath = '../../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Set: All cards (Subcards)</p>
+    <p>Set: All cards (Subcards)</p>
 
 
   </div>
@@ -101,6 +100,18 @@
 
 </div>
 
+
+  <h2>Constant Summary</h2>
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#SET_PATTERN_TEST_REGEXP-constant" title="Card::Set::Helpers::SET_PATTERN_TEST_REGEXP (constant)">Helpers::SET_PATTERN_TEST_REGEXP</a></span></p>
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Event/Api.html" title="Card::Set::Event::Api (module)">Event::Api</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Event/Api.html#OPTIONS-constant" title="Card::Set::Event::Api::OPTIONS (constant)">Event::Api::OPTIONS</a></span></p>
 
 
 
@@ -131,7 +142,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -148,11 +160,44 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#attach_subcard-instance_method" title="#attach_subcard (instance method)">#<strong>attach_subcard</strong>(name_or_card, args = {})  &#x21d2; Object </a>
+      <a href="#add_subcard-instance_method" title="#add_subcard (instance method)">#<strong>add_subcard</strong>(name_or_card, args = {})  &#x21d2; Object </a>
     
 
     
-      (also: #add_subcard)
+      (also: #attach_subcard)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><table>
+  <tbody>
+    <tr>
+      <td>phase_method :attach_subcard, before: :store do</td>
+      <td>name_or_card, args=nil</td>
+      <td>TODO: handle differently in different stages.</td>
+    </tr>
+  </tbody>
+</table>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_subcard!-instance_method" title="#add_subcard! (instance method)">#<strong>add_subcard!</strong>(name_or_card, args = {})  &#x21d2; Object </a>
+    
+
+    
+      (also: #attach_subcard!)
     
   </span>
   
@@ -165,30 +210,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>phase_method :attach_subcard, before: :store do |name_or_card, args=nil| TODO: handle differently in different stages.</p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#attach_subcard!-instance_method" title="#attach_subcard! (instance method)">#<strong>attach_subcard!</strong>(name_or_card, args = {})  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -212,8 +234,15 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>phase_method :attach_subfield, before: :approve do |name_or_card, args=nil|.</p>
+    <span class="summary_desc"><div class='inline'><table>
+  <tbody>
+    <tr>
+      <td>phase_method :attach_subfield, before: :approve do</td>
+      <td>name_or_card, args=nil</td>
+      <td>.</td>
+    </tr>
+  </tbody>
+</table>
 </div></span>
   
 </li>
@@ -236,7 +265,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -258,7 +288,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -280,7 +311,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -304,7 +336,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -328,7 +361,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ensure_subfield-instance_method" title="#ensure_subfield (instance method)">#<strong>ensure_subfield</strong>(field_name, args = {})  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>ensures subfield is present does NOT override subfield content if already present.</p>
+</div></span>
   
 </li>
 
@@ -350,7 +407,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -372,7 +430,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -394,7 +453,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -416,7 +476,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -438,7 +499,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#same_field%3F-instance_method" title="#same_field? (instance method)">#<strong>same_field?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>check when renaming field that it is not actually the same field (eg on a renamed trunk).</p>
+</div></span>
   
 </li>
 
@@ -460,7 +545,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -482,7 +568,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -504,7 +591,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -526,7 +614,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -548,7 +637,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -570,7 +660,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -592,7 +683,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trashed_left%3F-instance_method" title="#trashed_left? (instance method)">#<strong>trashed_left?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>check when deleting field that left has not also been deleted.</p>
+</div></span>
   
 </li>
 
@@ -607,6 +722,11 @@
   
   
   
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+
   
   
   
@@ -638,7 +758,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Helpers.html#abstract_set%3F-instance_method" title="Card::Set::Helpers#abstract_set? (method)">#abstract_set?</a></span>, <span class='object_link'><a href="../Helpers.html#all_set%3F-instance_method" title="Card::Set::Helpers#all_set? (method)">#all_set?</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
 
   
   
@@ -744,22 +864,22 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="attach_subcard-instance_method">
+  <h3 class="signature first" id="add_subcard-instance_method">
   
-    #<strong>attach_subcard</strong>(name_or_card, args = {})  &#x21d2; <tt>Object</tt> 
+    #<strong>add_subcard</strong>(name_or_card, args = {})  &#x21d2; <tt>Object</tt> 
   
 
   
     <span class="aliases">Also known as:
-    <span class="names"><span id='add_subcard-instance_method'>add_subcard</span></span>
+    <span class="names"><span id='attach_subcard-instance_method'>attach_subcard</span></span>
     </span>
   
 
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>phase_method :attach_subcard, before: :store do |name_or_card, args=nil| TODO: handle differently in different stages</p>
+    <p>phase_method :attach_subcard, before: :store do |name_or_card, args=nil|
+TODO: handle differently in different stages</p>
 
 
   </div>
@@ -780,7 +900,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 43</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_attach_subcard'>attach_subcard</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_add_subcard'>add_subcard</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_subcards'>subcards</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -789,11 +909,15 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="attach_subcard!-instance_method">
+  <h3 class="signature " id="add_subcard!-instance_method">
   
-    #<strong>attach_subcard!</strong>(name_or_card, args = {})  &#x21d2; <tt>Object</tt> 
+    #<strong>add_subcard!</strong>(name_or_card, args = {})  &#x21d2; <tt>Object</tt> 
   
 
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='attach_subcard!-instance_method'>attach_subcard!</span></span>
+    </span>
   
 
   
@@ -812,7 +936,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 48</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_attach_subcard!'>attach_subcard!</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_add_subcard!'>add_subcard!</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_subcard'>subcard</span> <span class='op'>=</span> <span class='id identifier rubyid_subcards'>subcards</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_subcard'>subcard</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span><span class='period'>.</span><span class='id identifier rubyid_reset_stage'>reset_stage</span>
   <span class='id identifier rubyid_subcard'>subcard</span>
@@ -837,8 +961,14 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>phase_method :attach_subfield, before: :approve do |name_or_card, args=nil|</p>
+    <table>
+  <tbody>
+    <tr>
+      <td>phase_method :attach_subfield, before: :approve do</td>
+      <td>name_or_card, args=nil</td>
+    </tr>
+  </tbody>
+</table>
 
 
   </div>
@@ -852,12 +982,12 @@
       <pre class="lines">
 
 
-55
 56
-57</pre>
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attach_subfield'>attach_subfield</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_subcards'>subcards</span><span class='period'>.</span><span class='id identifier rubyid_add_field'>add_field</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
@@ -882,14 +1012,14 @@
       <pre class="lines">
 
 
-60
 61
 62
 63
-64</pre>
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attach_subfield!'>attach_subfield!</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_subcard'>subcard</span> <span class='op'>=</span> <span class='id identifier rubyid_subcards'>subcards</span><span class='period'>.</span><span class='id identifier rubyid_add_field'>add_field</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
@@ -916,12 +1046,12 @@
       <pre class="lines">
 
 
-76
 77
-78</pre>
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear_subcards'>clear_subcards</span>
   <span class='id identifier rubyid_subcards'>subcards</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
@@ -946,12 +1076,12 @@
       <pre class="lines">
 
 
-84
-85
-86</pre>
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deep_clear_subcards'>deep_clear_subcards</span>
   <span class='id identifier rubyid_subcards'>subcards</span><span class='period'>.</span><span class='id identifier rubyid_deep_clear'>deep_clear</span>
@@ -980,12 +1110,12 @@
       <pre class="lines">
 
 
-66
 67
-68</pre>
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_detach_subcard'>detach_subcard</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span>
   <span class='id identifier rubyid_subcards'>subcards</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span>
@@ -1014,15 +1144,64 @@
       <pre class="lines">
 
 
-71
 72
-73</pre>
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_detach_subfield'>detach_subfield</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span>
   <span class='id identifier rubyid_subcards'>subcards</span><span class='period'>.</span><span class='id identifier rubyid_remove_field'>remove_field</span> <span class='id identifier rubyid_name_or_card'>name_or_card</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ensure_subfield-instance_method">
+  
+    #<strong>ensure_subfield</strong>(field_name, args = {})  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>ensures subfield is present
+does NOT override subfield content if already present</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+83
+84
+85
+86
+87
+88
+89</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 83</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ensure_subfield'>ensure_subfield</span> <span class='id identifier rubyid_field_name'>field_name</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_subfield_present?'>subfield_present?</span> <span class='id identifier rubyid_field_name'>field_name</span>
+    <span class='id identifier rubyid_subfield'>subfield</span> <span class='id identifier rubyid_field_name'>field_name</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_add_subfield'>add_subfield</span> <span class='id identifier rubyid_field_name'>field_name</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1044,17 +1223,17 @@
       <pre class="lines">
 
 
-88
-89
-90
-91
-92
-93
-94
-95</pre>
+99
+100
+101
+102
+103
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 99</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:handle_subcard_errors</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_subcards'>subcards</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_subcard'>subcard</span><span class='op'>|</span>
@@ -1084,16 +1263,16 @@
       <pre class="lines">
 
 
-102
-103
-104
-105
-106
-107
-108</pre>
+113
+114
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 113</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:reject_empty_subcards</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_validate</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_subcards'>subcards</span><span class='period'>.</span><span class='id identifier rubyid_each_with_key'>each_with_key</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_subcard'>subcard</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
@@ -1180,6 +1359,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -1213,6 +1393,60 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_field?'>field?</span> <span class='id identifier rubyid_tag'>tag</span>
   <span class='id identifier rubyid_field'>field</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_subfield'>subfield</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="same_field?-instance_method">
+  
+    #<strong>same_field?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>check when renaming field that it is not actually the same field
+(eg on a renamed trunk)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+129
+130
+131</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 129</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_same_field?'>same_field?</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_left_id'>left_id</span> <span class='op'>==</span> <span class='id identifier rubyid_left_id_before_act'>left_id_before_act</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_right_id'>right_id</span> <span class='op'>==</span> <span class='id identifier rubyid_right_id_before_act'>right_id_before_act</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1296,16 +1530,16 @@
       <pre class="lines">
 
 
-97
-98
-99
-100</pre>
+108
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subcard_error'>subcard_error</span> <span class='id identifier rubyid_subcard'>subcard</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_err'>err</span>
-  <span class='id identifier rubyid_err'>err</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_err'>err</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>content</span><span class='words_sep'> </span><span class='tstring_content'>abort</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_member?'>member?</span> <span class='id identifier rubyid_field'>field</span>
+  <span class='id identifier rubyid_err'>err</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_err'>err</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>content</span><span class='words_sep'> </span><span class='tstring_content'>abort</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_member?'>member?</span> <span class='id identifier rubyid_field'>field</span>
   <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='id identifier rubyid_subcard'>subcard</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_err'>err</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1355,6 +1589,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -1438,6 +1673,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -1462,15 +1698,70 @@
       <pre class="lines">
 
 
-80
-81
-82</pre>
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subfield_present?'>subfield_present?</span> <span class='id identifier rubyid_field_name'>field_name</span>
-  <span class='lparen'>(</span><span class='id identifier rubyid_field_card'>field_card</span> <span class='op'>=</span> <span class='id identifier rubyid_subfield'>subfield</span><span class='lparen'>(</span><span class='id identifier rubyid_field_name'>field_name</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_field_card'>field_card</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+  <span class='id identifier rubyid_subfield'>subfield</span><span class='lparen'>(</span><span class='id identifier rubyid_field_name'>field_name</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_content'>content</span><span class='op'>&amp;.</span><span class='id identifier rubyid_present?'>present?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="trashed_left?-instance_method">
+  
+    #<strong>trashed_left?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>check when deleting field that left has not also been deleted</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+122
+123
+124
+125</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/subcards.rb', line 122</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_trashed_left?'>trashed_left?</span>
+  <span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='id identifier rubyid_left'>left</span>
+  <span class='op'>!</span><span class='id identifier rubyid_l'>l</span> <span class='op'>||</span> <span class='id identifier rubyid_l'>l</span><span class='period'>.</span><span class='id identifier rubyid_trash'>trash</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1482,9 +1773,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:28 2019 by
+  Generated on Thu Sep 10 15:02:30 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

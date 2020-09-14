@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Links::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Links::HtmlFormat";
   relpath = '../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod021-standard/all/links.rb</dd>
+    <dd>tmpsets/set/mod022-standard/all/links.rb</dd>
   </dl>
   
 </div>
@@ -120,9 +120,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>in HTML, #link_to renders an anchor tag <pre style="border: solid 3px red; background-color: pink" class="markdown-html-error">Maruku could not parse this XML/HTML: 
-&lt;a&gt; it treats opts other than &quot;path&quot; as html opts for that tag, and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts (changes them into data attributes).</pre></p>
+    <span class="summary_desc"><div class='inline'><p>in HTML, #link_to renders an anchor tag <a> it treats opts other than “path” as html opts for that tag, and it adds special handling of “remote” and “method” opts (changes them into data attributes).</a></p>
 </div></span>
   
 </li>
@@ -145,8 +143,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>in HTML, #link_to_card adds special css classes indicated whether a card is “known” (real or virtual) or “wanted” (unknown) TODO: upgrade from (known/wanted)-card to (real/virtual/unknown)-card.</p>
+    <span class="summary_desc"><div class='inline'><p>in HTML, #link_to_card adds special css classes indicated whether a card is “known” (real or virtual) or “wanted” (unknown) TODO: upgrade from (known/wanted)-card to (real/virtual/unknown)-card.</p>
 </div></span>
   
 </li>
@@ -169,8 +166,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>in HTML, #link_to_resource automatically adds a target to external resources so they will open in another tab.</p>
+    <span class="summary_desc"><div class='inline'><p>in HTML, #link_to_resource automatically adds a target to external resources so they will open in another tab.</p>
 </div></span>
   
 </li>
@@ -193,8 +189,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>in HTML, #link_to_view defaults to a remote link with rel=“nofollow”.</p>
+    <span class="summary_desc"><div class='inline'><p>in HTML, #link_to_view defaults to a remote link with rel=”nofollow”.</p>
 </div></span>
   
 </li>
@@ -221,12 +216,10 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>in HTML, #link_to renders an anchor tag <pre style="border: solid 3px red; background-color: pink" class="markdown-html-error">Maruku could not parse this XML/HTML: 
-&lt;a&gt;
-it treats opts other than &quot;path&quot; as html opts for that tag,
-and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
-(changes them into data attributes)</pre></p>
+    <p>in HTML, #link_to renders an anchor tag <a>
+it treats opts other than “path” as html opts for that tag,
+and it adds special handling of “remote” and “method” opts
+(changes them into data attributes)</a></p>
 
 
   </div>
@@ -248,7 +241,7 @@ and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
 105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/links.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to'>link_to</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:href</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:path</span><span class='rparen'>)</span>
@@ -272,8 +265,9 @@ and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>in HTML, #link_to_card adds special css classes indicated whether a card is “known” (real or virtual) or “wanted” (unknown) TODO: upgrade from (known/wanted)-card to (real/virtual/unknown)-card</p>
+    <p>in HTML, #link_to_card adds special css classes indicated whether a
+card is “known” (real or virtual) or “wanted” (unknown)
+TODO: upgrade from (known/wanted)-card to (real/virtual/unknown)-card</p>
 
 
   </div>
@@ -295,7 +289,7 @@ and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
 115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/links.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_cardish'>cardish</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_cardish'>cardish</span><span class='rbracket'>]</span>
@@ -319,8 +313,9 @@ and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>in HTML, #link_to_resource automatically adds a target to external resources so they will open in another tab. It also adds css classes indicating whether the resource is internal or external</p>
+    <p>in HTML, #link_to_resource automatically adds a target to external resources
+so they will open in another tab. It also adds css classes indicating whether
+the resource is internal or external</p>
 
 
   </div>
@@ -340,7 +335,7 @@ and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
 129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/links.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_resource'>link_to_resource</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_resource_opts'>add_resource_opts</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_resource_type'>resource_type</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='rparen'>)</span>
@@ -362,8 +357,7 @@ and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>in HTML, #link_to_view defaults to a remote link with rel=“nofollow”.</p>
+    <p>in HTML, #link_to_view defaults to a remote link with rel=”nofollow”.</p>
 
 
   </div>
@@ -383,7 +377,7 @@ and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
 121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/links.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_view'>link_to_view</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_slotterify'>slotterify</span> <span class='id identifier rubyid_opts'>opts</span>
@@ -399,9 +393,9 @@ and it adds special handling of &quot;remote&quot; and &quot;method&quot; opts
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:30 2019 by
+  Generated on Thu Sep 10 15:02:31 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

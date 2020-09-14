@@ -29,7 +29,7 @@ def ensure_machine_output
 end
 
 def update_input_card
-  if Card::ActManager.running_act?
+  if Card::Director.running_act?
     input_card = attach_subcard! machine_input_card
     input_card.content = ""
     engine_input.each { |input| input_card << input }

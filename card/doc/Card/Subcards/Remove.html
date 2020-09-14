@@ -6,15 +6,15 @@
 <title>
   Module: Card::Subcards::Remove
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Subcards::Remove";
   relpath = '../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Methods for removing/clearing subcards</p>
+    <p>Methods for removing/clearing subcards</p>
 
 
   </div>
@@ -131,7 +130,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -153,7 +153,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -175,7 +176,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -197,7 +199,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -221,7 +224,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -296,7 +300,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear_key'>clear_key</span> <span class='id identifier rubyid_key'>key</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_subcard'>subcard</span> <span class='op'>=</span> <span class='id identifier rubyid_fetch_subcard'>fetch_subcard</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-    <span class='const'><span class='object_link'><a href="../ActManager.html" title="Card::ActManager (class)">ActManager</a></span></span><span class='period'>.</span><span class='id identifier rubyid_deep_delete'><span class='object_link'><a href="../ActManager.html#deep_delete-class_method" title="Card::ActManager.deep_delete (method)">deep_delete</a></span></span> <span class='id identifier rubyid_subcard'>subcard</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span>
+    <span class='const'><span class='object_link'><a href="../Director.html" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_deep_delete'><span class='object_link'><a href="../Director/ActDirection.html#deep_delete-instance_method" title="Card::Director::ActDirection#deep_delete (method)">deep_delete</a></span></span> <span class='id identifier rubyid_subcard'>subcard</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span>
     <span class='id identifier rubyid_subcard'>subcard</span><span class='period'>.</span><span class='id identifier rubyid_current_action'>current_action</span><span class='op'>&amp;.</span><span class='id identifier rubyid_delete'>delete</span>
   <span class='kw'>end</span>
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_cache'><span class='object_link'><a href="../../Card.html#cache-class_method" title="Card.cache (method)">cache</a></span></span><span class='period'>.</span><span class='id identifier rubyid_soft'>soft</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_key'>key</span>
@@ -428,9 +432,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:19 2019 by
+  Generated on Thu Sep 10 15:02:25 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

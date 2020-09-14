@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::SearchParams::Format
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::SearchParams::Format";
   relpath = '../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod020-search/abstract/02_search_params.rb</dd>
+    <dd>tmpsets/set/mod021-search/abstract/02_search_params.rb</dd>
   </dl>
   
 </div>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,8 +143,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>used for override.</p>
+    <span class="summary_desc"><div class='inline'><p>used for override.</p>
 </div></span>
   
 </li>
@@ -166,7 +166,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -188,7 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -210,7 +212,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -232,7 +235,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -254,7 +258,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -289,7 +294,7 @@
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/02_search_params.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/02_search_params.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_limit'>default_limit</span>
   <span class='int'>100</span>
@@ -310,8 +315,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>used for override</p>
+    <p>used for override</p>
 
 
   </div>
@@ -334,7 +338,7 @@
 26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/02_search_params.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/02_search_params.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_search_params'>default_search_params</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_qparams'>qparams</span> <span class='op'>=</span> <span class='id identifier rubyid_query_params'>query_params</span><span class='rparen'>)</span>
@@ -370,7 +374,7 @@
 46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/02_search_params.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/02_search_params.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_extra_paging_path_args'>extra_paging_path_args</span>
   <span class='kw'>return</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_vars'>vars</span> <span class='op'>=</span> <span class='id identifier rubyid_query_params'>query_params</span><span class='rparen'>)</span>
@@ -402,7 +406,7 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/02_search_params.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/02_search_params.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_offset'>offset</span>
   <span class='id identifier rubyid_search_params'>search_params</span><span class='lbracket'>[</span><span class='symbol'>:offset</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>0</span>
@@ -432,7 +436,7 @@
 30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/02_search_params.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/02_search_params.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_paging_params'>paging_params</span>
   <span class='lbrace'>{</span> <span class='label'>limit:</span> <span class='id identifier rubyid_limit_param'>limit_param</span><span class='comma'>,</span> <span class='label'>offset:</span> <span class='id identifier rubyid_offset_param'>offset_param</span> <span class='rbrace'>}</span>
@@ -464,12 +468,12 @@
 36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/02_search_params.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/02_search_params.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_query_params'>query_params</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_vars'>vars</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:query</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 
-  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_safe_param'>safe_param</span> <span class='id identifier rubyid_vars'>vars</span>
+  <span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hash'><span class='object_link'><a href="../../../Env.html#hash-class_method" title="Card::Env.hash (method)">hash</a></span></span> <span class='id identifier rubyid_vars'>vars</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -496,7 +500,7 @@
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/02_search_params.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/02_search_params.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_search_params'>search_params</span>
   <span class='ivar'>@search_params</span> <span class='op'>||=</span> <span class='id identifier rubyid_default_search_params'>default_search_params</span>
@@ -511,9 +515,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:50 2019 by
+  Generated on Thu Sep 10 15:02:42 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

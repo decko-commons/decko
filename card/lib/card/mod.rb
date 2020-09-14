@@ -51,7 +51,7 @@ class Card
   #   - {Card::Set} provides an overview of how set modules work
   #   - {Card::Set::Format} explains the basics of the format API
   #   - {Card::Set::Format::AbstractFormat} explains the basics of the view definition API
-  #   - {Card::Set::Event} explains the basics of the event API
+  #   - {Card::Set::Event:Api} explains the basics of the event API
   #
   # ## Other Directories
   #

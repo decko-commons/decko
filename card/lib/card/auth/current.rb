@@ -106,7 +106,7 @@ class Card
       end
 
       # find +\*account card by +\*api card
-      # @param token [String]
+      # @param api_key [String]
       # @return [+*account card, nil]
       def find_account_by_api_key api_key
         find_account_by :api_key, api_key.strip

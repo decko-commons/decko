@@ -6,15 +6,15 @@
 <title>
   Module: Card::Query::CardQuery::ReferenceAttributes
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Query::CardQuery::ReferenceAttributes";
   relpath = '../../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>interpret CQL attributes that involve references from one card to another</p>
+    <p>interpret CQL attributes that involve references from one card to another</p>
 
 
   </div>
@@ -131,7 +130,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -162,7 +162,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -184,8 +185,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>shortcut methods for role references DEPRECATE?.</p>
+    <span class="summary_desc"><div class='inline'><p>shortcut methods for role references DEPRECATE?.</p>
 </div></span>
   
 </li>
@@ -259,15 +259,15 @@
       <pre class="lines">
 
 
-37
-38
-39</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/query/card_query/reference_attributes.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/card/query/card_query/reference_attributes.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_member'>member</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='id identifier rubyid_interpret'>interpret</span> <span class='label'>referred_to_by:</span> <span class='lbrace'>{</span> <span class='label'>left:</span> <span class='id identifier rubyid_val'>val</span><span class='comma'>,</span> <span class='label'>right:</span> <span class='const'>RolesID</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_interpret'>interpret</span> <span class='label'>referred_to_by:</span> <span class='lbrace'>{</span> <span class='label'>left:</span> <span class='id identifier rubyid_val'>val</span><span class='comma'>,</span> <span class='label'>right:</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>RolesID</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -285,8 +285,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>shortcut methods for role references DEPRECATE?</p>
+    <p>shortcut methods for role references
+DEPRECATE?</p>
 
 
   </div>
@@ -300,15 +300,15 @@
       <pre class="lines">
 
 
-33
-34
-35</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/query/card_query/reference_attributes.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/card/query/card_query/reference_attributes.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_member_of'>member_of</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='id identifier rubyid_interpret'>interpret</span> <span class='label'>right_plus:</span> <span class='lbracket'>[</span><span class='const'>RolesID</span><span class='comma'>,</span> <span class='label'>refer_to:</span> <span class='id identifier rubyid_val'>val</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_interpret'>interpret</span> <span class='label'>right_plus:</span> <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>RolesID</span><span class='comma'>,</span> <span class='label'>refer_to:</span> <span class='id identifier rubyid_val'>val</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -320,9 +320,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:22 2019 by
+  Generated on Thu Sep 10 15:02:27 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

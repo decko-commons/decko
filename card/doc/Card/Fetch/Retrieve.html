@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Card::Fetch::Retrieve
+  
+    &mdash; Documentation by YARD 0.9.25
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Card::Fetch::Retrieve";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (R)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Fetch.html" title="Card::Fetch (class)">Fetch</a></span></span>
+     &raquo; 
+    <span class="title">Retrieve</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Card::Fetch::Retrieve
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+  <dl>
+    <dt>Included in:</dt>
+    <dd><span class='object_link'><a href="../Fetch.html" title="Card::Fetch (class)">Card::Fetch</a></span></dd>
+  </dl>
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>mod/core/lib/card/fetch/retrieve.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>retrieval and instantiation methods for Card::Fetch</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#id_from_mark-instance_method" title="#id_from_mark (instance method)">#<strong>id_from_mark</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mark_type-instance_method" title="#mark_type (instance method)">#<strong>mark_type</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>In both the cache and the db, ids and keys are used to retrieve card data.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mark_value-instance_method" title="#mark_value (instance method)">#<strong>mark_value</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#retrieval_from_db_query-instance_method" title="#retrieval_from_db_query (instance method)">#<strong>retrieval_from_db_query</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#retrieval_from_db_query_base-instance_method" title="#retrieval_from_db_query_base (instance method)">#<strong>retrieval_from_db_query_base</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#retrieve_existing-instance_method" title="#retrieve_existing (instance method)">#<strong>retrieve_existing</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>look for card in cache.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#retrieve_from_cache-instance_method" title="#retrieve_from_cache (instance method)">#<strong>retrieve_from_cache</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#retrieve_from_db-instance_method" title="#retrieve_from_db (instance method)">#<strong>retrieve_from_db</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="id_from_mark-instance_method">
+  
+    #<strong>id_from_mark</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+41
+42
+43</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/retrieve.rb', line 41</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_id_from_mark'>id_from_mark</span>
+  <span class='id identifier rubyid_mark_type'>mark_type</span> <span class='op'>==</span> <span class='symbol'>:id</span> <span class='op'>?</span> <span class='id identifier rubyid_mark_value'>mark_value</span> <span class='op'>:</span> <span class='const'><span class='object_link'><a href="../Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../Lexicon.html#id-class_method" title="Card::Lexicon.id (method)">id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_mark_value'>mark_value</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mark_type-instance_method">
+  
+    #<strong>mark_type</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>In both the cache and the db, ids and keys are used to retrieve card data.
+These methods identify the kind of mark to use and its value</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/retrieve.rb', line 47</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mark_type'>mark_type</span>
+  <span class='ivar'>@mark_type</span> <span class='op'>||=</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='symbol'>:id</span> <span class='op'>:</span> <span class='symbol'>:key</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mark_value-instance_method">
+  
+    #<strong>mark_value</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/retrieve.rb', line 51</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mark_value'>mark_value</span>
+  <span class='ivar'>@mark_value</span> <span class='op'>||=</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_mark'>mark</span> <span class='op'>:</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="retrieval_from_db_query-instance_method">
+  
+    #<strong>retrieval_from_db_query</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/retrieve.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_retrieval_from_db_query'>retrieval_from_db_query</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='id identifier rubyid_retrieval_from_db_query_base'>retrieval_from_db_query_base</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_query'>query</span><span class='lbracket'>[</span><span class='symbol'>:trash</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_look_in_trash?'>look_in_trash?</span>
+  <span class='id identifier rubyid_query'>query</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="retrieval_from_db_query_base-instance_method">
+  
+    #<strong>retrieval_from_db_query_base</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36
+37
+38
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/retrieve.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_retrieval_from_db_query_base'>retrieval_from_db_query_base</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_mark_type'>mark_type</span> <span class='op'>==</span> <span class='symbol'>:key</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_simple?'>simple?</span>
+    <span class='lbrace'>{</span> <span class='label'>key:</span> <span class='id identifier rubyid_mark_value'>mark_value</span> <span class='rbrace'>}</span>
+  <span class='kw'>elsif</span> <span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_id_from_mark'>id_from_mark</span><span class='rparen'>)</span>
+    <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="retrieve_existing-instance_method">
+  
+    #<strong>retrieve_existing</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>look for card in cache.  if that doesn’t work, look in database</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8
+9</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/retrieve.rb', line 6</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_retrieve_existing'>retrieve_existing</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+  <span class='id identifier rubyid_retrieve_from_cache'>retrieve_from_cache</span> <span class='op'>||</span> <span class='id identifier rubyid_retrieve_from_db'>retrieve_from_db</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="retrieve_from_cache-instance_method">
+  
+    #<strong>retrieve_from_cache</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11
+12
+13
+14
+15
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/retrieve.rb', line 11</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_retrieve_from_cache'>retrieve_from_cache</span>
+  <span class='ivar'>@card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>retrieve_from_cache_by_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mark_type'>mark_type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                    <span class='id identifier rubyid_mark_value'>mark_value</span><span class='comma'>,</span> <span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:local_only</span><span class='rbracket'>]</span>
+  <span class='ivar'>@card</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_new?'>new?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_look_in_trash?'>look_in_trash?</span>
+  <span class='comment'># don&#39;t return cached cards if looking in trash -
+</span>  <span class='comment'># we want the db version
+</span>  <span class='id identifier rubyid_card'>card</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="retrieve_from_db-instance_method">
+  
+    #<strong>retrieve_from_db</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/retrieve.rb', line 20</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_retrieve_from_db'>retrieve_from_db</span>
+  <span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='id identifier rubyid_retrieval_from_db_query'>retrieval_from_db_query</span>
+  <span class='ivar'>@card</span> <span class='op'>=</span> <span class='id identifier rubyid_query'>query</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_take'>take</span> <span class='op'>:</span> <span class='kw'>nil</span>
+  <span class='ivar'>@cache_ready</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_trash'>trash</span>
+  <span class='id identifier rubyid_card'>card</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Sep 10 15:02:27 2020 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.25 (ruby-2.6.3).
+</div>
+
+    </div>
+  </body>
+</html>

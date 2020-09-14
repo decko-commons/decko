@@ -6,15 +6,15 @@
 <title>
   Class: Card::Content
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Content";
   relpath = '../';
 </script>
@@ -102,7 +102,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/card/content.rb<span class="defines">,<br />
-  lib/card/content/diff.rb,<br /> lib/card/content/chunk.rb,<br /> lib/card/content/clean.rb,<br /> lib/card/content/parser.rb,<br /> lib/card/content/diff/lcs.rb,<br /> lib/card/content/truncate.rb,<br /> lib/card/content/diff/result.rb,<br /> lib/card/content/diff/processor.rb,<br /> mod/core/chunk/nest.rb,<br /> mod/core/chunk/literal.rb,<br /> mod/core/chunk/reference.rb,<br /> mod/core/chunk/view_stub.rb</span>
+  lib/card/content/diff.rb,<br /> lib/card/content/chunk.rb,<br /> lib/card/content/clean.rb,<br /> lib/card/content/parser.rb,<br /> lib/card/content/truncate.rb,<br /> lib/card/content/diff/l_c_s.rb,<br /> lib/card/content/diff/result.rb,<br /> lib/card/content/chunk/abstract.rb,<br /> lib/card/content/diff/l_c_s/processor.rb,<br /> mod/core/chunk/link.rb,<br /> mod/core/chunk/nest.rb,<br /> mod/core/chunk/reference.rb,<br /> mod/core/chunk/view_stub.rb,<br /> mod/core/chunk/escaped_literal.rb,<br /> mod/core/chunk/query_reference.rb,<br /> mod/core/chunk/keep_escaped_literal.rb</span>
 </dd>
   </dl>
   
@@ -110,8 +110,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Content objects support the parsing of content strings into arrays that contain semantically meaningful “chunks” like nests, links, urls, etc.</p>
+    <p>Content objects support the parsing of content strings into arrays that
+contain semantically meaningful “chunks” like nests, links, urls, etc.</p>
 
 <p>Each chunk has an object whose class inherits from <span class='object_link'><a href="Content/Chunk/Abstract.html" title="Card::Content::Chunk::Abstract (class)">Chunk::Abstract</a></span></p>
 
@@ -174,8 +174,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute chunks.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute chunks.</p>
 </div></span>
   
 </li>
@@ -203,8 +202,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute format.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute format.</p>
 </div></span>
   
 </li>
@@ -232,8 +230,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute opts.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute opts.</p>
 </div></span>
   
 </li>
@@ -261,8 +258,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute revision.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute revision.</p>
 </div></span>
   
 </li>
@@ -298,8 +294,30 @@
   
 
   
+    <span class="summary_desc"><div class='inline'><p>Content must be associated with a Format object, which in turn must be associated with a Card.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#custom_process_chunks-instance_method" title="#custom_process_chunks (instance method)">#<strong>custom_process_chunks</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
     <span class="summary_desc"><div class='inline'>
-<p>Content must be associated with a Format object, which in turn must be associated with a Card.</p>
 </div></span>
   
 </li>
@@ -322,7 +340,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -344,8 +363,30 @@
   
 
   
+    <span class="summary_desc"><div class='inline'><p>Find all chunks of a given type.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#has_chunk%3F-instance_method" title="#has_chunk? (instance method)">#<strong>has_chunk?</strong>(chunk_type)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
     <span class="summary_desc"><div class='inline'>
-<p>Find all chunks of a given type.</p>
 </div></span>
   
 </li>
@@ -370,8 +411,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>initialization parses String, detects chunks classes to be used in parsing.</p>
+    <span class="summary_desc"><div class='inline'><p>initialization parses String, detects chunks classes to be used in parsing.</p>
 </div></span>
   
 </li>
@@ -394,7 +434,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -416,7 +457,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -424,7 +466,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#process_each_chunk-instance_method" title="#process_each_chunk (instance method)">#<strong>process_each_chunk</strong>(&amp;block)  &#x21d2; Object </a>
+      <a href="#process_chunks-instance_method" title="#process_chunks (instance method)">#<strong>process_chunks</strong>(&amp;block)  &#x21d2; Object </a>
     
 
     
@@ -438,8 +480,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>sends &amp;block to #process_chunk on each Chunk object.</p>
+    <span class="summary_desc"><div class='inline'><p>sends &amp;block to #process_chunk on each Chunk object.</p>
 </div></span>
   
 </li>
@@ -462,8 +503,76 @@
   
 
   
+    <span class="summary_desc"><div class='inline'><p>convert content to String.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#without_chunks-instance_method" title="#without_chunks (instance method)">#<strong>without_chunks</strong>(*chunk_classes)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
     <span class="summary_desc"><div class='inline'>
-<p>convert content to String.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#without_nests-instance_method" title="#without_nests (instance method)">#<strong>without_nests</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#without_references-instance_method" title="#without_references (instance method)">#<strong>without_references</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
 </div></span>
   
 </li>
@@ -482,7 +591,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Content/Truncate.html" title="Card::Content::Truncate (module)">Truncate</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Content/Truncate.html#close_tags-instance_method" title="Card::Content::Truncate#close_tags (method)">close_tags</a></span>, <span class='object_link'><a href="Content/Truncate.html#find_tags-instance_method" title="Card::Content::Truncate#find_tags (method)">find_tags</a></span>, <span class='object_link'><a href="Content/Truncate.html#polish-instance_method" title="Card::Content::Truncate#polish (method)">polish</a></span>, <span class='object_link'><a href="Content/Truncate.html#smart_truncate-instance_method" title="Card::Content::Truncate#smart_truncate (method)">smart_truncate</a></span>, <span class='object_link'><a href="Content/Truncate.html#truncate-instance_method" title="Card::Content::Truncate#truncate (method)">truncate</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Content/Truncate.html#smart_truncate-instance_method" title="Card::Content::Truncate#smart_truncate (method)">smart_truncate</a></span></p>
 
   
   
@@ -493,7 +602,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Content/Clean.html" title="Card::Content::Clean (module)">Clean</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Content/Clean.html#clean!-instance_method" title="Card::Content::Clean#clean! (method)">clean!</a></span>, <span class='object_link'><a href="Content/Clean.html#clean_with_space_last!-instance_method" title="Card::Content::Clean#clean_with_space_last! (method)">clean_with_space_last!</a></span>, <span class='object_link'><a href="Content/Clean.html#process_attribute-instance_method" title="Card::Content::Clean#process_attribute (method)">process_attribute</a></span>, <span class='object_link'><a href="Content/Clean.html#process_attribute_match-instance_method" title="Card::Content::Clean#process_attribute_match (method)">process_attribute_match</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Content/Clean.html#clean!-instance_method" title="Card::Content::Clean#clean! (method)">clean!</a></span></p>
 
   <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
@@ -509,8 +618,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>initialization parses String, detects chunks classes to be used in parsing</p>
+    <p>initialization parses String, detects chunks
+classes to be used in parsing</p>
 
 
   </div>
@@ -573,9 +682,8 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<ul>
-<li>name of registered list of chunk</li>
+            &mdash; <div class='inline'><ul>
+  <li>name of registered list of chunk</li>
 </ul>
 </div>
           
@@ -591,16 +699,16 @@
       <pre class="lines">
 
 
+23
+24
+25
 26
 27
 28
-29
-30
-31
-32</pre>
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_format_or_card'>format_or_card</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_resolve_format'>resolve_format</span> <span class='id identifier rubyid_format_or_card'>format_or_card</span>
@@ -632,8 +740,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute chunks</p>
+    <p>Returns the value of attribute chunks.</p>
 
 
   </div>
@@ -647,12 +754,12 @@
       <pre class="lines">
 
 
-18
-19
-20</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_chunks'>chunks</span>
   <span class='ivar'>@chunks</span>
@@ -675,8 +782,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute format</p>
+    <p>Returns the value of attribute format.</p>
 
 
   </div>
@@ -690,12 +796,12 @@
       <pre class="lines">
 
 
-18
-19
-20</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format'>format</span>
   <span class='ivar'>@format</span>
@@ -718,8 +824,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute opts</p>
+    <p>Returns the value of attribute opts.</p>
 
 
   </div>
@@ -733,12 +838,12 @@
       <pre class="lines">
 
 
-18
-19
-20</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='ivar'>@opts</span>
@@ -761,8 +866,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute revision</p>
+    <p>Returns the value of attribute revision.</p>
 
 
   </div>
@@ -776,12 +880,12 @@
       <pre class="lines">
 
 
-18
-19
-20</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_revision'>revision</span>
   <span class='ivar'>@revision</span>
@@ -809,8 +913,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Content must be associated with a Format object, which in turn must be associated with a Card</p>
+    <p>Content must be associated with a Format object, which in turn must be
+associated with a Card</p>
 
 
   </div>
@@ -837,15 +941,49 @@
       <pre class="lines">
 
 
-37
-38
-39</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span>
   <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="custom_process_chunks-instance_method">
+  
+    #<strong>custom_process_chunks</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58
+59
+60</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 56</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_custom_process_chunks'>custom_process_chunks</span>
+  <span class='id identifier rubyid_each_chunk'>each_chunk</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_chunk'>chunk</span><span class='op'>|</span>
+    <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_burn_after_reading'>burn_after_reading</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_chunk'>chunk</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -867,24 +1005,24 @@
       <pre class="lines">
 
 
-57
-58
-59
-60
-61
-62
-63
-64
-65
 66
 67
 68
 69
 70
-71</pre>
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_chunk'>each_chunk</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='symbol'>:each_chunk</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -917,8 +1055,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Find all chunks of a given type</p>
+    <p>Find all chunks of a given type</p>
 
 
   </div>
@@ -960,15 +1097,68 @@
       <pre class="lines">
 
 
-44
-45
-46</pre>
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_chunks'>find_chunks</span> <span class='id identifier rubyid_chunk_type'>chunk_type</span>
   <span class='id identifier rubyid_each_chunk'>each_chunk</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_chunk'>chunk</span><span class='op'>|</span> <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='id identifier rubyid_chunk_type'>chunk_type</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="has_chunk?-instance_method">
+  
+    #<strong>has_chunk?</strong>(chunk_type)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_has_chunk?'>has_chunk?</span> <span class='id identifier rubyid_chunk_type'>chunk_type</span>
+  <span class='id identifier rubyid_each_chunk'>each_chunk</span><span class='period'>.</span><span class='id identifier rubyid_any'>any</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_chunk'>chunk</span><span class='op'>|</span> <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='id identifier rubyid_chunk_type'>chunk_type</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -990,12 +1180,12 @@
       <pre class="lines">
 
 
-88
-89
-90</pre>
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid___getobj__'>__getobj__</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
@@ -1020,12 +1210,12 @@
       <pre class="lines">
 
 
-53
-54
-55</pre>
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pieces'>pieces</span>
   <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_wrap'>wrap</span><span class='lparen'>(</span><span class='id identifier rubyid___getobj__'>__getobj__</span><span class='rparen'>)</span>
@@ -1036,9 +1226,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="process_each_chunk-instance_method">
+  <h3 class="signature " id="process_chunks-instance_method">
   
-    #<strong>process_each_chunk</strong>(&amp;block)  &#x21d2; <tt>Object</tt> 
+    #<strong>process_chunks</strong>(&amp;block)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1046,8 +1236,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>sends &amp;block to #process_chunk on each Chunk object</p>
+    <p>sends &amp;block to #process_chunk on each Chunk object</p>
 
 
   </div>
@@ -1061,15 +1250,19 @@
       <pre class="lines">
 
 
-49
 50
-51</pre>
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 50</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_process_each_chunk'>process_each_chunk</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='id identifier rubyid_each_chunk'>each_chunk</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_chunk'>chunk</span><span class='op'>|</span> <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_process_chunk'>process_chunk</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_process_chunks'>process_chunks</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_custom_process_chunks'>custom_process_chunks</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+
+  <span class='id identifier rubyid_each_chunk'>each_chunk</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:process_chunk</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1087,13 +1280,13 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>convert content to String. the common cases here are that either</p>
+    <p>convert content to String.
+the common cases here are that either</p>
 
 <ul>
-<li>(a) content is already a String, or</li>
-
-<li>(b) it’s an Array that needs to be iterated over and converted into a a string by running to_s on each item.</li>
+  <li>(a) content is already a String, or</li>
+  <li>(b) it’s an Array that needs to be iterated over and converted into a
+a string by running to_s on each item.</li>
 </ul>
 
 
@@ -1108,17 +1301,17 @@
       <pre class="lines">
 
 
-79
-80
-81
-82
-83
-84
-85
-86</pre>
+88
+89
+90
+91
+92
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='kw'>case</span> <span class='id identifier rubyid___getobj__'>__getobj__</span>
@@ -1133,14 +1326,118 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="without_chunks-instance_method">
+  
+    #<strong>without_chunks</strong>(*chunk_classes)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+113
+114
+115
+116
+117
+118</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 113</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_without_chunks'>without_chunks</span> <span class='op'>*</span><span class='id identifier rubyid_chunk_classes'>chunk_classes</span>
+  <span class='id identifier rubyid_chunk_classes'>chunk_classes</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_wrap'>wrap</span><span class='lparen'>(</span><span class='id identifier rubyid_chunk_classes'>chunk_classes</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_stash'>stash</span> <span class='op'>=</span> <span class='id identifier rubyid_stash_chunks'>stash_chunks</span> <span class='id identifier rubyid_chunk_classes'>chunk_classes</span>
+  <span class='id identifier rubyid_processed'>processed</span> <span class='op'>=</span> <span class='kw'>yield</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_unstash_chunks'>unstash_chunks</span> <span class='id identifier rubyid_processed'>processed</span><span class='comma'>,</span> <span class='id identifier rubyid_stash'>stash</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="without_nests-instance_method">
+  
+    #<strong>without_nests</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101
+102
+103
+104
+105</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 101</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_without_nests'>without_nests</span>
+  <span class='id identifier rubyid_without_chunks'>without_chunks</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Content/Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_content'>content</span><span class='op'>|</span>
+    <span class='kw'>yield</span> <span class='id identifier rubyid_content'>content</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="without_references-instance_method">
+  
+    #<strong>without_references</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+107
+108
+109
+110
+111</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/content.rb', line 107</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_without_references'>without_references</span>
+  <span class='id identifier rubyid_without_chunks'>without_chunks</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Content/Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Content/Chunk/Link.html" title="Card::Content::Chunk::Link (class)">Link</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_content'>content</span><span class='op'>|</span>
+    <span class='kw'>yield</span> <span class='id identifier rubyid_content'>content</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:56 2019 by
+  Generated on Thu Sep 10 15:02:46 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

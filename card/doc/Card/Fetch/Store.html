@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Card::Fetch::Store
+  
+    &mdash; Documentation by YARD 0.9.25
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Card::Fetch::Store";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (S)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Fetch.html" title="Card::Fetch (class)">Fetch</a></span></span>
+     &raquo; 
+    <span class="title">Store</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Card::Fetch::Store
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+  <dl>
+    <dt>Included in:</dt>
+    <dd><span class='object_link'><a href="../Fetch.html" title="Card::Fetch (class)">Card::Fetch</a></span></dd>
+  </dl>
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>mod/core/lib/card/fetch/store.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>lazy cache updates based on results</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cache_ready%3F-instance_method" title="#cache_ready? (instance method)">#<strong>cache_ready?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#eager_caching%3F-instance_method" title="#eager_caching? (instance method)">#<strong>eager_caching?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#needs_prep%3F-instance_method" title="#needs_prep? (instance method)">#<strong>needs_prep?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new_card_needed%3F-instance_method" title="#new_card_needed? (instance method)">#<strong>new_card_needed?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new_for_cache-instance_method" title="#new_for_cache (instance method)">#<strong>new_for_cache</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>instantiate a card as a cache placeholder.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new_for_cache%3F-instance_method" title="#new_for_cache? (instance method)">#<strong>new_for_cache?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#prep_for_cache-instance_method" title="#prep_for_cache (instance method)">#<strong>prep_for_cache</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Because Card works by including set-specific ruby modules on singleton classes and singleton classes generally can’t be cached, we can never cache the cards in a completely ready-to-roll form.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reusable%3F-instance_method" title="#reusable? (instance method)">#<strong>reusable?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_cache-instance_method" title="#update_cache (instance method)">#<strong>update_cache</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_cache%3F-instance_method" title="#update_cache? (instance method)">#<strong>update_cache?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="cache_ready?-instance_method">
+  
+    #<strong>cache_ready?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/store.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_cache_ready?'>cache_ready?</span>
+  <span class='ivar'>@cache_ready</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="eager_caching?-instance_method">
+  
+    #<strong>eager_caching?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/store.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_eager_caching?'>eager_caching?</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:eager_cache</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_name?'>name?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_absolute?'>absolute?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="needs_prep?-instance_method">
+  
+    #<strong>needs_prep?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
+40
+41</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/store.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_needs_prep?'>needs_prep?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+
+  <span class='op'>!</span><span class='lparen'>(</span><span class='id identifier rubyid_skip_modules?'>skip_modules?</span> <span class='op'>||</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_patterns?'>patterns?</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="new_card_needed?-instance_method">
+  
+    #<strong>new_card_needed?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/store.rb', line 43</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_new_card_needed?'>new_card_needed?</span>
+  <span class='op'>!</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>||</span> <span class='id identifier rubyid_skip_type_lookup?'>skip_type_lookup?</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="new_for_cache-instance_method">
+  
+    #<strong>new_for_cache</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>instantiate a card as a cache placeholder</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23
+24
+25
+26
+27</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/store.rb', line 21</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_new_for_cache'>new_for_cache</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_for_cache?'>new_for_cache?</span>
+  <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:type_lookup</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='symbol'>:skip</span> <span class='kw'>if</span> <span class='id identifier rubyid_skip_type_lookup?'>skip_type_lookup?</span>
+  <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='period'>.</span><span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='symbol'>:type</span><span class='comma'>,</span> <span class='symbol'>:type_id</span><span class='comma'>,</span> <span class='symbol'>:type_code</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_eager_caching?'>eager_caching?</span>
+  <span class='ivar'>@card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_args'>args</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="new_for_cache?-instance_method">
+  
+    #<strong>new_for_cache?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/store.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_new_for_cache?'>new_for_cache?</span>
+  <span class='id identifier rubyid_reusable?'>reusable?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_new_card_needed?'>new_card_needed?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="prep_for_cache-instance_method">
+  
+    #<strong>prep_for_cache</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Because Card works by including set-specific ruby modules on singleton classes and
+singleton classes generally can’t be cached, we can never cache the cards in a
+completely ready-to-roll form.</p>
+
+<p>However, we can optimize considerably by saving the list of ruby modules in
+environments where they won’t be changing (eg production) or at least the list of
+matching set patterns</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+58
+59
+60
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/store.rb', line 58</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_prep_for_cache'>prep_for_cache</span>
+  <span class='comment'># return # DELETE ME
+</span>  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_skip_modules?'>skip_modules?</span>
+
+  <span class='const'><span class='object_link'><a href="../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_cache_set_module_list'>cache_set_module_list</span> <span class='op'>?</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_set_modules'>set_modules</span> <span class='op'>:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_patterns'>patterns</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reusable?-instance_method">
+  
+    #<strong>reusable?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/store.rb', line 47</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reusable?'>reusable?</span>
+  <span class='op'>!</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:new</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_cache-instance_method">
+  
+    #<strong>update_cache</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5
+6
+7
+8
+9
+10</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/store.rb', line 5</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_cache'>update_cache</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_update_cache?'>update_cache?</span>
+
+  <span class='id identifier rubyid_prep_for_cache'>prep_for_cache</span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_write_to_cache'>write_to_cache</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_local_only?'>local_only?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_cache?-instance_method">
+  
+    #<strong>update_cache?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/core/lib/card/fetch/store.rb', line 12</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_cache?'>update_cache?</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_cache_ready?'>cache_ready?</span> <span class='op'>||</span> <span class='id identifier rubyid_new_for_cache'>new_for_cache</span> <span class='op'>||</span> <span class='id identifier rubyid_needs_prep?'>needs_prep?</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_card'>card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_uncacheable?'>uncacheable?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Sep 10 15:02:27 2020 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.25 (ruby-2.6.3).
+</div>
+
+    </div>
+  </body>
+</html>

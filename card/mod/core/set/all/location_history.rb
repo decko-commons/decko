@@ -1,4 +1,4 @@
-event :discard_deleted_locations, in: :finalize, on: :delete do
+event :discard_deleted_locations, :finalize, on: :delete do
   Env.discard_locations_for self
   configure_successful_deletion if success.target == self
 end

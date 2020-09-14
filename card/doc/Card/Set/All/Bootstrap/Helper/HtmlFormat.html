@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Bootstrap::Helper::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Bootstrap::Helper::HtmlFormat";
   relpath = '../../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod026-bootstrap/all/bootstrap/helper.rb</dd>
+    <dd>tmpsets/set/mod028-bootstrap/all/bootstrap/helper.rb</dd>
   </dl>
   
 </div>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +166,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -186,7 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -194,7 +198,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#popover_link-instance_method" title="#popover_link (instance method)">#<strong>popover_link</strong>(text, title = nil)  &#x21d2; Object </a>
+      <a href="#popover_link-instance_method" title="#popover_link (instance method)">#<strong>popover_link</strong>(text, title = nil, link_text = fa_icon(&quot;question-circle&quot;), opts = {})  &#x21d2; Object </a>
     
 
     
@@ -208,7 +212,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#popover_opts-instance_method" title="#popover_opts (instance method)">#<strong>popover_opts</strong>(text, title, opts)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -230,7 +258,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -266,7 +295,7 @@
 47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/all/bootstrap/helper.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/all/bootstrap/helper.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_badge_tag'>badge_tag</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>badge</span><span class='tstring_end'>&quot;</span></span>
@@ -299,7 +328,7 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/all/bootstrap/helper.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/all/bootstrap/helper.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_button_link'>button_link</span> <span class='id identifier rubyid_link_text'>link_text</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_btn_type'>btn_type</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:btn_type</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>primary</span><span class='tstring_end'>&quot;</span></span>
@@ -337,7 +366,7 @@
 27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/all/bootstrap/helper.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/all/bootstrap/helper.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_group'>list_group</span> <span class='id identifier rubyid_content_or_options'>content_or_options</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_content_or_options'>content_or_options</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -384,7 +413,7 @@
 42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/all/bootstrap/helper.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/all/bootstrap/helper.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_tag'>list_tag</span> <span class='id identifier rubyid_content_or_options'>content_or_options</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_content_or_options'>content_or_options</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -408,7 +437,7 @@
       <div class="method_details ">
   <h3 class="signature " id="popover_link-instance_method">
   
-    #<strong>popover_link</strong>(text, title = nil)  &#x21d2; <tt>Object</tt> 
+    #<strong>popover_link</strong>(text, title = nil, link_text = fa_icon(&quot;question-circle&quot;), opts = {})  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -422,19 +451,51 @@
 
 49
 50
-51
-52
-53
-54</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/all/bootstrap/helper.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/all/bootstrap/helper.rb', line 49</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_popover_link'>popover_link</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='op'>=</span><span class='kw'>nil</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pl-1 text-muted-link</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-toggle</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>popover</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-           <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-trigger</span><span class='label_end'>&quot;:</span> <span class='symbol'>:focus</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-content</span><span class='label_end'>&quot;:</span> <span class='id identifier rubyid_text'>text</span> <span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_popover_link'>popover_link</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_link_text'>link_text</span><span class='op'>=</span><span class='id identifier rubyid_fa_icon'>fa_icon</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>question-circle</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_link_to'>link_to</span> <span class='id identifier rubyid_link_text'>link_text</span><span class='comma'>,</span> <span class='id identifier rubyid_popover_opts'>popover_opts</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="popover_opts-instance_method">
+  
+    #<strong>popover_opts</strong>(text, title, opts)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55
+56
+57
+58
+59</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/all/bootstrap/helper.rb', line 53</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_popover_opts'>popover_opts</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pl-1 text-muted-link</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span> <span class='label'>path:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-toggle</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>popover</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+              <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-trigger</span><span class='label_end'>&quot;:</span> <span class='symbol'>:focus</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-content</span><span class='label_end'>&quot;:</span> <span class='id identifier rubyid_text'>text</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-title</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_title'>title</span> <span class='kw'>if</span> <span class='id identifier rubyid_title'>title</span>
-  <span class='id identifier rubyid_link_to'>link_to</span> <span class='id identifier rubyid_fa_icon'>fa_icon</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>question-circle</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_opts'>opts</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -461,7 +522,7 @@
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/all/bootstrap/helper.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/all/bootstrap/helper.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_separator'>separator</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>&lt;li role=&quot;separator&quot; class=&quot;divider&quot;&gt;&lt;/li&gt;</span><span class='tstring_end'>&#39;</span></span>
@@ -476,9 +537,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:48 2019 by
+  Generated on Thu Sep 10 15:02:42 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

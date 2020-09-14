@@ -6,15 +6,15 @@
 <title>
   Class: CarrierWave::FileCardUploader
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "CarrierWave::FileCardUploader";
   relpath = '../';
 </script>
@@ -108,66 +108,86 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Takes care of the file upload for cards with attached files. Most of the upload behaviour depends on the card itself. (e.g. card type and storage option chosen for the card). So in contrary to CarrierWave’s default uploader we depend very much on the model (= card object) to get the correct paths for retrieving and storing the file.</p>
+    <p>Takes care of the file upload for cards with attached files.
+Most of the upload behaviour depends on the card itself.
+(e.g. card type and storage option chosen for the card). So in contrary
+to CarrierWave’s default uploader we depend very much on the model
+(= card object) to get the correct paths for retrieving and storing
+the file.</p>
 
-<p>Cards that support attachments (by default those are cards of type “file” and “image”) accept a file handle as a card attribute.</p>
+<p>Cards that support attachments (by default those are cards of type “file”
+and “image”) accept a file handle as a card attribute.</p>
 
-<p>It’s possible to upload files using a url. The card attribute for that is remote_<pre style="border: solid 3px red; background-color: pink" class="markdown-html-error">Maruku could not parse this XML/HTML: 
-&lt;attachment_type&gt;_url</pre></p>
+<p>It’s possible to upload files using a url. The card attribute for that is
+remote_<attachment_type>_url</attachment_type></p>
 
-<h2 id="storage_types">Storage types</h2>
+<h2 id="storage-types">Storage types</h2>
+<p>You can choose between four different storage options
+ - coded: These files are in the codebase, like the default logo.
+     Every view is a decko request.
+ - local: Uploaded files which are stored in a local upload directory
+     (upload path is configurable via config.paths[“files”]).
+     If read permissions are set such that “Anyone” can read, then there is
+     a symlink from the public directory.  Otherwise every view is a wagn
+     request.
+ - cloud: You can configure buckets that refer to an external storage
+     service. Link is rendered as absolute url
+ - web: A fixed url (to external source). No upload or other file
+     processing. Link is just the saved url.</p>
 
-<p>You can choose between four different storage options - coded: These files are in the codebase, like the default logo. Every view is a wagn request. - local: Uploaded files which are stored in a local upload directory (upload path is configurable via config.paths[files]). If read permissions are set such that “Anyone” can read, then there is a symlink from the public directory. Otherwise every view is a wagn request. - cloud: You can configure buckets that refer to an external storage service. Link is rendered as absolute url - web: A fixed url (to external source). No upload or other file processing. Link is just the saved url.</p>
+<p>Currently, there is no web interface that let’s a user or administrator
+choose a storage option for a specific card or set of cards.
+There is only a global config option to set the storage type for all new
+uploads (config.storage_type). On the *admin card it’s possible to
+update all existing file cards according to the current global config.</p>
 
-<p>Currently, there is no web interface that let’s a user or administrator choose a storage option for a specific card or set of cards. There is only a global config option to set the storage type for all new uploads (config.storage_type). On the <em>admin card it’s possible to update all existing file cards according to the current global config.</em></p>
+<p>Storage types for single cards can be changed by developers using
+the card attributes “storage_type”, “bucket”, and “mod”.</p>
 
-<p>Storage types for single cards can be changed by developers using the card attributes “storage_type”, “bucket”, and “mod”.</p>
+<p>Depending on the storage type the uploader uses the following paths
+and identifiers.
+### Identifier (stored in the database as db_content)
+ - coded: :codename/mod_name.ext
+ - local: ~card_id/action_id.ext
+ - cloud: (bucket)/card_id/action_id.ext
+ - web: http://url</p>
 
-<p>Depending on the storage type the uploader uses the following paths and identifiers.</p>
-
-<h3 id="identifier_stored_in_the_database_as_db_content">Identifier (stored in the database as db_content)</h3>
-
+<h3 id="storage-path">Storage path</h3>
 <ul>
-<li>coded: :codename/mod_name.ext</li>
-
-<li>local: ~card_id/action_id.ext</li>
-
-<li>cloud: (bucket)/card_id/action_id.ext</li>
-
-<li>web: http://url</li>
+  <li>coded:
+mod_dir/file/codename/type_code(-variant).ext  (no colon on codename!)</li>
+  <li>local:
+files_dir/card_id/action_id(-variant).ext           (no tilde on id!)</li>
+  <li>cloud:
+bucket/bucket_subdir/id/action_id(-variant).ext</li>
+  <li>web: no storage</li>
 </ul>
 
-<h3 id="storage_path">Storage path</h3>
+<p>Variants are only used for images. Possible options are
+icon|small|medium|large|original.
+files_dir, bucket, and bucket_subdir can be changed via config options.</p>
 
-<ul>
-<li>coded: mod_dir/file/codename/type_code(-variant).ext (no colon on codename!)</li>
+<h3 id="supported-url-patterns">Supported url patterns</h3>
+<p>mark.ext
+mark/revision.ext
+mark/revision-variant.ext
+/files/mark/revision-variant.ext  # &lt;- public symlink if readable by
+                                  #    “Anyone”</p>
 
-<li>local: files_dir/card_id/action_id(-variant).ext (no tilde on id!)</li>
+<p><mark> can be one of the following options
+- <card name="">
+- ~<card>
+- :<code name=""></code></card></card></mark></p>
 
-<li>cloud: bucket/bucket_subdir/id/action_id(-variant).ext</li>
-
-<li>web: no storage</li>
-</ul>
-
-<p>Variants are only used for images. Possible options are icon|small|medium|large|original. files_dir, bucket, and bucket_subdir can be changed via config options.</p>
-
-<h3 id="supported_url_patterns">Supported url patterns</h3>
-
-<p>mark.ext mark/revision.ext mark/revision-variant.ext /files/mark/revision-variant.ext # &lt;- public symlink if readable by # “Anyone”</p>
-<pre style="border: solid 3px red; background-color: pink" class="markdown-html-error">Maruku could not parse this XML/HTML: 
-&lt;mark&gt; can be one of the following options
-- &lt;card name&gt;
-- ~&lt;card id&gt;
-- :&lt;code name&gt;
-
-&lt;revision&gt; is the mod name if the file is coded or and action_id in any
+<revision> is the mod name if the file is coded or and action_id in any
 case
 
 Examples:
 *logo.png
 ~22/33-medium.png               # local
-:yeti_skin/standard-large.png   # coded</pre>
+:yeti_skin/standard-large.png   # coded
+</revision>
+
 
   </div>
 </div>
@@ -177,39 +197,34 @@ Examples:
     <p class="tag_title">Examples:</p>
     
       
-        <p class="example_title"><div class='inline'>
-<p>Attaching a file to a file card</p>
+        <p class="example_title"><div class='inline'><p>Attaching a file to a file card</p>
 </div></p>
       
       <pre class="example code"><code><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>file card</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:file</span><span class='comma'>,</span>
             <span class='label'>file:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_path_to_file'>path_to_file</span><span class='rparen'>)</span></code></pre>
     
       
-        <p class="example_title"><div class='inline'>
-<p>Attaching a image to a image card</p>
+        <p class="example_title"><div class='inline'><p>Attaching a image to a image card</p>
 </div></p>
       
       <pre class="example code"><code><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>file card</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:image</span><span class='comma'>,</span>
             <span class='label'>image:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_path_to_image'>path_to_image</span><span class='rparen'>)</span></code></pre>
     
       
-        <p class="example_title"><div class='inline'>
-<p>Create a file card using a remote url</p>
+        <p class="example_title"><div class='inline'><p>Create a file card using a remote url</p>
 </div></p>
       
       <pre class="example code"><code><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>file_card</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:file</span><span class='comma'>,</span>
             <span class='label'>remote_file_url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>http://a.file.in/the.web</span><span class='tstring_end'>&quot;</span></span></code></pre>
     
       
-        <p class="example_title"><div class='inline'>
-<p>Updating a image card using a remote url</p>
+        <p class="example_title"><div class='inline'><p>Updating a image card using a remote url</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='label'>remote_image_url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>http://a.image/somewhere.png</span><span class='tstring_end'>&quot;</span></span></code></pre>
     
       
-        <p class="example_title"><div class='inline'>
-<p>Creating a hard-coded file</p>
+        <p class="example_title"><div class='inline'><p>Creating a hard-coded file</p>
 </div></p>
       
       <pre class="example code"><code><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>file card</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>type_id:</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>FileID</span><span class='comma'>,</span>
@@ -217,8 +232,7 @@ Examples:
             <span class='label'>storage_type:</span> <span class='symbol'>:coded</span><span class='comma'>,</span> <span class='label'>mod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>account</span><span class='tstring_end'>&quot;</span></span></code></pre>
     
       
-        <p class="example_title"><div class='inline'>
-<p>Moving a file to a cloud service</p>
+        <p class="example_title"><div class='inline'><p>Moving a file to a cloud service</p>
 </div></p>
       
       <pre class="example code"><code># my_deck/config/application.rb:
@@ -239,8 +253,7 @@ config.file_buckets = {
 card.update storage_type: :cloud, bucket: :aws_bucket</code></pre>
     
       
-        <p class="example_title"><div class='inline'>
-<p>Creating a file card with fixed external link</p>
+        <p class="example_title"><div class='inline'><p>Creating a file card with fixed external link</p>
 </div></p>
       
       <pre class="example code"><code>Card.create name: &quot;file card&quot;, type_id: Card::FileID,
@@ -259,30 +272,36 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   <p class="children"><span class='object_link'><a href="ImageCardUploader.html" title="CarrierWave::ImageCardUploader (class)">ImageCardUploader</a></span></p>
 </div>
 
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="STORAGE_TYPES-constant" class="">STORAGE_TYPES =
-        
-      </dt>
-      <dd><pre class="code"><span class='lbracket'>[</span><span class='symbol'>:cloud</span><span class='comma'>,</span> <span class='symbol'>:web</span><span class='comma'>,</span> <span class='symbol'>:coded</span><span class='comma'>,</span> <span class='symbol'>:local</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="CONFIG_OPTIONS-constant" class="">CONFIG_OPTIONS =
-        
-      </dt>
-      <dd><pre class="code"><span class='lbracket'>[</span><span class='symbol'>:provider</span><span class='comma'>,</span> <span class='symbol'>:attributes</span><span class='comma'>,</span> <span class='symbol'>:directory</span><span class='comma'>,</span> <span class='symbol'>:public</span><span class='comma'>,</span> <span class='symbol'>:credentials</span><span class='comma'>,</span>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="STORAGE_TYPES-constant" class="">STORAGE_TYPES =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbracket'>[</span><span class='symbol'>:cloud</span><span class='comma'>,</span> <span class='symbol'>:web</span><span class='comma'>,</span> <span class='symbol'>:coded</span><span class='comma'>,</span> <span class='symbol'>:local</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="CONFIG_OPTIONS-constant" class="">CONFIG_OPTIONS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbracket'>[</span><span class='symbol'>:provider</span><span class='comma'>,</span> <span class='symbol'>:attributes</span><span class='comma'>,</span> <span class='symbol'>:directory</span><span class='comma'>,</span> <span class='symbol'>:public</span><span class='comma'>,</span> <span class='symbol'>:credentials</span><span class='comma'>,</span>
 <span class='symbol'>:authenticated_url_expiration</span><span class='comma'>,</span> <span class='symbol'>:use_ssl_for_aws</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="CONFIG_CREDENTIAL_OPTIONS-constant" class="">CONFIG_CREDENTIAL_OPTIONS =
-        
-      </dt>
-      <dd><pre class="code"><span class='lbracket'>[</span>
+      
+        <dt id="CONFIG_CREDENTIAL_OPTIONS-constant" class="">CONFIG_CREDENTIAL_OPTIONS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbracket'>[</span>
   <span class='symbol'>:provider</span><span class='comma'>,</span>
   <span class='symbol'>:aws_access_key_id</span><span class='comma'>,</span> <span class='symbol'>:aws_secret_access_key</span><span class='comma'>,</span> <span class='symbol'>:region</span><span class='comma'>,</span> <span class='symbol'>:host</span><span class='comma'>,</span> <span class='symbol'>:endpoint</span><span class='comma'>,</span>
   <span class='symbol'>:google_access_key_id</span><span class='comma'>,</span> <span class='symbol'>:google_secret_access_key</span>
 <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
+      
+    </dl>
+  
 
 
 
@@ -310,8 +329,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute mod.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute mod.</p>
 </div></span>
   
 </li>
@@ -347,7 +365,54 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#asset_host-instance_method" title="#asset_host (instance method)">#<strong>asset_host</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bucket_config-instance_method" title="#bucket_config (instance method)">#<strong>bucket_config</strong>(option)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -369,7 +434,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -391,7 +457,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -413,8 +480,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>generate identifier that gets stored in the card’s db_content field.</p>
+    <span class="summary_desc"><div class='inline'><p>generate identifier that gets stored in the card’s db_content field.</p>
 </div></span>
   
 </li>
@@ -437,7 +503,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -459,7 +526,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -481,7 +549,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -503,7 +572,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -525,7 +595,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -547,8 +618,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>paperclip compatibility used in type/file.rb#core (base format).</p>
+    <span class="summary_desc"><div class='inline'><p>paperclip compatibility used in type/file.rb#core (base format).</p>
 </div></span>
   
 </li>
@@ -571,7 +641,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -593,7 +664,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -615,8 +687,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Carrierwave calls store_path without argument when it stores the file and with the identifier from the db when it retrieves the file.</p>
+    <span class="summary_desc"><div class='inline'><p>Carrierwave calls store_path without argument when it stores the file and with the identifier from the db when it retrieves the file.</p>
 </div></span>
   
 </li>
@@ -639,7 +710,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -661,7 +733,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -683,7 +756,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -705,7 +779,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -723,7 +798,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Card/Env/Location.html" title="Card::Env::Location (module)">Card::Env::Location</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Card/Env/Location.html#card_path-instance_method" title="Card::Env::Location#card_path (method)">#card_path</a></span>, <span class='object_link'><a href="../Card/Env/Location.html#card_url-instance_method" title="Card::Env::Location#card_url (method)">#card_url</a></span>, <span class='object_link'><a href="../Card/Env/Location.html#protocol_and_host-instance_method" title="Card::Env::Location#protocol_and_host (method)">#protocol_and_host</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Card/Env/Location.html#card_path-instance_method" title="Card::Env::Location#card_path (method)">#card_path</a></span>, <span class='object_link'><a href="../Card/Env/Location.html#card_url-instance_method" title="Card::Env::Location#card_url (method)">#card_url</a></span>, <span class='object_link'><a href="../Card/Env/Location.html#cardname_from_url-instance_method" title="Card::Env::Location#cardname_from_url (method)">#cardname_from_url</a></span>, <span class='object_link'><a href="../Card/Env/Location.html#protocol_and_host-instance_method" title="Card::Env::Location#protocol_and_host (method)">#protocol_and_host</a></span></p>
 
   
   <div id="instance_attr_details" class="attr_details">
@@ -742,8 +817,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute mod</p>
+    <p>Returns the value of attribute mod.</p>
 
 
   </div>
@@ -757,12 +831,12 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-149
-150
-151</pre>
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mod'>mod</span>
   <span class='ivar'>@mod</span>
@@ -794,15 +868,75 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-272
-273
-274</pre>
+286
+287
+288</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 272</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 286</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action_id'>action_id</span>
   <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_selected_content_action_id'>selected_content_action_id</span> <span class='op'>||</span> <span class='id identifier rubyid_action_id_stand_in'>action_id_stand_in</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="asset_host-instance_method">
+  
+    #<strong>asset_host</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+299
+300
+301</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 299</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_asset_host'>asset_host</span>
+  <span class='id identifier rubyid_bucket_config'>bucket_config</span><span class='lparen'>(</span><span class='symbol'>:asset_host</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='kw'>super</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bucket_config-instance_method">
+  
+    #<strong>bucket_config</strong>(option)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+295
+296
+297</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 295</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bucket_config'>bucket_config</span> <span class='id identifier rubyid_option'>option</span>
+  <span class='ivar'>@model</span><span class='period'>.</span><span class='id identifier rubyid_bucket_config'>bucket_config</span><span class='lbracket'>[</span><span class='id identifier rubyid_option'>option</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -824,12 +958,12 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-232
-233
-234</pre>
+246
+247
+248</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 232</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 246</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cache_dir'>cache_dir</span>
   <span class='ivar'>@model</span><span class='period'>.</span><span class='id identifier rubyid_files_base_dir'>files_base_dir</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/cache</span><span class='tstring_end'>&quot;</span></span>
@@ -851,6 +985,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -876,12 +1011,12 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-258
-259
-260</pre>
+272
+273
+274</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 258</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 272</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_versions?'>create_versions?</span> <span class='id identifier rubyid_new_file'>new_file</span>
   <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_create_versions?'>create_versions?</span> <span class='id identifier rubyid_new_file'>new_file</span>
@@ -902,8 +1037,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>generate identifier that gets stored in the card’s db_content field</p>
+    <p>generate identifier that gets stored in the card’s db_content field</p>
 
 
   </div>
@@ -924,8 +1058,9 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       
       
         &mdash;
-        <div class='inline'>
-<p>generate an identifier using the given storage options instead of the storage options derived from the model and the global configuration</p>
+        <div class='inline'><p>generate an identifier using the given storage options
+instead of the storage options derived from the model and
+the global configuration</p>
 </div>
       
     </li>
@@ -975,16 +1110,16 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-190
-191
-192
-193
-194
-195
-196</pre>
+204
+205
+206
+207
+208
+209
+210</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 190</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 204</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_db_content'>db_content</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_with_storage_options'>with_storage_options</span> <span class='id identifier rubyid_opts'>opts</span> <span class='kw'>do</span>
@@ -1013,17 +1148,17 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-174
-175
-176
-177
-178
-179
-180
-181</pre>
+188
+189
+190
+191
+192
+193
+194
+195</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 174</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 188</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_extension'>extension</span>
   <span class='kw'>case</span>
@@ -1053,16 +1188,16 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-166
-167
-168
-169
-170
-171
-172</pre>
+180
+181
+182
+183
+184
+185
+186</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 166</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filename'>filename</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_coded?'>coded?</span>
@@ -1091,12 +1226,12 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-219
-220
-221</pre>
+233
+234
+235</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 219</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 233</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_local_url'>local_url</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%s/%s/%s</span><span class='tstring_end'>&quot;</span></span> <span class='op'>%</span> <span class='lbracket'>[</span><span class='id identifier rubyid_local_url_base'>local_url_base</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_file_dir'>file_dir</span><span class='comma'>,</span> <span class='id identifier rubyid_full_filename'>full_filename</span><span class='lparen'>(</span><span class='id identifier rubyid_url_filename'>url_filename</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rbracket'>]</span>
@@ -1121,13 +1256,13 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-223
-224
-225
-226</pre>
+237
+238
+239
+240</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 223</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 237</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_local_url_base'>local_url_base</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_web_path'>web_path</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_files_web_path'>files_web_path</span>
@@ -1153,13 +1288,13 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-267
-268
-269
-270</pre>
+281
+282
+283
+284</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 267</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 281</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_original_filename'>original_filename</span>
   <span class='ivar'>@original_filename</span> <span class='op'>||=</span> <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_selected_action'>selected_action</span> <span class='op'>&amp;&amp;</span>
@@ -1181,8 +1316,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>paperclip compatibility used in type/file.rb#core (base format)</p>
+    <p>paperclip compatibility used in type/file.rb#core (base format)</p>
 
 
   </div>
@@ -1196,12 +1330,12 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-263
-264
-265</pre>
+277
+278
+279</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 263</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 277</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_version'>version</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_version'>version</span> <span class='op'>?</span> <span class='id identifier rubyid_versions'>versions</span><span class='lbracket'>[</span><span class='id identifier rubyid_version'>version</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='op'>:</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -1226,12 +1360,12 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-228
-229
-230</pre>
+242
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 228</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 242</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_public_path'>public_path</span>
   <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>public</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_existent'>existent</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span>
@@ -1256,12 +1390,12 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-249
-250
-251</pre>
+263
+264
+265</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 249</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 263</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_retrieve_path'>retrieve_path</span>
   <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_retrieve_dir'>retrieve_dir</span><span class='comma'>,</span> <span class='id identifier rubyid_full_filename'>full_filename</span><span class='lparen'>(</span><span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='rparen'>)</span>
@@ -1282,8 +1416,11 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Carrierwave calls store_path without argument when it stores the file and with the identifier from the db when it retrieves the file. In our case the first part of our identifier is not part of the path but we can construct the filename from db data. So we don’t need the identifier.</p>
+    <p>Carrierwave calls store_path without argument when it stores the file
+and with the identifier from the db when it retrieves the file.
+In our case the first part of our identifier is not part of the path
+but we can construct the filename from db data. So we don’t need the
+identifier.</p>
 
 
   </div>
@@ -1297,16 +1434,16 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-241
-242
-243
-244
-245
-246
-247</pre>
+255
+256
+257
+258
+259
+260
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 241</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 255</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_store_path'>store_path</span> <span class='id identifier rubyid_for_file'>for_file</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_for_file'>for_file</span>
@@ -1335,13 +1472,13 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-253
-254
-255
-256</pre>
+267
+268
+269
+270</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 253</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 267</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tmp_path'>tmp_path</span>
   <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_mkdir'>mkdir</span> <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_tmp_upload_dir'>tmp_upload_dir</span> <span class='kw'>unless</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span> <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_tmp_upload_dir'>tmp_upload_dir</span>
@@ -1365,6 +1502,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -1383,8 +1521,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       
       
         &mdash;
-        <div class='inline'>
-<p>a customizable set of options</p>
+        <div class='inline'><p>a customizable set of options</p>
 </div>
       
     </li>
@@ -1404,9 +1541,8 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
             
           </span>
           
-            &mdash; <div class='inline'>
-<ul>
-<li>return absolute url</li>
+            &mdash; <div class='inline'><ul>
+  <li>return absolute url</li>
 </ul>
 </div>
           
@@ -1422,18 +1558,18 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-209
-210
-211
-212
-213
-214
-215
-216
-217</pre>
+223
+224
+225
+226
+227
+228
+229
+230
+231</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 223</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_cloud?'>cloud?</span>
@@ -1464,18 +1600,18 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-198
-199
-200
-201
-202
-203
-204
-205
-206</pre>
+212
+213
+214
+215
+216
+217
+218
+219
+220</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 198</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 212</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url_filename'>url_filename</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_with_storage_options'>with_storage_options</span> <span class='id identifier rubyid_opts'>opts</span> <span class='kw'>do</span>
@@ -1504,6 +1640,7 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -1528,12 +1665,12 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
       <pre class="lines">
 
 
-162
-163
-164</pre>
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/file_card_uploader.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_valid?'>valid?</span>
   <span class='id identifier rubyid_extension'>extension</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -1548,9 +1685,9 @@ Card.create name: &quot;file card&quot;, type_id: Card::FileID,
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:34:04 2019 by
+  Generated on Thu Sep 10 15:02:51 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

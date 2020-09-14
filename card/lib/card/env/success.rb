@@ -101,7 +101,7 @@ class Card
         if @card
           @card
         elsif @id
-          Card.find @id
+          Card.fetch @id
         elsif @name
           Card.fetch @name.to_name.absolute(name_context), new: @new_args
         end

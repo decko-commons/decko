@@ -113,7 +113,7 @@ def name_to_replace_for_subcard subcard, new_name
 end
 
 def autoname name
-  if Card.exists?(name) || ActManager.include?(name)
+  if Card.exists?(name) || Director.include?(name)
     autoname name.next
   else
     name
@@ -208,34 +208,32 @@ def each_descendant &block
   end
 end
 
-def right_id= card_or_id
-  write_card_or_id :right_id, card_or_id
+def right_id= cardish
+  write_card_or_id :right_id, cardish
 end
 
-def left_id= card_or_id
-  write_card_or_id :left_id, card_or_id
+def left_id= cardish
+  write_card_or_id :left_id, cardish
 end
 
-def write_card_or_id attribute, card_or_id
-  if card_or_id.is_a? Card
-    write_attribute_to_card attribute, card_or_id
+def write_card_or_id attribute, cardish
+  when_id_exists(cardish) { |id| write_attribute attribute, id }
+end
+
+def when_id_exists cardish, &block
+  if (card_id = Card.id cardish)
+    yield card_id
+  elsif cardish.is_a? Card
+    with_id_after_store cardish, &block
   else
-    write_attribute attribute, card_or_id
+    yield cardish # eg nil
   end
 end
 
-def write_attribute_to_card attribute, card
-  if card.id
-    write_attribute attribute, card.id
-  else
-    add_subcard card
-    card.director.prior_store = true
-    with_id_when_exists(card) do |id|
-      write_attribute attribute, id
-    end
-  end
-end
-
-def with_id_when_exists card, &block
-  card.director.call_after_store(&block)
+# subcards are usually saved after super cards;
+# after_store forces it to save the subcard first
+# and callback afterwards
+def with_id_after_store subcard
+  add_subcard subcard
+  subcard.director.after_store { |card| yield card.id }
 end

@@ -221,7 +221,7 @@ event :check_permissions, :validate do
 end
 
 def action_for_permission_check
-  commenting? ? :update : @action
+  commenting? ? :update : action
 end
 
 def track_permission_errors

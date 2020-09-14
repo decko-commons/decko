@@ -6,15 +6,15 @@
 <title>
   Module: Card::Migration::Import::ImportData::CardAttributes
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Migration::Import::ImportData::CardAttributes";
   relpath = '../../../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>handles card attributes for import</p>
+    <p>handles card attributes for import</p>
 
 
   </div>
@@ -131,7 +130,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -153,7 +153,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -175,7 +176,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -197,7 +199,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -219,7 +222,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -241,7 +245,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -279,7 +284,7 @@
       <pre class="code"><span class="info file"># File 'lib/card/migration/import/import_data/card_attributes.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_attributes'>card_attributes</span> <span class='id identifier rubyid_data'>data</span>
-  <span class='id identifier rubyid_card_attr'>card_attr</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>name</span><span class='words_sep'> </span><span class='tstring_content'>type</span><span class='words_sep'> </span><span class='tstring_content'>codename</span><span class='words_sep'> </span><span class='tstring_content'>file</span><span class='words_sep'> </span><span class='tstring_content'>image</span><span class='words_sep'>]</span>
+  <span class='id identifier rubyid_card_attr'>card_attr</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>name</span><span class='words_sep'> </span><span class='tstring_content'>type</span><span class='words_sep'> </span><span class='tstring_content'>codename</span><span class='words_sep'> </span><span class='tstring_content'>file</span><span class='words_sep'> </span><span class='tstring_content'>image</span><span class='tstring_end'>]</span></span>
   <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_v'>v</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_card_attr'>card_attr</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -486,9 +491,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:22 2019 by
+  Generated on Thu Sep 10 15:02:27 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

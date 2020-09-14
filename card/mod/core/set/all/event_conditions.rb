@@ -58,7 +58,7 @@ end
 
 def on_condition_applies? _event, actions
   actions = Array(actions).compact
-  actions.empty? ? true : actions.include?(@action)
+  actions.empty? ? true : actions.include?(action)
 end
 
 # if changing name/type, the old card has no-longer-applicable set modules, so we create
@@ -74,7 +74,7 @@ end
 
 # existing card is being changed in a way that alters its sets
 def updating_sets?
-  @action == :update && real? && (type_id_is_changing? || name_is_changing?)
+  action == :update && real? && (type_id_is_changing? || name_is_changing?)
 end
 
 # prevents locking in set_condition_card
@@ -93,7 +93,7 @@ def set_condition_card_with_new_set_modules
 end
 
 def changed_condition_applies? _event, db_columns
-  return true unless @action == :update
+  return true unless action == :update
   db_columns = Array(db_columns).compact
   return true if db_columns.empty?
   db_columns.any? { |col| single_changed_condition_applies? col }
@@ -136,9 +136,9 @@ def wrong_stage opts
   end
 end
 
-def wrong_action action
-  return false if on_condition_applies?(nil, action)
-  "on: #{action} method #{method} called on #{@action}"
+def wrong_action actn
+  return false if on_condition_applies?(nil, actn)
+  "on: #{actn} method #{method} called on #{action}"
 end
 
 def full_skip_hash

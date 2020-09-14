@@ -4,7 +4,7 @@ event :assign_action, :initialize, when: :actionable? do
   act = director.need_act
   @current_action = Card::Action.create(
     card_act_id: act.id,
-    action_type: @action,
+    action_type: action,
     draft: (Env.params["draft"] == "true")
   )
   if @supercard && @supercard != self
@@ -87,14 +87,14 @@ event :rollback_actions, :prepare_to_validate, on: :update, when: :rollback_requ
 end
 
 event :finalize_act, after: :finalize_action, when: :act_card? do
-  Card::ActManager.act.update! card_id: id
+  Card::Director.act.update! card_id: id
 end
 
 event :remove_empty_act, :integrate_with_delay_final, when: :remove_empty_act? do
-  # Card::ActManager.act.delete
-  # Card::ActManager.act = nil
+  # Card::Director.act.delete
+  # Card::Director.act = nil
 end
 
 def remove_empty_act?
-  act_card? && ActManager.act&.ar_actions&.reload&.empty?
+  act_card? && Director.act&.ar_actions&.reload&.empty?
 end

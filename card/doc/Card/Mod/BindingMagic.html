@@ -6,15 +6,15 @@
 <title>
   Class: Card::Mod::BindingMagic
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Mod::BindingMagic";
   relpath = '../../';
 </script>
@@ -103,8 +103,11 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Tries to build the module with as little string evaluation as possible. The problem here is that in methods like <code>module_eval</code> the Module.nesting list gets lost so all references in mod files to constants in the Card::Set namespace don’t work. The solution is to construct a binding with the right Module.nesting list.</p>
+    <p>Tries to build the module with as little string evaluation as possible.
+The problem here is that in methods like <code>module_eval</code> the Module.nesting
+list gets lost so all references in mod files to constants in the
+Card::Set namespace don’t work.
+The solution is to construct a binding with the right Module.nesting list.</p>
 
 
   </div>
@@ -144,7 +147,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -166,8 +170,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Get a binding with a Module.nesting list that contains the given module and all of its containing modules as described by its fully qualified name in inner-to-outer order.</p>
+    <span class="summary_desc"><div class='inline'><p>Get a binding with a Module.nesting list that contains the given module and all of its containing modules as described by its fully qualified name in inner-to-outer order.</p>
 </div></span>
   
 </li>
@@ -270,8 +273,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Get a binding with a Module.nesting list that contains the given module and all of its containing modules as described by its fully qualified name in inner-to-outer order.</p>
+    <p>Get a binding with a Module.nesting list that contains the
+given module and all of its containing modules as described
+by its fully qualified name in inner-to-outer order.</p>
 
 
   </div>
@@ -337,9 +341,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:34:00 2019 by
+  Generated on Thu Sep 10 15:02:48 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

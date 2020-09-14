@@ -6,15 +6,15 @@
 <title>
   Class: Card::Query::AbstractQuery
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Query::AbstractQuery";
   relpath = '../../';
 </script>
@@ -108,12 +108,17 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>superclass for CardQuery, ReferenceQuery, ActQuery, and ActionQuery</p>
+    <p>superclass for CardQuery, ReferenceQuery, ActQuery, and ActionQuery</p>
 
-<p>Each of the Query classes handle interpretation of hash “statements” into a number of objects known to the SqlStatement class, including @conditions, @joins, @comment, and the catch-all @mods</p>
+<p>Each of the Query classes handle interpretation of hash “statements”
+into a number of objects known to the SqlStatement class, including
+@conditions, @joins, @comment, and the catch-all @mods</p>
 
-<p>Sql queries involving multiple tables are made possible by the query hierarchy as tracked by subqueries (children) and superqueries (parents). For example, if one card links to another, then this can be represented as a CardQuery with a ReferenceQuery child that in turn has another CardQuery as its child.</p>
+<p>Sql queries involving multiple tables are made possible by the query
+hierarchy as tracked by subqueries (children) and superqueries (parents).
+For example, if one card links to another, then this can be represented
+as a CardQuery with a ReferenceQuery child that in turn has another
+CardQuery as its child.</p>
 
 <p>See AbstractQuery::Tie for more on how tables can be connected.</p>
 
@@ -166,8 +171,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute comment.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute comment.</p>
 </div></span>
   
 </li>
@@ -195,8 +199,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute conditions.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute conditions.</p>
 </div></span>
   
 </li>
@@ -222,8 +225,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute conditions_on_join.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute conditions_on_join.</p>
 </div></span>
   
 </li>
@@ -249,8 +251,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute joins.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute joins.</p>
 </div></span>
   
 </li>
@@ -278,8 +279,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute mods.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute mods.</p>
 </div></span>
   
 </li>
@@ -307,8 +307,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute negate.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute negate.</p>
 </div></span>
   
 </li>
@@ -336,8 +335,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute statement.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute statement.</p>
 </div></span>
   
 </li>
@@ -365,8 +363,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute subqueries.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute subqueries.</p>
 </div></span>
   
 </li>
@@ -394,35 +391,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute superquery.</p>
-</div></span>
-  
-</li>
-
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#table_seq-instance_method" title="#table_seq (instance method)">#<strong>table_seq</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute table_seq.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute superquery.</p>
 </div></span>
   
 </li>
@@ -450,8 +419,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute vars.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute vars.</p>
 </div></span>
   
 </li>
@@ -487,7 +455,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -509,7 +478,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -531,7 +501,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -553,7 +524,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -575,7 +547,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -599,8 +572,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of AbstractQuery.</p>
+    <span class="summary_desc"><div class='inline'><p>A new instance of AbstractQuery.</p>
 </div></span>
   
 </li>
@@ -623,7 +595,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -645,7 +618,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -667,7 +641,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -689,7 +664,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -711,7 +687,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -755,8 +732,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a new instance of AbstractQuery</p>
+    <p>Returns a new instance of AbstractQuery.</p>
 
 
   </div>
@@ -819,8 +795,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute comment</p>
+    <p>Returns the value of attribute comment.</p>
 
 
   </div>
@@ -862,8 +837,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute conditions</p>
+    <p>Returns the value of attribute conditions.</p>
 
 
   </div>
@@ -905,8 +879,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute conditions_on_join</p>
+    <p>Returns the value of attribute conditions_on_join.</p>
 
 
   </div>
@@ -948,8 +921,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute joins</p>
+    <p>Returns the value of attribute joins.</p>
 
 
   </div>
@@ -991,8 +963,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute mods</p>
+    <p>Returns the value of attribute mods.</p>
 
 
   </div>
@@ -1034,8 +1005,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute negate</p>
+    <p>Returns the value of attribute negate.</p>
 
 
   </div>
@@ -1077,8 +1047,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute statement</p>
+    <p>Returns the value of attribute statement.</p>
 
 
   </div>
@@ -1120,8 +1089,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute subqueries</p>
+    <p>Returns the value of attribute subqueries.</p>
 
 
   </div>
@@ -1163,8 +1131,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute superquery</p>
+    <p>Returns the value of attribute superquery.</p>
 
 
   </div>
@@ -1194,49 +1161,6 @@
 </div>
     
       
-      <span id="table_seq=-instance_method"></span>
-      <div class="method_details ">
-  <h3 class="signature " id="table_seq-instance_method">
-  
-    #<strong>table_seq</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns the value of attribute table_seq</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-22
-23
-24</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/query/abstract_query.rb', line 22</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_table_seq'>table_seq</span>
-  <span class='ivar'>@table_seq</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
       <span id=""></span>
       <div class="method_details ">
   <h3 class="signature " id="vars-instance_method">
@@ -1249,8 +1173,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute vars</p>
+    <p>Returns the value of attribute vars.</p>
 
 
   </div>
@@ -1374,6 +1297,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -1561,6 +1485,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -1671,9 +1596,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:59 2019 by
+  Generated on Thu Sep 10 15:02:48 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

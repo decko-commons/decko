@@ -6,15 +6,15 @@
 <title>
   Class: Card::Content::Chunk::URI
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Content::Chunk::URI";
   relpath = '../../../';
 </script>
@@ -106,20 +106,26 @@
   <p class="children"><span class='object_link'><a href="EmailURI.html" title="Card::Content::Chunk::EmailURI (class)">EmailURI</a></span>, <span class='object_link'><a href="HostURI.html" title="Card::Content::Chunk::HostURI (class)">HostURI</a></span></p>
 </div>
 
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="SCHEMES-constant" class="">SCHEMES =
-        
-      </dt>
-      <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>irc</span><span class='words_sep'> </span><span class='tstring_content'>http</span><span class='words_sep'> </span><span class='tstring_content'>https</span><span class='words_sep'> </span><span class='tstring_content'>ftp</span><span class='words_sep'> </span><span class='tstring_content'>ssh</span><span class='words_sep'> </span><span class='tstring_content'>git</span><span class='words_sep'> </span><span class='tstring_content'>sftp</span><span class='words_sep'> </span><span class='tstring_content'>file</span><span class='words_sep'> </span><span class='tstring_content'>ldap</span><span class='words_sep'> </span><span class='tstring_content'>ldaps</span><span class='words_sep'> </span><span class='tstring_content'>mailto</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="REJECTED_PREFIX_RE-constant" class="">REJECTED_PREFIX_RE =
-        
-      </dt>
-      <dd><pre class="code"><span class='qwords_beg'>%w{</span><span class='tstring_content'>!</span><span class='words_sep'> </span><span class='tstring_content'>&quot;:</span><span class='words_sep'> </span><span class='tstring_content'>&quot;</span><span class='words_sep'> </span><span class='tstring_content'>&#39;</span><span class='words_sep'> </span><span class='tstring_content'>](</span><span class='words_sep'>}</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_escape'>escape</span> <span class='id identifier rubyid_s'>s</span> <span class='rbrace'>}</span> <span class='op'>*</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>|</span><span class='tstring_end'>&quot;</span></span></pre></dd>
-    
-  </dl>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="SCHEMES-constant" class="">SCHEMES =
+          
+        </dt>
+        <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>irc</span><span class='words_sep'> </span><span class='tstring_content'>http</span><span class='words_sep'> </span><span class='tstring_content'>https</span><span class='words_sep'> </span><span class='tstring_content'>ftp</span><span class='words_sep'> </span><span class='tstring_content'>ssh</span><span class='words_sep'> </span><span class='tstring_content'>git</span><span class='words_sep'> </span><span class='tstring_content'>sftp</span><span class='words_sep'> </span><span class='tstring_content'>file</span><span class='words_sep'> </span><span class='tstring_content'>ldap</span><span class='words_sep'> </span><span class='tstring_content'>ldaps</span><span class='words_sep'> </span><span class='tstring_content'>mailto</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="REJECTED_PREFIX_RE-constant" class="">REJECTED_PREFIX_RE =
+          
+        </dt>
+        <dd><pre class="code"><span class='qwords_beg'>%w{</span><span class='tstring_content'>!</span><span class='words_sep'> </span><span class='tstring_content'>&quot;:</span><span class='words_sep'> </span><span class='tstring_content'>&quot;</span><span class='words_sep'> </span><span class='tstring_content'>&#39;</span><span class='words_sep'> </span><span class='tstring_content'>](</span><span class='tstring_end'>}</span></span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_escape'>escape</span> <span class='id identifier rubyid_s'>s</span> <span class='rbrace'>}</span> <span class='op'>*</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>|</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -149,8 +155,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute link_text.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute link_text.</p>
 </div></span>
   
 </li>
@@ -178,8 +183,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute uri.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute uri.</p>
 </div></span>
   
 </li>
@@ -220,7 +224,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -242,7 +247,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -273,7 +279,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -291,7 +298,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Abstract.html" title="Card::Content::Chunk::Abstract (class)">Abstract</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Abstract.html#as_json-instance_method" title="Card::Content::Chunk::Abstract#as_json (method)">#as_json</a></span>, <span class='object_link'><a href="Abstract.html#card-instance_method" title="Card::Content::Chunk::Abstract#card (method)">#card</a></span>, <span class='object_link'><a href="Abstract.html#format-instance_method" title="Card::Content::Chunk::Abstract#format (method)">#format</a></span>, <span class='object_link'><a href="Abstract.html#full_re-class_method" title="Card::Content::Chunk::Abstract.full_re (method)">full_re</a></span>, <span class='object_link'><a href="Abstract.html#initialize-instance_method" title="Card::Content::Chunk::Abstract#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Abstract.html#inspect-instance_method" title="Card::Content::Chunk::Abstract#inspect (method)">#inspect</a></span>, <span class='object_link'><a href="Abstract.html#reference_code-instance_method" title="Card::Content::Chunk::Abstract#reference_code (method)">#reference_code</a></span>, <span class='object_link'><a href="Abstract.html#result-instance_method" title="Card::Content::Chunk::Abstract#result (method)">#result</a></span>, <span class='object_link'><a href="Abstract.html#to_s-instance_method" title="Card::Content::Chunk::Abstract#to_s (method)">#to_s</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Abstract.html#as_json-instance_method" title="Card::Content::Chunk::Abstract#as_json (method)">#as_json</a></span>, <span class='object_link'><a href="Abstract.html#burn_after_reading-instance_method" title="Card::Content::Chunk::Abstract#burn_after_reading (method)">#burn_after_reading</a></span>, <span class='object_link'><a href="Abstract.html#burn_read-instance_method" title="Card::Content::Chunk::Abstract#burn_read (method)">#burn_read</a></span>, <span class='object_link'><a href="Abstract.html#card-instance_method" title="Card::Content::Chunk::Abstract#card (method)">#card</a></span>, <span class='object_link'><a href="Abstract.html#format-instance_method" title="Card::Content::Chunk::Abstract#format (method)">#format</a></span>, <span class='object_link'><a href="Abstract.html#full_re-class_method" title="Card::Content::Chunk::Abstract.full_re (method)">full_re</a></span>, <span class='object_link'><a href="Abstract.html#initialize-instance_method" title="Card::Content::Chunk::Abstract#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Abstract.html#inspect-instance_method" title="Card::Content::Chunk::Abstract#inspect (method)">#inspect</a></span>, <span class='object_link'><a href="Abstract.html#reference_code-instance_method" title="Card::Content::Chunk::Abstract#reference_code (method)">#reference_code</a></span>, <span class='object_link'><a href="Abstract.html#result-instance_method" title="Card::Content::Chunk::Abstract#result (method)">#result</a></span>, <span class='object_link'><a href="Abstract.html#to_s-instance_method" title="Card::Content::Chunk::Abstract#to_s (method)">#to_s</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -315,8 +322,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute link_text</p>
+    <p>Returns the value of attribute link_text.</p>
 
 
   </div>
@@ -358,8 +364,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute uri</p>
+    <p>Returns the value of attribute uri.</p>
 
 
   </div>
@@ -407,6 +412,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -545,7 +551,7 @@
   <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(?:&amp;nbsp;)+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 
   <span class='ivar'>@trailing_punctuation</span> <span class='op'>=</span>
-    <span class='kw'>if</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>,</span><span class='words_sep'> </span><span class='tstring_content'>.</span><span class='words_sep'> </span><span class='tstring_content'>)</span><span class='words_sep'> </span><span class='tstring_content'>!</span><span class='words_sep'> </span><span class='tstring_content'>?</span><span class='words_sep'> </span><span class='tstring_content'>:</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_member?'>member?</span><span class='lparen'>(</span><span class='id identifier rubyid_last_char'>last_char</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>,</span><span class='words_sep'> </span><span class='tstring_content'>.</span><span class='words_sep'> </span><span class='tstring_content'>)</span><span class='words_sep'> </span><span class='tstring_content'>!</span><span class='words_sep'> </span><span class='tstring_content'>?</span><span class='words_sep'> </span><span class='tstring_content'>:</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_member?'>member?</span><span class='lparen'>(</span><span class='id identifier rubyid_last_char'>last_char</span><span class='rparen'>)</span>
       <span class='ivar'>@text</span><span class='period'>.</span><span class='id identifier rubyid_chop!'>chop!</span>
       <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_chop!'>chop!</span>
       <span class='id identifier rubyid_last_char'>last_char</span>
@@ -570,9 +576,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:34:02 2019 by
+  Generated on Thu Sep 10 15:02:49 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

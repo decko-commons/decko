@@ -6,15 +6,15 @@
 <title>
   Class: Card::Reference
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Reference";
   relpath = '../';
 </script>
@@ -105,8 +105,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>a Reference is a directional relationship from one card (the referer) to another (the referee).</p>
+    <p>a Reference is a directional relationship from one card (the referer)
+to another (the referee).</p>
 
 
   </div>
@@ -116,7 +116,7 @@
 
 </div><div id="subclasses">
   <h2>Direct Known Subclasses</h2>
-  <p class="children"><span class='object_link'><a href="Content/Chunk/Link.html" title="Card::Content::Chunk::Link (class)">Content::Chunk::Link</a></span>, <span class='object_link'><a href="Content/Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Content::Chunk::Nest</a></span></p>
+  <p class="children"><span class='object_link'><a href="Content/Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Content::Chunk::Nest</a></span></p>
 </div>
 
 
@@ -150,8 +150,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>remove all references from missing (eg deleted) cards.</p>
+    <span class="summary_desc"><div class='inline'><p>remove all references from missing (eg deleted) cards.</p>
 </div></span>
   
 </li>
@@ -174,8 +173,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>map existing reference to name to card via id.</p>
+    <span class="summary_desc"><div class='inline'><p>map existing reference to name to card via id.</p>
 </div></span>
   
 </li>
@@ -198,8 +196,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>bulk insert improves performance considerably array takes form [referer_id, referee_id, referee_key, ref_type, ].</p>
+    <span class="summary_desc"><div class='inline'><p>bulk insert improves performance considerably array takes form [ [referer_id, referee_id, referee_key, ref_type], …].</p>
 </div></span>
   
 </li>
@@ -222,8 +219,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>delete all references, then recreate them one by one faster than #repair_all, but not recommended for use on running sites.</p>
+    <span class="summary_desc"><div class='inline'><p>delete all references, then recreate them one by one faster than #repair_all, but not recommended for use on running sites.</p>
 </div></span>
   
 </li>
@@ -246,8 +242,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>repair references one by one (delete, create, delete, create…) slower, but better than #recreate_all for use on running sites.</p>
+    <span class="summary_desc"><div class='inline'><p>repair references one by one (delete, create, delete, create…) slower, but better than #recreate_all for use on running sites.</p>
 </div></span>
   
 </li>
@@ -270,8 +265,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>find all references to missing (eg deleted) cards and reset them.</p>
+    <span class="summary_desc"><div class='inline'><p>find all references to missing (eg deleted) cards and reset them.</p>
 </div></span>
   
 </li>
@@ -294,8 +288,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>references no longer refer to card, so remove id.</p>
+    <span class="summary_desc"><div class='inline'><p>references no longer refer to card, so remove id.</p>
 </div></span>
   
 </li>
@@ -327,8 +320,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>card that is referred to.</p>
+    <span class="summary_desc"><div class='inline'><p>card that is referred to.</p>
 </div></span>
   
 </li>
@@ -351,8 +343,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>card that refers.</p>
+    <span class="summary_desc"><div class='inline'><p>card that refers.</p>
 </div></span>
   
 </li>
@@ -385,8 +376,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>remove all references from missing (eg deleted) cards</p>
+    <p>remove all references from missing (eg deleted) cards</p>
 
 
   </div>
@@ -442,8 +432,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>map existing reference to name to card via id</p>
+    <p>map existing reference to name to card via id</p>
 
 
   </div>
@@ -483,8 +472,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>bulk insert improves performance considerably array takes form [referer_id, referee_id, referee_key, ref_type, ]</p>
+    <p>bulk insert improves performance considerably
+array takes form [ [referer_id, referee_id, referee_key, ref_type], …]</p>
 
 
   </div>
@@ -536,8 +525,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>delete all references, then recreate them one by one faster than #repair_all, but not recommended for use on running sites</p>
+    <p>delete all references, then recreate them one by one
+faster than #repair_all, but not recommended for use on running sites</p>
 
 
   </div>
@@ -587,8 +576,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>repair references one by one (delete, create, delete, create…) slower, but better than #recreate_all for use on running sites</p>
+    <p>repair references one by one (delete, create, delete, create…)
+slower, but better than #recreate_all for use on running sites</p>
 
 
   </div>
@@ -638,8 +627,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>find all references to missing (eg deleted) cards and reset them</p>
+    <p>find all references to missing (eg deleted) cards and reset them</p>
 
 
   </div>
@@ -687,8 +675,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>references no longer refer to card, so remove id</p>
+    <p>references no longer refer to card, so remove id</p>
 
 
   </div>
@@ -734,8 +721,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>card that is referred to</p>
+    <p>card that is referred to</p>
 
 
   </div>
@@ -775,8 +761,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>card that refers</p>
+    <p>card that refers</p>
 
 
   </div>
@@ -810,9 +795,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:57 2019 by
+  Generated on Thu Sep 10 15:02:47 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

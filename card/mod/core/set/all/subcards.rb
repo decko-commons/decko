@@ -26,11 +26,6 @@ def expire_subcards
   subcards.clear
 end
 
-def save_as_subcard!
-  self.only_storage_phase = true
-  save! validate: false
-end
-
 # phase_method :attach_subcard, before: :store do |name_or_card, args=nil|
 # TODO: handle differently in different stages
 def add_subcard name_or_card, args={}
@@ -89,7 +84,7 @@ def deep_clear_subcards
   subcards.deep_clear
 end
 
-event :handle_subcard_errors do
+def handle_subcard_errors
   subcards.each do |subcard|
     subcard.errors.each do |field, err|
       subcard_error subcard, field, err

@@ -6,15 +6,15 @@
 <title>
   Module: Card::Mark
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Mark";
   relpath = '../';
 </script>
@@ -90,8 +90,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Card::Mark provides class methods for Card to translate all different kind of card identifiers to card objects.</p>
+    <p>Card::Mark provides class methods for Card to translate all different kind
+of card identifiers to card objects.</p>
 
 
   </div>
@@ -100,20 +100,26 @@
   
 
 </div>
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="ID_MARK_RE-constant" class="">ID_MARK_RE =
-        
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^~(?&lt;id&gt;\d+)$</span><span class='regexp_end'>/</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="CODENAME_MARK_RE-constant" class="">CODENAME_MARK_RE =
-        
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^:(?&lt;codename&gt;\w+)$</span><span class='regexp_end'>/</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="ID_MARK_RE-constant" class="">ID_MARK_RE =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^~(?&lt;id&gt;\d+)$</span><span class='regexp_end'>/</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="CODENAME_MARK_RE-constant" class="">CODENAME_MARK_RE =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^:(?&lt;codename&gt;\w+)$</span><span class='regexp_end'>/</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -146,7 +152,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -168,8 +175,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>translates marks (and other inputs) into a Card.</p>
+    <span class="summary_desc"><div class='inline'><p>translates marks (and other inputs) into a Card.</p>
 </div></span>
   
 </li>
@@ -192,7 +198,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -214,8 +221,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>translates string identifiers into an id: - string id notation (eg “~75”) - string codename notation (eg “:options”).</p>
+    <span class="summary_desc"><div class='inline'><p>translates string identifiers into an id:   - string id notation (eg “~75”)   - string codename notation (eg “:options”).</p>
 </div></span>
   
 </li>
@@ -238,8 +244,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>translates various inputs into either an id or a name.</p>
+    <span class="summary_desc"><div class='inline'><p>translates various inputs into either an id or a name.</p>
 </div></span>
   
 </li>
@@ -262,7 +267,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -291,7 +297,6 @@
       <pre class="lines">
 
 
-50
 51
 52
 53
@@ -301,10 +306,11 @@
 57
 58
 59
-60</pre>
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mark.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mark.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bad_mark'>bad_mark</span> <span class='id identifier rubyid_mark'>mark</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_mark'>mark</span>
@@ -333,8 +339,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>translates marks (and other inputs) into a Card</p>
+    <p>translates marks (and other inputs) into a Card</p>
 
 
   </div>
@@ -367,8 +372,7 @@
       
       
         
-        <div class='inline'>
-<p>Card</p>
+        <div class='inline'><p>Card</p>
 </div>
       
     </li>
@@ -425,7 +429,8 @@
 32
 33
 34
-35</pre>
+35
+36</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/card/mark.rb', line 29</span>
@@ -435,6 +440,7 @@
   <span class='kw'>when</span> <span class='const'>Integer</span> <span class='kw'>then</span> <span class='id identifier rubyid_mark'>mark</span>
   <span class='kw'>when</span> <span class='const'>Symbol</span>  <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id!'><span class='object_link'><a href="Codename.html#id!-class_method" title="Card::Codename.id! (method)">id!</a></span></span> <span class='id identifier rubyid_mark'>mark</span>
   <span class='kw'>when</span> <span class='const'>String</span>  <span class='kw'>then</span> <span class='id identifier rubyid_id_from_string'>id_from_string</span> <span class='id identifier rubyid_mark'>mark</span>
+  <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span>    <span class='kw'>then</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -453,8 +459,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>translates string identifiers into an id: - string id notation (eg “~75”) - string codename notation (eg “:options”)</p>
+    <p>translates string identifiers into an id:
+  - string id notation (eg “~75”)
+  - string codename notation (eg “:options”)</p>
 
 
   </div>
@@ -496,15 +503,15 @@
       <pre class="lines">
 
 
-43
 44
 45
 46
 47
-48</pre>
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mark.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mark.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id_from_string'>id_from_string</span> <span class='id identifier rubyid_mark'>mark</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_mark'>mark</span>
@@ -528,8 +535,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>translates various inputs into either an id or a name.</p>
+    <p>translates various inputs into either an id or a name.</p>
 
 
   </div>
@@ -548,8 +554,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>a mark or mark parts</p>
+        <div class='inline'><p>a mark or mark parts</p>
 </div>
       
     </li>
@@ -610,12 +615,12 @@
       <pre class="lines">
 
 
-62
 63
-64</pre>
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mark.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mark.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name_from_mark'>name_from_mark</span> <span class='id identifier rubyid_mark'>mark</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_mark'>mark</span><span class='rbracket'>]</span>
@@ -630,9 +635,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:17 2019 by
+  Generated on Thu Sep 10 15:02:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>
