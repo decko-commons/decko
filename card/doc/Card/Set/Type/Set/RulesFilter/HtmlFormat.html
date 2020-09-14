@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Type::Set::RulesFilter::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Type::Set::RulesFilter::HtmlFormat";
   relpath = '../../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod022-rules/type/set/rules_filter.rb</dd>
+    <dd>tmpsets/set/mod023-rules/type/set/rules_filter.rb</dd>
   </dl>
   
 </div>
@@ -106,6 +106,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#filter_text-instance_method" title="#filter_text (instance method)">#<strong>filter_text</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#related_set_options-instance_method" title="#related_set_options (instance method)">#<strong>related_set_options</strong>  &#x21d2; Object </a>
     
 
@@ -120,7 +143,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -128,7 +152,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#rules_filter-instance_method" title="#rules_filter (instance method)">#<strong>rules_filter</strong>(selected_setting = :common, set_options = :related)  &#x21d2; Object </a>
+      <a href="#rules_filter-instance_method" title="#rules_filter (instance method)">#<strong>rules_filter</strong>(view, selected_setting = nil, set_options = nil, path_opts = {})  &#x21d2; Object </a>
     
 
     
@@ -142,7 +166,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -172,7 +198,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#set_select-instance_method" title="#set_select (instance method)">#<strong>set_select</strong>(set_options = :related)  &#x21d2; Object </a>
+      <a href="#set_select-instance_method" title="#set_select (instance method)">#<strong>set_select</strong>(set_options)  &#x21d2; Object </a>
     
 
     
@@ -186,7 +212,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -208,7 +235,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_select_tag-instance_method" title="#set_select_tag (instance method)">#<strong>set_select_tag</strong>(set_options = :related)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -230,7 +281,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -246,7 +298,41 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="related_set_options-instance_method">
+  <h3 class="signature first" id="filter_text-instance_method">
+  
+    #<strong>filter_text</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/type/set/rules_filter.rb', line 35</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_filter_text'>filter_text</span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:span</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mx-2 small</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rules that apply to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid__render_set_label'>_render_set_label</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># LOCALIZE
+</span>  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="related_set_options-instance_method">
   
     #<strong>related_set_options</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -260,14 +346,14 @@
       <pre class="lines">
 
 
-48
-49
-50
-51
-52</pre>
+62
+63
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/type/set/rules_filter.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/type/set/rules_filter.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_related_set_options'>related_set_options</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_related_sets'>related_sets</span><span class='lparen'>(</span><span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_label'>label</span><span class='op'>|</span>
@@ -282,7 +368,7 @@
       <div class="method_details ">
   <h3 class="signature " id="rules_filter-instance_method">
   
-    #<strong>rules_filter</strong>(selected_setting = :common, set_options = :related)  &#x21d2; <tt>Object</tt> 
+    #<strong>rules_filter</strong>(view, selected_setting = nil, set_options = nil, path_opts = {})  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -305,23 +391,21 @@
 17
 18
 19
-20
-21</pre>
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/type/set/rules_filter.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/type/set/rules_filter.rb', line 9</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_rules_filter'>rules_filter</span> <span class='id identifier rubyid_selected_setting'>selected_setting</span><span class='op'>=</span><span class='symbol'>:common</span><span class='comma'>,</span> <span class='id identifier rubyid_set_options'>set_options</span><span class='op'>=</span><span class='symbol'>:related</span>
-  <span class='id identifier rubyid_form_tag'>form_tag</span> <span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='label'>mark:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>view:</span> <span class='symbol'>:rules_list</span><span class='comma'>,</span> <span class='label'>slot:</span> <span class='lbrace'>{</span> <span class='label'>hide:</span> <span class='symbol'>:content</span> <span class='rbrace'>}</span><span class='rparen'>)</span><span class='comma'>,</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_rules_filter'>rules_filter</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_selected_setting'>selected_setting</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_set_options'>set_options</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_path_opts'>path_opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_form_tag'>form_tag</span> <span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='id identifier rubyid_path_opts'>path_opts</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>view:</span> <span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span>
            <span class='label'>remote:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>method:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>get</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>role:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-           <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-slot-selector</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.card-slot.rules_list-view</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+           <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-slot-selector</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.card-slot.rule-list</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
            <span class='label'>class:</span> <span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nodblclick slotter form-inline slim-select2 m-2</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_output'>output</span> <span class='lbracket'>[</span>
       <span class='id identifier rubyid_label_tag'>label_tag</span><span class='lparen'>(</span><span class='symbol'>:view</span><span class='comma'>,</span> <span class='id identifier rubyid_icon_tag'>icon_tag</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>filter_list</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mr-2</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='id identifier rubyid_setting_select'>setting_select</span><span class='lparen'>(</span><span class='id identifier rubyid_selected_setting'>selected_setting</span><span class='rparen'>)</span><span class='comma'>,</span>
-      <span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span><span class='symbol'>:span</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rules that apply to set ...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mx-2 small</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='id identifier rubyid_set_select'>set_select</span><span class='lparen'>(</span><span class='id identifier rubyid_set_options'>set_options</span><span class='rparen'>)</span>
-    <span class='rbracket'>]</span>
+    <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -344,12 +428,12 @@
       <pre class="lines">
 
 
-34
-35
-36</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/type/set/rules_filter.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/type/set/rules_filter.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_selected_set'>selected_set</span>
   <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:set</span><span class='rbracket'>]</span>
@@ -362,7 +446,7 @@
       <div class="method_details ">
   <h3 class="signature " id="set_select-instance_method">
   
-    #<strong>set_select</strong>(set_options = :related)  &#x21d2; <tt>Object</tt> 
+    #<strong>set_select</strong>(set_options)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -374,19 +458,21 @@
       <pre class="lines">
 
 
-28
-29
-30
-31
-32</pre>
+22
+23
+24
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/type/set/rules_filter.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/type/set/rules_filter.rb', line 22</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_set_select'>set_select</span> <span class='id identifier rubyid_set_options'>set_options</span><span class='op'>=</span><span class='symbol'>:related</span>
-  <span class='id identifier rubyid_select_tag'>select_tag</span><span class='lparen'>(</span><span class='symbol'>:mark</span><span class='comma'>,</span> <span class='id identifier rubyid_set_select_options'>set_select_options</span><span class='lparen'>(</span><span class='id identifier rubyid_set_options'>set_options</span><span class='rparen'>)</span><span class='comma'>,</span>
-             <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_submit-on-select form-control</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-             <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-minimum-results-for-search</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Infinity</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_set_select'>set_select</span> <span class='id identifier rubyid_set_options'>set_options</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_filter_text'>filter_text</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span> <span class='kw'>unless</span> <span class='id identifier rubyid_set_options'>set_options</span>
+
+  <span class='lbracket'>[</span><span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span><span class='symbol'>:span</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rules that apply to set ...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mx-2 small</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+   <span class='id identifier rubyid_set_select_tag'>set_select_tag</span><span class='lparen'>(</span><span class='id identifier rubyid_set_options'>set_options</span><span class='rparen'>)</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -408,9 +494,48 @@
       <pre class="lines">
 
 
-38
-39
-40
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/type/set/rules_filter.rb', line 52</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_select_options'>set_select_options</span> <span class='id identifier rubyid_set_options'>set_options</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_set_options'>set_options</span> <span class='op'>==</span> <span class='symbol'>:related</span>
+      <span class='id identifier rubyid_related_set_options'>related_set_options</span>
+    <span class='kw'>else</span>
+      <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_label'>label</span><span class='comma'>,</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_url_key'>url_key</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+  <span class='id identifier rubyid_options_for_select'>options_for_select</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='id identifier rubyid_selected_set'>selected_set</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_select_tag-instance_method">
+  
+    #<strong>set_select_tag</strong>(set_options = :related)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 41
 42
 43
@@ -419,16 +544,13 @@
 46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/type/set/rules_filter.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/type/set/rules_filter.rb', line 41</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_set_select_options'>set_select_options</span> <span class='id identifier rubyid_set_options'>set_options</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_set_options'>set_options</span> <span class='op'>==</span> <span class='symbol'>:related</span> <span class='op'>||</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>!=</span> <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>SetID</span>
-      <span class='id identifier rubyid_related_set_options'>related_set_options</span>
-    <span class='kw'>else</span>
-      <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_label'>label</span><span class='comma'>,</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_url_key'>url_key</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
-    <span class='kw'>end</span>
-  <span class='id identifier rubyid_options_for_select'>options_for_select</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='id identifier rubyid_selected_set'>selected_set</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_set_select_tag'>set_select_tag</span> <span class='id identifier rubyid_set_options'>set_options</span><span class='op'>=</span><span class='symbol'>:related</span>
+  <span class='id identifier rubyid_select_tag'>select_tag</span><span class='lparen'>(</span><span class='symbol'>:mark</span><span class='comma'>,</span> <span class='id identifier rubyid_set_select_options'>set_select_options</span><span class='lparen'>(</span><span class='id identifier rubyid_set_options'>set_options</span><span class='rparen'>)</span><span class='comma'>,</span>
+             <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_submit-on-select form-control _close-rule-overlay-on-select</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+             <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-minimum-results-for-search</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Infinity</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+             <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-select2-id</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_unique_id'>unique_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>-</span><span class='embexpr_beg'>#{</span><span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -450,17 +572,19 @@
       <pre class="lines">
 
 
-23
-24
-25
-26</pre>
+29
+30
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/type/set/rules_filter.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/type/set/rules_filter.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setting_select'>setting_select</span> <span class='id identifier rubyid_selected'>selected</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_select_tag'>select_tag</span><span class='lparen'>(</span><span class='symbol'>:group</span><span class='comma'>,</span> <span class='id identifier rubyid_grouped_options_for_select'>grouped_options_for_select</span><span class='lparen'>(</span><span class='id identifier rubyid_setting_options'>setting_options</span><span class='comma'>,</span> <span class='id identifier rubyid_selected'>selected</span><span class='rparen'>)</span><span class='comma'>,</span>
-             <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_submit-on-select form-control</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+             <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_submit-on-select form-control</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+             <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-select2-id</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_unique_id'>unique_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>-</span><span class='embexpr_beg'>#{</span><span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -472,9 +596,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:44 2019 by
+  Generated on Thu Sep 10 15:02:39 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

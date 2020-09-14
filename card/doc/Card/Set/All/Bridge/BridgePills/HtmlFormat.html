@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Card::Set::All::Bridge::BridgePills::HtmlFormat
+  
+    &mdash; Documentation by YARD 0.9.25
+  
+</title>
+
+  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Card::Set::All::Bridge::BridgePills::HtmlFormat";
+  relpath = '../../../../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../../../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../../../../_index.html">Index (H)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../../../Set.html" title="Card::Set (module)">Set</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../../All.html" title="Card::Set::All (class)">All</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Bridge.html" title="Card::Set::All::Bridge (module)">Bridge</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../BridgePills.html" title="Card::Set::All::Bridge::BridgePills (module)">BridgePills</a></span></span>
+     &raquo; 
+    <span class="title">HtmlFormat</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../../../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Card::Set::All::Bridge::BridgePills::HtmlFormat
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  <dl>
+      <dt>Extended by:</dt>
+      <dd>Card::Set::AbstractFormat</dd>
+  </dl>
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>tmpsets/set/mod024-edit/all/bridge/bridge_pills.rb</dd>
+  </dl>
+  
+</div>
+
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="BRIDGE_PILL_UL_CLASSES-constant" class="">BRIDGE_PILL_UL_CLASSES =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav nav-pills _auto-single-select bridge-pills flex-column</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="BRIDGE_PILL_LI_CLASSES-constant" class="">BRIDGE_PILL_LI_CLASSES =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav-item</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bridge_pill_item_opts-instance_method" title="#bridge_pill_item_opts (instance method)">#<strong>bridge_pill_item_opts</strong>(breadcrumb, extra_opts, text)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bridge_pill_items-instance_method" title="#bridge_pill_items (instance method)">#<strong>bridge_pill_items</strong>(data, breadcrumb)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bridge_pill_section-instance_method" title="#bridge_pill_section (instance method)">#<strong>bridge_pill_section</strong>(tab_name, title, items)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bridge_pill_sections-instance_method" title="#bridge_pill_sections (instance method)">#<strong>bridge_pill_sections</strong>(tab_name)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bridge_pills-instance_method" title="#bridge_pills (instance method)">#<strong>bridge_pills</strong>(items)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="bridge_pill_item_opts-instance_method">
+  
+    #<strong>bridge_pill_item_opts</strong>(breadcrumb, extra_opts, text)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod024-edit/all/bridge/bridge_pills.rb', line 28</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bridge_pill_item_opts'>bridge_pill_item_opts</span> <span class='id identifier rubyid_breadcrumb'>breadcrumb</span><span class='comma'>,</span> <span class='id identifier rubyid_extra_opts'>extra_opts</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_bridge_link_opts'>bridge_link_opts</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-toggle</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pill</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span> <span class='id identifier rubyid_breadcrumb_data'>breadcrumb_data</span><span class='lparen'>(</span><span class='id identifier rubyid_breadcrumb'>breadcrumb</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_extra_opts'>extra_opts</span>
+    <span class='id identifier rubyid_classes'>classes</span> <span class='op'>=</span> <span class='id identifier rubyid_extra_opts'>extra_opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:class</span>
+    <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_classes'>classes</span> <span class='kw'>if</span> <span class='id identifier rubyid_classes'>classes</span>
+    <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_deep_merge!'>deep_merge!</span> <span class='id identifier rubyid_extra_opts'>extra_opts</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-cy</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_text'>text</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_content'>-pill</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav-link</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_opts'>opts</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bridge_pill_items-instance_method">
+  
+    #<strong>bridge_pill_items</strong>(data, breadcrumb)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22
+23
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod024-edit/all/bridge/bridge_pills.rb', line 20</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bridge_pill_items'>bridge_pill_items</span> <span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_breadcrumb'>breadcrumb</span>
+  <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_extra_opts'>extra_opts</span><span class='op'>|</span>
+    <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_bridge_pill_item_opts'>bridge_pill_item_opts</span> <span class='id identifier rubyid_breadcrumb'>breadcrumb</span><span class='comma'>,</span> <span class='id identifier rubyid_extra_opts'>extra_opts</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span>
+    <span class='id identifier rubyid_mark'>mark</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:mark</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='symbol'>:absolute</span> <span class='op'>?</span> <span class='id identifier rubyid_field'>field</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bridge_pill_section-instance_method">
+  
+    #<strong>bridge_pill_section</strong>(tab_name, title, items)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+48
+49
+50
+51
+52
+53</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod024-edit/all/bridge/bridge_pills.rb', line 48</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bridge_pill_section'>bridge_pill_section</span> <span class='id identifier rubyid_tab_name'>tab_name</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_items'>items</span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span><span class='symbol'>:h6</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ml-1 mt-3</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>+</span>
+    <span class='id identifier rubyid_wrap_each_with'>wrap_each_with</span><span class='lparen'>(</span><span class='symbol'>:li</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='const'><span class='object_link'><a href="#BRIDGE_PILL_LI_CLASSES-constant" title="Card::Set::All::Bridge::BridgePills::HtmlFormat::BRIDGE_PILL_LI_CLASSES (constant)">BRIDGE_PILL_LI_CLASSES</a></span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_bridge_pill_items'>bridge_pill_items</span><span class='lparen'>(</span><span class='id identifier rubyid_items'>items</span><span class='comma'>,</span> <span class='id identifier rubyid_tab_name'>tab_name</span><span class='rparen'>)</span>
+    <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bridge_pill_sections-instance_method">
+  
+    #<strong>bridge_pill_sections</strong>(tab_name)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod024-edit/all/bridge/bridge_pills.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bridge_pill_sections'>bridge_pill_sections</span> <span class='id identifier rubyid_tab_name'>tab_name</span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:ul</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='const'><span class='object_link'><a href="#BRIDGE_PILL_UL_CLASSES-constant" title="Card::Set::All::Bridge::BridgePills::HtmlFormat::BRIDGE_PILL_UL_CLASSES (constant)">BRIDGE_PILL_UL_CLASSES</a></span></span> <span class='kw'>do</span>
+    <span class='kw'>yield</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_args'>args</span><span class='op'>|</span> <span class='id identifier rubyid_bridge_pill_section'>bridge_pill_section</span><span class='lparen'>(</span><span class='id identifier rubyid_tab_name'>tab_name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bridge_pills-instance_method">
+  
+    #<strong>bridge_pills</strong>(items)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+14
+15
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod024-edit/all/bridge/bridge_pills.rb', line 14</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bridge_pills'>bridge_pills</span> <span class='id identifier rubyid_items'>items</span>
+  <span class='id identifier rubyid_list_tag'>list_tag</span> <span class='label'>class:</span> <span class='const'><span class='object_link'><a href="#BRIDGE_PILL_UL_CLASSES-constant" title="Card::Set::All::Bridge::BridgePills::HtmlFormat::BRIDGE_PILL_UL_CLASSES (constant)">BRIDGE_PILL_UL_CLASSES</a></span></span><span class='comma'>,</span> <span class='label'>items:</span> <span class='lbrace'>{</span> <span class='label'>class:</span> <span class='const'><span class='object_link'><a href="#BRIDGE_PILL_LI_CLASSES-constant" title="Card::Set::All::Bridge::BridgePills::HtmlFormat::BRIDGE_PILL_LI_CLASSES (constant)">BRIDGE_PILL_LI_CLASSES</a></span></span> <span class='rbrace'>}</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_items'>items</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Sep 10 15:02:40 2020 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.25 (ruby-2.6.3).
+</div>
+
+    </div>
+  </body>
+</html>

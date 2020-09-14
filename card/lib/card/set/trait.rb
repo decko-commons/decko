@@ -55,17 +55,13 @@ class Card
 
       def define_trait_card trait, opts
         define_method "#{trait}_card" do
-          trait_var "@#{trait}_card" do
-            fetch trait.to_sym, new: opts.clone, eager_cache: true
-          end
+          fetch trait.to_sym, new: opts.clone, eager_cache: true
         end
       end
 
       def define_trait_reader trait
         define_method trait do
-          trait_var "@#{trait}" do
-            send("#{trait}_card").content
-          end
+          send("#{trait}_card").content
         end
       end
 

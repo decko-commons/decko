@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Follow::FollowerIds::ClassMethods
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Follow::FollowerIds::ClassMethods";
   relpath = '../../../../../';
 </script>
@@ -85,8 +85,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>follow cache methods on Card class</p>
+    <p>follow cache methods on Card class</p>
 
 
   </div>
@@ -126,7 +125,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -148,7 +148,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -170,7 +171,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -192,7 +194,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -221,12 +224,12 @@
       <pre class="lines">
 
 
-33
-34
-35</pre>
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod017-follow/all/follow/follower_ids.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod017-follow/all/follow/follower_ids.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear_follower_ids_cache'>clear_follower_ids_cache</span>
   <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_cache'><span class='object_link'><a href="../../../../../Card.html#cache-class_method" title="Card.cache (method)">cache</a></span></span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span> <span class='const'><span class='object_link'><a href="../FollowerIds.html#FOLLOWER_IDS_CACHE_KEY-constant" title="Card::Set::All::Follow::FollowerIds::FOLLOWER_IDS_CACHE_KEY (constant)">FOLLOWER_IDS_CACHE_KEY</a></span></span><span class='comma'>,</span> <span class='kw'>nil</span>
@@ -251,17 +254,17 @@
       <pre class="lines">
 
 
-20
-21
-22
-23</pre>
+32
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod017-follow/all/follow/follower_ids.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod017-follow/all/follow/follower_ids.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow_caches_expired'>follow_caches_expired</span>
   <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_clear_follower_ids_cache'>clear_follower_ids_cache</span>
-  <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_clear_preference_cache'>clear_preference_cache</span>
+  <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Rule.html" title="Card::Rule (module)">Rule</a></span></span><span class='period'>.</span><span class='id identifier rubyid_clear_preference_cache'><span class='object_link'><a href="../../../../Rule.html#clear_preference_cache-class_method" title="Card::Rule.clear_preference_cache (method)">clear_preference_cache</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -283,12 +286,12 @@
       <pre class="lines">
 
 
-25
-26
-27</pre>
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod017-follow/all/follow/follower_ids.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod017-follow/all/follow/follower_ids.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follower_ids_cache'>follower_ids_cache</span>
   <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_cache'><span class='object_link'><a href="../../../../../Card.html#cache-class_method" title="Card.cache (method)">cache</a></span></span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../FollowerIds.html#FOLLOWER_IDS_CACHE_KEY-constant" title="Card::Set::All::Follow::FollowerIds::FOLLOWER_IDS_CACHE_KEY (constant)">FOLLOWER_IDS_CACHE_KEY</a></span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -313,12 +316,12 @@
       <pre class="lines">
 
 
-29
-30
-31</pre>
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod017-follow/all/follow/follower_ids.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod017-follow/all/follow/follower_ids.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_follower_ids_cache'>write_follower_ids_cache</span> <span class='id identifier rubyid_hash'>hash</span>
   <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_cache'><span class='object_link'><a href="../../../../../Card.html#cache-class_method" title="Card.cache (method)">cache</a></span></span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span> <span class='const'><span class='object_link'><a href="../FollowerIds.html#FOLLOWER_IDS_CACHE_KEY-constant" title="Card::Set::All::Follow::FollowerIds::FOLLOWER_IDS_CACHE_KEY (constant)">FOLLOWER_IDS_CACHE_KEY</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_hash'>hash</span>
@@ -333,9 +336,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:48 2019 by
+  Generated on Thu Sep 10 15:02:41 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

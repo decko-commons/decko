@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Loader
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Loader";
   relpath = '../../';
 </script>
@@ -90,11 +90,11 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<ol>
-<li>Definition: interpret each set file, creating/defining set and set_format modules</li>
-
-<li>Organization: have base classes include modules associated with the ‘all’ set, and clean up the other modules</li>
+    <ol>
+  <li>Definition: interpret each set file, creating/defining set and
+ set_format modules</li>
+  <li>Organization: have base classes include modules associated with the
+‘all’ set, and clean up the other modules</li>
 </ol>
 
 
@@ -135,7 +135,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -157,7 +158,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -179,8 +181,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>each set file calls <code>extend Card::Set</code> when loaded.</p>
+    <span class="summary_desc"><div class='inline'><p>each set file calls <code>extend Card::Set</code> when loaded.</p>
 </div></span>
   
 </li>
@@ -203,8 +204,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>‘base modules’ are modules that are permanently included on the Card or Format class ‘nonbase modules’ are included dynamically on singleton_classes.</p>
+    <span class="summary_desc"><div class='inline'><p>‘base modules’ are modules that are always included on the Card or Format class ‘nonbase modules’ are included dynamically on singleton_classes.</p>
 </div></span>
   
 </li>
@@ -227,8 +227,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>make the set available for use.</p>
+    <span class="summary_desc"><div class='inline'><p>make the set available for use.</p>
 </div></span>
   
 </li>
@@ -326,8 +325,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>each set file calls <code>extend Card::Set</code> when loaded</p>
+    <p>each set file calls <code>extend Card::Set</code> when loaded</p>
 
 
   </div>
@@ -367,8 +365,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>‘base modules’ are modules that are permanently included on the Card or Format class ‘nonbase modules’ are included dynamically on singleton_classes</p>
+    <p>‘base modules’ are modules that are always included on the Card or
+Format class
+‘nonbase modules’ are included dynamically on singleton_classes</p>
 
 
   </div>
@@ -422,8 +421,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>make the set available for use</p>
+    <p>make the set available for use</p>
 
 
   </div>
@@ -473,9 +471,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:18 2019 by
+  Generated on Thu Sep 10 15:02:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

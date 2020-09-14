@@ -6,15 +6,15 @@
 <title>
   Class: Card::Migration::Import
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Migration::Import";
   relpath = '../../';
 </script>
@@ -103,12 +103,17 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Imports card data from a local or remote deck</p>
+    <p>Imports card data from a local or remote deck</p>
 
-<p>The cards’ content for the import is stored for every card in a separate file, other attributes like name or type are stored for all cards together in a yml file.</p>
+<p>The cards’ content for the import is stored for every card in a separate
+file, other attributes like name or type are stored for all cards together
+in a yml file.</p>
 
-<p>To update a card’s content you only have to change the card’s content file. The merge method will recognize that the file was changed since the last merge and merge it into the cards table To update other attributes change them in the yml file and either remove the ‘merged’ value or touch the corresponding content file</p>
+<p>To update a card’s content you only have to change the card’s content
+file. The merge method will recognize that the file was changed
+since the last merge and merge it into the cards table
+To update other attributes change them in the yml file and either remove
+the ‘merged’ value or touch the corresponding content file</p>
 
 
   </div>
@@ -158,8 +163,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Add a card with the given attributes to the import data.</p>
+    <span class="summary_desc"><div class='inline'><p>Add a card with the given attributes to the import data.</p>
 </div></span>
   
 </li>
@@ -182,8 +186,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Save an url as remote deck to make it available for the pull method.</p>
+    <span class="summary_desc"><div class='inline'><p>Save an url as remote deck to make it available for the pull method.</p>
 </div></span>
   
 </li>
@@ -208,8 +211,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of Import.</p>
+    <span class="summary_desc"><div class='inline'><p>A new instance of Import.</p>
 </div></span>
   
 </li>
@@ -232,8 +234,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Merge the import data into the cards table.</p>
+    <span class="summary_desc"><div class='inline'><p>Merge the import data into the cards table.</p>
 </div></span>
   
 </li>
@@ -256,8 +257,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Get import data from a deck.</p>
+    <span class="summary_desc"><div class='inline'><p>Get import data from a deck.</p>
 </div></span>
   
 </li>
@@ -280,8 +280,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a new instance of Import</p>
+    <p>Returns a new instance of Import.</p>
 
 
   </div>
@@ -328,8 +327,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Add a card with the given attributes to the import data</p>
+    <p>Add a card with the given attributes to the import data</p>
 
 
   </div>
@@ -373,8 +371,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Save an url as remote deck to make it available for the pull method</p>
+    <p>Save an url as remote deck to make it available for the pull method</p>
 
 
   </div>
@@ -418,8 +415,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Merge the import data into the cards table. Bu default it merges only the data that was changed or added since the last merge.</p>
+    <p>Merge the import data into the cards table.
+Bu default it merges only the data that was changed or added
+since the last merge.</p>
 
 
   </div>
@@ -440,8 +438,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>choose which cards to merge</p>
+        <div class='inline'><p>choose which cards to merge</p>
 </div>
       
     </li>
@@ -461,8 +458,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>merge all available import data</p>
+            &mdash; <div class='inline'><p>merge all available import data</p>
 </div>
           
         </li>
@@ -474,8 +470,8 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>a key/name or list of keys/names to be merged</p>
+            &mdash; <div class='inline'><p>a key/name or list of keys/names to
+be merged</p>
 </div>
           
         </li>
@@ -516,8 +512,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Get import data from a deck</p>
+    <p>Get import data from a deck</p>
 
 
   </div>
@@ -536,8 +531,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The name of the card to be imported</p>
+        <div class='inline'><p>The name of the card to be imported</p>
 </div>
       
     </li>
@@ -554,8 +548,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>pull options</p>
+        <div class='inline'><p>pull options</p>
 </div>
       
     </li>
@@ -577,8 +570,8 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>Use a remote url. The remote url must have been registered via ‘add_remote’</p>
+            &mdash; <div class='inline'><p>Use a remote url. The remote url must
+have been registered via ‘add_remote’</p>
 </div>
           
         </li>
@@ -590,8 +583,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>if true fetch all nested cards, too</p>
+            &mdash; <div class='inline'><p>if true fetch all nested cards, too</p>
 </div>
           
         </li>
@@ -603,8 +595,8 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>if true fetch all nested cards but not the card itself</p>
+            &mdash; <div class='inline'><p>if true fetch all nested cards but
+not the card itself</p>
 </div>
           
         </li>
@@ -649,9 +641,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:58 2019 by
+  Generated on Thu Sep 10 15:02:48 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

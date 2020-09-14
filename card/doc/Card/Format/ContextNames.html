@@ -6,15 +6,15 @@
 <title>
   Module: Card::Format::ContextNames
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Format::ContextNames";
   relpath = '../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Contextual names make titles less noisy by not rendering redundant name parts</p>
+    <p>Contextual names make titles less noisy by not rendering redundant name parts</p>
 
 <p>For example, in the context of “Ball”, “Ball+size” is rendered as just “+size”</p>
 
@@ -133,7 +132,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -155,8 +155,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>TODO: stop this lazy loading the combo of lazy loading + format ancestry navigation + caching is dangerous Long term, it would probably be smarter to handle this in the voo.</p>
+    <span class="summary_desc"><div class='inline'><p>TODO: stop this lazy loading the combo of lazy loading + format ancestry navigation + caching is dangerous Long term, it would probably be smarter to handle this in the voo.</p>
 </div></span>
   
 </li>
@@ -179,8 +178,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>“slot[name_context]” param is a string; @context_names is an array.</p>
+    <span class="summary_desc"><div class='inline'><p>“slot[name_context]” param is a string; @context_names is an array.</p>
 </div></span>
   
 </li>
@@ -203,7 +201,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -225,7 +224,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -247,7 +247,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -269,7 +270,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -291,7 +293,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -348,8 +351,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>the combo of lazy loading + format ancestry navigation + caching is dangerous Long term, it would probably be smarter to handle this in the voo.</p>
+    <p>TODO: stop this lazy loading
+the combo of lazy loading + format ancestry navigation + caching is dangerous
+Long term, it would probably be smarter to handle this in the voo.</p>
 
 
   </div>
@@ -389,8 +393,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>“slot[name_context]” param is a string; @context_names is an array</p>
+    <p>“slot[name_context]” param is a string; @context_names is an array</p>
 
 
   </div>
@@ -414,7 +417,7 @@
       <pre class="code"><span class="info file"># File 'lib/card/format/context_names.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_context_names_from_params'>context_names_from_params</span>
-  <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_name_list'>name_list</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_slot_opts'><span class='object_link'><a href="../Env.html#slot_opts-class_method" title="Card::Env.slot_opts (method)">slot_opts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:name_context</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_name_list'>name_list</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_slot_opts'><span class='object_link'><a href="../Env/SlotOptions.html#slot_opts-instance_method" title="Card::Env::SlotOptions#slot_opts (method)">slot_opts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:name_context</span><span class='rparen'>)</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_name_list'>name_list</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_name</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -598,9 +601,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:20 2019 by
+  Generated on Thu Sep 10 15:02:26 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

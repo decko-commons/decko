@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::BootswatchTheme
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::BootswatchTheme";
   relpath = '../../../';
 </script>
@@ -83,8 +83,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb<span class="defines">,<br />
-  tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme/html_views.rb</span>
+    <dd>tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb<span class="defines">,<br />
+  tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme/html_views.rb</span>
 </dd>
   </dl>
   
@@ -92,12 +92,25 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Bootswatch themes are free themes for bootstrap available at https://bootswatch.com/. For every bootswatch theme we have one card of card type “bootswatch skin”. They all have codenames following the pattern “#<span class='object_link'><a href="#theme_name-instance_method" title="Card::Set::Abstract::BootswatchTheme#theme_name (method)">#theme_name</a></span>_skin”.</p>
+    <p>Set: Abstract (BootswatchTheme)</p>
 
-<p>The original bootswatch theme is build from two files, <code>_variables.scss</code> and <code>_bootswatch.scss</code>. The original bootstrap scss has to be put between those two. <code>_variables.scss</code> overrides bootstrap variables, <code>_bootswatch.scss</code> overrides bootstrap css (variables are defined with <code>!default</code> hence only the first appearance has an effect, for css the last appearance counts)</p>
+<p>Bootswatch themes are free themes for bootstrap available at https://bootswatch.com/.
+For every bootswatch theme we have one card of card type “bootswatch skin”.
+They all have codenames following the pattern “#<span class='object_link'><a href="#theme_name-instance_method" title="Card::Set::Abstract::BootswatchTheme#theme_name (method)">#theme_name</a></span>_skin”.</p>
 
-<p>The content of a bootswatch theme card consists of four parts: * pre_variables: hard-coded theme independent stuff and bootstrap functions to make them available in the variables part * variables: the content from <code>_variables.scss</code>, * post_variables: the bootstrap css and libraries like select2 and bootstrap-colorpicker that depend on the theme * stylesheets: the content from <code>_bootswatch.scss</code> and custom styles</p>
+<p>The original bootswatch theme is build from two files, <code>_variables.scss</code> and
+<code>_bootswatch.scss</code>. The original bootstrap scss has to be put between those two.
+<code>_variables.scss</code> overrides bootstrap variables, <code>_bootswatch.scss</code> overrides
+bootstrap css (variables are defined with <code>!default</code> hence only the first appearance
+has an effect, for css the last appearance counts)</p>
+
+<p>The content of a bootswatch theme card consists of four parts:
+  * pre_variables: hard-coded theme independent stuff
+      and bootstrap functions to make them available in the variables part
+  * variables: the content from <code>_variables.scss</code>,
+  * post_variables: the bootstrap css and libraries like select2 and
+      bootstrap-colorpicker that depend on the theme
+  * stylesheets: the content from <code>_bootswatch.scss</code> and custom styles</p>
 
 <p>For the original bootswatch themes all those parts are hard-coded and the content</p>
 
@@ -118,36 +131,54 @@
   
 </p>
 
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="CONTENT_PARTS-constant" class="">CONTENT_PARTS =
-        
-      </dt>
-      <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pre_variables</span><span class='words_sep'> </span><span class='tstring_content'>variables</span><span class='words_sep'> </span><span class='tstring_content'>post_variables</span><span class='words_sep'> </span><span class='tstring_content'>stylesheets</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="PRE_VARIABLES_CARD_NAMES-constant" class="">PRE_VARIABLES_CARD_NAMES =
-        
-      </dt>
-      <dd><pre class="code"><span class='qsymbols_beg'>%i[
-</span><span class='tstring_content'>  style_jquery_ui_smoothness</span><span class='words_sep'>
-</span><span class='tstring_content'>  bootstrap_functions</span><span class='words_sep'>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="CONTENT_PARTS-constant" class="">CONTENT_PARTS =
+          
+        </dt>
+        <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pre_variables</span><span class='words_sep'> </span><span class='tstring_content'>variables</span><span class='words_sep'> </span><span class='tstring_content'>post_variables</span><span class='words_sep'> </span><span class='tstring_content'>stylesheets</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="PRE_VARIABLES_CARD_NAMES-constant" class="">PRE_VARIABLES_CARD_NAMES =
+          
+        </dt>
+        <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='words_sep'>
+  </span><span class='tstring_content'>style_jquery_ui_smoothness</span><span class='words_sep'>
+  </span><span class='tstring_content'>bootstrap_functions</span><span class='words_sep'>
 </span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-      <dt id="POST_VARIABLES_CARD_NAMES-constant" class="">POST_VARIABLES_CARD_NAMES =
-        
-      </dt>
-      <dd><pre class="code"><span class='qsymbols_beg'>%i[
-</span><span class='tstring_content'>  bootstrap_core</span><span class='words_sep'>
-</span><span class='tstring_content'>  style_cards</span><span class='words_sep'>
-</span><span class='tstring_content'>  style_bootstrap_cards</span><span class='words_sep'>
-</span><span class='tstring_content'>  style_libraries</span><span class='words_sep'>
-</span><span class='tstring_content'>  style_mods</span><span class='words_sep'>
+      
+        <dt id="POST_VARIABLES_CARD_NAMES-constant" class="">POST_VARIABLES_CARD_NAMES =
+          
+        </dt>
+        <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='words_sep'>
+  </span><span class='tstring_content'>bootstrap_core</span><span class='words_sep'>
+  </span><span class='tstring_content'>style_cards</span><span class='words_sep'>
+  </span><span class='tstring_content'>style_bootstrap_cards</span><span class='words_sep'>
+  </span><span class='tstring_content'>style_libraries</span><span class='words_sep'>
+  </span><span class='tstring_content'>style_mods</span><span class='words_sep'>
 </span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
+      
+    </dl>
+  
 
 
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#SET_PATTERN_TEST_REGEXP-constant" title="Card::Set::Helpers::SET_PATTERN_TEST_REGEXP (constant)">Helpers::SET_PATTERN_TEST_REGEXP</a></span></p>
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Event/Api.html" title="Card::Set::Event::Api (module)">Event::Api</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Event/Api.html#OPTIONS-constant" title="Card::Set::Event::Api::OPTIONS (constant)">Event::Api::OPTIONS</a></span></p>
 
 
 
@@ -178,7 +209,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -209,8 +241,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Don’t create “+<em>machine output“ file card instead save the the output as the card’s content is.</em></p>
+    <span class="summary_desc"><div class='inline'><p>Don’t create “+*machine output” file card instead save the the output as the card’s content is.</p>
 </div></span>
   
 </li>
@@ -233,7 +264,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -255,8 +287,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>reject cards that don’t contribute directly to the content like skin or pointer cards.</p>
+    <span class="summary_desc"><div class='inline'><p>reject cards that don’t contribute directly to the content like skin or pointer cards.</p>
 </div></span>
   
 </li>
@@ -279,8 +310,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>needed to make the refresh_script_and_style method work with these cards.</p>
+    <span class="summary_desc"><div class='inline'><p>needed to make the refresh_script_and_style method work with these cards.</p>
 </div></span>
   
 </li>
@@ -303,7 +333,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -325,7 +356,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -347,7 +379,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -369,7 +402,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -391,7 +425,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -413,7 +448,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -435,7 +471,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -457,7 +494,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -479,7 +517,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -501,8 +540,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>needed to make the refresh_script_and_style method work with these cards.</p>
+    <span class="summary_desc"><div class='inline'><p>needed to make the refresh_script_and_style method work with these cards.</p>
 </div></span>
   
 </li>
@@ -525,7 +563,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -547,7 +586,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -569,7 +609,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -591,7 +632,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -613,7 +655,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -628,6 +671,11 @@
   
   
   
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+
   
   
   
@@ -659,7 +707,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Helpers.html#abstract_set%3F-instance_method" title="Card::Set::Helpers#abstract_set? (method)">#abstract_set?</a></span>, <span class='object_link'><a href="../Helpers.html#all_set%3F-instance_method" title="Card::Set::Helpers#all_set? (method)">#all_set?</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
 
   
   
@@ -750,7 +798,7 @@
 26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/bootstrap/set/abstract/bootswatch_theme.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
@@ -775,8 +823,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Don’t create “+<em>machine output“ file card instead save the the output as the card’s content is</em></p>
+    <p>Don’t create “+*machine output” file card
+instead save the the output as the card’s content is</p>
 
 
   </div>
@@ -795,7 +843,7 @@
 85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_after_engine'>after_engine</span> <span class='id identifier rubyid_output'>output</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_as_bot'><span class='object_link'><a href="../../Auth/Proxy.html#as_bot-instance_method" title="Card::Auth::Proxy#as_bot (method)">as_bot</a></span></span> <span class='lbrace'>{</span> <span class='id identifier rubyid_update!'>update!</span> <span class='label'>db_content:</span> <span class='id identifier rubyid_output'>output</span> <span class='rbrace'>}</span>
@@ -827,7 +875,7 @@
 111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content'>content</span>
   <span class='const'><span class='object_link'><a href="#CONTENT_PARTS-constant" title="Card::Set::Abstract::BootswatchTheme::CONTENT_PARTS (constant)">CONTENT_PARTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_n'>n</span><span class='op'>|</span>
@@ -850,8 +898,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>reject cards that don’t contribute directly to the content like skin or pointer cards</p>
+    <p>reject cards that don’t contribute directly to the content like skin or pointer cards</p>
 
 
   </div>
@@ -870,10 +917,10 @@
 79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_engine_input'>engine_input</span>
-  <span class='id identifier rubyid_extended_input_cards'>extended_input_cards</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_ca'>ca</span><span class='op'>|</span> <span class='id identifier rubyid_ca'>ca</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span><span class='period'>.</span><span class='id identifier rubyid_in?'>in?</span> <span class='lbracket'>[</span><span class='const'>ScssID</span><span class='comma'>,</span> <span class='const'>CssID</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_extended_input_cards'>extended_input_cards</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_ca'>ca</span><span class='op'>|</span> <span class='id identifier rubyid_ca'>ca</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span><span class='period'>.</span><span class='id identifier rubyid_in?'>in?</span> <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>ScssID</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>CssID</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -891,8 +938,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>needed to make the refresh_script_and_style method work with these cards</p>
+    <p>needed to make the refresh_script_and_style method work with these cards</p>
 
 
   </div>
@@ -913,7 +959,7 @@
 99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_existing_source_paths'>existing_source_paths</span>
   <span class='id identifier rubyid_extended_input_cards'>extended_input_cards</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i_card'>i_card</span><span class='op'>|</span>
@@ -947,7 +993,7 @@
 105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_extended_input_cards'>extended_input_cards</span>
   <span class='id identifier rubyid_input_names'>input_names</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_n'>n</span><span class='op'>|</span>
@@ -982,7 +1028,7 @@
 134</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 129</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_input_names'>input_names</span> <span class='id identifier rubyid__args'>_args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#PRE_VARIABLES_CARD_NAMES-constant" title="Card::Set::Abstract::BootswatchTheme::PRE_VARIABLES_CARD_NAMES (constant)">PRE_VARIABLES_CARD_NAMES</a></span></span> <span class='op'>+</span> <span class='id identifier rubyid_variables_card_names'>variables_card_names</span> <span class='op'>+</span>
@@ -1015,7 +1061,7 @@
 142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_item_cards'>item_cards</span> <span class='id identifier rubyid__args'>_args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span>
@@ -1045,7 +1091,7 @@
 138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 136</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_item_names'>item_names</span> <span class='id identifier rubyid__args'>_args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1076,7 +1122,7 @@
 147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_content'>load_content</span> <span class='op'>*</span><span class='id identifier rubyid_names'>names</span>
   <span class='id identifier rubyid_cards'>cards</span> <span class='op'>=</span> <span class='id identifier rubyid_names'>names</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_n'>n</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_extended_item_cards'>extended_item_cards</span> <span class='rbrace'>}</span>
@@ -1107,7 +1153,7 @@
 123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_post_variables_content'>post_variables_content</span>
   <span class='id identifier rubyid_load_content'>load_content</span><span class='lparen'>(</span><span class='op'>*</span><span class='const'><span class='object_link'><a href="#POST_VARIABLES_CARD_NAMES-constant" title="Card::Set::Abstract::BootswatchTheme::POST_VARIABLES_CARD_NAMES (constant)">POST_VARIABLES_CARD_NAMES</a></span></span><span class='rparen'>)</span>
@@ -1137,7 +1183,7 @@
 115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pre_variables_content'>pre_variables_content</span>
   <span class='id identifier rubyid_load_content'>load_content</span><span class='lparen'>(</span><span class='op'>*</span><span class='const'><span class='object_link'><a href="#PRE_VARIABLES_CARD_NAMES-constant" title="Card::Set::Abstract::BootswatchTheme::PRE_VARIABLES_CARD_NAMES (constant)">PRE_VARIABLES_CARD_NAMES</a></span></span><span class='rparen'>)</span>
@@ -1169,7 +1215,7 @@
 153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_scss_from_theme_file'>scss_from_theme_file</span> <span class='id identifier rubyid_file'>file</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_source_dir'>source_dir</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_file'>file</span><span class='embexpr_end'>}</span><span class='tstring_content'>.scss</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
@@ -1202,7 +1248,7 @@
 163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 160</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 160</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_source_dir'>source_dir</span>
   <span class='ivar'>@source_dir</span> <span class='op'>||=</span>
@@ -1224,8 +1270,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>needed to make the refresh_script_and_style method work with these cards</p>
+    <p>needed to make the refresh_script_and_style method work with these cards</p>
 
 
   </div>
@@ -1246,7 +1291,7 @@
 92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_source_files'>source_files</span>
   <span class='id identifier rubyid_extended_input_cards'>extended_input_cards</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i_card'>i_card</span><span class='op'>|</span>
@@ -1278,7 +1323,7 @@
 74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stylesheets_card_names'>stylesheets_card_names</span>
   <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1308,7 +1353,7 @@
 127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 125</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stylesheets_content'>stylesheets_content</span>
   <span class='id identifier rubyid_load_content'>load_content</span> <span class='id identifier rubyid_stylesheets_card_names'>stylesheets_card_names</span>
@@ -1339,7 +1384,7 @@
 158</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_theme_name'>theme_name</span>
   <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(.+)_skin$</span><span class='regexp_end'>/</span></span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_codename'>codename</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_capture'>capture</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span> <span class='op'>||</span>
@@ -1370,7 +1415,7 @@
 69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_variables_card_names'>variables_card_names</span>
   <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1400,7 +1445,7 @@
 119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/abstract/bootswatch_theme.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/abstract/bootswatch_theme.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_variables_content'>variables_content</span>
   <span class='id identifier rubyid_load_content'>load_content</span> <span class='id identifier rubyid_variables_card_names'>variables_card_names</span>
@@ -1415,9 +1460,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:51 2019 by
+  Generated on Thu Sep 10 15:02:43 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

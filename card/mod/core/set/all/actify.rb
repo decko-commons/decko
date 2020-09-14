@@ -14,12 +14,6 @@ def act_card?
   self == act_card
 end
 
-def clear_action_specific_attributes
-  self.class.action_specific_attributes.each do |attr|
-    instance_variable_set "@#{attr}", nil
-  end
-end
-
 module ClassMethods
   def create! opts
     card = Card.new opts

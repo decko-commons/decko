@@ -12,18 +12,18 @@ class Card
         end
 
         def validate_condition_name condition
-          return if Card::Set::Event::CONDITIONS.include? condition
+          return if CONDITIONS.include? condition
 
           raise ArgumentError,
                 "invalid condition key '#{condition}' in event '#{@event}'\n" \
-                "valid conditions are #{Card::Set::Event::CONDITIONS.to_a.join ', '}"
+                "valid conditions are #{CONDITIONS.to_a.join ', '}"
         end
 
         def validate_condition_value condition, val
           if condition == :when
             validate_when_value val
           else
-            invalid = Array.wrap(val) - Array.wrap(valid_values(condition))
+            invalid = Array.wrap(val) - Api::OPTIONS[condition]
             return if invalid.empty?
 
             raise ArgumentError,
@@ -38,10 +38,6 @@ class Card
           raise ArgumentError,
                 "invalid value for condition 'when' in event '#{@event}'\n" \
                 "must be a symbol or a proc"
-        end
-
-        def valid_values condition
-          Card::Set::Event::CONDITION_OPTIONS[condition]
         end
 
         def event_opts stage_or_opts, opts

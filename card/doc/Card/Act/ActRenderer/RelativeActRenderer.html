@@ -6,15 +6,15 @@
 <title>
   Class: Card::Act::ActRenderer::RelativeActRenderer
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Act::ActRenderer::RelativeActRenderer";
   relpath = '../../../';
 </script>
@@ -103,8 +103,9 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Use for the history for one specific card It shows only the actions of an act that are relevant for the card of the format that renders the act.</p>
+    <p>Use for the history for one specific card
+It shows only the actions of an act that are relevant
+for the card of the format that renders the act.</p>
 
 
   </div>
@@ -148,7 +149,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -170,7 +172,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -192,7 +195,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -214,7 +218,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -236,7 +241,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -258,7 +264,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -280,7 +287,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -302,7 +310,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -442,6 +451,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -504,15 +514,17 @@
 51
 52
 53
-54</pre>
+54
+55</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'mod/history/lib/card/act/act_renderer/relative_act_renderer.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_revert_link'>revert_link</span>
   <span class='id identifier rubyid_revert_actions_link'>revert_actions_link</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>revert to this</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-                      <span class='lbrace'>{</span> <span class='label'>revert_actions:</span> <span class='id identifier rubyid_actions'>actions</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:id</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='symbol'>:bridge</span> <span class='rbrace'>}</span><span class='comma'>,</span>
-                      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-slot-selector</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.bridge-view</span><span class='tstring_end'>&quot;</span></span>
+                      <span class='lbrace'>{</span> <span class='label'>revert_actions:</span> <span class='id identifier rubyid_actions'>actions</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:id</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+                      <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_close-modal</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-slotter-mode</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>update-modal-origin</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -571,6 +583,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -686,9 +699,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:34:05 2019 by
+  Generated on Thu Sep 10 15:02:51 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::Media::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::Media::HtmlFormat";
   relpath = '../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod001-utility/abstract/media.rb</dd>
+    <dd>tmpsets/set/mod020-media/abstract/media.rb</dd>
   </dl>
   
 </div>
@@ -106,28 +106,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#image_alt-instance_method" title="#image_alt (instance method)">#<strong>image_alt</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#image_card-instance_method" title="#image_card (instance method)">#<strong>image_card</strong>  &#x21d2; Object </a>
     
 
@@ -142,29 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#image_src-instance_method" title="#image_src (instance method)">#<strong>image_src</strong>(opts)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -186,7 +143,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -202,37 +160,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="image_alt-instance_method">
-  
-    #<strong>image_alt</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-18
-19
-20</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod001-utility/abstract/media.rb', line 18</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_image_alt'>image_alt</span>
-  <span class='id identifier rubyid_image_card'>image_card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_name'>name</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="image_card-instance_method">
+  <h3 class="signature first" id="image_card-instance_method">
   
     #<strong>image_card</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -251,42 +179,10 @@
 11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod001-utility/abstract/media.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-media/abstract/media.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_image_card'>image_card</span>
-  <span class='ivar'>@image_card</span> <span class='op'>||=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='label'>trait:</span> <span class='symbol'>:image</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="image_src-instance_method">
-  
-    #<strong>image_src</strong>(opts)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-13
-14
-15
-16</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod001-utility/abstract/media.rb', line 13</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_image_src'>image_src</span> <span class='id identifier rubyid_opts'>opts</span>
-  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_image_card'>image_card</span>
-  <span class='id identifier rubyid_nest'>nest</span><span class='lparen'>(</span><span class='id identifier rubyid_image_card'>image_card</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='symbol'>:source</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:size</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='ivar'>@image_card</span> <span class='op'>||=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:image</span><span class='comma'>,</span> <span class='label'>new:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -308,14 +204,14 @@
       <pre class="lines">
 
 
-22
-23
-24
-25
-26</pre>
+13
+14
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod001-utility/abstract/media.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-media/abstract/media.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_text_with_image'>text_with_image</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_class_up'>class_up</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>media-left</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>m-2</span><span class='tstring_end'>&quot;</span></span>
@@ -332,9 +228,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:37 2019 by
+  Generated on Thu Sep 10 15:02:33 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

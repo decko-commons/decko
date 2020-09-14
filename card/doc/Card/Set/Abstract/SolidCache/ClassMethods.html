@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::SolidCache::ClassMethods
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::SolidCache::ClassMethods";
   relpath = '../../../../';
 </script>
@@ -115,8 +115,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Same as ‘cache_update_trigger’ but expires instead of updates the outdated solid caches.</p>
+    <span class="summary_desc"><div class='inline'><p>Same as ‘cache_update_trigger’ but expires instead of updates the outdated solid caches.</p>
 </div></span>
   
 </li>
@@ -139,8 +138,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>If a card of the set given by ‘set_of_changed_card’ is changed the given block is executed.</p>
+    <span class="summary_desc"><div class='inline'><p>If a card of the set given by ‘set_of_changed_card’ is changed the given block is executed.</p>
 </div></span>
   
 </li>
@@ -163,7 +161,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -185,7 +184,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -210,8 +210,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Same as ‘cache_update_trigger’ but expires instead of updates the outdated solid caches</p>
+    <p>Same as ‘cache_update_trigger’ but expires instead of updates the
+outdated solid caches</p>
 
 
   </div>
@@ -255,8 +255,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>If a card of the set given by ‘set_of_changed_card’ is changed the given block is executed. It is supposed to return an array of cards whose solid caches are expired because of the change.</p>
+    <p>If a card of the set given by ‘set_of_changed_card’ is changed
+the given block is executed. It is supposed to return an array of
+cards whose solid caches are expired because of the change.</p>
 
 
   </div>
@@ -275,8 +276,8 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>a set of cards that triggers a cache update</p>
+        <div class='inline'><p>a set of cards that triggers
+a cache update</p>
 </div>
       
     </li>
@@ -311,8 +312,9 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>the action(s) (:create, :update, or :delete) on which the cache update should be triggered. Default is all actions.</p>
+            &mdash; <div class='inline'><p>the action(s)
+(:create, :update, or :delete) on which the cache update
+should be triggered. Default is all actions.</p>
 </div>
           
         </li>
@@ -324,8 +326,8 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>the stage when the update is executed. Default is :integrate</p>
+            &mdash; <div class='inline'><p>the stage when the update is executed.
+Default is :integrate</p>
 </div>
           
         </li>
@@ -344,8 +346,8 @@
       
       
         
-        <div class='inline'>
-<p>return a card or an array of cards with solid cache that need to be updated</p>
+        <div class='inline'><p>return a card or an array of cards with solid cache that need to be
+updated</p>
 </div>
       
     </li>
@@ -411,7 +413,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_event_to_update_expired_cached_cards'>define_event_to_update_expired_cached_cards</span> <span class='id identifier rubyid_set_of_changed_card'>set_of_changed_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span>
                                                 <span class='id identifier rubyid_method_name'>method_name</span>
-  <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:on</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>create</span><span class='words_sep'> </span><span class='tstring_content'>update</span><span class='words_sep'> </span><span class='tstring_content'>delete</span><span class='words_sep'>]</span>
+  <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:on</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>create</span><span class='words_sep'> </span><span class='tstring_content'>update</span><span class='words_sep'> </span><span class='tstring_content'>delete</span><span class='tstring_end'>]</span></span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_event_name'>event_name</span> <span class='id identifier rubyid_set_of_changed_card'>set_of_changed_card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_stage'>stage</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:in_stage</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='symbol'>:integrate</span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='period'>.</span><span class='id identifier rubyid_register_set'><span class='object_link'><a href="../../Loader.html#register_set-instance_method" title="Card::Set::Loader#register_set (method)">register_set</a></span></span> <span class='id identifier rubyid_set_of_changed_card'>set_of_changed_card</span>
@@ -472,9 +474,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:49 2019 by
+  Generated on Thu Sep 10 15:02:42 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

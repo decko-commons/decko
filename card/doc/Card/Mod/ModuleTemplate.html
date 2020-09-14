@@ -6,15 +6,15 @@
 <title>
   Class: Card::Mod::ModuleTemplate
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Mod::ModuleTemplate";
   relpath = '../../';
 </script>
@@ -101,8 +101,10 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>ModuleTemplate is an abstract class to build ruby modules out of deckos dsl for sets and set patterns. SetLoader::Template and SetPatternLoader::Template inherit from it and adapt the template to their needs.</p>
+    <p>ModuleTemplate is an abstract class to build ruby modules out of
+deckos dsl for sets and set patterns.
+<span class='object_link'><a href="Loader/SetLoader/Template.html" title="Card::Mod::Loader::SetLoader::Template (class)">Loader::SetLoader::Template</a></span> and <span class='object_link'><a href="Loader/SetPatternLoader/Template.html" title="Card::Mod::Loader::SetPatternLoader::Template (class)">Loader::SetPatternLoader::Template</a></span> inherit
+from it and adapt the template to their needs.</p>
 
 
   </div>
@@ -146,8 +148,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Evaluates the module in the top level namespace.</p>
+    <span class="summary_desc"><div class='inline'><p>Evaluates the module in the top level namespace.</p>
 </div></span>
   
 </li>
@@ -172,8 +173,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of ModuleTemplate.</p>
+    <span class="summary_desc"><div class='inline'><p>A new instance of ModuleTemplate.</p>
 </div></span>
   
 </li>
@@ -196,7 +196,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -218,8 +219,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Just run the code of the source.</p>
+    <span class="summary_desc"><div class='inline'><p>Just run the code of the source.</p>
 </div></span>
   
 </li>
@@ -242,8 +242,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>The ruby code to build the modal.</p>
+    <span class="summary_desc"><div class='inline'><p>The ruby code to build the modal.</p>
 </div></span>
   
 </li>
@@ -266,8 +265,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a new instance of ModuleTemplate</p>
+    <p>Returns a new instance of ModuleTemplate.</p>
 
 
   </div>
@@ -324,8 +322,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Evaluates the module in the top level namespace.</p>
+    <p>Evaluates the module in the top level namespace.</p>
 
 
   </div>
@@ -369,13 +366,13 @@
       <pre class="lines">
 
 
-31
-32
-33
-34</pre>
+27
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/module_template.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/module_template.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_processed_content'>processed_content</span>
   <span class='id identifier rubyid_capture_module_comment'>capture_module_comment</span> <span class='kw'>if</span> <span class='ivar'>@strategy</span><span class='period'>.</span><span class='id identifier rubyid_clean_comments?'>clean_comments?</span>
@@ -397,8 +394,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Just run the code of the source. Don’t use the path to the file as module hierarchy.</p>
+    <p>Just run the code of the source.
+Don’t use the path to the file as module hierarchy.</p>
 
 
   </div>
@@ -425,12 +422,12 @@
       <pre class="lines">
 
 
-38
-39
-40</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/module_template.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/module_template.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_simple_load?'>simple_load?</span>
   <span class='ivar'>@content</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\A#!\s?simple load</span><span class='regexp_end'>/</span></span>
@@ -451,8 +448,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the ruby code to build the modal</p>
+    <p>Returns the ruby code to build the modal.</p>
 
 
   </div>
@@ -470,8 +466,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>the ruby code to build the modal</p>
+        <div class='inline'><p>the ruby code to build the modal</p>
 </div>
       
     </li>
@@ -486,21 +481,13 @@
 
 23
 24
-25
-26
-27
-28
-29</pre>
+25</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/card/mod/module_template.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_simple_load?'>simple_load?</span>
-    <span class='ivar'>@content</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_processed_content'>processed_content</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_simple_load?'>simple_load?</span> <span class='op'>?</span> <span class='ivar'>@content</span> <span class='op'>:</span> <span class='id identifier rubyid_processed_content'>processed_content</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -512,9 +499,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:59 2019 by
+  Generated on Thu Sep 10 15:02:48 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

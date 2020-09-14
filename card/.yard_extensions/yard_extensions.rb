@@ -5,7 +5,9 @@ module CardDSLHandler
       name = statement.parameters.first.jump(:tstring_content, :ident).source
       object = YARD::CodeObjects::MethodObject.new namespace, "#{method}: #{name}"
       register object
-      parse_block statement.last.last, owner: object
+      if (block = statement.last.last)&.is_a? Proc
+        parse_block block, owner: object
+      end
 
       # modify the object
       object.dynamic = true

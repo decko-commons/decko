@@ -40,7 +40,10 @@ Start the server for your core-dev deck with `RAILS_ENV=cypress bundle exec deck
 and then in the gem in `decko/spec` run `yarn run cypress open` to open the cypress interface.
 Cypress upgrades can be installed in that same directory via npm. 
 
-## Troubleshooting
+
+
+
+### Troubleshooting
 
 #### While I started a decko server with the local decko path, it showed the error of `NoMethodError (undefined method 'notable_exception_raised' for #<Card:0x007f8d44fed250>):`.
 
@@ -57,3 +60,30 @@ Mac OS:
 Ubuntu:
 
 `sudo apt-get install imagemagick`
+
+### Documentation
+
+We use `yard`.  
+
+For the basics, you can use:
+
+    gem install yard
+    yard server --reload
+
+But for set modules to work, you will need to regenerate tmpfiles after you change code.
+The easiest way to do that is to add something like this in 
+`config/environments/development.rb`:
+
+        Decko.application.class.configure do
+          tmpsets_dir = "#{Cardio.gem_root}/tmpsets/"
+          config.load_strategy = :tmp_files
+          config.paths['tmp/set'] = "#{tmpsets_dir}/set"
+          config.paths['tmp/set_pattern'] = "#{tmpsets_dir}/set_pattern"
+        end
+
+... and then trigger tmpset generation by loading a webpage. (Even though webpages that
+use HAML templates will break.)
+
+Note that decko and card have separate configurations; you will need to run the server
+from the respective directories.
+

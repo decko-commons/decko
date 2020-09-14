@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Rule::RuleForm::SetSelection::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Rule::RuleForm::SetSelection::HtmlFormat";
   relpath = '../../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod022-rules/rule/rule_form/set_selection.rb</dd>
+    <dd>tmpsets/set/mod023-rules/rule/rule_form/set_selection.rb</dd>
   </dl>
   
 </div>
@@ -106,7 +106,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#bridge_option_list-instance_method" title="#bridge_option_list (instance method)">#<strong>bridge_option_list</strong>(_title)  &#x21d2; Object </a>
+      <a href="#bridge_option_list-instance_method" title="#bridge_option_list (instance method)">#<strong>bridge_option_list</strong>(title)  &#x21d2; Object </a>
     
 
     
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +166,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -186,29 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#selected_rule_set-instance_method" title="#selected_rule_set (instance method)">#<strong>selected_rule_set</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -226,7 +208,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="bridge_option_list-instance_method">
   
-    #<strong>bridge_option_list</strong>(_title)  &#x21d2; <tt>Object</tt> 
+    #<strong>bridge_option_list</strong>(title)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -256,11 +238,11 @@
 41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/rule/rule_form/set_selection.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/rule/rule_form/set_selection.rb', line 26</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_bridge_option_list'>bridge_option_list</span> <span class='id identifier rubyid__title'>_title</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_bridge_option_list'>bridge_option_list</span> <span class='id identifier rubyid_title'>title</span>
   <span class='id identifier rubyid_index'>index</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>1</span>
-  <span class='id identifier rubyid_formgroup'>formgroup</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>editor:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>set</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>col-xs-6</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>help:</span> <span class='kw'>false</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_formgroup'>formgroup</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='label'>input:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>set</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>col-xs-6</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>help:</span> <span class='kw'>false</span> <span class='kw'>do</span>
     <span class='kw'>yield</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_res'>res</span><span class='comma'>,</span> <span class='id identifier rubyid_radio'>radio</span><span class='op'>|</span>
       <span class='id identifier rubyid_index'>index</span> <span class='op'>+=</span> <span class='int'>1</span>
       <span class='comment'># TODO
@@ -306,13 +288,13 @@
 24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/rule/rule_form/set_selection.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/rule/rule_form/set_selection.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_rule_set_formgroup'>bridge_rule_set_formgroup</span>
   <span class='id identifier rubyid_tag'>tag</span> <span class='op'>=</span> <span class='ivar'>@rule_context</span><span class='period'>.</span><span class='id identifier rubyid_rule_user_setting_name'>rule_user_setting_name</span>
   <span class='id identifier rubyid_narrower'>narrower</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
 
-  <span class='id identifier rubyid_bridge_option_list'>bridge_option_list</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>set</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_bridge_option_list'>bridge_option_list</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Set</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
     <span class='id identifier rubyid_rule_set_options'>rule_set_options</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_set_name'>set_name</span><span class='comma'>,</span> <span class='id identifier rubyid_state'>state</span><span class='op'>|</span>
       <span class='const'><span class='object_link'><a href="../RuleSetRadio.html" title="Card::Set::Rule::RuleForm::RuleSetRadio (class)">RuleSetRadio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../RuleSetRadio.html#initialize-instance_method" title="Card::Set::Rule::RuleForm::RuleSetRadio#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_set_name'>set_name</span><span class='comma'>,</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_html'><span class='object_link'><a href="../RuleSetRadio.html#html-instance_method" title="Card::Set::Rule::RuleForm::RuleSetRadio#html (method)">html</a></span></span> <span class='id identifier rubyid_narrower'>narrower</span>
     <span class='kw'>end</span>
@@ -345,7 +327,7 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/rule/rule_form/set_selection.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/rule/rule_form/set_selection.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_rule_set_selection'>bridge_rule_set_selection</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>set-list</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -377,46 +359,10 @@
 45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/rule/rule_form/set_selection.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod023-rules/rule/rule_form/set_selection.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rule_set_options'>rule_set_options</span>
   <span class='ivar'>@rule_set_options</span> <span class='op'>||=</span> <span class='ivar'>@rule_context</span><span class='period'>.</span><span class='id identifier rubyid_set_options'>set_options</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="selected_rule_set-instance_method">
-  
-    #<strong>selected_rule_set</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-47
-48
-49
-50
-51
-52</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-rules/rule/rule_form/set_selection.rb', line 47</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_selected_rule_set'>selected_rule_set</span>
-  <span class='kw'>if</span> <span class='ivar'>@rule_set_options</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>1</span> <span class='kw'>then</span> <span class='kw'>true</span>
-  <span class='kw'>elsif</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:type_reload</span><span class='rbracket'>]</span>       <span class='kw'>then</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_set_name'>rule_set_name</span>
-  <span class='kw'>else</span>                                  <span class='kw'>false</span>
-  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -428,9 +374,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:50 2019 by
+  Generated on Thu Sep 10 15:02:43 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>
