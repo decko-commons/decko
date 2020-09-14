@@ -4,7 +4,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 
 # Cards are wiki-inspired building blocks.
 #
-# This documentation is intended for developers who want to understand:
+# This documentation is for developers who want to understand:
 #
 #   1. how ruby Card objects work, and
 #   2. how to extend them.
@@ -82,7 +82,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 # {Card::Set::Format::AbstractFormat More on views}
 #
-# {Card::Set::Event More on events}
+# {Card::Set::Event::Api More on events}
 #
 # ## Accounts and Permissions
 #
@@ -130,30 +130,8 @@ class Card < ApplicationRecord
   ]
 
   attr_accessor(*action_specific_attributes)
-  attr_accessor :follower_stash
 
-  STAGE_CALLBACKS = [
-    :select_action, :show_page, :act,
-    # VALIDATION PHASE
-    :initialize_stage, :prepare_to_validate_stage, :validate_stage,
-    :initialize_final_stage, :prepare_to_validate_final_stage,
-    :validate_final_stage,
-    # STORAGE PHASE
-    :prepare_to_store_stage, :store_stage, :finalize_stage,
-    :prepare_to_store_final_stage, :store_final_stage, :finalize_final_stage,
-    # INTEGRATION PHASE
-    :integrate_stage, :integrate_with_delay_stage,
-    :integrate_final_stage,
-    :after_integrate_stage,
-    :after_integrate_final_stage, :integrate_with_delay_final_stage
-  ].freeze
-  define_callbacks(*STAGE_CALLBACKS)
-
-  # Validation and integration phase are only called for the act card
-  # The act card starts those phases for all its subcards
-  before_validation :validation_phase, if: -> { validation_phase_callback? }
-  around_save :storage_phase
-  after_commit :integration_phase, if: -> { integration_phase_callback? }
+  define_callbacks :select_action, :show_page, :act
 
   ActiveSupport.run_load_hooks :card, self
 end

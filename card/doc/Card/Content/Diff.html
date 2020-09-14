@@ -6,15 +6,15 @@
 <title>
   Class: Card::Content::Diff
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Content::Diff";
   relpath = '../../';
 </script>
@@ -95,7 +95,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/card/content/diff.rb<span class="defines">,<br />
-  lib/card/content/diff/lcs.rb,<br /> lib/card/content/diff/result.rb,<br /> lib/card/content/diff/processor.rb</span>
+  lib/card/content/diff/l_c_s.rb,<br /> lib/card/content/diff/result.rb,<br /> lib/card/content/diff/l_c_s/processor.rb</span>
 </dd>
   </dl>
   
@@ -140,8 +140,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute result.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute result.</p>
 </div></span>
   
 </li>
@@ -177,7 +176,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -199,7 +199,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -221,7 +222,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -243,7 +245,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -274,7 +277,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -298,8 +302,16 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>diff options :format =&gt; :html|:text|:pointer|:raw :html = maintain html structure, but compare only content :text = remove all html tags; compare plain text :pointer = remove all double square brackets :raw = escape html tags and compare everything.</p>
+    <span class="summary_desc"><div class='inline'><table>
+  <tbody>
+    <tr>
+      <td>diff options :format  =&gt; :html</td>
+      <td>:text</td>
+      <td>:pointer</td>
+      <td>:raw   :html    = maintain html structure, but compare only content   :text    = remove all html tags; compare plain text   :pointer = remove all double square brackets   :raw     = escape html tags and compare everything.</td>
+    </tr>
+  </tbody>
+</table>
 </div></span>
   
 </li>
@@ -322,7 +334,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -344,23 +357,14 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<dl>
-<dt>diff options</dt>
+    <p>diff options
+:format  =&gt; :html|:text|:pointer|:raw
+  :html    = maintain html structure, but compare only content
+  :text    = remove all html tags; compare plain text
+  :pointer = remove all double square brackets
+  :raw     = escape html tags and compare everything</p>
 
-<dd>format =&gt; :html|:text|:pointer|:raw</dd>
-
-<dd>html = maintain html structure, but compare only content</dd>
-
-<dd>text = remove all html tags; compare plain text</dd>
-
-<dd>pointer = remove all double square brackets</dd>
-
-<dd>raw = escape html tags and compare everything</dd>
-</dl>
-
-<p>summary: {length: <pre style="border: solid 3px red; background-color: pink" class="markdown-html-error">Maruku could not parse this XML/HTML: 
-&lt;number&gt; , joint: &lt;string&gt; }</pre></p>
+<p>summary: {length: <number> , joint: <string> }</string></number></p>
 
 
   </div>
@@ -415,8 +419,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute result</p>
+    <p>Returns the value of attribute result.</p>
 
 
   </div>
@@ -591,6 +594,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -643,6 +647,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -687,9 +692,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:58 2019 by
+  Generated on Thu Sep 10 15:02:47 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

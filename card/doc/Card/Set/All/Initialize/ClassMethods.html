@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Initialize::ClassMethods
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Initialize::ClassMethods";
   relpath = '../../../../';
 </script>
@@ -115,7 +115,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#with_normalized_new_args-instance_method" title="#with_normalized_new_args (instance method)">#<strong>with_normalized_new_args</strong>(args = {}) {|args| ... } &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -148,19 +172,76 @@
 12
 13
 14
-15
-16
-17</pre>
+15</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/initialize.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid__options'>_options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_with_normalized_new_args'>with_normalized_new_args</span> <span class='id identifier rubyid_args'>args</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_normalized_args'>normalized_args</span><span class='op'>|</span>
+    <span class='kw'>super</span> <span class='id identifier rubyid_normalized_args'>normalized_args</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="with_normalized_new_args-instance_method">
+  
+    #<strong>with_normalized_new_args</strong>(args = {}) {|args| ... } &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>args</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19
+20
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/initialize.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_with_normalized_new_args'>with_normalized_new_args</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_stringify_keys'>stringify_keys</span>
-  <span class='const'><span class='object_link'><a href="../Initialize.html#JUNK_INIT_ARGS-constant" title="Card::Set::All::Initialize::JUNK_INIT_ARGS (constant)">JUNK_INIT_ARGS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-  <span class='qwords_beg'>%w[</span><span class='tstring_content'>type</span><span class='words_sep'> </span><span class='tstring_content'>type_code</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='op'>|</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span> <span class='rbrace'>}</span>
-  <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>content</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>attach</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='comment'># should not be handled here!
-</span>  <span class='kw'>super</span> <span class='id identifier rubyid_args'>args</span>
+  <span class='id identifier rubyid_delete_junk_args'>delete_junk_args</span> <span class='id identifier rubyid_args'>args</span>
+  <span class='id identifier rubyid_normalize_type_args'>normalize_type_args</span> <span class='id identifier rubyid_args'>args</span>
+  <span class='id identifier rubyid_normalize_content_args'>normalize_content_args</span> <span class='id identifier rubyid_args'>args</span>
+  <span class='kw'>yield</span> <span class='id identifier rubyid_args'>args</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -172,9 +253,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:31 2019 by
+  Generated on Thu Sep 10 15:02:32 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -6,15 +6,15 @@
 <title>
   Class: Card::Content::Chunk::QueryReference
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Content::Chunk::QueryReference";
   relpath = '../../../';
 </script>
@@ -103,35 +103,30 @@
   
 </div>
 
-<h2>Overview</h2><div class="docstring">
-  <div class="discussion">
-    
-<p>This should find +Alfred+ in expressions like 1) “name”:“Alfred” 2a) “name”:[in,Alfred] 3a) “plus_right”:[Alfred] but not in 2b) “content”:“foo”, “Alfred”:“bar” 3b) Toni] (“Alfred” is an operator here) It’s not possible to distinguish between 2a) and 2b) or 3a) and 3b) with a simple regex, hence we use a too general regex and check for query keywords after the match, which of course means that we don’t find references with query keywords as name</p>
 
-
-  </div>
-</div>
-<div class="tags">
   
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
 
-</div>
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="QUERY_KEYWORDS-constant" class="">QUERY_KEYWORDS =
-        
-      </dt>
-      <dd><pre class="code"><span class='op'>::</span><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+    <dl class="constants">
+      
+        <dt id="QUERY_KEYWORDS-constant" class="">QUERY_KEYWORDS =
+          
+        </dt>
+        <dd><pre class="code"><span class='op'>::</span><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='lparen'>(</span>
-    <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html" title="Card::Query (module)">Query</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html#MODIFIERS-constant" title="Card::Query::MODIFIERS (constant)">MODIFIERS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='op'>+</span>
-    <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html" title="Card::Query (module)">Query</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html#OPERATORS-constant" title="Card::Query::OPERATORS (constant)">OPERATORS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='op'>+</span>
-    <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html" title="Card::Query (module)">Query</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html#ATTRIBUTES-constant" title="Card::Query::ATTRIBUTES (constant)">ATTRIBUTES</a></span></span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='op'>+</span>
-    <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html" title="Card::Query (module)">Query</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html#CONJUNCTIONS-constant" title="Card::Query::CONJUNCTIONS (constant)">CONJUNCTIONS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='op'>+</span>
-    <span class='qwords_beg'>%w[</span><span class='tstring_content'>desc</span><span class='words_sep'> </span><span class='tstring_content'>asc</span><span class='words_sep'> </span><span class='tstring_content'>count</span><span class='words_sep'>]</span>
+    <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html" title="Card::Query (module)">Query</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html#MODIFIERS-constant" title="Card::Query::MODIFIERS (constant)">MODIFIERS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='op'>+</span>
+    <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html" title="Card::Query (module)">Query</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html#OPERATORS-constant" title="Card::Query::OPERATORS (constant)">OPERATORS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='op'>+</span>
+    <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html" title="Card::Query (module)">Query</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html#ATTRIBUTES-constant" title="Card::Query::ATTRIBUTES (constant)">ATTRIBUTES</a></span></span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='op'>+</span>
+    <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html" title="Card::Query (module)">Query</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Query.html#CONJUNCTIONS-constant" title="Card::Query::CONJUNCTIONS (constant)">CONJUNCTIONS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='op'>+</span>
+    <span class='qwords_beg'>%w[</span><span class='tstring_content'>desc</span><span class='words_sep'> </span><span class='tstring_content'>asc</span><span class='words_sep'> </span><span class='tstring_content'>count</span><span class='tstring_end'>]</span></span>
   <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span>
 <span class='rparen'>)</span></pre></dd>
-    
-  </dl>
+      
+    </dl>
+  
 
 
 
@@ -174,7 +169,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -196,7 +192,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -227,7 +224,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -249,7 +247,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -271,7 +270,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -293,7 +293,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -315,7 +316,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -344,7 +346,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Abstract.html" title="Card::Content::Chunk::Abstract (class)">Abstract</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Abstract.html#as_json-instance_method" title="Card::Content::Chunk::Abstract#as_json (method)">#as_json</a></span>, <span class='object_link'><a href="Abstract.html#card-instance_method" title="Card::Content::Chunk::Abstract#card (method)">#card</a></span>, <span class='object_link'><a href="Abstract.html#context_ok%3F-class_method" title="Card::Content::Chunk::Abstract.context_ok? (method)">context_ok?</a></span>, <span class='object_link'><a href="Abstract.html#format-instance_method" title="Card::Content::Chunk::Abstract#format (method)">#format</a></span>, <span class='object_link'><a href="Abstract.html#full_re-class_method" title="Card::Content::Chunk::Abstract.full_re (method)">full_re</a></span>, <span class='object_link'><a href="Abstract.html#initialize-instance_method" title="Card::Content::Chunk::Abstract#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Abstract.html#result-instance_method" title="Card::Content::Chunk::Abstract#result (method)">#result</a></span>, <span class='object_link'><a href="Abstract.html#to_s-instance_method" title="Card::Content::Chunk::Abstract#to_s (method)">#to_s</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Abstract.html#as_json-instance_method" title="Card::Content::Chunk::Abstract#as_json (method)">#as_json</a></span>, <span class='object_link'><a href="Abstract.html#burn_after_reading-instance_method" title="Card::Content::Chunk::Abstract#burn_after_reading (method)">#burn_after_reading</a></span>, <span class='object_link'><a href="Abstract.html#burn_read-instance_method" title="Card::Content::Chunk::Abstract#burn_read (method)">#burn_read</a></span>, <span class='object_link'><a href="Abstract.html#card-instance_method" title="Card::Content::Chunk::Abstract#card (method)">#card</a></span>, <span class='object_link'><a href="Abstract.html#context_ok%3F-class_method" title="Card::Content::Chunk::Abstract.context_ok? (method)">context_ok?</a></span>, <span class='object_link'><a href="Abstract.html#format-instance_method" title="Card::Content::Chunk::Abstract#format (method)">#format</a></span>, <span class='object_link'><a href="Abstract.html#full_re-class_method" title="Card::Content::Chunk::Abstract.full_re (method)">full_re</a></span>, <span class='object_link'><a href="Abstract.html#initialize-instance_method" title="Card::Content::Chunk::Abstract#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Abstract.html#result-instance_method" title="Card::Content::Chunk::Abstract#result (method)">#result</a></span>, <span class='object_link'><a href="Abstract.html#to_s-instance_method" title="Card::Content::Chunk::Abstract#to_s (method)">#to_s</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -372,22 +374,24 @@
       <pre class="lines">
 
 
-55
 56
 57
 58
 59
 60
-61</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_full_match'>full_match</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_prefix'>prefix</span>
   <span class='comment'># matches cardnames that are not keywords
 </span>  <span class='comment'># FIXME: would not match cardnames that are keywords
 </span>  <span class='id identifier rubyid_match'>match</span><span class='comma'>,</span> <span class='id identifier rubyid_offset'>offset</span> <span class='op'>=</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_prefix'>prefix</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_match'>match</span> <span class='op'>||</span> <span class='id identifier rubyid_keyword?'>keyword?</span><span class='lparen'>(</span><span class='id identifier rubyid_match'>match</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
   <span class='lbracket'>[</span><span class='id identifier rubyid_match'>match</span><span class='comma'>,</span> <span class='id identifier rubyid_offset'>offset</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -407,6 +411,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -432,16 +437,18 @@
       <pre class="lines">
 
 
-63
-64
 65
-66</pre>
+66
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_keyword?'>keyword?</span> <span class='id identifier rubyid_str'>str</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_str'>str</span>
+
   <span class='const'><span class='object_link'><a href="#QUERY_KEYWORDS-constant" title="Card::Content::Chunk::QueryReference::QUERY_KEYWORDS (constant)">QUERY_KEYWORDS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_str'>str</span><span class='period'>.</span><span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -470,12 +477,12 @@
       <pre class="lines">
 
 
-77
-78
-79</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;#</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'>:n[</span><span class='embexpr_beg'>#{</span><span class='ivar'>@name</span><span class='embexpr_end'>}</span><span class='tstring_content'>] p[</span><span class='embexpr_beg'>#{</span><span class='ivar'>@process_chunk</span><span class='embexpr_end'>}</span><span class='tstring_content'>] txt:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@text</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
@@ -500,12 +507,12 @@
       <pre class="lines">
 
 
-69
-70
-71</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interpret'>interpret</span> <span class='id identifier rubyid_match'>match</span><span class='comma'>,</span> <span class='id identifier rubyid__content'>_content</span>
   <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_match'>match</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
@@ -530,12 +537,12 @@
       <pre class="lines">
 
 
-73
-74
-75</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process_chunk'>process_chunk</span>
   <span class='ivar'>@process_chunk</span> <span class='op'>||=</span> <span class='ivar'>@text</span>
@@ -560,12 +567,12 @@
       <pre class="lines">
 
 
-86
-87
-88</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reference_code'>reference_code</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Q</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># for &quot;Query&quot;
@@ -590,13 +597,13 @@
       <pre class="lines">
 
 
-81
-82
-83
-84</pre>
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'mod/core/chunk/query_reference.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_replace_reference'>replace_reference</span> <span class='id identifier rubyid_old_name'>old_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_name'>new_name</span>
   <span class='id identifier rubyid_replace_name_reference'>replace_name_reference</span> <span class='id identifier rubyid_old_name'>old_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_name'>new_name</span>
@@ -612,9 +619,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:34:02 2019 by
+  Generated on Thu Sep 10 15:02:50 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

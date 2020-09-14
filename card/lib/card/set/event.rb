@@ -1,35 +1,80 @@
 class Card
   module Set
-    # Events are the building blocks of the three transformative card actions: _create_,
-    # _update_, and _delete_.
-    #
-    # (The fourth kind of action, _read_, does not transform cards, and is associated
-    # with {Card::Format views}, not events).
-    #
-    # Whenever you create, update, or delete a card, the card goes through three phases:
-    #   * __validate__ makes sure all the data is in order
-    #   * __store__ puts the data in the database
-    #   * __integrate__ deals with any ramifications of those changes
-    #
-    # Events can be defined on each of these stages
-    #
+    # Supports the definition of events via the {Api Events API}
     class Event
+      # Events are the building blocks of the three transformative card actions: _create_,
+      # _update_, and _delete_.
+      #
+      # (The fourth kind of action, _read_, does not transform cards, and is associated
+      # with {Card::Format views}, not events).
+      #
+      # As described in detail in {Card::Director}, each act can have many actions, each
+      # action has three phases, each phase has three stages, and each stage has many
+      # events.
+      #
+      # Events are defined in set modules in {Card::Mod **mods**}. Learn more about
+      # {Card::Mod set modules}.
+      #
+      # A simple event definition looks something like this:
+      #
+      #     event :append_you_know, :prepare_to_validate, on: :create do
+      #       self.content = content + ", you know?"
+      #     end
+      #
+      # Note:
+      #
+      # - `:append_you_know` is a unique event name.
+      # - `:prepare_to_validate` is a {Card::Director stage}.
+      # - `on: :create` specifies the action to which the event applies
+      # - `self`, within the event card, is a card object.
+      #
+      # Any card within the {Card::Set set} on which this event is defined will
+      # run this event during the `prepare_to_validate` stage when it is created.
+      #
+      # Events are not format-specific and should not be defined within
+      # format blocks.
       module Api
+        OPTIONS = {
+          on: %i[create update delete save read],
+          changed: Card::Dirty.dirty_options,
+          changing: Card::Dirty.dirty_options,
+          skip: [:allowed],
+          trigger: [:required],
+          when: nil
+        }.freeze
+
+        # Define an event for a set of cards.
+        #
+        # @param event [Symbol] unique event name
+        # @param stage_or_opts [Symbol, Hash] if a Symbol, defines event's
+        #   {Card::Director stage}. If a Hash, it's treated as the opts param.
+        # @param opts [Hash] event options
+        # @option opts [Symbol, Array] :on one or more actions in which the event
+        #   should be executed. :save is shorthand for [:create, :update]. If no value
+        #   is specified, event will fire on create, update, and delete.
+        # @option opts [Symbol, Array] :changed fire event only if field has changed.
+        #   valid values: name, content, db_content, type, type_id, left_id, right_id,
+        #   codename, trash.
+        # @option opts [Symbol, Array] :changing alias for :changed
+        # @option opts [Symbol] :skip allow actions to skip this event.
+        #   (eg. `skip: :allowed`)
+        # @option opts [Symbol] :trigger allow actions to trigger this event
+        #   explicitly. If `trigger: :required`, then event will not run unless explicitly
+        #   triggered.
+        # @option opts [Symbol, Proc] :when method (Symbol) or code (Proc) to execute
+        #   to determine whether to fire event. Proc is given card as argument.
+        # @option opts [Symbol] :before fire this event before the event specified.
+        # @option opts [Symbol] :after fire this event after the event specified.
+        # @option opts [Symbol] :around fire this event before the event specified. This
+        #   event will receive a block and will need to call it for the specified
+        #   event to fire.
+        # @option opts [Symbol] :in alternate representation for specifying stage
         def event event, stage_or_opts={}, opts={}, &final
           Event.new(event, stage_or_opts, opts, self, &final).register
         end
       end
 
-      CONDITION_OPTIONS = {
-        on: %i[create update delete save read],
-        changed: %i[name content db_content type type_id codename key],
-        changing: %i[name content db_content type type_id codename key],
-        skip: :allowed,
-        trigger: :required  # the event is only executed if triggered explicitly with
-        # trigger: [event_name]
-      }.freeze
-
-      CONDITIONS = ::Set.new(%i[on changed changing when skip trigger]).freeze
+      CONDITIONS = ::Set.new(Api::OPTIONS.keys).freeze
 
       include DelayedEvent
       include Options

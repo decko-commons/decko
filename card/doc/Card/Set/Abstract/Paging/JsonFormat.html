@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::Paging::JsonFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::Paging::JsonFormat";
   relpath = '../../../../';
 </script>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +166,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -186,7 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -216,17 +220,17 @@
       <pre class="lines">
 
 
+149
 150
 151
 152
-153
-154</pre>
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 150</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_paging_url'>add_paging_url</span> <span class='id identifier rubyid_hash'>hash</span><span class='comma'>,</span> <span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='id identifier rubyid_status'>status</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_page'>page</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_in?'>in?</span><span class='lparen'>(</span><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>next</span><span class='words_sep'> </span><span class='tstring_content'>previous</span><span class='words_sep'>]</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_page'>page</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_in?'>in?</span><span class='lparen'>(</span><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>next</span><span class='words_sep'> </span><span class='tstring_content'>previous</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_status'>status</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_page_link_path_args'>page_link_path_args</span><span class='lparen'>(</span><span class='id identifier rubyid_page'>page</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -250,17 +254,17 @@
       <pre class="lines">
 
 
+125
 126
 127
 128
 129
 130
 131
-132
-133</pre>
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 125</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_page_link_path_args'>page_link_path_args</span> <span class='id identifier rubyid_page'>page</span>
   <span class='lbrace'>{</span>
@@ -290,17 +294,17 @@
       <pre class="lines">
 
 
+140
 141
 142
 143
 144
 145
 146
-147
-148</pre>
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_paging_urls_hash'>paging_urls_hash</span>
   <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -330,14 +334,14 @@
       <pre class="lines">
 
 
+134
 135
 136
 137
-138
-139</pre>
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod008-pointer/abstract/01_paging.rb', line 134</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:paging_urls</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='kw'>return</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_total_pages'>total_pages</span> <span class='op'>&gt;</span> <span class='int'>1</span>
@@ -354,9 +358,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:42 2019 by
+  Generated on Thu Sep 10 15:02:38 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

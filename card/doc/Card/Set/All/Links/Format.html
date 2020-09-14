@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Links::Format
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Links::Format";
   relpath = '../../../../';
 </script>
@@ -83,15 +83,14 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod021-standard/all/links.rb</dd>
+    <dd>tmpsets/set/mod022-standard/all/links.rb</dd>
   </dl>
   
 </div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>The #link_to methods support smart formatting of links in multiple formats.</p>
+    <p>The #link_to methods support smart formatting of links in multiple formats.</p>
 
 
   </div>
@@ -131,8 +130,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Creates a “link”, the meaning of which depends upon the format.</p>
+    <span class="summary_desc"><div class='inline'><p>Creates a “link”, the meaning of which depends upon the format.</p>
 </div></span>
   
 </li>
@@ -155,8 +153,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>link to a card other than the current card.</p>
+    <span class="summary_desc"><div class='inline'><p>link to a card other than the current card.</p>
 </div></span>
   
 </li>
@@ -179,8 +176,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>a “resource” is essentially a reference to something that decko doesn’t recognize to be a card.</p>
+    <span class="summary_desc"><div class='inline'><p>a “resource” is essentially a reference to something that decko doesn’t recognize to be a card.</p>
 </div></span>
   
 </li>
@@ -203,8 +199,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>link to a different view of the current card.</p>
+    <span class="summary_desc"><div class='inline'><p>link to a different view of the current card.</p>
 </div></span>
   
 </li>
@@ -227,8 +222,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>smart_link_to is wrapper method for #link_to, #link_to_card, #link_to_view, and #link_to_resource.</p>
+    <span class="summary_desc"><div class='inline'><p>smart_link_to is wrapper method for #link_to, #link_to_card, #link_to_view, and #link_to_resource.</p>
 </div></span>
   
 </li>
@@ -255,8 +249,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Creates a “link”, the meaning of which depends upon the format. In this base format, the link looks like [text][absolute path]</p>
+    <p>Creates a “link”, the meaning of which depends upon the format.  In this base
+format, the link looks like [text][absolute path]</p>
 
 
   </div>
@@ -277,8 +271,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>optional string associated with link</p>
+        <div class='inline'><p>optional string associated with link</p>
 </div>
       
     </li>
@@ -295,8 +288,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>optional Hash. In simple formats, :path is usually the only key</p>
+        <div class='inline'><p>optional Hash. In simple formats, :path is usually the only key</p>
 </div>
       
     </li>
@@ -320,7 +312,7 @@
 24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/links.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to'>link_to</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:path</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -346,8 +338,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>link to a card other than the current card.</p>
+    <p>link to a card other than the current card.</p>
 
 
   </div>
@@ -366,8 +357,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>a card identifier</p>
+        <div class='inline'><p>a card identifier</p>
 </div>
       
     </li>
@@ -413,7 +403,7 @@
 42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/links.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_cardish'>cardish</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_to_path'>add_to_path</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='label'>mark:</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_cardish'>cardish</span><span class='rbracket'>]</span>
@@ -435,8 +425,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>a “resource” is essentially a reference to something that decko doesn’t recognize to be a card. Can be a remote url, a local url (that decko hasn’t parsed) or a local path.</p>
+    <p>a “resource” is essentially a reference to something that
+decko doesn’t recognize to be a card.  Can be a remote url,
+a local url (that decko hasn’t parsed) or a local path.</p>
 
 
   </div>
@@ -497,7 +488,7 @@
 53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/links.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_resource'>link_to_resource</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_resource'>resource</span> <span class='op'>=</span> <span class='id identifier rubyid_clean_resource'>clean_resource</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_resource_type'>resource_type</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='rparen'>)</span>
@@ -519,8 +510,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>link to a different view of the current card</p>
+    <p>link to a different view of the current card</p>
 
 
   </div>
@@ -581,7 +571,7 @@
 33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/links.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_view'>link_to_view</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_to_path'>add_to_path</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='id identifier rubyid_view'>view</span> <span class='kw'>unless</span> <span class='id identifier rubyid_view'>view</span> <span class='op'>==</span> <span class='symbol'>:home</span>
@@ -603,14 +593,12 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>smart_link_to is wrapper method for #link_to, #link_to_card, #link_to_view, and</p>
+    <p>smart_link_to is wrapper method for #link_to, #link_to_card, #link_to_view, and
+#link_to_resource.  If the opts argument contains :view, :related, :card, or
+:resource, it will use the respective method to render a link.</p>
 
-<h1 id="link_to_resource_if_the_opts_argument_contains_view_related_card_or">link_to_resource. If the opts argument contains :view, :related, :card, or</h1>
-
-<p>:resource, it will use the respective method to render a link.</p>
-
-<p>This is usually most useful when writing views that generate many different kinds of links.</p>
+<p>This is usually most useful when writing views that generate many different
+kinds of links.</p>
 
 
   </div>
@@ -633,10 +621,10 @@
 67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/links.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/links.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_smart_link_to'>smart_link_to</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_linktype'>linktype</span> <span class='op'>=</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>view</span><span class='words_sep'> </span><span class='tstring_content'>card</span><span class='words_sep'> </span><span class='tstring_content'>resource</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_linktype'>linktype</span> <span class='op'>=</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>view</span><span class='words_sep'> </span><span class='tstring_content'>card</span><span class='words_sep'> </span><span class='tstring_content'>resource</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_send'>send</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>link_to_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_linktype'>linktype</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_linktype'>linktype</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_send'>send</span> <span class='symbol'>:link_to</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
@@ -652,9 +640,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:30 2019 by
+  Generated on Thu Sep 10 15:02:31 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Type::SearchType::JsonFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Type::SearchType::JsonFormat";
   relpath = '../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod020-search/type/search_type.rb</dd>
+    <dd>tmpsets/set/mod021-search/type/search_type.rb</dd>
   </dl>
   
 </div>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,8 +143,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>avoid running the search from +<em>options (huge results) and +</em>structure (errors) TODO: make this configurable in set mods.</p>
+    <span class="summary_desc"><div class='inline'><p>avoid running the search from +:content_options (huge results) and +:structure (errors) TODO: make this configurable in set mods.</p>
 </div></span>
   
 </li>
@@ -180,7 +180,7 @@
 34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/type/search_type.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/type/search_type.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_items_for_export'>items_for_export</span>
   <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>||</span> <span class='id identifier rubyid_unexportable_tag?'>unexportable_tag?</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_tag_name'>tag_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -202,8 +202,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>avoid running the search from +<em>options (huge results) and +</em>structure (errors) TODO: make this configurable in set mods</p>
+    <p>avoid running the search from +:content_options (huge results)
+and +:structure (errors)
+TODO: make this configurable in set mods</p>
 
 
   </div>
@@ -230,15 +231,15 @@
       <pre class="lines">
 
 
-38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/type/search_type.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/type/search_type.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unexportable_tag?'>unexportable_tag?</span> <span class='id identifier rubyid_tag_key'>tag_key</span>
-  <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>options</span><span class='words_sep'> </span><span class='tstring_content'>structure</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_code'>code</span><span class='op'>|</span> <span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_cardname'>cardname</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_tag_key'>tag_key</span>
+  <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>content_options</span><span class='words_sep'> </span><span class='tstring_content'>structure</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_code'>code</span><span class='op'>|</span> <span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_cardname'>cardname</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_tag_key'>tag_key</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -250,9 +251,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:39 2019 by
+  Generated on Thu Sep 10 15:02:36 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

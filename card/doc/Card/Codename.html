@@ -6,15 +6,15 @@
 <title>
   Class: Card::Codename
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Codename";
   relpath = '../';
 </script>
@@ -101,22 +101,26 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span>‘s names can be changed, and therefore <em>names</em> should not be directly mentioned in code, lest a name change break the application.</p>
+    <p><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span>’s names can be changed, and therefore <em>names</em> should not be directly mentioned
+in code, lest a name change break the application.</p>
 
-<p>Instead, a <span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span> that needs specific code manipulations should be given a <span class='object_link'><a href="" title="Card::Codename (class)">Codename</a></span>, which will not change even if the card’s name does.</p>
+<p>Instead, a <span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span> that needs specific code manipulations should be given a <span class='object_link'><a href="" title="Card::Codename (class)">Codename</a></span>,
+which will not change even if the card’s name does.</p>
 
 <p>An administrator might add to the Company card via the RESTful web API with a url like</p>
 
-<pre class="code ruby"><code class="ruby">/update/CARDNAME?card[codename]=CODENAME</code></pre>
+<pre class="code ruby"><code class="ruby">/update/CARDNAME?card[codename]=CODENAME
+</code></pre>
 
 <p>…or via the api like</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='const'>CARDNAME</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_update!'>update!</span> <span class='label'>codename:</span> <span class='const'>CODENAME</span></code></pre>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='const'>CARDNAME</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_update!'>update!</span> <span class='label'>codename:</span> <span class='const'>CODENAME</span>
+</code></pre>
 
 <p>Generally speaking, <em>codenames</em> are represented by Symbols.</p>
 
-<p>The <span class='object_link'><a href="" title="Card::Codename (class)">Codename</a></span> class provides a fast cache for this slow-changing data. Every process maintains a complete cache that is not frequently reset</p>
+<p>The <span class='object_link'><a href="" title="Card::Codename (class)">Codename</a></span> class provides a fast cache for this slow-changing data.
+Every process maintains a complete cache that is not frequently reset</p>
 
 
   </div>
@@ -156,8 +160,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>returns codename for id and id for codename.</p>
+    <span class="summary_desc"><div class='inline'><p>returns codename for id and id for codename.</p>
 </div></span>
   
 </li>
@@ -180,7 +183,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -202,8 +206,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>a Hash in which Symbol keys have Integer values and vice versa.</p>
+    <span class="summary_desc"><div class='inline'><p>a Hash in which Symbol keys have Integer values and vice versa.</p>
 </div></span>
   
 </li>
@@ -228,7 +231,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generate_id_constants-class_method" title="generate_id_constants (class method)">.<strong>generate_id_constants</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -250,7 +277,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -272,7 +300,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -280,7 +309,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#name-class_method" title="name (class method)">.<strong>name</strong>(codename)  &#x21d2; Object </a>
+      <a href="#name-class_method" title="name (class method)">.<strong>name</strong>(codename = nil)  &#x21d2; Object </a>
     
 
     
@@ -294,7 +323,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -316,7 +346,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -338,8 +369,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>clear cache both locally and in cache.</p>
+    <span class="summary_desc"><div class='inline'><p>clear cache both locally and in cache.</p>
 </div></span>
   
 </li>
@@ -365,8 +395,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>returns codename for id and id for codename</p>
+    <p>returns codename for id and id for codename</p>
 
 
   </div>
@@ -408,17 +437,17 @@
       <pre class="lines">
 
 
+28
+29
+30
 31
 32
 33
 34
-35
-36
-37
-38</pre>
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span> <span class='id identifier rubyid_codename'>codename</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_codename'>codename</span>
@@ -448,16 +477,16 @@
       <pre class="lines">
 
 
+54
 55
 56
 57
 58
 59
-60
-61</pre>
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span> <span class='id identifier rubyid_codename'>codename</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_card_id'>card_id</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span><span class='lparen'>(</span><span class='id identifier rubyid_codename'>codename</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -482,8 +511,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>a Hash in which Symbol keys have Integer values and vice versa</p>
+    <p>a Hash in which Symbol keys have Integer values and vice versa</p>
 
 
   </div>
@@ -510,12 +538,12 @@
       <pre class="lines">
 
 
+70
 71
-72
-73</pre>
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_codehash'>codehash</span>
   <span class='ivar'>@codehash</span> <span class='op'>||=</span> <span class='id identifier rubyid_load_codehash'>load_codehash</span>
@@ -542,6 +570,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -566,15 +595,57 @@
       <pre class="lines">
 
 
+62
 63
-64
-65</pre>
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exist?'>exist?</span> <span class='id identifier rubyid_codename'>codename</span>
   <span class='id identifier rubyid_id'>id</span><span class='lparen'>(</span><span class='id identifier rubyid_codename'>codename</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="generate_id_constants-class_method">
+  
+    .<strong>generate_id_constants</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+92
+93
+94
+95
+96
+97
+98
+99
+100</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 92</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generate_id_constants'>generate_id_constants</span>
+  <span class='comment'># If a card has the codename _example_, then Card::ExampleID will
+</span>  <span class='comment'># return the id for that card.
+</span>  <span class='id identifier rubyid_codehash'>codehash</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_codename'>codename</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='op'>|</span>
+    <span class='kw'>next</span> <span class='kw'>unless</span> <span class='id identifier rubyid_codename'>codename</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Symbol</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_codename'>codename</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\W</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_id_constant'>id_constant</span> <span class='id identifier rubyid_codename'>codename</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -596,17 +667,17 @@
       <pre class="lines">
 
 
+37
+38
+39
 40
 41
 42
 43
-44
-45
-46
-47</pre>
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span> <span class='id identifier rubyid_codename'>codename</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_codename'>codename</span>
@@ -633,6 +704,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -673,12 +745,12 @@
       <pre class="lines">
 
 
+82
 83
-84
-85</pre>
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id!'>id!</span> <span class='id identifier rubyid_codename'>codename</span>
   <span class='id identifier rubyid_id'>id</span><span class='lparen'>(</span><span class='id identifier rubyid_codename'>codename</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_unknown_codename!'>unknown_codename!</span><span class='lparen'>(</span><span class='id identifier rubyid_codename'>codename</span><span class='rparen'>)</span>
@@ -691,7 +763,7 @@
       <div class="method_details ">
   <h3 class="signature " id="name-class_method">
   
-    .<strong>name</strong>(codename)  &#x21d2; <tt>Object</tt> 
+    .<strong>name</strong>(codename = nil)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -703,16 +775,20 @@
       <pre class="lines">
 
 
+46
+47
+48
 49
 50
 51
-52
-53</pre>
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 46</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span> <span class='id identifier rubyid_codename'>codename</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span> <span class='id identifier rubyid_codename'>codename</span><span class='op'>=</span><span class='kw'>nil</span>
+  <span class='kw'>return</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_codename'>codename</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
   <span class='id identifier rubyid_name!'>name!</span> <span class='id identifier rubyid_codename'>codename</span>
 <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Error/CodenameNotFound.html" title="Card::Error::CodenameNotFound (class)">CodenameNotFound</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid__e'>_e</span>
   <span class='kw'>yield</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -734,6 +810,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -774,12 +851,12 @@
       <pre class="lines">
 
 
+88
 89
-90
-91</pre>
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name!'>name!</span> <span class='id identifier rubyid_codename'>codename</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_codename'>codename</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span>
@@ -800,8 +877,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>clear cache both locally and in cache</p>
+    <p>clear cache both locally and in cache</p>
 
 
   </div>
@@ -815,17 +891,17 @@
       <pre class="lines">
 
 
+75
 76
 77
-78
-79</pre>
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/card/codename.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_cache'>reset_cache</span>
   <span class='ivar'>@codehash</span> <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_cache'><span class='object_link'><a href="../Card.html#cache-class_method" title="Card.cache (method)">cache</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>CODEHASH</span><span class='tstring_end'>&quot;</span></span>
+  <span class='op'>::</span><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_cache'><span class='object_link'><a href="../Card.html#cache-class_method" title="Card.cache (method)">cache</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>CODEHASH</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -837,9 +913,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:56 2019 by
+  Generated on Thu Sep 10 15:02:47 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

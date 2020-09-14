@@ -6,15 +6,15 @@
 <title>
   Class: Card::Mod::Loader
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Mod::Loader";
   relpath = '../../';
 </script>
@@ -103,8 +103,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>The mods are given by a Mod::Dirs object. SetLoader can use three different strategies to load the set modules.</p>
+    <p>The mods are given by a Mod::Dirs object.
+SetLoader can use three different strategies to load the set modules.</p>
 
 
   </div>
@@ -155,8 +155,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute module_type.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute module_type.</p>
 </div></span>
   
 </li>
@@ -192,7 +191,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -214,8 +214,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>load all files in directory.</p>
+    <span class="summary_desc"><div class='inline'><p>load all files in directory.</p>
 </div></span>
   
 </li>
@@ -238,8 +237,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p><span class='object_link'><a href="../Format.html" title="Card::Format (class)">Format</a></span>.</p>
+    <span class="summary_desc"><div class='inline'><p><span class='object_link'><a href="../Format.html" title="Card::Format (class)">Format</a></span>.</p>
 </div></span>
   
 </li>
@@ -262,8 +260,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>private.</p>
+    <span class="summary_desc"><div class='inline'><p>private.</p>
 </div></span>
   
 </li>
@@ -286,7 +283,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -308,7 +306,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reload_sets-class_method" title="reload_sets (class method)">.<strong>reload_sets</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -325,7 +347,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(load_strategy = nil, mod_dirs = nil)  &#x21d2; Loader </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(load_strategy: nil, mod_dirs: nil)  &#x21d2; Loader </a>
     
 
     
@@ -341,8 +363,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of Loader.</p>
+    <span class="summary_desc"><div class='inline'><p>A new instance of Loader.</p>
 </div></span>
   
 </li>
@@ -365,7 +386,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -387,7 +409,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -401,7 +424,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(load_strategy = nil, mod_dirs = nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Card::Mod::Loader (class)">Loader</a></span></tt> 
+    #<strong>initialize</strong>(load_strategy: nil, mod_dirs: nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Card::Mod::Loader (class)">Loader</a></span></tt> 
   
 
   
@@ -409,8 +432,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a new instance of Loader</p>
+    <p>Returns a new instance of Loader.</p>
 
 
   </div>
@@ -424,17 +446,17 @@
       <pre class="lines">
 
 
-20
-21
-22
-23
-24
-25</pre>
+15
+16
+17
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 15</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_load_strategy'>load_strategy</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_mod_dirs'>mod_dirs</span><span class='op'>=</span><span class='kw'>nil</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='label'>load_strategy:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>mod_dirs:</span> <span class='kw'>nil</span>
   <span class='id identifier rubyid_load_strategy'>load_strategy</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_load_strategy'>load_strategy</span>
   <span class='id identifier rubyid_mod_dirs'>mod_dirs</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../Mod.html" title="Card::Mod (module)">Mod</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dirs'><span class='object_link'><a href="../Mod.html#dirs-class_method" title="Card::Mod.dirs (method)">dirs</a></span></span>
   <span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='id identifier rubyid_load_strategy_class'>load_strategy_class</span> <span class='id identifier rubyid_load_strategy'>load_strategy</span>
@@ -463,8 +485,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute module_type</p>
+    <p>Returns the value of attribute module_type.</p>
 
 
   </div>
@@ -478,12 +499,12 @@
       <pre class="lines">
 
 
-40
-41
-42</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_module_type'>module_type</span>
   <span class='ivar'>@module_type</span>
@@ -515,14 +536,14 @@
       <pre class="lines">
 
 
-51
-52
-53
 54
-55</pre>
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_chunks'>load_chunks</span>
   <span class='const'><span class='object_link'><a href="../Mod.html" title="Card::Mod (module)">Mod</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dirs'><span class='object_link'><a href="../Mod.html#dirs-class_method" title="Card::Mod.dirs (method)">dirs</a></span></span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='symbol'>:chunk</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_dir'>dir</span><span class='op'>|</span>
@@ -545,8 +566,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>load all files in directory</p>
+    <p>load all files in directory</p>
 
 
   </div>
@@ -565,8 +585,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>directory name</p>
+        <div class='inline'><p>directory name</p>
 </div>
       
     </li>
@@ -580,21 +599,25 @@
       <pre class="lines">
 
 
-79
-80
-81
 82
 83
 84
-85</pre>
+85
+86
+87
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_dir'>load_dir</span> <span class='id identifier rubyid_dir'>dir</span>
   <span class='const'>Dir</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dir'>dir</span><span class='embexpr_end'>}</span><span class='tstring_content'>/*.rb</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_sort'>sort</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span>
     <span class='comment'># puts Benchmark.measure(&quot;from #load_dir: rd: #{file}&quot;) {
-</span>    <span class='id identifier rubyid_require_dependency'>require_dependency</span> <span class='id identifier rubyid_file'>file</span>
+</span>    <span class='comment'># require file
+</span>    <span class='comment'># &quot;require&quot; breaks the reloading in development env
+</span>    <span class='id identifier rubyid_load'>load</span> <span class='id identifier rubyid_file'>file</span>
     <span class='comment'># }.format(&#39;%n: %t %r&#39;)
 </span>  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -614,8 +637,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p><span class='object_link'><a href="../Format.html" title="Card::Format (class)">Format</a></span></p>
+    <p><span class='object_link'><a href="../Format.html" title="Card::Format (class)">Format</a></span></p>
 
 
   </div>
@@ -629,15 +651,15 @@
       <pre class="lines">
 
 
-70
-71
-72
 73
 74
-75</pre>
+75
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_formats'>load_formats</span>
   <span class='comment'># cheating on load issues now by putting all inherited-from formats in core mod.
@@ -661,8 +683,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>private</p>
+    <p>private</p>
 
 
   </div>
@@ -676,14 +697,14 @@
       <pre class="lines">
 
 
-63
-64
-65
 66
-67</pre>
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_initializers'>load_initializers</span>
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod/config/initializers</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_existent'>existent</span><span class='period'>.</span><span class='id identifier rubyid_sort'>sort</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_initializer'>initializer</span><span class='op'>|</span>
@@ -710,26 +731,24 @@
       <pre class="lines">
 
 
+37
+38
+39
+40
+41
 42
-43
-44
-45
-46
-47
-48
-49</pre>
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_mods'>load_mods</span>
-  <span class='const'><span class='object_link'><a href="Loader/SetPatternLoader.html" title="Card::Mod::Loader::SetPatternLoader (class)">SetPatternLoader</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Card::Mod::Loader#initialize (method)">new</a></span></span><span class='period'>.</span><span class='id identifier rubyid_load'><span class='object_link'><a href="#load-instance_method" title="Card::Mod::Loader#load (method)">load</a></span></span>
   <span class='id identifier rubyid_load_formats'>load_formats</span>
-  <span class='const'><span class='object_link'><a href="Loader/SetLoader.html" title="Card::Mod::Loader::SetLoader (class)">SetLoader</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Card::Mod::Loader#initialize (method)">new</a></span></span><span class='period'>.</span><span class='id identifier rubyid_load'><span class='object_link'><a href="#load-instance_method" title="Card::Mod::Loader#load (method)">load</a></span></span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Mod.html" title="Card::Mod (module)">Mod</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Mod::Loader (class)">Loader</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Loader/SetPatternLoader.html" title="Card::Mod::Loader::SetPatternLoader (class)">SetPatternLoader</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Card::Mod::Loader#initialize (method)">new</a></span></span><span class='period'>.</span><span class='id identifier rubyid_load'><span class='object_link'><a href="#load-instance_method" title="Card::Mod::Loader#load (method)">load</a></span></span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Mod.html" title="Card::Mod (module)">Mod</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Mod::Loader (class)">Loader</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Loader/SetLoader.html" title="Card::Mod::Loader::SetLoader (class)">SetLoader</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Loader/SetLoader.html#initialize-instance_method" title="Card::Mod::Loader::SetLoader#initialize (method)">new</a></span></span><span class='period'>.</span><span class='id identifier rubyid_load'><span class='object_link'><a href="Loader/SetLoader.html#load-instance_method" title="Card::Mod::Loader::SetLoader#load (method)">load</a></span></span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Set.html" title="Card::Set (module)">Set</a></span></span><span class='period'>.</span><span class='id identifier rubyid_process_base_modules'><span class='object_link'><a href="../Set/Loader.html#process_base_modules-instance_method" title="Card::Set::Loader#process_base_modules (method)">process_base_modules</a></span></span>
   <span class='id identifier rubyid_load_initializers'>load_initializers</span>
-  <span class='comment'># rescue
-</span>  <span class='comment'># raise Card::Error, &quot;unrescued error loading mods&quot;
-</span><span class='kw'>end</span></pre>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -750,15 +769,55 @@
       <pre class="lines">
 
 
-57
-58
-59</pre>
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_module_class_template'>module_class_template</span>
   <span class='id identifier rubyid_const_get'>const_get</span> <span class='symbol'>:Template</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reload_sets-class_method">
+  
+    .<strong>reload_sets</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47
+48
+49
+50
+51
+52</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reload_sets'>reload_sets</span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Set/Pattern.html" title="Card::Set::Pattern (class)">Pattern</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reset'><span class='object_link'><a href="../Set/Pattern.html#reset-class_method" title="Card::Set::Pattern.reset (method)">reset</a></span></span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Set.html" title="Card::Set (module)">Set</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reset_modules'><span class='object_link'><a href="../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Mod.html" title="Card::Mod (module)">Mod</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Mod::Loader (class)">Loader</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Loader/SetPatternLoader.html" title="Card::Mod::Loader::SetPatternLoader (class)">SetPatternLoader</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Card::Mod::Loader#initialize (method)">new</a></span></span><span class='period'>.</span><span class='id identifier rubyid_load'><span class='object_link'><a href="#load-instance_method" title="Card::Mod::Loader#load (method)">load</a></span></span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Mod.html" title="Card::Mod (module)">Mod</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Mod::Loader (class)">Loader</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Loader/SetLoader.html" title="Card::Mod::Loader::SetLoader (class)">SetLoader</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Loader/SetLoader.html#initialize-instance_method" title="Card::Mod::Loader::SetLoader#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+    <span class='label'>patterns:</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Set/Pattern.html" title="Card::Set::Pattern (class)">Pattern</a></span></span><span class='period'>.</span><span class='id identifier rubyid_nonbase_loadable_codes'><span class='object_link'><a href="../Set/Pattern.html#nonbase_loadable_codes-class_method" title="Card::Set::Pattern.nonbase_loadable_codes (method)">nonbase_loadable_codes</a></span></span>
+  <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_load'><span class='object_link'><a href="Loader/SetLoader.html#load-instance_method" title="Card::Mod::Loader::SetLoader#load (method)">load</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -786,12 +845,12 @@
       <pre class="lines">
 
 
-35
-36
-37</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load'>load</span>
   <span class='ivar'>@load_strategy</span><span class='period'>.</span><span class='id identifier rubyid_load_modules'>load_modules</span>
@@ -816,16 +875,16 @@
       <pre class="lines">
 
 
+22
+23
+24
+25
+26
 27
-28
-29
-30
-31
-32
-33</pre>
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/card/mod/loader.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_strategy_class'>load_strategy_class</span> <span class='id identifier rubyid_load_strategy'>load_strategy</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_load_strategy'>load_strategy</span>
@@ -844,9 +903,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:57 2019 by
+  Generated on Thu Sep 10 15:02:47 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>
