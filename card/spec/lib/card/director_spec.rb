@@ -1,6 +1,17 @@
 # -*- encoding : utf-8 -*-
 
+# spec doesn't run when describing Card::Director as constant
 RSpec.describe "Card::Director" do
+  STAGE_MAP = { VI: :initialize,
+                VP: :prepare_to_validate,
+                VV: :validate,
+                SP: :prepare_to_store,
+                SS: :store,
+                SF: :finalize,
+                II: :integrate,
+                IA: :after_integrate,
+                ID: :integrate_with_delay }.freeze
+
   describe "abortion" do
     let(:create_card) { Card.create name: "a card" }
     let(:create_card_with_subcard) do
@@ -28,9 +39,7 @@ RSpec.describe "Card::Director" do
     context "when exception raised" do
       it "rollbacks in finalize stage" do
         begin
-          in_stage :finalize,
-                   on: :save,
-                   trigger: -> { create_card } do
+          in_stage :finalize, on: :save, trigger: -> { create_card } do
             raise Card::Error, "rollback"
           end
         rescue Card::Error => e
@@ -42,9 +51,7 @@ RSpec.describe "Card::Director" do
       it "does not rollback in integrate stage" do
         begin
           Card::Auth.as_bot do
-            in_stage :integrate,
-                     on: :save,
-                     trigger: -> { create_card } do
+            in_stage :integrate, on: :save, trigger: -> { create_card } do
               raise Card::Error::Abort, "rollback"
             end
           end
@@ -57,9 +64,7 @@ RSpec.describe "Card::Director" do
 
     context "when abort :success called" do
       it "aborts storage in validation stage" do
-        in_stage :validate,
-                 on: :create,
-                 trigger: -> { create_card } do
+        in_stage :validate, on: :create, trigger: -> { create_card } do
           abort :success
         end
         is_expected.to be_falsey
@@ -73,29 +78,18 @@ RSpec.describe "Card::Director" do
         end
 
         with_test_events do
-          test_event :validate,
-                     on: :create,
-                     for: "a card" do
+          test_event :validate, on: :create, for: "a card" do
             abort :success
           end
-          test_event :prepare_to_validate,
-                     on: :create, for: "a subcard" do
-            event_called "ptv"
+
+          STAGE_MAP.each do |stage_shortname, stage|
+            test_event stage, on: :create, for: "a subcard" do
+              event_called stage_shortname
+            end
           end
-          test_event :validate,
-                     on: :create, for: "a subcard" do
-            event_called "v"
-          end
-          test_event :prepare_to_store,
-                     on: :create, for: "a subcard" do
-            event_called "pts"
-          end
-          test_event :integrate,
-                     on: :create, for: "a subcard" do
-            event_called "i"
-          end
+
           create_card_with_subcard
-          expect(@called_events).to eq ["ptv"]
+          expect(@called_events).to eq %i[VI VP]
         end
       end
 
@@ -107,26 +101,13 @@ RSpec.describe "Card::Director" do
         end
 
         with_test_events do
-          test_event :validate,
-                     on: :delete,
-                     for: "A" do
+          test_event :validate, on: :delete, for: "A" do
             abort :success
           end
-          test_event :prepare_to_validate,
-                     on: :delete, for: "A+B" do
-            event_called "ptv"
-          end
-          test_event :validate,
-                     on: :delete, for: "A+B" do
-            event_called "v"
-          end
-          test_event :prepare_to_store,
-                     on: :delete, for: "A+B" do
-            event_called "pts"
-          end
-          test_event :integrate,
-                     on: :delete, for: "A+B" do
-            event_called "i"
+          STAGE_MAP.each do |stage_shortname, stage|
+            test_event stage, on: :delete, for: "A+B" do
+              event_called stage_shortname
+            end
           end
           Card["A"].delete!
           expect(@called_events).to eq []
@@ -157,17 +138,15 @@ RSpec.describe "Card::Director" do
   end
 
   describe "stage order" do
-    let(:create_card_with_subcards) do
-      Card.create name: "1",
-                  subcards: {
-                    "11" => { subcards: { "111" => "A" } },
-                    "12" => { subcards: { "121" => "A" } }
-                  }
+    let :create_card_with_subcards do
+      Card.create name: "1", subcards: { "11" => { subcards: { "111" => "A" } },
+                                         "12" => { subcards: { "121" => "A" } } }
     end
-    let(:create_card_with_junction) do
-      Card.create name: "1+2",
-                  subcards: { "11" => "A" }
+
+    let :create_card_with_junction do
+      Card.create name: "1+2", subcards: { "11" => "A" }
     end
+
     let(:preorder) { %w[1 11 111 12 121] }
 
     describe "validate" do
@@ -200,8 +179,7 @@ RSpec.describe "Card::Director" do
     describe "finalize" do
       it "is pre-order depth-first" do
         order = []
-        in_stage :finalize, on: :create,
-                            trigger: -> { create_card_with_subcards } do
+        in_stage :finalize, on: :create, trigger: -> { create_card_with_subcards } do
           order << name
         end
         expect(order).to eq(preorder)
@@ -211,8 +189,7 @@ RSpec.describe "Card::Director" do
     describe "store" do
       it "is pre-order depth-first" do
         order = []
-        in_stage :store, on: :create,
-                         trigger: -> { create_card_with_subcards } do
+        in_stage :store, on: :create, trigger: -> { create_card_with_subcards } do
           order << name
         end
         expect(order).to eq(preorder)
@@ -220,7 +197,7 @@ RSpec.describe "Card::Director" do
     end
 
     describe "store and finalize" do
-      it "executes finalize when all subcards are stored and finalized" do
+      it "executes finalize when all subcards are stored" do
         order = []
         with_test_events do
           test_event :store, on: :create do
@@ -238,37 +215,24 @@ RSpec.describe "Card::Director" do
     end
 
     describe "complete run" do
-      it "is in correct order" do
+
+
+      def with_complete_events adding_subcard: false
         order = []
         with_test_events do
-          test_event :initialize, on: :create do
-            order << "VI:#{name}"
+          STAGE_MAP.each do |stage_shortname, stage|
+            test_event stage, on: :create do
+              order << "#{stage_shortname}:#{name}"
+              add_subcard "112v" if adding_subcard && stage == :validate && name == "11"
+            end
           end
-          test_event :prepare_to_validate, on: :create do
-            order << "VP:#{name}"
-          end
-          test_event :validate, on: :create do
-            order << "VV:#{name}"
-            add_subcard "112v" if name == "11"
-          end
-          test_event :prepare_to_store, on: :create do
-            order << "SP:#{name}"
-          end
-          test_event :store, on: :create do
-            order << "SS:#{name}"
-          end
-          test_event :finalize, on: :create do
-            order << "SF:#{name}"
-          end
-          test_event :integrate, on: :create do
-            order << "II:#{name}"
-          end
-          test_event :after_integrate, on: :create do
-            order << "IA:#{name}"
-          end
-          test_event :integrate_with_delay, on: :create do
-            order << "ID:#{name}"
-          end
+          yield
+        end
+        order
+      end
+
+      it "is in correct order" do
+        order = with_complete_events adding_subcard: true do
           create_card_with_subcards
         end
         # Delayed::Worker.new.work_off
@@ -287,39 +251,11 @@ RSpec.describe "Card::Director" do
       end
 
       it "with junction" do
-        order = []
-        with_test_events do
-          test_event :initialize, on: :create do
-            order << "VI:#{name}"
-          end
-          test_event :prepare_to_validate, on: :create do
-            order << "VP:#{name}"
-          end
-          test_event :validate, on: :create do
-            order << "VV:#{name}"
-          end
-          test_event :prepare_to_store, on: :create do
-            order << "SP:#{name}"
-          end
-          test_event :store, on: :create do
-            order << "SS:#{name}"
-          end
-          test_event :finalize, on: :create do
-            order << "SF:#{name}"
-          end
-          test_event :integrate, on: :create do
-            order << "II:#{name}"
-          end
-          test_event :after_integrate, on: :create do
-            order << "IA:#{name}"
-          end
-          test_event :integrate_with_delay, on: :create do
-            order << "ID:#{name}"
-          end
+        order = with_complete_events do
           create_card_with_junction
         end
         # Delayed::Worker.new.work_off
-        expect(order).to eq(%w(VI:1+2 VI:11
+        expect(order).to eq(%w[VI:1+2 VI:11
                                VP:1+2 VP:11
                                VV:1+2 VV:11
                                SP:1+2 SP:11
@@ -330,7 +266,7 @@ RSpec.describe "Card::Director" do
                                SF:1+2 SF:11 SF:1 SF:2
                                II:1+2 II:11 II:1 II:2
                                IA:1+2 IA:11 IA:1 IA:2
-                               ID:1+2 ID:11 ID:1 ID:2))
+                               ID:1+2 ID:11 ID:1 ID:2])
       end
     end
   end
@@ -360,9 +296,7 @@ RSpec.describe "Card::Director" do
     it "has correct name if supercard name get changed" do
       Card::Auth.as_bot do
         changed = false
-        in_stage :prepare_to_validate,
-                 on: :create,
-                 trigger: :create_subcards do
+        in_stage :prepare_to_validate, on: :create, trigger: :create_subcards do
           self.name = "main" if name.empty? && !changed
         end
         expect(Card["main+sub1"].class).to eq(Card)
