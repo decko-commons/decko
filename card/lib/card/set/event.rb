@@ -31,8 +31,7 @@ class Card
       # Any card within the {Card::Set set} on which this event is defined will
       # run this event during the `prepare_to_validate` stage when it is created.
       #
-      # Events are not format-specific and should not be defined within
-      # format blocks.
+      # Events should not be defined within format blocks.
       module Api
         OPTIONS = {
           on: %i[create update delete save read],
@@ -68,7 +67,8 @@ class Card
         # @option opts [Symbol] :around fire this event before the event specified. This
         #   event will receive a block and will need to call it for the specified
         #   event to fire.
-        # @option opts [Symbol] :in alternate representation for specifying stage
+        # @option opts [Symbol] :stage alternate representation for specifying stage
+        # @option opts [True/False] :after_subcards run event after running subcard events
         def event event, stage_or_opts={}, opts={}, &final
           Event.new(event, stage_or_opts, opts, self, &final).register
         end

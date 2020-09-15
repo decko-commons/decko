@@ -42,4 +42,3 @@ class ActiveSupport::Logger
     end
   end
 end
-

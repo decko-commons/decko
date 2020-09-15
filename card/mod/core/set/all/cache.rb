@@ -20,14 +20,12 @@ module ClassMethods
       write_to_soft_cache card
     elsif cache
       cache.write card.key, card
-      cache.write "~#{card.id}", card.key if card.id.to_i.nonzero?
     end
   end
 
   def write_to_soft_cache card
     return unless cache
     cache.soft.write card.key, card
-    cache.soft.write "~#{card.id}", card.key if card.id.to_i.nonzero?
   end
 
   def expire name
@@ -35,6 +33,10 @@ module ClassMethods
     return unless (card = Card.cache.read key)
     card.expire
   end
+end
+
+def update_soft_cache
+  Card.write_to_soft_cache self
 end
 
 def expire_pieces
