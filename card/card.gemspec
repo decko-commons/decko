@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
     ["cardname",                   version],
 
     # card modules in decko core gems:
+    ["card-mod-recaptcha",         "~>0.1"],
     ["card-mod-date",              "~>0.1"],
     ["card-mod-edit",              "~>0.1"],
     ["card-mod-ace_editor",        "~>0.1"],
