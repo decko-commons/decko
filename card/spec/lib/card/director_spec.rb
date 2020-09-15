@@ -4,8 +4,7 @@ RSpec.describe "Card::Director" do
   describe "abortion" do
     let(:create_card) { Card.create name: "a card" }
     let(:create_card_with_subcard) do
-      Card.create name: "a card",
-                  subcards: { "a subcard" => "content" }
+      Card.create name: "a card", subcards: { "a subcard" => "content" }
     end
 
     subject { Card.fetch "a card" }
@@ -135,27 +134,21 @@ RSpec.describe "Card::Director" do
       end
 
       it "aborts storage in store stage" do
-        in_stage :store,
-                 on: :create,
-                 trigger: -> { create_card } do
+        in_stage :store, on: :create, trigger: -> { create_card } do
           abort :success
         end
         is_expected.to be_falsey
       end
 
-      it "aborts storage in finalize stage" do
-        in_stage :store,
-                 on: :create,
-                 trigger: -> { create_card } do
+      it "does not abort storage in finalize stage" do
+        in_stage :finalize, on: :create, trigger: -> { create_card } do
           abort :success
         end
-        is_expected.to be_falsey
+        is_expected.to be_truthy
       end
 
       it "does not abort storage in integrate stage" do
-        in_stage :integrate,
-                 on: :create,
-                 trigger: -> { create_card } do
+        in_stage :integrate, on: :create, trigger: -> { create_card } do
           abort :success
         end
         is_expected.to be_truthy
@@ -175,7 +168,7 @@ RSpec.describe "Card::Director" do
       Card.create name: "1+2",
                   subcards: { "11" => "A" }
     end
-    let(:preorder) { %w(1 11 111 12 121) }
+    let(:preorder) { %w[1 11 111 12 121] }
 
     describe "validate" do
       it "is pre-order depth-first" do
@@ -191,16 +184,16 @@ RSpec.describe "Card::Director" do
         order = []
         with_test_events do
           test_event :validate, on: :create do
-            order << "v:#{name}"
+            order << "V:#{name}"
           end
           test_event :prepare_to_store, on: :create do
-            order << "pts:#{name}"
+            order << "S:#{name}"
           end
           create_card_with_subcards
         end
-        expect(order).to eq(
-                           %w(v:1 v:11 v:111 v:12 v:121 pts:1 pts:11 pts:111 pts:12 pts:121)
-                         )
+        expect(order)
+          .to eq(%w[V:1 V:11 V:111 V:12 V:121
+                    S:1 S:11 S:111 S:12 S:121])
       end
     end
 
@@ -231,16 +224,16 @@ RSpec.describe "Card::Director" do
         order = []
         with_test_events do
           test_event :store, on: :create do
-            order << "store:#{name}"
+            order << "S:#{name}"
           end
           test_event :finalize, on: :create do
-            order << "finalize:#{name}"
+            order << "F:#{name}"
           end
           create_card_with_subcards
         end
         expect(order)
-          .to eq(%w(store:1 store:11 store:111 store:12 store:121
-                    finalize:1 finalize:11 finalize:111 finalize:12 finalize:121))
+          .to eq(%w[S:1 S:11 S:111 S:12 S:121
+                    F:1 F:11 F:111 F:12 F:121])
       end
     end
 
@@ -279,64 +272,65 @@ RSpec.describe "Card::Director" do
           create_card_with_subcards
         end
         # Delayed::Worker.new.work_off
-        expect(order).to eq(%w(VI:1 VI:11 VI:111 VI:12 VI:121
+        expect(order).to eq(%w[VI:1 VI:11 VI:111 VI:12 VI:121
                                VP:1 VP:11 VP:111 VP:12 VP:121
                                VV:1 VV:11 VV:111
-                                 VI:112v
-                                 VP:112v
-                                 VV:112v
-                                                 VV:12 VV:121
-
+                               VI:112v
+                               VP:112v
+                               VV:112v VV:12 VV:121
                                SP:1 SP:11 SP:111 SP:112v SP:12 SP:121
                                SS:1 SS:11 SS:111 SS:112v SS:12 SS:121
                                SF:1 SF:11 SF:111 SF:112v SF:12 SF:121
-
                                II:1 II:11 II:111 II:112v II:12 II:121
                                IA:1 IA:11 IA:111 IA:112v IA:12 IA:121
-                               ID:1 ID:11 ID:111 ID:112v ID:12 ID:121))
+                               ID:1 ID:11 ID:111 ID:112v ID:12 ID:121])
       end
 
       it "with junction" do
         order = []
         with_test_events do
           test_event :initialize, on: :create do
-            order << "i:#{name}"
+            order << "VI:#{name}"
           end
           test_event :prepare_to_validate, on: :create do
-            order << "ptv:#{name}"
+            order << "VP:#{name}"
           end
           test_event :validate, on: :create do
-            order << "v:#{name}"
+            order << "VV:#{name}"
           end
           test_event :prepare_to_store, on: :create do
-            order << "pts:#{name}"
+            order << "SP:#{name}"
           end
           test_event :store, on: :create do
-            order << "s:#{name}"
+            order << "SS:#{name}"
           end
           test_event :finalize, on: :create do
-            order << "f:#{name}"
+            order << "SF:#{name}"
           end
           test_event :integrate, on: :create do
-            order << "ig:#{name}"
+            order << "II:#{name}"
+          end
+          test_event :after_integrate, on: :create do
+            order << "IA:#{name}"
           end
           test_event :integrate_with_delay, on: :create do
-            order << "igwd:#{name}"
+            order << "ID:#{name}"
           end
           create_card_with_junction
         end
         # Delayed::Worker.new.work_off
-        expect(order).to eq(%w(i:1+2 i:11
-                               ptv:1+2 ptv:11
-                               v:1+2 v:11
-                               pts:1+2 pts:11
-                               s:1+2
-                               i:1 ptv:1 v:1 pts:1 s:1
-                               i:2 ptv:2 v:2 pts:2 s:2
-                               s:11
-                               f:1+2 f:11 f:1 f:2
-                               ig:1+2 ig:11 ig:1 ig:2
-                               igwd:1+2 igwd:11 igwd:1 igwd:2))
+        expect(order).to eq(%w(VI:1+2 VI:11
+                               VP:1+2 VP:11
+                               VV:1+2 VV:11
+                               SP:1+2 SP:11
+                               SS:1+2
+                               VI:1 VP:1 VV:1 SP:1 SS:1
+                               VI:2 VP:2 VV:2 SP:2 SS:2
+                               SS:11
+                               SF:1+2 SF:11 SF:1 SF:2
+                               II:1+2 II:11 II:1 II:2
+                               IA:1+2 IA:11 IA:1 IA:2
+                               ID:1+2 ID:11 ID:1 ID:2))
       end
     end
   end
@@ -498,7 +492,6 @@ RSpec.describe "Card::Director" do
       expect(Card["act card"].acts.size).to eq(1), "new act for 'act card'"
       expect(Card["iwd created card"].actions.last.act).to eq Card["act card"].acts.last
       expect(Card["iwd created card"].acts.size).to eq(0), "no act added"
-
     end
   end
 end
