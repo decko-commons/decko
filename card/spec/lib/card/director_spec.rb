@@ -215,20 +215,22 @@ RSpec.describe "Card::Director" do
     end
 
     describe "complete run" do
-
-
       def with_complete_events adding_subcard: false
         order = []
         with_test_events do
-          STAGE_MAP.each do |stage_shortname, stage|
-            test_event stage, on: :create do
-              order << "#{stage_shortname}:#{name}"
-              add_subcard "112v" if adding_subcard && stage == :validate && name == "11"
-            end
-          end
+          define_test_events adding_subcard, order
           yield
         end
         order
+      end
+
+      def define_test_events adding_subcard, order
+        STAGE_MAP.each do |stage_shortname, stage|
+          test_event stage, on: :create do
+            order << "#{stage_shortname}:#{name}"
+            add_subcard "112v" if adding_subcard && stage == :validate && name == "11"
+          end
+        end
       end
 
       it "is in correct order" do
