@@ -1,6 +1,6 @@
-def act &block
+def act options={}, &block
   if act_card
-    add_to_act &block
+    add_to_act options, &block
   else
     start_new_act &block
   end
@@ -28,8 +28,9 @@ module ClassMethods
   end
 end
 
-def save!(*)
-  act { super }
+def save! *args
+  as_subcard = args.first&.delete :as_subcard
+  act(as_subcard: as_subcard) { super }
 end
 
 def save(*)
@@ -37,7 +38,7 @@ def save(*)
 end
 
 def valid?(*)
-  act { super }
+  act(validating: true) { super }
 end
 
 def update *args
@@ -60,7 +61,8 @@ def start_new_act
   end
 end
 
-def add_to_act
+def add_to_act options={}
   director.appoint self unless @director
+  director.head = true unless options[:validating] || options[:as_subcard]
   yield
 end
