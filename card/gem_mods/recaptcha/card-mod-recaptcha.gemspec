@@ -12,7 +12,8 @@ Gem::Specification.new do |s|
   s.homepage      = "http://decko.org"
   s.licenses      = ["GPL-2.0", "GPL-3.0"]
 
-  s.files         = Dir["db/**/*.rb"] + Dir["lib/**/*.rb"] + Dir["set/**/*.rb"]
+  s.files         = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
+                        "{config,db,lib,set}/**/*"]
 
   s.required_ruby_version = ">= 2.3.0"
   s.metadata = { "card-mod" => "recaptcha" }
