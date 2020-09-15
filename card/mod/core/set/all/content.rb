@@ -23,6 +23,10 @@ def structured_content
   structure && template.db_content
 end
 
+def refresh_content
+  self.content = Card.find(id)&.db_content
+end
+
 format do
   ONE_LINE_CHARACTER_LIMIT = 60
 

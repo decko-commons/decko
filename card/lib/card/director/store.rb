@@ -19,9 +19,8 @@ class Card
       # attributes for the finalize stage.
       # To achieve this we can't just call the :store and :finalize callbacks on
       # the subcards as we do in the other phases.
-      # Instead we have to call `save` on the subcards
-      # and use the ActiveRecord :around_save callback to run the :store and
-      # :finalize stages
+      # Instead we have to call `save` on the subcards and use the ActiveRecord
+      # :around_save callback.
       def store &save_block
         raise Card::Error, "need block to store main card" if main? && !block_given?
 
@@ -66,7 +65,7 @@ class Card
       def trigger_storage_phase_callback
         @stage = stage_index :prepare_to_store
         @only_storage_phase = true
-        @card.save! validate: false
+        @card.save! validate: false, as_subcard: true
       end
     end
   end

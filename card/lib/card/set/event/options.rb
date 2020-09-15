@@ -4,7 +4,7 @@ class Card
       module Options
         def validate_conditions
           @opts.each do |key, val|
-            next if key.in? %i[in before after around]
+            next if key.in? %i[stage before after around]
 
             validate_condition_name key
             validate_condition_value key, val
@@ -50,7 +50,7 @@ class Card
 
         def normalize_opts stage_or_opts, opts
           if stage_or_opts.is_a? Symbol
-            opts[:in] = stage_or_opts
+            opts[:stage] = stage_or_opts
           else
             opts = stage_or_opts
           end
@@ -62,11 +62,12 @@ class Card
         end
 
         def process_stage_opts opts
-          if opts[:after] || opts[:before]
-            # ignore :in options
-          elsif (@stage = opts.delete :in)
-            opts[:after] = callback_name @stage, opts.delete(:after_subcards)
-          end
+          stage = opts.delete :stage
+          after_subcards = opts.delete :after_subcards
+          return if opts[:after] || opts[:before] || opts[:around] || !(@stage = stage)
+          # after, before, or around will override stage configuration
+
+          opts[:after] = callback_name stage, after_subcards
         end
 
         def callback_name stage, after_subcards=false

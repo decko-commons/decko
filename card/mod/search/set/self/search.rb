@@ -1,13 +1,13 @@
 def query_args args={}
-  return super unless keyword_contains_wql? args
-  args.merge parse_keyword_wql(args)
+  return super unless keyword_contains_cql? args
+  args.merge parse_keyword_cql(args)
 end
 
-def parse_keyword_wql args
+def parse_keyword_cql args
   parse_json_query(args[:vars][:keyword])
 end
 
-def keyword_contains_wql? hash
+def keyword_contains_cql? hash
   hash[:vars] && (keyword = hash[:vars][:keyword]) && keyword =~ /^\{.+\}$/
 end
 
@@ -41,8 +41,8 @@ format :html do
     root.respond_to?(:search_params) ? root.search_params[:vars] : search_params[:vars]
   end
 
-  def wql_search?
-    card.keyword_contains_wql? vars: search_vars
+  def cql_search?
+    card.keyword_contains_cql? vars: search_vars
   end
 end
 

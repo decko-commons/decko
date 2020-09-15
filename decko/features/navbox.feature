@@ -11,7 +11,7 @@ Feature: Navbox
     Then I press enter to search
     Then I should see "Search results for: Joe"
 
-  Scenario: wql search
+  Scenario: cql search
     Given I go to the homepage
     When I enter '{"type":"User"}' in the navbox
     Then I should see "User"

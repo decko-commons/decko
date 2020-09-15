@@ -9,10 +9,10 @@ end
 event :validate_unique_email, after: :validate_email, on: :save do
   if content.present?
     Auth.as_bot do
-      wql = { right_id: EmailID, eq: content, return: :id }
-      wql[:not] = { id: id } if id
-      wql_comment = tr(:search_email_duplicate, content: content)
-      if Card.search(wql, wql_comment).first
+      cql = { right_id: EmailID, eq: content, return: :id }
+      cql[:not] = { id: id } if id
+      cql_comment = tr(:search_email_duplicate, content: content)
+      if Card.search(cql, cql_comment).first
         errors.add :content, tr(:error_not_unique)
       end
     end

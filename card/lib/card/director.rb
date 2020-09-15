@@ -141,7 +141,7 @@ class Card
     include Run
     include Store
 
-    attr_accessor :act, :card, :stage, :parent, :subdirectors
+    attr_accessor :act, :card, :stage, :parent, :subdirectors, :head
     attr_reader :running
     alias_method :running?, :running
 

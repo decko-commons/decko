@@ -4,7 +4,7 @@
     ._unselected.col-6.border.mt-2.px-0
       = nest filter_card, view: :select_item,
                           items: { view: implicit_item_view },
-                          wql: { limit: 10 }
+                          cql: { limit: 10 }
     ._selected.col-6.border.mt-2.pl-0.pr-0
       .selected-box
         .card-header

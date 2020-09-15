@@ -3,26 +3,26 @@ def all_filter_keys
   @all_filter_keys ||= filter_keys_from_params | filter_keys
 end
 
-def filter_and_sort_wql
-  filter_wql.merge(sort_wql)
+def filter_and_sort_cql
+  filter_cql.merge(sort_cql)
 end
 
-def filter_wql
+def filter_cql
   return {} if filter_hash.empty?
 
-  filter_wql_from_params
+  filter_cql_from_params
 end
 
 # separate method is needed for tests
-def filter_wql_from_params
-  filter_class.new(filter_keys_with_values, blocked_id_wql).to_wql
+def filter_cql_from_params
+  filter_class.new(filter_keys_with_values, blocked_id_cql).to_cql
 end
 
-def sort_wql
+def sort_cql
   sort_hash
 end
 
-def blocked_id_wql
+def blocked_id_cql
   not_ids = filter_param :not_ids
   not_ids.present? ? { id: ["not in", not_ids.split(",")] } : {}
 end
@@ -32,5 +32,5 @@ def current_sort
 end
 
 def default_sort_option
-  wql_content[:sort]
+  cql_content[:sort]
 end
