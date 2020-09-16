@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name = "card-mod-recaptcha"
   s.version = "0.5"
 
-  s.authors = ["Ethan McCutchen", "Philipp Kühl"]
+  s.authors = ["Ethan McCutchen", "Philipp Kühl", "Gerry Gleason"]
   s.email = ["info@decko.org"]
 
   s.summary       = "recaptcha support for decko"

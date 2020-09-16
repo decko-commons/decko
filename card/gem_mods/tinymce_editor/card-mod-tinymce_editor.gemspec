@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name = "card-mod-tinymce_editor"
   s.version = "0.1"
 
-  s.authors = ["Ethan McCutchen", "Philipp Kühl"]
+  s.authors = ["Ethan McCutchen", "Philipp Kühl", "Gerry Gleason"]
   s.email = ["info@decko.org"]
 
   s.summary       = "Calendar editor"
