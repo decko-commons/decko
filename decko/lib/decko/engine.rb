@@ -4,7 +4,6 @@ require "cardio"
 
 # TODO: Move these to modules that use them
 require "htmlentities"
-require "recaptcha"
 require "coderay"
 require "haml"
 require "kaminari"
