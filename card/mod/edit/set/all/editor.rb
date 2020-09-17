@@ -44,7 +44,6 @@ format :html do
     :rich_text
   end
 
-  # overridden by mods that provide rich text editors
   def rich_text_input
     send "#{Cardio.config.rich_text_editor || :tinymce}_editor_input"
   end
