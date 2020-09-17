@@ -39,9 +39,9 @@ class Card
       def valid_next_stage? next_stage
         @stage ||= -1
         return false if in_or_after?(next_stage) || ahead_of_parent?(next_stage)
-
+        return false unless @card.errors.empty? || in_or_before?(:validate, next_stage)
         skipped_stage! next_stage if before?(previous_stage_index(next_stage))
-        @card.errors.empty? || after?(:validate, next_stage)
+        true
       end
 
       def skipped_stage! stage
