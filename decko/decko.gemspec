@@ -32,9 +32,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 2.5"
 
-  [
-    ["card",   card_version]
-  ].each do |dep|
+  [["card", card_version]].each do |dep|
     s.add_runtime_dependency(*dep)
   end
 end
