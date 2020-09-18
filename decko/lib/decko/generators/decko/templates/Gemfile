@@ -7,13 +7,27 @@ path "<%= @gemfile_gem_path %>" do
   gem 'cardname', :require => false
 end
 path "<%= @gemfile_gem_path %>/card/gem_mods" do
-  gem 'card-mod-date'
-  gem 'card-mod-recaptcha'
-  gem 'card-mod-markdown'
-  gem 'card-mod-ace_editor'
-  gem 'card-mod-prosemirror_editor'
-  gem 'card-mod-tinymce_editor'
-  gem 'card-mod-edit'
+  path 'date' do
+    gem 'card-mod-date'
+  end
+  path 'recaptcha' do
+    gem 'card-mod-recaptcha'
+  end
+  path 'markdown' do
+    gem 'card-mod-markdown'
+  end
+  path 'ace_editor' do
+    gem 'card-mod-ace_editor'
+  end
+  path 'prosemirror_editor' do
+    gem 'card-mod-prosemirror_editor'
+  end
+  path 'tinymce_editor' do
+    gem 'card-mod-tinymce_editor'
+  end
+  path 'edit' do
+    gem 'card-mod-edit'
+  end
 end
 <% else %>
 gem 'decko'
