@@ -1,3 +1,4 @@
+mod 'content'
 mod 'utility'
 mod 'admin'
 mod 'core'

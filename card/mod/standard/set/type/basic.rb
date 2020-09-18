@@ -34,7 +34,7 @@ format :html do
         tag, value = $LAST_MATCH_INFO[1, 2]
         value = strip_tags(value).strip
         next if value.empty?
-        item = { value: value, uri: URI.escape(value) }
+        item = { value: value, uri: CGI.escape(value) }
         case tag.downcase
         when "h1"
           item[:depth] = dep = 1
