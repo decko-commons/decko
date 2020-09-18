@@ -39,12 +39,12 @@ Gem::Specification.new do |s|
     ["cardname",                   version],
 
     # card modules in decko core gems:
-    ["card-mod-date",              version],
-    ["card-mod-edit",              version],
-    ["card-mod-ace_editor",        version],
-    ["card-mod-prosemirror_editor", version],
-    ["card-mod-tinymce_editor",    version],
-    ["card-mod-recaptcha",         version],
+    #["card-mod-date",              version],
+    #["card-mod-edit",              version],
+    #["card-mod-ace_editor",        version],
+    #["card-mod-prosemirror_editor", version],
+    #["card-mod-tinymce_editor",    version],
+    #["card-mod-recaptcha",         version],
 
     ["haml",                       "~> 5.0"], # markup language used in view API
     ["jwt",                        "~> 2.2"], # used in token.rb
