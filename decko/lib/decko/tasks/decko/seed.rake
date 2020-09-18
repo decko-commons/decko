@@ -1,5 +1,6 @@
 namespace :decko do
   namespace :seed do
+    # ARDEP: this is all Rails -> AR standard usages, need alternatives in loading data to storage models
     desc "reseed, migrate, re-clean, and re-dump"
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"

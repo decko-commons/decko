@@ -51,6 +51,7 @@ class Card
 
       # all acts with actions that current user has permission to view
       # @return [ActiveRecord Relation]
+      # ARDEP: Relation
       def all_viewable action_where=nil
         relation = joins(ar_actions: :ar_card)
         relation = relation.where(action_where) if action_where

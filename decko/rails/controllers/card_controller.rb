@@ -127,6 +127,7 @@ class CardController < ApplicationController
   end
 
   # TODO: move to exception object
+  # ARDEP: exceptions RecordInvalid
   def debug_exception? e
     !e.is_a?(Card::Error::UserError) &&
       !e.is_a?(ActiveRecord::RecordInvalid) &&

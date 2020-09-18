@@ -35,6 +35,7 @@ class Card
         catch_up_to_stage :prepare_to_store
         run_stage :store, &block
         run_stage :finalize
+        # ARDEP: exception RecordInvalid
         raise ActiveRecord::RecordInvalid, @card if @card.errors.any?
       ensure
         @from_trash = nil

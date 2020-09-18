@@ -2,6 +2,7 @@ module Cardio
   module Schema
     def assume_migrated_upto_version type
       Cardio.schema_mode(type) do
+        # ARDEP: migrations
         ActiveRecord::Schema.assume_migrated_upto_version(Cardio.schema(type),
                                                           Cardio.migration_paths(type))
       end

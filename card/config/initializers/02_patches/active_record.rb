@@ -15,6 +15,7 @@
 #   nothing is returned from the function
 
 module Patches
+  # ARDEP: configuration (in filename)
   module ActiveRecord
     module Relation
       def pluck_in_batches *columns, batch_size: 1000

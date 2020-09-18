@@ -27,7 +27,7 @@ When you install and seed a new Decko project, you have a working "deck" right a
 
 Ruby-on-Rails developers reading this will find lots of familiar patterns in Decko, which indeed depends upon rails gems. <b>Although Decko is a Rails descendant and owes a ton to the Rails community, it is not Rails.</b> Unlike Rails, Decko is not an implementation of the "MVC" (Model-View-Controller) architectural pattern (see Architecture below). More concretely, while Rails' core pattern is adding new things (especially models, views, and controllers), Decko's core pattern is subdividing existing things into new Sets.
 
-Deck-coders do create lots of card views (though they're quite different from Rails views), but we rarely if ever create new controllers or ActiveRecord models. In the Decko gem there is one controller (CardController) and one main model ({Card}). Other models optimize the Card model and track its history: (See {Card::Reference references}, {Card::Act acts}, {Card::Action actions}, and {Card::Change changes}).
+Deck-coders do create lots of card views (though they're quite different from Rails views), but we rarely if ever create new controllers or ActiveModel/ActiveRecord models. In the Decko gem there is one controller (CardController) and one main model ({Card}). Other models optimize the Card model and track its history: (See {Card::Reference references}, {Card::Act acts}, {Card::Action actions}, and {Card::Change changes}).
 
 
 ===Cards, Sets, and Rules

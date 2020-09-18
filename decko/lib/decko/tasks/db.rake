@@ -31,6 +31,7 @@ end
 
 namespace :db do
   namespace :fixtures do
+    # ARDEP: this is all Rails -> AR standard usages, need alternatives in loading data to storage models
     desc "Load fixtures into the current environment's database.  Load specific fixtures using FIXTURES=x,y"
     task load: :environment do
       require "active_record/fixtures"

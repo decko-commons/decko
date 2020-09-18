@@ -82,6 +82,7 @@ class Card
           card
         end
 
+        # ARDEP: connection
         def run_sql
           # puts "\nSQL = #{sql}"
           ActiveRecord::Base.connection.select_all sql

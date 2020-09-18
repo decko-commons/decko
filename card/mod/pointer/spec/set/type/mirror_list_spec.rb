@@ -15,6 +15,7 @@ RSpec.describe Card::Set::Type::MirrorList do
     end
   end
   it "doesn't allow non-cardtype as right part" do
+    # ARDEP: exceptions RecordInvalid
     expect do
       Card["Parry Hotter+authors"].update!(name: "Parry Hotter+hidden")
     end.to raise_error(ActiveRecord::RecordInvalid,

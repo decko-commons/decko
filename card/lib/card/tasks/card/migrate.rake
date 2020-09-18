@@ -27,6 +27,7 @@ def load_mod_lib
   Dir.glob(Cardio.root.join("mod/*/lib/*.rb")).each { |x| require x }
 end
 
+#ARDEP: migrations
 def without_dumping
   ActiveRecord::Base.dump_schema_after_migration = false
   yield

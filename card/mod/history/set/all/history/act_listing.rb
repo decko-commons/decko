@@ -12,6 +12,7 @@ format :html do
   # used (by history and recent)for rendering act lists with legend and paging
   #
   # @param acts [ActiveRecord::Relation] relation that will return acts objects
+  # ARDEP: Relation
   # @param context [Symbol] :relative or :absolute
   # @param draft_legend [Symbol] :show or :hide
   def acts_layout acts, context, draft_legend=:hide

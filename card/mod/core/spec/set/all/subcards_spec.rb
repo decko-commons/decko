@@ -7,6 +7,7 @@ RSpec.describe Card::Set::All::Subcards do
   end
 
   describe "add subcards" do
+    # ARDEP: storage transaction (storage connection API)
     let(:transact) { ActiveRecord::Base.connection.current_transaction }
     let(:record_names) { transact.records.map(&:name) }
 

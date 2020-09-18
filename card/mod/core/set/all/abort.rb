@@ -57,6 +57,7 @@ def with_transaction_returning_status
     add_to_transaction
     remember_transaction_record_state
     status = abortable { yield }
+    # ARDEP: need a storage API to do this
     raise ActiveRecord::Rollback unless status
   end
   status

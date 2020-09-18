@@ -62,6 +62,8 @@ class Card
     end
 
     # error whose message can be shown to any user
+    # ARDEP: exceptions RecordNotFound, RecordInvalid
+    # ARDEP ActionController: exceptions BadRequest, MissingFile
     class UserError < Error
       cattr_accessor :user_error_classes
       self.user_error_classes = [self,

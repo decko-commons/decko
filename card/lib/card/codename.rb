@@ -106,6 +106,7 @@ class Card
       # @yieldparam id [Integer]
       def each_codenamed_card
         sql = "select id, codename from cards where codename is not NULL"
+        # ARDEP: connection
         ActiveRecord::Base.connection.select_all(sql).each do |row|
           yield row["codename"].to_sym, row["id"].to_i
         end

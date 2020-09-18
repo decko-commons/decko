@@ -68,6 +68,7 @@ end
 
 # @return [True/False]
 def new?
+  # ARDEP: new_record? in storage API
   new_record? ||       # not yet in db (from ActiveRecord)
     !@from_trash.nil?  # in process of restoration from trash
 end

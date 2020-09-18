@@ -36,7 +36,7 @@ def initialize args={}
 
   handle_set_modules args do
     handle_type args do
-      super args # ActiveRecord #initialize
+      super args # ActiveRecord (storage classes) #initialize
     end
   end
   self

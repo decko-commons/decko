@@ -3,6 +3,7 @@ Array.wrap(command_options).each do |factory_options|
   begin
     logger.debug "running #{factory_method}, #{factory_options}"
     CypressOnRails::SmartFactoryWrapper.public_send(factory_method, *factory_options)
+  # ARDEP: exception RecordInvalid
   rescue => e
     logger.error "#{e.class}: #{e.message}"
     logger.error e.backtrace.join("\n")

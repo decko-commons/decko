@@ -17,6 +17,7 @@ module ClassMethods
   def find_each options={}
     # this is a copy from rails (3.2.16) and is needed because this
     # is performed by a relation (ActiveRecord::Relation)
+    # ARDEP: ::Relation
     find_in_batches(options) do |records|
       records.each { |record| yield record }
     end

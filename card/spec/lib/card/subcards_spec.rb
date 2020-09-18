@@ -173,6 +173,7 @@ RSpec.describe Card::Subcards do
       end
     end
 
+    # ARDEP: exception RecordInvalid
     it "works on rename (update!)" do
       with_subcard_validation_error_in_rename do
         expect{ referee.update! name: "Tea", update_referers: true }

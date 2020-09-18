@@ -14,6 +14,7 @@ if defined? BetterErrors
   end
 end
 
+# ARDEP: need to isolate this to named and optionally included place
 module ActiveRecord #:nodoc: all
   class Relation
     include Patches::ActiveRecord::Relation

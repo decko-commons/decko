@@ -36,6 +36,7 @@ decko_namespace = namespace :decko do
     decko_namespace["load"].invoke
   end
 
+  # ARDEP: this is all Rails -> AR standard usages, need alternatives in loading data to storage models
   desc "empty the card tables"
   task :clear do
     conn = ActiveRecord::Base.connection

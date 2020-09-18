@@ -8,6 +8,7 @@ system "tail -n 10000 -r log/#{Rails.env}.log | sed \"/APPCLEANED/ q\" | sed 'x;
 json_result = {}
 json_result['error'] = command_options.fetch('error_message', 'no error message')
 
+# ARDEP defined? protected
 if defined?(ActiveRecord::Base)
   json_result['records'] =
     ActiveRecord::Base.descendants.each_with_object({}) do |record_class, records|

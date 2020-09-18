@@ -8,6 +8,7 @@ class Card
     # somethings fails.
     # All !-methods in this module rename existing cards
     # to resolve name conflicts)
+    # ARDEP: note how ! methods here should be the complete interface from Card::Model < ActiveModel when it needs AR methods and features. I think the solution is to have a 'naked' card that is just a Model, and a Card::Storage class that works like formatters to do view stuff. You need to card.to_storage to get the mutation functions used here
     module SaveHelper
       def with_user user_name
         Card::Auth.with current_id: Card.fetch_id(user_name) do
@@ -16,6 +17,7 @@ class Card
       end
 
       def create_card name_or_args, content_or_args=nil
+        # ARDEP: is there an AM create?
         Card.create! create_args(name_or_args, content_or_args)
       end
 

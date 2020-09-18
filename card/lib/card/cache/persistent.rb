@@ -53,6 +53,7 @@ class Card
       # @param opts [Hash]
       # @option opts [Rails::Cache] :store
       # @option opts [ruby Class] :class, typically ActiveRecord descendant
+      # ARDEP: should be ActiveModel and only create AR object to manage storage process
       # @option opts [String] :database
       def initialize opts
         @store = opts[:store]

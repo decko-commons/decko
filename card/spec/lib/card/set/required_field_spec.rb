@@ -13,6 +13,7 @@ RSpec.describe Card::Set::RequiredField, as_bot: true do
       card = Card.new name: "reader", "+*read" => "me"
       card.set_with { require_field :read }
 
+      # ARDEP: exception RecordInvalid (apparently can't depend on it defined?)
       expect { card.save! }.not_to raise_error #ActiveRecord::RecordInvalid
     end
   end
@@ -30,6 +31,7 @@ RSpec.describe Card::Set::RequiredField, as_bot: true do
       card
     end
 
+    # ARDEP: exception RecordInvalid
     it "can't be deleted" do
       card_with_required_field
       expect { field.delete! }
