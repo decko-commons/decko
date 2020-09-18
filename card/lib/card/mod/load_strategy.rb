@@ -1,11 +1,5 @@
 class Card
   module Mod
-    # require "card/mod/load_strategy/eval"
-    # require "card/mod/load_strategy/pattern_tmp_files"
-    # require "card/mod/load_strategy/set_binding_magic"
-    # require "card/mod/load_strategy/set_tmp_files"
-    # require "card/mod/load_strategy/tmp_files"
-
     # Shared code for the three different load strategies: Eval, TmpFiles and BindingMagic
     class LoadStrategy
       def self.klass symbol
