@@ -16,6 +16,12 @@ path "<%= @gemfile_gem_path %>/card/gem_mods" do
 end
 <% else %>
 gem 'decko'
+gem 'card-mod-date'
+gem 'card-mod-recaptcha'
+gem 'card-mod-ace_editor'
+gem 'card-mod-prosemirror_editor'
+gem 'card-mod-tinymce_editor'
+gem 'card-mod-edit'
 <% end %>
 
 gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.version}') if database_gemfile_entry.version %>
