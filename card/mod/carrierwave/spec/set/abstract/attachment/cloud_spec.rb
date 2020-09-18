@@ -71,7 +71,6 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
 
   it "copies file to local file system" do
     # not yet supported
-    # ARDEP: exceptions RecordInvalid
     expect { Card[file_card.name].update!(storage_type: :local) }
       .to raise_error(ActiveRecord::RecordInvalid)
   end

@@ -23,7 +23,6 @@ module Cardio
     end
 
     def load_card?
-      # ARDEP: connection object
       ActiveRecord::Base.connection && !card_defined?
     rescue
       false

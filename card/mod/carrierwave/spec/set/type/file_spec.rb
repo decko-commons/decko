@@ -39,7 +39,6 @@ RSpec.describe Card::Set::Type::File do
 
   context "creating" do
     it "fails if no file given" do
-      # ARDEP: exceptions RecordInvalid
       expect do
         Card::Auth.as_bot do
           Card.create! name: "hide and seek", type_id: Card::FileID

@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-  # ARDEP: migration
   class Migration < ActiveRecord::Migration[4.2]
     include Card::Model::SaveHelper
     @type = :deck_cards

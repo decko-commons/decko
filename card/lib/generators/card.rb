@@ -37,7 +37,6 @@ class Card
       end
     end
 
-    # ARDEP: migration generators
     class MigrationBase < ::ActiveRecord::Generators::Base
       extend ClassMethods
     end

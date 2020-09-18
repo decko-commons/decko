@@ -112,7 +112,6 @@ class Card
       end
 
       def cast_type type
-        # ARDEP: connection
         cxn ||= ActiveRecord::Base.connection
         (val = cxn.cast_types[type.to_sym]) ? val[:name] : safe_sql(type)
       end

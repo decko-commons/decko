@@ -11,7 +11,6 @@ class Card
         connection.quote(v)
       end
 
-      # ARDEP: connection
       def connection
         @connection ||= ActiveRecord::Base.connection
       end

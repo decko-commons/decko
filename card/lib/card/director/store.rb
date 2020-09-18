@@ -21,7 +21,6 @@ class Card
       # the subcards as we do in the other phases.
       # Instead we have to call `save` on the subcards and use the ActiveRecord
       # :around_save callback.
-      # ARDEP: comments reflect Card::Storage class
       def store &save_block
         raise Card::Error, "need block to store main card" if main? && !block_given?
 
