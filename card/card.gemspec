@@ -36,15 +36,15 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 2.5"
 
   [
-    ["cardname",                   card_version],
+    ["cardname",                   version],
 
     # card modules in decko core gems:
-    ["card-mod-date",              card_version],
-    ["card-mod-edit",              card_version],
-    ["card-mod-ace_editor",        card_version],
-    ["card-mod-prosemirror_editor", card_version],
-    ["card-mod-tinymce_editor",    card_version],
-    ["card-mod-recaptcha",         card_version],
+    ["card-mod-date",              version],
+    ["card-mod-edit",              version],
+    ["card-mod-ace_editor",        version],
+    ["card-mod-prosemirror_editor", version],
+    ["card-mod-tinymce_editor",    version],
+    ["card-mod-recaptcha",         version],
 
     ["haml",                       "~> 5.0"], # markup language used in view API
     ["jwt",                        "~> 2.2"], # used in token.rb

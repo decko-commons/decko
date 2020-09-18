@@ -12,7 +12,7 @@ card_version = [1, vminor, vbits[2]].compact.map(&:to_s).join "."
 
 Gem::Specification.new do |s|
   s.name          = "decko"
-  s.version       = card_version
+  s.version       = version
   s.authors       = ["Ethan McCutchen", "Philipp Kühl", "Lewis Hoffman", "Gerry Gleason"]
   s.email         = ["info@decko.org"]
 
