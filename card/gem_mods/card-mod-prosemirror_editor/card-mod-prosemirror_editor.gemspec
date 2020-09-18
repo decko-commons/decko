@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 2.3.0"
   s.metadata = { "card-mod" => "prosemirror_editor" }
-  s.add_runtime_dependency "card-mod-edit", "~>1.1"
+  s.add_runtime_dependency "card-mod-edit", version
 end
