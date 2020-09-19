@@ -1,12 +1,10 @@
 # -*- encoding : utf-8 -*-
 
-# lib = File.expand_path('../lib', __FILE__)
-# $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-version = File.open(File.expand_path("../../card/VERSION", __FILE__)).read.chomp
+require "../versioning"
 
 Gem::Specification.new do |s|
   s.name          = "decko-rails"
-  s.version       = version
+  s.version       = Versioning.simple
   s.authors       = ["Ethan McCutchen", "Gerry Gleason", "Philipp Kühl"]
   s.email         = ["info@decko.org"]
 
@@ -23,5 +21,5 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 1.8.7"
 
-  s.add_runtime_dependency "decko", version
+  s.add_runtime_dependency "decko", Versioning.simple
 end
