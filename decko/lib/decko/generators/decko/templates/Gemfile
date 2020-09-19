@@ -13,7 +13,6 @@ path "<%= @gemfile_gem_path %>/card/gem_mods" do
   gem 'card-mod-prosemirror_editor'
   gem 'card-mod-tinymce_editor'
   gem 'card-mod-edit'
-  #gem 'card-mod-layout'
 end
 <% else %>
 gem 'decko'
@@ -23,7 +22,6 @@ gem 'card-mod-ace_editor'
 gem 'card-mod-prosemirror_editor'
 gem 'card-mod-tinymce_editor'
 gem 'card-mod-edit'
-#gem 'card-mod-layout'
 <% end %>
 
 gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.version}') if database_gemfile_entry.version %>
