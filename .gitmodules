@@ -19,11 +19,11 @@
 [submodule "card/mod/machines/vendor/jquery_rails"]
 	path = card/mod/machines/vendor/jquery_rails
 	url = https://github.com/rails/jquery-rails
-[submodule "card/gem_mods/card-mod-date/vendor/moment"]
-	path = card/gem_mods/card-mod-date/vendor/moment
+[submodule "card/gem_mod/card-mod-date/vendor/moment"]
+	path = card/gem_mod/card-mod-date/vendor/moment
 	url = https://github.com/moment/moment
-[submodule "card/gem_mods/card-mod-date/vendor/tempusdominus"]
-	path = card/gem_mods/card-mod-date/vendor/tempusdominus
+[submodule "card/gem_mod/card-mod-date/vendor/tempusdominus"]
+	path = card/gem_mod/card-mod-date/vendor/tempusdominus
 	url = https://github.com/tempusdominus/bootstrap-4
 [submodule "card/mod/machines/vendor/jquery_file_upload"]
 	path = card/mod/machines/vendor/jquery_file_upload

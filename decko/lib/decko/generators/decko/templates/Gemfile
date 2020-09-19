@@ -6,22 +6,12 @@ path "<%= @gemfile_gem_path %>" do
   gem 'card', :require => false
   gem 'cardname', :require => false
 end
-path "<%= @gemfile_gem_path %>/card/gem_mods" do
+path "<%= @gemfile_gem_path %>/card/gem_mod" do
   gem 'card-mod-date'
-  gem 'card-mod-recaptcha'
-  gem 'card-mod-ace_editor'
-  gem 'card-mod-prosemirror_editor'
-  gem 'card-mod-tinymce_editor'
-  gem 'card-mod-edit'
+  # this suffices to make all the mods in gem_mod findable
 end
 <% else %>
 gem 'decko'
-gem 'card-mod-date'
-gem 'card-mod-recaptcha'
-gem 'card-mod-ace_editor'
-gem 'card-mod-prosemirror_editor'
-gem 'card-mod-tinymce_editor'
-gem 'card-mod-edit'
 <% end %>
 
 gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.version}') if database_gemfile_entry.version %>

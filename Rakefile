@@ -52,7 +52,7 @@ end
 def push_mod_gems
   %w(edit ace_editor prosemirror_editor tinymce_editor date recaptcha).each do |gem|
     gem = "card-mod-#{gem}"
-    system %(cd card/gem_mods/#{gem}; #{push_gem gem, version})
+    system %(cd card/gem_mod/#{gem}; #{push_gem gem, version})
   end
 end
 
