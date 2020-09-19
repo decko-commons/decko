@@ -27,7 +27,7 @@ end
 
 def find_file filename
   modname = file_content_mod_name
-  modname = $1 if modname =~ /card-mod-(\w*)-\S/
+  modname = $1 if modname =~ /^card-mod-(\w*)/
   mod_path = Card::Mod.dirs.path modname
   file_path = File.join(mod_path, source_dir, filename)
   unless File.exist?(file_path)
