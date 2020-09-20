@@ -64,6 +64,7 @@ Feature: File Upload
     And I fill in "card_name" with "Vignesh has a complicated relationship"
     And I upload the image "image.png"
     And I press "Submit"
+    And I should see file "image.png"
     And I edit "Vignesh has a complicated relationship"
     And I upload the image "image2.jpg"
     Then I should see file "image2.jpg 69.8 KB"
