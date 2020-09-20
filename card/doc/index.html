@@ -6,15 +6,15 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "README";
   relpath = '';
 </script>
@@ -60,8 +60,7 @@
       <div id="content"><div id='filecontents'>
 <h1 id="label-A+Developer-27s+introduction+to+the+Decko-2FCard+code+base">A Developer&#39;s introduction to the Decko/Card code base</h1>
 
-<p>New folks should start here after playing with Decko but before digging
-into code.</p>
+<p>New folks should start here after playing with Decko but before digging into code.</p>
 
 <h2 id="label-Intro">Intro</h2>
 
@@ -69,65 +68,32 @@ into code.</p>
 
 <p>Yes, if:</p>
 <ul><li>
-<p><strong>You&#39;re a Ruby developer</strong>, or at least someone who does
-not fear ruby code. <strong>Not a techie? <a href="http://decko.org">Try
-Decko.org</a></strong></p>
+<p><strong>You&#39;re a Ruby developer</strong>, or at least someone who does not fear ruby code. <strong>Not a techie? <a href="http://decko.org">Try Decko.org</a></strong></p>
 </li><li>
-<p><strong>You&#39;ve experimented with Decko</strong> enough to know the
-basics (<a href="docs/Card">cards</a>, types, rules, etc.) <strong>No idea
-what a card is? <a href="http://decko.org">Try Decko.org</a></strong>.</p>
+<p><strong>You&#39;ve experimented with Decko</strong> enough to know the basics (<a href="docs/Card">cards</a>, types, rules, etc.) <strong>No idea what a card is? <a href="http://decko.org">Try Decko.org</a></strong>.</p>
 </li><li>
-<p><strong>You&#39;re looking at this page from a docs site</strong> (ie, NOT
-GitHub) so you can use our links to navigate code. <strong>Links look
-funny? <a href="http://rubydoc.info/gems/card">Try
-rubydocs.info</a>.</strong></p>
+<p><strong>You&#39;re looking at this page from a docs site</strong> (ie, NOT GitHub) so you can use our links to navigate code. <strong>Links look funny? <a href="http://rubydoc.info/gems/card">Try rubydocs.info</a>.</strong></p>
 </li></ul>
 
 <h3 id="label-Decko-3A+an+application+or+a+development+framework-3F">Decko: an <em>application</em> or a <em>development framework</em>?</h3>
 
 <p>It&#39;s both.</p>
 
-<p>When you install and seed a new Decko project, you have a working “deck”
-right away. Your new application has a lot built in: account handling, edit
-histories, default layouts, CSS, etc. But a new deck is just a starting
-point. Decko offers a rich framework within which to develop your own novel
-applications, both <strong>via configuration (as a “Decker”)</strong> or
-<strong>via code (as a “Deck-coder”)</strong>.</p>
+<p>When you install and seed a new Decko project, you have a working “deck” right away. Your new application has a lot built in: account handling, edit histories, default layouts, CSS, etc. But a new deck is just a starting point. Decko offers a rich framework within which to develop your own novel applications, both <strong>via configuration (as a “Decker”)</strong> or <strong>via code (as a “Deck-coder”)</strong>.</p>
 
-<p><strong>Decko is a development framework in which you start <em>in the
-middle of things</em> rather than from scratch</strong>. Decko gives you a
-headstart, so that designers, developers, and content creators can start
-working in parallel on day one. But from there, you can build (or remove)
-pretty much whatever you want.</p>
+<p><strong>Decko is a development framework in which you start <em>in the middle of things</em> rather than from scratch</strong>. Decko gives you a headstart, so that designers, developers, and content creators can start working in parallel on day one. But from there, you can build (or remove) pretty much whatever you want.</p>
 
 <h3 id="label-Decko-3A+Ruby+on+Rails-3F">Decko: Ruby on Rails?</h3>
 
-<p>Ruby-on-Rails developers reading this will find lots of familiar patterns
-in Decko, which indeed depends upon rails gems. <strong>Although Decko is a
-Rails descendant and owes a ton to the Rails community, it is not
-Rails.</strong> Unlike Rails, Decko is not an implementation of the “MVC”
-(Model-View-Controller) architectural pattern (see Architecture below).
-More concretely, while Rails&#39; core pattern is adding new things
-(especially models, views, and controllers), Decko&#39;s core pattern is
-subdividing exising things into new Sets.</p>
+<p>Ruby-on-Rails developers reading this will find lots of familiar patterns in Decko, which indeed depends upon rails gems. <strong>Although Decko is a Rails descendant and owes a ton to the Rails community, it is not Rails.</strong> Unlike Rails, Decko is not an implementation of the “MVC” (Model-View-Controller) architectural pattern (see Architecture below). More concretely, while Rails&#39; core pattern is adding new things (especially models, views, and controllers), Decko&#39;s core pattern is subdividing exising things into new Sets.</p>
 
-<p>Deck-coders do create lots of card views (though they&#39;re quite
-different from Rails views), but we rarely if ever create new controllers
-or ActiveRecord models. In the Decko gem there is one controller
-(CardController) and one main model (<span class='object_link'><a href="Card.html" title="Card (class)">Card</a></span>). Other models optimize the
-Card model and track its history: (See <span class='object_link'><a href="Card/Reference.html" title="Card::Reference (class)">references</a></span>,
-<span class='object_link'><a href="Card/Act.html" title="Card::Act (class)">acts</a></span>, <span class='object_link'><a href="Card/Action.html" title="Card::Action (class)">actions</a></span>, and <span class='object_link'><a href="Card/Change.html" title="Card::Change (class)">changes</a></span>).</p>
+<p>Deck-coders do create lots of card views (though they&#39;re quite different from Rails views), but we rarely if ever create new controllers or ActiveRecord models. In the Decko gem there is one controller (CardController) and one main model (<span class='object_link'><a href="Card.html" title="Card (class)">Card</a></span>). Other models optimize the Card model and track its history: (See <span class='object_link'><a href="Card/Reference.html" title="Card::Reference (class)">references</a></span>, <span class='object_link'><a href="Card/Act.html" title="Card::Act (class)">acts</a></span>, <span class='object_link'><a href="Card/Action.html" title="Card::Action (class)">actions</a></span>, and <span class='object_link'><a href="Card/Change.html" title="Card::Change (class)">changes</a></span>).</p>
 
 <h3 id="label-Cards-2C+Sets-2C+and+Rules">Cards, Sets, and Rules</h3>
 
-<p><span class='object_link'><a href="Card.html" title="Card (class)"><em>Cards</em></a></span> are the basic building blocks of Decko. <span class='object_link'><a href="Card/Set.html" title="Card::Set (module)"><em>Sets</em></a></span> are the basic pattern for organizing cards. <strong>Both
-Deckers and Deck-coders create web systems by applying <em>rules</em> to
-<em>sets</em> of <em>cards</em>.</strong></p>
+<p><span class='object_link'><a href="Card.html" title="Card (class)"><em>Cards</em></a></span> are the basic building blocks of Decko. <span class='object_link'><a href="Card/Set.html" title="Card::Set (module)"><em>Sets</em></a></span> are the basic pattern for organizing cards. <strong>Both Deckers and Deck-coders create web systems by applying <em>rules</em> to <em>sets</em> of <em>cards</em>.</strong></p>
 
-<p>If you&#39;ve edited card rules in any deck, you will have encountered
-Sets. For example, imagine you&#39;re on a User card named “Henry”, and you
-decide to edit its structure. When you do, you&#39;ll be prompted to choose
-the Set of cards to which the structure rule applies, eg:</p>
+<p>If you&#39;ve edited card rules in any deck, you will have encountered Sets. For example, imagine you&#39;re on a User card named “Henry”, and you decide to edit its structure. When you do, you&#39;ll be prompted to choose the Set of cards to which the structure rule applies, eg:</p>
 <ul><li>
 <p>Just “Henry”</p>
 </li><li>
@@ -136,61 +102,38 @@ the Set of cards to which the structure rule applies, eg:</p>
 <p>All Cards</p>
 </li></ul>
 
-<p>The Rule in question will apply to all cards in the set you choose. If a
-card has rules in more than one set, the rule applied to the narrower set
-overrides the rule applied to the broader one.</p>
+<p>The Rule in question will apply to all cards in the set you choose. If a card has rules in more than one set, the rule applied to the narrower set overrides the rule applied to the broader one.</p>
 
-<p>This same general pattern occurs in Decko code: code rules (methods) are
-organized under the Set of cards to which they apply. This means both code
-rules and card (data) rules) can be as narrow or specific as desired.</p>
+<p>This same general pattern occurs in Decko code: code rules (methods) are organized under the Set of cards to which they apply. This means both code rules and card (data) rules) can be as narrow or specific as desired.</p>
 
 <h2 id="label-Architecture">Architecture</h2>
 
-<p>Sets are central to Decko&#39;s architecture, which follows a new pattern
-that we call <em>MoFoS</em>. MoFoS stands for “Model-Formats-Sets”: One
-<strong>Mo</strong>del, viewable in many <span class='object_link'><a href="Card/Format.html" title="Card::Format (class)"><strong>Fo</strong>rmats</a></span>, divisible into <span class='object_link'><a href="Card/Set.html" title="Card::Set (module)"><strong>S</strong>ets</a></span>.</p>
+<p>Sets are central to Decko&#39;s architecture, which follows a new pattern that we call <em>MoFoS</em>. MoFoS stands for “Model-Formats-Sets”: One <strong>Mo</strong>del, viewable in many <span class='object_link'><a href="Card/Format.html" title="Card::Format (class)"><strong>Fo</strong>rmats</a></span>, divisible into <span class='object_link'><a href="Card/Set.html" title="Card::Set (module)"><strong>S</strong>ets</a></span>.</p>
 
-<p>In Decko, the MoFoS “model” is, as you may have guessed, the <span class='object_link'><a href="Card.html" title="Card (class)"><em>Card</em></a></span>. We&#39;ve just explore <span class='object_link'><a href="Card/Set.html" title="Card::Set (module)"><em>Sets</em></a></span> above. 
-But what are <span class='object_link'><a href="Card/Format.html" title="Card::Format (class)">Formats</a></span>?</p>
+<p>In Decko, the MoFoS “model” is, as you may have guessed, the <span class='object_link'><a href="Card.html" title="Card (class)"><em>Card</em></a></span>. We&#39;ve just explore <span class='object_link'><a href="Card/Set.html" title="Card::Set (module)"><em>Sets</em></a></span> above.  But what are <span class='object_link'><a href="Card/Format.html" title="Card::Format (class)">Formats</a></span>?</p>
 
-<p>You may have noticed that you can add .html (the default), .text, .json,
-etc to any card&#39;s web path to receive the card&#39;s contents in a
-different file format. These are achieved by <span class='object_link'><a href="Card/Format.html" title="Card::Format (class)">Format</a></span> classes.
-HTML, Json, Text, etc each has its own Format class.</p>
+<p>You may have noticed that you can add .html (the default), .text, .json, etc to any card&#39;s web path to receive the card&#39;s contents in a different file format. These are achieved by <span class='object_link'><a href="Card/Format.html" title="Card::Format (class)">Format</a></span> classes. HTML, Json, Text, etc each has its own Format class.</p>
 
-<p>In keeping with this architecture, Decko&#39;s code is heavily organized
-around correlating Ruby classes for the model and formats:</p>
+<p>In keeping with this architecture, Decko&#39;s code is heavily organized around correlating Ruby classes for the model and formats:</p>
 <ol><li>
 <p>the “model” is <span class='object_link'><a href="Card.html" title="Card (class)">Card</a></span></p>
 </li><li>
 <p>the “formats” are <span class='object_link'><a href="Card/Format.html" title="Card::Format (class)">Card::Format</a></span> and its descendants</p>
 </li></ol>
 
-<p>Sets are implemented not as Ruby classes but as Ruby modules that are
-included in applicable card and format objects. For example, when fetching
-the “Henry” card, the Card object&#39;s singleton class will include the
-module Card::Set::Type::User.  And when rendering a view of that card in
-Html, the format object will include Card::Set::Type::User::HtmlFormat.
-That&#39;s a mouthful. It&#39;s also something you&#39;ll never have to
-write (or think about really), because Set functionality is almost always
-developed using our Set DSL, which automatically handles the ruby module
-naming based on the file name.</p>
+<p>Sets are implemented not as Ruby classes but as Ruby modules that are included in applicable card and format objects. For example, when fetching the “Henry” card, the Card object&#39;s singleton class will include the module Card::Set::Type::User.  And when rendering a view of that card in Html, the format object will include Card::Set::Type::User::HtmlFormat. That&#39;s a mouthful. It&#39;s also something you&#39;ll never have to write (or think about really), because Set functionality is almost always developed using our Set DSL, which automatically handles the ruby module naming based on the file name.</p>
 
-<p>Cards, Formats, Sets, and other structures can all be developed via
-<span class='object_link'><a href="Card/Mod.html" title="Card::Mod (module)">Mods</a></span>.</p>
+<p>Cards, Formats, Sets, and other structures can all be developed via <span class='object_link'><a href="Card/Mod.html" title="Card::Mod (module)">Mods</a></span>.</p>
 
 <h2 id="label-Mods">Mods</h2>
 
-<p><span class='object_link'><a href="Card/Mod.html" title="Card::Mod (module)">Card Mods</a></span> (short for <em>modules</em> or
-<em>modifications</em>) are the primary mechanism for developing and
-sharing Decko code. If you&#39;re just getting started as a Decko
-developer, learning about <span class='object_link'><a href="Card/Mod.html" title="Card::Mod (module)">Mods</a></span> is a great next step.</p>
+<p><span class='object_link'><a href="Card/Mod.html" title="Card::Mod (module)">Card Mods</a></span> (short for <em>modules</em> or <em>modifications</em>) are the primary mechanism for developing and sharing Decko code. If you&#39;re just getting started as a Decko developer, learning about <span class='object_link'><a href="Card/Mod.html" title="Card::Mod (module)">Mods</a></span> is a great next step.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:17 2019 by
+  Generated on Thu Sep 10 15:02:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

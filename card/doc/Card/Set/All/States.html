@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::States
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::States";
   relpath = '../../../';
 </script>
@@ -90,13 +90,16 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
+    <p>Set: All cards (States)</p>
+
 <p>All cards have one (and only one) of these three states: real, virtual, and unknown.</p>
 
 <ul>
-<li><em>real</em> cards are stored in the database (but not in the trash) and have a unique id.</li>
-
-<li><em>virtual</em> cards are not real, but they act real based on rules. For example, Home+<em>editors does a search for all the users who have edited the “Home” card. There are many other similar cards that search for things like references, children, etc. But we don’t store all these cards in the database; we generate them dynamically</em></li>
+  <li><em>real</em> cards are stored in the database (but not in the trash) and have a unique id.</li>
+  <li><em>virtual</em> cards are not real, but they act real based on rules. For example,
+Home+*editors does a search for all the users who have edited the “Home” card.
+There are many other similar cards that search for things like references, children,
+etc. But we don’t store all these cards in the database; we generate them dynamically</li>
 </ul>
 
 
@@ -117,6 +120,18 @@
 </p>
 
 
+
+  <h2>Constant Summary</h2>
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#SET_PATTERN_TEST_REGEXP-constant" title="Card::Set::Helpers::SET_PATTERN_TEST_REGEXP (constant)">Helpers::SET_PATTERN_TEST_REGEXP</a></span></p>
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Event/Api.html" title="Card::Set::Event::Api (module)">Event::Api</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Event/Api.html#OPTIONS-constant" title="Card::Set::Event::Api::OPTIONS (constant)">Event::Api::OPTIONS</a></span></p>
 
 
 
@@ -147,7 +162,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -178,7 +194,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -202,7 +219,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -224,8 +242,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>has not been edited directly by human users.</p>
+    <span class="summary_desc"><div class='inline'><p>has not been edited directly by human users.</p>
 </div></span>
   
 </li>
@@ -248,7 +265,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -270,8 +288,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>:real, :virtual, or :unknown.</p>
+    <span class="summary_desc"><div class='inline'><p>:real, :virtual, or :unknown.</p>
 </div></span>
   
 </li>
@@ -294,7 +311,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#user_changes%3F-instance_method" title="#user_changes? (instance method)">#<strong>user_changes?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -316,8 +357,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Virtual cards are structured, compound cards that are not stored in the database.</p>
+    <span class="summary_desc"><div class='inline'><p>Virtual cards are structured, compound cards that are not stored in the database.</p>
 </div></span>
   
 </li>
@@ -333,6 +373,11 @@
   
   
   
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+
   
   
   
@@ -364,7 +409,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Helpers.html#abstract_set%3F-instance_method" title="Card::Set::Helpers#abstract_set? (method)">#abstract_set?</a></span>, <span class='object_link'><a href="../Helpers.html#all_set%3F-instance_method" title="Card::Set::Helpers#all_set? (method)">#all_set?</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
 
   
   
@@ -482,6 +527,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -538,6 +584,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -590,8 +637,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>has not been edited directly by human users. bleep blorp.</p>
+    <p>has not been edited directly by human users.  bleep blorp.</p>
 
 
   </div>
@@ -620,17 +666,13 @@
 
 85
 86
-87
-88
-89</pre>
+87</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/states.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pristine?'>pristine?</span>
-  <span class='id identifier rubyid_new_card?'>new_card?</span> <span class='op'>||</span> <span class='op'>!</span><span class='id identifier rubyid_actions'>actions</span><span class='period'>.</span><span class='id identifier rubyid_joins'>joins</span><span class='lparen'>(</span><span class='symbol'>:act</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card_acts.actor_id != ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>WagnBotID</span>
-  <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
+  <span class='id identifier rubyid_new_card?'>new_card?</span> <span class='op'>||</span> <span class='op'>!</span><span class='id identifier rubyid_user_changes?'>user_changes?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -649,6 +691,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -700,8 +743,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns :real, :virtual, or :unknown</p>
+    <p>Returns :real, :virtual, or :unknown.</p>
 
 
   </div>
@@ -719,8 +761,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>:real, :virtual, or :unknown</p>
+        <div class='inline'><p>:real, :virtual, or :unknown</p>
 </div>
       
     </li>
@@ -773,6 +814,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -813,6 +855,59 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="user_changes?-instance_method">
+  
+    #<strong>user_changes?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+89
+90
+91</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/states.rb', line 89</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_user_changes?'>user_changes?</span>
+  <span class='id identifier rubyid_actions'>actions</span><span class='period'>.</span><span class='id identifier rubyid_joins'>joins</span><span class='lparen'>(</span><span class='symbol'>:act</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card_acts.actor_id != ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'>WagnBotID</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="virtual?-instance_method">
   
     #<strong>virtual?</strong>  &#x21d2; <tt>True/False</tt> 
@@ -823,10 +918,12 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Virtual cards are structured, compound cards that are not stored in the database. You can create virtual cards with structure rules.</p>
+    <p>Virtual cards are structured, compound cards that are not stored in the database. You
+can create virtual cards with structure rules.</p>
 
-<p>Some cards with hard-coded content will also override the #virtual? method. This is established practice, but it is NOT advisable to override any of the other state methods.</p>
+<p>Some cards with hard-coded content will also override the #virtual? method. This
+is established practice, but it is NOT advisable to override any of the other
+state methods.</p>
 
 
   </div>
@@ -879,9 +976,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:27 2019 by
+  Generated on Thu Sep 10 15:02:29 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

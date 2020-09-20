@@ -6,15 +6,15 @@
 <title>
   Class: Card::Mod::Dirs
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Mod::Dirs";
   relpath = '../../';
 </script>
@@ -103,26 +103,53 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Dirs objects are used to manage the load paths for card mods. Mods can be loaded as gems and by using directories with mod subdirectories.</p>
+    <p>Dirs objects are used to manage the load paths for card mods.
+Mods can be loaded as gems and by using directories with mod subdirectories.</p>
 
 <ol>
-<li>
-<p>Gemfile A mod gem needs a metadata attribute with { “card-mod” =&gt; “the_mod_name” } or the name has to start with “card-mod-”. Then you can just add it to your Gemfile. Otherwise it won’t be recognized as mod.</p>
-</li>
-
-<li>
-<p>mod directory Give a path to a directory with mods. The mods will be loaded in alphabetical order. To change the load order you can add number prefixes to the mod names (like “01_this_first”) or add a Modfile. In the Modfile you list all the mods you want to be loaded from that directory in load order with a preceding “mod” command (similar to a Gemfile). The mods are expected in subdirectories with the mod names.</p>
-</li>
+  <li>
+    <p>Gemfile
+A mod gem needs a metadata attribute with { “card-mod” =&gt; “the_mod_name” }
+or the name has to start with “card-mod-“.
+Then you can just add it to your Gemfile. Otherwise it won’t be recognized as mod.</p>
+  </li>
+  <li>
+    <p>mod directory
+Give a path to a directory with mods. The mods will be loaded in alphabetical order.
+To change the load order you can add number prefixes to the mod names
+(like “01_this_first”) or add a Modfile.
+In the Modfile you list all the mods you want to be loaded from that directory
+in load order with a preceding “mod” command (similar to a Gemfile).
+The mods are expected in subdirectories with the mod names.</p>
+  </li>
 </ol>
 
-<p>Mods in Modfiles are always loaded before mods in the Gemfile. If you have to change the order add gem mods to your Modfile using the mod_gem command. You can omit the ‘card-mod’ prefix.</p>
+<p>Mods in Modfiles are always loaded before mods in the Gemfile.
+If you have to change the order add gem mods to your Modfile using the
+mod_gem command. You can omit the ‘card-mod’ prefix.</p>
 
-<p>Example for a mod directory: # my_mod/Modfile mod “twitter” gem_mod “logger” mod “cache”</p>
+<p>Example for a mod directory:
+  # my_mod/Modfile
+  mod “twitter”
+  gem_mod “logger”
+  mod “cache”</p>
 
-<p># directory structure my_mods/ Modfile cache/ set/ all/ my_cache.rb twitter/ set/ type/ basic.rb set_pattern/ my_pattern.rb</p>
+<p># directory structure
+  my_mods/
+    Modfile
+    cache/
+      set/
+        all/
+          my_cache.rb
+    twitter/
+      set/
+        type/
+          basic.rb
+      set_pattern/
+        my_pattern.rb</p>
 
-<p>Dir checks always for gems. You can initialize an Dirs object with an additional array of paths to card mod directories.</p>
+<p>Dir checks always for gems. You can initialize an Dirs object with an additional
+array of paths to card mod directories.</p>
 
 
   </div>
@@ -159,8 +186,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute mods.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute mods.</p>
 </div></span>
   
 </li>
@@ -196,7 +222,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -220,8 +247,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Add a mod to mod load paths.</p>
+    <span class="summary_desc"><div class='inline'><p>Add a mod to mod load paths.</p>
 </div></span>
   
 </li>
@@ -244,8 +270,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Iterate over each mod directory.</p>
+    <span class="summary_desc"><div class='inline'><p>Iterate over each mod directory.</p>
 </div></span>
   
 </li>
@@ -268,7 +293,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -290,7 +316,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -312,7 +339,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -334,7 +362,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -358,8 +387,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of Dirs.</p>
+    <span class="summary_desc"><div class='inline'><p>A new instance of Dirs.</p>
 </div></span>
   
 </li>
@@ -382,8 +410,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>The path to mod <code>mod_name</code>.</p>
+    <span class="summary_desc"><div class='inline'><p>The path to mod <code>mod_name</code>.</p>
 </div></span>
   
 </li>
@@ -407,8 +434,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a new instance of Dirs</p>
+    <p>Returns a new instance of Dirs.</p>
 
 
   </div>
@@ -429,8 +455,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>paths to directories that contain mods</p>
+        <div class='inline'><p>paths to directories that contain mods</p>
 </div>
       
     </li>
@@ -501,8 +526,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute mods</p>
+    <p>Returns the value of attribute mods.</p>
 
 
   </div>
@@ -589,8 +613,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Add a mod to mod load paths</p>
+    <p>Add a mod to mod load paths</p>
 
 
   </div>
@@ -642,8 +665,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Iterate over each mod directory</p>
+    <p>Iterate over each mod directory</p>
 
 
   </div>
@@ -664,8 +686,8 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>the type of modification like set, set_pattern, or format. It is attached as subdirectory.</p>
+        <div class='inline'><p>the type of modification like set, set_pattern, or format.
+It is attached as subdirectory.</p>
 </div>
       
     </li>
@@ -875,8 +897,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the path to mod <code>mod_name</code></p>
+    <p>Returns the path to mod <code>mod_name</code>.</p>
 
 
   </div>
@@ -895,8 +916,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>the name of a mod</p>
+        <div class='inline'><p>the name of a mod</p>
 </div>
       
     </li>
@@ -914,8 +934,7 @@
       
       
         
-        <div class='inline'>
-<p>the path to mod <code>mod_name</code></p>
+        <div class='inline'><p>the path to mod <code>mod_name</code></p>
 </div>
       
     </li>
@@ -948,9 +967,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:56 2019 by
+  Generated on Thu Sep 10 15:02:47 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

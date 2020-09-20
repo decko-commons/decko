@@ -1,7 +1,7 @@
 @javascript
 Feature: Structure Rules
   In order to have patterned content
-  As a Decker
+  As a Shark
   I want to manage structure through rules
 
   Background:

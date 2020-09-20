@@ -6,15 +6,15 @@
 <title>
   Module: CarrierWave::CardMount
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "CarrierWave::CardMount";
   relpath = '../';
 </script>
@@ -83,12 +83,22 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>mod/carrierwave/lib/carrier_wave/cardmount.rb</dd>
+    <dd>mod/carrierwave/lib/carrier_wave/card_mount.rb</dd>
   </dl>
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>adapt carrierwave mount to cards</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -120,7 +130,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +153,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +176,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -194,7 +207,6 @@
       <pre class="lines">
 
 
-15
 16
 17
 18
@@ -314,7 +326,7 @@
 132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/cardmount.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/card_mount.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mount_uploader'>mount_uploader</span> <span class='id identifier rubyid_column'>column</span><span class='comma'>,</span> <span class='id identifier rubyid_uploader'>uploader</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:mount_on</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='symbol'>:db_content</span>
@@ -378,7 +390,6 @@
       assign_file(url) { super }
     end
 
-
     def assign_file file
       db_column = _mounter(:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>).serialization_column
       send(:&quot;\#{db_column}_will_change!&quot;) # unless attribute_is_changing? db_column
@@ -407,7 +418,7 @@
       @</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_changed = true
       @</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_is_changing = true
     end
-    
+
     def </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_is_changing?
       @</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_is_changing
     end
@@ -454,12 +465,12 @@
       <pre class="lines">
 
 
-11
 12
-13</pre>
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/cardmount.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/card_mount.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_uploader_options'>uploader_options</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_uploader_options'>uploader_options</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -484,12 +495,12 @@
       <pre class="lines">
 
 
-7
 8
-9</pre>
+9
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/cardmount.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/card_mount.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_uploaders'>uploaders</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_uploaders'>uploaders</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -504,9 +515,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:23 2019 by
+  Generated on Thu Sep 10 15:02:27 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

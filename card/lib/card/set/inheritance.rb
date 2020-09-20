@@ -1,7 +1,9 @@
 class Card
   module Set
     # API to inherit other sets and their formats
+
     module Inheritance
+
       # include a set module and all its format modules
       # @param [Module] set
       # @param [Hash] opts choose the formats you want to include. You can also

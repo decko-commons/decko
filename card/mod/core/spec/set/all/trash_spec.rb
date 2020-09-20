@@ -1,28 +1,28 @@
 # -*- encoding : utf-8 -*-
 
-describe Card, "deleted card" do
-  before do
-    Card::Auth.as_bot do
-      @c = Card["A"]
-      @c.delete!
+RSpec.describe Card::Set::All::Trash do
+  describe "deletion basics" do
+    before do
+      Card::Auth.as_bot do
+        @c = Card["A"]
+        @c.delete!
+      end
+    end
+
+    it "is in the trash" do
+      expect(@c.trash).to be_truthy
+    end
+
+    it "comes out of the trash when a plus card is created" do
+      Card::Auth.as_bot do
+        Card.create(name: "A+*acct")
+        c = Card["A"]
+        expect(c.trash).to be_falsey
+      end
     end
   end
 
-  it "is in the trash" do
-    expect(@c.trash).to be_truthy
-  end
-
-  it "comes out of the trash when a plus card is created" do
-    Card::Auth.as_bot do
-      Card.create(name: "A+*acct")
-      c = Card["A"]
-      expect(c.trash).to be_falsey
-    end
-  end
-end
-
-describe Card::Set::All::Trash do
-  it "dependent removal" do
+  it "descendant removal" do
     create! "born to die"
     create! "born to die+slowly"
     create! "slowly+born to die"
@@ -97,8 +97,10 @@ describe Card::Set::All::Trash do
 
       context "without edits" do
         it "is removable" do
-          expect { Card["Sample User"].delete! }
-            .not_to raise_error
+          Card::Auth.as "joe_admin" do
+            expect { Card["Sample User"].delete! }
+              .not_to raise_error
+          end
         end
       end
     end

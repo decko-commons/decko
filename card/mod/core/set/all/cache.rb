@@ -5,7 +5,9 @@ module ClassMethods
   end
 
   def retrieve_from_cache_by_id id, local_only=false
-    key = Card::Lexicon.key id
+    key = Card::Lexicon.name(id)&.key
+    return unless key.present?
+
     retrieve_from_cache key, local_only if key
   end
 
@@ -18,14 +20,12 @@ module ClassMethods
       write_to_soft_cache card
     elsif cache
       cache.write card.key, card
-      cache.write "~#{card.id}", card.key if card.id.to_i.nonzero?
     end
   end
 
   def write_to_soft_cache card
     return unless cache
     cache.soft.write card.key, card
-    cache.soft.write "~#{card.id}", card.key if card.id.to_i.nonzero?
   end
 
   def expire name
@@ -33,6 +33,10 @@ module ClassMethods
     return unless (card = Card.cache.read key)
     card.expire
   end
+end
+
+def update_soft_cache
+  Card.write_to_soft_cache self
 end
 
 def expire_pieces
@@ -87,7 +91,7 @@ def expire_views
 end
 
 def expire_names cache
-  [name, name_before_act].each do |name_version|
+  [name, name_before_act].uniq.each do |name_version|
     expire_name name_version, cache
   end
 end

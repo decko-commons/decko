@@ -7,7 +7,7 @@ class Card
   # frequently used directly in code.
   #
   # Query "statements" (objects, really) are made in WQL (Wagn Query
-  # Language). Because WQL is used by Deckers, the primary language
+  # Language). Because WQL is used by Sharks, the primary language
   # documentation is on wagn.org. (https://decko.org/WQL_Syntax). Note that the
   # examples there are in JSON, like Search card content, but statements in
   # Card::Query are in ruby form.
@@ -78,10 +78,9 @@ class Card
                 .each_with_object({}) { |v, h| h[v] = nil }
 
     OPERATORS =
-      %w[!= = =~ < > in ~].each_with_object({}) { |v, h| h[v] = v }.merge(
-        {
-          eq: "=", gt: ">", lt: "<", match: "~", ne: "!=", "not in": "not in"
-        }.stringify_keys
+      %w[!= = =~ < > in ~ is].each_with_object({}) { |v, h| h[v] = v }.merge(
+        { eq: "=", gt: ">", lt: "<", match: "~", ne: "!=",
+          "not in": "not in", "is not": "is not", "!": "is not" }.stringify_keys
       )
 
     DEFAULT_ORDER_DIRS = { update: "desc", relevance: "desc" }.freeze

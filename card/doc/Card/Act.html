@@ -6,15 +6,15 @@
 <title>
   Class: Card::Act
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Act";
   relpath = '../';
 </script>
@@ -107,21 +107,21 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>An “act” is a group of recorded <span class='object_link'><a href="Action.html" title="Card::Action (class)">actions</a></span> on <span class='object_link'><a href="../Card.html" title="Card (class)">cards</a></span>. Together, <span class='object_link'><a href="" title="Card::Act (class)">acts</a></span>, <span class='object_link'><a href="Action.html" title="Card::Action (class)">actions</a></span>, and <span class='object_link'><a href="Change.html" title="Card::Change (class)">changes</a></span> comprise a comprehensive <span class='object_link'><a href="../Card.html" title="Card (class)">card</a></span> history tracking system.</p>
+    <p>An “act” is a group of recorded <span class='object_link'><a href="Action.html" title="Card::Action (class)">actions</a></span> on <span class='object_link'><a href="../Card.html" title="Card (class)">cards</a></span>.
+Together, <span class='object_link'><a href="" title="Card::Act (class)">acts</a></span>, <span class='object_link'><a href="Action.html" title="Card::Action (class)">actions</a></span>, and <span class='object_link'><a href="Change.html" title="Card::Change (class)">changes</a></span> comprise a
+comprehensive <span class='object_link'><a href="../Card.html" title="Card (class)">card</a></span> history tracking system.</p>
 
-<p>For example, if a given web form submissions updates the contents of three cards, then the submission will result in the recording of three <span class='object_link'><a href="Action.html" title="Card::Action (class)">actions</a></span>, each of which is tied to one <span class='object_link'><a href="" title="Card::Act (class)">act</a></span>.</p>
+<p>For example, if a given web form submissions updates the contents of three cards,
+then the submission will result in the recording of three <span class='object_link'><a href="Action.html" title="Card::Action (class)">actions</a></span>, each
+of which is tied to one <span class='object_link'><a href="" title="Card::Act (class)">act</a></span>.</p>
 
 <p>Each act records:</p>
 
 <ul>
-<li>the <em>actor</em>id_ (an id associated with the account responsible)</li>
-
-<li>the <em>card</em>id_ of the act’s primary card</li>
-
-<li><em>acted</em>at_, a timestamp of the action</li>
-
-<li>the <em>ip</em>address_ of the actor where applicable.</li>
+  <li>the <em>actor_id</em> (an id associated with the account responsible)</li>
+  <li>the <em>card_id</em> of the act’s primary card</li>
+  <li><em>acted_at</em>, a timestamp of the action</li>
+  <li>the <em>ip_address</em> of the actor where applicable.</li>
 </ul>
 
 
@@ -172,8 +172,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>all acts with actions that current user has permission to view.</p>
+    <span class="summary_desc"><div class='inline'><p>all acts with actions that current user has permission to view.</p>
 </div></span>
   
 </li>
@@ -196,8 +195,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>all acts with actions on a given list of cards.</p>
+    <span class="summary_desc"><div class='inline'><p>all acts with actions on a given list of cards.</p>
 </div></span>
   
 </li>
@@ -220,7 +218,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -242,8 +241,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>remove all acts that have no action.</p>
+    <span class="summary_desc"><div class='inline'><p>remove all acts that have no action.</p>
 </div></span>
   
 </li>
@@ -266,8 +264,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>remove all acts that have no card.</p>
+    <span class="summary_desc"><div class='inline'><p>remove all acts that have no card.</p>
 </div></span>
   
 </li>
@@ -290,8 +287,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>used by rails time_ago timestamp is set by rails on create.</p>
+    <span class="summary_desc"><div class='inline'><p>used by rails time_ago timestamp is set by rails on create.</p>
 </div></span>
   
 </li>
@@ -323,8 +319,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>act’s action on the card in question.</p>
+    <span class="summary_desc"><div class='inline'><p>act’s action on the card in question.</p>
 </div></span>
   
 </li>
@@ -347,8 +342,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>list of all actions that are part of the act.</p>
+    <span class="summary_desc"><div class='inline'><p>list of all actions that are part of the act.</p>
 </div></span>
   
 </li>
@@ -371,8 +365,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>act’s actions on either the card itself or another card that includes it.</p>
+    <span class="summary_desc"><div class='inline'><p>act’s actions on either the card itself or another card that includes it.</p>
 </div></span>
   
 </li>
@@ -395,7 +388,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -417,8 +411,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>the act’s primary card.</p>
+    <span class="summary_desc"><div class='inline'><p>the act’s primary card.</p>
 </div></span>
   
 </li>
@@ -441,7 +434,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -463,8 +457,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>time (in words) since act took place.</p>
+    <span class="summary_desc"><div class='inline'><p>time (in words) since act took place.</p>
 </div></span>
   
 </li>
@@ -487,8 +480,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>act’s action on primary card if it exists.</p>
+    <span class="summary_desc"><div class='inline'><p>act’s action on primary card if it exists.</p>
 </div></span>
   
 </li>
@@ -521,8 +513,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>all acts with actions that current user has permission to view</p>
+    <p>all acts with actions that current user has permission to view</p>
 
 
   </div>
@@ -549,14 +540,14 @@
       <pre class="lines">
 
 
-52
-53
 54
 55
-56</pre>
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_viewable'>all_viewable</span> <span class='id identifier rubyid_action_where'>action_where</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_relation'>relation</span> <span class='op'>=</span> <span class='id identifier rubyid_joins'>joins</span><span class='lparen'>(</span><span class='label'>ar_actions:</span> <span class='symbol'>:ar_card</span><span class='rparen'>)</span>
@@ -579,8 +570,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>all acts with actions on a given list of cards</p>
+    <p>all acts with actions on a given list of cards</p>
 
 
   </div>
@@ -612,8 +602,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>(only shows drafts of current user)</p>
+        <div class='inline'><p>(only shows drafts of current user)</p>
 </div>
       
     </li>
@@ -640,14 +629,14 @@
       <pre class="lines">
 
 
-44
-45
 46
 47
-48</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_with_actions_on'>all_with_actions_on</span> <span class='id identifier rubyid_card_ids'>card_ids</span><span class='comma'>,</span> <span class='id identifier rubyid_with_drafts'>with_drafts</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='id identifier rubyid_sql'>sql</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card_actions.card_id IN (:card_ids) AND (draft is not true</span><span class='tstring_end'>&quot;</span></span>
@@ -674,12 +663,12 @@
       <pre class="lines">
 
 
-58
-59
-60</pre>
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cache'>cache</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Cache.html" title="Card::Cache (class)">Cache</a></span></span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Act (class)">Act</a></span></span><span class='rbracket'>]</span>
@@ -700,8 +689,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>remove all acts that have no action. (janitorial)</p>
+    <p>remove all acts that have no action. (janitorial)</p>
 
 
   </div>
@@ -715,16 +703,16 @@
       <pre class="lines">
 
 
-32
-33
 34
 35
 36
 37
-38</pre>
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_actionless'>delete_actionless</span>
   <span class='id identifier rubyid_joins'>joins</span><span class='lparen'>(</span>
@@ -749,8 +737,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>remove all acts that have no card. (janitorial)</p>
+    <p>remove all acts that have no card. (janitorial)</p>
+
+<p>CAREFUL - could still have actions even if act card is gone…</p>
 
 
   </div>
@@ -764,13 +753,13 @@
       <pre class="lines">
 
 
-26
-27
 28
-29</pre>
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_cardless'>delete_cardless</span>
   <span class='id identifier rubyid_left_join'>left_join</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>LEFT JOIN cards ON card_acts.card_id = cards.id</span><span class='tstring_end'>&quot;</span></span>
@@ -792,8 +781,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>used by rails time_ago timestamp is set by rails on create</p>
+    <p>used by rails time_ago
+timestamp is set by rails on create</p>
 
 
   </div>
@@ -807,12 +796,12 @@
       <pre class="lines">
 
 
-64
-65
-66</pre>
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_timestamp_attributes_for_create'>timestamp_attributes_for_create</span>
   <span class='kw'>super</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>acted_at</span><span class='tstring_end'>&quot;</span></span>
@@ -839,8 +828,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>act’s action on the card in question</p>
+    <p>act’s action on the card in question</p>
 
 
   </div>
@@ -882,14 +870,14 @@
       <pre class="lines">
 
 
-96
-97
 98
 99
-100</pre>
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action_on'>action_on</span> <span class='id identifier rubyid_card_id'>card_id</span>
   <span class='id identifier rubyid_actions'>actions</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_action'>action</span><span class='op'>|</span>
@@ -912,8 +900,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>list of all actions that are part of the act</p>
+    <p>list of all actions that are part of the act</p>
 
 
   </div>
@@ -940,14 +927,14 @@
       <pre class="lines">
 
 
-87
-88
 89
 90
-91</pre>
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_actions'>actions</span> <span class='id identifier rubyid_cached'>cached</span><span class='op'>=</span><span class='kw'>true</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_ar_actions'>ar_actions</span> <span class='kw'>unless</span> <span class='id identifier rubyid_cached'>cached</span>
@@ -970,8 +957,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>act’s actions on either the card itself or another card that includes it</p>
+    <p>act’s actions on either the card itself or another card that includes it</p>
 
 
   </div>
@@ -1013,20 +999,20 @@
       <pre class="lines">
 
 
-121
-122
 123
 124
 125
-126</pre>
+126
+127
+128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_actions_affecting'>actions_affecting</span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_actions'>actions</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_action'>action</span><span class='op'>|</span>
     <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>==</span> <span class='id identifier rubyid_action'>action</span><span class='period'>.</span><span class='id identifier rubyid_card_id'>card_id</span><span class='rparen'>)</span> <span class='op'>||</span>
-      <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_includee_ids'>includee_ids</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='period'>.</span><span class='id identifier rubyid_card_id'>card_id</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_nestee_ids'>nestee_ids</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='period'>.</span><span class='id identifier rubyid_card_id'>card_id</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1049,12 +1035,12 @@
       <pre class="lines">
 
 
-69
-70
-71</pre>
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_actor'>actor</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_actor_id'>actor_id</span>
@@ -1075,8 +1061,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>the act’s primary card</p>
+    <p>the act’s primary card</p>
 
 
   </div>
@@ -1103,18 +1088,18 @@
       <pre class="lines">
 
 
-75
-76
 77
 78
 79
 80
 81
 82
-83</pre>
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_card_id'>card_id</span><span class='comma'>,</span> <span class='label'>look_in_trash:</span> <span class='kw'>true</span> <span class='comment'># , skip_modules: true
@@ -1122,7 +1107,7 @@
   <span class='comment'># FIXME: if the following is necessary, we need to document why.
 </span>  <span class='comment'># generally it&#39;s a very bad idea to have type-specific code here.
 </span>
-  <span class='comment'># return res unless res&amp;.type_id&amp;.in?([FileID, ImageID])
+  <span class='comment'># return res unless res&amp;.type_id&amp;.in?([Card::FileID, Card::ImageID])
 </span>  <span class='comment'># res.include_set_modules
 </span><span class='kw'>end</span></pre>
     </td>
@@ -1142,6 +1127,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -1167,12 +1153,12 @@
       <pre class="lines">
 
 
-108
-109
-110</pre>
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_draft?'>draft?</span>
   <span class='id identifier rubyid_main_action'>main_action</span><span class='period'>.</span><span class='id identifier rubyid_draft'>draft</span>
@@ -1193,8 +1179,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>time (in words) since act took place</p>
+    <p>time (in words) since act took place</p>
 
 
   </div>
@@ -1221,12 +1206,12 @@
       <pre class="lines">
 
 
-114
-115
-116</pre>
+116
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_elapsed_time'>elapsed_time</span>
   <span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_acted_at'>acted_at</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_distance_of_time_in_words_to_now'>distance_of_time_in_words_to_now</span>
@@ -1247,8 +1232,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>act’s action on primary card if it exists. otherwise act’s first action</p>
+    <p>act’s action on primary card if it exists. otherwise act’s first action</p>
 
 
   </div>
@@ -1275,12 +1259,12 @@
       <pre class="lines">
 
 
-104
-105
-106</pre>
+106
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/act.rb', line 106</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_main_action'>main_action</span>
   <span class='id identifier rubyid_action_on'>action_on</span><span class='lparen'>(</span><span class='id identifier rubyid_card_id'>card_id</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_actions'>actions</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
@@ -1295,9 +1279,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:34:03 2019 by
+  Generated on Thu Sep 10 15:02:50 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

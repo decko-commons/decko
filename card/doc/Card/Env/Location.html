@@ -6,15 +6,15 @@
 <title>
   Module: Card::Env::Location
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Env::Location";
   relpath = '../../';
 </script>
@@ -125,8 +125,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>card_path makes a relative path site-absolute (if not already) card_url makes it a full url (if not already).</p>
+    <span class="summary_desc"><div class='inline'><p>card_path    makes a relative path site-absolute (if not already) card_url     makes it a full url (if not already).</p>
 </div></span>
   
 </li>
@@ -149,7 +148,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cardname_from_url-instance_method" title="#cardname_from_url (instance method)">#<strong>cardname_from_url</strong>(url)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -171,7 +194,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -196,8 +220,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>card_path makes a relative path site-absolute (if not already) card_url makes it a full url (if not already)</p>
+    <p>card_path    makes a relative path site-absolute (if not already)
+card_url     makes it a full url (if not already)</p>
 
 
   </div>
@@ -273,6 +297,40 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="cardname_from_url-instance_method">
+  
+    #<strong>cardname_from_url</strong>(url)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/card/env/location.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_cardname_from_url'>cardname_from_url</span> <span class='id identifier rubyid_url'>url</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_cardname'>cardname</span> <span class='op'>=</span> <span class='id identifier rubyid_cardname_from_url_regexp'>cardname_from_url_regexp</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_m'>m</span> <span class='op'>=</span> <span class='id identifier rubyid_url'>url</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span> <span class='id identifier rubyid_cardname'>cardname</span>
+  <span class='id identifier rubyid_m'>m</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_m'>m</span><span class='lbracket'>[</span><span class='symbol'>:mark</span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="protocol_and_host-instance_method">
   
     #<strong>protocol_and_host</strong>  &#x21d2; <tt>Object</tt> 
@@ -295,7 +353,7 @@
       <pre class="code"><span class="info file"># File 'lib/card/env/location.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_protocol_and_host'>protocol_and_host</span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_protocol_and_host'>protocol_and_host</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='lbracket'>[</span><span class='symbol'>:protocol</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='lbracket'>[</span><span class='symbol'>:host</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_protocol_and_host'>protocol_and_host</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='lbracket'>[</span><span class='symbol'>:protocol</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='lbracket'>[</span><span class='symbol'>:host</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -307,9 +365,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:18 2019 by
+  Generated on Thu Sep 10 15:02:25 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

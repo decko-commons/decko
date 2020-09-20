@@ -18,9 +18,8 @@ def codename_list_exist?
 end
 
 event :trunk_cardtype_of_a_list_relation_changed, :finalize,
-      changed: :type, on: :update,
-      when: :codename_list_exist? do
-  type_key_was = (tk = Card.quick_fetch(type_id_before_last_save)) && tk.key
+      changed: :type, on: :update, when: :codename_list_exist? do
+  type_key_was = Card.quick_fetch(type_id_before_act)&.key
 
   list_fields.each do |card|
     card.update_listed_by_cache_for card.item_keys, type_key: type_key_was

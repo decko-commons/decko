@@ -6,15 +6,15 @@
 <title>
   Module: Card::Content::Truncate
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Content::Truncate";
   relpath = '../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>tools for truncating content</p>
+    <p>tools for truncating content</p>
 
 
   </div>
@@ -100,15 +99,21 @@
   
 
 </div>
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="ELLIPSES_HTML-constant" class="">ELLIPSES_HTML =
-        
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>&lt;span class=&quot;closed-content-ellipses&quot;&gt;...&lt;/span&gt;</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="ELLIPSES_HTML-constant" class="">ELLIPSES_HTML =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>&lt;span class=&quot;closed-content-ellipses&quot;&gt;...&lt;/span&gt;</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -127,72 +132,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#close_tags-instance_method" title="#close_tags (instance method)">#<strong>close_tags</strong>(wordstring)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#find_tags-instance_method" title="#find_tags (instance method)">#<strong>find_tags</strong>(wordstring)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#polish-instance_method" title="#polish (instance method)">#<strong>polish</strong>(wordstring)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#smart_truncate-instance_method" title="#smart_truncate (instance method)">#<strong>smart_truncate</strong>(input, words = 25)  &#x21d2; Object </a>
     
 
@@ -207,29 +146,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#truncate-instance_method" title="#truncate (instance method)">#<strong>truncate</strong>(input, words)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -244,145 +162,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="close_tags-instance_method">
-  
-    #<strong>close_tags</strong>(wordstring)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-28
-29
-30
-31
-32</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content/truncate.rb', line 28</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_close_tags'>close_tags</span> <span class='id identifier rubyid_wordstring'>wordstring</span>
-  <span class='id identifier rubyid_tags'>tags</span> <span class='op'>=</span> <span class='id identifier rubyid_find_tags'>find_tags</span> <span class='id identifier rubyid_wordstring'>wordstring</span>
-  <span class='id identifier rubyid_tags'>tags</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='id identifier rubyid_wordstring'>wordstring</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_t'>t</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
-  <span class='id identifier rubyid_wordstring'>wordstring</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="find_tags-instance_method">
-  
-    #<strong>find_tags</strong>(wordstring)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content/truncate.rb', line 42</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_find_tags'>find_tags</span> <span class='id identifier rubyid_wordstring'>wordstring</span>
-  <span class='id identifier rubyid_tags'>tags</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-
-  <span class='comment'># match tags with or without self closing (ie. &lt;foo /&gt;)
-</span>  <span class='id identifier rubyid_wordstring'>wordstring</span><span class='period'>.</span><span class='id identifier rubyid_scan'>scan</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>\&lt;([^\&gt;\s/]+)[^\&gt;]*?\&gt;</span><span class='regexp_end'>}</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span>
-    <span class='id identifier rubyid_tags'>tags</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-  <span class='comment'># match tags with self closing and mark them as closed
-</span>  <span class='id identifier rubyid_wordstring'>wordstring</span><span class='period'>.</span><span class='id identifier rubyid_scan'>scan</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>\&lt;([^\&gt;\s/]+)[^\&gt;]*?/\&gt;</span><span class='regexp_end'>}</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span>
-    <span class='kw'>next</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_tags'>tags</span><span class='period'>.</span><span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
-
-    <span class='id identifier rubyid_tags'>tags</span><span class='period'>.</span><span class='id identifier rubyid_slice!'>slice!</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-  <span class='comment'># match close tags
-</span>  <span class='id identifier rubyid_wordstring'>wordstring</span><span class='period'>.</span><span class='id identifier rubyid_scan'>scan</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>\&lt;/([^\&gt;\s/]+)[^\&gt;]*?\&gt;</span><span class='regexp_end'>}</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span>
-    <span class='kw'>next</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_tags'>tags</span><span class='period'>.</span><span class='id identifier rubyid_rindex'>rindex</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
-
-    <span class='id identifier rubyid_tags'>tags</span><span class='period'>.</span><span class='id identifier rubyid_slice!'>slice!</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_tags'>tags</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="polish-instance_method">
-  
-    #<strong>polish</strong>(wordstring)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-34
-35
-36
-37
-38
-39
-40</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content/truncate.rb', line 34</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_polish'>polish</span> <span class='id identifier rubyid_wordstring'>wordstring</span>
-  <span class='id identifier rubyid_wordstring'>wordstring</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span> <span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>&lt;[/]?br[\s/]*&gt;</span><span class='regexp_end'>}</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span>
-  <span class='comment'># Also a hack -- get rid of &lt;br&gt;&#39;s -- they make line view ugly.
-</span>  <span class='id identifier rubyid_wordstring'>wordstring</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span> <span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>&lt;[/]?p[^&gt;]*&gt;</span><span class='regexp_end'>}</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span>
-  <span class='comment'>## Also a hack -- get rid of &lt;br&gt;&#39;s -- they make line view ugly.
-</span>  <span class='id identifier rubyid_wordstring'>wordstring</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="smart_truncate-instance_method">
+  <h3 class="signature first" id="smart_truncate-instance_method">
   
     #<strong>smart_truncate</strong>(input, words = 25)  &#x21d2; <tt>Object</tt> 
   
@@ -427,54 +207,14 @@
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="truncate-instance_method">
-  
-    #<strong>truncate</strong>(input, words)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-19
-20
-21
-22
-23
-24
-25
-26</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content/truncate.rb', line 19</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_truncate'>truncate</span> <span class='id identifier rubyid_input'>input</span><span class='comma'>,</span> <span class='id identifier rubyid_words'>words</span>
-  <span class='id identifier rubyid_wordlist'>wordlist</span> <span class='op'>=</span> <span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span>
-  <span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='id identifier rubyid_words'>words</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>-</span> <span class='int'>1</span>
-  <span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='int'>0</span> <span class='kw'>if</span> <span class='id identifier rubyid_l'>l</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
-  <span class='id identifier rubyid_truncating'>truncating</span> <span class='op'>=</span> <span class='id identifier rubyid_wordlist'>wordlist</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_l'>l</span>
-  <span class='id identifier rubyid_wordstring'>wordstring</span> <span class='op'>=</span> <span class='id identifier rubyid_truncating'>truncating</span> <span class='op'>?</span> <span class='id identifier rubyid_wordlist'>wordlist</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='id identifier rubyid_l'>l</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='lbracket'>[</span><span class='id identifier rubyid_truncating'>truncating</span><span class='comma'>,</span> <span class='id identifier rubyid_wordstring'>wordstring</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:19 2019 by
+  Generated on Thu Sep 10 15:02:25 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

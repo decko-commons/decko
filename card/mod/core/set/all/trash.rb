@@ -14,9 +14,11 @@ Self::Admin.add_to_basket(
 module ClassMethods
   def empty_trash
     Card.delete_trashed_files
-    Card.where(trash: true).delete_all
+    Card.where(trash: true).in_batches.update_all(left_id: nil, right_id: nil)
+    Card.where(trash: true).in_batches.delete_all
     Card::Action.delete_cardless
     Card::Change.delete_actionless
+    Card::Act.delete_actionless
     Card::Reference.unmap_if_referee_missing
     Card::Reference.delete_if_referer_missing
   end
@@ -72,11 +74,12 @@ event :manage_trash, :prepare_to_store, on: :create do
 end
 
 def pull_from_trash!
-  return unless (self.id = Card::Lexicon.id key)
+  return unless (id = Card::Lexicon.id key) # name is already known
+  return unless (trashed_card = Card.where(id: id).take)&.trash
+  # confirm name is actually in trash
 
-  # following is needed so that #id_in_database returns existing card id
-  # (and record is updated correctly)
-  db_attributes["id"] = Card.find(id).db_attributes["id"]
+  db_attributes["id"] = trashed_card.db_attributes["id"]
+  # id_in_database returns existing card id
 
   @from_trash = true
   @new_record = false
@@ -105,7 +108,7 @@ end
 
 event :validate_delete_children, after: :validate_delete, on: :delete do
   return if errors.any?
-  children.each do |child|
+  each_child do |child|
     next unless child
     # prevents errors in cases where a child is deleted prior to this point
     # and thus is not returned by the fetch in #children

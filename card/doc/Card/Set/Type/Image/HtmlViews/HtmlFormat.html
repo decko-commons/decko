@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Card::Set::Type::Image::HtmlViews::HtmlFormat
+  
+    &mdash; Documentation by YARD 0.9.25
+  
+</title>
+
+  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Card::Set::Type::Image::HtmlViews::HtmlFormat";
+  relpath = '../../../../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../../../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../../../../_index.html">Index (H)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../../../Set.html" title="Card::Set (module)">Set</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../../Type.html" title="Card::Set::Type (class)">Type</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../Image.html" title="Card::Set::Type::Image (module)">Image</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../HtmlViews.html" title="Card::Set::Type::Image::HtmlViews (module)">HtmlViews</a></span></span>
+     &raquo; 
+    <span class="title">HtmlFormat</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../../../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Card::Set::Type::Image::HtmlViews::HtmlFormat
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  <dl>
+      <dt>Extended by:</dt>
+      <dd>AbstractFormat</dd>
+  </dl>
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="../../File/HtmlFormat.html" title="Card::Set::Type::File::HtmlFormat (module)">File::HtmlFormat</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>tmpsets/set/mod019-carrierwave/type/image/html_views.rb</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#content_changes-instance_method" title="#content_changes (instance method)">#<strong>content_changes</strong>(action, diff_type, hide_diff = false)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#invalid_image-instance_method" title="#invalid_image (instance method)">#<strong>invalid_image</strong>(source)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new_image-instance_method" title="#new_image (instance method)">#<strong>new_image</strong>(action)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#old_image-instance_method" title="#old_image (instance method)">#<strong>old_image</strong>(action, hide_diff)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#preview-instance_method" title="#preview (instance method)">#<strong>preview</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#show_action_content_toggle%3F-instance_method" title="#show_action_content_toggle? (instance method)">#<strong>show_action_content_toggle?</strong>(_action, _view_type)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+content_changes-instance_method" title="#view: content_changes (instance method)">#<strong>view: content_changes</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+core-instance_method" title="#view: core (instance method)">#<strong>view: core</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>core HTML image view.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+full_width-instance_method" title="#view: full_width (instance method)">#<strong>view: full_width</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#with_valid_source-instance_method" title="#with_valid_source (instance method)">#<strong>with_valid_source</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../File/HtmlFormat.html" title="Card::Set::Type::File::HtmlFormat (module)">File::HtmlFormat</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../File/HtmlFormat.html#cached_upload_card_name-instance_method" title="Card::Set::Type::File::HtmlFormat#cached_upload_card_name (method)">#cached_upload_card_name</a></span>, <span class='object_link'><a href="../../File/HtmlFormat.html#file_chooser_action_text-instance_method" title="Card::Set::Type::File::HtmlFormat#file_chooser_action_text (method)">#file_chooser_action_text</a></span>, <span class='object_link'><a href="../../File/HtmlFormat.html#humanized_attachment_name-instance_method" title="Card::Set::Type::File::HtmlFormat#humanized_attachment_name (method)">#humanized_attachment_name</a></span>, <span class='object_link'><a href="../../File/HtmlFormat.html#preview_editor_delete_text-instance_method" title="Card::Set::Type::File::HtmlFormat#preview_editor_delete_text (method)">#preview_editor_delete_text</a></span>, <span class='object_link'><a href="../../File/HtmlFormat.html#view:+input-instance_method" title="Card::Set::Type::File::HtmlFormat#view: input (method)">#view: input</a></span>, <span class='object_link'><a href="../../File/HtmlFormat.html#view:+preview_editor-instance_method" title="Card::Set::Type::File::HtmlFormat#view: preview_editor (method)">#view: preview_editor</a></span></p>
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="content_changes-instance_method">
+  
+    #<strong>content_changes</strong>(action, diff_type, hide_diff = false)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+58
+59
+60
+61</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image/html_views.rb', line 58</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_content_changes'>content_changes</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_diff_type'>diff_type</span><span class='comma'>,</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span><span class='op'>=</span><span class='kw'>false</span>
+  <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>=</span> <span class='id identifier rubyid_diff_type'>diff_type</span> <span class='op'>==</span> <span class='symbol'>:summary</span> <span class='op'>?</span> <span class='symbol'>:icon</span> <span class='op'>:</span> <span class='symbol'>:medium</span>
+  <span class='lbracket'>[</span><span class='id identifier rubyid_old_image'>old_image</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_new_image'>new_image</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="invalid_image-instance_method">
+  
+    #<strong>invalid_image</strong>(source)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image/html_views.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_invalid_image'>invalid_image</span> <span class='id identifier rubyid_source'>source</span>
+  <span class='comment'># (&quot;missing&quot; is the view for &quot;unknown&quot; now, so we shouldn&#39;t further confuse things)
+</span>  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;!-- invalid image for </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_safe_name'>safe_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>; source: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_source'>source</span><span class='embexpr_end'>}</span><span class='tstring_content'> --&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="new_image-instance_method">
+  
+    #<strong>new_image</strong>(action)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71
+72
+73
+74
+75</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image/html_views.rb', line 71</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_new_image'>new_image</span> <span class='id identifier rubyid_action'>action</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_with_selected_action_id'>with_selected_action_id</span> <span class='id identifier rubyid_action'>action</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='kw'>do</span>
+    <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Content/Diff.html" title="Card::Content::Diff (class)">Diff</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render_added_chunk'><span class='object_link'><a href="../../../../Content/Diff.html#render_added_chunk-class_method" title="Card::Content::Diff.render_added_chunk (method)">render_added_chunk</a></span></span> <span class='id identifier rubyid__render_core'>_render_core</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="old_image-instance_method">
+  
+    #<strong>old_image</strong>(action, hide_diff)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65
+66
+67
+68
+69</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image/html_views.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_old_image'>old_image</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span> <span class='op'>||</span> <span class='op'>!</span><span class='id identifier rubyid_action'>action</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_last_change'>last_change</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_last_change_on'>last_change_on</span><span class='lparen'>(</span><span class='symbol'>:db_content</span><span class='comma'>,</span> <span class='label'>before:</span> <span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_with_selected_action_id'>with_selected_action_id</span> <span class='id identifier rubyid_last_change'>last_change</span><span class='period'>.</span><span class='id identifier rubyid_card_action_id'>card_action_id</span> <span class='kw'>do</span>
+    <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Content/Diff.html" title="Card::Content::Diff (class)">Diff</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render_deleted_chunk'><span class='object_link'><a href="../../../../Content/Diff.html#render_deleted_chunk-class_method" title="Card::Content::Diff.render_deleted_chunk (method)">render_deleted_chunk</a></span></span> <span class='id identifier rubyid__render_core'>_render_core</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="preview-instance_method">
+  
+    #<strong>preview</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image/html_views.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_preview'>preview</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_new_card?'>new_card?</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_preliminary_upload?'>preliminary_upload?</span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>attachment-preview</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                  <span class='label'>id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_attachment'>attachment</span><span class='period'>.</span><span class='id identifier rubyid_filename'>filename</span><span class='embexpr_end'>}</span><span class='tstring_content'>-preview</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid__render_core'>_render_core</span> <span class='label'>size:</span> <span class='symbol'>:medium</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="show_action_content_toggle?-instance_method">
+  
+    #<strong>show_action_content_toggle?</strong>(_action, _view_type)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image/html_views.rb', line 50</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_show_action_content_toggle?'>show_action_content_toggle?</span> <span class='id identifier rubyid__action'>_action</span><span class='comma'>,</span> <span class='id identifier rubyid__view_type'>_view_type</span>
+  <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: content_changes-instance_method">
+  
+    #<strong>view: content_changes</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image/html_views.rb', line 54</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:content_changes</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_content_changes'>content_changes</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_last_action'>last_action</span><span class='comma'>,</span> <span class='symbol'>:expanded</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: core-instance_method">
+  
+    #<strong>view: core</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>core HTML image view.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image/html_views.rb', line 12</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span> <span class='kw'>do</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_attachment'>attachment</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span> <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_svg?'>svg?</span>
+  <span class='id identifier rubyid_with_valid_source'>with_valid_source</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_source'>source</span><span class='op'>|</span>
+    <span class='id identifier rubyid_image_tag'>image_tag</span> <span class='id identifier rubyid_source'>source</span><span class='comma'>,</span> <span class='label'>alt:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: full_width-instance_method">
+  
+    #<strong>view: full_width</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31
+32
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image/html_views.rb', line 31</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:full_width</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_with_valid_source'>with_valid_source</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_source'>source</span><span class='op'>|</span>
+    <span class='id identifier rubyid_image_tag'>image_tag</span> <span class='id identifier rubyid_source'>source</span><span class='comma'>,</span> <span class='label'>alt:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>w-100</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="with_valid_source-instance_method">
+  
+    #<strong>with_valid_source</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/image/html_views.rb', line 19</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_with_valid_source'>with_valid_source</span>
+  <span class='id identifier rubyid_handle_source'>handle_source</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_source'>source</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_source'>source</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span> <span class='op'>||</span> <span class='id identifier rubyid_source'>source</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>missing</span><span class='tstring_end'>&quot;</span></span>
+      <span class='comment'># FIXME: these images should be &quot;broken&quot;, not &quot;missing&quot;
+</span>      <span class='id identifier rubyid_invalid_image'>invalid_image</span> <span class='id identifier rubyid_source'>source</span>
+    <span class='kw'>else</span>
+      <span class='kw'>yield</span> <span class='id identifier rubyid_source'>source</span>
+      <span class='comment'># consider title..
+</span>    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Sep 10 15:02:43 2020 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.25 (ruby-2.6.3).
+</div>
+
+    </div>
+  </body>
+</html>

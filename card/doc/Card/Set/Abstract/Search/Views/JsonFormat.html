@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::Search::Views::JsonFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::Search::Views::JsonFormat";
   relpath = '../../../../../';
 </script>
@@ -83,20 +83,24 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod020-search/abstract/search/views.rb</dd>
+    <dd>tmpsets/set/mod021-search/abstract/search/views.rb</dd>
   </dl>
   
 </div>
 
 
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="AUTOCOMPLETE_LIMIT-constant" class="">AUTOCOMPLETE_LIMIT =
-        <div class="docstring">
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="AUTOCOMPLETE_LIMIT-constant" class="">AUTOCOMPLETE_LIMIT =
+          <div class="docstring">
   <div class="discussion">
-    
-<p>number of name suggestions for autocomplete text fields</p>
+    <p>number of name suggestions for autocomplete text fields</p>
 
 
   </div>
@@ -105,10 +109,11 @@
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='int'>8</span></pre></dd>
-    
-  </dl>
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -127,7 +132,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#complete_or_match_search-instance_method" title="#complete_or_match_search (instance method)">#<strong>complete_or_match_search</strong>(limit: AUTOCOMPLETE_LIMIT)  &#x21d2; Object </a>
+      <a href="#complete_or_match_search-instance_method" title="#complete_or_match_search (instance method)">#<strong>complete_or_match_search</strong>(limit: AUTOCOMPLETE_LIMIT, start_only: false)  &#x21d2; Object </a>
     
 
     
@@ -141,7 +146,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -163,7 +169,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -185,7 +192,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -207,7 +215,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -229,7 +238,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -251,7 +261,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -273,7 +284,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -295,7 +307,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -317,8 +330,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>NOCACHE because paging_urls is uncacheable hash and thus not safe to merge.</p>
+    <span class="summary_desc"><div class='inline'><p>NOCACHE because paging_urls is uncacheable hash and thus not safe to merge.</p>
 </div></span>
   
 </li>
@@ -341,8 +353,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>TODO: design better autocomplete API.</p>
+    <span class="summary_desc"><div class='inline'><p>TODO: design better autocomplete API.</p>
 </div></span>
   
 </li>
@@ -365,7 +376,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -383,7 +395,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="complete_or_match_search-instance_method">
   
-    #<strong>complete_or_match_search</strong>(limit: AUTOCOMPLETE_LIMIT)  &#x21d2; <tt>Object</tt> 
+    #<strong>complete_or_match_search</strong>(limit: AUTOCOMPLETE_LIMIT, start_only: false)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -405,11 +417,11 @@
 58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search/views.rb', line 51</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_complete_or_match_search'>complete_or_match_search</span> <span class='label'>limit:</span> <span class='const'><span class='object_link'><a href="#AUTOCOMPLETE_LIMIT-constant" title="Card::Set::Abstract::Search::Views::JsonFormat::AUTOCOMPLETE_LIMIT (constant)">AUTOCOMPLETE_LIMIT</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_complete_or_match_search'>complete_or_match_search</span> <span class='label'>limit:</span> <span class='const'><span class='object_link'><a href="#AUTOCOMPLETE_LIMIT-constant" title="Card::Set::Abstract::Search::Views::JsonFormat::AUTOCOMPLETE_LIMIT (constant)">AUTOCOMPLETE_LIMIT</a></span></span><span class='comma'>,</span> <span class='label'>start_only:</span> <span class='kw'>false</span>
   <span class='id identifier rubyid_starts_with'>starts_with</span> <span class='op'>=</span> <span class='id identifier rubyid_complete_search'>complete_search</span> <span class='label'>limit:</span> <span class='id identifier rubyid_limit'>limit</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_starts_with'>starts_with</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../../../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_navbox_match_start_only'>navbox_match_start_only</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_starts_with'>starts_with</span> <span class='kw'>if</span> <span class='id identifier rubyid_start_only'>start_only</span>
 
   <span class='id identifier rubyid_remaining_slots'>remaining_slots</span> <span class='op'>=</span> <span class='id identifier rubyid_limit'>limit</span> <span class='op'>-</span> <span class='id identifier rubyid_starts_with'>starts_with</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_starts_with'>starts_with</span> <span class='kw'>if</span> <span class='id identifier rubyid_remaining_slots'>remaining_slots</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
@@ -440,7 +452,7 @@
 62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search/views.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_complete_search'>complete_search</span> <span class='label'>limit:</span> <span class='const'><span class='object_link'><a href="#AUTOCOMPLETE_LIMIT-constant" title="Card::Set::Abstract::Search::Views::JsonFormat::AUTOCOMPLETE_LIMIT (constant)">AUTOCOMPLETE_LIMIT</a></span></span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_search'>search</span> <span class='id identifier rubyid_name_wql'>name_wql</span><span class='lparen'>(</span><span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_complete_wql'>complete_wql</span><span class='rparen'>)</span>
@@ -470,7 +482,7 @@
 74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search/views.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_complete_wql'>complete_wql</span>
   <span class='lbrace'>{</span> <span class='label'>complete:</span> <span class='id identifier rubyid_term_param'>term_param</span> <span class='rbrace'>}</span>
@@ -500,7 +512,7 @@
 35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search/views.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_item_cards'>item_cards</span>
   <span class='id identifier rubyid_search_with_params'>search_with_params</span>
@@ -530,7 +542,7 @@
 66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search/views.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_match_search'>match_search</span> <span class='label'>limit:</span> <span class='const'><span class='object_link'><a href="#AUTOCOMPLETE_LIMIT-constant" title="Card::Set::Abstract::Search::Views::JsonFormat::AUTOCOMPLETE_LIMIT (constant)">AUTOCOMPLETE_LIMIT</a></span></span><span class='comma'>,</span> <span class='label'>not_names:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_search'>search</span> <span class='id identifier rubyid_name_wql'>name_wql</span><span class='lparen'>(</span><span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_match_wql'>match_wql</span><span class='lparen'>(</span><span class='id identifier rubyid_not_names'>not_names</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -562,7 +574,7 @@
 80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search/views.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_match_wql'>match_wql</span> <span class='id identifier rubyid_not_names'>not_names</span>
   <span class='id identifier rubyid_wql'>wql</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>name_match:</span> <span class='id identifier rubyid_term_param'>term_param</span> <span class='rbrace'>}</span>
@@ -594,7 +606,7 @@
 70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search/views.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name_wql'>name_wql</span> <span class='id identifier rubyid_limit'>limit</span>
   <span class='lbrace'>{</span> <span class='label'>limit:</span> <span class='id identifier rubyid_limit'>limit</span><span class='comma'>,</span> <span class='label'>sort:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>return:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
@@ -624,7 +636,7 @@
 84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search/views.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_term_param'>term_param</span>
   <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:term</span><span class='rbracket'>]</span>
@@ -645,8 +657,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>NOCACHE because paging_urls is uncacheable hash and thus not safe to merge</p>
+    <p>NOCACHE because paging_urls is uncacheable hash and thus not safe to merge</p>
 
 
   </div>
@@ -665,7 +676,7 @@
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search/views.rb', line 38</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:molecule</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_molecule'>molecule</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='id identifier rubyid_render_paging_urls'>render_paging_urls</span>
@@ -686,8 +697,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>TODO: design better autocomplete API</p>
+    <p>TODO: design better autocomplete API</p>
 
 
   </div>
@@ -706,7 +716,7 @@
 45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search/views.rb', line 43</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:name_complete</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_complete_search'>complete_search</span> <span class='label'>limit:</span> <span class='const'><span class='object_link'><a href="#AUTOCOMPLETE_LIMIT-constant" title="Card::Set::Abstract::Search::Views::JsonFormat::AUTOCOMPLETE_LIMIT (constant)">AUTOCOMPLETE_LIMIT</a></span></span>
@@ -736,7 +746,7 @@
 49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod020-search/abstract/search/views.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-search/abstract/search/views.rb', line 47</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:name_match</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_complete_or_match_search'>complete_or_match_search</span> <span class='label'>limit:</span> <span class='const'><span class='object_link'><a href="#AUTOCOMPLETE_LIMIT-constant" title="Card::Set::Abstract::Search::Views::JsonFormat::AUTOCOMPLETE_LIMIT (constant)">AUTOCOMPLETE_LIMIT</a></span></span>
@@ -751,9 +761,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:45 2019 by
+  Generated on Thu Sep 10 15:02:40 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

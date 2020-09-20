@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Abstract::EmailField::EmailTextFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Abstract::EmailField::EmailTextFormat";
   relpath = '../../../../';
 </script>
@@ -90,8 +90,13 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>format :html do def pointer_items args card.item_names(context: :raw).map do |iname| wrap_item iname, args end end end#</p>
+    <p>format :html do
+  def pointer_items args
+    card.item_names(context: :raw).map do |iname|
+      wrap_item iname, args
+    end
+  end
+end#</p>
 
 
   </div>
@@ -131,7 +136,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -153,7 +159,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -175,7 +182,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -197,7 +205,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -224,6 +233,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -375,9 +385,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:43 2019 by
+  Generated on Thu Sep 10 15:02:38 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

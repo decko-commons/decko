@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Type::File::FileFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Type::File::FileFormat";
   relpath = '../../../../';
 </script>
@@ -125,7 +125,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -147,7 +148,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -169,8 +171,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>NOCACHE because returns send_file args.</p>
+    <span class="summary_desc"><div class='inline'><p>NOCACHE because returns send_file args.</p>
 </div></span>
   
 </li>
@@ -201,16 +202,16 @@
       <pre class="lines">
 
 
-66
 67
 68
 69
 70
 71
-72</pre>
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_args_for_send_file'>args_for_send_file</span>
   <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='id identifier rubyid_selected_version'>selected_version</span>
@@ -239,16 +240,16 @@
       <pre class="lines">
 
 
-74
 75
 76
 77
 78
 79
-80</pre>
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_response_headers'>set_response_headers</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:explicit_file</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_controller'>controller</span><span class='op'>&amp;.</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
@@ -273,8 +274,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>NOCACHE because returns send_file args. not in love with this…</p>
+    <p>NOCACHE because returns send_file args.  not in love with this…</p>
 
 
   </div>
@@ -288,17 +288,17 @@
       <pre class="lines">
 
 
-57
 58
 59
 60
 61
 62
 63
-64</pre>
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 58</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='comment'># this means we only support known formats.  dislike.
@@ -318,9 +318,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:36 2019 by
+  Generated on Thu Sep 10 15:02:34 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

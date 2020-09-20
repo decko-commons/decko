@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::NameEvents
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::NameEvents";
   relpath = '../../../';
 </script>
@@ -90,7 +90,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
+    <p>Set: All cards (NameEvents)</p>
+
 <p>STAGE: prepare to validate</p>
 
 
@@ -101,6 +102,18 @@
 
 </div>
 
+
+  <h2>Constant Summary</h2>
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#SET_PATTERN_TEST_REGEXP-constant" title="Card::Set::Helpers::SET_PATTERN_TEST_REGEXP (constant)">Helpers::SET_PATTERN_TEST_REGEXP</a></span></p>
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="../Event/Api.html" title="Card::Set::Event::Api (module)">Event::Api</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Event/Api.html#OPTIONS-constant" title="Card::Set::Event::Api::OPTIONS (constant)">Event::Api::OPTIONS</a></span></p>
 
 
 
@@ -131,7 +144,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -148,7 +162,30 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#event:+name_change_finalized-instance_method" title="#event: name_change_finalized (instance method)">#<strong>event: name_change_finalized</strong>  &#x21d2; Object </a>
+      <a href="#event:+expire_old_name-instance_method" title="#event: expire_old_name (instance method)">#<strong>event: expire_old_name</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>STAGE: store.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#event:+prepare_left_and_right-instance_method" title="#event: prepare_left_and_right (instance method)">#<strong>event: prepare_left_and_right</strong>  &#x21d2; Object </a>
     
 
     
@@ -163,7 +200,6 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>STAGE: finalize.</p>
 </div></span>
   
 </li>
@@ -186,7 +222,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -194,29 +231,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#event:+set_left_and_right-instance_method" title="#event: set_left_and_right (instance method)">#<strong>event: set_left_and_right</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#event:+set_name-instance_method" title="#event: set_name (instance method)">#<strong>event: set_name</strong>  &#x21d2; Object </a>
+      <a href="#event:+update_lexicon_on_create-instance_method" title="#event: update_lexicon_on_create (instance method)">#<strong>event: update_lexicon_on_create</strong>  &#x21d2; Object </a>
     
 
     
@@ -231,7 +246,29 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>STAGE: store.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#event:+update_lexicon_on_rename-instance_method" title="#event: update_lexicon_on_rename (instance method)">#<strong>event: update_lexicon_on_rename</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
 </div></span>
   
 </li>
@@ -254,7 +291,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -276,7 +314,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -298,8 +337,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>STAGE: validate.</p>
+    <span class="summary_desc"><div class='inline'><p>STAGE: validate.</p>
 </div></span>
   
 </li>
@@ -322,7 +360,123 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lex-instance_method" title="#lex (instance method)">#<strong>lex</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#old_lex-instance_method" title="#old_lex (instance method)">#<strong>old_lex</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#prepare_new_side-instance_method" title="#prepare_new_side (instance method)">#<strong>prepare_new_side</strong>(side, side_id, sidename)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#prepare_obstructed_side-instance_method" title="#prepare_obstructed_side (instance method)">#<strong>prepare_obstructed_side</strong>(side, side_id, sidename)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#prepare_side-instance_method" title="#prepare_side (instance method)">#<strong>prepare_side</strong>(side)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -337,6 +491,11 @@
   
   
   
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+
   
   
   
@@ -368,7 +527,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Helpers.html#abstract_set%3F-instance_method" title="Card::Set::Helpers#abstract_set? (method)">#abstract_set?</a></span>, <span class='object_link'><a href="../Helpers.html#all_set%3F-instance_method" title="Card::Set::Helpers#all_set? (method)">#all_set?</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
 
   
   
@@ -474,9 +633,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="event: name_change_finalized-instance_method">
+  <h3 class="signature first" id="event: expire_old_name-instance_method">
   
-    #<strong>event: name_change_finalized</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>event: expire_old_name</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -484,8 +643,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>STAGE: finalize</p>
+    <p>STAGE: store</p>
 
 
   </div>
@@ -499,22 +657,50 @@
       <pre class="lines">
 
 
-77
-78
-79
-80
-81
-82</pre>
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 64</span>
 
-<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:name_change_finalized</span><span class='comma'>,</span> <span class='symbol'>:finalize</span><span class='comma'>,</span> <span class='label'>changed:</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span> <span class='kw'>do</span>
-  <span class='comment'># The events to update references has to happen after :cascade_name_changes,
-</span>  <span class='comment'># but :cascade_name_changes is defined after the reference events and
-</span>  <span class='comment'># and additionaly it is defined on :update but some of the reference
-</span>  <span class='comment'># events are on :save. Hence we need this additional hook to organize these events.
-</span><span class='kw'>end</span></pre>
+<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:expire_old_name</span><span class='comma'>,</span> <span class='symbol'>:store</span><span class='comma'>,</span> <span class='label'>changed:</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:update</span> <span class='kw'>do</span>
+  <span class='const'>ActManager</span><span class='period'>.</span><span class='id identifier rubyid_expirees'>expirees</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_name_before_act'>name_before_act</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="event: prepare_left_and_right-instance_method">
+  
+    #<strong>event: prepare_left_and_right</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+88
+89
+90
+91
+92</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 88</span>
+
+<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:prepare_left_and_right</span><span class='comma'>,</span> <span class='symbol'>:store</span><span class='comma'>,</span> <span class='label'>changed:</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span> <span class='kw'>do</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_simple?'>simple?</span>
+  <span class='id identifier rubyid_prepare_side'>prepare_side</span> <span class='symbol'>:left</span>
+  <span class='id identifier rubyid_prepare_side'>prepare_side</span> <span class='symbol'>:right</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -561,9 +747,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="event: set_left_and_right-instance_method">
+  <h3 class="signature " id="event: update_lexicon_on_create-instance_method">
   
-    #<strong>event: set_left_and_right</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>event: update_lexicon_on_create</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -575,29 +761,15 @@
       <pre class="lines">
 
 
-64
-65
-66
-67
 68
 69
-70
-71
-72
-73</pre>
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 68</span>
 
-<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:set_left_and_right</span><span class='comma'>,</span> <span class='symbol'>:store</span><span class='comma'>,</span>
-      <span class='label'>changed:</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span> <span class='kw'>do</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_junction?'>junction?</span>
-    <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>left</span><span class='words_sep'> </span><span class='tstring_content'>right</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_side'>side</span><span class='op'>|</span>
-      <span class='id identifier rubyid_assign_side_id'>assign_side_id</span> <span class='id identifier rubyid_side'>side</span>
-    <span class='kw'>end</span>
-  <span class='kw'>else</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_left_id'>left_id</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_right_id'>right_id</span> <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='kw'>end</span>
+<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:update_lexicon_on_create</span><span class='comma'>,</span> <span class='symbol'>:finalize</span><span class='comma'>,</span> <span class='label'>changed:</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:create</span> <span class='kw'>do</span>
+  <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_add'><span class='object_link'><a href="../../Lexicon.html#add-class_method" title="Card::Lexicon.add (method)">add</a></span></span> <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -605,40 +777,29 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="event: set_name-instance_method">
+  <h3 class="signature " id="event: update_lexicon_on_rename-instance_method">
   
-    #<strong>event: set_name</strong>  &#x21d2; <tt>Object</tt> 
-  
-
+    #<strong>event: update_lexicon_on_rename</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>STAGE: store</p>
 
-
-  </div>
-</div>
-<div class="tags">
   
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-60
-61
-62</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 72</span>
 
-<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:set_name</span><span class='comma'>,</span> <span class='symbol'>:store</span><span class='comma'>,</span> <span class='label'>changed:</span> <span class='symbol'>:name</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_expire'>expire</span>
+<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:update_lexicon_on_rename</span><span class='comma'>,</span> <span class='symbol'>:finalize</span><span class='comma'>,</span> <span class='label'>changed:</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:update</span> <span class='kw'>do</span>
+  <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update'><span class='object_link'><a href="../../Lexicon.html#update-class_method" title="Card::Lexicon.update (method)">update</a></span></span> <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -660,16 +821,16 @@
       <pre class="lines">
 
 
-50
-51
-52
-53
 54
 55
-56</pre>
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 54</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_key</span><span class='comma'>,</span> <span class='label'>after:</span> <span class='symbol'>:validate_name</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span> <span class='kw'>do</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -698,10 +859,6 @@
       <pre class="lines">
 
 
-36
-37
-38
-39
 40
 41
 42
@@ -710,10 +867,14 @@
 45
 46
 47
-48</pre>
+48
+49
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 40</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_legality_of_name</span> <span class='kw'>do</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>255</span>
@@ -744,8 +905,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>STAGE: validate</p>
+    <p>STAGE: validate</p>
 
 
   </div>
@@ -763,7 +923,8 @@
 22
 23
 24
-25</pre>
+25
+26</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 21</span>
@@ -771,6 +932,7 @@
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_name</span><span class='comma'>,</span> <span class='symbol'>:validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span><span class='comma'>,</span> <span class='label'>changed:</span> <span class='symbol'>:name</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_validate_legality_of_name'>validate_legality_of_name</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
+  <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_write_to_soft_cache'>write_to_soft_cache</span> <span class='kw'>self</span>
   <span class='id identifier rubyid_validate_uniqueness_of_name'>validate_uniqueness_of_name</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -793,25 +955,207 @@
       <pre class="lines">
 
 
-27
 28
 29
 30
 31
 32
 33
-34</pre>
+34
+35
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 28</span>
 
-<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_uniqueness_of_name</span> <span class='kw'>do</span>
+<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_uniqueness_of_name</span><span class='comma'>,</span> <span class='label'>skip:</span> <span class='symbol'>:allowed</span> <span class='kw'>do</span>
   <span class='comment'># validate uniqueness of name
-</span>  <span class='id identifier rubyid_rel'>rel</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span> <span class='label'>key:</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='label'>trash:</span> <span class='kw'>false</span>
-  <span class='id identifier rubyid_rel'>rel</span> <span class='op'>=</span> <span class='id identifier rubyid_rel'>rel</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id &lt;&gt; ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span> <span class='kw'>if</span> <span class='id identifier rubyid_id'>id</span>
-  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_existing'>existing</span> <span class='op'>=</span> <span class='id identifier rubyid_rel'>rel</span><span class='period'>.</span><span class='id identifier rubyid_take'>take</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:error_name_exists</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='id identifier rubyid_existing'>existing</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_existing_id'>existing_id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../../Lexicon.html#id-class_method" title="Card::Lexicon.id (method)">id</a></span></span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_existing_id'>existing_id</span> <span class='op'>!=</span> <span class='id identifier rubyid_id'>id</span>
+  <span class='comment'># The above is a fast check but cannot detect if card is in trash
+</span>
+  <span class='comment'># TODO: perform the following as a remote-only fetch (not yet supported)
+</span>  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_existing_card'>existing_card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_existing_id'>existing_id</span><span class='comma'>,</span> <span class='label'>trash:</span> <span class='kw'>false</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_take'>take</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:error_name_exists</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='id identifier rubyid_existing_card'>existing_card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="lex-instance_method">
+  
+    #<strong>lex</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+76
+77
+78</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 76</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_lex'>lex</span>
+  <span class='id identifier rubyid_simple?'>simple?</span> <span class='op'>?</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_left_id'>left_id</span><span class='comma'>,</span> <span class='id identifier rubyid_right_id'>right_id</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="old_lex-instance_method">
+  
+    #<strong>old_lex</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+80
+81
+82
+83
+84
+85
+86</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 80</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_old_lex'>old_lex</span>
+  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_old_left_id'>old_left_id</span> <span class='op'>=</span> <span class='id identifier rubyid_left_id_before_act'>left_id_before_act</span><span class='rparen'>)</span>
+    <span class='lbracket'>[</span><span class='id identifier rubyid_old_left_id'>old_left_id</span><span class='comma'>,</span> <span class='id identifier rubyid_right_id_before_act'>right_id_before_act</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_name_before_act'>name_before_act</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="prepare_new_side-instance_method">
+  
+    #<strong>prepare_new_side</strong>(side, side_id, sidename)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101
+102
+103
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 101</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_prepare_new_side'>prepare_new_side</span> <span class='id identifier rubyid_side'>side</span><span class='comma'>,</span> <span class='id identifier rubyid_side_id'>side_id</span><span class='comma'>,</span> <span class='id identifier rubyid_sidename'>sidename</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_side_id'>side_id</span> <span class='op'>==</span> <span class='op'>-</span><span class='int'>1</span> <span class='op'>||</span> <span class='op'>!</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_side_id'>side_id</span><span class='rbracket'>]</span><span class='op'>&amp;.</span><span class='id identifier rubyid_real?'>real?</span>
+
+  <span class='id identifier rubyid_sidecard'>sidecard</span> <span class='op'>=</span> <span class='const'>ActManager</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span><span class='lparen'>(</span><span class='id identifier rubyid_sidename'>sidename</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_add_subcard'>add_subcard</span><span class='lparen'>(</span><span class='id identifier rubyid_sidename'>sidename</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_send'>send</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_side'>side</span><span class='embexpr_end'>}</span><span class='tstring_content'>_id=</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_sidecard'>sidecard</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="prepare_obstructed_side-instance_method">
+  
+    #<strong>prepare_obstructed_side</strong>(side, side_id, sidename)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110
+111
+112
+113</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 108</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_prepare_obstructed_side'>prepare_obstructed_side</span> <span class='id identifier rubyid_side'>side</span><span class='comma'>,</span> <span class='id identifier rubyid_side_id'>side_id</span><span class='comma'>,</span> <span class='id identifier rubyid_sidename'>sidename</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_side_id'>side_id</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_side_id'>side_id</span> <span class='op'>==</span> <span class='id identifier rubyid_id'>id</span>
+  <span class='id identifier rubyid_clear_name'>clear_name</span> <span class='id identifier rubyid_sidename'>sidename</span>
+  <span class='id identifier rubyid_send'>send</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_side'>side</span><span class='embexpr_end'>}</span><span class='tstring_content'>_id=</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_add_subcard'>add_subcard</span><span class='lparen'>(</span><span class='id identifier rubyid_sidename'>sidename</span><span class='rparen'>)</span>
+  <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="prepare_side-instance_method">
+  
+    #<strong>prepare_side</strong>(side)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94
+95
+96
+97
+98
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/name_events.rb', line 94</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_prepare_side'>prepare_side</span> <span class='id identifier rubyid_side'>side</span>
+  <span class='id identifier rubyid_side_id'>side_id</span> <span class='op'>=</span> <span class='id identifier rubyid_send'>send</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_side'>side</span><span class='embexpr_end'>}</span><span class='tstring_content'>_id</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_sidename'>sidename</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_side'>side</span><span class='embexpr_end'>}</span><span class='tstring_content'>_name</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_prepare_obstructed_side'>prepare_obstructed_side</span><span class='lparen'>(</span><span class='id identifier rubyid_side'>side</span><span class='comma'>,</span> <span class='id identifier rubyid_side_id'>side_id</span><span class='comma'>,</span> <span class='id identifier rubyid_sidename'>sidename</span><span class='rparen'>)</span> <span class='op'>||</span>
+    <span class='id identifier rubyid_prepare_new_side'>prepare_new_side</span><span class='lparen'>(</span><span class='id identifier rubyid_side'>side</span><span class='comma'>,</span> <span class='id identifier rubyid_side_id'>side_id</span><span class='comma'>,</span> <span class='id identifier rubyid_sidename'>sidename</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -823,9 +1167,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:33 2019 by
+  Generated on Thu Sep 10 15:02:33 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

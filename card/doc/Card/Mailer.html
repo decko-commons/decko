@@ -6,15 +6,15 @@
 <title>
   Class: Card::Mailer
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Mailer";
   relpath = '../';
 </script>
@@ -102,15 +102,21 @@
 </div>
 
 
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="defaults-classvariable" class="">@@defaults =
-        
-      </dt>
-      <dd><pre class="code"><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_email_defaults'>email_defaults</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span></pre></dd>
-    
-  </dl>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="defaults-classvariable" class="">@@defaults =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_email_defaults'>email_defaults</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -143,7 +149,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -165,7 +172,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -260,7 +268,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_new_mail'>new_mail</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_mail'>mail</span> <span class='op'>=</span> <span class='const'>Mail</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Mailer (class)">Mailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delivery_method'>delivery_method</span>
-  <span class='id identifier rubyid_mail'>mail</span><span class='period'>.</span><span class='id identifier rubyid_delivery_method'>delivery_method</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Mailer (class)">Mailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_content'>_settings</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mail'>mail</span><span class='period'>.</span><span class='id identifier rubyid_delivery_method'>delivery_method</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Mailer (class)">Mailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:&quot;#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_content'>_settings</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_mail'>mail</span><span class='period'>.</span><span class='id identifier rubyid_perform_deliveries'>perform_deliveries</span>    <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Mailer (class)">Mailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_perform_deliveries'>perform_deliveries</span>
   <span class='id identifier rubyid_mail'>mail</span><span class='period'>.</span><span class='id identifier rubyid_raise_delivery_errors'>raise_delivery_errors</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Mailer (class)">Mailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_raise_delivery_errors'>raise_delivery_errors</span>
   <span class='id identifier rubyid_mail'>mail</span>
@@ -275,9 +283,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:56 2019 by
+  Generated on Thu Sep 10 15:02:46 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

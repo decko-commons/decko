@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Tabs::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Tabs::HtmlFormat";
   relpath = '../../../../';
 </script>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +166,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -186,8 +189,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>def tab_title title, name return name unless title name.to_name.title title, @context_names end.</p>
+    <span class="summary_desc"><div class='inline'><p>def tab_title title, name   return name unless title   name.to_name.title title, @context_names end.</p>
 </div></span>
   
 </li>
@@ -210,7 +212,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -232,7 +235,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -254,7 +258,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -284,23 +289,23 @@
       <pre class="lines">
 
 
-50
 51
 52
 53
 54
 55
-56</pre>
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/tabs.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/tabs.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_construct_static_tabs'>construct_static_tabs</span> <span class='id identifier rubyid_tab_type'>tab_type</span>
   <span class='id identifier rubyid_tabs'>tabs</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_item_cards'>item_cards</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
     <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_nest'>nest</span> <span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='id identifier rubyid_item_view_options'>item_view_options</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_static_tabs'>static_tabs</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='comma'>,</span> <span class='id identifier rubyid_tab_type'>tab_type</span>
+  <span class='id identifier rubyid_tabs'>tabs</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>tab_type:</span> <span class='id identifier rubyid_tab_type'>tab_type</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -322,7 +327,6 @@
       <pre class="lines">
 
 
-23
 24
 25
 26
@@ -330,10 +334,11 @@
 28
 29
 30
-31</pre>
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/tabs.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/tabs.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_construct_tab'>construct_tab</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_explicit_options'>explicit_options</span>
   <span class='id identifier rubyid_tab_options'>tab_options</span> <span class='op'>=</span> <span class='id identifier rubyid_item_view_options'>item_view_options</span> <span class='id identifier rubyid_explicit_options'>explicit_options</span>
@@ -372,7 +377,8 @@
 18
 19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/tabs.rb', line 13</span>
@@ -383,8 +389,9 @@
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_each_item_name_with_options'>each_item_name_with_options</span><span class='lparen'>(</span><span class='id identifier rubyid__render_raw'>_render_raw</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>|</span>
     <span class='id identifier rubyid_construct_tab'>construct_tab</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_lazy_loading_tabs'>lazy_loading_tabs</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='symbol'>:paths</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='symbol'>:active</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span>
-                    <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='symbol'>:active</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:content</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='id identifier rubyid_tab_type'>tab_type</span>
+  <span class='id identifier rubyid_tabs'>tabs</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='symbol'>:paths</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='symbol'>:active</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>tab_type:</span> <span class='id identifier rubyid_tab_type'>tab_type</span><span class='comma'>,</span> <span class='label'>load:</span> <span class='symbol'>:lazy</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='symbol'>:active</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:content</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -402,8 +409,10 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>def tab_title title, name return name unless title name.to_name.title title, @context_names end</p>
+    <p>def tab_title title, name
+  return name unless title
+  name.to_name.title title, @context_names
+end</p>
 
 
   </div>
@@ -417,12 +426,12 @@
       <pre class="lines">
 
 
-38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/tabs.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/tabs.rb', line 39</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:pills</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_construct_tabs'>construct_tabs</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pills</span><span class='tstring_end'>&quot;</span></span>
@@ -447,12 +456,12 @@
       <pre class="lines">
 
 
-46
 47
-48</pre>
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/tabs.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/tabs.rb', line 47</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:pills_static</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_construct_static_tabs'>construct_static_tabs</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pills</span><span class='tstring_end'>&quot;</span></span>
@@ -507,12 +516,12 @@
       <pre class="lines">
 
 
-42
 43
-44</pre>
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/tabs.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/tabs.rb', line 43</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:tabs_static</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_construct_static_tabs'>construct_static_tabs</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tabs</span><span class='tstring_end'>&quot;</span></span>
@@ -527,9 +536,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:24 2019 by
+  Generated on Thu Sep 10 15:02:28 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

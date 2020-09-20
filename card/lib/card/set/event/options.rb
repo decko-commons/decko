@@ -4,7 +4,7 @@ class Card
       module Options
         def validate_conditions
           @opts.each do |key, val|
-            next if key.in? %i[in before after around]
+            next if key.in? %i[stage before after around]
 
             validate_condition_name key
             validate_condition_value key, val
@@ -12,18 +12,18 @@ class Card
         end
 
         def validate_condition_name condition
-          return if Card::Set::Event::CONDITIONS.include? condition
+          return if CONDITIONS.include? condition
 
           raise ArgumentError,
                 "invalid condition key '#{condition}' in event '#{@event}'\n" \
-                "valid conditions are #{Card::Set::Event::CONDITIONS.to_a.join ', '}"
+                "valid conditions are #{CONDITIONS.to_a.join ', '}"
         end
 
         def validate_condition_value condition, val
           if condition == :when
             validate_when_value val
           else
-            invalid = Array.wrap(val) - Array.wrap(valid_values(condition))
+            invalid = Array.wrap(val) - Api::OPTIONS[condition]
             return if invalid.empty?
 
             raise ArgumentError,
@@ -40,10 +40,6 @@ class Card
                 "must be a symbol or a proc"
         end
 
-        def valid_values condition
-          Card::Set::Event::CONDITION_OPTIONS[condition]
-        end
-
         def event_opts stage_or_opts, opts
           opts = normalize_opts stage_or_opts, opts
           process_stage_opts opts
@@ -54,7 +50,7 @@ class Card
 
         def normalize_opts stage_or_opts, opts
           if stage_or_opts.is_a? Symbol
-            opts[:in] = stage_or_opts
+            opts[:stage] = stage_or_opts
           else
             opts = stage_or_opts
           end
@@ -66,11 +62,12 @@ class Card
         end
 
         def process_stage_opts opts
-          if opts[:after] || opts[:before]
-            # ignore :in options
-          elsif (@stage = opts.delete :in)
-            opts[:after] = callback_name @stage, opts.delete(:after_subcards)
-          end
+          stage = opts.delete :stage
+          after_subcards = opts.delete :after_subcards
+          return if opts[:after] || opts[:before] || opts[:around] || !(@stage = stage)
+          # after, before, or around will override stage configuration
+
+          opts[:after] = callback_name stage, after_subcards
         end
 
         def callback_name stage, after_subcards=false

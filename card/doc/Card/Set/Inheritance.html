@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Inheritance
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Inheritance";
   relpath = '../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>API to inherit other sets and their formats</p>
+    <p>API to inherit other sets and their formats</p>
 
 
   </div>
@@ -131,8 +130,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>include a set module and all its format modules.</p>
+    <span class="summary_desc"><div class='inline'><p>include a set module and all its format modules.</p>
 </div></span>
   
 </li>
@@ -155,8 +153,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>include format modules of a set.</p>
+    <span class="summary_desc"><div class='inline'><p>include format modules of a set.</p>
 </div></span>
   
 </li>
@@ -182,8 +179,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>include a set module and all its format modules</p>
+    <p>include a set module and all its format modules</p>
 
 
   </div>
@@ -197,8 +193,7 @@
       <pre class="example code"><code><span class='id identifier rubyid_include_set'>include_set</span> <span class='const'><span class='object_link'><a href="Type.html" title="Card::Set::Type (class)">Type</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Type/Basic.html" title="Card::Set::Type::Basic (module)">Basic</a></span></span><span class='comma'>,</span> <span class='label'>except:</span> <span class='symbol'>:css</span></code></pre>
     
       
-        <p class="example_title"><div class='inline'>
-<p>pass an option</p>
+        <p class="example_title"><div class='inline'><p>pass an option</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_include_set'>include_set</span> <span class='const'><span class='object_link'><a href="Type.html" title="Card::Set::Type (class)">Type</a></span></span><span class='op'>::</span><span class='const'>Name</span><span class='comma'>,</span> <span class='label'>default_name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Luke</span><span class='tstring_end'>&quot;</span></span>
@@ -244,8 +239,10 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>choose the formats you want to include. You can also pass arbitrary options to the included set. The option is saved in the including set. To use the option you need a <code>included</code> method in the included set to fetch the option.</p>
+        <div class='inline'><p>choose the formats you want to include. You can also
+pass arbitrary options to the included set. The option is saved
+in the including set. To use the option you need a <code>included</code> method
+in the included set to fetch the option.</p>
 </div>
       
     </li>
@@ -267,8 +264,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>include only these formats</p>
+            &mdash; <div class='inline'><p>include only these formats</p>
 </div>
           
         </li>
@@ -280,8 +276,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>don’t include these formats</p>
+            &mdash; <div class='inline'><p>don’t include these formats</p>
 </div>
           
         </li>
@@ -336,8 +331,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>include format modules of a set</p>
+    <p>include format modules of a set</p>
 
 
   </div>
@@ -377,8 +371,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>choose the formats you want to include</p>
+        <div class='inline'><p>choose the formats you want to include</p>
 </div>
       
     </li>
@@ -400,8 +393,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>include only these formats</p>
+            &mdash; <div class='inline'><p>include only these formats</p>
 </div>
           
         </li>
@@ -413,8 +405,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>don’t include these formats</p>
+            &mdash; <div class='inline'><p>don’t include these formats</p>
 </div>
           
         </li>
@@ -467,9 +458,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:19 2019 by
+  Generated on Thu Sep 10 15:02:25 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

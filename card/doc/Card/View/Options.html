@@ -6,15 +6,15 @@
 <title>
   Module: Card::View::Options
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::View::Options";
   relpath = '../../';
 </script>
@@ -102,19 +102,19 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Manages options for rendering card views</p>
+    <p>Manages options for rendering card views</p>
 
 <p>Many options are available to sharks via nests. (See https://decko.org/Nest_Syntax)</p>
 
-<pre class="code ruby"><code class="ruby"> {{cardname|hide:menu}}</code></pre>
+<pre class="code ruby"><code class="ruby"> {{cardname|hide:menu}}
+</code></pre>
 
-<p>These options and others are available to monkeys when rendering views via</p>
-
-<h1 id="render_or_nest">render or #nest.</h1>
+<p>These options and others are available to monkeys when rendering views
+via #render or #nest.</p>
 
 <pre class="code ruby"><code class="ruby"> <span class='id identifier rubyid_nest'>nest</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cardname</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>hide:</span> <span class='symbol'>:menu</span>
- <span class='id identifier rubyid_render'>render</span> <span class='symbol'>:viewname</span><span class='comma'>,</span> <span class='label'>hide:</span> <span class='symbol'>:menu</span></code></pre>
+ <span class='id identifier rubyid_render'>render</span> <span class='symbol'>:viewname</span><span class='comma'>,</span> <span class='label'>hide:</span> <span class='symbol'>:menu</span>
+</code></pre>
 
 
   </div>
@@ -167,8 +167,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute keymap.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute keymap.</p>
 </div></span>
   
 </li>
@@ -209,7 +208,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -227,7 +227,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Options/KeyLists.html" title="Card::View::Options::KeyLists (module)">KeyLists</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Options/KeyLists.html#accessible_keys-instance_method" title="Card::View::Options::KeyLists#accessible_keys (method)">accessible_keys</a></span>, <span class='object_link'><a href="Options/KeyLists.html#all_keys-instance_method" title="Card::View::Options::KeyLists#all_keys (method)">all_keys</a></span>, <span class='object_link'><a href="Options/KeyLists.html#heir_keys-instance_method" title="Card::View::Options::KeyLists#heir_keys (method)">heir_keys</a></span>, <span class='object_link'><a href="Options/KeyLists.html#reset_key_lists-instance_method" title="Card::View::Options::KeyLists#reset_key_lists (method)">reset_key_lists</a></span>, <span class='object_link'><a href="Options/KeyLists.html#shark_keys-instance_method" title="Card::View::Options::KeyLists#shark_keys (method)">shark_keys</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Options/KeyLists.html#accessible_keys-instance_method" title="Card::View::Options::KeyLists#accessible_keys (method)">accessible_keys</a></span>, <span class='object_link'><a href="Options/KeyLists.html#all_keys-instance_method" title="Card::View::Options::KeyLists#all_keys (method)">all_keys</a></span>, <span class='object_link'><a href="Options/KeyLists.html#heir_keys-instance_method" title="Card::View::Options::KeyLists#heir_keys (method)">heir_keys</a></span>, <span class='object_link'><a href="Options/KeyLists.html#reset_key_lists-instance_method" title="Card::View::Options::KeyLists#reset_key_lists (method)">reset_key_lists</a></span>, <span class='object_link'><a href="Options/KeyLists.html#shark_keys-instance_method" title="Card::View::Options::KeyLists#shark_keys (method)">shark_keys</a></span>, <span class='object_link'><a href="Options/KeyLists.html#slot_keys-instance_method" title="Card::View::Options::KeyLists#slot_keys (method)">slot_keys</a></span></p>
 
   
   
@@ -249,7 +249,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Options/VooApi.html" title="Card::View::Options::VooApi (module)">VooApi</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Options/VooApi.html#define_getter-class_method" title="Card::View::Options::VooApi.define_getter (method)">define_getter</a></span>, <span class='object_link'><a href="Options/VooApi.html#define_setter-class_method" title="Card::View::Options::VooApi.define_setter (method)">define_setter</a></span>, <span class='object_link'><a href="Options/VooApi.html#included-class_method" title="Card::View::Options::VooApi.included (method)">included</a></span>, <span class='object_link'><a href="Options/VooApi.html#items-instance_method" title="Card::View::Options::VooApi#items (method)">#items</a></span>, <span class='object_link'><a href="Options/VooApi.html#normalize_cache-instance_method" title="Card::View::Options::VooApi#normalize_cache (method)">#normalize_cache</a></span>, <span class='object_link'><a href="Options/VooApi.html#normalize_edit-instance_method" title="Card::View::Options::VooApi#normalize_edit (method)">#normalize_edit</a></span>, <span class='object_link'><a href="Options/VooApi.html#normalize_editor-instance_method" title="Card::View::Options::VooApi#normalize_editor (method)">#normalize_editor</a></span>, <span class='object_link'><a href="Options/VooApi.html#normalize_special_options!-instance_method" title="Card::View::Options::VooApi#normalize_special_options! (method)">#normalize_special_options!</a></span>, <span class='object_link'><a href="Options/VooApi.html#normalize_wrap-instance_method" title="Card::View::Options::VooApi#normalize_wrap (method)">#normalize_wrap</a></span>, <span class='object_link'><a href="Options/VooApi.html#slot_options-instance_method" title="Card::View::Options::VooApi#slot_options (method)">#slot_options</a></span>, <span class='object_link'><a href="Options/VooApi.html#special_option_value-instance_method" title="Card::View::Options::VooApi#special_option_value (method)">#special_option_value</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Options/VooApi.html#define_getter-class_method" title="Card::View::Options::VooApi.define_getter (method)">define_getter</a></span>, <span class='object_link'><a href="Options/VooApi.html#define_setter-class_method" title="Card::View::Options::VooApi.define_setter (method)">define_setter</a></span>, <span class='object_link'><a href="Options/VooApi.html#included-class_method" title="Card::View::Options::VooApi.included (method)">included</a></span>, <span class='object_link'><a href="Options/VooApi.html#items-instance_method" title="Card::View::Options::VooApi#items (method)">#items</a></span>, <span class='object_link'><a href="Options/VooApi.html#normalize_cache-instance_method" title="Card::View::Options::VooApi#normalize_cache (method)">#normalize_cache</a></span>, <span class='object_link'><a href="Options/VooApi.html#normalize_edit-instance_method" title="Card::View::Options::VooApi#normalize_edit (method)">#normalize_edit</a></span>, <span class='object_link'><a href="Options/VooApi.html#normalize_input_type-instance_method" title="Card::View::Options::VooApi#normalize_input_type (method)">#normalize_input_type</a></span>, <span class='object_link'><a href="Options/VooApi.html#normalize_special_options!-instance_method" title="Card::View::Options::VooApi#normalize_special_options! (method)">#normalize_special_options!</a></span>, <span class='object_link'><a href="Options/VooApi.html#normalize_wrap-instance_method" title="Card::View::Options::VooApi#normalize_wrap (method)">#normalize_wrap</a></span>, <span class='object_link'><a href="Options/VooApi.html#slot_options-instance_method" title="Card::View::Options::VooApi#slot_options (method)">#slot_options</a></span>, <span class='object_link'><a href="Options/VooApi.html#special_option_value-instance_method" title="Card::View::Options::VooApi#special_option_value (method)">#special_option_value</a></span></p>
 
   <div id="class_attr_details" class="attr_details">
     <h2>Class Attribute Details</h2>
@@ -267,8 +267,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute keymap</p>
+    <p>Returns the value of attribute keymap.</p>
 
 
   </div>
@@ -282,12 +281,12 @@
       <pre class="lines">
 
 
-74
-75
-76</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view/options.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view/options.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_keymap'>keymap</span>
   <span class='ivar'>@keymap</span>
@@ -319,21 +318,25 @@
       <pre class="lines">
 
 
-76
-77
 78
 79
 80
-81</pre>
+81
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/view/options.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/card/view/options.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_option'>add_option</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid option type: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type'>type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@keymap</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
 
   <span class='ivar'>@keymap</span><span class='lbracket'>[</span><span class='id identifier rubyid_type'>type</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_name'>name</span>
   <span class='id identifier rubyid_reset_key_lists'>reset_key_lists</span>
+  <span class='const'><span class='object_link'><a href="Options/VooApi.html" title="Card::View::Options::VooApi (module)">VooApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_define_getter'><span class='object_link'><a href="Options/VooApi.html#define_getter-class_method" title="Card::View::Options::VooApi.define_getter (method)">define_getter</a></span></span> <span class='id identifier rubyid_name'>name</span>
+  <span class='const'><span class='object_link'><a href="Options/VooApi.html" title="Card::View::Options::VooApi (module)">VooApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_define_setter'><span class='object_link'><a href="Options/VooApi.html#define_setter-class_method" title="Card::View::Options::VooApi.define_setter (method)">define_setter</a></span></span> <span class='id identifier rubyid_name'>name</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -345,9 +348,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:19 2019 by
+  Generated on Thu Sep 10 15:02:25 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -66,7 +66,7 @@ def items= array
 end
 
 # append item to list (does not save)
-# @param item [Cardish]
+# @param cardish [Cardish]
 def << cardish
   add_item cardish
 end
@@ -88,16 +88,16 @@ def add_item! name
 end
 
 # remove item from list
-# @param name [String, Card::Name] item name
+# @param cardish [String, Card::Name] item to drop
 def drop_item cardish
   drop_item_name = Card::Name[cardish]
   items_to_content(item_names.reject { |item_name| item_name == drop_item_name })
 end
 
 # remove item from list and save card
-# @param name [String, Card::Name] item name
-def drop_item! name
-  drop_item name
+# @param cardish [String, Card::Name] item to drop
+def drop_item! cardish
+  drop_item cardish
   save!
 end
 

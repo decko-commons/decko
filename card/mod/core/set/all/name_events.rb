@@ -21,14 +21,11 @@ end
 event :validate_uniqueness_of_name, skip: :allowed do
   # validate uniqueness of name
 
-  puts "validating uniqueness of key #{key}: #{Card::Lexicon.id key}, #{id}"
   return unless (existing_id = Card::Lexicon.id key) && existing_id != id
   # The above is a fast check but cannot detect if card is in trash
 
-  puts "failed first check.  now looking up id: #{existing_id}"
   # TODO: perform the following as a remote-only fetch (not yet supported)
   return unless (existing_card = Card.where(id: existing_id, trash: false).take)
-  puts "failed second check. existing card = #{existing_card.name}"
 
   errors.add :name, tr(:error_name_exists, name: existing_card.name)
 end
@@ -58,7 +55,7 @@ end
 # STAGE: store
 
 event :expire_old_name, :store, changed: :name, on: :update do
-  ActManager.expirees << name_before_act
+  Director.expirees << name_before_act
 end
 
 event :update_lexicon_on_create, :finalize, changed: :name, on: :create do
@@ -70,14 +67,14 @@ event :update_lexicon_on_rename, :finalize, changed: :name, on: :update do
 end
 
 def lex
-  simple? ? key : [left_id, right_id]
+  simple? ? name : [left_id, right_id]
 end
 
 def old_lex
-  if left_id_before_last_save
-    [left_id_before_last_save, right_id_before_last_save]
+  if (old_left_id = left_id_before_act)
+    [old_left_id, right_id_before_act]
   else
-    name_before_last_save.to_name.key
+    name_before_act
   end
 end
 
@@ -97,7 +94,7 @@ end
 def prepare_new_side side, side_id, sidename
   return unless side_id == -1 || !Card[side_id]&.real?
 
-  sidecard = ActManager.card(sidename) || add_subcard(sidename)
+  sidecard = Director.card(sidename) || add_subcard(sidename)
   send "#{side}_id=", sidecard
 end
 

@@ -6,15 +6,15 @@
 <title>
   Module: Card::Query::CardQuery::Normalization
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Query::CardQuery::Normalization";
   relpath = '../../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>normalize clause’s keys and values.</p>
+    <p>normalize clause’s keys and values.</p>
 
 
   </div>
@@ -131,7 +130,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -153,7 +153,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -175,7 +176,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -197,7 +199,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -219,7 +222,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -241,7 +245,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -286,8 +291,8 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_clause_to_hash'>clause_to_hash</span> <span class='id identifier rubyid_clause'>clause</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_clause'>clause</span>
   <span class='kw'>when</span> <span class='const'>Hash</span>              <span class='kw'>then</span> <span class='id identifier rubyid_clause'>clause</span>
-  <span class='kw'>when</span> <span class='const'>String</span>            <span class='kw'>then</span> <span class='lbrace'>{</span> <span class='label'>key:</span> <span class='id identifier rubyid_clause'>clause</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='rbrace'>}</span>
   <span class='kw'>when</span> <span class='const'>Integer</span>           <span class='kw'>then</span> <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='id identifier rubyid_clause'>clause</span> <span class='rbrace'>}</span>
+  <span class='kw'>when</span> <span class='const'>String</span>            <span class='kw'>then</span> <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../../Lexicon.html#id-class_method" title="Card::Lexicon.id (method)">id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_clause'>clause</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='op'>-</span><span class='int'>2</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>when</span> <span class='const'>Symbol</span>            <span class='kw'>then</span> <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../../Codename.html#id-class_method" title="Card::Codename.id (method)">id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_clause'>clause</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>else</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Error/BadQuery.html" title="Card::Error::BadQuery (class)">BadQuery</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid clause: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_clause'>clause</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
@@ -450,9 +455,9 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize_value'>normalize_value</span> <span class='id identifier rubyid_val'>val</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='kw'>when</span> <span class='const'>Integer</span><span class='comma'>,</span> <span class='const'>Float</span><span class='comma'>,</span> <span class='const'>Hash</span><span class='comma'>,</span> <span class='const'>Symbol</span> <span class='kw'>then</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='kw'>when</span> <span class='const'>String</span>                       <span class='kw'>then</span> <span class='id identifier rubyid_normalize_string_value'>normalize_string_value</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='kw'>when</span> <span class='const'>Array</span>                        <span class='kw'>then</span> <span class='id identifier rubyid_normalize_array_value'>normalize_array_value</span> <span class='id identifier rubyid_val'>val</span>
+  <span class='kw'>when</span> <span class='const'>Integer</span><span class='comma'>,</span> <span class='const'>Float</span><span class='comma'>,</span> <span class='const'>Hash</span><span class='comma'>,</span> <span class='const'>Symbol</span><span class='comma'>,</span> <span class='const'>NilClass</span> <span class='kw'>then</span> <span class='id identifier rubyid_val'>val</span>
+  <span class='kw'>when</span> <span class='const'>String</span>                                 <span class='kw'>then</span> <span class='id identifier rubyid_normalize_string_value'>normalize_string_value</span> <span class='id identifier rubyid_val'>val</span>
+  <span class='kw'>when</span> <span class='const'>Array</span>                                  <span class='kw'>then</span> <span class='id identifier rubyid_normalize_array_value'>normalize_array_value</span> <span class='id identifier rubyid_val'>val</span>
   <span class='kw'>else</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Error/BadQuery.html" title="Card::Error::BadQuery (class)">BadQuery</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid value type: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_val'>val</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'> (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_val'>val</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -496,9 +501,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:22 2019 by
+  Generated on Thu Sep 10 15:02:27 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

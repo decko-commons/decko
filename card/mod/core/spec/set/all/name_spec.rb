@@ -1,22 +1,11 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Name do
-  describe "#repair_key" do
-    it "fixes broken keys" do
-      a = Card["a"]
-      a.update_column "key", "broken_a"
-      a.expire
-
-      a = Card.find a.id
-      expect(a.key).to eq("broken_a")
-      a.repair_key
-      expect(a.key).to eq("a")
-    end
-  end
-
-  describe "#descendants" do
+RSpec.describe Card::Set::All::Name do
+  describe "#each_descendants" do
     it "finds descendants" do
-      expect(Card["A"].descendants.length).to be > 0
+      descendants_of_a = []
+      Card["A"].each_descendant { |card| descendants_of_a << card.name }
+      expect(descendants_of_a).to include("A+B+C")
     end
   end
 end

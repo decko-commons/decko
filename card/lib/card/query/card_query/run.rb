@@ -54,17 +54,19 @@ class Card
           record
         end
 
-        def key_result record, pattern
+        def key_result record, pattern=""
           name_result(record, pattern).to_name.key
         end
 
-        def name_result record, pattern
-          process_name Card::Name[record["id"]], pattern
+        def name_result record, pattern=""
+          name = record["name"]&.to_name
+          name ||= Card::Lexicon.lex_to_name [record["left_id"], record["right_id"]]
+          process_name name, pattern
         end
 
         def card_result record, _field
           if alter_results?
-            Card.fetch alter_result(record["name"]), new: {}
+            Card.fetch name_result(record), new: {}
           else
             fetch_or_instantiate record
           end
@@ -85,7 +87,7 @@ class Card
           ActiveRecord::Base.connection.select_all sql
         end
 
-        def process_name name, pattern
+        def process_name name, pattern=""
           name = pattern.to_name.absolute(name) if pattern =~ /_\w+/
           return name unless alter_results?
 

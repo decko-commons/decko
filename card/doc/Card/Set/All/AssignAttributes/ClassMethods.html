@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::AssignAttributes::ClassMethods
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::AssignAttributes::ClassMethods";
   relpath = '../../../../';
 </script>
@@ -101,7 +101,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#assign_or_initialize_by-instance_method" title="#assign_or_initialize_by (instance method)">#<strong>assign_or_initialize_by</strong>(name, attributes, fetch_opts = {})  &#x21d2; Object </a>
+      <a href="#assign_or_newish-instance_method" title="#assign_or_newish (instance method)">#<strong>assign_or_newish</strong>(name, attributes, fetch_opts = {})  &#x21d2; Object </a>
     
 
     
@@ -115,7 +115,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -130,9 +131,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="assign_or_initialize_by-instance_method">
+  <h3 class="signature first" id="assign_or_newish-instance_method">
   
-    #<strong>assign_or_initialize_by</strong>(name, attributes, fetch_opts = {})  &#x21d2; <tt>Object</tt> 
+    #<strong>assign_or_newish</strong>(name, attributes, fetch_opts = {})  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -156,9 +157,9 @@
     <td>
       <pre class="code"><span class="info file"># File 'tmpsets/set/mod003-core/all/assign_attributes.rb', line 43</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_assign_or_initialize_by'>assign_or_initialize_by</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='comma'>,</span> <span class='id identifier rubyid_fetch_opts'>fetch_opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_assign_or_newish'>assign_or_newish</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='comma'>,</span> <span class='id identifier rubyid_fetch_opts'>fetch_opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_known_card'>known_card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_fetch_opts'>fetch_opts</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_known_card'>known_card</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span><span class='period'>.</span><span class='id identifier rubyid_assign_attributes'>assign_attributes</span> <span class='id identifier rubyid_attributes'>attributes</span>
+    <span class='id identifier rubyid_known_card'>known_card</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span><span class='period'>.</span><span class='id identifier rubyid_newish'>newish</span> <span class='id identifier rubyid_attributes'>attributes</span>
     <span class='id identifier rubyid_known_card'>known_card</span>
   <span class='kw'>else</span>
     <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -174,9 +175,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:42 2019 by
+  Generated on Thu Sep 10 15:02:38 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

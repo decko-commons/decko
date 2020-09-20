@@ -6,15 +6,15 @@
 <title>
   Class: Card::Content::Diff::LCS
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Content::Diff::LCS";
   relpath = '../../../';
 </script>
@@ -94,8 +94,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/card/content/diff/lcs.rb<span class="defines">,<br />
-  lib/card/content/diff/processor.rb</span>
+    <dd>lib/card/content/diff/l_c_s.rb<span class="defines">,<br />
+  lib/card/content/diff/l_c_s/processor.rb</span>
 </dd>
   </dl>
   
@@ -103,8 +103,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Use LCS algorithm to create a <span class='object_link'><a href="Result.html" title="Card::Content::Diff::Result (class)">Result</a></span></p>
+    <p>Use LCS algorithm to create a <span class='object_link'><a href="Result.html" title="Card::Content::Diff::Result (class)">Result</a></span></p>
 
 
   </div>
@@ -156,8 +155,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of LCS.</p>
+    <span class="summary_desc"><div class='inline'><p>A new instance of LCS.</p>
 </div></span>
   
 </li>
@@ -180,7 +178,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -202,8 +201,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a new instance of LCS</p>
+    <p>Returns a new instance of LCS.</p>
 
 
   </div>
@@ -231,7 +229,7 @@
 19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content/diff/lcs.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content/diff/l_c_s.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='comment'># regex; remove matches completely from diff
@@ -242,7 +240,7 @@
   <span class='ivar'>@preprocess</span>   <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:preprocess</span><span class='rbracket'>]</span>  <span class='comment'># block; called with every word
 </span>  <span class='ivar'>@postprocess</span>  <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:postprocess</span><span class='rbracket'>]</span> <span class='comment'># block; called with complete diff
 </span>
-  <span class='ivar'>@splitters</span> <span class='op'>=</span> <span class='qwords_beg'>%w(</span><span class='tstring_content'>&lt;[^&gt;]+&gt;</span><span class='words_sep'> </span><span class='tstring_content'>\[\[[^\]]+\]\]</span><span class='words_sep'> </span><span class='tstring_content'>\{\{[^}]+\}\}</span><span class='words_sep'> </span><span class='tstring_content'>\s+</span><span class='words_sep'>)</span>
+  <span class='ivar'>@splitters</span> <span class='op'>=</span> <span class='qwords_beg'>%w(</span><span class='tstring_content'>&lt;[^&gt;]+&gt;</span><span class='words_sep'> </span><span class='tstring_content'>\[\[[^\]]+\]\]</span><span class='words_sep'> </span><span class='tstring_content'>\{\{[^}]+\}\}</span><span class='words_sep'> </span><span class='tstring_content'>\s+</span><span class='tstring_end'>)</span></span>
   <span class='ivar'>@disjunction_pattern</span> <span class='op'>=</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\s</span><span class='regexp_end'>/</span></span>
 <span class='kw'>end</span></pre>
     </td>
@@ -279,7 +277,7 @@
 25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/content/diff/lcs.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/card/content/diff/l_c_s.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span> <span class='id identifier rubyid_old_text'>old_text</span><span class='comma'>,</span> <span class='id identifier rubyid_new_text'>new_text</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span>
   <span class='ivar'>@result</span> <span class='op'>=</span> <span class='id identifier rubyid_result'>result</span>
@@ -296,9 +294,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:58 2019 by
+  Generated on Thu Sep 10 15:02:48 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

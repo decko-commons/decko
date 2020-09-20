@@ -27,7 +27,7 @@ describe Card::Format::Render do
 
   describe "voo.wrap" do
     let :wrapped_main_view do
-      with_params layout: :default, view: :core do
+      Card::Env.with_params layout: :default, view: :core do
         Card["Joe User+*account+*password"].format.render_with_layout :core, :default
         # + password cards wrap their core view in "em"
       end
