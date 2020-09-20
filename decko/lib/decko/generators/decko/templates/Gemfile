@@ -6,6 +6,10 @@ path "<%= @gemfile_gem_path %>" do
   gem 'card', :require => false
   gem 'cardname', :require => false
 end
+path "<%= @gemfile_gem_path %>/card/gem_mod" do
+  gem 'card-mod-date'
+  # this suffices to make all the mods in gem_mod findable
+end
 <% else %>
 gem 'decko'
 <% end %>

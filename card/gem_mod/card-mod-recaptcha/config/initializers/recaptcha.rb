@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require "recaptcha"
 
 # This initializer module is mostly here to avoid adding methods/vars to the Object
 # namespace

@@ -1,6 +1,3 @@
-include_set Abstract::ProsemirrorEditor
-include_set Abstract::TinymceEditor
-include_set Abstract::AceEditor
 
 Self::InputOptions.add_to_basket :options, "text area"
 Self::InputOptions.add_to_basket :options, "text field"
@@ -45,7 +42,7 @@ format :html do
   end
 
   def rich_text_input
-    send "#{Cardio.config.rich_text_editor || :tinymce}_editor_input"
+    send "#{Cardio.config.rich_text_editor || :text_area}_editor_input"
   end
 
   def text_area_input
