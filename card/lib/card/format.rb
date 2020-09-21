@@ -20,6 +20,7 @@ class Card
     include Card::Env::Location
     include Nesting
     include Render
+    include Wrapper
     include ContextNames
     include Content
     include Error

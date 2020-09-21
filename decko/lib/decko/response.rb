@@ -6,6 +6,7 @@ module Decko
     end
 
     private
+
     def respond format, result, status
       if status.in? [302, 303]
         hard_redirect result
