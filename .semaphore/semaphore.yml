@@ -19,7 +19,7 @@ blocks:
             cd /home/runner
 
             bundle update
-            # --path /home/runner/wagn/.semaphore-cache
+            # --path /home/runner/decko/.semaphore-cache
             cp /home/runner/bucket_credentials.yml /home/runner/decko/card/spec/support/bucket_credentials.yml
 
   - name: "Smoke tests"

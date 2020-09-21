@@ -64,7 +64,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
       end
 
       describe "relative plus/part" do
-        it "cleans wql" do
+        it "cleans cql" do
           query = Card::Query.new(part: "_self", context: "A")
           expect(query.statement[:part]).to eq("A")
         end

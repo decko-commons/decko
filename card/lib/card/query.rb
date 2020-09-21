@@ -6,15 +6,15 @@ class Card
   # Search and Set cards use Card::Query to query the database, and it's also
   # frequently used directly in code.
   #
-  # Query "statements" (objects, really) are made in WQL (Wagn Query
-  # Language). Because WQL is used by Sharks, the primary language
-  # documentation is on wagn.org. (https://decko.org/WQL_Syntax). Note that the
+  # Query "statements" (objects, really) are made in CQL (Card Query
+  # Language). Because CQL is used by Sharks, the primary language
+  # documentation is on wagn.org. (https://decko.org/CQL_Syntax). Note that the
   # examples there are in JSON, like Search card content, but statements in
   # Card::Query are in ruby form.
   #
   # In Decko's current form, Card::Query generates and executes SQL statements.
   # However, the SQL generation is largely (not yet fully) separated from the
-  # WQL statement interpretation.
+  # CQL statement interpretation.
   #
   # The most common way to use Card::Query is as follows:
   #     list_of_cards = Card::Query.run(statement)
@@ -45,7 +45,7 @@ class Card
     ATTRIBUTES = {
       # Each of the "basic" fields corresponds directly to a database field.
       # their values are translated fairly directly into SQL-safe values.
-      # (These are referred to as "properties" in WQL documentation. Need to
+      # (These are referred to as "properties" in CQL documentation. Need to
       # reconcile #EFM)
       basic:           %i[id name key type_id content left_id right_id
                           creator_id updater_id codename read_rule_id],
@@ -100,7 +100,7 @@ class Card
 
       def safe_sql txt
         txt = txt.to_s
-        raise "WQL contains disallowed characters: #{txt}" if txt.match?(/[^\w\s*().,]/)
+        raise "CQL contains disallowed characters: #{txt}" if txt.match?(/[^\w\s*().,]/)
 
         txt
       end

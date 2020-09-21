@@ -20,7 +20,7 @@ RSpec.describe Card::Set::Type::File do
     context "storage type: protected" do
       subject { source_view protected_file }
 
-      it "renders protected url to be processed by wagn" do
+      it "renders protected url to be processed by decko" do
         is_expected.to(
           eq "/files/~#{protected_file.id}/#{protected_file.last_action_id}.txt"
         )

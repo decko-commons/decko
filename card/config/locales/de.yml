@@ -5,7 +5,7 @@
 #  key name prefixes:
 #    'exception_' begins key of text to be used in a raised exception
 #    'error_' begins key of text to be added to an error list (usuallly)
-#    'search_' begins key of text to be used in WQL search comment
+#    'search_' begins key of text to be used in CQL search comment
 #    'deny_' begins key of text to be used in denying action due to permissions
 #    (Not all key names begin with a prefix. In the absence of a prefix,
 #    the way the text will be used is generic and not explicitly hinted at.)
@@ -48,11 +48,11 @@ de:
         attributes:
           exception_bad_query: '"%{found_by}" value must be valid Search, aber %{name} ist ein %{type}' # TODO
         clause:
-          exception_bad_chars: "WQL enthält nicht erlaubte Zeichen: %{text}"
+          exception_bad_chars: "CQL enthält nicht erlaubte Zeichen: %{text}"
         interpretation:
           exception_invalid_attribute: Ungültiges Attribut %{key}
           exception_invalid_args: Invalid query args %{items}
-          exception_unknown_valtype: "unbekannter WQL value type: %{klass}"
+          exception_unknown_valtype: "unbekannter CQL value type: %{klass}"
         join:
           exception_to_not_join: "%{to} cannot be %{join}"
           exception_invalid_option: "invalid %{side} option: %{object}"

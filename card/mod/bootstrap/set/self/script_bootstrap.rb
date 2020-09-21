@@ -7,6 +7,6 @@ end
 
 def source_files
   %w[vendor/bootstrap/dist/js/bootstrap.bundle.js
-     lib/javascript/bootstrap_modal_wagn.js
+     lib/javascript/bootstrap_modal_decko.js
      vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js]
 end

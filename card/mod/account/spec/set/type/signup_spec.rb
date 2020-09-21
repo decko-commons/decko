@@ -9,7 +9,7 @@ RSpec.describe Card::Set::Type::Signup do
     Mail::TestMailer.deliveries.clear
     Card.create!(
       name: "Big Bad Wolf", type_id: Card::SignupID,
-      "+*account" => { "+*email" => "wolf@wagn.org", "+*password" => "wolf" }
+      "+*account" => { "+*email" => "wolf@decko.org", "+*password" => "wolf" }
     )
   end
 
@@ -38,7 +38,7 @@ RSpec.describe Card::Set::Type::Signup do
 
     it "creates all the necessary cards" do
       expect(@signup.type_id).to eq(Card::SignupID)
-      expect(@account.email).to eq("wolf@wagn.org")
+      expect(@account.email).to eq("wolf@decko.org")
       expect(@account.status).to eq("unverified")
       expect(@account.salt).not_to eq("")
       expect(@account.password.length).to be > 10 # encrypted
@@ -48,7 +48,7 @@ RSpec.describe Card::Set::Type::Signup do
       Card::Auth.as_bot do
 #        puts @signup.format.render_core
         expect(@signup.format.render_core).to have_tag "div.invite-links" do
-          with_tag "div", text: "A verification email has been sent to wolf@wagn.org"
+          with_tag "div", text: "A verification email has been sent to wolf@decko.org"
           with_tag "div" do
             with_tag "a", href: "/update/Big_Bad_Wolf?approve_with_verification=true",
                           text: "Resend verification email"
@@ -69,7 +69,7 @@ RSpec.describe Card::Set::Type::Signup do
 
     it "notifies someone" do
       expect(ActionMailer::Base.deliveries.map(&:to).sort).to(
-        eq [["signups@wagn.org"], ["wolf@wagn.org"]]
+        eq [["signups@decko.org"], ["wolf@decko.org"]]
       )
     end
 
@@ -96,7 +96,7 @@ RSpec.describe Card::Set::Type::Signup do
 
     it "creates all the necessary cards" do
       expect(@signup.type_id).to eq(Card::SignupID)
-      expect(@account.email).to eq("wolf@wagn.org")
+      expect(@account.email).to eq("wolf@decko.org")
       expect(@account.status).to eq("unapproved")
       expect(@account.salt).not_to eq("")
       expect(@account.password.length).to be > 10 # encrypted
@@ -104,11 +104,11 @@ RSpec.describe Card::Set::Type::Signup do
 
     it "sends signup alert email" do
       signup_alert = ActionMailer::Base.deliveries.last
-      expect(signup_alert.to).to eq(["signups@wagn.org"])
+      expect(signup_alert.to).to eq(["signups@decko.org"])
       [0, 1].each do |part|
         body = signup_alert.body.parts[part].body.raw_source
         expect(body).to include(@signup.name)
-        expect(body).to include("wolf@wagn.org")
+        expect(body).to include("wolf@decko.org")
       end
     end
 
@@ -150,7 +150,7 @@ RSpec.describe Card::Set::Type::Signup do
       @signup = Card.create! name: "Big Bad Sheep",
                              type_id: Card::SignupID,
                              "+*account" => {
-                               "+*email" => "sheep@wagn.org",
+                               "+*email" => "sheep@decko.org",
                                "+*password" => "sheep"
                              }
     end
@@ -179,7 +179,7 @@ RSpec.describe Card::Set::Type::Signup do
 
     it "creates all the necessary cards" do
       expect(@signup.type_id).to eq(Card::SignupID)
-      expect(@account.email).to eq("wolf@wagn.org")
+      expect(@account.email).to eq("wolf@decko.org")
       expect(@account.status).to eq("unverified")
       expect(@account.salt).not_to eq("")
     end
@@ -192,10 +192,10 @@ RSpec.describe Card::Set::Type::Signup do
   # describe '#signup_notifications' do
   #   before do
   #     Card::Auth.as_bot do
-  #       Card.create! name: '*request+*to', content: 'signups@wagn.org'
+  #       Card.create! name: '*request+*to', content: 'signups@decko.org'
   #     end
   #     @user_name = 'Big Bad Wolf'
-  #     @user_email = 'wolf@wagn.org'
+  #     @user_email = 'wolf@decko.org'
   #     @signup = Card.create! name: @user_name, type_id: Card::SignupID,
   #                            '+*account'=>{
   #       '+*email'=>@user_email, '+*password'=>'wolf'}
@@ -205,7 +205,7 @@ RSpec.describe Card::Set::Type::Signup do
   #   end
   #
   #   it 'send to correct address' do
-  #     expect(@mail.to).to eq(['signups@wagn.org'])
+  #     expect(@mail.to).to eq(['signups@decko.org'])
   #   end
   #
   #   it 'contains request url' do

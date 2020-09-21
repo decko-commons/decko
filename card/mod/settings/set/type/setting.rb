@@ -13,10 +13,10 @@ end
 
 format :data do
   view :core do
-    wql = { left: { type: SetID },
+    cql = { left: { type: SetID },
             right: card.id,
             limit: 0 }
-    Card.search(wql).compact.map { |c| nest c }
+    Card.search(cql).compact.map { |c| nest c }
   end
 end
 
@@ -26,13 +26,13 @@ end
 
 def set_classes_with_rules
   Card.set_patterns.reverse.map do |set_class|
-    wql = { left: { type: SetID },
+    cql = { left: { type: SetID },
             right: id,
             sort: %w[content name],
             limit: 0 }
-    wql[:left][(set_class.anchorless? ? :id : :right_id)] = set_class.pattern_id
+    cql[:left][(set_class.anchorless? ? :id : :right_id)] = set_class.pattern_id
 
-    rules = Card.search wql
+    rules = Card.search cql
     [set_class, rules] unless rules.empty?
   end.compact
 end

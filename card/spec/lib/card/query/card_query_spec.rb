@@ -8,7 +8,7 @@ RSpec.describe Card::Query::CardQuery do
     end
 
     it "returns count" do
-      expect(Card.count_by_wql part: "A").to eq(7)
+      expect(Card.count_by_cql part: "A").to eq(7)
     end
 
     it "treats Symbols as Strings" do

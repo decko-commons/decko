@@ -10,8 +10,8 @@ RAKEFILE=../Rakefile.eng_deck
 APPLICATION=../application_rb.eng_deck
 REPO_DIR=`pwd`
 TEST_WORK=${REPO_DIR}/test_work
-cd wagn/
-gem build wagn.gemspec
+cd decko/
+gem build decko.gemspec
 mv *.gem ${REPO_DIR}/card/
 cd ${REPO_DIR}/decko-rails
 gem build decko.gemspec
@@ -39,9 +39,9 @@ bundle install
 cp ${DBCFG} config/database.yml
 RAILS_ENV=test bundle exec rake db:create --trace
 echo "seed database"
-RAILS_ENV=test bundle exec rake wagn:seed --trace
+RAILS_ENV=test bundle exec rake decko:seed --trace
 #echo "migrating"
 #RAILS_ENV=test bundle exec rake db:migrate --trace
-#RAILS_ENV=test bundle exec rake wagn:migrate --trace
+#RAILS_ENV=test bundle exec rake decko:migrate --trace
 #RAILS_ENV=development bundle exec rake db:migrate --trace
-#RAILS_ENV=development bundle exec rake wagn:migrate --trace
+#RAILS_ENV=development bundle exec rake decko:migrate --trace

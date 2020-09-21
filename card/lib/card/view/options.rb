@@ -40,7 +40,7 @@ class Card
           :main,           # format object is page's "main" object (Boolean)
           :home_view,      # view for slot to return to when no view specified
           :edit_structure, # use a different structure for editing (Array)
-          :wql,            # contextual wql alterations for search cards (Hash)
+          :cql,            # contextual cql alterations for search cards (Hash)
           :action_id,      # a Card::Action id (Integer)
           :content_opts    # options for Card::Content.new
           # :context_names   # names used to contextualize titles

@@ -71,7 +71,7 @@ class Card
                                  ActiveRecord::RecordInvalid]
     end
 
-    # error in WQL query
+    # error in CQL query
     class BadQuery < UserError
     end
 

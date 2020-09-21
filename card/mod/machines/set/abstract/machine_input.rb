@@ -1,8 +1,8 @@
 module MachineInputClassMethods
-  attr_accessor :machines_wql
+  attr_accessor :machines_cql
 
   def machine_input_for args
-    @machines_wql = args
+    @machines_cql = args
   end
 
   def machine_input &block
@@ -12,7 +12,7 @@ end
 
 def self.included host_class
   host_class.extend(MachineInputClassMethods)
-  host_class.machines_wql = {}
+  host_class.machines_cql = {}
   host_class.machine_input do
     format._render_raw
   end
@@ -54,12 +54,12 @@ def self.define_update_event event_suffix, host_class
 end
 
 def self.search_involved_machines name, host_class
-  wql_statement =
+  cql_statement =
     { right_plus: [
       { codename: "machine_input" },
       { link_to: name }
-    ] }.merge(host_class.machines_wql)
-  Card.search(wql_statement)
+    ] }.merge(host_class.machines_cql)
+  Card.search(cql_statement)
 end
 
 def expire_machine_cache
