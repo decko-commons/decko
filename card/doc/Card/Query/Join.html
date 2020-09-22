@@ -6,15 +6,15 @@
 <title>
   Class: Card::Query::Join
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Query::Join";
   relpath = '../../';
 </script>
@@ -101,8 +101,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>object representation of Card::Query joins</p>
+    <p>object representation of Card::Query joins</p>
 
 
   </div>
@@ -111,17 +110,23 @@
   
 
 </div>
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="JOIN_OPT_KEYS-constant" class="">JOIN_OPT_KEYS =
-        
-      </dt>
-      <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>side</span><span class='words_sep'> </span><span class='tstring_content'>conditions</span><span class='words_sep'>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="JOIN_OPT_KEYS-constant" class="">JOIN_OPT_KEYS =
+          
+        </dt>
+        <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>side</span><span class='words_sep'> </span><span class='tstring_content'>conditions</span><span class='words_sep'>
 </span><span class='tstring_content'>from</span><span class='words_sep'> </span><span class='tstring_content'>from_table</span><span class='words_sep'> </span><span class='tstring_content'>from_alias</span><span class='words_sep'> </span><span class='tstring_content'>from_field</span><span class='words_sep'>
-</span><span class='tstring_content'>to</span><span class='words_sep'> </span><span class='tstring_content'>to_table</span><span class='words_sep'> </span><span class='tstring_content'>to_alias</span><span class='words_sep'> </span><span class='tstring_content'>to_field</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
+</span><span class='tstring_content'>to</span><span class='words_sep'> </span><span class='tstring_content'>to_table</span><span class='words_sep'> </span><span class='tstring_content'>to_alias</span><span class='words_sep'> </span><span class='tstring_content'>to_field</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -149,8 +154,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>These two manage hierarchy of nested joins.</p>
+    <span class="summary_desc"><div class='inline'><p>These two manage hierarchy of nested joins.</p>
 </div></span>
   
 </li>
@@ -176,8 +180,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>These two manage hierarchy of nested joins.</p>
+    <span class="summary_desc"><div class='inline'><p>These two manage hierarchy of nested joins.</p>
 </div></span>
   
 </li>
@@ -215,8 +218,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>This example join clause:.</p>
+    <span class="summary_desc"><div class='inline'><p>This example join clause:.</p>
 </div></span>
   
 </li>
@@ -239,7 +241,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -261,7 +264,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -283,20 +287,27 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>This example join clause:</p>
+    <p>This example join clause:</p>
 
 <p>cards c LEFT JOIN card_actions ca on c.id = ca.card_id and ca.draft is null</p>
 
 <p>…would translate into the following instance variables on the Join object:</p>
 
-<p>@side = “left” @from_table = “cards” @from_alias = “c” @from_field = “id” @to_table = “card_actions” @to_alias = “ca” @to_field = “card_id” @conditions = “ca.draft is null”</p>
+<p>@side = “left”
+  @from_table = “cards”
+  @from_alias = “c”
+  @from_field = “id”
+  @to_table = “card_actions”
+  @to_alias = “ca”
+  @to_field = “card_id”
+  @conditions = “ca.draft is null”</p>
 
 <p>all of the above can be set directly via opts using the keys with the same name.</p>
 
 <p>Join.new side: “left”, from_table: “cards”…</p>
 
-<p>The from and to fields can also be set via :from and :to keys. (see #interpret_from_and_to)</p>
+<p>The from and to fields can also be set via :from and :to keys.
+(see #interpret_from_and_to)</p>
 
 <p>You can generally use Symbols in place of Strings where applicable.</p>
 
@@ -355,8 +366,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>These two manage hierarchy of nested joins</p>
+    <p>These two manage hierarchy of nested joins</p>
 
 
   </div>
@@ -398,8 +408,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>These two manage hierarchy of nested joins</p>
+    <p>These two manage hierarchy of nested joins</p>
 
 
   </div>
@@ -447,6 +456,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -532,9 +542,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:57 2019 by
+  Generated on Thu Sep 10 15:02:47 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

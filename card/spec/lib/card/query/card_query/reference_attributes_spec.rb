@@ -28,19 +28,19 @@ RSpec.describe Card::Query::CardQuery::ReferenceAttributes do
         end
 
         it "handles referred_to_by" do
-          expect(run_query(referred_to_by: "X")).to eq(%w(A A+B T))
+          expect(run_query(referred_to_by: "X").sort).to eq(%w(A A+B T))
         end
       end
 
       describe "compound relationships" do
         it "right_plus should handle subqueries" do
-          expect(run_query(right_plus: ["*create", refer_to: "Anyone"]))
-            .to eq(["Fruit+*type", "Sign up+*type"])
+          expect(run_query(right_plus: ["*create", refer_to: "Anyone"], sort: :id))
+            .to eq(["Sign up+*type", "Fruit+*type"])
         end
 
         it "plus should handle subqueries" do # albeit more slowly :)
-          expect(run_query(plus: ["*create", refer_to: "Anyone"]))
-            .to eq(["Fruit+*type", "Sign up+*type"])
+          expect(run_query(plus: ["*create", refer_to: "Anyone"], sort: :id))
+            .to eq(["Sign up+*type", "Fruit+*type"])
         end
       end
 

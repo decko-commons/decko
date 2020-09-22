@@ -33,6 +33,7 @@ class Card
           when respond_to?(:"#{retrn}_result") then :"#{retrn}_result"
           when (retrn =~ /id$/)                then :id_result
           when (retrn =~ /_\w+/)               then :name_result
+          when (retrn == "key")                then :key_result
           else                                      :default_result
           end
         end
@@ -53,20 +54,26 @@ class Card
           record
         end
 
-        def name_result record, pattern
-          process_name record["name"], pattern
+        def key_result record, pattern=""
+          name_result(record, pattern).to_name.key
+        end
+
+        def name_result record, pattern=""
+          name = record["name"]&.to_name
+          name ||= Card::Lexicon.lex_to_name [record["left_id"], record["right_id"]]
+          process_name name, pattern
         end
 
         def card_result record, _field
           if alter_results?
-            Card.fetch alter_result(record["name"]), new: {}
+            Card.fetch name_result(record), new: {}
           else
             fetch_or_instantiate record
           end
         end
 
         def fetch_or_instantiate record
-          card = Card.retrieve_from_cache record["key"]
+          card = Card.retrieve_from_cache_by_id record["id"]
           unless card
             card = Card.instantiate record
             Card.write_to_cache card
@@ -76,11 +83,11 @@ class Card
         end
 
         def run_sql
-          # puts "\nstatement = #{@statement}"
-          ActiveRecord::Base.connection.select_all(sql)
+          # puts "\nSQL = #{sql}"
+          ActiveRecord::Base.connection.select_all sql
         end
 
-        def process_name name, pattern
+        def process_name name, pattern=""
           name = pattern.to_name.absolute(name) if pattern =~ /_\w+/
           return name unless alter_results?
 

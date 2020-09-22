@@ -1,39 +1,44 @@
-In this directory are docker resources to run the wagn app.
+In this directory are docker resources to run the decko app.
 
 Contents:
-Dockerized wagn application, for now this is a development setup, production later.  Includes:
+Dockerized decko application, for now this is a development setup, production later.  Includes:
    passenger, ruby 2.2.0 and nginx (phusion/passenger-ruby22)
-   wagn
+   decko
 
 These commands should result in two locally running development containers:
 
 # you can use a database run from the standard postgres container like this:
-docker pull postges
-docker run --name wagn_db --env POSTGRES_PASSWORD=cds94_devPw --env POSTGRES_USER=cds -d postgres
+#docker pull postges
+#docker run --name decko_db --env POSTGRES_PASSWORD=decko28_devPw --env POSTGRES_USER=decko -d postgres
 
-docker pull gerry/wagn:latest
-# then run wagn:
-docker run -p 80 -p 443 -d --link=wagn_db:db --name=wagnapp gerry/wagn /sbin/my_init
-# and seed it:
-docker exec -ti wagnapp su - app sh -c 'cd wagnapp; wagn seed -d'
+# MySQL is db configured by default in decko now
+docker pull mysql
+docker run --name decko_db --env MYSQL_HOST= --env MYSQL_ROOT_PASSWORD=decko28_devPw -d mysql
+
+
+docker pull gerry/decko:latest
+# then run decko:
+docker run -p IP:80:80 -p IP:443:443 -d --link=decko_db:db --name=deckoapp gerry/decko /sbin/my_init
+# and seed it: (why won't it run as development?)
+docker exec -ti deckoapp su - app sh -c 'cd deckoapp; decko seed -p; decko console < script/setup.con'
 
 The database password above is in the image, to use a different one, replace the password when running the
 database container and run this to configure rails (before doing the seed):
-docker exec -ti wagnapp sed -i -e 's/wagn28_devPw/your_actual_pw/' /home/app/wagnapp/config/database.yml
+docker exec -ti deckoapp sed -i -e 's/decko28_devPw/your_actual_pw/' /home/app/deckoapp/config/database.yml
 
 To run a quick test, find the IP address of your container and make a request:
-docker inspect wagnapp |grep IPA
+docker inspect deckoapp |grep IPA
 wget http://172.17.0.141/
 
 The container uses runit, so status/restart nginx with sv command:
-docker exec -ti wagnapp sv restart nginx
+docker exec -ti deckoapp sv restart nginx
 
 Postgres client in the container:
-docker exec -ti wagn_db su - postgres sh -c 'psql'
+docker exec -ti decko_db su - postgres sh -c 'psql'
 
 Save an image with the seeded database:
-docker commit wagn_db
-docker tag <image tag output above> wagn_db_seeded
+docker commit decko_db
+docker tag <image tag output above> decko_db_seeded
 
 TODO:
 export/import data commands

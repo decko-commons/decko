@@ -26,23 +26,19 @@ def expire_subcards
   subcards.clear
 end
 
-def save_as_subcard!
-  self.only_storage_phase = true
-  save! validate: false
-end
-
 # phase_method :attach_subcard, before: :store do |name_or_card, args=nil|
 # TODO: handle differently in different stages
-def attach_subcard name_or_card, args={}
+def add_subcard name_or_card, args={}
   subcards.add name_or_card, args
 end
-alias_method :add_subcard, :attach_subcard
+alias_method :attach_subcard, :add_subcard
 
-def attach_subcard! name_or_card, args={}
+def add_subcard! name_or_card, args={}
   subcard = subcards.add name_or_card, args
   subcard.director.reset_stage
   subcard
 end
+alias_method :attach_subcard!, :add_subcard!
 
 # phase_method :attach_subfield, before: :approve do |name_or_card, args=nil|
 def attach_subfield name_or_card, args={}
@@ -88,7 +84,7 @@ def deep_clear_subcards
   subcards.deep_clear
 end
 
-event :handle_subcard_errors do
+def handle_subcard_errors
   subcards.each do |subcard|
     subcard.errors.each do |field, err|
       subcard_error subcard, field, err
@@ -119,18 +115,5 @@ end
 # check when renaming field that it is not actually the same field
 # (eg on a renamed trunk)
 def same_field?
-  same_field_trunk? && same_field_tag?
-end
-
-private
-
-# left is same card (even if renamed)
-def same_field_trunk?
-  l = superleft || Card[left_id]
-  lkey = name.left_name&.key
-  lkey.present? && l&.name&.key == lkey
-end
-
-def same_field_tag?
-  name.right_name.key == name_before_act.to_name.right_name.key
+  (left_id == left_id_before_act) && (right_id == right_id_before_act)
 end

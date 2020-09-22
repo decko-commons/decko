@@ -1,11 +1,11 @@
 Feature: Setting up
   In order to be able to start a new deck
-  As a Decker
+  As a Shark
   I want to setup an initial account
 
   Background:
 
-  Scenario: Decker visits site for first time
+  Scenario: Shark visits site for first time
     Given site simulates setup need
 #done here bc cache gets cleared otherwise
 

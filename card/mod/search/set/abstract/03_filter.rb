@@ -18,4 +18,6 @@ format :html do
   end
 
   view :filtered_content, template: :haml, wrap: :slot
+
+  view :selectable_filtered_content, template: :haml, cache: :never
 end

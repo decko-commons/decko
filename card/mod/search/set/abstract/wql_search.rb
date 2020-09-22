@@ -43,15 +43,15 @@ def standardized_query_args args
   args
 end
 
-def wql_hash
-  @wql_hash = nil unless cache_query?
-  @wql_hash ||= wql_content.merge filter_and_sort_wql
+def cql_hash
+  @cql_hash = nil unless cache_query?
+  @cql_hash ||= cql_content.merge filter_and_sort_cql
 end
 
 # override this to define search
-def wql_content
-  @wql_content = nil unless cache_query?
-  @wql_content ||= begin
+def cql_content
+  @cql_content = nil unless cache_query?
+  @cql_content ||= begin
     query = content
     query = query.is_a?(Hash) ? query : parse_json_query(query)
     query.symbolize_keys
@@ -59,7 +59,7 @@ def wql_content
 end
 
 def query_args args={}
-  wql_hash.merge args
+  cql_hash.merge args
 end
 
 def parse_json_query query
@@ -75,7 +75,7 @@ def empty_query_error!
 end
 
 def item_type
-  type = wql_hash[:type]
+  type = cql_hash[:type]
   return if type.is_a?(Array) || type.is_a?(Hash)
   type
 end
@@ -86,7 +86,7 @@ format do
   end
 
   def card_content_limit
-    card.wql_hash[:limit]
+    card.cql_hash[:limit]
   rescue
     nil
   end

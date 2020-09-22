@@ -26,6 +26,6 @@ format do
   end
 
   def voo_search_param param
-    voo&.wql&.dig param
+    voo&.cql&.dig param
   end
 end

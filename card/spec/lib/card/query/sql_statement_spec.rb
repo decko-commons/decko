@@ -12,7 +12,7 @@ RSpec.describe Card::Query::SqlStatement do
     end
 
     it "does not break count" do
-      expect(Card.count_by_wql({ match: "two", offset: 1 }))
+      expect(Card.count_by_cql({ match: "two", offset: 1 }))
         .to eq(cards_matching_two.length)
     end
   end

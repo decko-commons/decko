@@ -98,7 +98,7 @@ Decko::RestSpecHelper.describe_api do
         .to route_to_card(action: "delete", mark: "monster")
     end
 
-    ["/wagn", ""].each do |prefix|
+    ["/decko", ""].each do |prefix|
       describe "routes prefixed with '#{prefix}'" do
         it "works without format" do
           expect(get: "#{prefix}/random")

@@ -7,6 +7,7 @@ $(window).ready ->
     minimumInputLength: 1
     maximumSelectionSize: 1
     ajax:
+      delay: 200
       url: decko.path ':search.json'
       data: (params) ->
         query: { keyword: params.term }

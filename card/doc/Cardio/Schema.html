@@ -6,15 +6,15 @@
 <title>
   Module: Cardio::Schema
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Cardio::Schema";
   relpath = '../';
 </script>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +166,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -186,7 +189,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -208,7 +212,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -230,7 +235,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -252,7 +258,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -274,7 +281,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#with_migration_table-instance_method" title="#with_migration_table (instance method)">#<strong>with_migration_table</strong>(new_table_name, old_table_name)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -296,7 +327,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -330,17 +362,15 @@
 5
 6
 7
-8
-9</pre>
+8</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 3</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assume_migrated_upto_version'>assume_migrated_upto_version</span> <span class='id identifier rubyid_type'>type</span>
   <span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_schema_mode'><span class='object_link'><a href="#schema_mode-instance_method" title="Cardio::Schema#schema_mode (method)">schema_mode</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Schema</span><span class='period'>.</span><span class='id identifier rubyid_assume_migrated_upto_version'>assume_migrated_upto_version</span><span class='lparen'>(</span>
-      <span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_schema'><span class='object_link'><a href="#schema-instance_method" title="Cardio::Schema#schema (method)">schema</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_migration_paths'><span class='object_link'><a href="../Cardio.html#migration_paths-class_method" title="Cardio.migration_paths (method)">migration_paths</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
-    <span class='rparen'>)</span>
+    <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Schema</span><span class='period'>.</span><span class='id identifier rubyid_assume_migrated_upto_version'>assume_migrated_upto_version</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_schema'><span class='object_link'><a href="#schema-instance_method" title="Cardio::Schema#schema (method)">schema</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span><span class='comma'>,</span>
+                                                      <span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_migration_paths'><span class='object_link'><a href="../Cardio.html#migration_paths-class_method" title="Cardio.migration_paths (method)">migration_paths</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -360,6 +390,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -385,15 +416,15 @@
       <pre class="lines">
 
 
-68
-69
-70</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deck_migration?'>deck_migration?</span> <span class='id identifier rubyid_type'>type</span>
-  <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_in?'>in?</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>deck_cards</span><span class='words_sep'> </span><span class='tstring_content'>deck</span><span class='words_sep'>]</span>
+  <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_in?'>in?</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>deck_cards</span><span class='words_sep'> </span><span class='tstring_content'>deck</span><span class='tstring_end'>]</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -415,15 +446,15 @@
       <pre class="lines">
 
 
+10
 11
 12
 13
 14
-15
-16</pre>
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_migrate'>migrate</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_version'>version</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_verbose'>verbose</span><span class='op'>=</span><span class='kw'>true</span>
   <span class='id identifier rubyid_migration_context'>migration_context</span> <span class='id identifier rubyid_type'>type</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_mc'>mc</span><span class='op'>|</span>
@@ -451,6 +482,7 @@
       <pre class="lines">
 
 
+33
 34
 35
 36
@@ -458,11 +490,12 @@
 38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_migration_context'>migration_context</span> <span class='id identifier rubyid_type'>type</span>
   <span class='id identifier rubyid_with_suffix'>with_suffix</span> <span class='id identifier rubyid_type'>type</span> <span class='kw'>do</span>
-    <span class='kw'>yield</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>MigrationContext</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_migration_paths'><span class='object_link'><a href="../Cardio.html#migration_paths-class_method" title="Cardio.migration_paths (method)">migration_paths</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>yield</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>MigrationContext</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_migration_paths'><span class='object_link'><a href="../Cardio.html#migration_paths-class_method" title="Cardio.migration_paths (method)">migration_paths</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span><span class='comma'>,</span>
+                                             <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>SchemaMigration</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -485,12 +518,12 @@
       <pre class="lines">
 
 
-57
-58
-59</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_schema'>schema</span> <span class='id identifier rubyid_type'>type</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_schema_stamp_path'>schema_stamp_path</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
@@ -515,15 +548,15 @@
       <pre class="lines">
 
 
+26
 27
 28
 29
 30
-31
-32</pre>
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_schema_mode'>schema_mode</span> <span class='id identifier rubyid_type'>type</span>
   <span class='id identifier rubyid_with_suffix'>with_suffix</span> <span class='id identifier rubyid_type'>type</span> <span class='kw'>do</span>
@@ -551,15 +584,15 @@
       <pre class="lines">
 
 
-61
-62
-63
-64
 65
-66</pre>
+66
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_schema_stamp_path'>schema_stamp_path</span> <span class='id identifier rubyid_type'>type</span>
   <span class='id identifier rubyid_root_dir'>root_dir</span> <span class='op'>=</span> <span class='id identifier rubyid_deck_migration?'>deck_migration?</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_root'><span class='object_link'><a href="../top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span> <span class='op'>:</span> <span class='id identifier rubyid_gem_root'>gem_root</span>
@@ -587,17 +620,17 @@
       <pre class="lines">
 
 
+17
 18
 19
 20
 21
 22
 23
-24
-25</pre>
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_schema_suffix'>schema_suffix</span> <span class='id identifier rubyid_type'>type</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_type'>type</span>
@@ -606,6 +639,50 @@
   <span class='kw'>when</span> <span class='symbol'>:deck</span> <span class='kw'>then</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_deck</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>else</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="with_migration_table-instance_method">
+  
+    #<strong>with_migration_table</strong>(new_table_name, old_table_name)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 50</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_with_migration_table'>with_migration_table</span> <span class='id identifier rubyid_new_table_name'>new_table_name</span><span class='comma'>,</span> <span class='id identifier rubyid_old_table_name'>old_table_name</span>
+  <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span><span class='period'>.</span><span class='id identifier rubyid_schema_migrations_table_name'>schema_migrations_table_name</span> <span class='op'>=</span> <span class='id identifier rubyid_new_table_name'>new_table_name</span>
+  <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>SchemaMigration</span><span class='period'>.</span><span class='id identifier rubyid_table_name'>table_name</span> <span class='op'>=</span> <span class='id identifier rubyid_new_table_name'>new_table_name</span>
+  <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>SchemaMigration</span><span class='period'>.</span><span class='id identifier rubyid_reset_column_information'>reset_column_information</span>
+  <span class='kw'>yield</span>
+<span class='kw'>ensure</span>
+  <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span><span class='period'>.</span><span class='id identifier rubyid_schema_migrations_table_name'>schema_migrations_table_name</span> <span class='op'>=</span> <span class='id identifier rubyid_old_table_name'>old_table_name</span>
+  <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>SchemaMigration</span><span class='period'>.</span><span class='id identifier rubyid_table_name'>table_name</span> <span class='op'>=</span> <span class='id identifier rubyid_old_table_name'>old_table_name</span>
+  <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>SchemaMigration</span><span class='period'>.</span><span class='id identifier rubyid_reset_column_information'>reset_column_information</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -635,14 +712,7 @@
 45
 46
 47
-48
-49
-50
-51
-52
-53
-54
-55</pre>
+48</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cardio/schema.rb', line 40</span>
@@ -650,19 +720,12 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_with_suffix'>with_suffix</span> <span class='id identifier rubyid_type'>type</span>
   <span class='kw'>return</span> <span class='kw'>yield</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_new_suffix'>new_suffix</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_schema_suffix'><span class='object_link'><a href="#schema_suffix-instance_method" title="Cardio::Schema#schema_suffix (method)">schema_suffix</a></span></span> <span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
                       <span class='id identifier rubyid_new_suffix'>new_suffix</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+
   <span class='id identifier rubyid_original_name'>original_name</span> <span class='op'>=</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span><span class='period'>.</span><span class='id identifier rubyid_schema_migrations_table_name'>schema_migrations_table_name</span>
-  <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span><span class='period'>.</span><span class='id identifier rubyid_schema_migrations_table_name'>schema_migrations_table_name</span> <span class='op'>=</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_original_name'>original_name</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_new_suffix'>new_suffix</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>SchemaMigration</span><span class='period'>.</span><span class='id identifier rubyid_table_name'>table_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_original_name'>original_name</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_new_suffix'>new_suffix</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='comment'># ActiveRecord::Base.table_name_suffix = new_suffix
-</span>  <span class='comment'># ActiveRecord::SchemaMigration.reset_table_name
-</span>  <span class='comment'># original_suffix = ActiveRecord::Base.table_name_suffix
-</span>  <span class='kw'>yield</span>
-  <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Base</span><span class='period'>.</span><span class='id identifier rubyid_schema_migrations_table_name'>schema_migrations_table_name</span> <span class='op'>=</span> <span class='id identifier rubyid_original_name'>original_name</span>
-  <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>SchemaMigration</span><span class='period'>.</span><span class='id identifier rubyid_table_name'>table_name</span> <span class='op'>=</span> <span class='id identifier rubyid_original_name'>original_name</span>
-  <span class='comment'># ActiveRecord::Base.table_name_suffix = original_suffix
-</span>  <span class='comment'># ActiveRecord::SchemaMigration.reset_table_name
-</span><span class='kw'>end</span></pre>
+  <span class='id identifier rubyid_with_migration_table'>with_migration_table</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_original_name'>original_name</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_new_suffix'>new_suffix</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_original_name'>original_name</span> <span class='kw'>do</span>
+    <span class='kw'>yield</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -673,9 +736,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:17 2019 by
+  Generated on Thu Sep 10 15:02:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

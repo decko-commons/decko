@@ -1,26 +1,28 @@
 # -*- encoding : utf-8 -*-
 
-describe Card, "deleted card" do
-  before do
-    Card::Auth.as_bot do
-      @c = Card["A"]
-      @c.delete!
+RSpec.describe Card::Set::All::Trash do
+  describe "deletion basics" do
+    before do
+      Card::Auth.as_bot do
+        @c = Card["A"]
+        @c.delete!
+      end
     end
-  end
-  it "is in the trash" do
-    expect(@c.trash).to be_truthy
-  end
-  it "comes out of the trash when a plus card is created" do
-    Card::Auth.as_bot do
-      Card.create(name: "A+*acct")
-      c = Card["A"]
-      expect(c.trash).to be_falsey
-    end
-  end
-end
 
-describe Card::Set::All::Trash do
-  it "dependent removal" do
+    it "is in the trash" do
+      expect(@c.trash).to be_truthy
+    end
+
+    it "comes out of the trash when a plus card is created" do
+      Card::Auth.as_bot do
+        Card.create(name: "A+*acct")
+        c = Card["A"]
+        expect(c.trash).to be_falsey
+      end
+    end
+  end
+
+  it "descendant removal" do
     create! "born to die"
     create! "born to die+slowly"
     create! "slowly+born to die"
@@ -35,7 +37,7 @@ describe Card::Set::All::Trash do
     expect(Card["slowly"]).to be_a Card
     expect(Card["without regrets"]).to be_a Card
 
-    trashed_dependant = Card.find_by_name "born to die+slowly+without regrets"
+    trashed_dependant = Card.find Card::Lexicon.id("born to die+slowly+without regrets")
     expect(trashed_dependant.trash).to be_truthy
   end
 
@@ -65,7 +67,7 @@ describe Card::Set::All::Trash do
     expect(Card["Sample User", :account]).not_to be
     # @signup =
     #   create_signup "born to die",
-    #                 "+*account" => { "+*email" => "wolf@wagn.org", "+*password" => "wolf" }
+    #                 "+*account" => { "+*email" => "wolf@decko.org", "+*password" => "wolf" }
     # @signup.update!({})
     # Card::Cache.reset_all
     #
@@ -95,8 +97,10 @@ describe Card::Set::All::Trash do
 
       context "without edits" do
         it "is removable" do
-          expect { Card["Sample User"].delete! }
-            .not_to raise_error
+          Card::Auth.as "joe_admin" do
+            expect { Card["Sample User"].delete! }
+              .not_to raise_error
+          end
         end
       end
     end

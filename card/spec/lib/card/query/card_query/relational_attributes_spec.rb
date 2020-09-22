@@ -9,9 +9,9 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
 
       describe "type" do
         user_cards = [
-            "Big Brother", "Joe Admin", "Joe Camel", "Joe User", "John",
-            "Narcissist", "No Count", "Optic fan", "Sample User", "Sara",
-            "Sunglasses fan", "u1", "u2", "u3"
+          "Big Brother", "Joe Admin", "Joe Camel", "Joe User", "John",
+          "Narcissist", "No Count", "Optic fan", "Sample User", "Sara",
+          "Sunglasses fan", "u1", "u2", "u3"
         ].sort
 
         it "finds cards by type" do
@@ -58,12 +58,13 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "finds right connection cards based on content" do
-          expect(run_query(right: { content: "Alpha [[Z]]" })).to eq(%w(C+A D+A F+A))
+          expect(run_query(right: { content: "Alpha [[Z]]" }, sort: :id))
+            .to eq(%w(C+A D+A F+A))
         end
       end
 
       describe "relative plus/part" do
-        it "cleans wql" do
+        it "cleans cql" do
           query = Card::Query.new(part: "_self", context: "A")
           expect(query.statement[:part]).to eq("A")
         end

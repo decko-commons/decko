@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Bootstrap::Dropdown::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Bootstrap::Dropdown::HtmlFormat";
   relpath = '../../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod026-bootstrap/all/bootstrap/dropdown.rb</dd>
+    <dd>tmpsets/set/mod028-bootstrap/all/bootstrap/dropdown.rb</dd>
   </dl>
   
 </div>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -189,7 +191,7 @@
 23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/all/bootstrap/dropdown.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/all/bootstrap/dropdown.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dropdown_button'>dropdown_button</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_items_or_opts'>items_or_opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_items'>items</span> <span class='op'>=</span> <span class='id identifier rubyid_block_given?'>block_given?</span> <span class='op'>?</span> <span class='kw'>yield</span> <span class='op'>:</span> <span class='id identifier rubyid_items_or_opts'>items_or_opts</span>
@@ -237,14 +239,14 @@
 33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod026-bootstrap/all/bootstrap/dropdown.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod028-bootstrap/all/bootstrap/dropdown.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_split_button'>split_button</span> <span class='id identifier rubyid_main_button'>main_button</span><span class='comma'>,</span> <span class='id identifier rubyid_active_item'>active_item</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>btn-group</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
     <span class='lbracket'>[</span>
       <span class='id identifier rubyid_main_button'>main_button</span><span class='comma'>,</span>
       <span class='id identifier rubyid_split_button_toggle'>split_button_toggle</span><span class='comma'>,</span>
-      <span class='id identifier rubyid_dropdown_list'>dropdown_list</span><span class='lparen'>(</span><span class='kw'>yield</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_active_item'>active_item</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_dropdown_list'>dropdown_list</span><span class='lparen'>(</span><span class='kw'>yield</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>dropdown-menu-right</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_active_item'>active_item</span><span class='rparen'>)</span>
     <span class='rbracket'>]</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -258,9 +260,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:50 2019 by
+  Generated on Thu Sep 10 15:02:43 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

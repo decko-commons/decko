@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Basket
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Basket";
   relpath = '../../';
 </script>
@@ -90,18 +90,28 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>The purpose of a basket it that you can throw something in from the same set in another mod. A basket can be defined on a format or directly on a set</p>
+    <p>The purpose of a basket it that you can throw something in from
+the same set in another mod.
+A basket can be defined on a format or directly on a set</p>
 
-<p>@example: # mod/core/set/self/head.rb: basket :basket_on_set</p>
+<p>@example:
+  # mod/core/set/self/head.rb:
+  basket :basket_on_set</p>
 
-<p>format :html do basket :js_tags # only available in HtmlFormat view :core { output basket(:js_tags) } end</p>
+<p>format :html do
+    basket :js_tags  # only available in HtmlFormat
+    view :core { output basket(:js_tags) }
+  end</p>
 
-<p># mod/shell/set/self/head.rb: add_to_basket :basket_on_set, ‘hello world’</p>
+<p># mod/shell/set/self/head.rb:
+  add_to_basket :basket_on_set, ‘hello world’</p>
 
-<p>format :html do add_to_basket :js_tags “</p>
-<script />
-<p>” add_to_basket :js_tags do |format_obj| format_obj.render_special_view end end</p>
+<p>format :html do
+    add_to_basket :js_tags “<script></script>”
+    add_to_basket :js_tags do |format_obj|
+      format_obj.render_special_view
+    end
+  end</p>
 
 
   </div>
@@ -141,8 +151,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Define a basket in an abstract set.</p>
+    <span class="summary_desc"><div class='inline'><p>Define a basket in an abstract set.</p>
 </div></span>
   
 </li>
@@ -165,7 +174,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -187,8 +197,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Define a basket in a set or format.</p>
+    <span class="summary_desc"><div class='inline'><p>Define a basket in a set or format.</p>
 </div></span>
   
 </li>
@@ -211,7 +220,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -236,8 +246,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Define a basket in an abstract set</p>
+    <p>Define a basket in an abstract set</p>
 
 
   </div>
@@ -321,8 +330,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Define a basket in a set or format</p>
+    <p>Define a basket in a set or format</p>
 
 
   </div>
@@ -400,9 +408,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:18 2019 by
+  Generated on Thu Sep 10 15:02:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -8,7 +8,7 @@ module ClassMethods
     results
   end
 
-  def count_by_wql spec
+  def count_by_cql spec
     spec = spec.clone
     spec.delete(:offset)
     search spec.merge(return: "count")

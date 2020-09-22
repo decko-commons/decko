@@ -1,5 +1,5 @@
 def content= value
-  self.db_content = value
+  self.db_content = standardize_content(value)
 end
 
 def content
@@ -15,8 +15,16 @@ def standard_content
   db_content || (new_card? && template.db_content)
 end
 
+def standardize_content value
+  value.is_a?(Array) ? value.join("\n") : value
+end
+
 def structured_content
   structure && template.db_content
+end
+
+def refresh_content
+  self.content = Card.find(id)&.db_content
 end
 
 format do
@@ -118,7 +126,6 @@ event :set_content, :store, on: :save do
   self.db_content = prepare_db_content
   @selected_action_id = @selected_content = nil
   clear_drafts
-  reset_patterns_if_rule true
 end
 
 event :save_draft, :store, on: :update, when: :draft? do

@@ -11,8 +11,7 @@ class Card
       #
       # @example Add a subcard that is added in the integration phase
       #     (and hence doesn't hold up the transaction for the main card)
-      #   add 'spoiler', content: 'John Snow is a Targaryen',
-      #                  transact_in_stage: :integrate
+      #   add 'spoiler', content: 'John Snow is a Targaryen'
       #   add card_obj, delayed: true
 
       def << value
@@ -30,7 +29,7 @@ class Card
 
       def add *args
         case args.first
-        when Card then new_by_card(*args)
+        when Card then new_by_card args.first
         when Hash then add_hash args.first
         else new_by_attributes(*args)
         end
@@ -50,14 +49,14 @@ class Card
       end
       alias_method :add_field, :add_child
 
-      def new_by_card card, opts={}
+      def new_by_card card
         card.supercard = @context_card
         if !card.name.simple? && card.name.field_of?(@context_card.name)
           card.superleft = @context_card
         end
         @keys << card.key
         Card.write_to_soft_cache card
-        card.director = @context_card.director.subdirectors.add(card, opts)
+        card.director = @context_card.director.subdirectors.add card
         card
       end
 
@@ -65,15 +64,14 @@ class Card
         attributes ||= {}
         absolute_name = absolutize_subcard_name name
         subcard_args = extract_subcard_args! attributes
-        t_i_s = attributes.delete(:transact_in_stage)
         card = initialize_by_attributes absolute_name, attributes
-        subcard = new_by_card card, transact_in_stage: t_i_s
+        subcard = new_by_card card
         card.subcards.add subcard_args
         subcard
       end
 
       def initialize_by_attributes name, attributes
-        Card.assign_or_initialize_by name, attributes, local_only: true
+        Card.assign_or_newish name, attributes, local_only: true
       end
 
       # TODO: this method already exists as card instance method in
@@ -105,12 +103,15 @@ class Card
       def multi_add args
         args.each_pair do |key, val|
           case val
-          when String then new_by_attributes key, content: val
+          when String, Array, Integer
+            new_by_attributes key, content: val
           when Card
             val.name = absolutize_subcard_name key
             new_by_card val
-          when nil then next
-          else new_by_attributes key, val
+          when nil
+            next
+          else
+            new_by_attributes key, val
           end
         end
       end

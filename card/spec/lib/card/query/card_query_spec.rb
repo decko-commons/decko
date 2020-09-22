@@ -8,21 +8,31 @@ RSpec.describe Card::Query::CardQuery do
     end
 
     it "returns count" do
-      expect(Card.count_by_wql part: "A").to eq(7)
+      expect(Card.count_by_cql part: "A").to eq(7)
     end
 
     it "treats Symbols as Strings" do
       expect(run_query(codename: :account)).to eq(["*account"])
     end
+
+    it "handles nil" do
+      expect(run_query(name:"*account", codename: nil)).to eq([])
+      expect(run_query(name:"A", codename: nil)).to eq(["A"])
+    end
+
+    it "handles not nil" do
+      expect(run_query(name:"*account", codename: ["!", nil])).to eq(["*account"])
+      expect(run_query(name:"A", codename: ["is not", nil])).to eq([])
+    end
   end
 
   describe "in" do
     example "content option" do
-      expect(run_query(in: %w(AlphaBeta Theta))).to eq(%w(A+B T))
+      expect(run_query(in: %w(AlphaBeta Theta)).sort).to eq(%w(A+B T))
     end
 
     it "finds the same thing in full syntax" do
-      expect(run_query(content: [:in, "Theta", "AlphaBeta"])).to eq(%w(A+B T))
+      expect(run_query(content: [:in, "Theta", "AlphaBeta"]).sort).to eq(%w(A+B T))
     end
 
     it "is the default conjunction for arrays" do

@@ -1,5 +1,6 @@
 module QuerySpecHelper
-  CARDS_MATCHING_TWO = ["42", "Joe User", "One+Two", "One+Two+Three", "Two"].freeze
+  # CARDS_MATCHING_TWO = ["42", "Joe User", "One+Two", "One+Two+Three", "Two"].freeze
+  CARDS_MATCHING_TWO = ["42", "Joe User", "Two"].freeze
 
   module Fasten
     def each_fasten

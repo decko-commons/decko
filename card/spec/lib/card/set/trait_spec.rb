@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-
 RSpec.describe Card::Set::Trait do
   add_set_modules = Proc.new do
     class Card
@@ -9,7 +8,7 @@ RSpec.describe Card::Set::Trait do
           module Phrase
             extend Card::Set
             card_accessor :write, type: :phrase
-            card_accessor :read, type_id: Card::PhraseID
+            card_accessor :read, type: PhraseID
           end
         end
 

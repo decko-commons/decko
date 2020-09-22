@@ -18,21 +18,21 @@ Yes, if:
 
 It's both.
 
-When you install and seed a new Decko project, you have a working "deck" right away. Your new application has a lot built in: account handling, edit histories, default layouts, CSS, etc. But a new deck is just a starting point. Decko offers a rich framework within which to develop your own novel applications, both <b>via configuration (as a "Decker")</b> or <b>via code (as a "Deck-coder")</b>.
+When you install and seed a new Decko project, you have a working "deck" right away. Your new application has a lot built in: account handling, edit histories, default layouts, CSS, etc. But a new deck is just a starting point. Decko offers a rich framework within which to develop your own novel applications, both <b>via configuration (as a "Shark")</b> or <b>via code (as a "Monkey")</b>.
 
 <b>Decko is a development framework in which you start <i>in the middle of things</i> rather than from scratch</b>. Decko gives you a headstart, so that designers, developers, and content creators can start working in parallel on day one. But from there, you can build (or remove) pretty much whatever you want.
 
 
 ===Decko: Ruby on Rails?
 
-Ruby-on-Rails developers reading this will find lots of familiar patterns in Decko, which indeed depends upon rails gems. <b>Although Decko is a Rails descendant and owes a ton to the Rails community, it is not Rails.</b> Unlike Rails, Decko is not an implementation of the "MVC" (Model-View-Controller) architectural pattern (see Architecture below). More concretely, while Rails' core pattern is adding new things (especially models, views, and controllers), Decko's core pattern is subdividing exising things into new Sets.
+Ruby-on-Rails developers reading this will find lots of familiar patterns in Decko, which indeed depends upon rails gems. <b>Although Decko is a Rails descendant and owes a ton to the Rails community, it is not Rails.</b> Unlike Rails, Decko is not an implementation of the "MVC" (Model-View-Controller) architectural pattern (see Architecture below). More concretely, while Rails' core pattern is adding new things (especially models, views, and controllers), Decko's core pattern is subdividing existing things into new Sets.
 
 Deck-coders do create lots of card views (though they're quite different from Rails views), but we rarely if ever create new controllers or ActiveRecord models. In the Decko gem there is one controller (CardController) and one main model ({Card}). Other models optimize the Card model and track its history: (See {Card::Reference references}, {Card::Act acts}, {Card::Action actions}, and {Card::Change changes}).
 
 
 ===Cards, Sets, and Rules
 
-{Card _Cards_} are the basic building blocks of Decko. {Card::Set _Sets_} are the basic pattern for organizing cards. <b>Both Deckers and Deck-coders create web systems by applying _rules_ to _sets_ of _cards_.</b>
+{Card _Cards_} are the basic building blocks of Decko. {Card::Set _Sets_} are the basic pattern for organizing cards. <b>Both Sharks and Deck-coders create web systems by applying _rules_ to _sets_ of _cards_.</b>
 
 If you've edited card rules in any deck, you will have encountered Sets. For example, imagine you're on a User card named "Henry", and you decide to edit its structure. When you do, you'll be prompted to choose the Set of cards to which the structure rule applies, eg:
 

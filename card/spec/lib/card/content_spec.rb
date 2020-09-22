@@ -20,7 +20,7 @@ RSpec.describe Card::Content do
     links_and_nests: {
       content: "Some Links and includes: [[the card|the text]], " \
                "and {{This Card|Is Nestd}}{{this too}} " \
-               "and [[http://external.wagn.org/path|link text]]" \
+               "and [[http://external.decko.org/path|link text]]" \
                "{{Nestd|open}}",
       rendered: ["Some Links and includes: ",
                  '<a class="wanted-card" ' \
@@ -34,7 +34,7 @@ RSpec.describe Card::Content do
                               nest_syntax: "this too" } },
                  " and ",
                  '<a target="_blank" class="external-link" ' \
-               'href="http://external.wagn.org/path">link text</a>',
+               'href="http://external.decko.org/path">link text</a>',
                  { options: { view: "open",
                               nest_name: "Nestd",
                               nest_syntax: "Nestd|open" } }],
@@ -45,18 +45,18 @@ RSpec.describe Card::Content do
 
     uris_and_links: {
       content: "Some URIs and Links: http://a.url.com/ " \
-               "More urls: wagn.com/a/path/to.html " \
+               "More urls: decko.com/a/path/to.html " \
                "http://localhost:2020/path?cgi=foo&bar=baz " \
                "[[http://brain.org/Home|extra]] " \
-               "[ http://gerry.wagn.com/a/path ] " \
+               "[ http://gerry.decko.com/a/path ] " \
                "{ https://brain.org/more?args } ",
       rendered: ["Some URIs and Links: ",
                  '<a target="_blank" class="external-link" ' \
                  'href="http://a.url.com/">http://a.url.com/</a>',
                  " More urls: ",
                  '<a target="_blank" class="external-link" ' \
-                 'href="http://wagn.com/a/path/to.html">' \
-                 "wagn.com/a/path/to.html</a>",
+                 'href="http://decko.com/a/path/to.html">' \
+                 "decko.com/a/path/to.html</a>",
                  " ",
                  '<a target="_blank" class="external-link" ' \
                  'href="http://localhost:2020/path?cgi=foo&amp;bar=baz">' \
@@ -66,8 +66,8 @@ RSpec.describe Card::Content do
                  'href="http://brain.org/Home">extra</a>',
                  " [ ",
                  '<a target="_blank" class="external-link" ' \
-                 'href="http://gerry.wagn.com/a/path">' \
-                 "http://gerry.wagn.com/a/path</a>",
+                 'href="http://gerry.decko.com/a/path">' \
+                 "http://gerry.decko.com/a/path</a>",
                  " ] { ",
                  '<a target="_blank" class="external-link" ' \
                  'href="https://brain.org/more?args">' \
@@ -75,13 +75,13 @@ RSpec.describe Card::Content do
                  " } "],
       text_rendered: ["Some URIs and Links: ", "http://a.url.com/",
                       " More urls: ",
-                      "wagn.com/a/path/to.html[http://wagn.com/a/path/to.html]",
+                      "decko.com/a/path/to.html[http://decko.com/a/path/to.html]",
                       " ",
                       "http://localhost:2020/path?cgi=foo&bar=baz",
                       " ",
                       "extra[http://brain.org/Home]",
                       " [ ",
-                      "http://gerry.wagn.com/a/path",
+                      "http://gerry.decko.com/a/path",
                       " ] { ",
                       "https://brain.org/more?args",
                       " } "],
@@ -93,8 +93,8 @@ RSpec.describe Card::Content do
 
     uris_and_links_2: {
       content: "Some URIs and Links: http://a.url.com " \
-               "More urls: wagn.com/a/path/to.html " \
-               "[ http://gerry.wagn.com/a/path ] " \
+               "More urls: decko.com/a/path/to.html " \
+               "[ http://gerry.decko.com/a/path ] " \
                "{ https://brain.org/more?args } " \
                "http://localhost:2020/path?cgi=foo&bar=baz " \
                "[[http://brain.org/Home|extra]]",
@@ -103,12 +103,12 @@ RSpec.describe Card::Content do
                  'href="http://a.url.com">http://a.url.com</a>',
                  " More urls: ",
                  '<a target="_blank" class="external-link" ' \
-                 'href="http://wagn.com/a/path/to.html">' \
-                 "wagn.com/a/path/to.html</a>",
+                 'href="http://decko.com/a/path/to.html">' \
+                 "decko.com/a/path/to.html</a>",
                  " [ ",
                  '<a target="_blank" class="external-link" ' \
-                 'href="http://gerry.wagn.com/a/path">' \
-                 "http://gerry.wagn.com/a/path</a>",
+                 'href="http://gerry.decko.com/a/path">' \
+                 "http://gerry.decko.com/a/path</a>",
                  " ] { ",
                  '<a target="_blank" class="external-link" ' \
                  'href="https://brain.org/more?args">' \
@@ -144,7 +144,7 @@ RSpec.describe Card::Content do
      }
 
      /* page - background image and color */
-     body#wagn {
+     body#decko {
        background: #ffffff;
      }
 

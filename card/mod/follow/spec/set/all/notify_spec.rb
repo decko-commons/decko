@@ -244,11 +244,11 @@ RSpec.describe Card::Set::All::Notify do
         notify_on_create "Sunglasses fan", "Sunglasses+*self", "Sunglasses+producer"
         notify_on_update "Sunglasses fan", "Sunglasses+*self", "Sunglasses+price"
 
-        context "when follow fields rule contains *include" do
+        context "when follow fields rule contains *nests" do
           notify_on_create "Sunglasses fan", "Sunglasses+*self", "Sunglasses+lens"
           notify_on_update "Sunglasses fan", "Sunglasses+*self", "Sunglasses+tint"
 
-          it "doesn't send notification of not included card" do
+          it "doesn't send notification of non-nested card" do
             expect_user("Sunglasses fan").not_to be_notified
             Card.create! name: "Sunglasses+frame"
           end

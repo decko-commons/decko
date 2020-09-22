@@ -6,15 +6,15 @@
 <title>
   Class: Card::Cache::Persistent
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Cache::Persistent";
   relpath = '../../';
 </script>
@@ -101,12 +101,17 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p><em>Persistent</em> (or <em>Hard</em>) caches closely mirror the database and are intended to be altered only upon database alterations.</p>
+    <p><em>Persistent</em> (or <em>Hard</em>) caches closely mirror the database and are
+intended to be altered only upon database alterations.</p>
 
-<p>Unlike the database, the persistent cache stores records of records that have been requested but are missing or, in the case of some <span class='object_link'><a href="../../Card.html" title="Card (class)">cards</a></span>, “virtual”, meaning that they follow known patterns but do not exist in the database.</p>
+<p>Unlike the database, the persistent cache stores records of records that
+have been requested but are missing or, in the case of some <span class='object_link'><a href="../../Card.html" title="Card (class)">cards</a></span>,
+“virtual”, meaning that they follow known patterns but do not exist in the
+database.</p>
 
-<p>Most persistent cache implementations cannot store objects with singleton classes, therefore <span class='object_link'><a href="../../Card.html" title="Card (class)">cards</a></span> generally must have set_modules re-included after retrieval from the persistent cache.</p>
+<p>Most persistent cache implementations cannot store objects with singleton
+classes, therefore <span class='object_link'><a href="../../Card.html" title="Card (class)">cards</a></span> generally must have set_modules
+re-included after retrieval from the persistent cache.</p>
 
 
   </div>
@@ -141,8 +146,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>prefix added to cache key to create a system-wide unique key.</p>
+    <span class="summary_desc"><div class='inline'><p>prefix added to cache key to create a system-wide unique key.</p>
 </div></span>
   
 </li>
@@ -178,8 +182,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>name of current database; used here to insure that different databases are cached separately TODO: find better home for this method.</p>
+    <span class="summary_desc"><div class='inline'><p>name of current database; used here to insure that different databases are cached separately TODO: find better home for this method.</p>
 </div></span>
   
 </li>
@@ -202,8 +205,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>stamp generator.</p>
+    <span class="summary_desc"><div class='inline'><p>stamp generator.</p>
 </div></span>
   
 </li>
@@ -226,7 +228,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -248,7 +251,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -270,7 +274,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -292,7 +297,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -323,8 +329,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>the nuclear option.</p>
+    <span class="summary_desc"><div class='inline'><p>the nuclear option.</p>
 </div></span>
   
 </li>
@@ -347,7 +352,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -369,7 +375,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -391,7 +398,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -413,7 +421,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -435,8 +444,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>returns prefix/key.</p>
+    <span class="summary_desc"><div class='inline'><p>returns prefix/key.</p>
 </div></span>
   
 </li>
@@ -461,8 +469,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of Persistent.</p>
+    <span class="summary_desc"><div class='inline'><p>A new instance of Persistent.</p>
 </div></span>
   
 </li>
@@ -485,7 +492,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -507,7 +515,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -529,8 +538,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>renew insures you’re using the most current cache version by reaffirming the stamp and prefix.</p>
+    <span class="summary_desc"><div class='inline'><p>renew insures you’re using the most current cache version by reaffirming the stamp and prefix.</p>
 </div></span>
   
 </li>
@@ -553,8 +561,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>reset effectively clears the cache by setting a new stamp.</p>
+    <span class="summary_desc"><div class='inline'><p>reset effectively clears the cache by setting a new stamp.</p>
 </div></span>
   
 </li>
@@ -577,8 +584,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>the current time stamp.</p>
+    <span class="summary_desc"><div class='inline'><p>the current time stamp.</p>
 </div></span>
   
 </li>
@@ -601,8 +607,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>key for looking up the current stamp.</p>
+    <span class="summary_desc"><div class='inline'><p>key for looking up the current stamp.</p>
 </div></span>
   
 </li>
@@ -625,7 +630,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -647,8 +653,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>update an attribute of an object already in the cache.</p>
+    <span class="summary_desc"><div class='inline'><p>update an attribute of an object already in the cache.</p>
 </div></span>
   
 </li>
@@ -671,8 +676,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a new instance of Persistent</p>
+    <p>Returns a new instance of Persistent.</p>
 
 
   </div>
@@ -716,8 +720,7 @@
             
           </span>
           
-            &mdash; <div class='inline'>
-<p>typically ActiveRecord descendant</p>
+            &mdash; <div class='inline'><p>typically ActiveRecord descendant</p>
 </div>
           
         </li>
@@ -780,8 +783,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>prefix added to cache key to create a system-wide unique key</p>
+    <p>prefix added to cache key to create a system-wide unique key</p>
 
 
   </div>
@@ -828,8 +830,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>name of current database; used here to insure that different databases are cached separately TODO: find better home for this method</p>
+    <p>name of current database; used here to insure that different databases
+are cached separately
+TODO: find better home for this method</p>
 
 
   </div>
@@ -873,8 +876,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>stamp generator</p>
+    <p>stamp generator</p>
 
 
   </div>
@@ -1042,8 +1044,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>the nuclear option. can affect other applications sharing the same cache engine. keep in mind mutually assured destruction.</p>
+    <p>the nuclear option. can affect other applications sharing the same
+cache engine. keep in mind mutually assured destruction.</p>
 
 
   </div>
@@ -1149,6 +1151,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -1229,8 +1232,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>returns prefix/key</p>
+    <p>returns prefix/key</p>
 
 
   </div>
@@ -1360,8 +1362,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>renew insures you’re using the most current cache version by reaffirming the stamp and prefix</p>
+    <p>renew insures you’re using the most current cache version by
+reaffirming the stamp and prefix</p>
 
 
   </div>
@@ -1403,8 +1405,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>reset effectively clears the cache by setting a new stamp. However unlike annihilate, it won’t bother other apps using the same cache engine.</p>
+    <p>reset effectively clears the cache by setting a new stamp.  However
+unlike annihilate, it won’t bother other apps using the same cache engine.</p>
 
 
   </div>
@@ -1448,8 +1450,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>the current time stamp. changing this value effectively resets the cache. Note that Cardio.cache is a simple Rails::Cache, not a Card::Cache object.</p>
+    <p>the current time stamp. changing this value effectively resets
+the cache. Note that Cardio.cache is a simple Rails::Cache, not
+a Card::Cache object.</p>
 
 
   </div>
@@ -1489,8 +1492,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>key for looking up the current stamp</p>
+    <p>key for looking up the current stamp</p>
 
 
   </div>
@@ -1560,8 +1562,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>update an attribute of an object already in the cache</p>
+    <p>update an attribute of an object already in the cache</p>
 
 
   </div>
@@ -1633,9 +1634,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:58 2019 by
+  Generated on Thu Sep 10 15:02:47 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -98,22 +98,24 @@ RSpec.describe Card::Set::All::Permissions do
 
     it "write user permissions" do
       Card::Auth.as_bot do
-        @u1.fetch(:roles, new: {}).items = [@r1, @r2]
-        @u2.fetch(:roles, new: {}).items = [@r1, @r3]
-        @u3.fetch(:roles, new: {}).items = [@r1, @r2, @r3]
-
         (1..3).map do |num|
           Card.create name: "c#{num}+*self+*update", type: "Pointer",
                       content: "[[u#{num}]]"
         end
+
+        Card::Cache.renew
+
+        @u1.fetch(:roles, new: {}).items = [@r1, @r2]
+        @u2.fetch(:roles, new: {}).items = [@r1, @r3]
+        @u3.fetch(:roles, new: {}).items = [@r1, @r2, @r3]
       end
 
-      @c1 = Card["c1"]
+      @c1 = Card["c1"].refresh(true)
       assert_not_locked_from(@u1, @c1)
       assert_locked_from(@u2, @c1)
       assert_locked_from(@u3, @c1)
 
-      @c2 = Card["c2"]
+      @c2 = Card["c2"].refresh(true)
       assert_locked_from(@u1, @c2)
       assert_not_locked_from(@u2, @c2)
       assert_locked_from(@u3, @c2)
@@ -129,6 +131,10 @@ RSpec.describe Card::Set::All::Permissions do
                       content: "[[r#{num}]]"
         end
       end
+
+      @c1 = @c1.refresh(true)
+      @c2 = @c2.refresh(true)
+      @c3 = @c3.refresh(true)
 
       assert_not_hidden_from(@u1, @c1)
       assert_not_hidden_from(@u1, @c2)
@@ -176,6 +182,8 @@ RSpec.describe Card::Set::All::Permissions do
         end
       end
 
+      @c1 = @c1.refresh(true)
+      @c2 = @c2.refresh(true)
       # NOTE: retrieving private cards is known not to work now.
       # assert_not_hidden_from(@u1, @c1)
       # assert_not_hidden_from(@u2, @c2)
@@ -213,7 +221,7 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    it "private wql" do
+    it "private cql" do
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
         [@c1, @c2, @c3].each do |c|
@@ -234,7 +242,7 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    it "role wql" do
+    it "role cql" do
       # warn "u1 roles #{Card[ @u1.id ].fetch(roles).item_names.inspect}"
 
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader

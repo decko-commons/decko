@@ -16,7 +16,7 @@ class Card
         end
 
         def found_by_statement card
-          card&.try(:wql_hash) || invalid_found_by_card!(card)
+          card&.try(:cql_hash) || invalid_found_by_card!(card)
         end
 
         def invalid_found_by_card! card

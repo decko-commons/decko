@@ -21,35 +21,70 @@ module ClassMethods
 end
 
 def name
-  super.to_name
+  @name ||= left_id ? Card::Lexicon.lex_to_name([left_id, right_id]) : super.to_name
+end
+
+def key
+  @key ||= left_id ? name.key : super
 end
 
 def name= newname
-  cardname = superize_name newname.to_name
-  newkey = cardname.key
-  self.key = newkey if key != newkey
-  update_subcard_names cardname
-  write_attribute :name, cardname.s
-  name
+  @name = superize_name newname.to_name
+  self.key = @name.key
+  update_subcard_names @name
+  write_attribute :name, (@name.simple? ? @name.s : nil)
+  assign_side_ids
+  @name
+end
+
+def assign_side_ids
+  if name.simple?
+    self.left_id = self.right_id = nil
+  else
+    assign_side_id :left_id=, :left_name
+    assign_side_id :right_id=, :right_name
+  end
+end
+
+# assigns left_id and right_id based on names.
+# if side card is new, id is temporarily stored as -1
+def assign_side_id side_id_equals, side_name
+  side_id = Card::Lexicon.id(name.send(side_name)) || -1
+  send side_id_equals, side_id
 end
 
 def superize_name cardname
   return cardname unless @supercard
   @raw_name = cardname.s
   @supercard.subcards.rename key, cardname.key
-  @superleft = @supercard if cardname.field_of? @supercard.name
+  update_superleft cardname
   cardname.absolute_name @supercard.name
 end
 
+def update_superleft cardname
+  @superleft = @supercard if cardname.field_of? @supercard.name
+end
+
 def key= newkey
-  was_in_cache = Card.cache.soft.delete key
-  write_attribute :key, newkey
-  # keep the soft cache up-to-date
-  Card.write_to_soft_cache self if was_in_cache
-  # reset the old name - should be handled in tracked_attributes!!
-  reset_patterns_if_rule
+  return if newkey == key
+  update_cache_key key do
+    write_attribute :key, (name.simple? ? newkey : nil)
+    @key = newkey
+  end
+  clean_patterns
+  @key
+end
+
+def clean_patterns
+  return unless patterns?
   reset_patterns
-  newkey
+  patterns
+end
+
+def update_cache_key oldkey
+  yield
+  was_in_cache = Card.cache.soft.delete oldkey
+  Card.write_to_soft_cache self if was_in_cache
 end
 
 def update_subcard_names new_name, name_to_replace=nil
@@ -78,7 +113,7 @@ def name_to_replace_for_subcard subcard, new_name
 end
 
 def autoname name
-  if Card.exists?(name) || ActManager.include?(name)
+  if Card.exists?(name) || Director.include?(name)
     autoname name.next
   else
     name
@@ -102,7 +137,7 @@ def left *args
   case
   when simple?    then nil
   when superleft then superleft
-  when attribute_is_changing?(:name) && name.to_name.trunk_name.key == name_before_act.to_name.key
+  when name_is_changing? && name.to_name.trunk_name == name_before_act.to_name
     nil # prevent recursion when, eg, renaming A+B to A+B+C
   else
     Card.fetch name.left, *args
@@ -135,103 +170,70 @@ def left_or_new args={}
   left(args) || Card.new(args.merge(name: name.left))
 end
 
+# NOTE: for all these helpers, method returns *all* fields/children/descendants.
+# (Not just those current user has permission to read.)
+
 def fields
-  field_names.map { |name| Card[name] }
+  field_ids.map { |id| Card[id] }
 end
 
-def field_names parent_name=nil
-  child_names parent_name, :left
+def field_names
+  field_ids.map { |id| Card::Name[id] }
 end
 
-def children
-  child_names.map { |name| Card[name] }
+def field_ids
+  child_ids :left
 end
 
-def child_names parent_name=nil, side=nil
-  # eg, A+B is a child of A and B
-  parent_name ||= name
-  side ||= parent_name.to_name.simple? ? :part : :left
-  Card.search({ side => parent_name, return: :name },
-              "(#{side}) children of #{parent_name}")
+def each_child
+  child_ids.each do |id|
+    (child = Card[id]) && yield(child)
+    # check should not be needed (remove after fixing data problems)
+  end
 end
 
-# ids of children and children's children
-def descendant_ids parent_id=nil
-  return [] if new_card?
-  parent_id ||= id
+# eg, A+B is a child of A and B
+def child_ids side=nil
+  return [] unless id
+  side ||= name.simple? ? :part : :left_id
   Auth.as_bot do
-    child_ids = Card.search part: parent_id, return: :id
-    child_descendant_ids = child_ids.map { |cid| descendant_ids cid }
-    (child_ids + child_descendant_ids).flatten.uniq
+    Card.search({ side => id, return: :id, limit: 0 }, "children of #{name}")
   end
 end
 
-# children and children's children
-# NOTE - set modules are not loaded
-# -- should only be used for name manipulations
-def descendants
-  @descendants ||= descendant_ids.map { |id| Card.quick_fetch id }
-end
-
-def repair_key
-  Auth.as_bot do
-    correct_key = name.key
-    current_key = key
-    return self if current_key == correct_key
-
-    if (key_blocker = Card.find_by_key_and_trash(correct_key, true))
-      key_blocker.name = key_blocker.name + "*trash#{rand(4)}"
-      key_blocker.save
-    end
-
-    saved =   (self.key = correct_key) && save!
-    saved ||= (self.name = current_key) && save!
-
-    if saved
-      descendants.each(&:repair_key)
-    else
-      Rails.logger.debug "FAILED TO REPAIR BROKEN KEY: #{key}"
-      self.name = "BROKEN KEY: #{name}"
-    end
-    self
+def each_descendant &block
+  each_child do |child|
+    yield child
+    child.each_descendant(&block)
   end
-rescue StandardError
-  Rails.logger.info "BROKE ATTEMPTING TO REPAIR BROKEN KEY: #{key}"
-  self
 end
 
-def right_id= card_or_id
-  write_card_or_id :right_id, card_or_id
+def right_id= cardish
+  write_card_or_id :right_id, cardish
 end
 
-def left_id= card_or_id
-  write_card_or_id :left_id, card_or_id
+def left_id= cardish
+  write_card_or_id :left_id, cardish
 end
 
-def type_id= card_or_id
-  write_card_or_id :type_id, card_or_id
+def write_card_or_id attribute, cardish
+  when_id_exists(cardish) { |id| write_attribute attribute, id }
 end
 
-def write_card_or_id attribute, card_or_id
-  if card_or_id.is_a? Card
-    write_attribute_to_card attribute, card_or_id
+def when_id_exists cardish, &block
+  if (card_id = Card.id cardish)
+    yield card_id
+  elsif cardish.is_a? Card
+    with_id_after_store cardish, &block
   else
-    write_attribute attribute, card_or_id
+    yield cardish # eg nil
   end
 end
 
-def write_attribute_to_card attribute, card
-  if card.id
-    write_attribute attribute, card.id
-  else
-    add_subcard card
-    card.director.prior_store = true
-    with_id_when_exists(card) do |id|
-      write_attribute attribute, id
-    end
-  end
-end
-
-def with_id_when_exists card, &block
-  card.director.call_after_store(&block)
+# subcards are usually saved after super cards;
+# after_store forces it to save the subcard first
+# and callback afterwards
+def with_id_after_store subcard
+  add_subcard subcard
+  subcard.director.after_store { |card| yield card.id }
 end

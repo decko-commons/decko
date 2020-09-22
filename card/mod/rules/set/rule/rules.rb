@@ -1,5 +1,4 @@
-event :save_recently_edited_settings, :integrate,
-      on: :save, changed: %i[type content] do
+event :save_recently_edited_settings, :integrate, on: :save, changed: %i[type content] do
   if (recent = Card[:recent_settings])
     recent.insert_item 0, name.right
     attach_subcard recent

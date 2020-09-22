@@ -6,15 +6,15 @@
 <title>
   Module: Card::Format::Nesting::Mode
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Format::Nesting::Mode";
   relpath = '../../../';
 </script>
@@ -90,8 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Nest modes are states that can alter a nest’s view</p>
+    <p>Nest modes are states that can alter a nest’s view</p>
 
 
   </div>
@@ -117,7 +116,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#configured_view_in_closed_mode-instance_method" title="#configured_view_in_closed_mode (instance method)">#<strong>configured_view_in_closed_mode</strong>(view)  &#x21d2; Symbol </a>
+      <a href="#configured_view_in_compact_mode-instance_method" title="#configured_view_in_compact_mode (instance method)">#<strong>configured_view_in_compact_mode</strong>(view)  &#x21d2; Symbol </a>
     
 
     
@@ -131,8 +130,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>the view configured in view definition for use when nested in closed mode.</p>
+    <span class="summary_desc"><div class='inline'><p>the view configured in view definition for use when nested in compact mode.</p>
 </div></span>
   
 </li>
@@ -155,7 +153,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -177,8 +176,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>view to be rendered in current mode.</p>
+    <span class="summary_desc"><div class='inline'><p>view to be rendered in current mode.</p>
 </div></span>
   
 </li>
@@ -201,8 +199,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>current nest mode.</p>
+    <span class="summary_desc"><div class='inline'><p>current nest mode.</p>
 </div></span>
   
 </li>
@@ -211,7 +208,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#view_in_closed_mode-instance_method" title="#view_in_closed_mode (instance method)">#<strong>view_in_closed_mode</strong>(view)  &#x21d2; Symbol </a>
+      <a href="#view_in_compact_mode-instance_method" title="#view_in_compact_mode (instance method)">#<strong>view_in_compact_mode</strong>(view)  &#x21d2; Symbol </a>
     
 
     
@@ -225,8 +222,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>the view that should be used when nested in closed mode.</p>
+    <span class="summary_desc"><div class='inline'><p>the view that should be used when nested in compact mode.</p>
 </div></span>
   
 </li>
@@ -249,8 +245,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the view that the card should use when nested in edit mode.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the view that the card should use when nested in edit mode.</p>
 </div></span>
   
 </li>
@@ -273,7 +268,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -295,8 +291,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>run block with new_mode as nest_mode, then return to prior mode.</p>
+    <span class="summary_desc"><div class='inline'><p>run block with new_mode as nest_mode, then return to prior mode.</p>
 </div></span>
   
 </li>
@@ -312,9 +307,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="configured_view_in_closed_mode-instance_method">
+  <h3 class="signature first" id="configured_view_in_compact_mode-instance_method">
   
-    #<strong>configured_view_in_closed_mode</strong>(view)  &#x21d2; <tt>Symbol</tt> 
+    #<strong>configured_view_in_compact_mode</strong>(view)  &#x21d2; <tt>Symbol</tt> 
   
 
   
@@ -322,8 +317,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>the view configured in view definition for use when nested in closed mode</p>
+    <p>the view configured in view definition for use when nested in compact mode</p>
 
 
   </div>
@@ -356,8 +350,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>viewname</p>
+        <div class='inline'><p>viewname</p>
 </div>
       
     </li>
@@ -380,11 +373,11 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/card/format/nesting/mode.rb', line 79</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_configured_view_in_closed_mode'>configured_view_in_closed_mode</span> <span class='id identifier rubyid_view'>view</span>
-  <span class='id identifier rubyid_closed_config'>closed_config</span> <span class='op'>=</span> <span class='id identifier rubyid_view_setting'>view_setting</span><span class='lparen'>(</span><span class='symbol'>:closed</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_view'>view</span> <span class='kw'>if</span> <span class='id identifier rubyid_closed_config'>closed_config</span> <span class='op'>==</span> <span class='kw'>true</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_configured_view_in_compact_mode'>configured_view_in_compact_mode</span> <span class='id identifier rubyid_view'>view</span>
+  <span class='id identifier rubyid_compact_config'>compact_config</span> <span class='op'>=</span> <span class='id identifier rubyid_view_setting'>view_setting</span><span class='lparen'>(</span><span class='symbol'>:compact</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_view'>view</span> <span class='kw'>if</span> <span class='id identifier rubyid_compact_config'>compact_config</span> <span class='op'>==</span> <span class='kw'>true</span>
 
-  <span class='id identifier rubyid_closed_config'>closed_config</span>
+  <span class='id identifier rubyid_compact_config'>compact_config</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -403,6 +396,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+
 
   </div>
 </div>
@@ -473,8 +467,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>view to be rendered in current mode</p>
+    <p>view to be rendered in current mode</p>
 
 
   </div>
@@ -507,8 +500,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>viewname</p>
+        <div class='inline'><p>viewname</p>
 </div>
       
     </li>
@@ -538,8 +530,8 @@
   <span class='comment'># Note: the subformat always has the same nest_mode as its parent format
 </span>  <span class='kw'>case</span> <span class='id identifier rubyid_nest_mode'>nest_mode</span>
   <span class='kw'>when</span> <span class='symbol'>:edit</span>     <span class='kw'>then</span> <span class='id identifier rubyid_view_in_edit_mode'>view_in_edit_mode</span><span class='lparen'>(</span><span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span>
-  <span class='kw'>when</span> <span class='symbol'>:template</span> <span class='kw'>then</span> <span class='symbol'>:template_rule</span>
-  <span class='kw'>when</span> <span class='symbol'>:closed</span>   <span class='kw'>then</span> <span class='id identifier rubyid_view_in_closed_mode'>view_in_closed_mode</span><span class='lparen'>(</span><span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='symbol'>:template</span> <span class='kw'>then</span> <span class='symbol'>:template_nest</span>
+  <span class='kw'>when</span> <span class='symbol'>:compact</span>   <span class='kw'>then</span> <span class='id identifier rubyid_view_in_compact_mode'>view_in_compact_mode</span><span class='lparen'>(</span><span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span>
   <span class='kw'>else</span> <span class='id identifier rubyid_view'>view</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -559,8 +551,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>current nest mode</p>
+    <p>current nest mode</p>
 
 
   </div>
@@ -578,8 +569,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>:normal, :closed, :edit, or :template</p>
+        <div class='inline'><p>:normal, :compact, :edit, or :template</p>
 </div>
       
     </li>
@@ -608,9 +598,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="view_in_closed_mode-instance_method">
+  <h3 class="signature " id="view_in_compact_mode-instance_method">
   
-    #<strong>view_in_closed_mode</strong>(view)  &#x21d2; <tt>Symbol</tt> 
+    #<strong>view_in_compact_mode</strong>(view)  &#x21d2; <tt>Symbol</tt> 
   
 
   
@@ -618,8 +608,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>the view that should be used when nested in closed mode</p>
+    <p>the view that should be used when nested in compact mode</p>
 
 
   </div>
@@ -652,8 +641,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>viewname</p>
+        <div class='inline'><p>viewname</p>
 </div>
       
     </li>
@@ -674,9 +662,9 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/card/format/nesting/mode.rb', line 71</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_view_in_closed_mode'>view_in_closed_mode</span> <span class='id identifier rubyid_view'>view</span>
-  <span class='id identifier rubyid_configured_view_in_closed_mode'>configured_view_in_closed_mode</span><span class='lparen'>(</span><span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span> <span class='op'>||</span>
-    <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_known?'>known?</span> <span class='op'>?</span> <span class='symbol'>:closed_content</span> <span class='op'>:</span> <span class='symbol'>:closed_missing</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_view_in_compact_mode'>view_in_compact_mode</span> <span class='id identifier rubyid_view'>view</span>
+  <span class='id identifier rubyid_configured_view_in_compact_mode'>configured_view_in_compact_mode</span><span class='lparen'>(</span><span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span> <span class='op'>||</span>
+    <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_known?'>known?</span> <span class='op'>?</span> <span class='symbol'>:one_line_content</span> <span class='op'>:</span> <span class='symbol'>:compact_missing</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -694,8 +682,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the view that the card should use when nested in edit mode</p>
+    <p>Returns the view that the card should use when nested in edit mode</p>
 
 
   </div>
@@ -728,8 +715,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>viewname</p>
+        <div class='inline'><p>viewname</p>
 </div>
       
     </li>
@@ -806,8 +792,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>run block with new_mode as nest_mode, then return to prior mode</p>
+    <p>run block with new_mode as nest_mode, then return to prior mode</p>
 
 
   </div>
@@ -826,8 +811,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>:normal, :closed, :edit, or :template</p>
+        <div class='inline'><p>:normal, :compact, :edit, or :template</p>
 </div>
       
     </li>
@@ -845,8 +829,7 @@
       
       
         
-        <div class='inline'>
-<p>block result</p>
+        <div class='inline'><p>block result</p>
 </div>
       
     </li>
@@ -887,9 +870,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:20 2019 by
+  Generated on Thu Sep 10 15:02:26 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

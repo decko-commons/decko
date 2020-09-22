@@ -6,7 +6,7 @@ format :html do
   # TODO: remove the following after tracking down wikirate encoding bug
   rescue Card::Error::ServerError => e
     if e.message.match?(/invalid byte sequence/)
-      Card::Name.reset_cache
+      Card::Lexicon.cache.reset
       Rails.logger.info "reset name cache to prevent encoding freakiness"
     end
     raise e

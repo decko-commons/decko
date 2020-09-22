@@ -38,17 +38,17 @@ class Card
       private
 
       def user_account_ids
-        as_bot { Card.search user_account_wql.merge(return: :id) }
+        as_bot { Card.search user_account_cql.merge(return: :id) }
       end
 
-      def user_account_wql
+      def user_account_cql
         { right_id: Card::AccountID, creator_id: ["ne", Card::WagnBotID] }
       end
 
       def user_account_count
-        wql = user_account_wql
-        wql[:not] = { id: ["in"].concat(@hidden_accounts) } if @hidden_accounts
-        as_bot { Card.count_by_wql wql }
+        cql = user_account_cql
+        cql[:not] = { id: ["in"].concat(@hidden_accounts) } if @hidden_accounts
+        as_bot { Card.count_by_cql cql }
       end
     end
   end

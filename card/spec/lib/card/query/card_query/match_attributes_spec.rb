@@ -2,8 +2,6 @@ require_relative "../query_spec_helper"
 RSpec.describe Card::Query::CardQuery::MatchAttributes do
   include QuerySpecHelper
 
-  # TODO: add specs for: #complete
-
   describe "match" do
     it "reaches content and name via shortcut" do
       expect(run_query(match: "two")).to eq(cards_matching_two)
@@ -14,16 +12,21 @@ RSpec.describe Card::Query::CardQuery::MatchAttributes do
     end
 
     it "gets only name when name is explicit" do
-      expect(run_query(name: [:match, "two"])).to eq(["One+Two", "One+Two+Three", "Two"])
+      expect(run_query(name: [:match, "two"])).to eq(["Two"])
     end
 
     context "with keyword" do
       it "escapes nonword characters" do
-        expect(run_query(match: "two :(!")).to eq(cards_matching_two)
+        expect(run_query(match: "*all")).to include("*all")
       end
 
-      it "it can handle *" do
-        expect(run_query(match: "*all")).to include("*all")
+      it "works like a regexp when prefixed by '~~'" do
+        expect(run_query(match: "~~(two|three)").sort)
+          .to eq((cards_matching_two + %w[Three ThreeHeading]).sort)
+      end
+
+      it "ignores initial (single) '~'" do
+        expect(run_query(match: "~two")).to eq(cards_matching_two)
       end
     end
   end
@@ -41,11 +44,9 @@ RSpec.describe Card::Query::CardQuery::MatchAttributes do
   end
 
   describe "name_match" do
-    it "matches names with or without plusses" do
+    it "same as name: [:match, val]" do
       expect(run_query(name_match: "Any", sort: :name))
-        .to eq(["Anyone", "Anyone+description", "Anyone Signed In",
-                "Anyone Signed In+dashboard", "Anyone Signed In+description",
-                "Anyone With Role"])
+        .to eq(["Anyone", "Anyone Signed In", "Anyone With Role"])
     end
   end
 end

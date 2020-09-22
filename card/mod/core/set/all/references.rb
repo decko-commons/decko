@@ -41,12 +41,6 @@ def name_referers
   Card.joins(:references_out).where card_references: { referee_key: key }
 end
 
-# cards that refer to self or any descendant
-def family_referers
-  @family_referers ||= ([self] + descendants).map(&:referers).flatten.uniq
-  # TODO: make this more efficient using partial references!
-end
-
 # replace references in card content
 def replace_reference_syntax old_name, new_name
   obj_content = Card::Content.new content, self
@@ -86,7 +80,7 @@ end
 
 # interpretation phase helps to prevent duplicate references
 # results in hash like:
-# { referee1_key: [referee1_id, referee1_type1, referee1_type2],
+# { referee1_key: [referee1_id, referee1_type2],
 #   referee2_key...
 # }
 def interpret_reference ref_hash, referee_name, ref_type
@@ -95,7 +89,7 @@ def interpret_reference ref_hash, referee_name, ref_type
   referee_key = referee_name.key
   return if referee_key == key # don't create self reference
 
-  referee_id = Card.fetch_id(referee_name)
+  referee_id = Card::Lexicon.id referee_name
   ref_hash[referee_key] ||= [referee_id]
   ref_hash[referee_key] << ref_type
 
@@ -106,6 +100,7 @@ end
 # For example a link to virual card [[A+*self]] won't have a referee_id,
 # but when A's name is changed we have to find and update that link.
 def interpret_partial_references ref_hash, referee_name
+  return if referee_name.simple?
   [referee_name.left, referee_name.right].each do |sidename|
     interpret_reference ref_hash, sidename, PARTIAL_REF_CODE
   end
@@ -131,7 +126,7 @@ end
 # the reference name and reference type
 def each_reference_out
   content_object.find_chunks(Card::Content::Chunk::Reference).each do |chunk|
-    yield(chunk.referee_name, chunk.reference_code)
+    yield chunk.referee_name, chunk.reference_code
   end
 end
 
@@ -145,15 +140,33 @@ end
 
 protected
 
-# test for updating referer content & preload referer list
+# test for updating referer content
 event :prepare_referer_update, :validate, on: :update, changed: :name do
   self.update_referers = ![nil, false, "false"].member?(update_referers)
-  family_referers
+end
+
+# on rename, update names in cards that refer to self by name (as directed)
+event :update_referer_content, :finalize, on: :update, when: :update_referers do
+  referers.each do |card|
+    next if card.structure
+    card.skip_event! :validate_renaming, :check_permissions
+    card.content = card.replace_reference_syntax name_before_act, name
+    attach_subcard card
+  end
+end
+
+# on rename, when NOT updating referer content, update references to ensure
+# that partial references are correctly tracked
+# eg.  A links to X+Y.  if X+Y is renamed and we're not updating the link in A,
+# then we need to be sure that A has a partial reference
+event :update_referer_references_out, :finalize,
+      on: :update, when: :not_update_referers do
+  referers.map(&:update_references_out)
 end
 
 # when name changes, update references to card
-event :refresh_references_in, :finalize, on: :save, after: :name_change_finalized do
-  Card::Reference.unmap_referees id if @action == :update && !update_referers
+event :refresh_references_in, :finalize, on: :save do
+  Card::Reference.unmap_referees id if action == :update && !update_referers
   Card::Reference.map_referees key, id
 end
 
@@ -166,26 +179,6 @@ end
 event :clear_references, :finalize, on: :delete do
   delete_references_out
   Card::Reference.unmap_referees id
-end
-
-# on rename, update names in cards that refer to self by name (as directed)
-event :update_referer_content, :finalize,
-      on: :update, after: :name_change_finalized, when: :update_referers do
-  referers.each do |card|
-    next if card.structure
-    card.skip_event! :validate_renaming, :check_permissions
-    card.content = card.replace_reference_syntax name_before_last_save, name
-    attach_subcard card
-  end
-end
-
-# on rename, when NOT updating referer content, update references to ensure
-# that partial references are correctly tracked
-# eg.  A links to X+Y.  if X+Y is renamed and we're not updating the link in A,
-# then we need to be sure that A has a partial reference
-event :update_referer_references_out, :finalize,
-      on: :update, after: :name_change_finalized, when: :not_update_referers do
-  referers.map(&:update_references_out)
 end
 
 def not_update_referers

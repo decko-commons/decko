@@ -20,11 +20,14 @@ end
 
 event :validate_uniqueness_of_name, skip: :allowed do
   # validate uniqueness of name
-  rel = Card.where key: name.key, trash: false
-  rel = rel.where "id <> ?", id if id
-  if (existing = rel.take)
-    errors.add :name, tr(:error_name_exists, name: existing.name)
-  end
+
+  return unless (existing_id = Card::Lexicon.id key) && existing_id != id
+  # The above is a fast check but cannot detect if card is in trash
+
+  # TODO: perform the following as a remote-only fetch (not yet supported)
+  return unless (existing_card = Card.where(id: existing_id, trash: false).take)
+
+  errors.add :name, tr(:error_name_exists, name: existing_card.name)
 end
 
 event :validate_legality_of_name do
@@ -52,27 +55,54 @@ end
 # STAGE: store
 
 event :expire_old_name, :store, changed: :name, on: :update do
-  ActManager.expirees << name_before_act
+  Director.expirees << name_before_act
 end
 
-event :set_left_and_right, :store,
-      changed: :name, on: :save do
-  if name.junction?
-    %i[left right].each do |side|
-      assign_side_id side
-    end
+event :update_lexicon_on_create, :finalize, changed: :name, on: :create do
+  Card::Lexicon.add self
+end
+
+event :update_lexicon_on_rename, :finalize, changed: :name, on: :update do
+  Card::Lexicon.update self
+end
+
+def lex
+  simple? ? name : [left_id, right_id]
+end
+
+def old_lex
+  if (old_left_id = left_id_before_act)
+    [old_left_id, right_id_before_act]
   else
-    self.left_id = self.right_id = nil
+    name_before_act
   end
 end
 
-# STAGE: finalize
+event :prepare_left_and_right, :store, changed: :name, on: :save do
+  return if name.simple?
+  prepare_side :left
+  prepare_side :right
+end
 
-event :name_change_finalized, :finalize, changed: :name, on: :save do
-  # The events to update references has to happen after :cascade_name_changes,
-  # but :cascade_name_changes is defined after the reference events and
-  # and additionaly it is defined on :update but some of the reference
-  # events are on :save. Hence we need this additional hook to organize these events.
+def prepare_side side
+  side_id = send "#{side}_id"
+  sidename = name.send "#{side}_name"
+  prepare_obstructed_side(side, side_id, sidename) ||
+    prepare_new_side(side, side_id, sidename)
+end
+
+def prepare_new_side side, side_id, sidename
+  return unless side_id == -1 || !Card[side_id]&.real?
+
+  sidecard = Director.card(sidename) || add_subcard(sidename)
+  send "#{side}_id=", sidecard
+end
+
+def prepare_obstructed_side side, side_id, sidename
+  return unless side_id && side_id == id
+  clear_name sidename
+  send "#{side}_id=", add_subcard(sidename)
+  true
 end
 
 private
@@ -90,21 +120,15 @@ def changing_name_to_junction?
   name.junction? && simple?
 end
 
-def assign_side_id side
-  sidename = name.send "#{side}_name"
-  sidecard = Card[sidename] || ActManager.card(sidename)
-
-  # eg, renaming A to A+B
-  old_name_in_way = (sidecard&.id && sidecard&.id == id)
-  suspend_name(sidename) if old_name_in_way
-  send "#{side}_id=", side_id_or_card(old_name_in_way, sidecard, sidename)
+def old_name_in_way? sidecard
+  real? && sidecard&.simple? && id == sidecard&.id
 end
 
-def side_id_or_card old_name_in_way, sidecard, sidename
-  if !sidecard || old_name_in_way
-    add_subcard(sidename.s)
-  else
-    # if sidecard doesn't have an id, it's already part of this act
-    sidecard.id || sidecard
-  end
+def clear_name name
+  # move the current card out of the way, in case the new name will require
+  # re-creating a card with the current name, ie.  A -> A+B
+  Card.where(id: id).update_all(name: nil, key: nil, left_id: nil, right_id: nil)
+  Card.expire name
+  Card::Lexicon.cache.reset # probably overkill, but this for an edge case...
+  # Card::Lexicon.delete id, key
 end

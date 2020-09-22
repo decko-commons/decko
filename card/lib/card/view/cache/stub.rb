@@ -25,7 +25,7 @@ class Card
 
         # @return [Hash]
         def stub_hash
-          { cast: card.cast,
+          { cast: stub_cast,
             view_opts: normalized_options.merge(normalized_visibility_options),
             format_opts: { nest_mode: format.nest_mode,
                            override: root?,
@@ -36,6 +36,12 @@ class Card
           # Mode-based view overrides should NOT apply to standard render calls that have
           # been replaced with stubs - only to standard nest calls. The override value
           # is used to retain this distinction.
+        end
+
+        def stub_cast
+          cast = card.cast
+          cast.delete :content if cast[:content].nil?
+          cast
         end
       end
     end

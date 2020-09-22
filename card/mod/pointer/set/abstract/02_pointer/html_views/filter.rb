@@ -7,9 +7,7 @@ format :html do
     render_filter_items
   end
 
-  view :filter_items, unknown: true, wrap: :slot  do
-    haml :filter_items
-  end
+  view :filter_items, unknown: true, wrap: :slot, template: :haml
 
   def filtered_list_input
     with_nest_mode :normal do
@@ -46,7 +44,7 @@ format :html do
 
   def default_filter_card
     fcard = card.options_rule_card || Card[:all]
-    return fcard if fcard.respond_to? :wql_hash
+    return fcard if fcard.respond_to? :cql_hash
 
     fcard.fetch :referred_to_by, new: {}
   end

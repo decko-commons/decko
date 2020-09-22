@@ -12,7 +12,6 @@ describe Card::Name do
       expect("+B"   .to_name.field_of? "A+B").to be_truthy
       expect("+B"   .to_name.field_of? ""   ).to be_truthy
       expect("+B"   .to_name.field_of? nil  ).to be_truthy
-
     end
   end
 end

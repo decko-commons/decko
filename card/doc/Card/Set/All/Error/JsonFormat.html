@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::All::Error::JsonFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::All::Error::JsonFormat";
   relpath = '../../../../';
 </script>
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>tmpsets/set/mod021-standard/all/error.rb</dd>
+    <dd>tmpsets/set/mod022-standard/all/error.rb</dd>
   </dl>
   
 </div>
@@ -120,7 +120,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -142,7 +143,54 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+bad_address-instance_method" title="#view: bad_address (instance method)">#<strong>view: bad_address</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+denial-instance_method" title="#view: denial (instance method)">#<strong>view: denial</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -164,7 +212,31 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+not_found-instance_method" title="#view: not_found (instance method)">#<strong>view: not_found</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -186,7 +258,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -223,7 +296,7 @@
 82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/error.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/error.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_error_list'>error_list</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_list'>list</span><span class='op'>|</span>
@@ -255,11 +328,67 @@
 76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/error.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/error.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_error'>format_error</span> <span class='id identifier rubyid_error'>error</span>
   <span class='lbrace'>{</span> <span class='label'>error_status:</span> <span class='id identifier rubyid_error_status'>error_status</span><span class='comma'>,</span> <span class='label'>errors:</span> <span class='id identifier rubyid_error'>error</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: bad_address-instance_method">
+  
+    #<strong>view: bad_address</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/error.rb', line 70</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:bad_address</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_format_error'>format_error</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: denial-instance_method">
+  
+    #<strong>view: denial</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+67</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/error.rb', line 67</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:denial</span><span class='comma'>,</span> <span class='symbol'>:errors</span></pre>
     </td>
   </tr>
 </table>
@@ -285,11 +414,37 @@
 64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/error.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/error.rb', line 62</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:errors</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_format_error'>format_error</span> <span class='id identifier rubyid_error_list'>error_list</span>
 <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: not_found-instance_method">
+  
+    #<strong>view: not_found</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+68</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/error.rb', line 68</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:not_found</span><span class='comma'>,</span> <span class='symbol'>:errors</span></pre>
     </td>
   </tr>
 </table>
@@ -313,7 +468,7 @@
 66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod021-standard/all/error.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod022-standard/all/error.rb', line 66</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:server_error</span><span class='comma'>,</span> <span class='symbol'>:errors</span></pre>
     </td>
@@ -326,9 +481,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:30 2019 by
+  Generated on Thu Sep 10 15:02:31 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

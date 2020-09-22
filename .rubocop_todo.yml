@@ -13,14 +13,14 @@ Lint/AmbiguousOperator:
     - 'card/mod/account/set/right/token.rb'
     - 'card/mod/standard/set/all/list_changes.rb'
     - 'card/spec/lib/card/content_spec.rb'
-    - 'wagn/lib/wagn/application.rb'
-    - 'wagn/test/performance/card_create_test.rb'
+    - 'decko/lib/decko/application.rb'
+    - 'decko/test/performance/card_create_test.rb'
 
 # Offense count: 6
 Lint/AmbiguousRegexpLiteral:
   Exclude:
     - 'card/spec/lib/card/content_spec.rb'
-    - 'wagn/lib/wagn/config/environments/development.rb'
+    - 'decko/lib/decko/config/environments/development.rb'
 
 # Offense count: 16
 # Configuration parameters: AllowSafeAssignment.
@@ -34,8 +34,8 @@ Lint/AssignmentInCondition:
     - 'card/lib/card/exceptions.rb'
     - 'card/lib/card/query/value.rb'
     - 'card/lib/card/view_name.rb'
-    - 'wagn/lib/wagn/generators/wagn/templates/bin/spring'
-    - 'wagn/test/test_helper.rb'
+    - 'decko/lib/decko/generators/decko/templates/bin/spring'
+    - 'decko/test/test_helper.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -62,7 +62,7 @@ Lint/EndAlignment:
     - 'card/lib/generators/card/format/format_generator.rb'
     - 'card/lib/generators/card/set/set_generator.rb'
     - 'card/mod/carrierwave/lib/file_uploader.rb'
-    - 'wagn/test/test_helper.rb'
+    - 'decko/test/test_helper.rb'
 
 # Offense count: 2
 Lint/Eval:
@@ -75,9 +75,9 @@ Lint/HandleExceptions:
   Exclude:
     - 'card/spec/lib/card/stage_director_spec.rb'
     - 'card/spec/spec_helper.rb'
-    - 'wagn/lib/wagn/config/environments/development.rb'
-    - 'wagn/lib/wagn/config/environments/test.rb'
-    - 'wagn/lib/wagn/script_wagn_loader.rb'
+    - 'decko/lib/decko/config/environments/development.rb'
+    - 'decko/lib/decko/config/environments/test.rb'
+    - 'decko/lib/decko/script_decko_loader.rb'
 
 # Offense count: 2
 Lint/ShadowingOuterLocalVariable:
@@ -90,7 +90,7 @@ Lint/ShadowingOuterLocalVariable:
 # Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
 Lint/UnusedMethodArgument:
   Exclude:
-    - 'wagn/features/step_definitions/wagn_steps.rb'
+    - 'decko/features/step_definitions/decko_steps.rb'
 
 # Offense count: 45
 Lint/UselessAssignment:
@@ -101,7 +101,7 @@ Lint/Void:
   Exclude:
     - 'card/mod/machines/spec/set/type/skin_spec.rb'
     - 'card/mod/standard/spec/set/type/uri_spec.rb'
-    - 'wagn/test/performance/render_test.rb'
+    - 'decko/test/performance/render_test.rb'
 
 # Offense count: 104
 Metrics/AbcSize:
@@ -164,8 +164,8 @@ Style/Alias:
   Exclude:
     - 'card/lib/card/query/conjunctions.rb'
     - 'card/mod/core/set/all/states.rb'
-    - 'wagn/lib/wagn/generators/wagn/wagn_generator.rb'
-    - 'wagn/test/test_helper.rb'
+    - 'decko/lib/decko/generators/decko/decko_generator.rb'
+    - 'decko/test/test_helper.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -174,7 +174,7 @@ Style/Alias:
 Style/AlignParameters:
   Exclude:
     - 'card/spec/lib/card/i18n_spec.rb'
-    - 'wagn/lib/wagn/generators/wagn/wagn_generator.rb'
+    - 'decko/lib/decko/generators/decko/decko_generator.rb'
 
 # Offense count: 1
 Style/AsciiComments:
@@ -205,8 +205,8 @@ Style/CaseEquality:
     - 'card/lib/card/view_name.rb'
     - 'card/mod/standard/set/type/basic.rb'
     - 'card/spec/lib/card/content_spec.rb'
-    - 'wagn/rails/controllers/card_controller.rb'
-    - 'wagn/test/test_helper.rb'
+    - 'decko/rails/controllers/card_controller.rb'
+    - 'decko/test/test_helper.rb'
 
 # Offense count: 22
 # Configuration parameters: EnforcedStyle, SupportedStyles.
@@ -223,7 +223,7 @@ Style/ClassVars:
 Style/CommentIndentation:
   Exclude:
     - 'card/mod/standard/set/all/comment.rb'
-    - 'wagn/features/step_definitions/wagn_steps.rb'
+    - 'decko/features/step_definitions/decko_steps.rb'
 
 # Offense count: 253
 Style/Documentation:
@@ -273,8 +273,8 @@ Style/EmptyLinesAroundModuleBody:
 # Configuration parameters: ExpectMatchingDefinition, Regex, IgnoreExecutableScripts.
 Style/FileName:
   Exclude:
-    - 'wagn/rails/application-routes.rb'
-    - 'wagn/rails/engine-routes.rb'
+    - 'decko/rails/application-routes.rb'
+    - 'decko/rails/engine-routes.rb'
 
 # Offense count: 5
 # Configuration parameters: MinBodyLength.
@@ -284,7 +284,7 @@ Style/GuardClause:
     - 'card/db/migrate_core_cards/20150903130006_attachment_upload_cards.rb'
     - 'card/mod/carrierwave/set/abstract/attachment.rb'
     - 'card/mod/standard/set/type/set.rb'
-    - 'wagn/rails/controllers/card_controller.rb'
+    - 'decko/rails/controllers/card_controller.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -311,7 +311,7 @@ Style/IndentationConsistency:
     - 'card/mod/machines/spec/set/type/skin_spec.rb'
     - 'card/mod/standard/spec/set/rstar/rules_spec.rb'
     - 'card/spec/mailers/mailer_spec.rb'
-    - 'wagn/lib/wagn/tasks/cucumber.rake'
+    - 'decko/lib/decko/tasks/cucumber.rake'
 
 # Offense count: 5
 # Cop supports --auto-correct.
@@ -325,7 +325,7 @@ Style/Lambda:
 # Cop supports --auto-correct.
 Style/LeadingCommentSpace:
   Exclude:
-    - 'wagn/features/step_definitions/wagn_steps.rb'
+    - 'decko/features/step_definitions/decko_steps.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -363,7 +363,7 @@ Style/MultilineArrayBraceLayout:
 Style/MultilineBlockChain:
   Exclude:
     - 'card/mod/core/set/all/collection.rb'
-    - 'wagn/test/test_helper.rb'
+    - 'decko/test/test_helper.rb'
 
 # Offense count: 15
 # Cop supports --auto-correct.
@@ -432,7 +432,7 @@ Style/Next:
 # SupportedOctalStyles: zero_with_o, zero_only
 Style/NumericLiteralPrefix:
   Exclude:
-    - 'wagn/lib/wagn/generators/wagn/wagn_generator.rb'
+    - 'decko/lib/decko/generators/decko/decko_generator.rb'
 
 # Offense count: 13
 # Cop supports --auto-correct.
@@ -447,16 +447,16 @@ Style/NumericPredicate:
     - 'card/mod/core/set/all/tracked_attributes.rb'
     - 'card/mod/history/set/all/content_history.rb'
     - 'card/mod/standard/set/type/search_type.rb'
-    - 'wagn/features/step_definitions/email_steps.rb'
-    - 'wagn/features/step_definitions/wagn_steps.rb'
-    - 'wagn/rails/controllers/card_controller.rb'
+    - 'decko/features/step_definitions/email_steps.rb'
+    - 'decko/features/step_definitions/decko_steps.rb'
+    - 'decko/rails/controllers/card_controller.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/PerlBackrefs:
   Exclude:
     - 'card/mod/core/set/all/cache_action.rb'
-    - 'wagn/features/support/paths.rb'
+    - 'decko/features/support/paths.rb'
 
 # Offense count: 9
 # Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist.
@@ -494,12 +494,12 @@ Style/RegexpLiteral:
     - 'card/mod/standard/set/all/links.rb'
     - 'card/mod/standard/set/type/basic.rb'
     - 'card/spec/lib/card/cache_spec.rb'
-    - 'wagn/features/step_definitions/email_steps.rb'
-    - 'wagn/lib/wagn/mods_spec_helper.rb'
-    - 'wagn/lib/wagn/simplecov_helper.rb'
-    - 'wagn/script/test_filter'
-    - 'wagn/spec/controllers/card_controller_spec.rb'
-    - 'wagn/test/test_helper.rb'
+    - 'decko/features/step_definitions/email_steps.rb'
+    - 'decko/lib/decko/mods_spec_helper.rb'
+    - 'decko/lib/decko/simplecov_helper.rb'
+    - 'decko/script/test_filter'
+    - 'decko/spec/controllers/card_controller_spec.rb'
+    - 'decko/test/test_helper.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -507,7 +507,7 @@ Style/RegexpLiteral:
 Style/Semicolon:
   Exclude:
     - 'card/mod/standard/set/type/basic.rb'
-    - 'wagn/lib/wagn/cli.rb'
+    - 'decko/lib/decko/cli.rb'
 
 # Offense count: 1
 # Configuration parameters: Methods.

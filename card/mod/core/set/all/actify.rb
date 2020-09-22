@@ -1,62 +1,36 @@
-def act &block
-  @action ||= identify_action
+def act options={}, &block
   if act_card
-    add_to_act &block
+    add_to_act options, &block
   else
     start_new_act &block
   end
 end
 
-def start_new_act
-  self.director = nil
-  ActManager.run_act(self) do
-    run_callbacks(:act) { yield }
-  end
-end
-
-def add_to_act
-  # if only_storage_phase is true then the card is already part of the act
-  return yield if act_card? || only_storage_phase
-  director.reset_stage
-  director.update_card self
-  self.only_storage_phase = true
-  yield
-end
-
 def act_card
-  ActManager.act_card
+  Card::Director.act_card
 end
 
 def act_card?
   self == act_card
 end
 
-def clear_action_specific_attributes
-  self.class.action_specific_attributes.each do |attr|
-    instance_variable_set "@#{attr}", nil
-  end
-end
-
 module ClassMethods
   def create! opts
     card = Card.new opts
-    card.act do
-      card.save!
-    end
+    card.save!
     card
   end
 
   def create opts
     card = Card.new opts
-    card.act do
-      card.save
-    end
+    card.save
     card
   end
 end
 
-def save!(*)
-  act { super }
+def save! *args
+  as_subcard = args.first&.delete :as_subcard
+  act(as_subcard: as_subcard) { super }
 end
 
 def save(*)
@@ -64,7 +38,7 @@ def save(*)
 end
 
 def valid?(*)
-  act { super }
+  act(validating: true) { super }
 end
 
 def update *args
@@ -77,3 +51,18 @@ end
 
 alias_method :update_attributes, :update
 alias_method :update_attributes!, :update!
+
+private
+
+def start_new_act
+  self.director = nil
+  Director.run_act(self) do
+    run_callbacks(:act) { yield }
+  end
+end
+
+def add_to_act options={}
+  director.appoint self unless @director
+  director.head = true unless options[:validating] || options[:as_subcard]
+  yield
+end

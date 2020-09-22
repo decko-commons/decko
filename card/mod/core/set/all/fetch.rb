@@ -22,16 +22,9 @@ module ClassMethods
   #      new: { opts for Card#new }  Return a new card when not found
   # @return [Card]
   def fetch *args
-    mark, opts = normalize_fetch_args args
-    validate_fetch_opts! opts
-
-    card, needs_caching = retrieve_or_new mark, opts
-
-    return if card.nil?
-    write_to_cache card, opts[:local_only] if needs_caching
-    standard_fetch_results card, mark, opts
+    Card::Fetch.new(*args)&.retrieve_or_new
   rescue ActiveModel::RangeError => _e
-    return Card.new name: "card id out of range: #{mark}"
+    return Card.new name: "card id out of range: #{f.mark}"
   end
 
   # fetch only real (no virtual) cards
@@ -49,16 +42,7 @@ module ClassMethods
   # @param mark - see #fetch
   # @return [Card]
   def quick_fetch *mark
-    fetch mark, skip_virtual: true, skip_modules: true
-  end
-
-  # fetch only from the soft cache
-  #
-  # @param args - see #fetch
-  # @return [Card]
-  def fetch_soft *args
-    mark, opts = normalize_fetch_args args
-    fetch mark, opts.merge(local_only: true)
+    fetch(*mark, skip_virtual: true, skip_modules: true)
   end
 
   # @return [Card]
@@ -80,19 +64,17 @@ module ClassMethods
     end
   end
 
-  # @param mark - see #fetch
+  # @param mark_parts - see #fetch
   # @return [Integer]
-  def fetch_id *mark
-    mark, _opts = normalize_fetch_args mark
-    return mark if mark.is_a? Integer
-    card = quick_fetch mark.to_s
-    card && card.id
+  def fetch_id *mark_parts
+    mark = Card::Fetch.new(*mark_parts)&.mark
+    mark.is_a?(Integer) ? mark : quick_fetch(mark.to_s)&.id
   end
 
   # @param mark - see #fetch
   # @return [Card::Name]
   def fetch_name *mark
-    if (card = quick_fetch(mark))
+    if (card = quick_fetch(*mark))
       card.name
     elsif block_given?
       yield.to_name
@@ -105,7 +87,7 @@ module ClassMethods
 
   # @param mark - see #fetch
   # @return [Integer]
-  def fetch_type_id *mark
+  def fetch_type_id mark
     quick_fetch(mark)&.type_id
   end
 end
@@ -121,28 +103,14 @@ def fetch traits, opts={}
   end
 end
 
-def renew mark, new_opts
-  return self if new_opts.blank?
-  opts = new_opts.clone.reverse_merge name: mark
-  copy = dup
-  handle_default_content opts
-  copy.newish opts
-  copy
-end
-
 def newish opts
+  reset_patterns
   Card.with_normalized_new_args opts do |norm_opts|
     handle_type norm_opts do
       assign_attributes norm_opts
       self.name = name # trigger superize_name
     end
   end
-end
-
-def handle_default_content opts
-  return unless (default_content = opts.delete(:default_content)) && db_content.blank?
-
-  opts[:content] ||= default_content
 end
 
 def refresh force=false

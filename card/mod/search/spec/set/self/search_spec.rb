@@ -6,7 +6,7 @@ describe Card::Set::Self::Search do
     Card[:search].format.search_with_params
   end
 
-  it "processes wql" do
+  it "processes cql" do
     expect(keyword_search('{"type":"user"}')).to include Card["Joe User"]
   end
 end

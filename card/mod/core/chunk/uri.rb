@@ -89,7 +89,7 @@ module Card::Content::Chunk
   # FIXME: DRY, merge these two into one class
   class EmailURI < URI
     PREPEND_STR = "mailto:".freeze
-    EMAIL = '[a-zA-Zd](?:[-a-zA-Zd]*[a-zA-Zd])?\\@'.freeze
+    EMAIL = '[a-zA-Z\\d](?:[-a-zA-Z\\d.]*[a-zA-Z\\d])?\\@'.freeze
 
     Card::Content::Chunk.register_class(
       self, prefix_re: "(?:(?!#{REJECTED_PREFIX_RE})#{EMAIL})\\b",
@@ -129,7 +129,7 @@ module Card::Content::Chunk
     # TLDS = "(?:#{GENERIC})"
 
     PREPEND_STR = "http://".freeze
-    HOST = "(?:[a-zA-Z\d](?:[-a-zA-Z\d]*[a-zA-Z\d])?\\.)+#{TLDS}".freeze
+    HOST = "(?:[a-zA-Z\\d](?:[-a-zA-Z\\d]*[a-zA-Z\\d])?\\.)+#{TLDS}".freeze
 
     Card::Content::Chunk.register_class(
       self, prefix_re: "(?:(?!#{REJECTED_PREFIX_RE})#{HOST})\\b",

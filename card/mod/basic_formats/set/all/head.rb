@@ -1,6 +1,8 @@
 format do
   view :page_title, unknown: true, perms: :none do
-    [(safe_name if card.name.present?), Card::Rule.global_setting(:title)].compact.join " - "
+    title_parts = [Card::Rule.global_setting(:title)]
+    title_parts.unshift safe_name if card.name.present?
+    title_parts.join " - "
   end
 end
 

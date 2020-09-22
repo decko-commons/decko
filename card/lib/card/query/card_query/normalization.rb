@@ -18,8 +18,8 @@ class Card
         def clause_to_hash clause
           case clause
           when Hash              then clause
-          when String            then { key: clause.to_name.key }
           when Integer           then { id: clause }
+          when String            then { id: (Card::Lexicon.id(clause) || -2) }
           when Symbol            then { id: Card::Codename.id(clause) }
           else raise Error::BadQuery, "Invalid clause: #{clause.inspect}"
           end
@@ -27,9 +27,9 @@ class Card
 
         def normalize_value val
           case val
-          when Integer, Float, Hash, Symbol then val
-          when String                       then normalize_string_value val
-          when Array                        then normalize_array_value val
+          when Integer, Float, Hash, Symbol, NilClass then val
+          when String                                 then normalize_string_value val
+          when Array                                  then normalize_array_value val
           else raise Error::BadQuery, "Invalid value type: #{val.class} (#{val.inspect})"
           end
         end

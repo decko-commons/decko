@@ -6,15 +6,15 @@
 <title>
   Module: Card::Set::Type::File::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::Set::Type::File::HtmlFormat";
   relpath = '../../../../';
 </script>
@@ -81,7 +81,7 @@
   
   <dl>
     <dt>Included in:</dt>
-    <dd><span class='object_link'><a href="../Image/HtmlFormat.html" title="Card::Set::Type::Image::HtmlFormat (module)">Image::HtmlFormat</a></span></dd>
+    <dd><span class='object_link'><a href="../Image/HtmlViews/HtmlFormat.html" title="Card::Set::Type::Image::HtmlViews::HtmlFormat (module)">Image::HtmlViews::HtmlFormat</a></span></dd>
   </dl>
   
 
@@ -125,7 +125,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -147,7 +148,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -169,7 +171,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -191,7 +194,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -213,7 +217,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -235,7 +240,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -243,7 +249,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#view:+editor-instance_method" title="#view: editor (instance method)">#<strong>view: editor</strong>  &#x21d2; Object </a>
+      <a href="#view:+input-instance_method" title="#view: input (instance method)">#<strong>view: input</strong>  &#x21d2; Object </a>
     
 
     
@@ -257,7 +263,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -279,7 +286,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -309,12 +317,12 @@
       <pre class="lines">
 
 
-110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cached_upload_card_name'>cached_upload_card_name</span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:attachment_upload</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\[\w+\]$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[action_id_of_cached_upload]</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -339,13 +347,13 @@
       <pre class="lines">
 
 
-90
 91
 92
-93</pre>
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file_chooser_action_text'>file_chooser_action_text</span>
   <span class='id identifier rubyid_action'>action</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_new_card?'>new_card?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Add</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Replace</span><span class='tstring_end'>&quot;</span></span>
@@ -371,12 +379,12 @@
       <pre class="lines">
 
 
-102
 103
-104</pre>
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_humanized_attachment_name'>humanized_attachment_name</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_attachment_name'>attachment_name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_humanize'>humanize</span>
@@ -401,12 +409,12 @@
       <pre class="lines">
 
 
-106
 107
-108</pre>
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_preview'>preview</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
@@ -431,12 +439,12 @@
       <pre class="lines">
 
 
-114
 115
-116</pre>
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_preview_editor_delete_text'>preview_editor_delete_text</span>
   <span class='id identifier rubyid_tr'>tr</span> <span class='symbol'>:delete</span>
@@ -461,14 +469,14 @@
       <pre class="lines">
 
 
-84
 85
 86
 87
-88</pre>
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 85</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_handle_source'>handle_source</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_source'>source</span><span class='op'>|</span>
@@ -481,9 +489,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="view: editor-instance_method">
+  <h3 class="signature " id="view: input-instance_method">
   
-    #<strong>view: editor</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>view: input</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -495,17 +503,17 @@
       <pre class="lines">
 
 
-95
 96
 97
 98
 99
-100</pre>
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 96</span>
 
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:editor</span> <span class='kw'>do</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:input</span> <span class='kw'>do</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_web?'>web?</span> <span class='op'>||</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_no_upload?'>no_upload?</span>
     <span class='kw'>return</span> <span class='id identifier rubyid_text_field'>text_field</span><span class='lparen'>(</span><span class='symbol'>:content</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>d0-card-content</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
@@ -531,12 +539,12 @@
       <pre class="lines">
 
 
-118
 119
-120</pre>
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'tmpsets/set/mod019-carrierwave/type/file.rb', line 119</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:preview_editor</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:preview_editor</span>
@@ -551,9 +559,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:33:36 2019 by
+  Generated on Thu Sep 10 15:02:34 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

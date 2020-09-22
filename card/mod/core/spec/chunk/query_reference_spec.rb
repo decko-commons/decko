@@ -35,9 +35,9 @@ describe Card::Content::Chunk::QueryReference, "QueryReference" do
 
     it "handles nested query structures" do
       @content = '{"any":{"content":"Where", ' \
-                 '"right_plus":["is",{"name":"Waldo"}]}}'
+                 '"right_plus":["was",{"name":"Waldo"}]}}'
       expect(query_refs[0].name).to eq "Where"
-      expect(query_refs[1].name).to eq "is"
+      expect(query_refs[1].name).to eq "was"
       expect(query_refs[2].name).to eq "Waldo"
     end
 

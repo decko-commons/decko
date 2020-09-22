@@ -6,15 +6,15 @@
 <title>
   Class: Card::FileCardCreator
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Card::FileCardCreator";
   relpath = '../';
 </script>
@@ -103,8 +103,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>A Factory class It choses the class to create the file card accoring to the given type.</p>
+    <p>A Factory class
+It chooses the class to create the file card according to the given type.</p>
 
 
   </div>
@@ -125,15 +125,21 @@
   
 </p>
 
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="CARD_CLASSES-constant" class="">CARD_CLASSES =
-        
-      </dt>
-      <dd><pre class="code"><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="FileCardCreator/StyleCard.html" title="Card::FileCardCreator::StyleCard (class)">StyleCard</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="FileCardCreator/ScriptCard.html" title="Card::FileCardCreator::ScriptCard (class)">ScriptCard</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="FileCardCreator/HamlCard.html" title="Card::FileCardCreator::HamlCard (class)">HamlCard</a></span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-    
-  </dl>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="CARD_CLASSES-constant" class="">CARD_CLASSES =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="FileCardCreator/StyleCard.html" title="Card::FileCardCreator::StyleCard (class)">StyleCard</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="FileCardCreator/ScriptCard.html" title="Card::FileCardCreator::ScriptCard (class)">ScriptCard</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="FileCardCreator/HamlCard.html" title="Card::FileCardCreator::HamlCard (class)">HamlCard</a></span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -163,8 +169,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute creator.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute creator.</p>
 </div></span>
   
 </li>
@@ -200,7 +205,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -233,8 +239,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>A new instance of FileCardCreator.</p>
+    <span class="summary_desc"><div class='inline'><p>A new instance of FileCardCreator.</p>
 </div></span>
   
 </li>
@@ -257,8 +262,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a new instance of FileCardCreator</p>
+    <p>Returns a new instance of FileCardCreator.</p>
 
 
   </div>
@@ -272,18 +276,18 @@
       <pre class="lines">
 
 
-9
-10
-11
-12
-13
 14
 15
 16
-17</pre>
+17
+18
+19
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/tasks/card/file_card_creator.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/card/tasks/card/file_card_creator.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_mod'>mod</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_codename'>codename</span><span class='comma'>,</span> <span class='id identifier rubyid_force'>force</span>
   <span class='id identifier rubyid_card_class'>card_class</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="Card::FileCardCreator (class)">FileCardCreator</a></span></span><span class='period'>.</span><span class='id identifier rubyid_card_class'><span class='object_link'><a href="#card_class-class_method" title="Card::FileCardCreator.card_class (method)">card_class</a></span></span> <span class='id identifier rubyid_type'>type</span>
@@ -317,8 +321,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute creator</p>
+    <p>Returns the value of attribute creator.</p>
 
 
   </div>
@@ -332,12 +335,12 @@
       <pre class="lines">
 
 
-7
-8
-9</pre>
+12
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/tasks/card/file_card_creator.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/card/tasks/card/file_card_creator.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_creator'>creator</span>
   <span class='ivar'>@creator</span>
@@ -369,12 +372,12 @@
       <pre class="lines">
 
 
-19
-20
-21</pre>
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/card/tasks/card/file_card_creator.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/card/tasks/card/file_card_creator.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_card_class'>card_class</span> <span class='id identifier rubyid_type'>type</span>
   <span class='const'><span class='object_link'><a href="#CARD_CLASSES-constant" title="Card::FileCardCreator::CARD_CLASSES (constant)">CARD_CLASSES</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_cc'>cc</span><span class='op'>|</span> <span class='id identifier rubyid_cc'>cc</span><span class='period'>.</span><span class='id identifier rubyid_valid_type?'>valid_type?</span> <span class='id identifier rubyid_type'>type</span> <span class='rbrace'>}</span>
@@ -389,9 +392,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 20 08:34:00 2019 by
+  Generated on Thu Sep 10 15:02:48 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.25 (ruby-2.6.3).
 </div>
 
     </div>

@@ -51,25 +51,25 @@ format :json do
   end
 
   def complete_search limit: AUTOCOMPLETE_LIMIT
-    card.search name_wql(limit).merge(complete_wql)
+    card.search name_cql(limit).merge(complete_cql)
   end
 
   def match_search limit: AUTOCOMPLETE_LIMIT, not_names: []
-    card.search name_wql(limit).merge(match_wql(not_names))
+    card.search name_cql(limit).merge(match_cql(not_names))
   end
 
-  def name_wql limit
+  def name_cql limit
     { limit: limit, sort: "name", return: "name" }
   end
 
-  def complete_wql
+  def complete_cql
     { complete: term_param }
   end
 
-  def match_wql not_names
-    wql = { name_match: term_param }
-    wql[:name] = ["not in"] + not_names if not_names.any?
-    wql
+  def match_cql not_names
+    cql = { name_match: term_param }
+    cql[:name] = ["not in"] + not_names if not_names.any?
+    cql
   end
 
   def term_param
