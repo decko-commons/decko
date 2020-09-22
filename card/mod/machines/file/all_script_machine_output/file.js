@@ -12210,7 +12210,7 @@ return jQuery;
 
   $(document).ready(function() {
     $('body').on('click', 'button._nest-apply', function() {
-      return nest.applyNest($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"));
+      return nest.applyNestToTinymceEditor($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"));
     });
     $('body').on('click', 'button._change-create-to-update', function() {
       var tm_id;
@@ -13460,7 +13460,7 @@ return jQuery;
                     }
                 });
             })();
-        
+
 //script: jquery helper
 /*! jQuery UI - v1.12.1 - 2018-05-16
 * http://jqueryui.com
@@ -13578,7 +13578,7 @@ i&&!i.options.disabled&&(s.sortables.push(i),i.refreshPositions(),i._trigger("ac
 			function setWidth() {
 				var width;
 				var style = window.getComputedStyle ? window.getComputedStyle(ta, null) : false;
-				
+
 				if (style) {
 
 					width = ta.getBoundingClientRect().width;
@@ -13613,7 +13613,7 @@ i&&!i.options.disabled&&(s.sortables.push(i),i.refreshPositions(),i._trigger("ac
 				$.each(typographyStyles, function(i,val){
 					styles[val] = $ta.css(val);
 				});
-				
+
 				$(mirror).css(styles).attr('wrap', $ta.attr('wrap'));
 
 				setWidth();
@@ -13641,8 +13641,8 @@ i&&!i.options.disabled&&(s.sortables.push(i),i.refreshPositions(),i._trigger("ac
 				}
 
 				if (!ta.value && options.placeholder) {
-					// If the textarea is empty, copy the placeholder text into 
-					// the mirror control and use that for sizing so that we 
+					// If the textarea is empty, copy the placeholder text into
+					// the mirror control and use that for sizing so that we
 					// don't end up with placeholder getting trimmed.
 					mirror.value = ($ta.attr("placeholder") || '');
 				} else {

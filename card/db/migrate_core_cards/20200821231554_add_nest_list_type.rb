@@ -5,4 +5,3 @@ class AddNestListType < Card::Migration::Core
     ensure_code_card "nest list", type_id: Card::CardtypeID
   end
 end
-x

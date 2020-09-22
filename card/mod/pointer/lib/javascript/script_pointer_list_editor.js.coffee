@@ -49,6 +49,7 @@ $.extend decko,
     return lastInput if lastInput.val() == ''
     newItem = lastItem.clone()
     lastItem.after newItem
+    newItem.attr("data-index", parseInt(lastItem.attr("data-index") + 1))
     newItem.find 'input'
 
   lastPointerItem: (el)->

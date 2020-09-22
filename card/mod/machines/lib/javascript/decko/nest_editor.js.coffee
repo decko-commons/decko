@@ -1,13 +1,25 @@
 $(document).ready ->
   $('body').on 'click', 'button._nest-apply', () ->
-    nest.applyNest($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"))
+    debugger
+    if $(this).data("index")?
+      nest.applyNestToNestListEditor($(this).data("index"))
+    else
+      nest.applyNestToTinymceEditor($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"))
 
   $('body').on 'click', 'button._change-create-to-update', () ->
     tm_id = $(this).closest("form").find("#success_tinymce_id").val()
     nest.changeCreateToUpdate(tm_id)
 
   $('body').on 'click', 'button._open-nest-editor', () ->
-    nest.openNestEditorForSlot($(this).closest(".card-slot"), $(this).closest(".slotter"))
+    form = $(this).closest("._nest-form")
+    reference = form.find("._reference").val()
+    nest_options = form.find("._nest-options").val()
+    encoded_nest = encodeURIComponent "{{#{reference}|#{nest_options}}}"
+    nest.openNestEditorForSlot(
+      $(this).closest(".card-slot"),
+      $(this).closest(".slotter"),
+      "index=#{form.data('index')}&tm_snippet_raw=#{encoded_nest}"
+    )
 
 
 window.nest ||= {}
@@ -119,8 +131,15 @@ $.extend nest,
     offset = editor.selection.getSel().anchorOffset
     offset - content.length
 
-  applyNest: (tinymce_id, nest_start, nest_size) ->
+  applyNestToTinymceEditor: (tinymce_id, nest_start, nest_size) ->
     nest.applySnippet("nest", tinymce_id, nest_start, nest_size)
+
+  applyNestToNestListEditor: (index) ->
+    content = $("._nest-preview").val()
+    row = $("._nest-form[data-index='#{index}']")
+    row.find("._reference").val(nest.name())
+    row.find("._nest-options").val(nest.options())
+
 
   applySnippet: (snippet_type, tinymce_id, start, size) ->
     content = $("._#{snippet_type}-preview").val()
@@ -146,4 +165,7 @@ $.extend nest,
 
   updatePreview: (new_val) ->
     new_val = "{{#{nest.name()}|#{nest.options()}}}" unless new_val?
-    $("._nest-preview").val new_val
+    preview = $("._nest-preview")
+    preview.val new_val
+    preview.data("nest-options", nest.options())
+    preview.data("reference", nest.name())
