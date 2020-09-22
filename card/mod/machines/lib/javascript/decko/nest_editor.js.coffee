@@ -6,16 +6,23 @@ $(document).ready ->
     tm_id = $(this).closest("form").find("#success_tinymce_id").val()
     nest.changeCreateToUpdate(tm_id)
 
+  $('body').on 'click', 'button._open-nest-editor', () ->
+    nest.openNestEditorForSlot($(this).closest(".card-slot"), $(this).closest(".slotter"))
+
+
 window.nest ||= {}
 
 $.extend nest,
   # called by TinyMCE
   openNestEditor: (tm, params) ->
     params = nest.editParams(tm) unless params?
-
     slot = $("##{tm.id}").closest(".card-slot")
+    slotter = $("##{tm.id}")
+    this.openNestEditorForSlot(slot, slotter, params)
+
+  openNestEditorForSlot: (slot, slotter, params) ->
     card = if slot[0] then $(slot[0]).attr('data-card-name') else ":update"
-    nest.tmRequest(tm, card, "nest_editor", "modal_nest_editor", params)
+    nest.request(card, "nest_editor", "modal_nest_editor", slotter, params)
 
   # called by TinyMCE
   openImageEditor: (tm) ->
@@ -37,29 +44,33 @@ $.extend nest,
     # nest.openNestEditor(etm, params)
 
   tmRequest: (tm, card, overlay_view, modal_view, params) ->
+    slotter = $("##{tm.id}")
+    params = "" unless params?
+    params += "&tinymce_id=#{tm.id}"
+
+    nest.request(slotter, slot, mode, card, view, params)
+
+  request: (card, overlay_view, modal_view, slotter, params) ->
     slot = $(".bridge-sidebar > ._overlay-container-placeholder > .card-slot")
 
     if slot[0]
       view = overlay_view
       mode = "overlay"
     else
-      # FIXME get a slot
       slot = $($(".card-slot")[0])
       view = modal_view
       mode = "modal"
 
-    nest.sendTmRequest(tm, slot, mode, card, view, params)
+    nest.sendRequest(slotter, slot, mode, card, view, params)
 
-  sendTmRequest: (tm, slot, mode, card, view, params) ->
-    slotter = $("##{tm.id}")
-    params = "" unless params?
-    url = "/#{card}?view=#{view}&tinymce_id=#{tm.id}#{params}"
-
-    $.ajax
-      url: url
-      type: 'GET'
-      success: (html) ->
-        slot.setSlotContent html, mode, slotter
+  sendRequest: (slotter, slot, mode, card, view, params) ->
+      params = "" unless params?
+      url = "/#{card}?view=#{view}&#{params}"
+      $.ajax
+        url: url
+        type: 'GET'
+        success: (html) ->
+          slot.setSlotContent html, mode, slotter
 
   editParams: (tm, prefix="{{", postfix="}}", edit=true) ->
     sel = tm.selection.getSel()

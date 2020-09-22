@@ -12212,10 +12212,13 @@ return jQuery;
     $('body').on('click', 'button._nest-apply', function() {
       return nest.applyNest($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"));
     });
-    return $('body').on('click', 'button._change-create-to-update', function() {
+    $('body').on('click', 'button._change-create-to-update', function() {
       var tm_id;
       tm_id = $(this).closest("form").find("#success_tinymce_id").val();
       return nest.changeCreateToUpdate(tm_id);
+    });
+    return $('body').on('click', 'button._open-nest-editor', function() {
+      return $(this).attr(hre);
     });
   });
 
@@ -13424,6 +13427,18 @@ return jQuery;
     box = filterBox(el);
     return box.find("._not-ids").val(ids.toString());
   };
+
+  $(window).ready(function() {
+    return $("body").on("click", "._selectable-filtered-content .bar-body", function(e) {
+      var container, input, item, name;
+      item = $(this);
+      name = item.slot().data("card-name");
+      container = item.closest("._selectable-filtered-content");
+      input = $(container.data("input-selector"));
+      input.val(name);
+      return item.closest('.modal').modal('hide');
+    });
+  });
 
 }).call(this);
 
