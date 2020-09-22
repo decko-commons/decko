@@ -7,4 +7,6 @@ else
   ARGV.shift
 end
 
+# this is the case when not in a decko application directory
+# generate a new decko application directory
 DeckoGenerator.start
