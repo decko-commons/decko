@@ -1,4 +1,31 @@
-namespace :decko do
+namespace :card do
+#namespace :db do
+  namespace :fixtures do
+    # ARDEP: this is all Rails -> AR standard usages, need alternatives in loading data to storage models
+    desc "Load fixtures into the current environment's database.  Load specific fixtures using FIXTURES=x,y"
+    task load: :environment do
+      require "active_record/fixtures"
+      fixture_path = File.join(Cardio.gem_root, "db", "seed", "test", "fixtures")
+      ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
+      (ENV["FIXTURES"] ? ENV["FIXTURES"].split(/,/) : Dir.glob(File.join(fixture_path, "*.{yml,csv}"))).each do |fixture_file|
+        ActiveRecord::FixtureSet.create_fixtures(fixture_path, File.basename(fixture_file, ".*"))
+      end
+    end
+  end
+
+  namespace :test do
+    # FIXME: the desc doesn't get copied to the redefined task
+    desc "Prepare the test database and load the schema"
+    Rake::Task.redefine_task(prepare: :environment) do
+      if ENV["RELOAD_TEST_DATA"] == "true" || ENV["RUN_CODE_RUN"]
+        puts `env RAILS_ENV=test rake decko:seed`
+      else
+        puts "skipping loading test data.  to force, run `env RELOAD_TEST_DATA=true rake db:test:prepare`"
+      end
+    end
+  end
+#end
+
   namespace :seed do
     desc "reseed, migrate, re-clean, and re-dump"
     task update: :environment do
@@ -36,17 +63,6 @@ namespace :decko do
       Card::Auth.as_bot do
         ignore.item_cards.each(&:delete!)
       end
-    end
-
-    task clean_machines: :environment do
-      clean_machines
-    end
-
-    def clean_machines
-      puts "clean machines"
-      Card.reset_all_machines
-      reseed_machine_output
-      clean_inputs_and_outputs
     end
 
     def reseed_machine_output

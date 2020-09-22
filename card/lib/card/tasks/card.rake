@@ -1,38 +1,37 @@
+require "rake"
+
+# This code lets us redefine existing Rake tasks, which is extremely
+# handy for modifying existing Rails rake tasks.
+# Credit for the original snippet of code goes to Jeremy Kemper
+# http://pastie.caboo.se/9620
+unless Rake::TaskManager.methods.include?(:redefine_task)
+  module Rake
+    module TaskManager
+      def redefine_task task_class, args, &block
+        task_name, arg_names, deps = resolve_args(args)
+        task_name = task_class.scope_name(@scope, task_name)
+        deps = [deps] unless deps.respond_to?(:to_ary)
+        deps = deps.map(&:to_s)
+        task = @tasks[task_name.to_s] = task_class.new(task_name, self)
+        task.application = self
+        @last_comment = nil
+        task.enhance(deps, &block)
+        task
+      end
+    end
+    class Task
+      class << self
+        def redefine_task args, &block
+          Rake.application.redefine_task(self, [args], &block)
+        end
+      end
+    end
+  end
+end
+
 namespace :card do
   def importer
     @importer ||= Card::Migration::Import.new Card::Migration.data_path
-  end
-
-  desc "merge import card data that was updated since the last push into " \
-       "the the database"
-  task merge: :environment do
-    importer.merge
-  end
-
-  desc "merge all import card data into the the database"
-  task merge_all: :environment do
-    importer.merge all: true
-  end
-
-  desc "add card to import data"
-  task pull: :environment do
-    pull_card
-  end
-
-  desc "add card and all nested cards to import data"
-  task deep_pull: :environment do
-    pull_card deep: true
-  end
-
-  desc "add nested cards to import data (not the card itself)"
-  task deep_pull_items: :environment do
-    pull_card items_only: true
-  end
-
-  # be rake card:pull_export from=live
-  desc "add items of the export card to import data"
-  task pull_export: :environment do
-    importer.pull "export", items_only: true, remote: ENV["from"]
   end
 
   desc "add a new card to import data"
@@ -50,14 +49,6 @@ namespace :card do
 
     importer.add_remote name, url
     exit
-  end
-
-  def pull_card opts={}
-    _task, card = ARGV
-    raise "no card given" unless card.present?
-
-    importer.pull card, opts.merge(remote: ENV["from"])
-    exit # without exit the card argument is treated as second rake task
   end
 
   desc "migrate structure and cards"
@@ -96,28 +87,5 @@ namespace :card do
     end
 
     Card::Cache.reset_all
-  end
-
-  desc "reset cache"
-  task reset_cache: :environment do
-    Card::Cache.reset_all
-  end
-
-  desc "reset machine output"
-  task reset_machine_output: :environment do
-    Card.reset_all_machines
-  end
-
-  desc "refresh machine output"
-  task refresh_machine_output: :environment do
-    Card.reset_all_machines
-    Card::Auth.as_bot do
-      [%i[all script],
-       %i[all style],
-       %i[script_html5shiv_printshiv]].each do |name_parts|
-        Card[*name_parts].update_machine_output
-      end
-    end
-    Card::Cache.reset_all # should not be necessary but breaking without...
   end
 end

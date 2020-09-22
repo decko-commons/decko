@@ -1,3 +1,5 @@
+
+
 def run_card_migration core_or_deck
   prepare_migration
   verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
