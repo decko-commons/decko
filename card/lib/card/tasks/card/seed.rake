@@ -1,32 +1,133 @@
+require "card/seed_consts"
+
+# maybe move this up?
+def failing_loudly task
+  yield
+rescue
+  # TODO: fix this so that message appears *after* the errors.
+  # Solution should ensure that rake still exits with error code 1!
+  raise "\n>>>>>> FAILURE! #{task} did not complete successfully." \
+        "\n>>>>>> Please address errors and re-run:\n\n\n"
+end
+
 namespace :card do
-#namespace :db do
-  namespace :fixtures do
-    # ARDEP: this is all Rails -> AR standard usages, need alternatives in loading data to storage models
-    desc "Load fixtures into the current environment's database.  Load specific fixtures using FIXTURES=x,y"
-    task load: :environment do
-      require "active_record/fixtures"
-      fixture_path = File.join(Cardio.gem_root, "db", "seed", "test", "fixtures")
-      ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
-      (ENV["FIXTURES"] ? ENV["FIXTURES"].split(/,/) : Dir.glob(File.join(fixture_path, "*.{yml,csv}"))).each do |fixture_file|
-        ActiveRecord::FixtureSet.create_fixtures(fixture_path, File.basename(fixture_file, ".*"))
-      end
-    end
-  end
-
-  namespace :test do
-    # FIXME: the desc doesn't get copied to the redefined task
-    desc "Prepare the test database and load the schema"
-    Rake::Task.redefine_task(prepare: :environment) do
-      if ENV["RELOAD_TEST_DATA"] == "true" || ENV["RUN_CODE_RUN"]
-        puts `env RAILS_ENV=test rake decko:seed`
-      else
-        puts "skipping loading test data.  to force, run `env RELOAD_TEST_DATA=true rake db:test:prepare`"
-      end
-    end
-  end
-#end
-
   namespace :seed do
+    desc "create a decko database from scratch, load initial data"
+    task :seed do
+      failing_loudly "decko seed" do
+        seed
+      end
+    end
+
+    desc "clear and load fixtures with existing tables"
+    task reseed: :environment do
+      ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
+
+      decko_namespace["clear"].invoke
+      decko_namespace["load"].invoke
+    end
+
+    desc "empty the card tables"
+    task :clear do
+      conn = ActiveRecord::Base.connection
+
+      puts "delete all data in bootstrap tables"
+      CARD_SEED_TABLES.each do |table|
+        conn.delete "delete from #{table}"
+      end
+    end
+
+    desc "Load seed data into database"
+    task :load do
+      # remove ?
+      decko_namespace["load_without_reset"].invoke if decko_namespace["load_without_reset"].present?
+      Rake::Task["card:seed"].invoke
+      puts "reset cache"
+      system "bundle exec rake decko:reset_cache" # needs loaded environment
+    end
+
+    def seed with_cache_reset: true
+      ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
+      # FIXME: this should be an option, but should not happen on standard
+      # creates!
+      begin
+        Rake::Task["db:drop"].invoke
+      rescue
+        puts "not dropped"
+      end
+
+      puts "creating"
+      Rake::Task["db:create"].invoke
+
+      puts "loading schema"
+
+      Rake::Task["db:schema:load"].invoke
+
+      load_task = "decko:load"
+      load_task << "_without_reset" unless with_cache_reset
+      Rake::Task[load_task].invoke
+    end
+
+    desc "insert existing card migrations into schema_migrations_cards to avoid re-migrating"
+    task :assume_card_migrations do
+      require "decko/engine"
+      Cardio.assume_migrated_upto_version :core_cards
+    end
+
+    namespace :emergency do
+      desc "rescue watchers"
+      task rescue_watchers: :environment do
+        follower_hash = Hash.new { |h, v| h[v] = [] }
+
+        Card.where("right_id" => 219).each do |watcher_list|
+          watcher_list.include_set_modules
+          next unless watcher_list.left
+          watching = watcher_list.left.name
+          watcher_list.item_names.each do |user|
+            follower_hash[user] << watching
+          end
+        end
+
+        Card.search(right: { codename: "following" }).each do |following|
+          Card::Auth.as_bot do
+            following.update! content: ""
+          end
+        end
+
+        follower_hash.each do |user, items|
+          next unless (card = Card.fetch(user)) && card.account
+          Card::Auth.as(user) do
+            following = card.fetch "following", new: {}
+            following.items = items
+          end
+        end
+      end
+    end
+    namespace :fixtures do
+      # ARDEP: this is all Rails -> AR standard usages, need alternatives in loading data to storage models
+      desc "Load fixtures into the current environment's database.  Load specific fixtures using FIXTURES=x,y"
+      task load: :environment do
+        require "active_record/fixtures"
+        fixture_path = File.join(Cardio.gem_root, "db", "seed", "test", "fixtures")
+        ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
+        (ENV["FIXTURES"] ? ENV["FIXTURES"].split(/,/) : Dir.glob(File.join(fixture_path, "*.{yml,csv}"))).each do |fixture_file|
+          ActiveRecord::FixtureSet.create_fixtures(fixture_path, File.basename(fixture_file, ".*"))
+        end
+      end
+    end
+
+    namespace :test do
+      # FIXME: the desc doesn't get copied to the redefined task
+      desc "Prepare the test database and load the schema"
+      Rake::Task.redefine_task(prepare: :environment) do
+        if ENV["RELOAD_TEST_DATA"] == "true" || ENV["RUN_CODE_RUN"]
+          puts `env RAILS_ENV=test rake decko:seed`
+        else
+          puts "skipping loading test data.  to force, run `env RELOAD_TEST_DATA=true rake db:test:prepare`"
+        end
+      end
+    end
+
     desc "reseed, migrate, re-clean, and re-dump"
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"

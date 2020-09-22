@@ -1,49 +1,31 @@
 require "decko/application"
 require_relative "alias"
-require "card/seed_consts"
 
 CARD_TASKS =
   [
+    :add,
+    :add_remote,
+    { create: [:codefile, :haml, :script, :style] },
+    { grab: [:deep_pull, :deep_pull_items, :pull, :pull_export] },
+    { merge: [:merge, :merge_all] },
     :migrate,
-    { migrate: [:cards, :structure, :core_cards, :deck_cards, :redo, :stamp] },
+    { migrate: [:cards, :structure, :core_cards, :deck_cards,
+       :deck_structure, :redo, :stamp] },
+    :refresh_machine_output,
+    :reset_cache,
+    :reset_machine_output,
+    :reset_tmp,
+    #{ seed: [:assume_card_migrations, :clean, :clear, :dump, :emergency,
+    #   :fixtures, :load, :reseed, :seed, :supplement, :update] },
+    { seed: [:assume_card_migrations, :clean, :clear, :dump,
+       :load, :reseed, :seed, :supplement, :update] },
+    :update,
     :reset_cache
   ]
 
 link_task CARD_TASKS, from: :decko, to: :card
 
 decko_namespace = namespace :decko do
-  desc "create a decko database from scratch, load initial data"
-  task :seed do
-    failing_loudly "decko seed" do
-      seed
-    end
-  end
-
-  desc "clear and load fixtures with existing tables"
-  task reseed: :environment do
-    ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
-
-    decko_namespace["clear"].invoke
-    decko_namespace["load"].invoke
-  end
-
-  desc "empty the card tables"
-  task :clear do
-    conn = ActiveRecord::Base.connection
-
-    puts "delete all data in bootstrap tables"
-    CARD_SEED_TABLES.each do |table|
-      conn.delete "delete from #{table}"
-    end
-  end
-
-  desc "Load seed data into database"
-  task :load do
-    decko_namespace["load_without_reset"].invoke
-    puts "reset cache"
-    system "bundle exec rake decko:reset_cache" # needs loaded environment
-  end
-
   desc "set symlink for assets"
   task update_assets_symlink: :environment do
     prepped_asset_path do |assets_path|
@@ -65,73 +47,6 @@ decko_namespace = namespace :decko do
     yield assets_path
   end
 
-  alias_task :migrate, "card:migrate"
-
-  desc "insert existing card migrations into schema_migrations_cards to avoid re-migrating"
-  task :assume_card_migrations do
-    require "decko/engine"
-    Cardio.assume_migrated_upto_version :core_cards
-  end
-
-  def seed with_cache_reset: true
-    ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
-    # FIXME: this should be an option, but should not happen on standard
-    # creates!
-    begin
-      Rake::Task["db:drop"].invoke
-    rescue
-      puts "not dropped"
-    end
-
-    puts "creating"
-    Rake::Task["db:create"].invoke
-
-    puts "loading schema"
-
-    Rake::Task["db:schema:load"].invoke
-
-    load_task = "decko:load"
-    load_task << "_without_reset" unless with_cache_reset
-    Rake::Task[load_task].invoke
-  end
-
-  namespace :emergency do
-    task rescue_watchers: :environment do
-      follower_hash = Hash.new { |h, v| h[v] = [] }
-
-      Card.where("right_id" => 219).each do |watcher_list|
-        watcher_list.include_set_modules
-        next unless watcher_list.left
-        watching = watcher_list.left.name
-        watcher_list.item_names.each do |user|
-          follower_hash[user] << watching
-        end
-      end
-
-      Card.search(right: { codename: "following" }).each do |following|
-        Card::Auth.as_bot do
-          following.update! content: ""
-        end
-      end
-
-      follower_hash.each do |user, items|
-        next unless (card = Card.fetch(user)) && card.account
-        Card::Auth.as(user) do
-          following = card.fetch "following", new: {}
-          following.items = items
-        end
-      end
-    end
-  end
-end
-
-def failing_loudly task
-  yield
-rescue
-  # TODO: fix this so that message appears *after* the errors.
-  # Solution should ensure that rake still exits with error code 1!
-  raise "\n>>>>>> FAILURE! #{task} did not complete successfully." \
-        "\n>>>>>> Please address errors and re-run:\n\n\n"
 end
 
 def version
