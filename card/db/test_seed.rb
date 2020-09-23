@@ -42,7 +42,7 @@ class SharedData
       # generic, shared attribute card
       ensure_card "color"
 
-      create "signup alert email+*to", "signups@wagn.org"
+      create "signup alert email+*to", "signups@decko.org"
       # CREATE A CARD OF EACH TYPE
 
       no_samples = %w[user sign_up set number mirror_list mirrored_list file image
