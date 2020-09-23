@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Mod::Loader::SetPatternLoader do
   let(:mod_dirs) do
-    path = File.expand_path "../../../../../support/test_mods", __FILE__
+    path = File.expand_path "../../../../support/test_mods", __FILE__
     puts path
     Card::Mod::Dirs.new path
   end

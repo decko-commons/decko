@@ -45,6 +45,6 @@ format :html do
   end
 
   def current_follow_rule_card
-    card.left.rule_card :follow, user: Auth.current
+    card.left.preference :follow
   end
 end
