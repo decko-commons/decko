@@ -8,7 +8,7 @@ class Card
   #
   # Query "statements" (objects, really) are made in CQL (Card Query
   # Language). Because CQL is used by Sharks, the primary language
-  # documentation is on wagn.org. (https://decko.org/CQL_Syntax). Note that the
+  # documentation is on decko.org. (https://decko.org/CQL_Syntax). Note that the
   # examples there are in JSON, like Search card content, but statements in
   # Card::Query are in ruby form.
   #
