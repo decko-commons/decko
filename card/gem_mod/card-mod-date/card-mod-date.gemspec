@@ -14,9 +14,9 @@ Gem::Specification.new do |s|
   s.homepage      = "http://decko.org"
   s.licenses      = ["GPL-2.0", "GPL-3.0"]
 
-  s.files         = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
-                        "{config,db,lib,set}/**/*"]
+  s.files         = Dir["{db,lib,set}/**/*"]
 
-  s.required_ruby_version = ">= 2.3.0"
+  s.required_ruby_version = ">= 2.5"
   s.metadata = { "card-mod" => "date" }
+  s.add_runtime_dependency "card", Versioning.card
 end
