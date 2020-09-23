@@ -19,7 +19,7 @@
     "views": [
       {
         "name": "raw",
-        "parts": "<p>[[http://www.wagn.org/wagn/custom_help_text|Help text]] people will see when adding cards.</p>"
+        "parts": "<p>[[http://www.decko.org/custom_help_text|Help text]] people will see when adding cards.</p>"
       }
     ]
   },
