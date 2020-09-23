@@ -21,6 +21,7 @@ module ClassMethods
   #      :local_only                 Use only local cache for lookup and storing
   #      new: { opts for Card#new }  Return a new card when not found
   # @return [Card]
+raise "loading set all fetch"
   def fetch *args
     Card::Fetch.new(*args)&.retrieve_or_new
   rescue ActiveModel::RangeError => _e

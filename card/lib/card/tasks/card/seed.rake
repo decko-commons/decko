@@ -11,20 +11,19 @@ rescue
 end
 
 namespace :card do
-  namespace :seed do
-    desc "create a decko database from scratch, load initial data"
-    task :seed do
-      failing_loudly "decko seed" do
-        seed
-      end
+  task :seed do
+    failing_loudly "card seed" do
+      seed
     end
+  end
+  namespace :seed do
+    desc "create a card database from scratch, load initial data"
 
     desc "clear and load fixtures with existing tables"
     task reseed: :environment do
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
 
-      decko_namespace["clear"].invoke
-      decko_namespace["load"].invoke
+      Rake::Task["card:seed:reseed"].invoke
     end
 
     desc "empty the card tables"
@@ -40,13 +39,12 @@ namespace :card do
     desc "Load seed data into database"
     task :load do
       # remove ?
-      decko_namespace["load_without_reset"].invoke if decko_namespace["load_without_reset"].present?
       Rake::Task["card:seed"].invoke
       puts "reset cache"
-      system "bundle exec rake decko:reset_cache" # needs loaded environment
+      system "bundle exec rake card:reset_cache" # needs loaded environment
     end
 
-    def seed with_cache_reset: true
+    def seed
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
       # FIXME: this should be an option, but should not happen on standard
       # creates!
@@ -63,9 +61,7 @@ namespace :card do
 
       Rake::Task["db:schema:load"].invoke
 
-      load_task = "decko:load"
-      load_task << "_without_reset" unless with_cache_reset
-      Rake::Task[load_task].invoke
+      Rake::Task["card:seed:load"].invoke
     end
 
     desc "insert existing card migrations into schema_migrations_cards to avoid re-migrating"
@@ -121,7 +117,7 @@ namespace :card do
       desc "Prepare the test database and load the schema"
       Rake::Task.redefine_task(prepare: :environment) do
         if ENV["RELOAD_TEST_DATA"] == "true" || ENV["RUN_CODE_RUN"]
-          puts `env RAILS_ENV=test rake decko:seed`
+          puts `env RAILS_ENV=test rake card:seed`
         else
           puts "skipping loading test data.  to force, run `env RELOAD_TEST_DATA=true rake db:test:prepare`"
         end
@@ -132,8 +128,8 @@ namespace :card do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
-        Rake::Task["decko:#{task}"].invoke
+      %w[seed:reseed update seed:clean seed:supplement seed:dump].each do |task|
+        Rake::Task["card:#{task}"].invoke
       end
     end
 

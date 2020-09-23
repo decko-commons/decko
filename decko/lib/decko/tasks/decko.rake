@@ -17,8 +17,9 @@ CARD_TASKS =
     :reset_tmp,
     #{ seed: [:assume_card_migrations, :clean, :clear, :dump, :emergency,
     #   :fixtures, :load, :reseed, :seed, :supplement, :update] },
+    :seed,
     { seed: [:assume_card_migrations, :clean, :clear, :dump,
-       :load, :reseed, :seed, :supplement, :update] },
+       :load, :reseed, :supplement, :update] },
     :update,
     :reset_cache
   ]
