@@ -1,9 +1,9 @@
 class Card
   module Rule
-    module Cache
-      cattr_reader :sql, :cached_hash_key
+    class Cache
+      class_attribute :sql, :cache_key
 
-      @sql = %(
+      self.sql = %(
         SELECT
           rules.id      AS rule_id,
           settings.id   AS setting_id,
@@ -21,42 +21,48 @@ class Card
           AND settings.trash is false;
       ).freeze
 
-      @cached_hash_key = "RULES"
+      self.cache_key = "RULES".freeze
 
-      def read
-        Card.cache.read(@cached_hash_key) || populate_cache
-      end
-
-      def write
-        Card.cache.write @cached_hash_key, @hash
-      end
-
-      def interpret
-        rows(@sql).each do |row|
-          next unless (key = lookup_key row)
-          @hash[key] = row["rule_id"].to_i
+      class << self
+        def read
+          Card.cache.read(cache_key) || populate
         end
-      end
 
-      def lookup_key row
-        return false unless (setting_code = setting_code(row)) &&
-                            (anchor_id = row["anchor_id"]) &&
-                            (pattern_code = pattern_code(anchor_id, row))
+        def populate
+          Card.cache.write cache_key, lookup_hash
+        end
 
-        [anchor_id, pattern_code, setting_code].compact.map(&:to_s).join "+"
-      end
+        def clear
+          Card.cache.write cache_key, nil
+        end
 
-      def pattern_code anchor_id, row
-        set_class_id = anchor_id.nil? ? row["set_id"] : row["set_tag_id"]
-        Card::Codename[set_class_id.to_i]
-      end
+        def lookup_hash
+          rows.each_with_object({}) do |row, hash|
+            next unless (key = lookup_key row)
+            hash[key] = row["rule_id"].to_i
+          end
+        end
 
-      def setting_code row
-        Card::Codename[row["setting_id"].to_i]
-      end
+        def lookup_key row
+          return false unless (setting_code = setting_code(row))
+          anchor_id = row["anchor_id"]
+          return false unless (pattern_code = pattern_code(anchor_id, row))
 
-      def rows sql
-        Card.connection.select_all sql
+          [anchor_id, pattern_code, setting_code].compact.map(&:to_s).join "+"
+        end
+
+        def pattern_code anchor_id, row
+          set_class_id = anchor_id.nil? ? row["set_id"] : row["set_tag_id"]
+          Card::Codename[set_class_id.to_i]
+        end
+
+        def setting_code row
+          Card::Codename[row["setting_id"].to_i]
+        end
+
+        def rows
+          Card.connection.select_all sql
+        end
       end
     end
   end

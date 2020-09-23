@@ -1,9 +1,7 @@
 class Card
   module Rule
-    module PreferenceCache
-      include Rule::Cache
-
-      @sql = %(
+    class PreferenceCache < Cache
+      self.sql = %(
         SELECT
           preferences.id AS rule_id,
           settings.id    AS setting_id,
@@ -18,7 +16,7 @@ class Card
         JOIN cards sets      ON user_sets.left_id    = sets.id
         WHERE sets.type_id     = #{SetID}
           AND settings.type_id = #{SettingID}
-          AND (%s or users.codename = 'all')
+          AND (users.type_id = #{UserID} or users.codename = 'all')
           AND sets.trash        is false
           AND settings.trash    is false
           AND users.trash       is false
@@ -26,19 +24,50 @@ class Card
           AND preferences.trash is false;
       ).freeze
 
-      def interpret
-        rows(@sql).each do |row|
-          next unless (key = rule_cache_key row) && (user_id = row["user_id"])
-          add_preference_hash_values key, row["rule_id"].to_i, user_id.to_i
-        end
-      end
+      self.cache_key = "PREFERENCES".freeze
+      USER_ID_CACHE_KEY = "USER_IDS".freeze
 
-      def add_preference_hash_values key, rule_id, user_id
-        @rule_hash[preference_key(key, user_id)] = rule_id
-        @user_ids_hash[key] ||= []
-        @user_ids_hash[key] << user_id
-        @rule_keys_hash[user_id] ||= []
-        @rule_keys_hash[user_id] << key
+      class << self
+        def user_ids
+          Card.cache.read(USER_ID_CACHE_KEY) || (populate && user_ids)
+        end
+
+        def populate
+          @rows = nil
+          super.tap do
+            populate_user_ids
+            @rows = nil
+          end
+        end
+
+        def populate_user_ids
+          Card.cache.write USER_ID_CACHE_KEY, user_id_hash
+        end
+
+        def user_id_hash
+          rows.each_with_object({}) do |row, hash|
+            key = lookup_key_without_user row
+            hash[key] ||= []
+            hash[key] << row["user_id"]
+          end
+        end
+
+        def clear
+          super
+          Card.cache.write USER_ID_CACHE_KEY, nil
+        end
+
+        def rows
+          @rows ||= super
+        end
+
+        alias :lookup_key_without_user :lookup_key
+
+        def lookup_key row
+          return unless (base = lookup_key_without_user row)
+
+          "#{base}+#{row['user_id']}"
+        end
       end
     end
   end
