@@ -1,4 +1,4 @@
-require 'kramdown'
+require "kramdown"
 
 format :html do
   view :core do
