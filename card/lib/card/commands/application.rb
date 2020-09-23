@@ -1,21 +1,13 @@
 # -*- encoding : utf-8 -*-
 
-require "decko/engine"
-require_relative "config/initializers/sedate_parser"
+require 'rails'
 
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(assets: %w[development test cypress])
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
-
-module Decko
+module Card
   class Application < Rails::Application
-    initializer :load_decko_environment_config,
+    initializer :load_card_environment_config,
                 before: :load_environment_config, group: :all do
-      add_path paths, "lib/decko/config/environments", glob: "#{Rails.env}.rb"
-      paths["lib/decko/config/environments"].existent.each do |environment|
+      add_path paths, "lib/card/config/environments", glob: "#{Rails.env}.rb"
+      paths["lib/card/config/environments"].existent.each do |environment|
         require environment
       end
     end
@@ -30,7 +22,7 @@ module Decko
     end
 
     def add_path paths, path, options={}
-      root = options.delete(:root) || Decko.gem_root
+      root = options.delete(:root) || Card.gem_root
       options[:with] = File.join(root, (options[:with] || path))
       paths.add path, options
     end
@@ -42,7 +34,7 @@ module Decko
         Cardio.set_config config
 
         # any config settings below:
-        # (a) do not apply to Card used outside of a Decko context
+        # (a) do not apply to Card used outside of a Card context
         # (b) cannot be overridden in a deck's application.rb, but
         # (c) CAN be overridden in an environment file
 
@@ -52,7 +44,7 @@ module Decko
         # ..and we should address (c) above!
 
         # general card settings (overridable and not) should be in cardio.rb
-        # overridable decko-specific settings don't have a place yet
+        # overridable card-specific settings don't have a place yet
         # but should probably follow the cardio pattern.
 
         # config.load_defaults "6.0"
@@ -77,17 +69,6 @@ module Decko
       @paths ||= begin
         paths = super
         Cardio.set_paths paths
-
-        paths.add "files"
-
-        paths["app/models"] = []
-        paths["app/mailers"] = []
-
-        unless paths["config/routes.rb"].existent.present?
-          add_path paths, "config/routes.rb",
-                   with: "rails/application-routes.rb"
-        end
-
         paths
       end
     end

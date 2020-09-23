@@ -20,6 +20,9 @@ Gem::Specification.new do |s|
   s.files = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
                 "{config,db,lib,mod,tmpsets}/**/*"]
 
+  s.bindir        = "bin"
+  s.executables   = ["card"]
+
   s.require_paths = ["lib"]
   s.required_ruby_version = ">= 2.5"
 
