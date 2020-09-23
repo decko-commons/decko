@@ -15,8 +15,7 @@ Gem::Specification.new do |s|
   s.homepage      = "http://decko.org"
   s.licenses      = ["GPL-2.0", "GPL-3.0"]
 
-  s.files         = Dir["README.rdoc", "LICENSE", "GPL",
-                        "{app,bin,lib,rails,script}/**/*"]
+  s.files         = Dir["{db,lib,public,set}/**/*"]
 
   s.bindir        = "bin"
   s.executables   = ["decko"]
@@ -24,7 +23,5 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 2.5"
 
-  [["card", Versioning.card]].each do |dep|
-    s.add_runtime_dependency(*dep)
-  end
+  s.add_runtime_dependency "card", Versioning.card
 end
