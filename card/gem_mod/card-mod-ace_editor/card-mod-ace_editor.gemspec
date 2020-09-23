@@ -20,4 +20,5 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 2.3.0"
   s.metadata = { "card-mod" => "ace_editor" }
   s.add_runtime_dependency "card-mod-edit", Versioning.simple
+  s.add_runtime_dependency "card", Versioning.card
 end

@@ -26,14 +26,6 @@ Gem::Specification.new do |s|
   [
     ["cardname",                    Versioning.simple],
 
-    # card modules in decko core gems:
-    ["card-mod-date",               Versioning.simple],
-    ["card-mod-edit",               Versioning.simple],
-    ["card-mod-ace_editor",         Versioning.simple],
-    ["card-mod-prosemirror_editor", Versioning.simple],
-    ["card-mod-tinymce_editor",     Versioning.simple],
-    ["card-mod-recaptcha",          Versioning.simple],
-
     ["haml",                        "~> 5.0"], # markup language used in view API
     ["jwt",                         "~> 2.2"], # used in token.rb
     ["uuid",                        "~> 2.3"], # universally unique identifier.
