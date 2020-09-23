@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
     ["haml",                        "~> 5.0"], # markup language used in view API
     ["jwt",                         "~> 2.2"], # used in token.rb
     ["uuid",                        "~> 2.3"], # universally unique identifier.
-                                              # used in temporary names
+                                               # used in temporary names
     ["colorize",                    "~> 0.8"], # livelier cli outputs
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
@@ -52,15 +52,11 @@ Gem::Specification.new do |s|
 
     # other
     ["diff-lcs",                    "~> 1.3"], # content diffs in histories
-    ["recaptcha",                   "~> 4.13.1"],
-    ["twitter",                     "~> 6.1"], # for event-based integration
     ["delayed_job_active_record",   "~> 4.1"],
     ["activerecord-import",         "~> 1.0"],
-    ["card-mod-markdown",           "~> 0.4"],
-    ["msgpack",                     "~> 1.3"],
 
-    ["rake",                        "<= 12.3.0"],
-    ["rails",                       "~> 6"]
+    ["rake",                     "<= 12.3.0"],
+    ["rails",                         "~> 6"]
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end

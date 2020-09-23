@@ -3,21 +3,22 @@
 require "../../../versioning"
 
 Gem::Specification.new do |s|
-  s.name = "card-mod-recaptcha"
+  s.name = "card-mod-markdown"
   s.version = Versioning.simple
 
-  s.authors = ["Ethan McCutchen", "Philipp Kühl", "Gerry Gleason"]
+  s.authors = ["Ethan McCutchen", "Philipp Kühl"]
   s.email = ["info@decko.org"]
 
-  s.summary       = "recaptcha support for decko"
-  s.description   = ""
+  s.summary       = "markdown support for decko"
+  s.description   = "use markdown in decko card content"
   s.homepage      = "http://decko.org"
   s.licenses      = ["GPL-2.0", "GPL-3.0"]
 
-  s.files         = Dir["{config,set}/**/*"]
+  s.files         = Dir["{db,set}/**/*.rb"]
 
   s.required_ruby_version = ">= 2.5"
-  s.metadata = { "card-mod" => "recaptcha" }
+  s.metadata = { "card-mod" => "markdown" }
+
   s.add_runtime_dependency "card", Versioning.card
-  s.add_runtime_dependency "recaptcha", "~> 4.13.1"
+  s.add_runtime_dependency "kramdown"
 end

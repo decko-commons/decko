@@ -1,5 +1,3 @@
-require "msgpack"
-
 class Card
   class Content
     module Chunk

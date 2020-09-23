@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files         = Dir["README.md"]
 
-  s.required_ruby_version = ">= 2.3.0"
+  s.required_ruby_version = ">= 2.5"
   s.metadata = { "card-mod" => "defaults" }
 
   [
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     ["card-mod-prosemirror_editor", Versioning.simple],
     ["card-mod-recaptcha",          Versioning.simple],
     ["card-mod-tinymce_editor",     Versioning.simple],
+    ["card-mod-markdown",           Versioning.simple],
     ["card-mod-date",               Versioning.simple]
   ].each do |dep|
     s.add_runtime_dependency(*dep)
