@@ -19,14 +19,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 2.5"
   s.metadata = { "card-mod" => "defaults" }
 
-  [
-    ["card-mod-ace_editor",         Versioning.simple],
-    ["card-mod-prosemirror_editor", Versioning.simple],
-    ["card-mod-recaptcha",          Versioning.simple],
-    ["card-mod-tinymce_editor",     Versioning.simple],
-    ["card-mod-markdown",           Versioning.simple],
-    ["card-mod-date",               Versioning.simple]
-  ].each do |dep|
-    s.add_runtime_dependency(*dep)
+  %w[ace_editor prosemirror_editor recaptcha tinymce_editor markdown date].each do |mname|
+    s.add_runtime_dependency "card-mod-#{mname}", Versioning.simple
   end
 end
