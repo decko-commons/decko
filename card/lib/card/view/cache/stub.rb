@@ -1,5 +1,3 @@
-require "msgpack"
-
 class Card
   class View
     module Cache
@@ -16,7 +14,6 @@ class Card
         # @return [String]
         def stub
           "(StUb#{stub_hash.to_json}sTuB)".html_safe
-          # "(StUb#{bin_to_hex stub_hash.to_msgpack}sTuB)".html_safe
         end
 
         def bin_to_hex string
