@@ -30,10 +30,6 @@ Gem::Specification.new do |s|
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
 
-    # files and images
-    ["carrierwave",                 "2.0.2"],
-    ["mini_magick",                 "~> 4.2"],
-
     # assets (JavaScript, CSS, etc)
     ["coderay",                     "~> 1.1"],
     ["sassc",                       "~> 2.0"],

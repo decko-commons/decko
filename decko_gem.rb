@@ -27,7 +27,7 @@ module DeckoGem
       spec.version = version
       spec.metadata = { "card-mod" => name }
       spec.add_runtime_dependency "card", card_version
-      spec.files = Dir["{db,lib,public,set,config}/**/*", "README.md"]
+      spec.files = Dir["{db,file,lib,public,set,config,vendor}/**/*", "README.md"]
     end
 
     def depends_on_mod spec, *modnames
