@@ -34,11 +34,11 @@ Try it out!
 
 | requirement | variants |
 | ---  | --- |
-| [Ruby][7] | 2.5 or higher |
-| [Bundler][8] | 1.0 or higher |
-| [ImageMagick][9] | |
-| A database engine | [MySQL][10] or [PostgreSQL][11] |
-| A JavaScript runtime | [Node.js][12] or [other][13] |
+| [Ruby][7] | 2.5+ |
+| [Bundler][8] | 1.0+ |
+| [ImageMagick][9] | 6.7.8+ |
+| A database engine | [MySQL][10] (5.7+) or [PostgreSQL][11] (9.4+) |
+| A JavaScript runtime | [Node.js][12] (8.9+) or [other][13] |
 
 
 ### 2. install the gem
@@ -92,12 +92,18 @@ configured).
 
 Options:
 
-    -p, [--port=port]                        # Runs Decko on the specified port - defaults to 3000.
-    -b, [--binding=IP]                       # Binds Decko to the specified IP - defaults to 'localhost' in development and '0.0.0.0' in other environments'.
-    -c, [--config=file]                      # Uses a custom rackup configuration. (default: config.ru)
+    -p, [--port=port]                        # Runs Decko on the specified port. 
+                                               Defaults to 3000.
+    -b, [--binding=IP]                       # Binds Decko to the specified IP.
+                                               Defaults to 'localhost' in development 
+                                               and '0.0.0.0' in other environments'.
+    -c, [--config=file]                      # Uses a custom rackup configuration.
+                                               Default is config.ru.
     -d, [--daemon], [--no-daemon]            # Runs server as a Daemon.
-    -e, [--environment=name]                 # Specifies the environment to run this server under (development/test/production).
-    -P, [--pid=PID]                          # Specifies the PID file. (efault: tmp/pids/server.pid)
+    -e, [--environment=name]                 # Specifies the environment in which to run 
+                                               this server (development/test/production).
+    -P, [--pid=PID]                          # Specifies the PID file.
+                                               Default is tmp/pids/server.pid.
         [--early-hints], [--no-early-hints]  # Enables HTTP/2 early hints.
 
 For more information, see https://decko.org/get_started.
