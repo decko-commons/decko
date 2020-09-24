@@ -10,7 +10,6 @@
 [submodule "card/mod/machines/vendor/jquery_rails"]
 	path = card/mod/machines/vendor/jquery_rails
 	url = https://github.com/rails/jquery-rails
-
 [submodule "card/gem_mod/card-mod-date/vendor/moment"]
 	path = card/gem_mod/card-mod-date/vendor/moment
 	url = https://github.com/moment/moment

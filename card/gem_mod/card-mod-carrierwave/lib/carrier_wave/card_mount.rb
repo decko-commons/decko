@@ -1,7 +1,7 @@
 require "carrierwave"
 
 module CarrierWave
-  # adapt card-mod-carrierwave mount to cards
+  # adapt carrierwave mount to cards
   module CardMount
     include CarrierWave::Mount
 

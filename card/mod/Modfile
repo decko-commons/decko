@@ -16,8 +16,4 @@ mod 'standard'
 mod 'rules'
 mod 'account'
 mod 'navbar'
-
 mod 'history'
-
-mod 'follow'
-

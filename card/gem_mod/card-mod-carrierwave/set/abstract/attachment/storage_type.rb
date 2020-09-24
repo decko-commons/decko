@@ -1,7 +1,7 @@
 attr_writer :bucket, :storage_type
 
 event :storage_type_change, :store, on: :update, when: :storage_type_changed? do
-  # card-mod-carrierwave stores file if @cache_id is not nil
+  # carrierwave stores file if @cache_id is not nil
   attachment.cache_stored_file!
   # attachment.retrieve_from_cache!(attachment.cache_name)
   update_storage_attributes
@@ -94,7 +94,7 @@ end
 
 def invalid_storage_type! type
   raise Card::Error, I18n.t(:error_invalid_storage_type,
-                            scope: "mod.card-mod-carrierwave.set.abstract.attachment",
+                            scope: "mod.carrierwave.set.abstract.attachment",
                             type: type)
 end
 

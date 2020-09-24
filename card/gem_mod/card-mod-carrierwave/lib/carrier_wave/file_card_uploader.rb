@@ -287,7 +287,7 @@ module CarrierWave
       model.selected_content_action_id || action_id_stand_in
     end
 
-    # delegate card-mod-carrierwave's fog config methods to bucket configuration
+    # delegate carrierwave's fog config methods to bucket configuration
     ::CarrierWave::FileCardUploader::CONFIG_OPTIONS.each do |name|
       define_method("fog_#{name}") { bucket_config name }
     end

@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   DeckoGem.mod s, "defaults"
   DeckoGem.depends_on_mod s, :ace_editor, :prosemirror_editor, :recaptcha,
                           :tinymce_editor, :markdown, :date, :google_analytics,
-                          :carrierwave, :bootstrap
+                          :carrierwave, :bootstrap, :follow
 
   s.summary = "Default decko mods"
   s.description = ""
