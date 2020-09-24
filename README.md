@@ -1,1 +1,1 @@
-decko/README.rdoc
+decko/README.md
