@@ -43,7 +43,7 @@ def follow_rule_option follower_id
 end
 
 def all_follow_rule_options follower_id
-  follow_rule = rule :follow, user_id: follower_id
+  follow_rule = preference :follow, follower_id
   return [] unless follow_rule.present?
 
   follow_rule.split("\n")
