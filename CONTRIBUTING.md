@@ -12,27 +12,37 @@ outreach, or even just the occasional kind word.
 
 Because Sharks live not in the land of code but in the sea of websites, we will
 maintain information that pertains to them – **including installation troubleshooting, 
-mod lists, and deck configuration** – on [Decko.org](https://decko.org).
+mod lists, and deck configuration** – on [Decko.org][1].
 
+Sharks are invited to:
+
+ - email the [Decko Sharks Google Group][2]
+ - add issues to [GitHub's Issue Tracker][3]
+ - sign up and contribute at [Decko.org][1]
 
 ## Monkeys - Makers of Mods
 Mods (short for modules, modifications, modicum, whatever...) are the main 
 mechanism for extending Decko behavior, and they're the ideal place for coders
 new to Decko to start contributing. As _Monkeys_!
 
+There are endless possibilities for mods, and many much-needed mods can be built
+as relatively minor variations of existing mods.
 
-Documentation is still sparse, but you can get a sense for how to start by reading
-lib/card/set.rb.
+In addition to the Shark invitations above, Monkeys are invited to:
 
-To install in a mod-developer friendly mode, try `decko new mydeckname --mod-dev` 
-(still uses standard gem installation).
+ - email the [Decko Monkeys Google Group][4]
+ - make [pull requests][5] to the [card-mods][6] repo.
+ - join us on Slack (just request an invite in the Google Group)
+
 
 ## Platypuses - Weirdos Building the Platform
 
+The rest of this document is for the more traditional audience of CONTRIBUTING files:
+folks who want to help develop the code in this repository, which we often call
+the _core_.
 
 ### Pull Requests
-The Decko team makes heavy use of
-[GitHub's pull request system](https://help.github.com/articles/using-pull-requests). 
+The Decko team makes heavy use of [GitHub's pull request system][5]. 
 If you're not familiar with pull requests, that's the best place to start.
 
 A great pull request is:
@@ -52,7 +62,8 @@ cypress tests.
 #### Rspec
 To run the whole rspec test suite execute `bundle exec decko rspec` in your
 core-dev deck directory. 
-If you want to run only a single spec file use `bundle exec decko rspec -- <path_to_spec_file>`.
+If you want to run only a single spec file use 
+`bundle exec decko rspec -- <path_to_spec_file>`.
 For more options run `bundle exec decko rspec --help`. 
 
 #### Cucumber
@@ -67,7 +78,7 @@ Cypress upgrades can be installed in that same directory via npm.
 Some special configuration is required for Jasmine
 testing, which is currently very limited. 
 
-See decko/spec/javascripts/support/README.md for more information.
+See the [Jasmine README][7] for more information.
 
 ### Documentation
 
@@ -95,3 +106,11 @@ The easiest way to do that is to add something like this in
 
 ... and then trigger tmpset generation by loading a webpage. (The page may not load well,
 because tmpfiles don't handle HAML, but all that matters is the tmpfile generation.)
+
+[1]: https://decko.org
+[2]: https://groups.google.com/g/decko-sharks
+[3]: https://github.com/decko-commons/decko/issues
+[4]: https://groups.google.com/g/decko-monkeys
+[5]: https://help.github.com/articles/using-pull-requests
+[6]: https://github.com/decko-commons/card-mods/
+[7]: decko/spec/javascripts/support/README.md

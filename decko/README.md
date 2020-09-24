@@ -14,7 +14,7 @@
 
 Decko (formerly known as "Wagn") makes serious web development fun.
 
-Decko creators, or "Card Sharks", have used Decko to create open community sites,
+Decko creators, or "Card Sharks", use Decko to create open community sites,
 private knowledge management sites, public proposal submission sites with
 private back-ends for review, project management systems, wikis, blogs,
 journals, forums, and more.
@@ -203,7 +203,7 @@ you can instead follow the following procedure:
      - bin/spring 
      - spec/spec_helper.rb
   2. In your real deck:
-     - Comment out `ENV['RAILS_ENV'] ||= 'production'` in config/boot.rb
+     - Comment out `ENV['RAILS_ENV'] ||= 'production'` in `config/boot.rb`
 
 #### Start Monkeying
 
