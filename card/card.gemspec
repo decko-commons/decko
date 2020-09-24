@@ -1,30 +1,26 @@
 # -*- encoding : utf-8 -*-
 
-require "../versioning"
+require "../decko_gem"
 
 Gem::Specification.new do |s|
-  s.name = "card"
-  s.version = Versioning.card
+  DeckoGem.shared s
 
-  s.authors = [ "Ethan McCutchen", "Philipp Kühl", "Lewis Hoffman", "Gerry Gleason" ]
-  s.email = ["info@decko.org"]
+  s.name = "card"
+  s.version = DeckoGem.card_version
 
   s.summary = "a simple engine for emergent data structures"
   s.description =
     "Cards are wiki-inspired data atoms." \
     'Card "Sharks" use links, nests, types, patterned names, queries, views, ' \
     "events, and rules to create rich structures."
-  s.homepage = "http://decko.org"
-  s.licenses = ["GPL-2.0", "GPL-3.0"]
 
   s.files = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
                 "{config,db,lib,mod,tmpsets}/**/*"]
 
   s.require_paths = ["lib"]
-  s.required_ruby_version = ">= 2.5"
 
   [
-    ["cardname",                    Versioning.simple],
+    ["cardname",                    DeckoGem.version],
 
     ["haml",                        "~> 5.0"], # markup language used in view API
     ["jwt",                         "~> 2.2"], # used in token.rb
@@ -33,7 +29,6 @@ Gem::Specification.new do |s|
     ["colorize",                    "~> 0.8"], # livelier cli outputs
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
-
 
     # files and images
     ["carrierwave",                 "2.0.2"],

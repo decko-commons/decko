@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 #
-require "./versioning"
+require "./decko_gem"
 
 # Note: these tasks are not in any gem and are thus not available to mod
 # developers.  Therefore they should contain only tasks for core developers.
@@ -44,7 +44,7 @@ end
 
 def push_main_gems
   %w(card cardname decko).each do |gem|
-    v = gem == "card" ? Versioning.card : version
+    v = gem == "card" ? DeckoGem.card_version : version
     system %(cd #{gem}; #{push_gem gem, v})
   end
 end
@@ -57,5 +57,5 @@ def push_mod_gems
 end
 
 def version
-  Versioning.simple
+  DeckoGem.version
 end
