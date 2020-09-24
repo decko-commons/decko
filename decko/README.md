@@ -260,4 +260,4 @@ And info about contributing to Decko is [right next door](CONTRIBUTING.md).
 [20]: https://github.com/decko-commons/decko/blob/master/card/README.rdoc
 [21]: https://github.com/decko-commons/decko/blob/master/card/lib/card.rb
 [22]: https://github.com/decko-commons/decko/blob/master/card/lib/card/set/format.rb
-[21]: https://github.com/decko-commons/card-mods/
+[23]: https://github.com/decko-commons/card-mods/
