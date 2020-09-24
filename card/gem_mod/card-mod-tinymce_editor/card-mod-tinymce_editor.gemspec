@@ -5,9 +5,8 @@ require "../../../decko_gem"
 Gem::Specification.new do |s|
   DeckoGem.shared s
   DeckoGem.mod s, "tinymce_editor"
-  DeckoGem.mod_depend s, :edit
+  DeckoGem.depends_on_mod s, :edit
 
-  s.summary       = "TinyMCE editor"
-  s.description   = ""
-  s.files         = Dir["{db,lib,public,set}/**/*"]
+  s.summary = "TinyMCE editor"
+  s.description = ""
 end

@@ -1,8 +1,9 @@
 # -*- encoding : utf-8 -*-
 
+# Helper methods for gem specs and gem-related tasks
 module DeckoGem
   VERSION = File.open(File.expand_path("../card/VERSION", __FILE__)).read.chomp
-  CARD_MINOR = { 0 => 90, 1 => 1000 } # can remove and hardcode after 1.0
+  CARD_MINOR = { 0 => 90, 1 => 1000 }.freeze # can remove and hardcode after 1.0
 
   class << self
     def version
@@ -26,9 +27,10 @@ module DeckoGem
       spec.version = version
       spec.metadata = { "card-mod" => name }
       spec.add_runtime_dependency "card", card_version
+      spec.files = Dir["{db,lib,public,set,config}/**/*", "README.md"]
     end
 
-    def mod_depend spec, *modnames
+    def depends_on_mod spec, *modnames
       modnames.each do |modname|
         spec.add_runtime_dependency "card-mod-#{modname}", version
       end
@@ -37,7 +39,7 @@ module DeckoGem
     private
 
     def bits
-      @bits ||= version.split('.').map &:to_i
+      @bits ||= version.split(".").map(&:to_i)
     end
 
     def major

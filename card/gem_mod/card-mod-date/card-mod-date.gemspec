@@ -6,7 +6,6 @@ Gem::Specification.new do |s|
   DeckoGem.shared s
   DeckoGem.mod s, "date"
 
-  s.summary       = "Calendar editor"
-  s.description   = ""
-  s.files         = Dir["{db,lib,set}/**/*"]
+  s.summary = "Calendar editor"
+  s.description = ""
 end

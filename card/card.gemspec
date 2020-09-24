@@ -3,9 +3,10 @@
 require "../decko_gem"
 
 Gem::Specification.new do |s|
+  DeckoGem.shared s
+
   s.name = "card"
   s.version = DeckoGem.card_version
-  DeckoGem.shared s
 
   s.summary = "a simple engine for emergent data structures"
   s.description =
@@ -28,7 +29,6 @@ Gem::Specification.new do |s|
     ["colorize",                    "~> 0.8"], # livelier cli outputs
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
-
 
     # files and images
     ["carrierwave",                 "2.0.2"],
