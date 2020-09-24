@@ -1,7 +1,4 @@
-
-== Cardname
+# Cardname
 
 Wiki Segmented Name Logic
-
-== Abstract
 
