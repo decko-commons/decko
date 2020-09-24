@@ -1,22 +1,13 @@
 # -*- encoding : utf-8 -*-
 
-require "../../../versioning"
+require "../../../decko_gem"
 
 Gem::Specification.new do |s|
-  s.name = "card-mod-ace_editor"
-  s.version = Versioning.simple
-
-  s.authors = ["Ethan McCutchen", "Philipp Kühl", "Gerry Gleason"]
-  s.email = ["info@decko.org"]
+  DeckoGem.shared s
+  DeckoGem.mod s, "ace_editor"
+  DeckoGem.mod_depend s, "edit"
 
   s.summary       = "Calendar editor"
   s.description   = ""
-  s.homepage      = "http://decko.org"
-  s.licenses      = ["GPL-2.0", "GPL-3.0"]
-
   s.files         = Dir["{db,lib,public,set}/**/*"]
-
-  s.required_ruby_version = ">= 2.5"
-  s.metadata = { "card-mod" => "ace_editor" }
-  s.add_runtime_dependency "card-mod-edit", Versioning.simple
 end

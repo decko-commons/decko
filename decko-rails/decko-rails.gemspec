@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 
-require "../versioning"
+require "../decko_gem"
 
 Gem::Specification.new do |s|
   s.name          = "decko-rails"
-  s.version       = Versioning.simple
+  s.version       = DeckoGem.version
   s.authors       = ["Ethan McCutchen", "Gerry Gleason", "Philipp Kühl"]
   s.email         = ["info@decko.org"]
 
@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 2.5"
 
-  s.add_runtime_dependency "decko", Versioning.simple
+  s.add_runtime_dependency "decko", DeckoGem.version
 end
