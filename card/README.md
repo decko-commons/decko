@@ -18,7 +18,6 @@ Yes, if:
     can use our links to navigate code. **Links look funny? [Try
     rubydocs.info](http://rubydoc.info/gems/card).**
 
-
 ### Decko: an *application* or a *development framework*?
 
 It's both.
@@ -68,7 +67,6 @@ which the structure rule applies, eg:
 *   All Users
 *   All Cards
 
-
 The Rule in question will apply to all cards in the set you choose. If a card
 has rules in more than one set, the rule applied to the narrower set overrides
 the rule applied to the broader one.
@@ -97,7 +95,6 @@ correlating Ruby classes for the model and formats:
 
 1.  the "model" is {Card}
 2.  the "formats" are {Card::Format} and its descendants
-
 
 Sets are implemented not as Ruby classes but as Ruby modules that are included
 in applicable card and format objects. For example, when fetching the "Henry"
