@@ -10,21 +10,21 @@
 [submodule "card/mod/machines/vendor/jquery_rails"]
 	path = card/mod/machines/vendor/jquery_rails
 	url = https://github.com/rails/jquery-rails
-[submodule "card/gem_mod/bootstrap/vendor/bootstrap"]
-	path = card/gem_mod/bootstrap/vendor/bootstrap
-	url = https://github.com/twbs/bootstrap
-[submodule "card/gem_mod/bootstrap/vendor/select2"]
-	path = card/gem_mod/bootstrap/vendor/select2
-	url = https://github.com/select2/select2
-[submodule "card/gem_mod/bootstrap/vendor/bootstrap-colorpicker"]
-	path = card/gem_mod/bootstrap/vendor/bootstrap-colorpicker
-	url = https://github.com/farbelous/bootstrap-colorpicker.git
-[submodule "card/gem_mod/bootstrap/vendor/bootswatch"]
-	path = card/gem_mod/bootstrap/vendor/bootswatch
-	url = https://github.com/thomaspark/bootswatch
-[submodule "card/gem_mod/card-mod-date/vendor/moment"]
-	path = card/gem_mod/card-mod-date/vendor/moment
-	url = https://github.com/moment/moment
-[submodule "card/gem_mod/card-mod-date/vendor/tempusdominus"]
-	path = card/gem_mod/card-mod-date/vendor/tempusdominus
-	url = https://github.com/tempusdominus/bootstrap-4
+# [submodule "card/gem_mod/card-mod-bootstrap/vendor/bootstrap"]
+# 	path = card/gem_mod/card-mod-bootstrap/vendor/bootstrap
+# 	url = https://github.com/twbs/bootstrap
+# [submodule "card/gem_mod/card-mod-bootstrap/vendor/select2"]
+# 	path = card/gem_mod/card-mod-bootstrap/vendor/select2
+# 	url = https://github.com/select2/select2
+# [submodule "card/gem_mod/card-mod-bootstrap/vendor/bootstrap-colorpicker"]
+# 	path = card/gem_mod/card-mod-bootstrap/vendor/bootstrap-colorpicker
+# 	url = https://github.com/farbelous/bootstrap-colorpicker.git
+# [submodule "card/gem_mod/card-mod-bootstrap/vendor/bootswatch"]
+# 	path = card/gem_mod/card-mod-bootstrap/vendor/bootswatch
+# 	url = https://github.com/thomaspark/bootswatch
+# [submodule "card/gem_mod/card-mod-date/vendor/moment"]
+# 	path = card/gem_mod/card-mod-date/vendor/moment
+# 	url = https://github.com/moment/moment
+# [submodule "card/gem_mod/card-mod-date/vendor/tempusdominus"]
+# 	path = card/gem_mod/card-mod-date/vendor/tempusdominus
+# 	url = https://github.com/tempusdominus/bootstrap-4
