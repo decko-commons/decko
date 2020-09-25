@@ -121,17 +121,11 @@ module Cardio
         config.autoload_paths += Dir["#{mod_path}/lib"]
         config.watchable_dirs["#{mod_path}/set"] = [:rb]
       end
-      # the watachable_dirs are processes in
+      # the watchable_dirs are processes in
       # set_clear_dependencies_hook hook in the railties gem in finisher.rb
 
       # TODO: move this to the right place in decko
       config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
-      # config.autoload_paths += Dir["#{gem_root}/lib/**/"]
-      # config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
-      # config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
-      # gem_mod_paths.each do |_mod_name, mod_path|
-      #  config.autoload_paths += Dir["#{mod_path}/lib/**/"]
-      # end
     end
 
     # @return Hash with key mod names (without card-mod prefix) and values the
@@ -139,10 +133,9 @@ module Cardio
     def gem_mod_paths
       @gem_mods ||=
         Bundler.definition.specs.each_with_object({}) do |gem_spec, h|
-          mod_name = mod_name_from_gem_spec gem_spec
-          next unless mod_name
+          next unless gem_spec.metadata["card-mod"]
 
-          h[mod_name] = gem_spec.full_gem_path
+          h[gem_spec.name] = gem_spec.full_gem_path
         end
     end
 
@@ -247,16 +240,6 @@ module Cardio
     def mod_migration_paths dir
       [].tap do |list|
         Card::Mod.dirs.each("db/#{dir}") { |path| list.concat Dir.glob path }
-      end
-    end
-
-    private
-
-    def mod_name_from_gem_spec gem_spec
-      if (m = gem_spec.name.match(/^card-mod-(.+)$/))
-        m[1]
-      else
-        gem_spec.metadata["card-mod"]
       end
     end
   end

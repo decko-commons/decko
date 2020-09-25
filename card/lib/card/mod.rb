@@ -77,6 +77,19 @@ class Card
       def dirs
         @dirs ||= Mod::Dirs.new(Card.paths["mod"].existent)
       end
+
+      def dependencies name, nickname=true
+        return unless (spec = gem_spec name, nickname)
+        deps = spec&.dependencies || []
+        dep_names = deps.map { |dep| dependencies dep.name, false }
+        dep_names.flatten.compact << spec.name
+      end
+
+      def gem_spec name, nickname=true
+        name = "card-mod-#{name}" if nickname && !name.match?(/^card-mod/)
+        spec = Gem::Specification.stubs_for(name)&.first
+        spec && spec.metadata["card-mod"] ? spec : nil
+      end
     end
   end
 end

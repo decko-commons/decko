@@ -83,13 +83,14 @@ class Card
         @paths[mod_name] = path
       end
 
-      def gem_mod mod_name, path=nil
-        path ||= Cardio.gem_mod_paths[mod_name]
-        unless path
-          raise Error, "Unknown gem mod \"#{mod_name}\". Make sure it is in your Gemfile."
-        end
+      def gem_mod name
+        deps = Mod.dependencies name
+        unknown_gem_mod!(name) if deps.blank?
+        deps.each { |mod_name| add_gem_mod mod_name, Cardio.gem_mod_paths[mod_name] }
+      end
 
-        add_gem_mod mod_name, path
+      def unknown_gem_mod! name
+        raise Error, "Unknown gem \"#{name}\". Make sure it is in your Gemfile."
       end
 
       def add_gem_mod mod_name, mod_path
