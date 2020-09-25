@@ -1,7 +1,7 @@
 format :html do
-  view :last_action, perms: :none, cache: :never do
-    _render_last_action_verb
-  end
+  # view :last_action, perms: :none, cache: :never do
+  #   _render_last_action_verb
+  # end
 
   def wrap_list list
     "<ul>#{list}</ul>\n"
