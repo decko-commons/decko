@@ -9,6 +9,8 @@ module Cardio
 
     # @return [True/False]
     def gem_mod_spec? spec
+      return unless spec
+      
       spec.name.match?(/^card-mod-/) || spec.metadata["card-mod"].present?
     end
 
