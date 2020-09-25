@@ -45,7 +45,7 @@ $.extend decko,
     decko.addNestPlugin(conf)
 
 
-    tinyMCE.baseURL = decko.path('assets/tinymce_editor/tinymce')
+    tinyMCE.baseURL = decko.path('assets/card-mod-tinymce_editor/tinymce')
     tinyMCE.suffix = '.min'
     # "##{el_id}"
     # tinyMCE.get(el_id).remove() if $("##{el_id}")[0]? and tinyMCE.get(el_id)?
