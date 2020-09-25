@@ -2,11 +2,9 @@
 
 require "../../../decko_gem"
 
-Gem::Specification.new do |s|
-  DeckoGem.shared s
-  DeckoGem.mod s, "prosemirror_editor"
-  DeckoGem.depends_on_mod s, :edit
-
+DeckoGem.new do |s|
+  s.mod "prosemirror_editor"
+  s.depends_on_mod :edit
   s.summary = "Prose Mirror editor"
   s.description = ""
 end

@@ -2,11 +2,9 @@
 
 require "../../../decko_gem"
 
-Gem::Specification.new do |s|
-  DeckoGem.shared s
-  DeckoGem.mod s, "ace_editor"
-  DeckoGem.depends_on_mod s, "edit"
-
+DeckoGem.new do |s|
+  s.mod "ace_editor"
+  s.depends_on_mod "edit"
   s.summary = "Ace editor"
   s.description = ""
 end

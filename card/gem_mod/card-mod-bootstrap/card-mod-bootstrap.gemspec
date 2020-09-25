@@ -2,11 +2,9 @@
 
 require "../../../decko_gem"
 
-Gem::Specification.new do |s|
-  DeckoGem.shared s
-  DeckoGem.mod s, "bootstrap"
-  DeckoGem.depends_on_mod s, :edit
-
+DeckoGem.new do |s|
+  s.mod "bootstrap"
+  s.depends_on_mod :edit
   s.summary = "Bootstrap"
   s.description = ""
 end

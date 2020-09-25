@@ -2,10 +2,9 @@
 
 require "../../../decko_gem"
 
-Gem::Specification.new do |s|
-  DeckoGem.shared s
-  DeckoGem.mod s, "follow"
-  DeckoGem.depends_on_mod s, :carrierwave
+DeckoGem.new do |s|
+  s.mod "follow"
+  s.depends_on_mod :carrierwave
 
   s.summary = "follower notifications"
   s.description = ""

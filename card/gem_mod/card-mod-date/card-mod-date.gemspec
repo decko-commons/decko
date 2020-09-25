@@ -2,9 +2,8 @@
 
 require "../../../decko_gem"
 
-Gem::Specification.new do |s|
-  DeckoGem.shared s
-  DeckoGem.mod s, "date"
+DeckoGem.new do |s|
+  s.mod "date"
 
   s.summary = "Calendar editor"
   s.description = ""
