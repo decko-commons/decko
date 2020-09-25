@@ -221,7 +221,7 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    it "private wql" do
+    it "private cql" do
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
         [@c1, @c2, @c3].each do |c|
@@ -242,7 +242,7 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    it "role wql" do
+    it "role cql" do
       # warn "u1 roles #{Card[ @u1.id ].fetch(roles).item_names.inspect}"
 
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader

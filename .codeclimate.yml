@@ -27,13 +27,15 @@ ratings:
    - "**.rb"
 exclude_paths:
 - decko/rails/assets/**/*
-- card/mod/**/lib/javascript/*.js
 - card/mod/machines/lib/javascript/**/*
 - card/mod/machines/lib/javascript/**/*
-- card/mod/bootstrap/lib/javascript/**/*
 - card/db/**/*
 - card/doc/**
 - decko/doc/**
 - decko/spec/**/*.js
+- card/mod/**/lib/javascript/*.js
 - card/mod/**/file/**/*
 - card/mod/**/public/**/*
+- card-mod-*/**/lib/javascript/*.js
+- card-mod-*/**/file/**/*
+- card-mod-*/**/public/**/*

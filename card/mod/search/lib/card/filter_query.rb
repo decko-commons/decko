@@ -1,17 +1,17 @@
 class Card
-  # Class for generating WQL based on filter params
+  # Class for generating CQL based on filter params
   class FilterQuery
-    def initialize filter_keys_with_values, extra_wql={}
-      @filter_wql = Hash.new { |h, k| h[k] = [] }
+    def initialize filter_keys_with_values, extra_cql={}
+      @filter_cql = Hash.new { |h, k| h[k] = [] }
       @rules = yield if block_given?
       @rules ||= {}
       @filter_keys_with_values = filter_keys_with_values
-      @extra_wql = extra_wql
-      prepare_filter_wql
+      @extra_cql = extra_cql
+      prepare_filter_cql
     end
 
-    def add_to_wql key, value
-      @filter_wql[key] << value
+    def add_to_cql key, value
+      @filter_cql[key] << value
     end
 
     def add_rule key, value
@@ -20,43 +20,43 @@ class Card
       when Symbol
         send("#{@rules[key]}_rule", key, value)
       when Proc
-        @rules[key].call(key, value).each do |wql_key, val|
-          @filter_wql[wql_key] << val
+        @rules[key].call(key, value).each do |cql_key, val|
+          @filter_cql[cql_key] << val
         end
       else
-        send("#{key}_wql", value)
+        send("#{key}_cql", value)
       end
     end
 
-    def to_wql
-      @wql = {}
-      @filter_wql.each do |wql_key, values|
+    def to_cql
+      @cql = {}
+      @filter_cql.each do |cql_key, values|
         next if values.empty?
-        case wql_key
+        case cql_key
         when :right_plus, :left_plus, :type
-          merge_using_and wql_key, values
+          merge_using_and cql_key, values
         else
-          merge_using_array wql_key, values
+          merge_using_array cql_key, values
         end
       end
-      @wql.merge @extra_wql
+      @cql.merge @extra_cql
     end
 
     private
 
-    def prepare_filter_wql
+    def prepare_filter_cql
       @filter_keys_with_values.each do |key, values|
         add_rule key, values
       end
     end
 
-    def merge_using_array wql_key, values
-      @wql[wql_key] = values.one? ? values.first : values
+    def merge_using_array cql_key, values
+      @cql[cql_key] = values.one? ? values.first : values
     end
 
-    def merge_using_and wql_key, values
-      hash = build_nested_hash wql_key, values
-      @wql.deep_merge! hash
+    def merge_using_and cql_key, values
+      hash = build_nested_hash cql_key, values
+      @cql.deep_merge! hash
     end
 
     # nest values with the same key using :and
@@ -66,9 +66,9 @@ class Card
       { key => val, and: build_nested_hash(key, values) }
     end
 
-    def name_wql name
+    def name_cql name
       return unless name.present?
-      @filter_wql[:name] = ["match", name]
+      @filter_cql[:name] = ["match", name]
     end
   end
 end

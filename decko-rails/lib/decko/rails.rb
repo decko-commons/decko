@@ -21,7 +21,7 @@ module Decko
       end
 
       rake_tasks do |_app|
-        # for some reason this needs the 'wagn/',
+        # for some reason this needs the 'decko/',
         # can't get lib/tasks change right by this time?
         load "decko/tasks/decko.rake"
         load "card/tasks/card.rake"

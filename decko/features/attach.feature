@@ -63,6 +63,7 @@ Feature: File Upload
     And I go to "/new complicated_card"
     And I fill in "card_name" with "Vignesh has a complicated relationship"
     And I upload the image "image.png"
+    And I should see file "image.png"
     And I press "Submit"
     And I edit "Vignesh has a complicated relationship"
     And I upload the image "image2.jpg"

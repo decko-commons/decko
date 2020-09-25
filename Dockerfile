@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby22
+FROM phusion/passenger-ruby27
 MAINTAINER Gerry Gleason (gerryg@inbox.com)
 
 WORKDIR /work

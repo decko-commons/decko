@@ -30,7 +30,7 @@
       {
         "name": "Toggle+description",
         "type": "Basic",
-        "content": "<p>Toggles simply indicate yes or no. [[https://decko.org/wagn/Toggle|more]].</p>"
+        "content": "<p>Toggles simply indicate yes or no. [[https://decko.org/Toggle|more]].</p>"
       },
       {
         "name": "User+description",

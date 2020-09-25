@@ -12,7 +12,6 @@ Gemfile.lock
 coverage
 log/*
 pkg
-wagn*gem
 card*gem
 decko*gem
 *.project

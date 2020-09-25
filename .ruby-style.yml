@@ -6,7 +6,7 @@ AllCops:
     - "card/mod/bootstrap/lib/**/*"
     - "card/mod/machines/lib/javascript/**/*"
     - "card/mod/machines/lib/stylesheets/**/*"
-    - "wagn/lib/wagn/generators/wagn/templates/Gemfile"
+    - "decko/lib/decko/generators/decko/templates/Gemfile"
 
 Style/CommentAnnotation:
   Enabled: true

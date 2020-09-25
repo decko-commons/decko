@@ -16,7 +16,7 @@ Decko::Engine.routes.draw do
   end
 
   # Standard GET requests
-  get "(/wagn)/:mark(.:format)" => "card#read"  # /wagn is deprecated
+  get "(/decko)/:mark(.:format)" => "card#read"  # /decko is deprecated
 
   # Alternate GET requests
   get "new/:type" => "card#read", view: "new" # common case for card without mark

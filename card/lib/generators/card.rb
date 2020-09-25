@@ -17,7 +17,7 @@ class Card
         end
       end
 
-      # Override Rails default banner (wagn is the command name).
+      # Override Rails default banner (decko is the command name).
       def banner
         usage_arguments = arguments.map(&:usage) * " "
         text = "decko generate #{namespace} #{usage_arguments} [options]"

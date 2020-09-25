@@ -42,7 +42,7 @@ class SharedData
       # generic, shared attribute card
       ensure_card "color"
 
-      create "signup alert email+*to", "signups@wagn.org"
+      create "signup alert email+*to", "signups@decko.org"
       # CREATE A CARD OF EACH TYPE
 
       no_samples = %w[user sign_up set number mirror_list mirrored_list file image
@@ -190,7 +190,7 @@ class SharedData
 
 
     def cardtype_cards
-      # for wql & permissions
+      # for cql & permissions
       %w[A+C A+D A+E C+A D+A F+A A+B+C].each {|name| create name}
       ("A".."F").each do |ch|
         create "Cardtype #{ch}", type_code: "cardtype",
