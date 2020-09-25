@@ -86,7 +86,7 @@ class Card
       def gem_mod name
         deps = Mod.dependencies name
         unknown_gem_mod!(name) if deps.blank?
-        deps.each { |mod_name| add_gem_mod mod_name, Cardio.gem_mod_paths[mod_name] }
+        deps.each { |spec| add_gem_mod spec.name, spec.full_gem_path }
       end
 
       def unknown_gem_mod! name
@@ -166,8 +166,8 @@ class Card
       end
 
       def load_from_gemfile
-        Cardio.gem_mod_paths.each do |mod_name, mod_path|
-          add_gem_mod mod_name, mod_path
+        Cardio.gem_mod_specs.each do |mod_name, mod_spec|
+          add_gem_mod mod_name, mod_spec.full_gem_path
         end
       end
 

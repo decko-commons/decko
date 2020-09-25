@@ -82,7 +82,7 @@ class Card
         return unless (spec = gem_spec name, nickname)
         deps = spec&.dependencies || []
         dep_names = deps.map { |dep| dependencies dep.name, false }
-        dep_names.flatten.compact << spec.name
+        (dep_names << spec).flatten.compact.uniq
       end
 
       def gem_spec name, nickname=true
