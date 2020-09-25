@@ -7,7 +7,7 @@ Gemfile.lock
 .jhw-cache
 .rvmrc
 .tm_properties
-.yardoc
+#.yardoc
 *.iml
 coverage
 log/*

@@ -1,5 +1,4 @@
 
-
 Decko::Engine.configure do
   config.cache_classes = false
 end
@@ -98,6 +97,14 @@ Decko.application.class.configure do
     config.console = Pry
   rescue LoadError
   end
+
+  if ENV["DECKO_DOC_MODE"]
+    tmpsets_dir = "#{Cardio.gem_root}/tmpsets/"
+    config.load_strategy = :tmp_files
+    config.paths['tmp/set'] = "#{tmpsets_dir}/set"
+    config.paths['tmp/set_pattern'] = "#{tmpsets_dir}/set_pattern"
+  end
+
   #config.session_store :cookie_store
 end
 

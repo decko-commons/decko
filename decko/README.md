@@ -30,7 +30,7 @@ Try it out!
 
 ## Installation
 
-### 1. install dependencies
+### 1. install dependenciestar
 
 | requirement | variants |
 | ---  | --- |

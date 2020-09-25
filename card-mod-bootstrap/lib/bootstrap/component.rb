@@ -86,35 +86,13 @@ class Bootstrap
       end
 
       # Defines a method that generates a html tag
-      # @param name [Symbol, String] the name of the method. If no :tag option in tag_opts is defined then the name is also the name of the tag that the method generates
+      # @param method_name [Symbol, String] the name of the method. If no :tag option in tag_opts is defined then the name is also the name of the tag that the method generates
       # @param html_class [String] a html class that is added to tag. Use nil if you don't want a html_class
       # @param tag_opts [Hash] additional argument that will be added to the tag
       # @option tag_opts [Symbol, String] tag the name of the tag
       # @example
       #   def_tag_method :link, "known-link", tag: :a, id: "uniq-link"
       #   link  # => <a class="known-link" id="uniq-link"></a>
-      # def add_tag_method name, html_class, tag_opts={}, &tag_block
-      #   @tag_method = TagMethod.new self,name, html_class, tag_opts, &tag_block
-      #   define_method name do |*args, &block|
-      #     @tag_method.call *args, &block
-      #     process_tag tag_opts[:tag] || name do
-      #       content, opts, new_child_args = standardize_args args, &tag_block
-      #       add_classes opts, html_class, tag_opts.delete(:optional_classes)
-      #       if (attributes = tag_opts.delete(:attributes))
-      #         opts.merge! attributes
-      #       end
-      #
-      #       content = with_child_args new_child_args do
-      #         generate_content content,
-      #                          tag_opts[:content_processor],
-      #                          &block
-      #       end
-      #
-      #       [content, opts]
-      #     end
-      #   end
-      # end
-
       def def_tag_method method_name, html_class, tag_opts={}, &tag_opts_block
         tag = tag_opts.delete(:tag) || method_name
         return def_simple_tag_method method_name, tag, html_class, tag_opts unless block_given?
