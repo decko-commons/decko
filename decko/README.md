@@ -213,7 +213,7 @@ you can instead follow the following procedure:
 
 #### Start Monkeying
 
-You can learn about:
+Learn about:
  
  - [the architecture][20]
  - [how to generate a mod][19]
@@ -221,7 +221,7 @@ You can learn about:
  - [formats][22]
  - [existing mods][23]
 
-...etc
+etc.
 
 ## More Resources
 

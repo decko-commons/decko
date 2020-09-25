@@ -3,10 +3,8 @@ source 'http://rubygems.org'
 <% if @gem_path.present? %>
 path "<%= @gemfile_gem_path %>" do
   gem 'decko'
-  gem 'card', :require => false
-  gem 'cardname', :require => false
+  gem 'card-mod-defaults'
 end
-gem 'card-mod-defaults', path: "<%= @gemfile_gem_path %>/card/gem_mod"
 <% else %>
 gem 'decko'
 gem 'card-mod-defaults'

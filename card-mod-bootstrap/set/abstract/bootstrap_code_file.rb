@@ -3,7 +3,7 @@ def self.included host_class
   host_class.include_set Abstract::CodeFile
   host_class.include OverrideCodeFile
   host_class.mattr_accessor :stylesheets_dir, :bootstrap_path, :mod_path
-  host_class.mod_path = File.join Cardio.gem_root, "gem_mod", host_class.file_content_mod_name
+  host_class.mod_path = File.expand_path "../../", File.dirname(__FILE__)
   host_class.stylesheets_dir = File.join host_class.mod_path, "lib", "stylesheets"
   host_class.bootstrap_path = File.join host_class.mod_path, "vendor", "bootstrap", "scss"
 end
