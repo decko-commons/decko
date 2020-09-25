@@ -105,7 +105,7 @@ class Card
       # @param mod_name [String] the name of a mod
       # @return the path to mod `mod_name`
       def path mod_name
-        @paths[mod_name]
+        @paths[mod_name] || @paths["card-mod-#{mod_name}"]
       end
 
       # Iterate over each mod directory

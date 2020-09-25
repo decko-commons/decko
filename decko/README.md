@@ -233,7 +233,7 @@ There's lots more info at [Decko.org][14], including:
 
 We also have [API Docs][18] on Swaggerhub.
 
-And info about contributing to Decko is [right next door](CONTRIBUTING.md).
+And info about contributing to Decko is [right next door][24].
 
 [1]: https://semaphoreci.com/api/v1/ethan/decko/branches/master/shields_badge.svg 
     "Semaphore Build"
@@ -261,3 +261,4 @@ And info about contributing to Decko is [right next door](CONTRIBUTING.md).
 [21]: https://github.com/decko-commons/decko/blob/master/card/lib/card.rb
 [22]: https://github.com/decko-commons/decko/blob/master/card/lib/card/set/format.rb
 [23]: https://github.com/decko-commons/card-mods/
+[24]: https://github.com/decko-commons/decko/blob/master/CONTRIBUTING.md
