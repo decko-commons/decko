@@ -2,11 +2,9 @@
 
 require "../decko_gem"
 
-Gem::Specification.new do |s|
-  DeckoGem.shared s
-
+DeckoGem.new do |s|
   s.name = "card"
-  s.version = DeckoGem.card_version
+  s.version = s.card_version
 
   s.summary = "a simple engine for emergent data structures"
   s.description =
@@ -20,7 +18,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   [
-    ["cardname",                    DeckoGem.version],
+    ["cardname",            s.decko_version],
 
     ["haml",                        "~> 5.0"], # markup language used in view API
     ["jwt",                         "~> 2.2"], # used in token.rb
@@ -29,10 +27,6 @@ Gem::Specification.new do |s|
     ["colorize",                    "~> 0.8"], # livelier cli outputs
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
-
-    # files and images
-    ["carrierwave",                 "2.0.2"],
-    ["mini_magick",                 "~> 4.2"],
 
     # assets (JavaScript, CSS, etc)
     ["coderay",                     "~> 1.1"],

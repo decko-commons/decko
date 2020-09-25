@@ -2,11 +2,10 @@
 
 require "../../../decko_gem"
 
-Gem::Specification.new do |s|
-  DeckoGem.shared s
-  DeckoGem.mod s, "defaults"
-  DeckoGem.depends_on_mod s, :ace_editor, :prosemirror_editor, :recaptcha, :tinymce_editor,
-                          :markdown, :date
+DeckoGem.new do |s|
+  s.mod "defaults"
+  s.depends_on_mod :ace_editor, :prosemirror_editor, :recaptcha, :tinymce_editor, :follow,
+                   :markdown, :date, :google_analytics, :carrierwave, :bootstrap
 
   s.summary = "Default decko mods"
   s.description = ""

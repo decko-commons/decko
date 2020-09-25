@@ -70,9 +70,9 @@ For more options run `bundle exec decko rspec --help`.
 Similar to rspec run `bundle exec decko cucumber` in your deck directory.
 
 #### Cypress
-Start the server for your core-dev deck with `RAILS_ENV=cypress bundle exec decko s -p 5002`
-and then in the gem in `decko/spec` run `yarn run cypress open` to open the cypress interface.
-Cypress upgrades can be installed in that same directory via npm. 
+Start the server for your core-dev deck with `RAILS_ENV=cypress bundle exec decko s -p 
+5002` and then in the gem in `decko/spec` run `yarn run cypress open` to open the 
+cypress interface. Cypress upgrades can be installed in that same directory via npm. 
 
 #### Jasmine
 Some special configuration is required for Jasmine

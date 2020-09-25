@@ -3,8 +3,7 @@
 require "../../../decko_gem"
 
 DeckoGem.new do |s|
-  s.mod "tinymce_editor"
-  s.depends_on_mod :edit
-  s.summary = "TinyMCE editor"
+  s.mod "google_analytics"
+  s.summary = "Google Analytics support for decko"
   s.description = ""
 end

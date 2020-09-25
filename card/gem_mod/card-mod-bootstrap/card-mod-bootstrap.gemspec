@@ -3,8 +3,8 @@
 require "../../../decko_gem"
 
 DeckoGem.new do |s|
-  s.mod "tinymce_editor"
+  s.mod "bootstrap"
   s.depends_on_mod :edit
-  s.summary = "TinyMCE editor"
+  s.summary = "Bootstrap"
   s.description = ""
 end

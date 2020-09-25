@@ -2,10 +2,9 @@
 
 require "../decko_gem"
 
-Gem::Specification.new do |s|
+DeckoGem.new do |s|
   s.name = "decko"
-  s.version = DeckoGem.version
-  DeckoGem.shared s
+  s.version = s.decko_version
 
   s.summary = "structured wiki web platform"
   s.description =
@@ -17,5 +16,5 @@ Gem::Specification.new do |s|
   s.executables = ["decko"]
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency "card", DeckoGem.card_version
+  s.add_runtime_dependency "card", s.card_version
 end
