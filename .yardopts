@@ -1,7 +1,7 @@
 */{lib,format,chunk}/**/*.rb
 {card,decko}/mod/*/{lib,format,chunk}/**/*.rb
 card/tmpsets/set*/**/*.rb
-- */*.md *.md GPL LICENSE VERSION
---exclude templates spec vendor
+- */*.md *.md GPL LICENSE card/VERSION
+--exclude .*/templates/.* .*/spec/*. .*/vendor/*.
 --markup markdown
 --load .yard_extensions/yard_extensions.rb
