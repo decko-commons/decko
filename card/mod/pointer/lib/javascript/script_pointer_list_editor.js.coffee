@@ -16,10 +16,12 @@ $(window).ready ->
 
   $('body').on 'click', '.pointer-item-delete', ->
     item = $(this).closest 'li'
-    if item.closest('ul').find('.pointer-li').length > 1
+    list =  item.closest('ul')
+    if list.find('.pointer-li').length > 1
       item.remove()
     else
       item.find('input').val ''
+    decko.updateAddItemButton(list)
 
 decko.slotReady (slot) ->
   slot.find('.pointer-list-editor').each ->
@@ -40,13 +42,17 @@ $.extend decko,
     # should be (but is not) handled by slotReady
     # without this, "add another" was breaking tinymce editors in same slot
 
-    newInput.focus()
+    newInput.first().focus()
     decko.updateAddItemButton el
     decko.initPointerList newInput
 
   nextPointerInput: (lastItem)->
-    lastInput = lastItem.find 'input'
-    return lastInput if lastInput.val() == ''
+    lastInputs = lastItem.find 'input'
+    all_empty = true
+    for input in lastInputs
+        all_empty  = all_empty and $(input).val() == ''
+    return lastInputs if all_empty
+
     newItem = lastItem.clone()
     lastItem.after newItem
     newItem.attr("data-index", parseInt(lastItem.attr("data-index") + 1))

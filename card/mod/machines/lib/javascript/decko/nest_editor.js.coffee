@@ -1,6 +1,5 @@
 $(document).ready ->
   $('body').on 'click', 'button._nest-apply', () ->
-    debugger
     if $(this).data("index")?
       nest.applyNestToNestListEditor($(this).data("index"))
     else
@@ -45,7 +44,7 @@ $.extend nest,
     nest.tmRequest(tm, card_name, "nest_image", "modal_nest_image", params)
 
   changeCreateToUpdate: (tm_id) ->
-    form = $("##{tm_id}").closest("form")
+     form = $("##{tm_id}").closest("form")
     new_action = form.attr("action").replace("card/create", "card/update")
     form.attr("action", new_action)
 
@@ -129,16 +128,16 @@ $.extend nest,
 
   offsetAfterInsert: (editor, content) ->
     offset = editor.selection.getSel().anchorOffset
-    offset - content.length
+    offset - content.lengthr
 
   applyNestToTinymceEditor: (tinymce_id, nest_start, nest_size) ->
     nest.applySnippet("nest", tinymce_id, nest_start, nest_size)
 
   applyNestToNestListEditor: (index) ->
-    content = $("._nest-preview").val()
     row = $("._nest-form[data-index='#{index}']")
     row.find("._reference").val(nest.name())
     row.find("._nest-options").val(nest.options())
+    decko.updateAddItemButton(row)
 
 
   applySnippet: (snippet_type, tinymce_id, start, size) ->
