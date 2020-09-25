@@ -1,4 +1,5 @@
 module Cardio
+  # methods for handling simple and gem mod paths/files
   module Modfiles
     # @return [Hash] in the form{ modname(String) => Gem::Specification }
     def gem_mod_specs
@@ -10,13 +11,13 @@ module Cardio
     # @return [True/False]
     def gem_mod_spec? spec
       return unless spec
-      
+
       spec.name.match?(/^card-mod-/) || spec.metadata["card-mod"].present?
     end
 
     def each_mod_path &block
-      each_simple_mod_path &block
-      each_gem_mod_path &block
+      each_simple_mod_path(&block)
+      each_gem_mod_path(&block)
     end
 
     def each_simple_mod_path
