@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  File: CONTRIBUTING
+  File: Contributing as a Shark, Monkey, or Platypus
   
     &mdash; Documentation by YARD 0.9.25
   
@@ -37,7 +37,7 @@
         <div id="menu">
   
     <a href="_index.html">Index</a> &raquo; 
-    <span class="title">File: CONTRIBUTING</span>
+    <span class="title">File: Contributing as a Shark, Monkey, or Platypus</span>
   
 </div>
 
@@ -57,7 +57,8 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1 id="thinking-about-contributing-to-decko">Thinking about contributing to Decko?</h1>
+      <div id="content"><div id='filecontents'>
+<h1 id="thinking-about-contributing-to-decko">Thinking about contributing to Decko?</h1>
 <p>Nice! There’s tons to do involving lots of different skillsets, and we welcome the help.</p>
 
 <p>We want to make contributing to Decko as rewarding an experience as possible. Please 
@@ -144,37 +145,26 @@ testing, which is currently very limited.</p>
 
 <h3 id="documentation">Documentation</h3>
 
-<p>We use <code>yard</code>. You can run your own documentation server using:</p>
+<p>We use <code>yard</code>. You can run your own documentation server by calling this from the repo
+root:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_yard'>yard</span>
-<span class='id identifier rubyid_yard'>yard</span> <span class='id identifier rubyid_server'>server</span> <span class='op'>-</span><span class='op'>-</span><span class='id identifier rubyid_reload'>reload</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_yard'>yard</span> <span class='id identifier rubyid_server'>server</span> <span class='op'>-</span><span class='op'>-</span><span class='id identifier rubyid_reload'>reload</span>
 </code></pre>
-
-<p>Note that each gem (card, decko, cardname, etc) has its own yard configuration (for now); 
-you will need to run the server from the respective directory.</p>
 
 <p>By default, the yard server will detect changes to normal ruby modules and update the
 docs accordingly. But currently set modules only work if we regenerate tmpfiles after
-changing code.</p>
+changing code. To do that you can run the following from the development deck root:</p>
 
-<p>The easiest way to do that is to add something like this in 
-<code>config/environments/development.rb</code>:</p>
-
-<pre class="code ruby"><code class="ruby">    <span class='const'><span class='object_link'><a href="Decko.html" title="Decko (module)">Decko</a></span></span><span class='period'>.</span><span class='id identifier rubyid_application'><span class='object_link'><a href="Decko.html#application-class_method" title="Decko.application (method)">application</a></span></span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span>
-      <span class='id identifier rubyid_tmpsets_dir'>tmpsets_dir</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_gem_root'><span class='object_link'><a href="Cardio.html#gem_root-class_method" title="Cardio.gem_root (method)">gem_root</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>/tmpsets/</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_load_strategy'>load_strategy</span> <span class='op'>=</span> <span class='symbol'>:tmp_files</span>
-      <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tmp/set</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tmpsets_dir'>tmpsets_dir</span><span class='embexpr_end'>}</span><span class='tstring_content'>/set</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tmp/set_pattern</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tmpsets_dir'>tmpsets_dir</span><span class='embexpr_end'>}</span><span class='tstring_content'>/set_pattern</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>end</span>
+<pre class="code ruby"><code class="ruby">rake decko:docs:update
 </code></pre>
 
-<p>… and then trigger tmpset generation by loading a webpage. (The page may not load well,
-because tmpfiles don’t handle HAML, but all that matters is the tmpfile generation.)</p>
+<p>BUT: only do this if you’re both (a) in development mode and (b) using a decko gem from
+within a copy of the repo.</p>
 
 </div></div>
 
       <div id="footer">
-  Generated on Fri Sep 25 16:57:52 2020 by
+  Generated on Fri Sep 25 17:44:54 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

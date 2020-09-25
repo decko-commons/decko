@@ -1,3 +1,5 @@
+# @title Contributing as a Shark, Monkey, or Platypus
+
 # Thinking about contributing to Decko?
 Nice! There's tons to do involving lots of different skillsets, and we welcome the help.
 
@@ -33,7 +35,6 @@ In addition to the Shark invitations above, Monkeys are invited to:
  - email the [Decko Monkeys Google Group][4]
  - make [pull requests][5] to the [card-mods][6] repo.
  - join us on Slack (just request an invite in the Google Group)
-
 
 ## Platypuses - Weirdos Building the Platform
 
@@ -82,30 +83,19 @@ See the [Jasmine README][7] for more information.
 
 ### Documentation
 
-We use `yard`. You can run your own documentation server using:
+We use `yard`. You can run your own documentation server by calling this from the repo
+root:
 
-    gem install yard
     yard server --reload
-
-Note that each gem (card, decko, cardname, etc) has its own yard configuration (for now); 
-you will need to run the server from the respective directory.
 
 By default, the yard server will detect changes to normal ruby modules and update the
 docs accordingly. But currently set modules only work if we regenerate tmpfiles after
-changing code.
+changing code. To do that you can run the following from the development deck root:
+
+    rake decko:docs:update
  
-The easiest way to do that is to add something like this in 
-`config/environments/development.rb`:
-
-        Decko.application.class.configure do
-          tmpsets_dir = "#{Cardio.gem_root}/tmpsets/"
-          config.load_strategy = :tmp_files
-          config.paths['tmp/set'] = "#{tmpsets_dir}/set"
-          config.paths['tmp/set_pattern'] = "#{tmpsets_dir}/set_pattern"
-        end
-
-... and then trigger tmpset generation by loading a webpage. (The page may not load well,
-because tmpfiles don't handle HAML, but all that matters is the tmpfile generation.)
+BUT: only do this if you're both (a) in development mode and (b) using a decko gem from
+within a copy of the repo.
 
 [1]: https://decko.org
 [2]: https://groups.google.com/g/decko-sharks

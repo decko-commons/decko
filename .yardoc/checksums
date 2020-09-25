@@ -323,7 +323,7 @@ card/tmpsets/set/mod003-core/all/observer.rb 64787a8742d54bd2b5f0e6c2de82640ca31
 card/tmpsets/set/mod003-core/all/subcards.rb 25a9a047ce3cb4abb98080e9ccf9f0775d2d5d9f
 card/tmpsets/set/mod007-pointer/type/list.rb c7d873bcccbf0ffea7de7e55d63e84e6f79d14de
 card/tmpsets/set/mod009-machines/type/css.rb d2866e94d3b1f347b6e4e7e57677d1bc17bd7258
-card/tmpsets/set/mod015-standard/all/path.rb 0e4ff064983f4be58a41040d5f89f1e6ae3d9d61
+card/tmpsets/set/mod015-standard/all/path.rb 1530c59d57954528861a2f99e82c5aa86e106235
 card/tmpsets/set/mod015-standard/self/now.rb e8cc10117171e285ce8990d804f92e95f94ff84d
 card/tmpsets/set/mod015-standard/type/uri.rb 5566944a9f6d327082c5af9aa3c4223795c63e64
 card/tmpsets/set/mod016-rules/rule/editor.rb 8508ce13367c731f4c817f7b02e449a136b46f6a

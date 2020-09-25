@@ -1,4 +1,4 @@
-# @title README: follow mod
+# @title README - mod: follow
 
 # Follow
 
@@ -9,6 +9,7 @@ Follow sets cards, get notified when any card in the set changes.
 Cards ruling notifications include:
 
 ### Follow preferences (or follow rules)
+
 | name | type | content |
 |:----:|:----:|:-------:|
 | [Set]+[User]+:follow | Pointer | list of follow options |
@@ -23,6 +24,7 @@ Special views include:
 - *follow_status*
 
 ### Follow options
+
 | name | type | content |
 |:----:|:----:|:-------:|
 | \*_optionname_| Basic | (blank) |
@@ -35,6 +37,7 @@ Each follow preference can point to one or more of the following follow options.
 - _edited:_ notify user when a card is created or updated
 
 ### Follow dashboard
+
 | name | type | content |
 |:----:|:----:|:-------:|
 | [User]+:follow | Pointer(virtual) | list of sets |
@@ -48,6 +51,7 @@ Special views include:
 - *ignore_tab*
 
 ### Follow suggestions
+
 | name | type | content |
 |:----:|:----:|:-------:|
 | :follow_suggestions | Pointer | list of follow settings |
@@ -58,6 +62,7 @@ follow dashboard.  Any item not currently followed will be suggested.
 Each suggestion can take the form of either `[Set]` or `[Set]+[Follow Option]`.
 
 ### Following status
+
 | name | type | content |
 |:----:|:----:|:-------:|
 | +:following | Pointer(virtual) | card's follow status for current user |
@@ -73,6 +78,7 @@ Special views include:
 - _status_
 
 ### Followers
+
 | name | type | content |
 |:----:|:----:|:-------:|
 | +:followers | Pointer(virtual) | list of users |
@@ -82,6 +88,7 @@ User who are following the card in question.
 (not integrated into interface)
 
 ### Email template
+
 | name | type | content |
 |:----:|:----:|:-------:|
 |follower notification email|Email Template|(nested email config)|
@@ -96,6 +103,7 @@ Useful views added by this mod include:
 - _unfollow_url:_ link to remove the following rule that led to this email
 
 ### Follow fields
+
 | name | type | content |
 |:----:|:----:|:-------:|
 | [Set]+:follow_fields | Pointer (rule) | list of fields |

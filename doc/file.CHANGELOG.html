@@ -57,19 +57,23 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1 id="change-log">Change log</h1>
+      <div id="content"><div id='filecontents'><h1 id="section">@</h1>
 
-<h1 id="section">1.17.0</h1>
+<h1 id="card-mod-markdown-changelog">Card-Mod Markdown Changelog</h1>
 
+<h2 id="section-1">0.3</h2>
+
+<h3 id="added">Added</h3>
 <ul>
-  <li>Use new <a href="https://www.google.com/recaptcha/intro/index.html">reCAPTCHA</a></li>
-  <li>Add nest option for name variants: <code>{{my card|name;variant: singular}}</code></li>
-  <li>mod API update - Add <code>phase methods</code></li>
+  <li>Nest support. 
+Everything inside double curly brackets is ignored by the markdown processor
+which means nest syntax that conflicts with markdown sytnax doesn’t have be escaped
+like the star in `{*title}</li>
 </ul>
 </div></div>
 
       <div id="footer">
-  Generated on Fri Sep 25 16:57:52 2020 by
+  Generated on Fri Sep 25 17:44:54 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>
