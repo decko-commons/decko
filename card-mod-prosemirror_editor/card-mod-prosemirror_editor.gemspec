@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 
-require "../../../decko_gem"
+require "../decko_gem"
 
 DeckoGem.new do |s|
-  s.mod "bootstrap"
+  s.mod "prosemirror_editor"
   s.depends_on_mod :edit
-  s.summary = "Bootstrap"
+  s.summary = "Prose Mirror editor"
   s.description = ""
 end
