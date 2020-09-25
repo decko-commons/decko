@@ -11,7 +11,7 @@ RSpec.describe Card::Mod do
     end
 
     it "doesn't use nicknames when told not to" do
-      expect(described_class.gem_spec("defaults", nickname=false)).to be_nil
+      expect(described_class.gem_spec("defaults", false)).to be_nil
     end
   end
 
