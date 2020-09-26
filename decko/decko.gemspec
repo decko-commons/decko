@@ -2,7 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s, d|
+DeckoGem.gem do |s, d|
   s.name = "decko"
   s.version = d.decko_version
 

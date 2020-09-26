@@ -2,7 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s, d|
+DeckoGem.gem do |s, d|
   d.mod "recaptcha"
   s.summary = "recaptcha support for decko"
   s.description = ""
