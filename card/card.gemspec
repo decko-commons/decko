@@ -4,7 +4,7 @@ require "../decko_gem"
 
 DeckoGem.gem do |s, d|
   s.name = "card"
-  s.version = s.card_version
+  s.version = d.card_version
 
   s.summary = "a simple engine for emergent data structures"
   s.description =
@@ -18,7 +18,7 @@ DeckoGem.gem do |s, d|
   s.require_paths = ["lib"]
 
   [
-    ["cardname",            s.decko_version],
+    ["cardname",            d.decko_version],
 
     ["haml",                        "~> 5.0"], # markup language used in view API
     ["jwt",                         "~> 2.2"], # used in token.rb

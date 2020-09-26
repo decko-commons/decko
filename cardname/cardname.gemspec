@@ -2,9 +2,9 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
+DeckoGem.gem do |s, d|
   s.name = "cardname"
-  s.version = s.decko_version
+  s.version = d.decko_version
 
   s.require_paths = ["lib"]
 
