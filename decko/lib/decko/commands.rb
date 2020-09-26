@@ -9,8 +9,11 @@ end
 
 RAILS_COMMANDS = %w( generate destroy plugin benchmarker profiler console
                      server dbconsole application runner ).freeze
-DECKO_COMMANDS = %w(new cucumber rspec jasmine).freeze
-DECKO_DB_COMMANDS = %w(seed reseed load update).freeze
+DECKO_COMMANDS = %w(rspec cucumber jasmine).freeze
+CARD_TASK_COMMANDS = %w(add add_remote refresh_machine_output reset_cache
+                   reset_tmp update merge merge_all assume_card_migrations
+                   clean clear dump emergency load seed reseed supplement
+                   update seed reseed load).freeze
 
 ALIAS = {
   "rs" => "rspec",
@@ -46,17 +49,26 @@ module Decko
 
       def run_rspec
         require "decko/commands/rspec_command"
-        RspecCommand.new(ARGV).run
+        Decko::Commands::RspecCommand.new(ARGV).run
       end
 
       def run_cucumber
         require "decko/commands/cucumber_command"
-        CucumberCommand.new(ARGV).run
+        Decko::Commands::CucumberCommand.new(ARGV).run
       end
 
-      def run_db_task command
+      def run_rake_task command
+        RakeCommand.new(command, ARGV).run
+      end
+
+      def run_decko_task command
         require "decko/commands/rake_command"
-        RakeCommand.new("decko:#{command}", ARGV).run
+        RakeCommand.new(['decko', command]*':', ARGV).run
+      end
+
+      def run_card_task command
+        require "card/commands/rake_command"
+        RakeCommand.new(['card', command]*':', ARGV).run
       end
 
       def run_jasmine
@@ -69,7 +81,7 @@ end
 
 command = ARGV.first
 command = ALIAS[command] || command
-if supported_rails_command? command
+if command == '-T' || supported_rails_command? command
   ENV["PRY_RESCUE_RAILS"] = "1" if ARGV.delete("--rescue")
 
   # without this, the card generators don't list with: decko g --help
@@ -77,13 +89,17 @@ if supported_rails_command? command
   require "rails/commands"
 else
   ARGV.shift
-  case command
+  lookup = command
+  lookup = $1 if command =~ /^([^:]+):/
+  case lookup
   when "--version", "-v"
     puts "Decko #{Card::Version.release}"
   when *DECKO_COMMANDS
-    Decko::Commands.send("run_#{command}")
-  when *DECKO_DB_COMMANDS
-    Decko::Commands.run_db_task command
+    Decko::Commands.send "run_#{command}"
+  when 'update' # decko:update
+    Decko::Commands.run_decko_task command
+  when *CARD_TASK_COMMANDS
+    Card::Commands.run_card_task command
   else
     puts "Error: Command not recognized" unless command.in?(["-h", "--help"])
     puts <<-EOT

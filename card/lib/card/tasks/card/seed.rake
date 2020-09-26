@@ -141,6 +141,11 @@ namespace :card do
       Card::Cache.reset_all
     end
 
+    desc "clean machine output directory"
+    task clean_machines: :environment do
+      clean_machines
+    end
+
     def clean_cards
       puts "clean cards"
       # change actors so we can delete unwanted user cards that made changes
@@ -149,6 +154,13 @@ namespace :card do
       clean_machines
       # clean_unwanted_cards
       Card.empty_trash
+    end
+
+    def clean_machines
+      puts "clean machines"
+      Card.reset_all_machines
+      reseed_machine_output
+      clean_inputs_and_outputs
     end
 
     def clean_unwanted_cards

@@ -13,17 +13,6 @@ namespace :card do
     Card::Cache.reset_all # should not be necessary but breaking without...
   end
 
-  task clean_machines: :environment do
-    clean_machines
-  end
-
-  def clean_machines
-    puts "clean machines"
-    Card.reset_all_machines
-    reseed_machine_output
-    clean_inputs_and_outputs
-  end
-
   desc "update decko gems and database"
   task :update do
     failing_loudly "decko update" do
