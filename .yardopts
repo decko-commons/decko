@@ -1,0 +1,7 @@
+*/{lib,format,chunk}/**/*.rb
+{card,decko}/mod/*/{lib,format,chunk}/**/*.rb
+card/tmpsets/set*/**/*.rb
+- */*.md *.md GPL LICENSE card/VERSION
+--exclude .*/templates/.* .*/spec/*. .*/vendor/*. decko/README.md
+--markup markdown
+--load .yard_extensions/yard_extensions.rb

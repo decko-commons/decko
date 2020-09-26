@@ -142,8 +142,6 @@ format do
   end
 end
 
-public
-
 format :json do
   def add_unknown_name_to_opts name, opts
     # noop
