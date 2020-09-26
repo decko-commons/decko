@@ -1,12 +1,21 @@
 # -*- encoding : utf-8 -*-
 
 # Helper methods for gem specs and gem-related tasks
-class DeckoGem < Gem::Specification
+class DeckoGem
+  attr_reader :spec
   VERSION = File.open(File.expand_path("../card/VERSION", __FILE__)).read.chomp
   CARD_MINOR = { 0 => 90, 1 => 1000 }.freeze # can remove and hardcode after 1.0
 
-  def initialize
-    super.tap { shared }
+  def self.gem
+    Gem::Specification.new do |spec|
+      dg = DeckoGem.new spec
+      dg.shared
+      yield spec, dg
+    end
+  end
+
+  def initialize spec
+    @spec = spec
   end
 
   def decko_version
@@ -18,24 +27,24 @@ class DeckoGem < Gem::Specification
   end
 
   def shared
-    self.authors = ["Ethan McCutchen", "Philipp Kühl", "Gerry Gleason"]
-    self.email = ["info@decko.org"]
-    self.homepage = "http://decko.org"
-    self.licenses = ["GPL-2.0", "GPL-3.0"]
-    self.required_ruby_version = ">= 2.5"
+    spec.authors = ["Ethan McCutchen", "Philipp Kühl", "Gerry Gleason"]
+    spec.email = ["info@decko.org"]
+    spec.homepage = "http://decko.org"
+    spec.licenses = ["GPL-2.0", "GPL-3.0"]
+    spec.required_ruby_version = ">= 2.5"
   end
 
   def mod name
-    self.name = "card-mod-#{name}"
-    self.version = decko_version
-    self.metadata = { "card-mod" => name }
-    self.files = Dir["{db,file,lib,public,set,config,vendor}/**/*", "README.md"]
-    add_runtime_dependency "card", card_version
+    spec.name = "card-mod-#{name}"
+    spec.version = decko_version
+    spec.metadata = { "card-mod" => name }
+    spec.files = Dir["{db,file,lib,public,set,config,vendor}/**/*", "README.md"]
+    spec.add_runtime_dependency "card", card_version
   end
 
   def depends_on_mod *modnames
     modnames.each do |modname|
-      add_runtime_dependency "card-mod-#{modname}", decko_version
+      spec.add_runtime_dependency "card-mod-#{modname}", decko_version
     end
   end
 

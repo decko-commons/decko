@@ -2,8 +2,8 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
-  s.mod "date"
+DeckoGem.new do |s, d|
+  d.mod "date"
   s.summary = "Calendar editor"
   s.description = ""
 end

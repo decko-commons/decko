@@ -25,11 +25,11 @@ ratings:
    - "card-mod-*/**"
    - "**.rb"
 exclude_paths:
-- card/db/**/*
-- card/tmpsets/**/*
-- decko/rails/assets/**/*
-- decko/spec/**/*.js
-- doc/**/*
+- "card/db/**/*"
+- "card/tmpsets/**/*"
+- "decko/rails/assets/**/*"
+- "decko/spec/**/*.js"
+- "doc/**/*"
 - "{card/mod/*,card-mod-*}/lib/javascript/*.js"
 - "{card/mod/*,card-mod-*}/lib/stylesheets/*.css"
 - "{card/mod/*,card-mod-*}/{file,public,vendor}/**/*"

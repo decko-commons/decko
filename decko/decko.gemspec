@@ -2,9 +2,9 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
+DeckoGem.new do |s, d|
   s.name = "decko"
-  s.version = s.decko_version
+  s.version = d.decko_version
 
   s.summary = "structured wiki web platform"
   s.description =
@@ -16,5 +16,5 @@ DeckoGem.new do |s|
   s.executables = ["decko"]
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency "card", s.card_version
+  s.add_runtime_dependency "card", d.card_version
 end

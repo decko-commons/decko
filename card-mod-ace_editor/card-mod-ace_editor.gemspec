@@ -2,9 +2,9 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
-  s.mod "ace_editor"
-  s.depends_on_mod "edit"
+DeckoGem.new do |s, d|
+  d.mod "ace_editor"
+  d.depends_on_mod "edit"
   s.summary = "Ace editor"
   s.description = ""
 end

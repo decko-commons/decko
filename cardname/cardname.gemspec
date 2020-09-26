@@ -2,18 +2,17 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
+DeckoGem.gem do |s, d|
   s.name = "cardname"
-  s.version = s.decko_version
+  s.version = d.decko_version
 
   s.require_paths = ["lib"]
 
   s.description = "Naming patterns abstracted from Decko cards"
   s.summary = "Card names without all the cards"
 
-  s.extra_rdoc_files = [ "README.rdoc" ]
   s.files = [
-    "README.rdoc",
+    "README.md",
     "Rakefile",
     "lib/core_ext.rb",
     "lib/cardname.rb",
@@ -23,8 +22,6 @@ DeckoGem.new do |s|
     "lib/cardname/predicates.rb",
     "lib/cardname/variants.rb"
   ]
-  s.rdoc_options =
-    ["--main", "README.rdoc", "--inline-source", "--line-numbers"]
 
   s.add_dependency "activesupport", "~> 6"
   s.add_dependency "htmlentities",  "~> 4.3"
