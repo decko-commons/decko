@@ -2,9 +2,9 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
+DeckoGem.gem do |s, d|
   s.name = "decko-rails"
-  s.version = s.decko_version
+  s.version = d.decko_version
 
   s.summary = "rails engine for decko: a structured wiki web platform"
   s.description = "Provides the glue to make decko available as a Rails::Engine."
@@ -13,5 +13,5 @@ DeckoGem.new do |s|
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency "decko", s.decko_version
+  s.add_runtime_dependency "decko", d.decko_version
 end

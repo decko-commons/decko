@@ -11,7 +11,7 @@ CARD_TASKS =
 
 link_task CARD_TASKS, from: :decko, to: :card
 
-namespace :decko do
+decko_namespace = namespace :decko do
   desc "create a decko database from scratch, load initial data"
   task :seed do
     failing_loudly "decko seed" do
