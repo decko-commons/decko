@@ -2,10 +2,7 @@
 
 require "../decko_gem"
 
-Gem::Specification.new do |s|
-  s.class.include DeckoGem
-  s.shared
-
+DeckoGem.new do |s|
   s.name = "decko"
   s.version = s.decko_version
 

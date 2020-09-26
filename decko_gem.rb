@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 # Helper methods for gem specs and gem-related tasks
-module DeckoGem
+class DeckoGem < Gem::Specification
   VERSION = File.open(File.expand_path("../card/VERSION", __FILE__)).read.chomp
   CARD_MINOR = { 0 => 90, 1 => 1000 }.freeze # can remove and hardcode after 1.0
 
@@ -57,4 +57,3 @@ module DeckoGem
     bits[2]
   end
 end
-
