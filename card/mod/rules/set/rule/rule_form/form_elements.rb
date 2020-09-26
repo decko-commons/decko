@@ -19,7 +19,7 @@ format :html do
 
   def related_set_formgroup
     related_sets = related_sets_in_context
-    return "" unless related_sets && !related_sets.empty?
+    return "" unless related_sets&.present?
 
     tag = @rule_context.rule_user_setting_name
     option_list "related set" do

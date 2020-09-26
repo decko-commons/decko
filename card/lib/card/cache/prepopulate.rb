@@ -32,8 +32,7 @@ class Card
       def prepopulate_rule_caches
         prepopulate_cache("RULES") { Card::Rule.rule_cache }
         prepopulate_cache("READRULES") { Card::Rule.read_rule_cache }
-        prepopulate_cache("USER_IDS") { Card::Rule.user_ids_cache }
-        prepopulate_cache("RULE_KEYS") { Card::Rule.rule_keys_cache }
+        prepopulate_cache("PREFERENCES") { Card::Rule.preference_cache }
       end
 
       # def prepopulate_card_cache

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Rules do
+RSpec.describe Card::Set::All::Rules do
   before do
     Card::Auth.signin Card::WagnBotID
   end
@@ -22,28 +22,6 @@ describe Card::Set::All::Rules do
     it "retrieves single values" do
       Card.create! name: "banana+*self+*help", content: "pebbles"
       expect(Card["banana"].rule(:help)).to eq("pebbles")
-    end
-
-    context "with fallback" do
-      before do
-        Card.create name: "*all+*help", content: "edit any kind of card"
-      end
-      subject { Card.new(type: "Book").rule(:csv_structure, fallback: :help) }
-
-      it "retrieves default setting" do
-        expect(subject).to eq("edit any kind of card")
-      end
-
-      it "retrieves primary setting" do
-        Card.create name: "*all+*csv_structure", content: "add any kind of card"
-        expect(subject).to eq("add any kind of card")
-      end
-
-      it "retrieves more specific default setting" do
-        Card.create name: "*all+*csv_structure", content: "add any kind of card"
-        Card.create name: "*Book+*type+*help", content: "edit a Book"
-        expect(subject).to eq("add any kind of card")
-      end
     end
   end
 
@@ -83,14 +61,14 @@ describe Card::Set::All::Rules do
       Card::Auth.as_bot do
         Card.create name: "Book+*type+Joe User+*follow", content: "[[*always]]"
       end
-      expect(Card.new(type: "Book").rule(:follow)).to eq("[[*always]]")
+      expect(Card.new(type: "Book").preference(:follow)).to eq("[[*always]]")
     end
 
-    it "retrieves user indepedent Set based value" do
+    it "retrieves user independent Set based value" do
       Card::Auth.as_bot do
         Card.create name: "Book+*type+*all+*follow", content: "[[Home]]"
       end
-      expect(Card.new(type: "Book").rule(:follow)).to eq("[[Home]]")
+      expect(Card.new(type: "Book").preference(:follow)).to eq("[[Home]]")
     end
 
     it "uses *all user rule when no super.s"
@@ -100,7 +78,7 @@ describe Card::Set::All::Rules do
         Card.create name: "Book+*type+Joe User+*follow", content: "[[*never]]"
         Card.create name: "Book+*type+*all+*follow", content: "[[*always]]"
       end
-      expect(Card.new(type: "Book").rule(:follow)).to eq("[[*never]]")
+      expect(Card.new(type: "Book").preference(:follow)).to eq("[[*never]]")
     end
 
     describe "#all_user_ids_with_rule_for" do

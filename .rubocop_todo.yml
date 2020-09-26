@@ -61,7 +61,7 @@ Lint/EndAlignment:
     - 'card/lib/card/view_name.rb'
     - 'card/lib/generators/card/format/format_generator.rb'
     - 'card/lib/generators/card/set/set_generator.rb'
-    - 'card/mod/carrierwave/lib/file_uploader.rb'
+    - 'card-mod-carrierwave/lib/file_uploader.rb'
     - 'decko/test/test_helper.rb'
 
 # Offense count: 2
@@ -282,7 +282,7 @@ Style/GuardClause:
   Exclude:
     - 'card/db/migrate_core_cards/20130920291703_update_stylesheets.rb'
     - 'card/db/migrate_core_cards/20150903130006_attachment_upload_cards.rb'
-    - 'card/mod/carrierwave/set/abstract/attachment.rb'
+    - 'card-mod-carrierwave/set/abstract/attachment.rb'
     - 'card/mod/standard/set/type/set.rb'
     - 'decko/rails/controllers/card_controller.rb'
 
@@ -556,7 +556,7 @@ Style/TernaryParentheses:
   Exclude:
     - 'card/lib/card/env.rb'
     - 'card/lib/card/set_pattern.rb'
-    - 'card/mod/carrierwave/lib/image_uploader.rb'
+    - 'card-mod-carrierwave/lib/image_uploader.rb'
 
 # Offense count: 5
 # Cop supports --auto-correct.

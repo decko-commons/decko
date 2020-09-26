@@ -46,6 +46,14 @@ def uncapitalized_label
   label
 end
 
+def rule_cache_key_base
+  if (l = left) && (r = right)
+    "#{l.id}+#{Codename[r.id]}"
+  else
+    Codename[id].to_s
+  end
+end
+
 def all_user_ids_with_rule_for setting_code
   Card::Rule.all_user_ids_with_rule_for self, setting_code
 end

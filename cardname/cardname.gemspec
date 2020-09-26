@@ -1,15 +1,12 @@
 # -*- encoding : utf-8 -*-
 
-require "../versioning"
+require "../decko_gem"
 
-Gem::Specification.new do |s|
+DeckoGem.new do |s|
   s.name = "cardname"
-  s.version = Versioning.simple
-  s.require_paths = ["lib"]
+  s.version = s.decko_version
 
-  s.homepage      = "http://decko.org"
-  s.authors = [ "Ethan McCutchen", "Philipp Kühl", "Gerry Gleason" ]
-  s.email = "info@decko.org"
+  s.require_paths = ["lib"]
 
   s.description = "Naming patterns abstracted from Decko cards"
   s.summary = "Card names without all the cards"
@@ -26,15 +23,11 @@ Gem::Specification.new do |s|
     "lib/cardname/predicates.rb",
     "lib/cardname/variants.rb"
   ]
-  s.licenses = ["GPL-2.0","GPL-3.0"]
   s.rdoc_options =
     ["--main", "README.rdoc", "--inline-source", "--line-numbers"]
 
-
   s.add_dependency "activesupport", "~> 6"
   s.add_dependency "htmlentities",  "~> 4.3"
-
-  s.required_ruby_version = ">= 2.5"
 
   #s.add_development_dependency "rspec"
   #s.add_development_dependency "rdoc"
