@@ -1,11 +1,11 @@
 AllCops:
   Exclude:
-    - "vendor/**/*"
+    - "doc/**/*"
     - "card/db/schema.rb"
     - "card/tmpsets/**/*"
-    - "card/mod/bootstrap/lib/**/*"
-    - "card/mod/machines/lib/javascript/**/*"
-    - "card/mod/machines/lib/stylesheets/**/*"
+    - "{card/mod/*,card-mod-*}/lib/stylesheets/*.css"
+    - "{card/mod/*,card-mod-*}/lib/javascript/*.js"
+    - "{card/mod/*,card-mod-*}/{file,public,vendor}/**/*"
     - "decko/lib/decko/generators/decko/templates/Gemfile"
 
 Style/CommentAnnotation:

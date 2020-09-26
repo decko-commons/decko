@@ -257,7 +257,7 @@ And info about contributing to Decko is [right next door][24].
 [17]: https://decko.org/troubleshooting
 [18]: https://app.swaggerhub.com/apis-docs/Decko/decko-api/0.8.0
 [19]: https://github.com/decko-commons/decko/blob/master/card/lib/card/mod.rb
-[20]: https://github.com/decko-commons/decko/blob/master/card/README.rdoc
+[20]: https://github.com/decko-commons/decko/blob/master/card/README.md
 [21]: https://github.com/decko-commons/decko/blob/master/card/lib/card.rb
 [22]: https://github.com/decko-commons/decko/blob/master/card/lib/card/set/format.rb
 [23]: https://github.com/decko-commons/card-mods/

@@ -9,7 +9,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #   1. how ruby Card objects work, and
 #   2. how to extend them.
 #
-# It assumes that you've already read the introductory text in {file:README.rdoc}.
+# It assumes that you've already read the introductory text in {file:README.md}.
 #
 # Throughout this document we will refer to @card as an instance of a Card object.
 #
