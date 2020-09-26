@@ -1,123 +1,193 @@
-namespace :card do
-  def importer
-    @importer ||= Card::Migration::Import.new Card::Migration.data_path
+require "decko/application"
+require_relative "alias"
+require "card/seed_consts"
+
+CARD_TASKS =
+  [
+    :migrate,
+    { migrate: [:cards, :structure, :core_cards, :deck_cards, :redo, :stamp] },
+    :reset_cache
+  ]
+
+link_task CARD_TASKS, from: :decko, to: :card
+
+decko_namespace = namespace :decko do
+  desc "create a decko database from scratch, load initial data"
+  task :seed do
+    failing_loudly "decko seed" do
+      seed
+    end
   end
 
-  desc "merge import card data that was updated since the last push into " \
-       "the the database"
-  task merge: :environment do
-    importer.merge
+  desc "create a decko database from scratch, load initial data, don't reset the cache"
+  task :seed_without_reset do
+    # This variant is needed to generate test databases for decks
+    # with custom codenames.
+    # The cache reset loads the environment. That tends to fail
+    # because of missing codenames that are added after the intial decko seed.
+    seed with_cache_reset: false
   end
 
-  desc "merge all import card data into the the database"
-  task merge_all: :environment do
-    importer.merge all: true
-  end
-
-  desc "add card to import data"
-  task pull: :environment do
-    pull_card
-  end
-
-  desc "add card and all nested cards to import data"
-  task deep_pull: :environment do
-    pull_card deep: true
-  end
-
-  desc "add nested cards to import data (not the card itself)"
-  task deep_pull_items: :environment do
-    pull_card items_only: true
-  end
-
-  # be rake card:pull_export from=live
-  desc "add items of the export card to import data"
-  task pull_export: :environment do
-    importer.pull "export", items_only: true, remote: ENV["from"]
-  end
-
-  desc "add a new card to import data"
-  task add: :environment do
-    _task, name, type, codename = ARGV
-    importer.add_card name: name, type: type || "Basic", codename: codename
-    exit
-  end
-
-  desc "register remote for importing card data"
-  task add_remote: :environment do
-    _task, name, url = ARGV
-    raise "no name given" unless name.present?
-    raise "no url given" unless url.present?
-
-    importer.add_remote name, url
-    exit
-  end
-
-  def pull_card opts={}
-    _task, card = ARGV
-    raise "no card given" unless card.present?
-
-    importer.pull card, opts.merge(remote: ENV["from"])
-    exit # without exit the card argument is treated as second rake task
-  end
-
-  desc "migrate structure and cards"
-  task migrate: :environment do
-    ENV["NO_RAILS_CACHE"] = "true"
+  desc "clear and load fixtures with existing tables"
+  task reseed: :environment do
     ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
 
-    stamp = ENV["STAMP_MIGRATIONS"]
-
-    puts "migrating structure"
-    Rake::Task["card:migrate:structure"].invoke
-    Rake::Task["card:migrate:stamp"].invoke :structure if stamp
-
-    puts "migrating core cards"
-    Card::Cache.reset_all
-    # not invoke because we don't want to reload environment
-    Rake::Task["card:migrate:core_cards"].execute
-    if stamp
-      Rake::Task["card:migrate:stamp"].reenable
-      Rake::Task["card:migrate:stamp"].invoke :core_cards
-    end
-
-    puts "migrating deck structure"
-    Rake::Task["card:migrate:deck_structure"].execute
-    if stamp
-      Rake::Task["card:migrate:stamp"].reenable
-      Rake::Task["card:migrate:stamp"].invoke :core_cards
-    end
-
-    puts "migrating deck cards"
-    # not invoke because we don't want to reload environment
-    Rake::Task["card:migrate:deck_cards"].execute
-    if stamp
-      Rake::Task["card:migrate:stamp"].reenable
-      Rake::Task["card:migrate:stamp"].invoke :deck_cards
-    end
-
-    Card::Cache.reset_all
+    decko_namespace["clear"].invoke
+    decko_namespace["load"].invoke
   end
 
-  desc "reset cache"
-  task reset_cache: :environment do
-    Card::Cache.reset_all
+  desc "empty the card tables"
+  task :clear do
+    conn = ActiveRecord::Base.connection
+
+    puts "delete all data in bootstrap tables"
+    CARD_SEED_TABLES.each do |table|
+      conn.delete "delete from #{table}"
+    end
   end
 
-  desc "reset machine output"
-  task reset_machine_output: :environment do
-    Card.reset_all_machines
+  desc "Load seed data into database"
+  task :load do
+    decko_namespace["load_without_reset"].invoke
+    puts "reset cache"
+    system "bundle exec rake decko:reset_cache" # needs loaded environment
   end
 
-  desc "refresh machine output"
-  task refresh_machine_output: :environment do
-    Card.reset_all_machines
-    Card::Auth.as_bot do
-      [%i[all script],
-       %i[all style],
-       %i[script_html5shiv_printshiv]].each do |name_parts|
-        Card[*name_parts].update_machine_output
+  desc "Load seed data into database but don't reset cache"
+  task :load_without_reset do
+    require "decko/engine"
+    # puts "update card_migrations"
+    # decko_namespace["assume_card_migrations"].invoke
+
+    if Rails.env == "test" && !ENV["GENERATE_FIXTURES"]
+      puts "loading test fixtures"
+      Rake::Task["db:fixtures:load"].invoke
+    else
+      puts "loading seed data"
+      # db:seed checks for pending migrations. We don't want that because
+      # as part of the seeding process we update the migration table
+      ActiveRecord::Tasks::DatabaseTasks.load_seed
+      # :Rake::Task["db:seed"].invoke
+    end
+
+    puts "set symlink for assets"
+    decko_namespace["update_assets_symlink"].invoke
+  end
+
+  desc "reset with an empty tmp directory"
+  task :reset_tmp do
+    tmp_dir = Decko.paths["tmp"].first
+    if Decko.paths["tmp"].existent
+      Dir.foreach(tmp_dir) do |filename|
+        next if filename.starts_with? "."
+        FileUtils.rm_rf File.join(tmp_dir, filename), secure: true
+      end
+    else
+      Dir.mkdir tmp_dir
+    end
+  end
+
+  desc "update decko gems and database"
+  task :update do
+    failing_loudly "decko update" do
+      ENV["NO_RAILS_CACHE"] = "true"
+      decko_namespace["migrate"].invoke
+      decko_namespace["reset_tmp"].invoke
+      Card::Cache.reset_all
+      decko_namespace["update_assets_symlink"].invoke
+    end
+  end
+
+  desc "set symlink for assets"
+  task update_assets_symlink: :environment do
+    prepped_asset_path do |assets_path|
+      Card::Mod.dirs.each_assets_path do |mod, target|
+        link = File.join assets_path, mod
+        FileUtils.rm_rf link
+        FileUtils.ln_s target, link, force: true
       end
     end
-    Card::Cache.reset_all # should not be necessary but breaking without...
   end
+
+  def prepped_asset_path
+    return if Rails.root.to_s == Decko.gem_root # inside decko gem
+    assets_path = File.join Rails.public_path, "assets"
+    if File.symlink?(assets_path) || !File.directory?(assets_path)
+      FileUtils.rm_rf assets_path
+      FileUtils.mkdir assets_path
+    end
+    yield assets_path
+  end
+
+  alias_task :migrate, "card:migrate"
+
+  desc "insert existing card migrations into schema_migrations_cards to avoid re-migrating"
+  task :assume_card_migrations do
+    require "decko/engine"
+    Cardio.assume_migrated_upto_version :core_cards
+  end
+
+  def seed with_cache_reset: true
+    ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
+    # FIXME: this should be an option, but should not happen on standard
+    # creates!
+    begin
+      Rake::Task["db:drop"].invoke
+    rescue
+      puts "not dropped"
+    end
+
+    puts "creating"
+    Rake::Task["db:create"].invoke
+
+    puts "loading schema"
+
+    Rake::Task["db:schema:load"].invoke
+
+    load_task = "decko:load"
+    load_task << "_without_reset" unless with_cache_reset
+    Rake::Task[load_task].invoke
+  end
+
+  namespace :emergency do
+    task rescue_watchers: :environment do
+      follower_hash = Hash.new { |h, v| h[v] = [] }
+
+      Card.where("right_id" => 219).each do |watcher_list|
+        watcher_list.include_set_modules
+        next unless watcher_list.left
+        watching = watcher_list.left.name
+        watcher_list.item_names.each do |user|
+          follower_hash[user] << watching
+        end
+      end
+
+      Card.search(right: { codename: "following" }).each do |following|
+        Card::Auth.as_bot do
+          following.update! content: ""
+        end
+      end
+
+      follower_hash.each do |user, items|
+        next unless (card = Card.fetch(user)) && card.account
+        Card::Auth.as(user) do
+          following = card.fetch "following", new: {}
+          following.items = items
+        end
+      end
+    end
+  end
+end
+
+def failing_loudly task
+  yield
+rescue
+  # TODO: fix this so that message appears *after* the errors.
+  # Solution should ensure that rake still exits with error code 1!
+  raise "\n>>>>>> FAILURE! #{task} did not complete successfully." \
+        "\n>>>>>> Please address errors and re-run:\n\n\n"
+end
+
+def version
+  ENV["VERSION"] ? ENV["VERSION"].to_i : nil
 end
