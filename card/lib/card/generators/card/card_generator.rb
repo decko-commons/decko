@@ -1,7 +1,7 @@
 require "rails/generators/app_base"
 
-class DeckoGenerator < Rails::Generators::AppBase
-  # class DeckoGenerator < Rails::Generators::AppGenerator
+class CardGenerator < Rails::Generators::AppBase
+  # class CardGenerator < Rails::Generators::AppGenerator
 
   source_root File.expand_path("../templates", __FILE__)
 
@@ -15,7 +15,7 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   class_option "gem-path",
                type: :string, aliases: "-g", default: "", group: :runtime,
-               desc: "Path to local decko repository " \
+               desc: "Path to local card repository " \
                      "(Default, use env DECKO_GEM_PATH)"
 
   class_option :database,
@@ -120,8 +120,8 @@ class DeckoGenerator < Rails::Generators::AppBase
     else
       puts "Now:
 1. Run `cd #{File.basename(destination_root)}` to move your new deck directory
-2. Run `decko seed` to seed your database (see db configuration in config/database.yml).
-3. Run `decko server` to start your server"
+2. Run `card seed` to seed your database (see db configuration in config/database.yml).
+3. Run `card server` to start your server"
     end
   end
 
@@ -133,14 +133,14 @@ class DeckoGenerator < Rails::Generators::AppBase
   end
 
   def self.banner
-    "decko new #{arguments.map(&:usage).join(' ')} [options]"
+    "card new #{arguments.map(&:usage).join(' ')} [options]"
   end
 
   protected
 
   def determine_gemfile_gem_path
     # TODO: rename or split, gem_path points to the source repo,
-    # card and decko gems are subdirs
+    # card and card gems are subdirs
     if (env_gem_path = ENV["DECKO_GEM_PATH"]).present?
       @gemfile_gem_path = %q(#{ENV['DECKO_GEM_PATH']})
       @gem_path = env_gem_path
@@ -156,16 +156,16 @@ class DeckoGenerator < Rails::Generators::AppBase
     @spec_helper_path = File.join @spec_path, "card", "spec", "spec_helper"
 
     # ending slash is important in order to load support and step folders
-    @features_path = File.join @gem_path, "decko/features/"
+    @features_path = File.join @gem_path, "card/features/"
     @simplecov_config = "card_core_dev_simplecov_filters"
     shared_dev_setup
-    javascript_spec_setup "decko_jasmine"
+    javascript_spec_setup "card_jasmine"
   end
 
   def prompt_for_gem_path
     return if @gem_path.present?
     @gemfile_gem_path =
-      @gem_path = ask("Enter the path to your local decko gem installation: ")
+      @gem_path = ask("Enter the path to your local card gem installation: ")
   end
 
   def mod_dev_setup
@@ -186,7 +186,6 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   def shared_dev_setup
     @cardio_gem_root = File.join @gem_path, "card"
-    @decko_gem_root = File.join @gem_path, "decko"
     empty_directory "spec"
     inside "config" do
       template "puma.rb"
@@ -214,7 +213,7 @@ class DeckoGenerator < Rails::Generators::AppBase
   end
 
   ### the following is straight from rails and is focused on checking
-  # the validity of the app name.needs decko-specific tuning
+  # the validity of the app name.needs card-specific tuning
 
   def app_name
     @app_name ||= if defined_app_const_base?
@@ -230,8 +229,8 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   def defined_app_const_base
     Rails.respond_to?(:application) && defined?(Rails::Application) &&
-      Decko.application.is_a?(Rails::Application) &&
-      Decko.application.class.name.sub(/::Application$/, "")
+      Card.application.is_a?(Rails::Application) &&
+      Card.application.class.name.sub(/::Application$/, "")
   end
 
   alias defined_app_const_base? defined_app_const_base

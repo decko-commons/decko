@@ -1,5 +1,5 @@
-class DeckoGenerator
-  # Guides through the decko deck installation with an interactive menu
+class CardGenerator
+  # Guides through the card deck installation with an interactive menu
   # Offers the possibilitiy to
   #  - edit database config
   #  - edit application.rb
@@ -60,7 +60,7 @@ class DeckoGenerator
         code: proc { system "nano #{config_path 'database.yml'}" }
       }
       @menu["c"] = {
-        desc: "configure Decko (e.g. email settings)",
+        desc: "configure Card (e.g. email settings)",
         command: "nano config/application.rb",
         code: proc { system "nano #{config_path 'application.rb'}" }
       }
@@ -74,10 +74,10 @@ class DeckoGenerator
     def add_common_seed_option
       @menu["s"] = {
         desc: "seed #{Rails.env}#{' and test' if dev_options?} database",
-        command: "decko seed",
+        command: "card seed",
         code: proc do
-          bundle_exec "rake decko:seed"
-          bundle_exec "rake decko:seed", rails_env: "test" if dev_options?
+          bundle_exec "rake card:seed"
+          bundle_exec "rake card:seed", rails_env: "test" if dev_options?
           add_after_seed_options
         end
       }
@@ -86,10 +86,10 @@ class DeckoGenerator
     def add_seed_all_option
       @menu["a"] = {
         desc: "seed all databases (production, development, and test)",
-        command: "decko seed --all",
+        command: "card seed --all",
         code: proc do
           %w(production development test).each do |env|
-            bundle_exec "rake decko:seed", rails_env: env
+            bundle_exec "rake card:seed", rails_env: env
           end
           add_after_seed_options
         end
@@ -98,16 +98,16 @@ class DeckoGenerator
 
     def add_exit_option
       @menu["x"] = {
-        desc: "exit (run 'decko seed' to complete the installation later)"
+        desc: "exit (run 'card seed' to complete the installation later)"
       }
     end
 
     def add_after_seed_options
       @menu["x"][:desc] = "exit"
       @menu["r"] = {
-        desc:    "run decko server",
-        command: "decko server",
-        code:    proc { bundle_exec "decko server" }
+        desc:    "run card server",
+        command: "card server",
+        code:    proc { bundle_exec "card server" }
       }
     end
   end
