@@ -2,9 +2,9 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
+DeckoGem.gem do |s, d|
   s.name = "card"
-  s.version = s.card_version
+  s.version = d.card_version
 
   s.summary = "a simple engine for emergent data structures"
   s.description =
@@ -12,13 +12,13 @@ DeckoGem.new do |s|
     'Card "Sharks" use links, nests, types, patterned names, queries, views, ' \
     "events, and rules to create rich structures."
 
-  s.files = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
+  s.files = Dir["VERSION", "README.md", "LICENSE", "GPL", ".yardopts",
                 "{config,db,lib,mod,tmpsets}/**/*"]
 
   s.require_paths = ["lib"]
 
   [
-    ["cardname",            s.decko_version],
+    ["cardname",            d.decko_version],
 
     ["haml",                        "~> 5.0"], # markup language used in view API
     ["jwt",                         "~> 2.2"], # used in token.rb
