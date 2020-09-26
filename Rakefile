@@ -21,19 +21,6 @@ task :release do
   )
 end
 
-task :cp_tmpsets do
-  system %(
-    cd card/tmpsets
-    git pull
-    rm -rf set*
-    cp -r ../../../sites/core-dev/tmp/set* .
-    git add -A
-    git commit -a -m 'regenerated and copied from core-dev'
-    git push;
-    cd ../../
-  )
-end
-
 def push_gem gem, version
   %(
     rm *.gem
