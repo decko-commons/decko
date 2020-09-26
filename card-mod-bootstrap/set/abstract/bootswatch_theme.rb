@@ -56,12 +56,12 @@ POST_VARIABLES_CARD_NAMES = %i[
   style_mods
 ].freeze
 
-# @return Array<Card::Name,String>
+# @return [Array<Card::Name,String>]
 def variables_card_names
   []
 end
 
-# @return Array<Card::Name,String>
+# @return [Array<Card::Name,String>]
 def stylesheets_card_names
   []
 end
