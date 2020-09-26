@@ -3,13 +3,6 @@
 require "decko/engine"
 require_relative "config/initializers/sedate_parser"
 
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(assets: %w[development test cypress])
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
-
 module Decko
   class Application < Rails::Application
     initializer :load_decko_environment_config,

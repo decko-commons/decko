@@ -17,6 +17,7 @@ class CardController < ApplicationController
   end
 
   def read
+    binding.pry
     show
   end
 
