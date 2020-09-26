@@ -1,4 +1,4 @@
-require "pry"
+# rake decko:docs:...
 
 # NOTE: for the moment these are Platypus tasks.
 # Until they're more monkey friendly, let's not write descriptions
