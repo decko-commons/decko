@@ -98,7 +98,7 @@ Decko.application.class.configure do
   rescue LoadError
   end
 
-  if ENV["DECKO_DOC_MODE"]
+  if ENV["DECKO_GEM_TMPSETS"]
     tmpsets_dir = "#{Cardio.gem_root}/tmpsets/"
     config.load_strategy = :tmp_files
     config.paths['tmp/set'] = "#{tmpsets_dir}/set"
