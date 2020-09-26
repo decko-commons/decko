@@ -1,20 +1,20 @@
 require File.expand_path("../command", __FILE__)
 
-module Decko
+module Card
   module Commands
     class RspecCommand < Command
       def initialize args
         require "rspec/core"
-        require "decko/application"
+        require "card/application"
 
-        @decko_args, @rspec_args = split_args args
+        @card_args, @rspec_args = split_args args
         @opts = {}
-        Parser.new(@opts).parse!(@decko_args)
+        Parser.new(@opts).parse!(@card_args)
       end
 
       def command
         "#{env_args} #{@opts[:executer]} #{@opts[:rescue]}" \
-          "rspec #{@rspec_args.shelljoin} #{@opts[:files]} "\
+          "rspec #{@rspec_args.shelljoin} #{spec_files_from opts @opts} "\
           "--exclude-pattern \"./card/vendor/**/*\""
       end
 
@@ -30,6 +30,18 @@ module Decko
           @opts[:simplecov] = "COVERAGE=false"
         end
         @opts[:simplecov]
+      end
+
+      def spec_files_from_opts opts
+         find_mod_specs(opts[:mods]) +
+         find_deck_specs(opts[:deck_files]) +
+         find_core_specs(opts[:core_files])
+      end
+      def find_mod_specs mods
+      end
+      def find_deck_specs files
+      end
+      def find_core_specs files
       end
     end
   end

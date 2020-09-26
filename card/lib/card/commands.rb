@@ -4,13 +4,16 @@ require "active_support/core_ext/object/inclusion"
 def load_rake_tasks
   require "./config/environment"
   require "rake"
-  Decko::Application.load_tasks
+  Card::Application.load_tasks
 end
 
 RAILS_COMMANDS = %w( generate destroy plugin benchmarker profiler console
                      server dbconsole application runner ).freeze
-DECKO_COMMANDS = %w(new cucumber rspec jasmine).freeze
-DECKO_DB_COMMANDS = %w(seed reseed load update).freeze
+#CARD_COMMANDS = %w(rspec).freeze
+CARD_TASKS_COMMANDS = %w(add add_remote refresh_machine_output reset_cache
+                   reset_tmp update merge merge_all assume_card_migrations
+                   clean clear dump emergency load seed reseed supplement
+                   update seed reseed load update).freeze
 
 ALIAS = {
   "rs" => "rspec",
@@ -24,28 +27,28 @@ ALIAS = {
   "r"  => "runner"
 }.freeze
 
+
 def supported_rails_command? arg
-  arg.in?(RAILS_COMMANDS) || ALIAS[arg].in?(RAILS_COMMANDS)
+  arg.in?(RAILS_COMMANDS) || arg.in?(CARD_RAILS_COMMANDS) ||
+    ALIAS[arg].in?(RAILS_COMMANDS)
 end
 
-ARGV << "--help" if ARGV.empty?
-
-module Decko
+module Card
   module Commands
     class << self
       def run_new
         if ARGV.first.in?(["-h", "--help"])
-          require "decko/commands/application"
+          require "card/commands/application"
         else
           puts "Can't initialize a new deck within the directory of another, " \
            "please change to a non-deck directory first.\n"
-          puts "Type 'decko' for help."
+          puts "Type 'card' for help."
           exit(1)
         end
       end
 
       def run_rspec
-        require "decko/commands/rspec_command"
+        require "card/commands/rspec_command"
         RspecCommand.new(ARGV).run
       end
 
@@ -54,9 +57,18 @@ module Decko
         CucumberCommand.new(ARGV).run
       end
 
-      def run_db_task command
+      def run_decko_task command
         require "decko/commands/rake_command"
-        RakeCommand.new("decko:#{command}", ARGV).run
+        RakeCommand.new(['decko', command]*':', ARGV).run
+      end
+
+      def run_rake_task command
+        RakeCommand.new(command, ARGV).run
+      end
+
+      def run_card_task command
+        require "card/commands/rake_command"
+        RakeCommand.new(['card', command]*':', ARGV).run
       end
 
       def run_jasmine
@@ -67,6 +79,8 @@ module Decko
   end
 end
 
+ARGV << "--help" if ARGV.empty?
+
 command = ARGV.first
 command = ALIAS[command] || command
 if supported_rails_command? command
@@ -75,15 +89,17 @@ if supported_rails_command? command
   # without this, the card generators don't list with: decko g --help
   require "generators/card" if command == "generate"
   require "rails/commands"
+  Card::Command.run_rake_task command, ARGV
 else
   ARGV.shift
   case command
   when "--version", "-v"
     puts "Decko #{Card::Version.release}"
-  when *DECKO_COMMANDS
-    Decko::Commands.send("run_#{command}")
-  when *DECKO_DB_COMMANDS
-    Decko::Commands.run_db_task command
+  #when *CARD_COMMANDS
+  when 'rspec'
+    Card::Command.run_rspec
+  when *CARD_TASK_COMMANDS
+    Card::Command.run_card_task command, ARGV
   else
     puts "Error: Command not recognized" unless command.in?(["-h", "--help"])
     puts <<-EOT
@@ -119,3 +135,4 @@ else
     exit(1)
   end
 end
+

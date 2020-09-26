@@ -1,6 +1,6 @@
 # require "English" # needed for CHILD_STATUS, but not sure this is the best place for this.
 
-module Decko
+module Card
   module Commands
     class Command
       def run
@@ -13,15 +13,15 @@ module Decko
         exit $CHILD_STATUS.exitstatus unless system command
       end
 
-      # split special decko args and original command args separated by '--'
+      # split special card args and original command args separated by '--'
       def split_args args
         before_split = true
-        decko_args, command_args =
+        card_args, command_args =
           args.partition do |a|
             before_split = (a == "--" ? false : before_split)
           end
         command_args.shift
-        [decko_args, command_args]
+        [card_args, command_args]
       end
     end
   end

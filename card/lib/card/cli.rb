@@ -1,17 +1,17 @@
 require "rbconfig"
-require "decko/script_decko_loader"
+require "card/script_card_loader"
 
-# If we are inside a Decko application this method performs an exec and thus
+# If we are inside a Card application this method performs an exec and thus
 # the rest of this script is not run.
-Decko::ScriptDeckoLoader.exec_script_decko!
+Card::ScriptCardLoader.exec_script_card!
 
 require "rails/ruby_version_check"
 Signal.trap("INT") { puts; exit(1) }
 
 # if ARGV.first == 'plugin'
 #  ARGV.shift
-#  require 'decko/commands/plugin_new'
+#  require 'card/commands/plugin_new'
 # else
 
-require "decko/commands/application"
+require "card/commands/application"
 # end
