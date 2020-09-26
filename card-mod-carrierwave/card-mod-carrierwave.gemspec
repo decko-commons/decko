@@ -2,7 +2,10 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
+Gem::Specification.new do |s|
+  s.class.include DeckoGem
+  s.shared
+
   s.mod "carrierwave"
   s.summary = "File and Image handling"
   s.description = ""
