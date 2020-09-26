@@ -5,7 +5,16 @@ require "card/seed_consts"
 CARD_TASKS =
   [
     :migrate,
-    { migrate: [:cards, :structure, :core_cards, :deck_cards, :redo, :stamp] },
+    { migrate: [:cards, :structure, :core_cards, :deck_cards,
+       :deck_structure, :redo, :stamp] },
+    :refresh_machine_output,
+    :reset_cache,
+    :reset_machine_output,
+    :reset_tmp,
+    :seed,
+    { seed: [:assume_card_migrations, :clean, :clear, :dump,
+       :load, :reseed, :supplement, :update] },
+    :update,
     :reset_cache
   ]
 
