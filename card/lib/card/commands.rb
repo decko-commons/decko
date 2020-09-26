@@ -1,16 +1,15 @@
 # add method in? to Object class
 require "active_support/core_ext/object/inclusion"
 
+require "rake"
 def load_rake_tasks
   require "./config/environment"
-  require "rake"
   Card::Application.load_tasks
 end
 
 RAILS_COMMANDS = %w( generate destroy plugin benchmarker profiler console
                      server dbconsole application runner ).freeze
-#CARD_COMMANDS = %w(rspec).freeze
-CARD_TASKS_COMMANDS = %w(add add_remote refresh_machine_output reset_cache
+CARD_TASK_COMMANDS = %w(add add_remote refresh_machine_output reset_cache
                    reset_tmp update merge merge_all assume_card_migrations
                    clean clear dump emergency load seed reseed supplement
                    update seed reseed load update).freeze
@@ -29,8 +28,8 @@ ALIAS = {
 
 
 def supported_rails_command? arg
-  arg.in?(RAILS_COMMANDS) || arg.in?(CARD_RAILS_COMMANDS) ||
-    ALIAS[arg].in?(RAILS_COMMANDS)
+  Rake.application.top_level_tasks.include? arg
+  #arg.in?(RAILS_COMMANDS) || ALIAS[arg].in?(RAILS_COMMANDS)
 end
 
 module Card
@@ -52,28 +51,13 @@ module Card
         RspecCommand.new(ARGV).run
       end
 
-      def run_cucumber
-        require "decko/commands/cucumber_command"
-        CucumberCommand.new(ARGV).run
-      end
-
-      def run_decko_task command
-        require "decko/commands/rake_command"
-        RakeCommand.new(['decko', command]*':', ARGV).run
-      end
-
-      def run_rake_task command
-        RakeCommand.new(command, ARGV).run
-      end
+      #def run_rake_task command
+      #  RakeCommand.new(command, ARGV).run
+      #end
 
       def run_card_task command
         require "card/commands/rake_command"
         RakeCommand.new(['card', command]*':', ARGV).run
-      end
-
-      def run_jasmine
-        require "decko/commands/rake_command"
-        RakeCommand.new("spec:javascript", envs: "test").run
       end
     end
   end
@@ -83,31 +67,29 @@ ARGV << "--help" if ARGV.empty?
 
 command = ARGV.first
 command = ALIAS[command] || command
-if supported_rails_command? command
+if command == '-T' || supported_rails_command?(command)
   ENV["PRY_RESCUE_RAILS"] = "1" if ARGV.delete("--rescue")
 
-  # without this, the card generators don't list with: decko g --help
+  # without this, the card generators don't list with: card g --help
   require "generators/card" if command == "generate"
   require "rails/commands"
-  Card::Command.run_rake_task command, ARGV
 else
   ARGV.shift
-  case command
+  lookup = command
+  lookup = $1 if command =~ /^([^:]+):/
+  case lookup
   when "--version", "-v"
-    puts "Decko #{Card::Version.release}"
-  #when *CARD_COMMANDS
+    puts "Card #{Card::Version.release}"
   when 'rspec'
-    Card::Command.run_rspec
+    Card::Commands.run_rspec
   when *CARD_TASK_COMMANDS
-    Card::Command.run_card_task command, ARGV
+    Card::Commands.run_card_task command
   else
     puts "Error: Command not recognized" unless command.in?(["-h", "--help"])
     puts <<-EOT
-  Usage: decko COMMAND [ARGS]
+  Usage: card COMMAND [ARGS]
 
-  The most common decko commands are:
-   new         Create a new Decko deck. "decko new my_deck" creates a
-               new deck called MyDeck in "./my_deck"
+  The most common card commands are:
    seed        Create and seed the database specified in config/database.yml
 
    server      Start the Rails server (short-cut alias: "s")
@@ -116,7 +98,6 @@ else
                (short-cut alias: "db")
 
   For core developers
-   cucumber     Run cucumber features (short-cut alias: "cc")
    rspec        Run rspec tests (short-cut alias: "rs")
    update       Run card migrations
    load         Load bootstrap data into database

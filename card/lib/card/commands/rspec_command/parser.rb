@@ -29,7 +29,6 @@ module Card
         EOT
         def initialize opts
           super() do |parser|
-binding.pry
             parser.banner = "Usage: #{cmdname} rspec [#{cmdnameup} ARGS] -- [RSPEC ARGS]\n\n" \
                             "RSPEC ARGS"
             parser.separator RSPEC_USAGE_MESSAGE

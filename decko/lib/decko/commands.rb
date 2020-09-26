@@ -81,7 +81,7 @@ end
 
 command = ARGV.first
 command = ALIAS[command] || command
-if command == '-T' || supported_rails_command? command
+if command == '-T' || supported_rails_command?(command)
   ENV["PRY_RESCUE_RAILS"] = "1" if ARGV.delete("--rescue")
 
   # without this, the card generators don't list with: decko g --help

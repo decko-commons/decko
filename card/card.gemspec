@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.licenses = ["GPL-2.0", "GPL-3.0"]
 
   s.files = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
-                "{config,db,lib,mod,tmpsets}/**/*"]
+                "{config,bin,script,db,lib,mod,tmpsets}/**/*"]
 
   s.bindir        = "bin"
   s.executables   = ["card"]
