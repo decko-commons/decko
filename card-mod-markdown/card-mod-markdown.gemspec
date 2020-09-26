@@ -2,7 +2,10 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
+Gem::Specification.new do |s|
+  s.class.include DeckoGem
+  s.shared
+
   s.mod "markdown"
   s.summary = "markdown support for decko"
   s.description = "use markdown in decko card content"
