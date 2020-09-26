@@ -72,5 +72,18 @@ module Cardio
     def deck_migration? type
       type.in? %i[deck_cards deck]
     end
+
+    def migration_paths type
+      list = paths["db/migrate#{schema_suffix type}"].to_a
+      case type
+      when :core_cards
+        list += mod_migration_paths "migrate_core_cards"
+      when :deck_cards
+        list += mod_migration_paths "migrate_cards"
+      when :deck
+        list += mod_migration_paths "migrate"
+      end
+      list.flatten
+    end
   end
 end

@@ -2,12 +2,12 @@ source 'http://rubygems.org'
 
 <% if @gem_path.present? %>
 path "<%= @gemfile_gem_path %>" do
-  gem 'decko'
   gem 'card-mod-defaults'
+  gem 'decko'
 end
 <% else %>
-gem 'decko'
 gem 'card-mod-defaults'
+gem 'decko'
 <% end %>
 
 gem '<%= database_gemfile_entry.name %>'<%= %(, '#{database_gemfile_entry.version}') if database_gemfile_entry.version %>
