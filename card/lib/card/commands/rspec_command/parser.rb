@@ -1,13 +1,15 @@
 # -*- encoding : utf-8 -*-
 require "optparse"
 
-module Decko
+module Card
   module Commands
     class RspecCommand
       class Parser < OptionParser
+        #cmdname = 'card' # get from cmd
+        #cmdnameup ="\U#{cmdname}"
         RSPEC_PATH_MESSAGE = <<-EOT
 
-            DECKO ARGS
+            {cmdnameup} ARGS
 
             You don't have to give a full path for FILENAME; the basename is enough.
             If FILENAME does not include '_spec', then rspec searches for the
@@ -16,23 +18,35 @@ module Decko
 
         EOT
 
+        RSPEC_USAGE_MESSAGE = <<-EOT
+            card rspec
+             -d --deck-spec FILENAME(:LINE)  # Run spec for a Decko spec
+             -c --core-spec FILENAME(:LINE)  # Run spec for a Card core spec
+             -m --mod MODNAME                # Run all specs for a mod 
+             -s --[no-]simplecov             # Run with simplecov
+                --rescue                     # Run with pry-rescue
+                --[no]-spring                # Run with spring
+        EOT
         def initialize opts
           super() do |parser|
-            parser.banner = "Usage: decko rspec [DECKO ARGS] -- [RSPEC ARGS]\n\n" \
+binding.pry
+            parser.banner = "Usage: #{cmdname} rspec [#{cmdnameup} ARGS] -- [RSPEC ARGS]\n\n" \
                             "RSPEC ARGS"
+            parser.separator RSPEC_USAGE_MESSAGE
             parser.separator RSPEC_PATH_MESSAGE
 
-            parser.on("-d", "--spec FILENAME(:LINE)",
-                      "Run spec for a Decko deck file") do |file|
-              opts[:files] = find_spec_file(file, "#{Decko.root}/mod")
+            # can you run decko specs in card? doesn't seem right
+            parser.on("-d", "--deck-spec FILENAME(:LINE)",
+                      "Run spec for a Card deck file") do |file|
+              opts[:deck_files] = file
             end
             parser.on("-c", "--core-spec FILENAME(:LINE)",
-                      "Run spec for a Decko core file") do |file|
-              opts[:files] = find_spec_file(file, Cardio.gem_root)
+                      "Run spec for a Card core file") do |file|
+              opts[:core_files] = file
             end
             parser.on("-m", "--mod MODNAME",
-                      "Run all specs for a mod or matching a mod") do |file|
-              opts[:files] = find_mod_file(file, Cardio.gem_root)
+                      "Run all specs for a mod or matching a mod") do |mod|
+              opts[:mods] = mod
             end
             parser.on("-s", "--[no-]simplecov", "Run with simplecov") do |s|
               opts[:simplecov] = s ? "" : "COVERAGE=false"
@@ -69,6 +83,7 @@ module Decko
           end
         end
 
+        # move: to command processing
         def find_mod_file filename, base_dir
           if File.exist?("mod/#{filename}") || File.exist?("#{base_dir}/mod/#{filename}")
             "#{base_dir}/mod/#{filename}"
