@@ -57,10 +57,11 @@ Options:
     -p, [--pretend], [--no-pretend]          # Run but do not make any changes
     -q, [--quiet], [--no-quiet]              # Suppress status output
     -s, [--skip], [--no-skip]                # Skip files that already exist
-    -m, [--mod-dev], [--no-mod-dev]          # Prepare deck for mod development
-    -c, [--core-dev], [--no-core-dev]        # Prepare deck for core development
-    -g, [--gem-path=GEM-PATH]                # Path to local decko repository (Default, use env DECKO_GEM_PATH)
-    -i, [--interactive], [--no-interactive]  # Prompt with dynamic installation options
+    -M, [--monkey], [--no-monkey]            # Prepare deck for monkey (mod developer)
+    -P, [--platypus], [--no-core-dev]        # Prepare deck for platypus (core developer)
+    -R, [--repo-path=PATH]                   # Path to local decko repository.
+                                             # Can also specify via `env DECKO_REPO_PATH=PATH`
+    -I, [--interactive], [--no-interactive]  # Prompt with dynamic installation options
 
 ### 4. create / seed database
 
@@ -257,7 +258,7 @@ And info about contributing to Decko is [right next door][24].
 [17]: https://decko.org/troubleshooting
 [18]: https://app.swaggerhub.com/apis-docs/Decko/decko-api/0.8.0
 [19]: https://github.com/decko-commons/decko/blob/master/card/lib/card/mod.rb
-[20]: https://github.com/decko-commons/decko/blob/master/card/README.rdoc
+[20]: https://github.com/decko-commons/decko/blob/master/card/README.md
 [21]: https://github.com/decko-commons/decko/blob/master/card/lib/card.rb
 [22]: https://github.com/decko-commons/decko/blob/master/card/lib/card/set/format.rb
 [23]: https://github.com/decko-commons/card-mods/

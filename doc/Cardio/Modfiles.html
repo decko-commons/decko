@@ -88,7 +88,17 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>methods for handling simple and gem mod paths/files</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -265,14 +275,14 @@
       <pre class="lines">
 
 
-30
 31
 32
 33
-34</pre>
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_gem_mod_path'>each_gem_mod_path</span>
   <span class='id identifier rubyid_gem_mod_specs'>gem_mod_specs</span><span class='period'>.</span><span class='id identifier rubyid_each_value'>each_value</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_spec'>spec</span><span class='op'>|</span>
@@ -299,17 +309,17 @@
       <pre class="lines">
 
 
-17
 18
 19
-20</pre>
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_mod_path'>each_mod_path</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='id identifier rubyid_each_simple_mod_path'>each_simple_mod_path</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='id identifier rubyid_each_gem_mod_path'>each_gem_mod_path</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_each_simple_mod_path'>each_simple_mod_path</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_each_gem_mod_path'>each_gem_mod_path</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -331,16 +341,16 @@
       <pre class="lines">
 
 
-22
 23
 24
 25
 26
 27
-28</pre>
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_simple_mod_path'>each_simple_mod_path</span>
   <span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_mods_path'>mods_path</span><span class='op'>|</span>
@@ -392,18 +402,18 @@
       <pre class="lines">
 
 
-11
 12
 13
 14
-15</pre>
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_gem_mod_spec?'>gem_mod_spec?</span> <span class='id identifier rubyid_spec'>spec</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_spec'>spec</span>
-  
+
   <span class='id identifier rubyid_spec'>spec</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^card-mod-</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_spec'>spec</span><span class='period'>.</span><span class='id identifier rubyid_metadata'>metadata</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-mod</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -453,14 +463,14 @@
       <pre class="lines">
 
 
-4
 5
 6
 7
-8</pre>
+8
+9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_gem_mod_specs'>gem_mod_specs</span>
   <span class='const'>Bundler</span><span class='period'>.</span><span class='id identifier rubyid_definition'>definition</span><span class='period'>.</span><span class='id identifier rubyid_specs'>specs</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_gem_spec'>gem_spec</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='op'>|</span>
@@ -487,14 +497,14 @@
       <pre class="lines">
 
 
-36
 37
 38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio/modfiles.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mod_migration_paths'>mod_migration_paths</span> <span class='id identifier rubyid_dir'>dir</span>
   <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_list'>list</span><span class='op'>|</span>
@@ -511,7 +521,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Sep 25 17:44:55 2020 by
+  Generated on Sat Sep 26 18:17:01 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

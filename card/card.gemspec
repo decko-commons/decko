@@ -2,8 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.gem do |s, d|
-  s.name = "card"
+DeckoGem.gem "card" do |s, d|
   s.version = d.card_version
 
   s.summary = "a simple engine for emergent data structures"
@@ -17,8 +16,6 @@ DeckoGem.gem do |s, d|
 
   s.bindir        = "bin"
   s.executables   = ["card"]
-
-  s.require_paths = ["lib"]
 
   [
     ["cardname",            d.decko_version],

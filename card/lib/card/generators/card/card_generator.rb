@@ -5,40 +5,53 @@ class CardGenerator < Rails::Generators::AppBase
 
   source_root File.expand_path("../templates", __FILE__)
 
-  class_option "mod-dev",
-               type: :boolean, aliases: "-m", default: false, group: :runtime,
-               desc: "Prepare deck for mod development"
+  # All but the first aliases should be considered deprecated
+  class_option "monkey",
+               type: :boolean, aliases: %w[-M --mod-dev], default: false, group: :runtime,
+               desc: "Prepare deck for monkey (mod developer)"
 
-  class_option "core-dev",
-               type: :boolean, aliases: "-c", default: false, group: :runtime,
-               desc: "Prepare deck for core development"
+  class_option "platypus",
+               type: :boolean, aliases: %w[-P --core-dev -c], default: false,
+               desc: "Prepare deck for platypus (core development)", group: :runtime
 
-  class_option "gem-path",
-               type: :string, aliases: "-g", default: "", group: :runtime,
-               desc: "Path to local card repository " \
-                     "(Default, use env DECKO_GEM_PATH)"
+  class_option "repo-path",
+               type: :string, aliases: %w[-R -g --gem-path], default: "", group: :runtime,
+               desc: "Path to local decko repository " \
+                     "(Default, use env DECKO_REPO_PATH)"
 
   class_option :database,
-               type: :string, aliases: "-d", default: "mysql",
+               type: :string, aliases: %w[-D -d], default: "mysql",
                desc: "Preconfigure for selected database " \
                      "(options: #{DATABASES.join('/')})"
 
   class_option "interactive",
-               type: :boolean, aliases: "-i", default: false, group: :runtime,
+               type: :boolean, aliases: %w[-I -i], default: false, group: :runtime,
                desc: "Prompt with dynamic installation options"
 
   public_task :set_default_accessors!
   public_task :create_root
 
+  def shark?
+    !(monkey? || platypus?)
+  end
+
+  def monkey?
+    options[:monkey]
+  end
+
+  def platypus?
+    options[:platypus]
+  end
+
   ## should probably eventually use rails-like AppBuilder approach,
   # but this is a first step.
   def dev_setup
-    determine_gemfile_gem_path
+    determine_repo_path
     @include_jasmine_engine = false
-    if options["core-dev"]
-      core_dev_setup
-    elsif options["mod-dev"]
-      mod_dev_setup
+    if platypus?
+      platypus_setup
+    elsif monkey?
+      monkey_setup
     end
   end
 
@@ -67,7 +80,7 @@ class CardGenerator < Rails::Generators::AppBase
   end
 
   def gemfile
-    template "Gemfile"
+    template "Gemfile.erb", "Gemfile"
   end
 
   def configru
@@ -82,13 +95,13 @@ class CardGenerator < Rails::Generators::AppBase
     empty_directory "config"
 
     inside "config" do
-      template "application.rb"
+      template "application.erb", "application.rb"
       template "routes.erb", "routes.rb"
-      template "environment.rb"
-      template "boot.rb"
+      template "environment.erb", "environment.rb"
+      template "boot.erb", "boot.rb"
       template "databases/#{options[:database]}.yml", "database.yml"
-      template "cucumber.yml" if options["core-dev"]
-      template "initializers/cypress_on_rails.rb" if options["core-dev"]
+      template "cucumber.yml" if options["platypus"]
+      template "initializers/cypress_on_rails.rb" if options["platypus"]
     end
   end
 
@@ -116,7 +129,7 @@ class CardGenerator < Rails::Generators::AppBase
 
   def seed_data
     if options["interactive"]
-      Interactive.new(options, destination_root).run
+      Interactive.new(destination_root, (monkey? || platypus?)).run
     else
       puts "Now:
 1. Run `cd #{File.basename(destination_root)}` to move your new deck directory
@@ -132,27 +145,32 @@ class CardGenerator < Rails::Generators::AppBase
     GemfileEntry.version gem_name, gem_version, msg
   end
 
+  def database_gem_and_version
+    entry = database_gemfile_entry
+    text = %("#{entry.name}")
+    text << %(, "#{entry.version}") if entry.version
+    text
+  end
+
+  def repo_path_constraint
+    @repo_path.present? ? %(, path: "#{@repo_path}") : ""
+  end
+
   def self.banner
     "card new #{arguments.map(&:usage).join(' ')} [options]"
   end
 
   protected
 
-  def determine_gemfile_gem_path
-    # TODO: rename or split, gem_path points to the source repo,
-    # card and card gems are subdirs
-    if (env_gem_path = ENV["DECKO_GEM_PATH"]).present?
-      @gemfile_gem_path = %q(#{ENV['DECKO_GEM_PATH']})
-      @gem_path = env_gem_path
-    else
-      @gemfile_gem_path = @gem_path = options["gem-path"]
-    end
+  def determine_repo_path
+    env_repo_path = ENV["DECKO_REPO_PATH"]
+    @repo_path = env_repo_path.present? ? env_repo_path.to_s : options["repo-path"]
   end
 
-  def core_dev_setup
+  def platypus_setup
     prompt_for_gem_path
     @include_jasmine_engine = true
-    @spec_path = @gem_path
+    @spec_path = @repo_path
     @spec_helper_path = File.join @spec_path, "card", "spec", "spec_helper"
 
     # ending slash is important in order to load support and step folders
@@ -163,12 +181,11 @@ class CardGenerator < Rails::Generators::AppBase
   end
 
   def prompt_for_gem_path
-    return if @gem_path.present?
-    @gemfile_gem_path =
-      @gem_path = ask("Enter the path to your local card gem installation: ")
+    return if @repo_path.present?
+    @repo_path = ask "Enter the path to your local decko gem installation: "
   end
 
-  def mod_dev_setup
+  def monkey_setup
     @spec_path = "mod/"
     @spec_helper_path = "./spec/spec_helper"
     @simplecov_config = "card_simplecov_filters"
@@ -185,7 +202,8 @@ class CardGenerator < Rails::Generators::AppBase
   end
 
   def shared_dev_setup
-    @cardio_gem_root = File.join @gem_path, "card"
+    @cardio_gem_root = File.join @repo_path, "card"
+    @decko_gem_root = File.join @repo_path, "decko"
     empty_directory "spec"
     inside "config" do
       template "puma.rb"
