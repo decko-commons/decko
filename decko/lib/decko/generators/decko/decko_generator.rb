@@ -5,13 +5,13 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   source_root File.expand_path("../templates", __FILE__)
 
-  class_option "mod-dev",
+  class_option "monkey",
                type: :boolean, aliases: "-m", default: false, group: :runtime,
-               desc: "Prepare deck for mod development"
+               desc: "Prepare deck for monkey (mod developer)"
 
-  class_option "core-dev",
-               type: :boolean, aliases: "-c", default: false, group: :runtime,
-               desc: "Prepare deck for core development"
+  class_option "platypus",
+               type: :boolean, aliases: %w[-p -c --core-dev], default: false,
+               desc: "Prepare deck for platypus (core development)", group: :runtime
 
   class_option "gem-path",
                type: :string, aliases: "-g", default: "", group: :runtime,
@@ -35,10 +35,10 @@ class DeckoGenerator < Rails::Generators::AppBase
   def dev_setup
     determine_gemfile_gem_path
     @include_jasmine_engine = false
-    if options["core-dev"]
-      core_dev_setup
-    elsif options["mod-dev"]
-      mod_dev_setup
+    if platypus?
+      platypus_setup
+    elsif monkey?
+      monkey_setup
     end
   end
 
@@ -67,7 +67,7 @@ class DeckoGenerator < Rails::Generators::AppBase
   end
 
   def gemfile
-    template "Gemfile"
+    template "Gemfile.erb", "Gemfile"
   end
 
   def configru
@@ -82,13 +82,13 @@ class DeckoGenerator < Rails::Generators::AppBase
     empty_directory "config"
 
     inside "config" do
-      template "application.rb"
+      template "application.erb", "application.rb"
       template "routes.erb", "routes.rb"
-      template "environment.rb"
-      template "boot.rb"
+      template "environment.erb", "environment.rb"
+      template "boot.erb", "boot.rb"
       template "databases/#{options[:database]}.yml", "database.yml"
-      template "cucumber.yml" if options["core-dev"]
-      template "initializers/cypress_on_rails.rb" if options["core-dev"]
+      template "cucumber.yml" if options["platypus"]
+      template "initializers/cypress_on_rails.rb" if options["platypus"]
     end
   end
 
@@ -132,6 +132,29 @@ class DeckoGenerator < Rails::Generators::AppBase
     GemfileEntry.version gem_name, gem_version, msg
   end
 
+  def database_gem_and_version
+    entry = database_gemfile_entry
+    text = %("#{entry.name}")
+    text << %(, "#{entry.version}") if entry.version
+    text
+  end
+
+  def shark?
+    !(monkey? || platypus?)
+  en
+
+  def platypus?
+    options[:platypus]
+  end
+
+  def monkey?
+    options[:monkey]
+  end
+
+  def gem_path_constraint
+    @gem_path.present? ? %(, path: "#{@gemfile_gem_path}") : ""
+  end
+
   def self.banner
     "decko new #{arguments.map(&:usage).join(' ')} [options]"
   end
@@ -149,7 +172,7 @@ class DeckoGenerator < Rails::Generators::AppBase
     end
   end
 
-  def core_dev_setup
+  def platypus_setup
     prompt_for_gem_path
     @include_jasmine_engine = true
     @spec_path = @gem_path
@@ -168,7 +191,7 @@ class DeckoGenerator < Rails::Generators::AppBase
       @gem_path = ask("Enter the path to your local decko gem installation: ")
   end
 
-  def mod_dev_setup
+  def monkey_setup
     @spec_path = "mod/"
     @spec_helper_path = "./spec/spec_helper"
     @simplecov_config = "card_simplecov_filters"
