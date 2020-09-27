@@ -10,7 +10,7 @@ DeckoGem.mod "monkey_development" do |s, _d|
     ["delayed_job_active_record", "~> 4.1"],
     ["html2haml"],
     ["sprockets"], # just so above works
-    ["phantomjs", "1.9.7.1"], #locked because 1.9.8.0 is breaking
+    ["phantomjs", "1.9.7.1"], # locked because 1.9.8.0 is breaking
     ["better_errors"],
     ["binding_of_caller"],
     ["pry-rails"],
