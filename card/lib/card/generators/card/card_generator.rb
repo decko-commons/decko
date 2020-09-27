@@ -174,7 +174,7 @@ class CardGenerator < Rails::Generators::AppBase
     @spec_helper_path = File.join @spec_path, "card", "spec", "spec_helper"
 
     # ending slash is important in order to load support and step folders
-    @features_path = File.join @gem_path, "card/features/"
+    @features_path = File.join @repo_path, "card/features/"
     @simplecov_config = "card_core_dev_simplecov_filters"
     shared_dev_setup
     javascript_spec_setup "card_jasmine"
