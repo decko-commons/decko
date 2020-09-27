@@ -1,5 +1,5 @@
 require "rails/controller/testing"
-require "card/mod/monkey_test"
+require "card/mod/test"
 require "rspec-html-matchers"
 require "fog/aws"
 require "rr"

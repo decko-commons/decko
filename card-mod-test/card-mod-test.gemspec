@@ -2,12 +2,12 @@
 
 require "../decko_gem"
 
-DeckoGem.mod "monkey_test" do |s, _d|
+DeckoGem.mod "test" do |s, _d|
   s.summary = "testing support for mod developers (monkeys)"
   s.description = ""
 
   [
-    ["card-mod-monkey_development"],
+    ["card-mod-monkey"],
     ["capybara-puma"],
     ["rspec"],
     ["rspec-rails", "~>4.0.0.beta2"],   # behavior-driven-development suite
