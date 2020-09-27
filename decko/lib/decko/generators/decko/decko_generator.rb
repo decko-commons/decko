@@ -5,6 +5,7 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   source_root File.expand_path("../templates", __FILE__)
 
+  # All but the first aliases should be considered deprecated
   class_option "monkey",
                type: :boolean, aliases: %w[-M --mod-dev], default: false, group: :runtime,
                desc: "Prepare deck for monkey (mod developer)"
@@ -14,7 +15,7 @@ class DeckoGenerator < Rails::Generators::AppBase
                desc: "Prepare deck for platypus (core development)", group: :runtime
 
   class_option "repo-path",
-               type: :string, aliases: %w[-R -g], default: "", group: :runtime,
+               type: :string, aliases: %w[-R -g --gem-path], default: "", group: :runtime,
                desc: "Path to local decko repository " \
                      "(Default, use env DECKO_REPO_PATH)"
 
@@ -24,7 +25,7 @@ class DeckoGenerator < Rails::Generators::AppBase
                      "(options: #{DATABASES.join('/')})"
 
   class_option "interactive",
-               type: :boolean, aliases: %w[-i -I], default: false, group: :runtime,
+               type: :boolean, aliases: %w[-I -i], default: false, group: :runtime,
                desc: "Prompt with dynamic installation options"
 
   public_task :set_default_accessors!
@@ -45,7 +46,7 @@ class DeckoGenerator < Rails::Generators::AppBase
   ## should probably eventually use rails-like AppBuilder approach,
   # but this is a first step.
   def dev_setup
-    determine_gemfile_gem_path
+    determine_repo_path
     @include_jasmine_engine = false
     if platypus?
       platypus_setup
@@ -152,7 +153,7 @@ class DeckoGenerator < Rails::Generators::AppBase
   end
 
   def repo_path_constraint
-    @repo_path.present? ? %(, path: "#{@gemfile_gem_path}") : ""
+    @repo_path.present? ? %(, path: "#{@repo_path}") : ""
   end
 
   def self.banner
@@ -161,15 +162,9 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   protected
 
-  def determine_gemfile_gem_path
-    # TODO: rename or split, repo_path points to the source repo,
-    # card and decko gems are subdirs
-    if (env_gem_path = ENV["DECKO_REPO_PATH"]).present?
-      @gemfile_gem_path = %q(#{ENV['DECKO_REPO_PATH']})
-      @repo_path = env_gem_path
-    else
-      @gemfile_gem_path = @repo_path = options["repo-path"]
-    end
+  def determine_repo_path
+    env_repo_path = ENV["DECKO_REPO_PATH"]
+    @repo_path = env_repo_path.present? ? env_repo_path.to_s : options["repo-path"]
   end
 
   def platypus_setup
@@ -187,8 +182,7 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   def prompt_for_gem_path
     return if @repo_path.present?
-    @gemfile_gem_path =
-      @repo_path = ask("Enter the path to your local decko gem installation: ")
+    @repo_path = ask "Enter the path to your local decko gem installation: "
   end
 
   def monkey_setup

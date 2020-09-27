@@ -12,3 +12,6 @@ require "email_spec"
 require "database_cleaner"
 require "minitest"
 require "i18n/tasks"
+
+$LOAD_PATH.unshift File.expand_path('../../../../vendor/capybara-select2/lib', __FILE__)
+require "capybara-select2"

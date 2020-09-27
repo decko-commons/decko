@@ -2,8 +2,12 @@ source "http://rubygems.org"
 
 gem "decko"<%= repo_path_constraint %>
 
+
 # DATABASE
+# Decko currently supports MySQL (best tested), PostgreSQL (well tested), and SQLite
+# (not well tested).
 gem <%= database_gem_and_version %>
+
 
 # WEBSERVER
 # To run a simple deck at localhost:3000, you can use thin (recommended), unicorn,
@@ -12,32 +16,41 @@ gem "thin"
 # gem "unicorn"
 
 
-# MODS
-gem "card-mod-defaults"
-
 # BACKGROUNDING
-# The daemons gem is needed to run tasks like sending notifications in a background process.
-# See config/application.rb for configuration details.
+# The daemons gem is needed to run tasks like sending notifications in a background
+# process. See config/application.rb for configuration details.
 # gem "daemons"
 
+
+# CARD MODS
+# The easiest way to change card behaviors is with card mods. To install a mod:
+#
+#   1. add the gem below
+#   2. run `bundle update` to install the code
+#   3. run `decko update` to make any needed changes to your deck
+#
+# The "defaults" includes a lot of functionality that is needed in standard decks.
+gem "card-mod-defaults"
+
+
+# MONKEYS
+# You can also create your own mods. Mod developers (or "Monkeys") will want some
+# additional gems to support development and testing.
 <%= "# " if shark? %>gem "card-mod-monkey_test", group: :test
 <%= "# " if shark? %>gem "card-mod-monkey_development", group: :development
-<%= "# " if shark? %>gem "cypress-on-rails", "~> 1.4", group: %i[cypress test]
+<%= "# " if shark? || !spring_install? %>gem "card-mod-spring", group: %i[test development]
+<%= "# " if shark? %>gem "card-mod-cypress", group: %i[cypress test]
 <%= "# " if shark? %>gem "ruby-prof", group: :profile  # profiling
 
-<%- if spring_install? && !shark? %>
-# Spring speeds up development by keeping your application running in the background.
-# Read more: https://github.com/rails/spring
-gem "listen", "3.0.6"
-gem "spring"
-gem "spring-commands-rspec"
-gem "spring-commands-cucumber"
+<%- if platypus? %>
+
+# PLATYPUSES
+# This mod is very helpful for coders who want to make changes to the decko core
+# (platypuses)
+gem "card-mod-platypus", group: :test
+
 <% end -%>
 
-<%= "# " unless platypus? %>gem "card-mod-platypus", group: :test
-<%= "# " unless platypus? %>gem "capybara-select2", group: :test, git: "https://github.com/brunocavalcante/capybara-select2"
-
-
-# The following allows simple (non-gem) mods to include gems via a Gemfile.
+# The following allows simple (non-gem) mods to specify gems via a Gemfile.
 # You may need to alter this code if you move such mods to an unconventional location.
 Dir.glob("mod/**/Gemfile").each { |gemfile| instance_eval File.read(gemfile) }
