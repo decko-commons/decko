@@ -169,7 +169,7 @@ class DeckoGenerator < Rails::Generators::AppBase
   end
 
   def platypus_setup
-    prompt_for_gem_path
+    prompt_for_repo_path
     @include_jasmine_engine = true
     @spec_path = @repo_path
     @spec_helper_path = File.join @spec_path, "card", "spec", "spec_helper"
@@ -181,9 +181,9 @@ class DeckoGenerator < Rails::Generators::AppBase
     javascript_spec_setup "decko_jasmine"
   end
 
-  def prompt_for_gem_path
+  def prompt_for_repo_path
     return if @repo_path.present?
-    @repo_path = ask "Enter the path to your local decko gem installation: "
+    @repo_path = ask "Enter the path to your local decko repository: "
   end
 
   def monkey_setup

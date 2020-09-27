@@ -6,5 +6,5 @@ DeckoGem.mod "profile" do |s, _d|
   s.summary = "card mod profiling"
   s.description = ""
 
-  s.add_runtime_dependency "ruby_prof"
+  s.add_runtime_dependency "ruby-prof"
 end
