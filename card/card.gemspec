@@ -2,8 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.gem do |s, d|
-  s.name = "card"
+DeckoGem.gem "card" do |s, d|
   s.version = d.card_version
 
   s.summary = "a simple engine for emergent data structures"

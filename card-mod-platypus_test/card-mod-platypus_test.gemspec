@@ -2,8 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
-  s.mod "platypus_test"
+DeckoGem.mod "platypus_test" do |s, d|
   s.summary = "testing support for core developers (platypuses)"
   s.description = ""
   [

@@ -2,15 +2,11 @@
 
 require "../decko_gem"
 
-DeckoGem.gem do |s, d|
-  s.name = "cardname"
-  s.version = d.decko_version
-
-  s.require_paths = ["lib"]
-
+DeckoGem.gem "cardname" do |s, _d|
   s.description = "Naming patterns abstracted from Decko cards"
   s.summary = "Card names without all the cards"
 
+  s.require_paths = ["lib"]
   s.files = [
     "README.md",
     "Rakefile",
@@ -25,9 +21,5 @@ DeckoGem.gem do |s, d|
 
   s.add_dependency "activesupport", "~> 6"
   s.add_dependency "htmlentities",  "~> 4.3"
-
-  #s.add_development_dependency "rspec"
-  #s.add_development_dependency "rdoc"
-  #s.add_development_dependency "bundler"
 end
 

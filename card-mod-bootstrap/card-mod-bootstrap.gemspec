@@ -2,8 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.gem do |s, d|
-  d.mod "bootstrap"
+DeckoGem.mod "bootstrap" do |s, d|
   d.depends_on_mod :edit
   s.summary = "Bootstrap"
   s.description = ""

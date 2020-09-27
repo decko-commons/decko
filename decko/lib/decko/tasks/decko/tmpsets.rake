@@ -14,8 +14,8 @@ namespace :decko do
     end
 
     task :copy do
-      require 'fileutils'
-      require 'cardio'
+      require "fileutils"
+      require "cardio"
 
       target = "#{Cardio.gem_root}/tmpsets"
       FileUtils.rm_r Dir["#{target}/set*"]

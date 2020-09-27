@@ -2,8 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.gem do |s, d|
-  d.mod "tinymce_editor"
+DeckoGem.mod "tinymce_editor" do |s, d|
   d.depends_on_mod :edit
   s.summary = "TinyMCE editor"
   s.description = ""
