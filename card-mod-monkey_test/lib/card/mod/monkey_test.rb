@@ -1,0 +1,7 @@
+require "card-mod-monkey_development"
+require "capybara-puma"
+require "rspec"
+require "rspec-rails"
+require "spork"
+require "rubocop"
+require "nokogumbo"
