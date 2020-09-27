@@ -57,10 +57,11 @@ Options:
     -p, [--pretend], [--no-pretend]          # Run but do not make any changes
     -q, [--quiet], [--no-quiet]              # Suppress status output
     -s, [--skip], [--no-skip]                # Skip files that already exist
-    -m, [--mod-dev], [--no-mod-dev]          # Prepare deck for mod development
-    -c, [--core-dev], [--no-core-dev]        # Prepare deck for core development
-    -g, [--gem-path=GEM-PATH]                # Path to local decko repository (Default, use env DECKO_GEM_PATH)
-    -i, [--interactive], [--no-interactive]  # Prompt with dynamic installation options
+    -M, [--monkey], [--no-monkey]            # Prepare deck for monkey (mod developer)
+    -P, [--platypus], [--no-core-dev]        # Prepare deck for platypus (core developer)
+    -R, [--repo-path=PATH]                   # Path to local decko repository.
+                                             # Can also specify via `env DECKO_REPO_PATH=PATH`
+    -I, [--interactive], [--no-interactive]  # Prompt with dynamic installation options
 
 ### 4. create / seed database
 

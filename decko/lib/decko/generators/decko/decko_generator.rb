@@ -6,25 +6,25 @@ class DeckoGenerator < Rails::Generators::AppBase
   source_root File.expand_path("../templates", __FILE__)
 
   class_option "monkey",
-               type: :boolean, aliases: %w[-m --mod-dev], default: false, group: :runtime,
+               type: :boolean, aliases: %w[-M --mod-dev], default: false, group: :runtime,
                desc: "Prepare deck for monkey (mod developer)"
 
   class_option "platypus",
-               type: :boolean, aliases: %w[-c --core-dev], default: false,
+               type: :boolean, aliases: %w[-P --core-dev -c], default: false,
                desc: "Prepare deck for platypus (core development)", group: :runtime
 
-  class_option "gem-path",
-               type: :string, aliases: "-g", default: "", group: :runtime,
+  class_option "repo-path",
+               type: :string, aliases: %w[-R -g], default: "", group: :runtime,
                desc: "Path to local decko repository " \
-                     "(Default, use env DECKO_GEM_PATH)"
+                     "(Default, use env DECKO_REPO_PATH)"
 
   class_option :database,
-               type: :string, aliases: "-d", default: "mysql",
+               type: :string, aliases: %w[-D -d], default: "mysql",
                desc: "Preconfigure for selected database " \
                      "(options: #{DATABASES.join('/')})"
 
   class_option "interactive",
-               type: :boolean, aliases: "-i", default: false, group: :runtime,
+               type: :boolean, aliases: %w[-i -I], default: false, group: :runtime,
                desc: "Prompt with dynamic installation options"
 
   public_task :set_default_accessors!
@@ -151,8 +151,8 @@ class DeckoGenerator < Rails::Generators::AppBase
     text
   end
 
-  def gem_path_constraint
-    @gem_path.present? ? %(, path: "#{@gemfile_gem_path}") : ""
+  def repo_path_constraint
+    @repo_path.present? ? %(, path: "#{@gemfile_gem_path}") : ""
   end
 
   def self.banner
@@ -162,33 +162,33 @@ class DeckoGenerator < Rails::Generators::AppBase
   protected
 
   def determine_gemfile_gem_path
-    # TODO: rename or split, gem_path points to the source repo,
+    # TODO: rename or split, repo_path points to the source repo,
     # card and decko gems are subdirs
-    if (env_gem_path = ENV["DECKO_GEM_PATH"]).present?
-      @gemfile_gem_path = %q(#{ENV['DECKO_GEM_PATH']})
-      @gem_path = env_gem_path
+    if (env_gem_path = ENV["DECKO_REPO_PATH"]).present?
+      @gemfile_gem_path = %q(#{ENV['DECKO_REPO_PATH']})
+      @repo_path = env_gem_path
     else
-      @gemfile_gem_path = @gem_path = options["gem-path"]
+      @gemfile_gem_path = @repo_path = options["repo-path"]
     end
   end
 
   def platypus_setup
     prompt_for_gem_path
     @include_jasmine_engine = true
-    @spec_path = @gem_path
+    @spec_path = @repo_path
     @spec_helper_path = File.join @spec_path, "card", "spec", "spec_helper"
 
     # ending slash is important in order to load support and step folders
-    @features_path = File.join @gem_path, "decko/features/"
+    @features_path = File.join @repo_path, "decko/features/"
     @simplecov_config = "card_core_dev_simplecov_filters"
     shared_dev_setup
     javascript_spec_setup "decko_jasmine"
   end
 
   def prompt_for_gem_path
-    return if @gem_path.present?
+    return if @repo_path.present?
     @gemfile_gem_path =
-      @gem_path = ask("Enter the path to your local decko gem installation: ")
+      @repo_path = ask("Enter the path to your local decko gem installation: ")
   end
 
   def monkey_setup
@@ -208,8 +208,8 @@ class DeckoGenerator < Rails::Generators::AppBase
   end
 
   def shared_dev_setup
-    @cardio_gem_root = File.join @gem_path, "card"
-    @decko_gem_root = File.join @gem_path, "decko"
+    @cardio_gem_root = File.join @repo_path, "card"
+    @decko_gem_root = File.join @repo_path, "decko"
     empty_directory "spec"
     inside "config" do
       template "puma.rb"
