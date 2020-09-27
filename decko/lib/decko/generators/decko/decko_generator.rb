@@ -141,7 +141,7 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   def shark?
     !(monkey? || platypus?)
-  en
+  end
 
   def platypus?
     options[:platypus]
