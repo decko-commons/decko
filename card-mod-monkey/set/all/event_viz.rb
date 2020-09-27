@@ -15,36 +15,47 @@ def events action
   @action = action
   events = Director::Stages::STAGES.map { |stage| events_tree "#{stage}_stage" }
   @action = nil
-  puts_events events
-end
-
-# private
-
-def puts_events events, prefix="", depth=0
-  r = ""
-  depth += 1
-  events.each do |e|
-    space = " " * (depth * 2)
-
-    # FIXME: this is not right.  before and around callbacks are processed in
-    # declaration order regardless of kind.  not all befores then all arounds
-    e[:before] && r += puts_events(e[:before], space + "v  ", depth)
-    e[:around] && r += puts_events(e[:around], space + "vv ", depth)
-    r += "#{prefix}#{e[:name]}\n"
-    e[:after] && r += puts_events(e[:after].reverse, space + "^  ", depth)
-  end
-  r
+  print_events events
 end
 
 def events_tree filt
-  hash = { name: filt }
-  if respond_to? "_#{filt}_callbacks"
-    send("_#{filt}_callbacks").each do |callback|
-      next unless callback.applies? self
-      hash[callback.kind] ||= []
-      hash[callback.kind] << events_tree(callback.filter)
-    end
+  try("_#{filt}_callbacks")&.each_with_object({ name: filt }) do |callback, hash|
+    next unless callback.applies? self
+    hash[callback.kind] ||= []
+    hash[callback.kind] << events_tree(callback.filter)
   end
+end
 
-  hash
+private
+
+def print_events events, prefix="", depth=0
+  depth += 1
+  space = " " * (depth * 2)
+  text = ""
+  events.each do |event|
+    text += print_event_pre event, depth, space
+    text += print_event_main event, prefix
+    text += print_event_post event, depth, space
+  end
+  text
+end
+
+def print_event_pre event, depth, space
+  if event[:before]
+    print_events event[:before], space + "v  ", depth
+  elsif event[:around]
+    print_events event[:around], space + "vv ", depth
+  else
+    ""
+  end
+end
+
+def print_event_main event, prefix
+  "#{prefix}#{event[:name]}\n"
+end
+
+def print_event_post event, depth, space
+  return "" unless event[:after]
+
+  print_events event[:after], space + "^  ", depth
 end

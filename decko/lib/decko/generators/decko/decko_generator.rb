@@ -56,7 +56,7 @@ class DeckoGenerator < Rails::Generators::AppBase
   end
 
   def rakefile
-    template "Rakefile"
+    template "Rakefile.erb", "Rakefile"
   end
 
   #  def readme

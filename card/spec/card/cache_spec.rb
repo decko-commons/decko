@@ -8,7 +8,7 @@ RSpec.describe Card::Cache do
 
     describe "#basic operations" do
       it "works" do
-        @cache.write("a", "foo")
+        @cache.write("a", 'foo')
         expect(@cache.read("a")).to eq("foo")
         @cache.fetch("b") { "bar" }
         expect(@cache.read("b")).to eq("bar")
