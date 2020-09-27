@@ -6,11 +6,11 @@ class DeckoGenerator < Rails::Generators::AppBase
   source_root File.expand_path("../templates", __FILE__)
 
   class_option "monkey",
-               type: :boolean, aliases: "-m", default: false, group: :runtime,
+               type: :boolean, aliases: %w[-m --mod-dev], default: false, group: :runtime,
                desc: "Prepare deck for monkey (mod developer)"
 
   class_option "platypus",
-               type: :boolean, aliases: %w[-p -c --core-dev], default: false,
+               type: :boolean, aliases: %w[-c --core-dev], default: false,
                desc: "Prepare deck for platypus (core development)", group: :runtime
 
   class_option "gem-path",
@@ -29,6 +29,18 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   public_task :set_default_accessors!
   public_task :create_root
+
+  def shark?
+    !(monkey? || platypus?)
+  end
+
+  def monkey?
+    options[:monkey]
+  end
+
+  def platypus?
+    options[:platypus]
+  end
 
   ## should probably eventually use rails-like AppBuilder approach,
   # but this is a first step.
@@ -116,7 +128,7 @@ class DeckoGenerator < Rails::Generators::AppBase
 
   def seed_data
     if options["interactive"]
-      Interactive.new(options, destination_root).run
+      Interactive.new(destination_root, (monkey? || platypus?)).run
     else
       puts "Now:
 1. Run `cd #{File.basename(destination_root)}` to move your new deck directory
@@ -137,18 +149,6 @@ class DeckoGenerator < Rails::Generators::AppBase
     text = %("#{entry.name}")
     text << %(, "#{entry.version}") if entry.version
     text
-  end
-
-  def shark?
-    !(monkey? || platypus?)
-  end
-
-  def platypus?
-    options[:platypus]
-  end
-
-  def monkey?
-    options[:monkey]
   end
 
   def gem_path_constraint

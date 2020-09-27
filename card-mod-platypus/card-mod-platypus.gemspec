@@ -2,9 +2,10 @@
 
 require "../decko_gem"
 
-DeckoGem.mod "platypus_test" do |s, _d|
-  s.summary = "testing support for core developers (platypuses)"
+DeckoGem.mod "platypus" do |s, _d|
+  s.summary = "support for core developers (platypuses)"
   s.description = ""
+
   [
     ["card-mod-monkey_test"],
     ["fog-aws"],

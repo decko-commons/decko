@@ -8,7 +8,6 @@ DeckoGem.gem "decko-rails" do |s, d|
 
   s.files = Dir["lib/*/**"]
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
-  s.require_paths = ["lib"]
 
   s.add_runtime_dependency "decko", d.decko_version
 end

@@ -5,6 +5,7 @@ require "../decko_gem"
 DeckoGem.mod "monkey_test" do |s, _d|
   s.summary = "testing support for mod developers (monkeys)"
   s.description = ""
+
   [
     ["card-mod-monkey_development"],
     ["capybara-puma"],

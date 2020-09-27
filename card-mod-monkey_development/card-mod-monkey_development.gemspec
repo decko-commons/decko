@@ -5,6 +5,7 @@ require "../decko_gem"
 DeckoGem.mod "monkey_development" do |s, _d|
   s.summary = "dev support for monkey developers (monkeys)"
   s.description = ""
+
   [
     ["colorize"],
     ["delayed_job_active_record", "~> 4.1"],

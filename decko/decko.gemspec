@@ -11,7 +11,5 @@ DeckoGem.gem "decko" do |s, d|
 
   s.bindir = "bin"
   s.executables = ["decko"]
-  s.require_paths = ["lib"]
-
   s.add_runtime_dependency "card", d.card_version
 end

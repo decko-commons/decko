@@ -6,7 +6,6 @@ DeckoGem.gem "cardname" do |s, _d|
   s.description = "Naming patterns abstracted from Decko cards"
   s.summary = "Card names without all the cards"
 
-  s.require_paths = ["lib"]
   s.files = [
     "README.md",
     "Rakefile",

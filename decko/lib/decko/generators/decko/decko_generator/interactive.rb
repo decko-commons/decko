@@ -6,8 +6,8 @@ class DeckoGenerator
   #  - seed database
   #  - run server
   class Interactive
-    def initialize options, destination_root
-      @dev = options["platypus"] || options["monkey"]
+    def initialize destination_root, dev=false
+      @dev = dev
       @destination_root = destination_root
     end
 
