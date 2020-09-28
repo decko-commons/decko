@@ -2,8 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.gem do |s, d|
-  d.mod "defaults"
+DeckoGem.mod "defaults" do |s, d|
   d.depends_on_mod :ace_editor, :prosemirror_editor, :recaptcha, :tinymce_editor, :follow,
                    :markdown, :date, :google_analytics, :carrierwave, :bootstrap
   s.summary = "Default decko mods"

@@ -6,11 +6,18 @@ class DeckoGem
   VERSION = File.open(File.expand_path("../card/VERSION", __FILE__)).read.chomp
   CARD_MINOR = { 0 => 90, 1 => 1000 }.freeze # can remove and hardcode after 1.0
 
-  def self.gem
-    Gem::Specification.new do |spec|
-      dg = DeckoGem.new spec
-      dg.shared
-      yield spec, dg
+  class << self
+    def gem name, mod=false
+      Gem::Specification.new do |spec|
+        dg = DeckoGem.new spec
+        dg.shared
+        mod ? dg.mod(name) : spec.name = name
+        yield spec, dg
+      end
+    end
+
+    def mod name, &block
+      gem name, true, &block
     end
   end
 
@@ -32,11 +39,11 @@ class DeckoGem
     spec.homepage = "http://decko.org"
     spec.licenses = ["GPL-2.0", "GPL-3.0"]
     spec.required_ruby_version = ">= 2.5"
+    spec.version = decko_version
   end
 
   def mod name
     spec.name = "card-mod-#{name}"
-    spec.version = decko_version
     spec.metadata = { "card-mod" => name }
     spec.files = Dir["{db,file,lib,public,set,config,vendor}/**/*", "README.md"]
     spec.add_runtime_dependency "card", card_version

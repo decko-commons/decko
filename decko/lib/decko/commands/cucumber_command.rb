@@ -22,7 +22,7 @@ module Decko
         env_args = @opts[:env].join " "
         # turn coverage off if not all cukes run
         env_args << " COVERAGE=false" if @cucumber_args.present?
-        env_args << " RAILS_GROUPS=test,debug"
+        env_args << " RAILS_GROUPS=test"
         env_args
       end
 

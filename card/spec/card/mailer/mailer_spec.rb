@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Mailer do
+RSpec.describe Card::Mailer do
   # include ActionMailer::Quoting
 
   before do
@@ -11,8 +11,9 @@ describe Card::Mailer do
 
   #
   ## see notifier test for data used in these tests
-  # FIXME: the cache is not cleared properly between tests.  if the order changes
-  #  (ie try renamed change notice below to change_notice) then *notify+*from gets stuck on.
+  # FIXME: the cache is not cleared properly between tests.
+  #  if the order changes (ie try renamed change notice below to change_notice)
+  #  then *notify+*from gets stuck on.
   # context "change notice" do
   #   before do
   #     user =  Card['sara'].id
@@ -55,7 +56,7 @@ describe Card::Mailer do
 
   private
 
-    def encode subject
-      quoted_printable(subject, Card::Mailer::CHARSET)
-    end
+  def encode subject
+    quoted_printable(subject, Card::Mailer::CHARSET)
+  end
 end
