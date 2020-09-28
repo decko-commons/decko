@@ -44,7 +44,6 @@ class DeckoGem
 
   def mod name
     spec.name = "card-mod-#{name}"
-    spec.version = decko_version
     spec.metadata = { "card-mod" => name }
     spec.files = Dir["{db,file,lib,public,set,config,vendor}/**/*", "README.md"]
     spec.add_runtime_dependency "card", card_version
