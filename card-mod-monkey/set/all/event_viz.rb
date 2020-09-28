@@ -60,5 +60,5 @@ end
 
 def events_branch hash, kind, filter
   hash[kind] ||= []
-  hash[kind << events_tree(filter)
+  hash[kind] << events_tree(filter)
 end
