@@ -56,7 +56,7 @@ class CardGenerator < Rails::Generators::AppBase
   end
 
   def rakefile
-    template "Rakefile"
+    template "Rakefile.erb", "Rakefile"
   end
 
   #  def readme
@@ -147,8 +147,9 @@ class CardGenerator < Rails::Generators::AppBase
 
   def database_gem_and_version
     entry = database_gemfile_entry
-    text = %("#{entry.name}")
-    text << %(, "#{entry.version}") if entry.version
+    text = %('#{entry.name}')
+    text << %(, '#{entry.version}') if entry.version
+    # single quotes to prevent, eg: `gem "pg", ">= 0.18', '< 2.0"`
     text
   end
 
@@ -168,7 +169,7 @@ class CardGenerator < Rails::Generators::AppBase
   end
 
   def platypus_setup
-    prompt_for_gem_path
+    prompt_for_repo_path
     @include_jasmine_engine = true
     @spec_path = @repo_path
     @spec_helper_path = File.join @spec_path, "card", "spec", "spec_helper"
@@ -180,9 +181,9 @@ class CardGenerator < Rails::Generators::AppBase
     javascript_spec_setup "card_jasmine"
   end
 
-  def prompt_for_gem_path
+  def prompt_for_repo_path
     return if @repo_path.present?
-    @repo_path = ask "Enter the path to your local decko gem installation: "
+    @repo_path = ask "Enter the path to your local decko repository: "
   end
 
   def monkey_setup

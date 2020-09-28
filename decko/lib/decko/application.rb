@@ -3,7 +3,7 @@
 require "decko/engine"
 #require "config/initializers/sedate_parser"
 
-Bundler.require :default, Rails.env
+Bundler.require :default, *Rails.groups
 
 module Decko
   class Application < Rails::Application

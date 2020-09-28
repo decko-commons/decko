@@ -7,7 +7,7 @@ DeckoGem.mod "platypus" do |s, _d|
   s.description = ""
 
   [
-    ["card-mod-monkey_test"],
+    ["card-mod-test"],
     ["fog-aws"],
     ["rails-controller-testing"],
     ["rspec-html-matchers", "0.9.1"],
