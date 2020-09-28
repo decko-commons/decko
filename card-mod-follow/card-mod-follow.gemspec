@@ -2,8 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.gem do |s, d|
-  d.mod "follow"
+DeckoGem.mod "follow" do |s, d|
   d.depends_on_mod :carrierwave
   s.summary = "follower notifications"
   s.description = ""

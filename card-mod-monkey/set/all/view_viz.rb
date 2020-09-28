@@ -16,7 +16,7 @@ format :html do
 
   view :views_by_name do
     views = methods.map do |method|
-      Regexp.last_match(1) if method.to_s =~ /^_view_(.+)$/
+      Regexp.last_match(1) if method.to_s.match?(/^_view_(.+)$/)
     end.compact.sort
     list_group views
   end

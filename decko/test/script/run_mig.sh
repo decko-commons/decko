@@ -15,7 +15,7 @@ gem install *-${VER}.gem
 cd ../test_work
 rbenv which decko
 echo Generate a decko app
-decko new test_decko_app -c --gem-path='../../'
+decko new test_decko_app -c --repo-path='../../'
 cd test_decko_app
 # load seed db (customize to your database.yml)
 echo "Load seed db (enter the pw)"

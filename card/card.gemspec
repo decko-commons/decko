@@ -2,8 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.gem do |s, d|
-  s.name = "card"
+DeckoGem.gem "card" do |s, d|
   s.version = d.card_version
 
   s.summary = "a simple engine for emergent data structures"
@@ -12,10 +11,8 @@ DeckoGem.gem do |s, d|
     'Card "Sharks" use links, nests, types, patterned names, queries, views, ' \
     "events, and rules to create rich structures."
 
-  s.files = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
+  s.files = Dir["VERSION", "README.md", "LICENSE", "GPL", ".yardopts",
                 "{config,db,lib,mod,tmpsets}/**/*"]
-
-  s.require_paths = ["lib"]
 
   [
     ["cardname",            d.decko_version],

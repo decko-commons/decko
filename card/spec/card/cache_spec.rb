@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Cache do
+RSpec.describe Card::Cache do
   describe "with nil store" do
     before do
       @cache = Card::Cache.new prefix: "prefix"

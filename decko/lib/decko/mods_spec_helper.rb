@@ -2,8 +2,8 @@
 # require 'codeclimate-test-reporter'
 # CodeClimate::TestReporter.start
 
-require "decko" # only for card_gem_root
-require File.join Decko.card_gem_root, "spec/support/card_spec_loader.rb"
+require "cardio" # only for card_gem_root
+require File.join Cardio.gem_root, "spec/support/card_spec_loader.rb"
 
 CardSpecLoader.init
 

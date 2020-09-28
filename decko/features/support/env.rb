@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 ENV["RAILS_ENV"] = "cucumber"
 
-require "decko"
-require File.join Decko.card_gem_root, "spec/support/simplecov_helper.rb"
+require "cardio"
+require File.join Cardio.gem_root, "spec/support/simplecov_helper.rb"
 require "simplecov"
 require "minitest/autorun"
 require "rspec"

@@ -1,0 +1,17 @@
+$LOAD_PATH.unshift File.expand_path("../../../../vendor/capybara-select2/lib", __FILE__)
+
+require "rails/controller/testing"
+require "card/mod/test"
+require "rspec-html-matchers"
+require "fog/aws"
+require "rr"
+require "capybara"
+require "selenium/webdriver"
+require "chromedriver/helper"
+require "launchy"
+require "timecop"
+require "email_spec"
+require "database_cleaner"
+require "minitest"
+require "i18n/tasks"
+require "capybara-select2"

@@ -53,7 +53,20 @@ A great pull request is:
 
 ### Development Environment
 
-To install in a core-developer friendly mode, try `decko new mydeckname --core-dev`.  
+First, you will need a copy of the decko repo and install all its submodules:
+
+    git clone git@github.com:decko-commons/decko.git
+    cd decko
+    git submodule init
+
+Then you will need to install a platypus deck (somewhere else – not inside the repo):
+
+    decko new platypus --platypus
+    
+The `--platypus` flag is important; it will have key implications for your deck setup.
+
+You will be prompted to give the path to your repo. Alternatively you can use the 
+`--repo-path` flag or a `DECKO_REPO_PATH` environmental variable.
 
 ### Testing
 There are three different types of core tests. 
@@ -62,16 +75,16 @@ cypress tests.
 
 #### Rspec
 To run the whole rspec test suite execute `bundle exec decko rspec` in your
-core-dev deck directory. 
+platypus deck directory. 
 If you want to run only a single spec file use 
 `bundle exec decko rspec -- <path_to_spec_file>`.
 For more options run `bundle exec decko rspec --help`. 
 
 #### Cucumber
-Similar to rspec run `bundle exec decko cucumber` in your deck directory.
+Similar to rspec run `bundle exec decko cucumber` in your platypus deck directory.
 
 #### Cypress
-Start the server for your core-dev deck with `RAILS_ENV=cypress bundle exec decko s -p 
+Start the server for your platypus deck with `RAILS_ENV=cypress bundle exec decko s -p 
 5002` and then in the gem in `decko/spec` run `yarn run cypress open` to open the 
 cypress interface. Cypress upgrades can be installed in that same directory via npm. 
 
