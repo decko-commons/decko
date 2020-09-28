@@ -99,6 +99,7 @@ else
   when 'update' # decko:update
     Decko::Commands.run_decko_task command
   when *CARD_TASK_COMMANDS
+    require 'card/commands'
     Card::Commands.run_card_task command
   else
     puts "Error: Command not recognized" unless command.in?(["-h", "--help"])
