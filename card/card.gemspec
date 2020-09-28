@@ -11,11 +11,8 @@ DeckoGem.gem "card" do |s, d|
     'Card "Sharks" use links, nests, types, patterned names, queries, views, ' \
     "events, and rules to create rich structures."
 
-  s.files = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
-                "{config,bin,script,db,lib,mod,tmpsets}/**/*"]
-
-  s.bindir        = "bin"
-  s.executables   = ["card"]
+  s.files = Dir["VERSION", "README.md", "LICENSE", "GPL", ".yardopts",
+                "{config,db,lib,mod,tmpsets}/**/*"]
 
   [
     ["cardname",            d.decko_version],
