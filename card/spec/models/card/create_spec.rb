@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card, "created by Card.new" do
+RSpec.describe Card, "created by Card.new" do
   before(:each) do
     Card::Auth.as_bot do
       @c = Card.new name: "New Card", content: "Great Content"

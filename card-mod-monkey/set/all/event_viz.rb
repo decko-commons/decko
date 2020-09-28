@@ -20,9 +20,7 @@ end
 
 def events_tree filt
   try("_#{filt}_callbacks")&.each_with_object({ name: filt }) do |callback, hash|
-    next unless callback.applies? self
-    hash[callback.kind] ||= []
-    hash[callback.kind] << events_tree(callback.filter)
+    events_branch hash, callback.kind, callback.filter if callback.applies? self
   end
 end
 
@@ -58,4 +56,9 @@ def print_event_post event, depth, space
   return "" unless event[:after]
 
   print_events event[:after], space + "^  ", depth
+end
+
+def events_branch hash, kind, filter
+  hash[kind] ||= []
+  hash[kind << events_tree(filter)
 end
