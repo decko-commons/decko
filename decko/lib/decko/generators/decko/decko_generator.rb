@@ -1,7 +1,7 @@
 require "rails/generators/app_base"
 
-class CardGenerator < Rails::Generators::AppBase
-  # class CardGenerator < Rails::Generators::AppGenerator
+class DeckoGenerator < Rails::Generators::AppBase
+  # class DeckoGenerator < Rails::Generators::AppGenerator
 
   source_root File.expand_path("../templates", __FILE__)
 
@@ -133,8 +133,8 @@ class CardGenerator < Rails::Generators::AppBase
     else
       puts "Now:
 1. Run `cd #{File.basename(destination_root)}` to move your new deck directory
-2. Run `card seed` to seed your database (see db configuration in config/database.yml).
-3. Run `card server` to start your server"
+2. Run `decko seed` to seed your database (see db configuration in config/database.yml).
+3. Run `decko server` to start your server"
     end
   end
 
@@ -158,7 +158,7 @@ class CardGenerator < Rails::Generators::AppBase
   end
 
   def self.banner
-    "card new #{arguments.map(&:usage).join(' ')} [options]"
+    "decko new #{arguments.map(&:usage).join(' ')} [options]"
   end
 
   protected
@@ -175,10 +175,10 @@ class CardGenerator < Rails::Generators::AppBase
     @spec_helper_path = File.join @spec_path, "card", "spec", "spec_helper"
 
     # ending slash is important in order to load support and step folders
-    @features_path = File.join @repo_path, "card/features/"
+    @features_path = File.join @repo_path, "decko/features/"
     @simplecov_config = "card_core_dev_simplecov_filters"
     shared_dev_setup
-    javascript_spec_setup "card_jasmine"
+    javascript_spec_setup "decko_jasmine"
   end
 
   def prompt_for_repo_path
@@ -232,7 +232,7 @@ class CardGenerator < Rails::Generators::AppBase
   end
 
   ### the following is straight from rails and is focused on checking
-  # the validity of the app name.needs card-specific tuning
+  # the validity of the app name.needs decko-specific tuning
 
   def app_name
     @app_name ||= if defined_app_const_base?
@@ -248,8 +248,8 @@ class CardGenerator < Rails::Generators::AppBase
 
   def defined_app_const_base
     Rails.respond_to?(:application) && defined?(Rails::Application) &&
-      Card.application.is_a?(Rails::Application) &&
-      Card.application.class.name.sub(/::Application$/, "")
+      Decko.application.is_a?(Rails::Application) &&
+      Decko.application.class.name.sub(/::Application$/, "")
   end
 
   alias defined_app_const_base? defined_app_const_base
