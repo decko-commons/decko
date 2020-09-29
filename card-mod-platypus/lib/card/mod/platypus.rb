@@ -6,4 +6,3 @@ require "decko/cucumber"
 require "capybara-select2"
 require "fog/aws"
 require "timecop"
-
