@@ -1,8 +1,7 @@
 require File.expand_path("../command", __FILE__)
 # require "pry"
 
-module Card
-  module Commands
+module Card::Commands
     class RakeCommand < Command
       def initialize rake_task, args={}
         @task = rake_task
@@ -35,7 +34,6 @@ module Card
         end
       end
     end
-  end
 end
 
 require File.expand_path("../rake_command/parser", __FILE__)

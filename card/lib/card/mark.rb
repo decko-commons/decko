@@ -1,7 +1,7 @@
-class Card
+warn "loading mark #{caller[0..10]*"\n"}"
   # Card::Mark provides class methods for Card to translate all different kind
   # of card identifiers to card objects.
-  module Mark
+module Card::Mark
     ID_MARK_RE = /^~(?<id>\d+)$/.freeze
     CODENAME_MARK_RE = /^:(?<codename>\w+)$/.freeze
 
@@ -63,5 +63,4 @@ class Card
     def name_from_mark mark
       Card::Name[mark]
     end
-  end
 end

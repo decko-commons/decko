@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 require "optparse"
 
-module Card
-  module Commands
+module Card::Commands
     class Command
       class Parser
         USAGE_MESSAGE = <<-EOT
@@ -33,5 +32,4 @@ module Card
 
       end
     end
-  end
 end

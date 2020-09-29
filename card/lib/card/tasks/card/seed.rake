@@ -3,7 +3,7 @@ require "card/seed_consts"
 # maybe move this up?
 def failing_loudly task
   yield
-rescue
+rescue => e
   # TODO: fix this so that message appears *after* the errors.
   # Solution should ensure that rake still exits with error code 1!
   raise "\n>>>>>> FAILURE! #{task} did not complete successfully." \
@@ -11,7 +11,7 @@ rescue
 end
 
 namespace :card do
-  task :seed do
+  task seed: :environment do
     failing_loudly "card seed" do
       seed
     end
@@ -39,9 +39,10 @@ namespace :card do
     desc "Load seed data into database"
     task :load do
       # remove ?
-      Rake::Task["card:seed"].invoke
+      #Rake::Task["card:seed"].invoke
       puts "reset cache"
-      system "bundle exec rake card:reset_cache" # needs loaded environment
+      Rake::Task["card:reset_cache"].invoke
+      #system "bundle exec rake card:reset_cache" # needs loaded environment
     end
 
     def seed

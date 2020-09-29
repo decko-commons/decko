@@ -17,10 +17,9 @@ namespace :card do
   task :update do
     failing_loudly "decko update" do
       ENV["NO_RAILS_CACHE"] = "true"
-      decko_namespace["migrate"].invoke
-      decko_namespace["reset_tmp"].invoke
+      Rake::Task["card:migrate"].invoke
+      Rake::Task["card:reset_tmp"].invoke
       Card::Cache.reset_all
-      decko_namespace["update_assets_symlink"].invoke
     end
   end
 

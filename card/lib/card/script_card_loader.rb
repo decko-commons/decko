@@ -1,7 +1,7 @@
 require "pathname"
+Card
 
-module Card
-  module ScriptCardLoader
+module Card::ScriptCardLoader
     RUBY = File.join(*RbConfig::CONFIG.values_at("bindir", "ruby_install_name")) +
            RbConfig::CONFIG["EXEEXT"]
     SCRIPT_CARD = File.join("script", "card")
@@ -27,5 +27,4 @@ module Card
       File.exist?(File.join(path, SCRIPT_CARD)) ||
         !path.root? && in_card_application_subdirectory?(path.parent)
     end
-  end
 end

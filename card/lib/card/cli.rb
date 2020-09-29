@@ -1,4 +1,5 @@
 require "rbconfig"
+require "card/commands/application"
 require "card/script_card_loader"
 
 # If we are inside a Card application this method performs an exec and thus
@@ -13,5 +14,4 @@ Signal.trap("INT") { puts; exit(1) }
 #  require 'card/commands/plugin_new'
 # else
 
-require "card/commands/application"
 # end

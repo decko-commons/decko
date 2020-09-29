@@ -1,7 +1,6 @@
 # require "English" # needed for CHILD_STATUS, but not sure this is the best place for this.
 
-module Card
-  module Commands
+module Card::Commands
     class Command
       def run
         puts command
@@ -24,5 +23,4 @@ module Card
         [card_args, command_args]
       end
     end
-  end
 end

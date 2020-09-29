@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 require "active_support/core_ext/numeric/time"
-djar = "delayed_job_active_record"
-require djar if Gem::Specification.find_all_by_name(djar).any?
 require "cardio/schema.rb"
 require "cardio/utils.rb"
 require "cardio/modfiles.rb"
@@ -103,7 +101,6 @@ module Cardio
 
     def set_config config
       @@config = config
-      config.active_job.queue_adapter = :delayed_job # better place for this?
 
       add_lib_dirs_to_autoload_paths config
 

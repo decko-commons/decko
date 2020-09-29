@@ -1,5 +1,6 @@
 # add method in? to Object class
 require "active_support/core_ext/object/inclusion"
+require 'application_record'
 
 require "rake"
 def load_rake_tasks
@@ -32,7 +33,7 @@ def supported_rails_command? arg
   #arg.in?(RAILS_COMMANDS) || ALIAS[arg].in?(RAILS_COMMANDS)
 end
 
-module Card
+class Card < ApplicationRecord
   module Commands
     class << self
       def run_new

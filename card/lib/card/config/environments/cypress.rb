@@ -1,4 +1,4 @@
-Decko::Engine.configure do
+Card::Engine.configure do
   config.cache_classes = false
 end
 

@@ -1,20 +1,12 @@
 # -*- encoding : utf-8 -*-
 
 require "decko/engine"
-#require "config/initializers/sedate_parser"
-
-Bundler.require :default, *Rails.groups
+require "card/application"
+djar = "delayed_job_active_record"
+require djar if Gem::Specification.find_all_by_name(djar).any?
 
 module Decko
-  class Application < Rails::Application
-    initializer :load_decko_environment_config,
-                before: :load_environment_config, group: :all do
-      add_path paths, "lib/decko/config/environments", glob: "#{Rails.env}.rb"
-      paths["lib/decko/config/environments"].existent.each do |environment|
-        require environment
-      end
-    end
-
+  class Application < Card::Application
     class << self
       def inherited base
         super
@@ -34,7 +26,7 @@ module Decko
       @config ||= begin
         config = super
 
-        Cardio.set_config config
+        config.active_job.queue_adapter = :delayed_job
 
         # any config settings below:
         # (a) do not apply to Card used outside of a Decko context
@@ -50,7 +42,6 @@ module Decko
         # overridable decko-specific settings don't have a place yet
         # but should probably follow the cardio pattern.
 
-        # config.load_defaults "6.0"
         config.autoloader = :zeitwerk
         config.load_default = "6.0"
         config.i18n.enforce_available_locales = true

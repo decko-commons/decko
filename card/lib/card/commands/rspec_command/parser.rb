@@ -2,8 +2,7 @@
 require "optparse"
 require 'card/commands/command/parser'
 
-module Card
-  module Commands
+module Card::Commands
     class RspecCommand < Command
       class Parser < Command::Parser
         RSPEC_PATH_MESSAGE = <<-EOT
@@ -98,5 +97,4 @@ module Card
 
       end
     end
-  end
 end

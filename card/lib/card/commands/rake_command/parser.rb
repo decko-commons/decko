@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 require "optparse"
 
-module Card
-  module Commands
+module Card::Commands
     class RakeCommand
       class Parser < OptionParser
         def initialize command, opts
@@ -30,5 +29,4 @@ module Card
         end
       end
     end
-  end
 end

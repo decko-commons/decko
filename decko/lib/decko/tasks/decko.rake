@@ -1,6 +1,6 @@
 require "decko/application"
 require_relative "alias"
-require "card/seed_consts"
+#require "card/seed_consts"
 
 CARD_TASKS =
   [
@@ -21,6 +21,7 @@ CARD_TASKS =
 link_task CARD_TASKS, from: :decko, to: :card
 
 decko_namespace = namespace :decko do
+=begin
   desc "create a decko database from scratch, load initial data"
   task :seed do
     failing_loudly "decko seed" do
@@ -95,13 +96,14 @@ decko_namespace = namespace :decko do
       Dir.mkdir tmp_dir
     end
   end
+=end
 
   desc "update decko gems and database"
   task :update do
     failing_loudly "decko update" do
       ENV["NO_RAILS_CACHE"] = "true"
-      decko_namespace["migrate"].invoke
-      decko_namespace["reset_tmp"].invoke
+      Rake::Task["card:migrate"].invoke
+      Rake::Task["card:reset_tmp"].invoke
       Card::Cache.reset_all
       decko_namespace["update_assets_symlink"].invoke
     end
@@ -128,6 +130,7 @@ decko_namespace = namespace :decko do
     yield assets_path
   end
 
+=begin
   alias_task :migrate, "card:migrate"
 
   desc "insert existing card migrations into schema_migrations_cards to avoid re-migrating"
@@ -147,7 +150,7 @@ decko_namespace = namespace :decko do
     end
 
     puts "creating"
-    Rake::Task["db:create"].invoke
+    Rake::Task["seed:create"].invoke
 
     puts "loading schema"
 
@@ -157,16 +160,18 @@ decko_namespace = namespace :decko do
     load_task << "_without_reset" unless with_cache_reset
     Rake::Task[load_task].invoke
   end
+=end
 end
 
+=begin
 def failing_loudly task
   yield
-rescue
+rescue => e
   # TODO: fix this so that message appears *after* the errors.
   # Solution should ensure that rake still exits with error code 1!
   raise "\n>>>>>> FAILURE! #{task} did not complete successfully." \
         "\n>>>>>> Please address errors and re-run:\n\n\n"
-end
+=end
 
 def version
   ENV["VERSION"] ? ENV["VERSION"].to_i : nil

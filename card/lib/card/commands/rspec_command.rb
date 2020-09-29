@@ -1,7 +1,6 @@
 require File.expand_path("../command", __FILE__)
 
-module Card
-  module Commands
+module Card::Commands
     class RspecCommand < Command
       def initialize args
         require "rspec/core"
@@ -85,7 +84,6 @@ module Card
         []
       end
     end
-  end
 end
 
 require File.expand_path("../rspec_command/parser", __FILE__)
