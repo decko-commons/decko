@@ -2,7 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.mod "spring" do |s, _d|
+DeckoGem.gem "decko-spring" do |s, _d|
   s.summary = "spring integration for decko development"
   s.description = "Spring speeds up development by keeping your application running " \
                   "in the background. Read more: https://github.com/rails/spring"
