@@ -51,6 +51,11 @@ namespace :card do
     exit
   end
 
+  desc "dump card fixtures"
+  task dump: :environment do
+raise "Imp?"
+  end
+
   desc "migrate structure and cards"
   task migrate: :environment do
     ENV["NO_RAILS_CACHE"] = "true"

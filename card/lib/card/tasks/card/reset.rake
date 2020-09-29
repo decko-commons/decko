@@ -10,7 +10,7 @@ namespace :card do
     Card.reset_all_machines
   end
 
-  desc "reset with an empty tmp directory"
+  desc "reset to empty tmp directory"
   task :reset_tmp do
     tmp_dir = Decko.paths["tmp"].first
     if Decko.paths["tmp"].existent

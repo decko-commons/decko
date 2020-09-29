@@ -10,7 +10,7 @@ end
 
 RAILS_COMMANDS = %w( generate destroy plugin benchmarker profiler console
                      server dbconsole application runner ).freeze
-CARD_TASK_COMMANDS = %w(add add_remote refresh_machine_output reset_cache
+CARD_TASK_COMMANDS = %w(card add add_remote refresh_machine_output reset_cache
                    reset_tmp update merge merge_all assume_card_migrations
                    clean clear dump emergency load seed reseed supplement
                    update seed reseed load update).freeze
