@@ -8,12 +8,16 @@ DeckoGem.mod "monkey" do |s, _d|
 
   [
     ["colorize"],
-    ["delayed_job_active_record", "~> 4.1"],
-    ["html2haml"],
-    ["sprockets"], # just so above works
-    ["phantomjs", "1.9.7.1"], # locked because 1.9.8.0 is breaking
     ["better_errors"],
     ["binding_of_caller"],
+    ["delayed_job_active_record", "~> 4.1"],
+    ["html2haml"],
+    ["phantomjs", "1.9.7.1"], # locked because 1.9.8.0 is breaking
+    ["sprockets"], # just so above works
+
+    ["rubocop", "0.88"], # 0.89 introduced bugs. may get resolved in rubocop-decko update?
+    # ["rubocop-decko"],
+
     ["pry-rails"],
     ["pry-rescue"],
     ["pry-stack_explorer"],

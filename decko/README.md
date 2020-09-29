@@ -193,9 +193,9 @@ All you have to do to install one of these mods is:
 
 If you're interested in making your own mod, the first thing to do is set up a good
 development environment. This is most easily done by creating a new deck with the 
-`--mod-dev` (or `-m`) options, eg:
+`--monkey` (or `-m`) options, eg:
 
-    decko new --mod-dev mydeck
+    decko new --monkey mydeck
     
 If you're working on an existing deck, it's often easiest just to do the above and then 
 make the new deck use your existing files and database. However, if that's not an option, 
@@ -205,7 +205,6 @@ you can instead follow the following procedure:
     real/existing deck:
      - any missing Gems in the Gemfile
      - .rspec
-     - .simplecov
      - config/puma.rb
      - bin/spring 
      - spec/spec_helper.rb
