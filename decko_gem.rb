@@ -37,7 +37,7 @@ class DeckoGem
     spec.authors = ["Ethan McCutchen", "Philipp Kühl", "Gerry Gleason"]
     spec.email = ["info@decko.org"]
     spec.homepage = "http://decko.org"
-    spec.licenses = ["GPL-2.0", "GPL-3.0"]
+    spec.licenses = ["GPL-3.0"]
     spec.required_ruby_version = ">= 2.5"
     spec.version = decko_version
   end
