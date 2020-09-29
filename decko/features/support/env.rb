@@ -3,7 +3,7 @@ ENV["RAILS_ENV"] = "cucumber"
 
 require "cardio"
 require File.join Cardio.gem_root, "spec/support/simplecov_helper.rb"
-# require "simplecov"
+require "simplecov"
 require "minitest/autorun"
 require "rspec"
 require "selenium/webdriver"
