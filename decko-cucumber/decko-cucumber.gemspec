@@ -8,15 +8,19 @@ DeckoGem.gem "decko-cucumber" do |s, _d|
 
   [
     ["card-mod-monkey"],
-    ["capybara-puma"],
-    ["cucumber-rails", "~> 1.8.0"], # feature-driven-development suite
+
+    ["cucumber", "~> 3.1"],
+    ["cucumber-rails"],
     ["cucumber-expressions"],
-    ["capybara", "~> 3.12"],
-    ["selenium-webdriver", "3.141.0"],
-    ["chromedriver-helper", "~> 2.1.0"],
     ["database_cleaner", "~> 1.5"], # used by cucumber for db transactions
-    # gem 'capybara-webkit'
-    ["launchy"] # lets cucumber launch browser windows
+    ["launchy"], # lets cucumber launch browser windows
+
+    ["capybara"],
+    ["capybara-puma"],
+    ["chromedriver-helper", "~> 2.1.0"],
+    ["selenium-webdriver", "3.141.0"],
+
+    ["simplecov"] # test coverage
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end

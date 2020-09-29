@@ -11,9 +11,7 @@ DeckoGem.mod "platypus" do |s, _d|
     ["decko-cucumber"],
     ["fog-aws"],
 
-    ["simplecov", "~> 0.7.1"], # test coverage
     ["codeclimate-test-reporter"],
-
     ["timecop", "=0.3.5"], # not clear on use/need.
   ].each do |dep|
     s.add_runtime_dependency(*dep)

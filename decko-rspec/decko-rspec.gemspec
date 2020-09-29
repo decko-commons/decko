@@ -17,7 +17,7 @@ DeckoGem.gem "decko-rspec" do |s, _d|
     ["rr"],
     ["rspec-html-matchers", "0.9.1"],
     ["rspec"],
-    ["rspec-rails", "~>4.0.0.beta2"],   # behavior-driven-development suite
+    ["rspec-rails", "~> 4.0.0.beta2"],   # behavior-driven-development suite
     ["rubocop-rspec"],
     ["spork", ">=0.9"]
   ].each do |dep|
