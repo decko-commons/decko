@@ -11,14 +11,14 @@ rescue
 end
 
 namespace :card do
+  desc "create a card database from scratch, load initial data"
   task :seed do
     failing_loudly "card seed" do
       seed
     end
   end
-  namespace :seed do
-    desc "create a card database from scratch, load initial data"
 
+  namespace :seed do
     desc "clear and load fixtures with existing tables"
     task reseed: :environment do
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"

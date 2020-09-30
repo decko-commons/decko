@@ -9,6 +9,7 @@
 namespace :decko do
   namespace :docs do
     # trigger tmpsets and then run yardoc
+    desc "generate yard documentation from code"
     task :update do
       Rake::Task["decko:tmpsets:trigger"].invoke
       Rake::Task["decko:docs:yardoc"].invoke

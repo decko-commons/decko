@@ -4,12 +4,12 @@ module Card::Commands
     class RspecCommand < Command
       def initialize args
         require "rspec/core"
-        require "card/application"
+        #require "card/application"
 
         parser = RspecCommand::Parser.new
         r = parser.parse(ARGV)
         @opts = r.options
-        @rspec_args = r.args
+        @rspec_args = ARGV
       end
 
       def command

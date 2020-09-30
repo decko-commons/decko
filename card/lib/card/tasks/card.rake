@@ -34,6 +34,11 @@ namespace :card do
     @importer ||= Card::Migration::Import.new Card::Migration.data_path
   end
 
+  task default: :card
+
+  task :card do # do nothing, i.e. for card -T -> rake card -T
+  end
+
   desc "add a new card to import data"
   task add: :environment do
     _task, name, type, codename = ARGV

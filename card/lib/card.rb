@@ -1,5 +1,8 @@
 # -*- encoding : utf-8 -*-
 
+#require 'application_record'
+#require 'card/mark'
+
 ActiveSupport.run_load_hooks(:before_card, self)
 
 # Cards are wiki-inspired building blocks.

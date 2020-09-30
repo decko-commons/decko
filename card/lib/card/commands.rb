@@ -8,7 +8,7 @@ def load_rake_tasks
   Card::Application.load_tasks
 end
 
-RAILS_COMMANDS = %w( generate destroy plugin benchmarker profiler console
+RAILS_COMMANDS = %w( card generate destroy plugin benchmarker profiler console
                      server dbconsole application runner ).freeze
 CARD_TASK_COMMANDS = %w(card add add_remote refresh_machine_output reset_cache
                    reset_tmp update merge merge_all assume_card_migrations
@@ -29,8 +29,8 @@ ALIAS = {
 
 
 def supported_rails_command? arg
-  Rake.application.top_level_tasks.include? arg
-  #arg.in?(RAILS_COMMANDS) || ALIAS[arg].in?(RAILS_COMMANDS)
+  #Rake.application.top_level_tasks.include? arg
+  arg.in?(RAILS_COMMANDS) || ALIAS[arg].in?(RAILS_COMMANDS)
 end
 
 class Card < ApplicationRecord
@@ -52,10 +52,6 @@ class Card < ApplicationRecord
         RspecCommand.new(ARGV).run
       end
 
-      #def run_rake_task command
-      #  RakeCommand.new(command, ARGV).run
-      #end
-
       def run_card_task command
         require "card/commands/rake_command"
         RakeCommand.new(['card', command]*':', ARGV).run
@@ -66,9 +62,10 @@ end
 
 ARGV << "--help" if ARGV.empty?
 
+ARGV.unshift 'card' if ARGV.first == '-T'
 command = ARGV.first
 command = ALIAS[command] || command
-if command == '-T' || supported_rails_command?(command)
+if supported_rails_command?(command)
   ENV["PRY_RESCUE_RAILS"] = "1" if ARGV.delete("--rescue")
 
   # without this, the card generators don't list with: card g --help
@@ -117,4 +114,5 @@ else
     exit(1)
   end
 end
+exit(0)
 

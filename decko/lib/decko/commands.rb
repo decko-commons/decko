@@ -7,7 +7,7 @@ def load_rake_tasks
   Decko::Application.load_tasks
 end
 
-RAILS_COMMANDS = %w( generate destroy plugin benchmarker profiler console
+RAILS_COMMANDS = %w( decko generate destroy plugin benchmarker profiler console
                      server dbconsole application runner ).freeze
 DECKO_COMMANDS = %w(rspec cucumber jasmine).freeze
 CARD_TASK_COMMANDS = %w(add add_remote refresh_machine_output reset_cache
@@ -28,6 +28,7 @@ ALIAS = {
 }.freeze
 
 def supported_rails_command? arg
+  #Rake.application.top_level_tasks.include? arg
   arg.in?(RAILS_COMMANDS) || ALIAS[arg].in?(RAILS_COMMANDS)
 end
 
@@ -79,9 +80,10 @@ module Decko
   end
 end
 
+ARGV.unshift 'decko' if ARGV.first == '-T'
 command = ARGV.first
 command = ALIAS[command] || command
-if command == '-T' || supported_rails_command?(command)
+if supported_rails_command?(command)
   ENV["PRY_RESCUE_RAILS"] = "1" if ARGV.delete("--rescue")
 
   # without this, the card generators don't list with: decko g --help
