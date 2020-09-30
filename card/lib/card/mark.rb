@@ -1,4 +1,3 @@
-warn "loading mark #{caller[0..10]*"\n"}"
   # Card::Mark provides class methods for Card to translate all different kind
   # of card identifiers to card objects.
 module Card::Mark

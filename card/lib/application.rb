@@ -76,3 +76,5 @@ class Card < ApplicationRecord
     end
   end
 end
+
+ActiveSupport.run_load_hooks :after_application_record, self

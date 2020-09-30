@@ -121,6 +121,7 @@ class Card
 
       # generate Hash for @codehash and put it in the cache
       def load_codehash
+#binding.pry
         ::Card.cache.fetch("CODEHASH") do
           generate_codehash
         end

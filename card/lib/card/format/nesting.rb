@@ -1,3 +1,8 @@
+
+require 'card/format/nesting/main'
+require 'card/format/nesting/subformat'
+require 'card/format/nesting/mode'
+
 class Card
   class Format
     # the core of the nesting api

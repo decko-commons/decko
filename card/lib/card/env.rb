@@ -1,3 +1,9 @@
+
+require 'card/env/location_history'
+require 'card/env/request_assignments'
+require 'card/env/slot_options'
+require 'card/env/serialization'
+require 'card/env/location'
 class Card
   # Card::Env is a module for containing the variable details of the environment
   # in which Card operates.

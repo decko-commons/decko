@@ -5,7 +5,7 @@ end
 
 # -*- encoding : utf-8 -*-
 
-Card.application.class.configure do
+Card::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   config.view_cache = false
