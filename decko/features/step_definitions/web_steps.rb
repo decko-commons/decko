@@ -125,10 +125,15 @@ When /^(?:|I )choose "([^"]*)"$/ do |field|
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
-  expect(page.gsub(/\s+/, " ")).to have_content(text)
+  expect(page).to have_content(text)
   # once we're at capybara 3.5 we can use `normalize_ws: true` (ws = white space)
-  # in have_content and get rid of the gsub (which is needed because
-  # capybara 3 changed things in a way that shows more line breaks)
+  # in have_content
+end
+
+Then /^(?:|I )should see "([^"]*)" with line breaks$/ do |text|
+  expect(page).to have_content(text.gsub(" ", "\n"))
+  # once we're at capybara 3.5 we can use `normalize_ws: true` (ws = white space)
+  # in have_content
 end
 
 Then /^(?:|I )should see in search "([^"]*)"$/ do |text|
