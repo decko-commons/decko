@@ -196,16 +196,15 @@ class DeckoGenerator < Rails::Generators::AppBase
   end
 
   def javascript_spec_setup jasmine_prefix
-    inside "spec" do
-      template File.join("javascripts", "support", "#{jasmine_prefix}.yml"),
-               File.join("javascripts", "support", "jasmine.yml")
+    inside "spec/javascripts/support" do
+      template "#{jasmine_prefix}.yml", "jasmine.yml"
     end
   end
 
   def shared_dev_setup
     @cardio_gem_root = File.join @repo_path, "card"
     @decko_gem_root = File.join @repo_path, "decko"
-    empty_directory "spec"
+    empty_directory "spec/javascripts/support"
     inside "config" do
       template "puma.rb"
     end
