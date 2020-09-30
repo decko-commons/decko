@@ -1,5 +1,5 @@
 --color
 --profile
 --backtrace
---default-path '<%= @spec_path %>'
---require '<%= @spec_helper_path %>'
+--default-path '<%= File.expand_path @spec_path %>'
+--require '<%= File.expand_path @spec_helper_path %>'
