@@ -125,7 +125,9 @@ When /^(?:|I )choose "([^"]*)"$/ do |field|
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
-  expect(page).to have_content(text, normalize_ws: true)
+  expect(page).to have_content(text.gsub(/\s+/, " "))
+  # once we're at capybara 3.5 we can add `normalize_ws: true`
+  # to have_content, and that should fix the line
 end
 
 Then /^(?:|I )should see in search "([^"]*)"$/ do |text|
