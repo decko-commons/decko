@@ -15,6 +15,10 @@ class Card
         render! view, render_args(match[:underscore], match[:bang], opts)
       end
 
+      def action_view
+        @action_view ||= root? ? new_action_view : root.action_view
+      end
+
       private
 
       def respond_to_missing? method, _include_private=false
@@ -43,10 +47,6 @@ class Card
         ActionView::Base.new(lookup_context, { _routes: c._routes }, c).tap do |t|
           t.extend c.class._helpers
         end
-      end
-
-      def action_view
-        @action_view ||= root? ? new_action_view : root.action_view
       end
 
       def delegate_to_action_view method, opts, proc
