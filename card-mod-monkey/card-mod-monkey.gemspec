@@ -8,7 +8,7 @@ DeckoGem.mod "monkey" do |s, _d|
 
   [
     ["colorize"],
-    ["better_errors"],
+    ["better_errors", "!= 2.8.2"],
     ["binding_of_caller"],
     ["delayed_job_active_record", "~> 4.1"],
     ["html2haml"],
