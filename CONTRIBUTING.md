@@ -1,5 +1,6 @@
+<!--
 # @title Contributing as a Shark, Monkey, or Platypus
-
+-->
 # Thinking about contributing to Decko?
 Nice! There's tons to do involving lots of different skillsets, and we welcome the help.
 
