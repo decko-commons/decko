@@ -91,7 +91,7 @@ module Decko
               desc: "seed all databases (production, development, and test)",
               command: "decko seed --all",
               code: proc do
-                %w(production development test).each do |env|
+                %w[production development test].each do |env|
                   bundle_exec "rake decko:seed", rails_env: env
                 end
                 add_after_seed_options
@@ -118,4 +118,3 @@ module Decko
     end
   end
 end
-
