@@ -15,7 +15,7 @@ DeckoGem.gem "decko-cucumber" do |s, _d|
     ["database_cleaner", "~> 1.5"], # used by cucumber for db transactions
     ["launchy"], # lets cucumber launch browser windows
 
-    ["capybara"],
+    ["capybara", "~> 2.18"], # see comments in web_steps.rb
     ["capybara-puma"],
     ["chromedriver-helper", "~> 2.1.0"],
     ["selenium-webdriver", "3.141.0"],

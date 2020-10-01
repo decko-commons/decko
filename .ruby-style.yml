@@ -88,7 +88,7 @@ RSpec/FilePath:
   CustomTransform:
     RuboCop: rubocop
     RSpec: rspec
-    Card: spec
+    Card: ""
   IgnoreMethods: false
 RSpec/NestedGroups:
   Description: Checks for nested example groups.
