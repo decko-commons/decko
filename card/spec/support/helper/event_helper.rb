@@ -82,7 +82,7 @@ class Card
       # Turn delayed jobs on and run jobs after the given block.
       # If count is given check if it matches the number of created jobs.
       def with_delayed_jobs count=nil
-        Delayed::Worker.delay_jobs = true
+        Cardio.config.delaying = true
         expect(Delayed::Job.count).to eq(0), "expected delayed job to start with an empty queue"
         yield
         if count
@@ -90,7 +90,7 @@ class Card
         end
         Delayed::Worker.new.work_off
         expect(Delayed::Job.count).to eq(0), "not all delayed jobs were executed"
-        Delayed::Worker.delay_jobs = false
+        Cardio.config.delaying = false
       end
     end
   end

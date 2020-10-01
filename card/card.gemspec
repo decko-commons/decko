@@ -38,7 +38,6 @@ DeckoGem.gem "card" do |s, d|
 
     # other
     ["diff-lcs",                    "~> 1.3"], # content diffs in histories
-    ["delayed_job_active_record",   "~> 4.1"],
     ["activerecord-import",         "~> 1.0"],
 
     ["rake",                     "<= 12.3.0"],

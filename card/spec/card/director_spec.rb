@@ -413,7 +413,7 @@ RSpec.describe "Card::Director" do
       expect(Card["act card"].acts.size).to eq(1), "new act for 'act card'"
       expect(Card["A"].actions.last.act).to eq Card["act card"].acts.last
 
-      Delayed::Worker.delay_jobs = false
+      Cardio.config.delaying = false
     end
 
     it "create works in integrate_with_delay stage" do

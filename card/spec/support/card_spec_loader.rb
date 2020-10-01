@@ -55,7 +55,7 @@ class CardSpecLoader
         config.use_instantiated_fixtures = false
 
         config.before(:each) do |example|
-          Delayed::Worker.delay_jobs = false
+          Cardio.config.delaying = false
           unless example.metadata[:as_bot]
             user_id =
               case example.metadata[:with_user]
