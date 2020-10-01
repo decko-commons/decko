@@ -1,6 +1,6 @@
 card/lib/card.rb 993ca4941e0502aed39440d8e60f66089804da69
-card/lib/cardio.rb 0d277ceff72e5ea269ca44dfe3749dd05a8e1a1b
-decko/lib/decko.rb 92efc7f2b21727ae0ebb13c0a819682d9bc04000
+card/lib/cardio.rb 79e348a0d31ba0504a5fe383ee59b62c8051f9f5
+decko/lib/decko.rb d30113d97835e8280ecef892847fbe3b9067f66c
 card/lib/card/env.rb 419fb6025fb313bde8fa05d080a6af99d81262c9
 card/lib/card/mod.rb ff808f4b3917cf7ad99737c65ce64ed567488aa6
 card/lib/card/set.rb 4ec7894ab1d92c24828c2d33684aec0fa3470b4c
@@ -14,7 +14,7 @@ card/lib/card/error.rb b89713bda375e3b98ab1b3c9331cc98af92397c4
 card/lib/card/query.rb f113eb34f640b66200e533fa74a294b880d1b6cf
 decko/lib/decko/all.rb 08c7d83c9a2aeb5912d25ce67f857ce4f2476611
 decko/lib/decko/cli.rb 2c142a2f76cdf0b60fda8e4093936d404ef406f0
-card/lib/card/format.rb 18ee1ed1149d4958fff0a24f9370c2a6582996bd
+card/lib/card/format.rb 936d07d536d9f5bf981b7f67c7dcd7d1db0b1e44
 card/lib/card/mailer.rb f27dba019ae11e79a03c55a5466ded204bec03a2
 card/lib/card/content.rb 3efbc51ee86027bedf046f69203d832d90641716
 card/lib/card/lexicon.rb 07fbe0a103725842e96bf6df5ea64998a60ce98a
@@ -72,7 +72,7 @@ card/lib/card/mod_inflector.rb 1ea04942aa4ffb4ef8e794ebcc04f15f81543c2e
 card/lib/card/set/code_nest.rb c8a2f725e63b06b9a639762af167c0188a896e2b
 cardname/lib/cardname/parts.rb 3da0241be07c4a325dbd6d5f7ca7c19d03b87643
 decko-rails/lib/decko/rails.rb 41536d679bc49343d0c2312d6339b8f3f37f9507
-decko/lib/decko/application.rb 8afcd1eaa8e453a490c7ef015048b5e10cc09e18
+decko/lib/decko/application.rb 3f01914b005c0c08619c3b811c18188da255ad0d
 decko/lib/decko/tasks/alias.rb 7a668e7d1cc3568b89a183885b09ecc0b0241330
 card/lib/card/content/parser.rb f30464bdf7fa18d1c71a951aee5cdfe2fc719369
 card/lib/card/director/store.rb 994223f3bd224487776f1511c1d19e1855c97aa6
@@ -116,7 +116,7 @@ cardname/lib/cardname/contextual.rb 02a9ac3dd07a5ea605ee618547fa3a1bd50e7886
 cardname/lib/cardname/manipulate.rb 491064798166a692234c20d7d275aaade987df65
 cardname/lib/cardname/predicates.rb 82f6d2b278ad1715958497acd207e76484527217
 decko/lib/decko/commands/command.rb 3d4e291b0eac56b64af5520b24b1784bab294934
-decko/lib/decko/mods_spec_helper.rb 46cbd8fcc2aedfcffbd5e90bccfb5c5a37b86518
+decko/lib/decko/mods_spec_helper.rb 282f86f49cf82b8a0c6bd3489b8685ab8f1d648a
 decko/lib/decko/rest_spec_helper.rb ef70347e8b5af0c778dde1c7c6ed42bb5da568cf
 card/lib/card/content/diff/result.rb ca4941429d2ac9fc81a3d8b091d97a6e8c332714
 card/lib/card/format/nesting/main.rb 5bdddcf38c06117be2ca15d81a70f8552f46cf68
@@ -125,7 +125,7 @@ card/lib/card/format/registration.rb be82898b37500931f0f522c6a95816978ab5e624
 card/lib/card/mod/module_template.rb 514f30b0ea545136f478f3ac90cd8befecdb1f4b
 card/lib/card/query/sql_statement.rb 4bc9276dd8d978872fb2aec2a9d64c6d540c0fc3
 card/lib/card/set/event/callbacks.rb 601572407f0b7994debc7b47c32e1de6c1d94caa
-card/lib/card/director/event_delay.rb ac47c99f3b40624fd5d21b2c6eb353a5f207e922
+card/lib/card/director/event_delay.rb 5fbe1739808b5ddc33c869ada19e789b38599cc3
 card/lib/card/dirty/method_factory.rb fb66e7dad551dd9f8ca041b824d1b5a79cb9950d
 card/lib/card/env/location_history.rb 228714baa56ba59021f5bffffdf6ed875a594398
 card/lib/card/format/context_names.rb 469ae0b38a7c2605716601109d7aa592375ecdf3
@@ -153,7 +153,7 @@ card/lib/card/view/cache/cache_action.rb 1aa8d6f05bb5e0431a7459d369bda1947a752c0
 card/lib/card/view/options/visibility.rb a39c1a50937eafde41c02838e31e66c7ba8725be
 decko/lib/decko/commands/rake_command.rb a911600d9206e7387c0724ccf717e468474f28ec
 card-mod-follow/lib/card/follow_option.rb 8fb978de957d2e1527e10258ae38e53d9fbc4c97
-card/lib/card/format/method_delegation.rb 5c848812426e1abf61b7b0ab1b0fdec1852e3959
+card/lib/card/format/method_delegation.rb c0ad2cfdd07f02755b94ba6f1dc5b16d816dfac5
 card/lib/card/format/nesting/subformat.rb 92a22826adedf7f5be4aac966743c712a2c16779
 card/lib/card/migration/deck_structure.rb dd23d367a7c7e1e69717f9c6a6af1c03efb0931d
 card/lib/card/query/abstract_query/tie.rb 803fa61edb948d97e26d916cc4131949f551183b
@@ -166,10 +166,10 @@ card/lib/card/query/sql_statement/order.rb e44e87c1018462e3405bace2bd1bb1a5f5a0f
 card/lib/card/query/sql_statement/where.rb cb618a9d59745c72a861e357a2a25aba64233a1d
 card/lib/card/director/subdirector_array.rb 0d8e46dc796633ef17a2e7c02e3e4aca88db7449
 card/lib/card/set/format/abstract_format.rb d41a947e55cd9e0d1f50dc6a5d1667a38330198a
-decko/lib/decko/config/environments/test.rb 17037d62581be8e88625a6c9ce6789f1822835fb
+decko/lib/decko/config/environments/test.rb 94d0880049c0fba27da464e099f04bf5f4232338
 card-mod-bootstrap/lib/bootstrap/delegate.rb 97eb0343de52925ca65fab94ad75aa010de54999
 card/lib/card/mod/load_strategy/tmp_files.rb 003dcb2ac183c12f663934b20026d0c655ddec46
-decko/lib/decko/commands/cucumber_command.rb 9b22877f7cad3a59475b0adfdcbf74bdca0ca077
+decko/lib/decko/commands/cucumber_command.rb 67edd4bc53337deac4e8002c3a027c0c49c0203f
 card-mod-bootstrap/lib/bootstrap/component.rb 9774b337f08a42dda5d63c03fd46d0153b85bdcf
 card/lib/card/content/diff/l_c_s/processor.rb 37b7f40ef585b0806aae250900432d6b9857e74d
 card/lib/card/migration/import/import_data.rb f346dc231ec83419d0aa6c5aef67e98129349c76
@@ -199,7 +199,7 @@ card/lib/card/set/format/abstract_format/wrapper.rb e9ec44429ecfd1daf631355230d8
 card/lib/generators/card/format/format_generator.rb b2c84f1cbd942b540357f5195eadfbe620fa0cef
 decko/lib/decko/commands/cucumber_command/parser.rb 359fd0d271dcb559b7371140bd5ebcdcb4e35d4d
 decko/lib/decko/config/initializers/secret_token.rb 1dbbf0c42d38f9465325a56a28aa32ec8a729441
-decko/lib/decko/generators/decko/decko_generator.rb a03448eb8b34511dc01bae3f408ce4f5ae37f0a4
+decko/lib/decko/generators/decko/decko_generator.rb 4b92c547a7637050405cb61a8fd9dc1c6013a9ba
 card-mod-bootstrap/lib/bootstrap/component/layout.rb d3f5e1c4baef83e1c6d546a60b53db31c3cae298
 card-mod-bootstrap/lib/bootstrap/component_loader.rb cbdaa0fdcbfb318c92f000fdf6ac649ae1fdc49f
 card/lib/card/mod/load_strategy/pattern_tmp_files.rb 05ae138b139c0228325c8ec297e631376be0e021
@@ -223,7 +223,7 @@ card/lib/card/tasks/card/file_card_creator/output_helper.rb 4f3f9aa30ada2e4782fe
 card-mod-carrierwave/lib/carrier_wave/image_card_uploader.rb 40278579937347ad478c2010d76e373db487b578
 card-mod-bootstrap/lib/bootstrap/component/horizontal_form.rb 2d3b17d25c50265768b74c3f4e847517d7ad9f75
 card/lib/card/migration/import/import_data/card_attributes.rb f37bfd83536f82a88b15caa4078098ab9ed415c9
-decko/lib/decko/generators/decko/decko_generator/interactive.rb 186e3bf8866f97a53a60901c0be4e9a3bf9850a2
+decko/lib/decko/generators/decko/decko_generator/interactive.rb 9ff1109ba764a77d3f612c588388d728db619000
 card/lib/card/tasks/card/file_card_creator/abstract_file_card.rb 7de337def7bb1c6b8044d21e7cf57aac037f9058
 card/lib/card/tasks/card/file_card_creator/abstract_file_card/ruby_file.rb 6e7bcaff81ba28549afad3dc3f01b5e721197fd3
 card/lib/card/tasks/card/file_card_creator/abstract_file_card/source_file.rb dc12c9c4ac35d9e8c3a5c73100b68beb533b136b
@@ -714,3 +714,15 @@ card/tmpsets/set/mod027-card-mod-follow/type_plus_right/user/follow/follow_edito
 card/tmpsets/set/mod024-card-mod-bootstrap/type_plus_right/customized_bootswatch_skin/colors.rb 3fbf9fa49ddab2500fabf2ebce05a9f20127037b
 card/tmpsets/set/mod032-card-mod-tinymce_editor/all/reference_editor/link_editor/link_parser.rb 3ab5664c535bbc4f021f6b20e1a779f1c401925e
 card/tmpsets/set/mod032-card-mod-tinymce_editor/all/reference_editor/nest_editor/nest_parser.rb 7dc415e8a2cca98d416ae00c21bbe58b2a674f3e
+decko-rspec/lib/decko/rspec.rb baf6e4205fb0ec2f0dac0da80ae1a7de1161fbf5
+decko-spring/lib/decko/spring.rb 14d982405e56ac4b5fb42770c4acccfb04905c91
+decko-profile/lib/card/profile.rb 971b4ba76953bc7b8eb990c0c243cb20f9e33b90
+decko-cypress/lib/decko/cypress.rb e15c7975f4e2c54457a29b616ab2828e41571a98
+decko-cucumber/lib/decko/cucumber.rb a5f38a2274d3822edf0b67799b5563e75e36cd03
+card-mod-monkey/lib/card/mod/monkey.rb 2ecbc8a61e00073e172de6b0a027f9751397b2e7
+card-mod-platypus/lib/card/mod/platypus.rb f0a7392483ccedf5fe3ac03649ebf6116ab70942
+card-mod-background/lib/card/mod/background.rb 0977aed601caf673206b4b97685ad701799efe9c
+decko/lib/decko/generators/decko/templates/config/puma.rb 171233ccce7f170a75c7e254d4e39e7c72af3d8f
+decko/lib/decko/generators/decko/templates/spec/spec_helper.rb 1381ac360a35949407d5904ca37c710d1810e6fd
+decko/lib/decko/generators/decko/templates/config/initializers/cypress_dev.rb 40b808f04128f3aa39565364e8fa053779f0b1d2
+decko/lib/decko/generators/decko/templates/config/initializers/cypress_on_rails.rb 28f6abceb0151085f56c338c96d706afb4446d16

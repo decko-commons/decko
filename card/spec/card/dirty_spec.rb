@@ -1,7 +1,7 @@
 RSpec.describe Card::Dirty do
   describe "dirty attributes" do
-    before { Cardio.config.delaying = true }
-    after { Cardio.config.delaying = false }
+    before { Cardio.delaying! }
+    after { Cardio.delaying! :off }
 
     it "survives to integration phase" do
       with_test_events do
