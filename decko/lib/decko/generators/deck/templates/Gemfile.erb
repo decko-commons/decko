@@ -28,9 +28,11 @@ gem "card-mod-defaults"
 
 
 # BACKGROUND
-# The daemons gem is needed to run tasks like sending notifications in a background
-# process. See config/application.rb for configuration details.
-<%= "# " if shark? %>gem "card-mod-background"<%= ", group: :test" unless shark? %>
+# A background gem is needed to run tasks like sending notifications in a background
+# process.
+# See https://github.com/decko-commons/decko/tree/master/card-mod-delayed_job
+# for additional configuration details.
+<%= "# " if shark? %>gem "card-mod-delayed_job"<%= ", group: :test" unless shark? %>
 
 
 # MONKEYS
