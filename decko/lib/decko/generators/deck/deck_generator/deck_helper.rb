@@ -2,17 +2,11 @@ module Decko
   module Generators
     module Deck
       class DeckGenerator
-<<<<<<< HEAD
-        module DeckHelper
-          protected
-          
-=======
         # Protected helper methods for DeckGenerator.
         # Many methods are called from .erb files.
         module DeckHelper
           protected
 
->>>>>>> background
           def shark?
             !(monkey? || platypus?)
           end
@@ -25,13 +19,10 @@ module Decko
             options[:platypus]
           end
 
-<<<<<<< HEAD
-=======
           def erb_template name
             template "#{name}.erb", name
           end
 
->>>>>>> background
           def repo_path
             @repo_path ||= determine_repo_path
           end
