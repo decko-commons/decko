@@ -21,13 +21,24 @@ class Card
 
       private
 
-      def respond_to_missing? method, _include_private=false
-        (method =~ RENDER_METHOD_RE) || action_view.respond_to?(method)
+      def api_render? method
+        method.match RENDER_METHOD_RE
       end
 
+      def respond_to_missing? method, _include_private=false
+        api_render?(method) || action_view?(method)
+      end
+
+      def action_view? method
+        action_view.respond_to? method
+      end
+
+      # TODO: make it so we fall back to super if action_view can't handle method.
+      # It's not as easy as `elsif api_render? method`, because respond_to gives
+      # false for many methods action view can actually handle, like `h`
       def method_missing method, *opts, &proc
-        if method =~ RENDER_METHOD_RE
-          api_render Regexp.last_match, opts
+        if (match = api_render? method)
+          api_render match, opts
         else
           delegate_to_action_view(method, opts, proc) { yield }
         end
