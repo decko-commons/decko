@@ -13,7 +13,7 @@ DeckoGem.mod "platypus" do |s, _d|
     ["fog-aws"],
 
     ["codeclimate-test-reporter"],
-    ["timecop"],
+    ["timecop"]
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end

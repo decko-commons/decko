@@ -21,15 +21,25 @@ class Card
 
       private
 
+      def api_render? method
+        method.match? RENDER_METHOD_RE
+      end
+
       def respond_to_missing? method, _include_private=false
-        (method =~ RENDER_METHOD_RE) || action_view.respond_to?(method)
+        api_render?(method) || action_view?(method)
+      end
+
+      def action_view? method
+        action_view.respond_to? method
       end
 
       def method_missing method, *opts, &proc
-        if method =~ RENDER_METHOD_RE
+        if api_render? method
           api_render Regexp.last_match, opts
-        else
+        elsif action_view? method
           delegate_to_action_view(method, opts, proc) { yield }
+        else
+          super
         end
       end
 
