@@ -1,6 +1,6 @@
 module Decko
   module Generators
-    class DeckoGenerator
+    class DeckGenerator
       ### the following is straight from rails and is focused on checking
       # the validity of the app name.needs decko-specific tuning
       module RailsOverrides

@@ -2,9 +2,9 @@ require "rails/generators/app_base"
 
 module Decko
   module Generators
-    class DeckoGenerator < Rails::Generators::AppBase
-      require "decko/generators/decko_generator/rails_overrides"
-      require "decko/generators/decko_generator/database_files"
+    class DeckGenerator < Rails::Generators::AppBase
+      require "decko/generators/deck_generator/rails_overrides"
+      require "decko/generators/deck_generator/database_files"
 
       include RailsOverrides
       include DatabaseFiles

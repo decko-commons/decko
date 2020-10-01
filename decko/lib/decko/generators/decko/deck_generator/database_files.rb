@@ -1,6 +1,6 @@
 module Decko
   module Generators
-    class DeckoGenerator
+    class DeckGenerator
       module DatabaseFiles
         protected
 
