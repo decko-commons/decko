@@ -2,6 +2,8 @@ module Decko
   module Generators
     module Deck
       class DeckGenerator
+        # Protected helper methods for DeckGenerator.
+        # Many methods are called from .erb files.
         module DeckHelper
           protected
 
@@ -15,6 +17,10 @@ module Decko
 
           def platypus?
             options[:platypus]
+          end
+
+          def erb_template name
+            template "#{name}.erb", name
           end
 
           def repo_path
@@ -68,8 +74,12 @@ module Decko
             text
           end
 
+          def simplecov_config
+            "" # TODO: add simplecov configs here
+          end
+
           def mysql_socket
-            return if RbConfig::CONFIG["host_os"] =~ /mswin|mingw/
+            return if RbConfig::CONFIG["host_os"].match?(/mswin|mingw/)
 
             @mysql_socket ||= [
               "/tmp/mysql.sock",                        # default

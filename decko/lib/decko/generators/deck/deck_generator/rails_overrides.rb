@@ -18,25 +18,25 @@ module Decko
 
           def defined_app_const_base
             Rails.respond_to?(:application) && defined?(Rails::Application) &&
-                Decko.application.is_a?(Rails::Application) &&
-                Decko.application.class.name.sub(/::Application$/, "")
+              Decko.application.is_a?(Rails::Application) &&
+              Decko.application.class.name.sub(/::Application$/, "")
           end
 
-          alias defined_app_const_base? defined_app_const_base
+          alias_method :defined_app_const_base?, :defined_app_const_base
 
           def app_const_base
             @app_const_base ||= defined_app_const_base ||
-                app_name.gsub(/\W/, "_").squeeze("_").camelize
+                                app_name.gsub(/\W/, "_").squeeze("_").camelize
           end
 
-          alias camelized app_const_base
+          alias_method :camelized, :app_const_base
 
           def app_const
             @app_const ||= "#{app_const_base}::Application"
           end
 
           def valid_const?
-            if app_const =~ /^\d/
+            if app_const.match?(/^\d/)
               invalid_app_name "Please give a name which does not start with numbers."
             elsif Object.const_defined?(app_const_base)
               invalid_app_name "constant #{app_const_base} is already in use. " \

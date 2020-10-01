@@ -3,6 +3,7 @@ require "rails/generators/app_base"
 module Decko
   module Generators
     module Deck
+      # Create new Decks (Decko Applications)
       class DeckGenerator < Rails::Generators::AppBase
         require "decko/generators/deck/deck_generator/rails_overrides"
         require "decko/generators/deck/deck_generator/deck_helper"
@@ -48,7 +49,7 @@ module Decko
         # Generator works its way through each public method below
 
         def rakefile
-          template "Rakefile.erb", "Rakefile"
+          erb_template "Rakefile"
         end
 
         def mod
@@ -68,11 +69,11 @@ module Decko
         end
 
         def gemfile
-          template "Gemfile.erb", "Gemfile"
+          erb_template "Gemfile"
         end
 
         def configru
-          template "config.ru.erb", "config.ru"
+          erb_template "config.ru"
         end
 
         def gitignore
@@ -81,17 +82,17 @@ module Decko
 
         def config
           inside "config" do
-            template "application.erb", "application.rb"
-            template "routes.erb", "routes.rb"
-            template "environment.erb", "environment.rb"
-            template "boot.erb", "boot.rb"
+            erb_template "application.rb"
+            erb_template "routes.rb"
+            erb_template "environment.rb"
+            erb_template "boot.rb"
             template "databases/#{options[:database]}.yml", "database.yml"
-            template "cucumber.yml" if platypus?
+            template "cucumber.yml"
             template "initializers/cypress_on_rails.rb" if platypus?
             template "puma.rb"
           end
-          template "rspec", ".rspec"
-          template "simplecov", ".simplecov"
+          template "rspec.erb", ".rspec"
+          template "simplecov.erb", ".simplecov"
         end
 
         def public
@@ -102,7 +103,7 @@ module Decko
         end
 
         def spring
-          inside("bin") { template "spring" }
+          inside("bin") { erb_template "spring" }
         end
 
         def script
@@ -127,8 +128,8 @@ module Decko
             Interactive.new(destination_root, (monkey? || platypus?)).run
           else
             puts "Now:
-      1. Run `cd #{File.basename(destination_root)}` to move your new deck directory
-      2. Run `decko seed` to seed your database (see db configuration in config/database.yml).
+      1. Run `cd #{File.basename(destination_root)}` to enter your new deck directory
+      2. Run `decko seed` to seed your database (see config/database.yml).
       3. Run `decko server` to start your server"
           end
         end
