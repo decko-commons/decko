@@ -1,5 +1,0 @@
-unless ENV['COVERAGE'] == 'false'
-	SimpleCov.start do
-		<%= @simplecov_config %>
-	end
-end

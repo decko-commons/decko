@@ -1,5 +1,6 @@
+<!--
 # @title README - mod: follow
-
+-->
 # Follow
 
 Follow sets cards, get notified when any card in the set changes.
