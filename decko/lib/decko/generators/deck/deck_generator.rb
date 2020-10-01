@@ -6,10 +6,9 @@ module Decko
       class DeckGenerator < Rails::Generators::AppBase
         require "decko/generators/deck/deck_generator/rails_overrides"
         require "decko/generators/deck/deck_generator/deck_helper"
-        # require "decko/generators/deck/deck_generator/database_files"
 
         include RailsOverrides
-        include DatabaseFiles
+        include DeckHelper
 
         source_root File.expand_path("../templates", __FILE__)
 

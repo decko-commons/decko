@@ -2,7 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.mod "background" do |s, _d|
+DeckoGem.mod "delayed_job" do |s, _d|
   s.summary = "Background processing with Delayed Job"
   s.description = ""
   #   s.add_runtime_dependency "daemons"
