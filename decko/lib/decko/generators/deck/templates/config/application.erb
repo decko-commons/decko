@@ -6,7 +6,8 @@ module <%= app_const_base %>
   class Application < Decko::Application
     config.performance_logger = nil
 
-    # Decko inherits Rails configuration options.  See http://guides.rubyonrails.org/configuring.html
+    # Decko inherits most Ruby-on-Rails configuration options.
+    # See http://guides.rubyonrails.org/configuring.html
 
     # Email configuration
     config.action_mailer.perform_deliveries = false
@@ -18,21 +19,13 @@ module <%= app_const_base %>
     # config.action_mailer.delivery_method = :smtp
     # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 
-
-    # Background jobs
-    # Moves time-consuming minor tasks that are part of a card transaction (like sending notifications
-    # to followers) to a background process. To activate it add the 'daemons' gem to the Gemfile, uncomment
-    # the line below and run 'bin/delayed_job start' to start the background process.
-    # See https://github.com/collectiveidea/delayed_job#running-jobs for more information
-    #
-    # Delayed::Worker.delay_jobs = true
-
     # config.read_only = true
     # defaults to false
     # disallows creating, updating, and deleting cards.
 
     # config.cache_store = :file_store, 'tmp/cache'
-    # determines caching mechanism.  options include: file_store, memory_store, mem_cache_store, dalli_store...
+    # determines caching mechanism.  options include: file_store, memory_store,
+    # mem_cache_store, dalli_store...
     #
     # for production, we highly recommend memcache
     # here's a sample configuration for use with the dalli gem
@@ -77,10 +70,10 @@ module <%= app_const_base %>
     # config.allow_inline_styles = false
     # don't strip style attributes (not recommended)
 
-    # config.override_host = nil
-    # don't autodetect host (example.com) from web requests
+    # config.override_host = "example.com"
+    # overrides host autodetected from web requests
 
-    # config.override_protocol = nil
-    # don't autodetect protocol (http/https) from web requests
+    # config.override_protocol = "https"
+    # overrides protocol autodetected from web requests
   end
 end
