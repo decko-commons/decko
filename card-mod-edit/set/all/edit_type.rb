@@ -51,8 +51,8 @@ format :html do
   def type_field args={}
     typelist = Auth.createable_types
     current_type = type_field_current_value args, typelist
-    template.select_tag "card[type]", type_field_options(current_type),
-                        args.merge("data-select2-id": "#{unique_id}-#{Time.now.to_i}")
+    action_view.select_tag "card[type]", type_field_options(current_type),
+                           args.merge("data-select2-id": "#{unique_id}-#{Time.now.to_i}")
   end
 
   def type_field_options current_type
