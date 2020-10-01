@@ -1,5 +1,5 @@
 class Card
-  class Name
+  class Name < Cardname
     module NameVariants
       @@variant_methods = %i[capitalize singularize pluralize titleize
                              downcase upcase swapcase reverse succ]

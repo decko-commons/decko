@@ -1,6 +1,8 @@
+
+class Card
   # Card::Mark provides class methods for Card to translate all different kind
   # of card identifiers to card objects.
-module Card::Mark
+  module Mark
     ID_MARK_RE = /^~(?<id>\d+)$/.freeze
     CODENAME_MARK_RE = /^:(?<codename>\w+)$/.freeze
 
@@ -62,4 +64,5 @@ module Card::Mark
     def name_from_mark mark
       Card::Name[mark]
     end
+  end
 end

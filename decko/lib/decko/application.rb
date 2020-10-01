@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 
 require "decko/engine"
-require "card/application"
+require "cardio/application"
 djar = "delayed_job_active_record"
 require djar if Gem::Specification.find_all_by_name(djar).any?
 
 module Decko
-  class Application < Card::Application
+  class Application < Cardio::Application
     class << self
       def inherited base
         super

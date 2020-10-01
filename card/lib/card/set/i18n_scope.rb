@@ -72,7 +72,7 @@ class Card
       #
       #
       def tmp_files?
-        Card.config.load_strategy == :tmp_files
+        Cardio.config.load_strategy == :tmp_files
       end
 
       def find_set_path backtrace

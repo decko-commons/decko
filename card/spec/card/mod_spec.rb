@@ -1,4 +1,4 @@
-RSpec.describe Card::Mod do
+RSpec.describe Cardio::Mod do
   describe "gem_spec" do
     it "finds card mods" do
       expect(described_class.gem_spec("card-mod-defaults"))

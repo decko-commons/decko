@@ -13,7 +13,7 @@ class Card
       end
 
       def rule_cache
-        Cache.read
+        Rule::Cache.read
       end
 
       def preference_cache

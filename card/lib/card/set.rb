@@ -1,5 +1,21 @@
 # -*- encoding : utf-8 -*-
 
+require 'card/set/basket'
+require 'card/set/event/delayed_event'
+require 'card/set/event/options'
+require 'card/set/event/callbacks'
+require 'card/set/event'
+require 'card/set/format/haml_paths'
+require 'card/set/format/abstract_format/haml_views'
+require 'card/set/format/abstract_format/view_definition'
+require 'card/set/format/abstract_format/view_opts'
+require 'card/set/format/abstract_format/wrapper'
+require 'card/set/format/abstract_format'
+require 'card/set/pattern'
+require 'card/set/pattern/base'
+#require 'card/set/pattern/helper'
+require 'card/set/required_field'
+
 class Card
   #
   # A _Set_ is a group of {Card Cards} to which _Rules_ may apply. Sets can be as
@@ -11,7 +27,7 @@ class Card
   # web interface and are thus documented at https://decko.org/rules.
   #  - **Code rules** can be defined in a 'set module'.
   #
-  # The {Card::Mod} docs explain how to create mods and set_modules. This page explains
+  # The {Cardio::Mod} docs explain how to create mods and set_modules. This page explains
   # how those modules become useful.
   #
   # Suppose you have created a "mod" for managing your contacts called "contactmanager",

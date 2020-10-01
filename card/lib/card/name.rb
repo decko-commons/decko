@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require "card/env"
-
 require "cardname"
 
 class Card

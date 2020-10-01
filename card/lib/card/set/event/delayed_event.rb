@@ -1,4 +1,4 @@
-require "application_job"
+require "cardio/application_job"
 
 class Card
   # attributes that ActiveJob can handle
@@ -47,7 +47,7 @@ class Card
           end
         end
 
-        class IntegrateWithDelayJob < ApplicationJob
+        class IntegrateWithDelayJob < Cardio::ApplicationJob
           def perform act_id, card, card_attribs, env, auth, method_name
             handle_perform do
               load_card card, card_attribs

@@ -68,7 +68,7 @@ module Decko
       end
 
       def run_card_task command
-        require "card/commands/rake_command"
+        require "cardio/commands/rake_command"
         RakeCommand.new(['card', command]*':', ARGV).run
       end
 
@@ -101,7 +101,7 @@ else
   when 'update' # decko:update
     Decko::Commands.run_decko_task command
   when *CARD_TASK_COMMANDS
-    require 'card/commands'
+    require 'cardio/commands'
     Card::Commands.run_card_task command
   else
     puts "Error: Command not recognized" unless command.in?(["-h", "--help"])

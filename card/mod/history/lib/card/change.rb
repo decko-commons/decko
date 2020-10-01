@@ -16,7 +16,7 @@ class Card
   # * the new _value_ of that field
   # * the {Action action} of which the change is part
   #
-  class Change < ApplicationRecord
+  class Change < Cardio::ApplicationRecord
     belongs_to :action, foreign_key: :card_action_id,
                         inverse_of: :card_changes
 

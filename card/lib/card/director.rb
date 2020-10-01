@@ -1,3 +1,10 @@
+require 'card/director/act_direction'
+require 'card/director/card_methods'
+require 'card/director/event_delay'
+require 'card/director/phases'
+require 'card/director/run'
+require 'card/director/stages'
+require 'card/director/store'
 class Card
   # Directs the symphony of a card {Card::Act **act**}.
   #

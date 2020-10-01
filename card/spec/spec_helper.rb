@@ -2,7 +2,7 @@
 
 require File.expand_path("../support/card_spec_loader.rb", __FILE__)
 CardSpecLoader.init
-require 'card/application'
+require 'cardio'
 require './config/environment'
 ActiveSupport.run_load_hooks :after_active_record
 

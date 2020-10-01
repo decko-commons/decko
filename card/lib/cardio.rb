@@ -1,12 +1,23 @@
 # -*- encoding : utf-8 -*-
 
 require "active_support/core_ext/numeric/time"
-require "cardio/schema.rb"
-require "cardio/utils.rb"
-require "cardio/modfiles.rb"
+require "cardio/application_record"
+require 'cardio/mod/loader'
+require 'cardio/mod/dirs'
+require 'cardio/mod/module_template'
+require 'cardio/mod/loader/set_pattern_loader'
+require 'cardio/mod/load_strategy'
+require 'cardio/mod/load_strategy/eval'
+require 'cardio/mod/loader/set_loader'
+require "cardio/mod"
+require "cardio/modfiles"
+require "cardio/schema"
+require "cardio/utils"
+
+require "card/all"
 
 ActiveSupport.on_load :after_card do
-  Card::Mod.load
+  Cardio::Mod.load
 end
 
 module Cardio

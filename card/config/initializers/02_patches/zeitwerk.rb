@@ -7,7 +7,7 @@ module Patches
       # reloading the Card class triggers also ::Card::Mod.load
       # via the after_card hook
       ::Card
-      # ::Card::Mod.load
+      # ::Cardio::Mod.load
     end
   end
 end

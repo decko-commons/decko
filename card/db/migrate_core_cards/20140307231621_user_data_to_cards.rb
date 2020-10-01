@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class User < ApplicationRecord
+class User < Cardio::ApplicationRecord
 end
 
 class UserDataToCards < Card::Migration::Core

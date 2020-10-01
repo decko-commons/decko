@@ -71,7 +71,7 @@ format :html do
   def decko_script_variables
     {
       "window.decko": { rootUrl: card_url("") },
-      "decko.doubleClick": Card.config.double_click,
+      "decko.doubleClick": Cardio.config.double_click,
       "decko.cssPath": head_stylesheet_path,
       "decko.currentUserId": (Auth.current_id if Auth.signed_in?)
 
@@ -143,6 +143,6 @@ format :html do
   end
 
   def rss_link?
-    Card.config.rss_enabled && respond_to?(:rss_link_tag)
+    Cardio.config.rss_enabled && respond_to?(:rss_link_tag)
   end
 end
