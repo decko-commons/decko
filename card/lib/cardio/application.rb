@@ -2,6 +2,7 @@
 
 require 'rails'
 require 'card/config/initializers/sedate_parser'
+require 'cardio/application_record'
 
 Bundler.require :default, *Rails.groups
 
@@ -14,28 +15,32 @@ end
 
 module Cardio
   class Application < Rails::Application
+=begin
     def initialize
       super
-warn "#{caller*"\n"}" if Cardio::Application.is_a? self.class
 warn "Init Capp: #{config.class} p:#{config.paths.class}"
     end
     def initialize!
-#warn "card::app.initialize!  #{self} #{self.class} after AR 2"
-      #ActiveSupport.run_load_hooks :after_active_record
-#warn "card::app.initialize! b card 3"
+warn "card::app inst.initialize!  #{self} #{self.class} bef req AR 2"
+      require 'cardio/application_record'
+      #ActiveSupport.run_load_hooks :after_application_record
+#warn "card::app inst.initialize! b card 3"
       #ActiveSupport.run_load_hooks :before_card
-warn "card::app.initialize! super 4"
+warn "card::app inst.initialize! super #{self.class} #{self.class.superclass} 4"
       super
-warn "card::app.initialize! end 5"
+warn "card::app inst.initialize! end 5"
     end
 
     class << self
       def initialize!
+warn "card::app.initialize! (super)"
+	super
 warn "card::app.initialize! 1"
       #Cardio.application.initialize!
-	super
-warn "card::app.initialize! (super)"
+#warn "card::app.initialize! 2"
       end
+=end
+    class << self
 
       def inherited base
 warn "ib Card #{base}, Ins:#{base.instance} CF:#{base.called_from}" #{caller*"\n"}"
@@ -53,6 +58,7 @@ warn "seting cardio app #{self}"
           # connect actual app instance to Cardio mattr
 warn "seting cardio app i:#{self.instance}"
           Cardio.load_card_environment
+#warn "early c on load card "
           #Cardio.connect_on_load
         end
       end
@@ -60,7 +66,7 @@ warn "seting cardio app i:#{self.instance}"
 
     initializer :connect_on_load do
 warn "c on load card "
-      Cardio.connect_on_load
+      Cardio.connect_on_load self
     end
 
     def config

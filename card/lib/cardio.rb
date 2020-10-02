@@ -9,6 +9,7 @@ require "cardio/utils"
 require 'active_support'
 
 ActiveSupport.on_load :after_card do
+warn "ol after_card Mod.load"
   require 'cardio/mod'
   Cardio::Mod.load
 end
@@ -193,23 +194,29 @@ warn "load env #{environment}"
       end
     end
 
-    def connect_on_load
-warn "set onload AR"
-      ActiveSupport.on_load(:application_record) do
-warn "onload AR #{caller*"\n"}"
+    def connect_on_load app
+return
+warn "set onload AppR"
+      ActiveSupport.on_load(:after_application_record) do
+warn "onload AR" #{caller[0..10]*"\n"}"
         ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
       end
-      #ActiveSupport.on_load(:before_card) do
-      #ActiveSupport.on_load(:after_initialize) do
+      ActiveSupport.on_load(:before_card) do
+warn "b card #{app}, #{self}"
+        app.initialize!
+      end
+      ActiveSupport.on_load(:after_initialize) do
+warn "aft init #{app}"
+      end
         # require "card/all" if Cardio.load_card?
       #  require 'card' if Cardio.load_card?
       #rescue ActiveRecord::StatementInvalid => e
       # ::Rails.logger.warn "database not available[#{::Rails.env}] #{e}"
       #end
       #end
-      ActiveSupport.on_load(:after_card) do
-warn "load ap rec trig, load card"
-        #Cardio.load_card!
+      ActiveSupport.on_load(:after_application_record) do
+warn "load ap rec trig, load card #{app}, #{Cardio.application}"
+        #ActiveSupport.run_load_hooks :initialize, Cardio.application
       end
 warn "set onload done"
     end

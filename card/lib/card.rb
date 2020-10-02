@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-warn "card loading"
+raise "card loading"
 ActiveSupport.run_load_hooks(:before_card, self)
 require 'card/essential'
 warn "card ess done"

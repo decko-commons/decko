@@ -1,3 +1,4 @@
+raise "patch callback"
 module Patches
   module ActiveSupport
     module Callbacks

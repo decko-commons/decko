@@ -3,11 +3,7 @@ require 'card/director/act_direction'
 require 'card/director/card_methods'
 require 'card/director/event_delay'
 require 'card/director/run'
-warn 'pre stages'
-require 'card/director/stages'
-warn 'post stages'
 require 'card/director/store'
-require 'card/director/phases'
 warn "require card/director end"
 class Card
   # Directs the symphony of a card {Card::Act **act**}.
@@ -147,10 +143,16 @@ class Card
     extend EventDelay
     extend ActDirection
 
-    include Stages
-    include Phases
     include Run
     include Store
+warn 'pre stages'
+    require 'card/director/stages'
+    require 'card/director/phases'
+warn 'post require'
+    include Stages
+warn 'pre phases'
+    include Phases
+warn 'post phases'
 
     attr_accessor :act, :card, :stage, :parent, :subdirectors, :head
     attr_reader :running

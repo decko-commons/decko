@@ -1,20 +1,18 @@
 # -*- encoding : utf-8 -*-
 
+warn "require card/set"
 require 'card/set/basket'
-require 'card/set/event/delayed_event'
-require 'card/set/event/options'
-require 'card/set/event/callbacks'
-require 'card/set/event'
+#require 'card/set/event'
 require 'card/set/format/haml_paths'
 require 'card/set/format/abstract_format/haml_views'
 require 'card/set/format/abstract_format/view_definition'
 require 'card/set/format/abstract_format/view_opts'
 require 'card/set/format/abstract_format/wrapper'
 require 'card/set/format/abstract_format'
-require 'card/set/pattern'
-require 'card/set/pattern/base'
+#require 'card/set/pattern'
+#require 'card/set/pattern/base'
 #require 'card/set/pattern/helper'
-require 'card/set/required_field'
+#require 'card/set/required_field'
 
 class Card
   #
