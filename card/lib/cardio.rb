@@ -149,8 +149,10 @@ module Cardio
 
     def set_paths paths
       @@paths = paths
-      add_path "tmp/set", root: root
-      add_path "tmp/set_pattern", root: root
+      %w[set set_pattern].each do |path|
+        tmppath = "tmp/#{path}"
+        add_path tmppath, root: root unless paths[tmppath]&.existent
+      end
 
       add_path "mod"        # add card gem's mod path
       paths["mod"] << "mod" # add deck's mod path

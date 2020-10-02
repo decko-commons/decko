@@ -32,7 +32,7 @@ class Card
       end
 
       def mod_from_tmp_parts parts, set_index
-        parts[set_index + 1].gsub(/^.*\-/, "")
+        parts[set_index + 1].gsub(/^[^-]*\-/, "")
       end
 
       def path_parts backtrace
