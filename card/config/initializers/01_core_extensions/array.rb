@@ -1,4 +1,3 @@
-warn "core extension 1"
 module CoreExtensions
   module Array
     def to_pointer_content

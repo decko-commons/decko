@@ -1,4 +1,3 @@
-warn "core extension 4"
 module CoreExtensions
   module MatchData
     def capture index

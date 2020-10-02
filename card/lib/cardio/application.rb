@@ -15,31 +15,6 @@ end
 
 module Cardio
   class Application < Rails::Application
-=begin
-    def initialize
-      super
-warn "Init Capp: #{config.class} p:#{config.paths.class}"
-    end
-    def initialize!
-warn "card::app inst.initialize!  #{self} #{self.class} bef req AR 2"
-      require 'cardio/application_record'
-      #ActiveSupport.run_load_hooks :after_application_record
-#warn "card::app inst.initialize! b card 3"
-      #ActiveSupport.run_load_hooks :before_card
-warn "card::app inst.initialize! super #{self.class} #{self.class.superclass} 4"
-      super
-warn "card::app inst.initialize! end 5"
-    end
-
-    class << self
-      def initialize!
-warn "card::app.initialize! (super)"
-	super
-warn "card::app.initialize! 1"
-      #Cardio.application.initialize!
-#warn "card::app.initialize! 2"
-      end
-=end
     class << self
 
       def inherited base
@@ -48,12 +23,12 @@ warn "ib Card #{base}, Ins:#{base.instance} CF:#{base.called_from}" #{caller*"\n
         # The second test shouldn't be true unless someone else set it, but
         # not to the ./config/application.rb defined application class
 #warn " set? app in cardappl to si:#{self.instance} s:#{self} b:#{base} bi:#{base.instance} b:#{base} c/nl:#{Cardio.application} T:#{base.instance.is_a?(self.class)} 2:#{base.is_a?(self.class)} 3:#{self.instance.is_a?(base)}"
-warn "roots #{self.instance.config.gem_root} #{Cardio.gem_root}"
+warn "CARD #{__LINE__} roots #{self.instance.config.gem_root} #{Cardio.gem_root}"
         add_lib_to_load_path!(find_root(base.called_from))
-        Cardio.application = self.instance
-        Rails.app_class = self
         if self.instance.config.gem_root == Cardio.gem_root
-#warn "in card_appl #{self.instance.config.gem_root} 1st #{self} bi:#{base.instance} b:#{base} c/nl:#{Cardio.application}"
+          Cardio.application = self.instance
+          Rails.app_class = self
+warn "CARD #{__LINE__} in card_appl #{self.instance.config.gem_root} 1st #{self} bi:#{base.instance} b:#{base} c/nl:#{Cardio.application}"
 warn "seting cardio app #{self}"
           # connect actual app instance to Cardio mattr
 warn "seting cardio app i:#{self.instance}"
@@ -61,6 +36,15 @@ warn "seting cardio app i:#{self.instance}"
 #warn "early c on load card "
           #Cardio.connect_on_load
         end
+      end
+    end
+
+    initializer :card_load_config_initializers,
+                after: :load_config_initializers do
+warn "CARD: initting #{Cardio.config.paths} #{Cardio.config.paths["config/initializers"].existent.map(&:to_s)*", "}"
+      Cardio.config.paths["config/initializers"].existent.sort.each do |initializer|
+warn "load cf inits: #{initializer}"
+        load(initializer)
       end
     end
 

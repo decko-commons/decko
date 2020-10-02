@@ -117,9 +117,10 @@ warn "set_default_configs"
       application.config
     end
 
-    def paths
-      config.paths
-    end
+#    def paths
+#warn "CARDIO #{__LINE__} #{caller[0]} paths #{config.paths} #{config.paths["config/initializers"].existent.length}"
+#      config.paths
+#    end
 
     def add_lib_dirs_to_autoload_paths
       c = config
@@ -147,7 +148,7 @@ warn "#{c} add al paths #{Dir["#{gem_root}/lib"]}"
     end
 
     def paths_init
-      p = paths
+      p = config.paths
       return p if @pathinit
       @pathinit = true
       add_path "tmp/set", root: root
@@ -159,7 +160,7 @@ warn "#{c} add al paths #{Dir["#{gem_root}/lib"]}"
       add_db_paths
       add_initializer_paths
       add_mod_initializer_paths
-warn "paths init #{paths["config/initializers"].map(&:to_s)*"\n"}"
+warn "CARDIO: #{__LINE__} paths init #{config.paths["config/initializers"].map(&:to_s)*"\n"}"
     end
 
     def root
@@ -186,10 +187,9 @@ warn "load card config defaults"
       ActiveSupport.run_load_hooks(:load_active_record, Cardio.application)
       ActiveSupport.run_load_hooks(:before_card)
 
-warn "load card env config"
       add_path "lib/card/config/environments", glob: "#{Rails.env}.rb", root: Cardio.gem_root
-      paths["lib/card/config/environments"].existent.each do |environment|
-warn "load env #{environment}"
+      config.paths["lib/card/config/environments"].existent.each do |environment|
+warn "CARDIO: #{__LINE__} load env #{environment}"
         require environment
       end
     end
@@ -241,8 +241,8 @@ warn #{Rails.autoloaders} #{Rails.autoloaders.main} #{File.join(Cardio.gem_root,
     def add_path path, options={}
       root = options.delete(:root) || Cardio.gem_root
       options[:with] = File.join(root, (options[:with] || path))
-warn "add path #{path}, #{options}" if path == 'config/initializers'
-      paths.add path, options
+warn "CARDIO: #{__LINE__} #{config.paths} add cfinit path #{path}, #{options}" if path == 'config/initializers'
+      config.paths.add path, options
     end
 
     def add_db_paths
@@ -268,8 +268,8 @@ warn "add path #{path}, #{options}" if path == 'config/initializers'
     def add_initializers base_dir, mod=false, init_dir="initializers"
       Dir.glob("#{base_dir}/config/#{init_dir}").each do |initializers_dir|
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
-warn "add init #{path_mark} #{initializers_dir}" unless mod
-        application.paths[path_mark] << initializers_dir
+warn "CARDIO #{__LINE__} #{config.paths} add init #{base_dir} #{path_mark} #{initializers_dir}" unless mod
+        config.paths[path_mark] << initializers_dir
       end
     end
   end
