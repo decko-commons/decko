@@ -207,12 +207,6 @@ warn "onload AR #{caller*"\n"}"
       # ::Rails.logger.warn "database not available[#{::Rails.env}] #{e}"
       #end
       #end
-      ActiveSupport.on_load(:application_record) do
-warn 'run initializers (not)'
-        ActiveSupport.run_load_hooks(:before_card)
-        #Cardio.application.initialize!
-        #ActiveSupport.run_load_hooks :after_active_record
-      end
       ActiveSupport.on_load(:after_card) do
 warn "load ap rec trig, load card"
         #Cardio.load_card!

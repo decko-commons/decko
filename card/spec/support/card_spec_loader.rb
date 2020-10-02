@@ -4,19 +4,19 @@ class CardSpecLoader
       require "spork"
       ENV["RAILS_ENV"] = "test"
       require "timecop"
+        require './config/environment'
+warn "after env, bef cardio app"
+        require 'cardio/application'
+warn "spec init2"
+        require 'cardio'
+warn "spec init3"
+        require 'card'
+        Card
 warn "spec init1"
     end
 
     def prefork
       Spork.prefork do
-        require './config/environment'
-warn "prefork"
-        require 'cardio/application'
-warn "spec init2"
-        require 'cardio'
-warn "spec init3"
-        #require 'card'
-        Card
 
 warn "root #{ENV["RAILS_ROOT"]}"
         unless ENV["RAILS_ROOT"]
@@ -27,12 +27,12 @@ warn "root #{ENV["RAILS_ROOT"]}"
         require File.expand_path("../simplecov_helper.rb", __FILE__)
         require File.expand_path("../../../db/test_seed.rb", __FILE__)
 
+        yield if block_given?
         # Requires supporting ruby files with custom matchers and macros, etc,
         # in spec/support/ and its subdirectories.
         Dir[File.join(Cardio.gem_root, "spec/support/matchers/*.rb")].each do |f|
           require f
         end
-        yield if block_given?
       end
     end
 

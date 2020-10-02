@@ -19,11 +19,27 @@ module Cardio
 warn "#{caller*"\n"}" if Cardio::Application.is_a? self.class
 warn "Init Capp: #{config.class} p:#{config.paths.class}"
     end
+    def initialize!
+#warn "card::app.initialize!  #{self} #{self.class} after AR 2"
+      #ActiveSupport.run_load_hooks :after_active_record
+#warn "card::app.initialize! b card 3"
+      #ActiveSupport.run_load_hooks :before_card
+warn "card::app.initialize! super 4"
+      super
+warn "card::app.initialize! end 5"
+    end
 
     class << self
+      def initialize!
+warn "card::app.initialize! 1"
+      #Cardio.application.initialize!
+	super
+warn "card::app.initialize! (super)"
+      end
+
       def inherited base
-        super
 warn "ib Card #{base}, Ins:#{base.instance} CF:#{base.called_from}" #{caller*"\n"}"
+        super
         # The second test shouldn't be true unless someone else set it, but
         # not to the ./config/application.rb defined application class
 #warn " set? app in cardappl to si:#{self.instance} s:#{self} b:#{base} bi:#{base.instance} b:#{base} c/nl:#{Cardio.application} T:#{base.instance.is_a?(self.class)} 2:#{base.is_a?(self.class)} 3:#{self.instance.is_a?(base)}"

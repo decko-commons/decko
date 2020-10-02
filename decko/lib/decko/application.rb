@@ -7,7 +7,19 @@ require djar if Gem::Specification.find_all_by_name(djar).any?
 
 module Decko
   class Application < Cardio::Application
+    def initialize!
+warn "decko::app.initialize! super 4"
+      super
+warn "decko::app.initialize! end 5"
+    end
+
     class << self
+      def initialize!
+warn "decko::app.initialize! super 1"
+        super
+warn "decko::app.initialize! (aft super)"
+      end
+
       def inherited base
         super
 warn "ib Decko #{base}, #{base.called_from}, #{base.instance}"
