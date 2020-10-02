@@ -82,11 +82,12 @@ class Card
       # Turn delayed jobs on and run jobs after the given block.
       # If count is given check if it matches the number of created jobs.
       def with_delayed_jobs count=nil
-        delaying false, "did not start off empty"
+        delaying true, "did not start off empty"
         yield
         expect(Delayed::Job.count).to eq(count) if count
         Delayed::Worker.new.work_off
-        delaying true, "not all jobs were executed"
+      ensure
+        delaying false, "not all jobs were executed"
       end
 
       def delaying mode, error
