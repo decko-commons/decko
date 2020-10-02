@@ -34,8 +34,7 @@ class Card
         def template_location debug_info
           return "" unless debug_info[:path]
 
-          Pathname.new(debug_info[:path])
-                  .relative_path_from(Pathname.new(Dir.pwd))
+          Pathname.new(debug_info[:path]).relative_path_from(Pathname.new(Dir.pwd))
         end
 
         def each_template_path source
@@ -47,9 +46,13 @@ class Card
           end
         end
 
+        TMPSET_REGEXP
+
         def deep_source source
           return source unless source && Cardio.config.load_strategy == :tmp_files
-          source.gsub %r{/tmp(sets)?\/set/mod\d{3}-([^/]+)}, "/mod/\\2/set"
+
+          # method(Card::Set::Format.view_method_name(view)).owner.source_location
+          source.gsub %r{/tmp(sets)?\/set/mod\d{3}-([^/]+)}, "/\\2/set"
         end
 
         def try_haml_template_path template_path, view, source_dir, ext="haml"
