@@ -49,7 +49,7 @@ module Decko
 
           def spec_helper_path
             @spec_helper_path ||=
-              platypus? ? "#{repo_path}card/spec/spec_helper" : "./spec/spec_helper"
+              platypus? ? "#{repo_path}/card/spec/spec_helper" : "./spec/spec_helper"
           end
 
           def features_path

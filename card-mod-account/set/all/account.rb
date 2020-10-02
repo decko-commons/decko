@@ -67,9 +67,13 @@ def enabled_role_ids
     # workaround for broken migrations
     return fetch_roles unless Card::Codename.exists? :enabled_roles
 
-    role_trait = fetch(:enabled_roles, eager_cache: true, new: { type_id: SessionID })
-    role_trait.virtual? ? role_trait.item_ids : fetch_roles
+    enabled = enabled_roles_card
+    enabled.virtual? ? enabled.item_ids : fetch_roles
   end
+end
+
+def enabled_roles_card
+  fetch :enabled_roles, eager_cache: true, new: { type_id: SessionID }
 end
 
 def fetch_roles
