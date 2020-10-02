@@ -204,10 +204,6 @@ you can instead follow the following procedure:
   1. run the above command to create a dummy deck and the following from the dummy to the
     real/existing deck:
      - any missing Gems in the Gemfile
-     - .rspec
-     - config/puma.rb
-     - bin/spring 
-     - spec/spec_helper.rb
   2. In your real deck:
      - Comment out `ENV['RAILS_ENV'] ||= 'production'` in `config/boot.rb`
 

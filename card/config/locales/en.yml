@@ -161,19 +161,6 @@ en:
           label_setfollow_typeplusright_cards: all "+%{right}" on "%{type}s"
         :08_self:
           label_set_self_card: The card "%{name}"
-    :history:
-      set:
-        all:
-          content_history:
-            error_not_latest_revision: changes not based on latest revision
-          history:
-            time_ago: "%{elapsed__time_in_words} ago"
-            current: Current
-            added: Added
-            deleted: Deleted
-            save_as_current: Save as current
-            show_changes: Show changes
-            hide_changes: Hide changes
     :basic_formats:
       set:
         all:
@@ -428,88 +415,6 @@ en:
             :yes: 'yes'
             :no: 'no'
     #:bootstrap: #No known language-specfic messages
-    :account:
-      set:
-        type:
-          signup:
-            views:
-              sign_up: Sign up
-              invite: Invite
-              missing_account: "ERROR: signup card missing account"
-            send_invite: Send Invitation
-            first_last_help: usually first and last name
-            signed_up_on: "%{name} signed up on %{date}"
-            was_signed_up_on: "%{name} was signed up on %{date}"
-            send: Send
-            resend: Resend
-            verification: A verification email has been sent
-            verification_to: A verification email has been sent to %{email}
-            action_verify_email: "%{action} verification email"
-            approve_without: Approve without verification
-            deny_delete: Deny and delete
-            field_manip_abort: no field manipulation mid-activation
-            no_account_abort: no account associated with %{name}
-            illegal_approval_abort: illegal approval
-            check_email_reset: Please check your email for a new password reset link.
-            errors_message: Sorry, %{item}. %{message}
-          user:
-            help_first_last: üblicherweise Vor- und Nachname
-            welcome: Willkommen, Decker!
-            get_started: Um loszulegen, erstelle einen Account.
-            email_off: "WARNING: E-Mail-Versand ist deaktiviert. Ändere die Einstellung in %{path} um bei neuen Registrierungen Benachrichtigungen zu senden."
-            set_up: Anlegen
-            setting_up: Lege an
-        right:
-          account:
-            events:
-              sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
-          email:
-            error_invalid_address: must be valid address
-            search_email_duplicate: email duplicate? (%{content})
-            error_not_unique: must be unique
-            deny_email_restricted: viewing email is restricted to administrators and account holders
-          password:
-            encrypted: encrypted
-            password_length: must be at least 4 characters
-          salt:
-            private_data: Private data
-          stats:
-            field: Field
-            cache_value: Cache Val
-            db_value: Database Val
-            cache_db_compare: Cache/DB Comparison
-            cached_card: Cached Card Inspect
-            db_card: Database Card Inspect
-          status:
-            deny_not_change_own_account: change the status of your own account
-          api_key:
-            private_data: Private data
-            error_token_not_found: no token found
-            error_token_expired: expired token
-            error_incorrect_token: token mismatch
-            exception_bad_expiration: illegal expiration value (eg '%{example}')
-        self:
-          account_links:
-            sign_up: Sign up
-            sign_in: Sign in
-            invite: Invite
-            sign_out: Sign out
-          signin:
-            sign_in_title: Sign In
-            sign_in: Sign in
-            or_sign_up: '...or sign up!'
-            reset_password: RESET PASSWORD
-            forgot_password: Forgot Password
-            reset_my_password: Reset my password
-            check_email: Check your email for a link to reset your password
-            error_unknown_email: Unrecognized email.
-            error_not_active: Sorry, that account is not active.
-            error_blank: can't be blank
-            error_wrong_password: Wrong password
-            email_missing: email can't be blank
-            password_missing: password can't be blank
-            error_not_active: not active
-            error_not_recognized: not recognized
 
     :admin:
       set:
@@ -606,3 +511,100 @@ en:
           customized_bootswatch_skin:
             not_valid_theme: not a valid theme %{theme_name}
             cannot_source_theme: can't find source for theme %{theme_name}
+
+    card-mod-history:
+      set:
+        all:
+          content_history:
+            error_not_latest_revision: changes not based on latest revision
+          history:
+            time_ago: "%{elapsed__time_in_words} ago"
+            current: Current
+            added: Added
+            deleted: Deleted
+            save_as_current: Save as current
+            show_changes: Show changes
+            hide_changes: Hide changes
+
+    card-mod-account:
+      set:
+        type:
+          signup:
+            views:
+              sign_up: Sign up
+              invite: Invite
+              missing_account: "ERROR: signup card missing account"
+            send_invite: Send Invitation
+            first_last_help: usually first and last name
+            signed_up_on: "%{name} signed up on %{date}"
+            was_signed_up_on: "%{name} was signed up on %{date}"
+            send: Send
+            resend: Resend
+            verification: A verification email has been sent
+            verification_to: A verification email has been sent to %{email}
+            action_verify_email: "%{action} verification email"
+            approve_without: Approve without verification
+            deny_delete: Deny and delete
+            field_manip_abort: no field manipulation mid-activation
+            no_account_abort: no account associated with %{name}
+            illegal_approval_abort: illegal approval
+            check_email_reset: Please check your email for a new password reset link.
+            errors_message: Sorry, %{item}. %{message}
+          user:
+            help_first_last: üblicherweise Vor- und Nachname
+            welcome: Willkommen, Decker!
+            get_started: Um loszulegen, erstelle einen Account.
+            email_off: "WARNING: E-Mail-Versand ist deaktiviert. Ändere die Einstellung in %{path} um bei neuen Registrierungen Benachrichtigungen zu senden."
+            set_up: Anlegen
+            setting_up: Lege an
+        right:
+          account:
+            events:
+              sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
+          email:
+            error_invalid_address: must be valid address
+            search_email_duplicate: email duplicate? (%{content})
+            error_not_unique: must be unique
+            deny_email_restricted: viewing email is restricted to administrators and account holders
+          password:
+            encrypted: encrypted
+            password_length: must be at least 4 characters
+          salt:
+            private_data: Private data
+          stats:
+            field: Field
+            cache_value: Cache Val
+            db_value: Database Val
+            cache_db_compare: Cache/DB Comparison
+            cached_card: Cached Card Inspect
+            db_card: Database Card Inspect
+          status:
+            deny_not_change_own_account: change the status of your own account
+          api_key:
+            private_data: Private data
+            error_token_not_found: no token found
+            error_token_expired: expired token
+            error_incorrect_token: token mismatch
+            exception_bad_expiration: illegal expiration value (eg '%{example}')
+        self:
+          account_links:
+            sign_up: Sign up
+            sign_in: Sign in
+            invite: Invite
+            sign_out: Sign out
+          signin:
+            sign_in_title: Sign In
+            sign_in: Sign in
+            or_sign_up: '...or sign up!'
+            reset_password: RESET PASSWORD
+            forgot_password: Forgot Password
+            reset_my_password: Reset my password
+            check_email: Check your email for a link to reset your password
+            error_unknown_email: Unrecognized email.
+            error_not_active: Sorry, that account is not active.
+            error_blank: can't be blank
+            error_wrong_password: Wrong password
+            email_missing: email can't be blank
+            password_missing: password can't be blank
+            error_not_active: not active
+            error_not_recognized: not recognized

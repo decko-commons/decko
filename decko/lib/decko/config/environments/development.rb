@@ -89,20 +89,11 @@ Decko.application.class.configure do
 
   config.action_mailer.perform_deliveries = false
 
-  # config.active_job.queue_adapter = :delayed_job
-
   # Use Pry instead of IRB
   silence_warnings do
     require "pry"
     config.console = Pry
   rescue LoadError
-  end
-
-  if ENV["DECKO_GEM_TMPSETS"]
-    tmpsets_dir = "#{Cardio.gem_root}/tmpsets/"
-    config.load_strategy = :tmp_files
-    config.paths['tmp/set'] = "#{tmpsets_dir}/set"
-    config.paths['tmp/set_pattern'] = "#{tmpsets_dir}/set_pattern"
   end
 
   #config.session_store :cookie_store

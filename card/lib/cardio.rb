@@ -3,9 +3,10 @@
 require "active_support/core_ext/numeric/time"
 djar = "delayed_job_active_record"
 require djar if Gem::Specification.find_all_by_name(djar).any?
-require "cardio/schema.rb"
-require "cardio/utils.rb"
-require "cardio/modfiles.rb"
+require "cardio/schema"
+require "cardio/utils"
+require "cardio/modfiles"
+require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
   Card::Mod.load
@@ -15,6 +16,7 @@ module Cardio
   extend Schema
   extend Utils
   extend Modfiles
+  extend Delaying
   CARD_GEM_ROOT = File.expand_path("..", __dir__)
 
   mattr_reader :paths, :config
@@ -45,6 +47,8 @@ module Cardio
 
         # if you disable inline styles tinymce's formatting options stop working
         allow_inline_styles: true,
+
+        delaying: nil,
 
         recaptcha_public_key: nil, # deprecated; use recaptcha_site_key instead
         recaptcha_private_key: nil, # deprecated; use recaptcha_secret_key instead
@@ -103,7 +107,6 @@ module Cardio
 
     def set_config config
       @@config = config
-      config.active_job.queue_adapter = :delayed_job # better place for this?
 
       add_lib_dirs_to_autoload_paths config
 

@@ -45,10 +45,11 @@ class Card
       end
 
       def render_args underscore, bang, opts
-        args = opts[0] ? opts.shift.clone : {}   # opts are opts ;)
-        args[:optional] = (opts.shift || args[:optional] || :show) unless bang
-        args[:skip_perms] = true if underscore
-        args
+        # opts is a list; args is a hash. we're using various inputs to build the hash
+        (opts[0] ? opts.shift.clone : {}).tap do |args|
+          args[:optional] = (opts.shift || args[:optional] || :show) unless bang
+          args[:skip_perms] = true if underscore
+        end
       end
 
       # TODO: review this. it's quite old, and there might be a better way to do this now.

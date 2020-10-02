@@ -412,8 +412,6 @@ RSpec.describe "Card::Director" do
       expect(Card["A"].acts.size).to eq(act_cnt), "expected no new act on A"
       expect(Card["act card"].acts.size).to eq(1), "new act for 'act card'"
       expect(Card["A"].actions.last.act).to eq Card["act card"].acts.last
-
-      Delayed::Worker.delay_jobs = false
     end
 
     it "create works in integrate_with_delay stage" do

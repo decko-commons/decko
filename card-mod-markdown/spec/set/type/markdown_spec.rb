@@ -1,4 +1,4 @@
-describe Card::Set::Type::Markdown do
+RSpec.describe Card::Set::Type::Markdown do
   describe "core view" do
     it "renders markdown" do
       card = Card.create! name: "Snark Town",
