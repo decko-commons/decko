@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-
+warn "require card/mailer"
 require "open-uri"
 
 class Card

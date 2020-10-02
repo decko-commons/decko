@@ -1,6 +1,5 @@
 require "rbconfig"
 require "cardio/commands/application"
-require "cardio"
 require "card/script_card_loader"
 
 # If we are inside a Card application this method performs an exec and thus
@@ -16,3 +15,4 @@ Signal.trap("INT") { puts; exit(1) }
 # else
 
 # end
+raise "why are we here? end of cli"

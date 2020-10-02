@@ -1,22 +1,15 @@
 # -*- encoding : utf-8 -*-
 
+#warn "cardio #{caller[0..4]*", "}"
 require "active_support/core_ext/numeric/time"
-require "cardio/application_record"
-require 'cardio/mod/loader'
-require 'cardio/mod/dirs'
-require 'cardio/mod/module_template'
-require 'cardio/mod/loader/set_pattern_loader'
-require 'cardio/mod/load_strategy'
-require 'cardio/mod/load_strategy/eval'
-require 'cardio/mod/loader/set_loader'
-require "cardio/mod"
+require 'rails'
 require "cardio/modfiles"
 require "cardio/schema"
 require "cardio/utils"
-
-require "card/all"
+require 'active_support'
 
 ActiveSupport.on_load :after_card do
+  require 'cardio/mod'
   Cardio::Mod.load
 end
 
@@ -26,7 +19,7 @@ module Cardio
   extend Modfiles
   CARD_GEM_ROOT = File.expand_path("..", __dir__)
 
-  mattr_reader :paths, :config
+  mattr_accessor :application
 
   class << self
     def card_defined?
@@ -39,17 +32,20 @@ module Cardio
       false
     end
 
-    def load_card!
-      require "card"
-      ActiveSupport.run_load_hooks :after_card
-    end
-
     def cache
       @cache ||= ::Rails.cache
     end
 
-    def default_configs
-      {
+=begin
+    def load_card!
+      require "card"
+      ActiveSupport.run_load_hooks :after_card
+    end
+=end
+
+    def set_default_configs
+warn "set_default_configs"
+      defaults = {
         read_only: read_only?,
 
         # if you disable inline styles tinymce's formatting options stop working
@@ -87,6 +83,7 @@ module Cardio
         request_logger: false,
         performance_logger: false,
         sql_comments: true,
+        eager_load: false,
 
         file_storage: :local,
         file_buckets: {},
@@ -108,61 +105,143 @@ module Cardio
         load_strategy: :eval,
         cache_set_module_list: false
       }
-    end
-
-    def set_config config
-      @@config = config
-
-      add_lib_dirs_to_autoload_paths config
-
-      default_configs.each_pair do |setting, value|
-        set_default_value(config, setting, *value)
+      cfg = config
+      defaults.each_pair do |setting, value|
+        # so don't change settings here if they already exist
+        cfg.send("#{setting}=", *value) unless cfg.respond_to? setting
       end
     end
 
-    def add_lib_dirs_to_autoload_paths config
-      config.autoload_paths += Dir["#{gem_root}/lib"]
+    def config
+      application.config
+    end
+
+    def paths
+      config.paths
+    end
+
+    def add_lib_dirs_to_autoload_paths
+      c = config
+warn "#{c} add al paths #{Dir["#{gem_root}/lib"]}"
+      c.autoload_paths += Dir["#{gem_root}/lib"]
 
       # TODO: this should use each_mod_path, but it's not available when this is run
       # This means libs will not get autoloaded (and sets not watched) if the mod
       # dir location is overridden in config
-      [gem_root, root].each { |dir| autoload_and_watch config, "#{dir}/mod/*" }
-      gem_mod_specs.each_value { |spec| autoload_and_watch config, spec.full_gem_path }
+      [gem_root, root].each { |dir| autoload_and_watch "#{dir}/mod/*" }
+      gem_mod_specs.each_value { |spec| autoload_and_watch spec.full_gem_path }
 
       # the watchable_dirs are processes in
       # set_clear_dependencies_hook hook in the railties gem in finisher.rb
-
-      # TODO: move this to the right place in decko
-      config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
     end
 
-    def autoload_and_watch config, mod_path
-      config.autoload_paths += Dir["#{mod_path}/lib"]
-      config.watchable_dirs["#{mod_path}/set"] = [:rb]
+    def autoload_and_watch mod_path
+      c = config
+      c.autoload_paths += Dir["#{mod_path}/lib"]
+      c.watchable_dirs["#{mod_path}/set"] = [:rb]
     end
 
     def read_only?
       !ENV["DECKO_READ_ONLY"].nil?
     end
 
-    # In production mode set_config gets called twice.
-    # The second call overrides all deck config settings
-    # so don't change settings here if they already exist
-    def set_default_value config, setting, *value
-      config.send("#{setting}=", *value) unless config.respond_to? setting
-    end
-
-    def set_paths paths
-      @@paths = paths
+    def paths_init
+      p = paths
+      return p if @pathinit
+      @pathinit = true
       add_path "tmp/set", root: root
       add_path "tmp/set_pattern", root: root
 
       add_path "mod"        # add card gem's mod path
-      paths["mod"] << "mod" # add deck's mod path
+      p["mod"] << "mod" # add deck's mod path
 
       add_db_paths
       add_initializer_paths
       add_mod_initializer_paths
+warn "paths init #{paths["config/initializers"].map(&:to_s)*"\n"}"
+    end
+
+    def root
+      config.root
+    end
+
+    def gem_root
+      CARD_GEM_ROOT
+    end
+
+    def future_stamp
+      # # used in test data
+      @future_stamp ||= Time.zone.local 2020, 1, 1, 0, 0, 0
+    end
+
+    def load_card_environment
+      add_lib_dirs_to_autoload_paths
+warn "load card config defaults"
+      set_default_configs
+      paths_init
+      add_configs
+
+      ActiveSupport.run_load_hooks(:before_configuration, Cardio.application)
+      ActiveSupport.run_load_hooks(:load_active_record, Cardio.application)
+      ActiveSupport.run_load_hooks(:before_card)
+
+warn "load card env config"
+      add_path "lib/card/config/environments", glob: "#{Rails.env}.rb", root: Cardio.gem_root
+      paths["lib/card/config/environments"].existent.each do |environment|
+warn "load env #{environment}"
+        require environment
+      end
+    end
+
+    def connect_on_load
+warn "set onload AR"
+      ActiveSupport.on_load(:application_record) do
+warn "onload AR #{caller*"\n"}"
+        ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
+      end
+      #ActiveSupport.on_load(:before_card) do
+      #ActiveSupport.on_load(:after_initialize) do
+        # require "card/all" if Cardio.load_card?
+      #  require 'card' if Cardio.load_card?
+      #rescue ActiveRecord::StatementInvalid => e
+      # ::Rails.logger.warn "database not available[#{::Rails.env}] #{e}"
+      #end
+      #end
+      ActiveSupport.on_load(:application_record) do
+warn 'run initializers (not)'
+        ActiveSupport.run_load_hooks(:before_card)
+        #Cardio.application.initialize!
+        #ActiveSupport.run_load_hooks :after_active_record
+      end
+      ActiveSupport.on_load(:after_card) do
+warn "load ap rec trig, load card"
+        #Cardio.load_card!
+      end
+warn "set onload done"
+    end
+
+    def add_configs
+      c = config
+      # from Cardio.application.config
+warn "config #{c.class}, #{c}"
+
+      #c.autoloader = :zeitwerk
+      #c.load_default = "6.0"
+      #c.i18n.enforce_available_locales = true
+
+      # Rails.autoloaders.log!
+warn #{Rails.autoloaders} #{Rails.autoloaders.main} #{File.join(Cardio.gem_root, "lib/card/seed_consts.rb")}"
+     # Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
+
+      c
+    end
+  private
+
+    def add_path path, options={}
+      root = options.delete(:root) || Cardio.gem_root
+      options[:with] = File.join(root, (options[:with] || path))
+warn "add path #{path}, #{options}" if path == 'config/initializers'
+      paths.add path, options
     end
 
     def add_db_paths
@@ -188,27 +267,9 @@ module Cardio
     def add_initializers base_dir, mod=false, init_dir="initializers"
       Dir.glob("#{base_dir}/config/#{init_dir}").each do |initializers_dir|
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
-        paths[path_mark] << initializers_dir
+warn "add init #{path_mark} #{initializers_dir}" unless mod
+        application.paths[path_mark] << initializers_dir
       end
-    end
-
-    def root
-      @@config.root
-    end
-
-    def gem_root
-      CARD_GEM_ROOT
-    end
-
-    def add_path path, options={}
-      root = options.delete(:root) || gem_root
-      options[:with] = File.join(root, (options[:with] || path))
-      paths.add path, options
-    end
-
-    def future_stamp
-      # # used in test data
-      @future_stamp ||= Time.zone.local 2020, 1, 1, 0, 0, 0
     end
   end
 end

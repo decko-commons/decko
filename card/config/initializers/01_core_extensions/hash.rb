@@ -1,3 +1,4 @@
+warn "core extension 2"
 module CoreExtensions
   module Hash
     module ClassMethods

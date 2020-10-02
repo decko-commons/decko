@@ -1,3 +1,4 @@
+warn "core extension 7"
 module CoreExtensions
   # methods for codenames and numerical ids
   # included in Integer and Symbol

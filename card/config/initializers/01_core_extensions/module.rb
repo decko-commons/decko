@@ -1,3 +1,4 @@
+warn "core extension 5"
 module CoreExtensions
   module Module
     def const_get_if_defined const

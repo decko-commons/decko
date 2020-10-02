@@ -1,4 +1,5 @@
 
+warn "require card/mark"
 class Card
   # Card::Mark provides class methods for Card to translate all different kind
   # of card identifiers to card objects.

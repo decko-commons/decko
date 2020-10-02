@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+warn "require card/auth"
 class Card
   # Singleton methods for account authentication and contextualization.
   #

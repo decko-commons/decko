@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+warn "require card/cache"
 class Card
   class << self
     def cache
@@ -44,7 +45,7 @@ class Card
         @persistent_cache =
           case
           when ENV["NO_RAILS_CACHE"]          then false
-          when Cardio.config.persistent_cache then Cardio.cache
+          when Cardio.config&.persistent_cache then Cardio.cache
           else                                     false
           end
       end
@@ -136,6 +137,7 @@ class Card
       cache_by_class[@klass] = self
       @hard = Persistent.new opts if opts[:store]
       @soft = Temporary.new
+warn "init cache #{@hard}, #{@soft}"
     end
 
     # read cache value (and write to soft cache if missing)

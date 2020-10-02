@@ -1,3 +1,4 @@
+warn "require card/director"
 class Card
   # Special "dirty" handling for significant card fields.
   module Dirty

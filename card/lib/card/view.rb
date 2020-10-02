@@ -1,3 +1,4 @@
+warn "require card/version"
 class Card
   # Card::View manages {Options view options}, {Cache view caching}, and
   # {Permission view permissions}.

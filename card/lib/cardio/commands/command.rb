@@ -1,16 +1,19 @@
 # require "English" # needed for CHILD_STATUS, but not sure this is the best place for this.
 
+warn "From #{__FILE__}"
 module Cardio
   module Commands
     class Command
       def run
-        exit_with_child_status command
+warn "running: #{cmd=command}"
+        exit_with_child_status cmd
       end
 
       def exit_with_child_status command
+warn "in rspec run"
         puts command
         command += " 2>&1"
-        exit $CHILD_STATUS.exitstatus unless system command
+        exit($CHILD_STATUS&.exitstatus || 1) unless system command
       end
 
       # split special card args and original command args separated by '--'

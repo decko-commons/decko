@@ -1,3 +1,4 @@
+warn "core extension 3"
 module CoreExtensions
   module Kernel
     def suppress_warnings

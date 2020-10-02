@@ -1,3 +1,4 @@
+warn "core extension 6"
 module CoreExtensions
   module Object
     def deep_clone

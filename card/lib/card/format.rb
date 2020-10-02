@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+warn "require card/format"
 require 'card/format/registration'
 require 'card/format/nesting'
 require 'card/format/render'

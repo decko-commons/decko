@@ -14,75 +14,44 @@ end
 
 module Cardio
   class Application < Rails::Application
+    def initialize
+      super
+warn "#{caller*"\n"}" if Cardio::Application.is_a? self.class
+warn "Init Capp: #{config.class} p:#{config.paths.class}"
+    end
+
     class << self
       def inherited base
         super
-        Rails.app_class = base
+warn "ib Card #{base}, Ins:#{base.instance} CF:#{base.called_from}" #{caller*"\n"}"
+        # The second test shouldn't be true unless someone else set it, but
+        # not to the ./config/application.rb defined application class
+#warn " set? app in cardappl to si:#{self.instance} s:#{self} b:#{base} bi:#{base.instance} b:#{base} c/nl:#{Cardio.application} T:#{base.instance.is_a?(self.class)} 2:#{base.is_a?(self.class)} 3:#{self.instance.is_a?(base)}"
+warn "roots #{self.instance.config.gem_root} #{Cardio.gem_root}"
         add_lib_to_load_path!(find_root(base.called_from))
-        ActiveSupport.run_load_hooks(:before_configuration, base.instance)
-        ActiveSupport.run_load_hooks(:load_active_record, base.instance)
-      ActiveSupport.run_load_hooks(:before_card)
-      end
-    end
-
-    initializer :load_card_environment_config,
-                #after: :bootstrap, group: :all do
-                before: :load_environment_config, group: :all do
-                #before: :connect_on_load, group: :all do
-      add_path paths, "lib/card/config/environments", glob: "#{Rails.env}.rb", root: Cardio.gem_root
-      paths["lib/card/config/environments"].existent.each do |environment|
-warn "load env #{environment}"
-        require environment
+        Cardio.application = self.instance
+        Rails.app_class = self
+        if self.instance.config.gem_root == Cardio.gem_root
+#warn "in card_appl #{self.instance.config.gem_root} 1st #{self} bi:#{base.instance} b:#{base} c/nl:#{Cardio.application}"
+warn "seting cardio app #{self}"
+          # connect actual app instance to Cardio mattr
+warn "seting cardio app i:#{self.instance}"
+          Cardio.load_card_environment
+          #Cardio.connect_on_load
+        end
       end
     end
 
     initializer :connect_on_load do
-      ActiveSupport.on_load(:active_record) do
-        c=ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
-        ActiveSupport.run_load_hooks(:before_card)
-        require 'card/all'
-
-      end
-      # ActiveSupport.on_load(:after_initialize) do
-      #   # require "card" if Cardio.load_card?
-      #   Card if Cardio.load_card?
-      # rescue ActiveRecord::StatementInvalid => e
-      #  ::Rails.logger.warn "database not available[#{::Rails.env}] #{e}"
-      # end
-      ActiveSupport.on_load(:before_card) do
-      end
-      ActiveSupport.on_load(:after_application_record) do
-warn "load ap rec trig, load card"
-        Cardio.load_card!
-      end
+warn "c on load card "
+      Cardio.connect_on_load
     end
+
     def config
-      @config ||= begin
-        config = super
-
-        Cardio.set_config config
-
-        config.autoloader = :zeitwerk
-        config.load_default = "6.0"
-        config.i18n.enforce_available_locales = true
-
-        config
-      end
-    end
-
-    def add_path paths, path, options={}
-      root = options.delete(:root) || Cardio.gem_root
-      options[:with] = File.join(root, (options[:with] || path))
-      paths.add path, options
-    end
-
-    def paths
-      @paths ||= begin
-        paths = super
-        Cardio.set_paths paths
-
-        paths
-      end
+      return @config unless @config.nil?
+      @config = super
+      @config.gem_root = Cardio.gem_root
+      @config
     end
   end
 end

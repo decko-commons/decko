@@ -1,6 +1,7 @@
 require File.expand_path("../command", __FILE__)
 # require "pry"
 
+raise "From #{__FILE__}"
 module Cardio
   module Commands
     class RakeCommand < Command

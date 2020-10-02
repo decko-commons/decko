@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+warn "require card/content"
 class Card
   # Content objects support the parsing of content strings into arrays that
   # contain semantically meaningful "chunks" like nests, links, urls, etc.

@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
 
+raise "card loading"
 ActiveSupport.run_load_hooks(:before_card, self)
+require 'card/essential'
+warn "card ess done"
 
 # Cards are wiki-inspired building blocks.
 #
@@ -154,4 +157,5 @@ class Card
 
   ActiveSupport.run_load_hooks :card, self
 end
+warn "finish loading card"
 ActiveSupport.run_load_hooks :after_card, self

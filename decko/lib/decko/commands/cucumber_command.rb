@@ -1,5 +1,6 @@
 require File.expand_path("../command", __FILE__)
 
+raise "From #{__FILE__}"
 module Decko
   module Commands
     class CucumberCommand < Command

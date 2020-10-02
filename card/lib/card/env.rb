@@ -1,4 +1,5 @@
 
+warn "require card/env"
 require 'card/env/location_history'
 require 'card/env/request_assignments'
 require 'card/env/slot_options'

@@ -2,6 +2,7 @@
 require "optparse"
 require 'cardio/commands/command/parser'
 
+warn "From #{__FILE__}"
 module Cardio
   module Commands
     class RspecCommand < Command

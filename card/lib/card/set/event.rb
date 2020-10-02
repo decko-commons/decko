@@ -1,3 +1,10 @@
+warn "load card/set/event"
+require 'card/set/event/callbacks'
+warn "load card/set/event/callbacks (done)"
+require 'card/set/event/options'
+require 'card/set/event/delayed_event'
+warn "end card/set/event"
+
 class Card
   module Set
     # Supports the definition of events via the {Api Events API}

@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+warn "require card/version"
 class Card
   module Version
     class << self

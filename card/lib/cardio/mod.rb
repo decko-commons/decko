@@ -1,3 +1,12 @@
+
+require 'cardio/mod/loader'
+require 'cardio/mod/dirs'
+require 'cardio/mod/module_template'
+require 'cardio/mod/loader/set_pattern_loader'
+require 'cardio/mod/load_strategy'
+require 'cardio/mod/load_strategy/eval'
+require 'cardio/mod/loader/set_loader'
+
 module Cardio
   # A Card Mod (short for "module" or "modification") is a discrete piece of Decko
   # functionality. Mods are how the Decko community develops and shares code.
@@ -75,6 +84,7 @@ module Cardio
 
       # @return an array of Rails::Path objects
       def dirs
+warn "load mod dirs: #{Cardio.application}, #{Cardio.paths}"
         @dirs ||= Mod::Dirs.new(Cardio.paths["mod"].existent)
       end
 

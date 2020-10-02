@@ -1,22 +1,27 @@
 require File.expand_path("../command", __FILE__)
 
+warn "From #{__FILE__}"
 module Cardio
   module Commands
     class RspecCommand < Command
       def initialize args
         require "rspec/core"
-        #require "cardio/application"
 
-        parser = RspecCommand::Parser.new
-        r = parser.parse(ARGV)
-        @opts = r.options
-        @rspec_args = ARGV
+        @opts = RspecCommand::Parser.new.parse(ARGV).options
+        @rspec_args, @cmd_args =
+          if ARGV.include?('--')
+            split_args(ARGV)
+          else
+            [[], ARGV]
+          end
       end
 
       def command
+c=
         "#{env_args} #{@opts[:executer]} #{@opts[:rescue]}" \
-          "rspec #{@rspec_args.shelljoin} #{spec_files_from_opts @opts} "\
+          "rspec #{@rspec_args.shelljoin} #{spec_files_from_opts(@opts)*' '} "\
           "--exclude-pattern \"./card/vendor/**/*\""
+warn "rspec command: #{c}"; c
       end
 
       private

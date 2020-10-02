@@ -1,5 +1,6 @@
 # require "English" # needed for CHILD_STATUS, but not sure this is the best place for this.
 
+raise "From #{__FILE__}"
 module Decko
   module Commands
     class Command

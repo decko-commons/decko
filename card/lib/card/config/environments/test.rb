@@ -2,7 +2,9 @@
 Cardio::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+warn "test configuration #{config} #{config.eager_load.inspect}"
   config.eager_load = false
+warn "test configuration #{config} #{config.eager_load.inspect}"
 
   config.machine_refresh = :never
 

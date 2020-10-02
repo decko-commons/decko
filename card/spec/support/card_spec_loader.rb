@@ -4,10 +4,21 @@ class CardSpecLoader
       require "spork"
       ENV["RAILS_ENV"] = "test"
       require "timecop"
+warn "spec init1"
     end
 
     def prefork
       Spork.prefork do
+        require './config/environment'
+warn "prefork"
+        require 'cardio/application'
+warn "spec init2"
+        require 'cardio'
+warn "spec init3"
+        #require 'card'
+        Card
+
+warn "root #{ENV["RAILS_ROOT"]}"
         unless ENV["RAILS_ROOT"]
           raise Card::Error, "No RAILS_ROOT given. Can't load environment."
         end
@@ -106,6 +117,7 @@ class CardSpecLoader
     def load_shared_examples
       require File.expand_path "../card_shared_examples", __FILE__
       %w[shared_examples shared_context].each do |dirname|
+        require 'cardio/mod'
         Cardio::Mod.dirs.each "spec/#{dirname}" do |shared_ex_dir|
           Dir["#{shared_ex_dir}/**/*.rb"].sort.each { |f| require f }
         end

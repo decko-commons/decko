@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+warn "core_extensions"
 # extend core Ruby object classes
 
 module CoreExtensions
