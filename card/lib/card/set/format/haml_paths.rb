@@ -49,7 +49,7 @@ class Card
 
         def deep_source source
           return source unless source && Cardio.config.load_strategy == :tmp_files
-          source.gsub %r{/tmp(sets)?\/set/mod\d{3}-([^/]+)}, "/mod/\\2/set"
+          source.gsub %r{/tmp(sets)?\/set/mod\d{3}-([^/]+)}, "/\\2/set"
         end
 
         def try_haml_template_path template_path, view, source_dir, ext="haml"
