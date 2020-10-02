@@ -1,0 +1,5 @@
+# used to run cucumber in RubyMine
+
+ARGV.insert 0, "cucumber", "--"
+
+require File.expand_path("../decko",  __FILE__)

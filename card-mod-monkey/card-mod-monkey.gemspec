@@ -10,7 +10,6 @@ DeckoGem.mod "monkey" do |s, _d|
     ["colorize"],
     ["better_errors", "!= 2.8.2"],
     ["binding_of_caller"],
-    ["delayed_job_active_record", "~> 4.1"],
     ["html2haml"],
     ["phantomjs", "1.9.7.1"], # locked because 1.9.8.0 is breaking
     ["sprockets"], # just so above works

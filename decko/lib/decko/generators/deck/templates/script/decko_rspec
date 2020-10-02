@@ -1,0 +1,5 @@
+# used to run rspec in RubyMine
+
+ARGV.insert 0, "rspec", "--no-simplecov", "--"
+
+load File.expand_path("../decko",  __FILE__)
