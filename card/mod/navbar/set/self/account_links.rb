@@ -81,7 +81,7 @@ format :html do
 
   def account_link_text purpose
     voo.title ||
-      I18n.t(purpose, scope: "card-mod-account.set.self.account_links")
+      I18n.t(purpose, scope: "mod.card-mod-account.set.self.account_links")
   end
 
   def nav_link_class type

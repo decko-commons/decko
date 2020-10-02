@@ -43,7 +43,7 @@ def recaptcha_on?
 end
 
 def i18n_signin key
-  I18n.t key, scope: "card-mod-account.set.self.signin"
+  I18n.t key, scope: "mod.card-mod-account.set.self.signin"
 end
 
 def authenticate_or_abort email, pword
@@ -149,7 +149,7 @@ format :html do
 
   view :reset_password_success do
     # 'Check your email for a link to reset your password'
-    frame { I18n.t(:check_email, scope: "card-mod-account.set.self.signin") }
+    frame { I18n.t(:check_email, scope: "mod.card-mod-account.set.self.signin") }
   end
 
   view :signin_buttons do
