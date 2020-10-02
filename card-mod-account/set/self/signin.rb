@@ -134,7 +134,7 @@ format :html do
 
   # FIXME: need a generic solution for this
   view :title do
-    voo.title ||= I18n.t(:sign_in_title, scope: "mod.account.set.self.signin")
+    voo.title ||= I18n.t(:sign_in_title, scope: "mod.card-mod-account.set.self.signin")
     super()
   end
 
@@ -171,7 +171,7 @@ format :html do
   end
 
   view :edit_buttons do
-    text = I18n.t :reset_my_password, scope: "mod.account.set.self.signin"
+    text = I18n.t :reset_my_password, scope: "mod.card-mod-account.set.self.signin"
     button_tag text, situation: "primary", class: "_close-modal-on-success"
   end
 
@@ -180,17 +180,17 @@ format :html do
   end
 
   def signin_button
-    text = I18n.t :sign_in, scope: "mod.account.set.self.signin"
+    text = I18n.t :sign_in, scope: "mod.card-mod-account.set.self.signin"
     button_tag text, situation: "primary"
   end
 
   def signup_link
-    text = I18n.t :or_sign_up, scope: "mod.account.set.self.signin"
+    text = I18n.t :or_sign_up, scope: "mod.card-mod-account.set.self.signin"
     subformat(Card[:account_links]).render! :sign_up, title: text
   end
 
   def reset_password_link
-    text = I18n.t :reset_password, scope: "mod.account.set.self.signin"
+    text = I18n.t :reset_password, scope: "mod.card-mod-account.set.self.signin"
     link = link_to_view :edit, text, path: { slot: { hide: :bridge_link } }
     # FIXME: inline styling
     raw("<div style='float:right'>#{link}</div>")

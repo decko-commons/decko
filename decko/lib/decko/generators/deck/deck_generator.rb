@@ -112,7 +112,7 @@ module Decko
         end
 
         def spec
-          inside("spec") { template "spec_helper.rb" }
+          inside("spec") { template "spec_helper.rb" } unless platypus?
         end
 
         def javascript_spec_setup
