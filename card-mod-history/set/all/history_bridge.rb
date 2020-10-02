@@ -11,20 +11,19 @@ format :html do
     updaters = Card.search(updater_of: { id: card.id })
     return "" unless updaters.present?
 
-    updaters = humanized_search_result updaters, others_target: Card.fetch(card, :editors)
+    updaters = updater_links updaters, others_target: Card.fetch(card, :editors)
     "Updated by #{updaters}"
   end
 
-  def humanized_search_result item_cards, item_view: :link, max_count: 3,
-                              others_target: card
-    return "" unless item_cards.present?
+  def updater_links updaters, item_view: :link, max_count: 3, others_target: card
+    return "" unless updaters.present?
 
-    total = item_cards.size
+    total = updaters.size
     fetch_count = total > max_count ? max_count - 1 : max_count
 
     reduced = first_card(fetch_count).map { |c| nest c, view: item_view }
     if total > max_count
-      reduced << link_to_card(others_target,  "#{total - fetch_count} others")
+      reduced << link_to_card(others_target, "#{total - fetch_count} others")
     end
     reduced.to_sentence
   end
