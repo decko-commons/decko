@@ -9,7 +9,12 @@ module <%= app_const_base %>
     # Decko inherits most Ruby-on-Rails configuration options.
     # See http://guides.rubyonrails.org/configuring.html
 
-    # Email configuration
+    # EMAIL
+    # Email is not turned on by default.  To turn it on, you need to change the
+    # following to `true` and then add configuration specific to your site.
+    # Learn more:
+    #  https://guides.rubyonrails.org/configuring.html#configuring-action-mailer
+
     config.action_mailer.perform_deliveries = false
     # config.action_mailer.delivery_method  = ...
     # config.action_mailer.smtp_settings    = ...
@@ -19,10 +24,16 @@ module <%= app_const_base %>
     # config.action_mailer.delivery_method = :smtp
     # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 
-    # config.read_only = true
-    # defaults to false
-    # disallows creating, updating, and deleting cards.
 
+    # BACKGROUND
+    # Decko lets you run some card events (like follower notifications) in the
+    # background. This is off by default but can be turned on by changing the
+    # `delaying` setting to `true`
+    config.active_job.queue_adapter = :delayed_job
+    config.delaying = false
+
+
+    # CACHING
     # config.cache_store = :file_store, 'tmp/cache'
     # determines caching mechanism.  options include: file_store, memory_store,
     # mem_cache_store, dalli_store...
@@ -31,6 +42,8 @@ module <%= app_const_base %>
     # here's a sample configuration for use with the dalli gem
     # config.cache_store = :dalli_store, []
 
+
+    # FILES
     # config.paths['files'] = 'files'
     # directory in which uploaded files are actually stored. (eg Image and File cards)
 
@@ -64,6 +77,11 @@ module <%= app_const_base %>
     #   }
     # }
 
+    # MISCELLANEOUS
+    # config.read_only = true
+    # defaults to false
+    # disallows creating, updating, and deleting cards.
+
     # config.paths['mod'] << 'my-mod-dir'
     # add a new directory for code customizations, or "mods"
 
@@ -71,9 +89,9 @@ module <%= app_const_base %>
     # don't strip style attributes (not recommended)
 
     # config.override_host = "example.com"
-    # overrides host autodetected from web requests
+    # overrides host auto-detected from web requests
 
     # config.override_protocol = "https"
-    # overrides protocol autodetected from web requests
+    # overrides protocol auto-detected from web requests
   end
 end
