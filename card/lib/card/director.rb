@@ -1,9 +1,21 @@
 warn "require card/director"
-require 'card/director/act_direction'
+require 'card/director'
+warn "require card/card_methods"
 require 'card/director/card_methods'
+warn "require card/director/event_delay"
 require 'card/director/event_delay'
+warn "require card/director/run"
 require 'card/director/run'
+warn "require card/director/store"
 require 'card/director/store'
+warn "require card/director/act_direction"
+require 'card/director/act_direction'
+warn "require card/director/subdirector_array"
+require 'card/director/subdirector_array'
+warn 'pre stages'
+require 'card/director/stages'
+require 'card/director/phases'
+warn 'post require'
 warn "require card/director end"
 class Card
   # Directs the symphony of a card {Card::Act **act**}.
@@ -145,14 +157,8 @@ class Card
 
     include Run
     include Store
-warn 'pre stages'
-    require 'card/director/stages'
-    require 'card/director/phases'
-warn 'post require'
     include Stages
-warn 'pre phases'
     include Phases
-warn 'post phases'
 
     attr_accessor :act, :card, :stage, :parent, :subdirectors, :head
     attr_reader :running
