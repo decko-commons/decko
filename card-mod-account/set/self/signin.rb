@@ -47,25 +47,37 @@ def i18n_signin key
 end
 
 def authenticate_or_abort email, pword
-  abort_unless email, :email_missing
-  abort_unless pword, :password_missing
-  authenticate_and_signin(email, pword) || failed_signin(email)
+  abort :failure, i18n_signin(:email_missing) unless email
+  abort :failure, i18n_signin(:password_missing) unless pword
+  if (account = Auth.authenticate(email, pword))
+    Auth.signin account.left_id
+  else
+    account = Auth.find_account_by_email email
+    errors.add :signin, signin_error_message(account)
+    abort :failure
+  end
 end
 
-def authenticate_and_signin email, pword
-  return unless (account = Auth.authenticate email, pword)
+# def authenticate_or_abort email, pword
+#   abort_unless email, :email_missing
+#   abort_unless pword, :password_missing
+#   authenticate_and_signin(email, pword) || failed_signin(email)
+# end
 
-  Auth.signin account.left_id
-end
-
-def failed_signin email
-  errors.add :signin, signin_error_message(account_for(email))
-  abort :failure
-end
-
-def abort_unless value, error_key
-  abort :failure, i18n_signin(error_key) unless value
-end
+# def authenticate_and_signin email, pword
+#   return unless (account = Auth.authenticate email, pword)
+#
+#   Auth.signin account.left_id
+# end
+#
+# def failed_signin email
+#   errors.add :signin, signin_error_message(account_for(email))
+#   abort :failure
+# end
+#
+# def abort_unless value, error_key
+#   abort :failure, i18n_signin(error_key) unless value
+# end
 
 def signin_error_message account
   case
@@ -75,43 +87,57 @@ def signin_error_message account
   end
 end
 
-def error_on field, error_key
-  errors.add field, i18n_signin(error_key)
-end
-
-def account_for email
-  Auth.find_account_by_email email
-end
+# def error_on field, error_key
+#   errors.add field, i18n_signin(error_key)
+# end
+#
+# def account_for email
+#   Auth.find_account_by_email email
+# end
 
 def send_reset_password_email_or_fail email
   aborting do
-    break if blank_email? email
+    break errors.add :email, i18n_signin(:error_blank) if email.blank?
 
-    if (account = account_for email)&.active?
-      send_reset_password_email account
+    if (account = Auth.find_account_by_email(email))&.active?
+      Auth.as_bot { account.send_password_reset_email }
+    elsif account
+      errors.add :account, i18n_signin(:error_not_active)
     else
-      reset_password_fail account
+      errors.add :email, i18n_signin(:error_not_recognized)
     end
   end
 end
 
-def blank_email? email
-  return false if email.present?
+# def send_reset_password_email_or_fail email
+#   aborting do
+#     break if blank_email? email
+#
+#     if (account = account_for email)&.active?
+#       send_reset_password_email account
+#     else
+#       reset_password_fail account
+#     end
+#   end
+# end
+#
+# def blank_email? email
+#   return false if email.present?
+#
+#   error_on :email, :error_blank
+# end
+#
+# def send_reset_password_email account
+#   Auth.as_bot { account.send_password_reset_email }
+# end
 
-  error_on :email, :error_blank
-end
-
-def send_reset_password_email account
-  Auth.as_bot { account.send_password_reset_email }
-end
-
-def reset_password_fail account
-  if account
-    error_on :account, :error_not_active
-  else
-    error_on :email, :error_not_recognized
-  end
-end
+# def reset_password_fail account
+#   if account
+#     error_on :account, :error_not_active
+#   else
+#     error_on :email, :error_not_recognized
+#   end
+# end
 
 format :html do
   view :core, cache: :never do
