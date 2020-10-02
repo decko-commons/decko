@@ -108,7 +108,7 @@ module Decko
 
         def script
           directory("script") { |content| "#{shebang}\n" + content }
-          chmod "script", 0755 & ~File.umask, verbose: false
+          chmod "script", 0o755 & ~File.umask, verbose: false
         end
 
         def spec
