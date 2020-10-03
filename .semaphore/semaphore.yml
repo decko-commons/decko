@@ -34,14 +34,14 @@ blocks:
         # updates to ANY submodule
         - name: cache gems
           commands:
-            - cache restore bundle
+            # - cache restore bundle
             # long-term cache so we don't start from scratch when Gemfile.lock is ticked
             # may need to clear manually from time to time
             - cache restore bundle-$(checksum Gemfile.lock)
             # cache for current Gemfile.lock
             - bundle install
             - bundle show rails
-            - cache store bundle vendor/bundle
+            # - cache store bundle vendor/bundle
             - cache store bundle-$(checksum Gemfile.lock) vendor/bundle
 
   - name: Smoke
