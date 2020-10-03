@@ -15,4 +15,3 @@ shared_examples "view with valid html" do |view_name|
     expect(doc.errors).to be_empty, [doc.errors, highlight_syntax(rendered)].join("\n")
   end
 end
-

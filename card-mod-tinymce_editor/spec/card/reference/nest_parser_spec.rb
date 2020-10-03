@@ -1,12 +1,13 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::ReferenceEditor::NestEditor::NestParser do
+RSpec.describe Card::Reference::NestParser do
   def parse nest
     described_class.new nest, :titled, :bar
   end
 
   context "with field" do
     let(:parser) do
+      Card
       parse "{{+hi|view: open; show: menu, toggle; wrap: slot; invalid: x"\
                       "|view: titled; hide: header, footer"\
                       "|content; title: subsub}}"

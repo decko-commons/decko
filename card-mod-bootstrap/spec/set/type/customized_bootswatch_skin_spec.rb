@@ -7,7 +7,7 @@ RSpec.describe Card::Set::Type::CustomizedBootswatchSkin do
   end
 
   specify ".read_bootstrap_variables" do
-    expect(described_class.read_bootstrap_variables).to include "$primary"
+    expect(card.read_bootstrap_variables).to include "$primary"
   end
 
   it "copies content from source file" do
