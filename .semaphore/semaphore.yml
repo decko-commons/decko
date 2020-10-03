@@ -1,4 +1,4 @@
-version: v1.1
+version: v1.0
 name: First pipeline example
 agent:
   machine:
@@ -15,19 +15,31 @@ blocks:
       - name: Setup
         commands:
           - checkout
+          - sem-service start mysql
+          - sem-service status mysql
           - wget https://gist.githubusercontent.com/mimimalizam/9aef3aa5ac0884943efb6aca947a8b56/raw/firefox-semaphore.sh && bash firefox-semaphore.sh 64.0.2
           - git submodule sync
           - git submodule update --init --recursive
+          - pwd
+          - bundle update
 
-  - name: "Smoke tests"
+  - name: "Smoke Tests"
     task:
       jobs:
-      - name: Smoke
+      - name: Shark Smoke
         commands:
           - checkout
-          - echo "make smoke"
+          - bundle exec decko new shark
+      - name: Monkey Smoke
+        commands:
+          - checkout
+          - bundle exec decko new monkey --monkey
+      - name: Platypus Smoke
+        commands:
+          - checkout
+          - bundle exec decko new platypus --platypus
 
-  - name: "Unit tests"
+  - name: "RSpec"
     task:
       jobs:
       - name: RSpec
