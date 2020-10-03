@@ -17,14 +17,17 @@ blocks:
         - name: Setup
           commands:
             - checkout
-            - pwd
+
+            - git submodule foreach 'cache restore git-submodule-$sha1'
             - git submodule sync
-            - git submodule update --init --recursive
-            - bundle update
-            - bundle info rails
-            - bundle info decko
-            - bundle --version
-            - cache store
+            - git submodule update
+            - git submodule foreach 'cache store git-submodule-$sha1 $sm_path'
+
+            - cache restore bundle-config-$(checksum Gemfile.lock)
+            - cache restore bundle-gems-$(checksum Gemfile.lock)
+            - bundle install --deployment
+            - cache store bundle-gems-$(checksum Gemfile.lock) vendor/bundle
+            - cache store bundle-config-$(checksum Gemfile.lock) .bundle
 
   - name: Smoke
     # dependencies: ["Dependencies"]
@@ -33,6 +36,8 @@ blocks:
         commands:
           - checkout
           - cache restore
+          - cache restore bundle-config-$(checksum Gemfile.lock)
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: Shark Smoke
           commands:
