@@ -19,9 +19,9 @@ blocks:
         - name: COVERAGE
           value: "false"
         - name: GEM_HOME
-          value: "~/vendor/bundle"
+          value: "~/decks/vendor/bundle"
         - name: GEM_PATH
-          value: "~/vendor/bundle:~/"
+          value: "~/decks/vendor/bundle:~/decks"
       jobs:
         # - name: cache submodules
         #   commands:
