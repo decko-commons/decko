@@ -17,6 +17,10 @@ blocks:
           value: test
         - name: COVERAGE
           value: "false"
+        - name: GEM_HOME
+          value: "~/vendor/bundle"
+        - name: GEM_PATH
+          value: "~/vendor/bundle"
       jobs:
         # - name: cache submodules
         #   commands:
@@ -30,11 +34,15 @@ blocks:
         # updates to ANY submodule
         - name: cache gems
           commands:
-            - ls -al
-            - cache restore bundle-gems-$(checksum Gemfile.lock)
+            - cache restore bundle
+            # long-term cache so we don't start from scratch when Gemfile.lock is ticked
+            # may need to clear manually from time to time
+            - cache restore bundle-$(checksum Gemfile.lock)
+            # cache for current Gemfile.lock
             - bundle install
             - bundle show rails
-            - cache store bundle-gems-$(checksum Gemfile.lock) vendor/bundle
+            - cache store bundle vendor/bundle
+            - cache store bundle-$(checksum Gemfile.lock) vendor/bundle
 
   - name: Smoke
     # dependencies: ["Dependencies"]
@@ -44,7 +52,7 @@ blocks:
           - sem-version ruby 2.6.3
           - checkout
           #- git submodule foreach 'cache restore git-submodule-$sha1'
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - cache restore bundle-$(checksum Gemfile.lock)
       jobs:
         - name: Shark Smoke
           commands:
