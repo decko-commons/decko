@@ -39,6 +39,7 @@ blocks:
             # may need to clear manually from time to time
             - cache restore bundle-$(checksum Gemfile.lock)
             # cache for current Gemfile.lock
+            - gem install bundler:2.1.4
             - bundle install
             - bundle show rails
             # - cache store bundle vendor/bundle
