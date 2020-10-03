@@ -15,12 +15,13 @@ blocks:
       - name: Setup
         commands:
           - checkout
+          - pwd
+          - ls -Ral
           - sem-service start mysql
           - sem-service status mysql
-          - wget https://gist.githubusercontent.com/mimimalizam/9aef3aa5ac0884943efb6aca947a8b56/raw/firefox-semaphore.sh && bash firefox-semaphore.sh 64.0.2
           - git submodule sync
           - git submodule update --init --recursive
-          - pwd
+
           - bundle update
 
   - name: "Smoke Tests"
@@ -30,16 +31,20 @@ blocks:
         commands:
           - checkout
           - bundle exec decko new shark
+          - cd shark
+          - bundle exec decko seed
       - name: Monkey Smoke
         commands:
           - checkout
           - bundle exec decko new monkey --monkey
+          - bundle exec decko seed
       - name: Platypus Smoke
         commands:
           - checkout
           - bundle exec decko new platypus --platypus
+          - bundle exec decko seed --test
 
-  - name: "RSpec"
+  - name: "Unit Tests"
     task:
       jobs:
       - name: RSpec
@@ -63,6 +68,7 @@ blocks:
       - name: Cucumber
         commands:
           - checkout
+          # - wget https://gist.githubusercontent.com/mimimalizam/9aef3aa5ac0884943efb6aca947a8b56/raw/firefox-semaphore.sh && bash firefox-semaphore.sh 64.0.2
           - echo "make cucumber"
 
   - name: "Push Image"
