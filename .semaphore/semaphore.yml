@@ -25,9 +25,10 @@ blocks:
             - git submodule foreach 'cache store git-submodule-$sha1 $sm_path'
         - name: cache gems
           commands:
+            - ls -al
             - cache restore bundle-gems-$(checksum Gemfile.lock)
-            - bundle config set deployment 'true'
-            - bundle install --path vendor/bundle
+            - bundle config set path 'vendor/bundle'
+            - bundle install
             - cache store bundle-gems-$(checksum Gemfile.lock) vendor/bundle
 
   - name: Smoke
