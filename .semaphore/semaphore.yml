@@ -13,7 +13,6 @@ blocks:
           - sem-version ruby 2.6.3
           - checkout
           - gem install bundler:2.1.4
-      env_vars:
       jobs:
         # - name: cache submodules
         #   commands:
