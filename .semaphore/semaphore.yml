@@ -6,77 +6,91 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: Install dependencies
+  - name: cache dependencies
     task:
+      prologue:
+        commands:
+          - sem-version ruby 2.6.3
+          - checkout
       env_vars:
         - name: RAILS_ENV
           value: test
         - name: COVERAGE
-          value: false
+          value: "false"
       jobs:
-      - name: Setup
-        commands:
-          - checkout
-          - pwd
-          - ls -Ral
-          - sem-service start mysql
-          - sem-service status mysql
-          - git submodule sync
-          - git submodule update --init --recursive
+        - name: cache submodules
+          commands:
+            - git submodule sync
+            - git submodule update --init
+            - git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
+        - name: cache gems
+          commands:
+            - ls -al
+            - cache restore bundle-gems-$(checksum Gemfile.lock)
+            - bundle config set path 'vendor/bundle'
+            - bundle install
+            - cache store bundle-gems-$(checksum Gemfile.lock) vendor/bundle
 
-          - bundle update
-
-  - name: Smoke Tests"
+  - name: Smoke
+    # dependencies: ["Dependencies"]
     task:
+      prologue:
+        commands:
+          - sem-version ruby 2.6.3
+          - checkout
+          - git submodule foreach 'cache restore git-submodule-$sha1'
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
-      - name: Shark Smoke
-        commands:
-          - checkout
-          - bundle exec decko new shark
-          - cd shark
-          - bundle exec decko seed
-      - name: Monkey Smoke
-        commands:
-          - checkout
-          - bundle exec decko new monkey --monkey
-          - bundle exec decko seed
-      - name: Platypus Smoke
-        commands:
-          - checkout
-          - bundle exec decko new platypus --platypus
-          - bundle exec decko seed --test
+        - name: Shark Smoke
+          commands:
+            - ls -al
+            - bundle exec decko new shark --repo-path="../"
+            - cd shark
+            - bundle exec decko seed
+            - bundle info rails
+            - bundle info decko
+        - name: Monkey Smoke
+          commands:
+            - bundle exec decko new monkey --monkey --repo-path="../"
+            - cd monkey
+            - bundle exec decko seed
+            - bundle info rails
+            - bundle info decko
+        - name: Platypus Smoke
+          commands:
+            - bundle exec decko new platypus --platypus --repo-path="../"
+            - cache store platypus
+            - cd platypus
+            - bundle exec decko seed --test
+            - bundle info rails
+            - bundle info decko
 
   - name: "Unit Tests"
+    # dependencies: ["Smoke", "Dependencies"]
     task:
       jobs:
-      - name: RSpec
-        commands:
-          - checkout
-          - echo "make rspec"
+        - name: RSpec
+          commands:
+            - checkout
+            - ls -al
+            - echo "make rspec"
 
-      - name: Lint code
-        commands:
-          - checkout
-          - echo "make lint"
-
-      - name: Check security
-        commands:
-          - checkout
-          - echo "make security"
 
   - name: "Integration tests"
+    # dependencies: []
     task:
       jobs:
-      - name: Cucumber
-        commands:
-          - checkout
-          # - wget https://gist.githubusercontent.com/mimimalizam/9aef3aa5ac0884943efb6aca947a8b56/raw/firefox-semaphore.sh && bash firefox-semaphore.sh 64.0.2
-          - echo "make cucumber"
+        - name: Cucumber
+          commands:
+            - checkout
+            # - wget https://gist.githubusercontent.com/mimimalizam/9aef3aa5ac0884943efb6aca947a8b56/raw/firefox-semaphore.sh && bash firefox-semaphore.sh 64.0.2
+            - echo "make cucumber"
 
   - name: "Push Image"
+    # dependencies: []
     task:
       jobs:
-      - name: Push
-        commands:
-          - checkout
-          - echo "make docker.push"
+        - name: Push
+          commands:
+            - checkout
+            - echo "make docker.push"
