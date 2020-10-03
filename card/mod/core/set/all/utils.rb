@@ -79,6 +79,14 @@ def measure desc
 end
 # rubocop:enable Style/GlobalVars
 
+def mod_root modname
+  if (spec = Gem::Specification::find_by_name "card-mod-#{modname}")
+    spec.full_gem_path
+  else
+    "#{Cardio.gem_root}/mod/#{modname}"
+  end
+end
+
 format do
   delegate :measure, to: :card
 end

@@ -27,7 +27,7 @@ format :html do
     @nest_content_tab = nest(nest_name, view: :new_image, type: :image, hide: :guide)
 
     image_name = nest_name.to_name.right
-    @nest_snippet = NestEditor::NestParser.new_image image_name
+    @nest_snippet = Card::Reference::NestParser.new_image image_name
   end
 
 

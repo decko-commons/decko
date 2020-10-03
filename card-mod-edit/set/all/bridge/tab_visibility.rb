@@ -1,6 +1,6 @@
 format :html do
   def visible_bridge_tabs
-    BRIDGE_TABS.select do |_title, view|
+    All::BRIDGE_TABS.select do |_title, view|
       send "show_#{view}?"
     end
   end

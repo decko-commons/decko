@@ -52,9 +52,9 @@ class Card
           return source unless source && Cardio.config.load_strategy == :tmp_files
 
           source.gsub TMPSET_REGEXP do |_s|
-            match = Regexp.last_match
-            prefix = match[:carddir] unless match[:modname].match?(/^card-mod-/)
-            "#{prefix}/#{match[:modname]}/set"
+            modname = (match = Regexp.last_match)[:modname]
+            prefix = "#{match[:carddir]}/mod" unless modname.match?(/^card-mod-/)
+            "#{prefix}/#{modname}/set/"
           end
         end
 

@@ -87,7 +87,7 @@ class Card
 
       def gem_spec name, nickname=true
         name = "card-mod-#{name}" if nickname && !name.match?(/^card-mod/)
-        spec = Gem::Specification.stubs_for(name)&.first
+        spec = Gem::Specification.find_by_name name
         Cardio.gem_mod_spec?(spec) ? spec : nil
       end
     end
