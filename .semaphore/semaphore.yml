@@ -6,7 +6,7 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: Install dependencies
+  - name: Dependencies
     task:
       env_vars:
         - name: RAILS_ENV
@@ -18,48 +18,51 @@ blocks:
           commands:
             - checkout
             - pwd
-            - ls -Ral
             - git submodule sync
             - git submodule update --init --recursive
             - bundle update
+            - bundle show rails
+            - bundle show decko
 
-  - name: Smoke Tests"
+  - name: Smoke
+    dependencies: ["Dependencies"]
     task:
       jobs:
         - name: Shark Smoke
           commands:
             - checkout
-            - bundle exec decko new shark
+            - bundle exec decko new shark --repo-path="../"
             - cd shark
             - bundle exec decko seed
+            - bundle show rails
+            - bundle show decko
         - name: Monkey Smoke
           commands:
             - checkout
-            - bundle exec decko new monkey --monkey
+            - bundle exec decko new monkey --monkey --repo-path="../"
+            - cd monkey
             - bundle exec decko seed
+            - bundle show rails
+            - bundle show decko
         - name: Platypus Smoke
           commands:
             - checkout
-            - bundle exec decko new platypus --platypus
+            - bundle exec decko new platypus --platypus --repo-path="../"
+            - cd platypus
             - bundle exec decko seed --test
+            - bundle show rails
+            - bundle show decko
 
   - name: "Unit Tests"
+    dependencies: ["Smoke"]
     task:
       jobs:
         - name: RSpec
           commands:
             - checkout
+            - ls -al
             - echo "make rspec"
 
-        - name: Lint code
-          commands:
-            - checkout
-            - echo "make lint"
-
-        - name: Check security
-          commands:
-            - checkout
-            - echo "make security"
 
   - name: "Integration tests"
     task:
