@@ -6,11 +6,13 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: "Build"
+  - name: Install dependencies
     task:
       env_vars:
-        - name: APP_ENV
-          value: prod
+        - name: RAILS_ENV
+          value: test
+        - name: COVERAGE
+          value: false
       jobs:
       - name: Setup
         commands:
@@ -24,7 +26,7 @@ blocks:
 
           - bundle update
 
-  - name: "Smoke Tests"
+  - name: Smoke Tests"
     task:
       jobs:
       - name: Shark Smoke
