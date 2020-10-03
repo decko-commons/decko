@@ -20,7 +20,7 @@ blocks:
         - name: GEM_HOME
           value: "~/vendor/bundle"
         - name: GEM_PATH
-          value: "~/vendor/bundle"
+          value: "~/vendor/bundle:~/"
       jobs:
         # - name: cache submodules
         #   commands:
@@ -57,14 +57,14 @@ blocks:
         - name: Shark Smoke
           commands:
             - ls -al
-            - bundle exec decko new shark --repo-path="../"
+            - bundle exec decko new shark
             - cd shark
             - bundle exec decko seed
             - bundle info rails
             - bundle info decko
         - name: Monkey Smoke
           commands:
-            - bundle exec decko new monkey --monkey --repo-path="../"
+            - bundle exec decko new monkey --monkey
             - cd monkey
             - bundle exec decko seed
             - bundle info rails
