@@ -1,5 +1,5 @@
 version: v1.0
-name: First pipeline example
+name: Decko Test Suite
 agent:
   machine:
     type: e1-standard-2
@@ -15,16 +15,15 @@ blocks:
         commands:
           - checkout
           - sem-version ruby 2.6.3
-          - gem install bundler:2.1.4
       jobs:
-        # - name: cache submodules
-        #   commands:
-        #     - git submodule sync
-        #     - git submodule update --init
-        #     - git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
+        - name: cache submodules
+          commands:
+            - git submodule sync
+            - git submodule update --init
+            - git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
         # NOTE: this caches the submodule code but does not cache all the files
         # in .git/modules that tell git that everything is groovy.
-        # We can, of course, try caching that, which might allow us to restore the
+        # We can, of course, try caching that, which would in allow us to restore the
         # submodules across builds, but we'd need a unique cache key that would catch
         # updates to ANY submodule
         - name: cache gems
@@ -79,6 +78,8 @@ blocks:
           value: "false"
         - name: BUNDLE_PATH
           value: "~/decks/vendor/bundle"
+        - name: RAILS_ENV
+          value: "test"
       prologue:
         commands:
           - checkout
