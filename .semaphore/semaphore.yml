@@ -12,10 +12,8 @@ blocks:
         commands:
           - sem-version ruby 2.6.3
           - checkout
-          - mkdir -p vendor/bundle
+          - mkdir -p vendor/bundle/gems
       env_vars:
-        - name: RAILS_ENV
-          value: test
         - name: COVERAGE
           value: "false"
         - name: GEM_HOME
