@@ -32,7 +32,7 @@ blocks:
             - cache restore bundle-$(checksum Gemfile.lock)
             # cache for current Gemfile.lock
             - env GEM_PATH="~/decks/vendor/bundle" bundle install
-            - bundle show rails
+            - bundle info rails
             # - cache store bundle vendor/bundle
             - cache store bundle-$(checksum Gemfile.lock) vendor/bundle
 
@@ -48,8 +48,8 @@ blocks:
       env_vars:
         - name: COVERAGE
           value: "false"
-        - name: GEM_HOME
-          value: "~/decks/vendor/bundle"
+        # - name: GEM_HOME
+        #  value: "~/decks/vendor/bundle"
         - name: GEM_PATH
           value: "~/decks/vendor/bundle:~/decks"
       jobs:
