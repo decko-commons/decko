@@ -1,5 +1,5 @@
 version: v1.0
-name: Decko Test Suite
+name: Decko Standard
 agent:
   machine:
     type: e1-standard-2
@@ -28,12 +28,12 @@ blocks:
         # updates to ANY submodule
         - name: cache gems
           commands:
-            - cache delete bundle-gems-baseline
-            - cache delete bundle-gems-$(checksum Gemfile.lock)
-            # - cache restore bundle-gems-baseline
+            # - cache delete bundle-gems-baseline
+            # - cache delete bundle-gems-$(checksum Gemfile.lock)
+            - cache restore bundle-gems-baseline
             # long-term cache so we don't start from scratch when Gemfile.lock is ticked
             # may need to clear manually from time to time
-            # - cache restore bundle-gems-$(checksum Gemfile.lock)
+            - cache restore bundle-gems-$(checksum Gemfile.lock)
             # cache for current Gemfile.lock
             - bundle install
             - bundle info rails
@@ -50,16 +50,12 @@ blocks:
           - checkout
           - sem-version ruby 2.6.3
           - sem-service start mysql
-          - git submodule foreach 'cache delete git-submodule-$sha1'
+          - git submodule foreach 'cache restore git-submodule-$sha1'
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: Shark Smoke
           commands:
-            - ls -al
             - bundle exec decko new shark --repo-path="../"
-            - bundle info rails
-            - bundle info decko
-
             - cd shark
             - bundle exec decko seed
         - name: Monkey Smoke
