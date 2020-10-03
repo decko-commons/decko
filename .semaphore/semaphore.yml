@@ -14,12 +14,6 @@ blocks:
           - checkout
           - gem install bundler:2.1.4
       env_vars:
-        - name: COVERAGE
-          value: "false"
-        - name: GEM_HOME
-          value: "~/decks/vendor/bundle"
-        - name: GEM_PATH
-          value: "~/decks/vendor/bundle:~/decks"
       jobs:
         # - name: cache submodules
         #   commands:
@@ -38,7 +32,7 @@ blocks:
             # may need to clear manually from time to time
             - cache restore bundle-$(checksum Gemfile.lock)
             # cache for current Gemfile.lock
-            - bundle install
+            - env GEM_PATH="~/decks/vendor/bundle" bundle install
             - bundle show rails
             # - cache store bundle vendor/bundle
             - cache store bundle-$(checksum Gemfile.lock) vendor/bundle
@@ -52,6 +46,13 @@ blocks:
           - checkout
           #- git submodule foreach 'cache restore git-submodule-$sha1'
           - cache restore bundle-$(checksum Gemfile.lock)
+      env_vars:
+        - name: COVERAGE
+          value: "false"
+        - name: GEM_HOME
+          value: "~/decks/vendor/bundle"
+        - name: GEM_PATH
+          value: "~/decks/vendor/bundle:~/decks"
       jobs:
         - name: Shark Smoke
           commands:
