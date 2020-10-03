@@ -46,13 +46,16 @@ class Card
           end
         end
 
-        TMPSET_REGEXP
+        TMPSET_REGEXP = %r{?<carddir>(/card)/tmp(sets)?/set/mod\d{3}-?<modname>([^/]+)/}
 
         def deep_source source
           return source unless source && Cardio.config.load_strategy == :tmp_files
 
-          # method(Card::Set::Format.view_method_name(view)).owner.source_location
-          source.gsub %r{/tmp(sets)?\/set/mod\d{3}-([^/]+)}, "/\\2/set"
+          source.gsub TMPSET_REGEXP do |match|
+            modname = match[:modname]
+            prefix = match[:carddir] unless modname.match?(/^card-mod-/)
+            "#{prefix}/#{modname}/set"
+          end
         end
 
         def try_haml_template_path template_path, view, source_dir, ext="haml"

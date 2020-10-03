@@ -69,8 +69,6 @@ format do
   end
 
   def identify_template_path view, locals={}
-    puts "WOOOOT"
-    puts caller_locations[2]
     base_path = locals.delete(:template_path) || caller_locations[2].path
     haml_template_path view, base_path
   end
