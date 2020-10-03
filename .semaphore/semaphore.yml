@@ -31,6 +31,7 @@ blocks:
     task:
       prologue:
         commands:
+          - checkout
           - cache restore
       jobs:
         - name: Shark Smoke
@@ -51,6 +52,7 @@ blocks:
         - name: Platypus Smoke
           commands:
             - bundle exec decko new platypus --platypus --repo-path="../"
+            - cache store platypus
             - cd platypus
             - bundle exec decko seed --test
             - bundle info rails
