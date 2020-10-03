@@ -30,7 +30,7 @@ blocks:
       jobs:
         - name: Shark Smoke
           commands:
-            - checkout
+            - ls -al
             - bundle exec decko new shark --repo-path="../"
             - cd shark
             - bundle exec decko seed
@@ -38,7 +38,6 @@ blocks:
             - bundle show decko
         - name: Monkey Smoke
           commands:
-            - checkout
             - bundle exec decko new monkey --monkey --repo-path="../"
             - cd monkey
             - bundle exec decko seed
@@ -46,7 +45,6 @@ blocks:
             - bundle show decko
         - name: Platypus Smoke
           commands:
-            - checkout
             - bundle exec decko new platypus --platypus --repo-path="../"
             - cd platypus
             - bundle exec decko seed --test
