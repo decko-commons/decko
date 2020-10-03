@@ -9,7 +9,8 @@ blocks:
   - name: cache dependencies
     task:
       prologue:
-        - checkout
+        commands:
+          - checkout
       env_vars:
         - name: RAILS_ENV
           value: test
