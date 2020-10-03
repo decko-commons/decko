@@ -21,12 +21,17 @@ blocks:
             - git submodule sync
             - git submodule update --init --recursive
             - bundle update
-            - bundle show rails
-            - bundle show decko
+            - bundle info rails
+            - bundle info decko
+            - bundle --version
+            - cache store
 
   - name: Smoke
     # dependencies: ["Dependencies"]
     task:
+      prologue:
+        commands:
+          - cache restore
       jobs:
         - name: Shark Smoke
           commands:
@@ -34,22 +39,22 @@ blocks:
             - bundle exec decko new shark --repo-path="../"
             - cd shark
             - bundle exec decko seed
-            - bundle show rails
-            - bundle show decko
+            - bundle info rails
+            - bundle info decko
         - name: Monkey Smoke
           commands:
             - bundle exec decko new monkey --monkey --repo-path="../"
             - cd monkey
             - bundle exec decko seed
-            - bundle show rails
-            - bundle show decko
+            - bundle info rails
+            - bundle info decko
         - name: Platypus Smoke
           commands:
             - bundle exec decko new platypus --platypus --repo-path="../"
             - cd platypus
             - bundle exec decko seed --test
-            - bundle show rails
-            - bundle show decko
+            - bundle info rails
+            - bundle info decko
 
   - name: "Unit Tests"
     # dependencies: ["Smoke", "Dependencies"]
