@@ -22,7 +22,7 @@ blocks:
             - git submodule foreach 'cache restore git-submodule-$sha1'
             - git submodule sync
             - git submodule update --init
-            - git submodule foreach 'cache store git-submodule-$sha1 $sm_path'
+            - git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
         - name: cache gems
           commands:
             - ls -al
