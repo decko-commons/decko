@@ -26,7 +26,7 @@ blocks:
         - name: cache gems
           commands:
             - cache restore bundle-gems-$(checksum Gemfile.lock)
-            - bundle config set deployment '
+            - bundle config set deployment 'true'
             - bundle install --path vendor/bundle
             - cache store bundle-gems-$(checksum Gemfile.lock) vendor/bundle
 
