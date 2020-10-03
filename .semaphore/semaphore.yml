@@ -25,7 +25,7 @@ blocks:
             - bundle show decko
 
   - name: Smoke
-    dependencies: ["Dependencies"]
+    # dependencies: ["Dependencies"]
     task:
       jobs:
         - name: Shark Smoke
@@ -54,7 +54,7 @@ blocks:
             - bundle show decko
 
   - name: "Unit Tests"
-    dependencies: ["Smoke", "Dependencies"]
+    # dependencies: ["Smoke", "Dependencies"]
     task:
       jobs:
         - name: RSpec
@@ -65,7 +65,7 @@ blocks:
 
 
   - name: "Integration tests"
-    dependencies: []
+    # dependencies: []
     task:
       jobs:
         - name: Cucumber
@@ -75,7 +75,7 @@ blocks:
             - echo "make cucumber"
 
   - name: "Push Image"
-    dependencies: []
+    # dependencies: []
     task:
       jobs:
         - name: Push
