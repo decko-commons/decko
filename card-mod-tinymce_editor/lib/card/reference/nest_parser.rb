@@ -1,7 +1,7 @@
-# Extracts all information needed to generate the nest editor form
-# from a nest syntax string
 class Card
   class Reference
+    # Extracts all information needed to generate the nest editor form
+    # from a nest syntax string
     class NestParser
       NEST_OPTIONS = %i[view title show hide wrap help variant size params].freeze
 
