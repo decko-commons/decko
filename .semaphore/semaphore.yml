@@ -10,6 +10,7 @@ blocks:
     task:
       prologue:
         commands:
+          - sem-version ruby 2.6.3
           - checkout
       env_vars:
         - name: RAILS_ENV
@@ -19,7 +20,6 @@ blocks:
       jobs:
         - name: cache submodules
           commands:
-            - git submodule foreach 'cache restore git-submodule-$sha1'
             - git submodule sync
             - git submodule update --init
             - git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
@@ -36,6 +36,7 @@ blocks:
     task:
       prologue:
         commands:
+          - sem-version ruby 2.6.3
           - checkout
           - git submodule foreach 'cache restore git-submodule-$sha1'
           - cache restore bundle-gems-$(checksum Gemfile.lock)
