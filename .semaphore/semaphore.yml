@@ -18,8 +18,13 @@ blocks:
       jobs:
         - name: cache submodules
           commands:
+            - git submodule status > substat.txt
+            - cache restore git-modules-$(checksum substat.txt)
+            - git submodule foreach 'cache restore git-submodule-$sha1'
+
             - git submodule sync
             - git submodule update --init
+            - cache store git-module-$(checksum substat.txt) .git/modules
             - git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
         # NOTE: this caches the submodule code but does not cache all the files
         # in .git/modules that tell git that everything is groovy.
