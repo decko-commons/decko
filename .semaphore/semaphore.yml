@@ -12,7 +12,7 @@ blocks:
         commands:
           - sem-version ruby 2.6.3
           - checkout
-          - mkdir -p vendor/bundle/gems
+          - gem install bundler:2.1.4
       env_vars:
         - name: COVERAGE
           value: "false"
@@ -38,7 +38,6 @@ blocks:
             # may need to clear manually from time to time
             - cache restore bundle-$(checksum Gemfile.lock)
             # cache for current Gemfile.lock
-            - gem install bundler:2.1.4
             - bundle install
             - bundle show rails
             # - cache store bundle vendor/bundle
