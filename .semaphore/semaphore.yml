@@ -23,6 +23,11 @@ blocks:
         #     - git submodule sync
         #     - git submodule update --init
         #     - git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
+        # NOTE: this caches the submodule code but does not cache all the files
+        # in .git/modules that tell git that everything is groovy.
+        # We can, of course, try caching that, which might allow us to restore the
+        # submodules across builds, but we'd need a unique cache key that would catch
+        # updates to ANY submodule
         - name: cache gems
           commands:
             - ls -al
