@@ -46,15 +46,15 @@ class Card
           end
         end
 
-        TMPSET_REGEXP = %r{?<carddir>(/card)/tmp(sets)?/set/mod\d{3}-?<modname>([^/]+)/}
+        TMPSET_REGEXP = %r{(?<carddir>/card)/tmp(sets)?/set/mod\d{3}-(?<modname>[^/]+)/}
 
         def deep_source source
           return source unless source && Cardio.config.load_strategy == :tmp_files
 
-          source.gsub TMPSET_REGEXP do |match|
-            modname = match[:modname]
-            prefix = match[:carddir] unless modname.match?(/^card-mod-/)
-            "#{prefix}/#{modname}/set"
+          source.gsub TMPSET_REGEXP do |_s|
+            match = Regexp.last_match
+            prefix = match[:carddir] unless match[:modname].match?(/^card-mod-/)
+            "#{prefix}/#{match[:modname]}/set"
           end
         end
 
