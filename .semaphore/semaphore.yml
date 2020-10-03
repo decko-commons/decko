@@ -9,14 +9,12 @@ blocks:
   - name: cache dependencies
     task:
       env_vars:
-        - name: COVERAGE
-          value: "false"
         - name: BUNDLE_PATH
           value: "~/decks/vendor/bundle"
       prologue:
         commands:
-          - sem-version ruby 2.6.3
           - checkout
+          - sem-version ruby 2.6.3
           - gem install bundler:2.1.4
       jobs:
         # - name: cache submodules
@@ -31,6 +29,8 @@ blocks:
         # updates to ANY submodule
         - name: cache gems
           commands:
+            - cache delete bundle-gems-baseline
+            - cache delete bundle-gems-$(checksum Gemfile.lock)
             - cache restore bundle-gems-baseline
             # long-term cache so we don't start from scratch when Gemfile.lock is ticked
             # may need to clear manually from time to time
@@ -42,7 +42,37 @@ blocks:
             - cache store bundle-gems-$(checksum Gemfile.lock) vendor/bundle
 
   - name: Smoke
-    # dependencies: ["Dependencies"]
+    task:
+      env_vars:
+        - name: BUNDLE_PATH
+          value: "~/decks/vendor/bundle/"
+      prologue:
+        commands:
+          - checkout
+          - sem-version ruby 2.6.3
+          - sem-service start mysql
+          - git submodule foreach 'cache delete git-submodule-$sha1'
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
+      jobs:
+        - name: Shark Smoke
+          commands:
+            - ls -al
+            - bundle exec decko new shark --repo-path="../"
+            - bundle info rails
+            - bundle info decko
+
+            - cd shark
+            - bundle exec decko seed
+        - name: Monkey Smoke
+          commands:
+            - bundle exec decko new monkey --monkey --repo-path="../"
+            - cd monkey
+            - bundle exec decko seed
+            - bundle info rails
+            - bundle info decko
+
+
+  - name: "Unit Tests"
     task:
       env_vars:
         - name: COVERAGE
@@ -51,48 +81,27 @@ blocks:
           value: "~/decks/vendor/bundle"
       prologue:
         commands:
-          - sem-version ruby 2.6.3
           - checkout
+          - sem-version ruby 2.6.3
           - sem-service start mysql
-          #- git submodule foreach 'cache restore git-submodule-$sha1'
+          - git submodule foreach 'cache restore git-submodule-$sha1'
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
-        - name: Shark Smoke
-          commands:
-            - ls -al
-            - bundle exec decko new shark --repo-path="../"
-            - cd shark
-            - bundle exec decko seed
-            - bundle info rails
-            - bundle info decko
-        - name: Monkey Smoke
-          commands:
-            - bundle exec decko new monkey --monkey --repo-path="../"
-            - cd monkey
-            - bundle exec decko seed
-            - bundle info rails
-            - bundle info decko
-        - name: Platypus Smoke
+        - name: RSpec
           commands:
             - bundle exec decko new platypus --platypus --repo-path="../"
-            - cache store platypus
             - cd platypus
             - bundle exec decko seed --test
             - bundle info rails
             - bundle info decko
-
-  - name: "Unit Tests"
-    # dependencies: ["Smoke", "Dependencies"]
-    task:
-      jobs:
-        - name: RSpec
+            - bundle exec decko rspec
           commands:
             - checkout
             - ls -al
             - echo "make rspec"
 
 
-  - name: "Integration tests"
+  - name: "Integration Tests"
     # dependencies: []
     task:
       jobs:
