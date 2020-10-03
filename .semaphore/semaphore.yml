@@ -48,7 +48,7 @@ blocks:
         - name: COVERAGE
           value: "false"
         - name: BUNDLE_PATH
-          value: "~/decks/vendor/bundle:~/decks"
+          value: "~/decks/vendor/bundle"
       prologue:
         commands:
           - sem-version ruby 2.6.3
@@ -60,14 +60,14 @@ blocks:
         - name: Shark Smoke
           commands:
             - ls -al
-            - bundle exec decko new shark
+            - bundle exec decko new shark --repo-path="../"
             - cd shark
             - bundle exec decko seed
             - bundle info rails
             - bundle info decko
         - name: Monkey Smoke
           commands:
-            - bundle exec decko new monkey --monkey
+            - bundle exec decko new monkey --monkey --repo-path="../"
             - cd monkey
             - bundle exec decko seed
             - bundle info rails
