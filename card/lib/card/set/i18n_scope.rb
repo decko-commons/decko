@@ -76,10 +76,9 @@ class Card
       end
 
       def find_set_path backtrace
-        re = tmp_files? ? %r{tmp(sets)?/set\/} : %r{(?<!card)/set/}
+        re = %r{(?<!card)/set/}
         path = backtrace.find { |line| line =~ re }
         raise Error, "couldn't find set path in backtrace: #{backtrace}" unless path
-
         path
       end
 
