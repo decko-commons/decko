@@ -18,23 +18,15 @@ blocks:
       jobs:
         - name: cache submodules
           commands:
-
+            - git submodule init
             - git submodule status > substat.txt
-            - cache delete git-modules-$(checksum substat.txt)
-            - git submodule foreach 'cache delete git-submodule-$sha1'
-
-            # - cache restore git-modules-$(checksum substat.txt)
-            # - git submodule foreach 'cache restore git-submodule-$sha1'
-
-            - git submodule sync
-            - git submodule update --init
+            # - cache delete git-modules-$(checksum substat.txt)
+            # - git submodule foreach 'cache delete git-submodule-$sha1'
+            - cache restore git-modules-$(checksum substat.txt)
+            - git submodule foreach 'cache restore git-submodule-$sha1'
+            - git submodule update
             - cache store git-module-$(checksum substat.txt) .git/modules
             - git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
-        # NOTE: this caches the submodule code but does not cache all the files
-        # in .git/modules that tell git that everything is groovy.
-        # We can, of course, try caching that, which would in allow us to restore the
-        # submodules across builds, but we'd need a unique cache key that would catch
-        # updates to ANY submodule
         - name: cache gems
           commands:
             # - cache delete bundle-gems-baseline
@@ -59,6 +51,7 @@ blocks:
           - checkout
           - sem-version ruby 2.6.3
           - sem-service start mysql
+          - git submodule init
           - git submodule foreach 'cache restore git-submodule-$sha1'
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
@@ -90,6 +83,7 @@ blocks:
           - checkout
           - sem-version ruby 2.6.3
           - sem-service start mysql
+          - git submodule init
           - git submodule foreach 'cache restore git-submodule-$sha1'
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
