@@ -6,28 +6,47 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: "Build"
+  - name: Install dependencies
     task:
       env_vars:
-        - name: APP_ENV
-          value: prod
+        - name: RAILS_ENV
+          value: test
+        - name: COVERAGE
+          value: false
       jobs:
       - name: Setup
         commands:
           - checkout
-          - wget https://gist.githubusercontent.com/mimimalizam/9aef3aa5ac0884943efb6aca947a8b56/raw/firefox-semaphore.sh && bash firefox-semaphore.sh 64.0.2
+          - pwd
+          - ls -Ral
+          - sem-service start mysql
+          - sem-service status mysql
           - git submodule sync
           - git submodule update --init --recursive
 
-  - name: "Smoke tests"
+          - bundle update
+
+  - name: Smoke Tests"
     task:
       jobs:
-      - name: Smoke
+      - name: Shark Smoke
         commands:
           - checkout
-          - echo "make smoke"
+          - bundle exec decko new shark
+          - cd shark
+          - bundle exec decko seed
+      - name: Monkey Smoke
+        commands:
+          - checkout
+          - bundle exec decko new monkey --monkey
+          - bundle exec decko seed
+      - name: Platypus Smoke
+        commands:
+          - checkout
+          - bundle exec decko new platypus --platypus
+          - bundle exec decko seed --test
 
-  - name: "Unit tests"
+  - name: "Unit Tests"
     task:
       jobs:
       - name: RSpec
@@ -51,6 +70,7 @@ blocks:
       - name: Cucumber
         commands:
           - checkout
+          # - wget https://gist.githubusercontent.com/mimimalizam/9aef3aa5ac0884943efb6aca947a8b56/raw/firefox-semaphore.sh && bash firefox-semaphore.sh 64.0.2
           - echo "make cucumber"
 
   - name: "Push Image"
