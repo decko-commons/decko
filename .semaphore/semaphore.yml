@@ -18,9 +18,13 @@ blocks:
       jobs:
         - name: cache submodules
           commands:
+
             - git submodule status > substat.txt
-            - cache restore git-modules-$(checksum substat.txt)
-            - git submodule foreach 'cache restore git-submodule-$sha1'
+            - cache delete git-modules-$(checksum substat.txt)
+            - git submodule foreach 'cache delete git-submodule-$sha1'
+
+            # - cache restore git-modules-$(checksum substat.txt)
+            # - git submodule foreach 'cache restore git-submodule-$sha1'
 
             - git submodule sync
             - git submodule update --init
