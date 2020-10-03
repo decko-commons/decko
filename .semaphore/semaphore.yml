@@ -8,6 +8,11 @@ agent:
 blocks:
   - name: cache dependencies
     task:
+      env_vars:
+        - name: COVERAGE
+          value: "false"
+        - name: BUNDLE_PATH
+          value: "~/decks/vendor/bundle"
       prologue:
         commands:
           - sem-version ruby 2.6.3
@@ -26,32 +31,31 @@ blocks:
         # updates to ANY submodule
         - name: cache gems
           commands:
-            # - cache restore bundle
+            - cache restore bundle-gems-baseline
             # long-term cache so we don't start from scratch when Gemfile.lock is ticked
             # may need to clear manually from time to time
-            - cache restore bundle-$(checksum Gemfile.lock)
+            - cache restore bundle-gems-$(checksum Gemfile.lock)
             # cache for current Gemfile.lock
-            - env GEM_PATH="~/decks/vendor/bundle" bundle install
+            - bundle install
             - bundle info rails
-            # - cache store bundle vendor/bundle
-            - cache store bundle-$(checksum Gemfile.lock) vendor/bundle
+            - cache store bundle-gems-baseline vendor/bundle
+            - cache store bundle-gems-$(checksum Gemfile.lock) vendor/bundle
 
   - name: Smoke
     # dependencies: ["Dependencies"]
     task:
+      env_vars:
+        - name: COVERAGE
+          value: "false"
+        - name: BUNDLE_PATH
+          value: "~/decks/vendor/bundle:~/decks"
       prologue:
         commands:
           - sem-version ruby 2.6.3
           - checkout
+          - sem-service start mysql
           #- git submodule foreach 'cache restore git-submodule-$sha1'
-          - cache restore bundle-$(checksum Gemfile.lock)
-      env_vars:
-        - name: COVERAGE
-          value: "false"
-        # - name: GEM_HOME
-        #  value: "~/decks/vendor/bundle"
-        - name: GEM_PATH
-          value: "~/decks/vendor/bundle:~/decks"
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: Shark Smoke
           commands:
