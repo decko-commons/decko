@@ -54,7 +54,7 @@ blocks:
             - bundle show decko
 
   - name: "Unit Tests"
-    dependencies: ["Smoke"]
+    dependencies: ["Smoke", "Dependencies"]
     task:
       jobs:
         - name: RSpec
@@ -65,6 +65,7 @@ blocks:
 
 
   - name: "Integration tests"
+    dependencies: []
     task:
       jobs:
         - name: Cucumber
@@ -74,6 +75,7 @@ blocks:
             - echo "make cucumber"
 
   - name: "Push Image"
+    dependencies: []
     task:
       jobs:
         - name: Push
