@@ -12,6 +12,7 @@ blocks:
         commands:
           - sem-version ruby 2.6.3
           - checkout
+          - mkdir -p vendor/bundle
       env_vars:
         - name: RAILS_ENV
           value: test
