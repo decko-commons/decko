@@ -10,7 +10,7 @@ blocks:
     task:
       env_vars:
         - name: BUNDLE_PATH
-          value: "~/decks/vendor/bundle"
+          value: "~/decks/vendor/bundle/"
       prologue:
         commands:
           - checkout
@@ -31,10 +31,10 @@ blocks:
           commands:
             - cache delete bundle-gems-baseline
             - cache delete bundle-gems-$(checksum Gemfile.lock)
-            - cache restore bundle-gems-baseline
+            # - cache restore bundle-gems-baseline
             # long-term cache so we don't start from scratch when Gemfile.lock is ticked
             # may need to clear manually from time to time
-            - cache restore bundle-gems-$(checksum Gemfile.lock)
+            # - cache restore bundle-gems-$(checksum Gemfile.lock)
             # cache for current Gemfile.lock
             - bundle install
             - bundle info rails
