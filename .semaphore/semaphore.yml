@@ -6,28 +6,28 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: Dependencies
+  - name: cache dependencies
     task:
+      prologue:
+        - checkout
       env_vars:
         - name: RAILS_ENV
           value: test
         - name: COVERAGE
           value: "false"
       jobs:
-        - name: Setup
+        - name: cache submodules
           commands:
-            - checkout
-
             - git submodule foreach 'cache restore git-submodule-$sha1'
             - git submodule sync
-            - git submodule update
+            - git submodule update --init
             - git submodule foreach 'cache store git-submodule-$sha1 $sm_path'
-
-            - cache restore bundle-config-$(checksum Gemfile.lock)
+        - name: cache gems
+          commands:
             - cache restore bundle-gems-$(checksum Gemfile.lock)
-            - bundle install --deployment
+            - bundle config set deployment '
+            - bundle install --path vendor/bundle
             - cache store bundle-gems-$(checksum Gemfile.lock) vendor/bundle
-            - cache store bundle-config-$(checksum Gemfile.lock) .bundle
 
   - name: Smoke
     # dependencies: ["Dependencies"]
@@ -35,8 +35,7 @@ blocks:
       prologue:
         commands:
           - checkout
-          - cache restore
-          - cache restore bundle-config-$(checksum Gemfile.lock)
+          - git submodule foreach 'cache restore git-submodule-$sha1'
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: Shark Smoke
