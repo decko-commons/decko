@@ -1,5 +1,5 @@
 
-warn "require card/all"
+raise "require card/all"
 warn " #{caller*"\n"}"
 require 'card/cache/prepopulate'
 require 'card/cache/temporary'

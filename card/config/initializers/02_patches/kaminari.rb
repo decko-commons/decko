@@ -5,6 +5,7 @@ module Patches
         def self.included(klass)
           klass.class_eval do
             remove_method :page_url_for
+          rescue NameError
           end
         end
 

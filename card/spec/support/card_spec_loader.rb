@@ -9,7 +9,8 @@ warn "PRE#{__LINE__} bef cardio app"
 warn "PRE#{__LINE__} spec init1"
         require 'cardio'
 warn "PRE#{__LINE__} spec init2"
-
+        require 'cardio/application_record'
+warn "PRE#{__LINE__} spec init4"
     end
 
     def prefork
@@ -21,9 +22,9 @@ warn "PRE#{__LINE__} root #{ENV["RAILS_ROOT"]}"
 warn "PRE#{__LINE__} prefork 1"
         require File.join ENV["RAILS_ROOT"], "config/environment"
 warn "PRE#{__LINE__} prefork 2"
-        require 'cardio/application_record'
-warn "PRE#{__LINE__} prefork 3"
         require 'card'
+        #Card
+warn "PRE#{__LINE__} prefork 3"
         load_shared_examples
         require File.expand_path("../simplecov_helper.rb", __FILE__)
         require File.expand_path("../../../db/test_seed.rb", __FILE__)

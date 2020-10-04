@@ -1,8 +1,3 @@
-
-Decko::Engine.configure do
-  config.cache_classes = false
-end
-
 # -*- encoding : utf-8 -*-
 
 Cardio::Application.configure do

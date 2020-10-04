@@ -21,7 +21,7 @@ module Cardio
     end
 
     def each_simple_mod_path
-      application.paths["mod"].each do |mods_path|
+      paths["mod"].each do |mods_path|
         Dir.glob("#{mods_path}/*").each do |single_mod_path|
           yield single_mod_path
         end

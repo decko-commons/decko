@@ -4,60 +4,59 @@ require 'rails'
 require 'card/config/initializers/sedate_parser'
 require 'cardio/application_record'
 
-Bundler.require :default, *Rails.groups
-
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(assets: %w[development test cypress])
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
+Bundler.require :default, *Rails.groups if defined?(Bundler)
 
 module Cardio
   class Application < Rails::Application
-    class << self
 
-      def inherited base
-warn "ib Card #{base}, Ins:#{base.instance} CF:#{base.called_from}" #{caller*"\n"}"
-        super
-        # The second test shouldn't be true unless someone else set it, but
-        # not to the ./config/application.rb defined application class
-#warn " set? app in cardappl to si:#{self.instance} s:#{self} b:#{base} bi:#{base.instance} b:#{base} c/nl:#{Cardio.application} T:#{base.instance.is_a?(self.class)} 2:#{base.is_a?(self.class)} 3:#{self.instance.is_a?(base)}"
-warn "CARD #{__LINE__} roots #{self.instance.config.gem_root} #{Cardio.gem_root}"
-        add_lib_to_load_path!(find_root(base.called_from))
-        if self.instance.config.gem_root == Cardio.gem_root
-          Cardio.application = self.instance
-          Rails.app_class = self
-warn "CARD #{__LINE__} in card_appl #{self.instance.config.gem_root} 1st #{self} bi:#{base.instance} b:#{base} c/nl:#{Cardio.application}"
-warn "seting cardio app #{self}"
-          # connect actual app instance to Cardio mattr
-warn "seting cardio app i:#{self.instance}"
-          Cardio.load_card_environment
-#warn "early c on load card "
-          #Cardio.connect_on_load
-        end
+    def configure &block
+warn "DECKO configure #{block_given?}"
+      super do
+#warn "CONFIGC1 #{__LINE__} #{app} #{app.config} bg? #{block_given?} in configure CARDIO #{self}"
+        instance_eval &block if block_given?
+#warn "CONFIGC2 #{__LINE__} #{config} bg? #{block_given?}"
+        # connect actual app instance to Cardio mattr
+#warn "PATHSC4 #{paths} #{__LINE__} #{config} #{config.paths}"
+warn "CARDAPP5 #{__LINE__} done configure"
       end
+    end
+
+    class << self
+      def inherited base
+warn "CARDAPP1.6 #{__LINE__} B:#{base}, B.Ins:#{base.instance} CF:#{base.called_from}" #{caller*"\n"}"
+        super
+
+warn "CARDAPP2.7 #{__LINE__} seting cardio app i:#{base.instance}"
+        Rails.app_class = base
+        Cardio.application= base.instance
+warn "CARDAPP3.8 inherited #{base}, #{base.instance}"
+        add_lib_to_load_path!(find_root(base.called_from))
+      end
+    end
+
+    initializer :card_load_config,
+                before: :load_environment_config do
+warn "CARDAPP3: #{__LINE__} load_card_environment Cdi.app #{config} cfg:#{Cardio.config} RC:#{Rails.app_class}"
+      Cardio.load_card_environment
     end
 
     initializer :card_load_config_initializers,
-                after: :load_config_initializers do
-warn "CARD: initting #{Cardio.config.paths} #{Cardio.config.paths["config/initializers"].existent.map(&:to_s)*", "}"
-      Cardio.config.paths["config/initializers"].existent.sort.each do |initializer|
-warn "load cf inits: #{initializer}"
-        load(initializer)
-      end
+                after: :load_environment_config do
+warn "CARDAPPa1.9: initting #{paths} #{paths["config/initializers"].existent&.length}"
+      Cardio.load_rails_environment
+warn "CONFIGCa.3.11: (SKIP?) #{__LINE__} #{config}"
+        paths["config/initializers"].existent.sort.each do |initializer|
+warn "a.4 12 load cf inits: #{initializer}"
+          load(initializer)
+        end
+warn "CONFIGCa.6: #{__LINE__} #{config}"
+      Cardio.connect_on_load
+warn "CONFIGCa.5: #{__LINE__} #{config}"
     end
 
-    initializer :connect_on_load do
-warn "c on load card "
-      Cardio.connect_on_load self
-    end
-
-    def config
-      return @config unless @config.nil?
-      @config = super
-      @config.gem_root = Cardio.gem_root
-      @config
+    initializer :card_connect_on_load, after: :application_record do
+warn "CARDAPPa.4.12 #{__LINE__} c on load card "
+      #Cardio.connect_on_load
     end
   end
 end

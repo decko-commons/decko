@@ -1,6 +1,5 @@
 require "pathname"
 
-warn "require card/script_loader"
 class Card
   module ScriptCardLoader
     RUBY = File.join(*RbConfig::CONFIG.values_at("bindir", "ruby_install_name")) +
