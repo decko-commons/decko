@@ -1,14 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-warn "require card/format"
-#require 'card/format/registration'
-#require 'card/format/nesting'
-#require 'card/format/render'
-#require 'card/format/wrapper'
-#require 'card/format/context_names'
-#require 'card/format/content'
-#require 'card/format/error'
-#require 'card/format/method_delegation'
 class Card
   # Card::Format and its subclasses ({Card::Format::HtmlFormat},
   # {Card::Format::JsonFormat}, {Card::Format::XmlFormat}, etc)

@@ -84,7 +84,6 @@ module Cardio
 
       # @return an array of Rails::Path objects
       def dirs
-warn "MODDIRS load mod dirs: #{Cardio.config}, #{Cardio.paths}"
         @dirs ||= Mod::Dirs.new(Cardio.paths["mod"].existent)
       end
 

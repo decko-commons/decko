@@ -15,4 +15,3 @@ Signal.trap("INT") { puts; exit(1) }
 # else
 
 # end
-raise "why are we here? end of cli"

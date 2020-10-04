@@ -1,19 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-warn "require card/set"
-#require 'card/set/basket'
-#require 'card/set/event'
-#require 'card/set/format/haml_paths'
-#require 'card/set/format/abstract_format/haml_views'
-#require 'card/set/format/abstract_format/view_definition'
-#require 'card/set/format/abstract_format/view_opts'
-#require 'card/set/format/abstract_format/wrapper'
-#require 'card/set/format/abstract_format'
-#require 'card/set/pattern'
-#require 'card/set/pattern/base'
-#require 'card/set/pattern/helper'
-#require 'card/set/required_field'
-
 class Card
   #
   # A _Set_ is a group of {Card Cards} to which _Rules_ may apply. Sets can be as

@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 require "optparse"
 
-warn "From #{__FILE__}"
 module Cardio
   module Commands
     class Command

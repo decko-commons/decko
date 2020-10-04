@@ -4,38 +4,28 @@ class CardSpecLoader
       require "spork"
       ENV["RAILS_ENV"] = "test"
       require "timecop"
-warn "PRE#{__LINE__} bef cardio app"
         require 'cardio/application'
-warn "PRE#{__LINE__} spec init1"
         require 'cardio'
-warn "PRE#{__LINE__} spec init2"
         require 'cardio/application_record'
-warn "PRE#{__LINE__} spec init4"
     end
 
     def prefork
       Spork.prefork do
-warn "PRE#{__LINE__} root #{ENV["RAILS_ROOT"]}"
         unless ENV["RAILS_ROOT"]
           raise Card::Error, "No RAILS_ROOT given. Can't load environment."
         end
-warn "PRE#{__LINE__} prefork 1"
         require File.join ENV["RAILS_ROOT"], "config/environment"
-warn "PRE#{__LINE__} prefork 2"
         require 'card'
         #Card
-warn "PRE#{__LINE__} prefork 3"
         load_shared_examples
         require File.expand_path("../simplecov_helper.rb", __FILE__)
         require File.expand_path("../../../db/test_seed.rb", __FILE__)
 
         # Requires supporting ruby files with custom matchers and macros, etc,
         # in spec/support/ and its subdirectories.
-warn "PRE#{__LINE__} prefork 4"
 
         yield if block_given?
         # this is not the right place, no?
-warn "PRE#{__LINE__} prefork 4 skipping load of mod-matcherd"
         Dir[File.join(Cardio.gem_root, "spec/support/matchers/*.rb")].each do |f|
           require f
         end

@@ -8,7 +8,6 @@ Cardio::ScriptLoader.exec_script! :decko
 require "rails/ruby_version_check"
 Signal.trap("INT") { puts; exit(1) }
 
-raise "new?"
 if ARGV.first == 'plugin'
  ARGV.shift
  require 'decko/commands/plugin_new'

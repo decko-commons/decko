@@ -1,5 +1,4 @@
 class Card
-warn "ActSupp include Callbacks"
   include ActiveSupport::Callbacks
   class Director
     # Methods for intepreting stages of an action

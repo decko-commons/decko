@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-warn "require card/reference"
 class Card
   # a Reference is a directional relationship from one card (the referer)
   # to another (the referee).

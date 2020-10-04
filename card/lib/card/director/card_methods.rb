@@ -1,4 +1,3 @@
-warn "dir card meths"
 class Card
   class Director
     module CardMethods

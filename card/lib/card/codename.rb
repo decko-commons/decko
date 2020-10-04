@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-warn "require card/codename"
 class Card
   # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned
   # in code, lest a name change break the application.

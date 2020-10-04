@@ -1,6 +1,5 @@
 require File.expand_path("../command", __FILE__)
 
-warn "From #{__FILE__}"
 module Cardio
   module Commands
     class RspecCommand < Command
@@ -21,7 +20,6 @@ c=
         "#{env_args} #{@opts[:executer]} #{@opts[:rescue]}" \
           "rspec #{@rspec_args.shelljoin} #{spec_files_from_opts(@opts)*' '} "\
           "--exclude-pattern \"./card/vendor/**/*\""
-warn "rspec command: #{c}"; c
       end
 
       private

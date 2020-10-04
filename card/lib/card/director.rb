@@ -1,21 +1,10 @@
-warn "require card/director"
-warn "require card/director/event_delay"
 require 'card/director/event_delay'
-warn "require card/director/act_direction"
 require 'card/director/act_direction'
-warn "require card/director/run"
 require 'card/director/run'
-warn "require card/director/store"
 require 'card/director/store'
 require 'card/director/stages'
 require 'card/director/phases'
-#warn "require card/director/card_methods"
-#require 'card/director/card_methods'
-#warn "require card/director/subdirector_array"
-#require 'card/director/subdirector_array'
-#warn 'pre stages'
-#warn 'post require'
-#warn "require card/director end"
+
 class Card
   # Directs the symphony of a card {Card::Act **act**}.
   #

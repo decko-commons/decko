@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-warn "require card/cache"
 class Card
   class << self
     def cache
@@ -137,7 +136,6 @@ class Card
       cache_by_class[@klass] = self
       @hard = Persistent.new opts if opts[:store]
       @soft = Temporary.new
-warn "init cache #{@hard}, #{@soft}"
     end
 
     # read cache value (and write to soft cache if missing)

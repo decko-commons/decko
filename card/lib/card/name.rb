@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-warn "require card/name"
-
 require "cardname"
 
 class Card

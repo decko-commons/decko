@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-warn "require card/error"
 class Card
   # exceptions and errors.
   # (arguably most of these should be Card::Exception)

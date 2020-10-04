@@ -1,4 +1,3 @@
-warn "require card/lexicon"
 class Card
   # Translates names to ids and vice versa via a cached "lex" representation:
   # name for simple cards, [left_id, right_id] for compound cards.

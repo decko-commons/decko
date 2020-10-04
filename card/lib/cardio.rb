@@ -8,7 +8,6 @@ require "cardio/utils"
 require 'active_support'
 
 ActiveSupport.on_load :after_card do
-warn "CARDIO0 #{__LINE__} ol after_card Mod.load"
   require 'cardio/mod'
   Cardio::Mod.load
 end
@@ -23,10 +22,8 @@ module Cardio
 
   class << self
     def application= app
-warn "CONFIGO1 #{__LINE__} change app= #{@@config} PATHSO #{@@paths} app= #{app}" unless @@config.nil?
       @@config = app.config
       @@paths = app.paths
-warn "CONFIGO2 #{__LINE__} app= #{@@config} PATHSO #{@@paths} app= #{app}"
     end
 
     def card_defined?
@@ -44,7 +41,6 @@ warn "CONFIGO2 #{__LINE__} app= #{@@config} PATHSO #{@@paths} app= #{app}"
     end
 
     def set_default_configs
-warn "CARDIO3 #{__LINE__} set_default_configs"
       defaults = {
         read_only: read_only?,
 
@@ -106,20 +102,14 @@ warn "CARDIO3 #{__LINE__} set_default_configs"
         cache_set_module_list: false
       }
       cfg = config
-warn "CONFIGO4 #{__LINE__} #{cfg}"
       defaults.each_pair do |setting, value|
         # so don't change settings here if they already exist
         cfg.send("#{setting}=", *value) unless cfg.respond_to? setting
       end
-warn "CONFIGO5 #{__LINE__} eager #{cfg.eager_load}"
     end
 
     def add_lib_dirs_to_autoload_paths
-warn "CONFIGO6 #{__LINE__} #{config}"
-warn "PATHSO7 #{__LINE__} #{paths}"
-warn "CARDIO8 AUTOLOAD add paths #{Dir["#{gem_root}/lib"]}"
       config.autoload_paths += Dir["#{gem_root}/lib"]
-#warn "dirs #{config.autoload_paths.map(&:to_s)*', '}"
 
       # TODO: this should use each_mod_path, but it's not available when this is run
       # This means libs will not get autoloaded (and sets not watched) if the mod
@@ -132,7 +122,6 @@ warn "CARDIO8 AUTOLOAD add paths #{Dir["#{gem_root}/lib"]}"
     end
 
     def autoload_and_watch mod_path
-#warn "CONFIGO #{__LINE__} AL&watch #{config} #{mod_path}/lib &W/set"
       config.autoload_paths += Dir["#{mod_path}/lib"]
       config.watchable_dirs["#{mod_path}/set"] = [:rb]
     end
@@ -142,9 +131,6 @@ warn "CARDIO8 AUTOLOAD add paths #{Dir["#{gem_root}/lib"]}"
     end
 
     def paths_init
-raise "PI twice shouldn't happen" if @pathinit
-@pathinit = true
-warn "PATHSO10 #{paths} #{__LINE__}:#{__FILE__}"
       add_path "tmp/set", root: root
       add_path "tmp/set_pattern", root: root
 
@@ -154,7 +140,6 @@ warn "PATHSO10 #{paths} #{__LINE__}:#{__FILE__}"
       add_db_paths
       add_initializer_paths
       add_mod_initializer_paths
-warn "PATHSO11 #{paths} #{__LINE__} paths init #{paths["config/initializers"].map(&:to_s)*"\n"}"
     end
 
     def root
@@ -172,7 +157,6 @@ warn "PATHSO11 #{paths} #{__LINE__} paths init #{paths["config/initializers"].ma
 
     def load_card_environment
       add_lib_dirs_to_autoload_paths
-warn "CARDIO12 #{__LINE__} #{config} load card config defaults\n"#{caller[0..12]*"\n"}"
       set_default_configs
       paths_init
       add_configs
@@ -181,44 +165,33 @@ warn "CARDIO12 #{__LINE__} #{config} load card config defaults\n"#{caller[0..12]
       ActiveSupport.run_load_hooks(:load_active_record)
       ActiveSupport.run_load_hooks(:before_card)
 
-warn "PATHSO13 #{paths} #{__LINE__} load card env #{self} #{config} #{paths}"
       add_path "lib/card/config/environments", glob: "#{Rails.env}.rb", root: Cardio.gem_root
     end
 
     def load_rails_environment
       paths["lib/card/config/environments"].existent.each do |environment|
-warn "CARDIO14 #{__LINE__} load env #{environment}"
         require environment
       end
     end
 
     def connect_on_load
-warn "CARDIOa.2.15 #{__LINE__} set onload AppR"
       ActiveSupport.on_load(:before_configure_environment) do
-warn "CARDIOa.2.17 #{__LINE__} onload AR" #{caller[0..10]*"\n"}"
         ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
       end
       ActiveSupport.on_load(:after_initialize) do
-warn "CARDIOa.2.18 #{__LINE__} aft init #{self}"
       end
       ActiveSupport.on_load(:after_application_record) do
-warn "CARDIOa.2.19 #{__LINE__}load ap rec trig, load card #{self}"
         #ActiveSupport.run_load_hooks :initialize, self
       end
-warn "CARDIOa.2.16 #{__LINE__}s et onload done"
     end
 
     def add_configs
-warn "CONFIGO20 #{__LINE__} #{config}"
 
-warn "CONFIGO21 #{__LINE__} current #{config.autoloader}"
       config.autoloader = :zeitwerk
       config.load_default = "6.0"
       config.i18n.enforce_available_locales = true
-warn "current #{config.autoloader}"
 
       Rails.autoloaders.log!
-warn "CARDIO22 AUTOLOADERS #{Rails.autoloaders} #{Rails.autoloaders.main} #{File.join(Cardio.gem_root, "lib/card/seed_consts.rb")}"
      # Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
     end
   private
@@ -226,7 +199,6 @@ warn "CARDIO22 AUTOLOADERS #{Rails.autoloaders} #{Rails.autoloaders.main} #{File
     def add_path path, options={}
       root = options.delete(:root) || Cardio.gem_root
       options[:with] = File.join(root, (options[:with] || path))
-warn "PATHSO23 #{paths} #{__LINE__} add cfinit path #{path}, #{options}" if path == 'config/initializers'
       paths.add path, options
     end
 
@@ -253,7 +225,6 @@ warn "PATHSO23 #{paths} #{__LINE__} add cfinit path #{path}, #{options}" if path
     def add_initializers base_dir, mod=false, init_dir="initializers"
       Dir.glob("#{base_dir}/config/#{init_dir}").each do |initializers_dir|
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
-warn "PATHSO24 #{paths} #{__LINE__} add init #{base_dir} #{path_mark} #{initializers_dir}" unless mod 
         paths[path_mark] << initializers_dir
       end
     end

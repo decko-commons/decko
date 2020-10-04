@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-warn "require card/migration"
 class Card
   class Migration < ActiveRecord::Migration[4.2]
     include Card::Model::SaveHelper

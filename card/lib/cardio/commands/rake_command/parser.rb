@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 require "optparse"
 
-raise "From #{__FILE__}"
 module Cardio
   module Commands
     class RakeCommand

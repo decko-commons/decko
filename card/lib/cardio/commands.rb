@@ -2,7 +2,6 @@
 require "active_support/core_ext/object/inclusion"
 #require 'cardio/application_record'
 
-warn "From #{ARGV} #{__FILE__}"
 require "rake"
 def load_rake_tasks
   require "./config/environment"
@@ -40,7 +39,6 @@ module Cardio
   module Commands
     class << self
       def run_new
-warn "card new"
         if ARGV.first.in?(["-h", "--help"])
           require "cardio/commands/application"
         else
@@ -69,7 +67,6 @@ ARGV << "--help" if ARGV.empty?
 ARGV.unshift 'card' if ARGV.first == '-T'
 command = ARGV.first
 command = ALIAS[command] || command
-warn "src #{supported_rails_command? command} #{command}"
 if supported_rails_command?(command)
   ENV["PRY_RESCUE_RAILS"] = "1" if ARGV.delete("--rescue")
 
@@ -80,7 +77,6 @@ else
   ARGV.shift
   lookup = command
   lookup = $1 if command =~ /^([^:]+):/
-warn "looku #{command} #{lookup}"
   case lookup
   when "--version", "-v"
     puts "Card #{Card::Version.release}"
