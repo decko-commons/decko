@@ -6,7 +6,7 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: cache dependencies
+  - name: Cache dependencies
     task:
       env_vars:
         - name: BUNDLE_PATH
@@ -67,7 +67,7 @@ blocks:
             - bundle exec decko seed
 
 
-  - name: "Unit Tests"
+  - name: Unit Tests
     task:
       env_vars:
         - name: COVERAGE
@@ -81,7 +81,7 @@ blocks:
           - checkout
           - sem-version ruby 2.6.3
           - sem-service start mysql
-          - git submodule init
+          - git submodule update --init
           #- git submodule foreach 'cache restore git-submodule-$sha1'
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
@@ -93,8 +93,7 @@ blocks:
             - bundle exec decko rspec
 
 
-  - name: "Integration Tests"
-    # dependencies: []
+  - name: Integration Tests
     task:
       env_vars:
         - name: COVERAGE
@@ -108,7 +107,7 @@ blocks:
           - checkout
           - sem-version ruby 2.6.3
           - sem-service start mysql
-          - git submodule init
+          - git submodule update --init
           #- git submodule foreach 'cache restore git-submodule-$sha1'
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
