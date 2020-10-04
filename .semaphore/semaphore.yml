@@ -19,14 +19,14 @@ blocks:
         - name: cache submodules
           commands:
             - git submodule init
-            - git submodule status > substat.txt
+            #- git submodule status > substat.txt
             # - cache delete git-modules-$(checksum substat.txt)
             # - git submodule foreach 'cache delete git-submodule-$sha1'
-            - cache restore git-modules-$(checksum substat.txt)
-            - git submodule foreach 'cache restore git-submodule-$sha1'
+            #- cache restore git-modules-$(checksum substat.txt)
+            #- git submodule foreach 'cache restore git-submodule-$sha1'
             - git submodule update
-            - cache store git-module-$(checksum substat.txt) .git/modules
-            - git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
+            #- cache store git-modules-$(checksum substat.txt) .git/modules
+            #- git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
         - name: cache gems
           commands:
             # - cache delete bundle-gems-baseline
@@ -51,8 +51,8 @@ blocks:
           - checkout
           - sem-version ruby 2.6.3
           - sem-service start mysql
-          - git submodule init
-          - git submodule foreach 'cache restore git-submodule-$sha1'
+          - git submodule update --init
+          # - git submodule foreach 'cache restore git-submodule-$sha1'
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: Shark Smoke
@@ -65,8 +65,6 @@ blocks:
             - bundle exec decko new monkey --monkey --repo-path="../"
             - cd monkey
             - bundle exec decko seed
-            - bundle info rails
-            - bundle info decko
 
 
   - name: "Unit Tests"
@@ -84,7 +82,7 @@ blocks:
           - sem-version ruby 2.6.3
           - sem-service start mysql
           - git submodule init
-          - git submodule foreach 'cache restore git-submodule-$sha1'
+          #- git submodule foreach 'cache restore git-submodule-$sha1'
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: RSpec
@@ -92,24 +90,34 @@ blocks:
             - bundle exec decko new platypus --platypus --repo-path="../"
             - cd platypus
             - bundle exec decko seed --test
-            - bundle info rails
-            - bundle info decko
             - bundle exec decko rspec
-          commands:
-            - checkout
-            - ls -al
-            - echo "make rspec"
 
 
   - name: "Integration Tests"
     # dependencies: []
     task:
+      env_vars:
+        - name: COVERAGE
+          value: "false"
+        - name: BUNDLE_PATH
+          value: "~/decks/vendor/bundle"
+        - name: RAILS_ENV
+          value: "test"
+      prologue:
+        commands:
+          - checkout
+          - sem-version ruby 2.6.3
+          - sem-service start mysql
+          - git submodule init
+          #- git submodule foreach 'cache restore git-submodule-$sha1'
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: Cucumber
           commands:
-            - checkout
-            # - wget https://gist.githubusercontent.com/mimimalizam/9aef3aa5ac0884943efb6aca947a8b56/raw/firefox-semaphore.sh && bash firefox-semaphore.sh 64.0.2
-            - echo "make cucumber"
+            - bundle exec decko new platypus --platypus --repo-path="../"
+            - cd platypus
+            - bundle exec decko seed --test
+            - bundle exec decko cucumber
 
   # - name: "Push Image"
   #   # dependencies: []
