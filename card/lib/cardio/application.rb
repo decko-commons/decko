@@ -8,14 +8,6 @@ Bundler.require :default, *Rails.groups if defined?(Bundler)
 
 module Cardio
   class Application < Rails::Application
-
-    def configure &block
-      super do
-        instance_eval &block if block_given?
-        # connect actual app instance to Cardio mattr
-      end
-    end
-
     class << self
       def inherited base
         super
@@ -26,12 +18,24 @@ module Cardio
       end
     end
 
-    initializer :card_load_config,
+    def configure &block
+      super do
+        instance_eval &block if block_given?
+
+        config.autoloader = :zeitwerk
+        config.load_default = "6.0"
+        config.i18n.enforce_available_locales = true
+
+        config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
+      end
+    end
+
+    initializer :load_card_config,
                 before: :load_environment_config do
       Cardio.load_card_environment
     end
 
-    initializer :card_load_config_initializers,
+    initializer :load_card_config_initializers,
                 after: :load_environment_config do
       Cardio.load_rails_environment
         paths["config/initializers"].existent.sort.each do |initializer|

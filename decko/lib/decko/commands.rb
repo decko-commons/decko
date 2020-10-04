@@ -1,6 +1,7 @@
 # add method in? to Object class
 require "active_support/core_ext/object/inclusion"
 
+warn "From #{__FILE__} #{__LINE__}"
 def load_rake_tasks
   require "./config/environment"
   require "rake"
