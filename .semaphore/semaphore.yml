@@ -2,7 +2,7 @@ version: v1.0
 name: Decko Standard
 agent:
   machine:
-    type: e1-standard-2
+    type: e1-standard-4
     os_image: ubuntu1804
 
 blocks:
@@ -10,7 +10,7 @@ blocks:
     task:
       env_vars:
         - name: BUNDLE_PATH
-          value: "~/decks/vendor/bundle/"
+          value: "~/bundle/"
       prologue:
         commands:
           - checkout
@@ -29,23 +29,21 @@ blocks:
             #- git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
         - name: cache gems
           commands:
-            # - cache delete bundle-gems-baseline
-            # - cache delete bundle-gems-$(checksum Gemfile.lock)
             - cache restore bundle-gems-baseline
-            # long-term cache so we don't start from scratch when Gemfile.lock is ticked
+            # baseline cache measn we don't start from scratch when Gemfile.lock is ticked
             # may need to clear manually from time to time
+            # - cache delete bundle-gems-baseline
             - cache restore bundle-gems-$(checksum Gemfile.lock)
-            # cache for current Gemfile.lock
             - bundle install
             - bundle info rails
-            - cache store bundle-gems-baseline vendor/bundle
-            - cache store bundle-gems-$(checksum Gemfile.lock) vendor/bundle
+            - cache store bundle-gems-baseline ~/bundle
+            - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
 
   - name: Smoke
     task:
       env_vars:
         - name: BUNDLE_PATH
-          value: "~/decks/vendor/bundle/"
+          value: "~/bundle/"
       prologue:
         commands:
           - checkout
@@ -73,7 +71,7 @@ blocks:
         - name: COVERAGE
           value: "false"
         - name: BUNDLE_PATH
-          value: "~/decks/vendor/bundle"
+          value: "~/bundle/"
         - name: RAILS_ENV
           value: "test"
       prologue:
@@ -92,14 +90,13 @@ blocks:
             - bundle exec decko seed --test
             - bundle exec decko rspec
 
-
   - name: Integration Tests
     task:
       env_vars:
         - name: COVERAGE
           value: "false"
         - name: BUNDLE_PATH
-          value: "~/decks/vendor/bundle"
+          value: "~/bundle/"
         - name: RAILS_ENV
           value: "test"
       prologue:
