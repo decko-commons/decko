@@ -19,8 +19,7 @@ For core testing, the default settings now will include the js and coffee inside
 `mod/machines/lib/javascript`. For mod development, the default settings now 
 will include the js and coffee inside `mod`.
 
-
 #### How to run
-1. just like the way to create a deck to test core or mod-dev
+1. create a --monkey or --platypus deck (see {Contributing.md})
 2. configure the `spec/javascripts/support/jasmine.yml` if necessary
 3. `bundle exec decko jm`

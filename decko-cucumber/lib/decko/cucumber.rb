@@ -1,0 +1,8 @@
+require "card/mod/monkey"
+require "capybara-puma"
+require "selenium-webdriver"
+require "chromedriver-helper"
+require "capybara"
+require "database_cleaner"
+require "launchy"
+require "cucumber"

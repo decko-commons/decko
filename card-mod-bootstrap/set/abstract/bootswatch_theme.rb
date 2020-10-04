@@ -151,6 +151,7 @@ def theme_name
 end
 
 def source_dir
-  @source_dir ||=
-    ::File.expand_path "../../../vendor/bootswatch/dist/#{theme_name}", __FILE__
+  @source_dir ||= File.expand_path(
+    "#{mod_root :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
+  )
 end

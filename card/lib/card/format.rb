@@ -79,18 +79,6 @@ class Card
       Env.session
     end
 
-    def template
-      @template ||= begin
-        c = controller
-        lookup_context = ActionView::LookupContext.new c.class.view_paths
-        t = ActionView::Base.new(
-          lookup_context, { _routes: c._routes }, c
-        )
-        t.extend c.class._helpers
-        t
-      end
-    end
-
     def mime_type
       "text/plain"
     end

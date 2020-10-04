@@ -7,6 +7,7 @@ require "simplecov"
 require "minitest/autorun"
 require "rspec"
 require "selenium/webdriver"
+require 'rack/handler/puma'
 
 World(RSpec::Matchers)
 require "rspec-html-matchers"
@@ -72,7 +73,13 @@ Capybara.register_driver :selenium_headless_chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
-Capybara.server = :puma, { Threads: "0:1" }
+Capybara.register_server :puma do |app, port, host, options={}|
+  Rack::Handler::Puma.run app, { Host: host,
+                                 Port: port,
+                                 Threads: "0:1",
+                                 workers: 0,
+                                 daemon: false }.merge(options)
+end
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
@@ -88,7 +95,6 @@ end
 Capybara.default_driver = :selenium_firefox
 
 Capybara.javascript_driver =  :selenium_firefox
-# Capybara.server = :webrick
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd

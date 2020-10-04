@@ -1,11 +1,3 @@
-class << self
-  def read_bootstrap_variables
-    path =
-      ::File.expand_path("../../../vendor/bootstrap/scss/_variables.scss", __FILE__)
-    ::File.exist?(path) ? ::File.read(path) : ""
-  end
-end
-
 include_set Abstract::BootswatchTheme
 
 card_accessor :colors
@@ -48,7 +40,8 @@ event :validate_theme_template, :validate, on: :create do
   if theme_name
     if Card.fetch_type_id(theme_card_name) != Card::BootswatchSkinID
       errors.add :abort, tr(:not_valid_theme, theme_name: theme_name)
-    elsif !Dir.exist?(source_dir)
+    elsif !Dir.exist? source_dir
+      puts method(:source_dir).source_location
       errors.add :abort, tr(:cannot_source_theme, theme_name: theme_name)
     end
   end
@@ -90,7 +83,7 @@ end
 
 def add_variables_subfield
   theme_content = content_from_theme(:variables)
-  default_content = Type::CustomizedBootswatchSkin.read_bootstrap_variables
+  default_content = read_bootstrap_variables
   add_subfield :variables,
                type_id: Card::ScssID,
                content: "#{theme_content}\n\n\n#{default_content}"
