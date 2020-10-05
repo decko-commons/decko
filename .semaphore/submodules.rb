@@ -12,6 +12,17 @@ STATUS_REGEXP = %r{^.(?<sha>\S*) (?<path>\S*)}
 # `git submodule status` to produce a status file (one that is also used in other
 # semaphore job commands), and then parse that file to get the sha and path we
 # need for caching.
+#
+# Some rough numbers:
+#   update submodules: ~45s
+#   restore submodules: ~30s
+#   times we MUST have all submodules: 2 (rspec/cuke)  ~90s
+#   times we currently restore submodules: 4 ~120s
+#
+# NOTE: a LOT of this time is in bootstrap modules.
+#
+# I'm taking this away for now, but there are several scenarios where we might decide
+# it's useful in the future. Eg, if there are LOTS of different tasks.
 
 File.read(STATUS_FILE).split("\n") do |line|
   hash = line.match STATUS_REGEXP
