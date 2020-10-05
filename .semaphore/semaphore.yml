@@ -19,14 +19,9 @@ blocks:
         - name: cache submodules
           commands:
             - git submodule init
-            #- git submodule status > substat.txt
-            # - cache delete git-modules-$(checksum substat.txt)
-            # - git submodule foreach 'cache delete git-submodule-$sha1'
-            #- cache restore git-modules-$(checksum substat.txt)
-            #- git submodule foreach 'cache restore git-submodule-$sha1'
+            - ./.semaphore/submodules.rb restore
             - git submodule update
-            #- cache store git-modules-$(checksum substat.txt) .git/modules
-            #- git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
+            - ./.semaphore/submodules.rb store
         - name: cache gems
           commands:
             # baseline cache means we don't start from scratch when Gemfile.lock is ticked
@@ -49,8 +44,8 @@ blocks:
           - checkout
           - sem-version ruby 2.6.3
           - sem-service start mysql
-          - git submodule update --init
-          # - git submodule foreach 'cache restore git-submodule-$sha1'
+          - git submodule init
+          - ./.semaphore/submodules.rb restore
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: Shark Smoke
@@ -79,8 +74,8 @@ blocks:
           - checkout
           - sem-version ruby 2.6.3
           - sem-service start mysql
-          - git submodule update --init
-          #- git submodule foreach 'cache restore git-submodule-$sha1'
+          - git submodule init
+          - ./.semaphore/submodules.rb restore
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: RSpec
@@ -104,8 +99,8 @@ blocks:
           - checkout
           - sem-version ruby 2.6.3
           - sem-service start mysql
-          - git submodule update --init
-          #- git submodule foreach 'cache restore git-submodule-$sha1'
+          - git submodule init
+          - ./.semaphore/submodules.rb restore
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: Cucumber
