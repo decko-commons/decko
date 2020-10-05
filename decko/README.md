@@ -1,7 +1,7 @@
 # Decko: you hold the cards
 
-[![Semaphore Build][1]][2]
 [![Gem Version][3]][4]
+[![Semaphore Build][1]][2]
 [![Code Climate Badge][5]][6]
 
 - [Basics](#basics)
@@ -231,9 +231,10 @@ We also have [API Docs][18] on Swaggerhub.
 
 And info about contributing to Decko is [right next door][24].
 
-[1]: https://semaphoreci.com/api/v1/ethan/decko/branches/master/shields_badge.svg 
+
+[1]: https://decko.semaphoreci.com/badges/decks/branches/master.svg 
     "Semaphore Build"
-[2]: https://semaphoreci.com/ethan/decko
+[2]: https://decko.semaphoreci.com/projects/decks
 [3]: https://badge.fury.io/rb/decko.svg
     "Gem Version"
 [4]: https://badge.fury.io/rb/decko
