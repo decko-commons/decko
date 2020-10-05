@@ -1,29 +1,16 @@
+#!/usr/bin/env ruby
 
-DECKS_DIR = "~/decks"
+DECKS_DIR = "/home/semaphore/decks"
 VERB = ARGV.shift
 
 Dir.chdir DECKS_DIR
 
 system %(
 git submodule > substat.txt
-git submodule status > substat.txt
-cache restore git-modules-$(checksum substat.txt)
-
-
+cache #{VERB} git-modules-$(checksum substat.txt)
 )
 
-
-
-def plop string
-  puts string
+File.read("#{DECKS_DIR}/substat.txt").split("\n") do |line|
+  hash = line.match(/^.(?<sha>\S*) (?<path>\S*)/)
+  system "cache #{VERB} git-submodule-#{hash[:sha]} #{hash[:path] if VERB == 'store'}"
 end
-
-def parse_line line
-  line.match(/^.(?<sha>\S*) (?<path>\S*)/)
-end
-
-File.read("/tmp/wikirate-submodule.txt").split("\n") do |line|
-  hash = parse_line line
-  plop "cache #{VERB} git-submodule-#{hash[:sha]} #{hash[:path] if VERB == 'store'}"
-end
-
