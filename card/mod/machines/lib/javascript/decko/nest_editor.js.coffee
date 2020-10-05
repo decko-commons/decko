@@ -27,24 +27,26 @@ $.extend nest,
   # called by TinyMCE
   openNestEditor: (tm, params) ->
     params = nest.editParams(tm) unless params?
-    slot = $("##{tm.id}").closest(".card-slot")
-    slotter = $("##{tm.id}")
-    this.openNestEditorForSlot(slot, slotter, params)
+    this.openEditorForTm(tm, params, "nest_editor", "modal_nest_editor")
 
   openNestEditorForSlot: (slot, slotter, params) ->
     card = if slot[0] then $(slot[0]).attr('data-card-name') else ":update"
     nest.request(card, "nest_editor", "modal_nest_editor", slotter, params)
 
+  openEditorForTm: (tm, params, overlay_view, modal_view) ->
+    params += "&tinymce_id=#{tm.id}"
+    slot = $("##{tm.id}").closest(".card-slot")
+    slotter = $("##{tm.id}")
+    card = if slot[0] then $(slot[0]).attr('data-card-name') else ":update"
+    nest.request(card, overlay_view, modal_view, slotter, params)
+
   # called by TinyMCE
   openImageEditor: (tm) ->
     params = nest.editParams(tm, "{{", "}}", false) unless params?
-
-    slot = $("##{tm.id}").closest(".card-slot")
-    card_name = slot.data("card-name")
-    nest.tmRequest(tm, card_name, "nest_image", "modal_nest_image", params)
+    this.openEditorForTm(tm, params,"nest_image", "modal_nest_image")
 
   changeCreateToUpdate: (tm_id) ->
-     form = $("##{tm_id}").closest("form")
+    form = $("##{tm_id}").closest("form")
     new_action = form.attr("action").replace("card/create", "card/update")
     form.attr("action", new_action)
 
@@ -54,12 +56,6 @@ $.extend nest,
     # params = nest.paramsStr(insertIndex, nest_string)
     # nest.openNestEditor(etm, params)
 
-  tmRequest: (tm, card, overlay_view, modal_view, params) ->
-    slotter = $("##{tm.id}")
-    params = "" unless params?
-    params += "&tinymce_id=#{tm.id}"
-
-    nest.request(slotter, slot, mode, card, view, params)
 
   request: (card, overlay_view, modal_view, slotter, params) ->
     slot = $(".bridge-sidebar > ._overlay-container-placeholder > .card-slot")

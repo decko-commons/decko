@@ -9,6 +9,8 @@ $.extend decko.editorContentFunctionMap,
       pointerContent @find('input').map( -> $(this).val() )
     '.pointer-link-list-ul': ->
       decko.linkListContent @find('.input-group')
+    '._nest-list-ul': ->
+      decko.nestListContent @find('.input-group')
     '.pointer-checkbox-list': ->
       pointerContent @find('input:checked').map( -> $(this).val() )
     '.pointer-select-list': ->
@@ -47,14 +49,25 @@ $.extend decko,
     $.makeArray(list).join "\n"
 
   linkListContent: (input_groups) ->
-      vals = input_groups.map( ->
-        v = $(this).find('input._reference').val()
-        title = $(this).find('input._title').val()
-        v += "|#{title}" if title.length > 0
-        v
-      )
-      list = $.map $.makeArray(vals), (v) -> if v then '[[' + v + ']]'
-      $.makeArray(list).join "\n"
+    vals = input_groups.map( ->
+      v = $(this).find('input._reference').val()
+      title = $(this).find('input._title').val()
+      v += "|#{title}" if title.length > 0
+      v
+    )
+    list = $.map $.makeArray(vals), (v) -> if v then '[[' + v + ']]'
+    $.makeArray(list).join "\n"
+
+  nestListContent: (input_groups) ->
+    debugger
+    vals = input_groups.map( ->
+      v = $(this).find('input._reference').val()
+      options = $(this).find('input._nest-options').val()
+      v += "|#{options}" if options.length > 0
+      v
+    )
+    list = $.map $.makeArray(vals), (v) -> if v then '{{' + v + '}}'
+    $.makeArray(list).join "\n"
 
 
 pointerContent = (vals) ->
