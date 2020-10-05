@@ -17,7 +17,7 @@ global_job_config:
       - checkout
       - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
       - git submodule init
-      # - ruby .semaphore/submodules.rb restore
+      - ruby .semaphore/submodules.rb restore
       - cache restore bundle-gems-$(checksum Gemfile.lock)
 
 blocks:

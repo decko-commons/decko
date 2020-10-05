@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-DECKS_DIR = "/home/semaphore/decks"
+# DECKS_DIR = "/home/semaphore/decks"
 VERB = ARGV.shift
 
-Dir.chdir DECKS_DIR
+# Dir.chdir DECKS_DIR
 
 system %(git submodule > substat.txt)
 
