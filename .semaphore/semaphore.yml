@@ -4,62 +4,50 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+global_job_config:
+  env_vars:
+    - name: BUNDLE_PATH
+      value: "~/bundle/"
+    - name: COVERAGE
+      value: "false"
+    - name: DECKO_REPO_PATH
+      value: "~/decks"
+  prologue:
+    commands:
+      - checkout
+      - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
+      - git submodule init
+      - ruby .semaphore/submodules.rb restore
+      - cache restore bundle-gems-$(checksum Gemfile.lock)
 
 blocks:
   - name: Cache dependencies
     task:
-      env_vars:
-        - name: BUNDLE_PATH
-          value: "~/bundle/"
-      prologue:
-        commands:
-          - checkout
-          - sem-version ruby 2.6.3
       jobs:
-        - name: cache submodules
+        - name: cache submodules and gems
           commands:
-            - git submodule init
-            - ruby .semaphore/submodules.rb delete
-            - cache delete git-modules-$(checksum substat.txt)
-            - ruby .semaphore/submodules.rb restore
             - cache restore git-modules-$(checksum substat.txt)
             - git submodule update
             - ruby .semaphore/submodules.rb store
-            - cache store git-modules-$(checksum substat.txt)
-        - name: cache gems
-          commands:
-            # baseline cache means we don't start from scratch when Gemfile.lock is ticked
-            # may need to clear manually from time to time
-            # - cache delete bundle-gems-baseline
-            # - cache delete bundle-gems-$(checksum Gemfile.lock)
-            - cache restore bundle-gems-baseline
-            - cache restore bundle-gems-$(checksum Gemfile.lock)
+            - cache store git-modules-$(checksum substat.txt) .git/modules
+
             - bundle install
-            - cache store bundle-gems-baseline ~/bundle
             - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
 
   - name: Smoke
     task:
-      env_vars:
-        - name: BUNDLE_PATH
-          value: "~/bundle/"
       prologue:
         commands:
-          - checkout
-          - sem-version ruby 2.6.3
           - sem-service start mysql
-          - git submodule init
-          - ruby .semaphore/submodules.rb restore
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
+
       jobs:
-        - name: Shark Smoke
+        - name: New Shark and Monkey Decks
           commands:
-            - bundle exec decko new shark --repo-path="../"
+            - bundle exec decko new shark
             - cd shark
             - bundle exec decko seed
-        - name: Monkey Smoke
-          commands:
-            - bundle exec decko new monkey --monkey --repo-path="../"
+            - cd ..
+            - bundle exec decko new monkey --monkey
             - cd monkey
             - bundle exec decko seed
 
@@ -67,24 +55,15 @@ blocks:
   - name: Unit Tests
     task:
       env_vars:
-        - name: COVERAGE
-          value: "false"
-        - name: BUNDLE_PATH
-          value: "~/bundle/"
         - name: RAILS_ENV
           value: "test"
       prologue:
         commands:
-          - checkout
-          - sem-version ruby 2.6.3
           - sem-service start mysql
-          - git submodule init
-          - ruby .semaphore/submodules.rb restore
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: RSpec
           commands:
-            - bundle exec decko new platypus --platypus --repo-path="../"
+            - bundle exec decko new platypus --platypus
             - cd platypus
             - bundle exec decko seed --test
             - bundle exec decko rspec
@@ -92,24 +71,15 @@ blocks:
   - name: Integration Tests
     task:
       env_vars:
-        - name: COVERAGE
-          value: "false"
-        - name: BUNDLE_PATH
-          value: "~/bundle/"
         - name: RAILS_ENV
           value: "test"
       prologue:
         commands:
-          - checkout
-          - sem-version ruby 2.6.3
           - sem-service start mysql
-          - git submodule init
-          - ruby .semaphore/submodules.rb restore
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: Cucumber
           commands:
-            - bundle exec decko new platypus --platypus --repo-path="../"
+            - bundle exec decko new platypus --platypus
             - cd platypus
             - bundle exec decko seed --test
             - bundle exec decko cucumber
