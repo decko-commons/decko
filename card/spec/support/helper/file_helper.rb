@@ -50,24 +50,22 @@ class Card
         puts %[
 ~~~Skipping cloud specs~~~
 Cannot run without bucket credentials
-
-Specify yml file with environmental variable
-(BUCKET_CREDENTIALS_PATH)
-or add credentials to #{file_path}.
+  Specify yml file with environmental variable (BUCKET_CREDENTIALS_PATH)
+  or add credentials to #{file_path}.
       ]
       end
 
       def ensure_test_bucket credentials
         Decko.config.file_buckets = {
-            test_bucket: {
-                provider: "fog/aws",
-                credentials: credentials,
-                subdirectory: "files",
-                directory: DIRECTORY,
-                public: true,
-                attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
-                authenticated_url_expiration: 180
-            }
+          test_bucket: {
+            provider: "fog/aws",
+            credentials: credentials,
+            subdirectory: "files",
+            directory: DIRECTORY,
+            public: true,
+            attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
+            authenticated_url_expiration: 180
+          }
         }
       end
     end

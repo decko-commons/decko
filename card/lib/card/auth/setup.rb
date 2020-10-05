@@ -10,9 +10,7 @@ class Card
         if @needs_setup == false || Card.cache.read(NEEDS_SETUP)&.to_s == "false"
           @needs_setup = false
         else
-          user_account_count.zero?.tap do |need|
-            Card.cache.write NEEDS_SETUP, false unless need
-          end
+          needs_setup_if_no_accounts
         end
       end
 
@@ -20,7 +18,7 @@ class Card
       def simulate_setup! mode=true
         @needs_setup = nil
         if mode
-          Card.cache.reset_all
+          Card::Cache.reset_all
           @hidden_accounts = user_account_ids
         else
           Card.cache.delete NEEDS_SETUP
@@ -36,6 +34,12 @@ class Card
       end
 
       private
+
+      def needs_setup_if_no_accounts
+        user_account_count.zero?.tap do |need|
+          Card.cache.write NEEDS_SETUP, false unless need
+        end
+      end
 
       def user_account_ids
         as_bot { Card.search user_account_cql.merge(return: :id) }

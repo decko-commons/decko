@@ -59,7 +59,6 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
     end
   end
 
-
   #   describe "cloud" do
   #     before(:context) do
   #       storage_config :cloud

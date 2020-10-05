@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-VERB = ARGV.shift || fail("verb required")
-STATUS_FILE = File.expand_path "#{ENV["DECKO_REPO_PATH"]}/substat.txt"
-STATUS_REGEXP = %r{^.(?<sha>\S*) (?<path>\S*)}
+VERB = ARGV.shift || raise("verb required")
+STATUS_FILE = File.expand_path "#{ENV['DECKO_REPO_PATH']}/substat.txt"
+STATUS_REGEXP = /^.(?<sha>\S*) (?<path>\S*)/
 
 # Loop through each git submodule and handle semaphore caching
 
