@@ -13,8 +13,6 @@ STATUS_REGEXP = %r{^.(?<sha>\S*) (?<path>\S*)}
 # semaphore job commands), and then parse that file to get the sha and path we
 # need for caching.
 
-system %(git submodule status > #{STATUS_FILE})
-
 File.read(STATUS_FILE).split("\n") do |line|
   hash = line.match STATUS_REGEXP
   system "cache #{VERB} git-submodule-#{hash[:sha]} #{hash[:path] if VERB == 'store'}"
