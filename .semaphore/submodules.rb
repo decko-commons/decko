@@ -1,13 +1,14 @@
 #!/usr/bin/env ruby
 
-# DECKS_DIR = "/home/semaphore/decks"
-VERB = ARGV.shift
+# Loop through each git submodule and handle semaphore caching
 
-# Dir.chdir DECKS_DIR
+# Note, this was previously attempted with `git submodule foreach`, but that
+# only works when
 
+VERB = ARGV.shift || fail("verb required")
 system %(git submodule > substat.txt)
 
-File.read("#{DECKS_DIR}/substat.txt").split("\n") do |line|
+File.read("#{ENV["DECKO_REPO_PATH"]}/substat.txt").split("\n") do |line|
   hash = line.match(/^.(?<sha>\S*) (?<path>\S*)/)
   system "cache #{VERB} git-submodule-#{hash[:sha]} #{hash[:path] if VERB == 'store'}"
 end
