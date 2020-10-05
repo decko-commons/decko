@@ -26,7 +26,12 @@ blocks:
       jobs:
         - name: cache submodules and gems
           commands:
+
             - cache restore git-modules-$(checksum substat.txt)
+
+            - ruby .semaphore/submodules.rb delete
+            - cache restore git-modules-$(checksum substat.txt)
+
             - git submodule update
             - ruby .semaphore/submodules.rb store
             - cache store git-modules-$(checksum substat.txt) .git/modules
@@ -46,7 +51,9 @@ blocks:
             - bundle exec decko new shark
             - cd shark
             - bundle exec decko seed
-            - cd ..
+
+            - cd .. # note: faster than making a separate job.
+
             - bundle exec decko new monkey --monkey
             - cd monkey
             - bundle exec decko seed
