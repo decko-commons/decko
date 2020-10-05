@@ -26,7 +26,7 @@ blocks:
       jobs:
         - name: cache submodules and gems
           commands:
-            - cache restore git-modules-$(checksum substat.txt)
+            - cache delete git-modules-$(checksum substat.txt)
             # submodules themselves are restored in global_job config, but .git/modules
             # must be restored so that git knows everything is in order and
             # `git submodule update` only triggers cloning when needed
