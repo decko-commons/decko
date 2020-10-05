@@ -14,9 +14,10 @@ global_job_config:
       value: "~/decks"
   prologue:
     commands:
-      - checkout # semaphore does git checkout and cds into directory
+      - checkout # semaphore does git checkout and cds into decks
       - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
       - git submodule init
+      - alias be='bundle exec'
       - git submodule status > substat.txt # needed for sem submodule caching
       - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
       - cache restore bundle-gems-$(checksum Gemfile.lock) # restore gems from sem cache
@@ -49,17 +50,17 @@ blocks:
       jobs:
         - name: New Shark and Monkey Decks
           commands:
-            # NEW
-            - bundle exec decko new shark
+            # NEW SHARK DECK
+            - be decko new shark
             - cd shark
-            - bundle exec decko seed
+            - be decko seed
 
             - cd .. # note: faster than making a separate job.
 
-            - bundle exec decko new monkey --monkey
+            # NEW MONKEY DECK
+            - be decko new monkey --monkey
             - cd monkey
-            - bundle exec decko seed
-
+            - be decko seed
 
   - name: Unit Tests
     task:
@@ -72,10 +73,10 @@ blocks:
       jobs:
         - name: RSpec
           commands:
-            - bundle exec decko new platypus --platypus
+            - be decko new platypus --platypus
             - cd platypus
-            - bundle exec decko seed --test
-            - bundle exec decko rspec
+            - be decko seed --test
+            - be decko rspec
 
   - name: Integration Tests
     task:
@@ -88,10 +89,10 @@ blocks:
       jobs:
         - name: Cucumber
           commands:
-            - bundle exec decko new platypus --platypus
+            - be decko new platypus --platypus
             - cd platypus
-            - bundle exec decko seed --test
-            - bundle exec decko cucumber
+            - be decko seed --test
+            - be decko cucumber
 
   # - name: "Push Image"
   #   # dependencies: []
