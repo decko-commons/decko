@@ -18,11 +18,12 @@ class Card
 
       # for testing setup
       def simulate_setup! mode=true
-        Card.cache.delete NEEDS_SETUP
         @needs_setup = nil
         if mode
+          Card.cache.reset_all
           @hidden_accounts = user_account_ids
         else
+          Card.cache.delete NEEDS_SETUP
           @hidden_accounts = nil
         end
       end
