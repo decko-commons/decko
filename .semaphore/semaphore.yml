@@ -31,12 +31,11 @@ blocks:
           commands:
             # baseline cache means we don't start from scratch when Gemfile.lock is ticked
             # may need to clear manually from time to time
-            - cache delete bundle-gems-baseline
-            - cache delete bundle-gems-$(checksum Gemfile.lock)
+            # - cache delete bundle-gems-baseline
+            # - cache delete bundle-gems-$(checksum Gemfile.lock)
             - cache restore bundle-gems-baseline
             - cache restore bundle-gems-$(checksum Gemfile.lock)
             - bundle install
-            - bundle info rails
             - cache store bundle-gems-baseline ~/bundle
             - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
 
