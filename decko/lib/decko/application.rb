@@ -30,17 +30,16 @@ module Decko
       paths.add path, options
     end
 
-    def config
-      @config ||= begin
-        config = super
+    def configure &block
+      super do
 
-        Cardio.set_config config
+        instance_eval(&block) if block_given?
 
         # any config settings below:
         # (a) do not apply to Card used outside of a Decko context
         # (b) cannot be overridden in a deck's application.rb, but
         # (c) CAN be overridden in an environment file
-
+  
         # therefore, in general, they should be restricted to settings that
         # (1) are specific to the web environment, and
         # (2) should not be overridden
@@ -64,14 +63,9 @@ module Decko
 
         # Rails.autoloaders.log!
         Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
-        config
-      end
-    end
 
-    def paths
-      @paths ||= begin
-        paths = super
-        Cardio.set_paths paths
+        # paths configurations
+        Cardio.set_paths
 
         paths.add "files"
 
@@ -82,8 +76,6 @@ module Decko
           add_path paths, "config/routes.rb",
                    with: "rails/application-routes.rb"
         end
-
-        paths
       end
     end
   end

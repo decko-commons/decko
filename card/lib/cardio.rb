@@ -19,9 +19,32 @@ module Cardio
   extend Delaying
   CARD_GEM_ROOT = File.expand_path("..", __dir__)
 
-  mattr_reader :paths, :config
+  module RailsConfigMethods
+    # FIXME: use in Deck, Engine, etc.
+    def root
+      Rails.root
+    end
+
+    def application
+       Rails.application
+    end
+
+    def config
+       application.config
+    end
+
+    def paths
+       application.paths
+    end
+  end
 
   class << self
+    include RailsConfigMethods
+
+    def gem_root
+      CARD_GEM_ROOT
+    end
+
     def card_defined?
       const_defined? "Card"
     end
@@ -30,11 +53,6 @@ module Cardio
       ActiveRecord::Base.connection && !card_defined?
     rescue
       false
-    end
-
-    def load_card!
-      require "card"
-      ActiveSupport.run_load_hooks :after_card
     end
 
     def cache
@@ -105,17 +123,15 @@ module Cardio
       }
     end
 
-    def set_config config
-      @@config = config
-
-      add_lib_dirs_to_autoload_paths config
+    def set_config
+      add_lib_dirs_to_autoload_paths
 
       default_configs.each_pair do |setting, value|
         set_default_value(config, setting, *value)
       end
     end
 
-    def add_lib_dirs_to_autoload_paths config
+    def add_lib_dirs_to_autoload_paths
       config.autoload_paths += Dir["#{gem_root}/lib"]
 
       # TODO: this should use each_mod_path, but it's not available when this is run
@@ -147,8 +163,7 @@ module Cardio
       config.send("#{setting}=", *value) unless config.respond_to? setting
     end
 
-    def set_paths paths
-      @@paths = paths
+    def set_paths
       %w[set set_pattern].each do |path|
         tmppath = "tmp/#{path}"
         add_path tmppath, root: root unless paths[tmppath]&.existent
@@ -187,14 +202,6 @@ module Cardio
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
         paths[path_mark] << initializers_dir
       end
-    end
-
-    def root
-      @@config.root
-    end
-
-    def gem_root
-      CARD_GEM_ROOT
     end
 
     def add_path path, options={}

@@ -1,5 +1,5 @@
 require "decko/application"
-require_relative "alias"
+require "tasks/alias"
 require "card/seed_consts"
 
 CARD_TASKS =

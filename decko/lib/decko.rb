@@ -2,22 +2,9 @@
 module Decko
   DECKO_GEM_ROOT = File.expand_path("../..", __FILE__)
 
+
   class << self
-    def root
-      Rails.root
-    end
-
-    def application
-      Rails.application
-    end
-
-    def config
-      application.config
-    end
-
-    def paths
-      application.paths
-    end
+    include Cardio::RailsConfigMethods
 
     def gem_root
       DECKO_GEM_ROOT
