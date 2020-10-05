@@ -27,11 +27,10 @@ blocks:
         - name: cache submodules and gems
           commands:
 
-            # - cache restore git-modules-$(checksum substat.txt)
+            # - ruby .semaphore/submodules.rb delete
+            # - cache delete git-modules-$(checksum substat.txt)
 
-            - ruby .semaphore/submodules.rb delete
-            - cache delete git-modules-$(checksum substat.txt)
-
+            - cache restore git-modules-$(checksum substat.txt)
             - git submodule update
             - ruby .semaphore/submodules.rb store
             - cache store git-modules-$(checksum substat.txt) .git/modules
