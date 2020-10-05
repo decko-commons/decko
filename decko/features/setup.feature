@@ -14,6 +14,7 @@ Feature: Setting up
     And I enter "newb@decko.org" into "*email"
     And I enter "newb_pass" into "*password"
     And I press "Set up"
+    And I wait a sec
     Then I should see "The Newber"
 
     When I go to card "The Newber+*roles"
