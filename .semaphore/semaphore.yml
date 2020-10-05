@@ -19,9 +19,13 @@ blocks:
         - name: cache submodules
           commands:
             - git submodule init
-            - ./.semaphore/submodules.rb restore
+            - ruby .semaphore/submodules.rb delete
+            - cache delete git-modules-$(checksum substat.txt)
+            - ruby .semaphore/submodules.rb restore
+            - cache restore git-modules-$(checksum substat.txt)
             - git submodule update
-            - ./.semaphore/submodules.rb store
+            - ruby .semaphore/submodules.rb store
+            - cache store git-modules-$(checksum substat.txt)
         - name: cache gems
           commands:
             # baseline cache means we don't start from scratch when Gemfile.lock is ticked
@@ -45,7 +49,7 @@ blocks:
           - sem-version ruby 2.6.3
           - sem-service start mysql
           - git submodule init
-          - ./.semaphore/submodules.rb restore
+          - ruby .semaphore/submodules.rb restore
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: Shark Smoke
@@ -75,7 +79,7 @@ blocks:
           - sem-version ruby 2.6.3
           - sem-service start mysql
           - git submodule init
-          - ./.semaphore/submodules.rb restore
+          - ruby .semaphore/submodules.rb restore
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: RSpec
@@ -100,7 +104,7 @@ blocks:
           - sem-version ruby 2.6.3
           - sem-service start mysql
           - git submodule init
-          - ./.semaphore/submodules.rb restore
+          - ruby .semaphore/submodules.rb restore
           - cache restore bundle-gems-$(checksum Gemfile.lock)
       jobs:
         - name: Cucumber

@@ -5,10 +5,7 @@ VERB = ARGV.shift
 
 Dir.chdir DECKS_DIR
 
-system %(
-git submodule > substat.txt
-cache #{VERB} git-modules-$(checksum substat.txt)
-)
+system %(git submodule > substat.txt)
 
 File.read("#{DECKS_DIR}/substat.txt").split("\n") do |line|
   hash = line.match(/^.(?<sha>\S*) (?<path>\S*)/)
