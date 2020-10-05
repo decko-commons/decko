@@ -14,11 +14,11 @@ global_job_config:
       value: "~/decks"
   prologue:
     commands:
-      - checkout
+      - checkout # semaphore does git checkout and cds into directory
       - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
       - git submodule init
-      - ruby .semaphore/submodules.rb restore
-      - cache restore bundle-gems-$(checksum Gemfile.lock)
+      - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
+      # - cache restore bundle-gems-$(checksum Gemfile.lock) # restore gems from sem cache
 
 blocks:
   - name: Cache dependencies
