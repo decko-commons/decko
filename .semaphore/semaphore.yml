@@ -18,7 +18,7 @@ global_job_config:
       - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
       - git submodule init
       - git submodule status > substat.txt # needed for sem submodule caching
-      # - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
+      - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
       - cache restore bundle-gems-$(checksum Gemfile.lock) # restore gems from sem cache
 
 blocks:
@@ -27,14 +27,16 @@ blocks:
       jobs:
         - name: cache submodules and gems
           commands:
-            - cache delete git-modules-$(checksum substat.txt)
-            # submodules themselves are restored in global_job config, but .git/modules
-            # must be restored so that git knows everything is in order and
+            # CACHE SUBMODULES
+            # NOTE submodules themselves are restored in global_job config, but
+            # .git/modules must be restored so that git knows everything is in order and
             # `git submodule update` only triggers cloning when needed
+            - cache restore git-modules-$(checksum substat.txt)
             - git submodule update
             - ruby .semaphore/submodules.rb store
             - cache store git-modules-$(checksum substat.txt) .git/modules
 
+            # CACHE GEMS
             - bundle install
             - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
 
@@ -47,6 +49,7 @@ blocks:
       jobs:
         - name: New Shark and Monkey Decks
           commands:
+            # NEW
             - bundle exec decko new shark
             - cd shark
             - bundle exec decko seed
