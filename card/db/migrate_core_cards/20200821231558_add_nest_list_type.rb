@@ -2,7 +2,7 @@
 
 class AddNestListType < Card::Migration::Core
   def up
-    ensure_code_card "nest list", type_id: Card::CardtypeID
+    ensure_code_card "Nest list", type_id: Card::CardtypeID
     Card::Cache.reset_all
     ensure_card [:structure, :right, :default], type_id: ::Card::NestListID
   end
