@@ -8,8 +8,8 @@ format do
   def compile_scss scss, style=:expanded
     SassC::Engine.new(scss, style: style).render
   rescue SassC::SyntaxError => e
-    raise Card::Error, "SassC::SyntaxError (#{card.name}:#{e.sass_line}):" \
-                       "#{scss.lines[e.sass_line - 1]}\n" \
+    raise Card::Error, "SassC::SyntaxError (#{card.name}:#{e.sass_backtrace}):" \
+                       #"#{#scss.lines[e.sass_line - 1]}\n" \
                        "#{e.message}"
   end
 end

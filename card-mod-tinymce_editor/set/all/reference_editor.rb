@@ -10,6 +10,7 @@ format :html do
     data[:"data-tm-snippet-start"] = tm_param(:start) if tm_param(:start).present?
     data[:"data-tm-snippet-size"] = snippet.raw.size if tm_param(:raw).present?
     data["data-dismiss"] = "modal" if modal_tm_snippet_editor?
+    data["data-index"] = params["index"] if params["index"].present?
     data
   end
 
