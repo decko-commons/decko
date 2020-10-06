@@ -41,8 +41,8 @@ gem "card-mod-defaults"
 <%= "# " if shark? %>gem "card-mod-monkey", group: :development
 <%= "# " if shark? %>gem "decko-rspec", group: :test
 <%= "# " if shark? %>gem "decko-cucumber", group: :cucumber
-<%= "# " if shark? %>gem "decko-profile", group: :profile
 <%= "# " if shark? %>gem "decko-cypress", group: :cypress
+<%= "# " if shark? %>gem "decko-profile", group: :profile
 <%= "# " if shark? || !spring_install? %>gem "decko-spring"
 
 <% if platypus? %>
