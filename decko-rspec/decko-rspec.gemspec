@@ -7,8 +7,6 @@ DeckoGem.gem "decko-rspec" do |s, _d|
   s.description = ""
 
   [
-    ["card-mod-monkey"],
-
     ["i18n-tasks", "~> 0.9.5"], # See if I18n keys are missing or unused
     ["minitest"],
     ["nokogumbo"],
