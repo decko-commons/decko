@@ -273,7 +273,7 @@ RSpec.describe Card::Content::Chunk::URI, "URI chunk tests" do
       # assert_respond_to(chunk, method_sym)
       cvalue = chunk.method(method_sym).call
       cvalue = cvalue.to_s if method_sym == :uri
-      assert_equal(value, cvalue, "Checking value of '#{method_sym}'")
+      expect(value).to eq(cvalue)
     end
   end
 

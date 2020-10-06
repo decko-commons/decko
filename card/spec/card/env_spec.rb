@@ -10,8 +10,8 @@ RSpec.describe Card::Env do
   end
 
   describe "Env" do
-    before { Delayed::Worker.delay_jobs = true }
-    after { Delayed::Worker.delay_jobs = false }
+    before { Cardio.delaying! }
+    after { Cardio.delaying! :off }
     let(:create_card) { Card.create!(name: "main card") }
 
     it "survives to integration phase" do

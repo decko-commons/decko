@@ -164,7 +164,7 @@ Style/Alias:
   Exclude:
     - 'card/lib/card/query/conjunctions.rb'
     - 'card/mod/core/set/all/states.rb'
-    - 'decko/lib/decko/generators/decko/decko_generator.rb'
+    - 'decko/lib/decko/generators/decko/deck_generator.rb'
     - 'decko/test/test_helper.rb'
 
 # Offense count: 4
@@ -174,7 +174,7 @@ Style/Alias:
 Style/AlignParameters:
   Exclude:
     - 'card/spec/lib/card/i18n_spec.rb'
-    - 'decko/lib/decko/generators/decko/decko_generator.rb'
+    - 'decko/lib/decko/generators/decko/deck_generator.rb'
 
 # Offense count: 1
 Style/AsciiComments:
@@ -432,7 +432,7 @@ Style/Next:
 # SupportedOctalStyles: zero_with_o, zero_only
 Style/NumericLiteralPrefix:
   Exclude:
-    - 'decko/lib/decko/generators/decko/decko_generator.rb'
+    - 'decko/lib/decko/generators/decko/deck_generator.rb'
 
 # Offense count: 13
 # Cop supports --auto-correct.

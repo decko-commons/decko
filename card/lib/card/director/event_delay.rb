@@ -17,9 +17,7 @@ class Card
       end
 
       def delaying?
-        const_defined?("Delayed") &&
-          Delayed::Worker.delay_jobs &&
-          Card.config.active_job.queue_adapter == :delayed_job
+        Cardio.config.delaying == true
       end
 
       def with_delay_act act_id, card, &block
