@@ -16,7 +16,7 @@ STATUS_REGEXP = /^.(?<sha>\S*) (?<path>\S*)/
 # Some rough numbers:
 #   update submodules: ~45s
 #   restore submodules: ~30s
-#   times we MUST have all submodules: 2 (rspec/cuke)  ~90s
+#   times we MUST have all submodules: 3 (rspec/cuke)  ~135s
 #   times we currently restore submodules: 4 ~120s
 #
 # NOTE: a LOT of this time is in bootstrap modules.
