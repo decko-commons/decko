@@ -1,4 +1,6 @@
 
+require 'cardio'
+
 module Decko
   DECKO_GEM_ROOT = File.expand_path("../..", __FILE__)
 

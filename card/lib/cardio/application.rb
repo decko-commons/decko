@@ -39,8 +39,6 @@ warn "load env #{environment}"
       ActiveSupport.on_load(:active_record) do
         c=ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
         ActiveSupport.run_load_hooks(:before_card)
-        require 'card/all'
-
       end
       # ActiveSupport.on_load(:after_initialize) do
       #   # require "card" if Cardio.load_card?
@@ -70,8 +68,8 @@ warn "load ap rec trig, load card"
       end
     end
 
-    def root_path option
-      root = options.delete(:root) || Cardio.gem_root
+    def root_path_option options
+      options.delete(:root) || Cardio.gem_root
     end
 
     def add_path path, options={}

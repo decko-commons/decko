@@ -1,7 +1,7 @@
 require File.expand_path("../command", __FILE__)
 # require "pry"
 
-module Decko
+module Cardio
   module Commands
     class RakeCommand < Command
       def initialize rake_task, args={}
