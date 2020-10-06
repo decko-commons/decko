@@ -11,10 +11,10 @@ global_job_config:
     - name: COVERAGE
       value: "false"
     - name: DECKO_REPO_PATH
-      value: "~/decks"
+      value: "~/decko"
   prologue:
     commands:
-      - checkout # semaphore does git checkout and cds into decks
+      - checkout # semaphore does git checkout and cds into decko
       - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
       - alias be='bundle exec'
       - git submodule init
