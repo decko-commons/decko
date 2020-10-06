@@ -8,7 +8,7 @@ def prepare_migration
   Card::Cache.reset_all
   ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
   Card::Cache.reset_all
-  Card.config.action_mailer.perform_deliveries = false
+  Cardio.config.action_mailer.perform_deliveries = false
   Card.reset_column_information
   # this is needed in production mode to insure core db
   Card::Reference.reset_column_information

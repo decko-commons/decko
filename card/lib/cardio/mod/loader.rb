@@ -2,7 +2,7 @@
 
 class Card
   module Mod
-    # Card::Mod::Loader is used to load all part of a mod,
+    # Cardio::Mod::Loader is used to load all part of a mod,
     # i.e. initializers, patterns, formats, chunks, layouts and sets
     # cards are not accessible at this point
 
@@ -36,8 +36,8 @@ class Card
 
         def load_mods
           load_formats
-          Card::Mod::Loader::SetPatternLoader.new.load
-          Card::Mod::Loader::SetLoader.new.load
+          Cardio::Mod::Loader::SetPatternLoader.new.load
+          Cardio::Mod::Loader::SetLoader.new.load
           Card::Set.process_base_modules
           load_initializers
         end
@@ -45,8 +45,8 @@ class Card
         def reload_sets
           Card::Set::Pattern.reset
           Card::Set.reset_modules
-          Card::Mod::Loader::SetPatternLoader.new.load
-          Card::Mod::Loader::SetLoader.new(
+          Cardio::Mod::Loader::SetPatternLoader.new.load
+          Cardio::Mod::Loader::SetLoader.new(
             patterns: Card::Set::Pattern.nonbase_loadable_codes
           ).load
         end
@@ -64,7 +64,7 @@ class Card
         # private
 
         def load_initializers
-          Card.config.paths["mod/config/initializers"].existent.sort.each do |initializer|
+          Cardio.config["mod/config/initializers"].existent.sort.each do |initializer|
             load initializer
           end
         end

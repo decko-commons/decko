@@ -18,7 +18,7 @@ class Card
         def prepare_tmp_dir path
           return unless rewrite_tmp_files?
 
-          p = Card.paths[path]
+          p = Cardio.paths[path]
           FileUtils.rm_rf p.first, secure: true if p.existent.first
           Dir.mkdir p.first
         end
@@ -28,7 +28,7 @@ class Card
             @rewrite
           else
             @rewrite = !(Rails.env.production? &&
-              Card.paths["tmp/set"].existent.first)
+              Cardio.paths["tmp/set"].existent.first)
           end
         end
 

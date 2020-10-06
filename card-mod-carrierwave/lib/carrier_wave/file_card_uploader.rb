@@ -1,7 +1,7 @@
 module CarrierWave
   class << self
     def tmp_path
-      @tmp_path ||= Card.paths["tmp"].existent.first
+      @tmp_path ||= Cardio.paths["tmp"].existent.first
     end
   end
 

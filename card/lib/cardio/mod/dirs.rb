@@ -173,7 +173,7 @@ class Card
 
       def tmp_dir modname, type
         index = @mods.index modname
-        File.join Card.paths["tmp/#{type}"].first,
+        File.join Cardio.paths["tmp/#{type}"].first,
                   "mod#{'%03d' % (index + 1)}-#{modname}"
       end
     end

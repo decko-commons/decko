@@ -92,5 +92,5 @@ class Card
       register_list :references_keep_escaping,  %i[KeepEscapedLiteral Nest Link]
     end
   end
-  Card::Mod::Loader.load_chunks
+  Cardio::Mod::Loader.load_chunks
 end

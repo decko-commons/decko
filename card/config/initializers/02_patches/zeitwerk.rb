@@ -4,10 +4,10 @@ module Patches
       super
       return unless reloading_enabled?
 
-      # reloading the Card class triggers also ::Card::Mod.load
+      # reloading the Card class triggers also ::Cardio::Mod.load
       # via the after_card hook
       ::Card
-      # ::Card::Mod.load
+      # ::Cardio::Mod.load
     end
   end
 end

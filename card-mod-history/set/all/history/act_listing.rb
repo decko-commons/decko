@@ -1,4 +1,4 @@
-ACTS_PER_PAGE = Card.config.acts_per_page
+ACTS_PER_PAGE = Cardio.config.acts_per_page
 
 format :html do
   def act_from_context

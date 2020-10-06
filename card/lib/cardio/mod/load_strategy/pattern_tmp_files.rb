@@ -21,7 +21,7 @@ class Card
         end
 
         def tmp_dir
-          Card.paths["tmp/set_pattern"].first
+          Cardio.paths["tmp/set_pattern"].first
         end
       end
     end
