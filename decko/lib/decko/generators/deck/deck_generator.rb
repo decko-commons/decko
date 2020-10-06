@@ -99,9 +99,11 @@ module Decko
 
         def spec
           inside "spec" do
-            template "spec_helper.rb" unless platypus?
-            inside "javascripts/support" do
-              template "deck#{'o' if platypus?}_jasmine.yml.erb", "jasmine.yml"
+            if platypus?
+              jasmine_yml :decko
+            else
+              jasmine_yml :deck
+              template "spec_helper.rb"
             end
           end
         end

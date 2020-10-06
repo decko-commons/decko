@@ -1,1 +1,2 @@
+puts "Loading pry configuration: (#{File.expand_path __FILE__})"
 include Cardio::Pry

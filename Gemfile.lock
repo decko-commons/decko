@@ -79,8 +79,6 @@ PATH
     card-mod-platypus (0.10.1)
       card (= 1.100.1)
       codeclimate-test-reporter
-      decko-cucumber
-      decko-rspec
       fog-aws
       timecop
       yard
@@ -108,6 +106,7 @@ PATH
       database_cleaner (~> 1.5)
       email_spec
       launchy
+      rspec
       selenium-webdriver (= 3.141.0)
       simplecov
     decko-cypress (0.10.1)

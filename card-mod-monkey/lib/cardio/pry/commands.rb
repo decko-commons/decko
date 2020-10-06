@@ -4,11 +4,11 @@ module Cardio
     module Commands
       class << self
         def alias_command *args
-          ::Pry.config.commands.alias_command *args
+          ::Pry.config.commands.alias_command(*args)
         end
 
         def block_command *args
-          ::Pry.commands.block_command *args
+          ::Pry.commands.block_command(*args)
         end
       end
 
@@ -21,20 +21,20 @@ module Cardio
       alias_command "clear", "break --delete-all", desc: "remove all break points"
 
       # Hit Enter to repeat last command
-      ::Pry::Commands.command /^$/, "repeat last command" do
+      ::Pry::Commands.command(/^$/, "repeat last command") do
         pry_instance.run_command Pry.history.to_a.last
       end
 
       if defined?(PryByebug)
-        ::Pry.commands.alias_command 'c', 'continue'
-        ::Pry.commands.alias_command 's', 'step'
-        ::Pry.commands.alias_command 'n', 'next'
-        ::Pry.commands.alias_command 'f', 'finish'
+        ::Pry.commands.alias_command "c", "continue"
+        ::Pry.commands.alias_command "s", "step"
+        ::Pry.commands.alias_command "n", "next"
+        ::Pry.commands.alias_command "f", "finish"
       end
 
       # breakpoint commands
       block_command "try", "play expression in current line" do |offset|
-        line = target.eval('__LINE__')
+        line = target.eval("__LINE__")
         line = line.to_i + offset.to_i if offset
         run "play -e #{line}"
       end

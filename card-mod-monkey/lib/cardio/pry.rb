@@ -1,23 +1,23 @@
 module Cardio
   # These commands are available in the console when using binding.pry for breakpoints.
   module Pry
-    require 'rails/console/app'
+    require "rails/console/app"
     include Rails::ConsoleMethods
     include Commands
 
-    def create name='test card', content='some content', type='basic'
-      if name.kind_of? Hash
+    def create name="test card", content="some content", type="basic"
+      if name.is_a? Hash
         Card.create! name
-      elsif content.kind_of? Hash
-        Card.create!(content.merge(:name=>name))
+      elsif content.is_a? Hash
+        Card.create! content.merge(name: name)
       else
-        Card.create! :name=>name, :content=>content, :type=>type
+        Card.create! name: name, content: content, type: type
       end
     end
 
-    def update name='test card', *args
+    def update name="test card", *args
       card_attr = {}
-      if args.first.kind_of? String
+      if args.first.is_a? String
         card_attr[:content] = args.shift
         card_attr.merge!(args.first)
       else
@@ -34,7 +34,7 @@ module Cardio
     #    fe "Basic"
     #    fe.name    # => "Basic"
     #    fe.type    # => "cardtype"
-    def fe(name = nil)
+    def fe name=nil
       if name
         @fe = Card.fetch name
       else
@@ -42,7 +42,7 @@ module Cardio
       end
     end
 
-    def cr(name = nil, content = 'some content', type = 'basic')
+    def cr name=nil, content="some content", type="basic"
       if name
         @cr = create name, content, type
       else
@@ -56,19 +56,34 @@ module Cardio
 
     # use syntax highlighting if html is detected
     def puts *args
-      return super unless args.size == 1
       text = args.first
-      return super if !text.is_a?(String) || !(text =~ %r{</\w+>}) || text.include?("\e")
-      html = Nokogiri::XML(text, &:noblanks)
+      return super unless args.size == 1 && htmlish?(text)
+      html = Nokogiri::XML text, &:noblanks
+      puts_html(html, text) { |*args| super *args }
+    end
+
+    def htmlish? text
+      text.is_a?(String) && (text.match?(%r{</\w+>})) || (text.include?("\e"))
+    end
+
+    def puts_html html, text, &block
       if html.errors.present?
-        super text
-        puts
-        super "WARNING: detected invalid html".red
-        super html.errors
+        puts_html_errors html, text, &block
       else
-        super "with syntax highlighting:\n"
-        super CodeRay.scan(html.root.to_s, :html).term
+        puts_highlighted_html html, &block
       end
+    end
+
+    def puts_html_errors html, text
+      yield text
+      puts
+      yield "WARNING: detected invalid html".red
+      yield html.errors
+    end
+
+    def puts_highlighted_html html
+      # yield "with syntax highlighting:\n"
+      yield CodeRay.scan(html.root.to_s, :html).term
     end
 
     def hputs text
@@ -82,11 +97,11 @@ module Cardio
     end
 
     def _h
-      @_hash ||= {hello: "world", free: "of charge"}
+      @_hash ||= { hello: "world", free: "of charge" }
     end
 
     def _u
-      @_user ||= Card.fetch 'Joe User'
+      @_user ||= Card.fetch "Joe User"
     end
 
     puts %{
@@ -96,20 +111,27 @@ hg    : hist -T 20 -G Up to 20 commands matching expression
 hG    : hist -G Commands matching expression ever used
 hr    : hist -r hist -r <command number> to run a command
 Hit Enter to repeat last command
+
 == Variables ==
-_u : Card 'Joe User'
+_u : Card["Joe User"]
 _a : [1, 2, 3, 4, 5, 6]
 _h : { hello: "world", free: "of charge" }
+
 == Card commands ==
-create : Card.create :name=>$1, :content=>($2||'some content'), :type=>($3||'basic')
-update : Card.update :name=>$1, :content=>($2||'some content'), :type=>($3||'basic')
+create : Card.create :name=>$1, :content=>($2||"some content"), :type=>($3||"basic")
+update : Card.update :name=>$1, :content=>($2||"some content"), :type=>($3||"basic")
 ab     : Card::Auth.as_bot
-cr     : create card and assign it to cr (default: name=>'test card', content=>'some content', type=>'basic')
-fe     : fetch card and assign it to fe (default: 'Home')
+cr     : create card and assign it to cr
+         (default: name=>"test card", content=>"some content", type=>"basic")
+fe     : fetch card and assign it to fe (default: "Home")
+
 == Breakpoints ==
-breakview (bv) : set break point where view is rendered (takes a view name and a card mark as optional argument)
-breaknest (bn) : set break point where nest is rendered (takes a card mark as optional argument)
+breakview (bv) : set break point where view is rendered
+                 (takes a view name and a card mark as optional argument)
+breaknest (bn) : set break point where nest is rendered
+                 (takes a card mark as optional argument)
 clear          : remove all break points
+
 == Helpful debugger shortcuts ==
 hputs : puts with html syntax highlighting
 n     : next

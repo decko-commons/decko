@@ -1,6 +1,7 @@
 
 # used to run cucumber in RubyMine
 
+ENV["RAILS_ENV"] = "cucumber"
 ENV["RAILS_ROOT"] = "."
 BUNDLE_GEMFILE = File.expand_path "../../Gemfile",  __FILE__
 ARGV.insert 0, "cucumber", "--"
