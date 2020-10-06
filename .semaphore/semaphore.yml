@@ -83,7 +83,7 @@ blocks:
     task:
       env_vars:
         - name: RAILS_ENV
-          value: "test"
+          value: "cucumber"
       prologue:
         commands:
           - sem-service start mysql
