@@ -9,13 +9,3 @@ require File.expand_path support_paths_file
 Given /^Jobs are dispatched$/ do
   Delayed::Worker.new.work_off
 end
-
-Given /^site simulates setup need$/ do
-  Card::Auth.hide_accounts!
-end
-
-Given /^site stops simulating setup need$/ do
-  Card::Auth.hide_accounts! false
-  #Card::Auth.simulate_setup_need! false
-  # step "I am signed out"
-end

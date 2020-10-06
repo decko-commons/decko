@@ -1,96 +1,106 @@
 version: v1.0
-name: First pipeline example
+name: Decko Standard
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+global_job_config:
+  env_vars:
+    - name: BUNDLE_PATH
+      value: "~/bundle/"
+    - name: COVERAGE
+      value: "false"
+    - name: DECKO_REPO_PATH
+      value: "~/decko"
+  prologue:
+    commands:
+      - checkout # semaphore does git checkout and cds into decko
+      - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
+      - alias be='bundle exec'
+      - git submodule init
+      # - git submodule status > substat.txt # needed for sem submodule caching
+      # - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
+      - cache restore bundle-gems-$(checksum Gemfile.lock) # restore gems from sem cache
 
 blocks:
-  - name: cache dependencies
-    task:
-      prologue:
-        commands:
-          - sem-version ruby 2.6.3
-          - checkout
-      env_vars:
-        - name: RAILS_ENV
-          value: test
-        - name: COVERAGE
-          value: "false"
-      jobs:
-        - name: cache submodules
-          commands:
-            - git submodule sync
-            - git submodule update --init
-            - git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
-        - name: cache gems
-          commands:
-            - ls -al
-            - cache restore bundle-gems-$(checksum Gemfile.lock)
-            - bundle config set path 'vendor/bundle'
-            - bundle install
-            - cache store bundle-gems-$(checksum Gemfile.lock) vendor/bundle
+
+#  - name: Cache dependencies
+#    task:
+#      jobs:
+#        - name: cache submodules and gems
+#          commands:
+#            # CACHE SUBMODULES
+#            # NOTE submodules themselves are restored in global_job config, but
+#            # .git/modules must be restored so that git knows everything is in order and
+#            # `git submodule update` only triggers cloning when needed
+#            - cache restore git-modules-$(checksum substat.txt)
+#            - git submodule update
+#            - ruby .semaphore/submodules.rb store
+#            - cache store git-modules-$(checksum substat.txt) .git/modules
 
   - name: Smoke
-    # dependencies: ["Dependencies"]
     task:
       prologue:
         commands:
-          - sem-version ruby 2.6.3
-          - checkout
-          - git submodule foreach 'cache restore git-submodule-$sha1'
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
-      jobs:
-        - name: Shark Smoke
-          commands:
-            - ls -al
-            - bundle exec decko new shark --repo-path="../"
-            - cd shark
-            - bundle exec decko seed
-            - bundle info rails
-            - bundle info decko
-        - name: Monkey Smoke
-          commands:
-            - bundle exec decko new monkey --monkey --repo-path="../"
-            - cd monkey
-            - bundle exec decko seed
-            - bundle info rails
-            - bundle info decko
-        - name: Platypus Smoke
-          commands:
-            - bundle exec decko new platypus --platypus --repo-path="../"
-            - cache store platypus
-            - cd platypus
-            - bundle exec decko seed --test
-            - bundle info rails
-            - bundle info decko
+          - bundle install
+          - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
+          - sem-service start mysql
+          - git submodule update card/db/seed
 
-  - name: "Unit Tests"
-    # dependencies: ["Smoke", "Dependencies"]
+      jobs:
+        - name: New Shark and Monkey Decks
+          commands:
+            # NEW SHARK DECK
+            - be decko new shark
+            - cd shark
+            - be decko seed
+
+            - cd .. # note: faster than making a separate job.
+
+            # NEW MONKEY DECK
+            - be decko new monkey --monkey
+            - cd monkey
+            - be decko seed
+
+  - name: Unit Tests
     task:
+      env_vars:
+        - name: RAILS_ENV
+          value: "test"
+      prologue:
+        commands:
+          - sem-service start mysql
+          - git submodule update
       jobs:
         - name: RSpec
           commands:
-            - checkout
-            - ls -al
-            - echo "make rspec"
+            - be decko new platypus --platypus
+            - cd platypus
+            - be decko seed --test
+            - be decko rspec
 
-
-  - name: "Integration tests"
-    # dependencies: []
+  - name: Integration Tests
     task:
+      env_vars:
+        - name: RAILS_ENV
+          value: "test"
+      prologue:
+        commands:
+          - sem-service start mysql
+          - git submodule update
       jobs:
         - name: Cucumber
           commands:
-            - checkout
-            # - wget https://gist.githubusercontent.com/mimimalizam/9aef3aa5ac0884943efb6aca947a8b56/raw/firefox-semaphore.sh && bash firefox-semaphore.sh 64.0.2
-            - echo "make cucumber"
+            - be decko new platypus --platypus
+            - cd platypus
+            - be decko seed --test
+            - be decko cucumber
 
-  - name: "Push Image"
-    # dependencies: []
-    task:
-      jobs:
-        - name: Push
-          commands:
-            - checkout
-            - echo "make docker.push"
+  # - name: "Push Image"
+  #   # dependencies: []
+  #   task:
+  #     jobs:
+  #       - name: Push
+  #         commands:
+  #           - checkout
+  #           - echo "make docker.push"
