@@ -1,3 +1,4 @@
+
 class Card
   module Set
     # Supports the definition of events via the {Api Events API}

@@ -2,14 +2,7 @@
 
 require 'rails'
 
-Bundler.require :default, *Rails.groups
-
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(assets: %w[development test cypress])
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
+Bundler.require :default, *Rails.groups if defined?(Bundler)
 
 module Cardio
   class Application < Rails::Application
@@ -25,12 +18,10 @@ module Cardio
     end
 
     initializer :load_card_environment_config,
-                #after: :bootstrap, group: :all do
                 before: :load_environment_config, group: :all do
-                #before: :connect_on_load, group: :all do
-      add_path "lib/card/config/environments", glob: "#{Rails.env}.rb", root: Cardio.gem_root
+      add_path "lib/card/config/environments",
+               glob: "#{Rails.env}.rb", root: Cardio.gem_root
       paths["lib/card/config/environments"].existent.each do |environment|
-warn "load env #{environment}"
         require environment
       end
     end
@@ -39,18 +30,8 @@ warn "load env #{environment}"
       ActiveSupport.on_load(:active_record) do
         c=ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
         ActiveSupport.run_load_hooks(:before_card)
-      end
-      # ActiveSupport.on_load(:after_initialize) do
-      #   # require "card" if Cardio.load_card?
-      #   Card if Cardio.load_card?
-      # rescue ActiveRecord::StatementInvalid => e
-      #  ::Rails.logger.warn "database not available[#{::Rails.env}] #{e}"
-      # end
-      ActiveSupport.on_load(:before_card) do
-      end
-      ActiveSupport.on_load(:after_application_record) do
-warn "load ap rec trig, load card"
-        Cardio.load_card!
+        Cardio.connect_on_load
+        Cardio.load_rails_environment
       end
     end
 
@@ -58,13 +39,13 @@ warn "load ap rec trig, load card"
       super do
         instance_eval &block if block_given?
 
-        Cardio.set_config
+        #config.autoloader = :zeitwerk
+        #config.load_default = "6.0"
+        #config.i18n.enforce_available_locales = true
 
-        config.autoloader = :zeitwerk
-        config.load_default = "6.0"
-        config.i18n.enforce_available_locales = true
-
-        Cardio.set_paths paths
+        #Cardio.set_paths paths
+        #Cardio.set_config
+        Cardio.load_card_environment
       end
     end
 

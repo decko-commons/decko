@@ -9,10 +9,9 @@ module Decko
   class Application < Cardio::Application
     class << self
       def inherited base
-        super
+        super # super is Cardio::App
         Rails.app_class = base
         add_lib_to_load_path!(find_root(base.called_from))
-        ActiveSupport.run_load_hooks(:before_configuration, base.instance)
       end
     end
 
@@ -23,6 +22,7 @@ module Decko
 
     def configure &block
       super do
+        config.load_default = "6.0"
 
         instance_eval &block if block_given?
 
@@ -42,10 +42,7 @@ module Decko
         # overridable decko-specific settings don't have a place yet
         # but should probably follow the cardio pattern.
 
-        config.autoloader = :zeitwerk
-        config.load_default = "6.0"
         config.i18n.enforce_available_locales = true
-        # config.active_record.raise_in_transactional_callbacks = true
 
         config.allow_concurrency = false
         config.assets.enabled = false
@@ -53,11 +50,12 @@ module Decko
 
         config.filter_parameters += [:password]
 
-        # Rails.autoloaders.log!
-        Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
-        # paths configuration
+        config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
 
-        Cardio.set_paths
+        #ActiveSupport.run_load_hooks :before_configuration, app
+        # Rails.autoloaders.log!
+        #Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
+        # paths configuration
 
         paths.add "files"
 
@@ -65,9 +63,24 @@ module Decko
         paths["app/mailers"] = []
 
         unless paths["config/routes.rb"].existent.present?
-          add_path paths, "config/routes.rb",
+          Cardio.add_path "config/routes.rb",
                    with: "rails/application-routes.rb"
         end
+      end
+    end
+
+    PATH = "lib/decko/config/environments"
+
+    initializer :decko_config_path,
+                before: :load_environment_config do
+      path = File.join(Decko.gem_root, PATH, "#{Rails.env}.rb")
+      paths.add PATH, with: path
+    end
+
+    initializer :decko_load_config,
+                after: :load_card_config do
+      paths[PATH].existent.each do |environment|
+        require environment
       end
     end
   end

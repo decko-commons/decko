@@ -28,7 +28,8 @@ module Decko
           end
 
           def determine_repo_path
-            @repo_path_determined ? (return nil) : (@repo_path_determined = true)
+            return nil if @repo_path_determined
+            @repo_path_determined = true
             path = ENV["DECKO_REPO_PATH"]
             path = options["repo-path"] if path.blank?
             path = prompt_for_repo_path if path.blank? && platypus?
@@ -40,7 +41,7 @@ module Decko
           end
 
           def prompt_for_repo_path
-            @repo_path = ask "Enter the path to your local decko repository: "
+            @repo_path = ask "Enter the path to your local decko repository:"
           end
 
           def spec_path

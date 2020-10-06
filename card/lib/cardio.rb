@@ -132,7 +132,7 @@ module Cardio
       defaults.each_pair do |setting, value|
         # so don't change settings here if they already exist
         cfg.send("#{setting}=", *value) unless cfg.respond_to?(setting) &&
-                                               !cf.send(setting.nil?)
+                                               !cfg.send(setting).nil?
       end
     end
 

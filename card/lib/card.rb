@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-raise "Defined?" if Cardio.card_defined?
 ActiveSupport.run_load_hooks(:before_card, self)
-require 'card/essential'
 
 # Cards are wiki-inspired building blocks.
 #

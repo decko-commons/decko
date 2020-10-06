@@ -1,5 +1,6 @@
 class Cardio
   class << self
+    # do we need this now?
     def config
       Cardio.config
     end
