@@ -64,9 +64,6 @@ blocks:
 
   - name: Unit Tests
     task:
-      env_vars:
-        - name: RAILS_ENV
-          value: "test"
       prologue:
         commands:
           - sem-service start mysql
@@ -81,9 +78,6 @@ blocks:
 
   - name: Integration Tests
     task:
-      env_vars:
-        - name: RAILS_ENV
-          value: "test"
       prologue:
         commands:
           - sem-service start mysql
