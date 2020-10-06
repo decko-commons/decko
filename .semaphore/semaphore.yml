@@ -20,7 +20,6 @@ global_job_config:
       - git submodule init
       # - git submodule status > substat.txt # needed for sem submodule caching
       # - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
-      - cache restore bundle-gems-$(checksum Gemfile.lock) # restore gems from sem cache
 
 blocks:
 
@@ -42,8 +41,11 @@ blocks:
     task:
       prologue:
         commands:
+          - cache restore bundle-gems-baseline
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
           - bundle install
           - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
+          - cache store bundle-gems-baseline ~/bundle
 
           - sem-service start mysql
           - git submodule update card/db/seed
@@ -69,6 +71,8 @@ blocks:
         commands:
           - sem-service start mysql
           - git submodule update
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
+
       jobs:
         - name: RSpec
           commands:
@@ -83,6 +87,7 @@ blocks:
         commands:
           - sem-service start mysql
           - git submodule update
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
           - be decko new platypus --platypus
           - cd platypus
           - be decko seed --test
@@ -97,7 +102,7 @@ blocks:
             - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e
         - name: Cucumber
           commands:
-            - be decko cucumber
+            - RAILS_ENV=cucumber bundle exec decko cucumber
 
   # - name: "Push Image"
   #   # dependencies: []
