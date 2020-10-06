@@ -21,10 +21,7 @@ $.extend link,
   # called by TinyMCE
   openLinkEditor: (tm) ->
     params = nest.editParams(tm, "[[", "]]") unless params?
-
-    slot = $("##{tm.id}").closest(".card-slot")
-    card = if slot[0] then $(slot[0]).attr('data-card-name') else ":update"
-    nest.tmRequest(tm, card, "link_editor", "modal_link_editor", params)
+    nest.openEditorForTm(tm, params, "link_editor", "modal_link_editor")
 
   applyLink: (tinymce_id, link_start, link_size) ->
     nest.applySnippet("link", tinymce_id, link_start, link_size)

@@ -3,7 +3,7 @@ GROUP = {
   "Data" => %w[Number Toggle Date URI],
   "Upload" => %w[File Image],
   "Custom" => [],
-  "Organize" => ["List", "Pointer", "Search", "Link list",
+  "Organize" => ["List", "Pointer", "Search", "Link list", "Nest list",
                  "Mirror List", "Mirrored List"],
   "Template" => ["Notification template", "Email template", "Twitter template"],
   "Admin" => ["Cardtype", "User", "Role", "Sign up", "Session", "Set", "Setting"],
