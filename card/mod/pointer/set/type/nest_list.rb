@@ -5,8 +5,8 @@ def raw_item_strings content
 end
 
 def item_options
-  reference_chunks.map do |chunk|
-    chunk.options
+  nest_chunks.map do |chunk|
+    chunk.raw_options
   end
 end
 

@@ -59,7 +59,6 @@ $.extend decko,
     $.makeArray(list).join "\n"
 
   nestListContent: (input_groups) ->
-    debugger
     vals = input_groups.map( ->
       v = $(this).find('input._reference').val()
       options = $(this).find('input._nest-options').val()
