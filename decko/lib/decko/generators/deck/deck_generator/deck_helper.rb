@@ -29,8 +29,8 @@ module Decko
 
           def determine_repo_path
             @repo_path_determined ? (return nil) : (@repo_path_determined = true)
-            path = ENV["DECKO_REPO_PATH"]
-            path = options["repo-path"] if path.blank?
+            path = options["repo-path"]
+            path = ENV["DECKO_REPO_PATH"] if path.blank?
             path = prompt_for_repo_path if path.blank? && platypus?
             path.to_s
           end
@@ -53,7 +53,8 @@ module Decko
           end
 
           def features_path
-            @features_path ||= platypus? ? "#{repo_path}/decko/features/" : "mod/"
+            @features_path ||=
+              platypus? ? File.expand_path("#{repo_path}/decko/features/") : "mod/"
           end
 
           # FIXME: these gem roots are not correct unless repo_path is specified
