@@ -30,7 +30,7 @@ context('Network Requests', () => {
       // forces requests that don't match your routes to 404
       expect(server.force404).to.be.false
       // whitelists requests from ever being logged or stubbed
-      expect(server.whitelist).to.be.a('function')
+      expect(server.preserve).to.be.a('function')
     })
 
     cy.server({
