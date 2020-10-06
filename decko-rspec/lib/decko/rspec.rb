@@ -1,6 +1,3 @@
-require "card/mod/monkey"
-
-require "email_spec"
 require "i18n/tasks"
 require "minitest"
 require "nokogumbo"
