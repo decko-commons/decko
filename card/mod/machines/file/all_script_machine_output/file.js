@@ -22240,7 +22240,7 @@ decko.slotReady(function(slot) {
       }).insertBefore(textarea);
       textarea.css("visibility", "hidden");
       textarea.css("height", "0px");
-      ace.config.set('basePath', decko.path('assets/ace_editor/ace'));
+      ace.config.set('basePath', decko.path('assets/card-mod-ace_editor/ace'));
       editor = ace.edit(editDiv[0]);
       editor.getSession().setValue(textarea.val());
       decko.configAceEditor(editor, mode);
@@ -22392,7 +22392,7 @@ decko.slotReady(function(slot) {
       };
       $.extend(conf, user_conf, hard_conf);
       decko.addNestPlugin(conf);
-      tinyMCE.baseURL = decko.path('assets/tinymce_editor/tinymce');
+      tinyMCE.baseURL = decko.path('assets/card-mod-tinymce_editor/tinymce');
       tinyMCE.suffix = '.min';
       return tinyMCE.init(conf);
     },
