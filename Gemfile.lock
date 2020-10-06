@@ -107,6 +107,7 @@ PATH
       cucumber-expressions
       cucumber-rails
       database_cleaner (~> 1.5)
+      email_spec
       launchy
       selenium-webdriver (= 3.141.0)
       simplecov
@@ -116,7 +117,6 @@ PATH
       ruby-prof
     decko-rspec (0.10.1)
       card-mod-monkey
-      email_spec
       i18n-tasks (~> 0.9.5)
       minitest
       nokogumbo
