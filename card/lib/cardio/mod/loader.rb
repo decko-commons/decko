@@ -64,7 +64,7 @@ class Cardio
         # private
 
         def load_initializers
-          Cardio.config["mod/config/initializers"].existent.sort.each do |initializer|
+          Cardio.paths["mod/config/initializers"].existent.sort.each do |initializer|
             load initializer
           end
         end

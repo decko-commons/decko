@@ -2,6 +2,7 @@
 
 raise "Defined?" if Cardio.card_defined?
 ActiveSupport.run_load_hooks(:before_card, self)
+require 'card/essential'
 
 # Cards are wiki-inspired building blocks.
 #
@@ -111,7 +112,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # can be temporarily assumed using `Card::Auth#as`.
 #
 # {Card::Auth More on accounts}
-class Card < ApplicationRecord
+class Card
   extend Mark
   extend Dirty::MethodFactory
   include Dirty
