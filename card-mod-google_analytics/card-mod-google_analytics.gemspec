@@ -2,8 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
-  s.mod "google_analytics"
+DeckoGem.mod "google_analytics" do |s, _d|
   s.summary = "Google Analytics support for decko"
   s.description = ""
 end

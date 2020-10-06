@@ -3,8 +3,10 @@
 require "active_support/core_ext/numeric/time"
 djar = "delayed_job_active_record"
 require djar if Gem::Specification.find_all_by_name(djar).any?
-require "cardio/schema.rb"
-require "cardio/utils.rb"
+require "cardio/schema"
+require "cardio/utils"
+require "cardio/modfiles"
+require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
   Card::Mod.load
@@ -13,6 +15,8 @@ end
 module Cardio
   extend Schema
   extend Utils
+  extend Modfiles
+  extend Delaying
   CARD_GEM_ROOT = File.expand_path("..", __dir__)
 
   mattr_reader :paths, :config
@@ -43,6 +47,8 @@ module Cardio
 
         # if you disable inline styles tinymce's formatting options stop working
         allow_inline_styles: true,
+
+        delaying: nil,
 
         recaptcha_public_key: nil, # deprecated; use recaptcha_site_key instead
         recaptcha_private_key: nil, # deprecated; use recaptcha_secret_key instead
@@ -101,7 +107,6 @@ module Cardio
 
     def set_config config
       @@config = config
-      config.active_job.queue_adapter = :delayed_job # better place for this?
 
       add_lib_dirs_to_autoload_paths config
 
@@ -112,38 +117,23 @@ module Cardio
 
     def add_lib_dirs_to_autoload_paths config
       config.autoload_paths += Dir["#{gem_root}/lib"]
-      config.autoload_paths += Dir["#{gem_root}/mod/*/lib"]
-      config.watchable_dirs["#{gem_root}/mod/*/set"] = [:rb]
 
-      config.autoload_paths += Dir["#{root}/mod/*/lib"]
-      config.watchable_dirs["#{root}/mod/*/set"] = [:rb]
-      gem_mod_paths.each do |_mod_name, mod_path|
-        config.autoload_paths += Dir["#{mod_path}/lib"]
-        config.watchable_dirs["#{mod_path}/set"] = [:rb]
-      end
-      # the watachable_dirs are processes in
+      # TODO: this should use each_mod_path, but it's not available when this is run
+      # This means libs will not get autoloaded (and sets not watched) if the mod
+      # dir location is overridden in config
+      [gem_root, root].each { |dir| autoload_and_watch config, "#{dir}/mod/*" }
+      gem_mod_specs.each_value { |spec| autoload_and_watch config, spec.full_gem_path }
+
+      # the watchable_dirs are processes in
       # set_clear_dependencies_hook hook in the railties gem in finisher.rb
 
       # TODO: move this to the right place in decko
       config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
-      # config.autoload_paths += Dir["#{gem_root}/lib/**/"]
-      # config.autoload_paths += Dir["#{gem_root}/mod/*/lib/**/"]
-      # config.autoload_paths += Dir["#{root}/mod/*/lib/**/"]
-      # gem_mod_paths.each do |_mod_name, mod_path|
-      #  config.autoload_paths += Dir["#{mod_path}/lib/**/"]
-      # end
     end
 
-    # @return Hash with key mod names (without card-mod prefix) and values the
-    #   full path to the mod
-    def gem_mod_paths
-      @gem_mods ||=
-        Bundler.definition.specs.each_with_object({}) do |gem_spec, h|
-          mod_name = mod_name_from_gem_spec gem_spec
-          next unless mod_name
-
-          h[mod_name] = gem_spec.full_gem_path
-        end
+    def autoload_and_watch config, mod_path
+      config.autoload_paths += Dir["#{mod_path}/lib"]
+      config.watchable_dirs["#{mod_path}/set"] = [:rb]
     end
 
     def read_only?
@@ -159,8 +149,10 @@ module Cardio
 
     def set_paths paths
       @@paths = paths
-      add_path "tmp/set", root: root
-      add_path "tmp/set_pattern", root: root
+      %w[set set_pattern].each do |path|
+        tmppath = "tmp/#{path}"
+        add_path tmppath, root: root unless paths[tmppath]&.existent
+      end
 
       add_path "mod"        # add card gem's mod path
       paths["mod"] << "mod" # add deck's mod path
@@ -182,33 +174,18 @@ module Cardio
     def add_initializer_paths
       add_path "config/initializers", glob: "**/*.rb"
       add_initializers root
-      each_mod_path do |mod_path|
-        add_initializers mod_path, false, "core_initializers"
-      end
+      each_mod_path { |mod_path| add_initializers mod_path, false, "core_initializers" }
     end
 
     def add_mod_initializer_paths
       add_path "mod/config/initializers", glob: "**/*.rb"
-      each_mod_path do |mod_path|
-        add_initializers mod_path, true
-      end
+      each_mod_path { |mod_path| add_initializers mod_path, true }
     end
 
     def add_initializers base_dir, mod=false, init_dir="initializers"
       Dir.glob("#{base_dir}/config/#{init_dir}").each do |initializers_dir|
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
         paths[path_mark] << initializers_dir
-      end
-    end
-
-    def each_mod_path
-      paths["mod"].each do |mods_path|
-        Dir.glob("#{mods_path}/*").each do |single_mod_path|
-          yield single_mod_path
-        end
-      end
-      gem_mod_paths.each do |_mod_name, mod_path|
-        yield mod_path
       end
     end
 
@@ -229,35 +206,6 @@ module Cardio
     def future_stamp
       # # used in test data
       @future_stamp ||= Time.zone.local 2020, 1, 1, 0, 0, 0
-    end
-
-    def migration_paths type
-      list = paths["db/migrate#{schema_suffix type}"].to_a
-      case type
-      when :core_cards
-        list += mod_migration_paths "migrate_core_cards"
-      when :deck_cards
-        list += mod_migration_paths "migrate_cards"
-      when :deck
-        list += mod_migration_paths "migrate"
-      end
-      list.flatten
-    end
-
-    def mod_migration_paths dir
-      [].tap do |list|
-        Card::Mod.dirs.each("db/#{dir}") { |path| list.concat Dir.glob path }
-      end
-    end
-
-    private
-
-    def mod_name_from_gem_spec gem_spec
-      if (m = gem_spec.name.match(/^card-mod-(.+)$/))
-        m[1]
-      else
-        gem_spec.metadata["card-mod"]
-      end
     end
   end
 end

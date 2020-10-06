@@ -83,13 +83,14 @@ class Card
         @paths[mod_name] = path
       end
 
-      def gem_mod mod_name, path=nil
-        path ||= Cardio.gem_mod_paths[mod_name]
-        unless path
-          raise Error, "Unknown gem mod \"#{mod_name}\". Make sure it is in your Gemfile."
-        end
+      def gem_mod name
+        deps = Mod.dependencies name
+        unknown_gem_mod!(name) if deps.blank?
+        deps.each { |spec| add_gem_mod spec.name, spec.full_gem_path }
+      end
 
-        add_gem_mod mod_name, path
+      def unknown_gem_mod! name
+        raise Error, "Unknown gem \"#{name}\". Make sure it is in your Gemfile."
       end
 
       def add_gem_mod mod_name, mod_path
@@ -104,7 +105,7 @@ class Card
       # @param mod_name [String] the name of a mod
       # @return the path to mod `mod_name`
       def path mod_name
-        @paths[mod_name]
+        @paths[mod_name] || @paths["card-mod-#{mod_name}"]
       end
 
       # Iterate over each mod directory
@@ -165,8 +166,8 @@ class Card
       end
 
       def load_from_gemfile
-        Cardio.gem_mod_paths.each do |mod_name, mod_path|
-          add_gem_mod mod_name, mod_path
+        Cardio.gem_mod_specs.each do |mod_name, mod_spec|
+          add_gem_mod mod_name, mod_spec.full_gem_path
         end
       end
 

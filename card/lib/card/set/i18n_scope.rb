@@ -32,7 +32,7 @@ class Card
       end
 
       def mod_from_tmp_parts parts, set_index
-        parts[set_index + 1].gsub(/^.*\-/, "")
+        parts[set_index + 1].gsub(/^[^-]*\-/, "")
       end
 
       def path_parts backtrace
@@ -76,10 +76,9 @@ class Card
       end
 
       def find_set_path backtrace
-        re = tmp_files? ? %r{tmp(sets)?/set\/} : %r{(?<!card)/set/}
+        re = %r{(?<!card)/set/}
         path = backtrace.find { |line| line =~ re }
         raise Error, "couldn't find set path in backtrace: #{backtrace}" unless path
-
         path
       end
 

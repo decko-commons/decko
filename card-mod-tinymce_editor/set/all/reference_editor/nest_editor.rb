@@ -1,5 +1,4 @@
 format :html do
-  NEST_OPTIONS = %i[view title show hide wrap help variant size params].freeze
   # Card::View::Options.shark_keys - %i[nest_syntax nest_name items cache]
   # TODO: connect to Card::View::Options
   # (that way a mod can add an option that becomes available to nests)
@@ -87,8 +86,9 @@ format :html do
   end
 
   def nest_snippet
-    @nest_snippet ||= NestParser.new params[:tm_snippet_raw],
-                                     default_nest_view, default_item_view
+    @nest_snippet ||=
+      Card::Reference::NestParser.new params[:tm_snippet_raw],
+                                      default_nest_view, default_item_view
   end
 
   def left_type_for_nest_editor_set_selection
@@ -120,7 +120,7 @@ format :html do
 
   def nest_option_name_select_options selected, level
     options = selected ? [] : ["--"]
-    options += NEST_OPTIONS
+    options += Card::Reference::NestParser::NEST_OPTIONS
     options_for_select(
       options, disabled: nest_option_name_disabled(selected, level),
                selected: selected

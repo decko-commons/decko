@@ -1,11 +1,11 @@
-format :html do
-  BRIDGE_TABS = { "Account" => :account_tab,
-                  "Guide"   => :guide_tab,
-                  "Engage"  => :engage_tab,
-                  "History" => :history_tab,
-                  "Related" => :related_tab,
-                  "Rules"   => :rules_tab }.freeze
+BRIDGE_TABS = { "Account" => :account_tab,
+                "Guide"   => :guide_tab,
+                "Engage"  => :engage_tab,
+                "History" => :history_tab,
+                "Related" => :related_tab,
+                "Rules"   => :rules_tab }.freeze
 
+format :html do
   wrapper :bridge do
     class_up "modal-dialog", "no-gaps"
     voo.hide! :modal_footer

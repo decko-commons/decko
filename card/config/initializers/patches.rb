@@ -53,12 +53,6 @@ module ActiveJob::Arguments #:nodoc: all
   end
 end
 
-module ActionDispatch #:nodoc: all
-  class Reloader
-    extend Patches::ActionDispatch::Reloader
-  end
-end
-
 module ActiveSupport #:nodoc: all
   module Callbacks
     class Callback

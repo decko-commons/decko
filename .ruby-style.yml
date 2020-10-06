@@ -1,12 +1,11 @@
 AllCops:
   Exclude:
-    - "vendor/**/*"
+    - "doc/**/*"
     - "card/db/schema.rb"
     - "card/tmpsets/**/*"
-    - "card/mod/bootstrap/lib/**/*"
-    - "card/mod/machines/lib/javascript/**/*"
-    - "card/mod/machines/lib/stylesheets/**/*"
-    - "decko/lib/decko/generators/decko/templates/Gemfile"
+    - "{card/mod/*,card-mod-*}/lib/stylesheets/*.css"
+    - "{card/mod/*,card-mod-*}/lib/javascript/*.js"
+    - "{card/mod/*,card-mod-*}/{file,public,vendor}/**/*"
 
 Style/CommentAnnotation:
   Enabled: true
@@ -89,7 +88,7 @@ RSpec/FilePath:
   CustomTransform:
     RuboCop: rubocop
     RSpec: rspec
-    Card: spec
+    Card: ""
   IgnoreMethods: false
 RSpec/NestedGroups:
   Description: Checks for nested example groups.

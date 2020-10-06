@@ -2,9 +2,8 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
-  s.name = "card"
-  s.version = s.card_version
+DeckoGem.gem "card" do |s, d|
+  s.version = d.card_version
 
   s.summary = "a simple engine for emergent data structures"
   s.description =
@@ -12,13 +11,11 @@ DeckoGem.new do |s|
     'Card "Sharks" use links, nests, types, patterned names, queries, views, ' \
     "events, and rules to create rich structures."
 
-  s.files = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
+  s.files = Dir["VERSION", "README.md", "LICENSE", "GPL", ".yardopts",
                 "{config,db,lib,mod,tmpsets}/**/*"]
 
-  s.require_paths = ["lib"]
-
   [
-    ["cardname",            s.decko_version],
+    ["cardname",            d.decko_version],
 
     ["haml",                        "~> 5.0"], # markup language used in view API
     ["jwt",                         "~> 2.2"], # used in token.rb
@@ -41,7 +38,6 @@ DeckoGem.new do |s|
 
     # other
     ["diff-lcs",                    "~> 1.3"], # content diffs in histories
-    ["delayed_job_active_record",   "~> 4.1"],
     ["activerecord-import",         "~> 1.0"],
 
     ["rake",                     "<= 12.3.0"],

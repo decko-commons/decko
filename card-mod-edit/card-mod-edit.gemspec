@@ -2,8 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
-  s.mod "edit"
+DeckoGem.mod "edit" do |s, _d|
   s.summary = "Edit handling"
   s.description = ""
 end

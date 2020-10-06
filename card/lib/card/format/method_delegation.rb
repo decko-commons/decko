@@ -9,35 +9,62 @@ class Card
            (?<bang>!)?        # trailing bang to skip optional check
         $/x
 
-      def respond_to_missing? method, _include_private=false
-        (method =~ RENDER_METHOD_RE) || template.respond_to?(method)
-      end
-
-      def method_missing method, *opts, &proc
-        if method =~ RENDER_METHOD_RE
-          api_render Regexp.last_match, opts
-        else
-          pass_method_to_template_object(method, opts, proc) { yield }
-        end
-      end
-
       def api_render match, opts
         # view can be part of method name or first argument
         view = match[:view] || opts.shift
         render! view, render_args(match[:underscore], match[:bang], opts)
       end
 
-      def render_args underscore, bang, opts
-        args = opts[0] ? opts.shift.clone : {}   # opts are opts ;)
-        args[:optional] = (opts.shift || args[:optional] || :show) unless bang
-        args[:skip_perms] = true if underscore
-        args
+      def action_view
+        @action_view ||= root? ? new_action_view : root.action_view
       end
 
-      def pass_method_to_template_object method, opts, proc
+      private
+
+      def api_render? method
+        method.match RENDER_METHOD_RE
+      end
+
+      def respond_to_missing? method, _include_private=false
+        api_render?(method) || action_view?(method)
+      end
+
+      def action_view? method
+        action_view.respond_to? method
+      end
+
+      # TODO: make it so we fall back to super if action_view can't handle method.
+      # It's not as easy as `elsif api_render? method`, because respond_to gives
+      # false for many methods action view can actually handle, like `h`
+      def method_missing method, *opts, &proc
+        if (match = api_render? method)
+          api_render match, opts
+        else
+          delegate_to_action_view(method, opts, proc) { yield }
+        end
+      end
+
+      def render_args underscore, bang, opts
+        # opts is a list; args is a hash. we're using various inputs to build the hash
+        (opts[0] ? opts.shift.clone : {}).tap do |args|
+          args[:optional] = (opts.shift || args[:optional] || :show) unless bang
+          args[:skip_perms] = true if underscore
+        end
+      end
+
+      # TODO: review this. it's quite old, and there might be a better way to do this now.
+      def new_action_view
+        c = controller
+        lookup_context = ActionView::LookupContext.new c.class.view_paths
+        ActionView::Base.new(lookup_context, { _routes: c._routes }, c).tap do |t|
+          t.extend c.class._helpers
+        end
+      end
+
+      def delegate_to_action_view method, opts, proc
         proc = proc { |*a| raw yield(*a) } if proc
-        response = root.template.send method, *opts, &proc
-        response.is_a?(String) ? root.template.raw(response) : response
+        response = action_view.send method, *opts, &proc
+        response.is_a?(String) ? action_view.raw(response) : response
       end
     end
   end

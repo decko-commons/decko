@@ -2,9 +2,8 @@
 
 require "../decko_gem"
 
-DeckoGem.new do |s|
-  s.mod "prosemirror_editor"
-  s.depends_on_mod :edit
+DeckoGem.mod "prosemirror_editor" do |s, d|
+  d.depends_on_mod :edit
   s.summary = "Prose Mirror editor"
   s.description = ""
 end

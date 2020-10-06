@@ -1,3 +1,6 @@
+<!--
+# @title Contributing as a Shark, Monkey, or Platypus
+-->
 # Thinking about contributing to Decko?
 Nice! There's tons to do involving lots of different skillsets, and we welcome the help.
 
@@ -34,7 +37,6 @@ In addition to the Shark invitations above, Monkeys are invited to:
  - make [pull requests][5] to the [card-mods][6] repo.
  - join us on Slack (just request an invite in the Google Group)
 
-
 ## Platypuses - Weirdos Building the Platform
 
 The rest of this document is for the more traditional audience of CONTRIBUTING files:
@@ -52,7 +54,20 @@ A great pull request is:
 
 ### Development Environment
 
-To install in a core-developer friendly mode, try `decko new mydeckname --core-dev`.  
+First, you will need a copy of the decko repo and install all its submodules:
+
+    git clone git@github.com:decko-commons/decko.git
+    cd decko
+    git submodule init
+
+Then you will need to install a platypus deck (somewhere else – not inside the repo):
+
+    decko new platypus --platypus
+    
+The `--platypus` flag is important; it will have key implications for your deck setup.
+
+You will be prompted to give the path to your repo. Alternatively you can use the 
+`--repo-path` flag or a `DECKO_REPO_PATH` environmental variable.
 
 ### Testing
 There are three different types of core tests. 
@@ -61,16 +76,16 @@ cypress tests.
 
 #### Rspec
 To run the whole rspec test suite execute `bundle exec decko rspec` in your
-core-dev deck directory. 
+platypus deck directory. 
 If you want to run only a single spec file use 
 `bundle exec decko rspec -- <path_to_spec_file>`.
 For more options run `bundle exec decko rspec --help`. 
 
 #### Cucumber
-Similar to rspec run `bundle exec decko cucumber` in your deck directory.
+Similar to rspec run `bundle exec decko cucumber` in your platypus deck directory.
 
 #### Cypress
-Start the server for your core-dev deck with `RAILS_ENV=cypress bundle exec decko s -p 
+Start the server for your platypus deck with `RAILS_ENV=cypress bundle exec decko s -p 
 5002` and then in the gem in `decko/spec` run `yarn run cypress open` to open the 
 cypress interface. Cypress upgrades can be installed in that same directory via npm. 
 
@@ -82,30 +97,19 @@ See the [Jasmine README][7] for more information.
 
 ### Documentation
 
-We use `yard`. You can run your own documentation server using:
+We use `yard`. You can run your own documentation server by calling this from the repo
+root:
 
-    gem install yard
     yard server --reload
-
-Note that each gem (card, decko, cardname, etc) has its own yard configuration (for now); 
-you will need to run the server from the respective directory.
 
 By default, the yard server will detect changes to normal ruby modules and update the
 docs accordingly. But currently set modules only work if we regenerate tmpfiles after
-changing code.
+changing code. To do that you can run the following from the development deck root:
+
+    rake decko:docs:update
  
-The easiest way to do that is to add something like this in 
-`config/environments/development.rb`:
-
-        Decko.application.class.configure do
-          tmpsets_dir = "#{Cardio.gem_root}/tmpsets/"
-          config.load_strategy = :tmp_files
-          config.paths['tmp/set'] = "#{tmpsets_dir}/set"
-          config.paths['tmp/set_pattern'] = "#{tmpsets_dir}/set_pattern"
-        end
-
-... and then trigger tmpset generation by loading a webpage. (The page may not load well,
-because tmpfiles don't handle HAML, but all that matters is the tmpfile generation.)
+BUT: only do this if you're both (a) in development mode and (b) using a decko gem from
+within a copy of the repo.
 
 [1]: https://decko.org
 [2]: https://groups.google.com/g/decko-sharks

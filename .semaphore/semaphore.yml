@@ -1,65 +1,114 @@
 version: v1.0
-name: First pipeline example
+name: Decko Standard
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+global_job_config:
+  env_vars:
+    - name: BUNDLE_PATH
+      value: "~/bundle/"
+    - name: COVERAGE
+      value: "false"
+    - name: DECKO_REPO_PATH
+      value: "~/decko"
+  prologue:
+    commands:
+      - checkout # semaphore does git checkout and cds into decko
+      - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
+      - alias be='bundle exec'
+      - git submodule init
+      # - git submodule status > substat.txt # needed for sem submodule caching
+      # - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
 
 blocks:
-  - name: "Build"
+
+#  - name: Cache dependencies
+#    task:
+#      jobs:
+#        - name: cache submodules and gems
+#          commands:
+#            # CACHE SUBMODULES
+#            # NOTE submodules themselves are restored in global_job config, but
+#            # .git/modules must be restored so that git knows everything is in order and
+#            # `git submodule update` only triggers cloning when needed
+#            - cache restore git-modules-$(checksum substat.txt)
+#            - git submodule update
+#            - ruby .semaphore/submodules.rb store
+#            - cache store git-modules-$(checksum substat.txt) .git/modules
+
+  - name: Smoke
     task:
-      env_vars:
-        - name: APP_ENV
-          value: prod
+      prologue:
+        commands:
+          - cache restore bundle-gems-baseline
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - bundle install
+          - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
+          - cache store bundle-gems-baseline ~/bundle
+
+          - sem-service start mysql
+          - git submodule update card/db/seed
+
       jobs:
-      - name: Setup
-        command:
-          - git submodule sync
-          - git submodule update --init --recursive
-            cd /home/runner
+        - name: New Shark and Monkey Decks
+          commands:
+            # NEW SHARK DECK
+            - be decko new shark
+            - cd shark
+            - be decko seed
 
-            bundle update
-            # --path /home/runner/decko/.semaphore-cache
-            cp /home/runner/bucket_credentials.yml /home/runner/decko/card/spec/support/bucket_credentials.yml
+            - cd .. # note: faster than making a separate job.
 
-  - name: "Smoke tests"
+            # NEW MONKEY DECK
+            - be decko new monkey --monkey
+            - cd monkey
+            - be decko seed
+
+  - name: Unit Tests
     task:
-      jobs:
-      - name: Smoke
+      prologue:
         commands:
-          - checkout
-          - echo "make smoke"
+          - sem-service start mysql
+          - git submodule update
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
 
-  - name: "Unit tests"
+      jobs:
+        - name: RSpec
+          commands:
+            - be decko new platypus --platypus
+            - cd platypus
+            - be decko seed --test
+            - be decko rspec
+
+  - name: Integration Tests
     task:
+      prologue:
+        commands:
+          - sem-service start mysql
+          - git submodule update
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - be decko new platypus --platypus
+          - cd platypus
+          - be decko seed --test
+
       jobs:
-      - name: RSpec
-        commands:
-          - checkout
-          - echo "make rspec"
+        - name: Cypress
+          commands:
+            - RAILS_ENV=test CYPRESS_DEV=true bundle exec decko server -p 5002 -d
+            - cd ~/decko/decko/spec
+            - nvm use 10.10.0
+            - yarn install
+            - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e
+        - name: Cucumber
+          commands:
+            - RAILS_ENV=cucumber bundle exec decko cucumber
 
-      - name: Lint code
-        commands:
-          - checkout
-          - echo "make lint"
-
-      - name: Check security
-        commands:
-          - checkout
-          - echo "make security"
-
-  - name: "Integration tests"
-    task:
-      jobs:
-      - name: Cucumber
-        commands:
-          - checkout
-          - echo "make cucumber"
-
-  - name: "Push Image"
-    task:
-      jobs:
-      - name: Push
-        commands:
-          - checkout
-          - echo "make docker.push"
+  # - name: "Push Image"
+  #   # dependencies: []
+  #   task:
+  #     jobs:
+  #       - name: Push
+  #         commands:
+  #           - checkout
+  #           - echo "make docker.push"

@@ -56,12 +56,12 @@ POST_VARIABLES_CARD_NAMES = %i[
   style_mods
 ].freeze
 
-# @return Array<Card::Name,String>
+# @return [Array<Card::Name,String>]
 def variables_card_names
   []
 end
 
-# @return Array<Card::Name,String>
+# @return [Array<Card::Name,String>]
 def stylesheets_card_names
   []
 end
@@ -151,6 +151,7 @@ def theme_name
 end
 
 def source_dir
-  @source_dir ||=
-    ::File.expand_path "../../../vendor/bootswatch/dist/#{theme_name}", __FILE__
+  @source_dir ||= File.expand_path(
+    "#{mod_root :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
+  )
 end

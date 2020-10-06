@@ -148,35 +148,6 @@ decko_namespace = namespace :decko do
     load_task << "_without_reset" unless with_cache_reset
     Rake::Task[load_task].invoke
   end
-
-  namespace :emergency do
-    task rescue_watchers: :environment do
-      follower_hash = Hash.new { |h, v| h[v] = [] }
-
-      Card.where("right_id" => 219).each do |watcher_list|
-        watcher_list.include_set_modules
-        next unless watcher_list.left
-        watching = watcher_list.left.name
-        watcher_list.item_names.each do |user|
-          follower_hash[user] << watching
-        end
-      end
-
-      Card.search(right: { codename: "following" }).each do |following|
-        Card::Auth.as_bot do
-          following.update! content: ""
-        end
-      end
-
-      follower_hash.each do |user, items|
-        next unless (card = Card.fetch(user)) && card.account
-        Card::Auth.as(user) do
-          following = card.fetch "following", new: {}
-          following.items = items
-        end
-      end
-    end
-  end
 end
 
 def failing_loudly task
