@@ -116,5 +116,4 @@ else
     exit(1)
   end
 end
-exit(0)
 

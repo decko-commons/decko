@@ -2,14 +2,7 @@
 
 require 'rails'
 
-Bundler.require :default, *Rails.groups
-
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(assets: %w[development test cypress])
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
+Bundler.require :default, *Rails.groups if defined?(Bundler)
 
 module Cardio
   class Application < Rails::Application
@@ -58,14 +51,28 @@ warn "load ap rec trig, load card"
       super do
         instance_eval &block if block_given?
 
-        Cardio.set_config
-
-        config.autoloader = :zeitwerk
         config.load_default = "6.0"
-        config.i18n.enforce_available_locales = true
+        Cardio.load_card_environment
+        #Cardio.set_config
+        #Cardio.set_paths paths
 
-        Cardio.set_paths paths
+        #config.autoloader = :zeitwerk # included in "6.0"
+        config.i18n.enforce_available_locales = true # maybe this too
       end
+    end
+
+    initializer :load_card_config,
+                before: :load_environment_config, group: :all do
+      #Cardio.load_card_environment
+    end
+
+    initializer :load_card_config_initializers,
+                after: :load_card_config, group: :all do
+      Cardio.load_rails_environment
+      paths["config/initializers"].existent.sort.each do |initializer|
+        load(initializer)
+      end
+      Cardio.connect_on_load
     end
 
     def root_path_option options
