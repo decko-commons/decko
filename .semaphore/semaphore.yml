@@ -44,6 +44,7 @@ blocks:
         commands:
           - bundle install
           - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
+
           - sem-service start mysql
           - git submodule update card/db/seed
 
@@ -64,9 +65,6 @@ blocks:
 
   - name: Unit Tests
     task:
-      env_vars:
-        - name: RAILS_ENV
-          value: "test"
       prologue:
         commands:
           - sem-service start mysql
@@ -81,19 +79,24 @@ blocks:
 
   - name: Integration Tests
     task:
-      env_vars:
-        - name: RAILS_ENV
-          value: "cucumber"
       prologue:
         commands:
           - sem-service start mysql
           - git submodule update
+          - be decko new platypus --platypus
+          - cd platypus
+          - be decko seed --test
+
       jobs:
+        - name: Cypress
+          commands:
+            - RAILS_ENV=test CYPRESS_DEV=true bundle exec decko server -p 5002 -d
+            - cd ~/decko/decko/spec
+            - nvm use 10.10.0
+            - yarn install
+            - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e
         - name: Cucumber
           commands:
-            - be decko new platypus --platypus
-            - cd platypus
-            - be decko seed --test
             - be decko cucumber
 
   # - name: "Push Image"

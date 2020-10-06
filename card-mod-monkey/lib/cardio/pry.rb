@@ -59,11 +59,11 @@ module Cardio
       text = args.first
       return super unless args.size == 1 && htmlish?(text)
       html = Nokogiri::XML text, &:noblanks
-      puts_html(html, text) { |*args| super *args }
+      puts_html(html, text) { |*super_args| super(*super_args) }
     end
 
     def htmlish? text
-      text.is_a?(String) && (text.match?(%r{</\w+>})) || (text.include?("\e"))
+      text.is_a?(String) && (text.match?(%r{</\w+>}) || text.include?("\e"))
     end
 
     def puts_html html, text, &block
@@ -104,41 +104,7 @@ module Cardio
       @_user ||= Card.fetch "Joe User"
     end
 
-    puts %{
-== Command history ==
-h     : hist -T 20 Last 20 commands
-hg    : hist -T 20 -G Up to 20 commands matching expression
-hG    : hist -G Commands matching expression ever used
-hr    : hist -r hist -r <command number> to run a command
-Hit Enter to repeat last command
-
-== Variables ==
-_u : Card["Joe User"]
-_a : [1, 2, 3, 4, 5, 6]
-_h : { hello: "world", free: "of charge" }
-
-== Card commands ==
-create : Card.create :name=>$1, :content=>($2||"some content"), :type=>($3||"basic")
-update : Card.update :name=>$1, :content=>($2||"some content"), :type=>($3||"basic")
-ab     : Card::Auth.as_bot
-cr     : create card and assign it to cr
-         (default: name=>"test card", content=>"some content", type=>"basic")
-fe     : fetch card and assign it to fe (default: "Home")
-
-== Breakpoints ==
-breakview (bv) : set break point where view is rendered
-                 (takes a view name and a card mark as optional argument)
-breaknest (bn) : set break point where nest is rendered
-                 (takes a card mark as optional argument)
-clear          : remove all break points
-
-== Helpful debugger shortcuts ==
-hputs : puts with html syntax highlighting
-n     : next
-s     : step
-c     : continue
-f     : finish
-try   : execute current line (without stepping forward)
-}
+    intro = File.read File.expand_path("../pry/intro.txt", __FILE__)
+    puts intro
   end
 end

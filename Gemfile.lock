@@ -65,7 +65,6 @@ PATH
       kramdown
     card-mod-monkey (0.10.1)
       better_errors (!= 2.8.2)
-      binding_of_caller
       card (= 1.100.1)
       colorize
       html2haml
