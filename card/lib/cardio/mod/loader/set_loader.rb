@@ -1,4 +1,4 @@
-class Card
+class Cardio
   module Mod
     class Loader
       # A SetLoader object loads all set modules for a list of mods.

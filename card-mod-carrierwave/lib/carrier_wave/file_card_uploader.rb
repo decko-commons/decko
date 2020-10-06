@@ -235,7 +235,7 @@ module CarrierWave
     end
 
     def local_url_base opts={}
-      web_path = Card.config.files_web_path
+      web_path = Cardio.config.files_web_path
       opts.delete(:absolute) ? card_url(web_path) : card_path(web_path)
     end
 

@@ -1,4 +1,4 @@
-class Card
+class Cardio
   module Mod
     class Loader
       class SetPatternLoader < Loader

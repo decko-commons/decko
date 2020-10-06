@@ -1,4 +1,4 @@
-class Card
+class Cardio
   class << self
     def config
       Cardio.config

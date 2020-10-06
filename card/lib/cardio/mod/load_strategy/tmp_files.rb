@@ -1,4 +1,4 @@
-class Card
+class Cardio
   module Mod
     class LoadStrategy
       # LoadStrategy for mod modules. It writes the code to tmp files
