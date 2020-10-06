@@ -48,36 +48,24 @@ module Decko
 
         # Generator works its way through each public method below
 
-        def rakefile
+        def core_files
+          erb_template "config.ru"
+          erb_template "Gemfile"
           erb_template "Rakefile"
         end
 
-        def mod
+        def empty_dirs
           empty_directory_with_keep_file "mod"
-        end
-
-        def log
           empty_directory_with_keep_file "log"
-        end
-
-        def files
           empty_directory_with_keep_file "files"
-        end
-
-        def tmp
           empty_directory "tmp"
         end
 
-        def gemfile
-          erb_template "Gemfile"
-        end
-
-        def configru
-          erb_template "config.ru"
-        end
-
-        def gitignore
+        def dotfiles
+          copy_file "pryrc", ".pryrc"
           copy_file "gitignore", ".gitignore"
+          template "rspec.erb", ".rspec"
+          template "simplecov.erb", ".simplecov"
         end
 
         def config
@@ -91,8 +79,6 @@ module Decko
             template "initializers/cypress_on_rails.rb" if platypus?
             template "puma.rb"
           end
-          template "rspec.erb", ".rspec"
-          template "simplecov.erb", ".simplecov"
         end
 
         def public
@@ -112,12 +98,11 @@ module Decko
         end
 
         def spec
-          inside("spec") { template "spec_helper.rb" } unless platypus?
-        end
-
-        def javascript_spec_setup
-          inside "spec/javascripts/support" do
-            template "deck#{'o' if platypus?}_jasmine.yml.erb", "jasmine.yml"
+          inside "spec" do
+            template "spec_helper.rb" unless platypus?
+            inside "javascripts/support" do
+              template "deck#{'o' if platypus?}_jasmine.yml.erb", "jasmine.yml"
+            end
           end
         end
 

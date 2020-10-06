@@ -239,9 +239,9 @@ And info about contributing to Decko is [right next door][24].
 [2]: https://decko.semaphoreci.com/projects/decko
 [3]: https://badge.fury.io/rb/decko.svg "Gem Version"
 [4]: https://badge.fury.io/rb/decko
-[5]: https://codeclimate.com/repos/56548cb6fafb98574e013c39/badges/be88db3f72d0fd06ace3/gpa.svg
+[5]: https://api.codeclimate.com/v1/badges/6ef82d42115889ea81c7/maintainability
     "Code Climate Badge"
-[6]: https://codeclimate.com/repos/56548cb6fafb98574e013c39/feed
+[6]: https://codeclimate.com/github/decko-commons/decko/maintainability
 [7]: http://www.ruby-lang.org/en/
 [8]: http://gembundler.com/
 [9]: http://www.imagemagick.org/

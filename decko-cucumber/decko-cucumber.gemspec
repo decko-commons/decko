@@ -7,8 +7,6 @@ DeckoGem.gem "decko-cucumber" do |s, _d|
   s.description = ""
 
   [
-    ["card-mod-monkey"],
-
     ["cucumber", "~> 3.1"],
     ["cucumber-rails"],
     ["cucumber-expressions"],
