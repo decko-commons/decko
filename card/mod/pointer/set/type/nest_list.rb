@@ -5,9 +5,7 @@ def raw_item_strings content
 end
 
 def item_options
-  nest_chunks.map do |chunk|
-    chunk.raw_options
-  end
+  nest_chunks.map(&:raw_options)
 end
 
 format do
