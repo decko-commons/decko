@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-#require "active_support/core_ext/numeric/time"
-#require 'rails'
-#require 'active_support'
+require "active_support/core_ext/numeric/time"
 djar = "delayed_job_active_record"
 require djar if Gem::Specification.find_all_by_name(djar).any?
 require "cardio/schema"
@@ -11,11 +9,12 @@ require "cardio/modfiles"
 require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
-  #require 'cardio/mod' # should autoload
+  #require 'cardio/mod'
+raise "load mods in cardio"
   Cardio::Mod.load
 end
 
-class Cardio
+module Cardio
   extend Schema
   extend Utils
   extend Modfiles
@@ -44,15 +43,8 @@ class Cardio
   class << self
     include RailsConfigMethods
 
-    def gem_root
-      CARD_GEM_ROOT
-    end
-
     def card_defined?
-      if const_defined? "Card"
-        raise "Wrong Card" unless Card.is_a? ApplicationRecord
-        true
-      end
+      const_defined? "Card"
     end
 
     def load_card?
@@ -66,7 +58,7 @@ class Cardio
     end
 
     def default_configs
-      defaults = {
+      {
         read_only: read_only?,
 
         # if you disable inline styles tinymce's formatting options stop working
@@ -106,7 +98,6 @@ class Cardio
         request_logger: false,
         performance_logger: false,
         sql_comments: true,
-        eager_load: false,
 
         file_storage: :local,
         file_buckets: {},
@@ -128,28 +119,35 @@ class Cardio
         load_strategy: :eval,
         cache_set_module_list: false
       }
-      cfg = config
-      defaults.each_pair do |setting, value|
-        # so don't change settings here if they already exist
-        cfg.send("#{setting}=", *value) unless cfg.respond_to?(setting) &&
-                                               !cfg.send(setting).nil?
+    end
+
+    def set_config config
+      @@config = config
+
+      add_lib_dirs_to_autoload_paths config
+
+      default_configs.each_pair do |setting, value|
+        set_default_value(config, setting, *value)
       end
     end
 
-    def add_lib_dirs_to_autoload_paths
+    def add_lib_dirs_to_autoload_paths config
       config.autoload_paths += Dir["#{gem_root}/lib"]
 
       # TODO: this should use each_mod_path, but it's not available when this is run
       # This means libs will not get autoloaded (and sets not watched) if the mod
       # dir location is overridden in config
-      [gem_root, root].each { |dir| autoload_and_watch "#{dir}/mod/*" }
-      gem_mod_specs.each_value { |spec| autoload_and_watch spec.full_gem_path }
+      [gem_root, root].each { |dir| autoload_and_watch config, "#{dir}/mod/*" }
+      gem_mod_specs.each_value { |spec| autoload_and_watch config, spec.full_gem_path }
 
       # the watchable_dirs are processes in
       # set_clear_dependencies_hook hook in the railties gem in finisher.rb
+
+      # TODO: move this to the right place in decko
+      config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
     end
 
-    def autoload_and_watch mod_path
+    def autoload_and_watch config, mod_path
       config.autoload_paths += Dir["#{mod_path}/lib"]
       config.watchable_dirs["#{mod_path}/set"] = [:rb]
     end
@@ -158,9 +156,17 @@ class Cardio
       !ENV["DECKO_READ_ONLY"].nil?
     end
 
-    def paths_init
+    # In production mode set_config gets called twice.
+    # The second call overrides all deck config settings
+    # so don't change settings here if they already exist
+    def set_default_value config, setting, *value
+      config.send("#{setting}=", *value) unless config.respond_to? setting
+    end
+
+    def set_paths apaths
+raise "error" if paths != apaths
       %w[set set_pattern].each do |path|
-        tmppath = File.join("tmp", path)
+        tmppath = "tmp/#{path}"
         add_path tmppath, root: root unless paths[tmppath]&.existent
       end
 
@@ -170,59 +176,6 @@ class Cardio
       add_db_paths
       add_initializer_paths
       add_mod_initializer_paths
-    end
-
-    def future_stamp
-      # # used in test data
-      @future_stamp ||= Time.zone.local 2020, 1, 1, 0, 0, 0
-    end
-
-    def load_card_environment
-      add_lib_dirs_to_autoload_paths
-      default_configs
-      paths_init
-      add_configs
-
-      ActiveSupport.run_load_hooks(:before_configuration)
-      ActiveSupport.run_load_hooks(:load_active_record)
-      ActiveSupport.run_load_hooks(:before_card)
-
-      add_path "lib/card/config/environments", glob: "#{Rails.env}.rb", root: Cardio.gem_root
-    end
-
-    def load_rails_environment
-      paths["lib/card/config/environments"].existent.each do |environment|
-        require environment
-      end
-    end
-
-    def connect_on_load
-      ActiveSupport.on_load(:before_configure_environment) do
-        ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
-      end
-      ActiveSupport.on_load(:after_initialize) do
-      end
-      ActiveSupport.on_load(:after_application_record) do
-        #ActiveSupport.run_load_hooks :initialize, self
-      end
-    end
-
-    def add_configs
-
-      # should get from class that include Cardio::App (Decko)
-      #config.autoloader = :zeitwerk
-      #config.load_default = "6.0"
-      #config.i18n.enforce_available_locales = true
-
-      Rails.autoloaders.log!
-     # Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
-    end
-  private
-
-    def add_path path, options={}
-      root = options.delete(:root) || Cardio.gem_root
-      options[:with] = File.join(root, (options[:with] || path))
-      paths.add path, options
     end
 
     def add_db_paths
@@ -250,6 +203,25 @@ class Cardio
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
         paths[path_mark] << initializers_dir
       end
+    end
+
+    def root
+      @@config.root
+    end
+
+    def gem_root
+      CARD_GEM_ROOT
+    end
+
+    def add_path path, options={}
+      root = options.delete(:root) || gem_root
+      options[:with] = File.join(root, (options[:with] || path))
+      paths.add path, options
+    end
+
+    def future_stamp
+      # # used in test data
+      @future_stamp ||= Time.zone.local 2020, 1, 1, 0, 0, 0
     end
   end
 end
