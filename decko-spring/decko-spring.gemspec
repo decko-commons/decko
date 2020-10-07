@@ -6,13 +6,6 @@ DeckoGem.gem "decko-spring" do |s, _d|
   s.summary = "spring integration for decko development"
   s.description = "Spring speeds up development by keeping your application running " \
                   "in the background. Read more: https://github.com/rails/spring"
-
-  [
-    ["listen", "3.0.6"],
-    ["spring"],
-    ["spring-commands-rspec"],
-    ["spring-commands-cucumber"]
-  ].each do |dep|
-    s.add_runtime_dependency(*dep)
-  end
+  d.depends_on ["listen", "3.0.6"],
+               "spring", "spring-commands-rspec", "spring-commands-cucumber"
 end

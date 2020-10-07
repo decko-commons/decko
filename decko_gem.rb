@@ -50,15 +50,11 @@ class DeckoGem
   end
 
   def depends_on *gems
-    gems.each do |gem|
-      spec.add_runtime_dependency(*([gem].flatten))
-    end
+    gems.each { |gem| spec.add_runtime_dependency(*[gem].flatten) }
   end
 
-  def depends_on_mod *modnames
-    modnames.each do |modname|
-      spec.add_runtime_dependency "card-mod-#{modname}", decko_version
-    end
+  def depends_on_mod *mods
+    mods.each { |mod| spec.add_runtime_dependency "card-mod-#{mod}", decko_version }
   end
 
   private
