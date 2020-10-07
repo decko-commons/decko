@@ -7,7 +7,7 @@ Feature: Structure Rules
   Background:
     Given I am signed in as Joe Admin
     And I create Cardtype card "Movie"
-    And I create card "Movie+*type+*structure" with content "{{+director}} {{+lead}} {{+color}}"
+    And I create RichText card "Movie+*type+*structure" with content "{{+director}} {{+lead}} {{+color}}"
     And I create Phrase card "color+*right+*default" with content "true dat"
 
   Scenario: New structured card
