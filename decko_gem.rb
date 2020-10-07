@@ -49,6 +49,12 @@ class DeckoGem
     spec.add_runtime_dependency "card", card_version
   end
 
+  def depends_on *gems
+    gems.each do |gem|
+      spec.add_runtime_dependency(*([gem].flatten))
+    end
+  end
+
   def depends_on_mod *modnames
     modnames.each do |modname|
       spec.add_runtime_dependency "card-mod-#{modname}", decko_version
