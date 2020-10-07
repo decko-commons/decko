@@ -16,7 +16,8 @@ DeckoGem.gem "decko-rspec" do |s, _d|
     ["rspec"],
     ["rspec-rails", "~> 4.0.0.beta2"],   # behavior-driven-development suite
     ["rubocop-rspec"],
-    ["spork", ">=0.9"]
+    ["spork", ">=0.9"],
+    ["timecop"]
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end
