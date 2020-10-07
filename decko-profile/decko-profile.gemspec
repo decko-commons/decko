@@ -2,9 +2,9 @@
 
 require "../decko_gem"
 
-DeckoGem.gem "decko-profile" do |s, _d|
+DeckoGem.gem "decko-profile" do |s, d|
   s.summary = "decko and card mod profiling"
   s.description = ""
 
-  s.add_runtime_dependency "ruby-prof"
+  d.depends_on "ruby-prof"
 end
