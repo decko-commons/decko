@@ -1,16 +1,17 @@
 # -*- encoding : utf-8 -*-
 
 require "decko/engine"
-require_relative "config/initializers/sedate_parser"
+require "cardio/application"
 
 Bundler.require :default, *Rails.groups
 
 module Decko
-  class Application < Rails::Application
+  class Application < Cardio::Application
+    PATH = "lib/decko/config/environments"
     initializer :load_decko_environment_config,
                 before: :load_environment_config, group: :all do
-      add_path paths, "lib/decko/config/environments", glob: "#{Rails.env}.rb"
-      paths["lib/decko/config/environments"].existent.each do |environment|
+      add_path paths, PATH, glob: "#{Rails.env}.rb"
+      paths[PATH].existent.each do |environment|
         require environment
       end
     end

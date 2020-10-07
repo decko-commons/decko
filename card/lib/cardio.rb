@@ -12,7 +12,7 @@ ActiveSupport.on_load :after_card do
   Card::Mod.load
 end
 
-module Cardio
+class Cardio
   extend Schema
   extend Utils
   extend Modfiles
@@ -30,11 +30,6 @@ module Cardio
       ActiveRecord::Base.connection && !card_defined?
     rescue
       false
-    end
-
-    def load_card!
-      require "card"
-      ActiveSupport.run_load_hooks :after_card
     end
 
     def cache

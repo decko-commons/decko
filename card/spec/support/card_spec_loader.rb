@@ -31,7 +31,9 @@ class CardSpecLoader
     end
 
     def rspec_config
+      require "cardio/application"
       require "rspec/rails"
+      Card
 
       @@joe_user_id = Card["joe_user"].id
       RSpec.configure do |config|
