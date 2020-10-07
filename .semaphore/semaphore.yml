@@ -27,6 +27,7 @@ blocks:
       prologue:
         commands:
           - cache restore bundle-gems-baseline
+          - # occasionally clear: `cache delete bundle-gems-baseline`
           - cache restore bundle-gems-$(checksum Gemfile.lock)
           - bundle install
           - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
@@ -88,12 +89,3 @@ blocks:
         - name: Cucumber
           commands:
             - RAILS_ENV=cucumber bundle exec decko cucumber
-
-  # - name: "Push Image"
-  #   # dependencies: []
-  #   task:
-  #     jobs:
-  #       - name: Push
-  #         commands:
-  #           - checkout
-  #           - echo "make docker.push"

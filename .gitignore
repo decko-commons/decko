@@ -10,8 +10,7 @@
 coverage
 log/*
 pkg
-card*gem
-decko*gem
+*.gem
 *.project
 *.sqlite3
 *.DS_Store

@@ -2,8 +2,8 @@
 
 require "../decko_gem"
 
-DeckoGem.mod "markdown" do |s, _d|
+DeckoGem.mod "markdown" do |s, d|
   s.summary = "markdown support for decko"
   s.description = "use markdown in decko card content"
-  s.add_runtime_dependency "kramdown"
+  d.depends_on "kramdown"
 end
