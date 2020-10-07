@@ -14,6 +14,7 @@ module Cardio
       def exec_script! name
         cwd = Dir.pwd
         return unless in_application?(name) || in_application_subdirectory?(name)
+warn "CLI #{__LINE__} exec #{in_application?(name)} #{name} #{script_file(name)}"
         exec RUBY, script_file(name), *ARGV if in_application?(name)
         Dir.chdir("..") do
           # Recurse in a chdir block: if the search fails we want to be sure
@@ -42,6 +43,7 @@ path = command == "card" ? "cardio" : command # alias card -> cardio paths
 # If we are inside a Card application this method performs an exec and thus
 # the rest of this script is not run.
 Cardio::ScriptLoader.exec_script! command
+warn "CLI no exec #{__LINE__}"
 
 require "rails/ruby_version_check"
 Signal.trap("INT") { puts; exit(1) }
