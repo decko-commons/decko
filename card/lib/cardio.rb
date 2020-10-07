@@ -43,15 +43,8 @@ module Cardio
   class << self
     include RailsConfigMethods
 
-    def gem_root
-      CARD_GEM_ROOT
-    end
-
     def card_defined?
-      if const_defined? "Card"
-        raise "Wrong Card" unless Card.is_a? ApplicationRecord
-        true
-      end
+      const_defined? "Card"
     end
 
     def load_card?
@@ -131,7 +124,7 @@ warn "CARDIO #{__LINE__} default configs"
       end
     end
 
-    def add_lib_dirs_to_autoload_paths
+    def add_lib_dirs_to_autoload_paths config
       config.autoload_paths += Dir["#{gem_root}/lib"]
 
       # TODO: this should use each_mod_path, but it's not available when this is run
@@ -260,6 +253,25 @@ warn "CARDIO #{path}, #{root}, #{options}"
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
         paths[path_mark] << initializers_dir
       end
+    end
+
+    def root
+      @@config.root
+    end
+
+    def gem_root
+      CARD_GEM_ROOT
+    end
+
+    def add_path path, options={}
+      root = options.delete(:root) || gem_root
+      options[:with] = File.join(root, (options[:with] || path))
+      paths.add path, options
+    end
+
+    def future_stamp
+      # # used in test data
+      @future_stamp ||= Time.zone.local 2020, 1, 1, 0, 0, 0
     end
   end
 end
