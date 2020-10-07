@@ -10,3 +10,11 @@ Before do
   Card::Cache.reset
   # TODO: try restore/prepopulate
 end
+
+Before("@simulate-setup") do
+  Card::Auth.simulate_setup!
+end
+
+After("@simulate-setup") do
+  Card::Auth.simulate_setup! false
+end

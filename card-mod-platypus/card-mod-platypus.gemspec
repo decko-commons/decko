@@ -7,8 +7,6 @@ DeckoGem.mod "platypus" do |s, _d|
   s.description = ""
 
   [
-    ["decko-rspec"],
-    ["decko-cucumber"],
     ["yard"],
     ["fog-aws"],
 
