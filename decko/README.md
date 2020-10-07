@@ -51,6 +51,8 @@ Watch carefully for errors!
 
     decko new MY_DECK
 
+`MY_DECK` is, of course, a variable. Use any name you like.
+
 Options:
 
     -f, [--force]                            # Overwrite files that already exist
@@ -183,7 +185,7 @@ All you have to do to install one of these mods is:
 
 #### 3. run any migrations, mergers, or scripts:
 
-    decko update
+     decko update
 
 ...and then restart your server.
 
@@ -195,7 +197,7 @@ If you're interested in making your own mod, the first thing to do is set up a g
 development environment. This is most easily done by creating a new deck with the 
 `--monkey` (or `-M`) options, eg:
 
-    decko new --monkey mydeck
+    decko new MY_DECK --monkey
     
 If you're working on an existing deck, it's often easiest just to do the above and then 
 make the new deck use your existing files and database. However, if that's not an option, 
