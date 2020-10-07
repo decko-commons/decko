@@ -14,8 +14,8 @@ DeckoGem.gem "card" do |s, d|
   s.files = Dir["VERSION", "README.md", "LICENSE", "GPL", ".yardopts",
                 "{config,db,lib,mod,tmpsets}/**/*"]
 
-  [
-    ["cardname",            d.decko_version],
+  d.depends_on(
+    ["cardname",             d.decko_version],
 
     ["haml",                        "~> 5.0"], # markup language used in view API
     ["jwt",                         "~> 2.2"], # used in token.rb
@@ -42,7 +42,5 @@ DeckoGem.gem "card" do |s, d|
 
     ["rake",                     "<= 12.3.0"],
     ["rails",                         "~> 6"]
-  ].each do |dep|
-    s.add_runtime_dependency(*dep)
-  end
+  )
 end
