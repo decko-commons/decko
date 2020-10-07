@@ -12,6 +12,7 @@ DeckoGem.mod "monkey" do |s, d|
                ["rubocop", "0.88"],      # 0.89 introduced bugs.
                # ["rubocop-decko"],
                # DEBUGGING
+               "better_errors",
                "pry-rails",
                "pry-rescue",
                "pry-stack_explorer",
