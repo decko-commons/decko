@@ -40,15 +40,15 @@ gem "card-mod-defaults"
 # additional gems to support development and testing.
 <%= "# " if shark? %>gem "card-mod-monkey", group: :development
 <%= "# " if shark? %>gem "decko-rspec", group: :test
-<%= "# " if shark? %>gem "decko-cucumber", group: :test
+<%= "# " if shark? %>gem "decko-cucumber", group: :cucumber
+<%= "# " if shark? %>gem "decko-cypress", group: %i[test development]
 <%= "# " if shark? %>gem "decko-profile", group: :profile
-<%= "# " if shark? %>gem "decko-cypress", group: %i[cypress test]
-<%= "# " if shark? || !spring_install? %>gem "decko-spring", group: %i[test development]
+<%= "# " if shark? || !spring_install? %>gem "decko-spring"
 
 <% if platypus? %>
 # PLATYPUSES
 # This mod is strongly recommended for platypuses – coders working on the decko core
-gem "card-mod-platypus", group: :test
+gem "card-mod-platypus"
 <% end %>
 
 # The following allows simple (non-gem) mods to specify gems via a Gemfile.

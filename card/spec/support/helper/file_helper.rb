@@ -21,24 +21,53 @@ class Card
       end
     end
 
-    def bucket_credentials key
-      @buckets ||= bucket_credentials_from_yml_file || {}
-      @buckets[key]
-    end
+    module BucketHelper
+      DIRECTORY = "deckodev-test".freeze
 
-    def bucket_credentials_from_yml_file
-      file_path = File.expand_path("../../bucket_credentials.yml", __FILE__)
-      yml_file = ENV["BUCKET_CREDENTIALS_PATH"] || file_path
-      need_bucket_credentials! file_path unless File.exist? yml_file
+      def with_test_bucket
+        return unless (credentials = test_bucket_credentials)
+        ensure_test_bucket credentials
+        let(:cloud_url) { "http://#{DIRECTORY}.s3.amazonaws.com/files/#{file_path}" }
+        yield
+      end
 
-      YAML.load_file(yml_file).deep_symbolize_keys
-    end
+      def test_bucket_credentials
+        file_path = test_bucket_file_path
+        yml_file = ENV["BUCKET_CREDENTIALS_PATH"] || file_path
+        if File.exist? yml_file
+          YAML.load_file(yml_file).deep_symbolize_keys[:aws]
+        else
+          need_bucket_credentials! file_path
+          nil
+        end
+      end
 
-    def need_bucket_credentials! file_path
-      raise Card::Error,
-            "Bucket Credentials required. " \
-            "Specify yml file with environmental variable (BUCKET_CREDENTIALS_PATH) " \
-            "or add credentials to #{file_path}."
+      def test_bucket_file_path
+        File.expand_path "../../bucket_credentials.yml", __FILE__
+      end
+
+      def need_bucket_credentials! file_path
+        puts %[
+~~~Skipping cloud specs~~~
+Cannot run without bucket credentials
+  Specify yml file with environmental variable (BUCKET_CREDENTIALS_PATH)
+  or add credentials to #{file_path}.
+      ]
+      end
+
+      def ensure_test_bucket credentials
+        Decko.config.file_buckets = {
+          test_bucket: {
+            provider: "fog/aws",
+            credentials: credentials,
+            subdirectory: "files",
+            directory: DIRECTORY,
+            public: true,
+            attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
+            authenticated_url_expiration: 180
+          }
+        }
+      end
     end
 
     # expects access keys in card/spec/support/bucket_credentials.yml for the

@@ -1,96 +1,99 @@
 version: v1.0
-name: First pipeline example
+name: Decko Standard
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+global_job_config:
+  env_vars:
+    - name: BUNDLE_PATH
+      value: "~/bundle/"
+    - name: COVERAGE
+      value: "false"
+    - name: DECKO_REPO_PATH
+      value: "~/decko"
+  prologue:
+    commands:
+      - checkout # semaphore does git checkout and cds into decko
+      - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
+      - alias be='bundle exec'
+      - git submodule init
+      # - git submodule status > substat.txt # needed for sem submodule caching
+      # - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
 
 blocks:
-  - name: cache dependencies
-    task:
-      prologue:
-        commands:
-          - sem-version ruby 2.6.3
-          - checkout
-      env_vars:
-        - name: RAILS_ENV
-          value: test
-        - name: COVERAGE
-          value: "false"
-      jobs:
-        - name: cache submodules
-          commands:
-            - git submodule sync
-            - git submodule update --init
-            - git submodule foreach 'cache store git-submodule-$sha1 ~/decks/$sm_path'
-        - name: cache gems
-          commands:
-            - ls -al
-            - cache restore bundle-gems-$(checksum Gemfile.lock)
-            - bundle config set path 'vendor/bundle'
-            - bundle install
-            - cache store bundle-gems-$(checksum Gemfile.lock) vendor/bundle
-
   - name: Smoke
-    # dependencies: ["Dependencies"]
     task:
       prologue:
         commands:
-          - sem-version ruby 2.6.3
-          - checkout
-          - git submodule foreach 'cache restore git-submodule-$sha1'
+          - cache restore bundle-gems-baseline
           - cache restore bundle-gems-$(checksum Gemfile.lock)
-      jobs:
-        - name: Shark Smoke
-          commands:
-            - ls -al
-            - bundle exec decko new shark --repo-path="../"
-            - cd shark
-            - bundle exec decko seed
-            - bundle info rails
-            - bundle info decko
-        - name: Monkey Smoke
-          commands:
-            - bundle exec decko new monkey --monkey --repo-path="../"
-            - cd monkey
-            - bundle exec decko seed
-            - bundle info rails
-            - bundle info decko
-        - name: Platypus Smoke
-          commands:
-            - bundle exec decko new platypus --platypus --repo-path="../"
-            - cache store platypus
-            - cd platypus
-            - bundle exec decko seed --test
-            - bundle info rails
-            - bundle info decko
+          - bundle install
+          - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
+          - cache store bundle-gems-baseline ~/bundle
 
-  - name: "Unit Tests"
-    # dependencies: ["Smoke", "Dependencies"]
+          - sem-service start mysql
+          - git submodule update card/db/seed
+
+      jobs:
+        - name: New Shark and Monkey Decks
+          commands:
+            # NEW SHARK DECK
+            - be decko new shark
+            - cd shark
+            - be decko seed
+
+            - cd .. # note: faster than making a separate job.
+
+            # NEW MONKEY DECK
+            - be decko new monkey --monkey
+            - cd monkey
+            - be decko seed
+
+  - name: Unit Tests
     task:
+      prologue:
+        commands:
+          - sem-service start mysql
+          - git submodule update
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
+
       jobs:
         - name: RSpec
           commands:
-            - checkout
-            - ls -al
-            - echo "make rspec"
+            - be decko new platypus --platypus
+            - cd platypus
+            - be decko seed --test
+            - be decko rspec
 
-
-  - name: "Integration tests"
-    # dependencies: []
+  - name: Integration Tests
     task:
+      prologue:
+        commands:
+          - sem-service start mysql
+          - git submodule update
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - be decko new platypus --platypus
+          - cd platypus
+          - be decko seed --test
+
       jobs:
+        - name: Cypress
+          commands:
+            - RAILS_ENV=test CYPRESS_DEV=true bundle exec decko server -p 5002 -d
+            - cd ~/decko/decko/spec
+            - nvm use 10.10.0
+            - yarn install
+            - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e
         - name: Cucumber
           commands:
-            - checkout
-            # - wget https://gist.githubusercontent.com/mimimalizam/9aef3aa5ac0884943efb6aca947a8b56/raw/firefox-semaphore.sh && bash firefox-semaphore.sh 64.0.2
-            - echo "make cucumber"
+            - RAILS_ENV=cucumber bundle exec decko cucumber
 
-  - name: "Push Image"
-    # dependencies: []
-    task:
-      jobs:
-        - name: Push
-          commands:
-            - checkout
-            - echo "make docker.push"
+  # - name: "Push Image"
+  #   # dependencies: []
+  #   task:
+  #     jobs:
+  #       - name: Push
+  #         commands:
+  #           - checkout
+  #           - echo "make docker.push"

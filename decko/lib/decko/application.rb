@@ -2,22 +2,36 @@
 
 require "decko/engine"
 require "cardio/application"
-djar = "delayed_job_active_record"
-require djar if Gem::Specification.find_all_by_name(djar).any?
+
+Bundler.require :default, *Rails.groups
 
 module Decko
   class Application < Cardio::Application
-    class << self
-      def inherited base
-        super # super is Cardio::App
-        Rails.app_class = base
-        add_lib_to_load_path!(find_root(base.called_from))
+    PATH = "lib/decko/config/environments"
+    initializer :load_decko_environment_config,
+                before: :load_environment_config, group: :all do
+      set_paths
+      add_path paths, PATH, glob: "#{Rails.env}.rb"
+      paths[PATH].existent.each do |environment|
+        require environment
       end
     end
 
-    # override in each domain with local root
-    def root_path option
+    class << self
+      include Cardio::RailsConfigMethods
+
+      def inherited base
+        super
+        Rails.app_class = base
+        add_lib_to_load_path!(find_root(base.called_from))
+        ActiveSupport.run_load_hooks(:before_configuration, base.instance)
+      end
+    end
+
+    def add_path paths, path, options={}
       root = options.delete(:root) || Decko.gem_root
+      options[:with] = File.join(root, (options[:with] || path))
+      paths.add path, options
     end
 
     initializer :decko_configure, before: :load_environment_config do
@@ -45,6 +59,7 @@ module Decko
       config.allow_concurrency = false
       config.assets.enabled = false
       config.assets.version = "1.0"
+      # config.active_record.raise_in_transactional_callbacks = true
 
       config.filter_parameters += [:password]
 
@@ -69,7 +84,9 @@ module Decko
 
     end
 
-    PATH = "lib/decko/config/environments"
+    #def paths
+    def set_paths
+      Cardio.set_paths paths
 
     initializer :decko_load_environment,
                 before: :load_card_environment do

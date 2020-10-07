@@ -1,4 +1,4 @@
-class Cardio
+module Cardio
   module Mod
     # Tries to build the module with as little string evaluation as possible.
     # The problem here is that in methods like `module_eval` the Module.nesting

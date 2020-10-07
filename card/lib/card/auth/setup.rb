@@ -2,46 +2,46 @@ class Card
   module Auth
     # singleton methods for managing setup state
     module Setup
-      @simulating_setup_need = nil
-      SETUP_COMPLETED_KEY = "SETUP_COMPLETED".freeze
+      NEEDS_SETUP = "NEEDS_SETUP".freeze
 
       # app is not totally set up yet
       # @return [true/false]
       def needs_setup?
-        # FIXME: - should not require a cache lookup with every request!!
-        @simulating_setup_need || (
-          !Card.cache.read(SETUP_COMPLETED_KEY) &&
-          !Card.cache.write(SETUP_COMPLETED_KEY, user_account_count.positive?)
-        )
-        # every deck starts with two accounts: WagnBot and Anonymous
-      end
-
-      # act as if site is not set up
-      # @param mode [true/false] simulate setup need if true
-      def simulate_setup_need! mode=true
-        @simulating_setup_need = mode
+        if @needs_setup == false || Card.cache.read(NEEDS_SETUP)&.to_s == "false"
+          @needs_setup = false
+        else
+          needs_setup_if_no_accounts
+        end
       end
 
       # for testing setup
-      def hide_accounts! mode=true
-        Card.cache.delete(SETUP_COMPLETED_KEY) if mode
-        @hidden_accounts = mode && user_account_ids
+      def simulate_setup! mode=true
+        Card.cache.delete NEEDS_SETUP
+        @needs_setup = nil
+        @hidden_accounts = mode ? user_account_ids : nil
       end
 
       def instant_account_activation
-        simulate_setup_need!
+        simulate_needs_setup!
         yield
       ensure
-        simulate_setup_need! false
+        simulate_needs_setup! false
       end
 
       private
+
+      def needs_setup_if_no_accounts
+        user_account_count.zero?.tap do |need|
+          Card.cache.write NEEDS_SETUP, false unless need
+        end
+      end
 
       def user_account_ids
         as_bot { Card.search user_account_cql.merge(return: :id) }
       end
 
       def user_account_cql
+        # every deck starts with two accounts: WagnBot and Anonymous
         { right_id: Card::AccountID, creator_id: ["ne", Card::WagnBotID] }
       end
 

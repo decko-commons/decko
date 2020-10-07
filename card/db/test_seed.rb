@@ -157,7 +157,7 @@ class SharedData
     end
 
     def user_and_role_cards
-      Card::Auth.instant_account_activation do
+      # Card::Auth.instant_account_activation do
         create_user "Joe Admin", content: "I'm number one", email: "joe@admin.com"
         create_user "Joe User", content: "I'm number two", email: "joe@user.com"
         create_user "Joe Camel", content: "Mr. Buttz", email: "joe@camel.com"
@@ -165,7 +165,7 @@ class SharedData
         # data for testing users and account requests
         create_user "No Count", content: "I got no account"
         create_user "Sample User", email: "sample@user.com", password: "sample_pass"
-      end
+      # end
 
       # noinspection RubyResolve
       Card["Joe Admin"].fetch(:roles, new: { type_code: "pointer" })

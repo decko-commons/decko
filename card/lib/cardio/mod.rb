@@ -1,4 +1,4 @@
-class Cardio
+module Cardio
   # A Card Mod (short for "module" or "modification") is a discrete piece of Decko
   # functionality. Mods are how the Decko community develops and shares code.
   # If you want to customize a deck in a way that can't be done on the site itself,
