@@ -10,6 +10,7 @@ module Decko
     PATH = "lib/decko/config/environments"
     initializer :load_decko_environment_config,
                 before: :load_environment_config, group: :all do
+      set_paths
       add_path paths, PATH, glob: "#{Rails.env}.rb"
       paths[PATH].existent.each do |environment|
         require environment
@@ -17,6 +18,8 @@ module Decko
     end
 
     class << self
+      include Cardio::RailsConfigMethods
+
       def inherited base
         super
         Rails.app_class = base
@@ -69,22 +72,18 @@ module Decko
       end
     end
 
-    def paths
-      @paths ||= begin
-        paths = super
-        Cardio.set_paths paths
+    #def paths
+    def set_paths
+      Cardio.set_paths paths
 
-        paths.add "files"
+      paths.add "files"
 
-        paths["app/models"] = []
-        paths["app/mailers"] = []
+      paths["app/models"] = []
+      paths["app/mailers"] = []
 
-        unless paths["config/routes.rb"].existent.present?
-          add_path paths, "config/routes.rb",
-                   with: "rails/application-routes.rb"
-        end
-
-        paths
+      unless paths["config/routes.rb"].existent.present?
+        add_path paths, "config/routes.rb",
+                 with: "rails/application-routes.rb"
       end
     end
   end

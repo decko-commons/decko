@@ -75,7 +75,7 @@ format :json do
   end
 
   def goto_items term, exact
-    goto_names = complete_or_match_search start_only: Card.config.navbox_match_start_only
+    goto_names = complete_or_match_search start_only: Cardio.config.navbox_match_start_only
     goto_names.unshift exact.name if add_exact_to_goto_names? exact, goto_names
     goto_names.map do |name|
       [name, name.to_name.url_key, h(highlight(name, term, sanitize: false))]
