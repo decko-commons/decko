@@ -2,7 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.mod "monkey" do |s, _d|
+DeckoGem.mod "monkey" do |s, d|
   s.summary = "dev support for mod developers (monkeys)"
   s.description = ""
   d.depends_on "colorize",
