@@ -1,6 +1,7 @@
 
 # used to run rspec in RubyMine
 
+ENV["RAILS_ENV"] = "test"
 ENV["RAILS_ROOT"] = "."
 BUNDLE_GEMFILE = File.expand_path "../../Gemfile",  __FILE__
 ARGV.insert 0, "rspec", "--no-simplecov", "--"

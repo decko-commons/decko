@@ -1,7 +1,7 @@
 # Decko: you hold the cards
 
-[![Semaphore Build][1]][2]
 [![Gem Version][3]][4]
+[![Semaphore Build][1]][2]
 [![Code Climate Badge][5]][6]
 
 - [Basics](#basics)
@@ -50,6 +50,8 @@ Watch carefully for errors!
 ### 3. create a new deck
 
     decko new MY_DECK
+
+`MY_DECK` is, of course, a variable. Use any name you like.
 
 Options:
 
@@ -183,7 +185,7 @@ All you have to do to install one of these mods is:
 
 #### 3. run any migrations, mergers, or scripts:
 
-    decko update
+     decko update
 
 ...and then restart your server.
 
@@ -193,19 +195,22 @@ All you have to do to install one of these mods is:
 
 If you're interested in making your own mod, the first thing to do is set up a good
 development environment. This is most easily done by creating a new deck with the 
-`--monkey` (or `-m`) options, eg:
+`--monkey` (or `-M`) options, eg:
 
-    decko new --monkey mydeck
+    decko new MY_DECK --monkey
     
 If you're working on an existing deck, it's often easiest just to do the above and then 
 make the new deck use your existing files and database. However, if that's not an option, 
 you can instead follow the following procedure:
 
-  1. run the above command to create a dummy deck and the following from the dummy to the
-    real/existing deck:
-     - any missing Gems in the Gemfile
-  2. In your real deck:
-     - Comment out `ENV['RAILS_ENV'] ||= 'production'` in `config/boot.rb`
+  1. Make sure you have all the monkey-friendly gems in your Gemfile. If your deck was
+     generated recently, you'll probably already have several references to these gems
+     (eg card-mod-monkey) and will just need to uncomment them. If not, you can run the
+     above command to create a dummy deck and copy the Gemfile over to your real one.
+  2. In your real deck, comment out `ENV['RAILS_ENV'] ||= 'production'` in 
+     `config/boot.rb`. This will mean your default mode is now "development."
+  3. Configure `config/database.yml` to your liking.
+     
 
 #### Start Monkeying
 
@@ -231,15 +236,14 @@ We also have [API Docs][18] on Swaggerhub.
 
 And info about contributing to Decko is [right next door][24].
 
-[1]: https://semaphoreci.com/api/v1/ethan/decko/branches/master/shields_badge.svg 
-    "Semaphore Build"
-[2]: https://semaphoreci.com/ethan/decko
-[3]: https://badge.fury.io/rb/decko.svg
-    "Gem Version"
+
+[1]: https://decko.semaphoreci.com/badges/decko/branches/master.svg "Semaphore Build"
+[2]: https://decko.semaphoreci.com/projects/decko
+[3]: https://badge.fury.io/rb/decko.svg "Gem Version"
 [4]: https://badge.fury.io/rb/decko
-[5]: https://codeclimate.com/repos/56548cb6fafb98574e013c39/badges/be88db3f72d0fd06ace3/gpa.svg
+[5]: https://api.codeclimate.com/v1/badges/6ef82d42115889ea81c7/maintainability
     "Code Climate Badge"
-[6]: https://codeclimate.com/repos/56548cb6fafb98574e013c39/feed
+[6]: https://codeclimate.com/github/decko-commons/decko/maintainability
 [7]: http://www.ruby-lang.org/en/
 [8]: http://gembundler.com/
 [9]: http://www.imagemagick.org/

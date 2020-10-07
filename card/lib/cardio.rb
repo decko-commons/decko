@@ -15,7 +15,7 @@ ActiveSupport.on_load :after_card do
   Cardio::Mod.load
 end
 
-module Cardio
+class Cardio
   extend Schema
   extend Utils
   extend Modfiles

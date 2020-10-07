@@ -2,11 +2,20 @@
 
 require "decko/engine"
 require "cardio/application"
-djar = "delayed_job_active_record"
-require djar if Gem::Specification.find_all_by_name(djar).any?
+
+Bundler.require :default, *Rails.groups
 
 module Decko
   class Application < Cardio::Application
+    PATH = "lib/decko/config/environments"
+    initializer :load_decko_environment_config,
+                before: :load_environment_config, group: :all do
+      add_path paths, PATH, glob: "#{Rails.env}.rb"
+      paths[PATH].existent.each do |environment|
+        require environment
+      end
+    end
+
     class << self
       def inherited base
         super # super is Cardio::App

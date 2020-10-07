@@ -1,4 +1,4 @@
-module Cardio
+class Cardio
   # methods for handling simple and gem mod paths/files
   module Modfiles
     # @return [Hash] in the form{ modname(String) => Gem::Specification }
