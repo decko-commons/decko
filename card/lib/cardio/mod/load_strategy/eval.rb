@@ -1,4 +1,4 @@
-class Cardio
+module Cardio
   module Mod
     class LoadStrategy
       # Put everything for the module definition in one string and the evaluate

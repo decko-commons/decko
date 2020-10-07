@@ -1,4 +1,4 @@
-class Cardio
+module Cardio
   module Schema
     def assume_migrated_upto_version type
       Cardio.schema_mode(type) do

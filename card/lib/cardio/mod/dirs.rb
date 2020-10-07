@@ -1,15 +1,4 @@
-class Cardio
-  class << self
-    # do we need this now?
-    def config
-      Cardio.config
-    end
-
-    def paths
-      Cardio.paths
-    end
-  end
-
+module Cardio
   module Mod
     # Dirs objects are used to manage the load paths for card mods.
     # Mods can be loaded as gems and by using directories with mod subdirectories.
