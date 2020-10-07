@@ -6,7 +6,7 @@ RSpec.describe Card::Set::Right::Structure do
                         content: "[[link]] {{nest}}"
     expect(template.format._render(:one_line_content))
       .to have_tag "div.text-muted.one-line" do
-        with_tag "a.cardtype.known-card", with: { href: "/RichText" }, text: "RichText"
+        with_tag "a.cardtype.known-card", with: { href: "/Nest_list" }, text: "Nest list"
         with_text(/ \: \[\[link\]\] \{\{nest\}\}/)
       end
   end
