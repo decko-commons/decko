@@ -81,3 +81,6 @@ Cypress.Commands.add "ensure", (name, args={}) =>
 Cypress.Commands.add "delete", (name) =>
   cy.app("cards/delete", name)
 
+Cypress.Commands.add "update", (name, content) =>
+  cy.app("cards/update", name: name, content: content)
+
