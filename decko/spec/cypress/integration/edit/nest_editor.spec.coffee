@@ -131,6 +131,41 @@ describe 'nest editor', () ->
 
     # TODO: figure out how to attach images
 
+  specify.only "nest list editor", () ->
+      cy.visit("new/nest_list")
+      cy.get("._open-nest-editor").click()
+      cy.contains "options"
+        .click()
+      cy.get "#nest_name"
+        .type "NaNa"
+
+      cy.contains "button", "Configure items"
+        .click()
+      cy.contains "button", "Configure subitems"
+        .click()
+      cy.get("._options-select").eq(0).as("options")
+      cy.get("._options-select").eq(1).as("itemoptions")
+
+      nest_option(0, 0, "title", "T")
+      nest_option(1, 1, "show", "IS")
+
+      cy.contains "Apply"
+        .click()
+
+      cy.get("#pointer_item")
+        .should "have.value", "NaNa"
+      cy.get("#pointer_item_title")
+        .should "have.value", "title: T|view: bar; show: IS|view: bar"
+
+      cy.get("#card_name")
+        .type "A Nest List"
+      cy.contains "Submit"
+        .click()
+      cy.main_slot()
+        .should("not.contain", "Submitting")
+
+      cy.visit("A Nest List?view=raw")
+      cy.contains "{{NaNa|title: T|view: bar; show: IS|view: bar}}"
 
 
 

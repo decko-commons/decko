@@ -1,6 +1,6 @@
 %ul{class: ul_classes}
-  - items.each do |reference, title|
-    %li.pointer-li.mb-1
+  - items.each.with_index do |(reference, title), index|
+    %li.pointer-li.mb-1{"data-index": index}
       %span.input-group
         .input-group-prepend.handle
           %span.input-group-text

@@ -173,7 +173,6 @@ jQuery.fn.extend
         )
 
   updateModalOrigin: () ->
-    debugger
     if @overlaySlot()
       overlayOrigin = @findOriginSlot("overlay")
       overlayOrigin.updateOrigin()
