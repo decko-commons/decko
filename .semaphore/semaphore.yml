@@ -88,12 +88,3 @@ blocks:
         - name: Cucumber
           commands:
             - RAILS_ENV=cucumber bundle exec decko cucumber
-
-  # - name: "Push Image"
-  #   # dependencies: []
-  #   task:
-  #     jobs:
-  #       - name: Push
-  #         commands:
-  #           - checkout
-  #           - echo "make docker.push"
