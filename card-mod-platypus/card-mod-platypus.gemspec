@@ -7,11 +7,9 @@ DeckoGem.mod "platypus" do |s, _d|
   s.description = ""
 
   [
-    ["yard"],
-    ["fog-aws"],
-
     ["codeclimate-test-reporter"],
-    ["timecop"]
+    ["fog-aws"],
+    ["yard"]
   ].each do |dep|
     s.add_runtime_dependency(*dep)
   end
