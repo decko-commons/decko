@@ -54,17 +54,16 @@ A great pull request is:
 
 ### Development Environment
 
-First, you will need a copy of the decko repo and install all its submodules:
+First, you will need a copy of the decko repo:
 
-    git clone git@github.com:decko-commons/decko.git
-    cd decko
-    git submodule init
+    git clone --recurse-submodules git@github.com:decko-commons/decko.git
 
 Then you will need to install a platypus deck (somewhere else – not inside the repo):
 
-    decko new platypus --platypus
+    decko new MY_DECK --platypus
     
-The `--platypus` flag is important; it will have key implications for your deck setup.
+The `--platypus` flag will make several key configuration alterations for you and make 
+it easy to run tests from the repo.
 
 You will be prompted to give the path to your repo. Alternatively you can use the 
 `--repo-path` flag or a `DECKO_REPO_PATH` environmental variable.
