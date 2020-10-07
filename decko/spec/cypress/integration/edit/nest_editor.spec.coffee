@@ -131,7 +131,7 @@ describe 'nest editor', () ->
 
     # TODO: figure out how to attach images
 
-  specify.only "nest list editor", () ->
+  specify "nest list editor", () ->
       cy.visit("new/nest_list")
       cy.get("._open-nest-editor").click()
       cy.contains "options"
