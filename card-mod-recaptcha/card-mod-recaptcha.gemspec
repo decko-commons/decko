@@ -2,8 +2,8 @@
 
 require "../decko_gem"
 
-DeckoGem.mod "recaptcha" do |s, _d|
+DeckoGem.mod "recaptcha" do |s, d|
   s.summary = "recaptcha support for decko"
   s.description = ""
-  s.add_runtime_dependency "recaptcha", "~> 4.13.1"
+  d.depends_on ["recaptcha", "~> 4.13.1"]
 end
