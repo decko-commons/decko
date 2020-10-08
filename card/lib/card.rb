@@ -110,7 +110,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # can be temporarily assumed using `Card::Auth#as`.
 #
 # {Card::Auth More on accounts}
-class Card
+class Card < ApplicationRecord
   extend Mark
   extend Dirty::MethodFactory
   include Dirty
@@ -154,4 +154,5 @@ class Card
 
   ActiveSupport.run_load_hooks :card, self
 end
+
 ActiveSupport.run_load_hooks :after_card, self

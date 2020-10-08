@@ -9,8 +9,6 @@ require "cardio/modfiles"
 require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
-  #require 'cardio/mod'
-raise "load mods in cardio"
   Cardio::Mod.load
 end
 
@@ -221,7 +219,7 @@ module Cardio
     end
 
     def add_initializer_paths
-      add_path "config/initializers", glob: "**/*.rb"
+      add_path "lib/config/initializers", glob: "**/*.rb"
       add_initializers root
       each_mod_path { |mod_path| add_initializers mod_path, false, "core_initializers" }
     end
@@ -233,7 +231,7 @@ module Cardio
 
     def add_initializers base_dir, mod=false, init_dir="initializers"
       Dir.glob("#{base_dir}/config/#{init_dir}").each do |initializers_dir|
-        path_mark = mod ? "mod/config/initializers" : "config/initializers"
+        path_mark = mod ? "mod/config/initializers" : "lib/config/initializers"
         paths[path_mark] << initializers_dir
       end
     end

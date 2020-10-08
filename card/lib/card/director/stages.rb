@@ -1,6 +1,4 @@
 class Card
-  extend ActiveSupport::Callbacks
-
   class Director
     # Methods for intepreting stages of an action
     module Stages

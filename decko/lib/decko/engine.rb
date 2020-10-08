@@ -24,15 +24,15 @@ module Decko
     # FIXME, belongs in parent
     paths["lib/tasks"] << "#{::Cardio.gem_root}/lib/tasks"
 
-    initializer "decko.engine.load_config_initializers",
-        before: :load_config_initializers do
+    initializer before: :load_config_initializers do
       paths.add "lib/config/initializers", glob: "**/*.rb",
           with: File.join(Decko.gem_root, "lib/decko/config/initializers")
+    end
+    initializer after: :load_config_initializers do
+      instance_eval(&block) if block_given?
       paths["lib/config/initializers"].existent.sort.each do |initializer|
         load(initializer)
       end
-    end
-    initializer :autoload_paths, before: :set_autoload_paths do
     end
 
     initializer "decko.engine.copy_configs", after: :set_load_path do
