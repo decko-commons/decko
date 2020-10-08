@@ -1,4 +1,4 @@
-module Cardio
+class Cardio
   # Convenient extendable API for turning delaying on and off.
   module Delaying
     def delaying! on=true

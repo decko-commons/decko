@@ -9,19 +9,40 @@ require "cardio/modfiles"
 require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
-  Card::Mod.load
+  #require 'cardio/mod'
+raise "load mods in cardio"
+  Cardio::Mod.load
 end
 
-module Cardio
+class Cardio
   extend Schema
   extend Utils
   extend Modfiles
   extend Delaying
   CARD_GEM_ROOT = File.expand_path("..", __dir__)
 
-  mattr_reader :paths, :config
+  module RailsConfigMethods
+    # FIXME: use in Deck, Engine, etc.
+    def root
+      Rails.root
+    end
+
+    def application
+       Rails.application
+    end
+
+    def config
+       application.config
+    end
+
+    def paths
+       application.paths
+    end
+  end
 
   class << self
+    include RailsConfigMethods
+
     def card_defined?
       const_defined? "Card"
     end
@@ -30,11 +51,6 @@ module Cardio
       ActiveRecord::Base.connection && !card_defined?
     rescue
       false
-    end
-
-    def load_card!
-      require "card"
-      ActiveSupport.run_load_hooks :after_card
     end
 
     def cache
@@ -147,8 +163,8 @@ module Cardio
       config.send("#{setting}=", *value) unless config.respond_to? setting
     end
 
-    def set_paths paths
-      @@paths = paths
+    def set_paths apaths
+raise "error" if paths != apaths
       %w[set set_pattern].each do |path|
         tmppath = "tmp/#{path}"
         add_path tmppath, root: root unless paths[tmppath]&.existent

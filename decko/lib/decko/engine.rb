@@ -18,16 +18,17 @@ module Decko
     paths.add "app/controllers",  with: "rails/controllers", eager_load: true
     paths.add "gem-assets",       with: "rails/assets"
     paths.add "config/routes.rb", with: "rails/engine-routes.rb"
-    paths.add "lib/tasks", with: "#{::Decko.gem_root}/lib/decko/tasks",
+    paths.add "lib/tasks", with: "#{::Decko.gem_root}/lib/tasks",
                            glob: "**/*.rake"
-    paths["lib/tasks"] << "#{::Cardio.gem_root}/lib/card/tasks"
-    paths.add "lib/decko/config/initializers",
+    # FIXME, belongs in parent
+    paths["lib/tasks"] << "#{::Cardio.gem_root}/lib/tasks"
+    paths.add "lib/config/initializers",
               with: File.join(Decko.gem_root, "lib/decko/config/initializers"),
               glob: "**/*.rb"
 
     initializer "decko.engine.load_config_initializers",
                 after: :load_config_initializers do
-      paths["lib/decko/config/initializers"].existent.sort.each do |initializer|
+      paths["lib/config/initializers"].existent.sort.each do |initializer|
         load(initializer)
       end
     end

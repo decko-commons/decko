@@ -1,4 +1,4 @@
-module Cardio
+class Cardio
   # methods for handling simple and gem mod paths/files
   module Modfiles
     # @return [Hash] in the form{ modname(String) => Gem::Specification }
@@ -36,7 +36,7 @@ module Cardio
 
     def mod_migration_paths dir
       [].tap do |list|
-        Card::Mod.dirs.each("db/#{dir}") { |path| list.concat Dir.glob path }
+        Cardio::Mod.dirs.each("db/#{dir}") { |path| list.concat Dir.glob path }
       end
     end
   end

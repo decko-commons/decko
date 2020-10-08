@@ -78,7 +78,7 @@ RSpec.describe Card::Set::Right::Account do
     end
 
     it "contains expiry days" do
-      msg = "valid for #{Card.config.token_expiry / 1.day} days"
+      msg = "valid for #{Cardio.config.token_expiry / 1.day} days"
       expect(@mail.parts[0].body.raw_source).to include(msg)
     end
   end
@@ -124,7 +124,7 @@ RSpec.describe Card::Set::Right::Account do
     end
 
     it "contains expiry days" do
-      url = "valid for #{Card.config.token_expiry / 1.day} days"
+      url = "valid for #{Cardio.config.token_expiry / 1.day} days"
       expect(@mail.parts[0].body.raw_source).to include(url)
     end
   end

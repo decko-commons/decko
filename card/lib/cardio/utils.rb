@@ -1,4 +1,4 @@
-module Cardio
+class Cardio
   # Utilities that may need to be run even when mods are not loaded.
   module Utils
     def seed_test_db
