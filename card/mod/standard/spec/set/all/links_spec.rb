@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Links do
+RSpec.describe Card::Set::All::Links do
   def link_to *args
     format.link_to(*args)
   end
@@ -11,6 +11,10 @@ describe Card::Set::All::Links do
 
   def link_to_card *args
     format.link_to_card(*args)
+  end
+
+  def link_to_related *args
+    format.link_to_related(*args)
   end
 
   def link_to_resource *args
@@ -38,12 +42,12 @@ describe Card::Set::All::Links do
 
     describe "#link_to_view" do
       it "adds view param to path" do
-        expect(link_to_view(:listing)).to eq("/Home?view=listing")
+        expect(link_to_view(:bar)).to eq("/Home?view=bar")
       end
 
       it "adds handles text and opts" do
-        expect(link_to_view(:listing, "house", path: { format: :txt }))
-          .to eq("house[/Home.txt?view=listing]")
+        expect(link_to_view(:bar, "house", path: { format: :txt }))
+          .to eq("house[/Home.txt?view=bar]")
       end
     end
 
@@ -59,6 +63,13 @@ describe Card::Set::All::Links do
       it "creates a link to a different card with params" do
         expect(link_to_card("Banana", nil, path: { format: :txt, view: :core }))
           .to eq("/Banana.txt?view=core")
+      end
+    end
+
+    describe "#link_to_related" do
+      it "creates a link to a related view" do
+        expect(link_to_related(:discussion))
+          .to eq("/Home?slot%5Bitems%5D%5Bnest_name%5D=%2Bdiscussion&view=related")
       end
     end
 
@@ -108,10 +119,20 @@ describe Card::Set::All::Links do
 
     describe "#link_to_view" do
       it "adds remote handling and nofollow" do
-        assert_view_select(link_to_view("listing", "list me"),
-                           'a.slotter[href="/Home?view=listing"]' \
+        assert_view_select(link_to_view("bar", "list me"),
+                           'a[href="/Home?view=bar"]' \
                            "[data-remote=true]" \
                            "[rel=nofollow]") { "list me" }
+      end
+    end
+
+    describe "#link_to_related" do
+      it "links to related, you know?" do
+        assert_view_select(
+          link_to_related(:discussion),
+          'a[href="/Home?slot%5Bitems%5D%5Bnest_name%5D=%2Bdiscussion&view=related"]' \
+          "[data-remote=true][rel=nofollow]"
+        ) { "list me" }
       end
     end
 
