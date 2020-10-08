@@ -17,35 +17,30 @@ DeckoGem.gem "card" do |s, d|
   s.bindir        = "bin"
   s.executables   = ["card"]
 
-  [
-    ["cardname",            d.decko_version],
-
-    ["haml",                        "~> 5.0"], # markup language used in view API
-    ["jwt",                         "~> 2.2"], # used in token.rb
+  d.depends_on(
+    ["cardname",             d.decko_version],
+    ["rake",                     "<= 12.3.0"],
+    ["rails",                         "~> 6"],
     ["uuid",                        "~> 2.3"], # universally unique identifier.
-                                               # used in temporary names
     ["colorize",                    "~> 0.8"], # livelier cli outputs
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
-
+    # card-mod-format
+    ["haml",                        "~> 5.0"], # markup language used in view API
+    # card-mod-account
+    ["jwt",                         "~> 2.2"], # used in token.rb
+                                               # used in temporary names
     # assets (JavaScript, CSS, etc)
     ["coderay",                     "~> 1.1"],
     ["sassc",                       "~> 2.0"],
     ["coffee-script",               "~> 2.4"],
     ["uglifier",                    "~> 3.2"],
     ["sprockets",                   "~> 3.7"], # sprockets 4 requires new configuration
-
     # pagination
     ["kaminari",                    "~> 1.0"],
     ["bootstrap4-kaminari-views",   "~> 1.0"],
-
     # other
     ["diff-lcs",                    "~> 1.3"], # content diffs in histories
-    ["activerecord-import",         "~> 1.0"],
-
-    ["rake",                     "<= 12.3.0"],
-    ["rails",                         "~> 6"]
-  ].each do |dep|
-    s.add_runtime_dependency(*dep)
-  end
+    ["activerecord-import",         "~> 1.0"]
+  )
 end

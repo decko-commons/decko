@@ -3,6 +3,7 @@
 [![Gem Version][3]][4]
 [![Semaphore Build][1]][2]
 [![Code Climate Badge][5]][6]
+[![License: GPL v3][25]][26]
 
 - [Basics](#basics)
 - [Installation](#installation)
@@ -262,3 +263,5 @@ And info about contributing to Decko is [right next door][24].
 [22]: https://github.com/decko-commons/decko/blob/master/card/lib/card/set/format.rb
 [23]: https://github.com/decko-commons/card-mods/
 [24]: https://github.com/decko-commons/decko/blob/master/CONTRIBUTING.md
+[25]: https://img.shields.io/badge/License-GPLv3-blue.svg
+[26]: https://www.gnu.org/licenses/gpl-3.0
