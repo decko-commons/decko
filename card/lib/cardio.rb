@@ -9,7 +9,7 @@ require "cardio/modfiles"
 require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
-  Card::Mod.load
+  Cardio::Mod.load
 end
 
 module Cardio
@@ -19,9 +19,32 @@ module Cardio
   extend Delaying
   CARD_GEM_ROOT = File.expand_path("..", __dir__)
 
-  mattr_reader :paths, :config
+  module RailsConfigMethods
+    # FIXME: use in Deck, Engine, etc.
+    def root
+      Rails.root
+    end
+
+    def application
+     Rails.application
+    end
+
+    def config
+      application.config
+    end
+
+    def paths
+      application.paths
+    end
+  end
 
   class << self
+    include RailsConfigMethods
+
+    def gem_root
+      CARD_GEM_ROOT
+    end
+
     def card_defined?
       const_defined? "Card"
     end
@@ -30,11 +53,6 @@ module Cardio
       ActiveRecord::Base.connection && !card_defined?
     rescue
       false
-    end
-
-    def load_card!
-      require "card"
-      ActiveSupport.run_load_hooks :after_card
     end
 
     def cache
@@ -102,20 +120,12 @@ module Cardio
 
         load_strategy: :eval,
         cache_set_module_list: false
-      }
-    end
-
-    def set_config config
-      @@config = config
-
-      add_lib_dirs_to_autoload_paths config
-
-      default_configs.each_pair do |setting, value|
+      }.each_pair do |setting, value|
         set_default_value(config, setting, *value)
       end
     end
 
-    def add_lib_dirs_to_autoload_paths config
+    def add_lib_dirs_to_autoload_paths
       config.autoload_paths += Dir["#{gem_root}/lib"]
 
       # TODO: this should use each_mod_path, but it's not available when this is run
@@ -147,8 +157,7 @@ module Cardio
       config.send("#{setting}=", *value) unless config.respond_to? setting
     end
 
-    def set_paths paths
-      @@paths = paths
+    def set_paths
       %w[set set_pattern].each do |path|
         tmppath = "tmp/#{path}"
         add_path tmppath, root: root unless paths[tmppath]&.existent
@@ -162,6 +171,44 @@ module Cardio
       add_mod_initializer_paths
     end
 
+    def load_card_configuration
+      default_configs
+      # should get from class that include Cardio::App (Decko)
+      #config.autoloader = :zeitwerk
+      #config.load_default = "6.0"
+      #config.i18n.enforce_available_locales = true
+
+      Rails.autoloaders.log!
+     # Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
+
+      set_paths
+
+      ActiveSupport.run_load_hooks(:before_configuration)
+      ActiveSupport.run_load_hooks(:load_active_record)
+      ActiveSupport.run_load_hooks(:before_card)
+
+      add_path "lib/card/config/environments", glob: "#{Rails.env}.rb", root: Cardio.gem_root
+    end
+
+    def connect_on_load
+      ActiveSupport.on_load(:before_configure_environment) do
+        ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
+      end
+      ActiveSupport.on_load(:after_initialize) do
+      end
+      ActiveSupport.on_load(:after_application_record) do
+        #ActiveSupport.run_load_hooks :initialize, self
+      end
+    end
+
+    def add_path path, options={}
+      root = options.delete(:root) || gem_root
+      options[:with] = File.join(root, (options[:with] || path))
+      paths.add path, options
+    end
+
+  private
+
     def add_db_paths
       add_path "db"
       add_path "db/migrate"
@@ -172,7 +219,7 @@ module Cardio
     end
 
     def add_initializer_paths
-      add_path "config/initializers", glob: "**/*.rb"
+      add_path "lib/config/initializers", glob: "**/*.rb"
       add_initializers root
       each_mod_path { |mod_path| add_initializers mod_path, false, "core_initializers" }
     end
@@ -184,23 +231,9 @@ module Cardio
 
     def add_initializers base_dir, mod=false, init_dir="initializers"
       Dir.glob("#{base_dir}/config/#{init_dir}").each do |initializers_dir|
-        path_mark = mod ? "mod/config/initializers" : "config/initializers"
+        path_mark = mod ? "mod/config/initializers" : "lib/config/initializers"
         paths[path_mark] << initializers_dir
       end
-    end
-
-    def root
-      @@config.root
-    end
-
-    def gem_root
-      CARD_GEM_ROOT
-    end
-
-    def add_path path, options={}
-      root = options.delete(:root) || gem_root
-      options[:with] = File.join(root, (options[:with] || path))
-      paths.add path, options
     end
 
     def future_stamp
