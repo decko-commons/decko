@@ -4,11 +4,11 @@ describe Card::Set::All::Path do
   end
 
   def with_complex_env
-    Card.config.relative_url_root = "/root"
+    Cardio.config.relative_url_root = "/root"
     Card::Env[:protocol] = "http://"
     Card::Env[:host] = "mydomain.com"
     yield
-    Card.config.relative_url_root = nil
+    Cardio.config.relative_url_root = nil
     Card::Env[:protocol] = nil
     Card::Env[:host] = nil
   end
