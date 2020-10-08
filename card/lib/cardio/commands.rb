@@ -85,7 +85,7 @@ else
   when *CARD_TASK_COMMANDS
     Cardio::Commands.run_card_task command
   else
-    puts "Error: Command not recognized" unless command.in?(["-h", "--help"])
+    puts "Error: Command #{command} not recognized" unless command.in?(["-h", "--help"])
     puts <<-EOT
   Usage: card COMMAND [ARGS]
 
