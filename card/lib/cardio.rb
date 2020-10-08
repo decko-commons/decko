@@ -10,11 +10,10 @@ require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
   #require 'cardio/mod'
-raise "load mods in cardio"
   Cardio::Mod.load
 end
 
-class Cardio
+module Cardio
   extend Schema
   extend Utils
   extend Modfiles
@@ -164,7 +163,6 @@ class Cardio
     end
 
     def set_paths apaths
-raise "error" if paths != apaths
       %w[set set_pattern].each do |path|
         tmppath = "tmp/#{path}"
         add_path tmppath, root: root unless paths[tmppath]&.existent
