@@ -43,6 +43,10 @@ module Cardio
   class << self
     include RailsConfigMethods
 
+    def gem_root
+      CARD_GEM_ROOT
+    end
+
     def card_defined?
       const_defined? "Card"
     end
@@ -58,7 +62,6 @@ module Cardio
     end
 
     def default_configs
-warn "CARDIO #{__LINE__} default configs"
       {
         read_only: read_only?,
 
@@ -124,7 +127,7 @@ warn "CARDIO #{__LINE__} default configs"
       end
     end
 
-    def add_lib_dirs_to_autoload_paths config
+    def add_lib_dirs_to_autoload_paths
       config.autoload_paths += Dir["#{gem_root}/lib"]
 
       # TODO: this should use each_mod_path, but it's not available when this is run
@@ -168,18 +171,18 @@ warn "CARDIO #{__LINE__} default configs"
       add_db_paths
       add_initializer_paths
       add_mod_initializer_paths
-warn "CARDIO #{__LINE__} paths #{paths} #{paths.values.map(&:to_a).flatten.length}"
-#warn "CARDIO #{__LINE__} paths #{paths} #{paths.keys.map {|k| "#{k}: #{paths[k].to_a.length}"}.length}\n#{paths.values.map(&:to_a).map(&:length).flatten.length}"
     end
 
-    def future_stamp
-      # # used in test data
-      @future_stamp ||= Time.zone.local 2020, 1, 1, 0, 0, 0
-    end
+    def load_card_configuration
+      default_configs
+      # should get from class that include Cardio::App (Decko)
+      #config.autoloader = :zeitwerk
+      #config.load_default = "6.0"
+      #config.i18n.enforce_available_locales = true
 
-    def load_card_environment
-      add_lib_dirs_to_autoload_paths
-      add_configs
+      Rails.autoloaders.log!
+     # Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
+
       set_paths
 
       ActiveSupport.run_load_hooks(:before_configuration)
@@ -187,15 +190,6 @@ warn "CARDIO #{__LINE__} paths #{paths} #{paths.values.map(&:to_a).flatten.lengt
       ActiveSupport.run_load_hooks(:before_card)
 
       add_path "lib/card/config/environments", glob: "#{Rails.env}.rb", root: Cardio.gem_root
-warn "CARDIO #{__LINE__} paths #{paths} #{paths.values.map(&:to_a).flatten.length}"
-warn "CARDIO: #{__LINE__} AUTOLOAD alp #{config} decko #{Dir["#{Decko.gem_root}/lib"]} ALP:#{config.autoload_paths.map(&:to_s)}"
-#warn "CARDIO #{__LINE__} paths #{paths} #{paths.keys.map {|k| "#{k}: #{paths[k].to_a*", "}"}*"\n"}\n#{paths.values.map(&:to_a).map(&:length).flatten*"\n"}"
-    end
-
-    def load_rails_environment
-      paths["lib/card/config/environments"].existent.each do |environment|
-        require environment
-      end
     end
 
     def connect_on_load
@@ -209,20 +203,9 @@ warn "CARDIO: #{__LINE__} AUTOLOAD alp #{config} decko #{Dir["#{Decko.gem_root}/
       end
     end
 
-    def add_configs
-      # should get from class that include Cardio::App (Decko)
-      #config.autoloader = :zeitwerk
-      #config.load_default = "6.0"
-      #config.i18n.enforce_available_locales = true
-
-      Rails.autoloaders.log!
-     # Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
-    end
-
     def add_path path, options={}
-      root = options.delete(:root) || Cardio.gem_root
+      root = options.delete(:root) || gem_root
       options[:with] = File.join(root, (options[:with] || path))
-warn "CARDIO #{path}, #{root}, #{options}"
       paths.add path, options
     end
 
@@ -253,20 +236,6 @@ warn "CARDIO #{path}, #{root}, #{options}"
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
         paths[path_mark] << initializers_dir
       end
-    end
-
-    def root
-      @@config.root
-    end
-
-    def gem_root
-      CARD_GEM_ROOT
-    end
-
-    def add_path path, options={}
-      root = options.delete(:root) || gem_root
-      options[:with] = File.join(root, (options[:with] || path))
-      paths.add path, options
     end
 
     def future_stamp
