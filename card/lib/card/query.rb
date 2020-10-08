@@ -67,7 +67,8 @@ class Card
 
       plus_relational: %i[plus left_plus right_plus],
       conjunction:     %i[and or all any],
-      ignore:          %i[prepend append view params vars size]
+      ignore:          %i[prepend append vars],
+      deprecated:      %i[view params size]
     }.each_with_object({}) do |pair, h|
       pair[1].each { |v| h[v] = pair[0] }
     end
