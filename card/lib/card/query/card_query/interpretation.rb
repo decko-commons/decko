@@ -52,11 +52,9 @@ class Card
         end
 
         def no_method_for_attribute_type attribute, type
-          case type
-          when :deprecated
+          return if type == :ignore
+          if type == :deprecated
             deprecated_attribute attribute
-          when :ignore
-            # NOOP
           else
             bad_attribute! attribute
           end
