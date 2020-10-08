@@ -47,7 +47,7 @@ describe Card::Set::All::Path do
     end
 
     it "handles query strings" do
-      expect(path(view: :listing)).to eq "/A?view=listing"
+      expect(path(view: :bar)).to eq "/A?view=bar"
     end
 
     it "handles special new card of type paths" do
