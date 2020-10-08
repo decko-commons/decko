@@ -47,7 +47,7 @@ describe Card::Set::All::Path do
     end
 
     it "handles query strings" do
-      expect(path(view: :listing)).to eq "/A?view=listing"
+      expect(path(view: :bar)).to eq "/A?view=bar"
     end
 
     it "handles special new card of type paths" do
@@ -58,11 +58,6 @@ describe Card::Set::All::Path do
       with_complex_env do
         expect(path).to eq("http://mydomain.com/root/A")
       end
-    end
-
-    it "casts slot[hide] as array" do
-      slot_hide = CGI.escape "slot[hide][]"
-      expect(path(slot: { hide: "myview" })).to eq("/A?#{slot_hide}=myview")
     end
   end
 
