@@ -2,7 +2,7 @@
 
 require "card/migration"
 
-class Card
+class Cardio
   class Migration
     class Core < Migration
       @type = :core_cards

@@ -1,4 +1,4 @@
-class Card
+class Cardio
   class Migration
     class Import
       # Handles the card attributes and remotes for the import
@@ -110,7 +110,7 @@ class Card
         end
 
         def card_attachment attach_type, data
-          Card::Migration.data_path "files/#{data[attach_type]}"
+          Cardio::Migration.data_path "files/#{data[attach_type]}"
         end
       end
     end

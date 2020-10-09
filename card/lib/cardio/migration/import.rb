@@ -1,7 +1,7 @@
 require_relative "import/import_data"
 require_relative "import/merger"
 
-class Card
+class Cardio
   class Migration
     # Imports card data from a local or remote deck
     #

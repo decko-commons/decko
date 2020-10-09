@@ -1,6 +1,6 @@
 namespace :card do
   def importer
-    @importer ||= Card::Migration::Import.new Card::Migration.data_path
+    @importer ||= Cardio::Migration::Import.new Cardio::Migration.data_path
   end
 
   desc "merge import card data that was updated since the last push into " \

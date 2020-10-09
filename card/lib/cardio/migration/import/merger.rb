@@ -1,4 +1,4 @@
-class Card
+class Cardio
   class Migration
     class Import
       # executes the card import
