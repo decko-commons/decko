@@ -29,7 +29,7 @@ class Card
       end
 
       def monitor_depth
-        raise Card::Error::UserError, tr(:too_deep) if depth >= Card.config.max_depth
+        raise Card::Error::UserError, tr(:too_deep) if depth >= Cardio.config.max_depth
         yield
       end
 
@@ -47,7 +47,7 @@ class Card
       end
 
       def loud_error?
-        focal? || Card.config.raise_all_rendering_errors
+        focal? || Cardio.config.raise_all_rendering_errors
       end
 
       def loud_error e, view
