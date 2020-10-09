@@ -35,6 +35,7 @@ end
 
 #require "cardio/commands"
 require "cardio"
+
 module Cardio
   module Commands
     class << self

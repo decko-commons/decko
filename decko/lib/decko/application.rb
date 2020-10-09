@@ -7,14 +7,14 @@ Bundler.require :default, *Rails.groups
 
 module Decko
   class Application < Cardio::Application
-
     class << self
       def inherited base
         Rails.app_class = base
       end
     end
 
-    initializer :set_autoload_paths do
+    initializer before: :set_autoload_paths do
+      paths.add "lib", root: Decko.gem_root
       config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
     end
 
@@ -48,10 +48,8 @@ module Decko
 
       config.filter_parameters += [:password]
 
-
-      #ActiveSupport.run_load_hooks :before_configuration, app
       # Rails.autoloaders.log!
-      #Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
+      Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
       # paths configuration
 
       paths.add "files"

@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-#require 'rails'
-require "rails/all"
+require 'rails'
 
 Bundler.require :default, *Rails.groups if defined?(Bundler)
 
