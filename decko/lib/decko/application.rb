@@ -13,6 +13,11 @@ module Decko
       end
     end
 
+    initializer before: :load_config_initializers do
+      paths.add "config/initializers", glob: "**/*.rb",
+          with: File.join(Decko.gem_root, "lib/decko/config/initializers")
+    end
+
     initializer before: :set_autoload_paths do
       paths.add "lib", root: Decko.gem_root
       config.autoload_paths += Dir["#{Decko.gem_root}/lib"]

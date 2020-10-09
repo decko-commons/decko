@@ -17,6 +17,15 @@ module Cardio
 
     ENVCONF = "lib/card/config/environments"
 
+    initializer :load_config_initializers do
+      paths.add "config/initializers", glob: "**/*.rb",
+          with: File.join(Cardio.gem_root, "lib/cardio/config/initializers")
+      paths["config/initializers"].existent.sort.each do |initializer|
+warn "CARDAPP #{__LINE__} #{initializer}"
+        load(initializer)
+      end
+    end
+
     initializer before: :load_environment_config do
 warn "CARDIO app config #{__LINE__} #{Rails.env}"
       path = File.join(Cardio.gem_root, ENVCONF, "#{Rails.env}.rb")

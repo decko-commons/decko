@@ -12,6 +12,7 @@ require "diff/lcs"
 require "builder"
 
 require "decko"
+require "cardio"
 
 module Decko
   class Engine < ::Rails::Engine
@@ -24,18 +25,10 @@ module Decko
     # FIXME, belongs in parent
     paths["lib/tasks"] << "#{::Cardio.gem_root}/lib/tasks"
 
-    initializer before: :load_config_initializers do
-      paths.add "lib/config/initializers", glob: "**/*.rb",
-          with: File.join(Decko.gem_root, "lib/decko/config/initializers")
-      paths["lib/config/initializers"].existent.sort.each do |initializer|
-        load(initializer)
-      end
-    end
-
     initializer before: :set_autoload_paths do
     end
 
-    initializer before: :set_load_path do
+    initializer :set_load_path do
       # this code should all be in Decko somewhere, and it is now, gem-wize
       # Ideally railties would do this for us; this is needed for both use cases
       paths["request_log"]   = Decko.paths["request_log"]
