@@ -128,11 +128,17 @@ module Cardio
     def autoload_paths
       config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
 
-      [gem_root, root].each { |dir| autoload_and_watch config, "#{dir}/mod/*" }
-      gem_mod_specs.each_value { |spec| autoload_and_watch config, spec.full_gem_path }
+      [gem_root, root].each do |dir|
+        Dir[File.join(Cardio.gem_root}, dir, "mod")] do |mod|
+          autoload_and_watch config, mod
+        end
+      end
+      gem_mod_specs.each_value do |spec|
+        autoload_and_watch config, spec.full_gem_path
+      end
 
-      add_path "mod"        # add card gem's mod path
-      paths["mod"] << "mod" # add deck's mod path
+      #add_path "mod",         # add card gem's mod path
+      #paths["mod"] << "mod" # add deck's mod path
     end
 
     # set_clear_dependencies_hook -- use as initializer hook?
