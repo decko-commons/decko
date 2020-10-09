@@ -42,6 +42,7 @@ blocks:
             # NEW SHARK DECK
             - be decko new shark
             - cd shark
+            - cat config/database.yml
             - be decko seed -d
 
             - cd .. # note: faster than making a separate job.
