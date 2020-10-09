@@ -11,7 +11,7 @@ format do
   # associated with the current format is named "current", it will generate paths like
   # these:
 
-  #   path view: :listing   -> "current?view=listing"
+  #   path view: :bar   -> "current?view=bar"
   #   path mark: [mycardid] -> "mycardname"
   #   path format: :csv)    -> "current.csv"
   #   path action: :update  -> "update/current"
