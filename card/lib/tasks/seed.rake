@@ -12,7 +12,7 @@ end
 
 namespace :card do
   desc "create a card database from scratch, load initial data"
-  task :seed do
+  task seed: :environment do
     failing_loudly "card seed" do
       seed
     end

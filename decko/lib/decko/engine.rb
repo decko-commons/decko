@@ -35,7 +35,7 @@ module Decko
     initializer before: :set_autoload_paths do
     end
 
-    initializer :set_load_path do
+    initializer before: :set_load_path do
       # this code should all be in Decko somewhere, and it is now, gem-wize
       # Ideally railties would do this for us; this is needed for both use cases
       paths["request_log"]   = Decko.paths["request_log"]

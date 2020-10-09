@@ -10,9 +10,9 @@ require "rails/ruby_version_check"
 Signal.trap("INT") { puts; exit(1) }
 
 warn "plug #{__LINE__}" if ARGV.first == 'plugin'
-# ARGV.shift
-# require 'decko/commands/plugin_new'
+#if ARGV.first == 'plugin'
+#  ARGV.shift
+#  require 'decko/commands/plugin_new'
 #else
 
 require "decko/commands/application"
-#end

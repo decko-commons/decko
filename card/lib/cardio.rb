@@ -137,8 +137,8 @@ module Cardio
         autoload_and_watch config, spec.full_gem_path
       end
 
-      #add_path "mod",         # add card gem's mod path
-      #paths["mod"] << "mod" # add deck's mod path
+      add_path "mod"        # add card gem's mod path
+      paths["mod"] << "mod" # add deck's mod path
     end
 
     # set_clear_dependencies_hook -- use as initializer hook?
