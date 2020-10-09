@@ -37,7 +37,7 @@ class Card
       end
 
       def default_comment
-        return if @superquery || !Card.config.sql_comments
+        return if @superquery || !Cardio.config.sql_comments
 
         statement.to_s
       end
