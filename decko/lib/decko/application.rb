@@ -7,26 +7,21 @@ Bundler.require :default, *Rails.groups
 
 module Decko
   class Application < Cardio::Application
-    class << self
-      include Cardio::RailsConfigMethods
 
+    class << self
       def inherited base
-        super # super is Cardio::App
         Rails.app_class = base
-        add_lib_to_load_path!(find_root(base.called_from))
-        ActiveSupport.run_load_hooks(:before_configuration, base.instance)
       end
     end
 
-    initializer :autoload_paths, before: :set_autoload_paths do
+    initializer :set_autoload_paths do
       config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
     end
 
-    initializer :decko_configure, before: :set_load_paths do
-      #path = File.join(Decko.gem_root, "lib")
+    initializer before: :set_load_path do
+      config.load_defaults "6.0"
       paths.add "lib", root: Decko.gem_root
-      config.load_default = "6.0"
-      Cardio.set_paths
+      Cardio.set_load_path
 
       config.active_job.queue_adapter = :delayed_job
 
@@ -72,8 +67,7 @@ module Decko
     end
 
     PATH = "lib/decko/config/environments"
-    initializer :decko_environment, after: :load_environment_hook do
-      #ActiveSupport.run_load_hooks(:before_configuration, self)
+    initializer :application_routes do
       path = File.join(Decko.gem_root, PATH, "#{Rails.env}.rb")
       paths.add PATH, with: path
       paths[PATH].existent.each do |environment|

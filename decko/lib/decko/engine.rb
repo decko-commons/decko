@@ -27,15 +27,15 @@ module Decko
     initializer before: :load_config_initializers do
       paths.add "lib/config/initializers", glob: "**/*.rb",
           with: File.join(Decko.gem_root, "lib/decko/config/initializers")
-    end
-    initializer after: :load_config_initializers do
-      instance_eval(&block) if block_given?
       paths["lib/config/initializers"].existent.sort.each do |initializer|
         load(initializer)
       end
     end
 
-    initializer "decko.engine.copy_configs", after: :set_load_path do
+    initializer before: :set_autoload_paths do
+    end
+
+    initializer :set_load_path do
       # this code should all be in Decko somewhere, and it is now, gem-wize
       # Ideally railties would do this for us; this is needed for both use cases
       paths["request_log"]   = Decko.paths["request_log"]
@@ -43,7 +43,6 @@ module Decko
       paths["lib/tasks"]     = Decko.paths["lib/tasks"]
       paths["config/routes.rb"] = Decko.paths["config/routes.rb"]
       paths["lib"]           = Decko.paths["lib"]
-      #config.autoload_paths = Decko.config.autoload_paths
     end
   end
 end

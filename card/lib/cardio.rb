@@ -125,20 +125,15 @@ module Cardio
       end
     end
 
-    def add_lib_dirs_to_autoload_paths
-      config.autoload_paths += Dir["#{gem_root}/lib"]
+    def autoload_paths
+      config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
 
-      # TODO: this should use each_mod_path, but it's not available when this is run
-      # This means libs will not get autoloaded (and sets not watched) if the mod
-      # dir location is overridden in config
       [gem_root, root].each { |dir| autoload_and_watch config, "#{dir}/mod/*" }
       gem_mod_specs.each_value { |spec| autoload_and_watch config, spec.full_gem_path }
 
-      # the watchable_dirs are processes in
-      # set_clear_dependencies_hook hook in the railties gem in finisher.rb
-
-      # TODO: move this to the right place in decko
-      config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
+      # set_clear_dependencies_hook -- use as initializer hook?
+      # the watchable_dirs are processes in set_clear_dependencies_hook
+      # hook in the railties gem in finisher.rb
     end
 
     def autoload_and_watch config, mod_path
@@ -157,7 +152,7 @@ module Cardio
       config.send("#{setting}=", *value) unless config.respond_to? setting
     end
 
-    def set_paths
+    def set_load_path
       %w[set set_pattern].each do |path|
         tmppath = "tmp/#{path}"
         add_path tmppath, root: root unless paths[tmppath]&.existent
@@ -173,21 +168,13 @@ module Cardio
 
     def load_card_configuration
       default_configs
-      # should get from class that include Cardio::App (Decko)
-      #config.autoloader = :zeitwerk
-      #config.load_default = "6.0"
-      #config.i18n.enforce_available_locales = true
 
       Rails.autoloaders.log!
      # Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
 
-      set_paths
-
       ActiveSupport.run_load_hooks(:before_configuration)
       ActiveSupport.run_load_hooks(:load_active_record)
       ActiveSupport.run_load_hooks(:before_card)
-
-      add_path "lib/card/config/environments", glob: "#{Rails.env}.rb", root: Cardio.gem_root
     end
 
     def connect_on_load
@@ -219,7 +206,7 @@ module Cardio
     end
 
     def add_initializer_paths
-      add_path "lib/config/initializers", glob: "**/*.rb"
+      add_path "config/initializers", glob: "**/*.rb"
       add_initializers root
       each_mod_path { |mod_path| add_initializers mod_path, false, "core_initializers" }
     end
@@ -231,7 +218,7 @@ module Cardio
 
     def add_initializers base_dir, mod=false, init_dir="initializers"
       Dir.glob("#{base_dir}/config/#{init_dir}").each do |initializers_dir|
-        path_mark = mod ? "mod/config/initializers" : "lib/config/initializers"
+        path_mark = mod ? "mod/config/initializers" : "config/initializers"
         paths[path_mark] << initializers_dir
       end
     end
