@@ -42,7 +42,8 @@ blocks:
             # NEW SHARK DECK
             - be decko new shark
             - cd shark
-            - be decko seed
+            - sem-service status mysql
+            - be decko seed -d
 
             - cd .. # note: faster than making a separate job.
 
