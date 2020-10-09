@@ -1,7 +1,7 @@
 # add method in? to Object class
 require "active_support/core_ext/object/inclusion"
+require 'cardio'
 
-warn "From #{__FILE__} #{__LINE__}"
 def load_rake_tasks
   require "./config/environment"
   require "rake"
@@ -12,8 +12,8 @@ RAILS_COMMANDS = %w( decko generate destroy plugin benchmarker profiler console
                      server dbconsole application runner ).freeze
 DECKO_COMMANDS = %w(rspec cucumber jasmine).freeze
 CARD_TASK_COMMANDS = %w(add add_remote refresh_machine_output reset_cache
-                   reset_tmp update merge merge_all assume_card_migrations
-                   clean clear dump emergency load seed reseed supplement
+                   reset_tmp update merge merge_all clean clear dump
+                   emergency load seed reseed supplement
                    update seed reseed load).freeze
 
 ALIAS = {
@@ -29,7 +29,6 @@ ALIAS = {
 }.freeze
 
 def supported_rails_command? arg
-  #Rake.application.top_level_tasks.include? arg
   arg.in?(RAILS_COMMANDS) || ALIAS[arg].in?(RAILS_COMMANDS)
 end
 
@@ -70,7 +69,7 @@ module Decko
 
       def run_card_task command
         require "cardio/commands/rake_command"
-        RakeCommand.new(['card', command]*':', ARGV).run
+        Cardio::Commands::RakeCommand.new(['card', command]*':', ARGV).run
       end
 
       def run_jasmine
@@ -96,14 +95,11 @@ else
   lookup = $1 if command =~ /^([^:]+):/
   case lookup
   when "--version", "-v"
-    puts "Decko #{Card::Version.release}"
+    puts "Decko #{Cardio::Version.release}"
   when *DECKO_COMMANDS
-    Decko::Commands.send "run_#{command}"
-  when 'update' # decko:update
     Decko::Commands.run_decko_task command
   when *CARD_TASK_COMMANDS
-    require 'cardio/commands'
-    Card::Commands.run_card_task command
+    Decko::Commands.run_card_task command
   else
     puts "Error: Command not recognized" unless command.in?(["-h", "--help"])
     puts <<-EOT

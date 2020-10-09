@@ -47,7 +47,7 @@ namespace :card do
 
     task :load_seeds do
       # puts "update card_migrations"
-      Rake::Task["card:migrate:assume_card_migrations"].invoke
+      #Rake::Task["card:migrate:assume_card_migrations"].invoke
 
       if Rails.env == "test" && !ENV["GENERATE_FIXTURES"]
         puts "loading test fixtures"

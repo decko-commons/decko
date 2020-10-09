@@ -1,6 +1,6 @@
 # add method in? to Object class
 require "active_support/core_ext/object/inclusion"
-#require 'cardio/application_record'
+require "cardio"
 
 require "rake"
 def load_rake_tasks
@@ -11,9 +11,9 @@ end
 RAILS_COMMANDS = %w( card generate destroy plugin benchmarker profiler console
                      server dbconsole application runner ).freeze
 CARD_TASK_COMMANDS = %w(card add add_remote refresh_machine_output reset_cache
-                   reset_tmp update merge merge_all assume_card_migrations
-                   clean clear dump emergency load seed reseed supplement
-                   update seed reseed load update).freeze
+                        reset_tmp update merge merge_all clean clear dump
+                        emergency load seed reseed supplement
+                        update seed reseed load update).freeze
 
 ALIAS = {
   "rs" => "rspec",
@@ -29,12 +29,8 @@ ALIAS = {
 
 
 def supported_rails_command? arg
-  #Rake.application.top_level_tasks.include? arg
   arg.in?(RAILS_COMMANDS) || ALIAS[arg].in?(RAILS_COMMANDS)
 end
-
-#require "cardio/commands"
-require "cardio"
 
 module Cardio
   module Commands
@@ -51,6 +47,7 @@ module Cardio
       end
 
       def run_rspec
+
         require "cardio/commands/rspec_command"
         RspecCommand.new(ARGV).run
       end
@@ -80,7 +77,7 @@ else
   lookup = $1 if command =~ /^([^:]+):/
   case lookup
   when "--version", "-v"
-    puts "Card #{Card::Version.release}"
+    puts "Card #{Cardio::Version.release}"
   when 'rspec'
     Cardio::Commands.run_rspec
   when *CARD_TASK_COMMANDS
