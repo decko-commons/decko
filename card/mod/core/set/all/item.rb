@@ -51,6 +51,12 @@ def insert_item index, name
   items_to_content new_names
 end
 
+def replace_item old, new
+  return unless include_item? old
+  drop_item old
+  add_item new
+end
+
 # I think the following should work as add_item...
 #
 def add_id id
