@@ -36,13 +36,16 @@ blocks:
           - sem-service start mysql
           - git submodule update card/db/seed
 
+          # status before starting
+          - sem-service status mysql
+          - mysql --host=0.0.0.0 -uroot -e "show databases"
+
       jobs:
         - name: New Shark and Monkey Decks
           commands:
             # NEW SHARK DECK
             - be decko new shark
             - cd shark
-            - sem-service status mysql
             - be decko seed -d
 
             - cd .. # note: faster than making a separate job.
