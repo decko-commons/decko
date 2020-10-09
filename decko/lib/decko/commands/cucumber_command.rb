@@ -39,7 +39,7 @@ module Decko
       end
 
       def feature_paths
-        Card::Mod.dirs.map do |p|
+        Cardio::Mod.dirs.map do |p|
           Dir.glob "#{p}/features"
         end.flatten
       end

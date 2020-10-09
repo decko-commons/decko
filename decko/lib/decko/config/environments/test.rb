@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-Decko.application.class.configure do
+Decko::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   config.eager_load = false

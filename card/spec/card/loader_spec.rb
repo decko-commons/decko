@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Mod::Loader do
+describe Cardio::Mod::Loader do
   # let(:card_double) { double "Card" }
   # let(:pat_all_double) { proxy Card::Set::All }
   # let(:format_double) { proxy Card::Format }
@@ -8,13 +8,13 @@ describe Card::Mod::Loader do
   # it "autos-load Card class methods from lib/card and mods" do
   #   #xpect(Card).to receive(:load_mods)
   #   #
-  #   allow(Card::Mod::Loader).to receive(:load_mods)
+  #   allow(Cardio::Mod::Loader).to receive(:load_mods)
   #   #card = Card[:all]
   #   #expect(card_double).to receive(:load_formats)
   #   #expect(Card).to receive(:load_sets)
   #   #expect(Card).to receive(:tracks).with(:any_args) # so Card still loads without core in failure testing
   #   Card[:all]
-  #   expect(Card::Mod::Loader).to have_received(:load_mods)
+  #   expect(Cardio::Mod::Loader).to have_received(:load_mods)
   #   #expect(Card.instance_method(:version)).to be
   #   # allow(Card).to receive(:version)
   #   # expect(Card.instance_method(:type_card)).to be

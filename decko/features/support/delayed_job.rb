@@ -1,4 +1,4 @@
-Card.config.active_job.queue_adapter = :delayed_job
+Cardio.config.active_job.queue_adapter = :delayed_job
 
 Before("@delayed-jobs") do
   Cardio.delaying!
