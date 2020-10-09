@@ -3,9 +3,10 @@ module Cardio
   module Modfiles
     # @return [Hash] in the form{ modname(String) => Gem::Specification }
     def gem_mod_specs
-      Bundler.definition.specs.each_with_object({}) do |gem_spec, h|
-        h[gem_spec.name] = gem_spec if gem_mod_spec? gem_spec
-      end
+      @gem_mod_specs ||=
+        Bundler.definition.specs.each_with_object({}) do |gem_spec, h|
+          h[gem_spec.name] = gem_spec if gem_mod_spec? gem_spec
+        end
     end
 
     # @return [True/False]

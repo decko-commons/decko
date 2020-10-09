@@ -131,11 +131,13 @@ module Cardio
       [gem_root, root].each { |dir| autoload_and_watch config, "#{dir}/mod/*" }
       gem_mod_specs.each_value { |spec| autoload_and_watch config, spec.full_gem_path }
 
-      # set_clear_dependencies_hook -- use as initializer hook?
-      # the watchable_dirs are processes in set_clear_dependencies_hook
-      # hook in the railties gem in finisher.rb
+      add_path "mod"        # add card gem's mod path
+      paths["mod"] << "mod" # add deck's mod path
     end
 
+    # set_clear_dependencies_hook -- use as initializer hook?
+    # the watchable_dirs are processes in set_clear_dependencies_hook
+    # hook in the railties gem in finisher.rb
     def autoload_and_watch config, mod_path
       config.autoload_paths += Dir["#{mod_path}/lib"]
       config.watchable_dirs["#{mod_path}/set"] = [:rb]
@@ -157,9 +159,6 @@ module Cardio
         tmppath = "tmp/#{path}"
         add_path tmppath, root: root unless paths[tmppath]&.existent
       end
-
-      add_path "mod"        # add card gem's mod path
-      paths["mod"] << "mod" # add deck's mod path
 
       add_db_paths
       add_initializer_paths
