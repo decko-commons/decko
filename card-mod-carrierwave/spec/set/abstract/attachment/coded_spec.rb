@@ -12,12 +12,12 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
 
   before do
     FileUtils.mkdir_p mod_path
-    Card::Mod.dirs.mod "test_mod"
+    Cardio::Mod.dirs.mod "test_mod"
   end
 
   after do
     FileUtils.rm_rf mod_path
-    Card::Mod.dirs.mods.delete "test_mod"
+    Cardio::Mod.dirs.mods.delete "test_mod"
   end
 
   specify "view: source" do
