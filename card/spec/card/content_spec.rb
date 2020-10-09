@@ -400,7 +400,7 @@ RSpec.describe Card::Content do
       # it "doesn't fix regular nbsp order with setting" do
       #   # manually configure this setting, then make this one live
       #   # (test above will then fail)
-      #   pending "Can't set Card.config.space_last_in_multispace= false "\
+      #   pending "Can't set Cardio.config.space_last_in_multispace= false "\
       #           'for one test'
       #   assert_equal 'space&nbsp; test &nbsp;two &nbsp;&nbsp;space',
       #                Card::Content.clean!(
