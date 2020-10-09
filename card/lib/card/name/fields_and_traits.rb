@@ -1,5 +1,5 @@
 class Card
-  class Name
+  class Name < Cardname
     # Name-based "Fields" are compound names in which the right name is treated
     # as an attribute of the left.  (Eg MyName+address)
     #

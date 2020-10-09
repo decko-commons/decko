@@ -63,11 +63,11 @@ class Card
       end
 
       def max_depth
-        Card.config.max_depth
+        Cardio.config.max_depth
       end
 
       def max_char_count
-        Card.config.max_char_count
+        Cardio.config.max_char_count
       end
     end
   end
