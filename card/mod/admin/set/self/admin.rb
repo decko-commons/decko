@@ -79,7 +79,7 @@ format :html do
         link_text: "clear machine cache",
         task: "clear_machine_cache" }
     ]
-    # return stats unless Card.config.view_cache#
+    # return stats unless Cardio.config.view_cache#
     # stats << { title: "view cache",
     #            count: Card::View,
     #            link_text: "clear view cache",

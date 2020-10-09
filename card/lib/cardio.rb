@@ -9,7 +9,7 @@ require "cardio/modfiles"
 require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
-  Card::Mod.load
+  Cardio::Mod.load
 end
 
 module Cardio
@@ -19,9 +19,32 @@ module Cardio
   extend Delaying
   CARD_GEM_ROOT = File.expand_path("..", __dir__)
 
-  mattr_reader :paths, :config
+  module RailsConfigMethods
+    # FIXME: use in Deck, Engine, etc.
+    def root
+      Rails.root
+    end
+
+    def application
+     Rails.application
+    end
+
+    def config
+      application.config
+    end
+
+    def paths
+      application.paths
+    end
+  end
 
   class << self
+    include RailsConfigMethods
+
+    def gem_root
+      CARD_GEM_ROOT
+    end
+
     def card_defined?
       const_defined? "Card"
     end
@@ -30,11 +53,6 @@ module Cardio
       ActiveRecord::Base.connection && !card_defined?
     rescue
       false
-    end
-
-    def load_card!
-      require "card"
-      ActiveSupport.run_load_hooks :after_card
     end
 
     def cache
@@ -102,35 +120,30 @@ module Cardio
 
         load_strategy: :eval,
         cache_set_module_list: false
-      }
-    end
-
-    def set_config config
-      @@config = config
-
-      add_lib_dirs_to_autoload_paths config
-
-      default_configs.each_pair do |setting, value|
+      }.each_pair do |setting, value|
         set_default_value(config, setting, *value)
       end
     end
 
-    def add_lib_dirs_to_autoload_paths config
-      config.autoload_paths += Dir["#{gem_root}/lib"]
+    def autoload_paths
+      config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
 
-      # TODO: this should use each_mod_path, but it's not available when this is run
-      # This means libs will not get autoloaded (and sets not watched) if the mod
-      # dir location is overridden in config
-      [gem_root, root].each { |dir| autoload_and_watch config, "#{dir}/mod/*" }
-      gem_mod_specs.each_value { |spec| autoload_and_watch config, spec.full_gem_path }
+      [gem_root, root].each do |dir|
+        Dir[File.join(Cardio.gem_root}, dir, "mod")] do |mod|
+          autoload_and_watch config, mod
+        end
+      end
+      gem_mod_specs.each_value do |spec|
+        autoload_and_watch config, spec.full_gem_path
+      end
 
-      # the watchable_dirs are processes in
-      # set_clear_dependencies_hook hook in the railties gem in finisher.rb
-
-      # TODO: move this to the right place in decko
-      config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
+      #add_path "mod",         # add card gem's mod path
+      #paths["mod"] << "mod" # add deck's mod path
     end
 
+    # set_clear_dependencies_hook -- use as initializer hook?
+    # the watchable_dirs are processes in set_clear_dependencies_hook
+    # hook in the railties gem in finisher.rb
     def autoload_and_watch config, mod_path
       config.autoload_paths += Dir["#{mod_path}/lib"]
       config.watchable_dirs["#{mod_path}/set"] = [:rb]
@@ -147,20 +160,46 @@ module Cardio
       config.send("#{setting}=", *value) unless config.respond_to? setting
     end
 
-    def set_paths paths
-      @@paths = paths
+    def set_load_path
       %w[set set_pattern].each do |path|
         tmppath = "tmp/#{path}"
         add_path tmppath, root: root unless paths[tmppath]&.existent
       end
 
-      add_path "mod"        # add card gem's mod path
-      paths["mod"] << "mod" # add deck's mod path
-
       add_db_paths
       add_initializer_paths
       add_mod_initializer_paths
     end
+
+    def load_card_configuration
+      default_configs
+
+      Rails.autoloaders.log!
+     # Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
+
+      ActiveSupport.run_load_hooks(:before_configuration)
+      ActiveSupport.run_load_hooks(:load_active_record)
+      ActiveSupport.run_load_hooks(:before_card)
+    end
+
+    def connect_on_load
+      ActiveSupport.on_load(:before_configure_environment) do
+        ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
+      end
+      ActiveSupport.on_load(:after_initialize) do
+      end
+      ActiveSupport.on_load(:after_application_record) do
+        #ActiveSupport.run_load_hooks :initialize, self
+      end
+    end
+
+    def add_path path, options={}
+      root = options.delete(:root) || gem_root
+      options[:with] = File.join(root, (options[:with] || path))
+      paths.add path, options
+    end
+
+  private
 
     def add_db_paths
       add_path "db"
@@ -187,20 +226,6 @@ module Cardio
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
         paths[path_mark] << initializers_dir
       end
-    end
-
-    def root
-      @@config.root
-    end
-
-    def gem_root
-      CARD_GEM_ROOT
-    end
-
-    def add_path path, options={}
-      root = options.delete(:root) || gem_root
-      options[:with] = File.join(root, (options[:with] || path))
-      paths.add path, options
     end
 
     def future_stamp

@@ -4,6 +4,9 @@ class CardSpecLoader
       require "spork"
       ENV["RAILS_ENV"] = "test"
       require "timecop"
+      #require 'cardio/application'
+      #require 'cardio'
+      #require 'cardio/application_record'
     end
 
     def prefork
@@ -12,12 +15,15 @@ class CardSpecLoader
           raise Card::Error, "No RAILS_ROOT given. Can't load environment."
         end
         require File.join ENV["RAILS_ROOT"], "config/environment"
+        #require 'card'
+        #Card
         load_shared_examples
         require File.expand_path("../simplecov_helper.rb", __FILE__)
         require File.expand_path("../../../db/test_seed.rb", __FILE__)
 
         # Requires supporting ruby files with custom matchers and macros, etc,
         # in spec/support/ and its subdirectories.
+
         Dir[File.join(Cardio.gem_root, "spec/support/matchers/*.rb")].each do |f|
           require f
         end
@@ -31,7 +37,9 @@ class CardSpecLoader
     end
 
     def rspec_config
+      require "cardio/application"
       require "rspec/rails"
+      Card
 
       @@joe_user_id = Card["joe_user"].id
       RSpec.configure do |config|
@@ -106,7 +114,8 @@ class CardSpecLoader
     def load_shared_examples
       require File.expand_path "../card_shared_examples", __FILE__
       %w[shared_examples shared_context].each do |dirname|
-        Card::Mod.dirs.each "spec/#{dirname}" do |shared_ex_dir|
+        #require 'cardio/mod'
+        Cardio::Mod.dirs.each "spec/#{dirname}" do |shared_ex_dir|
           Dir["#{shared_ex_dir}/**/*.rb"].sort.each { |f| require f }
         end
       end
