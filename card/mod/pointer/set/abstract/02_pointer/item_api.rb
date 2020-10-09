@@ -56,6 +56,11 @@ end
   end
 end
 
+# for override, eg by json
+def item_value item_name
+  item_name
+end
+
 # ~~~~~~~~~~~~ ALTERING ITEMS ~~~~~~~~~~~~
 
 # set card content based on array and save card
