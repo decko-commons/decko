@@ -7,7 +7,7 @@ DeckoGem.gem "decko" do |s, d|
   s.description =
     "a wiki approach to structured data, dynamic interaction,  and web design"
 
-  s.files = Dir["{db,lib,public,set}/**/*"]
+  s.files = Dir["{db,lib,rails,public,set}/**/*"]
 
   s.bindir = "bin"
   s.executables = ["decko"]

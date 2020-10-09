@@ -2,7 +2,7 @@ class Card
   # Card::Env is a module for containing the variable details of the environment
   # in which Card operates.
   #
-  # Env can differ for each request; Card.config should not.
+  # Env can differ for each request; Cardio.config should not.
   module Env
     extend LocationHistory
     extend RequestAssignments
