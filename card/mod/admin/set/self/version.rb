@@ -7,7 +7,7 @@ def ok_to_read
 end
 
 def content
-  Card::Version.release
+  Cardio::Version.release
 end
 
 # view :core, :raw

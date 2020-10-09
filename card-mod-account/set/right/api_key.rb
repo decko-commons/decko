@@ -34,7 +34,7 @@ end
 #     if expiration.present?
 #       term_from_string expiration
 #     else
-#       Card.config.token_expiry
+#       Cardio.config.token_expiry
 #     end
 # end
 
