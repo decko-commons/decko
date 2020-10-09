@@ -109,12 +109,12 @@ really), because Set functionality is almost always developed using our Set
 DSL, which automatically handles the ruby module naming based on the file
 name.
 
-Cards, Formats, Sets, and other structures can all be developed via {Card::Mod
+Cards, Formats, Sets, and other structures can all be developed via {Cardio::Mod
 Mods}.
 
 ## Mods
 
-{Card::Mod Card Mods} (short for *modules* or *modifications*) are the primary
+{Cardio::Mod Card Mods} (short for *modules* or *modifications*) are the primary
 mechanism for developing and sharing Decko code. If you're just getting
-started as a Decko developer, learning about {Card::Mod Mods} is a great next
+started as a Decko developer, learning about {Cardio::Mod Mods} is a great next
 step.
