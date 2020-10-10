@@ -13,11 +13,11 @@ class Card
       end
 
       def assign_host c
-        Card.config.override_host || c.request.env["HTTP_HOST"]
+        Cardio.config.override_host || c.request.env["HTTP_HOST"]
       end
 
       def assign_protocol c
-        Card.config.override_protocol || c.request.protocol
+        Cardio.config.override_protocol || c.request.protocol
       end
     end
   end

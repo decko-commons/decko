@@ -23,7 +23,7 @@ class Card
         case
         when !account                                 then nil
         when !account.active?                         then nil
-        when Card.config.no_authentication            then account
+        when Cardio.config.no_authentication            then account
         when password_valid?(account, password.strip) then account
         end
       end
