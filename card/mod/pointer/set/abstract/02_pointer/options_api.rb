@@ -1,4 +1,5 @@
 # TODO: some of this should be moved to right/options!!
+# or to type/JSON?
 
 def options_hash
   json_options? ? options_card.parse_content : option_hash_from_names
