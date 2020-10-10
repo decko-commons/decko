@@ -19,7 +19,7 @@ class Card
       end
 
       def card
-        Card.fetch self
+        Card.fetch self, new: {}
       end
 
       # @return [Integer] id of card with name

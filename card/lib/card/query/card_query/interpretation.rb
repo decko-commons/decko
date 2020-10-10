@@ -2,7 +2,6 @@ class Card
   module Query
     class CardQuery
       # Interpret CQL. Once interpreted, SQL can be generated.
-      #
       module Interpretation
         INTERPRET_METHOD = { basic: :add_condition,
                              relational: :relate,
@@ -43,13 +42,26 @@ class Card
           @mods[key] = val.is_a?(Array) ? val : val.to_s
         end
 
-        def interpret_attributes key, val
-          attribute = ATTRIBUTES[key]
-          if (method = INTERPRET_METHOD[attribute])
-            send method, key, val
-          elsif attribute != :ignore
-            bad_attribute! key
+        def interpret_attributes attribute, val
+          attribute_type = ATTRIBUTES[attribute]
+          if (method = INTERPRET_METHOD[attribute_type])
+            send method, attribute, val
+          else
+            no_method_for_attribute_type attribute, attribute_type
           end
+        end
+
+        def no_method_for_attribute_type attribute, type
+          return if type == :ignore
+          if type == :deprecated
+            deprecated_attribute attribute
+          else
+            bad_attribute! attribute
+          end
+        end
+
+        def deprecated_attribute attribute
+          Rails.logger.info "Card queries no longer support #{attribute} attribute"
         end
 
         def bad_attribute! attribute
