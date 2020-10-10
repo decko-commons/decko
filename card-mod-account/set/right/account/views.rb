@@ -16,7 +16,7 @@ format do
   end
 
   view :token_days do
-    Card.config.token_expiry / 1.day
+    Cardio.config.token_expiry / 1.day
   end
 
   # DEPRECATED

@@ -88,10 +88,10 @@ class Card
     end
 
     def with_rss_enabled
-      Card.config.rss_enabled = true
+      Cardio.config.rss_enabled = true
       yield
     ensure
-      Card.config.rss_enabled = false
+      Cardio.config.rss_enabled = false
     end
 
     module ClassMethods

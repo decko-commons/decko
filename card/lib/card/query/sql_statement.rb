@@ -50,7 +50,7 @@ class Card
       end
 
       def comment
-        return nil unless Card.config.sql_comments && @query.comment
+        return nil unless Cardio.config.sql_comments && @query.comment
 
         "/* #{@query.comment} */\n"
       end
