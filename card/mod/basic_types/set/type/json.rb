@@ -1,3 +1,5 @@
+include_set Abstract::Pointer
+
 event :validate_json, :validate, on: :save, changed: :content do
   check_json_syntax if content.present?
 end
@@ -18,6 +20,10 @@ end
 
 def item_values
   parse_content.values
+end
+
+def item_value name
+  parse_content[name]
 end
 
 format :html do
