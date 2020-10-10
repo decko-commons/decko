@@ -1,4 +1,4 @@
 # -*- encoding : utf-8 -*-
 
-Cardio::Application.configure do
+Cardio.application.class.configure do
 end

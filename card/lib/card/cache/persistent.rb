@@ -22,13 +22,13 @@ class Card
         # are cached separately
         # TODO: find better home for this method
         def database_name
-          @database_name ||= (cfg = Cardio.config) &&
+          @database_name ||= (cfg = Card.config) &&
                              (dbcfg = cfg.database_configuration) &&
                              dbcfg[Rails.env]["database"]
         end
 
         def stamp
-          @stamp ||= Cardio.cache.fetch(stamp_key) { new_stamp }
+          @stamp ||= Card.cache.fetch(stamp_key) { new_stamp }
         end
 
         # stamp generator
@@ -46,7 +46,7 @@ class Card
 
         def reset
           @stamp = new_stamp
-          Cardio.cache.write stamp_key, @stamp
+          Card.cache.write stamp_key, @stamp
         end
       end
 
@@ -73,7 +73,7 @@ class Card
       def reset
         @stamp = self.class.new_stamp
         @prefix = nil
-        Cardio.cache.write stamp_key, @stamp
+        Card.cache.write stamp_key, @stamp
       end
 
       # the nuclear option. can affect other applications sharing the same
@@ -83,10 +83,10 @@ class Card
       end
 
       # the current time stamp. changing this value effectively resets
-      # the cache. Note that Cardio.cache is a simple Rails::Cache, not
+      # the cache. Note that Card.cache is a simple Rails::Cache, not
       # a Card::Cache object.
       def stamp
-        @stamp ||= Cardio.cache.fetch(stamp_key) { self.class.new_stamp }
+        @stamp ||= Card.cache.fetch(stamp_key) { self.class.new_stamp }
       end
 
       # key for looking up the current stamp

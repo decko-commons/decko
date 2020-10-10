@@ -5,5 +5,5 @@ event :validate_recaptcha_site_key, :validate do
 end
 
 event :set_recaptcha_site_key, :finalize do
-  Cardio.config.recaptcha_site_key = content
+  Card.config.recaptcha_site_key = content
 end

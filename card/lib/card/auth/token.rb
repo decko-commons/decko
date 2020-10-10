@@ -30,7 +30,7 @@ class Card
         end
 
         def expiration
-          Cardio.config.token_expiry.from_now.to_i
+          Card.config.token_expiry.from_now.to_i
         end
       end
     end

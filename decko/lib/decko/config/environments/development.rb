@@ -4,7 +4,7 @@ Decko::Engine.configure do
   config.cache_classes = false
 end
 
-Decko::Application.configure do
+Decko.application.class.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   config.view_cache = false

@@ -34,17 +34,17 @@ end
 
 def recaptcha_success? result
   result['success'] &&
-    (result['score'].to_f >= Cardio.config.recaptcha_minimum_score) &&
+    (result['score'].to_f >= Card.config.recaptcha_minimum_score) &&
     (result['action'].to_sym == action.to_sym)
 end
 
 def recaptcha_response
-  ::Recaptcha.get({ secret: Cardio.config.recaptcha_secret_key,
+  ::Recaptcha.get({ secret: Card.config.recaptcha_secret_key,
                     response: Env.params[:recaptcha_token] }, {})
 end
 
 def recaptcha_keys?
-  Cardio.config.recaptcha_site_key && Cardio.config.recaptcha_secret_key
+  Card.config.recaptcha_site_key && Card.config.recaptcha_secret_key
 end
 
 event :recaptcha, :validate, when: :validate_recaptcha? do
@@ -74,14 +74,14 @@ format :html do
     output [
       javascript_include_tag(recaptcha_script_url),
       hidden_field_tag("recaptcha_token", "",
-                       "data-site-key": Cardio.config.recaptcha_site_key,
+                       "data-site-key": Card.config.recaptcha_site_key,
                        "data-action": action,
                        class: "_recaptcha-token")
     ]
   end
 
   def recaptcha_script_url
-    "https://www.google.com/recaptcha/api.js?render=#{Cardio.config.recaptcha_site_key}"
+    "https://www.google.com/recaptcha/api.js?render=#{Card.config.recaptcha_site_key}"
   end
 
   def hidden_form_tags action, opts

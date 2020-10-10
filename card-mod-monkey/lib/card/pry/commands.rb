@@ -1,4 +1,4 @@
-module Cardio
+class Card
   module Pry
     # Pry command configuration
     module Commands

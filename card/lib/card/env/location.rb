@@ -12,7 +12,7 @@ class Card
         if rel_path =~ %r{^(https?\:)?/}
           rel_path
         else
-          "#{Cardio.config.relative_url_root}/#{rel_path}"
+          "#{Card.config.relative_url_root}/#{rel_path}"
         end
       end
 
@@ -21,7 +21,7 @@ class Card
       end
 
       def protocol_and_host
-        Cardio.config.protocol_and_host || "#{Env[:protocol]}#{Env[:host]}"
+        Card.config.protocol_and_host || "#{Env[:protocol]}#{Env[:host]}"
       end
 
       def cardname_from_url url

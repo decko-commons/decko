@@ -12,14 +12,20 @@ module Cardio
     end
 
     initializer before: :set_load_path do
-      Cardio.load_card_configuration
+      Cardio.default_configs
+      #Rails.autoloaders.log!
+     # Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
+
+      #ActiveSupport.run_load_hooks(:before_configuration)
+      #ActiveSupport.run_load_hooks(:load_active_record)
+      ActiveSupport.run_load_hooks(:before_card)
     end
 
     ENVCONF = "lib/card/config/environments"
 
     initializer :load_config_initializers do
       paths.add "config/initializers", glob: "**/*.rb",
-          with: File.join(Cardio.gem_root, "lib/cardio/config/initializers")
+          with: File.join(Cardio.gem_root, "lib/card/config/initializers")
       paths["config/initializers"].existent.sort.each do |initializer|
         load(initializer)
       end

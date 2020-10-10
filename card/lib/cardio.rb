@@ -20,11 +20,11 @@ module Cardio
   CARD_GEM_ROOT = File.expand_path("..", __dir__)
 
   module RailsConfigMethods
-    # FIXME: use in Deck, Engine, etc.
     def root
       Rails.root
     end
 
+    include RailsConfigMethods
     def application
      Rails.application
     end
@@ -38,12 +38,16 @@ module Cardio
     end
   end
 
-  class << self
+  module CardClassMethods
     include RailsConfigMethods
 
     def gem_root
       CARD_GEM_ROOT
     end
+  end
+
+  class << self
+    include CardClassMethods
 
     def card_defined?
       const_defined? "Card"
@@ -121,7 +125,10 @@ module Cardio
         load_strategy: :eval,
         cache_set_module_list: false
       }.each_pair do |setting, value|
-        set_default_value(config, setting, *value)
+        # In production mode set_config gets called twice.
+        # The second call overrides all deck config settings
+        # so don't change settings here if they already exist
+        config.send("#{setting}=", *value) unless config.respond_to? setting
       end
     end
 
@@ -153,13 +160,6 @@ module Cardio
       !ENV["DECKO_READ_ONLY"].nil?
     end
 
-    # In production mode set_config gets called twice.
-    # The second call overrides all deck config settings
-    # so don't change settings here if they already exist
-    def set_default_value config, setting, *value
-      config.send("#{setting}=", *value) unless config.respond_to? setting
-    end
-
     def set_load_path
       %w[set set_pattern].each do |path|
         tmppath = "tmp/#{path}"
@@ -169,17 +169,6 @@ module Cardio
       add_db_paths
       add_initializer_paths
       add_mod_initializer_paths
-    end
-
-    def load_card_configuration
-      default_configs
-
-      Rails.autoloaders.log!
-     # Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
-
-      ActiveSupport.run_load_hooks(:before_configuration)
-      ActiveSupport.run_load_hooks(:load_active_record)
-      ActiveSupport.run_load_hooks(:before_card)
     end
 
     def connect_on_load

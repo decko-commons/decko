@@ -1,4 +1,4 @@
-module Cardio
+class Card
   # These commands are available in the console when using binding.pry for breakpoints.
   module Pry
     require "rails/console/app"

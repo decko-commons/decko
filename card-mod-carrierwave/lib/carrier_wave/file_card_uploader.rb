@@ -1,7 +1,7 @@
 module CarrierWave
   class << self
     def tmp_path
-      @tmp_path ||= Cardio.paths["tmp"].existent.first
+      @tmp_path ||= Card.paths["tmp"].existent.first
     end
   end
 
@@ -235,12 +235,12 @@ module CarrierWave
     end
 
     def local_url_base opts={}
-      web_path = Cardio.config.files_web_path
+      web_path = Card.config.files_web_path
       opts.delete(:absolute) ? card_url(web_path) : card_path(web_path)
     end
 
     def public_path
-      File.join Cardio.paths["public"].existent.first, url
+      File.join Card.paths["public"].existent.first, url
     end
 
     def cache_dir

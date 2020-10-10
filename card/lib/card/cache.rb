@@ -44,7 +44,7 @@ class Card
         @persistent_cache =
           case
           when ENV["NO_RAILS_CACHE"]          then false
-          when Cardio.config.persistent_cache then Cardio.cache
+          when Card.config.persistent_cache then Card.cache
           else                                     false
           end
       end
@@ -106,7 +106,7 @@ class Card
       # (the non-standard caches)
       def reset_other
         Card::Codename.reset_cache
-        Cardio.delete_tmp_files!
+        Card.delete_tmp_files!
       end
 
       # generate a cache key from an object
