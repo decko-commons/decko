@@ -11,7 +11,7 @@ class Card
   # web interface and are thus documented at https://decko.org/rules.
   #  - **Code rules** can be defined in a 'set module'.
   #
-  # The {Card::Mod} docs explain how to create mods and set_modules. This page explains
+  # The {Cardio::Mod} docs explain how to create mods and set_modules. This page explains
   # how those modules become useful.
   #
   # Suppose you have created a "mod" for managing your contacts called "contactmanager",
