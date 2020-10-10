@@ -1,9 +1,10 @@
+require "rbconfig"
 require "pathname"
 
 module Cardio
   module ScriptLoader
-    RUBY = File.join(*RbConfig::CONFIG.values_at("bindir", "ruby_install_name")) +
-           RbConfig::CONFIG["EXEEXT"]
+    RUBY = File.join(*RbConfig::CONFIG.values_at(
+            "bindir", "ruby_install_name") ) + RbConfig::CONFIG["EXEEXT"]
 
     class <<self
       def script_file name

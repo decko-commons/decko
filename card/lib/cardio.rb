@@ -129,7 +129,7 @@ module Cardio
       config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
 
       [gem_root, root].each do |dir|
-        Dir[File.join(Cardio.gem_root, dir, "mod")] do |mod|
+        Dir.glob(File.join(dir, "mod", '*')).each do |mod|
           autoload_and_watch config, mod
         end
       end

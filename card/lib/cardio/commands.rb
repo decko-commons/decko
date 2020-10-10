@@ -5,36 +5,38 @@ require "cardio"
 require "rake"
 def load_rake_tasks
   require "./config/environment"
+  require "rake"
   Cardio::Application.load_tasks
-end
-
-RAILS_COMMANDS = %w( card generate destroy plugin benchmarker profiler console
-                     server dbconsole application runner ).freeze
-CARD_TASK_COMMANDS = %w(card add add_remote refresh_machine_output reset_cache
-                        reset_tmp update merge merge_all clean clear dump
-                        emergency load seed reseed supplement
-                        update seed reseed load update).freeze
-
-ALIAS = {
-  "rs" => "rspec",
-  "cc" => "cucumber",
-  "jm" => "jasmine",
-  "g"  => "generate",
-  "d"  => "destroy",
-  "c"  => "console",
-  "s"  => "server",
-  "db" => "dbconsole",
-  "r"  => "runner"
-}.freeze
-
-
-def supported_rails_command? arg
-  arg.in?(RAILS_COMMANDS) || ALIAS[arg].in?(RAILS_COMMANDS)
 end
 
 module Cardio
   module Commands
+
+    RAILS_COMMANDS = %w( card generate destroy plugin benchmarker profiler
+                     console server dbconsole application runner ).freeze
+    CARD_TASK_COMMANDS = %w( card add add_remote refresh_machine_output
+                     reset_cache reset_tmp update merge merge_all clean
+                     clear dump emergency load seed reseed supplement
+                     update seed reseed load update ).freeze
+
+    ALIAS = {
+      "rs" => "rspec",
+      "cc" => "cucumber",
+      "jm" => "jasmine",
+      "g"  => "generate",
+      "d"  => "destroy",
+      "c"  => "console",
+      "s"  => "server",
+      "db" => "dbconsole",
+      "r"  => "runner"
+    }.freeze
+
+
     class << self
+      def supported_rails_command? arg
+        arg.in?(RAILS_COMMANDS) || ALIAS[arg].in?(RAILS_COMMANDS)
+      end
+
       def run_new
         if ARGV.first.in?(["-h", "--help"])
           require "cardio/commands/application"
@@ -47,7 +49,6 @@ module Cardio
       end
 
       def run_rspec
-
         require "cardio/commands/rspec_command"
         RspecCommand.new(ARGV).run
       end
@@ -64,8 +65,8 @@ ARGV << "--help" if ARGV.empty?
 
 ARGV.unshift 'card' if ARGV.first == '-T'
 command = ARGV.first
-command = ALIAS[command] || command
-if supported_rails_command?(command)
+command = Cardio::Commands::ALIAS[command] || command
+if Cardio::Commands.supported_rails_command?(command)
   ENV["PRY_RESCUE_RAILS"] = "1" if ARGV.delete("--rescue")
 
   # without this, the card generators don't list with: card g --help
@@ -79,11 +80,11 @@ else
   when "--version", "-v"
     puts "Card #{Cardio::Version.release}"
   when 'rspec'
-    Cardio::Commands.run_rspec
-  when *CARD_TASK_COMMANDS
-    Cardio::Commands.run_card_task command
+    Commands.run_rspec
+  when *Cardio::Commands::CARD_TASK_COMMANDS
+    Commands.run_card_task command
   else
-    puts "Error: Command #{command} not recognized" unless command.in?(["-h", "--help"])
+    puts "Error: Command (#{command}) not recognized" unless command.in?(["-h", "--help"])
     puts <<-EOT
   Usage: card COMMAND [ARGS]
 

@@ -4,7 +4,6 @@
 require "generators/card"
 
 if ARGV.first != "new"
-raise "why not in script?"
   ARGV[0] = "--help"
 else
   cmd = ARGV.shift

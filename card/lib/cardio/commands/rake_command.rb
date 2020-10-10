@@ -1,5 +1,6 @@
 require File.expand_path("../command", __FILE__)
 # require "pry"
+require "cardio/commands/command"
 
 module Cardio
   module Commands
@@ -38,4 +39,4 @@ module Cardio
   end
 end
 
-require File.expand_path("../rake_command/parser", __FILE__)
+require "cardio/commands/rake_command/parser"

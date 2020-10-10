@@ -1,4 +1,5 @@
-require File.expand_path("../command", __FILE__)
+
+require 'cardio/commands/command'
 
 module Cardio
   module Commands
@@ -17,7 +18,7 @@ module Cardio
 
       def command
         "#{env_args} #{@opts[:executer]} #{@opts[:rescue]}" \
-          "rspec #{@rspec_args.shelljoin} #{spec_files_from_opts(@opts)*' '} "\
+          "rspec #{@rspec_args.shelljoin} #{spec_files_from_opts(@opts).flatten*' '} "\
           "--exclude-pattern \"./card/vendor/**/*\""
       end
 
