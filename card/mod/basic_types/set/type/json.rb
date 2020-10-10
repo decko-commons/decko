@@ -15,7 +15,7 @@ def parse_content
 end
 
 def item_names _args={}
-  parse_content.keys.map &:to_name
+  parse_content.keys.map(&:to_name)
 end
 
 def item_values
