@@ -4,7 +4,7 @@ class CardSpecLoader
       require "spork"
       ENV["RAILS_ENV"] = "test"
       require "timecop"
-      #require 'cardio/application'
+      require 'cardio/application'
       #require 'cardio'
       #require 'cardio/application_record'
     end
@@ -15,8 +15,6 @@ class CardSpecLoader
           raise Card::Error, "No RAILS_ROOT given. Can't load environment."
         end
         require File.join ENV["RAILS_ROOT"], "config/environment"
-        require 'card'
-        require "cardio/application"
         Card
         load_shared_examples
         require File.expand_path("../simplecov_helper.rb", __FILE__)
