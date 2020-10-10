@@ -49,7 +49,7 @@ namespace :card do
     desc "migrate core cards"
     task core_cards: :environment do
       without_dumping do
-        require "card/migration/core"
+        require "cardio/migration/core"
         run_card_migration :core_cards
       end
     end
@@ -60,7 +60,7 @@ namespace :card do
     end
 
     def migrate_deck_structure
-      require "card/migration/deck_structure"
+      require "cardio/migration/deck_structure"
       set_schema_path
       Cardio.migrate :deck, version
       Rake::Task["db:_dump"].invoke # write schema.rb
@@ -75,7 +75,7 @@ namespace :card do
 
     desc "migrate deck cards"
     task deck_cards: :environment do
-      require "card/migration"
+      require "cardio/migration"
       run_card_migration :deck_cards
     end
 

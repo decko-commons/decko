@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-require "card/migration"
+require "cardio/migration"
 
-class Cardio
+module Cardio
   class Migration
     # Inherit from this migration class to make database table changes
     # in your deck

@@ -1,4 +1,4 @@
-class Cardio
+module Cardio
   class Migration
     class Import
       # Handles the card attributes and remotes for the import

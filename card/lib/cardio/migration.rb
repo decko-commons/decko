@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class Cardio
+module Cardio
   class Migration < ActiveRecord::Migration[4.2]
     include Card::Model::SaveHelper
     @type = :deck_cards
@@ -156,4 +156,4 @@ class Cardio
   end
 end
 
-require "card/migration/core"
+require "cardio/migration/core"

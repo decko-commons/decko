@@ -17,6 +17,7 @@ module Cardio
       end
 
       def command
+c=
         "#{env_args} #{@opts[:executer]} #{@opts[:rescue]}" \
           "rspec #{@rspec_args.shelljoin} #{spec_files_from_opts(@opts).flatten*' '} "\
           "--exclude-pattern \"./card/vendor/**/*\""

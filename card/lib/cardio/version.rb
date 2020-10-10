@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class Cardio
+module Cardio
   module Version
     class << self
       def release
