@@ -4,7 +4,7 @@ class CardSpecLoader
       require "spork"
       ENV["RAILS_ENV"] = "test"
       require "timecop"
-      require 'cardio/application'
+      #require 'cardio/application'
       #require 'cardio'
       #require 'cardio/application_record'
     end
