@@ -1,4 +1,3 @@
-
 require "rspec"
 require "capybara-puma"
 require "selenium-webdriver"
