@@ -1,4 +1,4 @@
-# include_set Type::Json
+include_set Type::Json
 include_set Abstract::WqlSearch
 
 format do
