@@ -186,7 +186,7 @@ format :html do
   end
 
   def not_denied_task_read?
-    @denied_task != :read && Card.config.read_only
+    @denied_task != :read && Cardio.config.read_only
   end
 
   def to_do_unauthorized_task

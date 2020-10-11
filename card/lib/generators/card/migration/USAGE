@@ -12,7 +12,7 @@ Example:
 
         db/migrate_cards/(migration_number)_(name).rb
 
-    ...which is set up to use methods in lib/card/migration.rb
+    ...which is set up to use methods in lib/cardio/migration.rb
 
 
     decko generate card:migration import_better_search_cards
