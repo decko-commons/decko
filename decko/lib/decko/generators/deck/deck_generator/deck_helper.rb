@@ -40,7 +40,7 @@ module Decko
           end
 
           def prompt_for_repo_path
-            @repo_path = ask "Enter the path to your local decko repository: "
+            @repo_path = ask "Enter the path to your local decko repository:"
           end
 
           def spec_path
