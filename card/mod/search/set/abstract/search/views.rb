@@ -154,6 +154,6 @@ format :html do
   end
 
   def closed_limit
-    [search_params[:limit].to_i, Card.config.closed_search_limit].min
+    [search_params[:limit].to_i, Cardio.config.closed_search_limit].min
   end
 end
