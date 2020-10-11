@@ -12,7 +12,7 @@ end
 module Cardio
   module Commands
 
-    RAILS_COMMANDS = %w( card generate destroy plugin benchmarker profiler
+    RAILS_COMMANDS = %w( rspec card generate destroy plugin benchmarker profiler
                      console server dbconsole application runner ).freeze
     CARD_TASK_COMMANDS = %w( card add add_remote refresh_machine_output
                      reset_cache reset_tmp update merge merge_all clean
@@ -115,5 +115,3 @@ else
     exit(1)
   end
 end
-
-raise "die"

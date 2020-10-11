@@ -46,7 +46,7 @@ blocks:
             # NEW SHARK DECK
             - be decko new shark
             - cd shark
-            - be decko seed -d
+            - be decko seed
 
             - cd .. # note: faster than making a separate job.
 

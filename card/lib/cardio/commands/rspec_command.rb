@@ -9,11 +9,11 @@ module Cardio
 
         @opts = RspecCommand::Parser.new.parse(ARGV).options
         @rspec_args, @cmd_args =
-          if ARGV.include?('--')
+          #if ARGV.include?('--')
             split_args(ARGV)
-          else
-            [[], ARGV]
-          end
+          #else
+            #[[], ARGV]
+          #end
       end
 
       def command

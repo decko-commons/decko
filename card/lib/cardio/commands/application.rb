@@ -1,19 +1,20 @@
 # -*- encoding : utf-8 -*-
 
-# no card generator new templates
-require "generators/card"
+command = (cmd=$0) =~ /\/([^\/]+)$/ ? $1 : cmd
 
-if ARGV.first != "new"
-  ARGV[0] = "--help"
+if command != 'new'
+  require 'rails'
+
+  module Cardio
+    module Commands
+      class Application < ::Rails::Application
+      end
+    end
+  end
+
+  require "cardio/commands/#{command}_command"
 else
-  cmd = ARGV.shift
+  ARGV[0] = '--help'
+  require "cardio/commands"
 end
 
-#require "cardio/application"
-#Cardio::Application
-  #initializer before: :set_load_path do
-  #end
-#end
-
-require "cardio/commands"
-Cardio::Commands.run_new

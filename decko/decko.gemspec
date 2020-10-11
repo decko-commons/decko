@@ -9,7 +9,7 @@ DeckoGem.gem "decko" do |s, d|
 
   s.files = Dir["{db,lib,rails,public,set}/**/*"]
 
-  s.bindir = "bin"
+  s.bindir = "exe"
   s.executables = ["decko"]
   s.add_runtime_dependency "card", d.card_version
 end
