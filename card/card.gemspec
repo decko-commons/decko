@@ -12,7 +12,7 @@ DeckoGem.gem "card" do |s, d|
     "events, and rules to create rich structures."
 
   s.files = Dir["VERSION", "README.rdoc", "LICENSE", "GPL", ".yardopts",
-                "{config,db,lib,mod}/**/*"]
+                "{exe,config,db,lib,mod}/**/*"]
 
   s.bindir        = "exe"
   s.executables   = ["card"]

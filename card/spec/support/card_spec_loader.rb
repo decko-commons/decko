@@ -12,6 +12,7 @@ class CardSpecLoader
           raise Card::Error, "No RAILS_ROOT given. Can't load environment."
         end
         require File.join ENV["RAILS_ROOT"], "config/environment"
+        Card
         load_shared_examples
         require File.expand_path("../simplecov_helper.rb", __FILE__)
         require File.expand_path("../../../db/test_seed.rb", __FILE__)

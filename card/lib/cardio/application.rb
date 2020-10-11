@@ -18,7 +18,6 @@ module Cardio
 
       #ActiveSupport.run_load_hooks(:before_configuration)
       #ActiveSupport.run_load_hooks(:load_active_record)
-      ActiveSupport.run_load_hooks(:before_card)
     end
 
     ENVCONF = "lib/card/config/environments"
@@ -40,6 +39,7 @@ module Cardio
     end
 
     initializer :connect_on_load, after: :load_active_suport do
+      ActiveSupport.run_load_hooks(:before_card)
       ActiveSupport.on_load(:active_record) do
         Cardio.connect_on_load
         ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
