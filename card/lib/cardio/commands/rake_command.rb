@@ -1,10 +1,8 @@
-require File.expand_path("../command", __FILE__)
-# require "pry"
-require "cardio/commands/command"
+require "cardio/commands/card_command"
 
 module Cardio
   module Commands
-    class RakeCommand < Command
+    class RakeCommand < CardCommand
       def initialize rake_task, args={}
         @task = rake_task
         opts = {}
