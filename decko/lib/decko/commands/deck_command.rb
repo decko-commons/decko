@@ -2,7 +2,7 @@
 
 module Decko
   module Commands
-    class Command
+    class DeckCommand < CardCommand
       def run
         puts command
         exit_with_child_status command

@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require "optparse"
-require 'cardio/commands/command/parser'
+require 'cardio/commands/card_command/parser'
 
 module Cardio
   module Commands
-    class RspecCommand < Command
-      class Parser < Command::Parser
+    class RspecCommand < CardCommand
+      class Parser < CardCommand::Parser
         RSPEC_PATH_MESSAGE = <<-EOT
 
             {cmdname.upcase} ARGS

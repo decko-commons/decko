@@ -67,6 +67,8 @@ ARGV.unshift 'card' if ARGV.first == '-T'
 command = ARGV.first
 command = Cardio::Commands::ALIAS[command] || command
 if Cardio::Commands.supported_rails_command?(command)
+  require "cardio/commands/application"
+
   ENV["PRY_RESCUE_RAILS"] = "1" if ARGV.delete("--rescue")
 
   # without this, the card generators don't list with: card g --help

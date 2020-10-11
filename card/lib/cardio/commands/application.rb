@@ -3,16 +3,20 @@
 command = (cmd=$0) =~ /\/([^\/]+)$/ ? $1 : cmd
 
 if command != 'new'
-  require 'rails'
-
   module Cardio
     module Commands
+      require 'rails'
+
       class Application < ::Rails::Application
       end
     end
   end
 
-  require "cardio/commands/#{command}_command"
+  PATH_ALIAS = { 'cardio' => 'card', 'decko' => 'deck' }
+
+  command = PATH_ALIAS[command] unless PATH_ALIAS[command].nil?
+  base = (command == 'deck') ? 'decko' : 'cardio'
+  require "#{base}/commands/#{command}_command"
 else
   ARGV[0] = '--help'
   require "cardio/commands"

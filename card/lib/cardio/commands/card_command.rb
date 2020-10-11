@@ -2,7 +2,7 @@
 
 module Cardio
   module Commands
-    class Command
+    class CardCommand
       def run
         exit_with_child_status command
       end

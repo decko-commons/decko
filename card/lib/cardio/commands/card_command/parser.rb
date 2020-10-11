@@ -3,7 +3,7 @@ require "optparse"
 
 module Cardio
   module Commands
-    class Command
+    class CardCommand
       class Parser
         USAGE_MESSAGE = <<-EOT
             card new

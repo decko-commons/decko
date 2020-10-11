@@ -4,7 +4,8 @@ require File.expand_path("../support/card_spec_loader.rb", __FILE__)
 CardSpecLoader.init
 
 require "rr"
-#require "cardio/commands/application"
+require "cardio/commands/application.rb"
+#require "cardio/commands/rspec_command.rb"
 
 CardSpecLoader.prefork do
   CARD_TEST_SEED_PATH = File.expand_path("../../db/seed/test/fixtures", __FILE__)

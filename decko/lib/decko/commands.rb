@@ -79,6 +79,8 @@ ARGV.unshift 'decko' if ARGV.first == '-T'
 command = ARGV.first
 command = Decko::Commands::ALIAS[command] || command
 if Decko::Commands.supported_rails_command?(command)
+  require "decko/commands/application"
+
   ENV["PRY_RESCUE_RAILS"] = "1" if ARGV.delete("--rescue")
 
   # without this, the card generators don't list with: decko g --help

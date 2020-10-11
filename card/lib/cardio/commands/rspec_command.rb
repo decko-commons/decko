@@ -1,9 +1,9 @@
 
-require 'cardio/commands/command'
+require 'cardio/commands/card_command'
 
 module Cardio
   module Commands
-    class RspecCommand < Command
+    class RspecCommand < CardCommand
       def initialize args
         require "rspec/core"
 
