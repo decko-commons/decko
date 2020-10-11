@@ -176,9 +176,6 @@ module Cardio
       end
       ActiveSupport.on_load(:after_initialize) do
       end
-      ActiveSupport.on_load(:after_application_record) do
-        #ActiveSupport.run_load_hooks :initialize, self
-      end
     end
 
     def add_path path, options={}

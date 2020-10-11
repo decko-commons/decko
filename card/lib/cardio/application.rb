@@ -1,11 +1,9 @@
 # -*- encoding : utf-8 -*-
 
-require 'rails'
-
 Bundler.require :default, *Rails.groups if defined?(Bundler)
 
 module Cardio
-  class Application < Rails::Application
+  class Application < ::Rails::Application
 
     initializer before: :set_autoload_paths do
       Cardio.autoload_paths
@@ -13,11 +11,8 @@ module Cardio
 
     initializer before: :set_load_path do
       Cardio.default_configs
-      #Rails.autoloaders.log!
-     # Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
 
-      #ActiveSupport.run_load_hooks(:before_configuration)
-      #ActiveSupport.run_load_hooks(:load_active_record)
+      #Rails.autoloaders.log!
     end
 
     ENVCONF = "lib/card/config/environments"
@@ -31,6 +26,7 @@ module Cardio
     end
 
     initializer before: :load_environment_config do
+      Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
       path = File.join(Cardio.gem_root, ENVCONF, "#{Rails.env}.rb")
       paths.add ENVCONF, with: path, glob: "#{Rails.env}.rb"
       paths[ENVCONF].existent.each do |environment|
