@@ -22,14 +22,14 @@ end
 
 def mod_dir new_mod=nil
   mod_name = new_mod || mod
-  dir = Mod.dirs.path(mod_name) || (mod_name.to_sym == :test && "test")
+  dir = Cardio::Mod.dirs.path(mod_name) || (mod_name.to_sym == :test && "test")
 
   raise Error, "can't find mod \"#{mod_name}\"" unless dir
   dir
 end
 
 def files_base_dir
-  dir = bucket ? bucket_config[:subdirectory] : Card.paths["files"].existent.first
+  dir = bucket ? bucket_config[:subdirectory] : Cardio.paths["files"].existent.first
   dir || files_base_dir_configuration_error
 end
 
