@@ -8,7 +8,7 @@ basket :warnings
 add_to_basket :warnings, :no_email_delivery
 
 def no_email_delivery?
-  Card.config.action_mailer.perform_deliveries == false
+  Cardio.config.action_mailer.perform_deliveries == false
 end
 
 def clean_html?
