@@ -1,15 +1,15 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Migration::Import do
-  let(:path) { Card::Migration.data_path }
-  let(:importer) { Card::Migration::Import.new path }
+describe Cardio::Migration::Import do
+  let(:path) { Cardio::Migration.data_path }
+  let(:importer) { Cardio::Migration::Import.new path }
 
   def card_meta_path
-    Card::Migration::Import::ImportData.new(path).instance_variable_get("@path")
+    Cardio::Migration::Import::ImportData.new(path).instance_variable_get("@path")
   end
 
   def card_content_dir
-    Card::Migration::Import::ImportData.new(path).instance_variable_get("@card_content_dir")
+    Cardio::Migration::Import::ImportData.new(path).instance_variable_get("@card_content_dir")
   end
 
   def meta_data
