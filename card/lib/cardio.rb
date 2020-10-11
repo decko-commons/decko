@@ -24,7 +24,6 @@ module Cardio
       Rails.root
     end
 
-    include RailsConfigMethods
     def application
      Rails.application
     end

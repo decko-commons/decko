@@ -44,7 +44,7 @@ class Card
         @persistent_cache =
           case
           when ENV["NO_RAILS_CACHE"]          then false
-          when Card.config.persistent_cache then Card.cache
+          when Card.config.persistent_cache then Cardio.cache
           else                                     false
           end
       end
