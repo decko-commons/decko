@@ -36,20 +36,24 @@ blocks:
           - sem-service start mysql
           - git submodule update card/db/seed
 
+          # status before starting
+          - sem-service status mysql
+          - mysql --host=0.0.0.0 -uroot -e "show databases"
+
       jobs:
         - name: New Shark and Monkey Decks
           commands:
             # NEW SHARK DECK
             - be decko new shark
             - cd shark
-            - be decko seed
+            - be card seed
 
             - cd .. # note: faster than making a separate job.
 
             # NEW MONKEY DECK
             - be decko new monkey --monkey
             - cd monkey
-            - be decko seed
+            - be card seed
 
   - name: Unit Tests
     task:
@@ -64,7 +68,7 @@ blocks:
           commands:
             - be decko new platypus --platypus
             - cd platypus
-            - be decko seed --test
+            - be card seed --test
             - be decko rspec
 
   - name: Integration Tests
@@ -76,7 +80,7 @@ blocks:
           - cache restore bundle-gems-$(checksum Gemfile.lock)
           - be decko new platypus --platypus
           - cd platypus
-          - be decko seed --test
+          - be card seed --test
 
       jobs:
         - name: Cypress

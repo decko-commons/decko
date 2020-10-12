@@ -240,7 +240,7 @@ module CarrierWave
     end
 
     def public_path
-      File.join Cardio.paths["public"].existent.first, url
+      File.join Card.paths["public"].existent.first, url
     end
 
     def cache_dir
