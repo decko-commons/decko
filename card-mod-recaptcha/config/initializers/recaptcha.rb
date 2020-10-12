@@ -18,11 +18,11 @@ module RecaptchaCard
   class << self
     def load_recaptcha_config setting
       setting = "recaptcha_#{setting}".to_sym
-      Cardio.config.send "#{setting}=", recaptcha_setting_value(setting)
+      Card.config.send "#{setting}=", recaptcha_setting_value(setting)
     end
 
     def using_defaults?
-      Cardio.config.recaptcha_site_key == @defaults[:recaptcha_site_key]
+      Card.config.recaptcha_site_key == @defaults[:recaptcha_site_key]
     end
 
     # card config overrides application.rb config overrides default
@@ -34,7 +34,7 @@ module RecaptchaCard
     end
 
     def config_value setting
-      Cardio.config.send setting
+      Card.config.send setting
     end
 
     def card_value setting

@@ -150,7 +150,7 @@ end
 
 format :css do
   def contextualize_path relative_path
-    if Card.config.file_storage == :local
+    if Cardio.config.file_storage == :local
       # absolute paths lead to invalid assets path in css for cukes
       card_path relative_path
     else

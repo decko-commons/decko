@@ -96,7 +96,7 @@ def deny_because why
 end
 
 def permitted? action
-  return false if Card.config.read_only # :read does not call #permit
+  return false if Cardio.config.read_only # :read does not call #permit
   return true if Auth.always_ok?
 
   Auth.as_card.among? who_can(action)
@@ -104,7 +104,7 @@ end
 
 def permit action, verb=nil
   # not called by ok_to_read
-  if Card.config.read_only
+  if Cardio.config.read_only
     deny_because "Currently in read-only mode"
     return false
   end

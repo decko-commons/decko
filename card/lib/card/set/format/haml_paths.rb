@@ -49,7 +49,7 @@ class Card
         TMPSET_REGEXP = %r{(?<carddir>/card)/tmp(sets)?/set/mod\d{3}-(?<modname>[^/]+)/}
 
         def deep_source source
-          return source unless Cardio.config.load_strategy == :tmp_files
+          return source unless Card.config.load_strategy == :tmp_files
 
           source&.gsub TMPSET_REGEXP do
             match = Regexp.last_match
