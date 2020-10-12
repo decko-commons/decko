@@ -23,8 +23,8 @@ module Cardio
           @command = PATH_ALIAS[@command] unless PATH_ALIAS[@command].nil?
           case @command
             when 'deck'; 'decko'
-            when 'card'; 'cardio'
-            else         @command
+            #when 'card'; 
+            else         'cardio'
             end
         end
       end
