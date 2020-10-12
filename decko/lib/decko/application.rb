@@ -54,7 +54,7 @@ module Decko
       config.filter_parameters += [:password]
 
       # Rails.autoloaders.log!
-      Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
+      Rails.autoloaders.main&.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
       # paths configuration
 
       paths.add "files"

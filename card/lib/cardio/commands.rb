@@ -12,7 +12,7 @@ end
 module Cardio
   module Commands
 
-    RAILS_COMMANDS = %w( rspec card generate destroy plugin benchmarker profiler
+    RAILS_COMMANDS = %w( generate destroy plugin benchmarker profiler
                      console server dbconsole application runner ).freeze
     CARD_TASK_COMMANDS = %w( card add add_remote refresh_machine_output
                      reset_cache reset_tmp update merge merge_all clean
@@ -82,9 +82,9 @@ else
   when "--version", "-v"
     puts "Card #{Cardio::Version.release}"
   when 'rspec'
-    Commands.run_rspec
+    Cardio::Commands.run_rspec
   when *Cardio::Commands::CARD_TASK_COMMANDS
-    Commands.run_card_task command
+    Cardio::Commands.run_card_task command
   else
     puts "Error: Command (#{command}) not recognized" unless command.in?(["-h", "--help"])
     puts <<-EOT
