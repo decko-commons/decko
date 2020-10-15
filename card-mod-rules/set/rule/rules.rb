@@ -55,24 +55,11 @@ end
 
 # ~~~~~~~~~~ determine the set options to which a user can apply the rule.
 def set_options
-  candidates = set_prototype.set_names
-  first = first_set_option_index candidates
-  tally = { existing: 0, options: [] }
-  candidates[first..-1].each do |set_name|
-    tally_set_option set_name, tally
-  end
-  tally[:options]
-end
-
-def tally_set_option set_name, tally
-  state =
-    if Card.exists?("#{set_name}+#{rule_user_setting_name}")
-      tally[:existing] += 1
-      tally[:existing] == 1 ? :current : :overwritten
-    else
-      tally[:existing] < 1 ? :enabled : :disabled
+  @set_options ||= [].tap do |set_options|
+    set_option_candidates.each do |set_name|
+      set_options << [set_name, state_of_set(set_name)]
     end
-  tally[:options] << [set_name, state]
+  end
 end
 
 # the narrowest rule should be the one attached to the set being viewed.
@@ -89,4 +76,34 @@ def set_prototype
   else
     trunk.prototype
   end
+end
+
+private
+
+def set_option_candidates
+  candidates = set_prototype.set_names
+  first = first_set_option_index candidates
+  candidates[first..-1]
+end
+
+def state_of_set set_name
+  @sets_with_existing_rules ||= 0
+  if rule_for_set? set_name
+    @sets_with_existing_rules += 1
+    state_of_existing_set
+  else
+    state_of_nonexisting_set
+  end
+end
+
+def state_of_existing_set
+  @sets_with_existing_rules == 1 ? :current : :overwritten
+end
+
+def state_of_nonexisting_set
+  @sets_with_existing_rules == 1 ? :current : :overwritten
+end
+
+def rule_for_set? set_name
+  Card.exists?("#{set_name}+#{rule_user_setting_name}")
 end
