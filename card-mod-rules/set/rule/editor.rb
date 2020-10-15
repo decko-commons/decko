@@ -96,16 +96,18 @@ format :html do
   private
 
   def find_existing_rule_card
-    # self.card is a POTENTIAL rule; it quacks like a rule but may or may not
-    # exist.
-    # This generates a prototypical member of the POTENTIAL rule's set
-    # and returns that member's ACTUAL rule for the POTENTIAL rule's setting
     if card.new_card?
-      if (setting = card.right)
-        card.set_prototype.rule_card setting.codename, user: card.rule_user
-      end
+      return unless (setting = card.right)
+      existing_rule_from_prototype setting
     else
       card
     end
+  end
+
+  # self.card is a POTENTIAL rule; it quacks like a rule but may or may not exist.
+  # This generates a prototypical member of the POTENTIAL rule's set
+  # and returns that member's ACTUAL rule for the POTENTIAL rule's setting
+  def existing_rule_from_prototype setting
+    card.set_prototype.rule_card setting.codename, user: card.rule_user
   end
 end
