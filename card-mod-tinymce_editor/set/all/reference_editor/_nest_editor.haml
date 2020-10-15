@@ -7,7 +7,7 @@
             +
         = text_field_tag "nest_name", snippet.name, class: "form-control _nest-name",
                          "data-left-name" => card.name,
-                         "data-left-type" => left_type_for_nest_editor_set_selection,
+                         "data-left-type" => card.left_type_for_nest_editor_set_selection,
                          placeholder: "Card name"
     .col-3
       = check_box_tag :field, "field", snippet.field?,
