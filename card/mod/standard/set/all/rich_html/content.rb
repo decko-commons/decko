@@ -140,16 +140,13 @@ format :html do
   end
 
   def short_content_fields
-    when_rendering_short_content_fields do |num_fields|
-      "#{num_fields} #{'field'.pluralize num_fields}"
+    with_short_content_fields do |num_fields|
+      "#{num_fields} #{'field'.pluralize num_fields}" if num_fields.positive?
     end
   end
 
-  def when_rendering_short_content_fields
-    return unless voo.structure || card.structure
-    return unless (num_fields = nested_field_names.size)&.positive?
-
-    yield num_fields
+  def with_short_content_fields
+    yield nested_field_names.size if voo.structure || card.structure
   end
 
   def short_content_from_core
