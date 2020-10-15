@@ -31,8 +31,8 @@ RSpec.describe Card::Set::Type::NestList do
           with_tag "input._nest-options", with: { value: "title" }
         end
         with_tag "li.pointer-li", with: { "data-index": "2" } do
-           with_tag "input._reference", with: { value: "C" }
-           with_tag "input._nest-options", with: { value: "type|content" }
+          with_tag "input._reference", with: { value: "C" }
+          with_tag "input._nest-options", with: { value: "type|content" }
         end
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe Card::Set::Type::NestList do
     card = Card.new name: "test", type_id: Card::NestListID,
                     content: "{{A|core}}\n{{+B|title}}\n{{C|type|content}}"
     expect_view(:content, card: card).to have_tag("div.content-view") do
-      with_text /Alpha.*/
+      with_text(/Alpha.*/)
       with_tag "span.card-title", with: { title: "test+B" }
       with_tag "a.cardtype", text: "RichText"
     end
