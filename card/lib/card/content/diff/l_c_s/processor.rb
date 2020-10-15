@@ -16,26 +16,26 @@ class Card
             @result = result
             prev_action = nil
             ::Diff::LCS.traverse_balanced(@words[:old], @words[:new]) do |word|
-              if prev_action
-                interpret_action prev_action, word
-              else
-                write_excludees
-              end
-              process_element word.old_element, word.new_element, word.action
+              process_word word, prev_action
               prev_action = word.action
             end
             write_all
             @result
           end
 
-          def interpret_action prev_action, word
-            if (prev_action == word.action) ||
-               (prev_action == "-" && word.action == "!") ||
-               (prev_action == "!" && word.action == "+")
-              handle_action word.action
-            else
-              write_all
-            end
+          def process_word word, prev_action
+            prev_action ? interpret_action(prev_action, word.action) : write_excludees
+            process_element word.old_element, word.new_element, word.action
+          end
+
+          def interpret_action prev_actn, word_actn
+            handle_action?(word_actn, prev_actn) ? handle_action(word_actn) : write_all
+          end
+
+          def handle_actn? word_action, prev_action
+            (prev_action == word_action) ||
+              (prev_action == "-" && word_action == "!") ||
+              (prev_action == "!" && word_action == "+")
           end
 
           def handle_action action
