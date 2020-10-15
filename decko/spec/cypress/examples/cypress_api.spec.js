@@ -65,7 +65,7 @@ context('Cypress.Cookies', () => {
     // now any cookie with the name 'session_id' will
     // not be cleared before each new test runs
     Cypress.Cookies.defaults({
-      whitelist: 'session_id',
+      preserve: 'session_id',
     })
   })
 })
@@ -84,7 +84,7 @@ context('Cypress.Server', () => {
     Cypress.Server.defaults({
       delay: 0,
       force404: false,
-      whitelist (xhr) {
+      preserve (xhr) {
         // handle custom logic for whitelisting
       },
     })
