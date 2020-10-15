@@ -3,7 +3,7 @@ format :html do
     def initialize format, content, opts={}
       @format = format
       @div_table = opts.delete :div_table
-      initialize_header opts[:header], content
+      @header = initialize_header opts[:header], content
       @rows = content
       @opts = opts
       @format.add_class opts, :table
@@ -75,13 +75,15 @@ format :html do
       end
       @format.wrap_with elem, content_or_opts, opts, &block
     end
-    
+
     private
 
     def initialize_header header, content
-      return unless header
-
-      @header = header.is_a?(Array) ? header : content.shift
+      case header
+      when Array then header
+      when nil then nil
+      else content.shift
+      end
     end
   end
 

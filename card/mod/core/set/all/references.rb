@@ -83,8 +83,8 @@ end
 # { referee1_key: [referee1_id, referee1_type2],
 #   referee2_key...
 # }
-def interpret_reference ref_hash, referee_name, ref_type
-  with_normalized_referee referee_name do |referee_name, referee_key, referee_id|
+def interpret_reference ref_hash, raw_referee_name, ref_type
+  with_normalized_referee raw_referee_name do |referee_name, referee_key, referee_id|
     ref_hash[referee_key] ||= [referee_id]
     ref_hash[referee_key] << ref_type
     interpret_partial_references ref_hash, referee_name unless referee_id

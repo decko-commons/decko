@@ -147,8 +147,9 @@ format :html do
 
   def when_rendering_short_content_fields
     return unless voo.structure || card.structure
-    num_fields = nested_field_names.size
-    yield num_fields if num_fields.positive?
+    return unless (num_fields = nested_field_names.size)&.positive?
+
+    yield num_fields
   end
 
   def short_content_from_core

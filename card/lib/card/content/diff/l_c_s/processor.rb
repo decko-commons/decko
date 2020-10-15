@@ -24,23 +24,15 @@ class Card
           end
 
           def process_word word, prev_action
-            if prev_action
-              interpret_action prev_action, word.action
-            else
-              write_excludees
-            end
+            prev_action ? interpret_action(prev_action, word.action) : write_excludees
             process_element word.old_element, word.new_element, word.action
           end
 
-          def interpret_action prev_action, word_action
-            if special_action_handling? prev_action, word_action
-              handle_action word_action
-            else
-              write_all
-            end
+          def interpret_action prev_actn, word_actn
+            handle_action?(word_actn, prev_actn) ? handle_action(word_actn) : write_all
           end
 
-          def special_action_handling? prev_action, word_action
+          def handle_actn? word_action, prev_action
             (prev_action == word_action) ||
               (prev_action == "-" && word_action == "!") ||
               (prev_action == "!" && word_action == "+")
