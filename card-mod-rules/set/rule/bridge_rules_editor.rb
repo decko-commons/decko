@@ -21,7 +21,7 @@ format :html do
   def setting_link
     wrap_with :div, class: "ml-auto" do
       link_to_card card.rule_setting_name,
-                  " (#{card.rule_setting.count} #{card.rule_setting_title} rules)",
+                   " (#{card.rule_setting.count} #{card.rule_setting_title} rules)",
                    class: "text-muted"
     end
   end

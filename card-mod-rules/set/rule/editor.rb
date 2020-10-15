@@ -1,3 +1,16 @@
+def left_type_for_nest_editor_set_selection
+  return super unless is_template?
+
+  case Card.fetch_id rule_set_pattern_name
+  when TypeID
+    rule_set.anchor_name
+  when SelfID
+    rule_set.anchor.type_name
+  else
+    super
+  end
+end
+
 format :html do
   attr_accessor :rule_context
 
@@ -80,32 +93,18 @@ format :html do
     card.new_card? ? Card.quick_fetch(:all).name.key : card.rule_set_key
   end
 
-  def left_type_for_nest_editor_set_selection
-    return super unless card.is_template?
-
-    case Card.fetch_id(card.rule_set_pattern_name) # set_pattern_id
-    when TypeID
-      card.rule_set.anchor_name
-    when SelfID
-      card.rule_set.anchor.type_name
-    else
-      super
-    end
-  end
-
   private
 
   def find_existing_rule_card
-    # self.card is a POTENTIAL rule; it quacks like a rule but may or may not
-    # exist.
-    # This generates a prototypical member of the POTENTIAL rule's set
-    # and returns that member's ACTUAL rule for the POTENTIAL rule's setting
-    if card.new_card?
-      if (setting = card.right)
-        card.set_prototype.rule_card setting.codename, user: card.rule_user
-      end
-    else
-      card
-    end
+    card.new_card? ? existing_rule_from_prototype : card
+  end
+
+  # self.card is a POTENTIAL rule; it quacks like a rule but may or may not exist.
+  # This generates a prototypical member of the POTENTIAL rule's set
+  # and returns that member's ACTUAL rule for the POTENTIAL rule's setting
+  def existing_rule_from_prototype
+    return unless (setting = card.right)
+
+    card.set_prototype.rule_card setting.codename, user: card.rule_user
   end
 end

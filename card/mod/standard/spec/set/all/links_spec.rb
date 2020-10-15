@@ -38,12 +38,12 @@ describe Card::Set::All::Links do
 
     describe "#link_to_view" do
       it "adds view param to path" do
-        expect(link_to_view(:listing)).to eq("/Home?view=listing")
+        expect(link_to_view(:bar)).to eq("/Home?view=bar")
       end
 
       it "adds handles text and opts" do
-        expect(link_to_view(:listing, "house", path: { format: :txt }))
-          .to eq("house[/Home.txt?view=listing]")
+        expect(link_to_view(:box, "house", path: { format: :txt }))
+          .to eq("house[/Home.txt?view=box]")
       end
     end
 
@@ -108,8 +108,8 @@ describe Card::Set::All::Links do
 
     describe "#link_to_view" do
       it "adds remote handling and nofollow" do
-        assert_view_select(link_to_view("listing", "list me"),
-                           'a.slotter[href="/Home?view=listing"]' \
+        assert_view_select(link_to_view("bar", "list me"),
+                           'a[href="/Home?view=bar"]' \
                            "[data-remote=true]" \
                            "[rel=nofollow]") { "list me" }
       end

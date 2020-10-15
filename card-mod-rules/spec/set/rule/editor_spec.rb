@@ -9,7 +9,7 @@ RSpec.describe Card::Set::Rule::Editor do
 
   describe "#left_type_for_nest_editor_set_selection" do
     def type_for_set_structure set_name
-      Card.fetch("#{set_name}+*structure").format.left_type_for_nest_editor_set_selection
+      Card.fetch("#{set_name}+*structure").left_type_for_nest_editor_set_selection
     end
 
     it "finds anchor name for type structure rules" do
