@@ -13,7 +13,7 @@ format :html do
 
   def visible_cardtype_groups
     hash = ::Card::Set::Self::Cardtype::GROUP.slice("Text")
-    hash["Organize"] = ["Search"]
+    hash["Organize"] = ["Search", "Nest list"]
     hash
   end
 end

@@ -44,14 +44,17 @@ class Card
       end
 
       def delete_code_card name
-        if name.is_a? Symbol
-          return unless Card::Codename.exist? name
-        end
-        return unless Card.exist?(name)
+        return unless delete_code_card? name
 
         card = Card[name]
         card.update! codename: nil
         card.delete!
+      end
+
+      def delete_code_card? name
+        return false if name.is_a?(Symbol) && !Codename.exist?(name)
+
+        Card.exist? name
       end
 
       # create if card doesn't exist
