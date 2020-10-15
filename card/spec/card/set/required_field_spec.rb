@@ -6,7 +6,7 @@ RSpec.describe Card::Set::RequiredField, as_bot: true do
       card = Card.new name: "reader"
       card.set_with { require_field :read }
 
-      expect { card.save! }.to raise_error, /Read required/
+      expect { card.save! }.to raise_error(/Read required/)
     end
 
     it "can be saved with required field" do
@@ -61,8 +61,7 @@ RSpec.describe Card::Set::RequiredField, as_bot: true do
     end
 
     it "can be deleted with parent" do
-      expect { card_with_required_field.delete! }
-        .not_to raise_error ActiveRecord::RecordInvalid
+      expect { card_with_required_field.delete! }.not_to raise_error
     end
   end
 end
