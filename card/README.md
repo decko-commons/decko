@@ -19,7 +19,7 @@ Yes, if:
     Decko.org](http://decko.org)**.
 *   **You're looking at this page from a docs site** (ie, NOT GitHub) so you
     can use our links to navigate code. **Links look funny? [Try
-    rubydocs.info](http://rubydoc.info/gems/card).**
+    rubydocs.info](http://docs.decko.org/gems/card).**
 
 ### Decko: an *application* or a *development framework*?
 
