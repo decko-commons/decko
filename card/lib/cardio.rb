@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 require "active_support/core_ext/numeric/time"
-djar = "delayed_job_active_record"
-require djar if Gem::Specification.find_all_by_name(djar).any?
 require "cardio/schema"
 require "cardio/utils"
 require "cardio/modfiles"
