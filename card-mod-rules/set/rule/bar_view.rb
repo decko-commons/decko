@@ -61,11 +61,7 @@ format :html do
   def bar_title
     return super() if voo.show? :full_name
 
-    if existing_rule_card && voo.show?(:toggle)
-      link_to_view bar_title_toggle_view, card.rule_setting_title
-    else
-      card.rule_setting_title
-    end
+    linking_to_existing_rule { card.rule_setting_title }
   end
 
   # LOCALIZE
@@ -84,5 +80,13 @@ format :html do
   def rule_set_link existing_rule
     count = link_to_card [card.rule_set, :by_name], card.rule_set.count
     "#{link_to_card card.rule_set, existing_rule.trunk&.label&.downcase} (#{count})"
+  end
+
+  private
+
+  def linking_to_existing_rule
+    return yield unless existing_rule_card && voo.show?(:toggle)
+
+    link_to_view bar_title_toggle_view, yield
   end
 end
