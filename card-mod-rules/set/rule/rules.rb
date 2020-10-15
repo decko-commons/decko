@@ -87,13 +87,20 @@ def set_option_candidates
 end
 
 def state_of_set set_name
-  @sets_with_existing_rules ||= 0
   if rule_for_set? set_name
     @sets_with_existing_rules += 1
-    @sets_with_existing_rules == 1 ? :current : :overwritten
+    state_of_existing_set
   else
-    @sets_with_existing_rules < 1 ? :enabled : :disabled
+    state_of_nonexisting_set
   end
+end
+
+def state_of_existing_set
+  @sets_with_existing_rules == 1 ? :current : :overwritten
+end
+
+def state_of_nonexisting_set
+  @sets_with_existing_rules == 1 ? :current : :overwritten
 end
 
 def rule_for_set? set_name
