@@ -87,6 +87,7 @@ def set_option_candidates
 end
 
 def state_of_set set_name
+  @sets_with_existing_rules ||= 0
   if rule_for_set? set_name
     @sets_with_existing_rules += 1
     state_of_existing_set

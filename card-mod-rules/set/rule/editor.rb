@@ -1,3 +1,16 @@
+def left_type_for_nest_editor_set_selection
+  return super unless is_template?
+
+  case Card.fetch_id rule_set_pattern_name
+  when TypeID
+    rule_set.anchor_name
+  when SelfID
+    rule_set.anchor.type_name
+  else
+    super
+  end
+end
+
 format :html do
   attr_accessor :rule_context
 
@@ -78,19 +91,6 @@ format :html do
 
   def current_set_key
     card.new_card? ? Card.quick_fetch(:all).name.key : card.rule_set_key
-  end
-
-  def left_type_for_nest_editor_set_selection
-    return super unless card.is_template?
-
-    case Card.fetch_id(card.rule_set_pattern_name) # set_pattern_id
-    when TypeID
-      card.rule_set.anchor_name
-    when SelfID
-      card.rule_set.anchor.type_name
-    else
-      super
-    end
   end
 
   private
