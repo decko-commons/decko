@@ -32,7 +32,7 @@ class Card
             handle_action?(word_actn, prev_actn) ? handle_action(word_actn) : write_all
           end
 
-          def handle_actn? word_action, prev_action
+          def handle_action? word_action, prev_action
             (prev_action == word_action) ||
               (prev_action == "-" && word_action == "!") ||
               (prev_action == "!" && word_action == "+")
