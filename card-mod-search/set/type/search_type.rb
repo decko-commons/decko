@@ -1,5 +1,5 @@
 include_set Type::Json
-include_set Abstract::WqlSearch
+include_set Abstract::CqlSearch
 
 format do
   view :core, cache: :never do

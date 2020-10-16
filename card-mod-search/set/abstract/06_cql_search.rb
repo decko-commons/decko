@@ -65,13 +65,12 @@ end
 def parse_json_query query
   empty_query_error! if query.empty?
   JSON.parse query
-rescue
+rescue JSON::ParserError
   raise Error::BadQuery, "Invalid JSON search query: #{query}"
 end
 
 def empty_query_error!
-  raise Error::BadQuery,
-        "Error in card '#{name}':can't run search with empty content"
+  raise Error::BadQuery, "can't run search with empty content"
 end
 
 def item_type
@@ -86,9 +85,7 @@ format do
   end
 
   def card_content_limit
-    card.cql_hash[:limit]
-  rescue
-    nil
+    card.cql_hash&.dig :limit
   end
 
   def item_view_from_query
