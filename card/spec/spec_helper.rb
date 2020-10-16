@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
-
+$LOAD_PATH.unshift File.expand_path(
+  "../../../card-mod-platypus/vendor/capybara-select2/lib", __FILE__
+)
 require "capybara-select2"
 
 require File.expand_path("../support/card_spec_loader.rb", __FILE__)
