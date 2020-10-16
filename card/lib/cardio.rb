@@ -17,9 +17,23 @@ module Cardio
   extend Delaying
   CARD_GEM_ROOT = File.expand_path("..", __dir__)
 
-  mattr_reader :paths, :config
+  module CardClassMethods
+    def application
+      Rails.application
+    end
 
-  class << self
+    def config
+      application.config
+    end
+
+    def paths
+      application.paths
+    end
+
+    def root
+      config.root
+    end
+
     def card_defined?
       const_defined? "Card"
     end
@@ -29,10 +43,13 @@ module Cardio
     rescue
       false
     end
+  end
 
-    def load_card!
-      require "card"
-      ActiveSupport.run_load_hooks :after_card
+  class << self
+    include CardClassMethods
+
+    def gem_root
+      CARD_GEM_ROOT
     end
 
     def cache
@@ -103,9 +120,7 @@ module Cardio
       }
     end
 
-    def set_config config
-      @@config = config
-
+    def set_config
       add_lib_dirs_to_autoload_paths config
 
       default_configs.each_pair do |setting, value|
@@ -145,8 +160,7 @@ module Cardio
       config.send("#{setting}=", *value) unless config.respond_to? setting
     end
 
-    def set_paths paths
-      @@paths = paths
+    def set_paths
       %w[set set_pattern].each do |path|
         tmppath = "tmp/#{path}"
         add_path tmppath, root: root unless paths[tmppath]&.existent
@@ -185,14 +199,6 @@ module Cardio
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
         paths[path_mark] << initializers_dir
       end
-    end
-
-    def root
-      @@config.root
-    end
-
-    def gem_root
-      CARD_GEM_ROOT
     end
 
     def add_path path, options={}
