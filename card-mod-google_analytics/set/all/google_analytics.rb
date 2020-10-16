@@ -2,7 +2,7 @@ require "staccato"
 
 mattr_accessor :server_side_tracking_formats
 
-self.server_side_tracking_formats = %i[css js]
+self.server_side_tracking_formats = %i[csv json]
 
 event :track_page, before: :show_page, when: :track_page? do
   tracker.pageview path: Env.controller.request&.path, host: Env.host, title: name
