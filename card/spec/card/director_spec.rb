@@ -364,7 +364,7 @@ RSpec.describe "Card::Director" do
       end
     end
 
-    xit "executes integrate phase when act card didn't change" do
+    it "executes integrate phase when act card didn't change" do
         @called_events = []
 
         def event_called ev
@@ -372,15 +372,11 @@ RSpec.describe "Card::Director" do
         end
 
         with_test_events do
-          test_event :validate, on: :update, for: "A" do
-            event_called "v"
-            abort :success
-          end
           test_event :integrate, on: :update do
             event_called "i"
           end
           Card["A"].update! subcards: { "+B" => "new content" }
-          expect(@called_events).to eq ["i"]
+          expect(@called_events).to eq(%w[i i])
         end
     end
   end
