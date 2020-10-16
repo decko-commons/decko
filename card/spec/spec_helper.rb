@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 $LOAD_PATH.unshift File.expand_path(
   "../../../card-mod-platypus/vendor/capybara-select2/lib", __FILE__
 )
