@@ -376,7 +376,7 @@ RSpec.describe "Card::Director" do
             event_called "i"
           end
           Card["A"].update! subcards: { "+B" => "new content" }
-          expect(@called_events).to eq ["i", "i"]
+          expect(@called_events).to eq(%w[i i])
         end
     end
   end
