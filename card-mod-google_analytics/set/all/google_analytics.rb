@@ -1,4 +1,3 @@
-
 format :html do
   def views_in_head
     super << :google_analytics_snippet
