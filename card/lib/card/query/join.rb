@@ -47,8 +47,7 @@ class Card
         if !@side.nil?
           @side.to_s.upcase
         else
-          in_or = from&.is_a?(Card::Query) && from.mods[:conj] == "or"
-          @side = in_or ? "LEFT" : nil
+          @side = inside_or? ? "LEFT" : nil
         end
       end
 
@@ -57,6 +56,10 @@ class Card
       end
 
       private
+
+      def inside_or?
+        from&.is_a?(Card::Query) && from.mods[:conj] == "or"
+      end
 
       # the options :to and :from can be translated into the full table/alias/field trio.
       #
