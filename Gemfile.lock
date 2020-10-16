@@ -28,6 +28,7 @@ PATH
       card (= 1.100.1)
     card-mod-bootstrap (0.10.1)
       card (= 1.100.1)
+      card-mod-bar_and_box (= 0.10.1)
       card-mod-edit (= 0.10.1)
     card-mod-carrierwave (0.10.1)
       card (= 1.100.1)
@@ -188,7 +189,7 @@ GEM
     activerecord (6.0.3.4)
       activemodel (= 6.0.3.4)
       activesupport (= 6.0.3.4)
-    activerecord-import (1.0.6)
+    activerecord-import (1.0.7)
       activerecord (>= 3.2)
     activestorage (6.0.3.4)
       actionpack (= 6.0.3.4)
@@ -582,4 +583,4 @@ DEPENDENCIES
   thin
 
 BUNDLED WITH
-   2.1.4
+   2.0.1
