@@ -31,6 +31,10 @@ module Decko
       load_task_dir ::Decko.gem_root
     end
 
+    initializer :set_autoload_paths, group: :all do
+      config.autoload_paths = Cardio.config.autoload_paths
+    end
+
     initializer before: :set_load_path do
       paths.add "app/controllers",  with: "rails/controllers", eager_load: true
       paths.add "gem-assets",       with: "rails/assets"

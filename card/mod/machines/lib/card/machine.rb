@@ -12,13 +12,13 @@ class Card
       private
 
       def refresh_script_and_style?
-        case Cardio.config.machine_refresh
+        case Card.config.machine_refresh
         when :eager    then true
         when :cautious then cautious_refresh?
         when :never    then false
         else
           raise Card::Error,
-                "unknown option for machine_refresh: #{Cardio.config.machine_refresh}"
+                "unknown option for machine_refresh: #{Card.config.machine_refresh}"
         end
       end
 

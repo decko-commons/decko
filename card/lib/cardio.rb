@@ -43,6 +43,10 @@ module Cardio
     rescue
       false
     end
+
+    def read_only?
+      !ENV["DECKO_READ_ONLY"].nil?
+    end
   end
 
   class << self
@@ -121,21 +125,21 @@ module Cardio
     end
 
     def set_config
-      add_lib_dirs_to_autoload_paths config
+      add_lib_dirs_to_autoload_paths
 
-      default_configs.each_pair do |setting, value|
-        set_default_value(config, setting, *value)
+      default_configs.each_pair do |setting, *value|
+        config.send("#{setting}=", *value) unless config.respond_to? setting
       end
     end
 
-    def add_lib_dirs_to_autoload_paths config
+    def add_lib_dirs_to_autoload_paths
       config.autoload_paths += Dir["#{gem_root}/lib"]
 
       # TODO: this should use each_mod_path, but it's not available when this is run
       # This means libs will not get autoloaded (and sets not watched) if the mod
       # dir location is overridden in config
-      [gem_root, root].each { |dir| autoload_and_watch config, "#{dir}/mod/*" }
-      gem_mod_specs.each_value { |spec| autoload_and_watch config, spec.full_gem_path }
+      [gem_root, root].each { |dir| autoload_and_watch "#{dir}/mod/*" }
+      gem_mod_specs.each_value { |spec| autoload_and_watch spec.full_gem_path }
 
       # the watchable_dirs are processes in
       # set_clear_dependencies_hook hook in the railties gem in finisher.rb
@@ -144,20 +148,9 @@ module Cardio
       config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
     end
 
-    def autoload_and_watch config, mod_path
+    def autoload_and_watch mod_path
       config.autoload_paths += Dir["#{mod_path}/lib"]
       config.watchable_dirs["#{mod_path}/set"] = [:rb]
-    end
-
-    def read_only?
-      !ENV["DECKO_READ_ONLY"].nil?
-    end
-
-    # In production mode set_config gets called twice.
-    # The second call overrides all deck config settings
-    # so don't change settings here if they already exist
-    def set_default_value config, setting, *value
-      config.send("#{setting}=", *value) unless config.respond_to? setting
     end
 
     def set_paths
