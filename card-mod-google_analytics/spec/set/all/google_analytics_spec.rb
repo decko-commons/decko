@@ -9,7 +9,7 @@ RSpec.describe Card::Set::All::GoogleAnalytics do
   describe "google_analytics_snippet" do
     it "handles vars" do
       expect(format_subject.render_google_analytics_snippet)
-        .to match(/#{Regexp.escape "ga('set', 'anonymizeIP', true)"}/)
+        .to match(/#{Regexp.escape "ga('set', 'anonymizeIp', true)"}/)
     end
   end
 end
