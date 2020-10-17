@@ -38,3 +38,12 @@ RSpec.describe Card::Set::Type::Css do
   #   end
   # end
 end
+
+# it_behaves_like "machine input",
+#                 name: "test_css",
+#                 type: :css,
+#                 content: "#box { display: block }",
+#                 machine: "style with css+*style",
+#                 out: "#box{display:block}\n",
+#                 changed_in: "#box { display: inline }",
+#                 changed_out: "#box{display:inline}\n"
