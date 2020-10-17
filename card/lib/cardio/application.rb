@@ -6,11 +6,8 @@ Bundler.require :default, *Rails.groups
 
 module Cardio
   class Application < Rails::Application
-warn "CARD LOAD #{__LINE__}" # check
     class << self
       def inherited base
-warn "C IBASE #{__LINE__} #{Rails::Engine.railtie_name}" # checko
-warn "C IBASE #{__LINE__} #{find_root(base.called_from)}" # checko
         add_lib_to_load_path!(find_root(base.called_from))
         ActiveSupport.run_load_hooks(:before_set_load_path, base.instance)
       end
@@ -18,15 +15,13 @@ warn "C IBASE #{__LINE__} #{find_root(base.called_from)}" # checko
 
     initializer :load_card_environment_config,
                 before: :bootstrap, group: :all do
-warn "CARD ENV #{__LINE__}" # checko
       Cardio.add_path "lib/card/config/environments", glob: "#{Rails.env}.rb"
       paths["lib/card/config/environments"].existent.each do |environment|
-warn "CARD ENV #{__LINE__} #{environment}"
         require environment
       end
     end
 
-=begin
+=begin # save copy of some stuff in decko, move some here
     initializer :set_load_path do
 warn "CARD #{__LINE__}"
       Cardio.set_config

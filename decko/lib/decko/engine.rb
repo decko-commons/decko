@@ -36,13 +36,14 @@ module Decko
     end
 
     initializer before: :set_load_path do
+      Rails.autoloaders.main.ignore(File.join(Decko.gem_root, "lib/rails/*-routes.rb"))
+
       paths.add "app/controllers",  with: "rails/controllers", eager_load: true
       paths.add "gem-assets",       with: "rails/assets"
 
       paths.add "config/routes.rb", with: "rails/engine-routes.rb"
       unless paths["config/routes.rb"].existent.present?
-        add_path paths, "config/routes.rb",
-                 with: "rails/application-routes.rb"
+        paths.add "config/routes.rb", with: "rails/application-routes.rb"
       end
     end
 
