@@ -2,7 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.mod "machine" do |s, _d|
+DeckoGem.mod "machines" do |s, _d|
   s.summary = "decko machines"
   s.description = ""
 end

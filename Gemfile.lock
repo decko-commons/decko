@@ -49,7 +49,7 @@ PATH
       card-mod-follow (= 0.10.1)
       card-mod-google_analytics (= 0.10.1)
       card-mod-history (= 0.10.1)
-      card-mod-machine (= 0.10.1)
+      card-mod-machines (= 0.10.1)
       card-mod-markdown (= 0.10.1)
       card-mod-prosemirror_editor (= 0.10.1)
       card-mod-recaptcha (= 0.10.1)
@@ -73,7 +73,7 @@ PATH
       staccato
     card-mod-history (0.10.1)
       card (= 1.100.1)
-    card-mod-machine (0.10.1)
+    card-mod-machines (0.10.1)
       card (= 1.100.1)
     card-mod-markdown (0.10.1)
       card (= 1.100.1)
