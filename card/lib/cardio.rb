@@ -55,6 +55,8 @@ module Cardio
         recaptcha_secret_key: nil,
         recaptcha_minimum_score: 0.5,
 
+        google_analytics_key: nil,
+
         override_host: nil,
         override_protocol: nil,
 
