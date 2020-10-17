@@ -69,7 +69,7 @@ PATH
       card-mod-carrierwave (= 0.10.1)
     card-mod-google_analytics (0.10.1)
       card (= 1.100.1)
-      staccato-rails
+      staccato
     card-mod-history (0.10.1)
       card (= 1.100.1)
     card-mod-markdown (0.10.1)
@@ -540,8 +540,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     staccato (0.5.3)
-    staccato-rails (0.1.0)
-      staccato (>= 0.0.2)
     systemu (2.6.5)
     temple (0.8.2)
     terminal-table (1.8.0)
