@@ -6,7 +6,7 @@ describe Card::Set::Type::Skin do
   let(:changed_css)            { "#box { display: inline }" }
   let(:compressed_changed_css) { "#box{display:inline}\n"   }
   let(:new_css)                { "#box{display: none }\n"   }
-  let(:compressed_new_css)     { "#box{display:none}\n"   }
+  let(:compressed_new_css)     { "#box{display:none}\n"     }
 
   it_behaves_like "machine input"  do
     let(:create_machine_input_card) do

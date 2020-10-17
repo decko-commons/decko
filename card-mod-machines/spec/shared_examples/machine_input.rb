@@ -1,10 +1,26 @@
 # -*- encoding : utf-8 -*-
 
-shared_examples_for "machine input" do
+shared_examples_for "machine input" do # |args|
   subject(:input) do
     myinput = create_machine_input_card
     myinput
   end
+  #
+  # let :create_machine_input_card do
+  #   Card.gimme! args[:name], type: args[:type], content: args[:content]
+  # end
+  #
+  # let :create_another_machine_input_card do
+  #   Card.gimme! "more #{args[:name]}", type: args[:type], content: args[:content]
+  # end
+  #
+  # let(:create_machine_card) do
+  #   Card.gimme! args[:machine], type: :pointer
+  # end
+  #
+  # let(:card_content) do
+  #   args.slice(:out, :changed_in, :changed_out).merge in: content
+  # end
 
   let!(:machine) do
     f = create_machine_card
@@ -12,6 +28,7 @@ shared_examples_for "machine input" do
     f.putty
     f
   end
+
   let(:more_input) do
     moreinput = create_another_machine_input_card
     moreinput
