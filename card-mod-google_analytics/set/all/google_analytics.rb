@@ -37,6 +37,6 @@ format :html do
   end
 
   def google_analytics_snippet_vars
-    { anonymizeIP: true }
+    { anonymizeIp: true }
   end
 end
