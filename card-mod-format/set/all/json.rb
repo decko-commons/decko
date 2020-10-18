@@ -22,7 +22,7 @@ format :json do
   def show view, args
     view ||= :molecule
     raw = render! view, args
-    raw.is_a? String ? raw : stringify(raw)
+    raw.is_a?(String) ? raw : stringify(raw)
   end
 
   def stringify raw
