@@ -45,7 +45,6 @@ format do
     opts[:path] = { card: { type: voo.type } }
   end
 
-
   view(:codename, compact: true) { card.codename.to_s }
   view(:id,       compact: true) { card.id            }
   view(:type,     compact: true) { card.type_name     }
