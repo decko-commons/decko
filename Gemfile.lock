@@ -75,6 +75,7 @@ PATH
       card (= 1.100.1)
     card-mod-machines (0.10.1)
       card (= 1.100.1)
+      card-mod-virtual (= 0.10.1)
     card-mod-markdown (0.10.1)
       card (= 1.100.1)
       kramdown
@@ -106,6 +107,8 @@ PATH
     card-mod-tinymce_editor (0.10.1)
       card (= 1.100.1)
       card-mod-edit (= 0.10.1)
+    card-mod-virtual (0.10.1)
+      card (= 1.100.1)
     cardname (0.10.1)
       activesupport (~> 6)
       htmlentities (~> 4.3)
