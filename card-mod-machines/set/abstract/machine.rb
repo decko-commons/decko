@@ -61,29 +61,57 @@ def before_engine
 end
 
 def engine_input
-  # TODO: replace with call of extended_item_cards
-  # traverse through all levels of pointers and
-  # collect all item cards as input
-  items = [self]
-  new_input = []
-  already_extended = {} # avoid loops
-  loop_limit = 5
-  until items.empty?
-    item = items.shift
-    next if item.trash || already_extended[item.id].to_i > loop_limit
-    if item.item_cards == [item] # no pointer card
-      new_input << item
-    else
-      # item_cards instantiates non-existing cards
-      # we don't want those
-      items.insert(0, item.item_cards.reject(&:unknown?))
-      items.flatten!
+  ei = EngineInput.new self
+  ei.process
+  ei.new_input
+end
 
-      new_input << item if item != self && item.known?
-      already_extended[item] = already_extended[item].to_i + 1
+# TODO: replace with call of extended_item_cards
+# traverse through all levels of pointers and
+# collect all item cards as input
+class EngineInput
+  attr_accessor :new_input
+
+  def initialize machine_card
+    @machine_card = machine_card
+    @items = [machine_card]
+    @new_input = []
+    @extended = {}
+    @loop_limit = 5
+  end
+
+  def process
+    each_valid_item do
+      input_item = simple_item? ? @item : pointer_item
+      new_input << input_item if input_item
     end
   end
-  new_input
+
+  def simple_item?
+    @item.item_cards == [@item] # no pointer card
+  end
+
+  def pointer_item
+    @items.insert 0, @item.item_cards.reject(&:unknown?)
+    @items.flatten!
+    record_item
+    @item if @item != @machine_card && @item.known?
+  end
+
+  def record_item
+    @extended[@item] = @extended[@item].to_i + 1
+  end
+
+  def each_valid_item
+    until @items.empty?
+      @item = @items.shift
+      yield unless invalid_item?
+    end
+  end
+
+  def invalid_item?
+    @item.trash || @extended[@item.id].to_i > @loop_limit
+  end
 end
 
 def engine input
@@ -191,5 +219,3 @@ def machine_output_path
   ensure_machine_output
   machine_output_card.file.path
 end
-
-

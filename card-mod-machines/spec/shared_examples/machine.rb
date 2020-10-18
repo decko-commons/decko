@@ -9,10 +9,10 @@ shared_examples_for "machine" do |args|
     end
 
     it "has +machine_input card" do
-      expect(machine.machine_input_card.real?).to be_truthy
+      expect(machine.machine_input_card).to be_real
     end
     it "has +machine_output card" do
-      expect(machine.machine_output_card.real?).to be_truthy
+      expect(machine.machine_output_card).to be_real
     end
     it "generates #{args[:that_produces]} file" do
       expect(machine.machine_output_path).to match(/\.#{filetype}$/)
@@ -131,18 +131,18 @@ shared_examples_for "pointer machine" do |args|
   end
 
   describe "+machine_output card" do
-    it 'creates #{args[:that_produces]} file with supplied content' do
+    it "creates #{args[:that_produces]} file with supplied content" do
       path = subject.machine_output_path
       expect(File.read(path)).to eq(card_content[:out])
     end
 
-    it 'updates #{args[:that_produces]} file if item is changed' do
+    it "updates #{args[:that_produces]} file if item is changed" do
       machine_input_card.putty content: card_content[:changed_in]
       changed_path = subject.machine_output_path
       expect(File.read(changed_path)).to eq(card_content[:changed_out])
     end
 
-    it 'updates #{args[:that_produces]} file if item is added' do
+    it "updates #{args[:that_produces]} file if item is added" do
       Card::Auth.as_bot do
         ca = Card.gimme! "pointer item", type: Card::SkinID, content: ""
         subject.items = [ca]
@@ -154,7 +154,7 @@ shared_examples_for "pointer machine" do |args|
     end
 
     context "a non-existent card was added as item and now created" do
-      it 'updates #{args[:that_produces]} file' do
+      it "updates #{args[:that_produces]} file" do
         Card::Auth.as_bot do
           subject.content = "[[non-existent input]]"
           subject.save!

@@ -11,7 +11,6 @@ RSpec.describe Card::Set::Abstract::Machine do
   end
   
   example "machine config" do
-    card = Card["A"].with_set Card::Set::Abstract::Machine
-    expect(card).to respond_to :engine_input
+    expect(card_subject).to respond_to :engine_input
   end
 end
