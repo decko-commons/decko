@@ -22,7 +22,10 @@ format :json do
   def show view, args
     view ||= :molecule
     raw = render! view, args
-    return raw if raw.is_a? String
+    raw.is_a?(String) ? raw : stringify(raw)
+  end
+
+  def stringify raw
     method = params[:compress] ? :generate : :pretty_generate
     JSON.send method, raw
   end
