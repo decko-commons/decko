@@ -161,31 +161,7 @@ en:
           label_setfollow_typeplusright_cards: all "+%{right}" on "%{type}s"
         :08_self:
           label_set_self_card: The card "%{name}"
-    :basic_formats:
-      set:
-        all:
-          base:
-            too_deep: Man, you're too deep.  (Too many levels of nests at a time)
-    :basic_types:
-      set:
-        abstract:
-          code_file:
-            exception_not_set_path: "not a set path: %{path}"
-            content_in_file: Content is stored in file and can't be edited.
-        all:
-          all_css:
-            comment_style_card: Style Card
-            comment_missing_style_card: MISSING Style Card
-          file:
-            file_not_supported: File rendering of this card not yet supported
-        type:
-          pointer:
-            label_select: Select
-            #description: description
-            comment_style_group: STYLE GROUP
-            search_opt_names_ptr: option names for pointer
-          json:
-            invalid_json: invalid json
+
 
     #:machines: # No language-specific items known to be present in Ruby files
     :settings:
@@ -213,54 +189,6 @@ en:
         type:
           setting:
             search_all_setting: all setting cards
-    :email:
-      set:
-        all:
-          follow:
-            emails_stop: stop sending emails about changes to %{cardlabel}
-            emails_send: send emails about changes to %{cardlabel}
-            unfollow: unfollow
-            follow: follow
-          notify:
-            follow_included: follow cards included by %{cardname}
-            followed_card: followed card
-            follower: follower
-            new: new
-            deleted: deleted
-            update_changes: "\nThis update included the following changes:%{changes}"
-        right:
-          follow:
-            more_options: more options
-            heading_get_notified: Get notified about changes
-          following:
-            no_preference: No following preference
-        self:
-          always:
-            following: Following
-            follow: follow
-          created:
-            following_created: Following content you created
-            follow_if_created: follow if I created
-            thing_created: "%{label} I created"
-          edited:
-            following_edited: Following content you edited
-            follow_if_edited: follow if I edited
-            thing_edited: "%{label} I edited"
-          follow_defaults:
-            confirm_update_all_heading: Are you sure you want to change the default follow rules?
-            confirm_update_all_text: You may choose to update all existing users. This may take a while.
-            submit_update: Submit and update all users
-            updating: Updating
-            submit: Submit
-          never:
-            ignoring: Ignoring
-            ignore: ignore
-        type_plus_right:
-          user:
-            follow:
-              problems_card: Problems with %{cardname}
-              sign_in: sign in
-              please_sign_in: Please %{sign_in}
     :standard:
       set:
         all:
@@ -442,6 +370,73 @@ en:
           mirror_list:
             cardtype_right: must have a cardtype name as right part
             only_type: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
+
+    card-mod-email:
+      set:
+        all:
+          follow:
+            emails_stop: stop sending emails about changes to %{cardlabel}
+            emails_send: send emails about changes to %{cardlabel}
+            unfollow: unfollow
+            follow: follow
+          notify:
+            follow_included: follow cards included by %{cardname}
+            followed_card: followed card
+            follower: follower
+            new: new
+            deleted: deleted
+            update_changes: "\nThis update included the following changes:%{changes}"
+        right:
+          follow:
+            more_options: more options
+            heading_get_notified: Get notified about changes
+          following:
+            no_preference: No following preference
+        self:
+          always:
+            following: Following
+            follow: follow
+          created:
+            following_created: Following content you created
+            follow_if_created: follow if I created
+            thing_created: "%{label} I created"
+          edited:
+            following_edited: Following content you edited
+            follow_if_edited: follow if I edited
+            thing_edited: "%{label} I edited"
+          follow_defaults:
+            confirm_update_all_heading: Are you sure you want to change the default follow rules?
+            confirm_update_all_text: You may choose to update all existing users. This may take a while.
+            submit_update: Submit and update all users
+            updating: Updating
+            submit: Submit
+          never:
+            ignoring: Ignoring
+            ignore: ignore
+        type_plus_right:
+          user:
+            follow:
+              problems_card: Problems with %{cardname}
+              sign_in: sign in
+              please_sign_in: Please %{sign_in}
+
+    card-mod-format:
+      set:
+        all:
+          base:
+            too_deep: Man, you're too deep.  (Too many levels of nests at a time)
+        abstract:
+          code_file:
+            exception_not_set_path: "not a set path: %{path}"
+            content_in_file: Content is stored in file and can't be edited.
+        type:
+          pointer:
+            label_select: Select
+            #description: description
+            comment_style_group: STYLE GROUP
+            search_opt_names_ptr: option names for pointer
+          json:
+            invalid_json: invalid json
 
     card-mod-edit:
       set:

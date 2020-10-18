@@ -1,6 +1,6 @@
 class Card
   module Machine
-    REFRESHED="MACHINE_ASSETS_REFRESHED".freeze
+    REFRESHED = "MACHINE_ASSETS_REFRESHED".freeze
 
     class << self
       def refresh_script_and_style

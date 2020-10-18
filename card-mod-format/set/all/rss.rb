@@ -65,9 +65,9 @@ format :rss do
     render_open_content
   end
 
-  view :feed_description do "" end
-  view :comment_box      do "" end
-  view :menu             do "" end
+  view(:feed_description) { "" }
+  view(:comment_box) { "" }
+  view(:menu) { "" }
 
   view :open,         :titled, mod: All::Base::Format
   view :content,      :core,   mod: All::Base::Format
