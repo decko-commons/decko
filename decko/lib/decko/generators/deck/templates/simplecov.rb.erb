@@ -3,7 +3,7 @@ if ENV["<%= 'REPO' if platypus? %>TMPSETS"] && ENV["COVERAGE"] != "false"
   SimpleCov.start do
     def add_mod_group modname
       mod_dir = /(card-mod-)?#{Regexp.escape modname}/
-      add_group "Mod: #{modname}", %r{(^|/mod/|/tmp.*/mod\d{3})-#{mod_dir}}
+      add_group "Mod: #{modname}", %r{(/|mod/|/tmp.*/.*/mod\d{3}-)#{mod_dir}}
     end
     <% if platypus? %>
     root "<%= expanded_repo_path %>"
