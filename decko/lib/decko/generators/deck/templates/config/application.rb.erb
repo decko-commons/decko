@@ -95,7 +95,7 @@ module <%= app_const_base %>
     # overrides protocol auto-detected from web requests
     <% if platypus? %>
 
-    if ENV["DECKO_GEM_TMPSETS"]
+    if ENV["REPO_TMPSETS"]
       tmpsets_dir = "#{Cardio.gem_root}/tmpsets/"
       config.load_strategy = :tmp_files
       config.paths['tmp/set'] = "#{tmpsets_dir}/set"

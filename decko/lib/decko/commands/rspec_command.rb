@@ -25,10 +25,9 @@ module Decko
 
       def coverage
         # no coverage if rspec was started with file argument
-        if (@opts[:files] || @rspec_args.present?) && !@opts[:simplecov]
-          @opts[:simplecov] = "COVERAGE=false"
-        end
-        @opts[:simplecov]
+        return unless @opts[:files] || @rspec_args.present?
+
+        "COVERAGE=false"
       end
     end
   end

@@ -83,8 +83,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod015-standard/type/cardtype.rb<span class="defines">,<br />
-  card/tmpsets/set/mod027-card-mod-follow/type/cardtype.rb</span>
+    <dd>card/tmpsets/set/mod010-standard/type/cardtype.rb<span class="defines">,<br />
+  card/tmpsets/set/mod022-card-mod-follow/type/cardtype.rb</span>
 </dd>
   </dl>
   
@@ -435,7 +435,7 @@
 44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_link'>add_link</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span> <span class='op'>||=</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:add_card</span><span class='comma'>,</span> <span class='label'>cardname:</span> <span class='id identifier rubyid_safe_name'>safe_name</span><span class='rparen'>)</span>
@@ -469,7 +469,7 @@
 51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_link_opts'>add_link_opts</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='id identifier rubyid_modal'>modal</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:modal</span>
@@ -510,7 +510,7 @@
 67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_path'>add_path</span> <span class='id identifier rubyid_view'>view</span>
   <span class='id identifier rubyid_path_args'>path_args</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>mark:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='rbrace'>}</span>
@@ -571,7 +571,7 @@
 76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_can_configure?'>can_configure?</span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='symbol'>:type</span><span class='comma'>,</span> <span class='symbol'>:structure</span><span class='comma'>,</span> <span class='label'>new:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ok?'>ok?</span> <span class='symbol'>:update</span>
@@ -607,7 +607,7 @@
 91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_configure_link'>configure_link</span> <span class='id identifier rubyid_css_class'>css_class</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='symbol'>:type</span><span class='comma'>,</span> <span class='symbol'>:structure</span><span class='comma'>,</span> <span class='label'>new:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ok?'>ok?</span> <span class='symbol'>:update</span>
@@ -643,7 +643,7 @@
 27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/cardtype.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/cardtype.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_related_by_type_items'>related_by_type_items</span>
   <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> cards</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='symbol'>:type</span><span class='comma'>,</span> <span class='symbol'>:by_name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>mark:</span> <span class='symbol'>:absolute</span><span class='rbracket'>]</span>
@@ -677,7 +677,7 @@
 31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_type_formgroup'>type_formgroup</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_cards_of_type_exist?'>cards_of_type_exist?</span>
@@ -711,7 +711,7 @@
 39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 37</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:add_button</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_add_link'>add_link</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>btn btn-secondary</span><span class='tstring_end'>&quot;</span></span>
@@ -741,7 +741,7 @@
 35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 33</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:add_link</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_add_link'>add_link</span>
@@ -771,7 +771,7 @@
 55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 53</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:add_url</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_card_url'>card_url</span> <span class='id identifier rubyid__render_add_path'>_render_add_path</span>
@@ -802,7 +802,7 @@
 81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 78</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:configure_button</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>denial:</span> <span class='symbol'>:blank</span><span class='comma'>,</span>
                         <span class='label'>perms:</span>  <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_fmt'>fmt</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_fmt'>fmt</span><span class='period'>.</span><span class='id identifier rubyid_can_configure?'>can_configure?</span> <span class='rbrace'>}</span> <span class='kw'>do</span>
@@ -843,7 +843,7 @@
 72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 70</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:configure_link</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_fmt'>fmt</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_fmt'>fmt</span><span class='period'>.</span><span class='id identifier rubyid_can_configure?'>can_configure?</span> <span class='rbrace'>}</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_configure_link'>configure_link</span>
@@ -873,7 +873,7 @@
 23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/cardtype.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/cardtype.rb', line 21</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:type</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_type_card'>type_card</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cardtype</span><span class='tstring_end'>&quot;</span></span>
@@ -888,7 +888,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:11 2020 by
+  Generated on Sun Oct 18 23:47:56 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

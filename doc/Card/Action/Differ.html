@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/mod/history/lib/card/action/differ.rb</dd>
+    <dd>card-mod-history/lib/card/action/differ.rb</dd>
   </dl>
   
 </div>
@@ -397,7 +397,7 @@
 25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/action/differ.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cardtype_diff'>cardtype_diff</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_type?'>new_type?</span>
@@ -455,7 +455,7 @@
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/action/differ.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content_diff'>content_diff</span> <span class='id identifier rubyid_diff_type'>diff_type</span><span class='op'>=</span><span class='symbol'>:expanded</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_content?'>new_content?</span>
@@ -511,7 +511,7 @@
 58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/action/differ.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_green?'>green?</span>
   <span class='id identifier rubyid_content_diff_object'>content_diff_object</span><span class='period'>.</span><span class='id identifier rubyid_green?'>green?</span>
@@ -566,7 +566,7 @@
 11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/action/differ.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name_diff'>name_diff</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_name?'>new_name?</span>
@@ -621,7 +621,7 @@
 46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/action/differ.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_content?'>new_content?</span>
   <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='symbol'>:db_content</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -674,7 +674,7 @@
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/action/differ.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_name?'>new_name?</span>
   <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -727,7 +727,7 @@
 31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/action/differ.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_type?'>new_type?</span>
   <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='symbol'>:type_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -761,7 +761,7 @@
 66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/action/differ.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_raw_view'>raw_view</span> <span class='id identifier rubyid_content'>content</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_original_content'>original_content</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_db_content'>db_content</span>
@@ -818,7 +818,7 @@
 52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/action/differ.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_red?'>red?</span>
   <span class='id identifier rubyid_content_diff_object'>content_diff_object</span><span class='period'>.</span><span class='id identifier rubyid_red?'>red?</span>
@@ -871,7 +871,7 @@
 70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/action/differ.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_summary_diff_omits_content?'>summary_diff_omits_content?</span>
   <span class='id identifier rubyid_content_diff_object'>content_diff_object</span><span class='period'>.</span><span class='id identifier rubyid_summary_omits_content?'>summary_omits_content?</span>
@@ -886,7 +886,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:05 2020 by
+  Generated on Sun Oct 18 23:47:46 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

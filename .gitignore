@@ -7,7 +7,6 @@
 .tm_properties
 #.yardoc
 *.iml
-coverage
 log/*
 pkg
 *.gem
