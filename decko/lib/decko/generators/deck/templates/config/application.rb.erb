@@ -93,14 +93,5 @@ module <%= app_const_base %>
 
     # config.override_protocol = "https"
     # overrides protocol auto-detected from web requests
-    <% if platypus? %>
-
-    if ENV["REPO_TMPSETS"]
-      tmpsets_dir = "#{Cardio.gem_root}/tmpsets/"
-      config.load_strategy = :tmp_files
-      config.paths['tmp/set'] = "#{tmpsets_dir}/set"
-      config.paths['tmp/set_pattern'] = "#{tmpsets_dir}/set_pattern"
-    end
-    <% end %>
   end
 end

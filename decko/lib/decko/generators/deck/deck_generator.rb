@@ -62,7 +62,7 @@ module Decko
           copy_file "pryrc", ".pryrc"
           copy_file "gitignore", ".gitignore"
           template "rspec.erb", ".rspec"
-          template "simplecov.erb", ".simplecov"
+          template "simplecov.rb.erb", ".simplecov"
         end
 
         def config
