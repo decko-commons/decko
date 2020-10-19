@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb</dd>
+    <dd>card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb</dd>
   </dl>
   
 </div>
@@ -386,7 +386,7 @@
 53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_button'>delete_button</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_link_to'>link_to</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Delete</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_delete_button_opts'>delete_button_opts</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
@@ -421,7 +421,7 @@
 62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_button_opts'>delete_button_opts</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span>  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>slotter btn btn-outline-danger ml-auto btn-sm</span><span class='tstring_end'>&quot;</span></span>
@@ -456,7 +456,7 @@
 66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_confirm'>delete_confirm</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:confirm</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Are you sure you want to delete </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_safe_name'>safe_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span>
@@ -486,7 +486,7 @@
 70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_success'>delete_success</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:success</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='id identifier rubyid_main?'>main?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>REDIRECT: *previous</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='lbrace'>{</span> <span class='label'>view:</span> <span class='symbol'>:just_deleted</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -516,7 +516,7 @@
 45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_cancel_button'>edit_cancel_button</span>
   <span class='id identifier rubyid_modal_cancel_button'>modal_cancel_button</span>
@@ -546,7 +546,7 @@
 41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_modal_cancel_button'>modal_cancel_button</span>
   <span class='id identifier rubyid_modal_close_button'>modal_close_button</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cancel</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>situation:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>secondary</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>btn-sm cancel-button</span><span class='tstring_end'>&quot;</span></span>
@@ -576,7 +576,7 @@
 49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_cancel_button'>new_cancel_button</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_show?'>show?</span><span class='lparen'>(</span><span class='symbol'>:cancel_button</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_modal_cancel_button'>modal_cancel_button</span>
@@ -607,7 +607,7 @@
 37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_standard_cancel_button'>standard_cancel_button</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_reverse_merge!'>reverse_merge!</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cancel-button ml-4</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>href:</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-cy</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cancel</span><span class='tstring_end'>&quot;</span></span>
@@ -690,7 +690,7 @@
 32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_standard_save_and_close_button'>standard_save_and_close_button</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_close'>close</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:close</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='symbol'>:modal</span>
@@ -730,7 +730,7 @@
 19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_standard_save_button'>standard_save_button</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_voo'>voo</span><span class='op'>&amp;.</span><span class='id identifier rubyid_hide?'>hide?</span><span class='lparen'>(</span><span class='symbol'>:save_button</span><span class='rparen'>)</span>
@@ -764,7 +764,7 @@
 11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-edit/all/form_buttons.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/form_buttons.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_standard_submit_button'>standard_submit_button</span>
   <span class='id identifier rubyid_output'>output</span> <span class='lbracket'>[</span><span class='id identifier rubyid_standard_save_button'>standard_save_button</span><span class='comma'>,</span> <span class='id identifier rubyid_standard_save_and_close_button'>standard_save_and_close_button</span><span class='rbracket'>]</span>
@@ -779,7 +779,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:17 2020 by
+  Generated on Sun Oct 18 23:48:07 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

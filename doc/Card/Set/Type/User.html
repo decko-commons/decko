@@ -88,8 +88,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod017-account/type/user.rb<span class="defines">,<br />
-  card/tmpsets/set/mod027-card-mod-follow/type/user.rb</span>
+    <dd>card/tmpsets/set/mod022-card-mod-follow/type/user.rb<span class="defines">,<br />
+  card/tmpsets/set/mod012-card-mod-account/type/user.rb</span>
 </dd>
   </dl>
   
@@ -498,7 +498,7 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/user.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/user.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email'>email</span>
   <span class='ivar'>@email</span>
@@ -533,9 +533,9 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/user.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/user.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/account/set/type/user.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-follow/set/type/user.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -571,7 +571,7 @@
 62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/user.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/user.rb', line 56</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:setup_as_bot</span><span class='comma'>,</span> <span class='label'>before:</span> <span class='symbol'>:check_permissions</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='symbol'>:setup?</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_abort'>abort</span> <span class='symbol'>:failure</span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_needs_setup?'><span class='object_link'><a href="../../Auth/Setup.html#needs_setup%3F-instance_method" title="Card::Auth::Setup#needs_setup? (method)">needs_setup?</a></span></span>
@@ -606,7 +606,7 @@
 67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/user.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/user.rb', line 64</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:setup_first_user</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_store</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='symbol'>:setup?</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_add_subcard'>add_subcard</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>signup alert email+*to</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>content:</span> <span class='id identifier rubyid_name'>name</span>
@@ -637,7 +637,7 @@
 75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/user.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/user.rb', line 73</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:signin_after_setup</span><span class='comma'>,</span> <span class='symbol'>:integrate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='symbol'>:setup?</span> <span class='kw'>do</span>
   <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_signin'><span class='object_link'><a href="../../Auth/Current.html#signin-instance_method" title="Card::Auth::Current#signin (method)">signin</a></span></span> <span class='id identifier rubyid_id'>id</span>
@@ -671,7 +671,7 @@
 14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/user.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/user.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow'>follow</span> <span class='id identifier rubyid_follow_name'>follow_name</span><span class='comma'>,</span> <span class='id identifier rubyid_option'>option</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*always</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_follow_rule'>follow_rule</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_follow_name'>follow_name</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_follow_rule_card'>follow_rule_card</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>new:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -705,7 +705,7 @@
 71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/user.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/user.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_roles_for_first_user'>roles_for_first_user</span>
   <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>help_desk</span><span class='words_sep'> </span><span class='tstring_content'>shark</span><span class='words_sep'> </span><span class='tstring_content'>administrator</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:cardname</span><span class='rparen'>)</span>
@@ -758,7 +758,7 @@
 54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/user.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/user.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup?'>setup?</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:setup</span><span class='rbracket'>]</span>
@@ -773,7 +773,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:07 2020 by
+  Generated on Sun Oct 18 23:48:00 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

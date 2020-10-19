@@ -27,6 +27,10 @@ module Decko
             @repo_path ||= determine_repo_path
           end
 
+          def expanded_repo_path
+            @expanded_repo_path ||= File.expand_path repo_path
+          end
+
           def determine_repo_path
             @repo_path_determined ? (return nil) : (@repo_path_determined = true)
             path = options["repo-path"]

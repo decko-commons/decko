@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod004-virtual/abstract/virtual_cache.rb</dd>
+    <dd>card/tmpsets/set/mod006-card-mod-virtual/abstract/virtual_cache.rb</dd>
   </dl>
   
 </div>
@@ -503,9 +503,9 @@
 8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-virtual/abstract/virtual_cache.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-virtual/abstract/virtual_cache.rb', line 8</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/virtual/set/abstract/virtual_cache.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-virtual/set/abstract/virtual_cache.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -537,7 +537,7 @@
 24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-virtual/abstract/virtual_cache.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-virtual/abstract/virtual_cache.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_db_content'>db_content</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Virtual.html" title="Card::Virtual (class)">Virtual</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_content'><span class='object_link'><a href="../../Virtual.html#fetch_content-class_method" title="Card::Virtual.fetch_content (method)">fetch_content</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
@@ -568,7 +568,7 @@
 45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-virtual/abstract/virtual_cache.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-virtual/abstract/virtual_cache.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span>
   <span class='comment'># delete although it&#39;s new
@@ -600,7 +600,7 @@
 50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-virtual/abstract/virtual_cache.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-virtual/abstract/virtual_cache.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete!'>delete!</span>
   <span class='comment'># delete although it&#39;s new
@@ -632,7 +632,7 @@
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-virtual/abstract/virtual_cache.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-virtual/abstract/virtual_cache.rb', line 37</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:delete_virtual_content</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_store</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:delete</span> <span class='kw'>do</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Virtual.html" title="Card::Virtual (class)">Virtual</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find_by_card'><span class='object_link'><a href="../../Virtual.html#find_by_card-class_method" title="Card::Virtual.find_by_card (method)">find_by_card</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_delete'>delete</span>
@@ -664,7 +664,7 @@
 35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-virtual/abstract/virtual_cache.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-virtual/abstract/virtual_cache.rb', line 32</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:save_virtual_content</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_store</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span><span class='comma'>,</span> <span class='label'>changed:</span> <span class='symbol'>:content</span> <span class='kw'>do</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Virtual.html" title="Card::Virtual (class)">Virtual</a></span></span><span class='period'>.</span><span class='id identifier rubyid_create_or_update'><span class='object_link'><a href="../../Virtual.html#create_or_update-class_method" title="Card::Virtual.create_or_update (method)">create_or_update</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>db_content</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -718,7 +718,7 @@
 20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-virtual/abstract/virtual_cache.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-virtual/abstract/virtual_cache.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_followable?'>followable?</span>
   <span class='kw'>false</span>
@@ -759,7 +759,7 @@ the default way is to use the card’s template content</p>
 30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-virtual/abstract/virtual_cache.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-virtual/abstract/virtual_cache.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_generate_virtual_content'>generate_virtual_content</span>
   <span class='id identifier rubyid_template'>template</span><span class='op'>&amp;.</span><span class='id identifier rubyid_db_content'>db_content</span>
@@ -812,7 +812,7 @@ the default way is to use the card’s template content</p>
 16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-virtual/abstract/virtual_cache.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-virtual/abstract/virtual_cache.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_history?'>history?</span>
   <span class='kw'>false</span>
@@ -865,7 +865,7 @@ the default way is to use the card’s template content</p>
 12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-virtual/abstract/virtual_cache.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-virtual/abstract/virtual_cache.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_virtual?'>virtual?</span>
   <span class='id identifier rubyid_new?'>new?</span>
@@ -880,7 +880,7 @@ the default way is to use the card’s template content</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:16 2020 by
+  Generated on Sun Oct 18 23:48:16 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>
