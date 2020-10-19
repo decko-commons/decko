@@ -8,8 +8,6 @@ global_job_config:
   env_vars:
     - name: BUNDLE_PATH
       value: "~/bundle/"
-    - name: COVERAGE
-      value: "false"
     - name: DECKO_REPO_PATH
       value: "~/decko"
   prologue:

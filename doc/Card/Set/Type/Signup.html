@@ -83,8 +83,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod017-account/type/signup.rb<span class="defines">,<br />
-  card/tmpsets/set/mod017-account/type/signup/views.rb</span>
+    <dd>card/tmpsets/set/mod012-card-mod-account/type/signup.rb<span class="defines">,<br />
+  card/tmpsets/set/mod012-card-mod-account/type/signup/views.rb</span>
 </dd>
   </dl>
   
@@ -536,9 +536,9 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/signup.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/signup.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/account/set/type/signup.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-account/set/type/signup.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -570,7 +570,7 @@
 47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/signup.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/signup.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_account_subfield'>account_subfield</span>
   <span class='id identifier rubyid_subfield'>subfield</span><span class='lparen'>(</span><span class='symbol'>:account</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_add_subfield'>add_subfield</span><span class='lparen'>(</span><span class='symbol'>:account</span><span class='rparen'>)</span>
@@ -600,7 +600,7 @@
 22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/signup.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/signup.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_activate_accounted'>activate_accounted</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_default_accounted_type_id'>default_accounted_type_id</span>
@@ -634,7 +634,7 @@
 61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/signup.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/signup.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_approvable'>approvable</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_can_approve?'>can_approve?</span>
@@ -691,7 +691,7 @@
 18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/signup.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/signup.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_can_approve?'>can_approve?</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>type_id:</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_default_accounted_type_id'>default_accounted_type_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ok?'>ok?</span> <span class='symbol'>:create</span>
@@ -721,7 +721,7 @@
 14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/signup.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/signup.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_account_status'>default_account_status</span>
   <span class='id identifier rubyid_can_approve?'>can_approve?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unverified</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unapproved</span><span class='tstring_end'>&quot;</span></span>
@@ -752,7 +752,7 @@
 43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/signup.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/signup.rb', line 40</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:act_as_current_for_integrate_stage</span><span class='comma'>,</span> <span class='symbol'>:integrate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:create</span> <span class='kw'>do</span>
   <span class='comment'># needs justification!
@@ -783,7 +783,7 @@
 30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/signup.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/signup.rb', line 28</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:approve_with_verification</span><span class='comma'>,</span> <span class='symbol'>:validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='label'>trigger:</span> <span class='symbol'>:required</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_approvable'>approvable</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_request_verification'>request_verification</span> <span class='rbrace'>}</span>
@@ -817,7 +817,7 @@
 38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/signup.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/signup.rb', line 32</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:approve_without_verification</span><span class='comma'>,</span> <span class='symbol'>:validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='label'>trigger:</span> <span class='symbol'>:required</span> <span class='kw'>do</span>
   <span class='comment'># TODO: if validated here, add trigger and activate in storage phase
@@ -851,7 +851,7 @@
 26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/signup.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/signup.rb', line 24</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:auto_approve_with_verification</span><span class='comma'>,</span> <span class='symbol'>:validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='symbol'>:can_approve?</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_request_verification'>request_verification</span>
@@ -883,7 +883,7 @@
 53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/type/signup.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/type/signup.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_request_verification'>request_verification</span>
   <span class='id identifier rubyid_acct'>acct</span> <span class='op'>=</span> <span class='id identifier rubyid_account_subfield'>account_subfield</span>
@@ -900,7 +900,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:09 2020 by
+  Generated on Sun Oct 18 23:48:04 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

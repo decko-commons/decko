@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod005-basic_formats/all/all_css.rb</dd>
+    <dd>card/tmpsets/set/mod004-card-mod-format/all/all_css.rb</dd>
   </dl>
   
 </div>
@@ -317,7 +317,7 @@
 12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/all_css.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/all_css.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_nest_view'>default_nest_view</span>
   <span class='symbol'>:raw</span>
@@ -349,7 +349,7 @@
 43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/all_css.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/all_css.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_major_comment'>major_comment</span> <span class='id identifier rubyid_comment'>comment</span><span class='comma'>,</span> <span class='id identifier rubyid_char'>char</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_edge'>edge</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>/* </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_char'>char</span> <span class='op'>*</span> <span class='lparen'>(</span><span class='id identifier rubyid_comment'>comment</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>+</span> <span class='int'>4</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'> */</span><span class='tstring_end'>)</span></span>
@@ -382,7 +382,7 @@
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/all_css.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/all_css.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_view'>view</span> <span class='op'>||=</span> <span class='symbol'>:content</span>
@@ -413,7 +413,7 @@
 25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/all_css.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/all_css.rb', line 23</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:content</span> <span class='kw'>do</span>
   <span class='id identifier rubyid__render_core'>_render_core</span>
@@ -443,7 +443,7 @@
 33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/all_css.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/all_css.rb', line 31</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:import</span> <span class='kw'>do</span>
   <span class='id identifier rubyid__render_core'>_render_core</span>
@@ -473,7 +473,7 @@
 21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/all_css.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/all_css.rb', line 19</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:titled</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_major_comment'>major_comment</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'> Style Card: \\&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>\\&quot; </span><span class='tstring_end'>)</span></span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid__render_core'>_render_core</span>
@@ -503,7 +503,7 @@
 29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/all_css.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/all_css.rb', line 27</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:unknown</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_major_comment'>major_comment</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MISSING Style Card: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -533,7 +533,7 @@
 37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/all_css.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/all_css.rb', line 35</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:url</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_path'>path</span> <span class='label'>mark:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:css</span>
@@ -548,7 +548,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:12 2020 by
+  Generated on Sun Oct 18 23:48:01 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

@@ -59,9 +59,10 @@
 
       <div id="content"><div id='filecontents'><h1 id="decko-you-hold-the-cards">Decko: you hold the cards</h1>
 
-<p><a href="https://semaphoreci.com/ethan/decko"><img src="https://semaphoreci.com/api/v1/ethan/decko/branches/master/shields_badge.svg" alt="Semaphore Build" title="Semaphore Build" /></a>
-<a href="https://badge.fury.io/rb/decko"><img src="https://badge.fury.io/rb/decko.svg" alt="Gem Version" title="Gem Version" /></a>
-<a href="https://codeclimate.com/repos/56548cb6fafb98574e013c39/feed"><img src="https://codeclimate.com/repos/56548cb6fafb98574e013c39/badges/be88db3f72d0fd06ace3/gpa.svg" alt="Code Climate Badge" title="Code Climate Badge" /></a></p>
+<p><a href="https://badge.fury.io/rb/decko"><img src="https://badge.fury.io/rb/decko.svg" alt="Gem Version" title="Gem Version" /></a>
+<a href="https://decko.semaphoreci.com/projects/decko"><img src="https://decko.semaphoreci.com/badges/decko/branches/master.svg" alt="Semaphore Build" title="Semaphore Build" /></a>
+<a href="https://codeclimate.com/github/decko-commons/decko/maintainability"><img src="https://api.codeclimate.com/v1/badges/6ef82d42115889ea81c7/maintainability" alt="Code Climate Badge" title="Code Climate Badge" /></a>
+<a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3" /></a></p>
 
 <ul>
   <li><a href="#basics">Basics</a></li>
@@ -136,16 +137,19 @@ with structures created on the site.</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_decko'>decko</span> <span class='id identifier rubyid_new'>new</span> <span class='const'>MY_DECK</span>
 </code></pre>
 
+<p><code>MY_DECK</code> is, of course, a variable. Use any name you like.</p>
+
 <p>Options:</p>
 
 <pre class="code ruby"><code class="ruby">-f, [--force]                            # Overwrite files that already exist
 -p, [--pretend], [--no-pretend]          # Run but do not make any changes
 -q, [--quiet], [--no-quiet]              # Suppress status output
 -s, [--skip], [--no-skip]                # Skip files that already exist
--m, [--mod-dev], [--no-mod-dev]          # Prepare deck for mod development
--c, [--core-dev], [--no-core-dev]        # Prepare deck for core development
--g, [--gem-path=GEM-PATH]                # Path to local decko repository (Default, use env DECKO_GEM_PATH)
--i, [--interactive], [--no-interactive]  # Prompt with dynamic installation options
+-M, [--monkey], [--no-monkey]            # Prepare deck for monkey (mod developer)
+-P, [--platypus], [--no-core-dev]        # Prepare deck for platypus (core developer)
+-R, [--repo-path=PATH]                   # Path to local decko repository.
+                                         # Can also specify via `env DECKO_REPO_PATH=PATH`
+-I, [--interactive], [--no-interactive]  # Prompt with dynamic installation options
 </code></pre>
 
 <h3 id="create--seed-database">4. create / seed database</h3>
@@ -279,7 +283,7 @@ All you have to do to install one of these mods is:</p>
 
 <h4 id="run-any-migrations-mergers-or-scripts">3. run any migrations, mergers, or scripts:</h4>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_decko'>decko</span> <span class='id identifier rubyid_update'>update</span>
+<pre class="code ruby"><code class="ruby"> <span class='id identifier rubyid_decko'>decko</span> <span class='id identifier rubyid_update'>update</span>
 </code></pre>
 
 <p>…and then restart your server.</p>
@@ -290,9 +294,9 @@ All you have to do to install one of these mods is:</p>
 
 <p>If you’re interested in making your own mod, the first thing to do is set up a good
 development environment. This is most easily done by creating a new deck with the 
-<code>--mod-dev</code> (or <code>-m</code>) options, eg:</p>
+<code>--monkey</code> (or <code>-M</code>) options, eg:</p>
 
-<pre class="code ruby"><code class="ruby">decko new --mod-dev mydeck
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_decko'>decko</span> <span class='id identifier rubyid_new'>new</span> <span class='const'>MY_DECK</span> <span class='op'>-</span><span class='op'>-</span><span class='id identifier rubyid_monkey'>monkey</span>
 </code></pre>
 
 <p>If you’re working on an existing deck, it’s often easiest just to do the above and then 
@@ -300,22 +304,13 @@ make the new deck use your existing files and database. However, if that’s not
 you can instead follow the following procedure:</p>
 
 <ol>
-  <li>run the above command to create a dummy deck and the following from the dummy to the
-    real/existing deck:
-    <ul>
-      <li>any missing Gems in the Gemfile</li>
-      <li>.rspec</li>
-      <li>.simplecov</li>
-      <li>config/puma.rb</li>
-      <li>bin/spring</li>
-      <li>spec/spec_helper.rb</li>
-    </ul>
-  </li>
-  <li>In your real deck:
-    <ul>
-      <li>Comment out <code>ENV['RAILS_ENV'] ||= 'production'</code> in <code>config/boot.rb</code></li>
-    </ul>
-  </li>
+  <li>Make sure you have all the monkey-friendly gems in your Gemfile. If your deck was
+generated recently, you’ll probably already have several references to these gems
+(eg card-mod-monkey) and will just need to uncomment them. If not, you can run the
+above command to create a dummy deck and copy the Gemfile over to your real one.</li>
+  <li>In your real deck, comment out <code>ENV['RAILS_ENV'] ||= 'production'</code> in 
+<code>config/boot.rb</code>. This will mean your default mode is now “development.”</li>
+  <li>Configure <code>config/database.yml</code> to your liking.</li>
 </ol>
 
 <h4 id="start-monkeying">Start Monkeying</h4>
@@ -349,7 +344,7 @@ you can instead follow the following procedure:</p>
 </div></div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:00 2020 by
+  Generated on Sun Oct 18 23:47:40 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>
