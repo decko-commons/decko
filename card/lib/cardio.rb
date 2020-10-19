@@ -162,7 +162,7 @@ module Cardio
     def add_tmppaths
       %w[set set_pattern].each do |dir|
         opts = tmppath_opts dir
-        add_path tmppath, opts if opts
+        add_path "tmp/#{dir}", opts if opts
       end
     end
 
