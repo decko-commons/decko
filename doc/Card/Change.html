@@ -98,7 +98,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/mod/history/lib/card/change.rb</dd>
+    <dd>card-mod-history/lib/card/change.rb</dd>
   </dl>
   
 </div>
@@ -348,7 +348,7 @@ card, that would be recorded as one <span class='object_link'><a href="Action.ht
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/change.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/change.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_actionless'>delete_actionless</span>
   <span class='id identifier rubyid_joins'>joins</span><span class='lparen'>(</span>
@@ -426,7 +426,7 @@ integer associated with a given field name.</p>
 48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/change.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/change.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_field_index'>field_index</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>:</span> <span class='const'><span class='object_link'><a href="#TRACKED_FIELDS-constant" title="Card::Change::TRACKED_FIELDS (constant)">TRACKED_FIELDS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -494,7 +494,7 @@ integer associated with a given field name.</p>
 55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/change.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/change.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_by_field_name'>find_by_field_name</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_find_by_field'>find_by_field</span> <span class='id identifier rubyid_field_index'>field_index</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -553,7 +553,7 @@ integer associated with a given field name.</p>
 68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/change.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/change.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_field'>field</span>
   <span class='const'><span class='object_link'><a href="#TRACKED_FIELDS-constant" title="Card::Change::TRACKED_FIELDS (constant)">TRACKED_FIELDS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_read_attribute'>read_attribute</span><span class='lparen'>(</span><span class='symbol'>:field</span><span class='rparen'>)</span><span class='rbracket'>]</span>
@@ -608,7 +608,7 @@ integer associated with a given field name.</p>
 62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/history/lib/card/change.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/change.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_field='>field=</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_write_attribute'>write_attribute</span><span class='lparen'>(</span><span class='symbol'>:field</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#TRACKED_FIELDS-constant" title="Card::Change::TRACKED_FIELDS (constant)">TRACKED_FIELDS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -623,7 +623,7 @@ integer associated with a given field name.</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:26 2020 by
+  Generated on Sun Oct 18 23:48:26 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>
