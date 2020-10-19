@@ -363,6 +363,29 @@ to resolve name conflicts)</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#delete_code_card%3F-instance_method" title="#delete_code_card? (instance method)">#<strong>delete_code_card?</strong>(name)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#ensure_card-instance_method" title="#ensure_card (instance method)">#<strong>ensure_card</strong>(name_or_args, content_or_args = nil)  &#x21d2; Object </a>
     
 
@@ -646,16 +669,16 @@ to resolve name conflicts)</p>
       <pre class="lines">
 
 
-165
-166
-167
 168
 169
 170
-171</pre>
+171
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 165</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span> <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='id identifier rubyid_cardtype_card'>cardtype_card</span> <span class='op'>=</span> <span class='id identifier rubyid_extract_cardtype_from_method_name'>extract_cardtype_from_method_name</span> <span class='id identifier rubyid_method'>method</span>
@@ -691,17 +714,17 @@ to resolve name conflicts)</p>
       <pre class="lines">
 
 
-146
-147
-148
 149
 150
 151
 152
-153</pre>
+153
+154
+155
+156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_coderule_item'>add_coderule_item</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_prefix'>prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_type_id'>type_id</span><span class='comma'>,</span> <span class='id identifier rubyid_to'>to</span>
   <span class='id identifier rubyid_codename'>codename</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_prefix'>prefix</span><span class='embexpr_end'>}</span><span class='tstring_content'>_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>_</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_underscore'>underscore</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -731,17 +754,17 @@ to resolve name conflicts)</p>
       <pre class="lines">
 
 
-137
-138
-139
 140
 141
 142
 143
-144</pre>
+144
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 137</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_script'>add_script</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_sub!'>sub!</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^script\:?\s?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='comment'># in case name is given with prefix
@@ -771,17 +794,17 @@ to resolve name conflicts)</p>
       <pre class="lines">
 
 
-128
-129
-130
 131
 132
 133
 134
-135</pre>
+135
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 131</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_style'>add_style</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_sub!'>sub!</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^style\:?\s?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='comment'># in case name is given with prefix
@@ -811,12 +834,12 @@ to resolve name conflicts)</p>
       <pre class="lines">
 
 
-77
-78
-79</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_codename_from_name'>codename_from_name</span> <span class='id identifier rubyid_name'>name</span>
   <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='period'>.</span><span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:*</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -889,13 +912,13 @@ to resolve name conflicts)</p>
       <pre class="lines">
 
 
-113
-114
-115
-116</pre>
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_card!'>create_card!</span> <span class='id identifier rubyid_name_or_args'>name_or_args</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_standardize_args'>standardize_args</span> <span class='id identifier rubyid_name_or_args'>name_or_args</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span>
@@ -975,13 +998,13 @@ to resolve name conflicts)</p>
       <pre class="lines">
 
 
-123
-124
-125
-126</pre>
+126
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_or_update_card!'>create_or_update_card!</span> <span class='id identifier rubyid_name_or_args'>name_or_args</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_standardize_args'>standardize_args</span> <span class='id identifier rubyid_name_or_args'>name_or_args</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span>
@@ -1051,23 +1074,74 @@ to resolve name conflicts)</p>
 49
 50
 51
-52
-53
-54
-55</pre>
+52</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_code_card'>delete_code_card</span> <span class='id identifier rubyid_name'>name</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Symbol</span>
-    <span class='kw'>return</span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='period'>.</span><span class='id identifier rubyid_exist?'><span class='object_link'><a href="../Codename.html#exist%3F-class_method" title="Card::Codename.exist? (method)">exist?</a></span></span> <span class='id identifier rubyid_name'>name</span>
-  <span class='kw'>end</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_delete_code_card?'>delete_code_card?</span> <span class='id identifier rubyid_name'>name</span>
 
   <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_update!'>update!</span> <span class='label'>codename:</span> <span class='kw'>nil</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_delete!'>delete!</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_code_card?-instance_method">
+  
+    #<strong>delete_code_card?</strong>(name)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+54
+55
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 54</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_code_card?'>delete_code_card?</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Symbol</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='const'><span class='object_link'><a href="../Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='period'>.</span><span class='id identifier rubyid_exist?'><span class='object_link'><a href="../Codename.html#exist%3F-class_method" title="Card::Codename.exist? (method)">exist?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span> <span class='id identifier rubyid_name'>name</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1118,13 +1192,13 @@ name</p>
       <pre class="lines">
 
 
-64
-65
-66
-67</pre>
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_card'>ensure_card</span> <span class='id identifier rubyid_name_or_args'>name_or_args</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_standardize_ensure_args'>standardize_ensure_args</span> <span class='id identifier rubyid_name_or_args'>name_or_args</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span>
@@ -1168,13 +1242,13 @@ then <code>ensure_card "Under Score"</code> renames it to “Under Score”</p>
       <pre class="lines">
 
 
-86
-87
-88
-89</pre>
+89
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_card!'>ensure_card!</span> <span class='id identifier rubyid_name_or_args'>name_or_args</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_standardize_ensure_args'>standardize_ensure_args</span> <span class='id identifier rubyid_name_or_args'>name_or_args</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span>
@@ -1211,14 +1285,14 @@ The derived codename is all lower case with underscores; “*” and “:” are
       <pre class="lines">
 
 
-71
-72
-73
 74
-75</pre>
+75
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_code_card'>ensure_code_card</span> <span class='id identifier rubyid_name_or_args'>name_or_args</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_standardize_ensure_args'>standardize_ensure_args</span> <span class='id identifier rubyid_name_or_args'>name_or_args</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span>
@@ -1268,15 +1342,15 @@ is converted to pointer format.</p>
       <pre class="lines">
 
 
-99
-100
-101
 102
 103
-104</pre>
+104
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_trait'>ensure_trait</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_codename'>codename</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_ensure_card'>ensure_card</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>codename:</span> <span class='id identifier rubyid_codename'>codename</span>
@@ -1304,14 +1378,14 @@ is converted to pointer format.</p>
       <pre class="lines">
 
 
-106
-107
-108
 109
-110</pre>
+110
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_trait_rule'>ensure_trait_rule</span> <span class='id identifier rubyid_trait'>trait</span><span class='comma'>,</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_validate_setting'>validate_setting</span> <span class='id identifier rubyid_setting'>setting</span>
@@ -1338,19 +1412,19 @@ is converted to pointer format.</p>
       <pre class="lines">
 
 
-177
-178
-179
 180
 181
 182
 183
 184
 185
-186</pre>
+186
+187
+188
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_extract_cardtype_from_method_name'>extract_cardtype_from_method_name</span> <span class='id identifier rubyid_method'>method</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_method'>method</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(?&lt;method_name&gt;create|ensure)_(?&lt;type&gt;.+?)(?:_card)?$</span><span class='regexp_end'>/</span></span>
@@ -1405,12 +1479,12 @@ is converted to pointer format.</p>
       <pre class="lines">
 
 
-173
-174
-175</pre>
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 173</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span> <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid__include_private'>_include_private</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='id identifier rubyid_extract_cardtype_from_method_name'>extract_cardtype_from_method_name</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='kw'>super</span>
@@ -1477,13 +1551,13 @@ is converted to pointer format.</p>
       <pre class="lines">
 
 
-118
-119
-120
-121</pre>
+121
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_card!'>update_card!</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span>
   <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_standardize_update_args'>standardize_update_args</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_args'>content_or_args</span>
@@ -1533,7 +1607,7 @@ is converted to pointer format.</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:03 2020 by
+  Generated on Sun Oct 18 23:47:44 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>
