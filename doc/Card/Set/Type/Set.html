@@ -83,8 +83,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod016-rules/type/set.rb<span class="defines">,<br />
-  card/tmpsets/set/mod027-card-mod-follow/type/set.rb,<br /> card/tmpsets/set/mod016-rules/type/set/html_views.rb,<br /> card/tmpsets/set/mod016-rules/type/set/rules_filter.rb,<br /> card/tmpsets/set/mod016-rules/type/set/setting_lists.rb,<br /> card/tmpsets/set/mod016-rules/type/set/html_views/template.rb,<br /> card/tmpsets/set/mod016-rules/type/set/html_views/rule_lists.rb</span>
+    <dd>card/tmpsets/set/mod027-card-mod-rules/type/set.rb<span class="defines">,<br />
+  card/tmpsets/set/mod022-card-mod-follow/type/set.rb,<br /> card/tmpsets/set/mod027-card-mod-rules/type/set/html_views.rb,<br /> card/tmpsets/set/mod027-card-mod-rules/type/set/rules_filter.rb,<br /> card/tmpsets/set/mod027-card-mod-rules/type/set/setting_lists.rb,<br /> card/tmpsets/set/mod027-card-mod-rules/type/set/html_views/template.rb,<br /> card/tmpsets/set/mod027-card-mod-rules/type/set/html_views/rule_lists.rb</span>
 </dd>
   </dl>
   
@@ -1019,9 +1019,9 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/rules/set/type/set.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-rules/set/type/set.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1076,7 +1076,7 @@
 38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/set.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/set.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_members_followed?'>all_members_followed?</span>
   <span class='id identifier rubyid_all_members_followed_by?'>all_members_followed_by?</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_id'><span class='object_link'><a href="../../Auth/Current.html#current_id-instance_method" title="Card::Auth::Current#current_id (method)">current_id</a></span></span>
@@ -1131,7 +1131,7 @@
 44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/set.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/set.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_members_followed_by?'>all_members_followed_by?</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_prototype'>prototype</span><span class='period'>.</span><span class='id identifier rubyid_followed_by?'>followed_by?</span><span class='lparen'>(</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
@@ -1163,7 +1163,7 @@
 66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_user_ids_with_rule_for'>all_user_ids_with_rule_for</span> <span class='id identifier rubyid_setting_code'>setting_code</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Rule.html" title="Card::Rule (module)">Rule</a></span></span><span class='period'>.</span><span class='id identifier rubyid_all_user_ids_with_rule_for'><span class='object_link'><a href="../../Rule.html#all_user_ids_with_rule_for-class_method" title="Card::Rule.all_user_ids_with_rule_for (method)">all_user_ids_with_rule_for</a></span></span> <span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_setting_code'>setting_code</span>
@@ -1193,7 +1193,7 @@
 16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_anchor'>anchor</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_anchor_name'>anchor_name</span><span class='rbracket'>]</span>
@@ -1223,7 +1223,7 @@
 12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_anchor_name'>anchor_name</span>
   <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_left_name'>left_name</span>
@@ -1278,7 +1278,7 @@
 50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/set.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/set.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_broader_set_followed_by?'>broader_set_followed_by?</span> <span class='id identifier rubyid_user_id'>user_id</span>
   <span class='id identifier rubyid_broader_sets'>broader_sets</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_set_name'>set_name</span><span class='op'>|</span>
@@ -1310,7 +1310,7 @@
 93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_broader_sets'>broader_sets</span>
   <span class='id identifier rubyid_prototype'>prototype</span><span class='period'>.</span><span class='id identifier rubyid_set_names'>set_names</span><span class='lbracket'>[</span><span class='int'>1</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span>
@@ -1363,7 +1363,7 @@
 54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/set.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/set.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_directly_followed?'>directly_followed?</span>
   <span class='id identifier rubyid_directly_followed_by?'>directly_followed_by?</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_id'><span class='object_link'><a href="../../Auth/Current.html#current_id-instance_method" title="Card::Auth::Current#current_id (method)">current_id</a></span></span>
@@ -1418,7 +1418,7 @@
 60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/set.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/set.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_directly_followed_by?'>directly_followed_by?</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_user_id'>user_id</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_follow_rule?'>follow_rule?</span><span class='lparen'>(</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
@@ -1450,7 +1450,7 @@
 10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/set.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/set.rb', line 8</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:cache_expired_for_new_set</span><span class='comma'>,</span> <span class='symbol'>:store</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:create</span> <span class='kw'>do</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_follow_caches_expired'>follow_caches_expired</span>
@@ -1484,7 +1484,7 @@
 22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/set.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/set.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow_label'>follow_label</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='id identifier rubyid_subclass_for_set'>subclass_for_set</span><span class='rparen'>)</span>
@@ -1518,7 +1518,7 @@
 26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/set.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/set.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow_rule_name'>follow_rule_name</span> <span class='id identifier rubyid_user'>user</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='symbol'>:follow</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='rbracket'>]</span>
@@ -1548,7 +1548,7 @@
 34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/set.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/set.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow_set_card'>follow_set_card</span>
   <span class='kw'>self</span>
@@ -1601,7 +1601,7 @@
 30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/set.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/set.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_followed_by?'>followed_by?</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_all_members_followed_by?'>all_members_followed_by?</span> <span class='id identifier rubyid_user_id'>user_id</span>
@@ -1654,7 +1654,7 @@
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inheritable?'>inheritable?</span>
   <span class='id identifier rubyid_junction_only?'>junction_only?</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='id identifier rubyid_anchor_name'>anchor_name</span><span class='op'>&amp;.</span><span class='id identifier rubyid_junction?'>junction?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_self_set?'>self_set?</span><span class='rparen'>)</span>
@@ -1707,7 +1707,7 @@
 41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_junction_only?'>junction_only?</span>
   <span class='ivar'>@junction_only</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='lparen'>(</span><span class='ivar'>@junction_only</span> <span class='op'>=</span> <span class='id identifier rubyid_subclass_for_set'>subclass_for_set</span><span class='period'>.</span><span class='id identifier rubyid_junction_only'>junction_only</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@junction_only</span>
@@ -1738,7 +1738,7 @@
 46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_label'>label</span>
   <span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='id identifier rubyid_subclass_for_set'>subclass_for_set</span>
@@ -1792,7 +1792,7 @@
 14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/type/set.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/type/set.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_direct_followers?'>list_direct_followers?</span>
   <span class='kw'>true</span>
@@ -1822,7 +1822,7 @@
 24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pattern'>pattern</span>
   <span class='id identifier rubyid_tag'>tag</span>
@@ -1852,7 +1852,7 @@
 20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pattern_name'>pattern_name</span>
   <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_tag_name'>tag_name</span>
@@ -1883,7 +1883,7 @@
 98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prototype'>prototype</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_subclass_for_set'>subclass_for_set</span><span class='period'>.</span><span class='id identifier rubyid_prototype_args'>prototype_args</span> <span class='id identifier rubyid_anchor_name'>anchor_name</span>
@@ -1914,7 +1914,7 @@
 106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prototype_default_card'>prototype_default_card</span>
   <span class='id identifier rubyid_prototype'>prototype</span><span class='period'>.</span><span class='id identifier rubyid_rule_card'>rule_card</span><span class='lparen'>(</span><span class='symbol'>:default</span><span class='rparen'>)</span>
@@ -1944,7 +1944,7 @@
 102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prototype_default_type_id'>prototype_default_type_id</span>
   <span class='id identifier rubyid_prototype_default_card'>prototype_default_card</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span>
@@ -1978,7 +1978,7 @@
 114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_related_sets'>related_sets</span> <span class='id identifier rubyid_with_self'>with_self</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_subclass_for_set'>subclass_for_set</span><span class='period'>.</span><span class='id identifier rubyid_anchorless?'>anchorless?</span>
@@ -2016,7 +2016,7 @@
 62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rule_cache_key_base'>rule_cache_key_base</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='id identifier rubyid_left'>left</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_right'>right</span><span class='rparen'>)</span>
@@ -2073,7 +2073,7 @@
 32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_self_set?'>self_set?</span>
   <span class='id identifier rubyid_pattern_name'>pattern_name</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Self.html" title="Card::Set::Self (class)">Self</a></span></span><span class='period'>.</span><span class='id identifier rubyid_pattern'><span class='object_link'><a href="../Pattern/Base.html#pattern-class_method" title="Card::Set::Pattern::Base.pattern (method)">pattern</a></span></span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
@@ -2109,7 +2109,7 @@
 76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setting_codenames_by_group'>setting_codenames_by_group</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -2146,7 +2146,7 @@
 37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subclass_for_set'>subclass_for_set</span>
   <span class='id identifier rubyid_current_set_pattern_code'>current_set_pattern_code</span> <span class='op'>=</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='period'>.</span><span class='id identifier rubyid_codename'>codename</span>
@@ -2181,7 +2181,7 @@
 54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_uncapitalized_label'>uncapitalized_label</span>
   <span class='id identifier rubyid_label'>label</span> <span class='op'>=</span> <span class='id identifier rubyid_label'>label</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -2215,7 +2215,7 @@
 80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_visible_setting_codenames'>visible_setting_codenames</span>
   <span class='ivar'>@visible_setting_codenames</span> <span class='op'>||=</span> <span class='id identifier rubyid_visible_settings'>visible_settings</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:codename</span><span class='rparen'>)</span>
@@ -2250,7 +2250,7 @@
 89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-rules/type/set.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-rules/type/set.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_visible_settings'>visible_settings</span> <span class='id identifier rubyid_group'>group</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_cardtype_id'>cardtype_id</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_cardtype_id'>cardtype_id</span> <span class='op'>||=</span> <span class='id identifier rubyid_prototype'>prototype</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span>
@@ -2270,7 +2270,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:06 2020 by
+  Generated on Sun Oct 18 23:47:57 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>
