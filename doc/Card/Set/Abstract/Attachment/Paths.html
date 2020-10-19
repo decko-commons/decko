@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb</dd>
+    <dd>card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb</dd>
   </dl>
   
 </div>
@@ -540,9 +540,9 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card-mod-carrierwave/set/abstract/attachment/paths.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-carrierwave/set/abstract/attachment/paths.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -586,7 +586,7 @@
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_coded_dir'>coded_dir</span> <span class='id identifier rubyid_new_mod'>new_mod</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_dir'>dir</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='id identifier rubyid_mod_dir'>mod_dir</span><span class='lparen'>(</span><span class='id identifier rubyid_new_mod'>new_mod</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#MOD_FILE_DIR-constant" title="Card::Set::Abstract::Attachment::Paths::MOD_FILE_DIR (constant)">MOD_FILE_DIR</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_codename'>codename</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -634,7 +634,7 @@
 57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file_dir'>file_dir</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_coded?'>coded?</span>
@@ -670,7 +670,7 @@
 65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file_id'>file_id</span>
   <span class='id identifier rubyid_id?'>id?</span> <span class='op'>?</span> <span class='id identifier rubyid_id'>id</span> <span class='op'>:</span> <span class='id identifier rubyid_upload_cache_card'>upload_cache_card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
@@ -701,7 +701,7 @@
 41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_files_base_dir'>files_base_dir</span>
   <span class='id identifier rubyid_dir'>dir</span> <span class='op'>=</span> <span class='id identifier rubyid_bucket'>bucket</span> <span class='op'>?</span> <span class='id identifier rubyid_bucket_config'>bucket_config</span><span class='lbracket'>[</span><span class='symbol'>:subdirectory</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_paths'><span class='object_link'><a href="../../../../Card.html#paths-class_method" title="Card.paths (method)">paths</a></span></span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>files</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_existent'>existent</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
@@ -756,7 +756,7 @@
 46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_files_base_dir_configuration_error'>files_base_dir_configuration_error</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>StandardError</span><span class='comma'>,</span>
@@ -814,7 +814,7 @@
 36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mod_dir'>mod_dir</span> <span class='id identifier rubyid_new_mod'>new_mod</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_mod_name'>mod_name</span> <span class='op'>=</span> <span class='id identifier rubyid_new_mod'>new_mod</span> <span class='op'>||</span> <span class='id identifier rubyid_mod'>mod</span>
@@ -871,7 +871,7 @@
 61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_public?'>public?</span>
   <span class='id identifier rubyid_who_can'>who_can</span><span class='lparen'>(</span><span class='symbol'>:read</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>AnyoneID</span>
@@ -901,7 +901,7 @@
 16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_retrieve_dir'>retrieve_dir</span>
   <span class='id identifier rubyid_coded?'>coded?</span> <span class='op'>?</span> <span class='id identifier rubyid_coded_dir'>coded_dir</span> <span class='op'>:</span> <span class='id identifier rubyid_upload_dir'>upload_dir</span>
@@ -931,7 +931,7 @@
 12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_store_dir'>store_dir</span>
   <span class='id identifier rubyid_will_become_coded?'>will_become_coded?</span> <span class='op'>?</span> <span class='id identifier rubyid_coded_dir'>coded_dir</span><span class='lparen'>(</span><span class='ivar'>@new_mod</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_upload_dir'>upload_dir</span>
@@ -971,7 +971,7 @@
 21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-carrierwave/abstract/attachment/paths.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-carrierwave/abstract/attachment/paths.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_upload_dir'>upload_dir</span>
   <span class='id identifier rubyid_id'>id</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_files_base_dir'>files_base_dir</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='id identifier rubyid_tmp_upload_dir'>tmp_upload_dir</span>
@@ -986,7 +986,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:21 2020 by
+  Generated on Sun Oct 18 23:48:20 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod017-account/right/email.rb</dd>
+    <dd>card/tmpsets/set/mod012-card-mod-account/right/email.rb</dd>
   </dl>
   
 </div>
@@ -91,6 +91,8 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     <p>Set: All “+Email” cards</p>
+
+<p>-<em>- encoding : utf-8 -</em>-</p>
 
 
   </div>
@@ -429,12 +431,12 @@
       <pre class="lines">
 
 
-7</pre>
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/right/email.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/right/email.rb', line 8</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/account/set/right/email.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-account/set/right/email.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -484,12 +486,12 @@
       <pre class="lines">
 
 
-34
-35
-36</pre>
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/right/email.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/right/email.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_required?'>email_required?</span>
   <span class='op'>!</span><span class='id identifier rubyid_left'>left</span><span class='period'>.</span><span class='id identifier rubyid_system?'>system?</span>
@@ -514,13 +516,13 @@
       <pre class="lines">
 
 
-29
-30
 31
-32</pre>
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/right/email.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/right/email.rb', line 31</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:downcase_email</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span> <span class='kw'>do</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_content'>content</span> <span class='op'>||</span> <span class='id identifier rubyid_content'>content</span> <span class='op'>==</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span>
@@ -546,14 +548,14 @@
       <pre class="lines">
 
 
-10
-11
 12
 13
-14</pre>
+14
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/right/email.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/right/email.rb', line 12</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_email</span><span class='comma'>,</span> <span class='symbol'>:validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span> <span class='kw'>do</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_content?'>content?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_content'>content</span> <span class='op'>!~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$</span><span class='regexp_end'>/i</span></span>
@@ -580,8 +582,6 @@
       <pre class="lines">
 
 
-16
-17
 18
 19
 20
@@ -591,10 +591,12 @@
 24
 25
 26
-27</pre>
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/right/email.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/right/email.rb', line 18</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_unique_email</span><span class='comma'>,</span> <span class='label'>after:</span> <span class='symbol'>:validate_email</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span> <span class='kw'>do</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -628,16 +630,16 @@
       <pre class="lines">
 
 
-38
-39
 40
 41
 42
 43
-44</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/right/email.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/right/email.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_to_read'>ok_to_read</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_own_email?'>own_email?</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_always_ok?'><span class='object_link'><a href="../../Auth/Permissions.html#always_ok%3F-instance_method" title="Card::Auth::Permissions#always_ok? (method)">always_ok?</a></span></span>
@@ -689,12 +691,12 @@
       <pre class="lines">
 
 
-46
-47
-48</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/right/email.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/right/email.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_own_email?'>own_email?</span>
   <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_part_names'>part_names</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_as_card'><span class='object_link'><a href="../../Auth/Proxy.html#as_card-instance_method" title="Card::Auth::Proxy#as_card (method)">as_card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
@@ -709,7 +711,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:08 2020 by
+  Generated on Sun Oct 18 23:48:04 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod017-account/right/roles.rb</dd>
+    <dd>card/tmpsets/set/mod012-card-mod-account/right/roles.rb</dd>
   </dl>
   
 </div>
@@ -363,9 +363,9 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/right/roles.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/right/roles.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/account/set/right/roles.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-account/set/right/roles.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -401,7 +401,7 @@
 14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/right/roles.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/right/roles.rb', line 8</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_permission_to_assign_roles</span><span class='comma'>,</span> <span class='symbol'>:validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span> <span class='kw'>do</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_fr'>fr</span> <span class='op'>=</span> <span class='id identifier rubyid_forbidden_roles'>forbidden_roles</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -440,7 +440,7 @@
 23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/right/roles.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/right/roles.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_forbidden_roles'>forbidden_roles</span>
   <span class='comment'># restore old roles for permission check
@@ -482,7 +482,7 @@
 34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/right/roles.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/right/roles.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_old_role_permissions'>with_old_role_permissions</span>
   <span class='id identifier rubyid_new_roles'>new_roles</span> <span class='op'>=</span> <span class='id identifier rubyid_item_cards'>item_cards</span>
@@ -504,7 +504,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:08 2020 by
+  Generated on Sun Oct 18 23:48:04 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>
