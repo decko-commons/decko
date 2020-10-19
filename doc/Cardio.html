@@ -71,7 +71,7 @@
   
   <dl>
       <dt>Extended by:</dt>
-      <dd><span class='object_link'><a href="Cardio/Modfiles.html" title="Cardio::Modfiles (module)">Modfiles</a></span>, <span class='object_link'><a href="Cardio/Schema.html" title="Cardio::Schema (module)">Schema</a></span>, <span class='object_link'><a href="Cardio/Utils.html" title="Cardio::Utils (module)">Utils</a></span></dd>
+      <dd><span class='object_link'><a href="Cardio/Delaying.html" title="Cardio::Delaying (module)">Delaying</a></span>, <span class='object_link'><a href="Cardio/Modfiles.html" title="Cardio::Modfiles (module)">Modfiles</a></span>, <span class='object_link'><a href="Cardio/Schema.html" title="Cardio::Schema (module)">Schema</a></span>, <span class='object_link'><a href="Cardio/Utils.html" title="Cardio::Utils (module)">Utils</a></span></dd>
   </dl>
   
   
@@ -84,7 +84,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>card/lib/cardio.rb<span class="defines">,<br />
-  card/lib/cardio/utils.rb,<br /> card/lib/cardio/schema.rb,<br /> card/lib/cardio/modfiles.rb</span>
+  card/lib/cardio/utils.rb,<br /> card/lib/cardio/schema.rb,<br /> card/lib/cardio/delaying.rb,<br /> card/lib/cardio/modfiles.rb,<br /> card-mod-monkey/lib/cardio/pry.rb,<br /> card-mod-monkey/lib/cardio/pry/commands.rb,<br /> card-mod-delayed_job/lib/cardio/delayed_job.rb</span>
 </dd>
   </dl>
   
@@ -94,7 +94,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cardio/Modfiles.html" title="Cardio::Modfiles (module)">Modfiles</a></span>, <span class='object_link'><a href="Cardio/Schema.html" title="Cardio::Schema (module)">Schema</a></span>, <span class='object_link'><a href="Cardio/Utils.html" title="Cardio::Utils (module)">Utils</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cardio/DelayedJob.html" title="Cardio::DelayedJob (module)">DelayedJob</a></span>, <span class='object_link'><a href="Cardio/Delaying.html" title="Cardio::Delaying (module)">Delaying</a></span>, <span class='object_link'><a href="Cardio/Modfiles.html" title="Cardio::Modfiles (module)">Modfiles</a></span>, <span class='object_link'><a href="Cardio/Pry.html" title="Cardio::Pry (module)">Pry</a></span>, <span class='object_link'><a href="Cardio/Schema.html" title="Cardio::Schema (module)">Schema</a></span>, <span class='object_link'><a href="Cardio/Utils.html" title="Cardio::Utils (module)">Utils</a></span>
     
   
     
@@ -580,6 +580,17 @@
   
   
   
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Cardio/Delaying.html" title="Cardio::Delaying (module)">Delaying</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Cardio/Delaying.html#delaying!-instance_method" title="Cardio::Delaying#delaying! (method)">delaying!</a></span>, <span class='object_link'><a href="Cardio/Delaying.html#delaying%3F-instance_method" title="Cardio::Delaying#delaying? (method)">delaying?</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Cardio/Modfiles.html" title="Cardio::Modfiles (module)">Modfiles</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Cardio/Modfiles.html#each_gem_mod_path-instance_method" title="Cardio::Modfiles#each_gem_mod_path (method)">each_gem_mod_path</a></span>, <span class='object_link'><a href="Cardio/Modfiles.html#each_mod_path-instance_method" title="Cardio::Modfiles#each_mod_path (method)">each_mod_path</a></span>, <span class='object_link'><a href="Cardio/Modfiles.html#each_simple_mod_path-instance_method" title="Cardio::Modfiles#each_simple_mod_path (method)">each_simple_mod_path</a></span>, <span class='object_link'><a href="Cardio/Modfiles.html#gem_mod_spec%3F-instance_method" title="Cardio::Modfiles#gem_mod_spec? (method)">gem_mod_spec?</a></span>, <span class='object_link'><a href="Cardio/Modfiles.html#gem_mod_specs-instance_method" title="Cardio::Modfiles#gem_mod_specs (method)">gem_mod_specs</a></span>, <span class='object_link'><a href="Cardio/Modfiles.html#mod_migration_paths-instance_method" title="Cardio::Modfiles#mod_migration_paths (method)">mod_migration_paths</a></span></p>
 
@@ -625,17 +636,17 @@
       <pre class="lines">
 
 
-160
-161
-162
-163
-164
 165
 166
-167</pre>
+167
+168
+169
+170
+171
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 160</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 165</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_db_paths'>add_db_paths</span>
   <span class='id identifier rubyid_add_path'>add_path</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>db</span><span class='tstring_end'>&quot;</span></span>
@@ -665,14 +676,14 @@
       <pre class="lines">
 
 
-169
-170
-171
-172
-173</pre>
+174
+175
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 174</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_initializer_paths'>add_initializer_paths</span>
   <span class='id identifier rubyid_add_path'>add_path</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>config/initializers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>glob:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>**/*.rb</span><span class='tstring_end'>&quot;</span></span>
@@ -699,15 +710,15 @@
       <pre class="lines">
 
 
-180
-181
-182
-183
-184
-185</pre>
+185
+186
+187
+188
+189
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 180</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 185</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_initializers'>add_initializers</span> <span class='id identifier rubyid_base_dir'>base_dir</span><span class='comma'>,</span> <span class='id identifier rubyid_mod'>mod</span><span class='op'>=</span><span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_init_dir'>init_dir</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>initializers</span><span class='tstring_end'>&quot;</span></span>
   <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_glob'>glob</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_base_dir'>base_dir</span><span class='embexpr_end'>}</span><span class='tstring_content'>/config/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_init_dir'>init_dir</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_initializers_dir'>initializers_dir</span><span class='op'>|</span>
@@ -735,9 +746,6 @@
       <pre class="lines">
 
 
-115
-116
-117
 118
 119
 120
@@ -749,10 +757,13 @@
 126
 127
 128
-129</pre>
+129
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_lib_dirs_to_autoload_paths'>add_lib_dirs_to_autoload_paths</span> <span class='id identifier rubyid_config'>config</span>
   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_autoload_paths'>autoload_paths</span> <span class='op'>+=</span> <span class='const'>Dir</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_gem_root'>gem_root</span><span class='embexpr_end'>}</span><span class='tstring_content'>/lib</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -789,13 +800,13 @@
       <pre class="lines">
 
 
-175
-176
-177
-178</pre>
+180
+181
+182
+183</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 175</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_mod_initializer_paths'>add_mod_initializer_paths</span>
   <span class='id identifier rubyid_add_path'>add_path</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod/config/initializers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>glob:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>**/*.rb</span><span class='tstring_end'>&quot;</span></span>
@@ -821,14 +832,14 @@
       <pre class="lines">
 
 
-195
-196
-197
-198
-199</pre>
+200
+201
+202
+203
+204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 195</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 200</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_path'>add_path</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_root'><span class='object_link'><a href="top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:root</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_gem_root'>gem_root</span>
@@ -855,13 +866,13 @@
       <pre class="lines">
 
 
-131
-132
-133
-134</pre>
+134
+135
+136
+137</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_autoload_and_watch'>autoload_and_watch</span> <span class='id identifier rubyid_config'>config</span><span class='comma'>,</span> <span class='id identifier rubyid_mod_path'>mod_path</span>
   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_autoload_paths'>autoload_paths</span> <span class='op'>+=</span> <span class='const'>Dir</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mod_path'>mod_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>/lib</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -1030,7 +1041,11 @@
 99
 100
 101
-102</pre>
+102
+103
+104
+105
+106</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 42</span>
@@ -1042,12 +1057,16 @@
     <span class='comment'># if you disable inline styles tinymce&#39;s formatting options stop working
 </span>    <span class='label'>allow_inline_styles:</span> <span class='kw'>true</span><span class='comma'>,</span>
 
+    <span class='label'>delaying:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+
     <span class='label'>recaptcha_public_key:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='comment'># deprecated; use recaptcha_site_key instead
 </span>    <span class='label'>recaptcha_private_key:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='comment'># deprecated; use recaptcha_secret_key instead
 </span>    <span class='label'>recaptcha_proxy:</span> <span class='kw'>nil</span><span class='comma'>,</span>
     <span class='label'>recaptcha_site_key:</span> <span class='kw'>nil</span><span class='comma'>,</span>
     <span class='label'>recaptcha_secret_key:</span> <span class='kw'>nil</span><span class='comma'>,</span>
     <span class='label'>recaptcha_minimum_score:</span> <span class='float'>0.5</span><span class='comma'>,</span>
+
+    <span class='label'>google_analytics_key:</span> <span class='kw'>nil</span><span class='comma'>,</span>
 
     <span class='label'>override_host:</span> <span class='kw'>nil</span><span class='comma'>,</span>
     <span class='label'>override_protocol:</span> <span class='kw'>nil</span><span class='comma'>,</span>
@@ -1116,13 +1135,13 @@
       <pre class="lines">
 
 
-201
-202
-203
-204</pre>
+206
+207
+208
+209</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 201</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 206</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_future_stamp'>future_stamp</span>
   <span class='comment'># # used in test data
@@ -1148,12 +1167,12 @@
       <pre class="lines">
 
 
-191
-192
-193</pre>
+196
+197
+198</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 191</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 196</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_gem_root'>gem_root</span>
   <span class='const'><span class='object_link'><a href="#CARD_GEM_ROOT-constant" title="Cardio::CARD_GEM_ROOT (constant)">CARD_GEM_ROOT</a></span></span>
@@ -1290,12 +1309,12 @@
       <pre class="lines">
 
 
-136
-137
-138</pre>
+139
+140
+141</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 139</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_read_only?'>read_only?</span>
   <span class='op'>!</span><span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DECKO_READ_ONLY</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1320,12 +1339,12 @@
       <pre class="lines">
 
 
-187
-188
-189</pre>
+192
+193
+194</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 187</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 192</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_root'><span class='object_link'><a href="top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span>
   <span class='cvar'>@@config</span><span class='period'>.</span><span class='id identifier rubyid_root'><span class='object_link'><a href="top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span>
@@ -1350,24 +1369,22 @@
       <pre class="lines">
 
 
-104
-105
-106
-107
 108
 109
 110
 111
 112
-113</pre>
+113
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_config'>set_config</span> <span class='id identifier rubyid_config'>config</span>
   <span class='cvar'>@@config</span> <span class='op'>=</span> <span class='id identifier rubyid_config'>config</span>
-  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_active_job'>active_job</span><span class='period'>.</span><span class='id identifier rubyid_queue_adapter'>queue_adapter</span> <span class='op'>=</span> <span class='symbol'>:delayed_job</span> <span class='comment'># better place for this?
-</span>
+
   <span class='id identifier rubyid_add_lib_dirs_to_autoload_paths'>add_lib_dirs_to_autoload_paths</span> <span class='id identifier rubyid_config'>config</span>
 
   <span class='id identifier rubyid_default_configs'>default_configs</span><span class='period'>.</span><span class='id identifier rubyid_each_pair'>each_pair</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -1406,12 +1423,12 @@ so don’t change settings here if they already exist</p>
       <pre class="lines">
 
 
-143
-144
-145</pre>
+146
+147
+148</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 146</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_default_value'>set_default_value</span> <span class='id identifier rubyid_config'>config</span><span class='comma'>,</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_setting'>setting</span><span class='embexpr_end'>}</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span> <span class='id identifier rubyid_setting'>setting</span>
@@ -1436,9 +1453,6 @@ so don’t change settings here if they already exist</p>
       <pre class="lines">
 
 
-147
-148
-149
 150
 151
 152
@@ -1447,15 +1461,22 @@ so don’t change settings here if they already exist</p>
 155
 156
 157
-158</pre>
+158
+159
+160
+161
+162
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_paths'>set_paths</span> <span class='id identifier rubyid_paths'>paths</span>
   <span class='cvar'>@@paths</span> <span class='op'>=</span> <span class='id identifier rubyid_paths'>paths</span>
-  <span class='id identifier rubyid_add_path'>add_path</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tmp/set</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>root:</span> <span class='id identifier rubyid_root'><span class='object_link'><a href="top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span>
-  <span class='id identifier rubyid_add_path'>add_path</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tmp/set_pattern</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>root:</span> <span class='id identifier rubyid_root'><span class='object_link'><a href="top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span>
+  <span class='qwords_beg'>%w[</span><span class='tstring_content'>set</span><span class='words_sep'> </span><span class='tstring_content'>set_pattern</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_path'>path</span><span class='op'>|</span>
+    <span class='id identifier rubyid_tmppath'>tmppath</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tmp/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_add_path'>add_path</span> <span class='id identifier rubyid_tmppath'>tmppath</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='id identifier rubyid_root'><span class='object_link'><a href="top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='id identifier rubyid_tmppath'>tmppath</span><span class='rbracket'>]</span><span class='op'>&amp;.</span><span class='id identifier rubyid_existent'>existent</span>
+  <span class='kw'>end</span>
 
   <span class='id identifier rubyid_add_path'>add_path</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod</span><span class='tstring_end'>&quot;</span></span>        <span class='comment'># add card gem&#39;s mod path
 </span>  <span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># add deck&#39;s mod path
@@ -1474,7 +1495,7 @@ so don’t change settings here if they already exist</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:00 2020 by
+  Generated on Sun Oct 18 23:47:40 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

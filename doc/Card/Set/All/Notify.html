@@ -83,8 +83,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod027-card-mod-follow/all/notify.rb<span class="defines">,<br />
-  card/tmpsets/set/mod027-card-mod-follow/all/notify/base_views.rb,<br /> card/tmpsets/set/mod027-card-mod-follow/all/notify/html_views.rb</span>
+    <dd>card/tmpsets/set/mod022-card-mod-follow/all/notify.rb<span class="defines">,<br />
+  card/tmpsets/set/mod022-card-mod-follow/all/notify/base_views.rb,<br /> card/tmpsets/set/mod022-card-mod-follow/all/notify/html_views.rb</span>
 </dd>
   </dl>
   
@@ -533,7 +533,7 @@
 10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/notify.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/notify.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follower_stash'>follower_stash</span>
   <span class='ivar'>@follower_stash</span>
@@ -568,9 +568,9 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/notify.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/notify.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card-mod-follow/set/all/notify.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-follow/set/all/notify.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -602,7 +602,7 @@
 35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/notify.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/notify.rb', line 33</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:notify_followers_after_delete</span><span class='comma'>,</span> <span class='symbol'>:integrate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='symbol'>:notable_change?</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_notify_followers'>notify_followers</span>
@@ -633,7 +633,7 @@
 22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/notify.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/notify.rb', line 19</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:notify_followers_after_save</span><span class='comma'>,</span>
       <span class='symbol'>:integrate_with_delay</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='symbol'>:notable_change?</span> <span class='kw'>do</span>
@@ -664,7 +664,7 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/notify.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/notify.rb', line 11</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:silence_notifications</span><span class='comma'>,</span> <span class='symbol'>:initialize</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='symbol'>:silence_notifications?</span> <span class='kw'>do</span>
   <span class='ivar'>@silent_change</span> <span class='op'>=</span> <span class='kw'>true</span>
@@ -708,7 +708,7 @@ integrate_with_delay phase</p>
 31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/notify.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/notify.rb', line 28</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:stash_followers</span><span class='comma'>,</span> <span class='symbol'>:store</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='symbol'>:notable_change?</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_act_card'>act_card</span><span class='period'>.</span><span class='id identifier rubyid_follower_stash'>follower_stash</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../FollowerStash.html" title="Card::FollowerStash (class)">FollowerStash</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../../FollowerStash.html#initialize-instance_method" title="Card::FollowerStash#initialize (method)">new</a></span></span>
@@ -763,7 +763,7 @@ integrate_with_delay phase</p>
 47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/notify.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/notify.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_notable_change?'>notable_change?</span>
   <span class='op'>!</span><span class='id identifier rubyid_silent_change?'>silent_change?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_current_act_card?'>current_act_card?</span> <span class='op'>&amp;&amp;</span>
@@ -797,7 +797,7 @@ integrate_with_delay phase</p>
 42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/notify.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/notify.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_notify_followers'>notify_followers</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_act'>act</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Director.html" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_act'><span class='object_link'><a href="../../Director.html#act-instance_method" title="Card::Director#act (method)">act</a></span></span><span class='rparen'>)</span>
@@ -853,7 +853,7 @@ integrate_with_delay phase</p>
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/notify.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/notify.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_silence_notifications?'>silence_notifications?</span>
   <span class='op'>!</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='lbracket'>[</span><span class='symbol'>:controller</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_force_notifications'>force_notifications</span><span class='rparen'>)</span>
@@ -906,7 +906,7 @@ integrate_with_delay phase</p>
 51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/notify.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/notify.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_silent_change?'>silent_change?</span>
   <span class='id identifier rubyid_silent_change'>silent_change</span>
@@ -921,7 +921,7 @@ integrate_with_delay phase</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:14 2020 by
+  Generated on Sun Oct 18 23:48:01 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

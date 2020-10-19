@@ -83,8 +83,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod019-history/all/history.rb<span class="defines">,<br />
-  card/tmpsets/set/mod019-history/all/history/acts.rb,<br /> card/tmpsets/set/mod019-history/all/history/last.rb,<br /> card/tmpsets/set/mod019-history/all/history/views.rb,<br /> card/tmpsets/set/mod019-history/all/history/events.rb,<br /> card/tmpsets/set/mod019-history/all/history/actions.rb,<br /> card/tmpsets/set/mod019-history/all/history/revision.rb,<br /> card/tmpsets/set/mod019-history/all/history/selected.rb,<br /> card/tmpsets/set/mod019-history/all/history/act_listing.rb</span>
+    <dd>card/tmpsets/set/mod018-card-mod-history/all/history.rb<span class="defines">,<br />
+  card/tmpsets/set/mod018-card-mod-history/all/history/acts.rb,<br /> card/tmpsets/set/mod018-card-mod-history/all/history/last.rb,<br /> card/tmpsets/set/mod018-card-mod-history/all/history/views.rb,<br /> card/tmpsets/set/mod018-card-mod-history/all/history/events.rb,<br /> card/tmpsets/set/mod018-card-mod-history/all/history/actions.rb,<br /> card/tmpsets/set/mod018-card-mod-history/all/history/revision.rb,<br /> card/tmpsets/set/mod018-card-mod-history/all/history/selected.rb,<br /> card/tmpsets/set/mod018-card-mod-history/all/history/act_listing.rb</span>
 </dd>
   </dl>
   
@@ -720,9 +720,9 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/history/set/all/history.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-history/set/all/history.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -754,7 +754,7 @@
 54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action_count'>action_count</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Action.html" title="Card::Action (class)">Action</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>card_id:</span> <span class='ivar'>@current_action</span><span class='period'>.</span><span class='id identifier rubyid_card_id'>card_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
@@ -784,7 +784,7 @@
 63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_changed_fields'>changed_fields</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Change.html" title="Card::Change (class)">Change</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Change.html#TRACKED_FIELDS-constant" title="Card::Change::TRACKED_FIELDS (constant)">TRACKED_FIELDS</a></span></span> <span class='op'>&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_changed_attribute_names_to_save'>changed_attribute_names_to_save</span> <span class='op'>|</span> <span class='id identifier rubyid_saved_changes'>saved_changes</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='rparen'>)</span>
@@ -815,7 +815,7 @@
 88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear_history'>clear_history</span>
   <span class='id identifier rubyid_delete_all_changes'>delete_all_changes</span>
@@ -846,7 +846,7 @@
 96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_all_changes'>delete_all_changes</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Change.html" title="Card::Change (class)">Change</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>card_action_id:</span> <span class='id identifier rubyid_all_action_ids'>all_action_ids</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
@@ -876,7 +876,7 @@
 92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_old_actions'>delete_old_actions</span>
   <span class='id identifier rubyid_old_actions'>old_actions</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
@@ -906,7 +906,7 @@
 75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_diff_args'>diff_args</span>
   <span class='lbrace'>{</span> <span class='label'>diff_format:</span> <span class='symbol'>:text</span> <span class='rbrace'>}</span>
@@ -939,7 +939,7 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 8</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:update_ancestor_timestamps</span><span class='comma'>,</span> <span class='symbol'>:integrate</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_ids'>ids</span> <span class='op'>=</span> <span class='id identifier rubyid_history_ancestor_ids'>history_ancestor_ids</span>
@@ -1000,7 +1000,7 @@ loaded -pk</p>
 46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_first_change?'>first_change?</span>
   <span class='comment'># = update or delete
@@ -1055,7 +1055,7 @@ loaded -pk</p>
 50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_first_create?'>first_create?</span>
   <span class='ivar'>@current_action</span><span class='period'>.</span><span class='id identifier rubyid_action_type'>action_type</span> <span class='op'>==</span> <span class='symbol'>:create</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_action_count'>action_count</span> <span class='op'>==</span> <span class='int'>1</span>
@@ -1108,7 +1108,7 @@ loaded -pk</p>
 59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_has_edits?'>has_edits?</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Act.html" title="Card::Act (class)">Act</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>actor_id:</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card_id IS NOT NULL</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -1161,7 +1161,7 @@ loaded -pk</p>
 18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_history?'>history?</span>
   <span class='kw'>true</span>
@@ -1195,7 +1195,7 @@ loaded -pk</p>
 36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_history_ancestor_ids'>history_ancestor_ids</span> <span class='id identifier rubyid_recursion_level'>recursion_level</span><span class='op'>=</span><span class='int'>0</span>
   <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_recursion_level'>recursion_level</span> <span class='op'>&gt;</span> <span class='int'>5</span>
@@ -1239,7 +1239,7 @@ loaded -pk</p>
 23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_history_card_ids'>history_card_ids</span>
   <span class='id identifier rubyid_nestee_ids'>nestee_ids</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_id'>id</span>
@@ -1279,7 +1279,7 @@ loaded -pk</p>
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_history_parent_ids'>history_parent_ids</span>
   <span class='id identifier rubyid_nester_ids'>nester_ids</span>
@@ -1322,7 +1322,7 @@ loaded -pk</p>
 83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_make_last_action_the_initial_action'>make_last_action_the_initial_action</span>
   <span class='id identifier rubyid_delete_all_changes'>delete_all_changes</span>
@@ -1354,7 +1354,7 @@ loaded -pk</p>
 67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nestee_ids'>nestee_ids</span>
   <span class='id identifier rubyid_requiring_id'>requiring_id</span> <span class='lbrace'>{</span> <span class='ivar'>@nestee_ids</span> <span class='op'>||=</span> <span class='id identifier rubyid_nesting_ids'>nesting_ids</span><span class='lparen'>(</span><span class='symbol'>:referee_id</span><span class='comma'>,</span> <span class='symbol'>:referer_id</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1384,7 +1384,7 @@ loaded -pk</p>
 71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nester_ids'>nester_ids</span>
   <span class='id identifier rubyid_requiring_id'>requiring_id</span> <span class='lbrace'>{</span> <span class='ivar'>@nester_ids</span> <span class='op'>||=</span> <span class='id identifier rubyid_nesting_ids'>nesting_ids</span><span class='lparen'>(</span><span class='symbol'>:referer_id</span><span class='comma'>,</span> <span class='symbol'>:referee_id</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1418,7 +1418,7 @@ loaded -pk</p>
 104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-history/all/history.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-card-mod-history/all/history.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_save_content_draft'>save_content_draft</span> <span class='id identifier rubyid_content'>content</span>
   <span class='kw'>super</span>
@@ -1437,7 +1437,7 @@ loaded -pk</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:09 2020 by
+  Generated on Sun Oct 18 23:48:05 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

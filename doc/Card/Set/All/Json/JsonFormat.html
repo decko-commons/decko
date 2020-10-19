@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod005-basic_formats/all/json.rb</dd>
+    <dd>card/tmpsets/set/mod004-card-mod-format/all/json.rb</dd>
   </dl>
   
 </div>
@@ -351,6 +351,29 @@
 
   
     <span class="summary_desc"><div class='inline'><p>TODO: support layouts in json eg layout=stamp gives you the metadata currently in “page” view and layout=none gives you ONLY the requested view (default atom).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#stringify-instance_method" title="#stringify (instance method)">#<strong>stringify</strong>(raw)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
 </div></span>
   
 </li>
@@ -680,14 +703,14 @@
       <pre class="lines">
 
 
-141
-142
-143
 144
-145</pre>
+145
+146
+147
+148</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_atom'>atom</span>
   <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='id identifier rubyid_nucleus'>nucleus</span>
@@ -719,7 +742,7 @@
 20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_item_view'>default_item_view</span>
   <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:item</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='symbol'>:name</span>
@@ -749,7 +772,7 @@
 16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_nest_view'>default_nest_view</span>
   <span class='symbol'>:atom</span>
@@ -774,13 +797,13 @@
       <pre class="lines">
 
 
-124
-125
-126
-127</pre>
+127
+128
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_essentials'>essentials</span>
   <span class='kw'>return</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_structure'>structure</span>
@@ -821,7 +844,7 @@
 12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_item_cards'>item_cards</span>
   <span class='id identifier rubyid_nested_cards'>nested_cards</span>
@@ -856,17 +879,17 @@
       <pre class="lines">
 
 
-107
-108
-109
 110
 111
 112
 113
-114</pre>
+114
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 110</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:marks</span> <span class='kw'>do</span>
   <span class='lbrace'>{</span>
@@ -901,7 +924,7 @@
 24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_max_depth'>max_depth</span>
   <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:max_depth</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:max_depth</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>:</span> <span class='int'>1</span>
@@ -926,16 +949,16 @@
       <pre class="lines">
 
 
-147
-148
-149
 150
 151
 152
-153</pre>
+153
+154
+155
+156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_molecule'>molecule</span>
   <span class='id identifier rubyid_atom'>atom</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='label'>items:</span> <span class='id identifier rubyid__render_items'>_render_items</span><span class='comma'>,</span>
@@ -975,17 +998,17 @@ views manipulate their hashes.</p>
       <pre class="lines">
 
 
-132
-133
-134
 135
 136
 137
 138
-139</pre>
+139
+140
+141
+142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 135</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nucleus'>nucleus</span>
   <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
@@ -1015,13 +1038,13 @@ views manipulate their hashes.</p>
       <pre class="lines">
 
 
-53
-54
-55
-56</pre>
+56
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_request_url'>request_url</span>
   <span class='id identifier rubyid_req'>req</span> <span class='op'>=</span> <span class='id identifier rubyid_controller'>controller</span><span class='period'>.</span><span class='id identifier rubyid_request'>request</span>
@@ -1063,17 +1086,45 @@ and layout=none gives you ONLY the requested view (default atom)</p>
 30
 31
 32
-33
-34
-35</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_view'>view</span> <span class='op'>||=</span> <span class='symbol'>:molecule</span>
   <span class='id identifier rubyid_raw'>raw</span> <span class='op'>=</span> <span class='id identifier rubyid_render!'>render!</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_raw'>raw</span> <span class='kw'>if</span> <span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>String</span>
+  <span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_raw'>raw</span> <span class='op'>:</span> <span class='id identifier rubyid_stringify'>stringify</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="stringify-instance_method">
+  
+    #<strong>stringify</strong>(raw)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 35</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_stringify'>stringify</span> <span class='id identifier rubyid_raw'>raw</span>
   <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:compress</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='symbol'>:generate</span> <span class='op'>:</span> <span class='symbol'>:pretty_generate</span>
   <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span> <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_raw'>raw</span>
 <span class='kw'>end</span></pre>
@@ -1097,14 +1148,14 @@ and layout=none gives you ONLY the requested view (default atom)</p>
       <pre class="lines">
 
 
-95
-96
-97
 98
-99</pre>
+99
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 98</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:ancestors</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_ancestors'>ancestors</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='op'>|</span>
@@ -1141,12 +1192,12 @@ and layout=none gives you ONLY the requested view (default atom)</p>
       <pre class="lines">
 
 
-71
-72
-73</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 74</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:atom</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_atom'>atom</span>
@@ -1181,12 +1232,12 @@ and layout=none gives you ONLY the requested view (default atom)</p>
       <pre class="lines">
 
 
-102
-103
-104</pre>
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 105</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:cast</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_cast'>cast</span>
@@ -1211,12 +1262,12 @@ and layout=none gives you ONLY the requested view (default atom)</p>
       <pre class="lines">
 
 
-62
-63
-64</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 65</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:content</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span>
@@ -1241,12 +1292,12 @@ and layout=none gives you ONLY the requested view (default atom)</p>
       <pre class="lines">
 
 
-58
-59
-60</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 61</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_known?'>known?</span> <span class='op'>?</span> <span class='id identifier rubyid_render_content'>render_content</span> <span class='op'>:</span> <span class='kw'>nil</span>
@@ -1271,16 +1322,16 @@ and layout=none gives you ONLY the requested view (default atom)</p>
       <pre class="lines">
 
 
-116
-117
-118
 119
 120
 121
-122</pre>
+122
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 119</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:essentials</span> <span class='kw'>do</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_show?'>show?</span> <span class='symbol'>:marks</span>
@@ -1320,12 +1371,12 @@ could be safely cached for non-dynamic lists</p>
       <pre class="lines">
 
 
-81
-82
-83</pre>
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 84</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:items</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_listing'>listing</span> <span class='id identifier rubyid_item_cards'>item_cards</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='symbol'>:atom</span>
@@ -1350,18 +1401,18 @@ could be safely cached for non-dynamic lists</p>
       <pre class="lines">
 
 
-85
-86
-87
 88
 89
 90
 91
 92
-93</pre>
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 88</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:links</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_link_chunks'>link_chunks</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_chunk'>chunk</span><span class='op'>|</span>
@@ -1402,17 +1453,17 @@ could be safely cached for non-dynamic lists</p>
       <pre class="lines">
 
 
-107
-108
-109
 110
 111
 112
 113
-114</pre>
+114
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 110</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:marks</span> <span class='kw'>do</span>
   <span class='lbrace'>{</span>
@@ -1442,12 +1493,12 @@ could be safely cached for non-dynamic lists</p>
       <pre class="lines">
 
 
-75
-76
-77</pre>
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 78</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:molecule</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_molecule'>molecule</span>
@@ -1472,12 +1523,12 @@ could be safely cached for non-dynamic lists</p>
       <pre class="lines">
 
 
-66
-67
-68</pre>
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 69</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:nucleus</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_nucleus'>nucleus</span>
@@ -1512,14 +1563,14 @@ could be safely cached for non-dynamic lists</p>
       <pre class="lines">
 
 
-47
-48
-49
 50
-51</pre>
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 50</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:page</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='lbrace'>{</span> <span class='label'>url:</span> <span class='id identifier rubyid_request_url'>request_url</span><span class='comma'>,</span>
@@ -1546,17 +1597,17 @@ could be safely cached for non-dynamic lists</p>
       <pre class="lines">
 
 
-37
-38
-39
 40
 41
 42
 43
-44</pre>
+44
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-basic_formats/all/json.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/json.rb', line 40</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:status</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_state'>state</span>
@@ -1576,7 +1627,7 @@ could be safely cached for non-dynamic lists</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:11 2020 by
+  Generated on Sun Oct 18 23:47:58 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>
