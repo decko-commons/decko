@@ -32,8 +32,7 @@ module Decko
     end
 
     initializer :set_autoload_paths, group: :all do |app|
-      dpaths = app.config.autoload_paths
-      ActiveSupport::Dependencies.autoload_paths += dpaths <<
+      ActiveSupport::Dependencies.autoload_paths <<
         File.join(Decko.gem_root, 'lib/rails/controllers')
     end
 
