@@ -34,7 +34,7 @@ end
 
 def recaptcha_success? result
   result['success'] &&
-    (result['score'].to_f >= ::Cardio.config.recaptcha_minimum_score) &&
+    (result['score'].to_f >= Card.config.recaptcha_minimum_score) &&
     (result['action'].to_sym == action.to_sym)
 end
 

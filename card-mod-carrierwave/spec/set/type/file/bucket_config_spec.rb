@@ -29,12 +29,12 @@ describe "#bucket config" do
   end
 
   before do
-    @old_bucket_config = ::Cardio.config.file_buckets
-    ::Cardio.config.file_buckets = bucket_config
+    @old_bucket_config = Card.config.file_buckets
+    Card.config.file_buckets = bucket_config
   end
 
   after do
-    ::Cardio.config.file_buckets = @old_bucket_config
+    Card.config.file_buckets = @old_bucket_config
     %w[PROVIDER CREDENTIALS_PROVIDER TEST_BUCKET_PROVIDER
          TEST_BUCKET_CREDENTIALS_PROVIDER].each do |key|
       ENV.delete key
@@ -46,12 +46,12 @@ describe "#bucket config" do
   end
 
   it "raises error if no bucket config given" do
-    ::Cardio.config.file_buckets = {}
+    Card.config.file_buckets = {}
     expect { subject }.to raise_error(Card::Error)
   end
 
   it "takes config from env variables" do
-    ::Cardio.config.file_buckets = {}
+    Card.config.file_buckets = {}
     ENV["PROVIDER"] = "env provider"
     ENV["CREDENTIALS_PROVIDER"] = "env cred provider"
     is_expected.to eq provider: "env provider",

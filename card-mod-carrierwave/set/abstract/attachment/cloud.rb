@@ -34,7 +34,7 @@ end
 
 def load_bucket_config
   return {} unless bucket
-  bucket_config = ::Cardio.config.file_buckets&.dig(bucket.to_sym) || {}
+  bucket_config = Card.config.file_buckets&.dig(bucket.to_sym) || {}
   bucket_config.symbolize_keys!
   bucket_config[:credentials]&.symbolize_keys!
   # we don't want :attributes hash symbolized, so we can't use
@@ -116,7 +116,7 @@ def bucket_from_content
 end
 
 def bucket_from_config
-  cnf = ::Cardio.config
+  cnf = Card.config
   cnf.file_default_bucket || cnf.file_buckets&.keys&.first
 end
 

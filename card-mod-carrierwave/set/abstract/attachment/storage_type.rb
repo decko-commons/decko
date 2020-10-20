@@ -79,7 +79,7 @@ def mod_from_deprecated_content
 end
 
 def storage_type_from_config
-  valid_storage_type ENV["FILE_STORAGE"] || ::Cardio.config.file_storage
+  valid_storage_type ENV["FILE_STORAGE"] || Card.config.file_storage
 end
 
 def valid_storage_type storage_type
