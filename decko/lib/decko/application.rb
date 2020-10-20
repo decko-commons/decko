@@ -20,10 +20,9 @@ module Decko
 
     initializer :load_decko_environment_config,
                 before: :bootstrap, group: :all do
-      Cardio.add_path "lib/decko/config/environments", glob: "#{Rails.env}.rb"
-      paths["lib/decko/config/environments"].existent.each do |environment|
-        require environment
-      end
+      environment=File.join( Decko.gem_root,
+        "lib/decko/config/environments/#{Rails.env}.rb" )
+      require environment if File.exist?(environment)
     end
 
     initializer :deck_autoload, before: :set_autoload_paths do |app|
@@ -44,11 +43,17 @@ module Decko
       # overridable decko-specific settings don't have a place yet
       # but should probably follow the cardio pattern.
 
-      config.load_defaults "6.0"    # note this isn't a setter method
-      config.autoloader = :zeitwerk # 6.0 includes this setting
-      config.i18n.enforce_available_locales = true
-      # config.active_record.raise_in_transactional_callbacks = true
+      # Add this back in green state
+      #config.load_defaults "6.0"    # note this isn't a setter method
+      # a 6.0 default that doesn't work for history tables (super_action)
+      #config.active_record.belongs_to_required_by_default = false
 
+      config.autoloader = :zeitwerk
+      config.i18n.enforce_available_locales = true
+      # this isn't found
+      #config.active_record.raise_in_transactional_callbacks = true
+
+      # decide which should be in decko vs. cardio config
       config.allow_concurrency = false
       config.assets.enabled = false
       config.assets.version = "1.0"

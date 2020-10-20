@@ -15,10 +15,9 @@ module Cardio
 
     initializer :load_card_environment_config,
                 before: :bootstrap, group: :all do
-      Cardio.add_path "lib/card/config/environments", glob: "#{Rails.env}.rb"
-      paths["lib/card/config/environments"].existent.each do |environment|
-        require environment
-      end
+      environment=File.join( Cardio.gem_root,
+        "lib/card/config/environments/#{Rails.env}.rb" )
+      require environment if File.exist?(environment)
     end
 
 =begin # save copy of some stuff in decko, move some here
@@ -41,9 +40,9 @@ warn "CARD #{__LINE__}"
       # but should probably follow the cardio pattern.
 
       # config.load_defaults "6.0"
-      config.autoloader = :zeitwerk
-      config.load_default = "6.0"
-      config.i18n.enforce_available_locales = true
+      #config.autoloader = :zeitwerk
+      #config.load_default = "6.0"
+      #config.i18n.enforce_available_locales = true
       # config.active_record.raise_in_transactional_callbacks = true
 
       config.allow_concurrency = false
