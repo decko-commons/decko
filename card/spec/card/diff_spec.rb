@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
-# !/usr/bin/env ruby
 
-describe Card::Content::Diff do
+RSpec.describe Card::Content::Diff do
   def del text
     "<del class='diffdel diff-deleted'>#{text}</del>"
   end

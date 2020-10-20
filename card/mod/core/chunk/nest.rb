@@ -106,6 +106,10 @@ class Card
           end
         end
 
+        def raw_options
+          @opt_lists
+        end
+
         private
 
         def each_option attr_string

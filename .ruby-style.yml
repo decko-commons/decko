@@ -1,8 +1,9 @@
 AllCops:
   Exclude:
     - "doc/**/*"
-    - "card/db/schema.rb"
+    - "coverage/**/*"
     - "card/tmpsets/**/*"
+    - "card/db/schema.rb"
     - "{card/mod/*,card-mod-*}/lib/stylesheets/*.css"
     - "{card/mod/*,card-mod-*}/lib/javascript/*.js"
     - "{card/mod/*,card-mod-*}/{file,public,vendor}/**/*"

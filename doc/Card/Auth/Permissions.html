@@ -639,12 +639,16 @@
 
 65
 66
-67</pre>
+67
+68
+69</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/auth/permissions.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_has_role?'>has_role?</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='comma'>,</span> <span class='id identifier rubyid_role_id'>role_id</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_user_id'>user_id</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_role_id'>role_id</span>
+
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_all_enabled_roles'>all_enabled_roles</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_role_id'>role_id</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -695,7 +699,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:02 2020 by
+  Generated on Sun Oct 18 23:47:43 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

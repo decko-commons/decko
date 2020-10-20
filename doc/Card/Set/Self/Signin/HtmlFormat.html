@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod017-account/self/signin.rb</dd>
+    <dd>card/tmpsets/set/mod012-card-mod-account/self/signin.rb</dd>
   </dl>
   
 </div>
@@ -519,12 +519,12 @@
       <pre class="lines">
 
 
-177
-178
-179</pre>
+224
+225
+226</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 224</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_success'>edit_success</span>
   <span class='lbrace'>{</span> <span class='label'>view:</span> <span class='symbol'>:reset_password_success</span> <span class='rbrace'>}</span>
@@ -549,12 +549,12 @@
       <pre class="lines">
 
 
-173
-174
-175</pre>
+220
+221
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 173</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 220</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_view_hidden'>edit_view_hidden</span>
   <span class='id identifier rubyid_hidden_tags'>hidden_tags</span> <span class='label'>card:</span> <span class='lbrace'>{</span> <span class='label'>trigger:</span> <span class='symbol'>:send_reset_password_token</span> <span class='rbrace'>}</span>
@@ -579,18 +579,18 @@
       <pre class="lines">
 
 
-166
-167
-168
-169
-170
-171</pre>
+213
+214
+215
+216
+217
+218</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 166</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 213</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_password_link'>reset_password_link</span>
-  <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span> <span class='symbol'>:reset_password</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.account.set.self.signin</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span> <span class='symbol'>:reset_password</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.card-mod-account.set.self.signin</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_link'>link</span> <span class='op'>=</span> <span class='id identifier rubyid_link_to_view'>link_to_view</span> <span class='symbol'>:edit</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='label'>path:</span> <span class='lbrace'>{</span> <span class='label'>slot:</span> <span class='lbrace'>{</span> <span class='label'>hide:</span> <span class='symbol'>:bridge_link</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span>
   <span class='comment'># FIXME: inline styling
 </span>  <span class='id identifier rubyid_raw'>raw</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;div style=&#39;float:right&#39;&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_link'>link</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/div&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -615,14 +615,14 @@
       <pre class="lines">
 
 
-141
-142
-143
-144
-145</pre>
+188
+189
+190
+191
+192</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 188</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_password_voo'>reset_password_voo</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span> <span class='op'>||=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_i18n_signin'>i18n_signin</span><span class='lparen'>(</span><span class='symbol'>:forgot_password</span><span class='rparen'>)</span>
@@ -649,16 +649,16 @@
       <pre class="lines">
 
 
-156
-157
-158
-159</pre>
+203
+204
+205
+206</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 156</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 203</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_signin_button'>signin_button</span>
-  <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span> <span class='symbol'>:sign_in</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.account.set.self.signin</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span> <span class='symbol'>:sign_in</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.card-mod-account.set.self.signin</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_button_tag'>button_tag</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='label'>situation:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>primary</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
@@ -681,14 +681,14 @@
       <pre class="lines">
 
 
-181
-182
-183
-184
-185</pre>
+228
+229
+230
+231
+232</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 181</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 228</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_signin_field'>signin_field</span> <span class='id identifier rubyid_name'>name</span>
   <span class='id identifier rubyid_nest_name'>nest_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_trait'>trait</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -715,12 +715,12 @@
       <pre class="lines">
 
 
-152
-153
-154</pre>
+199
+200
+201</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 152</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 199</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_signin_success'>signin_success</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>REDIRECT: </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_interrupted_action'><span class='object_link'><a href="../../../Env/LocationHistory.html#interrupted_action-instance_method" title="Card::Env::LocationHistory#interrupted_action (method)">interrupted_action</a></span></span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*previous</span><span class='tstring_end'>&#39;</span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -745,16 +745,16 @@
       <pre class="lines">
 
 
-161
-162
-163
-164</pre>
+208
+209
+210
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 161</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 208</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_signup_link'>signup_link</span>
-  <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span> <span class='symbol'>:or_sign_up</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.account.set.self.signin</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span> <span class='symbol'>:or_sign_up</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.card-mod-account.set.self.signin</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_subformat'>subformat</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='symbol'>:account_links</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_render!'>render!</span> <span class='symbol'>:sign_up</span><span class='comma'>,</span> <span class='label'>title:</span> <span class='id identifier rubyid_text'>text</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -777,20 +777,20 @@
       <pre class="lines">
 
 
-91
-92
-93
-94
-95
-96
-97
-98
-99
-100
-101</pre>
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 138</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_edit_structure'>edit_structure</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_signin_field'>signin_field</span><span class='lparen'>(</span><span class='symbol'>:email</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_signin_field'>signin_field</span><span class='lparen'>(</span><span class='symbol'>:password</span><span class='rparen'>)</span><span class='rbracket'>]</span>
@@ -833,13 +833,13 @@
       <pre class="lines">
 
 
-136
-137
-138
-139</pre>
+183
+184
+185
+186</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 183</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:edit</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_reset_password_voo'>reset_password_voo</span>
@@ -865,16 +865,16 @@
       <pre class="lines">
 
 
-147
-148
-149
-150</pre>
+194
+195
+196
+197</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 194</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:edit_buttons</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span> <span class='symbol'>:reset_my_password</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.account.set.self.signin</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span> <span class='symbol'>:reset_my_password</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.card-mod-account.set.self.signin</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_button_tag'>button_tag</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='label'>situation:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>primary</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_close-modal-on-success</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
@@ -897,12 +897,12 @@
       <pre class="lines">
 
 
-120
-121
-122</pre>
+167
+168
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 167</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:one_line_content</span> <span class='kw'>do</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
@@ -927,14 +927,14 @@
       <pre class="lines">
 
 
-103
-104
-105
-106
-107</pre>
+150
+151
+152
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 150</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:open</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_show'>show</span> <span class='symbol'>:help</span>
@@ -961,13 +961,13 @@
       <pre class="lines">
 
 
-115
-116
-117
-118</pre>
+162
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 162</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:open_content</span> <span class='kw'>do</span>
   <span class='comment'># annoying step designed to avoid table of contents.  sigh
@@ -993,17 +993,17 @@
       <pre class="lines">
 
 
-124
-125
-126
-127</pre>
+171
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 171</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:reset_password_success</span> <span class='kw'>do</span>
   <span class='comment'># &#39;Check your email for a link to reset your password&#39;
-</span>  <span class='id identifier rubyid_frame'>frame</span> <span class='lbrace'>{</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:check_email</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.account.set.self.signin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+</span>  <span class='id identifier rubyid_frame'>frame</span> <span class='lbrace'>{</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:check_email</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.card-mod-account.set.self.signin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1025,14 +1025,14 @@
       <pre class="lines">
 
 
-129
-130
-131
-132
-133</pre>
+176
+177
+178
+179
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 176</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:signin_buttons</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_button_formgroup'>button_formgroup</span> <span class='kw'>do</span>
@@ -1069,16 +1069,16 @@
       <pre class="lines">
 
 
-110
-111
-112
-113</pre>
+157
+158
+159
+160</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-account/self/signin.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-account/self/signin.rb', line 157</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:title</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span> <span class='op'>||=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:sign_in_title</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.account.set.self.signin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span> <span class='op'>||=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:sign_in_title</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mod.card-mod-account.set.self.signin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1091,7 +1091,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:09 2020 by
+  Generated on Sun Oct 18 23:48:04 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

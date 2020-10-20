@@ -98,7 +98,7 @@ def attachment_format ext
   if ext.present? && attachment && (original_ext = attachment.extension.sub(/^\./, ""))
     if ["file", original_ext].member? ext
       original_ext
-    elsif (exts = MIME::Types[attachment.content_type])
+    elsif (exts = Mime::Types[attachment.content_type])
       if exts.find { |mt| mt.extensions.member? ext }
         ext
       else
