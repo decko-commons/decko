@@ -5,9 +5,9 @@
 .jhw-cache
 .rvmrc
 .tm_properties
-#.yardoc
 *.iml
 log/*
+coverage
 pkg
 *.gem
 *.project

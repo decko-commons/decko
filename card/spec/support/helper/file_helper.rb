@@ -32,27 +32,34 @@ class Card
       end
 
       def test_bucket_credentials
-        file_path = test_bucket_file_path
-        yml_file = ENV["BUCKET_CREDENTIALS_PATH"] || file_path
-        if File.exist? yml_file
-          YAML.load_file(yml_file).deep_symbolize_keys[:aws]
-        else
-          need_bucket_credentials! file_path
-          nil
-        end
+        bucket_from_config || bucket_from_file || need_bucket_credentials!
+      end
+
+      def bucket_from_config
+        bucket = Cardio.config.file_buckets&.dig :test_bucket
+        bucket if bucket&.dig :aws_access_key_id
+      end
+
+      def bucket_from_file
+        yml_file = test_bucket_file_path
+        return unless File.exist? yml_file
+        YAML.load_file(yml_file).deep_symbolize_keys[:aws]
       end
 
       def test_bucket_file_path
-        File.expand_path "../../bucket_credentials.yml", __FILE__
+        ENV["BUCKET_CREDENTIALS_PATH"] || "#{Cardio.root}/config/test_bucket.yml"
       end
 
-      def need_bucket_credentials! file_path
-        puts %[
+      def need_bucket_credentials!
+        puts %(
 ~~~Skipping cloud specs~~~
 Cannot run without bucket credentials
-  Specify yml file with environmental variable (BUCKET_CREDENTIALS_PATH)
-  or add credentials to #{file_path}.
-      ]
+  Specify yml file with environmental variables:
+  TEST_BUCKET_AWS_ACCESS_KEY_ID and
+  TEST_BUCKET_AWS_SECRET_ACCESS_KEY
+  or add credentials to #{test_bucket_file_path}.
+        )
+        nil
       end
 
       def ensure_test_bucket credentials
