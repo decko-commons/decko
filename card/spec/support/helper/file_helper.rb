@@ -51,14 +51,14 @@ class Card
       end
 
       def need_bucket_credentials!
-        puts %[
+        puts %(
 ~~~Skipping cloud specs~~~
 Cannot run without bucket credentials
   Specify yml file with environmental variables:
   TEST_BUCKET_AWS_ACCESS_KEY_ID and
   TEST_BUCKET_AWS_SECRET_ACCESS_KEY
   or add credentials to #{test_bucket_file_path}.
-        ]
+        )
         nil
       end
 
