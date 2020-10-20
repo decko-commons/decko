@@ -7,39 +7,50 @@ agent:
 global_job_config:
   env_vars:
     - name: BUNDLE_PATH
-      value: ~/bundle/
+      value: "~/bundle/"
     - name: COVERAGE
-      value: 'false'
+      value: "false"
     - name: DECKO_REPO_PATH
-      value: ~/decko
+      value: "~/decko"
   prologue:
     commands:
-      - checkout
-      - sem-version ruby 2.6.3
+      - checkout # semaphore does git checkout and cds into decko
+      - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
       - alias be='bundle exec'
       - git submodule init
+      # - git submodule status > substat.txt # needed for sem submodule caching
+      # - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
+
 blocks:
   - name: Smoke
     task:
       prologue:
         commands:
           - cache restore bundle-gems-baseline
-          - '#cache restore bundle-gems-$(checksum Gemfile.lock)'
+          # occasionally clear: `cache delete bundle-gems-baseline`
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
           - bundle install
           - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
           - cache store bundle-gems-baseline ~/bundle
+
           - sem-service start mysql
           - git submodule update card/db/seed
+
       jobs:
         - name: New Shark and Monkey Decks
           commands:
+            # NEW SHARK DECK
             - be decko new shark
             - cd shark
             - be decko seed
-            - cd ..
+
+            - cd .. # note: faster than making a separate job.
+
+            # NEW MONKEY DECK
             - be decko new monkey --monkey
             - cd monkey
             - be decko seed
+
   - name: Unit Tests
     task:
       prologue:
@@ -47,6 +58,7 @@ blocks:
           - sem-service start mysql
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
+
       jobs:
         - name: RSpec
           commands:
@@ -54,6 +66,7 @@ blocks:
             - cd platypus
             - be decko seed --test
             - be decko rspec
+
   - name: Integration Tests
     task:
       prologue:
@@ -64,6 +77,7 @@ blocks:
           - be decko new platypus --platypus
           - cd platypus
           - be decko seed --test
+
       jobs:
         - name: Cypress
           commands:
