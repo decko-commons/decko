@@ -8,8 +8,6 @@ global_job_config:
   env_vars:
     - name: BUNDLE_PATH
       value: "~/bundle/"
-    - name: COVERAGE
-      value: "false"
     - name: DECKO_REPO_PATH
       value: "~/decko"
   prologue:
@@ -53,11 +51,17 @@ blocks:
 
   - name: Unit Tests
     task:
+      env_vars:
+        - name: REPO_TMPSETS
+          value: "true"
       prologue:
         commands:
           - sem-service start mysql
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          - chmod +x ./cc-test-reporter
+          - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json"
 
       jobs:
         - name: RSpec
