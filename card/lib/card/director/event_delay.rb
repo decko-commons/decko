@@ -17,7 +17,7 @@ class Card
       end
 
       def delaying?
-        Cardio.config.delaying == true
+        Card.config.delaying == true
       end
 
       def with_delay_act act_id, card, &block
