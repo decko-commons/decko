@@ -88,11 +88,11 @@ blocks:
           - sem-service start mysql
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          - chmod +x ./cc-test-reporter
           - be decko new platypus --platypus
           - cd platypus
           - be decko seed --test
-          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          - chmod +x ./cc-test-reporter
 
       jobs:
         - name: Cypress
