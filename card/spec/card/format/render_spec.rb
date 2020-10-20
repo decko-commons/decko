@@ -7,8 +7,8 @@ describe Card::Format::Render do
   end
 
   describe "view cache" do
-    before { Cardio.config.view_cache = true }
-    after { Cardio.config.view_cache = false }
+    before { Card.config.view_cache = true }
+    after { Card.config.view_cache = false }
 
     let(:cache_key) do
       "#{Card.fetch_id "Z"}-Card::Format::HtmlFormat-normal-home_view:content;" \
