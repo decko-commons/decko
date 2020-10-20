@@ -76,6 +76,8 @@ module Cardio
         recaptcha_secret_key: nil,
         recaptcha_minimum_score: 0.5,
 
+        google_analytics_key: nil,
+
         override_host: nil,
         override_protocol: nil,
 
@@ -119,7 +121,7 @@ module Cardio
         rescue_all_in_controller: true,
         navbox_match_start_only: true,
 
-        load_strategy: :eval,
+        load_strategy: (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval),
         cache_set_module_list: false
       }
     end
@@ -159,12 +161,28 @@ module Cardio
         add_path tmppath, root: root unless paths[tmppath]&.existent
       end
 
+      add_tmppaths
       add_path "mod"        # add card gem's mod path
       paths["mod"] << "mod" # add deck's mod path
 
       add_db_paths
       add_initializer_paths
       add_mod_initializer_paths
+    end
+
+    def add_tmppaths
+      %w[set set_pattern].each do |dir|
+        opts = tmppath_opts dir
+        add_path "tmp/#{dir}", opts if opts
+      end
+    end
+
+    def tmppath_opts dir
+      if ENV["REPO_TMPSETS"]
+        { with: "tmpsets/#{dir}" }
+      elsif ENV["TMPSETS"]
+        { root: root }
+      end
     end
 
     def add_db_paths

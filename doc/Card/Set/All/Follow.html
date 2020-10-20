@@ -83,8 +83,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod027-card-mod-follow/all/follow.rb<span class="defines">,<br />
-  card/tmpsets/set/mod027-card-mod-follow/all/follow/follow_link.rb,<br /> card/tmpsets/set/mod027-card-mod-follow/all/follow/followed_by.rb,<br /> card/tmpsets/set/mod027-card-mod-follow/all/follow/follower_ids.rb,<br /> card/tmpsets/set/mod027-card-mod-follow/all/follow/stop_follow_link.rb,<br /> card/tmpsets/set/mod027-card-mod-follow/all/follow/follow_link_views.rb,<br /> card/tmpsets/set/mod027-card-mod-follow/all/follow/start_follow_link.rb</span>
+    <dd>card/tmpsets/set/mod022-card-mod-follow/all/follow.rb<span class="defines">,<br />
+  card/tmpsets/set/mod022-card-mod-follow/all/follow/follow_link.rb,<br /> card/tmpsets/set/mod022-card-mod-follow/all/follow/followed_by.rb,<br /> card/tmpsets/set/mod022-card-mod-follow/all/follow/follower_ids.rb,<br /> card/tmpsets/set/mod022-card-mod-follow/all/follow/stop_follow_link.rb,<br /> card/tmpsets/set/mod022-card-mod-follow/all/follow/follow_link_views.rb,<br /> card/tmpsets/set/mod022-card-mod-follow/all/follow/start_follow_link.rb</span>
 </dd>
   </dl>
   
@@ -494,9 +494,9 @@
 8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/follow.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/follow.rb', line 8</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card-mod-follow/set/all/follow.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-follow/set/all/follow.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -528,7 +528,7 @@
 15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/follow.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/follow.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow_label'>follow_label</span>
   <span class='id identifier rubyid_name'>name</span>
@@ -581,7 +581,7 @@
 23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/follow.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/follow.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow_option?'>follow_option?</span>
   <span class='id identifier rubyid_codename'>codename</span> <span class='op'>&amp;&amp;</span> <span class='const'><span class='object_link'><a href="../../FollowOption.html" title="Card::FollowOption (module)">FollowOption</a></span></span><span class='period'>.</span><span class='id identifier rubyid_codenames'><span class='object_link'><a href="../../FollowOption.html#codenames-class_method" title="Card::FollowOption.codenames (method)">codenames</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_codename'>codename</span><span class='rparen'>)</span>
@@ -634,7 +634,7 @@
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/follow.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/follow.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow_rule?'>follow_rule?</span> <span class='id identifier rubyid_user'>user</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span> <span class='id identifier rubyid_follow_rule_name'>follow_rule_name</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
@@ -664,7 +664,7 @@
 36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/follow.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/follow.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow_rule_card'>follow_rule_card</span> <span class='id identifier rubyid_user'>user</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_follow_rule_name'>follow_rule_name</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
@@ -694,7 +694,7 @@
 32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/follow.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/follow.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow_rule_name'>follow_rule_name</span> <span class='id identifier rubyid_user'>user</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_follow_set_card'>follow_set_card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_follow_rule_name'>follow_rule_name</span> <span class='id identifier rubyid_user'>user</span>
@@ -734,7 +734,7 @@
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/follow.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/follow.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow_set_card'>follow_set_card</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='symbol'>:self</span>
@@ -787,7 +787,7 @@
 11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/follow.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/follow.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_followable?'>followable?</span>
   <span class='kw'>true</span>
@@ -840,7 +840,7 @@
 19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod027-card-mod-follow/all/follow.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-follow/all/follow.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_direct_followers?'>list_direct_followers?</span>
   <span class='kw'>false</span>
@@ -855,7 +855,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:14 2020 by
+  Generated on Sun Oct 18 23:48:01 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

@@ -31,7 +31,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 
 Cypress.Cookies.defaults({
-  whitelist: function(cookie) {
+  preserve: function(cookie) {
     // implement your own logic here
     // if the function returns truthy
     // then the cookie will not be cleared

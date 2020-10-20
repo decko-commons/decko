@@ -1,4 +1,4 @@
-include_set Abstract::WqlSearch
+include_set Abstract::CqlSearch
 
 def cql_content
   { type_id: id, sort: :name }

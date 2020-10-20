@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod011-email/type/email_template/email_config.rb</dd>
+    <dd>card/tmpsets/set/mod011-card-mod-email/type/email_template/email_config.rb</dd>
   </dl>
   
 </div>
@@ -501,9 +501,9 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/type/email_template/email_config.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/type/email_template/email_config.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/email/set/type/email_template/email_config.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-email/set/type/email_template/email_config.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -539,7 +539,7 @@
 88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/type/email_template/email_config.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/type/email_template/email_config.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_configured_from_name_and_email'>configured_from_name_and_email</span> <span class='id identifier rubyid_raw_string'>raw_string</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_raw_string'>raw_string</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(.*)\&lt;(.*)&gt;</span><span class='regexp_end'>/</span></span>
@@ -667,7 +667,7 @@
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/type/email_template/email_config.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/type/email_template/email_config.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_config'>email_config</span> <span class='id identifier rubyid_context'>context</span><span class='comma'>,</span> <span class='id identifier rubyid_fields'>fields</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='ivar'>@active_email_context</span> <span class='op'>=</span> <span class='id identifier rubyid_context'>context</span> <span class='op'>||</span> <span class='kw'>self</span>
@@ -706,7 +706,7 @@
 35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/type/email_template/email_config.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/type/email_template/email_config.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_field_from_card'>email_field_from_card</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_auth'>auth</span><span class='comma'>,</span> <span class='id identifier rubyid_format_opts'>format_opts</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_field_card'>field_card</span> <span class='op'>=</span> <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -746,7 +746,7 @@
 80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/type/email_template/email_config.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/type/email_template/email_config.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_from_field_value'>email_from_field_value</span> <span class='id identifier rubyid_conf_name'>conf_name</span><span class='comma'>,</span> <span class='id identifier rubyid_conf_email'>conf_email</span><span class='comma'>,</span> <span class='id identifier rubyid_actual_email'>actual_email</span>
   <span class='id identifier rubyid_conf_text'>conf_text</span> <span class='op'>=</span> <span class='id identifier rubyid_conf_name'>conf_name</span> <span class='op'>||</span> <span class='id identifier rubyid_conf_email'>conf_email</span>
@@ -799,7 +799,7 @@ without a mail object. (which isn’t available at initial config time)</p>
 60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/type/email_template/email_config.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/type/email_template/email_config.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_html_message_field'>email_html_message_field</span> <span class='id identifier rubyid_message_card'>message_card</span><span class='comma'>,</span> <span class='id identifier rubyid_auth'>auth</span><span class='comma'>,</span> <span class='id identifier rubyid_format_opts'>format_opts</span>
   <span class='id identifier rubyid_proc'>proc</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_mail'>mail</span><span class='op'>|</span>
@@ -848,7 +848,7 @@ actually “from” that address</p>
 69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/type/email_template/email_config.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/type/email_template/email_config.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_safe_from_and_reply_to!'>safe_from_and_reply_to!</span> <span class='id identifier rubyid_config'>config</span>
   <span class='id identifier rubyid_conf_name'>conf_name</span><span class='comma'>,</span> <span class='id identifier rubyid_conf_email'>conf_email</span> <span class='op'>=</span> <span class='id identifier rubyid_configured_from_name_and_email'>configured_from_name_and_email</span> <span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:from</span><span class='rbracket'>]</span>
@@ -883,7 +883,7 @@ actually “from” that address</p>
 41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/type/email_template/email_config.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/type/email_template/email_config.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_special_email_field_method'>special_email_field_method</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_field_card'>field_card</span><span class='comma'>,</span> <span class='id identifier rubyid_auth'>auth</span><span class='comma'>,</span> <span class='id identifier rubyid_format_opts'>format_opts</span>
   <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>email_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='embexpr_end'>}</span><span class='tstring_content'>_field</span><span class='tstring_end'>&quot;</span></span>
@@ -919,7 +919,7 @@ actually “from” that address</p>
 49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/type/email_template/email_config.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/type/email_template/email_config.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_standard_email_field'>standard_email_field</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_field_card'>field_card</span><span class='comma'>,</span> <span class='id identifier rubyid_auth'>auth</span><span class='comma'>,</span> <span class='id identifier rubyid_format_opts'>format_opts</span>
   <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#EMAIL_FIELD_METHODS-constant" title="Card::Set::Type::EmailTemplate::EmailConfig::EMAIL_FIELD_METHODS (constant)">EMAIL_FIELD_METHODS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_field'>field</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='symbol'>:email_addresses</span>
@@ -938,7 +938,7 @@ actually “from” that address</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:19 2020 by
+  Generated on Sun Oct 18 23:48:20 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

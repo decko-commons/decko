@@ -1,42 +1,42 @@
+require "staccato"
+
+mattr_accessor :server_side_tracking_formats
+
+self.server_side_tracking_formats = %i[csv json]
+
+event :track_page, before: :show_page, when: :track_page? do
+  tracker.pageview path: Env.controller.request&.path, host: Env.host, title: name
+end
+
+def track_page?
+  google_analytics_key &&
+    Env.controller&.response_format&.in?(server_side_tracking_formats)
+end
+
+def tracker
+  return unless google_analytics_key
+
+  ::Staccato.tracker google_analytics_key # , nil, ssl: true
+end
+
+def google_analytics_key
+  @google_analytics_key ||=
+    Card::Rule.global_setting(:google_analytics_key) ||
+    Card.config.google_analytics_key
+end
 
 format :html do
+  delegate :tracker, :google_analytics_key, to: :card
+
   def views_in_head
     super << :google_analytics_snippet
   end
 
   view :google_analytics_snippet, unknown: true, perms: :none do
-    return unless google_analytics_key
-    javascript_tag { google_analytics_snippet_javascript }
-  end
-
-  def google_analytics_key
-    @google_analytics_key ||= Card::Rule.global_setting :google_analytics_key
+    haml :google_analytics_snippet if google_analytics_key
   end
 
   def google_analytics_snippet_vars
-    [[:_setAccount, google_analytics_key],
-     [:_trackPageview]]
-  end
-
-  def google_analytics_snippet_vars_string
-    google_analytics_snippet_vars.map do |array|
-      <<-JAVASCRIPT
-      _gaq.push([#{array.map { |i| "'#{i}'" }.join ', '}]);
-      JAVASCRIPT
-    end.join
-  end
-
-  def google_analytics_snippet_javascript
-    <<-JAVASCRIPT
-      var _gaq = _gaq || [];#{"\n" + google_analytics_snippet_vars_string}
-      (function() {
-        var ga = document.createElement('script'); 
-        ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +
-          '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(ga, s);
-      })();
-    JAVASCRIPT
+    { anonymizeIp: true }
   end
 end

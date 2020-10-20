@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod011-email/abstract/email_field.rb</dd>
+    <dd>card/tmpsets/set/mod011-card-mod-email/abstract/email_field.rb</dd>
   </dl>
   
 </div>
@@ -264,7 +264,7 @@ end#</p>
 38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/abstract/email_field.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/abstract/email_field.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_address?'>email_address?</span> <span class='id identifier rubyid_string'>string</span>
   <span class='id identifier rubyid_string'>string</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.+\@.+\..+</span><span class='regexp_end'>/</span></span>
@@ -295,7 +295,7 @@ end#</p>
 43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/abstract/email_field.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/abstract/email_field.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_address_from_card'>email_address_from_card</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_context'>context</span>
   <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_name'>name</span>
@@ -333,7 +333,7 @@ end#</p>
 34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/abstract/email_field.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/abstract/email_field.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_addresses'>email_addresses</span> <span class='id identifier rubyid_context'>context</span>
   <span class='id identifier rubyid_context'>context</span> <span class='op'>||=</span> <span class='kw'>self</span>
@@ -370,7 +370,7 @@ end#</p>
 47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-email/abstract/email_field.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-email/abstract/email_field.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_addresses_from_card_content'>email_addresses_from_card_content</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_context'>context</span>
   <span class='id identifier rubyid_subformat'>subformat</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_contextual_content'>contextual_content</span><span class='lparen'>(</span><span class='id identifier rubyid_context'>context</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[,\n]</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
@@ -385,7 +385,7 @@ end#</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:14 2020 by
+  Generated on Sun Oct 18 23:48:11 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>
