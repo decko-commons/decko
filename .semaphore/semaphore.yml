@@ -115,7 +115,7 @@ blocks:
   - name: Coverage Report
     task:
       jobs:
-        - name: Report to CodeClimate
+        - name: CodeClimate Coverage
           commands:
             - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             - chmod +x ./cc-test-reporter
