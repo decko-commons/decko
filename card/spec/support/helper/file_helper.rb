@@ -15,9 +15,9 @@ class Card
     end
 
     def with_storage_config type
-      Cardio.config.file_storage = type
+      Card.config.file_storage = type
       yield.tap do
-        Cardio.config.file_storage = :local
+        Card.config.file_storage = :local
       end
     end
 
