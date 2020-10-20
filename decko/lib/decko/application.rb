@@ -28,7 +28,6 @@ module Decko
 
     initializer :deck_autoload, before: :set_autoload_paths do |app|
       Cardio.set_config
-      ActiveSupport::Dependencies.autoload_paths += app.config.autoload_paths
 
       # any config settings below:
       # (a) do not apply to Card used outside of a Decko context

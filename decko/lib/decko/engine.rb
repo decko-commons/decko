@@ -31,23 +31,23 @@ module Decko
       load_task_dir ::Decko.gem_root
     end
 
-    initializer :set_autoload_paths, group: :all do
-      config.autoload_paths = Cardio.config.autoload_paths
+    initializer :set_autoload_paths, group: :all do |app|
+      dpaths = app.config.autoload_paths
+      ActiveSupport::Dependencies.autoload_paths += dpaths <<
+        File.join(Decko.gem_root, 'lib/rails/controllers')
     end
 
-    initializer :set_autoload_paths, group: :all do
-      config.autoload_paths = Cardio.config.autoload_paths
-    end
+    initializer before: :set_load_path do |app|
+      Rails.autoloaders.main.ignore(
+            File.join(Decko.gem_root, "lib/rails/*-routes.rb") )
+      app.paths.add "app/controllers",  with: "lib/rails/controllers",
+                                        eager_load: true
+      app.paths.add "gem-assets",       with: "lib/rails/assets"
 
-    initializer before: :set_load_path do
-      Rails.autoloaders.main.ignore(File.join(Decko.gem_root, "lib/rails/*-routes.rb"))
-
-      paths.add "app/controllers",  with: "lib/rails/controllers", eager_load: true
-      paths.add "gem-assets",       with: "lib/rails/assets"
-
-      paths.add "config/routes.rb", with: "lib/rails/engine-routes.rb"
+      app.paths.add "config/routes.rb", with: "lib/rails/engine-routes.rb"
       unless paths["config/routes.rb"].existent.present?
-        paths.add "config/routes.rb", with: "lib/rails/application-routes.rb"
+        app.paths.add "config/routes.rb",
+                      with: "lib/rails/application-routes.rb"
       end
     end
 
