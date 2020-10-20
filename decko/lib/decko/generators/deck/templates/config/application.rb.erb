@@ -93,5 +93,15 @@ module <%= app_const_base %>
 
     # config.override_protocol = "https"
     # overrides protocol auto-detected from web requests
+    <% if playtpus? %>
+    config.file_buckets = {
+      test_bucket: {
+        provider: "AWS",
+        aws_access_key_id: ENV["TEST_BUCKET_AWS_ACCESS_KEY_ID"],
+        aws_secret_access_key: ENV["TEST_BUCKET_AWS_SECRET_ACCESS_KEY"],
+        region: "us-east-1"
+      }
+    }
+    <% end %>
   end
 end
