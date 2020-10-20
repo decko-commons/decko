@@ -10,6 +10,9 @@ global_job_config:
       value: "~/bundle/"
     - name: DECKO_REPO_PATH
       value: "~/decko"
+  secrets:
+    - name: s3-credentials
+    - name: code-climate
   prologue:
     commands:
       - checkout # semaphore does git checkout and cds into decko
@@ -54,10 +57,6 @@ blocks:
       env_vars:
         - name: REPO_TMPSETS
           value: "true"
-      secrets:
-        - name: aws-website
-        - name: bucket-credentials
-        - name: CodeClimate
       prologue:
         commands:
           - sem-service start mysql
@@ -84,10 +83,6 @@ blocks:
       env_vars:
         - name: REPO_TMPSETS
           value: "true"
-      secrets:
-        - name: aws-website
-        - name: bucket-credentials
-        - name: CodeClimate
       prologue:
         commands:
           - sem-service start mysql
@@ -119,10 +114,6 @@ blocks:
 
   - name: Coverage Report
     task:
-      secrets:
-        - name: aws-website
-        - name: bucket-credentials
-        - name: CodeClimate
       jobs:
         - name: Report to CodeClimate
           commands:
