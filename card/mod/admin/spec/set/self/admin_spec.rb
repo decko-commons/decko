@@ -30,9 +30,9 @@ describe Card::Set::Self::Admin do
 
     context "irreversible tasks allowed" do
       around(:example) do |example|
-        Cardio.config.allow_irreversible_admin_tasks = true
+        Card.config.allow_irreversible_admin_tasks = true
         example.run
-        Cardio.config.allow_irreversible_admin_tasks = false
+        Card.config.allow_irreversible_admin_tasks = false
       end
 
       it "triggers empty trash (with right params)" do
