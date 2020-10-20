@@ -73,10 +73,13 @@ blocks:
           - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           - chmod +x ./cc-test-reporter
           - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
   - name: Integration Tests
     task:
+      env_vars:
+        - name: REPO_TMPSETS
+          value: "true"
       prologue:
         commands:
           - sem-service start mysql
@@ -103,7 +106,7 @@ blocks:
           - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           - chmod +x ./cc-test-reporter
           - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
   - name: Coverage Report
     task:
@@ -112,6 +115,6 @@ blocks:
           commands:
             - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             - chmod +x ./cc-test-reporter
-            - aws s3 sync "s3://coverage/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/" coverage/
+            - aws s3 sync "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/" coverage/
             - ./cc-test-reporter sum-coverage --output - --parts $(ls -1 coverage/ | wc -l) coverage/codeclimate.*.json > coverage/codeclimate.json
             - ./cc-test-reporter upload-coverage

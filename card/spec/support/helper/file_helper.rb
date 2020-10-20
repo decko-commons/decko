@@ -22,12 +22,12 @@ class Card
     end
 
     module BucketHelper
-      DIRECTORY = "deckodev-test".freeze
+      BUCKET = "deckodev-test".freeze
 
       def with_test_bucket
         return unless (credentials = test_bucket_credentials)
         ensure_test_bucket credentials
-        let(:cloud_url) { "http://#{DIRECTORY}.s3.amazonaws.com/files/#{file_path}" }
+        let(:cloud_url) { "http://#{BUCKET}.s3.amazonaws.com/files/#{file_path}" }
         yield
       end
 
@@ -41,7 +41,7 @@ class Card
       end
 
       def bucket_from_file
-        yml_file = test_bucket_file_path
+        yml_file = File.expand_path test_bucket_file_path
         return unless File.exist? yml_file
         YAML.load_file(yml_file).deep_symbolize_keys[:aws]
       end
@@ -53,11 +53,12 @@ class Card
       def need_bucket_credentials!
         puts %(
 ~~~Skipping cloud specs~~~
-Cannot run without bucket credentials
-  Specify yml file with environmental variables:
-  TEST_BUCKET_AWS_ACCESS_KEY_ID and
-  TEST_BUCKET_AWS_SECRET_ACCESS_KEY
-  or add credentials to #{test_bucket_file_path}.
+Cannot run without bucket credentials. Options:
+  1. Specify yml file with environmental variables:
+    TEST_BUCKET_AWS_ACCESS_KEY_ID and
+    TEST_BUCKET_AWS_SECRET_ACCESS_KEY
+  2. or add credentials to #{test_bucket_file_path}
+  3. Specify credentials path with BUCKET_CREDENTIALS_PATH
         )
         nil
       end
@@ -68,7 +69,7 @@ Cannot run without bucket credentials
             provider: "fog/aws",
             credentials: credentials,
             subdirectory: "files",
-            directory: DIRECTORY,
+            directory: BUCKET,
             public: true,
             attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
             authenticated_url_expiration: 180
