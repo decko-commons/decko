@@ -28,7 +28,8 @@ blocks:
         commands:
           - cache restore bundle-gems-baseline
           # occasionally clear: `cache delete bundle-gems-baseline`
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - cache delete bundle-gems-$(checksum Gemfile.lock)
+          # cache restore bundle-gems-$(checksum Gemfile.lock)
           - bundle install
           - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
           - cache store bundle-gems-baseline ~/bundle
