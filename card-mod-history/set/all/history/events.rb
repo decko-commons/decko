@@ -32,7 +32,11 @@ end
 # removes the action if there are no changes
 event :finalize_action, :finalize, when: :finalize_action? do
   if changed_fields.present?
-    @current_action.update! card_id: id
+    if @current_action.new_record?
+      @current_action.card_id = id
+    else
+      @current_action.update! card_id: id
+    end
 
     # Note: #last_change_on uses the id to sort by date
     # so the changes for the create changes have to be created before the first change

@@ -119,8 +119,6 @@ decko_namespace = namespace :decko do
     yield assets_path
   end
 
-  alias_task :migrate, "card:migrate"
-
   desc "insert existing card migrations into schema_migrations_cards to avoid re-migrating"
   task :assume_card_migrations do
     require "decko/engine"
