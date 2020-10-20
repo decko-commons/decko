@@ -10,10 +10,6 @@ global_job_config:
       value: "~/bundle/"
     - name: DECKO_REPO_PATH
       value: "~/decko"
-  secrets:
-    - name: aws-website
-    - name: bucket-credentials
-    - name: CodeClimate
   prologue:
     commands:
       - checkout # semaphore does git checkout and cds into decko
@@ -58,12 +54,17 @@ blocks:
       env_vars:
         - name: REPO_TMPSETS
           value: "true"
+      secrets:
+        - name: aws-website
+        - name: bucket-credentials
+        - name: CodeClimate
       prologue:
         commands:
           - sem-service start mysql
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
-
+          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          - chmod +x ./cc-test-reporter
 
       jobs:
         - name: RSpec
@@ -75,8 +76,6 @@ blocks:
       epilogue:
         commands:
           - cd -
-          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          - chmod +x ./cc-test-reporter
           - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
           - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
@@ -85,6 +84,10 @@ blocks:
       env_vars:
         - name: REPO_TMPSETS
           value: "true"
+      secrets:
+        - name: aws-website
+        - name: bucket-credentials
+        - name: CodeClimate
       prologue:
         commands:
           - sem-service start mysql
@@ -93,6 +96,8 @@ blocks:
           - be decko new platypus --platypus
           - cd platypus
           - be decko seed --test
+          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          - chmod +x ./cc-test-reporter
 
       jobs:
         - name: Cypress
@@ -109,13 +114,15 @@ blocks:
       epilogue:
         commands:
           - cd -
-          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          - chmod +x ./cc-test-reporter
           - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
           - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
   - name: Coverage Report
     task:
+      secrets:
+        - name: aws-website
+        - name: bucket-credentials
+        - name: CodeClimate
       jobs:
         - name: Report to CodeClimate
           commands:
