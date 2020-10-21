@@ -28,7 +28,7 @@ class Card
       end
 
       def migration_paths mig_type=type
-        Cardio.migration_paths mig_type
+        Card.paths mig_type
       end
 
       def schema mig_type=type
@@ -41,7 +41,7 @@ class Card
 
       def schema_mode mig_type=type
         Cardio.with_suffix mig_type do
-          paths = Cardio.migration_paths(type)
+          paths = migration_paths(type)
           yield(paths)
         end
       end
@@ -126,7 +126,7 @@ class Card
     end
 
     def migration_paths
-      Cardio.paths self.class.type
+      Card::Migration.migration_paths self.class.type
     end
 
     # Execute this migration in the named direction
