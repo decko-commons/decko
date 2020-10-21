@@ -16,23 +16,27 @@ module Decko
       end
 
       def run
-        commands.each do |cmd|
-          puts cmd
-          # exit_with_child_status cmd
+        puts command
+        # exit_with_child_status cmd
 
-          result = `#{cmd}`
-          process = $?
-          puts result
-          exit process.exitstatus unless process.success?
+        result = `#{command}`
+        process = $?
+        puts result
+        exit process.exitstatus unless process.success?
+      end
+
+      def command
+        @command ||= command_with_env
+      end
+
+      def command_with_env
+        @envs.inject(task_cmd) do |task_cmd, env|
+          "env RAILS_ENV=#{env} #{task_cmd}"
         end
       end
 
-      def commands
-        task_cmd = "bundle exec rake #{@task}"
-        return [task_cmd] if !@envs || @envs.empty?
-        @envs.map do |env|
-          "env RAILS_ENV=#{env} #{task_cmd}"
-        end
+      def task_cmd
+        "bundle exec rake #{@task}"
       end
     end
   end
