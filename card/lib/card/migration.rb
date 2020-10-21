@@ -28,7 +28,7 @@ class Card
       end
 
       def migration_paths mig_type=type
-        Cardio.migration_paths mig_type
+        ::Cardio.migration_paths mig_type
       end
 
       def schema mig_type=type
@@ -126,7 +126,7 @@ class Card
     end
 
     def migration_paths
-      Cardio.migration_paths self.class.type
+      ::Cardio.migration_paths self.class.type
     end
 
     # Execute this migration in the named direction
