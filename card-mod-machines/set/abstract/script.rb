@@ -39,7 +39,7 @@ def compression_error_message e
 end
 
 def compress_js?
-  Cardio.config.compress_javascript
+  Card.config.compress_javascript
 end
 
 def clean_html?

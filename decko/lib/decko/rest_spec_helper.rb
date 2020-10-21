@@ -14,7 +14,7 @@ module Decko
   # for use in REST API specs
   module RestSpecHelper
     def self.describe_api &block
-      RSpec.describe CardController, type: :controller do
+      RSpec.describe ::CardController, type: :controller do
         routes { Decko::Engine.routes }
         include Capybara::DSL
         include RestSpecMethods
