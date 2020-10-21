@@ -111,6 +111,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 # {Card::Auth More on accounts}
 class Card < ApplicationRecord
+  extend ::Cardio::CardClassMethods
   extend Mark
   extend Dirty::MethodFactory
   include Dirty

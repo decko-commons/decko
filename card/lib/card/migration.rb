@@ -28,20 +28,20 @@ class Card
       end
 
       def migration_paths mig_type=type
-        Cardio.migration_paths mig_type
+        Card.migration_paths mig_type
       end
 
       def schema mig_type=type
-        Cardio.schema mig_type
+        Card.schema mig_type
       end
 
       def schema_suffix mig_type=type
-        Cardio.schema_suffix mig_type
+        Card.schema_suffix mig_type
       end
 
       def schema_mode mig_type=type
-        Cardio.with_suffix mig_type do
-          paths = Cardio.migration_paths(type)
+        Card.with_suffix mig_type do
+          paths = Card.migration_paths(type)
           yield(paths)
         end
       end
@@ -61,7 +61,7 @@ class Card
 
     def contentedly
       Card::Cache.reset_all
-      Cardio.schema_mode "" do
+      Card.schema_mode "" do
         Card::Auth.as_bot do
           yield
         ensure
@@ -122,11 +122,11 @@ class Card
     end
 
     def schema_mode
-      Cardio.schema_mode self.class.type
+      Card.schema_mode self.class.type
     end
 
     def migration_paths
-      Cardio.paths self.class.type
+      Card.paths self.class.type
     end
 
     # Execute this migration in the named direction
