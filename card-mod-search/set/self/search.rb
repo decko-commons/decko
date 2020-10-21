@@ -65,7 +65,7 @@ format :json do
                   exact.name.valid? &&
                   !exact.virtual? &&
                   exact.ok?(:create)
-    [h(exact.name), exact.name.url_key]
+    [h(exact.name), URI.escape(exact.name)]
   end
 
   def new_item_of_type exact
