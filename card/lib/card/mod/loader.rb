@@ -64,7 +64,7 @@ class Card
         # private
 
         def load_initializers
-          Card.config.paths["mod/config/initializers"].existent.sort.each do |initializer|
+          Card.paths["mod/config/initializers"].existent.sort.each do |initializer|
             load initializer
           end
         end

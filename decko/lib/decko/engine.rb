@@ -59,7 +59,7 @@ module Decko
     end
 
     initializer "decko.engine.load_config_initializers",
-                after: :load_config_initializers do
+                before: :load_config_initializers do
       paths["config/initializers"].existent.sort.each do |initializer|
         load(initializer)
       end
