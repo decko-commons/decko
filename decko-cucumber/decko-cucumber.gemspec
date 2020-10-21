@@ -17,5 +17,5 @@ DeckoGem.gem "decko-cucumber" do |s, d|
                ["chromedriver-helper", "~> 2.1.0"],
                "rspec",
                ["selenium-webdriver", "3.141.0"],
-               "simplecov"
+               ["simplecov", "~> 0.17.1"]
 end
