@@ -82,7 +82,7 @@ module Decko
     end
 
     def asset_file_path filename
-      path = Decko::Engine.paths["gem-assets"].existent.first
+      path = Card.paths["gem-assets"].existent.first
       path = File.join path, filename
       validate_path filename, path
       path

@@ -63,6 +63,8 @@ class Card
   #   - **file** for fixed initial card content
   module Mod
     class << self
+      include ::Cardio::Modfiles
+
       def load
         return if ENV["CARD_MODS"] == "none"
 
@@ -88,7 +90,7 @@ class Card
       def gem_spec name, nickname=true
         name = "card-mod-#{name}" if nickname && !name.match?(/^card-mod/)
         spec = Gem::Specification.stubs_for(name)&.first
-        Cardio.gem_mod_spec?(spec) ? spec : nil
+        gem_mod_spec?(spec) ? spec : nil
       end
     end
   end
