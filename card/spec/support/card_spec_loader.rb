@@ -13,7 +13,6 @@ class CardSpecLoader
         end
         require File.join ENV["RAILS_ROOT"], "config/environment"
         load_shared_examples
-        require File.expand_path("../simplecov_helper.rb", __FILE__)
         require File.expand_path("../../../db/test_seed.rb", __FILE__)
 
         # Requires supporting ruby files with custom matchers and macros, etc,
