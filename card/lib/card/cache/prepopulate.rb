@@ -10,7 +10,7 @@ class Card
       private
 
       def prepopulate?
-        Cardio.config.prepopulate_cache
+        Card.config.prepopulate_cache
       end
 
       def prepopulate
