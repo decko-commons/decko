@@ -10,7 +10,7 @@ class Card
       @type = :deck
 
       def contentedly
-        Card.schema_mode :deck do
+        Cardio.schema_mode :deck do
           yield
         end
       end
