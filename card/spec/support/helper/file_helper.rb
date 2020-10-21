@@ -15,9 +15,9 @@ class Card
     end
 
     def with_storage_config type
-      Cardio.config.file_storage = type
+      Card.config.file_storage = type
       yield.tap do
-        Cardio.config.file_storage = :local
+        Card.config.file_storage = :local
       end
     end
 
@@ -36,7 +36,7 @@ class Card
       end
 
       def bucket_from_config
-        bucket = Cardio.config.file_buckets&.dig :test_bucket
+        bucket = Card.config.file_buckets&.dig :test_bucket
         bucket if bucket&.dig :aws_access_key_id
       end
 
@@ -47,7 +47,7 @@ class Card
       end
 
       def test_bucket_file_path
-        ENV["BUCKET_CREDENTIALS_PATH"] || "#{Cardio.root}/config/test_bucket.yml"
+        ENV["BUCKET_CREDENTIALS_PATH"] || "#{Card.root}/config/test_bucket.yml"
       end
 
       def need_bucket_credentials!
