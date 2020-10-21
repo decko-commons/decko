@@ -94,7 +94,7 @@ namespace :card do
     desc "write the version to a file (not usually called directly)"
     task :stamp, :type do |_t, args|
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
-      Cardio.config.action_mailer.perform_deliveries = false
+      Card.config.action_mailer.perform_deliveries = false
 
       stamp_file = Cardio.schema_stamp_path(args[:type])
 
