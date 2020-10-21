@@ -41,7 +41,8 @@ module Decko
             File.join(Decko.gem_root, "lib/rails/*-routes.rb") )
       app.paths.add "app/controllers", eager_load: true, glob: "*controller.rb",
                     with: File.join(Decko.gem_root, "lib/rails/controllers")
-      app.paths.add "gem-assets",       with: "lib/rails/assets"
+      app.paths.add "gem-assets", with: File.join( Decko.gem_root,
+                    "lib/rails/assets" )
 
       unless app.paths["config/routes.rb"].existent.present?
         app.paths.add "config/routes.rb", with: File.join( Decko.gem_root,
