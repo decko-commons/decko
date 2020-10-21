@@ -59,7 +59,7 @@ class Card
         # return # DELETE ME
         return if skip_modules?
 
-        Cardio.config.cache_set_module_list ? card.set_modules : card.patterns
+        Card.config.cache_set_module_list ? card.set_modules : card.patterns
       end
     end
   end

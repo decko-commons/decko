@@ -15,43 +15,47 @@ require "decko"
 
 module Decko
   class Engine < ::Rails::Engine
-    paths.add "app/controllers",  with: "rails/controllers", eager_load: true
-    paths.add "gem-assets",       with: "rails/assets"
-    paths.add "config/routes.rb", with: "rails/engine-routes.rb"
-    paths.add "lib/tasks", with: "#{::Decko.gem_root}/lib/decko/tasks",
-                           glob: "**/*.rake"
-    paths["lib/tasks"] << "#{::Cardio.gem_root}/lib/card/tasks"
-    paths.add "lib/decko/config/initializers",
-              with: File.join(Decko.gem_root, "lib/decko/config/initializers"),
-              glob: "**/*.rb"
 
-    initializer "decko.engine.load_config_initializers",
-                after: :load_config_initializers do
-      paths["lib/decko/config/initializers"].existent.sort.each do |initializer|
-        load(initializer)
-      end
+    engine_name = :decko_engine
+
+    def load_task_dir dir
+      paths.add "lib/tasks", with: dir, glob: "**/*.rake"
     end
 
-    initializer "engine.copy_configs",
-                before: "decko.engine.load_config_initializers" do
-      # this code should all be in Decko somewhere, and it is now, gem-wize
-      # Ideally railties would do this for us; this is needed for both use cases
-      Engine.paths["request_log"]   = Decko.paths["request_log"]
-      Engine.paths["log"]           = Decko.paths["log"]
-      Engine.paths["lib/tasks"]     = Decko.paths["lib/tasks"]
-      Engine.paths["config/routes.rb"] = Decko.paths["config/routes.rb"]
+    rake_tasks do
+      load_task_dir ::Cardio.gem_root
+    end
+    load_tasks
+
+    rake_tasks do
+      load_task_dir ::Decko.gem_root
     end
 
-    initializer :connect_on_load do
-      ActiveSupport.on_load(:active_record) do
-        ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
+    initializer :set_autoload_paths, group: :all do |app|
+      ActiveSupport::Dependencies.autoload_paths <<
+        File.join(Decko.gem_root, 'lib/rails/controllers')
+    end
+
+    initializer before: :set_load_path do |app|
+      Rails.autoloaders.main.ignore(
+            File.join(Decko.gem_root, "lib/rails/*-routes.rb") )
+      app.paths.add "app/controllers", eager_load: true, glob: "*controller.rb",
+                    with: File.join(Decko.gem_root, "lib/rails/controllers")
+      app.paths.add "gem-assets", with: File.join( Decko.gem_root,
+                    "lib/rails/assets" )
+
+      unless app.paths["config/routes.rb"].existent.present?
+        app.paths.add "config/routes.rb", with: File.join( Decko.gem_root,
+                      "lib/rails/application-routes.rb" )
       end
-      # ActiveSupport.on_load(:after_initialize) do
-      #   # require "card" if Cardio.load_card?
-      #   Card if Cardio.load_card?
-      # rescue ActiveRecord::StatementInvalid => e
-      #  ::Rails.logger.warn "database not available[#{::Rails.env}] #{e}"
-      # end
+      app.paths["config/routes.rb"] <<
+          File.join( Decko.gem_root, "lib/rails/engine-routes.rb" )
+    end
+
+    initializer :load_routes, after: :load_application_controller do |app|
+      app.paths["config/routes.rb"].existent.each do |routeset|
+        require routeset
+      end
     end
   end
 end
