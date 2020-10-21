@@ -55,7 +55,7 @@ class CardSpecLoader
         config.use_instantiated_fixtures = false
 
         config.before(:each) do |example|
-          Cardio.delaying! :off
+          ::Cardio.delaying! :off
           unless example.metadata[:as_bot]
             user_id =
               case example.metadata[:with_user]
@@ -72,8 +72,8 @@ class CardSpecLoader
           end
 
           if example.metadata[:output_length]
-            RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length =
-              example.metadata[:output_length]
+            RSpec::Support::ObjectFormatter.default_instance.
+              max_formatted_output_length = example.metadata[:output_length]
           end
           Card::Cache.restore
           Card::Env.reset
