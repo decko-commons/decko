@@ -13,7 +13,7 @@ class Card
     # SetLoader can use three different strategies to load the set modules.
     class Loader
       def initialize load_strategy: nil, mod_dirs: nil
-        load_strategy ||= Cardio.config.load_strategy
+        load_strategy ||= Card.config.load_strategy
         mod_dirs ||= Mod.dirs
         klass = load_strategy_class load_strategy
         @load_strategy = klass.new mod_dirs, self
@@ -64,7 +64,7 @@ class Card
         # private
 
         def load_initializers
-          Card.config.paths["mod/config/initializers"].existent.sort.each do |initializer|
+          Card.paths["mod/config/initializers"].existent.sort.each do |initializer|
             load initializer
           end
         end
