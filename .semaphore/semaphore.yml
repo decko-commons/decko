@@ -10,9 +10,9 @@ global_job_config:
       value: "~/bundle/"
     - name: DECKO_REPO_PATH
       value: "~/decko"
-  secrets:
-    - name: s3-credentials
-    - name: code-climate
+  #secrets:
+  #  - name: s3-credentials
+  #  - name: code-climate
   prologue:
     commands:
       - checkout # semaphore does git checkout and cds into decko
