@@ -91,7 +91,7 @@ class Card
       end
 
       def delaying mode, error
-        Cardio.delaying! mode
+        ::Cardio.delaying! mode
         expect(Delayed::Job.count).to eq(0), "expected empty jobs queue: #{error}"
       end
     end
