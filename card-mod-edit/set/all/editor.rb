@@ -42,7 +42,7 @@ format :html do
   end
 
   def rich_text_input
-    send "#{Cardio.config.rich_text_editor || :text_area}_editor_input"
+    send "#{Card.config.rich_text_editor || :text_area}_editor_input"
   end
 
   def text_area_input
