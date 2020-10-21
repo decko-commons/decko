@@ -57,12 +57,5 @@ module Decko
         require routeset
       end
     end
-
-    initializer "decko.engine.load_config_initializers",
-                before: :load_config_initializers do
-      paths["config/initializers"].existent.sort.each do |initializer|
-        load(initializer)
-      end
-    end
   end
 end

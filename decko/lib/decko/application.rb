@@ -70,5 +70,13 @@ module Decko
       paths["app/models"] = []
       paths["app/mailers"] = []
     end
+
+    initializer after: :set_load_path do |app|
+      app.paths.add "config/initializers", glob: "**/*.rb",
+                    with: File.join(Decko.gem_root, "config/initializers")
+      app.paths["config/initializers"].existent.sort.each do |initializer|
+        load(initializer)
+      end
+    end
   end
 end
