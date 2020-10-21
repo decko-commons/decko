@@ -25,7 +25,7 @@ module ClassMethods
 
   # deletes any file not associated with a real card.
   def delete_trashed_files
-    dir = Cardio.paths["files"].existent.first
+    dir = Card.paths["files"].existent.first
     # TODO: handle cloud files
     return unless dir
 
