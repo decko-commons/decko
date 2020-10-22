@@ -11,6 +11,7 @@ class CardSpecLoader
         unless ENV["RAILS_ROOT"]
           raise Card::Error, "No RAILS_ROOT given. Can't load environment."
         end
+        # Cardio.require_environment! or Rails.application.renv!
         require File.join ENV["RAILS_ROOT"], "config/environment"
         load_shared_examples
         require File.expand_path("../../../db/test_seed.rb", __FILE__)
@@ -54,7 +55,7 @@ class CardSpecLoader
         config.use_instantiated_fixtures = false
 
         config.before(:each) do |example|
-          Cardio.delaying! :off
+          ::Cardio.delaying! :off
           unless example.metadata[:as_bot]
             user_id =
               case example.metadata[:with_user]
@@ -71,8 +72,8 @@ class CardSpecLoader
           end
 
           if example.metadata[:output_length]
-            RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length =
-              example.metadata[:output_length]
+            RSpec::Support::ObjectFormatter.default_instance.
+              max_formatted_output_length = example.metadata[:output_length]
           end
           Card::Cache.restore
           Card::Env.reset

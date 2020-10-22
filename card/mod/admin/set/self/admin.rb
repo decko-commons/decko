@@ -38,7 +38,7 @@ def not_allowed task
 end
 
 def irreversibles_tasks_allowed?
-  Cardio.config.allow_irreversible_admin_tasks
+  Card.config.allow_irreversible_admin_tasks
 end
 
 format :html do
