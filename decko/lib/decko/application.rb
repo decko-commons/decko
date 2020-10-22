@@ -25,7 +25,7 @@ module Decko
     end
 
     initializer :deck_autoload, before: :set_autoload_paths do |app|
-      Cardio.set_paths
+      set_paths
 
       # any config settings below:
       # (a) do not apply to Card used outside of a Decko context
@@ -56,12 +56,17 @@ module Decko
       paths["app/mailers"] = []
     end
 
-    initializer after: :set_load_path do |app|
-      app.paths.add "config/initializers", glob: "**/*.rb",
+    initializer after: :set_load_path do
+      paths.add "config/initializers", glob: "**/*.rb",
                     with: File.join(Decko.gem_root, "config/initializers")
-      app.paths["config/initializers"].existent.sort.each do |initializer|
+      paths["config/initializers"].existent.sort.each do |initializer|
         load(initializer)
       end
+    end
+
+    def set_autoload_paths
+      super
+      config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
     end
   end
 end
