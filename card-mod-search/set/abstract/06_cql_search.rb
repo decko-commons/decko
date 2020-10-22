@@ -1,5 +1,42 @@
 include_set Abstract::Search
 
+def cql_hash
+  cache_query? ? (@cql_hash ||= cql_content) : cql_content
+end
+
+# override this to define search
+def cql_content
+  query = content
+  query = query.is_a?(Hash) ? query : parse_json_cql(query)
+  query.symbolize_keys
+end
+
+def item_type
+  type = cql_hash[:type]
+  return if type.is_a?(Array) || type.is_a?(Hash)
+  type
+end
+
+# for override, eg when required subqueries are known to be missing
+def skip_search?
+  false
+end
+
+def cache_query?
+  true
+end
+
+def parse_json_cql query
+  empty_query_error! if query.empty?
+  JSON.parse query
+rescue JSON::ParserError
+  raise Error::BadQuery, "Invalid JSON search query: #{query}"
+end
+
+def empty_query_error!
+  raise Error::BadQuery, "can't run search with empty content"
+end
+
 module SearchCQL
   def search args={}
     with_skipping args do
@@ -11,21 +48,10 @@ module SearchCQL
     end
   end
 
-  # for override, eg when required subqueries are known to be missing
-  def skip_search?
-    false
-  end
-
   def with_skipping args
-    skip_search? ? skipped_search_result(args) : yield
-  end
+    return yield unless skip_search?
 
-  def skipped_search_result args={}
     args[:return] == :count ? 0 : []
-  end
-
-  def cache_query?
-    true
   end
 
   def fetch_query args={}
@@ -39,53 +65,19 @@ module SearchCQL
   end
 
   def standardized_query_args args
-    args = query_args(args).symbolize_keys
+    args = cql_hash.merge args.symbolize_keys
     args[:context] ||= name
     args
-  end
-
-  def query_args args={}
-    cql_hash.merge args
   end
 end
 
 include SearchCQL
 
-def cql_hash
-  cache_query? ? (@cql_hash ||= cql_content) : cql_content
-end
-
-# override this to define search
-def cql_content
-  query = content
-  query = query.is_a?(Hash) ? query : parse_json_query(query)
-  query.symbolize_keys
-end
-
-def item_type
-  type = cql_hash[:type]
-  return if type.is_a?(Array) || type.is_a?(Hash)
-  type
-end
-
-private
-
-def parse_json_query query
-  empty_query_error! if query.empty?
-  JSON.parse query
-rescue JSON::ParserError
-  raise Error::BadQuery, "Invalid JSON search query: #{query}"
-end
-
-def empty_query_error!
-  raise Error::BadQuery, "can't run search with empty content"
-end
-
 format do
   include SearchCQL
 
   # FIXME: move name delegation to more appropriate place
-  delegate :cql_content, :name, to: :card
+  delegate :cql_content, :skip_search?, :cache_query?, :name, to: :card
 
   def cql_hash
     card.cql_content.merge filter_and_sort_cql
