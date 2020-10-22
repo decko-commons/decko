@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Decko::Engine.routes.draw do
-  files = Decko::Engine.config.files_web_path
+  files = Cardio.config.files_web_path
   file_matchers = { mark: /[^-]+/, explicit_file: true, rev_id: /[^-]+/ }
 
   root "card#read"

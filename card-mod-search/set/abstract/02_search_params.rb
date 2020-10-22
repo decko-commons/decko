@@ -41,7 +41,7 @@ end
 
 format :html do
   def default_limit
-    Cardio.config.paging_limit || 20
+    Card.config.paging_limit || 20
   end
 end
 
