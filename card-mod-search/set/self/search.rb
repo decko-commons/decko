@@ -20,7 +20,7 @@ format do
   end
 
   def cql_keyword?
-    keyword&.match? /^\{.+\}$/
+    keyword&.match?(/^\{.+\}$/)
   end
 end
 

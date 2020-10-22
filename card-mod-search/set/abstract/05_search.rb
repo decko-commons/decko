@@ -42,6 +42,7 @@ def each_item_name_with_options _content=nil
   end
 end
 
+# These search methods are shared by card and format
 module SearchCaching
   def search _args={}
     raise Error, "search not overridden"

@@ -37,6 +37,7 @@ def empty_query_error!
   raise Error::BadQuery, "can't run search with empty content"
 end
 
+# These search methods are shared by card and format
 module SearchCQL
   def search args={}
     with_skipping args do
