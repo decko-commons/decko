@@ -1,15 +1,3 @@
-def query_args args={}
-  return super unless keyword_contains_cql? args
-  args.merge parse_keyword_cql(args)
-end
-
-def parse_keyword_cql args
-  parse_json_query(args[:vars][:keyword])
-end
-
-def keyword_contains_cql? hash
-  hash[:vars] && (keyword = hash[:vars][:keyword]) && keyword =~ /^\{.+\}$/
-end
 
 format do
   view :search_error, cache: :never do
@@ -17,6 +5,22 @@ format do
 
     # don't show card content; not very helpful in this case
     %(#{sr_class} :: #{search_with_params.message})
+  end
+
+  def cql_hash
+    cql_keyword? ? card.parse_json_cql(keyword) : super
+  end
+
+  def keyword
+    @keyword ||= search_vars&.dig :keyword
+  end
+
+  def search_vars
+    root.respond_to?(:search_params) ? root.search_params[:vars] : search_params[:vars]
+  end
+
+  def cql_keyword?
+    keyword&.match?(/^\{.+\}$/)
   end
 end
 
@@ -29,20 +33,6 @@ format :html do
 
   def keyword_search_title keyword
     %(Search results for: <span class="search-keyword">#{h keyword}</span>)
-  end
-
-  def search_keyword
-    (vars = search_vars) && vars[:keyword]
-  rescue Card::Error::PermissionDenied
-    nil
-  end
-
-  def search_vars
-    root.respond_to?(:search_params) ? root.search_params[:vars] : search_params[:vars]
-  end
-
-  def cql_search?
-    card.keyword_contains_cql? vars: search_vars
   end
 end
 

@@ -1,13 +1,20 @@
 include_set Abstract::Search
 
-def search args={}
-  with_skipping args do
-    query = fetch_query(args)
-    # forces explicit limiting
-    # can be 0 or less to force no limit
-    raise "OH NO.. no limit" unless query.mods[:limit]
-    query.run
-  end
+def cql_hash
+  cache_query? ? (@cql_hash ||= cql_content) : cql_content
+end
+
+# override this to define search
+def cql_content
+  query = content
+  query = query.is_a?(Hash) ? query : parse_json_cql(query)
+  query.symbolize_keys
+end
+
+def item_type
+  type = cql_hash[:type]
+  return if type.is_a?(Array) || type.is_a?(Hash)
+  type
 end
 
 # for override, eg when required subqueries are known to be missing
@@ -15,54 +22,11 @@ def skip_search?
   false
 end
 
-def with_skipping args
-  skip_search? ? skipped_search_result(args) : yield
-end
-
-def skipped_search_result args={}
-  args[:return] == :count ? 0 : []
-end
-
 def cache_query?
   true
 end
 
-def fetch_query args={}
-  @query = nil unless cache_query?
-  @query ||= {}
-  @query[args.to_s] ||= query(args.clone) # cache query
-end
-
-def query args={}
-  Query.new standardized_query_args(args), name
-end
-
-def standardized_query_args args
-  args = query_args(args).symbolize_keys
-  args[:context] ||= name
-  args
-end
-
-def cql_hash
-  @cql_hash = nil unless cache_query?
-  @cql_hash ||= cql_content.merge filter_and_sort_cql
-end
-
-# override this to define search
-def cql_content
-  @cql_content = nil unless cache_query?
-  @cql_content ||= begin
-    query = content
-    query = query.is_a?(Hash) ? query : parse_json_query(query)
-    query.symbolize_keys
-  end
-end
-
-def query_args args={}
-  cql_hash.merge args
-end
-
-def parse_json_query query
+def parse_json_cql query
   empty_query_error! if query.empty?
   JSON.parse query
 rescue JSON::ParserError
@@ -73,13 +37,53 @@ def empty_query_error!
   raise Error::BadQuery, "can't run search with empty content"
 end
 
-def item_type
-  type = cql_hash[:type]
-  return if type.is_a?(Array) || type.is_a?(Hash)
-  type
+# These search methods are shared by card and format
+module SearchCQL
+  def search args={}
+    with_skipping args do
+      query = fetch_query(args)
+      # forces explicit limiting
+      # can be 0 or less to force no limit
+      raise "OH NO.. no limit" unless query.mods[:limit]
+      query.run
+    end
+  end
+
+  def with_skipping args
+    return yield unless skip_search?
+
+    args[:return] == :count ? 0 : []
+  end
+
+  def fetch_query args={}
+    @query = nil unless cache_query?
+    @query ||= {}
+    @query[args.to_s] ||= query(args.clone) # cache query
+  end
+
+  def query args={}
+    Query.new standardized_query_args(args), name
+  end
+
+  def standardized_query_args args
+    args = cql_hash.merge args.symbolize_keys
+    args[:context] ||= name
+    args
+  end
 end
 
+include SearchCQL
+
 format do
+  include SearchCQL
+
+  # FIXME: move name delegation to more appropriate place
+  delegate :cql_content, :skip_search?, :cache_query?, :name, to: :card
+
+  def cql_hash
+    card.cql_content.merge filter_and_sort_cql
+  end
+
   def default_limit
     card_content_limit || super
   end
