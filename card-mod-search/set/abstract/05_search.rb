@@ -2,15 +2,6 @@ include_set Abstract::Paging
 include_set Abstract::SearchParams
 include_set Abstract::Filter
 
-def search _args={}
-  raise Error, "search not overridden"
-end
-
-def cached_search args={}
-  @search_results ||= {}
-  @search_results[args.to_s] ||= search args
-end
-
 def returning item, args
   args[:return] = item
   yield
@@ -51,7 +42,21 @@ def each_item_name_with_options _content=nil
   end
 end
 
+module SearchCaching
+  def search _args={}
+    raise Error, "search not overridden"
+  end
+
+  def cached_search args={}
+    @search_results ||= {}
+    @search_results[args.to_s] ||= search args
+  end
+end
+include SearchCaching
+
 format do
+  include SearchCaching
+
   def search_with_params
     search_with_rescue search_params
   end
@@ -61,7 +66,7 @@ format do
   end
 
   def search_with_rescue query_args
-    card.cached_search query_args
+    cached_search query_args
   rescue Error::BadQuery => e
     Rails.logger.info "BadQuery: #{query_args}"
     e
