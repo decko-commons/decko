@@ -38,50 +38,41 @@ def empty_query_error!
 end
 
 # These search methods are shared by card and format
-module SearchCQL
-  def search args={}
-    with_skipping args do
-      query = fetch_query(args)
-      # forces explicit limiting
-      # can be 0 or less to force no limit
-      raise "OH NO.. no limit" unless query.mods[:limit]
-      query.run
-    end
-  end
-
-  def with_skipping args
-    return yield unless skip_search?
-
-    args[:return] == :count ? 0 : []
-  end
-
-  def fetch_query args={}
-    @query = nil unless cache_query?
-    @query ||= {}
-    @query[args.to_s] ||= query(args.clone) # cache query
-  end
-
-  def query args={}
-    Query.new standardized_query_args(args), name
-  end
-
-  def standardized_query_args args
-    args = cql_hash.merge args.symbolize_keys
-    args[:context] ||= name
-    args
+def search args={}
+  with_skipping args do
+    query = fetch_query(args)
+    # forces explicit limiting
+    # can be 0 or less to force no limit
+    raise "OH NO.. no limit" unless query.mods[:limit]
+    query.run
   end
 end
 
-include SearchCQL
+def with_skipping args
+  return yield unless skip_search?
+
+  args[:return] == :count ? 0 : []
+end
+
+def fetch_query args={}
+  @query = nil unless cache_query?
+  @query ||= {}
+  @query[args.to_s] ||= query(args.clone) # cache query
+end
+
+def query args={}
+  Query.new standardized_query_args(args), name
+end
+
+def standardized_query_args args
+  args = cql_hash.merge args.symbolize_keys
+  args[:context] ||= name
+  args
+end
 
 format do
-  include SearchCQL
-
-  # FIXME: move name delegation to more appropriate place
-  delegate :cql_content, :skip_search?, :cache_query?, :name, to: :card
-
-  def cql_hash
-    card.cql_content.merge filter_and_sort_cql
+  def search_params
+    super.merge filter_and_sort_cql
   end
 
   def default_limit

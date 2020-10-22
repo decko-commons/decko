@@ -33,6 +33,6 @@ format do
   end
 
   def default_sort_option
-    cql_content[:sort]
+    card.cql_content[:sort]
   end
 end
