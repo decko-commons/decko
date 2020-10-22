@@ -20,10 +20,11 @@ module Cardio
       require environment if File.exist?(environment)
     end
 
-=begin # save copy of some stuff in decko, move some here
     initializer :set_load_path do
-warn "CARD #{__LINE__}"
-      Cardio.set_config
+    end
+
+    initializer :set_autoload_paths do
+      Cardio.set_paths
 
       # any config settings below:
       # (a) do not apply to Card used outside of a Cardio context
@@ -39,30 +40,18 @@ warn "CARD #{__LINE__}"
       # overridable card-specific settings are here
       # but should probably follow the cardio pattern.
 
-      # config.load_defaults "6.0"
-      #config.autoloader = :zeitwerk
-      #config.load_default = "6.0"
-      #config.i18n.enforce_available_locales = true
-      # config.active_record.raise_in_transactional_callbacks = true
-
       config.allow_concurrency = false
       config.assets.enabled = false
       config.assets.version = "1.0"
 
       config.filter_parameters += [:password]
 
+      Cardio.set_autoload_paths
+      ActiveSupport::Dependencies.autoload_paths += config.autoload_paths
+
       # Rails.autoloaders.log!
       Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
-
-warn "CARD PATHS #{__LINE__} #{caller[0..8]*"\n"}"
-      Cardio.set_paths
-
-      paths.add "files"
-
-      paths["app/models"] = []
-      paths["app/mailers"] = []
     end
-=end
 
     initializer :connect_on_load do
       ActiveSupport.on_load(:active_record) do

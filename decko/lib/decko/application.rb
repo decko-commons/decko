@@ -14,7 +14,6 @@ module Decko
         Rails.app_class = base
 
         add_lib_to_load_path!(find_root(base.called_from))
-        ActiveSupport.run_load_hooks(:before_load_environment_config, base.instance)
       end
     end
 
@@ -26,8 +25,7 @@ module Decko
     end
 
     initializer :deck_autoload, before: :set_autoload_paths do |app|
-      Cardio.set_config
-      ActiveSupport::Dependencies.autoload_paths += config.autoload_paths
+      Cardio.set_paths
 
       # any config settings below:
       # (a) do not apply to Card used outside of a Decko context
@@ -44,26 +42,13 @@ module Decko
       # but should probably follow the cardio pattern.
 
       # Add this back in green state
-      #config.load_defaults "6.0"    # note this isn't a setter method
+      config.load_defaults "6.0"    # note this isn't a setter method
       # a 6.0 default that doesn't work for history tables (super_action)
-      #config.active_record.belongs_to_required_by_default = false
+      config.active_record.belongs_to_required_by_default = false
 
-      config.autoloader = :zeitwerk
       config.i18n.enforce_available_locales = true
       # this isn't found
       #config.active_record.raise_in_transactional_callbacks = true
-
-      # decide which should be in decko vs. cardio config
-      config.allow_concurrency = false
-      config.assets.enabled = false
-      config.assets.version = "1.0"
-
-      config.filter_parameters += [:password]
-
-      # Rails.autoloaders.log!
-      Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
-
-      Cardio.set_paths
 
       paths.add "files"
 

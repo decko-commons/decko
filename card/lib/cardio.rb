@@ -123,18 +123,12 @@ module Cardio
 
         load_strategy: (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval),
         cache_set_module_list: false
-      }
-    end
-
-    def set_config
-      add_lib_dirs_to_autoload_paths
-
-      default_configs.each_pair do |setting, *value|
+      }.each_pair do |setting, *value|
         config.send("#{setting}=", *value) unless config.respond_to? setting
       end
     end
 
-    def add_lib_dirs_to_autoload_paths
+    def set_autoload_paths
       config.autoload_paths += Dir["#{gem_root}/lib"]
 
       # TODO: this should use each_mod_path, but it's not available when this is run
@@ -156,6 +150,8 @@ module Cardio
     end
 
     def set_paths
+      default_configs
+
       %w[set set_pattern].each do |path|
         tmppath = "tmp/#{path}"
         add_path tmppath, root: root unless paths[tmppath]&.existent
