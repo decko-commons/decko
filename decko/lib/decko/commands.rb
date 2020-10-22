@@ -87,7 +87,7 @@ else
   when "--version", "-v"
     puts "Decko #{Card::Version.release}"
   when *DECKO_COMMANDS
-    run_method = "run_#{command}")
+    run_method = "run_#{command}"
     if Decko::Commands.respond_to?(run_method)
       Decko::Commands.send(run_method)
     else
