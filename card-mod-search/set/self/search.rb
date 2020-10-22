@@ -26,13 +26,12 @@ end
 
 format :html do
   view :title, cache: :never do
-    return super() unless (keyword = search_keyword) &&
-                          (title = keyword_search_title(keyword))
+    return super() unless (title = keyword_search_title)
     voo.title = title
   end
 
-  def keyword_search_title keyword
-    %(Search results for: <span class="search-keyword">#{h keyword}</span>)
+  def keyword_search_title
+    keyword && %(Search results for: <span class="search-keyword">#{h keyword}</span>)
   end
 end
 
