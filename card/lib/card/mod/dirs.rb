@@ -1,14 +1,4 @@
 class Card
-  class << self
-    def config
-      Cardio.config
-    end
-
-    def paths
-      Cardio.paths
-    end
-  end
-
   module Mod
     # Dirs objects are used to manage the load paths for card mods.
     # Mods can be loaded as gems and by using directories with mod subdirectories.
@@ -84,7 +74,7 @@ class Card
       end
 
       def gem_mod name
-        deps = Mod.dependencies name
+        deps = Card.dependencies name
         unknown_gem_mod!(name) if deps.blank?
         deps.each { |spec| add_gem_mod spec.name, spec.full_gem_path }
       end
@@ -166,7 +156,7 @@ class Card
       end
 
       def load_from_gemfile
-        Cardio.gem_mod_specs.each do |mod_name, mod_spec|
+        Mod.gem_mod_specs.each do |mod_name, mod_spec|
           add_gem_mod mod_name, mod_spec.full_gem_path
         end
       end

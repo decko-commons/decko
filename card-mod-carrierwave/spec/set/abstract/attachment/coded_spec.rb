@@ -2,7 +2,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
   ENV["STORE_CODED_FILES"] = "true"
 
   let :mod_path do
-    deck_mod_path = Cardio.paths["mod"].existent.last
+    deck_mod_path = Card.paths["mod"].existent.last
     File.join deck_mod_path, "test_mod"
   end
 

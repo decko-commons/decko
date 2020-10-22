@@ -1,16 +1,11 @@
 # add method in? to Object class
 require "active_support/core_ext/object/inclusion"
 
-def load_rake_tasks
-  require "./config/environment"
-  require "rake"
-  Decko::Application.load_tasks
-end
-
+require 'cardio/commands'
 RAILS_COMMANDS = %w( generate destroy plugin benchmarker profiler console
                      server dbconsole application runner ).freeze
 DECKO_COMMANDS = %w(new cucumber rspec jasmine).freeze
-DECKO_DB_COMMANDS = %w(seed reseed load update).freeze
+DECKO_TASK_COMMANDS = %w(seed reseed load update).freeze
 
 ALIAS = {
   "rs" => "rspec",
@@ -30,20 +25,11 @@ end
 
 ARGV << "--help" if ARGV.empty?
 
+require 'cardio/commands'
+
 module Decko
   module Commands
-    class << self
-      def run_new
-        if ARGV.first.in?(["-h", "--help"])
-          require "decko/commands/application"
-        else
-          puts "Can't initialize a new deck within the directory of another, " \
-           "please change to a non-deck directory first.\n"
-          puts "Type 'decko' for help."
-          exit(1)
-        end
-      end
-
+    module ClassMethods
       def run_rspec
         require "decko/commands/rspec_command"
         RspecCommand.new(ARGV).run
@@ -54,15 +40,32 @@ module Decko
         CucumberCommand.new(ARGV).run
       end
 
-      def run_db_task command
-        require "decko/commands/rake_command"
-        RakeCommand.new("decko:#{command}", ARGV).run
+      def run_task command, ns='decko'
+        load_rake_tasks
+        reqdir = (ns=='card' ? 'cardio' : 'decko')
+        #require "#{reqdir}/commands/application"
+        require "#{reqdir}/commands/rake_command"
+        command = [ns, command]*':' unless command == '-T'
+        RakeCommand.new(command, ARGV).run
       end
 
       def run_jasmine
         require "decko/commands/rake_command"
         RakeCommand.new("spec:javascript", envs: "test").run
       end
+
+      def load_rake_tasks
+        require "rake"
+        # better way? require_environment! first?
+        # overload Application.require_environment! to do this
+        require "./config/environment"
+        Decko::Application.load_tasks
+        Cardio::Application.load_tasks
+      end
+    end
+    class << self
+      include Cardio::Commands::ClassMethods
+      include ClassMethods
     end
   end
 end
@@ -77,13 +80,24 @@ if supported_rails_command? command
   require "rails/commands"
 else
   ARGV.shift
+  lookup = command
+  lookup = $1 if command =~ /^([^:]+):/
+
   case command
   when "--version", "-v"
     puts "Decko #{Card::Version.release}"
   when *DECKO_COMMANDS
-    Decko::Commands.send("run_#{command}")
-  when *DECKO_DB_COMMANDS
-    Decko::Commands.run_db_task command
+    run_method = "run_#{command}"
+    if Decko::Commands.respond_to?(run_method)
+      Decko::Commands.send(run_method)
+    else
+      cmd = Decko::Commands::Command.new(lookup)
+      cmd.parse(ARGV).run unless cmd.nil?
+    end
+  when '-T', *DECKO_TASK_COMMANDS
+    Decko::Commands.run_task command
+  when *Cardio::Commands::CARD_TASK_COMMANDS
+    Decko::Commands.run_task command, 'card'
   else
     puts "Error: Command not recognized" unless command.in?(["-h", "--help"])
     puts <<-EOT
