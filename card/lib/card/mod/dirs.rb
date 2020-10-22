@@ -74,7 +74,7 @@ class Card
       end
 
       def gem_mod name
-        deps = Mod.dependencies name
+        deps = Card.dependencies name
         unknown_gem_mod!(name) if deps.blank?
         deps.each { |spec| add_gem_mod spec.name, spec.full_gem_path }
       end

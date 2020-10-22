@@ -1,5 +1,4 @@
 require "cardio/commands/command/parser"
-# require "English" # needed for CHILD_STATUS, but not sure this is the best place for this.
 
 module Cardio
   module Commands
@@ -18,13 +17,14 @@ module Cardio
       end
 
       def run_rails command
-        puts "rails #{command}"
+warn "CARDCMD #{command} #{@cmd_args}"
+        puts command, @cmd_args
         exit_with_child_status command
       end
 
       def exit_with_child_status command
         command += " 2>&1"
-        exit $CHILD_STATUS.exitstatus unless system command
+        exit $?.exitstatus unless system command
       end
 
       # split special decko args and original command args separated by '--'
