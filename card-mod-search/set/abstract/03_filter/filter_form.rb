@@ -60,7 +60,7 @@ format :html do
   end
 
   def active_filter? field
-    if card.filter_keys_from_params.present?
+    if filter_keys_from_params.present?
       filter_hash.key? field
     else
       default_filter? field
@@ -68,7 +68,7 @@ format :html do
   end
 
   def default_filter? field
-    card.default_filter_hash.key? field
+    default_filter_hash.key? field
   end
 
   def filter_label field
@@ -91,7 +91,7 @@ format :html do
 
   view :sort_formgroup, cache: :never do
     select_tag "sort",
-               options_for_select(sort_options, card.current_sort),
+               options_for_select(sort_options, current_sort),
                class: "pointer-select _filter-sort form-control",
                "data-minimum-results-for-search": "Infinity"
   end
