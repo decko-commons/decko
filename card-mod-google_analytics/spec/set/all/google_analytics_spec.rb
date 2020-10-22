@@ -1,6 +1,6 @@
 RSpec.describe Card::Set::All::GoogleAnalytics do
-  before { Cardio.config.google_analytics_key = "UA-34941429-6" }
-  after { Cardio.config.google_analytics_key = nil }
+  before { Card.config.google_analytics_key = "UA-34941429-6" }
+  after { Card.config.google_analytics_key = nil }
 
   it "instantiates a tracker" do
     expect(card_subject.tracker).to be_a(Staccato::Tracker)

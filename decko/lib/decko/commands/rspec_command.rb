@@ -1,4 +1,4 @@
-require File.expand_path("../command", __FILE__)
+require 'cardio/commands/rspec_command'
 
 module Decko
   module Commands
@@ -32,5 +32,3 @@ module Decko
     end
   end
 end
-
-require File.expand_path("../rspec_command/parser", __FILE__)
