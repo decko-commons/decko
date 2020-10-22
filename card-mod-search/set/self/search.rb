@@ -1,15 +1,3 @@
-def query_args args={}
-  return super unless keyword_contains_cql? args
-  args.merge parse_keyword_cql(args)
-end
-
-def parse_keyword_cql args
-  parse_json_query(args[:vars][:keyword])
-end
-
-def keyword_contains_cql? hash
-  hash[:vars] && (keyword = hash[:vars][:keyword]) && keyword =~ /^\{.+\}$/
-end
 
 format do
   view :search_error, cache: :never do
@@ -18,31 +6,32 @@ format do
     # don't show card content; not very helpful in this case
     %(#{sr_class} :: #{search_with_params.message})
   end
-end
 
-format :html do
-  view :title, cache: :never do
-    return super() unless (keyword = search_keyword) &&
-                          (title = keyword_search_title(keyword))
-    voo.title = title
+  def cql_hash
+    cql_keyword? ? card.parse_json_cql(keyword) : super
   end
 
-  def keyword_search_title keyword
-    %(Search results for: <span class="search-keyword">#{h keyword}</span>)
-  end
-
-  def search_keyword
-    (vars = search_vars) && vars[:keyword]
-  rescue Card::Error::PermissionDenied
-    nil
+  def keyword
+    @keyword ||= search_vars&.dig :keyword
   end
 
   def search_vars
     root.respond_to?(:search_params) ? root.search_params[:vars] : search_params[:vars]
   end
 
-  def cql_search?
-    card.keyword_contains_cql? vars: search_vars
+  def cql_keyword?
+    keyword&.match?(/^\{.+\}$/)
+  end
+end
+
+format :html do
+  view :title, cache: :never do
+    return super() unless (title = keyword_search_title)
+    voo.title = title
+  end
+
+  def keyword_search_title
+    keyword && %(Search results for: <span class="search-keyword">#{h keyword}</span>)
   end
 end
 
