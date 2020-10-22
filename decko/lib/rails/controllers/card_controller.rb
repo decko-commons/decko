@@ -142,7 +142,7 @@ class CardController < ApplicationController
     end
 
     def rescue_all?
-      Cardio.config.rescue_all_in_controller
+      Card.config.rescue_all_in_controller
     end
   end
 

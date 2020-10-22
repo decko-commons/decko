@@ -41,7 +41,7 @@ describe "#bucket config" do
     end
   end
 
-  it "takes config from Cardio.config" do
+  it "takes config from Card.config" do
     is_expected.to eq bucket_config[:test_bucket]
   end
 

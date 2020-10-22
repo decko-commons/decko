@@ -11,6 +11,7 @@ class CardSpecLoader
         unless ENV["RAILS_ROOT"]
           raise Card::Error, "No RAILS_ROOT given. Can't load environment."
         end
+        # Cardio.require_environment! or Rails.application.renv!
         require File.join ENV["RAILS_ROOT"], "config/environment"
         load_shared_examples
         require File.expand_path("../simplecov_helper.rb", __FILE__)

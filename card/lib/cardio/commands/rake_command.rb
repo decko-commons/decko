@@ -1,7 +1,6 @@
-
 require "cardio/commands/command"
 
-module Decko
+module Cardio
   module Commands
     class RakeCommand < Command
       def initialize rake_task, args={}
@@ -16,30 +15,23 @@ module Decko
       end
 
       def run
-        puts command
+        cmd = command
+        puts cmd
         # exit_with_child_status cmd
 
-        result = `#{command}`
+        result = `#{cmd}`
         process = $?
         puts result
         exit process.exitstatus unless process.success?
       end
 
       def command
-        @command ||= command_with_env
-      end
-
-      def command_with_env
-        @envs.inject(task_cmd) do |task_cmd, env|
+        @envs.inject("bundle exec rake #{@task}") do |task_cmd, env|
           "env RAILS_ENV=#{env} #{task_cmd}"
         end
-      end
-
-      def task_cmd
-        "bundle exec rake #{@task}"
       end
     end
   end
 end
 
-require File.expand_path("../rake_command/parser", __FILE__)
+require "cardio/commands/rake_command/parser"

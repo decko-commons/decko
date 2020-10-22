@@ -9,17 +9,9 @@ require "application_config" unless defined?(ApplicationConfig)
 if defined?(APP_CONF) || APP_CONF = ApplicationConfig.find_app_config
   require APP_CONF
   require File.expand_path("../boot", APP_CONF)
-  require 'decko/commands'
-
 else
-  require "rails/ruby_version_check"
-  Signal.trap("INT") { puts; exit(1) }
-
-#  if ARGV.first == 'plugin'
-#    ARGV.shift
-#    require 'decko/commands/plugin_new'
-#  else
-#  end
+  #ARGV = ['--help']
+  require 'cardio/commands'
 end
-require "decko/commands/application"
 
+require "cardio/commands/application"
