@@ -57,12 +57,9 @@ end
 
 # override this to define search
 def cql_content
-  @cql_content = nil unless cache_query?
-  @cql_content ||= begin
-    query = content
-    query = query.is_a?(Hash) ? query : parse_json_query(query)
-    query.symbolize_keys
-  end
+  query = content
+  query = query.is_a?(Hash) ? query : parse_json_query(query)
+  query.symbolize_keys
 end
 
 def item_type
@@ -91,8 +88,7 @@ format do
   delegate :cql_content, :name, to: :card
 
   def cql_hash
-    @cql_hash = nil unless cache_query?
-    @cql_hash ||= cql_content.merge filter_and_sort_cql
+    card.cql_content.merge filter_and_sort_cql
   end
 
   def default_limit
