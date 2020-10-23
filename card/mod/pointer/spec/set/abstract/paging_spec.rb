@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::Abstract::Paging do
+describe Card::Set::Abstract::Paging do
   describe "offset" do
     it "doesn't allow anonymous users to use extremely high limits" do
       Card::Auth.signin Card::AnonymousID
