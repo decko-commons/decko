@@ -82,18 +82,6 @@ format do
   def card_content_limit
     card.cql_hash&.dig :limit
   end
-
-  def item_view_from_query
-    query_with_params.statement[:item]
-  end
-
-  def query_with_params
-    @query_with_params ||= card.fetch_query search_params
-  end
-
-  def limit
-    query_with_params.limit
-  end
 end
 
 format :html do
