@@ -1,7 +1,5 @@
 MAX_ANONYMOUS_SEARCH_PARAM = 1000
 
-include_set PagingViews
-
 format do
   def limit
     @limit ||= contextual_param(:limit) || default_limit
