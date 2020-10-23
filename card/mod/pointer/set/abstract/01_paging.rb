@@ -40,14 +40,20 @@ format do
   end
 
   def env_search_param param
-    val = Env.params[param]
-    return unless focal? && val.present?
-
-    val.to_i.tap { |val| legal_limit? val if param == :limit }
+    enforcing_legal_limit param do
+      val = Env.params[param]
+      val.to_i if focal? && val.present?
+    end
   end
 
-  def legal_limit? val
-    return true if Card::Auth.signed_in? || val <= MAX_ANONYMOUS_SEARCH_PARAM
+  def enforcing_legal_limit param
+    yield.tap do |val|
+      enforce_legal_limit! val if param == :limit
+    end
+  end
+
+  def enforce_legal_limit! val
+    return if Card::Auth.signed_in? || val <= MAX_ANONYMOUS_SEARCH_PARAM
 
     raise Card::Error::PermissionDenied,
           "limit parameter exceeds maximum for anonymous users " \

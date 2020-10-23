@@ -19,8 +19,7 @@ format :html do
   end
 
   def paging_links
-    PagingLinks.new(total_pages, current_page)
-      .build do |text, page, status, options|
+    PagingLinks.new(total_pages, current_page).build do |text, page, status, options|
       page_link_li text, page, status, options
     end
   end
@@ -98,8 +97,7 @@ format :json do
 
   def paging_urls_hash
     hash = {}
-    PagingLinks.new(total_pages, current_page)
-      .build do |_text, page, status, _options|
+    PagingLinks.new(total_pages, current_page).build do |_text, page, status, _options|
       add_paging_url hash, page, status
     end
     hash
