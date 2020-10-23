@@ -7,12 +7,19 @@ format do
     %(#{sr_class} :: #{search_with_params.message})
   end
 
-  def cql_hash
-    cql_keyword? ? card.parse_json_cql(keyword) : super
+  def search_with_params
+    cql_keyword? ? cql_search : super
   end
 
-  def keyword
-    @keyword ||= search_vars&.dig :keyword
+  def cql_search
+    query = card.parse_json_cql search_keyword
+    rescuing_bad_query query do
+      Card.search query
+    end
+  end
+
+  def search_keyword
+    @search_keyword ||= search_vars&.dig :keyword
   end
 
   def search_vars
@@ -20,7 +27,7 @@ format do
   end
 
   def cql_keyword?
-    keyword&.match?(/^\{.+\}$/)
+    search_keyword&.match?(/^\{.+\}$/)
   end
 end
 
@@ -31,7 +38,8 @@ format :html do
   end
 
   def keyword_search_title
-    keyword && %(Search results for: <span class="search-keyword">#{h keyword}</span>)
+    search_keyword &&
+      %(Search results for: <span class="search-keyword">#{h search_keyword}</span>)
   end
 end
 
