@@ -51,7 +51,7 @@ format do
   end
 
   def enforce_legal_limit! val
-    return if Card::Auth.signed_in? || val <= MAX_ANONYMOUS_SEARCH_PARAM
+    return if Card::Auth.signed_in? || !val ||  val <= MAX_ANONYMOUS_SEARCH_PARAM
 
     raise Card::Error::PermissionDenied,
           "limit parameter exceeds maximum for anonymous users " \
