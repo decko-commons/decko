@@ -165,12 +165,12 @@ class Card
       alias_method :ensure!, :ensure_card!
       alias_method :delete, :delete_card
 
-      def method_missing method, *args, _ignore
+      def method_missing method, *args
         method_name, cardtype_card = extract_cardtype_from_method_name method
         return super unless method_name
 
-        args = standardize_args(*args)
-        send "#{method_name}_card", args.merge(type_id: cardtype_card.id)
+        sargs = standardize_args(*args)
+        send "#{method_name}_card", sargs.merge(type_id: cardtype_card.id)
       end
 
       def respond_to_missing? method, _include_private=false
@@ -221,7 +221,7 @@ class Card
       end
 
       # @return args
-      def standardize_args name_or_args, content_or_args=nil
+      def standardize_args name_or_args, content_or_args=nil, _ignore=nil
         if name_or_args.is_a?(Hash)
           name_or_args
         else
