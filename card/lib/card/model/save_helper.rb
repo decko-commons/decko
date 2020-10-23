@@ -165,7 +165,7 @@ class Card
       alias_method :ensure!, :ensure_card!
       alias_method :delete, :delete_card
 
-      def method_missing method, *args
+      def method_missing method, *args, _ignore
         method_name, cardtype_card = extract_cardtype_from_method_name method
         return super unless method_name
 
