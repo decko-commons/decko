@@ -7,8 +7,15 @@ format do
     %(#{sr_class} :: #{search_with_params.message})
   end
 
-  def cql_hash
-    cql_keyword? ? card.parse_json_cql(keyword) : super
+  def search_with_params
+    cql_keyword? ? cql_search : super
+  end
+
+  def cql_search
+    query = card.parse_json_cql keyword
+    rescuing_bad_query query do
+      Card.search query
+    end
   end
 
   def keyword
