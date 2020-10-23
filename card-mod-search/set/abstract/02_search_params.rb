@@ -1,10 +1,4 @@
-include_set Abstract::PagingParams
-
 format do
-  def offset
-    search_params[:offset] || 0
-  end
-
   def search_params
     @search_params ||= default_search_params
   end
@@ -19,7 +13,7 @@ format do
   end
 
   def paging_params
-    { limit: limit_param, offset: offset_param }
+    { limit: limit, offset: offset }
   end
 
   def query_params
