@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Templating do
+RSpec.describe Card::Set::All::Templating do
   describe "#structurees" do
     it "for User+*type+*structure should return all Users" do
       Card::Auth.as_bot do
