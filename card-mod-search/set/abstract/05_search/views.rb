@@ -18,6 +18,14 @@ format do
       end.join "\n"
     end
   end
+
+  view :no_search_results do
+    "no results"
+  end
+
+  def with_results
+    search_with_params.empty? ? render_no_search_results : yield
+  end
 end
 
 format :json do
