@@ -8,7 +8,7 @@ HTML
 
 RSpec.describe Card::Set::Type::LayoutType do
   it "includes Html card methods" do
-    expect(Card.new(type: "Layout").clean_html?).to be_falsey
+    expect(Card.new(type: "Layout")).not_to be_clean_html
   end
 
   it "doesn't render main nest" do
