@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::AllCsv do
+describe Card::Set::All::Csv do
   describe "csv_row view" do
     it "handles nests" do
       rendered = render_card :csv_row, { content: "{{A+B}} {{T}}" },

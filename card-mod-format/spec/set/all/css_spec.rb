@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::AllCss do
+describe Card::Set::All::Css do
   it "renders content view" do
     content = "#box { display: block }"
     rendered = render_card :content, { content: content }, format: :css

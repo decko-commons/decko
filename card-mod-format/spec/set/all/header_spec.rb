@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::All::RichHtml::Header do
+RSpec.describe Card::Set::All::Header do
   check_html_views_for_errors
 
   describe "closed view" do

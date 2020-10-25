@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::RichHtml::Menu do
+RSpec.describe Card::Set::All::Menu do
   check_html_views_for_errors
 
   def edit_menu edit=nil
